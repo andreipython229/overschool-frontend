@@ -11,63 +11,90 @@
   font-size: 11px;
   font-weight: 800;
 
-  & ::placeholder {
-    color: #D1D5DB;
-    font-weight: 400;
-    font-size: 11px;
-  }
+  //& ::placeholder {
+  //  color: #D1D5DB;
+  //  font-weight: 400;
+  //  font-size: 11px;
+  //}
 
 }
 
 .course {
   display: flex;
-}
+  justify-content: center;
 
-.course_card {
-  width: 242px;
-  height: 376px;
-  border-radius: 5px;
-  margin-top: 26px;
-  box-shadow: $box-shadow;
+  &_addCourse {
+    width: 100%;
+    height: 100%;
+    background: url("../../../assets/img/createCourse/addCourse.svg") center center no-repeat;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
 
-  &_img {
-    height: 146px;
-    background: #E0DCED;
+    & span {
+      color: #E0DCED;
+      font-size: 17px;
+      position: absolute;
+      left: 64px;
+      bottom: 132px;
+    }
   }
 
-  &_about {
-    height: 198px;
-    padding: 16px 23px;
+  &_card {
+    width: 242px;
+    height: 376px;
+    border-radius: 5px;
+    margin-top: 26px;
+    box-shadow: $box-shadow;
+    margin-left: 16px;
     background: #FFFFFF;
 
-    &_desc {
-      font-size: 11px;
-      color: #A2A9B4;
+    &_img {
+      height: 146px;
+      background: #E0DCED;
     }
-  }
 
-  &_status {
-    &_public {
-      text-align: center;
-      display: flex;
-      align-items: center;
+    &_about {
+      height: 198px;
+      padding: 16px 23px;
+      background: #FFFFFF;
 
-      & span {
-        color: #BA75FF;
-        font-weight: 500;
+      &_desc {
         font-size: 11px;
-        margin-left: 8.5px;
+        color: #A2A9B4;
       }
     }
-  }
 
-  & h5 {
-    margin: 16px 0;
-    color: $font-title;
-    font-size: 12px;
-  }
+    &_status {
+      &_show {
+        text-align: center;
+        display: flex;
+        align-items: center;
 
+        &_public {
+          color: #BA75FF;
+          font-weight: 500;
+          font-size: 11px;
+          margin-left: 8.5px;
+        }
+
+        &_hide {
+          color: #E0DCED;
+          font-weight: 500;
+          font-size: 11px;
+        }
+      }
+    }
+
+    & h5 {
+      margin: 16px 0;
+      color: $font-title;
+      font-size: 12px;
+    }
+
+  }
 }
+
 
 .btn {
   width: 194px;

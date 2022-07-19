@@ -23,27 +23,32 @@ export const CoursePage = () => {
             <div>
                 <input className={styles.input} type="text" placeholder={'Поиск по курсам и категориям'}/>
             </div>
-            <div className={styles.course_card}>
-                <div className={styles.course_card_img}/>
-                <div className={styles.course_card_about}>
-                    <span className={styles.course_card_status_public}>
-                        <img src={Public} alt="status course"/> <span>Опубликован</span>
-                    </span>
-                    <h5>The Way Python</h5>
-                    <span className={styles.course_card_about_desc}>
-                        Индивидуальное обучение по программе The Way Python! Ты станешь востребованным IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!
-                    </span>
-                    <Button className={styles.btn}
-                            text={'Редактировать'}/>
-                </div>
-            </div>
+
 
             <div className={styles.course}>
+
                 <div className={styles.course_card}>
                     <div className={styles.course_card_img}/>
                     <div className={styles.course_card_about}>
-                     <span className={styles.course_card_status_public}>
-                          <img src={DontShow} alt="status course"/> Не опубликован
+                    <span className={styles.course_card_status_show}>
+                        <img src={Public} alt="status course"/>
+                        <span className={styles.course_card_status_show_public}>Опубликован</span>
+                    </span>
+                        <h5>The Way Python</h5>
+                        <span className={styles.course_card_about_desc}>
+                        Индивидуальное обучение по программе The Way Python! Ты станешь востребованным IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!
+                    </span>
+                        <Button className={styles.btn}
+                                text={'Редактировать'}/>
+                    </div>
+                </div>
+
+                <div className={styles.course_card}>
+                    <div className={styles.course_card_img}/>
+                    <div className={styles.course_card_about}>
+                     <span className={styles.course_card_status_show}>
+                          <img src={DontShow} alt="status course"/>
+                         <span className={styles.course_card_status_show_hide}>Не опубликован</span>
                     </span>
                         <h5>The Way Python</h5>
                         <span className={styles.course_card_about_desc}>
@@ -58,8 +63,9 @@ export const CoursePage = () => {
                 <div className={styles.course_card}>
                     <div className={styles.course_card_img}/>
                     <div className={styles.course_card_about}>
-                     <span className={styles.course_card_status_public}>
-                       <img src={Hide} alt="status course"/> Скрыт настройсками курса
+                     <span className={styles.course_card_status_show}>
+                       <img src={Hide} alt="status course"/>
+                         <span className={styles.course_card_status_show_hide}>Скрыт настройсками курса</span>
                     </span>
                         <h5>The Way Python</h5>
                         <span className={styles.course_card_about_desc}>
@@ -67,6 +73,12 @@ export const CoursePage = () => {
                     </span>
                         <Button className={styles.btn}
                                 text={'Редактировать'}/>
+                    </div>
+                </div>
+
+                <div className={styles.course_card}>
+                    <div className={styles.course_addCourse}>
+                        <span>Создать курс</span>
                     </div>
                 </div>
             </div>
