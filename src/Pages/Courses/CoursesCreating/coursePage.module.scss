@@ -1,0 +1,82 @@
+@import "src/scss/variable";
+
+.input {
+  outline: none;
+  width: 100%;
+  text-align: center;
+  border: 1px solid #D9D6E2;
+  border-radius: 7px;
+  background: #F3F4F6 url("../../../assets/img/createCourse/search.svg") no-repeat 43.5% center;
+  padding: 10px 0;
+  font-size: 11px;
+  font-weight: 800;
+
+  & ::placeholder {
+    color: #D1D5DB;
+    font-weight: 400;
+    font-size: 11px;
+  }
+
+}
+
+.course {
+  display: flex;
+}
+
+.course_card {
+  width: 242px;
+  height: 376px;
+  border-radius: 5px;
+  margin-top: 26px;
+  box-shadow: $box-shadow;
+
+  &_img {
+    height: 146px;
+    background: #E0DCED;
+  }
+
+  &_about {
+    height: 198px;
+    padding: 16px 23px;
+    background: #FFFFFF;
+
+    &_desc {
+      font-size: 11px;
+      color: #A2A9B4;
+    }
+  }
+
+  &_status {
+    &_public {
+      text-align: center;
+      display: flex;
+      align-items: center;
+
+      & span {
+        color: #BA75FF;
+        font-weight: 500;
+        font-size: 11px;
+        margin-left: 8.5px;
+      }
+    }
+  }
+
+  & h5 {
+    margin: 16px 0;
+    color: $font-title;
+    font-size: 12px;
+  }
+
+}
+
+.btn {
+  width: 194px;
+  height: 33px;
+  background-color: #E0DCED;
+  color: #BA75FF;
+  font-weight: 500;
+  font-size: 11px;
+  margin-top: 18px;
+  text-align: center;
+
+}

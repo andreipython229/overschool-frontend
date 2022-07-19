@@ -1,5 +1,12 @@
 export enum Path {
     InitialPage = 'login/',
-    SuperAdmin = 'super-admin/*',
-    Profile = 'profile/'
+    Courses = 'courses/*',
+    Profile = 'profile/',
+    Settings = 'settings/*',
+    Course = 'course/',
+    Main = 'main/',
+    Employees = 'employees/',
+    Logs = 'logs/',
+    Decoration = 'decoration/',
+
 }

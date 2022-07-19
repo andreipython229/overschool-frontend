@@ -21,7 +21,9 @@ export const Employee: FC<EmployeePropsT> = memo(({avatar, contact, role, name})
             </div>
             <div className={styles.employee_user_roleBtn}>
                 <div className={styles.employee_user_roleBtn_role}>{role}</div>
-                <button className={styles.employee_user_roleBtn_btn}>Изменить</button>
+                <div>
+                    <button className={styles.employee_user_roleBtn_btn}>Изменить</button>
+                </div>
             </div>
 
         </div>

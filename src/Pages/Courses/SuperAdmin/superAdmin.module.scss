@@ -112,7 +112,7 @@
     width: 100%;
 
     &_title {
-      width: 568px;
+      width: 100%;
       font-size: 11px;
       display: flex;
       padding: 0 20px;
@@ -120,7 +120,10 @@
       justify-content: space-between;
 
       & div:nth-child(1) {
-        width: 592px;
+        width: 60%;
+      }
+      & div:nth-child(2) {
+        width: 40%;
       }
     }
 

@@ -19,7 +19,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({setLoginShow, setRegi
                 <img src={Logotype} alt="Logotype IT OVERONE"/>
                 <div className={styles.btn_block}>
                     {isLogin
-                        ? <Link className={styles.btn_block_logIn} to={`${Path.SuperAdmin}`}>Аккаунт</Link>
+                        ? <Link className={styles.btn_block_logIn} to={`${Path.Courses}`}>Аккаунт</Link>
                         : <>
                             <Button onClick={() => setLoginShow(true)} text={'Войти'}/>
                             <Button onClick={() => setRegistrationShow(true)} variant={'primary'}

@@ -12,7 +12,7 @@
   &_info {
     display: flex;
     align-items: center;
-    width: 540px;
+    width: 60%;
 
     &_avatar {
       width: 34px;
@@ -45,13 +45,15 @@
 
   &_roleBtn {
     display: flex;
+    justify-content: space-between;
+    width: 35%;
 
 
     &_role {
       display: flex;
       align-items: center;
       width: 150px;
-      margin-right: 450px;
+      //margin-right: 250px;
       color: #798188;
     }
 
@@ -61,7 +63,7 @@
       background: none;
       cursor: pointer;
       color: #BA75FF;
-      //text-align: right;
+      width: 100px;
     }
   }
 

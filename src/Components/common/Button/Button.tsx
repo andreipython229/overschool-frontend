@@ -7,6 +7,7 @@ type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonE
 type SuperButtonPropsT = DefaultButtonPropsType & {
     text: string
     variant?: 'default' | 'primary' | 'disabled' | 'registrationDisabled'
+
 }
 
 export const Button: FC<SuperButtonPropsT> = ({text, variant = 'default', ...restProps}) => {
@@ -25,7 +26,7 @@ export const Button: FC<SuperButtonPropsT> = ({text, variant = 'default', ...res
     return (
         <div>
             <button {...restProps}
-                    className={propsStyle}>
+                    className={restProps.className || propsStyle}>
                 {text}
             </button>
         </div>

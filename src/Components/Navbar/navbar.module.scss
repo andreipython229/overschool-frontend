@@ -25,8 +25,15 @@
     display: flex;
     flex-direction: column;
 
-    & svg:not(:first-child) {
+    & a:not(:first-child) {
       margin-top: 56px;
     }
   }
+}
+
+.isActive {
+  width: 57px;
+  height: 57px;
+  background: #E0DCED;
+  border-radius: 10px;
 }

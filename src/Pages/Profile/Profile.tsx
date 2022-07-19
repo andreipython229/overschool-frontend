@@ -1,5 +1,5 @@
 import React, {ChangeEvent, memo, useState} from 'react';
-import {Previous} from "../Admin/Previous/Previous";
+
 import styles from './profile.module.scss'
 import {Input} from "../../Components/common/Input/Input/Input";
 import {Button} from "../../Components/common/Button/Button";
@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from "../../store/redux/store";
 import {AboutUser} from "./AboutUser/AboutUser";
 import {Toggle} from "@skbkontur/react-ui/index";
 import noAvatar from '../../assets/img/noAvatar.svg'
+import {Previous} from "../Courses/Previous/Previous";
 
 export const Profile = memo(() => {
     const dispatch = useAppDispatch()

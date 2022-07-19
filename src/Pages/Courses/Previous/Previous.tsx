@@ -1,14 +1,17 @@
 import React, {FC, memo} from 'react';
 import styles from './previou.module.scss'
+import {Button} from "../../../Components/common/Button/Button";
 
 type PreviousPropsT = {
     avatar: string
     description?: string
     name: string
     about?: string
+    onClick?: () => void
 }
 
 export const Previous: FC<PreviousPropsT> = memo(({avatar, name, about, description}) => {
+
     return (
         <div className={styles.previous}>
             <div className={styles.previous_infoBlock}>
@@ -20,6 +23,11 @@ export const Previous: FC<PreviousPropsT> = memo(({avatar, name, about, descript
                     <p className={styles.previous_infoBlock_title_about}>{about}</p>
                 </div>
             </div>
+            <div className={styles.previous_btn}>
+                <Button variant={'primary'} style={{width: '220px', fontSize: '10px', fontWeight: '800'}}
+                        text={'Настроить страницу курсов'}/>
+            </div>
+
         </div>
     );
 });
