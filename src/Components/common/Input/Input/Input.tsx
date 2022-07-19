@@ -1,7 +1,9 @@
-import React, {FC} from 'react';
+import React, {DetailedHTMLProps, FC, InputHTMLAttributes} from 'react';
 import styles from './input.module.scss'
 
-export type InputPropsT = {
+type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+
+export type InputPropsT = DefaultInputPropsType & {
     id?: string
     name: string
     type: string
@@ -15,14 +17,15 @@ export type InputPropsT = {
 }
 
 export const Input: FC<InputPropsT> = props => {
-    const {label, onClick, icon, type, id, name, onChange, value, placeholder, ...rest} = props
+    const {label, onClick, icon, type, id, name, onChange, value, placeholder, style, ...rest} = props
     return (
-        <div className={styles.input_container}>
+        <div style={style} className={styles.input_container}>
             {label && <label htmlFor={name} className={styles.input_container_textFieldLabel}>
                 {label}
             </label>}
             <div className={styles.input}>
                 <input
+                    {...rest}
                     required
                     id={id}
                     name={name}

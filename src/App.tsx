@@ -26,10 +26,8 @@ function App() {
         <div className={styles.container}>
             <Routes>
                 <Route path={Path.InitialPage} element={<InitialPage/>}/>
-
                 <Route path={Path.InitialPage} element={<MainLayOut/>}>
                     <Route path={Path.Courses} element={<Platform/>}/>
-                    {/*<Route path={`${Path.SuperAdmin}`} element={<Courses/>}/>*/}
                     <Route path={Path.Profile} element={<Profile/>}/>
                     <Route path={Path.Settings} element={<Settings/>}/>
                 </Route>

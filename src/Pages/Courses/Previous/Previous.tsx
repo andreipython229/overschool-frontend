@@ -1,6 +1,7 @@
 import React, {FC, memo} from 'react';
 import styles from './previou.module.scss'
 import {Button} from "../../../Components/common/Button/Button";
+import {useLocation} from "react-router-dom";
 
 type PreviousPropsT = {
     avatar: string
@@ -11,6 +12,7 @@ type PreviousPropsT = {
 }
 
 export const Previous: FC<PreviousPropsT> = memo(({avatar, name, about, description}) => {
+    const {pathname} = useLocation()
 
     return (
         <div className={styles.previous}>
@@ -23,10 +25,12 @@ export const Previous: FC<PreviousPropsT> = memo(({avatar, name, about, descript
                     <p className={styles.previous_infoBlock_title_about}>{about}</p>
                 </div>
             </div>
-            <div className={styles.previous_btn}>
-                <Button variant={'primary'} style={{width: '220px', fontSize: '10px', fontWeight: '800'}}
-                        text={'Настроить страницу курсов'}/>
-            </div>
+            {pathname.includes('courses')
+                ? <div className={styles.previous_btn}>
+                    <Button variant={'primary'} style={{width: '220px', fontSize: '10px', fontWeight: '800'}}
+                            text={'Настроить страницу курсов'}/>
+                </div>
+                : null}
 
         </div>
     );

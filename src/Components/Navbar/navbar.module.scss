@@ -25,6 +25,11 @@
     display: flex;
     flex-direction: column;
 
+    & a {
+      width: 57px;
+      height: 57px;
+      text-align: center;
+    }
 
     & a:not(:first-child) {
       margin-top: 56px;
@@ -33,9 +38,9 @@
 }
 
 .isActive {
-  //width: 57px;
-  height: 57px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #E0DCED;
   border-radius: 10px;
   text-align: center;

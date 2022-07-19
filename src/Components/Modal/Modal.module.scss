@@ -210,5 +210,57 @@
   width: 240px;
   background: #DDD7FA;
   border-radius: 10px;
+}
+
+
+.mainCourse {
+  width: 438px;
+  background: #FFFFFF;
+  font-family: $font-family-inter;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: 7px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+
+  &_container {
+    padding: 36px 80px;
+  }
+
+  &_closed {
+    background: #F1F1F1;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    & svg {
+      padding: 8px 0 0 8px;
+    }
+  }
+
+  &_title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #4D5766;
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+
+  &_input {
+    margin-bottom: 16px;
+  }
+
+  &_btn {
+
+  }
 
 }
