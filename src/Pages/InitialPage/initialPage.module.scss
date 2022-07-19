@@ -1,0 +1,126 @@
+.init {
+  margin: 24px 45px 0 45px;
+  width: 100%;
+  font-family: 'Manrope', sans-serif;
+
+  &_header {
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+  &_main {
+    width: 1200px;
+    height: 446px;
+    margin: 130px auto 0 auto;
+    display: flex;
+    position: relative;
+
+    &__title {
+      font-weight: 800;
+      font-size: 48px;
+      width: 422px;
+      margin-right: 62px;
+      line-height: 135%;
+    }
+
+    &__link {
+      width: 555px;
+      background: #FFFFFF;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+      height: 112px;
+      display: flex;
+      font-weight: 800;
+      position: absolute;
+      bottom: 20px;
+      z-index: 2;
+
+      & div:nth-child(1) {
+        font-size: 24px;
+        width: 386px;
+      }
+
+      & div:nth-child(2) {
+        font-size: 20px;
+        background-color: #BA75FF;
+        width: 170px;
+        color: #FEFEFE;
+      }
+
+      & div {
+        height: 112px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    &_course {
+      display: flex;
+
+
+      &_block {
+        position: relative;
+        margin-left: 32px;
+        transition: 0.5s linear;
+
+        &_img {
+          width: 446px;
+          height: 500px;
+          border-radius: 10px;
+          transition: linear 1s;
+        }
+
+
+        &_blur {
+          height: 500px;
+          width: 446px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background: linear-gradient(359.58deg, #000000 2.18%, rgba(0, 0, 0, 0) 98.18%);
+          border-radius: 10px;
+        }
+
+        &_title {
+          font-size: 40px;
+          font-weight: 500;
+          color: #FEFEFE;
+          position: absolute;
+          z-index: 4;
+          bottom: 12px;
+          left: 90px;
+        }
+      }
+    }
+  }
+}
+
+.smallImg {
+  width: 112px;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: 1s linear;
+}
+
+.title_rotate {
+  transform: rotate(270deg);
+  bottom: 50px;
+  left: -5px;
+}
+
+.btn_block {
+  display: flex;
+
+  &_logIn {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    color: #BA75FF;
+  }
+}
+
+.btn_block div:nth-child(1) {
+  margin-right: 25px;
+}

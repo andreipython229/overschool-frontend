@@ -1,0 +1,55 @@
+@import "src/scss/variable";
+.header {
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  height: 74px;
+  background: #FEFEFE;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: $box-shadow;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  &_logotype {
+    margin-left: 106px;
+  }
+
+  &_block {
+    display: flex;
+    align-items: center;
+
+    &_user {
+      display: flex;
+      margin-right: 28px;
+      font-size: 10px;
+      font-weight: 500;
+      align-items: center;
+
+      &_avatar {
+        margin-right: 10px;
+        cursor: pointer;
+      }
+
+      &_userName {
+        display: flex;
+        flex-direction: column;
+
+        &_status {
+          margin-bottom: 4px;
+        }
+
+        &_name {
+          color: #6B7280;
+        }
+      }
+    }
+
+    &_logOut {
+      cursor: pointer;
+      margin-right: 26px;
+    }
+  }
+
+}

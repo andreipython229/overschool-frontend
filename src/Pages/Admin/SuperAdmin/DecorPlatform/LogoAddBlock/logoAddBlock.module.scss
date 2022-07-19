@@ -1,0 +1,42 @@
+.logoBlock {
+  &_title {
+    font-size: 12px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  &_desc {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: .01em;
+    margin-bottom: 16px;
+  }
+
+  &_information {
+    display: flex;
+
+
+    margin-bottom: 26px;
+
+    & img {
+      width: 208px;
+      height: 60px;
+      margin-right: 24px;
+    }
+
+    &_requirements {
+      font-size: 10px;
+
+      &_title {
+        margin-bottom: 8px;
+      }
+
+      & p {
+        font-size: 9px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

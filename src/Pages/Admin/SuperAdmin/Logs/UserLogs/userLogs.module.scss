@@ -1,0 +1,21 @@
+.logs_user {
+  font-size: 11px;
+  display: flex;
+  margin-top: 28px;
+  padding: 0 20px;
+  position: relative;
+  justify-content: space-between;
+
+  & div {
+    width: 300px;
+  }
+  & ::after {
+    content: '';
+    position: absolute;
+    width: 98%;
+    background: #E5E7EB;
+    height: 1px;
+    left: 1%;
+    top: -13px;
+  }
+}

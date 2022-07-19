@@ -1,0 +1,51 @@
+.btn_default {
+  color: black;
+  background: #FFFFFF;
+  width: auto;
+  text-align: center;
+  padding: 15px;
+  font-size: 14px;
+  font-weight: 800;
+  font-family: 'Manrope', sans-serif;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.primary {
+  //width: 240px;
+  color: #FFFFFF;
+  background: #BA75FF;
+  padding: 13px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 800;
+  font-family: 'Manrope', sans-serif;
+}
+
+.disabled {
+  color: #FFFFFF;
+  background-color: #DDBBFF;
+  //width: 241px;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 13px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 800;
+  font-family: 'Manrope', sans-serif;
+}
+
+.registrationDisabled {
+  color: #FFFFFF;
+  background-color: #B5B5B5;
+  width: 246px;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 13px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 800;
+  font-family: 'Manrope', sans-serif;
+}

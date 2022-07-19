@@ -1,0 +1,28 @@
+
+.nav_btn {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  width: 97px;
+  //height: 40px;
+  color: #BDBDBD;
+  text-align: center;
+  margin: 0 auto;
+  background: none;
+  text-decoration: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 11px 12px;
+}
+
+.nav_btn:hover {
+  border: #dedede .5px solid;
+}
+
+.active {
+  background: #E0DCED;
+  color: #4D5766;
+}

@@ -1,0 +1,32 @@
+.navbar {
+  width: 80px;
+  height: 100%;
+  min-height: 100vh;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 5px #D9D9D9;
+  z-index: 2;
+
+  &_menu {
+    margin-top: 24px;
+    cursor: pointer;
+  }
+
+  &_settings {
+    margin-top: 210px;
+    cursor: pointer;
+  }
+
+  &_setting_account {
+    margin-top: 276px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+
+    & svg:not(:first-child) {
+      margin-top: 56px;
+    }
+  }
+}

@@ -1,0 +1,214 @@
+@import '/src/scss/variable';
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .5);
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+.container {
+  margin: 56px 62px 70px;
+}
+
+.main {
+  width: 468px;
+  background: #FFFFFF;
+  font-family: 'Manrope', sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: 7px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+
+  &_closed {
+    cursor: pointer;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+  }
+
+  &_title {
+    color: #000000;
+    font-weight: 800;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  &_blockDesc {
+    display: flex;
+    top: 0;
+
+    &_checkbox {
+      display: inline-block;
+      padding-top: 10px;
+    }
+
+    &_description {
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      margin: 10px 0;
+    }
+
+    &_link {
+      color: #0359FF;
+      text-decoration: none;
+    }
+  }
+
+  &_btn {
+    margin-top: 50px;
+    text-align: center;
+
+  }
+}
+
+.main_employee {
+  width: 558px;
+  background: #FFFFFF;
+  font-family: 'Manrope', sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: 7px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+
+  &_container {
+    margin: 36px 13px 29px 31px;
+  }
+
+  &_closedModal {
+    background: #F1F1F1;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 17px;
+    right: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    & svg {
+      padding: 8px 0 0 8px;
+    }
+
+  }
+
+
+  &_title {
+    color: #4D5766;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  &_subs {
+    color: #65696D;
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  &_invite {
+    margin-top: 32px;
+
+    & label {
+      color: #4D5766;
+      font-size: 14px;
+    }
+
+    &_input {
+      margin: 7px 13px 0 0;
+      width: 496px;
+      padding: 11px 0 12px 20px;
+      border: 1px solid #E5E7EB;
+      border-radius: 5px;
+    }
+
+    & input {
+      border: none;
+      outline: none;
+
+      &::placeholder {
+        color: #D4D7DD
+      }
+    }
+  }
+
+  &_role {
+    margin: 16px 0;
+
+    &_radio {
+      margin-bottom: 6px;
+    }
+
+    &_desc {
+      font-size: 14px;
+      color: #949AA3;
+      margin-left: 32px;
+    }
+  }
+
+  &_btn {
+    margin-top: 16px;
+    text-align: center;
+
+  }
+
+  &_course {
+    display: flex;
+    flex-direction: column;
+    font-weight: 400;
+
+    &_title {
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 8px;
+      color: $font-title;
+    }
+
+    &_checkbox {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      color: $font-title;
+      font-size: 14px;
+    }
+  }
+}
+
+.inputs_block {
+  margin-bottom: 56px;
+
+  & :nth-child(1) {
+    margin-bottom: 16px;
+  }
+
+}
+
+.restorePass {
+  color: black;
+  text-align: center;
+  margin: 16px auto 0 auto;
+  padding: 15px 0;
+  font-size: 14px;
+  font-weight: 800;
+  font-family: 'Manrope', sans-serif;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 240px;
+  background: #DDD7FA;
+  border-radius: 10px;
+
+}

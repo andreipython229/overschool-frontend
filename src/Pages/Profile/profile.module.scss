@@ -1,0 +1,106 @@
+@import "src/scss/variable";
+
+.profile {
+  display: flex;
+
+  &_block {
+    margin-bottom: 15px;
+
+    &_avatarBlock {
+      position: relative;
+      height: 110px;
+
+      &_title {
+        font-size: 14px;
+        font-weight: 400;
+        color: $font-color;
+      }
+
+      &_avatar {
+        position: absolute;
+        width: 84px;
+        height: 84px;
+        z-index: 1;
+        top: 28px;
+        left: 10px;
+        border-radius: 7px;
+        background: #F7F5F7 url("../../assets/img/noAvatar.svg") no-repeat center center;
+      }
+
+      &_input {
+        position: absolute;
+        height: 90px;
+        width: 90px;
+        cursor: pointer;
+        z-index: 2;
+        left: 10px;
+        top: 28px;
+        opacity: 0;
+      }
+    }
+
+    &_textArea {
+      width: 93%;
+      display: block;
+      outline: none;
+      border: 1px solid #E5E7EB;
+      border-radius: 5px;
+      padding: 11px 43px 14px 14px;
+      resize: vertical;
+      margin-top: 18px;
+
+      & ::placeholder {
+        color: #D2D7DC;
+      }
+    }
+  }
+}
+
+.container {
+  padding: 26px 36px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: $box-shadow;
+
+  &_wrapper {
+    margin-top: 16px;
+  }
+}
+
+.notification {
+  padding: 26px 16px 26px 36px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: $box-shadow;
+  margin-bottom: 36px;
+
+  &_toggleWrapper {
+    display: flex;
+    flex-direction: column;
+
+    &_toggleBlock {
+      display: flex;
+      justify-content: space-between;
+
+      &_text {
+        width: 340px;
+
+        &_header {
+          color: $font-color;
+          font-size: 12px;
+        }
+
+        &_desc {
+          color: #A8ABAD;
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}
+
+h5 {
+  font-size: 14px;
+  font-weight: 500;
+  color: $font-title;
+}

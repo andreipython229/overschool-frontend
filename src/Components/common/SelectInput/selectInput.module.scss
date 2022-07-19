@@ -1,0 +1,57 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 24px 0;
+}
+
+.container {
+  width: 100%;
+  position: relative;
+  color: #646F74;
+  font-size: 11px;
+  font-weight: 500;
+
+  & svg {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    z-index: 2;
+  }
+
+  & li {
+    cursor: pointer;
+    padding: 11px;
+
+  }
+
+  & li:hover {
+    background: #f6f5f5;
+  }
+}
+
+button {
+  border: 1px solid #E5E7EB;
+  background: #FFFFFF;
+  border-radius: 5px;
+  width: 100%;
+  padding: 11px 0 11px 14px;
+  position: relative;
+  text-align: left;
+  color: #646F74;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.options {
+  border: 1px solid #E5E7EB;
+  display: none;
+  list-style: none;
+  padding: 4px 0;
+  margin-top: -4px;
+}
+
+.show {
+  display: block;
+}
