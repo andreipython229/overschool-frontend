@@ -5,11 +5,12 @@ import styles from './App.module.scss'
 
 import {InitialPage} from "./Pages/InitialPage/InitialPage";
 import {Path} from "./enum/pathE";
-import {PageNotFound} from "./Pages/PageNotFound/PageNotFound";
 import {MainLayOut} from "./Pages/layout/MainLayOut";
 import {Platform} from "./Pages/Courses/Platform";
 import {useAppSelector} from "./store/redux/store";
 import {Profile} from "./Pages/Profile/Profile";
+import {Settings} from "./Pages/Courses/Navigations/Settings/Settings";
+import {PageNotFound} from "./Pages/PageNotFound/PageNotFound";
 
 function App() {
     const isLogin = useAppSelector(state => state.user.auth)
@@ -30,8 +31,10 @@ function App() {
                     <Route path={Path.Courses} element={<Platform/>}/>
                     {/*<Route path={`${Path.SuperAdmin}`} element={<Courses/>}/>*/}
                     <Route path={Path.Profile} element={<Profile/>}/>
+                    <Route path={Path.Settings} element={<Settings/>}/>
                 </Route>
                 <Route path={'*'} element={<PageNotFound/>}/>
+
             </Routes>
 
         </div>
