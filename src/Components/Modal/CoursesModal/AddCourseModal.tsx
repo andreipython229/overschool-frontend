@@ -1,14 +1,16 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, FC, memo, useState} from 'react';
 import styles from "../Modal.module.scss";
 import {Button} from "../../common/Button/Button";
 import {Input} from "../../common/Input/Input/Input";
 import {useAppDispatch} from "../../../store/redux/store";
 import {changeName} from "../../../store/redux/course/slice";
+import {useNavigate} from "react-router-dom";
 
 type AddCourseModalPropsT = {
     setShowModal: () => void
 }
-export const AddCourseModal: FC<AddCourseModalPropsT> = ({setShowModal}) => {
+export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({setShowModal}) => {
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const [name, setName] = useState<string>('')
 
@@ -18,6 +20,10 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({setShowModal}) => {
 
     const addCourseName = () => {
         dispatch(changeName(name))
+
+        setShowModal()
+        // navigate()
+
     }
 
     return (
@@ -44,13 +50,9 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({setShowModal}) => {
                         <Button onClick={addCourseName} style={{width: '280px'}} type={'submit'} variant={"primary"}
                                 text={'Создать курс'}/>
                     </div>
-
                 </div>
-
             </div>
         </div>
-
-    )
-        ;
-};
+    );
+});
 

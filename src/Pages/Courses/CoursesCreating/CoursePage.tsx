@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {FC, memo, useState} from 'react';
 import {Previous} from "../Previous/Previous";
 import noAvatar from '../../../assets/img/noAvatar.svg'
 import {useAppSelector} from "../../../store/redux/store";
@@ -9,7 +9,7 @@ import Hide from '../../../assets/img/createCourse/dontShow.svg'
 import {Button} from "../../../Components/common/Button/Button";
 import {AddCourseModal} from "../../../Components/Modal/CoursesModal/AddCourseModal";
 
-export const CoursePage = () => {
+export const CoursePage: FC = memo(() => {
     const avatar = useAppSelector(state => state.user.avatar)
     const [showModal, setShowModal] = useState<boolean>(false)
     const show = 'public'
@@ -84,10 +84,9 @@ export const CoursePage = () => {
                     </div>
                 </div>
             </div>
-
         </div>
 
 
     );
-};
+});
 

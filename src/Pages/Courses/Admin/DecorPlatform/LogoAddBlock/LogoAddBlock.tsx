@@ -1,4 +1,4 @@
-import React, {FC, memo} from 'react';
+import React, {ChangeEvent, FC, memo} from 'react';
 import styles from './logoAddBlock.module.scss'
 
 type LogoAddBlockPropsT = {
@@ -7,6 +7,7 @@ type LogoAddBlockPropsT = {
     logoDesc: string
     aboutRequirements: string
     requirementsArr: string[]
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const LogoAddBlock: FC<LogoAddBlockPropsT> = memo(({
@@ -14,13 +15,15 @@ export const LogoAddBlock: FC<LogoAddBlockPropsT> = memo(({
                                                               logoDesc,
                                                               aboutRequirements,
                                                               requirementsArr,
-                                                              title
+                                                              title,
+    onChange
                                                           }) => {
         return (
             <section className={styles.logoBlock}>
                 <span className={styles.logoBlock_title}>{title}</span>
                 <span className={styles.logoBlock_desc}>{logoDesc}</span>
                 <div className={styles.logoBlock_information}>
+                    <input onChange={onChange} className={styles.logoBlock_information_fileInput} type="file"/>
                     <img src={logotype} alt="Logotype from course"/>
                     <div className={styles.logoBlock_information_requirements}>
                         <div className={styles.logoBlock_information_requirements_title}>{aboutRequirements}</div>
