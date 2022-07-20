@@ -32,7 +32,6 @@ function App() {
                     <Route path={Path.Settings} element={<Settings/>}/>
                 </Route>
                 <Route path={'*'} element={<PageNotFound/>}/>
-
             </Routes>
 
         </div>

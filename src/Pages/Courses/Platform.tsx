@@ -25,10 +25,10 @@ export const Platform = memo(() => {
                 <Previous avatar={avatar || noAvatar} name={'Название'}/>
             </div>
             <Routes>
-                {/*<Route path={Path.Courses} element={<CoursePage/>}/>*/}
+                <Route path={'/*'} element={<CoursePage setShowModal={setModal}/>}/>
                 <Route path={Path.CreateCourse} element={<RedactorCourse/>}/>
             </Routes>
-            <CoursePage setShowModal={setModal}/>
+
         </div>
     );
 });

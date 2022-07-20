@@ -55,5 +55,4 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({setShowModal}) =>
             </div>
         </div>
     );
-});
-
+})

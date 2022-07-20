@@ -28,7 +28,7 @@ export const Settings: FC = memo(() => {
                 modalIsOpen ? <AddEmployeeModal setModal={setModal}/> : null
             }
             <Routes>
-                <Route path={Path.Main} element={<Main/>}/>
+                <Route path={'/*'} element={<Main/>}/>
                 <Route path={Path.Employees} element={<Employees setModal={setModal}/>}/>
                 {role === RoleE.SuperAdmin ? <Route path={Path.Logs} element={<Logs/>}/> : null}
                 <Route path={Path.Decoration} element={<DecorPlatform/>}/>
