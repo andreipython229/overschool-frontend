@@ -1,0 +1,130 @@
+@import 'src/scss/variable';
+
+.redactorCourse {
+  font-family: $font-family-inter;
+  display: flex;
+
+  &_leftSide {
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+    margin-top: 50px;
+
+    &_title {
+      color: $font-title;
+      font-size: 16px;
+    }
+
+    &_desc {
+      margin-left: 16px;
+      display: flex;
+      flex-direction: column;
+
+      &_title {
+        color: $font-title;
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      &_lesson {
+        display: flex;
+        align-items: center;
+        color: $font-color-rose;
+        font-size: 12px;
+        margin-bottom: 26px;
+
+        & img {
+          margin-right: 7.5px;
+        }
+
+      }
+    }
+  }
+
+  &_rightSide {
+    background: #FFFFFF;
+    padding: 36px 45px 56px 45px;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: $box-shadow;
+
+    &_header {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      align-items: center;
+
+
+      &_btnBlock {
+        display: flex;
+
+        & div:nth-child(2) {
+          margin-left: 16px;
+        }
+      }
+    }
+
+    &_title {
+      color: $font-title;
+      font-size: 16px;
+    }
+
+    &_functional {
+      margin-top: 70px;
+
+      &_content {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 66px;
+
+        &_preview {
+          color: $font-color-rose;
+          font-size: 12px;
+          margin-right: 11px;
+        }
+      }
+
+      &_creating {
+        width: 460px;
+        height: 174px;
+        box-shadow: $box-shadow;
+        border-radius: 7px;
+        text-align: center;
+        padding-bottom: 10px;
+        margin: 0 auto 24px auto;
+
+
+        &_title {
+          margin-bottom: 18px;
+          padding-top: 14px;
+          color: $font-title;
+          font-size: 14px;
+        }
+
+        &_function {
+          display: flex;
+          justify-content: center;
+
+          & div:not(:last-child) {
+            margin-right: 16px;
+          }
+        }
+      }
+    }
+
+    &_desc {
+      font-size: 12px;
+      color: #9F9F9F;
+    }
+  }
+
+
+}
+
+
+.hl {
+  width: 256px;
+  border-bottom: 1px solid #D9D9D9;
+  margin: 24px 0 18px -10px;
+
+}

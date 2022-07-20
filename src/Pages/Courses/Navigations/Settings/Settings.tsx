@@ -6,11 +6,11 @@ import {AddEmployeeModal} from "../../../../Components/Modal/AddEmployee/AddEmpl
 import {Route, Routes} from "react-router-dom";
 import {useAppSelector} from "../../../../store/redux/store";
 import {Path} from "../../../../enum/pathE";
-import {Main} from "../../Admin/Main/Main";
-import {Employees} from "../../Admin/Employees/Employees";
+import {Main} from "../../Settings/Main/Main";
+import {Employees} from "../../Settings/Employees/Employees";
 import {RoleE} from "../../../../enum/roleE";
-import {Logs} from "../../Admin/Logs/Logs";
-import {DecorPlatform} from "../../Admin/DecorPlatform/DecorPlatform";
+import {Logs} from "../../Settings/Logs/Logs";
+import {DecorPlatform} from "../../Settings/DecorPlatform/DecorPlatform";
 
 export const Settings: FC = memo(() => {
     const role = useAppSelector(state => state.user.role)

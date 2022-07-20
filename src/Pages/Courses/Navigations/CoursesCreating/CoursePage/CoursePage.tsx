@@ -1,29 +1,22 @@
-import React, {FC, memo, useState} from 'react';
-import {Previous} from "../Previous/Previous";
-import noAvatar from '../../../assets/img/noAvatar.svg'
-import {useAppSelector} from "../../../store/redux/store";
-import styles from './coursePage.module.scss'
-import Public from '../../../assets/img/createCourse/public.svg'
-import DontShow from '../../../assets/img/createCourse/notPublic.svg'
-import Hide from '../../../assets/img/createCourse/dontShow.svg'
-import {Button} from "../../../Components/common/Button/Button";
-import {AddCourseModal} from "../../../Components/Modal/CoursesModal/AddCourseModal";
+import React, {FC, memo} from 'react';
+import {useAppSelector} from "../../../../../store/redux/store";
+import styles from '../coursePage.module.scss'
+import Public from '../../../../../assets/img/createCourse/public.svg'
+import DontShow from '../../../../../assets/img/createCourse/notPublic.svg'
+import Hide from '../../../../../assets/img/createCourse/dontShow.svg'
+import {Button} from "../../../../../Components/common/Button/Button";
 
-export const CoursePage: FC = memo(() => {
+type CoursePagePropsT = {
+    setShowModal: () => void
+}
+
+export const CoursePage: FC<CoursePagePropsT> = memo(({setShowModal}) => {
     const avatar = useAppSelector(state => state.user.avatar)
-    const [showModal, setShowModal] = useState<boolean>(false)
     const show = 'public'
     const dontShow = 'notPublic'
     const hide = 'hide'
-    const setModal = () => {
-        setShowModal(!showModal)
-    }
     return (
         <div className={styles.container}>
-            {showModal ? <AddCourseModal setShowModal={setModal}/> : null}
-            <div>
-                <Previous avatar={avatar || noAvatar} name={'Название'}/>
-            </div>
             <div>
                 <input className={styles.input} type="text" placeholder={'Поиск по курсам и категориям'}/>
             </div>
@@ -78,7 +71,7 @@ export const CoursePage: FC = memo(() => {
                     </div>
                 </div>
 
-                <div onClick={setModal} className={styles.course_card}>
+                <div onClick={setShowModal} className={styles.course_card}>
                     <div className={styles.course_addCourse}>
                         <span>Создать курс</span>
                     </div>

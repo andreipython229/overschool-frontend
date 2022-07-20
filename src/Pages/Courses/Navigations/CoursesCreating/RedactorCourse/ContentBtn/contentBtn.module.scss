@@ -1,0 +1,18 @@
+.lesson {
+  display: flex;
+  flex-direction: column;
+  background: #F3F4F6;
+  width: 86px;
+  height: 98px;
+  border-radius: 7px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+
+  & img {
+    width: 41px;
+  }
+
+
+}

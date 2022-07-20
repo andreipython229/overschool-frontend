@@ -5,6 +5,7 @@ import {Input} from "../../common/Input/Input/Input";
 import {useAppDispatch} from "../../../store/redux/store";
 import {changeName} from "../../../store/redux/course/slice";
 import {useNavigate} from "react-router-dom";
+import {Path} from "../../../enum/pathE";
 
 type AddCourseModalPropsT = {
     setShowModal: () => void
@@ -22,7 +23,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({setShowModal}) =>
         dispatch(changeName(name))
 
         setShowModal()
-        // navigate()
+        navigate(Path.CreateCourse)
 
     }
 

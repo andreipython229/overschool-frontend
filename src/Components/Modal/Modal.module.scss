@@ -260,7 +260,77 @@
   }
 
   &_btn {
+  }
+}
 
+.classesContainer {
+  padding: 32px;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: 7px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  font-family: $font-family-inter;
+  width: 512px;
+
+  &_title {
+    font-size: 18px;
+    color: $font-title;
   }
 
+  &_type {
+    margin: 27px 0 17px 0;
+    display: flex;
+
+    & div:not(:last-child) {
+      margin-right: 24px;
+    }
+
+    &_classes {
+      width: 100px;
+      height: 110px;
+      border: 2px solid #E0DCED;
+      border-radius: 7px;
+      background: #F9FAFB;
+      color: #9CA3AF;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      & svg {
+        margin-bottom: 8px;
+        path {
+          fill: #9CA3AF;
+        }
+      }
+    }
+
+    &_subs {
+      width: 464px;
+      color: $font-title;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    &_btnBlock {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 19px;
+
+      & div:nth-child(1) {
+        margin-right: 12px;
+
+      }
+    }
+  }
 }
