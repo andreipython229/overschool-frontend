@@ -20,9 +20,10 @@ export const validateRegistration = (
     }
     if (!values.phone) {
         errors.phone = 'Поле обязательно для заполнения'
-    } else if (Number(values.phone)) {
-        errors.phone = 'Не корректные данные'
     }
+    // else if (Number(values.phone)) {
+    //     errors.phone = 'Не корректные данные'
+    // }
     if (values.password.length < MIN_PASS_LENGTH) {
         errors.password = 'Пароль должен содержать минимум 8 символов'
     } else if (!values.password) {

@@ -4,6 +4,7 @@ import {Button} from "../../common/Button/Button";
 
 type ModalClassesPropsT = {
     closeModal: () => void
+    choiceClasses: () => void
 }
 type ArrType = {
     id: number
@@ -33,25 +34,33 @@ const typeClasses: ArrType[] = [
     }
 ]
 
-export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal}) => {
-        const [activeText, setActiveText] = useState<number>(0)
+export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal, choiceClasses}) => {
+        const [activeClasses, setActiveClasses] = useState<number>(0)
+
+
         return (
             <div className={styles.wrapper}>
                 <div className={styles.classesContainer}>
                     <div className={styles.classesContainer_main}>
                         <span className={styles.classesContainer_title}>Выберите тип занятий</span>
                         <div className={styles.classesContainer_type}>
-                            <div onClick={() => setActiveText(0)} className={styles.classesContainer_type_classes}>
+                            <div onClick={() => setActiveClasses(0)}
+                                 className={activeClasses === 0
+                                     ? styles.classesContainer_type_classes + ' ' + styles.active
+                                     : styles.classesContainer_type_classes}>
                                 <svg width="42" height="37" viewBox="0 0 42 37" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M5.03936 23.6139L5.03915 23.6138C4.71155 23.4447 4.45224 23.1164 4.45224 22.7039V14.9238L1.85746 13.5324C1.85742 13.5324 1.85738 13.5324 1.85735 13.5324L1.85702 13.5322L2.09331 13.0915L5.03936 23.6139ZM5.03936 23.6139L20.8072 31.7448L20.8076 31.745L5.03936 23.6139ZM26.532 34.5919L26.5322 34.5915L29.5216 29.7825V27.622L22.0363 31.7295C22.0361 31.7296 22.0359 31.7297 22.0357 31.7299L26.532 34.5919ZM26.532 34.5919C26.3133 34.9444 26.3419 35.3739 26.5895 35.6976L26.5904 35.6987M26.532 34.5919L26.5904 35.6987M26.5904 35.6987C26.8259 36.0047 27.2062 36.1559 27.5715 36.1559H33.8463C34.2124 36.1559 34.5921 36.0046 34.8275 35.6987L34.8283 35.6976M26.5904 35.6987L34.8283 35.6976M34.8283 35.6976C35.0754 35.3746 35.1057 34.9447 34.8854 34.5911M34.8283 35.6976L34.8854 34.5911M34.8854 34.5911L31.8963 29.7825V26.3185L36.8518 23.599C36.8518 23.599 36.8518 23.599 36.8518 23.599C37.1667 23.4263 37.4111 23.1037 37.4111 22.7039V15.3161L34.8854 34.5911ZM21.9153 23.626L21.6957 23.2164L21.9153 23.626L29.5216 19.5471V25.1422L21.3885 29.6055L6.82738 22.0968V16.1975L20.68 23.626L20.9163 23.1854L20.68 23.626C20.874 23.73 21.0891 23.7783 21.2977 23.7783C21.5062 23.7783 21.7214 23.73 21.9153 23.626ZM21.9153 11.7306L21.9151 11.7305C21.415 11.4627 20.7209 11.5465 20.3405 12.0057C20.1378 12.2506 20.0642 12.562 20.1384 12.8605C20.2112 13.1535 20.4141 13.3897 20.68 13.5322C20.6801 13.5322 20.6801 13.5322 20.6801 13.5323L28.4117 17.6782L21.2977 21.4931L4.77217 12.6314L21.2977 3.77002L37.8232 12.6314L35.7881 13.7227C35.6646 13.7655 35.5479 13.827 35.4439 13.9073L30.7092 16.4464L21.9153 11.7306ZM31.8343 34.0498H29.584L30.7092 32.2398L31.8343 34.0498ZM31.8967 18.2734L35.0364 16.5898V22.1159L31.8967 23.839V18.2734Z"
-                                        fill="#BA75FF" stroke="#BA75FF" strokeLinecap="round" strokeLinejoin="round"/>
+                                        fill="#9CA3AF" stroke="#9CA3AF" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>
 
                                 <span>Обычное</span>
                             </div>
-                            <div onClick={() => setActiveText(1)} className={styles.classesContainer_type_classes}>
+                            <div onClick={() => setActiveClasses(1)}
+                                 className={activeClasses === 1
+                                     ? styles.classesContainer_type_classes + ' ' + styles.active
+                                     : styles.classesContainer_type_classes}>
                                 <svg width="41" height="40" viewBox="0 0 41 40" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -64,7 +73,10 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal}) => {
 
                                 <span>Задание</span>
                             </div>
-                            <div onClick={() => setActiveText(2)} className={styles.classesContainer_type_classes}>
+                            <div onClick={() => setActiveClasses(2)}
+                                 className={activeClasses === 2
+                                     ? styles.classesContainer_type_classes + ' ' + styles.active
+                                     : styles.classesContainer_type_classes}>
                                 <svg width="30" height="40" viewBox="0 0 30 40" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -87,7 +99,10 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal}) => {
 
                                 <span>Текст</span>
                             </div>
-                            <div onClick={() => setActiveText(3)} className={styles.classesContainer_type_classes}>
+                            <div onClick={() => setActiveClasses(3)}
+                                 className={activeClasses === 3
+                                     ? styles.classesContainer_type_classes + ' ' + styles.active
+                                     : styles.classesContainer_type_classes}>
                                 <svg width="33" height="35" viewBox="0 0 33 35" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -97,20 +112,17 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal}) => {
                                         d="M26.0092 11.1393L26.0092 11.1393L26.0046 11.1355C25.4684 10.6887 24.7791 10.448 24.07 10.5375C23.3809 10.5878 22.7389 10.9124 22.2823 11.4604C21.3647 12.5615 21.4961 14.2546 22.6047 15.1807L24.1303 16.483L24.1302 16.4831L24.1383 16.4897C24.6261 16.8888 25.2198 17.1244 25.8336 17.1244C26.1903 17.1244 26.5528 17.0549 26.8867 16.9107L27.6437 17.7166V25.3278H25.4536C25.0514 19.436 20.1293 14.783 14.1709 14.783C8.17892 14.783 3.2533 19.4335 2.88536 25.3278H1.98665C1.41242 25.3278 0.927734 25.8125 0.927734 26.3867V32.4975C0.927734 33.0717 1.41242 33.5564 1.98665 33.5564H30.9756C31.5498 33.5564 32.0345 33.0717 32.0345 32.4975V26.3867C32.0345 26.366 32.0332 26.3453 32.0306 26.3247C31.9666 25.8124 31.5233 25.3278 30.9383 25.3278H29.7616V17.2578C29.7616 17.0808 29.7258 16.7369 29.4491 16.5127L28.3213 15.2934C28.6719 14.2913 28.3606 13.1439 27.5364 12.4431C27.5363 12.443 27.5362 12.4429 27.5361 12.4428L26.0092 11.1393ZM23.9598 13.5613L23.9598 13.5613L23.9553 13.5575C23.7342 13.3732 23.6999 13.0576 23.9075 12.8085C23.9985 12.6993 24.0955 12.6414 24.2653 12.6158H24.2654H24.2655H24.2657H24.2659H24.2661H24.2663H24.2665H24.2667H24.2669H24.2671H24.2673H24.2675H24.2677H24.2679H24.2681H24.2683H24.2685H24.2687H24.2688H24.269H24.2692H24.2694H24.2696H24.2698H24.27H24.2702H24.2704H24.2706H24.2707H24.2709H24.2711H24.2713H24.2715H24.2717H24.2719H24.2721H24.2722H24.2724H24.2726H24.2728H24.273H24.2732H24.2734H24.2735H24.2737H24.2739H24.2741H24.2743H24.2745H24.2746H24.2748H24.275H24.2752H24.2754H24.2755H24.2757H24.2759H24.2761H24.2763H24.2764H24.2766H24.2768H24.277H24.2771H24.2773H24.2775H24.2777H24.2778H24.278H24.2782H24.2784H24.2785H24.2787H24.2789H24.2791H24.2792H24.2794H24.2796H24.2797H24.2799H24.2801H24.2803H24.2804H24.2806H24.2808H24.2809H24.2811H24.2813H24.2814H24.2816H24.2818H24.2819H24.2821H24.2823H24.2824H24.2826H24.2828H24.2829H24.2831H24.2832H24.2834H24.2836H24.2837H24.2839H24.284H24.2842H24.2844H24.2845H24.2847H24.2848H24.285H24.2852H24.2853H24.2855H24.2856H24.2858H24.2859H24.2861H24.2862H24.2864H24.2865H24.2867H24.2869H24.287H24.2872H24.2873H24.2875H24.2876H24.2878H24.2879H24.288H24.2882H24.2883H24.2885H24.2886H24.2888H24.2889H24.2891H24.2892H24.2894H24.2895H24.2896H24.2898H24.2899H24.2901H24.2902H24.2904H24.2905H24.2906H24.2908H24.2909H24.291H24.2912H24.2913H24.2915H24.2916H24.2917H24.2919H24.292H24.2921H24.2923H24.2924H24.2925H24.2927H24.2928H24.2929H24.293H24.2932H24.2933H24.2934H24.2936H24.2937H24.2938H24.2939H24.2941H24.2942H24.2943H24.2944H24.2946H24.2947H24.2948H24.2949H24.295H24.2952H24.2953H24.2954H24.2955H24.2956H24.2958H24.2959H24.296H24.2961H24.2962H24.2963H24.2964H24.2966H24.2967H24.2968H24.2969H24.297H24.2971H24.2972H24.2973H24.2974H24.2975H24.2977H24.2978H24.2979H24.298H24.2981H24.2982H24.2983H24.2984H24.2985H24.2986H24.2987H24.2988H24.2989H24.299H24.2991H24.2992H24.2993H24.2994H24.2995H24.2996H24.2997H24.2998H24.2999H24.2999H24.3H24.3001H24.3002H24.3003H24.3004H24.3005H24.3006H24.3007H24.3007H24.3008H24.3009H24.301H24.3011H24.3012H24.3013H24.3013H24.3014H24.3015H24.3016H24.3017H24.3017H24.3018H24.3019H24.302H24.302H24.3021H24.3022H24.3023H24.3023H24.3024H24.3025H24.3026H24.3026H24.3027H24.3028H24.3028H24.3029H24.303H24.303H24.3031H24.3032H24.3032H24.3033H24.3034H24.3034H24.3035H24.3035H24.3036H24.3037H24.3037H24.3038H24.3038H24.3039H24.3039H24.304H24.304H24.3041H24.3042H24.3042H24.3043H24.3043H24.3044H24.3044H24.3045H24.3045H24.3045H24.3046H24.3046H24.3047H24.3047H24.3048H24.3048H24.3048H24.3049H24.3049H24.305H24.305H24.305H24.3051H24.3051H24.3051H24.3052H24.3052H24.3052H24.3053H24.3053H24.3053H24.3054H24.3054H24.3054H24.3055H24.3055H24.3055H24.3055H24.3056H24.3056H24.3056H24.3056H24.3056H24.3057H24.3057H24.3057H24.3057H24.3057H24.3057H24.3058H24.3058H24.3058H24.3058H24.3058H24.3059H24.3059C24.4328 12.6158 24.5532 12.6603 24.623 12.7302C24.6323 12.7395 24.642 12.7484 24.6519 12.7569L26.1796 14.061L26.1796 14.0611L26.1842 14.0649C26.4028 14.2471 26.4388 14.5576 26.2389 14.8054C26.034 15.0231 25.7096 15.0488 25.4849 14.8632L23.9598 13.5613ZM14.1337 16.8635C18.9452 16.8635 22.9304 20.5868 23.2963 25.2905H4.97466C5.37182 20.583 9.32625 16.8635 14.1337 16.8635ZM29.8794 31.4386H3.0083V27.4456H29.8794V31.4386Z"
                                         fill="#9CA3AF" stroke="#9CA3AF" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>
-
                                 <span>Вебинар</span>
                             </div>
                         </div>
                         <div className={styles.classesContainer_type_subs}>
-                            {/*{typeClasses.filter(t => t.id === activeText)}*/}
-                            <b>Обычное занятие</b> может содержать текст, видео, аудио
-                            и программный код. Можно прикрепить любые файлы
-                            для скачивания.
+                            {typeClasses.map((el) => el.id === activeClasses ? el.text : null)}
                         </div>
                         <div className={styles.classesContainer_type_btnBlock}>
                             <Button style={{width: '85px', fontSize: '14px', fontWeight: '400'}} onClick={closeModal}
                                     text={'Отмена'}/>
                             <Button style={{width: '85px', fontSize: '14px', fontWeight: '400'}} variant={'primary'}
+                                    onClick={choiceClasses}
                                     text={'Далее'}/>
                         </div>
                     </div>

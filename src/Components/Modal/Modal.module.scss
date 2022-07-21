@@ -318,6 +318,7 @@
 
     &_subs {
       width: 464px;
+      height: 60px;
       color: $font-title;
       font-size: 16px;
       font-weight: 400;
@@ -336,6 +337,7 @@
     }
   }
 }
+
 .errors {
   color: #ff3c3c;
   font-size: 12px;
@@ -344,14 +346,71 @@
 }
 
 .active {
+  border: 2px solid #BA75FF;
   color: $font-color-rose;
 
   & svg {
     margin-bottom: 8px;
 
     path {
-      fill: #9CA3AF;
+      stroke: $font-color-rose;
+      fill: $font-color-rose;
     }
   }
 
+}
+
+.usually {
+
+  &_header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & svg {
+      margin-bottom: 28px;
+    }
+
+    & span {
+      font-size: 18px;
+      color: $font-title;
+    }
+
+    margin-bottom: 23px;
+  }
+
+  &_nav {
+    margin-bottom: 15px;
+
+    &_btn {
+      padding: 7px 15px;
+      color: #B3B8C2;
+    }
+  }
+
+  &_input {
+    margin: 0 10px 26px 10px;
+    width: 95%;
+    text-align: left;
+
+    &_title {
+      font-size: 14px;
+      font-weight: 400;
+      color: $font-title;
+    }
+
+    & div {
+      margin-top: 8px;
+    }
+
+  }
+
+  &_btnBlock {
+    display: flex;
+
+    & div:nth-child(1) {
+      margin-right: 16px;
+    }
+
+  }
 }

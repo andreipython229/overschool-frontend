@@ -9,16 +9,27 @@ import Video from "../../../../../../assets/img/createCourse/video.svg";
 import Audio from "../../../../../../assets/img/createCourse/audio.svg";
 import Code from "../../../../../../assets/img/createCourse/code.svg";
 import {ModalTypeClasses} from "../../../../../../Components/Modal/ModalTypeClasses/ModalTypeClasses";
+import {SettingClassesUsually} from "../../../../../../Components/Modal/SettingClasses/SettingClasses";
 
 export const Constructor = () => {
     const [typeClassesModal, setTypeClassesModal] = useState<boolean>(false)
+    const [openClassesUsually, setOpenClassesUsually] = useState(false)
+
     const setModalTypeClasses = () => {
         setTypeClassesModal(!typeClassesModal)
     }
+
+    const choiceClasses = () => {
+        setOpenClassesUsually(!openClassesUsually)
+        setModalTypeClasses()
+    }
+
     return (
 
         <div className={styles.redactorCourse}>
-            {typeClassesModal ? <ModalTypeClasses closeModal={setModalTypeClasses}/> : null}
+            {typeClassesModal ?
+                <ModalTypeClasses choiceClasses={choiceClasses} closeModal={setModalTypeClasses}/> : null}
+            {openClassesUsually ? <SettingClassesUsually goToBack={choiceClasses}/> : null}
             <div className={styles.redactorCourse_leftSide}>
                 <h5 className={styles.redactorCourse_leftSide_title}>Структура курса</h5>
                 <div className={styles.redactorCourse_leftSide_desc}>
