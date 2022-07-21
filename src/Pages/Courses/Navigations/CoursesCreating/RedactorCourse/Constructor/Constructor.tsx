@@ -9,19 +9,29 @@ import Video from "../../../../../../assets/img/createCourse/video.svg";
 import Audio from "../../../../../../assets/img/createCourse/audio.svg";
 import Code from "../../../../../../assets/img/createCourse/code.svg";
 import {ModalTypeClasses} from "../../../../../../Components/Modal/ModalTypeClasses/ModalTypeClasses";
-import {SettingClassesUsually} from "../../../../../../Components/Modal/SettingClasses/SettingClasses";
+import {SettingClassesUsually} from "../../../../../../Components/Modal/ModalTypeClasses/SettingClasses/SettingUsuallyClasses";
+import {useAppDispatch} from "../../../../../../store/redux/store";
+import {TasksModal} from "../../../../../../Components/Modal/ModalTypeClasses/TasksModal/TasksModal";
 
 export const Constructor = () => {
+    const dispatch = useAppDispatch()
     const [typeClassesModal, setTypeClassesModal] = useState<boolean>(false)
     const [openClassesUsually, setOpenClassesUsually] = useState(false)
+    const [openClassesTasks, setOpenClassesTasks] = useState(false)
 
     const setModalTypeClasses = () => {
         setTypeClassesModal(!typeClassesModal)
     }
 
     const choiceClasses = () => {
-        setOpenClassesUsually(!openClassesUsually)
+        setOpenClassesUsually(false)
+        setOpenClassesTasks(false)
         setModalTypeClasses()
+
+    }
+    const addUsuallyCourse = () => {
+        setOpenClassesUsually(!openClassesUsually)
+        // dispatch(addUsuallyCourse())
     }
 
     return (
@@ -29,7 +39,8 @@ export const Constructor = () => {
         <div className={styles.redactorCourse}>
             {typeClassesModal ?
                 <ModalTypeClasses choiceClasses={choiceClasses} closeModal={setModalTypeClasses}/> : null}
-            {openClassesUsually ? <SettingClassesUsually goToBack={choiceClasses}/> : null}
+            {openClassesUsually ? <SettingClassesUsually addCourse={addUsuallyCourse} goToBack={choiceClasses}/> : null}
+            <TasksModal goToBack={choiceClasses}/>
             <div className={styles.redactorCourse_leftSide}>
                 <h5 className={styles.redactorCourse_leftSide_title}>Структура курса</h5>
                 <div className={styles.redactorCourse_leftSide_desc}>

@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import styles from './selectInput.module.scss'
 
 type SelectInputPropsT = {
-    optionsList: string[]
+    optionsList: any
 }
 
 export const SelectInput: FC<SelectInputPropsT> = ({optionsList}) => {
@@ -33,7 +33,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({optionsList}) => {
                 </button>
                 <ul tabIndex={-1} role={'listbox'} aria-activedescendant={optionsList[selectedOption]}
                     className={styles.options + ' ' + (isOptionsOpen ? styles.show : '')}>
-                    {optionsList.map((option, index) => (
+                    {optionsList.map((option: any, index: number) => (
                         <li key={index} tabIndex={0}
                             role={'option'}
                             aria-selected={selectedOption == index}

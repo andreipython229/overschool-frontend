@@ -46,10 +46,19 @@ button:hover {
 
 .options {
   border: 1px solid #E5E7EB;
+  border-radius: 7px;
+  height: auto;
+  width: 99%;
+  background: #FFFFFF;
   display: none;
   list-style: none;
   padding: 4px 0;
   margin-top: -4px;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 30;
+
 }
 
 .show {
