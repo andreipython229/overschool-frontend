@@ -1,18 +1,47 @@
-import React, {FC, memo} from 'react';
+import React, {FC, memo, useState} from 'react';
 import styles from '../Modal.module.scss'
 import {Button} from "../../common/Button/Button";
 
 type ModalClassesPropsT = {
     closeModal: () => void
 }
+type ArrType = {
+    id: number
+    text: string
+    type: string
+}
+const typeClasses: ArrType[] = [
+    {
+        id: 0, text: 'Обычное занятие может содержать текст, видео, аудио \n' +
+            'и программный код. Можно прикрепить любые файлы \n' +
+            'для  скачивания.',
+        type: 'standard',
+    },
+    {
+        id: 1, text: 'Ученики могут выполнять домашнее задание \n' +
+            'и отправлять его на проверку преподавателям.',
+        type: 'tasks',
+    },
+    {
+        id: 2, text: 'Тестирование позволяет создать набор вопросов и вариантов ответов для проверки знаний учеников.',
+        type: 'text',
+    },
+    {
+        id: 3,
+        text: 'Вебинар позволяет создать занятия в виде онлайн-трансляций по заданному расписанию для каждой группы учеников.',
+        type: 'webinar',
+    }
+]
+
 export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal}) => {
+        const [activeText, setActiveText] = useState<number>(0)
         return (
             <div className={styles.wrapper}>
                 <div className={styles.classesContainer}>
                     <div className={styles.classesContainer_main}>
                         <span className={styles.classesContainer_title}>Выберите тип занятий</span>
                         <div className={styles.classesContainer_type}>
-                            <div className={styles.classesContainer_type_classes}>
+                            <div onClick={() => setActiveText(0)} className={styles.classesContainer_type_classes}>
                                 <svg width="42" height="37" viewBox="0 0 42 37" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -22,7 +51,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal}) => {
 
                                 <span>Обычное</span>
                             </div>
-                            <div className={styles.classesContainer_type_classes}>
+                            <div onClick={() => setActiveText(1)} className={styles.classesContainer_type_classes}>
                                 <svg width="41" height="40" viewBox="0 0 41 40" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -35,7 +64,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal}) => {
 
                                 <span>Задание</span>
                             </div>
-                            <div className={styles.classesContainer_type_classes}>
+                            <div onClick={() => setActiveText(2)} className={styles.classesContainer_type_classes}>
                                 <svg width="30" height="40" viewBox="0 0 30 40" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -58,7 +87,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal}) => {
 
                                 <span>Текст</span>
                             </div>
-                            <div className={styles.classesContainer_type_classes}>
+                            <div onClick={() => setActiveText(3)} className={styles.classesContainer_type_classes}>
                                 <svg width="33" height="35" viewBox="0 0 33 35" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -73,6 +102,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal}) => {
                             </div>
                         </div>
                         <div className={styles.classesContainer_type_subs}>
+                            {/*{typeClasses.filter(t => t.id === activeText)}*/}
                             <b>Обычное занятие</b> может содержать текст, видео, аудио
                             и программный код. Можно прикрепить любые файлы
                             для скачивания.

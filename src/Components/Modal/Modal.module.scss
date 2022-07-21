@@ -190,7 +190,7 @@
 .inputs_block {
   margin-bottom: 56px;
 
-  & :nth-child(1) {
+  & :nth-child(2) {
     margin-bottom: 16px;
   }
 
@@ -259,8 +259,6 @@
     margin-bottom: 16px;
   }
 
-  &_btn {
-  }
 }
 
 .classesContainer {
@@ -290,6 +288,7 @@
     margin: 27px 0 17px 0;
     display: flex;
 
+
     & div:not(:last-child) {
       margin-right: 24px;
     }
@@ -305,9 +304,12 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
+
 
       & svg {
         margin-bottom: 8px;
+
         path {
           fill: #9CA3AF;
         }
@@ -333,4 +335,23 @@
       }
     }
   }
+}
+.errors {
+  color: #ff3c3c;
+  font-size: 12px;
+  margin-top: -8px;
+  margin-left: 8px;
+}
+
+.active {
+  color: $font-color-rose;
+
+  & svg {
+    margin-bottom: 8px;
+
+    path {
+      fill: #9CA3AF;
+    }
+  }
+
 }

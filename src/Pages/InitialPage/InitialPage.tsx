@@ -19,8 +19,8 @@ export const InitialPage = memo (() => {
     const [registrationShow, setRegistrationShow] = useState<boolean>(false)
     const [loginShow, setLoginShow] = useState<boolean>(false)
 
-    const logIn = (email: string) => {
-        dispatch(loginUser({email}))
+    const logIn = (value: string | number) => {
+        dispatch(loginUser({value}))
     }
 
     const changeCurrentCourse = (id: string) => setCurrentCourse(id)

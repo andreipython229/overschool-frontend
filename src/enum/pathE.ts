@@ -10,6 +10,7 @@ export enum Path {
     Logs = 'logs/',
     Decoration = 'decoration/',
 }
+
 export enum createCoursePath {
     Constructor = 'constructor',
     Student = 'student',

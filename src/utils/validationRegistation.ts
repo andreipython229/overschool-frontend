@@ -1,5 +1,6 @@
 export type RegistrParamsT = {
-    email: string
+    email?: string
+    phone?: string
     password: string
     politics: boolean
     oferta: boolean
@@ -16,6 +17,11 @@ export const validateRegistration = (
         errors.email = 'Поле обязательно для заполнения'
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = 'Не корректные данные'
+    }
+    if (!values.phone) {
+        errors.phone = 'Поле обязательно для заполнения'
+    } else if (Number(values.phone)) {
+        errors.phone = 'Не корректные данные'
     }
     if (values.password.length < MIN_PASS_LENGTH) {
         errors.password = 'Пароль должен содержать минимум 8 символов'

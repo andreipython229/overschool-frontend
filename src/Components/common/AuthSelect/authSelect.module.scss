@@ -1,0 +1,49 @@
+@import 'src/scss/variable';
+
+.container {
+  width: 74px;
+  height: 50px;
+  background: #F6F6F6 url("../../../assets/img/blackArrowDown.svg") no-repeat 82% 51%;
+  border: 1px solid #E8E8E8;
+  border-radius: 8px;
+  margin-left: 8px;
+  position: relative;
+  cursor: pointer;
+  font-family: $font-family-inter;
+}
+
+.phone {
+  position: absolute;
+  left: 13px;
+  top: 14px;
+}
+
+.email {
+  position: absolute;
+  left: 10px;
+  top: 17px;
+}
+
+.popup {
+  width: 152px;
+  height: 66px;
+  border-radius: 7px;
+  background: #FFFFFF;
+  position: absolute;
+  bottom: -70px;
+  left: 0;
+  z-index: 12;
+  font-size: 13px;
+  color: #6B7484;
+  box-shadow: 0 0 10px rgba(236, 236, 236, 0.93);
+
+  & div {
+    margin-top: 12px;
+    padding-left: 32px;
+  }
+
+}
+
+.checked {
+  background:  url("../../../assets/img/done.svg") no-repeat 10px 3px;
+}

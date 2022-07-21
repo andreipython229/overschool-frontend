@@ -12,15 +12,20 @@ import {Button} from "../../common/Button/Button";
 import {RegistrParamsT, validateRegistration} from "../../../utils/validationRegistation";
 import {useAppDispatch} from "../../../store/redux/store";
 import {auth} from "../../../store/redux/users/slice";
+import {AuthSelect} from "../../common/AuthSelect/AuthSelect";
 
 type RegistrationModalPropsT = {
     setShowModal: (value: boolean) => void
 }
 
-export const RegistrationModal: FC<RegistrationModalPropsT> =memo (({setShowModal}) => {
+export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({setShowModal}) => {
     const dispatch = useAppDispatch()
     const [security, setSecurity] = useState<boolean>(true)
+    const [authVariant, setAuthVariant] = useState<string>('phone')
 
+    const getAuthVariant = (variant: string) => {
+        setAuthVariant(variant)
+    }
     const registration = () => {
         dispatch(auth(true))
     }
@@ -43,6 +48,7 @@ export const RegistrationModal: FC<RegistrationModalPropsT> =memo (({setShowModa
             password: '',
             oferta: false,
             politics: false,
+            phone: ''
         },
         onSubmit: (values: RegistrParamsT) => {
             // onSubmitForm(values)
@@ -55,9 +61,8 @@ export const RegistrationModal: FC<RegistrationModalPropsT> =memo (({setShowModa
         },
 
     })
-
     const disabled = !(Object.keys(formik.errors).length === 0)
-    console.log(formik.errors)
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.main}>
@@ -72,9 +77,17 @@ export const RegistrationModal: FC<RegistrationModalPropsT> =memo (({setShowModa
 
                         <div className={styles.main_title}>Зарегистрироваться</div>
                         <div className={styles.inputs_block}>
-                            <InputAuth name={'email'} type={'text'}
-                                       onChange={formik.handleChange} value={formik.values.email}
-                                       placeholder={'Email или номер телефона'}/>
+                            <div style={{display: 'flex'}}>
+                                {authVariant === 'phone'
+                                    ? <InputAuth name={'phone'} type={'tel'}
+                                                 onChange={formik.handleChange} value={formik.values.phone}
+                                                 placeholder={'Номер телефона'}/>
+                                    : <InputAuth name={'email'} type={'text'}
+                                                 onChange={formik.handleChange} value={formik.values.email}
+                                                 placeholder={'Email'}/>}
+                                <AuthSelect getInputVariant={getAuthVariant}/>
+                            </div>
+
                             <InputAuth name={'password'} type={security ? 'password' : 'text'}
                                        onChange={formik.handleChange} value={formik.values.password}
                                        placeholder={'Пароль'}

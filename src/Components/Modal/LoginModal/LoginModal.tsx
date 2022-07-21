@@ -1,24 +1,32 @@
 import React, {FC, memo, useState} from 'react';
-import styles from '../Modal.module.scss'
+import {useFormik} from "formik";
+import {Link} from 'react-router-dom';
+
 import {InputAuth} from "../../common/Input/InputAuth/InputAuth";
 import unSecurity from '../../../assets/img/unSecurity.svg'
 import Security from '../../../assets/img/isecurity.svg'
 import {Button} from "../../common/Button/Button";
-import {useFormik} from "formik";
 import {LoginParamsT, validateLogin} from "../../../utils/validationLogin";
-import {Link} from 'react-router-dom';
 import {useAppDispatch} from "../../../store/redux/store";
 import {auth} from "../../../store/redux/users/slice";
+import {AuthSelect} from "../../common/AuthSelect/AuthSelect";
+
+import styles from '../Modal.module.scss'
 
 type LoginModalPropsT = {
     setShowModal: (value: boolean) => void
-    logIn: (email: string) => void
+    logIn: (value: string | number) => void
 }
 
 export const LoginModal: FC<LoginModalPropsT> = memo(({setShowModal, logIn}) => {
-    const [security, setSecurity] = useState<boolean>(true)
     const dispatch = useAppDispatch()
+    const [security, setSecurity] = useState<boolean>(true)
+    const [authVariant, setAuthVariant] = useState<string>('phone')
 
+    const getInputVariant = (variant: string) => {
+        setAuthVariant(variant)
+
+    }
     const changeSecurityStatus = () => {
         setSecurity(!security)
     }
@@ -28,7 +36,12 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({setShowModal, logIn}) => 
         //     setError(res)
         // }
         // navigate(Paths.Login)
-        logIn(values.email)
+        if (authVariant === 'email') {
+            values.email && logIn(values.email)
+        } else {
+            values.phone && logIn(values.phone)
+        }
+
         dispatch(auth(true))
     }
 
@@ -36,6 +49,7 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({setShowModal, logIn}) => 
         validate: values => validateLogin(values),
         initialValues: {
             email: '',
+            phone: '',
             password: '',
         },
         onSubmit: (values: LoginParamsT) => {
@@ -64,15 +78,30 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({setShowModal, logIn}) => 
 
                         <div className={styles.main_title}>Войти</div>
                         <div className={styles.inputs_block}>
-                            <InputAuth name={'email'} type={'text'}
-                                       onChange={formik.handleChange} value={formik.values.email}
-                                       placeholder={'Email или номер телефона'}/>
+                            <div>
+                                <div style={{display: 'flex',}}>
+                                    {authVariant === 'phone'
+                                        ? <InputAuth name={'phone'} type={'tel'}
+                                                     onChange={formik.handleChange}
+                                                     value={formik.values.phone}
+                                                     placeholder={'375 29 8623027'}/>
+                                        : <InputAuth name={'email'} type={'text'}
+                                                     onChange={formik.handleChange} value={formik.values.email}
+                                                     placeholder={'Email'}/>
+                                    }
+                                    <AuthSelect getInputVariant={getInputVariant}/>
+                                </div>
+                                <div className={styles.errors}>{formik.errors.email}</div>
+                            </div>
+
                             <InputAuth name={'password'} type={security ? 'password' : 'text'}
                                        onChange={formik.handleChange} value={formik.values.password}
                                        placeholder={'Пароль'}
                                        onClick={changeSecurityStatus}
                                        icon={security ? Security : unSecurity}/>
+                            <div className={styles.errors}>{formik.errors.password}</div>
                         </div>
+
 
                         <div className={styles.main_btn}>
                             <Button style={{width: '246px'}} type={'submit'} variant={disabled ? 'disabled' : "primary"}

@@ -10,6 +10,7 @@ interface UserI {
     phone: string
     city: string
     role: number
+    authDate: string | number | null
 }
 
 // Define the initial state using that type
@@ -20,7 +21,8 @@ const initialState: UserI = {
     email: 'example@gmail.com',
     phone: '+375(**)***-**-**',
     city: 'Belarus',
-    role: 1
+    role: 1,
+    authDate: null
 }
 
 export const slice = createSlice({
@@ -30,8 +32,8 @@ export const slice = createSlice({
         auth: (state, action: PayloadAction<boolean>) => {
             state.auth = action.payload
         },
-        loginUser: (state, action: PayloadAction<{ email: string }>) => {
-            state.email = action.payload.email
+        loginUser: (state, action: PayloadAction<{ value: string | number }>) => {
+            state.authDate = action.payload.value
         },
         changeInfo: (state, action: PayloadAction<any>) => {
             state.city = action.payload.city

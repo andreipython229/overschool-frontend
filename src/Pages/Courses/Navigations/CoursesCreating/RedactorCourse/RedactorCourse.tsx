@@ -9,7 +9,7 @@ export const RedactorCourse = () => {
         <div>
             <NavCreatingCourse/>
             <Routes>
-                <Route path={createCoursePath.Constructor} element={<Constructor/>}/>
+                <Route path={'/*'} element={<Constructor/>}/>
             </Routes>
         </div>
     );
