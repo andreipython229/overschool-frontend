@@ -473,6 +473,89 @@
   }
 }
 
+.test {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 23px;
+
+  & svg {
+    margin-bottom: 13px;
+  }
+
+  &_checkboxPack {
+    margin-bottom: 32px;
+  }
+
+  &_checkbox {
+    width: 90%;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    font-size: $fs12;
+    font-weight: 400;
+    color: $font-title;
+
+
+    &_attempts {
+      width: 50px;
+      margin-left: 16px;
+      padding: 6px 0 6px 16px;
+      border: 1px solid #E5E7EB;
+      outline: none;
+      border-radius: 5px;
+    }
+
+    &_text {
+      display: flex;
+      flex-direction: column;
+      margin-top: 11px;
+
+      &_checked {
+        color: $font-color-rose;
+        font-size: $fs12;
+        font-weight: 400;
+      }
+
+      &_desc {
+        font-size: 10px;
+        color: #868B94;
+      }
+    }
+
+  }
+
+  &_grade {
+    width: 100%;
+    text-align: left;
+
+    &_title {
+      font-size: $fs12;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    &_radio {
+      margin-top: 8px;
+      margin-bottom: 16px;
+
+      &_input {
+        display: flex;
+        margin-left: 26px;
+        margin-top: 8px;
+        align-items: center;
+
+        & span {
+          margin-left: 16px;
+          font-size: $fs12;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
+
 
 .btnBlock {
   display: flex;

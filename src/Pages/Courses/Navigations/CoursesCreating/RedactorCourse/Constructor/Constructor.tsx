@@ -15,6 +15,7 @@ import {
 import {useAppDispatch} from "../../../../../../store/redux/store";
 import {TasksModal} from "../../../../../../Components/Modal/ModalTypeClasses/TasksModal/TasksModal";
 import {addClasses} from '../../../../../../store/redux/course/slice';
+import {TestModal} from "../../../../../../Components/Modal/ModalTypeClasses/TestModal/TestModal";
 
 export const Constructor = () => {
     const dispatch = useAppDispatch()
@@ -45,15 +46,13 @@ export const Constructor = () => {
 
         <div className={styles.redactorCourse}>
 
-            {typeClassesModal ?
-                <ModalTypeClasses changeClasses={setTypeModal} closeModal={setModalTypeClasses}/> : null}
+            {typeClassesModal && <ModalTypeClasses changeClasses={setTypeModal} closeModal={setModalTypeClasses}/>}
 
+            {activeTypeClasses === 0 && <SettingClassesUsually addCourse={addCourse} goToBack={goToBack}/>}
 
-            {activeTypeClasses === 0 ?
-                <SettingClassesUsually addCourse={addCourse} goToBack={goToBack}/> : null}
+            {activeTypeClasses === 1 && <TasksModal addCourse={addCourse} goToBack={goToBack}/>}
 
-
-            {activeTypeClasses === 1 ? <TasksModal addCourse={addCourse} goToBack={goToBack}/> : null}
+            {activeTypeClasses === 2 && <TestModal goToBack={goToBack} addCourse={addCourse}/>}
 
 
             <div className={styles.redactorCourse_leftSide}>
