@@ -9,38 +9,52 @@ import Video from "../../../../../../assets/img/createCourse/video.svg";
 import Audio from "../../../../../../assets/img/createCourse/audio.svg";
 import Code from "../../../../../../assets/img/createCourse/code.svg";
 import {ModalTypeClasses} from "../../../../../../Components/Modal/ModalTypeClasses/ModalTypeClasses";
-import {SettingClassesUsually} from "../../../../../../Components/Modal/ModalTypeClasses/SettingClasses/SettingUsuallyClasses";
+import {
+    SettingClassesUsually
+} from "../../../../../../Components/Modal/ModalTypeClasses/UsuallyClasses/UsuallyClasses";
 import {useAppDispatch} from "../../../../../../store/redux/store";
 import {TasksModal} from "../../../../../../Components/Modal/ModalTypeClasses/TasksModal/TasksModal";
 
 export const Constructor = () => {
     const dispatch = useAppDispatch()
     const [typeClassesModal, setTypeClassesModal] = useState<boolean>(false)
-    const [openClassesUsually, setOpenClassesUsually] = useState(false)
-    const [openClassesTasks, setOpenClassesTasks] = useState(false)
+    const [activeTypeClasses, setActiveTypeClasses] = useState<null | number>(null)
+
 
     const setModalTypeClasses = () => {
         setTypeClassesModal(!typeClassesModal)
     }
 
-    const choiceClasses = () => {
-        setOpenClassesUsually(false)
-        setOpenClassesTasks(false)
+    const goToBack = () => {
         setModalTypeClasses()
-
+        setActiveTypeClasses(null)
     }
-    const addUsuallyCourse = () => {
-        setOpenClassesUsually(!openClassesUsually)
+
+    const setTypeModal = (id: number) => {
+        setActiveTypeClasses(id)
+        setModalTypeClasses()
+    }
+
+    const addCourse = () => {
+        setActiveTypeClasses(null)
         // dispatch(addUsuallyCourse())
     }
 
     return (
 
         <div className={styles.redactorCourse}>
+
             {typeClassesModal ?
-                <ModalTypeClasses choiceClasses={choiceClasses} closeModal={setModalTypeClasses}/> : null}
-            {openClassesUsually ? <SettingClassesUsually addCourse={addUsuallyCourse} goToBack={choiceClasses}/> : null}
-            <TasksModal goToBack={choiceClasses}/>
+                <ModalTypeClasses changeClasses={setTypeModal} closeModal={setModalTypeClasses}/> : null}
+
+
+            {activeTypeClasses === 0 ?
+                <SettingClassesUsually addCourse={addCourse} goToBack={goToBack}/> : null}
+
+
+            {activeTypeClasses === 1 ? <TasksModal addCourse={addCourse} goToBack={goToBack}/> : null}
+
+
             <div className={styles.redactorCourse_leftSide}>
                 <h5 className={styles.redactorCourse_leftSide_title}>Структура курса</h5>
                 <div className={styles.redactorCourse_leftSide_desc}>

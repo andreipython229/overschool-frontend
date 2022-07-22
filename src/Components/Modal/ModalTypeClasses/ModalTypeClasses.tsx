@@ -4,7 +4,7 @@ import {Button} from "../../common/Button/Button";
 
 type ModalClassesPropsT = {
     closeModal: () => void
-    choiceClasses: () => void
+    changeClasses: (id: number) => void
 }
 type ArrType = {
     id: number
@@ -34,8 +34,11 @@ const typeClasses: ArrType[] = [
     }
 ]
 
-export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal, choiceClasses}) => {
+export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal, changeClasses}) => {
         const [activeClasses, setActiveClasses] = useState<number>(0)
+        const setClassesType = (id: number) => {
+            changeClasses(id)
+        }
 
 
         return (
@@ -122,7 +125,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({closeModal, choic
                             <Button style={{width: '85px', fontSize: '14px', fontWeight: '400'}} onClick={closeModal}
                                     text={'Отмена'}/>
                             <Button style={{width: '85px', fontSize: '14px', fontWeight: '400'}} variant={'primary'}
-                                    onClick={choiceClasses}
+                                    onClick={() => setClassesType(activeClasses)}
                                     text={'Далее'}/>
                         </div>
                     </div>
