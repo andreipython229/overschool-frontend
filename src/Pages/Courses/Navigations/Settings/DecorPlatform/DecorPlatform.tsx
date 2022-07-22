@@ -1,9 +1,9 @@
 import React, {ChangeEvent, memo} from 'react';
 import styles from "../superAdmin.module.scss";
-import Cover from '../../../../assets/img/super_admin_cover.jpg'
+import Cover from '../../../../../assets/img/super_admin_cover.jpg'
 import {LogoAddBlock} from "./LogoAddBlock/LogoAddBlock";
-import {useAppDispatch} from "../../../../store/redux/store";
-import {changeFavicon, changeLogo} from "../../../../store/redux/platform/slice";
+import {useAppDispatch} from "../../../../../store/redux/store";
+import {changeFavicon, changeLogo} from "../../../../../store/redux/platform/slice";
 
 
 export const DecorPlatform = memo(() => {

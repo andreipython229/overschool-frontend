@@ -14,6 +14,7 @@ import {
 } from "../../../../../../Components/Modal/ModalTypeClasses/UsuallyClasses/UsuallyClasses";
 import {useAppDispatch} from "../../../../../../store/redux/store";
 import {TasksModal} from "../../../../../../Components/Modal/ModalTypeClasses/TasksModal/TasksModal";
+import {addClasses} from '../../../../../../store/redux/course/slice';
 
 export const Constructor = () => {
     const dispatch = useAppDispatch()
@@ -35,9 +36,9 @@ export const Constructor = () => {
         setModalTypeClasses()
     }
 
-    const addCourse = () => {
+    const addCourse = (name: string, type: string) => {
         setActiveTypeClasses(null)
-        // dispatch(addUsuallyCourse())
+        dispatch(addClasses({name, type}))
     }
 
     return (

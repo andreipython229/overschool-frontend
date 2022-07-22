@@ -8,10 +8,11 @@ import {useAppSelector} from "../../store/redux/store";
 import {Route, Routes} from 'react-router-dom';
 import {Path} from "../../enum/pathE";
 import {RedactorCourse} from "./Navigations/CoursesCreating/RedactorCourse/RedactorCourse";
+import {Settings} from "./Navigations/Settings/Settings";
 
 export const Platform = memo(() => {
 
-    const avatar = useAppSelector(state => state.user.avatar)
+    const {avatar, role} = useAppSelector(state => state.user)
     const [showModal, setShowModal] = useState<boolean>(false)
 
     const setModal = () => {
@@ -22,10 +23,14 @@ export const Platform = memo(() => {
         <div className={styles.container}>
             {showModal ? <AddCourseModal setShowModal={setModal}/> : null}
             <div>
-                <Previous avatar={avatar || noAvatar} name={'Название'}/>
+                {role !== 0 && <Previous avatar={avatar || noAvatar} name={'Название'} about={'Онлайн-обучение'}
+                                         description={'Краткое описание'}/>}
             </div>
             <Routes>
-                <Route path={'/*'} element={<CoursePage setShowModal={setModal}/>}/>
+                {role === 0
+                    ? <Route path={'/*'} element={<Settings/>}/>
+                    : <Route path={'/*'} element={<CoursePage setShowModal={setModal}/>}/>}
+
                 <Route path={Path.CreateCourse} element={<RedactorCourse/>}/>
             </Routes>
 

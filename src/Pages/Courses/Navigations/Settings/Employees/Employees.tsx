@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import styles from '../superAdmin.module.scss'
 import {Employee} from "./Employee/Employee";
-import Avatar from '../../../../assets/img/avatar.svg'
+import Avatar from '../../../../../assets/img/avatar.svg'
 
 type EmployeesPropsT = {
     setModal: () => void

@@ -2,6 +2,7 @@ import React, {FC, memo} from 'react';
 import styles from './previou.module.scss'
 import {Button} from "../../../Components/common/Button/Button";
 import {useLocation} from "react-router-dom";
+import {useAppSelector} from "../../../store/redux/store";
 
 type PreviousPropsT = {
     avatar: string
@@ -13,6 +14,7 @@ type PreviousPropsT = {
 
 export const Previous: FC<PreviousPropsT> = memo(({avatar, name, about, description}) => {
     const {pathname} = useLocation()
+    const role = useAppSelector(state => state.user.role)
 
     return (
         <div className={styles.previous}>
@@ -25,10 +27,13 @@ export const Previous: FC<PreviousPropsT> = memo(({avatar, name, about, descript
                     <p className={styles.previous_infoBlock_title_about}>{about}</p>
                 </div>
             </div>
-            {pathname.includes('courses')
+            {role === 1 && pathname.includes('course')
                 ? <div className={styles.previous_btn}>
-                    <Button variant={'primary'} style={{width: '220px', fontSize: '10px', fontWeight: '800'}}
-                            text={'Настроить страницу курсов'}/>
+                    {pathname.includes('create-course')
+                        ? <Button variant={'primary'} style={{width: '220px', fontSize: '10px', fontWeight: '800'}}
+                                  text={'Опубликовать курс'}/>
+                        : <Button variant={'primary'} style={{width: '220px', fontSize: '10px', fontWeight: '800'}}
+                                  text={'Настроить страницу курсов'}/>}
                 </div>
                 : null}
 

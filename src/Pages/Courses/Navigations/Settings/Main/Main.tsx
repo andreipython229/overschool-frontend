@@ -1,7 +1,7 @@
 import React, {memo, useState} from 'react';
 import styles from '../superAdmin.module.scss'
-import {useAppDispatch, useAppSelector} from "../../../../store/redux/store";
-import {changeProjectName} from "../../../../store/redux/platform/slice";
+import {useAppDispatch, useAppSelector} from "../../../../../store/redux/store";
+import {changeProjectName} from "../../../../../store/redux/platform/slice";
 
 export const Main = memo(() => {
     const dispatch = useAppDispatch()

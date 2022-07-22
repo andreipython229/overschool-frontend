@@ -11,7 +11,7 @@ const arrTime = ['минут', 'часов', 'дней']
 
 type TasksModalPropsT = {
     goToBack: () => void
-    addCourse: () => void
+    addCourse: (name: string, type: string) => void
 }
 export const TasksModal: FC<TasksModalPropsT> = memo(({goToBack, addCourse}) => {
     const [nameClasses, setNameClasses] = useState<string>('')
@@ -82,7 +82,8 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({goToBack, addCourse}) => 
 
                 <div className={styles.btnBlock}>
                     <Button onClick={goToBack} text={'Назад'}/>
-                    <Button onClick={() => addCourse()} text={'Добавить занятие'} variant={'primary'}/>
+                    <Button onClick={() => addCourse(nameClasses, 'task')} text={'Добавить занятие'}
+                            variant={'primary'}/>
                 </div>
             </div>
 

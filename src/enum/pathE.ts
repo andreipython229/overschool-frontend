@@ -3,7 +3,6 @@ export enum Path {
     Courses = 'courses/*',
     Profile = 'profile/',
     Settings = 'settings/*',
-    Course = 'course/',
     CreateCourse = 'create-course/*',
     Main = 'main/',
     Employees = 'employees/',
@@ -14,5 +13,6 @@ export enum Path {
 export enum createCoursePath {
     Constructor = 'constructor',
     Student = 'student',
+    Commercial = 'commercial',
     Settings = 'settings'
 }

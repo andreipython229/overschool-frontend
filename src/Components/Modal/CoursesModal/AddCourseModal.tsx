@@ -3,7 +3,7 @@ import styles from "../Modal.module.scss";
 import {Button} from "../../common/Button/Button";
 import {Input} from "../../common/Input/Input/Input";
 import {useAppDispatch} from "../../../store/redux/store";
-import {changeName} from "../../../store/redux/course/slice";
+import {changeCourseName} from "../../../store/redux/course/slice";
 import {useNavigate} from "react-router-dom";
 import {Path} from "../../../enum/pathE";
 
@@ -20,7 +20,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({setShowModal}) =>
     }
 
     const addCourseName = () => {
-        dispatch(changeName(name))
+        dispatch(changeCourseName(name))
 
         setShowModal()
         navigate(Path.CreateCourse)

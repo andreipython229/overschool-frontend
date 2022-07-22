@@ -36,7 +36,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({optionsList}) => {
                     {optionsList.map((option: any, index: number) => (
                         <li key={index} tabIndex={0}
                             role={'option'}
-                            aria-selected={selectedOption == index}
+                            aria-selected={selectedOption === index}
                             onClick={() => {
                                 setSelectedOption(index)
                                 setIsOptionsOpen(false)

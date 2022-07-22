@@ -6,7 +6,7 @@ type AuthSelectPropsT = {
 }
 
 export const AuthSelect: FC<AuthSelectPropsT> = memo(({getInputVariant}) => {
-    const [variant, setVariant] = useState<string>('phone')
+    const [variant, setVariant] = useState<string>('email')
     const [context, setContext] = useState<boolean>(false)
 
     const changeInputVariant = (variant: string) => {

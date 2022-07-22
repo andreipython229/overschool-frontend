@@ -11,6 +11,7 @@ interface UserI {
     city: string
     role: number
     authDate: string | number | null
+    password: string
 }
 
 // Define the initial state using that type
@@ -22,7 +23,8 @@ const initialState: UserI = {
     phone: '+375(**)***-**-**',
     city: 'Belarus',
     role: 1,
-    authDate: null
+    authDate: null,
+    password: ''
 }
 
 export const slice = createSlice({
@@ -41,6 +43,7 @@ export const slice = createSlice({
             state.name = action.payload.name
             state.email = action.payload.email
             state.phone = action.payload.phone
+            state.password = action.payload.password
         }
 
     },

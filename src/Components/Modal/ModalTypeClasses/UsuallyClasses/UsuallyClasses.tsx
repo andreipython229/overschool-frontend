@@ -1,16 +1,20 @@
-import React, {FC, useState} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 import styles from '../../Modal.module.scss'
 import {Input} from "../../../common/Input/Input/Input";
 import {Button} from "../../../common/Button/Button";
 
 type SettingClassesPropsType = {
     goToBack: () => void
-    addCourse: () => void
+    addCourse: (name: string, type: string) => void
 }
 
 export const SettingClassesUsually: FC<SettingClassesPropsType> = ({goToBack, addCourse}) => {
     const [nameClasses, setNameClasses] = useState<string>('')
     const [settingsActive, setSettingsActive] = useState<number>(0)
+
+    const changeNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
+        setNameClasses(event.currentTarget.value)
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -38,7 +42,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsType> = ({goToBack, ad
                     ? <div className={styles.usually_input}>
                         <span className={styles.usually_title}>Название занятие:</span>
                         <Input placeholder={'Основы языка HTML'} name={'name classes'}
-                               onChange={(e) => setNameClasses(e.targetValue.value)} type={'text'}
+                               onChange={(e) => changeNameClasses(e)} type={'text'}
                                value={nameClasses}/>
                     </div>
                     : <div>
@@ -53,7 +57,8 @@ export const SettingClassesUsually: FC<SettingClassesPropsType> = ({goToBack, ad
 
                 <div className={styles.btnBlock}>
                     <Button onClick={goToBack} text={'Назад'}/>
-                    <Button onClick={addCourse} text={'Добавить занятие'} variant={'primary'}/>
+                    <Button onClick={() => addCourse(nameClasses, 'usually')} text={'Добавить занятие'}
+                            variant={'primary'}/>
                 </div>
 
             </div>

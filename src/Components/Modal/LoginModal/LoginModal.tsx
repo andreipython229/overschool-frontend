@@ -15,13 +15,13 @@ import styles from '../Modal.module.scss'
 
 type LoginModalPropsT = {
     setShowModal: (value: boolean) => void
-    logIn: (value: string | number) => void
+    logIn: (value: string ) => void
 }
 
 export const LoginModal: FC<LoginModalPropsT> = memo(({setShowModal, logIn}) => {
     const dispatch = useAppDispatch()
     const [security, setSecurity] = useState<boolean>(true)
-    const [authVariant, setAuthVariant] = useState<string>('phone')
+    const [authVariant, setAuthVariant] = useState<string>('email')
 
     const getInputVariant = (variant: string) => {
         setAuthVariant(variant)
@@ -36,11 +36,11 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({setShowModal, logIn}) => 
         //     setError(res)
         // }
         // navigate(Paths.Login)
-        if (authVariant === 'email') {
-            values.email && logIn(values.email)
-        } else {
-            values.phone && logIn(values.phone)
-        }
+        // if (authVariant === 'email') {
+        values.email && logIn(values.email)
+        // } else {
+        //     values.phone && logIn(values.phone)
+        // }
 
         dispatch(auth(true))
     }
@@ -49,7 +49,6 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({setShowModal, logIn}) => 
         validate: values => validateLogin(values),
         initialValues: {
             email: '',
-            phone: '',
             password: '',
         },
         onSubmit: (values: LoginParamsT) => {
@@ -80,15 +79,12 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({setShowModal, logIn}) => 
                         <div className={styles.inputs_block}>
                             <div>
                                 <div style={{display: 'flex',}}>
-                                    {authVariant === 'phone'
-                                        ? <InputAuth name={'phone'} type={'tel'}
-                                                     onChange={formik.handleChange}
-                                                     value={formik.values.phone}
-                                                     placeholder={'375 29 8623027'}/>
-                                        : <InputAuth name={'email'} type={'text'}
-                                                     onChange={formik.handleChange} value={formik.values.email}
-                                                     placeholder={'Email'}/>
-                                    }
+
+                                    <InputAuth name={authVariant}
+                                               type={'text'}
+                                               onChange={formik.handleChange}
+                                               value={formik.values.email}
+                                               placeholder={authVariant}/>
                                     <AuthSelect getInputVariant={getInputVariant}/>
                                 </div>
                                 <div className={styles.errors}>{formik.errors.email}</div>
@@ -113,8 +109,6 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({setShowModal, logIn}) => 
                                 Забыли пароль?
                             </Link>
                         </div>
-
-
                     </div>
                 </form>
 
