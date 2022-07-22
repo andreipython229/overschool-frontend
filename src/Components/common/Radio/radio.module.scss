@@ -5,7 +5,7 @@
 }
 
 label {
-  color: #BA75FF;
+  color: #4D5766;
   cursor: pointer;
 }
 
@@ -18,8 +18,8 @@ label {
 .custom_radio + label::before {
   content: '';
   display: inline-block;
-  width: 19px;
-  height: 19px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
   flex-grow: 0;
   border: 1px solid #BA75FF;

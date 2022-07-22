@@ -4,16 +4,15 @@ import {Input} from "../../../common/Input/Input/Input";
 import {Checkbox} from "../../../common/Checkbox/Checkbox";
 import {SelectInput} from "../../../common/SelectInput/SelectInput";
 import {Button} from "../../../common/Button/Button";
-
-const arrNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60]
-const arrTime = ['минут', 'часов', 'дней']
+import {arrNumber, arrTime} from '../../../../utils';
 
 
 type TasksModalPropsT = {
     goToBack: () => void
     addCourse: (name: string, type: string) => void
+    closedAll: () => void
 }
-export const TasksModal: FC<TasksModalPropsT> = memo(({goToBack, addCourse}) => {
+export const TasksModal: FC<TasksModalPropsT> = memo(({goToBack, addCourse, closedAll}) => {
     const [nameClasses, setNameClasses] = useState<string>('')
     const [settingsActive, setSettingsActive] = useState<number>(0)
     const [checkbox, setCheckbox] = useState<boolean>(false)
@@ -21,6 +20,13 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({goToBack, addCourse}) => 
     return (
         <div className={styles.wrapper}>
             <div className={styles.classesContainer}>
+                <div onClick={closedAll} className={styles.classesContainer_closed}>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.3125 12.6875L12.6875 1.3125M12.6875 12.6875L1.3125 1.3125" stroke="#E0DCED"
+                              strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                </div>
                 <div className={styles.tasks}>
                     <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path

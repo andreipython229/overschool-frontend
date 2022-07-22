@@ -8,9 +8,10 @@ import {Radio} from "../../../common/Radio/Radio";
 type TestModalPropsT = {
     goToBack: () => void
     addCourse: (name: string, type: string) => void
+    closedAll: () => void
 }
 
-export const TestModal: FC<TestModalPropsT> = ({goToBack, addCourse}) => {
+export const TestModal: FC<TestModalPropsT> = ({goToBack, addCourse, closedAll}) => {
 
     const [nameClasses, setNameClasses] = useState<string>('')
     const [percent, setPercent] = useState<string>('60')
@@ -25,7 +26,6 @@ export const TestModal: FC<TestModalPropsT> = ({goToBack, addCourse}) => {
         setAttempts(event.currentTarget.value)
     }
 
-
     const changeName = (event: ChangeEvent<HTMLInputElement>) => {
         setNameClasses(event.currentTarget.value)
     }
@@ -34,7 +34,15 @@ export const TestModal: FC<TestModalPropsT> = ({goToBack, addCourse}) => {
     }
     return (
         <div className={styles.wrapper}>
+
             <div className={styles.classesContainer}>
+                <div onClick={closedAll} className={styles.classesContainer_closed}>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.3125 12.6875L12.6875 1.3125M12.6875 12.6875L1.3125 1.3125" stroke="#E0DCED"
+                              strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                </div>
                 <div className={styles.test}>
                     <svg width="47" height="63" viewBox="0 0 47 63" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -132,7 +140,7 @@ export const TestModal: FC<TestModalPropsT> = ({goToBack, addCourse}) => {
                             </div>
                         </div>
                         <div>
-                            <Radio title={'За каждый правильный ответ'} id={'success'}/>
+                            <Radio title={'За каждый правильный ответ'} id={'notSuccess'}/>
                             <div className={styles.test_grade_radio_input}>
                                 <input type={'number'} placeholder={'0'} className={styles.usually_grade_points}/>
                                 <span>баллов</span>
@@ -141,7 +149,6 @@ export const TestModal: FC<TestModalPropsT> = ({goToBack, addCourse}) => {
                     </div>
 
                 }
-
 
                 <div className={styles.btnBlock}>
                     <Button onClick={goToBack} text={'Назад'}/>

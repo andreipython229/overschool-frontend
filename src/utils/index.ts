@@ -1,0 +1,1 @@
+export {arrNumber, arrTime} from './other'

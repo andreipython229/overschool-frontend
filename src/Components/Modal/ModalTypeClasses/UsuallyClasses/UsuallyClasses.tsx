@@ -6,9 +6,10 @@ import {Button} from "../../../common/Button/Button";
 type SettingClassesPropsType = {
     goToBack: () => void
     addCourse: (name: string, type: string) => void
+    closedAll: () => void
 }
 
-export const SettingClassesUsually: FC<SettingClassesPropsType> = ({goToBack, addCourse}) => {
+export const SettingClassesUsually: FC<SettingClassesPropsType> = ({goToBack, addCourse, closedAll}) => {
     const [nameClasses, setNameClasses] = useState<string>('')
     const [settingsActive, setSettingsActive] = useState<number>(0)
 
@@ -19,6 +20,13 @@ export const SettingClassesUsually: FC<SettingClassesPropsType> = ({goToBack, ad
     return (
         <div className={styles.wrapper}>
             <div className={styles.classesContainer}>
+                <div onClick={closedAll} className={styles.classesContainer_closed}>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.3125 12.6875L12.6875 1.3125M12.6875 12.6875L1.3125 1.3125" stroke="#E0DCED"
+                              strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                </div>
                 <div className={styles.usually_header}>
                     <svg width="60" height="53" viewBox="0 0 60 53" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path

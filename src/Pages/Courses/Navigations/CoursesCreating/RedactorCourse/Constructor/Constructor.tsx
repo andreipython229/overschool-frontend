@@ -16,6 +16,7 @@ import {useAppDispatch} from "../../../../../../store/redux/store";
 import {TasksModal} from "../../../../../../Components/Modal/ModalTypeClasses/TasksModal/TasksModal";
 import {addClasses} from '../../../../../../store/redux/course/slice';
 import {TestModal} from "../../../../../../Components/Modal/ModalTypeClasses/TestModal/TestModal";
+import {WebinarModal} from "../../../../../../Components/Modal/ModalTypeClasses/WebinarModal/WebinarModal";
 
 export const Constructor = () => {
     const dispatch = useAppDispatch()
@@ -32,6 +33,10 @@ export const Constructor = () => {
         setActiveTypeClasses(null)
     }
 
+    const closedAllModal = () => {
+        setActiveTypeClasses(null)
+    }
+
     const setTypeModal = (id: number) => {
         setActiveTypeClasses(id)
         setModalTypeClasses()
@@ -42,18 +47,22 @@ export const Constructor = () => {
         dispatch(addClasses({name, type}))
     }
 
+
     return (
 
         <div className={styles.redactorCourse}>
 
             {typeClassesModal && <ModalTypeClasses changeClasses={setTypeModal} closeModal={setModalTypeClasses}/>}
 
-            {activeTypeClasses === 0 && <SettingClassesUsually addCourse={addCourse} goToBack={goToBack}/>}
+            {activeTypeClasses === 0 &&
+                <SettingClassesUsually closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack}/>}
 
-            {activeTypeClasses === 1 && <TasksModal addCourse={addCourse} goToBack={goToBack}/>}
+            {activeTypeClasses === 1 &&
+                <TasksModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack}/>}
 
-            {activeTypeClasses === 2 && <TestModal goToBack={goToBack} addCourse={addCourse}/>}
-
+            {activeTypeClasses === 2 &&
+                <TestModal closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse}/>}
+            {activeTypeClasses === 3 && <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack}/>}
 
             <div className={styles.redactorCourse_leftSide}>
                 <h5 className={styles.redactorCourse_leftSide_title}>Структура курса</h5>

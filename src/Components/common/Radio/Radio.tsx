@@ -8,7 +8,7 @@ type RadioPropsT = {
 
 export const Radio: FC<RadioPropsT> = ({title, id}) => {
     return (
-        <div>
+        <div style={{display: 'flex', alignItems: 'center'}}>
             <input name={id} id={id} className={styles.custom_radio} type="radio"/>
             <label htmlFor={id}>{title}</label>
         </div>
