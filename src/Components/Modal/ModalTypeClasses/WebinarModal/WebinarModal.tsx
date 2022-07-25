@@ -16,7 +16,10 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({goToBack, addCourse, close
     const [settingsActive, setSettingsActive] = useState<number>(0)
     const [nameClasses, setNameClasses] = useState<string>('')
     const [reminderForStudent, setReminderForStudent] = useState<boolean>(false)
+    const [secondReminderForStudent, setSecondReminderForStudent] = useState<boolean>(false)
     const [reminderForEmployees, setReminderForEmployees] = useState<boolean>(false)
+    const [secondReminderForEmployees, setSecondReminderForEmployees] = useState<boolean>(false)
+
 
     const changeName = (event: ChangeEvent<HTMLInputElement>) => {
         setNameClasses(event.currentTarget.value)
@@ -80,7 +83,23 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({goToBack, addCourse, close
                                 </div>
                                 <span className={styles.tasks_credit_desc}>до начала</span>
                             </div>
-                            <div className={styles.webinar_addReminder}>+ Добавить ещё одно напоминание</div>
+
+                            <div className={styles.webinar_addReminder}
+                                 onClick={() => setSecondReminderForStudent(!secondReminderForStudent)}>
+                                {secondReminderForStudent
+                                    ? <span style={{color: '#FF0000'}}>Отключить дополнительное напоминание</span>
+                                    : <span>+ Добавить ещё одно напоминание </span>}
+                            </div>
+
+                            {secondReminderForStudent && <div className={styles.tasks_credit}>
+                                <span className={styles.tasks_credit_desc}>Напомнить о вебинаре за</span>
+                                <div className={styles.tasks_credit_select}>
+                                    <SelectInput optionsList={arrNumber}/>
+                                    <SelectInput optionsList={arrTime}/>
+                                </div>
+                                <span className={styles.tasks_credit_desc}>до начала</span>
+                            </div>
+                            }
 
 
                             <div className={styles.webinar_checkbox}>
@@ -101,7 +120,24 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({goToBack, addCourse, close
                                 </div>
                                 <span className={styles.tasks_credit_desc}>до начала</span>
                             </div>
-                            <div className={styles.webinar_addReminder}>+ Добавить ещё одно напоминание</div>
+
+                            <div className={styles.webinar_addReminder}
+                                 onClick={() => setSecondReminderForEmployees(!secondReminderForEmployees)}>
+                                {secondReminderForEmployees
+                                    ? <span style={{color: '#FF0000'}}>Отключить дополнительное напоминание</span>
+                                    : <span>+ Добавить ещё одно напоминание </span>}
+                            </div>
+
+                            {secondReminderForEmployees && <div className={styles.tasks_credit}>
+                                <span className={styles.tasks_credit_desc}>Напомнить о вебинаре за</span>
+                                <div className={styles.tasks_credit_select}>
+                                    <SelectInput optionsList={arrNumber}/>
+                                    <SelectInput optionsList={arrTime}/>
+                                </div>
+                                <span className={styles.tasks_credit_desc}>до начала</span>
+                            </div>
+                            }
+
                         </div>
                         <div style={{marginTop: '15px'}} className={styles.usually_input}>
                             <span className={styles.usually_title}>Ответственные сотрудники:</span>

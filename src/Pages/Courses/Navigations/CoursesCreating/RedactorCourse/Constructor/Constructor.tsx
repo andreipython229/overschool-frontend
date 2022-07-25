@@ -8,15 +8,15 @@ import Text from "../../../../../../assets/img/createCourse/text.svg";
 import Video from "../../../../../../assets/img/createCourse/video.svg";
 import Audio from "../../../../../../assets/img/createCourse/audio.svg";
 import Code from "../../../../../../assets/img/createCourse/code.svg";
-import {ModalTypeClasses} from "../../../../../../Components/Modal/ModalTypeClasses/ModalTypeClasses";
+import {ModalTypeClasses} from "../../../../../../Components/Modal";
 import {
     SettingClassesUsually
-} from "../../../../../../Components/Modal/ModalTypeClasses/UsuallyClasses/UsuallyClasses";
+} from "../../../../../../Components/Modal";
 import {useAppDispatch} from "../../../../../../store/redux/store";
-import {TasksModal} from "../../../../../../Components/Modal/ModalTypeClasses/TasksModal/TasksModal";
+import {TasksModal} from "../../../../../../Components/Modal";
 import {addClasses} from '../../../../../../store/redux/course/slice';
-import {TestModal} from "../../../../../../Components/Modal/ModalTypeClasses/TestModal/TestModal";
-import {WebinarModal} from "../../../../../../Components/Modal/ModalTypeClasses/WebinarModal/WebinarModal";
+import {TestModal} from "../../../../../../Components/Modal";
+import {WebinarModal} from "../../../../../../Components/Modal";
 
 export const Constructor = () => {
     const dispatch = useAppDispatch()
@@ -46,7 +46,6 @@ export const Constructor = () => {
         setActiveTypeClasses(null)
         dispatch(addClasses({name, type}))
     }
-
 
     return (
 

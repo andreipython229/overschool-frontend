@@ -17,7 +17,8 @@ export const SelectInput: FC<SelectInputPropsT> = ({optionsList}) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <svg style={{transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}`}} width="14" height="8"
+                <svg onClick={() => setIsOptionsOpen(!selectedOption)}
+                     style={{transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}`}} width="14" height="8"
                      viewBox="0 0 14 8"
                      fill="none"
                      xmlns="http://www.w3.org/2000/svg">

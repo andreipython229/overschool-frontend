@@ -47,7 +47,7 @@ button:hover {
 .options {
   border: 1px solid #E5E7EB;
   border-radius: 7px;
-  height: auto;
+  height: 160px;
   width: 99%;
   background: #FFFFFF;
   display: none;
@@ -58,9 +58,11 @@ button:hover {
   top: 40px;
   left: 0;
   z-index: 30;
+  overflow: scroll;
 
 }
 
 .show {
   display: block;
+  overflow: scroll;
 }

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, memo, useState} from 'react';
+import React, {ChangeEvent, FC, Key, memo, useState} from 'react';
 import styles from "../Modal.module.scss";
 import {Button} from "../../common/Button/Button";
 import {Input} from "../../common/Input/Input/Input";
@@ -20,18 +20,18 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({setShowModal}) =>
     }
 
     const addCourseName = () => {
-        dispatch(changeCourseName(name))
-
-        setShowModal()
-        navigate(Path.CreateCourse)
-
+        if (name) {
+            dispatch(changeCourseName(name))
+            setShowModal()
+            navigate(Path.CreateCourse)
+        }
     }
+
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.mainCourse}>
                 <div className={styles.mainCourse_container}>
-
                     <div className={styles.mainCourse_closed} onClick={setShowModal}>
                         <svg width="14" height="14"
                              viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">

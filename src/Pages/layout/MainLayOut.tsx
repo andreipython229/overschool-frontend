@@ -3,7 +3,6 @@ import {Outlet} from 'react-router-dom';
 import {Header} from "../../Components/Header/Header";
 import {Navbar} from "../../Components/Navbar/Navbar";
 import styles from './mainLayOut.module.scss'
-import {Platform} from "../Courses/Platform";
 
 
 export const MainLayOut: FC = memo(() => {
