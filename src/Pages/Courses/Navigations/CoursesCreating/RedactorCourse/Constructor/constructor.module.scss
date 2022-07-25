@@ -58,8 +58,40 @@
       &_btnBlock {
         display: flex;
 
-        & div:nth-child(2) {
+        &_setting {
+          height: 36px;
+          border: none;
+          display: flex;
+          text-align: center;
+          align-items: center;
+          background: #F3F4F6;
+          font-size: 12px;
+          color: #6B728F;
+          border-radius: 6px;
+
+          & svg {
+            margin-right: 5px;
+          }
+
+        }
+
+        &_delete {
+          padding: 11px 0;
+          border-radius: 6px;
+          border: none;
+          width: 50px;
+          height: 36px;
+          background: #FEF2F2;
+          display: flex;
+          align-items: center;
+          text-align: center;
           margin-left: 16px;
+
+          & svg {
+            margin: 0 auto;
+            height: 17px;
+            width: 17px;
+          }
         }
       }
     }
@@ -71,6 +103,44 @@
 
     &_functional {
       margin-top: 70px;
+
+      &_addContent {
+        width: 100%;
+        background: #FFFFFF;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        height: 254px;
+        border: 2px dashed #EBEEF5;
+        border-radius: 7px;
+
+        & svg {
+          margin-bottom: 8px;
+        }
+
+        & span {
+          margin-bottom: 32px;
+          font-size: 16px;
+          color: $font-title;
+          font-weight: 600;
+        }
+
+      }
+
+      &_blackBlock {
+        background: #1D262F;
+        width: 100%;
+        height: 138px;
+        border-radius: 7px;
+        margin-bottom: 48px;
+
+        &_select {
+          width: 176px;
+          padding: 8px 0 0 36px;
+        }
+      }
 
       &_content {
         display: flex;

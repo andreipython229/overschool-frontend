@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, Key, memo, useState} from 'react';
+import React, {ChangeEvent, FC, memo, useState} from 'react';
 import styles from "../Modal.module.scss";
 import {Button} from "../../common/Button/Button";
 import {Input} from "../../common/Input/Input/Input";
@@ -27,7 +27,6 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({setShowModal}) =>
         }
     }
 
-
     return (
         <div className={styles.wrapper}>
             <div className={styles.mainCourse}>
@@ -43,7 +42,8 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({setShowModal}) =>
                     <div className={styles.mainCourse_title}>Созданием курса</div>
 
                     <div className={styles.mainCourse_input}>
-                        <Input style={{width: '280px'}} label={'Введите название курса:'} name={'course'} type={'text'}
+                        <Input style={{width: '280px'}} label={'Введите название курса:'}
+                               placeholder={'Введите название курса'} name={'course'} type={'text'}
                                onChange={(e) => nameCourse(e)} value={name}/>
                     </div>
 

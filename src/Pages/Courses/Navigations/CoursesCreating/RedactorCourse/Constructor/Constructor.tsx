@@ -2,12 +2,6 @@ import React, {useState} from 'react';
 import styles from "./constructor.module.scss";
 import Lesson from "../../../../../../assets/img/createCourse/lesson.svg";
 import {Button} from "../../../../../../Components/common/Button/Button";
-import {Toggle} from "@skbkontur/react-ui";
-import {ContentBtn} from "../ContentBtn/ContentBtn";
-import Text from "../../../../../../assets/img/createCourse/text.svg";
-import Video from "../../../../../../assets/img/createCourse/video.svg";
-import Audio from "../../../../../../assets/img/createCourse/audio.svg";
-import Code from "../../../../../../assets/img/createCourse/code.svg";
 import {ModalTypeClasses} from "../../../../../../Components/Modal";
 import {
     SettingClassesUsually
@@ -17,12 +11,13 @@ import {TasksModal} from "../../../../../../Components/Modal";
 import {addClasses} from '../../../../../../store/redux/course/slice';
 import {TestModal} from "../../../../../../Components/Modal";
 import {WebinarModal} from "../../../../../../Components/Modal";
+import {ClassesSettings} from "./ClassesSettings/ClassesSettings";
 
 export const Constructor = () => {
+
     const dispatch = useAppDispatch()
     const [typeClassesModal, setTypeClassesModal] = useState<boolean>(false)
     const [activeTypeClasses, setActiveTypeClasses] = useState<null | number>(null)
-
 
     const setModalTypeClasses = () => {
         setTypeClassesModal(!typeClassesModal)
@@ -61,7 +56,8 @@ export const Constructor = () => {
 
             {activeTypeClasses === 2 &&
                 <TestModal closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse}/>}
-            {activeTypeClasses === 3 && <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack}/>}
+            {activeTypeClasses === 3 &&
+                <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack}/>}
 
             <div className={styles.redactorCourse_leftSide}>
                 <h5 className={styles.redactorCourse_leftSide_title}>Структура курса</h5>
@@ -76,39 +72,7 @@ export const Constructor = () => {
                     <Button style={{width: '236px'}} text={'+ Модуль'} variant={'primary'}/>
                 </div>
             </div>
-            <div className={styles.redactorCourse_rightSide}>
-                <div className={styles.redactorCourse_rightSide_header}>
-                    <span className={styles.redactorCourse_rightSide_title}>Первый урок</span>
-                    <div className={styles.redactorCourse_rightSide_header_btnBlock}>
-                        <Button text={' Настройки'}/> <Button text={'delete'}/>
-                    </div>
-                </div>
-                <div className={styles.redactorCourse_rightSide_functional}>
-                    <div className={styles.redactorCourse_rightSide_functional_content}>
-                        <span className={styles.redactorCourse_rightSide_title}>Содержание занятия</span>
-                        <div>
-                                <span
-                                    className={styles.redactorCourse_rightSide_functional_content_preview}>Предпросмотр</span>
-                            <Toggle/>
-                        </div>
-                    </div>
-                    <section className={styles.redactorCourse_rightSide_functional_creating}>
-                        <div className={styles.redactorCourse_rightSide_functional_creating_title}>Добавить
-                            контент
-                        </div>
-                        <div className={styles.redactorCourse_rightSide_functional_creating_function}>
-                            <ContentBtn text={'Текс'} alt={'Add text for lesson'} src={Text}/>
-                            <ContentBtn text={'Видео'} alt={'Add video for lesson'} src={Video}/>
-                            <ContentBtn text={'Аудио'} alt={'Add audio for lesson'} src={Audio}/>
-                            <ContentBtn text={'Код'} alt={'Add code for lesson'} src={Code}/>
-                        </div>
-                    </section>
-                    <span className={styles.redactorCourse_rightSide_title}>Прикреплённые файлы</span>
-                    <Button style={{marginTop: '16px', marginBottom: '8px'}} text={'Прикрепить файлы'}/>
-                    <span
-                        className={styles.redactorCourse_rightSide_desc}>Любые файлы размером не более 2 гигабайта</span>
-                </div>
-            </div>
+            <ClassesSettings/>
         </div>
     );
 };
