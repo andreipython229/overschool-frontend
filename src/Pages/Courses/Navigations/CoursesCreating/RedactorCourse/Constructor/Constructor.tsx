@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import styles from "./constructor.module.scss";
 import Lesson from "../../../../../../assets/img/createCourse/lesson.svg";
-import {Button} from "../../../../../../Components/common/Button/Button";
-import {ModalTypeClasses} from "../../../../../../Components/Modal";
+import {Button} from "Components/common/Button/Button";
+import {ModalTypeClasses} from "Components/Modal";
 import {
     SettingClassesUsually
-} from "../../../../../../Components/Modal";
-import {useAppDispatch} from "../../../../../../store/redux/store";
-import {TasksModal} from "../../../../../../Components/Modal";
-import {addClasses} from '../../../../../../store/redux/course/slice';
-import {TestModal} from "../../../../../../Components/Modal";
-import {WebinarModal} from "../../../../../../Components/Modal";
+} from "Components/Modal";
+import {useAppDispatch} from "store/redux/store";
+import {TasksModal} from "Components/Modal";
+import {addClasses} from 'store/redux/course/slice';
+import {TestModal} from "Components/Modal";
+import {WebinarModal} from "Components/Modal";
 import {ClassesSettings} from "./ClassesSettings/ClassesSettings";
 
 export const Constructor = () => {

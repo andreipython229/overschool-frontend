@@ -4,7 +4,6 @@ import {Header} from "../../Components/Header/Header";
 import {Navbar} from "../../Components/Navbar/Navbar";
 import styles from './mainLayOut.module.scss'
 
-
 export const MainLayOut: FC = memo(() => {
     return (
         <div className={styles.wrapper}>

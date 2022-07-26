@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, DragEvent, ChangeEvent} from 'react';
 
 import styles from "../constructor.module.scss";
 
@@ -8,11 +8,74 @@ import Text from "../../../../../../../assets/img/createCourse/text.svg";
 import Video from "../../../../../../../assets/img/createCourse/video.svg";
 import Audio from "../../../../../../../assets/img/createCourse/audio.svg";
 import Code from "../../../../../../../assets/img/createCourse/code.svg";
-import {Button} from "../../../../../../../Components/common/Button/Button";
-import {SelectInput} from "../../../../../../../Components/common/SelectInput/SelectInput";
-import {programLanguage} from '../../../../../../../utils/other';
+import {Button} from "Components/common/Button/Button";
+import {SelectInput} from "Components/common/SelectInput/SelectInput";
+import {programLanguage} from 'utils/other';
 
 export const ClassesSettings = () => {
+    const [dragVideo, setDragVideo] = useState(false)
+    const [dragAudio, setDragAudio] = useState(false)
+
+    //Драг энд дроп функции
+
+    const dragStartVideoHandler = (e: DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        setDragVideo(true)
+    }
+
+    const dragLeaveVideoHandler = (e: DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        setDragVideo(false)
+    }
+
+    const onDropVideoHandler = (e: DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        let files = [...e.dataTransfer.files]
+        console.log(files)
+        const formData = new FormData()
+        for (let i = 0; i < files.length; i++) {
+            formData.append(`list_${i}`, files[i])
+        }
+        setDragVideo(false)
+        //axios.post('url', formData, options)
+    }
+
+    const dragStartAudioHandler = (e: DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        setDragAudio(true)
+    }
+
+    const dragLeaveAudioHandler = (e: DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        setDragAudio(false)
+    }
+
+    const onDropAudioHandler = (e: DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        let files = [...e.dataTransfer.files]
+        console.log(files)
+        const formData = new FormData()
+        for (let i = 0; i < files.length; i++) {
+            formData.append(`list_${i}`, files[i])
+        }
+        setDragAudio(false)
+        //axios.post('url', formData, options)
+    }
+
+    const onAddVideoFile = (e: ChangeEvent<HTMLInputElement>): void => {
+        if (e.target.files) {
+            const index = 0
+            const reader = new FileReader()
+            reader.readAsDataURL(e.target.files[index])
+            reader.onloadend = event => {
+                if (typeof event?.target?.result === 'string') {
+                    // changeUserAvatar(event?.target?.result)
+                }
+            }
+        }
+    }
+    const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
+    const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
     return (
         <div className={styles.redactorCourse_rightSide}>
             <div className={styles.redactorCourse_rightSide_header}>
@@ -46,7 +109,13 @@ export const ClassesSettings = () => {
                 </div>
 
                 <section style={{marginBottom: '48px'}}>
-                    <div className={styles.redactorCourse_rightSide_functional_addContent}>
+                    <div onDragStart={(e) => dragStartVideoHandler(e)}
+                         onDragLeave={(e) => dragLeaveVideoHandler(e)}
+                         onDragOver={(e) => dragStartVideoHandler(e)}
+                         onDrop={(e) => onDropVideoHandler(e)}
+                         className={dragVideo
+                             ? stylesOnDrop
+                             : stylesNoDrop}>
                         <svg width="83" height="84" viewBox="0 0 83 84" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M52.8984 41.4416C53.5651 41.8265 53.5651 42.7888 52.8984 43.1737L37.7665 51.9101C37.0999 52.295 36.2665 51.8139 36.2665 51.0441V33.5713C36.2665 32.8015 37.0999 32.3203 37.7665 32.7052L52.8984 41.4416Z"
@@ -62,8 +131,14 @@ export const ClassesSettings = () => {
                     <div></div>
                     <div></div>
                 </section>
+
+
                 <section style={{marginBottom: '48px'}}>
-                    <div className={styles.redactorCourse_rightSide_functional_addContent}>
+                    <div onDragStart={(e) => dragStartAudioHandler(e)}
+                         onDragLeave={(e) => dragLeaveAudioHandler(e)}
+                         onDragOver={(e) => dragStartAudioHandler(e)}
+                         onDrop={(e) => onDropAudioHandler(e)}
+                         className={dragAudio ? stylesOnDrop : stylesNoDrop}>
                         <svg style={{marginBottom: '38px'}} width="64" height="55" viewBox="0 0 64 55" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
                             <rect x="19.7998" width="4.4" height="55" rx="1" fill="#BA75FF"/>
