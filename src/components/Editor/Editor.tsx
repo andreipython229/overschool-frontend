@@ -82,7 +82,45 @@ export const MyEditor = () => {
             </svg>
             , style: "code-block"
         },
+        {
+            label: <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M2.375 7.7125L4.125 5.9625L8.9375 10.775L12 7.7125L14.625 10.3375V2.375H2.375V7.7125ZM1.5 0.625H15.5C15.7321 0.625 15.9546 0.717187 16.1187 0.881282C16.2828 1.04538 16.375 1.26794 16.375 1.5V15.5C16.375 15.7321 16.2828 15.9546 16.1187 16.1187C15.9546 16.2828 15.7321 16.375 15.5 16.375H1.5C1.26794 16.375 1.04538 16.2828 0.881282 16.1187C0.717187 15.9546 0.625 15.7321 0.625 15.5V1.5C0.625 1.26794 0.717187 1.04538 0.881282 0.881282C1.04538 0.717187 1.26794 0.625 1.5 0.625ZM11.5625 6.75C11.2144 6.75 10.8806 6.61172 10.6344 6.36558C10.3883 6.11944 10.25 5.7856 10.25 5.4375C10.25 5.0894 10.3883 4.75556 10.6344 4.50942C10.8806 4.26328 11.2144 4.125 11.5625 4.125C11.9106 4.125 12.2444 4.26328 12.4906 4.50942C12.7367 4.75556 12.875 5.0894 12.875 5.4375C12.875 5.7856 12.7367 6.11944 12.4906 6.36558C12.2444 6.61172 11.9106 6.75 11.5625 6.75Z"
+                    fill="#03053D"/>
+            </svg>
+            , style: 'IMAGE'
+        },
     ];
+
+    const Image = (props: any) => {
+        return <img src={props.src} className={styles.media} alt={'content'}/>;
+    };
+
+    const Media = (props: any) => {
+        const entity = props.contentState.getEntity(
+            props.block.getEntityAt(0)
+        );
+        const {src} = entity.getData();
+        const type = entity.getType();
+
+        let media;
+        if (type === 'image') {
+            media = <Image src={src}/>;
+        }
+
+        return media;
+    };
+
+    function mediaBlockRenderer(block: any) {
+        if (block.getType() === 'atomic') {
+            return {
+                component: Media,
+                editable: false,
+            };
+        }
+
+        return null;
+    }
 
     const BlockStyleControls = (props: any) => {
         return (
@@ -99,27 +137,27 @@ export const MyEditor = () => {
         );
     };
 
-    const INLINE_STYLES = [
-        // {label: "Bold", style: "BOLD"},
-        // {label: "Italic", style: "ITALIC"},
-        {label: "Underline", style: "UNDERLINE"},
-        {label: "Monospace", style: "CODE"}
-    ];
+    // const INLINE_STYLES = [
+    //     {label: "Bold", style: "BOLD"},
+    //     {label: "Italic", style: "ITALIC"},
+    //     {label: "Underline", style: "UNDERLINE"},
+    //     {label: "Monospace", style: "CODE"}
+    // ];
 
-    const InlineStyleControls = (props: any) => {
-        return (
-            <div>
-                {INLINE_STYLES.map((type) => (
-                    <StyleButton
-                        key={type.label}
-                        label={type.label}
-                        onToggle={props.onToggle}
-                        style={type.style}
-                    />
-                ))}
-            </div>
-        );
-    };
+    // const InlineStyleControls = (props: any) => {
+    //     return (
+    //         <div>
+    //             {INLINE_STYLES.map((type) => (
+    //                 <StyleButton
+    //                     key={type.label}
+    //                     label={type.label}
+    //                     onToggle={props.onToggle}
+    //                     style={type.style}
+    //                 />
+    //             ))}
+    //         </div>
+    //     );
+    // };
 
     const onInlineClick = (e: string) => {
         let nextState = RichUtils.toggleInlineStyle(editorState, e);
@@ -135,12 +173,13 @@ export const MyEditor = () => {
         <div className={styles.editor} onClick={focusEditor}>
             <div className={styles.editor_panel}>
                 <BlockStyleControls onToggle={onBlockClick}/>
-                <InlineStyleControls onToggle={onInlineClick}/>
+                {/*<InlineStyleControls onToggle={onInlineClick}/>*/}
             </div>
             <div className={styles.editor_table}>
                 <Editor
                     placeholder={'Введите текст'}
                     ref={editor}
+                    blockRendererFn={mediaBlockRenderer}
                     editorState={editorState}
                     onChange={(editorState) => setEditorState(editorState)}
                 />
