@@ -1,9 +1,9 @@
 import React, {ChangeEvent, memo, useState} from 'react';
 
 import styles from './profile.module.scss'
-import {Input} from "../../Components/common/Input/Input/Input";
-import {Button} from "../../Components/common/Button/Button";
-import {useAppDispatch, useAppSelector} from "../../store/redux/store";
+import {Input} from "components/common/Input/Input/Input";
+import {Button} from "components/common/Button/Button";
+import {useAppDispatch, useAppSelector} from "store/redux/store";
 import {AboutUser} from "./AboutUser/AboutUser";
 import {Toggle} from "@skbkontur/react-ui/index";
 import noAvatar from '../../assets/img/noAvatar.svg'

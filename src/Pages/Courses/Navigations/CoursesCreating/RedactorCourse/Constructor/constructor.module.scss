@@ -44,6 +44,7 @@
   &_rightSide {
     background: #FFFFFF;
     padding: 36px 45px 56px 45px;
+    margin-bottom: 30px;
     border-radius: 10px;
     width: 100%;
     box-shadow: $box-shadow;
@@ -105,7 +106,7 @@
       margin-top: 70px;
 
       &_addContent {
-        width: 100%;
+        width: 99%;
         background: #FFFFFF;
         display: flex;
         justify-content: center;
@@ -115,6 +116,41 @@
         height: 254px;
         border: 2px dashed #EBEEF5;
         border-radius: 7px;
+        position: relative;
+
+        & input {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 2;
+          opacity: 0;
+          cursor: pointer;
+        }
+
+        &_navBlock {
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          right: -45px;
+          top: 50px;
+          z-index: 2;
+
+
+          &_div {
+            background: #F3F4F6;
+            border: none;
+            border-radius: 7px;
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+          }
+        }
 
         & svg {
           margin-bottom: 8px;
@@ -127,6 +163,10 @@
           font-weight: 600;
         }
 
+      }
+
+      &_addDragContent {
+        border: 2px dashed #939394;
       }
 
       &_blackBlock {

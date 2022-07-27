@@ -1,6 +1,6 @@
 import React, {FC, memo, useState} from 'react';
 import styles from '../Modal.module.scss'
-import {Button} from "../../common/Button/Button";
+import {Button} from "components/common/Button/Button";
 
 type ModalClassesPropsT = {
     closeModal: () => void

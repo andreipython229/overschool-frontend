@@ -4,7 +4,8 @@ import {Input} from "../../../common/Input/Input/Input";
 import {Checkbox} from "../../../common/Checkbox/Checkbox";
 import {SelectInput} from "../../../common/SelectInput/SelectInput";
 import {Button} from "../../../common/Button/Button";
-import {arrNumber, arrTime} from '../../../../utils';
+import {arrNumber, arrTime} from 'utils';
+import {MyEditor} from "components/Editor/Editor";
 
 
 type TasksModalPropsT = {
@@ -75,7 +76,11 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({goToBack, addCourse, clos
                             </div>
                             <span className={styles.tasks_credit_desc}>после отправки</span>
                         </div>
-                        {/*Сделать текстовый редактор*/}
+                        <div className={styles.tasks_editor}>
+                            <span className={styles.tasks_editor_desc}>Сообщение, которое будет автоматически отправлено ученику после принятия работы:</span>
+                            <MyEditor/>
+
+                        </div>
                     </>
                     : <div>
                         <span className={styles.usually_title}>Сколько баллов будет выдано ученику по завершению занятия:</span>

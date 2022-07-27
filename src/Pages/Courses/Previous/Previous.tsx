@@ -1,6 +1,6 @@
 import React, {FC, memo} from 'react';
 import styles from './previou.module.scss'
-import {Button} from "../../../Components/common/Button/Button";
+import {Button} from "../../../components/common/Button/Button";
 import {useLocation} from "react-router-dom";
 import {useAppSelector} from "../../../store/redux/store";
 

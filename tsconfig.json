@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
+        "esnext"
+      ],
+      "allowJs": true,
+      "baseUrl": "src",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -22,5 +23,5 @@
   },
   "include": [
     "src"
-  ]
+  ],
 }

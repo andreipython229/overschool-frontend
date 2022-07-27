@@ -1,9 +1,9 @@
 import React, {FC, memo} from 'react';
 import styles from '../Modal.module.scss'
-import {Button} from "../../common/Button/Button";
-import {Radio} from "../../common/Radio/Radio";
-import {useAppSelector} from "../../../store/redux/store";
-import {RoleE} from "../../../enum/roleE";
+import {Button} from "components/common/Button/Button";
+import {Radio} from "components/common/Radio/Radio";
+import {useAppSelector} from "store/redux/store";
+import {RoleE} from "enum/roleE";
 import {Checkbox} from "../../common/Checkbox/Checkbox";
 
 type AddEmployeeModalPropsT = {

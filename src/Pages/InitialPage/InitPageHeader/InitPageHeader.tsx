@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
 import styles from "../initialPage.module.scss";
 import Logotype from "../../../assets/img/logotype.svg";
-import {Button} from "../../../Components/common/Button/Button";
+import {Button} from "../../../components/common/Button/Button";
 import {useAppSelector} from "../../../store/redux/store";
 import {Link} from "react-router-dom";
 import {Path} from "../../../enum/pathE";

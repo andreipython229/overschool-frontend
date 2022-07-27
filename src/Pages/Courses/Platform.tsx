@@ -1,7 +1,7 @@
 import React, {memo, useState} from 'react';
 import styles from './courses.module.scss'
 import {CoursePage} from "./Navigations/CoursesCreating/CoursePage/CoursePage";
-import {AddCourseModal} from "../../Components/Modal/CoursesModal/AddCourseModal";
+import {AddCourseModal} from "../../components/Modal/CoursesModal/AddCourseModal";
 import {Previous} from "./Previous/Previous";
 import noAvatar from "../../assets/img/noAvatar.svg";
 import {useAppSelector} from "../../store/redux/store";
