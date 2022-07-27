@@ -4,15 +4,20 @@ export enum Path {
     Profile = 'profile/',
     Settings = 'settings/*',
     CreateCourse = 'create-course/*',
+    StudentsStats = 'students-stats/*',
+    Commercial = 'commercial'
+
+}
+
+export enum SettingsPath {
     Main = 'main/',
     Employees = 'employees/',
     Logs = 'logs/',
     Decoration = 'decoration/',
 }
 
-export enum createCoursePath {
+export enum CreateCoursePath {
     Constructor = 'constructor',
     Student = 'student',
-    Commercial = 'commercial',
     Settings = 'settings'
 }

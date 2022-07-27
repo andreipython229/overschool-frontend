@@ -1,9 +1,9 @@
 import React, {FC, memo} from 'react';
 import {useAppSelector} from "store/redux/store";
-import styles from '../coursePage.module.scss'
-import Public from '../../../../../assets/img/createCourse/public.svg'
-import DontShow from '../../../../../assets/img/createCourse/notPublic.svg'
-import Hide from '../../../../../assets/img/createCourse/dontShow.svg'
+import styles from 'Pages/Courses/Navigations/CoursesCreating/coursePage.module.scss'
+import Public from 'assets/img/createCourse/public.svg'
+import DontShow from 'assets/img/createCourse/notPublic.svg'
+import Hide from 'assets/img/createCourse/dontShow.svg'
 import {Button} from "components/common/Button/Button";
 
 type CoursePagePropsT = {

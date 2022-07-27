@@ -1,8 +1,8 @@
 import React, {FC, memo} from 'react';
 import styles from './previou.module.scss'
-import {Button} from "../../../components/common/Button/Button";
+import {Button} from "components/common/Button/Button";
 import {useLocation} from "react-router-dom";
-import {useAppSelector} from "../../../store/redux/store";
+import {useAppSelector} from "store/redux/store";
 
 type PreviousPropsT = {
     avatar: string
@@ -20,7 +20,7 @@ export const Previous: FC<PreviousPropsT> = memo(({avatar, name, about, descript
         <div className={styles.previous}>
             <div className={styles.previous_infoBlock}>
                 <img className={styles.previous_infoBlock_avatar}
-                     src={avatar} alt="Background Cover"/>
+                     src={avatar || ''} alt="Background Cover"/>
                 <div className={styles.previous_infoBlock_title}>
                     <p className={styles.previous_infoBlock_title_description}>{description}</p>
                     <span className={styles.previous_infoBlock_title_name}>{name}</span>

@@ -1,6 +1,6 @@
 import React, {memo, useState} from 'react';
 import styles from './courses.module.scss'
-import {CoursePage} from "./Navigations/CoursesCreating/CoursePage/CoursePage";
+import {CoursePage} from "Pages/Courses/Navigations/CoursesCreating/CoursePage";
 import {AddCourseModal} from "components/Modal";
 import {Previous} from "./Previous/Previous";
 import noAvatar from "../../assets/img/noAvatar.svg";
@@ -9,6 +9,7 @@ import {Route, Routes} from 'react-router-dom';
 import {Path} from "enum/pathE";
 import {RedactorCourse} from "./Navigations/CoursesCreating/RedactorCourse/RedactorCourse";
 import {Settings} from "./Navigations/Settings/Settings";
+import {RoleE} from "enum/roleE";
 
 export const Platform = memo(() => {
 
@@ -28,10 +29,9 @@ export const Platform = memo(() => {
                                          description={'Краткое описание'}/>}
             </div>
             <Routes>
-                {role === 0
+                {role === RoleE.SuperAdmin
                     ? <Route path={'/*'} element={<Settings/>}/>
                     : <Route path={'/*'} element={<CoursePage setShowModal={setModal}/>}/>}
-
                 <Route path={Path.CreateCourse} element={<RedactorCourse/>}/>
             </Routes>
 

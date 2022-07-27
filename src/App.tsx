@@ -11,6 +11,8 @@ import {useAppSelector} from "store/redux/store";
 import {Profile} from "Pages/Profile/Profile";
 import {Settings} from "Pages/Courses/Navigations/Settings/Settings";
 import {PageNotFound} from "Pages/PageNotFound/PageNotFound";
+import {StudentsStats} from "Pages/Courses/Navigations/StudentsStats/StudentsStats";
+import {Commercial} from "Pages/Courses/Navigations/Commercial/Commercial";
 
 function App() {
     const isLogin = useAppSelector(state => state.user.auth)
@@ -30,6 +32,8 @@ function App() {
                     <Route path={Path.Courses} element={<Platform/>}/>
                     <Route path={Path.Profile} element={<Profile/>}/>
                     <Route path={Path.Settings} element={<Settings/>}/>
+                    <Route path={Path.StudentsStats} element={<StudentsStats/>}/>
+                    <Route path={Path.Commercial} element={<Commercial/>}/>
                 </Route>
                 <Route path={'*'} element={<PageNotFound/>}/>
             </Routes>
