@@ -2,18 +2,18 @@ import React, {FC, memo, useState} from "react";
 import {Previous} from "../../Previous/Previous";
 import Avatar from "../../../../assets/img/avatar.svg";
 import {NavAccount} from "../../NavAccount/NavAccount";
-import {AddEmployeeModal} from "../../../../components/Modal/AddEmployee/AddEmployeeModal";
+import {AddEmployeeModal} from "components/Modal";
 import {Route, Routes} from "react-router-dom";
-import {useAppSelector} from "../../../../store/redux/store";
-import {Path} from "../../../../enum/pathE";
+import {useAppSelector} from "store/redux/store";
+import {SettingsPath} from "enum/pathE";
 import {Main} from "./Main/Main";
 import {Employees} from "./Employees/Employees";
-import {RoleE} from "../../../../enum/roleE";
+import {RoleE} from "enum/roleE";
 import {Logs} from "./Logs/Logs";
 import {DecorPlatform} from "./DecorPlatform/DecorPlatform";
 
 export const Settings: FC = memo(() => {
-    const role = useAppSelector(state => state.user.role)
+    const role = useAppSelector(state => state.user.permission)
     const projectName = useAppSelector<string>(state => state.platform.projectName)
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const setModal = () => {
@@ -29,9 +29,9 @@ export const Settings: FC = memo(() => {
             }
             <Routes>
                 <Route path={'/*'} element={<Main/>}/>
-                <Route path={Path.Employees} element={<Employees setModal={setModal}/>}/>
-                {role === RoleE.SuperAdmin ? <Route path={Path.Logs} element={<Logs/>}/> : null}
-                <Route path={Path.Decoration} element={<DecorPlatform/>}/>
+                <Route path={SettingsPath.Employees} element={<Employees setModal={setModal}/>}/>
+                {role === RoleE.SuperAdmin ? <Route path={SettingsPath.Logs} element={<Logs/>}/> : null}
+                <Route path={SettingsPath.Decoration} element={<DecorPlatform/>}/>
             </Routes>
         </>
     )

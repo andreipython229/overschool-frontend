@@ -272,7 +272,7 @@
   margin: 0 auto;
   position: absolute;
   border-radius: 7px;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -489,12 +489,15 @@
     }
 
     &_select {
+      display: flex;
+      justify-content: space-evenly;
       width: 100%;
     }
   }
 
   &_editor {
     text-align: left;
+
     &_desc {
       font-size: 16px;
       color: #68717D;

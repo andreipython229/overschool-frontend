@@ -1,14 +1,17 @@
 type userInitialT = {
-    email:string
+    email: string
     first_name: string
     last_name: string
 }
 
-export type  userT = {
+export type  UserT = {
+    auth: boolean
     user: userInitialT
     phone_number: string
-    avatar: string
+    avatar: string | null
     city: string
-    description: string
+    description?: string
     sex: string
+    permission: number
+    aboutMySelf: string
 }

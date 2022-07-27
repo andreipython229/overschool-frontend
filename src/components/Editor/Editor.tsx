@@ -1,9 +1,9 @@
-import React, {MouseEvent, useEffect, useState} from 'react';
+import React, {memo, MouseEvent, useEffect, useState} from 'react';
 import {Editor, EditorState, RichUtils} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import styles from './editor.module.scss'
 
-export const MyEditor = () => {
+export const MyEditor = memo(() => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
     const editor = React.useRef(null);
@@ -185,4 +185,4 @@ export const MyEditor = () => {
                 />
             </div>
         </div>)
-}
+})

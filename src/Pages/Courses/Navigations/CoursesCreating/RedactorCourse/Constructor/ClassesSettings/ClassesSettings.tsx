@@ -9,9 +9,9 @@ import Video from "../../../../../../../assets/img/createCourse/video.svg";
 import Audio from "../../../../../../../assets/img/createCourse/audio.svg";
 import Code from "../../../../../../../assets/img/createCourse/code.svg";
 import {Button} from "components/common/Button/Button";
-import {SelectInput} from "components/common/SelectInput/SelectInput";
 import {programLanguage} from 'utils/other';
 import {MyEditor} from "components/Editor/Editor";
+import {SelectInput} from 'components/common/SelectInput/SelectInput';
 
 export const ClassesSettings = () => {
     const [dragVideo, setDragVideo] = useState(false)
