@@ -6,7 +6,7 @@ import {NavLink} from "react-router-dom";
 import {Path} from "../../enum/pathE";
 
 export const Navbar: FC = memo(() => {
-    const role = useAppSelector(state => state.user.role)
+    const role = useAppSelector(state => state.user.permission)
 
     // @ts-ignore
     const isActive = ({isActive}) => isActive ? styles.isActive : ''

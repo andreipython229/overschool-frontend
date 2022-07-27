@@ -11,7 +11,7 @@ type AddEmployeeModalPropsT = {
 }
 
 export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({setModal}) => {
-    const role = useAppSelector(state => state.user.role)
+    const role = useAppSelector(state => state.user.permission)
     if (role === RoleE.Admin) {
         return (
             <div className={styles.wrapper}>

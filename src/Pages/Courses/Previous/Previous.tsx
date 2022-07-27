@@ -14,7 +14,7 @@ type PreviousPropsT = {
 
 export const Previous: FC<PreviousPropsT> = memo(({avatar, name, about, description}) => {
     const {pathname} = useLocation()
-    const role = useAppSelector(state => state.user.role)
+    const role = useAppSelector(state => state.user.permission)
 
     return (
         <div className={styles.previous}>

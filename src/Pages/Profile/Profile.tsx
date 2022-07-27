@@ -11,12 +11,44 @@ import {Previous} from "../Courses/Previous/Previous";
 
 export const Profile = memo(() => {
     const dispatch = useAppDispatch()
-    const {avatar, name, email, phone, city} = useAppSelector(state => state.user)
-    const [isToggle, setIsToggle] = useState<boolean[]>([true, true, false, false])
+    const {avatar, user, phone_number, city, aboutMySelf} = useAppSelector(state => state.user)
+    const {last_name, first_name, email} = user
 
-    const changeUserAvatar = (avatar: string): void => {
-        // dispatch(requestChangeUserInfo(name,avatar,email))
+
+    const [phone, setPhone] = useState<string>(phone_number)
+    const [userAvatar, setUserAvatar] = useState<string | null>(avatar)
+    const [fullName, setFullName] = useState(first_name + ' ' + last_name)
+    const [userEmail, setUserEmail] = useState(email)
+    const [userCity, setUserCity] = useState(city)
+    const [aboutUser, setAboutUser] = useState(aboutMySelf)
+
+    //Сделать функции для смены пароля
+
+
+    // const changeHandler = (e: ChangeEvent<HTMLInputElement>, callback: (value:string)=> void) => {
+    //     callback(e.currentTarget.value)
+    // }
+
+    const changePhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
+        setPhone(e.currentTarget.value)
     }
+    const changeFullName = (e: ChangeEvent<HTMLInputElement>) => {
+        setFullName(e.currentTarget.value)
+    }
+    const changeCity = (e: ChangeEvent<HTMLInputElement>) => {
+        setUserCity(e.currentTarget.value)
+    }
+    const changeAboutMyself = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setAboutUser(e.currentTarget.value)
+    }
+    const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+        setUserEmail(e.currentTarget.value)
+    }
+
+    // const changeUserInfo = (avatar: string): void => {
+    // dispatch(requestChangeUserInfo(name,userAvatar,email))
+    // }
+
     const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>): void => {
         if (e.target.files) {
             const index = 0
@@ -24,7 +56,7 @@ export const Profile = memo(() => {
             reader.readAsDataURL(e.target.files[index])
             reader.onloadend = event => {
                 if (typeof event?.target?.result === 'string') {
-                    changeUserAvatar(event?.target?.result)
+                    setUserAvatar(event?.target?.result)
                 }
             }
         }
@@ -33,14 +65,21 @@ export const Profile = memo(() => {
         <div>
             <Previous avatar={avatar || noAvatar} name={'User Name'}/>
             <div className={styles.profile}>
-                <AboutUser avatar={avatar} onChangeAvatar={onChangeAvatar}/>
+                <AboutUser city={userCity} phone_number={phone} full_name={fullName} email={email}
+                           avatar={userAvatar} aboutUser={aboutUser}
+                           changePhoneNumber={changePhoneNumber}
+                           onChangeAvatar={onChangeAvatar}
+                           changeFullName={changeFullName}
+                           changeCity={changeCity}
+                           changeAboutMyself={changeAboutMyself}
+                />
                 <div>
                     <div style={{width: '546px'}} className={styles.container}>
                         <h5>Изменить email</h5>
-                        <Input name={'Новый email адрес'} type={'text'} onChange={() => alert('hello')} value={''}
+                        <Input name={'Новый email адрес'} type={'text'} onChange={e => changeEmail(e)} value={userEmail}
                                placeholder={'Новый email адрес'}/>
                         <div className={styles.container_wrapper}>
-                            <Button variant={'disabled'} text={'Сохранить'}/>
+                            <Button variant={email === userEmail ? 'disabled' : 'primary'} text={'Сохранить'}/>
                         </div>
                     </div>
                     <div style={{width: '546px', marginTop: '32px'}} className={styles.container}>

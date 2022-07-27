@@ -13,7 +13,7 @@ import {Logs} from "./Logs/Logs";
 import {DecorPlatform} from "./DecorPlatform/DecorPlatform";
 
 export const Settings: FC = memo(() => {
-    const role = useAppSelector(state => state.user.role)
+    const role = useAppSelector(state => state.user.permission)
     const projectName = useAppSelector<string>(state => state.platform.projectName)
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const setModal = () => {

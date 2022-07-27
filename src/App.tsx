@@ -11,7 +11,6 @@ import {useAppSelector} from "store/redux/store";
 import {Profile} from "Pages/Profile/Profile";
 import {Settings} from "Pages/Courses/Navigations/Settings/Settings";
 import {PageNotFound} from "Pages/PageNotFound/PageNotFound";
-import {MyEditor} from "components/Editor/Editor";
 
 function App() {
     const isLogin = useAppSelector(state => state.user.auth)

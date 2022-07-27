@@ -27,7 +27,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({optionsList}) => {
                         fill="#A8ABAD"/>
                 </svg>
 
-                <button type={'button'}
+                <button className={styles.container_btn} type={'button'}
                         onClick={toggleOptions} aria-haspopup={'listbox'} aria-expanded={isOptionsOpen}
                 >
                     {optionsList[selectedOption]}

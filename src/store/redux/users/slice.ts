@@ -1,30 +1,21 @@
 // Define a type for the slice state
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../store";
+import {UserT} from "types/userT";
 
-interface UserI {
-    auth: boolean
-    avatar: null | string
-    name: string
-    email: string
-    phone: string
-    city: string
-    role: number
-    authDate: string | number | null
-    password: string
+type AuthDateT = {
+    authDate: string | number
 }
-
-// Define the initial state using that type
-const initialState: UserI = {
+const initialState: UserT & AuthDateT = {
     auth: false,
     avatar: null,
-    name: 'Без имени',
-    email: 'example@gmail.com',
-    phone: '+375(**)***-**-**',
-    city: 'Belarus',
-    role: 1,
-    authDate: null,
-    password: ''
+    user: {first_name: 'Без имени', email: 'example@gmail.com', last_name: 'None'},
+    phone_number: '+375(**)***-**-**',
+    city: 'Minsk',
+    permission: 1,
+    sex: '-',
+    authDate: '',
+    aboutMySelf: ''
 }
 
 export const slice = createSlice({
@@ -40,10 +31,11 @@ export const slice = createSlice({
         changeInfo: (state, action: PayloadAction<any>) => {
             state.city = action.payload.city
             state.avatar = action.payload.avatar
-            state.name = action.payload.name
-            state.email = action.payload.email
-            state.phone = action.payload.phone
-            state.password = action.payload.password
+            state.user.first_name = action.payload.name
+            state.user.email = action.payload.email
+            state.phone_number = action.payload.phone
+            state.sex = action.payload.sex
+            state.aboutMySelf = action.payload.aboutMySelf
         }
 
     },
