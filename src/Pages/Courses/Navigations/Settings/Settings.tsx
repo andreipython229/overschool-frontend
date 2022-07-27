@@ -2,7 +2,7 @@ import React, {FC, memo, useState} from "react";
 import {Previous} from "../../Previous/Previous";
 import Avatar from "../../../../assets/img/avatar.svg";
 import {NavAccount} from "../../NavAccount/NavAccount";
-import {AddEmployeeModal} from "../../../../Components/Modal/AddEmployee/AddEmployeeModal";
+import {AddEmployeeModal} from "../../../../components/Modal/AddEmployee/AddEmployeeModal";
 import {Route, Routes} from "react-router-dom";
 import {useAppSelector} from "../../../../store/redux/store";
 import {Path} from "../../../../enum/pathE";

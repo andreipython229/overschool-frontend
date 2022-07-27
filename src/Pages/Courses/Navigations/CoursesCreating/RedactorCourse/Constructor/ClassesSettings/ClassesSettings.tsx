@@ -8,9 +8,10 @@ import Text from "../../../../../../../assets/img/createCourse/text.svg";
 import Video from "../../../../../../../assets/img/createCourse/video.svg";
 import Audio from "../../../../../../../assets/img/createCourse/audio.svg";
 import Code from "../../../../../../../assets/img/createCourse/code.svg";
-import {Button} from "Components/common/Button/Button";
-import {SelectInput} from "Components/common/SelectInput/SelectInput";
+import {Button} from "components/common/Button/Button";
+import {SelectInput} from "components/common/SelectInput/SelectInput";
 import {programLanguage} from 'utils/other';
+import {MyEditor} from "components/Editor/Editor";
 
 export const ClassesSettings = () => {
     const [dragVideo, setDragVideo] = useState(false)
@@ -63,13 +64,27 @@ export const ClassesSettings = () => {
     }
 
     const onAddVideoFile = (e: ChangeEvent<HTMLInputElement>): void => {
+        console.log(e.target)
         if (e.target.files) {
             const index = 0
             const reader = new FileReader()
             reader.readAsDataURL(e.target.files[index])
             reader.onloadend = event => {
                 if (typeof event?.target?.result === 'string') {
-                    // changeUserAvatar(event?.target?.result)
+                    // addVideoFile(event?.target?.result)
+                }
+            }
+        }
+    }
+    const onAddAudioFile = (e: ChangeEvent<HTMLInputElement>): void => {
+        console.log(e.target)
+        if (e.target.files) {
+            const index = 0
+            const reader = new FileReader()
+            reader.readAsDataURL(e.target.files[index])
+            reader.onloadend = event => {
+                if (typeof event?.target?.result === 'string') {
+                    // addAudioFile(event?.target?.result)
                 }
             }
         }
@@ -107,8 +122,9 @@ export const ClassesSettings = () => {
                         <Toggle/>
                     </div>
                 </div>
-
+                <MyEditor/>
                 <section style={{marginBottom: '48px'}}>
+
                     <div onDragStart={(e) => dragStartVideoHandler(e)}
                          onDragLeave={(e) => dragLeaveVideoHandler(e)}
                          onDragOver={(e) => dragStartVideoHandler(e)}
@@ -116,6 +132,36 @@ export const ClassesSettings = () => {
                          className={dragVideo
                              ? stylesOnDrop
                              : stylesNoDrop}>
+                        <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
+                            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
+                                <svg width="11" height="15" viewBox="0 0 11 15" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M4.5 13.3438C4.5 13.896 4.94772 14.3438 5.5 14.3438C6.05229 14.3438 6.5 13.896 6.5 13.3438H4.5ZM6.5 2.1875C6.5 1.63521 6.05228 1.1875 5.5 1.1875C4.94772 1.1875 4.5 1.63521 4.5 2.1875L6.5 2.1875ZM5.5 1.65625L6.20711 0.949143C6.01957 0.761607 5.76522 0.65625 5.5 0.65625C5.23478 0.65625 4.98043 0.761607 4.79289 0.949143L5.5 1.65625ZM9.04289 6.61336C9.43342 7.00388 10.0666 7.00388 10.4571 6.61336C10.8476 6.22283 10.8476 5.58967 10.4571 5.19914L9.04289 6.61336ZM0.542893 5.19914C0.152369 5.58967 0.152369 6.22283 0.542893 6.61336C0.933418 7.00388 1.56658 7.00388 1.95711 6.61336L0.542893 5.19914ZM6.5 13.3438L6.5 2.1875L4.5 2.1875L4.5 13.3438H6.5ZM4.79289 2.36336L9.04289 6.61336L10.4571 5.19914L6.20711 0.949143L4.79289 2.36336ZM4.79289 0.949143L0.542893 5.19914L1.95711 6.61336L6.20711 2.36336L4.79289 0.949143Z"
+                                        fill="#2E4454"/>
+                                </svg>
+                            </div>
+                            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
+                                <svg width="11" height="15" viewBox="0 0 11 15" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6.5 1.65625C6.5 1.10396 6.05228 0.65625 5.5 0.65625C4.94771 0.65625 4.5 1.10397 4.5 1.65625H6.5ZM4.5 12.8125C4.5 13.3648 4.94772 13.8125 5.5 13.8125C6.05228 13.8125 6.5 13.3648 6.5 12.8125L4.5 12.8125ZM5.5 13.3438L4.79289 14.0509C4.98043 14.2384 5.23478 14.3438 5.5 14.3438C5.76522 14.3438 6.01957 14.2384 6.20711 14.0509L5.5 13.3438ZM1.95711 8.38664C1.56658 7.99612 0.933417 7.99612 0.542893 8.38664C0.152369 8.77717 0.152369 9.41033 0.542893 9.80086L1.95711 8.38664ZM10.4571 9.80086C10.8476 9.41033 10.8476 8.77717 10.4571 8.38664C10.0666 7.99612 9.43342 7.99612 9.04289 8.38664L10.4571 9.80086ZM4.5 1.65625L4.5 12.8125L6.5 12.8125L6.5 1.65625H4.5ZM6.20711 12.6366L1.95711 8.38664L0.542893 9.80086L4.79289 14.0509L6.20711 12.6366ZM6.20711 14.0509L10.4571 9.80086L9.04289 8.38664L4.79289 12.6366L6.20711 14.0509Z"
+                                        fill="#2E4454"/>
+                                </svg>
+
+                            </div>
+                            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
+                                <svg width="13" height="17" viewBox="0 0 13 17" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M5.5 12.4375C5.5 12.9898 5.94772 13.4375 6.5 13.4375C7.05229 13.4375 7.5 12.9898 7.5 12.4375H5.5ZM7.5 1.28125C7.5 0.728965 7.05228 0.28125 6.5 0.28125C5.94772 0.28125 5.5 0.728965 5.5 1.28125L7.5 1.28125ZM6.5 13.0938L5.79289 13.8009C6.18342 14.1914 6.81658 14.1914 7.20711 13.8009L6.5 13.0938ZM2.61336 7.79289C2.22283 7.40237 1.58967 7.40237 1.19914 7.79289C0.808619 8.18342 0.808619 8.81658 1.19914 9.20711L2.61336 7.79289ZM11.8009 9.20711C12.1914 8.81658 12.1914 8.18342 11.8009 7.79289C11.4103 7.40237 10.7772 7.40237 10.3866 7.79289L11.8009 9.20711ZM1.90625 14.7188C1.35397 14.7188 0.90625 15.1665 0.90625 15.7188C0.90625 16.271 1.35397 16.7188 1.90625 16.7188V14.7188ZM11.0938 16.7188C11.646 16.7188 12.0938 16.271 12.0938 15.7188C12.0938 15.1665 11.646 14.7188 11.0938 14.7188V16.7188ZM7.5 12.4375L7.5 1.28125L5.5 1.28125L5.5 12.4375H7.5ZM7.20711 12.3866L2.61336 7.79289L1.19914 9.20711L5.79289 13.8009L7.20711 12.3866ZM7.20711 13.8009L11.8009 9.20711L10.3866 7.79289L5.79289 12.3866L7.20711 13.8009ZM1.90625 16.7188H11.0938V14.7188H1.90625V16.7188Z"
+                                        fill="#BA75FF"/>
+                                </svg>
+
+                            </div>
+                        </div>
+                        <input className={styles.redactorCourse_rightSide_functional_addContent_input}
+                               onChange={(e) => onAddVideoFile(e)} type="file"/>
                         <svg width="83" height="84" viewBox="0 0 83 84" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M52.8984 41.4416C53.5651 41.8265 53.5651 42.7888 52.8984 43.1737L37.7665 51.9101C37.0999 52.295 36.2665 51.8139 36.2665 51.0441V33.5713C36.2665 32.8015 37.0999 32.3203 37.7665 32.7052L52.8984 41.4416Z"
@@ -139,6 +185,8 @@ export const ClassesSettings = () => {
                          onDragOver={(e) => dragStartAudioHandler(e)}
                          onDrop={(e) => onDropAudioHandler(e)}
                          className={dragAudio ? stylesOnDrop : stylesNoDrop}>
+                        <input className={styles.redactorCourse_rightSide_functional_addContent_input}
+                               onChange={(e) => onAddAudioFile(e)} type="file"/>
                         <svg style={{marginBottom: '38px'}} width="64" height="55" viewBox="0 0 64 55" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
                             <rect x="19.7998" width="4.4" height="55" rx="1" fill="#BA75FF"/>
@@ -155,12 +203,11 @@ export const ClassesSettings = () => {
                     <div></div>
                     <div></div>
                 </section>
+
                 <section className={styles.redactorCourse_rightSide_functional_blackBlock}>
                     <div className={styles.redactorCourse_rightSide_functional_blackBlock_select}>
                         <SelectInput optionsList={programLanguage}/>
                     </div>
-
-
                 </section>
                 <section className={styles.redactorCourse_rightSide_functional_creating}>
                     <div className={styles.redactorCourse_rightSide_functional_creating_title}>Добавить
@@ -187,7 +234,6 @@ export const ClassesSettings = () => {
                     <span
                         className={styles.redactorCourse_rightSide_desc}>Любые файлы размером не более 2 гигабайта</span>
                 </div>
-
             </div>
         </div>
     );

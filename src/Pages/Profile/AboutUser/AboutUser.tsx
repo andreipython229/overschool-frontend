@@ -1,8 +1,8 @@
 import React, {ChangeEvent, FC, memo} from 'react';
 import styles from "../profile.module.scss";
-import {Input} from "../../../Components/common/Input/Input/Input";
-import {Button} from "../../../Components/common/Button/Button";
-import {SelectInput} from "../../../Components/common/SelectInput/SelectInput";
+import {Input} from "../../../components/common/Input/Input/Input";
+import {Button} from "../../../components/common/Button/Button";
+import {SelectInput} from "../../../components/common/SelectInput/SelectInput";
 
 type AboutUserPropsT = {
     avatar: string | null

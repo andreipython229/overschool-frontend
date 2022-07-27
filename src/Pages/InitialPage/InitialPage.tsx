@@ -2,8 +2,8 @@ import React, {memo, useState} from 'react';
 import styles from './initialPage.module.scss'
 import {InitPageHeader} from "./InitPageHeader/InitPageHeader";
 import {CourseImg} from "./CourseImgBlock/CourseImg";
-import {RegistrationModal} from "../../Components/Modal/RegistrationModal/RegistrationModal";
-import {LoginModal} from "../../Components/Modal/LoginModal/LoginModal";
+import {RegistrationModal} from "../../components/Modal/RegistrationModal/RegistrationModal";
+import {LoginModal} from "../../components/Modal/LoginModal/LoginModal";
 import Python from '../../assets/img/course/python.jpeg'
 import Frontend from '../../assets/img/course/frontend.jpg'
 import QA from '../../assets/img/course/qa.jpg'

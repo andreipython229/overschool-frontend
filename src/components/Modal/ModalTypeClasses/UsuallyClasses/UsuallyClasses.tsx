@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, useState} from 'react';
 import styles from '../../Modal.module.scss'
-import {Input} from "../../../common/Input/Input/Input";
-import {Button} from "../../../common/Button/Button";
+import {Input} from "components/common/Input/Input/Input";
+import {Button} from "components/common/Button/Button";
 
 type SettingClassesPropsType = {
     goToBack: () => void

@@ -1,0 +1,46 @@
+.editor {
+  border: 1px solid #EBEEF5;
+  margin-bottom: 48px;
+  width: 99%;
+  border-radius: 10px;
+
+
+  &_panel {
+    position: relative;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding: 19px 0 19px 16px;
+    width: 99%;
+
+
+    & button {
+      position: static;
+      border: none;
+      background: #FFFFFF;
+      cursor: pointer;
+      width: auto;
+      padding: 4px 10px;
+
+      &:hover {
+        background: #f6f5f5;
+        border-radius: 7px;
+      }
+    }
+
+  }
+
+  &_table {
+    height: 100px;
+    padding: 30px 19px 30px 19px;
+  }
+}
+
+.editor_panel ::after {
+  content: '';
+  border-bottom: 1px solid #EBEEF5;
+  position: absolute;
+  top: 58px;
+  left: 9px;
+  width: 98%;
+}
