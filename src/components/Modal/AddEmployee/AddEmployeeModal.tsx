@@ -1,17 +1,17 @@
-import React, { FC, memo } from "react"
-import styles from "../Modal.module.scss"
-import { Button } from "components/common/Button/Button"
-import { Radio } from "components/common/Radio/Radio"
-import { useAppSelector } from "store/redux/store"
-import { RoleE } from "enum/roleE"
-import { Checkbox } from "../../common/Checkbox/Checkbox"
+import React, { FC, memo } from "react";
+import styles from "../Modal.module.scss";
+import { Button } from "components/common/Button/Button";
+import { Radio } from "components/common/Radio/Radio";
+import { useAppSelector } from "store/redux/store";
+import { RoleE } from "enum/roleE";
+import { Checkbox } from "../../common/Checkbox/Checkbox";
 
 type AddEmployeeModalPropsT = {
-  setModal: () => void
-}
+  setModal: () => void;
+};
 
 export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) => {
-  const role = useAppSelector((state) => state.user.permission)
+  const role = useAppSelector((state) => state.user.permission);
   if (role === RoleE.Admin) {
     return (
       <div className={styles.wrapper}>
@@ -111,7 +111,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
           </div>
         </div>
       </div>
-    )
+    );
   }
   return (
     <div className={styles.wrapper}>
@@ -163,5 +163,5 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
         </div>
       </div>
     </div>
-  )
-})
+  );
+});

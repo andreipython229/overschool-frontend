@@ -1,17 +1,17 @@
-import React, { FC, useState } from "react"
-import styles from "./selectInput.module.scss"
+import React, { FC, useState } from "react";
+import styles from "./selectInput.module.scss";
 
 type SelectInputPropsT = {
-  optionsList: any
-}
+  optionsList: any;
+};
 
 export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
-  const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
-  const [selectedOption, setSelectedOption] = useState<number>(0)
+  const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = useState<number>(0);
 
   const toggleOptions = () => {
-    setIsOptionsOpen(!isOptionsOpen)
-  }
+    setIsOptionsOpen(!isOptionsOpen);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -53,8 +53,8 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
               role={"option"}
               aria-selected={selectedOption === index}
               onClick={() => {
-                setSelectedOption(index)
-                setIsOptionsOpen(false)
+                setSelectedOption(index);
+                setIsOptionsOpen(false);
               }}
             >
               {option}
@@ -63,5 +63,5 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};

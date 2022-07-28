@@ -1,99 +1,99 @@
-import React, { useState, DragEvent, ChangeEvent } from "react"
+import React, { useState, DragEvent, ChangeEvent } from "react";
 
-import styles from "../constructor.module.scss"
+import styles from "../constructor.module.scss";
 
-import { Toggle } from "@skbkontur/react-ui"
-import { ContentBtn } from "../../ContentBtn/ContentBtn"
-import Text from "../../../../../../../assets/img/createCourse/text.svg"
-import Video from "../../../../../../../assets/img/createCourse/video.svg"
-import Audio from "../../../../../../../assets/img/createCourse/audio.svg"
-import Code from "../../../../../../../assets/img/createCourse/code.svg"
-import { Button } from "components/common/Button/Button"
-import { programLanguage } from "constants/other"
-import { MyEditor } from "components/Editor/Editor"
-import { SelectInput } from "components/common/SelectInput/SelectInput"
+import { Toggle } from "@skbkontur/react-ui";
+import { ContentBtn } from "../../ContentBtn/ContentBtn";
+import Text from "../../../../../../../assets/img/createCourse/text.svg";
+import Video from "../../../../../../../assets/img/createCourse/video.svg";
+import Audio from "../../../../../../../assets/img/createCourse/audio.svg";
+import Code from "../../../../../../../assets/img/createCourse/code.svg";
+import { Button } from "components/common/Button/Button";
+import { programLanguage } from "constants/other";
+import { MyEditor } from "components/Editor/Editor";
+import { SelectInput } from "components/common/SelectInput/SelectInput";
 
 export const ClassesSettings = () => {
-  const [dragVideo, setDragVideo] = useState(false)
-  const [dragAudio, setDragAudio] = useState(false)
+  const [dragVideo, setDragVideo] = useState(false);
+  const [dragAudio, setDragAudio] = useState(false);
 
   // Драг энд дроп функции
 
   const dragStartVideoHandler = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    setDragVideo(true)
-  }
+    e.preventDefault();
+    setDragVideo(true);
+  };
 
   const dragLeaveVideoHandler = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    setDragVideo(false)
-  }
+    e.preventDefault();
+    setDragVideo(false);
+  };
 
   const onDropVideoHandler = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    const files = [...e.dataTransfer.files]
-    console.log(files)
-    const formData = new FormData()
+    e.preventDefault();
+    const files = [...e.dataTransfer.files];
+    console.log(files);
+    const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
-      formData.append(`list_${i}`, files[i])
+      formData.append(`list_${i}`, files[i]);
     }
-    setDragVideo(false)
+    setDragVideo(false);
     // axios.post('url', formData, options)
-  }
+  };
 
   const dragStartAudioHandler = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    setDragAudio(true)
-  }
+    e.preventDefault();
+    setDragAudio(true);
+  };
 
   const dragLeaveAudioHandler = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    setDragAudio(false)
-  }
+    e.preventDefault();
+    setDragAudio(false);
+  };
 
   const onDropAudioHandler = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    const files = [...e.dataTransfer.files]
-    console.log(files)
-    const formData = new FormData()
+    e.preventDefault();
+    const files = [...e.dataTransfer.files];
+    console.log(files);
+    const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
-      formData.append(`list_${i}`, files[i])
+      formData.append(`list_${i}`, files[i]);
     }
-    setDragAudio(false)
+    setDragAudio(false);
     // axios.post('url', formData, options)
-  }
+  };
 
   const onAddVideoFile = (e: ChangeEvent<HTMLInputElement>): void => {
-    console.log(e.target)
+    console.log(e.target);
     if (e.target.files) {
-      const index = 0
-      const reader = new FileReader()
-      reader.readAsDataURL(e.target.files[index])
+      const index = 0;
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[index]);
       reader.onloadend = (event) => {
         if (typeof event?.target?.result === "string") {
           // addVideoFile(event?.target?.result)
         }
-      }
+      };
     }
-  }
+  };
   const onAddAudioFile = (e: ChangeEvent<HTMLInputElement>): void => {
-    console.log(e.target)
+    console.log(e.target);
     if (e.target.files) {
-      const index = 0
-      const reader = new FileReader()
-      reader.readAsDataURL(e.target.files[index])
+      const index = 0;
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[index]);
       reader.onloadend = (event) => {
         if (typeof event?.target?.result === "string") {
           // addAudioFile(event?.target?.result)
         }
-      }
+      };
     }
-  }
+  };
   const stylesOnDrop =
     styles.redactorCourse_rightSide_functional_addContent +
     " " +
-    styles.redactorCourse_rightSide_functional_addDragContent
-  const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
+    styles.redactorCourse_rightSide_functional_addDragContent;
+  const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent;
   return (
     <div className={styles.redactorCourse_rightSide}>
       <div className={styles.redactorCourse_rightSide_header}>
@@ -300,5 +300,5 @@ export const ClassesSettings = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

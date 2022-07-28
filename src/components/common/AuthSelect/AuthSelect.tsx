@@ -1,19 +1,19 @@
-import React, { FC, memo, useState } from "react"
+import React, { FC, memo, useState } from "react";
 
-import styles from "./authSelect.module.scss"
+import styles from "./authSelect.module.scss";
 
 type AuthSelectPropsT = {
-  getInputVariant: (variant: string) => void
-}
+  getInputVariant: (variant: string) => void;
+};
 
 export const AuthSelect: FC<AuthSelectPropsT> = memo(({ getInputVariant }) => {
-  const [variant, setVariant] = useState<string>("email")
-  const [context, setContext] = useState<boolean>(false)
+  const [variant, setVariant] = useState<string>("email");
+  const [context, setContext] = useState<boolean>(false);
 
   const changeInputVariant = (variant: string) => {
-    getInputVariant(variant)
-    setVariant(variant)
-  }
+    getInputVariant(variant);
+    setVariant(variant);
+  };
   return (
     <div onClick={() => setContext(!context)} className={styles.container}>
       {variant === "email" ? (
@@ -66,5 +66,5 @@ export const AuthSelect: FC<AuthSelectPropsT> = memo(({ getInputVariant }) => {
         </div>
       ) : null}
     </div>
-  )
-})
+  );
+});

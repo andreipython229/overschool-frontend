@@ -1,25 +1,25 @@
-import React, { ChangeEvent, memo, useState } from "react"
+import React, { ChangeEvent, memo, useState } from "react";
 
-import styles from "./profile.module.scss"
-import { Input } from "components/common/Input/Input/Input"
-import { Button } from "components/common/Button/Button"
-import { useAppDispatch, useAppSelector } from "store/redux/store"
-import { AboutUser } from "./AboutUser/AboutUser"
-import { Toggle } from "@skbkontur/react-ui/index"
-import noAvatar from "../../assets/img/noAvatar.svg"
-import { Previous } from "../Courses/Previous/Previous"
+import styles from "./profile.module.scss";
+import { Input } from "components/common/Input/Input/Input";
+import { Button } from "components/common/Button/Button";
+import { useAppDispatch, useAppSelector } from "store/redux/store";
+import { AboutUser } from "./AboutUser/AboutUser";
+import { Toggle } from "@skbkontur/react-ui/index";
+import noAvatar from "../../assets/img/noAvatar.svg";
+import { Previous } from "../Courses/Previous/Previous";
 
 export const Profile = memo(() => {
-  const dispatch = useAppDispatch()
-  const { avatar, user, phone_number, city, aboutMySelf } = useAppSelector((state) => state.user)
-  const { last_name, first_name, email } = user
+  const dispatch = useAppDispatch();
+  const { avatar, user, phone_number, city, aboutMySelf } = useAppSelector((state) => state.user);
+  const { last_name, first_name, email } = user;
 
-  const [phone, setPhone] = useState<string>(phone_number)
-  const [userAvatar, setUserAvatar] = useState<string | null>(avatar)
-  const [fullName, setFullName] = useState(first_name + " " + last_name)
-  const [userEmail, setUserEmail] = useState(email)
-  const [userCity, setUserCity] = useState(city)
-  const [aboutUser, setAboutUser] = useState(aboutMySelf)
+  const [phone, setPhone] = useState<string>(phone_number);
+  const [userAvatar, setUserAvatar] = useState<string | null>(avatar);
+  const [fullName, setFullName] = useState(first_name + " " + last_name);
+  const [userEmail, setUserEmail] = useState(email);
+  const [userCity, setUserCity] = useState(city);
+  const [aboutUser, setAboutUser] = useState(aboutMySelf);
 
   // Сделать функции для смены пароля
 
@@ -28,20 +28,20 @@ export const Profile = memo(() => {
   // }
 
   const changePhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
-    setPhone(e.currentTarget.value)
-  }
+    setPhone(e.currentTarget.value);
+  };
   const changeFullName = (e: ChangeEvent<HTMLInputElement>) => {
-    setFullName(e.currentTarget.value)
-  }
+    setFullName(e.currentTarget.value);
+  };
   const changeCity = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserCity(e.currentTarget.value)
-  }
+    setUserCity(e.currentTarget.value);
+  };
   const changeAboutMyself = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setAboutUser(e.currentTarget.value)
-  }
+    setAboutUser(e.currentTarget.value);
+  };
   const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserEmail(e.currentTarget.value)
-  }
+    setUserEmail(e.currentTarget.value);
+  };
 
   // const changeUserInfo = (avatar: string): void => {
   // dispatch(requestChangeUserInfo(name,userAvatar,email))
@@ -49,16 +49,16 @@ export const Profile = memo(() => {
 
   const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files) {
-      const index = 0
-      const reader = new FileReader()
-      reader.readAsDataURL(e.target.files[index])
+      const index = 0;
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[index]);
       reader.onloadend = (event) => {
         if (typeof event?.target?.result === "string") {
-          setUserAvatar(event?.target?.result)
+          setUserAvatar(event?.target?.result);
         }
-      }
+      };
     }
-  }
+  };
   return (
     <div>
       <Previous avatar={avatar || noAvatar} name={"User Name"} />
@@ -175,5 +175,5 @@ export const Profile = memo(() => {
         </div>
       </div>
     </div>
-  )
-})
+  );
+});

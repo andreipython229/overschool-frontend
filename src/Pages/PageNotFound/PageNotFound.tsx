@@ -1,12 +1,12 @@
-import React from "react"
-import styles from "./pageNotFound.module.scss"
-import { useNavigate } from "react-router-dom"
+import React from "react";
+import styles from "./pageNotFound.module.scss";
+import { useNavigate } from "react-router-dom";
 
 export const PageNotFound = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const goBack = () => {
-    navigate(-1)
-  }
+    navigate(-1);
+  };
   return (
     <div className={styles.main}>
       <div className={styles.main_container}>
@@ -16,5 +16,5 @@ export const PageNotFound = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,6 +1,6 @@
-import React, { memo } from "react"
-import styles from "../superAdmin.module.scss"
-import { UserLogs } from "./UserLogs/UserLogs"
+import React, { memo } from "react";
+import styles from "../superAdmin.module.scss";
+import { UserLogs } from "./UserLogs/UserLogs";
 
 export const Logs = memo(() => {
   return (
@@ -21,5 +21,5 @@ export const Logs = memo(() => {
         </div>
       </div>
     </div>
-  )
-})
+  );
+});

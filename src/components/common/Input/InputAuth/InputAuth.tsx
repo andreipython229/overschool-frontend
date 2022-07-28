@@ -1,21 +1,21 @@
-import React, { FC } from "react"
-import styles from "./inputAuth.module.scss"
+import React, { FC } from "react";
+import styles from "./inputAuth.module.scss";
 
 export type InputAuthPropsT = {
-  id?: string
-  name: string
-  type: string
-  onChange: (value: any) => void
-  value: string
-  onBlur?: (e: any) => void
-  icon?: string
-  onClick?: () => void
-  label?: string
-  placeholder?: string
-}
+  id?: string;
+  name: string;
+  type: string;
+  onChange: (value: any) => void;
+  value: string;
+  onBlur?: (e: any) => void;
+  icon?: string;
+  onClick?: () => void;
+  label?: string;
+  placeholder?: string;
+};
 
 export const InputAuth: FC<InputAuthPropsT> = (props) => {
-  const { label, onClick, icon, type, id, name, onChange, value, placeholder, ...rest } = props
+  const { label, onClick, icon, type, id, name, onChange, value, placeholder, ...rest } = props;
   return (
     <div className={styles.input_container}>
       <div className={styles.input_container_input}>
@@ -42,5 +42,5 @@ export const InputAuth: FC<InputAuthPropsT> = (props) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};

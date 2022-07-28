@@ -1,14 +1,14 @@
-import React, { ChangeEvent, FC, memo } from "react"
-import styles from "./logoAddBlock.module.scss"
+import React, { ChangeEvent, FC, memo } from "react";
+import styles from "./logoAddBlock.module.scss";
 
 type LogoAddBlockPropsT = {
-  title: string
-  logotype: string
-  logoDesc: string
-  aboutRequirements: string
-  requirementsArr: string[]
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
-}
+  title: string;
+  logotype: string;
+  logoDesc: string;
+  aboutRequirements: string;
+  requirementsArr: string[];
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
 
 export const LogoAddBlock: FC<LogoAddBlockPropsT> = memo(
   ({ logotype, logoDesc, aboutRequirements, requirementsArr, title, onChange }) => {
@@ -32,11 +32,11 @@ export const LogoAddBlock: FC<LogoAddBlockPropsT> = memo(
                 <p key={id}>
                   {id + 1}. {el}
                 </p>
-              )
+              );
             })}
           </div>
         </div>
       </section>
-    )
+    );
   },
-)
+);

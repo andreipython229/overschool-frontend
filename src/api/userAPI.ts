@@ -1,7 +1,7 @@
-import { AxiosError } from "axios"
+import { AxiosError } from "axios";
 
-import { instance } from "api/config"
-import { LoginParamsT } from "utils/validationLogin"
+import { instance } from "api/config";
+import { LoginParamsT } from "utils/validationLogin";
 
 export const userAPI = {
   register: async () => {
@@ -14,7 +14,7 @@ export const userAPI = {
   },
   login: async (body: LoginParamsT) => {
     try {
-      return await instance.post<ResponseType>("auth/login", body)
+      return await instance.post<ResponseType>("auth/login", body);
     } catch (e) {
       // return (e as AxiosError)?.response?.data?.error || 'some error'
     }
@@ -25,4 +25,4 @@ export const userAPI = {
   //
   // setNewPassword: async (body: SetNewPasswordRequestType) =>
   //     await instance.post('auth/set-new-password', body),
-}
+};

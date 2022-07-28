@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export const Commercial = () => {
   return (
@@ -7,5 +7,5 @@ export const Commercial = () => {
         Страница находится в стадии разработки. <br /> Приносим свои извинения.
       </h1>
     </div>
-  )
-}
+  );
+};

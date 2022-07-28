@@ -1,21 +1,21 @@
-import React, { FC, memo, useState } from "react"
-import styles from "../../Modal.module.scss"
-import { Input } from "../../../common/Input/Input/Input"
-import { Checkbox } from "../../../common/Checkbox/Checkbox"
-import { SelectInput } from "../../../common/SelectInput/SelectInput"
-import { Button } from "../../../common/Button/Button"
-import { arrNumber, arrTime } from "utils"
-import { MyEditor } from "components/Editor/Editor"
+import React, { FC, memo, useState } from "react";
+import styles from "../../Modal.module.scss";
+import { Input } from "../../../common/Input/Input/Input";
+import { Checkbox } from "../../../common/Checkbox/Checkbox";
+import { SelectInput } from "../../../common/SelectInput/SelectInput";
+import { Button } from "../../../common/Button/Button";
+import { arrNumber, arrTime } from "utils";
+import { MyEditor } from "components/Editor/Editor";
 
 type TasksModalPropsT = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
-}
+  goToBack: () => void;
+  addCourse: (name: string, type: string) => void;
+  closedAll: () => void;
+};
 export const TasksModal: FC<TasksModalPropsT> = memo(({ goToBack, addCourse, closedAll }) => {
-  const [nameClasses, setNameClasses] = useState<string>("")
-  const [settingsActive, setSettingsActive] = useState<number>(0)
-  const [checkbox, setCheckbox] = useState<boolean>(false)
+  const [nameClasses, setNameClasses] = useState<string>("");
+  const [settingsActive, setSettingsActive] = useState<number>(0);
+  const [checkbox, setCheckbox] = useState<boolean>(false);
 
   return (
     <div className={styles.wrapper}>
@@ -148,5 +148,5 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ goToBack, addCourse, clo
         </div>
       </div>
     </div>
-  )
-})
+  );
+});

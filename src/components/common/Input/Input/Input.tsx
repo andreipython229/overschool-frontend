@@ -1,27 +1,27 @@
-import React, { DetailedHTMLProps, FC, InputHTMLAttributes } from "react"
-import styles from "./input.module.scss"
+import React, { DetailedHTMLProps, FC, InputHTMLAttributes } from "react";
+import styles from "./input.module.scss";
 
 type DefaultInputPropsType = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
->
+>;
 
 export type InputPropsT = DefaultInputPropsType & {
-  id?: string
-  name: string
-  type: string
-  onChange: (value: any) => void
-  value: string
-  onBlur?: (e: any) => void
-  icon?: string
-  onClick?: () => void
-  label?: string
-  placeholder?: string
-}
+  id?: string;
+  name: string;
+  type: string;
+  onChange: (value: any) => void;
+  value: string;
+  onBlur?: (e: any) => void;
+  icon?: string;
+  onClick?: () => void;
+  label?: string;
+  placeholder?: string;
+};
 
 export const Input: FC<InputPropsT> = (props) => {
   const { label, onClick, icon, type, id, name, onChange, value, placeholder, style, ...rest } =
-    props
+    props;
   return (
     <div style={style} className={styles.input_container}>
       {label && (
@@ -43,5 +43,5 @@ export const Input: FC<InputPropsT> = (props) => {
         />
       </div>
     </div>
-  )
-}
+  );
+};

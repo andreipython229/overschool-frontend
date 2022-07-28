@@ -1,42 +1,43 @@
-import React, { useState } from "react"
-import styles from "./constructor.module.scss"
-import { ModalTypeClasses } from "components/Modal"
-import { SettingClassesUsually } from "components/Modal"
-import { useAppDispatch } from "store/redux/store"
-import { TasksModal } from "components/Modal"
-import { addClasses } from "store/redux/course/slice"
-import { TestModal } from "components/Modal"
-import { WebinarModal } from "components/Modal"
-import { ClassesSettings } from "./ClassesSettings/ClassesSettings"
-import { LessonAddBlock } from "Pages/Courses/Navigations/CoursesCreating/RedactorCourse/Constructor/LessonAddBlock/LessonAddBlock"
+import React, { useState } from "react";
+import { ModalTypeClasses, TasksModal, TestModal, WebinarModal } from "components/Modal";
+import { SettingClassesUsually } from "components/Modal";
+import { useAppDispatch } from "store/redux/store";
+// import { TasksModal } from "components/Modal";
+import { addClasses } from "store/redux/course/slice";
+// import { TestModal } from "components/Modal";
+// import { WebinarModal } from "components/Modal";
+import { ClassesSettings } from "./ClassesSettings/ClassesSettings";
+import { LessonAddBlock } from "Pages/Courses/Navigations/CoursesCreating/RedactorCourse/Constructor/LessonAddBlock/LessonAddBlock";
+
+import styles from "./constructor.module.scss";
 
 export const Constructor = () => {
-  const dispatch = useAppDispatch()
-  const [typeClassesModal, setTypeClassesModal] = useState<boolean>(false)
-  const [activeTypeClasses, setActiveTypeClasses] = useState<null | number>(null)
+  const dispatch = useAppDispatch();
+  const [typeClassesModal, setTypeClassesModal] = useState<boolean>(false);
+  const [activeTypeClasses, setActiveTypeClasses] = useState<null | number>(null);
 
   const setModalTypeClasses = () => {
-    setTypeClassesModal(!typeClassesModal)
-  }
+    setTypeClassesModal(!typeClassesModal);
+  };
 
   const goToBack = () => {
-    setModalTypeClasses()
-    setActiveTypeClasses(null)
-  }
+    setModalTypeClasses();
+    setActiveTypeClasses(null);
+  };
 
   const closedAllModal = () => {
-    setActiveTypeClasses(null)
-  }
+    setActiveTypeClasses(null);
+  };
 
   const setTypeModal = (id: number) => {
-    setActiveTypeClasses(id)
-    setModalTypeClasses()
-  }
+    setActiveTypeClasses(id);
+    setModalTypeClasses();
+  };
 
   const addCourse = (name: string, type: string) => {
-    setActiveTypeClasses(null)
-    dispatch(addClasses({ name, type }))
-  }
+    setActiveTypeClasses(null);
+    dispatch(addClasses({ name, type }));
+  };
 
   return (
     <div className={styles.redactorCourse}>
@@ -63,5 +64,5 @@ export const Constructor = () => {
       <LessonAddBlock setModalTypeClasses={setModalTypeClasses} />
       <ClassesSettings />
     </div>
-  )
-}
+  );
+};

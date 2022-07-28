@@ -1,14 +1,14 @@
-import React, { FC, memo } from "react"
-import styles from "../initialPage.module.scss"
+import React, { FC, memo } from "react";
+import styles from "../initialPage.module.scss";
 
 type CourseImgPropsT = {
-  currentCourse: string
-  changeCurrentCourse: (id: string) => void
-  id: string
-  alt: string
-  img: string
-  title: string
-}
+  currentCourse: string;
+  changeCurrentCourse: (id: string) => void;
+  id: string;
+  alt: string;
+  img: string;
+  title: string;
+};
 export const CourseImg: FC<CourseImgPropsT> = memo(
   ({ currentCourse, changeCurrentCourse, id, alt, img, title }) => {
     return (
@@ -34,6 +34,6 @@ export const CourseImg: FC<CourseImgPropsT> = memo(
           </h2>
         </div>
       </section>
-    )
+    );
   },
-)
+);

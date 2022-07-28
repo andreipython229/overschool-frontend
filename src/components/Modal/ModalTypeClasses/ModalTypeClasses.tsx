@@ -1,16 +1,16 @@
-import React, { FC, memo, useState } from "react"
-import styles from "../Modal.module.scss"
-import { Button } from "components/common/Button/Button"
+import React, { FC, memo, useState } from "react";
+import styles from "../Modal.module.scss";
+import { Button } from "components/common/Button/Button";
 
 type ModalClassesPropsT = {
-  closeModal: () => void
-  changeClasses: (id: number) => void
-}
+  closeModal: () => void;
+  changeClasses: (id: number) => void;
+};
 type ArrType = {
-  id: number
-  text: string
-  type: string
-}
+  id: number;
+  text: string;
+  type: string;
+};
 const typeClasses: ArrType[] = [
   {
     id: 0,
@@ -37,13 +37,13 @@ const typeClasses: ArrType[] = [
     text: "Вебинар позволяет создать занятия в виде онлайн-трансляций по заданному расписанию для каждой группы учеников.",
     type: "webinar",
   },
-]
+];
 
 export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ closeModal, changeClasses }) => {
-  const [activeClasses, setActiveClasses] = useState<number>(0)
+  const [activeClasses, setActiveClasses] = useState<number>(0);
   const setClassesType = (id: number) => {
-    changeClasses(id)
-  }
+    changeClasses(id);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -213,5 +213,5 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ closeModal, chan
         </div>
       </div>
     </div>
-  )
-})
+  );
+});

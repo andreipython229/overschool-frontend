@@ -1,23 +1,23 @@
-import React, { ChangeEvent, FC, memo } from "react"
-import styles from "../profile.module.scss"
-import { Input } from "../../../components/common/Input/Input/Input"
-import { Button } from "../../../components/common/Button/Button"
-import { SelectInput } from "../../../components/common/SelectInput/SelectInput"
+import React, { ChangeEvent, FC, memo } from "react";
+import styles from "../profile.module.scss";
+import { Input } from "../../../components/common/Input/Input/Input";
+import { Button } from "../../../components/common/Button/Button";
+import { SelectInput } from "../../../components/common/SelectInput/SelectInput";
 
 type AboutUserPropsT = {
-  avatar: string | null
-  onChangeAvatar: (e: ChangeEvent<HTMLInputElement>) => void
-  full_name: string
-  email: string
-  phone_number: string
-  city: string
-  aboutUser: string
-  changeFullName: (e: ChangeEvent<HTMLInputElement>) => void
-  changePhoneNumber: (e: ChangeEvent<HTMLInputElement>) => void
-  changeCity: (e: ChangeEvent<HTMLInputElement>) => void
-  changeAboutMyself: (e: ChangeEvent<HTMLTextAreaElement>) => void
-}
-const optionsList = ["Выберите пол", "Мужской", "Женский"]
+  avatar: string | null;
+  onChangeAvatar: (e: ChangeEvent<HTMLInputElement>) => void;
+  full_name: string;
+  email: string;
+  phone_number: string;
+  city: string;
+  aboutUser: string;
+  changeFullName: (e: ChangeEvent<HTMLInputElement>) => void;
+  changePhoneNumber: (e: ChangeEvent<HTMLInputElement>) => void;
+  changeCity: (e: ChangeEvent<HTMLInputElement>) => void;
+  changeAboutMyself: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+};
+const optionsList = ["Выберите пол", "Мужской", "Женский"];
 
 export const AboutUser: FC<AboutUserPropsT> = memo(
   ({
@@ -117,6 +117,6 @@ export const AboutUser: FC<AboutUserPropsT> = memo(
           <Button text={"Сохранить"} variant={"primary"} disabled={true} />
         </div>
       </div>
-    )
+    );
   },
-)
+);

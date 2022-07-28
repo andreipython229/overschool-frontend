@@ -1,36 +1,36 @@
-import React, { ChangeEvent, FC, useState } from "react"
-import styles from "../../Modal.module.scss"
-import { Input } from "../../../common/Input/Input/Input"
-import { Checkbox } from "../../../common/Checkbox/Checkbox"
-import { Button } from "../../../common/Button/Button"
-import { Radio } from "../../../common/Radio/Radio"
+import React, { ChangeEvent, FC, useState } from "react";
+import styles from "../../Modal.module.scss";
+import { Input } from "../../../common/Input/Input/Input";
+import { Checkbox } from "../../../common/Checkbox/Checkbox";
+import { Button } from "../../../common/Button/Button";
+import { Radio } from "../../../common/Radio/Radio";
 
 type TestModalPropsT = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
-}
+  goToBack: () => void;
+  addCourse: (name: string, type: string) => void;
+  closedAll: () => void;
+};
 
 export const TestModal: FC<TestModalPropsT> = ({ goToBack, addCourse, closedAll }) => {
-  const [nameClasses, setNameClasses] = useState<string>("")
-  const [percent, setPercent] = useState<string>("60")
-  const [settingsActive, setSettingsActive] = useState<number>(0)
-  const [attempts, setAttempts] = useState<string>("1")
-  const [randomQuestions, setRandomQuestions] = useState<boolean>(false)
-  const [shuffleAnswers, setShuffleAnswers] = useState<boolean>(false)
-  const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false)
-  const [numberOfAttempts, setNumberOfAttempts] = useState<boolean>(false)
+  const [nameClasses, setNameClasses] = useState<string>("");
+  const [percent, setPercent] = useState<string>("60");
+  const [settingsActive, setSettingsActive] = useState<number>(0);
+  const [attempts, setAttempts] = useState<string>("1");
+  const [randomQuestions, setRandomQuestions] = useState<boolean>(false);
+  const [shuffleAnswers, setShuffleAnswers] = useState<boolean>(false);
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false);
+  const [numberOfAttempts, setNumberOfAttempts] = useState<boolean>(false);
 
   const changeAttempts = (event: ChangeEvent<HTMLInputElement>) => {
-    setAttempts(event.currentTarget.value)
-  }
+    setAttempts(event.currentTarget.value);
+  };
 
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
-    setNameClasses(event.currentTarget.value)
-  }
+    setNameClasses(event.currentTarget.value);
+  };
   const changePercent = (event: ChangeEvent<HTMLInputElement>) => {
-    setPercent(event.currentTarget.value)
-  }
+    setPercent(event.currentTarget.value);
+  };
   return (
     <div className={styles.wrapper}>
       <div className={styles.classesContainer}>
@@ -243,5 +243,5 @@ export const TestModal: FC<TestModalPropsT> = ({ goToBack, addCourse, closedAll 
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

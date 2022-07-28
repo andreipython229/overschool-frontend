@@ -1,28 +1,28 @@
-import React, { ChangeEvent, FC, useState } from "react"
-import styles from "../../Modal.module.scss"
-import { Input } from "../../../common/Input/Input/Input"
-import { Checkbox } from "../../../common/Checkbox/Checkbox"
-import { SelectInput } from "../../../common/SelectInput/SelectInput"
-import { arrNumber, arrTime } from "../../../../utils"
-import { Button } from "../../../common/Button/Button"
+import React, { ChangeEvent, FC, useState } from "react";
+import styles from "../../Modal.module.scss";
+import { Input } from "../../../common/Input/Input/Input";
+import { Checkbox } from "../../../common/Checkbox/Checkbox";
+import { SelectInput } from "../../../common/SelectInput/SelectInput";
+import { arrNumber, arrTime } from "../../../../utils";
+import { Button } from "../../../common/Button/Button";
 
 type WebinarModalPropsT = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
-}
+  goToBack: () => void;
+  addCourse: (name: string, type: string) => void;
+  closedAll: () => void;
+};
 
 export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, closedAll }) => {
-  const [settingsActive, setSettingsActive] = useState<number>(0)
-  const [nameClasses, setNameClasses] = useState<string>("")
-  const [reminderForStudent, setReminderForStudent] = useState<boolean>(false)
-  const [secondReminderForStudent, setSecondReminderForStudent] = useState<boolean>(false)
-  const [reminderForEmployees, setReminderForEmployees] = useState<boolean>(false)
-  const [secondReminderForEmployees, setSecondReminderForEmployees] = useState<boolean>(false)
+  const [settingsActive, setSettingsActive] = useState<number>(0);
+  const [nameClasses, setNameClasses] = useState<string>("");
+  const [reminderForStudent, setReminderForStudent] = useState<boolean>(false);
+  const [secondReminderForStudent, setSecondReminderForStudent] = useState<boolean>(false);
+  const [reminderForEmployees, setReminderForEmployees] = useState<boolean>(false);
+  const [secondReminderForEmployees, setSecondReminderForEmployees] = useState<boolean>(false);
 
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
-    setNameClasses(event.currentTarget.value)
-  }
+    setNameClasses(event.currentTarget.value);
+  };
   return (
     <div className={styles.wrapper}>
       <div className={styles.classesContainer}>
@@ -231,5 +231,5 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

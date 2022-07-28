@@ -1,15 +1,15 @@
-import React, { memo, useState } from "react"
-import styles from "../superAdmin.module.scss"
-import { useAppDispatch, useAppSelector } from "../../../../../store/redux/store"
-import { changeProjectName } from "../../../../../store/redux/platform/slice"
+import React, { memo, useState } from "react";
+import styles from "../superAdmin.module.scss";
+import { useAppDispatch, useAppSelector } from "../../../../../store/redux/store";
+import { changeProjectName } from "../../../../../store/redux/platform/slice";
 
 export const Main = memo(() => {
-  const dispatch = useAppDispatch()
-  const projectName = useAppSelector<string>((state) => state.platform.projectName)
-  const [name, setName] = useState<string>(projectName)
+  const dispatch = useAppDispatch();
+  const projectName = useAppSelector<string>((state) => state.platform.projectName);
+  const [name, setName] = useState<string>(projectName);
   const onChangeProjectName = () => {
-    dispatch(changeProjectName(name))
-  }
+    dispatch(changeProjectName(name));
+  };
   return (
     <div className={styles.wrapper_actions}>
       <div className={styles.main}>
@@ -32,5 +32,5 @@ export const Main = memo(() => {
         </div>
       </div>
     </div>
-  )
-})
+  );
+});

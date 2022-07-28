@@ -1,11 +1,11 @@
-import React, { FC } from "react"
-import styles from "Pages/Courses/Navigations/CoursesCreating/RedactorCourse/Constructor/constructor.module.scss"
-import Lesson from "assets/img/createCourse/lesson.svg"
-import { Button } from "components/common/Button/Button"
+import React, { FC } from "react";
+import styles from "Pages/Courses/Navigations/CoursesCreating/RedactorCourse/Constructor/constructor.module.scss";
+import Lesson from "assets/img/createCourse/lesson.svg";
+import { Button } from "components/common/Button/Button";
 
 type LessonAddBlockPropsT = {
-  setModalTypeClasses: () => void
-}
+  setModalTypeClasses: () => void;
+};
 
 export const LessonAddBlock: FC<LessonAddBlockPropsT> = ({ setModalTypeClasses }) => {
   return (
@@ -22,5 +22,5 @@ export const LessonAddBlock: FC<LessonAddBlockPropsT> = ({ setModalTypeClasses }
         <Button style={{ width: "236px" }} text={"+ Модуль"} variant={"primary"} />
       </div>
     </div>
-  )
-}
+  );
+};

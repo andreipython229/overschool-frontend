@@ -1,31 +1,31 @@
-import React, { memo, MouseEvent, useEffect, useState } from "react"
-import { Editor, EditorState, RichUtils } from "draft-js"
+import React, { memo, MouseEvent, useEffect, useState } from "react";
+import { Editor, EditorState, RichUtils } from "draft-js";
 
-import "draft-js/dist/Draft.css"
+import "draft-js/dist/Draft.css";
 
-import styles from "./editor.module.scss"
+import styles from "./editor.module.scss";
 
 export const MyEditor = memo(() => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  const editor = React.useRef(null)
+  const editor = React.useRef(null);
 
   function focusEditor() {
     // @ts-ignore
-    editor.current && editor.current.focus()
+    editor.current && editor.current.focus();
   }
 
   useEffect(() => {
-    focusEditor()
-  }, [])
+    focusEditor();
+  }, []);
 
   const StyleButton = (props: any) => {
     const onClickButton = (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault()
-      props.onToggle(props.style)
-    }
-    return <button onMouseDown={onClickButton}>{props.label}</button>
-  }
+      e.preventDefault();
+      props.onToggle(props.style);
+    };
+    return <button onMouseDown={onClickButton}>{props.label}</button>;
+  };
 
   const BLOCK_TYPES = [
     {
@@ -164,34 +164,34 @@ export const MyEditor = memo(() => {
       ),
       style: "IMAGE",
     },
-  ]
+  ];
 
   const Image = (props: any) => {
-    return <img src={props.src} className={styles.media} alt={"content"} />
-  }
+    return <img src={props.src} className={styles.media} alt={"content"} />;
+  };
 
   const Media = (props: any) => {
-    const entity = props.contentState.getEntity(props.block.getEntityAt(0))
-    const { src } = entity.getData()
-    const type = entity.getType()
+    const entity = props.contentState.getEntity(props.block.getEntityAt(0));
+    const { src } = entity.getData();
+    const type = entity.getType();
 
-    let media
+    let media;
     if (type === "image") {
-      media = <Image src={src} />
+      media = <Image src={src} />;
     }
 
-    return media
-  }
+    return media;
+  };
 
   function mediaBlockRenderer(block: any) {
     if (block.getType() === "atomic") {
       return {
         component: Media,
         editable: false,
-      }
+      };
     }
 
-    return null
+    return null;
   }
 
   const BlockStyleControls = (props: any) => {
@@ -206,8 +206,8 @@ export const MyEditor = memo(() => {
           />
         ))}
       </div>
-    )
-  }
+    );
+  };
 
   // const INLINE_STYLES = [
   //     {label: "Bold", style: "BOLD"},
@@ -232,14 +232,14 @@ export const MyEditor = memo(() => {
   // };
 
   const onInlineClick = (e: string) => {
-    const nextState = RichUtils.toggleInlineStyle(editorState, e)
-    setEditorState(nextState)
-  }
+    const nextState = RichUtils.toggleInlineStyle(editorState, e);
+    setEditorState(nextState);
+  };
 
   const onBlockClick = (e: string) => {
-    const nextState = RichUtils.toggleBlockType(editorState, e)
-    setEditorState(nextState)
-  }
+    const nextState = RichUtils.toggleBlockType(editorState, e);
+    setEditorState(nextState);
+  };
 
   return (
     <div className={styles.editor} onClick={focusEditor}>
@@ -257,5 +257,5 @@ export const MyEditor = memo(() => {
         />
       </div>
     </div>
-  )
-})
+  );
+});

@@ -1,25 +1,25 @@
-import React, { ChangeEvent, FC, useState } from "react"
-import styles from "../../Modal.module.scss"
-import { Input } from "components/common/Input/Input/Input"
-import { Button } from "components/common/Button/Button"
+import React, { ChangeEvent, FC, useState } from "react";
+import styles from "../../Modal.module.scss";
+import { Input } from "components/common/Input/Input/Input";
+import { Button } from "components/common/Button/Button";
 
 type SettingClassesPropsType = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
-}
+  goToBack: () => void;
+  addCourse: (name: string, type: string) => void;
+  closedAll: () => void;
+};
 
 export const SettingClassesUsually: FC<SettingClassesPropsType> = ({
   goToBack,
   addCourse,
   closedAll,
 }) => {
-  const [nameClasses, setNameClasses] = useState<string>("")
-  const [settingsActive, setSettingsActive] = useState<number>(0)
+  const [nameClasses, setNameClasses] = useState<string>("");
+  const [settingsActive, setSettingsActive] = useState<number>(0);
 
   const changeNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
-    setNameClasses(event.currentTarget.value)
-  }
+    setNameClasses(event.currentTarget.value);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -115,5 +115,5 @@ export const SettingClassesUsually: FC<SettingClassesPropsType> = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

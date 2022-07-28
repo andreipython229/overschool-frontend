@@ -1,29 +1,29 @@
-import React, { memo, useState } from "react"
-import styles from "./initialPage.module.scss"
-import { InitPageHeader } from "./InitPageHeader/InitPageHeader"
-import { CourseImg } from "./CourseImgBlock/CourseImg"
-import { RegistrationModal } from "../../components/Modal/RegistrationModal/RegistrationModal"
-import { LoginModal } from "../../components/Modal/LoginModal/LoginModal"
-import Python from "../../assets/img/course/python.jpeg"
-import Frontend from "../../assets/img/course/frontend.jpg"
-import QA from "../../assets/img/course/qa.jpg"
-import UI from "../../assets/img/course/ui.jpg"
-import java from "../../assets/img/course/java.jpg"
-import { useAppDispatch } from "../../store/redux/store"
-import { loginUser } from "../../store/redux/users/slice"
+import React, { memo, useState } from "react";
+import styles from "./initialPage.module.scss";
+import { InitPageHeader } from "./InitPageHeader/InitPageHeader";
+import { CourseImg } from "./CourseImgBlock/CourseImg";
+import { RegistrationModal } from "../../components/Modal/RegistrationModal/RegistrationModal";
+import { LoginModal } from "../../components/Modal/LoginModal/LoginModal";
+import Python from "../../assets/img/course/python.jpeg";
+import Frontend from "../../assets/img/course/frontend.jpg";
+import QA from "../../assets/img/course/qa.jpg";
+import UI from "../../assets/img/course/ui.jpg";
+import java from "../../assets/img/course/java.jpg";
+import { useAppDispatch } from "../../store/redux/store";
+import { loginUser } from "../../store/redux/users/slice";
 
 export const InitialPage = memo(() => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-  const [currentCourse, setCurrentCourse] = useState<string>("1")
-  const [registrationShow, setRegistrationShow] = useState<boolean>(false)
-  const [loginShow, setLoginShow] = useState<boolean>(false)
+  const [currentCourse, setCurrentCourse] = useState<string>("1");
+  const [registrationShow, setRegistrationShow] = useState<boolean>(false);
+  const [loginShow, setLoginShow] = useState<boolean>(false);
 
   const logIn = (value: string | number) => {
-    dispatch(loginUser({ value }))
-  }
+    dispatch(loginUser({ value }));
+  };
 
-  const changeCurrentCourse = (id: string) => setCurrentCourse(id)
+  const changeCurrentCourse = (id: string) => setCurrentCourse(id);
 
   return (
     <div className={styles.init}>
@@ -80,5 +80,5 @@ export const InitialPage = memo(() => {
         />
       </div>
     </div>
-  )
-})
+  );
+});
