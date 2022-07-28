@@ -1,13 +1,14 @@
-import React, { ChangeEvent, memo, useState } from "react";
+import React, { ChangeEvent, memo, useState } from 'react';
 
-import styles from "./profile.module.scss";
-import { Input } from "components/common/Input/Input/Input";
-import { Button } from "components/common/Button/Button";
-import { useAppDispatch, useAppSelector } from "store/redux/store";
-import { AboutUser } from "./AboutUser/AboutUser";
-import { Toggle } from "@skbkontur/react-ui/index";
-import noAvatar from "../../assets/img/noAvatar.svg";
-import { Previous } from "../Courses/Previous/Previous";
+import styles from './profile.module.scss';
+
+import { Input } from 'components/common/Input/Input/Input';
+import { Button } from 'components/common/Button/Button';
+import { useAppDispatch, useAppSelector } from 'store/redux/store';
+import { AboutUser } from './AboutUser/AboutUser';
+import { Toggle } from '@skbkontur/react-ui/index';
+import noAvatar from '../../assets/img/noAvatar.svg';
+import { Previous } from '../Courses/Previous/Previous';
 
 export const Profile = memo(() => {
   const dispatch = useAppDispatch();
@@ -16,21 +17,28 @@ export const Profile = memo(() => {
 
   const [phone, setPhone] = useState<string>(phone_number);
   const [userAvatar, setUserAvatar] = useState<string | null>(avatar);
-  const [fullName, setFullName] = useState(first_name + " " + last_name);
+  const [fullName, setFullName] = useState(first_name + ' ' + last_name);
   const [userEmail, setUserEmail] = useState(email);
   const [userCity, setUserCity] = useState(city);
   const [aboutUser, setAboutUser] = useState(aboutMySelf);
+  const [newPassword, setNewPassword] = useState('');
+  const [repeatNewPassword, setRepeatNewPassword] = useState('');
 
-  // Сделать функции для смены пароля
+  const changePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewPassword(e.currentTarget.value);
+  };
+  const changeRepeatPassword = (e: ChangeEvent<HTMLInputElement>) => {
+    setRepeatNewPassword(e.currentTarget.value);
+  };
 
-  // const changeHandler = (e: ChangeEvent<HTMLInputElement>, callback: (value:string)=> void) => {
-  //     callback(e.currentTarget.value)
-  // }
+  //  const onChange = (e: ChangeEvent<HTMLInputElement>, callback: (value: string) => void): void => {
+  // callback(e.currentTarget.value);
+  //  };
 
-  const changePhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
+  const changePhoneNumber = (e: ChangeEvent<HTMLInputElement>): void => {
     setPhone(e.currentTarget.value);
   };
-  const changeFullName = (e: ChangeEvent<HTMLInputElement>) => {
+  const changeFullName = (e: ChangeEvent<HTMLInputElement>): void => {
     setFullName(e.currentTarget.value);
   };
   const changeCity = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +61,7 @@ export const Profile = memo(() => {
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[index]);
       reader.onloadend = (event) => {
-        if (typeof event?.target?.result === "string") {
+        if (typeof event?.target?.result === 'string') {
           setUserAvatar(event?.target?.result);
         }
       };
@@ -61,7 +69,7 @@ export const Profile = memo(() => {
   };
   return (
     <div>
-      <Previous avatar={avatar || noAvatar} name={"User Name"} />
+      <Previous avatar={avatar || noAvatar} name={'User Name'} />
       <div className={styles.profile}>
         <AboutUser
           city={userCity}
@@ -77,42 +85,49 @@ export const Profile = memo(() => {
           changeAboutMyself={changeAboutMyself}
         />
         <div>
-          <div style={{ width: "546px" }} className={styles.container}>
+          <div style={{ width: '546px' }} className={styles.container}>
             <h5>Изменить email</h5>
             <Input
-              name={"Новый email адрес"}
-              type={"text"}
+              name={'Новый email адрес'}
+              type={'text'}
               onChange={(e) => changeEmail(e)}
               value={userEmail}
-              placeholder={"Новый email адрес"}
+              placeholder={'Новый email адрес'}
             />
             <div className={styles.container_wrapper}>
-              <Button variant={email === userEmail ? "disabled" : "primary"} text={"Сохранить"} />
+              <Button variant={email === userEmail ? 'disabled' : 'primary'} text={'Сохранить'} />
             </div>
           </div>
-          <div style={{ width: "546px", marginTop: "32px" }} className={styles.container}>
+          <div style={{ width: '546px', marginTop: '32px' }} className={styles.container}>
             <h5>Смена пароля</h5>
             <Input
-              name={"Новый пароль"}
-              type={"text"}
-              onChange={() => alert("hello")}
-              value={""}
-              placeholder={"Новый пароль"}
+              name={'Новый пароль'}
+              type={'password'}
+              onChange={(e) => changePassword(e)}
+              value={newPassword}
+              placeholder={'Новый пароль'}
             />
             <div className={styles.container_wrapper}>
               <Input
-                name={"Повторить новый пароль"}
-                placeholder={"Повторить новый пароль"}
-                type={"text"}
-                onChange={() => alert("hello")}
-                value={""}
+                name={'Повторить новый пароль'}
+                placeholder={'Повторить новый пароль'}
+                type={'password'}
+                onChange={(e) => changeRepeatPassword(e)}
+                value={repeatNewPassword}
               />
             </div>
             <div className={styles.container_wrapper}>
-              <Button variant={"disabled"} text={"Сменить пароль"} />
+              <Button
+                variant={
+                  newPassword.length >= 8 && newPassword === repeatNewPassword
+                    ? 'primary'
+                    : 'disabled'
+                }
+                text={'Сменить пароль'}
+              />
             </div>
           </div>
-          <div style={{ width: "566px", marginTop: "32px" }} className={styles.notification}>
+          <div style={{ width: '566px', marginTop: '32px' }} className={styles.notification}>
             <h5>Уведомления</h5>
             <div className={styles.notification_toggleWrapper}>
               <div className={styles.notification_toggleWrapper_toggleBlock}>
