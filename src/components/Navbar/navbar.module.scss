@@ -2,11 +2,11 @@
   width: 80px;
   //height: 100%;
   min-height: 100vh;
-  background: #FFFFFF;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 0 5px #D9D9D9;
+  box-shadow: 0 0 5px #d9d9d9;
   z-index: 2;
 
   &_menu {
@@ -41,14 +41,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #E0DCED;
+  background: #e0dced;
   border-radius: 10px;
   text-align: center;
 
   & svg {
     & path {
       //fill: #BA75FF;
-      stroke: #BA75FF;
+      stroke: #ba75ff;
     }
   }
 }

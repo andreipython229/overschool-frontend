@@ -1,14 +1,13 @@
-@import '/src/scss/variable';
+@import "/src/scss/variable";
 
 .wrapper {
   position: absolute;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
   z-index: 5;
-
 }
 
 .container {
@@ -17,8 +16,8 @@
 
 .main {
   width: 468px;
-  background: #FFFFFF;
-  font-family: 'Manrope', sans-serif;
+  background: #ffffff;
+  font-family: "Manrope", sans-serif;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -55,12 +54,12 @@
 
     &_description {
       font-size: 14px;
-      font-family: 'Inter', sans-serif;
+      font-family: "Inter", sans-serif;
       margin: 10px 0;
     }
 
     &_link {
-      color: #0359FF;
+      color: #0359ff;
       text-decoration: none;
     }
   }
@@ -68,14 +67,13 @@
   &_btn {
     margin-top: 50px;
     text-align: center;
-
   }
 }
 
 .main_employee {
   width: 558px;
-  background: #FFFFFF;
-  font-family: 'Manrope', sans-serif;
+  background: #ffffff;
+  font-family: "Manrope", sans-serif;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -91,7 +89,7 @@
   }
 
   &_closedModal {
-    background: #F1F1F1;
+    background: #f1f1f1;
     width: 30px;
     height: 30px;
     position: absolute;
@@ -103,19 +101,17 @@
     & svg {
       padding: 8px 0 0 8px;
     }
-
   }
 
-
   &_title {
-    color: #4D5766;
+    color: #4d5766;
     font-weight: 500;
     font-size: 18px;
     text-align: center;
   }
 
   &_subs {
-    color: #65696D;
+    color: #65696d;
     font-weight: 400;
     font-size: 14px;
   }
@@ -124,7 +120,7 @@
     margin-top: 32px;
 
     & label {
-      color: #4D5766;
+      color: #4d5766;
       font-size: 14px;
     }
 
@@ -132,7 +128,7 @@
       margin: 7px 13px 0 0;
       width: 496px;
       padding: 11px 0 12px 20px;
-      border: 1px solid #E5E7EB;
+      border: 1px solid #e5e7eb;
       border-radius: 5px;
     }
 
@@ -141,7 +137,7 @@
       outline: none;
 
       &::placeholder {
-        color: #D4D7DD
+        color: #d4d7dd;
       }
     }
   }
@@ -155,7 +151,7 @@
 
     &_desc {
       font-size: 14px;
-      color: #949AA3;
+      color: #949aa3;
       margin-left: 32px;
     }
   }
@@ -163,7 +159,6 @@
   &_btn {
     margin-top: 16px;
     text-align: center;
-
   }
 
   &_course {
@@ -194,7 +189,6 @@
   & :nth-child(2) {
     margin-bottom: 16px;
   }
-
 }
 
 .restorePass {
@@ -204,18 +198,18 @@
   padding: 15px 0;
   font-size: 14px;
   font-weight: 800;
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
   border: none;
   outline: none;
   cursor: pointer;
   width: 240px;
-  background: #DDD7FA;
+  background: #ddd7fa;
   border-radius: 10px;
 }
 
 .mainCourse {
   width: 438px;
-  background: #FFFFFF;
+  background: #ffffff;
   font-family: $font-family-inter;
   display: flex;
   flex-direction: column;
@@ -232,7 +226,7 @@
   }
 
   &_closed {
-    background: #F1F1F1;
+    background: #f1f1f1;
     width: 30px;
     height: 30px;
     position: absolute;
@@ -250,7 +244,7 @@
     text-align: center;
     font-size: 18px;
     font-weight: 500;
-    color: #4D5766;
+    color: #4d5766;
     letter-spacing: 0.02em;
     margin-bottom: 16px;
   }
@@ -258,12 +252,11 @@
   &_input {
     margin-bottom: 16px;
   }
-
 }
 
 .classesContainer {
   padding: 32px;
-  background: #FFFFFF;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -286,7 +279,7 @@
     top: 20px;
     width: 30px;
     height: 30px;
-    background: #F1F1F1;
+    background: #f1f1f1;
     border-radius: 7px;
     cursor: pointer;
 
@@ -295,7 +288,7 @@
     }
 
     & svg :hover {
-      stroke: #4D5766;
+      stroke: #4d5766;
     }
   }
 
@@ -308,7 +301,6 @@
     margin: 27px 0 17px 0;
     display: flex;
 
-
     & div:not(:last-child) {
       margin-right: 24px;
     }
@@ -316,22 +308,21 @@
     &_classes {
       width: 100px;
       height: 110px;
-      border: 2px solid #E0DCED;
+      border: 2px solid #e0dced;
       border-radius: 7px;
-      background: #F9FAFB;
-      color: #9CA3AF;
+      background: #f9fafb;
+      color: #9ca3af;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       cursor: pointer;
 
-
       & svg {
         margin-bottom: 8px;
 
         path {
-          fill: #9CA3AF;
+          fill: #9ca3af;
         }
       }
     }
@@ -352,7 +343,6 @@
 
       & div:nth-child(1) {
         margin-right: 12px;
-
       }
     }
   }
@@ -366,7 +356,7 @@
 }
 
 .active {
-  border: 2px solid #BA75FF;
+  border: 2px solid #ba75ff;
   color: $font-color-rose;
 
   & svg {
@@ -377,7 +367,6 @@
       fill: $font-color-rose;
     }
   }
-
 }
 
 .usually {
@@ -423,7 +412,7 @@
     margin: 16px 0 30px 0;
 
     &_points {
-      border: 1px solid #E5E7EB;
+      border: 1px solid #e5e7eb;
       width: 74px;
       height: 33px;
       display: flex;
@@ -437,7 +426,6 @@
       color: $font-title;
     }
   }
-
 }
 
 .tasks {
@@ -463,13 +451,12 @@
         color: $font-title;
         font-size: 14px;
         font-weight: 400;
-
       }
 
       & p {
         font-weight: 400;
         font-size: 14px;
-        color: #949AA3;
+        color: #949aa3;
         line-height: 21px;
       }
     }
@@ -500,7 +487,7 @@
 
     &_desc {
       font-size: 16px;
-      color: #68717D;
+      color: #68717d;
     }
   }
 }
@@ -529,12 +516,11 @@
     font-weight: 400;
     color: $font-title;
 
-
     &_attempts {
       width: 50px;
       margin-left: 16px;
       padding: 6px 0 6px 16px;
-      border: 1px solid #E5E7EB;
+      border: 1px solid #e5e7eb;
       outline: none;
       border-radius: 5px;
     }
@@ -552,10 +538,9 @@
 
       &_desc {
         font-size: 10px;
-        color: #868B94;
+        color: #868b94;
       }
     }
-
   }
 
   &_grade {
@@ -620,7 +605,7 @@
 
       &_desc {
         padding-top: 4px;
-        color: #949AA3;
+        color: #949aa3;
         font-size: $fs14;
         font-weight: 400;
       }
@@ -655,7 +640,7 @@
 
   &_btn {
     padding: 8px 15px;
-    color: #B3B8C2;
+    color: #b3b8c2;
     cursor: pointer;
     text-align: center;
   }
@@ -664,7 +649,7 @@
     border-radius: 7px;
     color: $font-color-rose;
     border: 1px solid $font-color-rose;
-    background-color: #E0DCED;
+    background-color: #e0dced;
   }
 
   &_btn:hover {

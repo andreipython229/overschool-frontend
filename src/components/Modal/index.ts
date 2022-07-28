@@ -1,9 +1,9 @@
-export {AddEmployeeModal} from './AddEmployee/AddEmployeeModal'
-export {AddCourseModal} from './CoursesModal/AddCourseModal'
-export {LoginModal} from './LoginModal/LoginModal'
-export {RegistrationModal} from './RegistrationModal/RegistrationModal'
-export {ModalTypeClasses} from './ModalTypeClasses/ModalTypeClasses'
-export {TasksModal} from './ModalTypeClasses/TasksModal/TasksModal'
-export {TestModal} from './ModalTypeClasses/TestModal/TestModal'
-export {SettingClassesUsually} from './ModalTypeClasses/UsuallyClasses/UsuallyClasses'
-export {WebinarModal} from './ModalTypeClasses/WebinarModal/WebinarModal'
+export { AddEmployeeModal } from "./AddEmployee/AddEmployeeModal"
+export { AddCourseModal } from "./CoursesModal/AddCourseModal"
+export { LoginModal } from "./LoginModal/LoginModal"
+export { RegistrationModal } from "./RegistrationModal/RegistrationModal"
+export { ModalTypeClasses } from "./ModalTypeClasses/ModalTypeClasses"
+export { TasksModal } from "./ModalTypeClasses/TasksModal/TasksModal"
+export { TestModal } from "./ModalTypeClasses/TestModal/TestModal"
+export { SettingClassesUsually } from "./ModalTypeClasses/UsuallyClasses/UsuallyClasses"
+export { WebinarModal } from "./ModalTypeClasses/WebinarModal/WebinarModal"

@@ -24,7 +24,7 @@
         top: 28px;
         left: 10px;
         border-radius: 7px;
-        background: #F7F5F7 url("../../assets/img/noAvatar.svg") no-repeat center center;
+        background: #f7f5f7 url("../../assets/img/noAvatar.svg") no-repeat center center;
       }
 
       &_input {
@@ -43,14 +43,14 @@
       width: 93%;
       display: block;
       outline: none;
-      border: 1px solid #E5E7EB;
+      border: 1px solid #e5e7eb;
       border-radius: 5px;
       padding: 11px 43px 14px 14px;
       resize: vertical;
       margin-top: 18px;
 
       & ::placeholder {
-        color: #D2D7DC;
+        color: #d2d7dc;
       }
     }
   }
@@ -58,7 +58,7 @@
 
 .container {
   padding: 26px 36px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: $box-shadow;
 
@@ -69,7 +69,7 @@
 
 .notification {
   padding: 26px 16px 26px 36px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: $box-shadow;
   margin-bottom: 36px;
@@ -91,7 +91,7 @@
         }
 
         &_desc {
-          color: #A8ABAD;
+          color: #a8abad;
           font-size: 11px;
         }
       }

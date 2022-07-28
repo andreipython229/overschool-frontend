@@ -1,16 +1,16 @@
-import {configureStore} from '@reduxjs/toolkit'
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {authReduce} from "./users/slice";
-import {courseReduce} from "./course/slice";
-import {platformReduce} from "./platform/slice";
+import { configureStore } from "@reduxjs/toolkit"
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
+import { authReduce } from "./users/slice"
+import { courseReduce } from "./course/slice"
+import { platformReduce } from "./platform/slice"
 
 export const store = configureStore({
-    reducer: {
-        user: authReduce,
-        course: courseReduce,
-        platform: platformReduce,
-    },
-    devTools: process.env.NODE_ENV !== 'production',
+  reducer: {
+    user: authReduce,
+    course: courseReduce,
+    platform: platformReduce,
+  },
+  devTools: process.env.NODE_ENV !== "production",
 })
 
 export type RootState = ReturnType<typeof store.getState>

@@ -5,7 +5,7 @@
   border: 1px solid #e8e8e8;
   border-radius: 8px;
   background-color: #ffffff;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   padding-left: 2px;
 
   & input {
@@ -18,12 +18,11 @@
     font-weight: 500;
   }
   & input ::placeholder {
-    color: #D2D7DC;
+    color: #d2d7dc;
   }
 }
 
 .input_container {
-
   &_textFieldLabel {
     display: inline-block;
     margin-bottom: 8px;
