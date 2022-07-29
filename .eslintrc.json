@@ -12,8 +12,7 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true,
-      "tsx": true
+      "jsx": true
     },
     "ecmaVersion": "latest",
     "sourceType": "module"
@@ -28,6 +27,19 @@
     "prettier"
   ],
   "rules": {
+    "no-shadow": "off",
+    "no-alert": "error",
+    "no-debugger": "warn",
+    "no-plusplus": "error",
+    "no-unused-vars": "off",
+    "no-unused-expressions": "warn",
+    "no-magic-numbers": "off",
+    "default-param-last": "off",
+    "no-use-before-define": "off",
+    "no-param-reassign": "off",
+    "semi": "off",
+    "semi-style": "off",
+    "no-extra-semi": "off",
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",

@@ -1,5 +1,5 @@
-import React, { DetailedHTMLProps, FC, InputHTMLAttributes } from "react";
-import styles from "./input.module.scss";
+import React, { DetailedHTMLProps, FC, InputHTMLAttributes } from 'react';
+import styles from './input.module.scss';
 
 type DefaultInputPropsType = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -10,7 +10,7 @@ export type InputPropsT = DefaultInputPropsType & {
   id?: string;
   name: string;
   type: string;
-  onChange: (value: any) => void;
+  onChange?: (value: any) => void;
   value: string;
   onBlur?: (e: any) => void;
   icon?: string;

@@ -1,11 +1,11 @@
-import React, { FC, memo, useState } from "react";
-import styles from "../../Modal.module.scss";
-import { Input } from "../../../common/Input/Input/Input";
-import { Checkbox } from "../../../common/Checkbox/Checkbox";
-import { SelectInput } from "../../../common/SelectInput/SelectInput";
-import { Button } from "../../../common/Button/Button";
-import { arrNumber, arrTime } from "utils";
-import { MyEditor } from "components/Editor/Editor";
+import React, { FC, memo, useState } from 'react';
+import styles from '../../Modal.module.scss';
+import { Input } from '../../../common/Input/Input/Input';
+import { Checkbox } from '../../../common/Checkbox/Checkbox';
+import { SelectInput } from '../../../common/SelectInput/SelectInput';
+import { Button } from '../../../common/Button/Button';
+import { arrNumber, arrTime } from 'utils';
+import { MyEditor } from 'components/Editor/Editor';
 
 type TasksModalPropsT = {
   goToBack: () => void;
@@ -13,7 +13,7 @@ type TasksModalPropsT = {
   closedAll: () => void;
 };
 export const TasksModal: FC<TasksModalPropsT> = memo(({ goToBack, addCourse, closedAll }) => {
-  const [nameClasses, setNameClasses] = useState<string>("");
+  const [nameClasses, setNameClasses] = useState<string>('');
   const [settingsActive, setSettingsActive] = useState<number>(0);
   const [checkbox, setCheckbox] = useState<boolean>(false);
 
@@ -67,7 +67,7 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ goToBack, addCourse, clo
             onClick={() => setSettingsActive(0)}
             className={
               settingsActive === 0
-                ? styles.navBtn_btn + " " + styles.navBtn_active
+                ? styles.navBtn_btn + ' ' + styles.navBtn_active
                 : styles.navBtn_btn
             }
           >
@@ -77,7 +77,7 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ goToBack, addCourse, clo
             onClick={() => setSettingsActive(1)}
             className={
               settingsActive === 1
-                ? styles.navBtn_btn + " " + styles.navBtn_active
+                ? styles.navBtn_btn + ' ' + styles.navBtn_active
                 : styles.navBtn_btn
             }
           >
@@ -86,20 +86,20 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ goToBack, addCourse, clo
         </div>
         {settingsActive === 0 ? (
           <>
-            <div style={{ marginTop: "15px" }} className={styles.usually_input}>
+            <div style={{ marginTop: '15px' }} className={styles.usually_input}>
               <span className={styles.usually_title}>Название занятие:</span>
               <Input
-                placeholder={"Основы языка HTML"}
-                name={"name classes"}
+                placeholder={'Основы языка HTML'}
+                name={'name classes'}
                 onChange={(e) => setNameClasses(e.targetValue.value)}
-                type={"text"}
+                type={'text'}
                 value={nameClasses}
               />
             </div>
             <div className={styles.tasks_checkbox}>
               <Checkbox
-                id={"autoTest"}
-                name={"Auto test work"}
+                id={'autoTest'}
+                name={'Auto test work'}
                 checked={checkbox}
                 onChange={() => setCheckbox(!checkbox)}
               />
@@ -132,18 +132,18 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ goToBack, addCourse, clo
               Сколько баллов будет выдано ученику по завершению занятия:
             </span>
             <div className={styles.usually_grade}>
-              <input type={"number"} placeholder={"0"} className={styles.usually_grade_points} />
+              <input type={'number'} placeholder={'0'} className={styles.usually_grade_points} />
               <span>баллов</span>
             </div>
           </div>
         )}
 
         <div className={styles.btnBlock}>
-          <Button onClick={goToBack} text={"Назад"} />
+          <Button onClick={goToBack} text={'Назад'} />
           <Button
-            onClick={() => addCourse(nameClasses, "task")}
-            text={"Добавить занятие"}
-            variant={"primary"}
+            onClick={() => addCourse(nameClasses, 'task')}
+            text={'Добавить занятие'}
+            variant={'primary'}
           />
         </div>
       </div>

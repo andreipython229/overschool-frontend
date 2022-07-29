@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FC, memo } from "react";
-import styles from "../profile.module.scss";
-import { Input } from "../../../components/common/Input/Input/Input";
-import { Button } from "../../../components/common/Button/Button";
-import { SelectInput } from "../../../components/common/SelectInput/SelectInput";
+import React, { ChangeEvent, FC, memo } from 'react';
+import styles from '../profile.module.scss';
+import { Input } from 'components/common/Input/Input/Input';
+import { Button } from 'components/common/Button/Button';
+import { SelectInput } from 'components/common/SelectInput/SelectInput';
 
 type AboutUserPropsT = {
   avatar: string | null;
@@ -12,12 +12,13 @@ type AboutUserPropsT = {
   phone_number: string;
   city: string;
   aboutUser: string;
+  sex: string;
   changeFullName: (e: ChangeEvent<HTMLInputElement>) => void;
   changePhoneNumber: (e: ChangeEvent<HTMLInputElement>) => void;
   changeCity: (e: ChangeEvent<HTMLInputElement>) => void;
   changeAboutMyself: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 };
-const optionsList = ["Выберите пол", "Мужской", "Женский"];
+const optionsList = ['Выберите пол', 'Мужской', 'Женский'];
 
 export const AboutUser: FC<AboutUserPropsT> = memo(
   ({
@@ -35,18 +36,12 @@ export const AboutUser: FC<AboutUserPropsT> = memo(
   }) => {
     return (
       <div
-        style={{ width: "calc(100% * 0.6)", marginRight: "26px", marginBottom: "108px" }}
+        style={{ width: 'calc(100% * 0.6)', marginRight: '26px', marginBottom: '108px' }}
         className={styles.container}
       >
         <h3>Настройка профиля</h3>
         <div className={styles.profile_block}>
-          <Input
-            name={"Email"}
-            type={"text"}
-            label={"Email:"}
-            onChange={() => alert("Hello")}
-            value={email}
-          />
+          <Input name={'Email'} type={'text'} label={'Email:'} value={email} />
         </div>
         <div className={styles.profile_block}>
           <div className={styles.profile_block_avatarBlock}>
@@ -62,39 +57,39 @@ export const AboutUser: FC<AboutUserPropsT> = memo(
             )}
             <input
               className={styles.profile_block_avatarBlock_input}
-              name={"Avatar"}
-              type={"file"}
+              name={'Avatar'}
+              type={'file'}
               onChange={onChangeAvatar}
             />
           </div>
         </div>
         <div className={styles.profile_block}>
           <Input
-            name={"Name"}
-            type={"text"}
-            label={"Имя и Фамилия:"}
+            name={'Name'}
+            type={'text'}
+            label={'Имя и Фамилия:'}
             onChange={(e) => changeFullName(e)}
             value={full_name}
           />
         </div>
         <div className={styles.profile_block}>
           <Input
-            name={"phone"}
-            type={"text"}
-            label={"Телефон:"}
+            name={'phone'}
+            type={'text'}
+            label={'Телефон:'}
             onChange={(e) => changePhoneNumber(e)}
             value={phone_number}
-            placeholder={"Введите номер телефона"}
+            placeholder={'Введите номер телефона'}
           />
         </div>
         <div className={styles.profile_block}>
           <Input
-            name={"city"}
-            type={"text"}
-            label={"Город:"}
+            name={'city'}
+            type={'text'}
+            label={'Город:'}
             onChange={(e) => changeCity(e)}
             value={city}
-            placeholder={"Введите город"}
+            placeholder={'Введите город'}
           />
         </div>
         <div className={styles.profile_block}>
@@ -105,7 +100,7 @@ export const AboutUser: FC<AboutUserPropsT> = memo(
             placeholder={
               aboutUser
                 ? aboutUser
-                : "Опишите вашу карьеру и достижения. Эта информация будет отображена на страницах курсов, в которых вы являетесь преподавателем"
+                : 'Опишите вашу карьеру и достижения. Эта информация будет отображена на страницах курсов, в которых вы являетесь преподавателем'
             }
           />
         </div>
@@ -114,7 +109,7 @@ export const AboutUser: FC<AboutUserPropsT> = memo(
           <SelectInput optionsList={optionsList} />
         </div>
         <div>
-          <Button text={"Сохранить"} variant={"primary"} disabled={true} />
+          <Button text={'Сохранить'} variant={'primary'} disabled={true} />
         </div>
       </div>
     );

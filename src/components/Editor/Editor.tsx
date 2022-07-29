@@ -1,9 +1,9 @@
-import React, { memo, MouseEvent, useEffect, useState } from "react";
-import { Editor, EditorState, RichUtils } from "draft-js";
+import React, { memo, MouseEvent, useEffect, useState } from 'react';
+import { Editor, EditorState, RichUtils } from 'draft-js';
 
-import "draft-js/dist/Draft.css";
+import 'draft-js/dist/Draft.css';
 
-import styles from "./editor.module.scss";
+import styles from './editor.module.scss';
 
 export const MyEditor = memo(() => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -11,6 +11,7 @@ export const MyEditor = memo(() => {
   const editor = React.useRef(null);
 
   function focusEditor() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     editor.current && editor.current.focus();
   }
@@ -43,7 +44,7 @@ export const MyEditor = memo(() => {
           />
         </svg>
       ),
-      style: "header-one",
+      style: 'header-one',
     },
     {
       label: (
@@ -60,7 +61,7 @@ export const MyEditor = memo(() => {
           />
         </svg>
       ),
-      style: "header-two",
+      style: 'header-two',
     },
     {
       label: (
@@ -77,7 +78,7 @@ export const MyEditor = memo(() => {
           />
         </svg>
       ),
-      style: "header-three",
+      style: 'header-three',
     },
     {
       label: (
@@ -94,7 +95,7 @@ export const MyEditor = memo(() => {
           />
         </svg>
       ),
-      style: "blockquote",
+      style: 'blockquote',
     },
     {
       label: (
@@ -111,7 +112,7 @@ export const MyEditor = memo(() => {
           />
         </svg>
       ),
-      style: "unordered-list-item",
+      style: 'unordered-list-item',
     },
     {
       label: (
@@ -128,7 +129,7 @@ export const MyEditor = memo(() => {
           />
         </svg>
       ),
-      style: "ordered-list-item",
+      style: 'ordered-list-item',
     },
     {
       label: (
@@ -145,7 +146,7 @@ export const MyEditor = memo(() => {
           />
         </svg>
       ),
-      style: "code-block",
+      style: 'code-block',
     },
     {
       label: (
@@ -162,12 +163,12 @@ export const MyEditor = memo(() => {
           />
         </svg>
       ),
-      style: "IMAGE",
+      style: 'IMAGE',
     },
   ];
 
   const Image = (props: any) => {
-    return <img src={props.src} className={styles.media} alt={"content"} />;
+    return <img src={props.src} className={styles.media} alt={'content'} />;
   };
 
   const Media = (props: any) => {
@@ -176,7 +177,7 @@ export const MyEditor = memo(() => {
     const type = entity.getType();
 
     let media;
-    if (type === "image") {
+    if (type === 'image') {
       media = <Image src={src} />;
     }
 
@@ -184,7 +185,7 @@ export const MyEditor = memo(() => {
   };
 
   function mediaBlockRenderer(block: any) {
-    if (block.getType() === "atomic") {
+    if (block.getType() === 'atomic') {
       return {
         component: Media,
         editable: false,
@@ -249,7 +250,7 @@ export const MyEditor = memo(() => {
       </div>
       <div className={styles.editor_table}>
         <Editor
-          placeholder={"Введите текст"}
+          placeholder={'Введите текст'}
           ref={editor}
           blockRendererFn={mediaBlockRenderer}
           editorState={editorState}

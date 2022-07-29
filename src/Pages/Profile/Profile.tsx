@@ -9,10 +9,11 @@ import { AboutUser } from './AboutUser/AboutUser';
 import { Toggle } from '@skbkontur/react-ui/index';
 import noAvatar from '../../assets/img/noAvatar.svg';
 import { Previous } from '../Courses/Previous/Previous';
+import { selectUser } from 'store/redux/users/select';
 
 export const Profile = memo(() => {
   const dispatch = useAppDispatch();
-  const { avatar, user, phone_number, city, aboutMySelf } = useAppSelector((state) => state.user);
+  const { avatar, user, phone_number, city, aboutMySelf, sex } = useAppSelector(selectUser);
   const { last_name, first_name, email } = user;
 
   const [phone, setPhone] = useState<string>(phone_number);
@@ -51,9 +52,19 @@ export const Profile = memo(() => {
     setUserEmail(e.currentTarget.value);
   };
 
-  // const changeUserInfo = (avatar: string): void => {
-  // dispatch(requestChangeUserInfo(name,userAvatar,email))
-  // }
+  // const changeUserInfo = (): void => {
+  //   const name = fullName.split(' ');
+  //   dispatch(
+  //     changeInfo({
+  //       user: { email: userEmail, first_name: name[0], last_name: name[1] },
+  //       phone_number: phone,
+  //       avatar: userAvatar,
+  //       city: userCity,
+  //       aboutMySelf: aboutUser,
+  //       sex,
+  //     }),
+  //   );
+  // };
 
   const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files) {
@@ -83,6 +94,7 @@ export const Profile = memo(() => {
           changeFullName={changeFullName}
           changeCity={changeCity}
           changeAboutMyself={changeAboutMyself}
+          sex={sex}
         />
         <div>
           <div style={{ width: '546px' }} className={styles.container}>

@@ -10,7 +10,6 @@ export type UserT = {
   phone_number: string;
   avatar: string | null;
   city: string;
-  description?: string;
   sex: string;
   permission: number;
   aboutMySelf: string;

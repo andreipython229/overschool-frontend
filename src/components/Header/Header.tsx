@@ -1,11 +1,11 @@
-import React, { memo } from "react";
-import styles from "./header.module.scss";
-import Logotype from "../../assets/img/logotype.svg";
-import Avatar from "../../assets/img/avatar.svg";
-import { useAppDispatch } from "../../store/redux/store";
-import { auth } from "../../store/redux/users/slice";
-import { Link } from "react-router-dom";
-import { Path } from "../../enum/pathE";
+import React, { memo } from 'react';
+import styles from './header.module.scss';
+import Logotype from '../../assets/img/logotype.svg';
+import Avatar from '../../assets/img/avatar.svg';
+import { useAppDispatch } from 'store/redux/store';
+import { auth } from 'store/redux/users/slice';
+import { Link, NavLink } from 'react-router-dom';
+import { Path } from 'enum/pathE';
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch();
@@ -16,14 +16,17 @@ export const Header = memo(() => {
 
   return (
     <div className={styles.header}>
-      <img className={styles.header_logotype} src={Logotype} alt="Logotype IT Overone" />
+      <NavLink to={Path.InitialPage}>
+        <img className={styles.header_logotype} src={Logotype} alt="Logotype IT Overone" />
+      </NavLink>
+
       <div className={styles.header_block}>
-        <Link style={{ textDecoration: "none" }} to={Path.Profile}>
+        <Link style={{ textDecoration: 'none' }} to={Path.Profile}>
           <div className={styles.header_block_user}>
             <img className={styles.header_block_user_avatar} src={Avatar} alt="User Avatar" />
             <div className={styles.header_block_user_userName}>
               <span
-                style={{ color: "#BA75FF" }}
+                style={{ color: '#BA75FF' }}
                 className={styles.header_block_user_userName_status}
               >
                 Супер пользователь

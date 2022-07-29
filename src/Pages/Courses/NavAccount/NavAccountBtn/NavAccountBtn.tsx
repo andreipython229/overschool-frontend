@@ -1,6 +1,6 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from "react";
-import styles from "./navAccountBtn.module.scss";
-import { NavLink } from "react-router-dom";
+import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from 'react';
+import styles from './navAccountBtn.module.scss';
+import { NavLink } from 'react-router-dom';
 
 type DefaultButtonPropsType = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -13,9 +13,8 @@ type NavAccountBtnPropsT = DefaultButtonPropsType & {
 };
 
 export const NavAccountBtn: FC<NavAccountBtnPropsT> = memo(({ text, path, ...restProps }) => {
-  // @ts-ignore
-  const isActive = ({ isActive }) =>
-    isActive ? styles.nav_btn + " " + styles.active : styles.nav_btn;
+  const isActive = ({ isActive }: any) =>
+    isActive ? styles.nav_btn + ' ' + styles.active : styles.nav_btn;
   return (
     <NavLink to={path} replace={true} className={isActive}>
       {text}

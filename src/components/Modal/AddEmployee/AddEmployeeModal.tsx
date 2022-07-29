@@ -1,16 +1,27 @@
-import React, { FC, memo } from "react";
-import styles from "../Modal.module.scss";
-import { Button } from "components/common/Button/Button";
-import { Radio } from "components/common/Radio/Radio";
-import { useAppSelector } from "store/redux/store";
-import { RoleE } from "enum/roleE";
-import { Checkbox } from "../../common/Checkbox/Checkbox";
+import React, { ChangeEvent, FC, memo, useState } from 'react';
+import styles from '../Modal.module.scss';
+import { Button } from 'components/common/Button/Button';
+import { Radio } from 'components/common/Radio/Radio';
+import { useAppSelector } from 'store/redux/store';
+import { RoleE } from 'enum/roleE';
+import { Checkbox } from '../../common/Checkbox/Checkbox';
 
 type AddEmployeeModalPropsT = {
   setModal: () => void;
 };
 
 export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) => {
+  const [pythonCheck, setPythonCheck] = useState<boolean>(false);
+  const [javaCheck, setJavaCheck] = useState<boolean>(false);
+  const [frontendCheck, setFrontendCheck] = useState<boolean>(false);
+  const [UICheck, setUICheck] = useState<boolean>(false);
+  const [englishCheck, setEnglishCheck] = useState<boolean>(false);
+  const [englishStartCheck, setEnglishStartCheck] = useState<boolean>(false);
+
+  const changeCheckbox = (e: ChangeEvent<HTMLInputElement>, callback: (e: boolean) => void) => {
+    callback(e.currentTarget.checked);
+  };
+
   const role = useAppSelector((state) => state.user.permission);
   if (role === RoleE.Admin) {
     return (
@@ -34,7 +45,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
                 />
               </svg>
             </div>
-            <div style={{ textAlign: "center" }}>
+            <div style={{ textAlign: 'center' }}>
               <h3 className={styles.main_employee_title}>Добавление сотрудника</h3>
               <span className={styles.main_employee_subs}>
                 Отправим приглашение на Email. <br /> Приняв его, сотрудник сможет настроить свой
@@ -45,12 +56,12 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
               <label htmlFor="email">Email нового сотрудника:</label>
               <br />
               <div className={styles.main_employee_invite_input}>
-                <input type="text" placeholder={"example@mailbox.ru"} />
+                <input type="text" placeholder={'example@mailbox.ru'} />
               </div>
             </div>
             <div className={styles.main_employee_role}>
               <div className={styles.main_employee_role_radio}>
-                <Radio title={"Редактор"} id={"admin"} />
+                <Radio title={'Редактор'} id={'admin'} />
               </div>
               <div className={styles.main_employee_role_desc}>
                 Может создавать и удалять курсы, добавлять сотрудников, производить операции со
@@ -59,7 +70,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
             </div>
             <div className={styles.main_employee_role}>
               <div className={styles.main_employee_role_radio}>
-                <Radio title={"Преподаватель"} id={"admin"} />
+                <Radio title={'Преподаватель'} id={'admin'} />
               </div>
               <div className={styles.main_employee_role_desc}>
                 Может создавать и удалять курсы, добавлять сотрудников, производить операции со
@@ -68,45 +79,70 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
             </div>
             <div className={styles.main_employee_role}>
               <div className={styles.main_employee_role_radio}>
-                <Radio title={"Менеджер"} id={"teacher"} />
+                <Radio title={'Менеджер'} id={'teacher'} />
               </div>
               <div className={styles.main_employee_role_desc}>Может что-то делать</div>
             </div>
             <div className={styles.main_employee_course}>
               <span className={styles.main_employee_course_title}>Доступ к курсам</span>
               <div className={styles.main_employee_course_checkbox}>
-                <Checkbox id={"Python"} name={"Python"} checked={false} onChange={() => {}} />
+                <Checkbox
+                  id={'Python'}
+                  name={'Python'}
+                  checked={pythonCheck}
+                  onChange={(e) => changeCheckbox(e, setPythonCheck)}
+                />
                 <span>The Way Python</span>
               </div>
               <div className={styles.main_employee_course_checkbox}>
-                <Checkbox id={"Java"} name={"Java"} checked={false} onChange={() => {}} />
+                <Checkbox
+                  id={'Java'}
+                  name={'Java'}
+                  checked={javaCheck}
+                  onChange={(e) => changeCheckbox(e, setJavaCheck)}
+                />
                 <span>The Way Java</span>
               </div>
 
               <div className={styles.main_employee_course_checkbox}>
-                <Checkbox id={"Frontend"} name={"Frontend"} checked={false} onChange={() => {}} />
+                <Checkbox
+                  id={'Frontend'}
+                  name={'Frontend'}
+                  checked={frontendCheck}
+                  onChange={(e) => changeCheckbox(e, setFrontendCheck)}
+                />
                 <span>The Way Frontend</span>
               </div>
               <div className={styles.main_employee_course_checkbox}>
-                <Checkbox id={"UI"} name={"UI"} checked={false} onChange={() => {}} />
+                <Checkbox
+                  id={'UI'}
+                  name={'UI'}
+                  checked={UICheck}
+                  onChange={(e) => changeCheckbox(e, setUICheck)}
+                />
                 <span>The Way UX/UI design</span>
               </div>
               <div className={styles.main_employee_course_checkbox}>
-                <Checkbox id={"English"} name={"English"} checked={false} onChange={() => {}} />
+                <Checkbox
+                  id={'English'}
+                  name={'English'}
+                  checked={englishCheck}
+                  onChange={(e) => changeCheckbox(e, setEnglishCheck)}
+                />
                 <span>The Way English</span>
               </div>
               <div className={styles.main_employee_course_checkbox}>
                 <Checkbox
-                  id={"EnglishStart"}
-                  name={"EnglishStart"}
-                  checked={false}
-                  onChange={() => {}}
+                  id={'EnglishStart'}
+                  name={'EnglishStart'}
+                  checked={englishStartCheck}
+                  onChange={(e) => changeCheckbox(e, setEnglishStartCheck)}
                 />
                 <span>The Way English Start</span>
               </div>
             </div>
             <div className={styles.main_employee_btn}>
-              <Button style={{ width: "220px" }} text={"Добавить"} variant={"primary"} />
+              <Button style={{ width: '220px' }} text={'Добавить'} variant={'primary'} />
             </div>
           </div>
         </div>
@@ -134,7 +170,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
               />
             </svg>
           </div>
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: 'center' }}>
             <h3 className={styles.main_employee_title}>Добавление сотрудника</h3>
             <span className={styles.main_employee_subs}>
               Отправим приглашение на Email. <br /> Приняв его, сотрудник сможет настроить свой
@@ -145,12 +181,12 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
             <label htmlFor="email">Email нового сотрудника:</label>
             <br />
             <div className={styles.main_employee_invite_input}>
-              <input type="text" placeholder={"example@mailbox.ru"} />
+              <input type="text" placeholder={'example@mailbox.ru'} />
             </div>
           </div>
           <div className={styles.main_employee_role}>
             <div className={styles.main_employee_role_radio}>
-              <Radio title={"Администратор"} id={"admin"} />
+              <Radio title={'Администратор'} id={'admin'} />
             </div>
             <div className={styles.main_employee_role_desc}>
               Может создавать и удалять курсы, добавлять сотрудников, производить операции со счетом
@@ -158,7 +194,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
             </div>
           </div>
           <div className={styles.main_employee_btn}>
-            <Button text={"Добавить"} variant={"primary"} />
+            <Button text={'Добавить'} variant={'primary'} />
           </div>
         </div>
       </div>

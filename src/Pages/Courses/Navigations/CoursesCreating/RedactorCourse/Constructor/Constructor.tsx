@@ -1,20 +1,35 @@
-import React, { useState } from "react";
-import { ModalTypeClasses, TasksModal, TestModal, WebinarModal } from "components/Modal";
-import { SettingClassesUsually } from "components/Modal";
-import { useAppDispatch } from "store/redux/store";
-// import { TasksModal } from "components/Modal";
-import { addClasses } from "store/redux/course/slice";
-// import { TestModal } from "components/Modal";
-// import { WebinarModal } from "components/Modal";
-import { ClassesSettings } from "./ClassesSettings/ClassesSettings";
-import { LessonAddBlock } from "Pages/Courses/Navigations/CoursesCreating/RedactorCourse/Constructor/LessonAddBlock/LessonAddBlock";
+import React, { useState } from 'react';
+import {
+  ModalTypeClasses,
+  SettingClassesUsually,
+  TasksModal,
+  TestModal,
+  WebinarModal,
+} from 'components/Modal';
 
-import styles from "./constructor.module.scss";
+import { useAppDispatch } from 'store/redux/store';
+import { addClasses } from 'store/redux/course/slice';
+import { ClassesSettings } from './ClassesSettings/ClassesSettings';
+import { LessonAddBlock } from 'Pages/Courses/Navigations/CoursesCreating/RedactorCourse/Constructor/LessonAddBlock/LessonAddBlock';
+
+import styles from './constructor.module.scss';
+import { AddModuleModal } from 'components/Modal/CoursesModal/AddModuleModal';
+import { SettingsClassesModal } from 'components/Modal/CoursesModal/SettingsClassesModal';
 
 export const Constructor = () => {
   const dispatch = useAppDispatch();
   const [typeClassesModal, setTypeClassesModal] = useState<boolean>(false);
   const [activeTypeClasses, setActiveTypeClasses] = useState<null | number>(null);
+  const [showModalModule, setShowModalModule] = useState<boolean>(false);
+  const [settingClassesModal, setSettingClassesModal] = useState<boolean>(false);
+
+  const showSettingsClasses = () => {
+    setSettingClassesModal(!settingClassesModal);
+  };
+
+  const toggleModalModule = () => {
+    setShowModalModule(!showModalModule);
+  };
 
   const setModalTypeClasses = () => {
     setTypeClassesModal(!typeClassesModal);
@@ -61,8 +76,14 @@ export const Constructor = () => {
         <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />
       )}
 
-      <LessonAddBlock setModalTypeClasses={setModalTypeClasses} />
-      <ClassesSettings />
+      {showModalModule && <AddModuleModal toggleModal={toggleModalModule} />}
+      {settingClassesModal && <SettingsClassesModal closeModal={showSettingsClasses} />}
+
+      <LessonAddBlock
+        setModalTypeClasses={setModalTypeClasses}
+        toggleModalModule={toggleModalModule}
+      />
+      <ClassesSettings showSettingsClassesModal={showSettingsClasses} />
     </div>
   );
 };

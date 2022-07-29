@@ -1,19 +1,23 @@
-import React, { useState, DragEvent, ChangeEvent } from "react";
+import React, { useState, DragEvent, ChangeEvent, FC } from 'react';
 
-import styles from "../constructor.module.scss";
+import styles from '../constructor.module.scss';
 
-import { Toggle } from "@skbkontur/react-ui";
-import { ContentBtn } from "../../ContentBtn/ContentBtn";
-import Text from "../../../../../../../assets/img/createCourse/text.svg";
-import Video from "../../../../../../../assets/img/createCourse/video.svg";
-import Audio from "../../../../../../../assets/img/createCourse/audio.svg";
-import Code from "../../../../../../../assets/img/createCourse/code.svg";
-import { Button } from "components/common/Button/Button";
-import { programLanguage } from "constants/other";
-import { MyEditor } from "components/Editor/Editor";
-import { SelectInput } from "components/common/SelectInput/SelectInput";
+import { Toggle } from '@skbkontur/react-ui';
+import { ContentBtn } from '../../ContentBtn/ContentBtn';
+import Text from '../../../../../../../assets/img/createCourse/text.svg';
+import Video from '../../../../../../../assets/img/createCourse/video.svg';
+import Audio from '../../../../../../../assets/img/createCourse/audio.svg';
+import Code from '../../../../../../../assets/img/createCourse/code.svg';
+import { Button } from 'components/common/Button/Button';
+import { programLanguage } from 'constants/other';
+import { MyEditor } from 'components/Editor/Editor';
+import { SelectInput } from 'components/common/SelectInput/SelectInput';
 
-export const ClassesSettings = () => {
+type ClassesSettingsPropsT = {
+  showSettingsClassesModal: () => void;
+};
+
+export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClassesModal }) => {
   const [dragVideo, setDragVideo] = useState(false);
   const [dragAudio, setDragAudio] = useState(false);
 
@@ -34,7 +38,7 @@ export const ClassesSettings = () => {
     const files = [...e.dataTransfer.files];
     console.log(files);
     const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i += 1) {
       formData.append(`list_${i}`, files[i]);
     }
     setDragVideo(false);
@@ -56,7 +60,7 @@ export const ClassesSettings = () => {
     const files = [...e.dataTransfer.files];
     console.log(files);
     const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i += 1) {
       formData.append(`list_${i}`, files[i]);
     }
     setDragAudio(false);
@@ -70,7 +74,7 @@ export const ClassesSettings = () => {
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[index]);
       reader.onloadend = (event) => {
-        if (typeof event?.target?.result === "string") {
+        if (typeof event?.target?.result === 'string') {
           // addVideoFile(event?.target?.result)
         }
       };
@@ -83,7 +87,7 @@ export const ClassesSettings = () => {
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[index]);
       reader.onloadend = (event) => {
-        if (typeof event?.target?.result === "string") {
+        if (typeof event?.target?.result === 'string') {
           // addAudioFile(event?.target?.result)
         }
       };
@@ -91,7 +95,7 @@ export const ClassesSettings = () => {
   };
   const stylesOnDrop =
     styles.redactorCourse_rightSide_functional_addContent +
-    " " +
+    ' ' +
     styles.redactorCourse_rightSide_functional_addDragContent;
   const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent;
   return (
@@ -99,7 +103,10 @@ export const ClassesSettings = () => {
       <div className={styles.redactorCourse_rightSide_header}>
         <span className={styles.redactorCourse_rightSide_title}>Первый урок</span>
         <div className={styles.redactorCourse_rightSide_header_btnBlock}>
-          <button className={styles.redactorCourse_rightSide_header_btnBlock_setting}>
+          <button
+            onClick={showSettingsClassesModal}
+            className={styles.redactorCourse_rightSide_header_btnBlock_setting}
+          >
             <svg
               width="16"
               height="16"
@@ -141,7 +148,7 @@ export const ClassesSettings = () => {
           </div>
         </div>
         <MyEditor />
-        <section style={{ marginBottom: "48px" }}>
+        <section style={{ marginBottom: '48px' }}>
           <div
             onDragStart={(e) => dragStartVideoHandler(e)}
             onDragLeave={(e) => dragLeaveVideoHandler(e)}
@@ -216,13 +223,13 @@ export const ClassesSettings = () => {
             </svg>
 
             <span>Перетащите видеофайл или нажмите для загрузки</span>
-            <Button variant={"primary"} text={"Выбрать файл"} />
+            <Button variant={'primary'} text={'Выбрать файл'} />
           </div>
           <div></div>
           <div></div>
         </section>
 
-        <section style={{ marginBottom: "48px" }}>
+        <section style={{ marginBottom: '48px' }}>
           <div
             onDragStart={(e) => dragStartAudioHandler(e)}
             onDragLeave={(e) => dragLeaveAudioHandler(e)}
@@ -236,7 +243,7 @@ export const ClassesSettings = () => {
               type="file"
             />
             <svg
-              style={{ marginBottom: "38px" }}
+              style={{ marginBottom: '38px' }}
               width="64"
               height="55"
               viewBox="0 0 64 55"
@@ -252,7 +259,7 @@ export const ClassesSettings = () => {
               <rect x="28.6006" y="19.7998" width="4.4" height="15.4" rx="1" fill="#BA75FF" />
             </svg>
             <span>Перетащите .mp3 аудиофайл или нажмите для загрузки</span>
-            <Button variant={"primary"} text={"Выбрать файл"} />
+            <Button variant={'primary'} text={'Выбрать файл'} />
           </div>
           <div></div>
           <div></div>
@@ -268,16 +275,16 @@ export const ClassesSettings = () => {
             Добавить контент
           </div>
           <div className={styles.redactorCourse_rightSide_functional_creating_function}>
-            <ContentBtn text={"Текс"} alt={"Add text for lesson"} src={Text} />
-            <ContentBtn text={"Видео"} alt={"Add video for lesson"} src={Video} />
-            <ContentBtn text={"Аудио"} alt={"Add audio for lesson"} src={Audio} />
-            <ContentBtn text={"Код"} alt={"Add code for lesson"} src={Code} />
+            <ContentBtn text={'Текс'} alt={'Add text for lesson'} src={Text} />
+            <ContentBtn text={'Видео'} alt={'Add video for lesson'} src={Video} />
+            <ContentBtn text={'Аудио'} alt={'Add audio for lesson'} src={Audio} />
+            <ContentBtn text={'Код'} alt={'Add code for lesson'} src={Code} />
           </div>
         </section>
         <div>
           <span className={styles.redactorCourse_rightSide_title}>Прикреплённые файлы</span>
           <button
-            style={{ width: "180px", padding: "11px 0 11px 16px", marginTop: "16px" }}
+            style={{ width: '180px', padding: '11px 0 11px 16px', marginTop: '16px' }}
             className={styles.redactorCourse_rightSide_header_btnBlock_setting}
           >
             <svg
