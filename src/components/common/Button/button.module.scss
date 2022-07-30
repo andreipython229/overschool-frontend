@@ -1,3 +1,5 @@
+@import "../../../scss/variable";
+
 .btn_default {
   color: #6b7280;
   background: #f3f4f6;
@@ -18,9 +20,20 @@
   padding: 13px;
   border-radius: 10px;
   text-align: center;
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 600;
   font-family: "Manrope", sans-serif;
+}
+
+.secondary{
+  color: $font-color-rose;
+  background: #E0DCED;
+  padding: 13px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
 }
 
 .disabled {

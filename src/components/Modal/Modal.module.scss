@@ -16,7 +16,7 @@
 
 .main {
   width: 468px;
-  background: $back-white;
+  background: $color-white;
   font-family: "Manrope", sans-serif;
   display: flex;
   flex-direction: column;
@@ -72,7 +72,7 @@
 
 .main_employee {
   width: 558px;
-  background: $back-white;
+  background: $color-white;
   font-family: "Manrope", sans-serif;
   display: flex;
   flex-direction: column;
@@ -709,6 +709,5 @@
       }
     }
   }
-
-
 }
+

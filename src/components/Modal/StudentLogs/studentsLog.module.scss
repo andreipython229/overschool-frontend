@@ -1,0 +1,116 @@
+@import "../../../scss/variable";
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+.container {
+  padding: 36px;
+  background: $color-white;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: $bord-rad7;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  font-family: $font-family-inter;
+  width: 580px;
+
+  &_closed {
+    position: absolute;
+    text-align: center;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    background: #f1f1f1;
+    border-radius: $bord-rad7;
+    cursor: pointer;
+
+    & svg {
+      margin-top: 8.5px;
+    }
+
+    & svg :hover {
+      stroke: #4d5766;
+    }
+  }
+}
+
+.addStudent {
+  color: $font-title;
+  width: 100%;
+
+  &_header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 36px;
+
+    & svg {
+      margin-bottom: 18px;
+    }
+
+    &_title {
+      font-size: 22px;
+      color: $font-title;
+      font-weight: 500;
+    }
+  }
+
+  &_select {
+    margin: 0 auto;
+    width: 474px;
+
+    & :nth-child(1) {
+      padding-bottom: 5px;
+    }
+  }
+
+  &_student {
+    text-align: left;
+    width: 474px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto 48px auto;
+
+    &_title {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    &_btn {
+      margin-top: 8px;
+      text-align: left;
+      color: $font-color-rose;
+      font-size: 16px;
+
+      & :nth-child(1) {
+        margin-right: 24px;
+        cursor: pointer;
+      }
+
+      & :nth-child(2) {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &_btnBlock {
+    & :nth-child(1) {
+      margin-bottom: 10px;
+    }
+  }
+}
