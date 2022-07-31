@@ -5,11 +5,14 @@ import { StatisticHeader } from 'Pages/Courses/Navigations/StudentsStats/common/
 import { StudentInfoGraphic } from 'Pages/Courses/Navigations/StudentsStats/common/StudentInfoGraphic';
 import { StudentGroup } from 'Pages/Courses/Navigations/StudentsStats/common/StudentsGroup';
 import { StudentInfoTable } from 'Pages/Courses/Navigations/StudentsStats/common/StudentInfoTable/StudentsInfoTable';
-import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal';
+import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentModal';
+import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal';
 
 export const StudentsStats = () => {
   const [studentModal, setStudentModal] = useState<boolean>(false);
+  const [addGroupModal, setAddGroupModal] = useState<boolean>(false);
   const [studentEmail, setStudentEmail] = useState<string>('');
+  const [nameGroup, setNameGroup] = useState<string>('');
 
   const onChangeStudentEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setStudentEmail(e.currentTarget.value);
@@ -18,6 +21,14 @@ export const StudentsStats = () => {
   const showStudentModal = () => {
     setStudentModal(!studentModal);
   };
+
+  const showGroupModal = () => {
+    setAddGroupModal(!addGroupModal);
+  };
+
+  const addNameGroup = (e: ChangeEvent<HTMLInputElement>) => {
+    setNameGroup(e.currentTarget.value);
+  };
   return (
     <div>
       {studentModal && (
@@ -25,6 +36,13 @@ export const StudentsStats = () => {
           closeModal={showStudentModal}
           studentEmail={studentEmail}
           onChangeEmail={onChangeStudentEmail}
+        />
+      )}
+      {addGroupModal && (
+        <CreateGroupModal
+          closeModal={showGroupModal}
+          nameGroup={nameGroup}
+          addNameGroup={addNameGroup}
         />
       )}
       <Previous avatar={''} name={'No name'} />
@@ -76,7 +94,7 @@ export const StudentsStats = () => {
       <section className={styles.students_group}>
         <div className={styles.students_group_header}>
           <h4 className={styles.students_group_header_title}>Группы учеников</h4>
-          <div className={styles.students_group_header_add_group_btn}>
+          <div onClick={showGroupModal} className={styles.students_group_header_add_group_btn}>
             <svg
               width="22"
               height="18"

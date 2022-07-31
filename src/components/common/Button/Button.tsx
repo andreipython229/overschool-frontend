@@ -9,7 +9,13 @@ type DefaultButtonPropsType = DetailedHTMLProps<
 
 type SuperButtonPropsT = DefaultButtonPropsType & {
   text: string;
-  variant?: 'default' | 'primary' | 'disabled' | 'registrationDisabled' | 'secondary';
+  variant?:
+    | 'default'
+    | 'primary'
+    | 'disabled'
+    | 'registrationDisabled'
+    | 'secondary'
+    | 'withoutBack';
 };
 
 export const Button: FC<SuperButtonPropsT> = ({ text, variant = 'default', ...restProps }) => {
@@ -23,6 +29,8 @@ export const Button: FC<SuperButtonPropsT> = ({ text, variant = 'default', ...re
     propsStyle += ' ' + styles.registartionDisabled;
   } else if (variant === 'secondary') {
     propsStyle += ' ' + styles.secondary;
+  } else if (variant === 'withoutBack') {
+    propsStyle += ' ' + styles.withoutBack;
   } else {
     propsStyle = styles.btn_default;
   }
