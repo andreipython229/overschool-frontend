@@ -10,7 +10,7 @@ import { Profile } from "Pages/Profile/Profile";
 import { Settings } from "Pages/Courses/Navigations/Settings/Settings";
 import { PageNotFound } from "Pages/PageNotFound/PageNotFound";
 import { StudentsStats } from "Pages/Courses/Navigations/StudentsStats/StudentsStats";
-import { Commercial } from "Pages/Courses/Navigations/Commercial/Commercial";
+import { HomeWork } from "Pages/Courses/Navigations/HomeWork/HomeWork";
 import { authSelector } from "./selectors";
 
 import styles from "./App.module.scss";
@@ -34,7 +34,7 @@ function App() {
           <Route path={Path.Profile} element={<Profile />} />
           <Route path={Path.Settings} element={<Settings />} />
           <Route path={Path.StudentsStats} element={<StudentsStats />} />
-          <Route path={Path.Commercial} element={<Commercial />} />
+          <Route path={Path.HomeWork} element={<HomeWork />} />
         </Route>
         <Route path={"*"} element={<PageNotFound />} />
       </Routes>

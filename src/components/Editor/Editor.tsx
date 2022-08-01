@@ -8,11 +8,10 @@ import styles from "./editor.module.scss";
 export const MyEditor = memo(() => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  const editor = React.useRef(null);
+  const editor = React.useRef<Editor>(null);
 
   function focusEditor() {
-    // @ts-ignore
-    editor.current && editor.current.focus();
+    editor.current && editor?.current?.focus();
   }
 
   useEffect(() => {
