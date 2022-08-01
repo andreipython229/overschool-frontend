@@ -1,34 +1,36 @@
-import React, { ChangeEvent, useState } from 'react';
-import { Previous } from 'Pages/Courses/Previous/Previous';
-import styles from './studentsStats.module.scss';
-import { StatisticHeader } from 'Pages/Courses/Navigations/StudentsStats/common/StatisticHeader';
-import { StudentInfoGraphic } from 'Pages/Courses/Navigations/StudentsStats/common/StudentInfoGraphic';
-import { StudentGroup } from 'Pages/Courses/Navigations/StudentsStats/common/StudentsGroup';
-import { StudentInfoTable } from 'Pages/Courses/Navigations/StudentsStats/common/StudentInfoTable/StudentsInfoTable';
-import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentModal';
-import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal';
+import React, { ChangeEvent, useState } from 'react'
+
+import styles from './studentsStats.module.scss'
+
+import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentModal'
+import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
+import { StatisticHeader } from 'Pages/Courses/Navigations/StudentsStats/common/StatisticHeader'
+import { StudentInfoGraphic } from 'Pages/Courses/Navigations/StudentsStats/common/StudentInfoGraphic'
+import { StudentInfoTable } from 'Pages/Courses/Navigations/StudentsStats/common/StudentInfoTable/StudentsInfoTable'
+import { StudentGroup } from 'Pages/Courses/Navigations/StudentsStats/common/StudentsGroup'
+import { Previous } from 'Pages/Courses/Previous/Previous'
 
 export const StudentsStats = () => {
-  const [studentModal, setStudentModal] = useState<boolean>(false);
-  const [addGroupModal, setAddGroupModal] = useState<boolean>(false);
-  const [studentEmail, setStudentEmail] = useState<string>('');
-  const [nameGroup, setNameGroup] = useState<string>('');
+  const [studentModal, setStudentModal] = useState<boolean>(false)
+  const [addGroupModal, setAddGroupModal] = useState<boolean>(false)
+  const [studentEmail, setStudentEmail] = useState<string>('')
+  const [nameGroup, setNameGroup] = useState<string>('')
 
   const onChangeStudentEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setStudentEmail(e.currentTarget.value);
-  };
+    setStudentEmail(e.currentTarget.value)
+  }
 
   const showStudentModal = () => {
-    setStudentModal(!studentModal);
-  };
+    setStudentModal(!studentModal)
+  }
 
   const showGroupModal = () => {
-    setAddGroupModal(!addGroupModal);
-  };
+    setAddGroupModal(!addGroupModal)
+  }
 
   const addNameGroup = (e: ChangeEvent<HTMLInputElement>) => {
-    setNameGroup(e.currentTarget.value);
-  };
+    setNameGroup(e.currentTarget.value)
+  }
   return (
     <div>
       {studentModal && (
@@ -45,7 +47,7 @@ export const StudentsStats = () => {
           addNameGroup={addNameGroup}
         />
       )}
-      <Previous avatar={''} name={'No name'} />
+      <Previous avatar="" name="No name" />
       <section className={styles.statistics}>
         <StatisticHeader />
         <div className={styles.statistics_new_student_wrapper}>
@@ -115,8 +117,8 @@ export const StudentsStats = () => {
           </div>
         </div>
         <div className={styles.students_group_content_wrapper}>
-          <StudentGroup title={'Сотрудники'} countStudent={'2 ученика'} />
-          <StudentGroup title={'Группа Валерия Б..'} countStudent={'51 ученик'} />
+          <StudentGroup title="Сотрудники" countStudent="2 ученика" />
+          <StudentGroup title="Группа Валерия Б.." countStudent="51 ученик" />
           <div className={styles.students_group_content_wrapper_show_all_groups_btn}>
             <svg
               className={styles.students_group_content_wrapper_show_all_groups_btn_icon}
@@ -197,5 +199,5 @@ export const StudentsStats = () => {
       </section>
       <StudentInfoTable />
     </div>
-  );
-};
+  )
+}

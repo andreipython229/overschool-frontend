@@ -1,13 +1,13 @@
-import React, { ChangeEvent, FC } from 'react';
-import styles from '../studentsLog.module.scss';
-import { Input } from 'components/common/Input/Input/Input';
-import { Button } from 'components/common/Button/Button';
+import React, { ChangeEvent, FC } from 'react'
+import styles from '../studentsLog.module.scss'
+import { Input } from 'components/common/Input/Input/Input'
+import { Button } from 'components/common/Button/Button'
 
 type CreateGroupModalPropsT = {
-  closeModal: () => void;
-  addNameGroup: (e: ChangeEvent<HTMLInputElement>) => void;
-  nameGroup: string;
-};
+  closeModal: () => void
+  addNameGroup: (e: ChangeEvent<HTMLInputElement>) => void
+  nameGroup: string
+}
 
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({
   closeModal,
@@ -56,18 +56,18 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({
           </div>
           <div className={styles.addGroup_input}>
             <span>Введите название группы:</span>
-            <Input
-              name={'group'}
-              type={'text'}
-              value={nameGroup}
-              onChange={(e) => addNameGroup(e)}
-            />
+            <Input name={'group'} type={'text'} value={nameGroup} onChange={e => addNameGroup(e)} />
           </div>
           <div className={styles.addGroup_btn}>
-            <Button variant={'primary'} text={'Создать группу'} />
+            <Button
+              disabled={nameGroup.length === 1}
+              variant={'primary'}
+              onClick={closeModal}
+              text={'Создать группу'}
+            />
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

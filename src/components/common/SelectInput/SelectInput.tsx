@@ -1,24 +1,26 @@
-import React, { FC, useState } from "react";
-import styles from "./selectInput.module.scss";
+import React, { FC, useState } from 'react'
+
+import styles from './selectInput.module.scss'
 
 type SelectInputPropsT = {
-  optionsList: any;
-};
+  optionsList: any
+}
 
 export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
-  const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<number>(0);
+  const startPosition = 0
+  const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
+  const [selectedOption, setSelectedOption] = useState<number>(startPosition)
 
   const toggleOptions = () => {
-    setIsOptionsOpen(!isOptionsOpen);
-  };
+    setIsOptionsOpen(!isOptionsOpen)
+  }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <svg
           onClick={() => setIsOptionsOpen(!selectedOption)}
-          style={{ transform: `${isOptionsOpen ? "rotate(180deg)" : ""}` }}
+          style={{ transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}` }}
           width="14"
           height="8"
           viewBox="0 0 14 8"
@@ -33,28 +35,28 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
 
         <button
           className={styles.container_btn}
-          type={"button"}
+          type="button"
           onClick={toggleOptions}
-          aria-haspopup={"listbox"}
+          aria-haspopup="listbox"
           aria-expanded={isOptionsOpen}
         >
           {optionsList[selectedOption]}
         </button>
         <ul
           tabIndex={-1}
-          role={"listbox"}
+          role="listbox"
           aria-activedescendant={optionsList[selectedOption]}
-          className={styles.options + " " + (isOptionsOpen ? styles.show : "")}
+          className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}
         >
           {optionsList.map((option: any, index: number) => (
             <li
               key={index}
               tabIndex={0}
-              role={"option"}
+              role="option"
               aria-selected={selectedOption === index}
               onClick={() => {
-                setSelectedOption(index);
-                setIsOptionsOpen(false);
+                setSelectedOption(index)
+                setIsOptionsOpen(false)
               }}
             >
               {option}
@@ -63,5 +65,5 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
         </ul>
       </div>
     </div>
-  );
-};
+  )
+}
