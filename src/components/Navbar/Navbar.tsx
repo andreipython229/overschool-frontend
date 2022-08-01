@@ -1,16 +1,14 @@
 import React, { FC, memo } from 'react';
 import styles from './navbar.module.scss';
-import { useAppSelector } from '../../store/redux/store';
-import { RoleE } from '../../enum/roleE';
+import { useAppSelector } from 'store/redux/store';
+import { RoleE } from 'enum/roleE';
 import { NavLink } from 'react-router-dom';
-import { Path } from '../../enum/pathE';
+import { Path } from 'enum/pathE';
 
 export const Navbar: FC = memo(() => {
   const role = useAppSelector((state) => state.user.permission);
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const isActive = ({ isActive }) => (isActive ? styles.isActive : '');
+  const isActive = ({ isActive }: any) => (isActive ? styles.isActive : "");
 
   if (role === RoleE.Admin) {
     return (
@@ -69,7 +67,7 @@ export const Navbar: FC = memo(() => {
             </svg>
           </NavLink>
 
-          <NavLink to={Path.Commercial} className={isActive}>
+          <NavLink to={Path.HomeWork} className={isActive}>
             <svg
               width="39"
               height="33"

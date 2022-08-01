@@ -5,7 +5,7 @@ export enum Path {
   Settings = "settings/*",
   CreateCourse = "create-course/*",
   StudentsStats = "students-stats/*",
-  Commercial = "commercial",
+  HomeWork = "home-work",
 }
 
 export enum SettingsPath {
