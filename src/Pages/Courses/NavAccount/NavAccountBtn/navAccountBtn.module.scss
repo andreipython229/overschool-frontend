@@ -1,11 +1,10 @@
-
 .nav_btn {
   display: inline-block;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   //width: 97px;
   //height: 40px;
   padding: 11px 13px;
-  color: #BDBDBD;
+  color: #bdbdbd;
   text-align: center;
   margin: 0 auto;
   background: none;
@@ -20,10 +19,10 @@
 }
 
 .nav_btn:hover {
-  border: #dedede .5px solid;
+  border: #dedede 0.5px solid;
 }
 
 .active {
-  background: #E0DCED;
-  color: #4D5766;
+  background: #e0dced;
+  color: #4d5766;
 }

@@ -5,7 +5,7 @@
 }
 
 label {
-  color: #4D5766;
+  color: #4d5766;
   cursor: pointer;
 }
 
@@ -16,13 +16,13 @@ label {
 }
 
 .custom_radio + label::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 18px;
   height: 18px;
   flex-shrink: 0;
   flex-grow: 0;
-  border: 1px solid #BA75FF;
+  border: 1px solid #ba75ff;
   border-radius: 50%;
   margin-right: 0.5em;
   background-repeat: no-repeat;
@@ -32,7 +32,7 @@ label {
 
 /* стили при наведении курсора на радио */
 .custom_radio:not(:disabled):not(:checked) + label:hover::before {
-  border-color: #BA75FF;
+  border-color: #ba75ff;
 }
 
 /* стили для активной радиокнопки (при нажатии на неё) */
@@ -53,8 +53,8 @@ label {
 
 /* стили для радиокнопки, находящейся в состоянии checked */
 .custom_radio:checked + label::before {
-  border-color: #BA75FF;
-  background-color: #BA75FF;
+  border-color: #ba75ff;
+  background-color: #ba75ff;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
 }
 

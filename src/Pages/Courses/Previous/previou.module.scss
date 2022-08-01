@@ -1,9 +1,9 @@
 .previous {
   width: 100%;
   height: 186px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
-  background: #E0DCED;
+  background: #e0dced;
   border-radius: 7px;
   position: relative;
   margin-bottom: 25px;
@@ -18,7 +18,7 @@
     &_avatar {
       width: 66px;
       height: 66px;
-      border: 1px solid #FFFFFF;
+      border: 1px solid #ffffff;
       border-radius: 50%;
       box-sizing: border-box;
       margin-right: 16px;
@@ -29,23 +29,22 @@
       flex-direction: column;
 
       &_description {
-        color: #BA75FF;
+        color: #ba75ff;
         font-size: 14px;
         margin-bottom: 2px;
       }
 
       &_name {
         font-size: 20px;
-        color: #BDBDBD;
+        color: #bdbdbd;
         line-height: 24px;
       }
 
       &_about {
         font-size: 10px;
-        color: #BDBDBD;
+        color: #bdbdbd;
       }
     }
-
   }
 
   &_btn {

@@ -11,7 +11,7 @@
 }
 
 .custom_checkbox + label::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 16px;
   height: 16px;
@@ -27,7 +27,7 @@
 }
 
 .custom_checkbox:checked + label::before {
-  background-image: url('../../../assets/img/done_icon.svg');
+  background-image: url("../../../assets/img/done_icon.svg");
 }
 
 .custom_checkbox + label:hover::before {
