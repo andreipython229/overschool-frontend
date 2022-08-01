@@ -2,6 +2,8 @@ import React, { ChangeEvent, FC } from 'react'
 import styles from '../studentsLog.module.scss'
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
+import { StudentLogs } from 'enum/pathE'
+import { Link } from 'react-router-dom'
 
 type CreateGroupModalPropsT = {
   closeModal: () => void
@@ -59,12 +61,14 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({
             <Input name={'group'} type={'text'} value={nameGroup} onChange={e => addNameGroup(e)} />
           </div>
           <div className={styles.addGroup_btn}>
-            <Button
-              disabled={nameGroup.length === 1}
-              variant={'primary'}
-              onClick={closeModal}
-              text={'Создать группу'}
-            />
+            <Link to={StudentLogs.GroupSettings}>
+              <Button
+                disabled={nameGroup.length === 1}
+                variant={'primary'}
+                onClick={closeModal}
+                text={'Создать группу'}
+              />
+            </Link>
           </div>
         </div>
       </div>
