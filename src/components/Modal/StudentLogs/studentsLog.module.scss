@@ -21,7 +21,7 @@
   margin: 0 auto;
   position: absolute;
   border-radius: $bord-rad7;
-  top: 30%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -46,6 +46,8 @@
     & svg :hover {
       stroke: #4d5766;
     }
+
+
   }
 
   &_header {
@@ -62,6 +64,30 @@
       font-size: 22px;
       color: $font-title;
       font-weight: 500;
+    }
+  }
+
+  &_navBlock {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 15px;
+
+    & :not(:last-child) {
+      margin-right: 15px;
+    }
+
+    &_btn {
+      padding: 9px 15px;
+      color: #b3b8c2;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    &_active {
+      border-radius: 7px;
+      color: $font-title;
+      border: none;
+      background-color: #E5E7EB;
     }
   }
 }
@@ -122,7 +148,8 @@
     margin: 0 auto;
     width: 95%;
     text-align: left;
-    & :nth-child(2){
+
+    & :nth-child(2) {
       margin-top: 10px;
     }
 
@@ -131,14 +158,82 @@
       color: #A2A9B4;
     }
   }
+
   &_btn {
     width: 100%;
     margin-top: 22px;
+
     & button {
       width: 96%;
       margin: 0 auto;
 
     }
   }
+}
+
+.groupSetting {
+
+  &_input {
+    text-align: left;
+    margin: 32px 0 20px 0;
+  }
+
+  &_checkboxBlock {
+    & :not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    &_checkbox {
+      display: flex;
+      align-items: start;
+      text-align: left;
+
+      &_desc {
+        display: flex;
+        flex-direction: column;
+        font-weight: 500;
+
+        & :nth-child(1) {
+          color: $font-title;
+          font-size: $fs16;
+          margin-bottom: 4px;
+        }
+
+        & :nth-child(2) {
+          color: #A8AFB9;
+          font-size: $fs16;
+        }
+      }
+    }
+  }
+
+  &_selectBlock {
+    margin-top: 20px;
+
+    &_select {
+      text-align: left;
+      & :nth-child(2){
+        margin-top: 4px;
+
+      }
+
+      & span {
+        font-weight: 500;
+        font-size: $fs16;
+        color: $font-title;
+      }
+    }
+  }
+
+
+  &_btn {
+    margin-top: 40px;
+    width: 100%;
+
+    & button {
+      width: 100%;
+    }
+  }
+
 
 }
