@@ -1,4 +1,5 @@
 @import '../../../../scss/variable';
+
 .statistics {
   width: 100%;
 
@@ -225,10 +226,11 @@
           font-size: 10px;
           line-height: 12px;
           color: #A5A9B4;
-           & svg {
-             margin-right: 4px;
-             margin-bottom: 2px;
-           }
+
+          & svg {
+            margin-right: 4px;
+            margin-bottom: 2px;
+          }
         }
       }
 
@@ -284,7 +286,6 @@
     grid-template-columns: 4fr 17fr 1fr 4fr;
     grid-column-gap: 10px;
     width: 100%;
-    height: 36px;
     margin-top: 22px;
 
     &_filter_btn {
@@ -298,7 +299,7 @@
       letter-spacing: 0.02em;
       background: #EDEDED;
       border-radius: 7px;
-      padding: 0 14px;
+      padding-left: 14px;
       color: #6B7484;
       cursor: pointer;
 
@@ -319,7 +320,7 @@
       color: #D1D5DB;
       border: 1px solid #E5E7EB;
       border-radius: 7px;
-      background-image: url("./media/search-icon.svg");
+      background-image: url("../../../../assets/img/studentPage/search-icon.svg");
       background-repeat: no-repeat;
       background-position: calc(50% - 80px) center;
       outline: none;
@@ -347,11 +348,11 @@
       color: #FFFFFF;
       background: #BA75FF;
       border-radius: 7px;
-      padding: 0 14px;
+      padding-left: 12px;
       cursor: pointer;
 
       & svg {
-        margin-right: 9px;
+        margin-right: 6px;
       }
     }
   }
