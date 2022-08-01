@@ -1,0 +1,79 @@
+.header_dropdown_menu {
+  cursor: pointer;
+  max-width: 187px;
+  padding: 10px 7px;
+  border-radius: 7px;
+  box-sizing: border-box;
+  color: #6b7484;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+    svg {
+      position: absolute;
+      top: 40%;
+      left: 19.5%;
+    }
+  }
+}
+.drop_down_item_container {
+  color: #6b7484;
+  position: relative;
+  padding: 10px 20px;
+  max-width: 191px;
+  background-color: #ffffff;
+  box-shadow: 3px 3px 3px #e4e7ed;
+  border-radius: 7px;
+  margin: 0 35px;
+  p {
+    font-size: 12px;
+    color: #d2d6dc;
+  }
+}
+.drop_down_item {
+  display: flex;
+  margin: 23px auto;
+  cursor: pointer;
+  span {
+    margin: 0 15px;
+  }
+}
+.rotate_arrow {
+  transform: rotate(180deg);
+}
+.triangle {
+  position: absolute;
+  top: 2px;
+  transform: translateY(-50%);
+}
+.bg_color_hamburger {
+  background-color: #ededed;
+}
+
+.bg_color_accepted {
+  background-color: #c5ece5;
+}
+
+.bg_color_auto_check {
+  background-color: #ededed;
+}
+
+.bg_color_under {
+  background-color: #fff1da;
+}
+
+.bg_color_rejected {
+  background-color: #fef2f2;
+}
+
+.bg_color_waiting {
+  background-color: #f3f4f6;
+}
