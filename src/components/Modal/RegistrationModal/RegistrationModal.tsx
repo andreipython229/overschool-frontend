@@ -1,18 +1,18 @@
-import React, { FC, memo, useState } from "react";
-import { useFormik } from "formik";
+import React, { FC, memo, useState } from 'react';
+import { useFormik } from 'formik';
 
-import styles from "../Modal.module.scss";
+import styles from '../Modal.module.scss';
 
-import { InputAuth } from "../../common/Input/InputAuth/InputAuth";
-import unSecurity from "../../../assets/img/unSecurity.svg";
-import Security from "../../../assets/img/isecurity.svg";
-import { Checkbox } from "../../common/Checkbox/Checkbox";
-import { Button } from "../../common/Button/Button";
+import { InputAuth } from '../../common/Input/InputAuth/InputAuth';
+import unSecurity from '../../../assets/img/unSecurity.svg';
+import Security from '../../../assets/img/isecurity.svg';
+import { Checkbox } from '../../common/Checkbox/Checkbox';
+import { Button } from '../../common/Button/Button';
 
-import { RegistrParamsT, validateRegistration } from "../../../utils/validationRegistation";
-import { useAppDispatch } from "../../../store/redux/store";
-import { auth } from "../../../store/redux/users/slice";
-import { AuthSelect } from "../../common/AuthSelect/AuthSelect";
+import { RegistrParamsT, validateRegistration } from 'utils/validationRegistation';
+import { useAppDispatch } from 'store/redux/store';
+import { auth } from 'store/redux/users/slice';
+import { AuthSelect } from '../../common/AuthSelect/AuthSelect';
 
 type RegistrationModalPropsT = {
   setShowModal: (value: boolean) => void;
@@ -21,7 +21,7 @@ type RegistrationModalPropsT = {
 export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowModal }) => {
   const dispatch = useAppDispatch();
   const [security, setSecurity] = useState<boolean>(true);
-  const [authVariant, setAuthVariant] = useState<string>("phone");
+  const [authVariant, setAuthVariant] = useState<string>('phone');
 
   const getAuthVariant = (variant: string) => {
     setAuthVariant(variant);
@@ -44,17 +44,18 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
   const formik = useFormik({
     validate: (values) => validateRegistration(values),
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       oferta: false,
       politics: false,
-      phone: "",
+      phone: '',
     },
     onSubmit: (values: RegistrParamsT) => {
       // onSubmitForm(values)
       //     .then(() => {
       //         formik.resetForm()
       //     })
+      // eslint-disable-next-line no-alert
       alert(JSON.stringify(values));
       registration();
       setShowModal(false);
@@ -87,33 +88,33 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
 
             <div className={styles.main_title}>Зарегистрироваться</div>
             <div className={styles.inputs_block}>
-              <div style={{ display: "flex" }}>
-                {authVariant === "phone" ? (
+              <div style={{ display: 'flex' }}>
+                {authVariant === 'phone' ? (
                   <InputAuth
-                    name={"phone"}
-                    type={"tel"}
+                    name={'phone'}
+                    type={'tel'}
                     onChange={formik.handleChange}
                     value={formik.values.phone}
-                    placeholder={"Номер телефона"}
+                    placeholder={'Номер телефона'}
                   />
                 ) : (
                   <InputAuth
-                    name={"email"}
-                    type={"text"}
+                    name={'email'}
+                    type={'text'}
                     onChange={formik.handleChange}
                     value={formik.values.email}
-                    placeholder={"Email"}
+                    placeholder={'Email'}
                   />
                 )}
                 <AuthSelect getInputVariant={getAuthVariant} />
               </div>
 
               <InputAuth
-                name={"password"}
-                type={security ? "password" : "text"}
+                name={'password'}
+                type={security ? 'password' : 'text'}
                 onChange={formik.handleChange}
                 value={formik.values.password}
-                placeholder={"Пароль"}
+                placeholder={'Пароль'}
                 onClick={changeSecurityStatus}
                 icon={security ? Security : unSecurity}
               />
@@ -121,8 +122,8 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
             <div className={styles.main_blockDesc}>
               <div className={styles.main_blockDesc_checkbox}>
                 <Checkbox
-                  id={"oferta"}
-                  name={"oferta"}
+                  id={'oferta'}
+                  name={'oferta'}
                   checked={formik.values.oferta}
                   onChange={formik.handleChange}
                 />
@@ -130,9 +131,9 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
               <p className={styles.main_blockDesc_description}>
                 Я подтверждаю согласие на обработку персональных данных в соответствии с условиями
                 <a
-                  href={"/"}
-                  rel={"noreferrer"}
-                  target={"_blank"}
+                  href={'/'}
+                  rel={'noreferrer'}
+                  target={'_blank'}
                   className={styles.main_blockDesc_link}
                 >
                   Политики конфиденциальности
@@ -142,8 +143,8 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
             <div className={styles.main_blockDesc}>
               <div className={styles.main_blockDesc_checkbox}>
                 <Checkbox
-                  id={"politics"}
-                  name={"politics"}
+                  id={'politics'}
+                  name={'politics'}
                   checked={formik.values.politics}
                   onChange={formik.handleChange}
                 />
@@ -151,9 +152,9 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
               <p className={styles.main_blockDesc_description}>
                 Принимаю условия
                 <a
-                  href={"/"}
-                  rel={"noreferrer"}
-                  target={"_blank"}
+                  href={'/'}
+                  rel={'noreferrer'}
+                  target={'_blank'}
                   className={styles.main_blockDesc_link}
                 >
                   договора оферты
@@ -162,10 +163,10 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
             </div>
             <div className={styles.main_btn}>
               <Button
-                style={{ width: "246px" }}
-                type={"submit"}
-                variant={disabled ? "disabled" : "primary"}
-                text={"Зарегистрироваться"}
+                style={{ width: '246px' }}
+                type={'submit'}
+                variant={disabled ? 'disabled' : 'primary'}
+                text={'Зарегистрироваться'}
               />
             </div>
           </div>

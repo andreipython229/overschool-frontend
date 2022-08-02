@@ -1,30 +1,41 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
+import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react'
 
-import styles from './button.module.scss';
+import styles from './button.module.scss'
 
 type DefaultButtonPropsType = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
->;
+>
 
 type SuperButtonPropsT = DefaultButtonPropsType & {
-  text: string;
-  variant?: 'default' | 'primary' | 'disabled' | 'registrationDisabled' | 'secondary';
-};
+  text: string
+  variant?:
+    | 'default'
+    | 'primary'
+    | 'disabled'
+    | 'registrationDisabled'
+    | 'secondary'
+    | 'withoutBack'
+    | 'delete'
+}
 
 export const Button: FC<SuperButtonPropsT> = ({ text, variant = 'default', ...restProps }) => {
-  let propsStyle = styles.btn_default;
+  let propsStyle = styles.btn_default
 
   if (variant === 'primary') {
-    propsStyle += ' ' + styles.primary;
+    propsStyle += ' ' + styles.primary
   } else if (variant === 'disabled') {
-    propsStyle += ' ' + styles.disabled;
+    propsStyle += ' ' + styles.disabled
   } else if (variant === 'registrationDisabled') {
-    propsStyle += ' ' + styles.registartionDisabled;
+    propsStyle += ' ' + styles.registartionDisabled
   } else if (variant === 'secondary') {
-    propsStyle += ' ' + styles.secondary;
+    propsStyle += ' ' + styles.secondary
+  } else if (variant === 'withoutBack') {
+    propsStyle += ' ' + styles.withoutBack
+  } else if (variant === 'delete') {
+    propsStyle += ' ' + styles.delete
   } else {
-    propsStyle = styles.btn_default;
+    propsStyle = styles.btn_default
   }
 
   return (
@@ -33,5 +44,5 @@ export const Button: FC<SuperButtonPropsT> = ({ text, variant = 'default', ...re
         {text}
       </button>
     </div>
-  );
-};
+  )
+}

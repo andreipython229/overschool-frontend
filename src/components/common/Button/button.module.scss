@@ -25,7 +25,7 @@
   font-family: "Manrope", sans-serif;
 }
 
-.secondary{
+.secondary {
   color: $font-color-rose;
   background: #E0DCED;
   padding: 13px;
@@ -59,4 +59,32 @@
   font-size: 14px;
   font-weight: 800;
   font-family: "Manrope", sans-serif;
+}
+
+.withoutBack {
+  color: #6b7280;
+  background: #ffffff;
+  width: auto;
+  text-align: center;
+  padding: 13px 13px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: "Manrope", sans-serif;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.delete {
+  color: #EF4444;
+  background: #FEF2F2;
+  width: auto;
+  text-align: center;
+  padding: 13px 13px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }

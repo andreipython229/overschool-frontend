@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC } from 'react';
-import styles from './studentsLog.module.scss';
+import styles from 'components/Modal/StudentLogs/studentsLog.module.scss';
 import { SelectInput } from 'components/common/SelectInput/SelectInput';
 import { programLanguage } from 'constants/other';
 import { Input } from 'components/common/Input/Input/Input';
@@ -36,7 +36,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({
           </svg>
         </div>
         <div className={styles.addStudent}>
-          <div className={styles.addStudent_header}>
+          <div className={styles.container_header}>
             <svg
               width="50"
               height="50"
@@ -49,7 +49,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({
                 fill="#BA75FF"
               />
             </svg>
-            <span className={styles.addStudent_header_title}>Добавление учеников</span>
+            <span className={styles.container_header_title}>Добавление учеников</span>
           </div>
           <div className={styles.addStudent_select}>
             <SelectInput optionsList={programLanguage} />

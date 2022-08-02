@@ -40,7 +40,7 @@ Thumbs.db
 *.exe
 *.war
 
-# Large media files
+# Large studentPage files
 *.mp4
 *.tiff
 *.avi
