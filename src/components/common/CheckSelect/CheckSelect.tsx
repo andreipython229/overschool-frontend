@@ -15,7 +15,10 @@ export const CheckSelect: FC<CheckSelectPropsT> = ({ text, children }) => {
   }
   return (
     <>
-      <div className={styles.container}>
+      <div
+        style={checkbox ? { backgroundColor: '#F5EBFF' } : { backgroundColor: '#F6F6F6' }}
+        className={styles.container}
+      >
         <div className={styles.content}>
           <Checkbox
             id={'checkbox'}

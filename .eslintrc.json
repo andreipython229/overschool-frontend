@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "env": {
     "jest": true,
     "browser": true,
@@ -55,40 +54,4 @@
       "scss": {}
     }
   }
-=======
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended",
-        "prettier"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "ignorePatterns": ["**/*.scss"],
-    "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
-    "rules": {
-        "react/display-name": "off",
-        "react/prop-types": "off",
-        "react/react-in-jsx-scope": "off",
-        //"camelcase": "error",
-        "spaced-comment": "error",
-        "no-duplicate-imports": "error"
-    },
-    "settings": {
-        "import/resolver": {
-            "typescript": {},
-            "scss": {}
-        }
-    }
->>>>>>> vit-dev
 }

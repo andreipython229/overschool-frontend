@@ -1,14 +1,14 @@
-import React, { FC, memo } from 'react';
-import styles from './navbar.module.scss';
-import { useAppSelector } from 'store/redux/store';
-import { RoleE } from 'enum/roleE';
-import { NavLink } from 'react-router-dom';
-import { Path } from 'enum/pathE';
+import React, { FC, memo } from 'react'
+import styles from './navbar.module.scss'
+import { useAppSelector } from 'store/redux/store'
+import { RoleE } from 'enum/roleE'
+import { NavLink } from 'react-router-dom'
+import { Path } from 'enum/pathE'
 
 export const Navbar: FC = memo(() => {
-  const role = useAppSelector((state) => state.user.permission);
+  const role = useAppSelector(state => state.user.permission)
 
-  const isActive = ({ isActive }: any) => (isActive ? styles.isActive : "");
+  const isActive = ({ isActive }: any) => (isActive ? styles.isActive : '')
 
   if (role === RoleE.Admin) {
     return (
@@ -138,7 +138,7 @@ export const Navbar: FC = memo(() => {
           </NavLink>
         </div>
       </div>
-    );
+    )
   }
   return (
     <div className={styles.navbar}>
@@ -183,5 +183,5 @@ export const Navbar: FC = memo(() => {
         </NavLink>
       </div>
     </div>
-  );
-});
+  )
+})

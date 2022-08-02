@@ -1,0 +1,70 @@
+@import "../../scss/variable";
+
+.container {
+  margin: 50px 20px 0 20px;
+  width: 100%;
+
+}
+
+.header {
+  width: 300px;
+  height: 60px;
+  border-radius: 10px;
+  margin: 0 auto 14px auto;
+
+  background: url("../../assets/mobileImg/bgmobileprevios.svg") no-repeat center center;
+  background-size: contain;
+
+  &_container {
+    display: flex;
+    align-items: center;
+    padding: 9px 0 9px 8px;
+
+    & img {
+      border: 1px solid #FFFFFF;
+      width: 40px;
+      height: 40px;
+      background: #d9d9d9;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+
+    &_title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: left;
+
+
+      & :nth-child(1) {
+        font-size: 8px;
+        color: $font-color-rose;
+      }
+
+      & :nth-child(2) {
+        font-size: 16px;
+        color: #ffffff;
+      }
+
+      & :nth-child(3) {
+        font-size: 6px;
+        color: #FFFFFF;
+      }
+    }
+  }
+
+}
+.search {
+  width: 280px;
+  border: 0.5px solid #F1EFF5;
+  background-color: #EEECF5;
+  border-radius: 7px;
+  margin: 0 auto;
+  & input {
+    outline: none;
+    border: none;
+    background-color: #EEECF5;
+    font-size: 10px;
+
+  }
+}
