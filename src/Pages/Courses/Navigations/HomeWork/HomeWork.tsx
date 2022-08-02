@@ -1,10 +1,12 @@
 import React from "react";
 import { Previous } from "../../Previous/Previous";
+import { SelectDropDown } from "../../../../components/common/SelectDropDown/SelectDropDown";
 
 export const HomeWork = () => {
   return (
-    <div style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center" }}>
+    <div>
       <Previous avatar={""} name={"No name"} />
+      <SelectDropDown />
     </div>
   );
 };
