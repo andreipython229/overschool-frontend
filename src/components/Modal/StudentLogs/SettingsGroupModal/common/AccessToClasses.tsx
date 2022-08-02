@@ -1,6 +1,7 @@
 import React from 'react'
 import { CheckSelect } from 'components/common/CheckSelect/CheckSelect'
 import styles from '../../studentsLog.module.scss'
+import { CheckSelectChildren } from 'components/common/CheckSelect/CheckSelectChildren/CheckSelectChildren'
 
 export const AccessToClasses = () => {
   return (
@@ -26,9 +27,12 @@ export const AccessToClasses = () => {
           </svg>
         </div>
       </div>
-      <CheckSelect text={'Тестирование на уровень владения английским языком'}>
+      <div>
+        <CheckSelect text={'Тестирование на уровень владения английским языком'}>
+          <CheckSelectChildren text={'Урок 1.Название букв английского алфавит...'} />
+        </CheckSelect>
         <CheckSelect text={'Фонетика'} />
-      </CheckSelect>
+      </div>
     </div>
   )
 }

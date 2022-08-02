@@ -1,3 +1,4 @@
+@import '../../../scss/variable';
 .custom_checkbox {
   position: absolute;
   z-index: -1;
@@ -28,6 +29,9 @@
 
 .custom_checkbox:checked + label::before {
   background-image: url("../../../assets/img/done_icon.svg");
+  background-position: 1px center;
+  background-color: $font-color-rose;
+
 }
 
 .custom_checkbox + label:hover::before {

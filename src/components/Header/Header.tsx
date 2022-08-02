@@ -1,21 +1,21 @@
-import React, { memo } from 'react';
-import styles from './header.module.scss';
-import Logotype from '../../assets/img/logotype.svg';
-import Avatar from '../../assets/img/avatar.svg';
-import { useAppDispatch } from 'store/redux/store';
-import { auth } from 'store/redux/users/slice';
-import { Link, NavLink } from 'react-router-dom';
-import { Path } from 'enum/pathE';
+import React, { memo } from 'react'
+import styles from './header.module.scss'
+import Logotype from '../../assets/img/logotype.svg'
+import Avatar from '../../assets/img/avatar.svg'
+import { useAppDispatch } from 'store/redux/store'
+import { auth } from 'store/redux/users/slice'
+import { Link, NavLink } from 'react-router-dom'
+import { Path } from 'enum/pathE'
 
 export const Header = memo(() => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   const logOut = () => {
-    dispatch(auth(false));
-  };
+    dispatch(auth(false))
+  }
 
   return (
-    <div className={styles.header}>
+    <header className={styles.header}>
       <NavLink to={Path.InitialPage}>
         <img className={styles.header_logotype} src={Logotype} alt="Logotype IT Overone" />
       </NavLink>
@@ -57,6 +57,6 @@ export const Header = memo(() => {
           />
         </svg>
       </div>
-    </div>
-  );
-});
+    </header>
+  )
+})

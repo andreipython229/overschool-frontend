@@ -2,29 +2,29 @@
 
 .container {
   width: 476px;
-  background: #F5EBFF;
   padding: 21px 61px 21px 24px;
   text-align: left;
   font-family: $font-family-inter;
-
-
+  border-radius: 7px;
 }
 
 .content {
   display: flex;
   align-items: center;
   position: relative;
-  &_arrow{
+
+  &_arrow {
     position: absolute;
     right: -4%;
     top: 40%;
     cursor: pointer;
+
     &_open {
       position: absolute;
       right: -4%;
       top: 40%;
       cursor: pointer;
-     transform: rotate(180deg);
+      transform: rotate(180deg);
     }
   }
 
@@ -34,5 +34,17 @@
     font-size: $fs16;
     letter-spacing: 0.04em;
     color: $font-title;
+  }
+}
+
+.selectChildren {
+  width: 511px;
+  padding: 20px 0 20px 16px;
+  display: flex;
+  text-align: right;
+  border-radius: 7px;
+
+  &_content {
+    display: flex;
   }
 }
