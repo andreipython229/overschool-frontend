@@ -7,9 +7,9 @@ export const MobileLayOut = () => {
   return (
     <div className={styles.wrapper}>
       <header className={styles.mobileHeader} />
-      <div>
+      <main className={styles.main}>
         <Outlet />
-      </div>
+      </main>
       <nav className={styles.mobileFooter}>
         <MobileNavbar />
       </nav>

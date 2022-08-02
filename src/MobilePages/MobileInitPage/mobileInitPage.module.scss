@@ -3,20 +3,14 @@
 .container {
   width: 100%;
   height: 100%;
-  background: url("../../assets/mobileImg/bg1.jpg") no-repeat center center;
+  background: linear-gradient( rgba(0, 0, 0, .1 ), rgba(0, 0, 0, 0.8)), url("../../assets/mobileImg/bg1.jpg") no-repeat center center;
   background-size: contain;
   font-family: "Manrope", sans-serif;
   padding: 0 20px;
   position: relative;
 
-  //&_blur {
-  //  position: absolute;
-  //  top: 0;
-  //  left: 0;
-  //  width: 100%;
-  //  height: 100%;
-  //  background: linear-gradient(359.58deg, #000000 2.18%, rgba(0, 0, 0, 0) 98.18%);
-  //}
+
+
 }
 
 .initPage {

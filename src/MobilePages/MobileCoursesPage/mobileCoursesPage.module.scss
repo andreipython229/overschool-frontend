@@ -3,17 +3,16 @@
 .container {
   margin: 50px 20px 0 20px;
   width: 100%;
-
 }
 
 .header {
-  width: 300px;
+  width: 280px;
   height: 60px;
   border-radius: 10px;
-  margin: 0 auto 14px auto;
-
-  background: url("../../assets/mobileImg/bgmobileprevios.svg") no-repeat center center;
+  margin-bottom: 14px;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../assets/mobileImg/bgmobileprevios.svg") no-repeat center center;
   background-size: contain;
+  position: relative;
 
   &_container {
     display: flex;
@@ -32,7 +31,6 @@
     &_title {
       display: flex;
       flex-direction: column;
-      align-items: center;
       text-align: left;
 
 
@@ -44,27 +42,105 @@
       & :nth-child(2) {
         font-size: 16px;
         color: #ffffff;
+        margin-bottom: 2px;
       }
 
       & :nth-child(3) {
         font-size: 6px;
         color: #FFFFFF;
+        text-align: left;
       }
     }
   }
 
 }
+
 .search {
   width: 280px;
   border: 0.5px solid #F1EFF5;
   background-color: #EEECF5;
   border-radius: 7px;
-  margin: 0 auto;
+  margin-bottom: 28px;
+
   & input {
+    width: 100%;
+    padding: 10px 0;
     outline: none;
     border: none;
     background-color: #EEECF5;
     font-size: 10px;
+    font-weight: 400;
+    text-align: center;
+    background-image: url("../../assets/img/createCourse/search.svg");
+    background-repeat: no-repeat;
+    background-position: 35px 5px;
 
   }
+}
+
+.title {
+  font-size: $fs12;
+  font-weight: 700;
+  color: $font-title;
+  margin-left: 10px;
+}
+
+.courseBlock {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: $box-shadow;
+  margin: 16px 0;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+
+  &_image {
+    width: 100%;
+    height: 130px;
+    background-color: #E0DCED;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+  }
+
+  &_desc {
+    display: flex;
+    flex-direction: column;
+    margin: 0 16px;
+
+
+    & :nth-child(1) {
+      font-size: 11px;
+      color: $font-color-rose;
+      display: flex;
+      align-items: center;
+      margin: 8px 0 11px 0;
+
+      & svg {
+        margin-right: 8px;
+      }
+
+    }
+
+    & :nth-child(2) {
+      font-size: 12px;
+      color: $font-title;
+      margin-bottom: 14px;
+    }
+
+    & :nth-child(3) {
+      font-size: 10px;
+      color: #A2A9B4;
+      letter-spacing: 0.01em;
+      line-height: 160%;
+      margin-bottom: 18px;
+    }
+
+    &_btn {
+      margin: 0 auto 22px auto;
+    }
+  }
+}
+
+.course {
+  margin-bottom: 100px;
 }
