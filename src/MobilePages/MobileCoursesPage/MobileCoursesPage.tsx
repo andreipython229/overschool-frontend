@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styles from './mobileCoursesPage.module.scss'
+import { CourseSearchInput } from 'MobilePages/MobileCoursesPage/CourseSearchInput/CourseSearchInput'
+import { MobileCourse } from 'MobilePages/MobileCoursesPage/MobileCourse/MobileCourse'
 
 export const MobileCoursesPage = () => {
+  const [searchValue, setSearchValue] = useState<string>('')
+
+  const onChangeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.currentTarget.value)
+  }
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -15,7 +22,26 @@ export const MobileCoursesPage = () => {
         </div>
       </div>
       <div className={styles.search}>
-        <input type="text" placeholder={'Поиск по курсам и категориям'} />
+        <CourseSearchInput searchValue={searchValue} onChangeSearchValue={onChangeSearchValue} />
+      </div>
+      <span className={styles.title}>Мои курсы</span>
+      <div className={styles.course}>
+        <MobileCourse
+          name={'The Way Python'}
+          progress={'13'}
+          desc={
+            ' Индивидуальное обучение по программе The Way Python! Ты станешь востребованным\n' +
+            '          IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!'
+          }
+        />
+        <MobileCourse
+          name={'The Way Frontend'}
+          progress={'58'}
+          desc={
+            ' Индивидуальное обучение по программе The Way Frontend! Ты станешь востребованным\n' +
+            '          IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!'
+          }
+        />
       </div>
     </div>
   )

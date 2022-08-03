@@ -12,23 +12,26 @@
 .container {
   width: 100%;
   padding-right: 190px;
-  margin: 104px auto 100px 132px;
+  margin: 104px auto 0 132px;
 }
-
+.main{
+  margin: 0 auto;
+}
 .mobileHeader {
   height: 40px;
   width: 100%;
   background: #FFFFFF;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 .mobileFooter {
   height: 40px;
   width: 100%;
   background: #FFFFFF;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   display: flex;
