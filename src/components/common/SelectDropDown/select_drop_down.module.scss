@@ -1,32 +1,28 @@
 .header_dropdown_menu {
   cursor: pointer;
   max-width: 187px;
-  padding: 10px 7px;
+  max-height: 40px;
+  padding: 10px 10px;
   border-radius: 7px;
   box-sizing: border-box;
   color: #6b7484;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     background-color: #e5e7eb;
     svg {
-      position: absolute;
-      top: 40%;
-      left: 19.5%;
+      transform: translate(2px, 10px);
     }
   }
 }
 .drop_down_item_container {
+  position: absolute;
   color: #6b7484;
-  position: relative;
   padding: 10px 20px;
   max-width: 191px;
   background-color: #ffffff;
