@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react'
+import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from 'react'
 
 import styles from './button.module.scss'
 
@@ -19,7 +19,7 @@ type SuperButtonPropsT = DefaultButtonPropsType & {
     | 'delete'
 }
 
-export const Button: FC<SuperButtonPropsT> = ({ text, variant = 'default', ...restProps }) => {
+export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', ...restProps }) => {
   let propsStyle = styles.btn_default
 
   if (variant === 'primary') {
@@ -39,10 +39,10 @@ export const Button: FC<SuperButtonPropsT> = ({ text, variant = 'default', ...re
   }
 
   return (
-    <div>
+    <>
       <button {...restProps} className={restProps.className || propsStyle}>
         {text}
       </button>
-    </div>
+    </>
   )
-}
+})

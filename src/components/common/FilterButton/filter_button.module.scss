@@ -1,0 +1,30 @@
+.container {
+  cursor: pointer;
+  max-width: 187px;
+  max-height: 40px;
+  padding: 20px 10px;
+  border-radius: 7px;
+  box-sizing: border-box;
+  color: #6b7484;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ededed;
+}
+.drop_down_block {
+  position: absolute;
+  color: #6b7484;
+  padding: 10px 20px;
+  max-width: 191px;
+  background-color: #ffffff;
+  box-shadow: 3px 3px 3px #e4e7ed;
+  border-radius: 7px;
+  margin: 0 35px;
+}
+.inner_drop_down_block {
+  max-width: 500px;
+  width: 445px;
+  position: absolute;
+  top: 20px;
+  left: 200px;
+}
