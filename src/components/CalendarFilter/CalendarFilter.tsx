@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
-import { Button } from '../Button/Button'
+import { Button } from '../common/Button/Button'
 import 'react-datepicker/dist/react-datepicker.css'
 import './calendar.css'
 
@@ -11,7 +11,7 @@ registerLocale('ru', ru)
 export const CalendarFilter = () => {
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
-  const onChange = (dates: any) => {
+  const onChange = (dates: any): void => {
     const [start, end] = dates
     setStartDate(start)
     setEndDate(end)
