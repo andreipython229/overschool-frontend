@@ -17,16 +17,6 @@ type dropDownItem = {
   bg: any
   viewBoxSize?: string
 }
-type user = {
-  avatar: string
-  name: string
-  email: string
-  task: string
-  course: string
-  date: string
-  status: string
-  ball: number
-}
 
 type SelectDropDownT = {
   setArrowUsersState: any
