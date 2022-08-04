@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { ScoresFilter } from '../common/FilterButton/ScoresFilter/ScoresFilter'
-import { CalendarFilter } from '../common/CalendarFilter/CalendarFilter'
+import { ScoresFilter } from '../FilterButton/ScoresFilter/ScoresFilter'
+import { CalendarFilter } from '../CalendarFilter/CalendarFilter'
 
 type ContainerFiltersT = {
   title: string

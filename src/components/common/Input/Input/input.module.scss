@@ -1,15 +1,17 @@
-@import "src/scss/variable";
+@import 'src/scss/variable';
 
 .input {
+  display: flex;
+  align-items: center;
   width: 100%;
   border: 1px solid #e8e8e8;
   border-radius: 8px;
   background-color: #ffffff;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   padding-left: 2px;
 
   & input {
-    width: 90%;
+    width: 80%;
     color: $font-color;
     outline: none;
     border: none;
@@ -29,4 +31,7 @@
     color: $font-color;
     font-weight: 400;
   }
+}
+.test {
+  background-color: red;
 }

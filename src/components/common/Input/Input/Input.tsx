@@ -17,11 +17,24 @@ export type InputPropsT = DefaultInputPropsType & {
   onClick?: () => void
   label?: string
   placeholder?: string
+  children?: React.ReactNode | React.ReactNode[] | undefined
 }
 
 export const Input: FC<InputPropsT> = memo(props => {
-  const { label, onClick, icon, type, id, name, onChange, value, placeholder, style, ...rest } =
-    props
+  const {
+    children,
+    label,
+    onClick,
+    icon,
+    type,
+    id,
+    name,
+    onChange,
+    value,
+    placeholder,
+    style,
+    ...rest
+  } = props
   return (
     <div style={style} className={styles.input_container}>
       {label && (
@@ -30,6 +43,7 @@ export const Input: FC<InputPropsT> = memo(props => {
         </label>
       )}
       <div className={styles.input}>
+        {children}
         <input
           {...rest}
           required
