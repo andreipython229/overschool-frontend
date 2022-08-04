@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react'
-import { IconSvg } from '../IconSvg/IconSvg'
-import { filterSvgIcon } from '../../../constants/iconSvgConstants'
-import { dropDownListFilter } from '../../../constants/dropDownList'
-import { ContainerFilters } from '../../ContainerFilters/ContainerFilters'
-import { arrowUsers } from '../../../mockData/mockData'
+import { IconSvg } from '../common/IconSvg/IconSvg'
+import { filterSvgIcon } from '../../constants/iconSvgConstants'
+import { dropDownListFilter } from '../../constants/dropDownList'
+import { ContainerFilters } from '../ContainerFilters/ContainerFilters'
+import { arrowUsers } from '../../mockData/mockData'
 
 import styles from './filter_button.module.scss'
 
@@ -32,8 +32,8 @@ export const FilterButton: FC<setArrowUsersStateT> = ({ setArrowUsersState }) =>
   const handleToggleFilter =
     ({ id }: any) =>
     () => {
-      dropDownListFilter.forEach(item => (item.isOpen = false))
-      const changeFilterItem = dropDownListFilter.find(item => item.id === id)
+      dropDownListFilter.forEach((item: any) => (item.isOpen = false))
+      const changeFilterItem = dropDownListFilter.find((item: any) => item.id === id)
       if (changeFilterItem) {
         setIsOpen((changeFilterItem.isOpen = true))
         setItemTitle(changeFilterItem.title)
@@ -48,7 +48,7 @@ export const FilterButton: FC<setArrowUsersStateT> = ({ setArrowUsersState }) =>
       </div>
       {toggleDropDown && (
         <div className={styles.drop_down_block}>
-          {dropDownListFilter.map(({ id, title }) => (
+          {dropDownListFilter.map(({ id, title }: any) => (
             <div onClick={handleToggleFilter({ id, title })} key={id}>
               {title}
             </div>

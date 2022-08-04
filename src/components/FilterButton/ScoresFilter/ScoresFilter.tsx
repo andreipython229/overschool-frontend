@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
-import { Input } from '../../Input/Input/Input'
-import { Button } from '../../Button/Button'
+import { Input } from '../../common/Input/Input/Input'
+import { Button } from '../../common/Button/Button'
 
 import styles from './scores_filter.module.scss'
 
