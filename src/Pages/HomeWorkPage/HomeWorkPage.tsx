@@ -8,6 +8,7 @@ import { searchSvgIcon } from '../../constants/iconSvgConstants'
 import styles from './home_work_page.module.scss'
 
 import { arrowUsers } from '../../mockData/mockData'
+import { MyEditor } from '../../components/MyEditor/MyEditor'
 
 export const HomeWorkPage = () => {
   const [arrowUsersState, setArrowUsersState] = useState(arrowUsers)
@@ -18,7 +19,7 @@ export const HomeWorkPage = () => {
   // // admin@gmail.com
   // // admin
   return (
-    <div>
+    <>
       <Previous avatar={''} name={'No name'} />
       <h3>Входящие работы от учеников</h3>
       <div className={styles.container}>
@@ -26,29 +27,29 @@ export const HomeWorkPage = () => {
           <SelectDropDown setArrowUsersState={setArrowUsersState} />
           <FilterButton setArrowUsersState={setArrowUsersState} />
         </div>
-        {/* <Input */}
-        {/*  name="" */}
-        {/*  type="text" */}
-        {/*  value="" */}
-        {/*  // onChange={() => {}} */}
-        {/*  placeholder="Поиск по ученикам и заданиям" */}
-        {/* > */}
-        {/*  <svg */}
-        {/*    width="20" */}
-        {/*    height="20" */}
-        {/*    viewBox="0 0 20 20" */}
-        {/*    fill="none" */}
-        {/*    xmlns="http://www.w3.org/2000/svg" */}
-        {/*  >*/}
-        {/*    <path */}
-        {/*      d={searchSvgIcon} */}
-        {/*      stroke="#D1D5DB" */}
-        {/*      strokeWidth="2" */}
-        {/*      strokeLinecap="round" */}
-        {/*      strokeLinejoin="round" */}
-        {/*    /> */}
-        {/*  </svg> */}
-        {/* </Input> */}
+        <Input
+          name=""
+          type="text"
+          value=""
+          // onChange={() => {}}
+          placeholder="Поиск по ученикам и заданиям"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d={searchSvgIcon}
+              stroke="#D1D5DB"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </Input>
       </div>
       {/* {arrowUsersState.map(({ avatar, name, email, task, course, date, status, ball }) => ( */}
       {/*  <div key={name}> */}
@@ -62,6 +63,6 @@ export const HomeWorkPage = () => {
       {/*    <span>{ball}</span> */}
       {/*  </div>*/}
       {/* ))} */}
-    </div>
+    </>
   )
 }
