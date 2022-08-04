@@ -1,13 +1,14 @@
 .header_dropdown_menu {
   cursor: pointer;
-  max-width: 187px;
+  max-width: 197px;
+  width: 197px;
   max-height: 40px;
-  padding: 10px 10px;
+  padding: 10px 5px;
   border-radius: 7px;
   box-sizing: border-box;
   color: #6b7484;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   span {
     position: relative;
@@ -36,7 +37,7 @@
 }
 .drop_down_item {
   display: flex;
-  margin: 23px auto;
+  padding: 10px 0;
   cursor: pointer;
   span {
     margin: 0 15px;

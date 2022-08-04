@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
-import { Button } from '../common/Button/Button'
+import { Button } from '../../common/Button/Button'
 import 'react-datepicker/dist/react-datepicker.css'
 import './calendar.css'
 

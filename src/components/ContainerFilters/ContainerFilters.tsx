@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { ScoresFilter } from '../FilterButton/ScoresFilter/ScoresFilter'
-import { CalendarFilter } from '../CalendarFilter/CalendarFilter'
+import { CalendarFilter } from '../FilterButton/CalendarFilter/CalendarFilter'
 
 type ContainerFiltersT = {
   title: string
@@ -8,7 +8,7 @@ type ContainerFiltersT = {
 }
 
 export const ContainerFilters: FC<ContainerFiltersT> = ({ title, ...props }: any) => {
-  if (title && title === 'курс') {
+  if (title && title === 'курсы') {
     return (
       <div>
         <div> {title}</div>

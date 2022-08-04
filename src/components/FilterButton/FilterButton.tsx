@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { filterSvgIcon } from '../../constants/iconSvgConstants'
+import { arrowIcon, filterSvgIcon } from '../../constants/iconSvgConstants'
 import { dropDownListFilter } from '../../constants/dropDownList'
 import { ContainerFilters } from '../ContainerFilters/ContainerFilters'
 import { arrowUsers } from '../../mockData/mockData'
@@ -27,6 +27,7 @@ export const FilterButton: FC<setArrowUsersStateT> = ({ setArrowUsersState }) =>
 
   const handleDropDown = () => {
     setToggleDropDown(!toggleDropDown)
+    setIsOpen(false)
   }
 
   const handleToggleFilter =
@@ -35,7 +36,7 @@ export const FilterButton: FC<setArrowUsersStateT> = ({ setArrowUsersState }) =>
       dropDownListFilter.forEach((item: any) => (item.isOpen = false))
       const changeFilterItem = dropDownListFilter.find((item: any) => item.id === id)
       if (changeFilterItem) {
-        setIsOpen((changeFilterItem.isOpen = true))
+        setIsOpen((changeFilterItem.isOpen = !isOpen))
         setItemTitle(changeFilterItem.title)
       }
     }
@@ -48,9 +49,21 @@ export const FilterButton: FC<setArrowUsersStateT> = ({ setArrowUsersState }) =>
       </div>
       {toggleDropDown && (
         <div className={styles.drop_down_block}>
+          <h6>ВЫБЕРИТЕ КРИТЕРИЙ ФИЛЬТРАЦИИ</h6>
           {dropDownListFilter.map(({ id, title }: any) => (
-            <div onClick={handleToggleFilter({ id, title })} key={id}>
+            <div
+              className={styles.item_drop_down}
+              onClick={handleToggleFilter({ id, title })}
+              key={id}
+            >
               {title}
+              <IconSvg
+                width={25}
+                height={25}
+                fill="#9A9A9A"
+                d={arrowIcon}
+                viewBoxSize="0 0 12 15"
+              />
             </div>
           ))}
           {isOpen && (
