@@ -24,3 +24,10 @@ export enum CreateCoursePath {
 export enum StudentLogs {
   GroupSettings = 'group-settings',
 }
+
+export enum Student {
+  Courses = 'courses/*',
+  Course = 'student-course/',
+  Chats = 'chats/*',
+  Class = 'class',
+}

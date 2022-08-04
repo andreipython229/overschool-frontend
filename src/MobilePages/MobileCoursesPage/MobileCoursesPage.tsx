@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react'
 import styles from './mobileCoursesPage.module.scss'
 import { CourseSearchInput } from 'MobilePages/MobileCoursesPage/CourseSearchInput/CourseSearchInput'
-import { MobileCourse } from 'MobilePages/MobileCoursesPage/MobileCourse/MobileCourse'
+import { MobileCourseBlock } from 'MobilePages/MobileCoursesPage/MobileCourseBlock/MobileCourseBlock'
 
 export const MobileCoursesPage = () => {
   const [searchValue, setSearchValue] = useState<string>('')
@@ -26,20 +26,18 @@ export const MobileCoursesPage = () => {
       </div>
       <span className={styles.title}>Мои курсы</span>
       <div className={styles.course}>
-        <MobileCourse
+        <MobileCourseBlock
           name={'The Way Python'}
           progress={'13'}
           desc={
-            ' Индивидуальное обучение по программе The Way Python! Ты станешь востребованным\n' +
-            '          IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!'
+            ' Индивидуальное обучение по программе The Way Python! Ты станешь востребованным IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!'
           }
         />
-        <MobileCourse
+        <MobileCourseBlock
           name={'The Way Frontend'}
           progress={'58'}
           desc={
-            ' Индивидуальное обучение по программе The Way Frontend! Ты станешь востребованным\n' +
-            '          IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!'
+            ' Индивидуальное обучение по программе The Way Frontend! Ты станешь востребованным IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!'
           }
         />
       </div>
