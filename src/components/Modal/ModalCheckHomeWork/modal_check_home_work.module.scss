@@ -1,0 +1,33 @@
+.modal_container {
+  width: 1174px;
+  background-color: #f9fafb;
+  padding: 0 30px;
+  border: 2px solid black;
+}
+.modal_header {
+  width: 100%;
+  border: 2px solid black;
+  box-sizing: border-box;
+}
+.modal_btn_is_toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #f5f6f8;
+  border: none;
+  color: #a1a6af;
+  padding: 16px;
+  border-radius: 10px;
+  span {
+    width: 15px;
+    height: 5px;
+    position: absolute;
+    top: 46%;
+    left: 38%;
+  }
+}
+.arrow_rotate {
+  transform: rotate(180deg);
+}

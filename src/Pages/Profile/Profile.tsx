@@ -1,56 +1,56 @@
-import React, { ChangeEvent, memo, useState } from 'react';
+import React, { ChangeEvent, memo, useState } from 'react'
 
-import styles from './profile.module.scss';
+import styles from './profile.module.scss'
 
-import { Input } from 'components/common/Input/Input/Input';
-import { Button } from 'components/common/Button/Button';
-import { useAppDispatch, useAppSelector } from 'store/redux/store';
-import { AboutUser } from './AboutUser/AboutUser';
-import { Toggle } from '@skbkontur/react-ui/index';
-import noAvatar from '../../assets/img/noAvatar.svg';
-import { Previous } from '../Courses/Previous/Previous';
-import { selectUser } from 'store/redux/users/select';
+import { Input } from 'components/common/Input/Input/Input'
+import { Button } from 'components/common/Button/Button'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { AboutUser } from './AboutUser/AboutUser'
+import { Toggle } from '@skbkontur/react-ui/index'
+import noAvatar from '../../assets/img/noAvatar.svg'
+import { Previous } from '../Courses/Previous/Previous'
+import { selectUser } from 'selectors'
 
 export const Profile = memo(() => {
-  const dispatch = useAppDispatch();
-  const { avatar, user, phone_number, city, aboutMySelf, sex } = useAppSelector(selectUser);
-  const { last_name, first_name, email } = user;
+  const dispatch = useAppDispatch()
+  const { avatar, user, phone_number, city, aboutMySelf, sex } = useAppSelector(selectUser)
+  const { last_name, first_name, email } = user
 
-  const [phone, setPhone] = useState<string>(phone_number);
-  const [userAvatar, setUserAvatar] = useState<string | null>(avatar);
-  const [fullName, setFullName] = useState(first_name + ' ' + last_name);
-  const [userEmail, setUserEmail] = useState(email);
-  const [userCity, setUserCity] = useState(city);
-  const [aboutUser, setAboutUser] = useState(aboutMySelf);
-  const [newPassword, setNewPassword] = useState('');
-  const [repeatNewPassword, setRepeatNewPassword] = useState('');
+  const [phone, setPhone] = useState<string>(phone_number)
+  const [userAvatar, setUserAvatar] = useState<string | null>(avatar)
+  const [fullName, setFullName] = useState(first_name + ' ' + last_name)
+  const [userEmail, setUserEmail] = useState(email)
+  const [userCity, setUserCity] = useState(city)
+  const [aboutUser, setAboutUser] = useState(aboutMySelf)
+  const [newPassword, setNewPassword] = useState('')
+  const [repeatNewPassword, setRepeatNewPassword] = useState('')
 
   const changePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewPassword(e.currentTarget.value);
-  };
+    setNewPassword(e.currentTarget.value)
+  }
   const changeRepeatPassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setRepeatNewPassword(e.currentTarget.value);
-  };
+    setRepeatNewPassword(e.currentTarget.value)
+  }
 
   //  const onChange = (e: ChangeEvent<HTMLInputElement>, callback: (value: string) => void): void => {
   // callback(e.currentTarget.value);
   //  };
 
   const changePhoneNumber = (e: ChangeEvent<HTMLInputElement>): void => {
-    setPhone(e.currentTarget.value);
-  };
+    setPhone(e.currentTarget.value)
+  }
   const changeFullName = (e: ChangeEvent<HTMLInputElement>): void => {
-    setFullName(e.currentTarget.value);
-  };
+    setFullName(e.currentTarget.value)
+  }
   const changeCity = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserCity(e.currentTarget.value);
-  };
+    setUserCity(e.currentTarget.value)
+  }
   const changeAboutMyself = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setAboutUser(e.currentTarget.value);
-  };
+    setAboutUser(e.currentTarget.value)
+  }
   const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserEmail(e.currentTarget.value);
-  };
+    setUserEmail(e.currentTarget.value)
+  }
 
   // const changeUserInfo = (): void => {
   //   const name = fullName.split(' ');
@@ -68,16 +68,16 @@ export const Profile = memo(() => {
 
   const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files) {
-      const index = 0;
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[index]);
-      reader.onloadend = (event) => {
+      const index = 0
+      const reader = new FileReader()
+      reader.readAsDataURL(e.target.files[index])
+      reader.onloadend = event => {
         if (typeof event?.target?.result === 'string') {
-          setUserAvatar(event?.target?.result);
+          setUserAvatar(event?.target?.result)
         }
-      };
+      }
     }
-  };
+  }
   return (
     <div>
       <Previous avatar={avatar || noAvatar} name={'User Name'} />
@@ -102,7 +102,7 @@ export const Profile = memo(() => {
             <Input
               name={'Новый email адрес'}
               type={'text'}
-              onChange={(e) => changeEmail(e)}
+              onChange={e => changeEmail(e)}
               value={userEmail}
               placeholder={'Новый email адрес'}
             />
@@ -115,7 +115,7 @@ export const Profile = memo(() => {
             <Input
               name={'Новый пароль'}
               type={'password'}
-              onChange={(e) => changePassword(e)}
+              onChange={e => changePassword(e)}
               value={newPassword}
               placeholder={'Новый пароль'}
             />
@@ -124,7 +124,7 @@ export const Profile = memo(() => {
                 name={'Повторить новый пароль'}
                 placeholder={'Повторить новый пароль'}
                 type={'password'}
-                onChange={(e) => changeRepeatPassword(e)}
+                onChange={e => changeRepeatPassword(e)}
                 value={repeatNewPassword}
               />
             </div>
@@ -202,5 +202,5 @@ export const Profile = memo(() => {
         </div>
       </div>
     </div>
-  );
-});
+  )
+})

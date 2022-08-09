@@ -3,7 +3,6 @@ import { IconSvg } from '../common/IconSvg/IconSvg'
 import { arrowIcon, filterSvgIcon } from '../../constants/iconSvgConstants'
 import { dropDownListFilter } from '../../constants/dropDownList'
 import { ContainerFilters } from '../ContainerFilters/ContainerFilters'
-import { arrowUsers } from '../../mockData/mockData'
 
 import styles from './filter_button.module.scss'
 
@@ -19,9 +18,7 @@ export const FilterButton: FC<setArrowUsersStateT> = ({ setArrowUsersState }) =>
   const [scoresEnd, setScoresEnd] = useState('')
 
   const handleApplyFilter = () => {
-    const scoresFilterList = arrowUsers.filter(
-      item => item.ball >= +scoresStart && item.ball <= +scoresEnd,
-    )
+    const scoresFilterList = [].filter(item => item)
     setArrowUsersState(scoresFilterList)
   }
 

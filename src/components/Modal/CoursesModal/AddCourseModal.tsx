@@ -1,31 +1,31 @@
-import React, { ChangeEvent, FC, memo, useState } from "react";
-import styles from "../Modal.module.scss";
-import { Button } from "../../common/Button/Button";
-import { Input } from "../../common/Input/Input/Input";
-import { useAppDispatch } from "../../../store/redux/store";
-import { changeCourseName } from "../../../store/redux/course/slice";
-import { useNavigate } from "react-router-dom";
-import { Path } from "../../../enum/pathE";
+import React, { ChangeEvent, FC, memo, useState } from 'react'
+import styles from '../Modal.module.scss'
+import { Button } from '../../common/Button/Button'
+import { Input } from '../../common/Input/Input/Input'
+import { useAppDispatch } from '../../../store/hooks'
+import { changeCourseName } from '../../../store/redux/course/slice'
+import { useNavigate } from 'react-router-dom'
+import { Path } from '../../../enum/pathE'
 
 type AddCourseModalPropsT = {
-  setShowModal: () => void;
-};
+  setShowModal: () => void
+}
 export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const [name, setName] = useState<string>("");
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const [name, setName] = useState<string>('')
 
   const nameCourse = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.currentTarget.value);
-  };
+    setName(event.currentTarget.value)
+  }
 
   const addCourseName = () => {
     if (name) {
-      dispatch(changeCourseName(name));
-      setShowModal();
-      navigate(Path.CreateCourse);
+      dispatch(changeCourseName(name))
+      setShowModal()
+      navigate(Path.CreateCourse)
     }
-  };
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -53,12 +53,12 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
 
           <div className={styles.mainCourse_input}>
             <Input
-              style={{ width: "280px" }}
-              label={"Введите название курса:"}
-              placeholder={"Введите название курса"}
-              name={"course"}
-              type={"text"}
-              onChange={(e) => nameCourse(e)}
+              style={{ width: '280px' }}
+              label={'Введите название курса:'}
+              placeholder={'Введите название курса'}
+              name={'course'}
+              type={'text'}
+              onChange={e => nameCourse(e)}
               value={name}
             />
           </div>
@@ -66,14 +66,14 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
           <div className={styles.mainCourse_btn}>
             <Button
               onClick={addCourseName}
-              style={{ width: "280px" }}
-              type={"submit"}
-              variant={"primary"}
-              text={"Создать курс"}
+              style={{ width: '280px' }}
+              type={'submit'}
+              variant={'primary'}
+              text={'Создать курс'}
             />
           </div>
         </div>
       </div>
     </div>
-  );
-});
+  )
+})

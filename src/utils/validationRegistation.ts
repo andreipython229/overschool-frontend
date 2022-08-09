@@ -6,7 +6,7 @@ export type RegistrParamsT = {
   oferta: boolean
 }
 
-const MIN_PASS_LENGTH = 4
+const MIN_PASS_LENGTH = 8
 
 export const validateRegistration = (values: RegistrParamsT): RegistrParamsT => {
   const errors = {} as RegistrParamsT
@@ -17,15 +17,14 @@ export const validateRegistration = (values: RegistrParamsT): RegistrParamsT => 
   }
   if (!values.phone) {
     errors.phone = 'Поле обязательно для заполнения'
+  } else if (Number(values.phone)) {
+    errors.phone = 'Не корректные данные'
   }
-  // else if (Number(values.phone)) {
-  //     errors.phone = 'Не корректные данные'
-  // }
-  // if (values.password.length < MIN_PASS_LENGTH) {
-  //   errors.password = 'Пароль должен содержать минимум 8 символов'
-  // } else if (!values.password) {
-  //   errors.password = 'Пароль обязателен'
-  // }
+  if (values.password.length < MIN_PASS_LENGTH) {
+    errors.password = 'Пароль должен содержать минимум 8 символов'
+  } else if (!values.password) {
+    errors.password = 'Пароль обязателен'
+  }
   if (values.oferta !== true) {
     errors.oferta = false
   }

@@ -1,15 +1,15 @@
-import React, { memo, useState } from "react";
-import styles from "../superAdmin.module.scss";
-import { useAppDispatch, useAppSelector } from "../../../../../store/redux/store";
-import { changeProjectName } from "../../../../../store/redux/platform/slice";
+import React, { memo, useState } from 'react'
+import styles from '../superAdmin.module.scss'
+import { useAppDispatch, useAppSelector } from '../../../../../store/hooks'
+import { changeProjectName } from '../../../../../store/redux/platform/slice'
 
 export const Main = memo(() => {
-  const dispatch = useAppDispatch();
-  const projectName = useAppSelector<string>((state) => state.platform.projectName);
-  const [name, setName] = useState<string>(projectName);
+  const dispatch = useAppDispatch()
+  const projectName = useAppSelector<string>((state: any) => state.platform.projectName)
+  const [name, setName] = useState<string>(projectName)
   const onChangeProjectName = () => {
-    dispatch(changeProjectName(name));
-  };
+    dispatch(changeProjectName(name))
+  }
   return (
     <div className={styles.wrapper_actions}>
       <div className={styles.main}>
@@ -21,10 +21,10 @@ export const Main = memo(() => {
         <div>
           <input
             value={name}
-            onChange={(e) => setName(e.currentTarget.value)}
+            onChange={e => setName(e.currentTarget.value)}
             className={styles.main_input}
             type="text"
-            placeholder={"Название"}
+            placeholder={'Название'}
           />
           <button onClick={onChangeProjectName} className={styles.main_btn}>
             Применить
@@ -32,5 +32,5 @@ export const Main = memo(() => {
         </div>
       </div>
     </div>
-  );
-});
+  )
+})
