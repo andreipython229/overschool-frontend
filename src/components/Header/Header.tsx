@@ -1,13 +1,14 @@
 import React, { memo } from 'react'
-import styles from './header.module.scss'
 import Logotype from '../../assets/img/logotype.svg'
 import Avatar from '../../assets/img/avatar.svg'
-import { useAppDispatch } from 'store/redux/store'
+import { useAppDispatch } from '../../store/hooks'
 import { auth } from 'store/redux/users/slice'
 import { Link, NavLink } from 'react-router-dom'
 import { Path } from 'enum/pathE'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutSvgIcon } from '../../constants/iconSvgConstants'
+
+import styles from './header.module.scss'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()

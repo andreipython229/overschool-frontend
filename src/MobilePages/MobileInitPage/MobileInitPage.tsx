@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { LoginModal } from 'components/Modal'
 import { loginUser } from 'store/redux/users/slice'
-import { useAppDispatch } from 'store/redux/store'
+import { useAppDispatch } from '../../store/hooks'
 
 import styles from './mobileInitPage.module.scss'
 

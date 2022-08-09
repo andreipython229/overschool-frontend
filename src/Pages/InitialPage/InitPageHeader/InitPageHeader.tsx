@@ -1,10 +1,11 @@
 import React, { FC, memo } from 'react'
-import styles from '../initialPage.module.scss'
+import { Link } from 'react-router-dom'
 import Logotype from '../../../assets/img/logotype.svg'
 import { Button } from 'components/common/Button/Button'
-import { useAppSelector } from 'store/redux/store'
-import { Link } from 'react-router-dom'
+import { useAppSelector } from '../../../store/hooks'
 import { Path } from 'enum/pathE'
+
+import styles from '../initialPage.module.scss'
 
 type InitPageHeaderPT = {
   setLoginShow: (show: boolean) => void
@@ -12,7 +13,7 @@ type InitPageHeaderPT = {
 }
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(
   ({ setLoginShow, setRegistrationShow }) => {
-    const isLogin = useAppSelector<boolean>(state => state.user.auth)
+    const isLogin = useAppSelector<boolean>((state: any) => state.user?.auth)
     return (
       <div>
         <div className={styles.init_header}>

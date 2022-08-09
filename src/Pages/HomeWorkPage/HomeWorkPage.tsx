@@ -4,20 +4,11 @@ import { SelectDropDown } from '../../components/SelectDropDown/SelectDropDown'
 import { FilterButton } from '../../components/FilterButton/FilterButton'
 import { Input } from '../../components/common/Input/Input/Input'
 import { searchSvgIcon } from '../../constants/iconSvgConstants'
-
+// import { ModalCheckHomeWork } from '../../components/Modal/ModalCheckHomeWork/ModalCheckHomeWork'
 import styles from './home_work_page.module.scss'
 
-import { arrowUsers } from '../../mockData/mockData'
-import { MyEditor } from '../../components/MyEditor/MyEditor'
-
 export const HomeWorkPage = () => {
-  const [arrowUsersState, setArrowUsersState] = useState(arrowUsers)
-  // fetch('http://194.62.19.27:8000/api/answers/')
-  //   .then(response => response.json())
-  //   .then(json => console.log(json))
-  //
-  // // admin@gmail.com
-  // // admin
+  const [arrowUsersState, setArrowUsersState] = useState([])
   return (
     <>
       <Previous avatar={''} name={'No name'} />
@@ -51,18 +42,7 @@ export const HomeWorkPage = () => {
           </svg>
         </Input>
       </div>
-      {/* {arrowUsersState.map(({ avatar, name, email, task, course, date, status, ball }) => ( */}
-      {/*  <div key={name}> */}
-      {/*    <span>{avatar}</span> */}
-      {/*    <span>{name}</span> */}
-      {/*    <span>{email}</span> */}
-      {/*    <span>{task}</span> */}
-      {/*    <span>{course}</span> */}
-      {/*    <span>{date}</span> */}
-      {/*    <span>{status}</span> */}
-      {/*    <span>{ball}</span> */}
-      {/*  </div>*/}
-      {/* ))} */}
+      {/* <ModalCheckHomeWork /> */}
     </>
   )
 }

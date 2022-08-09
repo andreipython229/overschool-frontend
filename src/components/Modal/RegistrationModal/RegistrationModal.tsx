@@ -1,27 +1,39 @@
 import React, { FC, memo, useState } from 'react'
 import { useFormik } from 'formik'
-
-import styles from '../Modal.module.scss'
-
 import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
 import unSecurity from '../../../assets/img/unSecurity.svg'
 import Security from '../../../assets/img/isecurity.svg'
 import { Checkbox } from '../../common/Checkbox/Checkbox'
 import { Button } from '../../common/Button/Button'
-
 import { RegistrParamsT, validateRegistration } from 'utils/validationRegistation'
-import { useAppDispatch } from 'store/redux/store'
 import { auth } from 'store/redux/users/slice'
 import { AuthSelect } from '../../common/AuthSelect/AuthSelect'
+import { useAppDispatch } from '../../../store/hooks'
+
+import styles from '../Modal.module.scss'
+
+import { setUserService } from '../../../api/setUserService'
 
 type RegistrationModalPropsT = {
   setShowModal: (value: boolean) => void
 }
 
 export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowModal }) => {
+  const { data } = setUserService.useFetchUsersQuery(15)
+  const [createUser, { isLoading }] = setUserService.useCreateUserMutation()
+
+  const handleCreate = async () => {
+    const user = formik.values
+
+    await createUser(user)
+    console.log(setUserService.useCreateUserMutation)
+    console.log(formik.values)
+    console.log(isLoading)
+  }
+
   const dispatch = useAppDispatch()
   const [security, setSecurity] = useState<boolean>(true)
-  const [authVariant, setAuthVariant] = useState<string>('phone')
+  const [authVariant, setAuthVariant] = useState<string>('email')
 
   const getAuthVariant = (variant: string) => {
     setAuthVariant(variant)
@@ -32,13 +44,6 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
 
   const changeSecurityStatus = () => {
     setSecurity(!security)
-  }
-  const onSubmitForm = async (values: RegistrParamsT): Promise<any> => {
-    // const res: AuthResponse = await userApi.register(values)
-    // if (typeof res === 'string') {
-    //     setError(res)
-    // }
-    // navigate(Paths.Login)
   }
 
   const formik = useFormik({
@@ -163,9 +168,10 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
             </div>
             <div className={styles.main_btn}>
               <Button
+                onClick={handleCreate}
                 style={{ width: '246px' }}
                 type={'submit'}
-                variant={disabled ? 'disabled' : 'primary'}
+                variant={'primary'}
                 text={'Зарегистрироваться'}
               />
             </div>

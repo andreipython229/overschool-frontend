@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { useAppSelector } from 'store/redux/store'
-import { authSelector } from 'store/redux/users/select'
+import { useAppSelector } from './store/hooks'
+import { authSelector } from 'selectors'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { Path, Student } from 'enum/pathE'
 

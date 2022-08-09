@@ -7,9 +7,10 @@ import unSecurity from '../../../assets/img/unSecurity.svg'
 import Security from '../../../assets/img/isecurity.svg'
 import { Button } from '../../common/Button/Button'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
-import { useAppDispatch } from 'store/redux/store'
+import { useAppDispatch } from '../../../store/hooks'
 import { auth } from 'store/redux/users/slice'
 import { AuthSelect } from '../../common/AuthSelect/AuthSelect'
+import { useLoginMutation } from '../../../api/userLoginService'
 
 import styles from '../Modal.module.scss'
 
@@ -22,6 +23,21 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
   const dispatch = useAppDispatch()
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<string>('email')
+  const [loginUser, setLoginUser] = useState({})
+
+  const [attemptAccess, { data, error, isLoading, isSuccess }] = useLoginMutation()
+
+  const handleCreate = (e: any) => {
+    e.preventDefault()
+    const user = formik.values
+    const formdata = new FormData()
+    formdata.append('email', user.email)
+    formdata.append('password', user.password)
+    attemptAccess(formdata)
+
+    setShowModal(false)
+    dispatch(auth(true))
+  }
 
   const getInputVariant = (variant: string) => {
     setAuthVariant(variant)
@@ -63,7 +79,7 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
   return (
     <div className={styles.wrapper}>
       <div className={styles.main}>
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={handleCreate}>
           <div className={styles.container}>
             <svg
               className={styles.main_closed}
@@ -113,9 +129,10 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
 
             <div className={styles.main_btn}>
               <Button
+                onClick={handleCreate}
                 style={{ width: '246px' }}
                 type={'submit'}
-                variant={disabled ? 'disabled' : 'primary'}
+                variant={'primary'}
                 text={'Войти'}
               />
             </div>
