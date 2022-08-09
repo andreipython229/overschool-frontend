@@ -1,12 +1,13 @@
 import React, { FC, memo } from 'react'
-import styles from './navbar.module.scss'
-import { useAppSelector } from 'store/redux/store'
+import { useAppSelector } from '../../store/hooks'
 import { RoleE } from 'enum/roleE'
 import { NavLink } from 'react-router-dom'
 import { Path } from 'enum/pathE'
 
+import styles from './navbar.module.scss'
+
 export const Navbar: FC = memo(() => {
-  const role = useAppSelector(state => state.user.permission)
+  const role = useAppSelector((state: any) => state.user.permission)
 
   const isActive = ({ isActive }: any) => (isActive ? styles.isActive : '')
 

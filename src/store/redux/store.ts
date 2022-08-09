@@ -1,20 +1,22 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { authReduce } from "./users/slice";
-import { courseReduce } from "./course/slice";
-import { platformReduce } from "./platform/slice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { setUserService } from '../../api/setUserService'
+import { userLoginService } from '../../api/userLoginService'
+import { authReduce } from './users/slice'
 
-export const store = configureStore({
-  reducer: {
-    user: authReduce,
-    course: courseReduce,
-    platform: platformReduce,
-  },
-  devTools: process.env.NODE_ENV !== "production",
-});
+const rootReducer = combineReducers({
+  [setUserService.reducerPath]: setUserService.reducer,
+  [userLoginService.reducerPath]: userLoginService.reducer,
+  user: authReduce,
+})
 
-export type RootState = ReturnType<typeof store.getState>;
+export const setupStore = () => {
+  return configureStore({
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(userLoginService.middleware),
+  })
+}
 
-export type AppDispatch = typeof store.dispatch;
-export const useAppDispatch: () => AppDispatch = useDispatch;
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const store = setupStore()
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']

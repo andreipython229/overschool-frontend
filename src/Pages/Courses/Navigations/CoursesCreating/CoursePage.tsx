@@ -1,24 +1,24 @@
-import React, { FC, memo } from "react";
-import { useAppSelector } from "store/redux/store";
-import styles from "Pages/Courses/Navigations/CoursesCreating/coursePage.module.scss";
-import Public from "assets/img/createCourse/public.svg";
-import DontShow from "assets/img/createCourse/notPublic.svg";
-import Hide from "assets/img/createCourse/dontShow.svg";
-import { Button } from "components/common/Button/Button";
+import React, { FC, memo } from 'react'
+import { useAppSelector } from '../../../../store/hooks'
+import styles from 'Pages/Courses/Navigations/CoursesCreating/coursePage.module.scss'
+import Public from 'assets/img/createCourse/public.svg'
+import DontShow from 'assets/img/createCourse/notPublic.svg'
+import Hide from 'assets/img/createCourse/dontShow.svg'
+import { Button } from 'components/common/Button/Button'
 
 type CoursePagePropsT = {
-  setShowModal: () => void;
-};
+  setShowModal: () => void
+}
 
 export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal }) => {
-  const avatar = useAppSelector((state) => state.user.avatar);
-  const show = "public";
-  const dontShow = "notPublic";
-  const hide = "hide";
+  // const avatar = useAppSelector((state): any => state.user?.avatar)
+  const show = 'public'
+  const dontShow = 'notPublic'
+  const hide = 'hide'
   return (
     <div className={styles.container}>
       <div>
-        <input className={styles.input} type="text" placeholder={"Поиск по курсам и категориям"} />
+        <input className={styles.input} type="text" placeholder={'Поиск по курсам и категориям'} />
       </div>
 
       <div className={styles.course}>
@@ -34,7 +34,7 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal }) => {
               Индивидуальное обучение по программе The Way Python! Ты станешь востребованным
               IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!
             </span>
-            <Button className={styles.btn} text={"Редактировать"} />
+            <Button className={styles.btn} text={'Редактировать'} />
           </div>
         </div>
 
@@ -50,7 +50,7 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal }) => {
               Индивидуальное обучение по программе The Way Python! Ты станешь востребованным
               IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!
             </span>
-            <Button className={styles.btn} text={"Редактировать"} />
+            <Button className={styles.btn} text={'Редактировать'} />
           </div>
         </div>
 
@@ -66,7 +66,7 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal }) => {
               Индивидуальное обучение по программе The Way Python! Ты станешь востребованным
               IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!
             </span>
-            <Button className={styles.btn} text={"Редактировать"} />
+            <Button className={styles.btn} text={'Редактировать'} />
           </div>
         </div>
 
@@ -77,5 +77,5 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal }) => {
         </div>
       </div>
     </div>
-  );
-});
+  )
+})

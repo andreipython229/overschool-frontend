@@ -1,28 +1,28 @@
-import React, { ChangeEvent, FC, memo, useState } from 'react';
-import styles from '../Modal.module.scss';
-import { Button } from 'components/common/Button/Button';
-import { Radio } from 'components/common/Radio/Radio';
-import { useAppSelector } from 'store/redux/store';
-import { RoleE } from 'enum/roleE';
-import { Checkbox } from '../../common/Checkbox/Checkbox';
+import React, { ChangeEvent, FC, memo, useState } from 'react'
+import styles from '../Modal.module.scss'
+import { Button } from 'components/common/Button/Button'
+import { Radio } from 'components/common/Radio/Radio'
+import { useAppSelector } from '../../../store/hooks'
+import { RoleE } from 'enum/roleE'
+import { Checkbox } from '../../common/Checkbox/Checkbox'
 
 type AddEmployeeModalPropsT = {
-  setModal: () => void;
-};
+  setModal: () => void
+}
 
 export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) => {
-  const [pythonCheck, setPythonCheck] = useState<boolean>(false);
-  const [javaCheck, setJavaCheck] = useState<boolean>(false);
-  const [frontendCheck, setFrontendCheck] = useState<boolean>(false);
-  const [UICheck, setUICheck] = useState<boolean>(false);
-  const [englishCheck, setEnglishCheck] = useState<boolean>(false);
-  const [englishStartCheck, setEnglishStartCheck] = useState<boolean>(false);
+  const [pythonCheck, setPythonCheck] = useState<boolean>(false)
+  const [javaCheck, setJavaCheck] = useState<boolean>(false)
+  const [frontendCheck, setFrontendCheck] = useState<boolean>(false)
+  const [UICheck, setUICheck] = useState<boolean>(false)
+  const [englishCheck, setEnglishCheck] = useState<boolean>(false)
+  const [englishStartCheck, setEnglishStartCheck] = useState<boolean>(false)
 
   const changeCheckbox = (e: ChangeEvent<HTMLInputElement>, callback: (e: boolean) => void) => {
-    callback(e.currentTarget.checked);
-  };
+    callback(e.currentTarget.checked)
+  }
 
-  const role = useAppSelector((state) => state.user.permission);
+  const role = useAppSelector((state: any) => state.user.permission)
   if (role === RoleE.Admin) {
     return (
       <div className={styles.wrapper}>
@@ -90,7 +90,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
                   id={'Python'}
                   name={'Python'}
                   checked={pythonCheck}
-                  onChange={(e) => changeCheckbox(e, setPythonCheck)}
+                  onChange={e => changeCheckbox(e, setPythonCheck)}
                 />
                 <span>The Way Python</span>
               </div>
@@ -99,7 +99,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
                   id={'Java'}
                   name={'Java'}
                   checked={javaCheck}
-                  onChange={(e) => changeCheckbox(e, setJavaCheck)}
+                  onChange={e => changeCheckbox(e, setJavaCheck)}
                 />
                 <span>The Way Java</span>
               </div>
@@ -109,7 +109,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
                   id={'Frontend'}
                   name={'Frontend'}
                   checked={frontendCheck}
-                  onChange={(e) => changeCheckbox(e, setFrontendCheck)}
+                  onChange={e => changeCheckbox(e, setFrontendCheck)}
                 />
                 <span>The Way Frontend</span>
               </div>
@@ -118,7 +118,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
                   id={'UI'}
                   name={'UI'}
                   checked={UICheck}
-                  onChange={(e) => changeCheckbox(e, setUICheck)}
+                  onChange={e => changeCheckbox(e, setUICheck)}
                 />
                 <span>The Way UX/UI design</span>
               </div>
@@ -127,7 +127,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
                   id={'English'}
                   name={'English'}
                   checked={englishCheck}
-                  onChange={(e) => changeCheckbox(e, setEnglishCheck)}
+                  onChange={e => changeCheckbox(e, setEnglishCheck)}
                 />
                 <span>The Way English</span>
               </div>
@@ -136,7 +136,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
                   id={'EnglishStart'}
                   name={'EnglishStart'}
                   checked={englishStartCheck}
-                  onChange={(e) => changeCheckbox(e, setEnglishStartCheck)}
+                  onChange={e => changeCheckbox(e, setEnglishStartCheck)}
                 />
                 <span>The Way English Start</span>
               </div>
@@ -147,7 +147,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
           </div>
         </div>
       </div>
-    );
+    )
   }
   return (
     <div className={styles.wrapper}>
@@ -199,5 +199,5 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
         </div>
       </div>
     </div>
-  );
-});
+  )
+})

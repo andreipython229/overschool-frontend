@@ -2,7 +2,6 @@ import React, { FC, memo, useEffect, useState } from 'react'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { initialDropDownList } from '../../constants/dropDownList'
 import { arrowIcon, triangleDownDownIcon } from '../../constants/iconSvgConstants'
-import { arrowUsers } from '../../mockData/mockData'
 
 import styles from './select_drop_down.module.scss'
 type dropDownItem = {
@@ -45,9 +44,9 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
       )
       setDropDownList(changeDropDownList)
       if (title === 'Все статусы') {
-        setArrowUsersState(arrowUsers)
+        setArrowUsersState([])
       } else {
-        const newArrowUserState = arrowUsers.filter(
+        const newArrowUserState = [].filter(
           ({ status }: any) => status.toLowerCase().trim() === title.toLowerCase(),
         )
         setArrowUsersState(newArrowUserState)

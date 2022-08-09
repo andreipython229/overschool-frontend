@@ -4,13 +4,12 @@ import './index.css'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { store } from 'store/redux/store'
+import { store } from './store/redux/store'
 import { AppMobile } from 'AppMobile'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 const screenWidth = window.screen.width
-console.log(screenWidth)
 
 root.render(
   <React.StrictMode>
