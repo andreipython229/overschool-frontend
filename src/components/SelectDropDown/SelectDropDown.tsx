@@ -4,6 +4,7 @@ import { initialDropDownList } from '../../constants/dropDownList'
 import { arrowIcon, triangleDownDownIcon } from '../../constants/iconSvgConstants'
 
 import styles from './select_drop_down.module.scss'
+
 type dropDownItem = {
   id: number | string
   icon: {
@@ -24,7 +25,7 @@ type SelectDropDownT = {
 const selectTheJobStatus = 'ВЫБЕРИТЕ СТАТУС РАБОТЫ'
 
 export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState }) => {
-  const [toggleDropDown, setToggleDropDown] = useState(false)
+  const [toggleDropDown, setToggleDropDown] = useState<boolean>(false)
   const [headerDropDown, setHeaderDropDown] = useState<dropDownItem>(initialDropDownList[0])
   const [dropDownList, setDropDownList] = useState<dropDownItem[]>([])
 

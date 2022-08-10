@@ -22,7 +22,6 @@ export const InitialPage = memo(() => {
   }
 
   const changeCurrentCourse = (id: string) => setCurrentCourse(id)
-
   return (
     <div className={styles.init}>
       {registrationShow ? <RegistrationModal setShowModal={setRegistrationShow} /> : null}

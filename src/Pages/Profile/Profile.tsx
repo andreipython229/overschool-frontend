@@ -1,7 +1,4 @@
 import React, { ChangeEvent, memo, useState } from 'react'
-
-import styles from './profile.module.scss'
-
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
@@ -10,6 +7,8 @@ import { Toggle } from '@skbkontur/react-ui/index'
 import noAvatar from '../../assets/img/noAvatar.svg'
 import { Previous } from '../Courses/Previous/Previous'
 import { selectUser } from 'selectors'
+
+import styles from './profile.module.scss'
 
 export const Profile = memo(() => {
   const dispatch = useAppDispatch()

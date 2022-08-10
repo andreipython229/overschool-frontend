@@ -1,4 +1,4 @@
-@import "../../../../scss/variable";
+@import '../../../../scss/variable';
 
 .input {
   outline: none;
@@ -6,7 +6,7 @@
   text-align: center;
   border: 1px solid #d9d6e2;
   border-radius: 7px;
-  background: #f3f4f6 url("../../../../assets/img/createCourse/search.svg") no-repeat 41% center;
+  background: #f3f4f6 url('../../../../assets/img/createCourse/search.svg') no-repeat 41% center;
   padding: 10px 0;
   font-size: 11px;
   font-weight: 800;
@@ -14,12 +14,13 @@
 
 .course {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
 
   &_addCourse {
     width: 100%;
     height: 100%;
-    background: url("../../../../assets/img/createCourse/addCourse.svg") center center no-repeat;
+    background: url('../../../../assets/img/createCourse/addCourse.svg') center center no-repeat;
     text-align: center;
     position: relative;
     cursor: pointer;

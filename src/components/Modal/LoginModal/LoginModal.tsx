@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react'
+import React, { FC, memo, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import { Link } from 'react-router-dom'
 
@@ -27,37 +27,11 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
 
   const [attemptAccess, { data, error, isLoading, isSuccess }] = useLoginMutation()
 
-  const handleCreate = (e: any) => {
-    e.preventDefault()
-    const user = formik.values
-    const formdata = new FormData()
-    formdata.append('email', user.email)
-    formdata.append('password', user.password)
-    attemptAccess(formdata)
-
-    setShowModal(false)
-    dispatch(auth(true))
-  }
-
   const getInputVariant = (variant: string) => {
     setAuthVariant(variant)
   }
   const changeSecurityStatus = () => {
     setSecurity(!security)
-  }
-  const onSubmitForm = async (values: LoginParamsT): Promise<any> => {
-    // const res: AuthResponse = await userApi.register(values)
-    // if (typeof res === 'string') {
-    //     setError(res)
-    // }
-    // navigate(Paths.Login)
-    // if (authVariant === 'email') {
-    values.email && logIn(values.email)
-    // } else {
-    //     values.phone && logIn(values.phone)
-    // }
-
-    dispatch(auth(true))
   }
 
   const formik = useFormik({
@@ -66,20 +40,31 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
       email: '',
       password: '',
     },
-    onSubmit: (values: LoginParamsT) => {
-      onSubmitForm(values).then(() => {
-        formik.resetForm()
-      })
-      // alert(JSON.stringify(values))
-      setShowModal(false)
+    onSubmit: () => {
+      const user = formik.values
+      const formdata = new FormData()
+      formdata.append('email', user.email)
+      formdata.append('password', user.password)
+      attemptAccess(formdata)
     },
   })
+  useEffect(() => {
+    if (isSuccess) {
+      setShowModal(false)
+      dispatch(auth(true))
+      document.cookie = `jwt=${data.jwt}`
+      if (error) {
+        console.log(error)
+      }
+    }
+  }, [isSuccess, error])
+
   const disabled = !(Object.keys(formik.errors).length === 0)
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.main}>
-        <form onSubmit={handleCreate}>
+        <form onSubmit={formik.handleSubmit}>
           <div className={styles.container}>
             <svg
               className={styles.main_closed}
@@ -129,7 +114,6 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
 
             <div className={styles.main_btn}>
               <Button
-                onClick={handleCreate}
                 style={{ width: '246px' }}
                 type={'submit'}
                 variant={'primary'}
