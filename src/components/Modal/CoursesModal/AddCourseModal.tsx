@@ -20,6 +20,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
   }
 
   const addCourseName = () => {
+    console.log(name)
     if (name) {
       dispatch(changeCourseName(name))
       setShowModal()
@@ -49,13 +50,13 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
             </svg>
           </div>
 
-          <div className={styles.mainCourse_title}>Созданием курса</div>
+          <div className={styles.mainCourse_title}>Создание курса</div>
 
           <div className={styles.mainCourse_input}>
             <Input
               style={{ width: '280px' }}
-              label={'Введите название курса:'}
-              placeholder={'Введите название курса'}
+              label="Введите название курса:"
+              placeholder="Введите название курса"
               name={'course'}
               type={'text'}
               onChange={e => nameCourse(e)}
