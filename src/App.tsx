@@ -15,7 +15,7 @@ import { authSelector } from 'selectors'
 
 import styles from './App.module.scss'
 
-function App() {
+export const App = () => {
   const isLogin = useAppSelector(authSelector)
   const navigate = useNavigate()
 
@@ -41,5 +41,3 @@ function App() {
     </div>
   )
 }
-
-export default App

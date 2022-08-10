@@ -159,7 +159,7 @@ export const MyEditor = memo(() => {
       <div>
         {BLOCK_TYPES.map(type => (
           <StyleButton
-            key={type.label}
+            key={type.style}
             label={type.label}
             onToggle={props.onToggle}
             style={type.style}

@@ -1,10 +1,15 @@
-import React, { FC, memo } from 'react'
-import { useAppSelector } from '../../../../store/hooks'
+import React, { FC, memo, useEffect } from 'react'
+
+import { CoursesCard } from './CoursesCard/CoursesCard'
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
+import { useFetchCoursesQuery } from '../../../../api/getAllCoursesService'
+import { CoursesT, getCourses } from '../../../../store/redux/courses/slice'
+
+// import DontShow from 'assets/img/createCourse/notPublic.svg'
+// import Hide from 'assets/img/createCourse/dontShow.svg'
+
 import styles from 'Pages/Courses/Navigations/CoursesCreating/coursePage.module.scss'
-import Public from 'assets/img/createCourse/public.svg'
-import DontShow from 'assets/img/createCourse/notPublic.svg'
-import Hide from 'assets/img/createCourse/dontShow.svg'
-import { Button } from 'components/common/Button/Button'
+import { json } from 'stream/consumers'
 
 type CoursePagePropsT = {
   setShowModal: () => void
@@ -12,9 +17,16 @@ type CoursePagePropsT = {
 
 export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal }) => {
   // const avatar = useAppSelector((state): any => state.user?.avatar)
-  const show = 'public'
-  const dontShow = 'notPublic'
-  const hide = 'hide'
+  const dispatch = useAppDispatch()
+
+  const { courses } = useAppSelector((state: any) => state.allCourses)
+
+  const { data: coursesList } = useFetchCoursesQuery('')
+
+  useEffect(() => {
+    dispatch(getCourses(coursesList))
+  }, [coursesList])
+
   return (
     <div className={styles.container}>
       <div>
@@ -22,53 +34,24 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal }) => {
       </div>
 
       <div className={styles.course}>
-        <div className={styles.course_card}>
-          <div className={styles.course_card_img} />
-          <div className={styles.course_card_about}>
-            <span className={styles.course_card_status_show}>
-              <img src={Public} alt="status course" />
-              <span className={styles.course_card_status_show_public}>Опубликован</span>
-            </span>
-            <h5>The Way Python</h5>
-            <span className={styles.course_card_about_desc}>
-              Индивидуальное обучение по программе The Way Python! Ты станешь востребованным
-              IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!
-            </span>
-            <Button className={styles.btn} text={'Редактировать'} />
-          </div>
-        </div>
-
-        <div className={styles.course_card}>
-          <div className={styles.course_card_img} />
-          <div className={styles.course_card_about}>
-            <span className={styles.course_card_status_show}>
-              <img src={DontShow} alt="status course" />
-              <span className={styles.course_card_status_show_hide}>Не опубликован</span>
-            </span>
-            <h5>The Way Python</h5>
-            <span className={styles.course_card_about_desc}>
-              Индивидуальное обучение по программе The Way Python! Ты станешь востребованным
-              IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!
-            </span>
-            <Button className={styles.btn} text={'Редактировать'} />
-          </div>
-        </div>
-
-        <div className={styles.course_card}>
-          <div className={styles.course_card_img} />
-          <div className={styles.course_card_about}>
-            <span className={styles.course_card_status_show}>
-              <img src={Hide} alt="status course" />
-              <span className={styles.course_card_status_show_hide}>Скрыт настройсками курса</span>
-            </span>
-            <h5>The Way Python</h5>
-            <span className={styles.course_card_about_desc}>
-              Индивидуальное обучение по программе The Way Python! Ты станешь востребованным
-              IT-разработчиком! У тебя 100% все получится! Здесь и сейчас!
-            </span>
-            <Button className={styles.btn} text={'Редактировать'} />
-          </div>
-        </div>
+        {courses &&
+          courses.map((course: CoursesT) => (
+            <CoursesCard
+              key={course.course_id}
+              course_id={course.course_id}
+              created_at={course.created_at}
+              updated_at={course.updated_at}
+              published={course.published}
+              order={course.order}
+              name={course.name}
+              format={course.format}
+              duration_days={course.duration_days}
+              price={course.price}
+              description={course.description}
+              photo={course.photo}
+              author_id={course.author_id}
+            />
+          ))}
 
         <div onClick={setShowModal} className={styles.course_card}>
           <div className={styles.course_addCourse}>
