@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 import { ScoresFilter } from '../FilterButton/ScoresFilter/ScoresFilter'
-import { CalendarFilter } from '../FilterButton/CalendarFilter/CalendarFilter'
+import { CalendarFilter } from '../FilterButton/CalendarFilter/CalendarFilter';
+import { Filter } from 'components/FilterButton/Filter/Filter';
+import { useAppSelector } from 'store/hooks';
+
 
 type ContainerFiltersT = {
   title: string
@@ -8,22 +11,25 @@ type ContainerFiltersT = {
 }
 
 export const ContainerFilters: FC<ContainerFiltersT> = ({ title, ...props }: any) => {
+
+  const {courses} = useAppSelector((state: any) => state.allCourses);
+
   if (title && title === 'курсы') {
     return (
       <div>
-        <div> {title}</div>
+        <Filter name={'course'} header={'ВЫБЕРИТЕ КУРСЫ'} data={courses.map((i:any) => i.name)}/>
       </div>
     )
   } else if (title && title === 'группа') {
     return (
       <div>
-        <div>{title}</div>
+        {/* <Filter name={'group'} header={'ВЫБЕРИТЕ ГРУППЫ'}/> */}
       </div>
     )
   } else if (title && title === 'задание') {
     return (
       <div>
-        <div>{title}</div>
+        {/* <Filter name={'task'} header={'ВЫБЕРИТЕ ЗАДАНИЯ'}/> */}
       </div>
     )
   } else if (title && title === 'последний ответ') {
