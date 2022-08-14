@@ -13,7 +13,7 @@ import { loginUser } from 'store/redux/users/slice'
 
 export const InitialPage = memo(() => {
   const dispatch = useAppDispatch()
-  const [currentCourse, setCurrentCourse] = useState<string>('1')
+  const [currentCourse, setCurrentCourse] = useState<string>('')
   const [registrationShow, setRegistrationShow] = useState<boolean>(false)
   const [loginShow, setLoginShow] = useState<boolean>(false)
 
