@@ -1,5 +1,4 @@
 import React, { memo, useState } from 'react'
-import styles from './courses.module.scss'
 import { CoursePage } from 'Pages/Courses/Navigations/CoursesCreating/CoursePage'
 import { AddCourseModal } from 'components/Modal'
 import { Previous } from './Previous/Previous'
@@ -10,6 +9,8 @@ import { Path } from 'enum/pathE'
 import { RedactorCourse } from './Navigations/CoursesCreating/RedactorCourse/RedactorCourse'
 import { Settings } from './Navigations/Settings/Settings'
 import { RoleE } from 'enum/roleE'
+
+import styles from './courses.module.scss'
 
 export const Platform = memo(() => {
   const role = useAppSelector((state: any) => state.user.permission)

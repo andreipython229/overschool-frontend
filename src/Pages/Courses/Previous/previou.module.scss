@@ -1,11 +1,11 @@
 .previous {
+  position: relative;
   width: 100%;
   height: 186px;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 500;
   background: #e0dced;
   border-radius: 7px;
-  position: relative;
   margin-bottom: 25px;
 
   &_infoBlock {
@@ -52,4 +52,30 @@
     right: 24px;
     bottom: 24px;
   }
+}
+.input_change {
+  border: none;
+  outline: none;
+  background: #e0dced;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+.hide_input {
+  opacity: 0;
+  position: absolute;
+}
+.input_background_image {
+  opacity: 0;
+}
+.label_input_background_image {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0 0 15px 15px;
+  padding-top: 15px;
+  width: 30%;
+  display: block;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.3);
+  text-align: center;
 }

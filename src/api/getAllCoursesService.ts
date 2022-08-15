@@ -2,7 +2,7 @@ import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
 
 export const getAllCoursesService = createApi({
   reducerPath: 'getAllCourses',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://194.62.19.27:8000/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.itdev.by/api' }),
   tagTypes: ['allCourses'],
   endpoints: build => ({
     fetchCourses: build.query<any, any>({
@@ -10,17 +10,17 @@ export const getAllCoursesService = createApi({
         url: `/courses/`,
         params: {},
       }),
-      providesTags: result => ['allCourses'],
+      providesTags: () => ['allCourses'],
     }),
-    // createCourses: build.mutation<any, any>({
-    //   query: course => ({
-    //     url: `/courses/`,
-    //     method: 'POST',
-    //     body: course,
-    //   }),
-    //   invalidatesTags: ['allCourses'],
-    // }),
+    createCourses: build.mutation<any, any>({
+      query: course => ({
+        url: `/courses/`,
+        method: 'POST',
+        body: course,
+      }),
+      invalidatesTags: ['allCourses'],
+    }),
   }),
 })
 
-export const { useFetchCoursesQuery } = getAllCoursesService
+export const { useFetchCoursesQuery, useCreateCoursesMutation } = getAllCoursesService
