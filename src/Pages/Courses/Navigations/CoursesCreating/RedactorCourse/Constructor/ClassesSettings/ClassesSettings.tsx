@@ -35,14 +35,14 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
 
   const onDropVideoHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
-    const files = [...e.dataTransfer.files]
-    console.log(files)
+    const videoFiles = [...e.dataTransfer.files]
     const formData = new FormData()
-    for (let i = 0; i < files.length; i += 1) {
-      formData.append(`list_${i}`, files[i])
+    for (let i = 0; i < videoFiles.length; i += 1) {
+      formData.append(`list_${i}`, videoFiles[i])
+      console.log(videoFiles.length)
     }
+    console.log(videoFiles)
     setDragVideo(false)
-    // axios.post('url', formData, options)
   }
 
   const dragStartAudioHandler = (e: DragEvent<HTMLDivElement>) => {
@@ -57,31 +57,28 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
 
   const onDropAudioHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
-    const files = [...e.dataTransfer.files]
-    console.log(files)
+    const audioFiles = [...e.dataTransfer.files]
     const formData = new FormData()
-    for (let i = 0; i < files.length; i += 1) {
-      formData.append(`list_${i}`, files[i])
+    for (let i = 0; i < audioFiles.length; i += 1) {
+      formData.append(`list_${i}`, audioFiles[i])
     }
+    console.log(audioFiles)
     setDragAudio(false)
-    // axios.post('url', formData, options)
   }
 
   const onAddVideoFile = (e: ChangeEvent<HTMLInputElement>): void => {
-    console.log(e.target)
     if (e.target.files) {
       const index = 0
       const reader = new FileReader()
       reader.readAsDataURL(e.target.files[index])
       reader.onloadend = event => {
         if (typeof event?.target?.result === 'string') {
-          // addVideoFile(event?.target?.result)
+          // console.log(event?.target?.result)
         }
       }
     }
   }
   const onAddAudioFile = (e: ChangeEvent<HTMLInputElement>): void => {
-    console.log(e.target)
     if (e.target.files) {
       const index = 0
       const reader = new FileReader()

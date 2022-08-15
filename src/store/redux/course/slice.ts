@@ -7,13 +7,37 @@ type ClassesType = {
 }
 
 interface CourseI {
+  course_id: number
+  created_at: Date | string
+  updated_at: Date | string
+  published: boolean
+  order: number
   name: string
+  format: string
+  duration_days: number
+  price: string
+  description: string
+  photo: string | undefined | null
+  photo_url: string | undefined | null
+  author_id: number
   classes: ClassesType[]
 }
 
 // Define the initial state using that type
 const initialState: CourseI = {
   name: '',
+  course_id: 0,
+  created_at: '',
+  updated_at: '',
+  published: false,
+  order: 0,
+  format: '',
+  duration_days: 0,
+  price: '',
+  description: '',
+  photo: null,
+  photo_url: null,
+  author_id: 0,
   classes: [],
 }
 
@@ -24,11 +48,14 @@ export const slice = createSlice({
     changeCourseName: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },
+    uploadImgCourse: (state, action: string | any) => {
+      state.photo_url = action.payload
+    },
     addClasses: (state, action: PayloadAction<ClassesType>) => {
       state.classes.push(action.payload)
     },
   },
 })
 
-export const { changeCourseName, addClasses } = slice.actions
+export const { changeCourseName, addClasses, uploadImgCourse } = slice.actions
 export const courseReduce = slice.reducer

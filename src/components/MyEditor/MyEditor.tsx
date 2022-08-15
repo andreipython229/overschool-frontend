@@ -5,9 +5,13 @@ import { editorSvgLabel } from '../../constants/iconSvgConstants'
 import 'draft-js/dist/Draft.css'
 
 import styles from './editor.module.scss'
+import { useDebounce } from '../../customHooks/useDebounce'
 
 export const MyEditor = memo(() => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
+  const debounced = useDebounce(editorState.getCurrentContent().getPlainText('\u0001'), 1000)
+
+  // console.log(debounced)
 
   const editor = React.useRef<Editor>(null)
 
@@ -200,7 +204,6 @@ export const MyEditor = memo(() => {
     const nextState = RichUtils.toggleBlockType(editorState, e)
     setEditorState(nextState)
   }
-
   return (
     <div className={styles.editor} onClick={focusEditor}>
       <div className={styles.editor_panel}>

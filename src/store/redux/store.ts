@@ -15,12 +15,12 @@ const rootReducer = combineReducers({
   createCourse: courseReduce,
 })
 
-const authBlackListedFields = createBlacklistFilter('allCourses', ['courses'])
+const allCoursesBlackListed = createBlacklistFilter('allCourses', ['courses'])
+
 const persistConfig = {
   key: 'root',
   storage,
-  // whitelist: ["auth"],
-  transforms: [authBlackListedFields],
+  transforms: [allCoursesBlackListed],
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
