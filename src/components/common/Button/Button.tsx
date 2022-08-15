@@ -17,6 +17,7 @@ type SuperButtonPropsT = DefaultButtonPropsType & {
     | 'secondary'
     | 'withoutBack'
     | 'delete'
+    | 'logIn'
 }
 
 export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', ...restProps }) => {
@@ -34,6 +35,8 @@ export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', 
     propsStyle += ' ' + styles.withoutBack
   } else if (variant === 'delete') {
     propsStyle += ' ' + styles.delete
+  } else if (variant === 'logIn') {
+    propsStyle += ' ' + styles.logIn
   } else {
     propsStyle = styles.btn_default
   }
