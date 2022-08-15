@@ -5,8 +5,8 @@ import { changeProjectName } from '../../../../../store/redux/platform/slice'
 
 export const Main = memo(() => {
   const dispatch = useAppDispatch()
-  const projectName = useAppSelector<string>((state: any) => state.platform.projectName)
-  const [name, setName] = useState<string>(projectName)
+  // const projectName = useAppSelector<string>((state: any) => state.platform.projectName)
+  const [name, setName] = useState<string>('projectName')
   const onChangeProjectName = () => {
     dispatch(changeProjectName(name))
   }

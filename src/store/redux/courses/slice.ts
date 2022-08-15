@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type CoursesT = {
-  course_id: number
+  course_id: string | undefined
   created_at: Date | string
   updated_at: Date | string
   published: boolean
@@ -12,6 +12,7 @@ export type CoursesT = {
   price: string
   description: string
   photo: string | undefined
+  photo_url: string | undefined
   author_id: number
 }
 

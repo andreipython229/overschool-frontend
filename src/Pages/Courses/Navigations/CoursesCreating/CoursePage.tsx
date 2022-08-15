@@ -9,7 +9,6 @@ import { CoursesT, getCourses } from '../../../../store/redux/courses/slice'
 // import Hide from 'assets/img/createCourse/dontShow.svg'
 
 import styles from 'Pages/Courses/Navigations/CoursesCreating/coursePage.module.scss'
-import { json } from 'stream/consumers'
 
 type CoursePagePropsT = {
   setShowModal: () => void
@@ -18,10 +17,8 @@ type CoursePagePropsT = {
 export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal }) => {
   // const avatar = useAppSelector((state): any => state.user?.avatar)
   const dispatch = useAppDispatch()
-
-  const { courses } = useAppSelector((state: any) => state.allCourses)
-
   const { data: coursesList } = useFetchCoursesQuery('')
+  const { courses } = useAppSelector((state: any) => state.allCourses)
 
   useEffect(() => {
     dispatch(getCourses(coursesList))
@@ -49,6 +46,7 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal }) => {
               price={course.price}
               description={course.description}
               photo={course.photo}
+              photo_url={course.photo_url}
               author_id={course.author_id}
             />
           ))}

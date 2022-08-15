@@ -1,12 +1,14 @@
-import React from "react";
-import styles from "./pageNotFound.module.scss";
-import { useNavigate } from "react-router-dom";
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Path } from '../../enum/pathE'
+
+import styles from './pageNotFound.module.scss'
 
 export const PageNotFound = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const goBack = () => {
-    navigate(-1);
-  };
+    navigate(Path.InitialPage)
+  }
   return (
     <div className={styles.main}>
       <div className={styles.main_container}>
@@ -16,5 +18,5 @@ export const PageNotFound = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}

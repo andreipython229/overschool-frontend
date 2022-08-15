@@ -40,12 +40,14 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
       email: '',
       password: '',
     },
+
     onSubmit: () => {
       const user = formik.values
       const formdata = new FormData()
       formdata.append('email', user.email)
       formdata.append('password', user.password)
       attemptAccess(formdata)
+      dispatch(auth(true))
     },
   })
   useEffect(() => {
