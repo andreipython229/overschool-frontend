@@ -20,8 +20,13 @@ export const CourseImg: FC<CourseImgPropsT> = memo(
               : styles.init_main_course_block + " " + styles.smallImg
           }
           onMouseEnter={() => changeCurrentCourse(id)}
+          onMouseLeave={() => changeCurrentCourse('')}
         >
-          <img className={styles.init_main_course_block_img} src={img} alt={alt} />
+          <img className={
+            currentCourse === id
+              ? styles.init_main_course_block_img
+              : styles.init_main_course_block_img + " " + styles.smallImg
+            } src={img} alt={alt} />
           <span className={styles.init_main_course_block_blur} />
           <h2
             className={
