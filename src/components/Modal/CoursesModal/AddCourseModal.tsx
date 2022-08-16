@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { cross } from '../../../constants/iconSvgConstants'
-import { useCreateCoursesMutation } from 'api/getAllCoursesService'
+import { useCreateCoursesMutation } from 'api/coursesServices'
 
 import styles from '../Modal.module.scss'
 

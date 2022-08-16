@@ -3,17 +3,30 @@ import { publishedMarkerSvgIcon } from '../../../../../../constants/iconSvgConst
 import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../../../../components/common/Input/Input/Input'
 import { Toggle } from '@skbkontur/react-ui'
+import { Checkbox } from '../../../../../../components/common/Checkbox/Checkbox'
+import { SelectInput } from '../../../../../../components/common/SelectInput/SelectInput'
+import { CoursesT } from '../../../../../../store/redux/courses/slice'
+import { useDebounce } from '../../../../../../customHooks/useDebounce'
 
 import styles from './../setting_course.module.scss'
 
 type BasicSettingsT = {
   toggleCheckbox: boolean
   toggleCheckboxPublished: () => void
+  courseFind: CoursesT | undefined
 }
 
-export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckboxPublished }) => {
-  const [nameCourse, setNameCourse] = useState<string>('')
-  const [shortDescription, setShortDescription] = useState<string>('')
+export const BasicSettings: FC<BasicSettingsT> = ({
+  toggleCheckbox,
+  toggleCheckboxPublished,
+  courseFind,
+}) => {
+  const [nameCourse, setNameCourse] = useState<string>(courseFind?.name || '')
+  const [shortDescription, setShortDescription] = useState<string>(courseFind?.description || '')
+
+  const debounced = useDebounce(nameCourse)
+
+  console.log(debounced)
 
   const handleNameCourse = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'nameCourse') {
@@ -48,6 +61,19 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
         value={shortDescription}
         onChange={handleNameCourse}
       />
+      <div>
+        <p>Курс для учеников доступен по ссылке:</p>
+        <Input type={'text'} name="" value="" onChange={() => console.log(1)} />
+      </div>
+      <div>
+        <Checkbox />
+        <p>Использовать переход по внешней ссылке при клике на карточку курса</p>
+        <p>
+          Включите эту опцию, если хотите, чтобы ученики записывались на курс через ваш сайт вне
+          платформы
+        </p>
+      </div>
+      <SelectInput optionsList={['1', '2', '3', '4']} />
     </div>
   )
 }

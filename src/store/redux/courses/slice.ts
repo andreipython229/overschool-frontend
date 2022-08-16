@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type CoursesT = {
-  course_id: string | undefined
-  created_at: Date | string
-  updated_at: Date | string
-  published: boolean
-  order: number
+  course_id: string
+  created_at: string
+  updated_at: string
+  published: boolean | any
+  order: number | any
   name: string
   format: string
-  duration_days: number
+  duration_days: number | string | any
   price: string
   description: string
   photo: string | undefined
   photo_url: string | undefined
-  author_id: number
+  author_id: number | any
 }
 
 export interface ICourses {
