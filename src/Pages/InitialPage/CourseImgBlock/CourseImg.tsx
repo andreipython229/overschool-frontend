@@ -5,12 +5,13 @@ type CourseImgPropsT = {
   currentCourse: string;
   changeCurrentCourse: (id: string) => void;
   id: string;
-  alt: string;
-  img: string;
+  // alt: string;
+  style: object;
   title: string;
 };
+
 export const CourseImg: FC<CourseImgPropsT> = memo(
-  ({ currentCourse, changeCurrentCourse, id, alt, img, title }) => {
+  ({ currentCourse, changeCurrentCourse, id, style,  title }) => {
     return (
       <section className={styles.init_main_course}>
         <div
@@ -19,15 +20,10 @@ export const CourseImg: FC<CourseImgPropsT> = memo(
               ? styles.init_main_course_block
               : styles.init_main_course_block + " " + styles.smallImg
           }
+          style={style}
           onMouseEnter={() => changeCurrentCourse(id)}
           onMouseLeave={() => changeCurrentCourse('')}
         >
-          <img className={
-            currentCourse === id
-              ? styles.init_main_course_block_img
-              : styles.init_main_course_block_img + " " + styles.smallImg
-            } src={img} alt={alt} />
-          <span className={styles.init_main_course_block_blur} />
           <h2
             className={
               currentCourse === id
