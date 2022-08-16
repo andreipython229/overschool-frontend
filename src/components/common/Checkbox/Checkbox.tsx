@@ -1,13 +1,13 @@
-import React, { FC } from "react";
+import React, { FC } from 'react'
 
-import styles from "./checkbox.module.scss";
+import styles from './checkbox.module.scss'
 
 type CheckboxPropsT = {
-  id: string;
-  name: string;
-  checked: boolean;
-  onChange: (value: any) => void;
-};
+  id?: string
+  name?: string
+  checked?: boolean
+  onChange?: (value: any) => void
+}
 
 export const Checkbox: FC<CheckboxPropsT> = ({ id, name, checked, onChange }) => {
   return (
@@ -22,5 +22,5 @@ export const Checkbox: FC<CheckboxPropsT> = ({ id, name, checked, onChange }) =>
       />
       <label htmlFor={id} />
     </>
-  );
-};
+  )
+}

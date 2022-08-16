@@ -14,7 +14,7 @@ import { DecorPlatform } from './DecorPlatform/DecorPlatform'
 
 export const Settings: FC = memo(() => {
   const role = useAppSelector((state: any) => state.user.permission)
-  const projectName = useAppSelector<string>((state: any) => state.platform.projectName)
+  // const projectName = useAppSelector<string>((state: any) => state?.platform?.projectName)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const setModal = () => {
     setModalIsOpen(!modalIsOpen)
@@ -23,7 +23,7 @@ export const Settings: FC = memo(() => {
   return (
     <>
       <Previous
-        name={projectName}
+        name="projectName"
         avatar={Avatar}
         description={'Онлайн обучение'}
         about={'Краткое описание'}

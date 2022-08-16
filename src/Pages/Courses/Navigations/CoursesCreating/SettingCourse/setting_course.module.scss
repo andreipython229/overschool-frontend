@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+.container_right {
+  display: flex;
+  flex-direction: column;
+}
+
+.card_image_downloads {
+  width: 362px;
+  height: 262px;
+  box-shadow: 5px 5px 5px #d9d9d9;
+  border-radius: 7px;
+}
+
+.hide_input {
+  width: 100%;
+  height: 162px;
+  opacity: 0;
+}
+
+.block_download_image {
+  display: block;
+  width: 100%;
+  height: 162px;
+  border-radius: 7px 7px 0 0;
+  background-color: #d9d9d9;
+  &:hover {
+    background-image: url(../../../../../assets/img/createCourse/download_img_bg.png);
+    background-position: top;
+    background-size: cover;
+  }
+}
+.text_block {
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+  color: #e0dced;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  svg {
+    margin-right: 10px;
+  }
+}
+.text_name {
+  margin-left: 30px;
+  color: #4d5766;
+  text-transform: capitalize;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+}
+.basic_settings {
+  width: 752px;
+  height: 522px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px #d9d9d9;
+  padding: 45px;
+  margin-left: 20px;
+}
+.header_basic_settings {
+}
+.right_content_header {
+  display: flex;
+  align-items: center;
+  svg {
+    margin-right: 10px;
+  }
+}

@@ -1,3 +1,3 @@
 export { setUserService } from './setUserService'
-export { getAllCoursesService } from './getAllCoursesService'
+export { coursesServices } from './coursesServices'
 export { userLoginService } from './userLoginService'

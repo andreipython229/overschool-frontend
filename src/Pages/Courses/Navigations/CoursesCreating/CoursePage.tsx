@@ -1,31 +1,20 @@
-import React, { FC, memo, useEffect } from 'react'
+import React, { FC, memo } from 'react'
 
 import { CoursesCard } from './CoursesCard/CoursesCard'
-import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
-import { useFetchCoursesQuery } from '../../../../api/getAllCoursesService'
-import { CoursesT, getCourses } from '../../../../store/redux/courses/slice'
+import { CoursesT } from '../../../../store/redux/courses/slice'
 
 // import DontShow from 'assets/img/createCourse/notPublic.svg'
 // import Hide from 'assets/img/createCourse/dontShow.svg'
 
 import styles from 'Pages/Courses/Navigations/CoursesCreating/coursePage.module.scss'
-import { json } from 'stream/consumers'
 
 type CoursePagePropsT = {
+  courses: any
   setShowModal: () => void
 }
 
-export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal }) => {
+export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses }) => {
   // const avatar = useAppSelector((state): any => state.user?.avatar)
-  const dispatch = useAppDispatch()
-
-  const { courses } = useAppSelector((state: any) => state.allCourses)
-
-  const { data: coursesList } = useFetchCoursesQuery('')
-
-  useEffect(() => {
-    dispatch(getCourses(coursesList))
-  }, [coursesList])
 
   return (
     <div className={styles.container}>
@@ -49,6 +38,7 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal }) => {
               price={course.price}
               description={course.description}
               photo={course.photo}
+              photo_url={course.photo_url}
               author_id={course.author_id}
             />
           ))}

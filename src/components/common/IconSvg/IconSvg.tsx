@@ -6,6 +6,10 @@ type IconSvgT = {
   fill?: string
   d: string
   d2?: string
+  stroke?: string
+  strokeWidth?: string
+  strokeLinecap?: 'inherit' | 'round' | 'butt' | 'square' | undefined
+  strokeLinejoin?: 'inherit' | 'round' | 'miter' | 'bevel' | undefined
   viewBoxSize?: string
   className?: string
   fillRule?: 'nonzero' | 'evenodd' | 'inherit' | undefined
@@ -25,6 +29,10 @@ export const IconSvg: FC<IconSvgT> = memo(
     functionOnClick,
     fillRule,
     clipRule,
+    stroke,
+    strokeWidth,
+    strokeLinecap,
+    strokeLinejoin,
   }) => {
     return (
       <svg
@@ -36,8 +44,15 @@ export const IconSvg: FC<IconSvgT> = memo(
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d={d} fill={fill} />
-        d2 &&{' '}
+        <path
+          d={d}
+          fill={fill}
+          stroke={stroke && stroke}
+          strokeWidth={strokeWidth && strokeWidth}
+          strokeLinecap={strokeLinecap && strokeLinecap}
+          strokeLinejoin={strokeLinejoin && strokeLinejoin}
+        />
+        d2 &&
         <path fillRule={fillRule && fillRule} clipRule={clipRule && clipRule} d={d2} fill={fill} />
       </svg>
     )

@@ -3,7 +3,7 @@ export enum Path {
   Courses = 'courses/*',
   Profile = 'profile/',
   Settings = 'settings/*',
-  CreateCourse = 'create-course/*',
+  CreateCourse = 'create-course/:course_id/*',
   StudentsStats = 'students-stats/*',
   HomeWork = 'home-work',
 }
@@ -18,7 +18,7 @@ export enum SettingsPath {
 export enum CreateCoursePath {
   Constructor = 'constructor',
   Student = 'student',
-  Settings = 'settings',
+  Settings = 'settings/*',
 }
 
 export enum StudentLogs {
