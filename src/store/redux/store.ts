@@ -3,13 +3,13 @@ import { persistReducer } from 'redux-persist'
 import { createBlacklistFilter } from 'redux-persist-transform-filter'
 import storage from 'redux-persist/lib/storage'
 
-import { getAllCoursesService, setUserService, userLoginService } from '../../api'
+import { coursesServices, setUserService, userLoginService } from '../../api'
 import { authReduce, courseReduce, coursesReduce } from './index'
 
 const rootReducer = combineReducers({
   [setUserService.reducerPath]: setUserService.reducer,
   [userLoginService.reducerPath]: userLoginService.reducer,
-  [getAllCoursesService.reducerPath]: getAllCoursesService.reducer,
+  [coursesServices.reducerPath]: coursesServices.reducer,
   user: authReduce,
   allCourses: coursesReduce,
   createCourse: courseReduce,
@@ -30,7 +30,7 @@ export const setupStore = () => {
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({ serializableCheck: false }).concat(
         userLoginService.middleware,
-        getAllCoursesService.middleware,
+        coursesServices.middleware,
       ),
   })
 }

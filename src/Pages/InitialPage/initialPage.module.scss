@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .init {
   margin: 24px 45px 0 45px;
   width: 100%;
@@ -63,40 +68,25 @@
       cursor: pointer;
 
       &_block {
+        position: relative;
+        display: flex;
         width: 445px;
         height: 500px;
-        position: relative;
-        transition: all 1s linear 0s;
         margin: 0 16px;
-
-        &_img {
-          width: 446px;
-          height: 500px;
-          border-radius: 10px;
-          transition: all 1s linear 0s;
-        }
-
-        &_blur {
-          position: absolute;
-          height: 100%;
-          width: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          background: linear-gradient(359.58deg, #000000 2.18%, rgba(0, 0, 0, 0) 98.18%);
-          border-radius: 10px;
-          transition: all 1s linear 0s;
-        }
+        transition: all 1s linear 0s;
+        border-radius: 10px;
 
         &_title {
+          position: absolute;
+          bottom: 68px;
+          left: 55px;
+          z-index: 10;
+          align-self: flex-end;
           font-size: 40px;
           font-weight: 500;
           color: #fefefe;
-          position: absolute;
-          z-index: 4;
-          bottom: 12px;
-          left: 90px;
-          transition: all 1s linear .5s;
+          transform-origin: bottom left;
+          transition: all 1s linear 0s;
         }
       }
     }
@@ -114,9 +104,8 @@
 .title_rotate {
   width: 250px;
   transform: rotate(-90deg);
-  bottom: 140px;
-  left: -70px;
-  transition: all .5s linear 1s;
+  transition: all 1s linear 0s;
+  transform-origin: bottom left;
 }
 
 .btn_block {

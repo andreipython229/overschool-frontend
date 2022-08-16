@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { NavCreatingCourse } from '../../../NavAccount/NavCreatingCourse/NavCreatingCourse'
 import { Constructor } from './Constructor/Constructor'
 import { CreateCoursePath } from 'enum/pathE'
 import { SettingCourse } from '../SettingCourse/SettingCourse'
 
-export const RedactorCourse = () => {
+export const RedactorCourse: FC = () => {
   return (
     <div>
       <NavCreatingCourse />

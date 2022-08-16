@@ -34,7 +34,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
         </svg>
 
         <button
-          className={styles.container_btn}
+          className={styles?.container_btn}
           type="button"
           onClick={toggleOptions}
           aria-haspopup="listbox"
@@ -48,7 +48,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
           aria-activedescendant={optionsList[selectedOption]}
           className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}
         >
-          {optionsList.map((option: any, index: number) => (
+          {optionsList?.map((option: any, index: number) => (
             <li
               key={index}
               tabIndex={0}

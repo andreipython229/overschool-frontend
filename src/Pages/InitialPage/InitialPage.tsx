@@ -1,15 +1,16 @@
-import React, { memo, useState } from 'react'
-import styles from './initialPage.module.scss'
-import { InitPageHeader } from './InitPageHeader/InitPageHeader'
-import { CourseImg } from './CourseImgBlock/CourseImg'
-import { RegistrationModal, LoginModal } from 'components/Modal'
-import Python from '../../assets/img/course/python.jpeg'
-import Frontend from '../../assets/img/course/frontend.jpg'
-import QA from '../../assets/img/course/qa.jpg'
-import UI from '../../assets/img/course/ui.jpg'
-import java from '../../assets/img/course/java.jpg'
-import { useAppDispatch } from '../../store/hooks'
-import { loginUser } from 'store/redux/users/slice'
+import React, { memo, useState } from 'react';
+import styles from './initialPage.module.scss';
+import { InitPageHeader } from './InitPageHeader/InitPageHeader';
+import { CourseImg } from './CourseImgBlock/CourseImg';
+import { RegistrationModal, LoginModal } from 'components/Modal';
+import Python from '../../assets/img/course/python.jpg';
+import Frontend from '../../assets/img/course/frontend.jpg';
+import QA from '../../assets/img/course/qa.jpg';
+import UI from '../../assets/img/course/ui.jpg';
+import Java from '../../assets/img/course/java.jpg';
+
+import { useAppDispatch } from '../../store/hooks';
+import { loginUser } from 'store/redux/users/slice';
 
 export const InitialPage = memo(() => {
   const dispatch = useAppDispatch()
@@ -20,6 +21,24 @@ export const InitialPage = memo(() => {
   const logIn = (value: string | number) => {
     dispatch(loginUser({ value }))
   }
+  
+
+  const python = {
+    backgroundImage: 'url(' + Python + ')'
+  };
+  const frontend = {
+    backgroundImage: 'url(' + Frontend + ')'
+  };
+  const java = {
+    backgroundImage: 'url(' + Java + ')'
+  };
+  const qa = {
+    backgroundImage: 'url(' + QA + ')'
+  };
+  const ui = {
+    backgroundImage: 'url(' + UI + ')'
+  };
+  
 
   const changeCurrentCourse = (id: string) => setCurrentCourse(id)
   return (
@@ -39,41 +58,41 @@ export const InitialPage = memo(() => {
           currentCourse={currentCourse}
           changeCurrentCourse={changeCurrentCourse}
           id={'1'}
-          alt={'Python course'}
+          // alt={'Python course'}
           title={'Python'}
-          img={Python}
+          style={python}
         />
         <CourseImg
           currentCourse={currentCourse}
           changeCurrentCourse={changeCurrentCourse}
           id={'2'}
-          alt={'Java course'}
+          // alt={'Java course'}
           title={'Java'}
-          img={java}
+          style={java}
         />
         <CourseImg
           currentCourse={currentCourse}
           changeCurrentCourse={changeCurrentCourse}
           id={'3'}
-          alt={'Frontend course'}
+          // alt={'Frontend course'}
           title={'Front-end'}
-          img={Frontend}
+          style={frontend}
         />
         <CourseImg
           currentCourse={currentCourse}
           changeCurrentCourse={changeCurrentCourse}
           id={'4'}
-          alt={'UI/UX course'}
+          // alt={'UI/UX course'}
           title={'UX/UI Design'}
-          img={UI}
+          style={ui}
         />
         <CourseImg
           currentCourse={currentCourse}
           changeCurrentCourse={changeCurrentCourse}
           id={'5'}
-          alt={'QA course'}
+          // alt={'QA course'}
           title={'QA'}
-          img={QA}
+          style={qa}
         />
       </div>
     </div>
