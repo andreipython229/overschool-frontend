@@ -1,21 +1,17 @@
-import React, { FC } from 'react'
 import { useDeleteCoursesMutation } from 'api/coursesServices'
-import { useNavigate } from 'react-router-dom'
+import React, { FC } from 'react'
 import { Button } from '../../../../../../components/common/Button/Button'
 import { CoursesT } from '../../../../../../store/redux/courses/slice'
 
-type CourseActionsT = {
+type СourseActionsT = {
   courseFind: CoursesT | undefined
 }
 
-export const CourseActions: FC<CourseActionsT> = ({ courseFind }) => {
-  const [deleteCourses] = useDeleteCoursesMutation()
-
-  const navigate = useNavigate()
+export const СourseActions: FC<СourseActionsT> = ({ courseFind }) => {
+  const [deleteCourses, { data }] = useDeleteCoursesMutation()
 
   const handleDeleteCourse = () => {
     deleteCourses(courseFind?.course_id)
-    navigate('/login/courses/')
   }
 
   return (

@@ -1,33 +1,35 @@
-import React, { FC, useState } from 'react'
-import { Input } from 'components/common/Input/Input/Input'
-import { SelectInput } from 'components/common/SelectInput/SelectInput'
-import { Button } from 'components/common/Button/Button'
-import { cross } from '../../../constants/iconSvgConstants'
-import { IconSvg } from '../../common/IconSvg/IconSvg'
-
-import styles from '../Modal.module.scss'
+import React, { FC, useState } from 'react';
+import styles from '../Modal.module.scss';
+import { Input } from 'components/common/Input/Input/Input';
+import { SelectInput } from 'components/common/SelectInput/SelectInput';
+import { Button } from 'components/common/Button/Button';
 
 type SettingsClassesModalPropT = {
-  closeModal: () => void
-}
-const classesType = ['Занятие', 'Задание', 'Тест', 'Вебинар']
+  closeModal: () => void;
+};
+const classesType = ['Занятие', 'Задание', 'Тест', 'Вебинар'];
 
 export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ closeModal }) => {
-  const [settingsActive, setSettingsActive] = useState<number>(0)
+  const [settingsActive, setSettingsActive] = useState<number>(0);
   return (
     <div className={styles.wrapper}>
       <div className={styles.classesContainer}>
         <div onClick={closeModal} className={styles.classesContainer_closed}>
-          <IconSvg
-            width={14}
-            height={14}
-            d={cross}
-            stroke={'#E0DCED'}
-            strokeWidth={'2'}
-            strokeLinecap={'round'}
-            strokeLinejoin={'round'}
-            viewBoxSize="0 0 14 14"
-          />
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1.3125 12.6875L12.6875 1.3125M12.6875 12.6875L1.3125 1.3125"
+              stroke="#E0DCED"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
         <div className={styles.settings_header}>
           <svg
@@ -112,5 +114,5 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ closeModal
         <Button style={{ width: '496px' }} variant={'primary'} text={'Сохранить'} />
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
+import Public from '../../../../../assets/img/createCourse/public.svg'
 import { Button } from '../../../../../components/common/Button/Button'
 import { CoursesT } from '../../../../../store/redux/courses/slice'
 import { Path } from '../../../../../enum/pathE'
 import { createPath } from 'utils/createPath'
-import Public from '../../../../../assets/img/createCourse/public.svg'
-import notPublic from '../../../../../assets/img/createCourse/notPublic.svg'
+
 import styles from '../coursePage.module.scss'
 
 export const CoursesCard: FC<CoursesT> = ({
@@ -29,17 +29,8 @@ export const CoursesCard: FC<CoursesT> = ({
       </div>
       <div className={styles.course_card_about}>
         <span className={styles.course_card_status_show}>
-          {published ? (
-            <>
-              <img src={Public} alt="status course" />
-              <span className={styles.course_card_status_show_public}>Опубликован</span>
-            </>
-          ) : (
-            <>
-              <img src={notPublic} alt="status course" />
-              <span className={styles.course_card_status_show_public}>Не публикован</span>
-            </>
-          )}
+          <img src={Public} alt="status course" />
+          <span className={styles.course_card_status_show_public}>Опубликован</span>
         </span>
         <h5>{name}</h5>
         <span className={styles.course_card_about_desc}>{description}</span>

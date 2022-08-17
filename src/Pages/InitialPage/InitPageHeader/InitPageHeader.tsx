@@ -1,11 +1,10 @@
 import React, { FC, memo } from 'react'
 import { Link } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../../store/hooks'
-import { showModal } from 'store/redux/modal/slice'
-import { Path } from 'enum/pathE'
-import { Button } from 'components/common/Button/Button'
-
 import Logotype from '../../../assets/img/logotype.svg'
+import { Button } from 'components/common/Button/Button'
+import { useAppSelector } from '../../../store/hooks'
+import { Path } from 'enum/pathE'
+
 import styles from '../initialPage.module.scss'
 
 type InitPageHeaderPT = {
@@ -14,14 +13,7 @@ type InitPageHeaderPT = {
 }
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(
   ({ setLoginShow, setRegistrationShow }) => {
-    const dispatch = useAppDispatch()
     const isLogin = useAppSelector<boolean>((state: any) => state.user?.auth)
-
-    const handleLoginUser = () => {
-      setLoginShow(true)
-      dispatch(showModal(true))
-    }
-
     return (
       <div>
         <div className={styles.init_header}>
@@ -33,7 +25,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(
               </Link>
             ) : (
               <>
-                <Button variant={'logIn'} onClick={handleLoginUser} text={'Войти'} />
+                <Button variant={'logIn'} onClick={() => setLoginShow(true)} text={'Войти'} />
                 <Button
                   onClick={() => setRegistrationShow(true)}
                   variant={'primary'}

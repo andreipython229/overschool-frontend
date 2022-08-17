@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import { publishedMarkerSvgIcon } from '../../../../../../constants/iconSvgConstants'
 import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../../../../components/common/Input/Input/Input'
@@ -9,7 +9,6 @@ import { CoursesT } from '../../../../../../store/redux/courses/slice'
 import { useDebounce } from '../../../../../../customHooks/useDebounce'
 
 import styles from './../setting_course.module.scss'
-import { useUpdateCoursesMutation } from '../../../../../../api/coursesServices'
 
 type BasicSettingsT = {
   toggleCheckbox: boolean
@@ -22,11 +21,12 @@ export const BasicSettings: FC<BasicSettingsT> = ({
   toggleCheckboxPublished,
   courseFind,
 }) => {
-  const [update, { data }] = useUpdateCoursesMutation()
   const [nameCourse, setNameCourse] = useState<string>(courseFind?.name || '')
   const [shortDescription, setShortDescription] = useState<string>(courseFind?.description || '')
 
   const debounced = useDebounce(nameCourse)
+
+  console.log(debounced)
 
   const handleNameCourse = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'nameCourse') {
@@ -35,27 +35,6 @@ export const BasicSettings: FC<BasicSettingsT> = ({
       setShortDescription(e.target.value)
     }
   }
-  const formdata = new FormData()
-  formdata.append('course_id', `${courseFind?.course_id}` || '')
-  formdata.append('created_at', `${courseFind?.created_at}` || '')
-  formdata.append('updated_at', `${courseFind?.updated_at}` || '')
-  formdata.append('published', `${courseFind?.published}`)
-  formdata.append('order', `${courseFind?.order}` || '')
-  formdata.append('name', debounced || '')
-  formdata.append('format', courseFind?.format || '')
-  formdata.append('duration_days', `${courseFind?.duration_days}` || '')
-  formdata.append('price', courseFind?.price || '')
-  formdata.append('description', courseFind?.description || '')
-  formdata.append('author_id', `${courseFind?.author_id}` || '')
-  // formdata.append('photo_url', files[0])
-  // formdata.append('photo', '')
-  const id = courseFind?.course_id
-
-  useEffect(() => {
-    if (formdata) {
-      update({ formdata, id })
-    }
-  }, [debounced])
 
   return (
     <div className={`${styles.basic_settings}`}>

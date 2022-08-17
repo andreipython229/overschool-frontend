@@ -2,8 +2,6 @@ import React, { ChangeEvent, FC, memo, useState } from 'react'
 import styles from '../Modal.module.scss'
 import { Button } from 'components/common/Button/Button'
 import { Radio } from 'components/common/Radio/Radio'
-import { cross } from '../../../constants/iconSvgConstants'
-import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { useAppSelector } from '../../../store/hooks'
 import { RoleE } from 'enum/roleE'
 import { Checkbox } from '../../common/Checkbox/Checkbox'
@@ -31,15 +29,21 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
         <div className={styles.main_employee}>
           <div className={styles.main_employee_container}>
             <div className={styles.main_employee_closedModal} onClick={setModal}>
-              <IconSvg
-                width={26}
-                height={26}
-                d={cross}
-                stroke={'#E0DCED'}
-                strokeWidth={'2'}
-                strokeLinecap={'round'}
-                strokeLinejoin={'round'}
-              />
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.3125 12.6875L12.6875 1.3125M12.6875 12.6875L1.3125 1.3125"
+                  stroke="#E0DCED"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
             <div style={{ textAlign: 'center' }}>
               <h3 className={styles.main_employee_title}>Добавление сотрудника</h3>
