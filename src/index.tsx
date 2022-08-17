@@ -21,7 +21,7 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={<p>Loading...</p>} persistor={persistor}>
-          {screenWidth >= 1025 ? <App /> : <AppMobile />}
+          {screenWidth >= 400 ? <App /> : <AppMobile />}
         </PersistGate>
       </Provider>
     </BrowserRouter>
