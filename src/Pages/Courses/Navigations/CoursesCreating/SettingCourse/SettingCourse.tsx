@@ -26,12 +26,8 @@ export const SettingCourse: FC = () => {
           toggleCheckbox={toggleCheckbox}
           toggleCheckboxPublished={toggleCheckboxPublished}
         />
-        <div className={styles.availability_course_wrapper}>
-          <CourseAvailability />
-        </div>
-        <div className={styles.course_actions_wrapper}>
-          <СourseActions courseFind={courseFind} />
-        </div>
+        <CourseAvailability />
+        <СourseActions courseFind={courseFind} />
       </div>
     </div>
   )
