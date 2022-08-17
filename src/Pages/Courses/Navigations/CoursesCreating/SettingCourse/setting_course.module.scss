@@ -10,9 +10,8 @@
 .card_image_downloads {
   width: 362px;
   height: 262px;
-  box-shadow: 0 0 10px #d9d9d9;
+  box-shadow: 5px 5px 5px #d9d9d9;
   border-radius: 7px;
-  background-color: #fff;
 }
 
 .hide_input {
@@ -28,13 +27,13 @@
   border-radius: 7px 7px 0 0;
   background-color: #d9d9d9;
   &:hover {
-    background-image: url('../../../../../assets/img/createCourse/download_img_bg.png');
+    background-image: url(../../../../../assets/img/createCourse/download_img_bg.png);
     background-position: top;
     background-size: cover;
   }
 }
 .text_block {
-  margin: 20px 0 0 30px;
+  margin-left: 30px;
   display: flex;
   align-items: center;
   color: #e0dced;
@@ -42,13 +41,12 @@
   font-weight: 500;
   font-size: 11px;
   line-height: 13px;
-
   svg {
     margin-right: 10px;
   }
 }
 .text_name {
-  margin: 20px 0 0 25px;
+  margin-left: 30px;
   color: #4d5766;
   text-transform: capitalize;
   font-style: normal;
@@ -65,19 +63,6 @@
   margin-left: 20px;
 }
 .header_basic_settings {
-
-}
-
-.setting_course_container_right {
-  display: flex;
-  flex-direction: column;
-  
-  & p {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    color: #4D5766;
-  }
 }
 .right_content_header {
   display: flex;
