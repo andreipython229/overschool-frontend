@@ -38,56 +38,42 @@ export const BasicSettings: FC<BasicSettingsT> = ({
 
   return (
     <div className={`${styles.basic_settings}`}>
-      <div className={`${styles.header_basic_settings}`}>
+      <div className={`${styles.header_basic_settings} ${styles.container}`}>
         <p>Основные настройки</p>
         {!toggleCheckbox && (
           <p className={styles.right_content_header}>
-            <IconSvg width={20} height={15} fill="#6C7889" viewBoxSize = ' 0 0 21 16' d={publishedMarkerSvgIcon.noPublished} />
+            <IconSvg width={18} height={16} fill="#E0DCED" d={publishedMarkerSvgIcon.noPublished} />
             Не опубликован
           </p>
         )}
       </div>
-      <div className={styles.publish_switch}>
-        <p className={styles.publish_switch_title}>Статус курса</p>
-        <div className={styles.publish_switch_wrapper_switch}>
-          <span>Не опубликован</span>
-          <Toggle defaultChecked={toggleCheckbox} onValueChange={toggleCheckboxPublished} />
-          <span>Опубликован</span>
-        </div>
+      <div>
+        <span>не опубликовано</span>
+        <Toggle defaultChecked={toggleCheckbox} onValueChange={toggleCheckboxPublished} />
+        <span>опубликовано</span>
       </div>
-      <div className={styles.course_name_wrapper}>
-        <p className={styles.course_name_title}>название курса</p>
-        <Input type={'text'} name="nameCourse" value={nameCourse} onChange={handleNameCourse}/>
-      </div>
-      <div className={styles.short_discription_wrapper}>
-        <p className={styles.short_discription_title}>кратное описание</p>
-        <Input
-          type={'text'}
-          name="shortDescription"
-          value={shortDescription}
-          onChange={handleNameCourse}
-        />
+      <p>название курса</p>
+      <Input type={'text'} name="nameCourse" value={nameCourse} onChange={handleNameCourse} />
+      <p>кратное описание</p>
+      <Input
+        type={'text'}
+        name="shortDescription"
+        value={shortDescription}
+        onChange={handleNameCourse}
+      />
+      <div>
+        <p>Курс для учеников доступен по ссылке:</p>
+        <Input type={'text'} name="" value="" onChange={() => console.log(1)} />
       </div>
       <div>
-        <div className={styles.course_link_wrapper}>
-          <p className={styles.course_link_title}>Курс для учеников доступен по ссылке:</p>
-          <Input type={'text'} name="" value="" onChange={() => console.log(1)} />
-        </div>
-      </div>
-      <div className={styles.link_switch_wrapper}>
-        <div className={styles.link_switch_label}>
-          <Checkbox />
-          <p className={styles.link_switch_label_title}>Использовать переход по внешней ссылке при клике на карточку курса</p>
-        </div>
-        <p className={styles.link_switch_label_help}>
+        <Checkbox />
+        <p>Использовать переход по внешней ссылке при клике на карточку курса</p>
+        <p>
           Включите эту опцию, если хотите, чтобы ученики записывались на курс через ваш сайт вне
           платформы
         </p>
       </div>
-      <div className={styles.course_category_wrapper}>
-        <p className={styles.course_category_title}>Категории курса</p>
-        <SelectInput optionsList={['1', '2', '3', '4']} /> 
-      </div>
+      <SelectInput optionsList={['1', '2', '3', '4']} />
     </div>
   )
 }
