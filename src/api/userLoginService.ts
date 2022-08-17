@@ -3,7 +3,7 @@ import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.itdev.by/api',
+    baseUrl: 'http://194.62.19.27:8000/api',
     // prepareHeaders: (headers, { getState }) => {
     //   // By default, if we have a token in the store, let's use that for authenticated requests
     //   const token = (getState() as RootState).auth.token
