@@ -4,7 +4,7 @@
   width: 100%;
   height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, 0.8)), url("../../assets/mobileImg/bg1.jpg") no-repeat center center;
-  background-size: contain;
+  background-size: cover;
   font-family: "Manrope", sans-serif;
   padding: 0 20px;
   position: relative;
@@ -17,12 +17,20 @@
     font-size: 32px;
     font-weight: 800;
     margin: 112px 0 128px 0;
+    @media (min-width: 481px) and (max-width: 1024px) {
+      font-size: 46px;
+      margin: 140px 0 128px 0;
+    }
   }
 
   &_footer {
     width: 228px;
     margin: 0 auto;
     text-align: center;
+    @media (min-width: 481px) and (max-width: 1024px) {
+      padding-top: 70px;
+      width: 450px;
+    }
 
     &_text {
       & p {
@@ -30,6 +38,9 @@
         font-weight: 600;
         color: #ffffff;
         margin-bottom: 110px;
+        @media (min-width: 481px) and (max-width: 1024px) {
+          font-size: 28px;
+        }
       }
 
       &_rose {
@@ -39,6 +50,10 @@
 
     & button {
       margin-left: -20px;
+      @media (min-width: 481px) and (max-width: 1024px) {
+        font-size: 28px;
+        margin-left: 0px;
+      }
     }
   }
 }
