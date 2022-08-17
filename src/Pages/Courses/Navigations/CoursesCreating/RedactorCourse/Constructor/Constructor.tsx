@@ -76,7 +76,7 @@ export const Constructor = () => {
         <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />
       )}
 
-      {showModalModule && <AddModuleModal toggleModal={toggleModalModule} />}
+      {showModalModule && <AddModuleModal setShowModal={setShowModalModule} />}
       {settingClassesModal && <SettingsClassesModal closeModal={showSettingsClasses} />}
 
       <LessonAddBlock
