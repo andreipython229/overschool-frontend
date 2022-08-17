@@ -1,46 +1,44 @@
-import React, { memo, useState } from 'react';
-import styles from './initialPage.module.scss';
-import { InitPageHeader } from './InitPageHeader/InitPageHeader';
-import { CourseImg } from './CourseImgBlock/CourseImg';
-import { RegistrationModal, LoginModal } from 'components/Modal';
-import Python from '../../assets/img/course/python.jpg';
-import Frontend from '../../assets/img/course/frontend.jpg';
-import QA from '../../assets/img/course/qa.jpg';
-import UI from '../../assets/img/course/ui.jpg';
-import Java from '../../assets/img/course/java.jpg';
+import React, { memo, useState } from 'react'
+import styles from './initialPage.module.scss'
+import { InitPageHeader } from './InitPageHeader/InitPageHeader'
+import { CourseImg } from './CourseImgBlock/CourseImg'
+import { RegistrationModal, LoginModal } from 'components/Modal'
+import Python from '../../assets/img/course/python.jpg'
+import Frontend from '../../assets/img/course/frontend.jpg'
+import QA from '../../assets/img/course/qa.jpg'
+import UI from '../../assets/img/course/ui.jpg'
+import Java from '../../assets/img/course/java.jpg'
 
-import { useAppDispatch } from '../../store/hooks';
-import { loginUser } from 'store/redux/users/slice';
+import { useAppDispatch } from '../../store/hooks'
+import { loginUser } from 'store/redux/users/slice'
 
 export const InitialPage = memo(() => {
   const dispatch = useAppDispatch()
   const [currentCourse, setCurrentCourse] = useState<string>('')
   const [registrationShow, setRegistrationShow] = useState<boolean>(false)
   const [loginShow, setLoginShow] = useState<boolean>(false)
-
   const logIn = (value: string | number) => {
     dispatch(loginUser({ value }))
   }
-  
 
   const python = {
-    backgroundImage: 'url(' + Python + ')'
-  };
+    backgroundImage: 'url(' + Python + ')',
+  }
   const frontend = {
-    backgroundImage: 'url(' + Frontend + ')'
-  };
+    backgroundImage: 'url(' + Frontend + ')',
+  }
   const java = {
-    backgroundImage: 'url(' + Java + ')'
-  };
+    backgroundImage: 'url(' + Java + ')',
+  }
   const qa = {
-    backgroundImage: 'url(' + QA + ')'
-  };
+    backgroundImage: 'url(' + QA + ')',
+  }
   const ui = {
-    backgroundImage: 'url(' + UI + ')'
-  };
-  
+    backgroundImage: 'url(' + UI + ')',
+  }
 
   const changeCurrentCourse = (id: string) => setCurrentCourse(id)
+
   return (
     <div className={styles.init}>
       {registrationShow ? <RegistrationModal setShowModal={setRegistrationShow} /> : null}

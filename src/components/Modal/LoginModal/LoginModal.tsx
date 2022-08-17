@@ -6,11 +6,14 @@ import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
 import unSecurity from '../../../assets/img/unSecurity.svg'
 import Security from '../../../assets/img/isecurity.svg'
 import { Button } from '../../common/Button/Button'
-import { LoginParamsT, validateLogin } from 'utils/validationLogin'
+import { validateLogin } from 'utils/validationLogin'
 import { useAppDispatch } from '../../../store/hooks'
 import { auth } from 'store/redux/users/slice'
 import { AuthSelect } from '../../common/AuthSelect/AuthSelect'
 import { useLoginMutation } from '../../../api/userLoginService'
+import { useShowModal } from '../../../customHooks/useShowModal'
+import { IconSvg } from '../../common/IconSvg/IconSvg'
+import { cross } from '../../../constants/iconSvgConstants'
 
 import styles from '../Modal.module.scss'
 
@@ -23,9 +26,8 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
   const dispatch = useAppDispatch()
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<string>('email')
-  const [loginUser, setLoginUser] = useState({})
 
-  const [attemptAccess, { data, error, isLoading, isSuccess }] = useLoginMutation()
+  const [attemptAccess, { data, error, isSuccess }] = useLoginMutation()
 
   const getInputVariant = (variant: string) => {
     setAuthVariant(variant)
@@ -61,30 +63,28 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
     }
   }, [isSuccess, error])
 
-  const disabled = !(Object.keys(formik.errors).length === 0)
+  const handleClose = () => {
+    setShowModal(false)
+  }
+
+  useShowModal({ setShowModal })
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.main}>
         <form onSubmit={formik.handleSubmit}>
           <div className={styles.container}>
-            <svg
-              className={styles.main_closed}
-              onClick={() => setShowModal(false)}
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1 15L15 1M15 15L1 1"
-                stroke="#2E4454"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            <span className={styles.main_closed} onClick={handleClose}>
+              <IconSvg
+                width={25}
+                height={25}
+                d={cross}
+                stroke={'#E0DCED'}
+                strokeWidth={'2'}
+                strokeLinecap={'round'}
+                strokeLinejoin={'round'}
               />
-            </svg>
+            </span>
 
             <div className={styles.main_title}>Войти</div>
             <div className={styles.inputs_block}>
@@ -101,7 +101,6 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
                 </div>
                 <div className={styles.errors}>{formik.errors.email}</div>
               </div>
-
               <InputAuth
                 name={'password'}
                 type={security ? 'password' : 'text'}
@@ -116,10 +115,10 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
 
             <div className={styles.main_btn}>
               <Button
+                text={'Войти'}
                 style={{ width: '246px' }}
                 type={'submit'}
                 variant={'primary'}
-                text={'Войти'}
               />
             </div>
 
