@@ -4,18 +4,19 @@ import { createBlacklistFilter } from 'redux-persist-transform-filter'
 import storage from 'redux-persist/lib/storage'
 
 import { coursesServices, setUserService, userLoginService } from '../../api'
-import { authReduce, courseReduce, coursesReduce, modalReduce } from './index'
+import { authReduce, courseReduce, coursesReduce } from './index'
 
 const rootReducer = combineReducers({
+  [setUserService.reducerPath]: setUserService.reducer,
   [userLoginService.reducerPath]: userLoginService.reducer,
   [coursesServices.reducerPath]: coursesServices.reducer,
   user: authReduce,
   allCourses: coursesReduce,
   createCourse: courseReduce,
-  modal: modalReduce,
 })
 
 const allCoursesBlackListed = createBlacklistFilter('allCourses', ['courses'])
+
 const persistConfig = {
   key: 'root',
   storage,
@@ -27,7 +28,10 @@ export const setupStore = () => {
   return configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware({ serializableCheck: false }).concat(coursesServices.middleware),
+      getDefaultMiddleware({ serializableCheck: false }).concat(
+        userLoginService.middleware,
+        coursesServices.middleware,
+      ),
   })
 }
 

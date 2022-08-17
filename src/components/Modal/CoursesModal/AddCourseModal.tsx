@@ -1,69 +1,59 @@
-import React, { FormEvent, ChangeEvent, FC, memo, useState } from 'react'
+import React, { FormEvent, ChangeEvent, FC, memo, useState, useEffect } from 'react'
+import { Button } from '../../common/Button/Button'
+import { Input } from '../../common/Input/Input/Input'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { changeCourseName } from '../../../store/redux/course/slice'
 import { useNavigate } from 'react-router-dom'
-import { useCreateCoursesMutation } from 'api/coursesServices'
-import { useShowModal } from '../../../customHooks/useShowModal'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { cross } from '../../../constants/iconSvgConstants'
-import { Button } from '../../common/Button/Button'
-import { Input } from '../../common/Input/Input/Input'
+import { useCreateCoursesMutation } from 'api/coursesServices'
 
 import styles from '../Modal.module.scss'
-import { createPath } from '../../../utils/createPath'
 
 type AddCourseModalPropsT = {
-  setShowModal: any
+  setShowModal: () => void
 }
 export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const [name, setName] = useState<string>('')
-  const [createCourses] = useCreateCoursesMutation()
+  const [createCourses, { data }] = useCreateCoursesMutation()
 
   const nameCourse = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value)
   }
 
-  const addCourseName = async (event: FormEvent<HTMLFormElement>) => {
+  const addCourseName = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
     if (name) {
+      dispatch(changeCourseName(name))
       const formdata = new FormData()
-      formdata.append('course_id', String(100))
-      formdata.append('created_at', `${new Date(Date.now())}`)
-      formdata.append('updated_at', `${new Date(Date.now())}`)
-      formdata.append('published', `${true}`)
-      formdata.append('order', String(1))
+      formdata.append('course_id', '17')
+      formdata.append('created_at', '2022-08-02T15:34:37Z')
+      formdata.append('updated_at', '2022-08-02T15:34:37Z')
+      formdata.append('published', 'true')
+      formdata.append('order', '1')
       formdata.append('name', name)
       formdata.append('format', 'ОН')
-      formdata.append('duration_days', String(120))
+      formdata.append('duration_days', '120')
       formdata.append('price', '20.22')
       formdata.append('description', 'HTML,CSS,JS')
-      formdata.append('author_id', String(1))
-      // formdata.append('photo', `${null}`)
-      const data = await createCourses(formdata)
-
-      const { data: course }: any = data
-      setShowModal()
-      if (course) {
-        navigate(
-          createPath({
-            path: Path.CreateCourse,
-            params: { course_id: course?.course_id },
-          }),
-        )
-      }
+      formdata.append('author_id', '1')
+      // formdata.append('photo', img)
+      // createCourses(formdata)
+      // setShowModal()
+      navigate(Path.CreateCourse)
     }
   }
-
-  useShowModal({ setShowModal })
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.mainCourse}>
         <div className={styles.mainCourse_container}>
           <div className={styles.mainCourse_closed} onClick={setShowModal}>
             <IconSvg
-              width={25}
-              height={25}
+              width={18}
+              height={18}
               d={cross}
               stroke={'#E0DCED'}
               strokeWidth={'2'}
@@ -83,12 +73,12 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
                 type={'text'}
                 onChange={nameCourse}
                 value={name}
-                focus={true}
               />
             </div>
 
             <div className={styles.mainCourse_btn}>
               <Button
+                // onClick={addCourseName}
                 style={{ width: '280px' }}
                 type={'submit'}
                 variant={'primary'}

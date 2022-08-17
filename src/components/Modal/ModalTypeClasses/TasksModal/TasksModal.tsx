@@ -1,12 +1,11 @@
 import React, { FC, memo, useState } from 'react'
+import styles from '../../Modal.module.scss'
 import { Input } from '../../../common/Input/Input/Input'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { SelectInput } from '../../../common/SelectInput/SelectInput'
 import { Button } from '../../../common/Button/Button'
 import { arrNumber, arrTime } from 'utils'
 import { MyEditor } from 'components/MyEditor/MyEditor'
-
-import styles from '../../Modal.module.scss'
 
 type TasksModalPropsT = {
   goToBack: () => void
