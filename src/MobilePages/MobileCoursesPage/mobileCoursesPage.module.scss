@@ -1,4 +1,4 @@
-@import "../../scss/variable";
+@import '../../scss/variable';
 
 .container {
   margin: 50px 20px 0 20px;
@@ -10,7 +10,8 @@
   height: 60px;
   border-radius: 10px;
   margin-bottom: 14px;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../assets/mobileImg/bgmobileprevios.svg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('../../assets/mobileImg/bgmobileprevios.svg') no-repeat center center;
   background-size: contain;
   position: relative;
 
@@ -20,7 +21,7 @@
     padding: 9px 0 9px 8px;
 
     & img {
-      border: 1px solid #FFFFFF;
+      border: 1px solid #ffffff;
       width: 40px;
       height: 40px;
       background: #d9d9d9;
@@ -32,7 +33,6 @@
       display: flex;
       flex-direction: column;
       text-align: left;
-
 
       & :nth-child(1) {
         font-size: 8px;
@@ -47,18 +47,17 @@
 
       & :nth-child(3) {
         font-size: 6px;
-        color: #FFFFFF;
+        color: #ffffff;
         text-align: left;
       }
     }
   }
-
 }
 
 .search {
   width: 280px;
-  border: 0.5px solid #F1EFF5;
-  background-color: #EEECF5;
+  border: 0.5px solid #f1eff5;
+  background-color: #eeecf5;
   border-radius: 7px;
   margin-bottom: 28px;
 
@@ -67,14 +66,13 @@
     padding: 10px 0;
     outline: none;
     border: none;
-    background-color: #EEECF5;
+    background-color: #eeecf5;
     font-size: 10px;
     font-weight: 400;
     text-align: center;
-    background-image: url("../../assets/img/createCourse/search.svg");
+    background-image: url('../../assets/img/createCourse/search.svg');
     background-repeat: no-repeat;
     background-position: 35px 5px;
-
   }
 }
 
@@ -97,7 +95,7 @@
   &_image {
     width: 100%;
     height: 130px;
-    background-color: #E0DCED;
+    background-color: #e0dced;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
   }
@@ -106,7 +104,6 @@
     display: flex;
     flex-direction: column;
     margin: 0 16px;
-
 
     & :nth-child(1) {
       font-size: 11px;
@@ -118,7 +115,6 @@
       & svg {
         margin-right: 8px;
       }
-
     }
 
     & :nth-child(2) {
@@ -129,7 +125,7 @@
 
     & :nth-child(3) {
       font-size: 10px;
-      color: #A2A9B4;
+      color: #a2a9b4;
       letter-spacing: 0.01em;
       line-height: 160%;
       margin-bottom: 18px;

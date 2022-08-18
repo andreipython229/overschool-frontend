@@ -1,8 +1,10 @@
-import React, { FC, memo, useCallback, useState } from 'react'
-import styles from './previou.module.scss'
+import React, { FC, memo, useState } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { useLocation } from 'react-router-dom'
 import { useAppSelector } from '../../../store/hooks'
+import { RootState } from '../../../store/redux/store'
+
+import styles from './previou.module.scss'
 
 type PreviousPropsT = {
   avatar: string
@@ -16,7 +18,9 @@ type PreviousPropsT = {
 export const Previous: FC<PreviousPropsT> = memo(
   ({ avatar, name, about, description, onClick, buttonText }) => {
     const { pathname } = useLocation()
-    const role = useAppSelector((state: any) => state.user.permission)
+
+    const role = useAppSelector((state: RootState) => state.user.permission)
+
     const [edit, setEdit] = useState(false)
     const [newDescription, setNewDescription] = useState(description)
     const [newName, setNewName] = useState(name)

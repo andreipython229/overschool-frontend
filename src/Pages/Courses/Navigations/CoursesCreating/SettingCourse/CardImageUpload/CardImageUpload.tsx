@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import { useAppDispatch } from '../../../../../../store/hooks'
+import React, { ChangeEvent, FC } from 'react'
 import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
 import { publishedMarkerSvgIcon } from '../../../../../../constants/iconSvgConstants'
 import { useUpdateCoursesMutation } from '../../../../../../api/coursesServices'
@@ -13,11 +12,11 @@ type CardImageDownloadsT = {
 }
 
 export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, courseFind }) => {
-  const [update, { data }] = useUpdateCoursesMutation()
+  const [update] = useUpdateCoursesMutation()
 
-  const handleUploadFile = (event: any): void => {
+  const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files) {
-      const files = event.target?.files
+      const files = event.target.files
       const formdata = new FormData()
       formdata.append('course_id', `${courseFind?.course_id}` || '')
       formdata.append('created_at', `${courseFind?.created_at}` || '')

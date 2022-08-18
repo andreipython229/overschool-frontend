@@ -1,24 +1,24 @@
-import React, { ChangeEvent, FC, memo } from 'react';
-import styles from '../profile.module.scss';
-import { Input } from 'components/common/Input/Input/Input';
-import { Button } from 'components/common/Button/Button';
-import { SelectInput } from 'components/common/SelectInput/SelectInput';
+import React, { ChangeEvent, FC, memo } from 'react'
+import styles from '../profile.module.scss'
+import { Input } from 'components/common/Input/Input/Input'
+import { Button } from 'components/common/Button/Button'
+import { SelectInput } from 'components/common/SelectInput/SelectInput'
 
 type AboutUserPropsT = {
-  avatar: string | null;
-  onChangeAvatar: (e: ChangeEvent<HTMLInputElement>) => void;
-  full_name: string;
-  email: string;
-  phone_number: string;
-  city: string;
-  aboutUser: string;
-  sex: string;
-  changeFullName: (e: ChangeEvent<HTMLInputElement>) => void;
-  changePhoneNumber: (e: ChangeEvent<HTMLInputElement>) => void;
-  changeCity: (e: ChangeEvent<HTMLInputElement>) => void;
-  changeAboutMyself: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-};
-const optionsList = ['Выберите пол', 'Мужской', 'Женский'];
+  avatar: string | null
+  onChangeAvatar: (e: ChangeEvent<HTMLInputElement>) => void
+  full_name: string
+  email: string
+  phone_number: string
+  city: string
+  aboutUser: string
+  sex: string
+  changeFullName: (e: ChangeEvent<HTMLInputElement>) => void
+  changePhoneNumber: (e: ChangeEvent<HTMLInputElement>) => void
+  changeCity: (e: ChangeEvent<HTMLInputElement>) => void
+  changeAboutMyself: (e: ChangeEvent<HTMLTextAreaElement>) => void
+}
+const optionsList = ['Выберите пол', 'Мужской', 'Женский']
 
 export const AboutUser: FC<AboutUserPropsT> = memo(
   ({
@@ -68,7 +68,7 @@ export const AboutUser: FC<AboutUserPropsT> = memo(
             name={'Name'}
             type={'text'}
             label={'Имя и Фамилия:'}
-            onChange={(e) => changeFullName(e)}
+            onChange={e => changeFullName(e)}
             value={full_name}
           />
         </div>
@@ -77,7 +77,7 @@ export const AboutUser: FC<AboutUserPropsT> = memo(
             name={'phone'}
             type={'text'}
             label={'Телефон:'}
-            onChange={(e) => changePhoneNumber(e)}
+            onChange={e => changePhoneNumber(e)}
             value={phone_number}
             placeholder={'Введите номер телефона'}
           />
@@ -87,7 +87,7 @@ export const AboutUser: FC<AboutUserPropsT> = memo(
             name={'city'}
             type={'text'}
             label={'Город:'}
-            onChange={(e) => changeCity(e)}
+            onChange={e => changeCity(e)}
             value={city}
             placeholder={'Введите город'}
           />
@@ -96,7 +96,7 @@ export const AboutUser: FC<AboutUserPropsT> = memo(
           <span className={styles.profile_block_avatarBlock_title}>О себе:</span>
           <textarea
             className={styles.profile_block_textArea}
-            onChange={(e) => changeAboutMyself(e)}
+            onChange={e => changeAboutMyself(e)}
             placeholder={
               aboutUser
                 ? aboutUser
@@ -112,6 +112,6 @@ export const AboutUser: FC<AboutUserPropsT> = memo(
           <Button text={'Сохранить'} variant={'primary'} disabled={true} />
         </div>
       </div>
-    );
+    )
   },
-);
+)

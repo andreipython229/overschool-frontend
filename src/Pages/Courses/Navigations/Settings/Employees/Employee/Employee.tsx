@@ -1,12 +1,12 @@
-import React, { FC, memo } from "react";
-import styles from "./employee.module.scss";
+import React, { FC, memo } from 'react'
+import styles from './employee.module.scss'
 
 type EmployeePropsT = {
-  avatar: string;
-  name: string;
-  contact: string;
-  role: string;
-};
+  avatar: string
+  name: string
+  contact: string
+  role: string
+}
 
 export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name }) => {
   return (
@@ -25,5 +25,5 @@ export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name 
         </div>
       </div>
     </div>
-  );
-});
+  )
+})

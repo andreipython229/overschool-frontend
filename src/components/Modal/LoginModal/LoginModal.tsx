@@ -50,13 +50,14 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
       formdata.append('password', user.password)
       attemptAccess(formdata)
       dispatch(auth(true))
+      setShowModal(false)
     },
   })
   useEffect(() => {
     if (isSuccess) {
       setShowModal(false)
       dispatch(auth(true))
-      document.cookie = `jwt=${data.jwt}`
+      // document.cookie = `jwt=${data.jwt}`
       if (error) {
         console.log(error)
       }

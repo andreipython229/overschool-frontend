@@ -1,5 +1,5 @@
-import React, { FC, memo } from 'react';
-import styles from 'Pages/Courses/Navigations/StudentsStats/studentsStats.module.scss';
+import React, { FC, memo } from 'react'
+import styles from 'Pages/Courses/Navigations/StudentsStats/studentsStats.module.scss'
 
 export const StatisticHeader: FC = memo(() => {
   return (
@@ -26,5 +26,5 @@ export const StatisticHeader: FC = memo(() => {
       </div>
       <div className={styles.statistics_header_btn_collapse}>Свернуть</div>
     </div>
-  );
-});
+  )
+})

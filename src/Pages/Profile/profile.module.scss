@@ -1,4 +1,4 @@
-@import "src/scss/variable";
+@import 'src/scss/variable';
 
 .profile {
   display: flex;
@@ -24,7 +24,7 @@
         top: 28px;
         left: 10px;
         border-radius: 7px;
-        background: #f7f5f7 url("../../assets/img/noAvatar.svg") no-repeat center center;
+        background: #f7f5f7 url('../../assets/img/noAvatar.svg') no-repeat center center;
       }
 
       &_input {

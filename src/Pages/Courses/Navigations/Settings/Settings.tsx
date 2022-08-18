@@ -1,19 +1,21 @@
 import React, { FC, memo, useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
+
 import { Previous } from '../../Previous/Previous'
-import Avatar from '../../../../assets/img/avatar.svg'
 import { NavAccount } from '../../NavAccount/NavAccount'
 import { AddEmployeeModal } from 'components/Modal'
-import { Route, Routes } from 'react-router-dom'
-import { useAppSelector } from '../../../../store/hooks'
-import { SettingsPath } from 'enum/pathE'
 import { Main } from './Main/Main'
 import { Employees } from './Employees/Employees'
+import { useAppSelector } from '../../../../store/hooks'
+import { SettingsPath } from 'enum/pathE'
 import { RoleE } from 'enum/roleE'
 import { Logs } from './Logs/Logs'
 import { DecorPlatform } from './DecorPlatform/DecorPlatform'
+import { RootState } from '../../../../store/redux/store'
+import Avatar from '../../../../assets/img/avatar.svg'
 
 export const Settings: FC = memo(() => {
-  const role = useAppSelector((state: any) => state.user.permission)
+  const role = useAppSelector((state: RootState) => state.user.permission)
   // const projectName = useAppSelector<string>((state: any) => state?.platform?.projectName)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const setModal = () => {

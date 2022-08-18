@@ -1,4 +1,4 @@
-@import "/src/scss/variable";
+@import '/src/scss/variable';
 
 .wrapper {
   position: absolute;
@@ -9,23 +9,22 @@
   height: 100%;
   z-index: 15;
 
-  @media (max-width: 480px){
+  @media (max-width: 480px) {
     background: #dadada;
   }
 }
 
 .container {
   margin: 56px 62px 70px;
-  @media (max-width: 480px){
+  @media (max-width: 480px) {
     margin: 59px 16px 16px 16px;
-
   }
 }
 
 .main {
   width: 468px;
   background: $color-white;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -37,7 +36,6 @@
   z-index: 10;
   @media (max-width: 480px) {
     width: 280px;
-
   }
 
   &_closed {
@@ -57,7 +55,6 @@
       font-size: 18px;
       margin-bottom: 32px;
     }
-
   }
 
   &_blockDesc {
@@ -71,7 +68,7 @@
 
     &_description {
       font-size: 14px;
-      font-family: "Inter", sans-serif;
+      font-family: 'Inter', sans-serif;
       margin: 10px 0;
     }
 
@@ -90,7 +87,7 @@
 .main_employee {
   width: 558px;
   background: $color-white;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -216,7 +213,7 @@
   padding: 15px 0;
   font-size: 14px;
   font-weight: 800;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
   border: none;
   outline: none;
   cursor: pointer;
@@ -435,7 +432,7 @@
       height: 33px;
       display: flex;
       text-align: right;
-      background: url("../../assets/img/createCourse/star.svg") 14px 10px no-repeat;
+      background: url('../../assets/img/createCourse/star.svg') 14px 10px no-repeat;
       padding-right: 2px;
     }
 
@@ -690,16 +687,13 @@
 
     &_label {
       font-size: 14px;
-      color: #A2A9B4;
+      color: #a2a9b4;
     }
-
   }
-
 }
 
 .settings {
   &_header {
-
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -728,4 +722,3 @@
     }
   }
 }
-

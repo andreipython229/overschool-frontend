@@ -1,14 +1,14 @@
-import React, { FC, memo } from 'react';
-import styles from 'Pages/Courses/Navigations/StudentsStats/studentsStats.module.scss';
+import React, { FC, memo } from 'react'
+import styles from 'Pages/Courses/Navigations/StudentsStats/studentsStats.module.scss'
 type StudentPropsT = {
-  avatar?: string;
-  name: string;
-  email: string;
-  balls?: string;
-  progress: string;
-  date: string;
-  commentary?: string;
-};
+  avatar?: string
+  name: string
+  email: string
+  balls?: string
+  progress: string
+  date: string
+  commentary?: string
+}
 export const Student: FC<StudentPropsT> = memo(
   ({ avatar, name, email, balls, progress, date, commentary }) => {
     return (
@@ -16,7 +16,7 @@ export const Student: FC<StudentPropsT> = memo(
         <input type="checkbox" />
         <div className={styles.student_info_table_contents_wrapper_content_student}>
           <div className={styles.student_info_table_contents_wrapper_content_student_avatar}>
-            БИ
+            <img src={avatar} alt="" />
           </div>
           <p className={styles.student_info_table_contents_wrapper_content_student_name}>{name}</p>
         </div>
@@ -61,6 +61,6 @@ export const Student: FC<StudentPropsT> = memo(
           {commentary}
         </div>
       </div>
-    );
+    )
   },
-);
+)

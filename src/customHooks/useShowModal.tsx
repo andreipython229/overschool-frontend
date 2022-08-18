@@ -1,18 +1,24 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 import { modalSelector } from '../selectors'
 
-export const useShowModal = ({ setShowModal }: any) => {
+interface ISetShowModal {
+  setShowModal: (arg: boolean) => void
+}
+
+export const useShowModal = ({ setShowModal }: ISetShowModal) => {
   const dispatch = useAppDispatch()
   const { modal } = useAppSelector(modalSelector)
-  const clickMouseHandler = (event: any): void => {
-    if (event?.target?.className?.includes('Modal')) {
+
+  const clickMouseHandler = (event: MouseEvent) => {
+    const target = event?.target as HTMLHeadingElement
+    if (target.className.includes('Modal')) {
       setShowModal(false)
       dispatch(showModal(false))
     }
   }
-  const keydownHandler = ({ key }: any) => {
+  const keydownHandler = ({ key }: KeyboardEvent) => {
     if (key === 'Escape') {
       setShowModal(false)
       dispatch(showModal(false))
@@ -22,7 +28,9 @@ export const useShowModal = ({ setShowModal }: any) => {
   useEffect(() => {
     document.addEventListener('keydown', keydownHandler)
     document.addEventListener('click', clickMouseHandler)
-    modal && document.body.classList.add('no_scroll')
+    if (modal) {
+      document.body.classList.add('no_scroll')
+    }
     return () => {
       document.removeEventListener('click', clickMouseHandler)
       document.removeEventListener('keydown', keydownHandler)

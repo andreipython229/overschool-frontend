@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from 'Pages/Courses/Navigations/StudentsStats/studentsStats.module.scss';
+import React from 'react'
+import styles from 'Pages/Courses/Navigations/StudentsStats/studentsStats.module.scss'
 
 export const StudentInfoGraphic = () => {
   return (
@@ -47,5 +47,5 @@ export const StudentInfoGraphic = () => {
       </div>
       <div className={styles.statistics_new_student_wrapper_new_students_info_btn}>i</div>
     </div>
-  );
-};
+  )
+}

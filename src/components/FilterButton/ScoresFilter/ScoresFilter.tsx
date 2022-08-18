@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { Input } from '../../common/Input/Input/Input'
 import { Button } from '../../common/Button/Button'
 

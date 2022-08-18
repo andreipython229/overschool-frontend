@@ -1,5 +1,5 @@
-@import "../../../scss/variable";
-*{
+@import '../../../scss/variable';
+* {
   box-sizing: border-box;
 }
 
@@ -11,7 +11,7 @@
   padding: 11px 13px;
   font-size: 16px;
   font-weight: 800;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   border: none;
   outline: none;
   cursor: pointer;
@@ -25,18 +25,18 @@
   text-align: center;
   font-size: 18px;
   font-weight: 600;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .secondary {
   color: $font-color-rose;
-  background: #E0DCED;
+  background: #e0dced;
   padding: 13px;
   border-radius: 10px;
   text-align: center;
   font-size: 18px;
   font-weight: 600;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   &:hover {
     color: #fff;
     background: #ba75ff;
@@ -52,7 +52,7 @@
   text-align: center;
   font-size: 14px;
   font-weight: 800;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .registrationDisabled {
@@ -65,7 +65,7 @@
   text-align: center;
   font-size: 14px;
   font-weight: 800;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .withoutBack {
@@ -76,30 +76,30 @@
   padding: 13px 13px;
   font-size: 18px;
   font-weight: 600;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
   border: none;
   outline: none;
   cursor: pointer;
 }
 
 .delete {
-  color: #EF4444;
-  background: #FEF2F2;
+  color: #ef4444;
+  background: #fef2f2;
   width: auto;
   text-align: center;
   margin-left: 15px;
   padding: 13px 13px;
   font-size: 16px;
   font-weight: 600;
-  font-family: "Inter", sans-serif;
-  background: #FEF2F2;
-  border: 2px solid #FEE2E2;
+  font-family: 'Inter', sans-serif;
+  background: #fef2f2;
+  border: 2px solid #fee2e2;
   border-radius: 7px;
   outline: none;
   cursor: pointer;
 
   &:hover {
-    background-color: #EF4444;
+    background-color: #ef4444;
     color: #fff;
     // border: none;
   }
@@ -117,9 +117,9 @@
   color: #000;
   outline: none;
   cursor: pointer;
-            
+
   &:hover {
-      padding: 14px 24px;
-      border: 1px solid #BA75FF;
+    padding: 14px 24px;
+    border: 1px solid #ba75ff;
   }
 }
