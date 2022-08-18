@@ -1,49 +1,20 @@
-import React, { FC, memo, useState } from "react";
-import styles from "../Modal.module.scss";
-import { Button } from "components/common/Button/Button";
+import React, { FC, memo, useState } from 'react'
+import { Button } from 'components/common/Button/Button'
+import { typeClasses } from '../../../constants/typeClasses'
+
+import styles from '../Modal.module.scss'
 
 type ModalClassesPropsT = {
-  closeModal: () => void;
-  changeClasses: (id: number) => void;
-};
-type ArrType = {
-  id: number;
-  text: string;
-  type: string;
-};
-const typeClasses: ArrType[] = [
-  {
-    id: 0,
-    text:
-      "Обычное занятие может содержать текст, видео, аудио \n" +
-      "и программный код. Можно прикрепить любые файлы \n" +
-      "для  скачивания.",
-    type: "standard",
-  },
-  {
-    id: 1,
-    text:
-      "Ученики могут выполнять домашнее задание \n" +
-      "и отправлять его на проверку преподавателям.",
-    type: "tasks",
-  },
-  {
-    id: 2,
-    text: "Тестирование позволяет создать набор вопросов и вариантов ответов для проверки знаний учеников.",
-    type: "text",
-  },
-  {
-    id: 3,
-    text: "Вебинар позволяет создать занятия в виде онлайн-трансляций по заданному расписанию для каждой группы учеников.",
-    type: "webinar",
-  },
-];
+  closeModal: () => void
+  changeClasses: (id: number) => void
+}
 
 export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ closeModal, changeClasses }) => {
-  const [activeClasses, setActiveClasses] = useState<number>(0);
+  const [activeClasses, setActiveClasses] = useState<number>(0)
+
   const setClassesType = (id: number) => {
-    changeClasses(id);
-  };
+    changeClasses(id)
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -55,7 +26,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ closeModal, chan
               onClick={() => setActiveClasses(0)}
               className={
                 activeClasses === 0
-                  ? styles.classesContainer_type_classes + " " + styles.active
+                  ? styles.classesContainer_type_classes + ' ' + styles.active
                   : styles.classesContainer_type_classes
               }
             >
@@ -81,7 +52,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ closeModal, chan
               onClick={() => setActiveClasses(1)}
               className={
                 activeClasses === 1
-                  ? styles.classesContainer_type_classes + " " + styles.active
+                  ? styles.classesContainer_type_classes + ' ' + styles.active
                   : styles.classesContainer_type_classes
               }
             >
@@ -114,7 +85,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ closeModal, chan
               onClick={() => setActiveClasses(2)}
               className={
                 activeClasses === 2
-                  ? styles.classesContainer_type_classes + " " + styles.active
+                  ? styles.classesContainer_type_classes + ' ' + styles.active
                   : styles.classesContainer_type_classes
               }
             >
@@ -165,7 +136,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ closeModal, chan
               onClick={() => setActiveClasses(3)}
               className={
                 activeClasses === 3
-                  ? styles.classesContainer_type_classes + " " + styles.active
+                  ? styles.classesContainer_type_classes + ' ' + styles.active
                   : styles.classesContainer_type_classes
               }
             >
@@ -195,23 +166,23 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ closeModal, chan
             </div>
           </div>
           <div className={styles.classesContainer_type_subs}>
-            {typeClasses.map((el) => (el.id === activeClasses ? el.text : null))}
+            {typeClasses.map(el => (el.id === activeClasses ? el.text : null))}
           </div>
           <div className={styles.classesContainer_type_btnBlock}>
             <Button
-              style={{ width: "85px", fontSize: "14px", fontWeight: "400" }}
+              style={{ width: '85px', fontSize: '14px', fontWeight: '400' }}
               onClick={closeModal}
-              text={"Отмена"}
+              text={'Отмена'}
             />
             <Button
-              style={{ width: "85px", fontSize: "14px", fontWeight: "400" }}
-              variant={"primary"}
+              style={{ width: '85px', fontSize: '14px', fontWeight: '400' }}
+              variant={'primary'}
               onClick={() => setClassesType(activeClasses)}
-              text={"Далее"}
+              text={'Далее'}
             />
           </div>
         </div>
       </div>
     </div>
-  );
-});
+  )
+})

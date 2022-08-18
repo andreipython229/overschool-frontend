@@ -1,4 +1,4 @@
-import React, { DetailedHTMLProps, FC, InputHTMLAttributes, memo } from 'react'
+import React, { DetailedHTMLProps, FC, InputHTMLAttributes, memo, useEffect, useRef } from 'react'
 import styles from './input.module.scss'
 
 type DefaultInputPropsType = DetailedHTMLProps<
@@ -17,6 +17,7 @@ export type InputPropsT = DefaultInputPropsType & {
   onClick?: () => void
   label?: string
   placeholder?: string
+  focus?: boolean
   children?: React.ReactNode | React.ReactNode[] | undefined
 }
 
@@ -33,8 +34,17 @@ export const Input: FC<InputPropsT> = memo(props => {
     value,
     placeholder,
     style,
+    focus,
     ...rest
   } = props
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (focus) {
+      inputRef?.current?.focus()
+    }
+  }, [focus])
+
   return (
     <div style={style} className={styles.input_container}>
       {label && (
@@ -46,6 +56,7 @@ export const Input: FC<InputPropsT> = memo(props => {
         {children}
         <input
           {...rest}
+          ref={inputRef}
           required
           id={id}
           name={name}

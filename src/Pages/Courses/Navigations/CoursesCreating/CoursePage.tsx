@@ -1,21 +1,23 @@
 import React, { FC, memo } from 'react'
-
+import { useAppDispatch } from '../../../../store/hooks'
 import { CoursesCard } from './CoursesCard/CoursesCard'
 import { CoursesT } from '../../../../store/redux/courses/slice'
-
-// import DontShow from 'assets/img/createCourse/notPublic.svg'
-// import Hide from 'assets/img/createCourse/dontShow.svg'
+import { showModal } from '../../../../store/redux/modal/slice'
 
 import styles from 'Pages/Courses/Navigations/CoursesCreating/coursePage.module.scss'
 
 type CoursePagePropsT = {
-  courses: any
+  courses: CoursesT[]
   setShowModal: () => void
 }
 
 export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses }) => {
-  // const avatar = useAppSelector((state): any => state.user?.avatar)
+  const dispatch = useAppDispatch()
 
+  const dispatchHandlerModal = () => {
+    setShowModal()
+    dispatch(showModal(true))
+  }
   return (
     <div className={styles.container}>
       <div>
@@ -24,10 +26,10 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses })
 
       <div className={styles.course}>
         {courses &&
-          courses.map((course: CoursesT) => (
+          courses?.map((course: CoursesT) => (
             <CoursesCard
               key={course.course_id}
-              course_id={course.course_id}
+              course_id={course?.course_id}
               created_at={course.created_at}
               updated_at={course.updated_at}
               published={course.published}
@@ -43,7 +45,7 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses })
             />
           ))}
 
-        <div onClick={setShowModal} className={styles.course_card}>
+        <div onClick={dispatchHandlerModal} className={styles.course_card}>
           <div className={styles.course_addCourse}>
             <span>Создать курс</span>
           </div>

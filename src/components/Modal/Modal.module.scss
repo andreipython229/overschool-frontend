@@ -9,14 +9,14 @@
   height: 100%;
   z-index: 5;
 
-  @media (max-width: 400px){
+  @media (max-width: 480px){
     background: #dadada;
   }
 }
 
 .container {
   margin: 56px 62px 70px;
-  @media (max-width: 400px){
+  @media (max-width: 480px){
     margin: 59px 16px 16px 16px;
 
   }
@@ -35,7 +35,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  @media (max-width: 400px) {
+  @media (max-width: 480px) {
     width: 280px;
 
   }
@@ -53,7 +53,7 @@
     font-size: 30px;
     text-align: center;
     margin-bottom: 56px;
-    @media (max-width: 400px) {
+    @media (max-width: 480px) {
       font-size: 18px;
       margin-bottom: 32px;
     }
