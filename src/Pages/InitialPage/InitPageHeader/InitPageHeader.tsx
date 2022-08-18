@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 import { Path } from 'enum/pathE'
 import { Button } from 'components/common/Button/Button'
+import { RootState } from '../../../store/redux/store'
 
 import Logotype from '../../../assets/img/logotype.svg'
 import styles from '../initialPage.module.scss'
@@ -15,7 +16,7 @@ type InitPageHeaderPT = {
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(
   ({ setLoginShow, setRegistrationShow }) => {
     const dispatch = useAppDispatch()
-    const isLogin = useAppSelector<boolean>((state: any) => state.user?.auth)
+    const isLogin = useAppSelector<boolean>((state: RootState) => state.user?.auth)
 
     const handleLoginUser = () => {
       setLoginShow(true)

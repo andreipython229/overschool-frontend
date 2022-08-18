@@ -1,35 +1,35 @@
 // Define a type for the slice state
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface PlatformI {
-  logotype: string | null;
-  favicon: string | null;
-  projectName: string;
+  logotype: string | null
+  favicon: string | null
+  projectName: string
 }
 
 // Define the initial state using that type
 const initialState: PlatformI = {
   logotype: null,
   favicon: null,
-  projectName: "Без названия",
-};
+  projectName: 'Без названия',
+}
 
 export const slice = createSlice({
-  name: "course",
+  name: 'course',
   initialState,
   reducers: {
     changeLogo: (state, action: PayloadAction<string>) => {
-      state.logotype = action.payload;
+      state.logotype = action.payload
     },
     changeFavicon: (state, action: PayloadAction<string>) => {
-      state.favicon = action.payload;
+      state.favicon = action.payload
     },
     changeProjectName: (state, action: PayloadAction<string>) => {
-      state.projectName = action.payload;
+      state.projectName = action.payload
     },
   },
-});
+})
 
-export const { changeLogo, changeFavicon, changeProjectName } = slice.actions;
+export const { changeLogo, changeFavicon, changeProjectName } = slice.actions
 
-export const platformReduce = slice.reducer;
+export const platformReduce = slice.reducer

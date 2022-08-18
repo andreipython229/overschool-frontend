@@ -1,1 +1,1 @@
-export { arrNumber, arrTime } from "../constants/other";
+export { arrNumber, arrTime } from '../constants/other'

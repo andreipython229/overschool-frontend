@@ -1,11 +1,11 @@
-import React, { FC, memo } from "react";
-import styles from "./userLogs.module.scss";
+import React, { FC, memo } from 'react'
+import styles from './userLogs.module.scss'
 
 type UserLogsPropsT = {
-  contacts: string;
-  whatDoing: string;
-  time: string;
-};
+  contacts: string
+  whatDoing: string
+  time: string
+}
 
 export const UserLogs: FC<UserLogsPropsT> = memo(({ contacts, whatDoing, time }) => {
   return (
@@ -14,5 +14,5 @@ export const UserLogs: FC<UserLogsPropsT> = memo(({ contacts, whatDoing, time })
       <div>{whatDoing}</div>
       <div>{time}</div>
     </div>
-  );
-});
+  )
+})

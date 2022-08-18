@@ -23,7 +23,9 @@ export const HomeWorkPage = () => {
           name=""
           type="text"
           value=""
-          // onChange={() => {}}
+          onChange={() => {
+            console.log(arrowUsersState)
+          }}
           placeholder="Поиск по ученикам и заданиям"
         >
           <svg

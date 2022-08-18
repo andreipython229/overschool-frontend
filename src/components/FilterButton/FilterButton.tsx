@@ -10,12 +10,18 @@ type setArrowUsersStateT = {
   setArrowUsersState: (scoresFilterList: any) => void
 }
 
+interface IItemDropDownList {
+  id: number
+  title: string
+  isOpen: boolean
+}
+
 export const FilterButton: FC<setArrowUsersStateT> = ({ setArrowUsersState }) => {
-  const [toggleDropDown, setToggleDropDown] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const [itemTitle, setItemTitle] = useState('')
-  const [scoresStart, setScoresStart] = useState('')
-  const [scoresEnd, setScoresEnd] = useState('')
+  const [toggleDropDown, setToggleDropDown] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [itemTitle, setItemTitle] = useState<string>('')
+  const [scoresStart, setScoresStart] = useState<string>('')
+  const [scoresEnd, setScoresEnd] = useState<string>('')
 
   const handleApplyFilter = () => {
     const scoresFilterList = [].filter(item => item)
@@ -30,8 +36,8 @@ export const FilterButton: FC<setArrowUsersStateT> = ({ setArrowUsersState }) =>
   const handleToggleFilter =
     ({ id }: any) =>
     () => {
-      dropDownListFilter.forEach((item: any) => (item.isOpen = false))
-      const changeFilterItem = dropDownListFilter.find((item: any) => item.id === id)
+      dropDownListFilter.forEach((item: IItemDropDownList) => (item.isOpen = false))
+      const changeFilterItem = dropDownListFilter.find((item: IItemDropDownList) => item.id === id)
       if (changeFilterItem) {
         setIsOpen((changeFilterItem.isOpen = !isOpen))
         setItemTitle(changeFilterItem.title)

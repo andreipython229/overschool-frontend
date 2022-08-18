@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
-import styles from 'Pages/Courses/Navigations/StudentsStats/studentsStats.module.scss';
+import React, { FC } from 'react'
+import styles from 'Pages/Courses/Navigations/StudentsStats/studentsStats.module.scss'
 
 type StudentsGroupPropsT = {
-  title: string;
-  countStudent: string;
-};
+  title: string
+  countStudent: string
+}
 
 export const StudentGroup: FC<StudentsGroupPropsT> = ({ title, countStudent }) => {
   return (
@@ -65,5 +65,5 @@ export const StudentGroup: FC<StudentsGroupPropsT> = ({ title, countStudent }) =
         </svg>
       </div>
     </div>
-  );
-};
+  )
+}

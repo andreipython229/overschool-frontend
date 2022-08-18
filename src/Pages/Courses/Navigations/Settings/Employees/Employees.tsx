@@ -1,11 +1,11 @@
-import React, { FC } from "react";
-import styles from "../superAdmin.module.scss";
-import { Employee } from "./Employee/Employee";
-import Avatar from "../../../../../assets/img/avatar.svg";
+import React, { FC } from 'react'
+import styles from '../superAdmin.module.scss'
+import { Employee } from './Employee/Employee'
+import Avatar from '../../../../../assets/img/avatar.svg'
 
 type EmployeesPropsT = {
-  setModal: () => void;
-};
+  setModal: () => void
+}
 
 export const Employees: FC<EmployeesPropsT> = ({ setModal }) => {
   return (
@@ -25,13 +25,13 @@ export const Employees: FC<EmployeesPropsT> = ({ setModal }) => {
           </div>
           <Employee
             avatar={Avatar}
-            name={"Имя пользователя"}
-            contact={"pochta@gmail.com"}
-            role={"Администратор"}
+            name={'Имя пользователя'}
+            contact={'pochta@gmail.com'}
+            role={'Администратор'}
           />
-          <Employee avatar={Avatar} name={"Андрей"} contact={"pochta@gmail.com"} role={"Студент"} />
+          <Employee avatar={Avatar} name={'Андрей'} contact={'pochta@gmail.com'} role={'Студент'} />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

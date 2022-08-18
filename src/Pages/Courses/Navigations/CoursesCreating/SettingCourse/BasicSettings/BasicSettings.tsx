@@ -22,7 +22,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({
   toggleCheckboxPublished,
   courseFind,
 }) => {
-  const [update, { data }] = useUpdateCoursesMutation()
+  const [update] = useUpdateCoursesMutation()
   const [nameCourse, setNameCourse] = useState<string>(courseFind?.name || '')
   const [shortDescription, setShortDescription] = useState<string>(courseFind?.description || '')
 
@@ -63,7 +63,13 @@ export const BasicSettings: FC<BasicSettingsT> = ({
         <p>Основные настройки</p>
         {!toggleCheckbox && (
           <p className={styles.right_content_header}>
-            <IconSvg width={20} height={15} fill="#6C7889" viewBoxSize = ' 0 0 21 16' d={publishedMarkerSvgIcon.noPublished} />
+            <IconSvg
+              width={20}
+              height={15}
+              fill="#6C7889"
+              viewBoxSize=" 0 0 21 16"
+              d={publishedMarkerSvgIcon.noPublished}
+            />
             Не опубликован
           </p>
         )}
@@ -78,7 +84,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({
       </div>
       <div className={styles.course_name_wrapper}>
         <p className={styles.course_name_title}>название курса</p>
-        <Input type={'text'} name="nameCourse" value={nameCourse} onChange={handleNameCourse}/>
+        <Input type={'text'} name="nameCourse" value={nameCourse} onChange={handleNameCourse} />
       </div>
       <div className={styles.short_discription_wrapper}>
         <p className={styles.short_discription_title}>кратное описание</p>
@@ -98,7 +104,9 @@ export const BasicSettings: FC<BasicSettingsT> = ({
       <div className={styles.link_switch_wrapper}>
         <div className={styles.link_switch_label}>
           <Checkbox />
-          <p className={styles.link_switch_label_title}>Использовать переход по внешней ссылке при клике на карточку курса</p>
+          <p className={styles.link_switch_label_title}>
+            Использовать переход по внешней ссылке при клике на карточку курса
+          </p>
         </div>
         <p className={styles.link_switch_label_help}>
           Включите эту опцию, если хотите, чтобы ученики записывались на курс через ваш сайт вне
@@ -107,7 +115,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({
       </div>
       <div className={styles.course_category_wrapper}>
         <p className={styles.course_category_title}>Категории курса</p>
-        <SelectInput optionsList={['1', '2', '3', '4']} /> 
+        <SelectInput optionsList={['1', '2', '3', '4']} />
       </div>
     </div>
   )

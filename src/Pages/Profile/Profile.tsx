@@ -1,17 +1,15 @@
 import React, { ChangeEvent, memo, useState } from 'react'
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useAppSelector } from '../../store/hooks'
 import { AboutUser } from './AboutUser/AboutUser'
-import { Toggle } from '@skbkontur/react-ui/index'
 import noAvatar from '../../assets/img/noAvatar.svg'
 import { Previous } from '../Courses/Previous/Previous'
 import { selectUser } from 'selectors'
-
+import { Toggle } from '@skbkontur/react-ui'
 import styles from './profile.module.scss'
 
 export const Profile = memo(() => {
-  const dispatch = useAppDispatch()
   const { avatar, user, phone_number, city, aboutMySelf, sex } = useAppSelector(selectUser)
   const { last_name, first_name, email } = user
 
@@ -152,6 +150,7 @@ export const Profile = memo(() => {
                 </div>
                 <div>
                   {/* Нужно сделать собственные и удалить зависимости библиотеки*/}
+
                   <Toggle />
                 </div>
               </div>

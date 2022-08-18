@@ -6,7 +6,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  
+
   button {
     margin-top: 20px;
   }
@@ -24,11 +24,10 @@
 .element {
   font-weight: 500;
   font-size: 14px;
-  color: #4D5766;
+  color: #4d5766;
   padding: 13px 20px;
   cursor: pointer;
   &:hover {
-    background: #E7EBF1;
+    background: #e7ebf1;
   }
 }
-

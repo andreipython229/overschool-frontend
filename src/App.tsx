@@ -11,23 +11,20 @@ import { Settings } from 'Pages/Courses/Navigations/Settings/Settings'
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 import { StudentsStats } from 'Pages/Courses/Navigations/StudentsStats/StudentsStats'
 import { HomeWorkPage } from 'Pages/HomeWorkPage/HomeWorkPage'
-import { authSelector } from 'selectors';
-import styles from './App.module.scss';
+import { authSelector } from 'selectors'
 
-const courses = ['The Way Python', 'The Way Java', 'The Way Frontend', 'The Way UX/UI', 'Python основы']
+import styles from './App.module.scss'
 
 export const App = () => {
   const isLogin = useAppSelector(authSelector)
   const navigate = useNavigate()
-
-
 
   useEffect(() => {
     if (!isLogin) {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])
-  
+
   return (
     <div className={styles.container}>
       <Routes>

@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
-import { useAppSelector } from './store/hooks'
-import { authSelector } from 'selectors'
+// import { useAppSelector } from './store/hooks'
+// import { authSelector } from 'selectors'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { Path, Student } from 'enum/pathE'
 
@@ -12,8 +11,8 @@ import { MobileCoursePage } from 'MobilePages/MobileCoursePage/MobileCoursePage'
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 
 export const AppMobile = () => {
-  const isLogin = useAppSelector(authSelector)
-  const navigate = useNavigate()
+  // const isLogin = useAppSelector(authSelector)
+  // const navigate = useNavigate()
 
   // useEffect(() => {
   //   if (!isLogin) {

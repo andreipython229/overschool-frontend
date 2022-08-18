@@ -2,7 +2,7 @@ import { fetchBaseQuery, createApi, FetchArgs } from '@reduxjs/toolkit/dist/quer
 
 export const coursesServices = createApi({
   reducerPath: 'getAllCourses',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.itdev.by/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_URL }),
   tagTypes: ['allCourses'],
   endpoints: build => ({
     fetchCourses: build.query<any, any>({

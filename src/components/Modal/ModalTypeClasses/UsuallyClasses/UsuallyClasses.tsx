@@ -1,25 +1,25 @@
-import React, { ChangeEvent, FC, useState } from "react";
-import styles from "../../Modal.module.scss";
-import { Input } from "components/common/Input/Input/Input";
-import { Button } from "components/common/Button/Button";
+import React, { ChangeEvent, FC, useState } from 'react'
+import styles from '../../Modal.module.scss'
+import { Input } from 'components/common/Input/Input/Input'
+import { Button } from 'components/common/Button/Button'
 
 type SettingClassesPropsType = {
-  goToBack: () => void;
-  addCourse: (name: string, type: string) => void;
-  closedAll: () => void;
-};
+  goToBack: () => void
+  addCourse: (name: string, type: string) => void
+  closedAll: () => void
+}
 
 export const SettingClassesUsually: FC<SettingClassesPropsType> = ({
   goToBack,
   addCourse,
   closedAll,
 }) => {
-  const [nameClasses, setNameClasses] = useState<string>("");
-  const [settingsActive, setSettingsActive] = useState<number>(0);
+  const [nameClasses, setNameClasses] = useState<string>('')
+  const [settingsActive, setSettingsActive] = useState<number>(0)
 
   const changeNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
-    setNameClasses(event.currentTarget.value);
-  };
+    setNameClasses(event.currentTarget.value)
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -65,7 +65,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsType> = ({
             onClick={() => setSettingsActive(0)}
             className={
               settingsActive === 0
-                ? styles.navBtn_btn + " " + styles.navBtn_active
+                ? styles.navBtn_btn + ' ' + styles.navBtn_active
                 : styles.navBtn_btn
             }
           >
@@ -75,7 +75,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsType> = ({
             onClick={() => setSettingsActive(1)}
             className={
               settingsActive === 1
-                ? styles.navBtn_btn + " " + styles.navBtn_active
+                ? styles.navBtn_btn + ' ' + styles.navBtn_active
                 : styles.navBtn_btn
             }
           >
@@ -86,10 +86,10 @@ export const SettingClassesUsually: FC<SettingClassesPropsType> = ({
           <div className={styles.usually_input}>
             <span className={styles.usually_title}>Название занятие:</span>
             <Input
-              placeholder={"Основы языка HTML"}
-              name={"name classes"}
-              onChange={(e) => changeNameClasses(e)}
-              type={"text"}
+              placeholder={'Основы языка HTML'}
+              name={'name classes'}
+              onChange={e => changeNameClasses(e)}
+              type={'text'}
               value={nameClasses}
             />
           </div>
@@ -99,21 +99,21 @@ export const SettingClassesUsually: FC<SettingClassesPropsType> = ({
               Сколько баллов будет выдано ученику по завершению занятия:
             </span>
             <div className={styles.usually_grade}>
-              <input type={"number"} placeholder={"0"} className={styles.usually_grade_points} />
+              <input type={'number'} placeholder={'0'} className={styles.usually_grade_points} />
               <span>баллов</span>
             </div>
           </div>
         )}
 
         <div className={styles.btnBlock}>
-          <Button onClick={goToBack} text={"Назад"} />
+          <Button onClick={goToBack} text={'Назад'} />
           <Button
-            onClick={() => addCourse(nameClasses, "usually")}
-            text={"Добавить занятие"}
-            variant={"primary"}
+            onClick={() => addCourse(nameClasses, 'usually')}
+            text={'Добавить занятие'}
+            variant={'primary'}
           />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

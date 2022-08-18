@@ -3,7 +3,7 @@ export type LoginParamsT = {
   password: string
 }
 
-const MIN_PASS_LENGTH = 4
+// const MIN_PASS_LENGTH = 4
 
 export const validateLogin = (values: LoginParamsT): LoginParamsT => {
   const errors = {} as LoginParamsT

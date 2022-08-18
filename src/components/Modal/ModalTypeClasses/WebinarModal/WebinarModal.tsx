@@ -1,28 +1,28 @@
-import React, { ChangeEvent, FC, useState } from "react";
-import styles from "../../Modal.module.scss";
-import { Input } from "../../../common/Input/Input/Input";
-import { Checkbox } from "../../../common/Checkbox/Checkbox";
-import { SelectInput } from "../../../common/SelectInput/SelectInput";
-import { arrNumber, arrTime } from "../../../../utils";
-import { Button } from "../../../common/Button/Button";
+import React, { ChangeEvent, FC, useState } from 'react'
+import styles from '../../Modal.module.scss'
+import { Input } from '../../../common/Input/Input/Input'
+import { Checkbox } from '../../../common/Checkbox/Checkbox'
+import { SelectInput } from '../../../common/SelectInput/SelectInput'
+import { arrNumber, arrTime } from '../../../../utils'
+import { Button } from '../../../common/Button/Button'
 
 type WebinarModalPropsT = {
-  goToBack: () => void;
-  addCourse: (name: string, type: string) => void;
-  closedAll: () => void;
-};
+  goToBack: () => void
+  addCourse: (name: string, type: string) => void
+  closedAll: () => void
+}
 
 export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, closedAll }) => {
-  const [settingsActive, setSettingsActive] = useState<number>(0);
-  const [nameClasses, setNameClasses] = useState<string>("");
-  const [reminderForStudent, setReminderForStudent] = useState<boolean>(false);
-  const [secondReminderForStudent, setSecondReminderForStudent] = useState<boolean>(false);
-  const [reminderForEmployees, setReminderForEmployees] = useState<boolean>(false);
-  const [secondReminderForEmployees, setSecondReminderForEmployees] = useState<boolean>(false);
+  const [settingsActive, setSettingsActive] = useState<number>(0)
+  const [nameClasses, setNameClasses] = useState<string>('')
+  const [reminderForStudent, setReminderForStudent] = useState<boolean>(false)
+  const [secondReminderForStudent, setSecondReminderForStudent] = useState<boolean>(false)
+  const [reminderForEmployees, setReminderForEmployees] = useState<boolean>(false)
+  const [secondReminderForEmployees, setSecondReminderForEmployees] = useState<boolean>(false)
 
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
-    setNameClasses(event.currentTarget.value);
-  };
+    setNameClasses(event.currentTarget.value)
+  }
   return (
     <div className={styles.wrapper}>
       <div className={styles.classesContainer}>
@@ -75,7 +75,7 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
             onClick={() => setSettingsActive(0)}
             className={
               settingsActive === 0
-                ? styles.navBtn_btn + " " + styles.navBtn_active
+                ? styles.navBtn_btn + ' ' + styles.navBtn_active
                 : styles.navBtn_btn
             }
           >
@@ -85,7 +85,7 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
             onClick={() => setSettingsActive(1)}
             className={
               settingsActive === 1
-                ? styles.navBtn_btn + " " + styles.navBtn_active
+                ? styles.navBtn_btn + ' ' + styles.navBtn_active
                 : styles.navBtn_btn
             }
           >
@@ -95,21 +95,21 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
 
         {settingsActive === 0 ? (
           <>
-            <div style={{ marginTop: "15px" }} className={styles.usually_input}>
+            <div style={{ marginTop: '15px' }} className={styles.usually_input}>
               <span className={styles.usually_title}>Название вебинара:</span>
               <Input
-                placeholder={"Основы языка HTML"}
-                name={"name classes"}
-                onChange={(e) => changeName(e)}
-                type={"text"}
+                placeholder={'Основы языка HTML'}
+                name={'name classes'}
+                onChange={e => changeName(e)}
+                type={'text'}
                 value={nameClasses}
               />
             </div>
             <div className={styles.webinar_checkboxPack}>
               <div className={styles.webinar_checkbox}>
                 <Checkbox
-                  id={"reminderS"}
-                  name={"Reminder for student"}
+                  id={'reminderS'}
+                  name={'Reminder for student'}
                   checked={reminderForStudent}
                   onChange={() => setReminderForStudent(!reminderForStudent)}
                 />
@@ -134,7 +134,7 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
                 onClick={() => setSecondReminderForStudent(!secondReminderForStudent)}
               >
                 {secondReminderForStudent ? (
-                  <span style={{ color: "#FF0000" }}>Отключить дополнительное напоминание</span>
+                  <span style={{ color: '#FF0000' }}>Отключить дополнительное напоминание</span>
                 ) : (
                   <span>+ Добавить ещё одно напоминание </span>
                 )}
@@ -153,8 +153,8 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
 
               <div className={styles.webinar_checkbox}>
                 <Checkbox
-                  id={"reminderE"}
-                  name={"Reminder for employees"}
+                  id={'reminderE'}
+                  name={'Reminder for employees'}
                   checked={reminderForEmployees}
                   onChange={() => setReminderForEmployees(!reminderForEmployees)}
                 />
@@ -181,7 +181,7 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
                 onClick={() => setSecondReminderForEmployees(!secondReminderForEmployees)}
               >
                 {secondReminderForEmployees ? (
-                  <span style={{ color: "#FF0000" }}>Отключить дополнительное напоминание</span>
+                  <span style={{ color: '#FF0000' }}>Отключить дополнительное напоминание</span>
                 ) : (
                   <span>+ Добавить ещё одно напоминание </span>
                 )}
@@ -198,13 +198,13 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
                 </div>
               )}
             </div>
-            <div style={{ marginTop: "15px" }} className={styles.usually_input}>
+            <div style={{ marginTop: '15px' }} className={styles.usually_input}>
               <span className={styles.usually_title}>Ответственные сотрудники:</span>
               <Input
-                placeholder={"Основы языка HTML"}
-                name={"name classes"}
-                onChange={(e) => changeName(e)}
-                type={"text"}
+                placeholder={'Основы языка HTML'}
+                name={'name classes'}
+                onChange={e => changeName(e)}
+                type={'text'}
                 value={nameClasses}
               />
             </div>
@@ -215,21 +215,21 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
               Сколько баллов будет выдано ученику по завершению занятия:
             </span>
             <div className={styles.usually_grade}>
-              <input type={"number"} placeholder={"0"} className={styles.usually_grade_points} />
+              <input type={'number'} placeholder={'0'} className={styles.usually_grade_points} />
               <span>баллов</span>
             </div>
           </div>
         )}
 
         <div className={styles.btnBlock}>
-          <Button onClick={goToBack} text={"Назад"} />
+          <Button onClick={goToBack} text={'Назад'} />
           <Button
-            onClick={() => addCourse(nameClasses, "webinar")}
-            text={"Добавить занятие"}
-            variant={"primary"}
+            onClick={() => addCourse(nameClasses, 'webinar')}
+            text={'Добавить занятие'}
+            variant={'primary'}
           />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

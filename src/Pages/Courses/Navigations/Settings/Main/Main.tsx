@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react'
 import styles from '../superAdmin.module.scss'
-import { useAppDispatch, useAppSelector } from '../../../../../store/hooks'
+import { useAppDispatch } from '../../../../../store/hooks'
 import { changeProjectName } from '../../../../../store/redux/platform/slice'
 
 export const Main = memo(() => {
