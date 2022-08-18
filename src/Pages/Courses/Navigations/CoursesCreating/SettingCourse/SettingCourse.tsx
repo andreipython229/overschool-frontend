@@ -2,7 +2,7 @@ import React, { FC, useCallback, useState } from 'react'
 
 import { BasicSettings } from './BasicSettings/BasicSettings'
 import { CardImageUpload } from './CardImageUpload/CardImageUpload'
-import { СourseActions } from './СourseActions/СourseActions'
+import { CourseActions } from './CourseActions/CourseActions'
 import { useFindCourse } from '../../../../../customHooks/useFindCourse'
 import { CourseAvailability } from './CourseAvailability/CourseAvailability'
 
@@ -30,7 +30,7 @@ export const SettingCourse: FC = () => {
           <CourseAvailability />
         </div>
         <div className={styles.course_actions_wrapper}>
-          <СourseActions courseFind={courseFind} />
+          <CourseActions courseFind={courseFind} />
         </div>
       </div>
     </div>
