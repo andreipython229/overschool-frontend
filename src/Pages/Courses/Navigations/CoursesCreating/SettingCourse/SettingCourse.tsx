@@ -2,7 +2,7 @@ import React, { FC, useCallback, useState } from 'react'
 
 import { BasicSettings } from './BasicSettings/BasicSettings'
 import { CardImageUpload } from './CardImageUpload/CardImageUpload'
-import { CourseActions } from './CourseActions/CourseActions'
+import { СourseActions } from './СourseActions/СourseActions'
 import { useFindCourse } from '../../../../../customHooks/useFindCourse'
 import { CourseAvailability } from './CourseAvailability/CourseAvailability'
 
@@ -26,8 +26,12 @@ export const SettingCourse: FC = () => {
           toggleCheckbox={toggleCheckbox}
           toggleCheckboxPublished={toggleCheckboxPublished}
         />
-        <CourseAvailability />
-        <CourseActions courseFind={courseFind} />
+        <div className={styles.availability_course_wrapper}>
+          <CourseAvailability />
+        </div>
+        <div className={styles.course_actions_wrapper}>
+          <СourseActions courseFind={courseFind} />
+        </div>
       </div>
     </div>
   )
