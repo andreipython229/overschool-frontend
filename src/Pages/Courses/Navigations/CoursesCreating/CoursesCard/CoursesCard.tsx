@@ -10,17 +10,10 @@ import styles from '../coursePage.module.scss'
 
 export const CoursesCard: FC<CoursesT> = ({
   course_id,
-  created_at,
-  updated_at,
   published,
-  order,
   name,
-  format,
-  duration_days,
-  price,
   description,
   photo_url,
-  author_id,
 }) => {
   return (
     <div id={course_id && course_id} className={styles.course_card}>

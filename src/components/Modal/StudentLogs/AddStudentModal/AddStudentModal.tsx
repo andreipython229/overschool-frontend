@@ -1,15 +1,15 @@
-import React, { ChangeEvent, FC } from 'react';
-import styles from 'components/Modal/StudentLogs/studentsLog.module.scss';
-import { SelectInput } from 'components/common/SelectInput/SelectInput';
-import { programLanguage } from 'constants/other';
-import { Input } from 'components/common/Input/Input/Input';
-import { Button } from 'components/common/Button/Button';
+import React, { ChangeEvent, FC } from 'react'
+import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
+import { SelectInput } from 'components/common/SelectInput/SelectInput'
+import { programLanguage } from 'constants/other'
+import { Input } from 'components/common/Input/Input/Input'
+import { Button } from 'components/common/Button/Button'
 
 type AddStudentModalPropsT = {
-  closeModal: () => void;
-  onChangeEmail: (e: ChangeEvent<HTMLInputElement>) => void;
-  studentEmail: string;
-};
+  closeModal: () => void
+  onChangeEmail: (e: ChangeEvent<HTMLInputElement>) => void
+  studentEmail: string
+}
 export const AddStudentModal: FC<AddStudentModalPropsT> = ({
   closeModal,
   onChangeEmail,
@@ -63,7 +63,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({
               value={studentEmail}
               name={'email'}
               type={'text'}
-              onChange={(e) => onChangeEmail(e)}
+              onChange={e => onChangeEmail(e)}
               placeholder={'Email ученика'}
             />
             <div className={styles.addStudent_student_btn}>
@@ -77,5 +77,5 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

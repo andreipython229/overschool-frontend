@@ -48,7 +48,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
           aria-activedescendant={optionsList[selectedOption]}
           className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}
         >
-          {optionsList?.map((option: any, index: number) => (
+          {optionsList?.map((option: any, index: any) => (
             <li
               key={index}
               tabIndex={0}

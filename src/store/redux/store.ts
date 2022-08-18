@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist'
 import { createBlacklistFilter } from 'redux-persist-transform-filter'
 import storage from 'redux-persist/lib/storage'
 
-import { coursesServices, setUserService, userLoginService } from '../../api'
+import { coursesServices, userLoginService } from '../../api'
 import { authReduce, courseReduce, coursesReduce, modalReduce } from './index'
 
 const rootReducer = combineReducers({
@@ -27,7 +27,10 @@ export const setupStore = () => {
   return configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware({ serializableCheck: false }).concat(coursesServices.middleware),
+      getDefaultMiddleware({ serializableCheck: false }).concat(
+        coursesServices.middleware,
+        userLoginService.middleware,
+      ),
   })
 }
 

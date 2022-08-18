@@ -1,4 +1,4 @@
-@import "../../scss/variable";
+@import '../../scss/variable';
 
 .wrapper {
   width: 100%;
@@ -14,13 +14,13 @@
   padding-right: 190px;
   margin: 104px auto 0 132px;
 }
-.main{
+.main {
   margin: 0 auto;
 }
 .mobileHeader {
   height: 40px;
   width: 100%;
-  background: #FFFFFF;
+  background: #ffffff;
   position: fixed;
   top: 0;
   left: 0;
@@ -30,7 +30,7 @@
 .mobileFooter {
   height: 40px;
   width: 100%;
-  background: #FFFFFF;
+  background: #ffffff;
   position: fixed;
   bottom: 0;
   left: 0;

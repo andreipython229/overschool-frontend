@@ -5,11 +5,11 @@ import { editorSvgLabel } from '../../constants/iconSvgConstants'
 import 'draft-js/dist/Draft.css'
 
 import styles from './editor.module.scss'
-import { useDebounce } from '../../customHooks/useDebounce'
+// import { useDebounce } from '../../customHooks/useDebounce'
 
 export const MyEditor = memo(() => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
-  const debounced = useDebounce(editorState.getCurrentContent().getPlainText('\u0001'), 1000)
+  // const debounced = useDebounce(editorState.getCurrentContent().getPlainText('\u0001'), 1000)
 
   // console.log(debounced)
 
@@ -195,10 +195,10 @@ export const MyEditor = memo(() => {
   //     );
   // };
 
-  const onInlineClick = (e: string) => {
-    const nextState = RichUtils.toggleInlineStyle(editorState, e)
-    setEditorState(nextState)
-  }
+  // const onInlineClick = (e: string) => {
+  //   const nextState = RichUtils.toggleInlineStyle(editorState, e)
+  //   setEditorState(nextState)
+  // }
 
   const onBlockClick = (e: string) => {
     const nextState = RichUtils.toggleBlockType(editorState, e)

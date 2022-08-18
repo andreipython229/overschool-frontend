@@ -12,25 +12,11 @@ import { useAppDispatch } from '../../../store/hooks'
 
 import styles from '../Modal.module.scss'
 
-import { setUserService } from '../../../api/setUserService'
-
 type RegistrationModalPropsT = {
   setShowModal: (value: boolean) => void
 }
 
 export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowModal }) => {
-  const { data } = setUserService.useFetchUsersQuery(15)
-  const [createUser, { isLoading }] = setUserService.useCreateUserMutation()
-
-  const handleCreate = async () => {
-    const user = formik.values
-
-    await createUser(user)
-    console.log(setUserService.useCreateUserMutation)
-    console.log(formik.values)
-    console.log(isLoading)
-  }
-
   const dispatch = useAppDispatch()
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<string>('email')
@@ -56,17 +42,11 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
       phone: '',
     },
     onSubmit: (values: RegistrParamsT) => {
-      // onSubmitForm(values)
-      //     .then(() => {
-      //         formik.resetForm()
-      //     })
-      // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values))
       registration()
       setShowModal(false)
     },
   })
-  const disabled = !(Object.keys(formik.errors).length === 0)
+  // const disabled = !(Object.keys(formik.errors).length === 0)
 
   return (
     <div className={styles.wrapper}>
@@ -168,7 +148,6 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
             </div>
             <div className={styles.main_btn}>
               <Button
-                onClick={handleCreate}
                 style={{ width: '246px' }}
                 type={'submit'}
                 variant={'primary'}

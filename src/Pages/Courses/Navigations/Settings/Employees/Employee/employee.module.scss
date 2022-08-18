@@ -1,4 +1,4 @@
-@import "../../../../../../scss/variable";
+@import '../../../../../../scss/variable';
 
 .employee_user {
   width: 100%;
@@ -67,7 +67,7 @@
 }
 
 .employee_user::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 98%;
   background: #e5e7eb;

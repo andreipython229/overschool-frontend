@@ -1,4 +1,4 @@
-@import "../../../scss/variable";
+@import '../../../scss/variable';
 
 .wrapper {
   position: absolute;
@@ -85,7 +85,7 @@
       border-radius: 7px;
       color: $font-title;
       border: none;
-      background-color: #E5E7EB;
+      background-color: #e5e7eb;
     }
   }
 }
@@ -153,7 +153,7 @@
 
     & span {
       font-size: $fs12;
-      color: #A2A9B4;
+      color: #a2a9b4;
     }
   }
 
@@ -164,13 +164,11 @@
     & button {
       width: 96%;
       margin: 0 auto;
-
     }
   }
 }
 
 .groupSetting {
-
   &_input {
     text-align: left;
     margin: 32px 0 20px 0;
@@ -198,7 +196,7 @@
         }
 
         & :nth-child(2) {
-          color: #A8AFB9;
+          color: #a8afb9;
           font-size: $fs16;
         }
       }
@@ -213,7 +211,6 @@
 
       & :nth-child(2) {
         margin-top: 4px;
-
       }
 
       & span {
@@ -260,7 +257,7 @@
         }
 
         & :nth-child(1) {
-          color: #787E8B;
+          color: #787e8b;
           margin-right: 22px;
         }
 
