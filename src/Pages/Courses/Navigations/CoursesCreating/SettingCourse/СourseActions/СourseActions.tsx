@@ -17,8 +17,8 @@ export const СourseActions: FC<СourseActionsT> = ({ courseFind }) => {
   return (
     <div>
       <h4>Действия с курсом</h4>
-      <Button onClick={handleDeleteCourse} text={'Удалить'} variant={'delete'} />
       <Button text={'Копировать'} variant={'secondary'} />
+      <Button onClick={handleDeleteCourse} text={'Удалить'} variant={'delete'} />
     </div>
   )
 }
