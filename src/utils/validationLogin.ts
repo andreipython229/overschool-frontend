@@ -1,14 +1,20 @@
 export type LoginParamsT = {
   email?: string
+  phone?: string
   password: string
 }
 
 // const MIN_PASS_LENGTH = 4
 
-export const validateLogin = (values: LoginParamsT): LoginParamsT => {
+export const validateLogin = (
+  values: LoginParamsT,
+  authVariant: keyof LoginParamsT,
+): LoginParamsT => {
   const errors = {} as LoginParamsT
-  if (!values.email) {
-    errors.email = 'Поле обязательно для заполнения'
+
+  if (!values[authVariant]) {
+    errors[authVariant] = 'Поле обязательно для заполнения'
+
     // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     //     errors.email = 'Не корректные данные'
   }

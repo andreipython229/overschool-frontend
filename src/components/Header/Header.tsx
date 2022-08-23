@@ -19,7 +19,7 @@ export const Header = memo(() => {
 
   return (
     <header className={styles.header}>
-      <NavLink to={Path.InitialPage}>
+      <NavLink to={Path.Courses}>
         <img className={styles.header_logotype} src={Logotype} alt="Logotype IT Overone" />
       </NavLink>
 

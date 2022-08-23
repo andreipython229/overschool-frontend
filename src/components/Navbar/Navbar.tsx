@@ -3,13 +3,18 @@ import { useAppSelector } from '../../store/hooks'
 import { RoleE } from 'enum/roleE'
 import { NavLink } from 'react-router-dom'
 import { Path } from 'enum/pathE'
+import { RootState } from '../../store/redux/store'
 
 import styles from './navbar.module.scss'
 
-export const Navbar: FC = memo(() => {
-  const role = useAppSelector((state: any) => state.user.permission)
+interface IIsActive {
+  isActive?: boolean
+}
 
-  const isActive = ({ isActive }: any) => (isActive ? styles.isActive : '')
+export const Navbar: FC = memo(() => {
+  const role = useAppSelector((state: RootState) => state.user.permission)
+
+  const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
 
   if (role === RoleE.Admin) {
     return (

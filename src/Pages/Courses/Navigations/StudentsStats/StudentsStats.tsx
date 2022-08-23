@@ -46,14 +46,14 @@ export const StudentsStats = () => {
     <div>
       {studentModal && (
         <AddStudentModal
-          closeModal={showStudentModal}
+          setShowModal={setStudentModal}
           studentEmail={studentEmail}
           onChangeEmail={onChangeStudentEmail}
         />
       )}
       {addGroupModal && (
         <CreateGroupModal
-          closeModal={showGroupModal}
+          setShowModal={setAddGroupModal}
           nameGroup={nameGroup}
           addNameGroup={addNameGroup}
         />

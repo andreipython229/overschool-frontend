@@ -15,7 +15,7 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": "latest",
+    "ecmaVersion": 2020,
     "sourceType": "module"
   },
   "ignorePatterns": [
@@ -44,7 +44,6 @@
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-    //"camelcase": "error",
     "spaced-comment": "error",
     "no-duplicate-imports": "error"
   },

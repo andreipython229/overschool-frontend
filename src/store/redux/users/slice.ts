@@ -1,10 +1,9 @@
-// Define a type for the slice state
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-// import { RootState } from '../store'
 import { UserT } from 'types/userT'
 
 type AuthDateT = {
   authDate: string | number
+  token: string
 }
 const initialState: UserT & AuthDateT = {
   auth: false,
@@ -16,6 +15,7 @@ const initialState: UserT & AuthDateT = {
   sex: '-',
   authDate: '',
   aboutMySelf: '',
+  token: '',
 }
 
 export const sliceUser = createSlice({
@@ -24,6 +24,9 @@ export const sliceUser = createSlice({
   reducers: {
     auth: (state, action: PayloadAction<boolean>) => {
       state.auth = action.payload
+    },
+    token: (state, action: PayloadAction<string>) => {
+      state.token = action.payload
     },
     loginUser: (state, action: PayloadAction<{ value: string | number }>) => {
       state.authDate = action.payload.value
@@ -40,5 +43,5 @@ export const sliceUser = createSlice({
   },
 })
 
-export const { auth, loginUser, changeInfo } = sliceUser.actions
+export const { auth, loginUser, token, changeInfo } = sliceUser.actions
 export const authReduce = sliceUser.reducer
