@@ -41,11 +41,21 @@
         background: #e0dced;
         border-radius: 10px;
 
-        & svg {
-          & path {
-            stroke: #ba75ff;
+        &:first-of-type {
+          & svg:first-of-type {
+            & path:first-child {
+              fill: transparent;
+              stroke: #ba75ff;
+            }
           }
         }
+
+        & svg {
+          & path {
+            fill: #ba75ff;
+          }
+        }
+        
       }
     }
 
