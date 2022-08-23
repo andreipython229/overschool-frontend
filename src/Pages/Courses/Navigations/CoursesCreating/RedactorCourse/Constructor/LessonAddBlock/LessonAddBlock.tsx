@@ -19,8 +19,13 @@ export const LessonAddBlock: FC<LessonAddBlockPropsT> = ({
 }) => {
   const dispatch = useAppDispatch()
 
-  const handleOpenModal = () => {
+  const handleOpenModalModule = () => {
     toggleModalModule()
+    dispatch(showModal(true))
+  }
+
+  const handleOpenModalLesson = () => {
+    setModalTypeClasses()
     dispatch(showModal(true))
   }
 
@@ -33,7 +38,7 @@ export const LessonAddBlock: FC<LessonAddBlockPropsT> = ({
           <img src={Lesson} alt="Lessons" />
           Первый урок
         </span>
-        <button className={styles.btn} onClick={setModalTypeClasses}>
+        <button className={styles.btn} onClick={handleOpenModalLesson}>
           + Занятие
         </button>
 
@@ -70,7 +75,7 @@ export const LessonAddBlock: FC<LessonAddBlockPropsT> = ({
         </div>
         <div className={styles.hl} />
         <Button
-          onClick={handleOpenModal}
+          onClick={handleOpenModalModule}
           style={{ width: '236px' }}
           text={'+ Модуль'}
           variant={'primary'}

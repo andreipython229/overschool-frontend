@@ -2,22 +2,11 @@ import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from 'react'
 
 import styles from './button.module.scss'
 
-type DefaultButtonPropsType = DetailedHTMLProps<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->
+type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 type SuperButtonPropsT = DefaultButtonPropsType & {
   text: string
-  variant?:
-    | 'default'
-    | 'primary'
-    | 'disabled'
-    | 'registrationDisabled'
-    | 'secondary'
-    | 'withoutBack'
-    | 'delete'
-    | 'logIn'
+  variant?: 'default' | 'primary' | 'disabled' | 'registrationDisabled' | 'secondary' | 'withoutBack' | 'delete' | 'logIn'
 }
 
 export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', ...restProps }) => {

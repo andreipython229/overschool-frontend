@@ -23,10 +23,14 @@ export const Platform = memo(() => {
   const { courses } = useAppSelector(allCoursesSelector)
 
   const [showModal, setShowModal] = useState<boolean>(false)
-  const { data: coursesList } = useFetchCoursesQuery('')
+  const { data: coursesList, error } = useFetchCoursesQuery(null)
 
   useEffect(() => {
-    dispatch(getCourses(coursesList))
+    if (coursesList) {
+      dispatch(getCourses(coursesList))
+    } else {
+      console.log(error)
+    }
   }, [coursesList])
 
   const setModal = () => {

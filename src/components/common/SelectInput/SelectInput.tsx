@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, ReactNode, useState } from 'react'
 
 import styles from './selectInput.module.scss'
 
@@ -33,13 +33,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
           />
         </svg>
 
-        <button
-          className={styles?.container_btn}
-          type="button"
-          onClick={toggleOptions}
-          aria-haspopup="listbox"
-          aria-expanded={isOptionsOpen}
-        >
+        <button className={styles?.container_btn} type="button" onClick={toggleOptions} aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
           {optionsList[selectedOption]}
         </button>
         <ul
@@ -48,20 +42,22 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
           aria-activedescendant={optionsList[selectedOption]}
           className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}
         >
-          {optionsList?.map((option: any, index: any) => (
-            <li
-              key={index}
-              tabIndex={0}
-              role="option"
-              aria-selected={selectedOption === index}
-              onClick={() => {
-                setSelectedOption(index)
-                setIsOptionsOpen(false)
-              }}
-            >
-              {option}
-            </li>
-          ))}
+          {optionsList?.map(
+            (option: string | number, index: number): ReactNode => (
+              <li
+                key={index}
+                tabIndex={0}
+                role="option"
+                aria-selected={selectedOption === index}
+                onClick={() => {
+                  setSelectedOption(index)
+                  setIsOptionsOpen(false)
+                }}
+              >
+                {option}
+              </li>
+            ),
+          )}
         </ul>
       </div>
     </div>
