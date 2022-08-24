@@ -7,7 +7,7 @@ type ClassesType = {
 }
 
 interface CourseI {
-  course_id: number
+  course_id: number | string
   created_at: Date | string
   updated_at: Date | string
   published: boolean
@@ -45,8 +45,8 @@ export const slice = createSlice({
   name: 'course',
   initialState,
   reducers: {
-    changeCourseName: (state, action: PayloadAction<string>) => {
-      state.name = action.payload
+    addCourseId: (state, action: PayloadAction<string>) => {
+      state.course_id = action.payload
     },
     uploadImgCourse: (state, action: string | any) => {
       state.photo_url = action.payload
@@ -57,5 +57,5 @@ export const slice = createSlice({
   },
 })
 
-export const { changeCourseName, addClasses, uploadImgCourse } = slice.actions
+export const { addCourseId, addClasses, uploadImgCourse } = slice.actions
 export const courseReduce = slice.reducer

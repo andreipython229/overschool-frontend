@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { allCoursesSelector } from '../../selectors'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 
-export const MobileCoursesPage = () => {
+export const MobileCoursesPage: FC = memo(() => {
   const [searchValue, setSearchValue] = useState<string>('')
   const dispatch = useAppDispatch()
 
@@ -19,6 +19,7 @@ export const MobileCoursesPage = () => {
       dispatch(getCourses(coursesList))
     }
   }, [coursesList])
+
   const onChangeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.currentTarget.value)
   }
@@ -47,4 +48,4 @@ export const MobileCoursesPage = () => {
       </div>
     </div>
   )
-}
+})

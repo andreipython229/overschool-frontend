@@ -1,5 +1,5 @@
 import React, { FormEvent, ChangeEvent, FC, memo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { generatePath, useNavigate } from 'react-router-dom'
 import { useCreateCoursesMutation } from 'api/coursesServices'
 import { useShowModal } from '../../../customHooks/useShowModal'
 import { Path } from '../../../enum/pathE'
@@ -9,7 +9,6 @@ import { Button } from '../../common/Button/Button'
 import { Input } from '../../common/Input/Input/Input'
 
 import styles from '../Modal.module.scss'
-import { createPath } from '../../../utils/createPath'
 
 type AddCourseModalPropsT = {
   setShowModal: () => void
@@ -37,9 +36,8 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
       setShowModal()
       if (course) {
         navigate(
-          createPath({
-            path: Path.CreateCourse,
-            params: { course_id: course?.course_id },
+          generatePath(Path.CreateCourse, {
+            course_id: course?.course_id,
           }),
         )
       }
