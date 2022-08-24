@@ -15,8 +15,6 @@ import { authSelector } from 'selectors'
 
 import styles from './App.module.scss'
 
-// import { CreateNewCourses } from 'Pages/CreateNewCourses/CreateNewCourses'
-
 export const App = () => {
   const isLogin = useAppSelector(authSelector)
   const navigate = useNavigate()
@@ -29,7 +27,6 @@ export const App = () => {
 
   return (
     <div className={styles.container}>
-      {/* <CreateNewCourses /> */}
       <Routes>
         <Route path={Path.InitialPage} element={<InitialPage />} />
         <Route path={Path.InitialPage} element={<MainLayOut />}>

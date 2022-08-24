@@ -9,11 +9,9 @@ import { AddModuleModal } from 'components/Modal/CoursesModal/AddModuleModal'
 import { SettingsClassesModal } from 'components/Modal/CoursesModal/SettingsClassesModal'
 
 import styles from './constructor.module.scss'
-import { useFindCourse } from '../../../../../../customHooks/useFindCourse'
 
 export const Constructor: FC = () => {
   const dispatch = useAppDispatch()
-  // const courseFind = useFindCourse()
 
   const [typeClassesModal, setTypeClassesModal] = useState<boolean>(false)
   const [showModalModule, setShowModalModule] = useState<boolean>(false)

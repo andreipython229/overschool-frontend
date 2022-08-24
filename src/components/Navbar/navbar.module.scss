@@ -72,6 +72,13 @@
   background: #e0dced;
   border-radius: 10px;
   text-align: center;
+
+  & svg {
+    & path {
+      fill: #ba75ff;
+      stroke: #ba75ff;
+    }
+  }
 }
 
 .mobileIsActive {
@@ -79,6 +86,14 @@
     & path {
       //fill: $font-color-rose;
       stroke: $font-color-rose;
+    }
+  }
+}
+
+.navbar a:first-child{
+  & svg {
+    & path {
+      fill: transparent;
     }
   }
 }

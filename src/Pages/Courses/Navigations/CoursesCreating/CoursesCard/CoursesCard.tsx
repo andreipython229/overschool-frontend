@@ -1,15 +1,22 @@
 import React, { FC, memo } from 'react'
-import { Link } from 'react-router-dom'
+import { generatePath, Link } from 'react-router-dom'
 import { Button } from '../../../../../components/common/Button/Button'
 import { CoursesT } from '../../../../../store/redux/courses/slice'
 import { Path } from '../../../../../enum/pathE'
-import { createPath } from 'utils/createPath'
 import Public from '../../../../../assets/img/createCourse/public.svg'
 import notPublic from '../../../../../assets/img/createCourse/notPublic.svg'
+import { useAppDispatch } from '../../../../../store/hooks'
+import { addCourseId } from 'store/redux/course/slice'
 
 import styles from '../coursePage.module.scss'
 
 export const CoursesCard: FC<CoursesT> = memo(({ course_id, published, name, description, photo_url }) => {
+  const dispatch = useAppDispatch()
+
+  const getCourseId = () => {
+    dispatch(addCourseId(course_id))
+  }
+
   return (
     <div id={course_id && course_id} className={styles.course_card}>
       <div className={styles.course_card_img}>
@@ -32,12 +39,11 @@ export const CoursesCard: FC<CoursesT> = memo(({ course_id, published, name, des
         <h5>{name}</h5>
         <span className={styles.course_card_about_desc}>{description}</span>
         <Link
-          to={createPath({
-            path: Path.CreateCourse,
-            params: { course_id: course_id },
+          to={generatePath(Path.CreateCourse, {
+            course_id: course_id,
           })}
         >
-          <Button className={styles.btn} text={'Редактировать'} />
+          <Button onClick={getCourseId} className={styles.btn} text={'Редактировать'} />
         </Link>
       </div>
     </div>

@@ -1,14 +1,13 @@
 import { fetchBaseQuery, createApi, FetchArgs } from '@reduxjs/toolkit/dist/query/react'
 import { RootState } from '../store/redux/store'
 import { CoursesT } from '../store/redux/courses/slice'
-import { formDataConverter } from '../utils/formDataConverter'
 
 export const coursesServices = createApi({
   reducerPath: 'getAllCourses',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).user.token
+      const token = (getState() as RootState)?.user?.token
 
       if (token) {
         headers.set('Authorization', `Token ${token}`)
