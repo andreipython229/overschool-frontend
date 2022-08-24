@@ -23,7 +23,6 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses })
       <div>
         <input className={styles.input} type="text" placeholder={'Поиск по курсам и категориям'} />
       </div>
-
       <div className={styles.course}>
         {courses &&
           courses?.map((course: CoursesT) => (
