@@ -1,11 +1,5 @@
-import React, { useCallback, useState } from 'react'
-import {
-  ModalTypeClasses,
-  SettingClassesUsually,
-  TasksModal,
-  TestModal,
-  WebinarModal,
-} from 'components/Modal'
+import React, { FC, useCallback, useState } from 'react'
+import { ModalTypeClasses, SettingClassesUsually, TasksModal, TestModal, WebinarModal } from 'components/Modal'
 
 import { useAppDispatch } from '../../../../../../store/hooks'
 import { addClasses } from 'store/redux/course/slice'
@@ -15,9 +9,12 @@ import { AddModuleModal } from 'components/Modal/CoursesModal/AddModuleModal'
 import { SettingsClassesModal } from 'components/Modal/CoursesModal/SettingsClassesModal'
 
 import styles from './constructor.module.scss'
+import { useFindCourse } from '../../../../../../customHooks/useFindCourse'
 
-export const Constructor = () => {
+export const Constructor: FC = () => {
   const dispatch = useAppDispatch()
+  // const courseFind = useFindCourse()
+
   const [typeClassesModal, setTypeClassesModal] = useState<boolean>(false)
   const [showModalModule, setShowModalModule] = useState<boolean>(false)
   const [settingClassesModal, setSettingClassesModal] = useState<boolean>(false)
@@ -63,33 +60,16 @@ export const Constructor = () => {
 
   return (
     <div className={styles.redactorCourse}>
-      {typeClassesModal && (
-        <ModalTypeClasses changeClasses={setTypeModal} setShowModal={setTypeClassesModal} />
-      )}
-      {activeTypeClasses === 0 && (
-        <SettingClassesUsually
-          closedAll={closedAllModal}
-          addCourse={addCourse}
-          goToBack={goToBack}
-        />
-      )}
-      {activeTypeClasses === 1 && (
-        <TasksModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />
-      )}
-      {activeTypeClasses === 2 && (
-        <TestModal closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse} />
-      )}
-      {activeTypeClasses === 3 && (
-        <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />
-      )}
+      {typeClassesModal && <ModalTypeClasses changeClasses={setTypeModal} setShowModal={setTypeClassesModal} />}
+      {activeTypeClasses === 0 && <SettingClassesUsually closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
+      {activeTypeClasses === 1 && <TasksModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
+      {activeTypeClasses === 2 && <TestModal closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse} />}
+      {activeTypeClasses === 3 && <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
 
       {showModalModule && <AddModuleModal setShowModal={setShowModalModule} />}
       {settingClassesModal && <SettingsClassesModal setShowModal={setSettingClassesModal} />}
 
-      <LessonAddBlock
-        setModalTypeClasses={setModalTypeClasses}
-        toggleModalModule={toggleModalModule}
-      />
+      <LessonAddBlock setModalTypeClasses={setModalTypeClasses} toggleModalModule={toggleModalModule} />
       <ClassesSettings showSettingsClassesModal={showSettingsClasses} />
     </div>
   )

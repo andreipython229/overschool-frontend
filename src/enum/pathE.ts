@@ -18,7 +18,7 @@ export enum SettingsPath {
 export enum CreateCoursePath {
   Constructor = 'constructor',
   Student = 'student',
-  Settings = 'settings/*',
+  Settings = 'settings',
 }
 
 export enum StudentLogs {

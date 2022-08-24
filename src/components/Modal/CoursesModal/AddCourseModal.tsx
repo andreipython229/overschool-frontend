@@ -12,12 +12,12 @@ import styles from '../Modal.module.scss'
 import { createPath } from '../../../utils/createPath'
 
 type AddCourseModalPropsT = {
-  setShowModal: any
+  setShowModal: () => void
 }
 export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) => {
   const navigate = useNavigate()
   const [name, setName] = useState<string>('')
-  const [createCourses, { data, isLoading }] = useCreateCoursesMutation()
+  const [createCourses] = useCreateCoursesMutation()
 
   const nameCourse = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value)
@@ -27,26 +27,19 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
     event.preventDefault()
     if (name) {
       const formdata = new FormData()
-      formdata.append('course_id', String(100))
-      formdata.append('created_at', `${new Date(Date.now())}`)
-      formdata.append('updated_at', `${new Date(Date.now())}`)
-      formdata.append('published', `${true}`)
+      // formdata.append('published', `${true}`)
       formdata.append('order', String(1))
       formdata.append('name', name)
-      formdata.append('format', 'ОН')
-      formdata.append('duration_days', String(120))
-      formdata.append('price', '20.22')
-      formdata.append('description', 'HTML,CSS,JS')
       formdata.append('author_id', String(1))
-      await createCourses(formdata)
+      const data = await createCourses(formdata)
 
+      const { data: course }: any = data
       setShowModal()
-
-      if (data) {
+      if (course) {
         navigate(
           createPath({
             path: Path.CreateCourse,
-            params: { course_id: data?.course_id },
+            params: { course_id: course?.course_id },
           }),
         )
       }

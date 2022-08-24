@@ -1,6 +1,7 @@
 import { fetchBaseQuery, createApi, FetchArgs } from '@reduxjs/toolkit/dist/query/react'
 import { RootState } from '../store/redux/store'
 import { CoursesT } from '../store/redux/courses/slice'
+import { formDataConverter } from '../utils/formDataConverter'
 
 export const coursesServices = createApi({
   reducerPath: 'getAllCourses',
@@ -50,7 +51,18 @@ export const coursesServices = createApi({
       },
       invalidatesTags: ['allCourses'],
     }),
+    patchCourses: build.mutation({
+      query: (arg): string | FetchArgs => {
+        return {
+          url: `/courses/${arg.id}/`,
+          method: 'PATCH',
+          body: arg.formdata,
+        }
+      },
+      invalidatesTags: ['allCourses'],
+    }),
   }),
 })
 
-export const { useFetchCoursesQuery, useCreateCoursesMutation, useDeleteCoursesMutation, useUpdateCoursesMutation } = coursesServices
+export const { useFetchCoursesQuery, useCreateCoursesMutation, useDeleteCoursesMutation, useUpdateCoursesMutation, usePatchCoursesMutation } =
+  coursesServices
