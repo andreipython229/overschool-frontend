@@ -212,7 +212,7 @@ export const MyEditor = memo(() => {
       </div>
       <div className={styles.editor_table}>
         <Editor
-          placeholder={'Введите текст'}
+          placeholder={'Введите сообщение...'}
           ref={editor}
           blockRendererFn={mediaBlockRenderer}
           editorState={editorState}

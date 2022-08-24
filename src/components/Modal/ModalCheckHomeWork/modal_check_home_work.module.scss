@@ -1,8 +1,11 @@
 .modal_container {
   width: 1174px;
-  background-color: #f9fafb;
+  background-color: #F9FAFC;
   padding: 0 30px;
   border: 2px solid black;
+  h3 {
+    color: #696E76;
+  }
 }
 .modal_header {
   width: 100%;
@@ -15,7 +18,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  background-color: #f5f6f8;
+  background-color: #ededed;
   border: none;
   color: #a1a6af;
   padding: 16px;
@@ -30,4 +33,75 @@
 }
 .arrow_rotate {
   transform: rotate(180deg);
+}
+.add_file_button {
+  margin-bottom: 50px;
+  border: none;
+  cursor: pointer;
+  max-width: 195px;
+  width: 195px;
+  max-height: 40px;
+  padding: 20px 10px;
+  border-radius: 7px;
+  box-sizing: border-box;
+  color: #6b7484;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ededed;
+}
+.answer_header {
+  margin: 20px 0;
+}
+
+
+
+.speech_bubble {
+  position: relative;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 24px;
+  color: #6b7484;
+  box-shadow: rgb(0 0 0 / 20%) 0px 3px 12px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.speech_bubble:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 24px solid #fff;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid #fff;
+  border-top: 20px solid transparent;
+  left: 20px;
+  top: -14px;
+}
+
+
+.teacher {
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  align-items: center;
+  color: #6b7484;
+  padding-bottom: 30px;
+  &_avatar {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+  }
+  &_teacherData {
+    display: flex;
+    flex-direction: column;
+    &_name {
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+  }
 }

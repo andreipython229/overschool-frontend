@@ -4,7 +4,7 @@ import { SelectDropDown } from '../../components/SelectDropDown/SelectDropDown'
 import { FilterButton } from '../../components/FilterButton/FilterButton'
 import { Input } from '../../components/common/Input/Input/Input'
 import { searchSvgIcon } from '../../constants/iconSvgConstants'
-// import { ModalCheckHomeWork } from '../../components/Modal/ModalCheckHomeWork/ModalCheckHomeWork'
+import { ModalCheckHomeWork } from '../../components/Modal/ModalCheckHomeWork/ModalCheckHomeWork'
 
 import styles from './home_work_page.module.scss'
 
@@ -45,7 +45,7 @@ export const HomeWorkPage = () => {
           </svg>
         </Input>
       </div>
-      {/* <ModalCheckHomeWork /> */}
+       <ModalCheckHomeWork />
     </>
   )
 }
