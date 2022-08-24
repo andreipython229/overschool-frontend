@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC } from 'react'
 import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
 import { publishedMarkerSvgIcon } from '../../../../../../constants/iconSvgConstants'
-import { useUpdateCoursesMutation } from '../../../../../../api/coursesServices'
+import { usePatchCoursesMutation } from '../../../../../../api/coursesServices'
 import { CoursesT } from '../../../../../../store/redux/courses/slice'
 
 import styles from './../setting_course.module.scss'
@@ -12,33 +12,23 @@ type CardImageDownloadsT = {
 }
 
 export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, courseFind }) => {
-  const [update] = useUpdateCoursesMutation()
+  const [updateImg] = usePatchCoursesMutation()
 
   const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files) {
       const files = event.target.files
       const formdata = new FormData()
-      formdata.append('course_id', `${courseFind?.course_id}` || '')
-      formdata.append('created_at', `${courseFind?.created_at}` || '')
-      formdata.append('updated_at', `${courseFind?.updated_at}` || '')
-      formdata.append('published', `${courseFind?.published}`)
-      formdata.append('order', `${courseFind?.order}` || '')
-      formdata.append('name', courseFind?.name || '')
-      formdata.append('format', courseFind?.format || '')
-      formdata.append('duration_days', `${courseFind?.duration_days}` || '')
-      formdata.append('price', courseFind?.price || '')
-      formdata.append('description', courseFind?.description || '')
-      formdata.append('author_id', `${courseFind?.author_id}` || '')
-      formdata.append('photo_url', files[0])
       formdata.append('photo', files[0])
+
       const id = courseFind?.course_id
-      update({ formdata, id })
+      updateImg({ formdata, id })
     }
   }
 
   return (
     <div className={`${styles.card_image_downloads} `}>
       <label className={styles.block_download_image}>
+        <img src={courseFind?.photo_url || ''} alt="" />
         <input className={styles.hide_input} type="file" onChange={handleUploadFile} />
       </label>
       {toggleCheckbox ? (

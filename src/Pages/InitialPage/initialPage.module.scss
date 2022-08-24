@@ -5,7 +5,7 @@
 }
 .init {
   overflow: hidden;
-  margin: 24px 45px 0 45px;
+  margin-top: 24px;
   width: 100%;
   height: 100vh;
   font-family: 'Manrope', sans-serif;
@@ -14,16 +14,27 @@
   //
   //}
   &_header {
+    margin-left: 45px;
     display: flex;
     justify-content: space-between;
   }
 
   &_main {
     width: 1200px;
-    height: 446px;
-    margin: 130px auto 0 auto;
+    height: 500px;
+    margin-top: 130px;
     display: flex;
     position: relative;
+
+    &_wrapper {
+      position: relative;
+      top: 0;
+      left: 70px;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
     &__title {
       font-weight: 800;
@@ -34,15 +45,12 @@
     }
 
     &__link {
-      width: 555px;
+      width: 530px;
       background: #ffffff;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
       height: 112px;
       display: flex;
       font-weight: 800;
-      position: absolute;
-      bottom: 20px;
-      z-index: 2;
 
       & div:nth-child(1) {
         font-size: 24px;
@@ -73,13 +81,13 @@
         display: flex;
         width: 445px;
         height: 500px;
-        margin: 0 16px;
+        margin: 0 10px;
         transition: all 1s linear 0s;
         border-radius: 10px;
 
         &_title {
           position: absolute;
-          bottom: 68px;
+          bottom: 75px;
           left: 100px;
           z-index: 10;
           align-self: flex-end;

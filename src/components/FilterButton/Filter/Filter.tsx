@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, memo, useState } from 'react'
 import { Input } from 'components/common/Input/Input/Input'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Button } from 'components/common/Button/Button'
@@ -7,11 +7,11 @@ import style from './filter.module.scss'
 
 type Filter = {
   name: string
-  header: any
-  data: any
+  header: string
+  data: string[]
 }
 
-export const Filter: FC<Filter> = ({ name, header, data }) => {
+export const Filter: FC<Filter> = memo(({ name, header, data }) => {
   const [value, setValue] = useState('')
   const [visibleData, setVisibleData] = useState([])
   // const [active, setActive] = useState(false)
@@ -27,7 +27,7 @@ export const Filter: FC<Filter> = ({ name, header, data }) => {
       return
     }
     const newData = items
-      .filter((item: any) => {
+      .filter((item: string) => {
         return item.toLowerCase().indexOf(term.toLowerCase()) > -1
       })
       .map((item: string) => {
@@ -40,8 +40,8 @@ export const Filter: FC<Filter> = ({ name, header, data }) => {
     setVisibleData(newData)
   }
 
-  const handleClick = (e: any) => {
-    setValue(e.target.textContent)
+  const handleClick = (event: any) => {
+    setValue(event?.target?.textContent)
     setVisibleData([])
   }
 
@@ -52,7 +52,7 @@ export const Filter: FC<Filter> = ({ name, header, data }) => {
         name={name}
         type={'text'}
         value={value}
-        onChange={e => handleChange(e)}
+        onChange={handleClick}
         placeholder="Начните вводить название"
       >
         <IconSvg
@@ -68,4 +68,4 @@ export const Filter: FC<Filter> = ({ name, header, data }) => {
       <Button text={'Применить'} variant={'primary'} />
     </div>
   )
-}
+})

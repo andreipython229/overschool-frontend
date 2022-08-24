@@ -12,7 +12,7 @@ import styles from '../Modal.module.scss'
 import { createPath } from '../../../utils/createPath'
 
 type AddCourseModalPropsT = {
-  setShowModal: any
+  setShowModal: () => void
 }
 export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) => {
   const navigate = useNavigate()
@@ -27,18 +27,10 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
     event.preventDefault()
     if (name) {
       const formdata = new FormData()
-      formdata.append('course_id', String(100))
-      formdata.append('created_at', `${new Date(Date.now())}`)
-      formdata.append('updated_at', `${new Date(Date.now())}`)
-      formdata.append('published', `${true}`)
+      // formdata.append('published', `${true}`)
       formdata.append('order', String(1))
       formdata.append('name', name)
-      formdata.append('format', 'ОН')
-      formdata.append('duration_days', String(120))
-      formdata.append('price', '20.22')
-      formdata.append('description', 'HTML,CSS,JS')
       formdata.append('author_id', String(1))
-      // formdata.append('photo', `${null}`)
       const data = await createCourses(formdata)
 
       const { data: course }: any = data
@@ -61,15 +53,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
       <div className={styles.mainCourse}>
         <div className={styles.mainCourse_container}>
           <div className={styles.mainCourse_closed} onClick={setShowModal}>
-            <IconSvg
-              width={25}
-              height={25}
-              d={cross}
-              stroke={'#E0DCED'}
-              strokeWidth={'2'}
-              strokeLinecap={'round'}
-              strokeLinejoin={'round'}
-            />
+            <IconSvg width={25} height={25} d={cross} stroke={'#E0DCED'} strokeWidth={'2'} strokeLinecap={'round'} strokeLinejoin={'round'} />
           </div>
 
           <div className={styles.mainCourse_title}>Создание курса</div>
@@ -88,12 +72,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
             </div>
 
             <div className={styles.mainCourse_btn}>
-              <Button
-                style={{ width: '280px' }}
-                type={'submit'}
-                variant={'primary'}
-                text={'Создать курс'}
-              />
+              <Button style={{ width: '280px' }} type={'submit'} variant={'primary'} text={'Создать курс'} />
             </div>
           </form>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import { Button } from '../../common/Button/Button'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -8,7 +8,7 @@ import ru from 'date-fns/locale/ru'
 
 registerLocale('ru', ru)
 
-export const CalendarFilter = () => {
+export const CalendarFilter = memo(() => {
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
   const onChange = (dates: any): void => {
@@ -32,4 +32,4 @@ export const CalendarFilter = () => {
       </DatePicker>
     </div>
   )
-}
+})

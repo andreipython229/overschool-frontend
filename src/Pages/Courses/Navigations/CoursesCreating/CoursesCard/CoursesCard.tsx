@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, memo } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../../../../../components/common/Button/Button'
 import { CoursesT } from '../../../../../store/redux/courses/slice'
@@ -6,15 +6,10 @@ import { Path } from '../../../../../enum/pathE'
 import { createPath } from 'utils/createPath'
 import Public from '../../../../../assets/img/createCourse/public.svg'
 import notPublic from '../../../../../assets/img/createCourse/notPublic.svg'
+
 import styles from '../coursePage.module.scss'
 
-export const CoursesCard: FC<CoursesT> = ({
-  course_id,
-  published,
-  name,
-  description,
-  photo_url,
-}) => {
+export const CoursesCard: FC<CoursesT> = memo(({ course_id, published, name, description, photo_url }) => {
   return (
     <div id={course_id && course_id} className={styles.course_card}>
       <div className={styles.course_card_img}>
@@ -47,4 +42,4 @@ export const CoursesCard: FC<CoursesT> = ({
       </div>
     </div>
   )
-}
+})

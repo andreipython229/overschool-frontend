@@ -2,10 +2,7 @@ import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from 'react'
 
 import styles from './button.module.scss'
 
-type DefaultButtonPropsType = DetailedHTMLProps<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->
+type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 type SuperButtonPropsT = DefaultButtonPropsType & {
   text: string
@@ -18,6 +15,7 @@ type SuperButtonPropsT = DefaultButtonPropsType & {
     | 'withoutBack'
     | 'delete'
     | 'logIn'
+    | 'create'
 }
 
 export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', ...restProps }) => {
@@ -37,6 +35,8 @@ export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', 
     propsStyle += ' ' + styles.delete
   } else if (variant === 'logIn') {
     propsStyle += ' ' + styles.logIn
+  } else if (variant === 'create') {
+    propsStyle += ' ' + styles.create
   } else {
     propsStyle = styles.btn_default
   }

@@ -6,9 +6,9 @@ import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
 import unSecurity from '../../../assets/img/unSecurity.svg'
 import Security from '../../../assets/img/isecurity.svg'
 import { Button } from '../../common/Button/Button'
-import { validateLogin } from 'utils/validationLogin'
+import { LoginParamsT, validateLogin } from 'utils/validationLogin'
 import { useAppDispatch } from '../../../store/hooks'
-import { auth } from 'store/redux/users/slice'
+import { auth, token } from 'store/redux/users/slice'
 import { AuthSelect } from '../../common/AuthSelect/AuthSelect'
 import { useLoginMutation } from '../../../api/userLoginService'
 import { useShowModal } from '../../../customHooks/useShowModal'
@@ -25,11 +25,11 @@ type LoginModalPropsT = {
 export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) => {
   const dispatch = useAppDispatch()
   const [security, setSecurity] = useState<boolean>(true)
-  const [authVariant, setAuthVariant] = useState<string>('email')
+  const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
 
   const [attemptAccess, { data, error, isSuccess }] = useLoginMutation()
 
-  const getInputVariant = (variant: string) => {
+  const getInputVariant = (variant: any) => {
     setAuthVariant(variant)
   }
   const changeSecurityStatus = () => {
@@ -37,18 +37,21 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
   }
 
   const formik = useFormik({
-    validate: values => validateLogin(values),
+    validate: values => validateLogin(values, authVariant),
     initialValues: {
       email: '',
+      phone: '',
       password: '',
     },
 
-    onSubmit: () => {
+    onSubmit: async () => {
       const user = formik.values
-      const formdata = new FormData()
-      formdata.append('email', user.email)
-      formdata.append('password', user.password)
-      attemptAccess(formdata)
+      const loginUser = {
+        email: user.email,
+        phone: user.phone,
+        password: user.password,
+      }
+      await attemptAccess(loginUser)
       dispatch(auth(true))
       setShowModal(false)
     },
@@ -56,8 +59,8 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
   useEffect(() => {
     if (isSuccess) {
       setShowModal(false)
+      dispatch(token(data.user.token))
       dispatch(auth(true))
-      // document.cookie = `jwt=${data.jwt}`
       if (error) {
         console.log(error)
       }
@@ -67,7 +70,6 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
   const handleClose = () => {
     setShowModal(false)
   }
-
   useShowModal({ setShowModal })
 
   return (
@@ -76,15 +78,7 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
         <form onSubmit={formik.handleSubmit}>
           <div className={styles.container}>
             <span className={styles.main_closed} onClick={handleClose}>
-              <IconSvg
-                width={25}
-                height={25}
-                d={cross}
-                stroke={'#E0DCED'}
-                strokeWidth={'2'}
-                strokeLinecap={'round'}
-                strokeLinejoin={'round'}
-              />
+              <IconSvg width={25} height={25} d={cross} stroke={'#E0DCED'} strokeWidth={'2'} strokeLinecap={'round'} strokeLinejoin={'round'} />
             </span>
 
             <div className={styles.main_title}>Войти</div>
@@ -93,9 +87,9 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
                 <div style={{ display: 'flex' }}>
                   <InputAuth
                     name={authVariant}
-                    type={'text'}
+                    type={authVariant === 'email' ? 'email' : 'tel'}
                     onChange={formik.handleChange}
-                    value={formik.values.email}
+                    value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
                     placeholder={authVariant}
                   />
                   <AuthSelect getInputVariant={getInputVariant} />
@@ -115,12 +109,7 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
             </div>
 
             <div className={styles.main_btn}>
-              <Button
-                text={'Войти'}
-                style={{ width: '246px' }}
-                type={'submit'}
-                variant={'primary'}
-              />
+              <Button text={'Войти'} style={{ width: '246px' }} type={'submit'} variant={'primary'} />
             </div>
 
             <div className={styles.restorePass}>

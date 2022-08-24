@@ -20,7 +20,6 @@ export const InputAuth: FC<InputAuthPropsT> = props => {
     <div className={styles.input_container}>
       <div className={styles.input_container_input}>
         <input
-          required
           id={id}
           name={name}
           type={type}

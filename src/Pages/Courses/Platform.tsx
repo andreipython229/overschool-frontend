@@ -23,10 +23,12 @@ export const Platform = memo(() => {
   const { courses } = useAppSelector(allCoursesSelector)
 
   const [showModal, setShowModal] = useState<boolean>(false)
-  const { data: coursesList } = useFetchCoursesQuery('')
+  const { data: coursesList } = useFetchCoursesQuery(null)
 
   useEffect(() => {
-    dispatch(getCourses(coursesList))
+    if (coursesList) {
+      dispatch(getCourses(coursesList))
+    }
   }, [coursesList])
 
   const setModal = () => {
@@ -36,16 +38,7 @@ export const Platform = memo(() => {
   return (
     <div className={styles.container}>
       {showModal ? <AddCourseModal setShowModal={setModal} /> : null}
-      <div>
-        {role !== 0 && (
-          <Previous
-            avatar={avatar || noAvatar}
-            name={'Название'}
-            about={'Онлайн-обучение'}
-            description={'Краткое описание'}
-          />
-        )}
-      </div>
+      <div>{role !== 0 && <Previous avatar={avatar || noAvatar} name={'Название'} about={'Онлайн-обучение'} description={'Краткое описание'} />}</div>
       <Routes>
         {role === RoleE.SuperAdmin ? (
           <Route path={'/*'} element={<Settings />} />

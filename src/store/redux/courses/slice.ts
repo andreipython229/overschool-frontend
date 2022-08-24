@@ -11,8 +11,8 @@ export type CoursesT = {
   duration_days: number
   price: string
   description: string
-  photo?: any
-  photo_url?: any
+  photo?: string
+  photo_url?: string
   author_id: number
 }
 
