@@ -7,20 +7,37 @@ interface ISetShowModal {
   setShowModal: (arg: boolean) => void
 }
 
-export const useShowModal = ({ setShowModal }: ISetShowModal) => {
+interface ICloseAll {
+  closedAll: () => void
+}
+
+type funcT = ISetShowModal | ICloseAll
+
+export const useShowModal = ({ ...func }: funcT) => {
   const dispatch = useAppDispatch()
   const { modal } = useAppSelector(modalSelector)
 
   const clickMouseHandler = (event: MouseEvent) => {
     const target = event?.target as HTMLHeadingElement
-    if (target.className.includes('Modal')) {
-      setShowModal(false)
+    if (
+      (target.tagName === 'DIV' && target.className.includes('Modal_wrapper')) ||
+      target.className.includes('studentsLog_wrapper')
+    ) {
+      if ('setShowModal' in func) {
+        func?.setShowModal(false)
+      } else {
+        func?.closedAll()
+      }
       dispatch(showModal(false))
     }
   }
   const keydownHandler = ({ key }: KeyboardEvent) => {
     if (key === 'Escape') {
-      setShowModal(false)
+      if ('setShowModal' in func) {
+        func?.setShowModal(false)
+      } else {
+        func?.closedAll()
+      }
       dispatch(showModal(false))
     }
   }

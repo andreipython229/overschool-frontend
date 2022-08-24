@@ -2,7 +2,7 @@
 
 .wrapper {
   position: absolute;
-  top: 0;
+  top: -20px;
   left: 0;
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
@@ -10,7 +10,7 @@
   z-index: 15;
 
   @media (max-width: 480px) {
-    background: #dadada;
+    background: $color-white;
   }
 }
 
@@ -456,7 +456,7 @@
 
   &_checkbox {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     margin-left: 15px;
 
     &_desc {
@@ -604,7 +604,7 @@
     width: 90%;
     display: flex;
     text-align: left;
-    align-items: start;
+    align-items: flex-start;
     margin-top: 10px;
 
     &_text {

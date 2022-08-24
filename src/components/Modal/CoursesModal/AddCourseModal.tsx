@@ -17,7 +17,7 @@ type AddCourseModalPropsT = {
 export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) => {
   const navigate = useNavigate()
   const [name, setName] = useState<string>('')
-  const [createCourses] = useCreateCoursesMutation()
+  const [createCourses, { data, isLoading }] = useCreateCoursesMutation()
 
   const nameCourse = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value)
@@ -38,16 +38,15 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
       formdata.append('price', '20.22')
       formdata.append('description', 'HTML,CSS,JS')
       formdata.append('author_id', String(1))
-      // formdata.append('photo', `${null}`)
-      const data = await createCourses(formdata)
+      await createCourses(formdata)
 
-      const { data: course }: any = data
       setShowModal()
-      if (course) {
+
+      if (data) {
         navigate(
           createPath({
             path: Path.CreateCourse,
-            params: { course_id: course?.course_id },
+            params: { course_id: data?.course_id },
           }),
         )
       }
@@ -61,15 +60,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
       <div className={styles.mainCourse}>
         <div className={styles.mainCourse_container}>
           <div className={styles.mainCourse_closed} onClick={setShowModal}>
-            <IconSvg
-              width={25}
-              height={25}
-              d={cross}
-              stroke={'#E0DCED'}
-              strokeWidth={'2'}
-              strokeLinecap={'round'}
-              strokeLinejoin={'round'}
-            />
+            <IconSvg width={25} height={25} d={cross} stroke={'#E0DCED'} strokeWidth={'2'} strokeLinecap={'round'} strokeLinejoin={'round'} />
           </div>
 
           <div className={styles.mainCourse_title}>Создание курса</div>
@@ -88,12 +79,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
             </div>
 
             <div className={styles.mainCourse_btn}>
-              <Button
-                style={{ width: '280px' }}
-                type={'submit'}
-                variant={'primary'}
-                text={'Создать курс'}
-              />
+              <Button style={{ width: '280px' }} type={'submit'} variant={'primary'} text={'Создать курс'} />
             </div>
           </form>
         </div>

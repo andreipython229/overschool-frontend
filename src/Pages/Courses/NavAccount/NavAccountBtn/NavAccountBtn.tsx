@@ -1,6 +1,7 @@
 import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from 'react'
-import styles from './navAccountBtn.module.scss'
 import { NavLink } from 'react-router-dom'
+
+import styles from './navAccountBtn.module.scss'
 
 type DefaultButtonPropsType = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,

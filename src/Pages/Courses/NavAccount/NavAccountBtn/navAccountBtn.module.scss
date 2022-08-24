@@ -1,12 +1,10 @@
 .nav_btn {
   display: inline-block;
   font-family: 'Inter', sans-serif;
-  //width: 97px;
-  //height: 40px;
   padding: 11px 13px;
   color: #bdbdbd;
   text-align: center;
-  margin: 0 auto;
+  margin: 5px 100px;
   background: none;
   text-decoration: none;
   outline: none;
@@ -15,7 +13,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  //padding: 11px 12px;
+  box-sizing: border-box;
 }
 
 .nav_btn:hover {

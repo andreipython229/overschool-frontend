@@ -2,10 +2,7 @@ import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from 'react'
 
 import styles from './button.module.scss'
 
-type DefaultButtonPropsType = DetailedHTMLProps<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->
+type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 type SuperButtonPropsT = DefaultButtonPropsType & {
   text: string
