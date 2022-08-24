@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { FC, memo, useEffect, useState } from 'react'
 import { CoursePage } from 'Pages/Courses/Navigations/CoursesCreating/CoursePage'
 import { AddCourseModal } from 'components/Modal'
 import { Previous } from './Previous/Previous'
@@ -16,7 +16,7 @@ import { allCoursesSelector } from '../../selectors'
 import styles from './courses.module.scss'
 import noAvatar from '../../assets/img/noAvatar.svg'
 
-export const Platform = memo(() => {
+export const Platform: FC = memo(() => {
   const dispatch = useAppDispatch()
   const role = useAppSelector((state: RootState) => state.user.permission)
   const avatar = useAppSelector((state: RootState) => state.user.avatar)

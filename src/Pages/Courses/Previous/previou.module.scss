@@ -7,6 +7,15 @@
   background: #e0dced;
   border-radius: 7px;
   margin-bottom: 25px;
+  .background_image_course {
+    width: 100%;
+    height: 100%;
+  }
+  img {
+    display: inline-block;
+    width: 66px;
+    height: 100%;
+  }
 
   &_infoBlock {
     display: flex;
@@ -16,8 +25,6 @@
     left: 34px;
 
     &_avatar {
-      width: 66px;
-      height: 66px;
       border: 1px solid #ffffff;
       border-radius: 50%;
       box-sizing: border-box;
@@ -78,4 +85,20 @@
   color: #ffffff;
   background: rgba(0, 0, 0, 0.3);
   text-align: center;
+}
+.previous_title_name {
+  position: absolute;
+  left: 43px;
+  top: 147px;
+  color: #a12525;
+}
+.back_all_course {
+  position: absolute;
+  top: 36px;
+  left: 36px;
+  color: #a12525;
+  text-decoration: none;
+  span {
+    margin-left: 10px;
+  }
 }
