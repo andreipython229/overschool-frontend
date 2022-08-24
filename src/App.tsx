@@ -13,10 +13,9 @@ import { StudentsStats } from 'Pages/Courses/Navigations/StudentsStats/StudentsS
 import { HomeWorkPage } from 'Pages/HomeWorkPage/HomeWorkPage'
 import { authSelector } from 'selectors'
 
-import styles from './App.module.scss';
+import styles from './App.module.scss'
 
-
-import { CreateNewCourses } from 'Pages/CreateNewCourses/CreateNewCourses'
+// import { CreateNewCourses } from 'Pages/CreateNewCourses/CreateNewCourses'
 
 export const App = () => {
   const isLogin = useAppSelector(authSelector)
@@ -30,8 +29,8 @@ export const App = () => {
 
   return (
     <div className={styles.container}>
-      <CreateNewCourses />
-      {/* <Routes>
+      {/* <CreateNewCourses /> */}
+      <Routes>
         <Route path={Path.InitialPage} element={<InitialPage />} />
         <Route path={Path.InitialPage} element={<MainLayOut />}>
           <Route path={Path.Courses} element={<Platform />} />
@@ -41,7 +40,7 @@ export const App = () => {
           <Route path={Path.HomeWork} element={<HomeWorkPage />} />
         </Route>
         <Route path={'*'} element={<PageNotFound />} />
-      </Routes> */}
+      </Routes>
     </div>
   )
 }
