@@ -122,3 +122,19 @@
     border: 1px solid #ba75ff;
   }
 }
+.create {
+  width: 241px;
+  height: 52px;
+  background: #BA75FF;
+  border-radius: 7px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  
+  &:hover {
+    cursor: pointer;
+  }
+  
+}

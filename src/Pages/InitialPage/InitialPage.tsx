@@ -45,11 +45,11 @@ export const InitialPage = memo(() => {
       {loginShow ? <LoginModal logIn={logIn} setShowModal={setLoginShow} /> : null}
       <InitPageHeader setLoginShow={setLoginShow} setRegistrationShow={setRegistrationShow} />
       <div className={styles.init_main}>
-        <section>
+        <section className={styles.init_main_wrapper}>
           <h1 className={styles.init_main__title}>Маркетплейс образовательных курсов</h1>
           <div className={styles.init_main__link}>
-            <div>Найди своё направление</div>
-            <div>Вперёд</div>
+            <div>Найди свое направление</div>
+            <div>Вперед</div>
           </div>
         </section>
         <CourseImg

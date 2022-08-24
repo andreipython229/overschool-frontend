@@ -22,7 +22,7 @@ export const CourseImg: FC<CourseImgPropsT> = memo(
           }
           style={style}
           onMouseEnter={() => changeCurrentCourse(id)}
-          onMouseLeave={() => changeCurrentCourse('')}
+          // onMouseLeave={() => changeCurrentCourse(id)}
         >
           <h2
             className={

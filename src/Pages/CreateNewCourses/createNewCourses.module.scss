@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.newCoursePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+
+    &_logoWrapper {
+        display: flex;
+
+        width: 100%;
+        height: 304px;
+        background-color: #E0DCED;
+
+        &_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin: 121px auto 25px auto;
+
+            &_title {               
+                margin-top: 13px;                 
+                font-weight: 800;
+                font-size: 35px;
+                line-height: 42px;
+                color: #5873E2;
+            }
+        }
+    }
+
+    &_formWrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #F3F4F6;
+
+        &_form {
+            margin-top: 46px;
+            padding: 12px;
+            width: 25%;
+                
+            &_title {            
+                font-weight: 700;
+                font-size: 25px;
+                line-height: 30px;
+                letter-spacing: 0.02em;
+                color: #4D5766;
+            }
+            &_help {                 
+                margin-top: 13px;               
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17px;
+                letter-spacing: 0.02em;
+                color: #D1D5DB;
+            }
+
+            &_eMailWrapper {
+
+
+                &_title {
+                    margin-top: 20px;
+                    margin-bottom: 8px;
+                    font-weight: 400;
+                    font-size: 11px;
+                    line-height: 13px;
+                    letter-spacing: 0.02em;
+                    color: #4D5766;
+                }
+                
+            }
+
+            &_passwordWrapper {
+
+
+                &_title {
+                    margin-top: 16px;
+                    margin-bottom: 8px;
+                    font-weight: 400;
+                    font-size: 11px;
+                    line-height: 13px;
+                    letter-spacing: 0.02em;
+                    color: #4D5766;
+                }
+            }
+            &_helpPassword {
+                    display: flex;
+                    justify-content: flex-end;
+                    margin-top: 12px;
+                a {     
+                    font-weight: 400;
+                    font-size: 10px;
+                    line-height: 12px;
+                    letter-spacing: 0.02em;
+                    text-decoration-line: underline;
+                    color: #BA75FF;
+                }
+            }
+            &_btnCreateWrapper {
+                margin-top: 27px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                &_help {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 8px;
+                    font-weight: 500;
+                    font-size: 11px;
+                    line-height: 13px;
+                    letter-spacing: 0.02em;
+                    color: #D1D5DB;
+
+                    a {           
+                        margin-left: 3px;                 
+                        font-weight: 400;
+                        font-size: 10px;
+                        line-height: 12px;
+                        letter-spacing: 0.02em;
+                        text-decoration-line: underline;
+                        color: #BA75FF;
+                    }
+                }
+            }
+        }
+    }
+}
