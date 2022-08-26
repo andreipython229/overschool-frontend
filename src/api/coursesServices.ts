@@ -3,7 +3,7 @@ import { RootState } from '../store/redux/store'
 import { CoursesT } from '../store/redux/courses/slice'
 
 export const coursesServices = createApi({
-  reducerPath: 'getAllCourses',
+  reducerPath: 'coursesServices',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
     prepareHeaders: (headers, { getState }) => {
@@ -42,6 +42,7 @@ export const coursesServices = createApi({
     }),
     updateCourses: build.mutation({
       query: (arg): string | FetchArgs => {
+        console.log(arg)
         return {
           url: `/courses/${arg.id}/`,
           method: 'PUT',

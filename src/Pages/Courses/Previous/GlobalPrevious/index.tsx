@@ -15,7 +15,7 @@ type GlobalPreviousT = {
   onClick?: () => void
 }
 
-export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, description, onClick, buttonText }) => {
+export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, description /*onClick, buttonText*/ }) => {
   // const role = useAppSelector((state: RootState) => state.user.permission)
 
   const [edit, setEdit] = useState(false)
@@ -52,8 +52,8 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
             onChange={handleChangeDescription}
           />
         )}
-        <img className={styles.previous_infoBlock_avatar} src={avatar || ''} alt="Background Cover" />
 
+        <img className={styles.previous_infoBlock_avatar} src={avatar || ''} alt="Background Cover" />
         <div className={styles.previous_infoBlock_title}>
           {edit ? (
             <input

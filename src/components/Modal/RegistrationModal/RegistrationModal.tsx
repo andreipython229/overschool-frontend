@@ -1,14 +1,15 @@
 import React, { FC, memo, useState } from 'react'
 import { useFormik } from 'formik'
 import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
-import unSecurity from '../../../assets/img/unSecurity.svg'
-import Security from '../../../assets/img/isecurity.svg'
 import { Checkbox } from '../../common/Checkbox/Checkbox'
 import { Button } from '../../common/Button/Button'
-import { RegistrParamsT, validateRegistration } from 'utils/validationRegistation'
+import { validateRegistration } from 'utils/validationRegistation'
 import { auth } from 'store/redux/users/slice'
 import { AuthSelect } from '../../common/AuthSelect/AuthSelect'
 import { useAppDispatch } from '../../../store/hooks'
+
+import unSecurity from '../../../assets/img/unSecurity.svg'
+import Security from '../../../assets/img/isecurity.svg'
 
 import styles from '../Modal.module.scss'
 
@@ -41,7 +42,7 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
       politics: false,
       phone: '',
     },
-    onSubmit: (values: RegistrParamsT) => {
+    onSubmit: () => {
       registration()
       setShowModal(false)
     },
@@ -62,34 +63,16 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M1 15L15 1M15 15L1 1"
-                stroke="#2E4454"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <path d="M1 15L15 1M15 15L1 1" stroke="#2E4454" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
 
             <div className={styles.main_title}>Зарегистрироваться</div>
             <div className={styles.inputs_block}>
               <div style={{ display: 'flex' }}>
                 {authVariant === 'phone' ? (
-                  <InputAuth
-                    name={'phone'}
-                    type={'tel'}
-                    onChange={formik.handleChange}
-                    value={formik.values.phone}
-                    placeholder={'Номер телефона'}
-                  />
+                  <InputAuth name={'phone'} type={'tel'} onChange={formik.handleChange} value={formik.values.phone} placeholder={'Номер телефона'} />
                 ) : (
-                  <InputAuth
-                    name={'email'}
-                    type={'text'}
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                    placeholder={'Email'}
-                  />
+                  <InputAuth name={'email'} type={'text'} onChange={formik.handleChange} value={formik.values.email} placeholder={'Email'} />
                 )}
                 <AuthSelect getInputVariant={getAuthVariant} />
               </div>
@@ -106,53 +89,28 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
             </div>
             <div className={styles.main_blockDesc}>
               <div className={styles.main_blockDesc_checkbox}>
-                <Checkbox
-                  id={'oferta'}
-                  name={'oferta'}
-                  checked={formik.values.oferta}
-                  onChange={formik.handleChange}
-                />
+                <Checkbox id={'oferta'} name={'oferta'} checked={formik.values.oferta} onChange={formik.handleChange} />
               </div>
               <p className={styles.main_blockDesc_description}>
                 Я подтверждаю согласие на обработку персональных данных в соответствии с условиями
-                <a
-                  href={'/'}
-                  rel={'noreferrer'}
-                  target={'_blank'}
-                  className={styles.main_blockDesc_link}
-                >
+                <a href={'/'} rel={'noreferrer'} target={'_blank'} className={styles.main_blockDesc_link}>
                   Политики конфиденциальности
                 </a>
               </p>
             </div>
             <div className={styles.main_blockDesc}>
               <div className={styles.main_blockDesc_checkbox}>
-                <Checkbox
-                  id={'politics'}
-                  name={'politics'}
-                  checked={formik.values.politics}
-                  onChange={formik.handleChange}
-                />
+                <Checkbox id={'politics'} name={'politics'} checked={formik.values.politics} onChange={formik.handleChange} />
               </div>
               <p className={styles.main_blockDesc_description}>
                 Принимаю условия
-                <a
-                  href={'/'}
-                  rel={'noreferrer'}
-                  target={'_blank'}
-                  className={styles.main_blockDesc_link}
-                >
+                <a href={'/'} rel={'noreferrer'} target={'_blank'} className={styles.main_blockDesc_link}>
                   договора оферты
                 </a>
               </p>
             </div>
             <div className={styles.main_btn}>
-              <Button
-                style={{ width: '246px' }}
-                type={'submit'}
-                variant={'primary'}
-                text={'Зарегистрироваться'}
-              />
+              <Button style={{ width: '246px' }} type={'submit'} variant={'primary'} text={'Зарегистрироваться'} />
             </div>
           </div>
         </form>

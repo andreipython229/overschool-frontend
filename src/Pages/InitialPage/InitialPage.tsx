@@ -9,17 +9,10 @@ import QA from '../../assets/img/course/qa.jpg'
 import UI from '../../assets/img/course/ui.jpg'
 import Java from '../../assets/img/course/java.jpg'
 
-import { useAppDispatch } from '../../store/hooks'
-import { loginUser } from 'store/redux/users/slice'
-
 export const InitialPage = memo(() => {
-  const dispatch = useAppDispatch()
   const [currentCourse, setCurrentCourse] = useState<string>('1')
   const [registrationShow, setRegistrationShow] = useState<boolean>(false)
   const [loginShow, setLoginShow] = useState<boolean>(false)
-  const logIn = (value: string | number) => {
-    dispatch(loginUser({ value }))
-  }
 
   const python = {
     backgroundImage: 'url(' + Python + ')',
@@ -42,7 +35,7 @@ export const InitialPage = memo(() => {
   return (
     <div className={styles.init}>
       {registrationShow ? <RegistrationModal setShowModal={setRegistrationShow} /> : null}
-      {loginShow ? <LoginModal logIn={logIn} setShowModal={setLoginShow} /> : null}
+      {loginShow ? <LoginModal setShowModal={setLoginShow} /> : null}
       <InitPageHeader setLoginShow={setLoginShow} setRegistrationShow={setRegistrationShow} />
       <div className={styles.init_main}>
         <section className={styles.init_main_wrapper}>
