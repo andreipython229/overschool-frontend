@@ -5,6 +5,9 @@
   border: 2px solid black;
   h3 {
     color: #4D5766;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
   }
 }
 .modal_header {
@@ -13,6 +16,7 @@
   box-sizing: border-box;
 }
 .modal_btn_is_toggle {
+  margin-top: 40px;
   position: relative;
   display: flex;
   align-items: center;
@@ -34,13 +38,9 @@
 .arrow_rotate {
   transform: rotate(180deg);
 }
-.add_file_button {
-  margin-bottom: 50px;
+.btn_grey {
   border: none;
   cursor: pointer;
-  max-width: 195px;
-  width: 195px;
-  max-height: 40px;
   padding: 20px 10px;
   border-radius: 7px;
   box-sizing: border-box;
@@ -49,12 +49,50 @@
   justify-content: space-between;
   align-items: center;
   background-color: #F3F4F6;
+  font-weight: 500;
+  font-size: 14px;
+  width: fit-content;
+  text-align: center;
+  height: 39px;
+  span {
+    margin: 0 10px;
+  }
+}
+.header_info {
+  display: inline-flex;
+  margin-bottom: 20px;
+}
+.header_info > * {
+  margin: auto;
+}
+.task_status {
+  margin-right: 40px;
+  display: flex;
+  color: #9CA3AF;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+.task_info {
+  display: inline-flex;
+  &_item {
+    margin: 0 30px 0 0;
+    display: flex;
+    span {
+      width: fit-content;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 10px;
+      display: flex;
+      font-weight: 400;
+      font-size: 14px;
+      color: #4D5766;
+    }
+  }
 }
 .answer_header {
   margin: 20px 0;
 }
-
-
 
 .speech_bubble {
   position: relative;
@@ -92,16 +130,23 @@
   color: #6b7484;
   padding-bottom: 30px;
   &_avatar {
-    width: 45px;
-    height: 45px;
+    width: 48px;
+    height: 48px;
     margin-right: 10px;
   }
   &_teacherData {
     display: flex;
     flex-direction: column;
+
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
     &_name {
-      font-weight: 700;
+      font-weight: 500;
       margin-bottom: 5px;
+    }
+    &_date {
+      font-weight: 400;
     }
   }
 }
