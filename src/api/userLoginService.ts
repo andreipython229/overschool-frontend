@@ -2,6 +2,20 @@ import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
 import { formDataConverter } from '../utils/formDataConverter'
 import { RootState } from '../store/redux/store'
 
+interface ICredentials {
+  phone?: string
+  email?: string
+  password: string
+}
+
+interface IResponse {
+  user: {
+    email: string
+    token: string
+    username: null | string
+  }
+}
+
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',
   baseQuery: fetchBaseQuery({
@@ -16,7 +30,7 @@ export const userLoginService = createApi({
     },
   }),
   endpoints: builder => ({
-    login: builder.mutation<any, any>({
+    login: builder.mutation<IResponse, ICredentials>({
       query: credentials => {
         const formdata = formDataConverter(credentials)
         return {

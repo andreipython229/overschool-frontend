@@ -1,4 +1,4 @@
-import React, { memo, MouseEvent, useEffect, useState } from 'react'
+import React, { memo, MouseEvent, ReactNode, useEffect, useState } from 'react'
 import { Editor, EditorState, RichUtils } from 'draft-js'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { editorSvgLabel } from '../../constants/iconSvgConstants'
@@ -6,6 +6,12 @@ import 'draft-js/dist/Draft.css'
 
 import styles from './editor.module.scss'
 // import { useDebounce } from '../../customHooks/useDebounce'
+
+interface IEditor {
+  label?: ReactNode
+  style?: string
+  onToggle: (arg: string) => void
+}
 
 export const MyEditor = memo(() => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
@@ -23,119 +29,55 @@ export const MyEditor = memo(() => {
     focusEditor()
   }, [])
 
-  const StyleButton = (props: any) => {
+  const StyleButton = (props: IEditor) => {
     const onClickButton = (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
-      props.onToggle(props.style)
+      props?.style && props?.onToggle(props?.style)
     }
-    return <button onMouseDown={onClickButton}>{props.label}</button>
+    return <button onMouseDown={onClickButton}>{props?.label}</button>
   }
 
   const BLOCK_TYPES = [
     {
-      label: (
-        <IconSvg
-          width={13}
-          height={12}
-          fill="#03053D"
-          d={editorSvgLabel.labelHeaderOne}
-          viewBoxSize="0 0 13 12"
-        />
-      ),
+      label: <IconSvg width={13} height={12} fill="#03053D" d={editorSvgLabel.labelHeaderOne} viewBoxSize="0 0 13 12" />,
       style: 'header-one',
     },
     {
-      label: (
-        <IconSvg
-          width={14}
-          height={12}
-          fill="#03053D"
-          d={editorSvgLabel.labelHeaderTwo}
-          viewBoxSize="0 0 14 12"
-        />
-      ),
+      label: <IconSvg width={14} height={12} fill="#03053D" d={editorSvgLabel.labelHeaderTwo} viewBoxSize="0 0 14 12" />,
       style: 'header-two',
     },
     {
-      label: (
-        <IconSvg
-          width={14}
-          height={12}
-          fill="#03053D"
-          d={editorSvgLabel.labelHeaderThree}
-          viewBoxSize="0 0 14 12"
-        />
-      ),
+      label: <IconSvg width={14} height={12} fill="#03053D" d={editorSvgLabel.labelHeaderThree} viewBoxSize="0 0 14 12" />,
       style: 'header-three',
     },
     {
-      label: (
-        <IconSvg
-          width={12}
-          height={10}
-          fill="#03053D"
-          d={editorSvgLabel.labelBlockquote}
-          viewBoxSize="0 0 12 10"
-        />
-      ),
+      label: <IconSvg width={12} height={10} fill="#03053D" d={editorSvgLabel.labelBlockquote} viewBoxSize="0 0 12 10" />,
       style: 'blockquote',
     },
     {
-      label: (
-        <IconSvg
-          width={12}
-          height={12}
-          fill="#03053D"
-          d={editorSvgLabel.labelUnorderedListItem}
-          viewBoxSize="0 0 12 12"
-        />
-      ),
+      label: <IconSvg width={12} height={12} fill="#03053D" d={editorSvgLabel.labelUnorderedListItem} viewBoxSize="0 0 12 12" />,
       style: 'unordered-list-item',
     },
     {
-      label: (
-        <IconSvg
-          width={12}
-          height={12}
-          fill="#03053D"
-          d={editorSvgLabel.labelOrderedListItem}
-          viewBoxSize="0 0 12 12"
-        />
-      ),
+      label: <IconSvg width={12} height={12} fill="#03053D" d={editorSvgLabel.labelOrderedListItem} viewBoxSize="0 0 12 12" />,
       style: 'ordered-list-item',
     },
     {
-      label: (
-        <IconSvg
-          width={16}
-          height={12}
-          fill="#03053D"
-          d={editorSvgLabel.labelCodeBlock}
-          viewBoxSize="0 0 16 12"
-        />
-      ),
+      label: <IconSvg width={16} height={12} fill="#03053D" d={editorSvgLabel.labelCodeBlock} viewBoxSize="0 0 16 12" />,
       style: 'code-block',
     },
     {
-      label: (
-        <IconSvg
-          width={17}
-          height={17}
-          fill="#03053D"
-          d={editorSvgLabel.labelImage}
-          viewBoxSize="0 0 17 17"
-        />
-      ),
+      label: <IconSvg width={17} height={17} fill="#03053D" d={editorSvgLabel.labelImage} viewBoxSize="0 0 17 17" />,
       style: 'IMAGE',
     },
   ]
 
   const Image = (props: any) => {
-    return <img src={props.src} className={styles.media} alt={'content'} />
+    return <img src={props?.src} className={styles.media} alt={'content'} />
   }
 
   const Media = (props: any) => {
-    const entity = props.contentState.getEntity(props.block.getEntityAt(0))
+    const entity = props?.contentState.getEntity(props?.block.getEntityAt(0))
     const { src } = entity.getData()
     const type = entity.getType()
 
@@ -158,16 +100,11 @@ export const MyEditor = memo(() => {
     return null
   }
 
-  const BlockStyleControls = (props: any) => {
+  const BlockStyleControls = (props: IEditor) => {
     return (
       <div>
         {BLOCK_TYPES.map(type => (
-          <StyleButton
-            key={type.style}
-            label={type.label}
-            onToggle={props.onToggle}
-            style={type.style}
-          />
+          <StyleButton key={type.style} label={type?.label} onToggle={props.onToggle} style={type?.style} />
         ))}
       </div>
     )

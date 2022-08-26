@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react'
 
-type IconSvgT = {
+export type IconSvgT = {
   width: number
   height: number
   fill?: string

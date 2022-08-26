@@ -1,6 +1,4 @@
-// import { useAppSelector } from './store/hooks'
-// import { authSelector } from 'selectors'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Path, Student } from 'enum/pathE'
 
 import styles from './App.module.scss'
@@ -11,17 +9,6 @@ import { MobileCoursePage } from 'MobilePages/MobileCoursePage/MobileCoursePage'
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 
 export const AppMobile = () => {
-  // const isLogin = useAppSelector(authSelector)
-  // const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   if (!isLogin) {
-  //     navigate(Path.InitialPage)
-  //   } else {
-  //     navigate(`${Path.InitialPage}${Student.Courses}`)
-  //   }
-  // }, [isLogin, navigate])
-
   return (
     <div className={styles.container}>
       <Routes>
