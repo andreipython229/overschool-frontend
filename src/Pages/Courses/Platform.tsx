@@ -23,6 +23,7 @@ export const Platform: FC = memo(() => {
   const { courses } = useAppSelector(allCoursesSelector)
 
   const [showModal, setShowModal] = useState<boolean>(false)
+
   const { data: coursesList } = useFetchCoursesQuery(null)
 
   useEffect(() => {

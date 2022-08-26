@@ -27,13 +27,13 @@
     "@typescript-eslint",
     "prettier"
   ],
+
   "rules": {
     "no-shadow": "off",
     "no-alert": "error",
     "no-debugger": "warn",
     "no-plusplus": "error",
     "no-unused-vars": "off",
-    "no-unused-expressions": "warn",
     "no-magic-numbers": "off",
     "default-param-last": "off",
     "no-use-before-define": "off",
@@ -44,9 +44,9 @@
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-    "spaced-comment": "error",
     "no-duplicate-imports": "error"
   },
+
   "settings": {
     "import/resolver": {
       "typescript": {},

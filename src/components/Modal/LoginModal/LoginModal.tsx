@@ -1,10 +1,7 @@
 import React, { FC, memo, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import { Link } from 'react-router-dom'
-
 import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
-import unSecurity from '../../../assets/img/unSecurity.svg'
-import Security from '../../../assets/img/isecurity.svg'
 import { Button } from '../../common/Button/Button'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
 import { useAppDispatch } from '../../../store/hooks'
@@ -15,21 +12,24 @@ import { useShowModal } from '../../../customHooks/useShowModal'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { cross } from '../../../constants/iconSvgConstants'
 
+import unSecurity from '../../../assets/img/unSecurity.svg'
+import Security from '../../../assets/img/isecurity.svg'
 import styles from '../Modal.module.scss'
 
 type LoginModalPropsT = {
   setShowModal: (value: boolean) => void
-  logIn: (value: string) => void
 }
 
-export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) => {
+const errorLoginOrPassword = 'Неверный логин или пароль'
+
+export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
   const dispatch = useAppDispatch()
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
 
   const [attemptAccess, { data, error, isSuccess }] = useLoginMutation()
 
-  const getInputVariant = (variant: any) => {
+  const getInputVariant = (variant: keyof LoginParamsT): void => {
     setAuthVariant(variant)
   }
   const changeSecurityStatus = () => {
@@ -52,18 +52,13 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
         password: user.password,
       }
       await attemptAccess(loginUser)
-      dispatch(auth(true))
-      setShowModal(false)
     },
   })
   useEffect(() => {
     if (isSuccess) {
       setShowModal(false)
-      dispatch(token(data.user.token))
+      dispatch(token(data?.user?.token as string))
       dispatch(auth(true))
-      if (error) {
-        console.log(error)
-      }
     }
   }, [isSuccess, error])
 
@@ -94,7 +89,7 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal, logIn }) =
                   />
                   <AuthSelect getInputVariant={getInputVariant} />
                 </div>
-                <div className={styles.errors}>{formik.errors.email}</div>
+                <div className={styles.errors}>{formik.errors.email || (error && errorLoginOrPassword)}</div>
               </div>
               <InputAuth
                 name={'password'}

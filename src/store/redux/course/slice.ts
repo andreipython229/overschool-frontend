@@ -48,14 +48,11 @@ export const slice = createSlice({
     addCourseId: (state, action: PayloadAction<string>) => {
       state.course_id = action.payload
     },
-    uploadImgCourse: (state, action: string | any) => {
-      state.photo_url = action.payload
-    },
     addClasses: (state, action: PayloadAction<ClassesType>) => {
       state.classes.push(action.payload)
     },
   },
 })
 
-export const { addCourseId, addClasses, uploadImgCourse } = slice.actions
+export const { addCourseId, addClasses } = slice.actions
 export const courseReduce = slice.reducer

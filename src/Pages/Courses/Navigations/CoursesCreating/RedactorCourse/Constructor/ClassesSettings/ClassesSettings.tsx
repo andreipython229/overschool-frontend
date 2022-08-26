@@ -1,4 +1,4 @@
-import React, { useState, DragEvent, ChangeEvent, FC } from 'react'
+import React, { useState, MouseEvent, DragEvent, ChangeEvent, FC } from 'react'
 import { Toggle } from '@skbkontur/react-ui'
 import { ContentBtn } from '../../ContentBtn/ContentBtn'
 import { Button } from 'components/common/Button/Button'
@@ -26,7 +26,11 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
   const dispatch = useAppDispatch()
   const [dragVideo, setDragVideo] = useState<boolean>(false)
   const [dragAudio, setDragAudio] = useState<boolean>(false)
+  const [visible, setVisible] = useState<boolean>(false)
 
+  const handleVisible = (event: MouseEvent) => {
+    console.log(event.target)
+  }
   // Драг энд дроп функции
 
   const showSettingsModal = () => {
@@ -101,50 +105,32 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
       }
     }
   }
-  const stylesOnDrop =
-    styles.redactorCourse_rightSide_functional_addContent +
-    ' ' +
-    styles.redactorCourse_rightSide_functional_addDragContent
+  const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
   const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
   return (
     <div className={styles.redactorCourse_rightSide}>
       <div className={styles.redactorCourse_rightSide_header}>
         <span className={styles.redactorCourse_rightSide_title}>Первый урок</span>
         <div className={styles.redactorCourse_rightSide_header_btnBlock}>
-          <button
-            onClick={showSettingsModal}
-            className={styles.redactorCourse_rightSide_header_btnBlock_setting}
-          >
-            <IconSvg
-              width={16}
-              height={16}
-              d={classesSettingSvgIcon.setting}
-              viewBoxSize="0 0 16 16"
-              fill={'#6B7280'}
-            />
+          <button onClick={showSettingsModal} className={styles.redactorCourse_rightSide_header_btnBlock_setting}>
+            <IconSvg width={16} height={16} d={classesSettingSvgIcon.setting} viewBoxSize="0 0 16 16" fill={'#6B7280'} />
             Настройки
           </button>
           <button className={styles.redactorCourse_rightSide_header_btnBlock_delete}>
-            <IconSvg
-              width={19}
-              height={19}
-              d={classesSettingSvgIcon.deleteIcon}
-              viewBoxSize="0 0 19 19"
-              fill={'#EF4444'}
-            />
+            <IconSvg width={19} height={19} d={classesSettingSvgIcon.deleteIcon} viewBoxSize="0 0 19 19" fill={'#EF4444'} />
           </button>
         </div>
       </div>
+
       <div className={styles.redactorCourse_rightSide_functional}>
         <div className={styles.redactorCourse_rightSide_functional_content}>
           <span className={styles.redactorCourse_rightSide_title}>Содержание занятия</span>
           <div>
-            <span className={styles.redactorCourse_rightSide_functional_content_preview}>
-              Предпросмотр
-            </span>
+            <span className={styles.redactorCourse_rightSide_functional_content_preview}>Предпросмотр</span>
             <Toggle />
           </div>
         </div>
+
         <MyEditor />
         <section style={{ marginBottom: '48px' }}>
           <div
@@ -156,38 +142,16 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
           >
             <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
               <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-                <IconSvg
-                  width={11}
-                  height={15}
-                  d={classesSettingSvgIcon.arrowUp}
-                  viewBoxSize="0 0 11 15"
-                  fill={'#2E4454'}
-                />
+                <IconSvg width={11} height={15} d={classesSettingSvgIcon.arrowUp} viewBoxSize="0 0 11 15" fill={'#2E4454'} />
               </div>
               <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-                <IconSvg
-                  width={11}
-                  height={15}
-                  d={classesSettingSvgIcon.arrowDown}
-                  viewBoxSize="0 0 11 15"
-                  fill={'#2E4454'}
-                />
+                <IconSvg width={11} height={15} d={classesSettingSvgIcon.arrowDown} viewBoxSize="0 0 11 15" fill={'#2E4454'} />
               </div>
               <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-                <IconSvg
-                  width={13}
-                  height={17}
-                  d={classesSettingSvgIcon.arrowUpdate}
-                  viewBoxSize="0 0 13 17"
-                  fill={'#BA75FF'}
-                />
+                <IconSvg width={13} height={17} d={classesSettingSvgIcon.arrowUpdate} viewBoxSize="0 0 13 17" fill={'#BA75FF'} />
               </div>
             </div>
-            <input
-              className={styles.redactorCourse_rightSide_functional_addContent_input}
-              onChange={onAddVideoFile}
-              type="file"
-            />
+            <input className={styles.redactorCourse_rightSide_functional_addContent_input} onChange={onAddVideoFile} type="file" />
             <IconSvg
               width={83}
               height={84}
@@ -209,11 +173,7 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
             onDrop={onDropAudioHandler}
             className={dragAudio ? stylesOnDrop : stylesNoDrop}
           >
-            <input
-              className={styles.redactorCourse_rightSide_functional_addContent_input}
-              onChange={onAddAudioFile}
-              type="file"
-            />
+            <input className={styles.redactorCourse_rightSide_functional_addContent_input} onChange={onAddAudioFile} type="file" />
             <ClassesSettingSvgBlock />
             <span>Перетащите .mp3 аудиофайл или нажмите для загрузки</span>
             <Button variant={'primary'} text={'Выбрать файл'} />
@@ -226,14 +186,12 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
           </div>
         </section>
         <section className={styles.redactorCourse_rightSide_functional_creating}>
-          <div className={styles.redactorCourse_rightSide_functional_creating_title}>
-            Добавить контент
-          </div>
+          <div className={styles.redactorCourse_rightSide_functional_creating_title}>Добавить контент</div>
           <div className={styles.redactorCourse_rightSide_functional_creating_function}>
-            <ContentBtn text={'Текс'} alt={'Add text for lesson'} src={Text} />
-            <ContentBtn text={'Видео'} alt={'Add video for lesson'} src={Video} />
-            <ContentBtn text={'Аудио'} alt={'Add audio for lesson'} src={Audio} />
-            <ContentBtn text={'Код'} alt={'Add code for lesson'} src={Code} />
+            <ContentBtn func={handleVisible} text={'Текс'} alt={'Add text for lesson'} src={Text} />
+            <ContentBtn func={handleVisible} text={'Видео'} alt={'Add video for lesson'} src={Video} />
+            <ContentBtn func={handleVisible} text={'Аудио'} alt={'Add audio for lesson'} src={Audio} />
+            <ContentBtn func={handleVisible} text={'Код'} alt={'Add code for lesson'} src={Code} />
           </div>
         </section>
         <div>
@@ -242,18 +200,10 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
             style={{ width: '180px', padding: '11px 0 11px 16px', marginTop: '16px' }}
             className={styles.redactorCourse_rightSide_header_btnBlock_setting}
           >
-            <IconSvg
-              width={22}
-              height={18}
-              d={classesSettingSvgIcon.paperClip}
-              viewBoxSize="0 0 22 18"
-              fill={'#6B7280'}
-            />
+            <IconSvg width={22} height={18} d={classesSettingSvgIcon.paperClip} viewBoxSize="0 0 22 18" fill={'#6B7280'} />
             Прикрепить файлы
           </button>
-          <span className={styles.redactorCourse_rightSide_desc}>
-            Любые файлы размером не более 2 гигабайта
-          </span>
+          <span className={styles.redactorCourse_rightSide_desc}>Любые файлы размером не более 2 гигабайта</span>
         </div>
       </div>
     </div>
