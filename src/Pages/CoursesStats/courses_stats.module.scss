@@ -1,0 +1,52 @@
+@import 'src/scss/variable';
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  margin-top: 40px;
+  box-sizing: border-box;
+  h4 {
+    margin-bottom: 40px;
+  }
+}
+.courses_card_block {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.mini_card_img {
+  width: 52px;
+  height: 52px;
+  border-radius: 7px;
+  margin-right: 16px;
+}
+.mini_card_container {
+  display: flex;
+  align-items: center;
+  width: 272px;
+  margin: 16px 0;
+  border-radius: 7px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  box-shadow: 3px 3px 7px #474343;
+  padding: 16px;
+}
+.mini_card_name {
+  color: #4d5766;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.mini_card_list {
+  display: flex;
+  color: $font-color-rose;
+  font-size: 10px;
+  li {
+    margin-left: 19px;
+    span {
+      color: #a5a9b4;
+    }
+  }
+}

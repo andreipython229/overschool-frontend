@@ -42,7 +42,6 @@ export const coursesServices = createApi({
     }),
     updateCourses: build.mutation({
       query: (arg): string | FetchArgs => {
-        console.log(arg)
         return {
           url: `/courses/${arg.id}/`,
           method: 'PUT',
