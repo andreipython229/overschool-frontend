@@ -1,0 +1,142 @@
+.previous {
+  position: relative;
+  width: 100%;
+  height: 210px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  background: #e0dced;
+  border-radius: 7px;
+  overflow: hidden;
+  margin-bottom: 25px;
+
+  &_bcgrShadow {
+    position: absolute;
+    top: 0;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+  }
+
+  .background_image_course {
+    width: 100%;
+    height: 100%;
+  }
+  img {
+    display: inline-block;
+    width: 66px;
+    height: 66px;
+  }
+
+  &_infoBlock {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    bottom: 26px;
+    left: 34px;
+
+    &_avatar {
+      border: 1px solid #ffffff;
+      border-radius: 50%;
+      box-sizing: border-box;
+      margin-right: 16px;
+    }
+
+    &_title {
+      display: flex;
+      flex-direction: column;
+
+      &_description {
+        color: #ba75ff;
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
+
+      &_name {
+        font-size: 20px;
+        color: #bdbdbd;
+        line-height: 24px;
+      }
+
+      &_about {
+        font-size: 10px;
+        color: #bdbdbd;
+      }
+    }
+  }
+
+  &_onlineCourses {
+    position: absolute;
+    top: 107px;
+    left: 44px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #ba75ff;
+  }
+
+  &_btn {
+    position: absolute;
+    right: 37px;
+    bottom: 44px;
+
+    & button {
+      padding: 10px 14px;
+    }
+  }
+}
+.input_change {
+  border: none;
+  outline: none;
+  background: #e0dced;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+.hide_input {
+  width: 66px;
+  height: 66px;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.input_background_image {
+  opacity: 0;
+}
+.label_input_background_image {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0 0 15px 15px;
+  padding-top: 15px;
+  width: 30%;
+  display: block;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+.previous_title_name {
+  position: absolute;
+  left: 43px;
+  top: 147px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #fff;
+}
+.back_all_course {
+  position: absolute;
+  top: 40px;
+  left: 44px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+
+  span {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    margin-left: 13px;
+  }
+}

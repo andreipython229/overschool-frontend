@@ -4,7 +4,7 @@ import { Button } from 'components/common/Button/Button'
 import { useAppSelector } from '../../store/hooks'
 import { AboutUser } from './AboutUser/AboutUser'
 import noAvatar from '../../assets/img/noAvatar.svg'
-import { Previous } from '../Courses/Previous/Previous'
+import { Previous } from '../../components/Previous/Previous'
 import { selectUser } from 'selectors'
 import { Toggle } from '@skbkontur/react-ui'
 import styles from './profile.module.scss'
@@ -96,26 +96,14 @@ export const Profile = memo(() => {
         <div>
           <div style={{ width: '546px' }} className={styles.container}>
             <h5>Изменить email</h5>
-            <Input
-              name={'Новый email адрес'}
-              type={'text'}
-              onChange={e => changeEmail(e)}
-              value={userEmail}
-              placeholder={'Новый email адрес'}
-            />
+            <Input name={'Новый email адрес'} type={'text'} onChange={e => changeEmail(e)} value={userEmail} placeholder={'Новый email адрес'} />
             <div className={styles.container_wrapper}>
               <Button variant={email === userEmail ? 'disabled' : 'primary'} text={'Сохранить'} />
             </div>
           </div>
           <div style={{ width: '546px', marginTop: '32px' }} className={styles.container}>
             <h5>Смена пароля</h5>
-            <Input
-              name={'Новый пароль'}
-              type={'password'}
-              onChange={e => changePassword(e)}
-              value={newPassword}
-              placeholder={'Новый пароль'}
-            />
+            <Input name={'Новый пароль'} type={'password'} onChange={e => changePassword(e)} value={newPassword} placeholder={'Новый пароль'} />
             <div className={styles.container_wrapper}>
               <Input
                 name={'Повторить новый пароль'}
@@ -126,14 +114,7 @@ export const Profile = memo(() => {
               />
             </div>
             <div className={styles.container_wrapper}>
-              <Button
-                variant={
-                  newPassword.length >= 8 && newPassword === repeatNewPassword
-                    ? 'primary'
-                    : 'disabled'
-                }
-                text={'Сменить пароль'}
-              />
+              <Button variant={newPassword.length >= 8 && newPassword === repeatNewPassword ? 'primary' : 'disabled'} text={'Сменить пароль'} />
             </div>
           </div>
           <div style={{ width: '566px', marginTop: '32px' }} className={styles.notification}>
@@ -141,9 +122,7 @@ export const Profile = memo(() => {
             <div className={styles.notification_toggleWrapper}>
               <div className={styles.notification_toggleWrapper_toggleBlock}>
                 <div className={styles.notification_toggleWrapper_toggleBlock_text}>
-                  <span className={styles.notification_toggleWrapper_toggleBlock_text_header}>
-                    Уведомлять о присланных домашних заданиях
-                  </span>
+                  <span className={styles.notification_toggleWrapper_toggleBlock_text_header}>Уведомлять о присланных домашних заданиях</span>
                   <p className={styles.notification_toggleWrapper_toggleBlock_text_desc}>
                     После каждой присланной домашней работы вам будет приходить уведомление на почту
                   </p>
@@ -156,12 +135,9 @@ export const Profile = memo(() => {
               </div>
               <div className={styles.notification_toggleWrapper_toggleBlock}>
                 <div className={styles.notification_toggleWrapper_toggleBlock_text}>
-                  <span className={styles.notification_toggleWrapper_toggleBlock_text_header}>
-                    Уведомлять о непрочитанных сообщениях
-                  </span>
+                  <span className={styles.notification_toggleWrapper_toggleBlock_text_header}>Уведомлять о непрочитанных сообщениях</span>
                   <p className={styles.notification_toggleWrapper_toggleBlock_text_desc}>
-                    Раз в сутки вам на почту будет приходить уведомление, если у вас есть
-                    непрочитанные сообщения
+                    Раз в сутки вам на почту будет приходить уведомление, если у вас есть непрочитанные сообщения
                   </p>
                 </div>
                 <div>
@@ -170,12 +146,9 @@ export const Profile = memo(() => {
               </div>
               <div className={styles.notification_toggleWrapper_toggleBlock}>
                 <div className={styles.notification_toggleWrapper_toggleBlock_text}>
-                  <span className={styles.notification_toggleWrapper_toggleBlock_text_header}>
-                    Уведомлять о предстоящем вебинаре
-                  </span>
+                  <span className={styles.notification_toggleWrapper_toggleBlock_text_header}>Уведомлять о предстоящем вебинаре</span>
                   <p className={styles.notification_toggleWrapper_toggleBlock_text_desc}>
-                    Вы будете уведомлены перед началом вебинара, в котором вы указаны ответственным
-                    сотрудником
+                    Вы будете уведомлены перед началом вебинара, в котором вы указаны ответственным сотрудником
                   </p>
                 </div>
                 <div>
@@ -184,9 +157,7 @@ export const Profile = memo(() => {
               </div>
               <div className={styles.notification_toggleWrapper_toggleBlock}>
                 <div className={styles.notification_toggleWrapper_toggleBlock_text}>
-                  <span className={styles.notification_toggleWrapper_toggleBlock_text_header}>
-                    Уведомлять о пройденных учениками курсах
-                  </span>
+                  <span className={styles.notification_toggleWrapper_toggleBlock_text_header}>Уведомлять о пройденных учениками курсах</span>
                   <p className={styles.notification_toggleWrapper_toggleBlock_text_desc}>
                     На почту придет уведомление, когда один из учеников пройдет все занятия курса
                   </p>

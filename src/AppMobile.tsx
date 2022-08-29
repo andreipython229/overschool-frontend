@@ -3,7 +3,7 @@ import { Path, Student } from 'enum/pathE'
 
 import styles from './App.module.scss'
 import { MobileInitPage } from 'MobilePages/MobileInitPage/MobileInitPage'
-import { MobileLayOut } from 'Pages/layout/MobileLayOut'
+import { MobileLayOut } from 'MobilePages/layout/MobileLayOut'
 import { MobileCoursesPage } from 'MobilePages/MobileCoursesPage/MobileCoursesPage'
 import { MobileCoursePage } from 'MobilePages/MobileCoursePage/MobileCoursePage'
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
