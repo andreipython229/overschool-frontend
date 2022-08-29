@@ -1,17 +1,17 @@
-import React, { useState, DragEvent, ChangeEvent, FC } from 'react';
-import { Button } from "components/common/Button/Button";
-import { IconSvg } from "components/common/IconSvg/IconSvg";
-import styles from './addaudio.module.scss';
-import { classesSettingSvgIcon } from '../../constants/iconSvgConstants';
-import { ClassesSettingSvgBlock } from 'Pages/Courses/Navigations/CoursesCreating/RedactorCourse/Constructor/ClassesSettings/ClassesSettingSvgBlock/ClassesSettingSvgBlock';
+import React, { useState, DragEvent, ChangeEvent, FC } from 'react'
+import { Button } from 'components/common/Button/Button'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { classesSettingSvgIcon } from '../../constants/iconSvgConstants'
+import { ClassesSettingSvgBlock } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/ClassesSettings/ClassesSettingSvgBlock/ClassesSettingSvgBlock'
+
+import styles from './addaudio.module.scss'
 
 type setShowType = {
   setShow: (value: boolean) => void
 }
 
-export const AddAudio: FC<setShowType> = ({setShow}) => {
-    
-  const [dragAudio, setDragAudio] = useState<boolean>(false);
+export const AddAudio: FC<setShowType> = ({ setShow }) => {
+  const [dragAudio, setDragAudio] = useState<boolean>(false)
 
   const dragStartAudioHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -46,36 +46,41 @@ export const AddAudio: FC<setShowType> = ({setShow}) => {
       }
     }
   }
-    const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent;
-    const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent;
+  const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
+  const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
-    return (
-        
-          <div
-            onDragStart={dragStartAudioHandler}
-            onDragLeave={dragLeaveAudioHandler}
-            onDragOver={dragStartAudioHandler}
-            onDrop={onDropAudioHandler}
-            className={dragAudio ? stylesOnDrop : stylesNoDrop}
-          >
-          <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
-            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-              <IconSvg width={11} height={15} d={classesSettingSvgIcon.arrowUp} viewBoxSize="0 0 11 15" fill={'#2E4454'} />
-            </div>
-            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-              <IconSvg width={11} height={15} d={classesSettingSvgIcon.arrowDown} viewBoxSize="0 0 11 15" fill={'#2E4454'} />
-            </div>
-            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-              <IconSvg width={13} height={17} d={classesSettingSvgIcon.arrowUpdate} viewBoxSize="0 0 13 17" fill={'#BA75FF'} />
-            </div>
-            <div className={styles.redactorCourse_rightSide_header_btnBlock_delete} onClick={() => {setShow(false)}}>
-                <IconSvg width={19} height={19} d={classesSettingSvgIcon.deleteIcon} viewBoxSize="0 0 19 19" fill={'#EF4444'} />
-            </div>
-          </div>
-            <input className={styles.redactorCourse_rightSide_functional_addContent_input} onChange={onAddAudioFile} type="file" />
-            <ClassesSettingSvgBlock />
-            <span>Перетащите .mp3 аудиофайл или нажмите для загрузки</span>
-            <Button variant={'primary'} text={'Выбрать файл'} />
-          </div>
-    )
+  return (
+    <div
+      onDragStart={dragStartAudioHandler}
+      onDragLeave={dragLeaveAudioHandler}
+      onDragOver={dragStartAudioHandler}
+      onDrop={onDropAudioHandler}
+      className={dragAudio ? stylesOnDrop : stylesNoDrop}
+    >
+      <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
+        <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
+          <IconSvg width={11} height={15} d={classesSettingSvgIcon.arrowUp} viewBoxSize="0 0 11 15" fill={'#2E4454'} />
+        </div>
+        <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
+          <IconSvg width={11} height={15} d={classesSettingSvgIcon.arrowDown} viewBoxSize="0 0 11 15" fill={'#2E4454'} />
+        </div>
+        <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
+          <IconSvg width={13} height={17} d={classesSettingSvgIcon.arrowUpdate} viewBoxSize="0 0 13 17" fill={'#BA75FF'} />
+        </div>
+        <div
+          className={styles.redactorCourse_rightSide_header_btnBlock_delete}
+          onClick={() => {
+            setShow(false)
+          }}
+        >
+          <IconSvg width={19} height={19} d={classesSettingSvgIcon.deleteIcon} viewBoxSize="0 0 19 19" fill={'#EF4444'} />
+        </div>
+      </div>
+      <input className={styles.redactorCourse_rightSide_functional_addContent_input} onChange={onAddAudioFile} type="file" />
+
+      <ClassesSettingSvgBlock />
+      <span>Перетащите .mp3 аудиофайл или нажмите для загрузки</span>
+      <Button variant={'primary'} text={'Выбрать файл'} />
+    </div>
+  )
 }
