@@ -4,7 +4,7 @@ export enum Path {
   Profile = 'profile/',
   Settings = 'settings/*',
   CreateCourse = 'create-course/:course_id/*',
-  StudentsStats = 'students-stats/*',
+  CourseStats = 'courses-stats/*',
   HomeWork = 'home-work',
 }
 

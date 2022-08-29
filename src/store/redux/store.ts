@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'modal'],
+  whitelist: ['user', 'modal', 'createCourse', 'allCourses'],
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

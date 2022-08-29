@@ -1,0 +1,147 @@
+@import '../../scss/variable';
+
+.main {
+  font-family: 'Inter', sans-serif;
+  color: #4d5766;
+
+  &_title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  &_project {
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    margin-bottom: 11px;
+  }
+
+  &_description {
+    font-size: 10px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  &_input {
+    width: 318px;
+    padding: 9px 0 9px 16px;
+    outline: none;
+    border: #e5e7eb 1px solid;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-right: 52px;
+  }
+
+  &_btn {
+    width: 90px;
+    font-size: 10px;
+    color: #ffffff;
+    background-color: #b5b5b5;
+    letter-spacing: -0.03em;
+    text-align: center;
+    padding: 11px 0;
+    border: none;
+    border-radius: 5px;
+  }
+}
+
+.logs {
+  font-family: $font-family-inter;
+  color: #4d5766;
+  margin-bottom: 85px;
+
+  &_title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  &_table {
+    width: 100%;
+
+    &_title {
+      font-size: 11px;
+      display: flex;
+      padding: 0 20px;
+      position: relative;
+      justify-content: space-between;
+
+      & div {
+        width: 300px;
+      }
+    }
+  }
+}
+
+.employees {
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 38px;
+    padding-right: 10px;
+
+    &_title {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      color: #4d5766;
+    }
+
+    &_btn {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      border: none;
+      outline: none;
+      background: #ba75ff;
+      width: 100px;
+      border-radius: 5px;
+      color: #ffffff;
+      text-align: center;
+      align-items: center;
+      padding: 10px 0;
+      cursor: pointer;
+      margin-right: 40px;
+    }
+  }
+
+  &_table {
+    width: 100%;
+
+    &_title {
+      width: 100%;
+      font-size: 11px;
+      display: flex;
+      padding: 0 20px;
+      position: relative;
+      justify-content: space-between;
+
+      & div:nth-child(1) {
+        width: 60%;
+      }
+      & div:nth-child(2) {
+        width: 40%;
+      }
+    }
+  }
+}
+
+.decor {
+  font-family: 'Inter', sans-serif;
+  color: #4d5766;
+  display: flex;
+  flex-direction: column;
+
+  &_title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+}
+
+.wrapper_actions {
+  background-color: #ffffff;
+  padding: 26px 32px 24px 32px;
+  box-shadow: 0 0 8px #d9d9d9;
+  border-radius: 8px;
+}
