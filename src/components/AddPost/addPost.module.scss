@@ -230,7 +230,7 @@
         border-radius: 7px;
         text-align: center;
         padding-bottom: 10px;
-        margin: 0 auto 24px auto;
+        margin: 48px auto 24px auto;
 
         &_title {
           margin-bottom: 18px;
@@ -242,7 +242,10 @@
         &_function {
           display: flex;
           justify-content: center;
-
+          
+          & span {
+            margin-top: 10px;
+          }
           & div:not(:last-child) {
             margin-right: 16px;
           }

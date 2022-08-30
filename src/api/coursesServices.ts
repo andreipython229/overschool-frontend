@@ -10,8 +10,7 @@ export const coursesServices = createApi({
       const token = (getState() as RootState)?.user?.token
 
       if (token) {
-        headers.set('Authorization', `Token ${token}`)
-        headers.set('mode', 'no-cors')
+        headers.set('Authorization', `Token ${token}`);
       }
       return headers
     },
