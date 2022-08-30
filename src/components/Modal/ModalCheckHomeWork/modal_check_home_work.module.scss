@@ -108,6 +108,12 @@
     height: 39px;
 
     background: #C5ECE5;
+    svg:first-of-type {
+      margin-right: 10px;
+    }
+    svg:last-of-type {
+      margin-left: 10px;
+    }
   }
   &_btn_addFile {
     display: flex;
@@ -123,9 +129,12 @@
     text-align: center;
     height: 39px;
 
-    background-color: #F3F4F6;
+    background-color: #d7d7d7;
     color: #6b7484;
     margin-right: auto;
+    svg {
+      margin-right: 10px;
+    }
   }
   &_btn_send {
     margin: 0 30px 0 0;
@@ -144,6 +153,9 @@
 
     background: #BA75FF;
     color: #FFFFFF;
+    svg {
+      margin-right: 10px;
+    }
   }
   &_btn_mark {
     margin: 0 30px 0 0;
@@ -163,6 +175,9 @@
     background: #FFFFFF;
     border: 1px solid #E5E7EB;
     border-radius: 5px;
+    svg {
+      margin-right: 10px;
+    }
   }
 
 }
