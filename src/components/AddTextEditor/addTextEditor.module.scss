@@ -1,0 +1,44 @@
+.textEditorWrapper {
+    position: relative;
+
+    &_navBlock {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        right: -37px;
+        z-index: 2;
+    
+        &_div {
+          background: #f3f4f6;
+          border: none;
+          border-radius: 7px;
+          width: 36px;
+          height: 36px;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 8px;
+          cursor: pointer;
+        }
+        
+        &_delete {
+          padding: 11px 0;
+          border-radius: 6px;
+          border: none;
+          height: 36px;
+          background: #fef2f2;
+          display: flex;
+          align-items: center;
+          text-align: center;
+          cursor: pointer;
+    
+          & svg {
+            margin: 0 auto;
+            height: 17px;
+            width: 17px;
+          }
+        }
+    }
+}

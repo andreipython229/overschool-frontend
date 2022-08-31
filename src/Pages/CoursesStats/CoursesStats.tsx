@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react'
-
 import { StatisticHeader } from '../../components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from '../School/Navigations/StudentsStats/components/StudentInfoGraphic'
 import { SearchCoursesBlock } from './SearchCoursesBlock'
 import { AllStudentsBlock } from '../../components/AllStudentsBlock'
+import { CoursesStudentsBlock } from './CoursesStudentsBlock'
 
 import styles from '../School/Navigations/StudentsStats/studentsStats.module.scss'
 
@@ -50,6 +50,7 @@ export const CoursesStats = () => {
       </section>
       <SearchCoursesBlock />
       <AllStudentsBlock headerText={'Все ученики школы'} />
+      <CoursesStudentsBlock />
     </div>
   )
 }

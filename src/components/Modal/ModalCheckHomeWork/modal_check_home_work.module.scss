@@ -2,7 +2,7 @@
   width: 1174px;
   padding: 0 30px;
   h3 {
-    color: #4d5766;
+    color: #4D5766;
     font-weight: 500;
     font-size: 18px;
     line-height: 22px;
@@ -13,7 +13,29 @@
   border: 2px solid black;
   box-sizing: border-box;
 }
-
+.modal_btn_is_toggle {
+  margin-top: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #F3F4F6;
+  border: none;
+  color: #a1a6af;
+  padding: 16px;
+  border-radius: 10px;
+  span {
+    width: 15px;
+    height: 5px;
+    position: absolute;
+    top: 46%;
+    left: 38%;
+  }
+}
+.arrow_rotate {
+  transform: rotate(180deg);
+}
 .header_info {
   display: inline-flex;
   margin-bottom: 20px;
@@ -31,7 +53,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f3f4f6;
+  background-color: #F3F4F6;
   font-weight: 500;
   font-size: 14px;
   width: fit-content;
@@ -44,7 +66,7 @@
 .task_status {
   margin-right: 40px;
   display: flex;
-  color: #9ca3af;
+  color: #9CA3AF;
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
@@ -62,7 +84,7 @@
       display: flex;
       font-weight: 400;
       font-size: 14px;
-      color: #4d5766;
+      color: #4D5766;
     }
   }
 }
@@ -85,7 +107,13 @@
     text-align: center;
     height: 39px;
 
-    background: #c5ece5;
+    background: #C5ECE5;
+    svg:first-of-type {
+      margin-right: 10px;
+    }
+    svg:last-of-type {
+      margin-left: 10px;
+    }
   }
   &_btn_addFile {
     display: flex;
@@ -101,9 +129,12 @@
     text-align: center;
     height: 39px;
 
-    background-color: #f3f4f6;
+    background-color: #d7d7d7;
     color: #6b7484;
     margin-right: auto;
+    svg {
+      margin-right: 10px;
+    }
   }
   &_btn_send {
     margin: 0 30px 0 0;
@@ -120,8 +151,11 @@
     text-align: center;
     height: 39px;
 
-    background: #ba75ff;
-    color: #ffffff;
+    background: #BA75FF;
+    color: #FFFFFF;
+    svg {
+      margin-right: 10px;
+    }
   }
   &_btn_mark {
     margin: 0 30px 0 0;
@@ -138,10 +172,14 @@
     text-align: center;
     height: 39px;
 
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
     border-radius: 5px;
+    svg {
+      margin-right: 10px;
+    }
   }
+
 }
 .answer_header {
   margin: 20px 0;
@@ -162,7 +200,7 @@
 }
 
 .speech_bubble:before {
-  content: '';
+  content: "";
   width: 0px;
   height: 0px;
   position: absolute;
