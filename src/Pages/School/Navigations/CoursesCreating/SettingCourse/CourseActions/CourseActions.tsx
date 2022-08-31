@@ -12,9 +12,8 @@ export const CourseActions: FC<CourseActionsT> = ({ courseFind }) => {
   const [deleteCourses] = useDeleteCoursesMutation()
 
   const navigate = useNavigate()
-
-  const handleDeleteCourse = () => {
-    deleteCourses(courseFind?.course_id)
+  const handleDeleteCourse = async () => {
+    await deleteCourses(courseFind?.course_id)
     navigate('/login/courses/')
   }
 

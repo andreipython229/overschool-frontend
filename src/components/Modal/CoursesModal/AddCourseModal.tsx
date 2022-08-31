@@ -7,6 +7,8 @@ import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { cross } from '../../../constants/iconSvgConstants'
 import { Button } from '../../common/Button/Button'
 import { Input } from '../../common/Input/Input/Input'
+import { useAppDispatch } from '../../../store/hooks'
+import { addCourseId } from 'store/redux/course/slice'
 
 import styles from '../Modal.module.scss'
 
@@ -15,6 +17,7 @@ type AddCourseModalPropsT = {
 }
 export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const [name, setName] = useState<string>('')
   const [createCourses] = useCreateCoursesMutation()
 
@@ -35,6 +38,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
       const { data: course }: any = data
       setShowModal()
       if (course) {
+        dispatch(addCourseId(course?.course_id))
         navigate(
           generatePath(Path.CreateCourse, {
             course_id: course?.course_id,

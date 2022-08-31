@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'modal', 'createCourse', 'allCourses'],
+  //whitelist: ['user', 'modal', 'createCourse', 'allCourses'],
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
@@ -26,7 +26,7 @@ export const setupStore = () => {
   return configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware({ serializableCheck: false }).concat(userLoginService.middleware, coursesServices.middleware, modulesServices.middleware),
+      getDefaultMiddleware({ serializableCheck: false }).concat(coursesServices.middleware, userLoginService.middleware, modulesServices.middleware),
   })
 }
 

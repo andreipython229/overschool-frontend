@@ -17,17 +17,18 @@ import styles from './school.module.scss'
 export const School: FC = memo(() => {
   const dispatch = useAppDispatch()
   const role = useAppSelector((state: RootState) => state.user.permission)
-  const { courses } = useAppSelector(allCoursesSelector)
 
   const [showModal, setShowModal] = useState<boolean>(false)
 
-  const { data: coursesList } = useFetchCoursesQuery(null)
+  const { data: coursesList, isSuccess } = useFetchCoursesQuery(null)
+
+  const { courses } = useAppSelector(allCoursesSelector)
 
   useEffect(() => {
-    if (coursesList) {
+    if (isSuccess) {
       dispatch(getCourses(coursesList))
     }
-  }, [coursesList])
+  }, [coursesList, courses])
 
   const setModal = () => {
     setShowModal(!showModal)
