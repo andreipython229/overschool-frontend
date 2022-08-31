@@ -29,7 +29,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
       // formdata.append('published', `${true}`)
       formdata.append('order', String(1))
       formdata.append('name', name)
-      formdata.append('author_id', String(1))
+      formdata.append('author_id_id', String(1))
       const data = await createCourses(formdata)
 
       const { data: course }: any = data

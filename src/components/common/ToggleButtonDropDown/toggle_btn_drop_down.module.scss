@@ -1,0 +1,23 @@
+.modal_btn_is_toggle {
+  margin-top: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #f3f4f6;
+  border: none;
+  color: #a1a6af;
+  padding: 16px;
+  border-radius: 10px;
+  span {
+    width: 15px;
+    height: 5px;
+    position: absolute;
+    top: 46%;
+    left: 38%;
+  }
+}
+.arrow_rotate {
+  transform: rotate(180deg);
+}

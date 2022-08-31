@@ -28,13 +28,11 @@
 }
 
 .input_container {
+  width: 100%;
   &_textFieldLabel {
     display: inline-block;
     margin-bottom: 8px;
     color: $font-color;
     font-weight: 400;
   }
-}
-.test {
-  background-color: red;
 }

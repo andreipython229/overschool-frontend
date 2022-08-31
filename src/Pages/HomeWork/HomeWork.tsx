@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { SelectDropDown } from '../../components/SelectDropDown/SelectDropDown'
-import { FilterButton } from '../../components/FilterButton/FilterButton'
+import { FiltersButton } from '../../components/FiltersButton'
 import { Input } from '../../components/common/Input/Input/Input'
 import { searchSvgIcon } from '../../constants/iconSvgConstants'
-import { ModalCheckHomeWork } from '../../components/Modal/ModalCheckHomeWork/ModalCheckHomeWork'
+import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 
 import styles from './home_work.module.scss'
-import { IconSvg } from '../../components/common/IconSvg/IconSvg'
+import { dropDownListFilter } from '../../constants/dropDownList'
 
 export const HomeWork = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])
@@ -16,7 +16,7 @@ export const HomeWork = () => {
       <div className={styles.container}>
         <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
           <SelectDropDown setArrowUsersState={setArrowUsersState} />
-          <FilterButton setArrowUsersState={setArrowUsersState} />
+          <FiltersButton filteringCategoriesList={dropDownListFilter} />
         </div>
         <Input
           name=""
