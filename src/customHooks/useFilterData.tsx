@@ -1,12 +1,6 @@
 import { ChangeEvent, useState } from 'react'
 
-interface returnDataT {
-  searchParams: string | number
-  foundData: Array<object>
-  filterData: (e: ChangeEvent<HTMLInputElement>) => void
-}
-
-export const useFilterData = (dataList: Array<object>, searchString: string): any => {
+export const useFilterData = (dataList: Array<object>, searchString: string | number): any => {
   const [searchParams, setSearchParams] = useState<string>('')
   const [foundData, setFoundData] = useState<Array<object>>(dataList)
 

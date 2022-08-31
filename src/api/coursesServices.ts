@@ -11,7 +11,6 @@ export const coursesServices = createApi({
 
       if (token) {
         headers.set('Authorization', `Token ${token}`)
-        headers.set('mode', 'no-cors')
       }
       return headers
     },
@@ -26,11 +25,13 @@ export const coursesServices = createApi({
       providesTags: () => ['allCourses'],
     }),
     createCourses: build.mutation({
-      query: course => ({
-        url: `/courses/`,
-        method: 'POST',
-        body: course,
-      }),
+      query: course => {
+        return {
+          url: `/courses/`,
+          method: 'POST',
+          body: course,
+        }
+      },
       invalidatesTags: ['allCourses'],
     }),
     deleteCourses: build.mutation({

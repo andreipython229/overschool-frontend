@@ -1,3 +1,4 @@
+// Компонент на изменении и  ждёт удаления!!!
 import React, { FC, useState } from 'react'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { arrowIcon, filterSvgIcon } from '../../constants/iconSvgConstants'
@@ -54,27 +55,14 @@ export const FilterButton: FC<setArrowUsersStateT> = ({ setArrowUsersState }) =>
         <div className={styles.drop_down_block}>
           <h6>ВЫБЕРИТЕ КРИТЕРИЙ ФИЛЬТРАЦИИ</h6>
           {dropDownListFilter.map(({ id, title }: any) => (
-            <div
-              className={styles.item_drop_down}
-              onClick={handleToggleFilter({ id, title })}
-              key={id}
-            >
+            <div className={styles.item_drop_down} onClick={handleToggleFilter({ id, title })} key={id}>
               {title}
-              <IconSvg
-                width={25}
-                height={25}
-                fill="#9A9A9A"
-                d={arrowIcon}
-                viewBoxSize="0 0 12 15"
-              />
+              <IconSvg width={25} height={25} fill="#9A9A9A" d={arrowIcon} viewBoxSize="0 0 12 15" />
             </div>
           ))}
           {isOpen && (
             <div className={styles.inner_drop_down_block}>
-              <ContainerFilters
-                title={itemTitle}
-                props={{ setScoresStart, setScoresEnd, scoresStart, scoresEnd, handleApplyFilter }}
-              />
+              <ContainerFilters title={itemTitle} props={{ setScoresStart, setScoresEnd, scoresStart, scoresEnd, handleApplyFilter }} />
             </div>
           )}
         </div>

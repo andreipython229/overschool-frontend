@@ -1,21 +1,10 @@
 @import '../../../../scss/variable';
 
-.input {
-  outline: none;
-  width: 100%;
-  text-align: center;
-  border: 1px solid #d9d6e2;
-  border-radius: 7px;
-  background: #f3f4f6 url('../../../../assets/img/createCourse/search.svg') no-repeat 41% center;
-  padding: 10px 0;
-  font-size: 11px;
-  font-weight: 800;
-}
-
 .course {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 24px;
 
   &_addCourse {
     width: 100%;
@@ -35,16 +24,15 @@
   }
 
   &_card {
+    border-radius: 10px;
     width: 242px;
     height: 376px;
-    border: none;
-    border-radius: 10px;
-    margin-top: 26px;
+
     box-shadow: $box-shadow;
-    margin-left: 16px;
     background: #ffffff;
 
     &_img {
+      border-radius: 10px 10px 0 0;
       width: 100%;
       height: 146px;
       background: #e0dced;

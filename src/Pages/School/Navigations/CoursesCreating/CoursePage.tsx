@@ -3,6 +3,10 @@ import { useAppDispatch } from '../../../../store/hooks'
 import { CoursesCard } from './CoursesCard/CoursesCard'
 import { CoursesT } from '../../../../store/redux/courses/slice'
 import { showModal } from '../../../../store/redux/modal/slice'
+import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
+import { searchSvgIcon } from '../../../../constants/iconSvgConstants'
+import { Input } from '../../../../components/common/Input/Input/Input'
+import { useFilterData } from '../../../../customHooks/useFilterData'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 
@@ -13,32 +17,35 @@ type CoursePagePropsT = {
 
 export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses }) => {
   const dispatch = useAppDispatch()
-
+  const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
   const dispatchHandlerModal = () => {
     setShowModal()
     dispatch(showModal(true))
   }
   return (
     <div className={styles.container}>
-      <div>
-        <input className={styles.input} type="text" placeholder={'Поиск по курсам и категориям'} />
-      </div>
+      <Input name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
+        <IconSvg
+          width={20}
+          height={20}
+          viewBoxSize="0 0 20 20"
+          d={searchSvgIcon}
+          stroke="#D1D5DB"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </Input>
       <div className={styles.course}>
         {courses &&
-          courses?.map((course: CoursesT) => (
+          foundCourses?.map((course: CoursesT) => (
             <CoursesCard
               key={course.course_id}
-              course_id={course?.course_id}
               created_at={course.created_at}
-              updated_at={course.updated_at}
+              course_id={course?.course_id}
               published={course.published}
-              order={course.order}
               name={course.name}
-              format={course.format}
-              duration_days={course.duration_days}
-              price={course.price}
               description={course.description}
-              photo={course.photo}
               photo_url={course.photo_url}
               author_id={course.author_id}
             />
