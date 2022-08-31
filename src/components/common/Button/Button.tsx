@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from 'react'
+import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, HTMLAttributes, memo } from 'react'
 
 import styles from './button.module.scss'
 
@@ -6,19 +6,11 @@ type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonE
 
 type SuperButtonPropsT = DefaultButtonPropsType & {
   text: string
-  variant?:
-    | 'default'
-    | 'primary'
-    | 'disabled'
-    | 'registrationDisabled'
-    | 'secondary'
-    | 'withoutBack'
-    | 'delete'
-    | 'logIn'
-    | 'create'
+  children?: DetailedHTMLProps<HTMLAttributes<SVGElement>, SVGElement>
+  variant?: 'default' | 'primary' | 'disabled' | 'registrationDisabled' | 'secondary' | 'withoutBack' | 'delete' | 'logIn' | 'create'
 }
 
-export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', ...restProps }) => {
+export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', children, ...restProps }) => {
   let propsStyle = styles.btn_default
 
   if (variant === 'primary') {
@@ -44,6 +36,7 @@ export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', 
   return (
     <>
       <button {...restProps} className={restProps.className || propsStyle}>
+        {children}
         {text}
       </button>
     </>

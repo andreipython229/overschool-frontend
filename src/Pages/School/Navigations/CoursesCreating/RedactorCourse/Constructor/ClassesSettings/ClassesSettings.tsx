@@ -1,10 +1,10 @@
-import React, { useState, MouseEvent, DragEvent, ChangeEvent, FC } from 'react';
-import { Toggle } from '@skbkontur/react-ui';
-import { IconSvg } from '../../../../../../../components/common/IconSvg/IconSvg';
-import { classesSettingSvgIcon } from '../../../../../../../constants/iconSvgConstants';
-import { useAppDispatch } from '../../../../../../../store/hooks';
-import { showModal } from 'store/redux/modal/slice';
-import { AddPost } from 'components/AddPost/AddPost';
+import React, { FC } from 'react'
+import { Toggle } from '@skbkontur/react-ui'
+import { IconSvg } from '../../../../../../../components/common/IconSvg/IconSvg'
+import { classesSettingSvgIcon } from '../../../../../../../constants/iconSvgConstants'
+import { useAppDispatch } from '../../../../../../../store/hooks'
+import { showModal } from 'store/redux/modal/slice'
+import { AddPost } from 'components/AddPost/AddPost'
 
 import styles from '../constructor.module.scss'
 
@@ -14,15 +14,12 @@ type ClassesSettingsPropsT = {
 
 export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClassesModal }) => {
   const dispatch = useAppDispatch()
-  const [visible, setVisible] = useState<boolean>(false);
 
   const showSettingsModal = () => {
     showSettingsClassesModal()
     dispatch(showModal(true))
   }
 
-  const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent;
-  const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent;
   return (
     <div className={styles.redactorCourse_rightSide}>
       <div className={styles.redactorCourse_rightSide_header}>

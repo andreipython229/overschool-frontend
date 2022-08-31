@@ -2,22 +2,17 @@ import React, { useCallback, useState } from 'react'
 
 import { StatisticHeader } from '../../components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from '../School/Navigations/StudentsStats/components/StudentInfoGraphic'
-import { StudentInfoTable } from '../School/Navigations/StudentsStats/components/StudentInfoTable/StudentsInfoTable'
 import { SearchCoursesBlock } from './SearchCoursesBlock'
+import { AllStudentsBlock } from '../../components/AllStudentsBlock'
 
 import styles from '../School/Navigations/StudentsStats/studentsStats.module.scss'
 
 export const CoursesStats = () => {
-  const [studentModal, setStudentModal] = useState<boolean>(false)
   const [hideStats, setHideStats] = useState<boolean>(true)
 
   const handleHideStats = useCallback(() => {
     setHideStats(!hideStats)
   }, [hideStats])
-
-  const showStudentModal = () => {
-    setStudentModal(!studentModal)
-  }
 
   return (
     <div>
@@ -54,7 +49,7 @@ export const CoursesStats = () => {
         </div>
       </section>
       <SearchCoursesBlock />
-      <StudentInfoTable showStudentModal={showStudentModal} />
+      <AllStudentsBlock headerText={'Все ученики школы'} />
     </div>
   )
 }
