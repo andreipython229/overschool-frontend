@@ -1,36 +1,36 @@
-import React, { useState } from 'react'
-import { MyEditor } from 'components/MyEditor/MyEditor'
-import { AddVideo } from 'components/AddVideo/AddVideo'
-import { AddAudio } from 'components/AddAudio/AddAudio'
-import { AddTextarea } from 'components/AddTextarea/AddTextarea'
-import { ContentBtn } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/ContentBtn/ContentBtn'
+import React, { useState } from 'react';
+import { AddVideo } from 'components/AddVideo/AddVideo';
+import { AddAudio } from 'components/AddAudio/AddAudio';
+import { AddCodeEditor } from 'components/AddCodeEditor/AddCodeEditor';
+import { AddTextEditor } from 'components/AddTextEditor/AddTextEditor';
+import { ContentBtn } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/ContentBtn/ContentBtn';
 
-import styles from './addPost.module.scss'
+import styles from './addPost.module.scss';
 
-import Text from '../.././assets/img/createCourse/text.svg'
-import Video from '../.././assets/img/createCourse/video.svg'
-import Audio from '../.././assets/img/createCourse/audio.svg'
-import Code from '../.././assets/img/createCourse/code.svg'
+import Text from '../.././assets/img/createCourse/text.svg';
+import Video from '../.././assets/img/createCourse/video.svg';
+import Audio from '../.././assets/img/createCourse/audio.svg';
+import Code from '../.././assets/img/createCourse/code.svg';
 
 export const AddPost = () => {
-  const [MyEditorShow, setMyEditorShow] = useState<boolean>(false)
-  const [AddVideoShow, setAddVideo] = useState<boolean>(false)
-  const [AddAudioShow, setAddAudio] = useState<boolean>(false)
-  const [AddTextareaShow, setAddTextarea] = useState<boolean>(false)
+  const [AddTextEditorShow, setAddTextEditor] = useState<boolean>(false);
+  const [AddVideoShow, setAddVideo] = useState<boolean>(false);
+  const [AddAudioShow, setAddAudio] = useState<boolean>(false);
+  const [AddCodeEditorShow, setAddTextarea] = useState<boolean>(false);
 
   return (
     <>
-      {MyEditorShow ? <MyEditor /> : null}
+      {AddTextEditorShow ? <AddTextEditor setShow={setAddTextEditor} /> : null}
       {AddVideoShow ? <AddVideo setShow={setAddVideo} /> : null}
       {AddAudioShow ? <AddAudio setShow={setAddAudio} /> : null}
-      {AddTextareaShow ? <AddTextarea setShow={setAddTextarea} /> : null}
+      {AddCodeEditorShow ? <AddCodeEditor setShow={setAddTextarea} /> : null}
 
       <section className={styles.redactorCourse_rightSide_functional_creating}>
         <div className={styles.redactorCourse_rightSide_functional_creating_title}>Добавить контент</div>
         <div className={styles.redactorCourse_rightSide_functional_creating_function}>
           <ContentBtn
             func={() => {
-              setMyEditorShow(true)
+              setAddTextEditor(true)
             }}
             text={'Текс'}
             alt={'Add text for lesson'}

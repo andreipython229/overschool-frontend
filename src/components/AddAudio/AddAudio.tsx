@@ -68,7 +68,7 @@ export const AddAudio: FC<setShowType> = ({ setShow }) => {
           <IconSvg width={13} height={17} d={classesSettingSvgIcon.arrowUpdate} viewBoxSize="0 0 13 17" fill={'#BA75FF'} />
         </div>
         <div
-          className={styles.redactorCourse_rightSide_header_btnBlock_delete}
+          className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete}
           onClick={() => {
             setShow(false)
           }}

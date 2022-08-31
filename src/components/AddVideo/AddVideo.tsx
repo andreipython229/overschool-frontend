@@ -68,7 +68,7 @@ export const AddVideo: FC<setShowType> = ({setShow}) => {
           <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
             <IconSvg width={13} height={17} d={classesSettingSvgIcon.arrowUpdate} viewBoxSize="0 0 13 17" fill={'#BA75FF'} />
           </div>
-          <div className={styles.redactorCourse_rightSide_header_btnBlock_delete} onClick={() => {setShow(false)}}>
+          <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete} onClick={() => {setShow(false)}}>
             <IconSvg width={19} height={19} d={classesSettingSvgIcon.deleteIcon} viewBoxSize="0 0 19 19" fill={'#EF4444'} />
           </div>
         </div>
