@@ -5,13 +5,20 @@ import { arrowIcon } from '../../../constants/iconSvgConstants'
 import styles from '../FilterItem/filter_item.module.scss'
 
 type FilterItem = {
-  id: number
+  id: string | number
   title: string
+  setToggleDropDown: (args: boolean) => void
+  setSelectedFilter: (args: any) => void
 }
 
-export const FilterItem: FC<FilterItem> = ({ id, title }) => {
+export const FilterItem: FC<FilterItem> = ({ id, title, setToggleDropDown, setSelectedFilter }) => {
+  const handleClick = (event: any) => {
+    setSelectedFilter(id)
+    //setToggleDropDown(false)
+  }
+
   return (
-    <div className={styles.filter_item_container} id={id.toString()}>
+    <div onClick={handleClick} className={styles.filter_item_container} id={id.toString()}>
       {title}
       <IconSvg width={15} height={16} fill="#9A9A9A" d={arrowIcon} viewBoxSize="0 0 11 11" />
     </div>
