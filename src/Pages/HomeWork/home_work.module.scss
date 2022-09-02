@@ -1,11 +1,13 @@
 .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  div {
-    margin: 0 5px;
-  }
-  input {
-    width: 43vw;
+  position: relative;
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 5fr;
+  grid-gap: 12px;
+  span {
+    svg {
+      width: 25px;
+      height: 25px;
+    }
   }
 }

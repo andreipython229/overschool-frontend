@@ -1,10 +1,14 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 
 export const useFilterData = (dataList: Array<object>, searchString: string | number): any => {
   const [searchParams, setSearchParams] = useState<string>('')
   const [foundData, setFoundData] = useState<Array<object>>(dataList)
 
-  const filterData = (e: ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    setFoundData(dataList)
+  }, [dataList])
+
+  const filterData = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const keyword = e.target.value
 
     if (keyword !== '') {
@@ -17,6 +21,7 @@ export const useFilterData = (dataList: Array<object>, searchString: string | nu
     }
 
     setSearchParams(keyword)
-  }
+  }, [])
+
   return [searchParams, foundData, filterData]
 }

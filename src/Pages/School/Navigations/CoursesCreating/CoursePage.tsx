@@ -11,17 +11,20 @@ import { useFilterData } from '../../../../customHooks/useFilterData'
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 
 type CoursePagePropsT = {
-  courses: CoursesT[]
   setShowModal: () => void
+  courses: CoursesT[]
 }
 
 export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses }) => {
   const dispatch = useAppDispatch()
+
   const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
+
   const dispatchHandlerModal = () => {
     setShowModal()
     dispatch(showModal(true))
   }
+
   return (
     <div className={styles.container}>
       <Input name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
@@ -37,7 +40,7 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses })
         />
       </Input>
       <div className={styles.course}>
-        {courses &&
+        {courses.length !== 0 &&
           foundCourses?.map((course: CoursesT) => (
             <CoursesCard
               key={course.course_id}

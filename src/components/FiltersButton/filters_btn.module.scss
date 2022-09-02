@@ -24,12 +24,13 @@
 }
 .drop_down_block {
   position: absolute;
+  top: 45px;
   width: 341px;
   border-radius: 7px;
   display: inline-block;
-  border: 1px solid #ba75ff;
   box-sizing: border-box;
   padding: 16px;
   margin-top: 10px;
   background-color: #ffffff;
+  box-shadow: 2px 2px 12px 1px #000;
 }
