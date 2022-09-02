@@ -3,12 +3,11 @@ import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
 import { schoolHeaderResT } from '../types/schoolHeaderT'
 import { RootState } from '../store/redux/store'
 
-/*process.env.REACT_APP_BASE_URL*/
 
 export const schoolHeaderService = createApi({
   reducerPath: 'coursesHeaderService',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.itdev.by/api/',
+    baseUrl: process.env.REACT_APP_BASE_URL,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState)?.user?.token
 
