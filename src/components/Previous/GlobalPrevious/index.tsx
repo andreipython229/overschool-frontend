@@ -29,7 +29,6 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
 
   const { data, isSuccess } = useFetchSchoolHeaderQuery(3)
 
-  console.log(data)
   const [schoolHeaderData, setSchoolHeaderData] = useState<schoolHeaderReqT>({
     name: '',
     description: '',
