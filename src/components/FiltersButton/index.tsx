@@ -1,9 +1,10 @@
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
+
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { filterSvgIcon } from '../../constants/iconSvgConstants'
+import { FilterItem } from './FilterItem'
 
 import styles from '../FiltersButton/filters_btn.module.scss'
-import { FilterItem } from './FilterItem'
 
 interface ICategories {
   id: number
@@ -28,14 +29,12 @@ export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) =
         Добавить фильтры
       </button>
       {toggleDropDown && (
-        <>
-          <div className={styles.drop_down_block}>
-            <p className={styles.header_dropdown_menu}>ВЫБЕРИТЕ КРИТЕРИЙ ФИЛЬТРАЦИИ</p>
-            {filteringCategoriesList.map(({ id, title }: ICategories) => (
-              <FilterItem key={id} id={id} title={title} />
-            ))}
-          </div>
-        </>
+        <div className={styles.drop_down_block}>
+          <p className={styles.header_dropdown_menu}>ВЫБЕРИТЕ КРИТЕРИЙ ФИЛЬТРАЦИИ</p>
+          {filteringCategoriesList.map(({ id, title }: ICategories) => (
+            <FilterItem key={id} id={id} title={title} />
+          ))}
+        </div>
       )}
     </>
   )

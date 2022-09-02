@@ -23,7 +23,7 @@ export const AddAudio: FC<setShowType> = ({ setShow }) => {
     setDragAudio(false)
   }
 
-  const onDropAudioHandler = (e: DragEvent<HTMLDivElement>) => {
+  const onDropAudioHandler = (e: DragEvent<HTMLDivElement>): void => {
     e.preventDefault()
     const audioFiles = [...e.dataTransfer.files]
     const formData = new FormData()
