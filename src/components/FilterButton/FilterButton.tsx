@@ -37,12 +37,12 @@ export const FilterButton: FC<setArrowUsersStateT> = ({ setArrowUsersState }) =>
   const handleToggleFilter =
     ({ id }: any) =>
     () => {
-      dropDownListFilter.forEach((item: IItemDropDownList) => (item.isOpen = false))
-      const changeFilterItem = dropDownListFilter.find((item: IItemDropDownList) => item.id === id)
-      if (changeFilterItem) {
-        setIsOpen((changeFilterItem.isOpen = !isOpen))
-        setItemTitle(changeFilterItem.title)
-      }
+      // dropDownListFilter.forEach((item: IItemDropDownList) => (item.isOpen = false))
+      // const changeFilterItem = dropDownListFilter.find((item: IItemDropDownList) => item.id === id)
+      // if (changeFilterItem) {
+      //   setIsOpen((changeFilterItem.isOpen = !isOpen))
+      //   setItemTitle(changeFilterItem.title)
+      // }
     }
 
   return (

@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, HTMLAttributes, memo } from 'react'
+import { ButtonHTMLAttributes, DetailedHTMLProps, FC, HTMLAttributes, memo } from 'react'
 
 import styles from './button.module.scss'
 
@@ -34,11 +34,9 @@ export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', 
   }
 
   return (
-    <>
-      <button {...restProps} className={restProps.className || propsStyle}>
-        {children}
-        {text}
-      </button>
-    </>
+    <button {...restProps} className={restProps.className || propsStyle}>
+      {children}
+      {text}
+    </button>
   )
 })

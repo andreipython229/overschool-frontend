@@ -13,6 +13,7 @@ export const CoursePrevious = () => {
   const id = useAppSelector(getIdSelector)
   const editableCourse = useFindCourse(id)
 
+
   return (
     <div className={styles.previous}>
       <img className={styles.background_image_course} src={editableCourse?.photo_url} alt="" />

@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import { useState, FC } from 'react';
 import { MyEditor } from 'components/MyEditor/MyEditor';
 import { ContentBtn } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/ContentBtn/ContentBtn';
 import { classesSettingSvgIcon } from '../../constants/iconSvgConstants';

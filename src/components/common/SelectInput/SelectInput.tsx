@@ -1,9 +1,14 @@
-import React, { FC, ReactNode, useState } from 'react'
+// used once at courses/create-course
+
+import { FC, ReactNode, useState } from 'react'
+
+import { IconSvg } from '../IconSvg/IconSvg'
+import { selectInputIconSvg } from './constants/svgIcon'
 
 import styles from './selectInput.module.scss'
 
 type SelectInputPropsT = {
-  optionsList: any
+  optionsList: Array<string | number>
 }
 
 export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
@@ -15,23 +20,22 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
     setIsOptionsOpen(!isOptionsOpen)
   }
 
+  const handleToggleOptionsOpen = () => {
+    setIsOptionsOpen(!selectedOption)
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <svg
-          onClick={() => setIsOptionsOpen(!selectedOption)}
-          style={{ transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}` }}
-          width="14"
-          height="8"
-          viewBox="0 0 14 8"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0.851982 0.518485C1.20996 0.160505 1.79036 0.160505 2.14834 0.518485L7.00016 5.3703L11.852 0.518485C12.21 0.160505 12.7904 0.160505 13.1483 0.518485C13.5063 0.876466 13.5063 1.45687 13.1483 1.81485L7.64834 7.31485C7.29036 7.67283 6.70996 7.67283 6.35198 7.31485L0.851982 1.81485C0.494001 1.45687 0.494001 0.876466 0.851982 0.518485Z"
-            fill="#A8ABAD"
-          />
-        </svg>
+        <IconSvg
+          styles={{ transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}` }}
+          width={14}
+          height={8}
+          fill="#A8ABAD"
+          viewBoxSize={'0 0 14 8'}
+          d={selectInputIconSvg}
+          functionOnClick={handleToggleOptionsOpen}
+        />
 
         <button className={styles?.container_btn} type="button" onClick={toggleOptions} aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
           {optionsList[selectedOption]}
@@ -39,11 +43,11 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
         <ul
           tabIndex={-1}
           role="listbox"
-          aria-activedescendant={optionsList[selectedOption]}
+          // aria-activedescendant={optionsList[selectedOption]}
           className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}
         >
           {optionsList?.map(
-            (option: string | number, index: number): ReactNode => (
+            (option, index: number): ReactNode => (
               <li
                 key={index}
                 tabIndex={0}

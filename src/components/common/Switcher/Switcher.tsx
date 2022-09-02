@@ -1,4 +1,5 @@
-import React from 'react'
+// is not used anywhere 
+
 import styles from './switcher.module.scss'
 
 export const Switcher = () => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { CheckSelect } from 'components/common/CheckSelect/CheckSelect'
 import styles from '../../studentsLog.module.scss'
-import { CheckSelectChildren } from 'components/common/CheckSelect/CheckSelectChildren/CheckSelectChildren'
+import { CheckSelectChildren } from 'components/common/CheckSelect/CheckSelectChildren'
 
 export const AccessToClasses = () => {
   return (

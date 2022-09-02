@@ -1,4 +1,5 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
+
 import { ScoresFilter } from '../FilterButton/ScoresFilter/ScoresFilter'
 import { CalendarFilter } from '../FilterButton/CalendarFilter/CalendarFilter'
 import { Filter } from 'components/FilterButton/Filter/Filter'
