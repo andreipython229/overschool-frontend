@@ -6,7 +6,7 @@
 # Node artifact files
 node_modules/
 dist/
-
+.vscode/
 
 # Compiled Java class files
 *.class
@@ -26,9 +26,10 @@ dist/
 
 # JetBrains IDE
 .idea/
+.vscode/
 
 # VSCode
-.vscode
+.vscode/
 
 # Unit test reports
 TEST*.xml

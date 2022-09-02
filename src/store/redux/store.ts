@@ -27,7 +27,12 @@ export const setupStore = () => {
   return configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware({ serializableCheck: false }).concat(coursesServices.middleware, userLoginService.middleware, modulesServices.middleware),
+      getDefaultMiddleware({ serializableCheck: false }).concat(
+        coursesServices.middleware,
+        userLoginService.middleware,
+        modulesServices.middleware,
+        schoolHeaderService.middleware,
+      ),
   })
 }
 
