@@ -20,8 +20,6 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses })
 
   const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
 
-  console.log(courses)
-
   const dispatchHandlerModal = () => {
     setShowModal()
     dispatch(showModal(true))
