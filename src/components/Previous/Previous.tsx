@@ -1,7 +1,8 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
+import { useLocation } from 'react-router-dom'
+
 import { GlobalPrevious } from './GlobalPrevious'
 import { CoursePrevious } from './CoursePrevious'
-import { useLocation } from 'react-router-dom'
 
 type PreviousPropsT = {
   avatar: string

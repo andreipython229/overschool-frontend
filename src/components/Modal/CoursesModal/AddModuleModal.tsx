@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 import { useShowModal } from '../../../customHooks/useShowModal'
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
@@ -10,7 +10,7 @@ import styles from '../Modal.module.scss'
 type AddModuleModalPropsT = {
   setShowModal: (arg: boolean) => void
 }
-export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ setShowModal }: any) => {
+export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ setShowModal }) => {
   const handleClose = () => {
     setShowModal(false)
   }

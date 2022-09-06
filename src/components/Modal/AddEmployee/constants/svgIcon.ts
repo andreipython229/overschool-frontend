@@ -1,0 +1,1 @@
+export const employeeModalSvg = 'M1.3125 12.6875L12.6875 1.3125M12.6875 12.6875L1.3125 1.3125'
