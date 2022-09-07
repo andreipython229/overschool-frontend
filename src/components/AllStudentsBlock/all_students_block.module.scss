@@ -1,8 +1,8 @@
+@import '../../scss/mixin.scss';
+
 .header_block_text {
   font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
+  @include font (500, 16px, 19px);
   letter-spacing: -0.01em;
   color: #4d5766;
   margin: 50px 0 22px 0;
@@ -15,19 +15,19 @@
   grid-gap: 10px;
 }
 .arrow_add_file_block {
+  @include display (flex, row, center, center);
   background: #e0dced;
   border: none;
   border-radius: 7px;
   width: 36px;
   height: 36px;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 8px;
   cursor: pointer;
 }
 .add_students_btn {
+  @include display (flex, row, space-around, center);
+  @include font (500, 12px);
   font-size: 12px;
   font-weight: 500;
   color: #fff;
@@ -35,7 +35,4 @@
   border-radius: 7px;
   background-color: #ba75ff;
   padding: 0 13px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
 }

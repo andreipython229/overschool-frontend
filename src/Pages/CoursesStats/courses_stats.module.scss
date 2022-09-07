@@ -1,4 +1,5 @@
 @import 'src/scss/variable';
+@import '../../scss/mixin.scss';
 
 a {
   text-decoration: none;
@@ -23,8 +24,7 @@ a {
   margin-right: 16px;
 }
 .mini_card_container {
-  display: flex;
-  align-items: center;
+  @include display (flex, row, flex-start, center);
   width: 272px;
   margin: 16px 0;
   border-radius: 7px;
@@ -39,7 +39,7 @@ a {
   margin-bottom: 10px;
 }
 .mini_card_list {
-  display: flex;
+  @include display (flex);
   color: $font-color-rose;
   font-size: 10px;
   li {

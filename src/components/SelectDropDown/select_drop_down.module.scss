@@ -1,15 +1,15 @@
+@import '../../scss/mixin.scss';
+
 .header_dropdown_menu {
+  @include display (flex, row, space-around, center);
   cursor: pointer;
   max-width: 197px;
   width: 197px;
   max-height: 40px;
-  padding: 22px 5px;
+  padding: 10px 5px;
   border-radius: 7px;
   box-sizing: border-box;
   color: #6b7484;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   span {
     position: relative;
     width: 25px;
@@ -22,11 +22,10 @@
   }
 }
 .drop_down_item_container {
-  position: absolute;
-  top: 55px;
+  @include position_t_l (absolute, 0, 0);
   color: #6b7484;
   padding: 10px 20px;
-  max-width: 291px;
+  max-width: 191px;
   background-color: #ffffff;
   box-shadow: 3px 3px 3px #e4e7ed;
   border-radius: 7px;
@@ -37,7 +36,7 @@
   }
 }
 .drop_down_item {
-  display: flex;
+  @include display (flex);
   padding: 10px 0;
   cursor: pointer;
   span {
@@ -48,30 +47,24 @@
   transform: rotate(180deg);
 }
 .triangle {
-  position: absolute;
-  top: 2px;
+  @include position_t_l (absolute, 2px, 0);
   transform: translateY(-50%);
 }
 .bg_color_hamburger {
   background-color: #ededed;
 }
-
 .bg_color_accepted {
   background-color: #c5ece5;
 }
-
 .bg_color_auto_check {
   background-color: #ededed;
 }
-
 .bg_color_under {
   background-color: #fff1da;
 }
-
 .bg_color_rejected {
   background-color: #fef2f2;
 }
-
 .bg_color_waiting {
   background-color: #f3f4f6;
 }

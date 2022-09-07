@@ -1,3 +1,5 @@
+@import '../../../../scss/mixin.scss';
+
 .logoBlock {
   &_title {
     font-size: 12px;
@@ -7,26 +9,22 @@
 
   &_desc {
     display: block;
-    font-size: 10px;
-    font-weight: 400;
+    @include font (400, 10px);
     letter-spacing: 0.01em;
     margin-bottom: 16px;
   }
 
   &_information {
-    display: flex;
     position: relative;
+    @include display (flex);
     margin-bottom: 26px;
 
     &_fileInput {
-      position: absolute;
-      z-index: 2;
+      @include position_t_l (absolute, 0, 0, 2);
       width: 210px;
       height: 70px;
       opacity: 0;
       cursor: pointer;
-      top: 0;
-      left: 0;
     }
 
     & img {

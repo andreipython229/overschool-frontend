@@ -1,4 +1,5 @@
 @import '../../../../scss/variable';
+@import '../../../../scss/mixin.scss';
 
 .course {
   margin-top: 26px;
@@ -15,11 +16,9 @@
     cursor: pointer;
 
     & span {
+      @include position_b_l (absolute, 132px, 64px);
       color: #e0dced;
       font-size: 17px;
-      position: absolute;
-      left: 64px;
-      bottom: 132px;
     }
   }
 
@@ -27,7 +26,6 @@
     border-radius: 10px;
     width: 242px;
     height: 376px;
-
     box-shadow: $box-shadow;
     background: #ffffff;
 
@@ -57,21 +55,17 @@
 
     &_status {
       &_show {
+        @include display (flex, row, flex-start, center);
         text-align: center;
-        display: flex;
-        align-items: center;
-
         &_public {
           color: #ba75ff;
-          font-weight: 500;
-          font-size: 11px;
+          @include font (500, 11px);
           margin-left: 8.5px;
         }
 
         &_hide {
           color: #e0dced;
-          font-weight: 500;
-          font-size: 11px;
+          @include font (500, 11px);
           margin-left: 8.5px;
         }
       }
@@ -84,15 +78,13 @@
     }
   }
 }
-
 .btn {
   align-self: flex-end;
   width: 194px;
   height: 33px;
   background-color: #e0dced;
   color: #ba75ff;
-  font-weight: 500;
-  font-size: 11px;
+  @include font (500, 11px);
   margin-top: 18px;
   text-align: center;
   border: none;

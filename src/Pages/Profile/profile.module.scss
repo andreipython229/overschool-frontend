@@ -1,7 +1,8 @@
 @import 'src/scss/variable';
+@import '../../scss/mixin.scss';
 
 .profile {
-  display: flex;
+  @include display(flex);
 
   &_block {
     margin-bottom: 15px;
@@ -17,24 +18,18 @@
       }
 
       &_avatar {
-        position: absolute;
+        @include position_t_l (absolute, 28px, 10px, 1);
         width: 84px;
         height: 84px;
-        z-index: 1;
-        top: 28px;
-        left: 10px;
         border-radius: 7px;
         background: #f7f5f7 url('../../assets/img/noAvatar.svg') no-repeat center center;
       }
 
-      &_input {
-        position: absolute;
+      &_input {        
+        @include position_t_l (absolute, 28px, 10px, 2);
         height: 90px;
         width: 90px;
         cursor: pointer;
-        z-index: 2;
-        left: 10px;
-        top: 28px;
         opacity: 0;
       }
     }
@@ -75,12 +70,10 @@
   margin-bottom: 36px;
 
   &_toggleWrapper {
-    display: flex;
-    flex-direction: column;
+    @include display (flex, column);
 
     &_toggleBlock {
-      display: flex;
-      justify-content: space-between;
+      @include display (flex, row, space-between);
 
       &_text {
         width: 340px;

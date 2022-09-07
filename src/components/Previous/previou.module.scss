@@ -1,3 +1,5 @@
+@import '../../scss/mixin.scss';
+
 .previous {
   position: relative;
   width: 100%;
@@ -10,8 +12,7 @@
   margin-bottom: 25px;
 
   &_bcgrShadow {
-    position: absolute;
-    top: 0;
+    @include position_t_l (absolute, 0, 0);
     opacity: 0.5;
     width: 100%;
     height: 100%;
@@ -29,12 +30,8 @@
   }
 
   &_infoBlock {
-    display: flex;
-    position: absolute;
-    align-items: center;
-    bottom: 26px;
-    left: 34px;
-
+    @include position_b_l (absolute, 26px, 34px);
+    @include display (flex, row, flex-start, center);
     &_avatar {
       border: 1px solid #ffffff;
       border-radius: 50%;
@@ -43,9 +40,7 @@
     }
 
     &_title {
-      display: flex;
-      flex-direction: column;
-
+      @include display (flex, column);
       &_description {
         color: #ba75ff;
         font-size: 14px;
@@ -66,20 +61,13 @@
   }
 
   &_onlineCourses {
-    position: absolute;
-    top: 107px;
-    left: 44px;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
+    @include position_t_l (absolute, 107px, 44px);
+    @include font (500, 14px, 17px);
     color: #ba75ff;
   }
 
   &_btn {
-    position: absolute;
-    right: 37px;
-    bottom: 44px;
-
+    @include position_b_r (absolute, 44px, 37px);
     & button {
       padding: 10px 14px;
     }
@@ -93,19 +81,16 @@
   font-weight: 500;
 }
 .hide_input {
+  @include position_t_l (absolute, 0, 0);
   width: 66px;
   height: 66px;
   opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 .input_background_image {
   opacity: 0;
 }
 .label_input_background_image {
-  position: absolute;
-  left: 50%;
+  @include position_t_l (absolute, 0, 50%);
   transform: translateX(-50%);
   border-radius: 0 0 15px 15px;
   padding-top: 15px;
@@ -116,27 +101,18 @@
   text-align: center;
 }
 .previous_title_name {
-  position: absolute;
-  left: 43px;
-  top: 147px;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 24px;
+  @include position_t_l (absolute, 147px, 43px);
+  @include font (500, 20px, 24px);
   color: #fff;
 }
 .back_all_course {
-  position: absolute;
-  top: 40px;
-  left: 44px;
-  display: flex;
-  align-items: center;
+  @include position_t_l (absolute, 40px, 44px);
+  @include display (flex, row, flex-start, center);
   color: #fff;
   text-decoration: none;
 
   span {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
+    @include font (500, 12px, 15px);
     margin-left: 13px;
   }
 }

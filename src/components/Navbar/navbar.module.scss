@@ -1,17 +1,13 @@
 @import '../../scss/variable';
+@import '../../scss/mixin.scss';
 
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
+  @include position_t_l (fixed, 0, 0, 10);
+  @include display (flex, column, flex-start, center);
   width: 80px;
   min-height: 100vh;
   background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   box-shadow: 0 0 5px #d9d9d9;
-  z-index: 10;
 
   &_menu {
     margin-top: 24px;
@@ -24,15 +20,12 @@
   }
 
   &_setting_account {
+    @include display (flex, column);
     margin-top: 276px;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
 
     & a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include display (flex, row, center, center);
       width: 57px;
       height: 57px;
       text-align: center;
@@ -66,9 +59,7 @@
 }
 
 .isActive {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include display (flex, row, center, center);
   background: #e0dced;
   border-radius: 10px;
   text-align: center;
@@ -80,7 +71,6 @@
     }
   }
 }
-
 .mobileIsActive {
   & svg {
     & path {
@@ -89,7 +79,6 @@
     }
   }
 }
-
 .navbar a:first-child{
   & svg {
     & path {
