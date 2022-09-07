@@ -1,4 +1,5 @@
-import React, { ChangeEvent, FC } from 'react'
+import  { ChangeEvent, FC } from 'react'
+
 import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
 import { publishedMarkerSvgIcon } from '../../../../../../constants/iconSvgConstants'
 import { usePatchCoursesMutation } from '../../../../../../api/coursesServices'

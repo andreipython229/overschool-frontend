@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+
+import { CoursesStudentsBlock } from '../CoursesStats/CoursesStudentsBlock'
 import { SelectDropDown } from '../../components/SelectDropDown/SelectDropDown'
 import { FiltersButton } from '../../components/FiltersButton'
 import { Input } from '../../components/common/Input/Input/Input'
@@ -7,8 +9,6 @@ import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { dropDownListFilter } from '../../constants/dropDownList'
 
 import styles from './home_work.module.scss'
-
-import { CoursesStudentsBlock } from '../CoursesStats/CoursesStudentsBlock'
 
 export const HomeWork = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])

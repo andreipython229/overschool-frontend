@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
@@ -6,6 +6,7 @@ import { platformSelector } from '../../selectors/index'
 import { auth } from 'store/redux/users/slice'
 import { Path } from 'enum/pathE'
 import { logOutSvgIcon } from '../../constants/iconSvgConstants'
+import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import Logotype from '../../assets/img/logotype.svg'
@@ -15,16 +16,25 @@ import styles from './header.module.scss'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
-  const { logotype } = useAppSelector(platformSelector)
+  // const { logotype } = useAppSelector(platformSelector)
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
+
+  // const [logo, setLogo] = useState<string>('')
 
   const logOut = (): void => {
     dispatch(auth(false))
   }
 
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     setLogo(data.logo_school_url)
+  //   }
+  // }, [isSuccess])
+
   return (
     <header className={styles.header}>
       <NavLink to={Path.Courses}>
-        <img className={styles.header_logotype} src={logotype || Logotype} alt="Logotype IT Overone" />
+        <img className={styles.header_logotype} src={data?.logo_school_url || Logotype} alt="Logotype IT Overone" />
       </NavLink>
 
       <div className={styles.header_block}>

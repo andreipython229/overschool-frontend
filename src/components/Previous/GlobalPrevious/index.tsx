@@ -13,53 +13,57 @@ import noAvatar from '../../../assets/img/noAvatar.svg'
 import styles from '../previou.module.scss'
 
 type GlobalPreviousT = {
-  avatar: string
-  description?: string
-  name: string
+  // avatar: string
+  // description?: string
+  // name: string
   about?: string
   buttonText?: string
   onClick?: () => void
 }
 
-export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, description /*onClick, buttonText*/ }) => {
+export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ about /*onClick, buttonText*/ }) => {
   // const role = useAppSelector((state: RootState) => state.user.permission)
 
   const { pathname }: Location = useLocation()
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(3)
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
+  const [setSchoolHeader] = useSetSchoolHeaderMutation()
 
   const [edit, setEdit] = useState<boolean>(false)
 
   const [schoolHeaderData, setSchoolHeaderData] = useState<schoolHeaderReqT>({
     name: '',
     description: '',
-    photo_logo: '',
+    logo_header: '',
     photo_background: '',
   })
 
-  const [setSchoolHeader] = useSetSchoolHeaderMutation()
+  const [schoolHeaderDataToRender, setSchoolHeaderDataToRender] = useState({
+    logo_header: data?.logo_header_url,
+    photo_background: data?.photo_background_url,
+  })
 
   const handleChangePrevious = () => {
     setEdit(!edit)
   }
 
-
   const onChangeSchoolHeader = () => {
     const formData = new FormData()
 
     Object.entries(schoolHeaderData).forEach(([key, value]) => {
-      formData.append(key, value)
+      value && formData.append(key, value)
     })
 
-    setSchoolHeader({ formData, id: 3 })
-    handleChangePrevious()
+    setSchoolHeader({ formData, id: 1 })
+    setEdit(false)
   }
 
   const handleChangeSchoolHeaderData = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target
 
     if (target.files && target.files[0]) {
-      // const url = URL.createObjectURL(target.files[0])
+      const url = URL.createObjectURL(target.files[0])
 
+      setSchoolHeaderDataToRender({ ...schoolHeaderDataToRender, [target.name]: url })
       setSchoolHeaderData({ ...schoolHeaderData, [target.name]: target.files[0] })
     } else {
       setSchoolHeaderData({ ...schoolHeaderData, [target.name]: target.value })
@@ -68,10 +72,11 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
 
   useEffect(() => {
     if (isSuccess) {
+      const { name, description } = data
       setSchoolHeaderData({
         ...schoolHeaderData,
-        name: data.name,
-        description: data.description,
+        name,
+        description,
       })
     }
   }, [isSuccess])
@@ -82,16 +87,16 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
     }
   }, [pathname])
 
-  const { name: headerName, description: headerDes, photo_background, photo_logo } = schoolHeaderData
+  const { name: headerName, description: headerDes } = schoolHeaderData
+  const { photo_background, logo_header } = schoolHeaderDataToRender
   const isMatchPath = pathname === '/' + Path.InitialPage + Path.Courses
 
-  const changedBg = photo_background
+  const changedBg = data?.photo_background_url
     ? {
-        background: `url(${photo_background}) no-repeat center center`,
+        background: `url(${photo_background || data.photo_background_url}) no-repeat center center`,
         backgroundSize: 'cover',
       }
     : { background: '#e0dced' }
-
 
   return (
     <div className={styles.previous} style={changedBg}>
@@ -105,14 +110,14 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
         {edit && (
           <input
             className={`${styles.previous_infoBlock_avatar} ${styles.input_change} ${styles.hide_input}`}
-            name="photo_logo"
+            name="logo_header"
             type="file"
             value={''}
             onChange={handleChangeSchoolHeaderData}
           />
         )}
 
-        <img className={styles.previous_infoBlock_avatar} src={photo_logo || noAvatar} alt="" />
+        <img className={styles.previous_infoBlock_avatar} src={logo_header || data?.logo_header_url || noAvatar} alt="" />
         <div className={styles.previous_infoBlock_title}>
           {edit ? (
             <input
