@@ -1,12 +1,10 @@
+@import '../../../scss/mixin.scss';
+
 .filter_item_container {
+  @include display (flex, row, space-between, center);
+  @include font (400, 16px, 13px);
   font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 13px;
   color: #6b7484;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin: 23px;
   cursor: pointer;
   svg {

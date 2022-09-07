@@ -1,3 +1,5 @@
+@import '../../scss/mixin.scss';
+
 * {
   margin: 0;
   padding: 0;
@@ -9,77 +11,58 @@
   width: 100%;
   height: 100vh;
   font-family: 'Manrope', sans-serif;
-  //@media (max-width: 400px) {
-  //  height: 100%;
-  //
-  //}
+
   &_header {
     margin: 0 45px;
-    // margin-left: 45px;
-    display: flex;
-    justify-content: space-between;
+    @include display (flex, row, space-between);
   }
-
   &_main {
+    position: relative;
     width: 1200px;
     height: 500px;
     margin-top: 130px;
-    display: flex;
-    position: relative;
-
+    @include display (flex);
+    
     &_wrapper {
-      position: relative;
-      top: 0;
-      left: 70px;
-      z-index: 5;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      @include position_t_l(relative, 0, 70px, 5);
+      @include display (flex, column, center);
     }
-
     &__title {
-      font-weight: 800;
-      font-size: 48px;
+      @include font (800, 48px, 135%);
       width: 422px;
       margin-right: 62px;
-      line-height: 135%;
     }
-
     &__link {
       width: 530px;
       background: #ffffff;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
       height: 112px;
-      display: flex;
+      @include display (flex);
       font-weight: 800;
 
       & div:nth-child(1) {
         font-size: 24px;
         width: 386px;
       }
-
       & div:nth-child(2) {
         font-size: 20px;
         background-color: #ba75ff;
         width: 170px;
         color: #fefefe;
       }
-
       & div {
         height: 112px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include display (flex, row, center, center);
       }
     }
 
     &_course {
-      display: flex;
+      @include display (flex);
       cursor: pointer;
 
       &_block {
         position: relative;
-        display: flex;
+        @include display (flex);
         width: 445px;
         height: 500px;
         margin: 0 10px;
@@ -87,10 +70,8 @@
         border-radius: 10px;
 
         &_title {
-          position: absolute;
-          bottom: 75px;
-          left: 100px;
-          z-index: 10;
+          @include position_b_l (absolute, 75px, 100px, 10);
+          width: 250px;
           align-self: flex-end;
           font-size: 40px;
           font-weight: 500;
@@ -102,7 +83,6 @@
     }
   }
 }
-
 .smallImg {
   width: 112px;
   height: 500px;
@@ -110,16 +90,14 @@
   border-radius: 10px;
   transition: all 1s linear 0s;
 }
-
 .title_rotate {
   width: 250px;
   transform: rotate(-90deg);
   transition: all 1s linear 0s;
   transform-origin: bottom left;
 }
-
 .btn_block {
-  display: flex;
+  @include display (flex);
 
   &_logIn {
     text-decoration: none;
@@ -128,7 +106,6 @@
     color: #ba75ff;
   }
 }
-
 .btn_block button:nth-child(1) {
   margin-right: 25px;
 }

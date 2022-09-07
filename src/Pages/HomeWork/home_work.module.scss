@@ -1,7 +1,6 @@
+@import '../../scss/mixin.scss';
 .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include display (flex, row, space-between, center);
   div {
     margin: 0 5px;
   }

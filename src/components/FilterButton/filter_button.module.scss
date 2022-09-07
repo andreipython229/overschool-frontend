@@ -1,4 +1,7 @@
+@import '../../../scss/mixin.scss';
+
 .container {
+  @include display (flex, row, space-between, center);
   cursor: pointer;
   max-width: 187px;
   width: 187px;
@@ -7,13 +10,10 @@
   border-radius: 7px;
   box-sizing: border-box;
   color: #6b7484;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background-color: #ededed;
 }
 .drop_down_block {
-  position: absolute;
+  @include position_t_l (absolute, 0, 0);
   color: #6b7484;
   padding: 10px 0 10px 15px;
   width: 241px;
@@ -27,11 +27,9 @@
   }
 }
 .inner_drop_down_block {
+  @include position_t_l (absolute, 20px, 200px);
   max-width: 500px;
   width: 445px;
-  position: absolute;
-  top: 20px;
-  left: 200px;
 }
 .item_drop_down {
   position: relative;
@@ -40,8 +38,7 @@
   color: #6b7484;
   text-transform: capitalize;
   svg {
-    position: absolute;
-    right: 0;
+    @include position_t_r (absolute, 0, 0);
     transform: rotate(-90deg);
   }
 }

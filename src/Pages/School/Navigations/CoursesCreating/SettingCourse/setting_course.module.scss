@@ -1,10 +1,10 @@
+@import '../../../../../scss/mixin.scss';
+
 .container {
-  display: flex;
-  justify-content: space-between;
+  @include display (flex, row, space-between);
 }
 .container_right {
-  display: flex;
-  flex-direction: column;
+  @include display (flex, column);
 
   .availability_course_wrapper {
     padding: 45px 45px 30px;
@@ -15,23 +15,17 @@
 
     form {
       h4 {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 19px;
+        @include font (500, 16px, 19px);
         color: #4d5766;
       }
       legend {
         margin-top: 21px;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 15px;
+        @include font (400, 12px, 15px);
         color: #6c7889;
       }
       div {
         margin-top: 15px;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 15px;
+        @include font (400, 12px, 15px);
         letter-spacing: 0.03em;
         color: #6c7889;
 
@@ -52,9 +46,7 @@
 
     div {
       h4 {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 19px;
+        @include font (500, 16px, 19px);
         color: #4d5766;
       }
       button {
@@ -101,14 +93,10 @@
 }
 .text_block {
   margin: 20px 0 0 30px;
-  display: flex;
-  align-items: center;
+  @include display (flex, row, flex-start, center);
   color: #e0dced;
   font-style: normal;
-  font-weight: 500;
-  font-size: 11px;
-  line-height: 13px;
-
+  @include font (500, 11px, 13px);
   svg {
     margin-right: 10px;
   }
@@ -118,31 +106,23 @@
   color: #4d5766;
   text-transform: capitalize;
   font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
+  @include font (500, 14px);
 }
 .basic_settings {
-  // width: 752px;
-  // height: 522px;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 0 10px #d9d9d9;
   padding: 45px 45px 32px;
 
   .publish_switch {
-    display: flex;
-    flex-direction: column;
+    @include display (flex, column);
     margin-top: 20px;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 15px;
+    @include font (400, 12px, 15px);
     letter-spacing: -0.01em;
     color: #6c7889;
 
     &_title {
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (400, 12px, 15px);
       letter-spacing: -0.01em;
       color: #6c7889;
     }
@@ -150,9 +130,7 @@
       margin-top: 13px;
 
       span {
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 15px;
+        @include font (400, 12px, 15px);
         letter-spacing: -0.01em;
         color: #6c7889;
 
@@ -170,9 +148,7 @@
     margin-top: 16px;
 
     .course_name_title {
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (500, 12px, 15px);
       color: #6c7889;
     }
     div {
@@ -183,9 +159,7 @@
     margin-top: 16px;
 
     .short_discription_title {
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (500, 12px, 15px);
       color: #6c7889;
     }
     div {
@@ -196,9 +170,7 @@
     margin-top: 16px;
 
     .course_link_title {
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (500, 12px, 15px);
       color: #6c7889;
     }
     div {
@@ -206,27 +178,20 @@
     }
   }
   .link_switch_wrapper {
-    display: flex;
-    flex-direction: column;
-
+    @include display (flex, column);
     .link_switch_label {
-      display: flex;
-      align-items: center;
+      @include display (flex, row, flex-start, center);
       margin-top: 16px;
 
       &_title {
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 15px;
+        @include font (500, 12px, 15px);
         letter-spacing: 0.03em;
         color: #6c7889;
       }
 
       &_help {
         margin: 6px 0 0 26px;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 15px;
+        @include font (500, 12px, 15px);
         color: #b9bac4;
       }
     }
@@ -234,9 +199,7 @@
   .course_category_wrapper {
     margin-top: 18px;
     .course_category_title {
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (500, 12px, 15px);
       color: #6c7889;
     }
     .selectInput_container {
@@ -245,23 +208,17 @@
   }
 }
 .header_basic_settings {
-  display: flex;
-  justify-content: space-between;
+  @include display (flex, row, space-between);
   width: 100%;
 
   & p:first-of-type {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
+    @include font (500, 16px, 19px);
     color: #4d5766;
   }
 
   .right_content_header {
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 13px;
+    @include display (flex, row, flex-start, center);
+    @include font (500, 11px, 13px);
     letter-spacing: 0.02em;
     color: #6c7889;
 
