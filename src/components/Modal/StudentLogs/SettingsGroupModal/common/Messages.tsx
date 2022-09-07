@@ -1,6 +1,7 @@
-import React from 'react'
-import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
+
+import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
+
 
 export const Messages = () => {
   return (

@@ -1,4 +1,4 @@
-import React, { FormEvent, ChangeEvent, FC, memo, useState } from 'react'
+import { FormEvent, ChangeEvent, FC, memo, useState } from 'react'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { useCreateCoursesMutation } from 'api/coursesServices'
 import { useShowModal } from '../../../customHooks/useShowModal'

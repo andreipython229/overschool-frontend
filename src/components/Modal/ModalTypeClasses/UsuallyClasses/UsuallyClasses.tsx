@@ -1,11 +1,12 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
+
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { basicModalHeaderSvgIcon, cross } from '../../../../constants/iconSvgConstants'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
+import { useShowModal } from '../../../../customHooks/useShowModal'
 
 import styles from '../../Modal.module.scss'
-import { useShowModal } from '../../../../customHooks/useShowModal'
 
 type SettingClassesPropsType = {
   goToBack: () => void

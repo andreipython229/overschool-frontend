@@ -1,9 +1,11 @@
-import React, { FC } from 'react'
-import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
+import  { FC } from 'react'
+
 import { Input } from 'components/common/Input/Input/Input'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { Button } from 'components/common/Button/Button'
+
+import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
 
 type MainSettingsGroupPropsT = {
   strongSubsequence: boolean

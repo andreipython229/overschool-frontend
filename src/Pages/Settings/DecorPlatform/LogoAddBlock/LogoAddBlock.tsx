@@ -1,4 +1,5 @@
-import React, { ChangeEvent, FC, memo } from 'react'
+import { ChangeEvent, FC, memo } from 'react'
+
 import styles from './logoAddBlock.module.scss'
 
 type LogoAddBlockPropsT = {

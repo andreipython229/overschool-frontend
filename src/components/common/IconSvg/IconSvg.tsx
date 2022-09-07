@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 
 export type IconSvgT = {
-  styles?: { [key: string]: string | number}  
+  styles?: { [key: string]: string | number }
   width: number
   height: number
   fill?: string
@@ -13,7 +13,7 @@ export type IconSvgT = {
   strokeLinejoin?: 'inherit' | 'round' | 'miter' | 'bevel'
   viewBoxSize?: string
   className?: string
-  fillRule?: 'nonzero' | 'evenodd' | 'inherit' 
+  fillRule?: 'nonzero' | 'evenodd' | 'inherit'
   clipRule?: 'nonzero' | 'evenodd' | 'inherit'
   functionOnClick?: <T>(params: T) => void
 }

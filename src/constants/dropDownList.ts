@@ -73,16 +73,16 @@ export const initialDropDownList = [
 ]
 
 export const dropDownListFilter = [
-  { id: 7, title: 'курсы', data: 'false' },
-  { id: 8, title: 'группа', data: 'false' },
-  { id: 9, title: 'задание', data: 'false' },
-  { id: 10, title: 'последний ответ', data: 'false' },
-  { id: 11, title: 'баллы', data: 'false' },
+  { id: 7, title: 'курсы' },
+  { id: 8, title: 'группа' },
+  { id: 9, title: 'задание' },
+  { id: 10, title: 'последний ответ' },
+  { id: 11, title: 'баллы' },
 ]
 
 export const dropDownListFilterStudents = [
-  { id: 12, title: 'Суммарный балл', data: 'Total score' },
-  { id: 13, title: 'Прогресс', data: 'Progress' },
-  { id: 14, title: 'Последняя активность', data: 'Last activity' },
-  { id: 15, title: 'Комментарии', data: 'Comments' },
+  { id: 12, title: 'Суммарный балл' },
+  { id: 13, title: 'Прогресс' },
+  { id: 14, title: 'Последняя активность' },
+  { id: 15, title: 'Комментарии' },
 ]
