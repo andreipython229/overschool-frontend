@@ -1,33 +1,29 @@
+@import '../../../scss/mixin.scss';
+
 .wrapper {
-  display: flex;
-  justify-content: center;
+  @include display (flex, row, center);
   padding: 2px 0 24px 0;
 }
-
 .container {
   width: 100%;
   position: relative;
   color: #646f74;
-  font-size: 11px;
-  font-weight: 500;
+  @include font (500, 11px);
 
   &_btn {
+    position: relative;
     border: 1px solid #e5e7eb;
     background: #ffffff;
     border-radius: 5px;
     width: 100%;
     padding: 11px 0 11px 14px;
-    position: relative;
     text-align: left;
     color: #646f74;
     min-width: 100px;
   }
 
   & svg {
-    position: absolute;
-    top: 16px;
-    right: 20px;
-    z-index: 2;
+    @include position_t_r (absolute, 16px, 20px, 2);
   }
 
   & li {
@@ -39,12 +35,11 @@
     background: #f6f5f5;
   }
 }
-
 button:hover {
   cursor: pointer;
 }
-
 .options {
+  @include position_t_l (absolute, 40px, 0, 30);
   border: 1px solid #e5e7eb;
   border-radius: 7px;
   min-height: 100px;
@@ -54,13 +49,8 @@ button:hover {
   list-style: none;
   padding: 4px 0;
   margin-top: -4px;
-  position: absolute;
-  top: 40px;
-  left: 0;
-  z-index: 30;
   overflow: scroll;
 }
-
 .show {
   display: block;
   overflow: scroll;

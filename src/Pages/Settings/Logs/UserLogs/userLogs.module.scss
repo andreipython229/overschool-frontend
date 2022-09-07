@@ -1,21 +1,20 @@
+@import '../../../../scss/mixin.scss';
+
 .logs_user {
+  position: relative;
+  @include display (flex, row, space-between);
   font-size: 11px;
-  display: flex;
   margin-top: 28px;
   padding: 0 20px;
-  position: relative;
-  justify-content: space-between;
 
   & div {
     width: 300px;
   }
   & ::after {
     content: '';
-    position: absolute;
+    @include position_t_l (absolute, -13px, 1%);
     width: 98%;
     background: #e5e7eb;
     height: 1px;
-    left: 1%;
-    top: -13px;
   }
 }

@@ -1,11 +1,11 @@
 @import 'src/scss/variable';
+@import '../../scss/mixin.scss';
 
 .editorWrapper {
   position: relative;
   width: calc(100% - 10px);
   height: 140px;
   border-radius: 7px;
-  // overflow: hidden;
   background: #1e1e1e;
 
   &_editor {
@@ -16,8 +16,7 @@
     overflow: hidden;
 
     &_add {
-      position: absolute;
-      top: 90px;
+      @include position_t_l (absolute, 90px, 0);
       overflow: hidden;
       border-radius: 7px;
       width: 100%;
@@ -26,19 +25,13 @@
   }
 
   &_selectWrapper {
-    position: absolute;
+    @include position_t_l (absolute, 24px, 35px);
     width: 176px;
-    top: 24px;
-    left: 35px;
   }
   
   &_navBlock {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: calc(50% - 65px);
-    right: -45px;
-    z-index: 2;
+    @include position_t_r (absolute, calc(50% - 65px), -45px, 2);
+    @include display (flex, column);
 
     &_div {
       background: #f3f4f6;
@@ -47,9 +40,7 @@
       width: 36px;
       height: 36px;
       text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      @include display (flex, row, center, center);
       margin-bottom: 8px;
       cursor: pointer;
     }
@@ -60,8 +51,7 @@
       border: none;
       height: 36px;
       background: #fef2f2;
-      display: flex;
-      align-items: center;
+      @include display (flex, row, flex-start, center);
       text-align: center;
       cursor: pointer;
 

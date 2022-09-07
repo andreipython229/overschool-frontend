@@ -1,9 +1,9 @@
 @import 'src/scss/variable';
+@import '../../scss/mixin.scss';
 
 .redactorCourse {
   font-family: $font-family-inter;
-  display: flex;
-
+  @include display (flex);
   &_rightSide {
     background: #ffffff;
     padding: 36px 45px 56px 45px;
@@ -16,60 +16,47 @@
         margin-top: 70px;
 
         &_addContent {
+          position: relative;
+          @include display (flex, column, center, center);
           width: 99%;
           background: #ffffff;
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          align-items: center;
           text-align: center;
           margin-bottom: 48px;
           height: 254px;
           border: 2px dashed #ebeef5;
           border-radius: 7px;
-          position: relative;
 
           & input {
+            @include position_t_l (absolute, 0, 0, 2);
             width: 100%;
             height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
             opacity: 0;
             cursor: pointer;
           }
 
           &_navBlock {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            right: -45px;
-            top: 50px;
-            z-index: 2;
+            @include position_t_r (absolute, 50px, -45px, 2);
+            @include display (flex, column);
 
             &_div {
+              @include display (flex, row, center, center);
               background: #f3f4f6;
               border: none;
               border-radius: 7px;
               width: 36px;
               height: 36px;
               text-align: center;
-              display: flex;
-              align-items: center;
-              justify-content: center;
               margin-bottom: 8px;
               cursor: pointer;
             }
               
             &_delete {
+              @include display (flex, row, flex-start, center);
               padding: 11px 0;
               border-radius: 6px;
               border: none;
               height: 36px;
               background: #fef2f2;
-              display: flex;
-              align-items: center;
               text-align: center;
               cursor: pointer;
 
@@ -83,9 +70,8 @@
         }
           & span {
             margin-bottom: 32px;
-            font-size: 16px;
+            @include font (600, 16px);
             color: $font-title;
-            font-weight: 600;
           }
       }
     }

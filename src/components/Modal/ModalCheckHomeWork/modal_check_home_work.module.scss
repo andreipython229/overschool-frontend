@@ -1,10 +1,11 @@
+@import '../../scss/mixin.scss';
+
 .modal_container {
   width: 1174px;
   padding: 0 30px;
   h3 {
     color: #4D5766;
-    font-weight: 500;
-    font-size: 18px;
+    @include font (500, 18px);
     line-height: 22px;
   }
 }
@@ -14,11 +15,9 @@
   box-sizing: border-box;
 }
 .modal_btn_is_toggle {
-  margin-top: 40px;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include display (flex, row, center, center);
+  margin-top: 40px;
   width: 100%;
   background-color: #F3F4F6;
   border: none;
@@ -26,11 +25,9 @@
   padding: 16px;
   border-radius: 10px;
   span {
+    @include position_t_l (absolute, 46%, 38%);
     width: 15px;
     height: 5px;
-    position: absolute;
-    top: 46%;
-    left: 38%;
   }
 }
 .arrow_rotate {
@@ -44,18 +41,15 @@
   margin: auto;
 }
 .btn_grey {
+  @include display (flex, row, space-between, center);
+  @include font ( 500, 14px);
   border: none;
   cursor: pointer;
   padding: 20px 10px;
   border-radius: 7px;
   box-sizing: border-box;
   color: #6b7484;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background-color: #F3F4F6;
-  font-weight: 500;
-  font-size: 14px;
   width: fit-content;
   text-align: center;
   height: 39px;
@@ -64,26 +58,21 @@
   }
 }
 .task_status {
+  @include display (flex);
+  @include font ( 500, 18px, 22px);
   margin-right: 40px;
-  display: flex;
   color: #9CA3AF;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
 }
 .task_info {
   display: inline-flex;
   &_item {
+    @include display (flex);
     margin: 0 30px 0 0;
-    display: flex;
     span {
+      @include display (flex, row, space-between, center);
+      @include font ( 400, 14px);
       width: fit-content;
-      justify-content: space-between;
-      align-items: center;
       margin: 0 10px;
-      display: flex;
-      font-weight: 400;
-      font-size: 14px;
       color: #4D5766;
     }
   }
@@ -93,16 +82,13 @@
   width: 100%;
   justify-content: right;
   &_btn_done {
+    @include display (flex, row, space-between, center);
+    @include font ( 500, 14px);
     margin: 0 30px 0 0;
-    display: flex;
     border: none;
     padding: 20px 10px;
     border-radius: 7px;
     box-sizing: border-box;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 500;
-    font-size: 14px;
     width: fit-content;
     text-align: center;
     height: 39px;
@@ -116,15 +102,12 @@
     }
   }
   &_btn_addFile {
-    display: flex;
+    @include display (flex, row, space-between, center);
+    @include font ( 500, 14px);
     border: none;
     padding: 20px 10px;
     border-radius: 7px;
     box-sizing: border-box;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 500;
-    font-size: 14px;
     width: fit-content;
     text-align: center;
     height: 39px;
@@ -137,16 +120,13 @@
     }
   }
   &_btn_send {
+    @include display (flex, row, space-between, center);
+    @include font ( 500, 14px);
     margin: 0 30px 0 0;
-    display: flex;
     border: none;
     padding: 20px 10px;
     border-radius: 7px;
     box-sizing: border-box;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 500;
-    font-size: 14px;
     width: fit-content;
     text-align: center;
     height: 39px;
@@ -158,16 +138,13 @@
     }
   }
   &_btn_mark {
+    @include display (flex, row, space-between, center);
+    @include font ( 500, 14px);
     margin: 0 30px 0 0;
-    display: flex;
     //border: none;
     padding: 20px 10px;
     //border-radius: 7px;
     box-sizing: border-box;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 500;
-    font-size: 14px;
     width: fit-content;
     text-align: center;
     height: 39px;
@@ -184,7 +161,6 @@
 .answer_header {
   margin: 20px 0;
 }
-
 .speech_bubble {
   position: relative;
   font-family: sans-serif;
@@ -198,25 +174,19 @@
   width: 100%;
   margin-bottom: 40px;
 }
-
 .speech_bubble:before {
   content: "";
+  @include position_t_l (absolute, -14px, 20px);
   width: 0px;
   height: 0px;
-  position: absolute;
   border-left: 24px solid #fff;
   border-right: 12px solid transparent;
   border-bottom: 12px solid #fff;
   border-top: 20px solid transparent;
-  left: 20px;
-  top: -14px;
 }
-
 .teacher {
-  display: flex;
-  font-size: 18px;
-  font-weight: 500;
-  align-items: center;
+  @include display (flex, row, flex-start, center);
+  @include font ( 500, 18px);
   color: #6b7484;
   padding-bottom: 30px;
   &_avatar {
@@ -225,12 +195,8 @@
     margin-right: 10px;
   }
   &_teacherData {
-    display: flex;
-    flex-direction: column;
-
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
+    @include display (flex, column);
+    @include font ( 400, 14px, 17px);
     &_name {
       font-weight: 500;
       margin-bottom: 5px;

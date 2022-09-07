@@ -1,11 +1,12 @@
+@import '../../../scss/mixin.scss';
+
 .container {
+  @include display (flex, column);
   background-color: #ffffff;
   min-width: 319px;
   border-radius: 10px;
   padding: 20px;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
 
   button {
     margin-top: 20px;
@@ -30,8 +31,7 @@
   }
 }
 .element {
-  font-weight: 500;
-  font-size: 14px;
+  @include font (500, 14px);
   color: #4d5766;
   padding: 13px 20px;
   cursor: pointer;
