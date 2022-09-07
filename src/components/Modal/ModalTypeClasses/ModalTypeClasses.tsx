@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react'
+import { FC, memo, useState } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { typeClasses } from '../../../constants/typeClasses'
 import { ModalTypeClassesSvgTask } from './ModalTypeClassesSvgTask'

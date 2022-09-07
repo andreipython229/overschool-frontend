@@ -1,4 +1,5 @@
-import React, { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
+
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { initialDropDownList } from '../../constants/dropDownList'
 import { arrowIcon, triangleDownDownIcon } from '../../constants/iconSvgConstants'

@@ -1,8 +1,9 @@
-import React, { ChangeEvent, FC } from 'react'
+import { ChangeEvent, FC } from 'react'
+import { Link } from 'react-router-dom'
+
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { StudentLogs } from 'enum/pathE'
-import { Link } from 'react-router-dom'
 import { createGroupSvgIcon, cross } from '../../../../constants/iconSvgConstants'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { useShowModal } from '../../../../customHooks/useShowModal'

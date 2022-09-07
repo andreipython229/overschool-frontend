@@ -1,11 +1,13 @@
-import React, { memo, MouseEvent, ReactNode, useEffect, useState } from 'react'
+import { memo, MouseEvent, ReactNode, useEffect, useState, useRef } from 'react'
 import { Editor, EditorState, RichUtils } from 'draft-js'
+
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { editorSvgLabel } from '../../constants/iconSvgConstants'
-import 'draft-js/dist/Draft.css'
-
-import styles from './editor.module.scss'
 // import { useDebounce } from '../../customHooks/useDebounce'
+
+
+import 'draft-js/dist/Draft.css'
+import styles from './editor.module.scss'
 
 interface IEditor {
   label?: ReactNode
@@ -19,7 +21,7 @@ export const MyEditor = memo(() => {
 
   // console.log(debounced)
 
-  const editor = React.useRef<Editor>(null)
+  const editor = useRef<Editor>(null)
 
   function focusEditor() {
     editor.current && editor?.current?.focus()

@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../components/common/Input/Input/Input'
 import { searchSvgIcon } from '../../../constants/iconSvgConstants'

@@ -1,7 +1,9 @@
-import styles from './createNewSchool.module.scss'
 // import { Input } from '../../../../../../components/common/Input/Input/Input';
 import { Button } from '../../components/common/Button/Button'
 import { Input } from '../../components/common/Input/Input/Input'
+
+import styles from './createNewSchool.module.scss'
+
 export const CreateNewSchool = () => {
   return (
     <section className={styles.newCoursePage}>

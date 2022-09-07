@@ -25,9 +25,9 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
   // const role = useAppSelector((state: RootState) => state.user.permission)
 
   const { pathname }: Location = useLocation()
-  const [edit, setEdit] = useState<boolean>(false)
-
   const { data, isSuccess } = useFetchSchoolHeaderQuery(3)
+
+  const [edit, setEdit] = useState<boolean>(false)
 
   const [schoolHeaderData, setSchoolHeaderData] = useState<schoolHeaderReqT>({
     name: '',
@@ -42,15 +42,6 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
     setEdit(!edit)
   }
 
-  useEffect(() => {
-    if (isSuccess) {
-      setSchoolHeaderData({
-        ...schoolHeaderData,
-        name: data.name,
-        description: data.description,
-      })
-    }
-  }, [isSuccess])
 
   const onChangeSchoolHeader = () => {
     const formData = new FormData()
@@ -59,7 +50,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
       formData.append(key, value)
     })
 
-    setSchoolHeader({formData, id: 3})
+    setSchoolHeader({ formData, id: 3 })
     handleChangePrevious()
   }
 
@@ -75,6 +66,22 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
     }
   }
 
+  useEffect(() => {
+    if (isSuccess) {
+      setSchoolHeaderData({
+        ...schoolHeaderData,
+        name: data.name,
+        description: data.description,
+      })
+    }
+  }, [isSuccess])
+
+  useEffect(() => {
+    if (pathname !== '/' + Path.InitialPage + Path.Courses) {
+      setEdit(false)
+    }
+  }, [pathname])
+
   const { name: headerName, description: headerDes, photo_background, photo_logo } = schoolHeaderData
   const isMatchPath = pathname === '/' + Path.InitialPage + Path.Courses
 
@@ -84,6 +91,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
         backgroundSize: 'cover',
       }
     : { background: '#e0dced' }
+
 
   return (
     <div className={styles.previous} style={changedBg}>
