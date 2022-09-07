@@ -1,96 +1,162 @@
-import React, { FC, memo, useState } from 'react'
-import { Button } from '../../common/Button/Button'
-import noAvatar from '../../../assets/img/noAvatar.svg'
+import { FC, memo, useState, ChangeEvent, useEffect } from 'react'
+import { useLocation, Location } from 'react-router-dom'
+
 // import { useAppSelector } from '../../../../store/hooks'
 // import { RootState } from '../../../../store/redux/store'
+import { Path } from '../../../enum/pathE'
+import { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation } from 'api/schoolHeaderService'
+import { Button } from '../../common/Button/Button'
+import { schoolHeaderReqT } from '../../../types/schoolHeaderT'
+
+import noAvatar from '../../../assets/img/noAvatar.svg'
 
 import styles from '../previou.module.scss'
 
 type GlobalPreviousT = {
-  avatar: string
-  description?: string
-  name: string
+  // avatar: string
+  // description?: string
+  // name: string
   about?: string
   buttonText?: string
   onClick?: () => void
 }
 
-export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, description /*onClick, buttonText*/ }) => {
+export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ about /*onClick, buttonText*/ }) => {
   // const role = useAppSelector((state: RootState) => state.user.permission)
 
-  const [edit, setEdit] = useState(false)
-  const [newDescription, setNewDescription] = useState(description)
-  const [newName, setNewName] = useState(name)
+  const { pathname }: Location = useLocation()
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
+  const [setSchoolHeader] = useSetSchoolHeaderMutation()
+
+  const [edit, setEdit] = useState<boolean>(false)
+
+  const [schoolHeaderData, setSchoolHeaderData] = useState<schoolHeaderReqT>({
+    name: '',
+    description: '',
+    logo_header: '',
+    photo_background: '',
+  })
+
+  const [schoolHeaderDataToRender, setSchoolHeaderDataToRender] = useState({
+    logo_header: data?.logo_header_url,
+    photo_background: data?.photo_background_url,
+  })
 
   const handleChangePrevious = () => {
     setEdit(!edit)
   }
 
-  const handleChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.name === 'description') {
-      setNewDescription(event.target.value)
+  const onChangeSchoolHeader = () => {
+    const formData = new FormData()
+
+    Object.entries(schoolHeaderData).forEach(([key, value]) => {
+      value && formData.append(key, value)
+    })
+
+    setSchoolHeader({ formData, id: 1 })
+    setEdit(false)
+  }
+
+  const handleChangeSchoolHeaderData = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.target
+
+    if (target.files && target.files[0]) {
+      const url = URL.createObjectURL(target.files[0])
+
+      setSchoolHeaderDataToRender({ ...schoolHeaderDataToRender, [target.name]: url })
+      setSchoolHeaderData({ ...schoolHeaderData, [target.name]: target.files[0] })
     } else {
-      setNewName(event.target.value)
+      setSchoolHeaderData({ ...schoolHeaderData, [target.name]: target.value })
     }
   }
 
+  useEffect(() => {
+    if (isSuccess) {
+      const { name, description } = data
+      setSchoolHeaderData({
+        ...schoolHeaderData,
+        name,
+        description,
+      })
+    }
+  }, [isSuccess])
+
+  useEffect(() => {
+    if (pathname !== '/' + Path.InitialPage + Path.Courses) {
+      setEdit(false)
+    }
+  }, [pathname])
+
+  const { name: headerName, description: headerDes } = schoolHeaderData
+  const { photo_background, logo_header } = schoolHeaderDataToRender
+  const isMatchPath = pathname === '/' + Path.InitialPage + Path.Courses
+
+  const changedBg = data?.photo_background_url
+    ? {
+        background: `url(${photo_background || data.photo_background_url}) no-repeat center center`,
+        backgroundSize: 'cover',
+      }
+    : { background: '#e0dced' }
+
   return (
-    <div className={styles.previous}>
+    <div className={styles.previous} style={changedBg}>
       {edit && (
         <label className={styles.label_input_background_image}>
           <span>Изменить фон секции</span>
-          <input className={styles.input_background_image} type="file" name="backgroundImage" value={''} onChange={handleChangeDescription} />
+          <input className={styles.input_background_image} type="file" name="photo_background" value={''} onChange={handleChangeSchoolHeaderData} />
         </label>
       )}
       <div className={styles.previous_infoBlock}>
         {edit && (
           <input
             className={`${styles.previous_infoBlock_avatar} ${styles.input_change} ${styles.hide_input}`}
-            name="avatar"
+            name="logo_header"
             type="file"
             value={''}
-            onChange={handleChangeDescription}
+            onChange={handleChangeSchoolHeaderData}
           />
         )}
 
-        <img className={styles.previous_infoBlock_avatar} src={avatar || noAvatar} alt="" />
+        <img className={styles.previous_infoBlock_avatar} src={logo_header || data?.logo_header_url || noAvatar} alt="" />
         <div className={styles.previous_infoBlock_title}>
           {edit ? (
             <input
               className={`${styles.previous_infoBlock_title_description} ${styles.input_change}`}
               name="description"
               type="text"
-              value={newDescription}
-              onChange={handleChangeDescription}
+              value={headerDes}
+              onChange={handleChangeSchoolHeaderData}
             />
           ) : (
-            <p className={styles.previous_infoBlock_title_description}>{newDescription} </p>
+            <p className={styles.previous_infoBlock_title_description}>{headerDes} </p>
           )}
           {edit ? (
             <input
               className={`${styles.previous_infoBlock_title_name} ${styles.input_change}`}
               name="name"
               type="text"
-              value={newName}
-              onChange={handleChangeDescription}
+              value={headerName}
+              onChange={handleChangeSchoolHeaderData}
             />
           ) : (
-            <span className={styles.previous_infoBlock_title_name}>{newName}</span>
+            <span className={styles.previous_infoBlock_title_name}>{headerName}</span>
           )}
           <p className={styles.previous_infoBlock_title_about}>{about}</p>
         </div>
       </div>
       <div className={styles.previous_btn}>
-        <Button
-          variant="primary"
-          style={{
-            width: '220px',
-            fontSize: '10px',
-            fontWeight: '800',
-          }}
-          text={edit ? 'Завершить настройку  курсов' : 'Настроить страницу курсов'}
-          onClick={handleChangePrevious}
-        />
+        {isMatchPath && (
+          <Button
+            variant="primary"
+            style={{
+              width: '220px',
+              fontSize: '10px',
+              fontWeight: '800',
+            }}
+            text={edit ? 'Завершить настройку курсов' : 'Настроить страницу курсов'}
+            onClick={edit ? onChangeSchoolHeader : handleChangePrevious}
+          />
+        )}
       </div>
     </div>
   )

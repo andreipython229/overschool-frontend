@@ -1,4 +1,4 @@
-import React, { useState, DragEvent, ChangeEvent, FC } from 'react'
+import { useState, DragEvent, ChangeEvent, FC } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { classesSettingSvgIcon } from '../../constants/iconSvgConstants'
@@ -23,7 +23,7 @@ export const AddAudio: FC<setShowType> = ({ setShow }) => {
     setDragAudio(false)
   }
 
-  const onDropAudioHandler = (e: DragEvent<HTMLDivElement>) => {
+  const onDropAudioHandler = (e: DragEvent<HTMLDivElement>): void => {
     e.preventDefault()
     const audioFiles = [...e.dataTransfer.files]
     const formData = new FormData()

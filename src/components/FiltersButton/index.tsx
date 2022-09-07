@@ -1,14 +1,14 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { filterSvgIcon } from '../../constants/iconSvgConstants'
+import { FilterItem } from './FilterItem'
+import { ComponentFilter } from 'constants/filtersMaper'
 
 import styles from '../FiltersButton/filters_btn.module.scss'
-import { FilterItem } from './FilterItem'
 
 interface ICategories {
-  id: number
+  id: string | number
   title: string
-  isOpen: boolean
 }
 
 type FiltersButtonT = {
@@ -17,12 +17,45 @@ type FiltersButtonT = {
 
 export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) => {
   const [toggleDropDown, setToggleDropDown] = useState<boolean>(false)
+  const [selectedFilter, setSelectedFilter] = useState<keyof object | null>()
 
   const handleToggleDropDawnBlock = () => {
     setToggleDropDown(!toggleDropDown)
+    setSelectedFilter(null)
   }
+  const menuRef = useRef<HTMLDivElement>(null)
+
+  const handleClick = (event: MouseEvent) => {
+    const target = event?.target as HTMLHeadingElement
+
+    if (target?.tagName === 'svg' || target?.tagName === 'path') {
+      setToggleDropDown(false)
+      return
+    }
+
+    if (!menuRef.current?.contains(target) && !target?.className?.includes('filter')) {
+      setToggleDropDown(false)
+    }
+  }
+
+  const keydownHandler = ({ key }: KeyboardEvent) => {
+    if (key === 'Escape') {
+      setToggleDropDown(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClick)
+    document.addEventListener('keydown', keydownHandler)
+
+    return () => {
+      document.removeEventListener('click', handleClick)
+      document.removeEventListener('keydown', keydownHandler)
+    }
+  }, [])
+
   return (
-    <>
+    <div ref={menuRef}>
       <button className={styles.container_btn} onClick={handleToggleDropDawnBlock}>
         <IconSvg width={15} height={17} fill="#D1D5DB" d={filterSvgIcon} viewBoxSize="0 0 15 17" />
         Добавить фильтры
@@ -30,13 +63,19 @@ export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) =
       {toggleDropDown && (
         <>
           <div className={styles.drop_down_block}>
-            <p className={styles.header_dropdown_menu}>ВЫБЕРИТЕ КРИТЕРИЙ ФИЛЬТРАЦИИ</p>
-            {filteringCategoriesList.map(({ id, title }: ICategories) => (
-              <FilterItem key={id} id={id} title={title} />
-            ))}
+            {!selectedFilter ? (
+              <>
+                <p className={styles.header_dropdown_menu}>ВЫБЕРИТЕ КРИТЕРИЙ ФИЛЬТРАЦИИ</p>
+                {filteringCategoriesList.map(({ id, title }: ICategories) => (
+                  <FilterItem id={id} key={id} title={title} setToggleDropDown={setToggleDropDown} setSelectedFilter={setSelectedFilter} />
+                ))}
+              </>
+            ) : (
+              <div ref={menuRef}>{selectedFilter && <ComponentFilter id={selectedFilter} />}</div>
+            )}
           </div>
         </>
       )}
-    </>
+    </div>
   )
 }

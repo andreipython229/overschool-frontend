@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AddVideo } from 'components/AddVideo/AddVideo';
 import { AddAudio } from 'components/AddAudio/AddAudio';
 import { AddCodeEditor } from 'components/AddCodeEditor/AddCodeEditor';

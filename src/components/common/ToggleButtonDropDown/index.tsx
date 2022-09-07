@@ -1,4 +1,7 @@
-import React, { FC } from 'react'
+// used once at coursed page 
+
+import { FC } from 'react'
+
 import { IconSvg } from '../IconSvg/IconSvg'
 import { arrowIcon } from '../../../constants/iconSvgConstants'
 

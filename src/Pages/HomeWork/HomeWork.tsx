@@ -4,9 +4,10 @@ import { FiltersButton } from '../../components/FiltersButton'
 import { Input } from '../../components/common/Input/Input/Input'
 import { searchSvgIcon } from '../../constants/iconSvgConstants'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
+import { dropDownListFilter } from '../../constants/dropDownList'
 
 import styles from './home_work.module.scss'
-import { dropDownListFilter } from '../../constants/dropDownList'
+import { StudentsTableBlock } from '../../components/StudentsTableBlock'
 
 export const HomeWork = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])
@@ -14,19 +15,9 @@ export const HomeWork = () => {
     <>
       <h3>Входящие работы от учеников</h3>
       <div className={styles.container}>
-        <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-          <SelectDropDown setArrowUsersState={setArrowUsersState} />
-          <FiltersButton filteringCategoriesList={dropDownListFilter} />
-        </div>
-        <Input
-          name=""
-          type="text"
-          value=""
-          onChange={() => {
-            console.log(arrowUsersState)
-          }}
-          placeholder="Поиск по ученикам и заданиям"
-        >
+        <SelectDropDown setArrowUsersState={setArrowUsersState} />
+        <FiltersButton filteringCategoriesList={dropDownListFilter} />
+        <Input name="" type="search" value={''} onChange={() => console.log('заглушка')} placeholder="Поиск по ученикам и заданиям">
           <IconSvg
             width={20}
             height={20}
@@ -39,6 +30,7 @@ export const HomeWork = () => {
           />
         </Input>
       </div>
+      <StudentsTableBlock />
       {/*<ModalCheckHomeWork />*/}
     </>
   )

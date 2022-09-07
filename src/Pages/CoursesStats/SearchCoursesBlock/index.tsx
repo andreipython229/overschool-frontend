@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../components/common/Input/Input/Input'
 import { searchSvgIcon } from '../../../constants/iconSvgConstants'
@@ -18,7 +19,7 @@ export const SearchCoursesBlock = () => {
     setIsOpen(!isOpen)
   }
 
-  const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
+  const [nameCourses, foundCourses, filterData] = useFilterData( courses, 'name')
 
   return (
     <div className={styles.container}>

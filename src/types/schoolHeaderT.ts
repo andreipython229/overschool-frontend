@@ -1,0 +1,24 @@
+export type schoolHeaderResT = {
+  school_id: number
+  created_at?: Date
+  updated_at?: Date
+  name: string
+  description: string
+  logo_header: string
+  photo_background: string
+  photo_background_url: string
+  logo_header_url: string
+  logo_school: string
+  logo_school_url: string
+  favicon: string
+  favicon_url: string
+}
+
+export type schoolHeaderReqT = {
+  name: string
+  description: string
+  logo_header: string
+  photo_background: string
+  favicon?: string | null
+  logo_school?: string | null
+}

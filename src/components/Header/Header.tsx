@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import Logotype from '../../assets/img/logotype.svg'
 import Avatar from '../../assets/img/avatar.svg'
 import { useAppDispatch } from '../../store/hooks'
-import { auth } from 'store/redux/users/slice'
+import { auth, token } from 'store/redux/users/slice'
 import { Link, NavLink } from 'react-router-dom'
 import { Path } from 'enum/pathE'
 import { IconSvg } from '../common/IconSvg/IconSvg'
@@ -14,6 +14,7 @@ export const Header = memo(() => {
   const dispatch = useAppDispatch()
 
   const logOut = (): void => {
+    dispatch(token(''))
     dispatch(auth(false))
   }
 
@@ -28,10 +29,7 @@ export const Header = memo(() => {
           <div className={styles.header_block_user}>
             <img className={styles.header_block_user_avatar} src={Avatar} alt="User Avatar" />
             <div className={styles.header_block_user_userName}>
-              <span
-                style={{ color: '#BA75FF' }}
-                className={styles.header_block_user_userName_status}
-              >
+              <span style={{ color: '#BA75FF' }} className={styles.header_block_user_userName_status}>
                 Супер пользователь
               </span>
               <span className={styles.header_block_user_userName_name}>Без имени</span>

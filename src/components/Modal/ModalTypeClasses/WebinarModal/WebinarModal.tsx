@@ -1,4 +1,5 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
+
 import { Input } from '../../../common/Input/Input/Input'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { SelectInput } from '../../../common/SelectInput/SelectInput'
@@ -24,6 +25,7 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
   const [secondReminderForStudent, setSecondReminderForStudent] = useState<boolean>(false)
   const [reminderForEmployees, setReminderForEmployees] = useState<boolean>(false)
   const [secondReminderForEmployees, setSecondReminderForEmployees] = useState<boolean>(false)
+
 
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
     setNameClasses(event.currentTarget.value)

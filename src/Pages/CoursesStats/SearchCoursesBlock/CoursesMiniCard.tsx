@@ -1,10 +1,12 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { generatePath, Link } from 'react-router-dom'
-import { Path } from '../../../../enum/pathE'
 
-import styles from '../../courses_stats.module.scss'
-import { addCourseId } from '../../../../store/redux/course/slice'
-import { useAppDispatch } from '../../../../store/hooks'
+
+import { Path } from '../../../enum/pathE'
+import { addCourseId } from '../../../store/redux/course/slice'
+import { useAppDispatch } from '../../../store/hooks'
+
+import styles from '../courses_stats.module.scss'
 
 type CoursesMiniCardT = {
   photo_url?: string
