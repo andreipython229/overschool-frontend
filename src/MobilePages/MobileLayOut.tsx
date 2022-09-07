@@ -1,7 +1,8 @@
-import React from 'react'
 import { Outlet } from 'react-router-dom'
-import styles from 'MobilePages/layout/mainLayOut.module.scss'
+
 import { MobileNavbar } from 'components/Navbar/MobileNavbar/MobileNavbar'
+
+import styles from '../components/MainLayout/mainLayOut.module.scss';
 
 export const MobileLayOut = () => {
   return (

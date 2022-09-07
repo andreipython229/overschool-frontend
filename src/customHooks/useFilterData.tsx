@@ -1,8 +1,13 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 
-export const useFilterData = (dataList: Array<object>, searchString: string | number): any => {
+import { anyDataValueT } from '../types/dataValueT'
+
+type dataListT = { [key: string]: anyDataValueT }
+type returnableDataT = [string, dataListT[], (e: ChangeEvent<HTMLInputElement>) => void]
+
+export const useFilterData = (dataList: dataListT[], searchString: string): returnableDataT => {
   const [searchParams, setSearchParams] = useState<string>('')
-  const [foundData, setFoundData] = useState<Array<object>>(dataList)
+  const [foundData, setFoundData] = useState<dataListT[]>(dataList)
 
   useEffect(() => {
     setFoundData(dataList)
@@ -12,8 +17,8 @@ export const useFilterData = (dataList: Array<object>, searchString: string | nu
     const keyword = e.target.value
 
     if (keyword !== '') {
-      const results = dataList.filter((item: any) => {
-        return item[searchString].toLowerCase().startsWith(keyword.toLowerCase())
+      const results = dataList.filter(item => {
+        return `${item[searchString]}`.toLowerCase().startsWith(keyword.toLowerCase())
       })
       setFoundData(results)
     } else {
@@ -22,6 +27,8 @@ export const useFilterData = (dataList: Array<object>, searchString: string | nu
 
     setSearchParams(keyword)
   }, [])
+
+
 
   return [searchParams, foundData, filterData]
 }

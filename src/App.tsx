@@ -6,19 +6,21 @@ import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 import { HomeWork } from 'Pages/HomeWork/HomeWork'
 import { School } from 'Pages/School/School'
 import { Initial } from 'Pages/Initial/Initial'
-import { MainLayOut } from 'MobilePages/layout/MainLayOut'
+import { MainLayOut } from 'components/MainLayout/MainLayOut'
 import { Path } from 'enum/pathE'
 import { useAppSelector } from './store/hooks'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
-import { authSelector, platformSelector } from 'selectors'
+import { authSelector } from 'selectors'
+import { useFetchSchoolHeaderQuery } from './api/schoolHeaderService'
 
 import styles from './App.module.scss'
 
 export const App = () => {
   const isLogin = useAppSelector(authSelector)
-  const { favicon } = useAppSelector(platformSelector)
+
   const navigate = useNavigate()
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
 
   useEffect(() => {
     if (!isLogin) {
@@ -27,15 +29,17 @@ export const App = () => {
   }, [isLogin, navigate])
 
   useEffect(() => {
-    let link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']")
+    if (isSuccess) {
+      let link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']")
 
-    if (!link) {
-      link = document.createElement('link')
-      link.rel = 'icon'
-      document.getElementsByTagName('head')[0].appendChild(link)
+      if (!link) {
+        link = document.createElement('link')
+        link.rel = 'icon'
+        document.getElementsByTagName('head')[0].appendChild(link)
+      }
+      data?.favicon_url ? (link.href = data?.favicon_url) : (link.href = '../public/favicon.ico')
     }
-    favicon ? (link.href = favicon) : (link.href = '../public/favicon.ico')
-  }, [favicon])
+  }, [isSuccess, data])
 
   return (
     <div className={styles.container}>
