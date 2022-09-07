@@ -3,8 +3,6 @@ import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/Ad
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from 'Pages/School/Navigations/StudentsStats/components/StudentInfoGraphic'
-import { StudentInfoTable } from 'Pages/School/Navigations/StudentsStats/components/StudentInfoTable/StudentsInfoTable'
-import { StudentsGroupBlock } from 'Pages/School/Navigations/StudentsStats/components/StudentsGroupBlock'
 import { useLocation } from 'react-router-dom'
 import { StudentLogs } from 'enum/pathE'
 import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupModal/SettingsGroupModal'
@@ -74,8 +72,8 @@ export const StudentsStats = () => {
           </div>
         </div>
       </section>
-      {groupSettingUrl ? null : <StudentsGroupBlock showGroupModal={showGroupModal} />}
-      <StudentInfoTable showStudentModal={showStudentModal} />
+      {/*{groupSettingUrl ? null : <StudentsTableBlock showGroupModal={showGroupModal} />}*/}
+      {/*<StudentInfoTable showStudentModal={showStudentModal} />*/}
     </div>
   )
 }
