@@ -85,17 +85,17 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = ({ settingList, setTo
         </div>
       </div>
       <div className={styles.student_info_table_contents_wrapper}>
-        {studentList.map(item => (
-          <p style={{ display: 'flex', justifyContent: 'space-between' }} key={item.name}>
-            <span>{item.name}</span>
-            <span>{item.email}</span>
-            <span>{item.progress}</span>
-            <span>{item.group}</span>
-            <span>{item.completionDate}</span>
-            <span>{item.course}</span>
-            <span>{item.totalScore}</span>
-          </p>
-        ))}
+        {/*{studentList.map(item => (*/}
+        {/*  <p style={{ display: 'flex', justifyContent: 'space-between' }} key={item.name}>*/}
+        {/*    <span>{item.name}</span>*/}
+        {/*    <span>{item.email}</span>*/}
+        {/*    <span>{item.progress}</span>*/}
+        {/*    <span>{item.group}</span>*/}
+        {/*    <span>{item.completionDate}</span>*/}
+        {/*    <span>{item.course}</span>*/}
+        {/*    <span>{item.totalScore}</span>*/}
+        {/*  </p>*/}
+        {/*))}*/}
         <Student name={'Без имени'} date={new Date().toTimeString().split('G')[0]} progress={'0%'} email={'pochta@mail.ru'} balls={'0'} />
         <Student name={'Без имени'} date={new Date().toTimeString().split('G')[0]} progress={'0%'} email={'pochta@mail.ru'} balls={'0'} />
       </div>
