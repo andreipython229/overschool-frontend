@@ -1,4 +1,5 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
+
 import { useAppDispatch } from '../../../../store/hooks'
 import { CoursesCard } from './CoursesCard/CoursesCard'
 import { CoursesT } from '../../../../store/redux/courses/slice'
@@ -41,7 +42,7 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses })
       </Input>
       <div className={styles.course}>
         {courses.length !== 0 &&
-          foundCourses?.map((course: CoursesT) => (
+          foundCourses?.map((course: any) => (
             <CoursesCard
               key={course.course_id}
               created_at={course.created_at}

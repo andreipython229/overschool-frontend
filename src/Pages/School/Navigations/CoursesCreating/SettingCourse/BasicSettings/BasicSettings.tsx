@@ -1,8 +1,9 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { Toggle } from '@skbkontur/react-ui'
+
 import { publishedMarkerSvgIcon } from '../../../../../../constants/iconSvgConstants'
 import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../../../../components/common/Input/Input/Input'
-import { Toggle } from '@skbkontur/react-ui'
 import { Checkbox } from '../../../../../../components/common/Checkbox/Checkbox'
 import { SelectInput } from '../../../../../../components/common/SelectInput/SelectInput'
 import { CoursesT } from '../../../../../../store/redux/courses/slice'
@@ -25,6 +26,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
 
   const [debouncedCourseName] = useDebounce(nameCourse)
   const [debouncedDescription] = useDebounce(shortDescription)
+
   const handleNameCourse = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'nameCourse') {
       setNameCourse(e.target.value)

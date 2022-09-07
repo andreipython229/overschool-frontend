@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 import { Input } from 'components/common/Input/Input/Input'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { Button } from 'components/common/Button/Button'

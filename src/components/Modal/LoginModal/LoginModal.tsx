@@ -1,6 +1,7 @@
-import React, { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import { Link } from 'react-router-dom'
+
 import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
 import { Button } from '../../common/Button/Button'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
@@ -20,10 +21,9 @@ type LoginModalPropsT = {
   setShowModal: (value: boolean) => void
 }
 
-const errorLoginOrPassword = 'Неверный логин или пароль'
-
 export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
   const dispatch = useAppDispatch()
+  
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
 
@@ -89,7 +89,7 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
                   />
                   <AuthSelect getInputVariant={getInputVariant} />
                 </div>
-                <div className={styles.errors}>{formik.errors.email || (error && errorLoginOrPassword)}</div>
+                <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин или пароль')}</div>
               </div>
               <InputAuth
                 name={'password'}

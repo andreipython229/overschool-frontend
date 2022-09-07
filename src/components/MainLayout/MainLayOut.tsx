@@ -1,9 +1,11 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 import { Outlet } from 'react-router-dom'
+
 import { Header } from 'components/Header/Header'
 import { Navbar } from 'components/Navbar/Navbar'
+import { Previous } from '../Previous/Previous'
+
 import styles from './mainLayOut.module.scss'
-import { Previous } from '../../components/Previous/Previous'
 
 export const MainLayOut: FC = memo(() => {
   return (
@@ -11,7 +13,7 @@ export const MainLayOut: FC = memo(() => {
       <Navbar />
       <Header />
       <main className={styles.container}>
-        <Previous avatar={''} name={'school name'} description={'супер крутая школа'} />
+        <Previous />
         <Outlet />
       </main>
     </div>

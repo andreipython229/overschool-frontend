@@ -1,4 +1,5 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
+
 import { Input } from '../../../common/Input/Input/Input'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { Button } from '../../../common/Button/Button'
@@ -7,6 +8,7 @@ import { cross } from '../../../../constants/iconSvgConstants'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { useShowModal } from '../../../../customHooks/useShowModal'
 import { ModalTestSvgBlock } from '../ModalTypeClassesSvgTest'
+import { checkboxData } from './config/checkboxData'
 
 import styles from '../../Modal.module.scss'
 
@@ -17,27 +19,35 @@ type TestModalPropsT = {
 }
 
 export const TestModal: FC<TestModalPropsT> = ({ goToBack, addCourse, closedAll }) => {
-  const [nameClasses, setNameClasses] = useState<string>('')
-  const [percent, setPercent] = useState<string>('60')
   const [settingsActive, setSettingsActive] = useState<number>(0)
-  const [attempts, setAttempts] = useState<string>('1')
-  const [randomQuestions, setRandomQuestions] = useState<boolean>(false)
-  const [shuffleAnswers, setShuffleAnswers] = useState<boolean>(false)
-  const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false)
-  const [numberOfAttempts, setNumberOfAttempts] = useState<boolean>(false)
 
-  const changeAttempts = (event: ChangeEvent<HTMLInputElement>) => {
-    setAttempts(event.currentTarget.value)
+  const [inputItem, setInputItemValue] = useState<{ [key: string]: string }>({
+    classesName: '',
+    percent: '60',
+    attempts: '1',
+  })
+
+  const [checkboxItem, setCheckboxItem] = useState<{ [key: string]: boolean }>({
+    numOfAttempts: false,
+    rndQuest: false,
+    shuffleAnsw: false,
+    showCorrect: false,
+  })
+
+  const handleChnageCheckboxItem = (event: ChangeEvent<HTMLInputElement>) => {
+    const target = event.target
+    setCheckboxItem({ ...checkboxItem, [target.name]: event.target.checked })
   }
 
-  const changeName = (event: ChangeEvent<HTMLInputElement>) => {
-    setNameClasses(event.currentTarget.value)
-  }
-  const changePercent = (event: ChangeEvent<HTMLInputElement>) => {
-    setPercent(event.currentTarget.value)
+  const handleChangeInpitValue = (event: ChangeEvent<HTMLInputElement>) => {
+    const target = event.target
+    setInputItemValue({ ...inputItem, [target.name]: event.target.value })
   }
 
   useShowModal({ closedAll })
+
+  const { numOfAttempts } = checkboxItem
+  const { classesName, percent, attempts } = inputItem
 
   return (
     <div className={styles.wrapper}>
@@ -61,120 +71,47 @@ export const TestModal: FC<TestModalPropsT> = ({ goToBack, addCourse, closedAll 
         <div className={styles.navBtn}>
           <span
             onClick={() => setSettingsActive(0)}
-            className={
-              settingsActive === 0
-                ? styles.navBtn_btn + ' ' + styles.navBtn_active
-                : styles.navBtn_btn
-            }
+            className={settingsActive === 0 ? styles.navBtn_btn + ' ' + styles.navBtn_active : styles.navBtn_btn}
           >
             Основные
           </span>
           <span
             onClick={() => setSettingsActive(1)}
-            className={
-              settingsActive === 1
-                ? styles.navBtn_btn + ' ' + styles.navBtn_active
-                : styles.navBtn_btn
-            }
+            className={settingsActive === 1 ? styles.navBtn_btn + ' ' + styles.navBtn_active : styles.navBtn_btn}
           >
             Баллы за прохождение
           </span>
         </div>
         <div style={{ marginTop: '15px' }} className={styles.usually_input}>
           <span className={styles.usually_title}>Название теста:</span>
-          <Input
-            placeholder={'Основы языка HTML'}
-            name={'name classes'}
-            onChange={changeName}
-            type={'text'}
-            value={nameClasses}
-          />
+          <Input placeholder={'Основы языка HTML'} name="classesName" onChange={handleChangeInpitValue} type={'text'} value={classesName} />
         </div>
 
         {settingsActive === 0 ? (
           <>
             <div style={{ marginTop: '15px' }} className={styles.usually_input}>
-              <span className={styles.usually_title}>
-                Процент правильных ответов для выполнения:
-              </span>
-              <Input
-                placeholder={'Процент ответов'}
-                name={'name classes'}
-                onChange={changePercent}
-                type={'text'}
-                value={percent}
-              />
+              <span className={styles.usually_title}>Процент правильных ответов для выполнения:</span>
+              <Input placeholder={'Процент ответов'} name="percent" onChange={handleChangeInpitValue} type={'text'} value={percent} />
             </div>
             <div className={styles.test_checkboxPack}>
               <div className={styles.test_checkbox}>
-                <Checkbox
-                  id={'attempts'}
-                  name={'Number of attempts'}
-                  checked={numberOfAttempts}
-                  onChange={() => setNumberOfAttempts(!numberOfAttempts)}
-                />
+                <Checkbox id={'attempts'} name="numOfAttempts" checked={numOfAttempts} onChange={handleChnageCheckboxItem} />
                 <div>
-                  <span className={numberOfAttempts ? styles.test_checkbox_text_checked : ''}>
-                    Ограничить количество попыток
-                  </span>
+                  <span className={numOfAttempts ? styles.test_checkbox_text_checked : ''}>Ограничить количество попыток</span>
                 </div>
-                {numberOfAttempts && (
-                  <input
-                    className={styles.test_checkbox_attempts}
-                    type="text"
-                    onChange={changeAttempts}
-                    value={attempts}
-                  />
+                {numOfAttempts && (
+                  <input className={styles.test_checkbox_attempts} type="text" name="attempts" onChange={handleChangeInpitValue} value={attempts} />
                 )}
               </div>
-              <div className={styles.test_checkbox}>
-                <Checkbox
-                  id={'randomQuestions'}
-                  name={'Random Questions'}
-                  checked={randomQuestions}
-                  onChange={() => setRandomQuestions(!randomQuestions)}
-                />
-                <div className={styles.test_checkbox_text}>
-                  <span className={randomQuestions ? styles.test_checkbox_text_checked : ''}>
-                    Ограничить количество попыток
-                  </span>
-                  <span className={styles.test_checkbox_text_desc}>
-                    Вопросы будут задаваться в случайном порядке{' '}
-                  </span>
+              {checkboxData.map(({ id, name, span1, span2 }) => (
+                <div key={id} className={styles.test_checkbox}>
+                  <Checkbox id={id} name={name} checked={checkboxItem[name]} onChange={handleChnageCheckboxItem} />
+                  <div className={styles.test_checkbox_text}>
+                    <span className={checkboxItem[name] ? styles.test_checkbox_text_checked : ''}>{span1}</span>
+                    <span className={styles.test_checkbox_text_desc}>{span2}</span>
+                  </div>
                 </div>
-              </div>
-              <div className={styles.test_checkbox}>
-                <Checkbox
-                  id={'shuffleAnswers'}
-                  name={'Shuffle Answer'}
-                  checked={shuffleAnswers}
-                  onChange={() => setShuffleAnswers(!shuffleAnswers)}
-                />
-                <div className={styles.test_checkbox_text}>
-                  <span className={shuffleAnswers ? styles.test_checkbox_text_checked : ''}>
-                    Перемешивать варианты ответов
-                  </span>
-                  <span className={styles.test_checkbox_text_desc}>
-                    Варианты ответов будут отображаться в случайном порядке
-                  </span>
-                </div>
-              </div>
-              <div className={styles.test_checkbox}>
-                <Checkbox
-                  id={'showCorrectAnswer'}
-                  name={'Show correct Answer'}
-                  checked={showCorrectAnswer}
-                  onChange={() => setShowCorrectAnswer(!showCorrectAnswer)}
-                />
-                <div className={styles.test_checkbox_text}>
-                  <span className={showCorrectAnswer ? styles.test_checkbox_text_checked : ''}>
-                    Показывать правильные варианты ответов
-                  </span>
-                  <span className={styles.test_checkbox_text_desc}>
-                    После завершения тестирования будут отображены правильные ответы на вопросы
-                  </span>
-                </div>
-              </div>
+              ))}
             </div>
           </>
         ) : (
@@ -183,14 +120,14 @@ export const TestModal: FC<TestModalPropsT> = ({ goToBack, addCourse, closedAll 
             <div className={styles.test_grade_radio}>
               <Radio title={'За успешно пройденный тест'} id={'success'} />
               <div className={styles.test_grade_radio_input}>
-                <input type={'number'} placeholder={'0'} className={styles.usually_grade_points} />
+                <input type={'number'} placeholder={'0'} min="0" className={styles.usually_grade_points} />
                 <span>баллов</span>
               </div>
             </div>
             <div>
               <Radio title={'За каждый правильный ответ'} id={'notSuccess'} />
               <div className={styles.test_grade_radio_input}>
-                <input type={'number'} placeholder={'0'} className={styles.usually_grade_points} />
+                <input type={'number'} placeholder={'0'} min="0" className={styles.usually_grade_points} />
                 <span>баллов</span>
               </div>
             </div>
@@ -199,11 +136,7 @@ export const TestModal: FC<TestModalPropsT> = ({ goToBack, addCourse, closedAll 
 
         <div className={styles.btnBlock}>
           <Button onClick={goToBack} text={'Назад'} />
-          <Button
-            onClick={() => addCourse(nameClasses, 'test')}
-            text={'Добавить занятие'}
-            variant={'primary'}
-          />
+          <Button onClick={() => addCourse(classesName, 'test')} text={'Добавить занятие'} variant={'primary'} />
         </div>
       </div>
     </div>

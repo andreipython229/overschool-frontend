@@ -3,7 +3,6 @@ import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
 import { schoolHeaderResT } from '../types/schoolHeaderT'
 import { RootState } from '../store/redux/store'
 
-
 export const schoolHeaderService = createApi({
   reducerPath: 'coursesHeaderService',
   baseQuery: fetchBaseQuery({
@@ -22,13 +21,13 @@ export const schoolHeaderService = createApi({
   endpoints: build => ({
     fetchSchoolHeader: build.query<schoolHeaderResT, number>({
       query: (id?: number) => ({
-        url: `/course_header/${id}/`,
+        url: `/school_header/${id}/`,
       }),
     }),
     setSchoolHeader: build.mutation<schoolHeaderResT, { formData: FormData; id: number }>({
       query: ({ formData, id }) => ({
-        url: `/course_header/${id}/`,
-        method: 'PUT',
+        url: `/school_header/${id}/`,
+        method: 'PATCH',
         body: formData,
       }),
       invalidatesTags: ['schoolHeader'],

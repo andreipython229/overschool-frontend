@@ -2,8 +2,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface PlatformI {
-  logotype: string | null
-  favicon: string | null
+  logotype: File | null
+  favicon: File | null
   projectName: string
 }
 
@@ -18,10 +18,10 @@ export const slice = createSlice({
   name: 'course',
   initialState,
   reducers: {
-    changeLogo: (state, action: PayloadAction<string>) => {
+    changeLogo: (state, action: PayloadAction<File>) => {
       state.logotype = action.payload
     },
-    changeFavicon: (state, action: PayloadAction<string>) => {
+    changeFavicon: (state, action: PayloadAction<File>) => {
       state.favicon = action.payload
     },
     changeProjectName: (state, action: PayloadAction<string>) => {

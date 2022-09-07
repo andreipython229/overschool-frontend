@@ -1,37 +1,51 @@
-import React, { ChangeEvent, memo } from 'react'
-import styles from '../superAdmin.module.scss'
-import Cover from '../../../assets/img/super_admin_cover.jpg'
+import { ChangeEvent, memo } from 'react'
+
 import { LogoAddBlock } from './LogoAddBlock/LogoAddBlock'
 import { useAppDispatch } from '../../../store/hooks'
 import { changeFavicon, changeLogo } from '../../../store/redux/platform/slice'
+import { useSetSchoolHeaderMutation } from '../../../api/schoolHeaderService'
+
+import Cover from '../../../assets/img/super_admin_cover.jpg'
+
+import styles from '../superAdmin.module.scss'
 
 export const DecorPlatform = memo(() => {
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
+
+  const [setSchoolHeader] = useSetSchoolHeaderMutation()
 
   const onChangeLogotype = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const index = 0
-      const reader = new FileReader()
-      reader.readAsDataURL(e.target.files[index])
-      reader.onloadend = event => {
-        if (typeof event?.target?.result === 'string') {
-          dispatch(changeLogo(event?.target?.result))
-        }
-      }
+    const target = e.target
+    if (target.files) {
+      // dispatch(changeLogo(target.files[0]))
+      const formData = new FormData()
+      formData.append('logo_school', target.files[0])
+
+      setSchoolHeader({ formData, id: 1 })
     }
   }
   const onChangeFavicon = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const index = 0
-      const reader = new FileReader()
-      reader.readAsDataURL(e.target.files[index])
-      reader.onloadend = event => {
-        if (typeof event?.target?.result === 'string') {
-          dispatch(changeFavicon(event?.target?.result))
-        }
-      }
+    const target = e.target
+
+    if (target.files) {
+      // const reader = new FileReader()
+      // reader.readAsDataURL(e.target.files[0])
+
+      // dispatch(changeFavicon(target.files[0]))
+
+      const formData = new FormData()
+      formData.append('favicon', target.files[0])
+
+      setSchoolHeader({ formData, id: 1 })
+
+      // reader.onloadend = event => {
+      //   if (typeof event?.target?.result === 'string') {
+      //     dispatch(changeFavicon(event?.target?.result))
+      //   }
+      // }
     }
   }
+
   return (
     <div className={styles.wrapper_actions}>
       <div className={styles.decor}>

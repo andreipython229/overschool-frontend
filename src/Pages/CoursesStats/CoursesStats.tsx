@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react'
+import  { useCallback, useState } from 'react'
+
 import { StatisticHeader } from '../../components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from '../School/Navigations/StudentsStats/components/StudentInfoGraphic'
 import { SearchCoursesBlock } from './SearchCoursesBlock'
