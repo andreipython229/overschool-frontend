@@ -19,10 +19,13 @@ export const useShowModal = ({ ...func }: funcT) => {
 
   const clickMouseHandler = (event: MouseEvent) => {
     const target = event?.target as HTMLHeadingElement
-    if (
-      (target.tagName === 'DIV' && target.className.includes('Modal_wrapper')) ||
-      target.className.includes('studentsLog_wrapper')
-    ) {
+    if (target?.tagName === 'svg' || target?.tagName === 'path') {
+      if ('setShowModal' in func) {
+        func?.setShowModal(true)
+        return
+      }
+    }
+    if ((target.tagName === 'DIV' && target.className.includes('Modal_wrapper')) || target.className.includes('studentsLog_wrapper')) {
       if ('setShowModal' in func) {
         func?.setShowModal(false)
       } else {

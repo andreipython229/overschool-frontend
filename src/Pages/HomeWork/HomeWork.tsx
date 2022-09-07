@@ -7,8 +7,7 @@ import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { dropDownListFilter } from '../../constants/dropDownList'
 
 import styles from './home_work.module.scss'
-
-import { CoursesStudentsBlock } from '../CoursesStats/CoursesStudentsBlock'
+import { StudentsTableBlock } from '../../components/StudentsTableBlock'
 
 export const HomeWork = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])
@@ -31,7 +30,7 @@ export const HomeWork = () => {
           />
         </Input>
       </div>
-      <CoursesStudentsBlock />
+      <StudentsTableBlock />
       {/*<ModalCheckHomeWork />*/}
     </>
   )
