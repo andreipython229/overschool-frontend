@@ -10,8 +10,7 @@ import { Path } from 'enum/pathE'
 import { useAppSelector } from './store/hooks'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
-
-import { authSelector } from 'selectors'
+import { authSelector } from 'selectors';
 
 import styles from './App.module.scss'
 
