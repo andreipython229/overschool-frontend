@@ -1,10 +1,15 @@
 @import '../../scss/mixin.scss';
 
+.wrapper {
+  position: relative;
+  margin: 0 10px;
+}
 .container_btn {
   @include display (flex, row, space-around, center);
   @include font (500, 12px);
+  min-width: 167px;
   border-radius: 7px;
-  border: 1.5px solid #d7d7d7;
+  border: none;
   color: #6b7484;
   background-color: #ededed;
   padding: 11px 13px;
@@ -20,7 +25,7 @@
   text-align: center;
 }
 .drop_down_block {
-  @include position_t_l (absolute, 40px, 0);
+  @include position_t_l (absolute, 40px, 70px);
   width: 341px;
   border-radius: 7px;
   display: inline-block;
