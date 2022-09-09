@@ -1,14 +1,38 @@
-import React, { useCallback, useState } from 'react'
+import  { useCallback, useState } from 'react'
+
 import { StatisticHeader } from '../../components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from '../School/Navigations/StudentsStats/components/StudentInfoGraphic'
 import { SearchCoursesBlock } from './SearchCoursesBlock'
 import { AllStudentsBlock } from '../../components/AllStudentsBlock'
-import { CoursesStudentsBlock } from './CoursesStudentsBlock'
+import { StudentsTableBlock } from '../../components/StudentsTableBlock'
+import { SettingStudentTable } from '../../components/Modal/SettingStudentTable'
 
 import styles from '../School/Navigations/StudentsStats/studentsStats.module.scss'
 
+const settingsItemsList = [
+  { id: 1, order: 1, name: 'Имя', checked: true },
+  { id: 2, order: 2, name: 'Email', checked: true },
+  { id: 3, order: 3, name: 'Суммарный балл', checked: true },
+  { id: 4, order: 4, name: 'Курс', checked: true },
+  { id: 5, order: 5, name: 'Последняя активность', checked: true },
+  { id: 6, order: 6, name: 'Прогресс', checked: true },
+  { id: 7, order: 7, name: 'Комментарий', checked: true },
+  { id: 8, order: 8, name: 'Группа', checked: false },
+  { id: 9, order: 9, name: 'Средний балл', checked: false },
+  { id: 10, order: 10, name: 'Дата обновления', checked: false },
+  { id: 11, order: 11, name: 'Дата заверения', checked: false },
+]
+export type SettingItemT = {
+  id: number
+  order: number
+  name: string
+  checked: boolean
+}
+
 export const CoursesStats = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)
+  const [settingList, setSettingsList] = useState(settingsItemsList)
+  const [toggleSettingModal, setToggleSettingModal] = useState<boolean>(false)
 
   const handleHideStats = useCallback(() => {
     setHideStats(!hideStats)
@@ -42,7 +66,7 @@ export const CoursesStats = () => {
                 <div className={styles.statistics_new_student_wrapper_new_students_info_wrapper}>
                   <p className={styles.statistics_new_student_wrapper_new_students_info_wrapper_info}>Предыдущий период (31 день)</p>
                 </div>
-                <div className={styles.statistics_new_student_wrapper_new_students_info_btn}>i</div>
+                <div className={styles.statistics_new_student_wrapper_new_students_info_btn}> </div>
               </div>
             </>
           )}
@@ -50,7 +74,8 @@ export const CoursesStats = () => {
       </section>
       <SearchCoursesBlock />
       <AllStudentsBlock headerText={'Все ученики школы'} />
-      <CoursesStudentsBlock />
+      <StudentsTableBlock settingList={settingList} setToggleSettingModal={setToggleSettingModal} />
+      {toggleSettingModal && <SettingStudentTable setShowModal={setToggleSettingModal} settingList={settingList} setSettingsList={setSettingsList} />}
     </div>
   )
 }

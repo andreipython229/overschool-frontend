@@ -1,8 +1,9 @@
-import React, { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
+
 import { CoursePage } from 'Pages/School/Navigations/CoursesCreating/CoursePage'
 import { AddCourseModal } from 'components/Modal'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { Route, Routes } from 'react-router-dom'
 import { Path } from 'enum/pathE'
 import { RedactorCourse } from './Navigations/CoursesCreating/RedactorCourse/RedactorCourse'
 import { Settings } from '../Settings/Settings'

@@ -1,5 +1,5 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import { Path } from '../../enum/pathE'
 
 import styles from './pageNotFound.module.scss'

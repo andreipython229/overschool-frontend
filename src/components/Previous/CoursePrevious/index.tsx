@@ -1,5 +1,6 @@
-import React from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
+
 import { useAppSelector } from '../../../store/hooks'
 import { getIdSelector } from '../../../selectors'
 import { useFindCourse } from '../../../customHooks/useFindCourse'
@@ -9,10 +10,9 @@ import { IconSvg } from '../../common/IconSvg/IconSvg'
 
 import styles from '../previou.module.scss'
 
-export const CoursePrevious = () => {
+export const CoursePrevious: FC = () => {
   const id = useAppSelector(getIdSelector)
   const editableCourse = useFindCourse(id)
-
 
   return (
     <div className={styles.previous}>

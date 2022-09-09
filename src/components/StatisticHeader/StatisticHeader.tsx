@@ -1,4 +1,5 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
+
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { statisticSvgIcon } from '../../constants/iconSvgConstants'
 import { Button } from '../common/Button/Button'

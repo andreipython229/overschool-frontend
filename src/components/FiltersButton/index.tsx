@@ -1,15 +1,14 @@
-import { FC, useEffect, useRef, useState } from 'react'
-
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { filterSvgIcon } from '../../constants/iconSvgConstants'
 import { FilterItem } from './FilterItem'
+import { ComponentFilter } from 'constants/filtersMaper'
 
 import styles from '../FiltersButton/filters_btn.module.scss'
 
 interface ICategories {
   id: string | number
   title: string
-  data: string
 }
 
 type FiltersButtonT = {
@@ -18,20 +17,25 @@ type FiltersButtonT = {
 
 export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) => {
   const [toggleDropDown, setToggleDropDown] = useState<boolean>(false)
-  const [selectedFilter, setSelectedFilter] = useState<keyof object>()
+  const [selectedFilter, setSelectedFilter] = useState<keyof object | null>()
 
   const handleToggleDropDawnBlock = () => {
     setToggleDropDown(!toggleDropDown)
+    setSelectedFilter(null)
   }
-
   const menuRef = useRef<HTMLDivElement>(null)
 
   const handleClick = (event: MouseEvent) => {
     const target = event?.target as HTMLHeadingElement
-    if (!menuRef.current?.contains(target)) {
+
+    if (target?.tagName === 'svg' || target?.tagName === 'path') {
+      setToggleDropDown(false)
+      return
+    }
+
+    if (!menuRef.current?.contains(target) && !target?.className?.includes('filter')) {
       setToggleDropDown(false)
     }
-    //console.log(menuRef?.current?.childNodes)
   }
 
   const keydownHandler = ({ key }: KeyboardEvent) => {
@@ -50,15 +54,8 @@ export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) =
     }
   }, [])
 
-  const obj = {
-    12: <div>Total score</div>,
-    13: <div>Progress</div>,
-    14: <div>Last activity</div>,
-    15: <div>Comments</div>,
-  }
-
   return (
-    <div ref={menuRef}>
+    <div className={styles.wrapper} ref={menuRef}>
       <button className={styles.container_btn} onClick={handleToggleDropDawnBlock}>
         <IconSvg width={15} height={17} fill="#D1D5DB" d={filterSvgIcon} viewBoxSize="0 0 15 17" />
         Добавить фильтры
@@ -74,7 +71,7 @@ export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) =
                 ))}
               </>
             ) : (
-              <div onClick={() => setSelectedFilter(undefined)}>{selectedFilter && obj[selectedFilter]}</div>
+              <div ref={menuRef}>{selectedFilter && <ComponentFilter id={selectedFilter} />}</div>
             )}
           </div>
         </>

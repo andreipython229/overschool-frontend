@@ -1,4 +1,5 @@
 @import '../../../scss/variable';
+@import '../../../scss/mixin.scss';
 
 .container {
   width: 476px;
@@ -7,22 +8,15 @@
   font-family: $font-family-inter;
   border-radius: 7px;
 }
-
 .content {
-  display: flex;
-  align-items: center;
   position: relative;
-
+  @include display (flex, row, flex-start, center);
   &_arrow {
-    position: absolute;
-    right: -4%;
-    top: 40%;
+    @include position_t_r (absolute, 40%, -4%);
     cursor: pointer;
 
     &_open {
-      position: absolute;
-      right: -4%;
-      top: 40%;
+      @include position_t_r (absolute, 40%, -4%);
       cursor: pointer;
       transform: rotate(180deg);
     }
@@ -36,15 +30,14 @@
     color: $font-title;
   }
 }
-
 .selectChildren {
+  @include display (flex);
   width: 511px;
   padding: 20px 0 20px 16px;
-  display: flex;
   text-align: right;
   border-radius: 7px;
 
   &_content {
-    display: flex;
+    @include display (flex);
   }
 }

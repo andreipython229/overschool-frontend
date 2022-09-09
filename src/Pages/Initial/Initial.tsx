@@ -1,5 +1,5 @@
-import React, { memo, useState } from 'react'
-import styles from './initial.module.scss'
+import { memo, useState } from 'react'
+
 import { InitPageHeader } from './InitPageHeader/InitPageHeader'
 import { CourseImg } from './CourseImgBlock/CourseImg'
 import { RegistrationModal, LoginModal } from 'components/Modal'
@@ -8,6 +8,8 @@ import Frontend from '../../assets/img/course/frontend.jpg'
 import QA from '../../assets/img/course/qa.jpg'
 import UI from '../../assets/img/course/ui.jpg'
 import Java from '../../assets/img/course/java.jpg'
+
+import styles from './initial.module.scss'
 
 export const Initial = memo(() => {
   const [currentCourse, setCurrentCourse] = useState<string>('1')

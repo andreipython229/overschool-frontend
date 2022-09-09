@@ -1,14 +1,14 @@
 @import '../../../../scss/variable';
+@import '../../../../scss/mixin.scss';
 
 .statistics {
   width: 100%;
 
   &_header {
     position: relative;
+    @include display (flex, row, flex-start, center);
     width: 100%;
     height: 60px;
-    display: flex;
-    align-items: center;
     background-color: #fff;
     border-radius: 7px;
     margin-top: 37px;
@@ -20,16 +20,12 @@
     }
 
     &_info_wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      @include display (flex, column, flex-start, flex-start);
       text-align: left;
 
       span:first-of-type,
       span:last-of-type {
-        font-size: 12px;
-        font-weight: 500;
-        line-height: 15px;
+        @include font (500, 12px, 15px);
         letter-spacing: 0.01em;
         text-align: left;
       }
@@ -44,17 +40,13 @@
     }
 
     &_btn_collapse {
-      position: absolute;
-      top: calc(50% - 19px);
-      right: 15px;
+      @include position_t_r (absolute, calc(50% - 19px), 15px);
       height: 38px;
       width: 87px;
       font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
+      @include font (500, 12px, 38px);
       letter-spacing: 0.01em;
       color: #6b7280;
-      line-height: 38px;
       background: #f3f4f6;
       border-radius: 7px;
       text-align: center;
@@ -70,9 +62,7 @@
 
     &_new_students {
       position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      @include display (flex, column, flex-start, center);
       margin-top: 18px;
       border-radius: 7px;
       background-color: #fff;
@@ -80,18 +70,14 @@
 
       &_title {
         font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 15px;
+        @include font (500, 12px, 15px);
         margin-top: 12px;
         color: #b9bac4;
       }
 
       &_amount {
         font-style: normal;
-        font-weight: 500;
-        font-size: 30px;
-        line-height: 36px;
+        @include font (500, 30px, 36px);
         letter-spacing: 0.05em;
         margin-top: 22px;
         color: #4d5766;
@@ -102,25 +88,19 @@
       }
 
       &_info_wrapper {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
+        @include display (flex, row, space-around, center);
         width: 100%;
         margin-top: 23px;
 
         &_info {
           font-style: normal;
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 15px;
+          @include font (400, 12px, 15px);
           letter-spacing: 0.02em;
           color: #646f74;
 
           &_amount_time {
             font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 19px;
+            @include font (500, 16px, 19px);
             color: #24b59e;
             margin-right: 10px;
           }
@@ -128,13 +108,9 @@
       }
 
       &_info_btn {
-        position: absolute;
-        top: 11px;
-        right: 11px;
+        @include position_t_r (absolute, 11px, 11px);
         font-style: normal;
-        font-weight: 500;
-        font-size: 10px;
-        line-height: 12px;
+        @include font (500, 10px, 12px);
         text-align: center;
         width: 15px;
         height: 15px;
@@ -146,35 +122,27 @@
     }
   }
 }
-
 .students_group {
-  display: flex;
-  flex-direction: column;
+  @include display (flex, column);
   width: 100%;
 
   &_header {
-    display: flex;
-    justify-content: space-between;
+    @include display (flex, row, space-between);
     width: 100%;
     margin-top: 40px;
 
     &_title {
       font-style: normal;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 19px;
+      @include font (500, 16px, 19px);
       color: #4d5766;
     }
 
     &_add_group_btn {
-      display: flex;
-      align-items: center;
+      @include display (flex, row, flex-start, center);
       height: 36px;
       padding: 10px;
       font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 32px;
+      @include font (500, 12px, 32px);
       letter-spacing: 0.02em;
       color: #ba75ff;
       background: #e5dfff;
@@ -188,13 +156,10 @@
   }
 
   &_content_wrapper {
-    display: flex;
-    flex-direction: column;
-
+    @include display (flex, column);
     &_info {
       position: relative;
-      display: flex;
-      align-items: center;
+      @include display (flex, row, flex-start, center);
       width: 20%;
       margin-top: 16px;
       padding: 17px;
@@ -211,9 +176,7 @@
       &_info_wrapper {
         &_name {
           font-style: normal;
-          font-weight: 500;
-          font-size: 14px;
-          line-height: 17px;
+          @include font (500, 14px, 17px);
           letter-spacing: -0.03em;
           color: #4d5766;
         }
@@ -221,9 +184,7 @@
         &_amount_wrapper span {
           margin-top: 8px;
           font-style: normal;
-          font-weight: 500;
-          font-size: 10px;
-          line-height: 12px;
+          @include font (500, 10px, 12px);
           color: #a5a9b4;
 
           & svg {
@@ -234,12 +195,8 @@
       }
 
       &_setings_btn {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include position_t_r (absolute, 15px, 15px);
+        @include display (flex, row, center, center);
         width: 42px;
         height: 42px;
         background: #f7f6fb;
@@ -249,32 +206,26 @@
     }
 
     &_show_all_groups_btn {
+      @include display (flex, row, flex-start, center);
       align-self: center;
-      display: flex;
       margin-top: 34px;
       cursor: pointer;
-      align-items: center;
 
       & span {
         font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 15px;
+        @include font (500, 12px, 15px);
         margin-left: 8px;
         color: #9ca3af;
       }
     }
   }
 }
-
 .all_students {
   margin-top: 50px;
 
   &_title {
     font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
+    @include font (500, 16px, 19px);
     letter-spacing: -0.01em;
     color: #4d5766;
   }
@@ -287,13 +238,10 @@
     margin-top: 22px;
 
     &_filter_btn {
-      display: flex;
-      align-items: center;
+      @include display (flex, row, flex-start, center);
       height: 100%;
       font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (500, 12px, 15px);
       letter-spacing: 0.02em;
       background: #ededed;
       border-radius: 7px;
@@ -309,9 +257,7 @@
     &_search_panel {
       height: 100%;
       font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (400, 12px, 15px);
       letter-spacing: 0.02em;
       text-align: center;
       color: #d1d5db;
@@ -324,9 +270,7 @@
     }
 
     &_search_btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include display (flex, row, center, center);
       height: 100%;
       background: #e0dced;
       border-radius: 7px;
@@ -335,12 +279,9 @@
     }
 
     &_add_students_btn {
-      display: flex;
-      align-items: center;
+      @include display (flex, row, flex-start, center);
       font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 35px;
+      @include font (500, 12px, 35px);
       letter-spacing: 0.02em;
       color: #ffffff;
       background: #ba75ff;
@@ -354,16 +295,14 @@
     }
   }
 }
-
 .student_info_table {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 23px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
 
   &_header {
-    display: flex;
-    align-items: center;
+    @include display (flex, row, flex-start, center);
     height: 55px;
     background: #f3f4f6;
 
@@ -378,9 +317,7 @@
       display: flex;
       margin-right: 101px;
       font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (500, 12px, 15px);
       letter-spacing: 0.05em;
       color: #6b7484;
 
@@ -392,16 +329,13 @@
     &_email_wrapper {
       display: contents;
       font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (500, 12px, 35px);
       letter-spacing: 0.05em;
       color: #adabb3;
 
       &_btn_wrapper {
-        display: flex;
+        @include display (flex, column);
         margin: 0 174px 0 2px;
-        flex-direction: column;
 
         & svg {
           cursor: pointer;
@@ -412,9 +346,7 @@
     &_score {
       margin-right: 76px;
       font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (500, 12px, 15px);
       letter-spacing: 0.05em;
       color: #adabb3;
     }
@@ -422,9 +354,7 @@
     &_progress {
       margin-right: 69px;
       font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (500, 12px, 15px);
       letter-spacing: 0.05em;
       color: #adabb3;
     }
@@ -432,9 +362,7 @@
     &_activity {
       margin-right: 70px;
       font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (500, 12px, 15px);
       letter-spacing: 0.05em;
       color: #adabb3;
     }
@@ -442,9 +370,7 @@
     &_comment {
       margin-right: 64px;
       font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 15px;
+      @include font (500, 12px, 15px);
       letter-spacing: 0.05em;
       color: #adabb3;
     }
@@ -456,8 +382,7 @@
 
   &_contents_wrapper {
     &_content {
-      display: flex;
-      align-items: center;
+      @include display (flex, row, flex-start, center);
       height: 51px;
       background-color: #fff;
 
@@ -469,8 +394,7 @@
       }
 
       &_student {
-        display: flex;
-        align-items: center;
+        @include display (flex, row, flex-start, center);
         margin-right: 82px;
 
         &_avatar {
@@ -481,17 +405,13 @@
           border-radius: 50%;
           background-color: #d3f2f8;
           font-style: normal;
-          font-weight: 500;
-          font-size: 12px;
-          line-height: 33px;
+          @include font (500, 12px, 33px);
           color: #72b0bc;
         }
 
         &_name {
           font-style: normal;
-          font-weight: 500;
-          font-size: 12px;
-          line-height: 15px;
+          @include font (500, 12px, 15px);
           letter-spacing: 0.03em;
           color: #6b7484;
         }
@@ -500,21 +420,16 @@
       &_student_email {
         margin-right: 119px;
         font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 15px;
+        @include font (500, 12px, 15px);
         letter-spacing: 0.03em;
         color: #6b7484;
       }
 
       &_student_score {
-        display: flex;
-        align-items: center;
+        @include display (flex, row, flex-start, center);
         margin-right: 122px;
         font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 15px;
+        @include font (500, 12px, 15px);
         letter-spacing: 0.03em;
         color: #6b7484;
 
@@ -524,13 +439,10 @@
       }
 
       &_student_progress {
-        display: flex;
-        align-items: center;
+        @include display (flex, row, flex-start, center);
         margin-right: 98px;
         font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 15px;
+        @include font (500, 12px, 15px);
         letter-spacing: 0.03em;
         color: #6b7484;
 
@@ -540,12 +452,9 @@
       }
 
       &_student_activity {
-        display: flex;
-        align-items: center;
+        @include display (flex, row, flex-start, center);
         font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 15px;
+        @include font (500, 12px, 15px);
         letter-spacing: 0.03em;
         margin-right: 100px;
         color: #6b7484;

@@ -13,74 +13,88 @@ import noAvatar from '../../../assets/img/noAvatar.svg'
 import styles from '../previou.module.scss'
 
 type GlobalPreviousT = {
-  avatar: string
-  description?: string
-  name: string
+  // avatar: string
+  // description?: string
+  // name: string
   about?: string
   buttonText?: string
   onClick?: () => void
 }
 
-export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, description /*onClick, buttonText*/ }) => {
+export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   // const role = useAppSelector((state: RootState) => state.user.permission)
 
   const { pathname }: Location = useLocation()
-  const [edit, setEdit] = useState<boolean>(false)
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
+  const [setSchoolHeader] = useSetSchoolHeaderMutation()
 
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(3)
+  const [edit, setEdit] = useState<boolean>(false)
 
   const [schoolHeaderData, setSchoolHeaderData] = useState<schoolHeaderReqT>({
     name: '',
     description: '',
-    photo_logo: '',
+    logo_header: '',
     photo_background: '',
   })
 
-  const [setSchoolHeader] = useSetSchoolHeaderMutation()
+  const [schoolHeaderDataToRender, setSchoolHeaderDataToRender] = useState({
+    logo_header: data?.logo_header_url,
+    photo_background: data?.photo_background_url,
+  })
 
   const handleChangePrevious = () => {
     setEdit(!edit)
   }
 
-  useEffect(() => {
-    if (isSuccess) {
-      setSchoolHeaderData({
-        ...schoolHeaderData,
-        name: data.name,
-        description: data.description,
-      })
-    }
-  }, [isSuccess])
-
   const onChangeSchoolHeader = () => {
     const formData = new FormData()
 
     Object.entries(schoolHeaderData).forEach(([key, value]) => {
-      formData.append(key, value)
+      value && formData.append(key, value)
     })
 
-    setSchoolHeader({formData, id: 3})
-    handleChangePrevious()
+    setSchoolHeader({ formData, id: 1 })
+    setEdit(false)
   }
 
   const handleChangeSchoolHeaderData = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target
 
     if (target.files && target.files[0]) {
-      // const url = URL.createObjectURL(target.files[0])
+      const url = URL.createObjectURL(target.files[0])
 
+      setSchoolHeaderDataToRender({ ...schoolHeaderDataToRender, [target.name]: url })
       setSchoolHeaderData({ ...schoolHeaderData, [target.name]: target.files[0] })
     } else {
       setSchoolHeaderData({ ...schoolHeaderData, [target.name]: target.value })
     }
   }
 
-  const { name: headerName, description: headerDes, photo_background, photo_logo } = schoolHeaderData
+  useEffect(() => {
+    if (isSuccess) {
+      const { name, description } = data
+
+      setSchoolHeaderData({
+        ...schoolHeaderData,
+        name,
+        description,
+      })
+    }
+  }, [isSuccess])
+
+  useEffect(() => {
+    if (pathname !== '/' + Path.InitialPage + Path.Courses) {
+      setEdit(false)
+    }
+  }, [pathname])
+
+  const { name: headerName, description: headerDes } = schoolHeaderData
+  const { photo_background, logo_header } = schoolHeaderDataToRender
   const isMatchPath = pathname === '/' + Path.InitialPage + Path.Courses
 
-  const changedBg = photo_background
+  const changedBg = data?.photo_background_url
     ? {
-        background: `url(${photo_background}) no-repeat center center`,
+        background: `url(${photo_background || data.photo_background_url}) no-repeat center center`,
         backgroundSize: 'cover',
       }
     : { background: '#e0dced' }
@@ -97,14 +111,14 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
         {edit && (
           <input
             className={`${styles.previous_infoBlock_avatar} ${styles.input_change} ${styles.hide_input}`}
-            name="photo_logo"
+            name="logo_header"
             type="file"
             value={''}
             onChange={handleChangeSchoolHeaderData}
           />
         )}
 
-        <img className={styles.previous_infoBlock_avatar} src={photo_logo || noAvatar} alt="" />
+        <img className={styles.previous_infoBlock_avatar} src={logo_header || data?.logo_header_url || noAvatar} alt="" />
         <div className={styles.previous_infoBlock_title}>
           {edit ? (
             <input
@@ -128,7 +142,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ avatar, name, about, 
           ) : (
             <span className={styles.previous_infoBlock_title_name}>{headerName}</span>
           )}
-          <p className={styles.previous_infoBlock_title_about}>{about}</p>
+          {/* <p className={styles.previous_infoBlock_title_about}>{about}</p> */}
         </div>
       </div>
       <div className={styles.previous_btn}>

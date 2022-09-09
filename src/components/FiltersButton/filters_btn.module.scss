@@ -1,30 +1,31 @@
+@import '../../scss/mixin.scss';
+
+.wrapper {
+  position: relative;
+  margin: 0 10px;
+}
 .container_btn {
-  font-size: 12px;
-  font-weight: 500;
+  @include display (flex, row, space-around, center);
+  @include font (500, 12px);
+  min-width: 167px;
   border-radius: 7px;
-  border: 1.5px solid #d7d7d7;
+  border: none;
   color: #6b7484;
   background-color: #ededed;
   padding: 11px 13px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   svg {
     margin-right: 9px;
   }
 }
 .header_dropdown_menu {
+  @include font (600, 11px, 10px);
   font-style: normal;
-  font-weight: 600;
-  font-size: 11px;
-  line-height: 10px;
   letter-spacing: -0.01em;
   color: #d2d6dc;
   text-align: center;
 }
 .drop_down_block {
-  position: absolute;
-  top: 45px;
+  @include position_t_l (absolute, 40px, 70px);
   width: 341px;
   border-radius: 7px;
   display: inline-block;
@@ -32,5 +33,4 @@
   padding: 16px;
   margin-top: 10px;
   background-color: #ffffff;
-  box-shadow: 2px 2px 12px 1px #000;
 }

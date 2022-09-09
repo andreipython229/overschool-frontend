@@ -1,0 +1,41 @@
+@import '../../../scss/mixin.scss';
+
+.container {
+  @include display (flex, column);
+  background-color: #ffffff;
+  min-width: 319px;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  button {
+    margin-top: 20px;
+  }
+}
+.title {
+  font-size: 10px;
+  text-align: center;
+  color: #d2d6dc;
+  margin: 0 0 20px 0;
+}
+.wrapper {
+  max-height: 200px;
+  overflow: auto;
+}
+
+.category_filter_item {
+  cursor: pointer;
+  padding: 10px 5px;
+  &:hover {
+    background-color: #bbbbc2;
+  }
+}
+.element {
+  @include font (500, 14px);
+  color: #4d5766;
+  padding: 13px 20px;
+  cursor: pointer;
+  &:hover {
+    background: #e7ebf1;
+  }
+}

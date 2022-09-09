@@ -1,8 +1,11 @@
-import React, { FC, useState } from 'react'
-import styles from '../studentsLog.module.scss'
+import { FC, useState } from 'react'
+
 import { MainSettingsGroup } from 'components/Modal/StudentLogs/SettingsGroupModal/common/Main'
 import { AccessToClasses } from 'components/Modal/StudentLogs/SettingsGroupModal/common/AccessToClasses'
 import { Messages } from 'components/Modal/StudentLogs/SettingsGroupModal/common/Messages'
+
+import styles from '../studentsLog.module.scss'
+
 
 type SettingsGroupModalPropsT = {
   closeModal: () => void

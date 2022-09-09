@@ -1,32 +1,26 @@
 @import 'src/scss/variable';
+@import '../../scss/mixin.scss';
+
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 5;
+  @include position_t_l(fixed, 0, 0, 5);
+  @include display(flex, row, space-between, center);
   font-family: 'Inter', sans-serif;
   width: 100%;
   height: 74px;
   background: #fefefe;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   box-shadow: $box-shadow;
 
   &_logotype {
+    max-width: 57px;
     margin-left: 106px;
   }
 
   &_block {
-    display: flex;
-    align-items: center;
-
+    @include display(flex, row, flex-start, center);
     &_user {
-      display: flex;
+      @include display(flex, row, flex-start, center);
       margin-right: 28px;
-      font-size: 10px;
-      font-weight: 500;
-      align-items: center;
+      @include font(500, 10px);
 
       &_avatar {
         margin-right: 10px;
@@ -34,8 +28,7 @@
       }
 
       &_userName {
-        display: flex;
-        flex-direction: column;
+        @include display(flex, column);
 
         &_status {
           margin-bottom: 4px;

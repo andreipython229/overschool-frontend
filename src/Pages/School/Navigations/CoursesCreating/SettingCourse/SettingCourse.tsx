@@ -1,4 +1,5 @@
-import React, { FC, useCallback, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
+
 import { useFindCourse } from '../../../../../customHooks/useFindCourse'
 import { BasicSettings } from './BasicSettings/BasicSettings'
 import { CardImageUpload } from './CardImageUpload/CardImageUpload'

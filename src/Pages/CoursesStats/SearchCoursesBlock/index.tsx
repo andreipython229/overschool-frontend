@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../components/common/Input/Input/Input'
 import { searchSvgIcon } from '../../../constants/iconSvgConstants'
@@ -7,6 +8,7 @@ import { allCoursesSelector } from '../../../selectors'
 import { useAppSelector } from '../../../store/hooks'
 import { useFilterData } from '../../../customHooks/useFilterData'
 import { ToggleButtonDropDown } from '../../../components/common/ToggleButtonDropDown'
+import { CoursesT } from '../../../store/redux/courses/slice'
 
 import styles from '../courses_stats.module.scss'
 
