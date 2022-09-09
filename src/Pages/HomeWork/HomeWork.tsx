@@ -7,12 +7,8 @@ import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { dropDownListFilter } from '../../constants/dropDownList'
 
 import styles from './home_work.module.scss'
-<<<<<<< HEAD
 
-import { CoursesStudentsBlock } from '../CoursesStats/CoursesStudentsBlock';
-=======
 import { StudentsTableBlock } from '../../components/StudentsTableBlock'
->>>>>>> master
 
 export const HomeWork = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])

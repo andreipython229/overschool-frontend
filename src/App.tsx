@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 
 import { CoursesStats } from './Pages/CoursesStats/CoursesStats'
@@ -11,13 +11,11 @@ import { Path } from 'enum/pathE'
 import { useAppSelector, useAppDispatch } from './store/hooks'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
-<<<<<<< HEAD
-import { authSelector } from 'selectors';
-=======
+
 import { authSelector, platformSelector } from 'selectors'
 import { changeLoadingStatus } from 'store/redux/platform/slice'
 import { useFetchSchoolHeaderQuery } from './api/schoolHeaderService'
->>>>>>> master
+
 
 import styles from './App.module.scss'
 
@@ -52,6 +50,7 @@ export const App = () => {
   return (
     <div className={styles.container}>
       <Routes>
+
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.InitialPage} element={<MainLayOut />}>
           <Route path={Path.Courses} element={<School />} />
