@@ -1,14 +1,15 @@
-import { memo } from 'react'
+import { memo, useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
-
-import { useAppDispatch } from '../../store/hooks'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { auth, token } from 'store/redux/users/slice'
 
 import { Path } from 'enum/pathE'
 import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutSvgIcon } from '../../constants/iconSvgConstants'
+import { changeLoadingStatus } from '../../store/redux/platform/slice'
+import { platformSelector } from '../../selectors/index'
 
 import Logotype from '../../assets/img/logotype.svg'
 import Avatar from '../../assets/img/avatar.svg'
@@ -17,28 +18,27 @@ import styles from './header.module.scss'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
+  const { isLoading } = useAppSelector(platformSelector)
 
-  
   const logOut = (): void => {
     dispatch(token(''))
     dispatch(auth(false))
   }
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
 
-    // const { logotype } = useAppSelector(platformSelector)
-    const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
+  const [logo, setLogo] = useState<string | undefined>('')
 
-    // const [logo, setLogo] = useState<string>('')
-  
-    // useEffect(() => {
-    //   if (isSuccess) {
-    //     setLogo(data.logo_school_url)
-    //   }
-    // }, [isSuccess])
+  useEffect(() => {
+    if (isSuccess || isLoading) {
+      setLogo(data?.logo_school_url)
+      dispatch(changeLoadingStatus(false))
+    }
+  }, [data, isLoading])
 
   return (
     <header className={styles.header}>
       <NavLink to={Path.Courses}>
-        <img className={styles.header_logotype} src={data?.logo_school_url || Logotype} alt="Logotype IT Overone" />
+        <img className={styles.header_logotype} src={logo || Logotype} alt="Logotype IT Overone" />
       </NavLink>
 
       <div className={styles.header_block}>

@@ -21,7 +21,7 @@ type GlobalPreviousT = {
   onClick?: () => void
 }
 
-export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ about /*onClick, buttonText*/ }) => {
+export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   // const role = useAppSelector((state: RootState) => state.user.permission)
 
   const { pathname }: Location = useLocation()
@@ -73,6 +73,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ about /*onClick, butt
   useEffect(() => {
     if (isSuccess) {
       const { name, description } = data
+
       setSchoolHeaderData({
         ...schoolHeaderData,
         name,
@@ -141,7 +142,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(({ about /*onClick, butt
           ) : (
             <span className={styles.previous_infoBlock_title_name}>{headerName}</span>
           )}
-          <p className={styles.previous_infoBlock_title_about}>{about}</p>
+          {/* <p className={styles.previous_infoBlock_title_about}>{about}</p> */}
         </div>
       </div>
       <div className={styles.previous_btn}>
