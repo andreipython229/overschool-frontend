@@ -1,9 +1,11 @@
-import * as yup from 'yup';
+import * as yup from 'yup'
 
 export const userDataSchema = yup.object().shape({
-  fullName: yup.string(),
-  email: yup.string().email('Invalid email address'),
-  phone: yup.string().matches(/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/, {message: 'Invalid phone number'}),
-  city: yup.string(),
-  userDesc: yup.string(),
-});
+  email: yup.string().email('Invalid email address').trim(),
+  avatar: yup.string(),
+  fullName: yup.string().trim(),
+  phone: yup.string().matches(/^[+\d](?:.*\d)?$/, { message: 'Invalid phone number' }).trim(),
+  city: yup.string().trim(),
+  desc: yup.string().trim(),
+  sex: yup.string().oneOf(['male', 'female']),
+})

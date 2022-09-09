@@ -8,6 +8,7 @@ import { allCoursesSelector } from '../../../selectors'
 import { useAppSelector } from '../../../store/hooks'
 import { useFilterData } from '../../../customHooks/useFilterData'
 import { ToggleButtonDropDown } from '../../../components/common/ToggleButtonDropDown'
+import { CoursesT } from '../../../store/redux/courses/slice'
 
 import styles from '../courses_stats.module.scss'
 
@@ -19,7 +20,7 @@ export const SearchCoursesBlock = () => {
     setIsOpen(!isOpen)
   }
 
-  const [nameCourses, foundCourses, filterData] = useFilterData( courses, 'name')
+  const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
 
   return (
     <div className={styles.container}>

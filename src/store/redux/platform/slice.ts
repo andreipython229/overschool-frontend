@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 interface PlatformI {
   logotype: File | null
   favicon: File | null
+  isLoading?: boolean
   projectName: string
 }
 
@@ -11,6 +12,7 @@ interface PlatformI {
 const initialState: PlatformI = {
   logotype: null,
   favicon: null,
+  isLoading: false,
   projectName: 'Без названия',
 }
 
@@ -27,9 +29,12 @@ export const slice = createSlice({
     changeProjectName: (state, action: PayloadAction<string>) => {
       state.projectName = action.payload
     },
+    changeLoadingStatus: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload
+    },
   },
 })
 
-export const { changeLogo, changeFavicon, changeProjectName } = slice.actions
+export const { changeLogo, changeFavicon, changeProjectName, changeLoadingStatus } = slice.actions
 
 export const platformReduce = slice.reducer
