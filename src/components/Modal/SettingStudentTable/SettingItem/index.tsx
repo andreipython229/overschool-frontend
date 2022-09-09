@@ -20,7 +20,6 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
     if ((checkedList.length === 7 && event.target.checked) || event.target.id === '1' || event.target.id === '2') {
       return
     }
-
     const checkedItemsList = settingList.map(item => {
       if (item.id.toString() === event.target.id.toString()) {
         return {
