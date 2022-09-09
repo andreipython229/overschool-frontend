@@ -29,7 +29,7 @@ export const ScoresFilter: FC<ScoresFilterT> = memo(({ title }) => {
         <p>до</p>
         <Input name="end" type="text" value={scoresEnd} onChange={handleInputScores} />
       </div>
-      <Button variant="primary" text="Применить" onClick={() => console.log(scoresStart, scoresEnd)} />
+      <Button className={styles.scores_btn} variant="primary" text="Применить" onClick={() => console.log(scoresStart, scoresEnd)} />
     </div>
   )
 })

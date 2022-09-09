@@ -55,7 +55,7 @@ export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) =
   }, [])
 
   return (
-    <div ref={menuRef}>
+    <div className={styles.wrapper} ref={menuRef}>
       <button className={styles.container_btn} onClick={handleToggleDropDawnBlock}>
         <IconSvg width={15} height={17} fill="#D1D5DB" d={filterSvgIcon} viewBoxSize="0 0 15 17" />
         Добавить фильтры
