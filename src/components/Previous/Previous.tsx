@@ -1,8 +1,7 @@
 import { FC, memo } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { GlobalPrevious } from './GlobalPrevious'
-import { CoursePrevious } from './CoursePrevious'
+import { previousToShow } from './config/previousToShow'
 
 type PreviousPropsT = {
   // avatar?: string
@@ -18,11 +17,9 @@ export const Previous: FC<PreviousPropsT> = memo(({ about, onClick, buttonText }
 
   return (
     <>
-      {pathname.includes('create-course') ? (
-        <CoursePrevious />
-      ) : (
-        <GlobalPrevious about={about} onClick={onClick} buttonText={buttonText} />
-      )}
+      {previousToShow.map(({ path, Component }) => {
+        return pathname.includes(path) && <Component />
+      })}
     </>
   )
 })

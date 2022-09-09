@@ -1,8 +1,8 @@
-import { ChangeEvent, memo } from 'react'
+import { ChangeEvent, memo, useState } from 'react'
 
 import { LogoAddBlock } from './LogoAddBlock/LogoAddBlock'
 import { useAppDispatch } from '../../../store/hooks'
-import { changeFavicon, changeLogo } from '../../../store/redux/platform/slice'
+import { changeLoadingStatus } from '../../../store/redux/platform/slice'
 import { useSetSchoolHeaderMutation } from '../../../api/schoolHeaderService'
 
 import Cover from '../../../assets/img/super_admin_cover.jpg'
@@ -10,39 +10,40 @@ import Cover from '../../../assets/img/super_admin_cover.jpg'
 import styles from '../superAdmin.module.scss'
 
 export const DecorPlatform = memo(() => {
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
   const [setSchoolHeader] = useSetSchoolHeaderMutation()
+
+  const [logoError, setLogoError] = useState<string>('')
+  const [faviconError, setFaviconError] = useState<string>('')
 
   const onChangeLogotype = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target
     if (target.files) {
-      // dispatch(changeLogo(target.files[0]))
       const formData = new FormData()
       formData.append('logo_school', target.files[0])
 
-      setSchoolHeader({ formData, id: 1 })
+      if (target.files[0].size <= 2 * 1024 * 1024 && target.files[0].type === 'image/png') {
+        setSchoolHeader({ formData, id: 1 })
+      } else {
+        setLogoError('Неверный формат')
+      }
+      dispatch(changeLoadingStatus(true))
     }
   }
   const onChangeFavicon = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target
 
     if (target.files) {
-      // const reader = new FileReader()
-      // reader.readAsDataURL(e.target.files[0])
-
-      // dispatch(changeFavicon(target.files[0]))
-
       const formData = new FormData()
       formData.append('favicon', target.files[0])
 
-      setSchoolHeader({ formData, id: 1 })
-
-      // reader.onloadend = event => {
-      //   if (typeof event?.target?.result === 'string') {
-      //     dispatch(changeFavicon(event?.target?.result))
-      //   }
-      // }
+      if (target.files[0].size <= 200 * 1024 && target.files[0].type === 'image/png') {
+        setSchoolHeader({ formData, id: 1 })
+      } else {
+        setFaviconError('Неверный формат')
+      }
+      dispatch(changeLoadingStatus(true))
     }
   }
 
@@ -59,6 +60,7 @@ export const DecorPlatform = memo(() => {
           onChange={onChangeLogotype}
           requirementsArr={['Формат файла PNG', 'Размер файла не более 2 мб', ' Оптимальный размер логотипа 200px х 50px']}
         />
+        {logoError && <span>{logoError}</span>}
         <LogoAddBlock
           title={'Ваш favicon'}
           logotype={Cover}
@@ -67,6 +69,7 @@ export const DecorPlatform = memo(() => {
           onChange={onChangeFavicon}
           requirementsArr={['Формат файла PNG', 'Размер файла не более 200 кб', 'Оптимальный размер favicon 100px х 100px']}
         />
+        {faviconError && <span>{faviconError}</span>}
       </div>
     </div>
   )

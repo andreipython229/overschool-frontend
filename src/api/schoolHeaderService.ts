@@ -16,13 +16,13 @@ export const schoolHeaderService = createApi({
       return headers
     },
   }),
-
   tagTypes: ['schoolHeader'],
   endpoints: build => ({
     fetchSchoolHeader: build.query<schoolHeaderResT, number>({
       query: (id?: number) => ({
         url: `/school_header/${id}/`,
       }),
+      providesTags: ['schoolHeader']
     }),
     setSchoolHeader: build.mutation<schoolHeaderResT, { formData: FormData; id: number }>({
       query: ({ formData, id }) => ({
