@@ -1,6 +1,7 @@
 import { fetchBaseQuery, createApi, FetchArgs } from '@reduxjs/toolkit/dist/query/react'
 import { RootState } from '../store/redux/store'
 import { CoursesT } from '../store/redux/courses/slice'
+import { schoolHeaderResT } from '../types/schoolHeaderT'
 
 export const coursesServices = createApi({
   reducerPath: 'coursesServices',
@@ -24,7 +25,7 @@ export const coursesServices = createApi({
       }),
       providesTags: () => ['allCourses'],
     }),
-    createCourses: build.mutation({
+    createCourses: build.mutation<FormData, FormData>({
       query: course => {
         return {
           url: `/courses/`,
