@@ -8,7 +8,7 @@ import { dropDownListFilter } from '../../constants/dropDownList'
 
 import styles from './home_work.module.scss'
 
-import { CoursesStudentsBlock } from '../CoursesStats/CoursesStudentsBlock'
+import { CoursesStudentsBlock } from '../CoursesStats/CoursesStudentsBlock';
 
 export const HomeWork = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])

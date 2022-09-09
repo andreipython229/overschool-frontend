@@ -4,7 +4,6 @@ import YouTube, { YouTubeProps } from 'react-youtube';
 export const Youtube = () => {
   const [videoId, setVideoId] = useState()
 
-
   useEffect(() => {
     fetch("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCDzlJ_j21iyE1ulhuKFvOfQ&type=video&eventType=live&key=AIzaSyDMHKj5PRSmoeu9bCzco6uEMf29diFjA1U")
     .then(response => response.json())
@@ -14,6 +13,7 @@ export const Youtube = () => {
     })
     .catch(error => console.log(error))
   })
+  
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
     event.target.pauseVideo();
   }

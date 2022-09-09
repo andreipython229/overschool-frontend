@@ -5,7 +5,6 @@ import { Youtube } from './Youtube';
 
 export const WebinarPage = () => {
 
-  
   return (
     <div className={styles.container}>
     <div className={styles.strim}>
