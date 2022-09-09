@@ -1,0 +1,124 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.strim {
+  width: 50%;
+  height: 406px;
+  border: 1px solid #dddd;
+  margin: 40px 16px 0 24px;
+}
+
+.chat {
+  width: 45%;
+  height: auto;
+  background: #FFFFFF;
+  margin-top: 40px;
+
+  &__header {
+    padding: 22px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #F7F7F7;;
+  }
+  &__info {
+    display: flex;
+    align-items: center;
+  }
+  &__logo {
+    width: 18px;
+    height: 8px;
+    margin-right: 8px;
+  }
+  &__title {
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 14px;
+    color: #4D5766;
+  }
+  &__members {
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 12px;
+    color: #4D5766;
+  }
+  &__container {
+    border: 1px solid #F0F0F0;
+    height: 180px;
+    margin: 22px 22px;
+  }
+
+}
+
+.form {
+  border: 1px solid #F0F0F0;
+  height: 100px;
+  margin: 0 22px 0 22px;
+
+  &__header {
+    width: 100%;
+    height: 23px;
+    background-color: #F0F0F0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    margin: 0 10px;
+    height: 17px;
+    width: 17px;
+  }
+
+  &__title {
+    font-family: inherit;
+    font-weight: 500;
+    color: #4D5766;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 12px;
+  }
+
+  &__textarea {
+    border: 1px solid #E1C3FF;
+    border-radius: 3px;
+    height: 25px;
+    resize: none;
+    margin-bottom: 8px;
+    outline: none;
+    &::placeholder {
+      padding: 6px 6px;
+      font-weight: 500;
+      font-size: 10px;
+      color: #C5C5C5;
+    }
+  }
+
+  &__send {
+    width: 74px;
+    height: 18px;
+    background-color: #BA75FF;
+    color: #FFFFFF;
+    font-size: 10px;
+    border: none;
+    border-radius: 3px;
+    margin-right: 5px;
+  }
+
+  &__out {
+    width: 74px;
+    height: 18px;
+    background-color: #E0DCED;
+    color: #BA75FF;
+    font-size: 10px;
+    border: none;
+    border-radius: 3px;
+    margin-right: 5px;
+  }
+}
