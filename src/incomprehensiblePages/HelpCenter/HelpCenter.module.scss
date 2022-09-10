@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.HelpCenterPage {
+    &_pageHeader{
+        height: 308px;
+        background: #E0DCED;
+        border-radius: 7px;
+
+        align-items: center;
+        flex-direction: column;
+        display: flex;
+        p {
+            margin-top: 75px;
+            font-weight: 500;
+            color: #BA75FF;
+            font-size: 14px;
+        }
+        h1 {
+            margin: 23px;
+            color: #4D5766;
+            font-size: 35px;
+        }
+        &_inputGroup {
+            display: inline-flex;
+            align-items: center;
+            width: 584px;
+            margin-bottom: 82px;
+            &_input {
+                height: 45px;
+            }
+            button {
+                margin-left: 5px;
+                height: 45px;
+                width: 105px;
+                font-size: 15px;
+            }
+        }
+    }
+}
