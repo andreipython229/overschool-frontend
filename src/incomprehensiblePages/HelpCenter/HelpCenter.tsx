@@ -16,6 +16,43 @@ export const HelpCenter = () => {
                     <Button text={'Поиск'} variant={'create'} />
                 </div>
             </div>
+            <div  className={styles.HelpCenterPage_quickStart}>
+                <h1>Начало работы</h1>
+                <div  className={styles.HelpCenterPage_quickStart_userSelect}>
+                    <h5>Для авторов курса</h5>
+                    <h5>Для обучающихся</h5>
+                </div>
+                <div className={styles.HelpCenterPage_quickStart_cardGroup}>
+                    <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+                        <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                        <h3>Гид по началу работ</h3>
+                        <p>Не знаете с чего начать? Начните с нашего гида по началу работы на OVERSCHOOL</p>
+                            </div>
+                    </div>
+                    <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+                        <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                        <h3>Как создать курс</h3>
+                        <p>Пошаговая инструкция по созданию и настройке курсов на платформе</p>
+                            </div>
+                    </div>
+                    <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+                        <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                        <h3>Как провести вебинар</h3>
+                        <p>Детальная инструкция по проведению и настройке вебинаров на OVERSCHOOL</p>
+                            </div>
+                    </div>
+                    <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+                        <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                        <h3>Как добавить учеников</h3>
+                        <p>Инструкция по всем способам: ручным и автоматическим</p>
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
             <h1>lol kek</h1>
         </section>
     )
