@@ -3,16 +3,29 @@ import { Input } from '../../components/common/Input/Input/Input'
 import styles from './HelpCenter.module.scss'
 
 import React from "react";
+// import firstStep from "../../../assets/img/createProject/firstStep.png";
+import firstStep from "../../assets/img/createProject/firstStep.png";
+
 
 export const HelpCenter = () => {
     return (
         <section className={styles.HelpCenterPage}>
             <div className={styles.HelpCenterPage_banner}>
-                <h1>Создайте свой проекта на OVERSCHOOL прямо сейчас!</h1>
-                <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
-                <Button text={'Создать проект'} variant={'create'} />
+                <div className={styles.HelpCenterPage_banner_createProject}>
+                    <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
+                    <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
+                    <Button text={'Создать проект'} variant={'create'} />
+                </div>
+<img src={firstStep} alt="Создать проект" />
+
+{/*<img src="../../assets/img/createProject/firstStep.png" alt="Создать проект" />*/}
+
+
             </div>
-            lol
+lol
+
+
+
             <div  className={styles.HelpCenterPage_pageHeader}>
                 <p>Более 100 инструкций и ответы на часто задаваемые вопросы</p>
                 <h1>Справочный центр</h1>
