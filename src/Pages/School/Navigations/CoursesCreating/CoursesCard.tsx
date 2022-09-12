@@ -1,16 +1,16 @@
 import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
-import { CoursesT } from '../../../../../types/CoursesT'
-import { Button } from '../../../../../components/common/Button/Button'
 
-import { Path } from '../../../../../enum/pathE'
-import { useAppDispatch } from '../../../../../store/hooks'
+import { Button } from '../../../../components/common/Button/Button'
+import { CoursesT } from '../../../../types/CoursesT'
+import { Path } from '../../../../enum/pathE'
+import { useAppDispatch } from '../../../../store/hooks'
 import { addCourseId } from 'store/redux/course/slice'
 
-import notPublic from '../../../../../assets/img/createCourse/notPublic.svg'
-import Public from '../../../../../assets/img/createCourse/public.svg'
+import Public from '../../../../assets/img/createCourse/public.svg'
+import notPublic from '../../../../assets/img/createCourse/notPublic.svg'
 
-import styles from '../coursePage.module.scss'
+import styles from './coursePage.module.scss'
 
 export const CoursesCard: FC<CoursesT> = memo(({ course_id, published, name, description, photo_url }) => {
   const dispatch = useAppDispatch()

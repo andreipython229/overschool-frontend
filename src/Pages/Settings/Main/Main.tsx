@@ -1,7 +1,9 @@
-import React, { memo, useState } from 'react'
-import styles from '../superAdmin.module.scss'
+import { memo, useState } from 'react'
+
 import { useAppDispatch } from '../../../store/hooks'
 import { changeProjectName } from '../../../store/redux/platform/slice'
+
+import styles from '../superAdmin.module.scss'
 
 export const Main = memo(() => {
   const dispatch = useAppDispatch()

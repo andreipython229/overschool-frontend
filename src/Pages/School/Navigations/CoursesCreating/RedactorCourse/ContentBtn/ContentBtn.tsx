@@ -1,4 +1,5 @@
-import React, { MouseEvent, FC } from 'react'
+import { MouseEvent, FC } from 'react'
+
 import styles from './contentBtn.module.scss'
 
 type ContentBtnPropsT = {

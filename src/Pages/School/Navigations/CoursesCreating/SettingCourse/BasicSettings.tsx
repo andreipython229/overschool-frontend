@@ -1,16 +1,17 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { Toggle } from '@skbkontur/react-ui'
-import { CoursesT } from '../../../../../../types/CoursesT'
-import { publishedMarkerSvgIcon } from '../../../../../../constants/iconSvgConstants'
-import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
-import { Input } from '../../../../../../components/common/Input/Input/Input'
-import { Checkbox } from '../../../../../../components/common/Checkbox/Checkbox'
-import { SelectInput } from '../../../../../../components/common/SelectInput/SelectInput'
-import { useDebounce } from '../../../../../../customHooks/useDebounce'
-import { usePatchCoursesMutation } from '../../../../../../api/coursesServices'
-import { formDataConverter } from '../../../../../../utils/formDataConverter'
 
-import styles from './../setting_course.module.scss'
+import { publishedMarkerSvgIcon } from '../../../../../constants/iconSvgConstants'
+import { IconSvg } from '../../../../../components/common/IconSvg/IconSvg'
+import { Input } from '../../../../../components/common/Input/Input/Input'
+import { Checkbox } from '../../../../../components/common/Checkbox/Checkbox'
+import { SelectInput } from '../../../../../components/common/SelectInput/SelectInput'
+import { CoursesT } from '../../../../../types/CoursesT'
+import { useDebounce } from '../../../../../customHooks/useDebounce'
+import { usePatchCoursesMutation } from '../../../../../api/coursesServices'
+import { formDataConverter } from '../../../../../utils/formDataConverter'
+
+import styles from './setting_course.module.scss'
 
 type BasicSettingsT = {
   toggleCheckbox: boolean

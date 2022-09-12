@@ -1,6 +1,8 @@
-import React, { memo } from 'react'
-import styles from '../superAdmin.module.scss'
+import { memo } from 'react'
+
 import { UserLogs } from './UserLogs/UserLogs'
+
+import styles from '../superAdmin.module.scss'
 
 export const Logs = memo(() => {
   return (

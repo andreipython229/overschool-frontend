@@ -1,6 +1,7 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
+
 import { useAppDispatch } from '../../../../store/hooks'
-import { CoursesCard } from './CoursesCard/CoursesCard'
+import { CoursesCard } from './CoursesCard'
 import { showModal } from '../../../../store/redux/modal/slice'
 import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
 import { searchSvgIcon } from '../../../../constants/iconSvgConstants'

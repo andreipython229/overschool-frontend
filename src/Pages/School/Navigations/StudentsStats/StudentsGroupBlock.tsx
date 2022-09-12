@@ -1,9 +1,10 @@
-import React, { FC } from 'react'
-import { StudentGroup } from 'Pages/School/Navigations/StudentsStats/components/StudentsCountGroup'
-import { createGroupLittleSvgIcon } from '../../../../../constants/iconSvgConstants'
-import { IconSvg } from '../../../../../components/common/IconSvg/IconSvg'
-import { useAppDispatch } from '../../../../../store/hooks'
-import { showModal } from '../../../../../store/redux/modal/slice'
+import { FC } from 'react'
+
+import { StudentGroup } from 'Pages/School/Navigations/StudentsStats/StudentsCountGroup'
+import { createGroupLittleSvgIcon } from '../../../../constants/iconSvgConstants'
+import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
+import { useAppDispatch } from '../../../../store/hooks'
+import { showModal } from '../../../../store/redux/modal/slice'
 
 import styles from 'Pages/School/Navigations/StudentsStats/studentsStats.module.scss'
 
