@@ -3,29 +3,12 @@ import { Input } from '../../components/common/Input/Input/Input'
 import styles from './HelpCenter.module.scss'
 
 import React from "react";
-// import firstStep from "../../../assets/img/createProject/firstStep.png";
 import firstStep from "../../assets/img/createProject/firstStep.png";
-
+import secondStep from "../../assets/img/createProject/secondStep.png";
 
 export const HelpCenter = () => {
     return (
         <section className={styles.HelpCenterPage}>
-            <div className={styles.HelpCenterPage_banner}>
-                <div className={styles.HelpCenterPage_banner_createProject}>
-                    <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
-                    <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
-                    <Button text={'Создать проект'} variant={'create'} />
-                </div>
-<img src={firstStep} alt="Создать проект" />
-
-{/*<img src="../../assets/img/createProject/firstStep.png" alt="Создать проект" />*/}
-
-
-            </div>
-lol
-
-
-
             <div  className={styles.HelpCenterPage_pageHeader}>
                 <p>Более 100 инструкций и ответы на часто задаваемые вопросы</p>
                 <h1>Справочный центр</h1>
@@ -86,6 +69,18 @@ lol
                 <p>Да, мы работаем с самозанятыми. Для самозанятых вывод средств с баланса доступен 1 раз в месяц. После получения средств на счет необходимо отправить нам чек в чате.</p>
                 <h2>Можно ли оплатить подписку со счета организации?</h2>
                 <p>Для этого пришлите нам в онлайн-чат или на почту hello@overone.by реквизиты для выставления счета, а также укажите желаемый тариф и период подключения. Мы сформируем и пришлем Вам счет для оплаты. Как только деньги поступят на счет, мы активируем Ваш тариф.</p>
+            </div>
+            <div className={styles.HelpCenterPage_banner}>
+                <div className={styles.HelpCenterPage_banner_createProject}>
+                    <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
+                    <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
+                    <Button text={'Создать проект'} variant={'create'} />
+                </div>
+                <div className={styles.HelpCenterPage_banner_images}>
+                    <img src={firstStep} alt="Создать проект"  className={styles.HelpCenterPage_banner_images_firstStep}/>
+                    <img src={secondStep} alt="Создать проект"  className={styles.HelpCenterPage_banner_images_secondStep}/>
+                </div>
+
             </div>
             <footer className={styles.HelpCenterPage_footer}>
                 <div className={styles.HelpCenterPage_footer_links}>
