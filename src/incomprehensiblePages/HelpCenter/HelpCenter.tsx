@@ -7,6 +7,12 @@ import React from "react";
 export const HelpCenter = () => {
     return (
         <section className={styles.HelpCenterPage}>
+            <div className={styles.HelpCenterPage_banner}>
+                <h1>Создайте свой проекта на OVERSCHOOL прямо сейчас!</h1>
+                <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
+                <Button text={'Создать проект'} variant={'create'} />
+            </div>
+            lol
             <div  className={styles.HelpCenterPage_pageHeader}>
                 <p>Более 100 инструкций и ответы на часто задаваемые вопросы</p>
                 <h1>Справочный центр</h1>
@@ -56,7 +62,6 @@ export const HelpCenter = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
             <div  className={styles.HelpCenterPage_FAQ}>
                 <h1>Часто задаваемые вопросы</h1>
@@ -69,9 +74,16 @@ export const HelpCenter = () => {
                 <h2>Можно ли оплатить подписку со счета организации?</h2>
                 <p>Для этого пришлите нам в онлайн-чат или на почту hello@overone.by реквизиты для выставления счета, а также укажите желаемый тариф и период подключения. Мы сформируем и пришлем Вам счет для оплаты. Как только деньги поступят на счет, мы активируем Ваш тариф.</p>
             </div>
-
-
-
+            <footer className={styles.HelpCenterPage_footer}>
+                <div className={styles.HelpCenterPage_footer_links}>
+                    <a>Возможности</a>
+                    <a>Тарифы</a>
+                    <a>Справочный центр</a>
+                    <a>Правовая политика</a>
+                </div>
+                <h1>OVERSCHOOL</h1>
+                <h5>@2022, все права защищены</h5>
+            </footer>
         </section>
     )
 }
