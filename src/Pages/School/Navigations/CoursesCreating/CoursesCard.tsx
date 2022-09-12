@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
 import { Button } from '../../../../components/common/Button/Button'
-import { CoursesT } from '../../../../store/redux/courses/slice'
+import { CoursesT } from '../../../../types/CoursesT'
 import { Path } from '../../../../enum/pathE'
 import { useAppDispatch } from '../../../../store/hooks'
 import { addCourseId } from 'store/redux/course/slice'

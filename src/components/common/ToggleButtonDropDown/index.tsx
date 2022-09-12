@@ -1,4 +1,4 @@
-// used once at coursed page 
+// used once at coursed page
 
 import { FC } from 'react'
 

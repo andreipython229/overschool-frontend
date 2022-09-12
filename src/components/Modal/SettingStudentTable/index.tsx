@@ -6,7 +6,8 @@ import { cross } from '../../../constants/iconSvgConstants'
 import { SettingItem } from './SettingItem'
 import { SettingItemT } from '../../../Pages/CoursesStats/CoursesStats'
 
-import styles from '../Modal.module.scss'
+import styles from '../Modal.module.scss';
+import scss from './settingStudentTable.module.scss';
 
 type SettingStudentTable = {
   settingList: SettingItemT[]
@@ -39,7 +40,7 @@ export const SettingStudentTable: FC<SettingStudentTable> = ({ settingList, setS
           </span>
           <div className={styles.settings_title}>Настройка таблицы учеников</div>
           <p style={{ fontSize: '14px', textAlign: 'center', margin: '10px 0' }}>Выберите до 7 колонок для отображения в таблице</p>
-          <form>
+          <form className={scss.form}>
             <Reorder.Group className={styles.settings_list} as="ul" onReorder={setSettingsList} values={settingList}>
               {settingList.map(item => (
                 <SettingItem key={item.id} item={item} settingList={settingList} setSettingsList={setSettingsList} />

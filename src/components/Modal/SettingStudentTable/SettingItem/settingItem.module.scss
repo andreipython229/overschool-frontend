@@ -1,0 +1,45 @@
+@import '../../../../scss/mixin.scss';
+@import '../../../../scss/variable.scss';
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+    cursor: pointer;
+
+    &_item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        label {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 0 25px 0 55px;
+            border-radius: 7px;
+            background: #F3F4F6;
+            
+            &::before {
+                position: absolute;
+                left: 25px;
+            }
+        }
+
+        input:checked+label {
+            
+            background-color: #E0D9FC;
+        }
+    }
+}
+// input:not(:disabled):checked+label {
+//     background-color: #b3d7ff;
+//     border-color: #b3d7ff;
+// }
+  

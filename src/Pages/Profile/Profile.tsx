@@ -10,7 +10,7 @@ import { notifications } from './config/notif'
 
 import styles from './profile.module.scss'
 
-export const Profile = memo(() => {
+export const Profile = () => {
   const { avatar, user, phone_number, city, aboutMySelf, sex } = useAppSelector(selectUser)
   const { last_name, first_name, email } = user
 
@@ -113,4 +113,4 @@ export const Profile = memo(() => {
       </div>
     </div>
   )
-})
+}
