@@ -7,7 +7,7 @@ type DotBlockSvgT = {
 export const DotBlockSvg: FC<DotBlockSvgT> = ({ onPointerDown }) => {
   return (
     <svg
-      style={{ cursor: 'grab', width: '20px', height: '20px' }}
+      style={{ cursor: 'grab', width: '20px', height: '20px', position: 'absolute', top: '15px', left:'-29px', zIndex:'10' }}
       onPointerDown={onPointerDown}
       width="12"
       height="18"
