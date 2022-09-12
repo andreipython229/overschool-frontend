@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { useDeleteCoursesMutation } from 'api/coursesServices'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '../../../../../../components/common/Button/Button'
-import { CoursesT } from '../../../../../../store/redux/courses/slice'
+import { Button } from '../../../../../components/common/Button/Button'
+import { CoursesT } from '../../../../../store/redux/courses/slice'
 
 type CourseActionsT = {
   courseFind: CoursesT | undefined

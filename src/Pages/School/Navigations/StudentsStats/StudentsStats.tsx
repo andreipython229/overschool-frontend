@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+
 import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentModal'
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
-import { StudentInfoGraphic } from 'Pages/School/Navigations/StudentsStats/components/StudentInfoGraphic'
-import { useLocation } from 'react-router-dom'
+import { StudentInfoGraphic } from 'Pages/School/Navigations/StudentsStats/StudentInfoGraphic'
 import { StudentLogs } from 'enum/pathE'
 import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupModal/SettingsGroupModal'
 

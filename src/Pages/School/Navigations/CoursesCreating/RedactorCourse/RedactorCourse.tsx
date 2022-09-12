@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Route, Routes } from 'react-router-dom'
+
 import { NavCreatingCourse } from '../../../NavAccount/NavCreatingCourse/NavCreatingCourse'
 import { Constructor } from './Constructor/Constructor'
 import { CreateCoursePath } from 'enum/pathE'

@@ -1,11 +1,11 @@
 import  { ChangeEvent, FC } from 'react'
 
-import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
-import { publishedMarkerSvgIcon } from '../../../../../../constants/iconSvgConstants'
-import { usePatchCoursesMutation } from '../../../../../../api/coursesServices'
-import { CoursesT } from '../../../../../../store/redux/courses/slice'
+import { IconSvg } from '../../../../../components/common/IconSvg/IconSvg'
+import { publishedMarkerSvgIcon } from '../../../../../constants/iconSvgConstants'
+import { usePatchCoursesMutation } from '../../../../../api/coursesServices'
+import { CoursesT } from '../../../../../store/redux/courses/slice'
 
-import styles from './../setting_course.module.scss'
+import styles from './setting_course.module.scss'
 
 type CardImageDownloadsT = {
   toggleCheckbox: boolean

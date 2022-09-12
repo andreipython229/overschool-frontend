@@ -1,10 +1,10 @@
 import { FC, useCallback, useState } from 'react'
 
 import { useFindCourse } from '../../../../../customHooks/useFindCourse'
-import { BasicSettings } from './BasicSettings/BasicSettings'
-import { CardImageUpload } from './CardImageUpload/CardImageUpload'
-import { CourseActions } from './CourseActions/CourseActions'
-import { CourseAvailability } from './CourseAvailability/CourseAvailability'
+import { BasicSettings } from './BasicSettings'
+import { CardImageUpload } from './CardImageUpload'
+import { CourseActions } from './CourseActions'
+import { CourseAvailability } from './CourseAvailability'
 
 import styles from './setting_course.module.scss'
 

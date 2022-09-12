@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from 'Pages/School/Navigations/StudentsStats/studentsStats.module.scss'
 
 export const StudentInfoGraphic = () => {
