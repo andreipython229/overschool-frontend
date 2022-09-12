@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, memo, useEffect, useState } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { classesSettingSvgIcon } from '../../constants/iconSvgConstants'
@@ -11,11 +11,11 @@ type StudentsTableBlockT = {
   setToggleSettingModal?: (arg: boolean) => void
 }
 
-export const StudentsTableBlock: FC<StudentsTableBlockT> = ({ settingList, setToggleSettingModal }) => {
+export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, setToggleSettingModal }) => {
   const [cols, setCols] = useState<string[]>([])
 
   const { columns, data } = generateData(studentList.length, settingList || [])
-  const [rows, _] = useState<Array<object>>(data)
+  const [rows] = useState<Array<object>>(() => data)
 
   const openSettingsModal = () => {
     setToggleSettingModal && setToggleSettingModal(true)
@@ -63,8 +63,8 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = ({ settingList, setTo
       </thead>
       <tbody>
         {rows.map((row: any) => (
-          <tr key={Math.random()}>
-            {Object.entries(row).map(([_, v]: any, idx) => (
+          <tr key={row + Math.random()}>
+            {Object.entries(row).map(([keyRow, valueRow]: any, idx) => (
               <td
                 style={{
                   fontSize: '14px',
@@ -74,7 +74,7 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = ({ settingList, setTo
                   padding: '20px',
                   borderBottom: '2px solid #eef0f5',
                 }}
-                key={v}
+                key={keyRow + valueRow}
               >
                 {row[cols[idx]]}
               </td>
@@ -84,4 +84,4 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = ({ settingList, setTo
       </tbody>
     </table>
   )
-}
+})

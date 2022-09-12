@@ -2,7 +2,9 @@ import { useParams } from 'react-router-dom'
 
 import { useAppSelector } from '../store/hooks'
 import { allCoursesSelector } from '../selectors'
-import { CoursesT, ICourses } from '../store/redux/courses/slice'
+
+import { ICourses } from '../store/redux/courses/slice'
+import { CoursesT } from '../types/CoursesT'
 
 export const useFindCourse = (id?: string | number) => {
   const { courses }: ICourses = useAppSelector(allCoursesSelector)

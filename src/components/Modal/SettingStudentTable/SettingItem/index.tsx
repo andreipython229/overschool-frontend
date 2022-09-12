@@ -47,7 +47,6 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
       dragControls={controls}
       dragListener={false}
       draggable={false}
-      key={item.id}
       value={item}
       whileDrag={{
         scale: 1.1,
