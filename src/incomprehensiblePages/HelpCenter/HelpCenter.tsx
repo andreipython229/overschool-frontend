@@ -14,14 +14,10 @@ export const HelpCenter = () => {
     const handleAuthorClick = () => {
         setStudentIsShown(false)
         setAuthorIsShown(true)
-
-        console.log('st', isStudentShown, 'au', isAuthorShown)
     };
     const handleStudentClick = () => {
         setAuthorIsShown(false)
         setStudentIsShown(true)
-        console.log('st', isStudentShown, 'au', isAuthorShown)
-
     };
 
     return (
