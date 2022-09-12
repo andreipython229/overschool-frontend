@@ -38,12 +38,13 @@ export const HelpCenter = () => {
             <div  className={styles.HelpCenterPage_quickStart}>
                 <h1>Начало работы</h1>
                 <div  className={styles.HelpCenterPage_quickStart_userSelect}>
-                    <div  className={styles.HelpCenterPage_quickStart_userSelect_author}>
+
+                    <div  className={isAuthorShown ? styles.HelpCenterPage_quickStart_userSelect_authorEnabled: styles.HelpCenterPage_quickStart_userSelect_authorDisabled}>
                         <h5 onClick={handleAuthorClick}>Для авторов курса</h5>
                         <hr/>
                     </div>
 
-                    <div  className={styles.HelpCenterPage_quickStart_userSelect_student}>
+                    <div  className={isStudentShown ? styles.HelpCenterPage_quickStart_userSelect_studentEnabled :styles.HelpCenterPage_quickStart_userSelect_studentDisabled}>
                         <h5 onClick={handleStudentClick}>Для обучающихся</h5>
                         <hr/>
                     </div>

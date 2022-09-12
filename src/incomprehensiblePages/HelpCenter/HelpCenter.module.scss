@@ -59,7 +59,7 @@
                 width: 150px;
                 margin-top: 6px;
             }
-            &_author {
+            &_authorEnabled {
                 width: 220px;
                 h5 {
                     float: right;
@@ -70,7 +70,7 @@
                     float: right;
                 }
             }
-            &_student {
+            &_studentDisabled {
                 width: 220px;
                 h5 {
                     color: #D6D6D6;
@@ -80,6 +80,28 @@
                     border: 1px solid #D6D6D6;
                 }
             }
+            &_authorDisabled {
+                width: 220px;
+                h5 {
+                    float: right;
+                    color: #D6D6D6;
+                }
+                hr {
+                    border: 1px solid #D6D6D6;
+                    float: right;
+                }
+            }
+            &_studentEnabled {
+                width: 220px;
+                h5 {
+                    color: #BA75FF;
+                    margin-left: 45px;
+                }
+                hr {
+                    border: 1px solid #BA75FF;
+                }
+            }
+
 
         }
         &_cardGroup {
