@@ -19,41 +19,59 @@ export const HelpCenter = () => {
             <div  className={styles.HelpCenterPage_quickStart}>
                 <h1>Начало работы</h1>
                 <div  className={styles.HelpCenterPage_quickStart_userSelect}>
-                    <h5>Для авторов курса</h5>
-                    <h5>Для обучающихся</h5>
+                    <div  className={styles.HelpCenterPage_quickStart_userSelect_author}>
+                        <h5>Для авторов курса</h5>
+                        <hr/>
+                    </div>
+
+                    <div  className={styles.HelpCenterPage_quickStart_userSelect_student}>
+                        <h5>Для обучающихся</h5>
+                        <hr/>
+                    </div>
+
                 </div>
                 <div className={styles.HelpCenterPage_quickStart_cardGroup}>
                     <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
                         <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-                        <h3>Гид по началу работ</h3>
-                        <p>Не знаете с чего начать? Начните с нашего гида по началу работы на OVERSCHOOL</p>
-                            </div>
+                            <h3>Гид по началу работ</h3>
+                            <p>Не знаете с чего начать? Начните с нашего гида по началу работы на OVERSCHOOL</p>
+                        </div>
                     </div>
                     <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
                         <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-                        <h3>Как создать курс</h3>
-                        <p>Пошаговая инструкция по созданию и настройке курсов на платформе</p>
-                            </div>
+                            <h3>Как создать курс</h3>
+                            <p>Пошаговая инструкция по созданию и настройке курсов на платформе</p>
+                        </div>
                     </div>
                     <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
                         <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-                        <h3>Как провести вебинар</h3>
-                        <p>Детальная инструкция по проведению и настройке вебинаров на OVERSCHOOL</p>
-                            </div>
+                            <h3>Как провести вебинар</h3>
+                            <p>Детальная инструкция по проведению и настройке вебинаров на OVERSCHOOL</p>
+                        </div>
                     </div>
                     <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
                         <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-                        <h3>Как добавить учеников</h3>
-                        <p>Инструкция по всем способам: ручным и автоматическим</p>
-                            </div>
+                            <h3>Как добавить учеников</h3>
+                            <p>Инструкция по всем способам: ручным и автоматическим</p>
+                        </div>
                     </div>
                 </div>
 
             </div>
+            <div  className={styles.HelpCenterPage_FAQ}>
+                <h1>Часто задаваемые вопросы</h1>
+                <h2>Бесплатный тариф действительно бессрочный?</h2>
+                <p>Да, тариф Старт позволяет создать 1 курс и добавлять по 10 учеников каждый месяц. Он действует бессрочно.</p>
+                <h2>Можно ли будет поменять тариф?</h2>
+                <p>Да, можно. Для этого даже не обязательно ждать окончания оплаченного периода: просто подключите нужный тариф и оставшиеся дни подписки автоматически пересчитаются по стоимости нового тарифа.</p>
+                <h2>Могут ли Самозанятые принимать платежи на платформе?</h2>
+                <p>Да, мы работаем с самозанятыми. Для самозанятых вывод средств с баланса доступен 1 раз в месяц. После получения средств на счет необходимо отправить нам чек в чате.</p>
+                <h2>Можно ли оплатить подписку со счета организации?</h2>
+                <p>Для этого пришлите нам в онлайн-чат или на почту hello@overone.by реквизиты для выставления счета, а также укажите желаемый тариф и период подключения. Мы сформируем и пришлем Вам счет для оплаты. Как только деньги поступят на счет, мы активируем Ваш тариф.</p>
+            </div>
 
 
 
-            <h1>lol kek</h1>
         </section>
     )
 }

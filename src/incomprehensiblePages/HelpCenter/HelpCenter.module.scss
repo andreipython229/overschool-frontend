@@ -51,6 +51,36 @@
         &_userSelect {
             display: inline-flex;
             align-items: center;
+            h5 {
+                margin-right: 45px;
+                font-size: 14px;
+            }
+            hr {
+                width: 150px;
+                margin-top: 6px;
+            }
+            &_author {
+                width: 220px;
+                h5 {
+                    float: right;
+                    color: #BA75FF;
+                }
+                hr {
+                    border: 1px solid #BA75FF;
+                    float: right;
+                }
+            }
+            &_student {
+                width: 220px;
+                h5 {
+                    color: #D6D6D6;
+                    margin-left: 45px;
+                }
+                hr {
+                    border: 1px solid #D6D6D6;
+                }
+            }
+
         }
         &_cardGroup {
             margin-top: 45px;
@@ -77,7 +107,41 @@
                         color: #4D5766;
                     }
                 }
+                @media (min-width: 767px) and (max-width: 1024px) {
+                    &_text {
+                        margin: 20px 10px 20px 20px;
+
+                        h3 {
+                            font-size: 20px;
+                        }
+
+                        p {
+                            margin-top: 10px;
+                            font-size: 13px;
+                        }
+                    }
+                }
             }
+        }
+    }
+    &_FAQ {
+        flex-direction: column;
+        display: flex;
+        width: 725px;
+        margin: 0 auto;
+        h1 {
+            text-align: center;
+            margin-top: 106px;
+            margin-bottom: 62px;
+        }
+        h2 {
+            color: #BA75FF;
+            font-size: 23px;
+        }
+        p {
+            margin-top: 20px;
+            margin-bottom: 45px;
+            font-size: 15px;
         }
     }
 }
