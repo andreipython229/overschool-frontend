@@ -6,6 +6,7 @@ import React from "react";
 import firstStep from "../../assets/img/createProject/firstStep.png";
 import secondStep from "../../assets/img/createProject/secondStep.png";
 
+
 export const HelpCenter = () => {
     return (
         <section className={styles.HelpCenterPage}>
@@ -58,6 +59,34 @@ export const HelpCenter = () => {
                         </div>
                     </div>
                 </div>
+
+                <div className={styles.HelpCenterPage_quickStart_cardGroup} style={{display: 'none' }}>
+                    <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+                        <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                            <h3>Гид по кабинету</h3>
+                            <p>Не знаешь, как пользоваться личным кабинетом?<br/> Кликай на блок и получай гайд</p>
+                        </div>
+                    </div>
+                    <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+                        <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                            <h3>Не можешь войти?</h3>
+                            <p>Пошаговая инструкция по входу в личный профиль и его полной настройке</p>
+                        </div>
+                    </div>
+                    <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+                        <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                            <h3>Не приходит письмо</h3>
+                            <p>Кликай сюда и ты узнаешь, что делать, если не приходит письмо на твою почту</p>
+                        </div>
+                    </div>
+                    <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+                        <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                            <h3>Как поменять номер</h3>
+                            <p>Ты узнаешь что делать, если необходимо привязать другой номер телефона</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div  className={styles.HelpCenterPage_FAQ}>
                 <h1>Часто задаваемые вопросы</h1>
