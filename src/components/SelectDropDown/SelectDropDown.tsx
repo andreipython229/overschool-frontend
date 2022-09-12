@@ -59,7 +59,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
   }, [])
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <p onClick={handleDropDown} className={`${styles[headerDropDown.bg]} ${styles.header_dropdown_menu}`}>
         <IconSvg
           width={headerDropDown.icon.width}

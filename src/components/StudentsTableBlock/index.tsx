@@ -1,104 +1,87 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { classesSettingSvgIcon } from '../../constants/iconSvgConstants'
-import { Student } from './Student'
 import { SettingItemT } from '../../Pages/CoursesStats/CoursesStats'
-
-import styles from '../../Pages/School/Navigations/StudentsStats/studentsStats.module.scss'
+import { studentList } from './mokData'
+import { generateData } from '../../utils/generateData'
 
 type StudentsTableBlockT = {
   settingList?: SettingItemT[]
   setToggleSettingModal?: (arg: boolean) => void
 }
 
-const studentList = [
-  {
-    name: 'Вася',
-    email: 'test@mail.com',
-    course: 'Course',
-    totalScore: '94',
-    lastActivity: '13.09.2022',
-    progress: '30%',
-    comments: 'Hello World',
-    group: '25',
-    averageScore: '8',
-    updateDate: '10.09.2022',
-    completionDate: '10.09.2022',
-  },
-  {
-    name: 'Петя',
-    email: 'test@mail.com',
-    course: 'Course',
-    totalScore: '84',
-    lastActivity: '13.09.2022',
-    progress: '50%',
-    comments: 'Hello World',
-    group: '35',
-    averageScore: '7',
-    updateDate: '10.09.2022',
-    completionDate: '10.09.2022',
-  },
-]
-
 export const StudentsTableBlock: FC<StudentsTableBlockT> = ({ settingList, setToggleSettingModal }) => {
+  const [cols, setCols] = useState<string[]>([])
+
+  const { columns, data } = generateData(studentList.length, settingList || [])
+  const [rows, _] = useState<Array<object>>(data)
+
   const openSettingsModal = () => {
     setToggleSettingModal && setToggleSettingModal(true)
   }
-  const foo = () => {
-    const arr: any = []
-    settingList?.reduce((priviosValue: any, currentValue: any, index) => {
-      const key: any = Object.values(settingList)[index].name
 
-      const value = Object.keys(studentList[0])
-
-      if (studentList) {
-        const newObj = {
-          [value[index]]: key,
-        }
-        arr.push(newObj)
-      }
-    }, [])
-    return arr
-  }
-
-  //console.log(foo())
+  useEffect(() => {
+    setCols(columns)
+  }, [settingList])
 
   return (
-    <section className={styles.student_info_table}>
-      <div className={styles.student_info_table_header}>
-        <input className={styles.student_info_table_header_checkbox} type="checkbox" name="name" />
-
-        {settingList?.map((item: SettingItemT) => (
-          <div key={item.id}>{item.checked && item.name}</div>
+    <table style={{ borderCollapse: 'collapse' }}>
+      <thead>
+        <tr>
+          {cols.map(col => (
+            <th
+              style={{
+                whiteSpace: 'nowrap',
+                color: '#716f88',
+                letterSpacing: '1.5px',
+                fontWeight: ' 400',
+                fontSize: '14px',
+                textAlign: 'center',
+                textTransform: 'capitalize',
+                verticalAlign: 'middle',
+                padding: '10px',
+                borderBottom: '2px solid #eef0f5',
+              }}
+              id={col}
+              key={col}
+            >
+              {col}
+            </th>
+          ))}
+          <th>
+            <IconSvg
+              functionOnClick={openSettingsModal}
+              width={15}
+              height={15}
+              viewBoxSize={'0 0 15 15'}
+              fill={'#6B7280'}
+              d={classesSettingSvgIcon.setting}
+            />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row: any) => (
+          <tr key={Math.random()}>
+            {Object.entries(row).map(([_, v]: any, idx) => (
+              <td
+                style={{
+                  fontSize: '14px',
+                  textAlign: 'center',
+                  textTransform: 'capitalize',
+                  verticalAlign: 'center',
+                  padding: '20px',
+                  borderBottom: '2px solid #eef0f5',
+                }}
+                key={v}
+              >
+                {row[cols[idx]]}
+              </td>
+            ))}
+          </tr>
         ))}
-
-        <div className={styles.student_info_table_header_settings_btn}>
-          <IconSvg
-            functionOnClick={openSettingsModal}
-            width={15}
-            height={15}
-            viewBoxSize={'0 0 15 15'}
-            fill={'#6B7280'}
-            d={classesSettingSvgIcon.setting}
-          />
-        </div>
-      </div>
-      <div className={styles.student_info_table_contents_wrapper}>
-        {/*{studentList.map(item => (*/}
-        {/*  <p style={{ display: 'flex', justifyContent: 'space-between' }} key={item.name}>*/}
-        {/*    <span>{item.name}</span>*/}
-        {/*    <span>{item.email}</span>*/}
-        {/*    <span>{item.progress}</span>*/}
-        {/*    <span>{item.group}</span>*/}
-        {/*    <span>{item.completionDate}</span>*/}
-        {/*    <span>{item.course}</span>*/}
-        {/*    <span>{item.totalScore}</span>*/}
-        {/*  </p>*/}
-        {/*))}*/}
-        <Student name={'Без имени'} date={new Date().toTimeString().split('G')[0]} progress={'0%'} email={'pochta@mail.ru'} balls={'0'} />
-        <Student name={'Без имени'} date={new Date().toTimeString().split('G')[0]} progress={'0%'} email={'pochta@mail.ru'} balls={'0'} />
-      </div>
-    </section>
+      </tbody>
+    </table>
   )
 }
