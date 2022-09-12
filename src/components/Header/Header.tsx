@@ -40,7 +40,6 @@ export const Header = memo(() => {
       <NavLink to={Path.Courses}>
         <img className={styles.header_logotype} src={logo || Logotype} alt="Logotype IT Overone" />
       </NavLink>
-
       <div className={styles.header_block}>
         <Link style={{ textDecoration: 'none' }} to={Path.Profile}>
           <div className={styles.header_block_user}>

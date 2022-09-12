@@ -1,11 +1,13 @@
 import React, { ChangeEvent, FC, memo, useEffect, useState } from 'react'
-import styles from './mobileCoursesPage.module.scss'
 import { CourseSearchInput } from 'MobilePages/MobileCoursesPage/CourseSearchInput/CourseSearchInput'
-import { CoursesT, getCourses } from '../../store/redux/courses/slice'
+import { getCourses } from '../../store/redux/courses/slice'
 import { MobileCourseBlock } from 'MobilePages/MobileCoursesPage/MobileCourseBlock/MobileCourseBlock'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { allCoursesSelector } from '../../selectors'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
+import { CoursesT } from '../../types/CoursesT'
+
+import styles from './mobileCoursesPage.module.scss'
 
 export const MobileCoursesPage: FC = memo(() => {
   const [searchValue, setSearchValue] = useState<string>('')

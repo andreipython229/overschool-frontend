@@ -31,7 +31,7 @@ export type SettingItemT = {
 
 export const CoursesStats = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)
-  const [settingList, setSettingsList] = useState(settingsItemsList)
+  const [settingList, setSettingsList] = useState<SettingItemT[]>(settingsItemsList)
   const [toggleSettingModal, setToggleSettingModal] = useState<boolean>(false)
 
   const handleHideStats = useCallback(() => {

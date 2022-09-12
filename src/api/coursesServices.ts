@@ -1,7 +1,11 @@
 import { fetchBaseQuery, createApi, FetchArgs } from '@reduxjs/toolkit/dist/query/react'
 import { RootState } from '../store/redux/store'
-import { CoursesT } from '../store/redux/courses/slice'
-import { schoolHeaderResT } from '../types/schoolHeaderT'
+import { CoursesT } from '../types/CoursesT'
+
+interface UpdateCourses {
+  formdata: FormData
+  id: string
+}
 
 export const coursesServices = createApi({
   reducerPath: 'coursesServices',
@@ -35,14 +39,14 @@ export const coursesServices = createApi({
       },
       invalidatesTags: ['allCourses'],
     }),
-    deleteCourses: build.mutation({
+    deleteCourses: build.mutation<FormData, string>({
       query: id => ({
         url: `/courses/${id}/`,
         method: 'DELETE',
       }),
       invalidatesTags: ['allCourses'],
     }),
-    updateCourses: build.mutation({
+    updateCourses: build.mutation<FormData, UpdateCourses>({
       query: (arg): string | FetchArgs => {
         return {
           url: `/courses/${arg.id}/`,
@@ -52,12 +56,12 @@ export const coursesServices = createApi({
       },
       invalidatesTags: ['allCourses'],
     }),
-    patchCourses: build.mutation({
+    patchCourses: build.mutation<FormData, UpdateCourses>({
       query: (arg): string | FetchArgs => {
         return {
-          url: `/courses/${arg.id}/`,
+          url: `/courses/${arg?.id}/`,
           method: 'PATCH',
-          body: arg.formdata,
+          body: arg?.formdata,
         }
       },
       invalidatesTags: ['allCourses'],

@@ -1,15 +1,14 @@
-import  { ChangeEvent, FC } from 'react'
-
+import { ChangeEvent, FC } from 'react'
+import { CoursesT } from '../../../../../../types/CoursesT'
 import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
 import { publishedMarkerSvgIcon } from '../../../../../../constants/iconSvgConstants'
 import { usePatchCoursesMutation } from '../../../../../../api/coursesServices'
-import { CoursesT } from '../../../../../../store/redux/courses/slice'
 
 import styles from './../setting_course.module.scss'
 
 type CardImageDownloadsT = {
   toggleCheckbox: boolean
-  courseFind: CoursesT | undefined
+  courseFind: CoursesT
 }
 
 export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, courseFind }) => {
@@ -20,9 +19,10 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
       const files = event.target.files
       const formdata = new FormData()
       formdata.append('photo', files[0])
-
-      const id = courseFind?.course_id
-      updateImg({ formdata, id })
+      if (courseFind) {
+        const id = courseFind?.course_id
+        updateImg({ formdata, id })
+      }
     }
   }
 

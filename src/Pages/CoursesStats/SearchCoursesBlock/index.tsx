@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../components/common/Input/Input/Input'
@@ -8,11 +8,10 @@ import { allCoursesSelector } from '../../../selectors'
 import { useAppSelector } from '../../../store/hooks'
 import { useFilterData } from '../../../customHooks/useFilterData'
 import { ToggleButtonDropDown } from '../../../components/common/ToggleButtonDropDown'
-import { CoursesT } from '../../../store/redux/courses/slice'
 
 import styles from '../courses_stats.module.scss'
 
-export const SearchCoursesBlock = () => {
+export const SearchCoursesBlock = memo(() => {
   const { courses } = useAppSelector(allCoursesSelector)
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -49,4 +48,4 @@ export const SearchCoursesBlock = () => {
       <ToggleButtonDropDown isOpen={isOpen} handleToggleHiddenBlocks={handleToggleHiddenBlocks} />
     </div>
   )
-}
+})

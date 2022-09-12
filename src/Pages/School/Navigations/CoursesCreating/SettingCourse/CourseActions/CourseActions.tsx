@@ -2,10 +2,10 @@ import React, { FC } from 'react'
 import { useDeleteCoursesMutation } from 'api/coursesServices'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../../../../components/common/Button/Button'
-import { CoursesT } from '../../../../../../store/redux/courses/slice'
+import { CoursesT } from '../../../../../../types/CoursesT'
 
 type CourseActionsT = {
-  courseFind: CoursesT | undefined
+  courseFind: CoursesT
 }
 
 export const CourseActions: FC<CourseActionsT> = ({ courseFind }) => {
@@ -13,7 +13,7 @@ export const CourseActions: FC<CourseActionsT> = ({ courseFind }) => {
 
   const navigate = useNavigate()
   const handleDeleteCourse = async () => {
-    await deleteCourses(courseFind?.course_id)
+    courseFind && (await deleteCourses(courseFind?.course_id))
     navigate('/login/courses/')
   }
 
