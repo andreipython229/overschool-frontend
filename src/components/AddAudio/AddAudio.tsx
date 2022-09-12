@@ -2,7 +2,7 @@ import { useState, DragEvent, ChangeEvent, FC } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { classesSettingSvgIcon } from '../../constants/iconSvgConstants'
-import { ClassesSettingSvgBlock } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/ClassesSettings/ClassesSettingSvgBlock/ClassesSettingSvgBlock'
+import { ClassesSettingSvgBlock } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/ClassesSettingSvgBlock'
 
 import styles from './addaudio.module.scss'
 

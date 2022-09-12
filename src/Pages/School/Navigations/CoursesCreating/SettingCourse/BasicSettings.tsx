@@ -1,22 +1,22 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { Toggle } from '@skbkontur/react-ui'
 
-import { publishedMarkerSvgIcon } from '../../../../../../constants/iconSvgConstants'
-import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
-import { Input } from '../../../../../../components/common/Input/Input/Input'
-import { Checkbox } from '../../../../../../components/common/Checkbox/Checkbox'
-import { SelectInput } from '../../../../../../components/common/SelectInput/SelectInput'
-import { CoursesT } from '../../../../../../store/redux/courses/slice'
-import { useDebounce } from '../../../../../../customHooks/useDebounce'
-import { usePatchCoursesMutation } from '../../../../../../api/coursesServices'
-import { formDataConverter } from '../../../../../../utils/formDataConverter'
+import { publishedMarkerSvgIcon } from '../../../../../constants/iconSvgConstants'
+import { IconSvg } from '../../../../../components/common/IconSvg/IconSvg'
+import { Input } from '../../../../../components/common/Input/Input/Input'
+import { Checkbox } from '../../../../../components/common/Checkbox/Checkbox'
+import { SelectInput } from '../../../../../components/common/SelectInput/SelectInput'
+import { CoursesT } from '../../../../../types/CoursesT'
+import { useDebounce } from '../../../../../customHooks/useDebounce'
+import { usePatchCoursesMutation } from '../../../../../api/coursesServices'
+import { formDataConverter } from '../../../../../utils/formDataConverter'
 
-import styles from './../setting_course.module.scss'
+import styles from './setting_course.module.scss'
 
 type BasicSettingsT = {
   toggleCheckbox: boolean
   toggleCheckboxPublished: () => void
-  courseFind: CoursesT | undefined
+  courseFind: CoursesT
 }
 
 export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckboxPublished, courseFind }) => {
@@ -41,8 +41,8 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
       description: debouncedDescription,
     }
     const formdata = formDataConverter(updateCurse)
-    const id = courseFind?.course_id
-    if (formdata) {
+    if (formdata && courseFind) {
+      const id = courseFind?.course_id
       update({ formdata, id })
     }
   }, [debouncedCourseName, debouncedDescription, toggleCheckbox])

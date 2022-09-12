@@ -1,6 +1,5 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
-
 
 import { Path } from '../../../enum/pathE'
 import { addCourseId } from '../../../store/redux/course/slice'
@@ -20,7 +19,7 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, course_
   const dispatchIdCourses = () => {
     dispatch(addCourseId(course_id))
   }
-
+  console.log(photo_url, name, course_id)
   return (
     <Link
       to={generatePath(`/login/courses/${Path.CreateCourse}`, {

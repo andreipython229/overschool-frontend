@@ -12,13 +12,18 @@ type PreviousPropsT = {
   onClick?: () => void
 }
 
+type pathT = {
+  path: string
+  Component: FC
+}
+
 export const Previous: FC<PreviousPropsT> = memo(({ about, onClick, buttonText }) => {
   const { pathname } = useLocation()
 
   return (
     <>
-      {previousToShow.map(({ path, Component }) => {
-        return pathname.includes(path) && <Component />
+      {previousToShow.map(({ path, Component }: pathT) => {
+        return pathname.includes(path) && <Component key={path} />
       })}
     </>
   )

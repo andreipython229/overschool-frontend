@@ -1,4 +1,5 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
+
 import styles from './userLogs.module.scss'
 
 type UserLogsPropsT = {

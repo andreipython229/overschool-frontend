@@ -1,13 +1,13 @@
 import { FC, memo } from 'react'
 
 import { useAppDispatch } from '../../../../store/hooks'
-import { CoursesCard } from './CoursesCard/CoursesCard'
-import { CoursesT } from '../../../../store/redux/courses/slice'
+import { CoursesCard } from './CoursesCard'
 import { showModal } from '../../../../store/redux/modal/slice'
 import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
 import { searchSvgIcon } from '../../../../constants/iconSvgConstants'
 import { Input } from '../../../../components/common/Input/Input/Input'
 import { useFilterData } from '../../../../customHooks/useFilterData'
+import { CoursesT } from '../../../../types/CoursesT'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 
@@ -16,7 +16,7 @@ type CoursePagePropsT = {
   courses: CoursesT[]
 }
 
-export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses }) => {
+export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
   const dispatch = useAppDispatch()
 
   const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
@@ -63,4 +63,4 @@ export const CoursePage: FC<CoursePagePropsT> = memo(({ setShowModal, courses })
       </div>
     </div>
   )
-})
+}

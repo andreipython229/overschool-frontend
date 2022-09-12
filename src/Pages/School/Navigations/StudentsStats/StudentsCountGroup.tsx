@@ -1,4 +1,5 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
+
 import styles from 'Pages/School/Navigations/StudentsStats/studentsStats.module.scss'
 
 type StudentsGroupPropsT = {

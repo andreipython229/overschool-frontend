@@ -1,8 +1,8 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Button } from 'components/common/Button/Button'
 //import { lessonsBlockSvgIcon } from '../../../../../../../constants/iconSvgConstants'
 //import { IconSvg } from '../../../../../../../components/common/IconSvg/IconSvg'
-import { useAppDispatch } from '../../../../../../../store/hooks'
+import { useAppDispatch } from '../../../../../../store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/constructor.module.scss'

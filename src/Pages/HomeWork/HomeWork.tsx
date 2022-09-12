@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+
 import { SelectDropDown } from '../../components/SelectDropDown/SelectDropDown'
 import { FiltersButton } from '../../components/FiltersButton'
 import { Input } from '../../components/common/Input/Input/Input'
 import { searchSvgIcon } from '../../constants/iconSvgConstants'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { dropDownListFilter } from '../../constants/dropDownList'
+import { StudentsTableBlock } from '../../components/StudentsTableBlock'
 
 import styles from './home_work.module.scss'
 
-import { StudentsTableBlock } from '../../components/StudentsTableBlock'
-
 export const HomeWork = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])
+  
   return (
     <>
       <h3>Входящие работы от учеников</h3>

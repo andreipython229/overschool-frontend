@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { ChangeEvent, FC, memo, useState } from 'react'
 import { FiltersButton } from '../FiltersButton'
 import { dropDownListFilterStudents } from '../../constants/dropDownList'
 import { Input } from '../common/Input/Input/Input'
@@ -13,7 +13,7 @@ type AllStudentsBlockT = {
   headerText: string
 }
 
-export const AllStudentsBlock: FC<AllStudentsBlockT> = ({ headerText }) => {
+export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => {
   const [showHideModal, setShowHideModal] = useState<boolean>(false)
   const [emailStudent, setEmailStudent] = useState<string>('')
 
@@ -52,4 +52,4 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = ({ headerText }) => {
       </div>
     </div>
   )
-}
+})

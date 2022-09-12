@@ -1,12 +1,13 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Toggle } from '@skbkontur/react-ui'
-import { IconSvg } from '../../../../../../../components/common/IconSvg/IconSvg'
-import { classesSettingSvgIcon } from '../../../../../../../constants/iconSvgConstants'
-import { useAppDispatch } from '../../../../../../../store/hooks'
+
+import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
+import { classesSettingSvgIcon } from '../../../../../../constants/iconSvgConstants'
+import { useAppDispatch } from '../../../../../../store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 import { AddPost } from 'components/AddPost/AddPost'
 
-import styles from '../constructor.module.scss'
+import styles from './constructor.module.scss'
 
 type ClassesSettingsPropsT = {
   showSettingsClassesModal: () => void

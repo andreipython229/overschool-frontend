@@ -1,5 +1,6 @@
-import React, { FC, memo } from 'react'
-import styles from '../initial.module.scss'
+import { FC, memo } from 'react'
+
+import styles from './initial.module.scss'
 
 type CourseImgPropsT = {
   currentCourse: string

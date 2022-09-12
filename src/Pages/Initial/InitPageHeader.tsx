@@ -1,13 +1,15 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 import { Link } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 import { Path } from 'enum/pathE'
 import { Button } from 'components/common/Button/Button'
-import { RootState } from '../../../store/redux/store'
+import { authSelector } from '../../selectors/index'
 
-import Logotype from '../../../assets/img/logotype.svg'
-import styles from '../initial.module.scss'
+import Logotype from '../../assets/img/logotype.svg'
+
+import styles from './initial.module.scss'
 
 type InitPageHeaderPT = {
   setLoginShow: (show: boolean) => void
@@ -15,7 +17,7 @@ type InitPageHeaderPT = {
 }
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setRegistrationShow }) => {
   const dispatch = useAppDispatch()
-  const isLogin = useAppSelector<boolean>((state: RootState) => state.user?.auth)
+  const isLogin = useAppSelector(authSelector)
 
   const handleLoginUser = () => {
     setLoginShow(true)

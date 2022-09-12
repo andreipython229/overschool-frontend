@@ -1,5 +1,4 @@
-import React from 'react'
-import { Radio } from '../../../../../../components/common/Radio/Radio'
+import { Radio } from '../../../../../components/common/Radio/Radio'
 
 export const CourseAvailability = () => {
   return (

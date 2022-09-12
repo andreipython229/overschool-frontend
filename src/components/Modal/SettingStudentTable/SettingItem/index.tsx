@@ -4,7 +4,9 @@ import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { DotBlockSvg } from './DotBlockSvg'
 import { NoCheckedSvgIcon } from './NoCheckedSvgIcon'
 import { CheckedSvgIcon } from './CheckedSvgIcon'
-import { SettingItemT } from '../../../../Pages/CoursesStats/CoursesStats'
+import { SettingItemT } from '../../../../Pages/CoursesStats/CoursesStats';
+
+import styles from './settingItem.module.scss';
 
 interface ISettingItem {
   item: SettingItemT
@@ -47,7 +49,6 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
       dragControls={controls}
       dragListener={false}
       draggable={false}
-      key={item.id}
       value={item}
       whileDrag={{
         scale: 1.1,
@@ -55,14 +56,14 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
         borderRadius: '7px',
       }}
     >
-      <div style={{ display: 'flex', marginTop: '15px', padding: '15px 5px', cursor: 'pointer' }}>
+      <div className={styles.wrapper}>
         {item?.name !== 'Имя' && item?.name !== 'Email' && <DotBlockSvg onPointerDown={onPointerDown} />}
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginLeft: '10px' }}>
+        <div className={styles.wrapper_item}>
           <Checkbox id={item?.id.toString()} name={item?.name} onChange={handleChecked} checked={item.checked}>
             <p>{item?.name}</p>
+            {item.checked ? <CheckedSvgIcon /> : <NoCheckedSvgIcon />}
           </Checkbox>
-          {item.checked ? <CheckedSvgIcon /> : <NoCheckedSvgIcon />}
         </div>
       </div>
     </Reorder.Item>

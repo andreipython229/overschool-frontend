@@ -1,10 +1,10 @@
-import React, { FC, useCallback, useState } from 'react'
-import { ModalTypeClasses, SettingClassesUsually, TasksModal, TestModal, WebinarModal } from 'components/Modal'
+import { FC, useCallback, useState } from 'react'
 
+import { ModalTypeClasses, SettingClassesUsually, TasksModal, TestModal, WebinarModal } from 'components/Modal'
 import { useAppDispatch } from '../../../../../../store/hooks'
 import { addClasses } from 'store/redux/course/slice'
-import { ClassesSettings } from './ClassesSettings/ClassesSettings'
-import { LessonAddBlock } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/LessonAddBlock/LessonAddBlock'
+import { ClassesSettings } from './ClassesSettings'
+import { LessonAddBlock } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/LessonAddBlock'
 import { AddModuleModal } from 'components/Modal/CoursesModal/AddModuleModal'
 import { SettingsClassesModal } from 'components/Modal/CoursesModal/SettingsClassesModal'
 
