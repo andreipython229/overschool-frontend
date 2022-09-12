@@ -2,12 +2,28 @@ import { Button } from '../../components/common/Button/Button'
 import { Input } from '../../components/common/Input/Input/Input'
 import styles from './HelpCenter.module.scss'
 
-import React from "react";
+import React, {useState} from "react";
 import firstStep from "../../assets/img/createProject/firstStep.png";
 import secondStep from "../../assets/img/createProject/secondStep.png";
 
 
 export const HelpCenter = () => {
+    const [isAuthorShown, setAuthorIsShown] = useState<boolean>(true)
+    const [isStudentShown, setStudentIsShown] = useState<boolean>(false)
+
+    const handleAuthorClick = () => {
+        setStudentIsShown(false)
+        setAuthorIsShown(true)
+
+        console.log('st', isStudentShown, 'au', isAuthorShown)
+    };
+    const handleStudentClick = () => {
+        setAuthorIsShown(false)
+        setStudentIsShown(true)
+        console.log('st', isStudentShown, 'au', isAuthorShown)
+
+    };
+
     return (
         <section className={styles.HelpCenterPage}>
             <div  className={styles.HelpCenterPage_pageHeader}>
@@ -23,17 +39,17 @@ export const HelpCenter = () => {
                 <h1>Начало работы</h1>
                 <div  className={styles.HelpCenterPage_quickStart_userSelect}>
                     <div  className={styles.HelpCenterPage_quickStart_userSelect_author}>
-                        <h5>Для авторов курса</h5>
+                        <h5 onClick={handleAuthorClick}>Для авторов курса</h5>
                         <hr/>
                     </div>
 
                     <div  className={styles.HelpCenterPage_quickStart_userSelect_student}>
-                        <h5>Для обучающихся</h5>
+                        <h5 onClick={handleStudentClick}>Для обучающихся</h5>
                         <hr/>
                     </div>
 
                 </div>
-                <div className={styles.HelpCenterPage_quickStart_cardGroup}>
+                {isAuthorShown && ( <div className={styles.HelpCenterPage_quickStart_cardGroup}>
                     <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
                         <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
                             <h3>Гид по началу работ</h3>
@@ -59,8 +75,9 @@ export const HelpCenter = () => {
                         </div>
                     </div>
                 </div>
+                    )}
 
-                <div className={styles.HelpCenterPage_quickStart_cardGroup} style={{display: 'none' }}>
+                {isStudentShown && ( <div className={styles.HelpCenterPage_quickStart_cardGroup}>
                     <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
                         <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
                             <h3>Гид по кабинету</h3>
@@ -86,7 +103,7 @@ export const HelpCenter = () => {
                         </div>
                     </div>
                 </div>
-
+                    )}
             </div>
             <div  className={styles.HelpCenterPage_FAQ}>
                 <h1>Часто задаваемые вопросы</h1>
