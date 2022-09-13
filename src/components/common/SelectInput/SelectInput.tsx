@@ -4,12 +4,9 @@ import { FC, ReactNode, useState } from 'react'
 
 import { IconSvg } from '../IconSvg/IconSvg'
 import { selectInputIconSvg } from './constants/svgIcon'
+import { SelectInputPropsT } from '../commonComponentsTypes'
 
 import styles from './selectInput.module.scss'
-
-type SelectInputPropsT = {
-  optionsList: Array<string | number>
-}
 
 export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
   const startPosition = 0

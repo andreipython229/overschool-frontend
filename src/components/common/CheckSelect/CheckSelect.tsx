@@ -1,15 +1,10 @@
-import { FC, useState, ReactNode } from 'react'
-
+import { FC, useState } from 'react'
+import { CheckSelectPropsT } from '../commonComponentsTypes'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { IconSvg } from '../IconSvg/IconSvg'
-import { checkSelectSvgIcon } from './constants/svgIcons';
+import { checkSelectSvgIcon } from './constants/svgIcons'
 
 import styles from './checkSelect.module.scss'
-
-type CheckSelectPropsT = {
-  text: string
-  children?: ReactNode
-}
 
 export const CheckSelect: FC<CheckSelectPropsT> = ({ text, children }) => {
   const [openChildren, setOpenChildren] = useState<boolean>(false)

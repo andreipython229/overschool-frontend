@@ -3,16 +3,11 @@ import { Input } from 'components/common/Input/Input/Input'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Button } from 'components/common/Button/Button'
 import { searchSvgIcon } from '../../../constants/iconSvgConstants'
+import { SearchFilterT } from '../../componentsTypes'
 
 import style from './search_filter.module.scss'
 
-type FilterT = {
-  name: string
-  header: string
-  data: Array<object>
-}
-
-export const SearchFilter: FC<FilterT> = memo(({ name, header, data }) => {
+export const SearchFilter: FC<SearchFilterT> = memo(({ name, header, data }) => {
   const [value, setValue] = useState<string>('')
   const [visibleData, setVisibleData] = useState<string[]>([])
 

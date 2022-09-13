@@ -1,11 +1,7 @@
 import { FC } from 'react'
+import { RadioPropsT } from '../commonComponentsTypes'
 
 import styles from './radio.module.scss'
-
-type RadioPropsT = {
-  title: string
-  id: string
-}
 
 export const Radio: FC<RadioPropsT> = ({ title, id }) => (
   <div style={{ display: 'flex', alignItems: 'center' }}>

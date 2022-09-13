@@ -9,7 +9,7 @@ import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutSvgIcon } from '../../constants/iconSvgConstants'
 import { changeLoadingStatus } from '../../store/redux/platform/slice'
-import { platformSelector } from '../../selectors/index'
+import { platformSelector } from '../../selectors'
 
 import Logotype from '../../assets/img/logotype.svg'
 import Avatar from '../../assets/img/avatar.svg'

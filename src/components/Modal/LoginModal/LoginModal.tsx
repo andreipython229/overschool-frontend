@@ -7,7 +7,7 @@ import { Button } from '../../common/Button/Button'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
 import { useAppDispatch } from '../../../store/hooks'
 import { auth, token } from 'store/redux/users/slice'
-import { AuthSelect } from '../../common/AuthSelect/AuthSelect'
+import { AuthSelect } from '../../common/AuthSelect'
 import { useLoginMutation } from '../../../api/userLoginService'
 import { useShowModal } from '../../../customHooks/useShowModal'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
@@ -23,7 +23,7 @@ type LoginModalPropsT = {
 
 export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
   const dispatch = useAppDispatch()
-  
+
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
 

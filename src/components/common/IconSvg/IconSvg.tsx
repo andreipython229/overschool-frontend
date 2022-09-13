@@ -1,22 +1,5 @@
 import { FC, memo } from 'react'
-
-export type IconSvgT = {
-  styles?: { [key: string]: string | number }
-  width: number
-  height: number
-  fill?: string
-  d: string
-  d2?: string
-  stroke?: string
-  strokeWidth?: string
-  strokeLinecap?: 'inherit' | 'round' | 'butt' | 'square'
-  strokeLinejoin?: 'inherit' | 'round' | 'miter' | 'bevel'
-  viewBoxSize?: string
-  className?: string
-  fillRule?: 'nonzero' | 'evenodd' | 'inherit'
-  clipRule?: 'nonzero' | 'evenodd' | 'inherit'
-  functionOnClick?: <T>(params: T) => void
-}
+import { IconSvgT } from '../commonComponentsTypes'
 
 export const IconSvg: FC<IconSvgT> = memo(
   ({

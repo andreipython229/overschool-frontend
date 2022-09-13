@@ -1,5 +1,6 @@
 import React, { memo, useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
+import { IWithRange } from '../../componentsTypes'
 import { Button } from '../../common/Button/Button'
 import 'react-datepicker/dist/react-datepicker.css'
 import './calendar.css'
@@ -7,11 +8,6 @@ import './calendar.css'
 import ru from 'date-fns/locale/ru'
 
 registerLocale('ru', ru)
-
-interface IWithRange {
-  CustomModifierNames: string
-  WithRange: boolean | undefined
-}
 
 export const CalendarFilter = memo(() => {
   const [startDate, setStartDate] = useState<Date | null>(new Date())

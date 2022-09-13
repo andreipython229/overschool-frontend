@@ -1,11 +1,10 @@
 import { FC } from 'react'
-import { Toggle } from '@skbkontur/react-ui'
-
+import { CheckboxBall } from '../../../../../../components/common/CheckboxBall'
 import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
 import { classesSettingSvgIcon } from '../../../../../../constants/iconSvgConstants'
 import { useAppDispatch } from '../../../../../../store/hooks'
 import { showModal } from 'store/redux/modal/slice'
-import { AddPost } from 'components/AddPost/AddPost'
+import { AddPost } from 'components/AddPost'
 
 import styles from './constructor.module.scss'
 
@@ -41,7 +40,7 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
           <span className={styles.redactorCourse_rightSide_title}>Содержание занятия</span>
           <div>
             <span className={styles.redactorCourse_rightSide_functional_content_preview}>Предпросмотр</span>
-            <Toggle />
+            <CheckboxBall />
           </div>
         </div>
 

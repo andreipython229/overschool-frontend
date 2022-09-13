@@ -2,12 +2,9 @@ import React, { FC, memo, useState } from 'react'
 import { IconSvg } from '../IconSvg/IconSvg'
 import { emailSvgIcon, phoneSvgIcon } from '../../../constants/iconSvgConstants'
 import { LoginParamsT } from '../../../utils/validationLogin'
+import { AuthSelectPropsT } from '../commonComponentsTypes'
 
 import styles from './authSelect.module.scss'
-
-type AuthSelectPropsT = {
-  getInputVariant: (variant: keyof LoginParamsT) => void
-}
 
 export const AuthSelect: FC<AuthSelectPropsT> = memo(({ getInputVariant }) => {
   const [variant, setVariant] = useState<string>('email')

@@ -15,6 +15,7 @@ type AddStudentModalPropsT = {
   studentEmail: string
 }
 export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, onChangeEmail, studentEmail }) => {
+  console.log(setShowModal)
   const handleClose = () => {
     setShowModal(false)
   }

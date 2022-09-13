@@ -1,12 +1,9 @@
 import React, { FC, memo, useState } from 'react'
 import { Input } from '../../common/Input/Input/Input'
 import { Button } from '../../common/Button/Button'
+import { ScoresFilterT } from '../../componentsTypes'
 
 import styles from './scores_filter.module.scss'
-
-type ScoresFilterT = {
-  title: string
-}
 
 export const ScoresFilter: FC<ScoresFilterT> = memo(({ title }) => {
   const [scoresStart, setScoresStart] = useState<string>('')

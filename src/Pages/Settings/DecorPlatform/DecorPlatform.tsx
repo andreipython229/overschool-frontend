@@ -20,11 +20,11 @@ export const DecorPlatform = memo(() => {
   const onChangeLogotype = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target
     if (target.files) {
-      const formData = new FormData()
-      formData.append('logo_school', target.files[0])
+      const formdata = new FormData()
+      formdata.append('logo_school', target.files[0])
 
       if (target.files[0].size <= 2 * 1024 * 1024 && target.files[0].type === 'image/png') {
-        setSchoolHeader({ formData, id: 1 })
+        setSchoolHeader({ formdata, id: 1 })
       } else {
         setLogoError('Неверный формат')
       }
@@ -35,11 +35,11 @@ export const DecorPlatform = memo(() => {
     const target = e.target
 
     if (target.files) {
-      const formData = new FormData()
-      formData.append('favicon', target.files[0])
+      const formdata = new FormData()
+      formdata.append('favicon', target.files[0])
 
       if (target.files[0].size <= 200 * 1024 && target.files[0].type === 'image/png') {
-        setSchoolHeader({ formData, id: 1 })
+        setSchoolHeader({ formdata, id: 1 })
       } else {
         setFaviconError('Неверный формат')
       }
