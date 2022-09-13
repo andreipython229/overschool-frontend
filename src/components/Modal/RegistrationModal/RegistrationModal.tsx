@@ -5,7 +5,7 @@ import { Checkbox } from '../../common/Checkbox/Checkbox'
 import { Button } from '../../common/Button/Button'
 import { validateRegistration } from 'utils/validationRegistation'
 import { auth } from 'store/redux/users/slice'
-import { AuthSelect } from '../../common/AuthSelect/AuthSelect'
+import { AuthSelect } from '../../common/AuthSelect'
 import { useAppDispatch } from '../../../store/hooks'
 
 import unSecurity from '../../../assets/img/unSecurity.svg'

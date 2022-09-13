@@ -3,13 +3,9 @@ import { FC, memo } from 'react'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { statisticSvgIcon } from '../../constants/iconSvgConstants'
 import { Button } from '../common/Button/Button'
+import { StatisticHeaderT } from '../componentsTypes'
 
 import styles from 'Pages/School/Navigations/StudentsStats/studentsStats.module.scss'
-
-type StatisticHeaderT = {
-  hideStats?: boolean
-  handleHideStats?: () => void
-}
 
 export const StatisticHeader: FC<StatisticHeaderT> = memo(({ hideStats, handleHideStats }) => {
   return (

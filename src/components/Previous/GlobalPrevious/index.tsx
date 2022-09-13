@@ -1,25 +1,16 @@
 import { FC, memo, useState, ChangeEvent, useEffect } from 'react'
 import { useLocation, Location } from 'react-router-dom'
-
-// import { useAppSelector } from '../../../../store/hooks'
-// import { RootState } from '../../../../store/redux/store'
+import { GlobalPreviousT } from '../../componentsTypes'
 import { Path } from '../../../enum/pathE'
 import { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation } from 'api/schoolHeaderService'
 import { Button } from '../../common/Button/Button'
 import { schoolHeaderReqT } from '../../../types/schoolHeaderT'
-
 import noAvatar from '../../../assets/img/noAvatar.svg'
 
-import styles from '../previou.module.scss'
+// import { useAppSelector } from '../../../../store/hooks'
+// import { RootState } from '../../../../store/redux/store'
 
-type GlobalPreviousT = {
-  // avatar: string
-  // description?: string
-  // name: string
-  about?: string
-  buttonText?: string
-  onClick?: () => void
-}
+import styles from '../previou.module.scss'
 
 export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   // const role = useAppSelector((state: RootState) => state.user.permission)
@@ -47,13 +38,13 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   }
 
   const onChangeSchoolHeader = () => {
-    const formData = new FormData()
+    const formdata = new FormData()
 
     Object.entries(schoolHeaderData).forEach(([key, value]) => {
-      value && formData.append(key, value)
+      value && formdata.append(key, value)
     })
 
-    setSchoolHeader({ formData, id: 1 })
+    setSchoolHeader({ formdata, id: 1 })
     setEdit(false)
   }
 

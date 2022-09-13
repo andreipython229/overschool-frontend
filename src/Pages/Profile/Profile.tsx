@@ -1,5 +1,4 @@
-import { ChangeEvent, memo, useState } from 'react'
-import { Toggle } from '@skbkontur/react-ui'
+import { ChangeEvent, useState } from 'react'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
@@ -7,6 +6,7 @@ import { useAppSelector } from '../../store/hooks'
 import { AboutUser } from './AboutUser'
 import { selectUser } from 'selectors'
 import { notifications } from './config/notif'
+import { CheckboxBall } from '../../components/common/CheckboxBall'
 
 import styles from './profile.module.scss'
 
@@ -37,20 +37,6 @@ export const Profile = () => {
   const changeRepeatPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setRepeatNewPassword(e.currentTarget.value)
   }
-
-  // const changeUserInfo = (): void => {
-  //   const name = fullName.split(' ');
-  //   dispatch(
-  //     changeInfo({
-  //       user: { email: userEmail, first_name: name[0], last_name: name[1] },
-  //       phone_number: phone,
-  //       avatar: userAvatar,
-  //       city: userCity,
-  //       aboutMySelf: aboutUser,
-  //       sex,
-  //     }),
-  //   );
-  // };
 
   const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files) {
@@ -93,7 +79,6 @@ export const Profile = () => {
           </form>
           <div style={{ width: '566px', marginTop: '32px' }} className={styles.notification}>
             <h5>Уведомления</h5>
-            {/* Нужно сделать собственные и удалить зависимости библиотеки*/}
 
             <div className={styles.notification_toggleWrapper}>
               {notifications.map(({ id, info, desc }) => (
@@ -103,7 +88,7 @@ export const Profile = () => {
                     <p className={styles.notification_toggleWrapper_toggleBlock_text_desc}>{desc}</p>
                   </div>
                   <div>
-                    <Toggle />
+                    <CheckboxBall />
                   </div>
                 </div>
               ))}

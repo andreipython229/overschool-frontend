@@ -1,20 +1,7 @@
 import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
 import { formDataConverter } from '../utils/formDataConverter'
 import { RootState } from '../store/redux/store'
-
-interface ICredentials {
-  phone?: string
-  email?: string
-  password: string
-}
-
-interface IResponse {
-  user: {
-    email: string
-    token: string
-    username: null | string
-  }
-}
+import { ICredentials, IResponse } from './apiTypes'
 
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',

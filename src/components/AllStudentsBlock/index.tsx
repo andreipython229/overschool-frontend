@@ -6,20 +6,15 @@ import { IconSvg } from '../common/IconSvg/IconSvg'
 import { addStudentSvgIconButton, classesSettingSvgIcon, searchSvgIcon } from '../../constants/iconSvgConstants'
 import { Button } from '../common/Button/Button'
 import { AddStudentModal } from '../Modal/StudentLogs/AddStudentModal/AddStudentModal'
+import { AllStudentsBlockT } from '../componentsTypes'
+import { useBoolean } from '../../customHooks/useBoolean'
 
 import styles from '../AllStudentsBlock/all_students_block.module.scss'
 
-type AllStudentsBlockT = {
-  headerText: string
-}
-
 export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => {
-  const [showHideModal, setShowHideModal] = useState<boolean>(false)
-  const [emailStudent, setEmailStudent] = useState<string>('')
+  const [isOpen, { onToggle, on }] = useBoolean()
 
-  const handleShowHideModal = () => {
-    setShowHideModal(!showHideModal)
-  }
+  const [emailStudent, setEmailStudent] = useState<string>('')
 
   const handleInputEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmailStudent(event.target.value)
@@ -27,7 +22,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => 
 
   return (
     <div>
-      {showHideModal && <AddStudentModal onChangeEmail={handleInputEmail} studentEmail={emailStudent} setShowModal={setShowHideModal} />}
+      {isOpen && <AddStudentModal onChangeEmail={handleInputEmail} studentEmail={emailStudent} setShowModal={on} />}
       <h4 className={styles.header_block_text}>{headerText}</h4>
       <div className={styles.button_search_block}>
         <FiltersButton filteringCategoriesList={dropDownListFilterStudents} />
@@ -46,7 +41,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => 
         <div className={styles.arrow_add_file_block}>
           <IconSvg width={13} height={17} d={classesSettingSvgIcon.arrowUpdate} viewBoxSize="0 0 13 17" fill={'#BA75FF'} />
         </div>
-        <Button onClick={handleShowHideModal} className={styles.add_students_btn} text={'Добавить учеников'} variant={'primary'}>
+        <Button onClick={onToggle} className={styles.add_students_btn} text={'Добавить учеников'} variant={'primary'}>
           <IconSvg width={16} height={16} viewBoxSize={'0 0 16 16'} fill={'#C0B3F9'} d={addStudentSvgIconButton} />
         </Button>
       </div>

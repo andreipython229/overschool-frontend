@@ -1,19 +1,7 @@
-import { ChangeEvent, FC, FocusEvent } from 'react'
+import { FC } from 'react'
+import { InputAuthPropsT } from '../../commonComponentsTypes'
 
 import styles from './inputAuth.module.scss'
-
-export type InputAuthPropsT = {
-  id?: string
-  name: string
-  type: string
-  value: string
-  icon?: string
-  label?: string
-  placeholder?: string
-  onClick?: () => void
-  onChange: (value: ChangeEvent<HTMLInputElement>) => void
-  onBlur?: (e: FocusEvent) => void
-}
 
 export const InputAuth: FC<InputAuthPropsT> = props => {
   const { label, onClick, icon, type, id, name, onChange, value, placeholder, ...rest } = props

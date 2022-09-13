@@ -1,20 +1,13 @@
 import React, { FC } from 'react'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { arrowIcon } from '../../../constants/iconSvgConstants'
+import { FilterItemT } from '../../componentsTypes'
 
 import styles from '../FilterItem/filter_item.module.scss'
 
-type FilterItem = {
-  id: string | number
-  title: string
-  setToggleDropDown: (args: boolean) => void
-  setSelectedFilter: (args: any) => void
-}
-
-export const FilterItem: FC<FilterItem> = ({ id, title, setToggleDropDown, setSelectedFilter }) => {
-  const handleClick = (event: any) => {
+export const FilterItem: FC<FilterItemT> = ({ id, title, setSelectedFilter }) => {
+  const handleClick = () => {
     setSelectedFilter(id)
-    //setToggleDropDown(false)
   }
 
   return (

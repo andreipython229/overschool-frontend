@@ -1,19 +1,13 @@
-import { memo, MouseEvent, ReactNode, useEffect, useState, useRef } from 'react'
+import { memo, MouseEvent, useEffect, useState, useRef } from 'react'
 import { Editor, EditorState, RichUtils } from 'draft-js'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { editorSvgLabel } from '../../constants/iconSvgConstants'
+import 'draft-js/dist/Draft.css'
+import { IEditor } from 'components/componentsTypes'
 // import { useDebounce } from '../../customHooks/useDebounce'
 
-
-import 'draft-js/dist/Draft.css'
 import styles from './editor.module.scss'
-
-interface IEditor {
-  label?: ReactNode
-  style?: string
-  onToggle: (arg: string) => void
-}
 
 export const MyEditor = memo(() => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())

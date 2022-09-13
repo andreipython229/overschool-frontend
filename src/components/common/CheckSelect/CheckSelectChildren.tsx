@@ -1,18 +1,14 @@
 import { FC, memo, useState } from 'react'
-
+import { CheckSelectChildrenPropsT } from '../commonComponentsTypes'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
-import { checkSelectChildrenSvgIcon } from './constants/svgIcons';
+import { checkSelectChildrenSvgIcon } from './constants/svgIcons'
 import { IconSvg } from '../IconSvg/IconSvg'
 
 import styles from './checkSelect.module.scss'
 
-type CheckSelectChildrenPropsT = {
-  text: string
-}
-
 export const CheckSelectChildren: FC<CheckSelectChildrenPropsT> = memo(({ text }) => {
   const [checkbox, setCheckbox] = useState<boolean>(false)
-  
+
   const handlerCheckbox = () => {
     setCheckbox(!checkbox)
   }
