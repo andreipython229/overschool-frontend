@@ -27,3 +27,8 @@ declare module "*.jpeg" {
   const imageJpeg: any
   export default imageJpeg
 }
+
+declare module "*.jpg";
+declare module "*.png";
+declare module "*.jpeg";
+declare module "*.gif";
