@@ -29,13 +29,13 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
 
   return (
     <table className={styles.table} style={{ borderCollapse: 'collapse' }}>
-      <col width="100px"></col>
-      <col width="150px"></col>
-      <col width="100px"></col>
-      <col width="100px"></col>
-      <col width="100px"></col>
-      <col width="100px"></col>
-      <col width="100px"></col>
+      {/*<col width="100px"> </col>*/}
+      {/*<col width="150px"> </col>*/}
+      {/*<col width="100px"> </col>*/}
+      {/*<col width="100px"> </col>*/}
+      {/*<col width="100px"> </col>*/}
+      {/*<col width="100px"> </col>*/}
+      {/*<col width="100px"> </col>*/}
       <thead className={styles.table_thead}>
         <tr>
           {cols.map(col => (
