@@ -2,9 +2,11 @@ import { FC, memo, useEffect, useState } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { SettingItemT } from '../../Pages/CoursesStats/CoursesStats'
-import { studentList } from './config/mokData'
 import { generateData } from '../../utils/generateData'
 import { classesSettingIconPath } from './config/svgIconsPath'
+import { studentList } from './config/mokData'
+
+import styles from './studentsTableBlock.module.scss'
 
 type StudentsTableBlockT = {
   settingList?: SettingItemT[]
@@ -26,22 +28,28 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
   }, [settingList])
 
   return (
-    <table style={{ borderCollapse: 'collapse' }}>
-      <thead>
+    <table className={styles.table} style={{ borderCollapse: 'collapse' }}>
+      <col width="100px"></col>
+      <col width="150px"></col>
+      <col width="100px"></col>
+      <col width="100px"></col>
+      <col width="100px"></col>
+      <col width="100px"></col>
+      <col width="100px"></col>
+      <thead className={styles.table_thead}>
         <tr>
           {cols.map(col => (
             <th
               style={{
                 whiteSpace: 'nowrap',
-                color: '#716f88',
+                // color: '#716f88',
                 letterSpacing: '1.5px',
                 fontWeight: ' 400',
                 fontSize: '14px',
-                textAlign: 'center',
+                textAlign: 'left',
                 textTransform: 'capitalize',
                 verticalAlign: 'middle',
-                padding: '10px',
-                borderBottom: '2px solid #eef0f5',
+                // borderBottom: '2px solid #eef0f5',
               }}
               id={col}
               key={col}
@@ -56,17 +64,17 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
       </thead>
       <tbody>
         {rows.map((row, id) => (
-          // id has to be oraganized differently 
+          // id has to be oraganized differently
           <tr key={id + Math.random()}>
             {Object.entries(row).map(([keyRow, valueRow], idx) => (
               <td
                 style={{
                   fontSize: '14px',
-                  textAlign: 'center',
+                  // textAlign: 'left',
                   textTransform: 'capitalize',
                   verticalAlign: 'center',
-                  padding: '20px',
-                  borderBottom: '2px solid #eef0f5',
+                  // padding: '20px',
+                  // borderBottom: '2px solid #eef0f5',
                 }}
                 key={keyRow + valueRow}
               >
