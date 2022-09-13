@@ -4,11 +4,11 @@ import { Input } from '../../../common/Input/Input/Input'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { Button } from '../../../common/Button/Button'
 import { Radio } from '../../../common/Radio/Radio'
-import { cross } from '../../../../constants/iconSvgConstants'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { useShowModal } from '../../../../customHooks/useShowModal'
-import { ModalTestSvgBlock } from '../ModalTypeClassesSvgTest'
 import { checkboxData } from './config/checkboxData'
+import { modalTestBlockTextPath } from '../config/svgIconsPath'
+import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 
 import styles from '../../Modal.module.scss'
 
@@ -53,19 +53,10 @@ export const TestModal: FC<TestModalPropsT> = ({ goToBack, addCourse, closedAll 
     <div className={styles.wrapper}>
       <div className={styles.classesContainer}>
         <div onClick={closedAll} className={styles.classesContainer_closed}>
-          <IconSvg
-            width={14}
-            height={14}
-            d={cross}
-            stroke={'#E0DCED'}
-            strokeWidth={'2'}
-            strokeLinecap={'round'}
-            strokeLinejoin={'round'}
-            viewBoxSize="0 0 14 14"
-          />
+          <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
         </div>
         <div className={styles.test}>
-          <ModalTestSvgBlock />
+          <IconSvg width={47} height={63} viewBoxSize="0 0 47 63" path={modalTestBlockTextPath} />
           <span className={styles.classesContainer_title}>Настройте тест</span>
         </div>
         <div className={styles.navBtn}>

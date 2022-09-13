@@ -1,4 +1,5 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
+
 import { CheckboxPropsT } from '../commonComponentsTypes'
 
 import styles from './checkbox.module.scss'

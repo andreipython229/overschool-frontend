@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../../store/hooks'
 import { changeLoadingStatus } from '../../../store/redux/platform/slice'
 import { useSetSchoolHeaderMutation } from '../../../api/schoolHeaderService'
 
-import Cover from '../../../assets/img/super_admin_cover.jpg'
+import { superAdminCover } from '../../../assets/img/common/index'
 
 import styles from '../superAdmin.module.scss'
 
@@ -54,7 +54,7 @@ export const DecorPlatform = memo(() => {
 
         <LogoAddBlock
           title={'Ваш логотип'}
-          logotype={Cover}
+          logotype={superAdminCover}
           logoDesc={'Загрузите логотип Вашей компании: он будет отображаться в интерфейсе и системных email'}
           aboutRequirements={'Требования к логотипу:'}
           onChange={onChangeLogotype}
@@ -63,7 +63,7 @@ export const DecorPlatform = memo(() => {
         {logoError && <span>{logoError}</span>}
         <LogoAddBlock
           title={'Ваш favicon'}
-          logotype={Cover}
+          logotype={superAdminCover}
           logoDesc={'Загрузите favicon Вашей компании: он будет отображаться на страницах вашей школы во вкладке браузера'}
           aboutRequirements={'Требования к favicon:'}
           onChange={onChangeFavicon}

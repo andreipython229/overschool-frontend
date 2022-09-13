@@ -6,9 +6,9 @@ import { SelectInput } from '../../../common/SelectInput/SelectInput'
 import { arrNumber, arrTime } from '../../../../utils'
 import { Button } from '../../../common/Button/Button'
 import { useShowModal } from '../../../../customHooks/useShowModal'
-import { cross } from '../../../../constants/iconSvgConstants'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
-import { ModalSvgWebinarBlock } from '../ModalTypeClassesSvgWebinar'
+import { modalTypeClassesWebinarBlockPath } from '../config/svgIconsPath'
+import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 
 import styles from '../../Modal.module.scss'
 
@@ -26,7 +26,6 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
   const [reminderForEmployees, setReminderForEmployees] = useState<boolean>(false)
   const [secondReminderForEmployees, setSecondReminderForEmployees] = useState<boolean>(false)
 
-
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
     setNameClasses(event.currentTarget.value)
   }
@@ -36,41 +35,24 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
     <div className={styles.wrapper}>
       <div className={styles.classesContainer}>
         <div onClick={closedAll} className={styles.classesContainer_closed}>
-          <IconSvg
-            width={14}
-            height={14}
-            d={cross}
-            stroke={'#E0DCED'}
-            strokeWidth={'2'}
-            strokeLinecap={'round'}
-            strokeLinejoin={'round'}
-            viewBoxSize="0 0 14 14"
-          />
+          <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
         </div>
 
         <div className={styles.webinar}>
-          <ModalSvgWebinarBlock />
+          <IconSvg width={53} height={55} viewBoxSize="0 0 53 55" path={modalTypeClassesWebinarBlockPath} />
           <span className={styles.classesContainer_title}>Настройте вебинар</span>
         </div>
 
         <div className={styles.navBtn}>
           <span
             onClick={() => setSettingsActive(0)}
-            className={
-              settingsActive === 0
-                ? styles.navBtn_btn + ' ' + styles.navBtn_active
-                : styles.navBtn_btn
-            }
+            className={settingsActive === 0 ? styles.navBtn_btn + ' ' + styles.navBtn_active : styles.navBtn_btn}
           >
             Основные
           </span>
           <span
             onClick={() => setSettingsActive(1)}
-            className={
-              settingsActive === 1
-                ? styles.navBtn_btn + ' ' + styles.navBtn_active
-                : styles.navBtn_btn
-            }
+            className={settingsActive === 1 ? styles.navBtn_btn + ' ' + styles.navBtn_active : styles.navBtn_btn}
           >
             Баллы за прохождение
           </span>
@@ -80,13 +62,7 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
           <>
             <div style={{ marginTop: '15px' }} className={styles.usually_input}>
               <span className={styles.usually_title}>Название вебинара:</span>
-              <Input
-                placeholder={'Основы языка HTML'}
-                name={'name classes'}
-                onChange={changeName}
-                type={'text'}
-                value={nameClasses}
-              />
+              <Input placeholder={'Основы языка HTML'} name={'name classes'} onChange={changeName} type={'text'} value={nameClasses} />
             </div>
             <div className={styles.webinar_checkboxPack}>
               <div className={styles.webinar_checkbox}>
@@ -98,9 +74,7 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
                 />
                 <div className={styles.webinar_checkbox_text}>
                   <span className={styles.webinar_checkbox_text_for}>Напоминание для учеников</span>
-                  <span className={styles.webinar_checkbox_text_desc}>
-                    Ученикам будет приходить напоминание о начале вебинара по email
-                  </span>
+                  <span className={styles.webinar_checkbox_text_desc}>Ученикам будет приходить напоминание о начале вебинара по email</span>
                 </div>
               </div>
               <div className={styles.tasks_credit}>
@@ -112,10 +86,7 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
                 <span className={styles.tasks_credit_desc}>до начала</span>
               </div>
 
-              <div
-                className={styles.webinar_addReminder}
-                onClick={() => setSecondReminderForStudent(!secondReminderForStudent)}
-              >
+              <div className={styles.webinar_addReminder} onClick={() => setSecondReminderForStudent(!secondReminderForStudent)}>
                 {secondReminderForStudent ? (
                   <span style={{ color: '#FF0000' }}>Отключить дополнительное напоминание</span>
                 ) : (
@@ -142,12 +113,8 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
                   onChange={() => setReminderForEmployees(!reminderForEmployees)}
                 />
                 <div className={styles.webinar_checkbox_text}>
-                  <span className={styles.webinar_checkbox_text_for}>
-                    Напоминание для ответственных сотрудников
-                  </span>
-                  <span className={styles.webinar_checkbox_text_desc}>
-                    Им будут приходить напоминания о начале вебинара по email
-                  </span>
+                  <span className={styles.webinar_checkbox_text_for}>Напоминание для ответственных сотрудников</span>
+                  <span className={styles.webinar_checkbox_text_desc}>Им будут приходить напоминания о начале вебинара по email</span>
                 </div>
               </div>
               <div className={styles.tasks_credit}>
@@ -159,10 +126,7 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
                 <span className={styles.tasks_credit_desc}>до начала</span>
               </div>
 
-              <div
-                className={styles.webinar_addReminder}
-                onClick={() => setSecondReminderForEmployees(!secondReminderForEmployees)}
-              >
+              <div className={styles.webinar_addReminder} onClick={() => setSecondReminderForEmployees(!secondReminderForEmployees)}>
                 {secondReminderForEmployees ? (
                   <span style={{ color: '#FF0000' }}>Отключить дополнительное напоминание</span>
                 ) : (
@@ -183,20 +147,12 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
             </div>
             <div style={{ marginTop: '15px' }} className={styles.usually_input}>
               <span className={styles.usually_title}>Ответственные сотрудники:</span>
-              <Input
-                placeholder={'Основы языка HTML'}
-                name={'name classes'}
-                onChange={changeName}
-                type={'text'}
-                value={nameClasses}
-              />
+              <Input placeholder={'Основы языка HTML'} name={'name classes'} onChange={changeName} type={'text'} value={nameClasses} />
             </div>
           </>
         ) : (
           <div>
-            <span className={styles.usually_title}>
-              Сколько баллов будет выдано ученику по завершению занятия:
-            </span>
+            <span className={styles.usually_title}>Сколько баллов будет выдано ученику по завершению занятия:</span>
             <div className={styles.usually_grade}>
               <input type={'number'} placeholder={'0'} className={styles.usually_grade_points} />
               <span>баллов</span>
@@ -206,11 +162,7 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, clos
 
         <div className={styles.btnBlock}>
           <Button onClick={goToBack} text={'Назад'} />
-          <Button
-            onClick={() => addCourse(nameClasses, 'webinar')}
-            text={'Добавить занятие'}
-            variant={'primary'}
-          />
+          <Button onClick={() => addCourse(nameClasses, 'webinar')} text={'Добавить занятие'} variant={'primary'} />
         </div>
       </div>
     </div>

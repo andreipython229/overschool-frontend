@@ -1,5 +1,6 @@
+import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps, FocusEvent, HTMLAttributes, InputHTMLAttributes, ReactNode, PointerEvent } from 'react'
+
 import { LoginParamsT } from '../../utils/validationLogin'
-import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps, FocusEvent, HTMLAttributes, InputHTMLAttributes, ReactNode } from 'react'
 
 export type AuthSelectPropsT = {
   getInputVariant: (variant: keyof LoginParamsT) => void
@@ -30,22 +31,27 @@ export type CheckSelectChildrenPropsT = {
   text: string
 }
 
-export type IconSvgT = {
-  styles?: { [key: string]: string | number }
-  width: number
-  height: number
-  fill?: string
+export type pathT = {
   d: string
-  d2?: string
+  fill?: string
   stroke?: string
   strokeWidth?: string
   strokeLinecap?: 'inherit' | 'round' | 'butt' | 'square'
   strokeLinejoin?: 'inherit' | 'round' | 'miter' | 'bevel'
-  viewBoxSize?: string
-  className?: string
   fillRule?: 'nonzero' | 'evenodd' | 'inherit'
   clipRule?: 'nonzero' | 'evenodd' | 'inherit'
+}
+
+export type IconSvgT = {
+  styles?: { [key: string]: string | number }
+  width: number
+  height: number
+  viewBoxSize?: string
+  className?: string
+  path?: pathT[]
+  children?: ReactNode
   functionOnClick?: <T>(params: T) => void
+  onPointerDown?: (event: PointerEvent<SVGSVGElement | SVGPathElement>) => void
 }
 
 export type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>

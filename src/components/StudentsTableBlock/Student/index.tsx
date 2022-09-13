@@ -1,5 +1,6 @@
 //Не используется, возможно в будущем будет удалён.
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
+
 import styles from 'Pages/School/Navigations/StudentsStats/studentsStats.module.scss'
 type StudentPropsT = {
   avatar?: string

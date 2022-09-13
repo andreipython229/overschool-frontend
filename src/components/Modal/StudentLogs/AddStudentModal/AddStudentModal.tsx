@@ -1,11 +1,13 @@
-import React, { ChangeEvent, FC } from 'react'
+import { ChangeEvent, FC } from 'react'
+
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { programLanguage } from 'constants/other'
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
-import { addStudentSvgIcon, cross } from '../../../../constants/iconSvgConstants'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { useShowModal } from '../../../../customHooks/useShowModal'
+import { crossIconPath } from '../../../../config/commonSvgIconsPath'
+import { addStudentIconPath } from '../config/svgIconsPath'
 
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
 
@@ -25,21 +27,11 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, onCha
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <div onClick={handleClose} className={styles.container_closed}>
-          <IconSvg
-            width={14}
-            height={14}
-            d={cross}
-            stroke={'#E0DCED'}
-            strokeWidth={'2'}
-            strokeLinecap={'round'}
-            strokeLinejoin={'round'}
-            viewBoxSize="0 0 14 14"
-          />
+          <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
         </div>
         <div className={styles.addStudent}>
           <div className={styles.container_header}>
-            <IconSvg d={addStudentSvgIcon} width={50} height={50} fill={'#BA75FF'} viewBoxSize="0 0 50 50" />
-
+            <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={addStudentIconPath} />
             <span className={styles.container_header_title}>Добавление учеников</span>
           </div>
           <div className={styles.addStudent_select}>

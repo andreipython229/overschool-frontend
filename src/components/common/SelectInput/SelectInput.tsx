@@ -3,7 +3,7 @@
 import { FC, ReactNode, useState } from 'react'
 
 import { IconSvg } from '../IconSvg/IconSvg'
-import { selectInputIconSvg } from './constants/svgIcon'
+import { selectInputIconPath } from './config/svgIconspath'
 import { SelectInputPropsT } from '../commonComponentsTypes'
 
 import styles from './selectInput.module.scss'
@@ -28,9 +28,8 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
           styles={{ transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}` }}
           width={14}
           height={8}
-          fill="#A8ABAD"
           viewBoxSize={'0 0 14 8'}
-          d={selectInputIconSvg}
+          path={selectInputIconPath}
           functionOnClick={handleToggleOptionsOpen}
         />
 

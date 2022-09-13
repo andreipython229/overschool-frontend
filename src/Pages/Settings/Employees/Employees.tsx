@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Employee } from './Employee/Employee'
 
-import Avatar from '../../../assets/img/avatar.svg'
+import { avatar } from '../../../assets/img/common/index'
 
 import styles from '../superAdmin.module.scss'
 
@@ -26,8 +26,8 @@ export const Employees: FC<EmployeesPropsT> = ({ setModal }) => {
             <div>Пользователь</div>
             <div>Роль</div>
           </div>
-          <Employee avatar={Avatar} name={'Имя пользователя'} contact={'pochta@gmail.com'} role={'Администратор'} />
-          <Employee avatar={Avatar} name={'Андрей'} contact={'pochta@gmail.com'} role={'Студент'} />
+          <Employee avatar={avatar} name={'Имя пользователя'} contact={'pochta@gmail.com'} role={'Администратор'} />
+          <Employee avatar={avatar} name={'Андрей'} contact={'pochta@gmail.com'} role={'Студент'} />
         </div>
       </div>
     </div>

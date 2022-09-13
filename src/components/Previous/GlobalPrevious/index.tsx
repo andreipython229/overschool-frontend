@@ -1,14 +1,13 @@
 import { FC, memo, useState, ChangeEvent, useEffect } from 'react'
 import { useLocation, Location } from 'react-router-dom'
+
 import { GlobalPreviousT } from '../../componentsTypes'
 import { Path } from '../../../enum/pathE'
 import { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation } from 'api/schoolHeaderService'
 import { Button } from '../../common/Button/Button'
 import { schoolHeaderReqT } from '../../../types/schoolHeaderT'
-import noAvatar from '../../../assets/img/noAvatar.svg'
 
-// import { useAppSelector } from '../../../../store/hooks'
-// import { RootState } from '../../../../store/redux/store'
+import {noAvatar} from '../../../assets/img/common/index'
 
 import styles from '../previou.module.scss'
 

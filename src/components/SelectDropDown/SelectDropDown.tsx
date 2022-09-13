@@ -2,7 +2,7 @@ import { FC, memo, useEffect, useState } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { initialDropDownList } from '../../constants/dropDownList'
-import { arrowIcon, triangleDownDownIcon } from '../../constants/iconSvgConstants'
+import { arrIconPath, triangleDownIconPath } from './config/svgIconPath'
 import { dropDownItem, SelectDropDownT } from '../componentsTypes'
 import { useBoolean } from '../../customHooks/useBoolean'
 
@@ -46,25 +46,24 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
         <IconSvg
           width={headerDropDown.icon.width}
           height={headerDropDown.icon?.height}
-          fill={headerDropDown.icon?.fill}
-          d={headerDropDown.icon?.d}
           viewBoxSize={headerDropDown.viewBoxSize}
+          path={[{ d: headerDropDown.icon?.d, fill: headerDropDown.icon?.fill }]}
         />
 
         {headerDropDown?.title}
         <span className={isOpen ? styles.rotate_arrow : ''}>
-          <IconSvg width={25} height={25} fill="#9A9A9A" d={arrowIcon} viewBoxSize="0 0 12 15" />
+          <IconSvg width={25} height={25} viewBoxSize="0 0 12 15" path={arrIconPath} />
         </span>
       </p>
       {isOpen && (
         <div className={styles.drop_down_item_container}>
           <div className={styles.triangle}>
-            <IconSvg width={30} height={30} fill="#FFFFFF" d={triangleDownDownIcon} viewBoxSize="0 0 20 20" />
+            <IconSvg width={30} height={30} viewBoxSize="0 0 20 20" path={triangleDownIconPath} />
           </div>
           <p>{selectTheJobStatus}</p>
           {dropDownList.map(({ id, icon, title }) => (
             <div onClick={() => handleChangeStatus({ title })} className={styles.drop_down_item} key={id}>
-              <IconSvg width={icon.width} height={icon.height} d={icon.d} fill={icon.fill} />
+              <IconSvg width={icon.width} height={icon.height} path={[{ d: icon.d, fill: icon.fill }]} />
               <span>{title}</span>
             </div>
           ))}

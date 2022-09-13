@@ -1,11 +1,13 @@
-import React, { memo, useState } from 'react'
+import { memo, useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
+import ru from 'date-fns/locale/ru'
+
 import { IWithRange } from '../../componentsTypes'
 import { Button } from '../../common/Button/Button'
+
 import 'react-datepicker/dist/react-datepicker.css'
 import './calendar.css'
 
-import ru from 'date-fns/locale/ru'
 
 registerLocale('ru', ru)
 

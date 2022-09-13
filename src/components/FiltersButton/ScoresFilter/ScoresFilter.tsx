@@ -1,4 +1,5 @@
-import React, { FC, memo, useState } from 'react'
+import { FC, memo, useState, ChangeEvent } from 'react'
+
 import { Input } from '../../common/Input/Input/Input'
 import { Button } from '../../common/Button/Button'
 import { ScoresFilterT } from '../../componentsTypes'
@@ -9,7 +10,7 @@ export const ScoresFilter: FC<ScoresFilterT> = memo(({ title }) => {
   const [scoresStart, setScoresStart] = useState<string>('')
   const [scoresEnd, setScoresEnd] = useState<string>('')
 
-  const handleInputScores = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputScores = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'start') {
       setScoresStart(event.target.value)
     } else {

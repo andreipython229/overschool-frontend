@@ -1,14 +1,21 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
+import Editor from '@monaco-editor/react'
+
 import { coursesSelectLanguage } from 'constants/other'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
-import { classesSettingSvgIcon } from '../../constants/iconSvgConstants'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import Editor from '@monaco-editor/react'
-import { setShowType } from '../componentsTypes'
+import { arrUpPath, arrDownPath, deletePath } from '../../config/commonSvgIconsPath'
 
 import styles from './addCodeEditor.module.scss'
 
+type setShowType = {
+  setShow: (value: boolean) => void
+}
+
 export const AddCodeEditor: FC<setShowType> = ({ setShow }) => {
+  const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
+  const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
+
   return (
     <div className={styles.editorWrapper}>
       <div className={styles.editorWrapper_editor}>
@@ -21,13 +28,18 @@ export const AddCodeEditor: FC<setShowType> = ({ setShow }) => {
       </div>
       <div className={styles.editorWrapper_navBlock}>
         <div className={styles.editorWrapper_navBlock_div}>
-          <IconSvg width={11} height={15} d={classesSettingSvgIcon.arrowUp} viewBoxSize="0 0 11 15" fill={'#2E4454'} />
+          <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrUpPath} />
         </div>
         <div className={styles.editorWrapper_navBlock_div}>
-          <IconSvg width={11} height={15} d={classesSettingSvgIcon.arrowDown} viewBoxSize="0 0 11 15" fill={'#2E4454'} />
+          <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
         </div>
-        <div className={styles.editorWrapper_navBlock_delete} onClick={setShow}>
-          <IconSvg width={19} height={19} d={classesSettingSvgIcon.deleteIcon} viewBoxSize="0 0 19 19" fill={'#EF4444'} />
+        <div
+          className={styles.editorWrapper_navBlock_delete}
+          onClick={() => {
+            setShow(false)
+          }}
+        >
+          <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { studentList } from '../components/StudentsTableBlock/mokData'
+import { studentList } from '../components/StudentsTableBlock/config/mokData'
 import { SettingItemT } from '../Pages/CoursesStats/CoursesStats'
 
 export const generateData = (totalRows: number, columnsList: SettingItemT[]) => {

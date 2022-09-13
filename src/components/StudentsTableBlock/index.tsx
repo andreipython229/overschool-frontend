@@ -1,10 +1,10 @@
-import React, { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { classesSettingSvgIcon } from '../../constants/iconSvgConstants'
 import { SettingItemT } from '../../Pages/CoursesStats/CoursesStats'
-import { studentList } from './mokData'
+import { studentList } from './config/mokData'
 import { generateData } from '../../utils/generateData'
+import { classesSettingIconPath } from './config/svgIconsPath'
 
 type StudentsTableBlockT = {
   settingList?: SettingItemT[]
@@ -15,7 +15,7 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
   const [cols, setCols] = useState<string[]>([])
 
   const { columns, data } = generateData(studentList.length, settingList || [])
-  const [rows] = useState<Array<object>>(() => data)
+  const [rows] = useState<Array<{ [key: string]: string | number }>>(() => data)
 
   const openSettingsModal = () => {
     setToggleSettingModal && setToggleSettingModal(true)
@@ -50,21 +50,15 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
             </th>
           ))}
           <th>
-            <IconSvg
-              functionOnClick={openSettingsModal}
-              width={15}
-              height={15}
-              viewBoxSize={'0 0 15 15'}
-              fill={'#6B7280'}
-              d={classesSettingSvgIcon.setting}
-            />
+            <IconSvg functionOnClick={openSettingsModal} width={15} height={15} viewBoxSize={'0 0 15 15'} path={classesSettingIconPath} />
           </th>
         </tr>
       </thead>
       <tbody>
-        {rows.map((row: any) => (
-          <tr key={row + Math.random()}>
-            {Object.entries(row).map(([keyRow, valueRow]: any, idx) => (
+        {rows.map((row, id) => (
+          // id has to be oraganized differently 
+          <tr key={id + Math.random()}>
+            {Object.entries(row).map(([keyRow, valueRow], idx) => (
               <td
                 style={{
                   fontSize: '14px',

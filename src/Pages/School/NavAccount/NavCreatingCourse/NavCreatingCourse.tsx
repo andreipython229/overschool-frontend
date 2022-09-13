@@ -1,4 +1,3 @@
-import React from 'react'
 import { NavAccountBtn } from '../NavAccountBtn/NavAccountBtn'
 import { CreateCoursePath } from '../../../../enum/pathE'
 
