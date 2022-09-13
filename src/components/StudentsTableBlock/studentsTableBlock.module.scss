@@ -1,0 +1,32 @@
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 7px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    color: #6B7484;
+    
+    &_thead {
+        height: 55px;
+        tr {
+        padding: 0 10px;
+            th {
+                padding: 0 10px;
+            }
+        }
+    }
+    &_tbody {
+        background-color: #fff;
+
+        tr {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 0 10px;
+            height: 50px;
+            td {
+                padding: 0 10px;
+            }
+        }
+    }
+    &_tbody tr:nth-child(even) {
+        background-color: #FCFCFC;
+    }
+}

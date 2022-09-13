@@ -11,7 +11,7 @@ export const ToggleButtonDropDown: FC<ToggleButtonDropDownT> = ({ isOpen, handle
   return (
     <button className={styles.modal_btn_is_toggle} onClick={handleToggleHiddenBlocks}>
       <span className={isOpen ? styles.arrow_rotate : ''}>
-        <IconSvg width={25} height={25} fill="#9A9A9A" d={arrowIcon} viewBoxSize="0 0 21 21" />
+        <IconSvg width={50} height={50} fill="#9A9A9A" d={arrowIcon} viewBoxSize="0 0 21 21" />
       </span>
       {isOpen ? 'Скрыть все курсы' : 'Показать все курсы'}
     </button>

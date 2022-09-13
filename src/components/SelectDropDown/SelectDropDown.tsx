@@ -63,7 +63,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
           </div>
           <p>{selectTheJobStatus}</p>
           {dropDownList.map(({ id, icon, title }) => (
-            <div onClick={() => handleChangeStatus({ title })} className={styles.drop_down_item} key={id}>
+            <div onClick={handleChangeStatus({ title })} className={styles.drop_down_item} key={id}>
               <IconSvg width={icon.width} height={icon.height} d={icon.d} fill={icon.fill} />
               <span>{title}</span>
             </div>
