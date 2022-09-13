@@ -5,17 +5,11 @@ import { coursesSelectLanguage } from 'constants/other'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, deletePath } from '../../config/commonSvgIconsPath'
+import { setShowType } from '../componentsTypes'
 
 import styles from './addCodeEditor.module.scss'
 
-type setShowType = {
-  setShow: (value: boolean) => void
-}
-
 export const AddCodeEditor: FC<setShowType> = ({ setShow }) => {
-  const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
-  const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
-
   return (
     <div className={styles.editorWrapper}>
       <div className={styles.editorWrapper_editor}>
@@ -33,12 +27,7 @@ export const AddCodeEditor: FC<setShowType> = ({ setShow }) => {
         <div className={styles.editorWrapper_navBlock_div}>
           <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
         </div>
-        <div
-          className={styles.editorWrapper_navBlock_delete}
-          onClick={() => {
-            setShow(false)
-          }}
-        >
+        <div className={styles.editorWrapper_navBlock_delete} onClick={setShow}>
           <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
         </div>
       </div>
