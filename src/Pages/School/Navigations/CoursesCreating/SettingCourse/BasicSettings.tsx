@@ -1,15 +1,16 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
-import { Toggle } from '@skbkontur/react-ui'
 
-import { publishedMarkerSvgIcon } from '../../../../../constants/iconSvgConstants'
+import { noPublishedGreyIconPath } from '../../../config/svgIconsPath'
 import { IconSvg } from '../../../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../../../components/common/Input/Input/Input'
 import { Checkbox } from '../../../../../components/common/Checkbox/Checkbox'
 import { SelectInput } from '../../../../../components/common/SelectInput/SelectInput'
-import { CoursesT } from '../../../../../types/CoursesT'
 import { useDebounce } from '../../../../../customHooks/useDebounce'
 import { usePatchCoursesMutation } from '../../../../../api/coursesServices'
 import { formDataConverter } from '../../../../../utils/formDataConverter'
+import { CheckboxBall } from '../../../../../components/common/CheckboxBall'
+
+import { CoursesT } from '../../../../../types/CoursesT'
 
 import styles from './setting_course.module.scss'
 
@@ -53,7 +54,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
         <p>Основные настройки</p>
         {!toggleCheckbox && (
           <p className={styles.right_content_header}>
-            <IconSvg width={20} height={15} fill="#6C7889" viewBoxSize=" 0 0 21 16" d={publishedMarkerSvgIcon.noPublished} />
+            <IconSvg width={20} height={15} viewBoxSize=" 0 0 21 16" path={noPublishedGreyIconPath} />
             Не опубликован
           </p>
         )}
@@ -62,7 +63,8 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
         <p className={styles.publish_switch_title}>Статус курса</p>
         <div className={styles.publish_switch_wrapper_switch}>
           <span>Не опубликован</span>
-          <Toggle defaultChecked={toggleCheckbox} onValueChange={toggleCheckboxPublished} />
+
+          <CheckboxBall />
           <span>Опубликован</span>
         </div>
       </div>

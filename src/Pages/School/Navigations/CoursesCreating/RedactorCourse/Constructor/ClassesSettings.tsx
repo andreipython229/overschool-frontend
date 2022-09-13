@@ -1,11 +1,10 @@
 import { FC } from 'react'
-import { Toggle } from '@skbkontur/react-ui'
-
+import { CheckboxBall } from '../../../../../../components/common/CheckboxBall'
 import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
-import { classesSettingSvgIcon } from '../../../../../../constants/iconSvgConstants'
 import { useAppDispatch } from '../../../../../../store/hooks'
 import { showModal } from 'store/redux/modal/slice'
-import { AddPost } from 'components/AddPost/AddPost'
+import { AddPost } from 'components/AddPost'
+import { settingsIconPath, deleteIconPath, paperClipIconPath } from '../../../../config/svgIconsPath'
 
 import styles from './constructor.module.scss'
 
@@ -27,11 +26,11 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
         <span className={styles.redactorCourse_rightSide_title}>Первый урок</span>
         <div className={styles.redactorCourse_rightSide_header_btnBlock}>
           <button onClick={showSettingsModal} className={styles.redactorCourse_rightSide_header_btnBlock_setting}>
-            <IconSvg width={16} height={16} d={classesSettingSvgIcon.setting} viewBoxSize="0 0 16 16" fill={'#6B7280'} />
+            <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
             Настройки
           </button>
           <button className={styles.redactorCourse_rightSide_header_btnBlock_delete}>
-            <IconSvg width={19} height={19} d={classesSettingSvgIcon.deleteIcon} viewBoxSize="0 0 19 19" fill={'#EF4444'} />
+            <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
           </button>
         </div>
       </div>
@@ -41,7 +40,7 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
           <span className={styles.redactorCourse_rightSide_title}>Содержание занятия</span>
           <div>
             <span className={styles.redactorCourse_rightSide_functional_content_preview}>Предпросмотр</span>
-            <Toggle />
+            <CheckboxBall />
           </div>
         </div>
 
@@ -53,7 +52,7 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
             style={{ width: '180px', padding: '11px 0 11px 16px', marginTop: '16px' }}
             className={styles.redactorCourse_rightSide_header_btnBlock_setting}
           >
-            <IconSvg width={22} height={18} d={classesSettingSvgIcon.paperClip} viewBoxSize="0 0 22 18" fill={'#6B7280'} />
+            <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={paperClipIconPath} />
             Прикрепить файлы
           </button>
           <span className={styles.redactorCourse_rightSide_desc}>Любые файлы размером не более 2 гигабайта</span>

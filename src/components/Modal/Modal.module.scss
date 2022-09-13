@@ -5,7 +5,7 @@
   @include position_t_l (absolute, 0, 0, 15);
   background: rgba(0, 0, 0, 0.5);
   width: 100vw;
-  height: 100vh;
+  height: 100%;
 
   @media (max-width: 480px) {
     background: $color-white;
@@ -18,14 +18,14 @@
   }
 }
 .main {
-  @include position_t_l (absolute, 50%, 50%, 10);
+  @include position_t_l (absolute, 0, calc(50% - 234px), 10);
   @include display (flex, column);
   width: 468px;
   background: $color-white;
   font-family: 'Manrope', sans-serif;
   margin: 0 auto;
   border-radius: 7px;
-  transform: translate(-50%, -50%);
+  // transform: translate(50%, 50%);
   @media (max-width: 480px) {
     width: 280px;
   }

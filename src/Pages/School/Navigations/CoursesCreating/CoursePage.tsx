@@ -4,10 +4,10 @@ import { useAppDispatch } from '../../../../store/hooks'
 import { CoursesCard } from './CoursesCard'
 import { showModal } from '../../../../store/redux/modal/slice'
 import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
-import { searchSvgIcon } from '../../../../constants/iconSvgConstants'
 import { Input } from '../../../../components/common/Input/Input/Input'
 import { useFilterData } from '../../../../customHooks/useFilterData'
 import { CoursesT } from '../../../../types/CoursesT'
+import { searchIconPath } from 'config/commonSvgIconsPath'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 
@@ -29,16 +29,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
   return (
     <div className={styles.container}>
       <Input name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
-        <IconSvg
-          width={20}
-          height={20}
-          viewBoxSize="0 0 20 20"
-          d={searchSvgIcon}
-          stroke="#D1D5DB"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
       </Input>
       <div className={styles.course}>
         {courses.length !== 0 &&

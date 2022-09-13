@@ -1,11 +1,7 @@
 import { fetchBaseQuery, createApi, FetchArgs } from '@reduxjs/toolkit/dist/query/react'
 import { RootState } from '../store/redux/store'
 import { CoursesT } from '../types/CoursesT'
-
-interface UpdateCourses {
-  formdata: FormData
-  id: string
-}
+import { UpdateCourses } from './apiTypes'
 
 export const coursesServices = createApi({
   reducerPath: 'coursesServices',

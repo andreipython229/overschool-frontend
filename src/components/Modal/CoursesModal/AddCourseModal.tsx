@@ -1,14 +1,15 @@
 import { FormEvent, ChangeEvent, FC, memo, useState } from 'react'
 import { generatePath, useNavigate } from 'react-router-dom'
+
 import { useCreateCoursesMutation } from 'api/coursesServices'
 import { useShowModal } from '../../../customHooks/useShowModal'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
-import { cross } from '../../../constants/iconSvgConstants'
 import { Button } from '../../common/Button/Button'
 import { Input } from '../../common/Input/Input/Input'
 import { useAppDispatch } from '../../../store/hooks'
 import { addCourseId } from 'store/redux/course/slice'
+import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
 import styles from '../Modal.module.scss'
 
@@ -55,7 +56,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
       <div className={styles.mainCourse}>
         <div className={styles.mainCourse_container}>
           <div className={styles.mainCourse_closed} onClick={setShowModal}>
-            <IconSvg width={25} height={25} d={cross} stroke={'#E0DCED'} strokeWidth={'2'} strokeLinecap={'round'} strokeLinejoin={'round'} />
+            <IconSvg width={25} height={25} path={crossIconPath} />
           </div>
 
           <div className={styles.mainCourse_title}>Создание курса</div>

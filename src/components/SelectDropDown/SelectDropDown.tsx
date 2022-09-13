@@ -2,37 +2,19 @@ import { FC, memo, useEffect, useState } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { initialDropDownList } from '../../constants/dropDownList'
-import { arrowIcon, triangleDownDownIcon } from '../../constants/iconSvgConstants'
+import { arrIconPath, triangleDownIconPath } from './config/svgIconPath'
+import { dropDownItem, SelectDropDownT } from '../componentsTypes'
+import { useBoolean } from '../../customHooks/useBoolean'
 
 import styles from './select_drop_down.module.scss'
-
-type dropDownItem = {
-  id: number | string
-  icon: {
-    width: number
-    height: number
-    fill: string
-    d: string
-  }
-  title: string
-  bg: string
-  viewBoxSize?: string
-}
-
-type SelectDropDownT = {
-  setArrowUsersState: (arg: string[]) => void
-}
 
 const selectTheJobStatus = 'ВЫБЕРИТЕ СТАТУС РАБОТЫ'
 
 export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState }) => {
-  const [toggleDropDown, setToggleDropDown] = useState<boolean>(false)
+  const [isOpen, { onToggle, on }] = useBoolean()
+
   const [headerDropDown, setHeaderDropDown] = useState<dropDownItem>(initialDropDownList[0])
   const [dropDownList, setDropDownList] = useState<dropDownItem[]>([])
-
-  const handleDropDown = () => {
-    setToggleDropDown(!toggleDropDown)
-  }
 
   const handleChangeStatus =
     ({ title }: any) =>
@@ -48,7 +30,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
         setArrowUsersState(newArrowUserState)
       }
 
-      setToggleDropDown(false)
+      on()
     }
 
   useEffect(() => {
@@ -60,29 +42,28 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
 
   return (
     <div className={styles.wrapper}>
-      <p onClick={handleDropDown} className={`${styles[headerDropDown.bg]} ${styles.header_dropdown_menu}`}>
+      <p onClick={onToggle} className={`${styles[headerDropDown.bg]} ${styles.header_dropdown_menu}`}>
         <IconSvg
           width={headerDropDown.icon.width}
           height={headerDropDown.icon?.height}
-          fill={headerDropDown.icon?.fill}
-          d={headerDropDown.icon?.d}
           viewBoxSize={headerDropDown.viewBoxSize}
+          path={[{ d: headerDropDown.icon?.d, fill: headerDropDown.icon?.fill }]}
         />
 
         {headerDropDown?.title}
-        <span className={toggleDropDown ? styles.rotate_arrow : ''}>
-          <IconSvg width={25} height={25} fill="#9A9A9A" d={arrowIcon} viewBoxSize="0 0 12 15" />
+        <span className={isOpen ? styles.rotate_arrow : ''}>
+          <IconSvg width={25} height={25} viewBoxSize="0 0 12 15" path={arrIconPath} />
         </span>
       </p>
-      {toggleDropDown && (
+      {isOpen && (
         <div className={styles.drop_down_item_container}>
           <div className={styles.triangle}>
-            <IconSvg width={30} height={30} fill="#FFFFFF" d={triangleDownDownIcon} viewBoxSize="0 0 20 20" />
+            <IconSvg width={30} height={30} viewBoxSize="0 0 20 20" path={triangleDownIconPath} />
           </div>
           <p>{selectTheJobStatus}</p>
           {dropDownList.map(({ id, icon, title }) => (
             <div onClick={() => handleChangeStatus({ title })} className={styles.drop_down_item} key={id}>
-              <IconSvg width={icon.width} height={icon.height} d={icon.d} fill={icon.fill} />
+              <IconSvg width={icon.width} height={icon.height} path={[{ d: icon.d, fill: icon.fill }]} />
               <span>{title}</span>
             </div>
           ))}

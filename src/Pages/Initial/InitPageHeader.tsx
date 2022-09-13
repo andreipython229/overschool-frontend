@@ -7,7 +7,7 @@ import { Path } from 'enum/pathE'
 import { Button } from 'components/common/Button/Button'
 import { authSelector } from '../../selectors/index'
 
-import Logotype from '../../assets/img/logotype.svg'
+import { logo } from '../../assets/img/common/index'
 
 import styles from './initial.module.scss'
 
@@ -27,7 +27,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
   return (
     <div>
       <div className={styles.init_header}>
-        <img src={Logotype} alt="Logotype ITOVERONE" />
+        <img src={logo} alt="Logotype ITOVERONE" />
         <div className={styles.btn_block}>
           {isLogin ? (
             <Link className={styles.btn_block_logIn} to={`${Path.Courses}`}>

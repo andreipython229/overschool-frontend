@@ -1,40 +1,10 @@
-import { DetailedHTMLProps, FC, InputHTMLAttributes, memo, useEffect, useRef } from 'react'
+import { FC, memo, useEffect, useRef } from 'react'
+import { InputPropsT } from '../../commonComponentsTypes'
 
 import styles from './input.module.scss'
 
-type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-
-export type InputPropsT = DefaultInputPropsType & {
-  id?: string
-  name: string
-  type: string
-  value: string
-  icon?: string
-  label?: string
-  placeholder?: string
-  focus?: boolean
-  children?: React.ReactNode | React.ReactNode[] | undefined
-  onClick?: () => void
-  onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void
-  onBlur?: (e: FocusEvent) => void
-}
-
 export const Input: FC<InputPropsT> = memo(props => {
-  const {
-    children,
-    label,
-    onClick,
-    icon,
-    type,
-    id,
-    name,
-    onChange,
-    value,
-    placeholder,
-    style,
-    focus,
-    ...rest
-  } = props
+  const { children, label, onClick, icon, type, id, name, onChange, value, placeholder, style, focus, ...rest } = props
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {

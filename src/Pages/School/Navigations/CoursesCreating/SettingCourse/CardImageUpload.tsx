@@ -1,9 +1,9 @@
-import  { ChangeEvent, FC } from 'react'
+import { ChangeEvent, FC } from 'react'
 
 import { IconSvg } from '../../../../../components/common/IconSvg/IconSvg'
-import { publishedMarkerSvgIcon } from '../../../../../constants/iconSvgConstants'
 import { usePatchCoursesMutation } from '../../../../../api/coursesServices'
 import { CoursesT } from '../../../../../types/CoursesT'
+import { publishedIconPath, noPublishedIconPath } from '../../../config/svgIconsPath'
 
 import styles from './setting_course.module.scss'
 
@@ -35,12 +35,12 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
       </label>
       {toggleCheckbox ? (
         <p className={styles.text_block}>
-          <IconSvg width={18} height={16} fill="#E0DCED" d={publishedMarkerSvgIcon.published} />
+          <IconSvg width={18} height={16} path={publishedIconPath} />
           опубликовано
         </p>
       ) : (
         <p className={styles.text_block}>
-          <IconSvg width={18} height={16} fill="#E0DCED" d={publishedMarkerSvgIcon.noPublished} />
+          <IconSvg width={18} height={16} path={noPublishedIconPath} />
           не опубликовано
         </p>
       )}
