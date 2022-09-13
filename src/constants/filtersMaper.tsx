@@ -1,4 +1,5 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
+
 import { ScoresFilter } from '../components/FiltersButton/ScoresFilter/ScoresFilter'
 import { CalendarFilter } from '../components/FiltersButton/CalendarFilter/CalendarFilter'
 import { SearchFilter } from '../components/FiltersButton/SearchFilter/SearchFilter'

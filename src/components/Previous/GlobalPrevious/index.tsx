@@ -8,7 +8,7 @@ import { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation } from 'api/schoo
 import { Button } from '../../common/Button/Button'
 import { schoolHeaderReqT } from '../../../types/schoolHeaderT'
 
-import noAvatar from '../../../assets/img/noAvatar.svg'
+import {noAvatar} from '../../../assets/img/common/index'
 
 import styles from '../previou.module.scss'
 

@@ -1,6 +1,7 @@
 import { FC } from 'react'
-import { useDeleteCoursesMutation } from 'api/coursesServices'
 import { useNavigate } from 'react-router-dom'
+
+import { useDeleteCoursesMutation } from 'api/coursesServices'
 import { Button } from '../../../../../components/common/Button/Button'
 import { CoursesT } from '../../../../../types/CoursesT'
 

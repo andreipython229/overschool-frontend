@@ -2,15 +2,15 @@ import { ChangeEvent, FC, memo, useState } from 'react'
 
 import { Button } from 'components/common/Button/Button'
 import { Radio } from 'components/common/Radio/Radio'
-import { cross } from '../../../constants/iconSvgConstants'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { useAppSelector } from '../../../store/hooks'
 import { selectUser } from '../../../selectors/index'
 import { RoleE } from 'enum/roleE'
 import { Checkbox } from '../../common/Checkbox/Checkbox'
-import { employeeModalSvg } from './constants/svgIcon'
 import { checkBoxData } from './config/checkBoxConfig'
 import { radioData } from './config/radioConfig'
+import { modalIconPath } from './config/svgIconsPath'
+import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
 import styles from '../Modal.module.scss'
 
@@ -40,7 +40,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
         <div className={styles.main_employee}>
           <div className={styles.main_employee_container}>
             <div className={styles.main_employee_closedModal} onClick={setModal}>
-              <IconSvg width={26} height={26} d={cross} stroke={'#E0DCED'} strokeWidth={'2'} strokeLinecap={'round'} strokeLinejoin={'round'} />
+              <IconSvg width={26} height={26} path={crossIconPath} />
             </div>
             <div style={{ textAlign: 'center' }}>
               <h3 className={styles.main_employee_title}>Добавление сотрудника</h3>
@@ -85,16 +85,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
       <div className={styles.main_employee}>
         <div className={styles.main_employee_container}>
           <div className={styles.main_employee_closedModal} onClick={setModal}>
-            <IconSvg
-              width={14}
-              height={14}
-              viewBoxSize={'0 0 14 14'}
-              stroke={'#E0DCED'}
-              strokeWidth={'2'}
-              strokeLinecap={'round'}
-              strokeLinejoin={'round'}
-              d={employeeModalSvg}
-            />
+            <IconSvg width={14} height={14} viewBoxSize={'0 0 14 14'} path={modalIconPath} />
           </div>
           <div style={{ textAlign: 'center' }}>
             <h3 className={styles.main_employee_title}>Добавление сотрудника</h3>

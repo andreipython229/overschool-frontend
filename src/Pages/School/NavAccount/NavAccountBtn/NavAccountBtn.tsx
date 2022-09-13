@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from 'react'
+import { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import styles from './navAccountBtn.module.scss'

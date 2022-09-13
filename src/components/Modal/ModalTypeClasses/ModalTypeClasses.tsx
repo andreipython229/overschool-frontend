@@ -1,13 +1,18 @@
 import { FC, memo, useState } from 'react'
+
 import { Button } from 'components/common/Button/Button'
 import { typeClasses } from '../../../constants/typeClasses'
-import { ModalTypeClassesSvgTask } from './ModalTypeClassesSvgTask'
-import { ModalTypeClassesSvgTraining } from './ModalTypeClassesSvgTraining'
-import { ModalTypeClassesSvgText } from './ModalTypeClassesSvgTest'
-import { ModalTypeClassesSvgWebinar } from './ModalTypeClassesSvgWebinar'
 import { useShowModal } from '../../../customHooks/useShowModal'
 import { useAppDispatch } from '../../../store/hooks'
 import { showModal } from '../../../store/redux/modal/slice'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import 
+{ 
+  modalTypeClassesTrainingPath, 
+  modalTypeClassesTaskPath, 
+  modalTypeClassesTextPath, 
+  modalTypeClassesWebinarPath 
+} from './config/svgIconsPath'
 
 import styles from '../Modal.module.scss'
 
@@ -39,58 +44,37 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setShowModal, ch
           <div className={styles.classesContainer_type}>
             <div
               onClick={() => setActiveClasses(0)}
-              className={
-                activeClasses === 0
-                  ? styles.classesContainer_type_classes + ' ' + styles.active
-                  : styles.classesContainer_type_classes
-              }
+              className={activeClasses === 0 ? styles.classesContainer_type_classes + ' ' + styles.active : styles.classesContainer_type_classes}
             >
-              <ModalTypeClassesSvgTraining />
+              <IconSvg width={42} height={37} viewBoxSize="0 0 42 37" path={modalTypeClassesTrainingPath} />
               <span>Обычное</span>
             </div>
             <div
               onClick={() => setActiveClasses(1)}
-              className={
-                activeClasses === 1
-                  ? styles.classesContainer_type_classes + ' ' + styles.active
-                  : styles.classesContainer_type_classes
-              }
+              className={activeClasses === 1 ? styles.classesContainer_type_classes + ' ' + styles.active : styles.classesContainer_type_classes}
             >
-              <ModalTypeClassesSvgTask />
+              <IconSvg width={41} height={40} viewBoxSize="0 0 41 40" path={modalTypeClassesTaskPath} />
               <span>Задание</span>
             </div>
             <div
               onClick={() => setActiveClasses(2)}
-              className={
-                activeClasses === 2
-                  ? styles.classesContainer_type_classes + ' ' + styles.active
-                  : styles.classesContainer_type_classes
-              }
+              className={activeClasses === 2 ? styles.classesContainer_type_classes + ' ' + styles.active : styles.classesContainer_type_classes}
             >
-              <ModalTypeClassesSvgText />
+              <IconSvg width={30} height={40} viewBoxSize="0 0 30 40" path={modalTypeClassesTextPath} />
               <span>Текст</span>
             </div>
             <div
               onClick={() => setActiveClasses(3)}
-              className={
-                activeClasses === 3
-                  ? styles.classesContainer_type_classes + ' ' + styles.active
-                  : styles.classesContainer_type_classes
-              }
+              className={activeClasses === 3 ? styles.classesContainer_type_classes + ' ' + styles.active : styles.classesContainer_type_classes}
             >
-              <ModalTypeClassesSvgWebinar />
+              <IconSvg width={33} height={35} viewBoxSize="0 0 33 35" path={modalTypeClassesWebinarPath} />
+
               <span>Вебинар</span>
             </div>
           </div>
-          <div className={styles.classesContainer_type_subs}>
-            {typeClasses.map(el => (el.id === activeClasses ? el.text : null))}
-          </div>
+          <div className={styles.classesContainer_type_subs}>{typeClasses.map(el => (el.id === activeClasses ? el.text : null))}</div>
           <div className={styles.classesContainer_type_btnBlock}>
-            <Button
-              style={{ width: '85px', fontSize: '14px', fontWeight: '400' }}
-              onClick={handleClose}
-              text={'Отмена'}
-            />
+            <Button style={{ width: '85px', fontSize: '14px', fontWeight: '400' }} onClick={handleClose} text={'Отмена'} />
             <Button
               style={{
                 marginLeft: '12px',

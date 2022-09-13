@@ -1,8 +1,8 @@
 import { FC, memo, useState } from 'react'
 
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
-import { checkSelectChildrenSvgIcon } from './constants/svgIcons';
 import { IconSvg } from '../IconSvg/IconSvg'
+import { checkSelectChildIconPath } from './config/svgIconsPath'
 
 import styles from './checkSelect.module.scss'
 
@@ -12,7 +12,7 @@ type CheckSelectChildrenPropsT = {
 
 export const CheckSelectChildren: FC<CheckSelectChildrenPropsT> = memo(({ text }) => {
   const [checkbox, setCheckbox] = useState<boolean>(false)
-  
+
   const handlerCheckbox = () => {
     setCheckbox(!checkbox)
   }
@@ -23,16 +23,7 @@ export const CheckSelectChildren: FC<CheckSelectChildrenPropsT> = memo(({ text }
         <div>
           <span>{text}</span>
           <div>
-            <IconSvg
-              width={21}
-              height={21}
-              viewBoxSize="0 0 21 21"
-              stroke="#9884AC"
-              d={checkSelectChildrenSvgIcon}
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            <IconSvg width={21} height={21} viewBoxSize="0 0 21 21" path={checkSelectChildIconPath} />
           </div>
         </div>
       </div>

@@ -1,8 +1,9 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
+
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { filterSvgIcon } from '../../constants/iconSvgConstants'
 import { FilterItem } from './FilterItem'
 import { ComponentFilter } from 'constants/filtersMaper'
+import { filterIconPath } from './config/svgIconsPath'
 
 import styles from '../FiltersButton/filters_btn.module.scss'
 
@@ -57,7 +58,7 @@ export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) =
   return (
     <div className={styles.wrapper} ref={menuRef}>
       <button className={styles.container_btn} onClick={handleToggleDropDawnBlock}>
-        <IconSvg width={15} height={17} fill="#D1D5DB" d={filterSvgIcon} viewBoxSize="0 0 15 17" />
+        <IconSvg width={15} height={17} viewBoxSize="0 0 15 17" path={filterIconPath} />
         Добавить фильтры
       </button>
       {toggleDropDown && (

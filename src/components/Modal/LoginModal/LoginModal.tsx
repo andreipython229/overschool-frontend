@@ -11,10 +11,10 @@ import { AuthSelect } from '../../common/AuthSelect/AuthSelect'
 import { useLoginMutation } from '../../../api/userLoginService'
 import { useShowModal } from '../../../customHooks/useShowModal'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
-import { cross } from '../../../constants/iconSvgConstants'
+import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
-import unSecurity from '../../../assets/img/unSecurity.svg'
-import Security from '../../../assets/img/isecurity.svg'
+import { isSecurity, unSecurity } from '../../../assets/img/common/index'
+
 import styles from '../Modal.module.scss'
 
 type LoginModalPropsT = {
@@ -23,7 +23,7 @@ type LoginModalPropsT = {
 
 export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
   const dispatch = useAppDispatch()
-  
+
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
 
@@ -73,7 +73,7 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
         <form onSubmit={formik.handleSubmit}>
           <div className={styles.container}>
             <span className={styles.main_closed} onClick={handleClose}>
-              <IconSvg width={25} height={25} d={cross} stroke={'#E0DCED'} strokeWidth={'2'} strokeLinecap={'round'} strokeLinejoin={'round'} />
+              <IconSvg width={25} height={25} path={crossIconPath} />
             </span>
 
             <div className={styles.main_title}>Войти</div>
@@ -98,7 +98,7 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
                 value={formik.values.password}
                 placeholder={'Пароль'}
                 onClick={changeSecurityStatus}
-                icon={security ? Security : unSecurity}
+                icon={security ? isSecurity : unSecurity}
               />
               <div className={styles.errors}>{formik.errors.password}</div>
             </div>

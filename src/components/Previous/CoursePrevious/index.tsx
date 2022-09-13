@@ -7,6 +7,7 @@ import { useFindCourse } from '../../../customHooks/useFindCourse'
 import { Button } from '../../common/Button/Button'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
+import { backArr } from '../config/svgIconPath'
 
 import styles from '../previou.module.scss'
 
@@ -19,16 +20,7 @@ export const CoursePrevious: FC = () => {
       <img className={styles.background_image_course} src={editableCourse?.photo_url} alt="" />
       <div className={styles.previous_bcgrShadow}> </div>
       <Link className={styles.back_all_course} to={`${Path.Courses}`}>
-        <IconSvg
-          width={9}
-          height={15}
-          viewBoxSize="0 0 8 13"
-          d="M6.625 1.1875L1.3125 6.5L6.625 11.8125"
-          stroke="#BA75FF"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
         <span>Все курсы</span>
       </Link>
       <div className={styles.previous_onlineCourses}>Онлайн-курс</div>

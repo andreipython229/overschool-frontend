@@ -1,12 +1,12 @@
-import React, { ChangeEvent, FC, useEffect, useState, PointerEvent } from 'react'
+import { ChangeEvent, FC, useEffect, useState, PointerEvent } from 'react'
 import { Reorder, useDragControls } from 'framer-motion'
-import { Checkbox } from '../../../common/Checkbox/Checkbox'
-import { DotBlockSvg } from './DotBlockSvg'
-import { NoCheckedSvgIcon } from './NoCheckedSvgIcon'
-import { CheckedSvgIcon } from './CheckedSvgIcon'
-import { SettingItemT } from '../../../../Pages/CoursesStats/CoursesStats';
 
-import styles from './settingItem.module.scss';
+import { Checkbox } from '../../../common/Checkbox/Checkbox'
+import { SettingItemT } from '../../../../Pages/CoursesStats/CoursesStats'
+import { IconSvg } from '../../../common/IconSvg/IconSvg'
+import { checkedIconPath, noCheckedIconPath, doBlockIconPath } from '../config/svgIconsPath'
+
+import styles from './settingItem.module.scss'
 
 interface ISettingItem {
   item: SettingItemT
@@ -57,12 +57,29 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
       }}
     >
       <div className={styles.wrapper}>
-        {item?.name !== 'Имя' && item?.name !== 'Email' && <DotBlockSvg onPointerDown={onPointerDown} />}
+        {item?.name !== 'Имя' && item?.name !== 'Email' && (
+          <IconSvg
+            styles={{ cursor: 'grab', width: '20px', height: '20px', position: 'absolute', top: '15px', left: '-29px', zIndex: '10' }}
+            width={12}
+            height={18}
+            viewBoxSize={'0 0 12 18'}
+            onPointerDown={onPointerDown}
+            path={doBlockIconPath}
+          />
+        )}
 
         <div className={styles.wrapper_item}>
           <Checkbox id={item?.id.toString()} name={item?.name} onChange={handleChecked} checked={item.checked}>
             <p>{item?.name}</p>
-            {item.checked ? <CheckedSvgIcon /> : <NoCheckedSvgIcon />}
+            {item.checked ? (
+              <IconSvg width={17} height={17} viewBoxSize={'0 0 17 17'} path={checkedIconPath}>
+                <circle cx="8.5" cy="8.5" r="8" fill="#E0D9FC" stroke="#BA75FF" />
+              </IconSvg>
+            ) : (
+              <IconSvg width={17} height={17} viewBoxSize={'0 0 17 17'} path={noCheckedIconPath}>
+                <circle cx="8.5" cy="8.5" r="8" fill="#F3F4F6" stroke="#9CA3AF" />
+              </IconSvg>
+            )}
           </Checkbox>
         </div>
       </div>

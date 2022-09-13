@@ -1,7 +1,8 @@
-import React, { FC, memo, useState } from 'react'
+import { FC, memo, useState } from 'react'
+
 import { IconSvg } from '../IconSvg/IconSvg'
-import { emailSvgIcon, phoneSvgIcon } from '../../../constants/iconSvgConstants'
 import { LoginParamsT } from '../../../utils/validationLogin'
+import { emailIconPath, phoneIconPath } from './config/svgIconsPath'
 
 import styles from './authSelect.module.scss'
 
@@ -20,17 +21,9 @@ export const AuthSelect: FC<AuthSelectPropsT> = memo(({ getInputVariant }) => {
   return (
     <div onClick={() => setContext(!context)} className={styles.container}>
       {variant === 'email' ? (
-        <IconSvg width={20} height={16} fill="#6C6C6C" d={emailSvgIcon} viewBoxSize="0 0 20 16" className={styles.email} />
+        <IconSvg width={20} height={16} viewBoxSize="0 0 20 16" className={styles.email} path={emailIconPath} />
       ) : (
-        <IconSvg
-          width={14}
-          height={22}
-          fill="#6C6C6C"
-          d={phoneSvgIcon.phone}
-          d2={phoneSvgIcon.dot}
-          viewBoxSize="0 0 14 22"
-          className={styles.phone}
-        />
+        <IconSvg width={14} height={22} viewBoxSize="0 0 14 22" className={styles.phone} path={phoneIconPath} />
       )}
       {context ? (
         <div className={styles.popup}>

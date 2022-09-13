@@ -1,8 +1,10 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 import { NavAccountBtn } from './NavAccountBtn/NavAccountBtn'
-import styles from './navAccount.module.scss'
+
 import { RoleE } from 'enum/roleE'
 import { SettingsPath } from 'enum/pathE'
+
+import styles from './navAccount.module.scss'
 
 type NavAccountPropsT = {
   role: number

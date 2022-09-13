@@ -3,16 +3,16 @@ import { useState } from 'react'
 import { SelectDropDown } from '../../components/SelectDropDown/SelectDropDown'
 import { FiltersButton } from '../../components/FiltersButton'
 import { Input } from '../../components/common/Input/Input/Input'
-import { searchSvgIcon } from '../../constants/iconSvgConstants'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { dropDownListFilter } from '../../constants/dropDownList'
 import { StudentsTableBlock } from '../../components/StudentsTableBlock'
+import { searchIconPath } from '../../config/commonSvgIconsPath'
 
 import styles from './home_work.module.scss'
 
 export const HomeWork = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])
-  
+
   return (
     <>
       <h3>Входящие работы от учеников</h3>
@@ -20,20 +20,11 @@ export const HomeWork = () => {
         <SelectDropDown setArrowUsersState={setArrowUsersState} />
         <FiltersButton filteringCategoriesList={dropDownListFilter} />
         <Input name="" type="search" value={''} onChange={() => console.log('заглушка')} placeholder="Поиск по ученикам и заданиям">
-          <IconSvg
-            width={20}
-            height={20}
-            viewBoxSize="0 0 20 20"
-            d={searchSvgIcon}
-            stroke="#D1D5DB"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
       </div>
       <StudentsTableBlock />
-      {/*<ModalCheckHomeWork />*/}
+      {/* <ModalCheckHomeWork /> */}
     </>
   )
 }

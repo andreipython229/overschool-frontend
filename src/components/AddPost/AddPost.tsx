@@ -1,16 +1,17 @@
 import { useState } from 'react';
+
 import { AddVideo } from 'components/AddVideo/AddVideo';
 import { AddAudio } from 'components/AddAudio/AddAudio';
 import { AddCodeEditor } from 'components/AddCodeEditor/AddCodeEditor';
 import { AddTextEditor } from 'components/AddTextEditor/AddTextEditor';
 import { ContentBtn } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/ContentBtn/ContentBtn';
 
-import styles from './addPost.module.scss';
-
 import Text from '../.././assets/img/createCourse/text.svg';
 import Video from '../.././assets/img/createCourse/video.svg';
 import Audio from '../.././assets/img/createCourse/audio.svg';
 import Code from '../.././assets/img/createCourse/code.svg';
+
+import styles from './addPost.module.scss';
 
 export const AddPost = () => {
   const [AddTextEditorShow, setAddTextEditor] = useState<boolean>(false);

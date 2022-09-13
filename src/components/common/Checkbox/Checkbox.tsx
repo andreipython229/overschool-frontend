@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, memo, ReactNode } from 'react'
+import { ChangeEvent, FC, memo, ReactNode } from 'react'
 
 import styles from './checkbox.module.scss'
 
