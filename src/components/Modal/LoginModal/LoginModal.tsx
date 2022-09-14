@@ -46,12 +46,7 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
 
     onSubmit: async () => {
       const user = formik.values
-      const loginUser = {
-        email: user.email,
-        phone: user.phone,
-        password: user.password,
-      }
-      await attemptAccess(loginUser)
+      await attemptAccess(user)
     },
   })
   useEffect(() => {

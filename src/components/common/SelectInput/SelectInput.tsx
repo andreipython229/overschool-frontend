@@ -9,9 +9,9 @@ import { SelectInputPropsT } from '../commonComponentsTypes'
 import styles from './selectInput.module.scss'
 
 export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
-  const startPosition = 0
+
   const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
-  const [selectedOption, setSelectedOption] = useState<number>(startPosition)
+  const [selectedOption, setSelectedOption] = useState<number>(0)
 
   const toggleOptions = () => {
     setIsOptionsOpen(!isOptionsOpen)

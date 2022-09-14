@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 
 import { CoursesStats } from './Pages/CoursesStats/CoursesStats'
@@ -25,7 +25,7 @@ export const App = () => {
   const { isLoading } = useAppSelector(platformSelector)
 
   const navigate = useNavigate()
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(1, {skip: isLoading === false})
 
   useEffect(() => {
     if (!isLogin) {

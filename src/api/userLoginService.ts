@@ -21,7 +21,7 @@ export const userLoginService = createApi({
       query: credentials => {
         const formdata = formDataConverter(credentials)
         return {
-          url: '/login_user/login_view/',
+          url: '/login_user/',
           method: 'POST',
           redirect: 'follow',
           body: formdata,
