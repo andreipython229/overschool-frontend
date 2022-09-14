@@ -2,7 +2,6 @@
 
 .wrapper {
   position: relative;
-  margin: 0 10px;
 }
 .container_btn {
   @include display (flex, row, space-around, center);

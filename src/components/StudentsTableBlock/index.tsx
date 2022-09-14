@@ -29,13 +29,6 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
 
   return (
     <table className={styles.table} style={{ borderCollapse: 'collapse' }}>
-      {/*<col width="100px"> </col>*/}
-      {/*<col width="150px"> </col>*/}
-      {/*<col width="100px"> </col>*/}
-      {/*<col width="100px"> </col>*/}
-      {/*<col width="100px"> </col>*/}
-      {/*<col width="100px"> </col>*/}
-      {/*<col width="100px"> </col>*/}
       <thead className={styles.table_thead}>
         <tr>
           {cols.map(col => (
@@ -49,7 +42,6 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
                 textAlign: 'left',
                 textTransform: 'capitalize',
                 verticalAlign: 'middle',
-                // borderBottom: '2px solid #eef0f5',
               }}
               id={col}
               key={col}
@@ -62,7 +54,7 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className={styles.table_tbody}>
         {rows.map((row, id) => (
           // id has to be oraganized differently
           <tr key={id + Math.random()}>
