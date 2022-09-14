@@ -14,21 +14,21 @@
 
   &_header {
     margin: 0 45px;
-    @include display (flex, row, space-between);
+    @include display(flex, row, space-between);
   }
   &_main {
     position: relative;
     width: 1200px;
     height: 500px;
     margin-top: 130px;
-    @include display (flex);
-    
+    @include display(flex);
+
     &_wrapper {
       @include position_t_l(relative, 0, 70px, 5);
-      @include display (flex, column, center);
+      @include display(flex, column, center);
     }
     &__title {
-      @include font (800, 48px, 135%);
+      @include font(800, 48px, 135%);
       width: 422px;
       margin-right: 62px;
     }
@@ -37,7 +37,7 @@
       background: #ffffff;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
       height: 112px;
-      @include display (flex);
+      @include display(flex);
       font-weight: 800;
 
       & div:nth-child(1) {
@@ -52,17 +52,17 @@
       }
       & div {
         height: 112px;
-        @include display (flex, row, center, center);
+        @include display(flex, row, center, center);
       }
     }
 
     &_course {
-      @include display (flex);
+      @include display(flex);
       cursor: pointer;
 
       &_block {
         position: relative;
-        @include display (flex);
+        @include display(flex);
         width: 445px;
         height: 500px;
         margin: 0 10px;
@@ -70,7 +70,7 @@
         border-radius: 10px;
 
         &_title {
-          @include position_b_l (absolute, 75px, 100px, 10);
+          @include position_b_l(absolute, 75px, 100px, 10);
           width: 250px;
           align-self: flex-end;
           font-size: 40px;
@@ -97,7 +97,7 @@
   transform-origin: bottom left;
 }
 .btn_block {
-  @include display (flex);
+  @include display(flex);
 
   &_logIn {
     text-decoration: none;

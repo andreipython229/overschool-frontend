@@ -10,9 +10,7 @@ export interface ICredentials {
 }
 
 export interface IResponse {
-  user: {
-    email: string
-    token: string
-    username: null | string
-  }
+  email: string
+  token: string
+  username: null | string
 }

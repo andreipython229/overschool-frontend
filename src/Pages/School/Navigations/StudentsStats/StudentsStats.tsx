@@ -24,13 +24,13 @@ export const StudentsStats = () => {
     setStudentEmail(e.currentTarget.value)
   }
 
-  const showStudentModal = () => {
-    setStudentModal(!studentModal)
-  }
-
-  const showGroupModal = () => {
-    setAddGroupModal(!addGroupModal)
-  }
+  // const showStudentModal = () => {
+  //   setStudentModal(!studentModal)
+  // }
+  //
+  // const showGroupModal = () => {
+  //   setAddGroupModal(!addGroupModal)
+  // }
   const showSettingsModal = () => {
     setSettingsGroupModal(!settingsGroupModal)
   }
@@ -39,7 +39,7 @@ export const StudentsStats = () => {
     setNameGroup(e.currentTarget.value)
   }
 
-  const groupSettingUrl = pathname.includes(StudentLogs.GroupSettings)
+  //  const groupSettingUrl = pathname.includes(StudentLogs.GroupSettings)
 
   return (
     <div>

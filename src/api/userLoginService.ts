@@ -11,7 +11,7 @@ export const userLoginService = createApi({
       const token = (getState() as RootState).user.token
 
       if (token) {
-        headers.set('Authorization', `Token ${token}`)
+        headers.set('Authenticate', `Token ${token}`)
       }
       return headers
     },
@@ -21,7 +21,7 @@ export const userLoginService = createApi({
       query: credentials => {
         const formdata = formDataConverter(credentials)
         return {
-          url: '/login_user/login_view/',
+          url: '/login_user/',
           method: 'POST',
           redirect: 'follow',
           body: formdata,

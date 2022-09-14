@@ -9,7 +9,7 @@ export const modulesServices = createApi({
       const token = (getState() as RootState)?.user?.token
 
       if (token) {
-        headers.set('Authorization', `Token ${token}`)
+        headers.set('Authenticate', `Token ${token}`)
         headers.set('mode', 'no-cors')
       }
       return headers
