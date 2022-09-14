@@ -11,7 +11,7 @@ export const userLoginService = createApi({
       const token = (getState() as RootState).user.token
 
       if (token) {
-        headers.set('Authorization', `Token ${token}`)
+        headers.set('Authenticate', `Token ${token}`)
       }
       return headers
     },

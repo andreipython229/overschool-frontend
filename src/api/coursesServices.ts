@@ -7,28 +7,28 @@ export const coursesServices = createApi({
   reducerPath: 'coursesServices',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState)?.user?.token
-
-      if (token) {
-        headers.set('Authorization', `Token ${token}`)
-      }
-      return headers
-    },
+    // prepareHeaders: (headers, { getState }) => {
+    //   const token = (getState() as RootState)?.user?.token
+    //
+    //   if (token) {
+    //     headers.set('Authenticate', `Token ${token}`)
+    //   }
+    //   return headers
+    // },
   }),
 
   tagTypes: ['allCourses'],
   endpoints: build => ({
     fetchCourses: build.query<CoursesT[], null>({
       query: () => ({
-        url: `/courses/`,
+        url: `/course/`,
       }),
       providesTags: () => ['allCourses'],
     }),
     createCourses: build.mutation<FormData, FormData>({
       query: course => {
         return {
-          url: `/courses/`,
+          url: `/course/`,
           method: 'POST',
           body: course,
         }
@@ -37,7 +37,7 @@ export const coursesServices = createApi({
     }),
     deleteCourses: build.mutation<FormData, string>({
       query: id => ({
-        url: `/courses/${id}/`,
+        url: `/course/${id}/`,
         method: 'DELETE',
       }),
       invalidatesTags: ['allCourses'],
@@ -45,7 +45,7 @@ export const coursesServices = createApi({
     updateCourses: build.mutation<FormData, UpdateCourses>({
       query: (arg): string | FetchArgs => {
         return {
-          url: `/courses/${arg.id}/`,
+          url: `/course/${arg.id}/`,
           method: 'PUT',
           body: arg.formdata,
         }
@@ -55,7 +55,7 @@ export const coursesServices = createApi({
     patchCourses: build.mutation<FormData, UpdateCourses>({
       query: (arg): string | FetchArgs => {
         return {
-          url: `/courses/${arg?.id}/`,
+          url: `/course/${arg?.id}/`,
           method: 'PATCH',
           body: arg?.formdata,
         }
