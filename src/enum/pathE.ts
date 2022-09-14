@@ -6,6 +6,8 @@ export enum Path {
   CreateCourse = 'create-course/:course_id/*',
   CourseStats = 'courses-stats/*',
   HomeWork = 'home-work',
+  HelpCenter = 'help-center',
+  TariffPlans = 'tariff-plans'
 }
 
 export enum SettingsPath {
