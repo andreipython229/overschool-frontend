@@ -84,6 +84,14 @@
             align-items: center;
             width: 100%;
             justify-content: space-around;
+
+            &_card:hover {
+                background-color: #E0DCED;
+                button {
+                    color: #BA75FF;
+                    background-color: #FFFFFF;
+                }
+            }
             &_card {
                 width: 253px;
                 height: 310px;

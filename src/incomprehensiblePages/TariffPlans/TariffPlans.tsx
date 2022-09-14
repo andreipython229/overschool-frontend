@@ -92,11 +92,59 @@ export const TariffPlans = () => {
                     </div>
                 )}
 
-                {isWebinarShown && (
-                    <ul>
-                        <li>lol</li>
-                        <li>kek</li>
-                    </ul>
+                {isWebinarShown && (<div className={styles.TariffPlansPage_plansBlock_cardGroup}>
+                        <div className={styles.TariffPlansPage_plansBlock_cardGroup_card}>
+                            <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
+                                <h3>Любитель</h3>
+                                <hr/>
+                                <ul>
+                                    <li>Конструктор текстов</li>
+                                    <li>Домашние задания</li>
+                                    <li>API и Webhook</li>
+                                </ul>
+                                <Button text={'Купить'} variant={'create'} />
+                            </div>
+                        </div>
+                        <div className={styles.TariffPlansPage_plansBlock_cardGroup_card}>
+                            <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
+                                <h3>Профи</h3>
+                                <hr/>
+                                <ul>
+                                    <li>Белимит ГБ</li>
+                                    <li>Безлимит курсов</li>
+                                    <li>Безлимит учеников</li>
+                                    <li>10 сотрудников</li>
+                                </ul>
+                                <Button text={'Купить'} variant={'create'} />
+                            </div>
+                        </div>
+                        <div className={styles.TariffPlansPage_plansBlock_cardGroup_card}>
+                            <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
+                                <h3>Эксперт</h3>
+                                <hr/>
+                                <ul>
+                                    <li>Белимит ГБ</li>
+                                    <li>Безлимит курсов</li>
+                                    <li>Безлимит учеников</li>
+                                    <li>10 сотрудников</li>
+                                </ul>
+                                <Button text={'Купить'} variant={'create'} />
+                            </div>
+                        </div>
+                        <div className={styles.TariffPlansPage_plansBlock_cardGroup_card}>
+                            <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
+                                <h3>Бизнес</h3>
+                                <hr/>
+                                <ul>
+                                    <li>Белимит ГБ</li>
+                                    <li>Безлимит курсов</li>
+                                    <li>Безлимит учеников</li>
+                                    <li>Безлимит сотрудников</li>
+                                </ul>
+                                <Button text={'Купить'} variant={'create'} />
+                            </div>
+                        </div>
+                    </div>
                 )}
             </div>
             <div className={styles.TariffPlansPage_banner}>
