@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 
 import { useAppDispatch } from '../../../../store/hooks'
 import { CoursesCard } from './CoursesCard'
