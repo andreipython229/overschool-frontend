@@ -28,7 +28,7 @@ export const coursesServices = createApi({
     createCourses: build.mutation<FormData, FormData>({
       query: course => {
         return {
-          url: `/course/`,
+          url: `/courses/`,
           method: 'POST',
           body: course,
         }

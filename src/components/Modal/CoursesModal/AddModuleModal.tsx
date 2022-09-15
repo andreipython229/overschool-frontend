@@ -1,10 +1,13 @@
-import { FC, memo } from 'react'
-
+import { ChangeEvent, FC, memo, useState } from 'react'
+import { useCreateModulesMutation } from 'api/modulesServices'
 import { useShowModal } from '../../../customHooks/useShowModal'
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
+import { useAppSelector } from '../../../store/hooks'
+import { getIdSelector } from '../../../selectors'
+import { formDataConverter } from '../../../utils/formDataConverter'
 
 import styles from '../Modal.module.scss'
 
@@ -12,6 +15,29 @@ type AddModuleModalPropsT = {
   setShowModal: (arg: boolean) => void
 }
 export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ setShowModal }) => {
+  const [modulesName, setModulesMane] = useState<string>('')
+
+  const courseId = useAppSelector(getIdSelector)
+
+  const [createModules] = useCreateModulesMutation()
+
+  const handleInputNameModules = (event: ChangeEvent<HTMLInputElement>) => {
+    const name = event.target.value
+    setModulesMane(name)
+  }
+
+  const handleCreateModules = async () => {
+    const newModules = {
+      name: modulesName,
+      course: courseId,
+    }
+    const formdata = formDataConverter(newModules)
+
+    await createModules(formdata)
+
+    setShowModal(false)
+  }
+
   const handleClose = () => {
     setShowModal(false)
   }
@@ -30,13 +56,13 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ setShowModal }) 
           <Input
             style={{ marginTop: '8px', marginBottom: '16px' }}
             name={'module'}
-            value={''}
+            value={modulesName}
             type={'text'}
             focus={true}
-            onChange={() => console.log('заглушка')}
+            onChange={handleInputNameModules}
           />
         </div>
-        <Button text={'Создать модуль'} variant={'primary'} />
+        <Button onClick={handleCreateModules} text={'Создать модуль'} variant={'primary'} />
       </div>
     </div>
   )
