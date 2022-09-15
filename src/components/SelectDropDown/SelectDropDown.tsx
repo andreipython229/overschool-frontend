@@ -52,7 +52,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
 
         {headerDropDown?.title}
         <span className={isOpen ? styles.rotate_arrow : ''}>
-          <IconSvg width={25} height={25} viewBoxSize="0 0 12 15" path={arrIconPath} />
+          <IconSvg width={25} height={25} viewBoxSize="0 0 12 12" path={arrIconPath} />
         </span>
       </p>
       {isOpen && (
