@@ -25,7 +25,7 @@ export const App = () => {
   const { isLoading } = useAppSelector(platformSelector)
 
   const navigate = useNavigate()
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(1, {skip: isLoading === false})
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
 
   useEffect(() => {
     if (!isLogin) {

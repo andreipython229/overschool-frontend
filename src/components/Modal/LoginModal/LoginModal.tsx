@@ -50,10 +50,10 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
     },
   })
   useEffect(() => {
+    dispatch(auth(true))
     if (isSuccess) {
       setShowModal(false)
       dispatch(token(data?.token as string))
-      dispatch(auth(true))
     }
   }, [isSuccess, error])
 
