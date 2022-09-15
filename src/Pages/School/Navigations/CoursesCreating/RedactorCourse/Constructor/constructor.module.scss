@@ -3,9 +3,9 @@
 
 .redactorCourse {
   font-family: $font-family-inter;
-  @include display (flex);
+  @include display(flex);
   &_leftSide {
-    @include display (flex, column);
+    @include display(flex, column);
     margin-right: 30px;
     margin-top: 50px;
 
@@ -15,7 +15,7 @@
     }
 
     &_desc {
-      @include display (flex, column);
+      @include display(flex, column);
       margin-top: 23px;
       margin-left: 16px;
 
@@ -26,7 +26,7 @@
       }
 
       &_lesson {
-        @include display (flex, row, flex-start, center);
+        @include display(flex, row, flex-start, center);
         color: $font-color-rose;
         font-size: 12px;
         margin-bottom: 26px;
@@ -42,7 +42,7 @@
 
       &_settings {
         position: relative;
-        @include display (flex, row, right, center);
+        @include display(flex, row, right, center);
         margin: 25px 0;
         font-size: 14px;
         color: $font-title;
@@ -50,7 +50,7 @@
         cursor: pointer;
 
         &_drag {
-          @include position_t_l (absolute, 0, -15px);
+          @include position_t_l(absolute, 0, -15px);
           svg {
             margin-right: 8px;
           }
@@ -74,14 +74,14 @@
     box-shadow: $box-shadow;
 
     &_header {
-      @include display (flex, row, space-between, center);
+      @include display(flex, row, space-between, center);
       text-align: center;
 
       &_btnBlock {
-        @include display (flex);
+        @include display(flex);
 
         &_setting {
-          @include display (flex, row, flex-start, center);
+          @include display(flex, row, flex-start, center);
           height: 36px;
           border: none;
           text-align: center;
@@ -97,7 +97,7 @@
         }
 
         &_delete {
-          @include display (flex, row, flex-start, center);
+          @include display(flex, row, flex-start, center);
           padding: 11px 0;
           border-radius: 6px;
           border: none;
@@ -127,7 +127,7 @@
       &_addContent {
         width: 99%;
         background: #ffffff;
-        @include display (flex, column, center, center);
+        @include display(flex, column, center, center);
         text-align: center;
         height: 254px;
         border: 2px dashed #ebeef5;
@@ -137,16 +137,16 @@
         & input {
           width: 100%;
           height: 100%;
-          @include position_t_l (absolute, 0, 0, 2);
+          @include position_t_l(absolute, 0, 0, 2);
           opacity: 0;
           cursor: pointer;
         }
 
         &_navBlock {
-          @include display (flex, column);
-          @include position_t_r (absolute, 50px, -45px, 2);
-          &_div {            
-            @include display (flex, row, center, center);
+          @include display(flex, column);
+          @include position_t_r(absolute, 50px, -45px, 2);
+          &_div {
+            @include display(flex, row, center, center);
             background: #f3f4f6;
             border: none;
             border-radius: 7px;
@@ -187,7 +187,7 @@
       }
 
       &_content {
-        @include display (flex, row, space-between);
+        @include display(flex, row, space-between);
         margin-bottom: 66px;
 
         &_preview {
@@ -214,7 +214,7 @@
         }
 
         &_function {
-          @include display (flex, row, center);
+          @include display(flex, row, center);
           & div:not(:last-child) {
             margin-right: 16px;
           }
@@ -242,4 +242,7 @@
   border: none;
   border-radius: 7px;
   color: $font-color-rose;
+}
+hr {
+  margin-bottom: 18px;
 }

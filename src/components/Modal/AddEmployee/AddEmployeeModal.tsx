@@ -15,10 +15,10 @@ import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import styles from '../Modal.module.scss'
 
 type AddEmployeeModalPropsT = {
-  setModal: () => void
+  onToggle: () => void
 }
 
-export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) => {
+export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ onToggle }) => {
   const [checkedItem, setCheckedItem] = useState<{ [key: string]: boolean }>({
     python: false,
     java: false,
@@ -39,7 +39,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
       <div className={styles.wrapper}>
         <div className={styles.main_employee}>
           <div className={styles.main_employee_container}>
-            <div className={styles.main_employee_closedModal} onClick={setModal}>
+            <div className={styles.main_employee_closedModal} onClick={onToggle}>
               <IconSvg width={26} height={26} path={crossIconPath} />
             </div>
             <div style={{ textAlign: 'center' }}>
@@ -84,7 +84,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setModal }) 
     <div className={styles.wrapper}>
       <div className={styles.main_employee}>
         <div className={styles.main_employee_container}>
-          <div className={styles.main_employee_closedModal} onClick={setModal}>
+          <div className={styles.main_employee_closedModal} onClick={onToggle}>
             <IconSvg width={14} height={14} viewBoxSize={'0 0 14 14'} path={modalIconPath} />
           </div>
           <div style={{ textAlign: 'center' }}>

@@ -21,14 +21,14 @@ export const coursesServices = createApi({
   endpoints: build => ({
     fetchCourses: build.query<CoursesT[], null>({
       query: () => ({
-        url: `/course/`,
+        url: `/courses/`,
       }),
       providesTags: () => ['allCourses'],
     }),
     createCourses: build.mutation<FormData, FormData>({
       query: course => {
         return {
-          url: `/course/`,
+          url: `/courses/`,
           method: 'POST',
           body: course,
         }
@@ -37,7 +37,7 @@ export const coursesServices = createApi({
     }),
     deleteCourses: build.mutation<FormData, string>({
       query: id => ({
-        url: `/course/${id}/`,
+        url: `/courses/${id}/`,
         method: 'DELETE',
       }),
       invalidatesTags: ['allCourses'],
@@ -45,7 +45,7 @@ export const coursesServices = createApi({
     updateCourses: build.mutation<FormData, UpdateCourses>({
       query: (arg): string | FetchArgs => {
         return {
-          url: `/course/${arg.id}/`,
+          url: `/courses/${arg.id}/`,
           method: 'PUT',
           body: arg.formdata,
         }
@@ -55,7 +55,7 @@ export const coursesServices = createApi({
     patchCourses: build.mutation<FormData, UpdateCourses>({
       query: (arg): string | FetchArgs => {
         return {
-          url: `/course/${arg?.id}/`,
+          url: `/courses/${arg?.id}/`,
           method: 'PATCH',
           body: arg?.formdata,
         }

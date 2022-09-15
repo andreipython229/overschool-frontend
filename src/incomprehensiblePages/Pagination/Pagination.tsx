@@ -1,5 +1,7 @@
 import classnames from 'classnames'
+
 import { usePagination, DOTS } from './usePagination'
+
 import './pagination.scss'
 
 export const Pagination = (props: any) => {
@@ -40,11 +42,9 @@ export const Pagination = (props: any) => {
           <div className="arrow left" />
         </li>
         {paginationRange.map((pageNumber: string) => {
-          if (pageNumber === DOTS) {
-            return <li className="pagination-item dots">&#8230;</li>
-          }
-
-          return (
+          pageNumber === DOTS ? (
+            <li className="pagination-item dots">&#8230;</li>
+          ) : (
             <li
               key={pageNumber}
               className={classnames('pagination-item', {

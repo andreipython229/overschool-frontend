@@ -84,6 +84,14 @@
             align-items: center;
             width: 100%;
             justify-content: space-around;
+
+            &_card:hover {
+                background-color: #E0DCED;
+                button {
+                    color: #BA75FF;
+                    background-color: #FFFFFF;
+                }
+            }
             &_card {
                 width: 253px;
                 height: 310px;
@@ -107,7 +115,6 @@
                         border: 1px solid #BA75FF;
                         width: 150px;
                         height: 0;
-                        //margin-top: 26px;
                         margin: 26px auto 0  auto;
                         text-align: center;
                     }
@@ -137,22 +144,91 @@
                         bottom: 0;
                     }
                 }
-                @media (min-width: 767px) and (max-width: 1024px) {
-                    &_text {
-                        margin: 20px 10px 20px 20px;
-
-                        h3 {
-                            font-size: 20px;
-                        }
-
-                        p {
-                            margin-top: 10px;
-                            font-size: 13px;
-                        }
-                    }
+            }
+            @media (min-width: 767px) and (max-width: 1024px) {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                &_card {
+                    margin: 0 auto 80px auto;
+                }
+            }
+            @media (min-width: 320px) and (max-width: 767px) {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+    &_banner {
+        margin-top: 65px;
+        width: 100%;
+        background: #E0DCED;
+        height: 379px;
+        display: inline-flex;
+        &_createProject {
+            padding-top: 80px;
+            margin-left: 120px;
+            h1 {
+                margin: 0;
+            }
+            p {
+                margin-top: 11px;
+                color: #4D5766;
+                font-size: 14px;
+                width: 80%;
+            }
+            button {
+                margin: 46px 0 0 27px;
+                width: 241px;
+                height: 52px;
+                font-size: 12px;
+            }
+        }
+        &_images {
+            position: relative;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            &_firstStep {
+                width: 280px;
+                height: 209px;
+                margin-top: 133px;
+                z-index: 1;
+                position: absolute;
+            }
+            &_secondStep {
+                width: 308px;
+                height: 231px;
+                margin-left: 200px;
+                position: absolute;
+                margin-top: 36px;
+            }
+        }
+        @media (min-width: 320px) and (max-width: 1024px) {
+            &_images {
+                display: none;
+            }
+            height: 100%;
+            &_createProject {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                margin: 20px;
+                padding-top: 50px;
+                h1 {
+                    font-size: 32px;
                 }
             }
         }
+        @media (min-width: 320px) and (max-width: 481px) {
+            h1 {
+                font-size: 23px;
+            }
+            button {
+                width: 150px;
+                margin: 30px auto 0 auto;
+            }
+        }
+
     }
 
     &_footer {
@@ -181,47 +257,19 @@
             color: #D7D7D7;
             font-size: 14px;
         }
-    }
-    &_banner {
-        margin-top: 65px;
-        width: 100%;
-        background: #E0DCED;
-        height: 379px;
-        display: inline-flex;
-        &_createProject {
-            padding-top: 80px;
-            margin-left: 120px;
-            width: 570px;
-            h1 {
-                margin: 0;
-            }
-            p {
-                margin-top: 11px;
-                color: #4D5766;
-                font-size: 14px;
-                width: 330px;
-            }
-            button {
-                margin: 46px 0 0 27px;
-                width: 241px;
-                height: 52px;
-                font-size: 12px;
-            }
-        }
-        &_images {
-            &_firstStep {
-                width: 280px;
-                height: 209px;
-                margin-top: 133px;
-                z-index: 1;
-                position: absolute;
-            }
-            &_secondStep {
-                width: 308px;
-                height: 231px;
-                margin-left: 200px;
-                position: absolute;
-                margin-top: 36px;
+        @media (min-width: 320px) and (max-width: 560px) {
+            &_links {
+                width: 100%;
+                flex-direction: column;
+                a {
+                    padding: 5px;
+                }
+                h1 {
+                    font-size: 23px;
+                }
+                p {
+                    font-size: 10px;
+                }
             }
         }
     }

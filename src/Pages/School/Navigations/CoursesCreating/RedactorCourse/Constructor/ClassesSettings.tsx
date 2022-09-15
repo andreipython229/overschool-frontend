@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import { CheckboxBall } from '../../../../../../components/common/CheckboxBall'
 import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
 import { useAppDispatch } from '../../../../../../store/hooks'
