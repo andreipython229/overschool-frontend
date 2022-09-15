@@ -21,7 +21,7 @@ export const SearchFilter: FC<SearchFilterT> = memo(({ name, header, data }) => 
     <div className={style.container}>
       <p className={style.title}>{header}</p>
       <Input name={name} type={'search'} value={value} onChange={handleClick} placeholder="Начните вводить название">
-        <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
+        <IconSvg width={30} height={30} viewBoxSize="0 0 20 20" path={searchIconPath} />
       </Input>
       <div className={style.wrapper}>
         {data?.map((item: any) => (

@@ -35,7 +35,6 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
             <th
               style={{
                 whiteSpace: 'nowrap',
-                // color: '#716f88',
                 letterSpacing: '1.5px',
                 fontWeight: ' 400',
                 fontSize: '14px',
@@ -62,11 +61,8 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
               <td
                 style={{
                   fontSize: '14px',
-                  // textAlign: 'left',
                   textTransform: 'capitalize',
                   verticalAlign: 'center',
-                  // padding: '20px',
-                  // borderBottom: '2px solid #eef0f5',
                 }}
                 key={keyRow + valueRow}
               >
