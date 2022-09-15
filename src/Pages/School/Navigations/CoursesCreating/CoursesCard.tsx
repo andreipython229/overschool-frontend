@@ -1,6 +1,5 @@
 import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
-
 import { Button } from '../../../../components/common/Button/Button'
 import { CoursesT } from '../../../../types/CoursesT'
 import { Path } from '../../../../enum/pathE'

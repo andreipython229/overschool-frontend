@@ -1,0 +1,13 @@
+.headerText {
+  &:hover {
+    .block {
+      display: block;
+    }
+    .test {
+      display: none;
+    }
+  }
+}
+.block {
+  display: none;
+}

@@ -5,40 +5,40 @@ export const modulesServices = createApi({
   reducerPath: 'modulesServices',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState)?.user?.token
-
-      if (token) {
-        headers.set('Authenticate', `Token ${token}`)
-        headers.set('mode', 'no-cors')
-      }
-      return headers
-    },
+    // prepareHeaders: (headers, { getState }) => {
+    //   const token = (getState() as RootState)?.user?.token
+    //
+    //   if (token) {
+    //     headers.set('Authenticate', `Token ${token}`)
+    //     headers.set('mode', 'no-cors')
+    //   }
+    //   return headers
+    // },
   }),
 
-  //tagTypes: ['allCourses'],
+  tagTypes: ['modulesServices'],
   endpoints: build => ({
     fetchModules: build.query({
-      query: () => ({
-        url: `/sections/`,
+      query: id => ({
+        url: `/courses/${id}/sections/`,
       }),
-      //providesTags: () => ['allCourses'],
+      providesTags: () => ['modulesServices'],
     }),
-    // createCourses: build.mutation({
-    //   query: course => ({
-    //     url: `/courses/`,
-    //     method: 'POST',
-    //     body: course,
-    //   }),
-    //   //invalidatesTags: ['allCourses'],
-    // }),
-    // deleteCourses: build.mutation({
-    //   query: id => ({
-    //     url: `/courses/${id}/`,
-    //     method: 'DELETE',
-    //   }),
-    //   //invalidatesTags: ['allCourses'],
-    // }),
+    createModules: build.mutation({
+      query: arg => ({
+        url: `./sections/`,
+        method: 'POST',
+        body: arg,
+      }),
+      invalidatesTags: ['modulesServices'],
+    }),
+    deleteModules: build.mutation({
+      query: id => ({
+        url: `/sections/${id}/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['modulesServices'],
+    }),
     // updateCourses: build.mutation({
     //   query: (arg): string | FetchArgs => {
     //     console.log(arg)
@@ -50,17 +50,17 @@ export const modulesServices = createApi({
     //   },
     //   //invalidatesTags: ['allCourses'],
     // }),
-    // patchCourses: build.mutation({
-    //   query: (arg): string | FetchArgs => {
-    //     return {
-    //       url: `/courses/${arg.id}/`,
-    //       method: 'PATCH',
-    //       body: arg.formdata,
-    //     }
-    //   },
-    //   //invalidatesTags: ['allCourses'],
-    // }),
+    patchModules: build.mutation({
+      query: arg => {
+        return {
+          url: `/sections/${arg.id}/`,
+          method: 'PATCH',
+          body: arg.formdata,
+        }
+      },
+      invalidatesTags: ['modulesServices'],
+    }),
   }),
 })
 
-export const { useFetchModulesQuery } = modulesServices
+export const { useFetchModulesQuery, useCreateModulesMutation, useDeleteModulesMutation } = modulesServices
