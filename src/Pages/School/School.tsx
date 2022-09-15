@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { CoursePage } from 'Pages/School/Navigations/CoursesCreating/CoursePage'
@@ -12,6 +12,7 @@ import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { getCourses } from '../../store/redux/courses/slice'
 import { selectUser } from '../../selectors/index'
 import { allCoursesSelector } from '../../selectors'
+import { useBoolean } from '../../customHooks/useBoolean'
 
 import styles from './school.module.scss'
 
@@ -19,10 +20,9 @@ export const School: FC = () => {
   const dispatch = useAppDispatch()
   const { permission } = useAppSelector(selectUser)
   const { courses } = useAppSelector(allCoursesSelector)
+  const [isOpen, { onToggle }] = useBoolean()
+
   const { data: coursesList, isSuccess } = useFetchCoursesQuery(null)
-
-  const [showModal, setShowModal] = useState<boolean>(false)
-
 
   useEffect(() => {
     if (isSuccess) {
@@ -30,18 +30,14 @@ export const School: FC = () => {
     }
   }, [coursesList, courses])
 
-  const setModal = () => {
-    setShowModal(!showModal)
-  }
-
   return (
     <div className={styles.container}>
-      {showModal ? <AddCourseModal setShowModal={setModal} /> : null}
+      {isOpen && <AddCourseModal setShowModal={onToggle} />}
       <Routes>
         {permission === RoleE.SuperAdmin ? (
           <Route path={'/*'} element={<Settings />} />
         ) : (
-          <Route path={'/*'} element={<CoursePage setShowModal={setModal} courses={courses} />} />
+          <Route path={'/*'} element={<CoursePage setShowModal={onToggle} courses={courses} />} />
         )}
         <Route path={Path.CreateCourse} element={<RedactorCourse />} />
       </Routes>

@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react'
+import { FC, memo } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { NavAccount } from '../School/NavAccount/NavAccount'
@@ -11,21 +11,20 @@ import { RoleE } from 'enum/roleE'
 import { Logs } from './Logs/Logs'
 import { DecorPlatform } from './DecorPlatform/DecorPlatform'
 import { selectUser } from '../../selectors/index'
+import { useBoolean } from '../../customHooks/useBoolean'
 
 export const Settings: FC = memo(() => {
   const { permission } = useAppSelector(selectUser)
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const setModal = () => {
-    setModalIsOpen(!modalIsOpen)
-  }
+
+  const [isOpen, { onToggle }] = useBoolean()
 
   return (
     <>
       <NavAccount role={permission} />
-      {modalIsOpen ? <AddEmployeeModal setModal={setModal} /> : null}
+      {isOpen && <AddEmployeeModal onToggle={onToggle} />}
       <Routes>
         <Route path={'/*'} element={<Main />} />
-        <Route path={SettingsPath.Employees} element={<Employees setModal={setModal} />} />
+        <Route path={SettingsPath.Employees} element={<Employees onToggle={onToggle} />} />
         {permission === RoleE.SuperAdmin ? <Route path={SettingsPath.Logs} element={<Logs />} /> : null}
         <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
       </Routes>

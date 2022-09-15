@@ -19,6 +19,7 @@ type AddCourseModalPropsT = {
 export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  
   const [name, setName] = useState<string>('')
   const [createCourses] = useCreateCoursesMutation()
 
@@ -37,6 +38,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
       const data = await createCourses(formdata)
 
       const { data: course }: any = data
+      
       setShowModal()
       if (course) {
         dispatch(addCourseId(course?.course_id))

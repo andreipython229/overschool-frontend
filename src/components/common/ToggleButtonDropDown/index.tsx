@@ -1,5 +1,4 @@
 // used once at coursed page
-
 import { FC } from 'react'
 import { ToggleButtonDropDownT } from '../commonComponentsTypes'
 import { IconSvg } from '../IconSvg/IconSvg'

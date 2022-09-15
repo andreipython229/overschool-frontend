@@ -1,4 +1,5 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
+
 import { AddVideo } from 'components/AddVideo'
 import { AddAudio } from 'components/AddAudio'
 import { AddCodeEditor } from 'components/AddCodeEditor'

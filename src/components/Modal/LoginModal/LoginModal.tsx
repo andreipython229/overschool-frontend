@@ -46,19 +46,14 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
 
     onSubmit: async () => {
       const user = formik.values
-      const loginUser = {
-        username: user.email,
-        phone: user.phone,
-        password: user.password,
-      }
-      await attemptAccess(loginUser)
+      await attemptAccess(user)
     },
   })
   useEffect(() => {
+    dispatch(auth(true))
     if (isSuccess) {
       setShowModal(false)
       dispatch(token(data?.token as string))
-      dispatch(auth(true))
     }
   }, [isSuccess, error])
 

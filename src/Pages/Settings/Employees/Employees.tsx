@@ -7,16 +7,16 @@ import { avatar } from '../../../assets/img/common/index'
 import styles from '../superAdmin.module.scss'
 
 type EmployeesPropsT = {
-  setModal: () => void
+  onToggle: () => void
 }
 
-export const Employees: FC<EmployeesPropsT> = ({ setModal }) => {
+export const Employees: FC<EmployeesPropsT> = ({ onToggle }) => {
   return (
     <div className={styles.wrapper_actions}>
       <div className={styles.employees}>
         <div className={styles.employees_header}>
           <div className={styles.employees_header_title}>Сотрудники</div>
-          <button onClick={setModal} className={styles.employees_header_btn}>
+          <button onClick={onToggle} className={styles.employees_header_btn}>
             + Сотрудник
           </button>
         </div>

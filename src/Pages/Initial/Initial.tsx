@@ -16,8 +16,8 @@ export const Initial = memo(() => {
 
   return (
     <div className={styles.init}>
-      {registrationShow ? <RegistrationModal setShowModal={setRegistrationShow} /> : null}
-      {loginShow ? <LoginModal setShowModal={setLoginShow} /> : null}
+      {registrationShow && <RegistrationModal setShowModal={setRegistrationShow} />}
+      {loginShow && <LoginModal setShowModal={setLoginShow} />}
       <InitPageHeader setLoginShow={setLoginShow} setRegistrationShow={setRegistrationShow} />
       <div className={styles.init_main}>
         <section className={styles.init_main_wrapper}>
