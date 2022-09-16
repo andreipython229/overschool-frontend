@@ -4,31 +4,50 @@
     border-radius: 7px;
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
     color: #6B7484;
+    table-layout: fixed;
     
     &_thead {
         height: 55px;
         tr {
             :nth-child(1) {
-                width: 100px;
+                width: 13%;
+                max-width: 100px;
                 padding-left: 10px;
             }
             :nth-child(2) {
-                width: 150px;
+                width: 13%;
+                max-width: 150px;
             }
             :nth-child(3) {
-                width: 150px;
+                width: 13%;
+                max-width: 150px;
             }
             :nth-child(4) {
-                width: 150px;
+                width: 13%;
+                max-width: 150px;
             }
             :nth-child(5) {
-                width: 150px;
+                width: 13%;
+                max-width: 150px;
             }
             :nth-child(6) {
-                width: 150px;
+                width: 13%;
+                max-width: 150px;
             }
             :nth-child(7) {
-                width: 150px;
+                width: 13%;
+                max-width: 150px;
+            }
+            th {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .svgSettingsWrapper svg{
+                width: 20px;
+                height: 20px;
+                overflow: visible;
+                text-overflow: inherit;
+                padding-left: 0;
             }
         }
     }
