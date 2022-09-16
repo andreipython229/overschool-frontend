@@ -95,5 +95,6 @@ export type SelectInputPropsT = {
 
 export type ToggleButtonDropDownT = {
   isOpen: boolean
+  nameOfItems?: string
   handleToggleHiddenBlocks: () => void
 }

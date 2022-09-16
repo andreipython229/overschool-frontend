@@ -6,13 +6,13 @@ import { arrIconPath } from './config/svgIconsPath'
 
 import styles from '../ToggleButtonDropDown/toggle_btn_drop_down.module.scss'
 
-export const ToggleButtonDropDown: FC<ToggleButtonDropDownT> = ({ isOpen, handleToggleHiddenBlocks }) => {
+export const ToggleButtonDropDown: FC<ToggleButtonDropDownT> = ({ isOpen, handleToggleHiddenBlocks, nameOfItems }) => {
   return (
     <button className={styles.modal_btn_is_toggle} onClick={handleToggleHiddenBlocks}>
       <span className={isOpen ? styles.arrow_rotate : ''}>
         <IconSvg width={25} height={25} viewBoxSize="0 0 21 21" path={arrIconPath} />
       </span>
-      {isOpen ? 'Скрыть все курсы' : 'Показать все курсы'}
+      {isOpen ? `Скрыть все ${nameOfItems}` : `Показать все ${nameOfItems}`}
     </button>
   )
 }

@@ -1,21 +1,10 @@
-import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
-import { RootState } from '../store/redux/store'
+import { createApi } from '@reduxjs/toolkit/dist/query/react'
+
+import { baseQuery } from './baseApi'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_BASE_URL,
-    // prepareHeaders: (headers, { getState }) => {
-    //   const token = (getState() as RootState)?.user?.token
-    //
-    //   if (token) {
-    //     headers.set('Authenticate', `Token ${token}`)
-    //     headers.set('mode', 'no-cors')
-    //   }
-    //   return headers
-    // },
-  }),
-
+  baseQuery,
   tagTypes: ['modulesServices'],
   endpoints: build => ({
     fetchModules: build.query({
