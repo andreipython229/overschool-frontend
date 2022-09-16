@@ -48,8 +48,8 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
               {col}
             </th>
           ))}
-          <th>
-            <IconSvg functionOnClick={openSettingsModal} width={15} height={15} viewBoxSize={'0 0 15 15'} path={classesSettingIconPath} />
+          <th className={styles.svgSettingsWrapper}>
+            <IconSvg functionOnClick={openSettingsModal} width={20} height={20} viewBoxSize={'0 0 15 15'} path={classesSettingIconPath} />
           </th>
         </tr>
       </thead>
