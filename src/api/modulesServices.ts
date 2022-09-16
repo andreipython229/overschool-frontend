@@ -1,6 +1,5 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react'
-
-import { baseQuery } from './baseApi'
+import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
+import { RootState } from '../store/redux/store'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
@@ -52,4 +51,4 @@ export const modulesServices = createApi({
   }),
 })
 
-export const { useFetchModulesQuery, useCreateModulesMutation, useDeleteModulesMutation } = modulesServices
+export const { useFetchModulesQuery, useCreateModulesMutation, useDeleteModulesMutation, usePatchModulesMutation } = modulesServices
