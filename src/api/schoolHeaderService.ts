@@ -1,22 +1,12 @@
-import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
+import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
+import { baseQuery } from './baseApi'
 import { schoolHeaderResT } from '../types/schoolHeaderT'
-import { RootState } from '../store/redux/store'
 import { UpdateCourses } from './apiTypes'
 
 export const schoolHeaderService = createApi({
   reducerPath: 'coursesHeaderService',
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_BASE_URL,
-    // prepareHeaders: (headers, { getState }) => {
-    //   const token = (getState() as RootState)?.user?.token
-    //
-    //   if (token) {
-    //     headers.set('Authenticate', `Token ${token}`)
-    //   }
-    //   return headers
-    // },
-  }),
+  baseQuery,
   tagTypes: ['schoolHeader'],
   endpoints: build => ({
     fetchSchoolHeader: build.query<schoolHeaderResT, number>({

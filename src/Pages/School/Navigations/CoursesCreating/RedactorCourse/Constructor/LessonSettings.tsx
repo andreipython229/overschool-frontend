@@ -1,30 +1,58 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 
-import { CheckboxBall } from '../../../../../../components/common/CheckboxBall'
-import { IconSvg } from '../../../../../../components/common/IconSvg/IconSvg'
-import { useAppDispatch } from '../../../../../../store/hooks'
+import { CheckboxBall } from 'components/common/CheckboxBall'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { useAppDispatch } from 'store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 import { AddPost } from 'components/AddPost'
 import { settingsIconPath, deleteIconPath, paperClipIconPath } from '../../../../config/svgIconsPath'
 
 import styles from './constructor.module.scss'
+import { useFetchLessonQuery } from '../../../../../../api/LessonsServices'
 
 type ClassesSettingsPropsT = {
   showSettingsClassesModal: () => void
+  modulesList: any
+  lessonId: any
+}
+interface ILesson {
+  audio: null | File
+  author_id: number | string
+  code: null | string
+  created_at: string | Date
+  description: string
+  file: null | File
+  lesson_id: number | string
+  name: string
+  order: null | number
+  published: boolean
+  section: number | string
+  updated_at: string
+  video: string
 }
 
-export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClassesModal }) => {
+export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettingsClassesModal, modulesList }) => {
   const dispatch = useAppDispatch()
+  const [lesson, setLesson] = useState<ILesson>({} as ILesson)
 
+  useEffect(() => {
+    if (data) {
+      setLesson(data)
+    }
+  }, [lessonId])
+
+  console.log(lesson)
   const showSettingsModal = () => {
     showSettingsClassesModal()
     dispatch(showModal(true))
   }
 
+  const { data } = useFetchLessonQuery(lessonId ? lessonId : modulesList[0]?.lessons[0]?.lesson_id)
+
   return (
     <div className={styles.redactorCourse_rightSide}>
       <div className={styles.redactorCourse_rightSide_header}>
-        <span className={styles.redactorCourse_rightSide_title}>Первый урок</span>
+        <span className={styles.redactorCourse_rightSide_title}>{data ? lesson?.name : modulesList && modulesList[0]?.lessons[0]?.name}</span>
         <div className={styles.redactorCourse_rightSide_header_btnBlock}>
           <button onClick={showSettingsModal} className={styles.redactorCourse_rightSide_header_btnBlock_setting}>
             <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
@@ -35,7 +63,6 @@ export const ClassesSettings: FC<ClassesSettingsPropsT> = ({ showSettingsClasses
           </button>
         </div>
       </div>
-
       <div className={styles.redactorCourse_rightSide_functional}>
         <div className={styles.redactorCourse_rightSide_functional_content}>
           <span className={styles.redactorCourse_rightSide_title}>Содержание занятия</span>

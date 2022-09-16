@@ -9,7 +9,6 @@ import { SelectInputPropsT } from '../commonComponentsTypes'
 import styles from './selectInput.module.scss'
 
 export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
-
   const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
   const [selectedOption, setSelectedOption] = useState<number>(0)
 
@@ -22,7 +21,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} onClick={toggleOptions}>
       <div className={styles.container}>
         <IconSvg
           styles={{ transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}` }}
@@ -33,7 +32,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
           functionOnClick={handleToggleOptionsOpen}
         />
 
-        <button className={styles?.container_btn} type="button" onClick={toggleOptions} aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
+        <button className={styles?.container_btn} type="button" aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
           {optionsList[selectedOption]}
         </button>
         <ul
