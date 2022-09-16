@@ -3,18 +3,20 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import * as services from '../../api/index'
-import { authReduce, courseReduce, coursesReduce, modalReduce, platformReduce } from './index'
+import { authReduce, courseReduce, coursesReduce, modalReduce, platformReduce, sectionsReduce } from './index'
 
 const rootReducer = combineReducers({
   [services.userLoginService.reducerPath]: services.userLoginService.reducer,
   [services.coursesServices.reducerPath]: services.coursesServices.reducer,
   [services.modulesServices.reducerPath]: services.modulesServices.reducer,
   [services.schoolHeaderService.reducerPath]: services.schoolHeaderService.reducer,
+  [services.lessonsServices.reducerPath]: services.lessonsServices.reducer,
   [services.profileService.reducerPath]: services.profileService.reducer,
   user: authReduce,
   allCourses: coursesReduce,
   createCourse: courseReduce,
   modal: modalReduce,
+  sections: sectionsReduce,
   platform: platformReduce,
 })
 
@@ -35,6 +37,7 @@ export const setupStore = () => {
         services.modulesServices.middleware,
         services.schoolHeaderService.middleware,
         services.profileService.middleware,
+        services.lessonsServices.middleware,
       ),
   })
 }

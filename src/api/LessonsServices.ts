@@ -1,8 +1,8 @@
 import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
 import { RootState } from '../store/redux/store'
 
-export const modulesServices = createApi({
-  reducerPath: 'modulesServices',
+export const lessonsServices = createApi({
+  reducerPath: 'lessonsServices',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
     // prepareHeaders: (headers, { getState }) => {
@@ -16,40 +16,40 @@ export const modulesServices = createApi({
     // },
   }),
 
-  tagTypes: ['lessonsServices'],
+  tagTypes: ['lessonsServices', 'modulesServices'],
   endpoints: build => ({
-    fetchModules: build.query({
+    fetchLesson: build.query({
       query: id => ({
-        url: `/courses/${id}/sections/`,
+        url: `/lessons/${id}/`,
       }),
-      providesTags: ['lessonsServices'],
+      providesTags: ['lessonsServices', 'modulesServices'],
     }),
-    createModules: build.mutation({
+    createLessons: build.mutation({
       query: arg => ({
-        url: `./sections/`,
+        url: `./lessons/`,
         method: 'POST',
         body: arg,
       }),
-      invalidatesTags: ['lessonsServices'],
+      invalidatesTags: ['lessonsServices', 'modulesServices'],
     }),
-    deleteModules: build.mutation({
+    deleteLessons: build.mutation({
       query: id => ({
-        url: `/sections/${id}/`,
+        url: `/lessons/${id}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['lessonsServices'],
+      invalidatesTags: ['lessonsServices', 'modulesServices'],
     }),
-    patchModules: build.mutation({
+    patchLessons: build.mutation({
       query: arg => {
         return {
-          url: `/sections/${arg.id}/`,
+          url: `/lessons/${arg.id}/`,
           method: 'PATCH',
           body: arg.formdata,
         }
       },
-      invalidatesTags: ['lessonsServices'],
+      invalidatesTags: ['lessonsServices', 'modulesServices'],
     }),
   }),
 })
 
-export const { useFetchModulesQuery, useCreateModulesMutation, useDeleteModulesMutation, usePatchModulesMutation } = modulesServices
+export const { useFetchLessonQuery, useCreateLessonsMutation, useDeleteLessonsMutation } = lessonsServices

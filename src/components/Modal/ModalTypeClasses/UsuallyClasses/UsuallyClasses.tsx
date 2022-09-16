@@ -1,11 +1,15 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
-import { useShowModal } from '../../../../customHooks/useShowModal'
-import { crossIconPath } from '../../../../config/commonSvgIconsPath'
+import { useShowModal } from 'customHooks/useShowModal'
+import { crossIconPath } from 'config/commonSvgIconsPath'
 import { basicModalHeaderIconPath } from '../config/svgIconsPath'
+import { formDataConverter } from 'utils/formDataConverter'
+import { useCreateLessonsMutation } from 'api/LessonsServices'
+import { getSectionId } from 'selectors'
+import { useAppSelector } from 'store/hooks'
 
 import styles from '../../Modal.module.scss'
 
@@ -16,11 +20,27 @@ type SettingClassesPropsType = {
 }
 
 export const SettingClassesUsually: FC<SettingClassesPropsType> = ({ goToBack, addCourse, closedAll }) => {
-  const [nameClasses, setNameClasses] = useState<string>('')
+  const { section_id } = useAppSelector(getSectionId)
+
+  const [nameLesson, setNameLesson] = useState<string>('')
   const [settingsActive, setSettingsActive] = useState<number>(0)
 
   const changeNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
-    setNameClasses(event.currentTarget.value)
+    setNameLesson(event.target.value)
+  }
+
+  const [createLesson] = useCreateLessonsMutation()
+
+  const handleCreateLesson = () => {
+    const createLessonData = {
+      name: nameLesson,
+      section: section_id,
+      description: 'hello',
+      video: 'https://www.youtube.com/watch?v=1idOY3C1gYU&t=611s',
+    }
+    addCourse(nameLesson, 'usually')
+
+    createLesson(createLessonData)
   }
 
   useShowModal({ closedAll })
@@ -53,7 +73,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsType> = ({ goToBack, a
         {settingsActive === 0 ? (
           <div className={styles.usually_input}>
             <span className={styles.usually_title}>Название занятие:</span>
-            <Input placeholder={'Основы языка HTML'} name={'name classes'} onChange={changeNameClasses} type={'text'} value={nameClasses} />
+            <Input placeholder={'Основы языка HTML'} name={'name classes'} onChange={changeNameClasses} type={'text'} value={nameLesson} />
           </div>
         ) : (
           <div>
@@ -67,7 +87,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsType> = ({ goToBack, a
 
         <div className={styles.btnBlock}>
           <Button onClick={goToBack} text={'Назад'} />
-          <Button onClick={() => addCourse(nameClasses, 'usually')} text={'Добавить занятие'} variant={'primary'} />
+          <Button onClick={handleCreateLesson} text={'Добавить занятие'} variant={'primary'} />
         </div>
       </div>
     </div>

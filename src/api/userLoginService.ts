@@ -7,14 +7,14 @@ export const userLoginService = createApi({
   reducerPath: 'userLoginService',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).user.token
-
-      if (token) {
-        headers.set('Authenticate', `Token ${token}`)
-      }
-      return headers
-    },
+    // prepareHeaders: (headers, { getState }) => {
+    //   const token = (getState() as RootState).user.token
+    //
+    //   if (token) {
+    //     headers.set('Authenticate', `Token ${token}`)
+    //   }
+    //   return headers
+    // },
   }),
   endpoints: builder => ({
     login: builder.mutation<IResponse, ICredentials>({
