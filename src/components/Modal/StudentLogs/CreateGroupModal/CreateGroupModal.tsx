@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Input } from 'components/common/Input/Input/Input'
@@ -8,17 +8,31 @@ import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { useShowModal } from '../../../../customHooks/useShowModal'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { createGroupIconPath } from '../config/svgIconsPath'
+import { useCreateStudentsGroupMutation } from '../../../../api/studentsGroupService'
 
 import styles from '../studentsLog.module.scss'
 
 type CreateGroupModalPropsT = {
   setShowModal: (arg: boolean) => void
-  addNameGroup: (e: ChangeEvent<HTMLInputElement>) => void
-  nameGroup: string
+  courseId?: string
 }
 
-export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, addNameGroup, nameGroup }) => {
-  const handleClose = () => {
+export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, courseId }) => {
+  const [groupName, setGroupName] = useState<string>('')
+
+  const [createStudentsGroup] = useCreateStudentsGroupMutation()
+
+  const onChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
+    setGroupName(e.target.value)
+  }
+
+  const handleCreateGroup = () => {
+    const groupToCreate = {
+      name: groupName,
+      course_id: courseId,
+      students: [1],
+    }
+    createStudentsGroup(groupToCreate)
     setShowModal(false)
   }
 
@@ -27,7 +41,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, add
   return (
     <div className={styles.wrapper}>
       <div style={{ width: '485px' }} className={styles.container}>
-        <div onClick={handleClose} className={styles.container_closed}>
+        <div onClick={() => setShowModal(false)} className={styles.container_closed}>
           <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
         </div>
         <div className={styles.addGroup}>
@@ -37,11 +51,11 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, add
           </div>
           <div className={styles.addGroup_input}>
             <span>Введите название группы:</span>
-            <Input name={'group'} type={'text'} value={nameGroup} onChange={e => addNameGroup(e)} />
+            <Input name={'group'} type={'text'} value={groupName} onChange={onChangeGroupName} />
           </div>
           <div className={styles.addGroup_btn}>
             <Link to={StudentLogs.GroupSettings}>
-              <Button disabled={nameGroup.length === 1} variant={'primary'} onClick={handleClose} text={'Создать группу'} />
+              <Button disabled={groupName.length <= 1} variant={'primary'} onClick={handleCreateGroup} text={'Создать группу'} />
             </Link>
           </div>
         </div>

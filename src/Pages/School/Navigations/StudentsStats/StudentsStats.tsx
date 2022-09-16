@@ -1,28 +1,57 @@
-import { ChangeEvent, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { ChangeEvent, useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
-import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
 import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentModal'
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from 'Pages/School/Navigations/StudentsStats/StudentInfoGraphic'
 import { StudentLogs } from 'enum/pathE'
-import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupModal/SettingsGroupModal'
-import { studentScatterIconPath } from '../../config/svgIconsPath'
+import { createGroupIconPath, showAllGroups } from '../../config/svgIconsPath'
+import { StudentsTableBlock } from '../../../../components/StudentsTableBlock'
+import { settingsItemsList } from '../../../CoursesStats/config/settingsItemList'
+import { SettingStudentTable } from '../../../../components/Modal/SettingStudentTable/'
+import { useFetchStudentsGroupQuery } from '../../../../api/studentsGroupService'
+import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
+import { StudentGroup } from 'Pages/School/Navigations/StudentsStats/StudentsCountGroup'
+import { studentsGroupT } from '../../../../types/studentsGroup'
+import { ToggleButtonDropDown } from '../../../../components/common/ToggleButtonDropDown'
 
 import styles from './studentsStats.module.scss'
 
+export type SettingItemT = {
+  id: number
+  order: number
+  name: string
+  checked: boolean
+}
+
 export const StudentsStats = () => {
-  const { pathname } = useLocation()
+  const { course_id: courseId } = useParams()
+
+  const [groups, setGroups] = useState<studentsGroupT[]>([])
   const [studentModal, setStudentModal] = useState<boolean>(false)
   const [addGroupModal, setAddGroupModal] = useState<boolean>(false)
-  const [settingsGroupModal, setSettingsGroupModal] = useState<boolean>(false)
   const [studentEmail, setStudentEmail] = useState<string>('')
-  const [nameGroup, setNameGroup] = useState<string>('')
+  const [settingList, setSettingsList] = useState<SettingItemT[]>(settingsItemsList)
+  const [toggleSettingModal, setToggleSettingModal] = useState<boolean>(false)
+
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  const handleToggleHiddenBlocks = (): void => {
+    setIsOpen(!isOpen)
+  }
+
+  const { data, isSuccess, isFetching } = useFetchStudentsGroupQuery()
 
   const onChangeStudentEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setStudentEmail(e.currentTarget.value)
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      setGroups(data)
+    }
+  }, [isSuccess, isFetching])
 
   // const showStudentModal = () => {
   //   setStudentModal(!studentModal)
@@ -31,48 +60,52 @@ export const StudentsStats = () => {
   // const showGroupModal = () => {
   //   setAddGroupModal(!addGroupModal)
   // }
-  const showSettingsModal = () => {
-    setSettingsGroupModal(!settingsGroupModal)
-  }
 
-  const addNameGroup = (e: ChangeEvent<HTMLInputElement>) => {
-    setNameGroup(e.currentTarget.value)
-  }
-
-  //  const groupSettingUrl = pathname.includes(StudentLogs.GroupSettings)
+  const groupsToShow = groups.filter(group => courseId && group.course_id === +courseId)
+  const reducedGroupsToShow = groupsToShow.slice(0, 2)
+  const dataToRender = groupsToShow.length > 2 && isOpen ? groupsToShow : reducedGroupsToShow
 
   return (
     <div>
       {studentModal && <AddStudentModal setShowModal={setStudentModal} studentEmail={studentEmail} onChangeEmail={onChangeStudentEmail} />}
-      {addGroupModal && <CreateGroupModal setShowModal={setAddGroupModal} nameGroup={nameGroup} addNameGroup={addNameGroup} />}
-      {settingsGroupModal && <SettingsGroupModal closeModal={showSettingsModal} />}
+      {addGroupModal && <CreateGroupModal setShowModal={setAddGroupModal} courseId={courseId} />}
 
       <section className={styles.statistics}>
         <StatisticHeader />
         <div className={styles.statistics_new_student_wrapper}>
           <StudentInfoGraphic />
-          <div className={styles.statistics_new_student_wrapper_new_students}>
-            <h4 className={styles.statistics_new_student_wrapper_new_students_title}>Новых учеников</h4>
-            <p className={styles.statistics_new_student_wrapper_new_students_amount}>463</p>
-            <div className={styles.statistics_new_student_wrapper_new_students_graph}>
-              <IconSvg width={212} height={28} viewBoxSize={'0 0 212 28'} path={studentScatterIconPath}>
-                <defs>
-                  <linearGradient id="paint0_linear_283_4115" x1="106" y1="7" x2="106" y2="28" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#B6B6B6" />
-                    <stop offset="1" stopColor="#B6B6B6" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-              </IconSvg>
-            </div>
-            <div className={styles.statistics_new_student_wrapper_new_students_info_wrapper}>
-              <p className={styles.statistics_new_student_wrapper_new_students_info_wrapper_info}>Предыдущий период (31 день)</p>
-            </div>
-            <div className={styles.statistics_new_student_wrapper_new_students_info_btn}>i</div>
-          </div>
         </div>
       </section>
-      {/*{groupSettingUrl ? null : <StudentsTableBlock showGroupModal={showGroupModal} />}*/}
-      {/*<StudentInfoTable showStudentModal={showStudentModal} />*/}
+      <section className={styles.students_group}>
+        <div className={styles.students_group_header}>
+          <h4 className={styles.students_group_header_title}>Группы учеников</h4>
+          <div onClick={() => setAddGroupModal(true)} className={styles.students_group_header_add_group_btn}>
+            <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} />
+            Создать новую группу
+          </div>
+        </div>
+        <div className={styles.students_group_content_wrapper}>
+          {dataToRender?.map(({ name, students, group_id }: studentsGroupT) => {
+            const count = students[0]
+            const studentsCount = count === 1 || count % 10 === 1 ? ` ${count} ученик` : `${count} ученика`
+            return <StudentGroup key={group_id} id={group_id} title={name} countStudent={studentsCount} />
+          })}
+          {groupsToShow.length > 2 && (
+            <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={handleToggleHiddenBlocks} />
+          )}
+        </div>
+      </section>
+      <p
+        style={{
+          fontWeight: 500,
+          letterSpacing: '-0.01em',
+          color: '#4D5766',
+        }}
+      >
+        Все ученики курса
+      </p>
+      <StudentsTableBlock settingList={settingsItemsList} setToggleSettingModal={setToggleSettingModal} />
+      {toggleSettingModal && <SettingStudentTable setShowModal={setToggleSettingModal} settingList={settingList} setSettingsList={setSettingsList} />}
     </div>
   )
 }

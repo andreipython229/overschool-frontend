@@ -6,11 +6,14 @@ import { Messages } from 'components/Modal/StudentLogs/SettingsGroupModal/common
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { settingsGroupIconPath } from '../config/svgIconsPath'
+import { useDeleteStudentsGroupMutation } from '../../../../api/studentsGroupService'
 
 import styles from '../studentsLog.module.scss'
 
 type SettingsGroupModalPropsT = {
   closeModal: () => void
+  groupId: number
+  name: string
 }
 type NavSwitcherPropsT = {
   changeActiveLink: (id: number) => void
@@ -42,10 +45,12 @@ const NavSwitcher: FC<NavSwitcherPropsT> = ({ changeActiveLink, activeLink }) =>
   )
 }
 
-export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal }) => {
+export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, groupId, name }) => {
   const [settingsActive, setSettingsActive] = useState<number>(0)
   const [blockHomework, setBlockHomework] = useState<boolean>(false)
   const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
+
+  const [deleteStudentsGroup] = useDeleteStudentsGroupMutation()
 
   const changeActiveLink = (id: number) => {
     setSettingsActive(id)
@@ -58,8 +63,9 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal })
     setStrongSubsequence(!strongSubsequence)
   }
 
-  const deleteGroup = () => {
-    // delete group fnc
+  const handleDeleteGroup = () => {
+    deleteStudentsGroup(groupId)
+    closeModal()
   }
   return (
     <div className={styles.wrapper}>
@@ -77,7 +83,8 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal })
             <MainSettingsGroup
               strongSubsequence={strongSubsequence}
               blockHomework={blockHomework}
-              deleteGroup={deleteGroup}
+              title={name}
+              deleteGroup={handleDeleteGroup}
               handlerHomeworkCheck={handlerHomeworkCheck}
               handlerSubsequence={handlerSubsequenceCheck}
             />

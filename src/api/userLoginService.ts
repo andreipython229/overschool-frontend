@@ -1,21 +1,12 @@
-import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
+import { createApi } from '@reduxjs/toolkit/dist/query/react'
+
+import { baseQuery } from './baseApi'
 import { formDataConverter } from '../utils/formDataConverter'
-import { RootState } from '../store/redux/store'
 import { ICredentials, IResponse } from './apiTypes'
 
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_BASE_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).user.token
-
-      if (token) {
-        headers.set('Authenticate', `Token ${token}`)
-      }
-      return headers
-    },
-  }),
+  baseQuery,
   endpoints: builder => ({
     login: builder.mutation<IResponse, ICredentials>({
       query: credentials => {
