@@ -15,11 +15,8 @@ import
 } from './config/svgIconsPath'
 
 import styles from '../Modal.module.scss'
+import { ModalClassesPropsT } from '../ModalTypes'
 
-type ModalClassesPropsT = {
-  setShowModal: (arg: boolean) => void
-  changeClasses: (id: number) => void
-}
 
 export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setShowModal, changeClasses }) => {
   const [activeClasses, setActiveClasses] = useState<number>(0)

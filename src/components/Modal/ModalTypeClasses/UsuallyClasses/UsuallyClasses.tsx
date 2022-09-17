@@ -12,14 +12,10 @@ import { getSectionId } from 'selectors'
 import { useAppSelector } from 'store/hooks'
 
 import styles from '../../Modal.module.scss'
+import { SettingClassesPropsT } from '../../ModalTypes'
 
-type SettingClassesPropsType = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
-}
 
-export const SettingClassesUsually: FC<SettingClassesPropsType> = ({ goToBack, addCourse, closedAll }) => {
+export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ goToBack, addCourse, closedAll }) => {
   const { section_id } = useAppSelector(getSectionId)
 
   const [nameLesson, setNameLesson] = useState<string>('')
