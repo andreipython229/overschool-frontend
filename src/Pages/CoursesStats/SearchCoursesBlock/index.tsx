@@ -36,7 +36,7 @@ export const SearchCoursesBlock = memo(() => {
           </div>
         </>
       )}
-      <ToggleButtonDropDown isOpen={isOpen} handleToggleHiddenBlocks={handleToggleHiddenBlocks} />
+      <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleToggleHiddenBlocks} />
     </div>
   )
 })

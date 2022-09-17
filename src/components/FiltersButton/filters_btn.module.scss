@@ -7,12 +7,13 @@
 .container_btn {
   @include display (flex, row, space-around, center);
   @include font (500, 12px);
+  width: 100%;
   min-width: 167px;
   border-radius: 7px;
   border: none;
   color: #6b7484;
   background-color: #ededed;
-  padding: 11px 13px;
+  padding: 11px 13px 11px 15px;
   svg {
     margin-right: 9px;
   }

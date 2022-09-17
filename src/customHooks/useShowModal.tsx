@@ -20,9 +20,12 @@ export const useShowModal = ({ ...func }: funcT) => {
 
   const clickMouseHandler = (event: MouseEvent) => {
     const target = event?.target as HTMLHeadingElement
+
     if (target?.tagName === 'svg' || target?.tagName === 'path') {
       if ('setShowModal' in func) {
         func?.setShowModal(true)
+        return
+      } else {
         return
       }
     }

@@ -52,7 +52,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
 
         {headerDropDown?.title}
         <span className={isOpen ? styles.rotate_arrow : ''}>
-          <IconSvg width={25} height={25} viewBoxSize="0 0 12 12" path={arrIconPath} />
+          <IconSvg width={20} height={20} viewBoxSize="0 0 12 12" path={arrIconPath} />
         </span>
       </p>
       {isOpen && (
@@ -63,7 +63,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
           <p>{selectTheJobStatus}</p>
           {dropDownList.map(({ id, icon, title }) => (
             <div onClick={handleChangeStatus({ title })} className={styles.drop_down_item} key={id}>
-              <IconSvg width={icon.width} height={icon.height} path={[{ d: icon.d, fill: icon.fill }]} />
+              <IconSvg width={20} height={20} path={[{ d: icon.d, fill: icon.fill }]} />
               <span>{title}</span>
             </div>
           ))}

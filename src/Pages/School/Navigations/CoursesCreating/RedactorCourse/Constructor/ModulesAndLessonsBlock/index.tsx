@@ -3,7 +3,6 @@ import { Button } from 'components/common/Button/Button'
 import { useAppDispatch } from '../../../../../../../store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 import { ModulesBlock } from './ModulesBlock'
-//import Lesson from 'assets/img/createCourse/lesson.svg'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/constructor.module.scss'
 
@@ -11,18 +10,14 @@ type LessonAddBlockPropsT = {
   setModalTypeClasses: () => void
   toggleModalModule: () => void
   modulesList: any
+  setLessonId: any
 }
 
-export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = ({ setModalTypeClasses, toggleModalModule, modulesList }) => {
+export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = ({ setLessonId, setModalTypeClasses, toggleModalModule, modulesList }) => {
   const dispatch = useAppDispatch()
 
   const handleOpenModalModule = () => {
     toggleModalModule()
-    dispatch(showModal(true))
-  }
-
-  const handleOpenModalLesson = () => {
-    setModalTypeClasses()
     dispatch(showModal(true))
   }
 
@@ -31,7 +26,16 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = ({ setModalTypeC
       <h5 className={styles.redactorCourse_leftSide_title}>Структура курса</h5>
       <div className={styles.redactorCourse_leftSide_desc}>
         {modulesList &&
-          modulesList.map(({ name, section_id }: any) => <ModulesBlock key={name + section_id} id={section_id} moduleName={name} lessonsList={[]} />)}
+          modulesList.map(({ name, section_id, lessons }: any) => (
+            <ModulesBlock
+              key={name + section_id}
+              id={section_id}
+              setLessonId={setLessonId}
+              moduleName={name}
+              lessonsList={lessons}
+              setModalTypeClasses={setModalTypeClasses}
+            />
+          ))}
         <hr />
         <Button onClick={handleOpenModalModule} style={{ width: '236px' }} text={'+ Модуль'} variant={'primary'} />
       </div>
