@@ -2,6 +2,13 @@ import {ChangeEvent, FC, MouseEvent, ReactNode} from 'react'
 import {SettingItemT} from "../../Pages/CoursesStats/CoursesStats";
 
 
+// TODO: fix the problem
+type SettingClassesPropsT = {
+  goToBack: () => void
+  addCourse: (name: string, type: string) => void
+  closedAll: () => void
+}
+
 export type AddEmployeeModalPropsT = {
   onToggle: () => void
 }
@@ -20,12 +27,6 @@ export type SettingsClassesModalPropT = {
 
 export type LoginModalPropsT = {
   setShowModal: (value: boolean) => void
-}
-
-type SettingClassesPropsType = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
 }
 
 export type WebinarModalPropsT = {
