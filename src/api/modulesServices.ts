@@ -4,7 +4,7 @@ import {baseQuery} from "./baseApi";
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
-  baseQuery,
+  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
   tagTypes: ['modulesServices'],
   endpoints: build => ({
     fetchModules: build.query({

@@ -23,7 +23,7 @@ export const StudentGroup: FC<StudentsGroupPropsT> = ({ title, countStudent, id 
     <>
       {settingsGroupModal && <SettingsGroupModal closeModal={showSettingsModal} name={title} groupId={id} />}
       <div className={styles.students_group_content_wrapper_info}>
-        <IconSvg width={18} height={18} viewBoxSize={'0 0 18 18'} path={settingsBtnIconPath} />
+        <IconSvg width={18} height={18} viewBoxSize={'0 0 18 18'} path={settingsBtnIconPath} className={styles.students_group_content_wrapper_info_students_icon}/>
         <div className={styles.students_group_content_wrapper_info_info_wrapper}>
           <span className={styles.students_group_content_wrapper_info_info_wrapper_name}>{title}</span>
           <div className={styles.students_group_content_wrapper_info_info_wrapper_amount_wrapper}>
