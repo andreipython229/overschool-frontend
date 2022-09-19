@@ -11,11 +11,8 @@ import { createGroupIconPath } from '../config/svgIconsPath'
 import { useCreateStudentsGroupMutation } from '../../../../api/studentsGroupService'
 
 import styles from '../studentsLog.module.scss'
+import { CreateGroupModalPropsT } from '../../ModalTypes'
 
-type CreateGroupModalPropsT = {
-  setShowModal: (arg: boolean) => void
-  courseId?: string
-}
 
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, courseId }) => {
   const [groupName, setGroupName] = useState<string>('')

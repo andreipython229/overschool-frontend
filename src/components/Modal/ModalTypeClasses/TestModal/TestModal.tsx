@@ -11,12 +11,8 @@ import { modalTestBlockTextPath } from '../config/svgIconsPath'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 
 import styles from '../../Modal.module.scss'
+import { TestModalPropsT } from '../../ModalTypes'
 
-type TestModalPropsT = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
-}
 
 export const TestModal: FC<TestModalPropsT> = ({ goToBack, addCourse, closedAll }) => {
   const [settingsActive, setSettingsActive] = useState<number>(0)

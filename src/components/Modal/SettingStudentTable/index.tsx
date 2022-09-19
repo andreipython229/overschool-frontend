@@ -9,14 +9,10 @@ import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
 import styles from '../Modal.module.scss'
 import scss from './settingStudentTable.module.scss'
+import { SettingStudentTableT } from '../ModalTypes'
 
-type SettingStudentTable = {
-  settingList: SettingItemT[]
-  setShowModal: (arg: boolean) => void
-  setSettingsList: (arg: SettingItemT[]) => void
-}
 
-export const SettingStudentTable: FC<SettingStudentTable> = ({ settingList, setSettingsList, setShowModal }) => {
+export const SettingStudentTable: FC<SettingStudentTableT> = ({ settingList, setSettingsList, setShowModal }) => {
   const closeSettingsModal = () => {
     setShowModal(false)
   }

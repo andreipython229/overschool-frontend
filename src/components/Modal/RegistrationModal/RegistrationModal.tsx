@@ -14,10 +14,8 @@ import { registrIconPath } from './config/svgIconsPath'
 import { isSecurity, unSecurity } from '../../../assets/img/common/index'
 
 import styles from '../Modal.module.scss'
+import { RegistrationModalPropsT } from '../ModalTypes'
 
-type RegistrationModalPropsT = {
-  setShowModal: (value: boolean) => void
-}
 
 export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowModal }) => {
   const dispatch = useAppDispatch()

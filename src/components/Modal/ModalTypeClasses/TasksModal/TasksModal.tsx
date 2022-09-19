@@ -12,12 +12,9 @@ import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { taskModalPath } from '../config/svgIconsPath'
 
 import styles from '../../Modal.module.scss'
+import { TasksModalPropsT } from '../../ModalTypes'
 
-type TasksModalPropsT = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
-}
+
 export const TasksModal: FC<TasksModalPropsT> = memo(({ goToBack, addCourse, closedAll }) => {
   const [nameClasses, setNameClasses] = useState<string>('')
   const [settingsActive, setSettingsActive] = useState<number>(0)

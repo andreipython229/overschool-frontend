@@ -10,10 +10,10 @@ import { getIdSelector } from '../../../selectors'
 import { formDataConverter } from '../../../utils/formDataConverter'
 
 import styles from '../Modal.module.scss'
+import { AddModuleModalPropsT } from '../ModalTypes'
 
-type AddModuleModalPropsT = {
-  setShowModal: (arg: boolean) => void
-}
+
+
 export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ setShowModal }) => {
   const [modulesName, setModulesMane] = useState<string>('')
 

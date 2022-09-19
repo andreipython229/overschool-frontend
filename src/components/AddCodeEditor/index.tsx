@@ -5,11 +5,11 @@ import { coursesSelectLanguage } from 'constants/other'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, deletePath } from '../../config/commonSvgIconsPath'
-import { setShowType } from '../componentsTypes'
+import { AddPostT, setShowType } from '../componentsTypes'
 
 import styles from './addCodeEditor.module.scss'
 
-export const AddCodeEditor: FC<setShowType> = ({ setShow }) => {
+export const AddCodeEditor: FC<setShowType & AddPostT> = ({ setShow }) => {
   return (
     <div className={styles.editorWrapper}>
       <div className={styles.editorWrapper_editor}>

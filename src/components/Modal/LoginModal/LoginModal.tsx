@@ -16,10 +16,8 @@ import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import { isSecurity, unSecurity } from '../../../assets/img/common/index'
 
 import styles from '../Modal.module.scss'
+import { LoginModalPropsT } from '../ModalTypes'
 
-type LoginModalPropsT = {
-  setShowModal: (value: boolean) => void
-}
 
 export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
   const dispatch = useAppDispatch()

@@ -2,6 +2,12 @@ import {ChangeEvent, FC, MouseEvent, ReactNode} from 'react'
 import {SettingItemT} from "../../Pages/CoursesStats/CoursesStats";
 
 
+export type SettingClassesPropsT = {
+  goToBack: () => void
+  addCourse: (name: string, type: string) => void
+  closedAll: () => void
+}
+
 export type AddEmployeeModalPropsT = {
   onToggle: () => void
 }
@@ -20,12 +26,6 @@ export type SettingsClassesModalPropT = {
 
 export type LoginModalPropsT = {
   setShowModal: (value: boolean) => void
-}
-
-type SettingClassesPropsType = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
 }
 
 export type WebinarModalPropsT = {
@@ -55,7 +55,7 @@ export type RegistrationModalPropsT = {
   setShowModal: (value: boolean) => void
 }
 
-export type SettingStudentTable = {
+export type SettingStudentTableT = {
   settingList: SettingItemT[]
   setShowModal: (arg: boolean) => void
   setSettingsList: (arg: SettingItemT[]) => void
@@ -63,8 +63,9 @@ export type SettingStudentTable = {
 
 export type SettingsGroupModalPropsT = {
   closeModal: () => void
+  groupId: number
+  name: string
 }
-
 export type NavSwitcherPropsT = {
   changeActiveLink: (id: number) => void
   activeLink: number
@@ -72,8 +73,7 @@ export type NavSwitcherPropsT = {
 
 export type CreateGroupModalPropsT = {
   setShowModal: (arg: boolean) => void
-  addNameGroup: (e: ChangeEvent<HTMLInputElement>) => void
-  nameGroup: string
+  courseId?: string
 }
 
 export type AddStudentModalPropsT = {
