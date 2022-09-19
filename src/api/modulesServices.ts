@@ -3,7 +3,7 @@ import { RootState } from '../store/redux/store'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
-  baseQuery,
+  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
   tagTypes: ['modulesServices'],
   endpoints: build => ({
     fetchModules: build.query({
