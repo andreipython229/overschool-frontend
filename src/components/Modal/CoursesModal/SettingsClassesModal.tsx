@@ -9,10 +9,9 @@ import { settingsClassesIconPath } from './config/svgIconsPath'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
 import styles from '../Modal.module.scss'
+import { SettingsClassesModalPropT } from '../ModalTypes'
 
-type SettingsClassesModalPropT = {
-  setShowModal: (arg: boolean) => void
-}
+
 const classesType = ['Занятие', 'Задание', 'Тест', 'Вебинар']
 
 export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setShowModal }) => {

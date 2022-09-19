@@ -12,10 +12,9 @@ import { addCourseId } from 'store/redux/course/slice'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
 import styles from '../Modal.module.scss'
+import { AddCourseModalPropsT } from '../ModalTypes'
 
-type AddCourseModalPropsT = {
-  setShowModal: () => void
-}
+
 export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
