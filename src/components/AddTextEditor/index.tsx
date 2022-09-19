@@ -1,13 +1,15 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { MyEditor } from 'components/MyEditor/MyEditor'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/commonSvgIconsPath'
-import { setShowType } from '../componentsTypes'
+import { AddPostT, setShowType } from '../componentsTypes'
 
 import styles from './addTextEditor.module.scss'
 
-export const AddTextEditor: FC<setShowType> = ({ setShow }) => {
+export const AddTextEditor: FC<setShowType & AddPostT> = ({ setShow }) => {
+  //const [descriptionLesson, setDescriptionLesson] = useState<string>('')
+
   return (
     <div className={styles.textEditorWrapper}>
       <div className={styles.textEditorWrapper_navBlock}>

@@ -47,3 +47,16 @@
   max-width: 150px;
   max-height: 100px;
 }
+
+.wrapper_class {
+  width: 95%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+.editor_class {
+  overflow: hidden;
+  height: 200px;
+}
+.toolbar_class {
+  border: 1px solid #ccc;
+}

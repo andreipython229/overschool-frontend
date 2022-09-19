@@ -1,10 +1,9 @@
-import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/dist/query/react'
-import { RootState } from '../store/redux/store'
-import {baseQuery} from "./baseApi";
+import { createApi } from '@reduxjs/toolkit/dist/query/react'
+import { baseQuery } from './baseApi'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
-  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
+  baseQuery,
   tagTypes: ['modulesServices'],
   endpoints: build => ({
     fetchModules: build.query({

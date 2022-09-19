@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
@@ -6,7 +6,6 @@ import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { useShowModal } from 'customHooks/useShowModal'
 import { crossIconPath } from 'config/commonSvgIconsPath'
 import { basicModalHeaderIconPath } from '../config/svgIconsPath'
-import { formDataConverter } from 'utils/formDataConverter'
 import { useCreateLessonsMutation } from 'api/LessonsServices'
 import { getSectionId } from 'selectors'
 import { useAppSelector } from 'store/hooks'
@@ -31,8 +30,6 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ goToBack, addC
     const createLessonData = {
       name: nameLesson,
       section: section_id,
-      description: 'hello',
-      video: 'https://www.youtube.com/watch?v=1idOY3C1gYU&t=611s',
     }
     addCourse(nameLesson, 'usually')
 
