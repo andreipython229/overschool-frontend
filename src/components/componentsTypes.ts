@@ -1,7 +1,12 @@
-import { FC, MouseEvent, ReactNode } from 'react'
+import { CSSProperties, FC, MouseEvent, ReactNode } from 'react'
+import { ILesson } from '../Pages/School/Navigations/navigationTypes'
 
 export type setShowType = {
   setShow: () => void
+}
+
+export type AddPostT = {
+  lesson: ILesson
 }
 
 export type ContentBtnPropsT = {

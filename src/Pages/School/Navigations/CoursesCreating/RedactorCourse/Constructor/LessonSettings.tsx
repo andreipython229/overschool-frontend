@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { CheckboxBall } from 'components/common/CheckboxBall'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -6,53 +6,41 @@ import { useAppDispatch } from 'store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 import { AddPost } from 'components/AddPost'
 import { settingsIconPath, deleteIconPath, paperClipIconPath } from '../../../../config/svgIconsPath'
+import { useFetchLessonQuery, usePatchLessonsMutation } from 'api/LessonsServices'
+import { ClassesSettingsPropsT, ILesson } from '../../../navigationTypes'
 
 import styles from './constructor.module.scss'
-import { useFetchLessonQuery } from '../../../../../../api/LessonsServices'
-
-type ClassesSettingsPropsT = {
-  showSettingsClassesModal: () => void
-  modulesList: any
-  lessonId: any
-}
-interface ILesson {
-  audio: null | File
-  author_id: number | string
-  code: null | string
-  created_at: string | Date
-  description: string
-  file: null | File
-  lesson_id: number | string
-  name: string
-  order: null | number
-  published: boolean
-  section: number | string
-  updated_at: string
-  video: string
-}
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettingsClassesModal, modulesList }) => {
   const dispatch = useAppDispatch()
-  const [lesson, setLesson] = useState<ILesson>({} as ILesson)
+  const { data } = useFetchLessonQuery(lessonId ? lessonId : modulesList[0]?.lessons[0]?.lesson_id)
+  const [addFile] = usePatchLessonsMutation()
+
+  const [lesson, setLesson] = useState<ILesson>(data)
 
   useEffect(() => {
-    if (data) {
-      setLesson(data)
-    }
-  }, [lessonId])
+    setLesson(data)
+  }, [data])
 
-  console.log(lesson)
   const showSettingsModal = () => {
     showSettingsClassesModal()
     dispatch(showModal(true))
   }
 
-  const { data } = useFetchLessonQuery(lessonId ? lessonId : modulesList[0]?.lessons[0]?.lesson_id)
+  const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.files) {
+      const files = event.target.files
+      const formdata = new FormData()
+      formdata.append('file', files[0])
+      const id = lesson.lesson_id
+      addFile({ formdata, id })
+    }
+  }
 
   return (
     <div className={styles.redactorCourse_rightSide}>
       <div className={styles.redactorCourse_rightSide_header}>
-        <span className={styles.redactorCourse_rightSide_title}>{data ? lesson?.name : modulesList && modulesList[0]?.lessons[0]?.name}</span>
+        <span className={styles.redactorCourse_rightSide_title}>{lesson && 'name' in lesson ? lesson.name : modulesList[0]?.lessons[0]?.name}</span>
         <div className={styles.redactorCourse_rightSide_header_btnBlock}>
           <button onClick={showSettingsModal} className={styles.redactorCourse_rightSide_header_btnBlock_setting}>
             <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
@@ -72,17 +60,18 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
           </div>
         </div>
 
-        <AddPost />
+        <AddPost lesson={lesson} />
 
         <div>
           <span className={styles.redactorCourse_rightSide_title}>Прикреплённые файлы</span>
-          <button
+          <label
             style={{ width: '180px', padding: '11px 0 11px 16px', marginTop: '16px' }}
             className={styles.redactorCourse_rightSide_header_btnBlock_setting}
           >
             <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={paperClipIconPath} />
+            <input onChange={handleUploadFile} style={{ fontSize: 0, visibility: 'hidden' }} type="file" />
             Прикрепить файлы
-          </button>
+          </label>
           <span className={styles.redactorCourse_rightSide_desc}>Любые файлы размером не более 2 гигабайта</span>
         </div>
       </div>
