@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useState, FC } from 'react'
 
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../components/common/Input/Input/Input'
@@ -8,16 +8,22 @@ import { useAppSelector } from '../../../store/hooks'
 import { useFilterData } from '../../../customHooks/useFilterData'
 import { ToggleButtonDropDown } from '../../../components/common/ToggleButtonDropDown'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
+import { studentsGroupT } from '../../../types/studentsGroup'
 
 import styles from '../courses_stats.module.scss'
 
-export const SearchCoursesBlock = memo(() => {
+type searchCourseBlockT = {
+  groups: studentsGroupT[]
+}
+
+export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({groups}) => {
   const { courses } = useAppSelector(allCoursesSelector)
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleToggleHiddenBlocks = (): void => {
     setIsOpen(!isOpen)
   }
+
 
   const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
 
@@ -31,7 +37,7 @@ export const SearchCoursesBlock = memo(() => {
           </Input>
           <div className={styles.courses_card_block}>
             {foundCourses?.map(({ photo_url, name, course_id }: any) => (
-              <CoursesMiniCard key={course_id} photo_url={photo_url} name={name} course_id={course_id} />
+              <CoursesMiniCard key={course_id} groups={groups} photo_url={photo_url} name={name} courseId={course_id} />
             ))}
           </div>
         </>
