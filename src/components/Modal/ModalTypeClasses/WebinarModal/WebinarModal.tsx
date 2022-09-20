@@ -11,12 +11,8 @@ import { modalTypeClassesWebinarBlockPath } from '../config/svgIconsPath'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 
 import styles from '../../Modal.module.scss'
+import { WebinarModalPropsT } from '../../ModalTypes'
 
-type WebinarModalPropsT = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
-}
 
 export const WebinarModal: FC<WebinarModalPropsT> = ({ goToBack, addCourse, closedAll }) => {
   const [settingsActive, setSettingsActive] = useState<number>(0)

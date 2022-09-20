@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { FC, memo } from 'react'
 
 import { AddVideo } from 'components/AddVideo'
 import { AddAudio } from 'components/AddAudio'
@@ -6,6 +6,7 @@ import { AddCodeEditor } from 'components/AddCodeEditor'
 import { AddTextEditor } from 'components/AddTextEditor'
 import { ContentBtn } from 'components/ContentBtn'
 import { useBoolean } from '../../customHooks/useBoolean'
+import { AddPostT } from '../componentsTypes'
 
 import Text from '../.././assets/img/createCourse/text.svg'
 import Video from '../.././assets/img/createCourse/video.svg'
@@ -14,7 +15,7 @@ import Code from '../.././assets/img/createCourse/code.svg'
 
 import styles from './addPost.module.scss'
 
-export const AddPost = memo(() => {
+export const AddPost: FC<AddPostT> = memo(({ lesson }) => {
   const [isOpenTextEditor, { on: closeTextEditor, off: openTextEditor }] = useBoolean()
   const [isOpenVideo, { on: closeVideo, off: openVideo }] = useBoolean()
   const [isOpenAudio, { on: closeAudio, off: openAudio }] = useBoolean()
@@ -22,10 +23,10 @@ export const AddPost = memo(() => {
 
   return (
     <>
-      {isOpenTextEditor && <AddTextEditor setShow={closeTextEditor} />}
-      {isOpenVideo && <AddVideo setShow={closeVideo} />}
-      {isOpenAudio && <AddAudio setShow={closeAudio} />}
-      {isOpenCodeEditor && <AddCodeEditor setShow={closeCodeEditor} />}
+      {isOpenTextEditor && <AddTextEditor lesson={lesson} setShow={closeTextEditor} />}
+      {isOpenVideo && <AddVideo lesson={lesson} setShow={closeVideo} />}
+      {isOpenAudio && <AddAudio lesson={lesson} setShow={closeAudio} />}
+      {isOpenCodeEditor && <AddCodeEditor lesson={lesson} setShow={closeCodeEditor} />}
 
       <section className={styles.redactorCourse_rightSide_functional_creating}>
         <div className={styles.redactorCourse_rightSide_functional_creating_title}>Добавить контент</div>

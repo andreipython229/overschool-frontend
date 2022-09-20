@@ -10,12 +10,9 @@ import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { addStudentIconPath } from '../config/svgIconsPath'
 
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
+import { AddStudentModalPropsT } from '../../ModalTypes'
 
-type AddStudentModalPropsT = {
-  setShowModal: (arg: boolean) => void
-  onChangeEmail: (e: ChangeEvent<HTMLInputElement>) => void
-  studentEmail: string
-}
+
 export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, onChangeEmail, studentEmail }) => {
   console.log(setShowModal)
   const handleClose = () => {

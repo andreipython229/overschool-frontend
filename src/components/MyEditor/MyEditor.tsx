@@ -1,28 +1,38 @@
-import { memo, MouseEvent, useEffect, useState, useRef } from 'react'
-import { Editor, EditorState, RichUtils } from 'draft-js'
+import { memo, MouseEvent, useEffect, useState, useRef, FC } from 'react'
+import { convertToRaw, Editor, EditorState, RichUtils } from 'draft-js'
+import draftToHtml from 'draftjs-to-html'
+import { BLOCK_TYPES, INLINE_STYLES } from './config/blockTypes'
 
-import { BLOCK_TYPES } from './config/blockTypes'
 import { IEditor } from 'components/componentsTypes'
-// import { useDebounce } from '../../customHooks/useDebounce'
+
+import { useDebounce } from '../../customHooks/useDebounce'
 
 import 'draft-js/dist/Draft.css'
+
 import styles from './editor.module.scss'
 
-export const MyEditor = memo(() => {
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
-  // const debounced = useDebounce(editorState.getCurrentContent().getPlainText('\u0001'), 1000)
+type MyEditorT = {
+  setDescriptionLesson?: (arg: string) => void
+}
 
-  // console.log(debounced)
+export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
+
+  const [editorContent, setEditorContent] = useState<string>('')
+
+  const debounced = useDebounce(editorContent, 500)
+
+  useEffect(() => {
+    focusEditor()
+    setEditorContent(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+    setDescriptionLesson && setDescriptionLesson(debounced.toString())
+  }, [editorState, debounced])
 
   const editor = useRef<Editor>(null)
 
   function focusEditor() {
     editor.current && editor?.current?.focus()
   }
-
-  useEffect(() => {
-    focusEditor()
-  }, [])
 
   const StyleButton = (props: IEditor) => {
     const onClickButton = (e: MouseEvent<HTMLButtonElement>) => {
@@ -70,42 +80,31 @@ export const MyEditor = memo(() => {
     )
   }
 
-  // const INLINE_STYLES = [
-  //     {label: "Bold", style: "BOLD"},
-  //     {label: "Italic", style: "ITALIC"},
-  //     {label: "Underline", style: "UNDERLINE"},
-  //     {label: "Monospace", style: "CODE"}
-  // ];
+  const InlineStyleControls = (props: any) => {
+    return (
+      <div>
+        {INLINE_STYLES.map(type => (
+          <StyleButton key={type.label} label={type.label} onToggle={props.onToggle} style={type.style} />
+        ))}
+      </div>
+    )
+  }
 
-  // const InlineStyleControls = (props: any) => {
-  //     return (
-  //         <div>
-  //             {INLINE_STYLES.map((type) => (
-  //                 <StyleButton
-  //                     key={type.label}
-  //                     label={type.label}
-  //                     onToggle={props.onToggle}
-  //                     style={type.style}
-  //                 />
-  //             ))}
-  //         </div>
-  //     );
-  // };
-
-  // const onInlineClick = (e: string) => {
-  //   const nextState = RichUtils.toggleInlineStyle(editorState, e)
-  //   setEditorState(nextState)
-  // }
+  const onInlineClick = (e: string) => {
+    const nextState = RichUtils.toggleInlineStyle(editorState, e)
+    setEditorState(nextState)
+  }
 
   const onBlockClick = (e: string) => {
     const nextState = RichUtils.toggleBlockType(editorState, e)
     setEditorState(nextState)
   }
+
   return (
     <div className={styles.editor} onClick={focusEditor}>
       <div className={styles.editor_panel}>
         <BlockStyleControls onToggle={onBlockClick} />
-        {/* <InlineStyleControls onToggle={onInlineClick}/>*/}
+        <InlineStyleControls onToggle={onInlineClick} />
       </div>
       <div className={styles.editor_table}>
         <Editor
@@ -113,7 +112,7 @@ export const MyEditor = memo(() => {
           ref={editor}
           blockRendererFn={mediaBlockRenderer}
           editorState={editorState}
-          onChange={editorState => setEditorState(editorState)}
+          onChange={setEditorState}
         />
       </div>
     </div>

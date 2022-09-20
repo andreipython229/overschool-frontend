@@ -9,16 +9,8 @@ import { settingsGroupIconPath } from '../config/svgIconsPath'
 import { useDeleteStudentsGroupMutation } from '../../../../api/studentsGroupService'
 
 import styles from '../studentsLog.module.scss'
+import { SettingsGroupModalPropsT,  NavSwitcherPropsT} from '../../ModalTypes'
 
-type SettingsGroupModalPropsT = {
-  closeModal: () => void
-  groupId: number
-  name: string
-}
-type NavSwitcherPropsT = {
-  changeActiveLink: (id: number) => void
-  activeLink: number
-}
 
 const NavSwitcher: FC<NavSwitcherPropsT> = ({ changeActiveLink, activeLink }) => {
   return (

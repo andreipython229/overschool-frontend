@@ -1,20 +1,37 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import Editor from '@monaco-editor/react'
 
 import { coursesSelectLanguage } from 'constants/other'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, deletePath } from '../../config/commonSvgIconsPath'
-import { setShowType } from '../componentsTypes'
+import { AddPostT, setShowType } from '../componentsTypes'
+import { useDebounce } from '../../customHooks/useDebounce'
+import { usePatchLessonsMutation } from '../../api/LessonsServices'
+import { patchData } from '../../utils/patchData'
 
 import styles from './addCodeEditor.module.scss'
 
-export const AddCodeEditor: FC<setShowType> = ({ setShow }) => {
+export const AddCodeEditor: FC<setShowType & AddPostT> = ({ lesson, setShow }) => {
+  const [code, setCode] = useState<string>('')
+
+  const [addCode] = usePatchLessonsMutation()
+
+  const [debounced] = useDebounce(code, 1000)
+
+  useEffect(() => {
+    patchData(lesson, 'code', debounced.toString(), addCode)
+  }, [debounced.toString()])
+
+  const handleEditorChange = (code: any) => {
+    setCode(code)
+  }
+
   return (
     <div className={styles.editorWrapper}>
       <div className={styles.editorWrapper_editor}>
         <div className={styles.editorWrapper_editor_add}>
-          <Editor height="100%" language="javascript" theme="vs-dark" defaultValue="// HI, Anton !!!" />
+          <Editor height="100%" language="javascript" theme="vs-dark" onChange={handleEditorChange} value={code} />
         </div>
       </div>
       <div className={styles.editorWrapper_selectWrapper}>

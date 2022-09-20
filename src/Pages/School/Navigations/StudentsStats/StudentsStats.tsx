@@ -95,7 +95,7 @@ export const StudentsStats = () => {
           )}
         </div>
       </section>
-      <p
+      <p className={styles.all_students}
         style={{
           fontWeight: 500,
           letterSpacing: '-0.01em',

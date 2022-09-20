@@ -12,10 +12,6 @@ import { useCreateStudentsGroupMutation } from '../../../../api/studentsGroupSer
 
 import styles from '../studentsLog.module.scss'
 
-type CreateGroupModalPropsT = {
-  setShowModal: (arg: boolean) => void
-  courseId: string
-}
 
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, courseId }) => {
   const [groupName, setGroupName] = useState<string>('')

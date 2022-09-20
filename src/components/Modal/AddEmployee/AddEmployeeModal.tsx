@@ -13,10 +13,8 @@ import { modalIconPath } from './config/svgIconsPath'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
 import styles from '../Modal.module.scss'
+import { AddEmployeeModalPropsT } from '../ModalTypes'
 
-type AddEmployeeModalPropsT = {
-  onToggle: () => void
-}
 
 export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ onToggle }) => {
   const [checkedItem, setCheckedItem] = useState<{ [key: string]: boolean }>({
