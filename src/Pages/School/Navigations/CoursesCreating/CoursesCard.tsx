@@ -1,11 +1,8 @@
 import { FC, memo , ReactNode} from 'react'
-import { generatePath, Link } from 'react-router-dom'
 
 import { Button } from '../../../../components/common/Button/Button'
 import { CoursesT } from '../../../../types/CoursesT'
 import { Path } from '../../../../enum/pathE'
-import { useAppDispatch } from '../../../../store/hooks'
-import { addCourseId } from 'store/redux/course/slice'
 
 import Public from '../../../../assets/img/createCourse/public.svg'
 import notPublic from '../../../../assets/img/createCourse/notPublic.svg'

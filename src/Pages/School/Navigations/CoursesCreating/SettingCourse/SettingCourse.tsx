@@ -1,15 +1,18 @@
-import React, { FC, useCallback, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 
-import { useFindCourse } from '../../../../../customHooks/useFindCourse'
 import { BasicSettings } from './BasicSettings'
 import { CardImageUpload } from './CardImageUpload'
 import { CourseActions } from './CourseActions'
 import { CourseAvailability } from './CourseAvailability'
+import { CoursesT } from 'types/CoursesT'
 
 import styles from './setting_course.module.scss'
 
-export const SettingCourse: FC = () => {
-  const courseFind = useFindCourse()
+type settingsCourseT = {
+  course: CoursesT
+}
+
+export const SettingCourse: FC<settingsCourseT> = ({ course }) => {
   const [toggleCheckbox, setToggleCheckbox] = useState<boolean>(false)
 
   const toggleCheckboxPublished = useCallback(() => {
@@ -18,13 +21,13 @@ export const SettingCourse: FC = () => {
 
   return (
     <div className={styles.container}>
-      {courseFind && <CardImageUpload toggleCheckbox={toggleCheckbox} courseFind={courseFind} />}
+      {course && <CardImageUpload toggleCheckbox={toggleCheckbox} courseFind={course} />}
       <div className={styles.container_right}>
-        {courseFind && <BasicSettings courseFind={courseFind} toggleCheckbox={toggleCheckbox} toggleCheckboxPublished={toggleCheckboxPublished} />}
+        {course && <BasicSettings courseFind={course} toggleCheckbox={toggleCheckbox} toggleCheckboxPublished={toggleCheckboxPublished} />}
         <div className={styles.availability_course_wrapper}>
           <CourseAvailability />
         </div>
-        <div className={styles.course_actions_wrapper}>{courseFind && <CourseActions courseFind={courseFind} />}</div>
+        <div className={styles.course_actions_wrapper}>{course && <CourseActions courseFind={course} />}</div>
       </div>
     </div>
   )

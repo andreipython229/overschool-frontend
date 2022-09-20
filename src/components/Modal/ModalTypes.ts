@@ -18,6 +18,7 @@ export type AddCourseModalPropsT = {
 
 export type AddModuleModalPropsT = {
   setShowModal: (arg: boolean) => void
+  courseId: string
 }
 
 export type SettingsClassesModalPropT = {
@@ -73,7 +74,7 @@ export type NavSwitcherPropsT = {
 
 export type CreateGroupModalPropsT = {
   setShowModal: (arg: boolean) => void
-  courseId?: string
+  courseId: string
 }
 
 export type AddStudentModalPropsT = {

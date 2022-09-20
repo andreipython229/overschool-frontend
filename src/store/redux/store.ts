@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import * as services from '../../api/index'
-import { authReduce, courseReduce, coursesReduce, modalReduce, platformReduce, sectionsReduce } from './index'
+import { authReduce, modalReduce, platformReduce, sectionsReduce } from './index'
 
 const rootReducer = combineReducers({
   [services.userLoginService.reducerPath]: services.userLoginService.reducer,
@@ -15,8 +15,6 @@ const rootReducer = combineReducers({
   [services.studentsGroupService.reducerPath]: services.studentsGroupService.reducer,
   [services.courseStatService.reducerPath]: services.courseStatService.reducer,
   user: authReduce,
-  allCourses: coursesReduce,
-  createCourse: courseReduce,
   modal: modalReduce,
   sections: sectionsReduce,
   platform: platformReduce,

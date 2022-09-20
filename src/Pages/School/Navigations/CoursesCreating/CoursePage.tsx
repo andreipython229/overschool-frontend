@@ -4,7 +4,6 @@ import { generatePath, Link } from 'react-router-dom'
 import { Button } from '../../../../components/common/Button/Button'
 import { Path } from '../../../../enum/pathE'
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
-import { addCourseId } from 'store/redux/course/slice'
 import { CoursesCard } from './CoursesCard'
 import { showModal } from '../../../../store/redux/modal/slice'
 import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
@@ -43,7 +42,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
         <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
       </Input>
       <div className={styles.course}>
-        {courses.length &&
+        {courses?.length &&
           foundCourses?.map((course: any) => (
             <CoursesCard
               key={course.course_id}

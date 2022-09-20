@@ -9,9 +9,9 @@ import { useShowModal } from '../../../../customHooks/useShowModal'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { createGroupIconPath } from '../config/svgIconsPath'
 import { useCreateStudentsGroupMutation } from '../../../../api/studentsGroupService'
+import { CreateGroupModalPropsT } from '../../../Modal/ModalTypes'
 
 import styles from '../studentsLog.module.scss'
-
 
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, courseId }) => {
   const [groupName, setGroupName] = useState<string>('')
