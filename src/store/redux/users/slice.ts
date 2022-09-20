@@ -3,7 +3,7 @@ import { UserT } from 'types/userT'
 
 type AuthDateT = {
   authDate: string | number
-  token: string
+  access_token: string
 }
 const initialState: UserT & AuthDateT = {
   auth: false,
@@ -15,7 +15,7 @@ const initialState: UserT & AuthDateT = {
   sex: '-',
   authDate: '',
   aboutMySelf: '',
-  token: '',
+  access_token: '',
 }
 
 export const sliceUser = createSlice({
@@ -26,7 +26,7 @@ export const sliceUser = createSlice({
       state.auth = action.payload
     },
     token: (state, action: PayloadAction<string>) => {
-      state.token = action.payload
+      state.access_token = action.payload
     },
     loginUser: (state, action: PayloadAction<{ value: string | number }>) => {
       state.authDate = action.payload.value

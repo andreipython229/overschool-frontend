@@ -3,13 +3,18 @@ import { useState, DragEvent, ChangeEvent, FC } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/commonSvgIconsPath'
-import { setShowType } from '../componentsTypes'
+import { AddPostT, setShowType } from '../componentsTypes'
+import { usePatchLessonsMutation } from '../../api/LessonsServices'
 
 import styles from './addaudio.module.scss'
 
-export const AddAudio: FC<setShowType> = ({ setShow }) => {
-  const [dragAudio, setDragAudio] = useState<boolean>(false)
+const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
+const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
+export const AddAudio: FC<setShowType & AddPostT> = ({ lesson, setShow }) => {
+  const [dragAudio, setDragAudio] = useState<boolean>(false)
+  const [addAudioFile, { data }] = usePatchLessonsMutation()
+  console.log(data)
   const dragStartAudioHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setDragAudio(true)
@@ -23,10 +28,11 @@ export const AddAudio: FC<setShowType> = ({ setShow }) => {
   const onDropAudioHandler = (e: DragEvent<HTMLDivElement>): void => {
     e.preventDefault()
     const audioFiles = [...e.dataTransfer.files]
-    const formData = new FormData()
-    for (let i = 0; i < audioFiles.length; i += 1) {
-      formData.append(`list_${i}`, audioFiles[i])
-    }
+    const id = lesson?.lesson_id
+    const formdata = new FormData()
+    formdata.append('code', audioFiles[0])
+    addAudioFile({ formdata, id })
+    console.log(data)
     setDragAudio(false)
   }
 
@@ -42,8 +48,6 @@ export const AddAudio: FC<setShowType> = ({ setShow }) => {
       }
     }
   }
-  const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
-  const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
   return (
     <div

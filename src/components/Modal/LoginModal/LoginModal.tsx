@@ -16,8 +16,8 @@ import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import { isSecurity, unSecurity } from '../../../assets/img/common/index'
 
 import styles from '../Modal.module.scss'
-import { LoginModalPropsT } from '../ModalTypes'
 
+import { LoginModalPropsT } from '../ModalTypes'
 
 export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
   const dispatch = useAppDispatch()
@@ -48,10 +48,10 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
     },
   })
   useEffect(() => {
-    dispatch(auth(true))
     if (isSuccess) {
       setShowModal(false)
-      dispatch(token(data?.token as string))
+      dispatch(token(data?.access_token as string))
+      dispatch(auth(true))
     }
   }, [isSuccess, error])
 

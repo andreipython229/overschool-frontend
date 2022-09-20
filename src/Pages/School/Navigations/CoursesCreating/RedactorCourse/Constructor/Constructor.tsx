@@ -15,10 +15,10 @@ import styles from './constructor.module.scss'
 
 export const Constructor: FC = () => {
   const dispatch = useAppDispatch()
+  const courseId = useAppSelector(getIdSelector)
+
   const [modulesList, setModulesList] = useState<Array<object>>([])
   const [lessonId, setLessonId] = useState('')
-
-  const courseId = useAppSelector(getIdSelector)
 
   const { data: modulesAndLessons } = useFetchModulesQuery(courseId)
 
