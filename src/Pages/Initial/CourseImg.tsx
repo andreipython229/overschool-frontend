@@ -1,15 +1,7 @@
+import { CourseImgPropsT } from 'Pages/CoursesStats/coursesStatsTypes'
 import { FC, memo } from 'react'
 
 import styles from './initial.module.scss'
-
-type CourseImgPropsT = {
-  currentCourse: string
-  changeCurrentCourse: (id: string) => void
-  id: string
-  // alt: string;
-  style: object
-  title: string
-}
 
 export const CourseImg: FC<CourseImgPropsT> = memo(({ currentCourse, changeCurrentCourse, id, style, title }) => {
   return (

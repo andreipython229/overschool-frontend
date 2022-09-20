@@ -1,14 +1,10 @@
 import { FC } from 'react'
-
+import { EmployeesPropsT } from '../../CoursesStats/coursesStatsTypes'
 import { Employee } from './Employee/Employee'
 
 import { avatar } from '../../../assets/img/common/index'
 
 import styles from '../superAdmin.module.scss'
-
-type EmployeesPropsT = {
-  onToggle: () => void
-}
 
 export const Employees: FC<EmployeesPropsT> = ({ onToggle }) => {
   return (

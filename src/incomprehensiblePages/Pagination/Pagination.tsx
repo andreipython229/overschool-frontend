@@ -1,4 +1,10 @@
+<<<<<<< HEAD
+import classnames from 'classnames';
+import { usePagination, DOTS } from 'customHooks/usePagination';
+import './pagination.scss';
+=======
 import classnames from 'classnames'
+>>>>>>> dev
 
 import { usePagination, DOTS } from './usePagination'
 
@@ -28,6 +34,41 @@ export const Pagination = (props: any) => {
 
   const lastPage = paginationRange[paginationRange.length - 1]
   return (
+<<<<<<< HEAD
+    <div className='pagination-bar'>
+      <p className='pagination-text'>Всего <span className='pagination-total'>{paginationRange.slice(-1)}</span></p>
+      <ul
+      className='pagination-container'
+    >
+      <li
+        className={classnames('pagination-item', {
+          disabled: currentPage === 1
+        })}
+        onClick={onPrevious}
+      >
+        <div className="arrow left" />
+      </li>
+      {paginationRange.map((pageNumber:any) => {
+        if (pageNumber === DOTS) {
+          return <li className="pagination-item dots">&#8230;</li>;
+        }
+
+        return (
+          <li
+            key={pageNumber}
+            className={classnames('pagination-item', {
+              selected: pageNumber === currentPage
+            })}
+            onClick={() => onPageChange(pageNumber)}
+          >
+            {pageNumber}
+          </li>
+        );
+      })}
+      <li
+        className={classnames('pagination-item', {
+          disabled: currentPage === lastPage
+=======
     <div className="pagination-bar">
       <p>
         Всего <span>{totalCount}</span>
@@ -55,6 +96,7 @@ export const Pagination = (props: any) => {
               {pageNumber}
             </li>
           )
+>>>>>>> dev
         })}
         <li
           className={classnames('pagination-item', {

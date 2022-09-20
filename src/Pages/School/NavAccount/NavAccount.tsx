@@ -1,5 +1,5 @@
-import { FC, memo } from 'react'
-import { NavAccountBtn } from './NavAccountBtn/NavAccountBtn'
+import { FC } from 'react'
+import { NavAccountBtn } from '../../../components/NavAccountBtn/NavAccountBtn'
 
 import { RoleE } from 'enum/roleE'
 import { SettingsPath } from 'enum/pathE'
@@ -9,7 +9,7 @@ import styles from './navAccount.module.scss'
 type NavAccountPropsT = {
   role: number
 }
-export const NavAccount: FC<NavAccountPropsT> = memo(({ role }) => {
+export const NavAccount: FC<NavAccountPropsT> = ({ role }) => {
   return (
     <div className={styles.nav_account}>
       <NavAccountBtn path={SettingsPath.Main} text={'Основные'} />
@@ -18,4 +18,4 @@ export const NavAccount: FC<NavAccountPropsT> = memo(({ role }) => {
       <NavAccountBtn path={SettingsPath.Decoration} text={'Оформление'} />
     </div>
   )
-})
+}

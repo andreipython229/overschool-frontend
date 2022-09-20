@@ -1,16 +1,13 @@
 import { FC } from 'react'
 import { Reorder } from 'framer-motion'
-
+import { SettingStudentTableT } from '../ModalTypes'
 import { useShowModal } from '../../../customHooks/useShowModal'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { SettingItem } from './SettingItem'
-import { SettingItemT } from '../../../Pages/CoursesStats/CoursesStats'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
 import styles from '../Modal.module.scss'
 import scss from './settingStudentTable.module.scss'
-import { SettingStudentTableT } from '../ModalTypes'
-
 
 export const SettingStudentTable: FC<SettingStudentTableT> = ({ settingList, setSettingsList, setShowModal }) => {
   const closeSettingsModal = () => {

@@ -9,9 +9,15 @@ export const coursesServices = createApi({
   baseQuery,
   tagTypes: ['allCourses'],
   endpoints: build => ({
-    fetchCourses: build.query<CoursesT[], null>({
+    fetchCourses: build.query<CoursesT[], void>({
       query: () => ({
         url: `/courses/`,
+      }),
+      providesTags: () => ['allCourses'],
+    }),
+    fetchCourse: build.query<CoursesT, string>({
+      query: id => ({
+        url: `/courses/${id}/`,
       }),
       providesTags: () => ['allCourses'],
     }),
@@ -55,5 +61,11 @@ export const coursesServices = createApi({
   }),
 })
 
-export const { useFetchCoursesQuery, useCreateCoursesMutation, useDeleteCoursesMutation, useUpdateCoursesMutation, usePatchCoursesMutation } =
-  coursesServices
+export const {
+  useFetchCoursesQuery,
+  useFetchCourseQuery,
+  useCreateCoursesMutation,
+  useDeleteCoursesMutation,
+  useUpdateCoursesMutation,
+  usePatchCoursesMutation,
+} = coursesServices

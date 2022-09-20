@@ -6,13 +6,10 @@ import { Button } from 'components/common/Button/Button'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { userDataSchema } from './schemas/index'
 import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/profileService'
+import { AboutUserPropsT } from '../CoursesStats/coursesStatsTypes'
 
 import styles from './profile.module.scss'
 
-type AboutUserPropsT = {
-  sex: string
-  onChangeUserInfo?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-}
 const optionsList = [
   { label: 'Женский', value: 'Ж' },
   { label: 'Мужской', value: 'М' },
@@ -56,7 +53,6 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
 
       avatarFile && updateProfile(formData)
       updateProfile(objToSend)
-
     },
   })
 

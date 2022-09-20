@@ -1,9 +1,6 @@
 import React, { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 import { CourseSearchInput } from 'MobilePages/MobileCoursesPage/CourseSearchInput/CourseSearchInput'
-import { getCourses } from '../../store/redux/courses/slice'
 import { MobileCourseBlock } from 'MobilePages/MobileCoursesPage/MobileCourseBlock/MobileCourseBlock'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { allCoursesSelector } from '../../selectors'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { CoursesT } from '../../types/CoursesT'
 
@@ -11,16 +8,9 @@ import styles from './mobileCoursesPage.module.scss'
 
 export const MobileCoursesPage: FC = memo(() => {
   const [searchValue, setSearchValue] = useState<string>('')
-  const dispatch = useAppDispatch()
 
-  const { courses } = useAppSelector(allCoursesSelector)
-  const { data: coursesList } = useFetchCoursesQuery(null)
+  const { data: coursesList } = useFetchCoursesQuery()
 
-  useEffect(() => {
-    if (coursesList) {
-      dispatch(getCourses(coursesList))
-    }
-  }, [coursesList])
 
   const onChangeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.currentTarget.value)
@@ -43,8 +33,8 @@ export const MobileCoursesPage: FC = memo(() => {
       </div>
       <span className={styles.title}>Мои курсы</span>
       <div className={styles.course}>
-        {courses &&
-          courses?.map((course: CoursesT) => (
+        {coursesList &&
+          coursesList?.map((course: CoursesT) => (
             <MobileCourseBlock key={course.course_id} name={course.name} progress={'58'} desc={course.description} />
           ))}
       </div>
