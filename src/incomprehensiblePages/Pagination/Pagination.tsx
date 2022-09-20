@@ -1,38 +1,40 @@
+<<<<<<< HEAD
 import classnames from 'classnames';
 import { usePagination, DOTS } from 'customHooks/usePagination';
 import './pagination.scss';
+=======
+import classnames from 'classnames'
+>>>>>>> dev
 
+import { usePagination, DOTS } from './usePagination'
 
-export const Pagination = (props:any) => {
-  const {
-    onPageChange,
-    totalCount,
-    siblingCount = 1,
-    currentPage,
-    pageSize,
-  } = props;
+import './pagination.scss'
 
-  const paginationRange:any = usePagination({
+export const Pagination = (props: any) => {
+  const { onPageChange, totalCount, siblingCount = 1, currentPage, pageSize } = props
+
+  const paginationRange: any = usePagination({
     currentPage,
     totalCount,
     siblingCount,
-    pageSize
-  });
+    pageSize,
+  })
 
   if (currentPage === 0 || paginationRange.length < 2) {
-    return null;
+    return null
   }
 
   const onNext = () => {
-    onPageChange(currentPage + 1);
-  };
+    onPageChange(currentPage + 1)
+  }
 
   const onPrevious = () => {
-    onPageChange(currentPage - 1);
-  };
+    onPageChange(currentPage - 1)
+  }
 
-  const lastPage = paginationRange[paginationRange.length - 1];
+  const lastPage = paginationRange[paginationRange.length - 1]
   return (
+<<<<<<< HEAD
     <div className='pagination-bar'>
       <p className='pagination-text'>Всего <span className='pagination-total'>{paginationRange.slice(-1)}</span></p>
       <ul
@@ -66,14 +68,45 @@ export const Pagination = (props:any) => {
       <li
         className={classnames('pagination-item', {
           disabled: currentPage === lastPage
+=======
+    <div className="pagination-bar">
+      <p>
+        Всего <span>{totalCount}</span>
+      </p>
+      <ul className="pagination-container">
+        <li
+          className={classnames('pagination-item', {
+            disabled: currentPage === 1,
+          })}
+          onClick={onPrevious}
+        >
+          <div className="arrow left" />
+        </li>
+        {paginationRange.map((pageNumber: string) => {
+          pageNumber === DOTS ? (
+            <li className="pagination-item dots">&#8230;</li>
+          ) : (
+            <li
+              key={pageNumber}
+              className={classnames('pagination-item', {
+                selected: pageNumber === currentPage,
+              })}
+              onClick={() => onPageChange(pageNumber)}
+            >
+              {pageNumber}
+            </li>
+          )
+>>>>>>> dev
         })}
-        onClick={onNext}
-      >
-        <div className="arrow right" />
-      </li>
-    </ul>
+        <li
+          className={classnames('pagination-item', {
+            disabled: currentPage === lastPage,
+          })}
+          onClick={onNext}
+        >
+          <div className="arrow right" />
+        </li>
+      </ul>
     </div>
-  );
-};
-
-
+  )
+}

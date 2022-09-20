@@ -1,12 +1,7 @@
-import React, { FC, memo } from 'react'
-import styles from './employee.module.scss'
+import { FC, memo } from 'react'
+import { EmployeePropsT } from '../../../CoursesStats/coursesStatsTypes'
 
-type EmployeePropsT = {
-  avatar: string
-  name: string
-  contact: string
-  role: string
-}
+import styles from './employee.module.scss'
 
 export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name }) => {
   return (

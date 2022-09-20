@@ -1,22 +1,12 @@
-import { fetchBaseQuery, createApi, FetchArgs } from '@reduxjs/toolkit/dist/query/react'
-import { RootState } from '../store/redux/store'
-import { CoursesT } from '../store/redux/courses/slice'
-import { schoolHeaderResT } from '../types/schoolHeaderT'
+import { createApi, FetchArgs } from '@reduxjs/toolkit/dist/query/react'
+
+import { baseQuery } from './baseApi'
+import { CoursesT } from '../types/CoursesT'
+import { UpdateCourses } from './apiTypes'
 
 export const coursesServices = createApi({
   reducerPath: 'coursesServices',
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_BASE_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState)?.user?.token
-
-      if (token) {
-        headers.set('Authorization', `Token ${token}`)
-      }
-      return headers
-    },
-  }),
-
+  baseQuery,
   tagTypes: ['allCourses'],
   endpoints: build => ({
     fetchCourses: build.query<CoursesT[], null>({
@@ -35,14 +25,14 @@ export const coursesServices = createApi({
       },
       invalidatesTags: ['allCourses'],
     }),
-    deleteCourses: build.mutation({
+    deleteCourses: build.mutation<FormData, string>({
       query: id => ({
         url: `/courses/${id}/`,
         method: 'DELETE',
       }),
       invalidatesTags: ['allCourses'],
     }),
-    updateCourses: build.mutation({
+    updateCourses: build.mutation<FormData, UpdateCourses>({
       query: (arg): string | FetchArgs => {
         return {
           url: `/courses/${arg.id}/`,
@@ -52,12 +42,12 @@ export const coursesServices = createApi({
       },
       invalidatesTags: ['allCourses'],
     }),
-    patchCourses: build.mutation({
+    patchCourses: build.mutation<FormData, UpdateCourses>({
       query: (arg): string | FetchArgs => {
         return {
-          url: `/courses/${arg.id}/`,
+          url: `/courses/${arg?.id}/`,
           method: 'PATCH',
-          body: arg.formdata,
+          body: arg?.formdata,
         }
       },
       invalidatesTags: ['allCourses'],

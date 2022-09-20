@@ -3,18 +3,14 @@
 import { FC, ReactNode, useState } from 'react'
 
 import { IconSvg } from '../IconSvg/IconSvg'
-import { selectInputIconSvg } from './constants/svgIcon'
+import { selectInputIconPath } from './config/svgIconspath'
+import { SelectInputPropsT } from '../commonComponentsTypes'
 
 import styles from './selectInput.module.scss'
 
-type SelectInputPropsT = {
-  optionsList: Array<string | number>
-}
-
 export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
-  const startPosition = 0
   const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
-  const [selectedOption, setSelectedOption] = useState<number>(startPosition)
+  const [selectedOption, setSelectedOption] = useState<number>(0)
 
   const toggleOptions = () => {
     setIsOptionsOpen(!isOptionsOpen)
@@ -25,19 +21,18 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} onClick={toggleOptions}>
       <div className={styles.container}>
         <IconSvg
           styles={{ transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}` }}
           width={14}
           height={8}
-          fill="#A8ABAD"
           viewBoxSize={'0 0 14 8'}
-          d={selectInputIconSvg}
+          path={selectInputIconPath}
           functionOnClick={handleToggleOptionsOpen}
         />
 
-        <button className={styles?.container_btn} type="button" onClick={toggleOptions} aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
+        <button className={styles?.container_btn} type="button" aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
           {optionsList[selectedOption]}
         </button>
         <ul

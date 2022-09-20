@@ -1,0 +1,17 @@
+import { editorSvgLabel } from '../../../constants/iconSvgConstants'
+
+export const labelHeaderOnePath = [{ d: editorSvgLabel.labelHeaderOne, fill: '#03053D' }]
+
+export const labelHeaderTwoPath = [{ d: editorSvgLabel.labelHeaderTwo, fill: '#03053D' }]
+
+export const labelHeaderThreePath = [{ d: editorSvgLabel.labelHeaderThree, fill: '#03053D' }]
+
+export const labelBlockQuotePath = [{ d: editorSvgLabel.labelBlockquote, fill: '#03053D' }]
+
+export const labelUnorderedListItemPath = [{ d: editorSvgLabel.labelUnorderedListItem, fill: '#03053D' }]
+
+export const labelOrderedListItemPath = [{ d: editorSvgLabel.labelOrderedListItem, fill: '#03053D' }]
+
+export const labelCodeBlockPath = [{ d: editorSvgLabel.labelCodeBlock, fill: '#03053D' }]
+
+export const labelImagePath = [{ d: editorSvgLabel.labelImage, fill: '#03053D' }]

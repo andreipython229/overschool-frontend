@@ -18,19 +18,23 @@
     position: relative;
     @include display (flex);
     margin-bottom: 26px;
-
-    &_fileInput {
-      @include position_t_l (absolute, 0, 0, 2);
-      width: 210px;
-      height: 70px;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    & img {
+    
+    &_label {
+      @include display (flex, row, center, center);
       width: 208px;
       height: 60px;
+      cursor: pointer;
+      background-color: #E0DCED;
       margin-right: 24px;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: #BA75FF80;
+      }
+
+      &_fileInput {
+        @include position_t_l (absolute, 0, 0, -2);
+      }
     }
 
     &_requirements {

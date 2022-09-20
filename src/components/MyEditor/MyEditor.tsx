@@ -1,35 +1,38 @@
-import { memo, MouseEvent, ReactNode, useEffect, useState, useRef } from 'react'
-import { Editor, EditorState, RichUtils } from 'draft-js'
+import { memo, MouseEvent, useEffect, useState, useRef, FC } from 'react'
+import { convertToRaw, Editor, EditorState, RichUtils } from 'draft-js'
+import draftToHtml from 'draftjs-to-html'
+import { BLOCK_TYPES, INLINE_STYLES } from './config/blockTypes'
 
-import { IconSvg } from '../common/IconSvg/IconSvg'
-import { editorSvgLabel } from '../../constants/iconSvgConstants'
-// import { useDebounce } from '../../customHooks/useDebounce'
+import { IEditor } from 'components/componentsTypes'
 
+import { useDebounce } from '../../customHooks/useDebounce'
 
 import 'draft-js/dist/Draft.css'
+
 import styles from './editor.module.scss'
 
-interface IEditor {
-  label?: ReactNode
-  style?: string
-  onToggle: (arg: string) => void
+type MyEditorT = {
+  setDescriptionLesson?: (arg: string) => void
 }
 
-export const MyEditor = memo(() => {
+export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
-  // const debounced = useDebounce(editorState.getCurrentContent().getPlainText('\u0001'), 1000)
 
-  // console.log(debounced)
+  const [editorContent, setEditorContent] = useState<string>('')
+
+  const debounced = useDebounce(editorContent, 500)
+
+  useEffect(() => {
+    focusEditor()
+    setEditorContent(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+    setDescriptionLesson && setDescriptionLesson(debounced.toString())
+  }, [editorState, debounced])
 
   const editor = useRef<Editor>(null)
 
   function focusEditor() {
     editor.current && editor?.current?.focus()
   }
-
-  useEffect(() => {
-    focusEditor()
-  }, [])
 
   const StyleButton = (props: IEditor) => {
     const onClickButton = (e: MouseEvent<HTMLButtonElement>) => {
@@ -38,41 +41,6 @@ export const MyEditor = memo(() => {
     }
     return <button onMouseDown={onClickButton}>{props?.label}</button>
   }
-
-  const BLOCK_TYPES = [
-    {
-      label: <IconSvg width={13} height={12} fill="#03053D" d={editorSvgLabel.labelHeaderOne} viewBoxSize="0 0 13 12" />,
-      style: 'header-one',
-    },
-    {
-      label: <IconSvg width={14} height={12} fill="#03053D" d={editorSvgLabel.labelHeaderTwo} viewBoxSize="0 0 14 12" />,
-      style: 'header-two',
-    },
-    {
-      label: <IconSvg width={14} height={12} fill="#03053D" d={editorSvgLabel.labelHeaderThree} viewBoxSize="0 0 14 12" />,
-      style: 'header-three',
-    },
-    {
-      label: <IconSvg width={12} height={10} fill="#03053D" d={editorSvgLabel.labelBlockquote} viewBoxSize="0 0 12 10" />,
-      style: 'blockquote',
-    },
-    {
-      label: <IconSvg width={12} height={12} fill="#03053D" d={editorSvgLabel.labelUnorderedListItem} viewBoxSize="0 0 12 12" />,
-      style: 'unordered-list-item',
-    },
-    {
-      label: <IconSvg width={12} height={12} fill="#03053D" d={editorSvgLabel.labelOrderedListItem} viewBoxSize="0 0 12 12" />,
-      style: 'ordered-list-item',
-    },
-    {
-      label: <IconSvg width={16} height={12} fill="#03053D" d={editorSvgLabel.labelCodeBlock} viewBoxSize="0 0 16 12" />,
-      style: 'code-block',
-    },
-    {
-      label: <IconSvg width={17} height={17} fill="#03053D" d={editorSvgLabel.labelImage} viewBoxSize="0 0 17 17" />,
-      style: 'IMAGE',
-    },
-  ]
 
   const Image = (props: any) => {
     return <img src={props?.src} className={styles.media} alt={'content'} />
@@ -112,42 +80,31 @@ export const MyEditor = memo(() => {
     )
   }
 
-  // const INLINE_STYLES = [
-  //     {label: "Bold", style: "BOLD"},
-  //     {label: "Italic", style: "ITALIC"},
-  //     {label: "Underline", style: "UNDERLINE"},
-  //     {label: "Monospace", style: "CODE"}
-  // ];
+  const InlineStyleControls = (props: any) => {
+    return (
+      <div>
+        {INLINE_STYLES.map(type => (
+          <StyleButton key={type.label} label={type.label} onToggle={props.onToggle} style={type.style} />
+        ))}
+      </div>
+    )
+  }
 
-  // const InlineStyleControls = (props: any) => {
-  //     return (
-  //         <div>
-  //             {INLINE_STYLES.map((type) => (
-  //                 <StyleButton
-  //                     key={type.label}
-  //                     label={type.label}
-  //                     onToggle={props.onToggle}
-  //                     style={type.style}
-  //                 />
-  //             ))}
-  //         </div>
-  //     );
-  // };
-
-  // const onInlineClick = (e: string) => {
-  //   const nextState = RichUtils.toggleInlineStyle(editorState, e)
-  //   setEditorState(nextState)
-  // }
+  const onInlineClick = (e: string) => {
+    const nextState = RichUtils.toggleInlineStyle(editorState, e)
+    setEditorState(nextState)
+  }
 
   const onBlockClick = (e: string) => {
     const nextState = RichUtils.toggleBlockType(editorState, e)
     setEditorState(nextState)
   }
+
   return (
     <div className={styles.editor} onClick={focusEditor}>
       <div className={styles.editor_panel}>
         <BlockStyleControls onToggle={onBlockClick} />
-        {/* <InlineStyleControls onToggle={onInlineClick}/>*/}
+        <InlineStyleControls onToggle={onInlineClick} />
       </div>
       <div className={styles.editor_table}>
         <Editor
@@ -155,7 +112,7 @@ export const MyEditor = memo(() => {
           ref={editor}
           blockRendererFn={mediaBlockRenderer}
           editorState={editorState}
-          onChange={editorState => setEditorState(editorState)}
+          onChange={setEditorState}
         />
       </div>
     </div>

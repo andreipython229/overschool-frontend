@@ -1,0 +1,96 @@
+import { CSSProperties, FC, MouseEvent, ReactNode } from 'react'
+import { ILesson } from '../Pages/School/Navigations/navigationTypes'
+
+export type setShowType = {
+  setShow: () => void
+}
+
+export type AddPostT = {
+  lesson: ILesson
+}
+
+export type ContentBtnPropsT = {
+  alt: string
+  text: string
+  src: string
+  func?: (event: MouseEvent) => void
+}
+
+export type AllStudentsBlockT = {
+  headerText: string
+}
+
+export interface ICategories {
+  id: string | number
+  title: string
+}
+
+export type FiltersButtonT = {
+  filteringCategoriesList: ICategories[]
+}
+
+export type FilterItemT = {
+  id: string | number
+  title: string
+  setSelectedFilter: (args: any) => void
+}
+
+export type SearchFilterT = {
+  name: string
+  header: string
+  data: Array<object>
+}
+
+export type ScoresFilterT = {
+  title: string
+}
+
+export interface IWithRange {
+  CustomModifierNames: string
+  WithRange: boolean | undefined
+}
+
+export interface IEditor {
+  label?: ReactNode
+  style?: string
+  onToggle: (arg: string) => void
+}
+
+export type PreviousPropsT = {
+  about?: string
+  buttonText?: string
+  onClick?: () => void
+}
+
+export type pathT = {
+  path: string
+  Component: FC
+}
+
+export type GlobalPreviousT = {
+  about?: string
+  buttonText?: string
+  onClick?: () => void
+}
+
+export type dropDownItem = {
+  id: number | string
+  icon: {
+    width: number
+    height: number
+    fill: string
+    d: string
+  }
+  title: string
+  bg: string
+  viewBoxSize?: string
+}
+
+export type SelectDropDownT = {
+  setArrowUsersState: (arg: string[]) => void
+}
+
+export type StatisticHeaderT = {
+  hideStats?: boolean
+  handleHideStats?: () => void
+}

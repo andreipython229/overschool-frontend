@@ -1,51 +1,71 @@
-import { ChangeEvent, FC, memo } from 'react'
+import { ChangeEvent, FC, memo, useState } from 'react'
 import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { userDataSchema } from './schemas/index'
+import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/profileService'
+import { AboutUserPropsT } from '../CoursesStats/coursesStatsTypes'
 
 import styles from './profile.module.scss'
 
-type userInfoT = {
-  fullName: string
-  email: string
-  phone: string
-  city: string
-  userDesc: string
-}
+const optionsList = [
+  { label: 'Женский', value: 'Ж' },
+  { label: 'Мужской', value: 'М' },
+]
 
-type AboutUserPropsT = {
-  avatar: string | null
-  userInfo?: userInfoT
-  sex: string
-  onChangeAvatar: (e: ChangeEvent<HTMLInputElement>) => void
-  onChangeUserInfo?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-}
-const optionsList = ['Выберите пол', 'Мужской', 'Женский']
+export const AboutUser: FC<AboutUserPropsT> = memo(() => {
+  const [avatarFile, setAvatarFile] = useState<File | Blob>()
+  const [avatarUrl, setAvatarUrl] = useState<string>()
 
-export const AboutUser: FC<AboutUserPropsT> = memo(({ avatar, onChangeAvatar }) => {
-  // const { email, fullName, phone, city, userDesc } = userInfo
+  const { data } = useFetchProfileDataQuery(1)
+
+  const [updateProfile] = useUpdateProfileMutation()
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      avatar: '',
-      fullName: '',
-      phone: '',
-      city: '',
-      desc: '',
-      sex: '',
+      avatar: data?.avatar || '',
+      avatar_url: avatarUrl || data?.avatar_url,
+      city: data?.city,
+      description: data?.description,
+      sex: data?.sex || '',
+      first_name: data?.user.first_name,
+      last_name: data?.user.last_name,
+      email: data?.user.email,
+      phone_number: data?.user.phone_number,
     },
+    enableReinitialize: true,
     validationSchema: userDataSchema,
     onSubmit: values => {
-      console.log(values)
+      const { avatar, avatar_url, city, description, sex, ...rest } = values
+
+      const formData = new FormData()
+
+      const objToSend = {
+        city,
+        description,
+        // sex,
+        user: { ...rest },
+      }
+
+      avatarFile && formData.append('avatar', avatarFile)
+
+      avatarFile && updateProfile(formData)
+      updateProfile(objToSend)
     },
   })
 
+  const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const url = URL.createObjectURL(e.target.files[0])
+      setAvatarUrl(url)
+      setAvatarFile(e.target.files[0])
+    }
+  }
+
   const {
-    values: { email, fullName, phone, city, desc, sex },
+    values: { city, description, email, last_name, first_name, phone_number, avatar_url },
     handleChange,
     handleSubmit,
     touched,
@@ -57,25 +77,35 @@ export const AboutUser: FC<AboutUserPropsT> = memo(({ avatar, onChangeAvatar }) 
       <h3>Настройка профиля</h3>
       <div className={styles.profile_block}>
         <Input name={'email'} type={'text'} label={'Email:'} value={email} onChange={handleChange} />
-        {errors.email}
+        {/* {errors.email} */}
       </div>
       <div className={styles.profile_block}>
         <div className={styles.profile_block_avatarBlock}>
           <span className={styles.profile_block_avatarBlock_title}>Аватар:</span>
-          {avatar ? (
-            <img className={styles.profile_block_avatarBlock_avatar} src={avatar || ''} alt="User Avatar" />
+          {avatar_url ? (
+            <img className={styles.profile_block_avatarBlock_avatar} src={avatar_url} alt="User Avatar" />
           ) : (
             <div className={styles.profile_block_avatarBlock_avatar} />
           )}
-          <input className={styles.profile_block_avatarBlock_input} name={'Avatar'} type={'file'} onChange={onChangeAvatar} />
+          <input className={styles.profile_block_avatarBlock_input} value={''} name={'avatar'} type={'file'} onChange={onChangeAvatar} />
         </div>
       </div>
       <div className={styles.profile_block}>
-        <Input name={'fullName'} type={'text'} label={'Имя и Фамилия:'} onChange={handleChange} value={fullName} />
+        <Input name={'first_name'} type={'text'} label={'Имя:'} onChange={handleChange} value={first_name} />
       </div>
       <div className={styles.profile_block}>
-        <Input name={'phone'} type={'text'} label={'Телефон:'} onChange={handleChange} value={phone} placeholder={'Введите номер телефона'} />
-        {errors.phone}
+        <Input name={'last_name'} type={'text'} label={'Фамилия:'} onChange={handleChange} value={last_name} />
+      </div>
+      <div className={styles.profile_block}>
+        <Input
+          name={'phone_number'}
+          type={'text'}
+          label={'Телефон:'}
+          onChange={handleChange}
+          value={phone_number}
+          placeholder={'Введите номер телефона'}
+        />
+        {/* {errors.phone_number} */}
       </div>
       <div className={styles.profile_block}>
         <Input name={'city'} type={'text'} label={'Город:'} onChange={handleChange} value={city} placeholder={'Введите город'} />
@@ -85,19 +115,33 @@ export const AboutUser: FC<AboutUserPropsT> = memo(({ avatar, onChangeAvatar }) 
         <textarea
           className={styles.profile_block_textArea}
           onChange={handleChange}
+          value={description}
+          name="description"
           placeholder={
-            desc
-              ? desc
+            description
+              ? description
               : 'Опишите вашу карьеру и достижения. Эта информация будет отображена на страницах курсов, в которых вы являетесь преподавателем'
           }
         />
       </div>
       <div className={styles.profile_block}>
         <span className={styles.profile_block_avatarBlock_title}>Пол:</span>
-        <SelectInput optionsList={optionsList} />
+        {/* <SelectInput optionsList={optionsList} sex={formik.values.sex} handleChange={handleChange} /> */}
+        <select
+          onChange={e => {
+            handleChange(e)
+            console.log(formik.values.sex)
+          }}
+          value={formik.values.sex}
+          name="sex"
+          id="sex"
+        >
+          <option value={'М'}>Мужской</option>
+          <option value={'Ж'}>Женский</option>
+        </select>
       </div>
       <div>
-        <Button text={'Сохранить'} variant={'primary'} disabled={true} />
+        <Button type="submit" text={'Сохранить'} variant={'primary'} />
       </div>
     </form>
   )

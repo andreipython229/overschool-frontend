@@ -1,21 +1,21 @@
-import React, { FC, memo, useState } from 'react'
+import { FC, memo, useState } from 'react'
 import { useFormik } from 'formik'
+
+import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
 import { Checkbox } from '../../common/Checkbox/Checkbox'
 import { Button } from '../../common/Button/Button'
 import { validateRegistration } from 'utils/validationRegistation'
 import { auth } from 'store/redux/users/slice'
-import { AuthSelect } from '../../common/AuthSelect/AuthSelect'
+import { AuthSelect } from '../../common/AuthSelect'
 import { useAppDispatch } from '../../../store/hooks'
+import { registrIconPath } from './config/svgIconsPath'
 
-import unSecurity from '../../../assets/img/unSecurity.svg'
-import Security from '../../../assets/img/isecurity.svg'
+import { isSecurity, unSecurity } from '../../../assets/img/common/index'
 
 import styles from '../Modal.module.scss'
+import { RegistrationModalPropsT } from '../ModalTypes'
 
-type RegistrationModalPropsT = {
-  setShowModal: (value: boolean) => void
-}
 
 export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowModal }) => {
   const dispatch = useAppDispatch()
@@ -54,17 +54,14 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
       <div className={styles.main}>
         <form onSubmit={formik.handleSubmit}>
           <div className={styles.container}>
-            <svg
+            <IconSvg
               className={styles.main_closed}
-              onClick={() => setShowModal(false)}
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M1 15L15 1M15 15L1 1" stroke="#2E4454" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+              width={16}
+              height={16}
+              viewBoxSize="0 0 16 16"
+              functionOnClick={() => setShowModal(false)}
+              path={registrIconPath}
+            />
 
             <div className={styles.main_title}>Зарегистрироваться</div>
             <div className={styles.inputs_block}>
@@ -84,7 +81,7 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
                 value={formik.values.password}
                 placeholder={'Пароль'}
                 onClick={changeSecurityStatus}
-                icon={security ? Security : unSecurity}
+                icon={security ? isSecurity : unSecurity}
               />
             </div>
             <div className={styles.main_blockDesc}>

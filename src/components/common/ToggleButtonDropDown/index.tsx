@@ -1,24 +1,18 @@
-// used once at coursed page 
-
+// used once at coursed page
 import { FC } from 'react'
-
+import { ToggleButtonDropDownT } from '../commonComponentsTypes'
 import { IconSvg } from '../IconSvg/IconSvg'
-import { arrowIcon } from '../../../constants/iconSvgConstants'
+import { arrIconPath } from './config/svgIconsPath'
 
 import styles from '../ToggleButtonDropDown/toggle_btn_drop_down.module.scss'
 
-type ToggleButtonDropDown = {
-  isOpen: boolean
-  handleToggleHiddenBlocks: () => void
-}
-
-export const ToggleButtonDropDown: FC<ToggleButtonDropDown> = ({ isOpen, handleToggleHiddenBlocks }) => {
+export const ToggleButtonDropDown: FC<ToggleButtonDropDownT> = ({ isOpen, handleToggleHiddenBlocks, nameOfItems }) => {
   return (
     <button className={styles.modal_btn_is_toggle} onClick={handleToggleHiddenBlocks}>
       <span className={isOpen ? styles.arrow_rotate : ''}>
-        <IconSvg width={25} height={25} fill="#9A9A9A" d={arrowIcon} viewBoxSize="0 0 21 21" />
+        <IconSvg width={25} height={25} viewBoxSize="0 0 21 21" path={arrIconPath} />
       </span>
-      {isOpen ? 'Скрыть все курсы' : 'Показать все курсы'}
+      {isOpen ? `Скрыть все ${nameOfItems}` : `Показать все ${nameOfItems}`}
     </button>
   )
 }

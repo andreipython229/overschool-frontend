@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../../store/hooks'
 import { changeLoadingStatus } from '../../../store/redux/platform/slice'
 import { useSetSchoolHeaderMutation } from '../../../api/schoolHeaderService'
 
-import Cover from '../../../assets/img/super_admin_cover.jpg'
+import { superAdminCover } from '../../../assets/img/common/index'
 
 import styles from '../superAdmin.module.scss'
 
@@ -20,11 +20,11 @@ export const DecorPlatform = memo(() => {
   const onChangeLogotype = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target
     if (target.files) {
-      const formData = new FormData()
-      formData.append('logo_school', target.files[0])
+      const formdata = new FormData()
+      formdata.append('logo_school', target.files[0])
 
       if (target.files[0].size <= 2 * 1024 * 1024 && target.files[0].type === 'image/png') {
-        setSchoolHeader({ formData, id: 1 })
+        setSchoolHeader({ formdata, id: 1 })
       } else {
         setLogoError('Неверный формат')
       }
@@ -35,11 +35,11 @@ export const DecorPlatform = memo(() => {
     const target = e.target
 
     if (target.files) {
-      const formData = new FormData()
-      formData.append('favicon', target.files[0])
+      const formdata = new FormData()
+      formdata.append('favicon', target.files[0])
 
       if (target.files[0].size <= 200 * 1024 && target.files[0].type === 'image/png') {
-        setSchoolHeader({ formData, id: 1 })
+        setSchoolHeader({ formdata, id: 1 })
       } else {
         setFaviconError('Неверный формат')
       }
@@ -54,7 +54,7 @@ export const DecorPlatform = memo(() => {
 
         <LogoAddBlock
           title={'Ваш логотип'}
-          logotype={Cover}
+          logotype={superAdminCover}
           logoDesc={'Загрузите логотип Вашей компании: он будет отображаться в интерфейсе и системных email'}
           aboutRequirements={'Требования к логотипу:'}
           onChange={onChangeLogotype}
@@ -63,7 +63,7 @@ export const DecorPlatform = memo(() => {
         {logoError && <span>{logoError}</span>}
         <LogoAddBlock
           title={'Ваш favicon'}
-          logotype={Cover}
+          logotype={superAdminCover}
           logoDesc={'Загрузите favicon Вашей компании: он будет отображаться на страницах вашей школы во вкладке браузера'}
           aboutRequirements={'Требования к favicon:'}
           onChange={onChangeFavicon}

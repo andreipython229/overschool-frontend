@@ -14,7 +14,7 @@ export const Youtube = () => {
     .catch(error => console.log(error))
   })
   
-  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
+  const onPlayerReady: YouTubeProps['onReady'] = (event: any) => {
     event.target.pauseVideo();
   }
 

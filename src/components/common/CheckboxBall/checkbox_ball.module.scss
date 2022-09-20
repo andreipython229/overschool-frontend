@@ -1,0 +1,25 @@
+@import '../../../scss/variable';
+
+.switch {
+  width: 37px;
+  height: 20px;
+  background-color: $backgroundCheckBox;
+  display: flex;
+  justify-content: flex-start;
+  border-radius: $bord-rad10;
+  padding: 2.5px;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.switch[data-isOn='true'] {
+  justify-content: flex-end;
+  background-color: $font-color-rose;
+}
+
+.handle {
+  width: 15px;
+  height: 15px;
+  background-color: $color-white;
+  border-radius: $bord-rad50;
+}

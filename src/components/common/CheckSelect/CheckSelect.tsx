@@ -1,15 +1,10 @@
-import { FC, useState, ReactNode } from 'react'
-
+import { FC, useState } from 'react'
+import { CheckSelectPropsT } from '../commonComponentsTypes'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { IconSvg } from '../IconSvg/IconSvg'
-import { checkSelectSvgIcon } from './constants/svgIcons';
+import { checkSelectIconPath } from './config/svgIconsPath'
 
 import styles from './checkSelect.module.scss'
-
-type CheckSelectPropsT = {
-  text: string
-  children?: ReactNode
-}
 
 export const CheckSelect: FC<CheckSelectPropsT> = ({ text, children }) => {
   const [openChildren, setOpenChildren] = useState<boolean>(false)
@@ -34,10 +29,9 @@ export const CheckSelect: FC<CheckSelectPropsT> = ({ text, children }) => {
             width={14}
             height={8}
             viewBoxSize="0 0 14 8"
-            fill="#A8ABAD"
-            d={checkSelectSvgIcon}
             className={activeClass}
             functionOnClick={handleSetOpenChildren}
+            path={checkSelectIconPath}
           />
         </div>
       </div>

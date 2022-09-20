@@ -2,18 +2,23 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import { coursesServices, modulesServices, userLoginService, schoolHeaderService } from '../../api'
-import { authReduce, courseReduce, coursesReduce, modalReduce, platformReduce } from './index'
+import * as services from '../../api/index'
+import { authReduce, courseReduce, coursesReduce, modalReduce, platformReduce, sectionsReduce } from './index'
 
 const rootReducer = combineReducers({
-  [userLoginService.reducerPath]: userLoginService.reducer,
-  [coursesServices.reducerPath]: coursesServices.reducer,
-  [modulesServices.reducerPath]: modulesServices.reducer,
-  [schoolHeaderService.reducerPath]: schoolHeaderService.reducer,
+  [services.userLoginService.reducerPath]: services.userLoginService.reducer,
+  [services.coursesServices.reducerPath]: services.coursesServices.reducer,
+  [services.modulesServices.reducerPath]: services.modulesServices.reducer,
+  [services.schoolHeaderService.reducerPath]: services.schoolHeaderService.reducer,
+  [services.lessonsServices.reducerPath]: services.lessonsServices.reducer,
+  [services.profileService.reducerPath]: services.profileService.reducer,
+  [services.studentsGroupService.reducerPath]: services.studentsGroupService.reducer,
+  [services.courseStatService.reducerPath]: services.courseStatService.reducer,
   user: authReduce,
   allCourses: coursesReduce,
   createCourse: courseReduce,
   modal: modalReduce,
+  sections: sectionsReduce,
   platform: platformReduce,
 })
 
@@ -29,10 +34,14 @@ export const setupStore = () => {
     reducer: persistedReducer,
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({ serializableCheck: false }).concat(
-        coursesServices.middleware,
-        userLoginService.middleware,
-        modulesServices.middleware,
-        schoolHeaderService.middleware,
+        services.coursesServices.middleware,
+        services.userLoginService.middleware,
+        services.modulesServices.middleware,
+        services.schoolHeaderService.middleware,
+        services.profileService.middleware,
+        services.lessonsServices.middleware,
+        services.studentsGroupService.middleware,
+        services.courseStatService.middleware,
       ),
   })
 }

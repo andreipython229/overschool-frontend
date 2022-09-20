@@ -1,14 +1,7 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, FC, HTMLAttributes, memo } from 'react'
+import { FC, memo } from 'react'
+import { SuperButtonPropsT } from '../commonComponentsTypes'
 
 import styles from './button.module.scss'
-
-type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
-
-type SuperButtonPropsT = DefaultButtonPropsType & {
-  text: string
-  children?: DetailedHTMLProps<HTMLAttributes<SVGElement>, SVGElement>
-  variant?: 'default' | 'primary' | 'disabled' | 'registrationDisabled' | 'secondary' | 'withoutBack' | 'delete' | 'logIn' | 'create'
-}
 
 export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', children, ...restProps }) => {
   let propsStyle = styles.btn_default

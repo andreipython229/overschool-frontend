@@ -1,0 +1,87 @@
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 7px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    color: #6B7484;
+    table-layout: fixed;
+    
+    &_thead {
+        height: 55px;
+        tr {
+            :nth-child(1) {
+                width: 13%;
+                max-width: 100px;
+                padding-left: 10px;
+            }
+            :nth-child(2) {
+                width: 13%;
+                max-width: 150px;
+            }
+            :nth-child(3) {
+                width: 13%;
+                max-width: 150px;
+            }
+            :nth-child(4) {
+                width: 13%;
+                max-width: 150px;
+            }
+            :nth-child(5) {
+                width: 13%;
+                max-width: 150px;
+            }
+            :nth-child(6) {
+                width: 13%;
+                max-width: 150px;
+            }
+            :nth-child(7) {
+                width: 13%;
+                max-width: 150px;
+            }
+            th {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .svgSettingsWrapper svg{
+                width: 20px;
+                height: 20px;
+                overflow: visible;
+                text-overflow: inherit;
+                padding-left: 0;
+            }
+        }
+    }
+    &_tbody {
+        background-color: #fff;
+
+        tr {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            height: 50px;
+            :nth-child(1) {
+                width: 100px;
+                padding-left: 10px;
+            }
+            :nth-child(2) {
+                width: 150px;
+            }
+            :nth-child(3) {
+                width: 150px;
+            }
+            :nth-child(4) {
+                width: 150px;
+            }
+            :nth-child(5) {
+                width: 150px;
+            }
+            :nth-child(6) {
+                width: 150px;
+            }
+            :nth-child(7) {
+                width: 150px;
+            }
+        }
+    }
+    &_tbody tr:nth-child(even) {
+        background-color: #FCFCFC;
+    }
+}

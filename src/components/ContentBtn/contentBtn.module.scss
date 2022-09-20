@@ -1,0 +1,14 @@
+@import '../../scss/mixin';
+
+.lesson {
+  @include display(flex, column, center, center);
+  background: #f3f4f6;
+  width: 86px;
+  height: 98px;
+  border-radius: 7px;
+  cursor: pointer;
+
+  & img {
+    width: 41px;
+  }
+}

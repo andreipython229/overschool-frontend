@@ -1,20 +1,30 @@
-import React, { FC, useCallback, useState } from 'react'
-import { ModalTypeClasses, SettingClassesUsually, TasksModal, TestModal, WebinarModal } from 'components/Modal'
+import { FC, useCallback, useEffect, useState } from 'react'
 
-import { useAppDispatch } from '../../../../../../store/hooks'
+import { ModalTypeClasses, SettingClassesUsually, TasksModal, TestModal, WebinarModal } from 'components/Modal'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addClasses } from 'store/redux/course/slice'
-import { ClassesSettings } from './ClassesSettings/ClassesSettings'
-import { LessonAddBlock } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/LessonAddBlock/LessonAddBlock'
+import { LessonSettings } from './LessonSettings'
+import { ModulesAndLessonsBlock } from './ModulesAndLessonsBlock'
 import { AddModuleModal } from 'components/Modal/CoursesModal/AddModuleModal'
 import { SettingsClassesModal } from 'components/Modal/CoursesModal/SettingsClassesModal'
+import { useFetchModulesQuery } from 'api/modulesServices'
+import { getIdSelector } from 'selectors'
+import { useBoolean } from 'customHooks/useBoolean'
 
 import styles from './constructor.module.scss'
 
 export const Constructor: FC = () => {
   const dispatch = useAppDispatch()
+  const courseId = useAppSelector(getIdSelector)
+
+  const [modulesList, setModulesList] = useState<Array<object>>([])
+  const [lessonId, setLessonId] = useState('')
+
+  const { data: modulesAndLessons } = useFetchModulesQuery(courseId)
+
+  const [isOpenModalModule, { on: onModalModule, off: offModalModule }] = useBoolean()
 
   const [typeClassesModal, setTypeClassesModal] = useState<boolean>(false)
-  const [showModalModule, setShowModalModule] = useState<boolean>(false)
   const [settingClassesModal, setSettingClassesModal] = useState<boolean>(false)
 
   const [activeTypeClasses, setActiveTypeClasses] = useState<null | number>(null)
@@ -22,10 +32,6 @@ export const Constructor: FC = () => {
   const showSettingsClasses = useCallback(() => {
     setSettingClassesModal(!settingClassesModal)
   }, [settingClassesModal])
-
-  const toggleModalModule = useCallback(() => {
-    setShowModalModule(!showModalModule)
-  }, [showModalModule])
 
   const setModalTypeClasses = useCallback(() => {
     setTypeClassesModal(!typeClassesModal)
@@ -55,7 +61,11 @@ export const Constructor: FC = () => {
     },
     [activeTypeClasses],
   )
-
+  useEffect(() => {
+    if (modulesAndLessons?.sections) {
+      setModulesList(modulesAndLessons?.sections)
+    }
+  }, [courseId, modulesAndLessons])
   return (
     <div className={styles.redactorCourse}>
       {typeClassesModal && <ModalTypeClasses changeClasses={setTypeModal} setShowModal={setTypeClassesModal} />}
@@ -63,12 +73,15 @@ export const Constructor: FC = () => {
       {activeTypeClasses === 1 && <TasksModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
       {activeTypeClasses === 2 && <TestModal closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse} />}
       {activeTypeClasses === 3 && <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
-
-      {showModalModule && <AddModuleModal setShowModal={setShowModalModule} />}
+      {isOpenModalModule && <AddModuleModal setShowModal={onModalModule} />}
       {settingClassesModal && <SettingsClassesModal setShowModal={setSettingClassesModal} />}
-
-      <LessonAddBlock setModalTypeClasses={setModalTypeClasses} toggleModalModule={toggleModalModule} />
-      <ClassesSettings showSettingsClassesModal={showSettingsClasses} />
+      <ModulesAndLessonsBlock
+        setLessonId={setLessonId}
+        setModalTypeClasses={setModalTypeClasses}
+        toggleModalModule={offModalModule}
+        modulesList={modulesList}
+      />
+      {modulesList.length !== 0 && <LessonSettings modulesList={modulesList} lessonId={lessonId} showSettingsClassesModal={showSettingsClasses} />}
     </div>
   )
 }

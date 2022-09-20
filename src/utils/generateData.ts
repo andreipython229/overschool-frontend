@@ -1,8 +1,9 @@
-import { studentList } from '../components/StudentsTableBlock/mokData'
-import { SettingItemT } from '../Pages/CoursesStats/CoursesStats'
+import { courseStatT } from '../types/courseStatT'
+import { SettingItemT } from '../Pages/CoursesStats/coursesStatsTypes'
 
-export const generateData = (totalRows: number, columnsList: SettingItemT[]) => {
+export const generateData = (columnsList: SettingItemT[], data: courseStatT, isSuccess: boolean) => {
   const columns: Array<string> = []
+  const dataToRender: any = isSuccess && data.results
   const rows = []
   columnsList &&
     columnsList.filter((item: SettingItemT) => {
@@ -10,19 +11,20 @@ export const generateData = (totalRows: number, columnsList: SettingItemT[]) => 
         columns.push(item.name)
       }
     })
-  for (let i = 0; i < totalRows; i += 1) {
+
+  for (let i = 0; i < dataToRender.length; i += 1) {
     rows.push({
-      Имя: studentList[i].name,
-      Email: studentList[i].email,
-      'Суммарный балл': studentList[i].totalScore,
-      Курс: studentList[i].course,
-      'Последняя активность': studentList[i].lastActivity,
-      Прогресс: studentList[i].progress,
-      Комментарий: studentList[i].comments,
-      Группа: studentList[i].group,
-      'Средний балл': studentList[i].averageScore,
-      'Дата обновления': studentList[i].updateDate,
-      'Дата заверения': studentList[i].completionDate,
+      Имя: dataToRender[i].student_name,
+      Email: dataToRender[i].email,
+      'Суммарный балл': dataToRender[i].mark_sum,
+      Курс: dataToRender[i].course_id,
+      'Последняя активность': dataToRender[i].last_active,
+      Прогресс: dataToRender[i].progress,
+      Комментарий: 'нет комментария',
+      Группа: dataToRender[i].group,
+      'Средний балл': dataToRender[i].average_mark,
+      'Дата обновления': dataToRender[i].update_date,
+      'Дата заверения': dataToRender[i].ending_date,
     })
   }
 

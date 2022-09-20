@@ -1,19 +1,18 @@
-import React, { FC } from 'react'
-import styles from '../superAdmin.module.scss'
+import { FC } from 'react'
+import { EmployeesPropsT } from '../../CoursesStats/coursesStatsTypes'
 import { Employee } from './Employee/Employee'
-import Avatar from '../../../assets/img/avatar.svg'
 
-type EmployeesPropsT = {
-  setModal: () => void
-}
+import { avatar } from '../../../assets/img/common/index'
 
-export const Employees: FC<EmployeesPropsT> = ({ setModal }) => {
+import styles from '../superAdmin.module.scss'
+
+export const Employees: FC<EmployeesPropsT> = ({ onToggle }) => {
   return (
     <div className={styles.wrapper_actions}>
       <div className={styles.employees}>
         <div className={styles.employees_header}>
           <div className={styles.employees_header_title}>Сотрудники</div>
-          <button onClick={setModal} className={styles.employees_header_btn}>
+          <button onClick={onToggle} className={styles.employees_header_btn}>
             + Сотрудник
           </button>
         </div>
@@ -23,8 +22,8 @@ export const Employees: FC<EmployeesPropsT> = ({ setModal }) => {
             <div>Пользователь</div>
             <div>Роль</div>
           </div>
-          <Employee avatar={Avatar} name={'Имя пользователя'} contact={'pochta@gmail.com'} role={'Администратор'} />
-          <Employee avatar={Avatar} name={'Андрей'} contact={'pochta@gmail.com'} role={'Студент'} />
+          <Employee avatar={avatar} name={'Имя пользователя'} contact={'pochta@gmail.com'} role={'Администратор'} />
+          <Employee avatar={avatar} name={'Андрей'} contact={'pochta@gmail.com'} role={'Студент'} />
         </div>
       </div>
     </div>

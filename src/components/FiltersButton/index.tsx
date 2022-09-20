@@ -1,26 +1,21 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
+
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { filterSvgIcon } from '../../constants/iconSvgConstants'
 import { FilterItem } from './FilterItem'
 import { ComponentFilter } from 'constants/filtersMaper'
+import { FiltersButtonT, ICategories } from '../componentsTypes'
+import { useBoolean } from '../../customHooks/useBoolean'
+import { filterIconPath } from './config/svgIconsPath'
 
 import styles from '../FiltersButton/filters_btn.module.scss'
 
-interface ICategories {
-  id: string | number
-  title: string
-}
-
-type FiltersButtonT = {
-  filteringCategoriesList: ICategories[]
-}
-
 export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) => {
-  const [toggleDropDown, setToggleDropDown] = useState<boolean>(false)
+  const [isOpen, { onToggle, on }] = useBoolean()
+
   const [selectedFilter, setSelectedFilter] = useState<keyof object | null>()
 
   const handleToggleDropDawnBlock = () => {
-    setToggleDropDown(!toggleDropDown)
+    onToggle()
     setSelectedFilter(null)
   }
   const menuRef = useRef<HTMLDivElement>(null)
@@ -29,18 +24,18 @@ export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) =
     const target = event?.target as HTMLHeadingElement
 
     if (target?.tagName === 'svg' || target?.tagName === 'path') {
-      setToggleDropDown(false)
+      on()
       return
     }
 
     if (!menuRef.current?.contains(target) && !target?.className?.includes('filter')) {
-      setToggleDropDown(false)
+      on()
     }
   }
 
   const keydownHandler = ({ key }: KeyboardEvent) => {
     if (key === 'Escape') {
-      setToggleDropDown(false)
+      on()
     }
   }
 
@@ -57,17 +52,17 @@ export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) =
   return (
     <div className={styles.wrapper} ref={menuRef}>
       <button className={styles.container_btn} onClick={handleToggleDropDawnBlock}>
-        <IconSvg width={15} height={17} fill="#D1D5DB" d={filterSvgIcon} viewBoxSize="0 0 15 17" />
+        <IconSvg width={15} height={17} viewBoxSize="0 0 15 17" path={filterIconPath} />
         Добавить фильтры
       </button>
-      {toggleDropDown && (
+      {isOpen && (
         <>
           <div className={styles.drop_down_block}>
             {!selectedFilter ? (
               <>
                 <p className={styles.header_dropdown_menu}>ВЫБЕРИТЕ КРИТЕРИЙ ФИЛЬТРАЦИИ</p>
                 {filteringCategoriesList.map(({ id, title }: ICategories) => (
-                  <FilterItem id={id} key={id} title={title} setToggleDropDown={setToggleDropDown} setSelectedFilter={setSelectedFilter} />
+                  <FilterItem id={id} key={id} title={title} setSelectedFilter={setSelectedFilter} />
                 ))}
               </>
             ) : (

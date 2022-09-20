@@ -1,10 +1,10 @@
-import { FC, useCallback, useState } from 'react'
+import React, { FC, useCallback, useState } from 'react'
 
 import { useFindCourse } from '../../../../../customHooks/useFindCourse'
-import { BasicSettings } from './BasicSettings/BasicSettings'
-import { CardImageUpload } from './CardImageUpload/CardImageUpload'
-import { CourseActions } from './CourseActions/CourseActions'
-import { CourseAvailability } from './CourseAvailability/CourseAvailability'
+import { BasicSettings } from './BasicSettings'
+import { CardImageUpload } from './CardImageUpload'
+import { CourseActions } from './CourseActions'
+import { CourseAvailability } from './CourseAvailability'
 
 import styles from './setting_course.module.scss'
 
@@ -18,15 +18,13 @@ export const SettingCourse: FC = () => {
 
   return (
     <div className={styles.container}>
-      <CardImageUpload toggleCheckbox={toggleCheckbox} courseFind={courseFind} />
+      {courseFind && <CardImageUpload toggleCheckbox={toggleCheckbox} courseFind={courseFind} />}
       <div className={styles.container_right}>
-        <BasicSettings courseFind={courseFind} toggleCheckbox={toggleCheckbox} toggleCheckboxPublished={toggleCheckboxPublished} />
+        {courseFind && <BasicSettings courseFind={courseFind} toggleCheckbox={toggleCheckbox} toggleCheckboxPublished={toggleCheckboxPublished} />}
         <div className={styles.availability_course_wrapper}>
           <CourseAvailability />
         </div>
-        <div className={styles.course_actions_wrapper}>
-          <CourseActions courseFind={courseFind} />
-        </div>
+        <div className={styles.course_actions_wrapper}>{courseFind && <CourseActions courseFind={courseFind} />}</div>
       </div>
     </div>
   )

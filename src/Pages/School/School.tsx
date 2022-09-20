@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { CoursePage } from 'Pages/School/Navigations/CoursesCreating/CoursePage'
@@ -10,20 +10,19 @@ import { Settings } from '../Settings/Settings'
 import { RoleE } from 'enum/roleE'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { getCourses } from '../../store/redux/courses/slice'
-import { RootState } from '../../store/redux/store'
+import { selectUser } from '../../selectors/index'
 import { allCoursesSelector } from '../../selectors'
+import { useBoolean } from '../../customHooks/useBoolean'
 
 import styles from './school.module.scss'
 
-export const School: FC = memo(() => {
+export const School: FC = () => {
   const dispatch = useAppDispatch()
-  const role = useAppSelector((state: RootState) => state.user.permission)
-
-  const [showModal, setShowModal] = useState<boolean>(false)
+  const { permission } = useAppSelector(selectUser)
+  const { courses } = useAppSelector(allCoursesSelector)
+  const [isOpen, { onToggle }] = useBoolean()
 
   const { data: coursesList, isSuccess } = useFetchCoursesQuery(null)
-
-  const { courses } = useAppSelector(allCoursesSelector)
 
   useEffect(() => {
     if (isSuccess) {
@@ -31,22 +30,17 @@ export const School: FC = memo(() => {
     }
   }, [coursesList, courses])
 
-  const setModal = () => {
-    setShowModal(!showModal)
-  }
-
   return (
     <div className={styles.container}>
-      {showModal ? <AddCourseModal setShowModal={setModal} /> : null}
-
+      {isOpen && <AddCourseModal setShowModal={onToggle} />}
       <Routes>
-        {role === RoleE.SuperAdmin ? (
+        {permission === RoleE.SuperAdmin ? (
           <Route path={'/*'} element={<Settings />} />
         ) : (
-          <Route path={'/*'} element={<CoursePage setShowModal={setModal} courses={courses} />} />
+          <Route path={'/*'} element={<CoursePage setShowModal={onToggle} courses={courses} />} />
         )}
         <Route path={Path.CreateCourse} element={<RedactorCourse />} />
       </Routes>
     </div>
   )
-})
+}

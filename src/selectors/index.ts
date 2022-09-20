@@ -6,4 +6,4 @@ export const allCoursesSelector = (state: RootState) => state.allCourses
 export const modalSelector = (state: RootState) => state.modal
 export const getIdSelector = (state: RootState) => state.createCourse.course_id
 export const platformSelector = (state: RootState) => state.platform
-
+export const getSectionId = (state: RootState) => state.sections

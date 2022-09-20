@@ -1,47 +1,52 @@
-import React, { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { classesSettingSvgIcon } from '../../constants/iconSvgConstants'
-import { SettingItemT } from '../../Pages/CoursesStats/CoursesStats'
-import { studentList } from './mokData'
 import { generateData } from '../../utils/generateData'
+import { classesSettingIconPath } from './config/svgIconsPath'
+import { useFetchCourseStatQuery } from '../../api/courseStat'
+import { SettingItemT } from 'Pages/CoursesStats/coursesStatsTypes'
+
+import styles from './studentsTableBlock.module.scss'
 
 type StudentsTableBlockT = {
   settingList?: SettingItemT[]
   setToggleSettingModal?: (arg: boolean) => void
 }
 
-export const StudentsTableBlock: FC<StudentsTableBlockT> = ({ settingList, setToggleSettingModal }) => {
+export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, setToggleSettingModal }) => {
   const [cols, setCols] = useState<string[]>([])
 
-  const { columns, data } = generateData(studentList.length, settingList || [])
-  const [rows, _] = useState<Array<object>>(data)
+  const { data: students, isSuccess } = useFetchCourseStatQuery()
+
+  const { columns, data } = generateData(settingList || [], students, isSuccess)
+  const [rows, setRows] = useState<Array<{ [key: string]: string | number }>>()
 
   const openSettingsModal = () => {
     setToggleSettingModal && setToggleSettingModal(true)
   }
 
   useEffect(() => {
+    setRows(data)
+  }, [isSuccess])
+
+  useEffect(() => {
     setCols(columns)
   }, [settingList])
 
   return (
-    <table style={{ borderCollapse: 'collapse' }}>
-      <thead>
+    <table className={styles.table} style={{ borderCollapse: 'collapse' }}>
+      <thead className={styles.table_thead}>
         <tr>
           {cols.map(col => (
             <th
               style={{
                 whiteSpace: 'nowrap',
-                color: '#716f88',
                 letterSpacing: '1.5px',
                 fontWeight: ' 400',
                 fontSize: '14px',
-                textAlign: 'center',
+                textAlign: 'left',
                 textTransform: 'capitalize',
                 verticalAlign: 'middle',
-                padding: '10px',
-                borderBottom: '2px solid #eef0f5',
               }}
               id={col}
               key={col}
@@ -49,32 +54,22 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = ({ settingList, setTo
               {col}
             </th>
           ))}
-          <th>
-            <IconSvg
-              functionOnClick={openSettingsModal}
-              width={15}
-              height={15}
-              viewBoxSize={'0 0 15 15'}
-              fill={'#6B7280'}
-              d={classesSettingSvgIcon.setting}
-            />
+          <th className={styles.svgSettingsWrapper}>
+            <IconSvg functionOnClick={openSettingsModal} width={20} height={20} viewBoxSize={'0 0 15 15'} path={classesSettingIconPath} />
           </th>
         </tr>
       </thead>
-      <tbody>
-        {rows.map((row: any) => (
-          <tr key={Math.random()}>
-            {Object.entries(row).map(([_, v]: any, idx) => (
+      <tbody className={styles.table_tbody}>
+        {rows?.map((row, id) => (
+          <tr key={id + Math.random()}>
+            {Object.entries(row).map(([keyRow, valueRow], idx) => (
               <td
                 style={{
                   fontSize: '14px',
-                  textAlign: 'center',
                   textTransform: 'capitalize',
                   verticalAlign: 'center',
-                  padding: '20px',
-                  borderBottom: '2px solid #eef0f5',
                 }}
-                key={v}
+                key={keyRow + valueRow}
               >
                 {row[cols[idx]]}
               </td>
@@ -84,4 +79,4 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = ({ settingList, setTo
       </tbody>
     </table>
   )
-}
+})

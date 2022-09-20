@@ -1,5 +1,4 @@
-import { ChangeEvent, memo, useState } from 'react'
-import { Toggle } from '@skbkontur/react-ui'
+import { ChangeEvent, useState } from 'react'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
@@ -7,14 +6,14 @@ import { useAppSelector } from '../../store/hooks'
 import { AboutUser } from './AboutUser'
 import { selectUser } from 'selectors'
 import { notifications } from './config/notif'
+import { CheckboxBall } from '../../components/common/CheckboxBall'
 
 import styles from './profile.module.scss'
 
-export const Profile = memo(() => {
-  const { avatar, user, phone_number, city, aboutMySelf, sex } = useAppSelector(selectUser)
+export const Profile = () => {
+  const { user, phone_number, city, aboutMySelf, sex } = useAppSelector(selectUser)
   const { last_name, first_name, email } = user
 
-  const [userAvatar, setUserAvatar] = useState<string | null>(avatar)
   const [newPassword, setNewPassword] = useState('')
   const [repeatNewPassword, setRepeatNewPassword] = useState('')
 
@@ -38,35 +37,11 @@ export const Profile = memo(() => {
     setRepeatNewPassword(e.currentTarget.value)
   }
 
-  // const changeUserInfo = (): void => {
-  //   const name = fullName.split(' ');
-  //   dispatch(
-  //     changeInfo({
-  //       user: { email: userEmail, first_name: name[0], last_name: name[1] },
-  //       phone_number: phone,
-  //       avatar: userAvatar,
-  //       city: userCity,
-  //       aboutMySelf: aboutUser,
-  //       sex,
-  //     }),
-  //   );
-  // };
 
-  const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>): void => {
-    if (e.target.files) {
-      const reader = new FileReader()
-      reader.readAsDataURL(e.target.files[0])
-      reader.onloadend = event => {
-        if (typeof event?.target?.result === 'string') {
-          setUserAvatar(event?.target?.result)
-        }
-      }
-    }
-  }
   return (
     <div>
       <div className={styles.profile}>
-        <AboutUser avatar={userAvatar} onChangeAvatar={onChangeAvatar} sex={sex} />
+        <AboutUser sex={sex} />
         <div>
           <form style={{ width: '546px' }} className={styles.container}>
             <h5>Изменить email</h5>
@@ -93,7 +68,6 @@ export const Profile = memo(() => {
           </form>
           <div style={{ width: '566px', marginTop: '32px' }} className={styles.notification}>
             <h5>Уведомления</h5>
-            {/* Нужно сделать собственные и удалить зависимости библиотеки*/}
 
             <div className={styles.notification_toggleWrapper}>
               {notifications.map(({ id, info, desc }) => (
@@ -103,7 +77,7 @@ export const Profile = memo(() => {
                     <p className={styles.notification_toggleWrapper_toggleBlock_text_desc}>{desc}</p>
                   </div>
                   <div>
-                    <Toggle />
+                    <CheckboxBall />
                   </div>
                 </div>
               ))}
@@ -113,4 +87,4 @@ export const Profile = memo(() => {
       </div>
     </div>
   )
-})
+}
