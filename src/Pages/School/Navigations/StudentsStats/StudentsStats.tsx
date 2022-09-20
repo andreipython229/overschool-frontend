@@ -52,14 +52,6 @@ export const StudentsStats = () => {
     }
   }, [isSuccess, isFetching])
 
-  // const showStudentModal = () => {
-  //   setStudentModal(!studentModal)
-  // }
-  //
-  // const showGroupModal = () => {
-  //   setAddGroupModal(!addGroupModal)
-  // }
-
   const groupsToShow = groups.filter(group => courseId && group.course_id === +courseId)
   const reducedGroupsToShow = groupsToShow.slice(0, 2)
   const dataToRender = groupsToShow.length > 2 && isOpen ? groupsToShow : reducedGroupsToShow
