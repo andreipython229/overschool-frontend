@@ -1,12 +1,6 @@
 import { FC, memo } from 'react'
-
+import { UserLogsPropsT } from '../../../CoursesStats/coursesStatsTypes'
 import styles from './userLogs.module.scss'
-
-type UserLogsPropsT = {
-  contacts: string
-  whatDoing: string
-  time: string
-}
 
 export const UserLogs: FC<UserLogsPropsT> = memo(({ contacts, whatDoing, time }) => {
   return (

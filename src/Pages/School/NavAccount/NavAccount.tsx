@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { NavAccountBtn } from './NavAccountBtn/NavAccountBtn'
+import { NavAccountBtn } from '../../../components/NavAccountBtn/NavAccountBtn'
 
 import { RoleE } from 'enum/roleE'
 import { SettingsPath } from 'enum/pathE'

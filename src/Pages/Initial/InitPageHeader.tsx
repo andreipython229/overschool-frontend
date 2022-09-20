@@ -5,16 +5,12 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 import { Path } from 'enum/pathE'
 import { Button } from 'components/common/Button/Button'
-import { authSelector } from '../../selectors/index'
-
+import { authSelector } from 'selectors'
+import { InitPageHeaderPT } from '../CoursesStats/coursesStatsTypes'
 import { logo } from '../../assets/img/common/index'
 
 import styles from './initial.module.scss'
 
-type InitPageHeaderPT = {
-  setLoginShow: (show: boolean) => void
-  setRegistrationShow: (show: boolean) => void
-}
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setRegistrationShow }) => {
   const dispatch = useAppDispatch()
   const isLogin = useAppSelector(authSelector)
