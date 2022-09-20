@@ -6,7 +6,6 @@ import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import { useAppSelector } from '../../../store/hooks'
-import { getIdSelector } from '../../../selectors'
 import { formDataConverter } from '../../../utils/formDataConverter'
 
 import styles from '../Modal.module.scss'
@@ -14,10 +13,8 @@ import { AddModuleModalPropsT } from '../ModalTypes'
 
 
 
-export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ setShowModal }) => {
+export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ setShowModal, courseId }) => {
   const [modulesName, setModulesMane] = useState<string>('')
-
-  const courseId = useAppSelector(getIdSelector)
 
   const [createModules] = useCreateModulesMutation()
 

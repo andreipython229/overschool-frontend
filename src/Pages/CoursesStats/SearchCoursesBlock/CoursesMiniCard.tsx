@@ -2,8 +2,6 @@ import { FC } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
 import { Path } from '../../../enum/pathE'
-import { addCourseId } from '../../../store/redux/course/slice'
-import { useAppDispatch } from '../../../store/hooks'
 import { CoursesMiniCardT } from '../coursesStatsTypes'
 
 import styles from '../courses_stats.module.scss'
@@ -11,11 +9,6 @@ import styles from '../courses_stats.module.scss'
 // need to change logic of labels' naming
 
 export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseId, groups }) => {
-  const dispatch = useAppDispatch()
-
-  const dispatchIdCourses = () => {
-    dispatch(addCourseId(courseId))
-  }
 
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
   const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students[0], 0)
@@ -26,7 +19,7 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseI
         course_id: courseId,
       })}
     >
-      <div onClick={dispatchIdCourses} className={styles.mini_card_container}>
+      <div className={styles.mini_card_container}>
         <img className={styles.mini_card_img} src={photo_url} alt="" width="52" height="52" />
         <div>
           <p className={styles.mini_card_name}>{name}</p>

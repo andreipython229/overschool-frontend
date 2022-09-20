@@ -3,8 +3,6 @@ import { memo, useState, FC } from 'react'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../components/common/Input/Input/Input'
 import { CoursesMiniCard } from './CoursesMiniCard'
-import { allCoursesSelector } from '../../../selectors'
-import { useAppSelector } from '../../../store/hooks'
 import { useFilterData } from '../../../customHooks/useFilterData'
 import { ToggleButtonDropDown } from '../../../components/common/ToggleButtonDropDown'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
@@ -12,8 +10,8 @@ import { searchCourseBlockT } from '../coursesStatsTypes'
 
 import styles from '../courses_stats.module.scss'
 
-export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups }) => {
-  const { courses } = useAppSelector(allCoursesSelector)
+
+export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, courses }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleToggleHiddenBlocks = (): void => {

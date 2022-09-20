@@ -42,7 +42,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
         <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
       </Input>
       <div className={styles.course}>
-        {courses.length &&
+        {courses?.length &&
           foundCourses?.map((course: any) => (
             <CoursesCard
               key={course.course_id}

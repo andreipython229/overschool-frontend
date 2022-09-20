@@ -12,6 +12,8 @@ import { studentsScatterPath } from './config/svgIconPath'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { studentsGroupT } from 'types/studentsGroup'
 import { SettingItemT } from './coursesStatsTypes'
+import { useFetchCoursesQuery } from '../../api/coursesServices'
+import { CoursesT } from '../../types/CoursesT'
 
 import styles from '../School/Navigations/StudentsStats/studentsStats.module.scss'
 
@@ -21,6 +23,7 @@ export const CoursesStats = () => {
   const [toggleSettingModal, setToggleSettingModal] = useState<boolean>(false)
 
   const { data } = useFetchStudentsGroupQuery()
+  const { data: courses } = useFetchCoursesQuery()
 
   const handleHideStats = useCallback(() => {
     setHideStats(!hideStats)
@@ -56,7 +59,7 @@ export const CoursesStats = () => {
           )}
         </div>
       </section>
-      <SearchCoursesBlock groups={data as studentsGroupT[]} />
+      <SearchCoursesBlock courses={courses as CoursesT[]} groups={data as studentsGroupT[]} />
       <AllStudentsBlock headerText={'Все ученики школы'} />
       <StudentsTableBlock settingList={settingList} setToggleSettingModal={setToggleSettingModal} />
       {toggleSettingModal && <SettingStudentTable setShowModal={setToggleSettingModal} settingList={settingList} setSettingsList={setSettingsList} />}

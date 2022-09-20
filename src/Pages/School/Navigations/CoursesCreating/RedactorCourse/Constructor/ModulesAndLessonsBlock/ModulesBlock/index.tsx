@@ -26,7 +26,6 @@ export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonId, moduleName, lesso
   const [changeModuleName, setChangeModuleName] = useState<string>(moduleName)
 
   const [changeName] = usePatchModulesMutation()
-
   const [deleteModule] = useDeleteModulesMutation()
 
   const handleDeleteModule = () => {

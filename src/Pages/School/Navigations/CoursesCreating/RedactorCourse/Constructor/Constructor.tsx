@@ -1,26 +1,26 @@
 import { FC, useCallback, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 import { ModalTypeClasses, SettingClassesUsually, TasksModal, TestModal, WebinarModal } from 'components/Modal'
-import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { addClasses } from 'store/redux/course/slice'
+
 import { LessonSettings } from './LessonSettings'
 import { ModulesAndLessonsBlock } from './ModulesAndLessonsBlock'
 import { AddModuleModal } from 'components/Modal/CoursesModal/AddModuleModal'
 import { SettingsClassesModal } from 'components/Modal/CoursesModal/SettingsClassesModal'
 import { useFetchModulesQuery } from 'api/modulesServices'
-import { getIdSelector } from 'selectors'
 import { useBoolean } from 'customHooks/useBoolean'
 
 import styles from './constructor.module.scss'
 
 export const Constructor: FC = () => {
-  const dispatch = useAppDispatch()
-  const courseId = useAppSelector(getIdSelector)
+  const { course_id: courseId } = useParams()
 
   const [modulesList, setModulesList] = useState<Array<object>>([])
   const [lessonId, setLessonId] = useState('')
 
   const { data: modulesAndLessons } = useFetchModulesQuery(courseId)
+
+  console.log(modulesAndLessons)
 
   const [isOpenModalModule, { on: onModalModule, off: offModalModule }] = useBoolean()
 
@@ -57,7 +57,6 @@ export const Constructor: FC = () => {
   const addCourse = useCallback(
     (name: string, type: string) => {
       setActiveTypeClasses(null)
-      dispatch(addClasses({ name, type }))
     },
     [activeTypeClasses],
   )
@@ -73,7 +72,7 @@ export const Constructor: FC = () => {
       {activeTypeClasses === 1 && <TasksModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
       {activeTypeClasses === 2 && <TestModal closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse} />}
       {activeTypeClasses === 3 && <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
-      {isOpenModalModule && <AddModuleModal setShowModal={onModalModule} />}
+      {isOpenModalModule && <AddModuleModal setShowModal={onModalModule} courseId={courseId as string} />}
       {settingClassesModal && <SettingsClassesModal setShowModal={setSettingClassesModal} />}
       <ModulesAndLessonsBlock
         setLessonId={setLessonId}

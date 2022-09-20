@@ -3,18 +3,17 @@ import { FC } from 'react'
 import { ScoresFilter } from '../components/FiltersButton/ScoresFilter/ScoresFilter'
 import { CalendarFilter } from '../components/FiltersButton/CalendarFilter/CalendarFilter'
 import { SearchFilter } from '../components/FiltersButton/SearchFilter/SearchFilter'
-import { allCoursesSelector } from '../selectors'
-import { useAppSelector } from '../store/hooks'
+import { CoursesT } from '../types/CoursesT'
+import { useFetchCoursesQuery } from '../api/coursesServices'
 
 type ComponentFilterT = {
   id: keyof object
 }
 
 export const ComponentFilter: FC<ComponentFilterT> = ({ id }) => {
-  const { courses } = useAppSelector(allCoursesSelector)
-
+  const { data } = useFetchCoursesQuery()
   const filtersMaper: object = {
-    7: <SearchFilter key={1} data={courses} name={''} header={'ВЫБЕРИТЕ КУРСЫ'} />,
+    7: <SearchFilter key={1} data={data as CoursesT[]} name={''} header={'ВЫБЕРИТЕ КУРСЫ'} />,
     8: <SearchFilter key={2} data={[]} name={''} header={'ВЫБЕРИТЕ ГРУППЫ'} />,
     9: <SearchFilter key={3} data={[]} name={''} header={'ВЫБЕРИТЕ ЗАДАНИЯ'} />,
     10: <CalendarFilter />,
