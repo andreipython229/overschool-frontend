@@ -14,7 +14,7 @@ import styles from '../studentsLog.module.scss'
 
 type CreateGroupModalPropsT = {
   setShowModal: (arg: boolean) => void
-  courseId?: string
+  courseId: string
 }
 
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, courseId }) => {
@@ -29,7 +29,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   const handleCreateGroup = () => {
     const groupToCreate = {
       name: groupName,
-      course_id: courseId,
+      course_id: +courseId,
       students: [1],
     }
     createStudentsGroup(groupToCreate)

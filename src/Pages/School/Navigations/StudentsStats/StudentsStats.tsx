@@ -68,7 +68,7 @@ export const StudentsStats = () => {
   return (
     <div>
       {studentModal && <AddStudentModal setShowModal={setStudentModal} studentEmail={studentEmail} onChangeEmail={onChangeStudentEmail} />}
-      {addGroupModal && <CreateGroupModal setShowModal={setAddGroupModal} courseId={courseId} />}
+      {addGroupModal && <CreateGroupModal setShowModal={setAddGroupModal} courseId={courseId as string} />}
 
       <section className={styles.statistics}>
         <StatisticHeader />
@@ -88,7 +88,7 @@ export const StudentsStats = () => {
           {dataToRender?.map(({ name, students, group_id }: studentsGroupT) => {
             const count = students[0]
             const studentsCount = count === 1 || count % 10 === 1 ? ` ${count} ученик` : `${count} ученика`
-            return <StudentGroup key={group_id} id={group_id} title={name} countStudent={studentsCount} />
+            return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={studentsCount} />
           })}
           {groupsToShow.length > 2 && (
             <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={handleToggleHiddenBlocks} />

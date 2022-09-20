@@ -9,7 +9,7 @@ export const baseQuery = fetchBaseQuery({
     const token = (getState() as RootState)?.user?.token
 
     if (token) {
-      headers.set('Authenticate', `Token ${token}`)
+      headers.set('Authorization', `Bearer ${token}`)
     }
     return headers
   },
