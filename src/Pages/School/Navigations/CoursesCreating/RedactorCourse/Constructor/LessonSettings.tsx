@@ -31,7 +31,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
   const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files) {
       const files = event.target.files
-      patchData(lesson, 'file', files[0], addFile)
+      patchData(lesson, 'lesson_id', 'file', files[0], addFile)
     }
   }
 

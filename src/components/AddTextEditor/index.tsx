@@ -15,7 +15,7 @@ export const AddTextEditor: FC<setShowType & AddPostT> = ({ lesson, setShow }) =
   const [descriptionLesson, setDescriptionLesson] = useState<string>('')
 
   useEffect(() => {
-    patchData(lesson, 'description', descriptionLesson, addDescription)
+    patchData(lesson, 'lesson_id', 'description', descriptionLesson, addDescription)
   }, [descriptionLesson])
 
   return (
