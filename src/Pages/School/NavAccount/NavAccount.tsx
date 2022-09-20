@@ -10,7 +10,6 @@ type NavAccountPropsT = {
   role: number
 }
 export const NavAccount: FC<NavAccountPropsT> = ({ role }) => {
-  console.log(role)
   return (
     <div className={styles.nav_account}>
       <NavAccountBtn path={SettingsPath.Main} text={'Основные'} />

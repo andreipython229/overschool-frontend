@@ -5,7 +5,6 @@ import { IIsActive, NavAccountBtnPropsT } from '../../Pages/CoursesStats/courses
 import styles from './navAccountBtn.module.scss'
 
 export const NavAccountBtn: FC<NavAccountBtnPropsT> = ({ text, path }) => {
-  console.log(path)
   const isActive = ({ isActive }: IIsActive): string => (isActive ? styles.nav_btn + ' ' + styles.active : styles.nav_btn)
   return (
     <NavLink to={path} replace={true} className={isActive}>
