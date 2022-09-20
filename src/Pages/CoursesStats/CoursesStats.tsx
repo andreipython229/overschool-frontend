@@ -3,25 +3,19 @@ import { useCallback, useState } from 'react'
 import { StatisticHeader } from '../../components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from '../School/Navigations/StudentsStats/StudentInfoGraphic'
 import { SearchCoursesBlock } from './SearchCoursesBlock'
-import { AllStudentsBlock } from '../../components/AllStudentsBlock'
-import { StudentsTableBlock } from '../../components/StudentsTableBlock'
-import { SettingStudentTable } from '../../components/Modal/SettingStudentTable'
+import { AllStudentsBlock } from 'components/AllStudentsBlock'
+import { StudentsTableBlock } from 'components/StudentsTableBlock'
+import { SettingStudentTable } from 'components/Modal/SettingStudentTable'
 import { settingsItemsList } from './config/settingsItemList'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { studentsScatterPath } from './config/svgIconPath'
-import { useFetchStudentsGroupQuery } from '../../api/studentsGroupService'
-import { studentsGroupT } from '../../types/studentsGroup'
+import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
+import { studentsGroupT } from 'types/studentsGroup'
+import { SettingItemT } from './coursesStatsTypes'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { CoursesT } from '../../types/CoursesT'
 
 import styles from '../School/Navigations/StudentsStats/studentsStats.module.scss'
-
-export type SettingItemT = {
-  id: number
-  order: number
-  name: string
-  checked: boolean
-}
 
 export const CoursesStats = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)

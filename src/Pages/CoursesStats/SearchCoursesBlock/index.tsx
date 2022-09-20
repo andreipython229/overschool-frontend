@@ -6,15 +6,10 @@ import { CoursesMiniCard } from './CoursesMiniCard'
 import { useFilterData } from '../../../customHooks/useFilterData'
 import { ToggleButtonDropDown } from '../../../components/common/ToggleButtonDropDown'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
-import { studentsGroupT } from '../../../types/studentsGroup'
-import { CoursesT } from '../../../types/CoursesT'
+import { searchCourseBlockT } from '../coursesStatsTypes'
 
 import styles from '../courses_stats.module.scss'
 
-type searchCourseBlockT = {
-  groups: studentsGroupT[]
-  courses: CoursesT[]
-}
 
 export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, courses }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)

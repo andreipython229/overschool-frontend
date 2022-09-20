@@ -1,11 +1,10 @@
 import { FC, memo, useEffect, useState } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { SettingItemT } from '../../Pages/CoursesStats/CoursesStats'
 import { generateData } from '../../utils/generateData'
 import { classesSettingIconPath } from './config/svgIconsPath'
-import { studentList } from './config/mokData'
 import { useFetchCourseStatQuery } from '../../api/courseStat'
+import { SettingItemT } from 'Pages/CoursesStats/coursesStatsTypes'
 
 import styles from './studentsTableBlock.module.scss'
 

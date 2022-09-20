@@ -13,7 +13,7 @@ import styles from '../previou.module.scss'
 export const CoursePrevious: FC = () => {
 
   const params: any = useParams()
-  const courseId = params['*']?.match(/\d/)[0] 
+  const courseId = params['*']?.match(/\d+/)[0] 
 
   const { data } = useFetchCourseQuery(courseId as string)
 

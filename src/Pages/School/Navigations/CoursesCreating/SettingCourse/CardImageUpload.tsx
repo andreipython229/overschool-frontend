@@ -1,9 +1,10 @@
 import { ChangeEvent, FC } from 'react'
 
-import { IconSvg } from '../../../../../components/common/IconSvg/IconSvg'
-import { usePatchCoursesMutation } from '../../../../../api/coursesServices'
-import { CoursesT } from '../../../../../types/CoursesT'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { usePatchCoursesMutation } from 'api/coursesServices'
+import { CoursesT } from 'types/CoursesT'
 import { publishedIconPath, noPublishedIconPath } from '../../../config/svgIconsPath'
+import { patchData } from 'utils/patchData'
 
 import styles from './setting_course.module.scss'
 
@@ -18,11 +19,8 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
   const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files) {
       const files = event.target.files
-      const formdata = new FormData()
-      formdata.append('photo', files[0])
       if (courseFind) {
-        const id = courseFind?.course_id
-        updateImg({ formdata, id })
+        patchData(courseFind, 'course_id', 'photo', files[0], updateImg)
       }
     }
   }

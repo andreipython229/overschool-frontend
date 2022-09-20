@@ -1,4 +1,4 @@
-import { NavAccountBtn } from '../NavAccountBtn/NavAccountBtn'
+import { NavAccountBtn } from '../../../../components/NavAccountBtn/NavAccountBtn'
 import { CreateCoursePath } from '../../../../enum/pathE'
 
 import styles from './navCreatingCourse.module.scss'

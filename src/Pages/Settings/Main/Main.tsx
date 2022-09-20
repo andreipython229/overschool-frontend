@@ -1,17 +1,30 @@
-import { memo, useState } from 'react'
-
-import { useAppDispatch } from '../../../store/hooks'
-import { changeProjectName } from '../../../store/redux/platform/slice'
+import { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation } from 'api/schoolHeaderService'
+import { ChangeEvent, memo, useEffect, useState } from 'react'
 
 import styles from '../superAdmin.module.scss'
 
 export const Main = memo(() => {
-  const dispatch = useAppDispatch()
-  // const projectName = useAppSelector<string>((state: any) => state.platform.projectName)
-  const [name, setName] = useState<string>('projectName')
-  const onChangeProjectName = () => {
-    dispatch(changeProjectName(name))
+  const { data } = useFetchSchoolHeaderQuery(1)
+  const [updateDateSchoolName, { data: newName }] = useSetSchoolHeaderMutation()
+
+  const [name, setName] = useState<string>('')
+
+  useEffect(() => {
+    if (data) {
+      setName(data?.name)
+    }
+  }, [data, newName])
+
+  const handleChangeSchoolName = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.currentTarget.value)
   }
+
+  const onChangeProjectName = () => {
+    const formdata = new FormData()
+    formdata.append('name', name)
+    updateDateSchoolName({ formdata, id: 1 })
+  }
+
   return (
     <div className={styles.wrapper_actions}>
       <div className={styles.main}>
@@ -19,7 +32,7 @@ export const Main = memo(() => {
         <div className={styles.main_project}>Название проекта</div>
         <p className={styles.main_description}>Название проекта отображается в шапке на главной странице проекта</p>
         <div>
-          <input value={name} onChange={e => setName(e.currentTarget.value)} className={styles.main_input} type="text" placeholder={'Название'} />
+          <input value={name} onChange={handleChangeSchoolName} className={styles.main_input} type="text" placeholder={'Название'} />
           <button onClick={onChangeProjectName} className={styles.main_btn}>
             Применить
           </button>
