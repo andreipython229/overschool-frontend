@@ -11,10 +11,9 @@ import { CheckboxBall } from '../../components/common/CheckboxBall'
 import styles from './profile.module.scss'
 
 export const Profile = () => {
-  const { avatar, user, phone_number, city, aboutMySelf, sex } = useAppSelector(selectUser)
+  const { user, phone_number, city, aboutMySelf, sex } = useAppSelector(selectUser)
   const { last_name, first_name, email } = user
 
-  const [userAvatar, setUserAvatar] = useState<string | null>(avatar)
   const [newPassword, setNewPassword] = useState('')
   const [repeatNewPassword, setRepeatNewPassword] = useState('')
 
@@ -38,21 +37,11 @@ export const Profile = () => {
     setRepeatNewPassword(e.currentTarget.value)
   }
 
-  const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>): void => {
-    if (e.target.files) {
-      const reader = new FileReader()
-      reader.readAsDataURL(e.target.files[0])
-      reader.onloadend = event => {
-        if (typeof event?.target?.result === 'string') {
-          setUserAvatar(event?.target?.result)
-        }
-      }
-    }
-  }
+
   return (
     <div>
       <div className={styles.profile}>
-        <AboutUser avatar={userAvatar} onChangeAvatar={onChangeAvatar} sex={sex} />
+        <AboutUser sex={sex} />
         <div>
           <form style={{ width: '546px' }} className={styles.container}>
             <h5>Изменить email</h5>

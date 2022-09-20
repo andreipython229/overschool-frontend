@@ -1,5 +1,13 @@
 import { publishedMarkerSvgIcon, classesSettingSvgIcon, createGroupLittleSvgIcon } from '../../../constants/iconSvgConstants'
-import { studentInfoScatterIcon, studentIcon, settingsIcon, studentScatterIcon } from '../constants/svgIcons'
+import {
+  studentInfoScatterIcon,
+  studentIcon,
+  settingsIcon,
+  studentScatterIcon,
+  stackIcon,
+  clickBoardCheckIcon,
+  signIcon,
+} from '../constants/svgIcons'
 import { pathT } from '../../../components/common/commonComponentsTypes'
 
 export const publishedIconPath = [{ d: publishedMarkerSvgIcon.published, fill: '#E0DCED' }]
@@ -33,3 +41,9 @@ export const createGroupIconPath = [
 export const showAllGroups: pathT[] = [
   { d: 'M1.25 1.15625L7.5 7.40625L13.75 1.15625', stroke: '#9CA3AF', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
 ]
+
+export const stackIconPath = [{ d: stackIcon, fill: '#BA75FF' }]
+
+export const clickBoardCheckPath = [{ d: clickBoardCheckIcon, fill: '#BA75FF' }]
+
+export const signIconPath: pathT[] = [{ d: signIcon, stroke: '#BA75FF', strokeWidth: '1.2', strokeLinecap: 'round', strokeLinejoin: 'round' }]

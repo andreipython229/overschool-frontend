@@ -5,6 +5,7 @@ import { SettingItemT } from '../../Pages/CoursesStats/CoursesStats'
 import { generateData } from '../../utils/generateData'
 import { classesSettingIconPath } from './config/svgIconsPath'
 import { studentList } from './config/mokData'
+import { useFetchCourseStatQuery } from '../../api/courseStat'
 
 import styles from './studentsTableBlock.module.scss'
 
@@ -16,12 +17,18 @@ type StudentsTableBlockT = {
 export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, setToggleSettingModal }) => {
   const [cols, setCols] = useState<string[]>([])
 
-  const { columns, data } = generateData(studentList.length, settingList || [])
-  const [rows] = useState<Array<{ [key: string]: string | number }>>(() => data)
+  const { data: students, isSuccess } = useFetchCourseStatQuery()
+
+  const { columns, data } = generateData(settingList || [], students, isSuccess)
+  const [rows, setRows] = useState<Array<{ [key: string]: string | number }>>()
 
   const openSettingsModal = () => {
     setToggleSettingModal && setToggleSettingModal(true)
   }
+
+  useEffect(() => {
+    setRows(data)
+  }, [isSuccess])
 
   useEffect(() => {
     setCols(columns)
@@ -54,8 +61,7 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
         </tr>
       </thead>
       <tbody className={styles.table_tbody}>
-        {rows.map((row, id) => (
-          // id has to be oraganized differently
+        {rows?.map((row, id) => (
           <tr key={id + Math.random()}>
             {Object.entries(row).map(([keyRow, valueRow], idx) => (
               <td

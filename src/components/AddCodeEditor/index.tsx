@@ -20,7 +20,7 @@ export const AddCodeEditor: FC<setShowType & AddPostT> = ({ lesson, setShow }) =
   const [debounced] = useDebounce(code, 1000)
 
   useEffect(() => {
-    patchData(lesson, 'code', debounced.toString(), addCode)
+    patchData(lesson, 'lesson_id', 'code', debounced.toString(), addCode)
   }, [debounced.toString()])
 
   const handleEditorChange = (code: any) => {

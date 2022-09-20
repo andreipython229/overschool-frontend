@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo } from 'react'
+import { ChangeEvent, FC, memo, useState } from 'react'
 import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
@@ -9,35 +9,30 @@ import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/pr
 
 import styles from './profile.module.scss'
 
-type userInfoT = {
-  fullName: string
-  email: string
-  phone: string
-  city: string
-  userDesc: string
-}
-
 type AboutUserPropsT = {
-  avatar: string | null
-  userInfo?: userInfoT
   sex: string
-  onChangeAvatar: (e: ChangeEvent<HTMLInputElement>) => void
   onChangeUserInfo?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
-const optionsList = ['Выберите пол', 'Мужской', 'Женский']
+const optionsList = [
+  { label: 'Женский', value: 'Ж' },
+  { label: 'Мужской', value: 'М' },
+]
 
-export const AboutUser: FC<AboutUserPropsT> = memo(({ avatar, onChangeAvatar }) => {
-  // const { email, fullName, phone, city, userDesc } = userInfo
+export const AboutUser: FC<AboutUserPropsT> = memo(() => {
+  const [avatarFile, setAvatarFile] = useState<File | Blob>()
+  const [avatarUrl, setAvatarUrl] = useState<string>()
 
   const { data } = useFetchProfileDataQuery(1)
+
   const [updateProfile] = useUpdateProfileMutation()
 
   const formik = useFormik({
     initialValues: {
-      avatar: data?.avatar_url,
+      avatar: data?.avatar || '',
+      avatar_url: avatarUrl || data?.avatar_url,
       city: data?.city,
       description: data?.description,
-      sex: data?.sex,
+      sex: data?.sex || '',
       first_name: data?.user.first_name,
       last_name: data?.user.last_name,
       email: data?.user.email,
@@ -46,28 +41,35 @@ export const AboutUser: FC<AboutUserPropsT> = memo(({ avatar, onChangeAvatar }) 
     enableReinitialize: true,
     validationSchema: userDataSchema,
     onSubmit: values => {
-      // const formdata = new FormData()
+      const { avatar, avatar_url, city, description, sex, ...rest } = values
 
-      // const objToSend = Object.entries(values).map(([key, value]) => {
-      //   // formdata.append(key, value || '')
-      //   return value || ''
-      // })
+      const formData = new FormData()
 
-      // console.log(formdata)
+      const objToSend = {
+        city,
+        description,
+        // sex,
+        user: { ...rest },
+      }
 
-      // Object.entries(values).forEach(([key, value]) => {
-      //   if (typeof value !== 'object') formdata.append(key, value || '')
-      //   else formdata.append(key, JSON.stringify(value || ''))
-      // })
+      avatarFile && formData.append('avatar', avatarFile)
 
-      // updateProfile(values)
+      avatarFile && updateProfile(formData)
+      updateProfile(objToSend)
 
-      console.log(values)
     },
   })
 
+  const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const url = URL.createObjectURL(e.target.files[0])
+      setAvatarUrl(url)
+      setAvatarFile(e.target.files[0])
+    }
+  }
+
   const {
-    // values: { city, description, sex, email, last_name, first_name, phone_number },
+    values: { city, description, email, last_name, first_name, phone_number, avatar_url },
     handleChange,
     handleSubmit,
     touched,
@@ -78,25 +80,25 @@ export const AboutUser: FC<AboutUserPropsT> = memo(({ avatar, onChangeAvatar }) 
     <form style={{ width: 'calc(100% * 0.6)', marginRight: '26px', marginBottom: '108px' }} className={styles.container} onSubmit={handleSubmit}>
       <h3>Настройка профиля</h3>
       <div className={styles.profile_block}>
-        <Input name={'email'} type={'text'} label={'Email:'} value={formik.values.email} onChange={handleChange} />
+        <Input name={'email'} type={'text'} label={'Email:'} value={email} onChange={handleChange} />
         {/* {errors.email} */}
       </div>
       <div className={styles.profile_block}>
         <div className={styles.profile_block_avatarBlock}>
           <span className={styles.profile_block_avatarBlock_title}>Аватар:</span>
-          {avatar ? (
-            <img className={styles.profile_block_avatarBlock_avatar} src={avatar} alt="User Avatar" />
+          {avatar_url ? (
+            <img className={styles.profile_block_avatarBlock_avatar} src={avatar_url} alt="User Avatar" />
           ) : (
             <div className={styles.profile_block_avatarBlock_avatar} />
           )}
-          <input className={styles.profile_block_avatarBlock_input} name={'Avatar'} type={'file'} onChange={onChangeAvatar} />
+          <input className={styles.profile_block_avatarBlock_input} value={''} name={'avatar'} type={'file'} onChange={onChangeAvatar} />
         </div>
       </div>
       <div className={styles.profile_block}>
-        <Input name={'first_name'} type={'text'} label={'Имя:'} onChange={handleChange} value={formik.values.first_name} />
+        <Input name={'first_name'} type={'text'} label={'Имя:'} onChange={handleChange} value={first_name} />
       </div>
       <div className={styles.profile_block}>
-        <Input name={'last_name'} type={'text'} label={'Фамилия:'} onChange={handleChange} value={formik.values.last_name} />
+        <Input name={'last_name'} type={'text'} label={'Фамилия:'} onChange={handleChange} value={last_name} />
       </div>
       <div className={styles.profile_block}>
         <Input
@@ -104,51 +106,46 @@ export const AboutUser: FC<AboutUserPropsT> = memo(({ avatar, onChangeAvatar }) 
           type={'text'}
           label={'Телефон:'}
           onChange={handleChange}
-          value={formik.values.phone_number}
+          value={phone_number}
           placeholder={'Введите номер телефона'}
         />
         {/* {errors.phone_number} */}
       </div>
       <div className={styles.profile_block}>
-        <Input name={'city'} type={'text'} label={'Город:'} onChange={handleChange} value={formik.values.city} placeholder={'Введите город'} />
+        <Input name={'city'} type={'text'} label={'Город:'} onChange={handleChange} value={city} placeholder={'Введите город'} />
       </div>
       <div className={styles.profile_block}>
         <span className={styles.profile_block_avatarBlock_title}>О себе:</span>
         <textarea
           className={styles.profile_block_textArea}
           onChange={handleChange}
-          value={formik.values.description}
+          value={description}
+          name="description"
           placeholder={
-            formik.values.description
-              ? formik.values.description
+            description
+              ? description
               : 'Опишите вашу карьеру и достижения. Эта информация будет отображена на страницах курсов, в которых вы являетесь преподавателем'
           }
         />
       </div>
       <div className={styles.profile_block}>
         <span className={styles.profile_block_avatarBlock_title}>Пол:</span>
-        <SelectInput optionsList={optionsList} />
+        {/* <SelectInput optionsList={optionsList} sex={formik.values.sex} handleChange={handleChange} /> */}
+        <select
+          onChange={e => {
+            handleChange(e)
+            console.log(formik.values.sex)
+          }}
+          value={formik.values.sex}
+          name="sex"
+          id="sex"
+        >
+          <option value={'М'}>Мужской</option>
+          <option value={'Ж'}>Женский</option>
+        </select>
       </div>
       <div>
-        <button
-          onClick={() => {
-            const objToSend = {
-              city: formik.values.city,
-              user: {
-                lat_name: formik.values.last_name,
-                first_name: formik.values.first_name,
-                email: formik.values.email,
-                phone_number: formik.values.phone_number,
-              },
-            }
-            updateProfile(objToSend)
-
-            console.log(objToSend)
-          }}
-        >
-          Send
-        </button>
-        <Button text={'Сохранить'} variant={'primary'} disabled={true} />
+        <Button type="submit" text={'Сохранить'} variant={'primary'} />
       </div>
     </form>
   )
