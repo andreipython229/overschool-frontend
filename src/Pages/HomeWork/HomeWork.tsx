@@ -4,15 +4,11 @@ import { FiltersButton } from '../../components/FiltersButton'
 import { Input } from '../../components/common/Input/Input/Input'
 import { searchSvgIcon } from '../../constants/iconSvgConstants'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
-import { dropDownListFilter } from '../../constants/dropDownList'
+import { dropDownListFilter } from '../../constants/dropDownList';
+import { Pagination } from 'incomprehensiblePages/Pagination/Pagination'
 
 import styles from './home_work.module.scss'
-<<<<<<< HEAD
-
-import { CoursesStudentsBlock } from '../CoursesStats/CoursesStudentsBlock';
-=======
 import { StudentsTableBlock } from '../../components/StudentsTableBlock'
->>>>>>> master
 
 export const HomeWork = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])

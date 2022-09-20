@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { usePagination, DOTS } from './usePagination';
+import { usePagination, DOTS } from 'customHooks/usePagination';
 import './pagination.scss';
 
 
@@ -34,7 +34,7 @@ export const Pagination = (props:any) => {
   const lastPage = paginationRange[paginationRange.length - 1];
   return (
     <div className='pagination-bar'>
-      <p>Всего <span>{totalCount}</span></p>
+      <p className='pagination-text'>Всего <span className='pagination-total'>{paginationRange.slice(-1)}</span></p>
       <ul
       className='pagination-container'
     >

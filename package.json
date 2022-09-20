@@ -27,12 +27,7 @@
     "react-draft-wysiwyg": "^1.15.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
-<<<<<<< HEAD
-    "react-scripts": "5.0.1",
-    "react-youtube": "^9.0.3",
-=======
     "react-scripts": "^5.0.1",
->>>>>>> master
     "redux-persist": "^6.0.0",
     "redux-persist-transform-filter": "^0.0.20",
     "sass": "^1.53.0",

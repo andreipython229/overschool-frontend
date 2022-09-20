@@ -11,13 +11,10 @@ import { Path } from 'enum/pathE'
 import { useAppSelector, useAppDispatch } from './store/hooks'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
-<<<<<<< HEAD
-import { authSelector } from 'selectors';
-=======
 import { authSelector, platformSelector } from 'selectors'
 import { changeLoadingStatus } from 'store/redux/platform/slice'
 import { useFetchSchoolHeaderQuery } from './api/schoolHeaderService'
->>>>>>> master
+
 
 import styles from './App.module.scss'
 

@@ -4,6 +4,17 @@
   justify-content: center;
 } 
 
+.pagination-text {
+  font-weight: 500;
+  font-size: 12px;
+  color: #424345;
+  margin-right: 10px;
+}
+
+.pagination-total {
+  font-weight: 600;
+}
+
 .pagination-container {
   display: flex;
   list-style-type: none;
@@ -12,10 +23,10 @@
   border-radius: 7px;
 
   .pagination-item {
-    padding: 0 12px;
+    padding: 0 14px;
     height: 32px;
     text-align: center;
-    margin: auto 4px;
+    margin: 0 auto;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
     box-sizing: border-box;
