@@ -1,0 +1,18 @@
+.review {
+  &__container {
+    margin: 0 auto;
+    display: flex;
+    width: 1021px;
+    border-radius: 5px;
+  }
+
+  &__info {
+    background-color: #fff;
+    padding: 39px 0 0 67px;
+  }
+
+  &__author {
+    background-color: #E0DCED;
+    padding: 18px 0 0 51px;
+  }
+}
