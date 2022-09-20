@@ -10,7 +10,7 @@ import { SettingsPath } from 'enum/pathE'
 import { RoleE } from 'enum/roleE'
 import { Logs } from './Logs/Logs'
 import { DecorPlatform } from './DecorPlatform/DecorPlatform'
-import { selectUser } from '../../selectors/index'
+import { selectUser } from '../../selectors'
 import { useBoolean } from '../../customHooks/useBoolean'
 
 export const Settings: FC = memo(() => {
