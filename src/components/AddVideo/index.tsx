@@ -6,6 +6,7 @@ import { addVideoIconPath } from './config/svgIconsPath'
 import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/commonSvgIconsPath'
 import { usePatchLessonsMutation } from 'api/LessonsServices'
 import { AddPostT, setShowType } from '../componentsTypes'
+import { patchData } from '../../utils/patchData'
 
 import styles from './addVideo.module.scss'
 
@@ -19,10 +20,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lesson, setShow }) => {
   }
 
   const handleSaveVideoLink = () => {
-    const id = lesson?.lesson_id
-    const formdata = new FormData()
-    formdata.append('video', addVideoLink)
-    addFile({ formdata, id })
+    patchData(lesson, 'video', addVideoLink, addFile)
     setAddVideoLink('')
   }
 

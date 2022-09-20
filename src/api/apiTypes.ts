@@ -11,6 +11,6 @@ export interface ICredentials {
 
 export interface IResponse {
   email: string
-  token: string
+  access_token: string
   username: null | string
 }
