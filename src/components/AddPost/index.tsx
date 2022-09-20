@@ -25,7 +25,7 @@ export const AddPost: FC<AddPostT> = memo(({ lesson }) => {
     <>
       {isOpenTextEditor && <AddTextEditor lesson={lesson} setShow={closeTextEditor} />}
       {isOpenVideo && <AddVideo lesson={lesson} setShow={closeVideo} />}
-      {isOpenAudio && <AddAudio setShow={closeAudio} />}
+      {isOpenAudio && <AddAudio lesson={lesson} setShow={closeAudio} />}
       {isOpenCodeEditor && <AddCodeEditor lesson={lesson} setShow={closeCodeEditor} />}
 
       <section className={styles.redactorCourse_rightSide_functional_creating}>

@@ -8,6 +8,7 @@ import { AddPost } from 'components/AddPost'
 import { settingsIconPath, deleteIconPath, paperClipIconPath } from '../../../../config/svgIconsPath'
 import { useFetchLessonQuery, usePatchLessonsMutation } from 'api/LessonsServices'
 import { ClassesSettingsPropsT, ILesson } from '../../../navigationTypes'
+import { patchData } from 'utils/patchData'
 
 import styles from './constructor.module.scss'
 
@@ -30,10 +31,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
   const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files) {
       const files = event.target.files
-      const formdata = new FormData()
-      formdata.append('file', files[0])
-      const id = lesson.lesson_id
-      addFile({ formdata, id })
+      patchData(lesson, 'file', files[0], addFile)
     }
   }
 

@@ -6,10 +6,10 @@ export const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_BASE_URL,
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState)?.user?.token
+    const token = (getState() as RootState)?.user?.access_token
 
     if (token) {
-      headers.set('Authenticate', `Token ${token}`)
+      headers.set('Authorization', `Bearer ${token}`)
     }
     return headers
   },
