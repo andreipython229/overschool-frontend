@@ -20,7 +20,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lesson, setShow }) => {
   }
 
   const handleSaveVideoLink = () => {
-    patchData(lesson, 'video', addVideoLink, addFile)
+    patchData(lesson, 'lesson_id', 'video', addVideoLink, addFile)
     setAddVideoLink('')
   }
 

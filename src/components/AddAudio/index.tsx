@@ -32,7 +32,6 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lesson, setShow }) => {
     const formdata = new FormData()
     formdata.append('code', audioFiles[0])
     addAudioFile({ formdata, id })
-    console.log(data)
     setDragAudio(false)
   }
 
