@@ -8,7 +8,6 @@ import { Button } from '../../common/Button/Button'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { backArr } from '../config/svgIconPath'
-import { stackIconPath, clickBoardCheckPath, signIconPath } from '../../../Pages/School/config/svgIconsPath'
 
 import styles from '../previou.module.scss'
 

@@ -1,6 +1,5 @@
-import {ChangeEvent, FC, MouseEvent, ReactNode} from 'react'
-import {SettingItemT} from "../../Pages/CoursesStats/CoursesStats";
-
+import { ChangeEvent } from 'react'
+import { SettingItemT } from '../../Pages/CoursesStats/coursesStatsTypes'
 
 export type SettingClassesPropsT = {
   goToBack: () => void

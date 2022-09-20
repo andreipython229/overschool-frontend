@@ -5,16 +5,15 @@ import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/Ad
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from 'Pages/School/Navigations/StudentsStats/StudentInfoGraphic'
-import { StudentLogs } from 'enum/pathE'
-import { createGroupIconPath, showAllGroups } from '../../config/svgIconsPath'
-import { StudentsTableBlock } from '../../../../components/StudentsTableBlock'
+import { createGroupIconPath } from '../../config/svgIconsPath'
+import { StudentsTableBlock } from 'components/StudentsTableBlock'
 import { settingsItemsList } from '../../../CoursesStats/config/settingsItemList'
-import { SettingStudentTable } from '../../../../components/Modal/SettingStudentTable/'
-import { useFetchStudentsGroupQuery } from '../../../../api/studentsGroupService'
-import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
+import { SettingStudentTable } from 'components/Modal/SettingStudentTable/'
+import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { StudentGroup } from 'Pages/School/Navigations/StudentsStats/StudentsCountGroup'
 import { studentsGroupT } from '../../../../types/studentsGroup'
-import { ToggleButtonDropDown } from '../../../../components/common/ToggleButtonDropDown'
+import { ToggleButtonDropDown } from 'components/common/ToggleButtonDropDown'
 
 import styles from './studentsStats.module.scss'
 
@@ -95,7 +94,8 @@ export const StudentsStats = () => {
           )}
         </div>
       </section>
-      <p className={styles.all_students}
+      <p
+        className={styles.all_students}
         style={{
           fontWeight: 500,
           letterSpacing: '-0.01em',

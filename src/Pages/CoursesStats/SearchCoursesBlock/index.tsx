@@ -8,22 +8,17 @@ import { useAppSelector } from '../../../store/hooks'
 import { useFilterData } from '../../../customHooks/useFilterData'
 import { ToggleButtonDropDown } from '../../../components/common/ToggleButtonDropDown'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
-import { studentsGroupT } from '../../../types/studentsGroup'
+import { searchCourseBlockT } from '../coursesStatsTypes'
 
 import styles from '../courses_stats.module.scss'
 
-type searchCourseBlockT = {
-  groups: studentsGroupT[]
-}
-
-export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({groups}) => {
+export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups }) => {
   const { courses } = useAppSelector(allCoursesSelector)
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleToggleHiddenBlocks = (): void => {
     setIsOpen(!isOpen)
   }
-
 
   const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
 

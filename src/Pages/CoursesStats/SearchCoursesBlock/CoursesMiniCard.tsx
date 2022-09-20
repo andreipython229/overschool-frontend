@@ -4,18 +4,11 @@ import { generatePath, Link } from 'react-router-dom'
 import { Path } from '../../../enum/pathE'
 import { addCourseId } from '../../../store/redux/course/slice'
 import { useAppDispatch } from '../../../store/hooks'
-import { studentsGroupT } from '../../../types/studentsGroup'
+import { CoursesMiniCardT } from '../coursesStatsTypes'
 
 import styles from '../courses_stats.module.scss'
 
-type CoursesMiniCardT = {
-  photo_url?: string
-  name: string
-  courseId: string
-  groups: studentsGroupT[]
-}
-
-// need to change logic of labels' naming  
+// need to change logic of labels' naming
 
 export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseId, groups }) => {
   const dispatch = useAppDispatch()

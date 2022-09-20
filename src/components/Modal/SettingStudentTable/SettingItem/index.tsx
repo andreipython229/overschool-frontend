@@ -2,9 +2,9 @@ import { ChangeEvent, FC, useEffect, useState, PointerEvent } from 'react'
 import { Reorder, useDragControls } from 'framer-motion'
 
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
-import { SettingItemT } from '../../../../Pages/CoursesStats/CoursesStats'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { checkedIconPath, noCheckedIconPath, doBlockIconPath } from '../config/svgIconsPath'
+import { SettingItemT } from 'Pages/CoursesStats/coursesStatsTypes'
 
 import styles from './settingItem.module.scss'
 
