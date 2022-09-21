@@ -5,14 +5,15 @@ import { GlobalPreviousT } from '../../componentsTypes'
 import { Path } from '../../../enum/pathE'
 import { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation } from 'api/schoolHeaderService'
 import { Button } from '../../common/Button/Button'
-import { schoolHeaderReqT } from '../../../types/schoolHeaderT'
-
-import {noAvatar} from '../../../assets/img/common/index'
+import { schoolHeaderReqT } from 'types/schoolHeaderT'
+import { useAppSelector } from 'store/hooks'
+import { selectUser } from 'selectors'
+import { noAvatar } from 'assets/img/common'
 
 import styles from '../previou.module.scss'
 
 export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
-  // const role = useAppSelector((state: RootState) => state.user.permission)
+  const user = useAppSelector(selectUser)
 
   const { pathname }: Location = useLocation()
   const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
@@ -70,7 +71,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
         description,
       })
     }
-  }, [isSuccess])
+  }, [isSuccess, data])
 
   useEffect(() => {
     if (pathname !== '/' + Path.InitialPage + Path.Courses) {
@@ -135,20 +136,22 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
           {/* <p className={styles.previous_infoBlock_title_about}>{about}</p> */}
         </div>
       </div>
-      <div className={styles.previous_btn}>
-        {isMatchPath && (
-          <Button
-            variant="primary"
-            style={{
-              width: '220px',
-              fontSize: '10px',
-              fontWeight: '800',
-            }}
-            text={edit ? 'Завершить настройку курсов' : 'Настроить страницу курсов'}
-            onClick={edit ? onChangeSchoolHeader : handleChangePrevious}
-          />
-        )}
-      </div>
+      {user.permission !== 5 && (
+        <div className={styles.previous_btn}>
+          {isMatchPath && (
+            <Button
+              variant="primary"
+              style={{
+                width: '220px',
+                fontSize: '10px',
+                fontWeight: '800',
+              }}
+              text={edit ? 'Завершить настройку курсов' : 'Настроить страницу курсов'}
+              onClick={edit ? onChangeSchoolHeader : handleChangePrevious}
+            />
+          )}
+        </div>
+      )}
     </div>
   )
 })

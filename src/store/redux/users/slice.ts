@@ -28,20 +28,11 @@ export const sliceUser = createSlice({
     token: (state, action: PayloadAction<string>) => {
       state.access_token = action.payload
     },
-    loginUser: (state, action: PayloadAction<{ value: string | number }>) => {
-      state.authDate = action.payload.value
-    },
-    changeInfo: (state, action: PayloadAction<UserT>) => {
-      state.city = action.payload.city
-      state.avatar = action.payload.avatar
-      state.user.first_name = action.payload.user.first_name
-      state.user.last_name = action.payload.user.last_name
-      state.user.email = action.payload.user.email
-      state.sex = action.payload.sex
-      state.aboutMySelf = action.payload.aboutMySelf
+    role: (state, action: PayloadAction<number>) => {
+      state.permission = action.payload
     },
   },
 })
 
-export const { auth, loginUser, token, changeInfo } = sliceUser.actions
+export const { auth, token, role } = sliceUser.actions
 export const authReduce = sliceUser.reducer

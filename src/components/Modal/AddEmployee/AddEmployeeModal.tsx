@@ -3,8 +3,8 @@ import { ChangeEvent, FC, memo, useState } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { Radio } from 'components/common/Radio/Radio'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
-import { useAppSelector } from '../../../store/hooks'
-import { selectUser } from '../../../selectors/index'
+import { useAppSelector } from 'store/hooks'
+import { selectUser } from 'selectors'
 import { RoleE } from 'enum/roleE'
 import { Checkbox } from '../../common/Checkbox/Checkbox'
 import { checkBoxData } from './config/checkBoxConfig'
@@ -14,7 +14,6 @@ import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
 import styles from '../Modal.module.scss'
 import { AddEmployeeModalPropsT } from '../ModalTypes'
-
 
 export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ onToggle }) => {
   const [checkedItem, setCheckedItem] = useState<{ [key: string]: boolean }>({

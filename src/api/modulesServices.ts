@@ -28,17 +28,6 @@ export const modulesServices = createApi({
       }),
       invalidatesTags: ['modulesServices'],
     }),
-    // updateCourses: build.mutation({
-    //   query: (arg): string | FetchArgs => {
-    //     console.log(arg)
-    //     return {
-    //       url: `/courses/${arg.id}/`,
-    //       method: 'PUT',
-    //       body: arg.formdata,
-    //     }
-    //   },
-    //   //invalidatesTags: ['allCourses'],
-    // }),
     patchModules: build.mutation({
       query: arg => {
         return {
@@ -49,7 +38,46 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modulesServices'],
     }),
+    fetchLesson: build.query({
+      query: id => ({
+        url: `/lessons/${id}/`,
+      }),
+    }),
+    createLessons: build.mutation({
+      query: arg => ({
+        url: `./lessons/`,
+        method: 'POST',
+        body: arg,
+      }),
+      invalidatesTags: ['modulesServices'],
+    }),
+    deleteLessons: build.mutation({
+      query: id => ({
+        url: `/lessons/${id}/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['modulesServices'],
+    }),
+    patchLessons: build.mutation({
+      query: arg => {
+        return {
+          url: `/lessons/${arg.id}/`,
+          method: 'PATCH',
+          body: arg.formdata,
+        }
+      },
+      invalidatesTags: ['modulesServices'],
+    }),
   }),
 })
 
-export const { useFetchModulesQuery, useCreateModulesMutation, useDeleteModulesMutation, usePatchModulesMutation } = modulesServices
+export const {
+  useFetchModulesQuery,
+  useCreateModulesMutation,
+  useDeleteModulesMutation,
+  usePatchModulesMutation,
+  useFetchLessonQuery,
+  useCreateLessonsMutation,
+  useDeleteLessonsMutation,
+  usePatchLessonsMutation,
+} = modulesServices

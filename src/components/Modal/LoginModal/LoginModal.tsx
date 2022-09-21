@@ -95,7 +95,6 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
               />
               <div className={styles.errors}>{formik.errors.password}</div>
             </div>
-
             <div className={styles.main_btn}>
               <Button text={'Войти'} style={{ width: '246px' }} type={'submit'} variant={'primary'} />
             </div>

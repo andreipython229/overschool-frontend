@@ -19,6 +19,7 @@ import pie from '../../../../assets/img/studentPage/folder-todo.png'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import cardStyles from './coursePage.module.scss'
+import { RoleE } from '../../../../enum/roleE'
 
 type CoursePagePropsT = {
   setShowModal: () => void
@@ -27,7 +28,7 @@ type CoursePagePropsT = {
 
 export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector(selectUser)
+  const { permission } = useAppSelector(selectUser)
 
   const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
 
@@ -49,7 +50,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
               course={course}
               renderProps={course => (
                 <>
-                  {user.permission === 1 ? (
+                  {permission === RoleE.SuperAdmin ? (
                     <>
                       <div className={cardStyles.course_card_img}>
                         <img className={cardStyles.course_card_img} src={course.photo_url} alt="" />
@@ -108,12 +109,13 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
               )}
             />
           ))}
-
-        <div onClick={dispatchHandlerModal} className={styles.course_card}>
-          <div className={styles.course_addCourse}>
-            <span>Создать курс</span>
+        {permission !== RoleE.Student && (
+          <div onClick={dispatchHandlerModal} className={styles.course_card}>
+            <div className={styles.course_addCourse}>
+              <span>Создать курс</span>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

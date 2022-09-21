@@ -4,15 +4,12 @@ import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { addVideoIconPath } from './config/svgIconsPath'
 import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/commonSvgIconsPath'
-import { usePatchLessonsMutation } from 'api/LessonsServices'
 import { AddPostT, setShowType } from '../componentsTypes'
 import { patchData } from '../../utils/patchData'
 
 import styles from './addVideo.module.scss'
 
-export const AddVideo: FC<setShowType & AddPostT> = ({ lesson, setShow }) => {
-  const [addFile] = usePatchLessonsMutation()
-
+export const AddVideo: FC<setShowType & AddPostT> = ({ addFile, lesson, setShow }) => {
   const [addVideoLink, setAddVideoLink] = useState<string>('')
 
   const handleChangeInputLink = (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +17,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lesson, setShow }) => {
   }
 
   const handleSaveVideoLink = () => {
-    patchData(lesson, 'lesson_id', 'video', addVideoLink, addFile)
+    addFile && patchData(lesson, 'lesson_id', 'video', addVideoLink, addFile)
     setAddVideoLink('')
   }
 

@@ -1,13 +1,11 @@
 import { memo, useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useAppDispatch } from '../../store/hooks'
 import { auth, token } from 'store/redux/users/slice'
 import { Path } from 'enum/pathE'
 import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { changeLoadingStatus } from '../../store/redux/platform/slice'
-import { platformSelector } from '../../selectors'
 import { logOutIconPath } from './config/svgIconsPath'
 
 import { avatar, logo } from '../../assets/img/common/index'
@@ -16,7 +14,6 @@ import styles from './header.module.scss'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
-  const { isLoading } = useAppSelector(platformSelector)
 
   const logOut = (): void => {
     dispatch(token(''))
@@ -27,11 +24,10 @@ export const Header = memo(() => {
   const [logotype, setLogo] = useState<string | undefined>('')
 
   useEffect(() => {
-    if (isSuccess || isLoading) {
+    if (isSuccess) {
       setLogo(data?.logo_school_url)
-      dispatch(changeLoadingStatus(false))
     }
-  }, [data, isLoading])
+  }, [data])
 
   return (
     <header className={styles.header}>

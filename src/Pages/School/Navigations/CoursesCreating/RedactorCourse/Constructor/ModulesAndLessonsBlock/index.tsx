@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Button } from 'components/common/Button/Button'
-import { useAppDispatch } from '../../../../../../../store/hooks'
+import { useAppDispatch } from 'store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 import { ModulesBlock } from './ModulesBlock'
 
@@ -9,11 +9,11 @@ import styles from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Cons
 type LessonAddBlockPropsT = {
   setModalTypeClasses: () => void
   toggleModalModule: () => void
-  modulesList: any
   setLessonId: any
+  modulesList: any
 }
 
-export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = ({ setLessonId, setModalTypeClasses, toggleModalModule, modulesList }) => {
+export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = ({ modulesList, setLessonId, setModalTypeClasses, toggleModalModule }) => {
   const dispatch = useAppDispatch()
 
   const handleOpenModalModule = () => {
