@@ -12,9 +12,7 @@ import { addStudentIconPath } from '../config/svgIconsPath'
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
 import { AddStudentModalPropsT } from '../../ModalTypes'
 
-
 export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, onChangeEmail, studentEmail }) => {
-  console.log(setShowModal)
   const handleClose = () => {
     setShowModal(false)
   }

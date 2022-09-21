@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, memo, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { CoursePage } from 'Pages/School/Navigations/CoursesCreating/CoursePage'
@@ -10,12 +10,12 @@ import { Settings } from '../Settings/Settings'
 import { RoleE } from 'enum/roleE'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { CoursesT } from '../../types/CoursesT'
-import { selectUser } from '../../selectors/index'
-import { useBoolean } from '../../customHooks/useBoolean'
+import { selectUser } from 'selectors'
+import { useBoolean } from 'customHooks/useBoolean'
 
 import styles from './school.module.scss'
 
-export const School: FC = () => {
+export const School: FC = memo(() => {
   const { permission } = useAppSelector(selectUser)
   const [isOpen, { onToggle }] = useBoolean()
 
@@ -34,4 +34,4 @@ export const School: FC = () => {
       </Routes>
     </div>
   )
-}
+})
