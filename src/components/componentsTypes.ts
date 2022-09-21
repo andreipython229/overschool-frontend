@@ -3,10 +3,14 @@ import { ILesson } from '../Pages/School/Navigations/navigationTypes'
 
 export type setShowType = {
   setShow: () => void
+  setDescriptionLesson?: (arg: string) => void
 }
 
 export type AddPostT = {
-  lesson: ILesson
+  lesson?: any
+  code?: string
+  addFile?: (arg: any) => void
+  handleEditorChange?: (code: any) => void
 }
 
 export type ContentBtnPropsT = {

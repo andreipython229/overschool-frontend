@@ -6,13 +6,12 @@ import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { useShowModal } from 'customHooks/useShowModal'
 import { crossIconPath } from 'config/commonSvgIconsPath'
 import { basicModalHeaderIconPath } from '../config/svgIconsPath'
-import { useCreateLessonsMutation } from 'api/LessonsServices'
+import { useCreateLessonsMutation } from 'api/modulesServices'
 import { getSectionId } from 'selectors'
 import { useAppSelector } from 'store/hooks'
 
 import styles from '../../Modal.module.scss'
 import { SettingClassesPropsT } from '../../ModalTypes'
-
 
 export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ goToBack, addCourse, closedAll }) => {
   const { section_id } = useAppSelector(getSectionId)
@@ -27,6 +26,9 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ goToBack, addC
   const [createLesson] = useCreateLessonsMutation()
 
   const handleCreateLesson = () => {
+    if (!nameLesson) {
+      return
+    }
     const createLessonData = {
       name: nameLesson,
       section: section_id,

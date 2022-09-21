@@ -19,8 +19,7 @@ export const School: FC = () => {
   const { permission } = useAppSelector(selectUser)
   const [isOpen, { onToggle }] = useBoolean()
 
-  const { data: coursesList, isSuccess } = useFetchCoursesQuery()
-
+  const { data: coursesList } = useFetchCoursesQuery()
 
   return (
     <div className={styles.container}>

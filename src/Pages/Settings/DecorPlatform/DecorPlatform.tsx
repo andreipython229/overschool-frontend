@@ -1,8 +1,6 @@
 import { ChangeEvent, memo, useState } from 'react'
 
 import { LogoAddBlock } from './LogoAddBlock/LogoAddBlock'
-import { useAppDispatch } from '../../../store/hooks'
-import { changeLoadingStatus } from '../../../store/redux/platform/slice'
 import { useSetSchoolHeaderMutation } from '../../../api/schoolHeaderService'
 
 import { superAdminCover } from '../../../assets/img/common/index'
@@ -10,8 +8,6 @@ import { superAdminCover } from '../../../assets/img/common/index'
 import styles from '../superAdmin.module.scss'
 
 export const DecorPlatform = memo(() => {
-  const dispatch = useAppDispatch()
-
   const [setSchoolHeader] = useSetSchoolHeaderMutation()
 
   const [logoError, setLogoError] = useState<string>('')
@@ -28,7 +24,6 @@ export const DecorPlatform = memo(() => {
       } else {
         setLogoError('Неверный формат')
       }
-      dispatch(changeLoadingStatus(true))
     }
   }
   const onChangeFavicon = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +38,6 @@ export const DecorPlatform = memo(() => {
       } else {
         setFaviconError('Неверный формат')
       }
-      dispatch(changeLoadingStatus(true))
     }
   }
 

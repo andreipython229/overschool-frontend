@@ -6,7 +6,7 @@ import { useAppDispatch } from 'store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 import { AddPost } from 'components/AddPost'
 import { settingsIconPath, deleteIconPath, paperClipIconPath } from '../../../../config/svgIconsPath'
-import { useFetchLessonQuery, usePatchLessonsMutation } from 'api/LessonsServices'
+import { useDeleteLessonsMutation, useFetchLessonQuery, usePatchLessonsMutation } from 'api/modulesServices'
 import { ClassesSettingsPropsT, ILesson } from '../../../navigationTypes'
 import { patchData } from 'utils/patchData'
 
@@ -14,8 +14,12 @@ import styles from './constructor.module.scss'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettingsClassesModal, modulesList }) => {
   const dispatch = useAppDispatch()
-  const { data } = useFetchLessonQuery(lessonId ? lessonId : modulesList[0]?.lessons[0]?.lesson_id)
+
+  const lessonIdVar = lessonId ? lessonId : modulesList[0]?.lessons[0]?.lesson_id
+
+  const { data } = useFetchLessonQuery(lessonIdVar)
   const [addFile] = usePatchLessonsMutation()
+  const [deleteLesson] = useDeleteLessonsMutation()
 
   const [lesson, setLesson] = useState<ILesson>(data)
 
@@ -26,6 +30,10 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
   const showSettingsModal = () => {
     showSettingsClassesModal()
     dispatch(showModal(true))
+  }
+
+  const handleDeleteLesson = () => {
+    deleteLesson(lessonIdVar)
   }
 
   const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -45,7 +53,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
             Настройки
           </button>
           <button className={styles.redactorCourse_rightSide_header_btnBlock_delete}>
-            <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+            <IconSvg functionOnClick={handleDeleteLesson} width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
           </button>
         </div>
       </div>

@@ -26,4 +26,4 @@ export const schoolHeaderService = createApi({
   }),
 })
 
-export const { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation, useLazyFetchSchoolHeaderQuery } = schoolHeaderService
+export const { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation } = schoolHeaderService

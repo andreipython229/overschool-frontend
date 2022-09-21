@@ -26,7 +26,7 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
     focusEditor()
     setEditorContent(draftToHtml(convertToRaw(editorState.getCurrentContent())))
     setDescriptionLesson && setDescriptionLesson(debounced.toString())
-  }, [editorState, debounced])
+  }, [editorContent, debounced])
 
   const editor = useRef<Editor>(null)
 
