@@ -15,8 +15,8 @@ export const MainLayOut: FC = memo(() => {
       <Header />
       <main className={styles.container}>
         <Previous />
-        {/* <Outlet /> */}
-        <StudentAccardion />
+        <Outlet />
+        {/* <StudentAccardion /> */}
       </main>
     </div>
   )
