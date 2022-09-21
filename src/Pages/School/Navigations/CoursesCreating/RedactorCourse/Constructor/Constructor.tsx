@@ -2,45 +2,34 @@ import { FC, useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { ModalTypeClasses, SettingClassesUsually, TasksModal, TestModal, WebinarModal } from 'components/Modal'
-
+import { useFetchModulesQuery } from 'api/modulesServices'
 import { LessonSettings } from './LessonSettings'
 import { ModulesAndLessonsBlock } from './ModulesAndLessonsBlock'
 import { AddModuleModal } from 'components/Modal/CoursesModal/AddModuleModal'
 import { SettingsClassesModal } from 'components/Modal/CoursesModal/SettingsClassesModal'
-import { useFetchModulesQuery } from 'api/modulesServices'
 import { useBoolean } from 'customHooks/useBoolean'
 
 import styles from './constructor.module.scss'
 
 export const Constructor: FC = () => {
   const { course_id: courseId } = useParams()
-
-  const [modulesList, setModulesList] = useState<Array<object>>([])
-  const [lessonId, setLessonId] = useState('')
-
   const { data: modulesAndLessons } = useFetchModulesQuery(courseId)
 
-  console.log(modulesAndLessons)
+  const [modulesList, setModulesList] = useState<Array<object>>([])
+  const [lessonId, setLessonId] = useState<string>('')
+
+  const [isOpenSettingLessonModal, { onToggle: toggleSettingLessonModal, on: onSettingLessonModal }] = useBoolean()
 
   const [isOpenModalModule, { on: onModalModule, off: offModalModule }] = useBoolean()
 
-  const [typeClassesModal, setTypeClassesModal] = useState<boolean>(false)
-  const [settingClassesModal, setSettingClassesModal] = useState<boolean>(false)
+  const [isOpenModalLesson, { onToggle: toggleOpenModalLesson, on: onOpenModalLesson }] = useBoolean()
 
   const [activeTypeClasses, setActiveTypeClasses] = useState<null | number>(null)
 
-  const showSettingsClasses = useCallback(() => {
-    setSettingClassesModal(!settingClassesModal)
-  }, [settingClassesModal])
-
-  const setModalTypeClasses = useCallback(() => {
-    setTypeClassesModal(!typeClassesModal)
-  }, [typeClassesModal])
-
   const goToBack = useCallback(() => {
-    setModalTypeClasses()
+    toggleOpenModalLesson()
     setActiveTypeClasses(null)
-  }, [activeTypeClasses, typeClassesModal])
+  }, [activeTypeClasses, isOpenModalLesson])
 
   const closedAllModal = useCallback(() => {
     setActiveTypeClasses(null)
@@ -49,38 +38,39 @@ export const Constructor: FC = () => {
   const setTypeModal = useCallback(
     (id: number) => {
       setActiveTypeClasses(id)
-      setModalTypeClasses()
+      toggleOpenModalLesson()
     },
-    [activeTypeClasses, typeClassesModal],
+    [activeTypeClasses, isOpenModalLesson],
   )
 
-  const addCourse = useCallback(
-    (name: string, type: string) => {
-      setActiveTypeClasses(null)
-    },
-    [activeTypeClasses],
-  )
+  const addCourse = useCallback(() => {
+    setActiveTypeClasses(null)
+  }, [activeTypeClasses])
+
   useEffect(() => {
     if (modulesAndLessons?.sections) {
       setModulesList(modulesAndLessons?.sections)
     }
   }, [courseId, modulesAndLessons])
+
   return (
     <div className={styles.redactorCourse}>
-      {typeClassesModal && <ModalTypeClasses changeClasses={setTypeModal} setShowModal={setTypeClassesModal} />}
+      {isOpenModalLesson && <ModalTypeClasses changeClasses={setTypeModal} setShowModal={onOpenModalLesson} />}
       {activeTypeClasses === 0 && <SettingClassesUsually closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
       {activeTypeClasses === 1 && <TasksModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
       {activeTypeClasses === 2 && <TestModal closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse} />}
       {activeTypeClasses === 3 && <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
       {isOpenModalModule && <AddModuleModal setShowModal={onModalModule} courseId={courseId as string} />}
-      {settingClassesModal && <SettingsClassesModal setShowModal={setSettingClassesModal} />}
+      {isOpenSettingLessonModal && <SettingsClassesModal setShowModal={onSettingLessonModal} />}
       <ModulesAndLessonsBlock
         setLessonId={setLessonId}
-        setModalTypeClasses={setModalTypeClasses}
-        toggleModalModule={offModalModule}
         modulesList={modulesList}
+        setModalTypeClasses={toggleOpenModalLesson}
+        toggleModalModule={offModalModule}
       />
-      {modulesList.length !== 0 && <LessonSettings modulesList={modulesList} lessonId={lessonId} showSettingsClassesModal={showSettingsClasses} />}
+      {modulesList.length !== 0 && (
+        <LessonSettings modulesList={modulesList} lessonId={lessonId} showSettingsClassesModal={toggleSettingLessonModal} />
+      )}
     </div>
   )
 }

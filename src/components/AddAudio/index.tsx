@@ -4,7 +4,7 @@ import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/commonSvgIconsPath'
 import { AddPostT, setShowType } from '../componentsTypes'
-import { usePatchLessonsMutation } from '../../api/LessonsServices'
+import { usePatchLessonsMutation } from 'api/modulesServices'
 
 import styles from './addaudio.module.scss'
 
@@ -13,8 +13,9 @@ const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
 export const AddAudio: FC<setShowType & AddPostT> = ({ lesson, setShow }) => {
   const [dragAudio, setDragAudio] = useState<boolean>(false)
-  const [addAudioFile, { data }] = usePatchLessonsMutation()
-  console.log(data)
+
+  const [addAudioFile, { isLoading }] = usePatchLessonsMutation()
+
   const dragStartAudioHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setDragAudio(true)
@@ -30,21 +31,18 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lesson, setShow }) => {
     const audioFiles = [...e.dataTransfer.files]
     const id = lesson?.lesson_id
     const formdata = new FormData()
-    formdata.append('code', audioFiles[0])
+    formdata.append('audio', audioFiles[0])
     addAudioFile({ formdata, id })
     setDragAudio(false)
   }
 
   const onAddAudioFile = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files) {
-      const index = 0
-      const reader = new FileReader()
-      reader.readAsDataURL(e.target.files[index])
-      reader.onloadend = event => {
-        if (typeof event?.target?.result === 'string') {
-          // addAudioFile(event?.target?.result)
-        }
-      }
+      const files = e.target.files[0]
+      const id = lesson?.lesson_id
+      const formdata = new FormData()
+      formdata.append('audio', files)
+      addAudioFile({ formdata, id })
     }
   }
 
@@ -83,7 +81,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lesson, setShow }) => {
       </IconSvg>
 
       <span>Перетащите .mp3 аудиофайл или нажмите для загрузки</span>
-      <Button variant={'primary'} text={'Выбрать файл'} />
+      <Button variant={'primary'} text={isLoading ? 'Идёт загрузка' : 'Выбрать файл'} />
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
-import { useDeleteLessonsMutation } from 'api/LessonsServices'
+import { useDeleteLessonsMutation } from 'api/modulesServices'
 
 import Lesson from 'assets/img/createCourse/lesson.svg'
 import styles from '../../constructor.module.scss'
