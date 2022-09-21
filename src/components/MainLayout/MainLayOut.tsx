@@ -6,6 +6,7 @@ import { Navbar } from 'components/Navbar/Navbar'
 import { Previous } from '../Previous/Previous'
 
 import styles from './mainLayOut.module.scss'
+import { StudentAccardion } from 'components/StudentAccardion/StudentAccardion'
 
 export const MainLayOut: FC = memo(() => {
   return (
@@ -14,7 +15,8 @@ export const MainLayOut: FC = memo(() => {
       <Header />
       <main className={styles.container}>
         <Previous />
-        <Outlet />
+        {/* <Outlet /> */}
+        <StudentAccardion />
       </main>
     </div>
   )
