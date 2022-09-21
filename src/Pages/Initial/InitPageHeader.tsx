@@ -18,6 +18,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
 
   const handleLoginUser = () => {
     setLoginShow(true)
+    dispatch(role(1))
     dispatch(showModal(true))
   }
 

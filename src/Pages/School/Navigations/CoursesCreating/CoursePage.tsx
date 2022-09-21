@@ -50,7 +50,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
               course={course}
               renderProps={course => (
                 <>
-                  {permission === RoleE.SuperAdmin ? (
+                  {permission === RoleE.Admin ? (
                     <>
                       <div className={cardStyles.course_card_img}>
                         <img className={cardStyles.course_card_img} src={course.photo_url} alt="" />
@@ -65,7 +65,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
                           ) : (
                             <>
                               <img src={notPublic} alt="status course" />
-                              <span className={cardStyles.course_card_status_show_public}>Не публикован</span>
+                              <span className={cardStyles.course_card_status_show_public}>Не опубликован</span>
                             </>
                           )}
                         </span>
