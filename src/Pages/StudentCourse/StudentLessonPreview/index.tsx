@@ -12,10 +12,7 @@ import styles from './lesson.module.scss'
 
 export const StudentLessonPreview = () => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId } = useParams()
-  const params = useParams()
   const { data: modules, isSuccess } = useFetchModulesQuery(courseId)
-
-  console.log(modules, params)
 
   const moduleToShow = modules?.sections.find((module: any) => sectionId && module.section_id === +sectionId)
   const lessonToShow = moduleToShow?.lessons.find((lesson: any) => lessonId && lesson.lesson_id === +lessonId)

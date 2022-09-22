@@ -1,31 +1,55 @@
-import { IconSvg } from 'components/common/IconSvg/IconSvg';
-import { completedIconPath, arrowDown } from '../config/svgIconPath';
-import styles from './accardionItem.module.scss';
-import { SelectDropDown } from 'components/SelectDropDown/SelectDropDown';
-import { ExerciseItem } from '../ExerciseItem/ExerciseItem';
+import { FC, memo } from 'react'
 
-export const AccardionItem = () => {
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { completedIconPath, arrowDown } from '../config/svgIconPath'
+import { ExerciseItem } from '../ExerciseItem/ExerciseItem'
+import { accardionArrPath } from '../../../Pages/StudentCourse/config/svgIconPath'
+import { sectionT, lessonT } from '../../../types/sectionT'
+
+import styles from './accardionItem.module.scss'
+
+type accardionItemT = {
+  module: sectionT
+  moduleIndex: number
+  openIndex: number
+  handleToggleOpen: (index: number) => void
+}
+
+export const AccardionItem: FC<accardionItemT> = memo(({ module, moduleIndex, openIndex, handleToggleOpen }) => {
   return (
-      <div className={styles.accardionWrapper_component}>
-        <div className={styles.accardionWrapper_component_header}>
-            <span className={styles.accardionWrapper_component_header_completedIcon}>
-                <IconSvg width={16} height={13} viewBoxSize="0 0 16 13" path={completedIconPath} />
-            </span>
-            <div className={styles.accardionWrapper_component_header_lessonName}>
-                <h4 className={styles.accardionWrapper_component_header_lessonName_title}>The Way
-                    <span></span>
-                </h4>
-                <span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>1
-                    <span>Занятие</span>
-                </span>
-            </div>
-            <span className={styles.accardionWrapper_component_header_showBtnWrapper}>
-                <IconSvg  width={21} height={12} viewBoxSize="0 0 21 12" path={arrowDown} />
-            </span>
+    <div onClick={() => handleToggleOpen(moduleIndex)} className={styles.accardionWrapper_component}>
+      <div className={styles.accardionWrapper_component_header}>
+        <span className={styles.accardionWrapper_component_header_completedIcon}>
+          {/* <IconSvg width={16} height={13} viewBoxSize="0 0 16 13" path={completedIconPath} /> */}
+          {moduleIndex + 1}
+        </span>
+        <div className={styles.accardionWrapper_component_header_lessonName}>
+          <h4 className={styles.accardionWrapper_component_header_lessonName_title}>
+            {module?.name}
+            <span></span>
+          </h4>
+          <span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>
+            {module.lessons.length}
+            <span>Занятие</span>
+          </span>
         </div>
-        <div className={styles.accardionWrapper_component_exerciseWrapper}>
-            <ExerciseItem />
-        </div>
+        <span
+          className={
+            openIndex === moduleIndex
+              ? styles.accardionWrapper_component_header_showBtnWrapper_active
+              : styles.accardionWrapper_component_header_showBtnWrapper
+          }
+        >
+          <IconSvg width={22} height={13} viewBoxSize="0 0 22 13" path={accardionArrPath} />
+        </span>
       </div>
+      {openIndex === moduleIndex && (
+        <div className={styles.accardionWrapper_component_exerciseWrapper}>
+          {module.lessons.map((lesson: lessonT) => (
+            <ExerciseItem key={lesson.lesson_id} lesson={lesson} sectionId={module.section_id} />
+          ))}
+        </div>
+      )}
+    </div>
   )
-};
+})
