@@ -14,7 +14,7 @@ export const modulesServices = createApi({
       providesTags: () => ['modulesServices'],
     }),
     fetchModule: build.query({
-      query: (sectionId) => ({
+      query: sectionId => ({
         url: `sections/${sectionId}`,
       }),
       providesTags: () => ['modulesServices'],
