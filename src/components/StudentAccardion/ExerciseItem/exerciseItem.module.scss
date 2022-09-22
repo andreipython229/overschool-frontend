@@ -1,0 +1,30 @@
+@import '../../../scss/mixin.scss';
+
+.accardionWrapper_component_exerciseWrapper {
+    @include display (flex, column, center, center);
+    padding: 0 89px 0 94px;
+
+    &_exercise {
+        @include display (flex, row, flex-start, center);
+        width: 100%;
+        height: 50px;
+        padding: 11px 0 11px 20px;
+        margin-bottom: 16px;
+        border-radius: 7px;
+        background-color: #F1E3FF;
+
+        &_nameWrapper {
+            @include display (flex, column);
+            margin-left: 15px;
+
+            &_title {
+                @include font (500, 12px, 15px);
+                color: #4D5766;
+            }
+            &_status {
+                @include font (400, 8px, 10px);
+                color: #BA75FF;
+            }
+        }
+    }
+}

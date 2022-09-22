@@ -25,14 +25,14 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonId, lessonsName, id }
   }
 
   return (
-    <div onClick={handleChangeLesson} style={{ display: 'flex', justifyContent: 'space-between', cursor: 'pointer' }}>
-      <span className={styles.redactorCourse_leftSide_desc_lesson}>
+    <li onClick={handleChangeLesson}  className={styles.redactorCourse_leftSide_desc_lessonWrapper + ' ' + stylesModules.btnWrapper}>
+      <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
         <img src={Lesson} alt="Lessons" />
         {lessonsName}
       </span>
-      <button className={stylesModules.btn_delete_module} onClick={handleDeleteLesson}>
+      <button className={styles.redactorCourse_leftSide_desc_lessonWrapper_btn_deleteLesson + ' ' + stylesModules.btn} onClick={handleDeleteLesson}>
         <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
       </button>
-    </div>
+    </li>
   )
 }

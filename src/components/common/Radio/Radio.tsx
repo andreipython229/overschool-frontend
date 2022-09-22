@@ -4,9 +4,9 @@ import { RadioPropsT } from '../commonComponentsTypes'
 
 import styles from './radio.module.scss'
 
-export const Radio: FC<RadioPropsT> = ({ title, id }) => (
-  <div style={{ display: 'flex', alignItems: 'center' }}>
-    <input type="radio" name={title} id={id} className={styles.custom_radio} value={id} />
+export const Radio: FC<RadioPropsT> = ({ name, title, id }) => (
+  <div>
+    <input type="radio" name={name} id={id} className={styles.custom_radio} value={id} />
     <label htmlFor={id}>{title}</label>
   </div>
 )

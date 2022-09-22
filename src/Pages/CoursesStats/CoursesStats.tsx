@@ -16,11 +16,12 @@ import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { CoursesT } from '../../types/CoursesT'
 
 import styles from '../School/Navigations/StudentsStats/studentsStats.module.scss'
+import { useBoolean } from '../../customHooks/useBoolean'
 
 export const CoursesStats = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)
   const [settingList, setSettingsList] = useState<SettingItemT[]>(settingsItemsList)
-  const [toggleSettingModal, setToggleSettingModal] = useState<boolean>(false)
+  const [toggleSettingModal, { off: offToggleSettingModal, on: onToggleSettingModal }] = useBoolean()
 
   const { data } = useFetchStudentsGroupQuery()
   const { data: courses } = useFetchCoursesQuery()
@@ -61,8 +62,8 @@ export const CoursesStats = () => {
       </section>
       <SearchCoursesBlock courses={courses as CoursesT[]} groups={data as studentsGroupT[]} />
       <AllStudentsBlock headerText={'Все ученики школы'} />
-      <StudentsTableBlock settingList={settingList} setToggleSettingModal={setToggleSettingModal} />
-      {toggleSettingModal && <SettingStudentTable setShowModal={setToggleSettingModal} settingList={settingList} setSettingsList={setSettingsList} />}
+      <StudentsTableBlock settingList={settingList} setShowModal={offToggleSettingModal} />
+      {toggleSettingModal && <SettingStudentTable setShowModal={onToggleSettingModal} settingList={settingList} setSettingsList={setSettingsList} />}
     </div>
   )
 }

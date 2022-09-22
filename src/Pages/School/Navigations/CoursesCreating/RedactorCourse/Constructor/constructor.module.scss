@@ -4,6 +4,7 @@
 .redactorCourse {
   font-family: $font-family-inter;
   @include display(flex);
+
   &_leftSide {
     @include display(flex, column);
     margin-right: 30px;
@@ -18,21 +19,93 @@
       @include display(flex, column);
       margin-top: 23px;
       margin-left: 16px;
+      
+      &_headerText {
+        position: relative;
 
-      &_title {
-        color: $font-title;
-        font-size: 14px;
-        margin-bottom: 20px;
+        &_title {
+
+          position: relative;
+          display: block;
+          @include font (400, 14px);
+          background-color: transparent;
+          color: $font-title;
+          height: 30px;
+        }
+        &_inputWrapper {
+          position: absolute;
+          top: -7px;
+          left: 0;
+          @include display (flex, row, space-between, center);
+          height: 30px;
+          width: 100%;
+          
+          &:hover {
+            z-index: 0;
+
+            &_btn_delete {
+              z-index: 10;
+            }
+          }
+
+          &_input {            
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -10;
+            background-color: transparent;
+            color: $font-title;
+            font-size: 14px;
+            border: none;
+            width: 100%;
+            height: 100%;
+            outline: none;
+          }
+
+          &_btn_delete {
+            @include position_t_r (absolute, 0, 0, -10);
+            @include display (flex, row, center, center);
+            border: none;
+            background-color: transparent;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            
+          }
+        }
       }
 
-      &_lesson {
-        @include display(flex, row, flex-start, center);
-        color: $font-color-rose;
-        font-size: 12px;
+      &_lessonWrapper {
+        position: relative;
+        @include display (flex, row, space-between, center);
+        list-style-type: none;
         margin-bottom: 26px;
+        cursor: pointer;
 
-        & img {
-          margin-right: 7.5px;
+        &_lesson {
+          @include display(flex, row, flex-start, center);
+          color: $font-color-rose;
+          font-size: 12px;
+
+          & img {
+            margin-right: 7.5px;
+          }
+        }
+        &_btn_deleteLesson {
+          position: relative;
+          z-index: -10;
+          @include display (flex, row, center, center);
+          border: none;
+          background-color: transparent;
+          width: 30px;
+          height: 30px;
+          cursor: pointer;
+          
+          & svg {
+            & path {
+              fill:#C1C1C1;
+            }
+          }
         }
       }
     }

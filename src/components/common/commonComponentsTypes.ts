@@ -85,6 +85,7 @@ export type InputAuthPropsT = {
 }
 
 export type RadioPropsT = {
+  name?: string
   title: string
   id: string
 }

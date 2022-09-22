@@ -1,29 +1,27 @@
-import { FC, useCallback, useState } from 'react'
+import { FC } from 'react'
 
 import { BasicSettings } from './BasicSettings'
 import { CardImageUpload } from './CardImageUpload'
 import { CourseActions } from './CourseActions'
 import { CourseAvailability } from './CourseAvailability'
-import { CoursesT } from 'types/CoursesT'
+import { useBoolean } from 'customHooks/useBoolean'
+import { useParams } from 'react-router-dom'
+import { useFetchCourseQuery } from 'api/coursesServices'
 
 import styles from './setting_course.module.scss'
 
-type settingsCourseT = {
-  course: CoursesT
-}
+export const SettingCourse: FC = () => {
+  const { course_id: courseId } = useParams()
+  const { data: course } = useFetchCourseQuery(courseId as string)
+  const booleanValue = course?.public === 'О'
 
-export const SettingCourse: FC<settingsCourseT> = ({ course }) => {
-  const [toggleCheckbox, setToggleCheckbox] = useState<boolean>(false)
-
-  const toggleCheckboxPublished = useCallback(() => {
-    setToggleCheckbox(!toggleCheckbox)
-  }, [toggleCheckbox])
+  const [isPublished, { onToggle: togglePublished }] = useBoolean(booleanValue)
 
   return (
     <div className={styles.container}>
-      {course && <CardImageUpload toggleCheckbox={toggleCheckbox} courseFind={course} />}
+      {course && <CardImageUpload toggleCheckbox={isPublished} courseFind={course} />}
       <div className={styles.container_right}>
-        {course && <BasicSettings courseFind={course} toggleCheckbox={toggleCheckbox} toggleCheckboxPublished={toggleCheckboxPublished} />}
+        {course && <BasicSettings courseFind={course} toggleCheckbox={isPublished} toggleCheckboxPublished={togglePublished} />}
         <div className={styles.availability_course_wrapper}>
           <CourseAvailability />
         </div>

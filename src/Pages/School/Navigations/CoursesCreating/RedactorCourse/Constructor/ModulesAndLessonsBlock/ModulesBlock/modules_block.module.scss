@@ -1,17 +1,5 @@
-.headerText {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  &:hover {
-    .block {
-      display: block;
-      border: none;
-    }
-    .test {
-      display: none;
-    }
-  }
-}
-.block {
-  display: none;
+@import '../../../../../../../../scss/mixin.scss';
+@import 'src/scss/variable';
+.btnWrapper:hover .btn{
+  z-index: 10;
 }

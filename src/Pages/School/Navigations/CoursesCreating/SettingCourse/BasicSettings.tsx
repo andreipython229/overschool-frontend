@@ -40,7 +40,9 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
     const updateCurse = {
       name: debouncedCourseName,
       description: debouncedDescription,
+      public: toggleCheckbox ? 'О' : 'Н',
     }
+
     const formdata = formDataConverter(updateCurse)
     if (formdata && courseFind) {
       const id = courseFind?.course_id
@@ -62,10 +64,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
       <div className={styles.publish_switch}>
         <p className={styles.publish_switch_title}>Статус курса</p>
         <div className={styles.publish_switch_wrapper_switch}>
-          <span>Не опубликован</span>
-
-          <CheckboxBall />
-          <span>Опубликован</span>
+          <CheckboxBall isChecked={toggleCheckbox} toggleChecked={toggleCheckboxPublished} />
         </div>
       </div>
       <div className={styles.course_name_wrapper}>

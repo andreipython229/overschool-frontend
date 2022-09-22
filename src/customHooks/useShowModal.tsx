@@ -17,7 +17,7 @@ type funcT = ISetShowModal | ICloseAll
 export const useShowModal = ({ ...func }: funcT) => {
   const dispatch = useAppDispatch()
   const { modal } = useAppSelector(modalSelector)
-
+  //console.log(func)
   const clickMouseHandler = (event: MouseEvent) => {
     const target = event?.target as HTMLHeadingElement
 

@@ -12,4 +12,5 @@ export type CoursesT = {
   photo?: string
   photo_url?: string
   author_id: number
+  public: string
 }
