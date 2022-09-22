@@ -1,71 +1,96 @@
 @import '../../../scss/mixin.scss';
 
 .accardionWrapper {
-    &_component {
-        @include display (flex, column, center);
-        background-color: #fff;
-        box-shadow: 0 0 5px rgba(0, 0, 0, .3);
-        border-radius: 7px;
-
-        &_header {
-            @include display (flex, row, space-between, center);
-            width: 100%;
-            padding: 27px 40px;
-
-            &_completedIcon {
-
-            position: relative;
-            display: block;
-            flex-shrink: 0;
-            width: 38px;
-            height: 38px;
-            background-color: #BA75FF;
-            border-radius: 50%;
-
-                svg {
-                    @include position_t_l (absolute, calc(50% - 8px), calc(50% - 7px));
-                }
-            }
-            &_lessonName {
-                @include display (flex, row, flex-start, center);
-                width: 100%;
-                margin-left: 32px;
-
-                &_title {                
-                    @include display (flex, row, flex-start, center);
-                    @include font (500, 14px, 16px);
-                    color: #4D5766;
-
-                    span {
-                        display: block;
-                        width: 20px;
-                        height: 2px;
-                        margin: 0 10px;
-                        background-color: #9CA3AF;
-                    }
-                }
-                &_exerciseSum {
-                    @include font (500, 14px, 16px);
-                    color: #9CA3AF;
-                    span {
-                        margin-left: 5px;
-                    }
-                }
-            }
-
-        }
-
-
-        &_exerciseWrapper {
-            @include display (flex, column, center, center);
-            padding: 0 89px 0 94px;
-
-            &_exercise {
-                height: 50px;
-                margin-bottom: 16px;
-                border-radius: 7px;
-                background-color: #F1E3FF;
-            }
-        }
+  &_component {
+    @include display(flex, column, center);
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border-radius: 7px;
+    margin-bottom: 16px;
+    transition: all 0.3s;
+    &:hover {
+      cursor: pointer;
     }
+    &_header {
+      @include display(flex, row, space-between, center);
+      width: 100%;
+      padding: 27px 40px;
+
+      &_showBtnWrapper_active > svg {
+        fill: '#C6C6C6';
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+      }
+
+      &_showBtnWrapper > svg {
+        fill: '#4D5766';
+        transform: rotate(0);
+        -webkit-transform: rotate(0);
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+      }
+
+      &_completedIcon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        background: #f3e7ff;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 18px;
+        color: #ba75ff;
+        // background-color: #ba75ff;
+        border-radius: 50%;
+
+        svg {
+          @include position_t_l(absolute, calc(50% - 8px), calc(50% - 7px));
+        }
+      }
+      &_lessonName {
+        @include display(flex, row, flex-start, center);
+        width: 100%;
+        margin-left: 32px;
+
+        &_title {
+          @include display(flex, row, flex-start, center);
+          @include font(500, 14px, 16px);
+          color: #4d5766;
+
+          span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            margin: 0 10px;
+            background-color: #9ca3af;
+          }
+        }
+        &_exerciseSum {
+          @include font(500, 14px, 16px);
+          color: #9ca3af;
+          span {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+
+    &_exerciseWrapper {
+      @include display(flex, column, center, center);
+      padding: 0 89px 0 94px;
+
+      &_exercise {
+        height: 50px;
+        margin-bottom: 16px;
+        border-radius: 7px;
+        background-color: #f1e3ff;
+      }
+    }
+  }
 }

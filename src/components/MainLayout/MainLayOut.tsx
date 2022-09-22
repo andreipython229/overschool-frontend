@@ -10,7 +10,6 @@ import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { Path } from '../../enum/pathE'
 
 import styles from './mainLayOut.module.scss'
-import { StudentAccardion } from 'components/StudentAccardion/StudentAccardion'
 
 export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -44,7 +43,6 @@ export const MainLayOut: FC = memo(() => {
       <main className={styles.container}>
         <Previous />
         <Outlet />
-        {/* <StudentAccardion /> */}
       </main>
     </div>
   )
