@@ -48,6 +48,7 @@ export type IconSvgT = {
   height: number
   viewBoxSize?: string
   className?: string
+  id?: any
   path?: pathT[]
   children?: ReactNode
   functionOnClick?: <T>(params: T) => void
