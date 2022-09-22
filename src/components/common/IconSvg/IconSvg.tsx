@@ -2,9 +2,10 @@ import { FC, memo } from 'react'
 import { IconSvgT } from '../commonComponentsTypes'
 
 export const IconSvg: FC<IconSvgT> = memo(
-  ({ styles, width, height, path, viewBoxSize = ' 0 0 20 20', className, functionOnClick, children, onPointerDown }) => {
+  ({ styles, width, height, path, viewBoxSize = ' 0 0 20 20', className, functionOnClick, children, onPointerDown, id }) => {
     return (
       <svg
+        id={id}
         style={styles}
         className={className}
         onClick={functionOnClick}
@@ -21,6 +22,7 @@ export const IconSvg: FC<IconSvgT> = memo(
             return (
               <path
                 key={id}
+                id={id.toString()}
                 d={d}
                 fill={fill}
                 stroke={stroke && stroke}
