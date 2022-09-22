@@ -10,10 +10,10 @@ import styles from './studentsTableBlock.module.scss'
 
 type StudentsTableBlockT = {
   settingList?: SettingItemT[]
-  setToggleSettingModal?: (arg: boolean) => void
+  setShowModal: any
 }
 
-export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, setToggleSettingModal }) => {
+export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, setShowModal }) => {
   const [cols, setCols] = useState<string[]>([])
 
   const { data: students, isSuccess } = useFetchCourseStatQuery()
@@ -22,7 +22,7 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
   const [rows, setRows] = useState<Array<{ [key: string]: string | number }>>()
 
   const openSettingsModal = () => {
-    setToggleSettingModal && setToggleSettingModal(true)
+    setShowModal && setShowModal()
   }
 
   useEffect(() => {

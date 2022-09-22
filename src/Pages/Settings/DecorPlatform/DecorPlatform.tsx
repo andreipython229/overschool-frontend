@@ -19,7 +19,7 @@ export const DecorPlatform = memo(() => {
       const formdata = new FormData()
       formdata.append('logo_school', target.files[0])
 
-      if (target.files[0].size <= 2 * 1024 * 1024 && target.files[0].type === 'image/png') {
+      if (target.files[0].size <= 2 * 1024 * 1024) {
         setSchoolHeader({ formdata, id: 1 })
       } else {
         setLogoError('Неверный формат')
@@ -33,7 +33,7 @@ export const DecorPlatform = memo(() => {
       const formdata = new FormData()
       formdata.append('favicon', target.files[0])
 
-      if (target.files[0].size <= 200 * 1024 && target.files[0].type === 'image/png') {
+      if (target.files[0].size <= 200 * 1024) {
         setSchoolHeader({ formdata, id: 1 })
       } else {
         setFaviconError('Неверный формат')

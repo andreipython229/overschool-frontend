@@ -57,7 +57,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
                       </div>
                       <div className={cardStyles.course_card_about}>
                         <span className={cardStyles.course_card_status_show}>
-                          {course.published ? (
+                          {course.public === 'О' ? (
                             <>
                               <img src={Public} alt="status course" />
                               <span className={cardStyles.course_card_status_show_public}>Опубликован</span>

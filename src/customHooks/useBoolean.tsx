@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 type returnData = [boolean, { onToggle: () => void; on: () => void; off: () => void }]
 
-export const useBoolean = (): returnData => {
-  const [toggle, setToggle] = useState<boolean>(false)
+export const useBoolean = (defaultBoolean?: boolean): returnData => {
+  const [toggle, setToggle] = useState<boolean>(!!defaultBoolean)
 
   const handlers = useMemo(
     () => ({
@@ -11,8 +11,11 @@ export const useBoolean = (): returnData => {
       on: () => setToggle(false),
       off: () => setToggle(true),
     }),
-    [toggle],
+    [toggle, defaultBoolean],
   )
+  useEffect(() => {
+    setToggle(!!defaultBoolean)
+  }, [defaultBoolean])
 
   return [toggle, handlers]
 }

@@ -23,7 +23,7 @@ export const HomeWork = () => {
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
       </div>
-      <StudentsTableBlock />
+      {/*<StudentsTableBlock />*/}
       {/* <ModalCheckHomeWork /> */}
     </>
   )

@@ -57,7 +57,7 @@ export type RegistrationModalPropsT = {
 
 export type SettingStudentTableT = {
   settingList: SettingItemT[]
-  setShowModal: (arg: boolean) => void
+  setShowModal: (arg?: boolean) => void
   setSettingsList: (arg: SettingItemT[]) => void
 }
 
