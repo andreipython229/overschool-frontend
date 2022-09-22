@@ -17,17 +17,17 @@ type funcT = ISetShowModal | ICloseAll
 export const useShowModal = ({ ...func }: funcT) => {
   const dispatch = useAppDispatch()
   const { modal } = useAppSelector(modalSelector)
-  //console.log(func)
   const clickMouseHandler = (event: MouseEvent) => {
     const target = event?.target as HTMLHeadingElement
 
     if (target?.tagName === 'svg' || target?.tagName === 'path') {
       if ('setShowModal' in func) {
-        func?.setShowModal(true)
-        return
-      } else {
+        //  func?.setShowModal(true)
         return
       }
+      // } else {
+      //   return
+      // }
     }
     if ((target.tagName === 'DIV' && target.className.includes('Modal_wrapper')) || target.className.includes('studentsLog_wrapper')) {
       if ('setShowModal' in func) {
