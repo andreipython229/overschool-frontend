@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
 import { Button } from '../../../../components/common/Button/Button'
-import { Path } from '../../../../enum/pathE'
+import { Path, Student } from '../../../../enum/pathE'
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
 import { CoursesCard } from './CoursesCard'
 import { showModal } from '../../../../store/redux/modal/slice'
@@ -96,7 +96,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
                         <span className={cardStyles.course_card_about_desc}>{course.description}</span>
 
                         <Link
-                          to={generatePath(Path.InitialPage, {
+                          to={generatePath(Student.Course, {
                             course_id: course.course_id,
                           })}
                         >

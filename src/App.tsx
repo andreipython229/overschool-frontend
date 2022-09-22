@@ -6,16 +6,16 @@ import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 import { HomeWork } from 'Pages/HomeWork/HomeWork'
 import { HelpCenter } from 'incomprehensiblePages/HelpCenter/HelpCenter'
 import { TariffPlans } from 'incomprehensiblePages/TariffPlans/TariffPlans'
-
 import { School } from 'Pages/School/School'
 import { Initial } from 'Pages/Initial/Initial'
 import { MainLayOut } from 'components/MainLayout/MainLayOut'
-import { Path } from 'enum/pathE'
+import { Path, Student } from 'enum/pathE'
 import { useAppSelector } from './store/hooks'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
 import { authSelector } from 'selectors'
 import { useFetchSchoolHeaderQuery } from './api/schoolHeaderService'
+import { StudentCourse } from 'Pages/StudentCourse/index'
 
 import styles from './App.module.scss'
 
