@@ -26,7 +26,6 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
     event.preventDefault()
     if (name) {
       const formdata = new FormData()
-      // formdata.append('published', `${true}`)
       formdata.append('order', String(1))
       formdata.append('name', name)
       formdata.append('author_id_id', String(1))

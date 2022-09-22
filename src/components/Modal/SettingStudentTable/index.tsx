@@ -11,7 +11,7 @@ import scss from './settingStudentTable.module.scss'
 
 export const SettingStudentTable: FC<SettingStudentTableT> = ({ settingList, setSettingsList, setShowModal }) => {
   const closeSettingsModal = () => {
-    setShowModal(false)
+    setShowModal()
   }
 
   useShowModal({ setShowModal })

@@ -35,9 +35,7 @@ export const StudentsStats = () => {
   const [studentModal, { onToggle: setStudentModal }] = useBoolean()
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
   const [addGroupModal, { off: offAddGroupModal, on: onAddGroupModal }] = useBoolean()
-  //const [toggleSettingModal, { off: offToggleSettingModal, on: onToggleSettingModal }] = useBoolean()
-
-  const [toggleSettingModal, setToggleSettingModal] = useState<boolean>(false)
+  const [toggleSettingModal, { off: offToggleSettingModal, on: onToggleSettingModal }] = useBoolean()
 
   const { data, isSuccess, isFetching } = useFetchStudentsGroupQuery()
 
@@ -93,8 +91,8 @@ export const StudentsStats = () => {
       >
         Все ученики курса
       </p>
-      <StudentsTableBlock settingList={settingsItemsList} setToggleSettingModal={setToggleSettingModal} />
-      {toggleSettingModal && <SettingStudentTable setShowModal={setToggleSettingModal} settingList={settingList} setSettingsList={setSettingsList} />}
+      <StudentsTableBlock settingList={settingsItemsList} setShowModal={offToggleSettingModal} />
+      {toggleSettingModal && <SettingStudentTable setShowModal={onToggleSettingModal} settingList={settingList} setSettingsList={setSettingsList} />}
     </div>
   )
 }

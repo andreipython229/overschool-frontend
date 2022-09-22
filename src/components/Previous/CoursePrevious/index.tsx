@@ -13,8 +13,9 @@ import styles from '../previou.module.scss'
 export const CoursePrevious: FC = memo(() => {
   const params: any = useParams()
   const courseId = params['*']?.match(/\d+/)[0]
-  const [update] = usePatchCoursesMutation()
   const { data } = useFetchCourseQuery(courseId as string)
+
+  const [update] = usePatchCoursesMutation()
 
   const isPublishedCourse = () => {
     patchData(data, 'course_id', 'public', 'О', update)
