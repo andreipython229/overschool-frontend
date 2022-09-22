@@ -1,48 +1,78 @@
-import { useParams, Link, generatePath } from 'react-router-dom'
-
-import { Student } from '../../../enum/pathE'
+import { Link, useParams } from 'react-router-dom'
+import parse from 'html-react-parser'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
-import { useFetchModulesQuery } from '../../../api/modulesServices'
+import { useFetchLessonQuery, useFetchModulesQuery } from '../../../api/modulesServices'
 import { backArr } from '../../../components/Previous/config/svgIconPath'
 import { arrDownPath } from '../config/svgIconPath'
 import { Button } from '../../../components/common/Button/Button'
-import { stackIconPath, clickBoardCheckPath, signIconPath } from '../../../Pages/School/config/svgIconsPath'
+import { stackIconPath } from '../../School/config/svgIconsPath'
 
 import styles from './lesson.module.scss'
+import { useEffect, useState } from 'react'
 
 export const StudentLessonPreview = () => {
-  const { course_id: courseId, section_id: sectionId, lesson_id: lessonId } = useParams()
-  const { data: modules, isSuccess } = useFetchModulesQuery(courseId)
+  const [showLesson, setShowLesson] = useState<any>()
+
+  const [count, setCount] = useState<any>(0)
+
+  const { course_id: courseId, section_id: sectionId } = useParams()
+
+  const { data: modules } = useFetchModulesQuery(courseId)
 
   const moduleToShow = modules?.sections.find((module: any) => sectionId && module.section_id === +sectionId)
-  const lessonToShow = moduleToShow?.lessons.find((lesson: any) => lessonId && lesson.lesson_id === +lessonId)
-  const activeLessonIndex = moduleToShow?.lessons.findIndex((lesson: any) => lessonId && lesson.lesson_id === +lessonId)
 
-  const lessonIdBack = moduleToShow?.lessons[activeLessonIndex - 1]?.lesson_id || lessonId
-  const lessonIdForward = moduleToShow?.lessons[activeLessonIndex + 1]?.lesson_id || lessonId
+  const [lessonsId, setLessonsId] = useState<number>(moduleToShow.lessons[0].lesson_id)
+
+  const { data: lessons } = useFetchLessonQuery(lessonsId || moduleToShow.lessons[0].lesson_id)
+
+  useEffect(() => {
+    setShowLesson(lessons)
+  }, [modules, lessonsId, count, lessons])
+
+  //const lessonToShow = moduleToShow?.lessons.find((lesson: any) => lessonId && lesson.lesson_id === +lessonId)
+  //const activeLessonIndex = moduleToShow?.lessons.findIndex((lesson: any) => lessonId && lesson.lesson_id === +lessonId)console.log()
+  //const lessonIdBack = moduleToShow?.lessons[activeLessonIndex - 1]?.lesson_id || lessonId
+  //const lessonIdForward = moduleToShow?.lessons[activeLessonIndex + 1]?.lesson_id || lessonId
+
+  const handleClick = (event: any) => {
+    setLessonsId(event.target.id)
+  }
+
+  // const nextLesson = () => {
+  //   setCount((count: any) => count + 1)
+  //   setLessonsId(moduleToShow.lessons[count].lesson_id)
+  // }
+  // const prevLesson = () => {
+  //   setCount((count: any) => count - 1)
+  //   setLessonsId(moduleToShow.lessons[count].lesson_id)
+  // }
 
   return (
     <div className={styles.lesson}>
       <div className={styles.lesson__navBack}>
-        <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
-        <span className={styles.lesson__navBack_text}>Список занятий</span>
+        <Link to="/login/courses/*">
+          <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
+          <span className={styles.lesson__navBack_text}>Список занятий</span>
+        </Link>
       </div>
-      <h1 className={styles.lesson__name}>{lessonToShow?.name}</h1>
+      <h1 className={styles.lesson__name}>{showLesson && showLesson.name}</h1>
       <div className={styles.lesson__blocks}>
         <div className={styles.lesson__wrap}>
           <div className={styles.lesson__card}>
-            <h3 className={styles.lesson__name_mini}>{lessonToShow?.name}</h3>
+            <h3 className={styles.lesson__name_mini}>{showLesson && showLesson.name}</h3>
             <div className={styles.lesson__content}>
-              <span className={styles.lesson__desc}>Здусь будет текст занятия</span>
+              <span className={styles.lesson__desc}>{showLesson && parse(showLesson.description)}</span>
             </div>
             <div>
-              <iframe width="100%" height="390" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+              <iframe width="100%" height="390" src={showLesson && showLesson.video}>
+                {' '}
+              </iframe>
             </div>
             <div className={styles.lesson__content}>
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
               <div className={styles.lesson__download_container}>
                 <div className={styles.lesson__dowload_wrap}>
-                  <div className={styles.lesson__dowload_blackDiv}></div>
+                  <div className={styles.lesson__dowload_blackDiv}> </div>
                   <span>Домашнее задание.pdf</span>
                 </div>
                 <div className={styles.lesson__dowload_wrap}>
@@ -69,9 +99,17 @@ export const StudentLessonPreview = () => {
           <div>
             {moduleToShow?.lessons.length &&
               moduleToShow?.lessons.map(({ name, lesson_id }: any, index: number) => (
-                <div key={lesson_id} className={index === activeLessonIndex ? styles.lesson__item_active : styles.lesson__item}>
-                  <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} />
-                  <span className={styles.lesson__item_name}>{name}</span>
+                <div
+                  style={{ cursor: 'pointer' }}
+                  onClick={handleClick}
+                  id={lesson_id}
+                  key={lesson_id}
+                  className={index ? styles.lesson__item_active : styles.lesson__item}
+                >
+                  <IconSvg id={lesson_id.toString()} width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} />
+                  <span id={lesson_id} className={styles.lesson__item_name}>
+                    {name}
+                  </span>
                 </div>
               ))}
           </div>
