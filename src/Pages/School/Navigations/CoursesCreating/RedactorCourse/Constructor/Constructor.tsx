@@ -11,11 +11,15 @@ import { useBoolean } from 'customHooks/useBoolean'
 
 import styles from './constructor.module.scss'
 
+interface ILessons {
+  lessons: Array<object>
+}
+
 export const Constructor: FC = () => {
   const { course_id: courseId } = useParams()
   const { data: modulesAndLessons } = useFetchModulesQuery(courseId)
 
-  const [modulesList, setModulesList] = useState<Array<object>>([])
+  const [modulesList, setModulesList] = useState<Array<object & ILessons>>([])
   const [lessonId, setLessonId] = useState<string>('')
 
   const [isOpenSettingLessonModal, { onToggle: toggleSettingLessonModal, on: onSettingLessonModal }] = useBoolean()
@@ -48,9 +52,7 @@ export const Constructor: FC = () => {
   }, [activeTypeClasses])
 
   useEffect(() => {
-    if (modulesAndLessons?.sections) {
-      setModulesList(modulesAndLessons?.sections)
-    }
+    setModulesList(modulesAndLessons?.sections || [])
   }, [courseId, modulesAndLessons])
 
   return (
@@ -64,11 +66,11 @@ export const Constructor: FC = () => {
       {isOpenSettingLessonModal && <SettingsClassesModal setShowModal={onSettingLessonModal} />}
       <ModulesAndLessonsBlock
         setLessonId={setLessonId}
-        modulesList={modulesList}
+        modulesList={modulesList || []}
         setModalTypeClasses={toggleOpenModalLesson}
         toggleModalModule={offModalModule}
       />
-      {modulesList.length !== 0 && (
+      {modulesList[0] && modulesList[0].lessons[0] && (
         <LessonSettings modulesList={modulesList} lessonId={lessonId} showSettingsClassesModal={toggleSettingLessonModal} />
       )}
     </div>

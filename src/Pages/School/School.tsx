@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react'
+import { FC, memo } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { CoursePage } from 'Pages/School/Navigations/CoursesCreating/CoursePage'
@@ -11,9 +11,9 @@ import { RoleE } from 'enum/roleE'
 import { StudentCourse } from 'Pages/StudentCourse'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { CoursesT } from '../../types/CoursesT'
-import { selectUser } from '../../selectors/index'
-import { useBoolean } from '../../customHooks/useBoolean'
-import { StudentLessonPreview } from '../../Pages/StudentCourse/StudentLessonPreview/index'
+import { selectUser } from 'selectors'
+import { useBoolean } from 'customHooks/useBoolean'
+import { StudentLessonPreview } from 'Pages/StudentCourse/StudentLessonPreview'
 
 import styles from './school.module.scss'
 

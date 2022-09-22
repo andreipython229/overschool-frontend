@@ -9,8 +9,8 @@ import styles from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Cons
 type LessonAddBlockPropsT = {
   setModalTypeClasses: () => void
   toggleModalModule: () => void
-  setLessonId: any
-  modulesList: any
+  setLessonId: (arg: string) => void
+  modulesList: Array<object>
 }
 
 export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = ({ modulesList, setLessonId, setModalTypeClasses, toggleModalModule }) => {
