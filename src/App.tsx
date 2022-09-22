@@ -5,7 +5,6 @@ import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 import { HomeWork } from 'Pages/HomeWork/HomeWork'
 import { HelpCenter } from 'incomprehensiblePages/HelpCenter/HelpCenter'
 import { TariffPlans } from 'incomprehensiblePages/TariffPlans/TariffPlans'
-
 import { School } from 'Pages/School/School'
 import { Initial } from 'Pages/Initial/Initial'
 import { MainLayOut } from 'components/MainLayout/MainLayOut'

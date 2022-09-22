@@ -7,7 +7,7 @@ export enum Path {
   CourseStats = 'courses-stats/*',
   HomeWork = 'home-work',
   HelpCenter = 'help-center',
-  TariffPlans = 'tariff-plans'
+  TariffPlans = 'tariff-plans',
 }
 
 export enum SettingsPath {
@@ -28,8 +28,11 @@ export enum StudentLogs {
 }
 
 export enum Student {
-  Courses = 'courses/*',
-  Course = 'student-course/',
+  InitialPage = 'login/',
+  Courses = 'student-courses/*',
+  Course = 'course/:course_id/',
+  Lesson = 'module/:section_id/lesson/:lesson_id/*',
+  // Course = 'course/:course_id',
   Chats = 'chats/*',
   Class = 'class',
 }

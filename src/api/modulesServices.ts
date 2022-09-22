@@ -13,6 +13,12 @@ export const modulesServices = createApi({
       }),
       providesTags: () => ['modulesServices'],
     }),
+    fetchModule: build.query({
+      query: (sectionId) => ({
+        url: `sections/${sectionId}`,
+      }),
+      providesTags: () => ['modulesServices'],
+    }),
     createModules: build.mutation({
       query: arg => ({
         url: `./sections/`,
@@ -73,6 +79,7 @@ export const modulesServices = createApi({
 
 export const {
   useFetchModulesQuery,
+  useFetchModuleQuery,
   useCreateModulesMutation,
   useDeleteModulesMutation,
   usePatchModulesMutation,
