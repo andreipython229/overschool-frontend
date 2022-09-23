@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { generatePath, Link, useParams } from 'react-router-dom'
 import parse from 'html-react-parser'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { useFetchLessonQuery, useFetchModulesQuery } from '../../../api/modulesServices'
@@ -9,6 +9,8 @@ import { stackIconPath } from '../../School/config/svgIconsPath'
 
 import styles from './lesson.module.scss'
 import { useEffect, useState } from 'react'
+import YouTube, { YouTubeProps } from 'react-youtube'
+import { Student } from '../../../enum/pathE'
 
 export const StudentLessonPreview = () => {
   const [showLesson, setShowLesson] = useState<any>()
@@ -21,13 +23,31 @@ export const StudentLessonPreview = () => {
 
   const moduleToShow = modules?.sections.find((module: any) => sectionId && module.section_id === +sectionId)
 
-  const [lessonsId, setLessonsId] = useState<number>(moduleToShow.lessons[0].lesson_id)
+  const [lessonsId, setLessonsId] = useState<number>(moduleToShow?.lessons[0]?.lesson_id)
 
-  const { data: lessons } = useFetchLessonQuery(lessonsId || moduleToShow.lessons[0].lesson_id)
+  const { data: lessons } = useFetchLessonQuery(lessonsId || moduleToShow?.lessons[0]?.lesson_id)
 
   useEffect(() => {
     setShowLesson(lessons)
   }, [modules, lessonsId, count, lessons])
+
+  const opts: YouTubeProps['opts'] = {
+    height: '500px',
+    width: '100%',
+    playerVars: {
+      autoplay: 0,
+    },
+  }
+
+  const link = showLesson?.video
+  const link2 = 'https://www.youtube.com/watch?v=NeQM1c-XCDc'
+  const youtube_parser = (url: any) => {
+    if (url) {
+      const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
+      const match = url.match(regExp)
+      return match && match[7].length == 11 ? match[7] : false
+    }
+  }
 
   //const lessonToShow = moduleToShow?.lessons.find((lesson: any) => lessonId && lesson.lesson_id === +lessonId)
   //const activeLessonIndex = moduleToShow?.lessons.findIndex((lesson: any) => lessonId && lesson.lesson_id === +lessonId)console.log()
@@ -46,27 +66,24 @@ export const StudentLessonPreview = () => {
   //   setCount((count: any) => count - 1)
   //   setLessonsId(moduleToShow.lessons[count].lesson_id)
   // }
-
   return (
     <div className={styles.lesson}>
       <div className={styles.lesson__navBack}>
-        <Link to="/login/courses/*">
+        <Link to={generatePath(`/courses/${Student.Course}`, { course_id: courseId })}>
           <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
           <span className={styles.lesson__navBack_text}>Список занятий</span>
         </Link>
       </div>
-      <h1 className={styles.lesson__name}>{showLesson && showLesson.name}</h1>
+      <h1 className={styles.lesson__name}>{showLesson && showLesson?.name}</h1>
       <div className={styles.lesson__blocks}>
         <div className={styles.lesson__wrap}>
           <div className={styles.lesson__card}>
-            <h3 className={styles.lesson__name_mini}>{showLesson && showLesson.name}</h3>
+            <h3 className={styles.lesson__name_mini}>{showLesson && showLesson?.name}</h3>
             <div className={styles.lesson__content}>
-              <span className={styles.lesson__desc}>{showLesson && parse(showLesson.description)}</span>
+              <span className={styles.lesson__desc}>{showLesson && parse(showLesson?.description)}</span>
             </div>
             <div>
-              <iframe width="100%" height="390" src={showLesson && showLesson.video}>
-                {' '}
-              </iframe>
+              <YouTube opts={opts} videoId={youtube_parser(link)} />
             </div>
             <div className={styles.lesson__content}>
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
@@ -106,10 +123,12 @@ export const StudentLessonPreview = () => {
                   key={lesson_id}
                   className={index ? styles.lesson__item_active : styles.lesson__item}
                 >
-                  <IconSvg id={lesson_id.toString()} width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} />
-                  <span id={lesson_id} className={styles.lesson__item_name}>
-                    {name}
-                  </span>
+                  <Link to={generatePath(Student.ModuleLesson, { lesson_id: lesson_id })}>
+                    <IconSvg id={lesson_id.toString()} width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} />
+                    <span id={lesson_id} className={styles.lesson__item_name}>
+                      {name}
+                    </span>
+                  </Link>
                 </div>
               ))}
           </div>

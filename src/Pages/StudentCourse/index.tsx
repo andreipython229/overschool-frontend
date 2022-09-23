@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { StudentCourseHeader } from './StudentCourseHeader/index'
+import { StudentCourseHeader } from './StudentCourseHeader'
 import { useFetchCourseQuery } from '../../api/coursesServices'
 import { useFetchModulesQuery } from '../../api/modulesServices'
 import { CoursesT } from '../../types/CoursesT'

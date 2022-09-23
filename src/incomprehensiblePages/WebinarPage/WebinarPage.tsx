@@ -21,14 +21,16 @@ export const WebinarPage = () => {
             <p className={styles.chat__members}>Участников: 305</p>
           </div>
         </div>
-        <div className={styles.chat__container}></div>
+        <div className={styles.chat__container}> </div>
         <div className={styles.form}>
           <div className={styles.form__header}>
             <img className={styles.form__logo} src={message} alt="Logotype IT Overone" />
             <p className={styles.form__title}>Написать сообщение в чат</p>
           </div>
           <form className={styles.form__container}>
-            <textarea className={styles.form__textarea} placeholder="Текст сообщения..."></textarea>
+            <textarea className={styles.form__textarea} placeholder="Текст сообщения...">
+              {' '}
+            </textarea>
             <div>
               <button type="submit" className={styles.form__send}>
                 Отправить
