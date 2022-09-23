@@ -1,30 +1,28 @@
 import { FC } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
-import { Button } from '../../../components/common/Button/Button'
+import { useFetchCourseQuery } from '../../../api/coursesServices'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { backArr } from '../../../components/Previous/config/svgIconPath'
-import { useFetchCourseQuery } from '../../../api/coursesServices'
-import { CoursesT } from '../../../types/CoursesT'
 import { stackIconPath, clickBoardCheckPath, signIconPath } from '../../../Pages/School/config/svgIconsPath'
 
 import styles from './student_course_header.module.scss'
 
-type studentCourseHeaderT = {
-  course: CoursesT
-}
+export const StudentCourseHeader: FC = () => {
+  const { course_id: courseId } = useParams()
+  const navigate = useNavigate()
 
-export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ course }) => {
+  const { data: course } = useFetchCourseQuery(courseId as string)
 
   return (
     <div className={styles.previous}>
       <img className={styles.background_image_course} src={course?.photo_url} alt="" />
       <div className={styles.previous_bcgrShadow}> </div>
-      <Link className={styles.back_all_course} to={`${Path.Courses}`}>
+      <div onClick={() => navigate(`/login/${Path.Courses}`)} className={styles.back_all_course}>
         <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
         <span>Все курсы</span>
-      </Link>
+      </div>
       <div className={styles.previous_onlineCourses}>Онлайн-курс</div>
       <div className={styles.previous_title_name}>{course?.name}</div>
       <div style={{ display: 'flex', position: 'absolute', zIndex: '9999', bottom: '10%', left: '44px', color: '#fff' }}>

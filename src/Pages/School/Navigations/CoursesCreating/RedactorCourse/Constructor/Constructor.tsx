@@ -63,7 +63,7 @@ export const Constructor: FC = () => {
       {activeTypeClasses === 2 && <TestModal closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse} />}
       {activeTypeClasses === 3 && <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
       {isOpenModalModule && <AddModuleModal setShowModal={onModalModule} courseId={courseId as string} />}
-      {isOpenSettingLessonModal && <SettingsClassesModal setShowModal={onSettingLessonModal} />}
+      {isOpenSettingLessonModal && <SettingsClassesModal modulesList={modulesList} lessonId={lessonId} setShowModal={onSettingLessonModal} />}
       <ModulesAndLessonsBlock
         setLessonId={setLessonId}
         modulesList={modulesList || []}

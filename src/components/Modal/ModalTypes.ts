@@ -22,6 +22,8 @@ export type AddModuleModalPropsT = {
 
 export type SettingsClassesModalPropT = {
   setShowModal: (arg: boolean) => void
+  lessonId: string | number
+  modulesList: any
 }
 
 export type LoginModalPropsT = {
