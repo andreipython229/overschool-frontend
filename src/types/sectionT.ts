@@ -1,5 +1,5 @@
 export type lessonT = {
-  lesson_id: number
+  lesson_id: number 
   name: string
 }
 
