@@ -28,7 +28,6 @@ export enum StudentLogs {
 }
 
 export enum Student {
-  InitialPage = 'login/',
   Courses = 'student-courses/*',
   Course = 'course/:course_id/',
   Lesson = 'module/:section_id/*',
