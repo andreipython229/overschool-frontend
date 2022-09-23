@@ -1,6 +1,6 @@
 export enum Path {
-  InitialPage = 'login/',
-  Courses = 'courses/*',
+  InitialPage = '/login/',
+  Courses = 'courses/',
   Profile = 'profile/',
   Settings = 'settings/*',
   CreateCourse = 'create-course/:course_id/*',
@@ -28,10 +28,9 @@ export enum StudentLogs {
 }
 
 export enum Student {
-  InitialPage = 'login/',
-  Courses = 'student-courses/*',
-  Course = 'course/:course_id/',
-  Lesson = 'module/:section_id/*',
+  Courses = 'student-courses/',
+  Course = 'student-course/:course_id/',
+  Lesson = 'module/:section_id/lesson/:lesson_id/',
   // Course = 'course/:course_id',
   Chats = 'chats/*',
   Class = 'class',

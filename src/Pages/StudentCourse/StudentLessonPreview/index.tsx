@@ -1,5 +1,8 @@
-import { generatePath, Link, useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import parse from 'html-react-parser'
+import YouTube, { YouTubeProps } from 'react-youtube'
+
+import { sectionT, lessonT } from '../../../types/sectionT'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { useFetchLessonQuery, useFetchModulesQuery } from '../../../api/modulesServices'
 import { backArr } from '../../../components/Previous/config/svgIconPath'
@@ -8,28 +11,20 @@ import { Button } from '../../../components/common/Button/Button'
 import { stackIconPath } from '../../School/config/svgIconsPath'
 
 import styles from './lesson.module.scss'
-import { useEffect, useState } from 'react'
-import YouTube, { YouTubeProps } from 'react-youtube'
-import { Student } from '../../../enum/pathE'
 
 export const StudentLessonPreview = () => {
-  const [showLesson, setShowLesson] = useState<any>()
+  const navigate = useNavigate()
 
-  const [count, setCount] = useState<any>(0)
-
-  const { course_id: courseId, section_id: sectionId } = useParams()
+  const { course_id: courseId, section_id: sectionId, lesson_id: lessonId } = useParams()
 
   const { data: modules } = useFetchModulesQuery(courseId)
+  const { data: lesson } = useFetchLessonQuery(lessonId)
 
-  const moduleToShow = modules?.sections.find((module: any) => sectionId && module.section_id === +sectionId)
+  const moduleToShow = modules?.sections.find((module: sectionT) => sectionId && module.section_id === +sectionId)
 
-  const [lessonsId, setLessonsId] = useState<number>(moduleToShow?.lessons[0]?.lesson_id)
-
-  const { data: lessons } = useFetchLessonQuery(lessonsId || moduleToShow?.lessons[0]?.lesson_id)
-
-  useEffect(() => {
-    setShowLesson(lessons)
-  }, [modules, lessonsId, count, lessons])
+  const activeLessonIndex = moduleToShow?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.lesson_id === +lessonId)
+  const lessonIdBack = moduleToShow?.lessons[activeLessonIndex - 1]?.lesson_id || lessonId
+  const lessonIdForward = moduleToShow?.lessons[activeLessonIndex + 1]?.lesson_id || lessonId
 
   const opts: YouTubeProps['opts'] = {
     height: '500px',
@@ -39,9 +34,8 @@ export const StudentLessonPreview = () => {
     },
   }
 
-  const link = showLesson?.video
-  const link2 = 'https://www.youtube.com/watch?v=NeQM1c-XCDc'
-  const youtube_parser = (url: any) => {
+  const link = lesson?.video
+  const youtube_parser = (url: string) => {
     if (url) {
       const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
       const match = url.match(regExp)
@@ -49,41 +43,22 @@ export const StudentLessonPreview = () => {
     }
   }
 
-  //const lessonToShow = moduleToShow?.lessons.find((lesson: any) => lessonId && lesson.lesson_id === +lessonId)
-  //const activeLessonIndex = moduleToShow?.lessons.findIndex((lesson: any) => lessonId && lesson.lesson_id === +lessonId)console.log()
-  //const lessonIdBack = moduleToShow?.lessons[activeLessonIndex - 1]?.lesson_id || lessonId
-  //const lessonIdForward = moduleToShow?.lessons[activeLessonIndex + 1]?.lesson_id || lessonId
-
-  const handleClick = (event: any) => {
-    setLessonsId(event.target.id)
-  }
-
-  // const nextLesson = () => {
-  //   setCount((count: any) => count + 1)
-  //   setLessonsId(moduleToShow.lessons[count].lesson_id)
-  // }
-  // const prevLesson = () => {
-  //   setCount((count: any) => count - 1)
-  //   setLessonsId(moduleToShow.lessons[count].lesson_id)
-  // }
   return (
     <div className={styles.lesson}>
-      <div className={styles.lesson__navBack}>
-        <Link to={generatePath(`/courses/${Student.Course}`, { course_id: courseId })}>
-          <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
-          <span className={styles.lesson__navBack_text}>Список занятий</span>
-        </Link>
+      <div onClick={() => navigate('../')} className={styles.lesson__navBack}>
+        <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
+        <span className={styles.lesson__navBack_text}>Список занятий</span>
       </div>
-      <h1 className={styles.lesson__name}>{showLesson && showLesson?.name}</h1>
+      <h1 className={styles.lesson__name}>{lesson?.name}</h1>
       <div className={styles.lesson__blocks}>
         <div className={styles.lesson__wrap}>
           <div className={styles.lesson__card}>
-            <h3 className={styles.lesson__name_mini}>{showLesson && showLesson?.name}</h3>
+            <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
             <div className={styles.lesson__content}>
-              <span className={styles.lesson__desc}>{showLesson && parse(showLesson?.description)}</span>
+              <span className={styles.lesson__desc}>{parse(`${lesson?.description}`) || 'Нет описания'}</span>
             </div>
             <div>
-              <YouTube opts={opts} videoId={youtube_parser(link)} />
+              <YouTube opts={opts} videoId={youtube_parser(link) as string} />
             </div>
             <div className={styles.lesson__content}>
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
@@ -100,35 +75,33 @@ export const StudentLessonPreview = () => {
             </div>
           </div>
           <div className={styles.lesson__btns}>
-            {/* <Link to={generatePath(Student.Lesson, { course_id: courseId, section_id: sectionId, lesson_id: lessonIdBack })}>
-              <Button className={styles.lesson__btnPrev} text="Предыдущее" />
-            </Link>
-            <Link to={generatePath(Student.Lesson, { course_id: courseId, section_id: sectionId, lesson_id: lessonIdForward })}>
-              <Button className={styles.lesson__btnNext} text="Следующее" />
-            </Link> */}
-            <Button className={styles.lesson__btnPrev} text="Предыдущее" />
-
-            <Button className={styles.lesson__btnNext} text="Следующее" />
+            <Button
+              onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/lesson/${lessonIdBack}`)}
+              disabled={lessonId === lessonIdBack}
+              className={styles.lesson__btnPrev}
+              text="Предыдущее"
+            />
+            <Button
+              onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/lesson/${lessonIdForward}`)}
+              className={styles.lesson__btnNext}
+              disabled={lessonId === lessonIdForward}
+              text="Следующее"
+            />
           </div>
         </div>
         <div className={styles.lesson__block}>
           <p className={styles.lesson__block_title}>Занятия модуля:</p>
           <div>
             {moduleToShow?.lessons.length &&
-              moduleToShow?.lessons.map(({ name, lesson_id }: any, index: number) => (
+              moduleToShow?.lessons.map(({ name, lesson_id }: lessonT, index: number) => (
                 <div
                   style={{ cursor: 'pointer' }}
-                  onClick={handleClick}
-                  id={lesson_id}
                   key={lesson_id}
-                  className={index ? styles.lesson__item_active : styles.lesson__item}
+                  onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/lesson/${lesson_id}`)}
+                  className={activeLessonIndex === index ? styles.lesson__item_active : styles.lesson__item}
                 >
-                  <Link to={generatePath(Student.ModuleLesson, { lesson_id: lesson_id })}>
-                    <IconSvg id={lesson_id.toString()} width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} />
-                    <span id={lesson_id} className={styles.lesson__item_name}>
-                      {name}
-                    </span>
-                  </Link>
+                  <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} />
+                  <span className={styles.lesson__item_name}>{name}</span>
                 </div>
               ))}
           </div>
