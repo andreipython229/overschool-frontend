@@ -48,6 +48,7 @@ export const modulesServices = createApi({
       query: id => ({
         url: `/lessons/${id}/`,
       }),
+      providesTags: ['modulesServices'],
     }),
     createLessons: build.mutation({
       query: arg => ({
