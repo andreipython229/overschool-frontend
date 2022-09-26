@@ -1,20 +1,24 @@
 import React, { FC } from 'react'
 import styles from 'MobilePages/MobileCoursesPage/mobileCoursesPage.module.scss'
 import { Button } from 'components/common/Button/Button'
-import { Link } from 'react-router-dom'
+import { Link, generatePath} from 'react-router-dom'
 import { Student } from 'enum/pathE'
 
 type MobileCoursePropsT = {
   progress: string
   name: string
   desc: string
-  img?: string
+  img?: string,
+  id?: any
 }
 
-export const MobileCourseBlock: FC<MobileCoursePropsT> = ({ progress, name, desc, img }) => {
+export const MobileCourseBlock: FC<MobileCoursePropsT> = ({ progress, name, desc, img, id }) => {
   return (
     <div className={styles.courseBlock}>
       <div style={{ backgroundImage: `url(${img})` }} className={styles.courseBlock_image} />
+      <div className={styles.progress__inner}>
+        <div className={styles.progress__fill} style={{width: `${progress}%`}}></div>
+      </div>
       <div className={styles.courseBlock_desc}>
         <span>
           <svg
@@ -36,7 +40,7 @@ export const MobileCourseBlock: FC<MobileCoursePropsT> = ({ progress, name, desc
         <span>{desc}</span>
       </div>
       <div className={styles.courseBlock_desc_btn}>
-        <Link to={Student.Course}>
+        <Link to={generatePath(Student.Course, {course_id: id, name})}>
           <Button variant={'disabled'} text={'Продолжить обучение'} />
         </Link>
       </div>

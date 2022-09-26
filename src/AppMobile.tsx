@@ -5,7 +5,7 @@ import styles from './App.module.scss'
 import { MobileInitPage } from 'MobilePages/MobileInitPage/MobileInitPage'
 import { MobileLayOut } from 'MobilePages/MobileLayOut'
 import { MobileCoursesPage } from 'MobilePages/MobileCoursesPage/MobileCoursesPage'
-import { MobileCoursePage } from 'MobilePages/MobileCoursePage/MobileCoursePage'
+import { CourseModules } from 'MobilePages/CourseModules/CourseModules'
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 
 export const AppMobile = () => {
@@ -14,8 +14,9 @@ export const AppMobile = () => {
       <Routes>
         <Route path={Path.InitialPage} element={<MobileInitPage />} />
         <Route path={Path.InitialPage} element={<MobileLayOut />}>
+          <Route index element={<MobileCoursesPage/>}/>
           <Route path={Student.Courses} element={<MobileCoursesPage />} />
-          <Route path={Student.Course} element={<MobileCoursePage />} />
+          <Route path={Student.Course} element={<CourseModules />} />
         </Route>
         <Route path={'*'} element={<PageNotFound />} />
       </Routes>

@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { Button } from 'components/common/Button/Button'
 import { LoginModal } from 'components/Modal'
+import { Student } from '../../enum/pathE'
 
 import styles from './mobileInitPage.module.scss'
 
 export const MobileInitPage = () => {
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false)
+  const navigator = useNavigate()
+  
   const showLoginModal = () => {
     setOpenLoginModal(!openLoginModal)
   }
@@ -25,7 +29,10 @@ export const MobileInitPage = () => {
             </p>
           </div>
 
-          <Button style={{ width: '272px' }} variant={'primary'} text={'Вперед'} onClick={showLoginModal} />
+          <Button style={{ width: '272px' }} variant={'primary'} text={'Вперед'} onClick={() => {
+            navigator(Student.Courses)
+            showLoginModal()
+          }} />
         </div>
       </div>
     </div>
