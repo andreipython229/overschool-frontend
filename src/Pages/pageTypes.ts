@@ -77,6 +77,7 @@ export interface IIsActive {
 }
 
 export type CoursePagePropsT = {
-  setShowModal?: () => void
+  isOpenAddCourse: boolean
+  onToggle: () => void
   courses: CoursesT[]
 }

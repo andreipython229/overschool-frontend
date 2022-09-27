@@ -5,17 +5,19 @@ import { NavAccount } from '../School/NavAccount/NavAccount'
 import { AddEmployeeModal } from 'components/Modal'
 import { useAppSelector } from '../../store/hooks'
 import { selectUser } from '../../selectors'
-import { useBoolean } from '../../customHooks/useBoolean'
 
-export const Settings: FC = memo(() => {
+type SettingsT = {
+  isOpen: boolean
+  closeModal: () => void
+}
+
+export const Settings: FC<SettingsT> = memo(({ isOpen, closeModal }) => {
   const { permission } = useAppSelector(selectUser)
-
-  const [isOpen, { off: openModal, on: closeModal }] = useBoolean()
 
   return (
     <>
       <NavAccount role={permission} />
-      {isOpen && <AddEmployeeModal onToggle={onToggle} />}
+      {isOpen && <AddEmployeeModal setShowModal={closeModal} />}
       <Outlet />
     </>
   )
