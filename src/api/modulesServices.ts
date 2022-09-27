@@ -1,10 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import { baseQuery } from './baseApi'
+import { baseQueryWithReauth } from './baseApi'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
-  baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['modulesServices'],
   endpoints: build => ({
     fetchModules: build.query({
@@ -16,6 +16,12 @@ export const modulesServices = createApi({
     fetchModule: build.query({
       query: sectionId => ({
         url: `sections/${sectionId}`,
+      }),
+      providesTags: () => ['modulesServices'],
+    }),
+    fetchModuleLessons: build.query({
+      query: sectionId => ({
+        url: `sections/${sectionId}/lessons`,
       }),
       providesTags: () => ['modulesServices'],
     }),
@@ -81,6 +87,7 @@ export const modulesServices = createApi({
 export const {
   useFetchModulesQuery,
   useFetchModuleQuery,
+  useFetchModuleLessonsQuery,
   useCreateModulesMutation,
   useDeleteModulesMutation,
   usePatchModulesMutation,

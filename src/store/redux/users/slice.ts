@@ -4,7 +4,9 @@ import { UserT } from 'types/userT'
 type AuthDateT = {
   authDate: string | number
   access_token: string
+  refresh_token: string
 }
+
 const initialState: UserT & AuthDateT = {
   auth: false,
   avatar: null,
@@ -16,6 +18,7 @@ const initialState: UserT & AuthDateT = {
   authDate: '',
   aboutMySelf: '',
   access_token: '',
+  refresh_token: '',
 }
 
 export const sliceUser = createSlice({
@@ -25,8 +28,9 @@ export const sliceUser = createSlice({
     auth: (state, action: PayloadAction<boolean>) => {
       state.auth = action.payload
     },
-    token: (state, action: PayloadAction<string>) => {
-      state.access_token = action.payload
+    token: (state, action: PayloadAction<{ [key: string]: string }>) => {
+      state.refresh_token = action.payload.refresh_token
+      state.access_token = action.payload.access_token
     },
     role: (state, action: PayloadAction<number>) => {
       state.permission = action.payload

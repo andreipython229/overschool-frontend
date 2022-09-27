@@ -1,12 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import { baseQuery } from './baseApi'
+import { baseQueryWithReauth } from './baseApi'
 import { formDataConverter } from '../utils/formDataConverter'
 import { ICredentials, IResponse } from './apiTypes'
 
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',
-  baseQuery,
+  baseQuery: baseQueryWithReauth,
   endpoints: builder => ({
     login: builder.mutation<IResponse, ICredentials>({
       query: credentials => {
@@ -19,14 +19,13 @@ export const userLoginService = createApi({
         }
       },
     }),
-    logout: builder.mutation<null, null>({
+    logout: builder.mutation<void, void>({
       query: () => {
         return {
-          url: '/logout/',
-          method: 'POST',
+          url: `/logout/`,
         }
       },
     }),
   }),
 })
-export const { useLogoutMutation, useLoginMutation } = userLoginService
+export const { useLoginMutation, useLogoutMutation } = userLoginService
