@@ -13,6 +13,7 @@ import { RoleE } from 'enum/roleE'
 import { CoursePagePropsT } from '../../../pageTypes'
 import { searchIconPath } from 'config/commonSvgIconsPath'
 import { selectUser } from 'selectors'
+import { AddCourseModal } from 'components/Modal'
 
 import Public from 'assets/img/createCourse/public.svg'
 import notPublic from 'assets/img/createCourse/notPublic.svg'
@@ -21,14 +22,15 @@ import pie from 'assets/img/studentPage/folder-todo.png'
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import cardStyles from './coursePage.module.scss'
 
-export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
+export const CoursePage: FC<CoursePagePropsT> = ({ isOpenAddCourse, onToggle, courses }) => {
   const dispatch = useAppDispatch()
   const { permission } = useAppSelector(selectUser)
 
   const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
 
   const dispatchHandlerModal = () => {
-    setShowModal && setShowModal()
+    onToggle && onToggle()
+
     dispatch(showModal(true))
   }
 
@@ -81,7 +83,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
                         <img className={cardStyles.course_card_img} src={course?.photo_url} alt="" />
                       </div>
                       <div style={{ width: '100%', background: '#F3F4F6', height: '5px' }}>
-                        <div style={{ width: '20%', background: '#BA75FF', height: '100%' }}> </div>
+                        <div style={{ width: '20%', background: '#BA75FF', height: '100%' }} />
                       </div>
                       <div className={cardStyles.course_card_about}>
                         <img src={pie} alt="pie" />
@@ -112,6 +114,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
           </div>
         )}
       </div>
+      {isOpenAddCourse && <AddCourseModal setShowModal={onToggle} />}
     </div>
   )
 }

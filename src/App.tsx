@@ -24,14 +24,21 @@ import { RedactorCourse } from './Pages/School/Navigations/CoursesCreating/Redac
 import { Constructor } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/Constructor'
 import { SettingCourse } from 'Pages/School/Navigations/CoursesCreating/SettingCourse/SettingCourse'
 import { StudentsStats } from 'Pages/School/StudentsStats/StudentsStats'
-
+import { useBoolean } from './customHooks/useBoolean'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
+import { useFetchCoursesQuery } from 'api/coursesServices'
 
 import styles from './App.module.scss'
 
 export const App = () => {
   const { permission } = useAppSelector(selectUser)
+
+  const [isOpenAddCourse, { onToggle }] = useBoolean()
+
+  const [isOpen, { off: openModal, on: closeModal }] = useBoolean()
+
+  const { data: coursesList } = useFetchCoursesQuery()
 
   return (
     <div className={styles.container}>
@@ -40,7 +47,7 @@ export const App = () => {
         <Route path={Path.InitialPage} element={<MainLayOut />}>
           {permission === RoleE.Student ? (
             <Route path={Path.Courses}>
-              <Route index element={<CoursePage courses={[] as CoursesT[]} />} />
+              <Route index element={<CoursePage isOpenAddCourse={isOpenAddCourse} onToggle={onToggle} courses={coursesList as CoursesT[]} />} />
               <Route path={Student.Course}>
                 <Route index element={<StudentCourse />} />
                 <Route path={Student.Lesson} element={<StudentLessonPreview />} />
@@ -49,16 +56,16 @@ export const App = () => {
           ) : (
             <Route path={Path.Courses} element={<School />}>
               {permission === RoleE.SuperAdmin ? (
-                <Route path={Path.Settings} element={<Settings />}>
+                <Route path={Path.Settings} element={<Settings isOpen={isOpen} closeModal={closeModal} />}>
                   <Route index element={<Main />} />
                   <Route path={SettingsPath.Main} element={<Main />} />
-                  <Route path={SettingsPath.Employees} element={<Employees onToggle={onToggle} />} />
+                  <Route path={SettingsPath.Employees} element={<Employees openModal={openModal} />} />
                   {permission === RoleE.SuperAdmin ? <Route path={SettingsPath.Logs} element={<Logs />} /> : null}
                   <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
                 </Route>
               ) : (
                 <>
-                  <Route index element={<CoursePage setShowModal={onToggle} courses={coursesList as CoursesT[]} />} />
+                  <Route index element={<CoursePage isOpenAddCourse={isOpenAddCourse} onToggle={onToggle} courses={coursesList as CoursesT[]} />} />
                   <Route path={Path.CreateCourse} element={<RedactorCourse />}>
                     <Route index element={<Constructor />} />
                     <Route path={CreateCoursePath.Constructor} element={<Constructor />} />
@@ -71,10 +78,10 @@ export const App = () => {
           )}
           <Route path={Path.Profile} element={<Profile />} />
           <Route path={Path.CourseStats} element={<CoursesStats />} />
-          <Route path={Path.Settings} element={<Settings />}>
+          <Route path={Path.Settings} element={<Settings isOpen={isOpen} closeModal={closeModal} />}>
             <Route index element={<Main />} />
             <Route path={SettingsPath.Main} element={<Main />} />
-            <Route path={SettingsPath.Employees} element={<Employees onToggle={onToggle} />} />
+            <Route path={SettingsPath.Employees} element={<Employees openModal={openModal} />} />
             {permission === RoleE.SuperAdmin ? <Route path={SettingsPath.Logs} element={<Logs />} /> : null}
             <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
           </Route>
