@@ -9,6 +9,7 @@ import { Button } from '../../../components/common/Button/Button'
 import { stackIconPath, clickBoardCheckPath, signIconPath } from '../../../Pages/School/config/svgIconsPath'
 
 import styles from './lesson.module.scss'
+import { StudentLessonDesc } from './StudentLessonDesc/index'
 
 export const StudentLessonPreview = () => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId } = useParams()
@@ -36,11 +37,11 @@ export const StudentLessonPreview = () => {
           <div className={styles.lesson__card}>
             <h3 className={styles.lesson__name_mini}>{lessonToShow?.name}</h3>
             <div className={styles.lesson__content}>
-              <span className={styles.lesson__desc}>Здусь будет текст занятия</span>
+              <StudentLessonDesc />
             </div>
-            <div>
+            {/* <div>
               <iframe width="100%" height="390" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
-            </div>
+            </div> */}
             <div className={styles.lesson__content}>
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
               <div className={styles.lesson__download_container}>
