@@ -5,7 +5,7 @@ import { Button } from '../common/Button/Button'
 import { StatisticHeaderT } from '../componentsTypes'
 import { statisticIconPath } from './config/svgIconPath'
 
-import styles from 'Pages/School/Navigations/StudentsStats/studentsStats.module.scss'
+import styles from 'Pages/School/StudentsStats/studentsStats.module.scss'
 
 export const StatisticHeader: FC<StatisticHeaderT> = memo(({ hideStats, handleHideStats }) => {
   return (
