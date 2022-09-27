@@ -1,15 +1,16 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import parse from 'html-react-parser'
 import YouTube, { YouTubeProps } from 'react-youtube'
 
-import { sectionT, lessonT } from '../../../types/sectionT'
-import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
-import { useFetchLessonQuery, useFetchModulesQuery } from '../../../api/modulesServices'
-import { backArr } from '../../../components/Previous/config/svgIconPath'
+import { sectionT, lessonT } from 'types/sectionT'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { useFetchLessonQuery, useFetchModulesQuery } from 'api/modulesServices'
+import { backArr } from 'components/Previous/config/svgIconPath'
 import { arrDownPath } from '../config/svgIconPath'
-import { Button } from '../../../components/common/Button/Button'
+import { Button } from 'components/common/Button/Button'
 import { stackIconPath } from '../../School/config/svgIconsPath'
-import { youtubeParser } from '../../../utils/youtubeParser'
+import { youtubeParser } from 'utils/youtubeParser'
 
 import styles from './lesson.module.scss'
 
@@ -20,6 +21,8 @@ export const StudentLessonPreview = () => {
 
   const { data: modules } = useFetchModulesQuery(courseId)
   const { data: lesson } = useFetchLessonQuery(lessonId)
+
+  const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
 
   const moduleToShow = modules?.sections.find((module: sectionT) => sectionId && module.section_id === +sectionId)
 
@@ -34,8 +37,9 @@ export const StudentLessonPreview = () => {
       autoplay: 0,
     },
   }
-
-  const link = youtubeParser(lesson?.video)
+  useEffect(() => {
+    setVideoLinkId(youtubeParser(lesson?.video))
+  }, [lesson])
 
   return (
     <div className={styles.lesson}>
@@ -52,7 +56,7 @@ export const StudentLessonPreview = () => {
               <span className={styles.lesson__desc}>{parse(`${lesson?.description}`) || 'Нет описания'}</span>
             </div>
             <div>
-              <YouTube opts={opts} videoId={link as string} />
+              <YouTube opts={opts} videoId={videoLinkId as string} />
             </div>
             <div className={styles.lesson__content}>
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
