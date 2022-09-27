@@ -2,13 +2,17 @@
 @import '../../../scss/mixin.scss';
 
 .wrapper {
-  @include position_t_l (absolute, 0, 0, 5);
+  position: fixed;
+  // @include position_t_l (absolute, 0, 0, 5);
+  top: 0;
+  left: 0;
+  z-index: 10;
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
 }
 .container {
-  @include position_t_l (absolute, 40%, 50%, 10);
+  @include position_t_l (absolute, 50%, 50%, 10);
   @include display (flex, column, center, center);
   padding: 36px;
   background: $color-white;

@@ -73,7 +73,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
         <form acceptCharset="utf-8">
           <span className={styles.redactorCourse_rightSide_title}>Прикреплённые файлы</span>
           <label
-            style={{ width: '180px', padding: '11px 0 11px 16px', marginTop: '16px' }}
             className={styles.redactorCourse_rightSide_header_btnBlock_setting}
           >
             <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={paperClipIconPath} />
