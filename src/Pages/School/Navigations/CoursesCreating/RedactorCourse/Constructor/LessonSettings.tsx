@@ -9,11 +9,13 @@ import { settingsIconPath, deleteIconPath, paperClipIconPath } from '../../../..
 import { useDeleteLessonsMutation, useFetchLessonQuery, usePatchLessonsMutation } from 'api/modulesServices'
 import { ClassesSettingsPropsT, ILesson } from '../../../navigationTypes'
 import { patchData } from 'utils/patchData'
+import { useBoolean } from 'customHooks/useBoolean'
 
 import styles from './constructor.module.scss'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettingsClassesModal, modulesList }) => {
   const dispatch = useAppDispatch()
+  const [isToggle, { onToggle }] = useBoolean()
 
   const lessonIdVar = lessonId ? lessonId : modulesList[0]?.lessons[0]?.lesson_id
 
@@ -22,7 +24,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
   const [deleteLesson] = useDeleteLessonsMutation()
 
   const [lesson, setLesson] = useState<ILesson>(data)
-
   useEffect(() => {
     setLesson(data)
   }, [data])
@@ -39,6 +40,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
   const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files) {
       const files = event.target.files
+
       patchData(lesson, 'lesson_id', 'file', files[0], addFile)
     }
   }
@@ -62,13 +64,13 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
           <span className={styles.redactorCourse_rightSide_title}>Содержание занятия</span>
           <div>
             <span className={styles.redactorCourse_rightSide_functional_content_preview}>Предпросмотр</span>
-            <CheckboxBall />
+            <CheckboxBall isChecked={isToggle} toggleChecked={onToggle} />
           </div>
         </div>
 
-        <AddPost lesson={lesson} />
+        <AddPost lesson={lesson} isPreview={isToggle} />
 
-        <div>
+        <form acceptCharset="utf-8">
           <span className={styles.redactorCourse_rightSide_title}>Прикреплённые файлы</span>
           <label
             style={{ width: '180px', padding: '11px 0 11px 16px', marginTop: '16px' }}
@@ -79,7 +81,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
             Прикрепить файлы
           </label>
           <span className={styles.redactorCourse_rightSide_desc}>Любые файлы размером не более 2 гигабайта</span>
-        </div>
+        </form>
       </div>
     </div>
   )

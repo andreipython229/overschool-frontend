@@ -11,8 +11,10 @@ export const Previous: FC<PreviousPropsT> = memo(() => {
   return (
     <>
       {previousToShow.map(({ path, Component }: pathT) => {
-        const pathWithoutParams = splitedPathname.split(/\d+/)[0]
-        return pathWithoutParams.endsWith(path) && <Component key={path} />
+        if (!pathname.includes('lesson')) {
+          const pathWithoutParams = splitedPathname.split(/\d+/)[0]
+          return pathWithoutParams.endsWith(path) && <Component key={path} />
+        }
       })}
     </>
   )

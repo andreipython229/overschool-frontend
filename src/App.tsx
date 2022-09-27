@@ -13,7 +13,7 @@ import { CoursePage } from './Pages/School/Navigations/CoursesCreating/CoursePag
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { CoursesT } from 'types/CoursesT'
 import { StudentLessonPreview } from 'Pages/StudentCourse/StudentLessonPreview'
-import { StudentCourse } from 'Pages/StudentCourse/index'
+import { StudentCourse } from 'Pages/StudentCourse'
 import { useAppSelector } from 'store/hooks'
 import { RoleE } from 'enum/roleE'
 import { selectUser } from 'selectors'
@@ -26,11 +26,12 @@ import { Settings } from 'Pages/Settings/Settings'
 import styles from './App.module.scss'
 
 export const App = () => {
-  const [isOpen, { onToggle }] = useBoolean()
+  const [_, { onToggle }] = useBoolean()
 
   const { permission } = useAppSelector(selectUser)
 
   const { data: coursesList } = useFetchCoursesQuery()
+
   return (
     <div className={styles.container}>
       <Routes>

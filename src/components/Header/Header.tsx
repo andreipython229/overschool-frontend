@@ -7,19 +7,21 @@ import { Path } from 'enum/pathE'
 import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutIconPath } from './config/svgIconsPath'
-
+import { useLogoutMutation } from 'api/userLoginService'
 import { avatar, logo } from '../../assets/img/common/index'
 
 import styles from './header.module.scss'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
+  const [logout] = useLogoutMutation()
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
 
   const logOut = (): void => {
+    logout(null)
     dispatch(token(''))
     dispatch(auth(false))
   }
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
 
   const [logotype, setLogo] = useState<string | undefined>('')
 

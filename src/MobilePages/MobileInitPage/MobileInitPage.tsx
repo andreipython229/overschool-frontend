@@ -7,6 +7,7 @@ import styles from './mobileInitPage.module.scss'
 
 export const MobileInitPage = () => {
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false)
+
   const showLoginModal = () => {
     setOpenLoginModal(!openLoginModal)
   }
