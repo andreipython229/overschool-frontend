@@ -2,10 +2,14 @@
 @import '../../scss/mixin.scss';
 
 .wrapper {
-  @include position_t_l(absolute, 0, 0, 15);
+  // @include position_t_l (absolute, 0, 0, 15);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
   background: rgba(0, 0, 0, 0.5);
   width: 100vw;
-  height: 100vh;
+  height: 100%;
 
   @media (max-width: 480px) {
     background: $color-white;
@@ -18,25 +22,25 @@
   }
 }
 .main {
-  @include position_t_l(absolute, 0, calc(50% - 234px), 10);
-  @include display(flex, column);
+  @include position_t_l (absolute, 50%, 50%, 10);
+  @include display (flex, column);
   width: 468px;
   background: $color-white;
   font-family: 'Manrope', sans-serif;
   margin: 0 auto;
   border-radius: 7px;
-  // transform: translate(50%, 50%);
+  transform: translate(-50%, -50%);
   @media (max-width: 480px) {
     width: 280px;
   }
 
   &_closed {
-    @include position_t_r(absolute, 25px, 25px);
+    @include position_t_r (absolute, 25px, 25px);
     cursor: pointer;
   }
 
   &_title {
-    @include font(800, 30px);
+    @include font (800, 30px);
     color: #000000;
     text-align: center;
     margin-bottom: 56px;
@@ -73,8 +77,8 @@
   }
 }
 .main_employee {
-  @include position_t_l(absolute, 50%, 50%, 10);
-  @include display(flex, column);
+  @include position_t_l (absolute, 50%, 50%, 10);
+  @include display (flex, column);
   width: 558px;
   background: $color-white;
   font-family: 'Manrope', sans-serif;
@@ -87,7 +91,7 @@
   }
 
   &_closedModal {
-    @include position_t_r(absolute, 17px, 16px);
+    @include position_t_r (absolute, 17px, 16px);
     background: #f1f1f1;
     width: 30px;
     height: 30px;
@@ -100,13 +104,13 @@
   }
 
   &_title {
-    @include font(500, 18px);
+    @include font (500, 18px);
     color: #4d5766;
     text-align: center;
   }
 
   &_subs {
-    @include font(400, 14px);
+    @include font (400, 14px);
     color: #65696d;
   }
 
@@ -156,17 +160,17 @@
   }
 
   &_course {
-    @include display(flex, column);
+    @include display (flex, column);
     font-weight: 400;
 
     &_title {
-      @include font(400, 14px);
+      @include font (400, 14px);
       margin-bottom: 8px;
       color: $font-title;
     }
 
     &_checkbox {
-      @include display(flex, row, flex-start, center);
+      @include display (flex, row, flex-start, center);
       margin-bottom: 8px;
       color: $font-title;
       font-size: 14px;
@@ -182,7 +186,7 @@
   }
 }
 .restorePass {
-  @include font(800, 14px);
+  @include font (800, 14px);
   color: black;
   text-align: center;
   margin: 16px auto 0 auto;
@@ -196,8 +200,8 @@
   border-radius: 10px;
 }
 .mainCourse {
-  @include position_t_l(absolute, 50%, 50%, 10);
-  @include display(flex, column);
+  @include position_t_l (absolute, 50%, 50%, 10);
+  @include display (flex, column);
   width: 438px;
   background: #ffffff;
   font-family: $font-family-inter;
@@ -238,8 +242,8 @@
   }
 }
 .classesContainer {
-  @include position_t_l(absolute, 50%, 50%, 10);
-  @include display(flex, column, center, center);
+  @include position_t_l (absolute, 50%, 50%, 10);
+  @include display (flex, column, center, center);
   padding: 32px;
   background: #ffffff;
   text-align: center;
@@ -250,7 +254,7 @@
   width: 512px;
 
   &_closed {
-    @include position_t_r(absolute, 20px, 20px);
+    @include position_t_r (absolute, 20px, 20px);
     text-align: center;
     width: 30px;
     height: 30px;
@@ -281,7 +285,7 @@
     }
 
     &_classes {
-      @include display(flex, column, center, center);
+      @include display (flex, column, center, center);
       width: 100px;
       height: 110px;
       border: 2px solid #e0dced;
@@ -300,14 +304,14 @@
     }
 
     &_subs {
-      @include font(400, 16px);
+      @include font (400, 16px);
       width: 464px;
       height: 60px;
       color: $font-title;
     }
 
     &_btnBlock {
-      @include display(flex, row, center, center);
+      @include display (flex, row, center, center);
       margin-top: 19px;
 
       & div:nth-child(1) {
@@ -337,7 +341,7 @@
 }
 .usually {
   &_header {
-    @include display(flex, column, flex-start, center);
+    @include display (flex, column, flex-start, center);
 
     & svg {
       margin-bottom: 28px;
@@ -367,7 +371,7 @@
   }
 
   &_grade {
-    @include display(flex, row, center, center);
+    @include display (flex, row, center, center);
     @include font(400, 12px);
     margin: 16px 0 30px 0;
 
@@ -388,7 +392,7 @@
   }
 }
 .tasks {
-  @include display(flex, column, center, center);
+  @include display (flex, column, center, center);
   margin-bottom: 23px;
 
   & svg {
@@ -396,37 +400,37 @@
   }
 
   &_checkbox {
-    @include display(flex, row, flex-start, flex-start);
+    @include display (flex, row, flex-start, flex-start);
     margin-left: 15px;
 
     &_desc {
       text-align: left;
 
       & span {
-        @include font(400, 14px);
+        @include font (400, 14px);
         color: $font-title;
       }
 
       & p {
-        @include font(400, 14px, 21px);
+        @include font (400, 14px, 21px);
         color: #949aa3;
       }
     }
   }
 
   &_credit {
-    @include display(flex, row, flex-start, center);
+    @include display (flex, row, flex-start, center);
     width: 90%;
 
     &_desc {
-      @include font(400, 14px);
+      @include font (400, 14px);
       color: $font-title;
       width: 140px;
       text-align: left;
     }
 
     &_select {
-      @include display(flex, row, space-evenly);
+      @include display (flex, row, space-evenly);
       width: 100%;
     }
   }
@@ -441,7 +445,7 @@
   }
 }
 .test {
-  @include display(flex, column, flex-start, center);
+  @include display (flex, column, flex-start, center);
   text-align: center;
   margin-bottom: 23px;
 
@@ -454,8 +458,8 @@
   }
 
   &_checkbox {
-    @include display(flex, row, flex-start, center);
-    @include font(400, $fs12);
+    @include display (flex, row, flex-start, center);
+    @include font (400, $fs12);
     width: 90%;
     text-align: left;
     color: $font-title;
@@ -470,11 +474,11 @@
     }
 
     &_text {
-      @include display(flex, column);
+      @include display (flex, column);
       margin-top: 11px;
 
       &_checked {
-        @include font(400, $fs12);
+        @include font (400, $fs12);
         color: $font-color-rose;
       }
 
@@ -491,7 +495,7 @@
     margin-bottom: 32px;
 
     &_title {
-      @include font(500, $fs12);
+      @include font (500, $fs12);
       letter-spacing: 0.04em;
     }
 
@@ -500,11 +504,11 @@
       margin-bottom: 16px;
 
       &_input {
-        @include display(flex, row, flex-start, center);
+        @include display (flex, row, flex-start, center);
         margin: 8px 0 0 26px;
 
         & span {
-          @include font(400, $fs12);
+          @include font (400, $fs12);
           margin-left: 16px;
         }
       }
@@ -512,7 +516,7 @@
   }
 }
 .webinar {
-  @include display(flex, column, flex-start, center);
+  @include display (flex, column, flex-start, center);
   text-align: center;
   margin-bottom: 23px;
 
@@ -521,22 +525,22 @@
   }
 
   &_checkbox {
-    @include display(flex, row, flex-start, flex-start);
+    @include display (flex, row, flex-start, flex-start);
     width: 90%;
     text-align: left;
     margin-top: 10px;
 
     &_text {
-      @include display(flex, column);
+      @include display (flex, column);
       text-align: left;
 
       &_for {
-        @include font(400, $fs14);
+        @include font (400, $fs14);
         color: $font-color-rose;
       }
 
       &_desc {
-        @include font(400, $fs14);
+        @include font (400, $fs14);
         padding-top: 4px;
         color: #949aa3;
       }
@@ -544,7 +548,7 @@
   }
 
   &_addReminder {
-    @include font(400, $fs14);
+    @include font (400, $fs14);
     color: $font-color-rose;
     width: 90%;
     text-align: left;
@@ -587,7 +591,7 @@
 }
 .module {
   &_title {
-    @include font(500, 18px);
+    @include font (500, 18px);
     color: $font-title;
     margin-bottom: 18px;
   }
@@ -604,7 +608,7 @@
 }
 .settings {
   &_header {
-    @include display(flex, column, center, center);
+    @include display (flex, column, center, center);
     width: 100%;
     text-align: center;
     margin-bottom: 26px;
@@ -619,12 +623,19 @@
 
     &_input {
       margin-bottom: 8px;
+      padding: 0 20px;
       text-align: left;
       width: 496px;
 
       &_title {
-        font-size: 12px;
+        font-size: 14px;
         color: $font-title;
+
+      }
+
+      div {
+        width: 100%;
+        margin-top: 20px;
       }
     }
   }
@@ -633,7 +644,7 @@
   list-style-type: none;
 }
 .settings_title {
-  @include font(500, 20px, 24px);
+  @include font (500, 20px, 24px);
   text-align: center;
   font-style: normal;
   color: #4d5766;
