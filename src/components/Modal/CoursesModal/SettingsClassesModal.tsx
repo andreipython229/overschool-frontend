@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
@@ -7,20 +7,42 @@ import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { useShowModal } from '../../../customHooks/useShowModal'
 import { settingsClassesIconPath } from './config/svgIconsPath'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
+import { SettingsClassesModalPropT } from '../ModalTypes'
+import { useFetchLessonQuery, usePatchLessonsMutation } from '../../../api/modulesServices'
 
 import styles from '../Modal.module.scss'
-import { SettingsClassesModalPropT } from '../ModalTypes'
+import { patchData } from '../../../utils/patchData'
 
 const classesType = ['Занятие', 'Задание', 'Тест', 'Вебинар']
 
-export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setShowModal }) => {
+export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ modulesList, lessonId, setShowModal }) => {
+  const lessonIdVar = lessonId ? lessonId : modulesList[0]?.lessons[0]?.lesson_id
+  const [changeNameLesson, { isSuccess }] = usePatchLessonsMutation()
+  const { data } = useFetchLessonQuery(lessonIdVar)
+
   const [settingsActive, setSettingsActive] = useState<number>(0)
+  const [nameLesson, setNameLesson] = useState<string>(data?.name)
 
   useShowModal({ setShowModal })
 
   const handleClose = () => {
     setShowModal(false)
   }
+
+  const handleChangeNameLesson = (event: ChangeEvent<HTMLInputElement>) => {
+    setNameLesson(event.target.value)
+  }
+
+  const saveChangeNameLesson = (event: any) => {
+    event.preventDefault()
+    patchData(data, 'lesson_id', 'name', nameLesson, changeNameLesson)
+  }
+
+  useEffect(() => {
+    if (isSuccess) {
+      setShowModal(false)
+    }
+  }, [isSuccess])
 
   return (
     <div className={styles.wrapper}>
@@ -30,7 +52,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setShowMod
             <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
           </div>
           <div className={styles.settings_header}>
-            <IconSvg width={17} height={17} viewBoxSize={'0 0 17 17'} path={settingsClassesIconPath} />
+            <IconSvg width={60} height={60} viewBoxSize={'0 0 60 60'} path={settingsClassesIconPath} />
             <span className={styles.classesContainer_title}>Настройки занятия </span>
           </div>
           <div className={styles.navBtn}>
@@ -52,14 +74,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setShowMod
             <div className={styles.settings_block}>
               <div className={styles.settings_block_input}>
                 <span className={styles.settings_block_input_title}>Изменить название</span>
-                <Input
-                  style={{ width: '496px' }}
-                  name={'name'}
-                  type={'text'}
-                  value={''}
-                  placeholder={'Основы HTML'}
-                  onChange={() => console.log('заглушка')}
-                />
+                <Input style={{ width: '496px' }} name={'name'} type={'text'} value={nameLesson} onChange={handleChangeNameLesson} />
               </div>
 
               <div className={styles.settings_block_input}>
@@ -79,7 +94,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setShowMod
             </div>
           )}
 
-          <Button style={{ width: '496px' }} variant={'primary'} text={'Сохранить'} />
+          <Button onClick={saveChangeNameLesson} style={{ width: '496px' }} variant={'primary'} text={'Сохранить'} />
         </form>
       </div>
     </div>

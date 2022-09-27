@@ -1,25 +1,25 @@
 import { FC } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
-import { Button } from '../../../../components/common/Button/Button'
-import { Path, Student } from '../../../../enum/pathE'
-import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
+import { Button } from 'components/common/Button/Button'
+import { Path, Student } from 'enum/pathE'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { CoursesCard } from './CoursesCard'
-import { showModal } from '../../../../store/redux/modal/slice'
-import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
-import { Input } from '../../../../components/common/Input/Input/Input'
-import { useFilterData } from '../../../../customHooks/useFilterData'
-import { CoursesT } from '../../../../types/CoursesT'
+import { showModal } from 'store/redux/modal/slice'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { Input } from 'components/common/Input/Input/Input'
+import { useFilterData } from 'customHooks/useFilterData'
+import { CoursesT } from 'types/CoursesT'
 import { searchIconPath } from 'config/commonSvgIconsPath'
 import { selectUser } from 'selectors'
 
-import Public from '../../../../assets/img/createCourse/public.svg'
-import notPublic from '../../../../assets/img/createCourse/notPublic.svg'
-import pie from '../../../../assets/img/studentPage/folder-todo.png'
+import Public from 'assets/img/createCourse/public.svg'
+import notPublic from 'assets/img/createCourse/notPublic.svg'
+import pie from 'assets/img/studentPage/folder-todo.png'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import cardStyles from './coursePage.module.scss'
-import { RoleE } from '../../../../enum/roleE'
+import { RoleE } from 'enum/roleE'
 
 type CoursePagePropsT = {
   setShowModal: () => void

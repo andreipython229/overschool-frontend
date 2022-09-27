@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { AddVideo } from 'components/AddVideo'
 import { AddAudio } from 'components/AddAudio'
@@ -10,6 +10,7 @@ import { AddPostT } from '../componentsTypes'
 import { patchData } from '../../utils/patchData'
 import { useDebounce } from '../../customHooks/useDebounce'
 import { usePatchLessonsMutation } from 'api/modulesServices'
+import parse from 'html-react-parser'
 
 import Text from '../.././assets/img/createCourse/text.svg'
 import Video from '../.././assets/img/createCourse/video.svg'
@@ -18,7 +19,7 @@ import Code from '../.././assets/img/createCourse/code.svg'
 
 import styles from './addPost.module.scss'
 
-export const AddPost: FC<AddPostT> = memo(({ lesson }) => {
+export const AddPost: FC<AddPostT> = ({ lesson, isPreview }) => {
   const [isOpenTextEditor, { on: closeTextEditor, off: openTextEditor }] = useBoolean()
   const [isOpenVideo, { on: closeVideo, off: openVideo }] = useBoolean()
   const [isOpenAudio, { on: closeAudio, off: openAudio }] = useBoolean()
@@ -31,8 +32,11 @@ export const AddPost: FC<AddPostT> = memo(({ lesson }) => {
 
   const [debounced] = useDebounce(code, 1000)
 
+  const description: any = parse(descriptionLesson)
+
   useEffect(() => {
-    if (descriptionLesson && lesson) {
+    console.log(lesson)
+    if (description[0]?.props?.children && lesson) {
       patchData(lesson, 'lesson_id', 'description', descriptionLesson, addPatchData)
     }
   }, [descriptionLesson])
@@ -49,7 +53,9 @@ export const AddPost: FC<AddPostT> = memo(({ lesson }) => {
 
   return (
     <>
-      {isOpenTextEditor && <AddTextEditor setShow={closeTextEditor} setDescriptionLesson={setDescriptionLesson} />}
+      {isOpenTextEditor && (
+        <AddTextEditor isPreview={isPreview} lesson={lesson} setShow={closeTextEditor} setDescriptionLesson={setDescriptionLesson} />
+      )}
       {isOpenVideo && <AddVideo addFile={addPatchData} lesson={lesson} setShow={closeVideo} />}
       {isOpenAudio && <AddAudio lesson={lesson} setShow={closeAudio} />}
       {isOpenCodeEditor && <AddCodeEditor code={code} handleEditorChange={handleEditorChange} setShow={closeCodeEditor} />}
@@ -65,4 +71,4 @@ export const AddPost: FC<AddPostT> = memo(({ lesson }) => {
       </section>
     </>
   )
-})
+}
