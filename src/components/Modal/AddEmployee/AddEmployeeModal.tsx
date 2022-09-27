@@ -11,11 +11,12 @@ import { checkBoxData } from './config/checkBoxConfig'
 import { radioData } from './config/radioConfig'
 import { modalIconPath } from './config/svgIconsPath'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
+import { AddEmployeeModalPropsT } from '../ModalTypes'
+import { useShowModal } from 'customHooks/useShowModal'
 
 import styles from '../Modal.module.scss'
-import { AddEmployeeModalPropsT } from '../ModalTypes'
 
-export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ onToggle }) => {
+export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setShowModal }) => {
   const [checkedItem, setCheckedItem] = useState<{ [key: string]: boolean }>({
     python: false,
     java: false,
@@ -24,6 +25,8 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ onToggle }) 
     english: false,
     englishStart: false,
   })
+
+  useShowModal({ setShowModal })
 
   const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target
@@ -36,7 +39,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ onToggle }) 
       <div className={styles.wrapper}>
         <div className={styles.main_employee}>
           <div className={styles.main_employee_container}>
-            <div className={styles.main_employee_closedModal} onClick={onToggle}>
+            <div className={styles.main_employee_closedModal} onClick={setShowModal}>
               <IconSvg width={26} height={26} path={crossIconPath} />
             </div>
             <div style={{ textAlign: 'center' }}>
@@ -81,7 +84,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ onToggle }) 
     <div className={styles.wrapper}>
       <div className={styles.main_employee}>
         <div className={styles.main_employee_container}>
-          <div className={styles.main_employee_closedModal} onClick={onToggle}>
+          <div className={styles.main_employee_closedModal} onClick={setShowModal}>
             <IconSvg width={14} height={14} viewBoxSize={'0 0 14 14'} path={modalIconPath} />
           </div>
           <div style={{ textAlign: 'center' }}>

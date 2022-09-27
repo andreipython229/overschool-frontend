@@ -54,7 +54,7 @@ export type EmployeePropsT = {
 }
 
 export type EmployeesPropsT = {
-  onToggle: () => void
+  openModal: () => void
 }
 
 export type LogoAddBlockPropsT = {

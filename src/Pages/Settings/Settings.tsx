@@ -16,15 +16,15 @@ import { useBoolean } from '../../customHooks/useBoolean'
 export const Settings: FC = memo(() => {
   const { permission } = useAppSelector(selectUser)
 
-  const [isOpen, { onToggle }] = useBoolean()
+  const [isOpen, { off: openModal, on: closeModal }] = useBoolean()
 
   return (
     <>
       <NavAccount role={permission} />
-      {isOpen && <AddEmployeeModal onToggle={onToggle} />}
+      {isOpen && <AddEmployeeModal setShowModal={closeModal} />}
       <Routes>
         <Route path={'/*'} element={<Main />} />
-        <Route path={SettingsPath.Employees} element={<Employees onToggle={onToggle} />} />
+        <Route path={SettingsPath.Employees} element={<Employees openModal={openModal} />} />
         {permission === RoleE.SuperAdmin ? <Route path={SettingsPath.Logs} element={<Logs />} /> : null}
         <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
       </Routes>
