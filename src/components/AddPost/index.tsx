@@ -35,7 +35,6 @@ export const AddPost: FC<AddPostT> = ({ lesson, isPreview }) => {
   const description: any = parse(descriptionLesson)
 
   useEffect(() => {
-    console.log(lesson)
     if (description[0]?.props?.children && lesson) {
       patchData(lesson, 'lesson_id', 'description', descriptionLesson, addPatchData)
     }
@@ -56,9 +55,11 @@ export const AddPost: FC<AddPostT> = ({ lesson, isPreview }) => {
       {isOpenTextEditor && (
         <AddTextEditor isPreview={isPreview} lesson={lesson} setShow={closeTextEditor} setDescriptionLesson={setDescriptionLesson} />
       )}
-      {isOpenVideo && <AddVideo addFile={addPatchData} lesson={lesson} setShow={closeVideo} />}
-      {isOpenAudio && <AddAudio lesson={lesson} setShow={closeAudio} />}
-      {isOpenCodeEditor && <AddCodeEditor code={code} handleEditorChange={handleEditorChange} setShow={closeCodeEditor} />}
+      {isOpenVideo && <AddVideo isPreview={isPreview} addFile={addPatchData} lesson={lesson} setShow={closeVideo} />}
+      {isOpenAudio && <AddAudio isPreview={isPreview} lesson={lesson} setShow={closeAudio} />}
+      {isOpenCodeEditor && (
+        <AddCodeEditor isPreview={isPreview} lesson={lesson} code={code} handleEditorChange={handleEditorChange} setShow={closeCodeEditor} />
+      )}
 
       <section className={styles.redactorCourse_rightSide_functional_creating}>
         <div className={styles.redactorCourse_rightSide_functional_creating_title}>Добавить контент</div>

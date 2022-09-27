@@ -20,7 +20,7 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
 
   const [editorContent, setEditorContent] = useState<string>('')
 
-  const debounced = useDebounce(editorContent, 500)
+  const debounced = useDebounce(editorContent, 1500)
 
   useEffect(() => {
     setEditorContent(draftToHtml(convertToRaw(editorState.getCurrentContent())))

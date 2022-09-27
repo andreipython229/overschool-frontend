@@ -100,3 +100,8 @@ export type ToggleButtonDropDownT = {
   nameOfItems?: string
   handleToggleHiddenBlocks: () => void
 }
+
+export type AudioPlayerT = {
+  audioUrl: string
+  title?: string
+}
