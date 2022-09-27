@@ -17,9 +17,10 @@ export const Header = memo(() => {
   const [logout] = useLogoutMutation()
   const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
 
+
   const logOut = (): void => {
-    logout(null)
-    dispatch(token(''))
+    dispatch(token({ access_token: '' }))
+    logout()
     dispatch(auth(false))
   }
 
