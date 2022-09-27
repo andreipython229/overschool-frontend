@@ -4,9 +4,9 @@ import { useFormik } from 'formik'
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
-import { userDataSchema } from './schemas/index'
+import { userDataSchema } from './schemas'
 import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/profileService'
-import { AboutUserPropsT } from '../CoursesStats/coursesStatsTypes'
+import { AboutUserPropsT } from '../pageTypes'
 
 import styles from './profile.module.scss'
 
@@ -134,18 +134,11 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
       <div className={styles.profile_block}>
         <span className={styles.profile_block_avatarBlock_title}>Пол:</span>
         {/* <SelectInput optionsList={optionsList} sex={formik.values.sex} handleChange={handleChange} /> */}
-        <select
-          onChange={e => {
-            handleChange(e)
-            console.log(formik.values.sex)
-          }}
-          value={formik.values.sex}
-          name="sex"
-          id="sex"
-        >
-          <option value={'М'}>Мужской</option>
-          <option value={'Ж'}>Женский</option>
-        </select>
+        {/*<select onChange={handleChange} value={formik.values.sex} name="sex" id="sex">*/}
+        {/*  <option defaultValue={''}> </option>*/}
+        {/*  <option value={'М'}>Мужской</option>*/}
+        {/*  <option value={'Ж'}>Женский</option>*/}
+        {/*</select>*/}
       </div>
       <div>
         <Button type="submit" text={'Сохранить'} variant={'primary'} />

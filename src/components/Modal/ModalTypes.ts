@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react'
-import { SettingItemT } from '../../Pages/CoursesStats/coursesStatsTypes'
+import { SettingItemT } from '../../Pages/pageTypes'
 
 export type SettingClassesPropsT = {
   goToBack: () => void
@@ -8,7 +8,7 @@ export type SettingClassesPropsT = {
 }
 
 export type AddEmployeeModalPropsT = {
-  onToggle: () => void
+  setShowModal: () => void
 }
 
 export type AddCourseModalPropsT = {

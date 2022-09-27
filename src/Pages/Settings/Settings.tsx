@@ -10,7 +10,7 @@ import { useBoolean } from '../../customHooks/useBoolean'
 export const Settings: FC = memo(() => {
   const { permission } = useAppSelector(selectUser)
 
-  const [isOpen, { onToggle }] = useBoolean()
+  const [isOpen, { off: openModal, on: closeModal }] = useBoolean()
 
   return (
     <>

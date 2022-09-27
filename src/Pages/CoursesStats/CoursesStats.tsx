@@ -11,7 +11,7 @@ import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { studentsScatterPath } from './config/svgIconPath'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { studentsGroupT } from 'types/studentsGroup'
-import { SettingItemT } from './coursesStatsTypes'
+import { SettingItemT } from '../pageTypes'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { CoursesT } from '../../types/CoursesT'
 

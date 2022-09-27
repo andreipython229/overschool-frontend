@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { UserLogsPropsT } from '../../../CoursesStats/coursesStatsTypes'
+import { UserLogsPropsT } from '../../../pageTypes'
 import styles from './userLogs.module.scss'
 
 export const UserLogs: FC<UserLogsPropsT> = memo(({ contacts, whatDoing, time }) => {
