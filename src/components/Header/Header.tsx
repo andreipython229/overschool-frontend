@@ -1,6 +1,7 @@
 import { memo, useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
+import { useLogoutMutation } from '../../api/userLoginService'
 import { useAppDispatch } from '../../store/hooks'
 import { auth, token } from 'store/redux/users/slice'
 import { Path } from 'enum/pathE'
@@ -15,8 +16,11 @@ import styles from './header.module.scss'
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
 
+  const [logout] = useLogoutMutation()
+
   const logOut = (): void => {
-    dispatch(token(''))
+    dispatch(token({ access_token: '' }))
+    logout()
     dispatch(auth(false))
   }
   const { data, isSuccess } = useFetchSchoolHeaderQuery(1)

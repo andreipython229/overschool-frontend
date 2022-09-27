@@ -2,9 +2,9 @@ import { useParams, useNavigate } from 'react-router-dom'
 import parse from 'html-react-parser'
 import YouTube, { YouTubeProps } from 'react-youtube'
 
-import { sectionT, lessonT } from '../../../types/sectionT'
+import { lessonT } from '../../../types/sectionT'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
-import { useFetchLessonQuery, useFetchModulesQuery } from '../../../api/modulesServices'
+import { useFetchLessonQuery, useFetchModuleLessonsQuery } from '../../../api/modulesServices'
 import { backArr } from '../../../components/Previous/config/svgIconPath'
 import { arrDownPath } from '../config/svgIconPath'
 import { Button } from '../../../components/common/Button/Button'
@@ -17,14 +17,14 @@ export const StudentLessonPreview = () => {
 
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId } = useParams()
 
-  const { data: modules } = useFetchModulesQuery(courseId)
+  const { data: lessons } = useFetchModuleLessonsQuery(sectionId)
   const { data: lesson } = useFetchLessonQuery(lessonId)
 
-  const moduleToShow = modules?.sections.find((module: sectionT) => sectionId && module.section_id === +sectionId)
+  const activeLessonIndex = lessons?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.lesson_id === +lessonId)
+  const lessonIdBack = lessons?.lessons[activeLessonIndex - 1]?.lesson_id || lessonId
+  const lessonIdForward = lessons?.lessons[activeLessonIndex + 1]?.lesson_id || lessonId
 
-  const activeLessonIndex = moduleToShow?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.lesson_id === +lessonId)
-  const lessonIdBack = moduleToShow?.lessons[activeLessonIndex - 1]?.lesson_id || lessonId
-  const lessonIdForward = moduleToShow?.lessons[activeLessonIndex + 1]?.lesson_id || lessonId
+  const lessonFileArrName = lesson?.file_url?.split('/')
 
   const opts: YouTubeProps['opts'] = {
     height: '500px',
@@ -55,23 +55,29 @@ export const StudentLessonPreview = () => {
           <div className={styles.lesson__card}>
             <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
             <div className={styles.lesson__content}>
-              <span className={styles.lesson__desc}>{parse(`${lesson?.description}`) || 'Нет описания'}</span>
+              <span className={styles.lesson__desc}>{lesson?.description ? parse(`${lesson?.description}`) : 'Нет описания'}</span>
             </div>
             <div>
               <YouTube opts={opts} videoId={youtube_parser(link) as string} />
             </div>
             <div className={styles.lesson__content}>
-              <span className={styles.lesson__materials}>Материалы к занятию:</span>
-              <div className={styles.lesson__download_container}>
-                <div className={styles.lesson__dowload_wrap}>
-                  <div className={styles.lesson__dowload_blackDiv}> </div>
-                  <span>Домашнее задание.pdf</span>
-                </div>
-                <div className={styles.lesson__dowload_wrap}>
-                  <span className={styles.lesson__download_size}>445 КБ</span>
-                  <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={arrDownPath} />
-                </div>
-              </div>
+              {lesson?.file_url && (
+                <>
+                  <span className={styles.lesson__materials}>Материалы к занятию:</span>
+                  <a href={lesson?.file_url} download target={'_blanck'}>
+                    <div className={styles.lesson__download_container}>
+                      <div className={styles.lesson__dowload_wrap}>
+                        <div className={styles.lesson__dowload_blackDiv}> </div>
+                        <span>{lessonFileArrName[lessonFileArrName.length - 1].slice(0, 20)}</span>
+                      </div>
+                      <div className={styles.lesson__dowload_wrap}>
+                        <span className={styles.lesson__download_size}>445 КБ</span>
+                        <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={arrDownPath} />
+                      </div>
+                    </div>
+                  </a>
+                </>
+              )}
             </div>
           </div>
           <div className={styles.lesson__btns}>
@@ -92,8 +98,8 @@ export const StudentLessonPreview = () => {
         <div className={styles.lesson__block}>
           <p className={styles.lesson__block_title}>Занятия модуля:</p>
           <div>
-            {moduleToShow?.lessons.length &&
-              moduleToShow?.lessons.map(({ name, lesson_id }: lessonT, index: number) => (
+            {lessons?.lessons.length &&
+              lessons?.lessons.map(({ name, lesson_id }: lessonT, index: number) => (
                 <div
                   style={{ cursor: 'pointer' }}
                   key={lesson_id}

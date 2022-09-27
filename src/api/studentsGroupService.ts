@@ -1,11 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import { baseQuery } from './baseApi'
+import { baseQueryWithReauth } from './baseApi'
 import { studentsGroupT } from '../types/studentsGroup'
 
 export const studentsGroupService = createApi({
   reducerPath: 'studentsGroupService',
-  baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['studentsGroup'],
   endpoints: build => ({
     fetchStudentsGroup: build.query<studentsGroupT[], void>({
