@@ -46,18 +46,18 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
         {courses?.length &&
           foundCourses?.map((course: any) => (
             <CoursesCard
-              key={course.course_id}
+              key={course?.course_id}
               course={course}
               renderProps={course => (
                 <>
                   {permission === RoleE.Admin ? (
                     <>
                       <div className={cardStyles.course_card_img}>
-                        <img className={cardStyles.course_card_img} src={course.photo_url} alt="" />
+                        <img className={cardStyles.course_card_img} src={course?.photo_url} alt="" />
                       </div>
                       <div className={cardStyles.course_card_about}>
                         <span className={cardStyles.course_card_status_show}>
-                          {course.public === 'О' ? (
+                          {course?.public === 'О' ? (
                             <>
                               <img src={Public} alt="status course" />
                               <span className={cardStyles.course_card_status_show_public}>Опубликован</span>
@@ -70,10 +70,10 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
                           )}
                         </span>
                         <h5>{course.name}</h5>
-                        <span className={cardStyles.course_card_about_desc}>{course.description}</span>
+                        <span className={cardStyles.course_card_about_desc}>{course?.description}</span>
                         <Link
                           to={generatePath(Path.CreateCourse, {
-                            course_id: course.course_id,
+                            course_id: course?.course_id,
                           })}
                         >
                           <Button className={cardStyles.btn} text={'Редактировать'} />
@@ -83,7 +83,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
                   ) : (
                     <>
                       <div className={cardStyles.course_card_img}>
-                        <img className={cardStyles.course_card_img} src={course.photo_url} alt="" />
+                        <img className={cardStyles.course_card_img} src={course?.photo_url} alt="" />
                       </div>
                       <div style={{ width: '100%', background: '#F3F4F6', height: '5px' }}>
                         <div style={{ width: '20%', background: '#BA75FF', height: '100%' }}> </div>
@@ -93,11 +93,11 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
                         <span style={{ color: '#BA75FF', fontSize: '11px' }}>13% пройдено</span>
                         <span className={cardStyles.course_card_status_show}> </span>
                         <h5>{course.name}</h5>
-                        <span className={cardStyles.course_card_about_desc}>{course.description}</span>
+                        <span className={cardStyles.course_card_about_desc}>{course?.description}</span>
 
                         <Link
                           to={generatePath(Student.Course, {
-                            course_id: course.course_id,
+                            course_id: course?.course_id,
                           })}
                         >
                           <Button style={{ background: '#F4E9FF', borderRadius: '5px' }} className={cardStyles.btn} text={'Продолжить обучение'} />
