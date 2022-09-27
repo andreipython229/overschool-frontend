@@ -13,6 +13,7 @@ import { stackIconPath } from '../../School/config/svgIconsPath'
 import { youtubeParser } from 'utils/youtubeParser'
 
 import styles from './lesson.module.scss'
+import { StudentLessonDesc } from './StudentLessonDesc/index'
 
 export const StudentLessonPreview = () => {
   const navigate = useNavigate()
