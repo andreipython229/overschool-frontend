@@ -4,7 +4,7 @@
     position: relative;
 
     &_navBlock {
-      @include position_t_r (absolute, 0, -37px, 2);
+      @include position_t_r (absolute, 40px, -37px, 2);
       @include display (flex, column);
         &_div {
           @include display (flex, row, center, center);

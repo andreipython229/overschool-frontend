@@ -1,7 +1,7 @@
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { studentInfoScatterIconPath, studentScatterIconPath } from '../../config/svgIconsPath'
+import { studentInfoScatterIconPath, studentScatterIconPath } from '../config/svgIconsPath'
 
-import styles from 'Pages/School/Navigations/StudentsStats/studentsStats.module.scss'
+import styles from 'Pages/School/StudentsStats/studentsStats.module.scss'
 
 export const StudentInfoGraphic = () => {
   return (
