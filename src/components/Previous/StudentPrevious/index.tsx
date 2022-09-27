@@ -8,12 +8,14 @@ import styles from '../previou.module.scss'
 export const StudentPrevious: FC = () => {
   const { data } = useFetchProfileDataQuery(1)
 
+  console.log(data)
+
   return (
     <div className={styles.previous}>
       <div className={styles.previous_infoBlock}>
         <img className={styles.previous_infoBlock_avatar} src={data?.avatar_url} alt="" />
         <div className={styles.previous_infoBlock_title}>
-          <p className={styles.previous_infoBlock_title_about}>{`${data?.user?.first_name || ''} ${data?.user?.last_name || ''} `}</p>
+          <p className={styles.previous_infoBlock_title_about}>{`${data?.user?.first_name} ${data?.user?.last_name} `}</p>
         </div>
       </div>
       <div className={styles.previous_btn}>

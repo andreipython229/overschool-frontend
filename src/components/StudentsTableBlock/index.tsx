@@ -16,7 +16,7 @@ type StudentsTableBlockT = {
 export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, setShowModal }) => {
   const [cols, setCols] = useState<string[]>([])
 
-  const { data: students, isSuccess } = useFetchCourseStatQuery()
+  const { data: students, isSuccess } = useFetchCourseStatQuery(1)
 
   const { columns, data } = generateData(settingList || [], students, isSuccess)
   const [rows, setRows] = useState<Array<{ [key: string]: string | number }>>()
