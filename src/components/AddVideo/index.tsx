@@ -23,7 +23,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ isPreview, addFile, lesso
     setAddVideoLink('')
   }
   const opts: YouTubeProps['opts'] = {
-    height: '254x',
+    height: '500px',
     width: '800px',
     playerVars: {
       autoplay: 0,

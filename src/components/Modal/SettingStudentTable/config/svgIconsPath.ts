@@ -2,7 +2,7 @@ import { checkedIcon, noCheckedIcon, dotBlockIcon } from '../constants/svgIcons'
 
 export const checkedIconPath = [{ d: checkedIcon, fill: '#BA75FF' }]
 
-export const noCheckedIconPath = [{ d: noCheckedIcon, fill: '#9CA3AF' }]
+export const noCheckedIconPath = [{ d: noCheckedIcon, fill: '#BA75FF' }]
 
 export const doBlockIconPath = [
   { d: dotBlockIcon.d1, fill: '#9CA3AF' },
