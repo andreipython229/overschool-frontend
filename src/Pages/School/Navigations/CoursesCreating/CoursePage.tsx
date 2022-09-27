@@ -9,7 +9,8 @@ import { showModal } from 'store/redux/modal/slice'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Input } from 'components/common/Input/Input/Input'
 import { useFilterData } from 'customHooks/useFilterData'
-import { CoursesT } from 'types/CoursesT'
+import { RoleE } from 'enum/roleE'
+import { CoursePagePropsT } from '../../../pageTypes'
 import { searchIconPath } from 'config/commonSvgIconsPath'
 import { selectUser } from 'selectors'
 
@@ -19,12 +20,6 @@ import pie from 'assets/img/studentPage/folder-todo.png'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import cardStyles from './coursePage.module.scss'
-import { RoleE } from 'enum/roleE'
-
-type CoursePagePropsT = {
-  setShowModal: () => void
-  courses: CoursesT[]
-}
 
 export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
   const dispatch = useAppDispatch()
@@ -33,7 +28,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
   const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
 
   const dispatchHandlerModal = () => {
-    setShowModal()
+    setShowModal && setShowModal()
     dispatch(showModal(true))
   }
 

@@ -1,6 +1,6 @@
 import { FC, memo, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
 import { Button } from '../../common/Button/Button'
@@ -15,12 +15,17 @@ import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
 import { isSecurity, unSecurity } from '../../../assets/img/common/index'
 
-import styles from '../Modal.module.scss'
+import { Path } from '../../../enum/pathE'
 
 import { LoginModalPropsT } from '../ModalTypes'
 
+import styles from '../Modal.module.scss'
+
 export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
   const dispatch = useAppDispatch()
+  const screenWidth = window.screen.width
+
+  const navigate = useNavigate()
 
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
@@ -50,8 +55,11 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
   useEffect(() => {
     if (isSuccess) {
       setShowModal(false)
-      dispatch(token({access_token: data?.access_token as string, refresh_token: data?.refresh_token as string}))
+      dispatch(token({ access_token: data?.access_token as string, refresh_token: data?.refresh_token as string }))
       dispatch(auth(true))
+      if (screenWidth <= 1025) {
+        navigate(Path.Courses)
+      }
     }
   }, [isSuccess])
 

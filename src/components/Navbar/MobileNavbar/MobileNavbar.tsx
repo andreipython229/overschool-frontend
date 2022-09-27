@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
+import { Path } from 'enum/pathE'
 
 import styles from '../navbar.module.scss'
-import { Path } from 'enum/pathE'
 
 export const MobileNavbar = () => {
   const isActive = ({ isActive }: any) => (isActive ? styles.mobileIsActive : '')

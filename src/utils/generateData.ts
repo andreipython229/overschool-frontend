@@ -1,5 +1,5 @@
 import { courseStatT } from '../types/courseStatT'
-import { SettingItemT } from '../Pages/CoursesStats/coursesStatsTypes'
+import { SettingItemT } from '../Pages/pageTypes'
 
 export const generateData = (columnsList: SettingItemT[], data: courseStatT, isSuccess: boolean) => {
   const columns: Array<string> = []

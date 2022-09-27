@@ -1,9 +1,9 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { InputAuthPropsT } from '../../commonComponentsTypes'
 
 import styles from './inputAuth.module.scss'
 
-export const InputAuth: FC<InputAuthPropsT> = props => {
+export const InputAuth: FC<InputAuthPropsT> = memo(props => {
   const { label, onClick, icon, type, id, name, onChange, value, placeholder, ...rest } = props
 
   return (
@@ -17,4 +17,4 @@ export const InputAuth: FC<InputAuthPropsT> = props => {
       </div>
     </div>
   )
-}
+})

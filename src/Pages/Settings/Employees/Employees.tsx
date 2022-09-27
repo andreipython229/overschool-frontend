@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { EmployeesPropsT } from '../../CoursesStats/coursesStatsTypes'
+import { EmployeesPropsT } from '../../pageTypes'
 import { Employee } from './Employee/Employee'
 
 import { avatar } from '../../../assets/img/common/index'
