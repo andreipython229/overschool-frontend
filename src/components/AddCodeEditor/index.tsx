@@ -9,28 +9,36 @@ import { AddPostT, setShowType } from '../componentsTypes'
 
 import styles from './addCodeEditor.module.scss'
 
-export const AddCodeEditor: FC<setShowType & AddPostT> = ({ code, handleEditorChange, setShow }) => {
+export const AddCodeEditor: FC<setShowType & AddPostT> = ({ lesson, isPreview, code, handleEditorChange, setShow }) => {
   return (
-    <div className={styles.editorWrapper}>
-      <div className={styles.editorWrapper_editor}>
-        <div className={styles.editorWrapper_editor_add}>
-          <Editor height="100%" language="javascript" theme="vs-dark" onChange={handleEditorChange} value={code} />
+    <>
+      {!isPreview ? (
+        <div className={styles.editorWrapper}>
+          <div className={styles.editorWrapper_editor}>
+            <div className={styles.editorWrapper_editor_add}>
+              <Editor height="100%" language="javascript" theme="vs-dark" onChange={handleEditorChange} value={code} />
+            </div>
+          </div>
+          <div className={styles.editorWrapper_selectWrapper}>
+            <SelectInput optionsList={coursesSelectLanguage} />
+          </div>
+          <div className={styles.editorWrapper_navBlock}>
+            <div className={styles.editorWrapper_navBlock_div}>
+              <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrUpPath} />
+            </div>
+            <div className={styles.editorWrapper_navBlock_div}>
+              <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
+            </div>
+            <div className={styles.editorWrapper_navBlock_delete} onClick={setShow}>
+              <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
+            </div>
+          </div>
         </div>
-      </div>
-      <div className={styles.editorWrapper_selectWrapper}>
-        <SelectInput optionsList={coursesSelectLanguage} />
-      </div>
-      <div className={styles.editorWrapper_navBlock}>
-        <div className={styles.editorWrapper_navBlock_div}>
-          <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrUpPath} />
-        </div>
-        <div className={styles.editorWrapper_navBlock_div}>
-          <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
-        </div>
-        <div className={styles.editorWrapper_navBlock_delete} onClick={setShow}>
-          <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
-        </div>
-      </div>
-    </div>
+      ) : (
+        <code>
+          <pre>{lesson.code}</pre>
+        </code>
+      )}
+    </>
   )
 }

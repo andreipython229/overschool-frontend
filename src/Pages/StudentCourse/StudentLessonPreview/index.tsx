@@ -9,6 +9,7 @@ import { backArr } from '../../../components/Previous/config/svgIconPath'
 import { arrDownPath } from '../config/svgIconPath'
 import { Button } from '../../../components/common/Button/Button'
 import { stackIconPath } from '../../School/config/svgIconsPath'
+import { youtubeParser } from '../../../utils/youtubeParser'
 
 import styles from './lesson.module.scss'
 
@@ -34,14 +35,7 @@ export const StudentLessonPreview = () => {
     },
   }
 
-  const link = lesson?.video
-  const youtube_parser = (url: string) => {
-    if (url) {
-      const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
-      const match = url.match(regExp)
-      return match && match[7].length >= 9 ? match[7] : false
-    }
-  }
+  const link = youtubeParser(lesson?.video)
 
   return (
     <div className={styles.lesson}>
@@ -58,7 +52,7 @@ export const StudentLessonPreview = () => {
               <span className={styles.lesson__desc}>{parse(`${lesson?.description}`) || 'Нет описания'}</span>
             </div>
             <div>
-              <YouTube opts={opts} videoId={youtube_parser(link) as string} />
+              <YouTube opts={opts} videoId={link as string} />
             </div>
             <div className={styles.lesson__content}>
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
