@@ -23,7 +23,6 @@ export const userLoginService = createApi({
       query: () => {
         return {
           url: `/logout/`,
-          method: 'POST',
         }
       },
     }),

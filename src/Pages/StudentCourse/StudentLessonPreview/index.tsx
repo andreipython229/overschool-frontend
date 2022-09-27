@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import parse from 'html-react-parser'
 import YouTube, { YouTubeProps } from 'react-youtube'
 
@@ -7,10 +8,12 @@ import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { useFetchLessonQuery, useFetchModuleLessonsQuery } from '../../../api/modulesServices'
 import { backArr } from '../../../components/Previous/config/svgIconPath'
 import { arrDownPath } from '../config/svgIconPath'
-import { Button } from '../../../components/common/Button/Button'
+import { Button } from 'components/common/Button/Button'
 import { stackIconPath } from '../../School/config/svgIconsPath'
+import { youtubeParser } from 'utils/youtubeParser'
 
 import styles from './lesson.module.scss'
+import { StudentLessonDesc } from './StudentLessonDesc/index'
 
 export const StudentLessonPreview = () => {
   const navigate = useNavigate()
@@ -19,6 +22,8 @@ export const StudentLessonPreview = () => {
 
   const { data: lessons } = useFetchModuleLessonsQuery(sectionId)
   const { data: lesson } = useFetchLessonQuery(lessonId)
+
+  const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
 
   const activeLessonIndex = lessons?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.lesson_id === +lessonId)
   const lessonIdBack = lessons?.lessons[activeLessonIndex - 1]?.lesson_id || lessonId
@@ -33,15 +38,9 @@ export const StudentLessonPreview = () => {
       autoplay: 0,
     },
   }
-
-  const link = lesson?.video
-  const youtube_parser = (url: string) => {
-    if (url) {
-      const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
-      const match = url.match(regExp)
-      return match && match[7].length == 11 ? match[7] : false
-    }
-  }
+  useEffect(() => {
+    setVideoLinkId(youtubeParser(lesson?.video))
+  }, [lesson])
 
   return (
     <div className={styles.lesson}>
@@ -58,7 +57,7 @@ export const StudentLessonPreview = () => {
               <span className={styles.lesson__desc}>{lesson?.description ? parse(`${lesson?.description}`) : 'Нет описания'}</span>
             </div>
             <div>
-              <YouTube opts={opts} videoId={youtube_parser(link) as string} />
+              <YouTube opts={opts} videoId={videoLinkId as string} />
             </div>
             <div className={styles.lesson__content}>
               {lesson?.file_url && (

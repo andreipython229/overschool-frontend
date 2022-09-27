@@ -1,5 +1,9 @@
-@import '../../scss/mixin.scss';
 .accardionWrapper {
     margin-top: 24px;
     padding: 0 72px;
+}
+@media screen and (max-width: 480px) {
+    .accardionWrapper {
+        padding: 0;
+    }
 }

@@ -20,19 +20,14 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
 
   const [editorContent, setEditorContent] = useState<string>('')
 
-  const debounced = useDebounce(editorContent, 500)
+  const debounced = useDebounce(editorContent, 1500)
 
   useEffect(() => {
-    focusEditor()
     setEditorContent(draftToHtml(convertToRaw(editorState.getCurrentContent())))
     setDescriptionLesson && setDescriptionLesson(debounced.toString())
   }, [editorContent, debounced])
 
   const editor = useRef<Editor>(null)
-
-  function focusEditor() {
-    editor.current && editor?.current?.focus()
-  }
 
   const StyleButton = (props: IEditor) => {
     const onClickButton = (e: MouseEvent<HTMLButtonElement>) => {
@@ -101,7 +96,7 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
   }
 
   return (
-    <div className={styles.editor} onClick={focusEditor}>
+    <div className={styles.editor}>
       <div className={styles.editor_panel}>
         <BlockStyleControls onToggle={onBlockClick} />
         <InlineStyleControls onToggle={onInlineClick} />

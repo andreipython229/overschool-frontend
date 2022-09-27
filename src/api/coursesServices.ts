@@ -38,22 +38,21 @@ export const coursesServices = createApi({
       }),
       invalidatesTags: ['allCourses'],
     }),
-    updateCourses: build.mutation<FormData, UpdateCourses>({
-      query: (arg): string | FetchArgs => {
-        return {
-          url: `/courses/${arg.id}/`,
-          method: 'PUT',
-          body: arg.formdata,
-        }
-      },
-      invalidatesTags: ['allCourses'],
-    }),
     patchCourses: build.mutation<FormData, UpdateCourses>({
       query: (arg): string | FetchArgs => {
         return {
           url: `/courses/${arg?.id}/`,
           method: 'PATCH',
           body: arg?.formdata,
+        }
+      },
+      invalidatesTags: ['allCourses', 'allCourses'],
+    }),
+    cloneCourse: build.mutation({
+      query: (id): string | FetchArgs => {
+        return {
+          url: `/courses/${id}/clone/`,
+          method: 'GET',
         }
       },
       invalidatesTags: ['allCourses'],
@@ -66,6 +65,6 @@ export const {
   useFetchCourseQuery,
   useCreateCoursesMutation,
   useDeleteCoursesMutation,
-  useUpdateCoursesMutation,
   usePatchCoursesMutation,
+  useCloneCourseMutation,
 } = coursesServices

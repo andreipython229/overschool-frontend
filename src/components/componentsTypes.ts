@@ -1,5 +1,4 @@
-import { CSSProperties, FC, MouseEvent, ReactNode } from 'react'
-import { ILesson } from '../Pages/School/Navigations/navigationTypes'
+import { FC, MouseEvent, ReactNode } from 'react'
 
 export type setShowType = {
   setShow: () => void
@@ -9,6 +8,7 @@ export type setShowType = {
 export type AddPostT = {
   lesson?: any
   code?: string
+  isPreview?: boolean
   addFile?: (arg: any) => void
   handleEditorChange?: (code: any) => void
 }

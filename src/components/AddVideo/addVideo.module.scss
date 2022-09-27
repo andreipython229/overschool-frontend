@@ -21,13 +21,20 @@
         background: #ffffff;
         text-align: center;
         margin-bottom: 48px;
-        height: 254px;
+        padding: 40px 0;
         border: 2px dashed #ebeef5;
         border-radius: 7px;
         position: relative;
 
         & input {
-          opacity: 1;
+          width: 40%;
+          height: 40px;
+          margin-bottom: 20px;
+          @include font (500, 14px, 21px);
+          color: #494D55;
+          border-radius: 7px;
+          border: 1px solid #E0DCED;
+          outline: none;
           cursor: pointer;
         }
 
