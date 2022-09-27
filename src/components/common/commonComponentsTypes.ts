@@ -104,4 +104,5 @@ export type ToggleButtonDropDownT = {
 export type AudioPlayerT = {
   audioUrl: string
   title?: string
+  styles?: { [key: string]: string | number }
 }

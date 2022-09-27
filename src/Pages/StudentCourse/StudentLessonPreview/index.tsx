@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import parse from 'html-react-parser'
 import YouTube, { YouTubeProps } from 'react-youtube'
 
+import { AudioPlayer } from 'components/common/AudioPlayer'
 import { lessonT } from '../../../types/sectionT'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { useFetchLessonQuery, useFetchModuleLessonsQuery } from '../../../api/modulesServices'
@@ -11,9 +12,9 @@ import { arrDownPath } from '../config/svgIconPath'
 import { Button } from 'components/common/Button/Button'
 import { stackIconPath } from '../../School/config/svgIconsPath'
 import { youtubeParser } from 'utils/youtubeParser'
+import { StudentLessonDesc } from './StudentLessonDesc/index'
 
 import styles from './lesson.module.scss'
-import { StudentLessonDesc } from './StudentLessonDesc/index'
 
 export const StudentLessonPreview = () => {
   const navigate = useNavigate()
@@ -40,7 +41,7 @@ export const StudentLessonPreview = () => {
   }
   useEffect(() => {
     setVideoLinkId(youtubeParser(lesson?.video))
-  }, [lesson])
+  }, [lesson, lessonId])
 
   return (
     <div className={styles.lesson}>
@@ -60,9 +61,26 @@ export const StudentLessonPreview = () => {
               <YouTube opts={opts} videoId={videoLinkId as string} />
             </div>
             <div className={styles.lesson__content}>
+              {(lesson?.code || lesson?.file_url || lesson?.audio_url) && <span className={styles.lesson__materials}>Материалы к занятию:</span>}
+              {lesson?.code && (
+                <>
+                  <span className={styles.lesson__block_name}>Код</span>
+                  <div className={styles.lesson__codeWraper}>
+                    <pre className={styles.lesson__code_text}>
+                      <code>{lesson?.code}</code>
+                    </pre>
+                  </div>
+                </>
+              )}
+              {lesson?.audio_url && (
+                <>
+                  <span className={styles.lesson__block_name}>Аудио</span>
+                  <AudioPlayer styles={{ marginBottom: '15px' }} audioUrl={lesson?.audio_url} title="" />
+                </>
+              )}
               {lesson?.file_url && (
                 <>
-                  <span className={styles.lesson__materials}>Материалы к занятию:</span>
+                  <span className={styles.lesson__block_name}>Файл</span>
                   <a href={lesson?.file_url} download target={'_blanck'}>
                     <div className={styles.lesson__download_container}>
                       <div className={styles.lesson__dowload_wrap}>
