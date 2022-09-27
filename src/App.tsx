@@ -25,12 +25,15 @@ import { Settings } from 'Pages/Settings/Settings'
 
 import styles from './App.module.scss'
 
+
+
 export const App = () => {
   const [isOpen, { onToggle }] = useBoolean()
 
   const { permission } = useAppSelector(selectUser)
 
   const { data: coursesList } = useFetchCoursesQuery()
+
   return (
     <div className={styles.container}>
       <Routes>

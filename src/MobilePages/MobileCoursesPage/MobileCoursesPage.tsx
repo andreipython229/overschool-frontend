@@ -10,8 +10,7 @@ export const MobileCoursesPage: FC = memo(() => {
   const [searchValue, setSearchValue] = useState<string>('')
 
   const { data: coursesList } = useFetchCoursesQuery()
-
-
+  console.log(coursesList)
   const onChangeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.currentTarget.value)
   }
@@ -35,7 +34,7 @@ export const MobileCoursesPage: FC = memo(() => {
       <div className={styles.course}>
         {coursesList &&
           coursesList?.map((course: CoursesT) => (
-            <MobileCourseBlock key={course.course_id} name={course.name} progress={'58'} desc={course.description} />
+            <MobileCourseBlock id={course.course_id} key={course.course_id} name={course.name} img={course.photo_url} progress={'58'} desc={course.description} />
           ))}
       </div>
     </div>
