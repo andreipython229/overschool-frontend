@@ -123,6 +123,9 @@
     color: #4d5766;
     margin-bottom: 26px;
     display: inline-block;
+    p {
+      word-break: break-all;
+    }
   }
 
   &__materials {
@@ -169,7 +172,7 @@
 
   &__block {
     padding: 26px 14px 37px 12px;
-    min-width: 330px;
+    max-width: 330px;
     width: 100%;
     box-shadow: 0 0 8px #d9d9d9;
     box-sizing: border-box;

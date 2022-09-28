@@ -3,14 +3,17 @@ import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
-import { SelectInput } from 'components/common/SelectInput/SelectInput'
+//import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { userDataSchema } from './schemas'
 import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/profileService'
 import { AboutUserPropsT } from '../pageTypes'
 
 import styles from './profile.module.scss'
 
-// const optionsList = ['Женский', 'Mужской']
+// const optionsList = [
+//   { label: 'Женский', value: 'Ж' },
+//   { label: 'Мужской', value: 'М' },
+// ]
 
 export const AboutUser: FC<AboutUserPropsT> = memo(() => {
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
@@ -73,8 +76,8 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
     values: { city, description, email, last_name, first_name, phone_number, avatar_url },
     handleChange,
     handleSubmit,
-    touched,
-    errors,
+    //touched,
+    //errors,
   } = formik
 
   return (

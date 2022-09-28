@@ -16,7 +16,8 @@
   }
 }
 .container {
-  margin: 56px 62px 70px;
+  // margin: 56px 62px 70px;
+  margin: 40px 62px 50px;
   @media (max-width: 480px) {
     margin: 59px 16px 16px 16px;
   }
@@ -635,7 +636,7 @@
 
       div {
         width: 100%;
-        margin-top: 20px;
+        margin-top: 10px;
       }
     }
   }

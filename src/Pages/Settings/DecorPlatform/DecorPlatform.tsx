@@ -3,8 +3,6 @@ import { ChangeEvent, memo, useState } from 'react'
 import { LogoAddBlock } from './LogoAddBlock/LogoAddBlock'
 import { useSetSchoolHeaderMutation } from '../../../api/schoolHeaderService'
 
-import { superAdminCover } from '../../../assets/img/common/index'
-
 import styles from '../superAdmin.module.scss'
 
 export const DecorPlatform = memo(() => {
@@ -48,7 +46,6 @@ export const DecorPlatform = memo(() => {
 
         <LogoAddBlock
           title={'Ваш логотип'}
-          logotype={superAdminCover}
           logoDesc={'Загрузите логотип Вашей компании: он будет отображаться в интерфейсе и системных email'}
           aboutRequirements={'Требования к логотипу:'}
           onChange={onChangeLogotype}
@@ -57,7 +54,6 @@ export const DecorPlatform = memo(() => {
         {logoError && <span>{logoError}</span>}
         <LogoAddBlock
           title={'Ваш favicon'}
-          logotype={superAdminCover}
           logoDesc={'Загрузите favicon Вашей компании: он будет отображаться на страницах вашей школы во вкладке браузера'}
           aboutRequirements={'Требования к favicon:'}
           onChange={onChangeFavicon}

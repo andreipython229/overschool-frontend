@@ -8,9 +8,9 @@ import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { Button } from '../../common/Button/Button'
 import { Input } from '../../common/Input/Input/Input'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
+import { AddCourseModalPropsT } from '../ModalTypes'
 
 import styles from '../Modal.module.scss'
-import { AddCourseModalPropsT } from '../ModalTypes'
 
 export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) => {
   const navigate = useNavigate()

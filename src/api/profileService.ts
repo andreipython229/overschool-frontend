@@ -7,13 +7,13 @@ export const profileService = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['profile'],
   endpoints: build => ({
-    fetchProfileData: build.query<any, number>({
+    fetchProfileData: build.query({
       query: id => ({
         url: `/profiles/${id}/`,
       }),
       providesTags: ['profile'],
     }),
-    updateProfile: build.mutation<any, any>({
+    updateProfile: build.mutation({
       query: userInfo => ({
         url: `/profiles/1/`,
         method: 'PATCH',

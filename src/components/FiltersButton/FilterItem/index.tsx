@@ -8,7 +8,7 @@ import styles from '../FilterItem/filter_item.module.scss'
 
 export const FilterItem: FC<FilterItemT> = ({ id, title, setSelectedFilter }) => {
   const handleClick = () => {
-    setSelectedFilter(id)
+    id && setSelectedFilter(id as keyof object)
   }
 
   return (

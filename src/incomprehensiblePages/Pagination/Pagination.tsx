@@ -3,10 +3,18 @@ import classnames from 'classnames'
 
 import './pagination.scss'
 
-export const Pagination = (props: any) => {
+type propsT = {
+  onPageChange: (arg: number | string) => void
+  totalCount: number
+  siblingCount: number
+  currentPage: number
+  pageSize: number
+}
+
+export const Pagination = (props: propsT) => {
   const { onPageChange, totalCount, siblingCount = 1, currentPage, pageSize } = props
 
-  const paginationRange: any = usePagination({
+  const paginationRange: (string | number)[] = usePagination({
     currentPage,
     totalCount,
     siblingCount,
@@ -40,7 +48,7 @@ export const Pagination = (props: any) => {
         >
           <div className="arrow left" />
         </li>
-        {paginationRange.map((pageNumber: any) => {
+        {paginationRange.map((pageNumber: number | string) => {
           if (pageNumber === DOTS) {
             return <li className="pagination-item dots">&#8230;</li>
           }

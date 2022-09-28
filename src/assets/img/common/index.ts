@@ -15,7 +15,6 @@ import navbar_menu from './navbar_menu.svg'
 import noAvatar from './noAvatar.svg'
 import phone from './phone.svg'
 import settings from './setting 2.svg'
-import superAdminCover from './super_admin_cover.jpg'
 import unSecurity from './unSecurity.svg'
 import deleteIcon from './deleteIcon.svg'
 
@@ -37,7 +36,6 @@ export {
   noAvatar,
   phone,
   settings,
-  superAdminCover,
   unSecurity,
   deleteIcon,
 }

@@ -59,7 +59,7 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
       <div className={styles.wrapper}>
         {item?.name !== 'Имя' && item?.name !== 'Email' && (
           <IconSvg
-            styles={{ cursor: 'grab', width: '20px', height: '20px', position: 'absolute', top: '15px', left: '-29px', zIndex: '10' }}
+            styles={{ cursor: 'grab', width: '20px', height: '20px', position: 'absolute', top: '10px', left: '-29px', zIndex: '10' }}
             width={12}
             height={18}
             viewBoxSize={'0 0 12 18'}
