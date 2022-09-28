@@ -21,7 +21,6 @@ import notPublic from 'assets/img/createCourse/notPublic.svg'
 import pie from 'assets/img/studentPage/folder-todo.png'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
-import cardStyles from './coursePage.module.scss'
 
 export const CoursePage: FC = memo(() => {
   const dispatch = useAppDispatch()
@@ -55,57 +54,57 @@ export const CoursePage: FC = memo(() => {
                 <>
                   {permission === RoleE.Admin ? (
                     <>
-                      <div className={cardStyles.course_card_img}>
-                        <img className={cardStyles.course_card_img} src={course?.photo_url} alt="" />
+                      <div className={styles.course_card_img}>
+                        <img className={styles.course_card_img} src={course?.photo_url} alt="" />
                       </div>
-                      <div className={cardStyles.course_card_about}>
-                        <span className={cardStyles.course_card_status_show}>
+                      <div className={styles.course_card_about}>
+                        <span className={styles.course_card_status_show}>
                           {course?.public === 'О' ? (
                             <>
                               <img src={Public} alt="status course" />
-                              <span className={cardStyles.course_card_status_show_public}>Опубликован</span>
+                              <span className={styles.course_card_status_show_public}>Опубликован</span>
                             </>
                           ) : (
                             <>
                               <img src={notPublic} alt="status course" />
-                              <span className={cardStyles.course_card_status_show_public}>Не опубликован</span>
+                              <span className={styles.course_card_status_show_public}>Не опубликован</span>
                             </>
                           )}
                         </span>
                         <h5>{course.name}</h5>
-                        <span className={cardStyles.course_card_about_desc}>{course?.description}</span>
+                        <span className={styles.course_card_about_desc}>{course?.description}</span>
                         <Link
                           to={generatePath(Path.CreateCourse, {
                             course_id: course?.course_id,
                           })}
                         >
-                          <Button className={cardStyles.btn} text={'Редактировать'} />
+                          <Button className={styles.btn} text={'Редактировать'} />
                         </Link>
                       </div>
                     </>
                   ) : (
                     <>
-                      <div className={cardStyles.course_card_img}>
-                        <img className={cardStyles.course_card_img} src={course?.photo_url} alt="" />
+                      <div className={styles.course_card_img}>
+                        <img className={styles.course_card_img} src={course?.photo_url} alt="" />
                       </div>
-                      <div className={cardStyles.course_card_progressBar}>
-                        <div className={cardStyles.course_card_progressBar_line}> </div>
+                      <div className={styles.course_card_progressBar}>
+                        <div className={styles.course_card_progressBar_line}> </div>
                       </div>
-                      <div className={cardStyles.course_card_about}>
-                        <div className={cardStyles.course_card_about_progressWrapper}>
+                      <div className={styles.course_card_about}>
+                        <div className={styles.course_card_about_progressWrapper}>
                           <img src={pie} alt="pie" />
-                          <span className={cardStyles.course_card_about_progressWrapper_title}>13% пройдено</span>
+                          <span className={styles.course_card_about_progressWrapper_title}>13% пройдено</span>
                         </div>
-                        <span className={cardStyles.course_card_status_show}> </span>
+                        <span className={styles.course_card_status_show}> </span>
                         <h5>{course.name}</h5>
-                        <span className={cardStyles.course_card_about_desc}>{course?.description}</span>
+                        <span className={styles.course_card_about_desc}>{course?.description}</span>
 
                         <Link
                           to={generatePath(Student.Course, {
                             course_id: course?.course_id,
                           })}
                         >
-                          <Button style={{ background: '#F4E9FF', borderRadius: '5px' }} className={cardStyles.btn} text={'Продолжить обучение'} />
+                          <Button style={{ background: '#F4E9FF', borderRadius: '5px' }} className={styles.btn} text={'Продолжить обучение'} />
                         </Link>
                       </div>
                     </>

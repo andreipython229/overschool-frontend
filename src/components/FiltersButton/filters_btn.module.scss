@@ -5,8 +5,8 @@
   margin-right: 7px;
 }
 .container_btn {
-  @include display (flex, row, space-around, center);
-  @include font (500, 12px);
+  @include display(flex, row, space-around, center);
+  @include font(500, 12px);
   width: 100%;
   min-width: 167px;
   border-radius: 7px;
@@ -14,19 +14,20 @@
   color: #6b7484;
   background-color: #ededed;
   padding: 11px 13px 11px 15px;
+  white-space: nowrap;
   svg {
     margin-right: 9px;
   }
 }
 .header_dropdown_menu {
-  @include font (600, 11px, 10px);
+  @include font(600, 11px, 10px);
   font-style: normal;
   letter-spacing: -0.01em;
   color: #d2d6dc;
   text-align: center;
 }
 .drop_down_block {
-  @include position_t_l (absolute, 40px, 70px);
+  @include position_t_l(absolute, 40px, 70px);
   width: 341px;
   border-radius: 7px;
   display: inline-block;
