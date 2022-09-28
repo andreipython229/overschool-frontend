@@ -8,7 +8,7 @@ import { SelectInputPropsT } from '../commonComponentsTypes'
 
 import styles from './selectInput.module.scss'
 
-export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
+export const SelectInput: FC<SelectInputPropsT<string | number>> = ({ optionsList, setSelectedValue }) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
   const [selectedOption, setSelectedOption] = useState<number>(0)
 
@@ -38,7 +38,6 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
         <ul
           tabIndex={-1}
           role="listbox"
-          // aria-activedescendant={optionsList[selectedOption]}
           className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}
         >
           {optionsList?.map(
@@ -51,6 +50,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList }) => {
                 onClick={() => {
                   setSelectedOption(index)
                   setIsOptionsOpen(false)
+                  setSelectedValue && setSelectedValue(option)
                 }}
               >
                 {option}

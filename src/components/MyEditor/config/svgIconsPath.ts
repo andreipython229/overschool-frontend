@@ -15,3 +15,19 @@ export const labelOrderedListItemPath = [{ d: editorSvgLabel.labelOrderedListIte
 export const labelCodeBlockPath = [{ d: editorSvgLabel.labelCodeBlock, fill: '#03053D' }]
 
 export const labelImagePath = [{ d: editorSvgLabel.labelImage, fill: '#03053D' }]
+
+export const labelTextAlignCenterPath = [{ d: editorSvgLabel.textAlignCenter, fill: '#03053D' }]
+
+export const labelTextAlignStartPath = [{ d: editorSvgLabel.textAlignStart, fill: '#03053D' }]
+
+export const labelLineSpacesPath = [{ d: editorSvgLabel.lineSpaces, fill: '#03053D' }]
+
+export const labelVideoTrackPath = [{ d: editorSvgLabel.videoTrack, fill: '#03053D' }]
+
+export const labelTagIconPath = [{ d: editorSvgLabel.tagIcon, fill: '#03053D' }]
+
+export const labelContentsIconPath = [{ d: editorSvgLabel.contentsIcon, fill: '#03053D' }]
+
+export const labelBackArrPath = [{ d: editorSvgLabel.backArrIcon, fill: '#03053D' }]
+
+export const labelForwardArrPath = [{ d: editorSvgLabel.forwardArrIcon, fill: '#03053D' }]

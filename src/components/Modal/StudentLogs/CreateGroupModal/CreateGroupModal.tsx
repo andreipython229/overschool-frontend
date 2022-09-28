@@ -1,9 +1,7 @@
 import { ChangeEvent, FC, useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
-import { StudentLogs } from 'enum/pathE'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { useShowModal } from '../../../../customHooks/useShowModal'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
@@ -53,9 +51,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
             <Input name={'group'} type={'text'} value={groupName} onChange={onChangeGroupName} />
           </div>
           <div className={styles.addGroup_btn}>
-            <Link to={StudentLogs.GroupSettings}>
-              <Button disabled={groupName.length <= 1} variant={'primary'} onClick={handleCreateGroup} text={'Создать группу'} />
-            </Link>
+            <Button disabled={groupName.length <= 1} variant={'primary'} onClick={handleCreateGroup} text={'Создать группу'} />
           </div>
         </div>
       </div>
