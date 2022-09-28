@@ -1,9 +1,8 @@
-import {createApi} from '@reduxjs/toolkit/dist/query/react'
+import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQueryWithReauth } from './baseApi'
 
-
-export const UserCountByMonthServices = createApi({
+export const userCountByMonthServices = createApi({
   reducerPath: 'UserCountByMonthServices',
   baseQuery: baseQueryWithReauth,
   tagTypes: ['userCountByMonth'],
@@ -17,4 +16,4 @@ export const UserCountByMonthServices = createApi({
   }),
 })
 
-export const { useFetchUserCountByMonthDataQuery } = UserCountByMonthServices
+export const { useFetchUserCountByMonthDataQuery } = userCountByMonthServices

@@ -7,19 +7,19 @@ import { UpdateCourses } from './apiTypes'
 export const coursesServices = createApi({
   reducerPath: 'coursesServices',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['allCourses'],
+  tagTypes: ['coursesServices', 'oneCurses'],
   endpoints: build => ({
     fetchCourses: build.query<CoursesT[], void>({
       query: () => ({
         url: `/courses/`,
       }),
-      providesTags: () => ['allCourses'],
+      providesTags: () => ['coursesServices'],
     }),
     fetchCourse: build.query<CoursesT, string>({
       query: id => ({
         url: `/courses/${id}/`,
       }),
-      providesTags: () => ['allCourses'],
+      providesTags: () => ['oneCurses'],
     }),
     createCourses: build.mutation<FormData, FormData>({
       query: course => {
@@ -29,14 +29,14 @@ export const coursesServices = createApi({
           body: course,
         }
       },
-      invalidatesTags: ['allCourses'],
+      invalidatesTags: ['coursesServices'],
     }),
     deleteCourses: build.mutation<FormData, string>({
       query: id => ({
         url: `/courses/${id}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['allCourses'],
+      invalidatesTags: ['coursesServices'],
     }),
     patchCourses: build.mutation<FormData, UpdateCourses>({
       query: (arg): string | FetchArgs => {
@@ -46,7 +46,7 @@ export const coursesServices = createApi({
           body: arg?.formdata,
         }
       },
-      invalidatesTags: ['allCourses', 'allCourses'],
+      invalidatesTags: ['coursesServices', 'oneCurses'],
     }),
     cloneCourse: build.mutation({
       query: (id): string | FetchArgs => {
@@ -55,7 +55,7 @@ export const coursesServices = createApi({
           method: 'GET',
         }
       },
-      invalidatesTags: ['allCourses'],
+      invalidatesTags: ['coursesServices'],
     }),
   }),
 })

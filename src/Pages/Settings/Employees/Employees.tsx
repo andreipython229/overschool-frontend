@@ -1,18 +1,18 @@
 import { FC } from 'react'
-import { EmployeesPropsT } from '../../CoursesStats/coursesStatsTypes'
+import { EmployeesPropsT } from '../../pageTypes'
 import { Employee } from './Employee/Employee'
 
 import { avatar } from '../../../assets/img/common/index'
 
 import styles from '../superAdmin.module.scss'
 
-export const Employees: FC<EmployeesPropsT> = ({ onToggle }) => {
+export const Employees: FC<EmployeesPropsT> = ({ openModal }) => {
   return (
     <div className={styles.wrapper_actions}>
       <div className={styles.employees}>
         <div className={styles.employees_header}>
           <div className={styles.employees_header_title}>Сотрудники</div>
-          <button onClick={onToggle} className={styles.employees_header_btn}>
+          <button onClick={openModal} className={styles.employees_header_btn}>
             + Сотрудник
           </button>
         </div>

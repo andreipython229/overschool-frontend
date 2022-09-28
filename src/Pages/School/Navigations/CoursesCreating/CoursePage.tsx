@@ -9,31 +9,33 @@ import { showModal } from 'store/redux/modal/slice'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Input } from 'components/common/Input/Input/Input'
 import { useFilterData } from 'customHooks/useFilterData'
-import { CoursesT } from 'types/CoursesT'
+import { RoleE } from 'enum/roleE'
 import { searchIconPath } from 'config/commonSvgIconsPath'
 import { selectUser } from 'selectors'
-
+import { AddCourseModal } from 'components/Modal'
+import { useFetchCoursesQuery } from 'api/coursesServices'
+import { useBoolean } from 'customHooks/useBoolean'
 import Public from 'assets/img/createCourse/public.svg'
 import notPublic from 'assets/img/createCourse/notPublic.svg'
 import pie from 'assets/img/studentPage/folder-todo.png'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import cardStyles from './coursePage.module.scss'
-import { RoleE } from 'enum/roleE'
 
-type CoursePagePropsT = {
-  setShowModal: () => void
-  courses: CoursesT[]
-}
-
-export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
+export const CoursePage: FC = () => {
   const dispatch = useAppDispatch()
+
+  const [isOpenAddCourse, { onToggle }] = useBoolean()
+
+  const { data: courses } = useFetchCoursesQuery()
+
   const { permission } = useAppSelector(selectUser)
 
-  const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
+  const [nameCourses, foundCourses, filterData] = useFilterData(courses as any, 'name')
 
   const dispatchHandlerModal = () => {
-    setShowModal()
+    onToggle && onToggle()
+
     dispatch(showModal(true))
   }
 
@@ -86,7 +88,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
                         <img className={cardStyles.course_card_img} src={course?.photo_url} alt="" />
                       </div>
                       <div style={{ width: '100%', background: '#F3F4F6', height: '5px' }}>
-                        <div style={{ width: '20%', background: '#BA75FF', height: '100%' }}> </div>
+                        <div style={{ width: '20%', background: '#BA75FF', height: '100%' }} />
                       </div>
                       <div className={cardStyles.course_card_about}>
                         <img src={pie} alt="pie" />
@@ -117,6 +119,7 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
           </div>
         )}
       </div>
+      {isOpenAddCourse && <AddCourseModal setShowModal={onToggle} />}
     </div>
   )
 }
