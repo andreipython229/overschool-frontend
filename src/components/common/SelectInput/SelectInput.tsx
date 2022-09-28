@@ -35,11 +35,7 @@ export const SelectInput: FC<SelectInputPropsT<string | number>> = ({ optionsLis
         <button className={styles?.container_btn} type="button" aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
           {optionsList[selectedOption]}
         </button>
-        <ul
-          tabIndex={-1}
-          role="listbox"
-          className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}
-        >
+        <ul tabIndex={-1} role="listbox" className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}>
           {optionsList?.map(
             (option, index: number): ReactNode => (
               <li
