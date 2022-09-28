@@ -72,9 +72,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
 
         <form acceptCharset="utf-8">
           <span className={styles.redactorCourse_rightSide_title}>Прикреплённые файлы</span>
-          <label
-            className={styles.redactorCourse_rightSide_header_btnBlock_setting}
-          >
+          <label className={styles.redactorCourse_rightSide_header_btnBlock_setting}>
             <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={paperClipIconPath} />
             <input onChange={handleUploadFile} style={{ fontSize: 0, visibility: 'hidden' }} type="file" />
             Прикрепить файлы

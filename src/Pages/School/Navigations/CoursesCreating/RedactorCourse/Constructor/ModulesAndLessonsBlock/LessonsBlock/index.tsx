@@ -4,14 +4,14 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
 import { useDeleteLessonsMutation } from 'api/modulesServices'
 
-import Lesson from 'assets/img/createCourse/lesson.svg'
+import Lesson from 'assets/img/createCourse/lesson.png'
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
 
 type LessonsBlockT = {
   lessonsName: string
   id: number
-  setLessonId: any
+  setLessonId: (arg: string) => void
 }
 
 export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonId, lessonsName, id }) => {
@@ -25,7 +25,7 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonId, lessonsName, id }
   }
 
   return (
-    <li onClick={handleChangeLesson}  className={styles.redactorCourse_leftSide_desc_lessonWrapper + ' ' + stylesModules.btnWrapper}>
+    <li onClick={handleChangeLesson} className={styles.redactorCourse_leftSide_desc_lessonWrapper + ' ' + stylesModules.btnWrapper}>
       <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
         <img src={Lesson} alt="Lessons" />
         {lessonsName}

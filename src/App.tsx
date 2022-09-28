@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 import { CoursesStats } from './Pages/CoursesStats/CoursesStats'
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
@@ -33,6 +34,15 @@ export const App = () => {
   const { permission } = useAppSelector(selectUser)
 
   const [isOpen, { off: openModal, on: closeModal }] = useBoolean()
+
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    if (pathname === '/') {
+      navigate(Path.InitialPage)
+    }
+  }, [])
 
   return (
     <div className={styles.container}>

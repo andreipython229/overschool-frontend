@@ -12,7 +12,6 @@ import { arrDownPath } from '../config/svgIconPath'
 import { Button } from 'components/common/Button/Button'
 import { stackIconPath } from '../../School/config/svgIconsPath'
 import { youtubeParser } from 'utils/youtubeParser'
-import { StudentLessonDesc } from './StudentLessonDesc/index'
 
 import styles from './lesson.module.scss'
 

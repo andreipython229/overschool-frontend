@@ -14,7 +14,7 @@ export const studentsGroupService = createApi({
       }),
       providesTags: ['studentsGroup'],
     }),
-    fetchUserCountByMonthData: build.query<any, void>({
+    fetchUserCountByMonthData: build.query<void, void>({
       query: () => ({
         url: `/user_count_by_month_group/`,
       }),
@@ -37,4 +37,5 @@ export const studentsGroupService = createApi({
   }),
 })
 
-export const { useFetchUserCountByMonthDataQuery, useFetchStudentsGroupQuery, useCreateStudentsGroupMutation, useDeleteStudentsGroupMutation } = studentsGroupService
+export const { useFetchUserCountByMonthDataQuery, useFetchStudentsGroupQuery, useCreateStudentsGroupMutation, useDeleteStudentsGroupMutation } =
+  studentsGroupService

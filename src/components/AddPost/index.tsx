@@ -46,8 +46,10 @@ export const AddPost: FC<AddPostT> = ({ lesson, isPreview }) => {
     }
   }, [debounced.toString()])
 
-  const handleEditorChange = (code: string) => {
-    setCode(code)
+  const handleEditorChange = (code: string | undefined) => {
+    if (code) {
+      setCode(code)
+    }
   }
 
   return (

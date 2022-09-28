@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom'
 import { useAppSelector } from '../../store/hooks'
 import { RoleE } from 'enum/roleE'
 import { Path } from 'enum/pathE'
-import { RootState } from '../../store/redux/store'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { navMenuPath, coursesNavPath, coursesStatsNavPath, homeworkNavPath, settingsNavPath } from './config/svgIconPath'
 

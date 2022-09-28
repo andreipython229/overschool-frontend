@@ -1,5 +1,5 @@
 export type lessonT = {
-  lesson_id: number 
+  lesson_id: number
   name: string
 }
 
@@ -12,4 +12,8 @@ export type sectionT = {
 export type sectionsT = {
   course_id: string
   sections: sectionT[]
+}
+
+export type studentAccardioT = {
+  modules: sectionsT
 }

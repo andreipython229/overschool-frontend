@@ -4,7 +4,7 @@ import { Path } from 'enum/pathE'
 import styles from '../navbar.module.scss'
 
 export const MobileNavbar = () => {
-  const isActive = ({ isActive }: any) => (isActive ? styles.mobileIsActive : '')
+  const isActive = ({ isActiveIcon }: any) => isActiveIcon && styles.mobileIsActive
   return (
     <>
       <NavLink to={Path.Courses} className={isActive}>

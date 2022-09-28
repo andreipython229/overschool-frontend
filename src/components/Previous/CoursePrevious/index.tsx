@@ -11,14 +11,16 @@ import { patchData } from 'utils/patchData'
 import styles from '../previou.module.scss'
 
 export const CoursePrevious: FC = memo(() => {
-  const {course_id} = useParams()
-  
+  const { course_id } = useParams()
+
   const { data } = useFetchCourseQuery(course_id as string)
 
   const [update] = usePatchCoursesMutation()
 
   const isPublishedCourse = () => {
-    patchData(data, 'course_id', 'public', 'О', update)
+    if (data) {
+      patchData(data, 'course_id', 'public', 'О', update)
+    }
   }
 
   return (

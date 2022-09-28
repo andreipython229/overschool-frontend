@@ -7,7 +7,7 @@ export const userCountByMonthServices = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['userCountByMonth'],
   endpoints: build => ({
-    fetchUserCountByMonthData: build.query<any, void>({
+    fetchUserCountByMonthData: build.query({
       query: () => ({
         url: `/user_count_by_month_group/`,
       }),
