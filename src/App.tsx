@@ -54,7 +54,7 @@ export const App = () => {
                   <Route index element={<Main />} />
                   <Route path={SettingsPath.Main} element={<Main />} />
                   <Route path={SettingsPath.Employees} element={<Employees openModal={openModal} />} />
-                  {permission === RoleE.SuperAdmin ? <Route path={SettingsPath.Logs} element={<Logs />} /> : null}
+                  {permission === RoleE.SuperAdmin && <Route path={SettingsPath.Logs} element={<Logs />} />}
                   <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
                 </Route>
               ) : (

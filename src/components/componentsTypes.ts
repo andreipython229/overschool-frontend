@@ -58,6 +58,7 @@ export interface IEditor {
   label?: ReactNode
   style?: string
   onToggle: (arg: string) => void
+  isActive?: (style: string) => boolean
 }
 
 export type PreviousPropsT = {

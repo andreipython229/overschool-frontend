@@ -1,14 +1,12 @@
 import { memo, MouseEvent, useEffect, useState, useRef, FC } from 'react'
-import { convertToRaw, Editor, EditorState, RichUtils } from 'draft-js'
+import { convertToRaw, Editor, EditorState, RichUtils, AtomicBlockUtils } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
-import { BLOCK_TYPES, INLINE_STYLES } from './config/blockTypes'
 
+import { BLOCK_TYPES } from './config/blockTypes'
 import { IEditor } from 'components/componentsTypes'
-
 import { useDebounce } from '../../customHooks/useDebounce'
 
 import 'draft-js/dist/Draft.css'
-
 import styles from './editor.module.scss'
 
 type MyEditorT = {
@@ -30,11 +28,16 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
   const editor = useRef<Editor>(null)
 
   const StyleButton = (props: IEditor) => {
+    const active = props?.isActive && props?.isActive(props.style as string)
     const onClickButton = (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
       props?.style && props?.onToggle(props?.style)
     }
-    return <button onMouseDown={onClickButton}>{props?.label}</button>
+    return (
+      <button className={active ? styles.editor_panel_button_active : ''} onMouseDown={onClickButton}>
+        {props?.label}
+      </button>
+    )
   }
 
   const Image = (props: any) => {
@@ -65,41 +68,35 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
     return null
   }
 
-  const BlockStyleControls = (props: IEditor) => {
-    return (
-      <div>
-        {BLOCK_TYPES.map(type => (
-          <StyleButton key={type.style} label={type?.label} onToggle={props.onToggle} style={type?.style} />
-        ))}
-      </div>
-    )
-  }
-
-  const InlineStyleControls = (props: any) => {
-    return (
-      <div>
-        {INLINE_STYLES.map(type => (
-          <StyleButton key={type.label} label={type.label} onToggle={props.onToggle} style={type.style} />
-        ))}
-      </div>
-    )
-  }
-
-  const onInlineClick = (e: string) => {
-    const nextState = RichUtils.toggleInlineStyle(editorState, e)
-    setEditorState(nextState)
-  }
-
   const onBlockClick = (e: string) => {
     const nextState = RichUtils.toggleBlockType(editorState, e)
     setEditorState(nextState)
   }
 
+  const isActive = (style: string) => {
+    const currentStyle = RichUtils.getCurrentBlockType(editorState)
+    return currentStyle.includes(style)
+  }
+
+  // const handlePastedFiles = (e) => {
+  //   const url = URL.createObjectURL(e.target.files[0])
+  //   setEditorState(insertImage(url))
+  // }
+
+  // const insertImage = (url: string) => {
+  //   const contentState = editorState.getCurrentContent()
+  //   const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: url })
+  //   const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+  //   const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
+  //   return AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, '')
+  // }
+
   return (
     <div className={styles.editor}>
       <div className={styles.editor_panel}>
-        <BlockStyleControls onToggle={onBlockClick} />
-        <InlineStyleControls onToggle={onInlineClick} />
+        {BLOCK_TYPES.map(({ label, style }, index: number) => (
+          <StyleButton key={index} style={style} label={label} isActive={() => isActive(style)} onToggle={onBlockClick} />
+        ))}
       </div>
       <div className={styles.editor_table}>
         <Editor
@@ -110,6 +107,7 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
           onChange={setEditorState}
         />
       </div>
+      <div></div>
     </div>
   )
 })
