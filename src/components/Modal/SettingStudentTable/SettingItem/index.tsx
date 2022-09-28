@@ -4,7 +4,7 @@ import { Reorder, useDragControls } from 'framer-motion'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { checkedIconPath, noCheckedIconPath, doBlockIconPath } from '../config/svgIconsPath'
-import { SettingItemT } from 'Pages/CoursesStats/coursesStatsTypes'
+import { SettingItemT } from 'Pages/pageTypes'
 
 import styles from './settingItem.module.scss'
 

@@ -1,11 +1,11 @@
 import { FC, memo } from 'react'
 import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
 import { addFileSvg } from './config/svgIconPath'
-import { LogoAddBlockPropsT } from '../../../CoursesStats/coursesStatsTypes'
+import { LogoAddBlockPropsT } from '../../../pageTypes'
 
 import styles from './logoAddBlock.module.scss'
 
-export const LogoAddBlock: FC<LogoAddBlockPropsT> = memo(({ logotype, logoDesc, aboutRequirements, requirementsArr, title, onChange }) => {
+export const LogoAddBlock: FC<LogoAddBlockPropsT> = memo(({ logoDesc, aboutRequirements, requirementsArr, title, onChange }) => {
   return (
     <section className={styles.logoBlock}>
       <span className={styles.logoBlock_title}>{title}</span>

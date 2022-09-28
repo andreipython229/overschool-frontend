@@ -5,7 +5,7 @@ export const IconSvg: FC<IconSvgT> = memo(
   ({ styles, width, height, path, viewBoxSize = ' 0 0 20 20', className, functionOnClick, children, onPointerDown, id }) => {
     return (
       <svg
-        id={id}
+        id={id && id}
         style={styles}
         className={className}
         onClick={functionOnClick}

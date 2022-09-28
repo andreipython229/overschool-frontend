@@ -2,14 +2,13 @@ import { FC } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
 import { Path } from '../../../enum/pathE'
-import { CoursesMiniCardT } from '../coursesStatsTypes'
+import { CoursesMiniCardT } from '../../pageTypes'
 
 import styles from '../courses_stats.module.scss'
 
 // need to change logic of labels' naming
 
 export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseId, groups }) => {
-
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
   const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students[0], 0)
 

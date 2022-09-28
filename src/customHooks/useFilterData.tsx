@@ -10,7 +10,7 @@ export const useFilterData = (dataList: dataListT[], searchString: string): retu
   const [foundData, setFoundData] = useState<dataListT[]>(dataList)
 
   useEffect(() => {
-    setFoundData(dataList)
+    dataList && setFoundData(dataList)
   }, [dataList])
 
   const filterData = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -27,8 +27,6 @@ export const useFilterData = (dataList: dataListT[], searchString: string): retu
 
     setSearchParams(keyword)
   }, [])
-
-
 
   return [searchParams, foundData, filterData]
 }

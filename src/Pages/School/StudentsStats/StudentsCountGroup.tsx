@@ -1,10 +1,10 @@
 import { FC, useState } from 'react'
 
-import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
-import { settingsBtnIconPath, studentIconPath } from '../../config/svgIconsPath'
+import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
+import { settingsBtnIconPath, studentIconPath } from '../config/svgIconsPath'
 import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupModal/SettingsGroupModal'
 
-import styles from 'Pages/School/Navigations/StudentsStats/studentsStats.module.scss'
+import styles from 'Pages/School/StudentsStats/studentsStats.module.scss'
 
 type StudentsGroupPropsT = {
   title: string

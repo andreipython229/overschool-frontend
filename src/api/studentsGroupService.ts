@@ -12,9 +12,9 @@ export const studentsGroupService = createApi({
       query: () => ({
         url: `/students_group/`,
       }),
-      // providesTags: ['studentsGroup'],
+      providesTags: ['studentsGroup'],
     }),
-    fetchUserCountByMonthData: build.query<any, void>({
+    fetchUserCountByMonthData: build.query<void, void>({
       query: () => ({
         url: `/user_count_by_month_group/`,
       }),
@@ -29,7 +29,7 @@ export const studentsGroupService = createApi({
     }),
     deleteStudentsGroup: build.mutation<void, number>({
       query: id => ({
-        url: `/students_group/${id}`,
+        url: `/students_group/${id}/`,
         method: 'DELETE',
       }),
       invalidatesTags: ['studentsGroup'],
@@ -37,4 +37,5 @@ export const studentsGroupService = createApi({
   }),
 })
 
-export const { useFetchUserCountByMonthDataQuery, useFetchStudentsGroupQuery, useCreateStudentsGroupMutation, useDeleteStudentsGroupMutation } = studentsGroupService
+export const { useFetchUserCountByMonthDataQuery, useFetchStudentsGroupQuery, useCreateStudentsGroupMutation, useDeleteStudentsGroupMutation } =
+  studentsGroupService

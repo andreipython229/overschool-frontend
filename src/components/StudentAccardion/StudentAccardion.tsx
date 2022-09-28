@@ -1,13 +1,9 @@
 import { FC, useState } from 'react'
 
 import { AccardionItem } from './AccardionItem/AccardionItem'
-import { sectionsT, sectionT } from '../../types/sectionT'
+import { sectionT, studentAccardioT } from '../../types/sectionT'
 
 import styles from './studentAccardion.module.scss'
-
-type studentAccardioT = {
-  modules: /*sectionsT[]*/ any
-}
 
 export const StudentAccardion: FC<studentAccardioT> = ({ modules }) => {
   const [openIndex, setOpenIndex] = useState<number>(0)

@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { StatisticHeader } from '../../components/StatisticHeader/StatisticHeader'
-import { StudentInfoGraphic } from '../School/Navigations/StudentsStats/StudentInfoGraphic'
+import { StudentInfoGraphic } from '../School/StudentsStats/StudentInfoGraphic'
 import { SearchCoursesBlock } from './SearchCoursesBlock'
 import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { StudentsTableBlock } from 'components/StudentsTableBlock'
@@ -11,11 +11,11 @@ import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { studentsScatterPath } from './config/svgIconPath'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { studentsGroupT } from 'types/studentsGroup'
-import { SettingItemT } from './coursesStatsTypes'
+import { SettingItemT } from '../pageTypes'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { CoursesT } from '../../types/CoursesT'
 
-import styles from '../School/Navigations/StudentsStats/studentsStats.module.scss'
+import styles from '../School/StudentsStats/studentsStats.module.scss'
 import { useBoolean } from '../../customHooks/useBoolean'
 
 export const CoursesStats = () => {

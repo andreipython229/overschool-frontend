@@ -10,7 +10,6 @@ import { useAppDispatch } from 'store/hooks'
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
 
-import Lesson from 'assets/img/createCourse/lesson.svg'
 import { LessonsBlock } from '../LessonsBlock'
 
 type ModulesBlockT = {
@@ -18,7 +17,7 @@ type ModulesBlockT = {
   id: number
   lessonsList: Array<object>
   setModalTypeClasses: () => void
-  setLessonId: any
+  setLessonId: (arg: string) => void
 }
 
 export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonId, moduleName, lessonsList, id, setModalTypeClasses }) => {
@@ -55,8 +54,7 @@ export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonId, moduleName, lesso
   return (
     <>
       <ul className={styles.redactorCourse_leftSide_desc_headerText}>
-        <span className={styles.redactorCourse_leftSide_desc_headerText_title + ' ' + stylesModules.test}>{changeModuleName}
-        </span>
+        <span className={styles.redactorCourse_leftSide_desc_headerText_title + ' ' + stylesModules.test}>{changeModuleName}</span>
         <span className={styles.redactorCourse_leftSide_desc_headerText_inputWrapper + ' ' + stylesModules.block}>
           <input
             type="text"
@@ -69,11 +67,11 @@ export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonId, moduleName, lesso
           </button>
         </span>
 
-      {lessonsList &&
-        lessonsList.map(({ name, lesson_id }: any) => <LessonsBlock setLessonId={setLessonId} key={lesson_id} id={lesson_id} lessonsName={name} />)}
-      <button className={styles.btn} onClick={handleOpenModalLesson}>
-        + Занятие
-      </button>
+        {lessonsList &&
+          lessonsList.map(({ name, lesson_id }: any) => <LessonsBlock setLessonId={setLessonId} key={lesson_id} id={lesson_id} lessonsName={name} />)}
+        <button className={styles.btn} onClick={handleOpenModalLesson}>
+          + Занятие
+        </button>
       </ul>
     </>
   )

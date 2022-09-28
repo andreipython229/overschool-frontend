@@ -1,20 +1,24 @@
-import { Path } from '../../../enum/pathE'
+import { Path, SettingsPath, Student } from '../../../enum/pathE'
 import { GlobalPrevious } from '../GlobalPrevious'
 import { CoursePrevious } from '../CoursePrevious'
 import { StudentPrevious } from '../StudentPrevious'
 import { StudentCourseHeader } from '../../../Pages/StudentCourse/StudentCourseHeader/index'
 
 const pathToSearch = Object.entries(Path).map(([key, value]) => {
-  return { [key]: value.split('*')[0] }
+  return { [key]: value.split(':')[0] }
 })
 
 const objOfPathes = Object.assign({}, ...pathToSearch.map(key => ({ ...key })))
 
 export const previousToShow = [
-  { path: 'create-course/', Component: CoursePrevious },
+  { path: objOfPathes.CreateCourse, Component: CoursePrevious },
   { path: objOfPathes.Settings, Component: GlobalPrevious },
-  { path: Path.Courses, Component: GlobalPrevious },
-  { path: 'student-course/', Component: StudentCourseHeader },
+  { path: objOfPathes.Courses, Component: GlobalPrevious },
+  { path: SettingsPath.Main, Component: GlobalPrevious },
+  { path: SettingsPath.Employees, Component: GlobalPrevious },
+  { path: SettingsPath.Decoration, Component: GlobalPrevious },
+  { path: SettingsPath.Logs, Component: GlobalPrevious },
+  { path: Student.Course.split(':')[0], Component: StudentCourseHeader },
   { path: objOfPathes.HomeWork, Component: GlobalPrevious },
   { path: objOfPathes.CourseStats, Component: GlobalPrevious },
   { path: objOfPathes.Profile, Component: StudentPrevious },

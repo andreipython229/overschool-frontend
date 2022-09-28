@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps } from 'react'
 
-import { studentsGroupT } from '../../types/studentsGroup'
-import { CoursesT } from '../../types/CoursesT'
+import { studentsGroupT } from '../types/studentsGroup'
+import { CoursesT } from '../types/CoursesT'
 
 export type CoursesMiniCardT = {
   photo_url?: string
@@ -54,12 +54,11 @@ export type EmployeePropsT = {
 }
 
 export type EmployeesPropsT = {
-  onToggle: () => void
+  openModal: () => void
 }
 
 export type LogoAddBlockPropsT = {
   title: string
-  logotype: string
   logoDesc: string
   aboutRequirements: string
   requirementsArr: string[]

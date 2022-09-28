@@ -4,13 +4,13 @@ import { IconSvg } from '../common/IconSvg/IconSvg'
 import { generateData } from '../../utils/generateData'
 import { classesSettingIconPath } from './config/svgIconsPath'
 import { useFetchCourseStatQuery } from '../../api/courseStat'
-import { SettingItemT } from 'Pages/CoursesStats/coursesStatsTypes'
+import { SettingItemT } from 'Pages/pageTypes'
 
 import styles from './studentsTableBlock.module.scss'
 
 type StudentsTableBlockT = {
   settingList?: SettingItemT[]
-  setShowModal: any
+  setShowModal: () => void
 }
 
 export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, setShowModal }) => {

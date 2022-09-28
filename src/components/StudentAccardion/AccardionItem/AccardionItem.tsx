@@ -1,19 +1,13 @@
 import { FC, memo } from 'react'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { completedIconPath, arrowDown } from '../config/svgIconPath'
 import { ExerciseItem } from '../ExerciseItem/ExerciseItem'
 import { accardionArrPath } from '../../../Pages/StudentCourse/config/svgIconPath'
-import { sectionT, lessonT } from '../../../types/sectionT'
+
+import { lessonT } from '../../../types/sectionT'
+import { accardionItemT } from '../../componentsTypes'
 
 import styles from './accardionItem.module.scss'
-
-type accardionItemT = {
-  module: sectionT
-  moduleIndex: number
-  openIndex: number
-  handleToggleOpen: (index: number) => void
-}
 
 export const AccardionItem: FC<accardionItemT> = memo(({ module, moduleIndex, openIndex, handleToggleOpen }) => {
   return (

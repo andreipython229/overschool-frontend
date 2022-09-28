@@ -5,6 +5,22 @@
   // -moz-transform: translateX(-50%);
   // -ms-transform: translateX(-50%);
   // -o-transform: translateX(-50%);
+  &__codeWraper {
+    margin-bottom: 15px;
+    background: #f3f4f6;
+    padding: 15px;
+    border-radius: 7px;
+  }
+
+  &__block_name {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  &__code_text {
+    font-weight: 600;
+  }
   &__navBack {
     display: flex;
     align-items: center;

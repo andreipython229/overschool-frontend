@@ -1,5 +1,5 @@
-@import '../../../../scss/variable';
-@import '../../../../scss/mixin.scss';
+@import '../../../scss/variable';
+@import '../../../scss/mixin.scss';
 
 .statistics {
   width: 100%;
@@ -264,7 +264,7 @@
       color: #d1d5db;
       border: 1px solid #e5e7eb;
       border-radius: 7px;
-      background-image: url('../../../../assets/img/studentPage/search-icon.svg');
+      background-image: url('../../../assets/img/studentPage/search-icon.svg');
       background-repeat: no-repeat;
       background-position: calc(50% - 80px) center;
       outline: none;

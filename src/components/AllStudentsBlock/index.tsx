@@ -13,7 +13,7 @@ import { searchIconPath, addStudentIconPath, updateArrPath } from './config/svgI
 import styles from '../AllStudentsBlock/all_students_block.module.scss'
 
 export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => {
-  const [isOpen, { onToggle, on }] = useBoolean()
+  const [isOpen, { on }] = useBoolean()
 
   const [emailStudent, setEmailStudent] = useState<string>('')
 
