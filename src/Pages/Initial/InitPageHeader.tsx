@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { showModal } from 'store/redux/modal/slice'
-import { Path, Student } from 'enum/pathE'
+import { Path } from 'enum/pathE'
 import { Button } from 'components/common/Button/Button'
 import { authSelector } from 'selectors'
 import { InitPageHeaderPT } from '../pageTypes'

@@ -21,7 +21,7 @@ export const coursesServices = createApi({
       }),
       providesTags: () => ['oneCurses'],
     }),
-    createCourses: build.mutation<FormData, FormData>({
+    createCourses: build.mutation<CoursesT, FormData>({
       query: course => {
         return {
           url: `/courses/`,

@@ -5,7 +5,7 @@ import { FiltersButton } from '../../components/FiltersButton'
 import { Input } from '../../components/common/Input/Input/Input'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { dropDownListFilter } from '../../constants/dropDownList'
-import { StudentsTableBlock } from '../../components/StudentsTableBlock'
+//import { StudentsTableBlock } from '../../components/StudentsTableBlock'
 import { searchIconPath } from '../../config/commonSvgIconsPath'
 
 import styles from './home_work.module.scss'

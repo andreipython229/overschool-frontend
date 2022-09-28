@@ -5,13 +5,10 @@ import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
-import { useAppSelector } from '../../../store/hooks'
 import { formDataConverter } from '../../../utils/formDataConverter'
-
-import styles from '../Modal.module.scss'
 import { AddModuleModalPropsT } from '../ModalTypes'
 
-
+import styles from '../Modal.module.scss'
 
 export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ setShowModal, courseId }) => {
   const [modulesName, setModulesMane] = useState<string>('')

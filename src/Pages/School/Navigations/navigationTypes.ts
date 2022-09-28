@@ -6,6 +6,7 @@ export type ClassesSettingsPropsT = {
 
 export interface ILesson {
   audio: null | File
+  audio_url: string
   author_id: number | string
   code: null | string
   created_at: string | Date

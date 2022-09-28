@@ -59,7 +59,6 @@ export type EmployeesPropsT = {
 
 export type LogoAddBlockPropsT = {
   title: string
-  logotype: string
   logoDesc: string
   aboutRequirements: string
   requirementsArr: string[]
