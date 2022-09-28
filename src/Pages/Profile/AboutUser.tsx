@@ -10,14 +10,12 @@ import { AboutUserPropsT } from '../pageTypes'
 
 import styles from './profile.module.scss'
 
-const optionsList = [
-  { label: 'Женский', value: 'Ж' },
-  { label: 'Мужской', value: 'М' },
-]
+// const optionsList = ['Женский', 'Mужской']
 
 export const AboutUser: FC<AboutUserPropsT> = memo(() => {
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
   const [avatarUrl, setAvatarUrl] = useState<string>()
+  const [sex, setSex] = useState<string | number>('Ж')
 
   const { data } = useFetchProfileDataQuery(1)
 
@@ -29,7 +27,7 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
       avatar_url: avatarUrl || data?.avatar_url,
       city: data?.city,
       description: data?.description,
-      sex: data?.sex || '',
+      sex: data?.sex || sex,
       first_name: data?.user.first_name,
       last_name: data?.user.last_name,
       email: data?.user.email,
@@ -133,12 +131,12 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
       </div>
       <div className={styles.profile_block}>
         <span className={styles.profile_block_avatarBlock_title}>Пол:</span>
-        {/* <SelectInput optionsList={optionsList} sex={formik.values.sex} handleChange={handleChange} /> */}
-        {/*<select onChange={handleChange} value={formik.values.sex} name="sex" id="sex">*/}
-        {/*  <option defaultValue={''}> </option>*/}
-        {/*  <option value={'М'}>Мужской</option>*/}
-        {/*  <option value={'Ж'}>Женский</option>*/}
-        {/*</select>*/}
+        {/* <SelectInput optionsList={optionsList} setSelectedValue={setSex}/> */}
+        {/* <select onChange={handleChange} value={formik.values.sex} name="sex" id="sex">
+         <option defaultValue={''}> </option>
+         <option value={'М'}>Мужской</option>
+         <option value={'Ж'}>Женский</option>
+        </select> */}
       </div>
       <div>
         <Button type="submit" text={'Сохранить'} variant={'primary'} />
