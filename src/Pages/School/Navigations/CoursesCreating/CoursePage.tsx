@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
 import { Button } from 'components/common/Button/Button'
@@ -15,6 +15,7 @@ import { selectUser } from 'selectors'
 import { AddCourseModal } from 'components/Modal'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { useBoolean } from 'customHooks/useBoolean'
+
 import Public from 'assets/img/createCourse/public.svg'
 import notPublic from 'assets/img/createCourse/notPublic.svg'
 import pie from 'assets/img/studentPage/folder-todo.png'
@@ -22,14 +23,14 @@ import pie from 'assets/img/studentPage/folder-todo.png'
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import cardStyles from './coursePage.module.scss'
 
-export const CoursePage: FC = () => {
+export const CoursePage: FC = memo(() => {
   const dispatch = useAppDispatch()
-
-  const [isOpenAddCourse, { onToggle }] = useBoolean()
 
   const { data: courses } = useFetchCoursesQuery()
 
   const { permission } = useAppSelector(selectUser)
+
+  const [isOpenAddCourse, { onToggle }] = useBoolean()
 
   const [nameCourses, foundCourses, filterData] = useFilterData(courses as any, 'name')
 
@@ -87,12 +88,14 @@ export const CoursePage: FC = () => {
                       <div className={cardStyles.course_card_img}>
                         <img className={cardStyles.course_card_img} src={course?.photo_url} alt="" />
                       </div>
-                      <div style={{ width: '100%', background: '#F3F4F6', height: '5px' }}>
-                        <div style={{ width: '20%', background: '#BA75FF', height: '100%' }} />
+                      <div className={cardStyles.course_card_progressBar}>
+                        <div className={cardStyles.course_card_progressBar_line}> </div>
                       </div>
                       <div className={cardStyles.course_card_about}>
-                        <img src={pie} alt="pie" />
-                        <span style={{ color: '#BA75FF', fontSize: '11px' }}>13% пройдено</span>
+                        <div className={cardStyles.course_card_about_progressWrapper}>
+                          <img src={pie} alt="pie" />
+                          <span className={cardStyles.course_card_about_progressWrapper_title}>13% пройдено</span>
+                        </div>
                         <span className={cardStyles.course_card_status_show}> </span>
                         <h5>{course.name}</h5>
                         <span className={cardStyles.course_card_about_desc}>{course?.description}</span>
@@ -122,4 +125,4 @@ export const CoursePage: FC = () => {
       {isOpenAddCourse && <AddCourseModal setShowModal={onToggle} />}
     </div>
   )
-}
+})

@@ -10,7 +10,7 @@ import styles from './studentsTableBlock.module.scss'
 
 type StudentsTableBlockT = {
   settingList?: SettingItemT[]
-  setShowModal: any
+  setShowModal: () => void
 }
 
 export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, setShowModal }) => {

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from 'react'
+import { FC } from 'react'
 
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { programLanguage } from 'constants/other'

@@ -38,6 +38,17 @@
         object-fit: cover;
       }
     }
+    &_progressBar {
+      width: 100%;
+      height: 5px;
+      background-color: #F3F4F6;
+      
+      &_line {
+        width: 13%;
+        height: 100%;
+        background-color: #BA75FF;
+      }
+    }
 
     &_about {
       height: 198px;
@@ -50,6 +61,21 @@
         box-sizing: border-box;
         font-size: 11px;
         color: #a2a9b4;
+      }
+      &_progressWrapper {
+        @include display (flex, row, flex-start, center);
+
+        img {
+          width: 15px;
+          height: 15px;
+          margin-right: 9px;
+        }
+
+        &_title {
+          font-size: 11px;
+          color: #BA75FF;
+
+        }
       }
     }
 

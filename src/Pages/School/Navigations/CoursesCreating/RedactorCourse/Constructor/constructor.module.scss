@@ -19,15 +19,14 @@
       @include display(flex, column);
       margin-top: 23px;
       margin-left: 16px;
-      
+
       &_headerText {
         position: relative;
 
         &_title {
-
           position: relative;
           display: block;
-          @include font (400, 14px);
+          @include font(400, 14px);
           background-color: transparent;
           color: $font-title;
           height: 30px;
@@ -36,10 +35,10 @@
           position: absolute;
           top: -7px;
           left: 0;
-          @include display (flex, row, space-between, center);
+          @include display(flex, row, space-between, center);
           height: 30px;
           width: 100%;
-          
+
           &:hover {
             z-index: 0;
 
@@ -48,7 +47,7 @@
             }
           }
 
-          &_input {            
+          &_input {
             position: absolute;
             top: 0;
             left: 0;
@@ -63,21 +62,20 @@
           }
 
           &_btn_delete {
-            @include position_t_r (absolute, 0, 0, -10);
-            @include display (flex, row, center, center);
+            @include position_t_r(absolute, 0, 0, -10);
+            @include display(flex, row, center, center);
             border: none;
             background-color: transparent;
             width: 30px;
             height: 30px;
             cursor: pointer;
-            
           }
         }
       }
 
       &_lessonWrapper {
         position: relative;
-        @include display (flex, row, space-between, center);
+        @include display(flex, row, space-between, center);
         list-style-type: none;
         margin-bottom: 26px;
         cursor: pointer;
@@ -94,16 +92,16 @@
         &_btn_deleteLesson {
           position: relative;
           z-index: -10;
-          @include display (flex, row, center, center);
+          @include display(flex, row, center, center);
           border: none;
           background-color: transparent;
           width: 30px;
           height: 30px;
           cursor: pointer;
-          
+
           & svg {
             & path {
-              fill:#C1C1C1;
+              fill: #c1c1c1;
             }
           }
         }
@@ -141,8 +139,10 @@
   &_rightSide {
     background: #ffffff;
     padding: 36px 45px 56px 45px;
+    height: fit-content;
     margin-bottom: 30px;
     border-radius: 10px;
+    max-width: 85%;
     width: 100%;
     box-shadow: $box-shadow;
 
@@ -155,7 +155,7 @@
 
         &_setting {
           @include display(flex, row, flex-start, center);
-          width: 180px;
+          width: 118px;
           height: 36px;
           border: none;
           text-align: center;
@@ -164,13 +164,12 @@
           color: #6b728f;
           border-radius: 6px;
           padding: 11px 0 11px 16px;
-          margin-top: 16px;
 
           & svg {
             margin-right: 5px;
           }
           input {
-            @include position_t_l (absolute, 0, 0, -20);
+            @include position_t_l(absolute, 0, 0, -20);
           }
         }
 
@@ -202,68 +201,6 @@
     &_functional {
       margin-top: 70px;
 
-      &_addContent {
-        width: 99%;
-        background: #ffffff;
-        @include display(flex, column, center, center);
-        text-align: center;
-        height: 254px;
-        border: 2px dashed #ebeef5;
-        border-radius: 7px;
-        position: relative;
-
-        & input {
-          width: 100%;
-          height: 100%;
-          @include position_t_l(absolute, 0, 0, 2);
-          opacity: 0;
-          cursor: pointer;
-        }
-
-        &_navBlock {
-          @include display(flex, column);
-          @include position_t_r(absolute, 50px, -45px, 2);
-          &_div {
-            @include display(flex, row, center, center);
-            background: #f3f4f6;
-            border: none;
-            border-radius: 7px;
-            width: 36px;
-            height: 36px;
-            text-align: center;
-            margin-bottom: 8px;
-          }
-        }
-
-        & svg {
-          margin-bottom: 8px;
-        }
-
-        & span {
-          margin-bottom: 32px;
-          font-size: 16px;
-          color: $font-title;
-          font-weight: 600;
-        }
-      }
-
-      &_addDragContent {
-        border: 2px dashed #939394;
-      }
-
-      &_blackBlock {
-        background: #1d262f;
-        width: 100%;
-        height: 138px;
-        border-radius: 7px;
-        margin-bottom: 48px;
-
-        &_select {
-          width: 176px;
-          padding: 8px 0 0 36px;
-        }
-      }
-
       &_content {
         @include display(flex, row, space-between);
         margin-bottom: 66px;
@@ -275,28 +212,36 @@
         }
       }
 
-      &_creating {
-        width: 460px;
-        height: 174px;
-        box-shadow: $box-shadow;
-        border-radius: 7px;
-        text-align: center;
-        padding-bottom: 10px;
-        margin: 0 auto 24px auto;
+      &_form {
+        background-color: transparent;
 
         &_title {
-          margin-bottom: 18px;
-          padding-top: 14px;
-          color: $font-title;
-          font-size: 14px;
+          @include font (500, 14px);
+          color: #4D5766;
         }
 
-        &_function {
-          @include display(flex, row, center);
-          & div:not(:last-child) {
-            margin-right: 16px;
+        &_addFiles {
+          @include display (flex, row, flex-start, center);
+          width: 180px;
+          height: 36px;
+          border: none;
+          text-align: center;
+          background: #f3f4f6;
+          font-size: 12px;
+          color: #6b728f;
+          border-radius: 6px;
+          padding: 11px 0 11px 16px;
+          margin: 16px 0 8px 0;
+
+          svg {
+            margin-right: 10px
+          }
+
+          input {
+            @include position_t_l (absolute, 0, 0, -10);
           }
         }
+
       }
     }
 

@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 import { CoursesStats } from './Pages/CoursesStats/CoursesStats'
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
@@ -34,6 +35,15 @@ export const App = () => {
 
   const [isOpen, { off: openModal, on: closeModal }] = useBoolean()
 
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    if (pathname === '/') {
+      navigate(Path.InitialPage)
+    }
+  }, [])
+
   return (
     <div className={styles.container}>
       <Routes>
@@ -54,7 +64,7 @@ export const App = () => {
                   <Route index element={<Main />} />
                   <Route path={SettingsPath.Main} element={<Main />} />
                   <Route path={SettingsPath.Employees} element={<Employees openModal={openModal} />} />
-                  {permission === RoleE.SuperAdmin ? <Route path={SettingsPath.Logs} element={<Logs />} /> : null}
+                  {permission === RoleE.SuperAdmin && <Route path={SettingsPath.Logs} element={<Logs />} />}
                   <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
                 </Route>
               ) : (

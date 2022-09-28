@@ -70,16 +70,16 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
 
         <AddPost lesson={lesson} isPreview={isToggle} />
 
-        <form acceptCharset="utf-8">
-          <span className={styles.redactorCourse_rightSide_title}>Прикреплённые файлы</span>
+        <form acceptCharset="utf-8" className={styles.redactorCourse_rightSide_functional_form}>
+          <span className={styles.redactorCourse_rightSide_functional_form_title}>Прикреплённые файлы</span>
           <label
-            className={styles.redactorCourse_rightSide_header_btnBlock_setting}
+            className={styles.redactorCourse_rightSide_functional_form_addFiles}
           >
-            <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={paperClipIconPath} />
-            <input onChange={handleUploadFile} style={{ fontSize: 0, visibility: 'hidden' }} type="file" />
+            <IconSvg width={22} height={18} viewBoxSize="0 0 20 18" path={paperClipIconPath} />
+            <input onChange={handleUploadFile} type="file" />
             Прикрепить файлы
           </label>
-          <span className={styles.redactorCourse_rightSide_desc}>Любые файлы размером не более 2 гигабайта</span>
+          <span className={styles.redactorCourse_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
         </form>
       </div>
     </div>

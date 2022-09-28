@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import YouTube, { YouTubeProps } from 'react-youtube'
+import YouTube, { YouTubeEvent, YouTubeProps } from 'react-youtube'
 
 export const Youtube = () => {
   const [videoId, setVideoId] = useState()
@@ -15,7 +15,7 @@ export const Youtube = () => {
       .catch(error => console.log(error))
   })
 
-  const onPlayerReady: YouTubeProps['onReady'] = (event: any) => {
+  const onPlayerReady: YouTubeProps['onReady'] = (event: YouTubeEvent) => {
     event.target.pauseVideo()
   }
 

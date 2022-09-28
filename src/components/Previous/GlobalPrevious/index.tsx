@@ -74,14 +74,14 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   }, [isSuccess, data])
 
   useEffect(() => {
-    if (pathname !== '/' + Path.InitialPage + Path.Courses) {
+    if (pathname !== Path.InitialPage + Path.Courses) {
       setEdit(false)
     }
   }, [pathname])
 
   const { name: headerName, description: headerDes } = schoolHeaderData
   const { photo_background, logo_header } = schoolHeaderDataToRender
-  const isMatchPath = pathname === '/' + Path.InitialPage + Path.Courses
+  const isMatchPath = pathname === Path.InitialPage + Path.Courses
 
   const changedBg = data?.photo_background_url
     ? {

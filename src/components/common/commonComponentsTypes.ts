@@ -48,7 +48,7 @@ export type IconSvgT = {
   height: number
   viewBoxSize?: string
   className?: string
-  id?: any
+  id?: string | undefined
   path?: pathT[]
   children?: ReactNode
   functionOnClick?: <T>(params: T) => void
@@ -91,8 +91,9 @@ export type RadioPropsT = {
   id: string
 }
 
-export type SelectInputPropsT = {
-  optionsList: Array<string | number>
+export type SelectInputPropsT<T>= {
+  optionsList: Array<T>
+  setSelectedValue?: (value: T) => void
 }
 
 export type ToggleButtonDropDownT = {

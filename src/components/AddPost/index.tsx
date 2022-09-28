@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react'
+import parse from 'html-react-parser'
 
 import { AddVideo } from 'components/AddVideo'
 import { AddAudio } from 'components/AddAudio'
@@ -10,7 +11,6 @@ import { AddPostT } from '../componentsTypes'
 import { patchData } from '../../utils/patchData'
 import { useDebounce } from '../../customHooks/useDebounce'
 import { usePatchLessonsMutation } from 'api/modulesServices'
-import parse from 'html-react-parser'
 
 import Text from '../.././assets/img/createCourse/text.svg'
 import Video from '../.././assets/img/createCourse/video.svg'
@@ -46,8 +46,10 @@ export const AddPost: FC<AddPostT> = ({ lesson, isPreview }) => {
     }
   }, [debounced.toString()])
 
-  const handleEditorChange = (code: string) => {
-    setCode(code)
+  const handleEditorChange = (code: string | undefined) => {
+    if (code) {
+      setCode(code)
+    }
   }
 
   return (

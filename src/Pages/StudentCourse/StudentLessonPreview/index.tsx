@@ -12,9 +12,10 @@ import { arrDownPath } from '../config/svgIconPath'
 import { Button } from 'components/common/Button/Button'
 import { stackIconPath } from '../../School/config/svgIconsPath'
 import { youtubeParser } from 'utils/youtubeParser'
-import { StudentLessonDesc } from './StudentLessonDesc/index'
 
 import styles from './lesson.module.scss'
+import { StudentLessonDesc } from './StudentLessonDesc/index'
+import { StudentLessonTextEditor } from './StudentLessonTextEditor'
 
 export const StudentLessonPreview = () => {
   const navigate = useNavigate()
@@ -111,6 +112,7 @@ export const StudentLessonPreview = () => {
               text="Следующее"
             />
           </div>
+          <StudentLessonTextEditor />
         </div>
         <div className={styles.lesson__block}>
           <p className={styles.lesson__block_title}>Занятия модуля:</p>

@@ -1,4 +1,7 @@
 import { FC, MouseEvent, ReactNode } from 'react'
+import { ILesson } from '../Pages/School/Navigations/navigationTypes'
+import { IFuncUpdate } from '../utils/patchData'
+import { sectionT } from '../types/sectionT'
 
 export type setShowType = {
   setShow: () => void
@@ -6,11 +9,11 @@ export type setShowType = {
 }
 
 export type AddPostT = {
-  lesson?: any
+  lesson: ILesson
   code?: string
   isPreview?: boolean
-  addFile?: (arg: any) => void
-  handleEditorChange?: (code: any) => void
+  addFile?: (arg: IFuncUpdate) => void
+  handleEditorChange?: (code: string | undefined) => void
 }
 
 export type ContentBtnPropsT = {
@@ -36,7 +39,7 @@ export type FiltersButtonT = {
 export type FilterItemT = {
   id: string | number
   title: string
-  setSelectedFilter: (args: any) => void
+  setSelectedFilter: (args: keyof object) => void
 }
 
 export type SearchFilterT = {
@@ -58,6 +61,7 @@ export interface IEditor {
   label?: ReactNode
   style?: string
   onToggle: (arg: string) => void
+  isActive?: (style: string) => boolean
 }
 
 export type PreviousPropsT = {
@@ -97,4 +101,11 @@ export type SelectDropDownT = {
 export type StatisticHeaderT = {
   hideStats?: boolean
   handleHideStats?: () => void
+}
+
+export type accardionItemT = {
+  module: sectionT
+  moduleIndex: number
+  openIndex: number
+  handleToggleOpen: (index: number) => void
 }
