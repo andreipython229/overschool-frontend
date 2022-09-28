@@ -75,9 +75,3 @@ export type NavAccountBtnPropsT = DefaultButtonPropsType & {
 export interface IIsActive {
   isActive?: boolean
 }
-
-export type CoursePagePropsT = {
-  isOpenAddCourse: boolean
-  onToggle: () => void
-  courses: CoursesT[]
-}

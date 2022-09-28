@@ -10,11 +10,11 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Input } from 'components/common/Input/Input/Input'
 import { useFilterData } from 'customHooks/useFilterData'
 import { RoleE } from 'enum/roleE'
-import { CoursePagePropsT } from '../../../pageTypes'
 import { searchIconPath } from 'config/commonSvgIconsPath'
 import { selectUser } from 'selectors'
 import { AddCourseModal } from 'components/Modal'
-
+import { useFetchCoursesQuery } from 'api/coursesServices'
+import { useBoolean } from 'customHooks/useBoolean'
 import Public from 'assets/img/createCourse/public.svg'
 import notPublic from 'assets/img/createCourse/notPublic.svg'
 import pie from 'assets/img/studentPage/folder-todo.png'
@@ -22,11 +22,16 @@ import pie from 'assets/img/studentPage/folder-todo.png'
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import cardStyles from './coursePage.module.scss'
 
-export const CoursePage: FC<CoursePagePropsT> = ({ isOpenAddCourse, onToggle, courses }) => {
+export const CoursePage: FC = () => {
   const dispatch = useAppDispatch()
+
+  const [isOpenAddCourse, { onToggle }] = useBoolean()
+
+  const { data: courses } = useFetchCoursesQuery()
+
   const { permission } = useAppSelector(selectUser)
 
-  const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
+  const [nameCourses, foundCourses, filterData] = useFilterData(courses as any, 'name')
 
   const dispatchHandlerModal = () => {
     onToggle && onToggle()
