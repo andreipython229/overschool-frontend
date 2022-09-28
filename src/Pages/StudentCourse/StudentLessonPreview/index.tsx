@@ -14,6 +14,7 @@ import { youtubeParser } from 'utils/youtubeParser'
 
 import styles from './lesson.module.scss'
 import { StudentLessonDesc } from './StudentLessonDesc/index'
+import { StudentLessonTextEditor } from './StudentLessonTextEditor'
 
 export const StudentLessonPreview = () => {
   const navigate = useNavigate()
@@ -93,6 +94,7 @@ export const StudentLessonPreview = () => {
               text="Следующее"
             />
           </div>
+          <StudentLessonTextEditor />
         </div>
         <div className={styles.lesson__block}>
           <p className={styles.lesson__block_title}>Занятия модуля:</p>

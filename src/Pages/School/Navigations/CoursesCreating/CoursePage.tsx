@@ -85,12 +85,14 @@ export const CoursePage: FC<CoursePagePropsT> = ({ setShowModal, courses }) => {
                       <div className={cardStyles.course_card_img}>
                         <img className={cardStyles.course_card_img} src={course?.photo_url} alt="" />
                       </div>
-                      <div style={{ width: '100%', background: '#F3F4F6', height: '5px' }}>
-                        <div style={{ width: '20%', background: '#BA75FF', height: '100%' }}> </div>
+                      <div className={cardStyles.course_card_progressBar}>
+                        <div className={cardStyles.course_card_progressBar_line}> </div>
                       </div>
                       <div className={cardStyles.course_card_about}>
-                        <img src={pie} alt="pie" />
-                        <span style={{ color: '#BA75FF', fontSize: '11px' }}>13% пройдено</span>
+                        <div className={cardStyles.course_card_about_progressWrapper}>
+                          <img src={pie} alt="pie" />
+                          <span className={cardStyles.course_card_about_progressWrapper_title}>13% пройдено</span>
+                        </div>
                         <span className={cardStyles.course_card_status_show}> </span>
                         <h5>{course.name}</h5>
                         <span className={cardStyles.course_card_about_desc}>{course?.description}</span>

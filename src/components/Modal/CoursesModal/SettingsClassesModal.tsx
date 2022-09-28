@@ -74,7 +74,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ modulesLis
             <div className={styles.settings_block}>
               <div className={styles.settings_block_input}>
                 <span className={styles.settings_block_input_title}>Изменить название</span>
-                <Input style={{ width: '496px' }} name={'name'} type={'text'} value={nameLesson} onChange={handleChangeNameLesson} />
+                <Input name={'name'} type={'text'} value={nameLesson} onChange={handleChangeNameLesson} />
               </div>
 
               <div className={styles.settings_block_input}>
