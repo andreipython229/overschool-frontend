@@ -16,7 +16,7 @@
     cursor: pointer;
 
     & span {
-      @include position_b_l (absolute, 132px, 64px);
+      @include position_b_l(absolute, 132px, 64px);
       color: #e0dced;
       font-size: 17px;
     }
@@ -41,12 +41,12 @@
     &_progressBar {
       width: 100%;
       height: 5px;
-      background-color: #F3F4F6;
-      
+      background-color: #f3f4f6;
+
       &_line {
         width: 13%;
         height: 100%;
-        background-color: #BA75FF;
+        background-color: #ba75ff;
       }
     }
 
@@ -63,7 +63,7 @@
         color: #a2a9b4;
       }
       &_progressWrapper {
-        @include display (flex, row, flex-start, center);
+        @include display(flex, row, flex-start, center);
 
         img {
           width: 15px;
@@ -73,25 +73,24 @@
 
         &_title {
           font-size: 11px;
-          color: #BA75FF;
-
+          color: #ba75ff;
         }
       }
     }
 
     &_status {
       &_show {
-        @include display (flex, row, flex-start, center);
+        @include display(flex, row, flex-start, center);
         text-align: center;
         &_public {
           color: #ba75ff;
-          @include font (500, 11px);
+          @include font(500, 11px);
           margin-left: 8.5px;
         }
 
         &_hide {
           color: #e0dced;
-          @include font (500, 11px);
+          @include font(500, 11px);
           margin-left: 8.5px;
         }
       }
@@ -110,7 +109,7 @@
   height: 33px;
   background-color: #e0dced;
   color: #ba75ff;
-  @include font (500, 11px);
+  @include font(500, 11px);
   margin-top: 18px;
   text-align: center;
   border: none;
