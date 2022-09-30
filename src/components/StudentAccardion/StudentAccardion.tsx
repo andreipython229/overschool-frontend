@@ -19,7 +19,7 @@ export const StudentAccardion: FC<studentAccardioT> = ({ modules }) => {
   return (
     <div className={styles.accardionWrapper}>
       {modules?.sections.map((module: sectionT, index: number) => (
-        <AccardionItem key={module.section_id} openIndex={openIndex} moduleIndex={index} module={module} handleToggleOpen={handleToggleOpen} />
+        <AccardionItem key={module.section} openIndex={openIndex} moduleIndex={index} module={module} handleToggleOpen={handleToggleOpen} />
       ))}
     </div>
   )

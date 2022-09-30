@@ -1,7 +1,6 @@
 export type ClassesSettingsPropsT = {
   showSettingsClassesModal: () => void
-  modulesList: any
-  lessonId: string
+  lessonIdAndType: any
 }
 
 export interface ILesson {
@@ -19,4 +18,40 @@ export interface ILesson {
   section: number | string
   updated_at: string
   video: string
+}
+
+export type LessonT = {
+  id: number
+  name: string
+  order: number
+  type: keyof object
+}
+
+export type modulesListT = {
+  section_name: string
+  section: number
+  lessons: LessonT[]
+}
+
+export type ModulesBlockT = {
+  moduleName: string
+  id: number
+  lessonsList: LessonT[]
+  setModalTypeClasses: () => void
+  setLessonIdAndType: (arg: object) => void
+}
+
+export type LessonAddBlockPropsT = {
+  setModalTypeClasses: () => void
+  toggleModalModule: () => void
+  setLessonIdAndType: (arg: object) => void
+  modulesList: modulesListT[]
+}
+
+export type LessonsBlockT = {
+  lessonsName: string
+  id: number
+  order: number
+  type: keyof object
+  setLessonIdAndType: (arg: object) => void
 }

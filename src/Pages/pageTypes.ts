@@ -15,10 +15,16 @@ export type searchCourseBlockT = {
 }
 
 export type SettingItemT = {
-  id: number
+  admin: number
+  student_table_id: number
+  students_table_info: studentGroupInfoT[]
+}
+
+export type studentGroupInfoT = {
   order: number
   name: string
   checked: boolean
+  id: number
 }
 
 export type InitPageHeaderPT = {
