@@ -4,6 +4,7 @@ import { IconSvg } from '../common/IconSvg/IconSvg'
 import { generateData } from '../../utils/generateData'
 import { classesSettingIconPath } from './config/svgIconsPath'
 import { useFetchCourseStatQuery } from '../../api/courseStat'
+import { useFetchStudentsTableHeaderQuery } from '../../api/studentsGroupService'
 import { SettingItemT } from 'Pages/pageTypes'
 
 import styles from './studentsTableBlock.module.scss'
@@ -13,13 +14,14 @@ type StudentsTableBlockT = {
   setShowModal: () => void
 }
 
-export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, setShowModal }) => {
+export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({setShowModal }) => {
   const [cols, setCols] = useState<string[]>([])
-
-  const { data: students, isSuccess } = useFetchCourseStatQuery(1)
-
-  const { columns, data } = generateData(settingList || [], students, isSuccess)
   const [rows, setRows] = useState<Array<{ [key: string]: string | number }>>()
+
+  const { data: students, isSuccess: isStudentsRecieved } = useFetchCourseStatQuery(1)
+  const { data: studentsTableHeader, isSuccess: isTableHeaderRecieved } = useFetchStudentsTableHeaderQuery(1)
+
+  const { columns, data } = generateData(studentsTableHeader, students, isStudentsRecieved, isTableHeaderRecieved)
 
   const openSettingsModal = () => {
     setShowModal && setShowModal()
@@ -27,11 +29,11 @@ export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ settingList, 
 
   useEffect(() => {
     setRows(data)
-  }, [isSuccess])
+  }, [isStudentsRecieved])
 
   useEffect(() => {
     setCols(columns)
-  }, [settingList])
+  }, [isTableHeaderRecieved, studentsTableHeader])
 
   return (
     <table className={styles.table} style={{ borderCollapse: 'collapse' }}>
