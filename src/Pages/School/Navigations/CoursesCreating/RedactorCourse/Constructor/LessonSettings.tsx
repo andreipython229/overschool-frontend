@@ -13,13 +13,11 @@ import { useBoolean } from 'customHooks/useBoolean'
 
 import styles from './constructor.module.scss'
 
-export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettingsClassesModal, modulesList }) => {
+export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonIdAndType, showSettingsClassesModal }) => {
   const dispatch = useAppDispatch()
   const [isToggle, { onToggle }] = useBoolean()
 
-  const lessonIdVar = lessonId ? lessonId : modulesList[0]?.lessons[0]?.lesson_id
-
-  const { data } = useFetchLessonQuery(lessonIdVar)
+  const { data } = useFetchLessonQuery({ id: lessonIdAndType.id, type: lessonIdAndType.type })
   const [addFile] = usePatchLessonsMutation()
   const [deleteLesson] = useDeleteLessonsMutation()
 
@@ -34,7 +32,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
   }
 
   const handleDeleteLesson = () => {
-    deleteLesson(lessonIdVar)
+    if ('id' in lessonIdAndType) {
+      deleteLesson(lessonIdAndType.id)
+    }
   }
 
   const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -48,7 +48,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
   return (
     <div className={styles.redactorCourse_rightSide}>
       <div className={styles.redactorCourse_rightSide_header}>
-        <span className={styles.redactorCourse_rightSide_title}>{lesson && 'name' in lesson ? lesson.name : modulesList[0]?.lessons[0]?.name}</span>
+        <span className={styles.redactorCourse_rightSide_title}>{lesson && 'name' in lesson && lesson.name}</span>
         <div className={styles.redactorCourse_rightSide_header_btnBlock}>
           <button onClick={showSettingsModal} className={styles.redactorCourse_rightSide_header_btnBlock_setting}>
             <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
@@ -72,9 +72,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonId, showSettin
 
         <form acceptCharset="utf-8" className={styles.redactorCourse_rightSide_functional_form}>
           <span className={styles.redactorCourse_rightSide_functional_form_title}>Прикреплённые файлы</span>
-          <label
-            className={styles.redactorCourse_rightSide_functional_form_addFiles}
-          >
+          <label className={styles.redactorCourse_rightSide_functional_form_addFiles}>
             <IconSvg width={22} height={18} viewBoxSize="0 0 20 18" path={paperClipIconPath} />
             <input onChange={handleUploadFile} type="file" />
             Прикрепить файлы

@@ -3,17 +3,11 @@ import { Button } from 'components/common/Button/Button'
 import { useAppDispatch } from 'store/hooks'
 import { showModal } from 'store/redux/modal/slice'
 import { ModulesBlock } from './ModulesBlock'
+import { LessonAddBlockPropsT, modulesListT } from '../../../../navigationTypes'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/constructor.module.scss'
 
-type LessonAddBlockPropsT = {
-  setModalTypeClasses: () => void
-  toggleModalModule: () => void
-  setLessonId: (arg: string) => void
-  modulesList: Array<object>
-}
-
-export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = ({ modulesList, setLessonId, setModalTypeClasses, toggleModalModule }) => {
+export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = ({ modulesList, setLessonIdAndType, setModalTypeClasses, toggleModalModule }) => {
   const dispatch = useAppDispatch()
 
   const handleOpenModalModule = () => {
@@ -26,12 +20,12 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = ({ modulesList, 
       <h5 className={styles.redactorCourse_leftSide_title}>Структура курса</h5>
       <div className={styles.redactorCourse_leftSide_desc}>
         {modulesList &&
-          modulesList.map(({ name, section_id, lessons }: any) => (
+          modulesList.map(({ section_name, section, lessons }: modulesListT) => (
             <ModulesBlock
-              key={name + section_id}
-              id={section_id}
-              setLessonId={setLessonId}
-              moduleName={name}
+              key={section_name + section}
+              id={section}
+              setLessonIdAndType={setLessonIdAndType}
+              moduleName={section_name}
               lessonsList={lessons}
               setModalTypeClasses={setModalTypeClasses}
             />

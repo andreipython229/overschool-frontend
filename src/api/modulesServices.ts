@@ -9,16 +9,16 @@ export const modulesServices = createApi({
   endpoints: build => ({
     fetchModules: build.query({
       query: id => ({
-        url: `courses_data/?course_id=${id}`,
+        url: `/courses_data/?course_id=${id}`,
       }),
       providesTags: () => ['modulesServices'],
     }),
-    fetchModule: build.query({
-      query: sectionId => ({
-        url: `sections/${sectionId}`,
-      }),
-      providesTags: () => ['modulesServices'],
-    }),
+    // fetchModule: build.query({
+    //   query: sectionId => ({
+    //     url: `sections/${sectionId}`,
+    //   }),
+    //   providesTags: () => ['modulesServices'],
+    // }),
     fetchModuleLessons: build.query({
       query: sectionId => ({
         url: `sections/${sectionId}/lessons`,
@@ -51,8 +51,8 @@ export const modulesServices = createApi({
       invalidatesTags: ['modulesServices'],
     }),
     fetchLesson: build.query({
-      query: id => ({
-        url: `/lessons/${id}/`,
+      query: ({ id, type }) => ({
+        url: `/${type}s/${id}/`,
       }),
       providesTags: ['modulesServices'],
     }),
@@ -86,7 +86,7 @@ export const modulesServices = createApi({
 
 export const {
   useFetchModulesQuery,
-  useFetchModuleQuery,
+  //useFetchModuleQuery,
   useFetchModuleLessonsQuery,
   useCreateModulesMutation,
   useDeleteModulesMutation,

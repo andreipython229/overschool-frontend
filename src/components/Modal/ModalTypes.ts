@@ -22,7 +22,7 @@ export type AddModuleModalPropsT = {
 
 export type SettingsClassesModalPropT = {
   setShowModal: (arg: boolean) => void
-  lessonId: string | number
+  lessonIdAndType: object
   modulesList: any
 }
 
