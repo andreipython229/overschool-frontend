@@ -1,33 +1,31 @@
 import React, { FC } from 'react'
-
+import { LessonsMaper } from 'constants/LessonsMaper'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
 import { useDeleteLessonsMutation } from 'api/modulesServices'
+import { LessonsBlockT } from '../../../../../navigationTypes'
 
-import Lesson from 'assets/img/createCourse/lesson.png'
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
 
-type LessonsBlockT = {
-  lessonsName: string
-  id: number
-  setLessonId: (arg: string) => void
-}
-
-export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonId, lessonsName, id }) => {
+export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, order, lessonsName, id }) => {
   const [deleteLesson] = useDeleteLessonsMutation()
 
   const handleDeleteLesson = () => {
     deleteLesson(id)
   }
   const handleChangeLesson = () => {
-    setLessonId(id.toString())
+    const idAndType = {
+      id,
+      type,
+    }
+    setLessonIdAndType(idAndType)
   }
 
   return (
     <li onClick={handleChangeLesson} className={styles.redactorCourse_leftSide_desc_lessonWrapper + ' ' + stylesModules.btnWrapper}>
       <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
-        <img src={Lesson} alt="Lessons" />
+        <span>{type && LessonsMaper({ type })}</span>
         {lessonsName}
       </span>
       <button className={styles.redactorCourse_leftSide_desc_lessonWrapper_btn_deleteLesson + ' ' + stylesModules.btn} onClick={handleDeleteLesson}>

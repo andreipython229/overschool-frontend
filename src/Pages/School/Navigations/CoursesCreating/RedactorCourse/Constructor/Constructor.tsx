@@ -8,19 +8,17 @@ import { ModulesAndLessonsBlock } from './ModulesAndLessonsBlock'
 import { AddModuleModal } from 'components/Modal/CoursesModal/AddModuleModal'
 import { SettingsClassesModal } from 'components/Modal/CoursesModal/SettingsClassesModal'
 import { useBoolean } from 'customHooks/useBoolean'
+import { modulesListT } from '../../../navigationTypes'
 
 import styles from './constructor.module.scss'
-
-interface ILessons {
-  lessons: Array<object>
-}
 
 export const Constructor: FC = () => {
   const { course_id: courseId } = useParams()
   const { data: modulesAndLessons } = useFetchModulesQuery(courseId)
 
-  const [modulesList, setModulesList] = useState<Array<object & ILessons>>([])
-  const [lessonId, setLessonId] = useState<string>('')
+  const [modulesList, setModulesList] = useState<modulesListT[]>([])
+
+  const [lessonIdAndType, setLessonIdAndType] = useState<object>({})
 
   const [isOpenSettingLessonModal, { onToggle: toggleSettingLessonModal, on: onSettingLessonModal }] = useBoolean()
 
@@ -52,8 +50,15 @@ export const Constructor: FC = () => {
   }, [activeTypeClasses])
 
   useEffect(() => {
-    setModulesList(modulesAndLessons?.sections || [])
-  }, [courseId, modulesAndLessons])
+    if (modulesAndLessons?.sections.length) {
+      setModulesList(modulesAndLessons?.sections)
+      const initialState = {
+        id: modulesAndLessons?.sections[0]?.lessons[0]?.id,
+        type: modulesAndLessons?.sections[0]?.lessons[0]?.type,
+      }
+      setLessonIdAndType(initialState)
+    }
+  }, [courseId, modulesAndLessons?.sections])
 
   return (
     <div className={styles.redactorCourse}>
@@ -63,15 +68,17 @@ export const Constructor: FC = () => {
       {activeTypeClasses === 2 && <TestModal closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse} />}
       {activeTypeClasses === 3 && <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
       {isOpenModalModule && <AddModuleModal setShowModal={onModalModule} courseId={courseId as string} />}
-      {isOpenSettingLessonModal && <SettingsClassesModal modulesList={modulesList} lessonId={lessonId} setShowModal={onSettingLessonModal} />}
+      {isOpenSettingLessonModal && (
+        <SettingsClassesModal modulesList={modulesList} lessonIdAndType={lessonIdAndType} setShowModal={onSettingLessonModal} />
+      )}
       <ModulesAndLessonsBlock
-        setLessonId={setLessonId}
+        setLessonIdAndType={setLessonIdAndType}
         modulesList={modulesList || []}
         setModalTypeClasses={toggleOpenModalLesson}
         toggleModalModule={offModalModule}
       />
       {modulesList[0] && modulesList[0].lessons[0] && (
-        <LessonSettings modulesList={modulesList} lessonId={lessonId} showSettingsClassesModal={toggleSettingLessonModal} />
+        <LessonSettings lessonIdAndType={lessonIdAndType} showSettingsClassesModal={toggleSettingLessonModal} />
       )}
     </div>
   )

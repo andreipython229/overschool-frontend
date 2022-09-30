@@ -20,7 +20,7 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, moduleIndex, op
         <div className={styles.accardionWrapper_component_header_lessonName}>
           <h4 className={styles.accardionWrapper_component_header_lessonName_title}>
             {module?.name}
-            <span></span>
+            <span />
           </h4>
           <span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>
             {module.lessons.length}

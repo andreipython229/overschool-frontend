@@ -6,21 +6,13 @@ import { formDataConverter } from 'utils/formDataConverter'
 import { showModal } from 'store/redux/modal/slice'
 import { getSectionId } from 'store/redux/modules/slice'
 import { useAppDispatch } from 'store/hooks'
+import { LessonsBlock } from '../LessonsBlock'
+import { LessonT, ModulesBlockT } from '../../../../../navigationTypes'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
 
-import { LessonsBlock } from '../LessonsBlock'
-
-type ModulesBlockT = {
-  moduleName: string
-  id: number
-  lessonsList: Array<object>
-  setModalTypeClasses: () => void
-  setLessonId: (arg: string) => void
-}
-
-export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonId, moduleName, lessonsList, id, setModalTypeClasses }) => {
+export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonIdAndType, moduleName, lessonsList, id, setModalTypeClasses }) => {
   const dispatch = useAppDispatch()
   const [changeModuleName, setChangeModuleName] = useState<string>(moduleName)
 
@@ -58,7 +50,7 @@ export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonId, moduleName, lesso
         <span className={styles.redactorCourse_leftSide_desc_headerText_inputWrapper + ' ' + stylesModules.block}>
           <input
             type="text"
-            value={changeModuleName}
+            value={changeModuleName || ''}
             onChange={handleChangeModuleName}
             className={styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input}
           />
@@ -68,7 +60,9 @@ export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonId, moduleName, lesso
         </span>
 
         {lessonsList &&
-          lessonsList.map(({ name, lesson_id }: any) => <LessonsBlock setLessonId={setLessonId} key={lesson_id} id={lesson_id} lessonsName={name} />)}
+          lessonsList.map(({ name, id, type, order }: LessonT) => (
+            <LessonsBlock order={order} type={type} setLessonIdAndType={setLessonIdAndType} key={id + type} id={id} lessonsName={name} />
+          ))}
         <button className={styles.btn} onClick={handleOpenModalLesson}>
           + Занятие
         </button>
