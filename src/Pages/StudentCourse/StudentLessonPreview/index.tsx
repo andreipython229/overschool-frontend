@@ -12,10 +12,11 @@ import { arrDownPath } from '../config/svgIconPath'
 import { Button } from 'components/common/Button/Button'
 import { stackIconPath } from '../../School/config/svgIconsPath'
 import { youtubeParser } from 'utils/youtubeParser'
+import { StudentLessonDesc } from './StudentLessonDesc/index'
+import { StudentLessonTextEditor } from './StudentLessonTextEditor/index'
 
 import styles from './lesson.module.scss'
-import { StudentLessonDesc } from './StudentLessonDesc/index'
-import { StudentLessonTextEditor } from './StudentLessonTextEditor'
+
 
 export const StudentLessonPreview = () => {
   const navigate = useNavigate()
@@ -27,7 +28,7 @@ export const StudentLessonPreview = () => {
 
   const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
 
-  const activeLessonIndex = lessons?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.lesson_id === +lessonId)
+  const activeLessonIndex = lessons?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.id === +lessonId)
   const lessonIdBack = lessons?.lessons[activeLessonIndex - 1]?.lesson_id || lessonId
   const lessonIdForward = lessons?.lessons[activeLessonIndex + 1]?.lesson_id || lessonId
 
@@ -118,11 +119,11 @@ export const StudentLessonPreview = () => {
           <p className={styles.lesson__block_title}>Занятия модуля:</p>
           <div>
             {lessons?.lessons.length &&
-              lessons?.lessons.map(({ name, lesson_id }: lessonT, index: number) => (
+              lessons?.lessons.map(({ name, id }: lessonT, index: number) => (
                 <div
                   style={{ cursor: 'pointer' }}
-                  key={lesson_id}
-                  onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/lesson/${lesson_id}`)}
+                  key={id}
+                  onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/lesson/${id}`)}
                   className={activeLessonIndex === index ? styles.lesson__item_active : styles.lesson__item}
                 >
                   <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} />

@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react'
-import { SettingItemT } from '../../Pages/pageTypes'
+import { SettingItemT, studentGroupInfoT } from '../../Pages/pageTypes'
 
 export type SettingClassesPropsT = {
   goToBack: () => void
@@ -58,9 +58,8 @@ export type RegistrationModalPropsT = {
 }
 
 export type SettingStudentTableT = {
-  settingList: SettingItemT[]
+  toggleSettingModal: boolean
   setShowModal: (arg?: boolean) => void
-  setSettingsList: (arg: SettingItemT[]) => void
 }
 
 export type SettingsGroupModalPropsT = {
