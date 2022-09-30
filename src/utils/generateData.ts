@@ -1,31 +1,36 @@
-import { courseStatT } from '../types/courseStatT'
-import { SettingItemT } from '../Pages/pageTypes'
+import { courseStatT, result } from '../types/courseStatT'
+import { SettingItemT, studentGroupInfoT } from '../Pages/pageTypes'
 
-export const generateData = (columnsList: SettingItemT[], data: courseStatT, isSuccess: boolean) => {
+export const generateData = (columnsList: SettingItemT, data: courseStatT, isSuccess1: boolean, isSuccess2: boolean) => {
   const columns: Array<string> = []
-  const dataToRender: any = isSuccess && data.results
+  const dataToRender: any /*result[]*/ = data?.results
+  const columnToRender: studentGroupInfoT[] = columnsList?.students_table_info
   const rows = []
-  columnsList &&
-    columnsList.filter((item: SettingItemT) => {
-      if (item.checked) {
-        columns.push(item.name)
+
+  isSuccess2 &&
+    columnToRender.filter(({ checked, name }: studentGroupInfoT) => {
+      if (checked) {
+        columns.push(name)
       }
     })
 
-  for (let i = 0; i < dataToRender.length; i += 1) {
-    rows.push({
-      Имя: dataToRender[i].student_name,
-      Email: dataToRender[i].email,
-      'Суммарный балл': dataToRender[i].mark_sum,
-      Курс: dataToRender[i].course_id,
-      'Последняя активность': dataToRender[i].last_active,
-      Прогресс: dataToRender[i].progress,
-      Комментарий: 'нет комментария',
-      Группа: dataToRender[i].group,
-      'Средний балл': dataToRender[i].average_mark,
-      'Дата обновления': dataToRender[i].update_date,
-      'Дата заверения': dataToRender[i].ending_date,
-    })
+  for (let i = 0; i < dataToRender?.length; i += 1) {
+    for (let j = 0; j < columnToRender?.length; j += 1) {
+      rows.push({
+        [columnToRender[j].name]: dataToRender[i][columnToRender[j].name],
+        // Имя: dataToRender[i].student_name,
+        // Email: dataToRender[i].email,
+        // 'Суммарный балл': dataToRender[i].mark_sum,
+        // Курс: dataToRender[i].course_id,
+        // 'Последняя активность': dataToRender[i].last_active,
+        // Прогресс: dataToRender[i].progress,
+        // Комментарий: 'нет комментария',
+        // Группа: dataToRender[i].group,
+        // 'Средний балл': dataToRender[i].average_mark,
+        // 'Дата обновления': dataToRender[i].update_date,
+        // 'Дата заверения': dataToRender[i].ending_date,
+      })
+    }
   }
 
   return {

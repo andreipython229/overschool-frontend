@@ -1,3 +1,5 @@
+import { sectionT } from '../types/sectionT'
+
 export type CoursesT = {
   course_id: string
   created_at: Date
@@ -13,4 +15,5 @@ export type CoursesT = {
   photo_url?: string
   author_id: number
   public: string
+  // sections?: sectionT[]
 }

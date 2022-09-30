@@ -7,7 +7,6 @@ import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from 'Pages/School/StudentsStats/StudentInfoGraphic'
 import { createGroupIconPath } from '../config/svgIconsPath'
 import { StudentsTableBlock } from 'components/StudentsTableBlock'
-import { settingsItemsList } from '../../CoursesStats/config/settingsItemList'
 import { SettingStudentTable } from 'components/Modal/SettingStudentTable/'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -30,7 +29,6 @@ export const StudentsStats = () => {
 
   const [groups, setGroups] = useState<studentsGroupT[]>([])
   const [studentEmail, setStudentEmail] = useState<string>('')
-  const [settingList, setSettingsList] = useState<SettingItemT[]>(settingsItemsList)
 
   const [studentModal, { onToggle: setStudentModal }] = useBoolean()
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
@@ -91,8 +89,8 @@ export const StudentsStats = () => {
       >
         Все ученики курса
       </p>
-      <StudentsTableBlock settingList={settingsItemsList} setShowModal={offToggleSettingModal} />
-      {toggleSettingModal && <SettingStudentTable setShowModal={onToggleSettingModal} settingList={settingList} setSettingsList={setSettingsList} />}
+      <StudentsTableBlock setShowModal={offToggleSettingModal} />
+      {toggleSettingModal && <SettingStudentTable setShowModal={onToggleSettingModal} toggleSettingModal={toggleSettingModal} />}
     </div>
   )
 }

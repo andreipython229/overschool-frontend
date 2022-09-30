@@ -1,21 +1,21 @@
-import { ChangeEvent, FC, useEffect, useState, PointerEvent } from 'react'
+import { ChangeEvent, FC, useEffect, useState, PointerEvent, useRef } from 'react'
 import { Reorder, useDragControls } from 'framer-motion'
 
+import { studentGroupInfoT } from 'Pages/pageTypes'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { checkedIconPath, noCheckedIconPath, doBlockIconPath } from '../config/svgIconsPath'
-import { SettingItemT } from 'Pages/pageTypes'
 
 import styles from './settingItem.module.scss'
 
 interface ISettingItem {
-  item: SettingItemT
-  settingList: SettingItemT[]
-  setSettingsList: (arg: SettingItemT[]) => void
+  item: studentGroupInfoT
+  settingList: studentGroupInfoT[]
+  setSettingsList: (arg: studentGroupInfoT[]) => void
 }
 
 export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsList }) => {
-  const [checkedList, setIsCheckedList] = useState<SettingItemT[]>([])
+  const [checkedList, setIsCheckedList] = useState<studentGroupInfoT[]>([])
   const controls = useDragControls()
 
   const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
@@ -23,8 +23,11 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
     if ((checkedList.length === 7 && event.target.checked) || event.target.id === '1' || event.target.id === '2') {
       return
     }
+
+    // console.log(event.target, event.currentTarget)
+
     const checkedItemsList = settingList.map(item => {
-      if (item.id.toString() === event.target.id.toString()) {
+      if (item.order.toString() === event.target.id.toString()) {
         return {
           ...item,
           checked: event.target.checked,
@@ -36,7 +39,6 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
   }
 
   useEffect(() => {
-    //settingList.map((item, index) => (item.order = index + 1))
     const isCheckedListItem = settingList.filter(checkedItem => checkedItem.checked)
     setIsCheckedList(isCheckedListItem)
   }, [settingList])
@@ -50,6 +52,7 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
       dragControls={controls}
       dragListener={false}
       draggable={false}
+      key={item.order}
       value={item}
       whileDrag={{
         scale: 1.1,
@@ -58,7 +61,7 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
       }}
     >
       <div className={styles.wrapper}>
-        {item?.name !== 'Имя' && item?.name !== 'Email' && (
+        {item.name !== 'Имя' && item.name !== 'Email' && (
           <IconSvg
             styles={{ cursor: 'grab', width: '20px', height: '20px', position: 'absolute', top: '10px', left: '-29px', zIndex: '10' }}
             width={12}
@@ -70,8 +73,8 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
         )}
 
         <div className={styles.wrapper_item}>
-          <Checkbox id={item?.id.toString()} name={item?.name} onChange={handleChecked} checked={item.checked}>
-            <p>{item?.name}</p>
+          <Checkbox id={item.order.toString()} name={item?.name} onChange={handleChecked} checked={item.checked}>
+            <p>{item.name}</p>
             {item.checked ? (
               <IconSvg width={17} height={17} viewBoxSize={'0 0 17 17'} path={checkedIconPath}>
                 <circle cx="8.5" cy="8.5" r="8" fill="#E0D9FC" stroke="#BA75FF" />

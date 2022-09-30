@@ -20,7 +20,7 @@ import { useBoolean } from '../../customHooks/useBoolean'
 
 export const CoursesStats = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)
-  const [settingList, setSettingsList] = useState<SettingItemT[]>(settingsItemsList)
+  // const [settingList, setSettingsList] = useState<SettingItemT[]>(settingsItemsList)
   const [toggleSettingModal, { off: offToggleSettingModal, on: onToggleSettingModal }] = useBoolean()
 
   const { data } = useFetchStudentsGroupQuery()
@@ -62,8 +62,8 @@ export const CoursesStats = () => {
       </section>
       <SearchCoursesBlock courses={courses as CoursesT[]} groups={data as studentsGroupT[]} />
       <AllStudentsBlock headerText={'Все ученики школы'} />
-      <StudentsTableBlock settingList={settingList} setShowModal={offToggleSettingModal} />
-      {toggleSettingModal && <SettingStudentTable setShowModal={onToggleSettingModal} settingList={settingList} setSettingsList={setSettingsList} />}
+      <StudentsTableBlock setShowModal={offToggleSettingModal} />
+      {toggleSettingModal && <SettingStudentTable toggleSettingModal={toggleSettingModal} setShowModal={onToggleSettingModal} />}
     </div>
   )
 }

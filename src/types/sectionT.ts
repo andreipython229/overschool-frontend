@@ -1,11 +1,13 @@
 export type lessonT = {
-  lesson_id: number
+  id: number
   name: string
+  order: number
+  type: string
 }
 
 export type sectionT = {
-  name: string
-  section_id: number
+  section_name: string
+  section: number
   lessons: lessonT[]
 }
 

@@ -19,8 +19,8 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, moduleIndex, op
         </span>
         <div className={styles.accardionWrapper_component_header_lessonName}>
           <h4 className={styles.accardionWrapper_component_header_lessonName_title}>
-            {module?.name}
-            <span />
+            {module?.section_name}
+            <span></span>
           </h4>
           <span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>
             {module.lessons.length}
@@ -40,7 +40,7 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, moduleIndex, op
       {openIndex === moduleIndex && (
         <div className={styles.accardionWrapper_component_exerciseWrapper}>
           {module.lessons.map((lesson: lessonT) => (
-            <ExerciseItem key={lesson.lesson_id} lesson={lesson} sectionId={module.section_id} />
+            <ExerciseItem key={lesson.order} lesson={lesson} sectionId={module.section} />
           ))}
         </div>
       )}
