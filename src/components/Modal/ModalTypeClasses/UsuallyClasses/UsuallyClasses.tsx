@@ -16,6 +16,8 @@ import { SettingClassesPropsT } from '../../ModalTypes'
 export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ goToBack, addCourse, closedAll }) => {
   const { section_id } = useAppSelector(getSectionId)
 
+  console.log(section_id)
+
   const [nameLesson, setNameLesson] = useState<string>('')
   const [settingsActive, setSettingsActive] = useState<number>(0)
 

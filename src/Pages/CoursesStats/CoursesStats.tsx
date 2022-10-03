@@ -10,7 +10,7 @@ import { settingsItemsList } from './config/settingsItemList'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { studentsScatterPath } from './config/svgIconPath'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
-import { studentsGroupT } from 'types/studentsGroup'
+import { studentsGroupT, studentsGroupsT } from 'types/studentsGroup'
 import { SettingItemT } from '../pageTypes'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { CoursesT } from '../../types/CoursesT'
@@ -60,7 +60,7 @@ export const CoursesStats = () => {
           )}
         </div>
       </section>
-      <SearchCoursesBlock courses={courses as CoursesT[]} groups={data as studentsGroupT[]} />
+      <SearchCoursesBlock courses={courses as CoursesT[]} groups={data?.results as studentsGroupsT[]} />
       <AllStudentsBlock headerText={'Все ученики школы'} />
       <StudentsTableBlock setShowModal={offToggleSettingModal} />
       {toggleSettingModal && <SettingStudentTable toggleSettingModal={toggleSettingModal} setShowModal={onToggleSettingModal} />}
