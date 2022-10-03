@@ -18,9 +18,9 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({ setShowModal, to
 
   const [settingList, setSettingsList] = useState<studentGroupInfoT[]>(studentsTableInfo?.students_table_info || [])
 
-  const closeSettingsModal = () => {
+  const closeSettingsModal = async () => {
     setShowModal()
-    patchTable({ id: 1, students_table_info: { students_table_info: settingList } })
+    await patchTable({ id: 1, students_table_info: { students_table_info: settingList } })
   }
 
   useShowModal({ setShowModal })

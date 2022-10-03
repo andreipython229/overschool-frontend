@@ -9,8 +9,7 @@ import { settingsGroupIconPath } from '../config/svgIconsPath'
 import { useDeleteStudentsGroupMutation } from '../../../../api/studentsGroupService'
 
 import styles from '../studentsLog.module.scss'
-import { SettingsGroupModalPropsT,  NavSwitcherPropsT} from '../../ModalTypes'
-
+import { SettingsGroupModalPropsT, NavSwitcherPropsT } from '../../ModalTypes'
 
 const NavSwitcher: FC<NavSwitcherPropsT> = ({ changeActiveLink, activeLink }) => {
   return (
@@ -55,8 +54,8 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
     setStrongSubsequence(!strongSubsequence)
   }
 
-  const handleDeleteGroup = () => {
-    deleteStudentsGroup(groupId)
+  const handleDeleteGroup = async () => {
+    await deleteStudentsGroup(groupId)
     closeModal()
   }
   return (

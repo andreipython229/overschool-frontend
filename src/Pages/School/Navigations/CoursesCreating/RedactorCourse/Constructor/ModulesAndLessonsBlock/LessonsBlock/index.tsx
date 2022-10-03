@@ -11,8 +11,8 @@ import stylesModules from '../ModulesBlock/modules_block.module.scss'
 export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, order, lessonsName, id }) => {
   const [deleteLesson] = useDeleteLessonsMutation()
 
-  const handleDeleteLesson = () => {
-    deleteLesson(id)
+  const handleDeleteLesson = async () => {
+    await deleteLesson(id)
   }
   const handleChangeLesson = () => {
     const idAndType = {

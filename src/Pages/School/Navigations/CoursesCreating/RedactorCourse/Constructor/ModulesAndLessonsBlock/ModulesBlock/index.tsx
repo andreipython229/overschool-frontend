@@ -19,8 +19,8 @@ export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonIdAndType, moduleName
   const [changeName] = usePatchModulesMutation()
   const [deleteModule] = useDeleteModulesMutation()
 
-  const handleDeleteModule = () => {
-    deleteModule(id)
+  const handleDeleteModule = async () => {
+    await deleteModule(id)
   }
 
   const handleChangeModuleName = (event: ChangeEvent<HTMLInputElement>) => {
