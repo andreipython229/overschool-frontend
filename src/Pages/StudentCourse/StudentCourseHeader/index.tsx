@@ -25,7 +25,7 @@ export const StudentCourseHeader: FC = () => {
       </div>
       <div className={styles.previous_onlineCourses}>Онлайн-курс</div>
       <div className={styles.previous_title_name}>{course?.name}</div>
-      <div style={{ display: 'flex', position: 'absolute', zIndex: '9999', bottom: '10%', left: '44px', color: '#fff' }}>
+      <div className={styles.previous_courseInfo}>
         <div style={{ marginRight: '32px' }}>
           <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} />
           <span style={{ marginLeft: '4px' }}>324 занятия</span>
@@ -41,13 +41,9 @@ export const StudentCourseHeader: FC = () => {
           <span>14 тестов</span>
         </div>
       </div>
-      <div
-        style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', position: 'absolute', bottom: '10%', right: '3%', color: '#fff' }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', border: '16px solid #FFFFFF', borderRadius: '50%', width: '64px', height: '64px' }}>
-          75%
-        </div>
-        <div style={{ letterSpacing: '0.01em', fontWeight: 400, fontSize: '10px', lineHeight: '12px', marginTop: '3px' }}>
+      <div className={styles.previous_progress}>
+        <div className={styles.previous_progress_graph}>75%</div>
+        <div className={styles.previous_progress_info}>
           <span>В процессе . </span>
           <span>295/324</span>
         </div>

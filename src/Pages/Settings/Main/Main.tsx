@@ -19,10 +19,10 @@ export const Main = memo(() => {
     setName(event.currentTarget.value)
   }
 
-  const onChangeProjectName = () => {
+  const onChangeProjectName = async () => {
     const formdata = new FormData()
     formdata.append('name', name)
-    updateDateSchoolName({ formdata, id: 1 })
+    await updateDateSchoolName({ formdata, id: 1 })
   }
 
   return (

@@ -31,9 +31,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonIdAndType, sho
     dispatch(showModal(true))
   }
 
-  const handleDeleteLesson = () => {
+  const handleDeleteLesson = async () => {
     if ('id' in lessonIdAndType) {
-      deleteLesson(lessonIdAndType.id)
+      await deleteLesson(lessonIdAndType.id)
     }
   }
 

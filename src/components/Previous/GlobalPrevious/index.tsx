@@ -37,14 +37,14 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
     setEdit(!edit)
   }
 
-  const onChangeSchoolHeader = () => {
+  const onChangeSchoolHeader = async () => {
     const formdata = new FormData()
 
     Object.entries(schoolHeaderData).forEach(([key, value]) => {
       value && formdata.append(key, value)
     })
 
-    setSchoolHeader({ formdata, id: 1 })
+    await setSchoolHeader({ formdata, id: 1 })
     setEdit(false)
   }
 

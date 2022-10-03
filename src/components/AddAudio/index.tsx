@@ -27,13 +27,13 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ isPreview, lesson, setSho
     setDragAudio(false)
   }
 
-  const onDropAudioHandler = (e: DragEvent<HTMLDivElement>): void => {
+  const onDropAudioHandler = async (e: DragEvent<HTMLDivElement>): Promise<void> => {
     e.preventDefault()
     const audioFiles = [...e.dataTransfer.files]
     const id = lesson?.lesson_id
     const formdata = new FormData()
     formdata.append('audio', audioFiles[0])
-    addAudioFile({ formdata, id })
+    await addAudioFile({ formdata, id })
     setDragAudio(false)
   }
 
