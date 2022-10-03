@@ -1,14 +1,14 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQueryWithReauth } from './baseApi'
-import { studentsGroupT } from '../types/studentsGroup'
+import { studentsGroupT, studentsGroupsT } from '../types/studentsGroup'
 
 export const studentsGroupService = createApi({
   reducerPath: 'studentsGroupService',
   baseQuery: baseQueryWithReauth,
   tagTypes: ['studentsGroup'],
   endpoints: build => ({
-    fetchStudentsGroup: build.query<studentsGroupT[], void>({
+    fetchStudentsGroup: build.query<studentsGroupT, void>({
       query: () => ({
         url: `/students_group/`,
       }),
@@ -33,7 +33,7 @@ export const studentsGroupService = createApi({
         url: `/user_count_by_month_group/`,
       }),
     }),
-    createStudentsGroup: build.mutation<void, studentsGroupT>({
+    createStudentsGroup: build.mutation<void, studentsGroupsT>({
       query: studentsGroupInfo => ({
         url: `/students_group/`,
         method: 'POST',

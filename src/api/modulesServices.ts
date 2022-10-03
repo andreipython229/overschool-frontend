@@ -9,7 +9,7 @@ export const modulesServices = createApi({
   endpoints: build => ({
     fetchModules: build.query({
       query: id => ({
-        url: `/courses_data/?course_id=${id}`,
+        url: `/courses/${id}/sections/`,
       }),
       providesTags: () => ['modulesServices'],
     }),

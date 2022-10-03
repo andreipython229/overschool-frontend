@@ -1,6 +1,6 @@
 import { sectionT } from '../types/sectionT'
 
-export type CoursesT = {
+export type CoursesDataT = {
   course_id: string
   created_at: Date
   updated_at?: Date
@@ -15,5 +15,12 @@ export type CoursesT = {
   photo_url?: string
   author_id: number
   public: string
+}
+
+export type CoursesT = {
+  next?: null
+  previous?: null
+  count?: 0
+  results: CoursesDataT[]
   // sections?: sectionT[]
 }
