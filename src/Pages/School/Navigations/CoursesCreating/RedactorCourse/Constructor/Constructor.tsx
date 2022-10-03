@@ -63,8 +63,10 @@ export const Constructor: FC = () => {
   return (
     <div className={styles.redactorCourse}>
       {isOpenModalLesson && <ModalTypeClasses changeClasses={setTypeModal} setShowModal={onOpenModalLesson} />}
-      {activeTypeClasses === 0 && <SettingClassesUsually closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
-      {activeTypeClasses === 1 && <TasksModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
+      {activeTypeClasses === 0 && (
+        <SettingClassesUsually modulesList={modulesList} closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />
+      )}
+      {activeTypeClasses === 1 && <TasksModal modulesList={modulesList} closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
       {activeTypeClasses === 2 && <TestModal closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse} />}
       {activeTypeClasses === 3 && <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
       {isOpenModalModule && <AddModuleModal setShowModal={onModalModule} courseId={courseId as string} />}

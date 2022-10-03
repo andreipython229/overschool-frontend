@@ -1,10 +1,17 @@
 import { ChangeEvent } from 'react'
-import { SettingItemT, studentGroupInfoT } from '../../Pages/pageTypes'
+import { LessonT } from '../../Pages/School/Navigations/navigationTypes'
+
+export type ModulesT = {
+  section_name: string
+  section: number
+  lessons: LessonT[]
+}
 
 export type SettingClassesPropsT = {
   goToBack: () => void
   addCourse: (name: string, type: string) => void
   closedAll: () => void
+  modulesList: ModulesT[]
 }
 
 export type AddEmployeeModalPropsT = {
@@ -23,7 +30,7 @@ export type AddModuleModalPropsT = {
 export type SettingsClassesModalPropT = {
   setShowModal: (arg: boolean) => void
   lessonIdAndType: object
-  modulesList: any
+  modulesList: ModulesT[]
 }
 
 export type LoginModalPropsT = {
@@ -46,6 +53,7 @@ export type TasksModalPropsT = {
   goToBack: () => void
   addCourse: (name: string, type: string) => void
   closedAll: () => void
+  modulesList: ModulesT[]
 }
 
 export type ModalClassesPropsT = {

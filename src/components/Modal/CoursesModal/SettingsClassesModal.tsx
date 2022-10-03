@@ -16,9 +16,7 @@ import { patchData } from '../../../utils/patchData'
 const classesType = ['Занятие', 'Задание', 'Тест', 'Вебинар']
 
 export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ modulesList, lessonIdAndType, setShowModal }) => {
-  const lessonIdVar = lessonIdAndType ? lessonIdAndType : modulesList[0]?.lessons[0]?.lesson_id
-
-  console.log(lessonIdAndType)
+  const lessonIdVar = lessonIdAndType ? lessonIdAndType : modulesList[0]?.lessons[0]?.id
 
   const [changeNameLesson, { isSuccess }] = usePatchLessonsMutation()
 

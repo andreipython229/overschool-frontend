@@ -24,6 +24,7 @@ export type LessonT = {
   id: number
   name: string
   order: number
+  balls: number
   type: keyof object
 }
 
