@@ -14,8 +14,7 @@ import { taskModalPath } from '../config/svgIconsPath'
 import styles from '../../Modal.module.scss'
 import { TasksModalPropsT } from '../../ModalTypes'
 
-
-export const TasksModal: FC<TasksModalPropsT> = memo(({ goToBack, addCourse, closedAll }) => {
+export const TasksModal: FC<TasksModalPropsT> = memo(({ modulesList, goToBack, addCourse, closedAll }) => {
   const [nameClasses, setNameClasses] = useState<string>('')
   const [settingsActive, setSettingsActive] = useState<number>(0)
   const [checkbox, setCheckbox] = useState<boolean>(false)

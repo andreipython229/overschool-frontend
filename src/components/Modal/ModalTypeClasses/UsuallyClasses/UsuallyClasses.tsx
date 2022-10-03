@@ -12,17 +12,21 @@ import { useAppSelector } from 'store/hooks'
 
 import styles from '../../Modal.module.scss'
 import { SettingClassesPropsT } from '../../ModalTypes'
+import { findLength } from '../../../../utils/findLength'
 
-export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ goToBack, addCourse, closedAll }) => {
+export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ modulesList, goToBack, addCourse, closedAll }) => {
   const { section_id } = useAppSelector(getSectionId)
 
-  console.log(section_id)
-
   const [nameLesson, setNameLesson] = useState<string>('')
+  const [balls, setBalls] = useState<number>(0)
   const [settingsActive, setSettingsActive] = useState<number>(0)
 
   const changeNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
     setNameLesson(event.target.value)
+  }
+
+  const changeBallsClasses = (event: ChangeEvent<HTMLInputElement>) => {
+    setBalls(+event.target.value)
   }
 
   const [createLesson] = useCreateLessonsMutation()
@@ -31,9 +35,12 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ goToBack, addC
     if (!nameLesson) {
       return
     }
+    const orderLessons = findLength(section_id, modulesList)
     const createLessonData = {
       name: nameLesson,
+      order: orderLessons,
       section: section_id,
+      balls: balls,
     }
     addCourse(nameLesson, 'usually')
 
@@ -41,7 +48,6 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ goToBack, addC
   }
 
   useShowModal({ closedAll })
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.classesContainer}>
@@ -76,7 +82,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ goToBack, addC
           <div>
             <span className={styles.usually_title}>Сколько баллов будет выдано ученику по завершению занятия:</span>
             <div className={styles.usually_grade}>
-              <input type={'number'} placeholder={'0'} className={styles.usually_grade_points} />
+              <input type={'number'} placeholder={'0'} className={styles.usually_grade_points} value={balls} onChange={changeBallsClasses} />
               <span>баллов</span>
             </div>
           </div>
