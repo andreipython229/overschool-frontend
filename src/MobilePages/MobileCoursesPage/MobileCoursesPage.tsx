@@ -6,13 +6,14 @@ import { Input } from '../../components/common/Input/Input/Input'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { searchIconPath } from '../../config/commonSvgIconsPath'
 import { useFilterData } from '../../customHooks/useFilterData'
+import { CoursesT, CoursesDataT } from '../../types/CoursesT'
 
 import styles from './mobileCoursesPage.module.scss'
 
 export const MobileCoursesPage: FC = memo(() => {
   const { data: coursesList } = useFetchCoursesQuery()
 
-  const [nameCourses, foundCourses, filterData] = useFilterData(coursesList as any, 'name')
+  const [nameCourses, foundCourses, filterData] = useFilterData(coursesList?.results as any, 'name')
   return (
     <div className={styles.container}>
       <div className={styles.container_search}>

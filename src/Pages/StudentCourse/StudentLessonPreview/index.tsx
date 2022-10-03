@@ -21,10 +21,10 @@ import styles from './lesson.module.scss'
 export const StudentLessonPreview = () => {
   const navigate = useNavigate()
 
-  const { course_id: courseId, section_id: sectionId, lesson_id: lessonId } = useParams()
+  const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = useParams()
 
   const { data: lessons } = useFetchModuleLessonsQuery(sectionId)
-  const { data: lesson } = useFetchLessonQuery(lessonId)
+  const { data: lesson } = useFetchLessonQuery({id: lessonId, type: lessonType})
 
   const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
 
@@ -113,7 +113,7 @@ export const StudentLessonPreview = () => {
               text="Следующее"
             />
           </div>
-          <StudentLessonTextEditor />
+          {/* <StudentLessonTextEditor /> */}
         </div>
         <div className={styles.lesson__block}>
           <p className={styles.lesson__block_title}>Занятия модуля:</p>
