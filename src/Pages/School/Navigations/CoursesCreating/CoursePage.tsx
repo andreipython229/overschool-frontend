@@ -1,6 +1,7 @@
 import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
+import {CoursesDataT} from '../../../../types/CoursesT'
 import { Button } from 'components/common/Button/Button'
 import { Path, Student } from 'enum/pathE'
 import { useAppDispatch, useAppSelector } from 'store/hooks'

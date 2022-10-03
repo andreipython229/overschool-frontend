@@ -13,7 +13,7 @@ import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { studentsGroupT, studentsGroupsT } from 'types/studentsGroup'
 import { SettingItemT } from '../pageTypes'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
-import { CoursesT } from '../../types/CoursesT'
+import { CoursesDataT } from '../../types/CoursesT'
 
 import styles from '../School/StudentsStats/studentsStats.module.scss'
 import { useBoolean } from '../../customHooks/useBoolean'
@@ -60,7 +60,7 @@ export const CoursesStats = () => {
           )}
         </div>
       </section>
-      <SearchCoursesBlock courses={courses as CoursesT[]} groups={data?.results as studentsGroupsT[]} />
+      <SearchCoursesBlock courses={courses?.results as CoursesDataT[]} groups={data?.results as studentsGroupsT[]} />
       <AllStudentsBlock headerText={'Все ученики школы'} />
       <StudentsTableBlock setShowModal={offToggleSettingModal} />
       {toggleSettingModal && <SettingStudentTable toggleSettingModal={toggleSettingModal} setShowModal={onToggleSettingModal} />}

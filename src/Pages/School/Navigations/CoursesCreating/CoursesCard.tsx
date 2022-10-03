@@ -1,11 +1,11 @@
 import { FC, ReactNode } from 'react'
-import { CoursesT } from '../../../../types/CoursesT'
+import { CoursesDataT } from '../../../../types/CoursesT'
 
 import styles from './coursePage.module.scss'
 
 type courseCard = {
-  course: CoursesT
-  renderProps: (course: CoursesT) => ReactNode
+  course: CoursesDataT
+  renderProps: (course: CoursesDataT) => ReactNode
 }
 
 export const CoursesCard: FC<courseCard> = ({ course, renderProps }) => {

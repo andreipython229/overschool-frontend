@@ -10,14 +10,14 @@ import { usePatchCoursesMutation } from '../../../../../api/coursesServices'
 import { formDataConverter } from '../../../../../utils/formDataConverter'
 import { CheckboxBall } from '../../../../../components/common/CheckboxBall'
 
-import { CoursesT } from '../../../../../types/CoursesT'
+import { CoursesDataT } from '../../../../../types/CoursesT'
 
 import styles from './setting_course.module.scss'
 
 type BasicSettingsT = {
   toggleCheckbox: boolean
   toggleCheckboxPublished: () => void
-  courseFind: CoursesT
+  courseFind: CoursesDataT
 }
 
 export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckboxPublished, courseFind }) => {

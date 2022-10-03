@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps } from 'react'
 
 import { studentsGroupsT } from '../types/studentsGroup'
-import { CoursesT } from '../types/CoursesT'
+import { CoursesDataT } from '../types/CoursesT'
 
 export type CoursesMiniCardT = {
   photo_url?: string
@@ -11,7 +11,7 @@ export type CoursesMiniCardT = {
 }
 export type searchCourseBlockT = {
   groups: studentsGroupsT[]
-  courses: CoursesT[]
+  courses: CoursesDataT[]
 }
 
 export type SettingItemT = {

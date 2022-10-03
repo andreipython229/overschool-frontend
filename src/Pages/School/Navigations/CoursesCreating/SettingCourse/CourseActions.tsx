@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { useCloneCourseMutation, useDeleteCoursesMutation } from 'api/coursesServices'
 import { Button } from 'components/common/Button/Button'
-import { CoursesT } from 'types/CoursesT'
+import { CoursesDataT } from 'types/CoursesT'
 
 type CourseActionsT = {
-  courseFind: CoursesT
+  courseFind: CoursesDataT
 }
 
 export const CourseActions: FC<CourseActionsT> = ({ courseFind }) => {

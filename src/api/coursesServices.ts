@@ -1,7 +1,7 @@
 import { createApi, FetchArgs } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQueryWithReauth } from './baseApi'
-import { CoursesT } from '../types/CoursesT'
+import { CoursesT, CoursesDataT } from '../types/CoursesT'
 import { UpdateCourses } from './apiTypes'
 
 export const coursesServices = createApi({
@@ -9,19 +9,19 @@ export const coursesServices = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['coursesServices', 'oneCurses'],
   endpoints: build => ({
-    fetchCourses: build.query<CoursesT[], void>({
+    fetchCourses: build.query<CoursesT, void>({
       query: () => ({
         url: `/courses/`,
       }),
       providesTags: () => ['coursesServices'],
     }),
-    fetchCourse: build.query<CoursesT, string>({
+    fetchCourse: build.query<CoursesDataT, string>({
       query: id => ({
         url: `/courses/${id}/`,
       }),
       providesTags: () => ['oneCurses'],
     }),
-    createCourses: build.mutation<CoursesT, FormData>({
+    createCourses: build.mutation<CoursesDataT, FormData>({
       query: course => {
         return {
           url: `/courses/`,
