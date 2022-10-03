@@ -71,7 +71,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setShowModal, ch
           </div>
           <div className={styles.classesContainer_type_subs}>{typeClasses.map(el => (el.id === activeClasses ? el.text : null))}</div>
           <div className={styles.classesContainer_type_btnBlock}>
-            <Button style={{ width: '85px', fontSize: '14px', fontWeight: '400' }} onClick={handleClose} text={'Отмена'} />
+            <Button style={{ width: '85px', height: '100%', padding: '17px', fontSize: '14px', fontWeight: '400', borderRadius: '10px' }} onClick={handleClose} text={'Отмена'} />
             <Button
               style={{
                 marginLeft: '12px',
