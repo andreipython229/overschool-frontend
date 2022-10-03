@@ -8,7 +8,7 @@ export interface IFuncUpdate {
 
 type objectDataT = CoursesT | ILesson | any
 
-export const patchData = async (
+export const patchData = (
   objectData: objectDataT,
   innerKey: keyof objectDataT,
   key: string,
@@ -20,7 +20,7 @@ export const patchData = async (
     const formdata = new FormData()
     formdata.append(key, value)
     if (id) {
-      await funcUpdate({ formdata, id })
+      funcUpdate({ formdata, id })
     }
   }
 }

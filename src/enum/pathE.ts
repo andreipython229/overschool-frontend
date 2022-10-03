@@ -30,7 +30,7 @@ export enum StudentLogs {
 export enum Student {
   Courses = 'student-courses/',
   Course = 'student-course/:course_id/',
-  Lesson = 'module/:section_id/lesson/:lesson_id/',
+  Lesson = 'module/:section_id/:lesson_type/:lesson_id/',
   // Course = 'course/:course_id',
   Chats = 'chats/*',
   Class = 'class',
