@@ -11,6 +11,12 @@
   overflow: hidden;
   margin-bottom: 25px;
 
+  @media only screen and (min-width : 320px) and (max-width : 376px) {
+    @include display (flex, row, flex-start, center);
+    margin-top: 10px;
+    height: 58px;
+  }
+
   &_bcgrShadow {
     @include position_t_l (absolute, 0, 0);
     opacity: 0.5;
@@ -27,11 +33,21 @@
     display: inline-block;
     width: 66px;
     height: 66px;
+
+    @media only screen and (min-width : 320px) and (max-width : 376px) {
+      margin: 0 12px 0 8px;
+      width: 40px;
+      height: 40px;
+    }
   }
 
   &_infoBlock {
     @include position_b_l (absolute, 26px, 34px);
     @include display (flex, row, flex-start, center);
+
+    @media only screen and (min-width : 320px) and (max-width : 376px) {
+      position: static;
+    }
     &_avatar {
       border: 1px solid #ffffff;
       border-radius: 50%;
@@ -42,15 +58,15 @@
     &_title {
       @include display (flex, column);
       &_description {
+        @include font (500, 14px, 10px);
         color: #ba75ff;
         font-size: 14px;
         margin-bottom: 2px;
       }
 
       &_name {
-        font-size: 20px;
+        @include font (500, 20px, 17px);
         color: #bdbdbd;
-        line-height: 24px;
       }
 
       &_about {
@@ -68,6 +84,9 @@
 
   &_btn {
     @include position_b_r (absolute, 44px, 37px);
+    @media only screen and (min-width : 320px) and (max-width : 376px) {
+      display: none;
+    }
     & button {
       padding: 10px 14px;
     }

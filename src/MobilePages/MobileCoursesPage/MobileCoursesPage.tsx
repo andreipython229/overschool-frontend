@@ -15,11 +15,13 @@ export const MobileCoursesPage: FC = memo(() => {
   const [nameCourses, foundCourses, filterData] = useFilterData(coursesList as any, 'name')
   return (
     <div className={styles.container}>
-      <Input name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
-        <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
-      </Input>
+      <div className={styles.container_search}>
+        <Input name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам и категориям">
+          <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
+        </Input>
+      </div>
 
-      <span className={styles.title}>Мои курсы</span>
+      <span className={styles.container_title}>Мои курсы</span>
       <div className={styles.course}>
         {coursesList &&
           foundCourses?.map((course: any) => (

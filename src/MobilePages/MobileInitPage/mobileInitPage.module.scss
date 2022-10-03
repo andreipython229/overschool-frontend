@@ -16,6 +16,9 @@
     color: #ffffff;
     @include font (800, 32px);
     margin: 112px 0 128px 0;
+    @media only screen and (min-width : 320px) and (max-width : 376px) {
+      margin: 50px 0 50px 0;
+    }
     @media (min-width: 481px) and (max-width: 1024px) {
       font-size: 46px;
       margin: 140px 0 128px 0;
@@ -35,7 +38,7 @@
       & p {
         @include font (600, 16px);
         color: #ffffff;
-        margin-bottom: 110px;
+        margin-bottom: 80px;
         @media (min-width: 481px) and (max-width: 1024px) {
           font-size: 28px;
         }
