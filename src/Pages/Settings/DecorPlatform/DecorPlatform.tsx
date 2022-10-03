@@ -11,14 +11,14 @@ export const DecorPlatform = memo(() => {
   const [logoError, setLogoError] = useState<string>('')
   const [faviconError, setFaviconError] = useState<string>('')
 
-  const onChangeLogotype = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeLogotype = async (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target
     if (target.files) {
       const formdata = new FormData()
       formdata.append('logo_school', target.files[0])
 
       if (target.files[0].size <= 2 * 1024 * 1024) {
-        setSchoolHeader({ formdata, id: 1 })
+        await setSchoolHeader({ formdata, id: 1 })
       } else {
         setLogoError('Неверный формат')
       }

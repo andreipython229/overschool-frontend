@@ -25,7 +25,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ goToBack, addC
 
   const [createLesson] = useCreateLessonsMutation()
 
-  const handleCreateLesson = () => {
+  const handleCreateLesson = async () => {
     if (!nameLesson) {
       return
     }
@@ -35,7 +35,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ goToBack, addC
     }
     addCourse(nameLesson, 'usually')
 
-    createLesson(createLessonData)
+    await createLesson(createLessonData)
   }
 
   useShowModal({ closedAll })

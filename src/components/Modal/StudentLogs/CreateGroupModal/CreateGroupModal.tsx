@@ -20,14 +20,14 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
     setGroupName(e.target.value)
   }
 
-  const handleCreateGroup = () => {
+  const handleCreateGroup = async () => {
     if (courseId) {
       const groupToCreate = {
         name: groupName,
         course_id: +courseId,
         students: [1],
       }
-      createStudentsGroup(groupToCreate)
+      await createStudentsGroup(groupToCreate)
     }
 
     setShowModal(false)

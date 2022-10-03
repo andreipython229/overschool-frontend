@@ -2,9 +2,12 @@
 @import '../../../scss/mixin.scss';
 
 .custom_checkbox {
-  @include position_t_l (absolute, 0, 0, -1);
+  @include position_t_l(absolute, 0, 0, 1);
   opacity: 0;
+  width: 100%;
+  height: 100%;
 }
+
 .custom_checkbox + label {
   display: inline-flex;
   align-items: center;
