@@ -11,7 +11,7 @@ import { SettingStudentTable } from 'components/Modal/SettingStudentTable/'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { StudentGroup } from 'Pages/School/StudentsStats/StudentsCountGroup'
-import { studentsGroupT } from '../../../types/studentsGroup'
+import { studentsGroupT, studentsGroupsT } from '../../../types/studentsGroup'
 import { ToggleButtonDropDown } from 'components/common/ToggleButtonDropDown'
 
 import styles from './studentsStats.module.scss'
@@ -27,7 +27,7 @@ export type SettingItemT = {
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
 
-  const [groups, setGroups] = useState<studentsGroupT[]>([])
+  const [groups, setGroups] = useState<studentsGroupsT[]>([])
   const [studentEmail, setStudentEmail] = useState<string>('')
 
   const [studentModal, { onToggle: setStudentModal }] = useBoolean()
@@ -43,11 +43,11 @@ export const StudentsStats = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setGroups(data)
+      setGroups(data?.results)
     }
   }, [isSuccess, isFetching])
 
-  const groupsToShow = groups.filter(group => courseId && group.course_id === +courseId)
+  const groupsToShow = groups && groups.filter(group => courseId && group.course_id === +courseId)
   const reducedGroupsToShow = groupsToShow.slice(0, 2)
   const dataToRender = groupsToShow.length > 2 && isOpen ? groupsToShow : reducedGroupsToShow
 
@@ -71,7 +71,7 @@ export const StudentsStats = () => {
           </div>
         </div>
         <div className={styles.students_group_content_wrapper}>
-          {dataToRender?.map(({ name, students, group_id }: studentsGroupT) => {
+          {dataToRender?.map(({ name, students, group_id }: studentsGroupsT) => {
             const count = students[0]
             const studentsCount = count === 1 || count % 10 === 1 ? ` ${count} ученик` : `${count} ученика`
             return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={studentsCount} />

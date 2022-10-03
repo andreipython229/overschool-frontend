@@ -2,7 +2,7 @@ import { ChangeEvent, FC } from 'react'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { usePatchCoursesMutation } from 'api/coursesServices'
-import { CoursesT } from 'types/CoursesT'
+import { CoursesDataT } from 'types/CoursesT'
 import { publishedIconPath, noPublishedIconPath } from '../../../config/svgIconsPath'
 import { patchData } from 'utils/patchData'
 
@@ -10,7 +10,7 @@ import styles from './setting_course.module.scss'
 
 type CardImageDownloadsT = {
   toggleCheckbox: boolean
-  courseFind: CoursesT
+  courseFind: CoursesDataT
 }
 
 export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, courseFind }) => {

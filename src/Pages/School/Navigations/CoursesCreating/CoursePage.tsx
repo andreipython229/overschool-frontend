@@ -1,6 +1,7 @@
 import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
+import {CoursesDataT} from '../../../../types/CoursesT'
 import { Button } from 'components/common/Button/Button'
 import { Path, Student } from 'enum/pathE'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
@@ -31,7 +32,7 @@ export const CoursePage: FC = memo(() => {
 
   const [isOpenAddCourse, { onToggle }] = useBoolean()
 
-  const [nameCourses, foundCourses, filterData] = useFilterData(courses as any, 'name')
+  const [nameCourses, foundCourses, filterData] = useFilterData(courses?.results as any, 'name')
 
   const dispatchHandlerModal = () => {
     onToggle && onToggle()
@@ -45,7 +46,7 @@ export const CoursePage: FC = memo(() => {
         <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
       </Input>
       <div className={styles.course}>
-        {courses?.length &&
+        {courses?.results.length &&
           foundCourses?.map((course: any) => (
             <CoursesCard
               key={course?.course_id}
