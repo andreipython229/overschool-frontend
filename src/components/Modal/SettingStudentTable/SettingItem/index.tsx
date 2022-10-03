@@ -19,12 +19,9 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
   const controls = useDragControls()
 
   const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event)
     if ((checkedList.length === 7 && event.target.checked) || event.target.id === '1' || event.target.id === '2') {
       return
     }
-
-    // console.log(event.target, event.currentTarget)
 
     const checkedItemsList = settingList.map(item => {
       if (item.order.toString() === event.target.id.toString()) {
