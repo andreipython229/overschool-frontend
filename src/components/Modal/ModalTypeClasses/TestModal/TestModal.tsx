@@ -122,7 +122,7 @@ export const TestModal: FC<TestModalPropsT> = ({ goToBack, addCourse, closedAll 
         )}
 
         <div className={styles.btnBlock}>
-          <Button onClick={goToBack} text={'Назад'} />
+          <Button onClick={goToBack} text={'Назад'}  style={{ width: '85px', height: '100%', marginRight: '10px', padding: '17px', fontSize: '18px', fontWeight: '400', borderRadius: '10px' }}/>
           <Button onClick={() => addCourse(classesName, 'test')} text={'Добавить занятие'} variant={'primary'} />
         </div>
       </div>
