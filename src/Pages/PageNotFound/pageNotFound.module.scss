@@ -5,6 +5,9 @@
   width: 100%;
   height: 97vh;
   background-color: #ddd7fa;
+  @media only screen and (min-width : 320px) and (max-width : 376px) {
+    height: 100vh;
+  }
 
   &_link {
     text-decoration: none;
@@ -24,5 +27,8 @@
     font-size: 32px;
     margin: 0 auto;
     text-align: center;
+    @media only screen and (min-width : 320px) and (max-width : 376px) {
+      width: auto;
+    }
   }
 }
