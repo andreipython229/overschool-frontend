@@ -6,6 +6,8 @@ import { useFetchModulesQuery } from '../../../api/modulesServices'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { backArr } from '../../../components/Previous/config/svgIconPath'
+import { lessonT } from '../../../types/sectionT'
+import { lessonSvgMapper } from '../../../config/LessonsMaper'
 
 import styles from './student_course_header.module.scss'
 
@@ -18,15 +20,14 @@ export const StudentCourseHeader: FC = () => {
 
   const [modulesData, setModulesData] = useState(modules)
 
-  // const arrOfLessons = modulesData?.sections.reduce((acc, item: any) => {
-  //   return [...acc, ...item.lessons]
-  // }, [])
+  const arrOfLessons = modulesData?.sections.reduce((acc: lessonT[], item: any) => {
+    return [...acc, ...item.lessons]
+  }, [])
 
-  // const count = arrOfLessons?.reduce((acc, item) => {
-  //   return acc[item?.type] ? { ...acc } : { ...acc, [item?.type]: item }
-  // }, {})
-
-  // console.log(arrOfLessons, count)
+  const countOfLessons = arrOfLessons?.reduce(
+    (acc: { [key: string]: number }, item: lessonT) => ((acc[item.type] = (acc[item.type] || 0) + 1), acc),
+    {},
+  )
 
   useEffect(() => {
     if (isSuccess) {
@@ -45,19 +46,17 @@ export const StudentCourseHeader: FC = () => {
       <div className={styles.previous_onlineCourses}>Онлайн-курс</div>
       <div className={styles.previous_title_name}>{course?.name}</div>
       <div className={styles.previous_courseInfo}>
-        <div style={{ marginRight: '32px' }}>
-          {/* <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} /> */}
-          <span style={{ marginLeft: '4px' }}>324 занятия</span>
+        <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
+          {lessonSvgMapper['lesson']}
+          <span style={{ marginLeft: '4px' }}>{countOfLessons && countOfLessons['lesson']} занятия</span>
         </div>
-        <div style={{ marginRight: '32px' }}>
-          {/* <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={clickBoardCheckPath} /> */}
-          <span style={{ marginLeft: '4px' }}>85 заданий</span>
+        <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
+          {lessonSvgMapper['homework']}
+          <span style={{ marginLeft: '4px' }}>{countOfLessons && countOfLessons['homework']} заданий</span>
         </div>
-        <div>
-          {/* <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={signIconPath}>
-            <circle cx="9.5" cy="4.5" r="0.5" fill="#BA75FF" />
-          </IconSvg> */}
-          <span>14 тестов</span>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {lessonSvgMapper['test']}
+          <span>{countOfLessons && countOfLessons['test']} тестов</span>
         </div>
       </div>
       <div className={styles.previous_progress}>
