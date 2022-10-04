@@ -10,27 +10,36 @@ import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { useShowModal } from '../../../../customHooks/useShowModal'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { taskModalPath } from '../config/svgIconsPath'
+import { TasksModalPropsT } from '../../ModalTypes'
+import { useCreateLesson } from '../../../../customHooks/useCreateLesson'
 
 import styles from '../../Modal.module.scss'
-import { TasksModalPropsT } from '../../ModalTypes'
 
 export const TasksModal: FC<TasksModalPropsT> = memo(({ modulesList, goToBack, addCourse, closedAll }) => {
-  const [nameClasses, setNameClasses] = useState<string>('')
   const [settingsActive, setSettingsActive] = useState<number>(0)
+  const [descriptionHomeWork, setDescriptionHomeWork] = useState<string>('')
   const [checkbox, setCheckbox] = useState<boolean>(false)
 
-  useShowModal({ closedAll })
+  const { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
+    modulesList,
+    addCourse,
+    typeLesson: 'homeworks',
+    modalType: 'task',
+    text: descriptionHomeWork,
+  })
 
-  const handleAddCourse = () => {
-    addCourse(nameClasses, 'task')
-  }
   const handleCheckbox = () => {
     setCheckbox(!checkbox)
   }
 
   const handleNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
-    setNameClasses(event.target.value)
+    setNameLesson(event.target.value)
   }
+
+  const handleBallsClasses = (event: ChangeEvent<HTMLInputElement>) => {
+    setBalls(+event.target.value)
+  }
+  useShowModal({ closedAll })
 
   return (
     <div className={styles.wrapper}>
@@ -60,7 +69,7 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ modulesList, goToBack, a
           <>
             <div style={{ marginTop: '15px' }} className={styles.usually_input}>
               <span className={styles.usually_title}>Название занятие:</span>
-              <Input placeholder={'Основы языка HTML'} name={'name classes'} onChange={handleNameClasses} type={'text'} value={nameClasses} />
+              <Input placeholder={'Основы языка HTML'} name={'name classes'} onChange={handleNameClasses} type={'text'} value={nameLesson} />
             </div>
             <div className={styles.tasks_checkbox}>
               <Checkbox id={'autoTest'} name={'Auto test work'} checked={checkbox} onChange={handleCheckbox} />
@@ -79,22 +88,26 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ modulesList, goToBack, a
             </div>
             <div className={styles.tasks_editor}>
               <span className={styles.tasks_editor_desc}>Сообщение, которое будет автоматически отправлено ученику после принятия работы:</span>
-              <MyEditor />
+              <MyEditor setDescriptionLesson={setDescriptionHomeWork} />
             </div>
           </>
         ) : (
           <div>
             <span className={styles.usually_title}>Сколько баллов будет выдано ученику по завершению занятия:</span>
             <div className={styles.usually_grade}>
-              <input type={'number'} placeholder={'0'} className={styles.usually_grade_points} />
+              <input type={'number'} placeholder={'0'} value={balls} onChange={handleBallsClasses} className={styles.usually_grade_points} />
               <span>баллов</span>
             </div>
           </div>
         )}
 
         <div className={styles.btnBlock}>
-          <Button onClick={goToBack} text={'Назад'} style={{ width: '85px', height: '100%', marginRight: '10px', padding: '17px', fontSize: '18px', fontWeight: '400', borderRadius: '10px' }}/>
-          <Button onClick={handleAddCourse} text={'Добавить занятие'} variant={'primary'} />
+          <Button
+            onClick={goToBack}
+            text={'Назад'}
+            style={{ width: '85px', height: '100%', marginRight: '10px', padding: '17px', fontSize: '18px', fontWeight: '400', borderRadius: '10px' }}
+          />
+          <Button onClick={handleCreateLesson} text={'Добавить занятие'} variant={'primary'} />
         </div>
       </div>
     </div>

@@ -54,19 +54,21 @@ export const modulesServices = createApi({
       query: ({ id, type }) => ({
         url: `/${type}s/${id}/`,
       }),
-      providesTags: ['modulesServices'],
+      // providesTags: ['modulesServices'],
     }),
     createLessons: build.mutation({
-      query: arg => ({
-        url: `./lessons/`,
-        method: 'POST',
-        body: arg,
-      }),
+      query: arg => {
+        return {
+          url: `/${arg.type}/`,
+          method: 'POST',
+          body: arg.createLessonData,
+        }
+      },
       invalidatesTags: ['modulesServices'],
     }),
     deleteLessons: build.mutation({
-      query: id => ({
-        url: `/lessons/${id}/`,
+      query: ({ id, type }) => ({
+        url: `/${type}s/${id}/`,
         method: 'DELETE',
       }),
       invalidatesTags: ['modulesServices'],
@@ -74,7 +76,7 @@ export const modulesServices = createApi({
     patchLessons: build.mutation({
       query: arg => {
         return {
-          url: `/lessons/${arg.id}/`,
+          url: `/${arg.type}s/${arg.id}/`,
           method: 'PATCH',
           body: arg.formdata,
         }

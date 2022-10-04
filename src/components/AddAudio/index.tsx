@@ -12,7 +12,7 @@ import styles from './addaudio.module.scss'
 const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
 const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
-export const AddAudio: FC<setShowType & AddPostT> = ({ isPreview, lesson, setShow }) => {
+export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPreview, lesson, setShow }) => {
   const [dragAudio, setDragAudio] = useState<boolean>(false)
 
   const [addAudioFile, { isLoading }] = usePatchLessonsMutation()
@@ -33,7 +33,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ isPreview, lesson, setSho
     const id = lesson?.lesson_id
     const formdata = new FormData()
     formdata.append('audio', audioFiles[0])
-    await addAudioFile({ formdata, id })
+    await addAudioFile({ formdata, id, type: lessonIdAndType?.type })
     setDragAudio(false)
   }
 
@@ -43,7 +43,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ isPreview, lesson, setSho
       const id = lesson?.lesson_id
       const formdata = new FormData()
       formdata.append('audio', files)
-      addAudioFile({ formdata, id })
+      addAudioFile({ formdata, id, type: lessonIdAndType?.type })
     }
   }
 

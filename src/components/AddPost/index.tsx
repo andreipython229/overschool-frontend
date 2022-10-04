@@ -19,7 +19,7 @@ import Code from '../.././assets/img/createCourse/code.svg'
 
 import styles from './addPost.module.scss'
 
-export const AddPost: FC<AddPostT> = ({ lesson, isPreview }) => {
+export const AddPost: FC<AddPostT> = ({ lessonIdAndType, lesson, isPreview }) => {
   const [isOpenTextEditor, { on: closeTextEditor, off: openTextEditor }] = useBoolean()
   const [isOpenVideo, { on: closeVideo, off: openVideo }] = useBoolean()
   const [isOpenAudio, { on: closeAudio, off: openAudio }] = useBoolean()
@@ -36,13 +36,13 @@ export const AddPost: FC<AddPostT> = ({ lesson, isPreview }) => {
 
   useEffect(() => {
     if (description[0]?.props?.children && lesson) {
-      patchData(lesson, 'lesson_id', 'description', descriptionLesson, addPatchData)
+      patchData(lesson, `${lessonIdAndType?.type}_id`, 'description', descriptionLesson, addPatchData, lessonIdAndType?.type)
     }
   }, [descriptionLesson])
 
   useEffect(() => {
     if (code && lesson) {
-      patchData(lesson, 'lesson_id', 'code', debounced.toString(), addPatchData)
+      patchData(lesson, `${lessonIdAndType?.type}_id`, 'code', debounced.toString(), addPatchData, lessonIdAndType?.type)
     }
   }, [debounced.toString()])
 
@@ -57,8 +57,10 @@ export const AddPost: FC<AddPostT> = ({ lesson, isPreview }) => {
       {isOpenTextEditor && (
         <AddTextEditor isPreview={isPreview} lesson={lesson} setShow={closeTextEditor} setDescriptionLesson={setDescriptionLesson} />
       )}
-      {isOpenVideo && <AddVideo isPreview={isPreview} addFile={addPatchData} lesson={lesson} setShow={closeVideo} />}
-      {isOpenAudio && <AddAudio isPreview={isPreview} lesson={lesson} setShow={closeAudio} />}
+      {isOpenVideo && (
+        <AddVideo lessonIdAndType={lessonIdAndType} isPreview={isPreview} addFile={addPatchData} lesson={lesson} setShow={closeVideo} />
+      )}
+      {isOpenAudio && <AddAudio lessonIdAndType={lessonIdAndType} isPreview={isPreview} lesson={lesson} setShow={closeAudio} />}
       {isOpenCodeEditor && (
         <AddCodeEditor isPreview={isPreview} lesson={lesson} code={code} handleEditorChange={handleEditorChange} setShow={closeCodeEditor} />
       )}

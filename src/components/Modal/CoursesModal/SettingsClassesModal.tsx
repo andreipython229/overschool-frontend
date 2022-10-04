@@ -9,9 +9,9 @@ import { settingsClassesIconPath } from './config/svgIconsPath'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import { SettingsClassesModalPropT } from '../ModalTypes'
 import { useFetchLessonQuery, usePatchLessonsMutation } from '../../../api/modulesServices'
+import { patchData } from '../../../utils/patchData'
 
 import styles from '../Modal.module.scss'
-import { patchData } from '../../../utils/patchData'
 
 const classesType = ['Занятие', 'Задание', 'Тест', 'Вебинар']
 
@@ -23,9 +23,9 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ modulesLis
   const { data } = useFetchLessonQuery(lessonIdVar)
 
   const [settingsActive, setSettingsActive] = useState<number>(0)
+  const [balls, setBalls] = useState<number>(0)
+  const [typeLesson, setTypeLesson] = useState<string | number>('')
   const [nameLesson, setNameLesson] = useState<string>(data?.name)
-
-  useShowModal({ setShowModal })
 
   const handleClose = () => {
     setShowModal(false)
@@ -34,10 +34,16 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ modulesLis
   const handleChangeNameLesson = (event: ChangeEvent<HTMLInputElement>) => {
     setNameLesson(event.target.value)
   }
+  const handleChangeBallsLesson = (event: ChangeEvent<HTMLInputElement>) => {
+    setBalls(+event.target.value)
+  }
 
   const saveChangeNameLesson = (event: any) => {
     event.preventDefault()
-    patchData(data, 'lesson_id', 'name', nameLesson, changeNameLesson)
+    patchData(data, `${lessonIdAndType.type}_id`, 'name', nameLesson, changeNameLesson, lessonIdAndType.type)
+    if (balls) {
+      patchData(data, `${lessonIdAndType.type}_id`, 'balls', balls, changeNameLesson, lessonIdAndType.type)
+    }
   }
 
   useEffect(() => {
@@ -45,6 +51,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ modulesLis
       setShowModal(false)
     }
   }, [isSuccess])
+  useShowModal({ setShowModal })
 
   return (
     <div className={styles.wrapper}>
@@ -83,14 +90,14 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ modulesLis
                 <span style={{ paddingBottom: '5px' }} className={styles.settings_block_input_title}>
                   Изменить тип
                 </span>
-                <SelectInput optionsList={classesType} />
+                <SelectInput optionsList={classesType} setSelectedValue={setTypeLesson} />
               </div>
             </div>
           ) : (
             <div>
               <span className={styles.usually_title}>Сколько баллов будет выдано ученику по завершению занятия:</span>
               <div className={styles.usually_grade}>
-                <input type={'number'} placeholder={'0'} className={styles.usually_grade_points} />
+                <input value={balls} onChange={handleChangeBallsLesson} type={'number'} placeholder={'0'} className={styles.usually_grade_points} />
                 <span>баллов</span>
               </div>
             </div>

@@ -91,9 +91,9 @@ export type RadioPropsT = {
   id: string
 }
 
-export type SelectInputPropsT<T>= {
+export type SelectInputPropsT<T> = {
   optionsList: Array<T>
-  setSelectedValue?: (value: T) => void
+  setSelectedValue?: (value: any) => void
 }
 
 export type ToggleButtonDropDownT = {

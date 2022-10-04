@@ -60,8 +60,8 @@ export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonIdAndType, moduleName
         </span>
 
         {lessonsList &&
-          lessonsList.map(({ name, id, type, order }: LessonT) => (
-            <LessonsBlock order={order} type={type} setLessonIdAndType={setLessonIdAndType} key={id + type} id={id} lessonsName={name} />
+          lessonsList.map(({ name, id, type }: LessonT) => (
+            <LessonsBlock type={type} setLessonIdAndType={setLessonIdAndType} key={id + type} id={id} lessonsName={name} />
           ))}
         <button className={styles.btn} onClick={handleOpenModalLesson}>
           + Занятие

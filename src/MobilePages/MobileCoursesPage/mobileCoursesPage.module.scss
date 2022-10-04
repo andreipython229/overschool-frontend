@@ -160,7 +160,10 @@ html, body {
   }
 }
 .course {
-  margin-bottom: 100px;
+  margin-bottom: 100px;  
+  @media only screen and (min-width : 320px) and (max-width : 376px) {
+    margin: 0;
+  }
 }
 
 .progress {
