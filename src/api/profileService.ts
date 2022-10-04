@@ -14,8 +14,8 @@ export const profileService = createApi({
       providesTags: ['profile'],
     }),
     updateProfile: build.mutation({
-      query: userInfo => ({
-        url: `/profiles/1/`,
+      query: ({userInfo, id}) => ({
+        url: `/profiles/${id}/`,
         method: 'PATCH',
         body: userInfo,
       }),

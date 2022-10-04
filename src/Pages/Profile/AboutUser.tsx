@@ -50,17 +50,10 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
         user: { ...rest },
       }
 
-      // const newFormData = new FormData()
-
-      // Object.entries(objToSend).forEach(([key, value]) => {
-      //   if (typeof value !== 'object') newFormData.append(key, value)
-      //   else newFormData.append(key, JSON.stringify(value))
-      // })
-
       avatarFile && formData.append('avatar', avatarFile)
 
-      avatarFile && updateProfile(formData)
-      updateProfile(objToSend)
+      avatarFile && updateProfile({userInfo: formData, id: 1})
+      updateProfile({userInfo: objToSend, id: 1})
     },
   })
 
