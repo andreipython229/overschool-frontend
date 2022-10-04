@@ -50,7 +50,7 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modulesServices'],
     }),
-    fetchLesson: build.query({
+    fetchLesson: build.query<any, any>({
       query: ({ id, type }) => ({
         url: `/${type}s/${id}/`,
       }),
