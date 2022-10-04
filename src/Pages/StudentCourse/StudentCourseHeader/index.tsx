@@ -1,11 +1,11 @@
-import { FC } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { useFetchCourseQuery } from '../../../api/coursesServices'
+import { useFetchModulesQuery } from '../../../api/modulesServices'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { backArr } from '../../../components/Previous/config/svgIconPath'
-import { stackIconPath, clickBoardCheckPath, signIconPath } from '../../../Pages/School/config/svgIconsPath'
 
 import styles from './student_course_header.module.scss'
 
@@ -14,6 +14,25 @@ export const StudentCourseHeader: FC = () => {
   const navigate = useNavigate()
 
   const { data: course } = useFetchCourseQuery(courseId as string)
+  const { data: modules, isSuccess } = useFetchModulesQuery(courseId as string)
+
+  const [modulesData, setModulesData] = useState(modules)
+
+  // const arrOfLessons = modulesData?.sections.reduce((acc, item: any) => {
+  //   return [...acc, ...item.lessons]
+  // }, [])
+
+  // const count = arrOfLessons?.reduce((acc, item) => {
+  //   return acc[item?.type] ? { ...acc } : { ...acc, [item?.type]: item }
+  // }, {})
+
+  // console.log(arrOfLessons, count)
+
+  useEffect(() => {
+    if (isSuccess) {
+      setModulesData(modules)
+    }
+  }, [isSuccess])
 
   return (
     <div className={styles.previous}>
@@ -27,17 +46,17 @@ export const StudentCourseHeader: FC = () => {
       <div className={styles.previous_title_name}>{course?.name}</div>
       <div className={styles.previous_courseInfo}>
         <div style={{ marginRight: '32px' }}>
-          <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} />
+          {/* <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} /> */}
           <span style={{ marginLeft: '4px' }}>324 занятия</span>
         </div>
         <div style={{ marginRight: '32px' }}>
-          <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={clickBoardCheckPath} />
+          {/* <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={clickBoardCheckPath} /> */}
           <span style={{ marginLeft: '4px' }}>85 заданий</span>
         </div>
         <div>
-          <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={signIconPath}>
+          {/* <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={signIconPath}>
             <circle cx="9.5" cy="4.5" r="0.5" fill="#BA75FF" />
-          </IconSvg>
+          </IconSvg> */}
           <span>14 тестов</span>
         </div>
       </div>

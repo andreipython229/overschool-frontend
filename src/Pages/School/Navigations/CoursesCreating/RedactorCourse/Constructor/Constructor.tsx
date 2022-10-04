@@ -9,6 +9,7 @@ import { AddModuleModal } from 'components/Modal/CoursesModal/AddModuleModal'
 import { SettingsClassesModal } from 'components/Modal/CoursesModal/SettingsClassesModal'
 import { useBoolean } from 'customHooks/useBoolean'
 import { modulesListT } from '../../../navigationTypes'
+import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
 
 import styles from './constructor.module.scss'
 
@@ -18,7 +19,7 @@ export const Constructor: FC = () => {
 
   const [modulesList, setModulesList] = useState<modulesListT[]>([])
 
-  const [lessonIdAndType, setLessonIdAndType] = useState<object>({})
+  const [lessonIdAndType, setLessonIdAndType] = useState<lessonIdAndTypeT>({} as lessonIdAndTypeT)
 
   const [isOpenSettingLessonModal, { onToggle: toggleSettingLessonModal, on: onSettingLessonModal }] = useBoolean()
 
@@ -67,7 +68,7 @@ export const Constructor: FC = () => {
         <SettingClassesUsually modulesList={modulesList} closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />
       )}
       {activeTypeClasses === 1 && <TasksModal modulesList={modulesList} closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
-      {activeTypeClasses === 2 && <TestModal closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse} />}
+      {activeTypeClasses === 2 && <TestModal modulesList={modulesList} closedAll={closedAllModal} goToBack={goToBack} addCourse={addCourse} />}
       {activeTypeClasses === 3 && <WebinarModal closedAll={closedAllModal} addCourse={addCourse} goToBack={goToBack} />}
       {isOpenModalModule && <AddModuleModal setShowModal={onModalModule} courseId={courseId as string} />}
       {isOpenSettingLessonModal && (

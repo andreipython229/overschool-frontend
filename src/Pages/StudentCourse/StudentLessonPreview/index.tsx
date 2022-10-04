@@ -10,9 +10,9 @@ import { useFetchLessonQuery, useFetchModuleLessonsQuery } from '../../../api/mo
 import { backArr } from '../../../components/Previous/config/svgIconPath'
 import { arrDownPath } from '../config/svgIconPath'
 import { Button } from 'components/common/Button/Button'
-import { stackIconPath } from '../../School/config/svgIconsPath'
 import { youtubeParser } from 'utils/youtubeParser'
 import { StudentLessonDesc } from './StudentLessonDesc/index'
+import { lessonSvgMapper } from '../../../config/LessonsMaper'
 import { StudentLessonTextEditor } from './StudentLessonTextEditor/index'
 
 import styles from './lesson.module.scss'
@@ -24,6 +24,7 @@ export const StudentLessonPreview = () => {
 
   const { data: lessons } = useFetchModuleLessonsQuery(sectionId)
   const { data: lesson } = useFetchLessonQuery({ id: lessonId, type: lessonType })
+
 
   const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
 
@@ -118,14 +119,15 @@ export const StudentLessonPreview = () => {
           <p className={styles.lesson__block_title}>Занятия модуля:</p>
           <div>
             {lessons?.lessons.length &&
-              lessons?.lessons.map(({ name, id }: lessonT, index: number) => (
+              lessons?.lessons.map(({ name, id, type }: lessonT, index: number) => (
                 <div
                   style={{ cursor: 'pointer' }}
                   key={id}
                   onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/lesson/${id}`)}
                   className={activeLessonIndex === index ? styles.lesson__item_active : styles.lesson__item}
                 >
-                  <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} />
+                  {lessonSvgMapper[type]}
+                  {/* <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} /> */}
                   <span className={styles.lesson__item_name}>{name}</span>
                 </div>
               ))}

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { LessonsMaper } from 'constants/LessonsMaper'
+import { lessonSvgMapper } from 'config/LessonsMaper'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
 import { useDeleteLessonsMutation } from 'api/modulesServices'
@@ -8,11 +8,11 @@ import { LessonsBlockT } from '../../../../../navigationTypes'
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
 
-export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, order, lessonsName, id }) => {
+export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, lessonsName, id }) => {
   const [deleteLesson] = useDeleteLessonsMutation()
 
   const handleDeleteLesson = async () => {
-    await deleteLesson(id)
+    await deleteLesson({ id, type })
   }
   const handleChangeLesson = () => {
     const idAndType = {
@@ -25,7 +25,7 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, orde
   return (
     <li onClick={handleChangeLesson} className={styles.redactorCourse_leftSide_desc_lessonWrapper + ' ' + stylesModules.btnWrapper}>
       <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
-        <span>{type && LessonsMaper({ type })}</span>
+        <span>{lessonSvgMapper[type]}</span>
         {lessonsName}
       </span>
       <button className={styles.redactorCourse_leftSide_desc_lessonWrapper_btn_deleteLesson + ' ' + stylesModules.btn} onClick={handleDeleteLesson}>

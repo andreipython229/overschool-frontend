@@ -6,6 +6,10 @@ export type ModulesT = {
   section: number
   lessons: LessonT[]
 }
+export type lessonIdAndTypeT = {
+  id: number
+  type: string
+}
 
 export type SettingClassesPropsT = {
   goToBack: () => void
@@ -29,7 +33,7 @@ export type AddModuleModalPropsT = {
 
 export type SettingsClassesModalPropT = {
   setShowModal: (arg: boolean) => void
-  lessonIdAndType: object
+  lessonIdAndType: lessonIdAndTypeT
   modulesList: ModulesT[]
 }
 
@@ -47,6 +51,7 @@ export type TestModalPropsT = {
   goToBack: () => void
   addCourse: (name: string, type: string) => void
   closedAll: () => void
+  modulesList: ModulesT[]
 }
 
 export type TasksModalPropsT = {

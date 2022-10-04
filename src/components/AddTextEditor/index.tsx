@@ -25,7 +25,15 @@ export const AddTextEditor: FC<setShowType & AddPostT> = ({ isPreview, lesson, s
           <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
         </div>
       </div>
-      {isPreview ? <div style={{border: '2px dashed #EBEEF5', fontSize:'14px',minHeight:'230px', margin: '0 0 20px 0',padding:'15px', borderRadius:'7px'}}>{parse(lesson.description)}</div> : <MyEditor setDescriptionLesson={setDescriptionLesson} />}
+      {isPreview ? (
+        <div
+          style={{ border: '2px dashed #EBEEF5', fontSize: '14px', minHeight: '230px', margin: '0 0 20px 0', padding: '15px', borderRadius: '7px' }}
+        >
+          {parse(lesson.description)}
+        </div>
+      ) : (
+        <MyEditor setDescriptionLesson={setDescriptionLesson} />
+      )}
     </div>
   )
 }

@@ -15,6 +15,9 @@
       @include display(flex, row, space-between, center);
       width: 100%;
       padding: 27px 40px;
+      @media only screen and (min-width : 320px) and (max-width : 376px) {
+        padding: 21px 11px;
+      }
 
       &_showBtnWrapper_active > svg {
         fill: '#C6C6C6';
@@ -33,6 +36,13 @@
         -ms-transform: rotate(0);
         -o-transform: rotate(0);
       }
+      svg {
+        @media only screen and (min-width : 320px) and (max-width : 376px) {
+          width: 15px;
+          height: 15px;
+          margin-left: 10px;
+        }
+      }
 
       &_completedIcon {
         position: relative;
@@ -48,6 +58,11 @@
         color: #ba75ff;
         // background-color: #ba75ff;
         border-radius: 50%;
+        @media only screen and (min-width : 320px) and (max-width : 376px) {
+          width: 30px;
+          height: 25px;
+          font-size: 10px;
+        }
 
         svg {
           @include position_t_l(absolute, calc(50% - 8px), calc(50% - 7px));
@@ -57,11 +72,17 @@
         @include display(flex, row, flex-start, center);
         width: 100%;
         margin-left: 32px;
+        @media only screen and (min-width : 320px) and (max-width : 376px) {
+          margin-left: 9px;
+        }
 
         &_title {
           @include display(flex, row, flex-start, center);
           @include font(500, 14px, 16px);
           color: #4d5766;
+          @media only screen and (min-width : 320px) and (max-width : 376px) {
+            font-size: 10px;
+          }
 
           span {
             display: block;
@@ -74,6 +95,9 @@
         &_exerciseSum {
           @include font(500, 14px, 16px);
           color: #9ca3af;
+          @media only screen and (min-width : 320px) and (max-width : 376px) {
+            font-size: 10px;
+          }
           span {
             margin-left: 5px;
           }
@@ -84,50 +108,15 @@
     &_exerciseWrapper {
       @include display(flex, column, center, center);
       padding: 0 89px 0 94px;
+      @media only screen and (min-width : 320px) and (max-width : 376px) {
+        padding: 10px 10px;
+      }
 
       &_exercise {
         height: 50px;
         margin-bottom: 16px;
         border-radius: 7px;
         background-color: #f1e3ff;
-      }
-    }
-  }
-}
-
-
-@media screen and (max-width: 480px) {
-  .accardionWrapper {
-    &_component {
-      &_header {
-        padding: 21px 11px;
-
-        &_completedIcon {
-          width: 30px;
-          height: 25px;
-          font-size: 10px;
-        }
-
-        &_lessonName {
-          margin-left: 16px;
-
-          &_title {
-            font-size: 10px;
-          }
-
-          &_exerciseSum {
-            font-size: 10px;
-          }
-        }
-
-       
-        svg  {
-          width: 15px;
-          height: 15px;
-        }
-      }
-      &_exerciseWrapper {
-        padding: 10px 10px;
       }
     }
   }
