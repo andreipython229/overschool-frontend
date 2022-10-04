@@ -1,3 +1,5 @@
+import { lessonIdAndTypeT } from '../../../components/Modal/ModalTypes'
+
 export type ClassesSettingsPropsT = {
   showSettingsClassesModal: () => void
   lessonIdAndType: any
@@ -39,20 +41,19 @@ export type ModulesBlockT = {
   id: number
   lessonsList: LessonT[]
   setModalTypeClasses: () => void
-  setLessonIdAndType: (arg: object) => void
+  setLessonIdAndType: (arg: lessonIdAndTypeT) => void
 }
 
 export type LessonAddBlockPropsT = {
   setModalTypeClasses: () => void
   toggleModalModule: () => void
-  setLessonIdAndType: (arg: object) => void
+  setLessonIdAndType: (arg: lessonIdAndTypeT) => void
   modulesList: modulesListT[]
 }
 
 export type LessonsBlockT = {
   lessonsName: string
   id: number
-  order: number
   type: keyof object
-  setLessonIdAndType: (arg: object) => void
+  setLessonIdAndType: (arg: lessonIdAndTypeT) => void
 }

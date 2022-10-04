@@ -18,10 +18,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonIdAndType, sho
   const [isToggle, { onToggle }] = useBoolean()
 
   const { data } = useFetchLessonQuery({ id: lessonIdAndType.id, type: lessonIdAndType.type })
+
   const [addFile] = usePatchLessonsMutation()
   const [deleteLesson] = useDeleteLessonsMutation()
 
   const [lesson, setLesson] = useState<ILesson>(data)
+
   useEffect(() => {
     setLesson(data)
   }, [data])
@@ -33,7 +35,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonIdAndType, sho
 
   const handleDeleteLesson = async () => {
     if ('id' in lessonIdAndType) {
-      await deleteLesson(lessonIdAndType.id)
+      await deleteLesson({ id: lessonIdAndType.id, type: lessonIdAndType.type })
     }
   }
 
@@ -41,7 +43,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonIdAndType, sho
     if (event.target.files) {
       const files = event.target.files
 
-      patchData(lesson, 'lesson_id', 'file', files[0], addFile)
+      patchData(lesson, `${lessonIdAndType.type}_id`, 'file', files[0], addFile, lessonIdAndType.type)
     }
   }
 
@@ -68,7 +70,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonIdAndType, sho
           </div>
         </div>
 
-        <AddPost lesson={lesson} isPreview={isToggle} />
+        <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} isPreview={isToggle} />
 
         <form acceptCharset="utf-8" className={styles.redactorCourse_rightSide_functional_form}>
           <span className={styles.redactorCourse_rightSide_functional_form_title}>Прикреплённые файлы</span>
