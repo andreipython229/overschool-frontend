@@ -8,11 +8,11 @@ import { LessonsBlockT } from '../../../../../navigationTypes'
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
 
-export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, order, lessonsName, id }) => {
+export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, lessonsName, id }) => {
   const [deleteLesson] = useDeleteLessonsMutation()
 
   const handleDeleteLesson = async () => {
-    await deleteLesson(id)
+    await deleteLesson({ id, type })
   }
   const handleChangeLesson = () => {
     const idAndType = {

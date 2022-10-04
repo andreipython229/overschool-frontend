@@ -11,7 +11,7 @@ import { youtubeParser } from '../../utils/youtubeParser'
 
 import styles from './addVideo.module.scss'
 
-export const AddVideo: FC<setShowType & AddPostT> = ({ isPreview, addFile, lesson, setShow }) => {
+export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPreview, addFile, lesson, setShow }) => {
   const [addVideoLink, setAddVideoLink] = useState<string>('')
 
   const handleChangeInputLink = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +19,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ isPreview, addFile, lesso
   }
 
   const handleSaveVideoLink = () => {
-    addFile && patchData(lesson, 'lesson_id', 'video', addVideoLink, addFile)
+    addFile && patchData(lesson, `${lessonIdAndType?.type}_id`, 'video', addVideoLink, addFile, lessonIdAndType?.type)
     setAddVideoLink('')
   }
   const opts: YouTubeProps['opts'] = {

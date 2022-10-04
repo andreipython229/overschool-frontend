@@ -6,7 +6,6 @@ import { Input } from '../../components/common/Input/Input/Input'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { searchIconPath } from '../../config/commonSvgIconsPath'
 import { useFilterData } from '../../customHooks/useFilterData'
-import { CoursesT, CoursesDataT } from '../../types/CoursesT'
 
 import styles from './mobileCoursesPage.module.scss'
 

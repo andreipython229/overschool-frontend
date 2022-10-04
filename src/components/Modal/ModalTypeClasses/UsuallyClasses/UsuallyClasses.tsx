@@ -6,19 +6,19 @@ import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { useShowModal } from 'customHooks/useShowModal'
 import { crossIconPath } from 'config/commonSvgIconsPath'
 import { basicModalHeaderIconPath } from '../config/svgIconsPath'
-import { useCreateLessonsMutation } from 'api/modulesServices'
-import { getSectionId } from 'selectors'
-import { useAppSelector } from 'store/hooks'
+import { SettingClassesPropsT } from '../../ModalTypes'
+import { useCreateLesson } from '../../../../customHooks/useCreateLesson'
 
 import styles from '../../Modal.module.scss'
-import { SettingClassesPropsT } from '../../ModalTypes'
-import { findLength } from '../../../../utils/findLength'
 
 export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ modulesList, goToBack, addCourse, closedAll }) => {
-  const { section_id } = useAppSelector(getSectionId)
+  const { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
+    modulesList,
+    addCourse,
+    typeLesson: 'lessons',
+    modalType: 'usually',
+  })
 
-  const [nameLesson, setNameLesson] = useState<string>('')
-  const [balls, setBalls] = useState<number>(0)
   const [settingsActive, setSettingsActive] = useState<number>(0)
 
   const changeNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
@@ -27,24 +27,6 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ modulesList, g
 
   const changeBallsClasses = (event: ChangeEvent<HTMLInputElement>) => {
     setBalls(+event.target.value)
-  }
-
-  const [createLesson] = useCreateLessonsMutation()
-
-  const handleCreateLesson = async () => {
-    if (!nameLesson) {
-      return
-    }
-    const orderLessons = findLength(section_id, modulesList)
-    const createLessonData = {
-      name: nameLesson,
-      order: orderLessons,
-      section: section_id,
-      balls: balls,
-    }
-    addCourse(nameLesson, 'usually')
-
-    await createLesson(createLessonData)
   }
 
   useShowModal({ closedAll })
@@ -89,7 +71,11 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ modulesList, g
         )}
 
         <div className={styles.btnBlock}>
-          <Button onClick={goToBack} text={'Назад'} style={{ width: '85px', height: '100%', marginRight: '10px', padding: '17px', fontSize: '18px', fontWeight: '400', borderRadius: '10px' }}/>
+          <Button
+            onClick={goToBack}
+            text={'Назад'}
+            style={{ width: '85px', height: '100%', marginRight: '10px', padding: '17px', fontSize: '18px', fontWeight: '400', borderRadius: '10px' }}
+          />
           <Button onClick={handleCreateLesson} text={'Добавить занятие'} variant={'primary'} />
         </div>
       </div>

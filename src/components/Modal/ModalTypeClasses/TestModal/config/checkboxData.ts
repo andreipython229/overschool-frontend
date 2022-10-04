@@ -2,7 +2,7 @@ export const checkboxData = [
   {
     id: 'randomQuestions',
     name: 'rndQuest.',
-    span1: 'Ограничить количество попыток',
+    span1: 'Случайный порядок вопросов',
     span2: 'Вопросы будут задаваться в случайном порядк',
   },
   {
