@@ -1,11 +1,28 @@
 @import 'src/scss/variable';
 @import '../../scss/mixin.scss';
 
+.wrapper {
+  
+}
 .profile {
   @include display(flex);
+  @media only screen and (min-width : 320px) and (max-width : 376px) {
+    @include display(flex, column, flex-start, center);
+  }
 
   &_block {
     margin-bottom: 15px;
+    
+    @media only screen and (min-width : 320px) and (max-width : 376px) {
+      label {
+        @include font (400, 10px, 12px);
+        margin-top: 16px;
+      }
+      input {
+        @include font (400, 8px, 10px);
+      }
+      
+    }
 
     &_avatarBlock {
       position: relative;
@@ -15,6 +32,9 @@
         font-size: 14px;
         font-weight: 400;
         color: $font-color;
+        @media only screen and (min-width : 320px) and (max-width : 376px) {
+          @include font (400, 10px, 12px);
+        }
       }
 
       &_avatar {
@@ -43,6 +63,10 @@
       padding: 11px 43px 14px 14px;
       resize: vertical;
       margin-top: 18px;
+      @media only screen and (min-width : 320px) and (max-width : 376px) {
+        width: 100%;
+        @include font (500, 8px, 10px);
+      }
 
       & ::placeholder {
         color: #d2d7dc;
@@ -52,41 +76,78 @@
 }
 
 .container {
+  width: 546px;
   padding: 26px 36px;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: $box-shadow;
-
+  @media only screen and (min-width : 320px) and (max-width : 376px) {
+    width: 100%;
+        input {
+          @include font (400, 8px, 10px);
+        }
+        button {
+            width: 105px;
+            height: 27px;
+            border-radius: 5px;
+            @include font (600, 10px, 0);
+        }
+  }
   &_wrapper {
     margin-top: 16px;
   }
 }
 
 .notification {
+  width: 566px;
+  margin: 32px 0 36px 0;
   padding: 26px 16px 26px 36px;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: $box-shadow;
-  margin-bottom: 36px;
+  @media only screen and (min-width : 320px) and (max-width : 376px) {
+    width: 100%;
+  }
 
   &_toggleWrapper {
     @include display (flex, column);
 
     &_toggleBlock {
       @include display (flex, row, space-between);
+      @media only screen and (min-width : 320px) and (max-width : 376px) {
+        margin: 20px 0 0 0;
+      }
 
       &_text {
         width: 340px;
+        @media only screen and (min-width : 320px) and (max-width : 376px) {
+          width: 100%;
+        }
 
         &_header {
           color: $font-color;
           font-size: 12px;
+          @media only screen and (min-width : 320px) and (max-width : 376px) {
+            @include font (500, 10px, 12px);
+          }
         }
 
         &_desc {
           color: #a8abad;
           font-size: 11px;
+          @media only screen and (min-width : 320px) and (max-width : 376px) {
+            @include font (500, 8px, 10px);
+          }
         }
+      }
+      &_checkboxWrapper {
+          &:first-child {
+            @media only screen and (min-width : 320px) and (max-width : 376px) {
+                div {
+                  margin: 10px;
+                }
+            }
+          }
       }
     }
   }
@@ -96,4 +157,8 @@ h5 {
   font-size: 14px;
   font-weight: 500;
   color: $font-title;
+  @media only screen and (min-width : 320px) and (max-width : 376px) {
+    @include font (600, 12px, 14px);
+    margin: 0 0 20px 0;
+  }
 }

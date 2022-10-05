@@ -39,18 +39,18 @@ export const Profile = () => {
 
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <div className={styles.profile}>
         <AboutUser sex={sex} />
         <div>
-          <form style={{ width: '546px' }} className={styles.container}>
+          <form className={styles.container}>
             <h5>Изменить email</h5>
             <Input name={'email'} type={'text'} onChange={onChangeUserInfo} value={''} placeholder={'Новый email адрес'} />
             <div className={styles.container_wrapper}>
               <Button variant={email === userInfo.email ? 'disabled' : 'primary'} text={'Сохранить'} />
             </div>
           </form>
-          <form style={{ width: '546px', marginTop: '32px' }} className={styles.container}>
+          <form style={{ marginTop: '32px' }} className={styles.container}>
             <h5>Смена пароля</h5>
             <Input name={'Новый пароль'} type={'password'} onChange={e => changePassword(e)} value={''} placeholder={'Новый пароль'} />
             <div className={styles.container_wrapper}>
@@ -63,10 +63,10 @@ export const Profile = () => {
               />
             </div>
             <div className={styles.container_wrapper}>
-              <Button variant={newPassword.length >= 8 && newPassword === repeatNewPassword ? 'primary' : 'disabled'} text={'Сменить пароль'} />
+              <Button variant={newPassword.length >= 8 && newPassword === repeatNewPassword ? 'primary' : 'disabled'} text={'Сохранить'} />
             </div>
           </form>
-          <div style={{ width: '566px', marginTop: '32px' }} className={styles.notification}>
+          <div  className={styles.notification}>
             <h5>Уведомления</h5>
 
             <div className={styles.notification_toggleWrapper}>
@@ -76,7 +76,7 @@ export const Profile = () => {
                     <span className={styles.notification_toggleWrapper_toggleBlock_text_header}>{info}</span>
                     <p className={styles.notification_toggleWrapper_toggleBlock_text_desc}>{desc}</p>
                   </div>
-                  <div>
+                  <div className={styles.notification_toggleWrapper_toggleBlock_checkboxWrapper}>
                     <CheckboxBall />
                   </div>
                 </div>

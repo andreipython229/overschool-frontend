@@ -9,6 +9,7 @@ import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/pr
 import { AboutUserPropsT } from '../pageTypes'
 
 import styles from './profile.module.scss'
+import formStyles from './formStyles.module.scss'
 
 // const optionsList = [
 //   { label: 'Женский', value: 'Ж' },
@@ -74,17 +75,17 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
   } = formik
 
   return (
-    <form style={{ width: 'calc(100% * 0.6)', marginRight: '26px', marginBottom: '108px' }} className={styles.container} onSubmit={handleSubmit}>
+    <form className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
       <h3>Настройка профиля</h3>
       <div className={styles.profile_block}>
         <Input name={'email'} type={'text'} label={'Email:'} value={email} onChange={handleChange} />
         {/* {errors.email} */}
       </div>
-      <div className={styles.profile_block}>
-        <div className={styles.profile_block_avatarBlock}>
-          <span className={styles.profile_block_avatarBlock_title}>Аватар:</span>
+      <div className={formStyles.form_avatarWrapper}>
+        <div className={formStyles.form_avatarWrapper_avatarBlock}>
+          <span className={formStyles.form_avatarWrapper_avatarBlock_title}>Аватар:</span>
           {avatar_url ? (
-            <img className={styles.profile_block_avatarBlock_avatar} src={avatar_url} alt="User Avatar" />
+            <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={avatar_url} alt="User Avatar" />
           ) : (
             <div className={styles.profile_block_avatarBlock_avatar} />
           )}
@@ -134,7 +135,7 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
          <option value={'Ж'}>Женский</option>
         </select> */}
       </div>
-      <div>
+      <div className={formStyles.form_btnSave}>
         <Button type="submit" text={'Сохранить'} variant={'primary'} />
       </div>
     </form>
