@@ -10,13 +10,13 @@
   border-radius: 7px;
   margin-bottom: 25px;
 
-  @media only screen and (min-width : 320px) and (max-width : 376px) {
+  @media only screen and (min-width: 320px) and (max-width: 376px) {
     margin: 30px 0 17px 0;
     height: 228px;
   }
 
   &_bcgrShadow {
-    @include position_t_l (absolute, 0, 0);
+    @include position_t_l(absolute, 0, 0);
     opacity: 0.5;
     width: 100%;
     height: 100%;
@@ -36,8 +36,8 @@
   }
 
   &_infoBlock {
-    @include position_b_l (absolute, 26px, 34px);
-    @include display (flex, row, flex-start, center);
+    @include position_b_l(absolute, 26px, 34px);
+    @include display(flex, row, flex-start, center);
     &_avatar {
       border: 1px solid #ffffff;
       border-radius: 50%;
@@ -46,7 +46,7 @@
     }
 
     &_title {
-      @include display (flex, column);
+      @include display(flex, column);
       &_description {
         color: #ba75ff;
         font-size: 14px;
@@ -67,51 +67,51 @@
   }
 
   &_onlineCourses {
-    @include position_t_l (absolute, 107px, 44px);
-    @include font (500, 14px, 17px);
+    @include position_t_l(absolute, 107px, 44px);
+    @include font(500, 14px, 17px);
     color: #ba75ff;
     text-transform: uppercase;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
-      @include position_t_l (absolute, 107px, 16px);
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
+      @include position_t_l(absolute, 107px, 16px);
     }
   }
 
   &_btn {
-    @include position_b_r (absolute, 44px, 37px);
+    @include position_b_r(absolute, 44px, 37px);
     & button {
       padding: 10px 14px;
     }
   }
 
   &_courseInfo {
-    @include position_b_l (absolute, 10%, 44px, 5);
-    @include display (flex);
+    @include position_b_l(absolute, 10%, 44px, 5);
+    @include display(flex);
     color: #fff;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
-      @include position_b_l (absolute, 15px, 16px, 5);
-      @include font (500, 8px, 10px);
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
+      @include position_b_l(absolute, 15px, 16px, 5);
+      @include font(500, 8px, 10px);
     }
   }
   &_progress {
-    @include position_b_r (absolute, 10%, 3%);
-    @include display (flex, column, flex-start, flex-end);
+    @include position_b_r(absolute, 10%, 3%);
+    @include display(flex, column, flex-start, flex-end);
     color: #fff;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
-      @include position_t_r (absolute, 16px, 16px, 10); 
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
+      @include position_t_r(absolute, 16px, 16px, 10);
     }
     &_graph {
-      @include display (flex, row, center, center);
-      @include font (700, 10px, 15px);
+      @include display(flex, row, center, center);
+      @include font(700, 10px, 15px);
       width: 64px;
       height: 64px;
       border: 16px solid #fff;
       border-radius: 50%;
     }
     &_info {
-      @include font (400, 10px, 12px);
+      @include font(400, 10px, 12px);
       margin-top: 3px;
-      @media only screen and (min-width : 320px) and (max-width : 376px) {
-        @include position_b_l (absolute, 40px, -182px);
+      @media only screen and (min-width: 320px) and (max-width: 376px) {
+        @include position_b_l(absolute, 40px, -182px);
       }
     }
   }
@@ -124,7 +124,7 @@
   font-weight: 500;
 }
 .hide_input {
-  @include position_t_l (absolute, 0, 0);
+  @include position_t_l(absolute, 0, 0);
   width: 66px;
   height: 66px;
   opacity: 0;
@@ -133,7 +133,7 @@
   opacity: 0;
 }
 .label_input_background_image {
-  @include position_t_l (absolute, 0, 50%);
+  @include position_t_l(absolute, 0, 50%);
   transform: translateX(-50%);
   border-radius: 0 0 15px 15px;
   padding-top: 15px;
@@ -144,29 +144,29 @@
   text-align: center;
 }
 .previous_title_name {
-  @include position_t_l (absolute, 125px, 43px);
-  @include font (500, 20px, 24px);
+  @include position_t_l(absolute, 125px, 43px);
+  @include font(500, 20px, 24px);
   color: #fff;
-  @media only screen and (min-width : 320px) and (max-width : 376px) {
-    @include position_t_l (absolute, 125px, 16px); 
+  @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @include position_t_l(absolute, 125px, 16px);
   }
 }
 .back_all_course {
-  @include position_t_l (absolute, 40px, 44px);
-  @include display (flex, row, flex-start, center);
+  @include position_t_l(absolute, 40px, 44px);
+  @include display(flex, row, flex-start, center);
   color: #fff;
   text-decoration: none;
   cursor: pointer;
-  @media only screen and (min-width : 320px) and (max-width : 376px) {
-    @include position_t_l (absolute, -22px, 0, 10); 
+  @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @include position_t_l(absolute, -22px, 0, 10);
   }
 
   span {
-    @include font (500, 12px, 15px);
+    @include font(500, 12px, 15px);
     margin-left: 13px;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
-      @include font (500, 10px, 12px);
-      color: #1D1D1D;
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
+      @include font(500, 10px, 12px);
+      color: #1d1d1d;
     }
   }
 }

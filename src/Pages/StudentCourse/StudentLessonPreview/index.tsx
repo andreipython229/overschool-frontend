@@ -25,7 +25,6 @@ export const StudentLessonPreview = () => {
   const { data: lessons } = useFetchModuleLessonsQuery(sectionId)
   const { data: lesson } = useFetchLessonQuery({ id: lessonId, type: lessonType })
 
-
   const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
 
   const activeLessonIndex = lessons?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.id === +lessonId)
@@ -59,9 +58,8 @@ export const StudentLessonPreview = () => {
             <div className={styles.lesson__content}>
               <span className={styles.lesson__desc}>{lesson?.description ? parse(`${lesson?.description}`) : 'Нет описания'}</span>
             </div>
-            <div>
-              <YouTube opts={opts} videoId={videoLinkId as string} />
-            </div>
+            {/* <StudentLessonDesc */}
+            <div>{lessonType === 'lesson' && <YouTube opts={opts} videoId={videoLinkId as string} />}</div>
             <div className={styles.lesson__content}>
               {(lesson?.code || lesson?.file_url || lesson?.audio_url) && <span className={styles.lesson__materials}>Материалы к занятию:</span>}
               {lesson?.code && (
@@ -113,7 +111,7 @@ export const StudentLessonPreview = () => {
               text="Следующее"
             />
           </div>
-          {lesson?.type === 'homework' && <StudentLessonTextEditor />}
+          {lessonType === 'homework' && <StudentLessonTextEditor />}
         </div>
         <div className={styles.lesson__block}>
           <p className={styles.lesson__block_title}>Занятия модуля:</p>
@@ -127,7 +125,6 @@ export const StudentLessonPreview = () => {
                   className={activeLessonIndex === index ? styles.lesson__item_active : styles.lesson__item}
                 >
                   {lessonSvgMapper[type]}
-                  {/* <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={stackIconPath} /> */}
                   <span className={styles.lesson__item_name}>{name}</span>
                 </div>
               ))}
