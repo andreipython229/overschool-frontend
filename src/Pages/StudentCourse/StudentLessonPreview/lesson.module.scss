@@ -6,17 +6,17 @@
   // -moz-transform: translateX(-50%);
   // -ms-transform: translateX(-50%);
   // -o-transform: translateX(-50%);
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
-      @include display (flex, column, flex-start, center);
-      width: 280px;
-      margin-top: 20px;
-    }
+  @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @include display(flex, column, flex-start, center);
+    width: 280px;
+    margin-top: 20px;
+  }
   &__codeWraper {
     margin-bottom: 15px;
     background: #f3f4f6;
     padding: 15px;
     border-radius: 7px;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
       padding: 10px;
     }
   }
@@ -29,7 +29,7 @@
   }
   &__code_text {
     font-weight: 600;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
       font-size: 8px;
     }
   }
@@ -37,7 +37,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
       align-self: flex-start;
     }
   }
@@ -61,7 +61,7 @@
 
   &__content {
     padding: 0 32px;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
       padding: 0 10px;
       figure {
         width: 100%;
@@ -80,8 +80,8 @@
 
   &__blocks {
     display: flex;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
-      @include display (flex, column, flex-start, center);
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
+      @include display(flex, column, flex-start, center);
     }
   }
 
@@ -89,8 +89,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
-      @include display (flex, column, flex-start, center);
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
+      @include display(flex, column, flex-start, center);
     }
   }
 
@@ -101,7 +101,7 @@
     width: 100%;
     background: #ffff;
     box-shadow: 0 0 8px #d9d9d9;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
       min-width: 280px;
       width: 300px;
       iframe {
@@ -114,6 +114,7 @@
     display: flex;
     align-items: center;
     margin-top: 32px;
+    margin-right: 5px;
   }
 
   &__btnNext,
@@ -214,8 +215,26 @@
     border-radius: 7px;
     margin-left: 25px;
     max-height: 505px;
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
-     margin: 32px 0 0 0;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 9px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #e1dbe6;
+      height: 128px;
+      border: 3px solid #ffff;
+      border-top: 8px solid #ffff;
+      border-bottom: 8px solid #ffff;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+      border-radius: 5px;
+    }
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
+      margin: 32px 0 0 0;
     }
   }
 

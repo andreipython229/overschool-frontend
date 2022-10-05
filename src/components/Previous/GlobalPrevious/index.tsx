@@ -83,9 +83,9 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   const { photo_background, logo_header } = schoolHeaderDataToRender
   const isMatchPath = pathname === Path.InitialPage + Path.Courses
 
-  const changedBg = data?.photo_background_url
+  const changedBg = photo_background
     ? {
-        background: `url(${photo_background || data.photo_background_url}) no-repeat center center`,
+        background: `url(${photo_background}) no-repeat center center`,
         backgroundSize: 'cover',
       }
     : { background: '#e0dced' }
@@ -109,7 +109,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
           />
         )}
 
-        <img className={styles.previous_infoBlock_avatar} src={logo_header || data?.logo_header_url || noAvatar} alt="" />
+        <img className={styles.previous_infoBlock_avatar} src={logo_header || noAvatar} alt="" />
         <div className={styles.previous_infoBlock_title}>
           {edit ? (
             <input

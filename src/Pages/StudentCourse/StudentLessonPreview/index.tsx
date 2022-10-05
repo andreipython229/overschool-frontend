@@ -56,9 +56,12 @@ export const StudentLessonPreview = () => {
           <div className={styles.lesson__card}>
             <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
             <div className={styles.lesson__content}>
-              <span className={styles.lesson__desc}>{lesson?.description ? parse(`${lesson?.description}`) : 'Нет описания'}</span>
+              {lessonType === 'homework' ? (
+                <StudentLessonDesc text={lesson?.text || ''} />
+              ) : (
+                <span className={styles.lesson__desc}>{lesson?.description ? parse(`${lesson?.description}`) : 'Нет описания'}</span>
+              )}
             </div>
-            {/* <StudentLessonDesc */}
             <div>{lessonType === 'lesson' && <YouTube opts={opts} videoId={videoLinkId as string} />}</div>
             <div className={styles.lesson__content}>
               {(lesson?.code || lesson?.file_url || lesson?.audio_url) && <span className={styles.lesson__materials}>Материалы к занятию:</span>}
@@ -80,7 +83,6 @@ export const StudentLessonPreview = () => {
               )}
               {lesson?.file_url && (
                 <>
-                  <span className={styles.lesson__block_name}>Файл</span>
                   <a href={lesson?.file_url} download target={'_blanck'}>
                     <div className={styles.lesson__download_container}>
                       <div className={styles.lesson__dowload_wrap}>
@@ -117,10 +119,10 @@ export const StudentLessonPreview = () => {
           <p className={styles.lesson__block_title}>Занятия модуля:</p>
           <div>
             {lessons?.lessons.length &&
-              lessons?.lessons.map(({ name, id, type }: lessonT, index: number) => (
+              lessons?.lessons.map(({ name, id, type, order }: lessonT, index: number) => (
                 <div
                   style={{ cursor: 'pointer' }}
-                  key={id}
+                  key={order}
                   onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/lesson/${id}`)}
                   className={activeLessonIndex === index ? styles.lesson__item_active : styles.lesson__item}
                 >

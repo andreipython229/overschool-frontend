@@ -6,7 +6,7 @@ import { useFetchModulesQuery } from '../../../api/modulesServices'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { backArr } from '../../../components/Previous/config/svgIconPath'
-import { lessonT } from '../../../types/sectionT'
+import { lessonT, sectionT } from '../../../types/sectionT'
 import { lessonSvgMapper } from '../../../config/LessonsMaper'
 
 import styles from './student_course_header.module.scss'
@@ -20,7 +20,7 @@ export const StudentCourseHeader: FC = () => {
 
   const [modulesData, setModulesData] = useState(modules)
 
-  const arrOfLessons = modulesData?.sections.reduce((acc: lessonT[], item: any) => {
+  const arrOfLessons = modulesData?.sections.reduce((acc: lessonT[], item: sectionT) => {
     return [...acc, ...item.lessons]
   }, [])
 

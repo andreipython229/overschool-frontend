@@ -1,8 +1,11 @@
+import { FC } from 'react'
+
 import styles from './../lesson.module.scss'
 
-export const StudentLessonDesc = () => {
+type studentLessonDescT = {
+  text: string
+}
 
-  return (
-    <span className={styles.lesson__desc}>Здесь будет текст ДЗ</span>
-  )
+export const StudentLessonDesc: FC<studentLessonDescT> = ({ text }) => {
+  return <span className={styles.lesson__desc}>{text || 'Здесь будет текст ДЗ'}</span>
 }

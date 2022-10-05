@@ -48,6 +48,11 @@ export const studentsGroupService = createApi({
       }),
       invalidatesTags: ['studentsGroup'],
     }),
+    fetchHomeworkStats: build.query<any, void>({
+      query: () => ({
+        url: `/homeworks_stats/`,
+      }),
+    }),
   }),
 })
 
@@ -58,4 +63,5 @@ export const {
   useFetchStudentsGroupQuery,
   useCreateStudentsGroupMutation,
   useDeleteStudentsGroupMutation,
+  useFetchHomeworkStatsQuery
 } = studentsGroupService

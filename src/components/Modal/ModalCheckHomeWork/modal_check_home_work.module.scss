@@ -1,11 +1,32 @@
-@import '../../scss/mixin.scss';
+@import '../../../scss/mixin.scss';
 
 .modal_container {
-  width: 1174px;
+  position: fixed;
+  z-index: 9999;
+  background: rgba(47, 47, 47, 0.72);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.modal_content {
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  background: #ffff;
+  transform: translate(50%, -50%);
+  -webkit-transform: translate(50%, -50%);
+  -moz-transform: translate(50%, -50%);
+  -ms-transform: translate(50%, -50%);
+  -o-transform: translate(50%, -50%);
   padding: 0 30px;
+  max-width: 75vw;
+  width: 100%;
   h3 {
-    color: #4D5766;
-    @include font (500, 18px);
+    color: #4d5766;
+    @include font(500, 18px);
     line-height: 22px;
   }
 }
@@ -16,16 +37,16 @@
 }
 .modal_btn_is_toggle {
   position: relative;
-  @include display (flex, row, center, center);
+  @include display(flex, row, center, center);
   margin-top: 40px;
   width: 100%;
-  background-color: #F3F4F6;
+  background-color: #f3f4f6;
   border: none;
   color: #a1a6af;
   padding: 16px;
   border-radius: 10px;
   span {
-    @include position_t_l (absolute, 46%, 38%);
+    @include position_t_l(absolute, 46%, 38%);
     width: 15px;
     height: 5px;
   }
@@ -41,15 +62,15 @@
   margin: auto;
 }
 .btn_grey {
-  @include display (flex, row, space-between, center);
-  @include font ( 500, 14px);
+  @include display(flex, row, space-between, center);
+  @include font(500, 14px);
   border: none;
   cursor: pointer;
   padding: 20px 10px;
   border-radius: 7px;
   box-sizing: border-box;
   color: #6b7484;
-  background-color: #F3F4F6;
+  background-color: #f3f4f6;
   width: fit-content;
   text-align: center;
   height: 39px;
@@ -58,22 +79,22 @@
   }
 }
 .task_status {
-  @include display (flex);
-  @include font ( 500, 18px, 22px);
+  @include display(flex);
+  @include font(500, 18px, 22px);
   margin-right: 40px;
-  color: #9CA3AF;
+  color: #9ca3af;
 }
 .task_info {
   display: inline-flex;
   &_item {
-    @include display (flex);
+    @include display(flex);
     margin: 0 30px 0 0;
     span {
-      @include display (flex, row, space-between, center);
-      @include font ( 400, 14px);
+      @include display(flex, row, space-between, center);
+      @include font(400, 14px);
       width: fit-content;
       margin: 0 10px;
-      color: #4D5766;
+      color: #4d5766;
     }
   }
 }
@@ -82,8 +103,8 @@
   width: 100%;
   justify-content: right;
   &_btn_done {
-    @include display (flex, row, space-between, center);
-    @include font ( 500, 14px);
+    @include display(flex, row, space-between, center);
+    @include font(500, 14px);
     margin: 0 30px 0 0;
     border: none;
     padding: 20px 10px;
@@ -93,7 +114,7 @@
     text-align: center;
     height: 39px;
 
-    background: #C5ECE5;
+    background: #c5ece5;
     svg:first-of-type {
       margin-right: 10px;
     }
@@ -102,8 +123,8 @@
     }
   }
   &_btn_addFile {
-    @include display (flex, row, space-between, center);
-    @include font ( 500, 14px);
+    @include display(flex, row, space-between, center);
+    @include font(500, 14px);
     border: none;
     padding: 20px 10px;
     border-radius: 7px;
@@ -120,8 +141,8 @@
     }
   }
   &_btn_send {
-    @include display (flex, row, space-between, center);
-    @include font ( 500, 14px);
+    @include display(flex, row, space-between, center);
+    @include font(500, 14px);
     margin: 0 30px 0 0;
     border: none;
     padding: 20px 10px;
@@ -131,15 +152,15 @@
     text-align: center;
     height: 39px;
 
-    background: #BA75FF;
-    color: #FFFFFF;
+    background: #ba75ff;
+    color: #ffffff;
     svg {
       margin-right: 10px;
     }
   }
   &_btn_mark {
-    @include display (flex, row, space-between, center);
-    @include font ( 500, 14px);
+    @include display(flex, row, space-between, center);
+    @include font(500, 14px);
     margin: 0 30px 0 0;
     //border: none;
     padding: 20px 10px;
@@ -149,14 +170,13 @@
     text-align: center;
     height: 39px;
 
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
     border-radius: 5px;
     svg {
       margin-right: 10px;
     }
   }
-
 }
 .answer_header {
   margin: 20px 0;
@@ -175,8 +195,8 @@
   margin-bottom: 40px;
 }
 .speech_bubble:before {
-  content: "";
-  @include position_t_l (absolute, -14px, 20px);
+  content: '';
+  @include position_t_l(absolute, -14px, 20px);
   width: 0px;
   height: 0px;
   border-left: 24px solid #fff;
@@ -185,8 +205,8 @@
   border-top: 20px solid transparent;
 }
 .teacher {
-  @include display (flex, row, flex-start, center);
-  @include font ( 500, 18px);
+  @include display(flex, row, flex-start, center);
+  @include font(500, 18px);
   color: #6b7484;
   padding-bottom: 30px;
   &_avatar {
@@ -195,8 +215,8 @@
     margin-right: 10px;
   }
   &_teacherData {
-    @include display (flex, column);
-    @include font ( 400, 14px, 17px);
+    @include display(flex, column);
+    @include font(400, 14px, 17px);
     &_name {
       font-weight: 500;
       margin-bottom: 5px;
