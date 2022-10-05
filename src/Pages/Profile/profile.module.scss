@@ -1,9 +1,6 @@
 @import 'src/scss/variable';
 @import '../../scss/mixin.scss';
 
-.wrapper {
-  
-}
 .profile {
   @include display(flex);
   @media only screen and (min-width : 320px) and (max-width : 376px) {
