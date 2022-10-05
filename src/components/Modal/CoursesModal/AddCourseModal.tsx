@@ -12,7 +12,7 @@ import { AddCourseModalPropsT } from '../ModalTypes'
 
 import styles from '../Modal.module.scss'
 
-export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) => {
+export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ courses, setShowModal }) => {
   const navigate = useNavigate()
 
   const [name, setName] = useState<string>('')
@@ -24,9 +24,9 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ setShowModal }) 
 
   const addCourseName = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (name) {
+    if (name && courses) {
       const formdata = new FormData()
-      formdata.append('order', String(1))
+      formdata.append('order', String(courses.length + 1))
       formdata.append('name', name)
       formdata.append('author_id_id', String(1))
       const data = await createCourses(formdata)

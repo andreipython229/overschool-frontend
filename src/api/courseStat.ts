@@ -9,7 +9,7 @@ export const courseStatService = createApi({
   endpoints: build => ({
     fetchCourseStat: build.query({
       query: id => ({
-        url: `/course_stat/${id}`,
+        url: `/courses/${id}/stats`,
       }),
       providesTags: ['courseStat'],
     }),

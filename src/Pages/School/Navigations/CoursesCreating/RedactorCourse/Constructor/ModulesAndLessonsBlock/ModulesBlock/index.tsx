@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
 import { useDeleteModulesMutation, usePatchModulesMutation } from 'api/modulesServices'
@@ -12,7 +12,7 @@ import { LessonT, ModulesBlockT } from '../../../../../navigationTypes'
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
 
-export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonIdAndType, moduleName, lessonsList, id, setModalTypeClasses }) => {
+export const ModulesBlock: FC<ModulesBlockT> = memo(({ setLessonIdAndType, moduleName, lessonsList, id, setModalTypeClasses }) => {
   const dispatch = useAppDispatch()
   const [changeModuleName, setChangeModuleName] = useState<string>(moduleName)
 
@@ -69,4 +69,4 @@ export const ModulesBlock: FC<ModulesBlockT> = ({ setLessonIdAndType, moduleName
       </ul>
     </>
   )
-}
+})
