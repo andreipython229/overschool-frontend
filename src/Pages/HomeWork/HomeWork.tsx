@@ -1,17 +1,33 @@
-import { useState } from 'react'
+import { useState, FC } from 'react'
 
 import { SelectDropDown } from '../../components/SelectDropDown/SelectDropDown'
 import { FiltersButton } from '../../components/FiltersButton'
 import { Input } from '../../components/common/Input/Input/Input'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { dropDownListFilter } from '../../constants/dropDownList'
-//import { StudentsTableBlock } from '../../components/StudentsTableBlock'
+import { HomeworksStatsTable } from '../../components/HomeworksStatsTable/index'
 import { searchIconPath } from '../../config/commonSvgIconsPath'
+import { ModalCheckHomeWork } from '../../components/Modal/ModalCheckHomeWork/ModalCheckHomeWork'
 
 import styles from './home_work.module.scss'
 
-export const HomeWork = () => {
+export const HomeWork: FC = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [userHomeworkId, setUserHomeworkId] = useState<number>(0)
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const onSelectUserHomeworkId = (id: number) => {
+    setUserHomeworkId(id)
+  }
 
   return (
     <>
@@ -23,8 +39,8 @@ export const HomeWork = () => {
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
       </div>
-      {/*<StudentsTableBlock />*/}
-      {/* <ModalCheckHomeWork /> */}
+      <HomeworksStatsTable onSelectUserHomeworkId={onSelectUserHomeworkId} handleOpenModal={handleOpenModal} />
+      {isModalOpen && <ModalCheckHomeWork userHomeworkId={userHomeworkId} />}
     </>
   )
 }

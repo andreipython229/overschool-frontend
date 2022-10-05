@@ -16,6 +16,7 @@ interface ISettingItem {
 
 export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsList }) => {
   const [checkedList, setIsCheckedList] = useState<studentGroupInfoT[]>([])
+
   const controls = useDragControls()
 
   const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
