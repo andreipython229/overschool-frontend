@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import parse from 'html-react-parser'
 
 import { AddVideo } from 'components/AddVideo'
@@ -19,7 +19,7 @@ import Code from '../.././assets/img/createCourse/code.svg'
 
 import styles from './addPost.module.scss'
 
-export const AddPost: FC<AddPostT> = ({ lessonIdAndType, lesson, isPreview }) => {
+export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview }) => {
   const [isOpenTextEditor, { on: closeTextEditor, off: openTextEditor }] = useBoolean()
   const [isOpenVideo, { on: closeVideo, off: openVideo }] = useBoolean()
   const [isOpenAudio, { on: closeAudio, off: openAudio }] = useBoolean()
@@ -76,4 +76,4 @@ export const AddPost: FC<AddPostT> = ({ lessonIdAndType, lesson, isPreview }) =>
       </section>
     </>
   )
-}
+})

@@ -1,4 +1,4 @@
-import { sectionT } from '../types/sectionT'
+//import { sectionT } from '../types/sectionT'
 
 export type CoursesDataT = {
   course_id: string

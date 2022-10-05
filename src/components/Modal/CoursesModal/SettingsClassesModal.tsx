@@ -42,7 +42,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ modulesLis
     event.preventDefault()
     patchData(data, `${lessonIdAndType.type}_id`, 'name', nameLesson, changeNameLesson, lessonIdAndType.type)
     if (balls) {
-      patchData(data, `${lessonIdAndType.type}_id`, 'balls', balls, changeNameLesson, lessonIdAndType.type)
+      patchData(data, `${lessonIdAndType.type}_id`, 'balls', balls.toString(), changeNameLesson, lessonIdAndType.type)
     }
   }
 

@@ -14,12 +14,12 @@ type StudentsTableBlockT = {
   setShowModal: () => void
 }
 
-export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({setShowModal }) => {
+export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ setShowModal }) => {
   const [cols, setCols] = useState<string[]>([])
   const [rows, setRows] = useState<Array<{ [key: string]: string | number }>>()
 
   const { data: students, isSuccess: isStudentsRecieved } = useFetchCourseStatQuery(1)
-  const { data: studentsTableHeader, isSuccess: isTableHeaderRecieved } = useFetchStudentsTableHeaderQuery(1)
+  const { data: studentsTableHeader, isSuccess: isTableHeaderRecieved } = useFetchStudentsTableHeaderQuery(4)
 
   const { columns, data } = generateData(studentsTableHeader, students, isStudentsRecieved, isTableHeaderRecieved)
 

@@ -13,14 +13,14 @@ export const patchData = (
   objectData: objectDataT,
   innerKey: keyof objectDataT,
   key: string,
-  value: string | number | Blob | File,
+  value: string | Blob | File,
   funcUpdate: (arg: IFuncUpdate) => void,
   type?: string,
 ) => {
   if (objectData && innerKey) {
     const id = objectData[innerKey]
     const formdata = new FormData()
-    formdata.append(key, value.toString())
+    formdata.append(key, value)
     if (type) {
       funcUpdate({ formdata, type, id })
     } else {

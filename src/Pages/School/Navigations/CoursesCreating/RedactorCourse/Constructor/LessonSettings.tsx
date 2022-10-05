@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import { CheckboxBall } from 'components/common/CheckboxBall'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -13,7 +13,7 @@ import { useBoolean } from 'customHooks/useBoolean'
 
 import styles from './constructor.module.scss'
 
-export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonIdAndType, showSettingsClassesModal }) => {
+export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ lessonIdAndType, showSettingsClassesModal }) => {
   const dispatch = useAppDispatch()
   const [isToggle, { onToggle }] = useBoolean()
 
@@ -84,4 +84,4 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = ({ lessonIdAndType, sho
       </div>
     </div>
   )
-}
+})

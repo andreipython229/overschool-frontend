@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { settingsBtnIconPath, studentIconPath } from '../config/svgIconsPath'
@@ -12,7 +12,7 @@ type StudentsGroupPropsT = {
   id: number
 }
 
-export const StudentGroup: FC<StudentsGroupPropsT> = ({ title, countStudent, id }) => {
+export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent, id }) => {
   const [settingsGroupModal, setSettingsGroupModal] = useState<boolean>(false)
 
   const showSettingsModal = () => {
@@ -23,7 +23,13 @@ export const StudentGroup: FC<StudentsGroupPropsT> = ({ title, countStudent, id 
     <>
       {settingsGroupModal && <SettingsGroupModal closeModal={showSettingsModal} name={title} groupId={id} />}
       <div className={styles.students_group_content_wrapper_info}>
-        <IconSvg width={18} height={18} viewBoxSize={'0 0 18 18'} path={settingsBtnIconPath} className={styles.students_group_content_wrapper_info_students_icon}/>
+        <IconSvg
+          width={18}
+          height={18}
+          viewBoxSize={'0 0 18 18'}
+          path={settingsBtnIconPath}
+          className={styles.students_group_content_wrapper_info_students_icon}
+        />
         <div className={styles.students_group_content_wrapper_info_info_wrapper}>
           <span className={styles.students_group_content_wrapper_info_info_wrapper_name}>{title}</span>
           <div className={styles.students_group_content_wrapper_info_info_wrapper_amount_wrapper}>
@@ -41,4 +47,4 @@ export const StudentGroup: FC<StudentsGroupPropsT> = ({ title, countStudent, id 
       </div>
     </>
   )
-}
+})

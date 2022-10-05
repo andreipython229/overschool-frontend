@@ -19,6 +19,7 @@ const baseQuery = fetchBaseQuery({
 export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
   const { user } = JSON.parse(`${localStorage?.getItem('persist:root')}`)
   const refreshToken = JSON.parse(user).refresh_token
+  //const refreshToken = (getState() as RootState)?.user?.refresh_token
 
   let result = await baseQuery(args, api, extraOptions)
 

@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
-import {CoursesDataT} from '../../../../types/CoursesT'
+import { CoursesDataT } from '../../../../types/CoursesT'
 import { Button } from 'components/common/Button/Button'
 import { Path, Student } from 'enum/pathE'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
@@ -35,7 +35,7 @@ export const CoursePage: FC = memo(() => {
   const [nameCourses, foundCourses, filterData] = useFilterData(courses?.results as any, 'name')
 
   const dispatchHandlerModal = () => {
-    onToggle && onToggle()
+    onToggle()
 
     dispatch(showModal(true))
   }
@@ -122,7 +122,7 @@ export const CoursePage: FC = memo(() => {
           </div>
         )}
       </div>
-      {isOpenAddCourse && <AddCourseModal setShowModal={onToggle} />}
+      {isOpenAddCourse && <AddCourseModal courses={courses?.results} setShowModal={onToggle} />}
     </div>
   )
 })

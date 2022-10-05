@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
 import { LessonT } from '../../Pages/School/Navigations/navigationTypes'
+import { CoursesDataT } from '../../types/CoursesT'
 
 export type ModulesT = {
   section_name: string
@@ -24,6 +25,7 @@ export type AddEmployeeModalPropsT = {
 
 export type AddCourseModalPropsT = {
   setShowModal: () => void
+  courses: CoursesDataT[] | undefined
 }
 
 export type AddModuleModalPropsT = {
