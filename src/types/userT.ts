@@ -6,13 +6,7 @@ export type userInitialT = {
 
 export type UserT = {
   auth: boolean
-  user: userInitialT
-  phone_number: string
-  avatar: string | null
-  city: string
-  sex: string
   permission: number
-  aboutMySelf: string
 }
 
 export type CreateUserT = {

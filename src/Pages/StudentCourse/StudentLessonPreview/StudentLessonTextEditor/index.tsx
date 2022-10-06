@@ -1,9 +1,12 @@
+import { FC } from 'react'
+
 import { paperClipIconPath } from '../../../School/config/svgIconsPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { MyEditor } from 'components/MyEditor/MyEditor'
+
 import styles from './studentLessonTextEditor.module.scss'
 
-export const StudentLessonTextEditor = () => {
+export const StudentLessonTextEditor: FC = () => {
   return (
     <div className={styles.wrapper}>
       <h5 className={styles.wrapper_title}>Введите ответ на задание:</h5>

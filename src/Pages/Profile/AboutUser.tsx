@@ -3,26 +3,20 @@ import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
-//import { SelectInput } from 'components/common/SelectInput/SelectInput'
-import { userDataSchema } from './schemas'
+import { SelectInput } from 'components/common/SelectInput/SelectInput'
+import { userDataSchema } from './schemas/index'
 import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/profileService'
-import { AboutUserPropsT } from '../pageTypes'
 
 import styles from './profile.module.scss'
 import formStyles from './formStyles.module.scss'
 
-// const optionsList = [
-//   { label: 'Женский', value: 'Ж' },
-//   { label: 'Мужской', value: 'М' },
-// ]
+const optionsList = ['Женский', 'Мужской']
 
-export const AboutUser: FC<AboutUserPropsT> = memo(() => {
+export const AboutUser: FC = memo(() => {
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
   const [avatarUrl, setAvatarUrl] = useState<string>()
-  const [sex, setSex] = useState<string | number>('Ж')
 
   const { data } = useFetchProfileDataQuery(1)
-
   const [updateProfile] = useUpdateProfileMutation()
 
   const formik = useFormik({
@@ -31,7 +25,7 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
       avatar_url: avatarUrl || data?.avatar_url,
       city: data?.city,
       description: data?.description,
-      sex: data?.sex || sex,
+      sex: data?.sex || '',
       first_name: data?.user.first_name,
       last_name: data?.user.last_name,
       email: data?.user.email,
@@ -47,14 +41,14 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
       const objToSend = {
         city,
         description,
-        // sex,
+        sex,
         user: { ...rest },
       }
 
       avatarFile && formData.append('avatar', avatarFile)
 
-      avatarFile && updateProfile({userInfo: formData, id: 1})
-      updateProfile({userInfo: objToSend, id: 1})
+      avatarFile && updateProfile({ userInfo: formData, id: 1 })
+      updateProfile({ userInfo: objToSend, id: 1 })
     },
   })
 
@@ -78,7 +72,7 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
     <form className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
       <h3>Настройка профиля</h3>
       <div className={styles.profile_block}>
-        <Input name={'email'} type={'text'} label={'Email:'} value={email} onChange={handleChange} />
+        <Input name={'email'} type={'text'} label={'Email:'} value={email as string} onChange={handleChange} />
         {/* {errors.email} */}
       </div>
       <div className={formStyles.form_avatarWrapper}>
@@ -93,10 +87,10 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
         </div>
       </div>
       <div className={styles.profile_block}>
-        <Input name={'first_name'} type={'text'} label={'Имя:'} onChange={handleChange} value={first_name} />
+        <Input name={'first_name'} type={'text'} label={'Имя:'} onChange={handleChange} value={first_name as string} />
       </div>
       <div className={styles.profile_block}>
-        <Input name={'last_name'} type={'text'} label={'Фамилия:'} onChange={handleChange} value={last_name} />
+        <Input name={'last_name'} type={'text'} label={'Фамилия:'} onChange={handleChange} value={last_name as string} />
       </div>
       <div className={styles.profile_block}>
         <Input
@@ -104,13 +98,13 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
           type={'text'}
           label={'Телефон:'}
           onChange={handleChange}
-          value={phone_number}
+          value={phone_number as string}
           placeholder={'Введите номер телефона'}
         />
         {/* {errors.phone_number} */}
       </div>
       <div className={styles.profile_block}>
-        <Input name={'city'} type={'text'} label={'Город:'} onChange={handleChange} value={city} placeholder={'Введите город'} />
+        <Input name={'city'} type={'text'} label={'Город:'} onChange={handleChange} value={city as string} placeholder={'Введите город'} />
       </div>
       <div className={styles.profile_block}>
         <span className={styles.profile_block_avatarBlock_title}>О себе:</span>
@@ -128,12 +122,10 @@ export const AboutUser: FC<AboutUserPropsT> = memo(() => {
       </div>
       <div className={styles.profile_block}>
         <span className={styles.profile_block_avatarBlock_title}>Пол:</span>
-        {/* <SelectInput optionsList={optionsList} setSelectedValue={setSex}/> */}
-        {/* <select onChange={handleChange} value={formik.values.sex} name="sex" id="sex">
-         <option defaultValue={''}> </option>
-         <option value={'М'}>Мужской</option>
-         <option value={'Ж'}>Женский</option>
-        </select> */}
+        <select onChange={handleChange} value={formik.values.sex} name="sex" id="sex">
+          <option value={'М'}>Мужской</option>
+          <option value={'Ж'}>Женский</option>
+        </select>
       </div>
       <div className={formStyles.form_btnSave}>
         <Button type="submit" text={'Сохранить'} variant={'primary'} />

@@ -6,7 +6,7 @@ import { studentsGroupT, studentsGroupsT } from '../types/studentsGroup'
 export const studentsGroupService = createApi({
   reducerPath: 'studentsGroupService',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['studentsGroup'],
+  tagTypes: ['studentsGroup', 'studentsTable', 'homeworks_stats'],
   endpoints: build => ({
     fetchStudentsGroup: build.query<studentsGroupT, void>({
       query: () => ({
@@ -18,15 +18,15 @@ export const studentsGroupService = createApi({
       query: id => ({
         url: `/students_table_info/${id}/`,
       }),
-      providesTags: ['studentsGroup'],
+      providesTags: ['studentsTable'],
     }),
-    patchStudentsTableHeader: build.mutation<any, any>({
+    patchStudentsTableHeader: build.mutation<void, any>({
       query: ({ id, students_table_info }) => ({
         url: `/students_table_info/${id}/`,
         method: 'PATCH',
         body: students_table_info,
       }),
-      invalidatesTags: ['studentsGroup'],
+      invalidatesTags: ['studentsTable'],
     }),
     fetchUserCountByMonthData: build.query<void, void>({
       query: () => ({
@@ -52,6 +52,7 @@ export const studentsGroupService = createApi({
       query: () => ({
         url: `/homeworks_stats/`,
       }),
+      providesTags: ['homeworks_stats'],
     }),
   }),
 })
@@ -63,5 +64,5 @@ export const {
   useFetchStudentsGroupQuery,
   useCreateStudentsGroupMutation,
   useDeleteStudentsGroupMutation,
-  useFetchHomeworkStatsQuery
+  useFetchHomeworkStatsQuery,
 } = studentsGroupService

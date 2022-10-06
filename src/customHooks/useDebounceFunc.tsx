@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 type Timer = ReturnType<typeof setTimeout>
-type SomeFunction = (args: any[]) => void
+type SomeFunction = (args: any[] | any) => void
 
 export const useDebounceFunc = <Func extends SomeFunction>(func: Func, delay = 500) => {
   const [timer, setTimer] = useState<Timer>()

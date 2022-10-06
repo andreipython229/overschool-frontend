@@ -10,7 +10,7 @@ type courseCard = {
 
 export const CoursesCard: FC<courseCard> = ({ course, renderProps }) => {
   return (
-    <div id={course?.course_id} className={styles?.course_card}>
+    <div id={`${course?.course_id}`} className={styles?.course_card}>
       {renderProps(course)}
     </div>
   )

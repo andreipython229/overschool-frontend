@@ -18,7 +18,7 @@ export const useFilterData = (dataList: dataListT[], searchString: string): retu
 
     if (keyword !== '') {
       const results = dataList.filter(item => {
-        return `${item[searchString]}`.toLowerCase().startsWith(keyword.toLowerCase())
+        return `${item[searchString]}`.toLowerCase().includes(keyword.toLowerCase())
       })
       setFoundData(results)
     } else {

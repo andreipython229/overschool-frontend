@@ -1,5 +1,5 @@
+import { useEffect, useState, FC } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import parse from 'html-react-parser'
 import YouTube, { YouTubeProps } from 'react-youtube'
 
@@ -9,15 +9,15 @@ import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { useFetchLessonQuery, useFetchModuleLessonsQuery } from '../../../api/modulesServices'
 import { backArr } from '../../../components/Previous/config/svgIconPath'
 import { arrDownPath } from '../config/svgIconPath'
-import { Button } from 'components/common/Button/Button'
 import { youtubeParser } from 'utils/youtubeParser'
 import { StudentLessonDesc } from './StudentLessonDesc/index'
-import { lessonSvgMapper } from '../../../config/LessonsMaper'
 import { StudentLessonTextEditor } from './StudentLessonTextEditor/index'
+import { StudentLessonNavBtns } from './StudentLessonNavBtns/index'
+import { StudentLessonSidebar } from './StudentLessonSidebar/index'
 
 import styles from './lesson.module.scss'
 
-export const StudentLessonPreview = () => {
+export const StudentLessonPreview: FC = () => {
   const navigate = useNavigate()
 
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = useParams()
@@ -27,9 +27,7 @@ export const StudentLessonPreview = () => {
 
   const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
 
-  const activeLessonIndex = lessons?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.id === +lessonId)
-  const lessonBack: lessonT = lessons?.lessons[activeLessonIndex - 1]
-  const lessonForward: lessonT = lessons?.lessons[activeLessonIndex + 1]
+  const activeLessonIndex: number = lessons?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.id === +lessonId)
 
   const lessonFileArrName = lesson?.file_url?.split('/')
 
@@ -100,49 +98,17 @@ export const StudentLessonPreview = () => {
               )}
             </div>
           </div>
-          <div className={styles.lesson__btns}>
-            <Button
-              onClick={() =>
-                navigate(
-                  `/login/courses/student-course/${courseId}/module/${sectionId}/${lessonBack?.type || lessonType}/${lessonBack?.id || lessonId}`,
-                )
-              }
-              disabled={lessonId === (lessonBack?.id || lessonId)}
-              className={styles.lesson__btnPrev}
-              text="Предыдущее"
-            />
-            <Button
-              onClick={() =>
-                navigate(
-                  `/login/courses/student-course/${courseId}/module/${sectionId}/${lessonForward?.type || lessonType}/${
-                    lessonForward?.id || lessonId
-                  }`,
-                )
-              }
-              className={styles.lesson__btnNext}
-              disabled={lessonId === (lessonForward?.id || lessonId)}
-              text="Следующее"
-            />
-          </div>
+          <StudentLessonNavBtns
+            courseId={courseId as string}
+            lessonId={lessonId as string}
+            sectionId={sectionId as string}
+            lessonType={lessonType as string}
+            activeLessonIndex={activeLessonIndex}
+            lessons={lessons}
+          />
           {lessonType === 'homework' && <StudentLessonTextEditor />}
         </div>
-        <div className={styles.lesson__block}>
-          <p className={styles.lesson__block_title}>Занятия модуля:</p>
-          <div>
-            {lessons?.lessons.length &&
-              lessons?.lessons.map(({ name, id, type, order }: lessonT, index: number) => (
-                <div
-                  style={{ cursor: 'pointer' }}
-                  key={order}
-                  onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/${type}/${id}`)}
-                  className={activeLessonIndex === index ? styles.lesson__item_active : styles.lesson__item}
-                >
-                  {lessonSvgMapper[type]}
-                  <span className={styles.lesson__item_name}>{name}</span>
-                </div>
-              ))}
-          </div>
-        </div>
+        <StudentLessonSidebar courseId={courseId as string} sectionId={sectionId as string} activeLessonIndex={activeLessonIndex} lessons={lessons} />
       </div>
     </div>
   )

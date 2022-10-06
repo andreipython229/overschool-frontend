@@ -16,6 +16,7 @@ import { selectUser } from 'selectors'
 import { AddCourseModal } from 'components/Modal'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { useBoolean } from 'customHooks/useBoolean'
+// import { useDebouncedFilter } from '../../../../customHooks/useDebouncedFilter'
 
 import Public from 'assets/img/createCourse/public.svg'
 import notPublic from 'assets/img/createCourse/notPublic.svg'
@@ -27,12 +28,12 @@ export const CoursePage: FC = memo(() => {
   const dispatch = useAppDispatch()
 
   const { data: courses } = useFetchCoursesQuery()
-
   const { permission } = useAppSelector(selectUser)
 
   const [isOpenAddCourse, { onToggle }] = useBoolean()
 
   const [nameCourses, foundCourses, filterData] = useFilterData(courses?.results as any, 'name')
+
 
   const dispatchHandlerModal = () => {
     onToggle()
@@ -76,7 +77,7 @@ export const CoursePage: FC = memo(() => {
                         <span className={styles.course_card_about_desc}>{course?.description}</span>
                         <Link
                           to={generatePath(Path.CreateCourse, {
-                            course_id: course?.course_id,
+                            course_id: `${course?.course_id}`,
                           })}
                         >
                           <Button className={styles.btn} text={'Редактировать'} />
@@ -102,7 +103,7 @@ export const CoursePage: FC = memo(() => {
 
                         <Link
                           to={generatePath(Student.Course, {
-                            course_id: course?.course_id,
+                            course_id: `${course?.course_id}`,
                           })}
                         >
                           <Button style={{ background: '#F4E9FF', borderRadius: '5px' }} className={styles.btn} text={'Продолжить обучение'} />

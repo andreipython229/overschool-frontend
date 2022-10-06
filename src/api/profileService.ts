@@ -1,27 +1,36 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
+import { profileT, changePasswordProfileT } from '../types/profileT'
 import { baseQueryWithReauth } from './baseApi'
 
 export const profileService = createApi({
   reducerPath: 'profileService',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['profile'],
+  tagTypes: ['profile', 'password_change'],
   endpoints: build => ({
-    fetchProfileData: build.query({
+    fetchProfileData: build.query<profileT, number>({
       query: id => ({
         url: `/profiles/${id}/`,
       }),
       providesTags: ['profile'],
     }),
-    updateProfile: build.mutation({
-      query: ({userInfo, id}) => ({
+    updateProfile: build.mutation<void, any>({
+      query: ({ userInfo, id }) => ({
         url: `/profiles/${id}/`,
         method: 'PATCH',
         body: userInfo,
       }),
       invalidatesTags: ['profile'],
     }),
+    changePassword: build.mutation<string, changePasswordProfileT>({
+      query: passwordInfo => ({
+        url: `/password_change/`,
+        method: 'POST',
+        body: passwordInfo,
+      }),
+      invalidatesTags: ['password_change'],
+    }),
   }),
 })
 
-export const { useFetchProfileDataQuery, useUpdateProfileMutation } = profileService
+export const { useFetchProfileDataQuery, useUpdateProfileMutation, useChangePasswordMutation } = profileService

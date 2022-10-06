@@ -9,14 +9,8 @@ type AuthDateT = {
 
 const initialState: UserT & AuthDateT = {
   auth: false,
-  avatar: null,
-  user: { first_name: 'Без имени', email: 'example@gmail.com', last_name: 'None' },
-  phone_number: '+375(**)***-**-**',
-  city: 'Minsk',
   permission: 1,
-  sex: '-',
   authDate: '',
-  aboutMySelf: '',
   access_token: '',
   refresh_token: '',
 }

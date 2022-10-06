@@ -41,11 +41,6 @@ export type CourseImgPropsT = {
   title: string
 }
 
-export type AboutUserPropsT = {
-  sex: string
-  onChangeUserInfo?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-}
-
 export type UserLogsPropsT = {
   contacts: string
   whatDoing: string

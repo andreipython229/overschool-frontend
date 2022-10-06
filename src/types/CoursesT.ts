@@ -1,7 +1,7 @@
 //import { sectionT } from '../types/sectionT'
 
 export type CoursesDataT = {
-  course_id: string
+  course_id: number
   created_at: Date
   updated_at?: Date
   published?: boolean
