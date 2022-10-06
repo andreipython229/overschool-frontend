@@ -32,7 +32,7 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({ setShowModal, to
 
   useEffect(() => {
     debounced()
-  }, settingList)
+  }, [settingList])
 
   return (
     <div className={styles.wrapper}>

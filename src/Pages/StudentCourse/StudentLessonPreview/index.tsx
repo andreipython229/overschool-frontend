@@ -28,8 +28,8 @@ export const StudentLessonPreview = () => {
   const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
 
   const activeLessonIndex = lessons?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.id === +lessonId)
-  const lessonIdBack = lessons?.lessons[activeLessonIndex - 1]?.lesson_id || lessonId
-  const lessonIdForward = lessons?.lessons[activeLessonIndex + 1]?.lesson_id || lessonId
+  const lessonBack: lessonT = lessons?.lessons[activeLessonIndex - 1]
+  const lessonForward: lessonT = lessons?.lessons[activeLessonIndex + 1]
 
   const lessonFileArrName = lesson?.file_url?.split('/')
 
@@ -40,6 +40,7 @@ export const StudentLessonPreview = () => {
       autoplay: 0,
     },
   }
+
   useEffect(() => {
     setVideoLinkId(youtubeParser(lesson?.video))
   }, [lesson, lessonId])
@@ -101,15 +102,25 @@ export const StudentLessonPreview = () => {
           </div>
           <div className={styles.lesson__btns}>
             <Button
-              onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/lesson/${lessonIdBack}`)}
-              disabled={lessonId === lessonIdBack}
+              onClick={() =>
+                navigate(
+                  `/login/courses/student-course/${courseId}/module/${sectionId}/${lessonBack?.type || lessonType}/${lessonBack?.id || lessonId}`,
+                )
+              }
+              disabled={lessonId === (lessonBack?.id || lessonId)}
               className={styles.lesson__btnPrev}
               text="Предыдущее"
             />
             <Button
-              onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/lesson/${lessonIdForward}`)}
+              onClick={() =>
+                navigate(
+                  `/login/courses/student-course/${courseId}/module/${sectionId}/${lessonForward?.type || lessonType}/${
+                    lessonForward?.id || lessonId
+                  }`,
+                )
+              }
               className={styles.lesson__btnNext}
-              disabled={lessonId === lessonIdForward}
+              disabled={lessonId === (lessonForward?.id || lessonId)}
               text="Следующее"
             />
           </div>
@@ -123,7 +134,7 @@ export const StudentLessonPreview = () => {
                 <div
                   style={{ cursor: 'pointer' }}
                   key={order}
-                  onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/lesson/${id}`)}
+                  onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/${type}/${id}`)}
                   className={activeLessonIndex === index ? styles.lesson__item_active : styles.lesson__item}
                 >
                   {lessonSvgMapper[type]}
