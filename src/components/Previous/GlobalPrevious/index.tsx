@@ -29,22 +29,22 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   })
 
   const [schoolHeaderDataToRender, setSchoolHeaderDataToRender] = useState({
-    logo_header: data?.logo_header_url,
-    photo_background: data?.photo_background_url,
+    logo_header: '',
+    photo_background: '',
   })
 
   const handleChangePrevious = () => {
     setEdit(!edit)
   }
 
-  const onChangeSchoolHeader = async () => {
+  const onChangeSchoolHeader = () => {
     const formdata = new FormData()
 
     Object.entries(schoolHeaderData).forEach(([key, value]) => {
       value && formdata.append(key, value)
     })
 
-    await setSchoolHeader({ formdata, id: 1 })
+    setSchoolHeader({ formdata, id: 1 })
     setEdit(false)
   }
 
@@ -63,13 +63,14 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
 
   useEffect(() => {
     if (isSuccess) {
-      const { name, description } = data
+      const { name, description, photo_background_url, logo_header_url } = data
 
       setSchoolHeaderData({
         ...schoolHeaderData,
         name,
         description,
       })
+      setSchoolHeaderDataToRender({ logo_header: logo_header_url, photo_background: photo_background_url })
     }
   }, [isSuccess, data])
 

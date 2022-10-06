@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import parse from 'html-react-parser'
 
 import styles from './../lesson.module.scss'
 
@@ -7,5 +8,5 @@ type studentLessonDescT = {
 }
 
 export const StudentLessonDesc: FC<studentLessonDescT> = ({ text }) => {
-  return <span className={styles.lesson__desc}>{text || 'Здесь будет текст ДЗ'}</span>
+  return <span className={styles.lesson__desc}>{parse(`${text || ''}`) || 'Здесь будет текст ДЗ'}</span>
 }
