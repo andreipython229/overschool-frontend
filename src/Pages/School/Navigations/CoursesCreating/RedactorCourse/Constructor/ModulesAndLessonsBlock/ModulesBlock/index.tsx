@@ -8,6 +8,7 @@ import { getSectionId } from 'store/redux/modules/slice'
 import { useAppDispatch } from 'store/hooks'
 import { LessonsBlock } from '../LessonsBlock'
 import { LessonT, ModulesBlockT } from '../../../../../navigationTypes'
+import { useDebounceFunc } from 'customHooks/useDebounceFunc'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
@@ -26,6 +27,9 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setLessonIdAndType, modul
   const handleChangeModuleName = (event: ChangeEvent<HTMLInputElement>) => {
     setChangeModuleName(event.target.value)
   }
+
+  const debounced = useDebounceFunc(changeName, 2000)
+
   const handleOpenModalLesson = () => {
     setModalTypeClasses()
     dispatch(showModal(true))
@@ -39,7 +43,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setLessonIdAndType, modul
     }
     const formdata = formDataConverter(updateModule)
     if (formdata && id) {
-      changeName({ formdata, id })
+      debounced({ formdata, id })
     }
   }, [changeModuleName])
 

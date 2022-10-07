@@ -31,6 +31,7 @@ export type AddCourseModalPropsT = {
 export type AddModuleModalPropsT = {
   setShowModal: (arg: boolean) => void
   courseId: string
+  modulesList: ModulesT[]
 }
 
 export type SettingsClassesModalPropT = {
