@@ -12,7 +12,22 @@ a {
   h4 {
     margin-bottom: 40px;
   }
+  &_courses {
+  display: flex;
+  align-items: baseline;
+
+	&_dropdown {
+	width: 100%;
+		button {
+		margin-top: 0;
+		background-color: #ededed;
+		width: 70%;
+		margin: 0 auto;
+		}
+	}
+  }
 }
+
 .courses_card_block {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

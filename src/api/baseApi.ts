@@ -3,7 +3,7 @@ import { fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@re
 import { token, auth } from '../store/redux/users/slice'
 import { RootState } from '../store/redux/store'
 
-const baseQuery = fetchBaseQuery({
+export const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_BASE_URL,
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {

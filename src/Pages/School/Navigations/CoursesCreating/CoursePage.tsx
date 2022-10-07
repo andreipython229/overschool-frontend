@@ -1,6 +1,6 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect } from 'react'
 import { generatePath, Link } from 'react-router-dom'
-
+import {useFetchUserCountByMonthDataQuery} from 'api/userCountByMonthService'
 import {CoursesDataT} from '../../../../types/CoursesT'
 import { Button } from 'components/common/Button/Button'
 import { Path, Student } from 'enum/pathE'
@@ -27,6 +27,16 @@ export const CoursePage: FC = memo(() => {
   const dispatch = useAppDispatch()
 
   const { data: courses } = useFetchCoursesQuery()
+
+  const { data: any } = useFetchUserCountByMonthDataQuery()
+  useEffect(() => {
+console.log('kek')
+  }, [])
+
+//   const {data: us} = useFetchUserCountByMonthDataQuery()
+//   useEffect(() => {
+//     console.log('kek')
+//   })
 
   const { permission } = useAppSelector(selectUser)
 

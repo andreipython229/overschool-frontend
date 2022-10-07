@@ -21,7 +21,12 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
 
   return (
     <div className={styles.container}>
+    <div className={styles.container_courses}>
       <h4>Курсы</h4>
+      <div className={styles.container_courses_dropdown} >
+            <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleToggleHiddenBlocks} />
+      </div>
+      </div>
       {isOpen && (
         <>
           <Input name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
@@ -34,7 +39,6 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
           </div>
         </>
       )}
-      <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleToggleHiddenBlocks} />
     </div>
   )
 })

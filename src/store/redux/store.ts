@@ -6,6 +6,7 @@ import * as services from '../../api/index'
 import { authReduce, modalReduce, sectionsReduce } from './index'
 
 const rootReducer = combineReducers({
+  [services.userCountByMonthService.reducerPath]: services.userCountByMonthService.reducer,
   [services.userLoginService.reducerPath]: services.userLoginService.reducer,
   [services.coursesServices.reducerPath]: services.coursesServices.reducer,
   [services.modulesServices.reducerPath]: services.modulesServices.reducer,
@@ -35,6 +36,7 @@ export const setupStore = () => {
         services.modulesServices.middleware,
         services.schoolHeaderService.middleware,
         services.profileService.middleware,
+        services.userCountByMonthService.middleware,
         services.studentsGroupService.middleware,
         services.courseStatService.middleware,
       ),
