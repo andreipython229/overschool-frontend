@@ -4,7 +4,6 @@ import { Input } from 'components/common/Input/Input/Input'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
-import { useShowModal } from '../../../customHooks/useShowModal'
 import { settingsClassesIconPath } from './config/svgIconsPath'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import { SettingsClassesModalPropT } from '../ModalTypes'
@@ -15,7 +14,7 @@ import styles from '../Modal.module.scss'
 
 const classesType = ['Занятие', 'Задание', 'Тест', 'Вебинар']
 
-export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ modulesList, lessonIdAndType, setShowModal }) => {
+export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setType, modulesList, lessonIdAndType }) => {
   const lessonIdVar = lessonIdAndType ? lessonIdAndType : modulesList[0]?.lessons[0]?.id
 
   const [changeNameLesson, { isSuccess }] = usePatchLessonsMutation()
@@ -28,7 +27,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ modulesLis
   const [nameLesson, setNameLesson] = useState<string>(data?.name)
 
   const handleClose = () => {
-    setShowModal(false)
+    setType(null as keyof object)
   }
 
   const handleChangeNameLesson = (event: ChangeEvent<HTMLInputElement>) => {
@@ -48,10 +47,9 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ modulesLis
 
   useEffect(() => {
     if (isSuccess) {
-      setShowModal(false)
+      setType(null as keyof object)
     }
   }, [isSuccess])
-  useShowModal({ setShowModal })
 
   return (
     <div className={styles.wrapper}>

@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -9,7 +9,6 @@ import { useAppDispatch } from '../../../store/hooks'
 import { auth, token } from 'store/redux/users/slice'
 import { AuthSelect } from '../../common/AuthSelect'
 import { useLoginMutation } from '../../../api/userLoginService'
-import { useShowModal } from '../../../customHooks/useShowModal'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
@@ -21,7 +20,7 @@ import { LoginModalPropsT } from '../ModalTypes'
 
 import styles from '../Modal.module.scss'
 
-export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
+export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   const dispatch = useAppDispatch()
   const screenWidth = window.screen.width
 
@@ -66,55 +65,52 @@ export const LoginModal: FC<LoginModalPropsT> = memo(({ setShowModal }) => {
   const handleClose = () => {
     setShowModal(false)
   }
-  useShowModal({ setShowModal })
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.main}>
-        <form onSubmit={formik.handleSubmit}>
-          <div className={styles.container}>
-            <span className={styles.main_closed} onClick={handleClose}>
-              <IconSvg width={25} height={25} path={crossIconPath} />
-            </span>
+    <div className={styles.main}>
+      <form onSubmit={formik.handleSubmit}>
+        <div className={styles.container}>
+          <span className={styles.main_closed} onClick={handleClose}>
+            <IconSvg width={25} height={25} path={crossIconPath} />
+          </span>
 
-            <div className={styles.main_title}>Войти</div>
-            <div className={styles.inputs_block}>
-              <div>
-                <div style={{ display: 'flex' }}>
-                  <InputAuth
-                    name={authVariant}
-                    type={authVariant === 'email' ? 'email' : 'tel'}
-                    onChange={formik.handleChange}
-                    value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
-                    placeholder={authVariant}
-                  />
-                  <AuthSelect getInputVariant={getInputVariant} />
-                </div>
-                <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин или пароль')}</div>
+          <div className={styles.main_title}>Войти</div>
+          <div className={styles.inputs_block}>
+            <div>
+              <div style={{ display: 'flex' }}>
+                <InputAuth
+                  name={authVariant}
+                  type={authVariant === 'email' ? 'email' : 'tel'}
+                  onChange={formik.handleChange}
+                  value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
+                  placeholder={authVariant}
+                />
+                <AuthSelect getInputVariant={getInputVariant} />
               </div>
-              <InputAuth
-                name={'password'}
-                type={security ? 'password' : 'text'}
-                onChange={formik.handleChange}
-                value={formik.values.password}
-                placeholder={'Пароль'}
-                onClick={changeSecurityStatus}
-                icon={security ? isSecurity : unSecurity}
-              />
-              <div className={styles.errors}>{formik.errors.password}</div>
+              <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин или пароль')}</div>
             </div>
-            <div className={styles.main_btn}>
-              <Button text={'Войти'} style={{ width: '246px' }} type={'submit'} variant={'primary'} />
-            </div>
-
-            <div className={styles.restorePass}>
-              <Link style={{ textDecoration: 'none', padding: '15px' }} to={'/'}>
-                Забыли пароль?
-              </Link>
-            </div>
+            <InputAuth
+              name={'password'}
+              type={security ? 'password' : 'text'}
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              placeholder={'Пароль'}
+              onClick={changeSecurityStatus}
+              icon={security ? isSecurity : unSecurity}
+            />
+            <div className={styles.errors}>{formik.errors.password}</div>
           </div>
-        </form>
-      </div>
+          <div className={styles.main_btn}>
+            <Button type="submit" text={'Войти'} style={{ width: '246px' }} variant={'primary'} />
+          </div>
+
+          <div className={styles.restorePass}>
+            <Link style={{ textDecoration: 'none', padding: '15px' }} to={'/'}>
+              Забыли пароль?
+            </Link>
+          </div>
+        </div>
+      </form>
     </div>
   )
-})
+}

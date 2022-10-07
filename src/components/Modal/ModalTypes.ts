@@ -13,9 +13,7 @@ export type lessonIdAndTypeT = {
 }
 
 export type SettingClassesPropsT = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
+  setType: (arg: keyof object) => void
   modulesList: ModulesT[]
 }
 
@@ -29,13 +27,13 @@ export type AddCourseModalPropsT = {
 }
 
 export type AddModuleModalPropsT = {
-  setShowModal: (arg: boolean) => void
-  courseId: string
+  setType: (arg: keyof object) => void
+  courseId?: string
   modulesList: ModulesT[]
 }
 
 export type SettingsClassesModalPropT = {
-  setShowModal: (arg: boolean) => void
+  setType: (arg: keyof object) => void
   lessonIdAndType: lessonIdAndTypeT
   modulesList: ModulesT[]
 }
@@ -45,28 +43,23 @@ export type LoginModalPropsT = {
 }
 
 export type WebinarModalPropsT = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
+  setType: (arg: keyof object) => void
 }
 
 export type TestModalPropsT = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
+  setType: (arg: keyof object) => void
   modulesList: ModulesT[]
 }
 
 export type TasksModalPropsT = {
-  goToBack: () => void
-  addCourse: (name: string, type: string) => void
-  closedAll: () => void
+  setType: (arg: keyof object) => void
   modulesList: ModulesT[]
 }
 
 export type ModalClassesPropsT = {
-  setShowModal: (arg: boolean) => void
-  changeClasses: (id: number) => void
+  setShowModal?: (arg: boolean) => void
+  changeClasses?: (id: number) => void
+  setType: (arg: keyof object) => void
 }
 
 export type RegistrationModalPropsT = {
@@ -74,7 +67,6 @@ export type RegistrationModalPropsT = {
 }
 
 export type SettingStudentTableT = {
-  toggleSettingModal: boolean
   setShowModal: (arg?: boolean) => void
 }
 

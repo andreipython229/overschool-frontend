@@ -14,9 +14,10 @@ import { studentsGroupT, studentsGroupsT } from 'types/studentsGroup'
 import { SettingItemT } from '../pageTypes'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { CoursesDataT } from '../../types/CoursesT'
+import { useBoolean } from '../../customHooks/useBoolean'
+import { Portal } from '../../components/Modal/Portal'
 
 import styles from '../School/StudentsStats/studentsStats.module.scss'
-import { useBoolean } from '../../customHooks/useBoolean'
 
 export const CoursesStats = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)
@@ -63,7 +64,11 @@ export const CoursesStats = () => {
       <SearchCoursesBlock courses={courses?.results as CoursesDataT[]} groups={data?.results as studentsGroupsT[]} />
       <AllStudentsBlock headerText={'Все ученики школы'} />
       <StudentsTableBlock setShowModal={offToggleSettingModal} />
-      {toggleSettingModal && <SettingStudentTable toggleSettingModal={toggleSettingModal} setShowModal={onToggleSettingModal} />}
+      {toggleSettingModal && (
+        <Portal closeModal={onToggleSettingModal}>
+          <SettingStudentTable setShowModal={onToggleSettingModal} />
+        </Portal>
+      )}
     </div>
   )
 }

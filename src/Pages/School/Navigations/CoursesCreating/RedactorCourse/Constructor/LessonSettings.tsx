@@ -2,8 +2,6 @@ import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import { CheckboxBall } from 'components/common/CheckboxBall'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { useAppDispatch } from 'store/hooks'
-import { showModal } from 'store/redux/modal/slice'
 import { AddPost } from 'components/AddPost'
 import { settingsIconPath, deleteIconPath, paperClipIconPath } from '../../../../config/svgIconsPath'
 import { useDeleteLessonsMutation, useFetchLessonQuery, usePatchLessonsMutation } from 'api/modulesServices'
@@ -13,8 +11,7 @@ import { useBoolean } from 'customHooks/useBoolean'
 
 import styles from './constructor.module.scss'
 
-export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ lessonIdAndType, showSettingsClassesModal }) => {
-  const dispatch = useAppDispatch()
+export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ lessonIdAndType, setType }) => {
   const [isToggle, { onToggle }] = useBoolean()
 
   const { data } = useFetchLessonQuery({ id: lessonIdAndType.id, type: lessonIdAndType.type })
@@ -29,8 +26,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ lessonIdAndType
   }, [data])
 
   const showSettingsModal = () => {
-    showSettingsClassesModal()
-    dispatch(showModal(true))
+    setType('setting' as keyof object)
   }
 
   const handleDeleteLesson = async () => {

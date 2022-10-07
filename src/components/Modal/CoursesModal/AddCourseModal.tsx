@@ -1,8 +1,7 @@
-import { FormEvent, ChangeEvent, FC, memo, useState } from 'react'
+import { FormEvent, ChangeEvent, FC, useState } from 'react'
 import { generatePath, useNavigate } from 'react-router-dom'
 
 import { useCreateCoursesMutation } from 'api/coursesServices'
-import { useShowModal } from '../../../customHooks/useShowModal'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { Button } from '../../common/Button/Button'
@@ -12,7 +11,7 @@ import { AddCourseModalPropsT } from '../ModalTypes'
 
 import styles from '../Modal.module.scss'
 
-export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ courses, setShowModal }) => {
+export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal }) => {
   const navigate = useNavigate()
 
   const [name, setName] = useState<string>('')
@@ -44,37 +43,33 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = memo(({ courses, setShow
     }
   }
 
-  useShowModal({ setShowModal })
-
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.mainCourse}>
-        <div className={styles.mainCourse_container}>
-          <div className={styles.mainCourse_closed} onClick={setShowModal}>
-            <IconSvg width={25} height={25} path={crossIconPath} />
+    <div className={styles.mainCourse}>
+      <div className={styles.mainCourse_container}>
+        <div className={styles.mainCourse_closed} onClick={setShowModal}>
+          <IconSvg width={25} height={25} path={crossIconPath} />
+        </div>
+
+        <div className={styles.mainCourse_title}>Создание курса</div>
+        <form onSubmit={addCourseName}>
+          <div className={styles.mainCourse_input}>
+            <Input
+              style={{ width: '280px' }}
+              label="Введите название курса:"
+              placeholder="Введите название курса"
+              name={'course'}
+              type={'text'}
+              onChange={nameCourse}
+              value={name}
+              focus={true}
+            />
           </div>
 
-          <div className={styles.mainCourse_title}>Создание курса</div>
-          <form onSubmit={addCourseName}>
-            <div className={styles.mainCourse_input}>
-              <Input
-                style={{ width: '280px' }}
-                label="Введите название курса:"
-                placeholder="Введите название курса"
-                name={'course'}
-                type={'text'}
-                onChange={nameCourse}
-                value={name}
-                focus={true}
-              />
-            </div>
-
-            <div className={styles.mainCourse_btn}>
-              <Button style={{ width: '280px' }} type={'submit'} variant={'primary'} text={'Создать курс'} />
-            </div>
-          </form>
-        </div>
+          <div className={styles.mainCourse_btn}>
+            <Button style={{ width: '280px' }} type={'submit'} variant={'primary'} text={'Создать курс'} />
+          </div>
+        </form>
       </div>
     </div>
   )
-})
+}

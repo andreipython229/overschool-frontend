@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { useCreateLessonsMutation } from '../api/modulesServices'
 import { findLength } from '../utils/findLength'
 import { useAppSelector } from '../store/hooks'
@@ -6,36 +6,29 @@ import { getSectionId } from '../selectors'
 import { ModulesT } from '../components/Modal/ModalTypes'
 
 type UseCreateLessonT = {
-  addCourse: (arg: string, argTwo: string) => void
   modulesList: ModulesT[]
   typeLesson: string
-  modalType: string
   text?: string
   success_percent?: number
+  setType: (arg: keyof object) => void
 }
 
 type UseCreateLessonReturnT = {
   setNameLesson: (arg: string) => void
   setBalls: (arg: number) => void
-  handleCreateLesson: () => void
+  handleCreateLesson: (event: FormEvent<HTMLFormElement>) => void
   balls: number
   nameLesson: string
 }
 
-export const useCreateLesson = ({
-  addCourse,
-  modulesList,
-  typeLesson,
-  modalType,
-  text,
-  success_percent,
-}: UseCreateLessonT): UseCreateLessonReturnT => {
+export const useCreateLesson = ({ setType, modulesList, typeLesson, text, success_percent }: UseCreateLessonT): UseCreateLessonReturnT => {
   const [nameLesson, setNameLesson] = useState<string>('')
   const [balls, setBalls] = useState<number>(0)
   const { section_id } = useAppSelector(getSectionId)
   const [createLesson] = useCreateLessonsMutation()
 
-  const handleCreateLesson = async () => {
+  const handleCreateLesson = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     if (!nameLesson) {
       return
     }
@@ -50,9 +43,8 @@ export const useCreateLesson = ({
         success_percent: success_percent,
       }
 
-      addCourse(nameLesson, modalType)
-
       await createLesson({ createLessonData, type: typeLesson })
+      setType(null as keyof object)
     } else {
       const createLessonData = {
         name: nameLesson,
@@ -60,9 +52,9 @@ export const useCreateLesson = ({
         section: section_id,
         balls: balls,
       }
-      addCourse(nameLesson, modalType)
 
       await createLesson({ createLessonData, type: typeLesson })
+      setType(null as keyof object)
     }
   }
 

@@ -3,18 +3,18 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
 import { useDeleteModulesMutation, usePatchModulesMutation } from 'api/modulesServices'
 import { formDataConverter } from 'utils/formDataConverter'
-import { showModal } from 'store/redux/modal/slice'
-import { getSectionId } from 'store/redux/modules/slice'
-import { useAppDispatch } from 'store/hooks'
 import { LessonsBlock } from '../LessonsBlock'
 import { LessonT, ModulesBlockT } from '../../../../../navigationTypes'
 import { useDebounceFunc } from 'customHooks/useDebounceFunc'
+import { getSectionId } from 'store/redux/modules/slice'
+import { useAppDispatch } from 'store/hooks'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
 
-export const ModulesBlock: FC<ModulesBlockT> = memo(({ setLessonIdAndType, moduleName, lessonsList, id, setModalTypeClasses }) => {
+export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndType, moduleName, lessonsList, id }) => {
   const dispatch = useAppDispatch()
+
   const [changeModuleName, setChangeModuleName] = useState<string>(moduleName)
 
   const [changeName] = usePatchModulesMutation()
@@ -31,9 +31,8 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setLessonIdAndType, modul
   const debounced = useDebounceFunc(changeName, 2000)
 
   const handleOpenModalLesson = () => {
-    setModalTypeClasses()
-    dispatch(showModal(true))
     dispatch(getSectionId(id))
+    setType('lessonsModal' as keyof object)
   }
 
   useEffect(() => {

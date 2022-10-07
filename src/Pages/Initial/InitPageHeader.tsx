@@ -2,7 +2,6 @@ import { FC, memo } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { showModal } from 'store/redux/modal/slice'
 import { Path } from 'enum/pathE'
 import { Button } from 'components/common/Button/Button'
 import { authSelector } from 'selectors'
@@ -19,13 +18,11 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
   const handleLoginUser = () => {
     setLoginShow(true)
     dispatch(role(1))
-    dispatch(showModal(true))
   }
 
   const handleLoginStudent = () => {
     setLoginShow(true)
     dispatch(role(5))
-    dispatch(showModal(true))
   }
 
   return (
