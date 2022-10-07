@@ -10,7 +10,7 @@ import { AddModuleModalPropsT } from '../ModalTypes'
 
 import styles from '../Modal.module.scss'
 
-export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ setShowModal, courseId }) => {
+export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ modulesList, setShowModal, courseId }) => {
   const [modulesName, setModulesMane] = useState<string>('')
 
   const [createModules] = useCreateModulesMutation()
@@ -24,6 +24,7 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ setShowModal, co
     const newModules = {
       name: modulesName,
       course: courseId,
+      order: modulesList.length + 1,
     }
     const formdata = formDataConverter(newModules)
 
