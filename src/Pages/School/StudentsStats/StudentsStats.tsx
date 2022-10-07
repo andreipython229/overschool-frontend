@@ -11,18 +11,12 @@ import { SettingStudentTable } from 'components/Modal/SettingStudentTable/'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { StudentGroup } from 'Pages/School/StudentsStats/StudentsCountGroup'
-import { studentsGroupT, studentsGroupsT } from '../../../types/studentsGroup'
+import { studentsGroupsT } from '../../../types/studentsGroup'
 import { ToggleButtonDropDown } from 'components/common/ToggleButtonDropDown'
 
 import styles from './studentsStats.module.scss'
 import { useBoolean } from '../../../customHooks/useBoolean'
-
-export type SettingItemT = {
-  id: number
-  order: number
-  name: string
-  checked: boolean
-}
+import { Portal } from '../../../components/Modal/Portal'
 
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
@@ -53,9 +47,6 @@ export const StudentsStats = () => {
 
   return (
     <div>
-      {studentModal && <AddStudentModal setShowModal={setStudentModal} studentEmail={studentEmail} onChangeEmail={onChangeStudentEmail} />}
-      {addGroupModal && <CreateGroupModal setShowModal={onAddGroupModal} courseId={courseId as string} />}
-
       <section className={styles.statistics}>
         <StatisticHeader />
         <div className={styles.statistics_new_student_wrapper}>
@@ -90,7 +81,23 @@ export const StudentsStats = () => {
         Все ученики курса
       </p>
       <StudentsTableBlock setShowModal={offToggleSettingModal} />
-      {toggleSettingModal && <SettingStudentTable setShowModal={onToggleSettingModal} toggleSettingModal={toggleSettingModal} />}
+
+      {studentModal && (
+        <Portal closeModal={setStudentModal}>
+          <AddStudentModal setShowModal={setStudentModal} studentEmail={studentEmail} onChangeEmail={onChangeStudentEmail} />{' '}
+        </Portal>
+      )}
+      {addGroupModal && (
+        <Portal closeModal={onAddGroupModal}>
+          <CreateGroupModal setShowModal={onAddGroupModal} courseId={courseId as string} />{' '}
+        </Portal>
+      )}
+
+      {toggleSettingModal && (
+        <Portal closeModal={onToggleSettingModal}>
+          <SettingStudentTable setShowModal={onToggleSettingModal} />
+        </Portal>
+      )}
     </div>
   )
 }

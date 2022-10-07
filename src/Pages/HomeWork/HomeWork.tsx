@@ -5,7 +5,7 @@ import { FiltersButton } from '../../components/FiltersButton'
 import { Input } from '../../components/common/Input/Input/Input'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { dropDownListFilter } from '../../constants/dropDownList'
-import { HomeworksStatsTable } from '../../components/HomeworksStatsTable/index'
+import { HomeworksStatsTable } from '../../components/HomeworksStatsTable'
 import { searchIconPath } from '../../config/commonSvgIconsPath'
 import { ModalCheckHomeWork } from '../../components/Modal/ModalCheckHomeWork/ModalCheckHomeWork'
 

@@ -3,7 +3,7 @@ import { useState, FC } from 'react'
 import { MyEditor } from '../../MyEditor/MyEditor'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { useFetchUserHomeworkQuery } from '../../../api/userHomeworkService'
-import { convertDate } from '../../../utils/index'
+import { convertDate } from 'utils/'
 import {
   taskIconPath,
   waitIconPath,
@@ -39,7 +39,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ userHomeworkId }) => {
   return (
     <div className={styles.modal_container}>
       <div style={{ boxSizing: 'border-box' }} className={styles.modal_content}>
-        <div className={styles.modal_header}></div>
+        <div className={styles.modal_header} />
         <div className={styles.modal_visibility_block}>
           <div className={styles.header_info}>
             <h3 className={styles.answer_header}>Проверочное задание</h3>
