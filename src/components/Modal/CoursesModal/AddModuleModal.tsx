@@ -1,6 +1,6 @@
-import { ChangeEvent, FC, memo, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { useCreateModulesMutation } from 'api/modulesServices'
-import { useShowModal } from '../../../customHooks/useShowModal'
+
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
@@ -10,7 +10,7 @@ import { AddModuleModalPropsT } from '../ModalTypes'
 
 import styles from '../Modal.module.scss'
 
-export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ modulesList, setShowModal, courseId }) => {
+export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, modulesList }) => {
   const [modulesName, setModulesMane] = useState<string>('')
 
   const [createModules] = useCreateModulesMutation()
@@ -20,7 +20,8 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ modulesList, set
     setModulesMane(name)
   }
 
-  const handleCreateModules = async () => {
+  const handleCreateModules = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     const newModules = {
       name: modulesName,
       course: courseId,
@@ -30,35 +31,31 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = memo(({ modulesList, set
 
     await createModules(formdata)
 
-    setShowModal(false)
+    setType(null as keyof object)
   }
 
   const handleClose = () => {
-    setShowModal(false)
+    setType(null as keyof object)
   }
 
-  useShowModal({ setShowModal })
-
   return (
-    <div className={styles.wrapper}>
-      <div style={{ width: '440px', padding: '36px 0' }} className={styles.classesContainer}>
-        <div onClick={handleClose} className={styles.classesContainer_closed}>
-          <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
-        </div>
-        <div className={styles.module_title}>Создание модуля</div>
-        <div className={styles.module_input}>
-          <span className={styles.module_input_label}>Введите название модуля:</span>
-          <Input
-            style={{ marginTop: '8px', marginBottom: '16px' }}
-            name={'module'}
-            value={modulesName}
-            type={'text'}
-            focus={true}
-            onChange={handleInputNameModules}
-          />
-        </div>
-        <Button onClick={handleCreateModules} text={'Создать модуль'} variant={'primary'} />
+    <form onSubmit={handleCreateModules} style={{ width: '440px', padding: '36px 0' }} className={styles.classesContainer}>
+      <div onClick={handleClose} className={styles.classesContainer_closed}>
+        <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
       </div>
-    </div>
+      <div className={styles.module_title}>Создание модуля</div>
+      <div className={styles.module_input}>
+        <span className={styles.module_input_label}>Введите название модуля:</span>
+        <Input
+          style={{ marginTop: '8px', marginBottom: '16px' }}
+          name={'module'}
+          value={modulesName}
+          type={'text'}
+          focus={true}
+          onChange={handleInputNameModules}
+        />
+      </div>
+      <Button type={'submit'} text={'Создать модуль'} variant={'primary'} />
+    </form>
   )
-})
+}

@@ -1,12 +1,9 @@
 import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
-
-import { CoursesDataT } from '../../../../types/CoursesT'
 import { Button } from 'components/common/Button/Button'
 import { Path, Student } from 'enum/pathE'
-import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { useAppSelector } from 'store/hooks'
 import { CoursesCard } from './CoursesCard'
-import { showModal } from 'store/redux/modal/slice'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Input } from 'components/common/Input/Input/Input'
 import { useFilterData } from 'customHooks/useFilterData'
@@ -16,7 +13,7 @@ import { selectUser } from 'selectors'
 import { AddCourseModal } from 'components/Modal'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { useBoolean } from 'customHooks/useBoolean'
-// import { useDebouncedFilter } from '../../../../customHooks/useDebouncedFilter'
+import { Portal } from 'components/Modal/Portal'
 
 import Public from 'assets/img/createCourse/public.svg'
 import notPublic from 'assets/img/createCourse/notPublic.svg'
@@ -25,20 +22,16 @@ import pie from 'assets/img/studentPage/folder-todo.png'
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 
 export const CoursePage: FC = memo(() => {
-  const dispatch = useAppDispatch()
-
   const { data: courses } = useFetchCoursesQuery()
+
   const { permission } = useAppSelector(selectUser)
 
   const [isOpenAddCourse, { onToggle }] = useBoolean()
 
   const [nameCourses, foundCourses, filterData] = useFilterData(courses?.results as any, 'name')
 
-
   const dispatchHandlerModal = () => {
     onToggle()
-
-    dispatch(showModal(true))
   }
 
   return (
@@ -123,7 +116,11 @@ export const CoursePage: FC = memo(() => {
           </div>
         )}
       </div>
-      {isOpenAddCourse && <AddCourseModal courses={courses?.results} setShowModal={onToggle} />}
+      {isOpenAddCourse ? (
+        <Portal closeModal={onToggle}>
+          <AddCourseModal courses={courses?.results} setShowModal={onToggle} />
+        </Portal>
+      ) : null}
     </div>
   )
 })

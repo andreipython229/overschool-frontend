@@ -1,24 +1,30 @@
-import { memo, useState } from 'react'
-
+import { useState } from 'react'
+import { Portal } from '../../components/Modal/Portal'
 import { InitPageHeader } from './InitPageHeader'
 import { CourseImg } from './CourseImg'
 import { RegistrationModal, LoginModal } from 'components/Modal'
 import { coursesImgsData } from './config/coursesImgsData'
+import { useBoolean } from '../../customHooks/useBoolean'
 
 import styles from './initial.module.scss'
 
-export const Initial = memo(() => {
+export const Initial = () => {
   const [currentCourse, setCurrentCourse] = useState<string>('1')
   const [registrationShow, setRegistrationShow] = useState<boolean>(false)
-  const [loginShow, setLoginShow] = useState<boolean>(false)
+
+  const [isLoginModal, { off: open, on: close }] = useBoolean()
 
   const changeCurrentCourse = (id: string) => setCurrentCourse(id)
 
   return (
     <div className={styles.init}>
       {registrationShow && <RegistrationModal setShowModal={setRegistrationShow} />}
-      {loginShow && <LoginModal setShowModal={setLoginShow} />}
-      <InitPageHeader setLoginShow={setLoginShow} setRegistrationShow={setRegistrationShow} />
+      {isLoginModal ? (
+        <Portal closeModal={close}>
+          <LoginModal setShowModal={close} />
+        </Portal>
+      ) : null}
+      <InitPageHeader setLoginShow={open} setRegistrationShow={setRegistrationShow} />
       <div className={styles.init_main}>
         <section className={styles.init_main_wrapper}>
           <h1 className={styles.init_main__title}>Маркетплейс образовательных курсов</h1>
@@ -41,4 +47,4 @@ export const Initial = memo(() => {
       </div>
     </div>
   )
-})
+}
