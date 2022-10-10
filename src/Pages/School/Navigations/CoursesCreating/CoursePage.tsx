@@ -6,7 +6,6 @@ import { useAppSelector } from 'store/hooks'
 import { CoursesCard } from './CoursesCard'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Input } from 'components/common/Input/Input/Input'
-import { useFilterData } from 'customHooks/useFilterData'
 import { RoleE } from 'enum/roleE'
 import { searchIconPath } from 'config/commonSvgIconsPath'
 import { selectUser } from 'selectors'
@@ -14,6 +13,7 @@ import { AddCourseModal } from 'components/Modal'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { useBoolean } from 'customHooks/useBoolean'
 import { Portal } from 'components/Modal/Portal'
+import { useDebouncedFilter } from '../../../../customHooks/useDebouncedFilter'
 
 import Public from 'assets/img/createCourse/public.svg'
 import notPublic from 'assets/img/createCourse/notPublic.svg'
@@ -28,7 +28,7 @@ export const CoursePage: FC = memo(() => {
 
   const [isOpenAddCourse, { onToggle }] = useBoolean()
 
-  const [nameCourses, foundCourses, filterData] = useFilterData(courses?.results as any, 'name')
+  const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name')
 
   const dispatchHandlerModal = () => {
     onToggle()
