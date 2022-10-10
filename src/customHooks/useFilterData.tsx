@@ -2,7 +2,7 @@ import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 
 import { anyDataValueT } from '../types/dataValueT'
 
-type dataListT = { [key: string]: anyDataValueT }
+export type dataListT = { [key: string]: anyDataValueT }
 type returnableDataT = [string, dataListT[], (e: ChangeEvent<HTMLInputElement>) => void]
 
 export const useFilterData = (dataList: dataListT[], searchString: string): returnableDataT => {
