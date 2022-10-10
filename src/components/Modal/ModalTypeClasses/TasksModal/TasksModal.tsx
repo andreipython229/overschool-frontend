@@ -4,7 +4,7 @@ import { Input } from '../../../common/Input/Input/Input'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { SelectInput } from '../../../common/SelectInput/SelectInput'
 import { Button } from '../../../common/Button/Button'
-import { arrNumber, arrTime } from 'utils'
+import { arrNumber, arrTime } from '../../../../constants'
 import { MyEditor } from 'components/MyEditor/MyEditor'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
@@ -23,12 +23,14 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ modulesList, setType }) 
     modulesList,
     setType,
     typeLesson: 'homeworks',
-    text: descriptionHomeWork,
+    description: descriptionHomeWork,
+    automate_accept: checkbox,
   })
 
   const handleCheckbox = () => {
     setCheckbox(!checkbox)
   }
+  console.log(checkbox)
 
   const handleNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
     setNameLesson(event.target.value)

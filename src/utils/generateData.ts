@@ -1,18 +1,21 @@
 import { courseStatT } from '../types/courseStatT'
 import { SettingItemT, studentGroupInfoT } from '../Pages/pageTypes'
+import { studentsTableInfo } from '../constants/studentTableInfo'
 
 export const generateData = (columnsList: SettingItemT, data: courseStatT, isSuccess1: boolean, isSuccess2: boolean) => {
   const columns: Array<string> = []
   const dataToRender: any /*result[]*/ = data?.results
   const columnToRender: studentGroupInfoT[] = columnsList?.students_table_info
+    ? columnsList?.students_table_info
+    : studentsTableInfo.students_table_info
   const rows = []
 
-  isSuccess2 &&
-    columnToRender.filter(({ checked, name }: studentGroupInfoT) => {
-      if (checked) {
-        columns.push(name)
-      }
-    })
+  // isSuccess2 &&
+  columnToRender.filter(({ checked, name }: studentGroupInfoT) => {
+    if (checked) {
+      columns.push(name)
+    }
+  })
 
   for (let i = 0; i < dataToRender?.length; i += 1) {
     rows.push({

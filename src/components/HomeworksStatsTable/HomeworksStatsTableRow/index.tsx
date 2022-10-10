@@ -4,7 +4,7 @@ import { initialDropDownList } from '../../../constants/dropDownList'
 import { tableBallsStarPath } from '../../../config/commonSvgIconsPath'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { homeworkStatT } from 'types/homeworkT'
-import { convertDate } from '../../../utils/index'
+import { convertDate } from '../../../constants'
 
 type homeworksStatsTableRowT = {
   homeworkData: homeworkStatT

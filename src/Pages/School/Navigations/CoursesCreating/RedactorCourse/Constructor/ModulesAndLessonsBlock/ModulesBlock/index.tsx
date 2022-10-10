@@ -36,13 +36,15 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
   }
 
   useEffect(() => {
-    const updateModule = {
-      name: changeModuleName,
-      section_id: id,
-    }
-    const formdata = formDataConverter(updateModule)
-    if (formdata && id) {
-      debounced({ formdata, id })
+    if (moduleName !== changeModuleName) {
+      const updateModule = {
+        name: changeModuleName,
+        section_id: id,
+      }
+      const formdata = formDataConverter(updateModule)
+      if (formdata && id) {
+        debounced({ formdata, id })
+      }
     }
   }, [changeModuleName])
 

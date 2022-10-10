@@ -1,3 +1,5 @@
+import { modulesListT } from '../Pages/School/Navigations/navigationTypes'
+
 export type lessonT = {
   id: number
   name: string
@@ -13,7 +15,8 @@ export type sectionT = {
 
 export type sectionsT = {
   course_id: string
-  sections: sectionT[]
+  course_name: string
+  sections: modulesListT[]
 }
 
 export type studentAccardioT = {
