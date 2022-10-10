@@ -4,9 +4,9 @@ import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { AboutUser } from './AboutUser'
 import { notifications } from './config/notif'
-import { CheckboxBall } from '../../components/common/CheckboxBall'
 import { changePasswordSchema } from './schemas/changePasswordSchema'
 import { useChangePasswordMutation } from '../../api/profileService'
+import { NotificationItem } from './NotificationItem'
 
 import styles from './profile.module.scss'
 
@@ -39,36 +39,33 @@ export const Profile = () => {
         <AboutUser />
         <div>
           <form className={styles.container}>
-            <h5>Изменить email</h5>
-            <Input name={'email'} type={'text'} value={''} placeholder={'Новый email адрес'} />
+            <h5 className={styles.profile_block_title}>Изменить email</h5>
+            <Input name={'email'} type={'text'} value={''} onChange={() => console.log('заглушка')} placeholder={'Новый email адрес'} />
             <div className={styles.container_wrapper}>
-              <Button variant={'primary'} text={'Сохранить'} />
+              <Button className={styles.profile_block_btn} variant={'primary'} text={'Сохранить'} />
             </div>
           </form>
           <form style={{ marginTop: '32px' }} className={styles.container} onSubmit={handlePasswordsSubmit}>
-            <h5>Смена пароля</h5>
+            <h5 className={styles.profile_block_title}>Смена пароля</h5>
             <Input name="password" type="text" onChange={handlePasswordChnge} value={password} placeholder="Новый пароль" />
             <div className={styles.container_wrapper}>
               <Input name="confirmPassword" placeholder="Повторить новый пароль" type="text" onChange={handlePasswordChnge} value={confirmPassword} />
             </div>
             <div className={styles.container_wrapper}>
-              <Button type="submit" variant={!errors.password && !errors.confirmPassword ? 'primary' : 'disabled'} text={'Сохранить'} />
+              <Button
+                className={styles.profile_block_btn}
+                type="submit"
+                variant={!errors.password && !errors.confirmPassword ? 'primary' : 'disabled'}
+                text={'Сменить пароль'}
+              />
             </div>
           </form>
           <div className={styles.notification}>
-            <h5>Уведомления</h5>
+            <h5 className={styles.profile_block_title}>Уведомления</h5>
 
             <div className={styles.notification_toggleWrapper}>
               {notifications.map(({ id, info, desc }) => (
-                <div key={id} className={styles.notification_toggleWrapper_toggleBlock}>
-                  <div className={styles.notification_toggleWrapper_toggleBlock_text}>
-                    <span className={styles.notification_toggleWrapper_toggleBlock_text_header}>{info}</span>
-                    <p className={styles.notification_toggleWrapper_toggleBlock_text_desc}>{desc}</p>
-                  </div>
-                  <div className={styles.notification_toggleWrapper_toggleBlock_checkboxWrapper}>
-                    <CheckboxBall />
-                  </div>
-                </div>
+                <NotificationItem key={id} id={id} info={info} desc={desc} />
               ))}
             </div>
           </div>

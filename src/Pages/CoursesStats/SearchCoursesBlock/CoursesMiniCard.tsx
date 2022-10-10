@@ -15,7 +15,7 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseI
   return (
     <Link
       to={generatePath(`/login/courses/${Path.CreateCourse}`, {
-        course_id: courseId,
+        course_id: `${courseId}`,
       })}
     >
       <div className={styles.mini_card_container}>

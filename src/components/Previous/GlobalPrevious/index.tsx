@@ -86,10 +86,12 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
 
   const changedBg = photo_background
     ? {
-        background: `url(${photo_background}) no-repeat center center`,
+        backgroundImage: `url(${photo_background})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
         backgroundSize: 'cover',
       }
-    : { background: '#e0dced' }
+    : { backgroundColor: '#e0dced' }
 
   return (
     <div className={styles.previous} style={changedBg}>

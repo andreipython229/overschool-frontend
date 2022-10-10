@@ -23,7 +23,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
 
   let result = await baseQuery(args, api, extraOptions)
 
-  if (result?.error?.status === 403) {
+  if (result?.error?.status === 403 || result?.error?.status === 401) {
     const refreshResult: any = await baseQuery(
       {
         url: '/token-refresh/',

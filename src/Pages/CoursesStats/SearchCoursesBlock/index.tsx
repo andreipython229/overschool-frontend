@@ -3,7 +3,7 @@ import { memo, useState, FC } from 'react'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../components/common/Input/Input/Input'
 import { CoursesMiniCard } from './CoursesMiniCard'
-import { useFilterData } from '../../../customHooks/useFilterData'
+import { useDebouncedFilter } from '../../../customHooks/useDebouncedFilter'
 import { ToggleButtonDropDown } from '../../../components/common/ToggleButtonDropDown'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
 import { searchCourseBlockT } from '../../pageTypes'
@@ -12,23 +12,22 @@ import styles from '../courses_stats.module.scss'
 
 export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, courses }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [term, filteredData, handleChangeTerm] = useDebouncedFilter(courses, 'name')
 
   const handleToggleHiddenBlocks = (): void => {
     setIsOpen(!isOpen)
   }
-
-  const [nameCourses, foundCourses, filterData] = useFilterData(courses, 'name')
 
   return (
     <div className={styles.container}>
       <h4>Курсы</h4>
       {isOpen && (
         <>
-          <Input name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
+          <Input name="" type="search" value={term} onChange={handleChangeTerm} placeholder="Поиск по курсам">
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>
           <div className={styles.courses_card_block}>
-            {foundCourses?.map(({ photo_url, name, course_id }: any) => (
+            {filteredData?.map(({ photo_url, name, course_id }) => (
               <CoursesMiniCard key={course_id} groups={groups} photo_url={photo_url} name={name} courseId={course_id} />
             ))}
           </div>
