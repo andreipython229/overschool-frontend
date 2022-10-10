@@ -10,11 +10,13 @@ import { AllStudentsBlockT } from '../componentsTypes'
 import { useBoolean } from '../../customHooks/useBoolean'
 import { searchIconPath, addStudentIconPath, updateArrPath } from './config/svgIconsPath'
 import { Portal } from '../Modal/Portal'
+// import { useDebouncedFilter } from '../../customHooks/useDebouncedFilter'
 
 import styles from '../AllStudentsBlock/all_students_block.module.scss'
 
 export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => {
   const [isOpen, { off, on }] = useBoolean()
+  // const [term, filteredData, handleChangeTerm] = useDebouncedFilter()
 
   const [emailStudent, setEmailStudent] = useState<string>('')
 

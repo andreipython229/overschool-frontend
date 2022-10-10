@@ -6,7 +6,7 @@ import { CoursesDataT } from '../types/CoursesT'
 export type CoursesMiniCardT = {
   photo_url?: string
   name: string
-  courseId: string
+  courseId: number
   groups: studentsGroupsT[]
 }
 export type searchCourseBlockT = {

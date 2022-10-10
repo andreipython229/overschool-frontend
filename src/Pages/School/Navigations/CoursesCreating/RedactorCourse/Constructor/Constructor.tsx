@@ -13,7 +13,8 @@ import styles from './constructor.module.scss'
 
 export const Constructor: FC = () => {
   const { course_id: courseId } = useParams()
-  const { data: modulesAndLessons } = useFetchModulesQuery(courseId)
+
+  const { data: modulesAndLessons } = useFetchModulesQuery(courseId as string)
 
   const [modulesList, setModulesList] = useState<modulesListT[]>([])
 
@@ -42,7 +43,7 @@ export const Constructor: FC = () => {
       {modulesList[0] && modulesList[0].lessons[0] && <LessonSettings lessonIdAndType={lessonIdAndType} setType={setType} />}
       {type && (
         <Portal closeModal={handleCloseAllModal}>
-          <ModalMaper lessonIdAndType={lessonIdAndType} modulesList={modulesList} setType={setType} type={type} />
+          <ModalMaper lessonIdAndType={lessonIdAndType} modulesList={modulesList} setType={setType} type={type} courseId={courseId} />
         </Portal>
       )}
     </div>

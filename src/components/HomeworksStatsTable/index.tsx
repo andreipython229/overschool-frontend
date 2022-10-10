@@ -28,15 +28,14 @@ export const HomeworksStatsTable: FC<homeworksStatsTableT> = ({ handleOpenModal,
         <HomeworksStatsTableHeader />
       </thead>
       <tbody>
-        {homeworks?.results.length &&
-          homeworks?.results.map((homework: homeworkStatT, index: number) => (
-            <HomeworksStatsTableRow
-              key={index /*homework.user_homework*/}
-              homeworkData={homework}
-              handleOpenModal={handleOpenModal}
-              onSelectUserHomeworkId={onSelectUserHomeworkId}
-            />
-          ))}
+        {homeworks?.results.map((homework: homeworkStatT, index: number) => (
+          <HomeworksStatsTableRow
+            key={index /*homework.user_homework*/}
+            homeworkData={homework}
+            handleOpenModal={handleOpenModal}
+            onSelectUserHomeworkId={onSelectUserHomeworkId}
+          />
+        ))}
       </tbody>
     </table>
   )

@@ -10,9 +10,5 @@ export const CourseModules: FC = () => {
   const { course_id: courseId } = useParams()
   const { data: modules } = useFetchModulesQuery(courseId as string)
 
-  return (
-    <div className={styles.container}>
-      <StudentAccardion modules={modules} />
-    </div>
-  )
+  return <div className={styles.container}>{modules ? <StudentAccardion modules={modules} /> : null}</div>
 }

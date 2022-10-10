@@ -8,7 +8,9 @@ import { ModulesT } from '../components/Modal/ModalTypes'
 type UseCreateLessonT = {
   modulesList: ModulesT[]
   typeLesson: string
-  text?: string
+  time_accept?: string
+  description?: string
+  automate_accept?: boolean
   success_percent?: number
   setType: (arg: keyof object) => void
 }
@@ -21,7 +23,26 @@ type UseCreateLessonReturnT = {
   nameLesson: string
 }
 
-export const useCreateLesson = ({ setType, modulesList, typeLesson, text, success_percent }: UseCreateLessonT): UseCreateLessonReturnT => {
+type createLessonDataT = {
+  name: string
+  order: number | undefined
+  section: number
+  balls: number
+  success_percent?: number
+  time_accept?: string
+  automate_accept?: boolean
+  description?: string
+}
+
+export const useCreateLesson = ({
+  setType,
+  modulesList,
+  typeLesson,
+  description,
+  success_percent,
+  time_accept,
+  automate_accept = false,
+}: UseCreateLessonT): UseCreateLessonReturnT => {
   const [nameLesson, setNameLesson] = useState<string>('')
   const [balls, setBalls] = useState<number>(0)
   const { section_id } = useAppSelector(getSectionId)
@@ -33,29 +54,28 @@ export const useCreateLesson = ({ setType, modulesList, typeLesson, text, succes
       return
     }
     const orderLessons = findLength(section_id, modulesList)
-    if (text || success_percent) {
-      const createLessonData = {
-        name: nameLesson,
-        order: orderLessons,
-        section: section_id,
-        balls: balls,
-        text: text,
-        success_percent: success_percent,
-      }
 
-      await createLesson({ createLessonData, type: typeLesson })
-      setType(null as keyof object)
-    } else {
-      const createLessonData = {
-        name: nameLesson,
-        order: orderLessons,
-        section: section_id,
-        balls: balls,
-      }
-
-      await createLesson({ createLessonData, type: typeLesson })
-      setType(null as keyof object)
+    const createLessonData: createLessonDataT = {
+      name: nameLesson,
+      order: orderLessons,
+      section: section_id,
+      balls: balls,
     }
+    if (description) {
+      createLessonData['description'] = description
+    }
+    if (automate_accept) {
+      createLessonData['automate_accept'] = automate_accept
+    }
+    if (success_percent) {
+      createLessonData['success_percent'] = success_percent
+    }
+    if (time_accept) {
+      createLessonData['time_accept'] = time_accept
+    }
+
+    await createLesson({ createLessonData, type: typeLesson })
+    setType(null as keyof object)
   }
 
   return { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson }

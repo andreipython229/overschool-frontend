@@ -1,28 +1,28 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
-
 import { baseQueryWithReauth } from './baseApi'
+import { sectionsT } from '../types/sectionT'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['modulesServices'],
+  tagTypes: ['modulesServices', 'patchLesson', 'createModule'],
   endpoints: build => ({
-    fetchModules: build.query({
-      query: id => ({
-        url: `/courses/${id}/sections/`,
-      }),
+    fetchModules: build.query<sectionsT, string>({
+      query: id => {
+        return {
+          url: `/courses/${id}/sections/`,
+        }
+      },
       providesTags: () => ['modulesServices'],
     }),
-    // fetchModule: build.query({
-    //   query: sectionId => ({
-    //     url: `sections/${sectionId}`,
-    //   }),
-    //   providesTags: () => ['modulesServices'],
-    // }),
     fetchModuleLessons: build.query({
       query: sectionId => ({
         url: `sections/${sectionId}/lessons`,
       }),
+      transformResponse: (response: any) => {
+        console.log('transform', response)
+        return response
+      },
       providesTags: () => ['modulesServices'],
     }),
     createModules: build.mutation({
@@ -50,11 +50,11 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modulesServices'],
     }),
-    fetchLesson: build.query<any, any>({
+    fetchLesson: build.query({
       query: ({ id, type }) => ({
         url: `/${type}s/${id}/`,
       }),
-      // providesTags: ['modulesServices'],
+      providesTags: ['patchLesson'],
     }),
     createLessons: build.mutation({
       query: arg => {
@@ -81,14 +81,13 @@ export const modulesServices = createApi({
           body: arg.formdata,
         }
       },
-      invalidatesTags: ['modulesServices'],
+      invalidatesTags: ['modulesServices', 'patchLesson'],
     }),
   }),
 })
 
 export const {
   useFetchModulesQuery,
-  //useFetchModuleQuery,
   useFetchModuleLessonsQuery,
   useCreateModulesMutation,
   useDeleteModulesMutation,

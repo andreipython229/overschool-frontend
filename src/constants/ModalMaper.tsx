@@ -3,7 +3,7 @@ import { AddModuleModal } from 'components/Modal/CoursesModal/AddModuleModal'
 import { SettingsClassesModal } from '../components/Modal/CoursesModal/SettingsClassesModal'
 import { ModalTypeClasses, SettingClassesUsually, TasksModal, TestModal, WebinarModal } from '../components/Modal'
 
-export const ModalMaper = ({ lessonIdAndType, type, setType, modulesList }: keyof object | any): JSX.Element | null => {
+export const ModalMaper = ({ courseId, lessonIdAndType, type, setType, modulesList }: keyof object | any): JSX.Element | null => {
   if (type) {
     const modalMapper = {
       setting: <SettingsClassesModal lessonIdAndType={lessonIdAndType} modulesList={modulesList} setType={setType} />,
@@ -12,7 +12,7 @@ export const ModalMaper = ({ lessonIdAndType, type, setType, modulesList }: keyo
       homework: <TasksModal modulesList={modulesList} setType={setType} />,
       test: <TestModal modulesList={modulesList} setType={setType} />,
       webinar: <WebinarModal setType={setType} />,
-      module: <AddModuleModal modulesList={modulesList} setType={setType} />,
+      module: <AddModuleModal courseId={courseId} modulesList={modulesList} setType={setType} />,
     }
     return <div>{modalMapper[type as keyof object]}</div>
   } else {

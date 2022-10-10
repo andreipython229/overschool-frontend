@@ -3,7 +3,7 @@ import { useState, FC } from 'react'
 import { MyEditor } from '../../MyEditor/MyEditor'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { useFetchUserHomeworkQuery } from '../../../api/userHomeworkService'
-import { convertDate } from 'utils/'
+import { convertDate } from '../../../utils/convertDate'
 import {
   taskIconPath,
   waitIconPath,

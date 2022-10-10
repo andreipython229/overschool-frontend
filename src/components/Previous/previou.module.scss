@@ -10,15 +10,14 @@
   border-radius: 7px;
   overflow: hidden;
   margin-bottom: 25px;
-
-  @media only screen and (min-width : 320px) and (max-width : 376px) {
-    @include display (flex, row, flex-start, center);
+  @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @include display(flex, row, flex-start, center);
     margin-top: 10px;
     height: 58px;
   }
 
   &_bcgrShadow {
-    @include position_t_l (absolute, 0, 0);
+    @include position_t_l(absolute, 0, 0);
     opacity: 0.5;
     width: 100%;
     height: 100%;
@@ -34,7 +33,7 @@
     width: 66px;
     height: 66px;
 
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
       margin: 0 12px 0 8px;
       width: 40px;
       height: 40px;
@@ -42,10 +41,10 @@
   }
 
   &_infoBlock {
-    @include position_b_l (absolute, 26px, 34px);
-    @include display (flex, row, flex-start, center);
+    @include position_b_l(absolute, 26px, 34px);
+    @include display(flex, row, flex-start, center);
 
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
       position: static;
     }
     &_avatar {
@@ -56,16 +55,16 @@
     }
 
     &_title {
-      @include display (flex, column);
+      @include display(flex, column);
       &_description {
-        @include font (500, 14px, 10px);
+        @include font(500, 14px, 10px);
         color: #ba75ff;
         font-size: 14px;
         margin-bottom: 2px;
       }
 
       &_name {
-        @include font (500, 20px, 17px);
+        @include font(500, 20px, 17px);
         color: #bdbdbd;
       }
 
@@ -77,14 +76,14 @@
   }
 
   &_onlineCourses {
-    @include position_t_l (absolute, 107px, 44px);
-    @include font (500, 14px, 17px);
+    @include position_t_l(absolute, 107px, 44px);
+    @include font(500, 14px, 17px);
     color: #ba75ff;
   }
 
   &_btn {
-    @include position_b_r (absolute, 44px, 37px);
-    @media only screen and (min-width : 320px) and (max-width : 376px) {
+    @include position_b_r(absolute, 44px, 37px);
+    @media only screen and (min-width: 320px) and (max-width: 376px) {
       display: none;
     }
     & button {
@@ -100,7 +99,7 @@
   font-weight: 500;
 }
 .hide_input {
-  @include position_t_l (absolute, 0, 0);
+  @include position_t_l(absolute, 0, 0);
   width: 66px;
   height: 66px;
   opacity: 0;
@@ -109,7 +108,7 @@
   opacity: 0;
 }
 .label_input_background_image {
-  @include position_t_l (absolute, 0, 50%);
+  @include position_t_l(absolute, 0, 50%);
   transform: translateX(-50%);
   border-radius: 0 0 15px 15px;
   padding-top: 15px;
@@ -120,18 +119,18 @@
   text-align: center;
 }
 .previous_title_name {
-  @include position_t_l (absolute, 147px, 43px);
-  @include font (500, 20px, 24px);
+  @include position_t_l(absolute, 147px, 43px);
+  @include font(500, 20px, 24px);
   color: #fff;
 }
 .back_all_course {
-  @include position_t_l (absolute, 40px, 44px);
-  @include display (flex, row, flex-start, center);
+  @include position_t_l(absolute, 40px, 44px);
+  @include display(flex, row, flex-start, center);
   color: #fff;
   text-decoration: none;
 
   span {
-    @include font (500, 12px, 15px);
+    @include font(500, 12px, 15px);
     margin-left: 13px;
   }
 }
