@@ -1,22 +1,28 @@
 import { useState, ChangeEvent, useEffect } from 'react'
 
-// import { useDebounceFunc } from './useDebounceFunc'
+import { useDebounceFunc } from './useDebounceFunc'
 
-// export const useDebouncedFilter = (dataToFilter, termForFilter) => {
-//   const [term, setTerm] = useState<string>('')
-//   const [filteredData, setFilteredData] = useState([])
+type returnableData<T> = [string, T[], (e: ChangeEvent<HTMLInputElement>) => void]
 
-//   useEffect(() => {
-//     dataToFilter && setFilteredData(dataToFilter)
-//   }, [dataToFilter])
+export const useDebouncedFilter = <T, K extends keyof T>(dataToFilter: T[], termForFilter: K): returnableData<T> => {
+  const [term, setTerm] = useState<string>('')
+  const [filteredData, setFilteredData] = useState<T[]>(dataToFilter)
 
-//   const handleChangeTerm = (e: ChangeEvent<HTMLInputElement>) => {
-//     setTerm(e.target.value)
-//   }
+  useEffect(() => {
+    dataToFilter && setFilteredData(dataToFilter)
+  }, [dataToFilter])
 
-//   const filteredDataByTerm = dataToFilter?.filter(item => item[termForFilter].toLowerCase().includes(term))
+  const handleChangeTerm = (e: ChangeEvent<HTMLInputElement>) => {
+    setTerm(e.target.value)
+  }
 
-//   useDebounceFunc(() => setFilteredData(filteredDataByTerm.length ? filteredDataByTerm : dataToFilter))
+  const filteredDataByTerm = dataToFilter?.filter(item => item[termForFilter].toLowerCase().includes(term.toLowerCase()))
 
-//   return [term, filteredData, handleChangeTerm]
-// }
+  const debounce = useDebounceFunc(() => setFilteredData(filteredDataByTerm?.length ? filteredDataByTerm : dataToFilter))
+
+  useEffect(() => {
+    dataToFilter && debounce()
+  }, [term])
+
+  return [term, filteredData, handleChangeTerm]
+}

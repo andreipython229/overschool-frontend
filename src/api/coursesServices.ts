@@ -13,13 +13,13 @@ export const coursesServices = createApi({
       query: () => ({
         url: `/courses/`,
       }),
-      providesTags: () => ['courses'],
+      providesTags: ['courses'],
     }),
     fetchCourse: build.query<CoursesDataT, string>({
       query: id => ({
         url: `/courses/${id}/`,
       }),
-      providesTags: () => ['course'],
+      providesTags: ['course'],
     }),
     createCourses: build.mutation<CoursesDataT, FormData>({
       query: course => {
