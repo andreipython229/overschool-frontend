@@ -2,7 +2,6 @@
 @import '../../../scss/mixin.scss';
 
 .container {
-  width: 476px;
   padding: 21px 61px 21px 24px;
   text-align: left;
   font-family: $font-family-inter;
@@ -32,12 +31,20 @@
 }
 .selectChildren {
   @include display (flex);
-  width: 511px;
-  padding: 20px 0 20px 16px;
+  padding: 21px 61px 21px 24px;
   text-align: right;
   border-radius: 7px;
 
   &_content {
     @include display (flex);
+    &_title {
+      @include display (flex, row);
+      span {
+        margin: 0 20px 0 10px;
+        @include font (500, 16px, 24px);
+        color: #4D5766;
+        text-align: left;
+      }
+    }
   }
 }
