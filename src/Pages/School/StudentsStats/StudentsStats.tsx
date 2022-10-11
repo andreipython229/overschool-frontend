@@ -1,6 +1,6 @@
 import { ChangeEvent, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-
+import { AllStudentsBlock } from '../../../components/AllStudentsBlock'
 import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentModal'
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
@@ -78,7 +78,7 @@ export const StudentsStats = () => {
           color: '#4D5766',
         }}
       >
-        Все ученики курса
+        <AllStudentsBlock headerText={'Все ученики курса'} />
       </p>
       <StudentsTableBlock setShowModal={offToggleSettingModal} />
 

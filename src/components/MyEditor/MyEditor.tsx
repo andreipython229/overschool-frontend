@@ -1,10 +1,9 @@
 import { memo, MouseEvent, useEffect, useState, useRef, FC } from 'react'
-import { convertToRaw, Editor, EditorState, RichUtils, AtomicBlockUtils } from 'draft-js'
+import { convertToRaw, Editor, EditorState, RichUtils } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
 
 import { BLOCK_TYPES } from './config/blockTypes'
 import { IEditor } from 'components/componentsTypes'
-import { useDebounce } from '../../customHooks/useDebounce'
 
 import 'draft-js/dist/Draft.css'
 import styles from './editor.module.scss'
@@ -18,12 +17,10 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
 
   const [editorContent, setEditorContent] = useState<string>('')
 
-  const debounced = useDebounce(editorContent, 1500)
-
   useEffect(() => {
     setEditorContent(draftToHtml(convertToRaw(editorState.getCurrentContent())))
-    setDescriptionLesson && setDescriptionLesson(debounced.toString())
-  }, [editorContent, debounced])
+    setDescriptionLesson && setDescriptionLesson(editorContent)
+  }, [editorContent, editorState])
 
   const editor = useRef<Editor>(null)
 

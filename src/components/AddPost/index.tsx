@@ -9,7 +9,7 @@ import { ContentBtn } from 'components/ContentBtn'
 import { useBoolean } from '../../customHooks/useBoolean'
 import { AddPostT } from '../componentsTypes'
 import { patchData } from '../../utils/patchData'
-import { useDebounce } from '../../customHooks/useDebounce'
+import { useDebounceFunc } from '../../customHooks/useDebounceFunc'
 import { usePatchLessonsMutation } from 'api/modulesServices'
 
 import Text from '../.././assets/img/createCourse/text.svg'
@@ -30,21 +30,21 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview 
   const [descriptionLesson, setDescriptionLesson] = useState<string>('')
   const [code, setCode] = useState<string>('')
 
-  const [debounced] = useDebounce(code, 1000)
+  const debounced = useDebounceFunc(addPatchData, 2000)
 
   const description: any = parse(descriptionLesson)
 
   useEffect(() => {
     if (description[0]?.props?.children && lesson) {
-      patchData(lesson, `${lessonIdAndType?.type}_id`, 'description', descriptionLesson, addPatchData, lessonIdAndType?.type)
+      patchData(lesson, `${lessonIdAndType?.type}_id`, 'description', descriptionLesson, debounced, lessonIdAndType?.type)
     }
   }, [descriptionLesson])
 
   useEffect(() => {
     if (code && lesson) {
-      patchData(lesson, `${lessonIdAndType?.type}_id`, 'code', debounced.toString(), addPatchData, lessonIdAndType?.type)
+      patchData(lesson, `${lessonIdAndType?.type}_id`, 'code', code.toString(), debounced, lessonIdAndType?.type)
     }
-  }, [debounced.toString()])
+  }, [code.toString()])
 
   const handleEditorChange = (code: string | undefined) => {
     if (code) {

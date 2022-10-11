@@ -30,7 +30,7 @@ export const Profile = () => {
     values: { password, confirmPassword },
     errors,
     handleSubmit: handlePasswordsSubmit,
-    handleChange: handlePasswordChnge,
+    handleChange: handlePasswordChange,
   } = changePassword
 
   return (
@@ -47,9 +47,15 @@ export const Profile = () => {
           </form>
           <form style={{ marginTop: '32px' }} className={styles.container} onSubmit={handlePasswordsSubmit}>
             <h5 className={styles.profile_block_title}>Смена пароля</h5>
-            <Input name="password" type="text" onChange={handlePasswordChnge} value={password} placeholder="Новый пароль" />
+            <Input name="password" type="text" onChange={handlePasswordChange} value={password} placeholder="Новый пароль" />
             <div className={styles.container_wrapper}>
-              <Input name="confirmPassword" placeholder="Повторить новый пароль" type="text" onChange={handlePasswordChnge} value={confirmPassword} />
+              <Input
+                name="confirmPassword"
+                placeholder="Повторить новый пароль"
+                type="text"
+                onChange={handlePasswordChange}
+                value={confirmPassword}
+              />
             </div>
             <div className={styles.container_wrapper}>
               <Button
