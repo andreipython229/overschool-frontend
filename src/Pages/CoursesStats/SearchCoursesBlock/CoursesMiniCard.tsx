@@ -3,10 +3,9 @@ import { generatePath, Link } from 'react-router-dom'
 
 import { Path } from '../../../enum/pathE'
 import { CoursesMiniCardT } from '../../pageTypes'
+import { getNounDeclension } from '../../../utils/getNounDeclension'
 
 import styles from '../courses_stats.module.scss'
-
-// need to change logic of labels' naming
 
 export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseId, groups }) => {
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
@@ -24,16 +23,10 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseI
           <p className={styles.mini_card_name}>{name}</p>
           <ul className={styles.mini_card_list}>
             <li>
-              <span>
-                {filteredGroups.length === 1 || filteredGroups.length % 10 === 1
-                  ? `${filteredGroups.length} группа`
-                  : `${filteredGroups.length} группы`}
-              </span>
+              <span>{getNounDeclension(filteredGroups.length, ['группа', 'группы', 'групп'])}</span>
             </li>
             <li>
-              <span>
-                {quantutyOfStudents === 1 || quantutyOfStudents % 10 === 1 ? `${quantutyOfStudents} ученик` : `${quantutyOfStudents} ученика`}
-              </span>
+              <span>{getNounDeclension(quantutyOfStudents, ['ученик', 'ученика', 'учеников'])}</span>
             </li>
           </ul>
         </div>

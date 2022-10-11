@@ -1,13 +1,14 @@
 import { FC, useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { useFetchCourseQuery } from '../../../api/coursesServices'
-import { useFetchModulesQuery } from '../../../api/modulesServices'
-import { Path } from '../../../enum/pathE'
-import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
-import { backArr } from '../../../components/Previous/config/svgIconPath'
-import { lessonT, sectionT } from '../../../types/sectionT'
-import { lessonSvgMapper } from '../../../config/LessonsMaper'
+import { useFetchCourseQuery } from 'api/coursesServices'
+import { useFetchModulesQuery } from 'api/modulesServices'
+import { Path } from 'enum/pathE'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { backArr } from 'components/Previous/config/svgIconPath'
+import { lessonT, sectionT } from 'types/sectionT'
+import { lessonSvgMapper } from 'config/LessonsMaper'
+import { getNounDeclension } from 'utils/getNounDeclension'
 
 import styles from './student_course_header.module.scss'
 
@@ -48,15 +49,24 @@ export const StudentCourseHeader: FC = () => {
       <div className={styles.previous_courseInfo}>
         <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
           {lessonSvgMapper['lesson']}
-          <span style={{ marginLeft: '4px' }}>{countOfLessons && countOfLessons['lesson']} занятия</span>
+          <span style={{ marginLeft: '4px' }}>
+            {countOfLessons && countOfLessons['lesson']}{' '}
+            {countOfLessons && getNounDeclension(countOfLessons['lesson'], ['занятие', 'занятия', 'занятий'])}
+          </span>
         </div>
         <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
           {lessonSvgMapper['homework']}
-          <span style={{ marginLeft: '4px' }}>{countOfLessons && countOfLessons['homework']} заданий</span>
+          <span style={{ marginLeft: '4px' }}>
+            {countOfLessons && countOfLessons['homework']}{' '}
+            {countOfLessons && getNounDeclension(countOfLessons['homework'], ['задание', 'задания', 'заданий'])}
+          </span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {lessonSvgMapper['test']}
-          <span>{countOfLessons && countOfLessons['test']} тестов</span>
+          <span>
+            {countOfLessons && countOfLessons['test']}
+            {countOfLessons && getNounDeclension(countOfLessons['test'], ['тест', 'теста', 'тестов'])}
+          </span>
         </div>
       </div>
       <div className={styles.previous_progress}>

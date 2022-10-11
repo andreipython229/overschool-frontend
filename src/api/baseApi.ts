@@ -35,7 +35,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
     )
 
     if (refreshResult?.data) {
-      api.dispatch(token({ access_token: refreshResult.data?.access as string }))
+      api.dispatch(token({ access_token: refreshResult.data?.access as string, refresh_token: refreshResult.data?.refresh }))
 
       result = await baseQuery(args, api, extraOptions)
     } else {
