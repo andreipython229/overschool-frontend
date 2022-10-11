@@ -2,22 +2,26 @@ import { memo, useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
 import { useFetchProfileDataQuery } from '../../api/profileService'
-import { useAppDispatch } from '../../store/hooks'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { auth, token } from 'store/redux/users/slice'
 import { Path } from 'enum/pathE'
 import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutIconPath } from './config/svgIconsPath'
 import { useLogoutMutation } from 'api/userLoginService'
-import { logo } from '../../assets/img/common/index'
+import { userIdSelector } from '../../selectors'
+import { logo } from '../../assets/img/common'
 
 import styles from './header.module.scss'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
+  const id = useAppSelector(userIdSelector)
+
   const [logout] = useLogoutMutation()
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
-  const { data: profile } = useFetchProfileDataQuery(1)
+
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(id)
+  const { data: profile } = useFetchProfileDataQuery(id)
 
   const logOut = (): void => {
     dispatch(token({ access_token: '' }))
