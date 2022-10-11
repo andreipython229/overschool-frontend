@@ -19,10 +19,6 @@ export const modulesServices = createApi({
       query: sectionId => ({
         url: `sections/${sectionId}/lessons`,
       }),
-      transformResponse: (response: any) => {
-        console.log('transform', response)
-        return response
-      },
       providesTags: () => ['modulesServices'],
     }),
     createModules: build.mutation({

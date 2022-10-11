@@ -9,7 +9,7 @@ import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutIconPath } from './config/svgIconsPath'
 import { useLogoutMutation } from 'api/userLoginService'
-import { avatar, logo } from '../../assets/img/common/index'
+import { logo } from '../../assets/img/common/index'
 
 import styles from './header.module.scss'
 
@@ -42,7 +42,7 @@ export const Header = memo(() => {
         <Link style={{ textDecoration: 'none' }} to={Path.Profile}>
           <div className={styles.header_block_user}>
             {profile?.avatar_url ? (
-              <img className={styles.header_block_user_avatar} src={profile?.avatar_url} alt="avatar" />
+              <img width={'50'} height={'50'} className={styles.header_block_user_avatar} src={profile?.avatar_url} alt="avatar" />
             ) : (
               <div className={styles.header_block_user_div}>
                 {profile?.user.last_name[0]} {profile?.user.first_name[0]}
