@@ -14,3 +14,17 @@ export type studentsGroupsT = {
   teacher_id?: number
   students: number[]
 }
+
+export type studentsTableHeader = {
+  admin: number
+  student_table_id: number
+  students_table_info: studentGroupInfoT[]
+}
+
+export type studentGroupInfoT = {
+  order: number
+  name: string
+  checked: boolean
+  label?: string
+  id: number
+}

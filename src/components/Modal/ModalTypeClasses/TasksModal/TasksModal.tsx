@@ -13,11 +13,14 @@ import { TasksModalPropsT } from '../../ModalTypes'
 import { useCreateLesson } from '../../../../customHooks/useCreateLesson'
 
 import styles from '../../Modal.module.scss'
+import { timeMaper } from '../../../../constants/timeMaper'
 
 export const TasksModal: FC<TasksModalPropsT> = memo(({ modulesList, setType }) => {
   const [settingsActive, setSettingsActive] = useState<number>(0)
   const [descriptionHomeWork, setDescriptionHomeWork] = useState<string>('')
   const [checkbox, setCheckbox] = useState<boolean>(false)
+  const [time, setTime] = useState<number | null>(null)
+  const [units, setUnits] = useState<keyof object | null>(null)
 
   const { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
     modulesList,
@@ -25,12 +28,14 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ modulesList, setType }) 
     typeLesson: 'homeworks',
     description: descriptionHomeWork,
     automate_accept: checkbox,
+    time_accept: timeMaper(time, units) || undefined,
   })
 
   const handleCheckbox = () => {
     setCheckbox(!checkbox)
+    setTime(null)
+    setUnits(null)
   }
-  console.log(checkbox)
 
   const handleNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
     setNameLesson(event.target.value)
@@ -84,14 +89,16 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ modulesList, setType }) 
               <p>После отправки учеником работы спустя указанное количество времени будет автоматически поставлен зачет</p>
             </div>
           </div>
-          <div className={styles.tasks_credit}>
-            <span className={styles.tasks_credit_desc}>Поставить зачёт через</span>
-            <div className={styles.tasks_credit_select}>
-              <SelectInput optionsList={arrNumber} />
-              <SelectInput optionsList={arrTime} />
+          {checkbox ? (
+            <div className={styles.tasks_credit}>
+              <span className={styles.tasks_credit_desc}>Поставить зачёт через</span>
+              <div className={styles.tasks_credit_select}>
+                <SelectInput optionsList={arrNumber} setSelectedValue={setTime} />
+                <SelectInput optionsList={arrTime} setSelectedValue={setUnits} />
+              </div>
+              <span className={styles.tasks_credit_desc}>после отправки</span>
             </div>
-            <span className={styles.tasks_credit_desc}>после отправки</span>
-          </div>
+          ) : null}
           <div className={styles.tasks_editor}>
             <span className={styles.tasks_editor_desc}>Сообщение, которое будет автоматически отправлено ученику после принятия работы:</span>
             <MyEditor setDescriptionLesson={setDescriptionHomeWork} />

@@ -5,7 +5,8 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { AddPost } from 'components/AddPost'
 import { settingsIconPath, deleteIconPath, paperClipIconPath } from '../../../../config/svgIconsPath'
 import { useDeleteLessonsMutation, useFetchLessonQuery, usePatchLessonsMutation } from 'api/modulesServices'
-import { ClassesSettingsPropsT, ILesson } from '../../../navigationTypes'
+import { ClassesSettingsPropsT } from '../../../navigationTypes'
+import { ILesson } from '../../../../../../types/sectionT'
 import { patchData } from 'utils/patchData'
 import { useBoolean } from 'customHooks/useBoolean'
 
@@ -14,7 +15,7 @@ import styles from './constructor.module.scss'
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ lessonIdAndType, setType }) => {
   const [isToggle, { onToggle }] = useBoolean()
 
-  const { data } = useFetchLessonQuery({ id: lessonIdAndType.id, type: lessonIdAndType.type })
+  const { data } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type })
 
   const [addFile] = usePatchLessonsMutation()
   const [deleteLesson] = useDeleteLessonsMutation()

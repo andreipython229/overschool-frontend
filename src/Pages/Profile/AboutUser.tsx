@@ -3,7 +3,7 @@ import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
-import { userDataSchema } from './schemas/index'
+import { userDataSchema } from './schemas'
 import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/profileService'
 
 import styles from './profile.module.scss'
@@ -122,7 +122,7 @@ export const AboutUser: FC = memo(() => {
       <div className={styles.profile_block}>
         <span className={styles.profile_block_avatarBlock_title}>Пол:</span>
         <select className={styles.profile_block_select} onChange={handleChange} value={formik.values.sex} name="sex" id="sex" required>
-          <option value="" disabled selected>
+          <option value="" disabled>
             Выбрать пол
           </option>
           <option value={'М'}>Мужской</option>

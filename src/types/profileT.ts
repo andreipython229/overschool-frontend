@@ -8,7 +8,7 @@ export type profileT = {
   avatar_url?: string
   city: string
   description: string
-  profile_id: number
+  profile_id?: number
   sex?: sex
   user: profileUserT
 }

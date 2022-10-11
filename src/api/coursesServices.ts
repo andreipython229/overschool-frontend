@@ -1,4 +1,4 @@
-import { createApi, FetchArgs } from '@reduxjs/toolkit/dist/query/react'
+import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQueryWithReauth } from './baseApi'
 import { CoursesT, CoursesDataT } from '../types/CoursesT'
@@ -13,7 +13,7 @@ export const coursesServices = createApi({
       query: () => ({
         url: `/courses/`,
       }),
-      providesTags: ['courses'],
+      providesTags: ['courses', 'course'],
     }),
     fetchCourse: build.query<CoursesDataT, string>({
       query: id => ({
@@ -39,7 +39,7 @@ export const coursesServices = createApi({
       invalidatesTags: ['course', 'courses'],
     }),
     patchCourses: build.mutation<FormData, UpdateCourses>({
-      query: (arg): string | FetchArgs => {
+      query: (arg) => {
         return {
           url: `/courses/${arg?.id}/`,
           method: 'PATCH',
@@ -49,7 +49,7 @@ export const coursesServices = createApi({
       invalidatesTags: ['course'],
     }),
     cloneCourse: build.mutation<CoursesDataT, number>({
-      query: (id): string | FetchArgs => {
+      query: (id) => {
         return {
           url: `/courses/${id}/clone/`,
           method: 'GET',

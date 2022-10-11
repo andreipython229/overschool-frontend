@@ -28,7 +28,7 @@ export const CoursePage: FC = memo(() => {
 
   const [isOpenAddCourse, { onToggle }] = useBoolean()
 
-  const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name')
+  const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
 
   const dispatchHandlerModal = () => {
     onToggle()

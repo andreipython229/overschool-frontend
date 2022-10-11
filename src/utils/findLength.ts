@@ -1,7 +1,7 @@
-import { ModulesT } from '../components/Modal/ModalTypes'
+import { sectionT } from 'types/sectionT'
 
-export const findLength = (id: number, dataList: ModulesT[]): number | undefined => {
-  const findSection = dataList.find((item: ModulesT) => id === item.section)
+export const findLength = (id: number, dataList: sectionT[]): number | undefined => {
+  const findSection = dataList.find(item => id === item.section)
   if (findSection) {
     return findSection.lessons.length + 1 || 0
   }

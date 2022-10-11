@@ -1,46 +1,41 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
+
+import { sectionT, sectionsT } from '../types/sectionT'
 import { baseQueryWithReauth } from './baseApi'
-import { sectionsT } from '../types/sectionT'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['modulesServices', 'patchLesson', 'createModule'],
+  tagTypes: ['modules', 'lessons'],
   endpoints: build => ({
     fetchModules: build.query<sectionsT, string>({
-      query: id => {
-        return {
-          url: `/courses/${id}/sections/`,
-        }
-      },
-      providesTags: () => ['modulesServices'],
+      query: id => ({
+        url: `/courses/${id}/sections/`,
+      }),
+      providesTags: ['modules'],
     }),
-    fetchModuleLessons: build.query({
+    fetchModuleLessons: build.query<sectionT, string>({
       query: sectionId => ({
         url: `sections/${sectionId}/lessons`,
       }),
-      transformResponse: (response: any) => {
-        console.log('transform', response)
-        return response
-      },
-      providesTags: () => ['modulesServices'],
+      providesTags: ['lessons'],
     }),
-    createModules: build.mutation({
+    createModules: build.mutation<void, FormData>({
       query: arg => ({
         url: `./sections/`,
         method: 'POST',
         body: arg,
       }),
-      invalidatesTags: ['modulesServices'],
+      invalidatesTags: ['modules'],
     }),
-    deleteModules: build.mutation({
+    deleteModules: build.mutation<void, number>({
       query: id => ({
         url: `/sections/${id}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['modulesServices'],
+      invalidatesTags: ['modules'],
     }),
-    patchModules: build.mutation({
+    patchModules: build.mutation<void, { formdata: FormData; id: number }>({
       query: arg => {
         return {
           url: `/sections/${arg.id}/`,
@@ -48,13 +43,13 @@ export const modulesServices = createApi({
           body: arg.formdata,
         }
       },
-      invalidatesTags: ['modulesServices'],
+      invalidatesTags: ['modules'],
     }),
-    fetchLesson: build.query({
+    fetchLesson: build.query<any, { id: number; type: string }>({
       query: ({ id, type }) => ({
         url: `/${type}s/${id}/`,
       }),
-      providesTags: ['patchLesson'],
+      providesTags: ['lessons'],
     }),
     createLessons: build.mutation({
       query: arg => {
@@ -64,16 +59,16 @@ export const modulesServices = createApi({
           body: arg.createLessonData,
         }
       },
-      invalidatesTags: ['modulesServices'],
+      invalidatesTags: ['lessons'],
     }),
-    deleteLessons: build.mutation({
+    deleteLessons: build.mutation<void, { id: number; type: string }>({
       query: ({ id, type }) => ({
         url: `/${type}s/${id}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['modulesServices'],
+      invalidatesTags: ['lessons'],
     }),
-    patchLessons: build.mutation({
+    patchLessons: build.mutation<void, { id: number; type: string; formdata: FormData }>({
       query: arg => {
         return {
           url: `/${arg.type}s/${arg.id}/`,
@@ -81,7 +76,7 @@ export const modulesServices = createApi({
           body: arg.formdata,
         }
       },
-      invalidatesTags: ['modulesServices', 'patchLesson'],
+      invalidatesTags: ['lessons'],
     }),
   }),
 })

@@ -1,6 +1,6 @@
 // used once at courses/create-course
 
-import { FC, ReactNode, useState } from 'react'
+import { FC, ReactNode, useEffect, useRef, useState } from 'react'
 
 import { IconSvg } from '../IconSvg/IconSvg'
 import { selectInputIconPath } from './config/svgIconspath'
@@ -20,8 +20,26 @@ export const SelectInput: FC<SelectInputPropsT<string | number>> = ({ optionsLis
     setIsOptionsOpen(!selectedOption)
   }
 
+  const menuRef = useRef<HTMLDivElement>(null)
+
+  const handleClick = (event: MouseEvent) => {
+    const target = event?.target as HTMLHeadingElement
+
+    if (!menuRef.current?.contains(target)) {
+      setIsOptionsOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClick)
+
+    return () => {
+      document.removeEventListener('click', handleClick)
+    }
+  }, [])
+
   return (
-    <div className={styles.wrapper} onClick={toggleOptions}>
+    <div ref={menuRef} className={styles.wrapper} onClick={toggleOptions}>
       <div className={styles.container}>
         <IconSvg
           styles={{ transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}` }}

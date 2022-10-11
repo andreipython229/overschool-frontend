@@ -5,7 +5,6 @@ import { IconSvg } from '../../../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../../../components/common/Input/Input/Input'
 import { Checkbox } from '../../../../../components/common/Checkbox/Checkbox'
 import { SelectInput } from '../../../../../components/common/SelectInput/SelectInput'
-import { useDebounce } from '../../../../../customHooks/useDebounce'
 import { usePatchCoursesMutation } from '../../../../../api/coursesServices'
 import { formDataConverter } from '../../../../../utils/formDataConverter'
 import { CheckboxBall } from '../../../../../components/common/CheckboxBall'
@@ -13,6 +12,7 @@ import { CheckboxBall } from '../../../../../components/common/CheckboxBall'
 import { CoursesDataT } from '../../../../../types/CoursesT'
 
 import styles from './setting_course.module.scss'
+import { useDebounceFunc } from '../../../../../customHooks/useDebounceFunc'
 
 type BasicSettingsT = {
   toggleCheckbox: boolean
@@ -25,8 +25,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
   const [nameCourse, setNameCourse] = useState<string>(courseFind?.name || '')
   const [shortDescription, setShortDescription] = useState<string>(courseFind?.description || '')
 
-  const [debouncedCourseName] = useDebounce(nameCourse)
-  const [debouncedDescription] = useDebounce(shortDescription)
+  const debounce = useDebounceFunc(update, 2000)
 
   const handleNameCourse = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'nameCourse') {
@@ -38,17 +37,19 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
 
   useEffect(() => {
     const updateCurse = {
-      name: debouncedCourseName,
-      description: debouncedDescription,
+      name: nameCourse,
+      description: shortDescription,
       public: toggleCheckbox ? 'О' : 'Н',
     }
 
-    const formdata = formDataConverter(updateCurse)
-    if (formdata && courseFind) {
-      const id = courseFind?.course_id
-      update({ formdata, id })
+    if (updateCurse.name !== courseFind?.name || updateCurse.description !== courseFind?.description) {
+      const formdata = formDataConverter(updateCurse)
+      if (formdata && courseFind) {
+        const id = courseFind?.course_id
+        debounce({ formdata, id })
+      }
     }
-  }, [debouncedCourseName, debouncedDescription, toggleCheckbox])
+  }, [toggleCheckbox, nameCourse, shortDescription])
 
   return (
     <div className={`${styles.basic_settings}`}>

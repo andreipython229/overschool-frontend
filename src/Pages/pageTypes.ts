@@ -14,19 +14,6 @@ export type searchCourseBlockT = {
   courses: CoursesDataT[]
 }
 
-export type SettingItemT = {
-  admin: number
-  student_table_id: number
-  students_table_info: studentGroupInfoT[]
-}
-
-export type studentGroupInfoT = {
-  order: number
-  name: string
-  checked: boolean
-  id: number
-}
-
 export type InitPageHeaderPT = {
   setLoginShow: (show: boolean) => void
   setRegistrationShow: (show: boolean) => void

@@ -1,9 +1,9 @@
 import { CoursesT } from '../types/CoursesT'
-import { ILesson } from '../Pages/School/Navigations/navigationTypes'
+import { ILesson } from '../types/sectionT'
 
 export interface IFuncUpdate {
   formdata: FormData
-  id: string | number
+  id: number
   type?: string
 }
 
@@ -14,7 +14,7 @@ export const patchData = (
   innerKey: keyof objectDataT,
   key: string,
   value: string | Blob | File,
-  funcUpdate: (arg: IFuncUpdate) => void,
+  funcUpdate: (arg: any) => void,
   type?: string,
 ) => {
   if (objectData && innerKey) {

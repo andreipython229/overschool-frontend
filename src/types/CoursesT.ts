@@ -1,5 +1,3 @@
-//import { sectionT } from '../types/sectionT'
-
 export type CoursesDataT = {
   course_id: number
   created_at: Date
@@ -22,5 +20,4 @@ export type CoursesT = {
   previous?: null
   count?: 0
   results: CoursesDataT[]
-  // sections?: sectionT[]
 }
