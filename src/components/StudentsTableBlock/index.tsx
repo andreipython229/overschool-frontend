@@ -5,12 +5,12 @@ import { generateData } from '../../utils/generateData'
 import { classesSettingIconPath } from './config/svgIconsPath'
 import { useFetchCourseStatQuery } from '../../api/courseStat'
 import { useFetchStudentsTableHeaderQuery } from '../../api/studentsGroupService'
-import { SettingItemT } from 'Pages/pageTypes'
+import { studentsTableHeader } from 'types/studentsGroup'
 
 import styles from './studentsTableBlock.module.scss'
 
 type StudentsTableBlockT = {
-  settingList?: SettingItemT[]
+  settingList?: studentsTableHeader
   setShowModal: () => void
 }
 

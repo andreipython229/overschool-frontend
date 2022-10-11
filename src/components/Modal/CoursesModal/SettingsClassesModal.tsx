@@ -15,11 +15,11 @@ import styles from '../Modal.module.scss'
 const classesType = ['Занятие', 'Задание', 'Тест', 'Вебинар']
 
 export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setType, modulesList, lessonIdAndType }) => {
-  const lessonIdVar = lessonIdAndType ? lessonIdAndType : modulesList[0]?.lessons[0]?.id
+  // const lessonIdVar = lessonIdAndType ? lessonIdAndType : modulesList[0]?.lessons[0]?.id
 
   const [changeNameLesson, { isSuccess }] = usePatchLessonsMutation()
 
-  const { data } = useFetchLessonQuery(lessonIdVar)
+  const { data } = useFetchLessonQuery({id: lessonIdAndType.id, type: lessonIdAndType.type})
 
   const [settingsActive, setSettingsActive] = useState<number>(0)
   const [balls, setBalls] = useState<number>(0)

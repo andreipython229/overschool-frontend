@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState, PointerEvent } from 'react'
 import { Reorder, useDragControls } from 'framer-motion'
 
-import { studentGroupInfoT } from 'Pages/pageTypes'
+import { studentGroupInfoT } from 'types/studentsGroup'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { checkedIconPath, noCheckedIconPath, doBlockIconPath } from '../config/svgIconsPath'

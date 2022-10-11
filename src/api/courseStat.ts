@@ -1,6 +1,8 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-// import { courseStatsT } from '../types/courseStatT'
+//perhpas there gonna be another api call 
+
+import { courseStatsT } from '../types/courseStatT'
 import { baseQueryWithReauth } from './baseApi'
 
 export const courseStatService = createApi({
@@ -10,7 +12,7 @@ export const courseStatService = createApi({
   endpoints: build => ({
     fetchCourseStat: build.query<any, number>({
       query: id => ({
-        url: `/courses/${id}/stats`,
+        url: `/courses/${id}/stats/`,
       }),
       providesTags: ['courseStat'],
     }),

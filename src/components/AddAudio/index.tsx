@@ -33,7 +33,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     const id = lesson?.lesson_id
     const formdata = new FormData()
     formdata.append('audio', audioFiles[0])
-    await addAudioFile({ formdata, id, type: lessonIdAndType?.type })
+    await addAudioFile({ formdata, id, type: lessonIdAndType?.type as string })
     setDragAudio(false)
   }
 
@@ -43,7 +43,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
       const id = lesson?.lesson_id
       const formdata = new FormData()
       formdata.append('audio', files)
-      addAudioFile({ formdata, id, type: lessonIdAndType?.type })
+      addAudioFile({ formdata, id, type: lessonIdAndType?.type as string})
     }
   }
 

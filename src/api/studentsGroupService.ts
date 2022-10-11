@@ -2,11 +2,12 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQueryWithReauth } from './baseApi'
 import { studentsGroupT, studentsGroupsT } from '../types/studentsGroup'
+import { studentGroupInfoT, studentsTableHeader } from 'types/studentsGroup'
 
 export const studentsGroupService = createApi({
   reducerPath: 'studentsGroupService',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['studentsGroup', 'studentsTable', 'homeworks_stats'],
+  tagTypes: ['studentsGroup', 'studentsTable', 'stats_by_month'],
   endpoints: build => ({
     fetchStudentsGroup: build.query<studentsGroupT, void>({
       query: () => ({
@@ -14,13 +15,13 @@ export const studentsGroupService = createApi({
       }),
       providesTags: ['studentsGroup'],
     }),
-    fetchStudentsTableHeader: build.query<any, number>({
+    fetchStudentsTableHeader: build.query<studentsTableHeader, number>({
       query: id => ({
         url: `/students_table_info/${id}/`,
       }),
       providesTags: ['studentsTable'],
     }),
-    patchStudentsTableHeader: build.mutation<void, any>({
+    patchStudentsTableHeader: build.mutation<void, { id: number; students_table_info: studentGroupInfoT[] }>({
       query: ({ id, students_table_info }) => ({
         url: `/students_table_info/${id}/`,
         method: 'PATCH',
@@ -32,6 +33,7 @@ export const studentsGroupService = createApi({
       query: () => ({
         url: `/user_count_by_month_group/`,
       }),
+      providesTags: ['stats_by_month'],
     }),
     createStudentsGroup: build.mutation<void, studentsGroupsT>({
       query: studentsGroupInfo => ({
@@ -48,12 +50,6 @@ export const studentsGroupService = createApi({
       }),
       invalidatesTags: ['studentsGroup'],
     }),
-    fetchHomeworkStats: build.query<any, void>({
-      query: () => ({
-        url: `/homeworks_stats/`,
-      }),
-      providesTags: ['homeworks_stats'],
-    }),
   }),
 })
 
@@ -64,5 +60,4 @@ export const {
   useFetchStudentsGroupQuery,
   useCreateStudentsGroupMutation,
   useDeleteStudentsGroupMutation,
-  useFetchHomeworkStatsQuery,
 } = studentsGroupService

@@ -6,7 +6,7 @@ import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { SettingItem } from './SettingItem'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import { useFetchStudentsTableHeaderQuery, usePatchStudentsTableHeaderMutation } from '../../../api/studentsGroupService'
-import { studentGroupInfoT } from 'Pages/pageTypes'
+import { studentGroupInfoT } from 'types/studentsGroup'
 import { useDebounceFunc } from 'customHooks/useDebounceFunc'
 
 import styles from '../Modal.module.scss'
@@ -15,7 +15,7 @@ import scss from './settingStudentTable.module.scss'
 export const SettingStudentTable: FC<SettingStudentTableT> = ({ setShowModal }) => {
   const { data: studentsTableInfo, isSuccess } = useFetchStudentsTableHeaderQuery(4)
   const [patchTable] = usePatchStudentsTableHeaderMutation()
-  const debounced = useDebounceFunc(() => patchTable({ id: 4, students_table_info: { students_table_info: settingList } }), 1000)
+  const debounced = useDebounceFunc(() => patchTable({ id: 4, students_table_info: settingList  }), 1000)
 
   const [settingList, setSettingsList] = useState<studentGroupInfoT[]>([])
 

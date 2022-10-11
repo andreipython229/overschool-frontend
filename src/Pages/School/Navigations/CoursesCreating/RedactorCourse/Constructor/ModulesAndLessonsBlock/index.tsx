@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { ModulesBlock } from './ModulesBlock'
-import { LessonAddBlockPropsT, modulesListT } from '../../../../navigationTypes'
+import { LessonAddBlockPropsT } from '../../../../navigationTypes'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/constructor.module.scss'
 
@@ -15,7 +15,7 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(({ setType,
       <h5 className={styles.redactorCourse_leftSide_title}>Структура курса</h5>
       <div className={styles.redactorCourse_leftSide_desc}>
         {modulesList &&
-          modulesList.map(({ section_name, section, lessons }: modulesListT) => (
+          modulesList.map(({ section_name, section, lessons }) => (
             <ModulesBlock
               setType={setType}
               key={section_name + section}
