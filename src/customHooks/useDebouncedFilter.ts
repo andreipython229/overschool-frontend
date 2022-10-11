@@ -16,7 +16,7 @@ export const useDebouncedFilter = <T, K extends keyof T>(dataToFilter: T[], term
     setTerm(e.target.value)
   }
 
-  const filteredDataByTerm = dataToFilter?.filter(item => item[termForFilter].toLowerCase().includes(term.toLowerCase()))
+  const filteredDataByTerm = dataToFilter?.filter((item: any) => item[termForFilter].toLowerCase().includes(term.toLowerCase()))
 
   const debounce = useDebounceFunc(() => setFilteredData(filteredDataByTerm?.length ? filteredDataByTerm : dataToFilter))
 
