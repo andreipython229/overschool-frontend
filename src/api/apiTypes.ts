@@ -10,8 +10,11 @@ export interface ICredentials {
 }
 
 export interface IResponse {
-  email: string
   access_token: string
   refresh_token: string
-  username: null | string
+  user: {
+    pk: number
+    username: null | string
+    email: string
+  }
 }

@@ -6,13 +6,13 @@ import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
 import { Button } from '../../common/Button/Button'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
 import { useAppDispatch } from '../../../store/hooks'
-import { auth, token } from 'store/redux/users/slice'
+import { auth, id, token } from 'store/redux/users/slice'
 import { AuthSelect } from '../../common/AuthSelect'
 import { useLoginMutation } from '../../../api/userLoginService'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
-import { isSecurity, unSecurity } from '../../../assets/img/common/index'
+import { isSecurity, unSecurity } from '../../../assets/img/common'
 
 import { Path } from '../../../enum/pathE'
 
@@ -52,8 +52,9 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
     },
   })
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data) {
       setShowModal(false)
+      dispatch(id(data?.user?.pk))
       dispatch(token({ access_token: data?.access_token as string, refresh_token: data?.refresh_token as string }))
       dispatch(auth(true))
       if (screenWidth <= 1025) {

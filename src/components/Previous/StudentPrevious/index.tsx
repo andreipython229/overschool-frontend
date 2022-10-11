@@ -1,9 +1,9 @@
-import { FC, useCallback } from 'react'
+import { FC } from 'react'
 
 import { Button } from '../../common/Button/Button'
 import { useFetchProfileDataQuery } from 'api/profileService'
 import { useLogoutMutation } from '../../../api/userLoginService'
-import { useAppDispatch } from '../../../store/hooks/index'
+import { useAppDispatch } from 'store/hooks'
 import { auth, token } from '../../../store/redux/users/slice'
 
 import styles from '../previou.module.scss'
@@ -14,11 +14,11 @@ export const StudentPrevious: FC = () => {
   const { data } = useFetchProfileDataQuery(1)
   const [logout] = useLogoutMutation()
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = () => {
     dispatch(auth(false))
     dispatch(token({ access_token: '', refresh_token: '' }))
     logout()
-  }, [])
+  }
 
   return (
     <div className={styles.previous}>
