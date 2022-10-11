@@ -3,10 +3,10 @@ import { useCreateLessonsMutation } from '../api/modulesServices'
 import { findLength } from '../utils/findLength'
 import { useAppSelector } from '../store/hooks'
 import { getSectionId } from '../selectors'
-import { ModulesT } from '../components/Modal/ModalTypes'
+import { sectionT } from '../types/sectionT'
 
 type UseCreateLessonT = {
-  modulesList: ModulesT[]
+  modulesList: sectionT[]
   typeLesson: string
   text?: string
   success_percent?: number

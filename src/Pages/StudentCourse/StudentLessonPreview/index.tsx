@@ -4,7 +4,7 @@ import parse from 'html-react-parser'
 import YouTube, { YouTubeProps } from 'react-youtube'
 
 import { AudioPlayer } from 'components/common/AudioPlayer'
-import { lessonT } from '../../../types/sectionT'
+import { lessonT, sectionT } from '../../../types/sectionT'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { useFetchLessonQuery, useFetchModuleLessonsQuery } from '../../../api/modulesServices'
 import { backArr } from '../../../components/Previous/config/svgIconPath'
@@ -22,12 +22,12 @@ export const StudentLessonPreview: FC = () => {
 
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = useParams()
 
-  const { data: lessons } = useFetchModuleLessonsQuery(sectionId)
-  const { data: lesson } = useFetchLessonQuery({ id: lessonId, type: lessonType })
+  const { data: lessons } = useFetchModuleLessonsQuery(sectionId as string)
+  const { data: lesson } = useFetchLessonQuery({ id: Number(lessonId) as number, type: lessonType as string})
 
   const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
 
-  const activeLessonIndex: number = lessons?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.id === +lessonId)
+  const activeLessonIndex = lessons?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.id === +lessonId)
 
   const lessonFileArrName = lesson?.file_url?.split('/')
 
@@ -103,12 +103,17 @@ export const StudentLessonPreview: FC = () => {
             lessonId={lessonId as string}
             sectionId={sectionId as string}
             lessonType={lessonType as string}
-            activeLessonIndex={activeLessonIndex}
-            lessons={lessons}
+            activeLessonIndex={activeLessonIndex as number}
+            lessons={lessons as sectionT}
           />
           {lessonType === 'homework' && <StudentLessonTextEditor />}
         </div>
-        <StudentLessonSidebar courseId={courseId as string} sectionId={sectionId as string} activeLessonIndex={activeLessonIndex} lessons={lessons} />
+        <StudentLessonSidebar
+          courseId={courseId as string}
+          sectionId={sectionId as string}
+          activeLessonIndex={activeLessonIndex as number}
+          lessons={lessons as sectionT}
+        />
       </div>
     </div>
   )

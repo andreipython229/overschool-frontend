@@ -1,10 +1,12 @@
-import React, { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
 import { useDeleteModulesMutation, usePatchModulesMutation } from 'api/modulesServices'
 import { formDataConverter } from 'utils/formDataConverter'
 import { LessonsBlock } from '../LessonsBlock'
-import { LessonT, ModulesBlockT } from '../../../../../navigationTypes'
+import { ModulesBlockT } from '../../../../../navigationTypes'
+import { lessonT } from 'types/sectionT'
 import { useDebounceFunc } from 'customHooks/useDebounceFunc'
 import { getSectionId } from 'store/redux/modules/slice'
 import { useAppDispatch } from 'store/hooks'
@@ -63,7 +65,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
         </span>
 
         {lessonsList &&
-          lessonsList.map(({ name, id, type }: LessonT) => (
+          lessonsList.map(({ name, id, type }: lessonT) => (
             <LessonsBlock type={type} setLessonIdAndType={setLessonIdAndType} key={id + type} id={id} lessonsName={name} />
           ))}
         <button className={styles.btn} onClick={handleOpenModalLesson}>

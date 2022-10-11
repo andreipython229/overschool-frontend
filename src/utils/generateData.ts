@@ -1,14 +1,14 @@
 import { courseStatT } from '../types/courseStatT'
-import { SettingItemT, studentGroupInfoT } from '../Pages/pageTypes'
+import { studentsTableHeader, studentGroupInfoT } from 'types/studentsGroup'
 
-export const generateData = (columnsList: SettingItemT, data: courseStatT, isSuccess1: boolean, isSuccess2: boolean) => {
+export const generateData = (columnsList: studentsTableHeader | undefined, data: courseStatT, isSuccess1: boolean, isSuccess2: boolean) => {
   const columns: Array<string> = []
-  const dataToRender: any /*result[]*/ = data?.results
-  const columnToRender: studentGroupInfoT[] = columnsList?.students_table_info
+  const dataToRender: any /*result[]*/ = data
+  const columnToRender = columnsList?.students_table_info
   const rows = []
 
   isSuccess2 &&
-    columnToRender.filter(({ checked, name }: studentGroupInfoT) => {
+    columnToRender?.filter(({ checked, name }: studentGroupInfoT) => {
       if (checked) {
         columns.push(name)
       }

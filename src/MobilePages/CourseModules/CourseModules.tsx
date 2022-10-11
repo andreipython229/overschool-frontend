@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 
+import { sectionsT } from '../../types/sectionT'
 import { useFetchModulesQuery } from '../../api/modulesServices'
 import { StudentAccardion } from '../../components/StudentAccardion/StudentAccardion'
 
@@ -12,7 +13,7 @@ export const CourseModules: FC = () => {
 
   return (
     <div className={styles.container}>
-      <StudentAccardion modules={modules} />
+      <StudentAccardion modules={modules as sectionsT} />
     </div>
   )
 }

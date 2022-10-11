@@ -1,21 +1,22 @@
 import { FC, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+
+import {sectionT} from '../../../../../../types/sectionT'
 import { useFetchModulesQuery } from 'api/modulesServices'
 import { ModulesAndLessonsBlock } from './ModulesAndLessonsBlock'
 import { Portal } from 'components/Modal/Portal'
 import { ModalMaper } from 'constants/ModalMaper'
 import { LessonSettings } from './LessonSettings'
 
-import { modulesListT } from '../../../navigationTypes'
 import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
 
 import styles from './constructor.module.scss'
 
 export const Constructor: FC = () => {
   const { course_id: courseId } = useParams()
-  const { data: modulesAndLessons } = useFetchModulesQuery(courseId)
+  const { data: modulesAndLessons } = useFetchModulesQuery(courseId as string)
 
-  const [modulesList, setModulesList] = useState<modulesListT[]>([])
+  const [modulesList, setModulesList] = useState<sectionT[]>([])
 
   const [lessonIdAndType, setLessonIdAndType] = useState<lessonIdAndTypeT>({} as lessonIdAndTypeT)
 

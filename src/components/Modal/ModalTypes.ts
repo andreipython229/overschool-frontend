@@ -1,12 +1,7 @@
 import { ChangeEvent } from 'react'
-import { LessonT } from '../../Pages/School/Navigations/navigationTypes'
+import { sectionT } from '../../types/sectionT'
 import { CoursesDataT } from '../../types/CoursesT'
 
-export type ModulesT = {
-  section_name: string
-  section: number
-  lessons: LessonT[]
-}
 export type lessonIdAndTypeT = {
   id: number
   type: string
@@ -14,7 +9,7 @@ export type lessonIdAndTypeT = {
 
 export type SettingClassesPropsT = {
   setType: (arg: keyof object) => void
-  modulesList: ModulesT[]
+  modulesList: sectionT[]
 }
 
 export type AddEmployeeModalPropsT = {
@@ -29,13 +24,13 @@ export type AddCourseModalPropsT = {
 export type AddModuleModalPropsT = {
   setType: (arg: keyof object) => void
   courseId?: string
-  modulesList: ModulesT[]
+  modulesList: sectionT[]
 }
 
 export type SettingsClassesModalPropT = {
   setType: (arg: keyof object) => void
   lessonIdAndType: lessonIdAndTypeT
-  modulesList: ModulesT[]
+  modulesList: sectionT[]
 }
 
 export type LoginModalPropsT = {
@@ -48,12 +43,12 @@ export type WebinarModalPropsT = {
 
 export type TestModalPropsT = {
   setType: (arg: keyof object) => void
-  modulesList: ModulesT[]
+  modulesList: sectionT[]
 }
 
 export type TasksModalPropsT = {
   setType: (arg: keyof object) => void
-  modulesList: ModulesT[]
+  modulesList: sectionT[]
 }
 
 export type ModalClassesPropsT = {
