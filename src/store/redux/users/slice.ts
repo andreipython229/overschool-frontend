@@ -1,11 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { UserT } from 'types/userT'
-
-type AuthDateT = {
-  authDate: string | number
-  access_token: string
-  refresh_token: string
-}
+import { AuthDateT, UserT } from 'types/userT'
 
 const initialState: UserT & AuthDateT = {
   auth: false,
@@ -13,6 +7,7 @@ const initialState: UserT & AuthDateT = {
   authDate: '',
   access_token: '',
   refresh_token: '',
+  userId: 0,
 }
 
 export const sliceUser = createSlice({
@@ -29,8 +24,11 @@ export const sliceUser = createSlice({
     role: (state, action: PayloadAction<number>) => {
       state.permission = action.payload
     },
+    id: (state, action: PayloadAction<number>) => {
+      state.userId = action.payload
+    },
   },
 })
 
-export const { auth, token, role } = sliceUser.actions
+export const { auth, token, role, id } = sliceUser.actions
 export const authReduce = sliceUser.reducer
