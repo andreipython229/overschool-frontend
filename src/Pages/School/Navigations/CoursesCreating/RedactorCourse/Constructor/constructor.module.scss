@@ -135,121 +135,122 @@
       }
     }
   }
-
-  &_rightSide {
-    background: #ffffff;
-    padding: 36px 45px 56px 45px;
-    height: fit-content;
-    margin-bottom: 30px;
-    border-radius: 10px;
-    max-width: 85%;
+  &_rightSideWrapper {
     width: 100%;
-    box-shadow: $box-shadow;
+    &_rightSide {
+      background: #ffffff;
+      padding: 36px 45px 56px 45px;
+      height: fit-content;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      width: 100%;
+      box-shadow: $box-shadow;
 
-    &_header {
-      @include display(flex, row, space-between, center);
-      text-align: center;
+      &_header {
+        @include display(flex, row, space-between, center);
+        text-align: center;
 
-      &_btnBlock {
-        @include display(flex);
+        &_btnBlock {
+          @include display(flex);
 
-        &_setting {
-          @include display(flex, row, flex-start, center);
-          width: 118px;
-          height: 36px;
-          border: none;
-          text-align: center;
-          background: #f3f4f6;
-          font-size: 12px;
-          color: #6b728f;
-          border-radius: 6px;
-          padding: 11px 0 11px 16px;
+          &_setting {
+            @include display(flex, row, flex-start, center);
+            width: 118px;
+            height: 36px;
+            border: none;
+            text-align: center;
+            background: #f3f4f6;
+            font-size: 12px;
+            color: #6b728f;
+            border-radius: 6px;
+            padding: 11px 0 11px 16px;
 
-          & svg {
-            margin-right: 5px;
+            & svg {
+              margin-right: 5px;
+            }
+            input {
+              @include position_t_l(absolute, 0, 0, -20);
+            }
           }
-          input {
-            @include position_t_l(absolute, 0, 0, -20);
-          }
-        }
 
-        &_delete {
-          @include display(flex, row, flex-start, center);
-          padding: 11px 0;
-          border-radius: 6px;
-          border: none;
-          width: 50px;
-          height: 36px;
-          background: #fef2f2;
-          text-align: center;
-          margin-left: 16px;
+          &_delete {
+            @include display(flex, row, flex-start, center);
+            padding: 11px 0;
+            border-radius: 6px;
+            border: none;
+            width: 50px;
+            height: 36px;
+            background: #fef2f2;
+            text-align: center;
+            margin-left: 16px;
 
-          & svg {
-            margin: 0 auto;
-            height: 17px;
-            width: 17px;
+            & svg {
+              margin: 0 auto;
+              height: 17px;
+              width: 17px;
+            }
           }
         }
       }
-    }
 
-    &_title {
-      color: $font-title;
-      font-size: 16px;
-    }
-
-    &_functional {
-      margin-top: 70px;
-
-      &_content {
-        @include display(flex, row, space-between);
-        margin-bottom: 66px;
-
-        &_preview {
-          color: $font-color-rose;
-          font-size: 12px;
-          margin-right: 11px;
-        }
+      &_title {
+        color: $font-title;
+        font-size: 16px;
       }
 
-      &_form {
-        background-color: transparent;
+      &_functional {
+        margin-top: 70px;
 
-        &_title {
-          @include font (500, 14px);
-          color: #4D5766;
-        }
+        &_content {
+          @include display(flex, row, space-between);
+          margin-bottom: 66px;
 
-        &_addFiles {
-          @include display (flex, row, flex-start, center);
-          width: 180px;
-          height: 36px;
-          border: none;
-          text-align: center;
-          background: #f3f4f6;
-          font-size: 12px;
-          color: #6b728f;
-          border-radius: 6px;
-          padding: 11px 0 11px 16px;
-          margin: 16px 0 8px 0;
-
-          svg {
-            margin-right: 10px
-          }
-
-          input {
-            @include position_t_l (absolute, 0, 0, -10);
+          &_preview {
+            color: $font-color-rose;
+            font-size: 12px;
+            margin-right: 11px;
           }
         }
 
-      }
-    }
+        &_form {
+          background-color: transparent;
 
-    &_desc {
-      display: block;
-      margin-top: 8px;
-      font-size: 12px;
-      color: #9f9f9f;
+          &_title {
+            @include font (500, 14px);
+            color: #4D5766;
+          }
+
+          &_addFiles {
+            @include display (flex, row, flex-start, center);
+            width: 180px;
+            height: 36px;
+            border: none;
+            text-align: center;
+            background: #f3f4f6;
+            font-size: 12px;
+            color: #6b728f;
+            border-radius: 6px;
+            padding: 11px 0 11px 16px;
+            margin: 16px 0 8px 0;
+
+            svg {
+              margin-right: 10px
+            }
+
+            input {
+              @include position_t_l (absolute, 0, 0, -10);
+            }
+          }
+
+        }
+      }
+
+      &_desc {
+        display: block;
+        margin-top: 8px;
+        font-size: 12px;
+        color: #9f9f9f;
+      }
     }
   }
 }
