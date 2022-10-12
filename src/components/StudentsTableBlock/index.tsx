@@ -6,6 +6,8 @@ import { classesSettingIconPath } from './config/svgIconsPath'
 import { useFetchCourseStatQuery } from '../../api/courseStat'
 import { useFetchStudentsTableHeaderQuery } from '../../api/studentsGroupService'
 import { studentsTableHeader } from 'types/studentsGroup'
+import { useAppSelector } from '../../store/hooks'
+import { userIdSelector } from '../../selectors'
 
 import styles from './studentsTableBlock.module.scss'
 
@@ -15,11 +17,13 @@ type StudentsTableBlockT = {
 }
 
 export const StudentsTableBlock: FC<StudentsTableBlockT> = memo(({ setShowModal }) => {
+  const id = useAppSelector(userIdSelector)
   const [cols, setCols] = useState<string[]>([])
   const [rows, setRows] = useState<Array<{ [key: string]: string | number }>>()
 
   const { data: students, isSuccess: isStudentsRecieved } = useFetchCourseStatQuery(4)
-  const { data: studentsTableHeader, isSuccess: isTableHeaderRecieved } = useFetchStudentsTableHeaderQuery(4)
+
+  const { data: studentsTableHeader, isSuccess: isTableHeaderRecieved } = useFetchStudentsTableHeaderQuery(id)
 
   const { columns, data } = generateData(studentsTableHeader, students, isStudentsRecieved, isTableHeaderRecieved)
 

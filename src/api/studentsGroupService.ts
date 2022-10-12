@@ -25,7 +25,7 @@ export const studentsGroupService = createApi({
       query: ({ id, students_table_info }) => ({
         url: `/students_table_info/${id}/`,
         method: 'PATCH',
-        body: students_table_info,
+        body: { students_table_info },
       }),
       invalidatesTags: ['studentsTable'],
     }),

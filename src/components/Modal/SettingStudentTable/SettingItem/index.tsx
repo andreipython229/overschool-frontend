@@ -74,12 +74,12 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
           <Checkbox id={item.order.toString()} name={item?.name} onChange={handleChecked} checked={item.checked}>
             <p>{item.name}</p>
             {item.checked ? (
-              <IconSvg width={17} height={17} viewBoxSize={'0 0 17 17'} path={checkedIconPath}>
-                <circle cx="8.5" cy="8.5" r="8" fill="#E0D9FC" stroke="#BA75FF" />
+              <IconSvg width={20} height={20} viewBoxSize={'0 0 19 19'} path={checkedIconPath}>
+                <circle cx="8.5" cy="8.5" r="8" stroke="#BA75FF" />
               </IconSvg>
             ) : (
-              <IconSvg width={17} height={17} viewBoxSize={'0 0 17 17'} path={noCheckedIconPath}>
-                <circle cx="8.5" cy="8.5" r="8" fill="#F3F4F6" stroke="#9CA3AF" />
+              <IconSvg width={20} height={20} viewBoxSize={'0 0 19 19'} path={noCheckedIconPath}>
+                <circle cx="8.5" cy="8.5" r="8" stroke="#9CA3AF" />
               </IconSvg>
             )}
           </Checkbox>
