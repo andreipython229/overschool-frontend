@@ -11,6 +11,8 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseI
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
   const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students[0], 0)
 
+  console.log(quantutyOfStudents, filteredGroups.length)
+
   return (
     <Link
       to={generatePath(`/login/courses/${Path.CreateCourse}`, {
@@ -23,10 +25,14 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseI
           <p className={styles.mini_card_name}>{name}</p>
           <ul className={styles.mini_card_list}>
             <li>
-              <span>{getNounDeclension(filteredGroups.length, ['группа', 'группы', 'групп'])}</span>
+              <span>
+                {filteredGroups.length} {getNounDeclension(filteredGroups.length, ['группа', 'группы', 'групп'])}
+              </span>
             </li>
             <li>
-              <span>{getNounDeclension(quantutyOfStudents, ['ученик', 'ученика', 'учеников'])}</span>
+              <span>
+                {quantutyOfStudents} {getNounDeclension(quantutyOfStudents, ['ученик', 'ученика', 'учеников'])}
+              </span>
             </li>
           </ul>
         </div>

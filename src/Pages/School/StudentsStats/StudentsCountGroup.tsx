@@ -1,14 +1,15 @@
 import { FC, memo, useState } from 'react'
 
-import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { settingsBtnIconPath, studentIconPath } from '../config/svgIconsPath'
 import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupModal/SettingsGroupModal'
+import { getNounDeclension } from 'utils/getNounDeclension'
 
 import styles from 'Pages/School/StudentsStats/studentsStats.module.scss'
 
 type StudentsGroupPropsT = {
   title: string
-  countStudent: string
+  countStudent: number
   id: number
 }
 
@@ -37,7 +38,7 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
               <IconSvg width={4} height={4} viewBoxSize={'0 0 4 4'}>
                 <circle cx="2" cy="2" r="2" fill="#BA75FF" />
               </IconSvg>
-              {countStudent}
+              {countStudent} {getNounDeclension(countStudent, ['ученик', 'ученика', 'учеников'])}
             </span>
           </div>
         </div>
