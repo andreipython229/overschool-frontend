@@ -64,7 +64,7 @@ export const StudentCourseHeader: FC = () => {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {lessonSvgMapper['test']}
           <span>
-            {countOfLessons && countOfLessons['test']}
+            {countOfLessons && countOfLessons['test']}{' '}
             {countOfLessons && getNounDeclension(countOfLessons['test'], ['тест', 'теста', 'тестов'])}
           </span>
         </div>

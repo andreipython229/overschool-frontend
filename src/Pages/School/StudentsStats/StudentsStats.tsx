@@ -64,8 +64,7 @@ export const StudentsStats = () => {
         <div className={styles.students_group_content_wrapper}>
           {dataToRender?.map(({ name, students, group_id }: studentsGroupsT) => {
             const count = students[0]
-            const studentsCount = count === 1 || count % 10 === 1 ? ` ${count} ученик` : `${count} ученика`
-            return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={studentsCount} />
+            return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} />
           })}
           {groupsToShow.length > 2 && <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />}
         </div>

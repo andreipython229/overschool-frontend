@@ -40,6 +40,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
       result = await baseQuery(args, api, extraOptions)
     } else {
       api.dispatch(auth(false))
+      api.dispatch(token({ access_token: '' }))
     }
   }
   return result
