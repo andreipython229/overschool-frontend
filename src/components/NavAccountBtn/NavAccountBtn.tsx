@@ -7,7 +7,7 @@ import styles from './navAccountBtn.module.scss'
 export const NavAccountBtn: FC<NavAccountBtnPropsT> = memo(({ text, path }) => {
   const isActive = ({ isActive }: IIsActive): string => (isActive ? styles.nav_btn + ' ' + styles.active : styles.nav_btn)
   return (
-    <NavLink to={path} replace={true} className={isActive}>
+    <NavLink to={path} replace={true} className={isActive} end>
       {text}
     </NavLink>
   )
