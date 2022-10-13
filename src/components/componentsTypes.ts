@@ -85,15 +85,11 @@ export type GlobalPreviousT = {
 
 export type dropDownItem = {
   id: number | string
-  icon: {
-    width: number
-    height: number
-    fill: string
-    d: string
-  }
+  icon: ReactNode
   title: string
   bg: string
-  viewBoxSize?: string
+  arrow: string
+  arrow_fill: string
 }
 
 export type SelectDropDownT = {

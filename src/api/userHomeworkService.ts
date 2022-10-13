@@ -13,7 +13,23 @@ export const userHomeworkService = createApi({
       }),
       providesTags: ['userHomework'],
     }),
+    fetchTeacherHomework: build.query<any, number>({
+      query: id => ({
+        url: `/teacher_homeworks/${id}/`,
+      }),
+      providesTags: ['userHomework'],
+    }),
+    postUserHomework: build.mutation<void, any>({
+      query: homework => {
+        return {
+          url: `/user_homeworks/`,
+          method: 'POST',
+          body: homework,
+        }
+      },
+      invalidatesTags: ['userHomework'],
+    }),
   }),
 })
 
-export const { useFetchUserHomeworkQuery } = userHomeworkService
+export const { useFetchUserHomeworkQuery, useFetchTeacherHomeworkQuery, usePostUserHomeworkMutation } = userHomeworkService

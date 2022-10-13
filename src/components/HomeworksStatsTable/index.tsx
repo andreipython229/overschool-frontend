@@ -5,12 +5,7 @@ import { HomeworksStatsTableHeader } from './HomeworksStatsTableHeader/index'
 import { useFetchHomeworkStatsQuery } from '../../api/homeworksStatsService'
 import { homeworkStatT } from 'types/homeworkT'
 
-type homeworksStatsTableT = {
-  handleOpenModal: () => void
-  onSelectUserHomeworkId: (id: number) => void
-}
-
-export const HomeworksStatsTable: FC<homeworksStatsTableT> = ({ handleOpenModal, onSelectUserHomeworkId }) => {
+export const HomeworksStatsTable: FC = () => {
   const { data: homeworks } = useFetchHomeworkStatsQuery()
 
   return (
@@ -29,12 +24,7 @@ export const HomeworksStatsTable: FC<homeworksStatsTableT> = ({ handleOpenModal,
       </thead>
       <tbody>
         {homeworks?.results.map((homework: homeworkStatT, index: number) => (
-          <HomeworksStatsTableRow
-            key={index /*homework.user_homework*/}
-            homeworkData={homework}
-            handleOpenModal={handleOpenModal}
-            onSelectUserHomeworkId={onSelectUserHomeworkId}
-          />
+          <HomeworksStatsTableRow key={index /*homework.user_homework*/} homeworkData={homework} />
         ))}
       </tbody>
     </table>

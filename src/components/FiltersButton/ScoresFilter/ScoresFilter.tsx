@@ -3,6 +3,7 @@ import { FC, memo, useState, ChangeEvent } from 'react'
 import { Input } from '../../common/Input/Input/Input'
 import { Button } from '../../common/Button/Button'
 import { ScoresFilterT } from '../../componentsTypes'
+import { useLazyFetchHomeworkStatsQuery } from '../../../api/homeworksStatsService'
 
 import styles from './scores_filter.module.scss'
 
@@ -27,7 +28,7 @@ export const ScoresFilter: FC<ScoresFilterT> = memo(({ title }) => {
         <p>до</p>
         <Input name="end" type="text" value={scoresEnd} onChange={handleInputScores} />
       </div>
-      <Button className={styles.scores_btn} variant="primary" text="Применить" onClick={() => console.log(scoresStart, scoresEnd)} />
+      <Button className={styles.scores_btn} variant="primary" text="Применить" />
     </div>
   )
 })

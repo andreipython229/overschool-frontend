@@ -5,8 +5,8 @@
   margin-right: 12px;
 }
 .header_dropdown_menu {
-  @include display (flex, row, space-between, center);
-  @include font (500, 12px);
+  @include display(flex, row, space-between, center);
+  @include font(500, 12px);
   cursor: pointer;
   max-width: 167px;
   width: 167px;
@@ -18,35 +18,38 @@
 
   span {
     position: relative;
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    background-color: transparent;
-    border: 1px solid #e4e7ed;
+
     svg {
-      transform: translate(3px, 9px);
+      transform: translate(4px, 6px);
+      -webkit-transform: translate(4px, 6px);
+      -moz-transform: translate(4px, 6px);
+      -ms-transform: translate(4px, 6px);
+      -o-transform: translate(4px, 6px);
     }
   }
 }
 .drop_down_item_container {
-  @include position_t_l (absolute, 55px, 75px);
+  @include position_t_l(absolute, 55px, 75px);
   color: #6b7484;
   padding: 10px 20px;
   min-width: 191px;
   background-color: #ffffff;
-  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   border-radius: 7px;
   p {
-    @include font (600, 10px, 12px);
+    @include font(600, 10px, 12px);
     color: #d2d6dc;
   }
 }
 .drop_down_item {
-  @include display (flex, row, flex-start, center);
+  @include display(flex, row, flex-start, center);
   padding: 10px 0;
   cursor: pointer;
   span {
-    @include font (500, 14px, 17px);
+    @include font(500, 14px, 17px);
     margin-left: 15px;
   }
 }
@@ -54,11 +57,11 @@
   transform: rotate(180deg);
 }
 .triangle {
-  @include position_t_l (absolute, 5px, 0);
+  @include position_t_l(absolute, 5px, 0);
   transform: translateY(-50%);
 }
 .bg_color_hamburger {
-  background-color: #ededed;
+  background: #ededed;
 }
 .bg_color_accepted {
   background-color: #c5ece5;
@@ -73,5 +76,26 @@
   background-color: #fef2f2;
 }
 .bg_color_waiting {
-  background-color: #f3f4f6;
+  background: #f3f4f6;
+}
+
+.arrow_humburger,
+.arrow_autocheck {
+  background: #e5e7eb;
+}
+
+.arrow_accepted {
+  background: #a2e0d6;
+}
+
+.arrow_under_revision {
+  background: #ffe8c2;
+}
+
+.arrow_rejected {
+  background: #fee2e2;
+}
+
+.arrow_waiting {
+  background: #e5e7eb;
 }
