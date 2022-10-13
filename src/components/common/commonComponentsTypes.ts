@@ -9,7 +9,7 @@ export type AuthSelectPropsT = {
 export type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 export type SuperButtonPropsT = DefaultButtonPropsType & {
-  text: string
+  text: string | ReactNode
   children?: DetailedHTMLProps<HTMLAttributes<SVGElement>, SVGElement>
   variant?: 'default' | 'primary' | 'disabled' | 'registrationDisabled' | 'secondary' | 'withoutBack' | 'delete' | 'logIn' | 'create'
 }

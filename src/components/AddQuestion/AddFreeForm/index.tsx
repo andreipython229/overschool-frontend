@@ -17,12 +17,6 @@ export const AddFreeForm = () => {
                     <rect x="0.0449219" y="32.8359" width="21.4004" height="4.10156" rx="2.05078" fill="#6B7280"/>
                 </IconSvg>
             </div>
-            {/* <div className={styles.wrapper_iconWrapper_icon}></div>
-            <div className={styles.wrapper_iconWrapper_icon}></div>
-            <div className={styles.wrapper_iconWrapper_icon}></div>
-            <div className={styles.wrapper_iconWrapper_icon}></div>
-            <div className={styles.wrapper_iconWrapper_icon}></div>
-            <div className={styles.wrapper_iconWrapper_icon}></div> */}
         </div>
         <h4 className={styles.wrapper_title}>Свободная форма</h4>
     </div>

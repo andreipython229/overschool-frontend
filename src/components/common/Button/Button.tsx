@@ -26,7 +26,7 @@ export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', 
   }
 
   return (
-    <button {...restProps} className={restProps.className || propsStyle}>
+    <button {...restProps} className={` ${propsStyle} ${restProps.className}`}>
       {children}
       {text}
     </button>

@@ -1,11 +1,13 @@
-import { IconSvg } from '../../../../common/IconSvg/IconSvg'
+import { FC } from 'react'
+
+import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { CheckSelect } from 'components/common/CheckSelect/CheckSelect'
 import { CheckSelectChildren } from 'components/common/CheckSelect/CheckSelectChildren'
-import { accessToClassIconPath } from '../../config/svgIconsPath'
+import { accessToClassIconPath } from '../config/svgIconsPath'
 
-import styles from '../../studentsLog.module.scss'
+import styles from '../studentsLog.module.scss'
 
-export const AccessToClasses = () => {
+export const AccessToClasses: FC = () => {
   return (
     <div className={styles.groupSetting_access}>
       <div className={styles.groupSetting_access_about}>

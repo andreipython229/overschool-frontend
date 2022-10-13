@@ -1,9 +1,11 @@
-import { FC, memo, useState } from 'react'
+import { FC, memo } from 'react'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { settingsBtnIconPath, studentIconPath } from '../config/svgIconsPath'
 import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupModal/SettingsGroupModal'
 import { getNounDeclension } from 'utils/getNounDeclension'
+import { useBoolean } from 'customHooks/useBoolean'
+import { Portal } from 'components/Modal/Portal/index'
 
 import styles from 'Pages/School/StudentsStats/studentsStats.module.scss'
 
@@ -14,15 +16,15 @@ type StudentsGroupPropsT = {
 }
 
 export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent, id }) => {
-  const [settingsGroupModal, setSettingsGroupModal] = useState<boolean>(false)
-
-  const showSettingsModal = () => {
-    setSettingsGroupModal(!settingsGroupModal)
-  }
+  const [isModalOpen, { on: close, off: open }] = useBoolean()
 
   return (
     <>
-      {settingsGroupModal && <SettingsGroupModal closeModal={showSettingsModal} name={title} groupId={id} />}
+      {isModalOpen && (
+        <Portal closeModal={close}>
+          <SettingsGroupModal closeModal={close} name={title} groupId={id} />
+        </Portal>
+      )}
       <div className={styles.students_group_content_wrapper_info}>
         <IconSvg
           width={18}
@@ -42,7 +44,7 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
             </span>
           </div>
         </div>
-        <div onClick={showSettingsModal} className={styles.students_group_content_wrapper_info_setings_btn}>
+        <div onClick={open} className={styles.students_group_content_wrapper_info_setings_btn}>
           <IconSvg width={24} height={24} viewBoxSize={'0 0 24 24'} path={studentIconPath} />
         </div>
       </div>

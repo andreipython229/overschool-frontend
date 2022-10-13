@@ -32,18 +32,13 @@
     font-weight: 600;
     font-size: 11px;
     line-height: 13px;
+    min-width: 90px;
     letter-spacing: 0.05em;
     color: #fdfcff;
     padding: 11px 14px;
     border-radius: 7px;
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
-    background: rgb(186, 117, 255);
-    border: none;
-    outline: none;
-    &:disabled {
-      background: #ddbbff;
-    }
   }
 
   &_block {
