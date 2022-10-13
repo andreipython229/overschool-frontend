@@ -10,6 +10,7 @@ export type lessonIdAndTypeT = {
 export type SettingClassesPropsT = {
   setType: (arg: keyof object) => void
   modulesList: sectionT[]
+  setLessonIdAndType: (arg: lessonIdAndTypeT) => void
 }
 
 export type AddEmployeeModalPropsT = {
@@ -44,11 +45,13 @@ export type WebinarModalPropsT = {
 export type TestModalPropsT = {
   setType: (arg: keyof object) => void
   modulesList: sectionT[]
+  setLessonIdAndType: (arg: lessonIdAndTypeT) => void
 }
 
 export type TasksModalPropsT = {
   setType: (arg: keyof object) => void
   modulesList: sectionT[]
+  setLessonIdAndType: (arg: lessonIdAndTypeT) => void
 }
 
 export type ModalClassesPropsT = {

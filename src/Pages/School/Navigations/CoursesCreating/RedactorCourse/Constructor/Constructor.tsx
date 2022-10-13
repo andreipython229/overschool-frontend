@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import {sectionT} from '../../../../../../types/sectionT'
-import { useFetchModulesQuery } from 'api/modulesServices'
+import { sectionT } from '../../../../../../types/sectionT'
+import { useDeleteLessonsMutation, useFetchModulesQuery } from 'api/modulesServices'
 import { ModulesAndLessonsBlock } from './ModulesAndLessonsBlock'
 import { Portal } from 'components/Modal/Portal'
 import { ModalMaper } from 'constants/ModalMaper'
@@ -16,6 +16,8 @@ export const Constructor: FC = () => {
   const { course_id: courseId } = useParams()
 
   const { data: modulesAndLessons } = useFetchModulesQuery(courseId as string)
+
+  const [deleteLesson, { isLoading: isLoad }] = useDeleteLessonsMutation()
 
   const [modulesList, setModulesList] = useState<sectionT[]>([])
 
@@ -34,17 +36,28 @@ export const Constructor: FC = () => {
         id: modulesAndLessons?.sections[0]?.lessons[0]?.id,
         type: modulesAndLessons?.sections[0]?.lessons[0]?.type,
       }
-      setLessonIdAndType(initialState)
+      if (!lessonIdAndType.type || isLoad) {
+        setLessonIdAndType(initialState)
+      }
     }
-  }, [courseId, modulesAndLessons?.sections])
+  }, [courseId, modulesAndLessons?.sections, lessonIdAndType.type, isLoad])
+
+  const isLoading = modulesList[0] && modulesList[0].lessons[0] && lessonIdAndType.type
 
   return (
     <div className={styles.redactorCourse}>
       <ModulesAndLessonsBlock setType={setType} setLessonIdAndType={setLessonIdAndType} modulesList={modulesList || []} />
-      {modulesList[0] && modulesList[0].lessons[0] && <LessonSettings lessonIdAndType={lessonIdAndType} setType={setType} />}
+      {isLoading && <LessonSettings deleteLesson={deleteLesson} lessonIdAndType={lessonIdAndType} setType={setType} />}
       {type && (
         <Portal closeModal={handleCloseAllModal}>
-          <ModalMaper lessonIdAndType={lessonIdAndType} modulesList={modulesList} setType={setType} type={type} courseId={courseId} />
+          <ModalMaper
+            lessonIdAndType={lessonIdAndType}
+            setLessonIdAndType={setLessonIdAndType}
+            modulesList={modulesList}
+            setType={setType}
+            type={type}
+            courseId={courseId}
+          />
         </Portal>
       )}
     </div>

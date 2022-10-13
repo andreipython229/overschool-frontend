@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { Input } from '../../../common/Input/Input/Input'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { Button } from '../../../common/Button/Button'
@@ -9,43 +9,44 @@ import { modalTestBlockTextPath } from '../config/svgIconsPath'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { TestModalPropsT } from '../../ModalTypes'
 import { useCreateLesson } from 'customHooks/useCreateLesson'
+import { useFormik } from 'formik'
 
 import styles from '../../Modal.module.scss'
 
-export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType }) => {
+export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLessonIdAndType }) => {
   const [settingsActive, setSettingsActive] = useState<number>(0)
+  const [optionAccrualBalls, setOptionAccrualBalls] = useState<string>('')
 
-  const [inputItem, setInputItemValue] = useState<{ [key: string]: string }>({
-    classesName: '',
-    percent: '60',
-    attempts: '1',
+  const formik = useFormik({
+    initialValues: {
+      percent: 0,
+      attempts: 0,
+      ballsPerAnswer: 0,
+      numOfAttempts: false,
+      rndQuest: false,
+      shuffleAnswer: false,
+      showCorrect: false,
+    },
+
+    onSubmit: () => {
+      console.log('#')
+    },
   })
 
-  const [checkboxItem, setCheckboxItem] = useState<{ [key: string]: boolean }>({
-    numOfAttempts: false,
-    rndQuest: false,
-    shuffleAnsw: false,
-    showCorrect: false,
-  })
-
-  const handleChangeCheckboxItem = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.target
-    setCheckboxItem({ ...checkboxItem, [target.name]: event.target.checked })
-  }
-
-  const handleChangeInputValue = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.target
-    setInputItemValue({ ...inputItem, [target.name]: event.target.value })
-  }
-
-  const { numOfAttempts } = checkboxItem
-  const { classesName, percent, attempts } = inputItem
+  const { percent, attempts, numOfAttempts, ballsPerAnswer, handleChange }: any = formik
 
   const { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
     setType,
     modulesList,
     typeLesson: 'tests',
-    success_percent: 60,
+    success_percent: +formik.values.percent,
+    random_questions: formik.values.rndQuest,
+    random_answers: formik.values.shuffleAnswer,
+    show_right_answers: formik.values.showCorrect,
+    attempt_limit: formik.values.numOfAttempts,
+    attempt_count: formik.values.attempts,
+    balls_per_answer: formik.values.ballsPerAnswer,
+    setLessonIdAndType,
   })
 
   const handleCreateTestName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -58,6 +59,10 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType }) => {
   const goToBack = () => {
     setType('lessonsModal' as keyof object)
   }
+
+  useEffect(() => {
+    setBalls(0)
+  }, [optionAccrualBalls])
 
   return (
     <form onSubmit={handleCreateLesson} className={styles.classesContainer}>
@@ -82,32 +87,31 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType }) => {
           Баллы за прохождение
         </span>
       </div>
-      <div style={{ marginTop: '15px' }} className={styles.usually_input}>
-        <span className={styles.usually_title}>Название теста:</span>
-        <Input placeholder={'Основы языка HTML'} name="classesName" onChange={handleCreateTestName} type={'text'} value={nameLesson} />
-      </div>
-
       {settingsActive === 0 ? (
         <>
           <div style={{ marginTop: '15px' }} className={styles.usually_input}>
+            <span className={styles.usually_title}>Название теста:</span>
+            <Input placeholder={'Основы языка HTML'} name="classesName" onChange={handleCreateTestName} type={'text'} value={nameLesson} />
+          </div>
+          <div style={{ marginTop: '15px' }} className={styles.usually_input}>
             <span className={styles.usually_title}>Процент правильных ответов для выполнения:</span>
-            <Input placeholder={'Процент ответов'} name="percent" onChange={handleChangeInputValue} type={'text'} value={percent} />
+            <Input placeholder={'Процент ответов'} name="percent" onChange={handleChange} type={'number'} value={percent} />
           </div>
           <div className={styles.test_checkboxPack}>
             <div className={styles.test_checkbox}>
-              <Checkbox id={'attempts'} name="numOfAttempts" checked={numOfAttempts} onChange={handleChangeCheckboxItem} />
+              <Checkbox id={'attempts'} name="numOfAttempts" checked={numOfAttempts} onChange={handleChange} />
               <div>
-                <span className={numOfAttempts ? styles.test_checkbox_text_checked : ''}>Ограничить количество попыток</span>
+                <span className={formik.values.numOfAttempts ? styles.test_checkbox_text_checked : ''}>Ограничить количество попыток</span>
               </div>
-              {numOfAttempts && (
-                <input className={styles.test_checkbox_attempts} type="text" name="attempts" onChange={handleChangeInputValue} value={attempts} />
+              {formik.values.numOfAttempts && (
+                <input className={styles.test_checkbox_attempts} type="number" name="attempts" onChange={handleChange} value={attempts} />
               )}
             </div>
             {checkboxData.map(({ id, name, span1, span2 }) => (
               <div key={id} className={styles.test_checkbox}>
-                <Checkbox id={id} name={name} checked={checkboxItem[name]} onChange={handleChangeCheckboxItem} />
+                <Checkbox id={id} name={name} checked={formik.values[name as keyof object]} onChange={handleChange} />
                 <div className={styles.test_checkbox_text}>
-                  <span className={checkboxItem[name] ? styles.test_checkbox_text_checked : ''}>{span1}</span>
+                  <span className={formik.values[name as keyof object] ? styles.test_checkbox_text_checked : ''}>{span1}</span>
                   <span className={styles.test_checkbox_text_desc}>{span2}</span>
                 </div>
               </div>
@@ -118,23 +122,35 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType }) => {
         <div className={styles.test_grade}>
           <span className={styles.test_grade_title}>Как выдавать баллы ученикам:</span>
           <div className={styles.test_grade_radio}>
-            <Radio title={'За успешно пройденный тест'} id={'success'} />
+            <Radio name={'balls'} title={'За успешно пройденный тест'} id={'success'} func={() => setOptionAccrualBalls('allTest')} />
             <div className={styles.test_grade_radio_input}>
               <input
+                disabled={optionAccrualBalls !== 'allTest'}
                 type={'number'}
                 value={balls}
                 onChange={event => setBalls(+event.target.value)}
                 placeholder={'0'}
                 min="0"
+                max="100"
                 className={styles.usually_grade_points}
               />
               <span>баллов</span>
             </div>
           </div>
           <div>
-            <Radio title={'За каждый правильный ответ'} id={'notSuccess'} />
+            <Radio name={'balls'} title={'За каждый правильный ответ'} id={'notSuccess'} func={() => setOptionAccrualBalls('perAnswer')} />
             <div className={styles.test_grade_radio_input}>
-              <input type={'number'} placeholder={'0'} min="0" className={styles.usually_grade_points} />
+              <input
+                disabled={optionAccrualBalls !== 'perAnswer'}
+                type={'number'}
+                value={optionAccrualBalls === 'perAnswer' ? ballsPerAnswer : 0}
+                name="ballsPerAnswer"
+                onChange={handleChange}
+                placeholder={'0'}
+                min="0"
+                max="100"
+                className={styles.usually_grade_points}
+              />
               <span>баллов</span>
             </div>
           </div>

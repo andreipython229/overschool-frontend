@@ -3,9 +3,9 @@
 
 .redactorCourse {
   font-family: $font-family-inter;
-  @include display (flex);
+  @include display(flex);
   &_leftSide {
-    @include display (flex, column);
+    @include display(flex, column);
     margin-right: 30px;
     margin-top: 50px;
 
@@ -16,7 +16,7 @@
 
     &_desc {
       margin-left: 16px;
-      @include display (flex, column);
+      @include display(flex, column);
       &_title {
         color: $font-title;
         font-size: 14px;
@@ -24,7 +24,7 @@
       }
 
       &_lesson {
-        @include display (flex, row, flex-start, center);
+        @include display(flex, row, flex-start, center);
         color: $font-color-rose;
         font-size: 12px;
         margin-bottom: 26px;
@@ -40,7 +40,7 @@
 
       &_settings {
         position: relative;
-        @include display (flex, row, right, center);
+        @include display(flex, row, right, center);
         margin: 25px 0;
         font-size: 14px;
         color: $font-title;
@@ -48,7 +48,7 @@
         cursor: pointer;
 
         &_drag {
-          @include position_t_l (absolute, 0, -15px);
+          @include position_t_l(absolute, 0, -15px);
           svg {
             margin-right: 8px;
           }
@@ -72,14 +72,14 @@
     box-shadow: $box-shadow;
 
     &_header {
-      @include display (flex, row, space-between, center);
+      @include display(flex, row, space-between, center);
       text-align: center;
 
       &_btnBlock {
-        @include display (flex);
+        @include display(flex);
 
         &_setting {
-          @include display (flex, row, flex-start, center);
+          @include display(flex, row, flex-start, center);
           height: 36px;
           border: none;
           text-align: center;
@@ -95,7 +95,7 @@
         }
 
         &_delete {
-          @include display (flex, row, flex-start, center);
+          @include display(flex, row, flex-start, center);
           padding: 11px 0;
           border-radius: 6px;
           border: none;
@@ -123,7 +123,7 @@
 
       &_addContent {
         position: relative;
-        @include display (flex, column, center, center);
+        @include display(flex, column, center, center);
         width: 99%;
         background: #ffffff;
         text-align: center;
@@ -133,7 +133,7 @@
         border-radius: 7px;
 
         & input {
-          @include position_t_l (absolute, 0, 0, 2);
+          @include position_t_l(absolute, 0, 0, 2);
           width: 100%;
           height: 100%;
           opacity: 0;
@@ -141,10 +141,10 @@
         }
 
         &_navBlock {
-          @include position_t_r (absolute, 0, -40px, 2);
-          @include display (flex, column, flex-start);
+          @include position_t_r(absolute, 0, -40px, 2);
+          @include display(flex, column, flex-start);
           &_div {
-            @include display (flex, row, center, center);
+            @include display(flex, row, center, center);
             background: #f3f4f6;
             border: none;
             border-radius: 7px;
@@ -157,7 +157,7 @@
         }
         & span {
           margin-bottom: 32px;
-          @include font (600, 16px);
+          @include font(600, 16px);
           color: $font-title;
         }
       }
@@ -181,7 +181,7 @@
       }
 
       &_content {
-        @include display (flex, row, space-between);
+        @include display(flex, row, space-between);
         margin-bottom: 66px;
 
         &_preview {
@@ -208,10 +208,10 @@
         }
 
         &_function {
-          @include display (flex, row, center);
+          @include display(flex, row, center);
           display: flex;
-          justify-content: center;
-          
+          justify-content: space-evenly;
+
           & span {
             margin-top: 10px;
           }

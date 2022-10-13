@@ -15,7 +15,7 @@ import { useCreateLesson } from '../../../../customHooks/useCreateLesson'
 import styles from '../../Modal.module.scss'
 import { timeMaper } from '../../../../constants/timeMaper'
 
-export const TasksModal: FC<TasksModalPropsT> = memo(({ modulesList, setType }) => {
+export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modulesList, setType }) => {
   const [settingsActive, setSettingsActive] = useState<number>(0)
   const [descriptionHomeWork, setDescriptionHomeWork] = useState<string>('')
   const [checkbox, setCheckbox] = useState<boolean>(false)
@@ -29,6 +29,7 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ modulesList, setType }) 
     description: descriptionHomeWork,
     automate_accept: checkbox,
     time_accept: timeMaper(time, units) || undefined,
+    setLessonIdAndType,
   })
 
   const handleCheckbox = () => {

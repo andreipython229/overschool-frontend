@@ -4,28 +4,23 @@ import { CheckboxBall } from 'components/common/CheckboxBall'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { AddPost } from 'components/AddPost'
 import { settingsIconPath, deleteIconPath, paperClipIconPath } from '../../../../config/svgIconsPath'
-import { useDeleteLessonsMutation, useFetchLessonQuery, usePatchLessonsMutation } from 'api/modulesServices'
+import { useFetchLessonQuery, usePatchLessonsMutation } from 'api/modulesServices'
 import { ClassesSettingsPropsT } from '../../../navigationTypes'
 import { ILesson } from '../../../../../../types/sectionT'
 import { patchData } from 'utils/patchData'
 import { useBoolean } from 'customHooks/useBoolean'
-
-import styles from './constructor.module.scss'
 import { AddQuestion } from 'components/AddQuestion'
 
-export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ lessonIdAndType, setType }) => {
+import styles from './constructor.module.scss'
+
+export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [isToggle, { onToggle }] = useBoolean()
 
   const { data } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type })
-
+  console.log(data)
   const [addFile] = usePatchLessonsMutation()
-  const [deleteLesson] = useDeleteLessonsMutation()
 
   const [lesson, setLesson] = useState<ILesson>(data)
-
-  useEffect(() => {
-    setLesson(data)
-  }, [data])
 
   const showSettingsModal = () => {
     setType('setting' as keyof object)
@@ -44,6 +39,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ lessonIdAndType
       patchData(lesson, `${lessonIdAndType.type}_id`, 'file', files[0], addFile, lessonIdAndType.type)
     }
   }
+  useEffect(() => {
+    setLesson(data)
+  }, [data])
 
   return (
     <section className={styles.redactorCourse_rightSideWrapper}>
@@ -82,7 +80,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ lessonIdAndType
           </form>
         </div>
       </div>
-        <AddQuestion />
+      {lessonIdAndType.type === 'test' && <AddQuestion />}
     </section>
   )
 })

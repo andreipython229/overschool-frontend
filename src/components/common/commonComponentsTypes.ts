@@ -89,6 +89,7 @@ export type RadioPropsT = {
   name?: string
   title: string
   id: string
+  func?: () => void
 }
 
 export type SelectInputPropsT<T> = {

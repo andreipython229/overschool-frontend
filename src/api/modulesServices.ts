@@ -12,7 +12,7 @@ export const modulesServices = createApi({
       query: id => ({
         url: `/courses/${id}/sections/`,
       }),
-      providesTags: ['modules'],
+      providesTags: ['modules', 'lessons'],
     }),
     fetchModuleLessons: build.query<sectionT, string>({
       query: sectionId => ({
@@ -49,7 +49,7 @@ export const modulesServices = createApi({
       query: ({ id, type }) => ({
         url: `/${type}s/${id}/`,
       }),
-      providesTags: ['lessons'],
+      // providesTags: ['lessons'],
     }),
     createLessons: build.mutation({
       query: arg => {

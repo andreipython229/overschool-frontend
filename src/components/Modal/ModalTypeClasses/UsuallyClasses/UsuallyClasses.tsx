@@ -10,11 +10,12 @@ import { useCreateLesson } from '../../../../customHooks/useCreateLesson'
 
 import styles from '../../Modal.module.scss'
 
-export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ modulesList, setType }) => {
+export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAndType, modulesList, setType }) => {
   const { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
     setType,
     modulesList,
     typeLesson: 'lessons',
+    setLessonIdAndType,
   })
 
   const [settingsActive, setSettingsActive] = useState<number>(0)

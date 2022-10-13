@@ -5,6 +5,7 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
 import { useDeleteLessonsMutation } from 'api/modulesServices'
 import { LessonsBlockT } from '../../../../../navigationTypes'
+import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
@@ -14,6 +15,8 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, less
 
   const handleDeleteLesson = async () => {
     await deleteLesson({ id, type })
+
+    setLessonIdAndType({} as lessonIdAndTypeT)
   }
   const handleChangeLesson = () => {
     const idAndType = {
