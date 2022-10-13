@@ -1,0 +1,19 @@
+@import '../../scss/variable.scss';
+@import '../../scss/mixin.scss';
+
+.wrapper {
+    background-color: #fff;
+    padding: 25px 61px 35px 61px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: $box-shadow;
+    &_title {
+        @include font (500, 14px, 17px);
+        color: #4D5766;
+        text-align: center;
+    }
+    &_questionWrapper {
+        @include display (flex, row, space-between, center);
+        margin-top: 26px;
+    }
+}

@@ -1,0 +1,60 @@
+@import '../../../scss/variable.scss';
+@import '../../../scss/mixin.scss';
+
+.wrapper {
+    @include display (flex, column, space-between, center);
+    width: 130px;
+    height: 130px;
+    border-radius: 7px;
+    padding: 20px 25px;
+    background-color: #F3F4F6;
+    cursor: pointer;
+    &:hover {
+        border: 1px solid #BA75FF;
+        padding: 19px 24px;
+    }
+    &_iconWrapper {
+        display: grid;
+        grid-template-areas: 
+          "one one"
+          "two three"
+          "four five"
+          "six six "
+          "seven";
+        grid-template-rows: 4px;
+        grid-template-columns: 40% 50%;
+        grid-gap: 4px;
+        #one {
+          grid-area: one;
+        }
+        #two {
+          grid-area: two;
+        }
+        #three { 
+          grid-area: three;      
+        }
+        #four { 
+          grid-area: four; 
+        }
+        #five { 
+          grid-area: five; 
+        }
+        #six { 
+          grid-area: six; 
+        }
+        #seven { 
+          grid-area: seven; 
+        }
+      
+        &_icon {
+            height: 4px;
+            border-radius: 14px;
+            background-color: #6B7280;
+        }
+    }
+    &_title {
+        @include font (600, 14px, 20px);
+        color: #4D5766;
+        text-align: center;
+    }
+}
