@@ -10,7 +10,7 @@
   width: auto;
   text-align: center;
   padding: 11px 13px;
-  @include font (800, 16px);
+  @include font(800, 16px);
   font-family: 'Inter', sans-serif;
   border: none;
   border-radius: 10px;
@@ -18,21 +18,16 @@
   cursor: pointer;
 }
 .primary {
-  color: #ffffff;
+  color: #ffff;
   background: #ba75ff;
-  padding: 15px 30px;
-  border-radius: 10px;
-  text-align: center;
-  @include font (600, 18px);
+  @include font(600, 18px);
   font-family: 'Manrope', sans-serif;
 }
 .secondary {
   color: $font-color-rose;
   background: #e0dced;
   padding: 13px;
-  border-radius: 10px;
-  text-align: center;
-  @include font (600, 18px);
+  @include font(600, 18px);
   font-family: 'Inter', sans-serif;
   &:hover {
     color: #fff;
@@ -40,68 +35,44 @@
   }
 }
 .disabled {
-  color: #ffffff;
+  color: #ffff;
   background-color: #ddbbff;
-  cursor: pointer;
-  border-radius: 10px;
-  padding: 13px;
-  text-align: center;
-  @include font (800, 14px);
+  cursor: not-allowed !important;
   font-family: 'Manrope', sans-serif;
 }
 .registrationDisabled {
-  color: #ffffff;
+  color: #ffff;
   background-color: #b5b5b5;
   width: 246px;
-  cursor: pointer;
-  border-radius: 10px;
   padding: 13px;
-  text-align: center;
-  @include font (800, 14px);
+  @include font(800, 14px);
   font-family: 'Manrope', sans-serif;
 }
 .withoutBack {
   color: #6b7280;
   background: #ffffff;
-  width: auto;
-  text-align: center;
-  padding: 13px 13px;
-  @include font (600, 18px);
+  padding: 13px;
+  @include font(600, 18px);
   font-family: 'Manrope', sans-serif;
-  border: none;
-  outline: none;
-  cursor: pointer;
 }
 .delete {
   color: #ef4444;
   background: #fef2f2;
-  width: auto;
-  text-align: center;
-  margin-left: 15px;
   padding: 13px 13px;
-  @include font (600, 16px);
+  @include font(600, 16px);
   font-family: 'Inter', sans-serif;
-  border: 2px solid #fee2e2;
-  border-radius: 7px;
-  outline: none;
-  cursor: pointer;
-
   &:hover {
     background-color: #ef4444;
     color: #fff;
   }
 }
 .logIn {
-  @include font (800, 14px, 19px);
+  @include font(800, 14px, 19px);
   letter-spacing: -0.03em;
   margin-right: 15px;
   padding: 15px 25px;
   background: transparent;
-  border: none;
-  border-radius: 10px;
   color: #000;
-  outline: none;
-  cursor: pointer;
 
   &:hover {
     padding: 14px 24px;
@@ -111,13 +82,9 @@
 .create {
   width: 241px;
   height: 52px;
-  background: #BA75FF;
-  @include font (500, 12px, 15px);
+  background: #ba75ff;
+  @include font(500, 12px, 15px);
   border-radius: 7px;
   letter-spacing: 0.02em;
   color: #fff;
-  
-  &:hover {
-    cursor: pointer;
-  }
 }

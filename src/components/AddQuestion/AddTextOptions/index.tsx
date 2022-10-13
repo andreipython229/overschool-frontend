@@ -6,13 +6,13 @@ export const AddTextOptions = () => {
     <div className={styles.wrapper}>
         <div className={styles.wrapper_iconWrapper}>
             <div className={styles.wrapper_iconWrapper_iconRow}>
-                <span></span>
+                <span/>
             </div>
             <div className={styles.wrapper_iconWrapper_iconRow}>
-                <span></span>
+                <span/>
             </div>
             <div className={styles.wrapper_iconWrapper_iconRow}>
-                <span></span>
+                <span/>
             </div>
         </div>
         <h4 className={styles.wrapper_title}>Текстовые варианты</h4>

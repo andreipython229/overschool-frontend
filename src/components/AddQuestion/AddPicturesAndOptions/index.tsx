@@ -6,17 +6,17 @@ export const AddPicturesAndOptions = () => {
     <div className={styles.wrapper}>
         <div className={styles.wrapper_iconWrapper}>
             <div className={styles.wrapper_iconWrapper_iconColumn}>
-                <span></span>
+                <span/>
             </div>
             <div className={styles.wrapper_iconWrapper_iconRowWrapper}>
             <div className={styles.wrapper_iconWrapper_iconRowWrapper_iconRow}>
-                <span></span>
+                <span/>
             </div>
             <div className={styles.wrapper_iconWrapper_iconRowWrapper_iconRow}>
-                <span></span>
+                <span/>
             </div>
             <div className={styles.wrapper_iconWrapper_iconRowWrapper_iconRow}>
-                <span></span>
+                <span/>
             </div>
             </div>
         </div>

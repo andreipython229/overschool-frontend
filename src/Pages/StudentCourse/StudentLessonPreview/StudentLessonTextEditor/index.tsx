@@ -1,12 +1,19 @@
-import { FC } from 'react'
+import { FC, ChangeEvent } from 'react'
 
 import { paperClipIconPath } from '../../../School/config/svgIconsPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { MyEditor } from 'components/MyEditor/MyEditor'
+import { usePostUserHomeworkMutation } from 'api/userHomeworkService'
 
 import styles from './studentLessonTextEditor.module.scss'
 
 export const StudentLessonTextEditor: FC = () => {
+  const [postHomewrok] = usePostUserHomeworkMutation()
+
+  const handleSendHomework = (e: ChangeEvent<HTMLInputElement>) => {
+    e.target.files && postHomewrok(e.target.files[0])
+  }
+
   return (
     <div className={styles.wrapper}>
       <h5 className={styles.wrapper_title}>Введите ответ на задание:</h5>
@@ -14,7 +21,7 @@ export const StudentLessonTextEditor: FC = () => {
       <form acceptCharset="utf-8" className={styles.wrapper_form}>
         <label className={styles.wrapper_form_addFiles}>
           <IconSvg width={18} height={15} viewBoxSize="0 0 20 18" path={paperClipIconPath} />
-          <input type="file" />
+          <input type="file" onChange={handleSendHomework} />
           Прикрепить файлы
         </label>
         <span className={styles.wrapper_form_help}>Добавьте файл(-ы) с решением задания</span>

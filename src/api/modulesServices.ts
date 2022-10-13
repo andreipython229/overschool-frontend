@@ -59,14 +59,14 @@ export const modulesServices = createApi({
           body: arg.createLessonData,
         }
       },
-      invalidatesTags: ['lessons'],
+      invalidatesTags: ['modules', 'lessons'],
     }),
     deleteLessons: build.mutation<void, { id: number; type: string }>({
       query: ({ id, type }) => ({
         url: `/${type}s/${id}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['lessons'],
+      invalidatesTags: ['modules', 'lessons'],
     }),
     patchLessons: build.mutation<void, { id: number; type: string; formdata: FormData }>({
       query: arg => {
@@ -76,7 +76,7 @@ export const modulesServices = createApi({
           body: arg.formdata,
         }
       },
-      invalidatesTags: ['lessons'],
+      invalidatesTags: ['modules', 'lessons'],
     }),
   }),
 })

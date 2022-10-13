@@ -9,6 +9,7 @@ import { schoolHeaderReqT } from 'types/schoolHeaderT'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { noAvatar } from 'assets/img/common'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../previou.module.scss'
 
@@ -16,7 +17,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   const user = useAppSelector(selectUser)
 
   const { pathname }: Location = useLocation()
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
+  const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(1)
   const [setSchoolHeader] = useSetSchoolHeaderMutation()
 
   const [edit, setEdit] = useState<boolean>(false)
@@ -143,13 +144,24 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
         <div className={styles.previous_btn}>
           {isMatchPath && (
             <Button
-              variant="primary"
+              variant={isFetching || isError || isLoading ? 'disabled' : 'primary'}
+              disabled={isFetching || isError || isLoading}
               style={{
                 width: '220px',
                 fontSize: '10px',
                 fontWeight: '800',
+                paddingTop: isFetching || isLoading ? '7px' : '10px',
+                paddingBottom: isFetching || isLoading ? '7px' : '10px',
               }}
-              text={edit ? 'Завершить настройку курсов' : 'Настроить страницу курсов'}
+              text={
+                isFetching || isLoading ? (
+                  <SimpleLoader style={{ width: '20px', height: '20px' }} loaderColor="#ffff" />
+                ) : edit ? (
+                  'Завершить настройку курсов'
+                ) : (
+                  'Настроить страницу курсов'
+                )
+              }
               onClick={edit ? onChangeSchoolHeader : handleChangePrevious}
             />
           )}
