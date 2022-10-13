@@ -1,0 +1,45 @@
+@import '../../../scss/variable.scss';
+@import '../../../scss/mixin.scss';
+
+.wrapper {
+    height: 370px;
+    background-color: #fff;
+    padding: 30px 61px 30px 61px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: $box-shadow;
+    
+    &_header {
+        @include display (flex);
+        &_iconWrapper {
+            @include display (flex, column, flex-start, center);
+            &_iconRow {
+                width: 50px;
+                height: 9px;
+                margin: 2px 0;
+                padding: 2px 4px;
+                border-radius: 22px;
+                background-color: #6B7280;
+                span {
+                    display: block;
+                    width: 4px;
+                    height: 4px;
+                    border-radius: 50%;
+                    background-color: #fff;
+                }
+            }
+        }
+    }
+    &_questionBlock {
+        &_title {
+            @include font (500, 14px,17px);
+            color: #4D5766;
+        }
+    }
+    &_answerOptionsBlock {
+        &_title {
+            @include font (500, 14px,17px);
+            color: #4D5766;
+        }
+    }
+}
