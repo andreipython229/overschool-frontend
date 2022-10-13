@@ -5,6 +5,7 @@ import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { userDataSchema } from './schemas'
 import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/profileService'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from './profile.module.scss'
 import formStyles from './formStyles.module.scss'
@@ -15,7 +16,7 @@ export const AboutUser: FC = memo(() => {
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
   const [avatarUrl, setAvatarUrl] = useState<string>('')
 
-  const { data } = useFetchProfileDataQuery(1)
+  const { data, isFetching, isError } = useFetchProfileDataQuery(1)
   const [updateProfile] = useUpdateProfileMutation()
 
   const formik = useFormik({
@@ -65,6 +66,7 @@ export const AboutUser: FC = memo(() => {
     handleSubmit,
     //touched,
     //errors,
+    isSubmitting,
   } = formik
 
   return (
@@ -130,7 +132,14 @@ export const AboutUser: FC = memo(() => {
         </select>
       </div>
       <div className={formStyles.form_btnSave}>
-        <Button className={styles.profile_block_btn} type="submit" text={'Сохранить'} variant={'primary'} />
+        <Button
+          style={{ paddingTop: isSubmitting ? '10px' : '11px', paddingBottom: isSubmitting ? '10px' : '11px' }}
+          disabled={isSubmitting || isFetching || isError}
+          className={styles.profile_block_btn}
+          type="submit"
+          text={isSubmitting || isFetching ? <SimpleLoader style={{ width: '15px', height: '15px' }} loaderColor="#ffff" /> : 'Сохранить'}
+          variant={isSubmitting || isFetching || isError ? 'disabled' : 'primary'}
+        />
       </div>
     </form>
   )

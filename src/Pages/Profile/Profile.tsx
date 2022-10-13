@@ -7,11 +7,12 @@ import { notifications } from './config/notif'
 import { changePasswordSchema } from './schemas/changePasswordSchema'
 import { useChangePasswordMutation } from '../../api/profileService'
 import { NotificationItem } from './NotificationItem'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from './profile.module.scss'
 
 export const Profile = () => {
-  const [changePasswordFunc] = useChangePasswordMutation()
+  const [changePasswordFunc, { isError }] = useChangePasswordMutation()
 
   const changePassword = useFormik({
     initialValues: {
@@ -29,9 +30,12 @@ export const Profile = () => {
   const {
     values: { password, confirmPassword },
     errors,
+    isSubmitting,
     handleSubmit: handlePasswordsSubmit,
     handleChange: handlePasswordChange,
   } = changePassword
+
+  const isBtnDisabled = !password || !confirmPassword || Boolean(errors.password) || Boolean(errors.confirmPassword) || isError || isSubmitting
 
   return (
     <div className={styles.wrapper}>
@@ -42,7 +46,7 @@ export const Profile = () => {
             <h5 className={styles.profile_block_title}>Изменить email</h5>
             <Input name={'email'} type={'text'} value={''} onChange={() => console.log('заглушка')} placeholder={'Новый email адрес'} />
             <div className={styles.container_wrapper}>
-              <Button className={styles.profile_block_btn} variant={'primary'} text={'Сохранить'} />
+              <Button className={styles.profile_block_btn} variant={'disabled'} text={'Сохранить'} disabled />
             </div>
           </form>
           <form style={{ marginTop: '32px' }} className={styles.container} onSubmit={handlePasswordsSubmit}>
@@ -59,10 +63,12 @@ export const Profile = () => {
             </div>
             <div className={styles.container_wrapper}>
               <Button
+                style={{ paddingTop: isSubmitting ? '7px' : '11px', paddingBottom: isSubmitting ? '7px' : '11px' }}
+                disabled={isBtnDisabled}
                 className={styles.profile_block_btn}
                 type="submit"
-                variant={!errors.password && !errors.confirmPassword ? 'primary' : 'disabled'}
-                text={'Сменить пароль'}
+                variant={isBtnDisabled ? 'disabled' : 'primary'}
+                text={isSubmitting ? <SimpleLoader style={{ width: '15px', height: '15px' }} loaderColor="#ffff" /> : 'Сменить пароль'}
               />
             </div>
           </form>

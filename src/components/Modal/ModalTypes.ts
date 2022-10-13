@@ -70,10 +70,6 @@ export type SettingsGroupModalPropsT = {
   groupId: number
   name: string
 }
-export type NavSwitcherPropsT = {
-  changeActiveLink: (id: number) => void
-  activeLink: number
-}
 
 export type CreateGroupModalPropsT = {
   setShowModal: (arg: boolean) => void

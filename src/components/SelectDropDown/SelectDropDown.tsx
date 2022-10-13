@@ -34,25 +34,21 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
     }
 
   useEffect(() => {
-    const defaultDropDownHeader = initialDropDownList.find((item: dropDownItem): boolean => item.title === 'Все статусы')
+    const defaultDropDownHeader = initialDropDownList.find((item): boolean => item.title === 'Все статусы')
     setHeaderDropDown(defaultDropDownHeader || initialDropDownList[0])
-    const defaultDropDownList = initialDropDownList.filter((item: dropDownItem) => item.title !== 'Все статусы')
+    const defaultDropDownList = initialDropDownList.filter(item => item.title !== 'Все статусы')
     setDropDownList(defaultDropDownList)
   }, [])
 
   return (
     <div className={styles.wrapper}>
       <p onClick={onToggle} className={`${styles[headerDropDown.bg]} ${styles.header_dropdown_menu}`}>
-        <IconSvg
-          width={headerDropDown.icon.width}
-          height={headerDropDown.icon?.height}
-          viewBoxSize={headerDropDown.viewBoxSize}
-          path={[{ d: headerDropDown.icon?.d, fill: headerDropDown.icon?.fill }]}
-        />
-
-        {headerDropDown?.title}
-        <span className={isOpen ? styles.rotate_arrow : ''}>
-          <IconSvg width={20} height={20} viewBoxSize="0 0 12 12" path={arrIconPath} />
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <p style={{ marginRight: '10px', transform: 'translateY(5%)' }}> {headerDropDown.icon}</p>
+          <p> {headerDropDown?.title}</p>
+        </div>
+        <span className={isOpen ? `${styles[headerDropDown.arrow]} ${styles.rotate_arrow}` : `${styles[headerDropDown.arrow]}`}>
+          <IconSvg width={15} height={15} viewBoxSize="0 0 15 15" path={[{ d: arrIconPath[0].d, fill: headerDropDown.arrow_fill }]} />
         </span>
       </p>
       {isOpen && (
@@ -63,7 +59,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
           <p>{selectTheJobStatus}</p>
           {dropDownList.map(({ id, icon, title }) => (
             <div onClick={handleChangeStatus({ title })} className={styles.drop_down_item} key={id}>
-              <IconSvg width={20} height={20} path={[{ d: icon.d, fill: icon.fill }]} />
+              {icon}
               <span>{title}</span>
             </div>
           ))}

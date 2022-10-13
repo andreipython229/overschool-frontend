@@ -1,19 +1,9 @@
 @import '../../../scss/variable';
 @import '../../../scss/mixin.scss';
 
-.wrapper {
-  position: fixed;
-  // @include position_t_l (absolute, 0, 0, 5);
-  top: 0;
-  left: 0;
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  height: 100%;
-}
 .container {
-  @include position_t_l (absolute, 50%, 50%, 10);
-  @include display (flex, column, center, center);
+  @include position_t_l(absolute, 50%, 50%, 10);
+  @include display(flex, column, center, center);
   padding: 36px;
   background: $color-white;
   text-align: center;
@@ -24,7 +14,7 @@
   width: 580px;
 
   &_closed {
-    @include position_t_r (absolute, 20px, 40px);
+    @include position_t_r(absolute, 20px, 40px);
     text-align: center;
     width: 30px;
     height: 30px;
@@ -42,7 +32,7 @@
   }
 
   &_header {
-    @include display (flex, column, flex-start, center);
+    @include display(flex, column, flex-start, center);
     margin-bottom: 36px;
 
     & svg {
@@ -50,13 +40,13 @@
     }
 
     &_title {
-      @include font ( 500, 22px);
+      @include font(500, 22px);
       color: $font-title;
     }
   }
 
   &_navBlock {
-    @include font ( 500, 18px);
+    @include font(500, 18px);
     margin-bottom: 15px;
 
     & :not(:last-child) {
@@ -92,7 +82,7 @@
   }
 
   &_student {
-    @include display (flex, column);
+    @include display(flex, column);
     text-align: left;
     width: 474px;
     margin: 0 auto 48px auto;
@@ -165,11 +155,11 @@
     }
 
     &_checkbox {
-      @include display (flex, row, flex-start);
+      @include display(flex, row, flex-start);
       text-align: left;
 
       &_desc {
-        @include display (flex, column);
+        @include display(flex, column);
         font-weight: 500;
 
         & :nth-child(1) {
@@ -197,7 +187,7 @@
       }
 
       & span {
-        @include font ( 500, $fs16);
+        @include font(500, $fs16);
         color: $font-title;
       }
     }
@@ -217,7 +207,7 @@
     font-weight: 500;
 
     &_about {
-      @include display (flex, row, right, center);
+      @include display(flex, row, right, center);
       margin: 30px 0 40px 0;
 
       & :nth-child(1) {
@@ -227,7 +217,7 @@
       }
 
       &_setClassesDate {
-        @include display (flex, row, flex-start, center);
+        @include display(flex, row, flex-start, center);
         cursor: pointer;
 
         & :hover {

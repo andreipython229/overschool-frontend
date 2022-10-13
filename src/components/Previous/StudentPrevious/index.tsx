@@ -30,7 +30,7 @@ export const StudentPrevious: FC = () => {
       </div>
       <div className={styles.previous_btn}>
         <Button
-          variant="primary"
+          variant="delete"
           onClick={handleLogout}
           style={{
             width: '148px',
