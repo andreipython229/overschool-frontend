@@ -6,7 +6,7 @@ import { SearchCoursesBlock } from './SearchCoursesBlock'
 import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { StudentsTableBlock } from 'components/StudentsTableBlock'
 import { SettingStudentTable } from 'components/Modal/SettingStudentTable'
-import { settingsItemsList } from './config/settingsItemList'
+//import { settingsItemsList } from './config/settingsItemList'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { studentsScatterPath } from './config/svgIconPath'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
@@ -39,7 +39,7 @@ export const CoursesStats = () => {
             <>
               <StudentInfoGraphic />
               <div className={styles.statistics_new_student_wrapper_new_students}>
-                <h4 className={styles.statistics_new_student_wrapper_new_students_title}>Новых учеников</h4>
+                <p className={styles.statistics_new_student_wrapper_new_students_title}>Новых учеников</p>
                 <p className={styles.statistics_new_student_wrapper_new_students_amount}>463</p>
                 <div className={styles.statistics_new_student_wrapper_new_students_graph}>
                   <IconSvg width={212} height={28} viewBoxSize={'0 0 212 28'} path={studentsScatterPath}>

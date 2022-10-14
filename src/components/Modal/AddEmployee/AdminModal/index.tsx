@@ -1,14 +1,16 @@
 import React, { ChangeEvent, FC, useState } from 'react'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
-import { crossIconPath } from '../../../../config/commonSvgIconsPath'
+import { crossIconPath } from 'config/commonSvgIconsPath'
 import { radioData } from '../config/radioConfig'
 import { Radio } from '../../../common/Radio/Radio'
-import { checkBoxData } from '../config/checkBoxConfig'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { Button } from '../../../common/Button/Button'
 import { AddEmployeeModalPropsT, AddEmpoyeeModalExtensions } from '../../ModalTypes'
+import { useFetchCoursesQuery } from 'api/coursesServices'
+//import { CoursesDataT } from 'types/CoursesT'
 
 import styles from '../../Modal.module.scss'
+import { CoursesDataT } from '../../../../types/CoursesT'
 
 export const AdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensions> = ({
   handleCreatEmployee,
@@ -18,23 +20,18 @@ export const AdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensions> 
   emailUser,
   setShowModal,
 }) => {
-  const [checkedItem, setCheckedItem] = useState<{ [key: string]: boolean }>({
-    python: false,
-    java: false,
-    frontend: false,
-    ui: false,
-    english: false,
-    englishStart: false,
-  })
+  const { data: courses } = useFetchCoursesQuery()
+
+  const [checked, setChecked] = useState<boolean>(false)
+
+  const handleChecked = () => {
+    setChecked(!checked)
+  }
 
   const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmailUser(event.target.value)
   }
 
-  const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    const target = e.target
-    setCheckedItem({ ...checkedItem, [target.name]: target.checked })
-  }
   return (
     <form onSubmit={handleCreatEmployee} className={styles.main_employee}>
       <div className={styles.main_employee_container}>
@@ -64,11 +61,10 @@ export const AdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensions> 
         ))}
         <div className={styles.main_employee_course}>
           <span className={styles.main_employee_course_title}>Доступ к курсам</span>
-          {checkBoxData.map(({ id, name, span }) => (
-            <div key={id} className={styles.main_employee_course_checkbox}>
-              <Checkbox id={id} name={name} checked={checkedItem[name]} onChange={handleChecked} />
-              <span>{span}</span>
-            </div>
+          {courses?.results?.map(({ course_id, name }: CoursesDataT) => (
+            <Checkbox key={course_id} id={course_id.toString()} name={name} checked={false} onChange={handleChecked}>
+              <span>{name}</span>
+            </Checkbox>
           ))}
         </div>
         <div className={styles.main_employee_btn}>

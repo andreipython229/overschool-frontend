@@ -33,8 +33,9 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, onCha
         <div className={styles.addStudent_student}>
           <span className={styles.addStudent_student_title}>Ученик 1</span>
           <Input value={studentEmail} name={'email'} type={'text'} onChange={onChangeEmail} placeholder={'Email ученика'} />
-          <div className={styles.addStudent_student_btn}>
-            <span>+Добавить имя</span> <span>+Добавить комментарий</span>
+          <div>
+            <button className={styles.addStudent_student_btn}>+Добавить имя</button>
+            <button className={styles.addStudent_student_btn}>+Добавить комментарий</button>
           </div>
         </div>
         <div className={styles.addStudent_btnBlock}>
