@@ -1,111 +1,59 @@
-import { ChangeEvent, FC, memo, useState } from 'react'
-
-import { Button } from 'components/common/Button/Button'
-import { Radio } from 'components/common/Radio/Radio'
-import { IconSvg } from '../../common/IconSvg/IconSvg'
+import React, { FC, FormEvent, useEffect, useState } from 'react'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { RoleE } from 'enum/roleE'
-import { Checkbox } from '../../common/Checkbox/Checkbox'
-import { checkBoxData } from './config/checkBoxConfig'
-import { radioData } from './config/radioConfig'
-import { modalIconPath } from './config/svgIconsPath'
-import { crossIconPath } from '../../../config/commonSvgIconsPath'
+
 import { AddEmployeeModalPropsT } from '../ModalTypes'
+import { AdminModal } from './AdminModal'
 
-import styles from '../Modal.module.scss'
+import { SuperAdminModal } from './SuperAdminModal'
+import { useRegistrationMutation } from '../../../api/userRegisterService'
 
-export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = memo(({ setShowModal }) => {
-  const [checkedItem, setCheckedItem] = useState<{ [key: string]: boolean }>({
-    python: false,
-    java: false,
-    frontend: false,
-    ui: false,
-    english: false,
-    englishStart: false,
-  })
-
-  const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    const target = e.target
-    setCheckedItem({ ...checkedItem, [target.name]: target.checked })
-  }
-
+export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ setShowModal }) => {
   const { permission } = useAppSelector(selectUser)
-  if (permission === RoleE.Admin) {
-    return (
-      <div className={styles.main_employee}>
-        <div className={styles.main_employee_container}>
-          <div className={styles.main_employee_closedModal} onClick={setShowModal}>
-            <IconSvg width={26} height={26} path={crossIconPath} />
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <h3 className={styles.main_employee_title}>Добавление сотрудника</h3>
-            <span className={styles.main_employee_subs}>
-              Отправим приглашение на Email. <br /> Приняв его, сотрудник сможет настроить свой профиль
-            </span>
-          </div>
-          <div className={styles.main_employee_invite}>
-            <label htmlFor="email">Email нового сотрудника:</label>
-            <br />
-            <div className={styles.main_employee_invite_input}>
-              <input type="text" placeholder={'example@mailbox.ru'} />
-            </div>
-          </div>
-          {radioData.map(({ id, title, text }) => (
-            <div key={title} className={styles.main_employee_role}>
-              <div className={styles.main_employee_role_radio}>
-                <Radio title={title} id={id} />
-              </div>
-              <div className={styles.main_employee_role_desc}>{text}</div>
-            </div>
-          ))}
-          <div className={styles.main_employee_course}>
-            <span className={styles.main_employee_course_title}>Доступ к курсам</span>
-            {checkBoxData.map(({ id, name, span }) => (
-              <div key={id} className={styles.main_employee_course_checkbox}>
-                <Checkbox id={id} name={name} checked={checkedItem[name]} onChange={handleChecked} />
-                <span>{span}</span>
-              </div>
-            ))}
-          </div>
-          <div className={styles.main_employee_btn}>
-            <Button style={{ width: '220px' }} text={'Добавить'} variant={'primary'} />
-          </div>
-        </div>
-      </div>
-    )
+  const [emailUser, setEmailUser] = useState<string>('')
+  const [addRole, setAddRole] = useState<string>('')
+
+  const [registrationAdmin, { isSuccess }] = useRegistrationMutation()
+
+  const handleCreatEmployee = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const newUser = {
+      username: emailUser,
+      email: emailUser,
+      password1: 'Alpha1234',
+      password2: 'Alpha1234',
+      group_name: addRole,
+    }
+    await registrationAdmin(newUser)
   }
+  useEffect(() => {
+    if (isSuccess) {
+      setShowModal()
+    }
+  }, [isSuccess])
+
   return (
-    <div className={styles.main_employee}>
-      <div className={styles.main_employee_container}>
-        <div className={styles.main_employee_closedModal} onClick={setShowModal}>
-          <IconSvg width={14} height={14} viewBoxSize={'0 0 14 14'} path={modalIconPath} />
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          <h3 className={styles.main_employee_title}>Добавление сотрудника</h3>
-          <span className={styles.main_employee_subs}>
-            Отправим приглашение на Email. <br /> Приняв его, сотрудник сможет настроить свой профиль
-          </span>
-        </div>
-        <div className={styles.main_employee_invite}>
-          <label htmlFor="email">Email нового сотрудника:</label>
-          <br />
-          <div className={styles.main_employee_invite_input}>
-            <input type="text" placeholder={'example@mailbox.ru'} />
-          </div>
-        </div>
-        <div className={styles.main_employee_role}>
-          <div className={styles.main_employee_role_radio}>
-            <Radio title={'Администратор'} id={'admin'} />
-          </div>
-          <div className={styles.main_employee_role_desc}>
-            Может создавать и удалять курсы, добавлять сотрудников, производить операции со счетом и тарифами
-          </div>
-        </div>
-        <div className={styles.main_employee_btn}>
-          <Button text={'Добавить'} variant={'primary'} />
-        </div>
-      </div>
-    </div>
+    <>
+      {permission === RoleE.Admin ? (
+        <AdminModal
+          handleCreatEmployee={handleCreatEmployee}
+          setEmailUser={setEmailUser}
+          setAddRole={setAddRole}
+          addRole={addRole}
+          emailUser={emailUser}
+          setShowModal={setShowModal}
+        />
+      ) : (
+        <SuperAdminModal
+          handleCreatEmployee={handleCreatEmployee}
+          setEmailUser={setEmailUser}
+          setAddRole={setAddRole}
+          addRole={addRole}
+          emailUser={emailUser}
+          setShowModal={setShowModal}
+        />
+      )}
+    </>
   )
-})
+}

@@ -17,7 +17,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [isToggle, { onToggle }] = useBoolean()
 
   const { data } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type })
-  console.log(data)
+
   const [addFile] = usePatchLessonsMutation()
 
   const [lesson, setLesson] = useState<ILesson>(data)

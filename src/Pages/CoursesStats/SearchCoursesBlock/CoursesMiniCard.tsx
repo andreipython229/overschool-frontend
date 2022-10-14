@@ -11,8 +11,6 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseI
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
   const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students[0], 0)
 
-  console.log(quantutyOfStudents, filteredGroups.length)
-
   return (
     <Link
       to={generatePath(`/login/courses/${Path.CreateCourse}`, {

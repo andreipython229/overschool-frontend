@@ -1,6 +1,7 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, FormEvent } from 'react'
 import { sectionT } from '../../types/sectionT'
 import { CoursesDataT } from '../../types/CoursesT'
+import { SuperAdminModal } from './AddEmployee/SuperAdminModal'
 
 export type lessonIdAndTypeT = {
   id: number
@@ -15,6 +16,14 @@ export type SettingClassesPropsT = {
 
 export type AddEmployeeModalPropsT = {
   setShowModal: () => void
+}
+
+export type AddEmpoyeeModalExtensions = {
+  handleCreatEmployee: (event: FormEvent<HTMLFormElement>) => void
+  setEmailUser: (arg: string) => void
+  setAddRole: (arg: string) => void
+  addRole: string
+  emailUser: string
 }
 
 export type AddCourseModalPropsT = {

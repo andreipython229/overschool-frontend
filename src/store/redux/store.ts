@@ -16,6 +16,8 @@ const rootReducer = combineReducers({
   [services.courseStatService.reducerPath]: services.courseStatService.reducer,
   [services.homeworksStatsService.reducerPath]: services.homeworksStatsService.reducer,
   [services.userHomeworkService.reducerPath]: services.userHomeworkService.reducer,
+  [services.userHomeworkService.reducerPath]: services.userHomeworkService.reducer,
+  [services.userRegisterService.reducerPath]: services.userRegisterService.reducer,
   user: authReduce,
   sections: sectionsReduce,
 })
@@ -42,6 +44,7 @@ export const setupStore = () => {
         services.courseStatService.middleware,
         services.homeworksStatsService.middleware,
         services.userHomeworkService.middleware,
+        services.userRegisterService.middleware,
       ),
   })
 }

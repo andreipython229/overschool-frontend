@@ -16,12 +16,12 @@ import styles from '../../Modal.module.scss'
 export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLessonIdAndType }) => {
   const [settingsActive, setSettingsActive] = useState<number>(0)
   const [optionAccrualBalls, setOptionAccrualBalls] = useState<string>('')
+  const [ballsPerAnswer, setBallsPerAnswer] = useState<number>(0)
 
   const formik = useFormik({
     initialValues: {
       percent: 0,
       attempts: 0,
-      ballsPerAnswer: 0,
       numOfAttempts: false,
       rndQuest: false,
       shuffleAnswer: false,
@@ -33,7 +33,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
     },
   })
 
-  const { percent, attempts, numOfAttempts, ballsPerAnswer, handleChange }: any = formik
+  const { percent, attempts, numOfAttempts, handleChange }: any = formik
 
   const { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
     setType,
@@ -45,7 +45,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
     show_right_answers: formik.values.showCorrect,
     attempt_limit: formik.values.numOfAttempts,
     attempt_count: formik.values.attempts,
-    balls_per_answer: formik.values.ballsPerAnswer,
+    balls_per_answer: ballsPerAnswer,
     setLessonIdAndType,
   })
 
@@ -62,6 +62,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
 
   useEffect(() => {
     setBalls(0)
+    setBallsPerAnswer(0)
   }, [optionAccrualBalls])
 
   return (
@@ -122,7 +123,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
         <div className={styles.test_grade}>
           <span className={styles.test_grade_title}>Как выдавать баллы ученикам:</span>
           <div className={styles.test_grade_radio}>
-            <Radio name={'balls'} title={'За успешно пройденный тест'} id={'success'} func={() => setOptionAccrualBalls('allTest')} />
+            <Radio name={'balls'} title={'За успешно пройденный тест'} id={'allTest'} func={setOptionAccrualBalls} />
             <div className={styles.test_grade_radio_input}>
               <input
                 disabled={optionAccrualBalls !== 'allTest'}
@@ -138,14 +139,14 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
             </div>
           </div>
           <div>
-            <Radio name={'balls'} title={'За каждый правильный ответ'} id={'notSuccess'} func={() => setOptionAccrualBalls('perAnswer')} />
+            <Radio name={'balls'} title={'За каждый правильный ответ'} id={'perAnswer'} func={setOptionAccrualBalls} />
             <div className={styles.test_grade_radio_input}>
               <input
                 disabled={optionAccrualBalls !== 'perAnswer'}
                 type={'number'}
-                value={optionAccrualBalls === 'perAnswer' ? ballsPerAnswer : 0}
+                value={ballsPerAnswer}
                 name="ballsPerAnswer"
-                onChange={handleChange}
+                onChange={event => setBallsPerAnswer(+event.target.value)}
                 placeholder={'0'}
                 min="0"
                 max="100"
