@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
-import { HomeworksStatsTableRow } from './HomeworksStatsTableRow/index'
-import { HomeworksStatsTableHeader } from './HomeworksStatsTableHeader/index'
+import { HomeworksStatsTableRow } from './HomeworksStatsTableRow'
+import { HomeworksStatsTableHeader } from './HomeworksStatsTableHeader'
 import { useFetchHomeworkStatsQuery } from '../../api/homeworksStatsService'
 import { homeworkStatT } from 'types/homeworkT'
 

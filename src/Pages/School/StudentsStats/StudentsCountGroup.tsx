@@ -36,12 +36,10 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
         <div className={styles.students_group_content_wrapper_info_info_wrapper}>
           <span className={styles.students_group_content_wrapper_info_info_wrapper_name}>{title}</span>
           <div className={styles.students_group_content_wrapper_info_info_wrapper_amount_wrapper}>
-            <span>
-              <IconSvg width={4} height={4} viewBoxSize={'0 0 4 4'}>
-                <circle cx="2" cy="2" r="2" fill="#BA75FF" />
-              </IconSvg>
-              {countStudent} {getNounDeclension(countStudent, ['ученик', 'ученика', 'учеников'])}
-            </span>
+            <IconSvg width={4} height={4} viewBoxSize={'0 0 4 4'}>
+              <circle cx="2" cy="2" r="2" fill="#BA75FF" />
+            </IconSvg>
+            {countStudent} {getNounDeclension(countStudent, ['ученик', 'ученика', 'учеников'])}
           </div>
         </div>
         <div onClick={open} className={styles.students_group_content_wrapper_info_setings_btn}>

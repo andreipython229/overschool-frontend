@@ -93,10 +93,12 @@
     }
 
     &_btn {
-      margin-top: 8px;
+      margin: 8px 5px;
       text-align: left;
       color: $font-color-rose;
       font-size: 16px;
+      border: none;
+      background-color: #ffffff;
 
       & :nth-child(1) {
         margin-right: 24px;
