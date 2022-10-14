@@ -22,6 +22,7 @@ export type ContentBtnPropsT = {
   alt: string
   text: string
   src: string
+  disabled?: boolean
   func?: (event: MouseEvent) => void
 }
 

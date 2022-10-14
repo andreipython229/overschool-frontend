@@ -9,7 +9,7 @@ import { schoolHeaderReqT } from 'types/schoolHeaderT'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { noAvatar } from 'assets/img/common'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from '../previou.module.scss'
 

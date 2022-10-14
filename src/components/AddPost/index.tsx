@@ -34,6 +34,8 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview 
 
   const description: any = parse(descriptionLesson)
 
+  const disabledBtn: boolean = lessonIdAndType?.type === 'test'
+
   useEffect(() => {
     if (description[0]?.props?.children && lesson) {
       patchData(lesson, `${lessonIdAndType?.type}_id`, 'description', descriptionLesson, debounced, lessonIdAndType?.type)
@@ -68,10 +70,10 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview 
       <section className={styles.redactorCourse_rightSide_functional_creating}>
         <div className={styles.redactorCourse_rightSide_functional_creating_title}>Добавить контент</div>
         <div className={styles.redactorCourse_rightSide_functional_creating_function}>
-          <ContentBtn func={openTextEditor} text={'Текс'} alt={'Add text for lesson'} src={Text} />
-          <ContentBtn func={openVideo} text={'Видео'} alt={'Add video for lesson'} src={Video} />
-          <ContentBtn func={openAudio} text={'Аудио'} alt={'Add audio for lesson'} src={Audio} />
-          <ContentBtn func={openCodeEditor} text={'Код'} alt={'Add code for lesson'} src={Code} />
+          <ContentBtn disabled={disabledBtn} func={openTextEditor} text={'Текс'} alt={'Add text for lesson'} src={Text} />
+          <ContentBtn disabled={disabledBtn} func={openVideo} text={'Видео'} alt={'Add video for lesson'} src={Video} />
+          <ContentBtn disabled={disabledBtn} func={openAudio} text={'Аудио'} alt={'Add audio for lesson'} src={Audio} />
+          <ContentBtn disabled={disabledBtn} func={openCodeEditor} text={'Код'} alt={'Add code for lesson'} src={Code} />
         </div>
       </section>
     </>

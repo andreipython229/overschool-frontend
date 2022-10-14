@@ -3,6 +3,7 @@
 .wrapper {
   @include display(flex, row, center);
   padding: 2px 0 24px 0;
+  margin-bottom: -13px;
 }
 .container {
   width: 100%;
@@ -20,6 +21,7 @@
     text-align: left;
     color: #646f74;
     min-width: 100px;
+    font-size: 16px;
   }
 
   & svg {
@@ -43,13 +45,15 @@ button:hover {
   border: 1px solid #e5e7eb;
   border-radius: 7px;
   min-height: 100px;
+  max-height: 300px;
   width: 99%;
   background: #ffffff;
   display: none;
   list-style: none;
   padding: 4px 0;
-  margin-top: -4px;
+  margin-top: 3px;
   overflow: scroll;
+  font-size: 16px;
 }
 .show {
   display: block;

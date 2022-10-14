@@ -20,7 +20,7 @@ export const Header = memo(() => {
 
   const [logout] = useLogoutMutation()
 
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(id)
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
   const { data: profile } = useFetchProfileDataQuery(id)
 
   const logOut = (): void => {
