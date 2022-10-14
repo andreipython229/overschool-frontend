@@ -12,7 +12,7 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import styles from './profile.module.scss'
 
 export const Profile = () => {
-  const [changePasswordFunc, { isError }] = useChangePasswordMutation()
+  const [changePasswordFunc, { isError, isLoading }] = useChangePasswordMutation()
 
   const changePassword = useFormik({
     initialValues: {

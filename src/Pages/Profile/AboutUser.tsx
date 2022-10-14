@@ -137,7 +137,7 @@ export const AboutUser: FC = memo(() => {
           disabled={isSubmitting || isFetching || isError}
           className={styles.profile_block_btn}
           type="submit"
-          text={isSubmitting || isFetching ? <SimpleLoader style={{ width: '15px', height: '15px' }} loaderColor="#ffff" /> : 'Сохранить'}
+          text={isSubmitting ? <SimpleLoader style={{ width: '15px', height: '15px' }} loaderColor="#ffff" /> : 'Сохранить'}
           variant={isSubmitting || isFetching || isError ? 'disabled' : 'primary'}
         />
       </div>
