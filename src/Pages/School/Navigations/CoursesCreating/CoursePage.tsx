@@ -1,5 +1,6 @@
 import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
+
 import { Button } from 'components/common/Button/Button'
 import { Path, Student } from 'enum/pathE'
 import { useAppSelector } from 'store/hooks'
@@ -24,7 +25,7 @@ import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.s
 export const CoursePage: FC = memo(() => {
   const { data: courses } = useFetchCoursesQuery()
 
-  const { permission } = useAppSelector(selectUser)
+  const { role } = useAppSelector(selectUser)
 
   const [isOpenAddCourse, { onToggle }] = useBoolean()
 
@@ -47,7 +48,7 @@ export const CoursePage: FC = memo(() => {
               course={course}
               renderProps={course => (
                 <>
-                  {permission === RoleE.Admin ? (
+                  {role === RoleE.Admin ? (
                     <>
                       <div className={styles.course_card_img}>
                         <img className={styles.course_card_img} src={course?.photo_url} alt="" />
@@ -108,7 +109,7 @@ export const CoursePage: FC = memo(() => {
               )}
             />
           ))}
-        {permission !== RoleE.Student && (
+        {role !== RoleE.Student && (
           <div onClick={dispatchHandlerModal} className={styles.course_card}>
             <div className={styles.course_addCourse}>
               <span>Создать курс</span>

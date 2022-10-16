@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { lessonSvgMapper } from 'config/LessonsMaper'
+import { lessonSvgMapper } from 'config/index'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
 import { useDeleteLessonsMutation } from 'api/modulesServices'

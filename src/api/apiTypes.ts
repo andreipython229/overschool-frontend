@@ -14,7 +14,8 @@ export interface IResponse {
   refresh_token: string
   user: {
     pk: number
-    username: null | string
+    username: string
     email: string
+    groups: number[]
   }
 }

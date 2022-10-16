@@ -1,29 +1,26 @@
 import { FC, memo } from 'react'
 import { Link } from 'react-router-dom'
 
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useAppSelector } from '../../store/hooks'
 import { Path } from 'enum/pathE'
 import { Button } from 'components/common/Button/Button'
 import { authSelector } from 'selectors'
 import { InitPageHeaderPT } from '../pageTypes'
 import { logo } from '../../assets/img/common/index'
+import { selectUser } from 'selectors/index'
+import { RoleE } from 'enum/roleE'
 
 import styles from './initial.module.scss'
-import { role } from 'store/redux/users/slice'
 
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setRegistrationShow }) => {
-  const dispatch = useAppDispatch()
   const isLogin = useAppSelector(authSelector)
+  const { role: userRole } = useAppSelector(selectUser)
 
   const handleLoginUser = () => {
     setLoginShow(true)
-    dispatch(role(1))
   }
 
-  const handleLoginStudent = () => {
-    setLoginShow(true)
-    dispatch(role(5))
-  }
+
 
   return (
     <div>
@@ -31,13 +28,12 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
         <img src={logo} alt="Logotype ITOVERONE" />
         <div className={styles.btn_block}>
           {isLogin ? (
-            <Link className={styles.btn_block_logIn} to={`${Path.Courses}`}>
+            <Link className={styles.btn_block_logIn} to={`${userRole === RoleE.SuperAdmin ? Path.Settings : Path.Courses}`}>
               Аккаунт
             </Link>
           ) : (
             <>
               <Button variant={'logIn'} onClick={handleLoginUser} text={'Войти'} />
-              <Button variant={'logIn'} onClick={handleLoginStudent} text={'Войти от имени студента'} />
               <Button disabled onClick={() => setRegistrationShow(true)} variant={'primary'} text={'Зарегистрироваться'} />
             </>
           )}

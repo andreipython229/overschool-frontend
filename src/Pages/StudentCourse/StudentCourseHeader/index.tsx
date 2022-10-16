@@ -7,7 +7,7 @@ import { Path } from 'enum/pathE'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { backArr } from 'components/Previous/config/svgIconPath'
 import { lessonT, sectionT } from 'types/sectionT'
-import { lessonSvgMapper } from 'config/LessonsMaper'
+import { lessonSvgMapper } from 'config/index'
 import { getNounDeclension } from 'utils/getNounDeclension'
 
 import styles from './student_course_header.module.scss'
@@ -64,8 +64,7 @@ export const StudentCourseHeader: FC = () => {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {lessonSvgMapper['test']}
           <span>
-            {countOfLessons && countOfLessons['test']}{' '}
-            {countOfLessons && getNounDeclension(countOfLessons['test'], ['тест', 'теста', 'тестов'])}
+            {countOfLessons && countOfLessons['test']} {countOfLessons && getNounDeclension(countOfLessons['test'], ['тест', 'теста', 'тестов'])}
           </span>
         </div>
       </div>

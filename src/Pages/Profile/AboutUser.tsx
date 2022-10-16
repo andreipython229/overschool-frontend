@@ -1,10 +1,12 @@
-import { ChangeEvent, FC, memo, useState } from 'react'
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { userDataSchema } from './schemas'
 import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/profileService'
+import { useAppSelector } from 'store/hooks/index'
+import { userIdSelector } from 'selectors/index'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from './profile.module.scss'
@@ -15,9 +17,10 @@ const optionsList = ['Женский', 'Мужской']
 export const AboutUser: FC = memo(() => {
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
   const [avatarUrl, setAvatarUrl] = useState<string>('')
+  const userId = useAppSelector(userIdSelector)
 
-  const { data, isFetching, isError } = useFetchProfileDataQuery(1)
-  const [updateProfile] = useUpdateProfileMutation()
+  const { data, isFetching, isError } = useFetchProfileDataQuery(userId)
+  const [updateProfile, { isSuccess }] = useUpdateProfileMutation()
 
   const formik = useFormik({
     initialValues: {
@@ -47,8 +50,8 @@ export const AboutUser: FC = memo(() => {
 
       avatarFile && formData.append('avatar', avatarFile)
 
-      avatarFile && updateProfile({ userInfo: formData, id: 1 })
-      updateProfile({ userInfo: objToSend, id: 1 })
+      avatarFile && updateProfile({ userInfo: formData, id: userId })
+      updateProfile({ userInfo: objToSend, id: userId })
     },
   })
 
@@ -59,6 +62,10 @@ export const AboutUser: FC = memo(() => {
       setAvatarFile(e.target.files[0])
     }
   }
+
+  useEffect(() => {
+    isSuccess && formik.setSubmitting(false)
+  }, [isSuccess])
 
   const {
     values: { city, description, email, last_name, first_name, phone_number, avatar_url, sex },
@@ -137,7 +144,7 @@ export const AboutUser: FC = memo(() => {
           disabled={isSubmitting || isFetching || isError}
           className={styles.profile_block_btn}
           type="submit"
-          text={isSubmitting ? <SimpleLoader style={{ width: '15px', height: '15px' }} loaderColor="#ffff" /> : 'Сохранить'}
+          text={isSubmitting || isFetching ? <SimpleLoader style={{ width: '15px', height: '15px' }} loaderColor="#ffff" /> : 'Сохранить'}
           variant={isSubmitting || isFetching || isError ? 'disabled' : 'primary'}
         />
       </div>

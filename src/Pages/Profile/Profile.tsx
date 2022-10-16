@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
@@ -12,7 +13,7 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import styles from './profile.module.scss'
 
 export const Profile = () => {
-  const [changePasswordFunc, { isError, isLoading }] = useChangePasswordMutation()
+  const [changePasswordFunc, { isError, isSuccess }] = useChangePasswordMutation()
 
   const changePassword = useFormik({
     initialValues: {
@@ -26,6 +27,10 @@ export const Profile = () => {
       resetForm()
     },
   })
+
+  useEffect(() => {
+    isSuccess && changePassword.setSubmitting(false)
+  }, [isSuccess])
 
   const {
     values: { password, confirmPassword },
