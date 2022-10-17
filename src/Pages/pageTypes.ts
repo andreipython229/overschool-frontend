@@ -41,9 +41,6 @@ export type EmployeePropsT = {
   role: string
 }
 
-export type EmployeesPropsT = {
-  openModal: () => void
-}
 
 export type LogoAddBlockPropsT = {
   title: string

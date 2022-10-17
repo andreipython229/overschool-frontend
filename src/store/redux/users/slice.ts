@@ -3,11 +3,12 @@ import { AuthDateT, UserT } from 'types/userT'
 
 const initialState: UserT & AuthDateT = {
   auth: false,
-  permission: 1,
+  role: 6,
   authDate: '',
   access_token: '',
   refresh_token: '',
   userId: 0,
+  userName: '',
 }
 
 export const sliceUser = createSlice({
@@ -22,7 +23,10 @@ export const sliceUser = createSlice({
       state.access_token = action.payload.access_token
     },
     role: (state, action: PayloadAction<number>) => {
-      state.permission = action.payload
+      state.role = action.payload
+    },
+    userName: (state, action: PayloadAction<string>) => {
+      state.userName = action.payload
     },
     id: (state, action: PayloadAction<number>) => {
       state.userId = action.payload
@@ -30,5 +34,5 @@ export const sliceUser = createSlice({
   },
 })
 
-export const { auth, token, role, id } = sliceUser.actions
+export const { auth, token, role, id, userName } = sliceUser.actions
 export const authReduce = sliceUser.reducer

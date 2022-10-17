@@ -55,7 +55,7 @@ export const StudentsStats = () => {
       </section>
       <section className={styles.students_group}>
         <div className={styles.students_group_header}>
-          <h4 className={styles.students_group_header_title}>Группы учеников</h4>
+          <p className={styles.students_group_header_title}>Группы учеников</p>
           <div onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}>
             <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} />
             Создать новую группу
@@ -69,7 +69,7 @@ export const StudentsStats = () => {
           {groupsToShow.length > 2 && <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />}
         </div>
       </section>
-      <p
+      <div
         className={styles.all_students}
         style={{
           fontWeight: 500,
@@ -78,7 +78,7 @@ export const StudentsStats = () => {
         }}
       >
         <AllStudentsBlock headerText={'Все ученики курса'} />
-      </p>
+      </div>
       <StudentsTableBlock setShowModal={offToggleSettingModal} />
 
       {studentModal && (

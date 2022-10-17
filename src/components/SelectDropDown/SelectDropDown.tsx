@@ -42,7 +42,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
 
   return (
     <div className={styles.wrapper}>
-      <p onClick={onToggle} className={`${styles[headerDropDown.bg]} ${styles.header_dropdown_menu}`}>
+      <div onClick={onToggle} className={`${styles[headerDropDown.bg]} ${styles.header_dropdown_menu}`}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <p style={{ marginRight: '10px', transform: 'translateY(5%)' }}> {headerDropDown.icon}</p>
           <p> {headerDropDown?.title}</p>
@@ -50,7 +50,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
         <span className={isOpen ? `${styles[headerDropDown.arrow]} ${styles.rotate_arrow}` : `${styles[headerDropDown.arrow]}`}>
           <IconSvg width={15} height={15} viewBoxSize="0 0 15 15" path={[{ d: arrIconPath[0].d, fill: headerDropDown.arrow_fill }]} />
         </span>
-      </p>
+      </div>
       {isOpen && (
         <div className={styles.drop_down_item_container}>
           <div className={styles.triangle}>

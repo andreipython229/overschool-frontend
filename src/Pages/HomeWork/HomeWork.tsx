@@ -13,10 +13,9 @@ import styles from './home_work.module.scss'
 export const HomeWork: FC = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])
 
-
   return (
     <>
-      <h3>Входящие работы от учеников</h3>
+      <p>Входящие работы от учеников</p>
       <div className={styles.container}>
         <SelectDropDown setArrowUsersState={setArrowUsersState} />
         <FiltersButton filteringCategoriesList={dropDownListFilter} />

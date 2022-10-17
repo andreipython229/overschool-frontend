@@ -26,7 +26,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => 
 
   return (
     <div>
-      <h4 className={styles.header_block_text}>{headerText}</h4>
+      <p className={styles.header_block_text}>{headerText}</p>
       <div className={styles.button_search_block}>
         <FiltersButton filteringCategoriesList={dropDownListFilterStudents} />
         <Input name="" type="search" value={''} onChange={() => console.log('заглушка')} placeholder="Поиск по курсам">

@@ -9,19 +9,20 @@ import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutIconPath } from './config/svgIconsPath'
 import { useLogoutMutation } from 'api/userLoginService'
-import { userIdSelector } from '../../selectors'
+import { selectUser } from '../../selectors'
 import { logo } from '../../assets/img/common'
+import { headerUserRoleName } from 'config/index'
 
 import styles from './header.module.scss'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
-  const id = useAppSelector(userIdSelector)
+  const { userId, userName } = useAppSelector(selectUser)
 
   const [logout] = useLogoutMutation()
 
   const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
-  const { data: profile } = useFetchProfileDataQuery(id)
+  const { data: profile } = useFetchProfileDataQuery(userId)
 
   const logOut = (): void => {
     dispatch(token({ access_token: '' }))
@@ -54,7 +55,7 @@ export const Header = memo(() => {
             )}
             <div className={styles.header_block_user_userName}>
               <span style={{ color: '#BA75FF' }} className={styles.header_block_user_userName_status}>
-                Супер пользователь
+                {headerUserRoleName[userName]}
               </span>
               <span className={styles.header_block_user_userName_name}>
                 {profile?.user.last_name} {profile?.user.first_name}
