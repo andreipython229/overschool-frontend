@@ -3,7 +3,7 @@ import { generatePath, useNavigate } from 'react-router-dom'
 
 import { Student } from '../../../enum/pathE'
 import { lessonT } from '../../../types/sectionT'
-import { lessonSvgMapper } from 'config/LessonsMaper'
+import { lessonSvgMapper } from 'config/index'
 
 import styles from './exerciseItem.module.scss'
 

@@ -9,13 +9,13 @@ import { selectUser } from '../../../selectors'
 import styles from './navAccount.module.scss'
 
 export const NavAccount: FC = memo(() => {
-  const { permission } = useAppSelector(selectUser)
+  const { role } = useAppSelector(selectUser)
 
   return (
     <div className={styles.nav_account}>
       <NavAccountBtn path={SettingsPath.Main} text={'Основные'} />
       <NavAccountBtn path={SettingsPath.Employees} text={'Сотрудники'} />
-      {permission === RoleE.SuperAdmin && <NavAccountBtn path={SettingsPath.Logs} text={'Логи'} />}
+      {role === RoleE.SuperAdmin && <NavAccountBtn path={SettingsPath.Logs} text={'Логи'} />}
       <NavAccountBtn path={SettingsPath.Decoration} text={'Оформление'} />
     </div>
   )

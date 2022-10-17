@@ -5,13 +5,16 @@ import { useFetchProfileDataQuery } from 'api/profileService'
 import { useLogoutMutation } from '../../../api/userLoginService'
 import { useAppDispatch } from 'store/hooks'
 import { auth, token } from '../../../store/redux/users/slice'
+import { useAppSelector } from 'store/hooks/index'
+import { userIdSelector } from 'selectors/index'
 
 import styles from '../previou.module.scss'
 
 export const StudentPrevious: FC = () => {
   const dispatch = useAppDispatch()
+  const userId = useAppSelector(userIdSelector)
 
-  const { data } = useFetchProfileDataQuery(1)
+  const { data } = useFetchProfileDataQuery(userId)
   const [logout] = useLogoutMutation()
 
   const handleLogout = () => {

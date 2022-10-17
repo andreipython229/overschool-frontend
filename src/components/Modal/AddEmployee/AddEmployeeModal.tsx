@@ -10,7 +10,7 @@ import { SuperAdminModal } from './SuperAdminModal'
 import { useRegistrationMutation } from '../../../api/userRegisterService'
 
 export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ setShowModal }) => {
-  const { permission } = useAppSelector(selectUser)
+  const { role } = useAppSelector(selectUser)
   const [emailUser, setEmailUser] = useState<string>('')
   const [addRole, setAddRole] = useState<string>('')
 
@@ -35,7 +35,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ setShowModal }) =
 
   return (
     <>
-      {permission === RoleE.Admin ? (
+      {role === RoleE.Admin ? (
         <AdminModal
           handleCreatEmployee={handleCreatEmployee}
           setEmailUser={setEmailUser}

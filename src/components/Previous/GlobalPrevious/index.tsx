@@ -10,6 +10,7 @@ import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { noAvatar } from 'assets/img/common'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { RoleE } from 'enum/roleE'
 
 import styles from '../previou.module.scss'
 
@@ -140,7 +141,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
           {/* <p className={styles.previous_infoBlock_title_about}>{about}</p> */}
         </div>
       </div>
-      {user.permission !== 5 && (
+      {user.role === RoleE.Admin && (
         <div className={styles.previous_btn}>
           {isMatchPath && (
             <Button
