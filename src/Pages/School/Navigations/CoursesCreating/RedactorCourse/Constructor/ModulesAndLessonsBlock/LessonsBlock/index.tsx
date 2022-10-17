@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
-import { lessonSvgMapper } from 'config/index'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
 import { useDeleteLessonsMutation } from 'api/modulesServices'
 import { LessonsBlockT } from '../../../../../navigationTypes'
 import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
+import { lessonSvgMapper } from 'config'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
