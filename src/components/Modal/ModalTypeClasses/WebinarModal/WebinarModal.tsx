@@ -78,8 +78,8 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ setType }) => {
             <div className={styles.tasks_credit}>
               <span className={styles.tasks_credit_desc}>Напомнить о вебинаре за</span>
               <div className={styles.tasks_credit_select}>
-                <SelectInput optionsList={arrNumber} />
-                <SelectInput optionsList={arrTime} />
+                <SelectInput optionName={'number' as keyof object} optionsList={arrNumber} />
+                <SelectInput optionName={'unit' as keyof object} optionsList={arrTime} />
               </div>
               <span className={styles.tasks_credit_desc}>до начала</span>
             </div>
@@ -96,8 +96,8 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ setType }) => {
               <div className={styles.tasks_credit}>
                 <span className={styles.tasks_credit_desc}>Напомнить о вебинаре за</span>
                 <div className={styles.tasks_credit_select}>
-                  <SelectInput optionsList={arrNumber} />
-                  <SelectInput optionsList={arrTime} />
+                  <SelectInput optionName={'number' as keyof object} optionsList={arrNumber} />
+                  <SelectInput optionName={'unit' as keyof object} optionsList={arrTime} />
                 </div>
                 <span className={styles.tasks_credit_desc}>до начала</span>
               </div>
@@ -118,8 +118,8 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ setType }) => {
             <div className={styles.tasks_credit}>
               <span className={styles.tasks_credit_desc}>Напомнить о вебинаре за</span>
               <div className={styles.tasks_credit_select}>
-                <SelectInput optionsList={arrNumber} />
-                <SelectInput optionsList={arrTime} />
+                <SelectInput optionName={'number' as keyof object} optionsList={arrNumber} />
+                <SelectInput optionName={'unit' as keyof object} optionsList={arrTime} />
               </div>
               <span className={styles.tasks_credit_desc}>до начала</span>
             </div>
@@ -136,8 +136,8 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ setType }) => {
               <div className={styles.tasks_credit}>
                 <span className={styles.tasks_credit_desc}>Напомнить о вебинаре за</span>
                 <div className={styles.tasks_credit_select}>
-                  <SelectInput optionsList={arrNumber} />
-                  <SelectInput optionsList={arrTime} />
+                  <SelectInput optionName={'number' as keyof object} optionsList={arrNumber} />
+                  <SelectInput optionName={'unit' as keyof object} optionsList={arrTime} />
                 </div>
                 <span className={styles.tasks_credit_desc}>до начала</span>
               </div>

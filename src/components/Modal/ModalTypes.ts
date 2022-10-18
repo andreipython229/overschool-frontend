@@ -1,7 +1,8 @@
 import { ChangeEvent, FormEvent } from 'react'
 import { sectionT } from '../../types/sectionT'
 import { CoursesDataT } from '../../types/CoursesT'
-import { SuperAdminModal } from './AddEmployee/SuperAdminModal'
+
+import { studentsGroupsT } from '../../types/studentsGroup'
 
 export type lessonIdAndTypeT = {
   id: number
@@ -92,4 +93,8 @@ export type AddStudentModalPropsT = {
   setShowModal: (arg: boolean) => void
   onChangeEmail: (e: ChangeEvent<HTMLInputElement>) => void
   studentEmail: string
+  setChangeCourse: (arg: CoursesDataT) => void
+  setChangeGroup: (arg: studentsGroupsT) => void
+  courses: CoursesDataT[]
+  changeCourse: CoursesDataT
 }

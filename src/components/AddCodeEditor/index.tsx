@@ -9,8 +9,12 @@ import { AddPostT, setShowType } from '../componentsTypes'
 
 import styles from './addCodeEditor.module.scss'
 
+type languageT = {
+  language: string
+}
+
 export const AddCodeEditor: FC<setShowType & AddPostT> = ({ lesson, isPreview, code, handleEditorChange, setShow }) => {
-  const [selectedLang, setSelectedLang] = useState<string | number>('javascript')
+  const [selectedLang, setSelectedLang] = useState<languageT>({ language: 'javascript' })
 
   return (
     <>
@@ -18,11 +22,11 @@ export const AddCodeEditor: FC<setShowType & AddPostT> = ({ lesson, isPreview, c
         <div className={styles.editorWrapper}>
           <div className={styles.editorWrapper_editor}>
             <div className={styles.editorWrapper_editor_add}>
-              <Editor height="100%" language={selectedLang as string} loading={''} theme="vs-dark" onChange={handleEditorChange} value={code} />
+              <Editor height="100%" language={selectedLang.language} loading={''} theme="vs-dark" onChange={handleEditorChange} value={code} />
             </div>
           </div>
           <div className={styles.editorWrapper_selectWrapper}>
-            <SelectInput setSelectedValue={setSelectedLang} optionsList={coursesSelectLanguage} />
+            <SelectInput setSelectedValue={setSelectedLang} optionName={'language' as keyof object} optionsList={coursesSelectLanguage} />
           </div>
           <div className={styles.editorWrapper_navBlock}>
             <div className={styles.editorWrapper_navBlock_div}>

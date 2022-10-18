@@ -11,15 +11,14 @@ import { useFetchLessonQuery, usePatchLessonsMutation } from '../../../api/modul
 import { patchData } from '../../../utils/patchData'
 
 import styles from '../Modal.module.scss'
-
-const classesType = ['Занятие', 'Задание', 'Тест', 'Вебинар']
+import { classesType } from '../../../constants/other'
 
 export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setType, modulesList, lessonIdAndType }) => {
   // const lessonIdVar = lessonIdAndType ? lessonIdAndType : modulesList[0]?.lessons[0]?.id
 
   const [changeNameLesson, { isSuccess }] = usePatchLessonsMutation()
 
-  const { data } = useFetchLessonQuery({id: lessonIdAndType.id, type: lessonIdAndType.type})
+  const { data } = useFetchLessonQuery({ id: lessonIdAndType.id, type: lessonIdAndType.type })
 
   const [settingsActive, setSettingsActive] = useState<number>(0)
   const [balls, setBalls] = useState<number>(0)
@@ -88,7 +87,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setType, m
                 <span style={{ paddingBottom: '5px' }} className={styles.settings_block_input_title}>
                   Изменить тип
                 </span>
-                <SelectInput optionsList={classesType} setSelectedValue={setTypeLesson} />
+                <SelectInput optionsList={classesType} optionName={'type' as keyof object} setSelectedValue={setTypeLesson} />
               </div>
             </div>
           ) : (

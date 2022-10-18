@@ -83,7 +83,7 @@ export const StudentsStats = () => {
 
       {studentModal && (
         <Portal closeModal={setStudentModal}>
-          <AddStudentModal setShowModal={setStudentModal} studentEmail={studentEmail} onChangeEmail={onChangeStudentEmail} />{' '}
+          {/*<AddStudentModal setShowModal={setStudentModal} studentEmail={studentEmail} onChangeEmail={onChangeStudentEmail} />{' '}*/}
         </Portal>
       )}
       {addGroupModal && (

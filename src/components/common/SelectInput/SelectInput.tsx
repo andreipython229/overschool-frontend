@@ -8,7 +8,7 @@ import { SelectInputPropsT } from '../commonComponentsTypes'
 
 import styles from './selectInput.module.scss'
 
-export const SelectInput: FC<SelectInputPropsT<string | number>> = ({ optionsList, setSelectedValue }) => {
+export const SelectInput: FC<SelectInputPropsT<object>> = ({ optionsList, optionName, setSelectedValue }) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
   const [selectedOption, setSelectedOption] = useState<number>(0)
 
@@ -43,34 +43,35 @@ export const SelectInput: FC<SelectInputPropsT<string | number>> = ({ optionsLis
       <div className={styles.container}>
         <IconSvg
           styles={{ transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}` }}
-          width={14}
-          height={8}
-          viewBoxSize={'0 0 14 8'}
+          width={20}
+          height={14}
+          viewBoxSize={'0 0 14 7'}
           path={selectInputIconPath}
           functionOnClick={handleToggleOptionsOpen}
         />
 
         <button className={styles?.container_btn} type="button" aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
-          {optionsList[selectedOption]}
+          {optionsList.length ? optionsList[selectedOption || 0][optionName] : '------------'}
         </button>
         <ul tabIndex={-1} role="listbox" className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}>
-          {optionsList?.map(
-            (option, index: number): ReactNode => (
-              <li
-                key={index}
-                tabIndex={0}
-                role="option"
-                aria-selected={selectedOption === index}
-                onClick={() => {
-                  setSelectedOption(index)
-                  setIsOptionsOpen(false)
-                  setSelectedValue && setSelectedValue(option)
-                }}
-              >
-                {option}
-              </li>
-            ),
-          )}
+          {optionsList &&
+            optionsList?.map(
+              (option, index: number): ReactNode => (
+                <li
+                  key={option[optionName]}
+                  tabIndex={0}
+                  role="option"
+                  aria-selected={selectedOption === index}
+                  onClick={() => {
+                    setSelectedOption(index)
+                    setIsOptionsOpen(false)
+                    setSelectedValue && setSelectedValue(option)
+                  }}
+                >
+                  {option[optionName]}
+                </li>
+              ),
+            )}
         </ul>
       </div>
     </div>
