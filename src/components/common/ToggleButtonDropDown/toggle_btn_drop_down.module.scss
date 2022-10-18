@@ -2,18 +2,14 @@
 
 .modal_btn_is_toggle {
   position: relative;
-  @include display (flex, row, center, center);
-  margin-top: 40px;
-  width: 100%;
+  display: inline-block;
+  margin: 40px auto 0;
+  max-width: max-content;
   background: transparent;
   border: none;
   color: #a1a6af;
-  padding: 16px;
-  border-radius: 10px;
   span {
-    @include position_t_l (absolute, 46%, 38%);
-    width: 15px;
-    height: 5px;
+    @include position_t_l(absolute, 0, -25px);
   }
 }
 .arrow_rotate {

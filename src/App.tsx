@@ -8,6 +8,8 @@ import { Path } from 'enum/pathE'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { navByRolesConfig } from 'config/index'
+import { SignUp } from 'Pages/SignUp/index'
+import { scrollToTop } from 'utils/scrollToTop'
 
 import styles from './App.module.scss'
 
@@ -23,6 +25,8 @@ export const App = () => {
     }
   }, [])
 
+  scrollToTop()
+
   return (
     <div className={styles.container}>
       <Routes>
@@ -30,6 +34,7 @@ export const App = () => {
         <Route path={Path.InitialPage} element={<MainLayOut />}>
           {navByRolesConfig[role]}
         </Route>
+        <Route path={Path.SignUp} element={<SignUp />} />
         <Route path={'*'} element={<PageNotFound />} />
       </Routes>
     </div>

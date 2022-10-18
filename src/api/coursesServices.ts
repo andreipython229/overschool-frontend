@@ -15,7 +15,7 @@ export const coursesServices = createApi({
       }),
       providesTags: ['courses', 'course'],
     }),
-    fetchCourse: build.query<CoursesDataT, string>({
+    fetchCourse: build.query<CoursesDataT, string | number>({
       query: id => ({
         url: `/courses/${id}/`,
       }),
@@ -39,7 +39,7 @@ export const coursesServices = createApi({
       invalidatesTags: ['course', 'courses'],
     }),
     patchCourses: build.mutation<FormData, UpdateCourses>({
-      query: (arg) => {
+      query: arg => {
         return {
           url: `/courses/${arg?.id}/`,
           method: 'PATCH',
@@ -49,7 +49,7 @@ export const coursesServices = createApi({
       invalidatesTags: ['course'],
     }),
     cloneCourse: build.mutation<CoursesDataT, number>({
-      query: (id) => {
+      query: id => {
         return {
           url: `/courses/${id}/clone/`,
           method: 'GET',
