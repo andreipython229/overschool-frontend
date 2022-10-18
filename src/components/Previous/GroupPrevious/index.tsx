@@ -1,0 +1,51 @@
+import { FC, memo } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { createGroupIconPath } from '../../../Pages/School/config/svgIconsPath'
+import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupModal/SettingsGroupModal'
+import { Portal } from 'components/Modal/Portal/index'
+import { useBoolean } from 'customHooks/useBoolean'
+import { useFetchStudentGroupQuery } from 'api/studentsGroupService'
+import { useFetchCourseQuery } from 'api/coursesServices'
+import { backArr } from '../config/svgIconPath'
+
+import studentsStyles from 'Pages/School/StudentsStats/studentsStats.module.scss'
+import styles from '../previou.module.scss'
+
+export const GroupPrevious: FC = memo(() => {
+  const [toggleSettingModal, { on: onToggleSettingModal, off: offToggleSettingModal }] = useBoolean()
+
+  const { group_id: groupId } = useParams()
+  const navigate = useNavigate()
+
+  const { data } = useFetchStudentGroupQuery(`${groupId}`)
+  const { data: course } = useFetchCourseQuery(`${data?.course_id}`)
+
+  return (
+    <>
+      {toggleSettingModal && (
+        <Portal closeModal={onToggleSettingModal}>
+          <SettingsGroupModal closeModal={onToggleSettingModal} name={`${data?.name}`} groupId={data?.group_id as number} />
+        </Portal>
+      )}
+      <div className={styles.previous}>
+        <img className={styles.background_image_course} src={course?.photo_url} alt="bg" />
+        <div className={styles.previous_bcgrShadow}> </div>
+        <div className={styles.back_all_course} onClick={() => navigate(-1)}>
+          <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
+          <span>Курс</span>
+        </div>
+        <div className={styles.previous_onlineCourses}>Группа учеников</div>
+        <div className={styles.previous_title_name}>{data?.name}</div>
+
+        <div className={styles.previous_btn}>
+          <div onClick={offToggleSettingModal} className={studentsStyles.students_group_header_add_group_btn}>
+            <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} />
+            Создать новую группу
+          </div>
+        </div>
+      </div>
+    </>
+  )
+})

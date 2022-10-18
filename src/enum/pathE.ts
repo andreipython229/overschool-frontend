@@ -1,6 +1,7 @@
 export enum Path {
   InitialPage = '/login/',
   Courses = 'courses/',
+  Group = 'group/:group_id',
   Profile = 'profile/',
   Settings = 'settings/',
   CreateCourse = 'create-course/:course_id/',
@@ -8,6 +9,7 @@ export enum Path {
   HomeWork = 'home-work',
   HelpCenter = 'help-center',
   TariffPlans = 'tariff-plans',
+  SignUp = '/signup',
 }
 
 export enum SettingsPath {

@@ -76,7 +76,7 @@
   }
 
   &_onlineCourses {
-    @include position_t_l(absolute, 107px, 44px);
+    @include position_t_l(absolute, 125px, 44px);
     @include font(500, 14px, 17px);
     color: #ba75ff;
   }
@@ -128,7 +128,7 @@
   @include display(flex, row, flex-start, center);
   color: #fff;
   text-decoration: none;
-
+  cursor: pointer;
   span {
     @include font(500, 12px, 15px);
     margin-left: 13px;

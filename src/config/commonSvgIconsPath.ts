@@ -16,6 +16,10 @@ export const arrDownPath = [{ d: classesSettingSvgIcon.arrowDown, fill: '#2E4454
 
 export const arrUpdatePath = [{ d: classesSettingSvgIcon.arrowUpdate, fill: '#BA75FF' }]
 
+export const toggleBtnArr: pathT[] = [
+  { d: 'M1.25 1.15625L7.5 7.40625L13.75 1.15625', stroke: '#9CA3AF', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+]
+
 export const deletePath = [{ d: classesSettingSvgIcon.deleteIcon, fill: '#EF4444' }]
 
 export const crossIconPath: pathT[] = [{ d: cross, stroke: '#E0DCED', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }]
