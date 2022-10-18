@@ -20,8 +20,6 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
     setLoginShow(true)
   }
 
-
-
   return (
     <div>
       <div className={styles.init_header}>

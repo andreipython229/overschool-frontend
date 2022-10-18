@@ -1,5 +1,35 @@
-export const arrNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60]
-export const arrTime = ['минут', 'часов', 'дней']
-export const programLanguage = ['Frontend', 'Python', 'QA', 'UI/UX', 'English'];
-export const coursesSelectLanguage = ['javascript', 'python', 'css', 'typescript', 'java'];
+export const arrNumber = [
+  { number: 1 },
+  { number: 2 },
+  { number: 3 },
+  { number: 4 },
+  { number: 5 },
+  { number: 6 },
+  { number: 7 },
+  { number: 8 },
+  { number: 9 },
+  { number: 10 },
+  { number: 20 },
+  { number: 30 },
+  { number: 40 },
+  { number: 50 },
+  { number: 60 },
+]
+export const arrTime = [{ unit: 'минут' }, { unit: 'часов' }, { unit: 'дней' }]
+export const coursesSelectLanguage = [
+  { language: 'javascript' },
+  { language: 'python' },
+  { language: 'css' },
+  { language: 'typescript' },
+  { language: 'java' },
+]
 
+export const homeWorkActions = [
+  { actionHomeWork: 'Необходимо получить зачёт' },
+  { actionHomeWork: 'Необходимо отправить решение' },
+  { actionHomeWork: ' Можно пропустить' },
+]
+
+export const testActions = [{ actionTest: 'Можно пропустить' }, { actionTest: 'Необходимо пройти' }, { actionTest: 'Необходимо успешно пройти' }]
+
+export const classesType = [{ type: 'Урок' }, { type: 'Домашнее задание' }, { type: 'Тест' }, { type: 'Вебинар' }]

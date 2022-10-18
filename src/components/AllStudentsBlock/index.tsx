@@ -10,12 +10,21 @@ import { AllStudentsBlockT } from '../componentsTypes'
 import { useBoolean } from '../../customHooks/useBoolean'
 import { searchIconPath, addStudentIconPath, updateArrPath } from './config/svgIconsPath'
 import { Portal } from '../Modal/Portal'
+import { CoursesDataT } from '../../types/CoursesT'
+import { useFetchCoursesQuery } from '../../api/coursesServices'
+import { studentsGroupsT } from '../../types/studentsGroup'
 // import { useDebouncedFilter } from '../../customHooks/useDebouncedFilter'
 
 import styles from '../AllStudentsBlock/all_students_block.module.scss'
 
 export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => {
+  const [changeCourse, setChangeCourse] = useState<CoursesDataT>({} as CoursesDataT)
+  const [changeGroup, setChangeGroup] = useState<studentsGroupsT>({} as studentsGroupsT)
+
+  const { data: courses } = useFetchCoursesQuery()
+
   const [isOpen, { off, on }] = useBoolean()
+
   // const [term, filteredData, handleChangeTerm] = useDebouncedFilter()
 
   const [emailStudent, setEmailStudent] = useState<string>('')
@@ -41,7 +50,17 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => 
       </div>
       {isOpen && (
         <Portal closeModal={on}>
-          <AddStudentModal onChangeEmail={handleInputEmail} studentEmail={emailStudent} setShowModal={on} />
+          {courses && (
+            <AddStudentModal
+              setChangeCourse={setChangeCourse}
+              setChangeGroup={setChangeGroup}
+              onChangeEmail={handleInputEmail}
+              studentEmail={emailStudent}
+              setShowModal={on}
+              courses={courses?.results}
+              changeCourse={changeCourse}
+            />
+          )}
         </Portal>
       )}
     </div>

@@ -15,6 +15,18 @@ export const studentsGroupService = createApi({
       }),
       providesTags: ['studentsGroup'],
     }),
+    fetchStudentsGroupByCourse: build.query<studentsGroupT, number>({
+      query: id => ({
+        url: `/courses/${id}/student_groups/`,
+      }),
+      providesTags: ['studentsGroup'],
+    }),
+    fetchStudentGroup: build.query<studentsGroupsT, string>({
+      query: id => ({
+        url: `/students_group/${id}`,
+      }),
+      providesTags: ['studentsGroup'],
+    }),
     fetchStudentsTableHeader: build.query<studentsTableHeader, number>({
       query: id => ({
         url: `/students_table_info/${id}/`,
@@ -55,6 +67,8 @@ export const studentsGroupService = createApi({
 
 export const {
   useFetchUserCountByMonthDataQuery,
+  useFetchStudentsGroupByCourseQuery,
+  useFetchStudentGroupQuery,
   useFetchStudentsTableHeaderQuery,
   usePatchStudentsTableHeaderMutation,
   useFetchStudentsGroupQuery,

@@ -21,6 +21,7 @@ import { SettingCourse } from 'Pages/School/Navigations/CoursesCreating/SettingC
 import { StudentsStats } from 'Pages/School/StudentsStats/StudentsStats'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
+import { Group } from 'Pages/Group/index'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -51,6 +52,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
     <>
       <Route path={Path.Courses} element={<School />}>
         <Route index element={<CoursePage />} />
+        <Route path={Path.Group} element={<Group />} />
         <Route path={Path.CreateCourse} element={<RedactorCourse />}>
           <Route index element={<Constructor />} />
           <Route path={CreateCoursePath.Constructor} element={<Constructor />} />

@@ -1,5 +1,6 @@
 import { FC, memo } from 'react'
 import { useLocation } from 'react-router-dom'
+
 import { pathT, PreviousPropsT } from '../componentsTypes'
 import { previousToShow } from './config/previousToShow'
 

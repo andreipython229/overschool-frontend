@@ -31,8 +31,6 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
 
   const [attemptAccess, { data, error, isSuccess }] = useLoginMutation()
 
-  console.log(data)
-
   const getInputVariant = (variant: keyof LoginParamsT): void => {
     setAuthVariant(variant)
   }
