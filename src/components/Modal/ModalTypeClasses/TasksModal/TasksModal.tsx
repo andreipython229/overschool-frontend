@@ -94,8 +94,8 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modu
             <div className={styles.tasks_credit}>
               <span className={styles.tasks_credit_desc}>Поставить зачёт через</span>
               <div className={styles.tasks_credit_select}>
-                <SelectInput optionsList={arrNumber} setSelectedValue={setTime} />
-                <SelectInput optionsList={arrTime} setSelectedValue={setUnits} />
+                <SelectInput optionsList={arrNumber} optionName={'number' as keyof object} setSelectedValue={setTime} />
+                <SelectInput optionsList={arrTime} optionName={'unit' as keyof object} setSelectedValue={setUnits} />
               </div>
               <span className={styles.tasks_credit_desc}>после отправки</span>
             </div>

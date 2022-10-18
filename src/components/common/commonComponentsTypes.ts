@@ -95,6 +95,7 @@ export type RadioPropsT = {
 export type SelectInputPropsT<T> = {
   optionsList: Array<T>
   setSelectedValue?: (value: any) => void
+  optionName: keyof object
 }
 
 export type ToggleButtonDropDownT = {
