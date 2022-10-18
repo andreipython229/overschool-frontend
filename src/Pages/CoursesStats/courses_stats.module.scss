@@ -13,18 +13,16 @@ a {
     margin-bottom: 40px;
   }
   &_courses {
-  display: flex;
-  align-items: baseline;
+    display: flex;
+    align-items: baseline;
 
-	&_dropdown {
-	width: 100%;
-		button {
-		margin-top: 0;
-		background-color: #ededed;
-		width: 70%;
-		margin: 0 auto;
-		}
-	}
+    &_dropdown {
+      max-width: fit-content;
+      margin: 0 auto;
+      button {
+        margin-top: 0;
+      }
+    }
   }
 }
 
@@ -39,13 +37,13 @@ a {
   margin-right: 16px;
 }
 .mini_card_container {
-  @include display (flex, row, flex-start, center);
+  @include display(flex, row, flex-start, center);
   width: 272px;
   margin: 16px 0;
   border-radius: 7px;
   background-color: #ffffff;
   box-sizing: border-box;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   padding: 16px;
 }
 .mini_card_name {
@@ -54,7 +52,7 @@ a {
   margin-bottom: 10px;
 }
 .mini_card_list {
-  @include display (flex);
+  @include display(flex);
   color: $font-color-rose;
   font-size: 10px;
   li {

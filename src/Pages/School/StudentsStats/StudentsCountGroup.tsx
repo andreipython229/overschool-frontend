@@ -1,5 +1,7 @@
 import { FC, memo } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
+import { Path } from 'enum/pathE'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { settingsBtnIconPath, studentIconPath } from '../config/svgIconsPath'
 import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupModal/SettingsGroupModal'
@@ -17,6 +19,8 @@ type StudentsGroupPropsT = {
 
 export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent, id }) => {
   const [isModalOpen, { on: close, off: open }] = useBoolean()
+  const navigate = useNavigate()
+  const { course_id: courseId } = useParams()
 
   return (
     <>
@@ -25,7 +29,10 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
           <SettingsGroupModal closeModal={close} name={title} groupId={id} />
         </Portal>
       )}
-      <div className={styles.students_group_content_wrapper_info}>
+      <div
+        className={styles.students_group_content_wrapper_info}
+        onClick={() => navigate(`${Path.InitialPage}${Path.Courses}group/${id}`)}
+      >
         <IconSvg
           width={18}
           height={18}
@@ -44,7 +51,13 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
             </span>
           </div>
         </div>
-        <div onClick={open} className={styles.students_group_content_wrapper_info_setings_btn}>
+        <div
+          onClick={e => {
+            e.stopPropagation()
+            open()
+          }}
+          className={styles.students_group_content_wrapper_info_setings_btn}
+        >
           <IconSvg width={24} height={24} viewBoxSize={'0 0 24 24'} path={studentIconPath} />
         </div>
       </div>

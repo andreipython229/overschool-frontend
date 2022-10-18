@@ -1,5 +1,6 @@
-import { ChangeEvent, useState, useEffect } from 'react'
+import { ChangeEvent, useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
+
 import { AllStudentsBlock } from '../../../components/AllStudentsBlock'
 import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentModal'
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
@@ -13,16 +14,17 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { StudentGroup } from 'Pages/School/StudentsStats/StudentsCountGroup'
 import { studentsGroupsT } from '../../../types/studentsGroup'
 import { ToggleButtonDropDown } from 'components/common/ToggleButtonDropDown'
-
-import styles from './studentsStats.module.scss'
 import { useBoolean } from '../../../customHooks/useBoolean'
 import { Portal } from '../../../components/Modal/Portal'
+
+import styles from './studentsStats.module.scss'
 
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
 
   const [groups, setGroups] = useState<studentsGroupsT[]>([])
   const [studentEmail, setStudentEmail] = useState<string>('')
+  const [hideStats, setHideStats] = useState<boolean>(true)
 
   const [studentModal, { onToggle: setStudentModal }] = useBoolean()
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
@@ -34,6 +36,10 @@ export const StudentsStats = () => {
   const onChangeStudentEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setStudentEmail(e.currentTarget.value)
   }
+
+  const handleHideStats = useCallback(() => {
+    setHideStats(!hideStats)
+  }, [hideStats])
 
   useEffect(() => {
     if (isSuccess) {
@@ -48,10 +54,12 @@ export const StudentsStats = () => {
   return (
     <div>
       <section className={styles.statistics}>
-        <StatisticHeader />
-        <div className={styles.statistics_new_student_wrapper}>
-          <StudentInfoGraphic />
-        </div>
+        <StatisticHeader hideStats={hideStats} handleHideStats={handleHideStats} />
+        {hideStats && (
+          <div className={styles.statistics_new_student_wrapper}>
+            <StudentInfoGraphic />
+          </div>
+        )}
       </section>
       <section className={styles.students_group}>
         <div className={styles.students_group_header}>
