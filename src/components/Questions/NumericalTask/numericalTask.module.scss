@@ -1,0 +1,28 @@
+@import '../../../scss/variable.scss';
+@import '../../../scss/mixin.scss';
+
+.wrapper {
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 30px 61px 30px 61px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: $box-shadow;
+    
+    &_header{
+        
+        &_iconWrapper {
+            @include display (flex, row, flex-start, center);
+            &_icon {
+                padding: 5px 8px;
+                border-radius: 3px;
+                background-color: #6B7280;
+                span {
+                    @include font (900, 16px, 20px);
+                    letter-spacing: 2px;
+                    color: #F9FAFB;
+                }
+            }
+        }
+    }
+}

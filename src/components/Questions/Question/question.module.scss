@@ -1,0 +1,43 @@
+@import '../../../scss/variable.scss';
+@import '../../../scss/mixin.scss';    
+
+.questionBlock {
+    margin-top: 32px;
+    &_title {
+        @include font (500, 14px,17px);
+        color: #4D5766;
+    }
+    &_inputWrapper {            
+        @include display (flex, row, flex-start, center);
+        width: 100%;
+        height: 36px;
+        margin-top: 15px;
+        label {
+            margin: 0 12px 0 0;
+            width: 92%;
+            height: 100%;
+        }
+        &_comment {
+            cursor: pointer;
+            &:hover {
+                svg {
+                    path {
+                        stroke: #BA75FF;
+                    }
+                    line {
+                        stroke: #BA75FF;
+                    }
+                }
+            }
+        }
+    }
+    &_addDescription {
+        width: fit-content;
+        margin-top: 4px;
+        color: rgba(186, 117, 255, 0.61);
+        cursor: pointer;
+        &:hover {
+            color: #BA75FF;
+        }
+    }
+}

@@ -1,0 +1,71 @@
+@import '../../../scss/variable.scss';
+@import '../../../scss/mixin.scss';
+
+.wrapper {
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 30px 61px 30px 61px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: $box-shadow;
+
+    &_header {
+        &_iconWrapper {
+            @include display (flex, row, flex-start, center);
+            &_iconColumn {
+                width: 23px;
+                height: 33px;
+                margin: 0 4px 0 0;
+                padding: 2px 4px;
+                border-radius: 3px;
+                background-color: #6B7280;
+                span {
+                    display: block;
+                    width: 4px;
+                    height: 4px;
+                    border-radius: 50%;
+                    background-color: #fff;
+                }
+            }
+            &_iconRowWrapper {
+                align-self: flex-start;
+                &_iconRow {
+                    width: 37px;
+                    height: 7px;
+                    margin: 2px 0;
+                    padding: 2px 4px;
+                    border-radius: 22px;
+                    background-color: #6B7280;
+                    span {
+                        display: block;
+                        width: 3px;
+                        height: 3px;
+                        border-radius: 50%;
+                        background-color: #fff;
+                    }
+                }
+            }
+        }
+    }
+    &_optionsContent {
+        &_addPicture {
+            @include display (flex, column);
+            margin-top: 26px;
+            &_text {
+                @include font (500, 14px, 17px);
+                color: #4D5766;
+            }
+            &_iconWrapper {
+                width: fit-content;
+                margin-top: 14px;
+                padding: 48px 73px;
+                border-radius: 5px;
+                background-color: #F4F5F8;
+                cursor: pointer;
+                &:hover {
+                    background-color: rgba(186, 117, 255, 0.61);
+                }
+            }
+        }
+    }
+}
