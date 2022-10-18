@@ -1,24 +1,21 @@
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react';
 
-import styles from './textOptions.module.scss';
+import styles from './optionsWithPictures.module.scss';
 import { Question } from '../Question';
 import { AnswerOption } from '../AnswerOption';
 import { QuestionHeader } from '../QuestionHeader';
 
-export const TextOptions = () => {
+export const OptionsWithPictures = () => {
 
   return (
     <div className={styles.wrapper}>
         <QuestionHeader>
             <div className={styles.wrapper_header_iconWrapper}>
-                <div className={styles.wrapper_header_iconWrapper_iconRow}>
-                    <span/>
+                <div className={styles.wrapper_header_iconWrapper_iconColumn}>
+                <span />
                 </div>
-                <div className={styles.wrapper_header_iconWrapper_iconRow}>
-                    <span/>
-                </div>
-                <div className={styles.wrapper_header_iconWrapper_iconRow}>
-                    <span/>
+                <div className={styles.wrapper_header_iconWrapper_iconColumn}>
+                <span />
                 </div>
             </div>
         </QuestionHeader>

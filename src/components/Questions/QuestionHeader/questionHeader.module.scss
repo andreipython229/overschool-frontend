@@ -1,0 +1,94 @@
+@import '../../../scss/variable.scss';
+@import '../../../scss/mixin.scss';    
+
+.header {
+    @include display (flex, row, space-between);
+    &_testIconWrapper {
+        @include display (flex, column, flex-start, center);
+        &_iconRow {
+            width: 50px;
+            height: 9px;
+            margin: 2px 0;
+            padding: 2px 4px;
+            border-radius: 22px;
+            background-color: #6B7280;
+            span {
+                display: block;
+                width: 4px;
+                height: 4px;
+                border-radius: 50%;
+                background-color: #fff;
+            }
+        }
+    }
+    &_controlIconWrapper {
+        @include display (flex, row, space-between, center);
+        width: 250px;
+        &_timer {
+            position: relative;
+            @include display (flex, row, flex-start, center);
+            padding: 5px 8px;
+            border-radius: 5px;
+            background-color: #F3F4F6;
+            input {
+                position: relative;
+                z-index: 100;
+                margin: 0 0 0 7px;
+                border: none;
+                @include font (400, 12px, 18px);
+                color: #929292;
+                background-color: transparent;
+                outline: none;
+                &::-webkit-calendar-picker-indicator {
+                    width: 6px;
+                    opacity: 0;
+                    cursor: pointer;
+                }
+            }
+            &_clearTimer {
+                @include position_t_r (absolute, 4px, 10px, 5);
+                cursor: pointer;
+            }
+            &_openList {                    
+                @include position_t_r (absolute, 6px, 10px, 5);
+                cursor: pointer;
+            }
+            svg {
+                cursor: auto;
+            }
+        }
+        &_togglerShowOption {
+            cursor: pointer;
+            &:hover {
+                svg {
+                    path {
+                        stroke: #BA75FF;
+                    }
+                }
+            }
+        }
+        &_duplicate {
+            cursor: pointer;
+            &:hover {
+                svg {
+                    path {
+                        fill: #BA75FF;
+                    }
+                }
+            }
+        }
+        &_delete {
+            cursor: pointer;
+            &:hover {
+                svg {
+                    path {
+                        fill: #EF4444;
+                    }
+                }
+            }
+        }
+        &_grab {
+            cursor: grab;
+        }
+    }
+}
