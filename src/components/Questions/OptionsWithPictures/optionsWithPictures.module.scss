@@ -8,16 +8,17 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: $box-shadow;
-
+    
     &_header {
+            
         &_iconWrapper {
-            @include display (flex, column, flex-start, center);
-            &_iconRow {
-                width: 50px;
-                height: 9px;
-                margin: 2px 0;
+            @include display (flex, row, flex-start, center);
+            &_iconColumn {
+                width: 23px;
+                height: 33px;
+                margin: 0 2.5px;
                 padding: 2px 4px;
-                border-radius: 22px;
+                border-radius: 3px;
                 background-color: #6B7280;
                 span {
                     display: block;
@@ -29,5 +30,4 @@
             }
         }
     }
-    
 }

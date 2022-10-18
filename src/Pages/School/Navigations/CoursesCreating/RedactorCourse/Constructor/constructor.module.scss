@@ -84,6 +84,9 @@
           @include display(flex, row, flex-start, center);
           color: $font-color-rose;
           font-size: 12px;
+          span {
+            margin-right: 10px;
+          }
 
           & img {
             margin-right: 7.5px;

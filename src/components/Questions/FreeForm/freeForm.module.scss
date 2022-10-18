@@ -1,0 +1,12 @@
+@import '../../../scss/variable.scss';
+@import '../../../scss/mixin.scss';
+
+.wrapper {
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 30px 61px 30px 61px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: $box-shadow;
+    
+}

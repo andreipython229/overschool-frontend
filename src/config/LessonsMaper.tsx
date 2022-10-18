@@ -9,6 +9,6 @@ import {
 
 export const lessonSvgMapper: { [key: string]: ReactNode } = {
   homework: <IconSvg width={25} height={27} path={homeworkIcon} />,
-  lesson: <IconSvg width={25} height={27} path={lessonIcon} />,
+  lesson: <IconSvg width={22} height={22} path={lessonIcon} />,
   test: <IconSvg width={25} height={27} path={testIcon} />,
 }

@@ -72,6 +72,18 @@ export type InputPropsT = DefaultInputPropsType & {
   onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void
   onBlur?: (e: FocusEvent) => void
 }
+export type InputBlockT = {
+  id?: string
+  name: string
+  type: string
+  value: string
+  icon?: string
+  label?: string
+  placeholder?: string
+  onClick?: () => void
+  // onChange: (value: ChangeEvent<HTMLInputElement>) => void
+  onBlur?: (e: FocusEvent) => void
+}
 
 export type InputAuthPropsT = {
   id?: string
