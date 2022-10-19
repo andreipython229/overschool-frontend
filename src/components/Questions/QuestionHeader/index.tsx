@@ -2,7 +2,8 @@ import { ChangeEvent, FC, memo, ReactNode, useEffect, useState } from 'react';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 
 import styles from './questionHeader.module.scss';
-import { deleteIconPath, lessonIcon, arrowDownPath, arrowDownTimerIconPath} from '../config/svgIconPath';
+import { deleteIconPath, lessonIcon, arrowDownPath, arrowDownTimerIconPath, grabIconPath} from '../config/svgIconPath';
+
 type QuestionHeaderT = {
     children?: ReactNode
 }
@@ -12,17 +13,6 @@ export const QuestionHeader:FC<QuestionHeaderT>= memo(({children}) => {
   return (
     <div className={styles.header}>
         {children}
-        {/* <div className={styles.header_testIconWrapper}>
-            <div className={styles.header_testIconWrapper_iconRow}>
-                <span/>
-            </div>
-            <div className={styles.header_testIconWrapper_iconRow}>
-                <span/>
-            </div>
-            <div className={styles.header_testIconWrapper_iconRow}>
-                <span/>
-            </div>
-        </div> */}
         <div className={styles.header_controlIconWrapper}>
             <div className={styles.header_controlIconWrapper_timer}>
                 <IconSvg width={15} height={15} viewBoxSize="0 0 19 19">                                                
@@ -52,11 +42,7 @@ export const QuestionHeader:FC<QuestionHeaderT>= memo(({children}) => {
                 <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
             </div>
             <div className={styles.header_controlIconWrapper_grab}>                    
-                <IconSvg  width={21} height={14} viewBoxSize="0 0 21 14">
-                    <path d="M1.64062 0.945312H19.3203" stroke="#D4D4D7" strokeWidth="1.5" strokeLinecap="round"/>
-                    <path d="M1.64062 6.94531H19.3203" stroke="#D4D4D7" strokeWidth="1.5" strokeLinecap="round"/>
-                    <path d="M1.64062 12.9453H19.3203" stroke="#D4D4D7" strokeWidth="1.5" strokeLinecap="round"/>
-                </IconSvg>
+                <IconSvg  width={21} height={14} viewBoxSize="0 0 21 14" path={grabIconPath}/>
             </div>
         </div>
     </div>

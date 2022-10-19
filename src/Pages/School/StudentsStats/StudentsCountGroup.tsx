@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { Path } from 'enum/pathE'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -20,7 +20,6 @@ type StudentsGroupPropsT = {
 export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent, id }) => {
   const [isModalOpen, { on: close, off: open }] = useBoolean()
   const navigate = useNavigate()
-  const { course_id: courseId } = useParams()
 
   return (
     <>
@@ -29,10 +28,7 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
           <SettingsGroupModal closeModal={close} name={title} groupId={id} />
         </Portal>
       )}
-      <div
-        className={styles.students_group_content_wrapper_info}
-        onClick={() => navigate(`${Path.InitialPage}${Path.Courses}group/${id}`)}
-      >
+      <div className={styles.students_group_content_wrapper_info} onClick={() => navigate(`${Path.InitialPage}${Path.Courses}group/${id}`)}>
         <IconSvg
           width={18}
           height={18}
