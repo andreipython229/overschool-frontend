@@ -23,7 +23,7 @@ export const studentsGroupService = createApi({
     }),
     fetchStudentGroup: build.query<studentsGroupsT, string>({
       query: id => ({
-        url: `/students_group/${id}`,
+        url: `/students_group/${id}/`,
       }),
       providesTags: ['studentsGroup'],
     }),

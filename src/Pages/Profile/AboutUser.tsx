@@ -79,6 +79,7 @@ export const AboutUser: FC = memo(() => {
   return (
     <form className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
       <h3 className={styles.profile_title}>Настройка профиля</h3>
+
       <div className={styles.profile_block}>
         <Input name={'email'} type={'text'} label={'Email:'} value={email as string} onChange={handleChange} />
         {/* {errors.email} */}

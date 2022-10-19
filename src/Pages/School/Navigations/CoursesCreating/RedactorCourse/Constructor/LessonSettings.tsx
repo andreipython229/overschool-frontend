@@ -10,13 +10,14 @@ import { ILesson } from '../../../../../../types/sectionT'
 import { patchData } from 'utils/patchData'
 import { useBoolean } from 'customHooks/useBoolean'
 import { AddQuestion } from 'components/AddQuestion'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from './constructor.module.scss'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [isToggle, { onToggle }] = useBoolean()
 
-  const { data } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type })
+  const { data, isFetching } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type })
 
   const [addFile] = usePatchLessonsMutation()
 
@@ -44,8 +45,8 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   }, [data])
 
   return (
-    <section className={styles.redactorCourse_rightSideWrapper}>
-      <div className={styles.redactorCourse_rightSideWrapper_rightSide}>
+    <section style={{ opacity: isFetching ? 0.5 : 1, position: 'relative' }} className={styles.redactorCourse_rightSideWrapper}>
+      <div style={{ position: 'relative' }} className={styles.redactorCourse_rightSideWrapper_rightSide}>
         <div className={styles.redactorCourse_rightSideWrapper_rightSide_header}>
           <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>{lesson && 'name' in lesson && lesson.name}</span>
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock}>
@@ -79,6 +80,11 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
             <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
           </form>
         </div>
+        {isFetching && (
+          <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+            <SimpleLoader style={{ width: '100px', height: '100px' }} />
+          </div>
+        )}
       </div>
       {lessonIdAndType.type === 'test' && <AddQuestion />}
     </section>
