@@ -8,7 +8,7 @@ import {
   taskModalIcon,
 } from '../constants/svgIcons'
 import { basicModalHeaderSvgIcon } from '../../../../constants/iconSvgConstants'
-import { pathT } from '../../../common/commonComponentsTypes'
+import { pathT } from '../../../../types/commonComponentsTypes'
 
 export const modalTypeClassesTrainingPath: pathT[] = [
   { d: modalTypeClassesTraining, fill: '#9CA3AF', stroke: '#9CA3AF', strokeLinecap: 'round', strokeLinejoin: 'round' },

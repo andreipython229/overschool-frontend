@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { ContentBtnPropsT } from '../componentsTypes'
+import { ContentBtnPropsT } from '../../types/componentsTypes'
 
 import styles from './contentBtn.module.scss'
 

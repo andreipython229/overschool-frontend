@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { InputBlockT } from '../../commonComponentsTypes'
+import { InputBlockT } from '../../../../types/commonComponentsTypes'
 import styles from './input.module.scss'
 
 export const InputBlock: FC<InputBlockT> = memo(props => {

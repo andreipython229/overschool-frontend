@@ -1,11 +1,6 @@
 import { publishedMarkerSvgIcon, classesSettingSvgIcon, createGroupLittleSvgIcon } from '../../../constants/iconSvgConstants'
-import {
-  studentInfoScatterIcon,
-  studentIcon,
-  settingsIcon,
-  studentScatterIcon,
-} from '../constants/svgIcons'
-import { pathT } from '../../../components/common/commonComponentsTypes'
+import { studentInfoScatterIcon, studentIcon, settingsIcon, studentScatterIcon } from '../constants/svgIcons'
+import { pathT } from '../../../types/commonComponentsTypes'
 
 export const publishedIconPath = [{ d: publishedMarkerSvgIcon.published, fill: '#E0DCED' }]
 

@@ -3,7 +3,7 @@ import { useState, DragEvent, ChangeEvent, FC } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/commonSvgIconsPath'
-import { AddPostT, setShowType } from '../componentsTypes'
+import { AddPostT, setShowType } from '../../types/componentsTypes'
 import { usePatchLessonsMutation } from 'api/modulesServices'
 import { AudioPlayer } from '../common/AudioPlayer'
 
@@ -43,7 +43,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
       const id = lesson?.lesson_id
       const formdata = new FormData()
       formdata.append('audio', files)
-      addAudioFile({ formdata, id, type: lessonIdAndType?.type as string})
+      addAudioFile({ formdata, id, type: lessonIdAndType?.type as string })
     }
   }
 

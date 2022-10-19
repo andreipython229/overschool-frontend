@@ -5,7 +5,7 @@ import { coursesSelectLanguage } from 'constants/other'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, deletePath } from '../../config/commonSvgIconsPath'
-import { AddPostT, setShowType } from '../componentsTypes'
+import { AddPostT, setShowType } from '../../types/componentsTypes'
 
 import styles from './addCodeEditor.module.scss'
 

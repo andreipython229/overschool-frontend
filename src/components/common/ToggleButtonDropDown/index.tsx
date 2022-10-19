@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { ToggleButtonDropDownT } from '../commonComponentsTypes'
+import { ToggleButtonDropDownT } from '../../../types/commonComponentsTypes'
 import { IconSvg } from '../IconSvg/IconSvg'
 import { toggleBtnArr } from 'config/commonSvgIconsPath'
 

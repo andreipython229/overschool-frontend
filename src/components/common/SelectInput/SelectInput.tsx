@@ -4,7 +4,7 @@ import { FC, ReactNode, useEffect, useRef, useState } from 'react'
 
 import { IconSvg } from '../IconSvg/IconSvg'
 import { selectInputIconPath } from './config/svgIconspath'
-import { SelectInputPropsT } from '../commonComponentsTypes'
+import { SelectInputPropsT } from '../../../types/commonComponentsTypes'
 
 import styles from './selectInput.module.scss'
 

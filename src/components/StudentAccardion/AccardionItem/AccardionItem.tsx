@@ -5,7 +5,7 @@ import { ExerciseItem } from '../ExerciseItem/ExerciseItem'
 import { accardionArrPath } from '../../../Pages/StudentCourse/config/svgIconPath'
 
 import { lessonT } from '../../../types/sectionT'
-import { accardionItemT } from '../../componentsTypes'
+import { accardionItemT } from '../../../types/componentsTypes'
 
 import styles from './accardionItem.module.scss'
 

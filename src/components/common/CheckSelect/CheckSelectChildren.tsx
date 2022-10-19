@@ -1,6 +1,6 @@
 import { FC, memo, useState } from 'react'
 
-import { CheckSelectChildrenPropsT } from '../commonComponentsTypes'
+import { CheckSelectChildrenPropsT } from '../../../types/commonComponentsTypes'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { IconSvg } from '../IconSvg/IconSvg'
 import { checkSelectChildIconPath } from './config/svgIconsPath'
@@ -14,7 +14,10 @@ export const CheckSelectChildren: FC<CheckSelectChildrenPropsT> = memo(({ text }
     setCheckbox(!checkbox)
   }
   return (
-    <div style={checkbox ? { backgroundColor: '#F5EBFF', margin: '20px 0 20px 0' } : { backgroundColor: '#F6F6F6', margin: '20px 0 20px 0' } } className={styles.selectChildren}>
+    <div
+      style={checkbox ? { backgroundColor: '#F5EBFF', margin: '20px 0 20px 0' } : { backgroundColor: '#F6F6F6', margin: '20px 0 20px 0' }}
+      className={styles.selectChildren}
+    >
       <div className={styles.selectChildren_content}>
         <Checkbox id={'lesson'} name={'lesson'} checked={checkbox} onChange={handlerCheckbox} />
         <div className={styles.selectChildren_content_title}>

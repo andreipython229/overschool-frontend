@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { IconSvg } from '../../../../components/common/IconSvg/IconSvg'
 import { addFileSvg } from './config/svgIconPath'
-import { LogoAddBlockPropsT } from '../../../pageTypes'
+import { LogoAddBlockPropsT } from '../../../../types/pageTypes'
 
 import styles from './logoAddBlock.module.scss'
 
