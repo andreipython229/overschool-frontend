@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { SuperButtonPropsT } from '../commonComponentsTypes'
+import { SuperButtonPropsT } from '../../../types/commonComponentsTypes'
 
 import styles from './button.module.scss'
 

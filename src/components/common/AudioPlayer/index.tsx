@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { AudioPlayerT } from '../commonComponentsTypes'
+import { AudioPlayerT } from '../../../types/commonComponentsTypes'
 
 export const AudioPlayer: FC<AudioPlayerT> = ({ styles, audioUrl, title = 'Listen to the T-Rex:' }) => {
   return (

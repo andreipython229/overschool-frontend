@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { InputAuthPropsT } from '../../commonComponentsTypes'
+import { InputAuthPropsT } from '../../../../types/commonComponentsTypes'
 
 import styles from './inputAuth.module.scss'
 

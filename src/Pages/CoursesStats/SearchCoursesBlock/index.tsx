@@ -6,7 +6,7 @@ import { CoursesMiniCard } from './CoursesMiniCard'
 import { useDebouncedFilter } from '../../../customHooks/useDebouncedFilter'
 import { ToggleButtonDropDown } from '../../../components/common/ToggleButtonDropDown'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
-import { searchCourseBlockT } from '../../pageTypes'
+import { searchCourseBlockT } from '../../../types/pageTypes'
 
 import styles from '../courses_stats.module.scss'
 

@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps } from 'react'
 
-import { studentsGroupsT } from '../types/studentsGroup'
-import { CoursesDataT } from '../types/CoursesT'
+import { studentsGroupsT } from './studentsGroup'
+import { CoursesDataT } from './CoursesT'
 
 export type CoursesMiniCardT = {
   photo_url?: string
@@ -40,7 +40,6 @@ export type EmployeePropsT = {
   contact: string
   role: string
 }
-
 
 export type LogoAddBlockPropsT = {
   title: string

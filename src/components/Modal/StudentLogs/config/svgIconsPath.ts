@@ -1,6 +1,6 @@
 import { createGroupSvgIcon, addStudentSvgIcon } from '../../../../constants/iconSvgConstants'
 import { settingsGroupIcon, accessToClassIcon } from '../constants/svgIcons'
-import { pathT } from '../../../common/commonComponentsTypes'
+import { pathT } from '../../../../types/commonComponentsTypes'
 
 export const createGroupIconPath = [
   { d: createGroupSvgIcon.humanSvg, fill: '#BA75FF' },

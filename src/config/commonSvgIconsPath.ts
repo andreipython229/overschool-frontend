@@ -8,7 +8,7 @@ import {
   tableBallsStarIcon,
   iconSvgHomeWorkPage,
 } from '../constants/iconSvgConstants'
-import { pathT } from '../components/common/commonComponentsTypes'
+import { pathT } from '../types/commonComponentsTypes'
 
 export const arrUpPath = [{ d: classesSettingSvgIcon.arrowUp, fill: '#2E4454' }]
 

@@ -3,7 +3,7 @@ import { FC, memo, useEffect, useState } from 'react'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { initialDropDownList } from '../../constants/dropDownList'
 import { arrIconPath, triangleDownIconPath } from './config/svgIconPath'
-import { dropDownItem, SelectDropDownT } from '../componentsTypes'
+import { dropDownItem, SelectDropDownT } from '../../types/componentsTypes'
 import { useBoolean } from '../../customHooks/useBoolean'
 
 import styles from './select_drop_down.module.scss'

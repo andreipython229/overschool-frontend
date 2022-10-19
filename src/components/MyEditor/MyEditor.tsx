@@ -3,7 +3,7 @@ import { convertToRaw, Editor, EditorState, RichUtils } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
 
 import { BLOCK_TYPES } from './config/blockTypes'
-import { IEditor } from 'components/componentsTypes'
+import { IEditor } from 'types/componentsTypes'
 
 import 'draft-js/dist/Draft.css'
 import styles from './editor.module.scss'

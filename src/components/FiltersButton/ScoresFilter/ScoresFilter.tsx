@@ -2,7 +2,7 @@ import { FC, memo, useState, ChangeEvent } from 'react'
 
 import { Input } from '../../common/Input/Input/Input'
 import { Button } from '../../common/Button/Button'
-import { ScoresFilterT } from '../../componentsTypes'
+import { ScoresFilterT } from '../../../types/componentsTypes'
 
 import styles from './scores_filter.module.scss'
 

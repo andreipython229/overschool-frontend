@@ -2,7 +2,7 @@ import { FC, memo, useState } from 'react'
 
 import { IconSvg } from '../IconSvg/IconSvg'
 import { LoginParamsT } from '../../../utils/validationLogin'
-import { AuthSelectPropsT } from '../commonComponentsTypes'
+import { AuthSelectPropsT } from '../../../types/commonComponentsTypes'
 import { emailIconPath, phoneIconPath } from './config/svgIconsPath'
 
 import styles from './authSelect.module.scss'
