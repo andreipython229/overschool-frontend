@@ -1,5 +1,5 @@
-import { lessonIdAndTypeT } from '../../../components/Modal/ModalTypes'
-import { sectionT, lessonT } from '../../../types/sectionT'
+import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
+import { sectionT, lessonT } from './sectionT'
 
 export type ClassesSettingsPropsT = {
   setType: (arg: keyof object) => void

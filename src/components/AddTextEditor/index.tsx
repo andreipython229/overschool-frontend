@@ -4,7 +4,7 @@ import parse from 'html-react-parser'
 import { MyEditor } from 'components/MyEditor/MyEditor'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/commonSvgIconsPath'
-import { AddPostT, setShowType } from '../componentsTypes'
+import { AddPostT, setShowType } from '../../types/componentsTypes'
 
 import styles from './addTextEditor.module.scss'
 

@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { IconSvgT } from '../commonComponentsTypes'
+import { IconSvgT } from '../../../types/commonComponentsTypes'
 
 export const IconSvg: FC<IconSvgT> = memo(
   ({ styles, width, height, path, viewBoxSize = ' 0 0 20 20', className, functionOnClick, children, onPointerDown, id }) => {

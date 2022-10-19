@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { IconSvg } from '../../common/IconSvg/IconSvg'
-import { FilterItemT } from '../../componentsTypes'
+import { FilterItemT } from '../../../types/componentsTypes'
 import { arrIconPath } from '../config/svgIconsPath'
 
 import styles from '../FilterItem/filter_item.module.scss'

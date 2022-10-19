@@ -1,7 +1,7 @@
 import { FC, MouseEvent, ReactNode } from 'react'
 
-import { ILesson, sectionT } from '../types/sectionT'
-import { lessonIdAndTypeT } from './Modal/ModalTypes'
+import { ILesson, sectionT } from './sectionT'
+import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
 
 export type setShowType = {
   setShow: () => void

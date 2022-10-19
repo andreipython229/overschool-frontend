@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
 import { Path } from '../../../enum/pathE'
-import { CoursesMiniCardT } from '../../pageTypes'
+import { CoursesMiniCardT } from '../../../types/pageTypes'
 import { getNounDeclension } from '../../../utils/getNounDeclension'
 
 import styles from '../courses_stats.module.scss'

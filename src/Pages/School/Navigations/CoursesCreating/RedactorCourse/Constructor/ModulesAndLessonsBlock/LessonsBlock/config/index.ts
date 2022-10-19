@@ -1,5 +1,5 @@
 import { lessonsTypeSvgIcon } from 'constants/iconSvgConstants'
-import { pathT } from 'components/common/commonComponentsTypes'
+import { pathT } from 'types/commonComponentsTypes'
 
 export const lessonIcon = [{ d: lessonsTypeSvgIcon.lesson, fill: '#BA75FF' }]
 export const homeworkIcon: pathT[] = [

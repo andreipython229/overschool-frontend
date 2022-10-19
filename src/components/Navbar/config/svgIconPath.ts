@@ -1,4 +1,4 @@
-import { pathT } from '../../common/commonComponentsTypes'
+import { pathT } from '../../../types/commonComponentsTypes'
 import { coursesNavIcon, coursesStatsIcon, homeworkIcon, settingsNavIcon } from '../constants/svgIcon'
 
 export const navMenuPath: pathT[] = [

@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { Button } from '../common/Button/Button'
-import { StatisticHeaderT } from '../componentsTypes'
+import { StatisticHeaderT } from '../../types/componentsTypes'
 import { statisticIconPath } from './config/svgIconPath'
 
 import styles from 'Pages/School/StudentsStats/studentsStats.module.scss'

@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import { NavLink } from 'react-router-dom'
-import { IIsActive, NavAccountBtnPropsT } from '../../Pages/pageTypes'
+import { IIsActive, NavAccountBtnPropsT } from '../../types/pageTypes'
 
 import styles from './navAccountBtn.module.scss'
 

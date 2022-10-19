@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps, FocusEvent, HTMLAttributes, InputHTMLAttributes, ReactNode, PointerEvent } from 'react'
 
-import { LoginParamsT } from '../../utils/validationLogin'
+import { LoginParamsT } from '../utils/validationLogin'
 
 export type AuthSelectPropsT = {
   getInputVariant: (variant: keyof LoginParamsT) => void

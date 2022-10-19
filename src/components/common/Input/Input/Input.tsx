@@ -1,5 +1,5 @@
 import { FC, memo, useEffect, useRef } from 'react'
-import { InputPropsT } from '../../commonComponentsTypes'
+import { InputPropsT } from '../../../../types/commonComponentsTypes'
 
 import styles from './input.module.scss'
 
