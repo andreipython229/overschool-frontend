@@ -77,7 +77,7 @@ export const Group: FC = () => {
             <div className={styles.statistics_new_student_wrapper_new_students_info_wrapper}>
               <p className={styles.statistics_new_student_wrapper_new_students_info_wrapper_info}>Предыдущий период (31 день)</p>
             </div>
-            <div className={styles.statistics_new_student_wrapper_new_students_info_btn}> </div>
+            <div className={styles.statistics_new_student_wrapper_new_students_info_btn} />
           </div>
           <div style={{ flexBasis: '32%' }} className={styles.statistics_new_student_wrapper_new_students}>
             <h4 className={styles.statistics_new_student_wrapper_new_students_title}>Средний балл учеников</h4>

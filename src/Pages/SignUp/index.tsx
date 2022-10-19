@@ -31,7 +31,7 @@ export const SignUp: FC = () => {
   const {
     values: { password, confirmPassword },
     errors,
-    touched,
+    //touched,
     isSubmitting,
     handleChange,
     handleSubmit,

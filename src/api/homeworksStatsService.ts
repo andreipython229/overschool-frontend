@@ -17,4 +17,4 @@ export const homeworksStatsService = createApi({
   }),
 })
 
-export const { useFetchHomeworkStatsQuery, useLazyFetchHomeworkStatsQuery } = homeworksStatsService
+export const { useFetchHomeworkStatsQuery } = homeworksStatsService

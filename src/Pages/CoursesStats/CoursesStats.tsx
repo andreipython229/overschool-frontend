@@ -61,7 +61,7 @@ export const CoursesStats = () => {
         </div>
       </section>
       <SearchCoursesBlock courses={courses?.results as CoursesDataT[]} groups={data?.results as studentsGroupsT[]} />
-      <AllStudentsBlock headerText={'Все ученики группы'} />
+      <AllStudentsBlock headerText={'Все ученики школы'} />
       <StudentsTableBlock setShowModal={offToggleSettingModal} />
       {toggleSettingModal && (
         <Portal closeModal={onToggleSettingModal}>

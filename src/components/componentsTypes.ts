@@ -1,7 +1,6 @@
 import { FC, MouseEvent, ReactNode } from 'react'
 
 import { ILesson, sectionT } from '../types/sectionT'
-import { IFuncUpdate } from '../utils/patchData'
 import { lessonIdAndTypeT } from './Modal/ModalTypes'
 
 export type setShowType = {
@@ -9,12 +8,18 @@ export type setShowType = {
   setDescriptionLesson?: (arg: string) => void
 }
 
+type argT = {
+  id: number
+  type: string
+  formdata: FormData
+}
+
 export type AddPostT = {
   lesson: ILesson
   code?: string
   isPreview?: boolean
   lessonIdAndType?: lessonIdAndTypeT
-  addFile?: (arg: any) => void
+  addFile?: (arg: argT) => void
   handleEditorChange?: (code: string | undefined) => void
 }
 
