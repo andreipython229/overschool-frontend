@@ -21,6 +21,7 @@ export type CheckboxPropsT = {
   children?: ReactNode
   className?: string
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void
+  style?: string
 }
 
 export type CheckSelectPropsT = {
