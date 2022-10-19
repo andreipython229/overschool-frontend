@@ -5,6 +5,7 @@ import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { Button } from 'components/common/Button/Button'
 import { homeWorkActions, testActions } from 'constants/other'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
 
@@ -12,6 +13,8 @@ type MainSettingsGroupPropsT = {
   strongSubsequence: boolean
   blockHomework: boolean
   title: string
+  isLoading: boolean
+  isError: boolean
   handlerHomeworkCheck: () => void
   handlerSubsequence: () => void
   deleteGroup: () => void
@@ -20,6 +23,8 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
   strongSubsequence,
   blockHomework,
   title,
+  isLoading,
+  isError,
   handlerHomeworkCheck,
   handlerSubsequence,
   deleteGroup,
@@ -58,7 +63,13 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
         </div>
       )}
       <div className={styles.groupSetting_btn}>
-        <Button variant={'delete'} text={'Удалить группу'} onClick={deleteGroup} />
+        <Button
+          className={styles.groupSetting__delete_btn}
+          disabled={isLoading || isError}
+          variant={'delete'}
+          text={isLoading ? <SimpleLoader style={{ width: '20px', height: '20px' }} loaderColor="#ffff" /> : 'Удалить группу'}
+          onClick={deleteGroup}
+        />
       </div>
     </>
   )

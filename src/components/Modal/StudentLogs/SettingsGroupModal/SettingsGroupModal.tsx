@@ -18,7 +18,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
   const [blockHomework, setBlockHomework] = useState<boolean>(false)
   const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
 
-  const [deleteStudentsGroup] = useDeleteStudentsGroupMutation()
+  const [deleteStudentsGroup, { isLoading, isError }] = useDeleteStudentsGroupMutation()
 
   const changeActiveLink = (id: number) => {
     setSettingsActive(id)
@@ -56,6 +56,8 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
             blockHomework={blockHomework}
             title={name}
             deleteGroup={handleDeleteGroup}
+            isLoading={isLoading}
+            isError={isError}
             handlerHomeworkCheck={handlerHomeworkCheck}
             handlerSubsequence={handlerSubsequenceCheck}
           />

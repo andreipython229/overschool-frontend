@@ -24,7 +24,7 @@ export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({ courseId, 
           lessons?.lessons.map(({ name, id, type, order }: lessonT, index: number) => (
             <div
               style={{ cursor: 'pointer' }}
-              key={order}
+              key={order + id}
               onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/${type}/${id}`)}
               className={activeLessonIndex === index ? styles.lesson__item_active : styles.lesson__item}
             >
