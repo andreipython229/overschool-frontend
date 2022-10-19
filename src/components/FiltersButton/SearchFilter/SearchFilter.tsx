@@ -5,7 +5,6 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Button } from 'components/common/Button/Button'
 import { searchIconPath } from '../config/svgIconsPath'
 import { SearchFilterT } from '../../componentsTypes'
-import { CoursesDataT } from '../../../types/CoursesT'
 
 import style from './search_filter.module.scss'
 

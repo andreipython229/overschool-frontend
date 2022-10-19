@@ -77,7 +77,7 @@
     width: 474px;
 
     & :nth-child(1) {
-      padding-bottom: 5px;
+      padding-bottom: 7px;
     }
   }
 
@@ -88,8 +88,14 @@
     margin: 0 auto 48px auto;
 
     &_title {
+      @include display(flex, row, space-between);
       font-size: 18px;
       margin-bottom: 8px;
+    }
+    &_btn_remove {
+      color: #bb0e0e;
+      background: none;
+      border: none;
     }
 
     &_btn {
@@ -239,4 +245,10 @@
       }
     }
   }
+}
+.textarea__field {
+  border: 1px solid #d5d3d3;
+  margin-top: 2px;
+  border-radius: 7px;
+  outline: none;
 }

@@ -66,7 +66,7 @@ export const studentsGroupService = createApi({
 })
 
 export const {
-  useFetchUserCountByMonthDataQuery,
+  //useFetchUserCountByMonthDataQuery,
   useFetchStudentsGroupByCourseQuery,
   useFetchStudentGroupQuery,
   useFetchStudentsTableHeaderQuery,

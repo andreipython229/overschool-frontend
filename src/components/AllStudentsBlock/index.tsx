@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, memo, useState } from 'react'
+import React, { FC, memo, useState } from 'react'
 
 import { FiltersButton } from '../FiltersButton'
 import { dropDownListFilterStudents } from '../../constants/dropDownList'
@@ -27,12 +27,6 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => 
 
   // const [term, filteredData, handleChangeTerm] = useDebouncedFilter()
 
-  const [emailStudent, setEmailStudent] = useState<string>('')
-
-  const handleInputEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmailStudent(event.target.value)
-  }
-
   return (
     <div>
       <p className={styles.header_block_text}>{headerText}</p>
@@ -54,8 +48,6 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => 
             <AddStudentModal
               setChangeCourse={setChangeCourse}
               setChangeGroup={setChangeGroup}
-              onChangeEmail={handleInputEmail}
-              studentEmail={emailStudent}
               setShowModal={on}
               courses={courses?.results}
               changeCourse={changeCourse}

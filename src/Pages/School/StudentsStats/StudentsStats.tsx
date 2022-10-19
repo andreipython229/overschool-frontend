@@ -1,8 +1,7 @@
-import { ChangeEvent, useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { AllStudentsBlock } from '../../../components/AllStudentsBlock'
-import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentModal'
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from 'Pages/School/StudentsStats/StudentInfoGraphic'
@@ -23,19 +22,13 @@ export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
 
   const [groups, setGroups] = useState<studentsGroupsT[]>([])
-  const [studentEmail, setStudentEmail] = useState<string>('')
   const [hideStats, setHideStats] = useState<boolean>(true)
 
-  const [studentModal, { onToggle: setStudentModal }] = useBoolean()
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
   const [addGroupModal, { off: offAddGroupModal, on: onAddGroupModal }] = useBoolean()
   const [toggleSettingModal, { off: offToggleSettingModal, on: onToggleSettingModal }] = useBoolean()
 
   const { data, isSuccess, isFetching } = useFetchStudentsGroupQuery()
-
-  const onChangeStudentEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setStudentEmail(e.currentTarget.value)
-  }
 
   const handleHideStats = useCallback(() => {
     setHideStats(!hideStats)
@@ -88,12 +81,6 @@ export const StudentsStats = () => {
         <AllStudentsBlock headerText={'Все ученики курса'} />
       </div>
       <StudentsTableBlock setShowModal={offToggleSettingModal} />
-
-      {studentModal && (
-        <Portal closeModal={setStudentModal}>
-          {/*<AddStudentModal setShowModal={setStudentModal} studentEmail={studentEmail} onChangeEmail={onChangeStudentEmail} />{' '}*/}
-        </Portal>
-      )}
       {addGroupModal && (
         <Portal closeModal={onAddGroupModal}>
           <CreateGroupModal setShowModal={onAddGroupModal} courseId={courseId as string} />{' '}
