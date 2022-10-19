@@ -10,6 +10,7 @@ import { lessonT } from 'types/sectionT'
 import { useDebounceFunc } from 'customHooks/useDebounceFunc'
 import { getSectionId } from 'store/redux/modules/slice'
 import { useAppDispatch } from 'store/hooks'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
@@ -20,7 +21,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
   const [changeModuleName, setChangeModuleName] = useState<string>(moduleName)
 
   const [changeName] = usePatchModulesMutation()
-  const [deleteModule] = useDeleteModulesMutation()
+  const [deleteModule, { isLoading: deleteModuleLoading }] = useDeleteModulesMutation()
 
   const handleDeleteModule = async () => {
     await deleteModule(id)
@@ -64,6 +65,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
           <button className={styles.redactorCourse_leftSide_desc_headerText_inputWrapper_btn_delete} onClick={handleDeleteModule}>
             <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
           </button>
+          {deleteModuleLoading && <SimpleLoader style={{ width: '20px', height: '20px' }} />}
         </span>
 
         {lessonsList &&

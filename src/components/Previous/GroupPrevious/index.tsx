@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -7,7 +7,7 @@ import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupMo
 import { Portal } from 'components/Modal/Portal/index'
 import { useBoolean } from 'customHooks/useBoolean'
 import { useFetchStudentGroupQuery } from 'api/studentsGroupService'
-import { useFetchCourseQuery } from 'api/coursesServices'
+import { useLazyFetchCourseQuery } from 'api/coursesServices'
 import { backArr } from '../config/svgIconPath'
 
 import studentsStyles from 'Pages/School/StudentsStats/studentsStats.module.scss'
@@ -19,8 +19,12 @@ export const GroupPrevious: FC = memo(() => {
   const { group_id: groupId } = useParams()
   const navigate = useNavigate()
 
-  const { data } = useFetchStudentGroupQuery(`${groupId}`)
-  const { data: course } = useFetchCourseQuery(`${data?.course_id}`)
+  const { data, isSuccess } = useFetchStudentGroupQuery(`${groupId}`)
+  const [fetchCourse, { data: course }] = useLazyFetchCourseQuery()
+
+  useEffect(() => {
+    isSuccess && data?.course_id && fetchCourse(data?.course_id)
+  }, [isSuccess])
 
   return (
     <>

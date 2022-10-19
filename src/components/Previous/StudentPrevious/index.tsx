@@ -7,6 +7,7 @@ import { useAppDispatch } from 'store/hooks'
 import { auth, token } from '../../../store/redux/users/slice'
 import { useAppSelector } from 'store/hooks/index'
 import { userIdSelector } from 'selectors/index'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../previou.module.scss'
 
@@ -28,7 +29,7 @@ export const StudentPrevious: FC = () => {
       <div className={styles.previous_infoBlock}>
         <img className={styles.previous_infoBlock_avatar} src={data?.avatar_url} alt="" />
         <div className={styles.previous_infoBlock_title}>
-          <p className={styles.previous_infoBlock_title_about}>{`${data?.user?.first_name} ${data?.user?.last_name} `}</p>
+          <p className={styles.previous_infoBlock_title_about}>{`${data?.user?.first_name || ''} ${data?.user?.last_name || ''} `}</p>
         </div>
       </div>
       <div className={styles.previous_btn}>

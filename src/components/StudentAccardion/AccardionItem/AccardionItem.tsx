@@ -34,13 +34,18 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, moduleIndex, op
               : styles.accardionWrapper_component_header_showBtnWrapper
           }
         >
-          <IconSvg width={22} height={13} viewBoxSize="0 0 22 13" path={accardionArrPath} />
+          <IconSvg
+            width={22}
+            height={13}
+            viewBoxSize="0 0 22 13"
+            path={[{ ...accardionArrPath[0], fill: openIndex === moduleIndex ? '#C6C6C6' : '#4D5766' }]}
+          />
         </span>
       </div>
       {openIndex === moduleIndex && (
         <div className={styles.accardionWrapper_component_exerciseWrapper}>
           {module.lessons.map((lesson: lessonT) => (
-            <ExerciseItem key={lesson.order} lesson={lesson} sectionId={module.section} />
+            <ExerciseItem key={lesson.order + lesson.id} lesson={lesson} sectionId={module.section} />
           ))}
         </div>
       )}

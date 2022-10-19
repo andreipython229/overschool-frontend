@@ -7,13 +7,14 @@ import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import { formDataConverter } from '../../../utils/formDataConverter'
 import { AddModuleModalPropsT } from '../ModalTypes'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../Modal.module.scss'
 
 export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, modulesList }) => {
   const [modulesName, setModulesMane] = useState<string>('')
 
-  const [createModules] = useCreateModulesMutation()
+  const [createModules, { isLoading, isError }] = useCreateModulesMutation()
 
   const handleInputNameModules = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value
@@ -55,7 +56,13 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
           onChange={handleInputNameModules}
         />
       </div>
-      <Button type={'submit'} text={'Создать модуль'} variant={'primary'} />
+      <Button
+        style={{ minWidth: '280px' }}
+        disabled={isLoading || isError}
+        type={'submit'}
+        text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Создать модуль'}
+        variant={isLoading || isError ? 'disabled' : 'primary'}
+      />
     </form>
   )
 }

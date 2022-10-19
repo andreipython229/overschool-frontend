@@ -19,7 +19,6 @@ export const coursesServices = createApi({
       query: id => ({
         url: `/courses/${id}/`,
       }),
-      providesTags: ['course'],
     }),
     createCourses: build.mutation<CoursesDataT, FormData>({
       query: course => {
@@ -63,6 +62,7 @@ export const coursesServices = createApi({
 export const {
   useFetchCoursesQuery,
   useFetchCourseQuery,
+  useLazyFetchCourseQuery,
   useCreateCoursesMutation,
   useDeleteCoursesMutation,
   usePatchCoursesMutation,
