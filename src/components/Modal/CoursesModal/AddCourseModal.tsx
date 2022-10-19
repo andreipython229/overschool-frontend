@@ -8,6 +8,7 @@ import { Button } from '../../common/Button/Button'
 import { Input } from '../../common/Input/Input/Input'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import { AddCourseModalPropsT } from '../ModalTypes'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from '../Modal.module.scss'
 
@@ -15,7 +16,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal
   const navigate = useNavigate()
 
   const [name, setName] = useState<string>('')
-  const [createCourses] = useCreateCoursesMutation()
+  const [createCourses, { isLoading }] = useCreateCoursesMutation()
 
   const nameCourse = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value)
@@ -66,7 +67,13 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal
           </div>
 
           <div className={styles.mainCourse_btn}>
-            <Button style={{ width: '280px' }} type={'submit'} variant={'primary'} text={'Создать курс'} />
+            <Button
+              style={{ minWidth: '280px' }}
+              type={'submit'}
+              variant={!name || isLoading ? 'disabled' : 'primary'}
+              text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Создать курс'}
+              disabled={!name || isLoading}
+            />
           </div>
         </form>
       </div>

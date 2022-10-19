@@ -7,11 +7,12 @@ import { crossIconPath } from 'config/commonSvgIconsPath'
 import { basicModalHeaderIconPath } from '../config/svgIconsPath'
 import { SettingClassesPropsT } from '../../ModalTypes'
 import { useCreateLesson } from '../../../../customHooks/useCreateLesson'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from '../../Modal.module.scss'
 
 export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAndType, modulesList, setType }) => {
-  const { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
+  const { nameLesson, balls, isLoading, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
     setType,
     modulesList,
     typeLesson: 'lessons',
@@ -80,7 +81,13 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAnd
           text={'Назад'}
           style={{ width: '85px', height: '100%', marginRight: '10px', padding: '17px', fontSize: '18px', fontWeight: '400', borderRadius: '10px' }}
         />
-        <Button type={'submit'} text={'Добавить занятие'} variant={'primary'} />
+        <Button
+          style={{ minWidth: '186px' }}
+          type={'submit'}
+          text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить занятие'}
+          variant={isLoading ? 'disabled' : 'primary'}
+          disabled={isLoading}
+        />
       </div>
     </form>
   )
