@@ -4,6 +4,7 @@ import styles from './TariffPlans.module.scss'
 import React, {useState} from "react";
 import firstStep from "../../assets/img/createProject/firstStep.png";
 import secondStep from "../../assets/img/createProject/secondStep.png";
+import { Footer } from 'Pages/Footer'
 
 
 export const TariffPlans = () => {
@@ -157,18 +158,8 @@ export const TariffPlans = () => {
                     <img src={firstStep} alt="Создать проект"  className={styles.TariffPlansPage_banner_images_firstStep}/>
                     <img src={secondStep} alt="Создать проект"  className={styles.TariffPlansPage_banner_images_secondStep}/>
                 </div>
-
             </div>
-            <footer className={styles.TariffPlansPage_footer}>
-                <div className={styles.TariffPlansPage_footer_links}>
-                    <a>Возможности</a>
-                    <a>Тарифы</a>
-                    <a>Справочный центр</a>
-                    <a>Правовая политика</a>
-                </div>
-                <h1>OVERSCHOOL</h1>
-                <h5>@2022, все права защищены</h5>
-            </footer>
+            {/* <Footer /> */}
         </section>
     )
 }

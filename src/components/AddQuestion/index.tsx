@@ -4,13 +4,13 @@ import { AddOptionsWithPictures } from './AddOptionsWithPictures'
 import { AddPicturesAndOptions } from './AddPicturesAndOptions'
 import { AddNumericalTask } from './AddNumericalTask'
 import { AddFreeForm } from './AddFreeForm'
-import { TextOptions } from 'components/Questions/TextOptions'
 
 import styles from './addQuestion.module.scss'
 import { OptionsWithPictures } from 'components/Questions/OptionsWithPictures'
 import { PicturesAndOptions } from 'components/Questions/PicturesAndOptions'
 import { FreeForm } from 'components/Questions/FreeForm'
 import { NumericalTask } from 'components/Questions/NumericalTask'
+import { TextOptions } from 'components/Questions/TextOptions'
 
 export const AddQuestion = memo(() => {
   return (

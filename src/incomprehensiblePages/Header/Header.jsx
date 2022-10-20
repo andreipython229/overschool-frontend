@@ -1,4 +1,4 @@
-import logo from '../../assets/img/logotype.svg';
+import { logo } from '../../assets/img/common/index'
 import styles from './Header.module.scss';
 
 

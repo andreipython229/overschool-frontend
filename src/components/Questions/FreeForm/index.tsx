@@ -1,4 +1,3 @@
-import { ChangeEvent, FC, memo, useEffect, useState } from 'react';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 
 import styles from './freeForm.module.scss';
