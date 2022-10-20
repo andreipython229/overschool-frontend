@@ -1,0 +1,27 @@
+@import '../../scss/variable';
+@import '../../scss/mixin.scss';
+
+.table {
+    overflow: hidden;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 0;
+    &_head {
+        tr {
+            th {
+                border: none;
+                text-align: left;                
+            }
+        }
+    }
+    &_body {
+        tr {
+            height: 55px;
+            color: #9198A1;
+            td {
+                margin: 0 0 0 27px;
+                height: 55px;
+            }
+        }
+    }
+}

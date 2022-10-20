@@ -37,7 +37,7 @@ export const HomeWork: FC = () => {
         </Input>
       </div>
       <HomeworksStatsTable homeworks={homeworks as homeworksStatsT} />
-      <Pagination style={{marginTop: '260px'}} totalCount={homeworksStats?.count as number} currentPage={page} onPageChange={onPageChange} />
+      <Pagination style={{ marginTop: '260px' }} totalCount={homeworksStats?.count as number} currentPage={page} onPageChange={onPageChange} />
     </>
   )
 }

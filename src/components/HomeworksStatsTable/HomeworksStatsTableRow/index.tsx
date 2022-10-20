@@ -22,41 +22,39 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = ({ homeworkDa
 
   return (
     <>
-      <tr onClick={open} style={{ textAlign: 'center' }}>
-        <td style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <tr onClick={open}>
+        <td style={{ display: 'flex', alignItems: 'center' }}>
           {avatar ? (
             <img style={{ borderRadius: '50%', width: '32px', height: '32px' }} src={avatar} alt="avatar" />
           ) : (
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
                 background: '#F9DCDC',
                 width: '33px',
                 height: '33px',
                 borderRadius: '50%',
                 color: '#D96B7D',
+                padding: '8px 5px',
               }}
             >
               БИ
             </div>
           )}
-          <span style={{ marginLeft: '15px' }}>Без имени</span>
+          <span style={{ marginLeft: '15px', color: '#424345' }}>Без имени</span>
         </td>
-        <td>{email}</td>
-        <td>{homework_name}</td>
-        <td>{course_name}</td>
-        <td>
+        <td style={{ margin: '0 0 0 27px' }}>{email}</td>
+        <td style={{ margin: '0 0 0 27px' }}>{homework_name}</td>
+        <td style={{ margin: '0 0 0 27px' }}>Курс</td>
+        <td style={{ margin: '0 0 0 27px' }}>
           {mmddyyyy} в {hoursAndMinutes}
         </td>
-        <td style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <td style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
           {iocnsByStatus[status]}
-          <span>{status}</span>
+          <span style={{ margin: '0 0 0 5px' }}>{status}</span>
         </td>
-        <td>
+        <td style={{ margin: '0 0 0 27px' }}>
           <IconSvg width={16} height={15} viewBoxSize={'0 0 16 15'} path={tableBallsStarPath} />
-          <span>{mark || 0}</span>
+          <span style={{ margin: '0 0 0 7px' }}>{mark || 0}</span>
         </td>
       </tr>
       {isModalOpen && (
