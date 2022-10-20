@@ -1,4 +1,6 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { useFormik } from 'formik'
+
 import { Input } from '../../../common/Input/Input/Input'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { Button } from '../../../common/Button/Button'
@@ -9,7 +11,7 @@ import { modalTestBlockTextPath } from '../config/svgIconsPath'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { TestModalPropsT } from '../../ModalTypes'
 import { useCreateLesson } from 'customHooks/useCreateLesson'
-import { useFormik } from 'formik'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../../Modal.module.scss'
 
@@ -35,7 +37,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
 
   const { percent, attempts, numOfAttempts, handleChange }: any = formik
 
-  const { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
+  const { nameLesson, balls, isLoading, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
     setType,
     modulesList,
     typeLesson: 'tests',
@@ -164,7 +166,13 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
           text={'Назад'}
           style={{ width: '85px', height: '100%', marginRight: '10px', padding: '17px', fontSize: '18px', fontWeight: '400', borderRadius: '10px' }}
         />
-        <Button type={'submit'} text={'Добавить занятие'} variant={'primary'} />
+        <Button
+          style={{ minWidth: '186px' }}
+          type={'submit'}
+          text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить занятие'}
+          variant={isLoading ? 'disabled' : 'primary'}
+          disabled={isLoading}
+        />
       </div>
     </form>
   )

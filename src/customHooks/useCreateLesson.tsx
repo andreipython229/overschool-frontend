@@ -29,6 +29,7 @@ type UseCreateLessonReturnT = {
   handleCreateLesson: (event: FormEvent<HTMLFormElement>) => void
   balls: number
   nameLesson: string
+  isLoading?: boolean
 }
 
 type createLessonDataT = {
@@ -69,14 +70,14 @@ export const useCreateLesson = ({
 
   const { section_id } = useAppSelector(getSectionId)
 
-  const [createLesson, { data, isSuccess }] = useCreateLessonsMutation()
+  const [createLesson, { data, isSuccess, isLoading }] = useCreateLessonsMutation()
 
   const handleCreateLesson = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!nameLesson) {
       return
     }
-    console.log(random_questions, random_answers, show_right_answers, attempt_limit, attempt_count, balls_per_answer)
+
     const orderLessons = findLength(section_id, modulesList)
 
     const createLessonData: createLessonDataT = {
@@ -115,7 +116,6 @@ export const useCreateLesson = ({
     if (balls_per_answer) {
       createLessonData['balls_per_answer'] = balls_per_answer
     }
-    console.log(createLessonData)
 
     await createLesson({ createLessonData, type: typeLesson })
   }
@@ -127,5 +127,5 @@ export const useCreateLesson = ({
     }
   }, [isSuccess])
 
-  return { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson }
+  return { nameLesson, balls, isLoading, setNameLesson, setBalls, handleCreateLesson }
 }

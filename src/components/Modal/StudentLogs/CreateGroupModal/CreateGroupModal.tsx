@@ -7,13 +7,14 @@ import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { createGroupIconPath } from '../config/svgIconsPath'
 import { useCreateStudentsGroupMutation } from '../../../../api/studentsGroupService'
 import { CreateGroupModalPropsT } from '../../ModalTypes'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from '../studentsLog.module.scss'
 
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, courseId }) => {
   const [groupName, setGroupName] = useState<string>('')
 
-  const [createStudentsGroup] = useCreateStudentsGroupMutation()
+  const [createStudentsGroup, { isLoading }] = useCreateStudentsGroupMutation()
 
   const onChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
     setGroupName(e.target.value)
@@ -48,7 +49,12 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
           <Input name={'group'} type={'text'} value={groupName} onChange={onChangeGroupName} />
         </div>
         <div className={styles.addGroup_btn}>
-          <Button type={'submit'} disabled={groupName.length <= 1} variant={'primary'} text={'Создать группу'} />
+          <Button
+            type={'submit'}
+            disabled={!groupName || isLoading}
+            variant={!groupName || isLoading ? 'disabled' : 'primary'}
+            text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Создать группу'}
+          />
         </div>
       </div>
     </form>

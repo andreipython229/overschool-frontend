@@ -11,6 +11,7 @@ import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { taskModalPath } from '../config/svgIconsPath'
 import { TasksModalPropsT } from '../../ModalTypes'
 import { useCreateLesson } from '../../../../customHooks/useCreateLesson'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../../Modal.module.scss'
 import { timeMaper } from '../../../../constants/timeMaper'
@@ -22,7 +23,7 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modu
   const [time, setTime] = useState<number | null>(null)
   const [units, setUnits] = useState<keyof object | null>(null)
 
-  const { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
+  const { nameLesson, balls, isLoading, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
     modulesList,
     setType,
     typeLesson: 'homeworks',
@@ -121,7 +122,13 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modu
           text={'Назад'}
           style={{ width: '85px', height: '100%', marginRight: '10px', padding: '17px', fontSize: '18px', fontWeight: '400', borderRadius: '10px' }}
         />
-        <Button type={'submit'} text={'Добавить занятие'} variant={'primary'} />
+        <Button
+          style={{ minWidth: '186px' }}
+          type={'submit'}
+          text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить занятие'}
+          variant={isLoading ? 'disabled' : 'primary'}
+          disabled={isLoading}
+        />
       </div>
     </form>
   )

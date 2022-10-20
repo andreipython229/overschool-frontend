@@ -19,17 +19,15 @@ export const Navbar: FC = memo(() => {
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
 
   return (
-    <>
-      <div className={styles.navbar}>
-        <IconSvg className={styles.navbar_menu} width={30} height={25} viewBoxSize={'0 0 30 25'} path={navMenuPath} />
-        <div className={styles.navbar_setting_account}>
-          {navlinkByRoles[role].map(({ path, icon }, index: number) => (
-            <NavLink key={index} to={path} className={isActive}>
-              {icon}
-            </NavLink>
-          ))}
-        </div>
+    <nav className={styles.navbar}>
+      <IconSvg className={styles.navbar_menu} width={30} height={25} viewBoxSize={'0 0 30 25'} path={navMenuPath} />
+      <div className={styles.navbar_setting_account}>
+        {navlinkByRoles[role].map(({ path, icon }, index: number) => (
+          <NavLink key={index} to={path} className={isActive}>
+            {icon}
+          </NavLink>
+        ))}
       </div>
-    </>
+    </nav>
   )
 })

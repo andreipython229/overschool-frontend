@@ -6,10 +6,10 @@ import styles from './navCreatingCourse.module.scss'
 
 export const NavCreatingCourse = memo(() => {
   return (
-    <div className={styles.creatingCourse}>
+    <nav className={styles.creatingCourse}>
       <NavAccountBtn text={'Конструктор'} path={CreateCoursePath.Constructor} />
       <NavAccountBtn text={'Ученики курса'} path={CreateCoursePath.Student} />
       <NavAccountBtn text={'Настройки курса'} path={CreateCoursePath.Settings} />
-    </div>
+    </nav>
   )
 })
