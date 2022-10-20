@@ -19,6 +19,16 @@ export const userRegisterService = createApi({
         }
       },
     }),
+    invite: builder.mutation({
+      query: credentials => {
+        return {
+          url: '/register/',
+          method: 'POST',
+          redirect: 'follow',
+          body: credentials,
+        }
+      },
+    }),
   }),
 })
-export const { useRegistrationMutation } = userRegisterService
+export const { useRegistrationMutation, useInviteMutation } = userRegisterService

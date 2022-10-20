@@ -1,4 +1,4 @@
-import { useState, FC } from 'react'
+import { useState, FC, useEffect } from 'react'
 
 import { SelectDropDown } from '../../components/SelectDropDown/SelectDropDown'
 import { FiltersButton } from '../../components/FiltersButton'
@@ -7,11 +7,24 @@ import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { dropDownListFilter } from '../../constants/dropDownList'
 import { HomeworksStatsTable } from '../../components/HomeworksStatsTable'
 import { searchIconPath } from '../../config/commonSvgIconsPath'
+import { Pagination } from 'incomprehensiblePages/Pagination/Pagination'
+import { usePagination } from 'customHooks/usePagination'
+import { useFetchAllHomeworkStatsQuery, useLazyFetchHomeworkStatsQuery } from '../../api/homeworksStatsService'
+import { homeworksStatsT } from 'types/homeworkT'
 
 import styles from './home_work.module.scss'
 
 export const HomeWork: FC = () => {
   const [arrowUsersState, setArrowUsersState] = useState<string[]>([])
+
+  const { data: homeworksStats } = useFetchAllHomeworkStatsQuery()
+  const [fetchHomeworkStats, { data: homeworks }] = useLazyFetchHomeworkStatsQuery()
+
+  const { page, onPageChange } = usePagination({ totalCount: homeworksStats?.count as number })
+
+  useEffect(() => {
+    fetchHomeworkStats(page)
+  }, [page])
 
   return (
     <>
@@ -23,7 +36,8 @@ export const HomeWork: FC = () => {
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
       </div>
-      <HomeworksStatsTable />
+      <HomeworksStatsTable homeworks={homeworks as homeworksStatsT} />
+      <Pagination style={{marginTop: '260px'}} totalCount={homeworksStats?.count as number} currentPage={page} onPageChange={onPageChange} />
     </>
   )
 }
