@@ -1,27 +1,23 @@
-import { DOTS, usePagination } from '../../customHooks/usePagination'
+import { FC } from 'react'
 import classnames from 'classnames'
+
+import { DOTS, usePagination } from '../../customHooks/usePagination'
 
 import './pagination.scss'
 
-type propsT = {
-  onPageChange: (arg: number | string) => void
+type paginationT = {
   totalCount: number
-  siblingCount: number
   currentPage: number
-  pageSize: number
+  style?: { [key: string]: string | number}
+  onPageChange: (pagw: number) => void
 }
 
-export const Pagination = (props: propsT) => {
-  const { onPageChange, totalCount, siblingCount = 1, currentPage, pageSize } = props
-
-  const paginationRange: (string | number)[] = usePagination({
-    currentPage,
+export const Pagination: FC<paginationT> = ({ totalCount, onPageChange, currentPage, ...props }) => {
+  const { paginationRange } = usePagination({
     totalCount,
-    siblingCount,
-    pageSize,
   })
 
-  if (currentPage === 0 || paginationRange.length < 2) {
+  if (currentPage === 0 || paginationRange?.length < 2) {
     return null
   }
 
@@ -33,11 +29,11 @@ export const Pagination = (props: propsT) => {
     onPageChange(currentPage - 1)
   }
 
-  const lastPage = paginationRange[paginationRange.length - 1]
+  const lastPage = paginationRange && paginationRange[paginationRange?.length - 1]
   return (
-    <div className="pagination-bar">
+    <div {...props} className="pagination-bar">
       <p className="pagination-text">
-        Всего <span className="pagination-total">{paginationRange.slice(-1)}</span>
+        Всего <span className="pagination-total">{paginationRange?.slice(-1)}</span>
       </p>
       <ul className="pagination-container">
         <li
@@ -48,7 +44,7 @@ export const Pagination = (props: propsT) => {
         >
           <div className="arrow left" />
         </li>
-        {paginationRange.map((pageNumber: number | string) => {
+        {paginationRange?.map(pageNumber => {
           if (pageNumber === DOTS) {
             return <li className="pagination-item dots">&#8230;</li>
           }
@@ -59,7 +55,7 @@ export const Pagination = (props: propsT) => {
               className={classnames('pagination-item', {
                 selected: pageNumber === currentPage,
               })}
-              onClick={() => onPageChange(pageNumber)}
+              onClick={() => typeof pageNumber === 'number' && onPageChange(pageNumber)}
             >
               {pageNumber}
             </li>
