@@ -29,6 +29,7 @@ type UseCreateLessonReturnT = {
   handleCreateLesson: (event: FormEvent<HTMLFormElement>) => void
   balls: number
   nameLesson: string
+  isLoading?: boolean
 }
 
 type createLessonDataT = {
@@ -69,7 +70,7 @@ export const useCreateLesson = ({
 
   const { section_id } = useAppSelector(getSectionId)
 
-  const [createLesson, { data, isSuccess }] = useCreateLessonsMutation()
+  const [createLesson, { data, isSuccess, isLoading }] = useCreateLessonsMutation()
 
   const handleCreateLesson = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -126,5 +127,5 @@ export const useCreateLesson = ({
     }
   }, [isSuccess])
 
-  return { nameLesson, balls, setNameLesson, setBalls, handleCreateLesson }
+  return { nameLesson, balls, isLoading, setNameLesson, setBalls, handleCreateLesson }
 }
