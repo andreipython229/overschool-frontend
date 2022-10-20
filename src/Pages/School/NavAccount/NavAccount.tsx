@@ -12,11 +12,11 @@ export const NavAccount: FC = memo(() => {
   const { role } = useAppSelector(selectUser)
 
   return (
-    <div className={styles.nav_account}>
+    <nav className={styles.nav_account}>
       <NavAccountBtn path={SettingsPath.Main} text={'Основные'} />
       <NavAccountBtn path={SettingsPath.Employees} text={'Сотрудники'} />
       {role === RoleE.SuperAdmin && <NavAccountBtn path={SettingsPath.Logs} text={'Логи'} />}
       <NavAccountBtn path={SettingsPath.Decoration} text={'Оформление'} />
-    </div>
+    </nav>
   )
 })

@@ -15,7 +15,7 @@ export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
 
   const navigate = useNavigate()
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(2)
 
   useEffect(() => {
     if (!isLogin) {

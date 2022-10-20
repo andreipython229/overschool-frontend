@@ -4,7 +4,7 @@ import { ChangeEvent, memo, useEffect, useState } from 'react'
 import styles from '../superAdmin.module.scss'
 
 export const Main = memo(() => {
-  const { data } = useFetchSchoolHeaderQuery(1)
+  const { data } = useFetchSchoolHeaderQuery(2)
   const [updateDateSchoolName, { data: newName }] = useSetSchoolHeaderMutation()
 
   const [name, setName] = useState<string>('')

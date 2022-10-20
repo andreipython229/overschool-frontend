@@ -7,9 +7,9 @@ import { MainLayOut } from 'components/MainLayout/MainLayOut'
 import { Path } from 'enum/pathE'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
-import { navByRolesConfig } from 'config/index'
-import { SignUp } from 'Pages/SignUp/index'
-import { scrollToTop } from 'utils/scrollToTop'
+import { navByRolesConfig } from 'config'
+import { SignUp } from 'Pages/SignUp'
+//import { scrollToTop } from 'utils/scrollToTop'
 
 import styles from './App.module.scss'
 
