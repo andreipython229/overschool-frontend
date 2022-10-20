@@ -26,7 +26,7 @@ export const App = () => {
     }
   }, [])
 
-  scrollToTop()
+  // scrollToTop()
 
   return (
     <div className={styles.container}>
