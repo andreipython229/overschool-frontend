@@ -1,5 +1,5 @@
-import { ChangeEvent, FC, memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import { Path, FooterPath } from 'enum/pathE';
 
 import styles from './footer.module.scss';
@@ -15,7 +15,7 @@ export const Footer = () => {
             <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.TariffPlans}`}>
                 Тарифы
             </Link>
-            <Link className={styles.wrapper_linksBlock_link} to={`${Path.Courses}`}>
+            <Link className={styles.wrapper_linksBlock_link} to={`${Path.HelpCenter}`}>
                 Справочный центр
             </Link>
             <Link className={styles.wrapper_linksBlock_link} to={`${Path.Courses}`}>

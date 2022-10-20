@@ -153,16 +153,6 @@ export const HelpCenter = () => {
           <img src={secondStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_secondStep} />
         </div>
       </div>
-      <footer className={styles.HelpCenterPage_footer}>
-        <div className={styles.HelpCenterPage_footer_links}>
-          <a>Возможности</a>
-          <a>Тарифы</a>
-          <a>Справочный центр</a>
-          <a>Правовая политика</a>
-        </div>
-        <h1>OVERSCHOOL</h1>
-        <h5>@2022, все права защищены</h5>
-      </footer>
     </section>
   )
 }
