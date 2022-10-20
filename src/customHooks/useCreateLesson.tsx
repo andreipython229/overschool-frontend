@@ -77,7 +77,7 @@ export const useCreateLesson = ({
     if (!nameLesson) {
       return
     }
-    console.log(random_questions, random_answers, show_right_answers, attempt_limit, attempt_count, balls_per_answer)
+
     const orderLessons = findLength(section_id, modulesList)
 
     const createLessonData: createLessonDataT = {
@@ -116,7 +116,6 @@ export const useCreateLesson = ({
     if (balls_per_answer) {
       createLessonData['balls_per_answer'] = balls_per_answer
     }
-    console.log(createLessonData)
 
     await createLesson({ createLessonData, type: typeLesson })
   }

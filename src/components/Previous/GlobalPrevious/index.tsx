@@ -18,7 +18,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   const user = useAppSelector(selectUser)
 
   const { pathname }: Location = useLocation()
-  const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(1)
+  const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(2)
   const [setSchoolHeader] = useSetSchoolHeaderMutation()
 
   const [edit, setEdit] = useState<boolean>(false)
@@ -46,7 +46,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
       value && formdata.append(key, value)
     })
 
-    setSchoolHeader({ formdata, id: 1 })
+    setSchoolHeader({ formdata, id: 2 })
     setEdit(false)
   }
 
