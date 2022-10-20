@@ -46,7 +46,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
       value && formdata.append(key, value)
     })
 
-    setSchoolHeader({ formdata, id: 1 })
+    setSchoolHeader({ formdata, id: 2 })
     setEdit(false)
   }
 

@@ -10,7 +10,7 @@ import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { navByRolesConfig } from 'config'
 import { SignUp } from 'Pages/SignUp'
-//import { scrollToTop } from 'utils/scrollToTop'
+import { scrollToTop } from 'utils/scrollToTop'
 
 import styles from './App.module.scss'
 

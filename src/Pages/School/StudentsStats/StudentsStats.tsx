@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { AllStudentsBlock } from '../../../components/AllStudentsBlock'
@@ -8,7 +8,7 @@ import { StudentInfoGraphic } from 'Pages/School/StudentsStats/StudentInfoGraphi
 import { createGroupIconPath } from '../config/svgIconsPath'
 import { StudentsTableBlock } from 'components/StudentsTableBlock'
 import { SettingStudentTable } from 'components/Modal/SettingStudentTable'
-import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
+import { useFetchStudentsGroupByCourseQuery } from 'api/studentsGroupService'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { StudentGroup } from 'Pages/School/StudentsStats/StudentsCountGroup'
 import { studentsGroupsT } from '../../../types/studentsGroup'
@@ -21,28 +21,20 @@ import styles from './studentsStats.module.scss'
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
 
-  const [groups, setGroups] = useState<studentsGroupsT[]>([])
   const [hideStats, setHideStats] = useState<boolean>(true)
 
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
   const [addGroupModal, { off: offAddGroupModal, on: onAddGroupModal }] = useBoolean()
   const [toggleSettingModal, { off: offToggleSettingModal, on: onToggleSettingModal }] = useBoolean()
 
-  const { data, isSuccess, isFetching } = useFetchStudentsGroupQuery()
+  const { data} = useFetchStudentsGroupByCourseQuery(`${courseId}`)
 
   const handleHideStats = useCallback(() => {
     setHideStats(!hideStats)
   }, [hideStats])
 
-  useEffect(() => {
-    if (isSuccess) {
-      setGroups(data?.results)
-    }
-  }, [isSuccess, isFetching])
-
-  const groupsToShow = groups && groups.filter(group => courseId && group.course_id === +courseId)
-  const reducedGroupsToShow = groupsToShow.slice(0, 2)
-  const dataToRender = groupsToShow.length > 2 && isOpen ? groupsToShow : reducedGroupsToShow
+  const reducedGroupsToShow = data?.results.slice(0, 2)
+  const dataToRender = data?.results && data?.results.length > 2 && isOpen ? data?.results : reducedGroupsToShow
 
   return (
     <div>
@@ -67,7 +59,7 @@ export const StudentsStats = () => {
             const count = students[0]
             return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} />
           })}
-          {groupsToShow.length > 2 && <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />}
+          {data?.results && data?.results?.length > 2 && <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />}
         </div>
       </section>
       <div
