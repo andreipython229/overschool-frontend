@@ -37,3 +37,7 @@ export enum Student {
   Chats = 'chats/*',
   Class = 'class',
 }
+
+export enum FooterPath {
+  TariffPlans = 'tariff-plans/',
+}
