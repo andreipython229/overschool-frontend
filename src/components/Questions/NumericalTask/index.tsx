@@ -1,5 +1,3 @@
-import { ChangeEvent, FC, memo, useEffect, useState } from 'react';
-
 import styles from './numericalTask.module.scss';
 import { Question } from '../Question';
 import { AnswerOption } from '../AnswerOption';

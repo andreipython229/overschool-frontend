@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo, ReactNode, useEffect, useState } from 'react';
+import { FC, memo, ReactNode } from 'react';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 
 import styles from './answerOption.module.scss';

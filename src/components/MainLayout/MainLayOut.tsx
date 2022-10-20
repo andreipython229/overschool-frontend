@@ -10,6 +10,7 @@ import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { Path } from '../../enum/pathE'
 
 import styles from './mainLayOut.module.scss'
+import { Footer } from 'Pages/Footer'
 
 export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -44,6 +45,7 @@ export const MainLayOut: FC = memo(() => {
         <Previous />
         <Outlet />
       </main>
+      <Footer/>
     </div>
   )
 })
