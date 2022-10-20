@@ -8,6 +8,10 @@ import { addStudentIconPath } from '../config/svgIconsPath'
 import { AddStudentModalPropsT } from '../../ModalTypes'
 import { useFetchStudentsGroupByCourseQuery } from '../../../../api/studentsGroupService'
 import { AddNewStudents } from './AddNewStudents'
+import { useInviteMutation } from 'api/userRegisterService'
+import { studentsGroupsT } from 'types/studentsGroup'
+import { CoursesDataT } from 'types/CoursesT'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
 
@@ -16,8 +20,13 @@ type studentT = {
   email: string
 }
 
-export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, setChangeCourse, setChangeGroup, courses, changeCourse }) => {
+export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, courses }) => {
+  const [changeCourse, setChangeCourse] = useState<CoursesDataT>(courses[0])
+  const [changeGroup, setChangeGroup] = useState<studentsGroupsT>({} as studentsGroupsT)
+
   const { data: groups } = useFetchStudentsGroupByCourseQuery(changeCourse['course_id'] || courses[0]['course_id'])
+
+  const [inviteStudent, { isLoading, isSuccess, isError }] = useInviteMutation()
 
   const [students, setStudents] = useState<studentT[]>([
     {
@@ -56,6 +65,15 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, setCh
     setShowModal(false)
   }
 
+  const handleInviteStudent = () => {
+    const studentsToInvite = students.map(student => {
+      return { sender_type: 'email', recipient: student.email, user_type: 1, course_id: changeCourse.course_id }
+    })
+
+    inviteStudent(studentsToInvite)
+    isSuccess && handleClose()
+  }
+
   return (
     <form noValidate className={styles.container}>
       <div onClick={handleClose} className={styles.container_closed}>
@@ -82,7 +100,14 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, setCh
         ))}
         <div className={styles.addStudent_btnBlock}>
           <Button type={'button'} onClick={handleAddNewStudent} style={{ width: '474px' }} variant={'secondary'} text={'Добавить ещё одного'} />
-          <Button style={{ width: '474px' }} variant={'primary'} text={'Отправить приглашение'} />
+          <Button
+            type={'button'}
+            style={{ width: '474px' }}
+            variant={isLoading || !students[0].email || isError ? 'disabled' : 'primary'}
+            text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Отправить приглашение'}
+            onClick={handleInviteStudent}
+            disabled={isLoading || !students[0].email || isError}
+          />
         </div>
       </div>
     </form>

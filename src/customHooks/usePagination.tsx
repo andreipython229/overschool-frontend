@@ -1,11 +1,14 @@
-import { useMemo } from 'react'
-export const DOTS = '...'
+import { useMemo, useState, useCallback, useEffect } from 'react'
 
 interface paginationProps {
   totalCount: number
-  pageSize: number
-  siblingCount: number
-  currentPage: number
+  currentPage?: number
+}
+
+interface paginationPageToReturn {
+  paginationRange: Array<number | string>
+  onPageChange: (page: number) => void
+  page: number
 }
 
 const range = (start: number, end: number) => {
@@ -13,34 +16,54 @@ const range = (start: number, end: number) => {
   return Array.from({ length }, (_, idx) => idx + start)
 }
 
-export const usePagination = ({ totalCount, pageSize, siblingCount, currentPage }: paginationProps) => {
-  const paginationRange = useMemo(() => {
-    const totalPageCount = Math.ceil(totalCount / pageSize)
-    const totalPageNumbers = siblingCount + 5
+export const DOTS = '...'
 
-    if (totalPageNumbers >= totalPageCount) {
-      return range(1, totalPageCount)
+export const usePagination = ({ totalCount, currentPage = 1 }: paginationProps): paginationPageToReturn => {
+  const activePage = localStorage.getItem('page') ?? currentPage
+
+  const [page, setPage] = useState<number>(Number(activePage))
+  const [total, setTotal] = useState<number>(totalCount)
+
+  const onPageChange = useCallback(
+    (pageToSet: number) => {
+      setPage(pageToSet)
+    },
+    [page],
+  )
+
+  const siblingCount = 1
+
+  const paginationRange = useMemo(() => {
+    const totalPageNumbers = siblingCount + 5
+    const pagesCount = Math.round(total / 4)
+
+    if (totalPageNumbers >= pagesCount) {
+      return range(1, pagesCount)
     }
 
-    const leftSiblingIndex = Math.max(currentPage - siblingCount, 1)
-    const rightSiblingIndex = Math.min(currentPage + siblingCount, totalPageCount)
+    if (pagesCount < 4) {
+      return range(1, pagesCount)
+    }
+
+    const leftSiblingIndex = Math.max(page - siblingCount, 1)
+    const rightSiblingIndex = Math.min(page + siblingCount, pagesCount)
 
     const shouldShowLeftDots = leftSiblingIndex > 2
-    const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2
+    const shouldShowRightDots = rightSiblingIndex < pagesCount - 1
 
     const firstPageIndex = 1
-    const lastPageIndex = totalPageCount
+    const lastPageIndex = pagesCount
 
     if (!shouldShowLeftDots && shouldShowRightDots) {
-      const leftItemCount = 3 + 2 * siblingCount
+      const leftItemCount = 2 + 2 * siblingCount
       const leftRange = range(1, leftItemCount)
 
-      return [...leftRange, DOTS, totalPageCount]
+      return [...leftRange, DOTS, pagesCount]
     }
 
     if (shouldShowLeftDots && !shouldShowRightDots) {
-      const rightItemCount = 3 + 2 * siblingCount
-      const rightRange = range(totalPageCount - rightItemCount + 1, totalPageCount)
+      const rightItemCount = 2 + 2 * siblingCount
+      const rightRange = range(pagesCount - rightItemCount + 1, pagesCount)
       return [firstPageIndex, DOTS, ...rightRange]
     }
 
@@ -48,7 +71,17 @@ export const usePagination = ({ totalCount, pageSize, siblingCount, currentPage 
       const middleRange = range(leftSiblingIndex, rightSiblingIndex)
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex]
     }
-  }, [totalCount, pageSize, siblingCount, currentPage])
+  }, [page, total]) as Array<number | string>
 
-  return paginationRange || []
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('page', `${page}`)
+    }
+  }, [page])
+
+  useEffect(() => {
+    setTotal(totalCount)
+  }, [totalCount])
+
+  return { paginationRange, onPageChange, page }
 }

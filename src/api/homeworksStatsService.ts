@@ -8,7 +8,13 @@ export const homeworksStatsService = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['homeworskStats'],
   endpoints: build => ({
-    fetchHomeworkStats: build.query<homeworksStatsT, void>({
+    fetchHomeworkStats: build.query<homeworksStatsT, number>({
+      query: page => ({
+        url: `/homeworks_stats/?p=${page}&s=4`,
+      }),
+      providesTags: ['homeworskStats'],
+    }),
+    fetchAllHomeworkStats: build.query<homeworksStatsT, void>({
       query: () => ({
         url: `/homeworks_stats/`,
       }),
@@ -17,4 +23,4 @@ export const homeworksStatsService = createApi({
   }),
 })
 
-export const { useFetchHomeworkStatsQuery } = homeworksStatsService
+export const { useFetchHomeworkStatsQuery, useLazyFetchHomeworkStatsQuery, useFetchAllHomeworkStatsQuery } = homeworksStatsService
