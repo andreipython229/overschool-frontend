@@ -44,8 +44,8 @@ export const MainLayOut: FC = memo(() => {
       <main className={styles.container}>
         <Previous />
         <Outlet />
-      </main>
       <Footer/>
+      </main>
     </div>
   )
 })

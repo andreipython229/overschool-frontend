@@ -34,6 +34,8 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.Logs} element={<Logs />} />
         <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
       </Route>
+      <Route path={Path.HelpCenter} element={<HelpCenter />} />
+      <Route path={Path.TariffPlans} element={<TariffPlans />} />
     </>
   ),
   [RoleE.Student]: (
@@ -46,6 +48,8 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
           <Route path={Student.Lesson} element={<StudentLessonPreview />} />
         </Route>
       </Route>
+      <Route path={Path.HelpCenter} element={<HelpCenter />} />
+      <Route path={Path.TariffPlans} element={<TariffPlans />} />
     </>
   ),
   [RoleE.Admin]: (
