@@ -91,8 +91,5 @@ export type CreateGroupModalPropsT = {
 
 export type AddStudentModalPropsT = {
   setShowModal: (arg: boolean) => void
-  setChangeCourse: (arg: CoursesDataT) => void
-  setChangeGroup: (arg: studentsGroupsT) => void
   courses: CoursesDataT[]
-  changeCourse: CoursesDataT
 }

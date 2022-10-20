@@ -2,14 +2,8 @@ import { FC } from 'react'
 
 import { Portal } from '../../Modal/Portal/index'
 import { ModalCheckHomeWork } from '../../Modal/ModalCheckHomeWork/ModalCheckHomeWork'
-import {
-  tableBallsStarPath,
-  acceptedHwPath,
-  autoCheckHwPath,
-  underRevisionHwPath,
-  rejectedHwPath,
-  waitingdHwPath,
-} from '../../../config/commonSvgIconsPath'
+import { tableBallsStarPath } from '../../../config/commonSvgIconsPath'
+import { iocnsByStatus } from '../config/iocnsByStatus'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { homeworkStatT } from 'types/homeworkT'
 import { convertDate } from '../../../constants'
@@ -22,7 +16,7 @@ type homeworksStatsTableRowT = {
 export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = ({ homeworkData }) => {
   const [isModalOpen, { off: open, on: close }] = useBoolean()
 
-  const { email, mark, status, avatar, homework_name, last_update, user_homework } = homeworkData
+  const { email, mark, status, avatar, homework_name, last_update, user_homework, course_name, user_name, user_lastname } = homeworkData
 
   const [mmddyyyy, hoursAndMinutes] = convertDate(new Date(last_update))
 
@@ -52,12 +46,12 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = ({ homeworkDa
         </td>
         <td>{email}</td>
         <td>{homework_name}</td>
-        <td>Курс</td>
+        <td>{course_name}</td>
         <td>
           {mmddyyyy} в {hoursAndMinutes}
         </td>
         <td style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <IconSvg width={18} height={18} viewBoxSize="0 0 18 20" path={acceptedHwPath} />
+          {iocnsByStatus[status]}
           <span>{status}</span>
         </td>
         <td>

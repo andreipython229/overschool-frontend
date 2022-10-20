@@ -15,4 +15,7 @@ export type homeworkStatT = {
   mark: null
   status: string
   user_homework: number
+  course_name: string
+  user_name: string
+  user_lastname: string
 }

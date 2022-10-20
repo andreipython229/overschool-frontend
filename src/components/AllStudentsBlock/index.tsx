@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react'
+import { FC, memo } from 'react'
 
 import { FiltersButton } from '../FiltersButton'
 import { dropDownListFilterStudents } from '../../constants/dropDownList'
@@ -10,17 +10,12 @@ import { AllStudentsBlockT } from '../../types/componentsTypes'
 import { useBoolean } from '../../customHooks/useBoolean'
 import { searchIconPath, addStudentIconPath, updateArrPath } from './config/svgIconsPath'
 import { Portal } from '../Modal/Portal'
-import { CoursesDataT } from '../../types/CoursesT'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
-import { studentsGroupsT } from '../../types/studentsGroup'
 // import { useDebouncedFilter } from '../../customHooks/useDebouncedFilter'
 
 import styles from '../AllStudentsBlock/all_students_block.module.scss'
 
 export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => {
-  const [changeCourse, setChangeCourse] = useState<CoursesDataT>({} as CoursesDataT)
-  const [changeGroup, setChangeGroup] = useState<studentsGroupsT>({} as studentsGroupsT)
-
   const { data: courses } = useFetchCoursesQuery()
 
   const [isOpen, { off, on }] = useBoolean()
@@ -42,19 +37,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(({ headerText }) => 
           <IconSvg width={16} height={16} viewBoxSize={'0 0 16 16'} path={addStudentIconPath} />
         </Button>
       </div>
-      {isOpen && (
-        <Portal closeModal={on}>
-          {courses && (
-            <AddStudentModal
-              setChangeCourse={setChangeCourse}
-              setChangeGroup={setChangeGroup}
-              setShowModal={on}
-              courses={courses?.results}
-              changeCourse={changeCourse}
-            />
-          )}
-        </Portal>
-      )}
+      {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} />}</Portal>}
     </div>
   )
 })

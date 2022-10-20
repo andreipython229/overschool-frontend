@@ -2,11 +2,13 @@ import { FC } from 'react'
 
 import { HomeworksStatsTableRow } from './HomeworksStatsTableRow'
 import { HomeworksStatsTableHeader } from './HomeworksStatsTableHeader'
-import { useFetchHomeworkStatsQuery } from '../../api/homeworksStatsService'
-import { homeworkStatT } from 'types/homeworkT'
+import { homeworkStatT, homeworksStatsT } from 'types/homeworkT'
 
-export const HomeworksStatsTable: FC = () => {
-  const { data: homeworks } = useFetchHomeworkStatsQuery()
+type homeworkStatsTableT = {
+  homeworks: homeworksStatsT
+}
+
+export const HomeworksStatsTable: FC<homeworkStatsTableT> = ({homeworks}) => {
 
   return (
     <table
