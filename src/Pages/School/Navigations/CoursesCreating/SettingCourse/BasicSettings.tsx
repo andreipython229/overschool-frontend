@@ -93,7 +93,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
       </div>
       <div className={styles.course_category_wrapper}>
         <p className={styles.course_category_title}>Категории курса</p>
-        <SelectInput optionName={'category' as keyof object} optionsList={[{ category: 'заглушка' }, { category: 'заглушка' }]} />
+        <SelectInput optionName={'category' as keyof object} optionsList={[{ category: 'заглушка 1' }, { category: 'заглушка 2' }]} />
       </div>
     </div>
   )

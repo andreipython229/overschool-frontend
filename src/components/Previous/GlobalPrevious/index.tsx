@@ -18,7 +18,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   const user = useAppSelector(selectUser)
 
   const { pathname }: Location = useLocation()
-  const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(1)
+  const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(2)
   const [setSchoolHeader] = useSetSchoolHeaderMutation()
 
   const [edit, setEdit] = useState<boolean>(false)
