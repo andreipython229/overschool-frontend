@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { EmployeePropsT } from '../../../pageTypes'
+import { EmployeePropsT } from '../../../../types/pageTypes'
 
 import styles from './employee.module.scss'
 

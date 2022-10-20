@@ -1,4 +1,4 @@
-import { CourseImgPropsT } from 'Pages/pageTypes'
+import { CourseImgPropsT } from 'types/pageTypes'
 import { FC, memo } from 'react'
 
 import styles from './initial.module.scss'

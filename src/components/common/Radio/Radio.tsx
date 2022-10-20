@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { RadioPropsT } from '../commonComponentsTypes'
+import { RadioPropsT } from '../../../types/commonComponentsTypes'
 
 import styles from './radio.module.scss'
 

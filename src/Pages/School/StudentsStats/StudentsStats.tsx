@@ -1,15 +1,14 @@
-import { ChangeEvent, useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { AllStudentsBlock } from '../../../components/AllStudentsBlock'
-import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentModal'
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from 'Pages/School/StudentsStats/StudentInfoGraphic'
 import { createGroupIconPath } from '../config/svgIconsPath'
 import { StudentsTableBlock } from 'components/StudentsTableBlock'
 import { SettingStudentTable } from 'components/Modal/SettingStudentTable'
-import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
+import { useFetchStudentsGroupByCourseQuery } from 'api/studentsGroupService'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { StudentGroup } from 'Pages/School/StudentsStats/StudentsCountGroup'
 import { studentsGroupsT } from '../../../types/studentsGroup'
@@ -22,34 +21,20 @@ import styles from './studentsStats.module.scss'
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
 
-  const [groups, setGroups] = useState<studentsGroupsT[]>([])
-  const [studentEmail, setStudentEmail] = useState<string>('')
   const [hideStats, setHideStats] = useState<boolean>(true)
 
-  const [studentModal, { onToggle: setStudentModal }] = useBoolean()
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
   const [addGroupModal, { off: offAddGroupModal, on: onAddGroupModal }] = useBoolean()
   const [toggleSettingModal, { off: offToggleSettingModal, on: onToggleSettingModal }] = useBoolean()
 
-  const { data, isSuccess, isFetching } = useFetchStudentsGroupQuery()
-
-  const onChangeStudentEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setStudentEmail(e.currentTarget.value)
-  }
+  const { data} = useFetchStudentsGroupByCourseQuery(`${courseId}`)
 
   const handleHideStats = useCallback(() => {
     setHideStats(!hideStats)
   }, [hideStats])
 
-  useEffect(() => {
-    if (isSuccess) {
-      setGroups(data?.results)
-    }
-  }, [isSuccess, isFetching])
-
-  const groupsToShow = groups && groups.filter(group => courseId && group.course_id === +courseId)
-  const reducedGroupsToShow = groupsToShow.slice(0, 2)
-  const dataToRender = groupsToShow.length > 2 && isOpen ? groupsToShow : reducedGroupsToShow
+  const reducedGroupsToShow = data?.results.slice(0, 2)
+  const dataToRender = data?.results && data?.results.length > 2 && isOpen ? data?.results : reducedGroupsToShow
 
   return (
     <div>
@@ -74,7 +59,7 @@ export const StudentsStats = () => {
             const count = students[0]
             return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} />
           })}
-          {groupsToShow.length > 2 && <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />}
+          {data?.results && data?.results?.length > 2 && <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />}
         </div>
       </section>
       <div
@@ -88,12 +73,6 @@ export const StudentsStats = () => {
         <AllStudentsBlock headerText={'Все ученики курса'} />
       </div>
       <StudentsTableBlock setShowModal={offToggleSettingModal} />
-
-      {studentModal && (
-        <Portal closeModal={setStudentModal}>
-          {/*<AddStudentModal setShowModal={setStudentModal} studentEmail={studentEmail} onChangeEmail={onChangeStudentEmail} />{' '}*/}
-        </Portal>
-      )}
       {addGroupModal && (
         <Portal closeModal={onAddGroupModal}>
           <CreateGroupModal setShowModal={onAddGroupModal} courseId={courseId as string} />{' '}

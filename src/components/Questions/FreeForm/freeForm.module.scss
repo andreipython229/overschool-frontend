@@ -8,5 +8,13 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: $box-shadow;
-    
+
+    &_optionsContent {
+        label {
+            @include display (flex, row, flex-start, center);
+            @include font (500, 14px, 17px);
+            color: #A8ABAD;
+            cursor: pointer;
+        }
+    }    
 }

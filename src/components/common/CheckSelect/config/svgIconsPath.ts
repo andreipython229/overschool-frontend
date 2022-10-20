@@ -1,5 +1,5 @@
 import { checkSelectSvgIcon, checkSelectChildrenSvgIcon } from '../constants/svgIcons'
-import { pathT } from '../../commonComponentsTypes'
+import { pathT } from '../../../../types/commonComponentsTypes'
 
 export const checkSelectIconPath = [{ d: checkSelectSvgIcon, fill: '#A8ABAD' }]
 

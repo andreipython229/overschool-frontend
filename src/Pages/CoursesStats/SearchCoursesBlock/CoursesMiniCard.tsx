@@ -1,13 +1,13 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
 import { Path } from '../../../enum/pathE'
-import { CoursesMiniCardT } from '../../pageTypes'
+import { CoursesMiniCardT } from '../../../types/pageTypes'
 import { getNounDeclension } from '../../../utils/getNounDeclension'
 
 import styles from '../courses_stats.module.scss'
 
-export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseId, groups }) => {
+export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo_url, name, courseId, groups }) => {
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
   const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students[0], 0)
 
@@ -37,4 +37,4 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = ({ photo_url, name, courseI
       </div>
     </Link>
   )
-}
+})

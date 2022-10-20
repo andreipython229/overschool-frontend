@@ -3,7 +3,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { FilterItem } from './FilterItem'
 import { ComponentFilter } from 'constants/filtersMaper'
-import { FiltersButtonT, ICategories } from '../componentsTypes'
+import { FiltersButtonT, ICategories } from '../../types/componentsTypes'
 import { useBoolean } from '../../customHooks/useBoolean'
 import { filterIconPath } from './config/svgIconsPath'
 

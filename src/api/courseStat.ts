@@ -1,8 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-//perhpas there gonna be another api call 
+//perhpas there gonna be another api call
 
-import { courseStatsT } from '../types/courseStatT'
+//import { courseStatsT } from '../types/courseStatT'
+
 import { baseQueryWithReauth } from './baseApi'
 
 export const courseStatService = createApi({

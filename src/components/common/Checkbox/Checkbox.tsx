@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { CheckboxPropsT } from '../commonComponentsTypes'
+import { CheckboxPropsT } from '../../../types/commonComponentsTypes'
 
 import styles from './checkbox.module.scss'
 

@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps, FocusEvent, HTMLAttributes, InputHTMLAttributes, ReactNode, PointerEvent } from 'react'
 
-import { LoginParamsT } from '../../utils/validationLogin'
+import { LoginParamsT } from '../utils/validationLogin'
 
 export type AuthSelectPropsT = {
   getInputVariant: (variant: keyof LoginParamsT) => void
@@ -21,6 +21,7 @@ export type CheckboxPropsT = {
   children?: ReactNode
   className?: string
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void
+  style?: string
 }
 
 export type CheckSelectPropsT = {

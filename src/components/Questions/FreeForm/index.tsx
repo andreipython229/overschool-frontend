@@ -5,6 +5,7 @@ import styles from './freeForm.module.scss';
 import { Question } from '../Question';
 import { AnswerOption } from '../AnswerOption';
 import { QuestionHeader } from '../QuestionHeader';
+import { Checkbox } from 'components/common/Checkbox/Checkbox';
 
 export const FreeForm = () => {
 
@@ -27,6 +28,7 @@ export const FreeForm = () => {
         </QuestionHeader>
         <div className={styles.wrapper_optionsContent}>
             <Question />
+            <Checkbox>Считать любой ответ верным</Checkbox>
             <AnswerOption />
         </div>
     </div>

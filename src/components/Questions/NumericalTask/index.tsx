@@ -4,6 +4,7 @@ import styles from './numericalTask.module.scss';
 import { Question } from '../Question';
 import { AnswerOption } from '../AnswerOption';
 import { QuestionHeader } from '../QuestionHeader';
+import { Checkbox } from 'components/common/Checkbox/Checkbox';
 
 export const NumericalTask = () => {
 
@@ -18,6 +19,8 @@ export const NumericalTask = () => {
         </QuestionHeader>
         <div className={styles.wrapper_optionsContent}>
             <Question />
+            <Checkbox>Только целые числа</Checkbox>
+            <Checkbox>Правильный ответ в диапазоне</Checkbox>
             <AnswerOption />
         </div>
     </div>

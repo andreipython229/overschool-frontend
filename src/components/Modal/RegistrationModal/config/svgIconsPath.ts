@@ -1,4 +1,4 @@
-import { pathT } from '../../../common/commonComponentsTypes'
+import { pathT } from '../../../../types/commonComponentsTypes'
 
 export const registrIconPath: pathT[] = [
   {

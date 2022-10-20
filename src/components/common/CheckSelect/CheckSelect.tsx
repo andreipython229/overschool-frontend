@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { CheckSelectPropsT } from '../commonComponentsTypes'
+import { CheckSelectPropsT } from '../../../types/commonComponentsTypes'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { IconSvg } from '../IconSvg/IconSvg'
 import { checkSelectIconPath } from './config/svgIconsPath'
