@@ -46,7 +46,7 @@ export const initialDropDownList = [
   {
     id: 6,
     icon: <IconSvg width={18} height={18} viewBoxSize="0 0 18 20" path={waitingdHwPath} />,
-    title: 'Ждёт проверки',
+    title: 'Ждет проверки',
     bg: 'bg_color_waiting',
     arrow: 'arrow_waiting',
     arrow_fill: '#6b7280',

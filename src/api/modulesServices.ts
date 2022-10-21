@@ -51,6 +51,12 @@ export const modulesServices = createApi({
       }),
       // providesTags: ['lessons'],
     }),
+    fetchLessons: build.query<any, string>({
+      query: type => ({
+        url: `/${type}s/`,
+      }),
+      // providesTags: ['lessons'],
+    }),
     createLessons: build.mutation({
       query: arg => {
         return {
@@ -88,6 +94,7 @@ export const {
   useDeleteModulesMutation,
   usePatchModulesMutation,
   useFetchLessonQuery,
+  useFetchLessonsQuery,
   useCreateLessonsMutation,
   useDeleteLessonsMutation,
   usePatchLessonsMutation,

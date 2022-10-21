@@ -35,8 +35,8 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ homeworkData }) => {
     setIsOpen(!isOpen)
   }
 
-  const [hwmmddyyyy, hwhoursAndMinutes] = convertDate(new Date(homeworkData?.last_update))
-  const [tmmddyyyy, thoursAndMinutes] = convertDate(new Date(teacherHomework?.updated_at))
+  const { mmddyyyy: hwmmddyyyy, hoursAndMinutes: hwhoursAndMinutes } = convertDate(new Date(homeworkData?.last_update))
+  const { mmddyyyy: tmmddyyyy, hoursAndMinutes: thoursAndMinutes } = convertDate(new Date(teacherHomework?.updated_at))
 
   return (
     <div style={{ boxSizing: 'border-box' }} className={styles.modal_content}>

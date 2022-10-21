@@ -28,7 +28,7 @@ export const HomeworksStatsTable: FC<homeworkStatsTableT> = ({homeworks}) => {
       </thead>
       <tbody className={styles.table_body} >
         {homeworks?.results.map((homework: homeworkStatT, index: number) => (
-          <HomeworksStatsTableRow key={index /*homework.user_homework*/} homeworkData={homework} />
+          <HomeworksStatsTableRow key={index /*homework.user_homework*/} homeworkData={homework} index={index}/>
         ))}
       </tbody>
     </table>
