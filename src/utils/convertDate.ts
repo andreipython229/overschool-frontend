@@ -1,4 +1,4 @@
-export const convertDate = (date: Date) => {
+export const convertDate = (date: Date, divider = '.') => {
   const yyyy = date.getFullYear()
   const mm = date.getMonth() + 1
   const dd = date.getDate()
@@ -12,7 +12,8 @@ export const convertDate = (date: Date) => {
 
   const hoursAndMinutes = `${fullHours}:${fullMinutes}`
 
-  const mmddyyyy = `${fulldd}.${fullmm}.${yyyy}`
+  const mmddyyyy = `${fulldd}${divider}${fullmm}${divider}${yyyy}`
+  const reversedmmddyyyy = `${yyyy}${divider}${fullmm}${divider}${fulldd}`
 
-  return [mmddyyyy, hoursAndMinutes]
+  return { mmddyyyy, reversedmmddyyyy, hoursAndMinutes }
 }

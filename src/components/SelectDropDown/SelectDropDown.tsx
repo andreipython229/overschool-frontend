@@ -5,6 +5,9 @@ import { initialDropDownList } from '../../constants/dropDownList'
 import { arrIconPath, triangleDownIconPath } from './config/svgIconPath'
 import { dropDownItem, SelectDropDownT } from '../../types/componentsTypes'
 import { useBoolean } from '../../customHooks/useBoolean'
+import { useAppDispatch, useAppSelector } from 'store/hooks/index'
+import { addFilters } from 'store/redux/filters/slice'
+import { filtersSelector } from 'selectors'
 
 import styles from './select_drop_down.module.scss'
 
@@ -12,33 +15,42 @@ const selectTheJobStatus = 'ВЫБЕРИТЕ СТАТУС РАБОТЫ'
 
 export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState }) => {
   const [isOpen, { onToggle, on }] = useBoolean()
+  const dispatch = useAppDispatch()
+  const { filters: {status} } = useAppSelector(filtersSelector)
 
   const [headerDropDown, setHeaderDropDown] = useState<dropDownItem>(initialDropDownList[0])
   const [dropDownList, setDropDownList] = useState<dropDownItem[]>([])
 
-  const handleChangeStatus =
-    ({ title }: any) =>
-    () => {
-      const changeFilterStatusList = initialDropDownList.find((item: dropDownItem): boolean => item.title === title)
-      setHeaderDropDown(changeFilterStatusList || initialDropDownList[0])
-      const changeDropDownList = initialDropDownList.filter((item: dropDownItem) => item.title !== title)
-      setDropDownList(changeDropDownList)
-      if (title === 'Все статусы') {
-        setArrowUsersState([])
-      } else {
-        const newArrowUserState = [].filter(({ status }: any) => status.toLowerCase().trim() === title.toLowerCase())
-        setArrowUsersState(newArrowUserState)
-      }
+  const handleChangeStatus = (title: string) => () => {
+    const changeFilterStatusList = initialDropDownList.find(item => item.title === title)
 
-      on()
+    setHeaderDropDown(changeFilterStatusList || initialDropDownList[0])
+
+    const changeDropDownList = initialDropDownList.filter(item => item.title !== title)
+
+    setDropDownList(changeDropDownList)
+
+    if (title === 'Все статусы') {
+      setArrowUsersState([])
+    } else {
+      const newArrowUserState = [].filter(({ status }: any) => status.toLowerCase().trim() === title.toLowerCase())
+      setArrowUsersState(newArrowUserState)
     }
 
+    dispatch(addFilters({ status: title }))
+
+    on()
+  }
+
   useEffect(() => {
-    const defaultDropDownHeader = initialDropDownList.find((item): boolean => item.title === 'Все статусы')
+    const defaultDropDownHeader = initialDropDownList.find(item => item.title === status)
+
     setHeaderDropDown(defaultDropDownHeader || initialDropDownList[0])
-    const defaultDropDownList = initialDropDownList.filter(item => item.title !== 'Все статусы')
+
+    const defaultDropDownList = initialDropDownList.filter(item => item.title !== status)
+
     setDropDownList(defaultDropDownList)
-  }, [])
+  }, [status])
 
   return (
     <div className={styles.wrapper}>
@@ -58,7 +70,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
           </div>
           <p>{selectTheJobStatus}</p>
           {dropDownList.map(({ id, icon, title }) => (
-            <div onClick={handleChangeStatus({ title })} className={styles.drop_down_item} key={id}>
+            <div onClick={handleChangeStatus(title)} className={styles.drop_down_item} key={id}>
               {icon}
               <span>{title}</span>
             </div>

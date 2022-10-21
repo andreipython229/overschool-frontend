@@ -3,7 +3,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { FilterItem } from './FilterItem'
 import { ComponentFilter } from 'constants/filtersMaper'
-import { FiltersButtonT, ICategories } from '../../types/componentsTypes'
+import { FiltersButtonT } from '../../types/componentsTypes'
 import { useBoolean } from '../../customHooks/useBoolean'
 import { filterIconPath } from './config/svgIconsPath'
 
@@ -61,7 +61,7 @@ export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) =
             {!selectedFilter ? (
               <>
                 <p className={styles.header_dropdown_menu}>ВЫБЕРИТЕ КРИТЕРИЙ ФИЛЬТРАЦИИ</p>
-                {filteringCategoriesList.map(({ id, title }: ICategories) => (
+                {filteringCategoriesList.map(({ id, title }) => (
                   <FilterItem id={id} key={id} title={title} setSelectedFilter={setSelectedFilter} />
                 ))}
               </>
