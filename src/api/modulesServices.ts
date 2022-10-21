@@ -6,7 +6,7 @@ import { baseQueryWithReauth } from './baseApi'
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['modules', 'lessons'],
+  tagTypes: ['modules', 'lessons', 'patchLessons'],
   endpoints: build => ({
     fetchModules: build.query<sectionsT, string>({
       query: id => ({
@@ -49,7 +49,7 @@ export const modulesServices = createApi({
       query: ({ id, type }) => ({
         url: `/${type}s/${id}/`,
       }),
-      // providesTags: ['lessons'],
+      providesTags: ['patchLessons'],
     }),
     createLessons: build.mutation({
       query: arg => {
@@ -76,7 +76,7 @@ export const modulesServices = createApi({
           body: arg.formdata,
         }
       },
-      invalidatesTags: ['modules', 'lessons'],
+      invalidatesTags: ['modules', 'patchLessons'],
     }),
   }),
 })
