@@ -4,17 +4,19 @@ import { Input } from '../../common/Input/Input/Input'
 import { Button } from '../../common/Button/Button'
 import { ScoresFilterT } from '../../../types/componentsTypes'
 import { useBoolean } from 'customHooks/index'
-import { useAppDispatch } from 'store/hooks'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { filtersSelector } from 'selectors/index'
 import { addFilters } from 'store/redux/filters/slice'
 
 import styles from './scores_filter.module.scss'
 
 export const ScoresFilter: FC<ScoresFilterT> = memo(({ title }) => {
   const dispatch = useAppDispatch()
+  const { filters } = useAppSelector(filtersSelector)
   const [isFilterClosed, { off }] = useBoolean()
 
-  const [scoresStart, setScoresStart] = useState<string>('')
-  const [scoresEnd, setScoresEnd] = useState<string>('')
+  const [scoresStart, setScoresStart] = useState<string>(`${filters.start_mark}`)
+  const [scoresEnd, setScoresEnd] = useState<string>(`${filters.end_mark}`)
 
   const handleInputScores = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'start') {
