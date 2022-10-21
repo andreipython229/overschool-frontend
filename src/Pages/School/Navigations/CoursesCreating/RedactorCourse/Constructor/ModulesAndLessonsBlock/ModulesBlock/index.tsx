@@ -75,7 +75,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
         <button className={styles.btn} onClick={handleOpenModalLesson}>
           + Занятие
         </button>
-      </ul>А
+      </ul>
     </>
   )
 })

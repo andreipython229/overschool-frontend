@@ -24,14 +24,7 @@ export const SimpleLoader: FC<simpleLoaderT> = ({ style, loaderColor }) => {
         r="40"
         strokeDasharray="141.37166941154067 49.12388980384689"
       >
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          repeatCount="indefinite"
-          dur="1.25s"
-          values="0 50 50;360 50 50"
-          keyTimes="0;1"
-        ></animateTransform>
+        <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1.25s" values="0 50 50;360 50 50" keyTimes="0;1" />
       </circle>
     </svg>
   )
