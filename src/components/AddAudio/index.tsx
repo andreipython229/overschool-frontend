@@ -6,6 +6,7 @@ import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/
 import { AddPostT, setShowType } from '../../types/componentsTypes'
 import { usePatchLessonsMutation } from 'api/modulesServices'
 import { AudioPlayer } from '../common/AudioPlayer'
+import { SimpleLoader } from '../Loaders/SimpleLoader'
 
 import styles from './addaudio.module.scss'
 
@@ -30,17 +31,19 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
   const onDropAudioHandler = async (e: DragEvent<HTMLDivElement>): Promise<void> => {
     e.preventDefault()
     const audioFiles = [...e.dataTransfer.files]
-    const id = lesson?.lesson_id
-    const formdata = new FormData()
-    formdata.append('audio', audioFiles[0])
-    await addAudioFile({ formdata, id, type: lessonIdAndType?.type as string })
-    setDragAudio(false)
+    if (lessonIdAndType?.id) {
+      const id = +lessonIdAndType?.id
+      const formdata = new FormData()
+      formdata.append('audio', audioFiles[0])
+      await addAudioFile({ formdata, id, type: lessonIdAndType?.type as string })
+      setDragAudio(false)
+    }
   }
 
   const onAddAudioFile = (e: ChangeEvent<HTMLInputElement>): void => {
-    if (e.target.files) {
+    if (e.target.files && lessonIdAndType?.id) {
       const files = e.target.files[0]
-      const id = lesson?.lesson_id
+      const id = +lessonIdAndType?.id
       const formdata = new FormData()
       formdata.append('audio', files)
       addAudioFile({ formdata, id, type: lessonIdAndType?.type as string })
@@ -71,7 +74,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
               <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
             </div>
           </div>
-          <input className={styles.redactorCourse_rightSide_functional_addContent_input} onChange={onAddAudioFile} type="file" />
+          <input disabled={isLoading} className={styles.redactorCourse_rightSide_functional_addContent_input} onChange={onAddAudioFile} type="file" />
 
           <IconSvg styles={{ marginBottom: '38px' }} width={64} height={55} viewBoxSize="0 0 64 55">
             <rect x="19.7998" width="4.4" height="55" rx="1" fill="#BA75FF" />
@@ -84,7 +87,12 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
           </IconSvg>
 
           <span>Перетащите .mp3 аудиофайл или нажмите для загрузки</span>
-          <Button variant={'primary'} text={isLoading ? 'Идёт загрузка' : 'Выбрать файл'} />
+          <Button
+            type={'button'}
+            disabled={isLoading}
+            variant={isLoading ? 'disabled' : 'primary'}
+            text={isLoading ? <SimpleLoader style={{ width: '125px', height: '25px' }} loaderColor="#ffff" /> : 'Выбрать файл'}
+          />
         </div>
       ) : (
         <AudioPlayer audioUrl={lesson?.audio_url} />

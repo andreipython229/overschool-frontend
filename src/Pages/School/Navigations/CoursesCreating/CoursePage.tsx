@@ -110,11 +110,11 @@ export const CoursePage: FC = memo(() => {
             />
           ))}
         {role !== RoleE.Student && (
-          <div onClick={dispatchHandlerModal} className={styles.course_card}>
-            <div className={styles.course_addCourse}>
+          <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
+            <span className={styles.course_addCourse}>
               <span>Создать курс</span>
-            </div>
-          </div>
+            </span>
+          </button>
         )}
       </div>
       {isOpenAddCourse ? (
