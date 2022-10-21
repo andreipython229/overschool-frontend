@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import * as services from '../../api/index'
-import { authReduce, sectionsReduce } from './index'
+import { authReduce, sectionsReduce, filtersReducer } from './index'
 
 const rootReducer = combineReducers({
   [services.userLoginService.reducerPath]: services.userLoginService.reducer,
@@ -19,12 +19,13 @@ const rootReducer = combineReducers({
   [services.userRegisterService.reducerPath]: services.userRegisterService.reducer,
   user: authReduce,
   sections: sectionsReduce,
+  filters: filtersReducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'sections'],
+  whitelist: ['user', 'sections', 'filters'],
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

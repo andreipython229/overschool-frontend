@@ -50,10 +50,11 @@ export type FilterItemT = {
   setSelectedFilter: (args: keyof object) => void
 }
 
-export type SearchFilterT = {
+export type SearchFilterT<T> = {
   name: string
   header: string
-  data: Array<object>
+  filterTerm: string
+  data: T[]
 }
 
 export type ScoresFilterT = {

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 import { Initial } from 'Pages/Initial/Initial'
-import { TariffPlans} from './incomprehensiblePages/TariffPlans/TariffPlans'
+import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
 import { MainLayOut } from 'components/MainLayout/MainLayOut'
 import { Path, FooterPath } from 'enum/pathE'
 import { useAppSelector } from 'store/hooks'
@@ -32,7 +32,7 @@ export const App = () => {
     <div className={styles.container}>
       <Routes>
         <Route path={Path.InitialPage} element={<Initial />} />
-        <Route path={FooterPath.TariffPlans} element = { <TariffPlans />} />
+        <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.InitialPage} element={<MainLayOut />}>
           {navByRolesConfig[role]}
         </Route>
