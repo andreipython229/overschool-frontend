@@ -6,9 +6,13 @@
   // -moz-transform: translateX(-50%);
   // -ms-transform: translateX(-50%);
   // -o-transform: translateX(-50%);
-  @media only screen and (min-width: 320px) and (max-width: 376px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     @include display(flex, column, flex-start, center);
     width: 280px;
+    margin-top: 20px;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @include display(flex, column, flex-start, center);
     margin-top: 20px;
   }
   &__codeWraper {
@@ -16,8 +20,10 @@
     background: #f3f4f6;
     padding: 15px;
     border-radius: 7px;
-    @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
       padding: 10px;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
     }
   }
 
@@ -29,25 +35,34 @@
   }
   &__code_text {
     font-weight: 600;
-    @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
       font-size: 8px;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
     }
   }
   &__navBack {
     display: flex;
     align-items: center;
     cursor: pointer;
-    @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      align-self: flex-start;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
       align-self: flex-start;
     }
   }
   &__navBack_text {
     margin-left: 5px;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 15px;
+    @include font (400, 12px, 15px);
     letter-spacing: -0.03em;
     color: #4d5766;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font (500, 15px, 15px);
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @include font (500, 14px, 15px);
+    }
   }
 
   &__name {
@@ -61,7 +76,13 @@
 
   &__content {
     padding: 0 32px;
-    @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      padding: 0 10px;
+      figure {
+        width: 100%;
+      }
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
       padding: 0 10px;
       figure {
         width: 100%;
@@ -80,7 +101,10 @@
 
   &__blocks {
     display: flex;
-    @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include display(flex, column, flex-start, center);
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
       @include display(flex, column, flex-start, center);
     }
   }
@@ -89,7 +113,10 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include display(flex, column, flex-start, center);
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
       @include display(flex, column, flex-start, center);
     }
   }
@@ -101,35 +128,41 @@
     width: 100%;
     background: #ffff;
     box-shadow: 0 0 8px #d9d9d9;
-    @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
       min-width: 280px;
       width: 300px;
       iframe {
         height: 160px;
       }
     }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      min-width: 350px;
+      width: 355px;
+      iframe {
+        height: 180px;
+      }
+    }
   }
 
   &__btns {
-    display: flex;
-    align-items: center;
+    @include display (flex, row, flex-start, center);
     margin-top: 32px;
     margin-right: 5px;
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @include display (flex, row, flex-start, center);
+    }
   }
 
   &__btnNext,
   &__btnPrev {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include display (flex, row, center, center);
+    width: 50%;
     border: none;
     outline: none;
     background: #e1e1e1;
     border-radius: 7px;
     padding: 8px 16px;
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 150%;
+    @include font (500, 11px, 150%);
     text-align: center;
     color: #6b7280;
   }
@@ -216,6 +249,9 @@
     margin-left: 25px;
     max-height: 505px;
     overflow-y: auto;
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      max-width: 100%;
+    }
 
     &::-webkit-scrollbar {
       width: 9px;
@@ -233,7 +269,10 @@
       -o-border-radius: 5px;
       border-radius: 5px;
     }
-    @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin: 32px 0 0 0;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
       margin: 32px 0 0 0;
     }
   }

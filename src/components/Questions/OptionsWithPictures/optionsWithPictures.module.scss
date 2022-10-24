@@ -31,6 +31,7 @@
         }
     }
     &_addPicturesBlock {
+        position: relative;
         width: fit-content;
         margin: 0 5px 0 0;
         padding: 5px 16px;
@@ -39,6 +40,18 @@
         cursor: pointer;
         &:hover {
             background-color: rgba(186, 117, 255, 0.61);
+        }
+        label {
+            @include position_t_l (absolute, 0, 0, 5);
+            display: block;
+            width: 100%;
+            height: 100%;
+            input {
+                display: none;
+                width: 100%;
+                height: 100%;
+                background: transparent;
+            }
         }
     }
 }
