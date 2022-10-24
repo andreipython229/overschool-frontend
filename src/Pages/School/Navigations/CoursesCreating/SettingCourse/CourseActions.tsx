@@ -32,7 +32,7 @@ export const CourseActions: FC<CourseActionsT> = ({ courseFind }) => {
   return (
     <div>
       <h4>Действия с курсом</h4>
-      <Button onClick={handleCloneCourse} text={'Копировать'} variant={'secondary'} />
+      <Button onClick={handleCloneCourse} text={'Копировать'} variant={'secondary'} style={{marginRight: '16px'}}/>
       <Button onClick={handleDeleteCourse} text={'Удалить'} variant={'delete'} />
     </div>
   )

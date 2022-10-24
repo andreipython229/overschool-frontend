@@ -15,11 +15,11 @@ import { TextOptions } from 'components/Questions/TextOptions'
 export const AddQuestion = memo(() => {
   return (
     <div className={styles.wrapper}>
-      {/* <TextOptions />
+      <TextOptions />
       <OptionsWithPictures />
       <PicturesAndOptions />
       <FreeForm />
-      <NumericalTask /> */}
+      <NumericalTask />
       <div className={styles.wrapper_addQuestionsWrapper}>
           <h2 className={styles.wrapper_addQuestionsWrapper_title}>Добавьте вопрос</h2>
           <div className={styles.wrapper_addQuestionsWrapper_btnWrapper}>

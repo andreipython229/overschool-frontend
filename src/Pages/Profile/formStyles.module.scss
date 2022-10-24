@@ -6,7 +6,16 @@
   width: 100%;
   margin: 0 26px 108px 0;
 
-  @media only screen and (min-width: 320px) and (max-width: 376px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    max-width: 100%;
+    width: 100%;
+    margin: 73px 0 20px 0;
+    h3 {
+      @include font(600, 12px, 14px);
+    }
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    max-width: 100%;
     width: 100%;
     margin: 73px 0 20px 0;
     h3 {
@@ -16,22 +25,37 @@
 
   &_avatarWrapper {
     margin-bottom: 15px;
-    @media only screen and (min-width: 320px) and (max-width: 376px) {
-      @include position_t_l(absolute, 15px, 120px, 0);
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include position_t_l(absolute, -24px, calc(50% - 25px), 0);
+      width: 49px;
+      height: 49px;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @include position_t_l(absolute, -33px, calc(50% - 33px), 0);
+      width: 65px;
+      height: 65px;
     }
 
     &_avatarBlock {
       position: relative;
       height: 110px;
-      @media only screen and (min-width: 320px) and (max-width: 376px) {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        width: 49px;
         height: 49px;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        width: 65px;
+        height: 65px;
       }
 
       &_title {
         font-size: 14px;
         font-weight: 400;
         color: $font-color;
-        @media only screen and (min-width: 320px) and (max-width: 376px) {
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          display: none;
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
           display: none;
         }
       }
@@ -41,9 +65,16 @@
         height: 84px;
         border-radius: 7px;
         background: #f7f5f7 url('../../assets/img/common/noAvatar.svg') no-repeat center center;
-        @media only screen and (min-width: 320px) and (max-width: 376px) {
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          @include position_t_l (absolute, 0, 0, 1);
           width: 49px;
           height: 49px;
+          border-radius: 50%;
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
+          @include position_t_l(absolute, 0, 0, 1);
+          width: 65px;
+          height: 65px;
           border-radius: 50%;
         }
       }
@@ -51,7 +82,15 @@
   }
   &_btnSave {
     margin-top: 10px;
-    @media only screen and (min-width: 320px) and (max-width: 376px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      button {
+        width: 105px;
+        height: 27px;
+        border-radius: 5px;
+        @include font(600, 10px, 0);
+      }
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
       button {
         width: 105px;
         height: 27px;
