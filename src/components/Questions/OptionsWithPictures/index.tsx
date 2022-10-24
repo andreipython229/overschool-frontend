@@ -4,6 +4,7 @@ import { AnswerOption } from '../AnswerOption';
 import { QuestionHeader } from '../QuestionHeader';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { addPictureIconPath} from '../config/svgIconPath';
+import { InputBlock } from 'components/common/Input/InputBlock';
 
 export const OptionsWithPictures = () => {
 
@@ -23,6 +24,7 @@ export const OptionsWithPictures = () => {
             <Question />
             <AnswerOption>
               <div className={styles.wrapper_addPicturesBlock}>
+                <InputBlock name={''} type={'file'} value={''}/>
                 <IconSvg width={25} height={22} viewBoxSize="0 0 25 22" path={addPictureIconPath}/>
               </div>
             </AnswerOption>

@@ -15,7 +15,10 @@
       @include display(flex, row, space-between, center);
       width: 100%;
       padding: 27px 40px;
-      @media only screen and (min-width: 320px) and (max-width: 376px) {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        padding: 21px 11px;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
         padding: 21px 11px;
       }
 
@@ -37,7 +40,12 @@
         -o-transform: rotate(0);
       }
       svg {
-        @media only screen and (min-width: 320px) and (max-width: 376px) {
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          width: 15px;
+          height: 15px;
+          margin-left: 10px;
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
           width: 15px;
           height: 15px;
           margin-left: 10px;
@@ -58,7 +66,12 @@
         color: #ba75ff;
         //background-color: #ba75ff;
         border-radius: 50%;
-        @media only screen and (min-width: 320px) and (max-width: 376px) {
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          width: 30px;
+          height: 25px;
+          font-size: 10px;
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
           width: 30px;
           height: 25px;
           font-size: 10px;
@@ -72,7 +85,10 @@
         @include display(flex, row, flex-start, center);
         width: 100%;
         margin-left: 32px;
-        @media only screen and (min-width: 320px) and (max-width: 376px) {
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          margin-left: 9px;
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
           margin-left: 9px;
         }
 
@@ -80,7 +96,10 @@
           @include display(flex, row, flex-start, center);
           @include font(500, 14px, 16px);
           color: #4d5766;
-          @media only screen and (min-width: 320px) and (max-width: 376px) {
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            font-size: 10px;
+          }
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
             font-size: 10px;
           }
 
@@ -95,7 +114,10 @@
         &_exerciseSum {
           @include font(500, 14px, 16px);
           color: #9ca3af;
-          @media only screen and (min-width: 320px) and (max-width: 376px) {
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            font-size: 10px;
+          }
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
             font-size: 10px;
           }
           span {
@@ -108,7 +130,10 @@
     &_exerciseWrapper {
       @include display(flex, column, center, center);
       padding: 0 89px 0 94px;
-      @media only screen and (min-width: 320px) and (max-width: 376px) {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        padding: 10px 10px;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
         padding: 10px 10px;
       }
 

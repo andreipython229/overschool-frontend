@@ -8,6 +8,12 @@ html, body {
 .container {
   // margin: 50px 20px 0 20px;
   width: 100%;
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    margin-top: 25px;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    margin-top: 25px;
+  }
 
   &_search {
     width: 280px;
@@ -15,8 +21,13 @@ html, body {
     background-color: #eeecf5;
     border-radius: 7px;
     margin-bottom: 28px;
-    @media (min-width: 481px) and (max-width: 1024px) {
-      width: 480px;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      width: 100%;
+    }
+    @media (min-width: 480px) and (max-width: 1024px) {
+      width: 100%;
     }
     & input {
       width: 100%;
@@ -112,8 +123,12 @@ html, body {
   margin: 16px 0;
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    width: 100%;
+    margin: 25px 0;
+  }
   @media (min-width: 481px) and (max-width: 1024px) {
-    width: 480px;
+    width: 100%;
   }
 
   &_image {
@@ -128,12 +143,18 @@ html, body {
   &_desc {
     @include display (flex, column);
     margin: 0 16px;
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      margin: 10px 16px;
+    }
 
     & :nth-child(1) {
       @include display (flex, row, flex-start, center);
       font-size: 11px;
       color: $font-color-rose;
       margin: 8px 0 11px 0;
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        font-size: 13px;
+      }
 
       & svg {
         margin-right: 8px;
@@ -144,6 +165,9 @@ html, body {
       font-size: 12px;
       color: $font-title;
       margin-bottom: 14px;
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        font-size: 15px;
+      }
     }
 
     & :nth-child(3) {
@@ -152,16 +176,22 @@ html, body {
       letter-spacing: 0.01em;
       line-height: 160%;
       margin-bottom: 18px;
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        font-size: 12px;
+      }
     }
 
     &_btn {
       margin: 0 auto 22px auto;
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        margin: 40px auto;
+      }
     }
   }
 }
 .course {
   margin-bottom: 100px;  
-  @media only screen and (min-width : 320px) and (max-width : 376px) {
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
     margin: 0;
   }
 }

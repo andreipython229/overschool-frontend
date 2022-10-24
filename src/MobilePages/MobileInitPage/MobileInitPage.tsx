@@ -26,7 +26,7 @@ export const MobileInitPage = () => {
             </p>
           </div>
 
-          <Button onClick={showLoginModal} style={{ width: '272px' }} variant={'primary'} text={'Вперед'} />
+          <Button onClick={showLoginModal} variant={'primary'} text={'Вперед'} />
         </div>
       </div>
     </div>
