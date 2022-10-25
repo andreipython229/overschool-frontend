@@ -1,4 +1,4 @@
-import { FC, memo, useState, useCallback } from 'react'
+import { FC, useState, useCallback } from 'react'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -12,7 +12,7 @@ import { addFilters } from 'store/redux/filters/slice'
 
 import style from './search_filter.module.scss'
 
-export const SearchFilter: FC<SearchFilterT<any>> = memo(({ name, header, data, filterTerm }) => {
+export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filterTerm }) => {
   const dispatch = useAppDispatch()
   const { filters } = useAppSelector(filtersSelector)
   const [isFilterClosed, { off }] = useBoolean()
@@ -49,4 +49,4 @@ export const SearchFilter: FC<SearchFilterT<any>> = memo(({ name, header, data, 
       <Button text={'Применить'} variant={'primary'} onClick={handleAddFilter} />
     </div>
   )
-})
+}

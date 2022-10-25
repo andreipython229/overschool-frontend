@@ -14,7 +14,7 @@ import { AddCourseModal } from 'components/Modal'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { useBoolean } from 'customHooks/useBoolean'
 import { Portal } from 'components/Modal/Portal'
-import { useDebouncedFilter } from '../../../../customHooks/useDebouncedFilter'
+import { useDebouncedFilter } from '../../../../customHooks'
 
 import Public from 'assets/img/createCourse/public.svg'
 import notPublic from 'assets/img/createCourse/notPublic.svg'
@@ -87,20 +87,20 @@ export const CoursePage: FC = memo(() => {
                         <div className={styles.course_card_progressBar_line}> </div>
                       </div>
                       <div className={styles.course_card_about}>
-                        <div className={styles.course_card_about_progressWrapper}>
-                          <img src={pie} alt="pie" />
-                          <span className={styles.course_card_about_progressWrapper_title}>13% пройдено</span>
-                        </div>
-                        <span className={styles.course_card_status_show}> </span>
-                        <h5>{course.name}</h5>
-                        <span className={styles.course_card_about_desc}>{course?.description}</span>
-
                         <Link
                           to={generatePath(Student.Course, {
                             course_id: `${course?.course_id}`,
                           })}
                         >
-                          <Button style={{ background: '#F4E9FF', borderRadius: '5px' }} className={styles.btn} text={'Продолжить обучение'} />
+                          <div className={styles.course_card_about_progressWrapper}>
+                            <img src={pie} alt="pie" />
+                            <span className={styles.course_card_about_progressWrapper_title}>13% пройдено</span>
+                          </div>
+                          <span className={styles.course_card_status_show}> </span>
+                          <h5>{course.name}</h5>
+                          <span className={styles.course_card_about_desc}>{course?.description}</span>
+
+                          <Button className={styles.btn} text={'Продолжить обучение'} />
                         </Link>
                       </div>
                     </>

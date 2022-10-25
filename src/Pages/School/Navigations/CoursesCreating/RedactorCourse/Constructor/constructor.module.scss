@@ -220,12 +220,12 @@
           background-color: transparent;
 
           &_title {
-            @include font (500, 14px);
-            color: #4D5766;
+            @include font(500, 14px);
+            color: #4d5766;
           }
 
           &_addFiles {
-            @include display (flex, row, flex-start, center);
+            @include display(flex, row, flex-start, center);
             width: 180px;
             height: 36px;
             border: none;
@@ -238,14 +238,13 @@
             margin: 16px 0 8px 0;
 
             svg {
-              margin-right: 10px
+              margin-right: 10px;
             }
 
             input {
-              @include position_t_l (absolute, 0, 0, -10);
+              @include position_t_l(absolute, 0, 0, -10);
             }
           }
-
         }
       }
 
@@ -272,7 +271,21 @@
   border: none;
   border-radius: 7px;
   color: $font-color-rose;
+  &:hover {
+    background: $font-color-rose;
+    color: #e0dced;
+  }
 }
+
+.btnModule {
+  background: #e0dced;
+  color: $font-color-rose;
+  &:hover {
+    background: $font-color-rose;
+    color: #e0dced;
+  }
+}
+
 hr {
   margin-bottom: 18px;
 }

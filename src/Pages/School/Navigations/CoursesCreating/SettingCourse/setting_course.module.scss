@@ -1,10 +1,10 @@
 @import '../../../../../scss/mixin.scss';
 
 .container {
-  @include display (flex, row, space-between);
+  @include display(flex, row, space-between);
 }
 .container_right {
-  @include display (flex, column);
+  @include display(flex, column);
 
   .availability_course_wrapper {
     padding: 45px 45px 30px;
@@ -15,17 +15,17 @@
 
     form {
       h4 {
-        @include font (500, 16px, 19px);
+        @include font(500, 16px, 19px);
         color: #4d5766;
       }
       legend {
         margin-top: 21px;
-        @include font (400, 12px, 15px);
+        @include font(400, 12px, 15px);
         color: #6c7889;
       }
       div {
         margin-top: 15px;
-        @include font (400, 12px, 15px);
+        @include font(400, 12px, 15px);
         letter-spacing: 0.03em;
         color: #6c7889;
 
@@ -46,7 +46,7 @@
 
     div {
       h4 {
-        @include font (500, 16px, 19px);
+        @include font(500, 16px, 19px);
         color: #4d5766;
       }
       button {
@@ -77,15 +77,19 @@
   display: block;
   width: 100%;
   height: 162px;
-  border-radius: 7px 7px 0 0;
   background-color: #d9d9d9;
+  border-radius: 7px 7px 0 0;
   img {
+    border-radius: 7px 7px 0 0;
     width: 100%;
     height: 100%;
     display: inline-block;
   }
 
   &:hover {
+    img {
+      opacity: 0.1;
+    }
     background-image: url('../../../../../assets/img/createCourse/download_img_bg.png');
     background-position: top;
     background-size: cover;
@@ -93,10 +97,10 @@
 }
 .text_block {
   margin: 20px 0 0 30px;
-  @include display (flex, row, flex-start, center);
+  @include display(flex, row, flex-start, center);
   color: #e0dced;
   font-style: normal;
-  @include font (500, 11px, 13px);
+  @include font(500, 11px, 13px);
   svg {
     margin-right: 10px;
   }
@@ -106,7 +110,7 @@
   color: #4d5766;
   text-transform: capitalize;
   font-style: normal;
-  @include font (500, 14px);
+  @include font(500, 14px);
 }
 .basic_settings {
   background-color: #ffffff;
@@ -115,14 +119,14 @@
   padding: 45px 45px 32px;
 
   .publish_switch {
-    @include display (flex, column);
+    @include display(flex, column);
     margin-top: 20px;
-    @include font (400, 12px, 15px);
+    @include font(400, 12px, 15px);
     letter-spacing: -0.01em;
     color: #6c7889;
 
     &_title {
-      @include font (400, 12px, 15px);
+      @include font(400, 12px, 15px);
       letter-spacing: -0.01em;
       color: #6c7889;
     }
@@ -130,7 +134,7 @@
       margin-top: 13px;
 
       span {
-        @include font (400, 12px, 15px);
+        @include font(400, 12px, 15px);
         letter-spacing: -0.01em;
         color: #6c7889;
 
@@ -148,7 +152,7 @@
     margin-top: 16px;
 
     .course_name_title {
-      @include font (500, 12px, 15px);
+      @include font(500, 12px, 15px);
       color: #6c7889;
     }
     div {
@@ -159,7 +163,7 @@
     margin-top: 16px;
 
     .short_discription_title {
-      @include font (500, 12px, 15px);
+      @include font(500, 12px, 15px);
       color: #6c7889;
     }
     div {
@@ -170,7 +174,7 @@
     margin-top: 16px;
 
     .course_link_title {
-      @include font (500, 12px, 15px);
+      @include font(500, 12px, 15px);
       color: #6c7889;
     }
     div {
@@ -178,20 +182,20 @@
     }
   }
   .link_switch_wrapper {
-    @include display (flex, column);
+    @include display(flex, column);
     .link_switch_label {
-      @include display (flex, row, flex-start, center);
+      @include display(flex, row, flex-start, center);
       margin-top: 16px;
 
       &_title {
-        @include font (500, 12px, 15px);
+        @include font(500, 12px, 15px);
         letter-spacing: 0.03em;
         color: #6c7889;
       }
 
       &_help {
         margin: 6px 0 0 26px;
-        @include font (500, 12px, 15px);
+        @include font(500, 12px, 15px);
         color: #b9bac4;
       }
     }
@@ -199,7 +203,7 @@
   .course_category_wrapper {
     margin-top: 18px;
     .course_category_title {
-      @include font (500, 12px, 15px);
+      @include font(500, 12px, 15px);
       color: #6c7889;
     }
     .selectInput_container {
@@ -208,17 +212,17 @@
   }
 }
 .header_basic_settings {
-  @include display (flex, row, space-between);
+  @include display(flex, row, space-between);
   width: 100%;
 
   & p:first-of-type {
-    @include font (500, 16px, 19px);
+    @include font(500, 16px, 19px);
     color: #4d5766;
   }
 
   .right_content_header {
-    @include display (flex, row, flex-start, center);
-    @include font (500, 11px, 13px);
+    @include display(flex, row, flex-start, center);
+    @include font(500, 11px, 13px);
     letter-spacing: 0.02em;
     color: #6c7889;
 

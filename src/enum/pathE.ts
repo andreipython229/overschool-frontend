@@ -25,17 +25,10 @@ export enum CreateCoursePath {
   Settings = 'settings',
 }
 
-export enum StudentLogs {
-  GroupSettings = 'group-settings',
-}
-
 export enum Student {
   Courses = 'student-courses/',
   Course = 'student-course/:course_id/',
   Lesson = 'module/:section_id/:lesson_type/:lesson_id/',
-  // Course = 'course/:course_id',
-  Chats = 'chats/*',
-  Class = 'class',
 }
 
 export enum FooterPath {

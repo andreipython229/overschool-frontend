@@ -25,10 +25,10 @@ export const validateRegistration = (values: RegistrParamsT): RegistrParamsT => 
   } else if (!values.password) {
     errors.password = 'Пароль обязателен'
   }
-  if (values.oferta !== true) {
+  if (!values.oferta) {
     errors.oferta = false
   }
-  if (values.politics !== true) {
+  if (!values.politics) {
     errors.politics = false
   }
   return errors
