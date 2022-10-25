@@ -1,4 +1,4 @@
-import { FC, memo, useState, ChangeEvent } from 'react'
+import { FC, useState, ChangeEvent } from 'react'
 
 import { Input } from '../../common/Input/Input/Input'
 import { Button } from '../../common/Button/Button'
@@ -10,7 +10,7 @@ import { addFilters } from 'store/redux/filters/slice'
 
 import styles from './scores_filter.module.scss'
 
-export const ScoresFilter: FC<ScoresFilterT> = memo(({ title }) => {
+export const ScoresFilter: FC<ScoresFilterT> = ({ title }) => {
   const dispatch = useAppDispatch()
   const { filters } = useAppSelector(filtersSelector)
   const [isFilterClosed, { off }] = useBoolean()
@@ -47,4 +47,4 @@ export const ScoresFilter: FC<ScoresFilterT> = memo(({ title }) => {
       <Button className={styles.scores_btn} variant={isBtnDisabled ? 'disabled' : 'primary'} text="Применить" onClick={handleAddFilters} />
     </div>
   )
-})
+}

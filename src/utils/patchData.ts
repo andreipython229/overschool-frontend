@@ -1,12 +1,6 @@
 import { CoursesT } from '../types/CoursesT'
 import { ILesson } from '../types/sectionT'
 
-export interface IFuncUpdate {
-  formdata: FormData
-  id: number
-  type?: string
-}
-
 type objectDataT = CoursesT | ILesson | any
 
 export const patchData = (

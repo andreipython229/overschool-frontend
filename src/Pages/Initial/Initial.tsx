@@ -4,7 +4,7 @@ import { InitPageHeader } from './InitPageHeader'
 import { CourseImg } from './CourseImg'
 import { RegistrationModal, LoginModal } from 'components/Modal'
 import { coursesImgsData } from './config/coursesImgsData'
-import { useBoolean } from '../../customHooks/useBoolean'
+import { useBoolean } from '../../customHooks'
 
 import styles from './initial.module.scss'
 
@@ -34,15 +34,7 @@ export const Initial = () => {
           </div>
         </section>
         {coursesImgsData.map(({ id, title, style }) => (
-          <CourseImg
-            key={id}
-            currentCourse={currentCourse}
-            changeCurrentCourse={changeCurrentCourse}
-            id={id}
-            // alt={'Python course'}
-            title={title}
-            style={style}
-          />
+          <CourseImg key={id} currentCourse={currentCourse} changeCurrentCourse={changeCurrentCourse} id={id} title={title} style={style} />
         ))}
       </div>
     </div>

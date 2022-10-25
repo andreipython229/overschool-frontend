@@ -1,53 +1,23 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useState } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { FilterItem } from './FilterItem'
 import { ComponentFilter } from 'constants/filtersMaper'
 import { FiltersButtonT } from '../../types/componentsTypes'
-import { useBoolean } from '../../customHooks/useBoolean'
 import { filterIconPath } from './config/svgIconsPath'
+import { useMissClickMenu } from '../../customHooks/useMissClickMenu'
 
 import styles from '../FiltersButton/filters_btn.module.scss'
 
 export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) => {
-  const [isOpen, { onToggle, on }] = useBoolean()
-
   const [selectedFilter, setSelectedFilter] = useState<keyof object | null>()
+
+  const { menuRef, isOpen, onToggle } = useMissClickMenu()
 
   const handleToggleDropDawnBlock = () => {
     onToggle()
     setSelectedFilter(null)
   }
-  const menuRef = useRef<HTMLDivElement>(null)
-
-  const handleClick = (event: MouseEvent) => {
-    const target = event?.target as HTMLHeadingElement
-
-    if (target?.tagName === 'svg' || target?.tagName === 'path') {
-      on()
-      return
-    }
-
-    if (!menuRef.current?.contains(target) && !target?.className?.includes('filter')) {
-      on()
-    }
-  }
-
-  const keydownHandler = ({ key }: KeyboardEvent) => {
-    if (key === 'Escape') {
-      on()
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener('click', handleClick)
-    document.addEventListener('keydown', keydownHandler)
-
-    return () => {
-      document.removeEventListener('click', handleClick)
-      document.removeEventListener('keydown', keydownHandler)
-    }
-  }, [])
 
   return (
     <div className={styles.wrapper} ref={menuRef}>

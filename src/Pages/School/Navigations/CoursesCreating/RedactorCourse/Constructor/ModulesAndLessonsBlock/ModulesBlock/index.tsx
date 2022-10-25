@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
+import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
 import { useDeleteModulesMutation, usePatchModulesMutation } from 'api/modulesServices'
@@ -72,9 +73,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
           lessonsList.map(({ name, id, type }: lessonT) => (
             <LessonsBlock type={type} setLessonIdAndType={setLessonIdAndType} key={id + type} id={id} lessonsName={name} />
           ))}
-        <button className={styles.btn} onClick={handleOpenModalLesson}>
-          + Занятие
-        </button>
+        <Button className={styles.btn} text="+ Занятие" variant="secondary" onClick={handleOpenModalLesson} />
       </ul>
     </>
   )

@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import ru from 'date-fns/locale/ru'
 
@@ -15,12 +15,12 @@ import './calendar.css'
 
 registerLocale('ru', ru)
 
-export const CalendarFilter = memo(() => {
+export const CalendarFilter = () => {
   const dispatch = useAppDispatch()
   const { filters } = useAppSelector(filtersSelector)
   const [isFilterClosed, { off }] = useBoolean()
 
-  const [startDate, setStartDate] = useState<Date>( filters.start_date ? new Date(`${filters.start_date}`) : new Date())
+  const [startDate, setStartDate] = useState<Date>(filters.start_date ? new Date(`${filters.start_date}`) : new Date())
   const [endDate, setEndDate] = useState<Date>(filters.start_date ? new Date(`${filters.end_date}`) : new Date())
 
   const onChange = (dates: IWithRange extends false | undefined ? Date : [Date, Date]): void => {
@@ -47,4 +47,4 @@ export const CalendarFilter = memo(() => {
       </DatePicker>
     </div>
   )
-})
+}

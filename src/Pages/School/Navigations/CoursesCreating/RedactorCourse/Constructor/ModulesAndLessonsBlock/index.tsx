@@ -26,7 +26,7 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(({ setType,
             />
           ))}
         <hr />
-        <Button onClick={handleOpenModalModule} style={{ width: '236px' }} text={'+ Модуль'} variant={'primary'} />
+        <Button onClick={handleOpenModalModule} className={styles.btnModule} text={'+ Модуль'} variant={'primary'} />
       </div>
     </div>
   )
