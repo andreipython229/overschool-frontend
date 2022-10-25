@@ -16,12 +16,22 @@
   border-radius: 10px;
   outline: none;
   cursor: pointer;
+  transition: 0.3s ease-in;
+  &:hover:not(:disabled) {
+    color: #ffff;
+    background: #ba75ff;
+  }
 }
 .primary {
   color: #ffff;
   background: #ba75ff;
   @include font(600, 18px);
   font-family: 'Manrope', sans-serif;
+  transition: 0.3s ease-in;
+  &:hover:not(:disabled) {
+    color: $font-color-rose;
+    background: #e0dced;
+  }
 }
 .secondary {
   color: $font-color-rose;
@@ -29,7 +39,8 @@
   padding: 13px;
   @include font(600, 18px);
   font-family: 'Inter', sans-serif;
-  &:hover {
+  transition: 0.3s ease-in;
+  &:hover:not(:disabled) {
     color: #fff;
     background: #ba75ff;
   }
@@ -62,7 +73,7 @@
   @include font(600, 16px);
   font-family: 'Inter', sans-serif;
   &:hover {
-    background-color: #ef4444;
+    background-color: #ef4444 !important;
     color: #fff;
   }
 }

@@ -1,57 +1,55 @@
 import { FC, memo, useState } from 'react'
-import { useFormik } from 'formik'
+// import { useFormik } from 'formik'
 
-import { IconSvg } from '../../common/IconSvg/IconSvg'
-import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
-import { Checkbox } from '../../common/Checkbox/Checkbox'
-import { Button } from '../../common/Button/Button'
-import { validateRegistration } from 'utils/validationRegistation'
-import { auth } from 'store/redux/users/slice'
-import { AuthSelect } from '../../common/AuthSelect'
-import { useAppDispatch } from '../../../store/hooks'
-import { registrIconPath } from './config/svgIconsPath'
+// import { IconSvg } from '../../common/IconSvg/IconSvg'
+// import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
+// import { Checkbox } from '../../common/Checkbox/Checkbox'
+// import { Button } from '../../common/Button/Button'
+// import { auth } from 'store/redux/users/slice'
+// import { AuthSelect } from '../../common/AuthSelect'
+// import { useAppDispatch } from '../../../store/hooks'
+// import { registrIconPath } from './config/svgIconsPath'
 
-import { isSecurity, unSecurity } from '../../../assets/img/common/index'
+// import { isSecurity, unSecurity } from '../../../assets/img/common/index'
 
 import styles from '../Modal.module.scss'
 import { RegistrationModalPropsT } from '../ModalTypes'
 
 
 export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowModal }) => {
-  const dispatch = useAppDispatch()
-  const [security, setSecurity] = useState<boolean>(true)
-  const [authVariant, setAuthVariant] = useState<string>('email')
+  // const dispatch = useAppDispatch()
+  // const [security, setSecurity] = useState<boolean>(true)
+  // const [authVariant, setAuthVariant] = useState<string>('email')
 
-  const getAuthVariant = (variant: string) => {
-    setAuthVariant(variant)
-  }
-  const registration = () => {
-    dispatch(auth(true))
-  }
+  // const getAuthVariant = (variant: string) => {
+  //   setAuthVariant(variant)
+  // }
+  // const registration = () => {
+  //   dispatch(auth(true))
+  // }
 
-  const changeSecurityStatus = () => {
-    setSecurity(!security)
-  }
+  // const changeSecurityStatus = () => {
+  //   setSecurity(!security)
+  // }
 
-  const formik = useFormik({
-    validate: values => validateRegistration(values),
-    initialValues: {
-      email: '',
-      password: '',
-      oferta: false,
-      politics: false,
-      phone: '',
-    },
-    onSubmit: () => {
-      registration()
-      setShowModal(false)
-    },
-  })
+  // const formik = useFormik({
+  //   initialValues: {
+  //     email: '',
+  //     password: '',
+  //     oferta: false,
+  //     politics: false,
+  //     phone: '',
+  //   },
+  //   onSubmit: () => {
+  //     registration()
+  //     setShowModal(false)
+  //   },
+  // })
   // const disabled = !(Object.keys(formik.errors).length === 0)
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.main}>
+      {/* <div className={styles.main}>
         <form onSubmit={formik.handleSubmit}>
           <div className={styles.container}>
             <IconSvg
@@ -111,7 +109,7 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowMod
             </div>
           </div>
         </form>
-      </div>
+      </div> */}
     </div>
   )
 })

@@ -2,7 +2,7 @@
 @import '../../../../scss/mixin.scss';
 
 .input {
-  @include display (flex, row, flex-start, center);
+  @include display(flex, row, flex-start, center);
   width: 100%;
   border: 1px solid #e8e8e8;
   border-radius: 8px;
@@ -13,13 +13,17 @@
     margin-left: 10px;
   }
 
+  &__focused {
+    border-color: #ba75ff;
+  }
+
   & input {
     width: 96%;
     color: $font-color;
     outline: none;
     border: none;
     padding: 11px 0 11px 18px;
-    @include font (500, 14px);
+    @include font(500, 14px);
   }
   & input ::placeholder {
     color: #d2d7dc;
