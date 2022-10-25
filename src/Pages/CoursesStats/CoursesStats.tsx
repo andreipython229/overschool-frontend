@@ -13,7 +13,7 @@ import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { CoursesDataT } from '../../types/CoursesT'
-import { useBoolean } from '../../customHooks/useBoolean'
+import { useBoolean } from '../../customHooks'
 import { Portal } from '../../components/Modal/Portal'
 
 import styles from '../School/StudentsStats/studentsStats.module.scss'

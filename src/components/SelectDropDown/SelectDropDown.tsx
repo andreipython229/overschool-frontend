@@ -4,19 +4,22 @@ import { IconSvg } from '../common/IconSvg/IconSvg'
 import { initialDropDownList } from '../../constants/dropDownList'
 import { arrIconPath, triangleDownIconPath } from './config/svgIconPath'
 import { dropDownItem, SelectDropDownT } from '../../types/componentsTypes'
-import { useBoolean } from '../../customHooks/useBoolean'
 import { useAppDispatch, useAppSelector } from 'store/hooks/index'
 import { addFilters } from 'store/redux/filters/slice'
 import { filtersSelector } from 'selectors'
 
 import styles from './select_drop_down.module.scss'
+import { useMissClickMenu } from '../../customHooks/useMissClickMenu'
 
 const selectTheJobStatus = 'ВЫБЕРИТЕ СТАТУС РАБОТЫ'
 
 export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState }) => {
-  const [isOpen, { onToggle, on }] = useBoolean()
   const dispatch = useAppDispatch()
-  const { filters: {status} } = useAppSelector(filtersSelector)
+  const {
+    filters: { status },
+  } = useAppSelector(filtersSelector)
+
+  const { menuRef, isOpen, onToggle } = useMissClickMenu()
 
   const [headerDropDown, setHeaderDropDown] = useState<dropDownItem>(initialDropDownList[0])
   const [dropDownList, setDropDownList] = useState<dropDownItem[]>([])
@@ -39,7 +42,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
 
     dispatch(addFilters({ status: title }))
 
-    on()
+    onToggle()
   }
 
   useEffect(() => {
@@ -53,7 +56,7 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ setArrowUsersState })
   }, [status])
 
   return (
-    <div className={styles.wrapper}>
+    <div ref={menuRef} className={styles.wrapper}>
       <div onClick={onToggle} className={`${styles[headerDropDown.bg]} ${styles.header_dropdown_menu}`}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <p style={{ marginRight: '10px', transform: 'translateY(5%)' }}> {headerDropDown.icon}</p>
