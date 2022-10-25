@@ -3,6 +3,7 @@ import { FC, memo } from 'react'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { ExerciseItem } from '../ExerciseItem/ExerciseItem'
 import { accardionArrPath } from '../../../Pages/StudentCourse/config/svgIconPath'
+import { getNounDeclension } from 'utils/getNounDeclension'
 
 import { lessonT } from '../../../types/sectionT'
 import { accardionItemT } from '../../../types/componentsTypes'
@@ -24,7 +25,7 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, moduleIndex, op
           </h4>
           <span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>
             {module.lessons.length}
-            <span>Занятие</span>
+            <span>{getNounDeclension(module.lessons.length, ['Задание', 'Задания', 'Заданий'])}</span>
           </span>
         </div>
         <span
