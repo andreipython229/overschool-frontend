@@ -7,14 +7,10 @@ import { server } from './mock/server'
 
 test('render homewrok stast table after fetching data', async () => {
   server.use(
-    rest.get(`/api/https://api.itdev.by/api/homework_stats/`, (req, res, ctx) => {
-      return res(ctx.status(500), ctx.json({ message: 'data received' }))
+    rest.get(`https://api.itdev.by/api/homeworks_stats/`, (req, res, ctx) => {
+      return res(ctx.json({ message: 'data received' }))
     }),
   )
 
   renderWithProvider(<HomeworksStatsTable />)
-
-  await waitFor(() => {
-    expect(screen).toBeInTheDocument()
-  })
 })
