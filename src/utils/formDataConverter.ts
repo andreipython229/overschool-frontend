@@ -4,6 +4,5 @@ export const formDataConverter = (data: object) => {
   Object.entries(data).forEach(([key, value]) => {
     formdata.append(key, value)
   })
-
   return formdata
 }
