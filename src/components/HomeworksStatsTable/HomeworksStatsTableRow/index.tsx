@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Portal } from '../../Modal/Portal/index'
+import { Portal } from '../../Modal/Portal'
 import { ModalCheckHomeWork } from '../../Modal/ModalCheckHomeWork/ModalCheckHomeWork'
 import { tableBallsStarPath } from '../../../config/commonSvgIconsPath'
 import { iocnsByStatus } from '../config/iocnsByStatus'
@@ -22,7 +22,7 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = ({ homeworkDa
 
   const { email, mark, status, avatar, homework_name, last_update, user_homework, course_name, user_name, user_lastname } = homeworkData
 
-  const {mmddyyyy, hoursAndMinutes} = convertDate(new Date(last_update))
+  const { mmddyyyy, hoursAndMinutes } = convertDate(new Date(last_update))
 
   return (
     <>
