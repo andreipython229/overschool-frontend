@@ -26,7 +26,7 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = ({ homeworkDa
 
   return (
     <>
-      <tr onClick={open}>
+      <tr onClick={open} role="row">
         <td style={{ display: 'flex', alignItems: 'center' }}>
           {avatar ? (
             <img style={{ borderRadius: '50%', width: '32px', height: '32px' }} src={avatar} alt="avatar" />
