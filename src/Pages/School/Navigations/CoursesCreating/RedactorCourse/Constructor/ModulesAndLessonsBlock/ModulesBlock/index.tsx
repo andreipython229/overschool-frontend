@@ -46,6 +46,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
         section_id: id,
       }
       const formdata = formDataConverter(updateModule)
+      console.log(formdata)
       if (formdata && id) {
         debounced({ formdata, id })
       }
