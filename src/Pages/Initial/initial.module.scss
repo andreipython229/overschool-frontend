@@ -100,8 +100,45 @@
     font-size: 18px;
     font-weight: 700;
     color: #ba75ff;
+    animation: account 1s infinite ease-in-out;
   }
 }
 .btn_block button:nth-child(1) {
   margin-right: 25px;
+}
+
+@keyframes account {
+  from {
+    transform: rotate(0deg);
+  }
+  90% {
+    transform: rotate(1deg);
+  }
+  80% {
+    transform: rotate(2deg);
+  }
+  70% {
+    transform: rotate(3deg);
+  }
+  60% {
+    transform: rotate(4deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  40% {
+    transform: rotate(4deg);
+  }
+  30% {
+    transform: rotate(3deg);
+  }
+  20% {
+    transform: rotate(2deg);
+  }
+  10% {
+    transform: rotate(1deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }
