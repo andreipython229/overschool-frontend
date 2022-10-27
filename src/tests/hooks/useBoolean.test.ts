@@ -4,48 +4,45 @@ import { useBoolean } from 'customHooks/index'
 
 describe('useBoolean hook', () => {
   test('check onToggle function', () => {
-    const { result, unmount } = renderHook(() => useBoolean(false))
+    const { result, unmount } = renderHook(() => useBoolean())
 
-    const [toggle, { on }] = result.current
+    expect(result.current[0]).toBe(false)
+    expect(result.current[1].on).toBeInstanceOf(Function)
 
-    expect(toggle).toBe(false)
-    expect(on).toBeInstanceOf(Function)
+    act(() => result.current[1].on())
 
-    act(() => on())
+    expect(result.current[0]).toBe(false)
 
-    expect(toggle).toBe(false)
-
+    unmount()
   })
 
-  test('check ofToggle function', () => {
-    const { result, rerender, unmount } = renderHook(() => useBoolean(false))
+  test('check ofToggle function ', () => {
+    const { result, unmount } = renderHook(() => useBoolean(false))
 
-    const [toggle, { off }] = result.current
+    expect(result.current[0]).toBe(false)
+    expect(result.current[1].off).toBeInstanceOf(Function)
 
-    expect(toggle).toBe(false)
-    expect(off).toBeInstanceOf(Function)
+    act(() => result.current[1].off())
 
-    act(() => off())
+    expect(result.current[0]).toBe(true)
 
-    expect(toggle).toBe(true)
-
+    unmount()
   })
 
   test('check toggle function', () => {
-    const { result, rerender, unmount } = renderHook(() => useBoolean(false))
+    const { result, unmount } = renderHook(() => useBoolean(false))
 
-    const [toggle, { onToggle }] = result.current
+    expect(result.current[0]).toBe(false)
+    expect(result.current[1].onToggle).toBeInstanceOf(Function)
 
-    expect(toggle).toBe(false)
-    expect(onToggle).toBeInstanceOf(Function)
+    act(() => result.current[1].onToggle())
 
-    act(() => onToggle())
+    expect(result.current[0]).toBe(true)
 
-    expect(toggle).toBe(true)
+    act(() => result.current[1].onToggle())
 
-    act(() => onToggle())
+    expect(result.current[0]).toBe(false)
 
-    expect(toggle).toBe(false)
-
+    unmount()
   })
 })
