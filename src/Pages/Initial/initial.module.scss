@@ -14,6 +14,7 @@
 
   &_header {
     margin: 0 45px;
+    max-height: 45px;
     @include display(flex, row, space-between);
   }
   &_main {
