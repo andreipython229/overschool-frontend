@@ -12,7 +12,7 @@ export const CourseImg: FC<CourseImgPropsT> = memo(({ currentCourse, changeCurre
         onMouseEnter={() => changeCurrentCourse(id)}
       >
         <h2 className={currentCourse === id ? styles.init_main_course_block_title : styles.init_main_course_block_title + ' ' + styles.title_rotate}>
-          {title}
+          <strong>{title}</strong>
         </h2>
       </div>
     </section>
