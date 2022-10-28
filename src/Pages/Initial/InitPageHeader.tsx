@@ -21,22 +21,20 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
   }
 
   return (
-    <div>
-      <div className={styles.init_header}>
-        <img src={logo} alt="Logotype ITOVERONE" />
-        <div className={styles.btn_block}>
-          {isLogin ? (
-            <Link className={styles.btn_block_logIn} to={`${userRole === RoleE.SuperAdmin ? Path.Settings : Path.Courses}`}>
-              Аккаунт
-            </Link>
-          ) : (
-            <>
-              <Button variant={'logIn'} onClick={handleLoginUser} text={'Войти'} />
-              <Button disabled onClick={() => setRegistrationShow(true)} variant={'primary'} text={'Зарегистрироваться'} />
-            </>
-          )}
-        </div>
+    <header className={styles.init_header}>
+      <img src={logo} alt="Logotype ITOVERONE" />
+      <div className={styles.btn_block}>
+        {isLogin ? (
+          <Link className={styles.btn_block_logIn} to={`${userRole === RoleE.SuperAdmin ? Path.Settings : Path.Courses}`}>
+            Аккаунт
+          </Link>
+        ) : (
+          <>
+            <Button variant={'logIn'} onClick={handleLoginUser} text={'Войти'} />
+            <Button disabled onClick={() => setRegistrationShow(true)} variant={'registrationDisabled'} text={'Зарегистрироваться'} />
+          </>
+        )}
       </div>
-    </div>
+    </header>
   )
 })
