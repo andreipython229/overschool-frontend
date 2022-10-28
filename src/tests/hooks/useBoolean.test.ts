@@ -14,7 +14,6 @@ describe('useBoolean hook', () => {
     act(() => on())
 
     expect(toggle).toBe(false)
-
   })
 
   test('check ofToggle function', () => {
@@ -25,10 +24,11 @@ describe('useBoolean hook', () => {
     expect(toggle).toBe(false)
     expect(off).toBeInstanceOf(Function)
 
-    act(() => off())
+    act(() => {
+      off()
+    })
 
     expect(toggle).toBe(true)
-
   })
 
   test('check toggle function', () => {
@@ -46,6 +46,5 @@ describe('useBoolean hook', () => {
     act(() => onToggle())
 
     expect(toggle).toBe(false)
-
   })
 })

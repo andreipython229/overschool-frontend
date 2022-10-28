@@ -16,7 +16,7 @@
     margin-bottom: 0;
     height: 58px;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     @include display(flex, row, flex-start, center);
     margin-top: 10px;
     margin-bottom: 0;
@@ -45,7 +45,7 @@
       width: 40px;
       height: 40px;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       margin: 0 12px 0 8px;
       width: 40px;
       height: 40px;
@@ -59,11 +59,12 @@
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       position: static;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       position: static;
     }
     &_avatar {
       border: 1px solid #ffffff;
+      background: #d9d9d9;
       border-radius: 50%;
       box-sizing: border-box;
       margin-right: 16px;
@@ -84,7 +85,7 @@
       }
 
       &_about {
-        font-size: 10px;
+        @include font(500, 20px, 24px);
         color: #bdbdbd;
       }
     }
@@ -101,7 +102,7 @@
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       display: none;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       display: none;
     }
     & button {

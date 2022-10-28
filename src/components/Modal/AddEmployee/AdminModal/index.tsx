@@ -1,4 +1,6 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { ChangeEvent, FC, useState, useEffect } from 'react'
+
+import { checkCoursesDataT } from 'types/CoursesT'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from 'config/commonSvgIconsPath'
 import { radioData } from '../config/radioConfig'
@@ -20,17 +22,28 @@ export const AdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensions> 
   emailUser,
   setShowModal,
 }) => {
-  const { data: courses } = useFetchCoursesQuery()
+  const { data: courses, isSuccess } = useFetchCoursesQuery()
 
-  const [checked, setChecked] = useState<boolean>(false)
+  const [checkCourses, setCheckCourses] = useState<checkCoursesDataT[]>()
 
-  const handleChecked = () => {
-    setChecked(!checked)
-  }
+  console.log(checkCourses)
+
+  // const [checked, setChecked] = useState<boolean>(false)
+
+  // const handleChecked = () => {
+  //   setChecked(!checked)
+  // }
 
   const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmailUser(event.target.value)
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      const updatedCourses: checkCoursesDataT[] = courses.results.map(course => ({ ...course, checked: false }))
+      setCheckCourses(updatedCourses)
+    }
+  }, [courses])
 
   return (
     <form onSubmit={handleCreatEmployee} className={styles.main_employee}>
@@ -62,7 +75,7 @@ export const AdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensions> 
         <div className={styles.main_employee_course}>
           <span className={styles.main_employee_course_title}>Доступ к курсам</span>
           {courses?.results?.map(({ course_id, name }: CoursesDataT) => (
-            <Checkbox key={course_id} id={course_id.toString()} name={name} checked={false} onChange={handleChecked}>
+            <Checkbox key={course_id} id={course_id.toString()} name={name} checked={false}>
               <span>{name}</span>
             </Checkbox>
           ))}

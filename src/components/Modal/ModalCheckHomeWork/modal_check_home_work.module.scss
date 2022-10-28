@@ -1,30 +1,53 @@
 @import '../../../scss/mixin.scss';
 
-
 .modal_content {
   position: absolute;
   right: 50%;
   top: 50%;
-  background: #ffff;
   transform: translate(50%, -50%);
   -webkit-transform: translate(50%, -50%);
   -moz-transform: translate(50%, -50%);
   -ms-transform: translate(50%, -50%);
   -o-transform: translate(50%, -50%);
-  padding: 0 30px;
+  padding: 40px 33px;
   max-width: 75vw;
   width: 100%;
+  background: #f9fafb;
+  border-radius: 7px;
   h3 {
     color: #4d5766;
     @include font(500, 18px);
     line-height: 22px;
   }
 }
-.modal_header {
-  width: 100%;
-  border: 2px solid black;
-  box-sizing: border-box;
+
+.wrapper_form {
+  margin-top: 17px;
 }
+
+.wrapper_form_addFiles {
+  @include display(flex, row, flex-start, center);
+  width: 180px;
+  height: 36px;
+  border: none;
+  text-align: center;
+  background: #f3f4f6;
+  color: #6b728f;
+  border-radius: 6px;
+  padding: 11px 0 11px 16px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+
+  svg {
+    margin-right: 10px;
+  }
+
+  input {
+    @include position_t_l(absolute, 0, 0, -10);
+  }
+}
+
 .modal_btn_is_toggle {
   position: relative;
   @include display(flex, row, center, center);
@@ -46,6 +69,7 @@
 }
 .header_info {
   display: inline-flex;
+  align-items: center;
   margin-bottom: 20px;
 }
 .header_info > * {
@@ -53,7 +77,9 @@
 }
 .btn_grey {
   @include display(flex, row, space-between, center);
-  @include font(500, 14px);
+  @include font(500, 14px, 17px);
+  letter-spacing: -0.02em;
+  color: #6b7280;
   border: none;
   cursor: pointer;
   padding: 20px 10px;
@@ -76,6 +102,7 @@
 }
 .task_info {
   display: inline-flex;
+  margin-bottom: 47px;
   &_item {
     @include display(flex);
     margin: 0 30px 0 0;
@@ -89,9 +116,12 @@
   }
 }
 .bottomButtons {
-  display: inline-flex;
-  width: 100%;
-  justify-content: right;
+  @include display(flex, row, space-between, center);
+
+  .btns__container {
+    @include display(flex, row, flex-start, center);
+    margin-top: 30px;
+  }
   &_btn_done {
     @include display(flex, row, space-between, center);
     @include font(500, 14px);
@@ -133,15 +163,13 @@
   &_btn_send {
     @include display(flex, row, space-between, center);
     @include font(500, 14px);
-    margin: 0 30px 0 0;
     border: none;
     padding: 20px 10px;
     border-radius: 7px;
     box-sizing: border-box;
     width: fit-content;
     text-align: center;
-    height: 39px;
-
+    height: 41px;
     background: #ba75ff;
     color: #ffffff;
     svg {
@@ -149,27 +177,43 @@
     }
   }
   &_btn_mark {
-    @include display(flex, row, space-between, center);
+    @include display(flex, row, flex-start, center);
     @include font(500, 14px);
-    margin: 0 30px 0 0;
-    //border: none;
     padding: 20px 10px;
-    //border-radius: 7px;
     box-sizing: border-box;
-    width: fit-content;
-    text-align: center;
-    height: 39px;
-
+    max-width: 80px;
+    width: 100%;
+    height: 36px;
     background: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 5px;
-    svg {
-      margin-right: 10px;
+    margin-right: 15px;
+    input {
+      @include font(400, 14px, 150%);
+      border: none;
+      width: 100%;
+      outline: none;
+      padding-left: 10px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      color: #4d5766;
+    }
+    span {
+      display: inline-block;
+      margin-left: 15px;
     }
   }
 }
 .answer_header {
-  margin: 20px 0;
+  margin-right: 4px;
+  @include font(500, 18px, 22px);
+  color: #4d5766;
+}
+
+.answer_hw_header {
+  @include font(500, 18px, 22px);
+  color: #4d5766;
+  margin-bottom: 20px;
 }
 .speech_bubble {
   position: relative;
@@ -186,13 +230,13 @@
 }
 .speech_bubble:before {
   content: '';
-  @include position_t_l(absolute, -14px, 20px);
+  @include position_t_l(absolute, -37%, 2%);
   width: 0px;
   height: 0px;
-  border-left: 24px solid #fff;
-  border-right: 12px solid transparent;
-  border-bottom: 12px solid #fff;
-  border-top: 20px solid transparent;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  border-top: 10px solid transparent;
 }
 .teacher {
   @include display(flex, row, flex-start, center);
