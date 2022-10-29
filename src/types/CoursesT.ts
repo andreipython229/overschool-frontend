@@ -21,3 +21,7 @@ export type CoursesT = {
   count?: 0
   results: CoursesDataT[]
 }
+
+export interface checkCoursesDataT extends CoursesDataT {
+  checked: boolean
+}

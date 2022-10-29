@@ -13,7 +13,6 @@ export const HomeWork: FC = () => {
   const dispatch = useAppDispatch()
   const { filters } = useAppSelector(filtersSelector)
 
-  const [arrowUsersState, setArrowUsersState] = useState<string[]>([])
   const [termForFilter, setTermForFilter] = useState<string>('')
 
   const debounce = useDebounceFunc(() => dispatch(addFilters({ homework_name: termForFilter })))
@@ -27,6 +26,10 @@ export const HomeWork: FC = () => {
     setTermForFilter(e.target.value)
   }, [])
 
+  const handleChangeStatus = (status: string) => {
+    dispatch(addFilters({ status }))
+  }
+
   useEffect(() => {
     fetchHomeworkStats({ filters, page })
   }, [page, filters])
@@ -37,7 +40,7 @@ export const HomeWork: FC = () => {
 
   return (
     <>
-      <FilterAndSearchBlock handleChangeTerm={handleChangeTerm} termForFilter={termForFilter} setArrowUsersState={setArrowUsersState} />
+      <FilterAndSearchBlock handleChangeTerm={handleChangeTerm} termForFilter={termForFilter} onChangeStatus={handleChangeStatus} />
       <HomeworksStatsTable homeworks={homeworks as homeworksStatsT} />
       <Pagination style={{ marginTop: '260px' }} totalCount={homeworksStats?.count as number} currentPage={page} onPageChange={onPageChange} />
     </>

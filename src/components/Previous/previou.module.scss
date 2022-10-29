@@ -64,6 +64,7 @@
     }
     &_avatar {
       border: 1px solid #ffffff;
+      background: #d9d9d9;
       border-radius: 50%;
       box-sizing: border-box;
       margin-right: 16px;
@@ -90,7 +91,7 @@
       }
 
       &_about {
-        font-size: 10px;
+        @include font(500, 20px, 24px);
         color: #bdbdbd;
       }
     }
