@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export const useSortDataByProp = <T, K extends keyof T>(dataToSort: T[], propForSort: K, isSort: boolean) => {
+export const useSortDataByProp = <T, K extends keyof T>(dataToSort: T[] | [], propForSort: K, isSort: boolean) => {
   const [dataToReturn, setDataToReturn] = useState(dataToSort)
 
   useEffect(() => {
