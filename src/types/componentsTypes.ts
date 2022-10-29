@@ -1,5 +1,6 @@
 import { FC, MouseEvent, ReactNode } from 'react'
 
+import { statusFilterT } from 'types/statusFilterConfigType'
 import { ILesson, sectionT } from './sectionT'
 import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
 
@@ -100,7 +101,8 @@ export type dropDownItem = {
 }
 
 export type SelectDropDownT = {
-  setArrowUsersState: (arg: string[]) => void
+  dropdownData: statusFilterT[]
+  onChangeStatus?: (status: string) => void
 }
 
 export type StatisticHeaderT = {
