@@ -14,8 +14,11 @@ import { StudentLessonDesc } from './StudentLessonDesc/index'
 import { StudentLessonTextEditor } from './StudentLessonTextEditor/index'
 import { StudentLessonNavBtns } from './StudentLessonNavBtns/index'
 import { StudentLessonSidebar } from './StudentLessonSidebar/index'
+import { useBoolean, useDebounceFunc } from '../../../customHooks';
 
 import styles from './lesson.module.scss'
+import { StudentTestPreview } from './StudentTestPreview'
+import { StudentTestBlock } from '../StudentTestBlock'
 
 export const StudentLessonPreview: FC = () => {
   const navigate = useNavigate()
@@ -26,6 +29,7 @@ export const StudentLessonPreview: FC = () => {
   const { data: lesson } = useFetchLessonQuery({ id: Number(lessonId) as number, type: lessonType as string })
 
   const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
+  const [isOpenTest, { on: closeTest, off: openTest }] = useBoolean();
 
   const activeLessonIndex = lessons?.lessons.findIndex((lesson: lessonT) => lessonId && lesson.id === +lessonId)
 
@@ -58,7 +62,7 @@ export const StudentLessonPreview: FC = () => {
               {lessonType === 'homework' ? (
                 <StudentLessonDesc text={lesson?.text || ''} />
               ) : (
-                <span className={styles.lesson__desc}>{lesson?.description ? parse(`${lesson?.description}`) : 'Нет описания'}</span>
+                ((!isOpenTest && lessonType !== 'lesson') ? (<StudentTestPreview setShow={openTest}/>) : (isOpenTest && (<StudentTestBlock /> )))
               )}
             </div>
             <div>{lessonType === 'lesson' && <YouTube opts={opts} videoId={videoLinkId as string} />}</div>

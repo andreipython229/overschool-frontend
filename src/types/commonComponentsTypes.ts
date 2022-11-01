@@ -103,7 +103,7 @@ export type InputAuthPropsT = {
 export type RadioPropsT = {
   name?: string
   title: string
-  id: string
+  id: string | any
   func?: (arg: string) => void
 }
 

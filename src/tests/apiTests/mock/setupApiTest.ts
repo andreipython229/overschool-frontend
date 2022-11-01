@@ -1,13 +1,14 @@
-import '@testing-library/jest-dom'
+// import '@testing-library/jest-dom'
 
-import { server } from 'tests/apiTests/mock/server'
+// import { server } from 'tests/apiTests/mock/server'
 
-beforeAll(() => {
-  server.listen()
-})
+// beforeAll(() => {
+//   server.listen()
+// })
 
-afterEach(() => {
-  server.resetHandlers()
-})
+// afterEach(() => {
+//   server.resetHandlers()
+// })
 
-afterAll(() => server.close())
+// afterAll(() => server.close())
+export {}
