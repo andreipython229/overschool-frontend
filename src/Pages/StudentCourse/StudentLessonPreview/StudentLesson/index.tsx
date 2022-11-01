@@ -60,9 +60,11 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params }) =
                   </pre>
                 </div>
               )} */}
-              {lesson?.audio_files.length && <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />}
+              <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
-              {lesson?.text_files.length && lesson?.text_files.map(({ file, id }) => <UploadedFile key={id} file={file} />)}
+              {lesson?.text_files.map(({ file, id }) => (
+                <UploadedFile key={id} file={file} />
+              ))}
             </div>
           </div>
           <StudentLessonNavBtns
