@@ -21,7 +21,7 @@ export const Header = memo(() => {
 
   const [logout] = useLogoutMutation()
 
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(2)
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
   const { data: profile } = useFetchProfileDataQuery(userId)
 
   const logOut = (): void => {
@@ -49,8 +49,8 @@ export const Header = memo(() => {
             {profile?.avatar_url ? (
               <img width={'50'} height={'50'} className={styles.header_block_user_avatar} src={profile?.avatar_url} alt="avatar" />
             ) : (
-              <div className={styles.header_block_user_div}>
-                {profile?.user.last_name[0]} {profile?.user.first_name[0]}
+              <div className={styles.header_block_user_avatar_div}>
+                {profile?.user.last_name[0] || 'Б'}{profile?.user.first_name[0] || 'И'}
               </div>
             )}
             <div className={styles.header_block_user_userName}>
@@ -58,7 +58,7 @@ export const Header = memo(() => {
                 {headerUserRoleName[userName]}
               </span>
               <span className={styles.header_block_user_userName_name}>
-                {profile?.user.last_name} {profile?.user.first_name}
+                {profile?.user.last_name || 'Без'} {profile?.user.first_name || 'Имени'}
               </span>
             </div>
           </div>

@@ -27,7 +27,9 @@ export const Initial = () => {
       <InitPageHeader setLoginShow={open} setRegistrationShow={setRegistrationShow} />
       <div className={styles.init_main}>
         <section className={styles.init_main_wrapper}>
-          <h1 className={styles.init_main__title}>Маркетплейс образовательных курсов</h1>
+          <h1 className={styles.init_main__title}>
+            <strong>Маркетплейс образовательных курсов</strong>
+          </h1>
           <div className={styles.init_main__link}>
             <div>Найди свое направление</div>
             <div>Вперед</div>

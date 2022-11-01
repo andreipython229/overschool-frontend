@@ -37,7 +37,7 @@ export const CoursePage: FC = memo(() => {
 
   return (
     <div className={styles.container}>
-      <Input name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
+      <Input role="search-input" name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
         <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
       </Input>
       <div className={styles.course}>

@@ -53,6 +53,33 @@ export const initialDropDownList = [
   },
 ]
 
+export const checkHomeworkStatusFilters = [
+  {
+    id: 1,
+    icon: <IconSvg width={18} height={18} viewBoxSize="0 0 20 20" path={acceptedHwPath} />,
+    title: 'Принято',
+    bg: 'bg_color_accepted',
+    arrow: 'arrow_accepted',
+    arrow_fill: '#4bc3af',
+  },
+  {
+    id: 2,
+    icon: <IconSvg width={15} height={18} viewBoxSize="0 0 15 20" path={underRevisionHwPath} />,
+    title: 'На доработке',
+    bg: 'bg_color_under',
+    arrow: 'arrow_under_revision',
+    arrow_fill: '#ffca71',
+  },
+  {
+    id: 3,
+    icon: <IconSvg width={18} height={18} viewBoxSize="0 0 18 20" path={rejectedHwPath} />,
+    title: 'Отклонено',
+    bg: 'bg_color_rejected',
+    arrow: 'arrow_rejected',
+    arrow_fill: '#ef4444',
+  },
+]
+
 export const dropDownListFilter = [
   { id: 7, title: 'курсы' },
   { id: 8, title: 'группа' },

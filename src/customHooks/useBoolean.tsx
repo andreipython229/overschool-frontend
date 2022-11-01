@@ -7,12 +7,13 @@ export const useBoolean = (defaultBoolean?: boolean): returnData => {
 
   const handlers = useMemo(
     () => ({
-      onToggle: () => setToggle(!toggle),
+      onToggle: () => setToggle(prevToggle => !prevToggle),
       on: () => setToggle(false),
       off: () => setToggle(true),
     }),
-    [toggle, defaultBoolean],
+    [],
   )
+
   useEffect(() => {
     setToggle(!!defaultBoolean)
   }, [defaultBoolean])

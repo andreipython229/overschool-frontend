@@ -18,7 +18,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   const user = useAppSelector(selectUser)
 
   const { pathname }: Location = useLocation()
-  const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(2)
+  const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(1)
   const [setSchoolHeader] = useSetSchoolHeaderMutation()
 
   const [edit, setEdit] = useState<boolean>(false)
@@ -46,7 +46,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
       value && formdata.append(key, value)
     })
 
-    setSchoolHeader({ formdata, id: 2 })
+    setSchoolHeader({ formdata, id: 1 })
     setEdit(false)
   }
 
@@ -114,7 +114,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
           />
         )}
 
-        <img className={styles.previous_infoBlock_avatar} src={logo_header || noAvatar} alt="" />
+        <img className={styles.previous_infoBlock_avatar} src={logo_header || noAvatar} alt={headerName} />
         <div className={styles.previous_infoBlock_title}>
           {edit ? (
             <input
@@ -125,7 +125,9 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
               onChange={handleChangeSchoolHeaderData}
             />
           ) : (
-            <p className={styles.previous_infoBlock_title_description}>{headerDes} </p>
+            <p className={styles.previous_infoBlock_title_description}>
+              <strong>{headerDes}</strong>{' '}
+            </p>
           )}
           {edit ? (
             <input
@@ -136,9 +138,10 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
               onChange={handleChangeSchoolHeaderData}
             />
           ) : (
-            <span className={styles.previous_infoBlock_title_name}>{headerName}</span>
+            <p className={styles.previous_infoBlock_title_name}>
+              <strong>{headerName}</strong>
+            </p>
           )}
-          {/* <p className={styles.previous_infoBlock_title_about}>{about}</p> */}
         </div>
       </div>
       {user.role === RoleE.Admin && (

@@ -11,13 +11,13 @@ export const schoolHeaderService = createApi({
   endpoints: build => ({
     fetchSchoolHeader: build.query<schoolHeaderResT, number>({
       query: (id?: number) => ({
-        url: `/school_header/${id}/`,
+        url: `/school_headers/${id}/`,
       }),
       providesTags: ['schoolHeader'],
     }),
     setSchoolHeader: build.mutation<schoolHeaderResT, UpdateCourses>({
       query: ({ formdata, id }) => ({
-        url: `/school_header/${id}/`,
+        url: `/school_headers/${id}/`,
         method: 'PATCH',
         body: formdata,
       }),
