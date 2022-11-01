@@ -1,0 +1,18 @@
+@import '../../../../scss/mixin.scss';
+@import '../../../../scss/variable.scss';
+
+.wrapper {
+    position: relative;
+    @include display (flex, row, center, center);
+    align-self: flex-start;
+    width: fit-content;
+    height: 34px;
+    margin-top: 16px;
+    padding: 10px 15px;
+    background-color: #FCFCFC;
+    border: 1px solid #F3F3F3;
+    border-radius: 30px;
+    div {        
+        @include display (flex, row, center, center);
+    }
+}

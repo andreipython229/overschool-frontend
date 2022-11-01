@@ -1,0 +1,14 @@
+@import '../../../../scss/mixin.scss';
+@import '../../../../scss/variable.scss';
+
+.wrapper {
+    &_title {
+        @include font (700, 16px, 20px);
+        font-style: italic;
+        text-align: center;
+        color: #4D5766;
+    }
+    button {
+        margin-top: 64px;
+    }
+}
