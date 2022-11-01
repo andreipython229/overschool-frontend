@@ -236,6 +236,9 @@
             border-radius: 6px;
             padding: 11px 0 11px 16px;
             margin: 16px 0 8px 0;
+            &:hover {
+              background: #d1d1d5;
+            }
 
             svg {
               margin-right: 10px;
