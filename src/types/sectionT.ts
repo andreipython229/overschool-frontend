@@ -38,3 +38,11 @@ export type sectionsT = {
 export type studentAccardioT = {
   modules: sectionsT
 }
+
+export type answerT = {
+  question:any
+  answer: any
+  id: string
+  name: string
+  title: string
+}
