@@ -1,5 +1,4 @@
 import { rest } from 'msw'
-import { screen, waitFor } from '@testing-library/react'
 
 import { HomeworksStatsTable } from 'components/HomeworksStatsTable/index'
 import { renderWithProvider } from 'store/helpers/rednderWithProvider'

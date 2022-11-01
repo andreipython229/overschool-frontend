@@ -75,13 +75,19 @@
       &_description {
         @include font(500, 14px, 10px);
         color: #ba75ff;
-        font-size: 14px;
+        font-size: 16px;
         margin-bottom: 2px;
+        strong {
+          font-weight: 600;
+        }
       }
 
       &_name {
         @include font(500, 20px, 17px);
         color: #bdbdbd;
+        strong {
+          font-weight: 600;
+        }
       }
 
       &_about {

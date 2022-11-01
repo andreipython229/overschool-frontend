@@ -42,7 +42,7 @@ export const AddCodeEditor: FC<setShowType & AddPostT> = ({ lesson, isPreview, c
         </div>
       ) : (
         <code>
-          <pre>{lesson.code}</pre>
+          {/* <pre>{lesson.code}</pre> */}
         </code>
       )}
     </>

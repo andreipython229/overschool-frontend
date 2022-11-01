@@ -1,0 +1,29 @@
+@import '../../../scss/mixin.scss';
+
+.addFileBtn {
+  &_form {
+    background-color: transparent;
+
+    &_addFiles {
+      @include display(flex, row, flex-start, center);
+      width: 180px;
+      height: 36px;
+      border: none;
+      text-align: center;
+      background: #f3f4f6;
+      font-size: 12px;
+      color: #6b728f;
+      border-radius: 6px;
+      padding: 11px 0 11px 16px;
+      margin: 16px 0 8px 0;
+
+      svg {
+        margin-right: 10px;
+      }
+
+      input {
+        @include position_t_l(absolute, 0, 0, -10);
+      }
+    }
+  }
+}

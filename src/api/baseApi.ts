@@ -1,5 +1,6 @@
 import { fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 
+import { formDataConverter } from 'utils/formDataConverter'
 import { token, auth } from '../store/redux/users/slice'
 import { RootState } from '../store/redux/store'
 
@@ -18,8 +19,11 @@ export const baseQuery = fetchBaseQuery({
 
 export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
   const { user } = JSON.parse(`${localStorage?.getItem('persist:root')}`)
-  const refreshToken = JSON.parse(user).refresh_token
-  //const refreshToken = (getState() as RootState)?.user?.refresh_token
+  const refresh = JSON.parse(user).refresh_token
+
+  const formData = new FormData()
+
+  formData.append('refresh', refresh)
 
   let result = await baseQuery(args, api, extraOptions)
 
@@ -28,7 +32,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
       {
         url: '/token-refresh/',
         method: 'POST',
-        body: refreshToken,
+        body: formData,
       },
       api,
       extraOptions,

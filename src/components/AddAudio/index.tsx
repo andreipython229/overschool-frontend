@@ -1,10 +1,11 @@
 import { useState, DragEvent, ChangeEvent, FC } from 'react'
 
+import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/commonSvgIconsPath'
 import { AddPostT, setShowType } from '../../types/componentsTypes'
-import { usePatchLessonsMutation } from 'api/modulesServices'
+import { usePostAudioFilesMutation } from 'api/filesService'
 import { AudioPlayer } from '../common/AudioPlayer'
 import { SimpleLoader } from '../Loaders/SimpleLoader'
 
@@ -15,8 +16,11 @@ const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
 export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPreview, lesson, setShow }) => {
   const [dragAudio, setDragAudio] = useState<boolean>(false)
+  const [files, setFiles] = useState<File[]>([])
 
-  const [addAudioFile, { isLoading }] = usePatchLessonsMutation()
+  console.log(files)
+
+  const [addAudioFiles, { isLoading }] = usePostAudioFilesMutation()
 
   const dragStartAudioHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -31,23 +35,30 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
   const onDropAudioHandler = async (e: DragEvent<HTMLDivElement>): Promise<void> => {
     e.preventDefault()
     const audioFiles = [...e.dataTransfer.files]
-    if (lessonIdAndType?.id) {
-      const id = +lessonIdAndType?.id
-      const formdata = new FormData()
-      formdata.append('audio', audioFiles[0])
-      await addAudioFile({ formdata, id, type: lessonIdAndType?.type as string })
-      setDragAudio(false)
-    }
+
+    setFiles(prev => [...prev, ...audioFiles])
+    // const formdata = new FormData()
+    // formdata.append('audio', audioFiles[0])
+    // await addAudioFile({ formdata, id, type: lessonIdAndType?.type as string })
+    setDragAudio(false)
   }
 
-  const onAddAudioFile = (e: ChangeEvent<HTMLInputElement>): void => {
-    if (e.target.files && lessonIdAndType?.id) {
-      const files = e.target.files[0]
-      const id = +lessonIdAndType?.id
-      const formdata = new FormData()
-      formdata.append('audio', files)
-      addAudioFile({ formdata, id, type: lessonIdAndType?.type as string })
-    }
+  const handleUploadFiles = (chosenFiles: File[]) => {
+    const uploaded = [...files]
+
+    chosenFiles.some(file => {
+      if (uploaded.findIndex(f => f.name === file.name) === -1) {
+        uploaded.push(file)
+      }
+    })
+
+    setFiles(uploaded)
+  }
+
+  const handleChangeFiles = (event: ChangeEvent<HTMLInputElement>) => {
+    const chosenFiles = Array.prototype.slice.call(event.target.files)
+
+    handleUploadFiles(chosenFiles)
   }
 
   return (
@@ -74,7 +85,13 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
               <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
             </div>
           </div>
-          <input disabled={isLoading} className={styles.redactorCourse_rightSide_functional_addContent_input} onChange={onAddAudioFile} type="file" />
+          <input
+            disabled={isLoading}
+            className={styles.redactorCourse_rightSide_functional_addContent_input}
+            onChange={handleChangeFiles}
+            type="file"
+            multiple
+          />
 
           <IconSvg styles={{ marginBottom: '38px' }} width={64} height={55} viewBoxSize="0 0 64 55">
             <rect x="19.7998" width="4.4" height="55" rx="1" fill="#BA75FF" />
@@ -95,7 +112,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
           />
         </div>
       ) : (
-        <AudioPlayer audioUrl={lesson?.audio_url} />
+        <AudioPlayer audioUrls={lesson.type === LESSON_TYPE.LESSON || lesson.type === LESSON_TYPE.HOMEWORK ? lesson?.audio_files : []} />
       )}
     </>
   )

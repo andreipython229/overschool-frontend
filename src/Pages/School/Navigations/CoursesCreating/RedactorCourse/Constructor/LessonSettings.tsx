@@ -1,27 +1,34 @@
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
+import { UploadedFile } from 'components/UploadedFile'
+import { Button } from 'components/common/Button/Button'
+import { AddFileBtn } from 'components/common/AddFileBtn/index'
 import { CheckboxBall } from 'components/common/CheckboxBall'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { AddPost } from 'components/AddPost'
-import { settingsIconPath, deleteIconPath, paperClipIconPath } from '../../../../config/svgIconsPath'
+import { settingsIconPath, deleteIconPath } from '../../../../config/svgIconsPath'
 import { useFetchLessonQuery, usePatchLessonsMutation } from 'api/modulesServices'
-import { ClassesSettingsPropsT } from '../../../../../../types/navigationTypes'
-import { ILesson } from '../../../../../../types/sectionT'
+import { ClassesSettingsPropsT } from 'types/navigationTypes'
+import { commonLessonT } from 'types/sectionT'
 import { patchData } from 'utils/patchData'
 import { useBoolean } from 'customHooks/useBoolean'
 import { AddQuestion } from 'components/AddQuestion'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
+import { usePatchTextFilesMutation, usePostTextFilesMutation } from 'api/filesService'
 
 import styles from './constructor.module.scss'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [isToggle, { onToggle }] = useBoolean()
+  const [files, setFiles] = useState<File[]>([])
+  const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
 
-  const { data, isFetching } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type })
+  const { data, isFetching, isSuccess } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type })
 
-  const [addFile] = usePatchLessonsMutation()
+  // const [addFile] = usePatchLessonsMutation()
+  // const [addTextFiles] = usePostTextFilesMutation()
 
-  const [lesson, setLesson] = useState<ILesson>(data)
+  const [lesson, setLesson] = useState(data as commonLessonT)
 
   const showSettingsModal = () => {
     setType('setting' as keyof object)
@@ -33,15 +40,43 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     }
   }
 
-  const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.files) {
-      const files = event.target.files
+  const handleUploadFiles = (chosenFiles: File[]) => {
+    const uploaded = [...files]
+    const uploadedUrlFiles = [...urlFiles]
 
-      patchData(lesson, `${lessonIdAndType.type}_id`, 'file', files[0], addFile, lessonIdAndType.type)
-    }
+    chosenFiles.some(file => {
+      if (uploaded.findIndex(f => f.name === file.name) === -1) {
+        uploaded.push(file)
+      }
+    })
+
+    chosenFiles.forEach(file => {
+      const url = URL.createObjectURL(file)
+      uploadedUrlFiles.push({ url, name: file.name })
+    })
+
+    setFiles(uploaded)
+    setUrlFiles(uploadedUrlFiles)
   }
+
+  const handleChangeFiles = (event: ChangeEvent<HTMLInputElement>) => {
+    const chosenFiles = Array.prototype.slice.call(event.target.files)
+
+    handleUploadFiles(chosenFiles)
+  }
+
+  // const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
+  //   if (event.target.files) {
+  //     const files = event.target.files
+
+  //     console.log(files)
+
+  //     patchData(lesson, `${lessonIdAndType.type}_id`, 'file', JSON.stringify(files), addFile, lessonIdAndType.type)
+  //   }
+  // }
+
   useEffect(() => {
-    setLesson(data)
+    isSuccess && setLesson(data)
   }, [data])
 
   return (
@@ -70,15 +105,14 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
           <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} isPreview={isToggle} />
 
-          <form acceptCharset="utf-8" className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form}>
-            <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
-            <label className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_addFiles}>
-              <IconSvg width={22} height={18} viewBoxSize="0 0 20 18" path={paperClipIconPath} />
-              <input onChange={handleUploadFile} type="file" />
-              Прикрепить файлы
-            </label>
-            <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
-          </form>
+          <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
+          <AddFileBtn handleChangeFiles={handleChangeFiles} />
+          <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
+
+          {urlFiles?.map(({ url, name }, index: number) => (
+            <UploadedFile key={index} file={url} name={name} />
+          ))}
+          {urlFiles.length > 0 && <Button style={{ marginTop: '20px' }} variant="primary" text="Загрузить" type="submit" />}
         </div>
         {isFetching && (
           <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>

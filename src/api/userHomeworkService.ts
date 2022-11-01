@@ -29,6 +29,16 @@ export const userHomeworkService = createApi({
       },
       invalidatesTags: ['userHomework'],
     }),
+    patchUserHomework: build.mutation<void, any>({
+      query: homework => {
+        return {
+          url: `/user_homeworks/`,
+          method: 'PATCH',
+          body: homework,
+        }
+      },
+      invalidatesTags: ['userHomework'],
+    }),
   }),
 })
 
