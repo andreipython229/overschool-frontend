@@ -86,7 +86,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
           </div>
         )}
       </div>
-      {lessonIdAndType.type === 'test' && <AddQuestion />}
+      {lessonIdAndType.type === 'test' && <AddQuestion testId={lessonIdAndType.id} />}
     </section>
   )
 })
