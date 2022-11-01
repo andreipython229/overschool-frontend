@@ -83,7 +83,7 @@ export type InputBlockT = {
   label?: string
   placeholder?: string
   onClick?: () => void
-  // onChange: (value: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (value: ChangeEvent<HTMLInputElement>) => void
   onBlur?: (e: FocusEvent) => void
 }
 

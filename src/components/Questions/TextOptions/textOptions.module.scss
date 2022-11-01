@@ -2,32 +2,36 @@
 @import '../../../scss/mixin.scss';
 
 .wrapper {
-    background-color: #fff;
-    margin-top: 20px;
-    padding: 30px 61px 30px 61px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: $box-shadow;
+  background-color: #fff;
+  margin-top: 20px;
+  padding: 30px 61px 30px 61px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: $box-shadow;
 
-    &_header {
-        &_iconWrapper {
-            @include display (flex, column, flex-start, center);
-            &_iconRow {
-                width: 50px;
-                height: 9px;
-                margin: 2px 0;
-                padding: 2px 4px;
-                border-radius: 22px;
-                background-color: #6B7280;
-                span {
-                    display: block;
-                    width: 4px;
-                    height: 4px;
-                    border-radius: 50%;
-                    background-color: #fff;
-                }
-            }
+  &_header {
+    &_iconWrapper {
+      @include display(flex, column, flex-start, center);
+      &_iconRow {
+        width: 50px;
+        height: 9px;
+        margin: 2px 0;
+        padding: 2px 4px;
+        border-radius: 22px;
+        background-color: #6b7280;
+        span {
+          display: block;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background-color: #fff;
         }
+      }
     }
-    
+  }
+  &_drop_down_menu {
+    margin-top: -10px;
+    background-color: #fff;
+    padding: 30px 61px 30px 61px;
+  }
 }
