@@ -1,0 +1,23 @@
+export interface textFile {
+  id: number
+  order: number
+  description: string
+  file: string
+  author: number
+  base_lesson: number
+  user_homework: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface audioFile {
+  id: number
+  order: number
+  description: string
+  file: string
+  author: number
+  base_lesson: number
+  user_homework: number
+  created_at: Date
+  updated_at: Date
+}

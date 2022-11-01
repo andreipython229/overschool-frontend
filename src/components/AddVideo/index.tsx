@@ -1,5 +1,6 @@
 import { useState, FC, ChangeEvent } from 'react'
 
+import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { addVideoIconPath } from './config/svgIconsPath'
@@ -29,7 +30,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
       autoplay: 0,
     },
   }
-  const videoIdLesson = youtubeParser(lesson?.video)
+  const videoIdLesson = youtubeParser(lesson.type === LESSON_TYPE.LESSON ? lesson?.video : '')
 
   return (
     <div className={styles.redactorCourse_rightSide_functional_addContent}>

@@ -8,4 +8,8 @@ export { courseStatService } from './courseStat'
 export { homeworksStatsService } from './homeworksStatsService'
 export { userHomeworkService } from './userHomeworkService'
 export { userRegisterService } from './userRegisterService'
+<<<<<<< HEAD
 export { questionsAndAnswersService } from './questionsAndAnswersService'
+=======
+export { filesService } from './filesService'
+>>>>>>> milena-dev

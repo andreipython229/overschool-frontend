@@ -23,7 +23,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setType, m
   const [settingsActive, setSettingsActive] = useState<number>(0)
   const [balls, setBalls] = useState<number>(0)
   const [typeLesson, setTypeLesson] = useState<string | number>('')
-  const [nameLesson, setNameLesson] = useState<string>(data?.name)
+  const [nameLesson, setNameLesson] = useState<string>(`${data?.name}`)
 
   const handleClose = () => {
     setType(null as keyof object)

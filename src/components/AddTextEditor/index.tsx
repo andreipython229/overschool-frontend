@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import parse from 'html-react-parser'
 
+import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { MyEditor } from 'components/MyEditor/MyEditor'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/commonSvgIconsPath'
@@ -29,7 +30,7 @@ export const AddTextEditor: FC<setShowType & AddPostT> = ({ isPreview, lesson, s
         <div
           style={{ border: '2px dashed #EBEEF5', fontSize: '14px', minHeight: '230px', margin: '0 0 20px 0', padding: '15px', borderRadius: '7px' }}
         >
-          {parse(lesson.description)}
+          {parse(lesson.type === LESSON_TYPE.LESSON ? lesson?.description : '')}
         </div>
       ) : (
         <MyEditor setDescriptionLesson={setDescriptionLesson} />

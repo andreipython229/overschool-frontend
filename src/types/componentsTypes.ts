@@ -1,7 +1,7 @@
 import { FC, MouseEvent, ReactNode } from 'react'
 
 import { statusFilterT } from 'types/statusFilterConfigType'
-import { ILesson, sectionT } from './sectionT'
+import { commonLessonT, sectionT } from './sectionT'
 import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
 
 export type setShowType = {
@@ -16,7 +16,7 @@ type argT = {
 }
 
 export type AddPostT = {
-  lesson: ILesson
+  lesson: commonLessonT
   code?: string
   isPreview?: boolean
   lessonIdAndType?: lessonIdAndTypeT

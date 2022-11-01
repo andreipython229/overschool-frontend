@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import { sectionT, sectionsT } from '../types/sectionT'
+import { sectionT, sectionsT, commonLessonT } from 'types/sectionT'
 import { baseQueryWithReauth } from './baseApi'
 
 export const modulesServices = createApi({
@@ -45,13 +45,13 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modules'],
     }),
-    fetchLesson: build.query<any, { id: number; type: string }>({
+    fetchLesson: build.query<commonLessonT, { id: number; type: string }>({
       query: ({ id, type }) => ({
         url: `/${type}s/${id}/`,
       }),
       providesTags: ['patchLessons'],
     }),
-    fetchLessons: build.query<any, string>({
+    fetchLessons: build.query<commonLessonT[], string>({
       query: type => ({
         url: `/${type}s/`,
       }),
