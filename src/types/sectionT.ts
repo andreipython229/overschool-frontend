@@ -1,26 +1,58 @@
+import { textFile, audioFile } from './filesT'
+import { LESSON_TYPE } from 'enum/lessonTypeE'
+
+export interface ILesson {
+  lesson_id: number
+  section: number
+  name: string
+  order: number
+  description: string
+  video: string
+  points: number
+  text_files: textFile[]
+  audio_files: audioFile[]
+  type: LESSON_TYPE.LESSON
+}
+
+export interface IHomework {
+  homework_id: number
+  section: number
+  name: string
+  order: number
+  author_id: string
+  description: string
+  automate_accept: boolean
+  time_accept: string
+  points: number
+  text_files: textFile[]
+  audio_files: audioFile[]
+  type: LESSON_TYPE.HOMEWORK
+}
+
+export interface ITest {
+  test_id: number
+  section: number
+  name: string
+  success_percent: number
+  random_questions: boolean
+  random_answers: boolean
+  show_right_answers: boolean
+  attempt_limit: boolean
+  attempt_count: number
+  points_per_answer: number
+  points: number
+  order: number
+  author_id: string
+  type: LESSON_TYPE.TEST
+}
+
+export type commonLessonT = | ILesson | IHomework | ITest
 
 export type lessonT = {
   id: number
   name: string
   order: number
   type: string
-}
-
-export interface ILesson {
-  audio: null | File
-  audio_url: string
-  author_id: number
-  code: null | string
-  created_at: string
-  description: string
-  file: null | File
-  lesson_id: number
-  name: string
-  order: null | number
-  published: boolean
-  section: number
-  updated_at: string
-  video: string
 }
 
 export type sectionT = {

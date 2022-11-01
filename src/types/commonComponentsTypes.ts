@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps, FocusEvent, HTMLAttributes, InputHTMLAttributes, ReactNode, PointerEvent } from 'react'
 
+import { audioFile } from 'types/filesT'
 import { LoginParamsT } from '../utils/validationLogin'
 
 export type AuthSelectPropsT = {
@@ -120,7 +121,7 @@ export type ToggleButtonDropDownT = {
 }
 
 export type AudioPlayerT = {
-  audioUrl: string
+  audioUrls: audioFile[]
   title?: string
   styles?: { [key: string]: string | number }
 }

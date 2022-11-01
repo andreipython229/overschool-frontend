@@ -1,5 +1,6 @@
 import { FC, useState, useCallback } from 'react'
 
+import { CoursesDataT } from 'types/CoursesT'
 import { Input } from 'components/common/Input/Input/Input'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Button } from 'components/common/Button/Button'
@@ -9,8 +10,11 @@ import { useDebouncedFilter, useBoolean } from 'customHooks/index'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { filtersSelector } from 'selectors/index'
 import { addFilters } from 'store/redux/filters/slice'
+import { commonLessonT } from 'types/sectionT'
 
 import style from './search_filter.module.scss'
+
+// type datatToFilter = CoursesDataT[] | commonLessonT
 
 export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filterTerm }) => {
   const dispatch = useAppDispatch()
