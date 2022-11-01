@@ -5,19 +5,18 @@ import styles from './answerOption.module.scss'
 import { InputBlock } from 'components/common/Input/InputBlock'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { deleteIconPath, addCommentsIconPath, grabIconPath } from '../config/svgIconPath'
-import { Button } from 'components/common/Button/Button'
 
 type AnswerOptionT = {
   children?: ReactNode
+  body?: string
 }
 
-export const AnswerOption: FC<AnswerOptionT> = memo(({ children }) => {
+export const AnswerOption: FC<AnswerOptionT> = memo(({ children, body }) => {
   return (
     <div className={styles.answerOptionsBlock}>
-      <h4 className={styles.answerOptionsBlock_title}>Добавьте варианты ответов:</h4>
       <div className={styles.answerOptionsBlock_inputWrapper}>
         {children}
-        <InputBlock id={''} name={''} type={''} value={''} placeholder={'Вариант ответа'} />
+        <InputBlock id={''} name={''} type={'text'} value={body || ''} placeholder={'Вариант ответа'} />
         <div className={styles.answerOptionsBlock_inputWrapper_correctAnswerWrapper}>
           <Checkbox>Правильный ответ</Checkbox>
         </div>
@@ -35,7 +34,6 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({ children }) => {
           <IconSvg width={21} height={14} viewBoxSize="0 0 21 14" path={grabIconPath} />
         </div>
       </div>
-      <Button text={'+ Добавить вариант'} style={{ marginTop: '26px' }} variant={'primary'} />
     </div>
   )
 })

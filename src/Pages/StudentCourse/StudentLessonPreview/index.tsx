@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { StudentTest } from './StudentTest/index'
-import { StudentHomework } from './StudentHomework/index'
-import { StudentLesson } from './StudentLesson/index'
+import { StudentTest } from './StudentTest'
+import { StudentHomework } from './StudentHomework'
+import { StudentLesson } from './StudentLesson'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { useFetchLessonQuery, useFetchModuleLessonsQuery } from '../../../api/modulesServices'
 

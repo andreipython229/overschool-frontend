@@ -42,10 +42,10 @@ export const questionsAndAnswersService = createApi({
       },
       invalidatesTags: ['questions'],
     }),
-    patchQuestions: build.mutation({
-      query: questions => {
+    patchQuestion: build.mutation({
+      query: ({ questions, id }) => {
         return {
-          url: `/questions/`,
+          url: `/questions/${id}/`,
           method: 'PATCH',
           body: questions,
         }
@@ -55,7 +55,7 @@ export const questionsAndAnswersService = createApi({
     removeQuestions: build.mutation({
       query: id => {
         return {
-          url: `/questions/${id}`,
+          url: `/questions/${id}/`,
           method: 'DELETE',
         }
       },
@@ -74,4 +74,5 @@ export const questionsAndAnswersService = createApi({
   }),
 })
 
-export const { useFetchQuestionsListQuery, useCreateQuestionsMutation, useRemoveQuestionsMutation } = questionsAndAnswersService
+export const { useFetchQuestionsListQuery, usePatchQuestionMutation, useCreateQuestionsMutation, useRemoveQuestionsMutation } =
+  questionsAndAnswersService
