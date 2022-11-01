@@ -14,12 +14,15 @@ import { Reorder } from 'framer-motion'
 
 import styles from './addQuestion.module.scss'
 
+export type AnswersT = {
+  answer_id: string | number
+  body: string
+}
+
 type QuestionT = {
   question_type: keyof object
   body: string
-  is_any_answer_correct: boolean
-  only_whole_numbers: boolean
-  test: string | number
+  answers: AnswersT[]
   question_id: string | number
 }
 
@@ -40,6 +43,7 @@ export type PropsQuestionBlockT = {
   isOpen?: boolean
   question?: QuestionT
   onPointerDown?: any
+  answers?: AnswersT[]
   // setQuestions?: (arg: QuestionT[]) => void
   // questions?: QuestionT[]
 }
@@ -70,7 +74,7 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
       <Reorder.Group className={styles.settings_list} as="ul" onReorder={setQuestions} values={questions}>
         {questions.map(({ question_type }) => questionsMaper[question_type])}
         {questions.map((question): any => (
-          <TextOptions question={question} title={question.body} id={question.question_id} key={question.question_id} />
+          <TextOptions answers={question.answers} question={question} title={question.body} id={question.question_id} key={question.question_id} />
         ))}
       </Reorder.Group>
       <div className={styles.wrapper_addQuestionsWrapper}>
