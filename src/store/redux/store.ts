@@ -17,11 +17,8 @@ const rootReducer = combineReducers({
   [services.userHomeworkService.reducerPath]: services.userHomeworkService.reducer,
   [services.userHomeworkService.reducerPath]: services.userHomeworkService.reducer,
   [services.userRegisterService.reducerPath]: services.userRegisterService.reducer,
-<<<<<<< HEAD
   [services.questionsAndAnswersService.reducerPath]: services.questionsAndAnswersService.reducer,
-=======
   [services.filesService.reducerPath]: services.filesService.reducer,
->>>>>>> milena-dev
   user: authReduce,
   sections: sectionsReduce,
   filters: filtersReducer,
@@ -50,11 +47,8 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.homeworksStatsService.middleware,
         services.userHomeworkService.middleware,
         services.userRegisterService.middleware,
-<<<<<<< HEAD
         services.questionsAndAnswersService.middleware,
-=======
         services.filesService.middleware,
->>>>>>> milena-dev
       ),
   })
 }
