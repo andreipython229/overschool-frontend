@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQueryWithReauth } from './baseApi'
+import { formDataConverter } from '../utils/formDataConverter'
 
 type returnQuestionT = {
   body: string
@@ -43,14 +44,15 @@ export const questionsAndAnswersService = createApi({
       invalidatesTags: ['questions'],
     }),
     patchQuestion: build.mutation({
-      query: ({ questions, id }) => {
+      query: ({ titleQuestion, id }) => {
+        const formdata = formDataConverter({ body: titleQuestion })
         return {
           url: `/questions/${id}/`,
           method: 'PATCH',
-          body: questions,
+          body: formdata,
         }
       },
-      // invalidatesTags: [''],
+      invalidatesTags: ['questions'],
     }),
     removeQuestions: build.mutation({
       query: id => {
