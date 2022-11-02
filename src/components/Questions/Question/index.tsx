@@ -1,5 +1,5 @@
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { InputBlock } from 'components/common/Input/InputBlock'
 import { addCommentsIconPath } from '../config/svgIconPath'
 import { useDebounceFunc } from '../../../customHooks'
@@ -13,17 +13,28 @@ type QuestionT = {
 }
 
 export const Question: FC<QuestionT> = ({ id, title }) => {
-  const [titleQuestion, setTitleQuestion] = useState<string>(title || '')
+  const [updateTitle, { data }] = usePatchQuestionMutation()
 
-  const [updateTitle] = usePatchQuestionMutation()
+  const [titleQuestion, setTitleQuestion] = useState<string>(data?.body || title || '')
 
   const debounced = useDebounceFunc(updateTitle)
 
   const handleChangeTitleQuestion = (event: ChangeEvent<HTMLInputElement>) => {
     const titleChange: string = event.target.value
     setTitleQuestion(titleChange)
-    debounced({ titleQuestion, id })
   }
+
+  useEffect(() => {
+    if (titleQuestion !== title) {
+      debounced({ titleQuestion, id })
+    }
+  }, [titleQuestion])
+
+  useEffect(() => {
+    if (data) {
+      setTitleQuestion(data.body)
+    }
+  }, [data])
 
   return (
     <div className={styles.questionBlock}>
