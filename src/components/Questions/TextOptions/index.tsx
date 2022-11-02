@@ -1,18 +1,34 @@
+import { FC, PointerEvent, MouseEvent, useState } from 'react'
+import { Reorder, useDragControls } from 'framer-motion'
+
 import { Question } from '../Question'
 import { AnswerOption } from '../AnswerOption'
 import { QuestionHeader } from '../QuestionHeader'
-import { FC, PointerEvent } from 'react'
 import { AnswersT, PropsQuestionBlockT } from 'components/AddQuestion'
 import { useBoolean } from '../../../customHooks'
-import { Reorder, useDragControls } from 'framer-motion'
 import { Button } from '../../common/Button/Button'
+import { useAddAnswerMutation } from 'api/questionsAndAnswersService'
 
 import styles from './textOptions.module.scss'
 
 export const TextOptions: FC<PropsQuestionBlockT> = ({ question, answers, title, id }) => {
   const [isOpen, { onToggle }] = useBoolean()
+  const [answersToRender, setAnswersToRender] = useState(answers || [])
+
+  const [addAnswer] = useAddAnswerMutation()
 
   const controls = useDragControls()
+
+  const handleAddAnswer = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+
+    const answerToAdd = {
+      question: id,
+      body: '',
+    }
+
+    addAnswer(answerToAdd)
+  }
 
   const onPointerDown = (event: PointerEvent<SVGSVGElement | SVGPathElement>) => {
     controls.start(event)
@@ -52,10 +68,13 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({ question, answers, title,
         <div className={styles.wrapper_drop_down_menu}>
           <Question id={id} title={title} />
           <h4 className={styles.answerOptionsBlock_title}>Добавьте варианты ответов:</h4>
-          {answers?.map(({ body, answer_id }: AnswersT) => (
-            <AnswerOption key={answer_id} body={body} />
-          ))}
-          <Button text={'+ Добавить вариант'} style={{ marginTop: '26px' }} variant={'primary'} />
+          <Reorder.Group className={styles.settings_list} onReorder={setAnswersToRender} values={answersToRender}>
+            {answersToRender?.map(answer => (
+              <AnswerOption key={answer.answer_id} id={id} answer={answer} />
+            ))}
+          </Reorder.Group>
+
+          <Button text={'+ Добавить вариант'} style={{ marginTop: '26px' }} variant={'primary'} onClick={handleAddAnswer} />
         </div>
       )}
     </>
