@@ -3,6 +3,7 @@ import { FC,useState } from 'react';
 import { Button } from 'components/common/Button/Button';
 import { setShowType } from '../../../types/componentsTypes';
 import { StudentQuestion } from './StudentQuestion';
+import { useFetchQuestionsListQuery } from '../../../api/questionsAndAnswersService';
 
 const test = {
         questions: [{                
@@ -100,8 +101,9 @@ const test = {
 }
 
 export const StudentTestBlock = () => {
-    
-    const [numberTest, setNumberTest] = useState<number>(0)
+    const { data: questionsList } = useFetchQuestionsListQuery(6);
+    console.log(questionsList);
+    const [numberTest, setNumberTest] = useState<number>(0);
     return (
        <StudentQuestion questions={test.questions[numberTest]} length = {test.questions} numberTest = {numberTest} setNumberTest = {setNumberTest}/>
     )
