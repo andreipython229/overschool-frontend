@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQueryWithReauth } from './baseApi'
+import { formDataConverter } from '../utils/formDataConverter'
 
 type returnQuestionT = {
   body: string
@@ -17,13 +18,13 @@ type returnQuestionT = {
 export const questionsAndAnswersService = createApi({
   reducerPath: 'questionsAndAnswersService',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['questions'],
+  tagTypes: ['questions', 'answers'],
   endpoints: build => ({
     fetchQuestionsList: build.query({
       query: id => ({
         url: `/tests/${id}/get_questions/`,
       }),
-      providesTags: ['questions'],
+      providesTags: ['questions', 'answers'],
     }),
     // fetchQuestions: build.query({
     //   query: () => ({
@@ -43,14 +44,15 @@ export const questionsAndAnswersService = createApi({
       invalidatesTags: ['questions'],
     }),
     patchQuestion: build.mutation({
-      query: ({ questions, id }) => {
+      query: ({ titleQuestion, id }) => {
+        const formdata = formDataConverter({ body: titleQuestion })
         return {
           url: `/questions/${id}/`,
           method: 'PATCH',
-          body: questions,
+          body: formdata,
         }
       },
-      // invalidatesTags: [''],
+      invalidatesTags: ['questions'],
     }),
     removeQuestions: build.mutation({
       query: id => {
@@ -61,18 +63,44 @@ export const questionsAndAnswersService = createApi({
       },
       invalidatesTags: ['questions'],
     }),
-    patchAnswers: build.mutation({
-      query: answer => {
+    addAnswer: build.mutation({
+      query: body => {
         return {
           url: `/answers/`,
+          method: 'POST',
+          body,
+        }
+      },
+      invalidatesTags: ['answers'],
+    }),
+    patchAnswer: build.mutation({
+      query: ({ answer, answerId }) => {
+        return {
+          url: `/answers/${answerId}/`,
           method: 'PATCH',
           body: answer,
         }
       },
       // invalidatesTags: [''],
     }),
+    deleteAnswer: build.mutation({
+      query: answerId => {
+        return {
+          url: `/answers/${answerId}/`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: ['answers'],
+    }),
   }),
 })
 
-export const { useFetchQuestionsListQuery, usePatchQuestionMutation, useCreateQuestionsMutation, useRemoveQuestionsMutation } =
-  questionsAndAnswersService
+export const {
+  useFetchQuestionsListQuery,
+  usePatchQuestionMutation,
+  useCreateQuestionsMutation,
+  useRemoveQuestionsMutation,
+  useAddAnswerMutation,
+  usePatchAnswerMutation,
+  useDeleteAnswerMutation,
+} = questionsAndAnswersService

@@ -21,7 +21,7 @@ export const StudentLessonPreview: FC = () => {
         case LESSON_TYPE.HOMEWORK:
           return <StudentHomework lessons={lessons} lesson={lesson} params={params} />
         case LESSON_TYPE.TEST:
-          return <StudentTest />
+          return <StudentTest lessons={lessons} lesson={lesson} params={params} />
       }
     }
   }
