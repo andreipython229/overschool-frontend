@@ -33,6 +33,7 @@ export interface ITest {
   test_id: number
   section: number
   name: string
+  questions: any
   success_percent: number
   random_questions: boolean
   random_answers: boolean
