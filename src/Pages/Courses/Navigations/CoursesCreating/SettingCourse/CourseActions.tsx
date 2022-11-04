@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useCloneCourseMutation, useDeleteCoursesMutation } from 'api/coursesServices'
-import { Button } from 'components/common/Button/Button'
+import { Button } from 'components/common/Button'
 import { CoursesDataT } from 'types/CoursesT'
 
 type CourseActionsT = {
@@ -32,7 +32,7 @@ export const CourseActions: FC<CourseActionsT> = ({ courseFind }) => {
   return (
     <div>
       <h4>Действия с курсом</h4>
-      <Button onClick={handleCloneCourse} text={'Копировать'} variant={'secondary'} style={{marginRight: '16px'}}/>
+      <Button onClick={handleCloneCourse} text={'Копировать'} variant={'secondary'} style={{ marginRight: '16px' }} />
       <Button onClick={handleDeleteCourse} text={'Удалить'} variant={'delete'} />
     </div>
   )

@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Input } from 'components/common/Input/Input/Input'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
-import { Button } from 'components/common/Button/Button'
+import { Button } from 'components/common/Button'
 import { homeWorkActions, testActions } from 'constants/other'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 

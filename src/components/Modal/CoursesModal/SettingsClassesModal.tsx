@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
-import { Button } from 'components/common/Button/Button'
+import { Button } from 'components/common/Button'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { settingsClassesIconPath } from './config/svgIconsPath'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'

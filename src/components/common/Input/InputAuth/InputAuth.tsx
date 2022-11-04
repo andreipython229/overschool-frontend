@@ -13,7 +13,7 @@ export const InputAuth: FC<InputAuthPropsT> = memo(props => {
         <label htmlFor={name} className={styles.input_container_textFieldLabel}>
           {label}
         </label>
-        {icon && <img onClick={onClick} className={styles.input_container_image} src={icon} alt="Button for show/close password" />}
+        {icon && <img onClick={onClick} className={styles.input_container_image} src={icon} alt="Index for show/close password" />}
       </div>
     </div>
   )

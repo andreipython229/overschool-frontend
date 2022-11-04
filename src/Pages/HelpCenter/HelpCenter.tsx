@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Button } from '../../components/common/Button/Button'
+import { Button } from '../../components/common/Button'
 import { Input } from '../../components/common/Input/Input/Input'
 
 import firstStep from '../../assets/img/createProject/firstStep.png'
@@ -34,7 +34,7 @@ export const HelpCenter = () => {
             value={''}
             onChange={() => console.log('заглушка')}
             placeholder="Введите запрос, который Вас интересует"
-          ></Input>
+          />
           <Button text={'Поиск'} variant={'create'} />
         </div>
       </div>

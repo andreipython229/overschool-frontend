@@ -2,13 +2,13 @@ import { FC } from 'react'
 import { Params } from 'react-router-dom'
 
 import { sectionT, IHomework } from 'types/sectionT'
-import { StudentCourseNavArr } from '../StudentCourseNavArr/index'
+import { StudentCourseNavArr } from '../StudentCourseNavArr'
 import { UploadedFile } from 'components/UploadedFile/index'
 import { AudioPlayer } from 'components/common/AudioPlayer'
-import { StudentLessonDesc } from '../StudentLessonDesc/index'
-import { StudentLessonTextEditor } from '../StudentLessonTextEditor/index'
-import { StudentLessonNavBtns } from '../StudentLessonNavBtns/index'
-import { StudentLessonSidebar } from '../StudentLessonSidebar/index'
+import { StudentLessonDesc } from '../StudentLessonDesc'
+import { StudentLessonTextEditor } from '../StudentLessonTextEditor'
+import { StudentLessonNavBtns } from '../StudentLessonNavBtns'
+import { StudentLessonSidebar } from '../StudentLessonSidebar'
 
 import styles from '../lesson.module.scss'
 

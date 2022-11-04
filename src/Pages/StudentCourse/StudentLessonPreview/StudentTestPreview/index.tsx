@@ -1,6 +1,7 @@
+import { Button } from 'components/common/Button'
+import styles from './studentTestPreview.module.scss'
 import { FC } from 'react';
-import { Button } from 'components/common/Button/Button';
-import styles from './studentTestPreview.module.scss';
+
 import { setShowType } from '../../../../types/componentsTypes';
 
 export const StudentTestPreview: FC<setShowType> = ({setShow}) => {

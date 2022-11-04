@@ -2,12 +2,12 @@ import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { useCreateModulesMutation } from 'api/modulesServices'
 
 import { Input } from 'components/common/Input/Input/Input'
-import { Button } from 'components/common/Button/Button'
+import { Button } from 'components/common/Button'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import { formDataConverter } from '../../../utils/formDataConverter'
 import { AddModuleModalPropsT } from '../ModalTypes'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
+import { SimpleLoader } from '../../Loaders/SimpleLoader'
 
 import styles from '../Modal.module.scss'
 
