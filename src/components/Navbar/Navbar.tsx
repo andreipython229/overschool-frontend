@@ -24,7 +24,7 @@ export const Navbar: FC = memo(() => {
       <div className={styles.navbar_setting_account}>
         {navlinkByRoles[role].map(({ path, icon }, index: number) => (
           <NavLink key={index} to={path} className={isActive}>
-            {icon}
+            {icon || 'кнопка'}
           </NavLink>
         ))}
       </div>

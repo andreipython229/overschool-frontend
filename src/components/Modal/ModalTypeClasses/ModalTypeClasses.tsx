@@ -1,6 +1,6 @@
 import { FC, memo, useState } from 'react'
 
-import { Button } from 'components/common/Button/Button'
+import { Button } from 'components/common/Button'
 import { typeClasses } from '../../../constants/typeClasses'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { modalTypeClassesTrainingPath, modalTypeClassesTaskPath, modalTypeClassesTextPath, modalTypeClassesWebinarPath } from './config/svgIconsPath'

@@ -1,7 +1,7 @@
 import { useState, DragEvent, ChangeEvent, FC } from 'react'
 
 import { LESSON_TYPE } from 'enum/lessonTypeE'
-import { Button } from 'components/common/Button/Button'
+import { Button } from 'components/common/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/commonSvgIconsPath'
 import { AddPostT, setShowType } from '../../types/componentsTypes'

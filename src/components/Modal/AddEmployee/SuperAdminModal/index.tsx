@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC } from 'react'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { modalIconPath } from '../config/svgIconsPath'
 import { Radio } from '../../../common/Radio/Radio'
-import { Button } from '../../../common/Button/Button'
+import { Button } from '../../../common/Button'
 import { AddEmployeeModalPropsT, AddEmpoyeeModalExtensions } from '../../ModalTypes'
 
 import styles from '../../Modal.module.scss'

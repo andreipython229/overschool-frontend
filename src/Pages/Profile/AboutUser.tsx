@@ -2,7 +2,7 @@ import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
-import { Button } from 'components/common/Button/Button'
+import { Button } from 'components/common/Button'
 import { userDataSchema } from './schemas'
 import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/profileService'
 import { useAppSelector } from 'store/hooks/index'

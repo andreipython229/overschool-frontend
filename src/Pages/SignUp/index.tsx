@@ -1,7 +1,7 @@
 import { useState, FC } from 'react'
 import { useFormik } from 'formik'
 
-import { Button } from 'components/common/Button/Button'
+import { Button } from 'components/common/Button'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { InputAuth } from 'components/common/Input/InputAuth/InputAuth'
 import { validationSchema } from './schemas/validationSchema'
