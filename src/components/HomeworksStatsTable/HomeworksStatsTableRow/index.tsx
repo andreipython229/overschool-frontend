@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Portal } from '../../Modal/Portal'
 import { ModalCheckHomeWork } from '../../Modal/ModalCheckHomeWork/ModalCheckHomeWork'
@@ -17,10 +17,10 @@ type homeworksStatsTableRowT = {
   index: number
 }
 
-export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = ({ homeworkData, index }) => {
+export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = memo(({ homeworkData, index }) => {
   const [isModalOpen, { off: open, on: close }] = useBoolean()
 
-  const { email, mark, status, avatar, homework_name, last_update, user_homework, course_name, user_name, user_lastname } = homeworkData
+  const { email, mark, status, avatar, homework_name, last_update, course_name, user_name, user_lastname } = homeworkData
 
   const { mmddyyyy, hoursAndMinutes } = convertDate(new Date(last_update))
 
@@ -31,9 +31,11 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = ({ homeworkDa
           {avatar ? (
             <img style={{ borderRadius: '50%', width: '32px', height: '32px' }} src={avatar} alt="avatar" />
           ) : (
-            <div className={`${styles.table_body_avatar_div} ${styles[avatarClassname[index]]}`}>БИ</div>
+            <div className={`${styles.table_body_avatar_div} ${styles[avatarClassname[index]]}`}>
+              {`${user_lastname.charAt(0).toUpperCase() || 'Б'}${user_name.charAt(0).toUpperCase() || 'И'}`}
+            </div>
           )}
-          <span style={{ marginLeft: '15px', color: '#424345' }}>Без имени</span>
+          <span style={{ marginLeft: '15px', color: '#424345' }}>{`${user_lastname || 'Без'} ${user_name || 'Имени'}`}</span>
         </td>
         <td style={{ margin: '0 0 0 27px' }}>{email}</td>
         <td style={{ margin: '0 0 0 27px' }}>{homework_name}</td>
@@ -57,4 +59,4 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = ({ homeworkDa
       )}
     </>
   )
-}
+})

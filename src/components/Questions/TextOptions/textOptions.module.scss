@@ -8,6 +8,7 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: $box-shadow;
+  user-select: none;
 
   &_header {
     &_iconWrapper {

@@ -15,19 +15,17 @@ type studentTestT = {
   lessons: sectionT
   params: Params
 }
-
 export const StudentTest: FC<studentTestT> = ({ lesson, lessons, params }) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const activeLessonIndex = lessons?.lessons.findIndex(lesson => lessonId && lesson.order === +lessonId)
-  const { data: questionsList } = useFetchQuestionsListQuery(6);
   const [isOpenTest, { on: closeTest, off: openTest }] = useBoolean()
-  console.log(questionsList);
+  console.log(lesson)
   return (
     <div className={styles.wrapper}>
       <StudentCourseNavArr />
-      <div className={styles.wrapper_title}>Тест</div>
-      <div className={styles.wrapper_testWrapper}>
-        {isOpenTest ? (<StudentTestBlock />) : (<StudentTestPreview />)}
+      <div className={styles.wrapper_title}>{lesson?.name}</div>
+      <div className={styles.wrapper_testWrapper}>        
+        {((!isOpenTest && lessonType !== 'lesson') ? (<StudentTestPreview setShow={openTest}/>) : (isOpenTest && (<StudentTestBlock lesson={lesson}/> )))}
         <StudentLessonSidebar 
             courseId={`${courseId}`}
             sectionId={`${sectionId}`}

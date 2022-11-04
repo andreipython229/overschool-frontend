@@ -1,8 +1,12 @@
 @import '../../scss/mixin.scss';
 .container {
-  @include display (flex, row, space-between, center);
+  @include display(flex, row, space-between, center);
   margin-top: 28px;
   input {
     width: 43vw;
   }
+}
+
+.pagination {
+  margin-top: 260px;
 }
