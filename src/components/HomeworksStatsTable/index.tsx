@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState, useCallback } from 'react'
 
 import { HomeworksStatsTableRow } from './HomeworksStatsTableRow'
 import { HomeworksStatsTableHeader } from './HomeworksStatsTableHeader'
@@ -16,9 +16,9 @@ export const HomeworksStatsTable: FC<homeworkStatsTableT> = ({ homeworks }) => {
 
   const sortedData = useSortDataByProp(homeworks?.results as homeworkStatT[], 'email', isSortedByEmail)
 
-  const hadleChangeProp = () => {
+  const hadleChangeProp = useCallback(() => {
     setIsSortedByEmail(prop => !prop)
-  }
+  }, [])
 
   return (
     <table

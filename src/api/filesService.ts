@@ -1,33 +1,46 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
+import { IFile } from 'types/filesT'
 import { baseQueryWithReauth } from './baseApi'
+
+type postFileT = {
+  body: {
+    body: string
+    question: number
+  }
+}
+
+type patchFileT = {
+  body: FormData
+  baseLessonId: number
+}
 
 export const filesService = createApi({
   reducerPath: 'filesService',
   baseQuery: baseQueryWithReauth,
   tagTypes: ['audioFiles', 'textFiles'],
   endpoints: build => ({
-    fetchAudioFiles: build.query<any, void>({
+    fetchAudioFiles: build.query<IFile[], void>({
       query: () => ({
         url: `audio_files/`,
       }),
       providesTags: ['audioFiles'],
     }),
-    fetchTextFiles: build.query<any, void>({
+    fetchTextFiles: build.query<IFile[], void>({
       query: () => ({
         url: `text_files/`,
       }),
       providesTags: ['textFiles'],
     }),
-    postAudioFiles: build.mutation<any, any>({
-      query: arg => ({
+    postAudioFiles: build.mutation<void, postFileT>({
+      query: body => ({
         url: `audio_files/`,
         method: 'POST',
-        body: arg,
+        body,
       }),
       invalidatesTags: ['audioFiles'],
     }),
-    postTextFiles: build.mutation<any, any>({
+    postTextFiles: build.mutation<void, FormData>({
       query: formData => ({
         url: `text_files/`,
         method: 'POST',
@@ -35,19 +48,19 @@ export const filesService = createApi({
       }),
       invalidatesTags: ['textFiles'],
     }),
-    patchAudioFiles: build.mutation<any, any>({
-      query: ({ arg, baseLessonId }) => ({
+    patchAudioFiles: build.mutation<void, patchFileT>({
+      query: ({ body, baseLessonId }) => ({
         url: `audio_files/${baseLessonId}/`,
         method: 'PATCH',
-        body: arg,
+        body,
       }),
       invalidatesTags: ['audioFiles'],
     }),
-    patchTextFiles: build.mutation<any, any>({
-      query: ({ formData, baseLessonId }) => ({
+    patchTextFiles: build.mutation<void, patchFileT>({
+      query: ({ body, baseLessonId }) => ({
         url: `text_files/${baseLessonId}/`,
         method: 'PATCH',
-        body: formData,
+        body,
       }),
       invalidatesTags: ['textFiles'],
     }),

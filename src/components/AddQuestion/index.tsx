@@ -1,4 +1,6 @@
 import { FC, memo, useEffect, useState } from 'react'
+import { Reorder } from 'framer-motion'
+
 import { AddTextOptions } from './AddTextOptions'
 import { AddOptionsWithPictures } from './AddOptionsWithPictures'
 import { AddPicturesAndOptions } from './AddPicturesAndOptions'
@@ -10,7 +12,6 @@ import { FreeForm } from 'components/Questions/FreeForm'
 import { NumericalTask } from 'components/Questions/NumericalTask'
 import { TextOptions } from 'components/Questions/TextOptions'
 import { useFetchQuestionsListQuery } from 'api/questionsAndAnswersService'
-import { Reorder } from 'framer-motion'
 
 import styles from './addQuestion.module.scss'
 
@@ -72,8 +73,8 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
   return (
     <div className={styles.wrapper}>
       <Reorder.Group className={styles.settings_list} as="ul" onReorder={setQuestions} values={questions}>
-        {questions.map(({ question_type }) => questionsMaper[question_type])}
-        {questions.map((question) => (
+        {/* {questions.map(({ question_type }) => questionsMaper[question_type])} */}
+        {questions.map(question => (
           <TextOptions answers={question.answers} question={question} title={question.body} id={question.question_id} key={question.question_id} />
         ))}
       </Reorder.Group>

@@ -9,13 +9,15 @@ import { filtersSelector } from 'selectors'
 import { addFilters } from 'store/redux/filters/slice'
 import { FilterAndSearchBlock } from './FilterAndSeachBlock'
 
+import styles from './home_work.module.scss'
+
 export const HomeWork: FC = () => {
   const dispatch = useAppDispatch()
   const { filters } = useAppSelector(filtersSelector)
 
   const [termForFilter, setTermForFilter] = useState<string>('')
 
-  const debounce = useDebounceFunc(() => dispatch(addFilters({ homework_name: termForFilter })))
+  const debounce = useDebounceFunc(dispatch(addFilters))
 
   const { data: homeworksStats } = useFetchAllHomeworkStatsQuery(filters)
   const [fetchHomeworkStats, { data: homeworks }] = useLazyFetchHomeworkStatsQuery()
@@ -26,23 +28,23 @@ export const HomeWork: FC = () => {
     setTermForFilter(e.target.value)
   }, [])
 
-  const handleChangeStatus = (status: string) => {
+  const handleChangeStatus = useCallback((status: string) => {
     dispatch(addFilters({ status }))
-  }
+  }, [])
 
   useEffect(() => {
     fetchHomeworkStats({ filters, page })
   }, [page, filters])
 
   useEffect(() => {
-    debounce()
+    termForFilter && debounce({ homework_name: termForFilter })
   }, [termForFilter])
 
   return (
     <>
       <FilterAndSearchBlock handleChangeTerm={handleChangeTerm} termForFilter={termForFilter} onChangeStatus={handleChangeStatus} />
       <HomeworksStatsTable homeworks={homeworks as homeworksStatsT} />
-      <Pagination style={{ marginTop: '260px' }} totalCount={homeworksStats?.count as number} currentPage={page} onPageChange={onPageChange} />
+      <Pagination className={styles.pagination} totalCount={homeworksStats?.count as number} currentPage={page} onPageChange={onPageChange} />
     </>
   )
 }
