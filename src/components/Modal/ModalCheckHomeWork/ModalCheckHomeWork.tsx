@@ -9,15 +9,7 @@ import { tableBallsStarPath } from '../../../config/commonSvgIconsPath'
 import { useFetchUserHomeworkQuery, useFetchTeacherHomeworkQuery } from '../../../api/userHomeworkService'
 import { convertDate } from 'utils/convertDate'
 import { homeworkStatT } from 'types/homeworkT'
-import {
-  taskIconPath,
-  lastAnswIconPath,
-  humanIconPath,
-  paperClipIconPath,
-  starIconPath,
-  sendIconPath,
-  arrIconPath,
-} from './config/svgIconsPsth'
+import { taskIconPath, lastAnswIconPath, humanIconPath, paperClipIconPath, starIconPath, sendIconPath, arrIconPath } from './config/svgIconsPsth'
 
 import styles from './modal_check_home_work.module.scss'
 
@@ -29,7 +21,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ homeworkData }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [mark, setMark] = useState<number>(0)
 
-  const { data: teacherHomework } = useFetchTeacherHomeworkQuery(18)
+  const { data: teacherHomework } = useFetchTeacherHomeworkQuery(homeworkData.homework)
 
   const handleToggleHiddenBlocks = (): void => {
     setIsOpen(!isOpen)
@@ -42,6 +34,8 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ homeworkData }) => {
   const handleChangeStatus = (status: string) => {
     console.log(status)
   }
+
+  // console.log(teacherHomework)
 
   const { mmddyyyy: hwmmddyyyy, hoursAndMinutes: hwhoursAndMinutes } = convertDate(new Date(homeworkData?.last_update))
   const { mmddyyyy: tmmddyyyy, hoursAndMinutes: thoursAndMinutes } = convertDate(new Date(teacherHomework?.updated_at))
@@ -58,8 +52,8 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ homeworkData }) => {
       </div>
       <div className={styles.task_info}>
         <div className={styles.task_info_item}>
-          {iocnsByStatus[homeworkData.status].icon}
-          <span>{homeworkData.status}</span>
+          {iocnsByStatus[teacherHomework?.status]?.icon}
+          <span>{teacherHomework?.status}</span>
         </div>
 
         <div className={styles.task_info_item}>
@@ -79,7 +73,9 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ homeworkData }) => {
       <div className={styles.teacher}>
         <img className={styles.teacher_avatar} src={''} alt="User Avatar" />
         <div className={styles.teacher_teacherData}>
-          <span className={styles.teacher_teacherData_name}>Без имени</span>
+          <span className={styles.teacher_teacherData_name}>{`${teacherHomework?.teacher_last_name || 'Без'} ${
+            teacherHomework?.teacher_first_name || 'Имени'
+          }`}</span>
           <span className={styles.teacher_teacherData_date}>
             {tmmddyyyy && tmmddyyyy} в {thoursAndMinutes && thoursAndMinutes}
           </span>

@@ -1,4 +1,4 @@
-import { textFile, audioFile } from './filesT'
+import { IFile } from './filesT'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 
 export interface ILesson {
@@ -9,8 +9,8 @@ export interface ILesson {
   description: string
   video: string
   points: number
-  text_files: textFile[]
-  audio_files: audioFile[]
+  text_files: IFile[]
+  audio_files: IFile[]
   type: LESSON_TYPE.LESSON
 }
 
@@ -24,8 +24,8 @@ export interface IHomework {
   automate_accept: boolean
   time_accept: string
   points: number
-  text_files: textFile[]
-  audio_files: audioFile[]
+  text_files: IFile[]
+  audio_files: IFile[]
   type: LESSON_TYPE.HOMEWORK
 }
 

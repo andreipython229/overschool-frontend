@@ -18,4 +18,5 @@ export type homeworkStatT = {
   course_name: string
   user_name: string
   user_lastname: string
+  homework: number
 }
