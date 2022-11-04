@@ -1,10 +1,9 @@
-import { Button } from '../../components/common/Button/Button'
+import { Button } from '../../components/common/Button'
 import styles from './TariffPlans.module.scss'
 
 import React, { useState } from 'react'
 import firstStep from '../../assets/img/createProject/firstStep.png'
 import secondStep from '../../assets/img/createProject/secondStep.png'
-import { Footer } from 'components/Footer'
 
 export const TariffPlans = () => {
   const [isCourseShown, setCourseIsShown] = useState<boolean>(true)
@@ -168,7 +167,6 @@ export const TariffPlans = () => {
           <img src={secondStep} alt="Создать проект" className={styles.TariffPlansPage_banner_images_secondStep} />
         </div>
       </div>
-      {/* <Footer /> */}
     </section>
   )
 }

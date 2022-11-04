@@ -5,23 +5,23 @@ import { RoleE } from 'enum/roleE'
 import { CoursesStats } from 'Pages/CoursesStats/CoursesStats'
 import { HomeWork } from 'Pages/HomeWork/HomeWork'
 import { HelpCenter } from 'Pages/HelpCenter/HelpCenter'
-import { TariffPlans } from 'Pages/TariffPlans/TariffPlans'
-import { School } from 'Pages/School/School'
+import { TariffPlans } from 'Pages/TariffPlans'
 import { Path, Student, SettingsPath, CreateCoursePath } from 'enum/pathE'
-import { CoursePage } from 'Pages/School/Navigations/CoursesCreating/CoursePage'
+import { CoursesPage } from 'Pages/Courses/CoursesPage'
 import { StudentLessonPreview } from 'Pages/StudentCourse/StudentLessonPreview'
 import { StudentCourse } from 'Pages/StudentCourse'
 import { Main } from 'Pages/Settings/Main/Main'
 import { Employees } from 'Pages/Settings/Employees/Employees'
 import { Logs } from 'Pages/Settings/Logs/Logs'
 import { DecorPlatform } from 'Pages/Settings/DecorPlatform/DecorPlatform'
-import { RedactorCourse } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/RedactorCourse'
-import { Constructor } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/Constructor'
-import { SettingCourse } from 'Pages/School/Navigations/CoursesCreating/SettingCourse/SettingCourse'
-import { StudentsStats } from 'Pages/School/StudentsStats/StudentsStats'
+import { RedactorCourse } from 'Pages/Courses/Navigations/CoursesCreating/RedactorCourse/RedactorCourse'
+import { Constructor } from 'Pages/Courses/Navigations/CoursesCreating/RedactorCourse/Constructor/Constructor'
+import { SettingCourse } from 'Pages/Courses/Navigations/CoursesCreating/SettingCourse/SettingCourse'
+import { StudentsStats } from 'Pages/Courses/StudentsStats/StudentsStats'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
-import { Group } from 'Pages/Group/index'
+import { Group } from '../Pages/Group'
+import { Courses } from '../Pages/Courses'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -42,7 +42,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
     <>
       <Route path={Path.Profile} element={<Profile />} />
       <Route path={Path.Courses}>
-        <Route index element={<CoursePage />} />
+        <Route index element={<CoursesPage />} />
         <Route path={Student.Course}>
           <Route index element={<StudentCourse />} />
           <Route path={Student.Lesson} element={<StudentLessonPreview />} />
@@ -54,8 +54,8 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
   ),
   [RoleE.Admin]: (
     <>
-      <Route path={Path.Courses} element={<School />}>
-        <Route index element={<CoursePage />} />
+      <Route path={Path.Courses} element={<Courses />}>
+        <Route index element={<CoursesPage />} />
         <Route path={Path.Group} element={<Group />} />
         <Route path={Path.CreateCourse} element={<RedactorCourse />}>
           <Route index element={<Constructor />} />

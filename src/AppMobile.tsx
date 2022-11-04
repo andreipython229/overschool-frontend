@@ -5,7 +5,7 @@ import { MobileInitPage } from 'MobilePages/MobileInitPage/MobileInitPage'
 import { MobileLayOut } from 'MobilePages/MobileLayOut'
 import { MobileCoursesPage } from 'MobilePages/MobileCoursesPage/MobileCoursesPage'
 import { CourseModules } from 'MobilePages/CourseModules/CourseModules'
-import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
+import { PageNotFound } from 'Pages/PageNotFound'
 import { StudentLessonPreview } from './Pages/StudentCourse/StudentLessonPreview'
 import { Profile } from 'Pages/Profile/Profile'
 

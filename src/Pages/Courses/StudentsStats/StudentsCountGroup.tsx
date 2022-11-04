@@ -9,7 +9,7 @@ import { getNounDeclension } from 'utils/getNounDeclension'
 import { useBoolean } from 'customHooks/useBoolean'
 import { Portal } from 'components/Modal/Portal/index'
 
-import styles from 'Pages/School/StudentsStats/studentsStats.module.scss'
+import styles from 'Pages/Courses/StudentsStats/studentsStats.module.scss'
 
 type StudentsGroupPropsT = {
   title: string

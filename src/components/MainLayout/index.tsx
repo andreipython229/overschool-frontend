@@ -1,7 +1,7 @@
-import { FC, memo, useEffect } from 'react'
+import { FC, memo, Suspense, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
-import { Header } from 'components/Header/Header'
+import { Header } from 'components/Header'
 import { Navbar } from 'components/Navbar/Navbar'
 import { Previous } from '../Previous/Previous'
 import { useAppSelector } from '../../store/hooks'
@@ -42,10 +42,14 @@ export const MainLayOut: FC = memo(() => {
       <Navbar />
       <Header />
       <main className={styles.container}>
-        <Previous />
+        <Suspense fallback={<p>Loading...</p>}>
+          <Previous />
+        </Suspense>
         <Outlet />
       </main>
-      <Footer />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Footer />
+      </Suspense>
     </div>
   )
 })

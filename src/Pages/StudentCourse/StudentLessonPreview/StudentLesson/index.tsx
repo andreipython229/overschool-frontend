@@ -4,12 +4,12 @@ import parse from 'html-react-parser'
 import YouTube, { YouTubeProps } from 'react-youtube'
 
 import { sectionT, ILesson } from 'types/sectionT'
-import { StudentCourseNavArr } from '../StudentCourseNavArr/index'
+import { StudentCourseNavArr } from '../StudentCourseNavArr'
 import { UploadedFile } from 'components/UploadedFile/index'
 import { AudioPlayer } from 'components/common/AudioPlayer'
 import { youtubeParser } from 'utils/youtubeParser'
-import { StudentLessonNavBtns } from '../StudentLessonNavBtns/index'
-import { StudentLessonSidebar } from '../StudentLessonSidebar/index'
+import { StudentLessonNavBtns } from '../StudentLessonNavBtns'
+import { StudentLessonSidebar } from '../StudentLessonSidebar'
 
 import styles from '../lesson.module.scss'
 

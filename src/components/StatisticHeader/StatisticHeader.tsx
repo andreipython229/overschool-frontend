@@ -1,11 +1,11 @@
 import { FC, memo } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { Button } from '../common/Button/Button'
+import { Button } from '../common/Button'
 import { StatisticHeaderT } from '../../types/componentsTypes'
 import { statisticIconPath } from './config/svgIconPath'
 
-import styles from 'Pages/School/StudentsStats/studentsStats.module.scss'
+import styles from 'Pages/Courses/StudentsStats/studentsStats.module.scss'
 
 export const StatisticHeader: FC<StatisticHeaderT> = memo(({ hideStats, handleHideStats }) => {
   return (

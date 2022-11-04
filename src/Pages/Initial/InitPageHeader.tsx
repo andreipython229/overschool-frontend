@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { useAppSelector } from '../../store/hooks'
 import { Path } from 'enum/pathE'
-import { Button } from 'components/common/Button/Button'
+import { Button } from 'components/common/Button'
 import { authSelector } from 'selectors'
 import { InitPageHeaderPT } from '../../types/pageTypes'
 import { logo } from '../../assets/img/common/index'

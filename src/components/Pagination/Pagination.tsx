@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import classnames from 'classnames'
 
 import { DOTS, usePagination } from '../../customHooks/usePagination'
@@ -8,11 +8,11 @@ import './pagination.scss'
 type paginationT = {
   totalCount: number
   currentPage: number
-  style?: { [key: string]: string | number}
   onPageChange: (pagw: number) => void
+  className?: string
 }
 
-export const Pagination: FC<paginationT> = ({ totalCount, onPageChange, currentPage, ...props }) => {
+export const Pagination: FC<paginationT> = memo(({ totalCount, onPageChange, currentPage, ...props }) => {
   const { paginationRange } = usePagination({
     totalCount,
   })
@@ -31,7 +31,7 @@ export const Pagination: FC<paginationT> = ({ totalCount, onPageChange, currentP
 
   const lastPage = paginationRange && paginationRange[paginationRange?.length - 1]
   return (
-    <div {...props} className="pagination-bar">
+    <div className={`pagination-bar ${props.className}`}>
       <p className="pagination-text">
         Всего <span className="pagination-total">{paginationRange?.slice(-1)}</span>
       </p>
@@ -72,4 +72,4 @@ export const Pagination: FC<paginationT> = ({ totalCount, onPageChange, currentP
       </ul>
     </div>
   )
-}
+})

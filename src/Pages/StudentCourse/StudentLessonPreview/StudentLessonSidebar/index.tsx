@@ -1,8 +1,8 @@
 import { FC, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { lessonSvgMapper } from '../../../../config/index'
-import { lessonT, sectionT } from '../../../../types/sectionT'
+import { lessonSvgMapper } from '../../../../config'
+import { sectionT } from '../../../../types/sectionT'
 
 import styles from '../lesson.module.scss'
 
