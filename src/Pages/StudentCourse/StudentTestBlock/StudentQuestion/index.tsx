@@ -17,10 +17,10 @@ type StudentQuestionT = {
 }
 
 export const StudentQuestion:FC<StudentQuestionT> = ({questions,length,numberTest,setNumberTest}) => {
+    console.log(questions.answers)
     const questionLength = length.length
     const nameAnswer = questions.question
     const progress = (100 / questionLength) * (numberTest + 1);
-    console.log(progress)
     const hadnleNextQ = () => {
         if(numberTest + 1 <= questionLength ) {
             setNumberTest(numberTest + 1)
@@ -29,13 +29,13 @@ export const StudentQuestion:FC<StudentQuestionT> = ({questions,length,numberTes
     return (
         <div className={styles.wrapper}>
             <h5 className={styles.wrapper_title}>вопрос {numberTest + 1} из {questionLength}</h5>
-            <p className={styles.wrapper_question}>{questions.question}</p>
+            <p className={styles.wrapper_question}>{questions.body}</p>
             <div className={styles.wrapper_progressBar}>
                 <div className={styles.wrapper_progressBar_progress} style={{width:`${progress}%`}}></div>
             </div>
             {questions.answers &&
-                questions?.answers.map(({ answer, right, file }: any, index : number) => (
-            <StudentAnswer key={answer + index} id = {answer} title = {answer} name = {nameAnswer}/>
+                questions?.answers.map(({ body, right, file }: any, index : number) => (
+            <StudentAnswer key={body + index} id = {body} title = {body} name = {nameAnswer}/>
             ))}
             <Button disabled={numberTest + 1 === questionLength} onClick={hadnleNextQ} text={'Следующий вопрос'} variant = 'primary' style={{alignSelf: 'flex-start', marginTop: '32px'}}/>
         </div>
