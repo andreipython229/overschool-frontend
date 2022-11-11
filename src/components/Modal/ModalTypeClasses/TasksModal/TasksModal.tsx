@@ -3,18 +3,18 @@ import { ChangeEvent, FC, memo, useState } from 'react'
 import { Input } from '../../../common/Input/Input/Input'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { SelectInput } from '../../../common/SelectInput/SelectInput'
-import { Button } from '../../../common/Button'
+import { Button } from '../../../common/Button/Button'
 import { arrNumber, arrTime } from '../../../../constants'
 import { MyEditor } from 'components/MyEditor/MyEditor'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { taskModalPath } from '../config/svgIconsPath'
 import { TasksModalPropsT } from '../../ModalTypes'
-import { useCreateLesson } from '../../../../customHooks'
-import { SimpleLoader } from '../../../Loaders/SimpleLoader'
-import { timeMaper } from '../../../../constants/timeMaper'
+import { useCreateLesson } from '../../../../customHooks/useCreateLesson'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../../Modal.module.scss'
+import { timeMaper } from '../../../../constants/timeMaper'
 
 export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modulesList, setType }) => {
   const [settingsActive, setSettingsActive] = useState<number>(0)

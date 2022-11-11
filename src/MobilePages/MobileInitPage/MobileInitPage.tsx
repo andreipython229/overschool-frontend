@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { LoginModal } from 'components/Modal'
 
 import styles from './mobileInitPage.module.scss'

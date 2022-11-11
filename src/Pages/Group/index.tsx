@@ -9,7 +9,7 @@ import { Portal } from 'components/Modal/Portal/index'
 import { SettingStudentTable } from 'components/Modal/SettingStudentTable/index'
 import { useBoolean } from 'customHooks/useBoolean'
 
-import styles from '../Courses/StudentsStats/studentsStats.module.scss'
+import styles from '../School/StudentsStats/studentsStats.module.scss'
 
 export const Group: FC = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)

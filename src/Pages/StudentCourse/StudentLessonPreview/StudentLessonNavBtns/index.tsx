@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { lessonT, sectionT } from '../../../../types/sectionT'
-import { Button } from '../../../../components/common/Button'
+import { Button } from '../../../../components/common/Button/Button'
 
 import styles from '../lesson.module.scss'
 

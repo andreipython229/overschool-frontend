@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { Link, generatePath } from 'react-router-dom'
 import { Student } from 'enum/pathE'
 

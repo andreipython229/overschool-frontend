@@ -41,7 +41,7 @@ export const Header = memo(() => {
   return (
     <header className={styles.header}>
       <NavLink to={Path.Courses}>
-        <img width={'60'} height={'30'} className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
+        <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
       </NavLink>
       <div className={styles.header_block}>
         <Link style={{ textDecoration: 'none' }} to={Path.Profile}>
@@ -50,8 +50,7 @@ export const Header = memo(() => {
               <img width={'50'} height={'50'} className={styles.header_block_user_avatar} src={profile?.avatar_url} alt="avatar" />
             ) : (
               <div className={styles.header_block_user_avatar_div}>
-                {profile?.user.last_name[0] || 'Б'}
-                {profile?.user.first_name[0] || 'И'}
+                {profile?.user.last_name[0] || 'Б'}{profile?.user.first_name[0] || 'И'}
               </div>
             )}
             <div className={styles.header_block_user_userName}>

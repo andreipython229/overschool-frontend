@@ -3,7 +3,7 @@ import { useFormik } from 'formik'
 
 import { Input } from '../../../common/Input/Input/Input'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
-import { Button } from '../../../common/Button'
+import { Button } from '../../../common/Button/Button'
 import { Radio } from '../../../common/Radio/Radio'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { checkboxData } from './config/checkboxData'
@@ -11,7 +11,7 @@ import { modalTestBlockTextPath } from '../config/svgIconsPath'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { TestModalPropsT } from '../../ModalTypes'
 import { useCreateLesson } from 'customHooks/useCreateLesson'
-import { SimpleLoader } from '../../../Loaders/SimpleLoader'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../../Modal.module.scss'
 

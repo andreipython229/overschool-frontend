@@ -1,12 +1,12 @@
 import { ChangeEvent, FC, useState } from 'react'
 
 import { Input } from 'components/common/Input/Input/Input'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from 'config/commonSvgIconsPath'
 import { basicModalHeaderIconPath } from '../config/svgIconsPath'
 import { SettingClassesPropsT } from '../../ModalTypes'
-import { useCreateLesson } from '../../../../customHooks'
+import { useCreateLesson } from '../../../../customHooks/useCreateLesson'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from '../../Modal.module.scss'

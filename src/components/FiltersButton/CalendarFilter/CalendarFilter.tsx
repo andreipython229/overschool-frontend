@@ -3,7 +3,7 @@ import DatePicker, { registerLocale } from 'react-datepicker'
 import ru from 'date-fns/locale/ru'
 
 import { IWithRange } from '../../../types/componentsTypes'
-import { Button } from '../../common/Button'
+import { Button } from '../../common/Button/Button'
 import { convertDate } from 'utils/convertDate'
 import { useBoolean } from 'customHooks/index'
 import { useAppDispatch, useAppSelector } from 'store/hooks'

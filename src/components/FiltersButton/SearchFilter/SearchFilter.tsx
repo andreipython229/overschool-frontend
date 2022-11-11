@@ -1,14 +1,16 @@
 import { FC, useState, useCallback } from 'react'
 
+import { CoursesDataT } from 'types/CoursesT'
 import { Input } from 'components/common/Input/Input/Input'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { searchIconPath } from '../config/svgIconsPath'
 import { SearchFilterT } from '../../../types/componentsTypes'
 import { useDebouncedFilter, useBoolean } from 'customHooks/index'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { filtersSelector } from 'selectors/index'
 import { addFilters } from 'store/redux/filters/slice'
+import { commonLessonT } from 'types/sectionT'
 
 import style from './search_filter.module.scss'
 

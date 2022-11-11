@@ -1,7 +1,7 @@
 import { FC, ChangeEvent, useState, MouseEvent } from 'react'
 
 import { AddFileBtn } from 'components/common/AddFileBtn/index'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { MyEditor } from 'components/MyEditor/MyEditor'
 import { usePostUserHomeworkMutation } from 'api/userHomeworkService'
 import { UploadedFile } from 'components/UploadedFile'

@@ -1,10 +1,10 @@
-import { FC, memo } from 'react'
+import { FC, memo, useState } from 'react'
 // import { useFormik } from 'formik'
-import { RegistrationModalPropsT } from '../ModalTypes'
+
 // import { IconSvg } from '../../common/IconSvg/IconSvg'
 // import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
 // import { Checkbox } from '../../common/Checkbox/Checkbox'
-// import { Index } from '../../common/Index/Index'
+// import { Button } from '../../common/Button/Button'
 // import { auth } from 'store/redux/users/slice'
 // import { AuthSelect } from '../../common/AuthSelect'
 // import { useAppDispatch } from '../../../store/hooks'
@@ -13,8 +13,10 @@ import { RegistrationModalPropsT } from '../ModalTypes'
 // import { isSecurity, unSecurity } from '../../../assets/img/common/index'
 
 import styles from '../Modal.module.scss'
+import { RegistrationModalPropsT } from '../ModalTypes'
 
-export const RegistrationModal: FC<RegistrationModalPropsT> = memo(() => {
+
+export const RegistrationModal: FC<RegistrationModalPropsT> = memo(({ setShowModal }) => {
   // const dispatch = useAppDispatch()
   // const [security, setSecurity] = useState<boolean>(true)
   // const [authVariant, setAuthVariant] = useState<string>('email')
@@ -103,7 +105,7 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = memo(() => {
               </p>
             </div>
             <div className={styles.main_btn}>
-              <Index style={{ width: '246px' }} type={'submit'} variant={'primary'} text={'Зарегистрироваться'} />
+              <Button style={{ width: '246px' }} type={'submit'} variant={'primary'} text={'Зарегистрироваться'} />
             </div>
           </div>
         </form>

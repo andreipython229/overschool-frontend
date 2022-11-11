@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import { UploadedFile } from 'components/UploadedFile'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { AddFileBtn } from 'components/common/AddFileBtn/index'
 import { CheckboxBall } from 'components/common/CheckboxBall'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'

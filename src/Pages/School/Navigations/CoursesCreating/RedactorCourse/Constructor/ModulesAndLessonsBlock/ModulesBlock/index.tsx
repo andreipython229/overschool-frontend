@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
 import { useDeleteModulesMutation, usePatchModulesMutation } from 'api/modulesServices'

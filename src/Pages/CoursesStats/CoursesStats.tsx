@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { StatisticHeader } from '../../components/StatisticHeader/StatisticHeader'
-import { StudentInfoGraphic } from '../Courses/StudentsStats/StudentInfoGraphic'
+import { StudentInfoGraphic } from '../School/StudentsStats/StudentInfoGraphic'
 import { SearchCoursesBlock } from './SearchCoursesBlock'
 import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { StudentsTableBlock } from 'components/StudentsTableBlock'
@@ -16,7 +16,7 @@ import { CoursesDataT } from '../../types/CoursesT'
 import { useBoolean } from '../../customHooks'
 import { Portal } from '../../components/Modal/Portal'
 
-import styles from '../Courses/StudentsStats/studentsStats.module.scss'
+import styles from '../School/StudentsStats/studentsStats.module.scss'
 
 export const CoursesStats = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)
