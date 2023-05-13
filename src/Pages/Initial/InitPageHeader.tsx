@@ -31,7 +31,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
         ) : (
           <>
             <Button variant={'logIn'} onClick={handleLoginUser} text={'Войти'} />
-            <Button disabled onClick={() => setRegistrationShow(true)} variant={'registrationDisabled'} text={'Зарегистрироваться'} />
+            <Button onClick={() => setRegistrationShow(true)} variant={'registrationDisabled'} text={'Зарегистрироваться'} />
           </>
         )}
       </div>
