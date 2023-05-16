@@ -58,7 +58,9 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
           <Button variant={'primary'} onClick={handleSaveVideoLink} text={'Сохранить'} />
         </>
       ) : (
-        <YouTube opts={opts} videoId={videoIdLesson as string} />
+          <div>
+          {videoIdLesson &&
+        <YouTube opts={opts} videoId={videoIdLesson as string} />}</div>
       )}
     </div>
   )
