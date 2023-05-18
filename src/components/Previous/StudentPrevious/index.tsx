@@ -1,12 +1,13 @@
 import { FC } from 'react'
 
-import { Button } from '../../common/Button'
+import { Button } from '../../common/Button/Button'
 import { useFetchProfileDataQuery } from 'api/profileService'
 import { useLogoutMutation } from '../../../api/userLoginService'
 import { useAppDispatch } from 'store/hooks'
 import { auth, token } from '../../../store/redux/users/slice'
 import { useAppSelector } from 'store/hooks/index'
 import { userIdSelector } from 'selectors/index'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../previou.module.scss'
 

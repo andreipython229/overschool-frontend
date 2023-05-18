@@ -6,12 +6,13 @@ import { crossIconPath } from 'config/commonSvgIconsPath'
 import { radioData } from '../config/radioConfig'
 import { Radio } from '../../../common/Radio/Radio'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
-import { Button } from '../../../common/Button'
+import { Button } from '../../../common/Button/Button'
 import { AddEmployeeModalPropsT, AddEmpoyeeModalExtensions } from '../../ModalTypes'
 import { useFetchCoursesQuery } from 'api/coursesServices'
-import { CoursesDataT } from '../../../../types/CoursesT'
+//import { CoursesDataT } from 'types/CoursesT'
 
 import styles from '../../Modal.module.scss'
+import { CoursesDataT } from '../../../../types/CoursesT'
 
 export const AdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensions> = ({
   handleCreatEmployee,

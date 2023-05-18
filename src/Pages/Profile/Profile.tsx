@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { AboutUser } from './AboutUser'
 import { notifications } from './config/notif'
 import { changePasswordSchema } from './schemas/changePasswordSchema'

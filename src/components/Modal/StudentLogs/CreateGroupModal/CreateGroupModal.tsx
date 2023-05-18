@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
 
 import { Input } from 'components/common/Input/Input/Input'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { createGroupIconPath } from '../config/svgIconsPath'

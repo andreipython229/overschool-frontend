@@ -3,7 +3,7 @@ import { useFormik } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
-import { Button } from '../../common/Button'
+import { Button } from '../../common/Button/Button'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
 import { useAppDispatch } from '../../../store/hooks'
 import { auth, id, token, userName, role } from 'store/redux/users/slice'

@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import { ScoresFilter } from '../components/FiltersButton/ScoresFilter'
-import { CalendarFilter } from '../components/FiltersButton/CalendarFilter'
-import { SearchFilter } from '../components/FiltersButton/SearchFilter'
+import { ScoresFilter } from '../components/FiltersButton/ScoresFilter/ScoresFilter'
+import { CalendarFilter } from '../components/FiltersButton/CalendarFilter/CalendarFilter'
+import { SearchFilter } from '../components/FiltersButton/SearchFilter/SearchFilter'
 import { CoursesDataT } from '../types/CoursesT'
 import { useFetchCoursesQuery } from '../api/coursesServices'
 import { useFetchLessonsQuery } from 'api/modulesServices'

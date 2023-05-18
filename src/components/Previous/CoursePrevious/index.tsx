@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import { Button } from '../../common/Button'
+import { Button } from '../../common/Button/Button'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { backArr } from '../config/svgIconPath'

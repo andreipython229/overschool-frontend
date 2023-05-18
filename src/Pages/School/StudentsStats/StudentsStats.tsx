@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom'
 import { AllStudentsBlock } from '../../../components/AllStudentsBlock'
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
-import { StudentInfoGraphic } from 'Pages/Courses/StudentsStats/StudentInfoGraphic'
+import { StudentInfoGraphic } from 'Pages/School/StudentsStats/StudentInfoGraphic'
 import { createGroupIconPath } from '../config/svgIconsPath'
 import { StudentsTableBlock } from 'components/StudentsTableBlock'
 import { SettingStudentTable } from 'components/Modal/SettingStudentTable'
 import { useFetchStudentsGroupByCourseQuery } from 'api/studentsGroupService'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { StudentGroup } from 'Pages/Courses/StudentsStats/StudentsCountGroup'
+import { StudentGroup } from 'Pages/School/StudentsStats/StudentsCountGroup'
 import { studentsGroupsT } from '../../../types/studentsGroup'
 import { ToggleButtonDropDown } from 'components/common/ToggleButtonDropDown'
 import { useBoolean } from '../../../customHooks/useBoolean'
@@ -27,7 +27,7 @@ export const StudentsStats = () => {
   const [addGroupModal, { off: offAddGroupModal, on: onAddGroupModal }] = useBoolean()
   const [toggleSettingModal, { off: offToggleSettingModal, on: onToggleSettingModal }] = useBoolean()
 
-  const { data } = useFetchStudentsGroupByCourseQuery(`${courseId}`)
+  const { data} = useFetchStudentsGroupByCourseQuery(`${courseId}`)
 
   const handleHideStats = useCallback(() => {
     setHideStats(!hideStats)
@@ -59,9 +59,7 @@ export const StudentsStats = () => {
             const count = students[0]
             return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} />
           })}
-          {data?.results && data?.results?.length > 2 && (
-            <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />
-          )}
+          {data?.results && data?.results?.length > 2 && <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />}
         </div>
       </section>
       <div

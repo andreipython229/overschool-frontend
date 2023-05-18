@@ -1,9 +1,9 @@
 import { FC, memo } from 'react'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { ModulesBlock } from './ModulesBlock'
 import { LessonAddBlockPropsT } from '../../../../../../../types/navigationTypes'
 
-import styles from 'Pages/Courses/Navigations/CoursesCreating/RedactorCourse/Constructor/constructor.module.scss'
+import styles from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/constructor.module.scss'
 
 export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(({ setType, modulesList, setLessonIdAndType }) => {
   const handleOpenModalModule = () => {

@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useState } from 'react'
 
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { addStudentIconPath } from '../config/svgIconsPath'
