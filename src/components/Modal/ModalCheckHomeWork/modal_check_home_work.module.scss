@@ -1,6 +1,8 @@
 @import '../../../scss/mixin.scss';
+@import '../../../scss/variable.scss';
 
 .modal_content {
+  box-sizing: border-box;
   position: absolute;
   right: 50%;
   top: 50%;
@@ -9,15 +11,98 @@
   -moz-transform: translate(50%, -50%);
   -ms-transform: translate(50%, -50%);
   -o-transform: translate(50%, -50%);
-  padding: 40px 33px;
+  padding: 30px 33px 40px;
   max-width: 75vw;
+  max-height: 97vh;
+  min-height: 97vh;
   width: 100%;
   background: #f9fafb;
   border-radius: 7px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 9px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #e1dbe6;
+    height: 128px;
+    border: 3px solid #ffff;
+    border-top: 8px solid #ffff;
+    border-bottom: 8px solid #ffff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+  }
+  .loader_wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: -30px -33px -40px;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   h3 {
-    color: #4d5766;
+    color: $font-title;
     @include font(500, 18px);
     line-height: 22px;
+  }
+  &_close {
+    outline: none;
+    border: none;
+    color: $backgroundCheckBox;
+    position: absolute;
+    right: 35px;
+    top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f1f1;
+    border-radius: 5px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    transition: 0.3s color;
+    &:hover {
+      color: $font-title;
+    }
+  }
+}
+
+.task_container {
+  position: relative;
+}
+
+.task_modal {
+  border-top: 10px solid transparent;
+  position: absolute;
+  left: 0;
+  padding: 20px 25px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 7px;
+  min-width: 35vw;
+  & h3 {
+    @include font(500, 16px, 19px);
+    color: $font-title;
+    margin: 0;
+  }
+
+  & span {
+    @include font(400, 14px, 17px);
+    color: #949aa3;
+    margin: 0;
+  }
+
+  & p {
+    @include font(400, 16px, 19px);
+    color: $font-title;
+    margin: 0;
+    margin-top: 15px;
   }
 }
 
@@ -35,9 +120,7 @@
   color: #6b728f;
   border-radius: 6px;
   padding: 11px 0 11px 16px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
+  @include font(500, 14px, 17px);
 
   svg {
     margin-right: 10px;
@@ -45,6 +128,7 @@
 
   input {
     @include position_t_l(absolute, 0, 0, -10);
+    display: none;
   }
 }
 
@@ -58,6 +142,11 @@
   color: #a1a6af;
   padding: 16px;
   border-radius: 10px;
+  cursor: pointer;
+  &:hover {
+    color: $font-title;
+    transition: 0.3s color;
+  }
   span {
     @include position_t_l(absolute, 46%, 38%);
     width: 15px;
@@ -90,6 +179,11 @@
   width: fit-content;
   text-align: center;
   height: 39px;
+  margin: 10px 0;
+  &:hover {
+    color: $font-title;
+    transition: 0.3 color;
+  }
   span {
     margin: 0 10px;
   }
@@ -111,7 +205,7 @@
       @include font(400, 14px);
       width: fit-content;
       margin: 0 10px;
-      color: #4d5766;
+      color: $font-title;
     }
   }
 }
@@ -196,7 +290,7 @@
       padding-left: 10px;
       cursor: pointer;
       letter-spacing: 0.04em;
-      color: #4d5766;
+      color: $font-title;
     }
     span {
       display: inline-block;
@@ -206,20 +300,20 @@
 }
 .answer_header {
   margin-right: 4px;
+  margin-bottom: 20px;
   @include font(500, 18px, 22px);
-  color: #4d5766;
+  color: $font-title;
 }
 
 .answer_hw_header {
   @include font(500, 18px, 22px);
-  color: #4d5766;
+  color: $font-title;
   margin-bottom: 20px;
 }
 .speech_bubble {
   position: relative;
   font-family: sans-serif;
-  font-size: 16px;
-  line-height: 24px;
+  @include font(400, 16px, 24px);
   background: #fff;
   border-radius: 10px;
   padding: 24px;
@@ -230,7 +324,8 @@
 }
 .speech_bubble:before {
   content: '';
-  @include position_t_l(absolute, -37%, 2%);
+  @include position_t_l(absolute, 0, 2%);
+  margin: -18px 0;
   width: 0px;
   height: 0px;
   border-left: 10px solid transparent;

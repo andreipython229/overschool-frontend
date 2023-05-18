@@ -34,7 +34,7 @@
 .drop_down_item_container {
   @include position_t_l(absolute, 55px, 75px);
   color: #6b7484;
-  padding: 10px 20px;
+  padding-top: 10px;
   min-width: 191px;
   background-color: #ffffff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -43,12 +43,19 @@
   p {
     @include font(600, 10px, 12px);
     color: #d2d6dc;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+}
+.drop_down_item_content {
+  cursor: pointer;
+  &:hover {
+    background: #e7ebf1;
   }
 }
 .drop_down_item {
   @include display(flex, row, flex-start, center);
-  padding: 10px 0;
-  cursor: pointer;
+  padding: 10px 20px;
   span {
     @include font(500, 14px, 17px);
     margin-left: 15px;

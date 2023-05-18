@@ -21,7 +21,7 @@ export const DOTS = '...'
 export const usePagination = ({ totalCount, currentPage = 1 }: paginationProps): paginationPageToReturn => {
   const activePage = localStorage.getItem('page') ?? currentPage
 
-  const [page, setPage] = useState<number>(Number(activePage))
+  const [page, setPage] = useState<number>(+activePage)
   const [total, setTotal] = useState<number>(totalCount)
 
   const onPageChange = useCallback(
@@ -35,7 +35,7 @@ export const usePagination = ({ totalCount, currentPage = 1 }: paginationProps):
 
   const paginationRange = useMemo(() => {
     const totalPageNumbers = siblingCount + 5
-    const pagesCount = Math.round(total / 4)
+    const pagesCount = Math.ceil(total / 4)
 
     if (totalPageNumbers >= pagesCount) {
       return range(1, pagesCount)
@@ -55,15 +55,12 @@ export const usePagination = ({ totalCount, currentPage = 1 }: paginationProps):
     const lastPageIndex = pagesCount
 
     if (!shouldShowLeftDots && shouldShowRightDots) {
-      const leftItemCount = 2 + 2 * siblingCount
-      const leftRange = range(1, leftItemCount)
-
-      return [...leftRange, DOTS, pagesCount]
+      const leftRange = range(1, 2 + 2 * siblingCount)
+      return [...leftRange, DOTS, lastPageIndex]
     }
 
     if (shouldShowLeftDots && !shouldShowRightDots) {
-      const rightItemCount = 2 + 2 * siblingCount
-      const rightRange = range(pagesCount - rightItemCount + 1, pagesCount)
+      const rightRange = range(pagesCount - (2 + 2 * siblingCount - 1), pagesCount)
       return [firstPageIndex, DOTS, ...rightRange]
     }
 

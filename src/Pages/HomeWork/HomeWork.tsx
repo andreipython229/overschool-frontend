@@ -17,12 +17,12 @@ export const HomeWork: FC = () => {
 
   const [termForFilter, setTermForFilter] = useState<string>('')
 
-  const debounce = useDebounceFunc(dispatch(addFilters))
+  const debounce = useDebounceFunc(dispatch)
 
-  const { data: homeworksStats } = useFetchAllHomeworkStatsQuery(filters)
-  const [fetchHomeworkStats, { data: homeworks }] = useLazyFetchHomeworkStatsQuery()
+  const { data: homeworksStats, isLoading } = useFetchAllHomeworkStatsQuery(filters)
+  const [fetchHomeworkStats, { data: homeworks, isFetching }] = useLazyFetchHomeworkStatsQuery()
 
-  const { page, onPageChange } = usePagination({ totalCount: homeworksStats?.count as number })
+  const { page, onPageChange, paginationRange } = usePagination({ totalCount: homeworksStats?.count as number })
 
   const handleChangeTerm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setTermForFilter(e.target.value)
@@ -37,14 +37,14 @@ export const HomeWork: FC = () => {
   }, [page, filters])
 
   useEffect(() => {
-    termForFilter && debounce({ homework_name: termForFilter })
+    debounce(addFilters({ homework_name: termForFilter }))
   }, [termForFilter])
 
   return (
     <>
       <FilterAndSearchBlock handleChangeTerm={handleChangeTerm} termForFilter={termForFilter} onChangeStatus={handleChangeStatus} />
-      <HomeworksStatsTable homeworks={homeworks as homeworksStatsT} />
-      <Pagination className={styles.pagination} totalCount={homeworksStats?.count as number} currentPage={page} onPageChange={onPageChange} />
+      <HomeworksStatsTable homeworks={homeworks as homeworksStatsT} isLoading={isFetching || isLoading} />
+      <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
     </>
   )
 }

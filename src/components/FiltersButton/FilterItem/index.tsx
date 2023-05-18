@@ -13,8 +13,10 @@ export const FilterItem: FC<FilterItemT> = ({ id, title, setSelectedFilter }) =>
 
   return (
     <div onClick={handleClick} className={styles.filter_item_container} id={id.toString()}>
-      {title}
-      <IconSvg width={15} height={16} viewBoxSize="0 0 11 11" path={arrIconPath} />
+      <div className={styles.filter_item_content}>
+        {title}
+        <IconSvg width={15} height={16} viewBoxSize="0 0 11 11" path={arrIconPath} />
+      </div>
     </div>
   )
 }

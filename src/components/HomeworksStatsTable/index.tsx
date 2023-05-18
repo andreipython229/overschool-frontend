@@ -1,5 +1,6 @@
 import { FC, useState, useCallback } from 'react'
 
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { HomeworksStatsTableRow } from './HomeworksStatsTableRow'
 import { HomeworksStatsTableHeader } from './HomeworksStatsTableHeader'
 import { homeworkStatT, homeworksStatsT } from 'types/homeworkT'
@@ -9,9 +10,10 @@ import styles from './homeworksStatsTable.module.scss'
 
 type homeworkStatsTableT = {
   homeworks?: homeworksStatsT
+  isLoading: boolean
 }
 
-export const HomeworksStatsTable: FC<homeworkStatsTableT> = ({ homeworks }) => {
+export const HomeworksStatsTable: FC<homeworkStatsTableT> = ({ homeworks, isLoading }) => {
   const [isSortedByEmail, setIsSortedByEmail] = useState(false)
 
   const sortedData = useSortDataByProp(homeworks?.results as homeworkStatT[], 'email', isSortedByEmail)
@@ -21,25 +23,34 @@ export const HomeworksStatsTable: FC<homeworkStatsTableT> = ({ homeworks }) => {
   }, [])
 
   return (
-    <table
-      className={styles.table}
-      style={{
-        boxShadow: '0 0 5px rgb(0 0 0 / 30%)',
-        backgroundColor: '#fff',
-        borderRadius: '7px',
-        maxWidth: '100%',
-        width: '100%',
-        marginTop: '25px',
-      }}
-    >
-      <thead className={styles.table_head} style={{ height: '55px', background: '#F3F4F6', color: '#ADABB3', fontSize: '12px', fontWeight: 500 }}>
-        <HomeworksStatsTableHeader hadleChangeProp={hadleChangeProp} />
-      </thead>
-      <tbody className={styles.table_body}>
-        {sortedData?.map((homework: homeworkStatT, index: number) => (
-          <HomeworksStatsTableRow key={index /*homework.user_homework*/} homeworkData={homework} index={index} />
-        ))}
-      </tbody>
+    <table className={styles.table} style={{ minHeight: !sortedData?.length ? '295px' : 'unset' }}>
+      {isLoading && (
+        <tbody>
+          <tr className={styles.loader_wrapper}>
+            <td>
+              <SimpleLoader style={{ width: '40px', height: '40px', zIndex: 1000 }} />
+            </td>
+          </tr>
+        </tbody>
+      )}
+      {sortedData?.length ? (
+        <>
+          <thead className={styles.table_head}>
+            <HomeworksStatsTableHeader hadleChangeProp={hadleChangeProp} />
+          </thead>
+          <tbody className={styles.table_body}>
+            {sortedData?.map((homework: homeworkStatT, index: number) => (
+              <HomeworksStatsTableRow key={index /*homework.user_homework*/} homeworkData={homework} index={index} />
+            ))}
+          </tbody>
+        </>
+      ) : (
+        <tbody>
+          <tr className={styles.table_no_results}>
+            <td>Ничего не найдено</td>
+          </tr>
+        </tbody>
+      )}
     </table>
   )
 }

@@ -1,22 +1,18 @@
 import { FC, memo } from 'react'
 import classnames from 'classnames'
 
-import { DOTS, usePagination } from '../../customHooks/usePagination'
+import { DOTS } from '../../customHooks/usePagination'
 
 import './pagination.scss'
 
 type paginationT = {
-  totalCount: number
   currentPage: number
+  paginationRange: Array<string | number>
   onPageChange: (pagw: number) => void
   className?: string
 }
 
-export const Pagination: FC<paginationT> = memo(({ totalCount, onPageChange, currentPage, ...props }) => {
-  const { paginationRange } = usePagination({
-    totalCount,
-  })
-
+export const Pagination: FC<paginationT> = memo(({ onPageChange, currentPage, paginationRange, ...props }) => {
   if (currentPage === 0 || paginationRange?.length < 2) {
     return null
   }

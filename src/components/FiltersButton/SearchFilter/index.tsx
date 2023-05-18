@@ -43,12 +43,14 @@ export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filte
       </Input>
       <div className={style.wrapper}>
         {dataToShow?.map((item: any, index: number) => (
-          <p className={style.category_filter_item} key={item.name + index} onClick={() => handleChooseItemFoFilter(item.name)}>
-            {item.name}
-          </p>
+          <div className={style.category_content} key={item.name + index}>
+            <p className={style.category_filter_item} onClick={() => handleChooseItemFoFilter(item.name)}>
+              {item.name}
+            </p>
+          </div>
         ))}
       </div>
-      <Button text={'Применить'} variant={'primary'} onClick={handleAddFilter} />
+      <Button style={{ margin: '0 20px' }} text={'Применить'} variant={'primary'} onClick={handleAddFilter} />
     </div>
   )
 }

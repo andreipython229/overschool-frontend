@@ -21,9 +21,9 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(({ termForFi
     <>
       <p>Входящие работы от учеников</p>
       <div className={styles.container}>
-        <SelectDropDown dropdownData={initialDropDownList} onChangeStatus={onChangeStatus}/>
+        <SelectDropDown dropdownData={initialDropDownList} onChangeStatus={onChangeStatus} />
         <FiltersButton filteringCategoriesList={dropDownListFilter} />
-        <Input name="" type="search" value={termForFilter} onChange={handleChangeTerm} placeholder="Поиск по ученикам и заданиям">
+        <Input name="" type="search" value={termForFilter} onChange={handleChangeTerm} placeholder="Поиск по заданиям">
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
       </div>
