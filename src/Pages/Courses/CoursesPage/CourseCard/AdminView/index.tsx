@@ -12,10 +12,11 @@ type AdminViewT = {
 }
 
 export const AdminView: FC<AdminViewT> = ({ course }) => {
+    const sourcePath = window.appConfig.imagePath
   return (
     <>
       <div className={styles.course_card_img}>
-        <img className={styles.course_card_img} src={window.appConfig.imagePath + course?.photo_url} alt="" />
+        <img className={styles.course_card_img} src={`${sourcePath} ${course?.photo_url}`} alt="" />
       </div>
       <div className={styles.course_card_about}>
         <span className={styles.course_card_status_show}>{/* <IsPublished published={course?.public} /> */}</span>
