@@ -72,7 +72,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
         name,
         description,
       })
-      setSchoolHeaderDataToRender({ logo_header: logo_header_url, photo_background: photo_background_url })
+      setSchoolHeaderDataToRender({ logo_header: window.appConfig.imagePath + logo_header_url, photo_background: window.appConfig.imagePath + photo_background_url })
     }
   }, [isSuccess, data])
 

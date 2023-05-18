@@ -27,7 +27,7 @@ export const StudentPrevious: FC = () => {
   return (
     <div className={styles.previous}>
       <div className={styles.previous_infoBlock}>
-        <img className={styles.previous_infoBlock_avatar} src={data?.avatar_url} alt="" />
+        <img className={styles.previous_infoBlock_avatar} src={window.appConfig.imagePath + data?.avatar_url} alt="" />
         <div className={styles.previous_infoBlock_title}>
           <p className={styles.previous_infoBlock_title_about}>{`${data?.user?.last_name || 'Без'} ${data?.user?.first_name || 'Имени'} `}</p>
         </div>

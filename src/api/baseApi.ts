@@ -1,51 +1,56 @@
-import { fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
+import {fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError} from '@reduxjs/toolkit/query/react'
 
-import { formDataConverter } from 'utils/formDataConverter'
-import { token, auth } from '../store/redux/users/slice'
-import { RootState } from '../store/redux/store'
+import {formDataConverter} from 'utils/formDataConverter'
+import {token, auth} from '../store/redux/users/slice'
+import {RootState} from '../store/redux/store'
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.REACT_APP_BASE_URL,
-  credentials: 'include',
-  prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState)?.user?.access_token
+    baseUrl: process.env.REACT_APP_BASE_URL,
+    credentials: 'include',
+    prepareHeaders: (headers, {getState}) => {
+        const token = (getState() as RootState)?.user?.access_token
 
-    if (token) {
-      headers.set('Authorization', `Bearer ${token}`)
-    }
-    return headers
-  },
+        if (token) {
+            headers.set('Authorization', `Bearer ${token}`)
+        }
+        return headers
+    },
 })
 
 export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
-  const { user } = JSON.parse(`${localStorage?.getItem('persist:root')}`)
-  const refresh = JSON.parse(user).refresh_token
+    const {user} = JSON.parse(`${localStorage?.getItem('persist:root')}`)
+    const refresh = JSON.parse(user).refresh_token
 
-  const formData = new FormData()
+    const formData = new FormData()
 
-  formData.append('refresh', refresh)
+    formData.append('refresh', refresh)
 
-  let result = await baseQuery(args, api, extraOptions)
+    let result = await baseQuery(args, api, extraOptions)
 
-  if (result?.error?.status === 403 || result?.error?.status === 401) {
-    const refreshResult: any = await baseQuery(
-      {
-        url: '/token-refresh/',
-        method: 'POST',
-        body: formData,
-      },
-      api,
-      extraOptions,
-    )
+    if (result?.error?.status === 403 || result?.error?.status === 401) {
+        const refreshResult: any = await baseQuery(
+            {
+                url: '/token-refresh/',
+                method: 'POST',
+                body: formData,
+            },
+            api,
+            extraOptions,
+        )
 
-    if (refreshResult?.data) {
-      api.dispatch(token({ access_token: refreshResult.data?.access as string, refresh_token: refreshResult.data?.refresh }))
+        if (refreshResult?.data) {
+            api.dispatch(token({
+                    access_token: refreshResult.data?.access as string,
+                    refresh_token: refreshResult.data?.refresh
+                }
+            ))
 
-      result = await baseQuery(args, api, extraOptions)
-    } else {
-      api.dispatch(auth(false))
-      api.dispatch(token({ access_token: '' }))
+            result = await baseQuery(args, api, extraOptions)
+
+        } else {
+            api.dispatch(auth(false))
+            api.dispatch(token({access_token: ''}))
+        }
     }
-  }
-  return result
+    return result
 }

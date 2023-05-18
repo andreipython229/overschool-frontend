@@ -46,8 +46,8 @@ export const Header = memo(() => {
       <div className={styles.header_block}>
         <Link style={{ textDecoration: 'none' }} to={Path.Profile}>
           <div className={styles.header_block_user}>
-            {profile?.avatar_url ? (
-              <img width={'50'} height={'50'} className={styles.header_block_user_avatar} src={profile?.avatar_url} alt="avatar" />
+            {window.appConfig.imagePath + profile?.avatar_url ? (
+              <img width={'50'} height={'50'} className={styles.header_block_user_avatar} src={window.appConfig.imagePath + profile?.avatar_url} alt="avatar" />
             ) : (
               <div className={styles.header_block_user_avatar_div}>
                 {profile?.user.last_name[0] || 'Б'}{profile?.user.first_name[0] || 'И'}

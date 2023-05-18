@@ -28,7 +28,7 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
   return (
     <div className={styles.card_image_downloads}>
       <label className={styles.block_download_image}>
-        <img src={courseFind?.photo_url || ''} alt={courseFind?.name} />
+        <img src={window.appConfig.imagePath + courseFind?.photo_url || ''} alt={courseFind?.name} />
         <input className={styles.hide_input} type="file" onChange={handleUploadFile} />
       </label>
       {toggleCheckbox ? (
