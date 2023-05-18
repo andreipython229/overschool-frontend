@@ -51,7 +51,7 @@ export const CoursesPage: FC = memo(() => {
                   ) : (
                     <>
                       <div className={styles.course_card_img}>
-                        <img className={styles.course_card_img} src={course?.photo_url} alt="" />
+                        <img className={styles.course_card_img} src={window.appConfig.imagePath + course?.photo_url} alt="" />
                       </div>
                       <div className={styles.course_card_progressBar}>
                         <div className={styles.course_card_progressBar_line}> </div>
@@ -63,7 +63,7 @@ export const CoursesPage: FC = memo(() => {
                           })}
                         >
                           <div className={styles.course_card_about_progressWrapper}>
-                            <img src={pie} alt="pie" />
+                            <img src={window.appConfig.imagePath + pie} alt="pie" />
                             <span className={styles.course_card_about_progressWrapper_title}>13% пройдено</span>
                           </div>
                           <span className={styles.course_card_status_show}> </span>

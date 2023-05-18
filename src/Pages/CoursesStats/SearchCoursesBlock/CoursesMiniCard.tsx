@@ -18,7 +18,7 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo_url, name, co
       })}
     >
       <div className={styles.mini_card_container}>
-        <img className={styles.mini_card_img} src={photo_url} alt="" width="52" height="52" />
+        <img className={styles.mini_card_img} src={window.appConfig.imagePath + photo_url} alt="" width="52" height="52" />
         <div>
           <p className={styles.mini_card_name}>{name}</p>
           <ul className={styles.mini_card_list}>

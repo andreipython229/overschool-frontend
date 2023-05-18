@@ -34,7 +34,7 @@ export const GroupPrevious: FC = memo(() => {
         </Portal>
       )}
       <div className={styles.previous}>
-        <img className={styles.background_image_course} src={course?.photo_url} alt="bg" />
+        <img className={styles.background_image_course} src={window.appConfig.imagePath + course?.photo_url} alt="bg" />
         <div className={styles.previous_bcgrShadow}> </div>
         <div className={styles.back_all_course} onClick={() => navigate(-1)}>
           <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />

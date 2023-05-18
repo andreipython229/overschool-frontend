@@ -15,7 +15,7 @@ export const AdminView: FC<AdminViewT> = ({ course }) => {
   return (
     <>
       <div className={styles.course_card_img}>
-        <img className={styles.course_card_img} src={course?.photo_url} alt="" />
+        <img className={styles.course_card_img} src={window.appConfig.imagePath + course?.photo_url} alt="" />
       </div>
       <div className={styles.course_card_about}>
         <span className={styles.course_card_status_show}>
