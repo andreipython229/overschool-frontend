@@ -1,14 +1,14 @@
 import React, { FC } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 import { Student } from 'enum/pathE'
-import { Button } from 'components/common/Button'
-import { AdminAndStudentViewT } from '../AdminView'
+import { Button } from 'components/common/Button/Button'
+// import { AdminAndStudentViewT } from '../AdminView'
 
 import pie from 'assets/img/studentPage/folder-todo.png'
 
 import styles from '../../../Navigations/CoursesCreating/coursePage.module.scss'
 
-export const StudentView: FC<AdminAndStudentViewT> = ({ course }) => {
+export const StudentView: FC<any> = ({ course }) => {
   return (
     <>
       <figure className={styles.course_card_img}>
