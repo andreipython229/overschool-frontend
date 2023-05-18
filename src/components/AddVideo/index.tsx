@@ -1,4 +1,4 @@
-import {useState, FC, ChangeEvent, Fragment} from 'react'
+import {useState, FC, ChangeEvent} from 'react'
 
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { Button } from 'components/common/Button/Button'
@@ -58,9 +58,9 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
           <Button variant={'primary'} onClick={handleSaveVideoLink} text={'Сохранить'} />
         </>
       ) : (
-          <Fragment>
+          <>
           {videoIdLesson &&
-        <YouTube opts={opts} videoId={videoIdLesson as string} />}</Fragment>
+        <YouTube opts={opts} videoId={videoIdLesson as string} />}</>
       )}
     </div>
   )
