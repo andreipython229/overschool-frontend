@@ -31,7 +31,7 @@ export const MobileCoursesPage: FC = memo(() => {
               id={course?.course_id}
               key={course?.course_id}
               name={course?.name}
-              img={course?.photo_url}
+              img={window.appConfig.imagePath + course?.photo_url}
               progress={'58'}
               desc={course?.description}
             />

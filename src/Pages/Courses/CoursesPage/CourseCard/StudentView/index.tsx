@@ -12,7 +12,7 @@ export const StudentView: FC<any> = ({ course }) => {
   return (
     <>
       <figure className={styles.course_card_img}>
-        <img width="242" height="146" className={styles.course_card_img} src={course?.photo_url} alt={course.name} />
+        <img width="242" height="146" className={styles.course_card_img} src={window.appConfig.imagePath + course?.photo_url} alt={course.name} />
       </figure>
       <div className={styles.course_card_progressBar}>
         <div className={styles.course_card_progressBar_line}> </div>
