@@ -1,11 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { sectionT, sectionsT, commonLessonT } from 'types/sectionT'
-import { baseQueryWithReauth } from './baseApi'
+import { baseQuery } from './baseApi'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
   tagTypes: ['modules', 'lessons', 'patchLessons'],
   endpoints: build => ({
     fetchModules: build.query<sectionsT, string>({
