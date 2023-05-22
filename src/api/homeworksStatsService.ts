@@ -1,12 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { homeworksStatsT } from '../types/homeworkT'
-import { baseQueryWithReauth } from './baseApi'
+import { baseQuery } from './baseApi'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
 
 export const homeworksStatsService = createApi({
   reducerPath: 'homeworksStatsService',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
   tagTypes: ['homeworskStats'],
   endpoints: build => ({
     fetchHomeworkStats: build.query<homeworksStatsT, any>({

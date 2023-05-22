@@ -1,10 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import { baseQueryWithReauth } from './baseApi'
+import { baseQuery } from './baseApi'
 
 export const userHomeworkService = createApi({
   reducerPath: 'userHomeworkService',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
   tagTypes: ['userHomework'],
   endpoints: build => ({
     fetchUserHomework: build.query<any, number>({

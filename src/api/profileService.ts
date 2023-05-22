@@ -1,11 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { profileT, changePasswordProfileT } from '../types/profileT'
-import { baseQueryWithReauth } from './baseApi'
+import { baseQuery } from './baseApi'
 
 export const profileService = createApi({
   reducerPath: 'profileService',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
   tagTypes: ['profile', 'password_change'],
   endpoints: build => ({
     fetchProfileData: build.query<profileT, number>({

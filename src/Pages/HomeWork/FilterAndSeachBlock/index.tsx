@@ -10,6 +10,9 @@ import { searchIconPath } from '../../../config/commonSvgIconsPath'
 
 import styles from '../home_work.module.scss'
 
+import { Portal } from 'components/Modal/Portal'
+import { Chat } from 'components/Modal/Chat'
+
 type FilterAndSearchBlockT = {
   termForFilter: string
   handleChangeTerm: (e: ChangeEvent<HTMLInputElement>) => void
@@ -19,6 +22,9 @@ type FilterAndSearchBlockT = {
 export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(({ termForFilter, handleChangeTerm, onChangeStatus }) => {
   return (
     <>
+      {/* <Portal closeModel={() => {}}>
+        <Chat />
+      </Portal> */}
       <p>Входящие работы от учеников</p>
       <div className={styles.container}>
         <SelectDropDown dropdownData={initialDropDownList} onChangeStatus={onChangeStatus} />

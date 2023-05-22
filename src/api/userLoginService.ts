@@ -1,12 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import { baseQueryWithReauth } from './baseApi'
+import { baseQuery } from './baseApi'
 import { formDataConverter } from '../utils/formDataConverter'
 import { ICredentials, IResponse } from './apiTypes'
 
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
+  tagTypes: ['login', 'logout'],
   endpoints: builder => ({
     login: builder.mutation<IResponse, ICredentials>({
       query: credentials => {
@@ -18,6 +19,7 @@ export const userLoginService = createApi({
           body: formdata,
         }
       },
+      invalidatesTags: ['login'],
     }),
     logout: builder.mutation<void, void>({
       query: () => {
@@ -26,6 +28,7 @@ export const userLoginService = createApi({
           method: 'POST',
         }
       },
+      invalidatesTags: ['logout'],
     }),
   }),
 })

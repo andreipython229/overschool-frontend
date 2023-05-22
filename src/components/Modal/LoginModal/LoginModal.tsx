@@ -29,7 +29,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
 
-  const [attemptAccess, { data, error, isSuccess }] = useLoginMutation()
+  const [attemptAccess, { error, isSuccess, isLoading }] = useLoginMutation()
 
   const getInputVariant = (variant: keyof LoginParamsT): void => {
     setAuthVariant(variant)
@@ -54,18 +54,14 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   })
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (isSuccess) {
       setShowModal(false)
-      dispatch(id(data?.user?.pk))
-      dispatch(token({ access_token: data?.access_token as string, refresh_token: data?.refresh_token as string }))
       dispatch(auth(true))
-      dispatch(userName(data?.user.username))
-      dispatch(role(data?.user.groups[0]))
-      if (screenWidth <= 1025) {
-        navigate(Path.Courses)
-      }
+      navigate(Path.Courses)
     }
   }, [isSuccess])
+
+  console.log(error, isSuccess, isLoading)
 
   const handleClose = () => {
     setShowModal(false)
@@ -92,7 +88,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
                 />
                 <AuthSelect getInputVariant={getInputVariant} />
               </div>
-              <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин или пароль')}</div>
+              <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин')}</div>
             </div>
             <InputAuth
               name={'password'}

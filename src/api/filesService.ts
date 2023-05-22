@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { IFile } from 'types/filesT'
-import { baseQueryWithReauth } from './baseApi'
+import { baseQuery } from './baseApi'
 
 type postFileT = {
   body: {
@@ -17,7 +17,7 @@ type patchFileT = {
 
 export const filesService = createApi({
   reducerPath: 'filesService',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
   tagTypes: ['audioFiles', 'textFiles'],
   endpoints: build => ({
     fetchAudioFiles: build.query<IFile[], void>({
