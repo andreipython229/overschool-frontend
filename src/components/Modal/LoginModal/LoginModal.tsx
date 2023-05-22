@@ -47,10 +47,12 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
     },
 
     onSubmit: async () => {
-      const user = formik.values
+      const { email, password, phone } = formik.values
+      const user = { login: phone ? phone : email, password }
       await attemptAccess(user)
     },
   })
+
   useEffect(() => {
     if (isSuccess && data) {
       setShowModal(false)
