@@ -3,11 +3,12 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { formDataConverter } from '../utils/formDataConverter'
 import { ICredentials, IResponse } from './apiTypes'
+import { ILoginUserInfo } from 'types/userT'
 
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',
   baseQuery: baseQuery,
-  tagTypes: ['login', 'logout'],
+  tagTypes: ['login', 'logout', 'useInfo'],
   endpoints: builder => ({
     login: builder.mutation<IResponse, ICredentials>({
       query: credentials => {
@@ -17,9 +18,16 @@ export const userLoginService = createApi({
           method: 'POST',
           redirect: 'follow',
           body: formdata,
+          responseHandler: response => response.text(),
         }
       },
       invalidatesTags: ['login'],
+    }),
+    getUserInfo: builder.query<ILoginUserInfo[], void>({
+      query: () => ({
+        url: `/users/`,
+      }),
+      providesTags: ['useInfo'],
     }),
     logout: builder.mutation<void, void>({
       query: () => {
@@ -32,4 +40,4 @@ export const userLoginService = createApi({
     }),
   }),
 })
-export const { useLoginMutation, useLogoutMutation } = userLoginService
+export const { useLoginMutation, useLogoutMutation, useLazyGetUserInfoQuery } = userLoginService

@@ -6,9 +6,9 @@ import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
 import { Button } from '../../common/Button/Button'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
 import { useAppDispatch } from '../../../store/hooks'
-import { auth, id, token, userName, role } from 'store/redux/users/slice'
+import { auth, id, userName, role } from 'store/redux/users/slice'
 import { AuthSelect } from '../../common/AuthSelect'
-import { useLoginMutation } from '../../../api/userLoginService'
+import { useLoginMutation, useLazyGetUserInfoQuery } from '../../../api/userLoginService'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 
@@ -19,17 +19,17 @@ import { Path } from '../../../enum/pathE'
 import { LoginModalPropsT } from '../ModalTypes'
 
 import styles from '../Modal.module.scss'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   const dispatch = useAppDispatch()
-  const screenWidth = window.screen.width
-
   const navigate = useNavigate()
 
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
 
   const [attemptAccess, { error, isSuccess, isLoading }] = useLoginMutation()
+  const [getUserInfo, { data, isFetching, isError, isSuccess: userSuccess }] = useLazyGetUserInfoQuery()
 
   const getInputVariant = (variant: keyof LoginParamsT): void => {
     setAuthVariant(variant)
@@ -55,13 +55,17 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      setShowModal(false)
-      dispatch(auth(true))
-      navigate(Path.Courses)
+      getUserInfo()
+      if (userSuccess && data) {
+        setShowModal(false)
+        dispatch(auth(true))
+        dispatch(role(data[0].groups[0]))
+        dispatch(userName(data[0].username))
+        dispatch(id(data[0].id))
+        navigate(Path.Courses)
+      }
     }
-  }, [isSuccess])
-
-  console.log(error, isSuccess, isLoading)
+  }, [isSuccess, userSuccess])
 
   const handleClose = () => {
     setShowModal(false)
@@ -69,6 +73,11 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
 
   return (
     <div className={styles.main}>
+      {isFetching || isLoading && (
+          <div className={styles.loader}>
+            <SimpleLoader style={{ width: '50px', height: '50px' }} />
+          </div>
+        )}
       <form onSubmit={formik.handleSubmit}>
         <div className={styles.container}>
           <span className={styles.main_closed} onClick={handleClose}>
