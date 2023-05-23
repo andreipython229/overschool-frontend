@@ -4,8 +4,23 @@ export type UserT = {
 }
 export type AuthDateT = {
   authDate: string | number
-  access_token: string
-  refresh_token: string
   userId: number
   userName: string
+}
+
+export interface ILoginUserInfo {
+  id: number
+  date_joined: Date
+  email: string
+  first_name: string
+  groups: number[]
+  is_active: boolean
+  is_staff: boolean
+  is_superuser: boolean
+  last_login: Date
+  last_name: string
+  patronymic: string
+  phone_number: string
+  username: string
+  user_permissions: number[]
 }

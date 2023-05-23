@@ -1,10 +1,6 @@
 import { fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 import { Cookies } from 'react-cookie'
 
-import { formDataConverter } from 'utils/formDataConverter'
-import { token, auth } from '../store/redux/users/slice'
-import { RootState } from '../store/redux/store'
-
 const cookies = new Cookies()
 
 export const baseQuery = fetchBaseQuery({

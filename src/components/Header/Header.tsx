@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 
 import { useFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { auth, token } from 'store/redux/users/slice'
+import { auth } from 'store/redux/users/slice'
 import { Path } from 'enum/pathE'
 import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
@@ -25,7 +25,6 @@ export const Header = memo(() => {
   const { data: profile } = useFetchProfileDataQuery(userId)
 
   const logOut = (): void => {
-    dispatch(token({ access_token: '' }))
     logout()
     dispatch(auth(false))
   }
@@ -47,10 +46,17 @@ export const Header = memo(() => {
         <Link style={{ textDecoration: 'none' }} to={Path.Profile}>
           <div className={styles.header_block_user}>
             {window.appConfig.imagePath + profile?.avatar_url ? (
-              <img width={'50'} height={'50'} className={styles.header_block_user_avatar} src={window.appConfig.imagePath + profile?.avatar_url} alt="avatar" />
+              <img
+                width={'50'}
+                height={'50'}
+                className={styles.header_block_user_avatar}
+                src={window.appConfig.imagePath + profile?.avatar_url}
+                alt="avatar"
+              />
             ) : (
               <div className={styles.header_block_user_avatar_div}>
-                {profile?.user.last_name[0] || 'Б'}{profile?.user.first_name[0] || 'И'}
+                {profile?.user.last_name[0] || 'Б'}
+                {profile?.user.first_name[0] || 'И'}
               </div>
             )}
             <div className={styles.header_block_user_userName}>
