@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Button } from '../../common/Button/Button'
 import { useFetchProfileDataQuery } from 'api/profileService'
-import { useLogoutMutation } from '../../../api/userLoginService'
+import { useLazyLogoutQuery } from '../../../api/userLoginService'
 import { useAppDispatch } from 'store/hooks'
 import { auth } from '../../../store/redux/users/slice'
 import { useAppSelector } from 'store/hooks/index'
@@ -16,7 +16,7 @@ export const StudentPrevious: FC = () => {
   const userId = useAppSelector(userIdSelector)
 
   const { data } = useFetchProfileDataQuery(userId)
-  const [logout] = useLogoutMutation()
+  const [logout] = useLazyLogoutQuery()
 
   const handleLogout = () => {
     dispatch(auth(false))
