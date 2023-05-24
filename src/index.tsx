@@ -4,6 +4,8 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { CookiesProvider } from 'react-cookie'
+
 import { App } from './App'
 import { AppMobile } from 'AppMobile'
 import { store } from './store/redux/store'
@@ -18,12 +20,14 @@ const screenWidth = window.screen.width
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <PersistGate loading={<p>Loading...</p>} persistor={persistor}>
-          {screenWidth >= 1025 ? <App /> : <AppMobile />}
-        </PersistGate>
-      </Provider>
-    </BrowserRouter>
+    <CookiesProvider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <PersistGate loading={<p>Loading...</p>} persistor={persistor}>
+            {screenWidth >= 1025 ? <App /> : <AppMobile />}
+          </PersistGate>
+        </Provider>
+      </BrowserRouter>
+    </CookiesProvider>
   </React.StrictMode>,
 )

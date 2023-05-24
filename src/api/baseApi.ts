@@ -10,7 +10,7 @@ export const baseQuery = fetchBaseQuery({
     const acceessToken = cookies.get('access_token')
 
     if (acceessToken) {
-      headers.set('access_token', acceessToken)
+      headers.set('Cookie', acceessToken)
     }
 
     return headers

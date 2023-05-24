@@ -35,7 +35,10 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
     },
   })
 
-  const { percent, attempts, numOfAttempts, handleChange }: any = formik
+  const {
+    values: { percent, attempts, numOfAttempts },
+    handleChange,
+  } = formik
 
   const { nameLesson, balls, isLoading, setNameLesson, setBalls, handleCreateLesson } = useCreateLesson({
     setType,
@@ -98,7 +101,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
           </div>
           <div style={{ marginTop: '15px' }} className={styles.usually_input}>
             <span className={styles.usually_title}>Процент правильных ответов для выполнения:</span>
-            <Input placeholder={'Процент ответов'} name="percent" onChange={handleChange} type={'number'} value={percent} />
+            <Input placeholder={'Процент ответов'} name="percent" onChange={handleChange} type={'number'} value={`${percent}`} />
           </div>
           <div className={styles.test_checkboxPack}>
             <div className={styles.test_checkbox}>
