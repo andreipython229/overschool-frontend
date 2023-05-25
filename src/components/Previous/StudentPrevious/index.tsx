@@ -1,21 +1,22 @@
-import { FC } from 'react'
+import { FC, useState, useEffect } from 'react'
 
 import { Button } from '../../common/Button/Button'
 import { useFetchProfileDataQuery } from 'api/profileService'
 import { useLazyLogoutQuery } from '../../../api/userLoginService'
 import { useAppDispatch } from 'store/hooks'
 import { auth } from '../../../store/redux/users/slice'
-import { useAppSelector } from 'store/hooks/index'
-import { userIdSelector } from 'selectors/index'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
+import { profileT } from 'types/profileT'
 
 import styles from '../previou.module.scss'
 
 export const StudentPrevious: FC = () => {
   const dispatch = useAppDispatch()
-  const userId = useAppSelector(userIdSelector)
 
-  const { data } = useFetchProfileDataQuery(userId)
+  const { data, isSuccess } = useFetchProfileDataQuery()
+
+  const [profileData, setProfileData] = useState<profileT>()
+
   const [logout] = useLazyLogoutQuery()
 
   const handleLogout = () => {
@@ -23,12 +24,18 @@ export const StudentPrevious: FC = () => {
     logout()
   }
 
+  useEffect(() => {
+    isSuccess && setProfileData(data[0])
+  }, [isSuccess])
+
   return (
     <div className={styles.previous}>
       <div className={styles.previous_infoBlock}>
-        <img className={styles.previous_infoBlock_avatar} src={window.appConfig.imagePath + data?.avatar_url} alt="" />
+        <img className={styles.previous_infoBlock_avatar} src={window.appConfig.imagePath + profileData?.avatar_url} alt="" />
         <div className={styles.previous_infoBlock_title}>
-          <p className={styles.previous_infoBlock_title_about}>{`${data?.user?.last_name || 'Без'} ${data?.user?.first_name || 'Имени'} `}</p>
+          <p className={styles.previous_infoBlock_title_about}>{`${profileData?.user?.last_name || 'Без'} ${
+            profileData?.user?.first_name || 'Имени'
+          } `}</p>
         </div>
       </div>
       <div className={styles.previous_btn}>

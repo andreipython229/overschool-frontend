@@ -8,6 +8,7 @@ import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/pr
 import { useAppSelector } from 'store/hooks/index'
 import { userIdSelector } from 'selectors/index'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
+import { profileT } from 'types/profileT'
 
 import styles from './profile.module.scss'
 import formStyles from './formStyles.module.scss'
@@ -19,20 +20,22 @@ export const AboutUser: FC = memo(() => {
   const [avatarUrl, setAvatarUrl] = useState<string>('')
   const userId = useAppSelector(userIdSelector)
 
-  const { data, isFetching, isError } = useFetchProfileDataQuery(userId)
+  const { data, isFetching, isError, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
   const [updateProfile, { isSuccess }] = useUpdateProfileMutation()
+
+  const [profileData, setProfileData] = useState<profileT>()
 
   const formik = useFormik({
     initialValues: {
-      avatar: data?.avatar || '',
-      avatar_url: avatarUrl || window.appConfig.imagePath + data?.avatar_url,
-      city: data?.city || '',
-      description: data?.description || '',
-      sex: data?.sex || '',
-      first_name: data?.user.first_name || '',
-      last_name: data?.user.last_name || '',
-      email: data?.user.email || '',
-      phone_number: data?.user.phone_number || '',
+      avatar: profileData?.avatar || '',
+      avatar_url: avatarUrl || window.appConfig.imagePath + profileData?.avatar_url,
+      city: profileData?.city || '',
+      description: profileData?.description || '',
+      sex: profileData?.sex || '',
+      first_name: profileData?.user.first_name || '',
+      last_name: profileData?.user.last_name || '',
+      email: profileData?.user.email || '',
+      phone_number: profileData?.user.phone_number || '',
     },
     enableReinitialize: true,
     validationSchema: userDataSchema,
@@ -66,6 +69,10 @@ export const AboutUser: FC = memo(() => {
   useEffect(() => {
     isSuccess && formik.setSubmitting(false)
   }, [isSuccess])
+
+  useEffect(() => {
+    profileIsSuccess && setProfileData(data[0])
+  }, [profileIsSuccess])
 
   const {
     values: { city, description, email, last_name, first_name, phone_number, avatar_url, sex },
