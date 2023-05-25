@@ -8,9 +8,9 @@ export const profileService = createApi({
   baseQuery: baseQuery,
   tagTypes: ['profile', 'password_change'],
   endpoints: build => ({
-    fetchProfileData: build.query<profileT, number>({
-      query: id => ({
-        url: `/profiles/${id}/`,
+    fetchProfileData: build.query<profileT[], void>({
+      query: () => ({
+        url: `/profiles/`,
       }),
       providesTags: ['profile'],
     }),
