@@ -12,23 +12,25 @@ import { useLazyLogoutQuery } from 'api/userLoginService'
 import { selectUser } from '../../selectors'
 import { logo } from '../../assets/img/common'
 import { headerUserRoleName } from 'config/index'
+import { profileT } from 'types/profileT'
 
 import styles from './header.module.scss'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
-  const { userId, userName } = useAppSelector(selectUser)
+  const { userName } = useAppSelector(selectUser)
 
   const [logout] = useLazyLogoutQuery()
 
   const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
-  const { data: profile } = useFetchProfileDataQuery(userId)
+  const { data: profile, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
 
   const logOut = (): void => {
     logout()
     dispatch(auth(false))
   }
 
+  const [profileData, setProfileData] = useState<profileT>()
   const [logotype, setLogo] = useState<string | undefined>('')
 
   useEffect(() => {
@@ -36,6 +38,10 @@ export const Header = memo(() => {
       setLogo(data?.logo_school_url)
     }
   }, [data])
+
+  useEffect(() => {
+    profileIsSuccess && setProfileData(profile[0])
+  }, [profileIsSuccess])
 
   return (
     <header className={styles.header}>
@@ -45,18 +51,18 @@ export const Header = memo(() => {
       <div className={styles.header_block}>
         <Link style={{ textDecoration: 'none' }} to={Path.Profile}>
           <div className={styles.header_block_user}>
-            {window.appConfig.imagePath + profile?.avatar_url ? (
+            {window.appConfig.imagePath + profileData?.avatar_url ? (
               <img
                 width={'50'}
                 height={'50'}
                 className={styles.header_block_user_avatar}
-                src={window.appConfig.imagePath + profile?.avatar_url}
+                src={window.appConfig.imagePath + profileData?.avatar_url}
                 alt="avatar"
               />
             ) : (
               <div className={styles.header_block_user_avatar_div}>
-                {profile?.user.last_name[0] || 'Б'}
-                {profile?.user.first_name[0] || 'И'}
+                {profileData?.user.last_name[0] || 'Б'}
+                {profileData?.user.first_name[0] || 'И'}
               </div>
             )}
             <div className={styles.header_block_user_userName}>
@@ -64,7 +70,7 @@ export const Header = memo(() => {
                 {headerUserRoleName[userName]}
               </span>
               <span className={styles.header_block_user_userName_name}>
-                {profile?.user.last_name || 'Без'} {profile?.user.first_name || 'Имени'}
+                {profileData?.user.last_name || 'Без'} {profileData?.user.first_name || 'Имени'}
               </span>
             </div>
           </div>
