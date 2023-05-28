@@ -21,7 +21,7 @@ import { SettingCourse } from 'Pages/School/Navigations/CoursesCreating/SettingC
 import { StudentsStats } from 'Pages/School/StudentsStats/StudentsStats'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
-import { Group } from 'Pages/Group/index'
+import { Group } from '../Pages/Group'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (

@@ -1,50 +1,60 @@
-import { useState } from 'react'
-import DatePicker, { registerLocale } from 'react-datepicker'
+import {useState} from 'react'
+import DatePicker, {registerLocale} from 'react-datepicker'
 import ru from 'date-fns/locale/ru'
 
-import { IWithRange } from '../../../types/componentsTypes'
-import { Button } from '../../common/Button/Button'
-import { convertDate } from 'utils/convertDate'
-import { useBoolean } from 'customHooks/index'
-import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { filtersSelector } from 'selectors/index'
-import { addFilters } from 'store/redux/filters/slice'
+import {IWithRange} from '../../../types/componentsTypes'
+import {Button} from '../../common/Button/Button'
+import {convertDate} from 'utils/convertDate'
+import {useBoolean} from 'customHooks/index'
+import {useAppDispatch, useAppSelector} from 'store/hooks'
+import {filtersSelector} from 'selectors/index'
+import {addFilters, removeFilter} from 'store/redux/filters/slice'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import './calendar.css'
 
+
 registerLocale('ru', ru)
 
 export const CalendarFilter = () => {
-  const dispatch = useAppDispatch()
-  const { filters } = useAppSelector(filtersSelector)
-  const [isFilterClosed, { off }] = useBoolean()
+    const dispatch = useAppDispatch()
+    const {filters} = useAppSelector(filtersSelector)
+    const [isFilterClosed, {off}] = useBoolean()
 
-  const [startDate, setStartDate] = useState<Date>(filters.start_date ? new Date(`${filters.start_date}`) : new Date())
-  const [endDate, setEndDate] = useState<Date>(filters.start_date ? new Date(`${filters.end_date}`) : new Date())
+    const [startDate, setStartDate] = useState<Date>(filters.start_date ? new Date(`${filters.start_date}`) : new Date())
+    const [endDate, setEndDate] = useState<Date>(filters.start_date ? new Date(`${filters.end_date}`) : new Date())
 
-  const onChange = (dates: IWithRange extends false | undefined ? Date : [Date, Date]): void => {
-    const [start, end] = dates
-    setStartDate(start)
-    setEndDate(end)
-  }
+    const onChange = (dates: IWithRange extends false | undefined ? Date : [Date, Date]): void => {
+        const [start, end] = dates
+        setStartDate(start)
+        setEndDate(end)
+    }
 
-  const { reversedmmddyyyy: convertedStartDate } = convertDate(new Date(startDate), '-')
-  const { reversedmmddyyyy: convertedEndDate } = convertDate(new Date(endDate), '-')
+    const {reversedmmddyyyy: convertedStartDate} = convertDate(new Date(startDate), '-')
+    const {reversedmmddyyyy: convertedEndDate} = convertDate(new Date(endDate), '-')
 
-  const handleAddFilter = () => {
-    dispatch(addFilters({ start_date: convertedStartDate, end_date: convertedEndDate }))
-    off()
-  }
+    const handleAddFilter = () => {
+        dispatch(addFilters({start_date: convertedStartDate, end_date: convertedEndDate}))
+        off()
+    }
 
-  if (isFilterClosed) return null
+    const handleRemoveFilter = () => {
+        dispatch(removeFilter('start_date'));
+        dispatch(removeFilter('end_date'));
+    }
 
-  return (
-    <div className="date_picker__container">
-      <p className="date_picker__title">ВЫБЕРИТЕ ДИАПАЗОН ДАТ</p>
-      <DatePicker selected={startDate} onChange={onChange} startDate={startDate} endDate={endDate} locale="ru" selectsRange inline>
-        <Button variant="primary" text="Применить" onClick={handleAddFilter} />
-      </DatePicker>
-    </div>
-  )
+    if (isFilterClosed) return null
+
+    return (
+        <div className="date_picker__container">
+            <p className="date_picker__title">ВЫБЕРИТЕ ДИАПАЗОН ДАТ</p>
+            <DatePicker selected={startDate} onChange={onChange} startDate={startDate} endDate={endDate} locale="ru"
+                        selectsRange inline>
+                <div className="date_picker__buttons">
+                    <Button variant="primary" text="Применить" onClick={handleAddFilter} className="full_width_button"/>
+                    <Button variant="primary" text="Отменить фильтр даты" onClick={handleRemoveFilter} className="full_width_button"/>
+                </div>
+            </DatePicker>
+        </div>
+    )
 }

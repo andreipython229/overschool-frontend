@@ -24,6 +24,20 @@
   border-bottom: 0 solid;
 }
 
+.date_picker__buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.full_width_button {
+  width: 100%;
+}
+
+.full_width_button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
 .react-datepicker__current-month {
   margin-bottom: 25px;
 }

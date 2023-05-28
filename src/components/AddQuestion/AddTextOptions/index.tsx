@@ -14,7 +14,7 @@ export const AddTextOptions: FC<AddQuestionOptionsT> = ({ setTypeQuestions, setQ
       body: 'Сложный вопрос',
       is_any_answer_correct: false,
       only_whole_numbers: false,
-      test: 6,
+      test: 10,
     })
   }
 

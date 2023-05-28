@@ -16,13 +16,13 @@ export type SuperButtonPropsT = DefaultButtonPropsType & {
 }
 
 export type CheckboxPropsT = {
-  id?: string
-  name?: string
-  checked?: boolean
-  children?: ReactNode
-  className?: string
-  onChange?: (value: ChangeEvent<HTMLInputElement>) => void
-  style?: string
+    id?: string
+    name?: string
+    checked?: boolean
+    children?: ReactNode
+    className?: string
+    onChange?: (value: ChangeEvent<HTMLInputElement>) => void
+    style?: string
 }
 
 export type CheckSelectPropsT = {
@@ -56,6 +56,7 @@ export type IconSvgT = {
   children?: ReactNode
   functionOnClick?: <T>(params: T) => void
   onPointerDown?: (event: PointerEvent<SVGSVGElement | SVGPathElement>) => void
+  onClick?: () => void;
 }
 
 export type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
