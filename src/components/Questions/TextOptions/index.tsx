@@ -23,8 +23,8 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
         e.preventDefault()
 
         const answerToAdd = {
-            question: id,
-            body: 'введите ответ',
+            question: question?.question_id,
+            body: 'Введите ответ',
         }
 
         addAnswer(answerToAdd)
@@ -75,11 +75,10 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
                     <h4 className={styles.answerOptionsBlock_title}>Добавьте варианты ответов:</h4>
                     <Reorder.Group className={styles.settings_list} onReorder={setAnswersToRender}
                                    values={answersToRender}>
-                        {answersToRender?.map(answer => (
-                            <AnswerOption key={answer.answer_id} id={id} answer={answer}/>
+                        {answersToRender?.map((answer, index) => (
+                            <AnswerOption key={answer.answer_id + index} id={id} answer={answer}/>
                         ))}
                     </Reorder.Group>
-
                     <Button text={'+ Добавить вариант'} style={{marginTop: '26px'}} variant={'primary'}
                             onClick={handleAddAnswer}/>
                 </div>

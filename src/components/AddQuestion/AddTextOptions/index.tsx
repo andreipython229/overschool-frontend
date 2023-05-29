@@ -4,17 +4,17 @@ import { useCreateQuestionsMutation } from 'api/questionsAndAnswersService'
 
 import styles from './addTextOptions.module.scss'
 
-export const AddTextOptions: FC<AddQuestionOptionsT> = ({ setTypeQuestions, setQuestions, questions }) => {
+export const AddTextOptions: FC<AddQuestionOptionsT> = ({ setTypeQuestions, setQuestions, questions, testId }) => {
   const [createOption, { data }] = useCreateQuestionsMutation()
 
   const handleGetTypeQuestion = () => {
     setTypeQuestions('Text' as keyof object)
     createOption({
       question_type: 'Text',
-      body: 'Сложный вопрос',
+      body: '#Задайте вопрос?',
       is_any_answer_correct: false,
       only_whole_numbers: false,
-      test: 10,
+      test: testId,
     })
   }
 

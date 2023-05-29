@@ -11,10 +11,11 @@ type questionListT = {
   show_right_answers: boolean
   test: string
 }
+
 export const StudentTestBlock: FC<any> = ({ lesson }) => {
   const [numberTest, setNumberTest] = useState<number>(0)
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} key={lesson.test_id}>
       <StudentQuestion questions={lesson.questions[numberTest]} length={lesson.questions} numberTest={numberTest} setNumberTest={setNumberTest} />
     </div>
   )
