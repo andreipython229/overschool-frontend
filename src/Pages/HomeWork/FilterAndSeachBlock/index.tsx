@@ -7,11 +7,12 @@ import { dropDownListFilter } from '../../../constants/dropDownList'
 import { Input } from '../../../components/common/Input/Input/Input'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
+import ChipsComponent from "../../../components/FiltersButton/Chips/chips";
 
 import styles from '../home_work.module.scss'
 
-import { Portal } from 'components/Modal/Portal'
-import { Chat } from 'components/Modal/Chat'
+// import { Portal } from 'components/Modal/Portal'
+// import { Chat } from 'components/Modal/Chat'
 
 type FilterAndSearchBlockT = {
   termForFilter: string
@@ -26,6 +27,7 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(({ termForFi
         <Chat />
       </Portal> */}
       <p>Входящие работы от учеников</p>
+        <ChipsComponent />
       <div className={styles.container}>
         <SelectDropDown dropdownData={initialDropDownList} onChangeStatus={onChangeStatus} />
         <FiltersButton filteringCategoriesList={dropDownListFilter} />

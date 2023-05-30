@@ -28,13 +28,14 @@ type QuestionT = {
 }
 
 type AddQuestionT = {
-  testId: string | number
+  testId: number
 }
 
 export type AddQuestionOptionsT = {
   setTypeQuestions: (arg: keyof object) => void
   setQuestions: (arg: QuestionT[]) => void
   questions: QuestionT[]
+  testId: number
 }
 
 export type PropsQuestionBlockT = {
@@ -74,18 +75,19 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
     <div className={styles.wrapper}>
       <Reorder.Group className={styles.settings_list} as="ul" onReorder={setQuestions} values={questions}>
         {/* {questions.map(({ question_type }) => questionsMaper[question_type])} */}
-        {questions.map(question => (
-          <TextOptions answers={question.answers} question={question} title={question.body} id={question.question_id} key={question.question_id} />
+        {questions.map((question, index: number) => (
+          <TextOptions answers={question.answers} question={question} title={question.body}
+                       id={question.question_id} key={question.question_id + index} />
         ))}
       </Reorder.Group>
       <div className={styles.wrapper_addQuestionsWrapper}>
         <h2 className={styles.wrapper_addQuestionsWrapper_title}>Добавьте вопрос</h2>
         <div className={styles.wrapper_addQuestionsWrapper_btnWrapper}>
-          <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} />
-          <AddOptionsWithPictures setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} />
-          <AddPicturesAndOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} />
-          <AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} />
-          <AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} />
+          <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
+          <AddOptionsWithPictures setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
+          <AddPicturesAndOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
+          <AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
+          <AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
         </div>
       </div>
     </div>

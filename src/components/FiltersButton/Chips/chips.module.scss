@@ -1,0 +1,33 @@
+.chipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  background-color: #eeeeee;
+  color: #676767;
+  border-radius: 8px;
+  padding: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.chip span {
+  margin-right: 4px;
+}
+
+.removeButton {
+  border: none;
+  background-color: transparent;
+  color: #999;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.removeButton:hover {
+  color: #f00;
+}

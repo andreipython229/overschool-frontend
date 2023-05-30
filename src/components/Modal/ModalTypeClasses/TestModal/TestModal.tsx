@@ -11,7 +11,7 @@ import { modalTestBlockTextPath } from '../config/svgIconsPath'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { TestModalPropsT } from '../../ModalTypes'
 import { useCreateLesson } from 'customHooks/useCreateLesson'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
+import { SimpleLoader } from '../../../Loaders/SimpleLoader'
 
 import styles from '../../Modal.module.scss'
 
