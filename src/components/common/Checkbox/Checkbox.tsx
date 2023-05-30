@@ -8,10 +8,9 @@ export const Checkbox: FC<CheckboxPropsT> = memo(({id, name, checked, onChange, 
 
     return (
         <>
-            <label htmlFor={id}>
-                <input type="checkbox" onChange={onChange} name={name} id={id} checked={checked}
-                />
-                <span>{children}</span>
+            <label className={styles.label} htmlFor={id}>
+                <input className={styles.label_input} type="checkbox" onChange={onChange} name={name} id={id} checked={checked}/>
+                <span className={styles.label_customCheckbox}>{children}</span>
             </label>
         </>
     );
