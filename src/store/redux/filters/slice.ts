@@ -1,14 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-interface FiltersState {
-    status: string;
-    course_name: string;
-    homework_name: string;
-    start_mark: string | number;
-    end_mark: string | number;
-    start_date: string | number;
-    end_date: string | number;
-}
 
 type FiltersSliceState = {
     filters: { [key: string]: string | number };
@@ -40,7 +31,7 @@ export const slice = createSlice({
             state.filters = {...initialState.filters};
         },
         removeFilter: (state, action: PayloadAction<string>) => {
-            const filterKey = action.payload as keyof FiltersState;
+            const filterKey = action.payload as keyof FiltersSliceState;
             if (state.filters[filterKey]) {
                 state.filters[filterKey] = '';
             }
@@ -49,7 +40,7 @@ export const slice = createSlice({
             state.chips = {...state.chips, ...action.payload};
         },
         removeChip: (state, action: PayloadAction<string>) => {
-            const filterKey = action.payload as keyof FiltersState;
+            const filterKey = action.payload as keyof FiltersSliceState;
             delete state.chips[filterKey];
         },
     },

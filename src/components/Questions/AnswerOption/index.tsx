@@ -52,16 +52,17 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({children, id, answer}) => 
 
     const handleCheckboxChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-            setIsChecked(event.target.checked)
+            const newChecked = event.target.checked;
+            setIsChecked(newChecked);
             const answerToPatch = {
                 question: id,
                 body: answerText,
-                status: event.target.checked,
-            }
-            debounced({answer: answerToPatch, answerId: answer?.answer_id})
+                status: newChecked,
+            };
+            debounced({answer: answerToPatch, answerId: answer?.answer_id});
         },
-        [answer?.answer_id, answerText, debounced, id],
-    )
+        [answer?.answer_id, answerText, debounced, id]
+    );
 
     const onAnswerPointerDown = useCallback((event: PointerEvent<SVGSVGElement | SVGPathElement>) => {
         answerControls.start(event)
@@ -87,7 +88,9 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({children, id, answer}) => 
                     <InputBlock name={''} type={'text'} value={answerText} placeholder={'Вариант ответа'}
                                 onChange={handleChangeAnswer}/>
                     <div className={styles.answerOptionsBlock_inputWrapper_correctAnswerWrapper}>
-                        <Checkbox checked={isChecked} onChange={handleCheckboxChange}>Правильный ответ</Checkbox>
+                        <Checkbox id={`${id}`} checked={isChecked} onChange={handleCheckboxChange}>
+                            Правильный ответ
+                        </Checkbox>
                     </div>
                     <div className={styles.answerOptionsBlock_inputWrapper_comment}>
                         <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={addCommentsIconPath}>
