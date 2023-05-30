@@ -33,13 +33,14 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
   }
 
   const debounced = useDebounceFunc(changeName, 2000)
-
+  const [visibleAddBtn, setVisibleAddBtn] = useState(false);
   const handleOpenModalLesson = () => {
     dispatch(getSectionId(id))
     setType('lessonsModal' as keyof object)
   }
 
   useEffect(() => {
+    if (lessonsList.length > 0) setVisibleAddBtn(true)
     if (moduleName !== changeModuleName) {
       const updateModule = {
         name: changeModuleName,
@@ -73,8 +74,10 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
           lessonsList.map(({ name, id, type }: lessonT) => (
             <LessonsBlock type={type} setLessonIdAndType={setLessonIdAndType} key={id + type} id={id} lessonsName={name} />
           ))}
-        <Button className={styles.btn} text="+ Занятие" variant="secondary" onClick={handleOpenModalLesson} />
-      </ul>
+        {visibleAddBtn &&
+          <Button className={styles.btn} text="+ Занятие" variant="secondary" onClick={handleOpenModalLesson} />
+        }
+        </ul>
     </>
   )
 })
