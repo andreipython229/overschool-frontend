@@ -2,26 +2,40 @@
 @import '../../../scss/variable.scss';
 
 .modal_content {
-  box-sizing: border-box;
-  position: absolute;
-  right: 50%;
-  top: 50%;
-  transform: translate(50%, -50%);
-  -webkit-transform: translate(50%, -50%);
-  -moz-transform: translate(50%, -50%);
-  -ms-transform: translate(50%, -50%);
-  -o-transform: translate(50%, -50%);
+  //box-sizing: border-box;
+  //position: absolute;
+  //right: 50%;
+  //top: 50%;
+  //transform: translate(50%, -50%);
+  //-webkit-transform: translate(50%, -50%);
+  //-moz-transform: translate(50%, -50%);
+  //-ms-transform: translate(50%, -50%);
+  //-o-transform: translate(50%, -50%);
+  //padding: 30px 33px 40px;
+  //max-width: 75vw;
+  //min-height: 97vh;
+  //width: 100%;
+  //background: #f9fafb;
+  //border-radius: 7px;
+  //overflow-y: visible;
+
+  border-radius: 10px;
   padding: 30px 33px 40px;
-  max-width: 75vw;
-  max-height: 97vh;
-  min-height: 97vh;
-  width: 100%;
-  background: #f9fafb;
-  border-radius: 7px;
-  overflow-y: auto;
+  margin: auto;
+  flex-shrink: 0;
+  flex-grow: 0;
+  background: #fff;
+  width: 75vw;
+  max-width: 100%;
+  overflow: visible;
+  transition: transform 0.2s ease 0s, opacity 0.2s ease 0s;
+  transform: scale(0.9);
+  opacity: 1;
+
   &::-webkit-scrollbar {
     width: 9px;
   }
+
   &::-webkit-scrollbar-thumb {
     background: #e1dbe6;
     height: 128px;
@@ -34,6 +48,7 @@
     -o-border-radius: 5px;
     border-radius: 5px;
   }
+
   .loader_wrapper {
     position: absolute;
     top: 0;
@@ -46,11 +61,13 @@
     align-items: center;
     justify-content: center;
   }
+
   h3 {
     color: $font-title;
     @include font(500, 18px);
     line-height: 22px;
   }
+
   &_close {
     outline: none;
     border: none;
@@ -67,6 +84,7 @@
     height: 35px;
     cursor: pointer;
     transition: 0.3s color;
+
     &:hover {
       color: $font-title;
     }
@@ -86,6 +104,7 @@
   background: #ffffff;
   border-radius: 7px;
   min-width: 35vw;
+
   & h3 {
     @include font(500, 16px, 19px);
     color: $font-title;
@@ -143,27 +162,33 @@
   padding: 16px;
   border-radius: 10px;
   cursor: pointer;
+
   &:hover {
     color: $font-title;
     transition: 0.3s color;
   }
+
   span {
     @include position_t_l(absolute, 46%, 38%);
     width: 15px;
     height: 5px;
   }
 }
+
 .arrow_rotate {
   transform: rotate(180deg);
 }
+
 .header_info {
   display: inline-flex;
   align-items: center;
   margin-bottom: 20px;
 }
+
 .header_info > * {
   margin: auto;
 }
+
 .btn_grey {
   @include display(flex, row, space-between, center);
   @include font(500, 14px, 17px);
@@ -180,26 +205,32 @@
   text-align: center;
   height: 39px;
   margin: 10px 0;
+
   &:hover {
     color: $font-title;
-    transition: 0.3 color;
+    transition: color;
   }
+
   span {
     margin: 0 10px;
   }
 }
+
 .task_status {
   @include display(flex);
   @include font(500, 18px, 22px);
   margin-right: 40px;
   color: #9ca3af;
 }
+
 .task_info {
   display: inline-flex;
   margin-bottom: 47px;
+
   &_item {
     @include display(flex);
     margin: 0 30px 0 0;
+
     span {
       @include display(flex, row, space-between, center);
       @include font(400, 14px);
@@ -209,6 +240,7 @@
     }
   }
 }
+
 .bottomButtons {
   @include display(flex, row, space-between, center);
 
@@ -216,6 +248,7 @@
     @include display(flex, row, flex-start, center);
     margin-top: 30px;
   }
+
   &_btn_done {
     @include display(flex, row, space-between, center);
     @include font(500, 14px);
@@ -229,13 +262,16 @@
     height: 39px;
 
     background: #c5ece5;
+
     svg:first-of-type {
       margin-right: 10px;
     }
+
     svg:last-of-type {
       margin-left: 10px;
     }
   }
+
   &_btn_addFile {
     @include display(flex, row, space-between, center);
     @include font(500, 14px);
@@ -250,10 +286,12 @@
     background-color: #d7d7d7;
     color: #6b7484;
     margin-right: auto;
+
     svg {
       margin-right: 10px;
     }
   }
+
   &_btn_send {
     @include display(flex, row, space-between, center);
     @include font(500, 14px);
@@ -264,12 +302,14 @@
     width: fit-content;
     text-align: center;
     height: 41px;
-    background: #ba75ff;
+    background: #bb81f5;
     color: #ffffff;
+
     svg {
       margin-right: 10px;
     }
   }
+
   &_btn_mark {
     @include display(flex, row, flex-start, center);
     @include font(500, 14px);
@@ -282,6 +322,7 @@
     border: 1px solid #e5e7eb;
     border-radius: 5px;
     margin-right: 15px;
+
     input {
       @include font(400, 14px, 150%);
       border: none;
@@ -292,12 +333,14 @@
       letter-spacing: 0.04em;
       color: $font-title;
     }
+
     span {
       display: inline-block;
       margin-left: 15px;
     }
   }
 }
+
 .answer_header {
   margin-right: 4px;
   margin-bottom: 20px;
@@ -310,6 +353,7 @@
   color: $font-title;
   margin-bottom: 20px;
 }
+
 .speech_bubble {
   position: relative;
   font-family: sans-serif;
@@ -322,6 +366,7 @@
   width: 100%;
   margin-bottom: 40px;
 }
+
 .speech_bubble:before {
   content: '';
   @include position_t_l(absolute, 0, 2%);
@@ -333,23 +378,28 @@
   border-bottom: 10px solid #fff;
   border-top: 10px solid transparent;
 }
+
 .teacher {
   @include display(flex, row, flex-start, center);
   @include font(500, 18px);
   color: #6b7484;
   padding-bottom: 30px;
+
   &_avatar {
     width: 48px;
     height: 48px;
     margin-right: 10px;
   }
+
   &_teacherData {
     @include display(flex, column);
     @include font(400, 14px, 17px);
+
     &_name {
       font-weight: 500;
       margin-bottom: 5px;
     }
+
     &_date {
       font-weight: 400;
     }
