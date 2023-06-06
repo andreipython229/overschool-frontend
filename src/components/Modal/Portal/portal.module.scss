@@ -1,4 +1,4 @@
-@import '/src/scss/variable';
+@import '../../../scss/variable';
 
 .wrapper {
   background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), no-repeat center fixed;
@@ -36,7 +36,3 @@
   align-items: center;
   justify-content: center;
 }
-
-//.open_modal {
-//  overflow: hidden;
-//}
