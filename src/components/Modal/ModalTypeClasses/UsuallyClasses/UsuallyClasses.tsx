@@ -13,13 +13,6 @@ import styles from '../../Modal.module.scss'
 
 export const SettingClassesUsually: FC<SettingClassesPropsT> = ({setLessonIdAndType, modulesList, setType}) => {
 
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
     const {nameLesson, balls, isLoading, setNameLesson, setBalls, handleCreateLesson} = useCreateLesson({
         setType,
         modulesList,

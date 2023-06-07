@@ -14,13 +14,6 @@ import styles from '../../Modal.module.scss'
 
 export const WebinarModal: FC<WebinarModalPropsT> = ({setType}) => {
 
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
     const [settingsActive, setSettingsActive] = useState<number>(0)
     const [nameClasses, setNameClasses] = useState<string>('')
     const [reminderForStudent, setReminderForStudent] = useState<boolean>(false)

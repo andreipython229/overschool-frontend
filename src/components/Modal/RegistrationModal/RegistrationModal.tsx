@@ -16,13 +16,6 @@ import { RegistrationModalPropsT } from '../ModalTypes'
 
 export const RegistrationModal: FC<RegistrationModalPropsT> = ({ setShowModal }) => {
 
-  useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
   const dispatch = useAppDispatch()
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<string>('email')

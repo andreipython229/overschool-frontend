@@ -17,13 +17,6 @@ import styles from '../../Modal.module.scss'
 
 export const TestModal: FC<TestModalPropsT> = ({modulesList, setType, setLessonIdAndType}) => {
 
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
     const [settingsActive, setSettingsActive] = useState<number>(0)
     const [optionAccrualBalls, setOptionAccrualBalls] = useState<string>('')
     const [ballsPerAnswer, setBallsPerAnswer] = useState<number>(0)

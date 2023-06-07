@@ -36,13 +36,6 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({homeworkData, closeModal
 
     const {data: teacherHomework, isFetching} = useFetchTeacherHomeworkQuery(homeworkData.homework)
 
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
     const handleToggleHiddenBlocks = (): void => {
         setIsOpen(!isOpen)
     }

@@ -13,13 +13,6 @@ import {SimpleLoader} from 'components/Loaders/SimpleLoader'
 import styles from '../Modal.module.scss'
 
 export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}) => {
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
     const navigate = useNavigate()
 
     const [name, setName] = useState<string>('')

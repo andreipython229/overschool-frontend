@@ -17,14 +17,6 @@ import styles from '../../Modal.module.scss'
 import {timeMaper} from '../../../../constants/timeMaper'
 
 export const TasksModal: FC<TasksModalPropsT> = memo(({setLessonIdAndType, modulesList, setType}) => {
-
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
     const [settingsActive, setSettingsActive] = useState<number>(0)
     const [descriptionHomeWork, setDescriptionHomeWork] = useState<string>('')
     const [checkbox, setCheckbox] = useState<boolean>(false)

@@ -14,14 +14,6 @@ import {ModalClassesPropsT} from '../ModalTypes'
 import styles from '../Modal.module.scss'
 
 export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({setType}) => {
-
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
     const [activeClasses, setActiveClasses] = useState<string>('lesson')
 
     const setClassesType = () => {

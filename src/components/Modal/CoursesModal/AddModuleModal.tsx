@@ -13,13 +13,6 @@ import styles from '../Modal.module.scss'
 
 export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, modulesList }) => {
 
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
   const [modulesName, setModulesMane] = useState<string>('')
 
   const [createModules, { isLoading, isError }] = useCreateModulesMutation()
