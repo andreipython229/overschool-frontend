@@ -16,13 +16,13 @@ type AnswerOptionT = {
     answer?: {
         answer_id?: number
         body?: string
-        status?: boolean
+        is_correct?: boolean
     }
 }
 
 export const AnswerOption: FC<AnswerOptionT> = memo(({children, id, answer}) => {
     const [answerText, setAnswerText] = useState(answer?.body || '')
-    const [isChecked, setIsChecked] = useState(answer?.status || false)
+    const [isChecked, setIsChecked] = useState(answer?.is_correct || false)
 
     const answerControls = useDragControls()
 
@@ -38,7 +38,7 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({children, id, answer}) => 
             const answerToPatch = {
                 question: id,
                 body: e.target.value,
-                status: isChecked,
+                is_correct: isChecked,
             };
 
             debounced({answer: answerToPatch, answerId: answer?.answer_id});
@@ -57,7 +57,7 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({children, id, answer}) => 
             const answerToPatch = {
                 question: id,
                 body: answerText,
-                status: newChecked,
+                is_correct: newChecked,
             };
             debounced({answer: answerToPatch, answerId: answer?.answer_id});
         },
@@ -85,7 +85,7 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({children, id, answer}) => 
             <div className={styles.answerOptionsBlock}>
                 <div className={styles.answerOptionsBlock_inputWrapper}>
                     {children}
-                    <InputBlock name={''} type={'text'} value={answerText} placeholder={'Вариант ответа'}
+                    <InputBlock id={`${id}-${answerText}`} name={''} type={'text'} value={answerText} placeholder={'Вариант ответа'}
                                 onChange={handleChangeAnswer}/>
                     <div className={styles.answerOptionsBlock_inputWrapper_correctAnswerWrapper}>
                         <Checkbox id={`${id}`} checked={isChecked} onChange={handleCheckboxChange}>
