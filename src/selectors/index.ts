@@ -5,4 +5,3 @@ export const authSelector = (state: RootState) => state.user?.auth
 export const getSectionId = (state: RootState) => state.sections
 export const userIdSelector = (state: RootState) => state.user.userId
 export const filtersSelector = (state: RootState) => state.filters
-export const chipsSelector = (state: RootState) => state.filters.chips;
