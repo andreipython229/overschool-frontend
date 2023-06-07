@@ -20,9 +20,6 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setType, m
 
   const { data } = useFetchLessonQuery({ id: lessonIdAndType.id, type: lessonIdAndType.type })
 
-  const [settingsActive, setSettingsActive] = useState<number>(0)
-  const [balls, setBalls] = useState<number>(0)
-  const [typeLesson, setTypeLesson] = useState<string | number>('')
   const [nameLesson, setNameLesson] = useState<string>(`${data?.name}`)
 
   const handleClose = () => {
@@ -32,16 +29,10 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setType, m
   const handleChangeNameLesson = (event: ChangeEvent<HTMLInputElement>) => {
     setNameLesson(event.target.value)
   }
-  const handleChangeBallsLesson = (event: ChangeEvent<HTMLInputElement>) => {
-    setBalls(+event.target.value)
-  }
 
   const saveChangeNameLesson = (event: any) => {
     event.preventDefault()
     patchData(data, `${lessonIdAndType.type}_id`, 'name', nameLesson, changeNameLesson, lessonIdAndType.type)
-    if (balls) {
-      patchData(data, `${lessonIdAndType.type}_id`, 'balls', balls.toString(), changeNameLesson, lessonIdAndType.type)
-    }
   }
 
   useEffect(() => {
@@ -61,44 +52,13 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setType, m
             <IconSvg width={60} height={60} viewBoxSize={'0 0 60 60'} path={settingsClassesIconPath} />
             <span className={styles.classesContainer_title}>Настройки занятия </span>
           </div>
-          <div className={styles.navBtn}>
-            <span
-              onClick={() => setSettingsActive(0)}
-              className={settingsActive === 0 ? styles.navBtn_btn + ' ' + styles.navBtn_active : styles.navBtn_btn}
-            >
-              Основные
-            </span>
-            <span
-              onClick={() => setSettingsActive(1)}
-              className={settingsActive === 1 ? styles.navBtn_btn + ' ' + styles.navBtn_active : styles.navBtn_btn}
-            >
-              Баллы за прохождение
-            </span>
+
+          <div className={styles.settings_block}>
+            <div className={styles.settings_block_input}>
+              <span className={styles.settings_block_input_title}>Изменить название</span>
+              <Input name={'name'} type={'text'} value={nameLesson} onChange={handleChangeNameLesson} />
+            </div>
           </div>
-
-          {settingsActive === 0 ? (
-            <div className={styles.settings_block}>
-              <div className={styles.settings_block_input}>
-                <span className={styles.settings_block_input_title}>Изменить название</span>
-                <Input name={'name'} type={'text'} value={nameLesson} onChange={handleChangeNameLesson} />
-              </div>
-
-              <div className={styles.settings_block_input}>
-                <span style={{ paddingBottom: '5px' }} className={styles.settings_block_input_title}>
-                  Изменить тип
-                </span>
-                <SelectInput optionsList={classesType} optionName={'type' as keyof object} setSelectedValue={setTypeLesson} />
-              </div>
-            </div>
-          ) : (
-            <div>
-              <span className={styles.usually_title}>Сколько баллов будет выдано ученику по завершению занятия:</span>
-              <div className={styles.usually_grade}>
-                <input value={balls} onChange={handleChangeBallsLesson} type={'number'} placeholder={'0'} className={styles.usually_grade_points} />
-                <span>баллов</span>
-              </div>
-            </div>
-          )}
 
           <Button onClick={saveChangeNameLesson} style={{ width: '496px' }} variant={'primary'} text={'Сохранить'} />
         </form>

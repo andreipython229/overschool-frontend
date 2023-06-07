@@ -9,24 +9,22 @@ import { AddPostT, setShowType } from '../../types/componentsTypes'
 
 import styles from './addCodeEditor.module.scss'
 
-type languageT = {
-  language: string
-}
-
 export const AddCodeEditor: FC<setShowType & AddPostT> = ({ lesson, isPreview, code, handleEditorChange, setShow }) => {
-  const [selectedLang, setSelectedLang] = useState<languageT>({ language: 'javascript' })
+  const [selectedLang, setSelectedLang] = useState<string>()
 
   return (
     <>
       {!isPreview ? (
-        <div className={styles.editorWrapper}>
-          <div className={styles.editorWrapper_editor}>
-            <div className={styles.editorWrapper_editor_add}>
-              <Editor height="100%" language={selectedLang.language} loading={''} theme="vs-dark" onChange={handleEditorChange} value={code} />
+        <div className={styles.editorWrapper_wrapper}>
+          <div className={styles.editorWrapper}>
+            <div className={styles.editorWrapper_editor}>
+              <div className={styles.editorWrapper_editor_add}>
+                <Editor height="100%" language={selectedLang} loading={''} theme="vs-dark" onChange={handleEditorChange} value={code} />
+              </div>
             </div>
-          </div>
-          <div className={styles.editorWrapper_selectWrapper}>
-            <SelectInput setSelectedValue={setSelectedLang} optionName={'language' as keyof object} optionsList={coursesSelectLanguage} />
+            <div className={styles.editorWrapper_selectWrapper}>
+              <SelectInput setSelectedValue={setSelectedLang} optionsList={coursesSelectLanguage} />
+            </div>
           </div>
           <div className={styles.editorWrapper_navBlock}>
             <div className={styles.editorWrapper_navBlock_div}>
@@ -41,9 +39,7 @@ export const AddCodeEditor: FC<setShowType & AddPostT> = ({ lesson, isPreview, c
           </div>
         </div>
       ) : (
-        <code>
-          {/* <pre>{lesson.code}</pre> */}
-        </code>
+        <code>{/* <pre>{lesson.code}</pre> */}</code>
       )}
     </>
   )

@@ -3,13 +3,13 @@ import { Params } from 'react-router-dom'
 import parse from 'html-react-parser'
 import YouTube, { YouTubeProps } from 'react-youtube'
 
+import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { sectionT, ILesson } from 'types/sectionT'
 import { StudentCourseNavArr } from '../StudentCourseNavArr/index'
 import { UploadedFile } from 'components/UploadedFile/index'
 import { AudioPlayer } from 'components/common/AudioPlayer'
 import { youtubeParser } from 'utils/youtubeParser'
 import { StudentLessonNavBtns } from '../StudentLessonNavBtns/index'
-import { StudentLessonSidebar } from '../StudentLessonSidebar/index'
 
 import styles from '../lesson.module.scss'
 
@@ -17,14 +17,13 @@ type studentLessonT = {
   lesson: ILesson
   lessons: sectionT
   params: Params
+  activeLessonIndex: number
 }
 
-export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params }) => {
+export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, activeLessonIndex }) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
 
   const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
-
-  const activeLessonIndex = lessons?.lessons.findIndex(lesson => lessonId && lesson.order === +lessonId)
 
   const opts: YouTubeProps['opts'] = {
     height: '500px',
@@ -63,8 +62,8 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params }) =
               )} */}
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
-              {lesson?.text_files.map(({ file, id }) => (
-                <UploadedFile key={id} file={file} />
+              {lesson?.text_files.map(({ file, id }, index: number) => (
+                <UploadedFile key={id} file={file} index={index} size={43445} />
               ))}
             </div>
           </div>
@@ -72,17 +71,11 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params }) =
             courseId={`${courseId}`}
             lessonId={`${lessonId}`}
             sectionId={`${sectionId}`}
-            lessonType={`${lessonType}`}
+            lessonType={`${lessonType}` as LESSON_TYPE}
             activeLessonIndex={activeLessonIndex as number}
             lessons={lessons as sectionT}
           />
         </div>
-        <StudentLessonSidebar
-          courseId={`${courseId}`}
-          sectionId={`${sectionId}`}
-          activeLessonIndex={activeLessonIndex as number}
-          lessons={lessons as sectionT}
-        />
       </div>
     </div>
   )

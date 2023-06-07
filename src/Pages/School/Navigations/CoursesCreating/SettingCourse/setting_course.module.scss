@@ -1,10 +1,12 @@
 @import '../../../../../scss/mixin.scss';
 
 .container {
-  @include display(flex, row, space-between);
+  @include display(flex, row);
+  gap: 40px;
 }
 .container_right {
   @include display(flex, column);
+  width: 100%;
 
   .availability_course_wrapper {
     padding: 45px 45px 30px;
@@ -60,7 +62,6 @@
 }
 
 .card_image_downloads {
-  width: 362px;
   height: 262px;
   box-shadow: 0 0 10px #d9d9d9;
   border-radius: 7px;

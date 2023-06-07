@@ -9,21 +9,31 @@ import { useAppSelector } from 'store/hooks/index'
 import { userIdSelector } from 'selectors/index'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import { profileT } from 'types/profileT'
+import { SelectInput } from 'components/common/SelectInput/SelectInput'
 
 import styles from './profile.module.scss'
 import formStyles from './formStyles.module.scss'
 
-const optionsList = ['Женский', 'Мужской']
+const optionsList = [
+  {
+    label: 'Женский',
+    value: 'Ж',
+  },
+  {
+    label: 'Мужской',
+    value: 'М',
+  },
+]
 
 export const AboutUser: FC = memo(() => {
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
   const [avatarUrl, setAvatarUrl] = useState<string>('')
-  const userId = useAppSelector(userIdSelector)
 
   const { data, isFetching, isError, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
   const [updateProfile, { isSuccess }] = useUpdateProfileMutation()
 
   const [profileData, setProfileData] = useState<profileT>()
+  const [sex, setSex] = useState<string>()
 
   const formik = useFormik({
     initialValues: {
@@ -31,7 +41,6 @@ export const AboutUser: FC = memo(() => {
       avatar_url: avatarUrl || window.appConfig.imagePath + profileData?.avatar_url,
       city: profileData?.city || '',
       description: profileData?.description || '',
-      sex: profileData?.sex || '',
       first_name: profileData?.user.first_name || '',
       last_name: profileData?.user.last_name || '',
       email: profileData?.user.email || '',
@@ -40,7 +49,7 @@ export const AboutUser: FC = memo(() => {
     enableReinitialize: true,
     validationSchema: userDataSchema,
     onSubmit: values => {
-      const { avatar, avatar_url, city, description, sex, ...rest } = values
+      const { avatar, avatar_url, city, description, ...rest } = values
 
       const formData = new FormData()
 
@@ -53,8 +62,10 @@ export const AboutUser: FC = memo(() => {
 
       avatarFile && formData.append('avatar', avatarFile)
 
-      avatarFile && updateProfile({ userInfo: formData, id: userId })
-      updateProfile({ userInfo: objToSend, id: userId })
+      if (data) {
+        avatarFile && updateProfile({ userInfo: formData, id: data[0]?.profile_id })
+        updateProfile({ userInfo: objToSend, id: data[0]?.profile_id })
+      }
     },
   })
 
@@ -71,11 +82,17 @@ export const AboutUser: FC = memo(() => {
   }, [isSuccess])
 
   useEffect(() => {
-    profileIsSuccess && setProfileData(data[0])
+    if (profileIsSuccess) {
+      setProfileData(data[0])
+    }
   }, [profileIsSuccess])
 
+  useEffect(() => {
+    profileData && setSex(profileData.sex)
+  }, [profileData])
+
   const {
-    values: { city, description, email, last_name, first_name, phone_number, avatar_url, sex },
+    values: { city, description, email, last_name, first_name, phone_number, avatar_url },
     handleChange,
     handleSubmit,
     //touched,
@@ -137,14 +154,7 @@ export const AboutUser: FC = memo(() => {
         />
       </div>
       <div className={styles.profile_block}>
-        <span className={styles.profile_block_avatarBlock_title}>Пол:</span>
-        <select className={styles.profile_block_select} onChange={handleChange} value={formik.values.sex} name="sex" id="sex" required>
-          <option value="" disabled>
-            Выбрать пол
-          </option>
-          <option value={'М'}>Мужской</option>
-          <option value={'Ж'}>Женский</option>
-        </select>
+        <SelectInput optionsList={optionsList} selectedOption={sex} defaultOption="Выберите пол" setSelectedValue={setSex} />
       </div>
       <div className={formStyles.form_btnSave}>
         <Button

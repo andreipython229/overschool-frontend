@@ -1,3 +1,4 @@
+import { HomeWork } from 'Pages/HomeWork/HomeWork'
 import { IFile } from './filesT'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 
@@ -47,7 +48,7 @@ export interface ITest {
   type: LESSON_TYPE.TEST
 }
 
-export type commonLessonT = | ILesson | IHomework | ITest
+export type commonLessonT = ILesson | IHomework | ITest
 
 export type lessonT = {
   id: number
@@ -73,7 +74,7 @@ export type studentAccardioT = {
 }
 
 export type answerT = {
-  question:any
+  question: any
   answer: any
   id: string
   name: string

@@ -37,6 +37,11 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId }) => {
     setUrlFiles(uploadedUrlFiles)
   }
 
+  const handleDeleteFile = (index: number) => {
+    setFiles(files => files.filter((_, id) => id !== index))
+    setUrlFiles(files => files.filter((_, id) => id !== index))
+  }
+
   const handleChangeFiles = (event: ChangeEvent<HTMLInputElement>) => {
     const chosenFiles = Array.prototype.slice.call(event.target.files)
 
@@ -60,7 +65,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId }) => {
       <AddFileBtn handleChangeFiles={handleChangeFiles} />
       <span className={styles.wrapper_form_help}>Добавьте файл(-ы) с решением задания</span>
       {urlFiles?.map(({ url, name }, index: number) => (
-        <UploadedFile key={index} file={url} name={name} />
+        <UploadedFile key={index} file={url} index={index} name={name} size={files[index].size} handleDeleteFile={handleDeleteFile} />
       ))}
       {urlFiles.length > 0 && <Button style={{ marginTop: '20px' }} variant="primary" text="Загрузить" type="submit" onClick={handleSendHomework} />}
     </div>

@@ -85,8 +85,8 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
           <span className={styles.container_header_title}>Добавление учеников</span>
         </div>
         <div className={styles.addStudent_select}>
-          {courses && <SelectInput optionsList={courses} optionName={'name' as keyof object} setSelectedValue={setChangeCourse} />}
-          {groups && <SelectInput optionsList={groups?.results} optionName={'name' as keyof object} setSelectedValue={setChangeGroup} />}
+          {/* {courses && <SelectInput optionsList={courses} optionName={'name' as keyof object} setSelectedValue={setChangeCourse} />}
+          {groups && <SelectInput optionsList={groups?.results} optionName={'name' as keyof object} setSelectedValue={setChangeGroup} />} */}
         </div>
         {students.map((student, index: number) => (
           <AddNewStudents

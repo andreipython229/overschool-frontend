@@ -17,17 +17,17 @@ export const arrNumber = [
 ]
 export const arrTime = [{ unit: 'минут' }, { unit: 'часов' }, { unit: 'дней' }]
 export const coursesSelectLanguage = [
-  { language: 'javascript' },
-  { language: 'python' },
-  { language: 'css' },
-  { language: 'typescript' },
-  { language: 'java' },
+  { value: 'javascript', label: 'Javascript' },
+  { value: 'python', label: 'Python' },
+  { value: 'css', label: 'CSS' },
+  { value: 'typescript', label: 'Typescript' },
+  { value: 'java', label: 'Java' },
 ]
 
 export const homeWorkActions = [
   { actionHomeWork: 'Необходимо получить зачёт' },
   { actionHomeWork: 'Необходимо отправить решение' },
-  { actionHomeWork: ' Можно пропустить' },
+  { actionHomeWork: 'Можно пропустить' },
 ]
 
 export const testActions = [{ actionTest: 'Можно пропустить' }, { actionTest: 'Необходимо пройти' }, { actionTest: 'Необходимо успешно пройти' }]

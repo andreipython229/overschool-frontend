@@ -8,16 +8,17 @@ import { SelectInputPropsT } from '../../../types/commonComponentsTypes'
 
 import styles from './selectInput.module.scss'
 
-export const SelectInput: FC<SelectInputPropsT<object>> = ({ optionsList, optionName, setSelectedValue }) => {
+export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption, defaultOption = 'выбрать', setSelectedValue }) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
-  const [selectedOption, setSelectedOption] = useState<number>(0)
+  const [selectOption, setSelectOption] = useState<number | null>(null)
+  const [defaultOp, setDefaultOp] = useState<string>('')
 
   const toggleOptions = () => {
     setIsOptionsOpen(!isOptionsOpen)
   }
 
   const handleToggleOptionsOpen = () => {
-    setIsOptionsOpen(!selectedOption)
+    setIsOptionsOpen(!selectOption)
   }
 
   const menuRef = useRef<HTMLDivElement>(null)
@@ -38,6 +39,20 @@ export const SelectInput: FC<SelectInputPropsT<object>> = ({ optionsList, option
     }
   }, [])
 
+  useEffect(() => {
+    if (typeof selectedOption !== 'undefined') {
+      const indexOfItem = optionsList.findIndex(option => option.value.toLowerCase() === selectedOption?.toLowerCase())
+
+      if (indexOfItem !== -1) {
+        setSelectOption(indexOfItem)
+        setDefaultOp('')
+      } else {
+        setSelectOption(null)
+        setDefaultOp(defaultOption || '')
+      }
+    }
+  }, [selectedOption])
+
   return (
     <div ref={menuRef} className={styles.wrapper} onClick={toggleOptions}>
       <div className={styles.container}>
@@ -51,27 +66,25 @@ export const SelectInput: FC<SelectInputPropsT<object>> = ({ optionsList, option
         />
 
         <button className={styles?.container_btn} type="button" aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
-          {optionsList.length ? optionsList[selectedOption || 0][optionName] : '------------'}
+          {defaultOp ? defaultOp : optionsList[selectOption!]?.label}
         </button>
         <ul tabIndex={-1} role="listbox" className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}>
-          {optionsList &&
-            optionsList?.map(
-              (option, index: number): ReactNode => (
-                <li
-                  key={option[optionName]}
-                  tabIndex={0}
-                  role="option"
-                  aria-selected={selectedOption === index}
-                  onClick={() => {
-                    setSelectedOption(index)
-                    setIsOptionsOpen(false)
-                    setSelectedValue && setSelectedValue(option)
-                  }}
-                >
-                  {option[optionName]}
-                </li>
-              ),
-            )}
+          {optionsList?.map((option, index: number) => (
+            <li
+              key={index}
+              tabIndex={0}
+              role="option"
+              aria-selected={selectOption === index}
+              onClick={() => {
+                setSelectOption(index)
+                setDefaultOp('')
+                setIsOptionsOpen(false)
+                setSelectedValue && setSelectedValue(option.value)
+              }}
+            >
+              {option.label}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
