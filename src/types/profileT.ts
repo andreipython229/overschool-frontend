@@ -4,12 +4,12 @@ enum sex {
 }
 
 export type profileT = {
-  avatar?: string
-  avatar_url?: string
+  avatar: string
+  avatar_url: string
   city: string
   description: string
-  profile_id?: number
-  sex?: sex
+  profile_id: number
+  sex: sex
   user: profileUserT
 }
 

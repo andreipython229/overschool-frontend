@@ -21,7 +21,7 @@ export type CheckboxPropsT = {
   checked?: boolean
   children?: ReactNode
   className?: string
-  onChange?: (value: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   style?: string
 }
 
@@ -108,10 +108,11 @@ export type RadioPropsT = {
   func?: (arg: string) => void
 }
 
-export type SelectInputPropsT<T> = {
-  optionsList: Array<T>
+export type SelectInputPropsT = {
+  optionsList: Array<{ label: string; value: string }>
+  selectedOption?: string
+  defaultOption?: string
   setSelectedValue?: (value: any) => void
-  optionName: keyof object
 }
 
 export type ToggleButtonDropDownT = {

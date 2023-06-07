@@ -16,9 +16,7 @@ export const ExerciseItem: FC<exerciseItemT> = memo(({ lesson, sectionId }) => {
   const navigate = useNavigate()
   return (
     <div
-      onClick={() =>
-        navigate(generatePath(Student.Lesson, { section_id: `${sectionId}`, lesson_type: `${lesson.type}`, lesson_id: `${lesson.order}` }))
-      }
+      onClick={() => navigate(generatePath(Student.Lesson, { section_id: `${sectionId}`, lesson_type: `${lesson.type}`, lesson_id: `${lesson.id}` }))}
       className={styles.accardionWrapper_component_exerciseWrapper_exercise}
     >
       {lessonSvgMapper[lesson.type]}

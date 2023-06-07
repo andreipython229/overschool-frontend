@@ -2,30 +2,29 @@
 @import '../../scss/mixin.scss';
 
 .navbar {
-  @include position_t_l (fixed, 0, 0, 10);
-  @include display (flex, column, flex-start, center);
+  @include position_t_l(fixed, 0, 0, 10);
+  @include display(flex, column, flex-start, center);
   width: 80px;
   min-height: 100vh;
   background: #ffffff;
   box-shadow: 0 0 5px #d9d9d9;
+  padding: 25px 0;
 
   &_menu {
-    margin-top: 24px;
     cursor: pointer;
   }
 
   &_settings {
-    margin-top: 210px;
     cursor: pointer;
   }
 
   &_setting_account {
-    @include display (flex, column);
-    margin-top: 276px;
+    @include display(flex, column);
     cursor: pointer;
+    margin-top: auto;
 
     & a {
-      @include display (flex, row, center, center);
+      @include display(flex, row, center, center);
       width: 57px;
       height: 57px;
       text-align: center;
@@ -48,18 +47,40 @@
             fill: #ba75ff;
           }
         }
-        
       }
     }
 
     & a:not(:first-child) {
-      margin-top: 56px;
+      margin-top: 30px;
     }
   }
 }
 
+.chatIcon {
+  color: #e0dced;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 57px;
+  height: 57px;
+  text-align: center;
+  margin-top: 30px;
+  border-radius: 10px;
+
+  &:hover {
+    background: #e0dced;
+    color: #ba75ff;
+  }
+}
+
+.chatIcon_active {
+  background: #e0dced;
+  color: #ba75ff;
+}
+
 .isActive {
-  @include display (flex, row, center, center);
+  @include display(flex, row, center, center);
   background: #e0dced;
   border-radius: 10px;
   text-align: center;
@@ -79,7 +100,7 @@
     }
   }
 }
-.navbar a:first-child{
+.navbar a:first-child {
   & svg {
     & path {
       fill: transparent;

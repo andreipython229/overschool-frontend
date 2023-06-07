@@ -59,10 +59,17 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     setUrlFiles(uploadedUrlFiles)
   }
 
+  const handleDeleteFile = (index: number) => {
+    setFiles(files => files.filter((_, id) => id !== index))
+    setUrlFiles(files => files.filter((_, id) => id !== index))
+  }
+
   const handleChangeFiles = (event: ChangeEvent<HTMLInputElement>) => {
     const chosenFiles = Array.prototype.slice.call(event.target.files)
 
     handleUploadFiles(chosenFiles)
+
+    console.log(files)
   }
 
   // const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -97,20 +104,21 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
         <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
             <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия</span>
-            <div>
+            <div className={styles.redactorCourse_rightSideWrapper_rightSide_review}>
               <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content_preview}>Предпросмотр</span>
               <CheckboxBall isChecked={isToggle} toggleChecked={onToggle} />
             </div>
           </div>
 
-          <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} isPreview={isToggle} />
-
+          <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
+            <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} isPreview={isToggle} />
+          </div>
           <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
           <AddFileBtn handleChangeFiles={handleChangeFiles} />
           <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
 
           {urlFiles?.map(({ url, name }, index: number) => (
-            <UploadedFile key={index} file={url} name={name} />
+            <UploadedFile key={index} index={index} file={url} name={name} size={files[index].size} handleDeleteFile={handleDeleteFile} />
           ))}
           {urlFiles.length > 0 && <Button style={{ marginTop: '20px' }} variant="primary" text="Загрузить" type="submit" />}
         </div>

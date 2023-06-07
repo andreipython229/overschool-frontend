@@ -3,10 +3,16 @@
 
 .editorWrapper {
   position: relative;
-  width: calc(100% - 10px);
   height: 300px;
   border-radius: 7px;
   background: #1e1e1e;
+  width: 100%;
+
+  &_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
   &_editor {
     position: relative;
@@ -30,7 +36,6 @@
   }
 
   &_navBlock {
-    @include position_t_r(absolute, calc(50% - 65px), -45px, 2);
     @include display(flex, column);
 
     &_div {

@@ -33,9 +33,17 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
   const videoIdLesson = youtubeParser(lesson.type === LESSON_TYPE.LESSON ? lesson?.video : '')
 
   return (
-    <div className={styles.redactorCourse_rightSide_functional_addContent}>
+    <>
       {!isPreview ? (
-        <>
+        <div className={styles.redactorCourse_wrapper}>
+          <div className={styles.redactorCourse_rightSide_functional_addContent}>
+            <IconSvg width={83} height={84} viewBoxSize="0 0 83 84" path={addVideoIconPath} />
+            <span>Вставьте ссылку на видео </span>
+
+            <input value={addVideoLink} onChange={handleChangeInputLink} type="text" />
+
+            <Button variant={'primary'} onClick={handleSaveVideoLink} text={'Сохранить'} />
+          </div>
           <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
             <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
               <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrUpPath} />
@@ -43,23 +51,16 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
             <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
               <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
             </div>
-            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-              <IconSvg width={13} height={17} viewBoxSize="0 0 13 17" path={arrUpdatePath} />
-            </div>
             <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete} onClick={setShow}>
               <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
             </div>
           </div>
-          <IconSvg width={83} height={84} viewBoxSize="0 0 83 84" path={addVideoIconPath} />
-          <span>Вставьте ссылку на видео </span>
-
-          <input value={addVideoLink} onChange={handleChangeInputLink} type="text" />
-
-          <Button variant={'primary'} onClick={handleSaveVideoLink} text={'Сохранить'} />
-        </>
+        </div>
       ) : (
-        <YouTube opts={opts} videoId={videoIdLesson as string} />
+        <div className={styles.redactorCourse_rightSide_functional_addContent}>
+          <YouTube opts={opts} videoId={videoIdLesson as string} />
+        </div>
       )}
-    </div>
+    </>
   )
 }

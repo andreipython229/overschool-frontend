@@ -76,25 +76,6 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
         <p className={styles.short_discription_title}>кратное описание</p>
         <Input type={'text'} name="shortDescription" value={shortDescription} onChange={handleNameCourse} />
       </div>
-      <div>
-        <div className={styles.course_link_wrapper}>
-          <p className={styles.course_link_title}>Курс для учеников доступен по ссылке:</p>
-          <Input type={'text'} name="" value="" onChange={() => console.log(1)} />
-        </div>
-      </div>
-      <div className={styles.link_switch_wrapper}>
-        <div className={styles.link_switch_label}>
-          <Checkbox />
-          <p className={styles.link_switch_label_title}>Использовать переход по внешней ссылке при клике на карточку курса</p>
-        </div>
-        <p className={styles.link_switch_label_help}>
-          Включите эту опцию, если хотите, чтобы ученики записывались на курс через ваш сайт вне платформы
-        </p>
-      </div>
-      <div className={styles.course_category_wrapper}>
-        <p className={styles.course_category_title}>Категории курса</p>
-        <SelectInput optionName={'category' as keyof object} optionsList={[{ category: 'заглушка 1' }, { category: 'заглушка 2' }]} />
-      </div>
     </div>
   )
 }

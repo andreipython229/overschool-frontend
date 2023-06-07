@@ -1,3 +1,4 @@
 export { authReduce } from './users/slice'
 export { sectionsReduce } from './modules/slice'
 export { filtersReducer } from './filters/slice'
+export { chatReducer } from './chats/slice'

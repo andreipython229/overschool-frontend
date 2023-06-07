@@ -10,6 +10,13 @@
     margin-top: 10px;
   }
 
+  &__download_icon {
+    color: #e0dced;
+    &:hover {
+      color: #ef4444;
+    }
+  }
+
   &__dowload_blackDiv {
     width: 18px;
     height: 18px;
@@ -31,5 +38,6 @@
 
   &__download_size {
     margin-right: 14px;
+    width: max-content;
   }
 }
