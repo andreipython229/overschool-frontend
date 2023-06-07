@@ -21,7 +21,7 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(({ termForFi
   return (
     <>
       <p>Входящие работы от учеников</p>
-      <ChipsComponent />
+      {/*<ChipsComponent />*/}
       <div className={styles.container}>
         <SelectDropDown dropdownData={initialDropDownList} onChangeStatus={onChangeStatus} />
         <FiltersButton filteringCategoriesList={dropDownListFilter} />
