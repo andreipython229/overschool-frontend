@@ -7,6 +7,7 @@ import {
   tableFilterByEmailDownIcon,
   tableBallsStarIcon,
   iconSvgHomeWorkPage,
+  chatGroup,
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -20,9 +21,9 @@ export const toggleBtnArr: pathT[] = [
   { d: 'M1.25 1.15625L7.5 7.40625L13.75 1.15625', stroke: '#9CA3AF', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
 ]
 
-export const deletePath = [{ d: classesSettingSvgIcon.deleteIcon, fill: '#EF4444' }]
+export const deletePath = [{ d: classesSettingSvgIcon.deleteIcon, fill: 'currentColor' }]
 
-export const crossIconPath: pathT[] = [{ d: cross, stroke: '#E0DCED', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }]
+export const crossIconPath: pathT[] = [{ d: cross, stroke: 'currentColor', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }]
 
 export const searchIconPath: pathT[] = [{ d: searchSvgIcon, stroke: '#D1D5DB', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }]
 
@@ -47,3 +48,5 @@ export const underRevisionHwPath = [{ d: iconSvgHomeWorkPage.underRevision, fill
 export const rejectedHwPath = [{ d: iconSvgHomeWorkPage.rejected, fill: '#FF2C2C' }]
 
 export const waitingdHwPath = [{ d: iconSvgHomeWorkPage.waitingForVerification, fill: '#717985' }]
+
+export const chatsGroup = [{ d: chatGroup.d1 }, { d: chatGroup.d2, fill: 'currentColor' }]

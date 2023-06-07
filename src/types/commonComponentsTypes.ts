@@ -16,13 +16,13 @@ export type SuperButtonPropsT = DefaultButtonPropsType & {
 }
 
 export type CheckboxPropsT = {
-    id?: string
-    name?: string
-    checked?: boolean
-    children?: ReactNode
-    className?: string
-    onChange?: (value: ChangeEvent<HTMLInputElement>) => void
-    style?: string
+  id?: string
+  name?: string
+  checked?: boolean
+  children?: ReactNode
+  className?: string
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  style?: string
 }
 
 export type CheckSelectPropsT = {
@@ -56,7 +56,7 @@ export type IconSvgT = {
   children?: ReactNode
   functionOnClick?: <T>(params: T) => void
   onPointerDown?: (event: PointerEvent<SVGSVGElement | SVGPathElement>) => void
-  onClick?: () => void;
+  onClick?: () => void
 }
 
 export type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -109,10 +109,11 @@ export type RadioPropsT = {
   func?: (arg: string) => void
 }
 
-export type SelectInputPropsT<T> = {
-  optionsList: Array<T>
+export type SelectInputPropsT = {
+  optionsList: Array<{ label: string; value: string }>
+  selectedOption?: string
+  defaultOption?: string
   setSelectedValue?: (value: any) => void
-  optionName: keyof object
 }
 
 export type ToggleButtonDropDownT = {

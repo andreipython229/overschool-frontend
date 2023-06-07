@@ -6,12 +6,21 @@
   // -moz-transform: translateX(-50%);
   // -ms-transform: translateX(-50%);
   // -o-transform: translateX(-50%);
+
+  min-width: 30vw;
+  max-width: 60vw;
+
+  &_wrapper {
+    display: flex;
+    gap: 30px;
+  }
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     @include display(flex, column, flex-start, center);
     width: 280px;
     margin-top: 20px;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     @include display(flex, column, flex-start, center);
     margin-top: 20px;
   }
@@ -23,7 +32,7 @@
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       padding: 10px;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
     }
   }
 
@@ -38,7 +47,7 @@
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       font-size: 8px;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
     }
   }
   &__navBack {
@@ -48,20 +57,20 @@
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       align-self: flex-start;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       align-self: flex-start;
     }
   }
   &__navBack_text {
     margin-left: 5px;
-    @include font (400, 12px, 15px);
+    @include font(400, 12px, 15px);
     letter-spacing: -0.03em;
     color: #4d5766;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-      @include font (500, 15px, 15px);
+      @include font(500, 15px, 15px);
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
-      @include font (500, 14px, 15px);
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(500, 14px, 15px);
     }
   }
 
@@ -82,7 +91,7 @@
         width: 100%;
       }
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       padding: 0 10px;
       figure {
         width: 100%;
@@ -104,7 +113,7 @@
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       @include display(flex, column, flex-start, center);
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       @include display(flex, column, flex-start, center);
     }
   }
@@ -116,7 +125,7 @@
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       @include display(flex, column, flex-start, center);
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       @include display(flex, column, flex-start, center);
     }
   }
@@ -135,7 +144,7 @@
         height: 160px;
       }
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       min-width: 350px;
       width: 355px;
       iframe {
@@ -145,24 +154,24 @@
   }
 
   &__btns {
-    @include display (flex, row, flex-start, center);
+    @include display(flex, row, flex-start, center);
     margin-top: 32px;
     margin-right: 5px;
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
-      @include display (flex, row, flex-start, center);
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include display(flex, row, flex-start, center);
     }
   }
 
   &__btnNext,
   &__btnPrev {
-    @include display (flex, row, center, center);
+    @include display(flex, row, center, center);
     width: 50%;
     border: none;
     outline: none;
     background: #e1e1e1;
     border-radius: 7px;
     padding: 8px 16px;
-    @include font (500, 11px, 150%);
+    @include font(500, 11px, 150%);
     text-align: center;
     color: #6b7280;
   }
@@ -213,10 +222,11 @@
     box-sizing: border-box;
     background: #fff;
     border-radius: 7px;
-    margin-left: 25px;
     max-height: 505px;
     overflow-y: auto;
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    flex-shrink: 0;
+    margin-top: 85px;
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       max-width: 100%;
     }
 
@@ -239,7 +249,7 @@
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       margin: 32px 0 0 0;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       margin: 32px 0 0 0;
     }
   }

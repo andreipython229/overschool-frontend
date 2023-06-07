@@ -46,7 +46,7 @@ export const Profile = () => {
     <div className={styles.wrapper}>
       <div className={styles.profile}>
         <AboutUser />
-        <div>
+        <div className={styles.forms_wrapper}>
           <form className={styles.container}>
             <h5 className={styles.profile_block_title}>Изменить email</h5>
             <Input name={'email'} type={'text'} value={''} onChange={() => console.log('заглушка')} placeholder={'Новый email адрес'} />
