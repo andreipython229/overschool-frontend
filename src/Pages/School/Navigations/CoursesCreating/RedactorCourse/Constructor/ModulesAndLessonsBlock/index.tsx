@@ -15,7 +15,9 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(({ setType,
       <h5 className={styles.redactorCourse_leftSide_title}>Структура курса</h5>
       <div className={styles.redactorCourse_leftSide_desc}>
         {modulesList &&
-          modulesList.map(({ section_name, section, lessons }) => (
+          modulesList.map(({ section_name, section, lessons }) => {
+            if (!section_name) return
+            return (
             <ModulesBlock
               setType={setType}
               key={section_name + section}
@@ -24,9 +26,9 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(({ setType,
               moduleName={section_name}
               lessonsList={lessons}
             />
-          ))}
+          )})}
         <hr />
-        <Button onClick={handleOpenModalModule} className={styles.btnModule} text={'+ Модуль'} variant={'primary'} />
+        <div><Button onClick={handleOpenModalModule} text={'+ Модуль'} variant={'primary'} /></div>
       </div>
     </div>
   )

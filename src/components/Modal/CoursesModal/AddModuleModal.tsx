@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import { useCreateModulesMutation } from 'api/modulesServices'
 
 import { Input } from 'components/common/Input/Input/Input'
@@ -20,7 +20,11 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
     const name = event.target.value
     setModulesMane(name)
   }
-
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  useEffect( () => {
+console.log("s")
+  })
   const handleCreateModules = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const newModules = {
