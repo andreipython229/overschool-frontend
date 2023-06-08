@@ -30,6 +30,7 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
     width: '100%',
     playerVars: {
       autoplay: 0,
+      apiKey: window.youTubeAPIKey.apiKey,
     },
   }
 
