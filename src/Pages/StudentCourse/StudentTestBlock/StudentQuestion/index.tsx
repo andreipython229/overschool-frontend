@@ -26,27 +26,21 @@ export const StudentQuestion: FC<StudentQuestionT> = ({questions, length, number
         }
     }
     return (
-        (questions && questions.length > 0) ? (
-            <div className={styles.wrapper}>
-                <h5 className={styles.wrapper_title}>
-                    вопрос {numberTest + 1} из {questionLength}
-                </h5>
-                <p className={styles.wrapper_question}>{questions.body}</p>
-                <div className={styles.wrapper_progressBar}>
-                    <div className={styles.wrapper_progressBar_progress} style={{width: `${progress}%`}}></div>
-                </div>
-                {questions.answers &&
-                    questions?.answers.map(({body: answer}: any, index: number) => (
-                        <StudentAnswer key={answer + index} id={answer + index} title={answer} name={nameAnswer}/>
-                    ))}
-                <Button disabled={numberTest + 1 === questionLength} onClick={hadnleNextQ} text={'Следующий вопрос'}
-                        variant="primary" style={{alignSelf: 'flex-start', marginTop: '32px'}}
-                />
+        <div className={styles.wrapper}>
+            <h5 className={styles.wrapper_title}>
+                вопрос {numberTest + 1} из {questionLength}
+            </h5>
+            <p className={styles.wrapper_question}>{questions.body}</p>
+            <div className={styles.wrapper_progressBar}>
+                <div className={styles.wrapper_progressBar_progress} style={{width: `${progress}%`}}></div>
             </div>
-        ) : (
-            <div className={styles.wrapper}>
-                <p className={styles.wrapper_question}>В тесте отсутствуют вопросы</p>
-            </div>
-        )
+            {questions.answers &&
+                questions?.answers.map(({body: answer}: any, index: number) => (
+                    <StudentAnswer key={answer + index} id={answer + index} title={answer} name={nameAnswer}/>
+                ))}
+            <Button disabled={numberTest + 1 === questionLength} onClick={hadnleNextQ} text={'Следующий вопрос'}
+                    variant="primary" style={{alignSelf: 'flex-start', marginTop: '32px'}}
+            />
+        </div>
     )
 }
