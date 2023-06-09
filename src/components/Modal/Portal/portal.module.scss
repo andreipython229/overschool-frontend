@@ -1,7 +1,7 @@
 @import '../../../scss/variable';
 
 .wrapper {
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), no-repeat center fixed;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center fixed;
   background-size: cover;
   position: fixed;
   top: 0;
@@ -12,12 +12,8 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   display: flex;
-  flex-flow: column nowrap;
-  justify-content: flex-start;
-  align-items: center;
   z-index: 99;
   padding: 30px 0;
-
 
   @media (max-width: 460px) {
     background: rgba(0, 0, 0, 0.5);

@@ -72,7 +72,10 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
         name,
         description,
       })
-      setSchoolHeaderDataToRender({ logo_header: window.appConfig.imagePath + logo_header_url, photo_background: window.appConfig.imagePath + photo_background_url })
+      setSchoolHeaderDataToRender({
+        logo_header: window.appConfig.imagePath + logo_header_url,
+        photo_background: window.appConfig.imagePath + photo_background_url,
+      })
     }
   }, [isSuccess, data])
 
@@ -97,6 +100,11 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
 
   return (
     <div className={styles.previous} style={changedBg}>
+      {isFetching && (
+        <div className={styles.previous_loader}>
+          <SimpleLoader style={{ width: '50px', height: '50px' }} />
+        </div>
+      )}
       {edit && (
         <label className={styles.label_input_background_image}>
           <span>Изменить фон секции</span>
@@ -154,18 +162,10 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
                 width: '220px',
                 fontSize: '10px',
                 fontWeight: '800',
-                paddingTop: isFetching || isLoading ? '7px' : '10px',
-                paddingBottom: isFetching || isLoading ? '7px' : '10px',
+                paddingTop: '10px',
+                paddingBottom: '10px',
               }}
-              text={
-                isFetching || isLoading ? (
-                  <SimpleLoader style={{ width: '20px', height: '20px' }} loaderColor="#ffff" />
-                ) : edit ? (
-                  'Завершить настройку курсов'
-                ) : (
-                  'Настроить страницу курсов'
-                )
-              }
+              text={edit ? 'Завершить настройку курсов' : 'Настроить страницу курсов'}
               onClick={edit ? onChangeSchoolHeader : handleChangePrevious}
             />
           )}

@@ -9,7 +9,6 @@ module.exports = function (app) {
       target: 'http://45.135.234.137:8000',
       changeOrigin: true,
       secure: false,
-      ws: true,
     }),
   )
 

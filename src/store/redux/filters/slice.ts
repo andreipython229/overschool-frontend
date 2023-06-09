@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type FiltersSliceState = {
   filters: { [key: string]: string | number }
-  chips: { [key: string]: string | number }
 }
 
 const initialState: FiltersSliceState = {
@@ -15,7 +14,6 @@ const initialState: FiltersSliceState = {
     start_date: '',
     end_date: '',
   },
-  chips: {},
 }
 
 export const slice = createSlice({
@@ -35,16 +33,9 @@ export const slice = createSlice({
         state.filters[filterKey] = ''
       }
     },
-    addChip: (state, action: PayloadAction<{ [key: string]: string | number }>) => {
-      state.chips = { ...state.chips, ...action.payload }
-    },
-    removeChip: (state, action: PayloadAction<string>) => {
-      const filterKey = action.payload as keyof FiltersSliceState
-      delete state.chips[filterKey]
-    },
   },
 })
 
-export const { addFilters, clearFilters, removeFilter, addChip, removeChip } = slice.actions
+export const { addFilters, clearFilters, removeFilter } = slice.actions
 
 export const filtersReducer = slice.reducer

@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
-import { io } from 'socket.io-client'
+// import { io } from 'socket.io-client'
 
 import { baseQuery } from './baseApi'
 import { Chats, ChatI, Messages, MessageI } from 'types/chatsT'

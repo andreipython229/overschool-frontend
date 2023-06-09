@@ -28,6 +28,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     width: '800px',
     playerVars: {
       autoplay: 0,
+      apiKey: window.youTubeAPIKey.apiKey,
     },
   }
   const videoIdLesson = youtubeParser(lesson.type === LESSON_TYPE.LESSON ? lesson?.video : '')

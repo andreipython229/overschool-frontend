@@ -38,7 +38,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
             }
           >
             <IconSvg width={41} height={40} viewBoxSize="0 0 41 40" path={modalTypeClassesTaskPath} />
-            <span>Задание</span>
+            <span>Домашнее задание</span>
           </div>
           <div
             onClick={() => setActiveClasses('test' as keyof object)}
@@ -47,21 +47,41 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
             <IconSvg width={30} height={40} viewBoxSize="0 0 30 40" path={modalTypeClassesTextPath} />
             <span>Тест</span>
           </div>
-          {/* <div
-            onClick={() => setActiveClasses('webinar' as keyof object)}
-            className={
-              activeClasses === 'webinar' ? styles.classesContainer_type_classes + ' ' + styles.active : styles.classesContainer_type_classes
-            }
-          >
-            <IconSvg width={33} height={35} viewBoxSize="0 0 33 35" path={modalTypeClassesWebinarPath} />
+          {/*<div*/}
+          {/*    onClick={() => setActiveClasses('webinar' as keyof object)}*/}
+          {/*    className={*/}
+          {/*        activeClasses === 'webinar' ? styles.classesContainer_type_classes + ' ' + styles.active : styles.classesContainer_type_classes*/}
+          {/*    }*/}
+          {/*>*/}
+          {/*    <IconSvg width={33} height={35} viewBoxSize="0 0 33 35" path={modalTypeClassesWebinarPath}/>*/}
 
-            <span>Вебинар</span>
-          </div> */}
+          {/*    <span>Вебинар</span>*/}
+          {/*</div>*/}
         </div>
         <div className={styles.classesContainer_type_subs}>{typeClasses.map(el => (el.type === activeClasses ? el.text : null))}</div>
         <div className={styles.classesContainer_type_btnBlock}>
-          <Button onClick={handleClose} text={'Отмена'} />
-          <Button variant={'primary'} onClick={setClassesType} text={'Далее'} />
+          <Button
+            style={{
+              width: '85px',
+              height: '100%',
+              padding: '17px',
+              fontSize: '14px',
+              fontWeight: '400',
+              borderRadius: '10px',
+            }}
+            onClick={handleClose}
+            text={'Отмена'}
+          />
+          <Button
+            style={{
+              marginLeft: '12px',
+              fontSize: '14px',
+              fontWeight: '400',
+            }}
+            variant={'primary'}
+            onClick={setClassesType}
+            text={'Далее'}
+          />
         </div>
       </div>
     </div>
