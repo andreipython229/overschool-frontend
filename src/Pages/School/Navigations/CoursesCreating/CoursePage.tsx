@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
 import { Button } from 'components/common/Button/Button'
@@ -35,6 +35,17 @@ export const CoursePage: FC = memo(() => {
     onToggle()
   }
 
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+  if (loading) return (
+  <div className={styles.loader_container}>
+    <div className={styles.spinner}></div>
+  </div>)
   return (
     <div className={styles.container}>
       <Input role="search-input" name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
