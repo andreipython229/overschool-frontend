@@ -35,14 +35,7 @@ export const CoursePage: FC = memo(() => {
     onToggle()
   }
 
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
-  if (loading) return (
+  if (!courses?.results.length) return (
   <div className={styles.loader_container}>
     <div className={styles.spinner}></div>
   </div>)
