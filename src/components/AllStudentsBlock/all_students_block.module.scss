@@ -1,5 +1,5 @@
 @import '../../scss/mixin.scss';
-
+@import '../../scss/variable.scss';
 .header_block_text {
   font-style: normal;
   @include font (500, 16px, 19px);
@@ -16,6 +16,9 @@
   height: 36px;
 }
 .arrow_add_file_block {
+  &:hover {
+    background-color: rgba(160, 160, 160, 0.4)
+  }
   @include display (flex, row, center, center);
   background: #e0dced;
   border: none;

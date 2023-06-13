@@ -44,6 +44,10 @@ export const Constructor: FC = () => {
 
   const isLoading = modulesList[0] && modulesList[0].lessons[0] && lessonIdAndType.type
 
+  if (!isLoading) return (
+    <div className={styles.loader_container}>
+      <div className={styles.spinner}></div>
+    </div>)
   return (
     <div className={styles.redactorCourse}>
       <ModulesAndLessonsBlock setType={setType} setLessonIdAndType={setLessonIdAndType} modulesList={modulesList || []} />

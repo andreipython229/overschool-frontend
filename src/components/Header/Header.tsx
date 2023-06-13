@@ -75,15 +75,16 @@ export const Header = memo(() => {
             </div>
           </div>
         </Link>
-
+        <div
+          className={styles.header_block_logOut}>
         <IconSvg
-          className={styles.header_block_logOut}
           width={26}
           height={26}
           viewBoxSize="0 0 26 25"
           path={logOutIconPath}
           functionOnClick={logOut}
         />
+        </div>
       </div>
     </header>
   )

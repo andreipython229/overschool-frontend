@@ -74,9 +74,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
           lessonsList.map(({ name, id, type }: lessonT) => (
             <LessonsBlock type={type} setLessonIdAndType={setLessonIdAndType} key={id + type} id={id} lessonsName={name} />
           ))}
-        {visibleAddBtn &&
-          <Button className={styles.btn} text="+ Занятие" variant="secondary" onClick={handleOpenModalLesson} />
-        }
+        <Button className={styles.btn} text="+ Занятие" variant="secondary" onClick={handleOpenModalLesson} />
         </ul>
     </>
   )

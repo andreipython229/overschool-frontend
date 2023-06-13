@@ -14,7 +14,7 @@ import styles from './initial.module.scss'
 
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setRegistrationShow }) => {
   const isLogin = useAppSelector(authSelector)
-  const { role: userRole } = useAppSelector(selectUser)
+  const { role: userRole, userName: name} = useAppSelector(selectUser)
 
   const handleLoginUser = () => {
     setLoginShow(true)
@@ -26,7 +26,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
       <div className={styles.btn_block}>
         {isLogin ? (
           <Link className={styles.btn_block_logIn} to={`${userRole === RoleE.SuperAdmin ? Path.Settings : Path.Courses}`}>
-            Аккаунт
+            {name}
           </Link>
         ) : (
           <>
