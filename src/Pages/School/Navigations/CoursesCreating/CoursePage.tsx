@@ -37,7 +37,6 @@ export const CoursePage: FC = memo(() => {
   const dispatchHandlerModal = () => {
     onToggle()
   }
-  const c: any = [1]
   if (!courses?.results.length) return (
 <><div>
   <ContentLoader
