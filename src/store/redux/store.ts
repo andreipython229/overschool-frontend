@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import * as services from '../../api/index'
-import { authReduce, sectionsReduce, filtersReducer } from './index'
+import * as slices from './index'
 
 const rootReducer = combineReducers({
   [services.userLoginService.reducerPath]: services.userLoginService.reducer,
@@ -19,9 +19,11 @@ const rootReducer = combineReducers({
   [services.userRegisterService.reducerPath]: services.userRegisterService.reducer,
   [services.questionsAndAnswersService.reducerPath]: services.questionsAndAnswersService.reducer,
   [services.filesService.reducerPath]: services.filesService.reducer,
-  user: authReduce,
-  sections: sectionsReduce,
-  filters: filtersReducer,
+  [services.chatsService.reducerPath]: services.chatsService.reducer,
+  user: slices.authReduce,
+  sections: slices.sectionsReduce,
+  filters: slices.filtersReducer,
+  chat: slices.chatReducer,
 })
 
 const persistConfig = {
@@ -49,6 +51,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.userRegisterService.middleware,
         services.questionsAndAnswersService.middleware,
         services.filesService.middleware,
+        services.chatsService.middleware,
       ),
   })
 }

@@ -42,7 +42,6 @@
 .main {
   @include position_t_l(absolute, 50%, 50%, 10);
   @include display(flex, column);
-  width: 468px;
   background: $color-white;
   font-family: 'Manrope', sans-serif;
   margin: 0 auto;
@@ -58,6 +57,15 @@
   &_closed {
     @include position_t_r(absolute, 25px, 25px);
     cursor: pointer;
+    color: #e0dced;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: #4d5766;
+      transition: color 0.3s;
+    }
   }
 
   &_title {
@@ -107,6 +115,29 @@
   border-radius: 7px;
   transform: translate(-50%, -50%);
 
+  &_name {
+    margin: 0;
+    @include font(500, 18px, 22px);
+    letter-spacing: 0.03em;
+    color: $font-title;
+  }
+
+  &_chosenRole {
+    margin-top: 25px;
+
+    & span {
+      text-transform: lowercase;
+    }
+  }
+
+  &_info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+  }
+
   &_container {
     margin: 36px 13px 29px 31px;
   }
@@ -118,14 +149,20 @@
     height: 30px;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e0dced;
 
-    & svg {
-      padding: 8px 0 0 8px;
+    &:hover {
+      color: #4d5766;
+      transition: color 0.3s;
     }
   }
 
   &_title {
-    @include font(500, 18px);
+    @include font(500, 18px, 22px);
+    letter-spacing: 0.03em;
     color: #4d5766;
     text-align: center;
   }
@@ -133,6 +170,8 @@
   &_subs {
     @include font(400, 14px);
     color: #65696d;
+    display: inline-block;
+    margin-top: 15px;
   }
 
   &_invite {
@@ -141,14 +180,15 @@
     & label {
       color: #4d5766;
       font-size: 14px;
+      display: inline-block;
+      margin-bottom: 7px;
     }
 
     &_input {
-      margin: 7px 13px 0 0;
-      width: 496px;
       padding: 11px 0 12px 20px;
       border: 1px solid #e5e7eb;
       border-radius: 5px;
+      text-overflow: ellipsis;
     }
 
     & input {
@@ -176,13 +216,21 @@
   }
 
   &_btn {
-    margin-top: 16px;
+    margin-top: 20px;
     text-align: center;
+    display: flex;
+    align-items: stretch;
+    gap: 15px;
+    justify-content: center;
+    & button {
+      padding: 10px 20px;
+    }
   }
 
   &_course {
     @include display(flex, column);
     font-weight: 400;
+    margin-top: 25px;
 
     &_title {
       @include font(400, 14px);
@@ -243,9 +291,14 @@
     right: 17px;
     border-radius: 5px;
     cursor: pointer;
+    color: #e0dced;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    & svg {
-      padding: 8px 0 0 8px;
+    &:hover {
+      color: #4d5766;
+      transition: color 0.3s;
     }
   }
 
@@ -282,13 +335,14 @@
     background: #f1f1f1;
     border-radius: 7px;
     cursor: pointer;
+    color: #e0dced;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    & svg {
-      margin-top: 8.5px;
-    }
-
-    & svg :hover {
-      stroke: #4d5766;
+    &:hover {
+      color: #4d5766;
+      transition: color 0.3s;
     }
   }
 
@@ -300,10 +354,8 @@
   &_type {
     margin: 27px 0 17px 0;
     display: flex;
-
-    & div:not(:last-child) {
-      margin-right: 24px;
-    }
+    justify-content: center;
+    gap: 25px;
 
     &_classes {
       @include display(flex, column, center, center);
@@ -333,10 +385,17 @@
 
     &_btnBlock {
       @include display(flex, row, center, center);
-      margin-top: 19px;
-
-      & div:nth-child(1) {
-        margin-right: 12px;
+      gap: 12px;
+      margin-top: 20px;
+      & button {
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 150%;
+        padding: 10px 0;
       }
     }
   }
@@ -363,6 +422,7 @@
 .usually {
   &_header {
     @include display(flex, column, flex-start, center);
+    margin-bottom: 15px;
 
     & svg {
       margin-bottom: 28px;
@@ -372,13 +432,11 @@
       font-size: 18px;
       color: $font-title;
     }
-
-    margin-bottom: 23px;
   }
 
   &_input {
-    margin: 0 10px 26px 10px;
-    width: 95%;
+    width: 100%;
+    text-overflow: ellipsis;
     text-align: left;
 
     & div {
@@ -469,7 +527,6 @@
 .test {
   @include display(flex, column, flex-start, center);
   text-align: center;
-  margin-bottom: 23px;
 
   & svg {
     margin-bottom: 13px;
@@ -580,9 +637,17 @@
 }
 .btnBlock {
   display: flex;
+  align-items: stretch;
+  gap: 20px;
 
-  & div:nth-child(1) {
-    margin-right: 16px;
+  & button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 7px;
+    &:first-child {
+      color: #7b818e;
+      font-weight: 500;
+    }
   }
 }
 .navBtn {
@@ -645,10 +710,8 @@
 
     &_input {
       margin-bottom: 8px;
-      padding: 0 20px;
       text-align: left;
-      width: 496px;
-
+      margin-bottom: 20px;
       &_title {
         font-size: 14px;
         color: $font-title;

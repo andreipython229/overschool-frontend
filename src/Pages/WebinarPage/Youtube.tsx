@@ -24,6 +24,7 @@ export const Youtube = () => {
     width: '640',
     playerVars: {
       autoplay: 1,
+      apiKey: window.youTubeAPIKey.apiKey,
     },
   }
 

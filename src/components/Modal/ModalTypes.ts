@@ -22,8 +22,6 @@ export type AddEmployeeModalPropsT = {
 export type AddEmpoyeeModalExtensions = {
   handleCreatEmployee: (event: FormEvent<HTMLFormElement>) => void
   setEmailUser: (arg: string) => void
-  setAddRole: (arg: string) => void
-  addRole: string
   emailUser: string
 }
 

@@ -8,7 +8,7 @@ import {SearchFilterT} from '../../../types/componentsTypes';
 import {useDebouncedFilter, useBoolean} from 'customHooks/index';
 import {useAppDispatch, useAppSelector} from 'store/hooks';
 import {filtersSelector} from 'selectors/index';
-import {addFilters, addChip} from 'store/redux/filters/slice';
+import {addFilters} from 'store/redux/filters/slice';
 // import {commonLessonT} from 'types/sectionT';
 
 import style from './search_filter.module.scss';
@@ -28,7 +28,6 @@ export const SearchFilter: FC<SearchFilterT<any>> = ({name, header, data, filter
 
     const handleAddFilter = () => {
         dispatch(addFilters({[filterTerm]: term}));
-        dispatch(addChip({[filterTerm]: term}));
         setItemForFilter('');
         setSelectedCategory('');
         off();

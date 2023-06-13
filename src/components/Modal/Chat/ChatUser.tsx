@@ -1,18 +1,33 @@
 import { FC } from 'react'
 
+import { ChatI } from 'types/chatsT'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { chatsGroup } from 'config/commonSvgIconsPath'
+import { getNounDeclension } from 'utils/getNounDeclension'
+
 import styles from './chat.module.scss'
 
-export const ChatUser: FC = () => {
+type chatUserT = {
+  openGroup?: (isOpen: boolean) => void
+  chatData: ChatI
+  usersCount?: number
+}
+
+export const ChatUser: FC<chatUserT> = ({ openGroup, chatData, usersCount }) => {
   return (
     <div className={styles.chatUser}>
       <div>
         <div className={styles.chatUser_info}>
-          <div className={styles.chatUser_avatar}>ба</div>
+          <div className={styles.chatUser_avatar}>
+            <IconSvg width={20} height={20} viewBoxSize="0 0 24 24" path={chatsGroup} />
+          </div>
           <div>
             <div className={styles.chatUser_nameWrapper}>
-              <p className={styles.chatUser_name}>Коховец Алла</p>
+              <p className={styles.chatUser_name}>{chatData?.name || 'Группа без имени'}</p>
             </div>
-            <p className={styles.chatUser_lastVisit}>Был(а) онлайн 20.05.2023</p>
+            <p className={styles.chatUser_lastVisit} onClick={() => openGroup && openGroup(true)}>
+              {usersCount && `${usersCount + 1} ` + getNounDeclension(usersCount + 1, ['учатник', 'участника', 'участников'])}
+            </p>
           </div>
         </div>
       </div>

@@ -154,6 +154,11 @@
       width: 100%;
       box-shadow: $box-shadow;
 
+      &_review {
+        display: flex;
+        align-items: center;
+      }
+
       &_header {
         @include display(flex, row, space-between, center);
         text-align: center;
@@ -216,6 +221,11 @@
       &_functional {
         margin-top: 70px;
 
+        &_container {
+          display: flex;
+          flex-direction: column;
+          gap: 40px;
+        }
         &_content {
           @include display(flex, row, space-between);
           margin-bottom: 66px;

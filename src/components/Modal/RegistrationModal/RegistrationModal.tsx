@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import {FC, useEffect, useState} from 'react'
 import { useFormik } from 'formik'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
@@ -15,6 +15,7 @@ import styles from '../Modal.module.scss'
 import { RegistrationModalPropsT } from '../ModalTypes'
 
 export const RegistrationModal: FC<RegistrationModalPropsT> = ({ setShowModal }) => {
+
   const dispatch = useAppDispatch()
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<string>('email')

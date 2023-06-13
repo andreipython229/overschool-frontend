@@ -1,8 +1,9 @@
 import { FC, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { lessonSvgMapper } from '../../../../config/index'
-import { lessonT, sectionT } from '../../../../types/sectionT'
+import { sectionT } from '../../../../types/sectionT'
 
 import styles from '../lesson.module.scss'
 
@@ -11,9 +12,10 @@ type studentLessonSidebar = {
   sectionId: string
   activeLessonIndex: number
   lessons: sectionT
+  lessonType: LESSON_TYPE
 }
 
-export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({ courseId, sectionId, activeLessonIndex, lessons }) => {
+export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({ courseId, sectionId, activeLessonIndex, lessons, lessonType }) => {
   const navigate = useNavigate()
 
   return (
@@ -24,8 +26,8 @@ export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({ courseId, 
           <div
             style={{ cursor: 'pointer' }}
             key={order + id}
-            onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/${type}/${order}`)}
-            className={activeLessonIndex === index ? styles.lesson__item_active : styles.lesson__item}
+            onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/${type}/${id}`)}
+            className={activeLessonIndex === index && lessonType === type ? styles.lesson__item_active : styles.lesson__item}
           >
             {lessonSvgMapper[type]}
             <span className={styles.lesson__item_name}>{name}</span>

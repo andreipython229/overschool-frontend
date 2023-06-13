@@ -1,8 +1,15 @@
 import { pathT } from '../../../types/commonComponentsTypes'
-import { coursesNavIcon, coursesStatsIcon, homeworkIcon, settingsNavIcon } from '../constants/svgIcon'
+import { coursesNavIcon, coursesStatsIcon, homeworkIcon, settingsNavIcon, chatIcon } from '../constants/svgIcon'
 
 export const navMenuPath: pathT[] = [
   { d: 'M2 2H28M2 9H18.5455M2 16H28M2 23H18.5455', stroke: '#E0DCED', strokeWidth: '3', strokeLinecap: 'round', strokeLinejoin: 'round' },
+]
+
+export const chatIconPath: pathT[] = [
+  { d: chatIcon.d1, stroke: 'currentColor', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: chatIcon.d2, stroke: 'currentColor', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: chatIcon.d3, stroke: 'currentColor', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: chatIcon.d4, stroke: 'currentColor', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
 ]
 
 export const coursesNavPath: pathT[] = [
