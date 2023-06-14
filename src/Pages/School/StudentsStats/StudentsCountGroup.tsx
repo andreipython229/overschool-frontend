@@ -8,6 +8,8 @@ import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupMo
 import { getNounDeclension } from 'utils/getNounDeclension'
 import { useBoolean } from 'customHooks/useBoolean'
 import { Portal } from 'components/Modal/Portal/index'
+import { useAppSelector } from 'store/hooks'
+import { RoleE } from 'enum/roleE'
 
 import styles from 'Pages/School/StudentsStats/studentsStats.module.scss'
 
@@ -21,6 +23,8 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
   const [isModalOpen, { on: close, off: open }] = useBoolean()
   const navigate = useNavigate()
 
+  const { role } = useAppSelector(state => state.user)
+
   return (
     <>
       {isModalOpen && (
@@ -28,7 +32,10 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
           <SettingsGroupModal closeModal={close} name={title} groupId={id} />
         </Portal>
       )}
-      <div className={styles.students_group_content_wrapper_info} onClick={() => navigate(`${Path.InitialPage}${Path.Courses}group/${id}`)}>
+      <div
+        className={styles.students_group_content_wrapper_info}
+        onClick={() => navigate(`${Path.InitialPage}${role === RoleE.Teacher ? '' : Path.Courses}group/${id}`)}
+      >
         <IconSvg
           width={18}
           height={18}

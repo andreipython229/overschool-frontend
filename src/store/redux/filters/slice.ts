@@ -25,7 +25,7 @@ export const slice = createSlice({
       state.filters = { ...state.filters, ...payload }
     },
     clearFilters: state => {
-      state.filters = { ...initialState.filters }
+      state.filters = { ...initialState.filters, status: initialState.filters.status }
     },
     removeFilter: (state, action: PayloadAction<string>) => {
       const filterKey = action.payload as keyof FiltersSliceState
