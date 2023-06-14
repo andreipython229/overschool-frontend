@@ -18,7 +18,7 @@ import styles from './header.module.scss'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
-  const { userName } = useAppSelector(selectUser)
+  const { role } = useAppSelector(selectUser)
 
   const [logout] = useLazyLogoutQuery()
 
@@ -67,7 +67,7 @@ export const Header = memo(() => {
             )}
             <div className={styles.header_block_user_userName}>
               <span style={{ color: '#BA75FF' }} className={styles.header_block_user_userName_status}>
-                {headerUserRoleName[userName]}
+                {headerUserRoleName[role]}
               </span>
               <span className={styles.header_block_user_userName_name}>
                 {profileData?.user.last_name || 'Без'} {profileData?.user.first_name || 'Имени'}

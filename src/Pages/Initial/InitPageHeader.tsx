@@ -25,8 +25,11 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
       <img src={logo} alt="Logotype ITOVERONE" />
       <div className={styles.btn_block}>
         {isLogin ? (
-          <Link className={styles.btn_block_logIn} to={`${userRole === RoleE.SuperAdmin ? Path.Settings : Path.Courses}`}>
-            {name}
+          <Link
+            className={styles.btn_block_logIn}
+            to={`${userRole === RoleE.SuperAdmin ? Path.Settings : userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}`}
+          >
+            Аккаунт
           </Link>
         ) : (
           <>

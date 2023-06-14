@@ -20,6 +20,7 @@ import { LoginModalPropsT } from '../ModalTypes'
 
 import styles from '../Modal.module.scss'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { RoleE } from 'enum/roleE'
 
 export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   const dispatch = useAppDispatch()
@@ -62,7 +63,11 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
         dispatch(role(data[0].groups[0]))
         dispatch(userName(data[0].username))
         dispatch(id(data[0].id))
-        navigate(Path.Courses)
+        if (data[0].groups[0] === RoleE.Admin) {
+          navigate(Path.Courses)
+        } else if (data[0].groups[0] === RoleE.Teacher) {
+          navigate(Path.CourseStats)
+        }
       }
     }
   }, [isSuccess, userSuccess])
@@ -73,11 +78,12 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
 
   return (
     <div className={styles.main}>
-      {isFetching || isLoading && (
+      {isFetching ||
+        (isLoading && (
           <div className={styles.loader}>
             <SimpleLoader style={{ width: '50px', height: '50px' }} />
           </div>
-        )}
+        ))}
       <form onSubmit={formik.handleSubmit}>
         <div className={styles.container}>
           <span className={styles.main_closed} onClick={handleClose}>
