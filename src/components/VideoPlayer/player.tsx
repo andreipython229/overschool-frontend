@@ -7,7 +7,7 @@ type playerProps = {
 
 export const VideoPlayer: React.FC<playerProps> = ({videoSrc}) => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
-    const fallbackImageSrc = 'https://png.pngtree.com/png-clipart/20230405/original/pngtree-no-video-recording-sign-png-image_9026843.png'
+    const fallbackImageSrc = 'https://static.vecteezy.com/system/resources/previews/022/567/833/non_2x/video-tutorials-2-colored-line-icon-vector.jpg'
 
     useEffect(() => {
         if (videoRef.current) {
@@ -37,7 +37,8 @@ export const VideoPlayer: React.FC<playerProps> = ({videoSrc}) => {
             {videoSrc ?
                 <video ref={videoRef} src={videoSrc} controls autoPlay={false} className="video-content"/>
                 :
-                <img src={fallbackImageSrc} alt="Could not load video content" className='video-content'/>
+                <img src={fallbackImageSrc} alt="Could not load video content" className="video-content"
+                     style={{width: "50%", opacity: '0.5'}}/>
             }
         </div>
     );

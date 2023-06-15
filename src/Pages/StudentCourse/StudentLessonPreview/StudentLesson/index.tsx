@@ -8,7 +8,7 @@ import {sectionT, ILesson} from 'types/sectionT'
 import {StudentCourseNavArr} from '../StudentCourseNavArr/index'
 import {UploadedFile} from 'components/UploadedFile/index'
 import {AudioPlayer} from 'components/common/AudioPlayer'
-import {youtubeParser} from 'utils/youtubeParser'
+// import {youtubeParser} from 'utils/youtubeParser'
 import {StudentLessonNavBtns} from '../StudentLessonNavBtns/index'
 import {VideoPlayer} from "../../../../components/VideoPlayer/player";
 
@@ -23,23 +23,11 @@ type studentLessonT = {
 
 export const StudentLesson: FC<studentLessonT> = ({lesson, lessons, params, activeLessonIndex}) => {
     const {course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType} = params
-    const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
+    const [videoLinkId, setVideoLinkId] = useState(lesson?.video)
 
     useEffect(() => {
-        setVideoLinkId(youtubeParser(lesson?.video))
+        setVideoLinkId(lesson?.video)
     }, [lesson, lessonId])
-
-    // useEffect(() => {
-    //     const iframe = document.querySelector('iframe');
-    //     const iframeDoc = iframe?.contentDocument || iframe?.contentWindow?.document;
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^падает в этом моменте из-за разных протоколов http и https, хз как пофиксить
-    //      const ytButtons = iframeDoc?.getElementsByClassName('ytp-impression-link');
-    //      if (ytButtons && ytButtons.length > 0) {
-    //          Array.prototype.forEach.call(ytButtons, (button) => {
-    //              button.style.display = 'none';
-    //          });
-    //      }
-    // }, [videoLoaded])
 
     return (
         <div className={styles.lesson}>
