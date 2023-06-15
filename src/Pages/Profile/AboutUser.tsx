@@ -38,7 +38,7 @@ export const AboutUser: FC = memo(() => {
   const formik = useFormik({
     initialValues: {
       avatar: profileData?.avatar || '',
-      avatar_url: avatarUrl || window.appConfig.imagePath + profileData?.avatar_url,
+      avatar_url: avatarUrl || profileData?.avatar,
       city: profileData?.city || '',
       description: profileData?.description || '',
       first_name: profileData?.user.first_name || '',

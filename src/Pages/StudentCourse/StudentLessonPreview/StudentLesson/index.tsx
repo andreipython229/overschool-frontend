@@ -10,9 +10,9 @@ import {UploadedFile} from 'components/UploadedFile/index'
 import {AudioPlayer} from 'components/common/AudioPlayer'
 import {youtubeParser} from 'utils/youtubeParser'
 import {StudentLessonNavBtns} from '../StudentLessonNavBtns/index'
+import {VideoPlayer} from "../../../../components/VideoPlayer/player";
 
 import styles from '../lesson.module.scss'
-import ReactPlayer from "react-player";
 
 type studentLessonT = {
     lesson: ILesson
@@ -23,34 +23,7 @@ type studentLessonT = {
 
 export const StudentLesson: FC<studentLessonT> = ({lesson, lessons, params, activeLessonIndex}) => {
     const {course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType} = params
-    const [videoLoaded, setVideoLoaded] = useState(false);
     const [videoLinkId, setVideoLinkId] = useState(youtubeParser(lesson?.video))
-
-    // const opts: YouTubeProps['opts'] = {
-    //   height: '500px',
-    //   width: '100%',
-    //   controls: 0,
-    //   autoplay: 1,
-    //   playerVars: {
-    //     autoplay: 0,
-    //     apiKey: window.youTubeAPIKey.apiKey,
-    //   },
-    // }
-    const config = {
-        playerVars: {
-            controls: 0,
-            modestbranding: 1,
-            rel: 0,
-            showinfo: 0,
-        },
-        youtube: {
-            playerVars: {
-                modestbranding: 1,
-                rel: 0,
-                showinfo: 0,
-            },
-        },
-    };
 
     useEffect(() => {
         setVideoLinkId(youtubeParser(lesson?.video))
@@ -80,12 +53,7 @@ export const StudentLesson: FC<studentLessonT> = ({lesson, lessons, params, acti
                             <span
                                 className={styles.lesson__desc}>{lesson?.description ? parse(`${lesson?.description}`) : 'Нет описания'}</span>
                         </div>
-                        <div className='player-wrapper'>
-                            <ReactPlayer url={`https://www.youtube.com/watch?v=${videoLinkId}`} width={'100%'}
-                                         height={'500px'} controls={false} config={config}
-                                         onReady={() => setVideoLoaded(true)}/>
-                            {/*<YouTube opts={opts} videoId={`${videoLinkId}`} />*/}
-                        </div>
+                        <VideoPlayer videoSrc={videoLinkId? encodeURIComponent(videoLinkId): null}/>
                         <div className={styles.lesson__content}>
                             {/* {lesson?.code && (
                                 <div className={styles.lesson__codeWraper}>
