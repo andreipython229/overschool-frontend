@@ -1,6 +1,12 @@
 @import '../../../../scss/variable';
 @import '../../../../scss/mixin.scss';
 
+
+.skeleton {
+  position: absolute;
+  left: 132px;
+  top: 215px;
+}
 .course {
   margin-top: 26px;
   display: grid;

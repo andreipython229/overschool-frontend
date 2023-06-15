@@ -4,6 +4,7 @@ import { generatePath, Link } from 'react-router-dom'
 import { Path } from '../../../enum/pathE'
 import { CoursesMiniCardT } from '../../../types/pageTypes'
 import { getNounDeclension } from '../../../utils/getNounDeclension'
+import { RoleE } from 'enum/roleE'
 
 import styles from '../courses_stats.module.scss'
 
@@ -11,12 +12,12 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo_url, name, co
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
   const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students[0], 0)
 
+  const link = generatePath(`${RoleE.Teacher ? `/login/${Path.CourseStudent}` : `/login/courses/${Path.CreateCourse}`}`, {
+    course_id: `${courseId}`,
+  })
+
   return (
-    <Link
-      to={generatePath(`/login/courses/${Path.CreateCourse}`, {
-        course_id: `${courseId}`,
-      })}
-    >
+    <Link to={link}>
       <div className={styles.mini_card_container}>
         <img className={styles.mini_card_img} src={window.appConfig.imagePath + photo_url} alt="" width="52" height="52" />
         <div>

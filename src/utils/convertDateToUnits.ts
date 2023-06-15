@@ -11,7 +11,7 @@ export const formatTime = (date: Date) => {
     return new Intl.DateTimeFormat('ru-RU', { weekday: 'short' }).format(date)
   } else {
     const day = date.getDate()
-    const month = new Intl.DateTimeFormat('ru-RU', { month: 'long' }).format(date)
+    const month = new Intl.DateTimeFormat('ru-RU', { month: '2-digit' }).format(date)
     return `${day}.${month}`
   }
 }

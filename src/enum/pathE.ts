@@ -10,6 +10,7 @@ export enum Path {
   HelpCenter = 'help-center',
   TariffPlans = 'tariff-plans',
   SignUp = '/signup',
+  CourseStudent = 'courses-stats/:course_id/students',
 }
 
 export enum SettingsPath {

@@ -102,6 +102,11 @@ export const AboutUser: FC = memo(() => {
 
   return (
     <form className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
+      {(isSubmitting || isFetching) && (
+        <div className={styles.profile_loader}>
+          <SimpleLoader style={{ width: '50px', height: '50px' }} />
+        </div>
+      )}
       <h3 className={styles.profile_title}>Настройка профиля</h3>
 
       <div className={styles.profile_block}>
@@ -158,11 +163,11 @@ export const AboutUser: FC = memo(() => {
       </div>
       <div className={formStyles.form_btnSave}>
         <Button
-          style={{ paddingTop: isSubmitting ? '10px' : '11px', paddingBottom: isSubmitting ? '10px' : '11px' }}
+          style={{ paddingTop: '11px', paddingBottom: '11px' }}
           disabled={isSubmitting || isFetching || isError}
           className={styles.profile_block_btn}
           type="submit"
-          text={isSubmitting || isFetching ? <SimpleLoader style={{ width: '15px', height: '15px' }} loaderColor="#ffff" /> : 'Сохранить'}
+          text={'Сохранить'}
           variant={isSubmitting || isFetching || isError ? 'disabled' : 'primary'}
         />
       </div>
