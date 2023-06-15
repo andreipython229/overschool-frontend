@@ -14,7 +14,7 @@ export const userLoginService = createApi({
       query: credentials => {
         const formdata = formDataConverter(credentials)
         return {
-          url: 'http://45.135.234.137:8000/api/login/',
+          url: '/login/',
           method: 'POST',
           redirect: 'follow',
           body: formdata,
