@@ -65,17 +65,16 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
 
   useEffect(() => {
     if (isSuccess) {
-      const { name, description, photo_background_url, logo_header_url } = data
+      const { name, description, photo_background, logo_header } = data
 
       setSchoolHeaderData({
         ...schoolHeaderData,
         name,
         description,
       })
-      setSchoolHeaderDataToRender({
-        logo_header: window.appConfig.imagePath + logo_header_url,
-        photo_background: window.appConfig.imagePath + photo_background_url,
-      })
+
+      setSchoolHeaderDataToRender({ logo_header: logo_header, photo_background: photo_background })
+
     }
   }, [isSuccess, data])
 
