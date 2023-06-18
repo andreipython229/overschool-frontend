@@ -70,8 +70,12 @@ export type ModalClassesPropsT = {
 
 export type RegistrationModalPropsT = {
   setShowModal: (value: boolean) => void
+  setCodeModal: (value: boolean) => void
 }
 
+export type RegCodeModalPropsT = {
+  setCodeModal: (value: boolean) => void
+}
 export type SettingStudentTableT = {
   setShowModal: (arg?: boolean) => void
 }
