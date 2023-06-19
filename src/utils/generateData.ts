@@ -1,11 +1,12 @@
-import { courseStatT } from '../types/courseStatT'
+import { studentsTableInfoT } from '../types/courseStatT'
 import { studentsTableHeader, studentGroupInfoT } from 'types/studentsGroup'
 
-export const generateData = (columnsList: studentsTableHeader | undefined, data: courseStatT, isSuccess1: boolean, isSuccess2: boolean) => {
+export const generateData = (columnsList: studentsTableHeader | undefined, data: studentsTableInfoT, isSuccess1: boolean, isSuccess2: boolean) => {
   const columns: Array<string> = []
   const dataToRender: any /*result[]*/ = data
   const columnToRender = columnsList?.students_table_info
   const rows = []
+  const ids = []
 
   isSuccess2 &&
     columnToRender?.filter(({ checked, name }: studentGroupInfoT) => {
@@ -17,22 +18,24 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
   for (let i = 0; i < dataToRender?.length; i += 1) {
     rows.push({
       //[columnToRender[j].name]: dataToRender[i][columnToRender[j].name],
-      Имя: dataToRender[i].student_name,
+      'Имя Изменено': `${dataToRender[i].first_name || 'Без'} ${dataToRender[i].last_name || 'Имени'}`,
       Email: dataToRender[i].email,
-      'Суммарный балл': dataToRender[i].mark_sum,
-      Курс: dataToRender[i].course,
-      'Последняя активность': dataToRender[i].last_active,
-      Прогресс: dataToRender[i].progress,
-      Комментарий: 'нет комментария',
-      Группа: dataToRender[i].group,
-      'Средний балл': dataToRender[i].average_mark,
-      'Дата обновления': dataToRender[i].update_date,
-      'Дата заверения': dataToRender[i].ending_date,
+      'Суммарный балл': dataToRender[i].total_points,
+      Курс: dataToRender[i].course_name,
+      'Последняя активность': dataToRender[i].last_activity,
+      // Прогресс: dataToRender[i].progress,
+      // Комментарий: 'нет комментария',
+      Группа: dataToRender[i].group_name,
+      // 'Средний балл': dataToRender[i].average_mark,
+      'Дата обновления': dataToRender[i].course_updated_at,
+      // 'Дата заверения': dataToRender[i].ending_date,
     })
+    ids.push(dataToRender[i].id)
   }
 
   return {
     columns,
     data: rows,
+    ids,
   }
 }

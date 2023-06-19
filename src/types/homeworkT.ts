@@ -6,17 +6,98 @@ export type homeworksStatsT = {
 }
 
 export type homeworkStatT = {
-  avatar: string
-  email: string
-  homework_name: string
-  homework_pk?: number
-  last_update: string
-  lesson_name?: string
-  mark: null
-  status: string
-  user_homework: number
   course_name: string
-  user_name: string
-  user_lastname: string
+  group_id: number
   homework: number
+  homework_name: string
+  last_reply: string
+  mark: null | number
+  status: string
+  user: number
+  user_avatar: string
+  user_email: string
+  user_first_name: string
+  user_last_name: string
+  user_homework_id: number
+}
+
+export type CurrentUser = {
+  name: string
+  surname: string
+  avatar: string
+  text_files: any[]
+  audio_files: any[]
+  last_reply: string
+  text: string
+}
+
+export interface UserHomework {
+  user_homework_id: number
+  created_at: string
+  updated_at: string
+  user: number
+  homework: number
+  homework_name: string
+  last_reply: LastReply
+  text: string
+  status: string
+  mark: number
+  teacher: number
+  teacher_first_name: string
+  teacher_last_name: string
+  teacher_avatar: string
+  text_files: any[]
+  audio_files: any[]
+  user_homework_checks: UserHomeworkCheck[]
+}
+
+export interface LastReply {
+  user_homework_check_id: number
+  user_homework: number
+  created_at: string
+  updated_at: string
+  text: string
+  status: string
+  teacher_message: any
+  author: number
+  author_first_name: string
+  author_last_name: string
+  profile_avatar: string
+  text_files: any[]
+  audio_files: any[]
+}
+
+export interface UserHomeworkCheck {
+  user_homework_check_id: number
+  user_homework: number
+  created_at: string
+  updated_at: string
+  text: string
+  status: string
+  teacher_message: any
+  author: number
+  author_first_name: string
+  author_last_name: string
+  profile_avatar: string
+  text_files: any[]
+  audio_files: any[]
+}
+
+export interface Homework {
+  homework_id: number
+  section: number
+  name: string
+  order: number
+  author_id: number
+  description: string
+  video: string
+  automate_accept: boolean
+  time_accept: string
+  points: number
+  text_files: any[]
+  audio_files: any[]
+  type: string
+  user_mark: any
+  user_homework_checks: any
+  all_components: any[]
 }
