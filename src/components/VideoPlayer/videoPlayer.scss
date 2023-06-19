@@ -1,0 +1,17 @@
+.video-player {
+  width: 100%;
+  height: auto;
+  position: relative;
+  text-align: center;
+}
+
+.video-player video {
+  width: 100%;
+  height: 100%;
+}
+
+.video-player image {
+  width: 50%;
+  height: 50%;
+}
+

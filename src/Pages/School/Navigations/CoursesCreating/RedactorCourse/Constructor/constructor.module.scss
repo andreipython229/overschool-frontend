@@ -79,11 +79,15 @@
         list-style-type: none;
         margin-bottom: 26px;
         cursor: pointer;
-
+        &:hover {
+          background-color: rgba(220, 220, 220, 0.4);
+          border-radius: 8px;
+        }
         &_lesson {
           @include display(flex, row, flex-start, center);
           color: $font-color-rose;
           font-size: 12px;
+
           span {
             margin-right: 10px;
           }
@@ -163,6 +167,9 @@
           @include display(flex);
 
           &_setting {
+            &:hover {
+              background-color: rgba(190, 190, 190, 0.4);
+            }
             @include display(flex, row, flex-start, center);
             width: 118px;
             height: 36px;
@@ -183,6 +190,9 @@
           }
 
           &_delete {
+            &:hover {
+              background-color: rgba(220, 130, 130, 0.4);
+            }
             @include display(flex, row, flex-start, center);
             padding: 11px 0;
             border-radius: 6px;
@@ -194,6 +204,7 @@
             margin-left: 16px;
 
             & svg {
+
               margin: 0 auto;
               height: 17px;
               width: 17px;
@@ -268,7 +279,6 @@
   background: #e0dced;
   color: $font-color-rose;
   &:hover {
-    background: $font-color-rose;
     color: #e0dced;
   }
 }

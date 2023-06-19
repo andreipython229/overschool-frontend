@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
 import { Button } from 'components/common/Button/Button'
@@ -21,6 +21,9 @@ import notPublic from 'assets/img/createCourse/notPublic.svg'
 import pie from 'assets/img/studentPage/folder-todo.png'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
+import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
+import ContentLoader from 'react-content-loader'
+
 
 export const CoursePage: FC = memo(() => {
   const { data: courses } = useFetchCoursesQuery()
@@ -34,7 +37,41 @@ export const CoursePage: FC = memo(() => {
   const dispatchHandlerModal = () => {
     onToggle()
   }
-
+  if (!courses?.results.length) return (
+<><div>
+  <ContentLoader
+    speed={2}
+    width={270}
+    height={550}
+    viewBox="0 0 150 160"
+    backgroundColor="#fff"
+    foregroundColor="#f2f2f2">
+    <rect x="0" y="0" rx="3" ry="3" width="130" height="130" />
+  </ContentLoader></div>
+  <div className={styles.skeleton}>
+  <ContentLoader
+    speed={2}
+    width={270}
+    height={550}
+    viewBox="0 0 150 160"
+    backgroundColor="#e0dced"
+    foregroundColor="#ecebeb">
+    <rect x="0" y="10" rx="3" ry="3" width="130" height="65" />
+  </ContentLoader></div> <div className={styles.skeleton}>
+    <ContentLoader
+      speed={2}
+      width={270}
+      height={550}
+      viewBox="0 0 150 160"
+      backgroundColor="#cccccc"
+      foregroundColor="#ecebeb">
+      <rect x="7" y="95" rx="3" ry="3" width="115" height="8" />
+      <rect x="7" y="115" rx="3" ry="3" width="100" height="8" />
+      <rect x="7" y="135" rx="3" ry="3" width="100" height="8" />
+    </ContentLoader>
+</div> <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+    <SimpleLoader style={{ width: '100px', height: '100px' }} />
+  </div></>)
   return (
     <div className={styles.container}>
       <Input role="search-input" name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
@@ -51,7 +88,7 @@ export const CoursePage: FC = memo(() => {
                   {role === RoleE.Admin ? (
                     <>
                       <div className={styles.course_card_img}>
-                        <img className={styles.course_card_img} src={`${window.appConfig.imagePath}${course?.photo_url}`} alt="course_cover" />
+                        <img className={styles.course_card_img} src={`${course?.photo}`} alt="course_cover" />
                       </div>
                       <div className={styles.course_card_about}>
                         <span className={styles.course_card_status_show}>
@@ -81,7 +118,7 @@ export const CoursePage: FC = memo(() => {
                   ) : (
                     <>
                       <div className={styles.course_card_img}>
-                        <img className={styles.course_card_img} src={window.appConfig.imagePath + course?.photo_url} alt="" />
+                        <img className={styles.course_card_img} src={course?.photo} alt="" />
                       </div>
                       <div className={styles.course_card_progressBar}>
                         <div className={styles.course_card_progressBar_line}> </div>
@@ -93,7 +130,7 @@ export const CoursePage: FC = memo(() => {
                           })}
                         >
                           <div className={styles.course_card_about_progressWrapper}>
-                            <img src={window.appConfig.imagePath + pie} alt="pie" />
+                            <img src={pie} alt="pie" />
                             <span className={styles.course_card_about_progressWrapper_title}>13% пройдено</span>
                           </div>
                           <span className={styles.course_card_status_show}> </span>

@@ -35,7 +35,7 @@ export const Header = memo(() => {
 
   useEffect(() => {
     if (isSuccess) {
-      setLogo(data?.logo_school_url)
+      setLogo(data?.logo_school)
     }
   }, [data])
 
@@ -51,12 +51,12 @@ export const Header = memo(() => {
       <div className={styles.header_block}>
         <Link style={{ textDecoration: 'none' }} to={Path.Profile}>
           <div className={styles.header_block_user}>
-            {window.appConfig.imagePath + profileData?.avatar_url ? (
+            {profileData?.avatar ? (
               <img
                 width={'50'}
                 height={'50'}
                 className={styles.header_block_user_avatar}
-                src={window.appConfig.imagePath + profileData?.avatar_url}
+                src={profileData?.avatar}
                 alt="avatar"
               />
             ) : (
@@ -75,15 +75,16 @@ export const Header = memo(() => {
             </div>
           </div>
         </Link>
-
+        <div
+          className={styles.header_block_logOut}>
         <IconSvg
-          className={styles.header_block_logOut}
           width={26}
           height={26}
           viewBoxSize="0 0 26 25"
           path={logOutIconPath}
           functionOnClick={logOut}
         />
+        </div>
       </div>
     </header>
   )

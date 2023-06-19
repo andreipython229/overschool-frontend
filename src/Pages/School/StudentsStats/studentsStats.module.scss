@@ -139,6 +139,9 @@
     }
 
     &_add_group_btn {
+      &:hover {
+        background-color: rgba(217, 197, 237, 0.5);
+      }
       @include display(flex, row, flex-start, center);
       height: 36px;
       padding: 10px;

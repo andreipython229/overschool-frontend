@@ -40,7 +40,7 @@ export const StudentsStats = () => {
         <StatisticHeader hideStats={hideStats} handleHideStats={handleHideStats} />
         {hideStats && (
           <div className={styles.statistics_new_student_wrapper}>
-            <StudentInfoGraphic />
+            <StudentInfoGraphic courseId={courseId}/>
           </div>
         )}
       </section>
