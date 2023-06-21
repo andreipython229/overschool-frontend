@@ -3,7 +3,7 @@ export type CoursesDataT = {
   created_at: Date
   updated_at?: Date
   published?: boolean
-  order?: number
+  order?: number | string | Blob
   name: string
   format?: string
   duration_days?: number
@@ -13,6 +13,7 @@ export type CoursesDataT = {
   photo_url?: string
   author_id: number
   public: string
+  school: number | string | Blob
 }
 
 export type CoursesT = {

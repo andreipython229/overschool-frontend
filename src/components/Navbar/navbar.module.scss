@@ -28,25 +28,12 @@
       width: 57px;
       height: 57px;
       text-align: center;
+      color: #e0dced;
 
       &:hover {
-        background: #e0dced;
         border-radius: 10px;
-
-        &:first-of-type {
-          & svg:first-of-type {
-            & path:first-child {
-              fill: transparent;
-              stroke: #ba75ff;
-            }
-          }
-        }
-
-        & svg {
-          & path {
-            fill: #ba75ff;
-          }
-        }
+        background: #e0dced;
+        color: #ba75ff;
       }
     }
 
@@ -84,26 +71,14 @@
   background: #e0dced;
   border-radius: 10px;
   text-align: center;
-
-  & svg {
-    & path {
-      fill: #ba75ff;
-      stroke: #ba75ff;
-    }
-  }
+  color: #ba75ff !important;
 }
+
 .mobileIsActive {
   & svg {
     & path {
       //fill: $font-color-rose;
       stroke: $font-color-rose;
-    }
-  }
-}
-.navbar a:first-child {
-  & svg {
-    & path {
-      fill: transparent;
     }
   }
 }

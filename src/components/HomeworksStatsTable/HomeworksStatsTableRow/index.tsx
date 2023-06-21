@@ -30,7 +30,7 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = memo(({ homew
         <td style={{ display: 'flex', alignItems: 'center' }}>
           {avatar ? (
             <img style={{ borderRadius: '50%', width: '32px', height: '32px' }}
-                 src={window.appConfig.imagePath + '/media/' + avatar} alt="avatar" />
+                 src={avatar} alt="avatar" />
           ) : (
             <div className={`${styles.table_body_avatar_div} ${styles[avatarClassname[index]]}`}>
               {`${user_lastname.charAt(0).toUpperCase() || 'Б'}${user_name.charAt(0).toUpperCase() || 'И'}`}

@@ -88,7 +88,7 @@ export const CoursePage: FC = memo(() => {
                   {role === RoleE.Admin ? (
                     <>
                       <div className={styles.course_card_img}>
-                        <img className={styles.course_card_img} src={`${window.appConfig.imagePath}${course?.photo_url}`} alt="course_cover" />
+                        <img className={styles.course_card_img} src={`${course?.photo}`} alt="course_cover" />
                       </div>
                       <div className={styles.course_card_about}>
                         <span className={styles.course_card_status_show}>
@@ -118,7 +118,7 @@ export const CoursePage: FC = memo(() => {
                   ) : (
                     <>
                       <div className={styles.course_card_img}>
-                        <img className={styles.course_card_img} src={window.appConfig.imagePath + course?.photo_url} alt="" />
+                        <img className={styles.course_card_img} src={course?.photo} alt="" />
                       </div>
                       <div className={styles.course_card_progressBar}>
                         <div className={styles.course_card_progressBar_line}> </div>
@@ -130,7 +130,7 @@ export const CoursePage: FC = memo(() => {
                           })}
                         >
                           <div className={styles.course_card_about_progressWrapper}>
-                            <img src={window.appConfig.imagePath + pie} alt="pie" />
+                            <img src={pie} alt="pie" />
                             <span className={styles.course_card_about_progressWrapper_title}>13% пройдено</span>
                           </div>
                           <span className={styles.course_card_status_show}> </span>

@@ -26,17 +26,12 @@ export const ChatWorkspace: FC = () => {
   useEffect(() => {
     if (chatId) {
       fetchChatData(chatId)
-      // const socket = new WebSocket(`ws://${process.env.REACT_APP_HOST}/chats/${chatId}/messages`)
 
-      // socket.onopen = function (e) {
-      //   console.log('connected')
-      // }
+      const socket = io(`/chats/${chatId}/messages`)
 
-      // const socket = io(`/api/chats/${chatId}/messages`)
-
-      // socket.on('connect', () => {
-      //   console.log('connected')
-      // })
+      socket.on('connect', () => {
+        console.log('connected')
+      })
 
       // fetchMessages(chatId)
     }

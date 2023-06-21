@@ -7,7 +7,7 @@ import { dropDownListFilter } from '../../../constants/dropDownList'
 import { Input } from '../../../components/common/Input/Input/Input'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
-import { ChipsComponent } from '../../../components/FiltersButton/Chips/chips'
+import { ChipsComponent } from 'components/FiltersButton/Chips/chips'
 
 import styles from '../home_work.module.scss'
 

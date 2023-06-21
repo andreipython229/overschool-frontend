@@ -13,23 +13,23 @@ export const chatIconPath: pathT[] = [
 ]
 
 export const coursesNavPath: pathT[] = [
-  { d: coursesNavIcon, stroke: '#E0DCED', fill: '#E0DCED', strokeWidth: '3.5', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: coursesNavIcon, stroke: 'currentColor', fill: '`#e0dce`d', strokeWidth: '3.5', strokeLinecap: 'round', strokeLinejoin: 'round' },
 ]
 
 export const coursesStatsNavPath: pathT[] = [
-  { d: coursesStatsIcon, fill: '#E0DCED', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: coursesStatsIcon, fill: 'currentColor', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
 ]
 
 export const homeworkNavPath: pathT[] = [
-  { d: homeworkIcon.d1, fill: '#E0DCED', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
-  { d: homeworkIcon.d2, fill: '#E0DCED', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
-  { d: homeworkIcon.d3, fill: '#E0DCED', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
-  { d: homeworkIcon.d4, fill: '#E0DCED', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
-  { d: homeworkIcon.d5, fill: '#E0DCED', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
-  { d: homeworkIcon.d6, fill: '#E0DCED', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: homeworkIcon.d1, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: homeworkIcon.d2, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: homeworkIcon.d3, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: homeworkIcon.d4, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: homeworkIcon.d5, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: homeworkIcon.d6, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
 ]
 
 export const settingsNavPath: pathT[] = [
-  { d: settingsNavIcon.d1, fill: '#E0DCED', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
-  { d: settingsNavIcon.d2, fill: '#E0DCED', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: settingsNavIcon.d1, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: settingsNavIcon.d2, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
 ]
