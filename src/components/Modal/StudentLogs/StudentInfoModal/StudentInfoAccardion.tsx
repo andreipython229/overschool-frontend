@@ -19,8 +19,11 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({ student }) => 
     <div className={styles.accardion}>
       <div>
         <div className={styles.accardion_header} onClick={() => studentInfoAccardion(prev => !prev)}>
-          <div className={styles.accardion_course_avatar}></div>
-          {/* <img className={styles.accardion_course_img} src={student?.avatar} alt="course_avatar" /> */}
+          {student?.courses_avatar ? (
+            <img className={styles.accardion_course_img} src={window.appConfig.imagePath + student?.courses_avatar} alt="course_avatar" />
+          ) : (
+            <div className={styles.accardion_course_avatar}></div>
+          )}
           <div className={styles.accardion_info}>
             <p className={styles.accardion_course_name}>{student?.course_name}</p>
             <div className={styles.accardion_group}>

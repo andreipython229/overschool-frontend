@@ -10,11 +10,10 @@ import { settingsIconPath, deleteIconPath } from '../../../../config/svgIconsPat
 import { useFetchLessonQuery, usePatchLessonsMutation } from 'api/modulesServices'
 import { ClassesSettingsPropsT } from 'types/navigationTypes'
 import { commonLessonT } from 'types/sectionT'
-import { patchData } from 'utils/patchData'
 import { useBoolean } from 'customHooks/useBoolean'
 import { AddQuestion } from 'components/AddQuestion'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
-import { usePatchTextFilesMutation, usePostTextFilesMutation } from 'api/filesService'
+import { usePostTextFilesMutation } from 'api/filesService'
 
 import styles from './constructor.module.scss'
 
@@ -26,7 +25,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const { data, isFetching, isSuccess } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type })
 
   // const [addFile] = usePatchLessonsMutation()
-  // const [addTextFiles] = usePostTextFilesMutation()
+  const [addTextFiles] = usePostTextFilesMutation()
 
   const [lesson, setLesson] = useState(data as commonLessonT)
 
@@ -68,19 +67,18 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     const chosenFiles = Array.prototype.slice.call(event.target.files)
 
     handleUploadFiles(chosenFiles)
-
-    console.log(files)
   }
 
-  // const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
-  //   if (event.target.files) {
-  //     const files = event.target.files
+  const handleUploadFile = () => {
+    if (files.length) {
+      const formData = new FormData()
 
-  //     console.log(files)
+      formData.append('base_lesson', `${data?.baselesson_ptr_id}`)
+      formData.append('file', files[0])
 
-  //     patchData(lesson, `${lessonIdAndType.type}_id`, 'file', JSON.stringify(files), addFile, lessonIdAndType.type)
-  //   }
-  // }
+      addTextFiles(formData)
+    }
+  }
 
   useEffect(() => {
     isSuccess && setLesson(data)
@@ -120,7 +118,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
           {urlFiles?.map(({ url, name }, index: number) => (
             <UploadedFile key={index} index={index} file={url} name={name} size={files[index].size} handleDeleteFile={handleDeleteFile} />
           ))}
-          {urlFiles.length > 0 && <Button style={{ marginTop: '20px' }} variant="primary" text="Загрузить" type="submit" />}
+          {urlFiles.length > 0 && (
+            <Button style={{ marginTop: '20px' }} variant="primary" text="Загрузить" type="submit" onClick={handleUploadFile} />
+          )}
         </div>
         {isFetching && (
           <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>

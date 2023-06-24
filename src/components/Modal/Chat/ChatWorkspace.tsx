@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react'
-import { io } from 'socket.io-client'
+import io from 'socket.io-client'
 
 import { ChatInput } from './ChatInput'
 import { ChatUser } from './ChatUser'
@@ -27,7 +27,9 @@ export const ChatWorkspace: FC = () => {
     if (chatId) {
       fetchChatData(chatId)
 
-      const socket = io(`/chats/${chatId}/messages`)
+      const socket = io('/api/socket.io', {
+        path: `/api/School_1/chats/${chatId}/messages`,
+      })
 
       socket.on('connect', () => {
         console.log('connected')

@@ -2,6 +2,7 @@ export type studentsTableInfoT = result[]
 
 export type result = {
   id: number
+  courses_avatar: string
   username: string
   first_name: string
   last_name: string

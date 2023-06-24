@@ -26,10 +26,10 @@ export const UserHomeworkHistory: FC<userHomeworkHistoryT> = ({ homework }) => {
             )}
           </div>
           <div className={styles.history_header_text}>
-            <p>
+            <p className={styles.history_header_username}>
               {homework?.author_last_name || 'Без'} {homework?.author_first_name || 'имени'}
             </p>
-            <p>
+            <p className={styles.history_header_time}>
               {mmddyyyy} в {hoursAndMinutes}
             </p>
           </div>

@@ -25,8 +25,8 @@ export type CurrentUser = {
   name: string
   surname: string
   avatar: string
-  text_files: any[]
-  audio_files: any[]
+  text_files: FileT[]
+  audio_files: FileT[]
   last_reply: string
   text: string
 }
@@ -46,8 +46,8 @@ export interface UserHomework {
   teacher_first_name: string
   teacher_last_name: string
   teacher_avatar: string
-  text_files: any[]
-  audio_files: any[]
+  text_files: FileT[]
+  audio_files: FileT[]
   user_homework_checks: UserHomeworkCheck[]
 }
 
@@ -63,8 +63,8 @@ export interface LastReply {
   author_first_name: string
   author_last_name: string
   profile_avatar: string
-  text_files: any[]
-  audio_files: any[]
+  text_files: FileT[]
+  audio_files: FileT[]
 }
 
 export interface UserHomeworkCheck {
@@ -79,8 +79,8 @@ export interface UserHomeworkCheck {
   author_first_name: string
   author_last_name: string
   profile_avatar: string
-  text_files: any[]
-  audio_files: any[]
+  text_files: FileT[]
+  audio_files: FileT[]
 }
 
 export interface Homework {
@@ -94,10 +94,20 @@ export interface Homework {
   automate_accept: boolean
   time_accept: string
   points: number
-  text_files: any[]
-  audio_files: any[]
+  text_files: FileT[]
+  audio_files: FileT[]
   type: string
-  user_mark: any
-  user_homework_checks: any
+  user_mark: number
+  user_homework_checks: number
   all_components: any[]
+}
+
+type FileT = {
+  id: number
+  file: string
+  file_url: string
+  author: number
+  base_lesson: number
+  user_homework: number
+  user_homework_check: number
 }

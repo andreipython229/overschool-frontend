@@ -11,17 +11,23 @@ export const courseStatService = createApi({
   endpoints: build => ({
     fetchCourseStat: build.query<studentsTableInfoT, string>({
       query: id => ({
-        url: `courses/${id}/get_students_for_course/`,
+        url: `/courses/${id}/get_students_for_course/`,
       }),
       providesTags: ['courseStat'],
     }),
     fetchStudentsPerGroup: build.query<studentsTableInfoT, string>({
       query: id => ({
-        url: `students_group/${id}/get_students_for_group/`,
+        url: `/students_group/${id}/get_students_for_group/`,
+      }),
+      providesTags: ['studentsPerGroup'],
+    }),
+    fetchStudentsPerSchool: build.query<studentsTableInfoT, void>({
+      query: () => ({
+        url: `schools/1/stats/`,
       }),
       providesTags: ['studentsPerGroup'],
     }),
   }),
 })
 
-export const { useFetchCourseStatQuery, useFetchStudentsPerGroupQuery } = courseStatService
+export const { useFetchCourseStatQuery, useFetchStudentsPerGroupQuery, useFetchStudentsPerSchoolQuery } = courseStatService

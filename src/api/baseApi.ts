@@ -4,7 +4,7 @@ import { Cookies } from 'react-cookie'
 const cookies = new Cookies()
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: '/api/courses',
+  baseUrl: '/api/School_1',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const acceessToken = cookies.get('access_token')

@@ -17,14 +17,15 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
 
   for (let i = 0; i < dataToRender?.length; i += 1) {
     rows.push({
-      //[columnToRender[j].name]: dataToRender[i][columnToRender[j].name],
-      'Имя Изменено': `${dataToRender[i].first_name || 'Без'} ${dataToRender[i].last_name || 'Имени'}`,
+      Имя: {
+        name: `${dataToRender[i].first_name || 'Без'} ${dataToRender[i].last_name || 'Имени'}`,
+        avatar: dataToRender[i].avatar,
+      },
       Email: dataToRender[i].email,
       'Суммарный балл': dataToRender[i].total_points,
       Курс: dataToRender[i].course_name,
       'Последняя активность': dataToRender[i].last_activity,
       // Прогресс: dataToRender[i].progress,
-      // Комментарий: 'нет комментария',
       Группа: dataToRender[i].group_name,
       // 'Средний балл': dataToRender[i].average_mark,
       'Дата обновления': dataToRender[i].course_updated_at,

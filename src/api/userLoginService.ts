@@ -1,4 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQuery } from './baseApi'
 import { formDataConverter } from '../utils/formDataConverter'
@@ -7,7 +7,7 @@ import { ILoginUserInfo } from 'types/userT'
 
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',
-  baseQuery: baseQuery,
+  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
   tagTypes: ['login', 'logout', 'useInfo'],
   endpoints: builder => ({
     login: builder.mutation<IResponse, ICredentials>({
@@ -25,7 +25,7 @@ export const userLoginService = createApi({
     }),
     getUserInfo: builder.query<ILoginUserInfo[], void>({
       query: () => ({
-        url: `/users/`,
+        url: `/user/`,
       }),
       providesTags: ['useInfo'],
     }),

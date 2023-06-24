@@ -4,7 +4,7 @@ import { StatisticHeader } from '../../components/StatisticHeader/StatisticHeade
 import { StudentInfoGraphic } from '../School/StudentsStats/StudentInfoGraphic'
 import { SearchCoursesBlock } from './SearchCoursesBlock'
 import { AllStudentsBlock } from 'components/AllStudentsBlock'
-import { StudentsPerCourse } from 'components/StudentsTable/StudentsPerCourse'
+import { StudentsPerSchool } from 'components/StudentsTable/StudentsPerSchool'
 //import { settingsItemsList } from './config/settingsItemList'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { studentsScatterPath } from './config/svgIconPath'
@@ -30,7 +30,7 @@ export const CoursesStats = () => {
     <div>
       <SearchCoursesBlock courses={courses?.results as CoursesDataT[]} groups={data?.results as studentsGroupsT[]} />
       <AllStudentsBlock headerText={'Все ученики'} />
-      <StudentsPerCourse />
+      <StudentsPerSchool />
     </div>
   )
 }

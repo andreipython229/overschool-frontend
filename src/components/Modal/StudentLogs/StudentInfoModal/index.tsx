@@ -26,7 +26,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal })
       </div>
       <div className={styles.content}>
         <div className={styles.student_block}>
-          <div className={styles.student_block_avatar}>би</div>
+          <div className={styles.student_block_avatar}>{`${student?.first_name || 'б'} ${student?.last_name || 'и'}`}</div>
           <h3 className={styles.student_block_name}>{`${student?.first_name || 'без'} ${student?.last_name || 'имени'}`}</h3>
           <p className={styles.student_block_email}>{student?.email}</p>
           <p className={styles.student_block_activity}>Был(а) онлайн {`${mmddyyyy}`}</p>

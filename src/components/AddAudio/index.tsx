@@ -18,8 +18,6 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
   const [dragAudio, setDragAudio] = useState<boolean>(false)
   const [files, setFiles] = useState<File[]>([])
 
-  console.log(files)
-
   const [addAudioFiles, { isLoading }] = usePostAudioFilesMutation()
 
   const dragStartAudioHandler = (e: DragEvent<HTMLDivElement>) => {
@@ -37,9 +35,10 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     const audioFiles = [...e.dataTransfer.files]
 
     setFiles(prev => [...prev, ...audioFiles])
+    
     // const formdata = new FormData()
-    // formdata.append('audio', audioFiles[0])
-    // await addAudioFile({ formdata, id, type: lessonIdAndType?.type as string })
+    // formdata.append('video', audioFiles[0])
+
     setDragAudio(false)
   }
 

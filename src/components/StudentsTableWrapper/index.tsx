@@ -18,6 +18,19 @@ type StudentsTableWrapperT = {
   students: studentsTableInfoT
 }
 
+type GenerateRow = {
+  Имя: {
+    name: string
+    avatar: string
+  }
+  Email: string
+  'Суммарный балл': string
+  Курс: string
+  Группа: string
+  'Последняя активность': string
+  'Дата обновления': string
+}
+
 export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading }) => {
   const id = useAppSelector(userIdSelector)
 
@@ -25,11 +38,11 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   const [isStudentModalOpen, { on: stuentModalOn, off: studentModalOff }] = useBoolean()
 
   const [cols, setCols] = useState<string[]>([])
-  const [rows, setRows] = useState<Array<{ [key: string]: string | number }>>()
+  const [rows, setRows] = useState<GenerateRow[]>()
   const [selectedStuentId, setSelectedStudentId] = useState<number | null>(null)
   const [selectedStuent, setSelectedStudent] = useState<result | null>(null)
 
-  const { data: tableHeaderData, isSuccess } = useFetchStudentsTableHeaderQuery(id)
+  const { data: tableHeaderData, isSuccess } = useFetchStudentsTableHeaderQuery(1)
 
   const { columns, data, ids } = generateData(tableHeaderData, students, isLoading, isSuccess)
 
@@ -77,18 +90,47 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
         <tbody className={styles.table_tbody}>
           {rows?.map((row, id) => (
             <tr key={id + Math.random()} onClick={() => setSelectedStudentId(ids[id])}>
-              {Object.entries(row).map(([keyRow, valueRow], idx) => (
-                <td
-                  style={{
-                    fontSize: '14px',
-                    textTransform: 'capitalize',
-                    verticalAlign: 'center',
-                  }}
-                  key={keyRow + valueRow}
-                >
-                  {row[cols[idx]]}
-                </td>
-              ))}
+              {Object.entries(row).map(([keyRow, valueRow], idx: number) => {
+                if (keyRow === 'Имя' && typeof valueRow === 'object') {
+                  return (
+                    <td
+                      style={{
+                        fontSize: '14px',
+                        textTransform: 'capitalize',
+                        verticalAlign: 'center',
+                      }}
+                      key={keyRow + valueRow}
+                    >
+                      <div className={styles.table_user}>
+                        {valueRow?.avatar ? (
+                          <img src={valueRow?.avatar} alt="Avatar" />
+                        ) : (
+                          <div className={styles.table_user_avatar}>
+                            {valueRow?.name
+                              .split(' ')
+                              .map(value => value.charAt(0))
+                              .join('')}
+                          </div>
+                        )}
+                        <div className={styles.table_user_name}>{valueRow?.name}</div>
+                      </div>
+                    </td>
+                  )
+                } else {
+                  return (
+                    <td
+                      style={{
+                        fontSize: '14px',
+                        textTransform: 'capitalize',
+                        verticalAlign: 'center',
+                      }}
+                      key={keyRow + valueRow}
+                    >
+                      {row[cols[idx]]}
+                    </td>
+                  )
+                }
+              })}
             </tr>
           ))}
         </tbody>

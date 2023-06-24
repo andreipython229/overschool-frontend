@@ -1,6 +1,7 @@
 import { useState, FC, ChangeEvent, useEffect } from 'react'
 import parse from 'html-react-parser'
 
+import { UploadedFile } from 'components/UploadedFile'
 import { iocnsByStatus } from 'components/HomeworksStatsTable/config/iocnsByStatus'
 import { SelectDropDown } from 'components/SelectDropDown/SelectDropDown'
 import { checkHomeworkStatusFilters } from 'constants/dropDownList'
@@ -12,6 +13,7 @@ import { convertDate } from 'utils/convertDate'
 import { UserHomework, CurrentUser } from 'types/homeworkT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { UserHomeworkHistory } from 'components/UserHomeworkHistory'
+import { usePostTextFilesMutation } from 'api/filesService'
 import {
   taskIconPath,
   lastAnswIconPath,
@@ -30,6 +32,12 @@ type modalHomeworkT = {
   closeModal: () => void
 }
 
+type fileT = {
+  name: string
+  size: number
+  file: string
+}
+
 export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
   const [userHomework, setUserHomework] = useState<UserHomework>()
   const [currentUser, setCurrentUser] = useState<CurrentUser>()
@@ -41,10 +49,12 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
   const [mark, setMark] = useState<number>(0)
   const [status, setStatus] = useState<string>('')
   const [text, setText] = useState<string>('')
+  const [files, setFiles] = useState<fileT[]>([])
 
   const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery(id)
   const { data: homework, isFetching: isHwFetching } = useFetchHomeworkDataQuery(userHomework?.homework as number)
   const [sendHomeworkCheck] = useCreateCheckReplyMutation()
+  const [sendFiles, { isLoading }] = usePostTextFilesMutation()
 
   const handleToggleHiddenBlocks = (): void => {
     setIsOpen(!isOpen)
@@ -58,14 +68,40 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
     setStatus(status)
   }
 
+  const handleUploadFiles = (e: ChangeEvent<HTMLInputElement>) => {
+    const chosenFiles = e.target.files
+
+    const uploadedFiles = [...files]
+
+    Array.from(chosenFiles ?? []).some(file => {
+      if (files.findIndex(f => f.name === file.name) === -1) {
+        const fileString = URL.createObjectURL(file)
+        uploadedFiles.push({ name: file.name, size: file.size, file: fileString })
+      }
+    })
+
+    setFiles(uploadedFiles)
+  }
+
+  const handleDeleteFile = (index: number) => {
+    setFiles(prev => prev.filter((_, idx) => idx !== index))
+  }
+
   const handleCreateHomeworkCheck = () => {
     const dataToSend = {
       status,
-      teacher_message: text,
+      text,
+      mark,
       user_homework: userHomework?.user_homework_id,
     }
 
+    const formData = new FormData()
+
+    formData.append('user_homework_check', `${data?.last_reply.user_homework_check_id}`)
+    formData.append('file', files[0].file)
+
     sendHomeworkCheck(dataToSend)
+    sendFiles(formData)
   }
 
   useEffect(() => {
@@ -124,19 +160,21 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
                     {/* <span>{userHomework?.course_name}</span> */}
                   </div>
                   <div className={styles.task_modal_text}>{parse(homework?.description || '')}</div>
-                  <div className={styles.task_modal_files}>
-                    <span>Материалы к заданию:</span>
-                    <div>
-                      {/* {homework?.text_files.map(file => (
+                  {(homework?.audio_files?.length || homework?.text_files?.length) && (
+                    <div className={styles.task_modal_files}>
+                      <span>Материалы к заданию:</span>
+                      <div>
+                        {homework?.text_files.map((file, index) => (
+                          <UploadedFile key={file.id} index={index} file={file.file} size={1000} />
+                        ))}
+                      </div>
+                      <div>
+                        {/* {homework?.audio_files.map(file => (
                       <input type="text" />
                     ))} */}
+                      </div>
                     </div>
-                    <div>
-                      {/* {homework?.audio_files.map(file => (
-                      <input type="text" />
-                    ))} */}
-                    </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -211,13 +249,20 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
       <h3 className={styles.answer_header}>Введите ваш ответ:</h3>
       <MyEditor setDescriptionLesson={setText} />
       <div className={styles.bottomButtons}>
-        <form acceptCharset="utf-8" className={styles.wrapper_form}>
-          <label className={styles.wrapper_form_addFiles}>
-            <IconSvg width={18} height={15} viewBoxSize="0 0 20 18" path={paperClipIconPath} />
-            <input type="file" />
-            Прикрепить файл
-          </label>
-        </form>
+        <div className={styles.files_upload_container}>
+          <form acceptCharset="utf-8" className={styles.wrapper_form}>
+            <label className={styles.wrapper_form_addFiles}>
+              <IconSvg width={18} height={15} viewBoxSize="0 0 20 18" path={paperClipIconPath} />
+              <input type="file" onChange={handleUploadFiles} multiple />
+              Прикрепить файл
+            </label>
+          </form>
+          <div>
+            {files?.map(({ file, size, name }, index: number) => (
+              <UploadedFile key={index} file={file} size={size} name={name} index={index} handleDeleteFile={handleDeleteFile} />
+            ))}
+          </div>
+        </div>
         <div className={styles.btns__container}>
           <button className={styles.bottomButtons_btn_mark}>
             {mark ? (
@@ -243,9 +288,9 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
       </button>
       {isOpen && (
         <div className={styles.modal_hidden_block}>
-          <p>История проверок</p>
+          <p className={styles.modal_hidden_block_title}>История проверок</p>
 
-          <div>
+          <div className={styles.modal_hidden_block_history}>
             {userHomework?.user_homework_checks?.map(homework => (
               <UserHomeworkHistory key={homework.user_homework_check_id} homework={homework} />
             ))}

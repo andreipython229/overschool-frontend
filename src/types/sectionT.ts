@@ -4,6 +4,7 @@ import { LESSON_TYPE } from 'enum/lessonTypeE'
 
 export interface ILesson {
   lesson_id: number
+  baselesson_ptr_id?: number
   section: number
   name: string
   order: number
@@ -17,6 +18,7 @@ export interface ILesson {
 
 export interface IHomework {
   homework_id: number
+  baselesson_ptr_id?: number
   section: number
   name: string
   order: number
@@ -32,6 +34,7 @@ export interface IHomework {
 
 export interface ITest {
   test_id: number
+  baselesson_ptr_id?: number
   section: number
   name: string
   questions: any
@@ -55,17 +58,20 @@ export type lessonT = {
   name: string
   order: number
   type: string
+  baselesson_ptr_id?: number
 }
 
 export type sectionT = {
   section_name: string
   section: number
+  baselesson_ptr_id?: number
   lessons: lessonT[]
 }
 
 export type sectionsT = {
   course_id: number
   course_name: string
+  baselesson_ptr_id?: number
   sections: sectionT[]
 }
 

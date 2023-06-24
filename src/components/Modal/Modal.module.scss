@@ -40,13 +40,15 @@
   }
 }
 .main {
-  @include position_t_l(absolute, 50%, 50%, 10);
-  @include display(flex, column);
+  position: relative;
+  @include display(flex, row, center);
   background: $color-white;
   font-family: 'Manrope', sans-serif;
-  margin: 0 auto;
+  margin: auto;
   border-radius: 7px;
-  transform: translate(-50%, -50%);
+  flex-shrink: 0;
+  flex-grow: 0;
+  overflow: visible;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 280px;
   }
@@ -55,9 +57,13 @@
   }
 
   &_closed {
-    @include position_t_r(absolute, 25px, 25px);
+    @include position_t_r(absolute, 20px, 20px);
     cursor: pointer;
     color: #e0dced;
+    width: 30px;
+    height: 30px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;

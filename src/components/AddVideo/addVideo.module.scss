@@ -10,6 +10,15 @@
     align-items: center;
     gap: 10px;
   }
+  &_video_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    & video {
+      max-width: 100%;
+    }
+  }
   &_rightSide {
     background: #ffffff;
     padding: 36px 45px 56px 45px;
@@ -32,18 +41,26 @@
         position: relative;
 
         & input {
-          padding: 0 20px;
-          width: 40%;
-          height: 40px;
-          margin-bottom: 20px;
-          @include font(500, 14px, 21px);
-          color: #494d55;
-          border-radius: 7px;
-          border: 1px solid #e0dced;
-          outline: none;
+          @include position_t_l(absolute, 0, 0, 2);
+          width: 100%;
+          height: 100%;
+          opacity: 0;
           cursor: pointer;
-          text-overflow: ellipsis;
         }
+
+        // & input {
+        //   padding: 0 20px;
+        //   width: 40%;
+        //   height: 40px;
+        //   margin-bottom: 20px;
+        //   @include font(500, 14px, 21px);
+        //   color: #494d55;
+        //   border-radius: 7px;
+        //   border: 1px solid #e0dced;
+        //   outline: none;
+        //   cursor: pointer;
+        //   text-overflow: ellipsis;
+        // }
 
         &_navBlock {
           @include display(flex, column);
