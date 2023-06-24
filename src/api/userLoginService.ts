@@ -14,7 +14,7 @@ export const userLoginService = createApi({
       query: credentials => {
         const formdata = formDataConverter(credentials)
         return {
-          url: '/login/',
+          url: 'http://dev.api.overschool.by:8000/api/login/',
           method: 'POST',
           redirect: 'follow',
           body: formdata,
@@ -25,14 +25,14 @@ export const userLoginService = createApi({
     }),
     getUserInfo: builder.query<ILoginUserInfo[], void>({
       query: () => ({
-        url: `/users/`,
+        url: `http://dev.api.overschool.by:8000/api/user/`,
       }),
       providesTags: ['useInfo'],
     }),
     logout: builder.query<void, void>({
       query: () => {
         return {
-          url: `/logout/`,
+          url: `http://dev.api.overschool.by:8000/api/logout/`,
         }
       },
       providesTags: ['logout'],
