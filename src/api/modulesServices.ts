@@ -16,13 +16,13 @@ export const modulesServices = createApi({
     }),
     fetchModuleLessons: build.query<sectionT, string>({
       query: sectionId => ({
-        url: `sections/${sectionId}/lessons`,
+        url: `/sections/${sectionId}/lessons`,
       }),
       providesTags: ['lessons'],
     }),
     createModules: build.mutation<void, FormData>({
       query: arg => ({
-        url: `./sections/`,
+        url: `/sections/`,
         method: 'POST',
         body: arg,
       }),

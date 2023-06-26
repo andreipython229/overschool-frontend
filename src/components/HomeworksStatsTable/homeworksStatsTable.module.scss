@@ -40,6 +40,25 @@
         margin: 0 0 0 27px;
         height: 55px;
       }
+      &:nth-child(1) .table_body_avatar_div {
+        background: #d3f2f8;
+        color: #72b0bc;
+      }
+
+      &:nth-child(2) .table_body_avatar_div {
+        background: #e2f6f3;
+        color: #72c5b7;
+      }
+
+      &:nth-child(3) .table_body_avatar_div {
+        background: #f9dcdc;
+        color: #d96b7d;
+      }
+
+      &:nth-child(4) .table_body_avatar_div {
+        background: #f1e3f4;
+        color: #c97fcf;
+      }
     }
     &_avatar_div {
       width: 33px;
@@ -68,24 +87,4 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
-}
-
-.first_avatar {
-  background: #d3f2f8;
-  color: #72b0bc;
-}
-
-.second_avatar {
-  background: #e2f6f3;
-  color: #72c5b7;
-}
-
-.third_avatar {
-  background: #f9dcdc;
-  color: #d96b7d;
-}
-
-.fourth_avatar {
-  background: #f1e3f4;
-  color: #c97fcf;
 }

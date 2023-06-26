@@ -19,7 +19,7 @@ export const StudentLessonPreview: FC = () => {
 
   const { data: lessons, isSuccess } = useFetchModuleLessonsQuery(`${params?.section_id}`)
   const { data: lesson } = useFetchLessonQuery({ id: Number(params?.lesson_id) as number, type: `${params?.lesson_type}` })
-  const { data: questionsList } = useFetchQuestionsListQuery(testId? params?.lesson_id : '')
+  const { data: questionsList } = useFetchQuestionsListQuery(testId ? params?.lesson_id : '')
 
   const activeLessonIndex = lessons?.lessons.findIndex(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
 

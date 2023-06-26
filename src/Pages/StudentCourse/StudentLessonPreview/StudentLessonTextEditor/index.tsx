@@ -5,6 +5,7 @@ import { Button } from 'components/common/Button/Button'
 import { MyEditor } from 'components/MyEditor/MyEditor'
 import { usePostUserHomeworkMutation } from 'api/userHomeworkService'
 import { UploadedFile } from 'components/UploadedFile'
+import { usePostTextFilesMutation } from 'api/filesService'
 
 import styles from './studentLessonTextEditor.module.scss'
 
@@ -15,8 +16,10 @@ type textEditorT = {
 export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId }) => {
   const [files, setFiles] = useState<File[]>([])
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
+  const [text, setText] = useState<string>('')
 
   const [postHomewrok] = usePostUserHomeworkMutation()
+  const [postFiles] = usePostTextFilesMutation()
 
   const handleUploadFiles = (chosenFiles: File[]) => {
     const uploaded = [...files]
@@ -50,18 +53,20 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId }) => {
 
   const handleSendHomework = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
+
     const formData = new FormData()
-    files?.forEach(file => {
-      formData.append('text_files', file)
-    })
-    formData.append('homework', `${homeworkId}`)
-    postHomewrok(formData)
+
+    formData.append('file', files[0])
+    formData.append('user_homework', `${homeworkId}`)
+
+    postHomewrok({ homework: homeworkId, text })
+    postFiles(formData)
   }
 
   return (
     <div className={styles.wrapper}>
       <h5 className={styles.wrapper_title}>Введите ответ на задание:</h5>
-      <MyEditor />
+      <MyEditor setDescriptionLesson={setText} />
       <AddFileBtn handleChangeFiles={handleChangeFiles} />
       <span className={styles.wrapper_form_help}>Добавьте файл(-ы) с решением задания</span>
       {urlFiles?.map(({ url, name }, index: number) => (

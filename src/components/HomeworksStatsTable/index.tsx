@@ -16,7 +16,7 @@ type homeworkStatsTableT = {
 export const HomeworksStatsTable: FC<homeworkStatsTableT> = ({ homeworks, isLoading }) => {
   const [isSortedByEmail, setIsSortedByEmail] = useState(false)
 
-  const sortedData = useSortDataByProp(homeworks?.results as homeworkStatT[], 'email', isSortedByEmail)
+  const sortedData = useSortDataByProp(homeworks?.results as homeworkStatT[], 'user_email', isSortedByEmail)
 
   const hadleChangeProp = useCallback(() => {
     setIsSortedByEmail(prop => !prop)
@@ -39,8 +39,8 @@ export const HomeworksStatsTable: FC<homeworkStatsTableT> = ({ homeworks, isLoad
             <HomeworksStatsTableHeader hadleChangeProp={hadleChangeProp} />
           </thead>
           <tbody className={styles.table_body}>
-            {sortedData?.map((homework: homeworkStatT, index: number) => (
-              <HomeworksStatsTableRow key={index /*homework.user_homework*/} homeworkData={homework} index={index} />
+            {sortedData?.map((homework: homeworkStatT) => (
+              <HomeworksStatsTableRow key={homework.homework} homeworkData={homework} />
             ))}
           </tbody>
         </>

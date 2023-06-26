@@ -6,8 +6,7 @@ import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from 'Pages/School/StudentsStats/StudentInfoGraphic'
 import { createGroupIconPath } from '../config/svgIconsPath'
-import { StudentsTableBlock } from 'components/StudentsTableBlock'
-import { SettingStudentTable } from 'components/Modal/SettingStudentTable'
+import { StudentsPerCourse } from 'components/StudentsTable/StudentsPerCourse'
 import { useFetchStudentsGroupByCourseQuery } from 'api/studentsGroupService'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { StudentGroup } from 'Pages/School/StudentsStats/StudentsCountGroup'
@@ -25,9 +24,8 @@ export const StudentsStats = () => {
 
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
   const [addGroupModal, { off: offAddGroupModal, on: onAddGroupModal }] = useBoolean()
-  const [toggleSettingModal, { off: offToggleSettingModal, on: onToggleSettingModal }] = useBoolean()
 
-  const { data} = useFetchStudentsGroupByCourseQuery(`${courseId}`)
+  const { data } = useFetchStudentsGroupByCourseQuery(`${courseId}`)
 
   const handleHideStats = useCallback(() => {
     setHideStats(!hideStats)
@@ -59,7 +57,9 @@ export const StudentsStats = () => {
             const count = students[0]
             return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} />
           })}
-          {data?.results && data?.results?.length > 2 && <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />}
+          {data?.results && data?.results?.length > 2 && (
+            <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />
+          )}
         </div>
       </section>
       <div
@@ -72,16 +72,10 @@ export const StudentsStats = () => {
       >
         <AllStudentsBlock headerText={'Все ученики курса'} />
       </div>
-      <StudentsTableBlock setShowModal={offToggleSettingModal} />
+      <StudentsPerCourse />
       {addGroupModal && (
         <Portal closeModal={onAddGroupModal}>
           <CreateGroupModal setShowModal={onAddGroupModal} courseId={courseId as string} />{' '}
-        </Portal>
-      )}
-
-      {toggleSettingModal && (
-        <Portal closeModal={onToggleSettingModal}>
-          <SettingStudentTable setShowModal={onToggleSettingModal} />
         </Portal>
       )}
     </div>

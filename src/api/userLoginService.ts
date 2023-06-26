@@ -1,4 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQuery } from './baseApi'
 import { formDataConverter } from '../utils/formDataConverter'
@@ -7,14 +7,14 @@ import { ILoginUserInfo } from 'types/userT'
 
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',
-  baseQuery: baseQuery,
+  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
   tagTypes: ['login', 'logout', 'useInfo'],
   endpoints: builder => ({
     login: builder.mutation<IResponse, ICredentials>({
       query: credentials => {
         const formdata = formDataConverter(credentials)
         return {
-          url: 'http://dev.api.overschool.by:8000/api/login/',
+          url: '/login/',
           method: 'POST',
           redirect: 'follow',
           body: formdata,
@@ -25,14 +25,14 @@ export const userLoginService = createApi({
     }),
     getUserInfo: builder.query<ILoginUserInfo[], void>({
       query: () => ({
-        url: `http://dev.api.overschool.by:8000/api/user/`,
+        url: `/user/`,
       }),
       providesTags: ['useInfo'],
     }),
     logout: builder.query<void, void>({
       query: () => {
         return {
-          url: `http://dev.api.overschool.by:8000/api/logout/`,
+          url: `/logout/`,
         }
       },
       providesTags: ['logout'],
