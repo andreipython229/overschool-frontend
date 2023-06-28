@@ -27,10 +27,10 @@ export const StudentQuestion: FC<StudentQuestionT> = ({questions, length, number
     const nameAnswer = (questions && questions.body.length > 0) ? questions.body : '';
     const progress = (100 / questionLength) * (numberTest + 1)
 
-    const handleAnswerSelect = (answerCorrect: boolean | string) => {
+    const handleAnswerSelect = (isCorrect: boolean | string) => {
         updateUserAnswers((prevAnswers: AnswersType) => ({
             ...prevAnswers,
-            [questions.question_id]: answerCorrect
+            [questions.question_id]: isCorrect
         }));
     }
 
@@ -57,12 +57,12 @@ export const StudentQuestion: FC<StudentQuestionT> = ({questions, length, number
                 <div className={styles.wrapper_progressBar_progress} style={{width: `${progress}%`}}></div>
             </div>
             {questions.answers &&
-                questions?.answers.map(({body: answer, answer_id: id}: any, index: number) => (
-                    <StudentAnswer key={index} id={`${id}`} title={answer} name={nameAnswer}
+                questions?.answers.map(({body: answer, answer_id: id, is_correct: isCorrect}: any, index: number) => (
+                    <StudentAnswer key={index} id={`${id}`} title={answer} name={nameAnswer} isCorrect={isCorrect}
                                    onSelect={handleAnswerSelect}/>
                 ))}
-            {questions.question_id !== -9999 ?
-                (numberTest + 1 !== questionLength ?
+            {numberTest + 1 !== questionLength ?
+                (questions.question_id !== -9999 ?
                         <Button disabled={numberTest + 1 === questionLength} onClick={handleNextQ}
                                 text={'Следующий вопрос'}
                                 variant="primary" style={{alignSelf: 'flex-start', marginTop: '32px'}}/>

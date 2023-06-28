@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button} from "../../../../components/common/Button/Button";
 import {useSendTestResultsMutation} from "../../../../api/userTestService";
+import styles from "./studentTestResults.module.scss";
+
 
 interface TestResultProps {
     results: { [key: number]: boolean | string };
     test: number | string;
     user: any;
+    success_prercent: any;
 }
 
-export const StudentTestResults: React.FC<TestResultProps> = ({results, test, user}) => {
-    const [sendTestResults, {isLoading, isError, isSuccess}] = useSendTestResultsMutation();
+export const StudentTestResults: React.FC<TestResultProps> = ({results, test, user, success_prercent}) => {
+    const [sendTestResults, {isSuccess}] = useSendTestResultsMutation();
+    const [showResult, setShowResult] = useState(true);
+
 
     const percentage = () => {
         const totalQuestions = Object.keys(results).length;
@@ -18,30 +23,33 @@ export const StudentTestResults: React.FC<TestResultProps> = ({results, test, us
             correctAnswers / totalQuestions * 100
         )
     }
+
     const testResults = {
         success_percent: percentage(),
-        status: percentage() > 80 ? 'П': 'Н',
-        test: test,
+        status: percentage() > 80 ? 'П' : 'Н',
+        test: test as number,
         user: user
     }
 
-    const handleSendResults = (body: {[key: string]: any}) => {
-        sendTestResults(body);
+    const handleSendResults = (body: { [key: string]: any }) => {
+        sendTestResults(body)
+            .then(() => setShowResult(false))
+            .catch((error) => console.log(`Возникла непредвиденная ошибка: ${error}`));
     };
 
 
     return (
-        <div>
-            <h2>Результаты теста</h2>
-            {Object.entries(results).map(([questionId, isCorrectAnswer]) => (
-                <div key={questionId}>
-                    <p>Вопрос ID: {questionId}</p>
-                    <p>Правильный ответ: {isCorrectAnswer ? 'Да' : 'Нет'}</p>
-                </div>
-            ))}
-            <h2>Правильных ответов: {percentage()}%!</h2>
-            <h2>Отправить результаты теста?</h2>
-            <Button text={'Отправить результаты'} onClick={() => handleSendResults(testResults)}/>
-        </div>
-    );
-};
+        (showResult ?
+                (<div className={styles.wrapper}>
+                        <p>Результаты теста:</p>
+                        <p>Правильных ответов: {percentage()}%!</p>
+                        <p>Отправить результаты теста?</p>
+                        <Button style={{marginTop: "5px"}} text={'Отправить результаты'} onClick={() => handleSendResults(testResults)}/>
+                    </div>
+                ) : (
+                    <div className={styles.wrapper}>
+                        <p>Ты сегодня отлично поработал, можно и отдохнуть :)</p>
+                    </div>
+                )
+        )
+    )};

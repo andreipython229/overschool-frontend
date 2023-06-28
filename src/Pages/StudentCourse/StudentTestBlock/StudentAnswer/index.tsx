@@ -7,11 +7,12 @@ type StudentAnswerProps = {
     title: string;
     name: string;
     onSelect: (answerCorrect: boolean | string) => void;
+    isCorrect: boolean;
 };
 
-export const StudentAnswer: FC<StudentAnswerProps> = ({id, title, name, onSelect}) => {
+export const StudentAnswer: FC<StudentAnswerProps> = ({id, title, name, onSelect, isCorrect}) => {
     const handleClick = () => {
-        onSelect(id);
+        onSelect(isCorrect);
     };
 
     return (

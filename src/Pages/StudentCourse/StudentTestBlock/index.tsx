@@ -4,6 +4,8 @@ import {StudentQuestion} from './StudentQuestion'
 import styles from './studentTestBlock.module.scss'
 import {StudentTestResults} from "./StudentTestResults";
 import {selectUser} from "../../../selectors";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../store/redux/store";
 
 type questionListT = {
     attempt_count: number
@@ -22,7 +24,7 @@ export const StudentTestBlock: FC<any> = ({lesson}) => {
     const [numberTest, setNumberTest] = useState<number>(0)
     const [userAnswers, updateUserAnswers] = useState<AnswersType>({})
     const [testCompleted, setTestCompleted] = useState(false);
-    const user = selectUser;
+    const user = useSelector(selectUser);
 
     const completeTest = () => {
         setTestCompleted(true);
@@ -36,13 +38,13 @@ export const StudentTestBlock: FC<any> = ({lesson}) => {
         picture: '',
     },
         {}]
-    console.log('UserAnswers из стейтов: ', userAnswers)
 
     return (
-        <div className={styles.wrapper} key={lesson.test_id}>
+        <div className={styles.wrapper} key={lesson.test}>
             {lesson.questions.length > 0 ? (
                 testCompleted ? (
-                    <StudentTestResults results={userAnswers} test={lesson.test_id} user={user}/>
+                    <StudentTestResults results={userAnswers} test={lesson.test} user={user.userId}
+                                        success_prercent={''}/>
                 ) : (
                     <StudentQuestion questions={lesson.questions[numberTest]}
                                      length={lesson.questions} numberTest={numberTest}
