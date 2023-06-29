@@ -4,7 +4,7 @@ import { Cookies } from 'react-cookie'
 const cookies = new Cookies()
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: '/api/courses',
+  baseUrl: '/api',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const acceessToken = cookies.get('access_token')
@@ -16,7 +16,6 @@ export const baseQuery = fetchBaseQuery({
     return headers
   },
 })
-
 // export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
 //   const { user } = JSON.parse(`${localStorage?.getItem('persist:root')}`)
 //   const refresh = JSON.parse(user).refresh_token

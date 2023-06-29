@@ -8,7 +8,7 @@ import { auth } from 'store/redux/users/slice'
 import { AuthSelect } from '../../common/AuthSelect'
 import { useAppDispatch } from '../../../store/hooks'
 import { registrIconPath } from './config/svgIconsPath'
-import { useRegistrationMutation } from '../../../api/userRegisterService'
+import { useRegistrationMutation, useSendRegCodeMutation } from '../../../api/userRegisterService'
 import { isSecurity, unSecurity } from '../../../assets/img/common/index'
 
 import styles from '../Modal.module.scss'
@@ -19,7 +19,7 @@ export const RegCodeModal: FC<RegCodeModalPropsT> = ({ setCodeModal }) => {
   const dispatch = useAppDispatch()
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<string>('email')
-  const [attemptAccess, { data, error, isSuccess }] = useRegistrationMutation()
+  const [attemptAccess, { data, error, isSuccess }] = useSendRegCodeMutation()
 
   const getAuthVariant = (variant: string) => {
     setAuthVariant(variant)
@@ -35,7 +35,8 @@ export const RegCodeModal: FC<RegCodeModalPropsT> = ({ setCodeModal }) => {
     },
     onSubmit: async () => {
       const userData = formik.values
-      await attemptAccess(userData)
+      attemptAccess(userData)
+        // await attemptAccess(userData)
       await setCodeModal(false)
     },
   })
@@ -58,12 +59,12 @@ export const RegCodeModal: FC<RegCodeModalPropsT> = ({ setCodeModal }) => {
               <div className={styles.inputs_block}>
                 <InputAuth
                   name={'code'}
-                  type={'text'}
+                  type={security ? 'password' : 'text'}
                   onChange={formik.handleChange}
                   value={formik.values.code}
                   placeholder={'код из письма'}
                   onClick={changeSecurityStatus}
-                  icon={unSecurity}
+                  icon={security ? isSecurity : unSecurity}
                 />
               </div>
               <div className={styles.main_btn}>
