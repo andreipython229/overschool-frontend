@@ -126,7 +126,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
                       }}
                       key={keyRow + valueRow}
                     >
-                      {row[cols[idx]]}
+                      {/*{row[cols[idx]]}*/}
                     </td>
                   )
                 }

@@ -2,6 +2,7 @@
 @import '../../../../scss/variable.scss';
 
 .wrapper {
+    min-width: 700px;
     
     @include display (flex, column, flex-start, center);
     &_title {
