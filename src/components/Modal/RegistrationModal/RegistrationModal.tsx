@@ -14,7 +14,7 @@ import { isSecurity, unSecurity } from '../../../assets/img/common/index'
 import styles from '../Modal.module.scss'
 import { RegistrationModalPropsT } from '../ModalTypes'
 
-export const RegistrationModal: FC<RegistrationModalPropsT> = ({ setShowModal }) => {
+export const RegistrationModal: FC<RegistrationModalPropsT> = ({ setShowModal, setCodeModal }) => {
 
   const dispatch = useAppDispatch()
   const [security, setSecurity] = useState<boolean>(true)
@@ -36,6 +36,7 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = ({ setShowModal })
     initialValues: {
       email: '',
       password: '',
+      password_confirmation: '',
       oferta: false,
       politics: false,
       phone: '',
@@ -45,6 +46,7 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = ({ setShowModal })
       const userData = formik.values
       await attemptAccess(userData)
       await setShowModal(false)
+      await setCodeModal(true)
     },
   })
   const disabled = !(Object.keys(formik.errors).length === 0)
@@ -87,6 +89,15 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = ({ setShowModal })
                   onChange={formik.handleChange}
                   value={formik.values.password}
                   placeholder={'Пароль'}
+                  onClick={changeSecurityStatus}
+                  icon={security ? isSecurity : unSecurity}
+                />
+                <InputAuth
+                  name={'password_confirmation'}
+                  type={security ? 'password' : 'text'}
+                  onChange={formik.handleChange}
+                  value={formik.values.password_confirmation}
+                  placeholder={'Повтор пароля'}
                   onClick={changeSecurityStatus}
                   icon={security ? isSecurity : unSecurity}
                 />

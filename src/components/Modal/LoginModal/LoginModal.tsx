@@ -66,7 +66,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
         if (data[0].groups[0] === RoleE.Admin) {
           navigate(Path.Courses)
         } else if (data[0].groups[0] === RoleE.Teacher) {
-          navigate(Path.CourseStats)
+          navigate(Path.ChooseSchool)
         }
       }
     }
