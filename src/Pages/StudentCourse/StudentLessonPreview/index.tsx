@@ -7,7 +7,7 @@ import { StudentLesson } from './StudentLesson'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { useFetchLessonQuery, useFetchModuleLessonsQuery } from '../../../api/modulesServices'
 import { useFetchQuestionsListQuery } from '../../../api/questionsAndAnswersService'
-import { StudentLessonSidebar } from './StudentLessonSidebar/index'
+import { StudentLessonSidebar } from './StudentLessonSidebar'
 import { sectionT } from 'types/sectionT'
 
 import styles from './lesson.module.scss'
@@ -19,7 +19,7 @@ export const StudentLessonPreview: FC = () => {
 
   const { data: lessons, isSuccess } = useFetchModuleLessonsQuery(`${params?.section_id}`)
   const { data: lesson } = useFetchLessonQuery({ id: Number(params?.lesson_id) as number, type: `${params?.lesson_type}` })
-  const { data: questionsList } = useFetchQuestionsListQuery(testId? params?.lesson_id : '')
+  const { data: questionsList } = useFetchQuestionsListQuery(testId ? params?.lesson_id : '')
 
   const activeLessonIndex = lessons?.lessons.findIndex(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
 

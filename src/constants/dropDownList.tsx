@@ -64,14 +64,6 @@ export const checkHomeworkStatusFilters = [
   },
   {
     id: 2,
-    icon: <IconSvg width={15} height={18} viewBoxSize="0 0 15 20" path={underRevisionHwPath} />,
-    title: 'На доработке',
-    bg: 'bg_color_under',
-    arrow: 'arrow_under_revision',
-    arrow_fill: '#ffca71',
-  },
-  {
-    id: 3,
     icon: <IconSvg width={18} height={18} viewBoxSize="0 0 18 20" path={rejectedHwPath} />,
     title: 'Отклонено',
     bg: 'bg_color_rejected',

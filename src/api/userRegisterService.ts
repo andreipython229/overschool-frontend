@@ -1,12 +1,10 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react'
-
-import { baseQuery } from './baseApi'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
 import { formDataConverter } from '../utils/formDataConverter'
 
 export const userRegisterService = createApi({
   reducerPath: 'userRegisterService',
-  baseQuery: baseQuery,
+  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
   endpoints: builder => ({
     registration: builder.mutation({
       query: credentials => {

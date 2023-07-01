@@ -17,11 +17,11 @@ import scss from './settingStudentTable.module.scss'
 export const SettingStudentTable: FC<SettingStudentTableT> = ({ setShowModal }) => {
   const id = useAppSelector(userIdSelector)
 
-  const { data: studentsTableInfo, isSuccess } = useFetchStudentsTableHeaderQuery(id)
+  const { data: studentsTableInfo, isSuccess } = useFetchStudentsTableHeaderQuery(1)
 
   const [patchTable] = usePatchStudentsTableHeaderMutation()
 
-  const debounced = useDebounceFunc(() => patchTable({ id: id, students_table_info: settingList }), 2000)
+  const debounced = useDebounceFunc(() => patchTable({ id: 1, students_table_info: settingList }), 2000)
 
   const [settingList, setSettingsList] = useState<studentGroupInfoT[]>([])
 
@@ -41,7 +41,7 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({ setShowModal }) 
     <div className={styles.main}>
       <div className={styles.container}>
         <span className={styles.main_closed}>
-          <IconSvg functionOnClick={closeSettingsModal} width={25} height={25} path={crossIconPath} />
+          <IconSvg functionOnClick={closeSettingsModal} width={18} height={18} viewBoxSize="0 0 15 15" path={crossIconPath} />
         </span>
         <div className={styles.settings_title}>Настройка таблицы учеников</div>
         <p style={{ fontSize: '14px', textAlign: 'center', margin: '10px 0' }}>Выберите до 7 колонок для отображения в таблице</p>

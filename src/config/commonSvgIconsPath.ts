@@ -8,6 +8,7 @@ import {
   tableBallsStarIcon,
   iconSvgHomeWorkPage,
   chatGroup,
+  groupIcon,
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -50,3 +51,5 @@ export const rejectedHwPath = [{ d: iconSvgHomeWorkPage.rejected, fill: '#FF2C2C
 export const waitingdHwPath = [{ d: iconSvgHomeWorkPage.waitingForVerification, fill: '#717985' }]
 
 export const chatsGroup = [{ d: chatGroup.d1 }, { d: chatGroup.d2, fill: 'currentColor' }]
+
+export const groupIconPath = [{ d: groupIcon, fill: '#BA75FF' }]

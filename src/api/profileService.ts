@@ -1,22 +1,21 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
 import { profileT, changePasswordProfileT } from '../types/profileT'
-import { baseQuery } from './baseApi'
 
 export const profileService = createApi({
   reducerPath: 'profileService',
-  baseQuery: baseQuery,
+  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
   tagTypes: ['profile', 'password_change'],
   endpoints: build => ({
     fetchProfileData: build.query<profileT[], void>({
       query: () => ({
-        url: `/profiles/`,
+        url: `/profile/`,
       }),
       providesTags: ['profile'],
     }),
     updateProfile: build.mutation<void, any>({
       query: ({ userInfo, id }) => ({
-        url: `/profiles/${id}/`,
+        url: `/profile/${id}/`,
         method: 'PATCH',
         body: userInfo,
       }),

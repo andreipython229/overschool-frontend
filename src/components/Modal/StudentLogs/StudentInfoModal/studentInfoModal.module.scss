@@ -1,0 +1,104 @@
+@import '../../../../scss/variable';
+@import '../../../../scss/mixin.scss';
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 27px 27px 27px;
+  min-height: 400px;
+  margin: auto;
+  flex-shrink: 0;
+  flex-grow: 0;
+  overflow: visible;
+}
+
+.student {
+  &_progress {
+    display: flex;
+    gap: 40px;
+
+    &_title {
+      @include font(500, 12px, 150%);
+      letter-spacing: -0.02em;
+      color: #a3a9b5;
+    }
+
+    &_info {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 10px;
+    }
+  }
+  &_block {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &_avatar {
+      flex-shrink: 0;
+      width: 85px;
+      height: 85px;
+      text-transform: uppercase;
+      @include font(500, 24px, 29px);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #daebff;
+      color: #8aabd1;
+      letter-spacing: 0.02em;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+    }
+
+    &_name {
+      @include font(500, 20px, 24px);
+      letter-spacing: 0.02em;
+      color: $font-title;
+      margin-bottom: 5px;
+      text-transform: capitalize;
+    }
+
+    &_email {
+      @include font(500, 10px, 150%);
+      letter-spacing: -0.02em;
+      color: #a3a9b5;
+    }
+
+    &_activity {
+      @include font(500, 12px, 150%);
+      letter-spacing: -0.02em;
+      color: $font-color-rose;
+      margin: 12px 0 17px;
+    }
+  }
+}
+
+.close_btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f1f1;
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: $backgroundCheckBox;
+
+  &:hover {
+    color: $font-title;
+    transition: color 0.3s;
+    -webkit-transition: color 0.3s;
+    -moz-transition: color 0.3s;
+    -ms-transition: color 0.3s;
+    -o-transition: color 0.3s;
+  }
+}

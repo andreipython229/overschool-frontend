@@ -1,0 +1,17 @@
+@import '../../../../scss/mixin.scss';
+@import '../../../../scss/variable.scss';
+
+.wrapper {
+  min-width: 700px;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif;
+  padding: 34px 42px 40px 42px;
+  background-color: #fff;
+
+  @include display(flex, column, flex-start, center);
+}
+
+.wrapper p {
+  margin: 8px;
+  @include font(600, 16px, 20px);
+  color: #4D5766
+}

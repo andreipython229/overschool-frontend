@@ -38,11 +38,11 @@
     bottom: 0;
     left: 0;
     right: 0;
-    margin: -30px -33px -40px;
-    opacity: 0.5;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #ffff;
+    z-index: 999;
   }
 
   h3 {
@@ -74,19 +74,96 @@
   }
 }
 
+.files_upload_container {
+  max-width: 20rem;
+}
+
+.task_info_wrapper {
+  display: flex;
+  align-items: center;
+
+  & span {
+    text-transform: capitalize;
+  }
+
+  & img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+  }
+
+  & div {
+    @include font(400, 14px, 17px);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #72c5b7;
+    background-color: #e2f6f3;
+    text-transform: uppercase;
+    gap: 8px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+  }
+}
+
 .task_container {
   position: relative;
 }
 
 .task_modal {
-  border-top: 10px solid transparent;
-  position: absolute;
-  left: 0;
-  padding: 20px 25px;
+  position: fixed;
+  padding: 0.75rem;
+  left: 498px;
   box-sizing: border-box;
   background: #ffffff;
   border-radius: 7px;
-  min-width: 35vw;
+  min-width: 50px;
+  max-width: 600px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
+
+  &_inner {
+    padding: 1rem;
+    padding-top: 0.25rem;
+  }
+
+  &_title {
+    margin-bottom: 1rem;
+  }
+
+  &_text {
+    padding-top: 30px;
+    padding-bottom: 12px;
+  }
+
+  &_files {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+
+    & span {
+      color: $font-title !important;
+      font-weight: 500 !important;
+    }
+  }
+
+  &_track {
+    max-height: 500px;
+    overflow: hidden;
+    overflow-anchor: none;
+    touch-action: auto;
+  }
 
   & h3 {
     @include font(500, 16px, 19px);
@@ -213,6 +290,7 @@
   &_item {
     @include display(flex);
     margin: 0 30px 0 0;
+    align-items: center;
 
     span {
       @include display(flex, row, space-between, center);
@@ -345,7 +423,7 @@
   border-radius: 10px;
   padding: 24px;
   color: #6b7484;
-  box-shadow: rgb(0 0 0 / 20%) 0px 3px 12px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
   width: 100%;
   margin-bottom: 40px;
 }
@@ -371,7 +449,29 @@
   &_avatar {
     width: 48px;
     height: 48px;
-    margin-right: 10px;
+    object-fit: contain;
+    display: block;
+    margin-right: 15px;
+    flex-shrink: 0;
+
+    &_block {
+      @include font(500, 14px, 17px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      margin-right: 15px;
+      flex-shrink: 0;
+      color: #72c5b7;
+      background-color: #e2f6f3;
+      text-transform: uppercase;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+    }
   }
 
   &_teacherData {
@@ -386,5 +486,19 @@
     &_date {
       font-weight: 400;
     }
+  }
+}
+
+.modal_hidden_block {
+  &_title {
+    @include font(500, 16px, 19px);
+    color: $font-title;
+    margin: 35px 0;
+  }
+
+  &_history {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 }

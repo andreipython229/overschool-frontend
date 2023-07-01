@@ -3,24 +3,33 @@ const { createProxyMiddleware } = require('http-proxy-middleware')
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, no-undef
 module.exports = function (app) {
+  // app.use(
+  //   createProxyMiddleware('/api', {
+  //     target: 'http://dev.api.overschool.by:8000',
+  //     changeOrigin: true,
+  //     secure: false,
+  //     ws: true,
+  //   }),
+  // )
+
   app.use(
-    '/api',
+    '/api/socket.io', // Обновленный путь прокси
     createProxyMiddleware({
-      target: 'http://45.135.234.137:8000',
+      target: 'http://dev.api.overschool.by:8000/',
+      ws: true,
       changeOrigin: true,
       secure: false,
-      ws: true,
+      pathRewrite: { '^/api/socket.io': '/api' }, // Переписывает путь
     }),
   )
 
-  // const proxy = createProxyServer()
-
-  // app.use('/api', (req, socket, head) => {
-  //   proxy.ws(req, socket, head, {
-  //     target: 'ws://45.135.234.137:8000',
-  //     ws: true,
-  //     changeOrigin: true,
-  //     ignorePath: true,
-  //   })
-  // })
+  // You only need this part if your server also has actual express endpoints
+  app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'http://dev.api.overschool.by:8000',
+      changeOrigin: true,
+      secure: false,
+    }),
+  )
 }
