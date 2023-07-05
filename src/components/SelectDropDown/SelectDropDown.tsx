@@ -4,7 +4,6 @@ import { IconSvg } from '../common/IconSvg/IconSvg'
 import { arrIconPath, triangleDownIconPath } from './config/svgIconPath'
 import { dropDownItem, SelectDropDownT } from '../../types/componentsTypes'
 import { useAppSelector } from 'store/hooks/index'
-import { filtersSelector } from 'selectors'
 
 import styles from './select_drop_down.module.scss'
 import { useMissClickMenu } from '../../customHooks/useMissClickMenu'
@@ -12,9 +11,7 @@ import { useMissClickMenu } from '../../customHooks/useMissClickMenu'
 const selectTheJobStatus = 'ВЫБЕРИТЕ СТАТУС РАБОТЫ'
 
 export const SelectDropDown: FC<SelectDropDownT> = memo(({ dropdownData, onChangeStatus }) => {
-  const {
-    filters: { status },
-  } = useAppSelector(filtersSelector)
+  const filters = useAppSelector(state => state.filters['homework'])
 
   const { menuRef, isOpen, onToggle } = useMissClickMenu()
 
@@ -40,8 +37,8 @@ export const SelectDropDown: FC<SelectDropDownT> = memo(({ dropdownData, onChang
   }
 
   useEffect(() => {
-    changeStatus(`${status}`)
-  }, [status])
+    changeStatus(`${filters?.status}`)
+  }, [filters?.status])
 
   return (
     <div ref={menuRef} className={styles.wrapper}>

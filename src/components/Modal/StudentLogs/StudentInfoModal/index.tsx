@@ -16,7 +16,7 @@ type studentInfoModalT = {
 }
 
 export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal }) => {
-  const lastActivity = new Date(student?.last_activity || '')
+  const lastActivity = new Date(student?.last_active || '')
   const { mmddyyyy } = convertDate(lastActivity)
 
   return (
@@ -26,7 +26,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal })
       </div>
       <div className={styles.content}>
         <div className={styles.student_block}>
-          <div className={styles.student_block_avatar}>{`${student?.first_name || 'б'} ${student?.last_name || 'и'}`}</div>
+          <div className={styles.student_block_avatar}>{`${student?.first_name.charAt(0) || 'б'} ${student?.last_name.charAt(0) || 'и'}`}</div>
           <h3 className={styles.student_block_name}>{`${student?.first_name || 'без'} ${student?.last_name || 'имени'}`}</h3>
           <p className={styles.student_block_email}>{student?.email}</p>
           <p className={styles.student_block_activity}>Был(а) онлайн {`${mmddyyyy}`}</p>
@@ -48,15 +48,14 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal })
             <span className={styles.student_progress_title}>Средний балл</span>
             <div className={styles.student_progress_info}>
               <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath} />
-              {/* заглушка */}
-              <span>0</span>
+              <span>{student?.average_mark?.toFixed(0) ?? 0}</span>
             </div>
           </div>
           <div>
             <span className={styles.student_progress_title}>Суммарный балл</span>
             <div className={styles.student_progress_info}>
               <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath} />
-              <span>{student?.total_points}</span>
+              <span>{student?.mark_sum ?? 0}</span>
             </div>
           </div>
         </div>

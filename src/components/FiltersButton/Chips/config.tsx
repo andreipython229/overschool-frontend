@@ -1,0 +1,22 @@
+type ChipsVal = {
+  [key: string]: { [key: string]: string }
+}
+
+export const chipsVal: ChipsVal = {
+  homework: {
+    course_name: 'курс',
+    homework_name: 'задание',
+    start_mark: 'оценка от',
+    end_mark: 'оценка до',
+    start_date: 'последний ответ с',
+    end_date: 'последний ответ до',
+  },
+  students: {
+    average_mark_min: 'средний балл от',
+    average_mark_max: 'средний балл до',
+    mark_sum_min: 'суммарный балл от',
+    mark_sum_max: 'суммарный балл от',
+    last_activity_min: 'последний ответ с',
+    last_activity_max: 'последний ответ до',
+  },
+}

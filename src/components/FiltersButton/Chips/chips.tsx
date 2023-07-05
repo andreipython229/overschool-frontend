@@ -1,41 +1,32 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { FC } from 'react'
 
 import { removeFilter, clearFilters } from 'store/redux/filters/slice'
-import { filtersSelector } from 'selectors/index'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { crossIconPath } from 'config/commonSvgIconsPath'
+import { useAppDispatch } from 'store/hooks'
 
 import styles from './chips.module.scss'
 
-type ChipsVal = {
-  [key: string]: string
+type chipsComponentT = {
+  filters: { [key: string]: string | number }
+  chipsVal: { [key: string]: string }
+  filterKey: string
 }
 
-const chipsVal: ChipsVal = {
-  course_name: 'курс',
-  homework_name: 'задание',
-  start_mark: 'оценка от',
-  end_mark: 'оценка до',
-  start_date: 'последний ответ с',
-  end_date: 'последний ответ до',
-}
-
-export const ChipsComponent = () => {
-  const dispatch = useDispatch()
-  const { filters } = useSelector(filtersSelector)
-  const chips = Object.entries(filters).filter(([key, _]) => key !== 'status')
+export const ChipsComponent: FC<chipsComponentT> = ({ filters, filterKey, chipsVal }) => {
+  const dispatch = useAppDispatch()
+  const chips = filters && Object.entries(filters).filter(([key, _]) => key !== 'status')
 
   const handleRemoveChip = (filterTerm: string) => {
-    dispatch(removeFilter(filterTerm))
+    dispatch(removeFilter({ key: filterKey, filterName: filterTerm }))
   }
 
-  const isFiltersAdded = chips.some(([_, value]) => value !== '')
+  const isFiltersAdded = chips?.some(([_, value]) => value !== '')
 
   return (
     <>
       <div className={styles.chipsContainer}>
-        {chips.map(([filterTerm, chipText]) => (
+        {chips?.map(([filterTerm, chipText]) => (
           <>
             {chipText && (
               <div key={filterTerm} className={styles.chip}>
@@ -49,7 +40,7 @@ export const ChipsComponent = () => {
           </>
         ))}
         {isFiltersAdded && (
-          <button className={styles.removeChips} onClick={() => dispatch(clearFilters())}>
+          <button className={styles.removeChips} onClick={() => dispatch(clearFilters(filterKey))}>
             <IconSvg width={12} height={11} viewBoxSize="0 0 15 13" path={crossIconPath} />
           </button>
         )}

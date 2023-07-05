@@ -1,18 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type FiltersSliceState = {
-  filters: { [key: string]: string | number }
+  [key: string]: { [key: string]: string | number }
 }
 
 const initialState: FiltersSliceState = {
-  filters: {
+  homework: {
     status: 'Все статусы',
-    course_name: '',
-    homework_name: '',
-    start_mark: '',
-    end_mark: '',
-    start_date: '',
-    end_date: '',
   },
 }
 
@@ -20,17 +14,27 @@ export const slice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    addFilters: (state, action: PayloadAction<{ [key: string]: string | number }>) => {
-      const { payload } = action
-      state.filters = { ...state.filters, ...payload }
+    addFilters: (state, action: PayloadAction<{ key: string; filters: { [key: string]: string | number } }>) => {
+      const { key, filters } = action.payload
+
+      if (!(key in state)) {
+        state[key] = {}
+      }
+
+      state[key] = { ...state[key], ...filters }
     },
-    clearFilters: state => {
-      state.filters = { ...initialState.filters, status: initialState.filters.status }
+    clearFilters: (state, action: PayloadAction<string>) => {
+      const key = action.payload
+
+      if (state[key]) {
+        state[key] = {}
+      }
     },
-    removeFilter: (state, action: PayloadAction<string>) => {
-      const filterKey = action.payload as keyof FiltersSliceState
-      if (state.filters[filterKey]) {
-        state.filters[filterKey] = ''
+    removeFilter: (state, action: PayloadAction<{ key: string; filterName: string }>) => {
+      const { key, filterName } = action.payload
+
+      if (state[key] && state[key][filterName]) {
+        state[key][filterName] = ''
       }
     },
   },

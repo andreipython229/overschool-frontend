@@ -27,13 +27,19 @@ export const ChatWorkspace: FC = () => {
     if (chatId) {
       fetchChatData(chatId)
 
-      const socket = io('/api/socket.io', {
-        path: `/api/School_1/chats/${chatId}/messages`,
-      })
+      // const socket = io('/api/socket.io', {
+      //   path: `/api/School_1/chats/${chatId}/messages`,
+      // })
 
-      socket.on('connect', () => {
-        console.log('connected')
-      })
+      // const ws = new WebSocket('ws://dev.api.overschool.by:8000/')
+
+      // ws?.onopen(e => {
+      //   console.log('connected')
+      // })
+
+      // socket.on('connect', () => {
+      //   console.log('connected')
+      // })
 
       // fetchMessages(chatId)
     }
