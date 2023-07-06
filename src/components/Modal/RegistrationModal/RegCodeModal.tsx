@@ -14,12 +14,13 @@ import { isSecurity, unSecurity } from '../../../assets/img/common/index'
 import styles from '../Modal.module.scss'
 import { RegCodeModalPropsT, RegistrationModalPropsT } from '../ModalTypes'
 
-export const RegCodeModal: FC<RegCodeModalPropsT> = ({ setCodeModal }) => {
+export const RegCodeModal: FC<RegCodeModalPropsT> = ({ setCodeModal, email }) => {
 
   const dispatch = useAppDispatch()
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<string>('email')
   const [attemptAccess, { data, error, isSuccess }] = useSendRegCodeMutation()
+  const [isWrong, setIsWrong] = useState(false)
 
   const getAuthVariant = (variant: string) => {
     setAuthVariant(variant)
@@ -31,13 +32,18 @@ export const RegCodeModal: FC<RegCodeModalPropsT> = ({ setCodeModal }) => {
 
   const formik = useFormik({
     initialValues: {
-      code: ''
+      code: '',
+      email: email,
+      phone_number: 'string'
     },
     onSubmit: async () => {
       const userData = formik.values
-      attemptAccess(userData)
-        // await attemptAccess(userData)
-      await setCodeModal(false)
+      await attemptAccess(userData).then((d: any) => {
+       if (d.error) {
+         setIsWrong(true)
+       }
+       else setCodeModal(false)
+      })
     },
   })
   return (
@@ -67,6 +73,7 @@ export const RegCodeModal: FC<RegCodeModalPropsT> = ({ setCodeModal }) => {
                   icon={security ? isSecurity : unSecurity}
                 />
               </div>
+              {isWrong && <div className={styles.errors}>Неверный код</div>}
               <div className={styles.main_btn}>
                 <Button style={{ width: '246px' }} type={'submit'} variant={'primary'} text={'Отправить'} />
               </div>
