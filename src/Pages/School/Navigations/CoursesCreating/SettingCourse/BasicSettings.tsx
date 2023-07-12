@@ -12,7 +12,7 @@ import { CheckboxBall } from '../../../../../components/common/CheckboxBall'
 import { CoursesDataT } from '../../../../../types/CoursesT'
 
 import styles from './setting_course.module.scss'
-import { useDebounceFunc } from '../../../../../customHooks/useDebounceFunc'
+import { useDebounceFunc } from '../../../../../customHooks'
 
 type BasicSettingsT = {
   toggleCheckbox: boolean

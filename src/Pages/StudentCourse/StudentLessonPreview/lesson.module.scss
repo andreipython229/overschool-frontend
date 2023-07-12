@@ -1,4 +1,5 @@
 @import '../../../scss/mixin.scss';
+
 .lesson {
   // margin-left: 50%;
   // transform: translateX(-50%);
@@ -25,6 +26,7 @@
     @include display(flex, column, flex-start, center);
     margin-top: 20px;
   }
+
   &__codeWraper {
     margin: 5px 0;
     background: #f3f4f6;
@@ -43,6 +45,7 @@
     font-weight: 600;
     font-size: 15px;
   }
+
   &__code_text {
     font-weight: 600;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -51,6 +54,7 @@
     @media only screen and (min-width: 375px) and (max-width: 480px) {
     }
   }
+
   &__navBack {
     display: flex;
     align-items: center;
@@ -62,6 +66,7 @@
       align-self: flex-start;
     }
   }
+
   &__navBack_text {
     margin-left: 5px;
     @include font(400, 12px, 15px);
@@ -201,6 +206,7 @@
     color: #4d5766;
     margin-bottom: 26px;
     display: inline-block;
+
     p {
       word-break: break-all;
     }
@@ -247,6 +253,7 @@
       -o-border-radius: 5px;
       border-radius: 5px;
     }
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       margin: 32px 0 0 0;
     }
@@ -296,5 +303,10 @@
     letter-spacing: 0.02em;
     color: #4d5766;
     margin-bottom: 5px;
+  }
+
+  &__item_disabled {
+    color: gray !important;
+    cursor: not-allowed !important;
   }
 }

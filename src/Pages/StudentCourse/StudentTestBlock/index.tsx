@@ -26,6 +26,7 @@ export const StudentTestBlock: FC<any> = ({lesson}) => {
     const [testCompleted, setTestCompleted] = useState(false);
     const user = useSelector(selectUser);
 
+
     const completeTest = () => {
         setTestCompleted(true);
     };

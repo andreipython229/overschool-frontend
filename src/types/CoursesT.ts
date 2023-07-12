@@ -13,7 +13,7 @@ export type CoursesDataT = {
   photo_url?: string
   author_id: number
   public: string
-  school: number | string | Blob
+  school: number
 }
 
 export type CoursesT = {
