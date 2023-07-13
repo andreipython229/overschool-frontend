@@ -75,6 +75,7 @@ export type RegistrationModalPropsT = {
 
 export type RegCodeModalPropsT = {
   setCodeModal: (value: boolean) => void
+  email?: string
 }
 export type SettingStudentTableT = {
   setShowModal: (arg?: boolean) => void
