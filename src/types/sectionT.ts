@@ -59,6 +59,8 @@ export type lessonT = {
   order: number
   type: string
   baselesson_ptr_id?: number
+  viewed: boolean
+  completed: boolean
 }
 
 export type sectionT = {

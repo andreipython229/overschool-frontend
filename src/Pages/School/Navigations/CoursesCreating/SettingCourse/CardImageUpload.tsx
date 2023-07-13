@@ -20,7 +20,7 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({toggleCheckbox, course
         if (event.target.files) {
             const files = event.target.files
             if (courseFind && courseFind.order && courseFind.school) {
-                const formData = new FormData();
+                const formData = new FormData()
                 formData.append('photo', files[0]);
                 formData.append('order', courseFind.order.toString());
                 formData.append('school', courseFind.school.toString());

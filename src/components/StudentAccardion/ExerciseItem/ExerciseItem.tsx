@@ -10,20 +10,27 @@ import styles from './exerciseItem.module.scss'
 type exerciseItemT = {
   lesson: lessonT
   sectionId: number
+  disabled?: boolean
 }
 
-export const ExerciseItem: FC<exerciseItemT> = memo(({ lesson, sectionId }) => {
+export const ExerciseItem: FC<exerciseItemT> = memo(({ lesson, sectionId, disabled }) => {
   const navigate = useNavigate()
+
+  const handleClick = () => {
+    if (!disabled) {
+      navigate(generatePath(Student.Lesson, { section_id: `${sectionId}`, lesson_type: `${lesson.type}`, lesson_id: `${lesson.id}` }))
+    }
+  }
+
   return (
-    <div
-      onClick={() => navigate(generatePath(Student.Lesson, { section_id: `${sectionId}`, lesson_type: `${lesson.type}`, lesson_id: `${lesson.id}` }))}
-      className={styles.accardionWrapper_component_exerciseWrapper_exercise}
-    >
+    <div onClick={handleClick}
+         className={`${styles.accardionWrapper_component_exerciseWrapper_exercise} ${disabled ? styles.disabled : ''} ${disabled ? styles.inactive : ''}`}>
       {lessonSvgMapper[lesson.type]}
       <div className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper}>
         <h5 className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper_title}>{lesson.name}</h5>
-        <span className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper_status_neg}>Не пройдено</span>
-
+        <span className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper_status_neg}>
+          {lesson.viewed? 'Пройдено': 'Не пройдено'}
+        </span>
         {/* <span className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper_status}>Не пройдено</span> */}
       </div>
     </div>

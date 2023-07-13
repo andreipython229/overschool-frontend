@@ -1,15 +1,12 @@
 import {useEffect, useState, FC} from 'react'
 import {Params} from 'react-router-dom'
 import parse from 'html-react-parser'
-// import YouTube, { YouTubeProps } from 'react-youtube'
-
 import {LESSON_TYPE} from 'enum/lessonTypeE'
 import {sectionT, ILesson} from 'types/sectionT'
-import {StudentCourseNavArr} from '../StudentCourseNavArr/index'
+import {StudentCourseNavArr} from '../StudentCourseNavArr'
 import {UploadedFile} from 'components/UploadedFile/index'
 import {AudioPlayer} from 'components/common/AudioPlayer'
-// import {youtubeParser} from 'utils/youtubeParser'
-import {StudentLessonNavBtns} from '../StudentLessonNavBtns/index'
+import {StudentLessonNavBtns} from '../StudentLessonNavBtns'
 import {VideoPlayer} from "../../../../components/VideoPlayer/player";
 
 import styles from '../lesson.module.scss'

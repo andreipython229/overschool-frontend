@@ -8,8 +8,8 @@ describe('find next order Lesson Array', () => {
           section_name: 'name',
           section: 1,
           lessons: [
-            { id: 1, name: 'string', order: 1, type: 'string' },
-            { id: 1, name: 'string', order: 1, type: 'string' },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false },
           ],
         },
         { section_name: 'name 2', section: 2, lessons: [] },
@@ -24,8 +24,8 @@ describe('find next order Lesson Array', () => {
           section_name: 'name',
           section: 1,
           lessons: [
-            { id: 1, name: 'string', order: 1, type: 'string' },
-            { id: 1, name: 'string', order: 1, type: 'string' },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false },
           ],
         },
         { section_name: 'name 2', section: 2, lessons: [] },
@@ -40,8 +40,8 @@ describe('find next order Lesson Array', () => {
           section_name: 'name',
           section: 1,
           lessons: [
-            { id: 1, name: 'string', order: 1, type: 'string' },
-            { id: 1, name: 'string', order: 1, type: 'string' },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false },
           ],
         },
         { section_name: 'name 2', section: 2, lessons: [] },
