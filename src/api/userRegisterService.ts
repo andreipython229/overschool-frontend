@@ -10,7 +10,18 @@ export const userRegisterService = createApi({
       query: credentials => {
         const formdata = formDataConverter(credentials)
         return {
-          url: '/register/',
+          url: 'register/',
+          method: 'POST',
+          redirect: 'follow',
+          body: formdata,
+        }
+      },
+    }),
+    sendRegCode: builder.mutation({
+      query: credentials => {
+        const formdata = formDataConverter(credentials)
+        return {
+          url: 'code/confirm/',
           method: 'POST',
           redirect: 'follow',
           body: formdata,
@@ -28,4 +39,4 @@ export const userRegisterService = createApi({
     }),
   }),
 })
-export const { useRegistrationMutation, useInviteMutation } = userRegisterService
+export const { useRegistrationMutation, useInviteMutation, useSendRegCodeMutation } = userRegisterService
