@@ -11,7 +11,7 @@ export const AddTextOptions: FC<AddQuestionOptionsT> = ({ setTypeQuestions, setQ
     setTypeQuestions('Text' as keyof object)
     createOption({
       question_type: 'Text',
-      body: '#Задайте вопрос?',
+      body: 'Введите текст вопроса',
       is_any_answer_correct: false,
       only_whole_numbers: false,
       test: testId,

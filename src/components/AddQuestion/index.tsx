@@ -1,95 +1,132 @@
-import { FC, memo, useEffect, useState } from 'react'
-import { Reorder } from 'framer-motion'
+import {FC, memo, useEffect, useState} from 'react'
+import {Reorder} from 'framer-motion'
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 
-import { AddTextOptions } from './AddTextOptions'
-import { AddOptionsWithPictures } from './AddOptionsWithPictures'
-import { AddPicturesAndOptions } from './AddPicturesAndOptions'
-import { AddNumericalTask } from './AddNumericalTask'
-import { AddFreeForm } from './AddFreeForm'
-import { OptionsWithPictures } from 'components/Questions/OptionsWithPictures'
-import { PicturesAndOptions } from 'components/Questions/PicturesAndOptions'
-import { FreeForm } from 'components/Questions/FreeForm'
-import { NumericalTask } from 'components/Questions/NumericalTask'
-import { TextOptions } from 'components/Questions/TextOptions'
-import { useFetchQuestionsListQuery } from 'api/questionsAndAnswersService'
+import {AddTextOptions} from './AddTextOptions'
+import {AddOptionsWithPictures} from './AddOptionsWithPictures'
+import {AddPicturesAndOptions} from './AddPicturesAndOptions'
+import {AddNumericalTask} from './AddNumericalTask'
+import {AddFreeForm} from './AddFreeForm'
+import {OptionsWithPictures} from 'components/Questions/OptionsWithPictures'
+import {PicturesAndOptions} from 'components/Questions/PicturesAndOptions'
+import {FreeForm} from 'components/Questions/FreeForm'
+import {NumericalTask} from 'components/Questions/NumericalTask'
+import {TextOptions} from 'components/Questions/TextOptions'
+import {useFetchQuestionsListQuery} from 'api/questionsAndAnswersService'
 
 import styles from './addQuestion.module.scss'
 
 export type AnswersT = {
-  answer_id: number
-  body: string
+    answer_id: number
+    body: string
+    image?: Blob
 }
 
 type QuestionT = {
-  question_type: keyof object
-  body: string
-  answers: AnswersT[]
-  question_id: number
+    question_type: keyof object
+    body: string
+    answers: AnswersT[]
+    question_id: number
 }
 
 type AddQuestionT = {
-  testId: number
+    testId: number
 }
 
 export type AddQuestionOptionsT = {
-  setTypeQuestions: (arg: keyof object) => void
-  setQuestions: (arg: QuestionT[]) => void
-  questions: QuestionT[]
-  testId: number
+    setTypeQuestions: (arg: keyof object) => void
+    setQuestions: (arg: QuestionT[]) => void
+    questions: QuestionT[]
+    testId: number
 }
 
 export type PropsQuestionBlockT = {
-  title?: string
-  id?: number
-  onToggle?: () => void
-  isOpen?: boolean
-  question?: QuestionT
-  onPointerDown?: any
-  answers?: AnswersT[]
-  // setQuestions?: (arg: QuestionT[]) => void
-  // questions?: QuestionT[]
+    title?: string
+    id?: number
+    onToggle?: () => void
+    isOpen?: boolean
+    question?: QuestionT
+    onPointerDown?: any
+    answers?: AnswersT[]
+    // setQuestions?: (arg: QuestionT[]) => void
+    // questions?: QuestionT[]
 }
 
 const questionsMaper = {
-  Text: <TextOptions />,
-  TextPics: <OptionsWithPictures />,
-  TextPic: <PicturesAndOptions />,
-  Free: <FreeForm />,
-  Numerical: <NumericalTask />,
+    Text: <TextOptions/>,
+    TextPics: <OptionsWithPictures/>,
+    TextPic: <PicturesAndOptions/>,
+    Free: <FreeForm/>,
+    Numerical: <NumericalTask/>,
 }
 
-export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
-  const { data: questionsList } = useFetchQuestionsListQuery(testId)
+export const AddQuestion: FC<AddQuestionT> = memo(({testId}) => {
+    const {data: questionsList} = useFetchQuestionsListQuery(testId)
 
-  const [typeQuestions, setTypeQuestions] = useState<keyof QuestionT>(null as keyof object)
+    const [typeQuestions, setTypeQuestions] = useState<keyof QuestionT>(null as keyof object)
 
-  const [questions, setQuestions] = useState<QuestionT[]>([])
+    const [questions, setQuestions] = useState<QuestionT[]>([])
 
-  useEffect(() => {
-    if (questionsList) {
-      setQuestions(questionsList?.questions)
+    const onDragEnd = (result: any) => {
+        if (!result.destination) {
+            return;
+        }
     }
-  }, [questionsList])
 
-  return (
-    <div className={styles.wrapper}>
-      <Reorder.Group className={styles.settings_list} as="ul" onReorder={setQuestions} values={questions}>
-        {/* {questions.map(({ question_type }) => questionsMaper[question_type])} */}
-        {questions.map((question, index: number) => (
-          <TextOptions answers={question.answers} question={question} title={question.body}
-                       id={question.question_id} key={question.question_id + index} />
-        ))}
-      </Reorder.Group>
-      <div className={styles.wrapper_addQuestionsWrapper}>
-        <h2 className={styles.wrapper_addQuestionsWrapper_title}>Добавьте вопрос</h2>
-        <div className={styles.wrapper_addQuestionsWrapper_btnWrapper}>
-          <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-          <AddOptionsWithPictures setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-          <AddPicturesAndOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-          <AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-          <AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-        </div>
-      </div>
-    </div>
-  )
-})
+    useEffect(() => {
+        if (questionsList) {
+            setQuestions(questionsList?.questions)
+        }
+    }, [questionsList])
+
+    return (
+        <div className={styles.wrapper}>
+            {/*<Reorder.Group className={styles.settings_list} as="ul" onReorder={setQuestions} values={questions}>*/}
+            {/*    /!* {questions.map(({ question_type }) => questionsMaper[question_type])} *!/*/}
+            {/*    {questions.map((question, index: number) => (*/}
+            {/*        <TextOptions answers={question.answers} question={question} title={question.body}*/}
+            {/*                     id={question.question_id} key={question.question_id + index}/>*/}
+            {/*    ))}*/}
+            {/*</Reorder.Group>*/}
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId={testId.toString()}>
+                        {(provided) => (
+                            <ul className={styles.settings_list} {...provided.droppableProps} ref={provided.innerRef}>
+                                {questions.map((question, index) => {
+                                    const draggableId = question.question_id.toString();
+
+                                    return (
+                                        <Draggable key={draggableId} draggableId={draggableId} index={index}>
+                                            {(provided) => (
+                                                <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                    <TextOptions answers={question.answers} question={question}
+                                                                 title={question.body} id={question.question_id}/>
+                                                </li>
+                                            )}
+                                        </Draggable>
+                                    );
+                                })}
+                                {provided.placeholder}
+                            </ul>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+                <div className={styles.wrapper_addQuestionsWrapper}>
+                    <h2 className={styles.wrapper_addQuestionsWrapper_title}>Добавьте вопрос</h2>
+                    <div className={styles.wrapper_addQuestionsWrapper_btnWrapper}>
+                        <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
+                                        questions={questions} testId={testId}/>
+                        <AddOptionsWithPictures setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
+                                                questions={questions} testId={testId}/>
+                        <AddPicturesAndOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
+                                               questions={questions} testId={testId}/>
+                        <AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
+                                     questions={questions} testId={testId}/>
+                        <AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
+                                          questions={questions} testId={testId}/>
+                    </div>
+                </div>
+            </div>
+            )
+            }
+            )

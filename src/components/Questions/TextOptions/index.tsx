@@ -1,5 +1,5 @@
-import {FC, PointerEvent, MouseEvent, useState, useEffect} from 'react'
-import {Reorder, useDragControls} from 'framer-motion'
+import {FC, PointerEvent, MouseEvent, useState, useEffect, useRef} from 'react'
+import {Reorder, useDragControls, motion} from 'framer-motion'
 
 import {Question} from '../Question'
 import {AnswerOption} from '../AnswerOption'
@@ -41,13 +41,22 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
 
     return (
         <>
-            <Reorder.Item
+            {/*<Reorder.Item*/}
+            {/*    className={styles.wrapper}*/}
+            {/*    dragControls={controls}*/}
+            {/*    dragListener={false}*/}
+            {/*    draggable={false}*/}
+            {/*    key={id}*/}
+            {/*    value={question}*/}
+            {/*    whileDrag={{*/}
+            {/*        scale: 1.1,*/}
+            {/*        boxShadow: 'rgba(0,0,0, 0.12) 0px 1px 3px, rgba(0,0,0, 0.24) 0px 1px 2px',*/}
+            {/*        borderRadius: '7px',*/}
+            {/*    }}*/}
+            {/*>*/}
+            <motion.div
                 className={styles.wrapper}
                 dragControls={controls}
-                dragListener={false}
-                draggable={false}
-                key={id}
-                value={question}
                 whileDrag={{
                     scale: 1.1,
                     boxShadow: 'rgba(0,0,0, 0.12) 0px 1px 3px, rgba(0,0,0, 0.24) 0px 1px 2px',
@@ -67,7 +76,8 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
                         </div>
                     </div>
                 </QuestionHeader>
-            </Reorder.Item>
+            {/*</Reorder.Item>*/}
+            </motion.div>
 
             {isOpen && (
                 <div className={styles.wrapper_drop_down_menu}>
@@ -76,7 +86,7 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
                     <Reorder.Group className={styles.settings_list} onReorder={setAnswersToRender}
                                    values={answersToRender}>
                         {answersToRender?.map((answer, index) => (
-                            <AnswerOption key={answer.answer_id + index} id={id} answer={answer}/>
+                            <AnswerOption key={answer.body + index} id={id} answer={answer}/>
                         ))}
                     </Reorder.Group>
                     <Button text={'+ Добавить вариант'} style={{marginTop: '26px'}} variant={'primary'}
