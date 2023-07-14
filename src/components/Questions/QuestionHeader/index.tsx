@@ -10,7 +10,7 @@ type QuestionHeaderT = {
   children?: ReactNode
 }
 
-export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({ title, id, isOpen, onToggle, children, onPointerDown }) => {
+export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({ title, id, isOpen, onToggle, children }) => {
   const [deleteQuestion] = useRemoveQuestionsMutation()
 
   const handleGetTypeQuestion = async () => {
@@ -59,9 +59,9 @@ export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({
         <div onClick={handleGetTypeQuestion} className={styles.header_controlIconWrapper_delete}>
           <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
         </div>
-        <div onPointerDown={onPointerDown} className={styles.header_controlIconWrapper_grab}>
-          <IconSvg width={21} height={14} viewBoxSize="0 0 21 14" path={grabIconPath} />
-        </div>
+        {/*<div onPointerDown={onPointerDown} className={styles.header_controlIconWrapper_grab}>*/}
+        {/*  <IconSvg width={21} height={14} viewBoxSize="0 0 21 14" path={grabIconPath} />*/}
+        {/*</div>*/}
       </div>
     </div>
   )

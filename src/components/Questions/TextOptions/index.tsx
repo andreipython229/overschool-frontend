@@ -1,10 +1,9 @@
-import {FC, PointerEvent, MouseEvent, useState, useEffect, useRef} from 'react'
-import {Reorder, useDragControls, motion} from 'framer-motion'
-
+import {FC, MouseEvent, useState, useEffect} from 'react'
+import {orderBy} from 'lodash';
 import {Question} from '../Question'
 import {AnswerOption} from '../AnswerOption'
 import {QuestionHeader} from '../QuestionHeader'
-import {AnswersT, PropsQuestionBlockT} from 'components/AddQuestion'
+import {PropsQuestionBlockT} from 'components/AddQuestion'
 import {useBoolean} from '../../../customHooks'
 import {Button} from '../../common/Button/Button'
 import {useAddAnswerMutation} from 'api/questionsAndAnswersService'
@@ -17,7 +16,6 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
 
     const [addAnswer] = useAddAnswerMutation()
 
-    const controls = useDragControls()
 
     const handleAddAnswer = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
@@ -30,10 +28,6 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
         addAnswer(answerToAdd)
     }
 
-    const onPointerDown = (event: PointerEvent<SVGSVGElement | SVGPathElement>) => {
-        controls.start(event)
-    }
-
     useEffect(() => {
         setAnswersToRender(answers || []);
     }, [answers]);
@@ -41,29 +35,8 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
 
     return (
         <>
-            {/*<Reorder.Item*/}
-            {/*    className={styles.wrapper}*/}
-            {/*    dragControls={controls}*/}
-            {/*    dragListener={false}*/}
-            {/*    draggable={false}*/}
-            {/*    key={id}*/}
-            {/*    value={question}*/}
-            {/*    whileDrag={{*/}
-            {/*        scale: 1.1,*/}
-            {/*        boxShadow: 'rgba(0,0,0, 0.12) 0px 1px 3px, rgba(0,0,0, 0.24) 0px 1px 2px',*/}
-            {/*        borderRadius: '7px',*/}
-            {/*    }}*/}
-            {/*>*/}
-            <motion.div
-                className={styles.wrapper}
-                dragControls={controls}
-                whileDrag={{
-                    scale: 1.1,
-                    boxShadow: 'rgba(0,0,0, 0.12) 0px 1px 3px, rgba(0,0,0, 0.24) 0px 1px 2px',
-                    borderRadius: '7px',
-                }}
-            >
-                <QuestionHeader onPointerDown={onPointerDown} title={title} id={id} isOpen={isOpen} onToggle={onToggle}>
+            <div className={styles.wrapper}>
+                <QuestionHeader title={title} id={id} isOpen={isOpen} onToggle={onToggle}>
                     <div className={styles.wrapper_header_iconWrapper}>
                         <div className={styles.wrapper_header_iconWrapper_iconRow}>
                             <span/>
@@ -76,19 +49,17 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
                         </div>
                     </div>
                 </QuestionHeader>
-            {/*</Reorder.Item>*/}
-            </motion.div>
+            </div>
 
             {isOpen && (
                 <div className={styles.wrapper_drop_down_menu}>
                     <Question id={id} title={title}/>
                     <h4 className={styles.answerOptionsBlock_title}>Добавьте варианты ответов:</h4>
-                    <Reorder.Group className={styles.settings_list} onReorder={setAnswersToRender}
-                                   values={answersToRender}>
-                        {answersToRender?.map((answer, index) => (
-                            <AnswerOption key={answer.body + index} id={id} answer={answer}/>
-                        ))}
-                    </Reorder.Group>
+                    <div className={styles.settings_list}>
+                        {answersToRender ? orderBy(answersToRender, 'answer_id').map((answer, index) => (
+                            <AnswerOption key={`${answer.body}_${index}`} id={id} answer={answer}/>
+                        )) : ''}
+                    </div>
                     <Button text={'+ Добавить вариант'} style={{marginTop: '26px'}} variant={'primary'}
                             onClick={handleAddAnswer}/>
                 </div>

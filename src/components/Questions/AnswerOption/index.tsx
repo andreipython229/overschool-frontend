@@ -1,6 +1,4 @@
-import {FC, memo, ReactNode, useState, ChangeEvent, PointerEvent, useCallback} from 'react'
-import {Reorder, useDragControls} from 'framer-motion'
-
+import {FC, memo, ReactNode, useState, ChangeEvent, useCallback} from 'react'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {InputBlock} from 'components/common/Input/InputBlock'
 import {Checkbox} from 'components/common/Checkbox/Checkbox'
@@ -23,8 +21,6 @@ type AnswerOptionT = {
 export const AnswerOption: FC<AnswerOptionT> = memo(({children, id, answer}) => {
     const [answerText, setAnswerText] = useState(answer?.body || '')
     const [isChecked, setIsChecked] = useState(answer?.is_correct || false)
-
-    const answerControls = useDragControls()
 
     const [patchAnswer] = usePatchAnswerMutation()
     const [deleteAnswer] = useDeleteAnswerMutation()
@@ -64,24 +60,8 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({children, id, answer}) => 
         [answer?.answer_id, answerText, debounced, id]
     );
 
-    const onAnswerPointerDown = useCallback((event: PointerEvent<SVGSVGElement | SVGPathElement>) => {
-        answerControls.start(event)
-    }, [answerControls])
-
     return (
-        <Reorder.Item
-            className={styles.wrapper}
-            dragControls={answerControls}
-            dragListener={false}
-            draggable={false}
-            key={answer?.answer_id}
-            value={answer}
-            whileDrag={{
-                scale: 1.1,
-                boxShadow: 'rgba(0,0,0, 0.12) 0px 1px 3px, rgba(0,0,0, 0.24) 0px 1px 2px',
-                borderRadius: '7px',
-            }}
-        >
+        <div className={styles.wrapper} key={answer?.answer_id}>
             <div className={styles.answerOptionsBlock}>
                 <div className={styles.answerOptionsBlock_inputWrapper}>
                     {children}
@@ -106,12 +86,8 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({children, id, answer}) => 
                         <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath}
                                  functionOnClick={handleDeleteAnswer}/>
                     </div>
-                    <div className={styles.answerOptionsBlock_inputWrapper_grab}>
-                        <IconSvg width={21} height={14} viewBoxSize="0 0 21 14" path={grabIconPath}
-                                 onPointerDown={onAnswerPointerDown}/>
-                    </div>
                 </div>
             </div>
-        </Reorder.Item>
+        </div>
     )
 })

@@ -1,7 +1,5 @@
 import {FC, memo, useEffect, useState} from 'react'
-import {Reorder} from 'framer-motion'
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
-
+import {orderBy} from 'lodash';
 import {AddTextOptions} from './AddTextOptions'
 import {AddOptionsWithPictures} from './AddOptionsWithPictures'
 import {AddPicturesAndOptions} from './AddPicturesAndOptions'
@@ -61,56 +59,28 @@ const questionsMaper = {
 }
 
 export const AddQuestion: FC<AddQuestionT> = memo(({testId}) => {
-    const {data: questionsList} = useFetchQuestionsListQuery(testId)
+        const {data: questionsList} = useFetchQuestionsListQuery(testId)
 
-    const [typeQuestions, setTypeQuestions] = useState<keyof QuestionT>(null as keyof object)
+        const [typeQuestions, setTypeQuestions] = useState<keyof QuestionT>(null as keyof object)
 
-    const [questions, setQuestions] = useState<QuestionT[]>([])
+        const [questions, setQuestions] = useState<QuestionT[]>([])
 
-    const onDragEnd = (result: any) => {
-        if (!result.destination) {
-            return;
-        }
-    }
+        const sortedQuestions = orderBy(questions, 'question_id');
 
-    useEffect(() => {
-        if (questionsList) {
-            setQuestions(questionsList?.questions)
-        }
-    }, [questionsList])
+        useEffect(() => {
+            if (questionsList) {
+                setQuestions(questionsList?.questions)
+            }
+        }, [questionsList])
 
-    return (
-        <div className={styles.wrapper}>
-            {/*<Reorder.Group className={styles.settings_list} as="ul" onReorder={setQuestions} values={questions}>*/}
-            {/*    /!* {questions.map(({ question_type }) => questionsMaper[question_type])} *!/*/}
-            {/*    {questions.map((question, index: number) => (*/}
-            {/*        <TextOptions answers={question.answers} question={question} title={question.body}*/}
-            {/*                     id={question.question_id} key={question.question_id + index}/>*/}
-            {/*    ))}*/}
-            {/*</Reorder.Group>*/}
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable droppableId={testId.toString()}>
-                        {(provided) => (
-                            <ul className={styles.settings_list} {...provided.droppableProps} ref={provided.innerRef}>
-                                {questions.map((question, index) => {
-                                    const draggableId = question.question_id.toString();
-
-                                    return (
-                                        <Draggable key={draggableId} draggableId={draggableId} index={index}>
-                                            {(provided) => (
-                                                <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                    <TextOptions answers={question.answers} question={question}
-                                                                 title={question.body} id={question.question_id}/>
-                                                </li>
-                                            )}
-                                        </Draggable>
-                                    );
-                                })}
-                                {provided.placeholder}
-                            </ul>
-                        )}
-                    </Droppable>
-                </DragDropContext>
+        return (
+            <div className={styles.wrapper}>
+                <div className={styles.settings_list}>
+                    {sortedQuestions.map((question) => (
+                        <TextOptions answers={question.answers} question={question} title={question.body}
+                                     id={question.question_id} key={question.question_id}/>
+                    ))}
+                </div>
                 <div className={styles.wrapper_addQuestionsWrapper}>
                     <h2 className={styles.wrapper_addQuestionsWrapper_title}>Добавьте вопрос</h2>
                     <div className={styles.wrapper_addQuestionsWrapper_btnWrapper}>
@@ -127,6 +97,6 @@ export const AddQuestion: FC<AddQuestionT> = memo(({testId}) => {
                     </div>
                 </div>
             </div>
-            )
-            }
-            )
+        )
+    }
+)
