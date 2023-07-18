@@ -6,7 +6,7 @@ import { studentGroupInfoT, studentsTableHeader } from 'types/studentsGroup'
 
 export const studentsGroupService = createApi({
   reducerPath: 'studentsGroupService',
-  baseQuery: baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['studentsGroup', 'studentsTable', 'stats_by_month'],
   endpoints: build => ({
     fetchStudentsGroup: build.query<studentsGroupT, void>({

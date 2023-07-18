@@ -6,7 +6,7 @@ import { baseQuery } from './baseApi'
 
 export const courseStatService = createApi({
   reducerPath: 'courseStat',
-  baseQuery: baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['courseStat', 'studentsPerGroup'],
   endpoints: build => ({
     fetchCourseStat: build.query<studentsTableInfoT, string>({

@@ -1,13 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import {baseApiQuery, baseQuery} from './baseApi'
-import { formDataConverter } from '../utils/formDataConverter'
-import { ICredentials, IResponse } from './apiTypes'
-import { ILoginUserInfo } from 'types/userT'
+import {baseQuery} from './baseApi'
 
 export const getSchoolService = createApi({
   reducerPath: 'getSchoolService',
-  baseQuery: baseApiQuery,
+  baseQuery: baseQuery('/api'),
   endpoints: builder => ({
     getSchools: builder.mutation<void, void>({
       query: () => {

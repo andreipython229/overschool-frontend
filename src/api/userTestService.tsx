@@ -4,7 +4,7 @@ import { baseQuery } from './baseApi'
 
 export const userTestService = createApi({
     reducerPath: 'userTestService',
-    baseQuery: baseQuery,
+    baseQuery: baseQuery(),
     tagTypes: ['testResults', 'userTest'],
     endpoints: build => ({
         sendTestResults: build.mutation({

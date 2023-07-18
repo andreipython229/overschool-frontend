@@ -6,7 +6,7 @@ import { baseQuery } from './baseApi'
 
 export const userHomeworkService = createApi({
   reducerPath: 'userHomeworkService',
-  baseQuery: baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['userHomework'],
   endpoints: build => ({
     fetchUserHomework: build.query<UserHomework, number>({
