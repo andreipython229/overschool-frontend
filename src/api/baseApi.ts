@@ -4,8 +4,21 @@ import {Cookies} from 'react-cookie'
 const cookies = new Cookies();
 const schoolName = 'School_1';
 
+
 export const baseQuery = fetchBaseQuery({
     baseUrl: `/api/${schoolName}`,
+    credentials: 'include',
+    prepareHeaders: (headers, {getState}) => {
+        const acceessToken = cookies.get('access_token')
+
+        if (acceessToken) {
+            headers.set('Cookie', acceessToken)
+        }
+        return headers
+    },
+});
+export const baseApiQuery = fetchBaseQuery({
+    baseUrl: `/api/`,
     credentials: 'include',
     prepareHeaders: (headers, {getState}) => {
         const acceessToken = cookies.get('access_token')

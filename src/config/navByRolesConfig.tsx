@@ -54,7 +54,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
   ),
   [RoleE.Admin]: (
     <>
-      <Route path={Path.Courses} element={<School />}>
+        <Route path={Path.Courses} element={<School />}>
         <Route index element={<CoursePage />} />
         <Route path={Path.Group} element={<Group />} />
         <Route path={Path.CreateCourse} element={<RedactorCourse />}>
