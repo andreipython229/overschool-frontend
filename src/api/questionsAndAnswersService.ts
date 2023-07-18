@@ -17,7 +17,7 @@ type returnQuestionT = {
 
 export const questionsAndAnswersService = createApi({
   reducerPath: 'questionsAndAnswersService',
-  baseQuery: baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['questions', 'answers'],
   endpoints: build => ({
     fetchQuestionsList: build.query({

@@ -6,7 +6,7 @@ import { Chats, ChatI, Messages, MessageI } from 'types/chatsT'
 
 export const chatsService = createApi({
   reducerPath: 'chatsService',
-  baseQuery: baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['chats'],
   endpoints: build => ({
     fetchChats: build.query<Chats, void>({

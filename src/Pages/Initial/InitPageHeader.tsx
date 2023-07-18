@@ -27,7 +27,8 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
         {isLogin ? (
           <Link
             className={styles.btn_block_logIn}
-            to={`${userRole === RoleE.SuperAdmin ? Path.Settings : userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}`}
+            to={Path.ChooseSchool}
+           // to={`${userRole === RoleE.SuperAdmin ? Path.Settings : userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}`}
           >
             Аккаунт
           </Link>
