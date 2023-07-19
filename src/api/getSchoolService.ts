@@ -1,21 +1,20 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
-import {baseQuery} from './baseApi'
+// import { baseQuery } from './baseApi'
 
 export const getSchoolService = createApi({
   reducerPath: 'getSchoolService',
-  baseQuery,
+  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
   endpoints: builder => ({
-    getSchools: builder.mutation<void, void>({
+    getSchools: builder.mutation<any, void>({
       query: () => {
         return {
           url: '/user-schools/',
           method: 'GET',
           redirect: 'follow',
-          responseHandler: response => response.text(),
         }
-      }
-    })
-  })
+      },
+    }),
+  }),
 })
 export const { useGetSchoolsMutation } = getSchoolService
