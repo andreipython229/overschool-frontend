@@ -7,18 +7,20 @@ import { coursesImgsData } from './config/coursesImgsData'
 import { useBoolean } from '../../customHooks'
 
 import styles from './initial.module.scss'
+import { RegCodeModal } from '../../components/Modal/RegistrationModal/RegCodeModal'
 
 export const Initial = () => {
   const [currentCourse, setCurrentCourse] = useState<string>('1')
   const [registrationShow, setRegistrationShow] = useState<boolean>(false)
-
+  const [regCodeShow, setRegCodeShow] = useState<boolean>(false)
   const [isLoginModal, { off: open, on: close }] = useBoolean()
 
   const changeCurrentCourse = (id: string) => setCurrentCourse(id)
 
   return (
     <div className={styles.init}>
-      {registrationShow && <RegistrationModal setShowModal={setRegistrationShow} />}
+      {registrationShow && <RegistrationModal setShowModal={setRegistrationShow} setCodeModal={setRegCodeShow} />}
+      {regCodeShow && <RegCodeModal setCodeModal={setRegCodeShow} />}
       {isLoginModal ? (
         <Portal closeModal={close}>
           <LoginModal setShowModal={close} />

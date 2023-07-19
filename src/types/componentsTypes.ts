@@ -34,6 +34,7 @@ export type ContentBtnPropsT = {
 
 export type AllStudentsBlockT = {
   headerText: string
+  filterKey: string
   startMark: string | number
   startAvg: string | number
   endAvg: string | number
@@ -41,6 +42,7 @@ export type AllStudentsBlockT = {
   startDate: string | number
   endDate: string | number
   filters: { [key: string]: string | number }
+  handleReloadTable?: () => void
   handleAddAvgFilter?: (start_avg: string, end_avg: string) => void
   removeLastActiveStartFilter?: () => void
   removeLastActiveEndFilter?: () => void

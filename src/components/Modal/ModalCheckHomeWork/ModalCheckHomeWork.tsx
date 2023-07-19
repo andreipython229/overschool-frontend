@@ -51,11 +51,12 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
   const [status, setStatus] = useState<string>('')
   const [text, setText] = useState<string>('')
   const [files, setFiles] = useState<fileT[]>([])
+  const [nativeFiles, setNativeFiles] = useState<File[]>([])
 
   const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery(id)
   const { data: homework, isFetching: isHwFetching } = useFetchHomeworkDataQuery(userHomework?.homework as number)
-  const [sendHomeworkCheck] = useCreateCheckReplyMutation()
-  const [sendFiles, { isLoading }] = usePostTextFilesMutation()
+  const [sendHomeworkCheck, { isSuccess: sendHwCheckSuccess }] = useCreateCheckReplyMutation()
+  const [sendFiles, { isLoading, isSuccess: sendFilesSuccess }] = usePostTextFilesMutation()
 
   const handleToggleHiddenBlocks = (): void => {
     setIsOpen(!isOpen)
@@ -72,16 +73,19 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
   const handleUploadFiles = (e: ChangeEvent<HTMLInputElement>) => {
     const chosenFiles = e.target.files
 
+    const prevFiles = [...nativeFiles]
     const uploadedFiles = [...files]
 
     Array.from(chosenFiles ?? []).some(file => {
       if (files.findIndex(f => f.name === file.name) === -1) {
         const fileString = URL.createObjectURL(file)
         uploadedFiles.push({ name: file.name, size: file.size, file: fileString })
+        prevFiles.push(file)
       }
     })
 
     setFiles(uploadedFiles)
+    setNativeFiles(prevFiles)
   }
 
   const handleDeleteFile = (index: number) => {
@@ -99,7 +103,10 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
     const formData = new FormData()
 
     formData.append('user_homework_check', `${data?.last_reply.user_homework_check_id}`)
-    formData.append('file', files[0]?.file)
+
+    nativeFiles.forEach(file => {
+      formData.append(`files`, file)
+    })
 
     sendHomeworkCheck(dataToSend)
     sendFiles(formData)
@@ -131,6 +138,21 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
       }
     }
   }, [isFetching])
+
+  useEffect(() => {
+    if (sendFilesSuccess) {
+      setNativeFiles([])
+      setFiles([])
+    }
+  }, [sendFilesSuccess])
+
+  useEffect(() => {
+    if (sendHwCheckSuccess) {
+      setText('')
+      setMark(0)
+      setStatus('')
+    }
+  }, [sendHwCheckSuccess])
 
   const { mmddyyyy, hoursAndMinutes } = convertDate(new Date(currentUser?.last_reply || ''))
 

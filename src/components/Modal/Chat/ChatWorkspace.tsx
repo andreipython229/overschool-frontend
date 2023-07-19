@@ -1,5 +1,4 @@
-import { FC, useState, useEffect } from 'react'
-import io from 'socket.io-client'
+import { FC, useState, useEffect, ChangeEvent } from 'react'
 
 import { ChatInput } from './ChatInput'
 import { ChatUser } from './ChatUser'
@@ -19,6 +18,9 @@ export const ChatWorkspace: FC = () => {
   const [openGroupPreview, setOpenGroupPreview] = useState<boolean>(false)
   const [selectedChatData, setSelectedChatData] = useState<ChatI>()
   const [usersInGroup, setUsersInGroup] = useState<SenderI[]>()
+  const [socket, setSocket] = useState<WebSocket>()
+  const [messages, setMessages] = useState<any[]>()
+  const [message, setMessage] = useState<string>('')
 
   const [fetchChatData, { data, isFetching, isSuccess }] = useLazyFetchChatQuery()
   // const [fetchMessages, { data: messages }] = useLazyFetchMessagesQuery()
@@ -27,29 +29,55 @@ export const ChatWorkspace: FC = () => {
     if (chatId) {
       fetchChatData(chatId)
 
-      // const socket = io('/api/socket.io', {
-      //   path: `/api/School_1/chats/${chatId}/messages`,
-      // })
+      const socket = new WebSocket(`ws://dev.api.overschool.by:8000/api/chats/${chatId}/`)
+      setSocket(socket)
 
-      // const ws = new WebSocket('ws://dev.api.overschool.by:8000/')
+      socket.onopen = () => console.log('WebSocket connected')
+      socket.onmessage = event => {
+        const recievedMessages = JSON.parse(event.data)
+        setMessages(recievedMessages)
 
-      // ws?.onopen(e => {
-      //   console.log('connected')
-      // })
+        console.log(recievedMessages)
+      }
 
-      // socket.on('connect', () => {
-      //   console.log('connected')
-      // })
+      socket.onclose = event => {
+        console.log(event)
+      }
+
+      console.log(socket)
 
       // fetchMessages(chatId)
     }
 
-    // return () => {
-    //   socket.on('disconnect', () => {
-    //     console.log('disconnected')
-    //   })
-    // }
+    return () => {
+      socket?.close()
+    }
   }, [chatId])
+
+  useEffect(() => {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.onmessage = event => {
+        const data = JSON.parse(event.data)
+        console.log(data)
+      }
+    }
+  }, [socket])
+
+  const handleSubmit = async () => {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      const data = {
+        content: 'hello',
+        sender: userId,
+      }
+      console.log('sent')
+      socket.send(JSON.stringify(data))
+      setMessage('')
+    }
+  }
+
+  const handleChangeMessage = (event: ChangeEvent<HTMLInputElement>) => {
+    setMessage(event.target.value)
+  }
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -77,7 +105,7 @@ export const ChatWorkspace: FC = () => {
                   {/* <ChatMessagesList messages={messages as Messages} chatData={selectedChatData as ChatI} /> */}
                 </div>
               </div>
-              <ChatInput />
+              <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
             </>
           ) : (
             <div className={styles.chatWorkspace_preview}>

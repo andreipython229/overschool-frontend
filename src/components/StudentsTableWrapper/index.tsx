@@ -3,7 +3,7 @@ import { FC, memo, useEffect, useState, ReactNode } from 'react'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { classesSettingIconPath } from './config/svgIconsPath'
 import { generateData } from '../../utils/generateData'
-import { useFetchStudentsTableHeaderQuery } from '../../api/studentsGroupService'
+import { useFetchStudentsTableHeaderQuery } from '../../api/studentTableService'
 import { useBoolean } from 'customHooks'
 import { Portal } from '../Modal/Portal'
 import { StudentInfoModal, SettingStudentTable } from 'components/Modal'
@@ -15,10 +15,11 @@ import styles from './studentsTableBlock.module.scss'
 
 type StudentsTableWrapperT = {
   isLoading: boolean
+  tableId: number
   students: studentsTableInfoT
 }
 
-export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading }) => {
+export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId }) => {
   const [isModalOpen, { on, off, onToggle }] = useBoolean()
   const [isStudentModalOpen, { on: stuentModalOn, off: studentModalOff }] = useBoolean()
 
@@ -27,7 +28,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   const [selectedStuentId, setSelectedStudentId] = useState<number | null>(null)
   const [selectedStuent, setSelectedStudent] = useState<result | null>(null)
 
-  const { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching } = useFetchStudentsTableHeaderQuery(1)
+  const { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching } = useFetchStudentsTableHeaderQuery(tableId)
 
   const { columns, data } = generateData(tableHeaderData, students, isLoading, isSuccess)
 
@@ -49,7 +50,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
 
     if (students) {
       const student = students.find((_, index) => index === selectedStuentId) || null
-      console.log(student)
       typeof selectedStuentId === 'number' && setSelectedStudent(student)
     }
   }, [selectedStuentId])
@@ -110,7 +110,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
 
       {isModalOpen && (
         <Portal closeModal={on}>
-          <SettingStudentTable setShowModal={onToggle} />
+          <SettingStudentTable setShowModal={onToggle} tableId={tableId} />
         </Portal>
       )}
 

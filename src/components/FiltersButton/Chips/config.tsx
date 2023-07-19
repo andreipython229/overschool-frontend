@@ -15,8 +15,8 @@ export const chipsVal: ChipsVal = {
     average_mark_min: 'средний балл от',
     average_mark_max: 'средний балл до',
     mark_sum_min: 'суммарный балл от',
-    mark_sum_max: 'суммарный балл от',
-    last_activity_min: 'последний ответ с',
-    last_activity_max: 'последний ответ до',
+    mark_sum_max: 'суммарный балл до',
+    last_active_min: 'последний ответ с',
+    last_active_max: 'последний ответ до',
   },
 }

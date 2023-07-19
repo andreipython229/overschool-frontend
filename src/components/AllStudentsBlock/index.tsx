@@ -25,7 +25,9 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     removeLastActiveStartFilter,
     removeLastActiveEndFilter,
     handleAddAvgFilter,
+    handleReloadTable,
     filters,
+    filterKey,
     ...restfilters
   }) => {
     const { data: courses } = useFetchCoursesQuery()
@@ -38,7 +40,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
       <div>
         <p className={styles.header_block_text}>{headerText}</p>
         <div style={{ marginBottom: '15px' }}>
-          <ChipsComponent filterKey="studentsPerSchool" filters={filters} chipsVal={chipsVal['students']} />
+          <ChipsComponent filterKey={filterKey} filters={filters} chipsVal={chipsVal['students']} />
         </div>
         <div className={styles.button_search_block}>
           <FiltersButton
@@ -53,7 +55,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
           <Input name="" type="search" value={''} onChange={() => console.log('заглушка')} placeholder="Поиск по курсам">
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>
-          <div className={styles.arrow_add_file_block}>
+          <div className={styles.arrow_add_file_block} onClick={() => handleReloadTable && handleReloadTable()}>
             <IconSvg width={13} height={17} viewBoxSize="0 0 13 17" path={updateArrPath} />
           </div>
           <Button onClick={off} className={styles.add_students_btn} text={'Добавить учеников'} variant={'primary'}>

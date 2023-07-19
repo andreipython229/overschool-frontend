@@ -7,7 +7,6 @@ import { homeworksStatsT } from 'types/homeworkT'
 import { useAppSelector, useAppDispatch } from 'store/hooks/index'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { FilterAndSearchBlock } from './FilterAndSeachBlock'
-import { ChipsComponent } from 'components/FiltersButton/Chips/chips'
 
 import styles from './home_work.module.scss'
 

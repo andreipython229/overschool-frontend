@@ -1,22 +1,9 @@
 import { fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
-import { Cookies } from 'react-cookie'
-
-const cookies = new Cookies()
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: '/api/School_1',
   credentials: 'include',
-  prepareHeaders: (headers, { getState }) => {
-    const acceessToken = cookies.get('access_token')
-
-    if (acceessToken) {
-      headers.set('Cookie', acceessToken)
-    }
-
-    return headers
-  },
 })
-
 // export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
 //   const { user } = JSON.parse(`${localStorage?.getItem('persist:root')}`)
 //   const refresh = JSON.parse(user).refresh_token

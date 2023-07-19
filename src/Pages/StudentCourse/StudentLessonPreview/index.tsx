@@ -7,7 +7,7 @@ import { StudentLesson } from './StudentLesson'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { useFetchLessonQuery, useFetchModuleLessonsQuery } from '../../../api/modulesServices'
 import { useFetchQuestionsListQuery } from '../../../api/questionsAndAnswersService'
-import { StudentLessonSidebar } from './StudentLessonSidebar/index'
+import { StudentLessonSidebar } from './StudentLessonSidebar'
 import { sectionT } from 'types/sectionT'
 
 import styles from './lesson.module.scss'

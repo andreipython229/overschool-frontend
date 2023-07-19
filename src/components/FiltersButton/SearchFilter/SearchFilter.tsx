@@ -27,7 +27,7 @@ export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filte
   }, [])
 
   const handleAddFilter = () => {
-    dispatch(addFilters({ key: 'homework', filters: { [filterTerm]: term } }))
+    dispatch(addFilters({ key: 'homework', filters: { [filterTerm]: term || '' } }))
     setItemForFilter('')
     setSelectedCategory('')
     off()

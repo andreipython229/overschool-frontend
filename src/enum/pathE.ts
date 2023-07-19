@@ -1,4 +1,5 @@
 export enum Path {
+  ChooseSchool = '/chooseSchool/',
   InitialPage = '/login/',
   Courses = 'courses/',
   Group = 'group/:group_id',

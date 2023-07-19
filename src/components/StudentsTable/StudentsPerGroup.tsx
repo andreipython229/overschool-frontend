@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { StudentsTableWrapper } from 'components/StudentsTableWrapper'
@@ -7,13 +7,17 @@ import { useLazyFetchStudentsPerGroupQuery } from 'api/courseStat'
 import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
+import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
 
 export const StudentsPerGroup: FC = () => {
   const { group_id } = useParams()
   const dispatch = useAppDispatch()
   const filters = useAppSelector(state => state.filters['studentsPerGroup'])
 
+  const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery()
   const [fetchStudents, { data, isFetching }] = useLazyFetchStudentsPerGroupQuery()
+
+  const [tableId, setTableId] = useState<number>()
 
   const handleAddLastActivityFilter = (data1: string, data2: string) => {
     dispatch(addFilters({ key: 'studentsPerGroup', filters: { last_active_min: data1, last_active_max: data2 } }))
@@ -35,9 +39,20 @@ export const StudentsPerGroup: FC = () => {
     dispatch(addFilters({ key: 'studentsPerGroup', filters: { mark_sum_min: start_mark, mark_sum_max: end_mark } }))
   }
 
-  useEffect(() => {
+  const handleReloadTable = () => {
     fetchStudents({ id: group_id, filters })
+  }
+
+  useEffect(() => {
+    handleReloadTable()
   }, [filters])
+
+  useEffect(() => {
+    if (isSuccess) {
+      const id = tablesHeader.find(table => table.type === 'Group')?.students_table_info_id
+      setTableId(id)
+    }
+  }, [isTablesHeaderFetching])
 
   return (
     <>
@@ -48,6 +63,8 @@ export const StudentsPerGroup: FC = () => {
         handleAddAvgFilter={handleAddAvgFilter}
         removeLastActiveStartFilter={handleRemoveLastActivityStartFilter}
         removeLastActiveEndFilter={handleRemoveLastActivityEndFilter}
+        handleReloadTable={handleReloadTable}
+        filterKey={'studentsPerGroup'}
         startMark={filters?.mark_sum_min}
         endMark={filters?.mark_sum_max}
         startDate={filters?.last_active_min}
@@ -56,7 +73,7 @@ export const StudentsPerGroup: FC = () => {
         endAvg={filters?.average_mark_max}
         filters={filters}
       />
-      <StudentsTableWrapper students={data as studentsTableInfoT} isLoading={isFetching} />
+      <StudentsTableWrapper students={data as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />{' '}
     </>
   )
 }

@@ -6,32 +6,28 @@ import { SettingStudentTableT } from '../ModalTypes'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { SettingItem } from './SettingItem'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
-import { useFetchStudentsTableHeaderQuery, usePatchStudentsTableHeaderMutation } from '../../../api/studentsGroupService'
+import { useFetchStudentsTableHeaderQuery, usePatchStudentsTableHeaderMutation } from '../../../api/studentTableService'
 import { studentGroupInfoT } from 'types/studentsGroup'
 import { useDebounceFunc } from 'customHooks/useDebounceFunc'
-import { useAppSelector } from '../../../store/hooks'
-import { userIdSelector } from '../../../selectors'
-import { checkedIconPath, noCheckedIconPath } from './config/svgIconsPath'
+import { checkedIconPath } from './config/svgIconsPath'
 
 import styles from '../Modal.module.scss'
 import scss from './settingStudentTable.module.scss'
 import itemStyles from './SettingItem/settingItem.module.scss'
 
-export const SettingStudentTable: FC<SettingStudentTableT> = ({ setShowModal }) => {
-  const id = useAppSelector(userIdSelector)
-
-  const { data: studentsTableInfo, isSuccess } = useFetchStudentsTableHeaderQuery(1)
+export const SettingStudentTable: FC<SettingStudentTableT> = ({ setShowModal, tableId }) => {
+  const { data: studentsTableInfo, isSuccess } = useFetchStudentsTableHeaderQuery(tableId)
 
   const [patchTable] = usePatchStudentsTableHeaderMutation()
 
-  const debounced = useDebounceFunc(() => patchTable({ id: 1, students_table_info: nameAndEmailSettingsList.concat(settingList) }), 2000)
+  const debounced = useDebounceFunc(() => patchTable({ id: tableId, students_table_info: nameAndEmailSettingsList.concat(settingList) }), 2000)
 
   const [checkedList, setIsCheckedList] = useState<studentGroupInfoT[]>([])
   const [settingList, setSettingsList] = useState<studentGroupInfoT[]>([])
   const [nameAndEmailSettingsList, setNameAndEmailSettingsList] = useState<studentGroupInfoT[]>([])
 
   const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
-    if ((checkedList.length === 7 && event.target.checked) || event.target.id === '1' || event.target.id === '2') {
+    if (checkedList.length >= 3 && event.target.checked) {
       return
     }
 
@@ -71,7 +67,7 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({ setShowModal }) 
           <IconSvg functionOnClick={closeSettingsModal} width={18} height={18} viewBoxSize="0 0 15 15" path={crossIconPath} />
         </span>
         <div className={styles.settings_title}>Настройка таблицы учеников</div>
-        <p style={{ fontSize: '14px', textAlign: 'center', margin: '10px 0', userSelect: 'none' }}>Выберите до 7 колонок для отображения в таблице</p>
+        <p style={{ fontSize: '14px', textAlign: 'center', margin: '10px 0', userSelect: 'none' }}>Выберите до 5 колонок для отображения в таблице</p>
         <form className={scss.form}>
           {nameAndEmailSettingsList.map(item => (
             <div className={`${itemStyles.wrapper_item} ${styles.wrapper_item_init}`} key={item.id}>

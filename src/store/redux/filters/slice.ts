@@ -37,9 +37,12 @@ export const slice = createSlice({
         state[key][filterName] = ''
       }
     },
+    removeAllFilters: state => {
+      state = {}
+    },
   },
 })
 
-export const { addFilters, clearFilters, removeFilter } = slice.actions
+export const { addFilters, clearFilters, removeFilter, removeAllFilters } = slice.actions
 
 export const filtersReducer = slice.reducer

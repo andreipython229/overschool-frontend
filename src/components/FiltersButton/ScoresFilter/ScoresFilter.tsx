@@ -22,7 +22,10 @@ export const ScoresFilter: FC<ScoresFilterT> = ({ title, addMarkFilter, endMark,
   }
 
   const handleAddFilters = () => {
-    addMarkFilter && addMarkFilter(scoresStart, scoresEnd)
+    const startMark = scoresStart === 'undefined' ? '' : scoresStart
+    const endMark = scoresEnd === 'undefined' ? '' : scoresEnd
+
+    addMarkFilter && addMarkFilter(startMark, endMark)
     off()
   }
 

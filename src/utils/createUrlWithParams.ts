@@ -1,15 +1,16 @@
 export const createUrlWithParams = (url = '', filters: { [key: string]: string | number }): string => {
-  let initialUrl = url
+  let initialUrl = url.trim()
 
   if (filters) {
-    Object.entries(filters).forEach(([key, value], index) => {
-      if (!value || value === 'Все статусы') return
-      if (index === Object.entries(filters).length - 1) {
-        initialUrl += `${key}=${value}`
-      } else {
-        initialUrl += `${key}=${value}&`
-      }
-    })
+    const queryParams = Object.entries(filters)
+      .filter(([key, value]) => value && value !== 'Все статусы')
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      .join('&')
+
+    if (queryParams) {
+      initialUrl += initialUrl.includes('?') || initialUrl.includes('=') ? '&' : '?'
+      initialUrl += queryParams
+    }
   }
 
   return initialUrl

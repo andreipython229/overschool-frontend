@@ -17,8 +17,9 @@ export type studentsGroupsT = {
 
 export type studentsTableHeader = {
   admin: number
-  student_table_id: number
+  students_table_info_id: number
   students_table_info: studentGroupInfoT[]
+  type: string
 }
 
 export type studentGroupInfoT = {

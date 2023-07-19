@@ -11,23 +11,17 @@ export const courseStatService = createApi({
   endpoints: build => ({
     fetchCourseStat: build.query<studentsTableInfoT, any>({
       query: ({ id, filters }) => ({
-        url: createUrlWithParams(`/courses/${id}/get_students_for_course?`, filters),
+        url: createUrlWithParams(`/courses/${id}/get_students_for_course/`, filters),
       }),
       providesTags: ['courseStat'],
     }),
     fetchStudentsPerGroup: build.query<studentsTableInfoT, any>({
       query: ({ id, filters }) => ({
-        url: createUrlWithParams(`/students_group/${id}/get_students_for_group?`, filters),
+        url: createUrlWithParams(`/students_group/${id}/get_students_for_group/`, filters),
       }),
       providesTags: ['studentsPerGroup'],
-    }),
-    fetchStudentsPerSchool: build.query<studentsTableInfoT, { [key: string]: string | number }>({
-      query: filters => ({
-        url: createUrlWithParams(`schools/1/stats?`, filters),
-      }),
-      providesTags: ['studentPerSchool'],
     }),
   }),
 })
 
-export const { useLazyFetchCourseStatQuery, useLazyFetchStudentsPerGroupQuery, useLazyFetchStudentsPerSchoolQuery } = courseStatService
+export const { useLazyFetchCourseStatQuery, useLazyFetchStudentsPerGroupQuery } = courseStatService

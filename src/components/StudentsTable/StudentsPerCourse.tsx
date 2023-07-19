@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useLazyFetchCourseStatQuery } from '../../api/courseStat'
@@ -7,12 +7,17 @@ import { studentsTableInfoT } from 'types/courseStatT'
 import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
+import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
 
 export const StudentsPerCourse: FC = () => {
   const { course_id } = useParams()
 
   const dispatch = useAppDispatch()
   const filters = useAppSelector(state => state.filters['studentsPerCourse'])
+
+  const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery()
+
+  const [tableId, setTableId] = useState<number>()
 
   const [fetchStudents, { data, isFetching }] = useLazyFetchCourseStatQuery()
 
@@ -36,9 +41,20 @@ export const StudentsPerCourse: FC = () => {
     dispatch(addFilters({ key: 'studentsPerCourse', filters: { mark_sum_min: start_mark, mark_sum_max: end_mark } }))
   }
 
-  useEffect(() => {
+  const handleReloadTable = () => {
     fetchStudents({ id: course_id, filters })
+  }
+
+  useEffect(() => {
+    handleReloadTable()
   }, [filters])
+
+  useEffect(() => {
+    if (isSuccess) {
+      const id = tablesHeader.find(table => table.type === 'Course')?.students_table_info_id
+      setTableId(id)
+    }
+  }, [isTablesHeaderFetching])
 
   return (
     <>
@@ -49,6 +65,8 @@ export const StudentsPerCourse: FC = () => {
         handleAddAvgFilter={handleAddAvgFilter}
         removeLastActiveStartFilter={handleRemoveLastActivityStartFilter}
         removeLastActiveEndFilter={handleRemoveLastActivityEndFilter}
+        handleReloadTable={handleReloadTable}
+        filterKey={'studentsPerCourse'}
         startMark={filters?.mark_sum_min}
         endMark={filters?.mark_sum_max}
         startDate={filters?.last_active_min}
@@ -57,7 +75,7 @@ export const StudentsPerCourse: FC = () => {
         endAvg={filters?.average_mark_max}
         filters={filters}
       />
-      <StudentsTableWrapper students={data as studentsTableInfoT} isLoading={isFetching} />
+      <StudentsTableWrapper students={data as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />
     </>
   )
 }

@@ -26,10 +26,10 @@ export const ChipsComponent: FC<chipsComponentT> = ({ filters, filterKey, chipsV
   return (
     <>
       <div className={styles.chipsContainer}>
-        {chips?.map(([filterTerm, chipText]) => (
+        {chips?.map(([filterTerm, chipText], index) => (
           <>
             {chipText && (
-              <div key={filterTerm} className={styles.chip}>
+              <div key={filterTerm + index} className={styles.chip}>
                 <span className={styles.chips_filter}>{chipsVal[filterTerm]}:</span>
                 <span>{chipText}</span>
                 <button className={styles.removeButton} onClick={() => handleRemoveChip(filterTerm)}>
