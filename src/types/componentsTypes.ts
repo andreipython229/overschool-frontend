@@ -34,6 +34,20 @@ export type ContentBtnPropsT = {
 
 export type AllStudentsBlockT = {
   headerText: string
+  filterKey: string
+  startMark: string | number
+  startAvg: string | number
+  endAvg: string | number
+  endMark: string | number
+  startDate: string | number
+  endDate: string | number
+  filters: { [key: string]: string | number }
+  handleReloadTable?: () => void
+  handleAddAvgFilter?: (start_avg: string, end_avg: string) => void
+  removeLastActiveStartFilter?: () => void
+  removeLastActiveEndFilter?: () => void
+  addLastActiveFilter?: (data1: string, data2: string) => void
+  addMarkFilter?: (start_mark: string, end_mark: string) => void
 }
 
 export interface ICategories {
@@ -60,6 +74,9 @@ export type SearchFilterT<T> = {
 
 export type ScoresFilterT = {
   title: string
+  addMarkFilter?: (start_mark: string, endMark: string) => void
+  endMark?: string | number
+  startMark?: string | number
 }
 
 export interface IWithRange {

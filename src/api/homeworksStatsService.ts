@@ -6,7 +6,7 @@ import { createUrlWithParams } from 'utils/createUrlWithParams'
 
 export const homeworksStatsService = createApi({
   reducerPath: 'homeworksStatsService',
-  baseQuery: baseQuery(),
+  baseQuery,
   tagTypes: ['homeworskStats'],
   endpoints: build => ({
     fetchHomeworkStats: build.query<homeworksStatsT, any>({
@@ -21,7 +21,7 @@ export const homeworksStatsService = createApi({
     }),
     fetchAllHomeworkStats: build.query<homeworksStatsT, { [key: string]: string | number }>({
       query: filters => {
-        const url = createUrlWithParams(`/homeworks_stats/?`, filters)
+        const url = createUrlWithParams(`/homeworks_stats/`, filters)
         return {
           url,
         }

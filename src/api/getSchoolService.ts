@@ -4,7 +4,7 @@ import {baseQuery} from './baseApi'
 
 export const getSchoolService = createApi({
   reducerPath: 'getSchoolService',
-  baseQuery: baseQuery('/api'),
+  baseQuery,
   endpoints: builder => ({
     getSchools: builder.mutation<void, void>({
       query: () => {

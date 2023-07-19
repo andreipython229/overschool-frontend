@@ -1,39 +1,25 @@
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState, ReactNode } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { classesSettingIconPath } from './config/svgIconsPath'
 import { generateData } from '../../utils/generateData'
-import { useFetchStudentsTableHeaderQuery } from '../../api/studentsGroupService'
-import { useAppSelector } from '../../store/hooks'
-import { userIdSelector } from '../../selectors'
+import { useFetchStudentsTableHeaderQuery } from '../../api/studentTableService'
 import { useBoolean } from 'customHooks'
 import { Portal } from '../Modal/Portal'
 import { StudentInfoModal, SettingStudentTable } from 'components/Modal'
 import { studentsTableInfoT, result } from 'types/courseStatT'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { GenerateRow } from './types'
 
 import styles from './studentsTableBlock.module.scss'
 
 type StudentsTableWrapperT = {
   isLoading: boolean
+  tableId: number
   students: studentsTableInfoT
 }
 
-type GenerateRow = {
-  Имя: {
-    name: string
-    avatar: string
-  }
-  Email: string
-  'Суммарный балл': string
-  Курс: string
-  Группа: string
-  'Последняя активность': string
-  'Дата обновления': string
-}
-
-export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading }) => {
-  const id = useAppSelector(userIdSelector)
-
+export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId }) => {
   const [isModalOpen, { on, off, onToggle }] = useBoolean()
   const [isStudentModalOpen, { on: stuentModalOn, off: studentModalOff }] = useBoolean()
 
@@ -42,9 +28,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   const [selectedStuentId, setSelectedStudentId] = useState<number | null>(null)
   const [selectedStuent, setSelectedStudent] = useState<result | null>(null)
 
-  const { data: tableHeaderData, isSuccess } = useFetchStudentsTableHeaderQuery(1)
+  const { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching } = useFetchStudentsTableHeaderQuery(tableId)
 
-  const { columns, data, ids } = generateData(tableHeaderData, students, isLoading, isSuccess)
+  const { columns, data } = generateData(tableHeaderData, students, isLoading, isSuccess)
 
   const handleCloseStuentModal = () => {
     stuentModalOn()
@@ -60,11 +46,11 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   }, [isSuccess, tableHeaderData])
 
   useEffect(() => {
-    selectedStuentId && studentModalOff()
+    typeof selectedStuentId === 'number' && studentModalOff()
 
     if (students) {
-      const student = students.find(student => student.id === selectedStuentId) || null
-      selectedStuentId && setSelectedStudent(student)
+      const student = students.find((_, index) => index === selectedStuentId) || null
+      typeof selectedStuentId === 'number' && setSelectedStudent(student)
     }
   }, [selectedStuentId])
 
@@ -74,7 +60,12 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
 
   return (
     <>
-      <table className={styles.table} style={{ borderCollapse: 'collapse' }}>
+      <table className={styles.table} style={{ borderCollapse: 'collapse', minHeight: isLoading ? '500px' : 0 }}>
+        {(isTableHeaderFetching || isLoading) && (
+          <div className={styles.loader}>
+            <SimpleLoader style={{ width: '50px', height: '50px' }} />
+          </div>
+        )}
         <thead className={styles.table_thead}>
           <tr>
             {cols.map(col => (
@@ -89,47 +80,28 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
         </thead>
         <tbody className={styles.table_tbody}>
           {rows?.map((row, id) => (
-            <tr key={id + Math.random()} onClick={() => setSelectedStudentId(ids[id])}>
-              {Object.entries(row).map(([keyRow, valueRow], idx: number) => {
-                if (keyRow === 'Имя' && typeof valueRow === 'object') {
-                  return (
-                    <td
-                      style={{
-                        fontSize: '14px',
-                        textTransform: 'capitalize',
-                        verticalAlign: 'center',
-                      }}
-                      key={keyRow + valueRow}
-                    >
+            <tr key={id + Math.random()} onClick={() => setSelectedStudentId(id)}>
+              {cols.map(col => {
+                const cellValue = row[col] as string | number | { text: string; image: ReactNode }
+                return (
+                  <td
+                    style={{
+                      fontSize: '14px',
+                      textTransform: 'capitalize',
+                      verticalAlign: 'center',
+                    }}
+                    key={col}
+                  >
+                    {typeof cellValue === 'object' ? (
                       <div className={styles.table_user}>
-                        {valueRow?.avatar ? (
-                          <img src={valueRow?.avatar} alt="Avatar" />
-                        ) : (
-                          <div className={styles.table_user_avatar}>
-                            {valueRow?.name
-                              .split(' ')
-                              .map(value => value.charAt(0))
-                              .join('')}
-                          </div>
-                        )}
-                        <div className={styles.table_user_name}>{valueRow?.name}</div>
+                        {cellValue.image}
+                        <p>{cellValue.text}</p>
                       </div>
-                    </td>
-                  )
-                } else {
-                  return (
-                    <td
-                      style={{
-                        fontSize: '14px',
-                        textTransform: 'capitalize',
-                        verticalAlign: 'center',
-                      }}
-                      key={keyRow + valueRow}
-                    >
-                      {/*{row[cols[idx]]}*/}
-                    </td>
-                  )
-                }
+                    ) : (
+                      <p>{cellValue}</p>
+                    )}
+                  </td>
+                )
               })}
             </tr>
           ))}
@@ -138,7 +110,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
 
       {isModalOpen && (
         <Portal closeModal={on}>
-          <SettingStudentTable setShowModal={onToggle} />
+          <SettingStudentTable setShowModal={onToggle} tableId={tableId} />
         </Portal>
       )}
 

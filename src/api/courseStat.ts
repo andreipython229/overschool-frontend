@@ -1,33 +1,27 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { studentsTableInfoT } from '../types/courseStatT'
-
 import { baseQuery } from './baseApi'
+import { createUrlWithParams } from 'utils/createUrlWithParams'
 
 export const courseStatService = createApi({
   reducerPath: 'courseStat',
-  baseQuery: baseQuery(),
-  tagTypes: ['courseStat', 'studentsPerGroup'],
+  baseQuery: baseQuery,
+  tagTypes: ['courseStat', 'studentsPerGroup', 'studentPerSchool'],
   endpoints: build => ({
-    fetchCourseStat: build.query<studentsTableInfoT, string>({
-      query: id => ({
-        url: `/courses/${id}/get_students_for_course/`,
+    fetchCourseStat: build.query<studentsTableInfoT, any>({
+      query: ({ id, filters }) => ({
+        url: createUrlWithParams(`/courses/${id}/get_students_for_course/`, filters),
       }),
       providesTags: ['courseStat'],
     }),
-    fetchStudentsPerGroup: build.query<studentsTableInfoT, string>({
-      query: id => ({
-        url: `/students_group/${id}/get_students_for_group/`,
-      }),
-      providesTags: ['studentsPerGroup'],
-    }),
-    fetchStudentsPerSchool: build.query<studentsTableInfoT, void>({
-      query: () => ({
-        url: `schools/1/stats/`,
+    fetchStudentsPerGroup: build.query<studentsTableInfoT, any>({
+      query: ({ id, filters }) => ({
+        url: createUrlWithParams(`/students_group/${id}/get_students_for_group/`, filters),
       }),
       providesTags: ['studentsPerGroup'],
     }),
   }),
 })
 
-export const { useFetchCourseStatQuery, useFetchStudentsPerGroupQuery, useFetchStudentsPerSchoolQuery } = courseStatService
+export const { useLazyFetchCourseStatQuery, useLazyFetchStudentsPerGroupQuery } = courseStatService

@@ -14,6 +14,7 @@ import { UserHomework, CurrentUser } from 'types/homeworkT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { UserHomeworkHistory } from 'components/UserHomeworkHistory'
 import { usePostTextFilesMutation } from 'api/filesService'
+import { AudioFile } from 'components/AudioFile/index'
 import {
   taskIconPath,
   lastAnswIconPath,
@@ -50,11 +51,12 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
   const [status, setStatus] = useState<string>('')
   const [text, setText] = useState<string>('')
   const [files, setFiles] = useState<fileT[]>([])
+  const [nativeFiles, setNativeFiles] = useState<File[]>([])
 
   const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery(id)
   const { data: homework, isFetching: isHwFetching } = useFetchHomeworkDataQuery(userHomework?.homework as number)
-  const [sendHomeworkCheck] = useCreateCheckReplyMutation()
-  const [sendFiles, { isLoading }] = usePostTextFilesMutation()
+  const [sendHomeworkCheck, { isSuccess: sendHwCheckSuccess }] = useCreateCheckReplyMutation()
+  const [sendFiles, { isLoading, isSuccess: sendFilesSuccess }] = usePostTextFilesMutation()
 
   const handleToggleHiddenBlocks = (): void => {
     setIsOpen(!isOpen)
@@ -71,16 +73,19 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
   const handleUploadFiles = (e: ChangeEvent<HTMLInputElement>) => {
     const chosenFiles = e.target.files
 
+    const prevFiles = [...nativeFiles]
     const uploadedFiles = [...files]
 
     Array.from(chosenFiles ?? []).some(file => {
       if (files.findIndex(f => f.name === file.name) === -1) {
         const fileString = URL.createObjectURL(file)
         uploadedFiles.push({ name: file.name, size: file.size, file: fileString })
+        prevFiles.push(file)
       }
     })
 
     setFiles(uploadedFiles)
+    setNativeFiles(prevFiles)
   }
 
   const handleDeleteFile = (index: number) => {
@@ -98,7 +103,10 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
     const formData = new FormData()
 
     formData.append('user_homework_check', `${data?.last_reply.user_homework_check_id}`)
-    formData.append('file', files[0].file)
+
+    nativeFiles.forEach(file => {
+      formData.append(`files`, file)
+    })
 
     sendHomeworkCheck(dataToSend)
     sendFiles(formData)
@@ -131,6 +139,21 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
     }
   }, [isFetching])
 
+  useEffect(() => {
+    if (sendFilesSuccess) {
+      setNativeFiles([])
+      setFiles([])
+    }
+  }, [sendFilesSuccess])
+
+  useEffect(() => {
+    if (sendHwCheckSuccess) {
+      setText('')
+      setMark(0)
+      setStatus('')
+    }
+  }, [sendHwCheckSuccess])
+
   const { mmddyyyy, hoursAndMinutes } = convertDate(new Date(currentUser?.last_reply || ''))
 
   return (
@@ -160,18 +183,24 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
                     {/* <span>{userHomework?.course_name}</span> */}
                   </div>
                   <div className={styles.task_modal_text}>{parse(homework?.description || '')}</div>
-                  {(homework?.audio_files?.length || homework?.text_files?.length) && (
+                  {((homework?.audio_files && homework.audio_files.length > 0) || (homework?.text_files && homework.text_files.length > 0)) && (
                     <div className={styles.task_modal_files}>
                       <span>Материалы к заданию:</span>
                       <div>
                         {homework?.text_files.map((file, index) => (
-                          <UploadedFile key={file.id} index={index} file={file.file} size={1000} />
+                          <UploadedFile
+                            key={file.id}
+                            index={index}
+                            name={file.file_url}
+                            file={`${window.appConfig.imagePath}${file.file_url}`}
+                            size={1000}
+                          />
                         ))}
                       </div>
-                      <div>
-                        {/* {homework?.audio_files.map(file => (
-                      <input type="text" />
-                    ))} */}
+                      <div className={styles.task_modal_audio}>
+                        {homework?.audio_files.map(file => (
+                          <AudioFile key={file.id} audioUrl={`${window.appConfig.imagePath}${file.file_url}`} />
+                        ))}
                       </div>
                     </div>
                   )}
@@ -234,15 +263,17 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = ({ id, closeModal }) => {
 
       <div className={styles.speech_bubble}>
         <div>{parse(currentUser?.text || '')}</div>
-        <div>
-          {/* {currentUser?.text_files.map((file) => (
-            <input type="text" />
-          ))} */}
-        </div>
-        <div>
-          {/* {currentUser?.audio_files.map((file) => (
-            <input type="text" />
-          ))} */}
+        <div style={{ maxWidth: '500px' }}>
+          <div>
+            {userHomework?.last_reply.text_files.map((file, index) => (
+              <UploadedFile key={file.id} index={index} name={file.file_url} file={`${window.appConfig.imagePath}${file.file_url}`} size={1000} />
+            ))}
+          </div>
+          <div className={styles.task_modal_audio}>
+            {userHomework?.last_reply.audio_files.map(file => (
+              <AudioFile key={file.id} audioUrl={`${window.appConfig.imagePath}${file.file_url}`} />
+            ))}
+          </div>
         </div>
       </div>
 

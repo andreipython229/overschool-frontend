@@ -29,7 +29,6 @@ export const CoursesStats = () => {
   return (
     <div>
       <SearchCoursesBlock courses={courses?.results as CoursesDataT[]} groups={data?.results as studentsGroupsT[]} />
-      <AllStudentsBlock headerText={'Все ученики'} />
       <StudentsPerSchool />
     </div>
   )

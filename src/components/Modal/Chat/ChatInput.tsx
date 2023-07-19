@@ -1,13 +1,25 @@
-import { FC } from 'react'
-
-import { Input } from 'components/common/Input/Input/Input'
+import { ChangeEvent, FC } from 'react'
 
 import styles from './chat.module.scss'
 
-export const ChatInput: FC = () => {
+type chatInputT = {
+  message: string
+  handleSubmit: () => void
+  handleChangeMessage: (event: ChangeEvent<HTMLInputElement>) => void
+}
+
+export const ChatInput: FC<chatInputT> = ({ message, handleSubmit, handleChangeMessage }) => {
   return (
-    <div className={styles.chatInput}>
-      <input className={styles.chatInput_input} type="text" name="message" value="" placeholder="Напишите сообщение..." />
-    </div>
+    <form className={styles.chatInput}>
+      <input
+        className={styles.chatInput_input}
+        type="text"
+        name="message"
+        value={message}
+        placeholder="Напишите сообщение..."
+        onChange={handleChangeMessage}
+      />
+      <button onClick={handleSubmit}></button>
+    </form>
   )
 }

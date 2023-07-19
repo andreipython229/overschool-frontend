@@ -74,7 +74,6 @@ export const checkHomeworkStatusFilters = [
 
 export const dropDownListFilter = [
   { id: 7, title: 'курсы' },
-  { id: 8, title: 'группа' },
   { id: 9, title: 'задание' },
   { id: 10, title: 'последний ответ' },
   { id: 11, title: 'баллы' },
@@ -82,7 +81,6 @@ export const dropDownListFilter = [
 
 export const dropDownListFilterStudents = [
   { id: 12, title: 'Суммарный балл' },
-  { id: 13, title: 'Прогресс' },
-  { id: 14, title: 'Последняя активность' },
-  { id: 15, title: 'Комментарии' },
+  { id: 16, title: 'Средний балл' },
+  { id: 15, title: 'Последняя активность' },
 ]

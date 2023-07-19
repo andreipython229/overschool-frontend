@@ -4,6 +4,7 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Button } from 'components/common/Button/Button'
 import { ChatI, SenderI } from 'types/chatsT'
 import { getNounDeclension } from 'utils/getNounDeclension'
+import { useAppSelector } from 'store/hooks'
 
 import { backArr } from 'components/Previous/config/svgIconPath'
 
@@ -16,6 +17,8 @@ type chatGroupPreviewT = {
 }
 
 export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList, chatData }) => {
+  const { userId } = useAppSelector(state => state.user)
+
   const [users, setUsers] = useState<SenderI[]>()
 
   useEffect(() => {
@@ -32,7 +35,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
           </div>
           <div className={styles.chatGroup_header_preview}>
             <span>{chatData.name || 'Группа без имени '}</span>
-            <span>{usersList && `- ${usersList.length + 1} ${getNounDeclension(usersList.length + 1, ['учатник', 'участника', 'участников'])}`}</span>
+            <span>{usersList && ` - ${usersList.length} ${getNounDeclension(usersList.length, ['учатник', 'участника', 'участников'])}`}</span>
           </div>
         </div>
       </div>
@@ -52,7 +55,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
                   {sender.first_name || 'Без'} {sender.last_name || 'Имени'}
                 </div>
               </div>
-              <Button text="Отправить сообщение" variant="primary" />
+              {userId !== sender.id && <Button text="Отправить сообщение" variant="primary" />}
             </div>
           ))}
         </div>
