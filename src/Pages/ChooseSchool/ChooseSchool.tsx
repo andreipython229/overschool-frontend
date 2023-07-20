@@ -33,8 +33,8 @@ export const ChooseSchool = () => {
   }, [isLoading])
 
   const onChoose = (s: School) => {
-    if (role.valueOf() == RoleE.Admin) navigate('/school/' + s.name + '/courses/')
     if (role.valueOf() == RoleE.Teacher) navigate('/school/' + s.name + '/' + Path.Profile)
+    else navigate('/school/' + s.name + '/courses/')
   }
 
   return (
