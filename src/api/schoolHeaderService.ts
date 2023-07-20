@@ -2,10 +2,11 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react'
 
 import { schoolHeaderResT } from '../types/schoolHeaderT'
 import { UpdateCourses } from './apiTypes'
+import {baseQuery} from "./baseApi";
 
 export const schoolHeaderService = createApi({
   reducerPath: 'coursesHeaderService',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
+  baseQuery: baseQuery("/api/"),
   tagTypes: ['schoolHeader'],
   endpoints: build => ({
     fetchSchoolHeader: build.query<schoolHeaderResT, number>({
