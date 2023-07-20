@@ -12,3 +12,6 @@ export { questionsAndAnswersService } from './questionsAndAnswersService'
 export { filesService } from './filesService'
 export { chatsService } from './chatsService'
 export { userProgressService } from './userProgressService'
+export { studentsTableService } from './studentTableService'
+export { getSchoolService } from './getSchoolService'
+

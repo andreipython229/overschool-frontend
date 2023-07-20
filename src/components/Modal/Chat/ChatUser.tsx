@@ -26,7 +26,7 @@ export const ChatUser: FC<chatUserT> = ({ openGroup, chatData, usersCount }) => 
               <p className={styles.chatUser_name}>{chatData?.name || 'Группа без имени'}</p>
             </div>
             <p className={styles.chatUser_lastVisit} onClick={() => openGroup && openGroup(true)}>
-              {usersCount && `${usersCount + 1} ` + getNounDeclension(usersCount + 1, ['учатник', 'участника', 'участников'])}
+              {usersCount && `${usersCount} ` + getNounDeclension(usersCount, ['учатник', 'участника', 'участников'])}
             </p>
           </div>
         </div>

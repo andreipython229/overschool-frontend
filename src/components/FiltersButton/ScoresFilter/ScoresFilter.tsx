@@ -4,19 +4,14 @@ import { Input } from '../../common/Input/Input/Input'
 import { Button } from '../../common/Button/Button'
 import { ScoresFilterT } from '../../../types/componentsTypes'
 import { useBoolean } from 'customHooks/index'
-import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { filtersSelector } from 'selectors/index'
-import { addFilters } from 'store/redux/filters/slice'
 
 import styles from './scores_filter.module.scss'
 
-export const ScoresFilter: FC<ScoresFilterT> = ({ title }) => {
-  const dispatch = useAppDispatch()
-  const { filters } = useAppSelector(filtersSelector)
+export const ScoresFilter: FC<ScoresFilterT> = ({ title, addMarkFilter, endMark, startMark }) => {
   const [isFilterClosed, { off }] = useBoolean()
 
-  const [scoresStart, setScoresStart] = useState<string>(`${filters.start_mark}`)
-  const [scoresEnd, setScoresEnd] = useState<string>(`${filters.end_mark}`)
+  const [scoresStart, setScoresStart] = useState<string>(`${startMark}`)
+  const [scoresEnd, setScoresEnd] = useState<string>(`${endMark}`)
 
   const handleInputScores = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'start') {
@@ -27,7 +22,10 @@ export const ScoresFilter: FC<ScoresFilterT> = ({ title }) => {
   }
 
   const handleAddFilters = () => {
-    dispatch(addFilters({ start_mark: scoresStart, end_mark: scoresEnd }))
+    const startMark = scoresStart === 'undefined' ? '' : scoresStart
+    const endMark = scoresEnd === 'undefined' ? '' : scoresEnd
+
+    addMarkFilter && addMarkFilter(startMark, endMark)
     off()
   }
 

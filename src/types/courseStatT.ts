@@ -10,9 +10,10 @@ export type result = {
   course_name: string
   course_updated_at: string
   group_name: string
-  last_activity: string
-  total_points: number
-  section: Section[]
+  last_active: string
+  mark_sum: number
+  average_mark: number
+  sections: Section[]
 }
 
 export interface Section {

@@ -79,6 +79,7 @@ export type RegCodeModalPropsT = {
 }
 export type SettingStudentTableT = {
   setShowModal: (arg?: boolean) => void
+  tableId: number
 }
 
 export type SettingsGroupModalPropsT = {

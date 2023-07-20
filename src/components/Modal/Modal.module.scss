@@ -11,6 +11,17 @@
   width: 100vw;
   height: 100%;
 
+  &_item_init {
+    margin-top: 15px;
+    height: 40px !important;
+    opacity: 0.5;
+    & label {
+      color: #ba75ff;
+      background-color: #e0d9fc !important;
+      user-select: none;
+    }
+  }
+
   @media (max-width: 480px) {
     background: $color-white;
   }
@@ -734,6 +745,7 @@
   list-style-type: none;
 }
 .settings_title {
+  user-select: none;
   @include font(500, 20px, 24px);
   text-align: center;
   font-style: normal;

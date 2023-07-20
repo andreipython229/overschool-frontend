@@ -3,7 +3,6 @@ import { FC, useState, useCallback } from 'react'
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { studentsScatterPath } from 'Pages/CoursesStats/config/svgIconPath'
-import { AllStudentsBlock } from 'components/AllStudentsBlock/index'
 import { StudentsPerGroup } from 'components/StudentsTable/StudentsPerGroup'
 
 import styles from '../School/StudentsStats/studentsStats.module.scss'
@@ -94,7 +93,6 @@ export const Group: FC = () => {
           </div>
         </div>
       )}
-      <AllStudentsBlock headerText={'Все ученики группы'} />
       <StudentsPerGroup />
     </div>
   )

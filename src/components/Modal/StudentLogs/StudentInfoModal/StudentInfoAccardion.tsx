@@ -45,7 +45,9 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({ student }) => 
             <div className={styles.accardion_progress_item}>
               <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath} />
               {/* заглушка */}
-              <span>0/{student?.total_points}</span>
+              <span>
+                {student?.average_mark?.toFixed(0) ?? 0}/{student?.mark_sum ?? 0}
+              </span>
             </div>
           </div>
           <div className={`${styles.accardion_control_btn} ${isAccardionOpen ? styles.open : ''}`}>
@@ -54,7 +56,7 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({ student }) => 
         </div>
         {isAccardionOpen && (
           <div className={styles.accardion_content}>
-            {student?.section?.map(({ lessons, section_id, name }) => (
+            {student?.sections?.map(({ lessons, section_id, name }) => (
               <div className={styles.accardion_item} key={section_id}>
                 <p className={styles.accardion_item_name}>{name}</p>
                 <div className={styles.accardion_lessons_block}>

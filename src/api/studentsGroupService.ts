@@ -2,11 +2,10 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQuery } from './baseApi'
 import { studentsGroupT, studentsGroupsT } from '../types/studentsGroup'
-import { studentGroupInfoT, studentsTableHeader } from 'types/studentsGroup'
 
 export const studentsGroupService = createApi({
   reducerPath: 'studentsGroupService',
-  baseQuery: baseQuery,
+  baseQuery,
   tagTypes: ['studentsGroup', 'studentsTable', 'stats_by_month'],
   endpoints: build => ({
     fetchStudentsGroup: build.query<studentsGroupT, void>({
@@ -26,20 +25,6 @@ export const studentsGroupService = createApi({
         url: `/students_group/${id}/`,
       }),
       providesTags: ['studentsGroup'],
-    }),
-    fetchStudentsTableHeader: build.query<studentsTableHeader, number>({
-      query: id => ({
-        url: `/students_table_info/${id}/`,
-      }),
-      providesTags: ['studentsTable'],
-    }),
-    patchStudentsTableHeader: build.mutation<void, { id: number; students_table_info: studentGroupInfoT[] }>({
-      query: ({ id, students_table_info }) => ({
-        url: `/students_table_info/${id}/`,
-        method: 'PATCH',
-        body: { students_table_info },
-      }),
-      invalidatesTags: ['studentsTable'],
     }),
     fetchUserCountByMonthData: build.query<void, void>({
       query: () => ({
@@ -69,8 +54,6 @@ export const {
   //useFetchUserCountByMonthDataQuery,
   useFetchStudentsGroupByCourseQuery,
   useFetchStudentGroupQuery,
-  useFetchStudentsTableHeaderQuery,
-  usePatchStudentsTableHeaderMutation,
   useFetchStudentsGroupQuery,
   useCreateStudentsGroupMutation,
   useDeleteStudentsGroupMutation,

@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { AllStudentsBlock } from '../../../components/AllStudentsBlock'
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
 import { StudentInfoGraphic } from 'Pages/School/StudentsStats/StudentInfoGraphic'
@@ -40,7 +39,7 @@ export const StudentsStats = () => {
         <StatisticHeader hideStats={hideStats} handleHideStats={handleHideStats} />
         {hideStats && (
           <div className={styles.statistics_new_student_wrapper}>
-            <StudentInfoGraphic courseId={courseId}/>
+            <StudentInfoGraphic courseId={courseId} />
           </div>
         )}
       </section>
@@ -62,16 +61,7 @@ export const StudentsStats = () => {
           )}
         </div>
       </section>
-      <div
-        className={styles.all_students}
-        style={{
-          fontWeight: 500,
-          letterSpacing: '-0.01em',
-          color: '#4D5766',
-        }}
-      >
-        <AllStudentsBlock headerText={'Все ученики курса'} />
-      </div>
+
       <StudentsPerCourse />
       {addGroupModal && (
         <Portal closeModal={onAddGroupModal}>

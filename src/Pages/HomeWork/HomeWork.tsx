@@ -5,15 +5,14 @@ import { usePagination, useDebounceFunc } from 'customHooks/index'
 import { useFetchAllHomeworkStatsQuery, useLazyFetchHomeworkStatsQuery } from '../../api/homeworksStatsService'
 import { homeworksStatsT } from 'types/homeworkT'
 import { useAppSelector, useAppDispatch } from 'store/hooks/index'
-import { filtersSelector } from 'selectors'
-import { addFilters } from 'store/redux/filters/slice'
+import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { FilterAndSearchBlock } from './FilterAndSeachBlock'
 
 import styles from './home_work.module.scss'
 
 export const HomeWork: FC = () => {
   const dispatch = useAppDispatch()
-  const { filters } = useAppSelector(filtersSelector)
+  const filters = useAppSelector(state => state.filters['homework'])
 
   const [termForFilter, setTermForFilter] = useState<string>('')
 
@@ -28,8 +27,24 @@ export const HomeWork: FC = () => {
     setTermForFilter(e.target.value)
   }, [])
 
+  const handleAddLastActivityFilter = (data1: string, data2: string) => {
+    dispatch(addFilters({ key: 'homework', filters: { start_date: data1, end_date: data2 } }))
+  }
+
+  const handleRemoveLastActivityStartFilter = () => {
+    dispatch(removeFilter({ key: 'homework', filterName: 'start_date' }))
+  }
+
+  const handleRemoveLastActivityEndFilter = () => {
+    dispatch(removeFilter({ key: 'homework', filterName: 'end_date' }))
+  }
+
+  const handleAddMarkFilter = (start_mark: string, end_mark: string) => {
+    dispatch(addFilters({ key: 'homework', filters: { start_mark, end_mark } }))
+  }
+
   const handleChangeStatus = useCallback((status: string) => {
-    dispatch(addFilters({ status }))
+    dispatch(addFilters({ key: 'homework', filters: { status } }))
   }, [])
 
   useEffect(() => {
@@ -37,12 +52,25 @@ export const HomeWork: FC = () => {
   }, [page, filters])
 
   useEffect(() => {
-    debounce(addFilters({ homework_name: termForFilter }))
+    debounce(addFilters({ key: 'homework', filters: { homework_name: termForFilter } }))
   }, [termForFilter])
 
   return (
     <>
-      <FilterAndSearchBlock handleChangeTerm={handleChangeTerm} termForFilter={termForFilter} onChangeStatus={handleChangeStatus} />
+      <FilterAndSearchBlock
+        handleChangeTerm={handleChangeTerm}
+        termForFilter={termForFilter}
+        onChangeStatus={handleChangeStatus}
+        addLastActiveFilter={handleAddLastActivityFilter}
+        addMarkFilter={handleAddMarkFilter}
+        removeLastActiveStartFilter={handleRemoveLastActivityStartFilter}
+        removeLastActiveEndFilter={handleRemoveLastActivityEndFilter}
+        startMark={filters?.start_mark}
+        endMark={filters?.end_mark}
+        startDate={filters?.start_date}
+        endDate={filters?.end_date}
+        filters={filters}
+      />
       <HomeworksStatsTable homeworks={homeworks as homeworksStatsT} isLoading={isFetching || isLoading} />
       <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
     </>

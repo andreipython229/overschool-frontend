@@ -6,7 +6,7 @@ import { UpdateCourses } from './apiTypes'
 
 export const coursesServices = createApi({
   reducerPath: 'coursesServices',
-  baseQuery: baseQuery,
+  baseQuery,
   tagTypes: ['courses', 'course'],
   endpoints: build => ({
     fetchCourses: build.query<CoursesT, void>({

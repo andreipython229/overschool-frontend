@@ -63,11 +63,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
         dispatch(role(data[0].groups[0]))
         dispatch(userName(data[0].username))
         dispatch(id(data[0].id))
-        if (data[0].groups[0] === RoleE.Admin) {
-          navigate(Path.Courses)
-        } else if (data[0].groups[0] === RoleE.Teacher) {
-          navigate(Path.ChooseSchool)
-        }
+        navigate(Path.ChooseSchool)
       }
     }
   }, [isSuccess, userSuccess])

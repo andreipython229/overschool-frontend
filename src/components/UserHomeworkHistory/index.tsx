@@ -4,8 +4,11 @@ import parse from 'html-react-parser'
 import { UserHomeworkCheck } from 'types/homeworkT'
 import { convertDate } from 'utils/convertDate'
 import { iocnsByStatus } from 'components/HomeworksStatsTable/config/iocnsByStatus'
+import { AudioFile } from 'components/AudioFile/index'
+import { UploadedFile } from 'components/UploadedFile'
 
 import styles from './userHomeworkHistory.module.scss'
+import modalStyles from '../Modal/ModalCheckHomeWork/modal_check_home_work.module.scss'
 
 type userHomeworkHistoryT = {
   homework: UserHomeworkCheck
@@ -43,6 +46,18 @@ export const UserHomeworkHistory: FC<userHomeworkHistoryT> = ({ homework }) => {
         <div className={styles.history_message}>
           <div className={styles.history_message_content}>
             <p>{parse(homework?.text || '')}</p>
+            <div style={{ maxWidth: '500px' }}>
+              <div>
+                {homework?.text_files.map((file, index) => (
+                  <UploadedFile key={file.id} index={index} name={file.file_url} file={`${window.appConfig.imagePath}${file.file_url}`} size={1000} />
+                ))}
+              </div>
+              <div className={modalStyles.task_modal_audio}>
+                {homework?.audio_files.map(file => (
+                  <AudioFile key={file.id} audioUrl={`${window.appConfig.imagePath}${file.file_url}`} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

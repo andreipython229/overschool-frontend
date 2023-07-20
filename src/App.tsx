@@ -11,6 +11,7 @@ import { selectUser } from 'selectors'
 import { navByRolesConfig } from 'config'
 import { SignUp } from 'Pages/SignUp'
 import { scrollToTop } from 'utils/scrollToTop'
+import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
 
 import styles from './App.module.scss'
 
@@ -32,8 +33,10 @@ export const App = () => {
     <div className={styles.container}>
       <Routes>
         <Route path={Path.InitialPage} element={<Initial />} />
+        <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
-        <Route path={Path.InitialPage} element={<MainLayOut />}>
+
+        <Route path={Path.School} element={<MainLayOut />}>
           {navByRolesConfig[role]}
         </Route>
         <Route path={Path.SignUp} element={<SignUp />} />

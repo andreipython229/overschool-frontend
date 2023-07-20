@@ -15,7 +15,7 @@ import style from './search_filter.module.scss'
 
 export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filterTerm }) => {
   const dispatch = useAppDispatch()
-  const { filters } = useAppSelector(filtersSelector)
+  const filters = useAppSelector(state => state.filters['homework'])
   const [isFilterClosed, { off }] = useBoolean()
 
   const [itemForFilter, setItemForFilter] = useState<string>(filters[filterTerm] as string)
@@ -27,7 +27,7 @@ export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filte
   }, [])
 
   const handleAddFilter = () => {
-    dispatch(addFilters({ [filterTerm]: term }))
+    dispatch(addFilters({ key: 'homework', filters: { [filterTerm]: term || '' } }))
     setItemForFilter('')
     setSelectedCategory('')
     off()
