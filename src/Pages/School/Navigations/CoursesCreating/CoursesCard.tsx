@@ -1,4 +1,4 @@
-import {FC, ReactNode, useEffect} from 'react'
+import {FC, ReactNode} from 'react'
 import {CoursesDataT} from '../../../../types/CoursesT'
 
 import styles from './coursePage.module.scss'
@@ -10,6 +10,8 @@ import {Path, Student} from "../../../../enum/pathE";
 import {Button} from "../../../../components/common/Button/Button";
 import pie from "../../../../assets/img/studentPage/folder-todo.png";
 import {useFetchProgressQuery} from "../../../../api/userProgressService";
+import {SimpleLoader} from "../../../../components/Loaders/SimpleLoader";
+import {useFetchCoursesQuery} from "../../../../api/coursesServices";
 
 type courseCard = {
     course: CoursesDataT
@@ -18,10 +20,10 @@ type courseCard = {
 }
 
 export const CoursesCard: FC<courseCard> = ({course, role}) => {
-    const {data: userProgress, isLoading} = useFetchProgressQuery(course?.course_id || '')
+    const {data: userProgress, isLoading} = (role === RoleE.Student)? useFetchProgressQuery(course?.course_id || ''): useFetchCoursesQuery()
 
     if (isLoading) {
-        return <div>Загрузка...</div>;
+        return <SimpleLoader style={{width: '100px', height: '100px'}}/>;
     }
 
     return (
