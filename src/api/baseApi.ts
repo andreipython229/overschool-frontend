@@ -1,9 +1,12 @@
-import { fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
+import {fetchBaseQuery} from '@reduxjs/toolkit/query/react'
+
+const schoolName = 'School_1';
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: '/api/School_1',
-  credentials: 'include',
-})
+    baseUrl: `/api/${schoolName}`,
+    credentials: 'include',
+});
+
 // export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
 //   const { user } = JSON.parse(`${localStorage?.getItem('persist:root')}`)
 //   const refresh = JSON.parse(user).refresh_token

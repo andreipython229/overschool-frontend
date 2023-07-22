@@ -17,7 +17,6 @@ import styles from '../School/StudentsStats/studentsStats.module.scss'
 
 export const CoursesStats = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)
-  // const [settingList, setSettingsList] = useState<SettingItemT[]>(settingsItemsList)
 
   const { data } = useFetchStudentsGroupQuery()
   const { data: courses } = useFetchCoursesQuery()

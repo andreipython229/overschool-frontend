@@ -1,17 +1,96 @@
-import { FC, ReactNode } from 'react'
-import { CoursesDataT } from '../../../../types/CoursesT'
+import {FC, ReactNode} from 'react'
+import {CoursesDataT} from '../../../../types/CoursesT'
 
 import styles from './coursePage.module.scss'
+import {RoleE} from "../../../../enum/roleE";
+import Public from "../../../../assets/img/createCourse/public.svg";
+import notPublic from "../../../../assets/img/createCourse/notPublic.svg";
+import {generatePath, Link} from "react-router-dom";
+import {Path, Student} from "../../../../enum/pathE";
+import {Button} from "../../../../components/common/Button/Button";
+import pie from "../../../../assets/img/studentPage/folder-todo.png";
+import {useFetchProgressQuery} from "../../../../api/userProgressService";
+import {SimpleLoader} from "../../../../components/Loaders/SimpleLoader";
+import {useFetchCoursesQuery} from "../../../../api/coursesServices";
 
 type courseCard = {
-  course: CoursesDataT
-  renderProps: (course: CoursesDataT) => ReactNode
+    course: CoursesDataT
+    renderProps?: (course: CoursesDataT) => ReactNode
+    role: number
 }
 
-export const CoursesCard: FC<courseCard> = ({ course, renderProps }) => {
-  return (
-    <div id={`${course?.course_id}`} className={styles?.course_card}>
-      {renderProps(course)}
-    </div>
-  )
+export const CoursesCard: FC<courseCard> = ({course, role}) => {
+    const {data: userProgress, isLoading} = (role === RoleE.Student)? useFetchProgressQuery(course?.course_id || ''): useFetchCoursesQuery()
+
+    if (isLoading) {
+        return <SimpleLoader style={{width: '100px', height: '100px'}}/>;
+    }
+
+    return (
+        <div id={`${course?.course_id}`} className={styles?.course_card}>
+            <>
+                {role === RoleE.Admin ? (
+                    <>
+                        <div className={styles.course_card_img}>
+                            <img className={styles.course_card_img} src={`${course?.photo}`}
+                                 alt="course_cover"/>
+                        </div>
+                        <div className={styles.course_card_about}>
+                        <span className={styles.course_card_status_show}>
+                          {course?.public === 'О' ? (
+                              <>
+                                  <img src={Public} alt="status course"/>
+                                  <span className={styles.course_card_status_show_public}>Опубликован</span>
+                              </>
+                          ) : (
+                              <>
+                                  <img src={notPublic} alt="status course"/>
+                                  <span className={styles.course_card_status_show_public}>Не опубликован</span>
+                              </>
+                          )}
+                        </span>
+                            <h5>{course.name}</h5>
+                            <span
+                                className={styles.course_card_about_desc}>{course?.description}</span>
+                            <Link
+                                to={generatePath(Path.CreateCourse, {
+                                    course_id: `${course?.course_id}`,
+                                })}
+                            >
+                                <Button className={styles.btn} text={'Редактировать'}/>
+                            </Link>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className={styles.course_card_img}>
+                            <img className={styles.course_card_img} src={course?.photo} alt=""/>
+                        </div>
+                        <div className={styles.course_card_progressBar}>
+                            <div className={styles.course_card_progressBar_line}></div>
+                        </div>
+                        <div className={styles.course_card_about}>
+                            <Link
+                                to={generatePath(Student.Course, {
+                                    course_id: `${course?.course_id}`,
+                                })}
+                            >
+                                <div className={styles.course_card_about_progressWrapper}>
+                                    <img src={pie} alt="pie"/>
+                                    <span
+                                        className={styles.course_card_about_progressWrapper_title}>{userProgress.courses[0].completed_percent}% пройдено</span>
+                                </div>
+                                <span className={styles.course_card_status_show}> </span>
+                                <h5>{course.name}</h5>
+                                <span
+                                    className={styles.course_card_about_desc}>{course?.description}</span>
+
+                                <Button className={styles.btn} text={'Продолжить обучение'}/>
+                            </Link>
+                        </div>
+                    </>
+                )}
+            </>
+        </div>
+    )
 }
