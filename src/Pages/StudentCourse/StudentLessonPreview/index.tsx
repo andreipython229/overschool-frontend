@@ -22,7 +22,7 @@ export const StudentLessonPreview: FC = () => {
         id: Number(params?.lesson_id) as number,
         type: `${params?.lesson_type}`
     })
-    const {data: questionsList} = useFetchQuestionsListQuery(testId ? params?.lesson_id : '')
+    const {data: questionsList} = testId? useFetchQuestionsListQuery(params?.lesson_id): {data: undefined}
 
     const activeLessonIndex = lessons?.lessons.findIndex(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
 
