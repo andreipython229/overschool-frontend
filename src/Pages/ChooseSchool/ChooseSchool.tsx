@@ -1,9 +1,8 @@
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import { Path } from '../../enum/pathE'
 
 import styles from './chooseSchool.module.scss'
-import { Button } from '../../components/common/Button/Button'
 import { useEffect, useState } from 'react'
 import { useGetSchoolsMutation } from '../../api/getSchoolService'
 import anton from '../../assets/img/common/anton.png'
@@ -15,7 +14,6 @@ import {SimpleLoader} from "../../components/Loaders/SimpleLoader";
 
 export const ChooseSchool = () => {
   const [getSchools, { data, isSuccess: userSuccess }] = useGetSchoolsMutation()
-  const navigate = useNavigate()
   const [schools, setSchools] = useState<[]>([])
     const { role: userRole, userName: name} = useAppSelector(selectUser)
   const [isLoading, setIsLoading] = useState<boolean>(true);

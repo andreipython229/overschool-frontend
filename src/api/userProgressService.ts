@@ -3,7 +3,7 @@ import { baseQuery } from './baseApi'
 
 export const userProgressService = createApi({
     reducerPath: 'userProgressService',
-    baseQuery: baseQuery,
+    baseQuery: baseQuery(),
     tagTypes: ['userProgress', 'progress'],
     endpoints: build => ({
         fetchProgress: build.query({

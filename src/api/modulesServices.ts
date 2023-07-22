@@ -5,7 +5,7 @@ import { baseQuery } from './baseApi'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
-  baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['modules', 'lessons', 'patchLessons'],
   endpoints: build => ({
     fetchModules: build.query<sectionsT, string>({

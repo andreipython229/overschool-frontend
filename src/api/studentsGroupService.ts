@@ -5,7 +5,7 @@ import { studentsGroupT, studentsGroupsT } from '../types/studentsGroup'
 
 export const studentsGroupService = createApi({
   reducerPath: 'studentsGroupService',
-  baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['studentsGroup', 'studentsTable', 'stats_by_month'],
   endpoints: build => ({
     fetchStudentsGroup: build.query<studentsGroupT, void>({

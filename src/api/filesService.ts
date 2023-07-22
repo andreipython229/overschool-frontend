@@ -4,7 +4,7 @@ import { baseQuery } from './baseApi'
 
 export const filesService = createApi({
   reducerPath: 'filesService',
-  baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['audioFiles', 'textFiles'],
   endpoints: build => ({
     postAudioFiles: build.mutation<void, FormData>({

@@ -1,5 +1,5 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import {Cookies} from "react-cookie";
+import {Cookies} from "react-cookie"
 const schoolName = 'School_1'
 const cookies = new Cookies()
 

@@ -6,7 +6,7 @@ import { createUrlWithParams } from 'utils/createUrlWithParams'
 
 export const courseStatService = createApi({
   reducerPath: 'courseStat',
-  baseQuery: baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['courseStat', 'studentsPerGroup', 'studentPerSchool'],
   endpoints: build => ({
     fetchCourseStat: build.query<studentsTableInfoT, any>({
