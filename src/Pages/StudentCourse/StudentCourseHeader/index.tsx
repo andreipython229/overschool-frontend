@@ -75,12 +75,12 @@ export const StudentCourseHeader: FC = () => {
                 </div>
             </div>
             <div className={styles.previous_progress}>
-                <div className={styles.previous_progress_graph}>{userProgress.course?.completed_percent}%</div>
+                <div className={styles.previous_progress_graph}>{userProgress.courses[0]?.completed_percent}%</div>
                 <div className={styles.previous_progress_info}>
-                    {(userProgress.course?.all_baselessons / userProgress.course?.completed_count !== 1) ? (
-                        <span>В процессе: {userProgress.course?.completed_count}/{userProgress.course?.all_baselessons}</span>
+                    {(userProgress.courses[0]?.all_baselessons / userProgress.courses[0]?.completed_count !== 1) ? (
+                        <span>В процессе: {userProgress.courses[0]?.completed_count}/{userProgress.courses[0]?.all_baselessons}</span>
                     ) : (
-                        <span>Завершено: {userProgress.course?.completed_count}/{userProgress.course?.all_baselessons}</span>
+                        <span>Завершено: {userProgress.courses[0]?.completed_count}/{userProgress.courses[0]?.all_baselessons}</span>
                     )
                     }
                 </div>

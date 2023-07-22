@@ -78,7 +78,7 @@ export const CoursesCard: FC<courseCard> = ({course, role}) => {
                                 <div className={styles.course_card_about_progressWrapper}>
                                     <img src={pie} alt="pie"/>
                                     <span
-                                        className={styles.course_card_about_progressWrapper_title}>{userProgress.course?.completed_percent}% пройдено</span>
+                                        className={styles.course_card_about_progressWrapper_title}>{userProgress.courses[0].completed_percent}% пройдено</span>
                                 </div>
                                 <span className={styles.course_card_status_show}> </span>
                                 <h5>{course.name}</h5>

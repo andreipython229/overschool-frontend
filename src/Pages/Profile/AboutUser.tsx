@@ -31,7 +31,7 @@ export const AboutUser: FC = memo(() => {
 
     const {data, isFetching, isError, isSuccess: profileIsSuccess} = useFetchProfileDataQuery()
     const [updateProfile, {isSuccess}] = useUpdateProfileMutation()
-
+    
     const [profileData, setProfileData] = useState<profileT>()
     const [sex, setSex] = useState<string>()
 

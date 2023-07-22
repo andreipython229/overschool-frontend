@@ -6,6 +6,7 @@ export const baseQuery = fetchBaseQuery({
     baseUrl: `/api/${schoolName}`,
     credentials: 'include',
 });
+
 // export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
 //   const { user } = JSON.parse(`${localStorage?.getItem('persist:root')}`)
 //   const refresh = JSON.parse(user).refresh_token
