@@ -25,14 +25,14 @@ export const StudentLessonNavBtns: FC<studentLessonNavBtnsT> = memo(({ courseId,
   return (
     <div className={styles.lesson__btns}>
       <Button
-        onClick={() => navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/${lessonBack?.type || lessonType}/${lessonBack?.id}`)}
+        onClick={() => navigate(`/school/School_1/courses/student-course/${courseId}/module/${sectionId}/${lessonBack?.type || lessonType}/${lessonBack?.id}`)}
         disabled={lessonId === (lessonBack?.id || lessonId)}
         className={styles.lesson__btnPrev}
         text="Предыдущее"
       />
       <Button
         onClick={() =>
-          navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/${lessonForward?.type || lessonType}/${lessonForward?.id}`)
+          navigate(`/school/School_1/courses/student-course/${courseId}/module/${sectionId}/${lessonForward?.type || lessonType}/${lessonForward?.id}`)
         }
         className={styles.lesson__btnNext}
         disabled={lessonId === (lessonForward?.id || lessonId)}

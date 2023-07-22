@@ -15,12 +15,16 @@ type studentLessonSidebar = {
     lessonType: LESSON_TYPE
 }
 
-export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({courseId, sectionId, activeLessonIndex, lessons, lessonType}) => {
+export const StudentLessonSidebar: FC<studentLessonSidebar> = ({courseId, sectionId, activeLessonIndex, lessons, lessonType}) => {
     const navigate = useNavigate()
 
     const isLessonClickable = (lessonIndex: number) => {
         return lessons.lessons.slice(0, lessonIndex).some((lesson) => !lesson.viewed);
     };
+
+    useEffect(() => {
+        console.log('re-rendered')
+    }, [courseId])
 
     return (
         <div className={styles.lesson__block}>
@@ -37,7 +41,7 @@ export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({courseId, s
                                 if (isDisabled) {
                                     return;
                                 }
-                                navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/${type}/${id}`);
+                                navigate(`/school/School_1/courses/student-course/${courseId}/module/${sectionId}/${type}/${id}`);
                             }}
                             className={`${activeLessonIndex === index && lessonType === type ? styles.lesson__item_active : styles.lesson__item}
                             ${isDisabled ? styles.lesson__item_disabled : ''}`}
@@ -50,4 +54,4 @@ export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({courseId, s
             </div>
         </div>
     );
-});
+};

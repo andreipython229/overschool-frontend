@@ -2,8 +2,8 @@ import { Path, SettingsPath, Student } from '../../../enum/pathE'
 import { GlobalPrevious } from '../GlobalPrevious'
 import { CoursePrevious } from '../CoursePrevious'
 import { StudentPrevious } from '../StudentPrevious'
-import { StudentCourseHeader } from '../../../Pages/StudentCourse/StudentCourseHeader/index'
-import { GroupPrevious } from '../GroupPrevious/index'
+import { StudentCourseHeader } from '../../../Pages/StudentCourse/StudentCourseHeader'
+import { GroupPrevious } from '../GroupPrevious'
 
 const pathToSearch = Object.entries(Path).map(([key, value]) => {
   return { [key]: value.split(':')[0] }
