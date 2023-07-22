@@ -86,8 +86,8 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
 
   const { name: headerName, description: headerDes } = schoolHeaderData
   const { photo_background, logo_header } = schoolHeaderDataToRender
-  const isMatchPath = pathname === Path.InitialPage + Path.Courses
-
+  //const isMatchPath = pathname === Path.InitialPage + Path.Courses
+  const isMatchPath = true
   const changedBg = photo_background
     ? {
         backgroundImage: `url(${photo_background})`,

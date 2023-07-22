@@ -13,7 +13,6 @@ import { selectUser } from '../../selectors'
 import { logo } from '../../assets/img/common'
 import { headerUserRoleName } from 'config/index'
 import { profileT } from 'types/profileT'
-import { removeAllFilters } from 'store/redux/filters/slice'
 
 import styles from './header.module.scss'
 
@@ -26,11 +25,10 @@ export const Header = memo(() => {
   const { data, isSuccess } = useFetchSchoolHeaderQuery(1)
   const { data: profile, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
 
-  const logOut = async () => {
-    await logout()
+  const logOut = (): void => {
+    logout()
+
     dispatch(auth(false))
-    dispatch(removeAllFilters())
-    localStorage.clear()
   }
 
   const [profileData, setProfileData] = useState<profileT>()
@@ -55,7 +53,13 @@ export const Header = memo(() => {
         <Link style={{ textDecoration: 'none' }} to={Path.Profile}>
           <div className={styles.header_block_user}>
             {profileData?.avatar ? (
-              <img width={'50'} height={'50'} className={styles.header_block_user_avatar} src={profileData?.avatar} alt="avatar" />
+              <img
+                width={'50'}
+                height={'50'}
+                className={styles.header_block_user_avatar}
+                src={profileData?.avatar}
+                alt="avatar"
+              />
             ) : (
               <div className={styles.header_block_user_avatar_div}>
                 {profileData?.user.last_name[0] || 'Б'}
@@ -72,8 +76,15 @@ export const Header = memo(() => {
             </div>
           </div>
         </Link>
-        <div className={styles.header_block_logOut}>
-          <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
+        <div
+          className={styles.header_block_logOut}>
+        <IconSvg
+          width={26}
+          height={26}
+          viewBoxSize="0 0 26 25"
+          path={logOutIconPath}
+          functionOnClick={logOut}
+        />
         </div>
       </div>
     </header>
