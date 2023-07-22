@@ -27,6 +27,7 @@ export const Header = memo(() => {
 
   const logOut = (): void => {
     logout()
+
     dispatch(auth(false))
   }
 

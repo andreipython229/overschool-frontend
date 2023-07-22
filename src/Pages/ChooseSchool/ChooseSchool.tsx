@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 import { Path } from '../../enum/pathE'
 
@@ -17,7 +17,7 @@ export const ChooseSchool = () => {
   const [getSchools, { data, isSuccess: userSuccess }] = useGetSchoolsMutation()
   const navigate = useNavigate()
   const [schools, setSchools] = useState<[]>([])
-  const { role } = useAppSelector(selectUser)
+    const { role: userRole, userName: name} = useAppSelector(selectUser)
   const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
       getSchools().then((datas: any) => {
@@ -30,17 +30,14 @@ export const ChooseSchool = () => {
   type School = {
     name: string
   }
-  const onChoose = (s: School) => {
-      if (role.valueOf() == RoleE.Admin) navigate("/school/"+s.name+"/courses/")
-      if (role.valueOf() == RoleE.Teacher) navigate("/school/"+s.name+"/"+Path.Profile)
-  }
-
   return (
     <div className={styles.bg1}>
     <div className={styles.bg3}>
         {isLoading ? <SimpleLoader style={{margin: '50px', height: '80px'}}/> :
            <div><span className={styles.tit}>Выберите школу для входа:</span>
-        {schools.map((s: School) => <div onClick={() => {onChoose(s)}} key={0} className={styles.bg}><div className={styles.name}>{s.name}</div><span>→</span></div>)}
+        {schools.map((s: School) => <Link key={0}
+                                          to={`${userRole === RoleE.SuperAdmin ? `/school/${s.name}/settings/` : userRole === RoleE.Teacher ? `/school/${s.name}/`+Path.CourseStats : `/school/${s.name}/`+Path.Courses}`}
+        ><div className={styles.bg}><div className={styles.name}>{s.name}</div><span>→</span></div></Link>)}
         </div>}</div>
       <div className={styles.bg2}>
        <img src={anton}/>

@@ -1,13 +1,15 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
+// import { baseQuery } from './baseApi'
 import { schoolHeaderResT } from '../types/schoolHeaderT'
 import { UpdateCourses } from './apiTypes'
-import {baseQuery} from "./baseApi";
+import { studentsTableInfoT } from '../types/courseStatT'
+import { createUrlWithParams } from 'utils/createUrlWithParams'
 
 export const schoolHeaderService = createApi({
   reducerPath: 'coursesHeaderService',
-  baseQuery: baseQuery("/api/"),
-  tagTypes: ['schoolHeader'],
+  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
+  tagTypes: ['schoolHeader', 'studentPerSchool'],
   endpoints: build => ({
     fetchSchoolHeader: build.query<schoolHeaderResT, number>({
       query: (id?: number) => ({
@@ -23,7 +25,13 @@ export const schoolHeaderService = createApi({
       }),
       invalidatesTags: ['schoolHeader'],
     }),
+    fetchStudentsPerSchool: build.query<studentsTableInfoT, { [key: string]: string | number }>({
+      query: filters => ({
+        url: createUrlWithParams(`schools/1/stats/`, filters),
+      }),
+      providesTags: ['studentPerSchool'],
+    }),
   }),
 })
 
-export const { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation } = schoolHeaderService
+export const { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation, useLazyFetchStudentsPerSchoolQuery } = schoolHeaderService

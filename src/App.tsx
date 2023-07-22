@@ -35,7 +35,6 @@ export const App = () => {
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
-
         <Route path={Path.School} element={<MainLayOut />}>
           {navByRolesConfig[role]}
         </Route>
