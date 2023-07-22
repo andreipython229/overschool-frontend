@@ -6,7 +6,7 @@ import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from 'config/commonSvgIconsPath'
 import { basicModalHeaderIconPath } from '../config/svgIconsPath'
 import { SettingClassesPropsT } from '../../ModalTypes'
-import { useCreateLesson } from '../../../../customHooks/useCreateLesson'
+import { useCreateLesson } from '../../../../customHooks'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from '../../Modal.module.scss'

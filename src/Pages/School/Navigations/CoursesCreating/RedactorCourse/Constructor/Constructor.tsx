@@ -48,6 +48,7 @@ export const Constructor: FC = () => {
     <div className={styles.loader_container}>
       <div className={styles.spinner}></div>
     </div>)
+
   return (
     <div className={styles.redactorCourse}>
       <ModulesAndLessonsBlock setType={setType} setLessonIdAndType={setLessonIdAndType} modulesList={modulesList || []} />
