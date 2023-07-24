@@ -17,6 +17,9 @@ import { chipsVal } from 'components/FiltersButton/Chips/config'
 
 import styles from '../AllStudentsBlock/all_students_block.module.scss'
 
+import {RoleE} from 'enum/roleE'
+import { useAppSelector } from 'store/hooks'
+
 export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
   ({
     headerText,
@@ -34,6 +37,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
 
     const [isOpen, { off, on }] = useBoolean()
 
+    const { role } = useAppSelector(state => state.user)
     // const [term, filteredData, handleChangeTerm] = useDebouncedFilter()
 
     return (
@@ -58,9 +62,10 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
           <div className={styles.arrow_add_file_block} onClick={() => handleReloadTable && handleReloadTable()}>
             <IconSvg width={13} height={17} viewBoxSize="0 0 13 17" path={updateArrPath} />
           </div>
+            {role != RoleE.Teacher ? (
           <Button onClick={off} className={styles.add_students_btn} text={'Добавить учеников'} variant={'primary'}>
             <IconSvg width={16} height={16} viewBoxSize={'0 0 16 16'} path={addStudentIconPath} />
-          </Button>
+          </Button>) : (<></>)}
         </div>
         {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} />}</Portal>}
       </div>
