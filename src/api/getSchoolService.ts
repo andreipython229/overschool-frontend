@@ -1,7 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
+import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import {baseQuery} from "./baseApi";
-
-// import { baseQuery } from './baseApi'
 
 export const getSchoolService = createApi({
   reducerPath: 'getSchoolService',

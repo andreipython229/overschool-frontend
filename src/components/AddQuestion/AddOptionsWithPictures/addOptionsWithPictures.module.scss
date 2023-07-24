@@ -3,7 +3,7 @@
 
 .wrapper {
     @include display (flex, column, space-between, center);
-    width: 130px;
+    width: 180px;
     height: 130px;
     border-radius: 7px;
     padding: 20px 25px;

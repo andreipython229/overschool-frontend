@@ -17,25 +17,27 @@ import phone from './phone.svg'
 import settings from './setting 2.svg'
 import unSecurity from './unSecurity.svg'
 import deleteIcon from './deleteIcon.svg'
+import pngwing from './2869065.jpg'
 
 export {
-  arrowUp,
-  arrowDown,
-  avatar,
-  blackArrDown,
-  close,
-  done,
-  doneIcon,
-  exit,
-  isSecurity,
-  logo,
-  logOut,
-  mail,
-  message,
-  navbar_menu,
-  noAvatar,
-  phone,
-  settings,
-  unSecurity,
-  deleteIcon,
+    arrowUp,
+    arrowDown,
+    avatar,
+    blackArrDown,
+    close,
+    done,
+    doneIcon,
+    exit,
+    isSecurity,
+    logo,
+    logOut,
+    mail,
+    message,
+    navbar_menu,
+    noAvatar,
+    phone,
+    settings,
+    unSecurity,
+    deleteIcon,
+    pngwing
 }

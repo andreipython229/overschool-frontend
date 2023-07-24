@@ -55,16 +55,6 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     handleUploadFiles(chosenFiles)
   }
 
-  // const opts: YouTubeProps['opts'] = {
-  //   height: '500px',
-  //   width: '800px',
-  //   playerVars: {
-  //     autoplay: 0,
-  //     apiKey: window.youTubeAPIKey.apiKey,
-  //   },
-  // }
-  // const videoIdLesson = youtubeParser(lesson.type === LESSON_TYPE.LESSON ? lesson?.video : '')
-
   const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
   const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
