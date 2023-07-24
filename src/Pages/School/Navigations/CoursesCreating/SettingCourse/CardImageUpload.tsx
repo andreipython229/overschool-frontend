@@ -7,6 +7,7 @@ import {publishedIconPath, noPublishedIconPath} from '../../../config/svgIconsPa
 import {patchData} from 'utils/patchData'
 
 import styles from './setting_course.module.scss'
+import {pngwing} from "../../../../../assets/img/common";
 
 type CardImageDownloadsT = {
     toggleCheckbox: boolean
@@ -32,7 +33,14 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({toggleCheckbox, course
     return (
         <div className={styles.card_image_downloads}>
             <label className={styles.block_download_image}>
-                <img src={courseFind?.photo || ''} alt={courseFind?.name}/>
+                {courseFind?.photo ? (
+                    <img src={courseFind.photo} alt={courseFind.name}
+                         style={{objectFit: 'cover', width: '100%', height: '100%'}}/>
+                ) : (
+                    <div className={styles.no_image}>
+                        <span>Нет изображения курса :(</span>
+                    </div>
+                )}
                 <input className={styles.hide_input} type="file" onChange={handleUploadFile}/>
             </label>
             {toggleCheckbox ? (

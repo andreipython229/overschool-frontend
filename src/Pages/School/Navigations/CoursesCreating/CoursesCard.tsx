@@ -20,7 +20,10 @@ type courseCard = {
 }
 
 export const CoursesCard: FC<courseCard> = ({course, role}) => {
-    const {data: userProgress, isLoading} = (role === RoleE.Student)? useFetchProgressQuery(course?.course_id || ''): useFetchCoursesQuery()
+    const {
+        data: userProgress,
+        isLoading
+    } = (role === RoleE.Student) ? useFetchProgressQuery(course?.course_id || '') : useFetchCoursesQuery()
 
     if (isLoading) {
         return <SimpleLoader style={{width: '100px', height: '100px'}}/>;
@@ -32,8 +35,15 @@ export const CoursesCard: FC<courseCard> = ({course, role}) => {
                 {role === RoleE.Admin ? (
                     <>
                         <div className={styles.course_card_img}>
-                            <img className={styles.course_card_img} src={`${course?.photo}`}
-                                 alt="course_cover"/>
+                            {course.photo ? (
+                                <img className={styles.course_card_img} src={`${course.photo}`}
+                                     alt="course_cover"/>
+                            ) : (
+                                <div className={styles.no_image_found}>
+                                    <span>Нет изображения курса :(</span>
+                                </div>
+                            )
+                            }
                         </div>
                         <div className={styles.course_card_about}>
                         <span className={styles.course_card_status_show}>

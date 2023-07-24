@@ -76,10 +76,18 @@ export const AddQuestion: FC<AddQuestionT> = memo(({testId}) => {
         return (
             <div className={styles.wrapper}>
                 <div className={styles.settings_list}>
-                    {sortedQuestions.map((question) => (
-                        <TextOptions answers={question.answers} question={question} title={question.body}
-                                     id={question.question_id} key={question.question_id}/>
-                    ))}
+                    {sortedQuestions.map((question) => {
+                        if (question.question_type === 'Text') {
+                            return <TextOptions answers={question.answers} question={question} title={question.body}
+                                                id={question.question_id} key={question.question_id}/>
+                        } else if (question.question_type === 'TextPic') {
+                            return <OptionsWithPictures answers={question.answers} question={question} title={question.body}
+                                                        id={question.question_id} key={question.question_id}/>
+                        } else if (question.question_type === 'PicText') {
+                            return <PicturesAndOptions answers={question.answers} question={question} title={question.body}
+                                                       id={question.question_id} key={question.question_id}/>
+                        }
+                    })};
                 </div>
                 <div className={styles.wrapper_addQuestionsWrapper}>
                     <h2 className={styles.wrapper_addQuestionsWrapper_title}>Добавьте вопрос</h2>
@@ -90,10 +98,10 @@ export const AddQuestion: FC<AddQuestionT> = memo(({testId}) => {
                                                 questions={questions} testId={testId}/>
                         <AddPicturesAndOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
                                                questions={questions} testId={testId}/>
-                        <AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
-                                     questions={questions} testId={testId}/>
-                        <AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
-                                          questions={questions} testId={testId}/>
+                        {/*<AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}*/}
+                        {/*             questions={questions} testId={testId}/>*/}
+                        {/*<AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}*/}
+                        {/*                  questions={questions} testId={testId}/>*/}
                     </div>
                 </div>
             </div>
