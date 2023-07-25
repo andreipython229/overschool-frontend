@@ -16,6 +16,7 @@ import {SimpleLoader} from '../../../../components/Loaders/SimpleLoader'
 import ContentLoader from 'react-content-loader'
 
 export const CoursePage: FC = memo(() => {
+
     const {data: courses} = useFetchCoursesQuery()
 
     const {role} = useAppSelector(selectUser)

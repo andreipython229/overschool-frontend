@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
 import { profileT, changePasswordProfileT } from '../types/profileT'
+import {baseQuery} from "./baseApi";
 
 export const profileService = createApi({
   reducerPath: 'profileService',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
+  baseQuery: baseQuery(),
   tagTypes: ['profile', 'password_change'],
   endpoints: build => ({
     fetchProfileData: build.query<profileT[], void>({

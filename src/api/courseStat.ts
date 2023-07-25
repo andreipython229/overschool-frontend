@@ -1,12 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { studentsTableInfoT } from '../types/courseStatT'
-import { baseQuery } from './baseApi'
+import {baseQuery, baseQueryFn} from './baseApi'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
 
 export const courseStatService = createApi({
   reducerPath: 'courseStat',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryFn(),
   tagTypes: ['courseStat', 'studentsPerGroup', 'studentPerSchool'],
   endpoints: build => ({
     fetchCourseStat: build.query<studentsTableInfoT, any>({

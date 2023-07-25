@@ -1,11 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { studentGroupInfoT, studentsTableHeader } from 'types/studentsGroup'
-import { baseQuery } from './baseApi'
+import {baseQuery, baseQueryFn} from './baseApi'
 
 export const studentsTableService = createApi({
   reducerPath: 'studentsTableService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryFn(),
   tagTypes: ['studentsTable'],
   endpoints: build => ({
     fetchStudentsTablesHeader: build.query<studentsTableHeader[], void>({

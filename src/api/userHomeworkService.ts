@@ -2,11 +2,11 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { UserHomework, Homework } from 'types/homeworkT'
 
-import { baseQuery } from './baseApi'
+import {baseQuery, baseQueryFn} from './baseApi'
 
 export const userHomeworkService = createApi({
   reducerPath: 'userHomeworkService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryFn(),
   tagTypes: ['userHomework'],
   endpoints: build => ({
     fetchUserHomework: build.query<UserHomework, number>({
