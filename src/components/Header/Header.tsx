@@ -15,10 +15,12 @@ import { headerUserRoleName } from 'config/index'
 import { profileT } from 'types/profileT'
 
 import styles from './header.module.scss'
+import {useCookies} from "react-cookie";
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
   const { role } = useAppSelector(selectUser)
+  const [cookies, setCookie, removeCookie] = useCookies(['access_token', 'refresh_token']);
 
   const [logout] = useLazyLogoutQuery()
 
@@ -26,6 +28,9 @@ export const Header = memo(() => {
   const { data: profile, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
 
   const logOut = (): void => {
+    localStorage.setItem('school', '')
+    removeCookie('access_token')
+    removeCookie('refresh_token')
     logout()
 
     dispatch(auth(false))

@@ -7,7 +7,7 @@ import { ILoginUserInfo } from 'types/userT'
 
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
+  baseQuery: baseQuery(),
   tagTypes: ['login', 'logout', 'useInfo'],
   endpoints: builder => ({
     login: builder.mutation<IResponse, ICredentials>({

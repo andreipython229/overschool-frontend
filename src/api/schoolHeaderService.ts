@@ -5,10 +5,11 @@ import { schoolHeaderResT } from '../types/schoolHeaderT'
 import { UpdateCourses } from './apiTypes'
 import { studentsTableInfoT } from '../types/courseStatT'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
+import {baseQuery} from "./baseApi";
 
 export const schoolHeaderService = createApi({
   reducerPath: 'coursesHeaderService',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
+  baseQuery: baseQuery(),
   tagTypes: ['schoolHeader', 'studentPerSchool'],
   endpoints: build => ({
     fetchSchoolHeader: build.query<schoolHeaderResT, number>({

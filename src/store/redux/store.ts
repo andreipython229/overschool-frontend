@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import * as services from '../../api/index'
 import * as slices from './index'
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     [services.userProgressService.reducerPath]: services.userProgressService.reducer,
     [services.userLoginService.reducerPath]: services.userLoginService.reducer,
     [services.coursesServices.reducerPath]: services.coursesServices.reducer,
@@ -27,12 +27,13 @@ const rootReducer = combineReducers({
     sections: slices.sectionsReduce,
     filters: slices.filtersReducer,
     chat: slices.chatReducer,
+    school: slices.schoolReducer,
 })
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['user', 'sections', 'filters'],
+    whitelist: ['user', 'sections', 'filters', 'school'],
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

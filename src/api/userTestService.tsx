@@ -1,10 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import { baseQuery } from './baseApi'
+import {baseQuery, baseQueryFn} from './baseApi'
 
 export const userTestService = createApi({
   reducerPath: 'userTestService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryFn(),
   tagTypes: ['testResults', 'userTest'],
   endpoints: build => ({
     sendTestResults: build.mutation({
