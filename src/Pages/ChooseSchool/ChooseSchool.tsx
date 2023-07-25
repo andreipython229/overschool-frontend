@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 import {Path} from '../../enum/pathE'
 
@@ -15,6 +15,7 @@ import {useDispatch} from "react-redux";
 
 
 export const ChooseSchool = () => {
+    const navigate = useNavigate();
 
     const [getSchools, {data, isSuccess: userSuccess}] = useGetSchoolsMutation()
     const {role: userRole, userName: name} = useAppSelector(selectUser)
@@ -36,9 +37,9 @@ export const ChooseSchool = () => {
         name: string
     }
 
-    const handleSchool = (school: string) => {
-        dispatch(setSchoolName(school))
-        localStorage.setItem('school', school)
+    const handleSchool = async (school: string) => {
+        await localStorage.setItem('school', school)
+        await dispatch(setSchoolName(school))
     }
 
     return (
@@ -47,7 +48,11 @@ export const ChooseSchool = () => {
                 {isLoading ? <SimpleLoader style={{margin: '50px', height: '80px'}}/> :
                     <div><span className={styles.tit}>Выберите школу для входа:</span>
                         {schools.map((s: School) =>
-                            <Link key={0} onClick={() => handleSchool(s.name)} to={`${userRole === RoleE.SuperAdmin ? `/school/${s.name}/settings/` : userRole === RoleE.Teacher ? `/school/${s.name}/` + Path.CourseStats : `/school/${s.name}/` + Path.Courses}`}>
+                            <Link key={0} onClick={async (e) => {
+                                e.preventDefault();
+                                await handleSchool(s.name);
+                                navigate(`${userRole === RoleE.SuperAdmin ? `/school/${s.name}/settings/` : userRole === RoleE.Teacher ? `/school/${s.name}/` + Path.CourseStats : `/school/${s.name}/` + Path.Courses}`)
+                            }} to={`#`}>
                             <div className={styles.bg}>
                                 <div className={styles.name}>{s.name}</div>
                                 <span>→</span></div>
