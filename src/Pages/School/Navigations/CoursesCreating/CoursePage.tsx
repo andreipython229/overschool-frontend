@@ -1,4 +1,4 @@
-import {FC, memo} from 'react'
+import {FC, memo, useEffect} from 'react'
 import {useAppSelector} from 'store/hooks'
 import {CoursesCard} from './CoursesCard'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
@@ -14,8 +14,10 @@ import {useDebouncedFilter} from '../../../../customHooks'
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import {SimpleLoader} from '../../../../components/Loaders/SimpleLoader'
 import ContentLoader from 'react-content-loader'
+import {useNavigate} from "react-router-dom";
 
 export const CoursePage: FC = memo(() => {
+    const navigate = useNavigate();
 
     const {data: courses} = useFetchCoursesQuery()
 
@@ -28,6 +30,13 @@ export const CoursePage: FC = memo(() => {
     const dispatchHandlerModal = () => {
         onToggle()
     }
+
+    useEffect(() => {
+        if (!localStorage.getItem('school')) {
+            navigate('/chooseSchool/')
+        }
+    }, [courses])
+
     if (!courses?.results.length) return (
         <>
             <div>
