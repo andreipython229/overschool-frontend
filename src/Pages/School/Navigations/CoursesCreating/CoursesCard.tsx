@@ -80,7 +80,7 @@ export const CoursesCard: FC<courseCard> = ({course, role}) => {
                             <div className={styles.course_card_progressBar_line}></div>
                         </div>
                         <div className={styles.course_card_about}>
-                            <Link
+                            <Link onClick={() => localStorage.setItem("course_id", ""+course?.course_id)}
                                 to={generatePath(Student.Course, {
                                     course_id: `${course?.course_id}`,
                                 })}
