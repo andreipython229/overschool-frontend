@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import {useEffect, useState} from 'react'
 import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
@@ -14,14 +14,14 @@ import styles from './profile.module.scss'
 
 export const Profile = () => {
   const [changePasswordFunc, { isError, isSuccess }] = useChangePasswordMutation()
-
   const changePassword = useFormik({
     initialValues: {
       password: '',
       confirmPassword: '',
     },
-    validationSchema: changePasswordSchema,
+   // validationSchema: changePasswordSchema,
     onSubmit: (values, { resetForm }) => {
+      console.log("submit")
       const { password: new_password1, confirmPassword: new_password2 } = values
       changePasswordFunc({ new_password1, new_password2 })
       resetForm()
@@ -29,7 +29,7 @@ export const Profile = () => {
   })
 
   useEffect(() => {
-    isSuccess && changePassword.setSubmitting(false)
+   // isSuccess && changePassword.setSubmitting(false)
   }, [isSuccess])
 
   const {
@@ -40,21 +40,23 @@ export const Profile = () => {
     handleChange: handlePasswordChange,
   } = changePassword
 
-  const isBtnDisabled = !password || !confirmPassword || Boolean(errors.password) || Boolean(errors.confirmPassword) || isError || isSubmitting
-
+  const isBtnDisabled = !password || !confirmPassword //|| Boolean(errors.password) || Boolean(errors.confirmPassword) || isError || isSubmitting
+  /*const isEmailBtnDisabled = !email
+  const email_edit = (val: any) => {
+    if (!val.data) {
+      if (email == "") return;
+      setEmail(email.slice(0, -1))
+      return
+    }
+   setEmail(email+val.data)
+  }
+*/
   return (
     <div className={styles.wrapper}>
       <div className={styles.profile}>
         <AboutUser />
         <div className={styles.forms_wrapper}>
-          <form className={styles.container}>
-            <h5 className={styles.profile_block_title}>Изменить email</h5>
-            <Input name={'email'} type={'text'} value={''} onChange={() => console.log('заглушка')} placeholder={'Новый email адрес'} />
-            <div className={styles.container_wrapper}>
-              <Button className={styles.profile_block_btn} variant={'disabled'} text={'Сохранить'} disabled />
-            </div>
-          </form>
-          <form style={{ marginTop: '32px' }} className={styles.container} onSubmit={handlePasswordsSubmit}>
+          <form className={styles.container} onSubmit={handlePasswordsSubmit}>
             <h5 className={styles.profile_block_title}>Смена пароля</h5>
             <Input name="password" type="text" onChange={handlePasswordChange} value={password} placeholder="Новый пароль" />
             <div className={styles.container_wrapper}>
