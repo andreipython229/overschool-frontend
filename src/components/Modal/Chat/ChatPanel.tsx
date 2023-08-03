@@ -28,7 +28,7 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
         <div className={styles.chatPanel_user}>
           <div className={styles.chatPanel_user_avatar}>
             {currentUserData?.avatar ? (
-              <img src={`${window.appConfig.imagePath}${currentUserData.avatar}`} alt="avatar" />
+              <img src={`${currentUserData.avatar}`} alt="avatar" />
             ) : (
               `${currentUserData?.first_name[0] || 'Б'}${currentUserData?.last_name[0] || 'И'}`
             )}
