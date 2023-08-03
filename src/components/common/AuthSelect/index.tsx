@@ -15,6 +15,7 @@ export const AuthSelect: FC<AuthSelectPropsT> = memo(({ getInputVariant }) => {
     getInputVariant(variant)
     setVariant(variant)
   }
+
   return (
     <div onClick={() => setContext(!context)} className={styles.container}>
       {variant === 'email' ? (

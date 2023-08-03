@@ -46,7 +46,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
               <div className={styles.chatGroup_content_user_info}>
                 <div className={styles.chatGroup_content_user_avatar}>
                   {sender?.avatar ? (
-                    <img src={`${window.appConfig.imagePath}${sender.avatar}`} alt="avatar" />
+                    <img src={`${sender.avatar}`} alt="avatar" />
                   ) : (
                     `${sender?.first_name[0] || 'Б'}${sender?.last_name[0] || 'И'}`
                   )}
