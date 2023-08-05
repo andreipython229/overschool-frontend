@@ -17,7 +17,7 @@ import {useDispatch} from "react-redux";
 export const ChooseSchool = () => {
     const navigate = useNavigate();
 
-    const [getSchools, {data, isSuccess: userSuccess}] = useGetSchoolsMutation()
+    const [getSchools, {isSuccess: userSuccess}] = useGetSchoolsMutation()
     const {role: userRole, userName: name} = useAppSelector(selectUser)
 
     const [schools, setSchools] = useState<[]>([])
