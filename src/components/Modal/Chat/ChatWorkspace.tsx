@@ -29,7 +29,7 @@ export const ChatWorkspace: FC = () => {
     if (chatId) {
       fetchChatData(chatId)
 
-      const socket = new WebSocket(`ws://dev.api.overschool.by:8000/api/chats/${chatId}/`)
+      const socket = new WebSocket(`ws://apidev.overschool.by:8000/ws/chats/${chatId}/`)
       setSocket(socket)
 
       socket.onopen = () => console.log('WebSocket connected')
