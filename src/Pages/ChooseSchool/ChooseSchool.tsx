@@ -17,7 +17,7 @@ import {useDispatch} from "react-redux";
 export const ChooseSchool = () => {
     const navigate = useNavigate();
 
-    const [getSchools, {data, isSuccess: userSuccess}] = useGetSchoolsMutation()
+    const [getSchools, {isSuccess: userSuccess}] = useGetSchoolsMutation()
     const {role: userRole, userName: name} = useAppSelector(selectUser)
 
     const [schools, setSchools] = useState<[]>([])
@@ -38,7 +38,7 @@ export const ChooseSchool = () => {
     }
 
     const handleSchool = async (school: string) => {
-        await localStorage.setItem('school', school)
+        localStorage.setItem('school', school)
         await dispatch(setSchoolName(school))
     }
 
@@ -51,7 +51,8 @@ export const ChooseSchool = () => {
                             <Link key={0} onClick={async (e) => {
                                 e.preventDefault();
                                 await handleSchool(s.name);
-                                navigate(`${userRole === RoleE.SuperAdmin ? `/school/${s.name}/settings/` : userRole === RoleE.Teacher ? `/school/${s.name}/` + Path.CourseStats : `/school/${s.name}/` + Path.Courses}`)
+                               navigate(`${userRole === RoleE.SuperAdmin ? `/school/${s.name}/settings/` : userRole === RoleE.Teacher ? `/school/${s.name}/` + Path.CourseStats : `/school/${s.name}/` + Path.Courses}`)
+                                window.location.reload();
                             }} to={`#`}>
                             <div className={styles.bg}>
                                 <div className={styles.name}>{s.name}</div>
