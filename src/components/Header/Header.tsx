@@ -32,8 +32,8 @@ export const Header = memo(() => {
     removeCookie('access_token')
     removeCookie('refresh_token')
     logout()
-
     dispatch(auth(false))
+    window.location.reload();
   }
 
   const [profileData, setProfileData] = useState<profileT>()
