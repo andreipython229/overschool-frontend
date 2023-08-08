@@ -5,7 +5,6 @@ import styles from './studentTestBlock.module.scss'
 import {StudentTestResults} from "./StudentTestResults";
 import {selectUser} from "../../../selectors";
 import {useSelector} from "react-redux";
-import {RootState} from "../../../store/redux/store";
 
 type questionListT = {
     attempt_count: number
