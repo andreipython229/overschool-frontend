@@ -11,6 +11,7 @@ import {StudentLessonSidebar} from './StudentLessonSidebar'
 import {sectionT} from 'types/sectionT'
 
 import styles from './lesson.module.scss'
+import {SimpleLoader} from "../../../components/Loaders/SimpleLoader";
 
 export const StudentLessonPreview: FC = () => {
     const params = useParams()
@@ -18,7 +19,7 @@ export const StudentLessonPreview: FC = () => {
     const testId = params?.lesson_type === 'test' && params?.lesson_id
 
     const {data: lessons, isSuccess} = useFetchModuleLessonsQuery(`${params?.section_id}`)
-    const {data: lesson} = !testId? useFetchLessonQuery({
+    const {data: lesson, isLoading} = !testId? useFetchLessonQuery({
         id: Number(params?.lesson_id) as number,
         type: `${params?.lesson_type}`
     }): useFetchQuestionsListQuery(params?.lesson_id)
@@ -40,16 +41,20 @@ export const StudentLessonPreview: FC = () => {
         }
     }
 
-    return (
-        <div className={styles.lesson_wrapper}>
-            {renderUI()}
-            <StudentLessonSidebar
-                lessonType={`${params?.lesson_type}` as LESSON_TYPE}
-                courseId={`${params?.course_id}`}
-                sectionId={`${params?.section_id}`}
-                activeLessonIndex={activeLessonIndex as number}
-                lessons={lessons as sectionT}
-            />
-        </div>
-    )
+    if (!isLoading) {
+        return (
+            <div className={styles.lesson_wrapper}>
+                {renderUI()}
+                <StudentLessonSidebar
+                    lessonType={`${params?.lesson_type}` as LESSON_TYPE}
+                    courseId={`${params?.course_id}`}
+                    sectionId={`${params?.section_id}`}
+                    activeLessonIndex={activeLessonIndex as number}
+                    lessons={lessons as sectionT}
+                />
+            </div>
+        )
+    } else {
+        return <SimpleLoader/>
+    }
 }
