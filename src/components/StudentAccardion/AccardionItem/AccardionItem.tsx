@@ -9,6 +9,7 @@ import {lessonT} from '../../../types/sectionT'
 import {accardionItemT} from '../../../types/componentsTypes'
 
 import styles from './accardionItem.module.scss'
+import {completedIconPath} from "../config/svgIconPath";
 
 export const AccardionItem: FC<accardionItemT> = memo(({module, moduleIndex, openIndex, handleToggleOpen}) => {
     const isLessonClickable = (lessonIndex: number) => {
@@ -19,7 +20,7 @@ export const AccardionItem: FC<accardionItemT> = memo(({module, moduleIndex, ope
         <div className={styles.accardionWrapper_component}>
             <div onClick={() => handleToggleOpen(moduleIndex)} className={styles.accardionWrapper_component_header}>
         <span className={styles.accardionWrapper_component_header_completedIcon}>
-          {/* <IconSvg width={16} height={13} viewBoxSize="0 0 16 13" path={completedIconPath} /> */}
+           {/*<IconSvg width={16} height={13} viewBoxSize="0 0 16 13" path={completedIconPath} />*/}
             {moduleIndex + 1}
         </span>
                 <div className={styles.accardionWrapper_component_header_lessonName}>
@@ -28,32 +29,14 @@ export const AccardionItem: FC<accardionItemT> = memo(({module, moduleIndex, ope
                         <span></span>
                     </h4>
                     <span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>
-            {module.lessons.length}
+                        {module.lessons.length}
                         <span>{getNounDeclension(module.lessons.length, ['Задание', 'Задания', 'Заданий'])}</span>
-          </span>
+                    </span>
                 </div>
-                <span
-                    className={
-                        openIndex === moduleIndex
-                            ? styles.accardionWrapper_component_header_showBtnWrapper_active
-                            : styles.accardionWrapper_component_header_showBtnWrapper
-                    }
-                >
-          <IconSvg
-              width={22}
-              height={13}
-              viewBoxSize="0 0 22 13"
-              path={[{...accardionArrPath[0], fill: openIndex === moduleIndex ? '#C6C6C6' : '#4D5766'}]}
-          />
+                <span className={openIndex === moduleIndex ? styles.accardionWrapper_component_header_showBtnWrapper_active: styles.accardionWrapper_component_header_showBtnWrapper}>
+          <IconSvg width={22} height={13} viewBoxSize="0 0 22 13" path={[{...accardionArrPath[0], fill: openIndex === moduleIndex ? '#C6C6C6' : '#4D5766'}]}/>
         </span>
             </div>
-            {/*{openIndex === moduleIndex && (*/}
-            {/*  <div className={styles.accardionWrapper_component_exerciseWrapper}>*/}
-            {/*    {module.lessons.map((lesson: lessonT) => (*/}
-            {/*      <ExerciseItem key={lesson.order + lesson.id} lesson={lesson} sectionId={module.section} />*/}
-            {/*    ))}*/}
-            {/*  </div>*/}
-            {/*)}*/}
             {openIndex === moduleIndex && (
                 <div className={styles.accardionWrapper_component_exerciseWrapper}>
                     {module.lessons.map((lesson: lessonT, lessonIndex: number) => (

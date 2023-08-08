@@ -31,7 +31,6 @@ export const ExerciseItem: FC<exerciseItemT> = memo(({ lesson, sectionId, disabl
         <span className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper_status_neg}>
           {lesson.viewed? 'Пройдено': 'Не пройдено'}
         </span>
-        {/* <span className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper_status}>Не пройдено</span> */}
       </div>
     </div>
   )

@@ -18,11 +18,10 @@ export const StudentLessonPreview: FC = () => {
     const testId = params?.lesson_type === 'test' && params?.lesson_id
 
     const {data: lessons, isSuccess} = useFetchModuleLessonsQuery(`${params?.section_id}`)
-    const {data: lesson} = useFetchLessonQuery({
+    const {data: lesson} = !testId? useFetchLessonQuery({
         id: Number(params?.lesson_id) as number,
         type: `${params?.lesson_type}`
-    })
-    const {data: questionsList} = testId? useFetchQuestionsListQuery(params?.lesson_id): {data: undefined}
+    }): useFetchQuestionsListQuery(params?.lesson_id)
 
     const activeLessonIndex = lessons?.lessons.findIndex(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
 
@@ -35,8 +34,8 @@ export const StudentLessonPreview: FC = () => {
                 case LESSON_TYPE.HOMEWORK:
                     return <StudentHomework lessons={lessons} lesson={lesson} params={params}
                                             activeLessonIndex={activeLessonIndex as number}/>
-                case LESSON_TYPE.TEST:
-                    return <StudentTest lessons={lessons} lesson={questionsList} params={params}/>
+                case undefined:
+                    return <StudentTest lessons={lessons} lesson={lesson} params={params}/>
             }
         }
     }
