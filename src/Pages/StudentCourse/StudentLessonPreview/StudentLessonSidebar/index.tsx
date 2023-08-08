@@ -1,12 +1,11 @@
-import {FC, memo, useEffect, useState} from 'react'
-import {useNavigate, useParams} from 'react-router-dom'
+import {FC, memo, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 import {LESSON_TYPE} from 'enum/lessonTypeE'
 import {lessonSvgMapper} from '../../../../config'
 import {sectionT} from '../../../../types/sectionT'
 
 import styles from '../lesson.module.scss'
-import {useFetchModuleLessonsQuery} from "../../../../api/modulesServices";
 
 type studentLessonSidebar = {
     courseId: string
@@ -16,31 +15,41 @@ type studentLessonSidebar = {
     lessonType: LESSON_TYPE
 }
 
-export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({courseId, sectionId, activeLessonIndex, lessons, lessonType}) => {
-    const navigate = useNavigate()
-    const params = useParams()
+export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({courseId, sectionId, activeLessonIndex, lessons: initialLessons, lessonType}) => {
+    const navigate = useNavigate();
+    const [lessonsComp, setLessonsComp] = useState<sectionT>(initialLessons);
 
-    const {data: lessonsComp} = useFetchModuleLessonsQuery(`${params?.section_id}`)
+    console.log('init: ', initialLessons)
+    console.log('lessonsComp: ', lessonsComp)
 
     const isLessonClickable = (lessonIndex: number) => {
         return lessonsComp?.lessons.slice(0, lessonIndex).some((lesson) => !lesson.viewed);
+    };
+
+    const updateLessonViewed = (lessonIndex: number, viewed: boolean) => {
+        setLessonsComp(prevLessonsComp => {
+            const updatedLessons = [...prevLessonsComp.lessons];
+            updatedLessons[lessonIndex] = {...updatedLessons[lessonIndex], viewed: viewed};
+            return {...prevLessonsComp, lessons: updatedLessons};
+        });
     };
 
     return (
         <div className={styles.lesson__block}>
             <p className={styles.lesson__block_title}>Занятия модуля:</p>
             <div>
-                {lessonsComp?.lessons.map(({name, id, type, order, viewed}, index: number) => {
+                {lessonsComp && lessonsComp?.lessons.map(({name, id, type}, index: number) => {
                     const isDisabled = isLessonClickable(index);
 
                     return (
                         <div
                             style={{cursor: 'pointer'}}
-                            key={`${viewed}${id}`}
+                            key={`${index}`}
                             onClick={() => {
                                 if (isDisabled) {
                                     return;
                                 }
+                                updateLessonViewed(index, true);
                                 navigate(`/school/School_1/courses/student-course/${courseId}/module/${sectionId}/${type}/${id}`);
                             }}
                             className={`${activeLessonIndex === index && lessonType === type ? styles.lesson__item_active : styles.lesson__item}
