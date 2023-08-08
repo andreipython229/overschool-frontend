@@ -35,13 +35,13 @@ export const StudentLessonPreview: FC = () => {
                 case LESSON_TYPE.HOMEWORK:
                     return <StudentHomework lessons={lessons} lesson={lesson} params={params}
                                             activeLessonIndex={activeLessonIndex as number}/>
-                case undefined:
+                case LESSON_TYPE.TEST:
                     return <StudentTest lessons={lessons} lesson={lesson} params={params}/>
             }
         }
     }
 
-    if (!isLoading) {
+    if (!isLoading && isSuccess) {
         return (
             <div className={styles.lesson_wrapper}>
                 {renderUI()}

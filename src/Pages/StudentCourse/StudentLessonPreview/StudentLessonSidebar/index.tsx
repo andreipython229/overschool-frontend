@@ -6,6 +6,8 @@ import {lessonSvgMapper} from '../../../../config'
 import {sectionT} from '../../../../types/sectionT'
 
 import styles from '../lesson.module.scss'
+import {SimpleLoader} from "../../../../components/Loaders/SimpleLoader";
+import {retry} from "@reduxjs/toolkit/query";
 
 type studentLessonSidebar = {
     courseId: string
@@ -19,9 +21,6 @@ export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({courseId, s
     const navigate = useNavigate();
     const [lessonsComp, setLessonsComp] = useState<sectionT>(initialLessons);
 
-    console.log('init: ', initialLessons)
-    console.log('lessonsComp: ', lessonsComp)
-
     const isLessonClickable = (lessonIndex: number) => {
         return lessonsComp?.lessons.slice(0, lessonIndex).some((lesson) => !lesson.viewed);
     };
@@ -33,8 +32,7 @@ export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({courseId, s
             return {...prevLessonsComp, lessons: updatedLessons};
         });
     };
-
-    return (
+    return lessonsComp && (
         <div className={styles.lesson__block}>
             <p className={styles.lesson__block_title}>Занятия модуля:</p>
             <div>
@@ -62,5 +60,5 @@ export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({courseId, s
                 })}
             </div>
         </div>
-    );
+    )
 });

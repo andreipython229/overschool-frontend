@@ -1,4 +1,4 @@
-import {FC, memo} from 'react'
+import {FC, memo, useState} from 'react'
 
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {ExerciseItem} from '../ExerciseItem/ExerciseItem'
@@ -13,7 +13,7 @@ import {completedIconPath} from "../config/svgIconPath";
 
 export const AccardionItem: FC<accardionItemT> = memo(({module, moduleIndex, openIndex, handleToggleOpen}) => {
     const isLessonClickable = (lessonIndex: number) => {
-        return module.lessons.slice(0, lessonIndex).some((lesson) => !lesson.viewed);
+        return module?.lessons.slice(0, lessonIndex).some((lesson) => !lesson.viewed);
     };
 
     return (
@@ -39,7 +39,7 @@ export const AccardionItem: FC<accardionItemT> = memo(({module, moduleIndex, ope
             </div>
             {openIndex === moduleIndex && (
                 <div className={styles.accardionWrapper_component_exerciseWrapper}>
-                    {module.lessons.map((lesson: lessonT, lessonIndex: number) => (
+                    {module && module.lessons.map((lesson: lessonT, lessonIndex: number) => (
                         <ExerciseItem
                             key={lesson.order + lesson.id}
                             lesson={lesson}
