@@ -1,11 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { sectionT, sectionsT, commonLessonT } from 'types/sectionT'
-import { baseQueryWithReauth } from './baseApi'
+import {baseQuery, baseQueryFn} from './baseApi'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQueryFn(),
   tagTypes: ['modules', 'lessons', 'patchLessons'],
   endpoints: build => ({
     fetchModules: build.query<sectionsT, string>({
@@ -16,13 +16,13 @@ export const modulesServices = createApi({
     }),
     fetchModuleLessons: build.query<sectionT, string>({
       query: sectionId => ({
-        url: `sections/${sectionId}/lessons`,
+        url: `/sections/${sectionId}/lessons/`,
       }),
       providesTags: ['lessons'],
     }),
     createModules: build.mutation<void, FormData>({
       query: arg => ({
-        url: `./sections/`,
+        url: `/sections/`,
         method: 'POST',
         body: arg,
       }),

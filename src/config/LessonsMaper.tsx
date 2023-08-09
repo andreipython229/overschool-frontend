@@ -5,7 +5,7 @@ import {
   homeworkIcon,
   lessonIcon,
   testIcon,
-} from '../Pages/Courses/Navigations/CoursesCreating/RedactorCourse/Constructor/ModulesAndLessonsBlock/LessonsBlock/config'
+} from '../Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/ModulesAndLessonsBlock/LessonsBlock/config'
 
 export const lessonSvgMapper: { [key: string]: ReactNode } = {
   homework: <IconSvg width={25} height={27} path={homeworkIcon} />,

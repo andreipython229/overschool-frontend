@@ -12,7 +12,6 @@ import { useRegistrationMutation } from '../../../api/userRegisterService'
 export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ setShowModal }) => {
   const { role } = useAppSelector(selectUser)
   const [emailUser, setEmailUser] = useState<string>('')
-  const [addRole, setAddRole] = useState<string>('')
 
   const [registrationAdmin, { isSuccess }] = useRegistrationMutation()
 
@@ -23,7 +22,6 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ setShowModal }) =
       email: emailUser,
       password1: 'Alpha1234',
       password2: 'Alpha1234',
-      group_name: addRole,
     }
     await registrationAdmin(newUser)
   }
@@ -36,23 +34,9 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ setShowModal }) =
   return (
     <>
       {role === RoleE.Admin ? (
-        <AdminModal
-          handleCreatEmployee={handleCreatEmployee}
-          setEmailUser={setEmailUser}
-          setAddRole={setAddRole}
-          addRole={addRole}
-          emailUser={emailUser}
-          setShowModal={setShowModal}
-        />
+        <AdminModal handleCreatEmployee={handleCreatEmployee} setEmailUser={setEmailUser} emailUser={emailUser} setShowModal={setShowModal} />
       ) : (
-        <SuperAdminModal
-          handleCreatEmployee={handleCreatEmployee}
-          setEmailUser={setEmailUser}
-          setAddRole={setAddRole}
-          addRole={addRole}
-          emailUser={emailUser}
-          setShowModal={setShowModal}
-        />
+        <SuperAdminModal handleCreatEmployee={handleCreatEmployee} setEmailUser={setEmailUser} emailUser={emailUser} setShowModal={setShowModal} />
       )}
     </>
   )

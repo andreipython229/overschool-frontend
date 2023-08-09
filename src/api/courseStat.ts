@@ -1,23 +1,27 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-//perhpas there gonna be another api call
-
-//import { courseStatsT } from '../types/courseStatT'
-
-import { baseQueryWithReauth } from './baseApi'
+import { studentsTableInfoT } from '../types/courseStatT'
+import {baseQuery, baseQueryFn} from './baseApi'
+import { createUrlWithParams } from 'utils/createUrlWithParams'
 
 export const courseStatService = createApi({
   reducerPath: 'courseStat',
-  baseQuery: baseQueryWithReauth,
-  tagTypes: ['courseStat'],
+  baseQuery: baseQueryFn(),
+  tagTypes: ['courseStat', 'studentsPerGroup', 'studentPerSchool'],
   endpoints: build => ({
-    fetchCourseStat: build.query<any, number>({
-      query: id => ({
-        url: `/courses/${id}/stats/`,
+    fetchCourseStat: build.query<studentsTableInfoT, any>({
+      query: ({ id, filters }) => ({
+        url: createUrlWithParams(`/courses/${id}/get_students_for_course/`, filters),
       }),
       providesTags: ['courseStat'],
+    }),
+    fetchStudentsPerGroup: build.query<studentsTableInfoT, any>({
+      query: ({ id, filters }) => ({
+        url: createUrlWithParams(`/students_group/${id}/get_students_for_group/`, filters),
+      }),
+      providesTags: ['studentsPerGroup'],
     }),
   }),
 })
 
-export const { useFetchCourseStatQuery } = courseStatService
+export const { useLazyFetchCourseStatQuery, useLazyFetchStudentsPerGroupQuery } = courseStatService

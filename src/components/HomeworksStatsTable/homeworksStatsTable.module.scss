@@ -2,11 +2,24 @@
 @import '../../scss/mixin.scss';
 
 .table {
+  position: relative;
   overflow: hidden;
   border-collapse: collapse;
   border-spacing: 0;
   border: 0;
+  box-shadow: 0 0 5px rgb(0 0 0 / 30%);
+  background-color: #fff;
+  border-radius: 7px;
+  max-width: 100%;
+  width: 100%;
+  margin-top: 25px;
+  min-height: 295px;
   &_head {
+    height: 55px;
+    background: #f3f4f6;
+    color: #adabb3;
+    font-size: 12px;
+    font-weight: 500;
     tr {
       th {
         border: none;
@@ -18,9 +31,33 @@
     tr {
       height: 55px;
       color: #9198a1;
+      cursor: pointer;
+      &:hover {
+        background: rgba(249, 250, 251, 0.7);
+        transition: 0.1s background-color;
+      }
       td {
         margin: 0 0 0 27px;
         height: 55px;
+      }
+      &:nth-child(1) .table_body_avatar_div {
+        background: #d3f2f8;
+        color: #72b0bc;
+      }
+
+      &:nth-child(2) .table_body_avatar_div {
+        background: #e2f6f3;
+        color: #72c5b7;
+      }
+
+      &:nth-child(3) .table_body_avatar_div {
+        background: #f9dcdc;
+        color: #d96b7d;
+      }
+
+      &:nth-child(4) .table_body_avatar_div {
+        background: #f1e3f4;
+        color: #c97fcf;
       }
     }
     &_avatar_div {
@@ -32,22 +69,22 @@
   }
 }
 
-.first_avatar {
-  background: #d3f2f8;
-  color: #72b0bc;
+.table_no_results {
+  text-align: center;
+  @include font(500, 20px);
+  color: #6b7484;
 }
 
-.second_avatar {
-  background: #e2f6f3;
-  color: #72c5b7;
-}
-
-.third_avatar {
-  background: #f9dcdc;
-  color: #d96b7d;
-}
-
-.fourth_avatar {
-  background: #f1e3f4;
-  color: #c97fcf;
+.loader_wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  transition: 0.3s background-color;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }

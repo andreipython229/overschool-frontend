@@ -1,5 +1,13 @@
+declare global {
+  interface Window {
+    school?: any;
+  }
+}
+
 export enum Path {
+  ChooseSchool = '/chooseSchool/',
   InitialPage = '/login/',
+  School = '/school/:school_name/',
   Courses = 'courses/',
   Group = 'group/:group_id',
   Profile = 'profile/',
@@ -10,6 +18,7 @@ export enum Path {
   HelpCenter = 'help-center',
   TariffPlans = 'tariff-plans',
   SignUp = '/signup',
+  CourseStudent = 'courses-stats/:course_id/students',
 }
 
 export enum SettingsPath {

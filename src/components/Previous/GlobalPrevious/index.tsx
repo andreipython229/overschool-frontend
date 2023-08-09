@@ -4,7 +4,7 @@ import { useLocation, Location } from 'react-router-dom'
 import { GlobalPreviousT } from '../../../types/componentsTypes'
 import { Path } from '../../../enum/pathE'
 import { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation } from 'api/schoolHeaderService'
-import { Button } from '../../common/Button'
+import { Button } from '../../common/Button/Button'
 import { schoolHeaderReqT } from 'types/schoolHeaderT'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
@@ -65,14 +65,16 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
 
   useEffect(() => {
     if (isSuccess) {
-      const { name, description, photo_background_url, logo_header_url } = data
+      const { name, description, photo_background, logo_header } = data
 
       setSchoolHeaderData({
         ...schoolHeaderData,
         name,
         description,
       })
-      setSchoolHeaderDataToRender({ logo_header: logo_header_url, photo_background: photo_background_url })
+
+      setSchoolHeaderDataToRender({ logo_header: logo_header, photo_background: photo_background })
+
     }
   }, [isSuccess, data])
 
@@ -84,8 +86,8 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
 
   const { name: headerName, description: headerDes } = schoolHeaderData
   const { photo_background, logo_header } = schoolHeaderDataToRender
-  const isMatchPath = pathname === Path.InitialPage + Path.Courses
-
+  //const isMatchPath = pathname === Path.InitialPage + Path.Courses
+  const isMatchPath = true
   const changedBg = photo_background
     ? {
         backgroundImage: `url(${photo_background})`,
@@ -97,6 +99,11 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
 
   return (
     <div className={styles.previous} style={changedBg}>
+      {isFetching && (
+        <div className={styles.previous_loader}>
+          <SimpleLoader style={{ width: '50px', height: '50px' }} />
+        </div>
+      )}
       {edit && (
         <label className={styles.label_input_background_image}>
           <span>Изменить фон секции</span>
@@ -154,18 +161,10 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
                 width: '220px',
                 fontSize: '10px',
                 fontWeight: '800',
-                paddingTop: isFetching || isLoading ? '7px' : '10px',
-                paddingBottom: isFetching || isLoading ? '7px' : '10px',
+                paddingTop: '10px',
+                paddingBottom: '10px',
               }}
-              text={
-                isFetching || isLoading ? (
-                  <SimpleLoader style={{ width: '20px', height: '20px' }} loaderColor="#ffff" />
-                ) : edit ? (
-                  'Завершить настройку курсов'
-                ) : (
-                  'Настроить страницу курсов'
-                )
-              }
+              text={edit ? 'Завершить настройку курсов' : 'Настроить страницу курсов'}
               onClick={edit ? onChangeSchoolHeader : handleChangePrevious}
             />
           )}

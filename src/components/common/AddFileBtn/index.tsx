@@ -1,7 +1,7 @@
 import { FC, ChangeEvent } from 'react'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { paperClipIconPath } from 'Pages/Courses/config/svgIconsPath'
+import { paperClipIconPath } from 'Pages/School/config/svgIconsPath'
 
 import styles from './addfilebtn.module.scss'
 

@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC } from 'react'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { modalIconPath } from '../config/svgIconsPath'
 import { Radio } from '../../../common/Radio/Radio'
-import { Button } from '../../../common/Button'
+import { Button } from '../../../common/Button/Button'
 import { AddEmployeeModalPropsT, AddEmpoyeeModalExtensions } from '../../ModalTypes'
 
 import styles from '../../Modal.module.scss'
@@ -10,8 +10,6 @@ import styles from '../../Modal.module.scss'
 export const SuperAdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensions> = ({
   handleCreatEmployee,
   setEmailUser,
-  setAddRole,
-  addRole,
   emailUser,
   setShowModal,
 }) => {
@@ -38,16 +36,9 @@ export const SuperAdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensi
             <input onChange={handleChangeEmail} value={emailUser} type="text" placeholder={'example@mailbox.ru'} />
           </div>
         </div>
-        <div className={styles.main_employee_role}>
-          <div className={styles.main_employee_role_radio}>
-            <Radio func={setAddRole} title={'Администратор'} id={'Admin'} />
-          </div>
-          <div className={styles.main_employee_role_desc}>
-            Может создавать и удалять курсы, добавлять сотрудников, производить операции со счетом и тарифами
-          </div>
-        </div>
+
         <div className={styles.main_employee_btn}>
-          <Button disabled={!addRole} type="submit" text={'Добавить'} variant={addRole ? 'primary' : 'disabled'} />
+          <Button disabled={!emailUser} type="submit" text={'Добавить'} variant={emailUser ? 'primary' : 'disabled'} />
         </div>
       </div>
     </form>

@@ -22,8 +22,6 @@ export type AddEmployeeModalPropsT = {
 export type AddEmpoyeeModalExtensions = {
   handleCreatEmployee: (event: FormEvent<HTMLFormElement>) => void
   setEmailUser: (arg: string) => void
-  setAddRole: (arg: string) => void
-  addRole: string
   emailUser: string
 }
 
@@ -72,10 +70,16 @@ export type ModalClassesPropsT = {
 
 export type RegistrationModalPropsT = {
   setShowModal: (value: boolean) => void
+  setCodeModal: (value: boolean) => void
 }
 
+export type RegCodeModalPropsT = {
+  setCodeModal: (value: boolean) => void
+  email?: string
+}
 export type SettingStudentTableT = {
   setShowModal: (arg?: boolean) => void
+  tableId: number
 }
 
 export type SettingsGroupModalPropsT = {

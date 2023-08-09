@@ -1,17 +1,18 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { homeworksStatsT } from '../types/homeworkT'
-import { baseQueryWithReauth } from './baseApi'
+import {baseQuery, baseQueryFn} from './baseApi'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
 
 export const homeworksStatsService = createApi({
   reducerPath: 'homeworksStatsService',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQueryFn(),
   tagTypes: ['homeworskStats'],
   endpoints: build => ({
     fetchHomeworkStats: build.query<homeworksStatsT, any>({
       query: ({ filters, page }) => {
-        const url = createUrlWithParams(`/homeworks_stats/?p=${page}&s=4`, filters)
+        const pageToFetch = filters.status === 'Все статусы' ? page : 1
+        const url = createUrlWithParams(`/homeworks_stats/?p=${pageToFetch}&s=4`, filters)
         return {
           url,
         }
@@ -20,7 +21,7 @@ export const homeworksStatsService = createApi({
     }),
     fetchAllHomeworkStats: build.query<homeworksStatsT, { [key: string]: string | number }>({
       query: filters => {
-        const url = createUrlWithParams(`/homeworks_stats/?`, filters)
+        const url = createUrlWithParams(`/homeworks_stats/`, filters)
         return {
           url,
         }

@@ -2,7 +2,7 @@ import { renderHook, fireEvent } from '@testing-library/react'
 
 import { renderWithProvider } from 'store/helpers/rednderWithProvider'
 import { useDebouncedFilter } from 'customHooks/index'
-import { Index } from 'Pages/Courses/CoursesPage'
+import { CoursePage } from 'Pages/School/Navigations/CoursesCreating/CoursePage'
 import { act } from 'react-dom/test-utils'
 
 const dataToFilter = [
@@ -14,7 +14,7 @@ const dataToFilter = [
 
 describe('useDebouncedFilter hook', () => {
   it('check onChange func', () => {
-    const { getByRole } = renderWithProvider(<Index />)
+    const { getByRole } = renderWithProvider(<CoursePage />)
 
     const { result, unmount, rerender } = renderHook(() => useDebouncedFilter(dataToFilter, 'name', ''))
 

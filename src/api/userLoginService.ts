@@ -1,12 +1,14 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
-import { baseQueryWithReauth } from './baseApi'
+import { baseQuery } from './baseApi'
 import { formDataConverter } from '../utils/formDataConverter'
 import { ICredentials, IResponse } from './apiTypes'
+import { ILoginUserInfo } from 'types/userT'
 
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery(),
+  tagTypes: ['login', 'logout', 'useInfo'],
   endpoints: builder => ({
     login: builder.mutation<IResponse, ICredentials>({
       query: credentials => {
@@ -16,17 +18,25 @@ export const userLoginService = createApi({
           method: 'POST',
           redirect: 'follow',
           body: formdata,
+          responseHandler: response => response.text(),
         }
       },
+      invalidatesTags: ['login'],
     }),
-    logout: builder.mutation<void, void>({
+    getUserInfo: builder.query<ILoginUserInfo[], void>({
+      query: () => ({
+        url: `/user/`,
+      }),
+      providesTags: ['useInfo'],
+    }),
+    logout: builder.query<void, void>({
       query: () => {
         return {
           url: `/logout/`,
-          method: 'POST',
         }
       },
+      providesTags: ['logout'],
     }),
   }),
 })
-export const { useLoginMutation, useLogoutMutation } = userLoginService
+export const { useLoginMutation, useLazyLogoutQuery, useLazyGetUserInfoQuery } = userLoginService

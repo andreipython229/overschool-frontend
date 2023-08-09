@@ -1,6 +1,6 @@
 .editor {
   border: 1px solid #ebeef5;
-  width: 100%;
+  width: calc(100% - 10px);
   border-radius: 10px;
 
   &_panel {
@@ -10,10 +10,10 @@
     align-items: center;
     padding: 19px 0 19px 16px;
     max-width: 100%;
-    @media only screen and (min-width : 320px) and (max-width : 375px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
       display: none;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       display: none;
     }
 
@@ -41,8 +41,9 @@
     overflow-y: auto;
     overflow-x: hidden;
     word-wrap: break-word;
-    height: 200px;
-    padding: 30px 19px 30px 19px;
+    max-height: 200px;
+    min-height: 100px;
+    padding: 15px 19px 15px 19px;
   }
 }
 

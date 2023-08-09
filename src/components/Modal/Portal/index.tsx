@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useMemo, useState } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import styles from './portal.module.scss'
 
@@ -8,13 +8,13 @@ type PortalT = {
 }
 
 export const Portal: FC<PortalT> = ({ closeModal, children }) => {
-  const createOverlay = useMemo(() => {
+  const createOverlay = () => {
     const div = document.createElement('div')
     div.setAttribute('class', styles.wrapper)
     return div
-  }, [])
+  }
 
-  const [container] = useState(() => createOverlay)
+  const [container] = useState(() => createOverlay())
 
   const clickMouseHandler = (event: MouseEvent) => {
     const target = event?.target as HTMLHeadingElement
@@ -29,11 +29,13 @@ export const Portal: FC<PortalT> = ({ closeModal, children }) => {
   }
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
     document.body.appendChild(container)
     document.addEventListener('keydown', keydownHandler)
     document.addEventListener('dblclick', clickMouseHandler)
     document.body.setAttribute('class', styles.open_modal)
     return () => {
+      document.body.style.overflow = 'auto';
       document.body.removeChild(container)
       document.removeEventListener('dblclick', clickMouseHandler)
       document.removeEventListener('keydown', keydownHandler)

@@ -4,6 +4,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
+
 import { App } from './App'
 import { AppMobile } from 'AppMobile'
 import { store } from './store/redux/store'

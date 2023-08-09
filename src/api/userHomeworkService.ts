@@ -1,15 +1,23 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import { baseQueryWithReauth } from './baseApi'
+import { UserHomework, Homework } from 'types/homeworkT'
+
+import {baseQuery, baseQueryFn} from './baseApi'
 
 export const userHomeworkService = createApi({
   reducerPath: 'userHomeworkService',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQueryFn(),
   tagTypes: ['userHomework'],
   endpoints: build => ({
-    fetchUserHomework: build.query<any, number>({
+    fetchUserHomework: build.query<UserHomework, number>({
       query: id => ({
         url: `/user_homeworks/${id}/`,
+      }),
+      providesTags: ['userHomework'],
+    }),
+    fetchHomeworkData: build.query<Homework, number>({
+      query: id => ({
+        url: `/homeworks/${id}/`,
       }),
       providesTags: ['userHomework'],
     }),
@@ -39,7 +47,23 @@ export const userHomeworkService = createApi({
       },
       invalidatesTags: ['userHomework'],
     }),
+    createCheckReply: build.mutation<void, any>({
+      query: data => {
+        return {
+          url: `/user_homework_checks/`,
+          method: 'POST',
+          body: data,
+        }
+      },
+      invalidatesTags: ['userHomework'],
+    }),
   }),
 })
 
-export const { useFetchUserHomeworkQuery, useFetchTeacherHomeworkQuery, usePostUserHomeworkMutation } = userHomeworkService
+export const {
+  useFetchUserHomeworkQuery,
+  useFetchTeacherHomeworkQuery,
+  usePostUserHomeworkMutation,
+  useFetchHomeworkDataQuery,
+  useCreateCheckReplyMutation,
+} = userHomeworkService

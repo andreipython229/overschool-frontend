@@ -1,17 +1,18 @@
-import { ChangeEvent, FC, FormEvent, useState } from 'react'
+import {ChangeEvent, FC, FormEvent, useEffect, useState} from 'react'
 import { useCreateModulesMutation } from 'api/modulesServices'
 
 import { Input } from 'components/common/Input/Input/Input'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import { formDataConverter } from '../../../utils/formDataConverter'
 import { AddModuleModalPropsT } from '../ModalTypes'
-import { SimpleLoader } from '../../Loaders/SimpleLoader'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../Modal.module.scss'
 
 export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, modulesList }) => {
+
   const [modulesName, setModulesMane] = useState<string>('')
 
   const [createModules, { isLoading, isError }] = useCreateModulesMutation()

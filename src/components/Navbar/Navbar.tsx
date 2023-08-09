@@ -5,6 +5,10 @@ import { useAppSelector } from '../../store/hooks'
 import { navlinkByRoles } from './config/navlinkByRoles'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { navMenuPath } from './config/svgIconPath'
+import { chatIconPath } from 'components/Navbar/config/svgIconPath'
+import { useBoolean } from 'customHooks'
+import { Portal } from 'components/Modal/Portal'
+import { Chat } from 'components/Modal/Chat'
 
 import styles from './navbar.module.scss'
 import { selectUser } from '../../selectors'
@@ -17,17 +21,28 @@ export const Navbar: FC = memo(() => {
   const { role } = useAppSelector(selectUser)
 
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
+  const [isChatOpen, { on, off }] = useBoolean()
 
   return (
-    <nav className={styles.navbar}>
-      <IconSvg className={styles.navbar_menu} width={30} height={25} viewBoxSize={'0 0 30 25'} path={navMenuPath} />
-      <div className={styles.navbar_setting_account}>
-        {navlinkByRoles[role].map(({ path, icon }, index: number) => (
-          <NavLink key={index} to={path} className={isActive}>
-            {icon || 'кнопка'}
-          </NavLink>
-        ))}
-      </div>
-    </nav>
+    <>
+      <nav className={styles.navbar}>
+        <IconSvg className={styles.navbar_menu} width={30} height={25} viewBoxSize={'0 0 30 25'} path={navMenuPath} />
+        <div className={styles.navbar_setting_account}>
+          {navlinkByRoles[role].map(({ path, icon }, index: number) => (
+            <NavLink key={index} to={path} className={isActive}>
+              {icon}
+            </NavLink>
+          ))}
+          <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
+            <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath} />
+          </div>
+        </div>
+      </nav>
+      {isChatOpen && (
+        <Portal closeModal={on}>
+          <Chat closeModal={on} />
+        </Portal>
+      )}
+    </>
   )
 })

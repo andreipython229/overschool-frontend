@@ -1,7 +1,7 @@
 import { useState, FC } from 'react'
 import { useFormik } from 'formik'
 
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { InputAuth } from 'components/common/Input/InputAuth/InputAuth'
 import { validationSchema } from './schemas/validationSchema'
@@ -12,6 +12,7 @@ import styles from './registration.module.scss'
 
 export const SignUp: FC = () => {
   const [security, setSecurity] = useState<boolean>(true)
+
 
   const changeSecurityStatus = () => {
     setSecurity(!security)

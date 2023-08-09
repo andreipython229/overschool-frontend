@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useState } from 'react'
 
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { addStudentIconPath } from '../config/svgIconsPath'
@@ -85,8 +85,8 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
           <span className={styles.container_header_title}>Добавление учеников</span>
         </div>
         <div className={styles.addStudent_select}>
-          {courses && <SelectInput optionsList={courses} optionName={'name' as keyof object} setSelectedValue={setChangeCourse} />}
-          {groups && <SelectInput optionsList={groups?.results} optionName={'name' as keyof object} setSelectedValue={setChangeGroup} />}
+          {/* {courses && <SelectInput optionsList={courses} optionName={'name' as keyof object} setSelectedValue={setChangeCourse} />}
+          {groups && <SelectInput optionsList={groups?.results} optionName={'name' as keyof object} setSelectedValue={setChangeGroup} />} */}
         </div>
         {students.map((student, index: number) => (
           <AddNewStudents

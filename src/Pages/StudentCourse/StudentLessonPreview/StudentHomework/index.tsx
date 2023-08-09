@@ -1,14 +1,14 @@
 import { FC } from 'react'
 import { Params } from 'react-router-dom'
 
+import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { sectionT, IHomework } from 'types/sectionT'
-import { StudentCourseNavArr } from '../StudentCourseNavArr'
+import { StudentCourseNavArr } from '../StudentCourseNavArr/index'
 import { UploadedFile } from 'components/UploadedFile/index'
 import { AudioPlayer } from 'components/common/AudioPlayer'
-import { StudentLessonDesc } from '../StudentLessonDesc'
-import { StudentLessonTextEditor } from '../StudentLessonTextEditor'
-import { StudentLessonNavBtns } from '../StudentLessonNavBtns'
-import { StudentLessonSidebar } from '../StudentLessonSidebar'
+import { StudentLessonDesc } from '../StudentLessonDesc/index'
+import { StudentLessonTextEditor } from '../StudentLessonTextEditor/index'
+import { StudentLessonNavBtns } from '../StudentLessonNavBtns/index'
 
 import styles from '../lesson.module.scss'
 
@@ -16,12 +16,11 @@ type studentHomeworkT = {
   lesson: IHomework
   lessons: sectionT
   params: Params
+  activeLessonIndex: number
 }
 
-export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params }) => {
+export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params, activeLessonIndex }) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
-
-  const activeLessonIndex = lessons?.lessons.findIndex(lesson => lessonId && lesson.order === +lessonId)
 
   return (
     <div className={styles.lesson}>
@@ -43,8 +42,8 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params 
                 </div>
               )} */}
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
-              {lesson?.text_files.map(({ file, id }) => (
-                <UploadedFile key={id} file={file} />
+              {lesson?.text_files.map(({ file, id }, index: number) => (
+                <UploadedFile key={id} file={file} index={index} size={34487} />
               ))}
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
             </div>
@@ -53,18 +52,12 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params 
             courseId={`${courseId}`}
             lessonId={`${lessonId}`}
             sectionId={`${sectionId}`}
-            lessonType={`${lessonType}`}
+            lessonType={`${lessonType}` as LESSON_TYPE}
             activeLessonIndex={activeLessonIndex as number}
             lessons={lessons as sectionT}
           />
           <StudentLessonTextEditor homeworkId={lesson?.homework_id} />
         </div>
-        <StudentLessonSidebar
-          courseId={`${courseId}`}
-          sectionId={`${sectionId}`}
-          activeLessonIndex={activeLessonIndex as number}
-          lessons={lessons as sectionT}
-        />
       </div>
     </div>
   )

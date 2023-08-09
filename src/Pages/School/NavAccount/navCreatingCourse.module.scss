@@ -1,0 +1,15 @@
+.creatingCourse {
+  margin-left: 272px;
+  margin-bottom: 38px;
+  box-sizing: border-box;
+  height: 40px;
+
+  & a:not(:last-child) {
+    margin-right: 16px;
+  }
+  & a {
+  &:hover {
+    background-color: rgba(220, 220, 220, 0.4);
+  }
+}
+}

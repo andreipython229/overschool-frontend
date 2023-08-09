@@ -1,22 +1,38 @@
-export type courseStatT = {
-  count: number
-  next?: number
-  previous?: number
-  results: result[]
-}
+export type studentsTableInfoT = result[]
 
 export type result = {
-  course_id: number
+  id: number
+  courses_avatar: string
+  username: string
+  first_name: string
+  last_name: string
   email: string
-  student_name: string
-  student: number
-  group: number
-  last_active: Date
-  update_date: Date
-  ending_date: Date
+  course_name: string
+  course_updated_at: string
+  group_name: string
+  last_active: string
   mark_sum: number
-  average_mark?: number
-  progress?: number
+  average_mark: number
+  sections: Section[]
+}
+
+export interface Section {
+  section_id: number
+  course: number
+  name: string
+  lessons: Lesson[]
+}
+
+export interface Lesson {
+  section: number
+  name: string
+  order: number
+  author_id: number
+  description: string
+  video: string
+  points: number
+  type: string
+  all_components: any[]
 }
 
 export type courseStatsT = {

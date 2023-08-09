@@ -1,45 +1,75 @@
-import { FC, useState } from 'react'
-
+import React, { FC, useState } from 'react'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { FilterItem } from './FilterItem'
-import { ComponentFilter } from 'constants/filtersMaper'
-import { FiltersButtonT } from '../../types/componentsTypes'
+
+import styles from './filters_btn.module.scss'
+import { ComponentFilter } from '../../constants/filtersMaper'
 import { filterIconPath } from './config/svgIconsPath'
 import { useMissClickMenu } from '../../customHooks/useMissClickMenu'
 
-import styles from '../FiltersButton/filters_btn.module.scss'
+interface FiltersButtonProps {
+  filteringCategoriesList: { id: string | number; title: string }[]
+  startMark?: string | number
+  endMark?: string | number
+  startDate?: string | number
+  endDate?: string | number
+  startAvg?: string | number
+  endAvg?: string | number
+  handleAddAvgFilter?: (start_avg: string, end_avg: string) => void
+  removeLastActiveStartFilter?: () => void
+  removeLastActiveEndFilter?: () => void
+  addLastActiveFilter?: (data1: string, data2: string) => void
+  addMarkFilter?: (start_mark: string, end_mark: string) => void
+}
 
-export const FiltersButton: FC<FiltersButtonT> = ({ filteringCategoriesList }) => {
-  const [selectedFilter, setSelectedFilter] = useState<keyof object | null>()
-
+export const FiltersButton: FC<FiltersButtonProps> = ({
+  filteringCategoriesList,
+  addLastActiveFilter,
+  addMarkFilter,
+  handleAddAvgFilter,
+  removeLastActiveStartFilter,
+  removeLastActiveEndFilter,
+  ...filters
+}) => {
+  const [selectedFilter, setSelectedFilter] = useState<string | number | null>(null)
   const { menuRef, isOpen, onToggle } = useMissClickMenu()
 
-  const handleToggleDropDawnBlock = () => {
+  const handleToggleDropDownBlock = () => {
     onToggle()
     setSelectedFilter(null)
   }
 
   return (
-    <div className={styles.wrapper} ref={menuRef}>
-      <button className={styles.container_btn} onClick={handleToggleDropDawnBlock}>
+    <div className={styles.wrapper}>
+      <button className={styles.container_btn} onClick={handleToggleDropDownBlock}>
         <IconSvg width={15} height={17} viewBoxSize="0 0 15 17" path={filterIconPath} />
         Добавить фильтры
       </button>
       {isOpen && (
-        <>
-          <div className={styles.drop_down_block}>
-            {!selectedFilter ? (
-              <>
-                <p className={styles.header_dropdown_menu}>ВЫБЕРИТЕ КРИТЕРИЙ ФИЛЬТРАЦИИ</p>
-                {filteringCategoriesList.map(({ id, title }) => (
-                  <FilterItem id={id} key={id} title={title} setSelectedFilter={setSelectedFilter} />
-                ))}
-              </>
-            ) : (
-              <div ref={menuRef}>{selectedFilter && <ComponentFilter id={selectedFilter} />}</div>
-            )}
-          </div>
-        </>
+        <div className={styles.drop_down_block}>
+          {!selectedFilter ? (
+            <>
+              <p className={styles.header_dropdown_menu}>ВЫБЕРИТЕ КРИТЕРИЙ ФИЛЬТРАЦИИ</p>
+              {filteringCategoriesList.map(({ id, title }) => (
+                <FilterItem id={id} key={id} title={title} setSelectedFilter={setSelectedFilter} />
+              ))}
+            </>
+          ) : (
+            <div ref={menuRef}>
+              {selectedFilter && (
+                <ComponentFilter
+                  id={selectedFilter}
+                  addLastActiveFilter={addLastActiveFilter}
+                  addMarkFilter={addMarkFilter}
+                  handleAddAvgFilter={handleAddAvgFilter}
+                  removeLastActiveStartFilter={removeLastActiveStartFilter}
+                  removeLastActiveEndFilter={removeLastActiveEndFilter}
+                  {...filters}
+                />
+              )}
+            </div>
+          )}
+        </div>
       )}
     </div>
   )

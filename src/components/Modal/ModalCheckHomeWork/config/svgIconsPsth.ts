@@ -12,7 +12,7 @@ import {
 } from '../../../../constants/iconSvgConstants'
 import { pathT } from '../../../../types/commonComponentsTypes'
 
-export const taskIconPath = [{ d: taskSvgIcon, fill: '#6B7280' }]
+export const taskIconPath = [{ d: taskSvgIcon, fill: 'currentColor' }]
 
 export const waitIconPath = [{ d: waitSvgIcon, fill: '#717985' }]
 
@@ -32,4 +32,14 @@ export const doneFilledIconPath = [{ d: doneFilledSvgIcon, fill: '#4BC3AF' }]
 
 export const sendIconPath: pathT[] = [{ d: sendSvgIcon, stroke: 'white', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }]
 
-export const arrIconPath = [{ d: arrowIcon, fill: '#9A9A9A' }]
+export const arrIconPath = [{ d: arrowIcon, fill: 'currentColor' }]
+
+export const closeHwModalPath: pathT[] = [
+  {
+    d: 'M1.86523 15.1356L15.1361 1.86475M15.1361 15.1356L1.86523 1.86475',
+    stroke: 'currentColor',
+    strokeWidth: '2',
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+  },
+]

@@ -2,7 +2,7 @@ import { FC, memo, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { createGroupIconPath } from '../../../Pages/Courses/config/svgIconsPath'
+import { createGroupIconPath } from '../../../Pages/School/config/svgIconsPath'
 import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupModal/SettingsGroupModal'
 import { Portal } from 'components/Modal/Portal/index'
 import { useBoolean } from 'customHooks/useBoolean'
@@ -10,7 +10,7 @@ import { useFetchStudentGroupQuery } from 'api/studentsGroupService'
 import { useLazyFetchCourseQuery } from 'api/coursesServices'
 import { backArr } from '../config/svgIconPath'
 
-import studentsStyles from 'Pages/Courses/StudentsStats/studentsStats.module.scss'
+import studentsStyles from 'Pages/School/StudentsStats/studentsStats.module.scss'
 import styles from '../previou.module.scss'
 
 export const GroupPrevious: FC = memo(() => {
@@ -34,7 +34,7 @@ export const GroupPrevious: FC = memo(() => {
         </Portal>
       )}
       <div className={styles.previous}>
-        <img className={styles.background_image_course} src={course?.photo_url} alt="bg" />
+        <img className={styles.background_image_course} src={course?.photo} alt="bg" />
         <div className={styles.previous_bcgrShadow}> </div>
         <div className={styles.back_all_course} onClick={() => navigate(-1)}>
           <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />

@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import { Button } from '../../common/Button'
+import { Button } from '../../common/Button/Button'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { backArr } from '../config/svgIconPath'
@@ -25,7 +25,7 @@ export const CoursePrevious: FC = memo(() => {
 
   return (
     <div className={styles.previous}>
-      <img className={styles.background_image_course} src={data?.photo_url} alt="" />
+      <img className={styles.background_image_course} src={data?.photo} alt="" />
       <div className={styles.previous_bcgrShadow}> </div>
       <Link className={styles.back_all_course} to={`${Path.Courses}`}>
         <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />

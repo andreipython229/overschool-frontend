@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Input } from 'components/common/Input/Input/Input'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
-import { Button } from 'components/common/Button'
+import { Button } from 'components/common/Button/Button'
 import { homeWorkActions, testActions } from 'constants/other'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
@@ -52,14 +52,14 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
       </div>
       {strongSubsequence && (
         <div className={styles.groupSetting_selectBlock}>
-          <div className={styles.groupSetting_selectBlock_select}>
+          {/* <div className={styles.groupSetting_selectBlock_select}>
             <span>Домашние задания</span>
             <SelectInput optionsList={homeWorkActions} optionName={'actionHomeWork' as keyof object} />
           </div>
           <div className={styles.groupSetting_selectBlock_select}>
             <span>Тесты</span>
             <SelectInput optionsList={testActions} optionName={'actionTest' as keyof object} />
-          </div>
+          </div> */}
         </div>
       )}
       <div className={styles.groupSetting_btn}>

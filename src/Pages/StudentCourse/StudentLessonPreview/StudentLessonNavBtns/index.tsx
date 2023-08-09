@@ -1,8 +1,9 @@
 import { FC, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { lessonT, sectionT } from '../../../../types/sectionT'
-import { Button } from '../../../../components/common/Button'
+import { Button } from '../../../../components/common/Button/Button'
 
 import styles from '../lesson.module.scss'
 
@@ -10,7 +11,7 @@ type studentLessonNavBtnsT = {
   courseId: string
   sectionId: string
   lessonId: string
-  lessonType: string
+  lessonType: LESSON_TYPE
   activeLessonIndex: number
   lessons: sectionT
 }
@@ -24,18 +25,14 @@ export const StudentLessonNavBtns: FC<studentLessonNavBtnsT> = memo(({ courseId,
   return (
     <div className={styles.lesson__btns}>
       <Button
-        onClick={() =>
-          navigate(`/login/courses/student-course/${courseId}/module/${sectionId}/${lessonBack?.type || lessonType}/${lessonBack?.order || lessonId}`)
-        }
+        onClick={() => navigate(`/school/School_1/courses/student-course/${courseId}/module/${sectionId}/${lessonBack?.type || lessonType}/${lessonBack?.id}`)}
         disabled={lessonId === (lessonBack?.id || lessonId)}
         className={styles.lesson__btnPrev}
         text="Предыдущее"
       />
       <Button
         onClick={() =>
-          navigate(
-            `/login/courses/student-course/${courseId}/module/${sectionId}/${lessonForward?.type || lessonType}/${lessonForward?.order || lessonId}`,
-          )
+          navigate(`/school/School_1/courses/student-course/${courseId}/module/${sectionId}/${lessonForward?.type || lessonType}/${lessonForward?.id}`)
         }
         className={styles.lesson__btnNext}
         disabled={lessonId === (lessonForward?.id || lessonId)}

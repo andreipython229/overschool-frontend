@@ -1,8 +1,10 @@
+import { HomeWork } from 'Pages/HomeWork/HomeWork'
 import { IFile } from './filesT'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 
 export interface ILesson {
   lesson_id: number
+  baselesson_ptr_id?: number
   section: number
   name: string
   order: number
@@ -16,6 +18,7 @@ export interface ILesson {
 
 export interface IHomework {
   homework_id: number
+  baselesson_ptr_id?: number
   section: number
   name: string
   order: number
@@ -31,6 +34,7 @@ export interface IHomework {
 
 export interface ITest {
   test_id: number
+  baselesson_ptr_id?: number
   section: number
   name: string
   questions: any
@@ -47,24 +51,29 @@ export interface ITest {
   type: LESSON_TYPE.TEST
 }
 
-export type commonLessonT = | ILesson | IHomework | ITest
+export type commonLessonT = ILesson | IHomework | ITest
 
 export type lessonT = {
   id: number
   name: string
   order: number
   type: string
+  baselesson_ptr_id?: number
+  viewed: boolean
+  completed: boolean
 }
 
 export type sectionT = {
   section_name: string
   section: number
+  baselesson_ptr_id?: number
   lessons: lessonT[]
 }
 
 export type sectionsT = {
   course_id: number
   course_name: string
+  baselesson_ptr_id?: number
   sections: sectionT[]
 }
 
@@ -73,7 +82,7 @@ export type studentAccardioT = {
 }
 
 export type answerT = {
-  question:any
+  question: any
   answer: any
   id: string
   name: string

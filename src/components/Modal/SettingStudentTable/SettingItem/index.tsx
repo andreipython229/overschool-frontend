@@ -4,42 +4,17 @@ import { Reorder, useDragControls } from 'framer-motion'
 import { studentGroupInfoT } from 'types/studentsGroup'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
-import { checkedIconPath, noCheckedIconPath, doBlockIconPath } from '../config/svgIconsPath'
+import { checkedIconPath, doBlockIconPath } from '../config/svgIconsPath'
 
 import styles from './settingItem.module.scss'
 
 interface ISettingItem {
   item: studentGroupInfoT
-  settingList: studentGroupInfoT[]
-  setSettingsList: (arg: studentGroupInfoT[]) => void
+  handleChecked: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsList }) => {
-  const [checkedList, setIsCheckedList] = useState<studentGroupInfoT[]>([])
-
+export const SettingItem: FC<ISettingItem> = ({ item, handleChecked }) => {
   const controls = useDragControls()
-
-  const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
-    if ((checkedList.length === 7 && event.target.checked) || event.target.id === '1' || event.target.id === '2') {
-      return
-    }
-
-    const checkedItemsList = settingList.map(item => {
-      if (item.order.toString() === event.target.id.toString()) {
-        return {
-          ...item,
-          checked: event.target.checked,
-        }
-      }
-      return item
-    })
-    setSettingsList(checkedItemsList)
-  }
-
-  useEffect(() => {
-    const isCheckedListItem = settingList.filter(checkedItem => checkedItem.checked)
-    setIsCheckedList(isCheckedListItem)
-  }, [settingList])
 
   const onPointerDown = (event: PointerEvent<SVGSVGElement | SVGPathElement>) => {
     controls.start(event)
@@ -59,29 +34,24 @@ export const SettingItem: FC<ISettingItem> = ({ item, settingList, setSettingsLi
       }}
     >
       <div className={styles.wrapper}>
-        {item.name !== 'Имя' && item.name !== 'Email' && (
-          <IconSvg
-            styles={{ cursor: 'grab', width: '20px', height: '20px', position: 'absolute', top: '10px', left: '-29px', zIndex: '10' }}
-            width={12}
-            height={18}
-            viewBoxSize={'0 0 12 18'}
-            onPointerDown={onPointerDown}
-            path={doBlockIconPath}
-          />
-        )}
+        <IconSvg
+          styles={{ cursor: 'grab', width: '20px', height: '20px', position: 'absolute', top: '10px', left: '-29px', zIndex: '10' }}
+          width={12}
+          height={18}
+          viewBoxSize={'0 0 12 18'}
+          onPointerDown={onPointerDown}
+          path={doBlockIconPath}
+        />
 
-        <div className={styles.wrapper_item}>
+        <div className={`${styles.wrapper_item} ${item.checked ? styles.wrapper_item_checked : ' '} `}>
           <Checkbox id={item.order.toString()} name={item?.name} onChange={handleChecked} checked={item.checked}>
             <p>{item.name}</p>
-            {item.checked ? (
+
+            <div className={`${styles.wrapper_item_icon} ${item.checked ? styles.wrapper_item_icon_checked : ''}`}>
               <IconSvg width={20} height={20} viewBoxSize={'0 0 19 19'} path={checkedIconPath}>
-                <circle cx="8.5" cy="8.5" r="8" stroke="#BA75FF" />
+                <circle cx="8.5" cy="8.5" r="8" stroke="currentColor" />
               </IconSvg>
-            ) : (
-              <IconSvg width={20} height={20} viewBoxSize={'0 0 19 19'} path={noCheckedIconPath}>
-                <circle cx="8.5" cy="8.5" r="8" stroke="#9CA3AF" />
-              </IconSvg>
-            )}
+            </div>
           </Checkbox>
         </div>
       </div>

@@ -12,7 +12,7 @@ test('render homewrok stast table after fetching data', async () => {
     }),
   )
 
-  renderWithProvider(<HomeworksStatsTable />)
+  renderWithProvider(<HomeworksStatsTable isLoading={false} />)
 
   await waitFor(() => {
     expect(screen).toBeInTheDocument()

@@ -25,9 +25,7 @@ type useCreateLessonT = {
 
 type UseCreateLessonReturnT = {
   setNameLesson: (arg: string) => void
-  setBalls: (arg: number) => void
   handleCreateLesson: (event: FormEvent<HTMLFormElement>) => void
-  balls: number
   nameLesson: string
   isLoading?: boolean
 }
@@ -36,7 +34,6 @@ type createLessonDataT = {
   name: string
   order: number | undefined
   section: number
-  balls: number
   success_percent?: number
   time_accept?: string
   automate_accept?: boolean
@@ -66,7 +63,6 @@ export const useCreateLesson = ({
   balls_per_answer,
 }: useCreateLessonT): UseCreateLessonReturnT => {
   const [nameLesson, setNameLesson] = useState<string>('')
-  const [balls, setBalls] = useState<number>(0)
 
   const { section_id } = useAppSelector(getSectionId)
 
@@ -84,7 +80,6 @@ export const useCreateLesson = ({
       name: nameLesson,
       order: orderLessons,
       section: section_id,
-      balls: balls,
     }
     if (description) {
       createLessonData['description'] = description
@@ -122,10 +117,10 @@ export const useCreateLesson = ({
   useEffect(() => {
     if (isSuccess) {
       const type = typeLesson.slice(0, -1)
-      setLessonIdAndType({ id: data[`${type}_id`], type: type })
+      setLessonIdAndType({ id: data.baselesson_ptr_id, type: type })
       setType(null as keyof object)
     }
   }, [isSuccess])
 
-  return { nameLesson, balls, isLoading, setNameLesson, setBalls, handleCreateLesson }
+  return { nameLesson, isLoading, setNameLesson, handleCreateLesson }
 }

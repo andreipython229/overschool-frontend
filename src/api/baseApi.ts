@@ -1,51 +1,57 @@
-import { fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
+import {BaseQueryFn, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
+import {Cookies} from "react-cookie"
+// import {BaseQueryApi, BaseQueryExtraOptions} from "@reduxjs/toolkit/dist/query/baseQueryTypes";
+// import {RootState} from "../store/redux/store";
 
-import { formDataConverter } from 'utils/formDataConverter'
-import { token, auth } from '../store/redux/users/slice'
-import { RootState } from '../store/redux/store'
+const cookies = new Cookies()
 
-export const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.REACT_APP_BASE_URL,
-  credentials: 'include',
-  prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState)?.user?.access_token
+export const baseQuery = (baseUrl = `/api/`) => {
+    return fetchBaseQuery({
+        baseUrl: baseUrl,
+        credentials: 'include',
+        prepareHeaders: (headers, {getState}) => {
+            const acceessToken = cookies.get('access_token')
+            if (acceessToken) {
+                headers.set('Cookie', acceessToken)
+            }
+            return headers
+        },
+    })
+};
 
-    if (token) {
-      headers.set('Authorization', `Bearer ${token}`)
-    }
-    return headers
-  },
-})
+export const baseQueryFn = (baseUrl = `/api/`) => {
+    // const schoolName = localStorage.getItem('school')
+    const schoolName = window.location.href.split('/')[4]
 
-export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
-  const { user } = JSON.parse(`${localStorage?.getItem('persist:root')}`)
-  const refresh = JSON.parse(user).refresh_token
+    return fetchBaseQuery({
+        baseUrl: baseUrl + String(schoolName),
+        credentials: 'include',
+        prepareHeaders: (headers, {getState}) => {
+            const acceessToken = cookies.get('access_token')
+            if (acceessToken) {
+                headers.set('Cookie', acceessToken)
+            }
+            return headers
+        },
+    })
+};
 
-  const formData = new FormData()
+// type BaseQueryFnArgs = Parameters<BaseQueryFn>[0];
+// type BaseQueryFnResult<T> = Promise<T>;
+//
+// export function baseQueryFn(args: BaseQueryFnArgs, api: BaseQueryApi, extraOptions: BaseQueryExtraOptions<any>): BaseQueryFnResult<unknown> {
+//     const schoolName = localStorage.getItem('school');
+//
+//     return fetchBaseQuery({
+//         baseUrl: `/api/${schoolName}/`,
+//         credentials: 'include',
+//         prepareHeaders: (headers, {getState}) => {
+//             const acceessToken = cookies.get('access_token')
+//             if (acceessToken) {
+//                 headers.set('Cookie', acceessToken)
+//             }
+//             return headers
+//         },
+//     }) as unknown as BaseQueryFnResult<unknown>;
+// }
 
-  formData.append('refresh', refresh)
-
-  let result = await baseQuery(args, api, extraOptions)
-
-  if (result?.error?.status === 403 || result?.error?.status === 401) {
-    const refreshResult: any = await baseQuery(
-      {
-        url: '/token-refresh/',
-        method: 'POST',
-        body: formData,
-      },
-      api,
-      extraOptions,
-    )
-
-    if (refreshResult?.data) {
-      api.dispatch(token({ access_token: refreshResult.data?.access as string, refresh_token: refreshResult.data?.refresh }))
-
-      result = await baseQuery(args, api, extraOptions)
-    } else {
-      api.dispatch(auth(false))
-      api.dispatch(token({ access_token: '' }))
-    }
-  }
-  return result
-}

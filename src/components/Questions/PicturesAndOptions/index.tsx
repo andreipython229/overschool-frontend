@@ -5,8 +5,10 @@ import { QuestionHeader } from '../QuestionHeader';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { addPictureIconPath} from '../config/svgIconPath';
 import { InputBlock } from 'components/common/Input/InputBlock';
+import {FC} from "react";
+import {PropsQuestionBlockT} from "../../AddQuestion";
 
-export const PicturesAndOptions = () => {
+export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, answers, id}) => {
 
   return (
     <div className={styles.wrapper}>

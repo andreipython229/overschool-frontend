@@ -1,0 +1,123 @@
+:root {
+  --background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
+  --gray: #34495e;
+  --darkgray: #2c3e50;
+}
+
+.select2 {
+  /* Reset Select */
+  appearance: none;
+  outline: 0;
+  border: 0;
+  box-shadow: none;
+  /* Personalize */
+  flex: 1;
+  padding: 0 1em;
+  color: #fff;
+  background-color: var(--darkgray);
+  background-image: none;
+  cursor: pointer;
+}
+.bg1 {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+.tit {
+  font-size: 25px;
+}
+.bg2 {
+  &_citate {
+    color: whitesmoke;
+    position: absolute;
+    left: 58%;
+    top: 60%;
+    font-size: 20px;
+
+  }
+  &_c {
+    color: white;
+    font-size: 18px;
+    margin-left: 125px;
+  }
+  img {
+    margin-top: 500px;
+    margin-left: 20px;
+    border-radius: 50%;
+    width: 100px;
+  }
+  width: 50%;
+  height: 100%;
+  background-color: #8b00ff;
+}
+.bg3 {
+  display: flex;
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.name {
+  font-size: 23px;
+}
+.bg {
+  margin-top: 50px;
+  span {
+    font-size: 32px;
+    padding-left: 160px;
+    color: #8b00ff
+  }
+  &:hover {
+    background-color: #a2a9b4;
+  }
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  background-color: #e5e7eb;
+  border-radius: 10px;
+  width: 310px;
+  height: 60px;
+}
+.main {
+  background-color: #6b728f;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  & > button {
+   margin-top: 50px;
+  }
+}
+.title {
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 100px;
+}
+.select2::-ms-expand {
+  display: none;
+}
+.select {
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  border-radius: .25em;
+  overflow: hidden;
+}
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  background-color: #34495e;
+  transition: .25s all ease;
+  pointer-events: none;
+}
+.select:hover::after {
+  color: #f39c12;
+}

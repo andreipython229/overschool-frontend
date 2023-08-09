@@ -3,18 +3,12 @@ import { FC, useState, useCallback } from 'react'
 import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { studentsScatterPath } from 'Pages/CoursesStats/config/svgIconPath'
-import { AllStudentsBlock } from 'components/AllStudentsBlock/index'
-import { StudentsTableBlock } from 'components/StudentsTableBlock/index'
-import { Portal } from 'components/Modal/Portal/index'
-import { SettingStudentTable } from 'components/Modal/SettingStudentTable/index'
-import { useBoolean } from 'customHooks/useBoolean'
+import { StudentsPerGroup } from 'components/StudentsTable/StudentsPerGroup'
 
-import styles from '../Courses/StudentsStats/studentsStats.module.scss'
+import styles from '../School/StudentsStats/studentsStats.module.scss'
 
 export const Group: FC = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)
-
-  const [toggleSettingModal, { off: offToggleSettingModal, on: onToggleSettingModal }] = useBoolean()
 
   const handleHideStats = useCallback(() => {
     setHideStats(!hideStats)
@@ -99,13 +93,7 @@ export const Group: FC = () => {
           </div>
         </div>
       )}
-      <AllStudentsBlock headerText={'Все ученики группы'} />
-      <StudentsTableBlock setShowModal={offToggleSettingModal} />
-      {toggleSettingModal && (
-        <Portal closeModal={onToggleSettingModal}>
-          <SettingStudentTable setShowModal={onToggleSettingModal} />
-        </Portal>
-      )}
+      <StudentsPerGroup />
     </div>
   )
 }
