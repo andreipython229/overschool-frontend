@@ -12,12 +12,13 @@ import {getNounDeclension} from 'utils/getNounDeclension'
 
 import styles from './student_course_header.module.scss'
 import {useFetchProgressQuery} from "../../../api/userProgressService";
+import {SimpleLoader} from "../../../components/Loaders/SimpleLoader";
 
 export const StudentCourseHeader: FC = () => {
     const {course_id: courseId} = useParams()
     const navigate = useNavigate()
 
-    const {data: userProgress, isLoading} = useFetchProgressQuery(courseId as string)
+    const {data: userProgress, isLoading, isError} = useFetchProgressQuery(courseId as string)
     const {data: course} = useFetchCourseQuery(courseId as string)
     const {data: modules, isSuccess} = useFetchModulesQuery(courseId as string)
 
@@ -38,8 +39,8 @@ export const StudentCourseHeader: FC = () => {
         }
     }, [isSuccess])
 
-    if (isLoading) {
-        return null;
+    if (isLoading || isError) {
+        return <SimpleLoader style={{width: '100px', height: '100px'}}/>;
     }
 
     return (
