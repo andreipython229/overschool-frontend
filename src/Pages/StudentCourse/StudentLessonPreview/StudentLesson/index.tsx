@@ -38,7 +38,7 @@ export const StudentLesson: FC<studentLessonT> = ({lesson, lessons, params, acti
                             <span
                                 className={styles.lesson__desc}>{lesson?.description ? parse(`${lesson?.description}`) : 'Нет описания'}</span>
                         </div>
-                        <VideoPlayer videoSrc={videoLinkId? encodeURIComponent(videoLinkId): null}/>
+                        <VideoPlayer videoSrc={videoLinkId? videoLinkId: undefined}/>
                         <div className={styles.lesson__content}>
                             {/* {lesson?.code && (
                                 <div className={styles.lesson__codeWraper}>
