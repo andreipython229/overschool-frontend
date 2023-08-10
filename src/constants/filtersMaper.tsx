@@ -4,8 +4,12 @@ import { CalendarFilter } from '../components/FiltersButton/CalendarFilter/Calen
 import { SearchFilter } from '../components/FiltersButton/SearchFilter/SearchFilter'
 import { CoursesDataT } from '../types/CoursesT'
 import { useFetchCoursesQuery } from '../api/coursesServices'
+import { useFetchStudentsGroupQuery } from '../api/studentsGroupService'
 import { useFetchLessonsQuery } from 'api/modulesServices'
 import { IHomework } from 'types/sectionT'
+import { studentsGroupsT} from 'types/studentsGroup'
+import { useFetchStudentsDataPerSchoolQuery } from 'api/schoolHeaderService'
+
 
 type ComponentFilterT = {
   id: string | number
@@ -33,11 +37,18 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
 }) => {
   const { data } = useFetchCoursesQuery()
   const { data: homeworks } = useFetchLessonsQuery('homework')
+  const { data: groups} = useFetchStudentsGroupQuery()
+  const { data: users } = useFetchStudentsDataPerSchoolQuery('School_1')
+  const firstNames = users?.map(user => ({ name: user.first_name }))
+  const lastNames = users?.map(user => ({ name: user.last_name }))
 
   const filtersMaper: { [key: string]: JSX.Element } = {
-    '7': <SearchFilter key={1} data={data?.results as CoursesDataT[]} name={''} header={'ВЫБЕРИТЕ КУРСЫ'} filterTerm="course_name" />,
-    '8': <SearchFilter key={2} data={[]} name={''} header={'ВЫБЕРИТЕ ГРУППЫ'} filterTerm="group_name" />,
-    '9': <SearchFilter key={3} data={homeworks as IHomework[]} name={''} header={'ВЫБЕРИТЕ ЗАДАНИЯ'} filterTerm="homework_name" />,
+    // Фильтра домашек
+    '5': <SearchFilter key={2} filterKey={'studentsPerSchool'} data={firstNames && firstNames.length > 0 ? firstNames : []} name={''} header={'ВВЕДИТЕ ИМЯ'} filterTerm="first_name" />,
+    '6': <SearchFilter key={1} filterKey={'studentsPerSchool'} data={lastNames && lastNames.length > 0 ? lastNames : []} name={''} header={'ВВЕДИТЕ ФАМИЛИЮ'} filterTerm="last_name" />,
+    '7': <SearchFilter key={1} filterKey={'homework'} data={data?.results as CoursesDataT[]} name={''} header={'ВЫБЕРИТЕ КУРСЫ'} filterTerm="course_name" />,
+    '8': <SearchFilter key={2} filterKey={'homework'} data={groups?.results as studentsGroupsT[]} name={''} header={'ВЫБЕРИТЕ ГРУППЫ'} filterTerm="group_name" />,
+    '9': <SearchFilter key={3} filterKey={'homework'} data={homeworks as IHomework[]} name={''} header={'ВЫБЕРИТЕ ЗАДАНИЯ'} filterTerm="homework_name" />,
     '10': (
       <CalendarFilter
         addLastActiveFilter={addLastActiveFilter}
@@ -48,6 +59,10 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
       />
     ),
     '11': <ScoresFilter title={'ВЫБЕРИТЕ ДИАПАЗОН БАЛЛОВ'} addMarkFilter={addMarkFilter} startMark={filters.startMark} endMark={filters.endMark} />,
+    '21': <SearchFilter key={1} filterKey={'studentsPerSchool'} data={lastNames && lastNames.length > 0 ? lastNames : []} name={''} header={'ВВЕДИТЕ ФАМИЛИЮ'} filterTerm="last_name" />,
+    '22': <SearchFilter key={2} filterKey={'studentsPerSchool'} data={firstNames && firstNames.length > 0 ? firstNames : []} name={''} header={'ВВЕДИТЕ ИМЯ'} filterTerm="first_name" />,
+
+    // Фильтра всех студентов школы
     '12': <ScoresFilter title={'ВЫБЕРИТЕ ДИАПАЗОН БАЛЛОВ'} addMarkFilter={addMarkFilter} startMark={filters.startMark} endMark={filters.endMark} />,
     '14': <ScoresFilter title={'ВЫБЕРИТЕ ДИАПАЗОН ПРОГРЕССА'} />,
     '15': (
@@ -62,6 +77,10 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
     '16': (
       <ScoresFilter title={'ВЫБЕРИТЕ ДИАПАЗОН БАЛЛОВ'} addMarkFilter={handleAddAvgFilter} startMark={filters.startAvg} endMark={filters.endAvg} />
     ),
+    '17': <SearchFilter key={3} filterKey={'studentsPerSchool'} data={data?.results as CoursesDataT[]} name={''} header={'ВЫБЕРИТЕ КУРСЫ'} filterTerm="course_name" />,
+    '18': <SearchFilter key={4} filterKey={'studentsPerSchool'} data={groups?.results as studentsGroupsT[]} name={''} header={'ВЫБЕРИТЕ ГРУППЫ'} filterTerm="group_name" />,
+    '19': <SearchFilter key={1} filterKey={'studentsPerSchool'} data={lastNames && lastNames.length > 0 ? lastNames : []} name={''} header={'ВВЕДИТЕ ФАМИЛИЮ'} filterTerm="last_name" />,
+    '20': <SearchFilter key={2} filterKey={'studentsPerSchool'} data={firstNames && firstNames.length > 0 ? firstNames : []} name={''} header={'ВВЕДИТЕ ИМЯ'} filterTerm="first_name" />,
   }
 
   const filterComponent = filtersMaper[String(id)]
