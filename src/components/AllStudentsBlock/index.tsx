@@ -31,7 +31,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     handleReloadTable,
     filters,
     filterKey,
-    ...restfilters
+    ...restFilters
   }) => {
     const { data: courses } = useFetchCoursesQuery()
 
@@ -54,7 +54,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             handleAddAvgFilter={handleAddAvgFilter}
             removeLastActiveStartFilter={removeLastActiveStartFilter}
             removeLastActiveEndFilter={removeLastActiveEndFilter}
-            {...restfilters}
+            {...restFilters}
           />
           <Input name="" type="search" value={''} onChange={() => console.log('заглушка')} placeholder="Поиск по курсам">
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
@@ -65,7 +65,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             {role != RoleE.Teacher ? (
           <Button onClick={off} className={styles.add_students_btn} text={'Добавить учеников'} variant={'primary'}>
             <IconSvg width={16} height={16} viewBoxSize={'0 0 16 16'} path={addStudentIconPath} />
-          </Button>) : (<></>)}
+          </Button>) : <></>}
         </div>
         {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} />}</Portal>}
       </div>
