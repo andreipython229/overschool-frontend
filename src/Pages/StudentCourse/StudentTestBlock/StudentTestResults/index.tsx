@@ -15,7 +15,6 @@ export const StudentTestResults: React.FC<TestResultProps> = ({results, test, us
     const [sendTestResults, {isSuccess}] = useSendTestResultsMutation();
     const [showResult, setShowResult] = useState(true);
 
-
     const percentage = () => {
         const totalQuestions = Object.keys(results).length;
         const correctAnswers = Object.values(results).filter(answer => answer).length;
@@ -36,7 +35,6 @@ export const StudentTestResults: React.FC<TestResultProps> = ({results, test, us
             .then(() => setShowResult(false))
             .catch((error) => console.log(`Возникла непредвиденная ошибка: ${error}`));
     };
-
 
     return (
         (showResult ?

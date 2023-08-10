@@ -46,22 +46,10 @@ type createLessonDataT = {
   balls_per_answer?: number
 }
 
-export const useCreateLesson = ({
-  setType,
-  modulesList,
-  typeLesson,
-  description,
-  success_percent,
-  time_accept,
-  automate_accept,
-  setLessonIdAndType,
-  random_questions,
-  random_answers,
-  show_right_answers,
-  attempt_limit,
-  attempt_count,
-  balls_per_answer,
-}: useCreateLessonT): UseCreateLessonReturnT => {
+export const useCreateLesson = ({ setType, modulesList, typeLesson, description, success_percent, time_accept, automate_accept,
+                                  setLessonIdAndType, random_questions, random_answers, show_right_answers, attempt_limit,
+                                  attempt_count, balls_per_answer }: useCreateLessonT): UseCreateLessonReturnT => {
+
   const [nameLesson, setNameLesson] = useState<string>('')
 
   const { section_id } = useAppSelector(getSectionId)
@@ -74,7 +62,8 @@ export const useCreateLesson = ({
       return
     }
 
-    const orderLessons = findLength(section_id, modulesList)
+    const targetModule = modulesList.find(obj => obj.section === section_id);
+    const orderLessons = targetModule? targetModule.lessons[targetModule.lessons.length - 1].order + 1: 100;
 
     const createLessonData: createLessonDataT = {
       name: nameLesson,

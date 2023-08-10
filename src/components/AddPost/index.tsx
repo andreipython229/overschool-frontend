@@ -36,14 +36,28 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview 
   const disabledBtn: boolean = lessonIdAndType?.type === 'test'
 
   useEffect(() => {
+    console.log('#')
+  }, [lesson, lessonIdAndType])
+
+  useEffect(() => {
     if (description[0]?.props?.children && lesson) {
-      patchData(lesson, `${lessonIdAndType?.type}_id`, 'description', descriptionLesson, debounced, lessonIdAndType?.type)
+      const formData = new FormData();
+      formData.append('description', descriptionLesson.toString())
+      formData.append('section', lesson.section.toString())
+      formData.append('order', lesson.order.toString())
+      debounced({formdata: formData, id: lesson.baselesson_ptr_id as number, type: lesson.type})
+      // patchData(lesson, `${lessonIdAndType?.type}_id`, 'description', descriptionLesson, debounced, lessonIdAndType?.type)
     }
   }, [descriptionLesson])
 
   useEffect(() => {
     if (code && lesson) {
-      patchData(lesson, `${lessonIdAndType?.type}_id`, 'code', code.toString(), debounced, lessonIdAndType?.type)
+      const formData = new FormData();
+      formData.append('code', code.toString())
+      formData.append('section', lesson.section.toString())
+      formData.append('order', lesson.order.toString())
+      debounced({formdata: formData, id: lesson.baselesson_ptr_id as number, type: lesson.type})
+      // patchData(lesson, `${lessonIdAndType?.type}_id`, 'code', code.toString(), debounced, lessonIdAndType?.type)
     }
   }, [code.toString()])
 
