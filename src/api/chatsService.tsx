@@ -23,4 +23,4 @@ export const chatsService = createApi({
   }),
 })
 
-export const { useFetchChatsQuery, useLazyFetchChatQuery } = chatsService
+export const { useLazyFetchMessagesQuery, useFetchChatsQuery, useLazyFetchChatQuery } = chatsService

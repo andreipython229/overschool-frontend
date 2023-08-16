@@ -11,6 +11,8 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from './chat.module.scss'
 
+import { useLazyFetchMessagesQuery } from '../../../api/chatsService'
+
 export const ChatWorkspace: FC = () => {
   const { chatId } = useAppSelector(state => state.chat)
   const { userId } = useAppSelector(state => state.user)
@@ -23,13 +25,12 @@ export const ChatWorkspace: FC = () => {
   const [message, setMessage] = useState<string>('')
 
   const [fetchChatData, { data, isFetching, isSuccess }] = useLazyFetchChatQuery()
-  // const [fetchMessages, { data: messages }] = useLazyFetchMessagesQuery()
+  const [fetchMessages, { data: messagesData }] = useLazyFetchMessagesQuery()
 
   useEffect(() => {
     if (chatId) {
-      fetchChatData(chatId)
-
-      const socket = new WebSocket(`ws://apidev.overschool.by:8000/ws/chats/${chatId}/`)
+      // fetchChatData(chatId)
+      const socket = new WebSocket(`wss://apidev.overschool.by:8000/ws/chats/${chatId}/`)
       setSocket(socket)
 
       socket.onopen = () => console.log('WebSocket connected')
@@ -39,20 +40,29 @@ export const ChatWorkspace: FC = () => {
 
         console.log(recievedMessages)
       }
-
+      socket.onerror = event => {
+        console.log("socket error = ", event)
+      }
       socket.onclose = event => {
         console.log(event)
       }
 
       console.log(socket)
-
-      // fetchMessages(chatId)
+      fetchMessages(chatId)
     }
 
     return () => {
       socket?.close()
     }
   }, [chatId])
+
+
+  useEffect(() => {
+    if (messagesData) {
+      setMessages(messagesData);
+    }
+  }, [messagesData]);
+
 
   useEffect(() => {
     if (socket && socket.readyState === WebSocket.OPEN) {
@@ -64,6 +74,9 @@ export const ChatWorkspace: FC = () => {
   }, [socket])
 
   const handleSubmit = async () => {
+
+    console.log("Socket readyState = ", socket?.readyState)
+    console.log("handleSubmit")
     if (socket && socket.readyState === WebSocket.OPEN) {
       const data = {
         content: 'hello',
@@ -102,7 +115,7 @@ export const ChatWorkspace: FC = () => {
               <ChatUser openGroup={setOpenGroupPreview} chatData={selectedChatData as ChatI} usersCount={usersInGroup?.length as number} />
               <div className={styles.chatWorkspace_wrapper}>
                 <div className={styles.chatWorkspace_content}>
-                  {/* <ChatMessagesList messages={messages as Messages} chatData={selectedChatData as ChatI} /> */}
+                   <ChatMessagesList messages={messages as Messages} chatData={selectedChatData as ChatI} />
                 </div>
               </div>
               <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
