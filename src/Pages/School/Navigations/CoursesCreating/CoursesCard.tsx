@@ -22,10 +22,11 @@ type courseCard = {
 export const CoursesCard: FC<courseCard> = ({course, role}) => {
     const {
         data: userProgress,
-        isLoading
+        isLoading,
+        isError
     } = (role === RoleE.Student) ? useFetchProgressQuery(course?.course_id || '') : useFetchCoursesQuery()
 
-    if (isLoading) {
+    if (isLoading || isError) {
         return <SimpleLoader style={{width: '100px', height: '100px'}}/>;
     }
 

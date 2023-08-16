@@ -14,4 +14,5 @@ export { chatsService } from './chatsService'
 export { userProgressService } from './userProgressService'
 export { studentsTableService } from './studentTableService'
 export { getSchoolService } from './getSchoolService'
+export { userTestService } from './userTestService'
 
