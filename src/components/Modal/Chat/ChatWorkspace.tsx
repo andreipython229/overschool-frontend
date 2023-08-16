@@ -30,7 +30,7 @@ export const ChatWorkspace: FC = () => {
   useEffect(() => {
     if (chatId) {
       // fetchChatData(chatId)
-      const socket = new WebSocket(`wss://apidev.overschool.by:8000/ws/chats/${chatId}/`)
+      const socket = new WebSocket(`ws://apidev.overschool.by:8000/ws/chats/${chatId}/`)
       setSocket(socket)
 
       socket.onopen = () => console.log('WebSocket connected')
