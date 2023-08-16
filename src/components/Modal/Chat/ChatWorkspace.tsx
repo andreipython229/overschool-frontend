@@ -25,11 +25,13 @@ export const ChatWorkspace: FC = () => {
   const [message, setMessage] = useState<string>('')
 
   const [fetchChatData, { data, isFetching, isSuccess }] = useLazyFetchChatQuery()
-  const [fetchMessages, { data: messagesData }] = useLazyFetchMessagesQuery()
+  const [fetchMessages, { data: messagesData}] = useLazyFetchMessagesQuery()
 
   useEffect(() => {
     if (chatId) {
-      // fetchChatData(chatId)
+      fetchMessages(chatId)
+      fetchChatData(chatId)
+
       const socket = new WebSocket(`ws://apidev.overschool.by:8000/ws/chats/${chatId}/`)
       setSocket(socket)
 
@@ -40,15 +42,16 @@ export const ChatWorkspace: FC = () => {
 
         console.log(recievedMessages)
       }
+
       socket.onerror = event => {
         console.log("socket error = ", event)
       }
+
       socket.onclose = event => {
         console.log(event)
       }
 
       console.log(socket)
-      fetchMessages(chatId)
     }
 
     return () => {
@@ -79,7 +82,7 @@ export const ChatWorkspace: FC = () => {
     console.log("handleSubmit")
     if (socket && socket.readyState === WebSocket.OPEN) {
       const data = {
-        content: 'hello',
+        content: message,
         sender: userId,
       }
       console.log('sent')
@@ -93,11 +96,11 @@ export const ChatWorkspace: FC = () => {
   }
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (data) {
       setSelectedChatData(data)
       setUsersInGroup(data?.senders.filter(sender => sender.id !== userId))
     }
-  }, [isSuccess])
+  }, [data])
 
   return (
     <div className={styles.chatWorkspace}>
