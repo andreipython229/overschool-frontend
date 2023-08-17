@@ -7,6 +7,7 @@ module.exports = function (app) {
     '/api/socket.io',
     createProxyMiddleware({
       target: 'http://45.135.234.137:8000',
+      //   target: 'http://localhost:8000',
       ws: true,
       changeOrigin: true,
       secure: false,
@@ -18,6 +19,7 @@ module.exports = function (app) {
     '/api',
     createProxyMiddleware({
       target: 'http://45.135.234.137:8000',
+      //   target: 'http://localhost:8000',
       changeOrigin: true,
       secure: false,
     }),

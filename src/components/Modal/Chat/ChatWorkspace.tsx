@@ -32,15 +32,18 @@ export const ChatWorkspace: FC = () => {
       fetchMessages(chatId)
       fetchChatData(chatId)
 
-      const socket = new WebSocket(`ws://apidev.overschool.by:8000/ws/chats/${chatId}/`)
+      // const socket = new WebSocket(`ws://apidev.overschool.by:8000/ws/chats/${chatId}/`)
+      // const socket = new WebSocket(`ws://127.0.0.1:8000/ws/chats/${chatId}/`)
+      const socket = new WebSocket(`ws://45.135.234.137:8000/ws/chats/${chatId}/`)
       setSocket(socket)
 
       socket.onopen = () => console.log('WebSocket connected')
       socket.onmessage = event => {
         const recievedMessages = JSON.parse(event.data)
-        setMessages(recievedMessages)
 
-        console.log(recievedMessages)
+        // setMessages(recievedMessages)
+
+        console.log("resievedMessages = ", recievedMessages)
       }
 
       socket.onerror = event => {
@@ -63,6 +66,7 @@ export const ChatWorkspace: FC = () => {
   useEffect(() => {
     if (messagesData) {
       setMessages(messagesData);
+      console.log(messagesData)
     }
   }, [messagesData]);
 
@@ -82,11 +86,12 @@ export const ChatWorkspace: FC = () => {
     console.log("handleSubmit")
     if (socket && socket.readyState === WebSocket.OPEN) {
       const data = {
-        content: message,
+        message: message,
         sender: userId,
       }
       console.log('sent')
       socket.send(JSON.stringify(data))
+      console.log("send data", data)
       setMessage('')
     }
   }
