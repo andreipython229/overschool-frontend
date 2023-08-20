@@ -13,7 +13,7 @@ import { addFilters } from 'store/redux/filters/slice'
 
 import style from './search_filter.module.scss'
 
-export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filterTerm }) => {
+export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filterTerm, filterKey }) => {
   const dispatch = useAppDispatch()
   const filters = useAppSelector(state => state.filters['homework'])
   const [isFilterClosed, { off }] = useBoolean()
@@ -27,7 +27,7 @@ export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filte
   }, [])
 
   const handleAddFilter = () => {
-    dispatch(addFilters({ key: 'homework', filters: { [filterTerm]: term || '' } }))
+    dispatch(addFilters({ key: filterKey, filters: { [filterTerm]: term || '' } }))
     setItemForFilter('')
     setSelectedCategory('')
     off()

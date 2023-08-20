@@ -66,6 +66,7 @@ export type FilterItemT = {
 }
 
 export type SearchFilterT<T> = {
+  filterKey: string
   name: string
   header: string
   filterTerm: string
