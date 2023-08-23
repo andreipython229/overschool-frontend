@@ -1,0 +1,14 @@
+@import '../../../scss/mixin.scss';
+@import '../../../scss/variable.scss';
+
+.wrapper {
+    overflow: hidden;
+    &_title {
+        margin: 26px 0 20px 0;
+        @include font (500, 15px, 29px);
+        color: #4D5766;
+    }
+    &_testWrapper {
+        @include display (flex);
+    }
+}
