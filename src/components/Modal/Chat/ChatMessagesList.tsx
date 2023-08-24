@@ -1,7 +1,8 @@
 import { FC } from 'react'
 
-import { ChatI, Messages } from 'types/chatsT'
+import { ChatI, Messages, MessageI } from 'types/chatsT'
 import { ChatMessage } from './ChatMessage'
+import styles from './chat.module.scss'
 
 type chatMessagesT = {
   messages: Messages
@@ -9,11 +10,30 @@ type chatMessagesT = {
 }
 
 export const ChatMessagesList: FC<chatMessagesT> = ({ messages, chatData }) => {
+  const renderMessagesWithDateSeparators = () => {
+    let currentDate = '';
+
+    return messages.map((message: MessageI) => {
+      const messageDate = message?.sent_at ? new Date(message.sent_at).toDateString() : new Date().toDateString()
+
+      if (messageDate !== currentDate) {
+        currentDate = messageDate;
+
+        return (
+          <div key={message.id}>
+            <div className={styles.chatMessageSeparator}>{messageDate}</div>
+            <ChatMessage key={message.id} chatData={chatData} message={message} />
+          </div>
+        );
+      }
+
+      return <ChatMessage key={message.id} chatData={chatData} message={message} />;
+    });
+  };
+
   return (
     <>
-      {messages?.map(message => (
-        <ChatMessage key={message.id} chatData={chatData} message={message}/>
-      ))}
+      {renderMessagesWithDateSeparators()}
     </>
   )
 }
