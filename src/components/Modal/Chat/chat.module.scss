@@ -244,14 +244,31 @@
 
   &_input {
     padding: 9px 60px 9px 9px;
-    width: 100%;
+    width: 90%;
     max-height: 200px;
     font-size: 14px;
     line-height: 17px;
     overflow-y: auto;
     overflow-x: hidden;
-    border: none;
     outline: none;
+    margin-right: 10px;
+    border: none;
+  }
+
+  &_send {
+    display: flex;
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center; /* Центрируем по вертикали */
+    width: 10%;
+    height: 30%; /* Устанавливаем высоту 100%, чтобы центрировать вертикально */
+    padding: 10px;
+    margin-right: 10px;
+    svg {
+      fill: grey;
+    }
+  }
+  &_send:hover svg {
+    fill: #BA75FF; /* Изменяем fill цвета иконки */
   }
 }
 

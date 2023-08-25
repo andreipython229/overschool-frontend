@@ -32,7 +32,13 @@ export const schoolHeaderService = createApi({
       }),
       providesTags: ['studentPerSchool'],
     }),
+    fetchStudentsDataPerSchool: build.query<studentsTableInfoT, string>({
+      query: filters => ({
+        url: `schools/1/stats/`,
+      }),
+      providesTags: ['studentPerSchool'],
+    }),
   }),
 })
 
-export const { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation, useLazyFetchStudentsPerSchoolQuery } = schoolHeaderService
+export const { useFetchStudentsDataPerSchoolQuery, useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation, useLazyFetchStudentsPerSchoolQuery } = schoolHeaderService

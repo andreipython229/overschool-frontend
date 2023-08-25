@@ -73,13 +73,20 @@ export const checkHomeworkStatusFilters = [
 ]
 
 export const dropDownListFilter = [
+  { id: 22, title: 'Имя' }  ,
+  { id: 21, title: 'Фамилия' },
   { id: 7, title: 'курсы' },
+  { id: 8, title: 'группы' },
   { id: 9, title: 'задание' },
   { id: 10, title: 'последний ответ' },
   { id: 11, title: 'баллы' },
 ]
 
 export const dropDownListFilterStudents = [
+  { id: 20, title: 'Имя' }  ,
+  { id: 19, title: 'Фамилия' },
+  { id: 17, title: 'курсы' },
+  { id: 18, title: 'группы' },
   { id: 12, title: 'Суммарный балл' },
   { id: 16, title: 'Средний балл' },
   { id: 15, title: 'Последняя активность' },
