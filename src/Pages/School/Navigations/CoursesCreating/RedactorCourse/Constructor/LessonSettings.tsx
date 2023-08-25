@@ -3,31 +3,49 @@ import {ChangeEvent, FC, memo, useEffect, useState} from 'react'
 import {UploadedFile} from 'components/UploadedFile'
 import {Button} from 'components/common/Button/Button'
 import {AddFileBtn} from 'components/common/AddFileBtn/index'
-import {CheckboxBall} from 'components/common/CheckboxBall'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {AddPost} from 'components/AddPost'
-import {settingsIconPath, deleteIconPath} from '../../../../config/svgIconsPath'
+import {deleteIconPath, settingsIconPath} from '../../../../config/svgIconsPath'
 import {useFetchLessonQuery} from 'api/modulesServices'
 import {ClassesSettingsPropsT} from 'types/navigationTypes'
 import {commonLessonT} from 'types/sectionT'
-import {useBoolean} from 'customHooks/useBoolean'
 import {AddQuestion} from 'components/AddQuestion'
 import {SimpleLoader} from 'components/Loaders/SimpleLoader/index'
 import {usePostTextFilesMutation} from 'api/filesService'
-
 import styles from './constructor.module.scss'
+import {LESSON_TYPE} from "../../../../../../enum/lessonTypeE";
+import {AdminLesson} from "./AdminLessonPreview/AdminLesson";
+import {NewTextEditor} from "../../../../../../components/AddTextEditor/NewTextEditor";
+import {VideoPlayer} from "../../../../../../components/VideoPlayer/player";
+import {AdminTest} from "./AdminTestPreview/AdminTest";
+import {AdminHomework} from "./AdminHomeworkPreview/AdminHomework";
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, lessonIdAndType, setType}) => {
-    const [isToggle, {onToggle}] = useBoolean()
     const [files, setFiles] = useState<File[]>([])
     const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
+    const [isEditing, setIsEditing] = useState(false)
 
     const {data, isFetching, isSuccess} = useFetchLessonQuery({id: +lessonIdAndType.id, type: lessonIdAndType.type})
-
-    // const [addFile] = usePatchLessonsMutation()
     const [addTextFiles] = usePostTextFilesMutation()
 
     const [lesson, setLesson] = useState(data as commonLessonT)
+
+    const renderUI = () => {
+        if (isSuccess) {
+            switch (lesson?.type) {
+                case LESSON_TYPE.LESSON:
+                    return <AdminLesson lesson={lesson}/>
+                case LESSON_TYPE.HOMEWORK:
+                    return <AdminHomework lesson={lesson}/>
+                case LESSON_TYPE.TEST:
+                    return <AdminTest testId={lessonIdAndType.id as number}/>
+            }
+        }
+    }
+
+    useEffect(() => {
+        setIsEditing(false)
+    }, [lessonIdAndType])
 
     const showSettingsModal = () => {
         setType('setting' as keyof object)
@@ -84,52 +102,87 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
         isSuccess && setLesson(data)
     }, [data])
 
+    console.log(lesson)
+
     return (
         <section style={{opacity: isFetching ? 0.5 : 1, position: 'relative'}}
                  className={styles.redactorCourse_rightSideWrapper}>
             <div style={{position: 'relative'}} className={styles.redactorCourse_rightSideWrapper_rightSide}>
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_header}>
-                    <span
-                        className={styles.redactorCourse_rightSideWrapper_rightSide_title}>{lesson && 'name' in lesson && lesson.name}</span>
                     <div className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock}>
-                        <button onClick={showSettingsModal}
-                                className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_setting}>
-                            <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath}/>
-                            Настройки
-                        </button>
-                        <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
-                            <IconSvg functionOnClick={handleDeleteLesson} width={19} height={19} viewBoxSize="0 0 19 19"
-                                     path={deleteIconPath}/>
-                        </button>
+                        {!isEditing ? (
+                            <>
+                                <button onClick={() => setIsEditing(true)}
+                                        className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_setting}>
+                                    <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath}/>
+                                    Редактировать
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button
+                                    className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_edit}
+                                    onClick={showSettingsModal}>
+                                    <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath}/>
+                                    Изменить название урока
+                                </button>
+                                <button
+                                    className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
+                                    <IconSvg functionOnClick={handleDeleteLesson} width={19} height={19}
+                                             viewBoxSize="0 0 19 19"
+                                             path={deleteIconPath}/>
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
-                <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
-                    <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
+                {isEditing ? (
+                    <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
                         <span
-                            className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия</span>
-                        <div className={styles.redactorCourse_rightSideWrapper_rightSide_review}>
+                            className={styles.redactorCourse_rightSideWrapper_rightSide_nameSettings}>{lesson && 'name' in lesson && lesson.name}</span>
+                            <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
+                            <></>
                             <span
-                                className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content_preview}>Предпросмотр</span>
-                            <CheckboxBall isChecked={isToggle} toggleChecked={onToggle}/>
+                                className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
                         </div>
-                    </div>
+                        {lesson.type !== 'test' && <>
+                            {("video" in lesson && lesson.video) ? (
+                                <div style={{marginBottom: "20px"}}>
+                                    <VideoPlayer videoSrc={lesson.video}/>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+                            {("description" in lesson && lesson.description) ? (
+                                <NewTextEditor text={lesson.description}/>
+                            ) : (
+                                <></>
+                            )}
+                            <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
+                                <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson}/>
+                            </div>
+                            <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
+                            <AddFileBtn handleChangeFiles={handleChangeFiles}/>
+                            <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
 
-                    <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
-                        <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} isPreview={isToggle}/>
+                            {urlFiles?.map(({url, name}, index: number) => (
+                                <UploadedFile key={index} index={index} file={url} name={name} size={files[index].size}
+                                              handleDeleteFile={handleDeleteFile}/>
+                            ))}
+                            {urlFiles.length > 0 && (
+                                <Button style={{marginTop: '20px'}} variant="primary" text="Загрузить" type="submit"
+                                        onClick={handleUploadFile}/>
+                            )}
+                        </>}
+                        {lessonIdAndType.type === 'test' && <AddQuestion testId={lessonIdAndType.id}/>}
                     </div>
-                    <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
-                    <AddFileBtn handleChangeFiles={handleChangeFiles}/>
-                    <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
-
-                    {urlFiles?.map(({url, name}, index: number) => (
-                        <UploadedFile key={index} index={index} file={url} name={name} size={files[index].size}
-                                      handleDeleteFile={handleDeleteFile}/>
-                    ))}
-                    {urlFiles.length > 0 && (
-                        <Button style={{marginTop: '20px'}} variant="primary" text="Загрузить" type="submit"
-                                onClick={handleUploadFile}/>
-                    )}
-                </div>
+                ) : (
+                    <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
+                        <span
+                            className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
+                        {renderUI()}
+                    </div>
+                )}
                 {isFetching && (
                     <div style={{
                         position: 'absolute',
@@ -142,7 +195,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                     </div>
                 )}
             </div>
-            {lessonIdAndType.type === 'test' && <AddQuestion testId={lessonIdAndType.id}/>}
         </section>
     )
 })

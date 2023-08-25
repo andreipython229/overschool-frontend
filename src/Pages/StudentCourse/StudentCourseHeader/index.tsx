@@ -21,6 +21,7 @@ export const StudentCourseHeader: FC = () => {
     const {data: userProgress, isLoading, isError} = useFetchProgressQuery(courseId as string)
     const {data: course} = useFetchCourseQuery(courseId as string)
     const {data: modules, isSuccess} = useFetchModulesQuery(courseId as string)
+    const school = window.location.href.split('/')[4]
 
     const [modulesData, setModulesData] = useState(modules)
 
@@ -47,7 +48,7 @@ export const StudentCourseHeader: FC = () => {
         <div className={styles.previous}>
             <img className={styles.background_image_course} src={course?.photo_url} alt=""/>
             <div className={styles.previous_bcgrShadow}></div>
-            <div onClick={() => navigate('/school/School_1/courses/')} className={styles.back_all_course}>
+            <div onClick={() => navigate(`/school/${school}/courses/`)} className={styles.back_all_course}>
                 <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr}/>
                 <span>Все курсы</span>
             </div>
