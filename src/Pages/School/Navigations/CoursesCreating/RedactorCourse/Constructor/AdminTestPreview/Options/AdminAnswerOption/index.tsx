@@ -1,0 +1,34 @@
+import {FC, ReactNode, useState} from 'react'
+
+import styles from './adminAnswerOption.module.scss'
+import {Avatar, Grid, Typography} from "@mui/material";
+
+type AnswerOptionT = {
+    children?: ReactNode
+    id?: number
+    answer?: {
+        answer_id?: number
+        body?: string
+        is_correct?: boolean
+    }
+}
+
+export const AdminAnswerOption: FC<AnswerOptionT> = ({id, answer}) => {
+
+    return (
+        <div className={styles.wrapper} key={answer?.answer_id}>
+            <div className={styles.answerOptionsBlock}>
+                <div className={styles.answerOptionsBlock_inputWrapper}>
+                    <Grid container alignItems="left">
+                        <Grid item>
+                            <Avatar className={styles.avatar}>{id! + 1}</Avatar>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="h6">{answer?.body}</Typography>
+                        </Grid>
+                    </Grid>
+                </div>
+            </div>
+        </div>
+    )
+}

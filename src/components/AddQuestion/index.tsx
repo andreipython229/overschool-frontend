@@ -87,7 +87,7 @@ export const AddQuestion: FC<AddQuestionT> = memo(({testId}) => {
                             return <PicturesAndOptions answers={question.answers} question={question} title={question.body}
                                                        id={question.question_id} key={question.question_id}/>
                         }
-                    })};
+                    })}
                 </div>
                 <div className={styles.wrapper_addQuestionsWrapper}>
                     <h2 className={styles.wrapper_addQuestionsWrapper_title}>Добавьте вопрос</h2>

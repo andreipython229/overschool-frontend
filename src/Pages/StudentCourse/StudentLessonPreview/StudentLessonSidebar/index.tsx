@@ -20,6 +20,7 @@ type studentLessonSidebar = {
 export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({courseId, sectionId, activeLessonIndex, lessons: initialLessons, lessonType}) => {
     const navigate = useNavigate();
     const [lessonsComp, setLessonsComp] = useState<sectionT>(initialLessons);
+    const school = window.location.href.split('/')[4]
 
     const isLessonClickable = (lessonIndex: number) => {
         return lessonsComp?.lessons.slice(0, lessonIndex).some((lesson) => !lesson.viewed);
@@ -48,7 +49,7 @@ export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({courseId, s
                                     return;
                                 }
                                 updateLessonViewed(index, true);
-                                navigate(`/school/School_1/courses/student-course/${courseId}/module/${sectionId}/${type}/${id}`);
+                                navigate(`/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${type}/${id}`);
                             }}
                             className={`${activeLessonIndex === index && lessonType === type ? styles.lesson__item_active : styles.lesson__item}
                             ${isDisabled ? styles.lesson__item_disabled : ''}`}

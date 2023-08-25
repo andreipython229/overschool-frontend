@@ -1,6 +1,5 @@
 import { memo, MouseEvent, useEffect, useState, useRef, FC } from 'react'
-import { convertToRaw, Editor, EditorState, RichUtils } from 'draft-js'
-import draftToHtml from 'draftjs-to-html'
+import {ContentState, convertFromHTML, convertToRaw, Editor, EditorState, RichUtils} from 'draft-js'
 
 import { BLOCK_TYPES } from './config/blockTypes'
 import { IEditor } from 'types/componentsTypes'
@@ -10,17 +9,35 @@ import styles from './editor.module.scss'
 
 type MyEditorT = {
   setDescriptionLesson?: (arg: string) => void
+  text?: string
 }
 
-export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
+export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, text }) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
 
-  const [editorContent, setEditorContent] = useState<string>('')
+  const [editorContent, setEditorContent] = useState<string>(text || '')
 
   useEffect(() => {
-    setEditorContent(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+    if (text) {
+      const contentState = ContentState.createFromText(text)
+      const newEditorState = EditorState.push(editorState, contentState, 'insert-characters')
+      setEditorState(newEditorState)
+    }
+  }, [text])
+
+
+  useEffect(() => {
     setDescriptionLesson && setDescriptionLesson(editorContent)
-  }, [editorContent, editorState])
+
+    const blocksFromHTML = convertFromHTML(editorContent);
+    const contentState = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap
+    );
+
+    const newEditorState = EditorState.createWithContent(contentState);
+    setEditorState(newEditorState);
+  }, [editorContent]);
 
   const editor = useRef<Editor>(null)
 
@@ -61,7 +78,6 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
         editable: false,
       }
     }
-
     return null
   }
 
@@ -74,19 +90,6 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson }) => {
     const currentStyle = RichUtils.getCurrentBlockType(editorState)
     return currentStyle.includes(style)
   }
-
-  // const handlePastedFiles = (e) => {
-  //   const url = URL.createObjectURL(e.target.files[0])
-  //   setEditorState(insertImage(url))
-  // }
-
-  // const insertImage = (url: string) => {
-  //   const contentState = editorState.getCurrentContent()
-  //   const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: url })
-  //   const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
-  //   const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
-  //   return AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, '')
-  // }
 
   return (
     <div className={styles.editor}>
