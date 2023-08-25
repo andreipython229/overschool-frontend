@@ -118,10 +118,10 @@
     &_graph {
       @include display(flex, row, center, center);
       @include font(700, 10px, 15px);
-      width: 64px;
-      height: 64px;
-      border: 16px solid #fff;
-      border-radius: 50%;
+      width: 85px;
+      height: 85px;
+     
+      
     }
     &_info {
       @include font(400, 10px, 12px);
