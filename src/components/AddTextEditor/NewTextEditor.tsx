@@ -1,13 +1,14 @@
-import React, {FC, useState} from 'react';
-import { Paper } from "@mui/material";
+import React, {FC, useEffect, useState} from 'react';
+import {Paper} from "@mui/material";
 import styles from './newTextEditor.module.scss';
-import { MyEditor } from "../MyEditor/MyEditor";
+import {MyEditor} from "../MyEditor/MyEditor";
 
 interface textEditorT {
     text: string
+    setLessonDescription?: any
 }
 
-export const NewTextEditor: FC<textEditorT> = ({text}) => {
+export const NewTextEditor: FC<textEditorT> = ({text, setLessonDescription}) => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [editedText, setEditedText] = useState<string>(text);
 
@@ -15,15 +16,9 @@ export const NewTextEditor: FC<textEditorT> = ({text}) => {
         setIsEditing(true);
     };
 
-    const handleSaveClick = () => {
-        setIsEditing(false);
-        // дополнительные действия после сохранения
-    };
-
-    const handleCancelClick = () => {
-        setIsEditing(false);
-        setEditedText(text);
-    };
+    useEffect(() => {
+        setLessonDescription && setLessonDescription(editedText)
+    }, [editedText])
 
     return (
         <div className={styles.textField}>
@@ -31,15 +26,8 @@ export const NewTextEditor: FC<textEditorT> = ({text}) => {
             <Paper elevation={3} style={{padding: '40px', maxWidth: '100%', marginTop: '10px'}}>
                 {isEditing ? (
                     <>
-                        {/*<textarea className={styles.textField_textarea} value={editedText}*/}
-                        {/*          onChange={handleInputChange}/>*/}
-                        <MyEditor setDescriptionLesson={setEditedText} text={editedText}/>
-                        <button className={styles.textField_btnSave} onClick={handleSaveClick}>
-                            Сохранить
-                        </button>
-                        <button className={styles.textField_btnCancel} onClick={handleCancelClick}>
-                            Отмена
-                        </button>
+                        <MyEditor setDescriptionLesson={setEditedText} editedText={editedText}
+                                  setIsEditing={setIsEditing}/>
                     </>
                 ) : (
                     <>
