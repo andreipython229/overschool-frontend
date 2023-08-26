@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from 'react'
+import { ChangeEvent, FC, KeyboardEvent } from 'react'
 
 import styles from './chat.module.scss'
 import {IconSvg} from "../../common/IconSvg/IconSvg";
@@ -11,8 +11,15 @@ type chatInputT = {
 }
 
 export const ChatInput: FC<chatInputT> = ({ message, handleSubmit, handleChangeMessage }) => {
-  return (
-    <form className={styles.chatInput}>
+
+    const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+          handleSubmit();
+        }
+    }
+
+    return (
+    <div className={styles.chatInput}>
       <input
         className={styles.chatInput_input}
         type="text"
@@ -20,11 +27,11 @@ export const ChatInput: FC<chatInputT> = ({ message, handleSubmit, handleChangeM
         value={message}
         placeholder="Напишите сообщение..."
         onChange={handleChangeMessage}
+        onKeyDown={handleKeyPress}
       />
-      {/*<button type="button" onClick={handleSubmit}>Отправить</button>*/}
       <div className={styles.chatInput_send} onClick={handleSubmit}>
           <IconSvg width={30} height={20} viewBoxSize="0 0 30 20" path={sendArrPath} />
       </div>
-    </form>
+    </div>
   )
 }

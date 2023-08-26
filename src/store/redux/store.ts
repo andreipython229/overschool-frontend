@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage'
 
 import * as services from '../../api/index'
 import * as slices from './index'
+import {modulesReduce} from "./modules/modules";
 
 export const rootReducer = combineReducers({
     [services.userProgressService.reducerPath]: services.userProgressService.reducer,
@@ -29,6 +30,7 @@ export const rootReducer = combineReducers({
     filters: slices.filtersReducer,
     chat: slices.chatReducer,
     school: slices.schoolReducer,
+    modules: modulesReduce,
 })
 
 const persistConfig = {
