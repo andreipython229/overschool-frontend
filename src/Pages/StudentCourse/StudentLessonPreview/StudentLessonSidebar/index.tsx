@@ -1,4 +1,4 @@
-import {FC, memo, useState} from 'react'
+import {FC, memo, useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 
 import {LESSON_TYPE} from 'enum/lessonTypeE'
@@ -33,6 +33,11 @@ export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(({courseId, s
             return {...prevLessonsComp, lessons: updatedLessons};
         });
     };
+    useEffect(() => {
+        updateLessonViewed(1, true)
+        setLessonsComp(initialLessons)
+    }, [initialLessons])
+
     return lessonsComp && (
         <div className={styles.lesson__block}>
             <p className={styles.lesson__block_title}>Занятия модуля:</p>

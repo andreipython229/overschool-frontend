@@ -25,7 +25,7 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params,
   return (
     <div className={styles.lesson}>
       <StudentCourseNavArr />
-      <h1 className={styles.lesson__name}>{lesson?.name}</h1>
+      <h1 className={styles.lesson__name}>{activeLessonIndex + 1}. {lesson?.name}</h1>
       <div className={styles.lesson__blocks}>
         <div className={styles.lesson__wrap}>
           <div className={styles.lesson__card}>
