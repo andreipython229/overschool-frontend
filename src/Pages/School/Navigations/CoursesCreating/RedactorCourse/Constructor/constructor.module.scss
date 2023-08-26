@@ -259,6 +259,32 @@
               }
             }
 
+            &_save {
+              &:hover {
+                background-color: rgba(190, 190, 190, 0.4);
+              }
+
+              @include display(flex, row, flex-start, center);
+              margin-left: 15px;
+              width: 200px;
+              height: 36px;
+              border: none;
+              text-align: center;
+              background: #f3f4f6;
+              font-size: 13px;
+              color: #6b728f;
+              border-radius: 6px;
+              padding: 11px 0 11px 16px;
+
+              & svg {
+                margin-right: 5px;
+              }
+
+              input {
+                @include position_t_l(absolute, 0, 0, -20);
+              }
+            }
+
             &_delete {
               &:hover {
                 background-color: rgba(220, 130, 130, 0.4);

@@ -3,12 +3,12 @@ import { Params } from 'react-router-dom'
 
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { sectionT, IHomework } from 'types/sectionT'
-import { StudentCourseNavArr } from '../StudentCourseNavArr/index'
+import { StudentCourseNavArr } from '../StudentCourseNavArr'
 import { UploadedFile } from 'components/UploadedFile/index'
 import { AudioPlayer } from 'components/common/AudioPlayer'
-import { StudentLessonDesc } from '../StudentLessonDesc/index'
-import { StudentLessonTextEditor } from '../StudentLessonTextEditor/index'
-import { StudentLessonNavBtns } from '../StudentLessonNavBtns/index'
+import { StudentLessonDesc } from '../StudentLessonDesc'
+import { StudentLessonTextEditor } from '../StudentLessonTextEditor'
+import { StudentLessonNavBtns } from '../StudentLessonNavBtns'
 
 import styles from '../lesson.module.scss'
 

@@ -1,3 +1,5 @@
+@import '../../scss/mixin.scss';
+
 .editor {
   border: 1px solid #ebeef5;
   width: calc(100% - 10px);
@@ -60,4 +62,38 @@
   min-width: 70px;
   max-width: 150px;
   max-height: 100px;
+}
+
+.textField {
+  margin-bottom: 40px;
+
+  &_btnSave {
+    @include display(flex, row, center);
+    margin-top: 10px;
+    width: 120px;
+    height: 36px;
+    border: none;
+    text-align: center;
+    background: #6b728f;
+    font-size: 14px;
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 11px 0 11px;
+    cursor: pointer;
+  }
+
+  &_btnCancel {
+    @include display(flex, row, center);
+    margin-top: 10px;
+    width: 120px;
+    height: 36px;
+    border: none;
+    text-align: center;
+    background: #f3f4f6;
+    font-size: 14px;
+    color: #6b728f;
+    border-radius: 6px;
+    padding: 11px 0 11px;
+    cursor: pointer;
+  }
 }
