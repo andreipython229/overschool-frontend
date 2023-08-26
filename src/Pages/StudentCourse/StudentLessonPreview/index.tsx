@@ -15,7 +15,6 @@ import {SimpleLoader} from "../../../components/Loaders/SimpleLoader";
 
 export const StudentLessonPreview: FC = () => {
     const params = useParams()
-
     const testId = params?.lesson_type === 'test' && params?.lesson_id
 
     const {data: lessons, isSuccess} = useFetchModuleLessonsQuery(`${params?.section_id}`)
@@ -25,7 +24,6 @@ export const StudentLessonPreview: FC = () => {
     }): useFetchQuestionsListQuery(params?.lesson_id)
 
     const activeLessonIndex = lessons?.lessons.findIndex(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
-
     const renderUI = () => {
         if (isSuccess) {
             switch (lesson?.type) {
@@ -36,7 +34,8 @@ export const StudentLessonPreview: FC = () => {
                     return <StudentHomework lessons={lessons} lesson={lesson} params={params}
                                             activeLessonIndex={activeLessonIndex as number}/>
                 case LESSON_TYPE.TEST:
-                    return <StudentTest lessons={lessons} lesson={lesson} params={params}/>
+                    return <StudentTest lessons={lessons} lesson={lesson} params={params}
+                                        activeLessonIndex={activeLessonIndex as number}/>
             }
         }
     }
