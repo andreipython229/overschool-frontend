@@ -2,12 +2,13 @@ import { Route, Routes } from 'react-router-dom'
 
 import { Path, Student } from 'enum/pathE'
 import { MobileInitPage } from 'MobilePages/MobileInitPage/MobileInitPage'
-import { MobileLayOut } from 'MobilePages/MobileLayOut'
+import { MobileLayOut } from './MobilePages/MobileLayOut'
 import { MobileCoursesPage } from 'MobilePages/MobileCoursesPage/MobileCoursesPage'
 import { CourseModules } from 'MobilePages/CourseModules/CourseModules'
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
-import { StudentLessonPreview } from './Pages/StudentCourse/StudentLessonPreview'
+import { StudentLessonPreview } from './MobilePages/StudentLessonPreview/'
 import { Profile } from 'Pages/Profile/Profile'
+import { ChooseSchool } from './MobilePages/MobileChooseSchool/ChooseSchool'
 
 import styles from './App.module.scss'
 
@@ -16,7 +17,8 @@ export const AppMobile = () => {
     <div className={styles.container}>
       <Routes>
         <Route path={Path.InitialPage} element={<MobileInitPage />} />
-        <Route path={Path.InitialPage} element={<MobileLayOut />}>
+        <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
+        <Route path={Path.School} element={<MobileLayOut />}>
           <Route path={Path.Courses}>
             <Route index element={<MobileCoursesPage />} />
             <Route path={Student.Course}>

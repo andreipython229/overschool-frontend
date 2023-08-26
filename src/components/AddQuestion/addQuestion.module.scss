@@ -2,23 +2,31 @@
 @import '../../scss/mixin.scss';
 
 .wrapper {
-    background-color: transparent;
+  background-color: transparent;
 
-    &_addQuestionsWrapper {
-        background-color: #fff;
-        margin-top: 32px;
-        padding: 25px 61px 35px 61px;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: $box-shadow;
-        &_title {
-            @include font (500, 14px, 17px);
-            color: #4D5766;
-            text-align: center;
-        }
-        &_btnWrapper {
-            @include display (flex, row, space-around, center);
-            margin-top: 26px;
-        }
+  &_addQuestionsWrapper {
+    background-color: #fff;
+    margin-top: 32px;
+    padding: 25px 61px 35px 61px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: $box-shadow;
+
+    &_title {
+      @include font(500, 14px, 17px);
+      color: #4D5766;
+      text-align: center;
     }
+
+    &_btnWrapper {
+      @include display(flex, row, space-around, center);
+      margin-top: 26px;
+    }
+  }
+}
+
+.nameSettings {
+  color: $font-title;
+  font-size: 25px;
+  font-weight: bold;
 }

@@ -37,7 +37,7 @@ export const UploadedFile: FC<uploadedFileT> = ({ file, index, name, size, handl
       <div className={styles.file__download_container}>
         <div className={styles.file__dowload_wrap}>
           <div className={styles.file__dowload_blackDiv}> </div>
-          <p>{name || file}</p>
+          <p>{name?.split("@")[1].split('?')[0] || file.split("@")[1].split('?')[0]}</p>
         </div>
         <div className={styles.file__dowload_wrap}>
           <span className={styles.file__download_size}>{showMetricByFileSize()}</span>

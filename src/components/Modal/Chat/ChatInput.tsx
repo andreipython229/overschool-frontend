@@ -1,6 +1,8 @@
 import { ChangeEvent, FC } from 'react'
 
 import styles from './chat.module.scss'
+import {IconSvg} from "../../common/IconSvg/IconSvg";
+import {sendArrPath, updateArrPath} from "../../AllStudentsBlock/config/svgIconsPath";
 
 type chatInputT = {
   message: string
@@ -19,7 +21,10 @@ export const ChatInput: FC<chatInputT> = ({ message, handleSubmit, handleChangeM
         placeholder="Напишите сообщение..."
         onChange={handleChangeMessage}
       />
-      <button onClick={handleSubmit}></button>
+      {/*<button type="button" onClick={handleSubmit}>Отправить</button>*/}
+      <div className={styles.chatInput_send} onClick={handleSubmit}>
+          <IconSvg width={30} height={20} viewBoxSize="0 0 30 20" path={sendArrPath} />
+      </div>
     </form>
   )
 }

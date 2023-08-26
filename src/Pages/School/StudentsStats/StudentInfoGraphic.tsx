@@ -7,9 +7,10 @@ export const StudentInfoGraphic = (courseId: any) => {
   const [data, setData] = useState<any[]>()
   const [countUsers, setCountUsers] = useState<any>()
   const [data2, setData2] = useState<any[]>()
+  const school = window.location.href.split('/')[4]
 
   useEffect(() => {
-    axios.get('http://45.135.234.137:8000/api/School_1/courses/' + courseId.courseId + '/user_count_by_month/').then(v => {
+    axios.get(`http://45.135.234.137:8000/api/${school}/courses/` + courseId.courseId + '/user_count_by_month/').then(v => {
       if (v.data.count > 0) {
         setData2([
           {
