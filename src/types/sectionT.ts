@@ -14,6 +14,7 @@ export interface ILesson {
   text_files: IFile[]
   audio_files: IFile[]
   type: LESSON_TYPE.LESSON
+  active: boolean
 }
 
 export interface IHomework {
@@ -30,6 +31,7 @@ export interface IHomework {
   text_files: IFile[]
   audio_files: IFile[]
   type: LESSON_TYPE.HOMEWORK
+  active: boolean
 }
 
 export interface ITest {
@@ -49,6 +51,7 @@ export interface ITest {
   order: number
   author_id: string
   type: LESSON_TYPE.TEST
+  active: boolean
 }
 
 export type commonLessonT = ILesson | IHomework | ITest

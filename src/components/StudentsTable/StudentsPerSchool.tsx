@@ -11,7 +11,7 @@ import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
 export const StudentsPerSchool: FC = () => {
   const dispatch = useAppDispatch()
   const filters = useAppSelector(state => state.filters['studentsPerSchool'])
-
+  const schoolId = localStorage.getItem('school_id')
   const [fetchStudents, { data, isFetching }] = useLazyFetchStudentsPerSchoolQuery()
   const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery()
 
@@ -38,7 +38,7 @@ export const StudentsPerSchool: FC = () => {
   }
 
   const handleReloadTable = () => {
-    fetchStudents(filters)
+    schoolId && fetchStudents({ id: Number(schoolId), filters })
   }
 
   useEffect(() => {
