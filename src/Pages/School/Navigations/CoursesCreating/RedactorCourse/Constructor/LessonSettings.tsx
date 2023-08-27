@@ -172,7 +172,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                             {("description" in lesson && lesson.description) ? (
                                 <NewTextEditor text={lesson.description} setLessonDescription={setLessonDescription}/>
                             ) : (
-                                <></>
+                                <NewTextEditor text={lessonDescription} setLessonDescription={setLessonDescription}/>
                             )}
                             <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
                                 <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson}/>
