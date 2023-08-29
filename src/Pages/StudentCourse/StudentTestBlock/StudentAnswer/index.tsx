@@ -13,7 +13,7 @@ type StudentAnswerProps = {
 export const StudentAnswer: FC<StudentAnswerProps> = ({id, title, name, onSelect, isCorrect}) => {
     return (
         <div className={styles.wrapper} onClick={() => onSelect(isCorrect)}>
-            <Radio title={title} id={id} name={name} key={`${id}${name}`}/>
+            <Radio title={title} id={id} name={name} key={`${id}`}/>
         </div>
     );
 };

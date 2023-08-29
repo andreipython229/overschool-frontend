@@ -3,6 +3,7 @@
 .custom_radio {
   @include position_t_l (absolute, 0, 0, -1);
   opacity: 0;
+  z-index: 9999;
 }
 label {
   color: #4d5766;

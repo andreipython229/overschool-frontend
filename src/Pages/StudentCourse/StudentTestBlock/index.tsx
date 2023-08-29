@@ -53,8 +53,7 @@ export const StudentTestBlock: FC<any> = ({lesson}) => {
                 )
             ) : (
                 <StudentQuestion questions={nullQuestionTest[0]} length={lesson.questions}
-                    numberTest={numberTest} setNumberTest={setNumberTest} onCompleteTest={completeTest}
-                />
+                    numberTest={numberTest} setNumberTest={setNumberTest} onCompleteTest={completeTest}/>
             )}
         </div>
     );

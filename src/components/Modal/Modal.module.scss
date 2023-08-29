@@ -1,5 +1,9 @@
-@import '/src/scss/variable';
+@import './src/scss/variable';
 @import '../../scss/mixin.scss';
+
+.isPublished {
+
+}
 
 .wrapper {
   // @include position_t_l (absolute, 0, 0, 15);
@@ -15,6 +19,7 @@
     margin-top: 15px;
     height: 40px !important;
     opacity: 0.5;
+
     & label {
       color: #ba75ff;
       background-color: #e0d9fc !important;
@@ -50,6 +55,7 @@
     margin: 59px 16px 60px 16px;
   }
 }
+
 .main {
   position: relative;
   @include display(flex, row, center);
@@ -122,6 +128,7 @@
     text-align: center;
   }
 }
+
 .main_employee {
   @include position_t_l(absolute, 50%, 50%, 10);
   @include display(flex, column);
@@ -239,6 +246,7 @@
     align-items: stretch;
     gap: 15px;
     justify-content: center;
+
     & button {
       padding: 10px 20px;
     }
@@ -263,6 +271,7 @@
     }
   }
 }
+
 .inputs_block {
   width: 100%;
   margin-bottom: 56px;
@@ -271,6 +280,7 @@
     margin-bottom: 16px;
   }
 }
+
 .restorePass {
   @include font(800, 14px);
   color: black;
@@ -285,6 +295,7 @@
   background: #ddd7fa;
   border-radius: 10px;
 }
+
 .mainCourse {
   @include position_t_l(absolute, 50%, 50%, 10);
   @include display(flex, column);
@@ -332,6 +343,7 @@
     margin-bottom: 16px;
   }
 }
+
 .classesContainer {
   @include position_t_l(absolute, 50%, 50%, 10);
   @include display(flex, column, center, center);
@@ -404,6 +416,7 @@
       @include display(flex, row, center, center);
       gap: 12px;
       margin-top: 20px;
+
       & button {
         width: 80px;
         display: flex;
@@ -417,12 +430,14 @@
     }
   }
 }
+
 .errors {
   color: #ff3c3c;
   font-size: 12px;
   margin-top: -8px;
   margin-left: 8px;
 }
+
 .active {
   border: 2px solid #ba75ff;
   color: $font-color-rose;
@@ -436,6 +451,7 @@
     }
   }
 }
+
 .usually {
   &_header {
     @include display(flex, column, flex-start, center);
@@ -487,6 +503,7 @@
     }
   }
 }
+
 .tasks {
   @include display(flex, column, center, center);
   margin-bottom: 23px;
@@ -541,6 +558,7 @@
     }
   }
 }
+
 .test {
   @include display(flex, column, flex-start, center);
   text-align: center;
@@ -611,6 +629,7 @@
     }
   }
 }
+
 .webinar {
   @include display(flex, column, flex-start, center);
   text-align: center;
@@ -652,6 +671,7 @@
     cursor: pointer;
   }
 }
+
 .btnBlock {
   display: flex;
   align-items: stretch;
@@ -661,12 +681,14 @@
     padding: 10px 20px;
     font-size: 14px;
     border-radius: 7px;
+
     &:first-child {
       color: #7b818e;
       font-weight: 500;
     }
   }
 }
+
 .navBtn {
   margin-bottom: 15px;
 
@@ -693,6 +715,7 @@
     border-radius: 7px;
   }
 }
+
 .module {
   &_title {
     @include font(500, 18px);
@@ -710,6 +733,7 @@
     }
   }
 }
+
 .settings {
   &_header {
     @include display(flex, column, center, center);
@@ -726,12 +750,20 @@
     margin-top: 16px;
 
     &_input {
-      margin-bottom: 8px;
       text-align: left;
       margin-bottom: 20px;
+
       &_title {
         font-size: 14px;
         color: $font-title;
+      }
+
+      &_isPublished {
+        color: $font-title;
+        text-align: center;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
       }
 
       div {
@@ -741,9 +773,11 @@
     }
   }
 }
+
 .settings_list {
   list-style-type: none;
 }
+
 .settings_title {
   user-select: none;
   @include font(500, 20px, 24px);
@@ -751,3 +785,4 @@
   font-style: normal;
   color: #4d5766;
 }
+
