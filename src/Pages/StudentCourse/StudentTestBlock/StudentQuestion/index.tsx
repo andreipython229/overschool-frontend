@@ -58,7 +58,7 @@ export const StudentQuestion: FC<StudentQuestionT> = ({questions, length, number
             </div>
             {questions.answers &&
                 questions?.answers.map(({body: answer, answer_id: id, is_correct: isCorrect}: any, index: number) => (
-                    <StudentAnswer key={index} id={`${id}`} title={answer} name={nameAnswer} isCorrect={isCorrect}
+                    <StudentAnswer key={index} id={id} title={answer} name={nameAnswer} isCorrect={isCorrect}
                                    onSelect={handleAnswerSelect}/>
                 ))}
             {numberTest + 1 !== questionLength ?

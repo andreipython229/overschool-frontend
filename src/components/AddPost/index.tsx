@@ -8,7 +8,6 @@ import { AddTextEditor } from 'components/AddTextEditor'
 import { ContentBtn } from 'components/ContentBtn'
 import { useBoolean, useDebounceFunc } from '../../customHooks'
 import { AddPostT } from '../../types/componentsTypes'
-import { patchData } from '../../utils/patchData'
 import { usePatchLessonsMutation } from 'api/modulesServices'
 
 import Text from '../.././assets/img/createCourse/text.svg'

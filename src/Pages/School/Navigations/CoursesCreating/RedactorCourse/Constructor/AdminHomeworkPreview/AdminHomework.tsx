@@ -1,19 +1,25 @@
 import {IHomework} from "../../../../../../../types/sectionT";
-import {FC} from "react";
+import {FC, useEffect, useState} from "react";
 import styles from "../../../../../../StudentCourse/StudentLessonPreview/lesson.module.scss";
 import {StudentCourseNavArr} from "../../../../../../StudentCourse/StudentLessonPreview/StudentCourseNavArr";
 import {StudentLessonDesc} from "../../../../../../StudentCourse/StudentLessonPreview/StudentLessonDesc";
 import {UploadedFile} from "../../../../../../../components/UploadedFile";
 import {AudioPlayer} from "../../../../../../../components/common/AudioPlayer";
+import {VideoPlayer} from "../../../../../../../components/VideoPlayer/player";
 
 interface AdminHomeworkT {
     lesson: IHomework
 }
 
 export const AdminHomework: FC<AdminHomeworkT> = ({lesson}) => {
+    const [videoLinkId, setVideoLinkId] = useState(lesson?.video)
+
+    useEffect(() => {
+        setVideoLinkId(lesson?.video)
+    }, [lesson])
+
     return (
         <div className={styles.lesson}>
-            <StudentCourseNavArr/>
             <h1 className={styles.lesson__name}>{lesson?.name}</h1>
             <div className={styles.lesson__blocks}>
                 <div className={styles.lesson__wrap}>
@@ -22,6 +28,7 @@ export const AdminHomework: FC<AdminHomeworkT> = ({lesson}) => {
                         <div className={styles.lesson__content}>
                             <StudentLessonDesc text={lesson?.description || ''}/>
                         </div>
+                        <VideoPlayer videoSrc={videoLinkId? videoLinkId: undefined}/>
                         <div className={styles.lesson__content}>
                             {/* {lesson?.code && (
                 <div className={styles.lesson__codeWraper}>
