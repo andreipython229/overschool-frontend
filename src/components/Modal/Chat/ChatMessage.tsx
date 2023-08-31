@@ -4,6 +4,7 @@ import { ChatI, MessageI, SenderI } from 'types/chatsT'
 import { useAppSelector } from 'store/hooks'
 
 import styles from './chat.module.scss'
+import { format } from 'date-fns'
 
 type chatMessageT = {
   chatData: ChatI
@@ -31,10 +32,10 @@ export const ChatMessage: FC<chatMessageT> = memo(({ chatData, message }) => {
           )}
         </div>
         <div className={isAuthor ? styles.chatMessage_mess_right : styles.chatMessage_mess_left}>
-          {!isAuthor && <p className={styles.chatMessage_user_name}>{userInfo?.first_name || 'Без имени'}</p>}
+          {!isAuthor && <p className={styles.chatMessage_user_name}>{`${userInfo?.first_name} ${userInfo?.last_name}` || 'Без имени'}</p>}
           <div className={styles.chatMessage_textWrapper}>
             <p>{message?.content}</p>
-            <div className={styles.chatMessage_text_time}>12:05</div>
+            <div className={styles.chatMessage_text_time}>{message?.sent_at ? format(new Date(message?.sent_at || ''), 'HH:mm') : format(new Date(), 'HH:mm')}</div>
           </div>
         </div>
       </div>

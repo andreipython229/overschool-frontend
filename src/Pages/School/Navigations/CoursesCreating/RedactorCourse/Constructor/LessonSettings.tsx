@@ -5,8 +5,8 @@ import {Button} from 'components/common/Button/Button'
 import {AddFileBtn} from 'components/common/AddFileBtn/index'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {AddPost} from 'components/AddPost'
-import {deleteIconPath, settingsIconPath} from '../../../../config/svgIconsPath'
-import {useFetchLessonQuery} from 'api/modulesServices'
+import {deleteIconPath, noPublishedIconPath, publishedIconPath, settingsIconPath} from '../../../../config/svgIconsPath'
+import {useFetchLessonQuery, usePatchLessonsMutation} from 'api/modulesServices'
 import {ClassesSettingsPropsT} from 'types/navigationTypes'
 import {commonLessonT} from 'types/sectionT'
 import {AddQuestion} from 'components/AddQuestion'
@@ -19,16 +19,28 @@ import {NewTextEditor} from "../../../../../../components/AddTextEditor/NewTextE
 import {VideoPlayer} from "../../../../../../components/VideoPlayer/player";
 import {AdminTest} from "./AdminTestPreview/AdminTest";
 import {AdminHomework} from "./AdminHomeworkPreview/AdminHomework";
+import {acceptedHwPath} from "../../../../../../config/commonSvgIconsPath";
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, lessonIdAndType, setType}) => {
     const [files, setFiles] = useState<File[]>([])
     const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
     const [isEditing, setIsEditing] = useState(false)
+    const [lessonDescription, setLessonDescription] = useState('')
 
     const {data, isFetching, isSuccess} = useFetchLessonQuery({id: +lessonIdAndType.id, type: lessonIdAndType.type})
     const [addTextFiles] = usePostTextFilesMutation()
+    const [saveChanges] = usePatchLessonsMutation()
 
     const [lesson, setLesson] = useState(data as commonLessonT)
+
+    const handleSaveChanges = async () => {
+        const formData = new FormData()
+        formData.append('description', lessonDescription)
+        formData.append('section', String(lesson.section))
+        formData.append('order', String(lesson.order))
+        await saveChanges({id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData})
+        setIsEditing(false)
+    }
 
     const renderUI = () => {
         if (isSuccess) {
@@ -102,8 +114,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
         isSuccess && setLesson(data)
     }, [data])
 
-    console.log(lesson)
-
     return (
         <section style={{opacity: isFetching ? 0.5 : 1, position: 'relative'}}
                  className={styles.redactorCourse_rightSideWrapper}>
@@ -111,28 +121,61 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_header}>
                     <div className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock}>
                         {!isEditing ? (
-                            <>
+                            <div className={styles.coursePreviewHeader}>
                                 <button onClick={() => setIsEditing(true)}
                                         className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_setting}>
                                     <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath}/>
                                     Редактировать
                                 </button>
-                            </>
+                                {lesson?.active ? (
+                                    <p className={styles.coursePreviewHeader_text_block}>
+                                        <IconSvg width={18} height={16} path={publishedIconPath}/>
+                                        опубликовано
+                                    </p>
+                                ) : (
+                                    <p className={styles.coursePreviewHeader_text_block}>
+                                        <IconSvg width={18} height={16} path={noPublishedIconPath}/>
+                                        не опубликовано
+                                    </p>
+                                )}
+                            </div>
                         ) : (
-                            <>
-                                <button
-                                    className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_edit}
-                                    onClick={showSettingsModal}>
-                                    <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath}/>
-                                    Изменить название урока
-                                </button>
-                                <button
-                                    className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
-                                    <IconSvg functionOnClick={handleDeleteLesson} width={19} height={19}
-                                             viewBoxSize="0 0 19 19"
-                                             path={deleteIconPath}/>
-                                </button>
-                            </>
+                            <div className={styles.coursePreviewHeaderRedactor}>
+                                <div style={{display: 'flex'}}>
+                                    <button
+                                        className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_edit}
+                                        onClick={showSettingsModal}>
+                                        <IconSvg width={16} height={16} viewBoxSize="0 0 16 16"
+                                                 path={settingsIconPath}/>
+                                        Изменить название урока
+                                    </button>
+                                    <button
+                                        className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
+                                        <IconSvg functionOnClick={handleDeleteLesson} width={19} height={19}
+                                                 viewBoxSize="0 0 19 19"
+                                                 path={deleteIconPath}/>
+                                    </button>
+                                    <button
+                                        className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save}
+                                        onClick={handleSaveChanges}>
+                                        <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath}/>
+                                        Сохранить изменения
+                                    </button>
+                                </div>
+                                <div>
+                                    {lesson?.active ? (
+                                        <p className={styles.coursePreviewHeader_text_block}>
+                                            <IconSvg width={18} height={16} path={publishedIconPath}/>
+                                            опубликовано
+                                        </p>
+                                    ) : (
+                                        <p className={styles.coursePreviewHeader_text_block}>
+                                            <IconSvg width={18} height={16} path={noPublishedIconPath}/>
+                                            не опубликовано
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
                         )}
                     </div>
                 </div>
@@ -140,7 +183,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                     <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
                         <span
                             className={styles.redactorCourse_rightSideWrapper_rightSide_nameSettings}>{lesson && 'name' in lesson && lesson.name}</span>
-                            <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
+                        <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
                             <></>
                             <span
                                 className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
@@ -154,9 +197,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                                 <></>
                             )}
                             {("description" in lesson && lesson.description) ? (
-                                <NewTextEditor text={lesson.description}/>
+                                <NewTextEditor text={lesson.description} setLessonDescription={setLessonDescription}/>
                             ) : (
-                                <></>
+                                <NewTextEditor text={lessonDescription} setLessonDescription={setLessonDescription}/>
                             )}
                             <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
                                 <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson}/>

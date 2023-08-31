@@ -1,6 +1,7 @@
 import { HomeWork } from 'Pages/HomeWork/HomeWork'
 import { IFile } from './filesT'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
+import {b} from "msw/lib/glossary-dc3fd077";
 
 export interface ILesson {
   lesson_id: number
@@ -32,6 +33,7 @@ export interface IHomework {
   audio_files: IFile[]
   type: LESSON_TYPE.HOMEWORK
   active: boolean
+  video: string
 }
 
 export interface ITest {
@@ -64,6 +66,7 @@ export type lessonT = {
   baselesson_ptr_id?: number
   viewed: boolean
   completed: boolean
+  active: boolean
 }
 
 export type sectionT = {

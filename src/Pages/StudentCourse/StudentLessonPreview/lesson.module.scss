@@ -127,7 +127,7 @@
   &__wrap {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    //align-items: flex-end;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       @include display(flex, column, flex-start, center);
     }
@@ -183,9 +183,9 @@
   }
 
   &__btnNext {
-    background: #c180ff;
+    //background: #c180ff;
     margin-left: 16px;
-    color: #ffffff;
+    //color: #ffffff;
     letter-spacing: 0.03em;
   }
 
@@ -195,7 +195,7 @@
   }
 
   &__btnNext:after {
-    content: url(../../../assets/img/studentPage/arr-right.svg);
+    content: url(../../../assets/img/studentPage/arr-right-v1.svg);
     margin-left: 6px;
   }
 
