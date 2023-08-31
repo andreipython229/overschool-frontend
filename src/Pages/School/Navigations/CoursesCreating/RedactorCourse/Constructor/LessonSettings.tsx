@@ -5,7 +5,7 @@ import {Button} from 'components/common/Button/Button'
 import {AddFileBtn} from 'components/common/AddFileBtn/index'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {AddPost} from 'components/AddPost'
-import {deleteIconPath, settingsIconPath} from '../../../../config/svgIconsPath'
+import {deleteIconPath, noPublishedIconPath, publishedIconPath, settingsIconPath} from '../../../../config/svgIconsPath'
 import {useFetchLessonQuery, usePatchLessonsMutation} from 'api/modulesServices'
 import {ClassesSettingsPropsT} from 'types/navigationTypes'
 import {commonLessonT} from 'types/sectionT'
@@ -121,34 +121,61 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_header}>
                     <div className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock}>
                         {!isEditing ? (
-                            <>
+                            <div className={styles.coursePreviewHeader}>
                                 <button onClick={() => setIsEditing(true)}
                                         className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_setting}>
                                     <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath}/>
                                     Редактировать
                                 </button>
-                            </>
+                                {lesson?.active ? (
+                                    <p className={styles.coursePreviewHeader_text_block}>
+                                        <IconSvg width={18} height={16} path={publishedIconPath}/>
+                                        опубликовано
+                                    </p>
+                                ) : (
+                                    <p className={styles.coursePreviewHeader_text_block}>
+                                        <IconSvg width={18} height={16} path={noPublishedIconPath}/>
+                                        не опубликовано
+                                    </p>
+                                )}
+                            </div>
                         ) : (
-                            <>
-                                <button
-                                    className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_edit}
-                                    onClick={showSettingsModal}>
-                                    <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath}/>
-                                    Изменить название урока
-                                </button>
-                                <button
-                                    className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
-                                    <IconSvg functionOnClick={handleDeleteLesson} width={19} height={19}
-                                             viewBoxSize="0 0 19 19"
-                                             path={deleteIconPath}/>
-                                </button>
-                                <button
-                                    className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save}
-                                    onClick={handleSaveChanges}>
-                                    <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath}/>
-                                    Сохранить изменения
-                                </button>
-                            </>
+                            <div className={styles.coursePreviewHeaderRedactor}>
+                                <div style={{display: 'flex'}}>
+                                    <button
+                                        className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_edit}
+                                        onClick={showSettingsModal}>
+                                        <IconSvg width={16} height={16} viewBoxSize="0 0 16 16"
+                                                 path={settingsIconPath}/>
+                                        Изменить название урока
+                                    </button>
+                                    <button
+                                        className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
+                                        <IconSvg functionOnClick={handleDeleteLesson} width={19} height={19}
+                                                 viewBoxSize="0 0 19 19"
+                                                 path={deleteIconPath}/>
+                                    </button>
+                                    <button
+                                        className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save}
+                                        onClick={handleSaveChanges}>
+                                        <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath}/>
+                                        Сохранить изменения
+                                    </button>
+                                </div>
+                                <div>
+                                    {lesson?.active ? (
+                                        <p className={styles.coursePreviewHeader_text_block}>
+                                            <IconSvg width={18} height={16} path={publishedIconPath}/>
+                                            опубликовано
+                                        </p>
+                                    ) : (
+                                        <p className={styles.coursePreviewHeader_text_block}>
+                                            <IconSvg width={18} height={16} path={noPublishedIconPath}/>
+                                            не опубликовано
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
                         )}
                     </div>
                 </div>
@@ -156,7 +183,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                     <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
                         <span
                             className={styles.redactorCourse_rightSideWrapper_rightSide_nameSettings}>{lesson && 'name' in lesson && lesson.name}</span>
-                            <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
+                        <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
                             <></>
                             <span
                                 className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
