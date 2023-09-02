@@ -11,9 +11,10 @@ type uploadedFileT = {
   size: number
   name?: string
   handleDeleteFile?: (index: number) => void
+  isHw?: boolean
 }
 
-export const UploadedFile: FC<uploadedFileT> = ({ file, index, name, size, handleDeleteFile }) => {
+export const UploadedFile: FC<uploadedFileT> = ({ file, index, name, size, handleDeleteFile , isHw}) => {
   const showMetricByFileSize = () => {
     const fileSizeInKB = size / 1024
     const fileSizeInMB = fileSizeInKB / 1024
@@ -36,19 +37,15 @@ export const UploadedFile: FC<uploadedFileT> = ({ file, index, name, size, handl
     <a href={file} target={'_blanck'} download={name}>
       <div className={styles.file__download_container}>
         <div className={styles.file__dowload_wrap}>
-          <div className={styles.file__dowload_blackDiv}> </div>
-          <p>{name?.split("@")[1].split('?')[0] || file.split("@")[1].split('?')[0]}</p>
+          <div className={styles.file__dowload_blackDiv}></div>
+          {!isHw? <p>{name?.split("@")[1].split('?')[0] || file?.split("@")[1].split('?')[0] || file.toString()}</p>:
+              <p>{name}</p>}
         </div>
         <div className={styles.file__dowload_wrap}>
           <span className={styles.file__download_size}>{showMetricByFileSize()}</span>
           {handleDeleteFile && (
-            <span
-              className={styles.file__download_icon}
-              onClick={e => {
-                e.preventDefault()
-                handleDeleteFile(index)
-              }}
-            >
+            <span className={styles.file__download_icon} onClick={e => {e.preventDefault()
+              handleDeleteFile(index)}}>
               <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
             </span>
           )}
