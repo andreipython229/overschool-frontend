@@ -1,5 +1,7 @@
 import {FC, useState, useEffect} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
 
 import {useFetchCourseQuery} from 'api/coursesServices'
 import {useFetchModulesQuery} from 'api/modulesServices'
@@ -14,9 +16,12 @@ import styles from './student_course_header.module.scss'
 import {useFetchProgressQuery} from "../../../api/userProgressService";
 import {SimpleLoader} from "../../../components/Loaders/SimpleLoader";
 
+
+
 export const StudentCourseHeader: FC = () => {
     const {course_id: courseId} = useParams()
     const navigate = useNavigate()
+   
 
     const {data: userProgress, isLoading, isError} = useFetchProgressQuery(courseId as string)
     const {data: course} = useFetchCourseQuery(courseId as string)
@@ -77,7 +82,27 @@ export const StudentCourseHeader: FC = () => {
                 </div>
             </div>
             <div className={styles.previous_progress}>
-                <div className={styles.previous_progress_graph}>{userProgress.courses[0]?.completed_percent}%</div>
+                <div className={styles.previous_progress_graph}>
+                    <CircularProgressbar
+                         value={userProgress.courses[0]?.completed_percent}
+                            text={`${userProgress.courses[0]?.completed_percent}%`}
+                            styles={buildStyles({
+
+                                // Rotation of path and trail, in number of turns (0-1)
+                                rotation: 0.25, 
+                                // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                                strokeLinecap: 'butt', 
+                                // Text size
+                                textSize: '20px',
+                                // How long animation takes to go from one percentage to another, in seconds
+                                pathTransitionDuration: 0.5,                         
+                                pathColor: `rgba(0, 255, 0, ${userProgress.courses[0]?.completed_percent / 100})`,
+                                textColor: '#fff',
+                                trailColor: '#fff',
+                                backgroundColor: '#3e98c7',
+                              })}
+                    />
+                </div>
                 <div className={styles.previous_progress_info}>
                     {(userProgress.courses[0]?.all_baselessons / userProgress.courses[0]?.completed_count !== 1) ? (
                         <span>В процессе: {userProgress.courses[0]?.completed_count}/{userProgress.courses[0]?.all_baselessons}</span>
