@@ -30,13 +30,15 @@ export const rootReducer = combineReducers({
     filters: slices.filtersReducer,
     chat: slices.chatReducer,
     school: slices.schoolReducer,
+    schoolId: slices.schoolIdReducer,
+    headerId: slices.headerIdReducer,
     modules: modulesReduce,
 })
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['user', 'sections', 'filters', 'school'],
+    whitelist: ['user', 'sections', 'filters', 'school', 'schoolId', 'headerId'],
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
