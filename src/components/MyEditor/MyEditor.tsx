@@ -2,7 +2,7 @@ import React, {memo, MouseEvent, useEffect, useState, useRef, FC} from 'react'
 import {ContentState, convertFromHTML, convertToRaw, Editor, EditorState, RichUtils} from 'draft-js'
 import {BLOCK_TYPES} from './config/blockTypes'
 import {IEditor} from 'types/componentsTypes'
-import { stateToHTML } from 'draft-js-export-html';
+import {stateToHTML} from 'draft-js-export-html';
 import 'draft-js/dist/Draft.css'
 import styles from './editor.module.scss'
 
@@ -124,12 +124,14 @@ export const MyEditor: FC<MyEditorT> = memo(({setDescriptionLesson, editedText, 
                     onChange={handleEditorChange}
                 />
             </div>
-            <button className={styles.textField_btnSave} onClick={handleSaveClick}>
-                Сохранить
-            </button>
-            <button className={styles.textField_btnCancel} onClick={handleCancelClick}>
-                Отмена
-            </button>
+            <div style={{display: 'flex'}}>
+                <button className={styles.textField_btnSave} onClick={handleSaveClick}>
+                    Сохранить
+                </button>
+                <button className={styles.textField_btnCancel} onClick={handleCancelClick}>
+                    Отмена
+                </button>
+            </div>
             <div></div>
         </div>
     )

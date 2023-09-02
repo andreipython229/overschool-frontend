@@ -30,7 +30,7 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = memo(({ homew
           {user_avatar ? (
             <img
               style={{ borderRadius: '50%', width: '32px', height: '32px' }}
-              src={window.appConfig.imagePath + '/media/' + user_avatar}
+              src={user_avatar}
               alt="avatar"
             />
           ) : (
