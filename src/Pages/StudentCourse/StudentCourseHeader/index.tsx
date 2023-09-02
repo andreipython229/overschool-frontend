@@ -87,21 +87,13 @@ export const StudentCourseHeader: FC = () => {
                             text={`${userProgress.courses[0]?.completed_percent}%`}
                             styles={buildStyles({
                                 // Rotation of path and trail, in number of turns (0-1)
-                                rotation: 0.25,
-                            
+                                rotation: 0.25,                            
                                 // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                                strokeLinecap: 'butt',
-                            
+                                strokeLinecap: 'butt',                            
                                 // Text size
-                                textSize: '20px',
-                            
+                                textSize: '20px',                            
                                 // How long animation takes to go from one percentage to another, in seconds
-                                pathTransitionDuration: 0.5,
-                            
-                                // Can specify path transition in more detail, or remove it entirely
-                                // pathTransition: 'none',
-                            
-                                // Colors
+                                pathTransitionDuration: 0.5,                         
                                 pathColor: `rgba(0, 255, 0, ${userProgress.courses[0]?.completed_percent / 100})`,
                                 textColor: '#fff',
                                 trailColor: '#fff',

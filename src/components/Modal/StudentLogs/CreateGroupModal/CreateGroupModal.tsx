@@ -8,17 +8,33 @@ import { createGroupIconPath } from '../config/svgIconsPath'
 import { useCreateStudentsGroupMutation } from '../../../../api/studentsGroupService'
 import { CreateGroupModalPropsT } from '../../ModalTypes'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { useFetchAllUsersQuery } from '../../../../api/allUsersList'
+import { store } from '../../../../store/redux/store'
+
 
 import styles from '../studentsLog.module.scss'
 
+
+
+ 
+
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, courseId }) => {
   const [groupName, setGroupName] = useState<string>('')
+  const [teacher_id, setTeacherId] = useState<string>('')
 
+
+  
+    
+    
+    
+
+  
   const [createStudentsGroup, { isLoading }] = useCreateStudentsGroupMutation()
 
   const onChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
     setGroupName(e.target.value)
   }
+  
 
   const handleCreateGroup = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -27,12 +43,28 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
         name: groupName,
         course_id: +courseId,
         students: [1],
+        teacher_id: +teacher_id
       }
       await createStudentsGroup(groupToCreate)
     }
 
     setShowModal(false)
+
+   
   }
+
+
+  const {data:userList} = useFetchAllUsersQuery('')
+ 
+
+ console.log(userList);
+ 
+
+
+  
+  
+
+
 
   return (
     <form onSubmit={handleCreateGroup} style={{ width: '485px' }} className={styles.container}>
@@ -47,6 +79,14 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
         <div className={styles.addGroup_input}>
           <span>Введите название группы:</span>
           <Input name={'group'} type={'text'} value={groupName} onChange={onChangeGroupName} />
+          <span>Выбирите учителя из списка:</span>
+            <div> 
+              <select value={teacher_id} onChange={(event) => setTeacherId(event.target.value)}>
+               {userList&&userList.map((id:number, username:string) => {
+                  <option key={id}>{username}</option>;})};
+              </select>
+            
+          </div>
         </div>
         <div className={styles.addGroup_btn}>
           <Button

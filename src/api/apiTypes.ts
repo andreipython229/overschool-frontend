@@ -19,3 +19,11 @@ export interface IResponse {
     groups: number[]
   }
 }
+
+
+export interface IAllUsers {
+  username: string
+  email?: string
+  id: number[]
+  data:[]
+}
