@@ -89,10 +89,8 @@ export const StudentCourseHeader: FC = () => {
 
                                 // Rotation of path and trail, in number of turns (0-1)
                                 rotation: 0.25, 
-
                                 // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
                                 strokeLinecap: 'butt', 
-                                
                                 // Text size
                                 textSize: '20px',
                                 // How long animation takes to go from one percentage to another, in seconds
