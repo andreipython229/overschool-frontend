@@ -1,4 +1,5 @@
-import { ChangeEvent, FC, FormEvent, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useState} from 'react'
+import Select from 'react-select'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
@@ -10,6 +11,7 @@ import { CreateGroupModalPropsT } from '../../ModalTypes'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { useFetchAllUsersQuery } from '../../../../api/allUsersList'
 import { store } from '../../../../store/redux/store'
+
 
 
 import styles from '../studentsLog.module.scss'
@@ -24,25 +26,25 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
 
 
   
-    
-    
-    
-
-  
+  const handleTeacher = ( teacher_id : any ) => {
+    setTeacherId(teacher_id.id)  
+    console.log(`Option selected:`, teacher_id.id);
+  };
+      
   const [createStudentsGroup, { isLoading }] = useCreateStudentsGroupMutation()
 
   const onChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
     setGroupName(e.target.value)
   }
   
-
+  
   const handleCreateGroup = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (courseId) {
       const groupToCreate = {
         name: groupName,
         course_id: +courseId,
-        students: [1],
+        students: [25],
         teacher_id: +teacher_id
       }
       await createStudentsGroup(groupToCreate)
@@ -81,11 +83,15 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
           <Input name={'group'} type={'text'} value={groupName} onChange={onChangeGroupName} />
           <span>Выбирите учителя из списка:</span>
             <div> 
-              <select value={teacher_id} onChange={(event) => setTeacherId(event.target.value)}>
-               {userList&&userList.map((id:number, username:string) => {
-                  <option key={id}>{username}</option>;})};
-              </select>
-            
+            <Select onChange={handleTeacher} options={userList}
+                  getOptionLabel={(user:any)=>user.username}
+                  getOptionValue={(user:any)=>user.id} 
+                  components={{
+                    IndicatorSeparator: () => null
+                  }}
+                  placeholder={''}
+                  />
+                         
           </div>
         </div>
         <div className={styles.addGroup_btn}>
