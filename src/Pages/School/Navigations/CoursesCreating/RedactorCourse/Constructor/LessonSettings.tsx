@@ -37,7 +37,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
         const formData = new FormData()
         formData.append('description', lessonDescription)
         formData.append('section', String(lesson.section))
-        // formData.append('order', String(lesson.order))
+        formData.append('order', String(lesson.order))
         await saveChanges({id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData})
         setIsEditing(false)
     }
