@@ -5,7 +5,6 @@ import {UploadedFile} from 'components/UploadedFile'
 import {iocnsByStatus} from 'components/HomeworksStatsTable/config/iocnsByStatus'
 import {SelectDropDown} from 'components/SelectDropDown/SelectDropDown'
 import {checkHomeworkStatusFilters} from 'constants/dropDownList'
-import {MyEditor} from '../../MyEditor/MyEditor'
 import {IconSvg} from '../../common/IconSvg/IconSvg'
 import {tableBallsStarPath} from '../../../config/commonSvgIconsPath'
 import {
