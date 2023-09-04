@@ -29,6 +29,8 @@ export const StudentHomework: FC<studentHomeworkT> = ({lesson, lessons, params, 
         setVideoLinkId(lesson?.video)
     }, [lesson])
 
+    console.log('домашка: ', lesson)
+
     return (
         <div className={styles.lesson}>
             <StudentCourseNavArr/>
@@ -64,7 +66,7 @@ export const StudentHomework: FC<studentHomeworkT> = ({lesson, lessons, params, 
                         activeLessonIndex={activeLessonIndex as number}
                         lessons={lessons as sectionT}
                     />
-                    <StudentLessonTextEditor homeworkId={lesson?.homework_id}/>
+                    <StudentLessonTextEditor homeworkId={lesson?.homework_id} homework={lesson}/>
                 </div>
             </div>
         </div>
