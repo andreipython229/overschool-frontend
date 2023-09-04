@@ -26,7 +26,6 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}
         event.preventDefault()
         if (name && courses) {
             const formdata = new FormData()
-            formdata.append('order', String(courses.length + 1))
             formdata.append('name', name)
             formdata.append('school', String(courses[0].school))
             const data = await createCourses(formdata)

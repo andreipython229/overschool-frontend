@@ -1,0 +1,72 @@
+@import '../../../../scss/mixin.scss';
+
+.wrapper {
+  width: 100%;
+  margin-top: 13px;
+  padding: 32px 40px 22px 40px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+  background-color: #fff;
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    padding: 17px 13px;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    padding: 17px 13px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  &_title {
+    @include font(500, 14px, 17px);
+    margin-bottom: 18px;
+    color: #4D5766;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin: 0 0 15px 2px;
+      @include font(500, 10px, 12px);
+    }
+  }
+
+  &_status_done {
+    display: flex;
+    @include font(500, 14px, 17px);
+    margin-bottom: 18px;
+    color: #4D5766;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin: 0 0 15px 2px;
+      @include font(500, 10px, 12px);
+    }
+  }
+
+  &_status_done p {
+    @include font(500, 14px, 17px);
+    margin-bottom: 18px;
+    margin-left: 5px;
+    color: #92b601;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin: 0 0 15px 2px;
+      @include font(500, 10px, 12px);
+    }
+  }
+
+  &_status_onReview {
+    @include font(500, 14px, 17px);
+    margin-bottom: 18px;
+    color: #4D5766;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin: 0 0 15px 2px;
+      @include font(500, 10px, 12px);
+    }
+  }
+
+  &_status_onReview p {
+    @include font(500, 14px, 17px);
+    margin-bottom: 18px;
+    margin-left: 5px;
+    color: #1ee9e2;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin: 0 0 15px 2px;
+      @include font(500, 10px, 12px);
+    }
+  }
+}

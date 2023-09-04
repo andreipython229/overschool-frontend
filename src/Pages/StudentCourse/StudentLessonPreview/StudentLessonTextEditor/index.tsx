@@ -8,15 +8,20 @@ import {usePostTextFilesMutation} from 'api/filesService'
 
 import styles from './studentLessonTextEditor.module.scss'
 import {TextareaAutosize} from "@mui/material";
+import {UserHomework} from "../../../../types/homeworkT";
+import {IHomework} from "../../../../types/sectionT";
+import {StudentHomeworkCheck} from "../StudentHomeworkCheck";
 
 type textEditorT = {
     homeworkId: number
+    homework: IHomework
 }
 
-export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId}) => {
+export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework}) => {
     const [files, setFiles] = useState<File[]>([])
     const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
     const [text, setText] = useState<string>('')
+    const [hwStatus, setHwStatus] = useState<boolean>(!!homework?.user_homework_checks)
 
     const [postHomework] = usePostUserHomeworkMutation()
     const [postFiles] = usePostTextFilesMutation()
@@ -65,13 +70,15 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId}) => {
 
         postHomework(formDataHw)
         postFiles(formDataFile)
+        setHwStatus(true)
     }
 
     return (
-        <div className={styles.wrapper}>
+        !hwStatus? (<div className={styles.wrapper}>
             <h5 className={styles.wrapper_title}>Введите ответ на задание:</h5>
             <TextareaAutosize aria-label="Введите ответ на домашнее задание..."
-                              placeholder="Введите ответ на домашнее задание..." style={{width: '100%', borderRadius: '5px', border: '1px solid rgba(0, 0, 0, 0.3)'}}
+                              placeholder="Введите ответ на домашнее задание..."
+                              style={{width: '100%', borderRadius: '5px', border: '1px solid rgba(0, 0, 0, 0.3)'}}
                               minRows={5} value={text}
                               onChange={(event) => setText(event.target.value)}/>
             <AddFileBtn handleChangeFiles={handleChangeFiles}/>
@@ -80,8 +87,12 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId}) => {
                 <UploadedFile key={index} file={url} index={index} name={name} size={files[index].size} isHw={true}
                               handleDeleteFile={handleDeleteFile}/>
             ))}
-            {urlFiles.length > 0 || text && <Button style={{marginTop: '20px'}} variant="primary" text="Отправить" type="submit"
-                                            onClick={handleSendHomework}/>}
+            {urlFiles.length > 0 || text &&
+                <Button style={{marginTop: '20px'}} variant="primary" text="Отправить" type="submit"
+                        onClick={handleSendHomework}/>}
         </div>
+        ) : (
+            <StudentHomeworkCheck homework={homework} replyArray={homework.user_homework_checks}/>
+        )
     )
 }
