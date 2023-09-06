@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useState} from 'react'
 import Select from 'react-select'
 
+
 import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
@@ -15,6 +16,8 @@ import { store } from '../../../../store/redux/store'
 
 
 import styles from '../studentsLog.module.scss'
+import { count } from 'console'
+import { paste } from '@testing-library/user-event/dist/paste'
 
 
 
@@ -23,44 +26,57 @@ import styles from '../studentsLog.module.scss'
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, courseId }) => {
   const [groupName, setGroupName] = useState<string>('')
   const [teacher_id, setTeacherId] = useState<string>('')
+  const [studentsList, setStudentsList] = useState<any>([])
 
+  
 
   
   const handleTeacher = ( teacher_id : any ) => {
     setTeacherId(teacher_id.id)  
     console.log(`Option selected:`, teacher_id.id);
   };
-      
+
+
+  const handleStudents = ( studentsList : any ) => {
+    setStudentsList([studentsList.map((object:any) => object['id'])])  
+    console.log(`Option selected:`, [studentsList]);
+  };
+
+  
   const [createStudentsGroup, { isLoading }] = useCreateStudentsGroupMutation()
 
   const onChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
     setGroupName(e.target.value)
   }
   
-  
+
+      
   const handleCreateGroup = async (event: FormEvent<HTMLFormElement>) => {
+    
+    
     event.preventDefault()
     if (courseId) {
       const groupToCreate = {
         name: groupName,
         course_id: +courseId,
-        students: [25],
+        students: studentsList[0],
         teacher_id: +teacher_id
       }
       await createStudentsGroup(groupToCreate)
     }
 
     setShowModal(false)
-
+    
    
   }
 
 
   const {data:userList} = useFetchAllUsersQuery('')
  
-
+ console.log(studentsList[0]);
  console.log(userList);
- 
+ console.log(Object.keys(studentsList).length);
+
 
 
   
@@ -91,8 +107,19 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
                   }}
                   placeholder={''}
                   />
-                         
-          </div>
+            </div>
+          <span>Выбирите учеников:</span>
+             <div> 
+                      <Select onChange={handleStudents} options={userList}
+                       isMulti
+                            getOptionLabel={(user:any)=>user.username}
+                            getOptionValue={(user:any)=>user.id} 
+                            components={{
+                              IndicatorSeparator: () => null
+                            }}
+                            placeholder={''}
+                        />                   
+              </div>
         </div>
         <div className={styles.addGroup_btn}>
           <Button

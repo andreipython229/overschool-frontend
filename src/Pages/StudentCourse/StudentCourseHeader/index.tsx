@@ -96,10 +96,10 @@ export const StudentCourseHeader: FC = () => {
                                 textSize: '20px',
                                 // How long animation takes to go from one percentage to another, in seconds
                                 pathTransitionDuration: 0.5,                         
-                                pathColor: `rgba(0, 255, 0, ${userProgress.courses[0]?.completed_percent / 100})`,
+                                pathColor: `rgba(186, 117, 255, ${userProgress.courses[0]?.completed_percent / 100})`,
                                 textColor: '#fff',
                                 trailColor: '#fff',
-                                backgroundColor: '#3e98c7',
+                                backgroundColor: '#3e98c7'
                               })}
                     />
                 </div>
