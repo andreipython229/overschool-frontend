@@ -32,7 +32,7 @@ type UseCreateLessonReturnT = {
 
 type createLessonDataT = {
   name: string
-  order: number | undefined
+  order?: number | undefined
   section: number
   success_percent?: number
   time_accept?: string
@@ -62,12 +62,8 @@ export const useCreateLesson = ({ setType, modulesList, typeLesson, description,
       return
     }
 
-    const targetModule = modulesList.find(obj => obj.section === section_id);
-    const orderLessons = targetModule? targetModule.lessons[targetModule.lessons.length - 1].order + 1: 100;
-
     const createLessonData: createLessonDataT = {
       name: nameLesson,
-      order: orderLessons,
       section: section_id,
     }
     if (description) {

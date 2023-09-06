@@ -10,7 +10,9 @@ import {useAppSelector} from "../../store/hooks";
 import {selectUser} from "../../selectors";
 import {RoleE} from "../../enum/roleE";
 import {SimpleLoader} from "../../components/Loaders/SimpleLoader";
-import {setSchoolName} from "../../store/redux/school/slice";
+import {setSchoolName} from "../../store/redux/school/schoolSlice";
+import {setSchoolId} from "../../store/redux/school/schoolIdSlice";
+import {setHeaderId} from "../../store/redux/school/headerIdSlice";
 import {useDispatch} from "react-redux";
 
 
@@ -34,12 +36,18 @@ export const ChooseSchool = () => {
 
     }, [])
     type School = {
+        school_id: number
         name: string
+        header_school: number
     }
 
-    const handleSchool = async (school: string) => {
+    const handleSchool = async (school_id: number, school: string, header_id: number) => {
         localStorage.setItem('school', school)
         await dispatch(setSchoolName(school))
+        localStorage.setItem('school_id', String(school_id))
+        await dispatch(setSchoolId(school_id))
+        localStorage.setItem('header_id', String(header_id))
+        await dispatch(setHeaderId(header_id))
     }
 
     return (
@@ -50,7 +58,7 @@ export const ChooseSchool = () => {
                         {schools.map((s: School) =>
                             <Link key={0} onClick={async (e) => {
                                 e.preventDefault();
-                                await handleSchool(s.name);
+                                await handleSchool(s.school_id, s.name, s.header_school);
                                navigate(`${userRole === RoleE.SuperAdmin ? `/school/${s.name}/settings/` : userRole === RoleE.Teacher ? `/school/${s.name}/` + Path.CourseStats : `/school/${s.name}/` + Path.Courses}`)
                                 window.location.reload();
                             }} to={`#`}>

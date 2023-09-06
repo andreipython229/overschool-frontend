@@ -26,9 +26,9 @@ export const schoolHeaderService = createApi({
       }),
       invalidatesTags: ['schoolHeader'],
     }),
-    fetchStudentsPerSchool: build.query<studentsTableInfoT, { [key: string]: string | number }>({
-      query: filters => ({
-        url: createUrlWithParams(`schools/1/stats/`, filters),
+    fetchStudentsPerSchool: build.query<studentsTableInfoT, any>({
+      query: ({id, filters}) => ({
+        url: createUrlWithParams(`schools/${id}/stats/`, filters),
       }),
       providesTags: ['studentPerSchool'],
     }),

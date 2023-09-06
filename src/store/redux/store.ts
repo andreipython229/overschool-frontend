@@ -25,18 +25,21 @@ export const rootReducer = combineReducers({
     [services.getSchoolService.reducerPath]: services.getSchoolService.reducer,
     [services.studentsTableService.reducerPath]: services.studentsTableService.reducer,
     [services.userTestService.reducerPath]: services.userTestService.reducer,
+    [services.getAllUsers.reducerPath]: services.getAllUsers.reducer,
     user: slices.authReduce,
     sections: slices.sectionsReduce,
     filters: slices.filtersReducer,
     chat: slices.chatReducer,
     school: slices.schoolReducer,
+    schoolId: slices.schoolIdReducer,
+    headerId: slices.headerIdReducer,
     modules: modulesReduce,
 })
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['user', 'sections', 'filters', 'school'],
+    whitelist: ['user', 'sections', 'filters', 'school', 'schoolId', 'headerId'],
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
@@ -63,6 +66,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
                 services.studentsTableService.middleware,
                 services.getSchoolService.middleware,
                 services.userTestService.middleware,
+                services.getAllUsers.middleware,
             ),
     })
 }

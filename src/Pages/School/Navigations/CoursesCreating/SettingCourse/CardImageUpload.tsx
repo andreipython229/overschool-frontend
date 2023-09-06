@@ -1,13 +1,11 @@
-import {ChangeEvent, FC} from 'react'
-
+import {ChangeEvent, FC, useEffect, useState} from 'react'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {usePatchCoursesMutation} from 'api/coursesServices'
 import {CoursesDataT} from 'types/CoursesT'
 import {publishedIconPath, noPublishedIconPath} from '../../../config/svgIconsPath'
-import {patchData} from 'utils/patchData'
 
 import styles from './setting_course.module.scss'
-import {pngwing} from "../../../../../assets/img/common";
+import {SimpleLoader} from "../../../../../components/Loaders/SimpleLoader";
 
 type CardImageDownloadsT = {
     toggleCheckbox: boolean
@@ -15,7 +13,8 @@ type CardImageDownloadsT = {
 }
 
 export const CardImageUpload: FC<CardImageDownloadsT> = ({toggleCheckbox, courseFind}) => {
-    const [updateImg] = usePatchCoursesMutation()
+    const [courseImage, setCourseImage] = useState<string>(String(courseFind?.photo))
+    const [updateImg, {isSuccess, isLoading}] = usePatchCoursesMutation()
 
     const handleUploadFile = (event: ChangeEvent<HTMLInputElement>): void => {
         if (event.target.files) {
@@ -32,17 +31,21 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({toggleCheckbox, course
 
     return (
         <div className={styles.card_image_downloads}>
-            <label className={styles.block_download_image}>
-                {courseFind?.photo ? (
-                    <img src={courseFind.photo} alt={courseFind.name}
-                         style={{objectFit: 'cover', width: '100%', height: '100%'}}/>
-                ) : (
-                    <div className={styles.no_image}>
-                        <span>Нет изображения курса :(</span>
-                    </div>
-                )}
-                <input className={styles.hide_input} type="file" onChange={handleUploadFile}/>
-            </label>
+            {!isLoading ? (
+                <label className={styles.block_download_image}>
+                    {courseImage ? (
+                        <img src={courseImage} alt={courseFind.name}
+                             style={{objectFit: 'cover', width: '100%', height: '100%'}}/>
+                    ) : (
+                        <div className={styles.no_image}>
+                            <span>Нет изображения курса :(</span>
+                        </div>
+                    )}
+                    <input className={styles.hide_input} type="file" onChange={handleUploadFile}/>
+                </label>
+            ) : (
+                <SimpleLoader/>
+            )}
             {toggleCheckbox ? (
                 <p className={styles.text_block}>
                     <IconSvg width={18} height={16} path={publishedIconPath}/>

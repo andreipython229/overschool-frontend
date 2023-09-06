@@ -32,9 +32,10 @@ import {
 import styles from './modal_check_home_work.module.scss'
 import {TextField} from "@mui/material";
 
-type modalHomeworkT = {
+type studentModalHomeworkT = {
     id: number
     closeModal: () => void
+    hwStatus: boolean
 }
 
 type fileT = {
@@ -43,7 +44,7 @@ type fileT = {
     file: string
 }
 
-export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) => {
+export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, closeModal, hwStatus}) => {
     const [userHomework, setUserHomework] = useState<UserHomework>()
     const [currentUser, setCurrentUser] = useState<CurrentUser>()
     const [isUser, setIsUser] = useState<boolean>(true)
@@ -180,7 +181,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
             </button>
             <div className={styles.header_info}>
                 <h3 className={styles.answer_header}>{userHomework?.homework_name} </h3>
-                <p className={styles.task_status}> - Проверка работы</p>
+                <p className={styles.task_status}> {hwStatus ? '- Принято преподавателем' : '- Проверка работы'}</p>
                 <div className={styles.task_container}>
                     <button className={styles.btn_grey} onClick={() => setIsHwOpen(open => !open)}>
                         <IconSvg width={19} height={20} viewBoxSize="0 0 19 20" path={taskIconPath}/>
@@ -231,9 +232,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
 
                 <div className={styles.task_info_item}>
                     <IconSvg width={18} height={18} viewBoxSize="0 0 18 18" path={lastAnswIconPath}/>
-                    <span>
-            Последний ответ: {mmddyyyy} в {hoursAndMinutes}
-          </span>
+                    <span>Последний ответ: {mmddyyyy} в {hoursAndMinutes}</span>
                 </div>
 
                 <div className={styles.task_info_item}>
@@ -293,43 +292,34 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
                 </div>
             </div>
 
-            <h3 className={styles.answer_header}>Введите ваш ответ:</h3>
-            {/*<MyEditor setDescriptionLesson={setText} />*/}
-            <TextField id="outlined-basic" label="Введите ответ на домашнее задание..."
-                       variant="outlined" style={{width: '100%'}} rows={5}
-                       onChange={(event) => setText(event.target.value)}/>
-            <div className={styles.bottomButtons}>
-                <div className={styles.files_upload_container}>
-                    <form acceptCharset="utf-8" className={styles.wrapper_form}>
-                        <label className={styles.wrapper_form_addFiles}>
-                            <IconSvg width={18} height={15} viewBoxSize="0 0 20 18" path={paperClipIconPath}/>
-                            <input type="file" onChange={handleUploadFiles} multiple/>
-                            Прикрепить файл
-                        </label>
-                    </form>
-                    <div>
-                        {files?.map(({file, size, name}, index: number) => (
-                            <UploadedFile key={index} file={file} size={size} name={name} index={index}
-                                          handleDeleteFile={handleDeleteFile} isHw={true}/>
-                        ))}
+            {!hwStatus && <><h3 className={styles.answer_header}>Введите ваш ответ:</h3>
+                <TextField id="outlined-basic" label="Введите ответ на домашнее задание..."
+                           variant="outlined" style={{width: '100%'}}
+                           rows={5} onChange={(event) => setText(event.target.value)}/>
+                <div className={styles.bottomButtons}>
+                    <div className={styles.files_upload_container}>
+                        <form acceptCharset="utf-8" className={styles.wrapper_form}>
+                            <label className={styles.wrapper_form_addFiles}>
+                                <IconSvg width={18} height={15} viewBoxSize="0 0 20 18" path={paperClipIconPath}/>
+                                <input type="file" onChange={handleUploadFiles} multiple/>
+                                Прикрепить файл
+                            </label>
+                        </form>
+                        <div>
+                            {files?.map(({file, size, name}, index: number) => (
+                                <UploadedFile key={index} file={file} size={size} name={name} index={index}
+                                              handleDeleteFile={handleDeleteFile} isHw={true}/>
+                            ))}
+                        </div>
+                    </div>
+                    <div className={styles.btns__container}>
+                        <button className={styles.bottomButtons_btn_send} onClick={handleCreateHomeworkCheck}>
+                            <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={sendIconPath}/>
+                            <span>Отправить ответ</span>
+                        </button>
                     </div>
                 </div>
-                <div className={styles.btns__container}>
-                    <button className={styles.bottomButtons_btn_mark}>
-                        {mark ? (
-                            <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath}/>
-                        ) : (
-                            <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={starIconPath}/>
-                        )}
-                        <input type="number" placeholder="0" min={0} max={10} value={mark} onChange={handleChangeMark}/>
-                    </button>
-                    <SelectDropDown dropdownData={checkHomeworkStatusFilters} onChangeStatus={handleChangeStatus}/>
-                    <button className={styles.bottomButtons_btn_send} onClick={handleCreateHomeworkCheck}>
-                        <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={sendIconPath}/>
-                        <span>Отправить ответ</span>
-                    </button>
-                </div>
-            </div>
+            </>}
 
             <button className={styles.modal_btn_is_toggle} onClick={handleToggleHiddenBlocks}>
         <span className={isOpen ? styles.arrow_rotate : ''}>

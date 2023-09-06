@@ -10,7 +10,7 @@ import {useAppSelector} from "../../store/hooks";
 import {selectUser} from "../../selectors";
 import {RoleE} from "../../enum/roleE";
 import {SimpleLoader} from "../../components/Loaders/SimpleLoader";
-import {setSchoolName} from "../../store/redux/school/slice";
+import {setSchoolName} from "../../store/redux/school/schoolSlice";
 import {useDispatch} from "react-redux";
 
 

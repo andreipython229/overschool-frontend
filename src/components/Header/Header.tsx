@@ -24,7 +24,9 @@ export const Header = memo(() => {
 
     const [logout] = useLazyLogoutQuery()
 
-    const {data, isSuccess} = useFetchSchoolHeaderQuery(1)
+    const headerId = localStorage.getItem('header_id')
+
+    const {data, isSuccess} = useFetchSchoolHeaderQuery(Number(headerId))
     const {data: profile, isSuccess: profileIsSuccess} = useFetchProfileDataQuery()
 
     const logOut = async () => {

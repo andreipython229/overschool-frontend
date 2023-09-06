@@ -30,368 +30,406 @@
       }
     }
 
-      &_description {
+    &_description {
 
-        &_text {
-          margin-bottom: 10px;
-          font-weight: bold;
-          font-size: 16px;
-          font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif;
-        }
+      &_text {
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 16px;
+        font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif;
       }
     }
+  }
 
-    &_leftSide {
+  &_leftSide {
+    @include display(flex, column);
+    margin-right: 30px;
+    margin-top: 50px;
+
+    &_title {
+      color: $font-title;
+      font-size: 16px;
+    }
+
+    &_desc {
       @include display(flex, column);
-      margin-right: 30px;
-      margin-top: 50px;
+      margin-top: 23px;
+      margin-left: 16px;
 
-      &_title {
-        color: $font-title;
-        font-size: 16px;
-      }
+      &_headerText {
+        position: relative;
 
-      &_desc {
-        @include display(flex, column);
-        margin-top: 23px;
-        margin-left: 16px;
-
-        &_headerText {
+        &_title {
           position: relative;
-
-          &_title {
-            position: relative;
-            display: block;
-            @include font(400, 14px);
-            background-color: transparent;
-            color: $font-title;
-            height: 30px;
-          }
-
-          &_inputWrapper {
-            position: absolute;
-            top: -7px;
-            left: 0;
-            @include display(flex, row, space-between, center);
-            height: 30px;
-            width: 100%;
-
-            &:hover {
-              z-index: 0;
-
-              &_btn_delete {
-                z-index: 10;
-              }
-            }
-
-            &_input {
-              position: absolute;
-              top: 0;
-              left: 0;
-              z-index: -10;
-              background-color: transparent;
-              color: $font-title;
-              font-size: 14px;
-              border: none;
-              width: 100%;
-              height: 100%;
-              outline: none;
-            }
-
-            &_btn_delete {
-              @include position_t_r(absolute, 0, 0, -10);
-              @include display(flex, row, center, center);
-              border: none;
-              background-color: transparent;
-              width: 30px;
-              height: 30px;
-              cursor: pointer;
-            }
-          }
+          display: block;
+          @include font(400, 14px);
+          background-color: transparent;
+          color: $font-title;
+          height: 30px;
         }
 
-        &_lessonWrapper {
-          position: relative;
+        &_inputWrapper {
+          position: absolute;
+          top: -7px;
+          left: 0;
           @include display(flex, row, space-between, center);
-          list-style-type: none;
-          margin-bottom: 26px;
-          cursor: pointer;
+          height: 30px;
+          width: 100%;
 
           &:hover {
-            background-color: rgba(220, 220, 220, 0.4);
-            border-radius: 8px;
-          }
+            z-index: 0;
 
-          &_lesson {
-            @include display(flex, row, flex-start, center);
-            color: $font-color-rose;
-            font-size: 12px;
-
-            span {
-              margin-right: 10px;
-            }
-
-            & img {
-              margin-right: 7.5px;
+            &_btn_delete {
+              z-index: 10;
             }
           }
 
-          &_btn_deleteLesson {
-            position: relative;
+          &_input {
+            position: absolute;
+            top: 0;
+            left: 0;
             z-index: -10;
+            background-color: transparent;
+            color: $font-title;
+            font-size: 14px;
+            border: none;
+            width: 100%;
+            height: 100%;
+            outline: none;
+          }
+
+          &_btn_delete {
+            @include position_t_r(absolute, 0, 0, -10);
             @include display(flex, row, center, center);
             border: none;
             background-color: transparent;
             width: 30px;
             height: 30px;
             cursor: pointer;
-
-            & svg {
-              & path {
-                fill: #c1c1c1;
-              }
-            }
           }
         }
       }
 
-      &_classes {
-        width: 236px;
+      &_lessonWrapper {
+        position: relative;
+        @include display(flex, row, space-between, center);
+        list-style-type: none;
+        margin-bottom: 26px;
+        cursor: pointer;
 
-        &_settings {
+        &:hover {
+          background-color: rgba(220, 220, 220, 0.4);
+          border-radius: 8px;
+        }
+
+        &_lesson {
+          @include display(flex, row, flex-start, center);
+          color: $font-color-rose;
+          font-size: 12px;
+
+          span {
+            margin-right: 10px;
+          }
+
+          & img {
+            margin-right: 7.5px;
+          }
+        }
+
+        &_btn_deleteLesson {
           position: relative;
-          @include display(flex, row, right, center);
-          margin: 25px 0;
-          font-size: 14px;
-          color: $font-title;
-          text-align: center;
+          z-index: -10;
+          @include display(flex, row, center, center);
+          border: none;
+          background-color: transparent;
+          width: 30px;
+          height: 30px;
           cursor: pointer;
 
-          &_drag {
-            @include position_t_l(absolute, 0, -15px);
-
-            svg {
-              margin-right: 8px;
-            }
-          }
-
-          &_panel {
-            & svg {
-              margin-left: 10px;
+          & svg {
+            & path {
+              fill: #c1c1c1;
             }
           }
         }
       }
     }
 
-    &_rightSideWrapper {
+    &_classes {
+      width: 236px;
+
+      &_settings {
+        position: relative;
+        @include display(flex, row, right, center);
+        margin: 25px 0;
+        font-size: 14px;
+        color: $font-title;
+        text-align: center;
+        cursor: pointer;
+
+        &_drag {
+          @include position_t_l(absolute, 0, -15px);
+
+          svg {
+            margin-right: 8px;
+          }
+        }
+
+        &_panel {
+          & svg {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  &_rightSideWrapper {
+    width: 100%;
+    min-width: 0;
+
+    &_rightSide {
+      background: #ffffff;
+      padding: 36px 45px 56px 45px;
+      height: fit-content;
+      margin-bottom: 30px;
+      border-radius: 10px;
       width: 100%;
-      min-width: 0;
+      box-shadow: $box-shadow;
 
-      &_rightSide {
-        background: #ffffff;
-        padding: 36px 45px 56px 45px;
-        height: fit-content;
-        margin-bottom: 30px;
-        border-radius: 10px;
-        width: 100%;
-        box-shadow: $box-shadow;
+      &_review {
+        display: flex;
+        align-items: center;
+      }
 
-        &_review {
+      &_header {
+        @include display(flex, row, space-between, center);
+        text-align: center;
+
+        &_btnBlock {
+          @include display(flex);
+          width: 100%;
+
+          &_setting {
+            &:hover {
+              background-color: rgba(190, 190, 190, 0.4);
+            }
+
+            @include display(flex, row, flex-start, center);
+            width: 150px;
+            height: 36px;
+            border: none;
+            text-align: center;
+            background: #f3f4f6;
+            font-size: 13px;
+            color: #6b728f;
+            border-radius: 6px;
+            padding: 11px 0 11px 16px;
+
+            & svg {
+              margin-right: 5px;
+            }
+
+            input {
+              @include position_t_l(absolute, 0, 0, -20);
+            }
+          }
+
+          &_edit {
+            &:hover {
+              background-color: rgba(190, 190, 190, 0.4);
+            }
+
+            @include display(flex, row, flex-start, center);
+            width: 200px;
+            height: 36px;
+            border: none;
+            text-align: center;
+            background: #f3f4f6;
+            font-size: 13px;
+            color: #6b728f;
+            border-radius: 6px;
+            padding: 11px 0 11px 16px;
+
+            & svg {
+              margin-right: 5px;
+            }
+
+            input {
+              @include position_t_l(absolute, 0, 0, -20);
+            }
+          }
+
+          &_save {
+            &:hover {
+              background-color: rgba(190, 190, 190, 0.4);
+            }
+
+            @include display(flex, row, flex-start, center);
+            margin-left: 15px;
+            width: 200px;
+            height: 36px;
+            border: none;
+            text-align: center;
+            background: #f3f4f6;
+            font-size: 13px;
+            color: #6b728f;
+            border-radius: 6px;
+            padding: 11px 0 11px 16px;
+
+            & svg {
+              margin-right: 5px;
+            }
+
+            input {
+              @include position_t_l(absolute, 0, 0, -20);
+            }
+          }
+
+          &_delete {
+            &:hover {
+              background-color: rgba(220, 130, 130, 0.4);
+            }
+
+            @include display(flex, row, flex-start, center);
+            padding: 11px 0;
+            border-radius: 6px;
+            border: none;
+            width: 50px;
+            height: 36px;
+            background: #fef2f2;
+            text-align: center;
+            margin-left: 16px;
+
+            & svg {
+
+              margin: 0 auto;
+              height: 17px;
+              width: 17px;
+            }
+          }
+        }
+      }
+
+      &_title {
+        margin-top: 10px;
+        color: $font-title;
+        font-size: 16px;
+      }
+
+      &_nameSettings {
+        color: $font-title;
+        font-size: 25px;
+        font-weight: bold;
+      }
+
+      &_functional {
+        margin-top: 40px;
+
+        &_container {
           display: flex;
-          align-items: center;
+          flex-direction: column;
+          gap: 40px;
         }
 
-        &_header {
-          @include display(flex, row, space-between, center);
-          text-align: center;
+        &_content {
+          @include display(flex, row, space-between);
+          margin-bottom: 20px;
 
-          &_btnBlock {
-            @include display(flex);
-
-            &_setting {
-              &:hover {
-                background-color: rgba(190, 190, 190, 0.4);
-              }
-
-              @include display(flex, row, flex-start, center);
-              width: 150px;
-              height: 36px;
-              border: none;
-              text-align: center;
-              background: #f3f4f6;
-              font-size: 13px;
-              color: #6b728f;
-              border-radius: 6px;
-              padding: 11px 0 11px 16px;
-
-              & svg {
-                margin-right: 5px;
-              }
-
-              input {
-                @include position_t_l(absolute, 0, 0, -20);
-              }
-            }
-
-            &_edit {
-              &:hover {
-                background-color: rgba(190, 190, 190, 0.4);
-              }
-
-              @include display(flex, row, flex-start, center);
-              width: 200px;
-              height: 36px;
-              border: none;
-              text-align: center;
-              background: #f3f4f6;
-              font-size: 13px;
-              color: #6b728f;
-              border-radius: 6px;
-              padding: 11px 0 11px 16px;
-
-              & svg {
-                margin-right: 5px;
-              }
-
-              input {
-                @include position_t_l(absolute, 0, 0, -20);
-              }
-            }
-
-            &_save {
-              &:hover {
-                background-color: rgba(190, 190, 190, 0.4);
-              }
-
-              @include display(flex, row, flex-start, center);
-              margin-left: 15px;
-              width: 200px;
-              height: 36px;
-              border: none;
-              text-align: center;
-              background: #f3f4f6;
-              font-size: 13px;
-              color: #6b728f;
-              border-radius: 6px;
-              padding: 11px 0 11px 16px;
-
-              & svg {
-                margin-right: 5px;
-              }
-
-              input {
-                @include position_t_l(absolute, 0, 0, -20);
-              }
-            }
-
-            &_delete {
-              &:hover {
-                background-color: rgba(220, 130, 130, 0.4);
-              }
-
-              @include display(flex, row, flex-start, center);
-              padding: 11px 0;
-              border-radius: 6px;
-              border: none;
-              width: 50px;
-              height: 36px;
-              background: #fef2f2;
-              text-align: center;
-              margin-left: 16px;
-
-              & svg {
-
-                margin: 0 auto;
-                height: 17px;
-                width: 17px;
-              }
-            }
+          &_preview {
+            color: $font-color-rose;
+            font-size: 12px;
+            margin-right: 11px;
           }
         }
 
-        &_title {
-          margin-top: 10px;
-          color: $font-title;
-          font-size: 16px;
-        }
-
-        &_nameSettings {
-          color: $font-title;
-          font-size: 25px;
-          font-weight: bold;
-        }
-
-        &_functional {
-          margin-top: 40px;
-
-          &_container {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-          }
-
-          &_content {
-            @include display(flex, row, space-between);
-            margin-bottom: 20px;
-
-            &_preview {
-              color: $font-color-rose;
-              font-size: 12px;
-              margin-right: 11px;
-            }
-          }
-
-          &_form {
-            &_title {
-              @include font(500, 16px, 19px);
-              margin-bottom: 0;
-              color: #4d5766;
-            }
+        &_form {
+          &_title {
+            @include font(500, 16px, 19px);
+            margin-bottom: 0;
+            color: #4d5766;
           }
         }
+      }
 
-        &_desc {
-          display: block;
-          margin: 8px 0 15px;
-          font-size: 12px;
-          color: #9f9f9f;
-        }
+      &_desc {
+        display: block;
+        margin: 8px 0 15px;
+        font-size: 12px;
+        color: #9f9f9f;
       }
     }
   }
+}
 
-  .hl {
-    width: 256px;
-    border-bottom: 1px solid #d9d9d9;
-    margin: 24px 0 18px -10px;
+.hl {
+  width: 256px;
+  border-bottom: 1px solid #d9d9d9;
+  margin: 24px 0 18px -10px;
+}
+
+.btn {
+  margin-bottom: 43px;
+  width: 236px;
+  background: #e0dced;
+  font-size: 12px;
+  padding: 11px 0;
+  border: none;
+  border-radius: 7px;
+  color: $font-color-rose;
+
+  &:hover {
+    background: $font-color-rose;
+    color: #e0dced;
   }
+}
 
-  .btn {
-    margin-bottom: 43px;
-    width: 236px;
-    background: #e0dced;
-    font-size: 12px;
-    padding: 11px 0;
-    border: none;
-    border-radius: 7px;
-    color: $font-color-rose;
+.btnModule {
+  background: #e0dced;
+  color: $font-color-rose;
 
-    &:hover {
-      background: $font-color-rose;
-      color: #e0dced;
+  &:hover {
+    color: #e0dced;
+  }
+}
+
+hr {
+  margin-bottom: 18px;
+}
+
+
+.coursePreviewHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &_text_block {
+    margin: 20px 0 0 30px;
+    @include display(flex, row, flex-end);
+    color: #e0dced;
+    font-style: normal;
+    @include font(500, 11px, 13px);
+
+    svg {
+      margin-right: 10px;
     }
   }
+}
 
-  .btnModule {
-    background: #e0dced;
-    color: $font-color-rose;
+.coursePreviewHeaderRedactor {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 
-    &:hover {
-      color: #e0dced;
+  &_text_block {
+    margin: 20px 0 0 30px;
+    @include display(flex, flex-end);
+    color: #e0dced;
+    font-style: normal;
+    @include font(500, 11px, 13px);
+
+    svg {
+      margin-right: 10px;
     }
   }
-
-  hr {
-    margin-bottom: 18px;
-  }
+}

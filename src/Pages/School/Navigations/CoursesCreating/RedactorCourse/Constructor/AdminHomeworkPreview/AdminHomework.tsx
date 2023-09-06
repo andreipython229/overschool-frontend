@@ -39,7 +39,7 @@ export const AdminHomework: FC<AdminHomeworkT> = ({lesson}) => {
               )} */}
                             <span className={styles.lesson__materials}>Материалы к занятию:</span>
                             {lesson?.text_files.map(({file, id}, index: number) => (
-                                <UploadedFile key={id} file={file} index={index} size={34487}/>
+                                <UploadedFile key={id} file={file} index={index} size={34487} isHw={true}/>
                             ))}
                             <AudioPlayer styles={{margin: '5px'}} audioUrls={lesson?.audio_files} title=""/>
                         </div>

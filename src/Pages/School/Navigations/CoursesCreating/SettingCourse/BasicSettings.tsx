@@ -25,7 +25,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
   const [nameCourse, setNameCourse] = useState<string>(courseFind?.name || '')
   const [shortDescription, setShortDescription] = useState<string>(courseFind?.description || '')
 
-  const debounce = useDebounceFunc(update, 2000)
+  const debounce = useDebounceFunc(update, 1000)
 
   const handleNameCourse = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'nameCourse') {
@@ -42,7 +42,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
       public: toggleCheckbox ? 'О' : 'Н',
     }
 
-    if (updateCurse.name !== courseFind?.name || updateCurse.description !== courseFind?.description) {
+    if (updateCurse.name !== courseFind?.name || updateCurse.description !== courseFind?.description || updateCurse.public !== courseFind?.public) {
       const formdata = formDataConverter(updateCurse)
       if (formdata && courseFind) {
         const id = courseFind?.course_id
