@@ -49,8 +49,8 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
     setGroupName(e.target.value)
   }
   
+  
 
-      
   const handleCreateGroup = async (event: FormEvent<HTMLFormElement>) => {
     
     
@@ -72,10 +72,14 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
 
 
   const {data:userList} = useFetchAllUsersQuery('')
- 
+
+   
  console.log(studentsList[0]);
+ 
  console.log(userList);
- console.log(Object.keys(studentsList).length);
+
+
+ 
 
 
 

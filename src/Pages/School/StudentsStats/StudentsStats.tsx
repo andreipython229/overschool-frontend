@@ -15,6 +15,7 @@ import { useBoolean } from '../../../customHooks/useBoolean'
 import { Portal } from '../../../components/Modal/Portal'
 
 import styles from './studentsStats.module.scss'
+import { count } from 'console'
 
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
@@ -53,7 +54,7 @@ export const StudentsStats = () => {
         </div>
         <div className={styles.students_group_content_wrapper}>
           {dataToRender?.map(({ name, students, group_id }: studentsGroupsT) => {
-            const count = students[0]
+            const count = students?.length
             return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} />
           })}
           {data?.results && data?.results?.length > 2 && (
