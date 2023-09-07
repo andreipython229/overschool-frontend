@@ -14,6 +14,7 @@ import {setSchoolName} from "../../store/redux/school/schoolSlice";
 import {setSchoolId} from "../../store/redux/school/schoolIdSlice";
 import {setHeaderId} from "../../store/redux/school/headerIdSlice";
 import {useDispatch} from "react-redux";
+import {Header} from "../../components/Header/Header";
 
 
 export const ChooseSchool = () => {

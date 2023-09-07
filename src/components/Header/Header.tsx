@@ -32,8 +32,9 @@ export const Header = memo(() => {
     const logOut = async () => {
         await localStorage.clear()
         await logout()
+        window.location.reload()
 
-        await dispatch(auth(false))
+        dispatch(auth(false))
     }
 
     const [profileData, setProfileData] = useState<profileT>()

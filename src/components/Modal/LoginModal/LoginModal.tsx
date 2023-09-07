@@ -58,6 +58,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
         if (isSuccess) {
             getUserInfo()
             if (userSuccess && data) {
+                console.log('data: ', data)
                 setShowModal(false)
                 dispatch(auth(true))
                 dispatch(role(data[0].groups[0]))
