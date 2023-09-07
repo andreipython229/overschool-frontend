@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 .init {
   overflow: hidden;
   margin-top: 24px;
@@ -17,6 +18,7 @@
     max-height: 45px;
     @include display(flex, row, space-between);
   }
+
   &_main {
     position: relative;
     margin-top: 130px;
@@ -26,11 +28,13 @@
       @include position_t_l(relative, 0, 70px, 5);
       @include display(flex, column, center);
     }
+
     &__title {
       @include font(800, 48px, 135%);
       width: 422px;
       margin-right: 62px;
     }
+
     &__link {
       width: 530px;
       background: #ffffff;
@@ -43,12 +47,14 @@
         font-size: 24px;
         width: 386px;
       }
+
       & div:nth-child(2) {
         font-size: 20px;
         background-color: #ba75ff;
         width: 170px;
         color: #fefefe;
       }
+
       & div {
         height: 112px;
         @include display(flex, row, center, center);
@@ -80,6 +86,7 @@
     }
   }
 }
+
 .smallImg {
   width: 140px;
   height: 500px;
@@ -87,12 +94,14 @@
   border-radius: 10px;
   transition: all 1s linear 0s;
 }
+
 .title_rotate {
   width: 250px;
   transform: rotate(-90deg);
   transition: all 1s linear 0s;
   transform-origin: bottom left;
 }
+
 .btn_block {
   @include display(flex);
 
@@ -104,6 +113,7 @@
     animation: account 0.2s ease-in-out;
   }
 }
+
 .btn_block button:nth-child(1) {
   margin-right: 25px;
 }
@@ -171,5 +181,32 @@
   }
   to {
     transform: rotate(0deg);
+  }
+}
+
+.header_block {
+  @include display(flex);
+
+  &_logIn {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ba75ff;
+    animation: account 0.2s ease-in-out;
+  }
+
+  &_logOut {
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: rgba(230, 230, 230, 0.5);
+      border-radius: 7px;
+    }
+
+    cursor: pointer;
+    margin-right: 26px;
   }
 }

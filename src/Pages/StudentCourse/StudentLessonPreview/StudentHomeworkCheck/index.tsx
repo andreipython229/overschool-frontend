@@ -66,7 +66,7 @@ type studentHomeworkCheckI = {
 }
 
 export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({homework, replyArray}) => {
-    const status = replyArray[0].status === 'Принято'
+    const status = replyArray[0]? replyArray[0].status === 'Принято': false
 
     const [isChecked, setIsChecked] = useState<boolean>(status)
     const [isModalOpen, {off: open, on: close}] = useBoolean()
