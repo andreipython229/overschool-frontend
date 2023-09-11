@@ -46,6 +46,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
     Object.entries(schoolHeaderData).forEach(([key, value]) => {
       value && formdata.append(key, value)
     })
+    formdata.append('school', String(data?.school_id))
 
     setSchoolHeader({ formdata, id: Number(headerId) })
     setEdit(false)

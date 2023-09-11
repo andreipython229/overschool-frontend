@@ -66,9 +66,9 @@ type studentHomeworkCheckI = {
 }
 
 export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({homework, replyArray}) => {
-    const status = replyArray[0]? replyArray[0].status === 'Принято': false
+    console.log('replyArray',replyArray)
 
-    const [isChecked, setIsChecked] = useState<boolean>(status)
+    const [isChecked, setIsChecked] = useState<boolean>(replyArray.length > 0? (replyArray[0].status === 'Принято'): false)
     const [isModalOpen, {off: open, on: close}] = useBoolean()
 
     return (
@@ -85,7 +85,7 @@ export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({homework, reply
             {isModalOpen && (
                 <Portal closeModal={close}>
                     <StudentModalCheckHomeWork id={replyArray[0].user_homework} closeModal={close}
-                                               hwStatus={status}/>
+                                               hwStatus={isChecked}/>
                 </Portal>
             )}
         </div>

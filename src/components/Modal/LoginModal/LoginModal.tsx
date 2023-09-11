@@ -58,12 +58,11 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
         if (isSuccess) {
             getUserInfo()
             if (userSuccess && data) {
-                console.log('data: ', data)
                 setShowModal(false)
                 dispatch(auth(true))
-                dispatch(role(data[0].groups[0]))
-                dispatch(userName(data[0].username))
-                dispatch(id(data[0].id))
+                dispatch(role(data[0]?.groups[0]))
+                dispatch(userName(data[0]?.username))
+                dispatch(id(data[0]?.id))
                 navigate(Path.ChooseSchool)
             }
         }
@@ -86,7 +85,6 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
           <span className={styles.main_closed} onClick={handleClose}>
             <IconSvg width={25} height={25} path={crossIconPath}/>
           </span>
-
                     <div className={styles.main_title}>Войти</div>
                     <div className={styles.inputs_block}>
                         <div>

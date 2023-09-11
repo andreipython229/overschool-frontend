@@ -21,4 +21,5 @@ export type schoolHeaderReqT = {
   photo_background: string
   favicon?: string | null
   logo_school?: string | null
+  school?: string
 }

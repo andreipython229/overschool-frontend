@@ -49,6 +49,7 @@ export const ChooseSchool = () => {
         await dispatch(setSchoolId(school_id))
         localStorage.setItem('header_id', String(header_id))
         await dispatch(setHeaderId(header_id))
+        window.location.reload()
     }
 
     return (

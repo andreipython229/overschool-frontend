@@ -39,11 +39,11 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({setLoginShow, setRegi
             <img src={logo} alt="Logotype ITOVERONE"/>
             <div className={styles.btn_block}>
                 {isLogin ? (
-                    <div className={styles.header_block_logOut}>
+                    <div className={styles.header_block}>
                         <Link className={styles.header_block_logIn} to={Path.ChooseSchool}>
                             Аккаунт
                         </Link>
-                        <IconSvg width={26} height={26} viewBoxSize="0 0 26 25"
+                        <IconSvg className={styles.header_block_logOut} width={26} height={26} viewBoxSize="0 0 26 25"
                                  path={logOutIconPath} functionOnClick={logOut}/>
                     </div>
                 ) : (

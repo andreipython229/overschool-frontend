@@ -1,4 +1,4 @@
-import {FC, ChangeEvent, useState, MouseEvent} from 'react'
+import {FC, ChangeEvent, useState, MouseEvent, useEffect} from 'react'
 
 import {AddFileBtn} from 'components/common/AddFileBtn/index'
 import {Button} from 'components/common/Button/Button'
@@ -22,6 +22,8 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
     const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
     const [text, setText] = useState<string>('')
     const [hwStatus, setHwStatus] = useState<boolean>(!!homework?.user_homework_checks)
+    const [replyArray, setReplyArray] = useState(homework?.user_homework_checks)
+
 
     const [postHomework] = usePostUserHomeworkMutation()
     const [postFiles] = usePostTextFilesMutation()
@@ -71,7 +73,13 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
         postHomework(formDataHw)
         postFiles(formDataFile)
         setHwStatus(true)
+        window.location.reload()
     }
+
+    useEffect(() => {
+        setReplyArray(homework.user_homework_checks)
+        setHwStatus(!!homework.user_homework_checks)
+    }, [hwStatus, homeworkId])
 
     return (
         !hwStatus? (<div className={styles.wrapper}>
@@ -92,7 +100,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
                         onClick={handleSendHomework}/>}
         </div>
         ) : (
-            <StudentHomeworkCheck homework={homework} replyArray={homework.user_homework_checks}/>
+            <StudentHomeworkCheck homework={homework} replyArray={replyArray? replyArray: []}/>
         )
     )
 }

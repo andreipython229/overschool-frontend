@@ -188,6 +188,7 @@
   @include display(flex);
 
   &_logIn {
+    margin-right: 15px;
     text-decoration: none;
     font-size: 18px;
     font-weight: 700;
@@ -196,8 +197,9 @@
   }
 
   &_logOut {
-    width: 50px;
-    height: 50px;
+    width: 25px;
+    height: 25px;
+    display: flex;
     align-items: center;
     justify-content: center;
 
@@ -207,6 +209,6 @@
     }
 
     cursor: pointer;
-    margin-right: 26px;
+    margin-right: 16px;
   }
 }

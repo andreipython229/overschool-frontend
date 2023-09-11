@@ -16,13 +16,14 @@ import {profileT} from 'types/profileT'
 
 import styles from './header.module.scss'
 import {useCookies} from "react-cookie";
+import {SimpleLoader} from "../Loaders/SimpleLoader";
 
 export const Header = memo(() => {
     const dispatch = useAppDispatch()
     const {role} = useAppSelector(selectUser)
     const [cookies, setCookie, removeCookie] = useCookies(['access_token', 'refresh_token']);
 
-    const [logout] = useLazyLogoutQuery()
+    const [logout, {isLoading}] = useLazyLogoutQuery()
 
     const headerId = localStorage.getItem('header_id')
 
@@ -32,8 +33,10 @@ export const Header = memo(() => {
     const logOut = async () => {
         await localStorage.clear()
         await logout()
+        if (isLoading) {
+            return <SimpleLoader/>
+        }
         window.location.reload()
-
         dispatch(auth(false))
     }
 
