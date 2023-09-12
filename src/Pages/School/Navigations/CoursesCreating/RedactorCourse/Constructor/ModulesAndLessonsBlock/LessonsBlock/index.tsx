@@ -10,7 +10,7 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
-import { Reorder, useDragControls , motion} from 'framer-motion'
+import { Reorder, useDragControls } from 'framer-motion'
 import {doBlockIconPath} from "../../../../../../../../components/Modal/SettingStudentTable/config/svgIconsPath";
 
 export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, lessonsName, id , lesson}) => {
@@ -24,10 +24,7 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, less
   }
 
   const handleChangeLesson = () => {
-    const idAndType = {
-      id,
-      type,
-    }
+    const idAndType = { id, type }
     setLessonIdAndType(idAndType)
   }
 
@@ -42,12 +39,13 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, less
           draggable={false}
           key={lesson.order}
           value={lesson}
+          onClick={handleChangeLesson}
+          className={styles.redactorCourse_leftSide_desc_lessonWrapper + ' ' + stylesModules.btnWrapper}
           whileDrag={{
             scale: 1.1,
             boxShadow: 'rgba(0,0,0, 0.12) 0px 1px 3px, rgba(0,0,0, 0.24) 0px 1px 2px',
             borderRadius: '7px',
           }}>
-      <li onClick={handleChangeLesson} className={styles.redactorCourse_leftSide_desc_lessonWrapper + ' ' + stylesModules.btnWrapper}>
         <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
           <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_btn_drag_and_drop + ' ' + stylesModules.btn}>
             <IconSvg
@@ -70,8 +68,6 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, less
         <button className={styles.redactorCourse_leftSide_desc_lessonWrapper_btn_deleteLesson + ' ' + stylesModules.btn} onClick={handleDeleteLesson}>
           <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
         </button>
-
-      </li>
     </ Reorder.Item>
   )
 }
