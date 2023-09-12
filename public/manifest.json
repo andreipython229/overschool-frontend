@@ -3,7 +3,8 @@
   "short_name": "Overschool",
   "start_url": "https://dev.overschool.by/login/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#FFEBCD",
+  "theme_color": "#8A2BE2",
   "description": "Маркетплейс образовательных курсов.",
   "icons": [
     {
