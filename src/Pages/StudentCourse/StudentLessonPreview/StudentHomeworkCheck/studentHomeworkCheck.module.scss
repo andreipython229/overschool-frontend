@@ -51,6 +51,7 @@
 
   &_status_onReview {
     @include font(500, 14px, 17px);
+    display: flex;
     margin-bottom: 18px;
     color: #4D5766;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
