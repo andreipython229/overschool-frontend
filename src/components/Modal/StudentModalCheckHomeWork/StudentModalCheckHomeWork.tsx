@@ -67,14 +67,6 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
         setIsOpen(!isOpen)
     }
 
-    const handleChangeMark = (e: ChangeEvent<HTMLInputElement>) => {
-        setMark(+e.target.value)
-    }
-
-    const handleChangeStatus = (status: string) => {
-        setStatus(status)
-    }
-
     const handleUploadFiles = (e: ChangeEvent<HTMLInputElement>) => {
         const chosenFiles = e.target.files
 
