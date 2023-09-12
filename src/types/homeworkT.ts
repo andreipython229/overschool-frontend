@@ -1,3 +1,5 @@
+import {CheckHw} from "../Pages/StudentCourse/StudentLessonPreview/StudentHomeworkCheck";
+
 export type homeworksStatsT = {
   count: number
   next: null
@@ -98,7 +100,7 @@ export interface Homework {
   audio_files: FileT[]
   type: string
   user_mark: number
-  user_homework_checks: number
+  user_homework_checks: CheckHw[]
   all_components: any[]
 }
 

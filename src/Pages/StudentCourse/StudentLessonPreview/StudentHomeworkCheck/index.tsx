@@ -44,7 +44,7 @@ const theme = createTheme({
     },
 });
 
-interface CheckHw {
+export interface CheckHw {
     audio_files: File[]
     author: number
     author_first_name: string
@@ -66,8 +66,6 @@ type studentHomeworkCheckI = {
 }
 
 export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({homework, replyArray}) => {
-    console.log('replyArray',replyArray)
-
     const [isChecked, setIsChecked] = useState<boolean>(replyArray.length > 0? (replyArray[0].status === 'Принято'): false)
     const [isModalOpen, {off: open, on: close}] = useBoolean()
 

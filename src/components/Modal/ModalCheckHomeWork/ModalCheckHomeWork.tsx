@@ -47,20 +47,23 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
     const [userHomework, setUserHomework] = useState<UserHomework>()
     const [currentUser, setCurrentUser] = useState<CurrentUser>()
     const [isUser, setIsUser] = useState<boolean>(true)
-
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [isHwOpen, setIsHwOpen] = useState<boolean>(false)
-
     const [mark, setMark] = useState<number>(0)
     const [status, setStatus] = useState<string>('Принято')
     const [text, setText] = useState<string>('')
     const [files, setFiles] = useState<fileT[]>([])
     const [nativeFiles, setNativeFiles] = useState<File[]>([])
+    const [hwStatus, setHwStatus] = useState<boolean>()
 
     const {data, isFetching, isSuccess} = useFetchUserHomeworkQuery(id)
     const {data: homework, isFetching: isHwFetching} = useFetchHomeworkDataQuery(userHomework?.homework as number)
     const [sendHomeworkCheck, {isSuccess: sendHwCheckSuccess}] = useCreateCheckReplyMutation()
     const [sendFiles, {isLoading, isSuccess: sendFilesSuccess}] = usePostTextFilesMutation()
+
+    useEffect(() => {
+        setHwStatus(homework?.user_homework_checks[0].status === 'Принято')
+    }, [homework, isFetching])
 
     const handleToggleHiddenBlocks = (): void => {
         setIsOpen(!isOpen)
@@ -113,6 +116,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
         })
 
         sendHomeworkCheck(dataToSend)
+        setHwStatus(status === 'Принято')
         sendFiles(formData)
     }
 
@@ -292,45 +296,50 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
                     </div>
                 </div>
             </div>
-
-            <h3 className={styles.answer_header}>Введите ваш ответ:</h3>
-            {/*<MyEditor setDescriptionLesson={setText} />*/}
-            <TextField id="outlined-basic" label="Введите ответ на домашнее задание..."
-                       variant="outlined" style={{width: '100%'}} rows={5}
-                       onChange={(event) => setText(event.target.value)}/>
-            <div className={styles.bottomButtons}>
-                <div className={styles.files_upload_container}>
-                    <form acceptCharset="utf-8" className={styles.wrapper_form}>
-                        <label className={styles.wrapper_form_addFiles}>
-                            <IconSvg width={18} height={15} viewBoxSize="0 0 20 18" path={paperClipIconPath}/>
-                            <input type="file" onChange={handleUploadFiles} multiple/>
-                            Прикрепить файл
-                        </label>
-                    </form>
-                    <div>
-                        {files?.map(({file, size, name}, index: number) => (
-                            <UploadedFile key={index} file={file} size={size} name={name} index={index}
-                                          handleDeleteFile={handleDeleteFile} isHw={true}/>
-                        ))}
+            {!hwStatus &&
+                <>
+                    <h3 className={styles.answer_header}>Введите ваш ответ:</h3>
+                    {/*<MyEditor setDescriptionLesson={setText} />*/}
+                    <TextField id="outlined-basic" label="Введите ответ на домашнее задание..."
+                               variant="outlined" style={{width: '100%'}} rows={5}
+                               onChange={(event) => setText(event.target.value)}/>
+                    <div className={styles.bottomButtons}>
+                        <div className={styles.files_upload_container}>
+                            <form acceptCharset="utf-8" className={styles.wrapper_form}>
+                                <label className={styles.wrapper_form_addFiles}>
+                                    <IconSvg width={18} height={15} viewBoxSize="0 0 20 18" path={paperClipIconPath}/>
+                                    <input type="file" onChange={handleUploadFiles} multiple/>
+                                    Прикрепить файл
+                                </label>
+                            </form>
+                            <div>
+                                {files?.map(({file, size, name}, index: number) => (
+                                    <UploadedFile key={index} file={file} size={size} name={name} index={index}
+                                                  handleDeleteFile={handleDeleteFile} isHw={true}/>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={styles.btns__container}>
+                            <button className={styles.bottomButtons_btn_mark}>
+                                {mark ? (
+                                    <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'}
+                                             path={tableBallsStarPath}/>
+                                ) : (
+                                    <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={starIconPath}/>
+                                )}
+                                <input type="number" placeholder="0" min={0} max={10} value={mark}
+                                       onChange={handleChangeMark}/>
+                            </button>
+                            <SelectDropDown dropdownData={checkHomeworkStatusFilters}
+                                            onChangeStatus={handleChangeStatus}/>
+                            <button className={styles.bottomButtons_btn_send} onClick={handleCreateHomeworkCheck}>
+                                <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={sendIconPath}/>
+                                <span>Отправить ответ</span>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div className={styles.btns__container}>
-                    <button className={styles.bottomButtons_btn_mark}>
-                        {mark ? (
-                            <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath}/>
-                        ) : (
-                            <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={starIconPath}/>
-                        )}
-                        <input type="number" placeholder="0" min={0} max={10} value={mark} onChange={handleChangeMark}/>
-                    </button>
-                    <SelectDropDown dropdownData={checkHomeworkStatusFilters} onChangeStatus={handleChangeStatus}/>
-                    <button className={styles.bottomButtons_btn_send} onClick={handleCreateHomeworkCheck}>
-                        <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={sendIconPath}/>
-                        <span>Отправить ответ</span>
-                    </button>
-                </div>
-            </div>
-
+                </>
+            }
             <button className={styles.modal_btn_is_toggle} onClick={handleToggleHiddenBlocks}>
         <span className={isOpen ? styles.arrow_rotate : ''}>
           <IconSvg width={25} height={25} viewBoxSize="0 0 21 21" path={arrIconPath}/>
