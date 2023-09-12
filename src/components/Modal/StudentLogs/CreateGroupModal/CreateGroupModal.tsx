@@ -14,7 +14,6 @@ import { useFetchAllUsersQuery } from '../../../../api/allUsersList'
 import { store } from '../../../../store/redux/store'
 
 
-
 import styles from '../studentsLog.module.scss'
 import { count } from 'console'
 import { paste } from '@testing-library/user-event/dist/paste'
@@ -28,8 +27,8 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   const [teacher_id, setTeacherId] = useState<string>('')
   const [studentsList, setStudentsList] = useState<any>([])
 
-  
 
+  
   
   const handleTeacher = ( teacher_id : any ) => {
     setTeacherId(teacher_id.id)  
@@ -73,13 +72,15 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
 
   const {data:userList} = useFetchAllUsersQuery('')
 
+ 
    
  console.log(studentsList[0]);
  
  console.log(userList);
-
-
  
+
+
+
 
 
 
@@ -102,8 +103,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
           <span>Введите название группы:</span>
           <Input name={'group'} type={'text'} value={groupName} onChange={onChangeGroupName} />
           <span>Выбирите учителя из списка:</span>
-            <div> 
-            <Select onChange={handleTeacher} options={userList}
+          <Select onChange={handleTeacher} options={userList}
                   getOptionLabel={(user:any)=>user.username}
                   getOptionValue={(user:any)=>user.id} 
                   components={{
@@ -111,10 +111,8 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
                   }}
                   placeholder={''}
                   />
-            </div>
           <span>Выбирите учеников:</span>
-             <div> 
-                      <Select onChange={handleStudents} options={userList}
+          <Select onChange={handleStudents} options={userList}
                        isMulti
                             getOptionLabel={(user:any)=>user.username}
                             getOptionValue={(user:any)=>user.id} 
@@ -122,8 +120,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
                               IndicatorSeparator: () => null
                             }}
                             placeholder={''}
-                        />                   
-              </div>
+                        />                               
         </div>
         <div className={styles.addGroup_btn}>
           <Button
