@@ -62,7 +62,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
     const [sendFiles, {isLoading, isSuccess: sendFilesSuccess}] = usePostTextFilesMutation()
 
     useEffect(() => {
-        setHwStatus(homework?.user_homework_checks[0].status === 'Принято')
+        setHwStatus(homework?.user_homework_checks && homework.user_homework_checks[0].status === 'Принято' || false)
     }, [homework, isFetching])
 
     const handleToggleHiddenBlocks = (): void => {

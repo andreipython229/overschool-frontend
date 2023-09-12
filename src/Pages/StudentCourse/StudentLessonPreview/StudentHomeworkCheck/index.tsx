@@ -73,7 +73,7 @@ export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({homework, reply
         <div className={styles.wrapper}>
             <h5 className={styles.wrapper_title}>Домашнее задание отправлено.</h5>
             <h5 className={isChecked ? styles.wrapper_status_done : styles.wrapper_status_onReview}>Статус:
-                <p>{!isChecked ? 'В работе.' : 'Принято преподавателем.'}</p>
+                <p>{`${replyArray[0].status}` || 'На рассмотрении у преподавателя'}</p>
             </h5>
             <ThemeProvider theme={theme}>
                 <Button variant="contained" color="violet" onClick={open}>
