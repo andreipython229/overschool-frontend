@@ -15,7 +15,7 @@ export const baseQuery = (baseUrl = `/api/`) => {
         credentials: 'include',
         prepareHeaders: (headers, {getState}) => {
             const acceessToken = cookies.get('access_token')
-            headers.set('X-Development-Mode', developmentMode ? 'true' : 'false');
+            headers.set('X-Development-Mode', `${developmentMode}`);
             if (acceessToken) {
                 headers.set('Cookie', acceessToken)
             }
@@ -33,7 +33,7 @@ export const baseQueryFn = (baseUrl = `/api/`) => {
         credentials: 'include',
         prepareHeaders: (headers, {getState}) => {
             const acceessToken = cookies.get('access_token')
-            headers.set('X-Development-Mode', developmentMode ? 'true' : 'false')
+            headers.set('X-Development-Mode', `${developmentMode}`)
             if (acceessToken) {
                 headers.set('Cookie', acceessToken)
             }
