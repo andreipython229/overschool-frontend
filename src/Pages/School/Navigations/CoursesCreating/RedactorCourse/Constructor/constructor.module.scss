@@ -45,6 +45,11 @@
     @include display(flex, column);
     margin-right: 30px;
     margin-top: 50px;
+    //border: 1px #0af50a solid;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 
     &_title {
       color: $font-title;
@@ -54,7 +59,8 @@
     &_desc {
       @include display(flex, column);
       margin-top: 23px;
-      margin-left: 16px;
+      margin-left: 16px; // 16
+      //border: 1px deeppink solid;
 
       &_headerText {
         position: relative;
@@ -71,10 +77,12 @@
         &_inputWrapper {
           position: absolute;
           top: -7px;
+          //margin-bottom: 10px;
           left: 0;
           @include display(flex, row, space-between, center);
           height: 30px;
           width: 100%;
+          //border: 1px blue solid;
 
           &:hover {
             z-index: 0;
@@ -88,7 +96,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            z-index: -10;
+            z-index: 0;
             background-color: transparent;
             color: $font-title;
             font-size: 14px;
@@ -114,11 +122,14 @@
         position: relative;
         @include display(flex, row, space-between, center);
         list-style-type: none;
-        margin-bottom: 26px;
+        margin-bottom: 16px;
+        margin-left: 0px;
         cursor: pointer;
+        //border: 1px solid red;
+        //background-color: rgba(220, 220, 100, 1);
 
         &:hover {
-          background-color: rgba(220, 220, 220, 0.4);
+          background-color: rgba(220, 220, 220, 1);
           border-radius: 8px;
         }
 
@@ -127,13 +138,13 @@
           color: $font-color-rose;
           font-size: 12px;
 
-          span {
-            margin-right: 10px;
-          }
-
-          & img {
-            margin-right: 7.5px;
-          }
+          //span {
+          //  margin-right: 10px;
+          //}
+          //
+          //& img {
+          //  margin-right: 7.5px;
+          //}
         }
 
         &_btn_deleteLesson {
@@ -145,6 +156,21 @@
           width: 30px;
           height: 30px;
           cursor: pointer;
+
+          & svg {
+            & path {
+              fill: #c1c1c1;
+            }
+          }
+        }
+        &_btn_drag_and_drop {
+          position: relative;
+          flex: 0 0 auto;
+          white-space: nowrap;
+          z-index: -10;
+          background-color: transparent;
+          width: 30px;
+          height: 30px;
 
           & svg {
             & path {

@@ -1,9 +1,14 @@
-import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+import {ChangeEvent, FC, memo, PointerEvent, useEffect, useState} from 'react'
 
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
-import { useDeleteModulesMutation, usePatchModulesMutation } from 'api/modulesServices'
+import {
+  useDeleteModulesMutation,
+  usePatchLessonsMutation,
+  usePatchModulesMutation,
+  useUpdateLessonsOrdersMutation
+} from 'api/modulesServices'
 import { formDataConverter } from 'utils/formDataConverter'
 import { LessonsBlock } from '../LessonsBlock'
 import { ModulesBlockT } from '../../../../../../../../types/navigationTypes'
@@ -15,14 +20,23 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
+import { Reorder, useDragControls } from 'framer-motion'
+import styles1 from "../../../../../../../../components/Modal/Modal.module.scss";
 
 export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndType, moduleName, lessonsList, id }) => {
   const dispatch = useAppDispatch()
+
+  // ********* DRAG AND DROP **************************************************************
+  const [lessons , setLessons] = useState(lessonsList)
+  const [updateLessonsOrders] = useUpdateLessonsOrdersMutation()
+  const debouncedOrders = useDebounceFunc(updateLessonsOrders, 2000)
 
   const [changeModuleName, setChangeModuleName] = useState<string>(moduleName)
 
   const [changeName] = usePatchModulesMutation()
   const [deleteModule, { isLoading: deleteModuleLoading }] = useDeleteModulesMutation()
+
+
 
   const handleDeleteModule = async () => {
     await deleteModule(id)
@@ -31,7 +45,6 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
   const handleChangeModuleName = (event: ChangeEvent<HTMLInputElement>) => {
     setChangeModuleName(event.target.value)
   }
-
   const debounced = useDebounceFunc(changeName, 2000)
   const [visibleAddBtn, setVisibleAddBtn] = useState(false);
   const handleOpenModalLesson = () => {
@@ -40,7 +53,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
   }
 
   useEffect(() => {
-    if (lessonsList.length > 0) setVisibleAddBtn(true)
+    if (lessons.length > 0) setVisibleAddBtn(true)
     if (moduleName !== changeModuleName) {
       const updateModule = {
         name: changeModuleName,
@@ -52,6 +65,19 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
       }
     }
   }, [changeModuleName])
+
+
+  const handleOrderUpdate = (lessonsWithNewOrders: lessonT[]) => {
+      setLessons(lessonsWithNewOrders)
+      const updatedOrderLesson = lessons.map(({ baselesson_ptr_id, order}, index) => ({
+        baselesson_ptr_id,
+        order: index + 1,
+      }));
+      const formdata = formDataConverter(updatedOrderLesson)
+      if (formdata) {
+        debouncedOrders({formdata})
+      }
+  }
 
   return (
     <>
@@ -70,10 +96,13 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
           {deleteModuleLoading && <SimpleLoader style={{ width: '20px', height: '20px' }} />}
         </span>
 
-        {lessonsList &&
-          lessonsList.map(({ name, id, type }: lessonT) => (
-            <LessonsBlock type={type} setLessonIdAndType={setLessonIdAndType} key={id + type} id={id} lessonsName={name} />
-          ))}
+        <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons}>
+          {lessons &&
+            lessons.map((lesson) => (
+              <LessonsBlock type={lesson.type} setLessonIdAndType={setLessonIdAndType} key={lesson.id + lesson.name} id={id} lessonsName={lesson.name} lesson={lesson}/>
+            ))}
+        </Reorder.Group>
+
         <Button className={styles.btn} text="+ Занятие" variant="secondary" onClick={handleOpenModalLesson} />
         </ul>
     </>
