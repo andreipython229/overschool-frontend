@@ -26,4 +26,5 @@ export type LessonsBlockT = {
   id: number
   type: string
   setLessonIdAndType: (arg: lessonIdAndTypeT) => void
+  lesson: lessonT
 }
