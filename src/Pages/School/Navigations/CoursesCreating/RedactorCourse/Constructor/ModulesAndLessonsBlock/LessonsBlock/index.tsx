@@ -58,7 +58,7 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, less
             />
           </span>
           <span>{lessonSvgMapper[type]}</span>
-          order = {lesson.order} {lesson.name} id = {lesson.baselesson_ptr_id}
+          {lesson.name}
           {isLoading && (
             <div style={{ marginLeft: '40px' }}>
               <SimpleLoader style={{ width: '20px', height: '20px' }} />
