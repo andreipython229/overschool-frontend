@@ -87,7 +87,7 @@ export const modulesServices = createApi({
     updateLessonsOrders: build.mutation<void, { formdata: FormData }>({
       query: arg => {
         return {
-          url: `/shuffle/shuffle_lessons/`,
+          url: `/lesson_order/`,
           method: 'POST',
           body: arg.formdata,
         }

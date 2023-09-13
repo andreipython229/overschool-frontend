@@ -30,6 +30,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
   const [lessons , setLessons] = useState(lessonsList)
   const [updateLessonsOrders] = useUpdateLessonsOrdersMutation()
   const debouncedOrders = useDebounceFunc(updateLessonsOrders, 2000)
+  const [newLessonsOrders, setNewLessonsOrders] = useState<lessonT[]>([])
 
   const [changeModuleName, setChangeModuleName] = useState<string>(moduleName)
 
@@ -69,15 +70,20 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
 
   const handleOrderUpdate = (lessonsWithNewOrders: lessonT[]) => {
       setLessons(lessonsWithNewOrders)
-      const updatedOrderLesson = lessons.map(({ baselesson_ptr_id, order}, index) => ({
+      setNewLessonsOrders(lessonsWithNewOrders)
+  }
+
+  useEffect(() => {
+      const updatedOrderLesson = newLessonsOrders.map(({ baselesson_ptr_id, order}, index) => ({
         baselesson_ptr_id,
         order: index + 1,
       }));
+      // console.log(updatedOrderLesson)
       const formdata = formDataConverter(updatedOrderLesson)
       if (formdata) {
         debouncedOrders({formdata})
       }
-  }
+  }, [newLessonsOrders])
 
   return (
     <>
@@ -99,7 +105,8 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
         <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons}>
           {lessons &&
             lessons.map((lesson) => (
-              <LessonsBlock type={lesson.type} setLessonIdAndType={setLessonIdAndType} key={lesson.id + lesson.name} id={id} lessonsName={lesson.name} lesson={lesson}/>
+              <LessonsBlock type={lesson.type} setLessonIdAndType={setLessonIdAndType} key={lesson.baselesson_ptr_id} id={lesson.id} lessonsName={lesson.name} lesson={lesson}/>
+                // lesson.id + lesson.name
             ))}
         </Reorder.Group>
 
