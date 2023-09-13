@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 import { IconSvgT } from '../../../types/commonComponentsTypes'
 
 export const IconSvg: FC<IconSvgT> = memo(
-  ({ styles, width, height, path, viewBoxSize = '-2.3 0 20 15', className, functionOnClick, children, onPointerDown, id }) => {
+  ({ styles, width, height, path, viewBoxSize = '0 0 20 20', className, functionOnClick, children, onPointerDown, id }) => {
     return (
       <svg
         id={id && id}

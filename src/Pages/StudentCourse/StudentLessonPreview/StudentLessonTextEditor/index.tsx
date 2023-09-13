@@ -5,12 +5,11 @@ import {Button} from 'components/common/Button/Button'
 import {usePostUserHomeworkMutation} from 'api/userHomeworkService'
 import {UploadedFile} from 'components/UploadedFile'
 import {usePostTextFilesMutation} from 'api/filesService'
-
-import styles from './studentLessonTextEditor.module.scss'
 import {TextareaAutosize} from "@mui/material";
-import {UserHomework} from "../../../../types/homeworkT";
 import {IHomework} from "../../../../types/sectionT";
 import {StudentHomeworkCheck} from "../StudentHomeworkCheck";
+
+import styles from './studentLessonTextEditor.module.scss'
 
 type textEditorT = {
     homeworkId: number
@@ -23,7 +22,6 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
     const [text, setText] = useState<string>('')
     const [hwStatus, setHwStatus] = useState<boolean>(!!homework?.user_homework_checks)
     const [replyArray, setReplyArray] = useState(homework?.user_homework_checks)
-
 
     const [postHomework] = usePostUserHomeworkMutation()
     const [postFiles] = usePostTextFilesMutation()
@@ -58,22 +56,25 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
         handleUploadFiles(chosenFiles)
     }
 
-    const handleSendHomework = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleSendHomework = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-
-        const formDataFile = new FormData()
-
-        formDataFile.append('file', files[0])
-        formDataFile.append('user_homework', `${homeworkId}`)
 
         const formDataHw = new FormData()
         formDataHw.append('homework', String(homeworkId))
         formDataHw.append('text', String(text))
 
-        postHomework(formDataHw)
-        postFiles(formDataFile)
-        setHwStatus(true)
-        window.location.reload()
+        await postHomework(formDataHw)
+            .unwrap()
+            .then((data) => {
+                const formDataFile = new FormData()
+
+                formDataFile.append('file', files[0])
+                formDataFile.append('user_homework', `${data.user_homework_check_id}`)
+
+                postFiles(formDataFile)
+                setHwStatus(true)
+                window.location.reload()
+            })
     }
 
     useEffect(() => {
@@ -82,25 +83,25 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
     }, [hwStatus, homeworkId])
 
     return (
-        !hwStatus? (<div className={styles.wrapper}>
-            <h5 className={styles.wrapper_title}>Введите ответ на задание:</h5>
-            <TextareaAutosize aria-label="Введите ответ на домашнее задание..."
-                              placeholder="Введите ответ на домашнее задание..."
-                              style={{width: '100%', borderRadius: '5px', border: '1px solid rgba(0, 0, 0, 0.3)'}}
-                              minRows={5} value={text}
-                              onChange={(event) => setText(event.target.value)}/>
-            <AddFileBtn handleChangeFiles={handleChangeFiles}/>
-            <span className={styles.wrapper_form_help}>Добавьте файл(-ы) с решением задания</span>
-            {urlFiles?.map(({url, name}, index: number) => (
-                <UploadedFile key={index} file={url} index={index} name={name} size={files[index].size} isHw={true}
-                              handleDeleteFile={handleDeleteFile}/>
-            ))}
-            {urlFiles.length > 0 || text &&
-                <Button style={{marginTop: '20px'}} variant="primary" text="Отправить" type="submit"
-                        onClick={handleSendHomework}/>}
-        </div>
+        !hwStatus ? (<div className={styles.wrapper}>
+                <h5 className={styles.wrapper_title}>Введите ответ на задание:</h5>
+                <TextareaAutosize aria-label="Введите ответ на домашнее задание..."
+                                  placeholder="Введите ответ на домашнее задание..."
+                                  style={{width: '100%', borderRadius: '5px', border: '1px solid rgba(0, 0, 0, 0.3)', padding: '10px'}}
+                                  minRows={5} value={text}
+                                  onChange={(event) => setText(event.target.value)}/>
+                <AddFileBtn handleChangeFiles={handleChangeFiles}/>
+                <span className={styles.wrapper_form_help}>Добавьте файл(-ы) с решением задания</span>
+                {urlFiles?.map(({url, name}, index: number) => (
+                    <UploadedFile key={index} file={url} index={index} name={name} size={files[index].size} isHw={true}
+                                  handleDeleteFile={handleDeleteFile}/>
+                ))}
+                {text &&
+                    <Button style={{marginTop: '20px'}} variant="primary" text="Отправить" type="submit"
+                            onClick={handleSendHomework}/>}
+            </div>
         ) : (
-            <StudentHomeworkCheck homework={homework} replyArray={replyArray? replyArray: []}/>
+            <StudentHomeworkCheck homework={homework} replyArray={replyArray ? replyArray : []}/>
         )
     )
 }

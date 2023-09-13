@@ -163,6 +163,7 @@
             }
           }
         }
+
         &_btn_drag_and_drop {
           position: relative;
           flex: 0 0 auto;
@@ -431,14 +432,31 @@ hr {
 
   &_text_block {
     margin: 20px 0 0 30px;
-    @include display(flex, row, flex-end);
-    color: #e0dced;
-    font-style: normal;
-    @include font(500, 11px, 13px);
 
-    svg {
-      margin-right: 10px;
+    &_published {
+      @include display(flex, row, flex-end);
+      justify-content: space-around;
+      font-style: italic;
+      font-weight: bold;
+      color: #acce6e;
+
+      svg {
+        margin-right: 2px;
+      }
     }
+
+    &_notPublished {
+      @include display(flex, row, flex-end);
+      justify-content: space-around;
+      font-style: italic;
+      font-weight: bold;
+      color: #a8444c;
+
+      svg {
+        margin-right: 2px;
+      }
+    }
+
   }
 }
 

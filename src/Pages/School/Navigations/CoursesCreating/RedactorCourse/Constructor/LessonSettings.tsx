@@ -128,12 +128,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                                     Редактировать
                                 </button>
                                 {lesson?.active ? (
-                                    <p className={styles.coursePreviewHeader_text_block}>
+                                    <p className={styles.coursePreviewHeader_text_block_published}>
                                         <IconSvg width={18} height={16} path={publishedIconPath}/>
                                         опубликовано
                                     </p>
                                 ) : (
-                                    <p className={styles.coursePreviewHeader_text_block}>
+                                    <p className={styles.coursePreviewHeader_text_block_notPublished}>
                                         <IconSvg width={18} height={16} path={noPublishedIconPath}/>
                                         не опубликовано
                                     </p>
