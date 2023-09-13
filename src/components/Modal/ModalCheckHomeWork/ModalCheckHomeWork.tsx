@@ -63,7 +63,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
 
     useEffect(() => {
         setHwStatus(homework?.user_homework_checks && homework.user_homework_checks[0].status === 'Принято' || false)
-    }, [homework, isFetching])
+    }, [homework, isSuccess])
 
     const handleToggleHiddenBlocks = (): void => {
         setIsOpen(!isOpen)
@@ -99,7 +99,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
         setFiles(prev => prev.filter((_, idx) => idx !== index))
     }
 
-    const handleCreateHomeworkCheck = () => {
+    const handleCreateHomeworkCheck = async () => {
         const dataToSend = {
             status,
             text,
@@ -107,17 +107,29 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
             user_homework: userHomework?.user_homework_id,
         }
 
-        const formData = new FormData()
-
-        formData.append('user_homework_check', `${data?.last_reply.user_homework_check_id}`)
-
-        nativeFiles.forEach(file => {
-            formData.append(`files`, file)
-        })
-
-        sendHomeworkCheck(dataToSend)
-        setHwStatus(status === 'Принято')
-        sendFiles(formData)
+        try {
+            await sendHomeworkCheck(dataToSend)
+                .unwrap()
+                .then((data) => {
+                    const formData = new FormData()
+                    formData.append('user_homework_check', `${data.user_homework_check_id}`)
+                    nativeFiles.forEach(file => {
+                        formData.append(`files`, file)
+                    })
+                    sendFiles(formData)
+                    setHwStatus(status === 'Принято')
+                    setText('')
+                    setMark(0)
+                    setStatus('')
+                    setNativeFiles([])
+                    setFiles([])
+                })
+                .catch((error) => {
+                    console.log('Ошибка отправки файла: ', error)
+                })
+        } catch (error) {
+            console.error("Ошибка отправки ответа на домашнее задание: ", error)
+        }
     }
 
     useEffect(() => {

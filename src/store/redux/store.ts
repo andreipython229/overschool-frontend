@@ -17,7 +17,6 @@ export const rootReducer = combineReducers({
     [services.courseStatService.reducerPath]: services.courseStatService.reducer,
     [services.homeworksStatsService.reducerPath]: services.homeworksStatsService.reducer,
     [services.userHomeworkService.reducerPath]: services.userHomeworkService.reducer,
-    [services.userHomeworkService.reducerPath]: services.userHomeworkService.reducer,
     [services.userRegisterService.reducerPath]: services.userRegisterService.reducer,
     [services.questionsAndAnswersService.reducerPath]: services.questionsAndAnswersService.reducer,
     [services.filesService.reducerPath]: services.filesService.reducer,
