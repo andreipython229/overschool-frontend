@@ -3,8 +3,7 @@
   "short_name": "Overschool",
   "start_url": "https://dev.overschool.by/login/",
   "display": "standalone",
-  "background_color": "#FFEBCD",
-  "theme_color": "#8A2BE2",
+  "background_color": "#ffffff",
   "description": "Маркетплейс образовательных курсов.",
   "icons": [
     {
@@ -48,9 +47,16 @@
       "type": "image/png"
     }
   ],
-   "related_applications": [
-     {
-       "platform": "web"
-     }
+  "theme_color": "#000000",
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://dev.overschool.by/login/",
+      "id": "1"
+    }
+  ],
+  "categories": [
+    "business",
+    "education"
   ]
 }
