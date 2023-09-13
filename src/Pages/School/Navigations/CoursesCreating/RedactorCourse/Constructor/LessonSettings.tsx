@@ -38,6 +38,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
         formData.append('description', lessonDescription)
         formData.append('section', String(lesson.section))
         formData.append('order', String(lesson.order))
+        formData.append('active', String(lesson.active))
         await saveChanges({id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData})
         setIsEditing(false)
     }
@@ -164,12 +165,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                                 </div>
                                 <div>
                                     {lesson?.active ? (
-                                        <p className={styles.coursePreviewHeader_text_block}>
+                                        <p className={styles.coursePreviewHeader_text_block_published}>
                                             <IconSvg width={18} height={16} path={publishedIconPath}/>
                                             опубликовано
                                         </p>
                                     ) : (
-                                        <p className={styles.coursePreviewHeader_text_block}>
+                                        <p className={styles.coursePreviewHeader_text_block_notPublished}>
                                             <IconSvg width={18} height={16} path={noPublishedIconPath}/>
                                             не опубликовано
                                         </p>
