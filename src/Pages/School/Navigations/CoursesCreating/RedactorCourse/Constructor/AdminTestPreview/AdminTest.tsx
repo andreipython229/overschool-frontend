@@ -33,7 +33,7 @@ export const AdminTest: FC<AdminTestT> = ({testId}) => {
         if (questionsList) {
             setQuestions(questionsList?.questions)
         }
-    }, [questionsList])
+    }, [questionsList, testId])
 
     if (isLoading) {
         return <SimpleLoader/>
@@ -43,13 +43,18 @@ export const AdminTest: FC<AdminTestT> = ({testId}) => {
         isSuccess ? (
             <div className={styles.wrapper}>
                 <div className={styles.settings_list}>
-                    <span className={styles.nameSettings}>{questionsList && 'name' in questionsList && 'Тест на тему: ' + '"' + questionsList.name + '"'}</span>
+                    <span className={styles.nameSettings}>
+                        {
+                            (questionsList && typeof questionsList === 'object' && 'name' in questionsList) &&
+                            'Тест на тему: ' + '"' + questionsList.name + '"'
+                        }
+                    </span>
                     {sortedQuestions.map((question) => {
                         if (question.question_type === 'Text') {
-                            return <AdminTextOptions answers={question.answers} question={question} title={question.body}
-                                                id={question.question_id} key={question.question_id}/>
-                        }
-                        else if (question.question_type === 'TextPic') {
+                            return <AdminTextOptions answers={question.answers} question={question}
+                                                     title={question.body}
+                                                     id={question.question_id} key={question.question_id}/>
+                        } else if (question.question_type === 'TextPic') {
                             return <OptionsWithPictures answers={question.answers} question={question}
                                                         title={question.body}
                                                         id={question.question_id} key={question.question_id}/>
