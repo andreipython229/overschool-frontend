@@ -80,7 +80,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
       }));
       // console.log(updatedOrderLesson)
       const formdata = formDataConverter(updatedOrderLesson)
-      if (formdata) {
+      if (formdata && updatedOrderLesson.length > 0) {
         debouncedOrders({formdata})
       }
   }, [newLessonsOrders])
