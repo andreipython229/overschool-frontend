@@ -19,12 +19,12 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, less
 
   const handleDeleteLesson = async () => {
     await deleteLesson({ id, type })
-
     setLessonIdAndType({} as lessonIdAndTypeT)
   }
 
   const handleChangeLesson = () => {
     const idAndType = { id, type }
+      // console.log(idAndType)
     setLessonIdAndType(idAndType)
   }
 
@@ -37,7 +37,7 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, less
           dragControls={controls}
           dragListener={false}
           draggable={false}
-          key={lesson.order}
+          key={lesson.baselesson_ptr_id}
           value={lesson}
           onClick={handleChangeLesson}
           className={styles.redactorCourse_leftSide_desc_lessonWrapper + ' ' + stylesModules.btnWrapper}
@@ -58,7 +58,7 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, less
             />
           </span>
           <span>{lessonSvgMapper[type]}</span>
-          {lesson.name} {lesson.baselesson_ptr_id}
+          order = {lesson.order} {lesson.name} id = {lesson.baselesson_ptr_id}
           {isLoading && (
             <div style={{ marginLeft: '40px' }}>
               <SimpleLoader style={{ width: '20px', height: '20px' }} />
