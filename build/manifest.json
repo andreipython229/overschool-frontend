@@ -47,9 +47,16 @@
       "type": "image/png"
     }
   ],
-   "related_applications": [
-     {
-       "platform": "web"
-     }
+  "theme_color": "#000000",
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://dev.overschool.by/login/",
+      "id": "1"
+    }
+  ],
+  "categories": [
+    "business",
+    "education"
   ]
 }
