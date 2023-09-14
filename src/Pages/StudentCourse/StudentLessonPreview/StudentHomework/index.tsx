@@ -29,8 +29,6 @@ export const StudentHomework: FC<studentHomeworkT> = ({lesson, lessons, params, 
         setVideoLinkId(lesson?.video)
     }, [lesson])
 
-    console.log('домашка: ', lesson)
-
     return (
         <div className={styles.lesson}>
             <StudentCourseNavArr/>

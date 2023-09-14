@@ -17,18 +17,12 @@ type textEditorT = {
     homework: IHomework
 }
 
-type textFileErrorT = {
-    status: number
-    data: any
-}
-
 export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework}) => {
     const [files, setFiles] = useState<File[]>([])
     const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
     const [text, setText] = useState<string>('')
     const [hwStatus, setHwStatus] = useState<boolean>(!!homework?.user_homework_checks)
     const [replyArray, setReplyArray] = useState<CheckHw[]>(homework?.user_homework_checks)
-    const [errors, setErrors] = useState<textFileErrorT>()
     const [open, setOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
@@ -39,7 +33,6 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
         if (reason === 'clickaway') {
             return;
         }
-
         setOpen(false);
     };
 
@@ -119,7 +112,6 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
                     .catch((error) => {
                         setHwStatus(true)
                         setOpen(true)
-                        setErrors(error)
                         setIsLoading(false)
                     })
             })
@@ -127,7 +119,6 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
                 setIsLoading(false)
                 setHwStatus(true)
                 setOpen(true)
-                setErrors(error)
             })
     }
 
@@ -173,7 +164,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
                 <Stack spacing={2} sx={{width: '100%'}}>
                     <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                         <Alert onClose={handleClose} severity="warning" sx={{width: '100%'}}>
-                            {errors ? `${errors.status}: ${errors.data.error}` : 'Произошла непредвиденная ошибка :('}
+                            {'Ошибка отправки домашней работы :('}
                         </Alert>
                     </Snackbar>
                 </Stack>
