@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 
 import {StudentTest} from './StudentTest'
@@ -15,13 +15,12 @@ import {SimpleLoader} from "../../../components/Loaders/SimpleLoader";
 
 export const StudentLessonPreview: FC = () => {
     const params = useParams()
-    const testId = params?.lesson_type === 'test' && params?.lesson_id
 
     const {data: lessons, isSuccess} = useFetchModuleLessonsQuery(`${params?.section_id}`)
-    const {data: lesson, isLoading} = !testId? useFetchLessonQuery({
+    const {data: lesson, isFetching: isLoading} = useFetchLessonQuery({
         id: Number(params?.lesson_id) as number,
         type: `${params?.lesson_type}`
-    }): useFetchQuestionsListQuery(params?.lesson_id)
+    })
 
     const activeLessonIndex = lessons?.lessons.findIndex(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
     const renderUI = () => {
@@ -34,8 +33,7 @@ export const StudentLessonPreview: FC = () => {
                     return <StudentHomework lessons={lessons} lesson={lesson} params={params}
                                             activeLessonIndex={activeLessonIndex as number}/>
                 case LESSON_TYPE.TEST:
-                    return <StudentTest lessons={lessons} lesson={lesson} params={params}
-                                        activeLessonIndex={activeLessonIndex as number}/>
+                    return <StudentTest lessons={lessons} params={params} activeLessonIndex={activeLessonIndex as number}/>
             }
         }
     }
