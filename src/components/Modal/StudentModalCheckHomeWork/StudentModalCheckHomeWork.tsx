@@ -108,17 +108,28 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                             formData.append(`files`, file)
                         })
                         sendFiles(formData)
-                        setText('')
-                        setMark(0)
-                        setStatus('')
-                        setNativeFiles([])
-                        setFiles([])
+                            .unwrap()
+                            .then((data) => {
+                                setText('')
+                                setMark(0)
+                                setStatus('')
+                                setNativeFiles([])
+                                setFiles([])
+                            })
+                            .catch((error) => {
+                                setText('')
+                                setMark(0)
+                                setStatus('')
+                                setNativeFiles([])
+                                setFiles([])
+                                console.log('Ошибка отправки файла: ', error)
+                            })
                     })
                     .catch((error) => {
-                        console.log('Ошибка отправки файла: ', error)
+                        console.log('Ошибка отправки ответа на ДЗ: ', error)
                     })
             } catch (error) {
-                console.error("Ошибка отправки ответа на домашнее задание: ", error)
+                console.error("Произошла непредвиденная ошибка: ", error)
             }
         }
 

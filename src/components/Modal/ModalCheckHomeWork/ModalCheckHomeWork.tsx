@@ -107,29 +107,31 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
             user_homework: userHomework?.user_homework_id,
         }
 
-        try {
-            await sendHomeworkCheck(dataToSend)
-                .unwrap()
-                .then((data) => {
-                    const formData = new FormData()
-                    formData.append('user_homework_check', `${data.user_homework_check_id}`)
-                    nativeFiles.forEach(file => {
-                        formData.append(`files`, file)
+        await sendHomeworkCheck(dataToSend)
+            .unwrap()
+            .then((data) => {
+                const formData = new FormData()
+                formData.append('user_homework_check', `${data.user_homework_check_id}`)
+                nativeFiles.forEach(file => {
+                    formData.append(`files`, file)
+                })
+                sendFiles(formData)
+                    .unwrap()
+                    .then(() => {
+                        setHwStatus(status === 'Принято')
+                        setText('')
+                        setMark(0)
+                        setStatus('')
+                        setNativeFiles([])
+                        setFiles([])
                     })
-                    sendFiles(formData)
-                    setHwStatus(status === 'Принято')
-                    setText('')
-                    setMark(0)
-                    setStatus('')
-                    setNativeFiles([])
-                    setFiles([])
-                })
-                .catch((error) => {
-                    console.log('Ошибка отправки файла: ', error)
-                })
-        } catch (error) {
-            console.error("Ошибка отправки ответа на домашнее задание: ", error)
-        }
+                    .catch((error) => {
+                        console.log('Ошибка отправки файлов: ', error)
+                    })
+            })
+            .catch((error) => {
+                console.log('Ошибка отправки ответа на ДЗ: ', error)
+            })
     }
 
     useEffect(() => {

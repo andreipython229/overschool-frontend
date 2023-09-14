@@ -4,7 +4,7 @@ import {baseQueryFn} from './baseApi'
 
 interface CheckReply {
     user_homework_check_id: number,
-    user_homework: number,
+    user_homework_id: number,
     mark: number,
     text: string,
     status: string,
