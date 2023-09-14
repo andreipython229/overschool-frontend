@@ -1,19 +1,25 @@
-import {FC, ChangeEvent, useState, MouseEvent, useEffect} from 'react'
+import React, {FC, ChangeEvent, useState, MouseEvent, useEffect} from 'react'
 
 import {AddFileBtn} from 'components/common/AddFileBtn/index'
 import {Button} from 'components/common/Button/Button'
 import {usePostUserHomeworkMutation} from 'api/userHomeworkService'
 import {UploadedFile} from 'components/UploadedFile'
 import {usePostTextFilesMutation} from 'api/filesService'
-import {TextareaAutosize} from "@mui/material";
+import {Alert, Snackbar, Stack, TextareaAutosize} from "@mui/material";
 import {IHomework} from "../../../../types/sectionT";
-import {StudentHomeworkCheck} from "../StudentHomeworkCheck";
+import {CheckHw, StudentHomeworkCheck} from "../StudentHomeworkCheck";
 
 import styles from './studentLessonTextEditor.module.scss'
+import {SimpleLoader} from "../../../../components/Loaders/SimpleLoader";
 
 type textEditorT = {
     homeworkId: number
     homework: IHomework
+}
+
+type textFileErrorT = {
+    status: number
+    data: any
 }
 
 export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework}) => {
@@ -21,10 +27,21 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
     const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
     const [text, setText] = useState<string>('')
     const [hwStatus, setHwStatus] = useState<boolean>(!!homework?.user_homework_checks)
-    const [replyArray, setReplyArray] = useState(homework?.user_homework_checks)
+    const [replyArray, setReplyArray] = useState<CheckHw[]>(homework?.user_homework_checks)
+    const [errors, setErrors] = useState<textFileErrorT>()
+    const [open, setOpen] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const [postHomework] = usePostUserHomeworkMutation()
     const [postFiles] = usePostTextFilesMutation()
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
 
     const handleUploadFiles = (chosenFiles: File[]) => {
         const uploaded = [...files]
@@ -58,6 +75,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
 
     const handleSendHomework = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
+        setIsLoading(true)
 
         const formDataHw = new FormData()
         formDataHw.append('homework', String(homeworkId))
@@ -68,40 +86,98 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
             .then((data) => {
                 const formDataFile = new FormData()
 
-                formDataFile.append('file', files[0])
-                formDataFile.append('user_homework', `${data.user_homework_check_id}`)
+                files.forEach((file, index) => {
+                    formDataFile.append('files', file)
+                })
+                formDataFile.append('user_homework', String(data.user_homework_id))
 
+                if (!replyArray) {
+                    setReplyArray([
+                        {
+                            audio_files: [],
+                            author: data.author,
+                            author_first_name: '',
+                            author_last_name: '',
+                            created_at: data.created_at,
+                            mark: 0,
+                            profile_avatar: '',
+                            status: data.status,
+                            text: String(formDataHw.get('text')) || '',
+                            text_files: [],
+                            updated_at: data.updated_at,
+                            user_homework: data.user_homework_id,
+                            user_homework_check_id: 0
+                        }
+                    ])
+                }
                 postFiles(formDataFile)
+                    .unwrap()
+                    .then((data) => {
+                        setHwStatus(true)
+                        setIsLoading(false)
+                    })
+                    .catch((error) => {
+                        setHwStatus(true)
+                        setOpen(true)
+                        setErrors(error)
+                        setIsLoading(false)
+                    })
+            })
+            .catch((error) => {
+                setIsLoading(false)
                 setHwStatus(true)
-                window.location.reload()
+                setOpen(true)
+                setErrors(error)
             })
     }
 
     useEffect(() => {
         setReplyArray(homework.user_homework_checks)
         setHwStatus(!!homework.user_homework_checks)
-    }, [hwStatus, homeworkId])
+        setText('')
+        setFiles([])
+        setUrlFiles([])
+    }, [homeworkId, homework])
+
+    if (isLoading) {
+        return <SimpleLoader/>
+    }
 
     return (
         !hwStatus ? (<div className={styles.wrapper}>
                 <h5 className={styles.wrapper_title}>Введите ответ на задание:</h5>
                 <TextareaAutosize aria-label="Введите ответ на домашнее задание..."
                                   placeholder="Введите ответ на домашнее задание..."
-                                  style={{width: '100%', borderRadius: '5px', border: '1px solid rgba(0, 0, 0, 0.3)', padding: '10px'}}
+                                  style={{
+                                      width: '100%',
+                                      borderRadius: '5px',
+                                      border: '1px solid rgba(0, 0, 0, 0.3)',
+                                      padding: '10px'
+                                  }}
                                   minRows={5} value={text}
                                   onChange={(event) => setText(event.target.value)}/>
                 <AddFileBtn handleChangeFiles={handleChangeFiles}/>
                 <span className={styles.wrapper_form_help}>Добавьте файл(-ы) с решением задания</span>
                 {urlFiles?.map(({url, name}, index: number) => (
-                    <UploadedFile key={index} file={url} index={index} name={name} size={files[index].size} isHw={true}
+                    <UploadedFile key={index} file={url} index={index} name={name} size={files.length > 0? files[index].size: 0} isHw={true}
                                   handleDeleteFile={handleDeleteFile}/>
                 ))}
-                {text &&
-                    <Button style={{marginTop: '20px'}} variant="primary" text="Отправить" type="submit"
-                            onClick={handleSendHomework}/>}
+                {
+                    text && <Button style={{marginTop: '20px'}} variant="primary" text="Отправить" type="submit"
+                                    onClick={handleSendHomework}/>
+                }
             </div>
         ) : (
-            <StudentHomeworkCheck homework={homework} replyArray={replyArray ? replyArray : []}/>
+            <>
+                <StudentHomeworkCheck homework={homework} replyArray={replyArray?.length > 0 ? replyArray : []}/>
+                <Stack spacing={2} sx={{width: '100%'}}>
+                    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="warning" sx={{width: '100%'}}>
+                            {errors ? `${errors.status}: ${errors.data.error}` : 'Произошла непредвиденная ошибка :('}
+                        </Alert>
+                    </Snackbar>
+                </Stack>
+            </>
         )
     )
 }
