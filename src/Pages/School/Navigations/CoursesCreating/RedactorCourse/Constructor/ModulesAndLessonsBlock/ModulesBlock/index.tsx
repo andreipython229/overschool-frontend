@@ -37,8 +37,6 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
   const [changeName] = usePatchModulesMutation()
   const [deleteModule, { isLoading: deleteModuleLoading }] = useDeleteModulesMutation()
 
-
-
   const handleDeleteModule = async () => {
     await deleteModule(id)
   }
