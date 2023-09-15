@@ -130,13 +130,11 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                                 </button>
                                 {lesson?.active ? (
                                     <p className={styles.coursePreviewHeader_text_block_published}>
-                                        <IconSvg width={18} height={16} path={publishedIconPath}/>
-                                        опубликовано
+                                        ✓ опубликовано
                                     </p>
                                 ) : (
                                     <p className={styles.coursePreviewHeader_text_block_notPublished}>
-                                        <IconSvg width={18} height={16} path={noPublishedIconPath}/>
-                                        не опубликовано
+                                        ✖ не опубликовано
                                     </p>
                                 )}
                             </div>
@@ -166,13 +164,11 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                                 <div>
                                     {lesson?.active ? (
                                         <p className={styles.coursePreviewHeader_text_block_published}>
-                                            <IconSvg width={18} height={16} path={publishedIconPath}/>
-                                            опубликовано
+                                            ✓ опубликовано
                                         </p>
                                     ) : (
                                         <p className={styles.coursePreviewHeader_text_block_notPublished}>
-                                            <IconSvg width={18} height={16} path={noPublishedIconPath}/>
-                                            не опубликовано
+                                            ✖ не опубликовано
                                         </p>
                                     )}
                                 </div>
