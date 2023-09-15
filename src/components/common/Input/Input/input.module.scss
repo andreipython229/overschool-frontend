@@ -9,11 +9,17 @@
   background-color: #ffffff;
   font-family: 'Inter', sans-serif;
   padding: 0 5px;
+  transition: border-color 0.2s;
+
   svg {
     margin-left: 10px;
   }
 
-  &__focused {
+  &:hover {
+    border-color: #ba75ff;
+  }
+
+  &:focus {
     border-color: #ba75ff;
   }
 

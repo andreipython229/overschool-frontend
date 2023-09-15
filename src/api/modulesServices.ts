@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { sectionT, sectionsT, commonLessonT } from 'types/sectionT'
-import {baseQuery, baseQueryFn} from './baseApi'
+import {baseQueryFn} from './baseApi'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',

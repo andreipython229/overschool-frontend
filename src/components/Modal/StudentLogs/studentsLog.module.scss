@@ -156,7 +156,6 @@
   &_input {
     text-align: left;
     margin: 32px 0 20px 0;
-    padding: 5px;
   }
 
   &__delete_btn {
@@ -168,6 +167,7 @@
 
   &_checkboxBlock {
     & :not(:last-child) {
+      margin-top: 10px;
       margin-bottom: 19px;
     }
 
@@ -264,4 +264,14 @@
   margin-top: 2px;
   border-radius: 7px;
   outline: none;
+}
+
+.textField {
+  font-family: $font-family-inter;
+  font-size: 0.95em;
+  opacity: 0.9;
+  color: $font-title;
+  margin-bottom: 7px;
+  text-align: left;
+  margin-left: 1%;
 }
