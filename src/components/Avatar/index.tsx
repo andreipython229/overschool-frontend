@@ -13,7 +13,7 @@ type avatarT = {
 export const Avatar: FC<avatarT> = memo(({ width, height, name, surname, avatar }) => {
   return (
     <div className={styles.avatar} style={{ width, height }}>
-      {avatar ? <img src={`${window.appConfig.imagePath}${avatar}`} alt="avatar" /> : `${surname[0] || 'Б'}${name[0] || 'И'}`}
+      {avatar ? <img src={`${avatar}`} alt="avatar" /> : `${surname[0] || 'Б'}${name[0] || 'И'}`}
     </div>
   )
 })

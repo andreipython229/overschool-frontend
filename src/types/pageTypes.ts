@@ -4,7 +4,7 @@ import { studentsGroupsT } from './studentsGroup'
 import { CoursesDataT } from './CoursesT'
 
 export type CoursesMiniCardT = {
-  photo_url?: string
+  photo?: string
   name: string
   courseId: number
   groups: studentsGroupsT[]

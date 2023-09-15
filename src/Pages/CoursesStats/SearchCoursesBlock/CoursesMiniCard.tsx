@@ -8,7 +8,7 @@ import { RoleE } from 'enum/roleE'
 
 import styles from '../courses_stats.module.scss'
 
-export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo_url, name, courseId, groups }) => {
+export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, courseId, groups }) => {
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
   const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students[0], 0)
 
@@ -19,7 +19,7 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo_url, name, co
   return (
     <Link to={link}>
       <div className={styles.mini_card_container}>
-        <img className={styles.mini_card_img} src={window.appConfig.imagePath + photo_url} alt="" width="52" height="52" />
+        <img className={styles.mini_card_img} src={photo} alt="" width="52" height="52" />
         <div>
           <p className={styles.mini_card_name}>{name}</p>
           <ul className={styles.mini_card_list}>
