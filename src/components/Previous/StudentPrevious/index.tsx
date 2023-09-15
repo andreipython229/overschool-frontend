@@ -5,7 +5,6 @@ import { useFetchProfileDataQuery } from 'api/profileService'
 import { useLazyLogoutQuery } from '../../../api/userLoginService'
 import { useAppDispatch } from 'store/hooks'
 import { auth } from '../../../store/redux/users/slice'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import { profileT } from 'types/profileT'
 
 import styles from '../previou.module.scss'
