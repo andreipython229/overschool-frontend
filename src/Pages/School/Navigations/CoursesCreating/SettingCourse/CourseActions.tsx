@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useCloneCourseMutation, useDeleteCoursesMutation } from 'api/coursesServices'
 import { Button } from 'components/common/Button/Button'
 import { CoursesDataT } from 'types/CoursesT'
+import {Path} from "../../../../../enum/pathE";
 
 type CourseActionsT = {
   courseFind: CoursesDataT
@@ -25,7 +26,7 @@ export const CourseActions: FC<CourseActionsT> = ({ courseFind }) => {
 
   useEffect(() => {
     if (isSuccessDelete || isSuccessClone) {
-      navigate('/login/courses/')
+      navigate(Path.School + '/courses/')
     }
   }, [isSuccessDelete, isSuccessClone])
 

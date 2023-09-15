@@ -32,6 +32,7 @@ export const StudentTestResults: React.FC<TestResultProps> = ({results, test, us
 
     const handleSendResults = (body: { [key: string]: any }) => {
         sendTestResults(body)
+            .unwrap()
             .then(() => setShowResult(false))
             .catch((error) => console.log(`Возникла непредвиденная ошибка: ${error}`));
     };

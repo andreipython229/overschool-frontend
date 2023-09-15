@@ -11,11 +11,10 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { StudentGroup } from 'Pages/School/StudentsStats/StudentsCountGroup'
 import { studentsGroupsT } from '../../../types/studentsGroup'
 import { ToggleButtonDropDown } from 'components/common/ToggleButtonDropDown'
-import { useBoolean } from '../../../customHooks/useBoolean'
+import { useBoolean } from '../../../customHooks'
 import { Portal } from '../../../components/Modal/Portal'
 
 import styles from './studentsStats.module.scss'
-import { count } from 'console'
 
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
@@ -36,14 +35,14 @@ export const StudentsStats = () => {
 
   return (
     <div>
-      <section className={styles.statistics}>
-        <StatisticHeader hideStats={hideStats} handleHideStats={handleHideStats} />
-        {hideStats && (
-          <div className={styles.statistics_new_student_wrapper}>
-            <StudentInfoGraphic courseId={courseId} />
-          </div>
-        )}
-      </section>
+      {/*<section className={styles.statistics}>*/}
+      {/*  <StatisticHeader hideStats={hideStats} handleHideStats={handleHideStats} />*/}
+      {/*  {hideStats && (*/}
+      {/*    <div className={styles.statistics_new_student_wrapper}>*/}
+      {/*      <StudentInfoGraphic courseId={courseId} />*/}
+      {/*    </div>*/}
+      {/*  )}*/}
+      {/*</section>*/}
       <section className={styles.students_group}>
         <div className={styles.students_group_header}>
           <p className={styles.students_group_header_title}>Группы учеников</p>

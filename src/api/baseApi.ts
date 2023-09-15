@@ -25,8 +25,8 @@ export const baseQuery = (baseUrl = `/api/`) => {
 };
 
 export const baseQueryFn = (baseUrl = `/api/`) => {
-    // const schoolName = localStorage.getItem('school')
-    const schoolName = window.location.href.split('/')[4]
+    const schoolName = localStorage.getItem('school') || window.location.href.split('/')[4]
+    // const schoolName = window.location.href.split('/')[4]
 
     return fetchBaseQuery({
         baseUrl: baseUrl + String(schoolName),
