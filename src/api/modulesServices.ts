@@ -84,17 +84,16 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modules', 'patchLessons'],
     }),
-    updateLessonsOrders: build.mutation<void, { formdata: FormData }>({
+     updateLessonsOrders: build.mutation<void, { data: { baselesson_ptr_id: number | undefined; order: number; }[]}>({
       query: arg => {
         return {
           url: `/lesson_order/`,
           method: 'POST',
-          body: arg.formdata,
+          body: arg.data,
         }
       },
       invalidatesTags: ['modules', 'lessons'],
-    }),
-  }),
+  }),}),
 })
 
 export const {
