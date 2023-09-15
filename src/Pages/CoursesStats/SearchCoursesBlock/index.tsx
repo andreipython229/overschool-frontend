@@ -29,8 +29,8 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>
           <div className={styles.courses_card_block}>
-            {filteredData?.map(({ photo_url, name, course_id }) => (
-              <CoursesMiniCard key={course_id} groups={groups} photo_url={photo_url} name={name} courseId={course_id} />
+            {filteredData?.map(({ photo, name, course_id }) => (
+              <CoursesMiniCard key={course_id} groups={groups} photo={photo} name={name} courseId={course_id} />
             ))}
           </div>
         </>
