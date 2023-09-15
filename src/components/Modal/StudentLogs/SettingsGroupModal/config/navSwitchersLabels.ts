@@ -1,1 +1,1 @@
-export const navBtnsLables = ['Основные', 'Доступ к занятиям', 'Сообщения']
+export const navBtnsLables = ['Основные']

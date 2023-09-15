@@ -3,12 +3,15 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background-color: #f7f5f7;
 }
+
 .statistics {
   width: 100%;
 }
+
 .statistics_header {
   position: relative;
   width: 100%;
@@ -16,7 +19,7 @@ body {
   display: flex;
   align-items: center;
   background-color: #fff;
-  border-radius: 7px;
+  border-radius: 8px;
   padding: 12px;
   margin-top: 37px;
 }
@@ -30,7 +33,7 @@ body {
 }
 .statistics_header_info-wrapper p:first-of-type,
 .statistics_header_info-wrapper p:last-of-type {
-  font-family: 'Inter';
+  font-family: 'Inter', serif;
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
@@ -49,7 +52,7 @@ body {
   right: 15px;
   height: 38px;
   width: 87px;
-  font-family: 'Inter';
+  font-family: 'Inter', serif;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -196,7 +199,7 @@ body {
   height: 72px;
   margin-top: 16px;
   padding: 17px;
-  background-color: #fff;
+  background-color: #9eb8d7;
   border-radius: 7px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
@@ -207,7 +210,7 @@ body {
   margin-right: 17px;
 }
 .students-group_content-wrapper_info_info-wrapper_name {
-  font-family: 'Inter';
+  font-family: "PingFang HK", serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -217,7 +220,7 @@ body {
 }
 .students-group_content-wrapper_info_info-wrapper_amount-wrapper p {
   margin-top: 8px;
-  font-family: 'Inter';
+  font-family: 'Inter', serif;
   font-style: normal;
   font-weight: 500;
   font-size: 10px;

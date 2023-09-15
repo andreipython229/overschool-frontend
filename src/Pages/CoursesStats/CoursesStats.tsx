@@ -1,13 +1,7 @@
 import { useCallback, useState } from 'react'
 
-import { StatisticHeader } from '../../components/StatisticHeader/StatisticHeader'
-import { StudentInfoGraphic } from '../School/StudentsStats/StudentInfoGraphic'
 import { SearchCoursesBlock } from './SearchCoursesBlock'
-import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { StudentsPerSchool } from 'components/StudentsTable/StudentsPerSchool'
-//import { settingsItemsList } from './config/settingsItemList'
-import { IconSvg } from '../../components/common/IconSvg/IconSvg'
-import { studentsScatterPath } from './config/svgIconPath'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { useFetchCoursesQuery } from '../../api/coursesServices'

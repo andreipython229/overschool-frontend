@@ -7,8 +7,9 @@ import styles from './pageNotFound.module.scss'
 export const PageNotFound = () => {
   const navigate = useNavigate()
   const goBack = () => {
-    navigate(Path.InitialPage)
+    navigate(Path.School + Path.Courses)
   }
+
   return (
     <div className={styles.main}>
       <div className={styles.main_container}>

@@ -11,7 +11,7 @@ import { Portal } from 'components/Modal/Portal/index'
 import { useAppSelector } from 'store/hooks'
 import { RoleE } from 'enum/roleE'
 
-import styles from 'Pages/School/StudentsStats/studentsStats.module.scss'
+import styles from './studentsStats.module.scss'
 
 type StudentsGroupPropsT = {
   title: string
@@ -32,21 +32,14 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
           <SettingsGroupModal closeModal={close} name={title} groupId={id} />
         </Portal>
       )}
-      <div
-        className={styles.students_group_content_wrapper_info}
-        onClick={() => navigate(`${Path.InitialPage}${role === RoleE.Teacher ? '' : Path.Courses}group/${id}`)}
-      >
-        <IconSvg
-          width={18}
-          height={18}
-          viewBoxSize={'0 0 18 18'}
-          path={settingsBtnIconPath}
-          className={styles.students_group_content_wrapper_info_students_icon}
-        />
+      <div className={styles.students_group_content_wrapper_info}
+        onClick={() => navigate(`${Path.School}${role === RoleE.Teacher ? '' : Path.Courses}group/${id}`)}>
+        <IconSvg width={30} height={30} viewBoxSize={'0 0 18 18'} path={settingsBtnIconPath}
+          className={styles.students_group_content_wrapper_info_students_icon}/>
         <div className={styles.students_group_content_wrapper_info_info_wrapper}>
           <span className={styles.students_group_content_wrapper_info_info_wrapper_name}>{title}</span>
           <div className={styles.students_group_content_wrapper_info_info_wrapper_amount_wrapper}>
-            <IconSvg width={4} height={4} viewBoxSize={'0 0 4 4'}>
+            <IconSvg width={12} height={12} viewBoxSize={'-1.5 -1.5 7 7'}>
               <circle cx="2" cy="2" r="2" fill="#BA75FF" />
             </IconSvg>
             {countStudent} {getNounDeclension(countStudent, ['ученик', 'ученика', 'учеников'])}

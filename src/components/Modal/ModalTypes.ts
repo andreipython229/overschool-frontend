@@ -84,8 +84,14 @@ export type SettingStudentTableT = {
 
 export type SettingsGroupModalPropsT = {
   closeModal: () => void
+  teacherId?: number
+  students?: number[]
+  sequence?: boolean
+  blockHomeworks?: boolean
+  courseId?: number
   groupId: number
   name: string
+
 }
 
 export type CreateGroupModalPropsT = {

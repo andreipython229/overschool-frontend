@@ -123,6 +123,7 @@
     }
   }
 }
+
 .students_group {
   @include display(flex, column);
   width: 100%;
@@ -142,6 +143,7 @@
       &:hover {
         background-color: rgba(217, 197, 237, 0.5);
       }
+
       @include display(flex, row, flex-start, center);
       height: 36px;
       padding: 10px;
@@ -161,15 +163,22 @@
 
   &_content_wrapper {
     @include display(flex, column);
+
     &_info {
       position: relative;
       @include display(flex, row, flex-start, center);
       width: 20%;
       margin-top: 16px;
       padding: 17px;
-      background-color: #fff;
+      background-color: #fdfaff;
       border-radius: 7px;
       box-shadow: $box-shadow;
+      transition: background-color 0.2s, transform 0.2s;
+
+      &:hover {
+        background-color: darken(#fdfaff, 3%);
+        transform: scale(1.05);
+      }
 
       &_students_icon {
         align-self: flex-start;
@@ -179,6 +188,7 @@
 
       &_info_wrapper {
         display: block;
+
         &_name {
           font-style: normal;
           @include font(500, 14px, 17px);
@@ -225,6 +235,7 @@
     }
   }
 }
+
 .all_students {
   margin-top: 50px;
 
@@ -300,6 +311,7 @@
     }
   }
 }
+
 .student_info_table {
   width: 100%;
   margin-top: 23px;
