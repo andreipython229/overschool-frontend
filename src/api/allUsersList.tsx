@@ -1,18 +1,17 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import {baseQueryFn, baseQuery} from './baseApi'
-import { IAllUsers } from './apiTypes';
+import {createApi} from '@reduxjs/toolkit/query/react'
+import {baseQueryFn} from './baseApi'
 
 
 export const getAllUsers = createApi({
-  reducerPath: 'AllUsers',
-  baseQuery: baseQuery(),
-  endpoints: (builder) => ({
-    fetchAllUsers: builder.query({
-      query: () => ({url:'/all_users/',
-      providedTags: ['AllUsers', 'FetchAllUsers']
-    })
+    reducerPath: 'AllUsers',
+    baseQuery: baseQueryFn(),
+    endpoints: build => ({
+        fetchAllUsers: build.query<any, void>({
+            query: () => ({
+                url: '/all_users/',
+            })
+        }),
     }),
-  }),
 })
 
-export const { useFetchAllUsersQuery } = getAllUsers;
+export const {useFetchAllUsersQuery} = getAllUsers;

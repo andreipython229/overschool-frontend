@@ -47,11 +47,14 @@ export const studentsGroupService = createApi({
             }),
             invalidatesTags: ['studentsGroup'],
         }),
-        patchStudentsGroup: build.mutation<any, any>({
+        patchStudentsGroup: build.mutation<any, { id: number, data: any }>({
             query: ({id, data}) => ({
                 url: `/students_group/${id}/`,
                 method: 'PATCH',
-                body: data,
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             }),
             invalidatesTags: ['studentsGroup']
         })

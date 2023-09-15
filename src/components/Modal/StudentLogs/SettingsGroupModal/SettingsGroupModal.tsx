@@ -18,15 +18,18 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     const [blockHomework, setBlockHomework] = useState<boolean>(false)
     const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
     const [textNameField, setTextNameField] = useState<string>('')
+    const [currentTeacher, setCurrentTeacher] = useState<number>()
 
     const {data, isSuccess} = useFetchStudentGroupQuery(`${groupId}`)
     const [deleteStudentsGroup, {isLoading, isError}] = useDeleteStudentsGroupMutation()
     const [patchGroup] = usePatchStudentsGroupMutation()
+    console.log(currentTeacher)
 
     useEffect(() => {
         setBlockHomework(Boolean(data?.group_settings?.task_submission_lock))
         setStrongSubsequence(Boolean(data?.group_settings?.strict_task_order))
         setTextNameField(String(data?.name))
+        setCurrentTeacher(Number(data?.teacher_id))
     }, [isSuccess])
 
     const handlerHomeworkCheck = () => {
@@ -45,7 +48,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         const dataToSend = {
             name: `${textNameField}`,
             course_id: data?.course_id,
-            teacher_id: data?.teacher_id,
+            teacher_id: currentTeacher,
             students: data?.students,
             group_settings: {
                 strict_task_order: strongSubsequence,
@@ -53,7 +56,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
             }
         }
 
-        await patchGroup({id: groupId, body: JSON.stringify(dataToSend)})
+        await patchGroup({id: groupId, data: dataToSend})
         closeModal()
     }
     if (!isSuccess) {
@@ -72,6 +75,8 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                         <span className={styles.container_header_title}>Настройки группы </span>
                     </div>
                     <MainSettingsGroup
+                        changeTeacher={setCurrentTeacher}
+                        teacher={currentTeacher as number}
                         strongSubsequence={strongSubsequence}
                         blockHomework={blockHomework}
                         setGroupName={setTextNameField}

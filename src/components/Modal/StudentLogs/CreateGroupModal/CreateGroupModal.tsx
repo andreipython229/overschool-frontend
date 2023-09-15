@@ -19,16 +19,11 @@ import { count } from 'console'
 import { paste } from '@testing-library/user-event/dist/paste'
 
 
-
- 
-
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, courseId }) => {
   const [groupName, setGroupName] = useState<string>('')
   const [teacher_id, setTeacherId] = useState<string>('')
   const [studentsList, setStudentsList] = useState<any>([])
 
-
-  
   
   const handleTeacher = ( teacher_id : any ) => {
     setTeacherId(teacher_id.id)  
@@ -70,7 +65,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   }
 
 
-  const {data:userList} = useFetchAllUsersQuery('')
+  const {data:userList} = useFetchAllUsersQuery()
 
  
    
