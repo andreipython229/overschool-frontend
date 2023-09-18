@@ -2,6 +2,9 @@
   "name": "Overschool Reference Platform",
   "short_name": "Overschool",
   "start_url": "https://dev.overschool.by/login/",
+  "serviceworker": {
+      "src": "service-worker.js"
+  },
   "display": "standalone",
   "background_color": "#ffffff",
   "description": "Маркетплейс образовательных курсов.",
