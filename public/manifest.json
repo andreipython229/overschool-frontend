@@ -1,65 +1,33 @@
 {
-  "name": "Overschool Reference Platform",
+  "background_color": "#ffffff",
+  "description": "Маркетплейс образовательных курсов.",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Overschool Material Platform",
+  "orientation": "any",
+  "scope": "/",
   "short_name": "Overschool",
   "start_url": "https://dev.overschool.by/login/",
   "serviceworker": {
       "src": "service-worker.js"
   },
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "description": "Маркетплейс образовательных курсов.",
+  "theme_color": "#8A2BE2",
+  "categories": [
+    "business",
+    "education"
+  ],
+  "screenshots": [],
   "icons": [
     {
-      "src": "images/16x16.png",
-      "sizes": "16x16",
-      "type": "image/png"
-    },
-    {
-      "src": "images/32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "images/48x48.png",
-      "sizes": "48x48",
-      "type": "image/png"
-    },
-    {
-      "src": "images/72x72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "images/96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "images/144x144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "images/192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "images/512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+    "src": "favicon.ico",
+    "type": "image/x-icon"
     }
   ],
-  "theme_color": "#000000",
   "related_applications": [
     {
       "platform": "webapp",
       "url": "https://dev.overschool.by/login/",
       "id": "1"
     }
-  ],
-  "categories": [
-    "business",
-    "education"
   ]
 }
