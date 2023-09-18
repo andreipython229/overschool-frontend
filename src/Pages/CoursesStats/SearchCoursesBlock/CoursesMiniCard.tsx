@@ -7,17 +7,24 @@ import { getNounDeclension } from '../../../utils/getNounDeclension'
 import { RoleE } from 'enum/roleE'
 
 import styles from '../courses_stats.module.scss'
+import {useAppSelector} from "../../../store/hooks";
+import {selectUser} from "../../../selectors";
 
 export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, courseId, groups }) => {
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
-  const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students[0], 0)
+  const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students.length, 0)
+  const { role } = useAppSelector(selectUser)
+  console.log('группы: ', groups)
+  console.log('фильтрованные группы: ', filteredGroups)
+  console.log('количество студентов в группе: ', quantutyOfStudents)
 
-  const link = generatePath(`${RoleE.Teacher ? `/login/${Path.CourseStudent}` : `/login/courses/${Path.CreateCourse}`}`, {
+  const pathLink = generatePath( role === RoleE.Teacher ? `${Path.School}${Path.CourseStudent}` : `${Path.School}${Path.Courses}${Path.CreateCourse}student`, {
     course_id: `${courseId}`,
+    school_name: `${localStorage.getItem('school') || window.location.href.split('/')[4]}`
   })
 
   return (
-    <Link to={link}>
+    <Link to={pathLink}>
       <div className={styles.mini_card_container}>
         <img className={styles.mini_card_img} src={photo} alt="" width="52" height="52" />
         <div>
