@@ -8,7 +8,7 @@ import { Button } from '../common/Button/Button'
 import { AddStudentModal } from '../Modal/StudentLogs/AddStudentModal/AddStudentModal'
 import { AllStudentsBlockT } from '../../types/componentsTypes'
 import { useBoolean } from '../../customHooks'
-import { searchIconPath, addStudentIconPath, updateArrPath } from './config/svgIconsPath'
+import {searchIconPath, addStudentIconPath, updateArrPath} from './config/svgIconsPath'
 import { Portal } from '../Modal/Portal'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { ChipsComponent } from 'components/FiltersButton/Chips/chips'
@@ -19,6 +19,7 @@ import styles from '../AllStudentsBlock/all_students_block.module.scss'
 
 import {RoleE} from 'enum/roleE'
 import { useAppSelector } from 'store/hooks'
+import {updateDataIcon} from "../../config/commonSvgIconsPath";
 
 export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
   ({
@@ -60,7 +61,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>
           <div className={styles.arrow_add_file_block} onClick={() => handleReloadTable && handleReloadTable()}>
-            <IconSvg width={13} height={17} viewBoxSize="0 0 13 17" path={updateArrPath} />
+            <IconSvg width={19} height={23} viewBoxSize="0 0 30 30" path={updateDataIcon} />
           </div>
             {role != RoleE.Teacher ? (
           <Button onClick={off} className={styles.add_students_btn} text={'Добавить учеников'} variant={'primary'}>

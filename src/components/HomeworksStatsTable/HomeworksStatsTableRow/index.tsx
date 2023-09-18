@@ -21,8 +21,6 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = memo(({ homew
   const { user_email, mark, status, user_avatar, homework_name, last_reply, course_name, user_first_name, user_last_name, user_homework_id } =
     homeworkData
 
-  console.log('user_avatar: ', homeworkData)
-
   const { mmddyyyy, hoursAndMinutes } = convertDate(new Date(last_reply))
 
   return (

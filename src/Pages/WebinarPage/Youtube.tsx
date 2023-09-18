@@ -12,7 +12,9 @@ export const Youtube = () => {
       .then(data => {
         setVideoId(data.items[0].id.videoId)
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        return null
+      })
   })
 
   const onPlayerReady: YouTubeProps['onReady'] = (event: YouTubeEvent) => {

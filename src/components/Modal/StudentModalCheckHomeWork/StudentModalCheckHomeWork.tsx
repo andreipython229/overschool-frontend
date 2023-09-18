@@ -122,14 +122,13 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                                 setStatus('')
                                 setNativeFiles([])
                                 setFiles([])
-                                console.log('Ошибка отправки файла: ', error)
                             })
                     })
                     .catch((error) => {
-                        console.log('Ошибка отправки ответа на ДЗ: ', error)
+                        return null
                     })
             } catch (error) {
-                console.error("Произошла непредвиденная ошибка: ", error)
+                return null
             }
         }
 
@@ -229,7 +228,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                                                 <div className={styles.task_modal_audio}>
                                                     {homework?.audio_files.map(file => (
                                                         <AudioFile key={file.id}
-                                                                   audioUrl={`${window.appConfig.imagePath}${file.file_url}`}/>
+                                                                   audioUrl={`${file.file_url}`}/>
                                                     ))}
                                                 </div>
                                             </div>

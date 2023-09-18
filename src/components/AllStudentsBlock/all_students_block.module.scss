@@ -28,6 +28,7 @@
   text-align: center;
   margin: 0 10px;
   cursor: pointer;
+  transition: background-color 0.4s;
 }
 .add_students_btn {
   @include display (flex, row, space-around, center);
