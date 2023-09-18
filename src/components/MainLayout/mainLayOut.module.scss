@@ -19,6 +19,18 @@
   // width: 100vw;
   padding-right: 40px;
   margin: 104px auto 0 132px;
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }
 .main {
   margin: 0 auto;
