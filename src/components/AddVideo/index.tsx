@@ -52,7 +52,6 @@ export const AddVideo: FC<setShowType & AddPostT> = ({lessonIdAndType, isPreview
             setIsLoadingVideo(false)
             setShow()
         } catch (error) {
-            console.log('error', error)
             setIsLoadingVideo(false)
         }
     }

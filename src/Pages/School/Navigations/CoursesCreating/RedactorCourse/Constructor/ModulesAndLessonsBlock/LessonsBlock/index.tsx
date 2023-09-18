@@ -24,7 +24,6 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, less
 
   const handleChangeLesson = () => {
     const idAndType = { id, type }
-      // console.log(idAndType)
     setLessonIdAndType(idAndType)
   }
 
