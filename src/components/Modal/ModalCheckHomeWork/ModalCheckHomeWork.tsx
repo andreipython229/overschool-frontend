@@ -62,8 +62,8 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
     const [sendFiles, {isLoading, isSuccess: sendFilesSuccess}] = usePostTextFilesMutation()
 
     useEffect(() => {
-        setHwStatus(homework?.user_homework_checks && homework.user_homework_checks[0].status === 'Принято' || false)
-    }, [homework, isSuccess])
+        setHwStatus(userHomework?.user_homework_checks && userHomework.user_homework_checks[0].status === 'Принято')
+    }, [userHomework, isSuccess])
 
     const handleToggleHiddenBlocks = (): void => {
         setIsOpen(!isOpen)
@@ -260,7 +260,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
                     {!isUser && (
                         <div className={styles.task_info_wrapper}>
                             {currentUser?.avatar ? (
-                                <img src={window.appConfig.imagePath + '/media/' + currentUser.avatar} alt="avatar"/>
+                                <img src={currentUser.avatar} alt="avatar"/>
                             ) : (
                                 <div className={styles.task_info_avatar_block}>
                                     {currentUser?.surname.charAt(0) || 'б'}
@@ -278,7 +278,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
             <div className={styles.teacher}>
                 {currentUser?.avatar ? (
                     <img className={styles.teacher_avatar}
-                         src={window.appConfig.imagePath + '/media/' + currentUser?.avatar} alt="User Avatar"/>
+                         src={currentUser?.avatar} alt="User Avatar"/>
                 ) : (
                     <div className={styles.teacher_avatar_block}>
                         {currentUser?.surname.charAt(0) || 'б'}
