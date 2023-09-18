@@ -21,7 +21,7 @@ type StudentsTableWrapperT = {
 
 export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({students, isLoading, tableId}) => {
     const [isModalOpen, {on, off, onToggle}] = useBoolean()
-    const [isStudentModalOpen, {on: stuentModalOn, off: studentModalOff}] = useBoolean()
+    const [isStudentModalOpen, {on: studentModalOn, off: studentModalOff}] = useBoolean()
 
     const [cols, setCols] = useState<string[]>([])
     const [rows, setRows] = useState<GenerateRow[]>()
@@ -36,8 +36,8 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({students, 
 
     const {columns, data} = generateData(tableHeaderData, students, isLoading, isSuccess)
 
-    const handleCloseStuentModal = () => {
-        stuentModalOn()
+    const handleCloseStudentModal = () => {
+        studentModalOn()
         setSelectedStudentId(null)
     }
 
@@ -126,8 +126,8 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({students, 
             )}
 
             {isStudentModalOpen && (
-                <Portal closeModal={stuentModalOn}>
-                    <StudentInfoModal closeModal={handleCloseStuentModal} student={selectedStuent}/>
+                <Portal closeModal={studentModalOn}>
+                    <StudentInfoModal closeModal={handleCloseStudentModal} student={selectedStuent}/>
                 </Portal>
             )}
         </>
