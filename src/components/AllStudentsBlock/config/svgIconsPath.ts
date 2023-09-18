@@ -1,4 +1,10 @@
-import { addStudentSvgIconButton, classesSettingSvgIcon, searchSvgIcon , sendSvgIcon} from '../../../constants/iconSvgConstants'
+import {
+    addStudentSvgIconButton,
+    classesSettingSvgIcon,
+    searchSvgIcon,
+    sendSvgIcon,
+    updateSvgIcon
+} from '../../../constants/iconSvgConstants'
 import { pathT } from '../../../types/commonComponentsTypes'
 
 export const searchIconPath: pathT[] = [{ d: searchSvgIcon, stroke: '#D1D5DB', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }]
