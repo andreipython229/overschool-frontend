@@ -55,7 +55,7 @@ export const StudentsPerSchool: FC = () => {
   return (
     <>
       <AllStudentsBlock
-        headerText={'Все ученики'}
+        headerText={'Все ученики школы'}
         addLastActiveFilter={handleAddLastActivityFilter}
         addMarkFilter={handleAddMarkFilter}
         handleAddAvgFilter={handleAddAvgFilter}
