@@ -26,7 +26,7 @@ export const ChatMessage: FC<chatMessageT> = memo(({ chatData, message }) => {
       <div className={isAuthor ? styles.chatMessage_content_right : styles.chatMessage_content_left}>
         <div className={styles.chatMessage_avatar}>
           {userInfo?.avatar ? (
-            <img src={`${window.appConfig.imagePath}${userInfo.avatar}`} alt="avatar" />
+            <img src={`${userInfo.avatar}`} alt="avatar" />
           ) : (
             `${userInfo?.first_name[0] || 'б'}${userInfo?.last_name || 'и'}`
           )}

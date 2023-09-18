@@ -229,7 +229,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                                                 <div className={styles.task_modal_audio}>
                                                     {homework?.audio_files.map(file => (
                                                         <AudioFile key={file.id}
-                                                                   audioUrl={`${window.appConfig.imagePath}${file.file_url}`}/>
+                                                                   audioUrl={`${file.file_url}`}/>
                                                     ))}
                                                 </div>
                                             </div>
