@@ -14,9 +14,6 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, course
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
   const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students.length, 0)
   const { role } = useAppSelector(selectUser)
-  console.log('группы: ', groups)
-  console.log('фильтрованные группы: ', filteredGroups)
-  console.log('количество студентов в группе: ', quantutyOfStudents)
 
   const pathLink = generatePath( role === RoleE.Teacher ? `${Path.School}${Path.CourseStudent}` : `${Path.School}${Path.Courses}${Path.CreateCourse}student`, {
     course_id: `${courseId}`,
