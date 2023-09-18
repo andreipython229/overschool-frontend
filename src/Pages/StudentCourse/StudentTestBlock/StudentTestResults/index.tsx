@@ -34,7 +34,9 @@ export const StudentTestResults: React.FC<TestResultProps> = ({results, test, us
         sendTestResults(body)
             .unwrap()
             .then(() => setShowResult(false))
-            .catch((error) => console.log(`Возникла непредвиденная ошибка: ${error}`));
+            .catch((error) => {
+                return null
+            });
     };
 
     return (

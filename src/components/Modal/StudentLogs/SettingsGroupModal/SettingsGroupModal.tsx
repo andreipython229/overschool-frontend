@@ -23,7 +23,6 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     const {data, isSuccess} = useFetchStudentGroupQuery(`${groupId}`)
     const [deleteStudentsGroup, {isLoading, isError}] = useDeleteStudentsGroupMutation()
     const [patchGroup] = usePatchStudentsGroupMutation()
-    console.log(currentTeacher)
 
     useEffect(() => {
         setBlockHomework(Boolean(data?.group_settings?.task_submission_lock))

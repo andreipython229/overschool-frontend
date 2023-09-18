@@ -16,7 +16,6 @@ type studentInfoAccardionT = {
 export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({student, progress}) => {
     const [isAccardionOpen, studentInfoAccardion] = useState<boolean>(false)
     const courseStat = progress && progress.courses.find((course: any) => course.course_id === student?.course_id)
-    console.log(student)
 
     return (
         <div className={styles.accardion}>
