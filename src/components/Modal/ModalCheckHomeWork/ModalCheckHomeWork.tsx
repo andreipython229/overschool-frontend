@@ -58,7 +58,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
 
     const {data, isFetching, isSuccess} = useFetchUserHomeworkQuery(id)
     const {data: homework, isFetching: isHwFetching} = useFetchHomeworkDataQuery(userHomework?.homework as number)
-    const [sendHomeworkCheck, {isSuccess: sendHwCheckSuccess}] = useCreateCheckReplyMutation()
+    const [sendHomeworkCheck, {isLoading: sendHwLoading, isSuccess: sendHwCheckSuccess}] = useCreateCheckReplyMutation()
     const [sendFiles, {isLoading, isSuccess: sendFilesSuccess}] = usePostTextFilesMutation()
 
     useEffect(() => {
@@ -118,14 +118,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
                 sendFiles(formData)
                     .unwrap()
                     .then(() => {
-                        setHwStatus(status === 'Принято')
-                        if (status === 'Принято') {
-                            setText('')
-                            setMark(0)
-                            setStatus('')
-                            setNativeFiles([])
-                            setFiles([])
-                        }
+                        closeModal()
                     })
                     .catch((error) => {
                         console.log('Ошибка отправки файлов: ', error)
@@ -170,6 +163,12 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
             }
         }
     }, [isFetching])
+
+    if ((isLoading && !sendFilesSuccess) || (sendHwLoading && !sendHwCheckSuccess)) {
+        return <div className={styles.modal_content} role="dialog" aria-modal="true">
+            <SimpleLoader/>
+        </div>
+    }
 
     const {mmddyyyy, hoursAndMinutes} = convertDate(new Date(currentUser?.last_reply || ''))
 
