@@ -1,6 +1,7 @@
 export type studentsTableInfoT = result[]
 
 export type result = {
+    group_id: number;
     course_id: number;
     student_id: number;
     avatar: string;
