@@ -23,7 +23,7 @@
       "type": "image/x-icon"
     },
     {
-      "src": "",
+      "src": "maskable.png",
       "sizes": "196x196",
       "type": "image/png",
       "purpose": "any maskable"
