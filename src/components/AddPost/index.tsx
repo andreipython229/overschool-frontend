@@ -22,7 +22,6 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview 
   const [isOpenVideo, { on: closeVideo, off: openVideo }] = useBoolean()
   const [isOpenAudio, { on: closeAudio, off: openAudio }] = useBoolean()
   const [isOpenCodeEditor, { on: closeCodeEditor, off: openCodeEditor }] = useBoolean()
-  console.log('lesson', lesson)
 
   const [addPatchData] = usePatchLessonsMutation()
 

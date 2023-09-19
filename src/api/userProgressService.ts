@@ -1,5 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
-import {baseQuery, baseQueryFn} from './baseApi'
+import {baseQueryFn} from './baseApi'
+import axios from "axios";
 
 export const userProgressService = createApi({
     reducerPath: 'userProgressService',
@@ -8,8 +9,11 @@ export const userProgressService = createApi({
     endpoints: build => ({
         fetchProgress: build.query({
             query: (course_id: number | string) => `/student_progress/get_student_progress_for_student/?course_id=${course_id}`,
-                })
+                }),
+        fetchStudentProgress: build.query({
+            query: (user_id: number | string) => `/student_progress/get_student_progress_for_admin_or_teacher/?student_id=${user_id}`
+        })
         }),
 });
 
-export const { useFetchProgressQuery } = userProgressService;
+export const { useFetchProgressQuery, useFetchStudentProgressQuery } = userProgressService;
