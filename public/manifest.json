@@ -19,8 +19,14 @@
   "screenshots": [],
   "icons": [
     {
-    "src": "logotype.svg",
-    "type": "image/x-icon"
+      "src": "logo.png",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "maskable.png",
+      "sizes": "196x196",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "related_applications": [
