@@ -23,3 +23,8 @@ export type schoolHeaderReqT = {
   logo_school?: string | null
   school?: string
 }
+
+export type schoolT = {
+  name: string
+  offer_url: string
+}
