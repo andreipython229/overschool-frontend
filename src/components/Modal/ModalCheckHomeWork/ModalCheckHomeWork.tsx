@@ -119,11 +119,13 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
                     .unwrap()
                     .then(() => {
                         setHwStatus(status === 'Принято')
-                        setText('')
-                        setMark(0)
-                        setStatus('')
-                        setNativeFiles([])
-                        setFiles([])
+                        if (status === 'Принято') {
+                            setText('')
+                            setMark(0)
+                            setStatus('')
+                            setNativeFiles([])
+                            setFiles([])
+                        }
                     })
                     .catch((error) => {
                         console.log('Ошибка отправки файлов: ', error)
@@ -168,21 +170,6 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
             }
         }
     }, [isFetching])
-
-    useEffect(() => {
-        if (sendFilesSuccess) {
-            setNativeFiles([])
-            setFiles([])
-        }
-    }, [sendFilesSuccess])
-
-    useEffect(() => {
-        if (sendHwCheckSuccess) {
-            setText('')
-            setMark(0)
-            setStatus('')
-        }
-    }, [sendHwCheckSuccess])
 
     const {mmddyyyy, hoursAndMinutes} = convertDate(new Date(currentUser?.last_reply || ''))
 
