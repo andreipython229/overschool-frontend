@@ -7,7 +7,7 @@ import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { createGroupIconPath } from '../config/svgIconsPath'
-import { useCreateStudentsGroupMutation } from '../../../../api/studentsGroupService'
+import { useCreateStudentsGroupMutation, useFetchStudentsGroupQuery  } from '../../../../api/studentsGroupService'
 import { CreateGroupModalPropsT } from '../../ModalTypes'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { useFetchAllUsersQuery } from '../../../../api/allUsersList'
@@ -23,17 +23,29 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   const [groupName, setGroupName] = useState<string>('')
   const [teacher_id, setTeacherId] = useState<string>('')
   const [studentsList, setStudentsList] = useState<any>([])
+  const {data:userList} = useFetchAllUsersQuery()
+
+  const teacherList =userList ? userList.filter((teacher:any) => teacher.roles[0] === 'Teacher'):[];
+  const studentList =userList ? userList.filter((student:any) => student.roles[0] === 'Student'):[];
+  
+
+  const { data: allGroups } = useFetchStudentsGroupQuery();
+  const studentsGroups = allGroups?.results.map((user: any) => user.students);
+
+  const studentsListWithoutGroup = 
+    studentList.filter((num:any) => {
+       return !(new Set(studentsGroups?.flat())).has(num.id)
+  })
+  
 
   
   const handleTeacher = ( teacher_id : any ) => {
     setTeacherId(teacher_id.id)  
-    console.log(`Option selected:`, teacher_id.id);
   };
 
 
   const handleStudents = ( studentsList : any ) => {
     setStudentsList([studentsList.map((object:any) => object['id'])])  
-    console.log(`Option selected:`, [studentsList]);
   };
 
   
@@ -64,22 +76,8 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
    
   }
 
-
-  const {data:userList} = useFetchAllUsersQuery()
-
-
- 
-
-
-
-
-
-
   
   
-
-
-
   return (
     <form onSubmit={handleCreateGroup} style={{ width: '485px' }} className={styles.container}>
       <div onClick={() => setShowModal(false)} className={styles.container_closed}>
@@ -94,7 +92,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
           <span>Введите название группы:</span>
           <Input name={'group'} type={'text'} value={groupName} onChange={onChangeGroupName} />
           <span>Выбирите учителя из списка:</span>
-          <Select onChange={handleTeacher} options={userList}
+          <Select required onChange={handleTeacher} options={teacherList}
                   getOptionLabel={(user:any)=>user.username}
                   getOptionValue={(user:any)=>user.id} 
                   components={{
@@ -103,7 +101,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
                   placeholder={''}
                   />
           <span>Выбирите учеников:</span>
-          <Select onChange={handleStudents} options={userList}
+          <Select required onChange={handleStudents} options={studentsListWithoutGroup}
                        isMulti
                             getOptionLabel={(user:any)=>user.username}
                             getOptionValue={(user:any)=>user.id} 

@@ -57,6 +57,13 @@ export const studentsGroupService = createApi({
                 },
             }),
             invalidatesTags: ['studentsGroup']
+        }),
+        deleteStudentFromGroup: build.mutation<any, any>({
+            query: (data) => ({
+                url: '/access-distribution/',
+                method: 'DELETE',
+                body: data,
+            })
         })
     }),
 })
@@ -69,4 +76,5 @@ export const {
     useFetchStudentsGroupQuery,
     useCreateStudentsGroupMutation,
     useDeleteStudentsGroupMutation,
+    useDeleteStudentFromGroupMutation,
 } = studentsGroupService

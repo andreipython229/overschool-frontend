@@ -10,6 +10,7 @@ import {convertDate} from 'utils/convertDate'
 import mainStyles from '../../Modal.module.scss'
 import styles from './studentInfoModal.module.scss'
 import {useFetchStudentProgressQuery} from "../../../../api/userProgressService";
+import {useDeleteStudentFromGroupMutation} from "../../../../api/studentsGroupService";
 
 
 type studentInfoModalT = {
@@ -54,6 +55,8 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
     const {data, isSuccess} = useFetchStudentProgressQuery(student?.student_id || '')
     const [completedPercent, setCompletedPercent] = useState<number>()
 
+    const [deleteStudent] = useDeleteStudentFromGroupMutation()
+
     useEffect(() => {
         setStudentProgress(data)
     }, [isSuccess])
@@ -72,8 +75,15 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
         }
     }, [studentProgress])
 
+    const handleDeleteStudent = async () => {
+        const formData = new FormData();
+        formData.append('user_ids', String(student?.student_id));
+        formData.append('role', 'Student');
+        formData.append('student_groups', String(student?.group_id))
 
-
+        await deleteStudent(formData)
+        closeModal()
+    }
 
     return (
         <div className={mainStyles.main} role="dialog" aria-modal="true">
@@ -136,7 +146,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
                     <StudentInfoAccardion student={student} progress={studentProgress}/>
                 </div>
                 {student?.group_name &&
-                    <Button style={{margin: '10px'}} text={`Удалить ученика из группы "${student?.group_name}"`}/>
+                    <Button style={{margin: '10px'}} text={`Удалить ученика из группы "${student?.group_name}"`} onClick={handleDeleteStudent}/>
                 }
             </div>
         </div>
