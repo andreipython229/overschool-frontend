@@ -28,28 +28,27 @@
   font-size: 25px;
 }
 .bg2 {
-  &_citate {
-    color: whitesmoke;
-    position: absolute;
-    left: 58%;
-    top: 60%;
-    font-size: 20px;
-
-  }
-  &_c {
-    color: white;
-    font-size: 18px;
-    margin-left: 125px;
-  }
-  img {
-    margin-top: 500px;
-    margin-left: 20px;
-    border-radius: 50%;
-    width: 100px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 50%;
   height: 100%;
   background-color: #8b00ff;
+
+  &_citate {
+    color: whitesmoke;
+    font-size: 20px;
+  }
+  &_c {
+    margin-top: 1em;
+    color: white;
+    font-size: 18px;
+  }
+  img {
+    border-radius: 50%;
+    width: 6em;
+    height: 6em;
+  }
 }
 .bg3 {
   display: flex;
@@ -63,22 +62,26 @@
   font-size: 23px;
 }
 .bg {
-  margin-top: 50px;
+  margin-top: 1.5em;
+
   span {
     font-size: 32px;
-    padding-left: 160px;
+    margin-right: 0.2em;
     color: #8b00ff
   }
+
   &:hover {
     background-color: #a2a9b4;
   }
+
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding-left: 20px;
+  padding-left: 1em;
   background-color: #e5e7eb;
-  border-radius: 10px;
-  width: 310px;
-  height: 60px;
+  border-radius: 1em;
+  width: 19.5em;
+  height: 4em;
 }
 .main {
   background-color: #6b728f;
