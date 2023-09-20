@@ -122,14 +122,13 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                                 setStatus('')
                                 setNativeFiles([])
                                 setFiles([])
-                                console.log('Ошибка отправки файла: ', error)
                             })
                     })
                     .catch((error) => {
-                        console.log('Ошибка отправки ответа на ДЗ: ', error)
+                        return null
                     })
             } catch (error) {
-                console.error("Произошла непредвиденная ошибка: ", error)
+                return null
             }
         }
 

@@ -21,7 +21,6 @@ export const Profile = () => {
     },
    // validationSchema: changePasswordSchema,
     onSubmit: (values, { resetForm }) => {
-      console.log("submit")
       const { password: new_password1, confirmPassword: new_password2 } = values
       changePasswordFunc({ new_password1, new_password2 })
       resetForm()
