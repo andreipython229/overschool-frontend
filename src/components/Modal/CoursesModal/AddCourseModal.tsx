@@ -1,7 +1,7 @@
 import {FormEvent, ChangeEvent, FC, useState, useEffect} from 'react'
 import {generatePath, useNavigate} from 'react-router-dom'
 
-import {useCreateCoursesMutation} from 'api/coursesServices'
+import {useCreateCoursesMutation, useLazyFetchCourseQuery} from 'api/coursesServices'
 import {Path} from '../../../enum/pathE'
 import {IconSvg} from '../../common/IconSvg/IconSvg'
 import {Button} from '../../common/Button/Button'
@@ -17,19 +17,21 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}
 
     const [name, setName] = useState<string>('')
     const [createCourses, {isLoading}] = useCreateCoursesMutation()
+    // const [createCourses, {isLoading}] = useLazyFetchCourseQuery()
 
     const nameCourse = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.currentTarget.value)
     }
+    const school = localStorage.getItem('school_id')
 
     const addCourseName = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        if (name && courses) {
+        if (name && school) {
             const formdata = new FormData()
             formdata.append('name', name)
-            formdata.append('school', String(courses[0].school))
-            const data = await createCourses(formdata)
+            formdata.append('school', school)
 
+            const data = await createCourses(formdata)
             const {data: course}: any = data
 
             setShowModal()

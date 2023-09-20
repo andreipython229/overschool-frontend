@@ -102,7 +102,8 @@ export const useCreateLesson = ({ setType, modulesList, typeLesson, description,
   useEffect(() => {
     if (isSuccess) {
       const type = typeLesson.slice(0, -1)
-      setLessonIdAndType({ id: data.baselesson_ptr_id, type: type })
+      console.log(data)
+      setLessonIdAndType({ id: data[`${type}_id`], type: type })
       setType(null as keyof object)
     }
   }, [isSuccess])
