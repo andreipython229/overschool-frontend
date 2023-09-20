@@ -76,7 +76,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
    
   }
 
-  const {data:userList} = useFetchAllUsersQuery()
+  
 
   
 
