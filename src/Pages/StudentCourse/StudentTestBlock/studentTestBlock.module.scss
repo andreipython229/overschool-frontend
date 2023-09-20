@@ -5,4 +5,16 @@
     width: 100%;
     padding: 34px 42px 40px 42px;
     background-color: #fff;
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-evenly;
+      }
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-evenly;
+      }
 }
