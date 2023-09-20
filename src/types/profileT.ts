@@ -22,6 +22,7 @@ export type profileUserT = {
 }
 
 export type changePasswordProfileT = {
-  new_password1: string
-  new_password2: string
+  new_password: string
+  email?: string
+
 }
