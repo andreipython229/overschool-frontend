@@ -78,7 +78,7 @@ export const Profile = () => {
               />
             </div>
           </form>
-          <div className={styles.notification}>
+          {/* <div className={styles.notification}>
             <h5 className={styles.profile_block_title}>Уведомления</h5>
 
             <div className={styles.notification_toggleWrapper}>
@@ -86,7 +86,7 @@ export const Profile = () => {
                 <NotificationItem key={id} id={id} info={info} desc={desc} />
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

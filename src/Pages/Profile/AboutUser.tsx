@@ -151,7 +151,7 @@ export const AboutUser: FC = memo(() => {
                 <Input name={'city'} type={'text'} label={'Город:'} onChange={handleChange} value={city as string}
                        placeholder={'Введите город'}/>
             </div>
-            <div className={styles.profile_block}>
+            {/* <div className={styles.profile_block}>
                 <span className={styles.profile_block_avatarBlock_title}>О себе:</span>
                 <textarea
                     className={styles.profile_block_textArea}
@@ -164,7 +164,7 @@ export const AboutUser: FC = memo(() => {
                             : 'Опишите вашу карьеру и достижения. Эта информация будет отображена на страницах курсов, в которых вы являетесь преподавателем'
                     }
                 />
-            </div>
+            </div> */}
             <div className={styles.profile_block}>
                 <SelectInput optionsList={optionsList} selectedOption={sex} defaultOption="Выберите пол"
                              setSelectedValue={setSex}/>
