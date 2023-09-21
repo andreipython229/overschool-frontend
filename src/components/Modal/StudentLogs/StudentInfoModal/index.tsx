@@ -53,7 +53,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
     const lastActivity = new Date(student?.last_active || '')
     const {mmddyyyy} = convertDate(lastActivity)
     const [studentProgress, setStudentProgress] = useState<studentProgressT>()
-    const {data, isSuccess} = useFetchStudentProgressQuery(student?.student_id || '')
+    const {data} = useFetchStudentProgressQuery(student?.student_id || '')
     const [completedPercent, setCompletedPercent] = useState<number>()
     const [openAlert, setOpenAlert] = useState<boolean>(false)
 
@@ -69,7 +69,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
 
     useEffect(() => {
         setStudentProgress(data)
-    }, [isSuccess])
+    }, [data])
 
     useEffect(() => {
         if (studentProgress) {
