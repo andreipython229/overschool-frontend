@@ -1,4 +1,4 @@
-import {FC, memo} from 'react'
+import {FC, memo, } from 'react'
 import {NavLink} from 'react-router-dom'
 
 import {useAppSelector} from '../../store/hooks'
@@ -15,12 +15,18 @@ import {selectUser} from '../../selectors'
 import Tooltip from "@mui/material/Tooltip";
 import {Path} from "../../enum/pathE";
 
+import Badge from '@mui/material/Badge';
+
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/redux/store'
+
 interface IIsActive {
     isActive?: boolean
 }
 
 export const Navbar: FC = memo(() => {
     const {role} = useAppSelector(selectUser)
+    const unRead = useSelector((state: RootState) => state.unread.totalUnread)
 
     const isActive = ({isActive}: IIsActive) => (isActive ? styles.isActive : '')
     const [isChatOpen, {on, off}] = useBoolean()
@@ -40,8 +46,18 @@ export const Navbar: FC = memo(() => {
                         </Tooltip>
                     ))}
                     <Tooltip title={"Чаты"} arrow placement={'right'}>
+
                         <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
-                            <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath}/>
+                            {/*<Badge badgeContent={unRead} color={Number(unRead) > 0 ? 'secondary' : "primary"}>*/}
+                            {/*    <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath}/>*/}
+                            {/*</Badge>*/}
+                            {Number(unRead) > 0 ? (
+                                  <Badge badgeContent={unRead} color="error">
+                                    <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath}/>
+                                  </Badge>
+                                ) : (
+                                  <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath}/>
+                            )}
                         </div>
                     </Tooltip>
                 </div>

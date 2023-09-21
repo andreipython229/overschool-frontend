@@ -1,13 +1,15 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect } from 'react'
 
 import { ChatI } from 'types/chatsT'
 import { formatTime } from 'utils/convertDateToUnits'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { chatsGroup } from 'config/commonSvgIconsPath'
+import {chatsGroup, emailSvgIconPath, updateDataIcon} from 'config/commonSvgIconsPath'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { selectChat } from 'store/redux/chats/slice'
+import { selectChat, removeChat } from 'store/redux/chats/slice'
 
 import styles from './chat.module.scss'
+
+import Badge from '@mui/material/Badge';
 
 type chatPreviewT = {
   chat: ChatI
@@ -27,15 +29,24 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
       }}
     >
       <div className={styles.chatPreview_avatarWrap}>
-        {/* <img className={styles.chatPreview_avatar} src='' alt="avatar" /> */}
+         {/*<img className={styles.chatPreview_avatar} src='' alt="avatar" />*/}
         <IconSvg width={30} height={30} viewBoxSize="0 0 24 24" path={chatsGroup} />
       </div>
       <div className={styles.chatPreview_info}>
         <div className={styles.chatPreview_top}>
           <p>{chat.name || 'Группа без имени'}</p>
-          <p>{chat?.last_message && formatTime(new Date(chat?.last_message?.sent_at))}</p>
         </div>
         <div className={styles.chatPreview_lastMessage}>{chat?.last_message?.content || ''}</div>
+      </div>
+      <div className={styles.chatPreview_newMessage}>
+        <p className={styles.chatPreview_time}>{chat?.last_message && formatTime(new Date(chat?.last_message?.sent_at))}</p>
+        {Number(chat?.unread_count) > 0 ? (
+            <div className={styles.chatPreview_badge}>
+              <Badge badgeContent={chat?.unread_count || 0} color="error">
+                <IconSvg width={22} height={22} viewBoxSize="0 0 24 24" path={emailSvgIconPath} />
+              </ Badge>
+            </div>
+        ) : (<></>)}
       </div>
     </div>
   )

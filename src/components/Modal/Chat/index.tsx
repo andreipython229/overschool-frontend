@@ -10,30 +10,53 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from './chat.module.scss'
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setChats, updateLastMessage, updateUnreadCount } from '../../../store/redux/chats/chatsSlice'
+import { RootState } from '../../../store/redux/store'
+
 type chatT = {
   closeModal: () => void
 }
 
 export const Chat: FC<chatT> = ({ closeModal }) => {
-  const [chats, setChats] = useState<Chats>()
-  const { data, isFetching, isSuccess } = useFetchChatsQuery()
+    // const [chats, setChats] = useState<Chats>([])
+    const { data, isFetching, isSuccess, refetch } = useFetchChatsQuery()
 
-  useEffect(() => {
-    isSuccess && setChats(data)
-  }, [isFetching])
+    const dispatch = useDispatch();
+    const chats = useSelector((state: RootState) => state.chats.chats);
 
-  return (
-    <div className={styles.chat}>
-      {isFetching && (
-        <div className={styles.chat_loader}>
-          <SimpleLoader style={{ width: '50px', height: '50px' }} />
+    // useEffect(() => {
+    //     isSuccess && setChats(data)
+    // }, [isFetching])
+    //
+    // useEffect(() => {
+    //     return () => {
+    //         setChats([]); // очищаем состояние при размонтировании
+    //     };
+    // }, []);
+
+    // useEffect(() => {
+    //     if (data) {
+    //         dispatch(setChats(data));
+    //     }
+    // }, [data, dispatch])
+    //
+    // useEffect(() => {
+    //     refetch();
+    // }, [])
+
+    return (
+        <div className={styles.chat}>
+          {isFetching && (
+            <div className={styles.chat_loader}>
+              <SimpleLoader style={{ width: '50px', height: '50px' }} />
+            </div>
+          )}
+          <button className={styles.chat_close} onClick={closeModal}>
+            <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={closeHwModalPath} />
+          </button>
+          <ChatPanel chats={chats} />
+          <ChatWorkspace />
         </div>
-      )}
-      <button className={styles.chat_close} onClick={closeModal}>
-        <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={closeHwModalPath} />
-      </button>
-      <ChatPanel chats={chats} />
-      <ChatWorkspace />
-    </div>
-  )
+    )
 }

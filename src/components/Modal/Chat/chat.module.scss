@@ -58,10 +58,13 @@
 
 .chatPreview {
   display: flex;
-  align-items: center;
-  padding: 1rem 1.5rem;
+  justify-content: space-between;
+  //align-items: center;
+  padding: 1rem 1rem 1rem 1rem;
   width: 300px;
   overflow-y: auto;
+  //border-bottom: 1px #c9c9c9 solid;
+  border-top: 1px #c9c9c9 solid;
 
   &_selected {
     background-color: rgba(229, 231, 235, 0.6);
@@ -72,6 +75,7 @@
   }
 
   &_avatarWrap {
+    margin-right: auto;
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
@@ -83,6 +87,7 @@
     flex-shrink: 0;
     background: #d3f2f8;
     color: #72b0bc;
+    //border: red 1px solid;
 
     // &:nth-child(2) {
     //   background: #e2f6f3;
@@ -107,10 +112,12 @@
   }
 
   &_info {
+    margin-right: auto;
     display: flex;
     flex-direction: column;
     min-width: 0;
     color: #9198a1;
+    //border: 1px solid blue;
     p:first-child {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -123,6 +130,28 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    //border: 1px solid deeppink;
+  }
+
+  &_newMessage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    //padding-top: 1rem;
+    //border: 1px solid navy;
+  }
+  &_time {
+    align-self: flex-start;
+    color: grey;
+    font-size: 13px;
+  }
+  &_badge {
+    align-self: flex-end;
+    //padding-right: 5px;
+    //border: 1px red solid;
+    margin-right: auto;
+    margin-top: auto;
+    height: 20px;
   }
 }
 
