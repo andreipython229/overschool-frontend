@@ -1,7 +1,7 @@
-import {FC, useEffect, useState} from 'react'
-import {Params} from 'react-router-dom'
+import { FC, useEffect, useState } from 'react'
+import { Params } from 'react-router-dom'
 
-import {LESSON_TYPE} from 'enum/lessonTypeE'
+import { LESSON_TYPE } from 'enum/lessonTypeE'
 import {sectionT, IHomework} from 'types/sectionT'
 import {StudentCourseNavArr} from '../StudentCourseNavArr'
 import {UploadedFile} from 'components/UploadedFile/index'
@@ -62,8 +62,7 @@ export const StudentHomework: FC<studentHomeworkT> = ({lesson, lessons, params, 
                         sectionId={`${sectionId}`}
                         lessonType={`${lessonType}` as LESSON_TYPE}
                         activeLessonIndex={activeLessonIndex as number}
-                        lessons={lessons as sectionT}
-                    />
+                        lessons={lessons as sectionT}/>
                     <StudentLessonTextEditor homeworkId={lesson?.homework_id} homework={lesson}/>
                 </div>
             </div>

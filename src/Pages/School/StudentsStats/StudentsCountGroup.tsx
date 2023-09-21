@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import {generatePath, useNavigate} from 'react-router-dom'
 
 import { Path } from 'enum/pathE'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -33,7 +33,9 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
         </Portal>
       )}
       <div className={styles.students_group_content_wrapper_info}
-        onClick={() => navigate(`${Path.School}${role === RoleE.Teacher ? '' : Path.Courses}group/${id}`)}>
+        onClick={() => navigate(generatePath(Path.School + (role === RoleE.Teacher ? '' : Path.Courses) + `group/${id}`, {
+          school_name: localStorage.getItem('school') || window.location.href.split('/')[4]
+        }))}>
         <IconSvg width={30} height={30} viewBoxSize={'0 0 18 18'} path={settingsBtnIconPath}
           className={styles.students_group_content_wrapper_info_students_icon}/>
         <div className={styles.students_group_content_wrapper_info_info_wrapper}>

@@ -35,6 +35,7 @@ export interface IHomework {
   active: boolean
   video: string
   user_homework_checks: []
+
 }
 
 export interface ITest {
