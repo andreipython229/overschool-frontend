@@ -68,7 +68,8 @@ export const ChooseSchool = () => {
                                 <div className={styles.name}>{s.name}</div>
                                 <span>→</span></div>
                         </Link>)}
-                    </div>}</div>
+                    </div>}
+            </div>
             <div className={styles.bg2}>
                 <img src={anton}/>
                 <div className={styles.bg2_citate}>Overschool в разы превосходит по функциональности и работоспособности

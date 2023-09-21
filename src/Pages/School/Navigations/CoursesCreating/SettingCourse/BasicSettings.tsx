@@ -55,19 +55,19 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
     <div className={`${styles.basic_settings}`}>
       <div className={`${styles.header_basic_settings}`}>
         <p>Основные настройки</p>
-        {!toggleCheckbox && (
+        {/* {!toggleCheckbox && (
           <p className={styles.right_content_header}>
             <IconSvg width={20} height={15} viewBoxSize=" 0 0 21 16" path={noPublishedGreyIconPath} />
             Не опубликован
           </p>
-        )}
+        )} */}
       </div>
-      <div className={styles.publish_switch}>
+      {/* <div className={styles.publish_switch}>
         <p className={styles.publish_switch_title}>Статус курса</p>
         <div className={styles.publish_switch_wrapper_switch}>
           <CheckboxBall isChecked={toggleCheckbox} toggleChecked={toggleCheckboxPublished} />
         </div>
-      </div>
+      </div> */}
       <div className={styles.course_name_wrapper}>
         <p className={styles.course_name_title}>название курса</p>
         <Input type={'text'} name="nameCourse" value={nameCourse} onChange={handleNameCourse} />
