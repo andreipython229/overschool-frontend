@@ -22,6 +22,7 @@
     &_info_wrapper {
       @include display(flex, column, flex-start, flex-start);
       text-align: left;
+      padding: 1em;
 
       span:first-of-type,
       span:last-of-type {
@@ -176,6 +177,7 @@
       transition: background-color 0.2s, transform 0.2s;
 
       &:hover {
+        cursor: pointer;
         background-color: darken(#fdfaff, 3%);
         transform: scale(1.05);
       }
@@ -184,6 +186,11 @@
         align-self: flex-start;
         margin-top: 4px;
         margin-right: 10px;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: rgb(187, 147, 166);
+        }
       }
 
       &_info_wrapper {
