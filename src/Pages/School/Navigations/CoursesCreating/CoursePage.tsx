@@ -19,7 +19,7 @@ import {useNavigate} from "react-router-dom";
 export const CoursePage: FC = memo(() => {
     const navigate = useNavigate();
 
-    const {data: courses} = useFetchCoursesQuery()
+    const {data: courses, isSuccess} = useFetchCoursesQuery()
 
     const {role} = useAppSelector(selectUser)
 
@@ -37,7 +37,7 @@ export const CoursePage: FC = memo(() => {
         }
     }, [courses])
 
-    if (!courses?.results.length) return (
+    if (!isSuccess) return (
         <>
             <div>
                 <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160"
@@ -69,10 +69,11 @@ export const CoursePage: FC = memo(() => {
                 <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath}/>
             </Input>
             <div className={styles.course}>
-                {courses?.results.length &&
+                {courses?.results.length ?
                     foundCourses?.map((course: any) => (
                         <CoursesCard key={course?.course_id} course={course} role={role}/>
-                    ))}
+                    )): <></>
+                }
                 {role !== RoleE.Student && (
                     <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
                         <span className={styles.course_addCourse}>
