@@ -3,10 +3,7 @@ import parse from 'html-react-parser'
 
 import {UploadedFile} from 'components/UploadedFile'
 import {iocnsByStatus} from 'components/HomeworksStatsTable/config/iocnsByStatus'
-import {SelectDropDown} from 'components/SelectDropDown/SelectDropDown'
-import {checkHomeworkStatusFilters} from 'constants/dropDownList'
 import {IconSvg} from '../../common/IconSvg/IconSvg'
-import {tableBallsStarPath} from '../../../config/commonSvgIconsPath'
 import {
     useFetchUserHomeworkQuery,
     useFetchHomeworkDataQuery,
@@ -31,7 +28,6 @@ import {
 
 import styles from './modal_check_home_work.module.scss'
 import {TextField} from "@mui/material";
-import {useSelector} from "react-redux";
 
 
 type studentModalHomeworkT = {
