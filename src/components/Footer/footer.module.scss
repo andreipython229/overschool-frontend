@@ -4,14 +4,13 @@
 .wrapper {
   // @include position_b_l (absolute, 0, 0, 5);
   @include display(flex, column, space-between, center);
-  padding: 40px 40px 40px 120px;
-  max-width: 100%;
+  padding: 40px;
+  width: 100%;
   background-color: transparent;
-  text-align: center;
   &_linksBlock {
     @include display(flex, row, space-between, center);
+    width: 30%;
     margin-top: 40px;
-    gap: 10px;
     &_link {
       @include font(500, 10px, 12px);
       color: #6b7280;

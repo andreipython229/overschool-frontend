@@ -24,47 +24,36 @@
   display: flex;
   flex-direction: row;
 }
-@media (max-width: 767px) {
-  .bg1 {
-    flex-direction: column;
-    height: auto;
-    width: 100vw;
-  }
-}
 .tit {
   font-size: 25px;
 }
 .bg2 {
-  flex: 0 1 50%;
-  height: 100%;
-  background-color: #8b00ff;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
   &_citate {
     color: whitesmoke;
-    text-align: center;
+    position: absolute;
+    left: 58%;
+    top: 60%;
     font-size: 20px;
 
   }
   &_c {
     color: white;
     font-size: 18px;
-    text-align: center;
-    margin-top: 20px;
+    margin-left: 125px;
   }
   img {
+    margin-top: 500px;
+    margin-left: 20px;
     border-radius: 50%;
     width: 100px;
-    height: 100px;
   }
+  width: 50%;
+  height: 100%;
+  background-color: #8b00ff;
 }
 .bg3 {
   display: flex;
-  flex: 0 1 50%;
+  width: 50%;
   height: 100%;
   justify-content: center;
   flex-direction: column;
@@ -74,9 +63,10 @@
   font-size: 23px;
 }
 .bg {
-  margin: 50px 5px;
+  margin-top: 50px;
   span {
     font-size: 32px;
+    padding-left: 160px;
     color: #8b00ff
   }
   &:hover {
@@ -84,11 +74,10 @@
   }
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding-left: 20px;
   background-color: #e5e7eb;
   border-radius: 10px;
-  max-width: 310px;
+  width: 310px;
   height: 60px;
 }
 .main {
