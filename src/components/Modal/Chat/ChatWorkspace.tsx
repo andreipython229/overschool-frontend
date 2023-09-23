@@ -45,8 +45,8 @@ export const ChatWorkspace: FC = () => {
         fetchMessages(chatId)
         fetchChatData(chatId)
 
-        socketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/chats/${chatId}/`)
-        // socketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/chats/${chatId}/`)
+        // socketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/chats/${chatId}/`)
+        socketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/chats/${chatId}/`)
         socketRef.current.onopen = () => {
           console.log('WebSocket connected')
         }

@@ -27,3 +27,9 @@ export interface MessageI {
   sent_at: string
   content: string
 }
+
+export interface PersonalChatI {
+  teacher_id: number
+  student_id: number
+  message: string
+}

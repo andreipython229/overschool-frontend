@@ -6,6 +6,8 @@ import { useAppSelector, useAppDispatch } from 'store/hooks'
 
 import styles from './chat.module.scss'
 import {removeChat} from "../../../store/redux/chats/slice";
+import {headerUserRoleName} from "../../../config";
+import {selectUser} from "../../../selectors";
 
 type chatPanelT = {
   chats?: Chats
@@ -14,7 +16,8 @@ type chatPanelT = {
 export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
   // const [currentUserData, setCurrentUserData] = useState<SenderI>()
     const dispatch = useAppDispatch()
-  // const { userId } = useAppSelector(state => state.user)
+    const {role} = useAppSelector(selectUser)
+  const { userId } = useAppSelector(state => state.user)
   const { userProfile} = useAppSelector((state) => state.userProfile)
     const { chatId } = useAppSelector(state => state.chat)
   //
@@ -27,8 +30,6 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
 
     useEffect(() => {
         return () => {
-          console.log('close chat panel')
-
           if (chatId) {
               dispatch(removeChat());
           }
@@ -40,15 +41,17 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
       <div className={styles.chatPanel_top}>
         <div className={styles.chatPanel_user}>
           <div className={styles.chatPanel_user_avatar}>
-            {userProfile?.avatar ? (
+              {userProfile?.avatar ? (
               <img src={`${userProfile.avatar}`} alt="avatar" />
             ) : (
               `${userProfile?.first_name[0] || 'Б'}${userProfile?.last_name[0] || 'И'}`
             )}
           </div>
-          <p>
-            {userProfile?.first_name || 'Без'} {userProfile?.last_name || 'Имени'}
-          </p>
+            <div>
+                {/*style={{color: '#BA75FF'}}*/}
+                <div className={styles.chatPanel_user_avatar_userName_status}>{headerUserRoleName[role]}</div>
+                <p>{userProfile?.first_name || 'Без'} {userProfile?.last_name || 'Имени'}</p>
+            </div>
         </div>
       </div>
       <ChatsList chats={chats} />

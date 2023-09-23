@@ -8,7 +8,7 @@ import {
   tableBallsStarIcon,
   iconSvgHomeWorkPage,
   chatGroup,
-  groupIcon, updateSvgIcon, emailSvgIcon,
+  groupIcon, updateSvgIcon, emailSvgIcon, teacherGroupIcon
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -58,3 +58,4 @@ export const updateDataIcon = [{d: updateSvgIcon.d1, fill: '#b3b3b3'}, {d: updat
 
 export const emailSvgIconPath = [{d: emailSvgIcon, fill: '#b3b3b3'}, {d: emailSvgIcon, fill: '#b3b3b3'}]
 
+export const groupChatListIconPath = [{ d: teacherGroupIcon, stroke: '#D1D5DB', strokeWidth: '0', fill: '#BA75FF' }]
