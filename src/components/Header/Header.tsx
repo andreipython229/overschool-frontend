@@ -21,6 +21,13 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {SvgIcon} from "@mui/material";
 
+import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
+import { setChats } from "../../store/redux/chats/chatsSlice";
+
+import { UserProfileT } from "../../types/userT"
+import { setUserProfile, clearUserProfile } from "../../store/redux/users/profileSlice"
+
+
 export const Header = memo(() => {
     const dispatch = useAppDispatch()
     const {role} = useAppSelector(selectUser)
@@ -30,14 +37,18 @@ export const Header = memo(() => {
     const {data, isSuccess} = useFetchSchoolHeaderQuery(Number(headerId))
     const {data: profile, isSuccess: profileIsSuccess} = useFetchProfileDataQuery()
 
+    const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
+
     const logOut = async () => {
         await localStorage.clear()
         await logout()
         if (isLoading) {
             return <SimpleLoader/>
         }
+        dispatch(clearUserProfile())
         window.location.reload()
         dispatch(auth(false))
+
     }
 
     const [profileData, setProfileData] = useState<profileT>()
@@ -52,6 +63,60 @@ export const Header = memo(() => {
     useEffect(() => {
         profileIsSuccess && setProfileData(profile[0])
     }, [profileIsSuccess])
+
+    useEffect(() => {
+        console.log(profileData)
+        if (profileData) {
+            const newProfileData: UserProfileT = {
+                id: profileData.profile_id || 0,
+                username: profileData.user.username || "",
+                first_name: profileData.user.first_name || "",
+                last_name: profileData.user.last_name || "",
+                email: profileData.user.email || "",
+                phone_number: profileData.user.phone_number || "",
+                avatar: profileData.avatar || "",
+            };
+
+            if (newProfileData) {
+                dispatch(setUserProfile(newProfileData));
+            }
+        }
+    }, [profileData])
+
+
+
+    useEffect(() => {
+        const totalUnread = totalUnreadMessages || 0;
+        dispatch(setTotalUnread(totalUnread.toString()));
+    }, [totalUnreadMessages])
+
+     const fetchChatsData = async () => {
+        // console.log("fetchChatsInfo");
+        try {
+            const response = await fetch('/api/chats/info/');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const chatsInfo = await response.json();
+            setTotalUnreadMessages(chatsInfo[0].total_unread)
+
+            if (chatsInfo.length > 1) {
+                const fetchedChats = chatsInfo.slice(1);
+                dispatch(setChats(fetchedChats));
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchChatsData();
+        const intervalId = setInterval(fetchChatsData, 5000);
+
+        return () => clearInterval(intervalId);
+        }, []);
+
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);

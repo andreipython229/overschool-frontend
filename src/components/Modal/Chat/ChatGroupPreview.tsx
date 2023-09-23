@@ -2,9 +2,10 @@ import { FC, useEffect, useState } from 'react'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Button } from 'components/common/Button/Button'
-import { ChatI, SenderI } from 'types/chatsT'
+import {ChatI, PersonalChatI, SenderI} from 'types/chatsT'
 import { getNounDeclension } from 'utils/getNounDeclension'
 import { useAppSelector } from 'store/hooks'
+import { useCreatePersonalChatMutation} from "../../../api/chatsService";
 
 import { backArr } from 'components/Previous/config/svgIconPath'
 
@@ -21,9 +22,35 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
 
   const [users, setUsers] = useState<SenderI[]>()
 
+  const [createPersonalChat, { isLoading }] = useCreatePersonalChatMutation();
+
+
   useEffect(() => {
     usersList && setUsers(usersList)
   }, [usersList])
+
+  useEffect(() => {
+    console.log(chatData)
+  },[chatData])
+
+  const createChatHundler = async (student: SenderI, teacherId: number) => {
+    try {
+      if (student.id && teacherId) {
+        const personalChatData = new FormData();
+        personalChatData.append('teacher_id', teacherId.toString());
+        personalChatData.append('student_id', student.id.toString());
+        personalChatData.append('message', "Приветствую в персональном чате");
+
+        const response = await createPersonalChat(personalChatData);
+      }
+
+
+    } catch (error) {
+      // Обработка ошибки
+      console.error('Произошла ошибка при создании персонального чата:', error);
+
+    }
+  }
 
   return (
     <div className={styles.chatGroup}>
@@ -35,7 +62,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
           </div>
           <div className={styles.chatGroup_header_preview}>
             <span>{chatData.name || 'Группа без имени '}</span>
-            <span>{usersList && ` - ${usersList.length} ${getNounDeclension(usersList.length, ['учатник', 'участника', 'участников'])}`}</span>
+            <span>{usersList && ` - ${usersList.length} ${getNounDeclension(usersList.length, ['участник', 'участника', 'участников'])}`}</span>
           </div>
         </div>
       </div>
@@ -55,7 +82,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
                   {sender.first_name || 'Без'} {sender.last_name || 'Имени'}
                 </div>
               </div>
-              {userId !== sender.id && <Button text="Отправить сообщение" variant="primary" />}
+              {userId !== sender.id && <Button text="Создать чат" variant="primary" onClick={e => {createChatHundler(sender, userId)}}/>}
             </div>
           ))}
         </div>

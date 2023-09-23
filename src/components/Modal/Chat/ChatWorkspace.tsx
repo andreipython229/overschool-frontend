@@ -14,11 +14,14 @@ import styles from './chat.module.scss'
 import { useLazyFetchMessagesQuery } from '../../../api/chatsService'
 
 import { w3cwebsocket, IMessageEvent } from 'websocket';
+import {removeChat} from "../../../store/redux/chats/slice";
+
+
 
 export const ChatWorkspace: FC = () => {
   const { chatId } = useAppSelector(state => state.chat)
   const { userId } = useAppSelector(state => state.user)
-
+  const dispatch = useAppDispatch()
   const [openGroupPreview, setOpenGroupPreview] = useState<boolean>(false)
   const [selectedChatData, setSelectedChatData] = useState<ChatI>()
   const [usersInGroup, setUsersInGroup] = useState<SenderI[]>()
@@ -32,7 +35,6 @@ export const ChatWorkspace: FC = () => {
   const messagesRef = useRef<HTMLDivElement | null>(null);
   const socketRef = useRef<w3cwebsocket | null>(null);
 
-
   useEffect(() => {
     // if (socketRef.current) {
     //   socketRef.current?.close()
@@ -44,7 +46,7 @@ export const ChatWorkspace: FC = () => {
         fetchChatData(chatId)
 
         socketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/chats/${chatId}/`)
-
+        // socketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/chats/${chatId}/`)
         socketRef.current.onopen = () => {
           console.log('WebSocket connected')
         }
@@ -72,7 +74,7 @@ export const ChatWorkspace: FC = () => {
     }
 
     return () => {
-      console.log('close modal')
+      // console.log('close modal')
       if (socketRef.current) {
         socketRef.current.close();
       }
@@ -83,7 +85,6 @@ export const ChatWorkspace: FC = () => {
   useEffect(() => {
     if (messagesData) {
       setMessages(messagesData);
-      console.log(messagesData)
     }
   }, [messagesData]);
 
@@ -99,14 +100,14 @@ export const ChatWorkspace: FC = () => {
 
   const handleSubmit = async () => {
 
-    console.log("Socket readyState = ", socketRef.current?.readyState)
-    console.log("handleSubmit")
+    // console.log("Socket readyState = ", socketRef.current?.readyState)
+    // console.log("handleSubmit")
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
       const data = {
         message: message,
         sender: userId,
       }
-      console.log('sent')
+      // console.log('sent')
       socketRef.current.send(JSON.stringify(data))
       setMessage('')
     }
