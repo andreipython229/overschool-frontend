@@ -5,7 +5,7 @@ import {Button} from 'components/common/Button/Button'
 import {AddFileBtn} from 'components/common/AddFileBtn/index'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {AddPost} from 'components/AddPost'
-import {deleteIconPath, noPublishedIconPath, publishedIconPath, settingsIconPath} from '../../../../config/svgIconsPath'
+import {deleteIconPath, settingsIconPath} from '../../../../config/svgIconsPath'
 import {useFetchLessonQuery, usePatchLessonsMutation} from 'api/modulesServices'
 import {ClassesSettingsPropsT} from 'types/navigationTypes'
 import {commonLessonT} from 'types/sectionT'
@@ -100,14 +100,15 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
         handleUploadFiles(chosenFiles)
     }
 
-    const handleUploadFile = () => {
+    const handleUploadFile = async () => {
         if (files.length) {
             const formData = new FormData()
 
             formData.append('base_lesson', `${data?.baselesson_ptr_id}`)
-            formData.append('file', files[0])
+            formData.append('files', files[0])
 
-            addTextFiles(formData)
+            await addTextFiles(formData)
+            window.location.reload()
         }
     }
 
@@ -205,8 +206,13 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                             <AddFileBtn handleChangeFiles={handleChangeFiles}/>
                             <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
 
+                            {lesson?.text_files.map(({file, id}, index: number) => (
+                                <UploadedFile key={id} index={index} file={file} size={43435}
+                                              handleDeleteFile={handleDeleteFile}/>
+                            ))}
+
                             {urlFiles?.map(({url, name}, index: number) => (
-                                <UploadedFile key={index} index={index} file={url} name={name} size={files[index].size}
+                                <UploadedFile isHw={true} key={index} index={index} file={url} name={name} size={files[index].size}
                                               handleDeleteFile={handleDeleteFile}/>
                             ))}
                             {urlFiles.length > 0 && (

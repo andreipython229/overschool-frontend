@@ -1,6 +1,6 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react'
 
-import {baseQuery, baseQueryFn} from './baseApi'
+import {baseQueryFn} from './baseApi'
 import {studentsGroupT, studentsGroupsT} from '../types/studentsGroup'
 
 export const studentsGroupService = createApi({
