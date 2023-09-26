@@ -23,7 +23,6 @@ dist/
 # Maven
 target/
 dist/
-.yarn/
 
 # JetBrains IDE
 .idea/
