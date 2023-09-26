@@ -252,7 +252,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                         {!isUser && (
                             <div className={styles.task_info_wrapper}>
                                 {currentUser?.avatar ? (
-                                    <img src={window.appConfig.imagePath + '/media/' + currentUser.avatar} alt="avatar"/>
+                                    <img src={currentUser.avatar} alt="avatar"/>
                                 ) : (
                                     <div className={styles.task_info_avatar_block}>
                                         {currentUser?.surname.charAt(0) || 'б'}
@@ -270,7 +270,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                 <div className={styles.teacher}>
                     {currentUser?.avatar ? (
                         <img className={styles.teacher_avatar}
-                             src={window.appConfig.imagePath + '/media/' + currentUser?.avatar} alt="User Avatar"/>
+                             src={currentUser?.avatar} alt="User Avatar"/>
                     ) : (
                         <div className={styles.teacher_avatar_block}>
                             {currentUser?.surname.charAt(0) || 'б'}

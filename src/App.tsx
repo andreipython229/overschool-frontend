@@ -14,6 +14,7 @@ import { scrollToTop } from 'utils/scrollToTop'
 import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
 
 import styles from './App.module.scss'
+import {CreateNewSchool} from "./Pages/CreateNewSchool/CreateNewSchool";
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -33,6 +34,7 @@ export const App = () => {
     <div className={styles.container}>
       <Routes>
         <Route path={Path.InitialPage} element={<Initial />} />
+        <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.School} element={<MainLayOut />}>

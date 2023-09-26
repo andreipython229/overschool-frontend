@@ -19,6 +19,7 @@ export enum Path {
   TariffPlans = 'tariff-plans',
   SignUp = '/signup',
   CourseStudent = 'courses-stats/:course_id/students',
+  CreateSchool = '/create-school/',
 }
 
 export enum SettingsPath {

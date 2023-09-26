@@ -83,7 +83,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
             <form onSubmit={formik.handleSubmit}>
                 <div className={styles.container}>
           <span className={styles.main_closed} onClick={handleClose}>
-            <IconSvg width={25} height={25} path={crossIconPath}/>
+            <IconSvg width={17} height={17} viewBoxSize="0 0 16 16" path={crossIconPath}/>
           </span>
                     <div className={styles.main_title}>Войти</div>
                     <div className={styles.inputs_block}>

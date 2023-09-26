@@ -45,6 +45,7 @@ const persistConfig = {
     storage,
     whitelist: ['user', 'sections', 'filters', 'school', 'schoolId', 'headerId'],
 }
+
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
