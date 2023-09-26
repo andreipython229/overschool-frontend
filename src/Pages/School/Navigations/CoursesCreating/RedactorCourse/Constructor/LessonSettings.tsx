@@ -59,9 +59,10 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                 formData1.append('files', file)
             )
             await addTextFiles(formData1)
+
+            window.location.reload()
+            setIsEditing(false)
         }
-        setIsEditing(false)
-        window.location.reload()
     }
 
     const renderUI = () => {
@@ -225,8 +226,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                             <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
 
                             {renderFiles?.map(({file, id}, index: number) => (
-                                <UploadedFile key={id} index={index} file={file} size={43435} // поле сайз надо на бэке прокинуть, чтоб можно было вытянуть размер файла
-                                              handleDeleteFile={(index) => handleDeleteFileFromLesson(index)} />
+                                <UploadedFile key={id} index={index} file={file}
+                                              size={43435} // поле сайз надо на бэке прокинуть, чтоб можно было вытянуть размер файла
+                                              handleDeleteFile={(index) => handleDeleteFileFromLesson(index)}/>
                             ))}
 
                             <AddFileBtn handleChangeFiles={handleChangeFiles}/>
@@ -235,7 +237,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                             {urlFiles?.map(({url, name}, index: number) => (
                                 <UploadedFile isHw={true} key={index} index={index} file={url} name={name}
                                               size={files[index].size}
-                                              handleDeleteFile={handleDeleteFile} />
+                                              handleDeleteFile={handleDeleteFile}/>
                             ))}
                             {/*{urlFiles.length > 0 && (*/}
                             {/*    <Button style={{marginTop: '20px'}} variant="primary" text="Загрузить" type="submit"*/}
