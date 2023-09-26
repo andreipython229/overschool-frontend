@@ -34,14 +34,14 @@ export const UploadedFile: FC<uploadedFileT> = ({ file, index, name, size, handl
   }
 
   return (
-    <a href={file} target={'_blanck'} download={name}>
+    <a href={file} rel={'noreferrer'} target={'_blank'} download={name}>
       <div className={styles.file__download_container}>
-        <div className={styles.file__dowload_wrap}>
-          <div className={styles.file__dowload_blackDiv}></div>
+        <div className={styles.file__download_wrap}>
+          <div className={styles.file__download_blackDiv}></div>
           {!isHw? <p>{name?.split("@")[1].split('?')[0] || file?.split("@")[1].split('?')[0] || file.toString()}</p>:
               <p>{name}</p>}
         </div>
-        <div className={styles.file__dowload_wrap}>
+        <div className={styles.file__download_wrap}>
           <span className={styles.file__download_size}>{showMetricByFileSize()}</span>
           {handleDeleteFile && (
             <span className={styles.file__download_icon} onClick={e => {e.preventDefault()
