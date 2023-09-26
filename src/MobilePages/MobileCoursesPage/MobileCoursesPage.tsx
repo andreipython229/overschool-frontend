@@ -5,7 +5,7 @@ import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { Input } from '../../components/common/Input/Input/Input'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { searchIconPath } from '../../config/commonSvgIconsPath'
-import { useDebouncedFilter } from '../../customHooks/useDebouncedFilter'
+import { useDebouncedFilter } from '../../customHooks'
 import { CoursesDataT } from '../../types/CoursesT'
 
 import styles from './mobileCoursesPage.module.scss'
@@ -31,7 +31,7 @@ export const MobileCoursesPage: FC = memo(() => {
               id={course?.course_id}
               key={course?.course_id}
               name={course?.name}
-              img={window.appConfig.imagePath + course?.photo_url}
+              img={course?.photo}
               progress={'58'}
               desc={course?.description}
             />

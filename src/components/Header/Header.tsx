@@ -48,7 +48,6 @@ export const Header = memo(() => {
         dispatch(clearUserProfile())
         window.location.reload()
         dispatch(auth(false))
-
     }
 
     const [profileData, setProfileData] = useState<profileT>()
@@ -65,7 +64,6 @@ export const Header = memo(() => {
     }, [profileIsSuccess])
 
     useEffect(() => {
-        console.log(profileData)
         if (profileData) {
             const newProfileData: UserProfileT = {
                 id: profileData.profile_id || 0,
