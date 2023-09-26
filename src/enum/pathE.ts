@@ -16,9 +16,12 @@ export enum Path {
   CourseStats = 'courses-stats/',
   HomeWork = 'home-work',
   HelpCenter = 'help-center',
+  HelpCenterForAdmin = 'help-center-for-admin',
+  HelpCenterForStudent = 'help-center-for-student',
   TariffPlans = 'tariff-plans',
   SignUp = '/signup',
   CourseStudent = 'courses-stats/:course_id/students',
+  PersonalDataTreatmentPolicy = '/personalDataTreatmentPolicy',
 }
 
 export enum SettingsPath {

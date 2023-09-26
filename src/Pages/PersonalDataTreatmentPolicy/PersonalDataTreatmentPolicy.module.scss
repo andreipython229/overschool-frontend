@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+table, td {
+    border: 1px solid;
+  }
+
+.PersonalDataTreatmentPolicy {
+    display: flex;
+    flex-direction: column;
+
+    &_Preamble {
+        text-align: left;
+        align-self: self-end;
+    }
+    &_Header {
+        text-transform: uppercase;
+        align-self: center;
+        text-align: center;
+    }
+    &_Content {
+        text-align: justify;
+        text-indent: 10px;
+        line-height: 1.4;
+    }
+}

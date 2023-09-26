@@ -2,6 +2,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
+import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
 import { Initial } from 'Pages/Initial/Initial'
 import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
 import { MainLayOut } from 'components/MainLayout/MainLayOut'
@@ -32,6 +33,7 @@ export const App = () => {
   return (
     <div className={styles.container}>
       <Routes>
+        <Route path={Path.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy/>}/>
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
