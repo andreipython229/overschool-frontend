@@ -1,14 +1,8 @@
-import {ChangeEvent, FC, useEffect, useState} from 'react'
+import { ChangeEvent, FC, useEffect, useState} from 'react'
 import { ChatI } from 'types/chatsT'
-import {RoleE} from 'enum/roleE'
-import {headerUserRoleName} from "../../../config";
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { chatsGroup } from 'config/commonSvgIconsPath'
+import { RoleE} from 'enum/roleE'
 import { getNounDeclension } from 'utils/getNounDeclension'
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { deepPurple } from '@mui/material/colors';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
 import styles from './chat.module.scss'
 import {useDebounceFunc} from "../../../customHooks";
 import {formDataConverter} from "../../../utils/formDataConverter";
@@ -90,27 +84,18 @@ export const ChatUser: FC<chatUserT> = ({ openGroup, chatData, usersCount }) => 
     <div className={styles.chatUser}>
       <div>
         <div className={styles.chatUser_info}>
-          {/*<SettingsOutlinedIcon sx={{ color: deepPurple['A100'], fontSize: 24 }} />*/}
-          {/*<div className={styles.chatUser_avatar}>*/}
-          {/*  <IconSvg width={20} height={20} viewBoxSize="0 0 24 24" path={chatsGroup} />*/}
-          {/*</div>*/}
           <div>
-
-              {/*<p className={styles.chatUser_name}>{chatData?.name || 'Группа без имени'}</p>*/}
-              {/*<input type="text"  value={changeChatName} onChange={handleChangeChatName}/>*/}
-
-
               {role === RoleE.Teacher ? (
                   <>
                     <div className={styles.chatUser_nameWrapper}>
                       {chatData?.type === 'GROUP' ? (
                            <TextField id="standard-basic" variant="standard" value={changeChatName} onChange={handleChangeChatName} style={{width: '300px'}}/>
                       ) : chatData?.type === 'PERSONAL' ? (
-                          // <TextField id="s" variant="standard" disabled value={`${getInterlocutor(chatData).first_name || 'Группа без имени'} ${getInterlocutor(chatData).last_name || ''}`} onChange={handleChangeChatName} style={{width: '300px'}}/>
-                          <span style={{width: '500px'}}>{getInterlocutor(chatData).first_name || 'Группа без имени'} {getInterlocutor(chatData).last_name || ''}</span>
+                            <span style={{width: '500px'}}>{getInterlocutor(chatData).first_name || 'Без имени'} {getInterlocutor(chatData).last_name || 'Без фамилии'}</span>
                       ) : null}
-                      <FormControlLabel control={<Switch checked={checked} onChange={handleChange} />} label={<span style={{ fontSize: '12px' }}>{label}</span>} sx={{marginLeft: '130px', fontSize: '10px'}}/>
+                        <FormControlLabel control={<Switch checked={checked} onChange={handleChange} />} label={<span style={{ fontSize: '12px' }}>{label}</span>} sx={{marginLeft: '130px', fontSize: '10px'}}/>
                     </div>
+
                     {chatData?.type === 'GROUP' ? (
                         <p className={styles.chatUser_lastVisit} onClick={() => openGroup && openGroup(true)}>
                           {usersCount && `${usersCount} ` + getNounDeclension(usersCount, ['участник', 'участника', 'участников'])}
