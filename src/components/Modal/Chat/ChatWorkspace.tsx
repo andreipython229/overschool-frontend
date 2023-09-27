@@ -1,10 +1,10 @@
 import {FC, useState, useEffect, ChangeEvent, useRef} from 'react'
-
+import { RoleE } from 'enum/roleE'
 import { ChatInput } from './ChatInput'
 import { ChatUser } from './ChatUser'
 import { ChatMessagesList } from './ChatMessagesList'
 import { ChatGroupPreview } from './ChatGroupPreview'
-import {useAppDispatch, useAppSelector} from 'store/hooks'
+import { useAppDispatch, useAppSelector} from 'store/hooks'
 import { useLazyFetchChatQuery } from 'api/chatsService'
 import { ChatI, MessageI, Messages, SenderI} from 'types/chatsT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
@@ -15,12 +15,14 @@ import { useLazyFetchMessagesQuery } from '../../../api/chatsService'
 
 import { w3cwebsocket, IMessageEvent } from 'websocket';
 import {removeChat} from "../../../store/redux/chats/slice";
+import { selectUser} from "../../../selectors";
 
 
 
 export const ChatWorkspace: FC = () => {
   const { chatId } = useAppSelector(state => state.chat)
   const { userId } = useAppSelector(state => state.user)
+  const { role } = useAppSelector(selectUser)
   const dispatch = useAppDispatch()
   const [openGroupPreview, setOpenGroupPreview] = useState<boolean>(false)
   const [selectedChatData, setSelectedChatData] = useState<ChatI>()
@@ -149,7 +151,26 @@ export const ChatWorkspace: FC = () => {
                     <ChatMessagesList messages={messages as Messages} chatData={selectedChatData as ChatI} />
                 </div>
               </div>
-              <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
+
+
+
+              {data?.is_deleted === false ? (
+                  <>
+                      {role === RoleE.Teacher ? (
+                          <>
+                            <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
+                          </>
+                      ) : role === RoleE.Student ? (
+                          <>
+                            {data?.type === "PERSONAL" ? (
+                                <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
+                            ) : null}
+                          </>
+                      ) : null}
+                  </>
+              ) : null}
+
+
             </>
           ) : (
             <div className={styles.chatWorkspace_preview}>

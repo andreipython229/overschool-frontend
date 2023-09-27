@@ -19,6 +19,16 @@ export const chatsService = createApi({
       query: id => `/chats/${id}/messages`,
       providesTags: ['chats'],
     }),
+    patchChat: build.mutation<void, { formdata: FormData;}>({
+      query: arg => {
+        return {
+          url: `/chats/${arg.formdata.get('chat_uuid')}/`,
+          method: 'PATCH',
+          body: arg.formdata,
+        }
+      },
+      invalidatesTags: ['chats'],
+    }),
     createPersonalChat: build.mutation<PersonalChatI, FormData>({
       query: personalChat => {
         const teacherId = Number(personalChat.get('teacher_id'))
@@ -38,4 +48,5 @@ export const {
   useLazyFetchMessagesQuery,
   useFetchChatsQuery,
   useLazyFetchChatQuery ,
-  useCreatePersonalChatMutation} = chatsService
+  useCreatePersonalChatMutation,
+  usePatchChatMutation} = chatsService

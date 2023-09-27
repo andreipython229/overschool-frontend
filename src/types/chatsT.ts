@@ -9,6 +9,7 @@ export interface ChatI {
   senders: SenderI[]
   last_message: MessageI
   unread_count: number
+  type: string
 }
 
 export interface SenderI {
@@ -32,4 +33,5 @@ export interface PersonalChatI {
   teacher_id: number
   student_id: number
   message: string
+  type: string
 }

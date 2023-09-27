@@ -334,6 +334,8 @@
   padding-right: 1.5rem;
   padding-top: 1.5rem;
   padding-bottom: 0.75rem;
+  //border: 1px solid blue;
+
 
   &_info {
     display: flex;
@@ -342,6 +344,7 @@
 
   &_avatar {
     margin-right: 10px;
+    //margin-left: 1rem;
     flex-shrink: 0;
     width: 40px;
     height: 40px;
@@ -354,7 +357,12 @@
     color: #72b0bc;
   }
   &_nameWrapper {
-    min-width: 0;
+    flex-grow: 1;
+    //margin-left: auto;
+    //margin-right: 40px;
+    //padding: 0px;
+    //border: 1px #f30e0e solid;
+
   }
   &_name {
     color: #424345;

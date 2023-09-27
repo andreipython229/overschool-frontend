@@ -20,12 +20,14 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {SvgIcon} from "@mui/material";
-
+import { ChatI } from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from "../../store/redux/chats/chatsSlice";
 
 import { UserProfileT } from "../../types/userT"
 import { setUserProfile, clearUserProfile } from "../../store/redux/users/profileSlice"
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/redux/store";
 
 
 export const Header = memo(() => {
@@ -38,6 +40,7 @@ export const Header = memo(() => {
     const {data: profile, isSuccess: profileIsSuccess} = useFetchProfileDataQuery()
 
     const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
+    const chats = useSelector((state: RootState) => state.chats.chats);
 
     const logOut = async () => {
         await localStorage.clear()
@@ -100,8 +103,12 @@ export const Header = memo(() => {
             setTotalUnreadMessages(chatsInfo[0].total_unread)
 
             if (chatsInfo.length > 1) {
-                const fetchedChats = chatsInfo.slice(1);
-                dispatch(setChats(fetchedChats));
+                const fetchedChats: ChatI[] = chatsInfo.slice(1);
+                const isDifferent = JSON.stringify(fetchedChats) !== JSON.stringify(chats);
+
+                if (isDifferent) {
+                    dispatch(setChats(fetchedChats));
+                }
             }
         } catch (error) {
             console.error(error);
