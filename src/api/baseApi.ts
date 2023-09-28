@@ -1,7 +1,5 @@
-import {BaseQueryFn, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
+import {fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {Cookies} from "react-cookie"
-// import {BaseQueryApi, BaseQueryExtraOptions} from "@reduxjs/toolkit/dist/query/baseQueryTypes";
-// import {RootState} from "../store/redux/store";
 
 const cookies = new Cookies()
 
@@ -13,7 +11,7 @@ export const baseQuery = (baseUrl = `/api/`) => {
     return fetchBaseQuery({
         baseUrl: baseUrl,
         credentials: 'include',
-        prepareHeaders: (headers, {getState}) => {
+        prepareHeaders: (headers) => {
             const acceessToken = cookies.get('access_token')
             headers.set('X-Development-Mode', `${developmentMode}`);
             if (acceessToken) {
@@ -26,12 +24,11 @@ export const baseQuery = (baseUrl = `/api/`) => {
 
 export const baseQueryFn = (baseUrl = `/api/`) => {
     const schoolName = localStorage.getItem('school') || window.location.href.split('/')[4]
-    // const schoolName = window.location.href.split('/')[4]
 
     return fetchBaseQuery({
         baseUrl: baseUrl + String(schoolName),
         credentials: 'include',
-        prepareHeaders: (headers, {getState}) => {
+        prepareHeaders: (headers) => {
             const acceessToken = cookies.get('access_token')
             headers.set('X-Development-Mode', `${developmentMode}`)
             if (acceessToken) {

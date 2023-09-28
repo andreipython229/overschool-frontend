@@ -231,3 +231,52 @@
 
     }
 }
+
+.questions {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: baseline;
+    width: 50%;
+    margin-top: 2em;
+
+    &_element {
+        margin-bottom: 2em;
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+
+        &_mark {
+            margin-right: .5rem;
+            margin-bottom: .5rem;
+            background-color: #BA75FF;
+            border-radius: 1.7em;
+            width: 1.7em;
+            min-width: 1.7em;
+            height: 1.7em;
+            min-height: 1.7em;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            color: #fff;
+            font-weight: 1000;
+            text-align: center;
+            padding: auto;
+        }
+
+        &_text {
+            color: #808080;
+            font-weight: 800;
+    
+            &_description {
+                color: #a3a3a3;
+                margin-top: 1.5em;
+                font-size: 12px;
+                font-weight: 400;
+            }
+        }
+    }
+
+    
+}

@@ -6,21 +6,24 @@ import {InputAuth} from "../../components/common/Input/InputAuth/InputAuth";
 import {useFormik} from "formik";
 import {useState} from "react";
 import {generatePath, useNavigate} from "react-router-dom";
+import { useCreateSchoolOwnerMutation } from 'api/schoolCreationService';
 
 export const CreateNewSchool = () => {
     const [security, setSecurity] = useState<boolean>(true)
-    // const [createOwner] = useCreateSchoolOwnerMutation()
-    // const navigate = useNavigate()
+    const [createOwner] = useCreateSchoolOwnerMutation()
+    const navigate = useNavigate()
 
     const formik = useFormik({
         initialValues: {
             email: '',
+            phone_number: '',
             password: '',
-            phone: '',
+            password_confirmation: '',
         },
-        onSubmit: async () => {
+        onSubmit: () => {
             const userData = formik.values
-            // await createOwner(userData).unwrap().then((data) => {navigate(generatePath(Path.ChooseSchool))})
+            console.log('data: ', userData)
+            createOwner(userData).unwrap().then(() => {navigate(generatePath(Path.ChooseSchool))})
         },
     });
 
@@ -73,7 +76,7 @@ export const CreateNewSchool = () => {
                 </div>
             </div>
             <div className={styles.newCoursePage_formWrapper}>
-                <form className={styles.newCoursePage_formWrapper_form}>
+                <form className={styles.newCoursePage_formWrapper_form} onSubmit={formik.handleSubmit}>
                     <p className={styles.newCoursePage_formWrapper_form_title}>Регистрация владельца школы</p>
                     {/*<p className={styles.newCoursePage_formWrapper_form_help}>Введите свои данные</p>*/}
                     <div className={styles.newCoursePage_formWrapper_form_eMailWrapper}>
@@ -84,10 +87,10 @@ export const CreateNewSchool = () => {
                     <div className={styles.newCoursePage_formWrapper_form_passwordWrapper}>
                         <p className={styles.newCoursePage_formWrapper_form_passwordWrapper_title}>Номер телефона:</p>
                         <InputAuth
-                            name={'phone'}
+                            name={'phone_number'}
                             type={'tel'}
                             onChange={formik.handleChange}
-                            value={formik.values.phone}
+                            value={formik.values.phone_number}
                             placeholder={'Номер телефона'}
                         />
                     </div>
@@ -102,8 +105,19 @@ export const CreateNewSchool = () => {
                                    icon={security ? isSecurity : unSecurity}
                         />
                     </div>
+                    <div className={styles.newCoursePage_formWrapper_form_passwordWrapper}>
+                        <p className={styles.newCoursePage_formWrapper_form_passwordWrapper_title}>Повторите пароль:</p>
+                        <InputAuth name={'password_confirmation'}
+                                   type={security ? 'password' : 'text'}
+                                   onChange={formik.handleChange}
+                                   value={formik.values.password_confirmation}
+                                   placeholder={'Повторите пароль'}
+                                   onClick={changeSecurityStatus}
+                                   icon={security ? isSecurity : unSecurity}
+                        />
+                    </div>
                     <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper}>
-                        <Button text={'Создать свой проект'} variant={'create'} onClick={formik.submitForm}/>
+                        <Button text={'Создать свой проект'} variant={'create'} type={'submit'}/>
                         <p className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_help}>
                             Уже есть свой аккаунт?
                             <a href={Path.InitialPage}>Войти</a>
