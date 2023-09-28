@@ -1,41 +1,42 @@
-import React, {memo, useState, useEffect} from 'react'
-import {Link, NavLink, useNavigate} from 'react-router-dom'
+import React, { memo, useState, useEffect } from 'react'
+import { Link, NavLink, generatePath, useNavigate } from 'react-router-dom'
 
-import {useFetchProfileDataQuery} from '../../api/profileService'
-import {useAppDispatch, useAppSelector} from '../../store/hooks'
-import {auth} from 'store/redux/users/slice'
-import {Path} from 'enum/pathE'
-import {useFetchSchoolHeaderQuery} from '../../api/schoolHeaderService'
-import {IconSvg} from '../common/IconSvg/IconSvg'
-import {logOutIconPath} from './config/svgIconsPath'
-import {useLazyLogoutQuery} from 'api/userLoginService'
-import {selectUser} from '../../selectors'
-import {logo} from '../../assets/img/common'
-import {headerUserRoleName} from 'config/index'
-import {profileT} from 'types/profileT'
+import { useFetchProfileDataQuery } from '../../api/profileService'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { auth } from 'store/redux/users/slice'
+import { Path } from 'enum/pathE'
+import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
+import { IconSvg } from '../common/IconSvg/IconSvg'
+import { logOutIconPath } from './config/svgIconsPath'
+import { useLazyLogoutQuery } from 'api/userLoginService'
+import { selectUser } from '../../selectors'
+import { logo } from '../../assets/img/common'
+import { headerUserRoleName } from 'config/index'
+import { profileT } from 'types/profileT'
 import styles from './header.module.scss'
-import {SimpleLoader} from "../Loaders/SimpleLoader";
+import { SimpleLoader } from "../Loaders/SimpleLoader";
 import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {SvgIcon} from "@mui/material";
+import { SvgIcon } from "@mui/material";
 
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from "../../store/redux/chats/chatsSlice";
 
 import { UserProfileT } from "../../types/userT"
 import { setUserProfile, clearUserProfile } from "../../store/redux/users/profileSlice"
+import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath'
 
 
 export const Header = memo(() => {
     const dispatch = useAppDispatch()
-    const {role} = useAppSelector(selectUser)
+    const { role } = useAppSelector(selectUser)
     const navigate = useNavigate()
-    const [logout, {isLoading}] = useLazyLogoutQuery()
+    const [logout, { isLoading }] = useLazyLogoutQuery()
     const headerId = localStorage.getItem('header_id')
-    const {data, isSuccess} = useFetchSchoolHeaderQuery(Number(headerId))
-    const {data: profile, isSuccess: profileIsSuccess} = useFetchProfileDataQuery()
+    const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
+    const { data: profile, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
 
     const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
 
@@ -43,7 +44,7 @@ export const Header = memo(() => {
         await localStorage.clear()
         await logout()
         if (isLoading) {
-            return <SimpleLoader/>
+            return <SimpleLoader />
         }
         dispatch(clearUserProfile())
         window.location.reload()
@@ -88,7 +89,7 @@ export const Header = memo(() => {
         dispatch(setTotalUnread(totalUnread.toString()));
     }, [totalUnreadMessages])
 
-     const fetchChatsData = async () => {
+    const fetchChatsData = async () => {
         // console.log("fetchChatsInfo");
         try {
             const response = await fetch('/api/chats/info/');
@@ -113,7 +114,7 @@ export const Header = memo(() => {
         const intervalId = setInterval(fetchChatsData, 5000);
 
         return () => clearInterval(intervalId);
-        }, []);
+    }, []);
 
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -138,12 +139,22 @@ export const Header = memo(() => {
     return (
         <header className={styles.header}>
             <NavLink to={Path.Courses}>
-                <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone"/>
+                <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
             </NavLink>
             <div className={styles.header_block}>
+                <a className={styles.tariffPlan} href={`${generatePath(Path.School + Path.TariffPlans,
+                    { school_name: localStorage.getItem('school') || window.location.href.split('/')[4] })}`}>
+                    <div className={styles.tariffPlan_icon}>
+                        <IconSvg width={23} height={19} viewBoxSize="0 0 23 19" path={purpleTariffPlanIconPath} />
+                    </div>
+                    <p className={styles.tariffPlan_text}>{' Тариф '}
+                        <span className={styles.tariffPlan_text_tariff}>{'«Бизнес»'}</span>
+                        <span style={{ color: '#BA75FF' }}>{' — 30 дней'}</span>
+                    </p>
+                </a>
                 <React.Fragment>
                     <Tooltip title={'Аккаунт пользователя'}>
-                        <div style={{textDecoration: 'none'}} onClick={handleClick}>
+                        <div style={{ textDecoration: 'none' }} onClick={handleClick}>
                             <div className={styles.header_block_user}>
                                 {profileData?.avatar ? (
                                     <img
@@ -160,57 +171,57 @@ export const Header = memo(() => {
                                     </div>
                                 )}
                                 <div className={styles.header_block_user_userName}>
-                                <span style={{color: '#BA75FF'}} className={styles.header_block_user_userName_status}>
-                                    {headerUserRoleName[role]}
-                                </span>
+                                    <span style={{ color: '#BA75FF' }} className={styles.header_block_user_userName_status}>
+                                        {headerUserRoleName[role]}
+                                    </span>
                                     <span className={styles.header_block_user_userName_name}>
-                                    {profileData?.user.last_name || 'Без'} {profileData?.user.first_name || 'Имени'}
-                                </span>
+                                        {profileData?.user.last_name || 'Без'} {profileData?.user.first_name || 'Имени'}
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </Tooltip>
                     <Menu anchorEl={anchorEl}
-                          id="account-menu" open={open}
-                          onClose={handleClose} onClick={handleClose}
-                          PaperProps={{
-                              elevation: 0,
-                              sx: {
-                                  overflow: 'visible',
-                                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                  mt: 1.5,
-                                  '& .MuiAvatar-root': {
-                                      width: 32,
-                                      height: 32,
-                                      ml: -0.5,
-                                      mr: 1,
-                                  },
-                                  '&:before': {
-                                      content: '""',
-                                      display: 'block',
-                                      position: 'absolute',
-                                      top: 0,
-                                      right: 14,
-                                      width: 10,
-                                      height: 10,
-                                      bgcolor: 'background.paper',
-                                      transform: 'translateY(-50%) rotate(45deg)',
-                                      zIndex: 0,
-                                  },
-                              },
-                          }}
-                          transformOrigin={{horizontal: 'right', vertical: 'top'}}
-                          anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                        id="account-menu" open={open}
+                        onClose={handleClose} onClick={handleClose}
+                        PaperProps={{
+                            elevation: 0,
+                            sx: {
+                                overflow: 'visible',
+                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                mt: 1.5,
+                                '& .MuiAvatar-root': {
+                                    width: 32,
+                                    height: 32,
+                                    ml: -0.5,
+                                    mr: 1,
+                                },
+                                '&:before': {
+                                    content: '""',
+                                    display: 'block',
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 14,
+                                    width: 10,
+                                    height: 10,
+                                    bgcolor: 'background.paper',
+                                    transform: 'translateY(-50%) rotate(45deg)',
+                                    zIndex: 0,
+                                },
+                            },
+                        }}
+                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     >
                         <MenuItem onClick={goToProfile}>
-                            <Avatar/>
-                            <Link to={Path.Profile} style={{color: 'slategrey'}}>Открыть профиль</Link>
+                            <Avatar />
+                            <Link to={Path.Profile} style={{ color: 'slategrey' }}>Открыть профиль</Link>
                         </MenuItem>
                         <MenuItem onClick={goToChooseSchool}>
                             <SvgIcon color='disabled' fontSize={'large'} viewBox='3 0 24 24'>
-                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                             </SvgIcon>
-                            <Link to={Path.ChooseSchool} style={{color: 'slategrey'}}>Смена школы</Link>
+                            <Link to={Path.ChooseSchool} style={{ color: 'slategrey' }}>Смена школы</Link>
                         </MenuItem>
                     </Menu>
                 </React.Fragment>

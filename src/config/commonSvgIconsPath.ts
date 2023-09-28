@@ -1,3 +1,4 @@
+import { orange, red } from '@mui/material/colors'
 import {
   classesSettingSvgIcon,
   cross,
@@ -8,7 +9,7 @@ import {
   tableBallsStarIcon,
   iconSvgHomeWorkPage,
   chatGroup,
-  groupIcon, updateSvgIcon, emailSvgIcon, teacherGroupIcon
+  groupIcon, updateSvgIcon, emailSvgIcon, teacherGroupIcon, tariffPlanIcon
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -54,8 +55,14 @@ export const chatsGroup = [{ d: chatGroup.d1 }, { d: chatGroup.d2, fill: 'curren
 
 export const groupIconPath = [{ d: groupIcon, fill: '#BA75FF' }]
 
-export const updateDataIcon = [{d: updateSvgIcon.d1, fill: '#b3b3b3'}, {d: updateSvgIcon.d2, fill: '#b3b3b3'}]
+export const updateDataIcon = [{ d: updateSvgIcon.d1, fill: '#b3b3b3' }, { d: updateSvgIcon.d2, fill: '#b3b3b3' }]
 
-export const emailSvgIconPath = [{d: emailSvgIcon, fill: '#b3b3b3'}, {d: emailSvgIcon, fill: '#b3b3b3'}]
+export const emailSvgIconPath = [{ d: emailSvgIcon, fill: '#b3b3b3' }, { d: emailSvgIcon, fill: '#b3b3b3' }]
 
 export const groupChatListIconPath = [{ d: teacherGroupIcon, stroke: '#D1D5DB', strokeWidth: '0', fill: '#BA75FF' }]
+
+export const redTariffPlanIconPath = [{ d: tariffPlanIcon, fill: 'red' }]
+
+export const orangeTariffPlanIconPath = [{ d: tariffPlanIcon, fill: 'orange' }]
+
+export const purpleTariffPlanIconPath = [{ d: tariffPlanIcon, fill: '#BA75FF' }]
