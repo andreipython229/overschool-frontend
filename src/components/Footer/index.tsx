@@ -4,6 +4,10 @@ import { Path, FooterPath, SettingsPath } from 'enum/pathE'
 
 import styles from './footer.module.scss'
 
+// const role = if (condition) {
+  
+// }
+
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
@@ -12,10 +16,10 @@ export const Footer = () => {
         <Link className={styles.wrapper_linksBlock_link} to={`${Path.Settings}`}>
           Договор
         </Link>
-        <Link className={styles.wrapper_linksBlock_link} to={`${Path.PersonalDataTreatmentPolicy}`}>
+        <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.PersonalDataTreatmentPolicy}`}>
           Политика обработки персональных данных
         </Link>
-        <Link className={styles.wrapper_linksBlock_link} to={`${Path.HelpCenterForAdmin}`}>
+        <Link className={styles.wrapper_linksBlock_link} to={`${Path.HelpCenter}`}>
           Справочный центр
         </Link>
         <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.TariffPlans}`}>

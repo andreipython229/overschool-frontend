@@ -22,8 +22,6 @@ import {StudentsStats} from 'Pages/School/StudentsStats/StudentsStats'
 import {Profile} from 'Pages/Profile/Profile'
 import {Settings} from 'Pages/Settings/Settings'
 import {Group} from '../Pages/Group'
-import { HelpCenterForAdmin } from 'Pages/HelpCenterForAdmin/HelpCenterForAdmin'
-import { HelpCenterForStudent } from 'Pages/HelpCenterForStudent/HelpCenterForStudent'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
     [RoleE.SuperAdmin]: (
@@ -36,7 +34,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
                 <Route path={SettingsPath.Logs} element={<Logs/>}/>
                 <Route path={SettingsPath.Decoration} element={<DecorPlatform/>}/>
             </Route>
-            <Route path={Path.HelpCenterForAdmin} element={<HelpCenterForAdmin/>}/>
+            <Route path={Path.HelpCenter} element={<HelpCenter/>}/>
             <Route path={Path.TariffPlans} element={<TariffPlans/>}/>
         </>
     ),
@@ -50,7 +48,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
                     <Route path={Student.Lesson} element={<StudentLessonPreview/>}/>
                 </Route>
             </Route>
-            <Route path={Path.HelpCenterForStudent} element={<HelpCenterForStudent/>}/>
+            <Route path={Path.HelpCenter} element={<HelpCenter/>}/>
             <Route path={Path.TariffPlans} element={<TariffPlans/>}/>
         </>
     ),
@@ -75,7 +73,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
                 <Route path={SettingsPath.Decoration} element={<DecorPlatform/>}/>
             </Route>
             <Route path={Path.HomeWork} element={<HomeWork/>}/>
-            <Route path={Path.HelpCenterForAdmin} element={<HelpCenterForAdmin/>}/>
+            <Route path={Path.HelpCenter} element={<HelpCenter/>}/>
             <Route path={Path.TariffPlans} element={<TariffPlans/>}/>
         </>
     ),
@@ -86,7 +84,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
             <Route path={Path.HomeWork} element={<HomeWork/>}/>
             <Route path={Path.CourseStats} element={<CoursesStats/>}/>
             <Route path={Path.CourseStudent} element={<StudentsStats/>}/>
-            <Route path={Path.HelpCenterForAdmin} element={<HelpCenterForAdmin/>}/>
+            <Route path={Path.HelpCenter} element={<HelpCenter/>}/>
             <Route path={Path.TariffPlans} element={<TariffPlans/>}/>
         </>
     ),

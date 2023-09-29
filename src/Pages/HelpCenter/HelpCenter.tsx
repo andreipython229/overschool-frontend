@@ -5,22 +5,14 @@ import { Input } from '../../components/common/Input/Input/Input'
 
 import firstStep from '../../assets/img/createProject/firstStep.png'
 import secondStep from '../../assets/img/createProject/secondStep.png'
+import { headerUserRoleName } from '../../config/headerUserRoleName'
+import { useAppSelector } from '../../store/hooks'
+import {selectUser} from '../../selectors'
 
 import styles from './HelpCenter.module.scss'
 
 export const HelpCenter = () => {
-  const [isAuthorShown, setAuthorIsShown] = useState<boolean>(true)
-  const [isStudentShown, setStudentIsShown] = useState<boolean>(false)
-
-  const handleAuthorClick = () => {
-    setStudentIsShown(false)
-    setAuthorIsShown(true)
-  }
-  const handleStudentClick = () => {
-    setAuthorIsShown(false)
-    setStudentIsShown(true)
-  }
-
+  const {role} = useAppSelector(selectUser)
   return (
     <section className={styles.HelpCenterPage}>
       <div className={styles.HelpCenterPage_pageHeader}>
@@ -40,28 +32,8 @@ export const HelpCenter = () => {
       </div>
       <div className={styles.HelpCenterPage_quickStart}>
         <h1>Начало работы</h1>
-        <div className={styles.HelpCenterPage_quickStart_userSelect}>
-          <div
-            className={
-              isAuthorShown ? styles.HelpCenterPage_quickStart_userSelect_authorEnabled : styles.HelpCenterPage_quickStart_userSelect_authorDisabled
-            }
-          >
-            <h5 onClick={handleAuthorClick}>Для авторов курса</h5>
-            <hr />
-          </div>
 
-          <div
-            className={
-              isStudentShown
-                ? styles.HelpCenterPage_quickStart_userSelect_studentEnabled
-                : styles.HelpCenterPage_quickStart_userSelect_studentDisabled
-            }
-          >
-            <h5 onClick={handleStudentClick}>Для обучающихся</h5>
-            <hr />
-          </div>
-        </div>
-        {isAuthorShown && (
+        {(headerUserRoleName[role] === 'Администратор' || headerUserRoleName[role] === 'Преподаватель') && (
           <div className={styles.HelpCenterPage_quickStart_cardGroup}>
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
               <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
@@ -90,7 +62,7 @@ export const HelpCenter = () => {
           </div>
         )}
 
-        {isStudentShown && (
+        {headerUserRoleName[role] === 'Ученик' && (
           <div className={styles.HelpCenterPage_quickStart_cardGroup}>
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
               <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
@@ -121,6 +93,7 @@ export const HelpCenter = () => {
             </div>
           </div>
         )}
+        
       </div>
       <div className={styles.HelpCenterPage_FAQ}>
         <h1>Часто задаваемые вопросы</h1>
