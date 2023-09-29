@@ -27,6 +27,7 @@ export const rootReducer = combineReducers({
     [services.studentsTableService.reducerPath]: services.studentsTableService.reducer,
     [services.userTestService.reducerPath]: services.userTestService.reducer,
     [services.getAllUsers.reducerPath]: services.getAllUsers.reducer,
+    [services.schoolCreationService.reducerPath]: services.schoolCreationService.reducer,
     user: slices.authReduce,
     sections: slices.sectionsReduce,
     filters: slices.filtersReducer,
@@ -73,6 +74,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
                 services.getSchoolService.middleware,
                 services.userTestService.middleware,
                 services.getAllUsers.middleware,
+                services.schoolCreationService.middleware,
             ),
     })
 }
