@@ -115,13 +115,21 @@
     }
     @media only screen and (min-width : 375px) and (max-width : 480px) {
       @include position_t_r(absolute, 16px, 16px, 10);
+      position: absolute;
     }
     &_graph {
       @include display(flex, row, center, center);
       @include font(700, 10px, 15px);
       width: 72px;
       height: 72px;
-     
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        position: absolute;
+        right: 12px
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        position: absolute;
+        right: 12px
+      }
       
     }
     &_info {
@@ -129,10 +137,11 @@
       margin-top: 3px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         @include position_b_l(absolute, 40px, -182px);
+
       }
       @media only screen and (min-width : 375px) and (max-width : 480px) {
         @include font(400, 12px, 12px);
-        @include position_b_l(absolute, 40px, -237px);
+        @include position_b_l(absolute, 100px, -95px);
       }
     }
   }
