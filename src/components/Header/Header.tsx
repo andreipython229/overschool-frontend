@@ -135,7 +135,7 @@ export const Header = memo(() => {
             const fetchedChatsWithoutAvatar = processChats(fetchedChats)
             const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
             if (!checkChatsDifferent) {
-                dispatch(setChats([...fetchedChats]))
+                dispatch(setChats(fetchedChats))
             }
         }
     },[chats, fetchedChats])
