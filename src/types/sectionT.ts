@@ -72,6 +72,7 @@ export type lessonT = {
 }
 
 export type sectionT = {
+  group_settings: any;
   section_name: string
   section: number
   baselesson_ptr_id?: number
