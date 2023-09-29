@@ -96,7 +96,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
                                     value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
                                     placeholder={authVariant}
                                 />
-                                <AuthSelect getInputVariant={getInputVariant}/>
+                                {/* <AuthSelect getInputVariant={getInputVariant}/> */}
                             </div>
                             <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин')}</div>
                         </div>

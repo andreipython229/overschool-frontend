@@ -1,10 +1,27 @@
 import { NavLink } from 'react-router-dom'
 import { Path } from 'enum/pathE'
+import {useLazyLogoutQuery} from 'api/userLoginService'
+import {useAppDispatch, useAppSelector} from '../../../store/hooks'
+import { setUserProfile, clearUserProfile } from "../../../store/redux/users/profileSlice"
+import {auth} from 'store/redux/users/slice'
+
 
 import styles from '../navbar.module.scss'
 
 export const MobileNavbar = () => {
   const isActive = ({ isActiveIcon }: any) => isActiveIcon && styles.mobileIsActive
+  const [logout] = useLazyLogoutQuery()
+  const dispatch = useAppDispatch()
+
+  const logOut = async () => {
+    await localStorage.clear()
+    await logout()
+    window.location.reload()
+
+    dispatch(auth(false))
+}
+
+
   return (
     <>
       <NavLink to={Path.Courses} className={isActive}>
@@ -60,6 +77,17 @@ export const MobileNavbar = () => {
           />
         </svg>
       </NavLink>
+
+      <NavLink to={Path.InitialPage} title={'Выход из профиля'} onClick={logOut}>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e0dced" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                      </svg>
+                    </div>
+      </NavLink>
+    
     </>
   )
 }

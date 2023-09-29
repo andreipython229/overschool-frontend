@@ -17,12 +17,12 @@ export const MobileInitPage = () => {
       {openLoginModal && <LoginModal setShowModal={showLoginModal} />}
       <div className={styles.container_blur} />
       <div className={styles.initPage}>
-        <h1>Маркетплейс образовательных курсов</h1>
+        <h1>Образовательная онлайн платформа</h1>
         <div className={styles.initPage_footer}>
           <div className={styles.initPage_footer_text}>
             <p>
               Освой самую
-              <span className={styles.initPage_footer_text_rose}> перспективную профессию</span> в IT за несколько месяцев
+              <span className={styles.initPage_footer_text_rose}> перспективную профессию</span> за несколько месяцев
             </p>
           </div>
 
