@@ -17,4 +17,4 @@ export { studentsTableService } from './studentTableService'
 export { getSchoolService } from './getSchoolService'
 export { userTestService } from './userTestService'
 export { getAllUsers } from './allUsersList'
-
+export { schoolCreationService } from './schoolCreationService'
