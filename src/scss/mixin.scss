@@ -3,6 +3,12 @@
     flex-direction: $flex-direction;
     justify-content: $justify-content;
     align-items: $align-item;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+        margin: 0;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        margin: 0;
+      }
 }
 @mixin position_t_l ($position, $top, $left, $z-index:0) {
   position:$position;
