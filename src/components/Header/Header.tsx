@@ -26,8 +26,6 @@ import { setChats } from "../../store/redux/chats/chatsSlice";
 
 import { UserProfileT } from "../../types/userT"
 import { setUserProfile, clearUserProfile } from "../../store/redux/users/profileSlice"
-import {useSelector, shallowEqual} from "react-redux";
-import {RootState} from "../../store/redux/store";
 import { isEqual, omit } from 'lodash';
 
 
@@ -96,9 +94,6 @@ export const Header = memo(() => {
     const fetchChatsData = async () => {
         try {
             const response = await fetch('/api/chats/info/');
-            // if (!response.ok) {
-            //     throw new Error('Network response was not ok');
-            // }
             if (response.ok) {
                 const chatsInfo = await response.json();
                 setTotalUnreadMessages(chatsInfo[0].total_unread)
