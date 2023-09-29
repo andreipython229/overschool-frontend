@@ -20,14 +20,15 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {SvgIcon} from "@mui/material";
-import { ChatI } from 'types/chatsT'
+import {ChatI, SenderI} from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from "../../store/redux/chats/chatsSlice";
 
 import { UserProfileT } from "../../types/userT"
 import { setUserProfile, clearUserProfile } from "../../store/redux/users/profileSlice"
-import {useSelector} from "react-redux";
+import {useSelector, shallowEqual} from "react-redux";
 import {RootState} from "../../store/redux/store";
+import { isEqual, omit } from 'lodash';
 
 
 export const Header = memo(() => {
@@ -40,7 +41,8 @@ export const Header = memo(() => {
     const {data: profile, isSuccess: profileIsSuccess} = useFetchProfileDataQuery()
 
     const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
-    const chats = useSelector((state: RootState) => state.chats.chats);
+    const chats = useAppSelector(state => state.chats.chats);
+    const [fetchedChats, setFetchedChats] = useState<ChatI[]>([])
 
     const logOut = async () => {
         await localStorage.clear()
@@ -85,42 +87,64 @@ export const Header = memo(() => {
     }, [profileData])
 
 
-
+    // Chat Info Update *******************************************************
     useEffect(() => {
         const totalUnread = totalUnreadMessages || 0;
         dispatch(setTotalUnread(totalUnread.toString()));
     }, [totalUnreadMessages])
 
-     const fetchChatsData = async () => {
-        // console.log("fetchChatsInfo");
+    const fetchChatsData = async () => {
         try {
             const response = await fetch('/api/chats/info/');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const chatsInfo = await response.json();
-            setTotalUnreadMessages(chatsInfo[0].total_unread)
-
-            if (chatsInfo.length > 1) {
-                const fetchedChats: ChatI[] = chatsInfo.slice(1);
-                const isDifferent = JSON.stringify(fetchedChats) !== JSON.stringify(chats);
-
-                if (isDifferent) {
-                    dispatch(setChats(fetchedChats));
+            // if (!response.ok) {
+            //     throw new Error('Network response was not ok');
+            // }
+            if (response.ok) {
+                const chatsInfo = await response.json();
+                setTotalUnreadMessages(chatsInfo[0].total_unread)
+                if (chatsInfo.length > 1 && chats) {
+                    const fetchChats: ChatI[] = chatsInfo.slice(1);
+                    if (fetchChats) {
+                        setFetchedChats(fetchChats)
+                    }
                 }
             }
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
     };
 
     useEffect(() => {
         fetchChatsData();
-        const intervalId = setInterval(fetchChatsData, 5000);
-
+        const intervalId = setInterval(fetchChatsData, 10000);
         return () => clearInterval(intervalId);
-        }, []);
+    }, []);
+
+
+    // Удаляем AVATAR
+    const omitAvatar = (sender: SenderI): SenderI => {
+        const { avatar, ...rest } = sender;
+        return rest;
+    };
+    // Проходимся по всем чатас и у каждого сендера удаляем аватарку
+    const processChats = (chats: ChatI[]): ChatI[] => {
+        return chats.map(chat => ({
+          ...chat,
+          senders: chat.senders.map(omitAvatar)
+        }));
+    };
+
+    useEffect(() => {
+        if (chats && fetchedChats) {
+            const chatsWithoutAvatar = processChats(chats)
+            const fetchedChatsWithoutAvatar = processChats(fetchedChats)
+            const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
+            if (!checkChatsDifferent) {
+                dispatch(setChats([...fetchedChats]))
+            }
+        }
+    },[chats, fetchedChats])
+    // **************************************************************
 
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
