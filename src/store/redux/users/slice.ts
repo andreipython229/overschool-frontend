@@ -3,7 +3,7 @@ import { AuthDateT, UserT } from 'types/userT'
 
 const initialState: UserT & AuthDateT = {
   auth: false,
-  role: 6,
+  role: 0,
   authDate: '',
   userId: 0,
   userName: '',
@@ -25,8 +25,17 @@ export const sliceUser = createSlice({
     id: (state, action: PayloadAction<number>) => {
       state.userId = action.payload
     },
+    logoutState: (state) => {
+      return {
+        auth: false,
+        role: 0,
+        authDate: '',
+        userId: 0,
+        userName: '',
+      }
+    },
   },
 })
 
-export const { auth, role, id, userName } = sliceUser.actions
+export const { auth, role, id, userName , logoutState} = sliceUser.actions
 export const authReduce = sliceUser.reducer

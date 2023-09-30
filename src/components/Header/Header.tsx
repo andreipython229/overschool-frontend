@@ -3,7 +3,7 @@ import { Link, NavLink, generatePath, useNavigate } from 'react-router-dom'
 
 import { useFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { auth } from 'store/redux/users/slice'
+import { auth, logoutState } from 'store/redux/users/slice'
 import { Path } from 'enum/pathE'
 import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
@@ -44,14 +44,16 @@ export const Header = memo(() => {
     const [fetchedChats, setFetchedChats] = useState<ChatI[]>([])
 
     const logOut = async () => {
-        await localStorage.clear()
         await logout()
         if (isLoading) {
             return <SimpleLoader />
         }
         dispatch(clearUserProfile())
-        window.location.reload()
-        dispatch(auth(false))
+        dispatch(logoutState())
+        navigate('/login/')
+        await localStorage.clear()
+        // window.location.reload()
+        // dispatch(auth(false))
     }
 
     const [profileData, setProfileData] = useState<profileT>()
