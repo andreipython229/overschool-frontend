@@ -25,6 +25,9 @@ export const Footer = () => {
         <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.TariffPlans}`}>
           Тарифы
         </Link>
+        <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.PWA}`}>
+          PWA
+        </Link>
       </nav>
       <div className={styles.wrapper_appName}>
         <strong>OVERSCHOOL</strong>

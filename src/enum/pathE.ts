@@ -43,4 +43,5 @@ export enum Student {
 export enum FooterPath {
   TariffPlans = 'tariff-plans/',
   PersonalDataTreatmentPolicy = 'personalDataTreatmentPolicy',
+  PWA = 'PWA',
 }

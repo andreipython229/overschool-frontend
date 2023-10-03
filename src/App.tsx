@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
+import { PWA } from 'Pages/PWA/PWA'
 import { Initial } from 'Pages/Initial/Initial'
 import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
 import { MainLayOut } from 'components/MainLayout/MainLayOut'
@@ -35,6 +36,9 @@ export const App = () => {
       <Routes>
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy/>}/>
+        </Route>
+        <Route path={Path.School} element={<MainLayOut />}>
+          <Route path={FooterPath.PWA} element={<PWA/>}/>
         </Route>
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
