@@ -8,8 +8,8 @@ describe('find next order Lesson Array', () => {
           section_name: 'name',
           section: 1,
           lessons: [
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
           ],
           group_settings: {
             strict_task_order: true,
@@ -44,8 +44,8 @@ describe('find next order Lesson Array', () => {
           section_name: 'name',
           section: 1,
           lessons: [
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
           ],
           group_settings: {
             strict_task_order: true,
@@ -80,8 +80,8 @@ describe('find next order Lesson Array', () => {
           section_name: 'name',
           section: 1,
           lessons: [
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
           ],
           group_settings: {
             strict_task_order: true,

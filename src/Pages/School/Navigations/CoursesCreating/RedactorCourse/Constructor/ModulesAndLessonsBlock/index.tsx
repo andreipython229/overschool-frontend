@@ -10,7 +10,7 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(({ setType,
 
   useEffect(() => {
     if (modulesList.length > 0 && modulesList[0].lessons.length > 0) {
-      setSelectedLessonId(modulesList[0].lessons[0].id)
+      setSelectedLessonId(modulesList[0].lessons[0].baselesson_ptr_id)
     }
   }, [isLoading])
 
