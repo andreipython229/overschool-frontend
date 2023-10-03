@@ -31,12 +31,11 @@
     }
 
     &_description {
-
       &_text {
         margin-bottom: 10px;
         font-weight: bold;
         font-size: 16px;
-        font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif;
+        font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Helvetica, Arial, sans-serif;
       }
     }
   }
@@ -333,7 +332,6 @@
             margin-left: 16px;
 
             & svg {
-
               margin: 0 auto;
               height: 17px;
               width: 17px;
@@ -428,7 +426,6 @@ hr {
   margin-bottom: 18px;
 }
 
-
 .coursePreviewHeader {
   display: flex;
   justify-content: space-between;
@@ -460,7 +457,6 @@ hr {
         margin-right: 2px;
       }
     }
-
   }
 }
 
@@ -480,4 +476,9 @@ hr {
       margin-right: 10px;
     }
   }
+}
+
+.selectedLesson {
+  background-color: #dcdcdc;
+  border-radius: 8px;
 }

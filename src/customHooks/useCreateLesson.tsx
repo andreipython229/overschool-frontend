@@ -97,8 +97,9 @@ export const useCreateLesson = ({ setType, modulesList, typeLesson, description,
       createLessonData['balls_per_answer'] = balls_per_answer
     }
 
-    await createLesson({ createLessonData, type: typeLesson })
+    await createLesson({ createLessonData, type: typeLesson }).unwrap().then(() => {window.location.reload()})
   }
+  
   useEffect(() => {
     if (isSuccess) {
       const type = typeLesson.slice(0, -1)

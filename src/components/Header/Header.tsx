@@ -28,6 +28,7 @@ import { UserProfileT } from "../../types/userT"
 import { setUserProfile, clearUserProfile } from "../../store/redux/users/profileSlice"
 import { isEqual, omit } from 'lodash';
 import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath'
+import { RoleE } from 'enum/roleE'
 
 
 export const Header = memo(() => {
@@ -167,7 +168,7 @@ export const Header = memo(() => {
                 <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
             </NavLink>
             <div className={styles.header_block}>
-                <a className={styles.tariffPlan} href={`${generatePath(Path.School + Path.TariffPlans,
+                {(role === RoleE.Admin) && <a className={styles.tariffPlan} href={`${generatePath(Path.School + Path.TariffPlans,
                     { school_name: localStorage.getItem('school') || window.location.href.split('/')[4] })}`}>
                     <div className={styles.tariffPlan_icon}>
                         <IconSvg width={23} height={19} viewBoxSize="0 0 23 19" path={purpleTariffPlanIconPath} />
@@ -176,7 +177,7 @@ export const Header = memo(() => {
                         <span className={styles.tariffPlan_text_tariff}>{'«Бизнес»'}</span>
                         <span style={{ color: '#BA75FF' }}>{' — 30 дней'}</span>
                     </p>
-                </a>
+                </a>}
                 <React.Fragment>
                     <Tooltip title={'Аккаунт пользователя'}>
                         <div style={{ textDecoration: 'none' }} onClick={handleClick}>

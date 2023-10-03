@@ -2,7 +2,6 @@ import React, {FC} from 'react'
 import {generatePath, Link} from 'react-router-dom'
 import {Student} from 'enum/pathE'
 import {Button} from 'components/common/Button/Button'
-// import { AdminAndStudentViewT } from '../AdminView'
 
 import pie from 'assets/img/studentPage/folder-todo.png'
 
