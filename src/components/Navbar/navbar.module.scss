@@ -23,6 +23,25 @@
     @include display(flex, column);
     cursor: pointer;
     margin-top: auto;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      
+    }
+    @media only screen and (min-width: 481px) and (max-width: 1024px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
 
     & a {
       @include display(flex, row, center, center);
@@ -30,6 +49,15 @@
       height: 57px;
       text-align: center;
       color: #e0dced;
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        margin: 0 10% 0 10%;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        margin: 0 10% 0 10%;
+      }
+      @media only screen and (min-width: 481px) and (max-width: 1024px) {
+        margin: 0 20% 0 20%;
+      }
 
       &:hover {
         border-radius: 10px;
@@ -40,6 +68,16 @@
 
     & a:not(:first-child) {
       margin-top: 30px;
+      
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        margin: 0 10% 0 10%;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        margin: 0 10% 0 10%; 
+      }
+      @media only screen and (min-width: 481px) and (max-width: 1024px) {
+        margin: 0 20% 0 20%;
+      }
     }
   }
 }
@@ -55,10 +93,21 @@
   text-align: center;
   margin-top: 30px;
   border-radius: 10px;
+  
+   @media only screen and (min-width: 320px) and (max-width: 375px) {
+    margin: 0 10% 0 10%;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    margin: 0 10% 0 10%;
+  }
+  @media only screen and (min-width: 481px) and (max-width: 1024px) {
+    margin: 0 20% 0 20%;
+  }
 
   &:hover {
     background: #e0dced;
     color: #ba75ff;
+    
   }
 }
 
