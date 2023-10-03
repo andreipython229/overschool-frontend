@@ -13,7 +13,7 @@ import styles from './setting_course.module.scss'
 import {useDebounceFunc} from '../../../../../customHooks'
 import {Button} from "../../../../../components/common/Button/Button";
 import {Path} from "../../../../../enum/pathE";
-import {generatePath} from "react-router-dom";
+import {generatePath, useNavigate} from "react-router-dom";
 import {SimpleLoader} from "../../../../../components/Loaders/SimpleLoader";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 
@@ -31,6 +31,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({toggleCheckbox, toggleCheckbo
     const [alertOpen, setAlertOpen] = useState<boolean>(false)
 
     const debounce = useDebounceFunc(update)
+    const navigate = useNavigate()
 
     const handleCloseAlert = () => {
         setAlertOpen(false)
@@ -51,16 +52,13 @@ export const BasicSettings: FC<BasicSettingsT> = ({toggleCheckbox, toggleCheckbo
     const handleDeleteCourse = async () => {
         courseFind && (await deleteCourses(courseFind?.course_id))
         setAlertOpen(false)
-        generatePath(Path.School + Path.Courses, {
-            school_name: localStorage.getItem('school') || window.location.href.split('/')[4]
-        })
     }
 
     const handleSaveChanges = async () => {
         const updateCurse = {
             name: nameCourse,
             description: shortDescription,
-            public: toggleCheckbox ? 'О' : 'Н',
+            public: 'О',
         }
 
         const formdata = formDataConverter(updateCurse)
@@ -72,9 +70,9 @@ export const BasicSettings: FC<BasicSettingsT> = ({toggleCheckbox, toggleCheckbo
 
     useEffect(() => {
         if (isSuccessDelete) {
-            generatePath(Path.School + Path.Courses, {
+            navigate(generatePath(Path.School + Path.Courses, {
                 school_name: localStorage.getItem('school') || window.location.href.split('/')[4],
-            })
+            }))
         }
     }, [isSuccessDelete])
 
@@ -83,12 +81,12 @@ export const BasicSettings: FC<BasicSettingsT> = ({toggleCheckbox, toggleCheckbo
         <div className={`${styles.basic_settings}`}>
             <div className={`${styles.header_basic_settings}`}>
                 <p>Основные настройки</p>
-                {!toggleCheckbox && (
+                {/* {!toggleCheckbox && (
                     <p className={styles.right_content_header}>
                         <IconSvg width={20} height={15} viewBoxSize=" 0 0 21 16" path={noPublishedGreyIconPath}/>
                         Не опубликован
                     </p>
-                )}
+                )} */}
             </div>
             <div className={styles.publish_switch}>
                 <p className={styles.publish_switch_title}>Статус курса</p>

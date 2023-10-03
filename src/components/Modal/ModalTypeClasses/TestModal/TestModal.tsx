@@ -72,7 +72,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
 
       <div style={{ marginTop: '15px' }} className={styles.usually_input}>
         <span className={styles.usually_title}>Название теста:</span>
-        <Input placeholder={'Основы языка HTML'} name="classesName" onChange={handleCreateTestName} type={'text'} value={nameLesson} />
+        <Input placeholder={'Название теста'} name="classesName" onChange={handleCreateTestName} type={'text'} value={nameLesson} />
       </div>
       <div style={{ margin: '15px 0 25px' }} className={styles.usually_input}>
         <span className={styles.usually_title}>Процент правильных ответов для выполнения:</span>

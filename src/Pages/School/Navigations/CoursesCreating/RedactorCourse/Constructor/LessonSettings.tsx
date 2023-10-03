@@ -43,14 +43,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
     }, [lesson])
 
     const handleSaveChanges = async () => {
-
-        const formData = new FormData()
-        formData.append('description', lessonDescription)
-        formData.append('section', String(lesson.section))
-        formData.append('order', String(lesson.order))
-        formData.append('active', String(lesson.active))
-        await saveChanges({id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData})
-
         if (files.length) {
             const formData1 = new FormData()
 
@@ -59,10 +51,17 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                 formData1.append('files', file)
             )
             await addTextFiles(formData1)
+        }
 
+        const formData = new FormData()
+        formData.append('description', lessonDescription)
+        formData.append('section', String(lesson.section))
+        formData.append('order', String(lesson.order))
+        formData.append('active', String(lesson.active))
+        await saveChanges({id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData}).unwrap().then(() => {
             window.location.reload()
             setIsEditing(false)
-        }
+        })
     }
 
     const renderUI = () => {

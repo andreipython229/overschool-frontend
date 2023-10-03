@@ -1,14 +1,9 @@
-import {ChangeEvent, FC, memo, PointerEvent, useEffect, useState} from 'react'
+import { ChangeEvent, FC, memo, PointerEvent, useEffect, useState } from 'react'
 
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
-import {
-  useDeleteModulesMutation,
-  usePatchLessonsMutation,
-  usePatchModulesMutation,
-  useUpdateLessonsOrdersMutation
-} from 'api/modulesServices'
+import { useDeleteModulesMutation, usePatchLessonsMutation, usePatchModulesMutation, useUpdateLessonsOrdersMutation } from 'api/modulesServices'
 import { formDataConverter } from 'utils/formDataConverter'
 import { LessonsBlock } from '../LessonsBlock'
 import { ModulesBlockT } from '../../../../../../../../types/navigationTypes'
@@ -21,13 +16,17 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
 import { Reorder } from 'framer-motion'
-import styles1 from "../../../../../../../../components/Modal/Modal.module.scss";
+import styles1 from '../../../../../../../../components/Modal/Modal.module.scss'
 
-export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndType, moduleName, lessonsList, id }) => {
+export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId }) => {
   const dispatch = useAppDispatch()
 
+  const handleLessonClick = (lessonId: number) => {
+    setSelectedLessonId(lessonId)
+  }
+
   // ********* DRAG AND DROP **************************************************************
-  const [lessons , setLessons] = useState(lessonsList)
+  const [lessons, setLessons] = useState(lessonsList)
   const [updateLessonsOrders] = useUpdateLessonsOrdersMutation()
   const debouncedOrders = useDebounceFunc(updateLessonsOrders, 2000)
   const [newLessonsOrders, setNewLessonsOrders] = useState<lessonT[]>([])
@@ -45,7 +44,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
     setChangeModuleName(event.target.value)
   }
   const debounced = useDebounceFunc(changeName, 2000)
-  const [visibleAddBtn, setVisibleAddBtn] = useState(false);
+  const [visibleAddBtn, setVisibleAddBtn] = useState(false)
   const handleOpenModalLesson = () => {
     dispatch(getSectionId(id))
     setType('lessonsModal' as keyof object)
@@ -65,21 +64,20 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
     }
   }, [changeModuleName])
 
-
   const handleOrderUpdate = (lessonsWithNewOrders: lessonT[]) => {
-      setLessons(lessonsWithNewOrders)
-      setNewLessonsOrders(lessonsWithNewOrders)
+    setLessons(lessonsWithNewOrders)
+    setNewLessonsOrders(lessonsWithNewOrders)
   }
 
   useEffect(() => {
-      const updatedOrderLesson = newLessonsOrders.map(({ baselesson_ptr_id, order}, index) => ({
-        baselesson_ptr_id,
-        order: index + 1,
-      }));
-      const formData = {data: updatedOrderLesson}
-      if (formData.data.length > 0 && updatedOrderLesson.length > 0) {
-        debouncedOrders(formData)
-      }
+    const updatedOrderLesson = newLessonsOrders.map(({ baselesson_ptr_id, order }, index) => ({
+      baselesson_ptr_id,
+      order: index + 1,
+    }))
+    const formData = { data: updatedOrderLesson }
+    if (formData.data.length > 0 && updatedOrderLesson.length > 0) {
+      debouncedOrders(formData)
+    }
   }, [newLessonsOrders])
 
   return (
@@ -101,14 +99,23 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
 
         <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons}>
           {lessons &&
-            lessons.map((lesson) => (
-              <LessonsBlock type={lesson.type} setLessonIdAndType={setLessonIdAndType} key={lesson.baselesson_ptr_id} id={lesson.id} lessonsName={lesson.name} lesson={lesson}/>
-                // lesson.id + lesson.name
+            lessons.map(lesson => (
+              <LessonsBlock
+                type={lesson.type}
+                setLessonIdAndType={setLessonIdAndType}
+                key={lesson.baselesson_ptr_id}
+                id={lesson.id}
+                lessonsName={lesson.name}
+                lesson={lesson}
+                selected={selectedLessonId === lesson.id}
+                onPush={() => handleLessonClick(lesson.id)}
+              />
+              // lesson.id + lesson.name
             ))}
         </Reorder.Group>
 
         <Button className={styles.btn} text="+ Занятие" variant="secondary" onClick={handleOpenModalLesson} />
-        </ul>
+      </ul>
     </>
   )
 })
