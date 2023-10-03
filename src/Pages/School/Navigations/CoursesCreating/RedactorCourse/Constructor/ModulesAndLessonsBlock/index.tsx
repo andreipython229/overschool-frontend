@@ -9,7 +9,7 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(({ setType,
   const [selectedLessonId, setSelectedLessonId] = useState<number>()
 
   useEffect(() => {
-    if (modulesList.length > 0) {
+    if (modulesList.length > 0 && modulesList[0].lessons.length > 0) {
       setSelectedLessonId(modulesList[0].lessons[0].id)
     }
   }, [isLoading])
