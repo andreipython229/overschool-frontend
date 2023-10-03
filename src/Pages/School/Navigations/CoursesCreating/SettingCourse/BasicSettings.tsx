@@ -88,12 +88,12 @@ export const BasicSettings: FC<BasicSettingsT> = ({toggleCheckbox, toggleCheckbo
                     </p>
                 )} */}
             </div>
-            <div className={styles.publish_switch}>
+            {/* <div className={styles.publish_switch}>
                 <p className={styles.publish_switch_title}>Статус курса</p>
                 <div className={styles.publish_switch_wrapper_switch}>
                     <CheckboxBall isChecked={toggleCheckbox} toggleChecked={toggleCheckboxPublished}/>
                 </div>
-            </div>
+            </div> */}
             <div className={styles.course_name_wrapper}>
                 <p className={styles.course_name_title}>Название курса:</p>
                 <Input type={'text'} name="nameCourse" value={nameCourse} onChange={handleNameCourse}/>
