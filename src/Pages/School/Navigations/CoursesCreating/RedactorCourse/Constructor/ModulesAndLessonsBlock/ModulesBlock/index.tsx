@@ -107,8 +107,8 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
                 id={lesson.id}
                 lessonsName={lesson.name}
                 lesson={lesson}
-                selected={selectedLessonId === lesson.id}
-                onPush={() => handleLessonClick(lesson.id)}
+                selected={selectedLessonId === lesson.baselesson_ptr_id}
+                onPush={() => handleLessonClick(lesson.baselesson_ptr_id)}
               />
               // lesson.id + lesson.name
             ))}

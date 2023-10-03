@@ -65,7 +65,7 @@ export type lessonT = {
   name: string
   order: number
   type: string
-  baselesson_ptr_id?: number
+  baselesson_ptr_id: number
   viewed: boolean
   completed: boolean
   active: boolean
