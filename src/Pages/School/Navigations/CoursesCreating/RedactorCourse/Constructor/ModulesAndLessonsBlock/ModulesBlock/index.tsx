@@ -19,7 +19,7 @@ import { Reorder } from 'framer-motion'
 import styles1 from '../../../../../../../../components/Modal/Modal.module.scss'
 
 export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId }) => {
-  const dispatch = useAppDispatch()
+  const dispatch: any = useAppDispatch()
 
   const handleLessonClick = (lessonId: number) => {
     setSelectedLessonId(lessonId)
