@@ -46,6 +46,7 @@ export type PropsQuestionBlockT = {
     question?: QuestionT
     onPointerDown?: any
     answers?: AnswersT[]
+    testId?: number
     // setQuestions?: (arg: QuestionT[]) => void
     // questions?: QuestionT[]
 }
@@ -79,13 +80,13 @@ export const AddQuestion: FC<AddQuestionT> = memo(({testId}) => {
                     {sortedQuestions.map((question) => {
                         if (question.question_type === 'Text') {
                             return <TextOptions answers={question.answers} question={question} title={question.body}
-                                                id={question.question_id} key={question.question_id}/>
+                                                id={question.question_id} key={question.question_id} testId={testId}/>
                         } else if (question.question_type === 'TextPic') {
                             return <OptionsWithPictures answers={question.answers} question={question} title={question.body}
-                                                        id={question.question_id} key={question.question_id}/>
+                                                        id={question.question_id} key={question.question_id} testId={testId}/>
                         } else if (question.question_type === 'PicText') {
                             return <PicturesAndOptions answers={question.answers} question={question} title={question.body}
-                                                       id={question.question_id} key={question.question_id}/>
+                                                       id={question.question_id} key={question.question_id} testId={testId}/>
                         }
                     })}
                 </div>
