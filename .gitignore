@@ -22,8 +22,8 @@ dist/
 # Package files
 *.jar
 yarn.lock
-.yarn/install-state.gz
 .yarnrc.yml
+.yarn/install-state.gz
 
 # Maven
 target/
