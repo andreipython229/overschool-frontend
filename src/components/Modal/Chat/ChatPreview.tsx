@@ -16,6 +16,7 @@ import Avatar from '@mui/material/Avatar';
 import FolderIcon from '@mui/icons-material/Folder';
 import GroupsIcon from '@mui/icons-material/Groups';
 import SchoolIcon from '@mui/icons-material/School';
+import { chatGroup } from "../../../assets/img/common/"
 
 type chatPreviewT = {
   chat: ChatI
@@ -65,12 +66,15 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
     >
             {chat.type === "GROUP" ? (
               <div className={styles.chatPreview_avatarWrap}>
-                <Badge badgeContent={chat.senders.length} color="default">
-                    {/*<Avatar sx={{ bgcolor: deepPurple[500], width: 46, height: 46  }}>*/}
-                        <IconSvg width={30} height={30} viewBoxSize="0 0 40 40" path={groupChatListIconPath} />
-                        {/*<GroupsIcon />*/}
-                    {/*</Avatar>*/}
-                </Badge>
+
+                  {role === RoleE.Student ? (
+                      <Avatar alt="Канал группы" src={chatGroup} sx={{ width: 46, height: 46 }} />
+                  ) : (
+                       <Badge badgeContent={chat.senders.length} color="default">
+                            <Avatar alt="Канал группы" src={chatGroup} sx={{ width: 46, height: 46 }} />
+                       </Badge>
+                  )}
+
               </div>
             ) : chat.type === "PERSONAL" ? (
                 <div className={styles.chatPreview_avatarWrap}>
@@ -89,7 +93,7 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
           {chat.type === "GROUP" ? (
               <div className={styles.chatPreview_info}>
                   <div className={styles.chatPanel_user_avatar_userName_status}>
-                    Чат студенческой группы
+                    Канал студенческой группы
                   </div>
                   <div className={styles.chatPreview_top}>
                       <p>{chat.name || 'Группа без имени'}</p>
