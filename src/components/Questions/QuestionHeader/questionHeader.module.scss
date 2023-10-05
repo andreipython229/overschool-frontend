@@ -22,7 +22,7 @@
     }
   }
   &_controlIconWrapper {
-    @include display(flex, row, space-between, center);
+    @include display(flex, row, space-around, center);
     width: 250px;
     &_timer {
       position: relative;

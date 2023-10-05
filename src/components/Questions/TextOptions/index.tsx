@@ -48,9 +48,8 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
                         </div>
                     </div>
                 </QuestionHeader>
-            </div>
-
-            {isOpen && (
+                
+                {isOpen && (
                 <div className={styles.wrapper_drop_down_menu}>
                     <Question id={id} title={title} testId={testId}/>
                     <h4 className={styles.answerOptionsBlock_title}>Добавьте варианты ответов:</h4>
@@ -63,6 +62,7 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
                             onClick={handleAddAnswer}/>
                 </div>
             )}
+            </div>
         </>
     )
 }

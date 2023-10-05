@@ -19,7 +19,7 @@ export const AdminAnswerOption: FC<AnswerOptionT> = ({id, answer}) => {
         <div className={styles.wrapper} key={answer?.answer_id}>
             <div className={styles.answerOptionsBlock}>
                 <div className={styles.answerOptionsBlock_inputWrapper}>
-                    <Grid container alignItems="left">
+                    <Grid container alignItems="left" spacing={2}>
                         <Grid item>
                             <Avatar className={styles.avatar}>{id! + 1}</Avatar>
                         </Grid>

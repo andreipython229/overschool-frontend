@@ -1,7 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const {createProxyMiddleware} = require('http-proxy-middleware')
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires, no-undef
 module.exports = function (app) {
     app.use(
         '/api/socket.io',
@@ -14,7 +12,19 @@ module.exports = function (app) {
             secure: false,
             pathRewrite: {'^/api/socket.io': '/api'},
         }),
-    )
+    );
+
+    app.use(
+        '/video',
+        createProxyMiddleware({
+            target: 'http://45.135.234.137:8000',
+            changeOrigin: true,
+            secure: false,
+            pathRewrite: {
+                '^/video': '/api'
+            }
+        })
+    );
 
     app.use(
         '/api',
@@ -25,5 +35,5 @@ module.exports = function (app) {
             changeOrigin: true,
             secure: false,
         }),
-    )
+    );
 }
