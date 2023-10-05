@@ -37,7 +37,7 @@ export const AddTextOptions: FC<AddQuestionOptionsT> = ({ setTypeQuestions, setQ
           <span />
         </div>
       </div>
-      <h4 className={styles.wrapper_title}>Текстовые варианты</h4>
+      <h4 className={styles.wrapper_title}>Добавить вопрос</h4>
     </button>
   )
 }

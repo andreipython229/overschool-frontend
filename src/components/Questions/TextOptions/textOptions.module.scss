@@ -30,10 +30,23 @@
       }
     }
   }
+
   &_drop_down_menu {
-    margin-top: -10px;
+    position: relative;
+    margin-top: 10px;
     background-color: #fff;
-    padding: 30px 61px 30px 61px;
+    overflow: hidden;
+    border-radius: 0 0 10px 10px;
+    animation: slideDown 0.2s ease-in forwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
   }
 }
 

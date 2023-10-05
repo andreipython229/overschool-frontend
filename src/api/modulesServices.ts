@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { sectionT, sectionsT, commonLessonT } from 'types/sectionT'
-import {baseQueryFn} from './baseApi'
+import { baseQueryFn } from './baseApi'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
@@ -84,7 +84,7 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modules', 'patchLessons'],
     }),
-     updateLessonsOrders: build.mutation<void, { data: { baselesson_ptr_id: number | undefined; order: number; }[]}>({
+    updateLessonsOrders: build.mutation<void, { data: { baselesson_ptr_id: number | undefined; order: number }[] }>({
       query: arg => {
         return {
           url: `/lesson_order/`,
@@ -93,7 +93,8 @@ export const modulesServices = createApi({
         }
       },
       invalidatesTags: ['modules', 'lessons'],
-  }),}),
+    }),
+  }),
 })
 
 export const {

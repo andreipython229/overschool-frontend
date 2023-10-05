@@ -32,9 +32,7 @@ export const AdminTextOptions: FC<PropsQuestionBlockT> = ({question, answers, ti
                         </div>
                     </div>
                 </AdminQuestionHeader>
-            </div>
-
-            {isOpen && (
+                {isOpen && (
                 <div className={styles.wrapper_drop_down_menu}>
                     <h4 className={styles.answerOptionsBlock_title}>Варианты ответов:</h4>
                     <div className={styles.settings_list}>
@@ -44,6 +42,7 @@ export const AdminTextOptions: FC<PropsQuestionBlockT> = ({question, answers, ti
                     </div>
                 </div>
             )}
+            </div>
         </>
     )
 }

@@ -42,7 +42,7 @@ export const Question: FC<QuestionT> = ({id, title}) => {
             <div className={styles.questionBlock_inputWrapper}>
                 <InputBlock onChange={handleChangeTitleQuestion} id={id?.toString()} name={''} type={'text'}
                             value={titleQuestion}/>
-                <div className={styles.questionBlock_inputWrapper_comment}>
+                {/* <div className={styles.questionBlock_inputWrapper_comment}>
                     <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={addCommentsIconPath}>
                         <line x1="7.97656" y1="6.00781" x2="11.9531" y2="6.00781" stroke="#D4D7DD"
                               strokeLinecap="round"/>
@@ -51,9 +51,9 @@ export const Question: FC<QuestionT> = ({id, title}) => {
                         <line x1="5.48828" y1="12.0078" x2="11.9531" y2="12.0078" stroke="#D4D7DD"
                               strokeLinecap="round"/>
                     </IconSvg>
-                </div>
+                </div> */}
             </div>
-            <p className={styles.questionBlock_addDescription}>+ добавить описание</p>
+            <p className={styles.questionBlock_addDescription}></p>
         </div>
     )
 }

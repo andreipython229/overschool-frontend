@@ -22,7 +22,7 @@ export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({
       {children}
       <h4>{title}</h4>
       <div className={styles.header_controlIconWrapper}>
-        <div className={styles.header_controlIconWrapper_timer}>
+        {/* <div className={styles.header_controlIconWrapper_timer}>
           <IconSvg width={15} height={15} viewBoxSize="0 0 19 19">
             <g clipPath="url(#clip0_2875_4565)">
               <path d="M8.83789 3.10156H7.83789V8.66753L11.4508 10.3847L11.8801 9.48147L8.83789 8.03559V3.10156Z" fill="#25B59E" />
@@ -36,26 +36,24 @@ export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({
             </defs>
           </IconSvg>
           <input type={'time'} />
-          {/* <div className={styles.wrapper_header_controlIconWrapper_timer_clearTimer}>
-                    <IconSvg width={6} height={6} viewBoxSize="0 0 6 6" path={clearTimerPath}/>
-                </div> */}
+          <div className={styles.wrapper_header_controlIconWrapper_timer_clearTimer}>
+            <IconSvg width={6} height={6} viewBoxSize="0 0 6 6" path={clearTimerPath}/>
+          </div> 
           <div className={styles.header_controlIconWrapper_timer_openList}>
             <IconSvg width={10} height={10} viewBoxSize="0 0 10 15" path={arrowDownPath} />
           </div>
-        </div>
+        </div> */}
         <div
           onClick={onToggle}
-          className={
-            !isOpen
-              ? styles.header_controlIconWrapper_togglerShowOption
+          className={!isOpen? styles.header_controlIconWrapper_togglerShowOption
               : styles.header_controlIconWrapper_togglerShowOption + ' ' + styles.rotate_arrow
           }
         >
           <IconSvg width={22} height={17} viewBoxSize="0 0 22 22" path={arrowDownTimerIconPath} />
         </div>
-        <div className={styles.header_controlIconWrapper_duplicate}>
+        {/* <div className={styles.header_controlIconWrapper_duplicate}>
           <IconSvg width={22} height={22} viewBoxSize="0 0 22 22" path={lessonIcon} />
-        </div>
+        </div> */}
         <div onClick={handleGetTypeQuestion} className={styles.header_controlIconWrapper_delete}>
           <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
         </div>
