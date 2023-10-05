@@ -5,13 +5,13 @@ import {Button} from 'components/common/Button/Button'
 import {AddFileBtn} from 'components/common/AddFileBtn/index'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {AddPost} from 'components/AddPost'
-import {deleteIconPath, noPublishedIconPath, publishedIconPath, settingsIconPath} from '../../../../config/svgIconsPath'
+import {deleteIconPath, settingsIconPath} from '../../../../config/svgIconsPath'
 import {useFetchLessonQuery, usePatchLessonsMutation} from 'api/modulesServices'
 import {ClassesSettingsPropsT} from 'types/navigationTypes'
 import {commonLessonT} from 'types/sectionT'
 import {AddQuestion} from 'components/AddQuestion'
 import {SimpleLoader} from 'components/Loaders/SimpleLoader/index'
-import {usePostTextFilesMutation} from 'api/filesService'
+import {useDeleteTextFilesMutation, usePostTextFilesMutation} from 'api/filesService'
 import styles from './constructor.module.scss'
 import {LESSON_TYPE} from "../../../../../../enum/lessonTypeE";
 import {AdminLesson} from "./AdminLessonPreview/AdminLesson";
@@ -20,6 +20,7 @@ import {VideoPlayer} from "../../../../../../components/VideoPlayer/player";
 import {AdminTest} from "./AdminTestPreview/AdminTest";
 import {AdminHomework} from "./AdminHomeworkPreview/AdminHomework";
 import {acceptedHwPath} from "../../../../../../config/commonSvgIconsPath";
+import {IFile} from "../../../../../../types/filesT";
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, lessonIdAndType, setType}) => {
     const [files, setFiles] = useState<File[]>([])
@@ -29,18 +30,38 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
 
     const {data, isFetching, isSuccess} = useFetchLessonQuery({id: +lessonIdAndType.id, type: lessonIdAndType.type})
     const [addTextFiles] = usePostTextFilesMutation()
-    const [saveChanges] = usePatchLessonsMutation()
+    const [saveChanges, {isLoading: isSaving}] = usePatchLessonsMutation()
+    const [deleteFile, {isLoading: isDeleting}] = useDeleteTextFilesMutation()
 
     const [lesson, setLesson] = useState(data as commonLessonT)
+    const [renderFiles, setRenderFiles] = useState<IFile[]>([])
+
+    useEffect(() => {
+        if (lesson && lesson.type !== 'test') {
+            setRenderFiles(lesson.text_files)
+        }
+    }, [lesson])
 
     const handleSaveChanges = async () => {
+        if (files.length) {
+            const formData1 = new FormData()
+
+            formData1.append('base_lesson', `${data?.baselesson_ptr_id}`)
+            files.forEach((file) =>
+                formData1.append('files', file)
+            )
+            await addTextFiles(formData1)
+        }
+
         const formData = new FormData()
         formData.append('description', lessonDescription)
         formData.append('section', String(lesson.section))
         formData.append('order', String(lesson.order))
         formData.append('active', String(lesson.active))
-        await saveChanges({id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData})
-        setIsEditing(false)
+        await saveChanges({id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData}).unwrap().then(() => {
+            window.location.reload()
+            setIsEditing(false)
+        })
     }
 
     const renderUI = () => {
@@ -94,21 +115,21 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
         setUrlFiles(files => files.filter((_, id) => id !== index))
     }
 
+    const handleDeleteFileFromLesson = async (index: number) => {
+        if (lesson.type !== 'test') {
+            const fileToDelete = lesson.text_files[index]
+            if (fileToDelete) {
+                await deleteFile(fileToDelete.id)
+                    .unwrap()
+                    .then((data) => setRenderFiles(renderFiles.filter((file) => file.id !== fileToDelete.id)))
+            }
+        }
+    }
+
     const handleChangeFiles = (event: ChangeEvent<HTMLInputElement>) => {
         const chosenFiles = Array.prototype.slice.call(event.target.files)
 
         handleUploadFiles(chosenFiles)
-    }
-
-    const handleUploadFile = () => {
-        if (files.length) {
-            const formData = new FormData()
-
-            formData.append('base_lesson', `${data?.baselesson_ptr_id}`)
-            formData.append('file', files[0])
-
-            addTextFiles(formData)
-        }
     }
 
     useEffect(() => {
@@ -116,7 +137,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
     }, [data])
 
     return (
-        <section style={{opacity: isFetching ? 0.5 : 1, position: 'relative'}}
+        <section style={{opacity: (isFetching || isDeleting || isSaving) ? 0.5 : 1, position: 'relative'}}
                  className={styles.redactorCourse_rightSideWrapper}>
             <div style={{position: 'relative'}} className={styles.redactorCourse_rightSideWrapper_rightSide}>
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_header}>
@@ -202,17 +223,25 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                                 <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson}/>
                             </div>
                             <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
+
+                            {renderFiles?.map(({file, id}, index: number) => (
+                                <UploadedFile key={id} index={index} file={file}
+                                              size={43435} // поле сайз надо на бэке прокинуть, чтоб можно было вытянуть размер файла
+                                              handleDeleteFile={(index) => handleDeleteFileFromLesson(index)}/>
+                            ))}
+
                             <AddFileBtn handleChangeFiles={handleChangeFiles}/>
                             <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
 
                             {urlFiles?.map(({url, name}, index: number) => (
-                                <UploadedFile key={index} index={index} file={url} name={name} size={files[index].size}
+                                <UploadedFile isHw={true} key={index} index={index} file={url} name={name}
+                                              size={files[index].size}
                                               handleDeleteFile={handleDeleteFile}/>
                             ))}
-                            {urlFiles.length > 0 && (
-                                <Button style={{marginTop: '20px'}} variant="primary" text="Загрузить" type="submit"
-                                        onClick={handleUploadFile}/>
-                            )}
+                            {/*{urlFiles.length > 0 && (*/}
+                            {/*    <Button style={{marginTop: '20px'}} variant="primary" text="Загрузить" type="submit"*/}
+                            {/*            onClick={handleUploadFile}/>*/}
+                            {/*)}*/}
                         </>}
                         {lessonIdAndType.type === 'test' && <AddQuestion testId={lessonIdAndType.id}/>}
                     </div>
@@ -223,7 +252,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                         {renderUI()}
                     </div>
                 )}
-                {isFetching && (
+                {(isFetching || isDeleting || isSaving) && (
                     <div style={{
                         position: 'absolute',
                         zIndex: 20,

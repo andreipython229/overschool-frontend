@@ -10,10 +10,17 @@ type chatMessagesT = {
 }
 
 export const ChatMessagesList: FC<chatMessagesT> = ({ messages, chatData }) => {
+
+  const sortedMessages = [...messages].sort((a, b) => {
+    const dateA = a.sent_at ? new Date(a.sent_at).getTime() : new Date().getTime();
+    const dateB = b.sent_at ? new Date(b.sent_at).getTime() : new Date().getTime();
+    return dateA - dateB;
+  });
+
   const renderMessagesWithDateSeparators = () => {
     let currentDate = '';
 
-    return messages.map((message: MessageI) => {
+    return sortedMessages.map((message: MessageI) => {
       const messageDate = message?.sent_at ? new Date(message.sent_at).toDateString() : new Date().toDateString()
 
       if (messageDate !== currentDate) {

@@ -4,7 +4,8 @@ import storage from 'redux-persist/lib/storage'
 
 import * as services from '../../api/index'
 import * as slices from './index'
-import {modulesReduce} from "./modules/modules";
+import { modulesReduce } from "./modules/modules";
+import {chatsReducer, unreadReducer, userProfileReducer} from "./index";
 
 export const rootReducer = combineReducers({
     [services.userProgressService.reducerPath]: services.userProgressService.reducer,
@@ -12,6 +13,7 @@ export const rootReducer = combineReducers({
     [services.coursesServices.reducerPath]: services.coursesServices.reducer,
     [services.modulesServices.reducerPath]: services.modulesServices.reducer,
     [services.schoolHeaderService.reducerPath]: services.schoolHeaderService.reducer,
+    [services.schoolService.reducerPath]: services.schoolService.reducer,
     [services.profileService.reducerPath]: services.profileService.reducer,
     [services.studentsGroupService.reducerPath]: services.studentsGroupService.reducer,
     [services.courseStatService.reducerPath]: services.courseStatService.reducer,
@@ -26,6 +28,8 @@ export const rootReducer = combineReducers({
     [services.userTestService.reducerPath]: services.userTestService.reducer,
     [services.getAllUsers.reducerPath]: services.getAllUsers.reducer,
     [services.userAccessService.reducerPath]: services.userAccessService.reducer,
+    [services.schoolCreationService.reducerPath]: services.schoolCreationService.reducer,
+    [services.tariffPlanService.reducerPath]: services.tariffPlanService.reducer,
     user: slices.authReduce,
     sections: slices.sectionsReduce,
     filters: slices.filtersReducer,
@@ -34,6 +38,9 @@ export const rootReducer = combineReducers({
     schoolId: slices.schoolIdReducer,
     headerId: slices.headerIdReducer,
     modules: modulesReduce,
+    unread: unreadReducer,
+    chats: chatsReducer,
+    userProfile: userProfileReducer,
 })
 
 const persistConfig = {
@@ -41,6 +48,7 @@ const persistConfig = {
     storage,
     whitelist: ['user', 'sections', 'filters', 'school', 'schoolId', 'headerId'],
 }
+
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
@@ -53,6 +61,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
                 services.userLoginService.middleware,
                 services.modulesServices.middleware,
                 services.schoolHeaderService.middleware,
+                services.schoolService.middleware,
                 services.profileService.middleware,
                 services.studentsGroupService.middleware,
                 services.courseStatService.middleware,
@@ -68,6 +77,8 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
                 services.userTestService.middleware,
                 services.getAllUsers.middleware,
                 services.userAccessService.middleware
+                services.schoolCreationService.middleware,
+                services.tariffPlanService.middleware,
             ),
     })
 }

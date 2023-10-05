@@ -3,10 +3,7 @@ import parse from 'html-react-parser'
 
 import {UploadedFile} from 'components/UploadedFile'
 import {iocnsByStatus} from 'components/HomeworksStatsTable/config/iocnsByStatus'
-import {SelectDropDown} from 'components/SelectDropDown/SelectDropDown'
-import {checkHomeworkStatusFilters} from 'constants/dropDownList'
 import {IconSvg} from '../../common/IconSvg/IconSvg'
-import {tableBallsStarPath} from '../../../config/commonSvgIconsPath'
 import {
     useFetchUserHomeworkQuery,
     useFetchHomeworkDataQuery,
@@ -31,7 +28,6 @@ import {
 
 import styles from './modal_check_home_work.module.scss'
 import {TextField} from "@mui/material";
-import {useSelector} from "react-redux";
 
 
 type studentModalHomeworkT = {
@@ -196,7 +192,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                 </button>
                 <div className={styles.header_info}>
                     <h3 className={styles.answer_header}>{userHomework?.homework_name} </h3>
-                    <p className={styles.task_status}> {hwStatus ? '- Принято преподавателем' : '- Проверка работы'}</p>
+                    <p className={styles.task_status}> {hwStatus ? ' Принято преподавателем' : ' Проверка работы'}</p>
                     <div className={styles.task_container}>
                         <button className={styles.btn_grey} onClick={() => setIsHwOpen(open => !open)}>
                             <IconSvg width={19} height={20} viewBoxSize="0 0 19 20" path={taskIconPath}/>
@@ -256,7 +252,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                         {!isUser && (
                             <div className={styles.task_info_wrapper}>
                                 {currentUser?.avatar ? (
-                                    <img src={window.appConfig.imagePath + '/media/' + currentUser.avatar} alt="avatar"/>
+                                    <img src={currentUser.avatar} alt="avatar"/>
                                 ) : (
                                     <div className={styles.task_info_avatar_block}>
                                         {currentUser?.surname.charAt(0) || 'б'}
@@ -274,7 +270,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                 <div className={styles.teacher}>
                     {currentUser?.avatar ? (
                         <img className={styles.teacher_avatar}
-                             src={window.appConfig.imagePath + '/media/' + currentUser?.avatar} alt="User Avatar"/>
+                             src={currentUser?.avatar} alt="User Avatar"/>
                     ) : (
                         <div className={styles.teacher_avatar_block}>
                             {currentUser?.surname.charAt(0) || 'б'}

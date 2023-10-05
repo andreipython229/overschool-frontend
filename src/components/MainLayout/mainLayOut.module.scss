@@ -13,6 +13,9 @@
   @media only screen and (min-width : 375px) and (max-width : 480px) {
     padding: 0 20px;
   }
+  @media only screen and (min-width: 481px) and (max-width: 1024px) {
+    min-height: 100%;
+   }
 }
 
 .container {
@@ -31,6 +34,12 @@
     flex-direction: row;
     justify-content: space-evenly;
   }
+  @media only screen and (min-width: 481px) and (max-width: 1024px) {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }
 .main {
   margin: 0 auto;
@@ -40,6 +49,11 @@
   @media only screen and (min-width : 375px) and (max-width : 480px) {
     padding: 0 0 90px 0;
   }
+  @media only screen and (min-width: 481px) and (max-width: 1024px) {
+    padding-bottom: 10%;
+    width: 98%;
+   }
+  
 }
 .mobileHeader {
   height: 40px;
@@ -52,7 +66,7 @@
 }
 
 .mobileFooter {
-  height: 50px;
+  height: 80px;
   width: 100%;
   background: #ffffff;
   position: fixed;

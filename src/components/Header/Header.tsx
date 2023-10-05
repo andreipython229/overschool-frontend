@@ -1,43 +1,60 @@
-import React, {memo, useState, useEffect} from 'react'
-import {Link, NavLink, useNavigate} from 'react-router-dom'
+import React, { memo, useState, useEffect } from 'react'
+import { Link, NavLink, generatePath, useNavigate } from 'react-router-dom'
 
-import {useFetchProfileDataQuery} from '../../api/profileService'
-import {useAppDispatch, useAppSelector} from '../../store/hooks'
-import {auth} from 'store/redux/users/slice'
-import {Path} from 'enum/pathE'
-import {useFetchSchoolHeaderQuery} from '../../api/schoolHeaderService'
-import {IconSvg} from '../common/IconSvg/IconSvg'
-import {logOutIconPath} from './config/svgIconsPath'
-import {useLazyLogoutQuery} from 'api/userLoginService'
-import {selectUser} from '../../selectors'
-import {logo} from '../../assets/img/common'
-import {headerUserRoleName} from 'config/index'
-import {profileT} from 'types/profileT'
+import { useFetchProfileDataQuery } from '../../api/profileService'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { auth, logoutState } from 'store/redux/users/slice'
+import { Path } from 'enum/pathE'
+import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
+import { IconSvg } from '../common/IconSvg/IconSvg'
+import { logOutIconPath } from './config/svgIconsPath'
+import { useLazyLogoutQuery } from 'api/userLoginService'
+import { selectUser } from '../../selectors'
+import { logo } from '../../assets/img/common'
+import { headerUserRoleName } from 'config/index'
+import { profileT } from 'types/profileT'
 import styles from './header.module.scss'
-import {SimpleLoader} from "../Loaders/SimpleLoader";
+import { SimpleLoader } from "../Loaders/SimpleLoader";
 import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {SvgIcon} from "@mui/material";
+import {ChatI, SenderI} from 'types/chatsT'
+import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
+import { setChats } from "../../store/redux/chats/chatsSlice";
+
+import { UserProfileT } from "../../types/userT"
+import { setUserProfile, clearUserProfile } from "../../store/redux/users/profileSlice"
+import { isEqual, omit } from 'lodash';
+import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath'
+import { RoleE } from 'enum/roleE'
+
 
 export const Header = memo(() => {
     const dispatch = useAppDispatch()
-    const {role} = useAppSelector(selectUser)
+    const { role } = useAppSelector(selectUser)
     const navigate = useNavigate()
-    const [logout, {isLoading}] = useLazyLogoutQuery()
+    const [logout, { isLoading }] = useLazyLogoutQuery()
     const headerId = localStorage.getItem('header_id')
-    const {data, isSuccess} = useFetchSchoolHeaderQuery(Number(headerId))
-    const {data: profile, isSuccess: profileIsSuccess} = useFetchProfileDataQuery()
+    const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
+    const { data: profile, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
+
+    const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
+    const chats = useAppSelector(state => state.chats.chats);
+    const [fetchedChats, setFetchedChats] = useState<ChatI[]>([])
 
     const logOut = async () => {
-        await localStorage.clear()
         await logout()
         if (isLoading) {
-            return <SimpleLoader/>
+            return <SimpleLoader />
         }
-        window.location.reload()
-        dispatch(auth(false))
+        dispatch(clearUserProfile())
+        dispatch(logoutState())
+        navigate('/login/')
+        await localStorage.clear()
+        // window.location.reload()
+        // dispatch(auth(false))
     }
 
     const [profileData, setProfileData] = useState<profileT>()
@@ -52,6 +69,81 @@ export const Header = memo(() => {
     useEffect(() => {
         profileIsSuccess && setProfileData(profile[0])
     }, [profileIsSuccess])
+
+    useEffect(() => {
+        if (profileData) {
+            const newProfileData: UserProfileT = {
+                id: profileData.profile_id || 0,
+                username: profileData.user.username || "",
+                first_name: profileData.user.first_name || "",
+                last_name: profileData.user.last_name || "",
+                email: profileData.user.email || "",
+                phone_number: profileData.user.phone_number || "",
+                avatar: profileData.avatar || "",
+            };
+
+            if (newProfileData) {
+                dispatch(setUserProfile(newProfileData));
+            }
+        }
+    }, [profileData])
+
+
+    // Chat Info Update *******************************************************
+    useEffect(() => {
+        const totalUnread = totalUnreadMessages || 0;
+        dispatch(setTotalUnread(totalUnread.toString()));
+    }, [totalUnreadMessages])
+
+    const fetchChatsData = async () => {
+        try {
+            const response = await fetch('/api/chats/info/');
+            if (response.ok) {
+                const chatsInfo = await response.json();
+                setTotalUnreadMessages(chatsInfo[0].total_unread)
+                if (chatsInfo.length > 1 && chats) {
+                    const fetchChats: ChatI[] = chatsInfo.slice(1);
+                    if (fetchChats) {
+                        setFetchedChats(fetchChats)
+                    }
+                }
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    };
+
+    useEffect(() => {
+        fetchChatsData();
+        const intervalId = setInterval(fetchChatsData, 10000);
+        return () => clearInterval(intervalId);
+    }, []);
+  
+    // Удаляем AVATAR
+    const omitAvatar = (sender: SenderI): SenderI => {
+        const { avatar, ...rest } = sender;
+        return rest;
+    };
+    // Проходимся по всем чатас и у каждого сендера удаляем аватарку
+    const processChats = (chats: ChatI[]): ChatI[] => {
+        return chats.map(chat => ({
+          ...chat,
+          senders: chat.senders.map(omitAvatar)
+        }));
+    };
+
+    useEffect(() => {
+        if (chats && fetchedChats) {
+            const chatsWithoutAvatar = processChats(chats)
+            const fetchedChatsWithoutAvatar = processChats(fetchedChats)
+            const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
+            if (!checkChatsDifferent) {
+                dispatch(setChats(fetchedChats))
+            }
+        }
+    },[chats, fetchedChats])
+    // **************************************************************
+
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -75,12 +167,22 @@ export const Header = memo(() => {
     return (
         <header className={styles.header}>
             <NavLink to={Path.Courses}>
-                <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone"/>
+                <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
             </NavLink>
             <div className={styles.header_block}>
+                {(role === RoleE.Admin) && <a className={styles.tariffPlan} href={`${generatePath(Path.School + Path.TariffPlans,
+                    { school_name: localStorage.getItem('school') || window.location.href.split('/')[4] })}`}>
+                    <div className={styles.tariffPlan_icon}>
+                        <IconSvg width={23} height={19} viewBoxSize="0 0 23 19" path={purpleTariffPlanIconPath} />
+                    </div>
+                    <p className={styles.tariffPlan_text}>{' Тариф '}
+                        <span className={styles.tariffPlan_text_tariff}>{'«Бизнес»'}</span>
+                        <span style={{ color: '#BA75FF' }}>{' — 30 дней'}</span>
+                    </p>
+                </a>}
                 <React.Fragment>
                     <Tooltip title={'Аккаунт пользователя'}>
-                        <div style={{textDecoration: 'none'}} onClick={handleClick}>
+                        <div style={{ textDecoration: 'none' }} onClick={handleClick}>
                             <div className={styles.header_block_user}>
                                 {profileData?.avatar ? (
                                     <img
@@ -97,57 +199,57 @@ export const Header = memo(() => {
                                     </div>
                                 )}
                                 <div className={styles.header_block_user_userName}>
-                                <span style={{color: '#BA75FF'}} className={styles.header_block_user_userName_status}>
-                                    {headerUserRoleName[role]}
-                                </span>
+                                    <span style={{ color: '#BA75FF' }} className={styles.header_block_user_userName_status}>
+                                        {headerUserRoleName[role]}
+                                    </span>
                                     <span className={styles.header_block_user_userName_name}>
-                                    {profileData?.user.last_name || 'Без'} {profileData?.user.first_name || 'Имени'}
-                                </span>
+                                        {profileData?.user.last_name || 'Без'} {profileData?.user.first_name || 'Имени'}
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </Tooltip>
                     <Menu anchorEl={anchorEl}
-                          id="account-menu" open={open}
-                          onClose={handleClose} onClick={handleClose}
-                          PaperProps={{
-                              elevation: 0,
-                              sx: {
-                                  overflow: 'visible',
-                                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                  mt: 1.5,
-                                  '& .MuiAvatar-root': {
-                                      width: 32,
-                                      height: 32,
-                                      ml: -0.5,
-                                      mr: 1,
-                                  },
-                                  '&:before': {
-                                      content: '""',
-                                      display: 'block',
-                                      position: 'absolute',
-                                      top: 0,
-                                      right: 14,
-                                      width: 10,
-                                      height: 10,
-                                      bgcolor: 'background.paper',
-                                      transform: 'translateY(-50%) rotate(45deg)',
-                                      zIndex: 0,
-                                  },
-                              },
-                          }}
-                          transformOrigin={{horizontal: 'right', vertical: 'top'}}
-                          anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                        id="account-menu" open={open}
+                        onClose={handleClose} onClick={handleClose}
+                        PaperProps={{
+                            elevation: 0,
+                            sx: {
+                                overflow: 'visible',
+                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                mt: 1.5,
+                                '& .MuiAvatar-root': {
+                                    width: 32,
+                                    height: 32,
+                                    ml: -0.5,
+                                    mr: 1,
+                                },
+                                '&:before': {
+                                    content: '""',
+                                    display: 'block',
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 14,
+                                    width: 10,
+                                    height: 10,
+                                    bgcolor: 'background.paper',
+                                    transform: 'translateY(-50%) rotate(45deg)',
+                                    zIndex: 0,
+                                },
+                            },
+                        }}
+                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     >
                         <MenuItem onClick={goToProfile}>
-                            <Avatar/>
-                            <Link to={Path.Profile} style={{color: 'slategrey'}}>Открыть профиль</Link>
+                            <Avatar />
+                            <Link to={Path.Profile} style={{ color: 'slategrey' }}>Открыть профиль</Link>
                         </MenuItem>
                         <MenuItem onClick={goToChooseSchool}>
                             <SvgIcon color='disabled' fontSize={'large'} viewBox='3 0 24 24'>
-                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                             </SvgIcon>
-                            <Link to={Path.ChooseSchool} style={{color: 'slategrey'}}>Смена школы</Link>
+                            <Link to={Path.ChooseSchool} style={{ color: 'slategrey' }}>Смена школы</Link>
                         </MenuItem>
                     </Menu>
                 </React.Fragment>

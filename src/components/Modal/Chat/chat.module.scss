@@ -17,6 +17,18 @@
   border-radius: 10px;
   overflow: hidden;
   z-index: 9999;
+  fill: #c896fc;
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    max-width: 90%;
+    display: flex;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    max-width: 90%;
+    display: flex;
+  }
+  @media only screen and (min-width: 481px) and (max-width: 1024px) {
+    max-width: 100%;
+   }
 
   &_loader {
     position: absolute;
@@ -58,10 +70,13 @@
 
 .chatPreview {
   display: flex;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  width: 300px;
+  justify-content: space-between;
+  //align-items: center;
+  padding: 5px;
+  width: 360px;
   overflow-y: auto;
+  //border-bottom: 1px #c9c9c9 solid;
+  border-top: 1px #c9c9c9 solid;
 
   &_selected {
     background-color: rgba(229, 231, 235, 0.6);
@@ -72,17 +87,19 @@
   }
 
   &_avatarWrap {
+    margin-right: auto;
     width: 3rem;
     height: 3rem;
-    border-radius: 50%;
+    //border-radius: 50%;
     text-transform: uppercase;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 1rem;
     flex-shrink: 0;
-    background: #d3f2f8;
-    color: #72b0bc;
+    //background: #d3f2f8;
+    //color: #72b0bc;
+    //border: red 1px solid;
 
     // &:nth-child(2) {
     //   background: #e2f6f3;
@@ -107,10 +124,13 @@
   }
 
   &_info {
+    margin-right: auto;
     display: flex;
     flex-direction: column;
     min-width: 0;
     color: #9198a1;
+    font-size: 14px;
+    //border: 1px solid blue;
     p:first-child {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -123,6 +143,31 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 12px;
+    color: #838383;
+    //border: 1px solid deeppink;
+  }
+
+  &_newMessage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    //padding-top: 1rem;
+    //border: 1px solid navy;
+  }
+  &_time {
+    align-self: flex-start;
+    color: grey;
+    font-size: 12px;
+  }
+  &_badge {
+    align-self: flex-end;
+    //padding-right: 5px;
+    //border: 1px red solid;
+    margin-left: auto;
+    padding-right: 12px;
+    margin-top: auto;
+    height: 20px;
   }
 }
 
@@ -131,7 +176,7 @@
 .chatsList {
   overflow-y: auto;
   overflow-x: hidden;
-  height: 100%;
+  height: 80%;
   margin-top: 1rem;
   &::-webkit-scrollbar {
     width: 9px;
@@ -144,18 +189,35 @@
   }
 }
 
-// chat panel
+ //chat panel
 
 .chatPanel {
   background: rgba(249, 250, 251);
+  font-size: smaller;
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    width: 30%;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    width: 30%;
+  }
 
   &_top {
     padding-top: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: smaller;
   }
   &_user {
     padding: 1.5rem 1.5rem 0 1.5rem;
     display: flex;
     align-items: center;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      padding: 0 5% 0 0;
+      flex-direction: column;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      padding: 0 5% 0 0;
+      flex-direction: column;
+    }
   }
 
   &_user_avatar {
@@ -168,6 +230,15 @@
     justify-content: center;
     margin-right: 1rem;
     flex-shrink: 0;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      width: 50px;
+      height: 50px;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      width: 50px;
+      height: 50px;
+    }
+    
 
     & img {
       display: block;
@@ -180,6 +251,20 @@
     background: #d3f2f8;
     color: #72b0bc;
 
+  &_userName {
+      @include display(flex, column);
+    font-family: 'Inter', sans-serif;
+    font-size: 5px;
+    &_status {
+      margin-bottom: 4px;
+      color: #BA75FF;
+      font-size: 10px;
+    }
+
+    &_name {
+      color: #6b7280;
+    }
+  }
     // &:nth-child(2) {
     //   background: #e2f6f3;
     //   color: #72c5b7;
@@ -204,6 +289,15 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    padding-top: 15%;
+    margin: 0 1% 1% 1%;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    padding-top: 15%;
+    margin: 0 1% 1% 1%;
+    
+  }
 
   &_preview {
     display: flex;
@@ -283,6 +377,8 @@
   padding-right: 1.5rem;
   padding-top: 1.5rem;
   padding-bottom: 0.75rem;
+  //border: 1px solid blue;
+
 
   &_info {
     display: flex;
@@ -291,6 +387,7 @@
 
   &_avatar {
     margin-right: 10px;
+    //margin-left: 1rem;
     flex-shrink: 0;
     width: 40px;
     height: 40px;
@@ -303,7 +400,12 @@
     color: #72b0bc;
   }
   &_nameWrapper {
-    min-width: 0;
+    flex-grow: 1;
+    //margin-left: auto;
+    //margin-right: 40px;
+    //padding: 0px;
+    //border: 1px #f30e0e solid;
+
   }
   &_name {
     color: #424345;

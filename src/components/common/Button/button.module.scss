@@ -4,6 +4,7 @@
 * {
   box-sizing: border-box;
 }
+
 .btn_default {
   color: #6b7280;
   background: #f3f4f6;
@@ -22,6 +23,7 @@
     background: #ba75ff;
   }
 }
+
 .primary {
   color: #ffff;
   background: #ba75ff;
@@ -77,19 +79,15 @@
     color: #fff;
   }
 }
+
 .logIn {
   @include font(800, 14px, 19px);
-  letter-spacing: -0.03em;
   margin-right: 15px;
   padding: 15px 25px;
   background: transparent;
   color: #000;
-
-  &:hover {
-    padding: 14px 24px;
-    border: 1px solid #ba75ff;
-  }
 }
+
 .create {
   width: 241px;
   height: 52px;
@@ -98,4 +96,11 @@
   border-radius: 7px;
   letter-spacing: 0.02em;
   color: #fff;
+
+  &:hover {
+    &:hover:not(:disabled) {
+    color: #fff;
+    background: #d8b0ff;
+  }
+  }
 }

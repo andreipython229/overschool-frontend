@@ -50,9 +50,9 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modu
       </div>
 
       <div style={{ marginTop: '15px' }} className={styles.usually_input}>
-        <span className={styles.usually_title}>Название занятие:</span>
+        <span className={styles.usually_title}>Название занятия:</span>
         <Input
-          placeholder={'Основы языка HTML'}
+          placeholder={'Название домашнего задания'}
           name={'name classes'}
           onChange={handleNameClasses}
           type={'text'}

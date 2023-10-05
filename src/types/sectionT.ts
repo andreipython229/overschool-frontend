@@ -35,6 +35,7 @@ export interface IHomework {
   active: boolean
   video: string
   user_homework_checks: []
+
 }
 
 export interface ITest {
@@ -64,13 +65,14 @@ export type lessonT = {
   name: string
   order: number
   type: string
-  baselesson_ptr_id?: number
+  baselesson_ptr_id: number
   viewed: boolean
   completed: boolean
   active: boolean
 }
 
 export type sectionT = {
+  group_settings: any;
   section_name: string
   section: number
   baselesson_ptr_id?: number

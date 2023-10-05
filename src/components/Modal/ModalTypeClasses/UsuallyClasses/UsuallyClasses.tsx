@@ -43,7 +43,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAnd
       <div className={styles.usually_input}>
         <span className={styles.usually_title}>Название занятие:</span>
         <Input
-          placeholder={'Основы языка HTML'}
+          placeholder={'Название занятия'}
           name={'name classes'}
           onChange={changeNameClasses}
           type={'text'}

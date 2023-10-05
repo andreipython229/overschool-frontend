@@ -8,12 +8,32 @@ describe('find next order Lesson Array', () => {
           section_name: 'name',
           section: 1,
           lessons: [
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
           ],
+          group_settings: {
+            strict_task_order: true,
+            task_submission_lock: true,
+          },
         },
-        { section_name: 'name 2', section: 2, lessons: [] },
-        { section_name: 'name 3', section: 3, lessons: [] },
+        {
+          section_name: 'name 2',
+          section: 2,
+          lessons: [],
+          group_settings: {
+            strict_task_order: true,
+            task_submission_lock: true,
+          },
+        },
+        {
+          section_name: 'name 3',
+          section: 3,
+          lessons: [],
+          group_settings: {
+            strict_task_order: true,
+            task_submission_lock: true,
+          },
+        },
       ]),
     ).toBe(3)
   })
@@ -24,12 +44,32 @@ describe('find next order Lesson Array', () => {
           section_name: 'name',
           section: 1,
           lessons: [
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
           ],
+          group_settings: {
+            strict_task_order: true,
+            task_submission_lock: true,
+          },
         },
-        { section_name: 'name 2', section: 2, lessons: [] },
-        { section_name: 'name 3', section: 3, lessons: [] },
+        {
+          section_name: 'name 2',
+          section: 2,
+          lessons: [],
+          group_settings: {
+            strict_task_order: true,
+            task_submission_lock: true,
+          },
+        },
+        {
+          section_name: 'name 3',
+          section: 3,
+          lessons: [],
+          group_settings: {
+            strict_task_order: true,
+            task_submission_lock: true,
+          },
+        },
       ]),
     ).toBe(1)
   })
@@ -40,12 +80,32 @@ describe('find next order Lesson Array', () => {
           section_name: 'name',
           section: 1,
           lessons: [
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
-            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
+            { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
           ],
+          group_settings: {
+            strict_task_order: true,
+            task_submission_lock: true,
+          },
         },
-        { section_name: 'name 2', section: 2, lessons: [] },
-        { section_name: 'name 3', section: 3, lessons: [] },
+        {
+          section_name: 'name 2',
+          section: 2,
+          lessons: [],
+          group_settings: {
+            strict_task_order: true,
+            task_submission_lock: true,
+          },
+        },
+        {
+          section_name: 'name 3',
+          section: 3,
+          lessons: [],
+          group_settings: {
+            strict_task_order: true,
+            task_submission_lock: true,
+          },
+        },
       ]),
     ).not.toBe(2)
   })

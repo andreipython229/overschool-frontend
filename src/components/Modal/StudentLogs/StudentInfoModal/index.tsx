@@ -11,6 +11,7 @@ import mainStyles from '../../Modal.module.scss'
 import styles from './studentInfoModal.module.scss'
 import {useFetchStudentProgressQuery} from "../../../../api/userProgressService";
 import {useDeleteStudentFromGroupMutation} from "../../../../api/studentsGroupService";
+import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 
 
 type studentInfoModalT = {
@@ -52,14 +53,23 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
     const lastActivity = new Date(student?.last_active || '')
     const {mmddyyyy} = convertDate(lastActivity)
     const [studentProgress, setStudentProgress] = useState<studentProgressT>()
-    const {data, isSuccess} = useFetchStudentProgressQuery(student?.student_id || '')
+    const {data} = useFetchStudentProgressQuery(student?.student_id || '')
     const [completedPercent, setCompletedPercent] = useState<number>()
+    const [openAlert, setOpenAlert] = useState<boolean>(false)
 
     const [deleteStudent] = useDeleteStudentFromGroupMutation()
 
+    const handleOpenAlert = () => {
+        setOpenAlert(true)
+    }
+
+    const handleCloseAlert = () => {
+        setOpenAlert(false)
+    }
+
     useEffect(() => {
         setStudentProgress(data)
-    }, [isSuccess])
+    }, [data])
 
     useEffect(() => {
         if (studentProgress) {
@@ -82,6 +92,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
         formData.append('student_groups', String(student?.group_id))
 
         await deleteStudent(formData)
+        setOpenAlert(false)
         closeModal()
     }
 
@@ -146,7 +157,30 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
                     <StudentInfoAccardion student={student} progress={studentProgress}/>
                 </div>
                 {student?.group_name &&
-                    <Button style={{margin: '10px'}} text={`Удалить ученика из группы "${student?.group_name}"`} onClick={handleDeleteStudent}/>
+                    <div>
+                        <Button style={{margin: '10px'}} text={`Удалить ученика из группы "${student?.group_name}"`}
+                                onClick={handleOpenAlert} variant={'delete'}/>
+                        <Dialog
+                            open={openAlert}
+                            onClose={handleCloseAlert}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                            <DialogTitle id="alert-dialog-title">
+                                {`Удалить студента из группы "${student.group_name}"?`}
+                            </DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                    Это действие безвозвратно удалит студента {`"${student.first_name || "Без"} ${student.last_name || "Имени"}"`} из группы {`"${student.group_name}"`}.
+                                    Вы уверены, что хотите продолжить?
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleCloseAlert} text={'Отмена'}/>
+                                <Button onClick={handleDeleteStudent} autoFocus variant={'delete'} text={'Удалить из группы'}/>
+                            </DialogActions>
+                        </Dialog>
+                    </div>
                 }
             </div>
         </div>

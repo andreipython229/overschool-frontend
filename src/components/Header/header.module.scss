@@ -23,6 +23,7 @@
         background-color: rgba(230, 230, 230, 0.5);
         border-radius: 7px;
       }
+
       @include display(flex, row, flex-start, center);
       margin-right: 15px;
       height: 50px;
@@ -41,6 +42,7 @@
         -ms-border-radius: 50%;
         -o-border-radius: 50%;
       }
+
       &_avatar_div {
         background: #e0dced;
         width: 38px;
@@ -51,6 +53,7 @@
         margin-right: 10px;
         border-radius: 50%;
       }
+
       &_avatar_div {
         background: #e0dced;
         -webkit-border-radius: 50%;
@@ -81,12 +84,37 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
       &:hover {
         background-color: rgba(230, 230, 230, 0.5);
         border-radius: 7px;
       }
+
       cursor: pointer;
       margin-right: 26px;
     }
+  }
+}
+
+.tariffPlan {
+  padding: .375rem;
+  padding-left: .75rem;
+  padding-right: .75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 12px;
+  border-radius: .5rem;
+  color:#303030c6;
+  font-family: 'Inter', sans-serif;
+  margin-right: 2rem;
+
+  &:hover {
+    background-color: #f7eaff;
+  }
+
+  &_icon {
+    margin-right: .375rem;
   }
 }

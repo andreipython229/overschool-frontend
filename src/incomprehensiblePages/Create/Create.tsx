@@ -15,7 +15,7 @@ export const Create = () => {
       </ul>
     </div>
     <div className={styles.create__border}>
-      <img src={create}/>
+      <img src={create} alt=''/>
     </div>
   </div>
   )

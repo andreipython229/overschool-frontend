@@ -59,13 +59,13 @@ export const ChooseSchool = () => {
                                 <span>→</span></div>
                         </Link>)}
                     </div>}</div>
-            <div className={styles.bg2}>
+            {/* <div className={styles.bg2}>
                 <img src={anton}/>
                 <div className={styles.bg2_citate}>Overschool в разы превосходит по функциональности и работоспособности
                     все ранее используемые нами системы.
                 </div>
                 <div className={styles.bg2_c}>Антон Селивончик (менеджер)</div>
-            </div>
+            </div> */}
         </div>
     )
 }

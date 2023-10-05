@@ -25,6 +25,7 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({toggleCheckbox, course
                 formData.append('order', courseFind.order.toString());
                 formData.append('school', courseFind.school.toString());
                 updateImg({formdata: formData, id: courseFind.course_id})
+                window.location.reload()
             }
         }
     }

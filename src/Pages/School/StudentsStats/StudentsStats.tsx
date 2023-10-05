@@ -2,8 +2,6 @@ import { useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
-import { StatisticHeader } from 'components/StatisticHeader/StatisticHeader'
-import { StudentInfoGraphic } from 'Pages/School/StudentsStats/StudentInfoGraphic'
 import { createGroupIconPath } from '../config/svgIconsPath'
 import { StudentsPerCourse } from 'components/StudentsTable/StudentsPerCourse'
 import { useFetchStudentsGroupByCourseQuery } from 'api/studentsGroupService'
