@@ -27,6 +27,7 @@ export const rootReducer = combineReducers({
     [services.studentsTableService.reducerPath]: services.studentsTableService.reducer,
     [services.userTestService.reducerPath]: services.userTestService.reducer,
     [services.getAllUsers.reducerPath]: services.getAllUsers.reducer,
+    [services.userAccessService.reducerPath]: services.userAccessService.reducer,
     [services.schoolCreationService.reducerPath]: services.schoolCreationService.reducer,
     [services.tariffPlanService.reducerPath]: services.tariffPlanService.reducer,
     [services.videoFilesService.reducerPath]: services.videoFilesService.reducer,
@@ -76,6 +77,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
                 services.getSchoolService.middleware,
                 services.userTestService.middleware,
                 services.getAllUsers.middleware,
+                services.userAccessService.middleware
                 services.schoolCreationService.middleware,
                 services.tariffPlanService.middleware,
                 services.videoFilesService.middleware,

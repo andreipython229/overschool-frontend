@@ -1,6 +1,7 @@
 import { FC, MouseEvent, ReactNode } from 'react'
 
 import { statusFilterT } from 'types/statusFilterConfigType'
+import {CoursesDataT, CourseWithGroupsT, StGroupT} from 'types/CoursesT'
 import { commonLessonT, sectionT } from './sectionT'
 import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
 
@@ -122,6 +123,15 @@ export type SelectDropDownT = {
   dropdownData: statusFilterT[]
   onChangeStatus?: (status: string) => void
 }
+
+
+export type GroupsDropDownT = {
+  dropdownData: StGroupT[]
+  course_id: number
+  selected_group: number | null
+  onChangeGroup?: (course_id: number, group_id: number | null) => void
+}
+
 
 export type StatisticHeaderT = {
   hideStats?: boolean

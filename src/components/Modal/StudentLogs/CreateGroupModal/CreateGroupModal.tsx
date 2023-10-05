@@ -25,8 +25,8 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   const [studentsList, setStudentsList] = useState<any>([])
   const {data:userList} = useFetchAllUsersQuery()
 
-  const teacherList =userList ? userList.filter((teacher:any) => teacher.roles[0] === 'Teacher'):[];
-  const studentList =userList ? userList.filter((student:any) => student.roles[0] === 'Student'):[];
+  const teacherList =userList ? userList.filter((teacher:any) => teacher.role === 'Teacher'):[];
+  const studentList =userList ? userList.filter((student:any) => student.role === 'Student'):[];
   
 
   const { data: allGroups } = useFetchStudentsGroupQuery();
