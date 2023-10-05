@@ -10,7 +10,7 @@ import {useAddAnswerMutation} from 'api/questionsAndAnswersService'
 
 import styles from './textOptions.module.scss'
 
-export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, id}) => {
+export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, id, testId}) => {
     const [isOpen, {onToggle}] = useBoolean()
     const [answersToRender, setAnswersToRender] = useState(answers || [])
 
@@ -32,11 +32,10 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
         setAnswersToRender(answers || []);
     }, [answers]);
 
-
     return (
         <>
             <div className={styles.wrapper}>
-                <QuestionHeader title={title} id={id} isOpen={isOpen} onToggle={onToggle}>
+                <QuestionHeader title={title} id={id} isOpen={isOpen} onToggle={onToggle} testId={testId}>
                     <div className={styles.wrapper_header_iconWrapper}>
                         <div className={styles.wrapper_header_iconWrapper_iconRow}>
                             <span/>
@@ -53,7 +52,7 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({question, answers, title, 
 
             {isOpen && (
                 <div className={styles.wrapper_drop_down_menu}>
-                    <Question id={id} title={title}/>
+                    <Question id={id} title={title} testId={testId}/>
                     <h4 className={styles.answerOptionsBlock_title}>Добавьте варианты ответов:</h4>
                     <div className={styles.settings_list}>
                         {answersToRender ? orderBy(answersToRender, 'answer_id').map((answer, index) => (
