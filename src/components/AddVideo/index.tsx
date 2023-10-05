@@ -7,15 +7,16 @@ import {arrUpPath, arrDownPath, deletePath} from '../../config/commonSvgIconsPat
 import {AddPostT, setShowType} from '../../types/componentsTypes'
 
 import styles from './addVideo.module.scss'
-import {usePatchLessonsMutation} from "../../api/modulesServices";
 import {SimpleLoader} from "../Loaders/SimpleLoader";
 import {VideoPlayer} from "../VideoPlayer/player";
+import { url } from 'inspector'
+import { useUploadLessonVideoMutation } from 'api/videoFilesService'
 
 export const AddVideo: FC<setShowType & AddPostT> = ({lessonIdAndType, isPreview, addFile, lesson, setShow}) => {
 
     const [dragVideo, setDragVideo] = useState<boolean>(false)
     const [files, setFiles] = useState<File[]>([])
-    const [addVideoFile] = usePatchLessonsMutation()
+    const [addVideoFile] = useUploadLessonVideoMutation()
     const [isLoadingVideo, setIsLoadingVideo] = useState<boolean>(false);
 
     const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {

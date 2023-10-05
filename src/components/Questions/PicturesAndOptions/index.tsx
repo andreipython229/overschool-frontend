@@ -8,7 +8,7 @@ import { InputBlock } from 'components/common/Input/InputBlock';
 import {FC} from "react";
 import {PropsQuestionBlockT} from "../../AddQuestion";
 
-export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, answers, id}) => {
+export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, answers, id, testId}) => {
 
   return (
     <div className={styles.wrapper}>
