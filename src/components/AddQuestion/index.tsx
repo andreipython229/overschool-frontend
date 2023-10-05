@@ -46,6 +46,7 @@ export type PropsQuestionBlockT = {
   question?: QuestionT
   onPointerDown?: any
   answers?: AnswersT[]
+  testId?: number
   // setQuestions?: (arg: QuestionT[]) => void
   // questions?: QuestionT[]
 }
@@ -85,6 +86,7 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
                 title={question.body}
                 id={question.question_id}
                 key={question.question_id}
+                testId={testId}
               />
             )
           } else if (question.question_type === 'TextPic') {
@@ -95,6 +97,7 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
                 title={question.body}
                 id={question.question_id}
                 key={question.question_id}
+                testId={testId}
               />
             )
           } else if (question.question_type === 'PicText') {
@@ -105,24 +108,27 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
                 title={question.body}
                 id={question.question_id}
                 key={question.question_id}
+                testId={testId}
               />
             )
           }
+          ;<div style={{ display: 'flex', justifyContent: 'center', marginTop: '2em' }}>
+            <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
+          </div>
         })}
-        <div style={{display: 'flex', justifyContent: 'center', marginTop: '2em'}}>
-          <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-        </div>
       </div>
-      {/* <div className={styles.wrapper_addQuestionsWrapper}>
+      <div className={styles.wrapper_addQuestionsWrapper}>
         <h2 className={styles.wrapper_addQuestionsWrapper_title}>Добавьте вопрос</h2>
         <div className={styles.wrapper_addQuestionsWrapper_btnWrapper}>
           <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
           <AddOptionsWithPictures setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
           <AddPicturesAndOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-          <AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-          <AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
+          {/*<AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}*/}
+          {/*             questions={questions} testId={testId}/>*/}
+          {/*<AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}*/}
+          {/*                  questions={questions} testId={testId}/>*/}
         </div>
-      </div> */}
+      </div>
     </div>
   )
 })

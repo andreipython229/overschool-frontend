@@ -44,8 +44,8 @@ export const questionsAndAnswersService = createApi({
       invalidatesTags: ['questions'],
     }),
     patchQuestion: build.mutation({
-      query: ({ titleQuestion, id }) => {
-        const formdata = formDataConverter({ body: titleQuestion })
+      query: ({ titleQuestion, id, testId }) => {
+        const formdata = formDataConverter({ body: titleQuestion, test: testId })
         return {
           url: `/questions/${id}/`,
           method: 'PATCH',

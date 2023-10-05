@@ -30,6 +30,7 @@ import { isEqual, omit } from 'lodash';
 import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath'
 import { RoleE } from 'enum/roleE'
 
+import { useCookies } from 'react-cookie';
 
 export const Header = memo(() => {
     const dispatch = useAppDispatch()
@@ -43,6 +44,9 @@ export const Header = memo(() => {
     const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
     const chats = useAppSelector(state => state.chats.chats);
     const [fetchedChats, setFetchedChats] = useState<ChatI[]>([])
+    const [, , removeAccessCookie] = useCookies(['access_token']);
+    const [, , removeRefreshCookie] = useCookies(['refresh_token']);
+
 
     const logOut = async () => {
         await logout()
@@ -51,6 +55,8 @@ export const Header = memo(() => {
         }
         dispatch(clearUserProfile())
         dispatch(logoutState())
+        removeAccessCookie('access_token')
+        removeRefreshCookie('refresh_token')
         navigate('/login/')
         await localStorage.clear()
         // window.location.reload()

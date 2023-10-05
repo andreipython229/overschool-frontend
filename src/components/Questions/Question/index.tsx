@@ -10,9 +10,10 @@ import styles from './question.module.scss'
 type QuestionT = {
     title?: string
     id?: string | number
+    testId?: number
 }
 
-export const Question: FC<QuestionT> = ({id, title}) => {
+export const Question: FC<QuestionT> = ({id, title, testId}) => {
     const [updateTitle, {data}] = usePatchQuestionMutation()
 
     const [titleQuestion, setTitleQuestion] = useState<string>(data?.body || title || '')
@@ -26,7 +27,7 @@ export const Question: FC<QuestionT> = ({id, title}) => {
 
     useEffect(() => {
         if (titleQuestion !== title) {
-            debounced({titleQuestion, id})
+            debounced({titleQuestion, id, testId})
         }
     }, [titleQuestion])
 

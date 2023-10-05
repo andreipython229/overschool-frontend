@@ -11,7 +11,7 @@ import {useBoolean} from "../../../customHooks";
 import {useAddAnswerMutation} from "../../../api/questionsAndAnswersService";
 import {useDragControls} from "framer-motion";
 
-export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({question, title, answers, id}) => {
+export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({question, title, answers, id, testId}) => {
     const [isOpen, {onToggle}] = useBoolean()
     const [answersToRender, setAnswersToRender] = useState(answers || [])
 
