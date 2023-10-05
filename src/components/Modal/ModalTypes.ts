@@ -1,8 +1,10 @@
 import { FormEvent } from 'react'
 import { sectionT } from '../../types/sectionT'
 import { CoursesDataT } from '../../types/CoursesT'
+import {EmployeeT} from 'types/userT'
 
 import { studentsGroupsT } from '../../types/studentsGroup'
+import {UseQuery} from "@reduxjs/toolkit/dist/query/react/buildHooks";
 
 export type lessonIdAndTypeT = {
   id: number
@@ -16,6 +18,8 @@ export type SettingClassesPropsT = {
 }
 
 export type AddEmployeeModalPropsT = {
+  employees: EmployeeT[]
+  setEmployees: (arg: EmployeeT[]) => void
   setShowModal: () => void
 }
 

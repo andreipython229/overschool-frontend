@@ -4,7 +4,9 @@ import { ChangeEvent, memo, useEffect, useState } from 'react'
 import styles from '../superAdmin.module.scss'
 
 export const Main = memo(() => {
-  const { data } = useFetchSchoolHeaderQuery(1)
+  const headerId = localStorage.getItem('header_id')
+  const { data } = useFetchSchoolHeaderQuery(Number(headerId))
+
   const [updateDateSchoolName, { data: newName }] = useSetSchoolHeaderMutation()
 
   const [name, setName] = useState<string>('')
@@ -22,7 +24,7 @@ export const Main = memo(() => {
   const onChangeProjectName = async () => {
     const formdata = new FormData()
     formdata.append('name', name)
-    await updateDateSchoolName({ formdata, id: 1 })
+    headerId && await updateDateSchoolName({ formdata, id: headerId })
   }
 
   return (

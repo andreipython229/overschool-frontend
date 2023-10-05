@@ -24,3 +24,13 @@ export interface ILoginUserInfo {
   username: string
   user_permissions: number[]
 }
+
+export type EmployeeT = {
+    username?: string
+    id?: number
+    role: string
+    email: string
+    first_name?: string
+    last_name?: string
+    avatar?: string
+}

@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import {FC, memo, useState} from 'react'
 
 import { EmployeePropsT } from '../../../../types/pageTypes'
 import { useBoolean } from 'customHooks'
@@ -8,6 +8,7 @@ import { Portal } from 'components/Modal/Portal'
 import styles from './employee.module.scss'
 
 export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name }) => {
+
   const [isModalOpen, { on, off }] = useBoolean()
 
   return (

@@ -1,3 +1,5 @@
+import {ReactNode} from "react";
+
 export type CoursesDataT = {
   course_id: number
   created_at: Date
@@ -16,6 +18,26 @@ export type CoursesDataT = {
   school: number
 }
 
+export type StGroupT = {
+  group_id: number
+  name: string
+}
+
+export type CourseWithGroupsT = {
+  course_id: number
+  order?: number | string | Blob
+  name: string
+  format?: string
+  duration_days?: number
+  price?: string
+  description: string
+  photo?: string
+  photo_url?: string
+  public: string
+  school: number
+  student_groups: StGroupT[]
+}
+
 export type CoursesT = {
   next?: null
   previous?: null
@@ -26,3 +48,8 @@ export type CoursesT = {
 export interface checkCoursesDataT extends CoursesDataT {
   checked: boolean
 }
+
+export interface checkCourseT extends CourseWithGroupsT {
+  selected_group: number | null
+}
+

@@ -52,7 +52,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
 
     useEffect(() => {
         allUsers && allUsers.forEach((user: any) => {
-            if (user.roles[0] === 'Teacher' && !teachersList.find((teacher: any) => teacher.username === user.username)) {
+            if (user.role === 'Teacher' && !teachersList.find((teacher: any) => teacher.username === user.username)) {
                 setTeachersList([...teachersList, {username: user.username, id: user.id}]);
             }
         });

@@ -4,7 +4,8 @@
   position: relative;
   margin-right: 12px;
 }
-.header_dropdown_menu {
+
+.header_dropdown_menu, .header_groups_down {
   @include display(flex, row, space-between, center);
   @include font(500, 12px);
   cursor: pointer;
@@ -31,6 +32,12 @@
     }
   }
 }
+
+.header_groups_down {
+  max-width: 470px !important;
+  width: 470px !important;
+}
+
 .drop_down_item_container {
   @include position_t_l(absolute, 55px, 75px);
   color: #6b7484;
