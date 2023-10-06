@@ -68,7 +68,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
         formData.append('section', String(lesson.section))
         formData.append('order', String(lesson.order))
         formData.append('active', String(lesson.active))
-        formData.append('active', String(isPublished))
+        //formData.append('active', String(isPublished))
         await saveChanges({id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData}).unwrap().then(() => {
             window.location.reload()
             setIsEditing(false)
