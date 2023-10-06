@@ -6,8 +6,6 @@
 # Node artifact files
 node_modules/
 dist/
-.yarn/cache/
-.yarn/install-state.gz
 
 
 # Compiled Java class files
@@ -21,9 +19,6 @@ dist/
 
 # Package files
 *.jar
-yarn.lock
-.yarnrc.yml
-.yarn/install-state.gz
 
 # Maven
 target/
