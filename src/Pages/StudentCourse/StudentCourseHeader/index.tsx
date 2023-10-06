@@ -84,21 +84,44 @@ export const StudentCourseHeader: FC = () => {
                     <CircularProgressbar
                         value={userProgress.courses[0]?.completed_percent}
                         text={`${userProgress.courses[0]?.completed_percent}%`}
-                        styles={buildStyles({
-
-                            // Rotation of path and trail, in number of turns (0-1)
-                            rotation: 0.25,
-                            // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                            strokeLinecap: 'butt',
-                            // Text size
-                            textSize: '20px',
-                            // How long animation takes to go from one percentage to another, in seconds
-                            pathTransitionDuration: 0.5,
-                            pathColor: `rgba(186, 117, 255, ${userProgress.courses[0]?.completed_percent / 100})`,
-                            textColor: '#fff',
-                            trailColor: '#fff',
-                            backgroundColor: '#3e98c7'
-                        })}
+                        styles={{
+                            // Customize the root svg element
+                            root: {},
+                            // Customize the path, i.e. the "completed progress"
+                            path: {
+                              // Path color
+                              stroke: `rgba(186, 117, 255, ${userProgress.courses[0]?.completed_percent / 100})`,
+                              // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                              strokeLinecap: 'butt',
+                              // Customize transition animation
+                              transition: 'stroke-dashoffset 0.5s ease 0s',
+                              // Rotate the path
+                              transform: 'rotate(0.25turn)',
+                              transformOrigin: 'center center',
+                            },
+                            // Customize the circle behind the path, i.e. the "total progress"
+                            trail: {
+                              // Trail color
+                              stroke: '#d6d6d6',
+                              // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                              strokeLinecap: 'butt',
+                              // Rotate the trail
+                              transform: 'rotate(0.25turn)',
+                              transformOrigin: 'center center',
+                            },
+                            // Customize the text
+                            text: {
+                              // Text color
+                              fill: '#fff',
+                              // Text size
+                              fontSize: '22px',
+                            },
+                            // Customize background - only used when the `background` prop is true
+                            background: {
+                              fill: '#3e98c7',
+                            },
+                          }}
+                           
                     />
                 </div>
                 <div className={styles.previous_progress_info}>
