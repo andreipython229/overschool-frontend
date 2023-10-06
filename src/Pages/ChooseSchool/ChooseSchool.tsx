@@ -70,7 +70,7 @@ export const ChooseSchool = () => {
                                 </div>
                             </Link>)}
                     </div>}</div>
-            <div className={styles.bg2}>
+            {/* <div className={styles.bg2}>
                 <div style={{marginRight: '1em', marginLeft: '1em'}}>
                     <img src={anton}/>
                 </div>
@@ -80,7 +80,7 @@ export const ChooseSchool = () => {
                     </div>
                     <div className={styles.bg2_c}>Антон Селивончик (менеджер)</div>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -69,10 +69,10 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
                             <span className={styles.settings_block_input_title}>Изменить название</span>
                             <Input name={'name'} type={'text'} value={nameLesson} onChange={handleChangeNameLesson}/>
                         </div>
-                        <span className={styles.settings_block_input_isPublished}>
+                        {/* <span className={styles.settings_block_input_isPublished}>
                             <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)}/>
                             <PublishedMark isPublished={isPublished}/>
-                        </span>
+                        </span> */}
                     </div>
                     <Button onClick={saveChangeNameLesson} style={{width: '496px'}} variant={'primary'}
                             text={'Сохранить'}/>
