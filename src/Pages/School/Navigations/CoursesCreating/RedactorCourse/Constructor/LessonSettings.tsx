@@ -21,12 +21,16 @@ import {AdminTest} from "./AdminTestPreview/AdminTest";
 import {AdminHomework} from "./AdminHomeworkPreview/AdminHomework";
 import {acceptedHwPath} from "../../../../../../config/commonSvgIconsPath";
 import {IFile} from "../../../../../../types/filesT";
+import {CheckboxBall} from "../../../../../../components/common/CheckboxBall";
+import {PublishedMark} from "../../../../../../components/common/PublishedMark";
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, lessonIdAndType, setType}) => {
     const [files, setFiles] = useState<File[]>([])
     const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
     const [isEditing, setIsEditing] = useState(false)
     const [lessonDescription, setLessonDescription] = useState('')
+    const [isPublished, setIsPublished] = useState(false);
+    const [saveData] = usePatchLessonsMutation()
 
     const {data, isFetching, isSuccess} = useFetchLessonQuery({id: +lessonIdAndType.id, type: lessonIdAndType.type})
     const [addTextFiles] = usePostTextFilesMutation()
@@ -35,6 +39,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
 
     const [lesson, setLesson] = useState(data as commonLessonT)
     const [renderFiles, setRenderFiles] = useState<IFile[]>([])
+
+    useEffect(() => {
+        if (data) {
+            setIsPublished(data.active);
+        }
+    }, [data]);
 
     useEffect(() => {
         if (lesson && lesson.type !== 'test') {
@@ -58,6 +68,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
         formData.append('section', String(lesson.section))
         formData.append('order', String(lesson.order))
         formData.append('active', String(lesson.active))
+        formData.append('active', String(isPublished))
         await saveChanges({id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData}).unwrap().then(() => {
             window.location.reload()
             setIsEditing(false)
@@ -136,7 +147,18 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
         isSuccess && setLesson(data)
     }, [data])
 
+
+
+
+    const publickButton = {
+        width:"180px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: 'space-between'
+    };
+
     return (
+        
         <section style={{opacity: (isFetching || isDeleting || isSaving) ? 0.5 : 1, position: 'relative'}}
                  className={styles.redactorCourse_rightSideWrapper}>
             <div style={{position: 'relative'}} className={styles.redactorCourse_rightSideWrapper_rightSide}>
@@ -149,15 +171,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                                     <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath}/>
                                     Редактировать
                                 </button>
-                                {lesson?.active ? (
-                                    <p className={styles.coursePreviewHeader_text_block_published}>
-                                        ✓ опубликовано
-                                    </p>
-                                ) : (
-                                    <p className={styles.coursePreviewHeader_text_block_notPublished}>
-                                        ✖ не опубликовано
-                                    </p>
-                                )}
+                                
                             </div>
                         ) : (
                             <div className={styles.coursePreviewHeaderRedactor}>
@@ -182,16 +196,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                                         Сохранить изменения
                                     </button>
                                 </div>
-                                <div>
-                                    {lesson?.active ? (
-                                        <p className={styles.coursePreviewHeader_text_block_published}>
-                                            ✓ опубликовано
-                                        </p>
-                                    ) : (
-                                        <p className={styles.coursePreviewHeader_text_block_notPublished}>
-                                            ✖ не опубликовано
-                                        </p>
-                                    )}
+                                <div style={publickButton}>
+                                    <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)}/>
+                                    <PublishedMark isPublished={isPublished}/>
                                 </div>
                             </div>
                         )}
