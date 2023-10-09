@@ -1,6 +1,6 @@
 import React, { memo, MouseEvent, useEffect, useState, useRef, FC } from 'react'
 import { ContentState, convertFromHTML, convertToRaw, Editor, EditorState, RichUtils } from 'draft-js'
-import { BLOCK_TYPES } from './config/blockTypes'
+import { BLOCK_TYPES, INLINE_STYLES } from './config/blockTypes'
 import { IEditor } from 'types/componentsTypes'
 import { stateToHTML } from 'draft-js-export-html'
 import 'draft-js/dist/Draft.css'
@@ -105,6 +105,11 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
     setEditorState(nextState)
   }
 
+  const onInlineClick = (e:string) => {
+    const nextState = RichUtils.toggleInlineStyle(editorState, e)
+    setEditorState(nextState)
+  }
+
   const isActive = (style: string) => {
     const currentStyle = RichUtils.getCurrentBlockType(editorState)
     return currentStyle.includes(style)
@@ -115,6 +120,9 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
       <div className={styles.editor_panel}>
         {BLOCK_TYPES.map(({ label, style }, index: number) => (
           <StyleButton key={index} style={style} label={label} isActive={() => isActive(style)} onToggle={onBlockClick} />
+        ))}
+        {INLINE_STYLES.map(({label, style}, index:number) => (
+          <StyleButton key={label+style} style={style} label={label} isActive={() => isActive(style)} onToggle={onInlineClick}/>
         ))}
       </div>
       <div className={styles.editor_table}>
