@@ -112,23 +112,23 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
               />
             )
           }
-          ;<div style={{ display: 'flex', justifyContent: 'center', marginTop: '2em' }}>
-            <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-          </div>
         })}
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2em' }}>
+          <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
+        </div>
       </div>
-      <div className={styles.wrapper_addQuestionsWrapper}>
+      {/* <div className={styles.wrapper_addQuestionsWrapper}>
         <h2 className={styles.wrapper_addQuestionsWrapper_title}>Добавьте вопрос</h2>
         <div className={styles.wrapper_addQuestionsWrapper_btnWrapper}>
           <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
           <AddOptionsWithPictures setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
           <AddPicturesAndOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-          {/*<AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}*/}
-          {/*             questions={questions} testId={testId}/>*/}
-          {/*<AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}*/}
-          {/*                  questions={questions} testId={testId}/>*/}
+          <AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
+                      questions={questions} testId={testId}/>
+          <AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
+                           questions={questions} testId={testId}/>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 })

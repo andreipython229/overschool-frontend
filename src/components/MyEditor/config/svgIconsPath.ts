@@ -31,3 +31,11 @@ export const labelContentsIconPath = [{ d: editorSvgLabel.contentsIcon, fill: '#
 export const labelBackArrPath = [{ d: editorSvgLabel.backArrIcon, fill: '#03053D' }]
 
 export const labelForwardArrPath = [{ d: editorSvgLabel.forwardArrIcon, fill: '#03053D' }]
+
+export const boldIconPath = [{ d: editorSvgLabel.labelBold, fill: '#03053D' }]
+
+export const italicIconPath = [{ d: editorSvgLabel.labelItalic, fill: '#03053D' }]
+
+export const underlineIconPath = [{ d: editorSvgLabel.labelUnderline, fill: '#03053D' }]
+
+export const monoIconPath = [{ d: editorSvgLabel.labelMonochrome, fill: '#03053D' }]

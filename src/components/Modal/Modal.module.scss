@@ -1,10 +1,6 @@
 @import './src/scss/variable';
 @import '../../scss/mixin.scss';
 
-.isPublished {
-
-}
-
 .wrapper {
   // @include position_t_l (absolute, 0, 0, 15);
   display: flex;
@@ -69,26 +65,21 @@
   overflow: visible;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 90%;
-    position:absolute;
+    position: absolute;
     top: 10%;
     right: 6%;
-    
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 90%;
-    position:absolute;
+    position: absolute;
     top: 10%;
     right: 6%;
-    
-    
-   
   }
   @media only screen and (min-width: 481px) and (max-width: 1024px) {
     position: absolute;
     left: 30%;
     height: 95%;
-  
-   }
+  }
 
   &_closed {
     @include position_t_r(absolute, 1.5em, 1.5em);
@@ -107,7 +98,6 @@
       transition: color 0.3s;
     }
   }
-
 
   &_title {
     @include font(800, 30px);
@@ -135,7 +125,7 @@
       transition: color 0.4s;
 
       &:hover {
-        color: #AF35ACFF;
+        color: #af35acff;
       }
     }
 
@@ -178,7 +168,7 @@
   }
 
   &_btn {
-    margin-top: 2em;
+    margin-top: 0.5em;
     text-align: center;
   }
 }
@@ -488,7 +478,7 @@
 .errors {
   color: #ff3c3c;
   font-size: 12px;
-  margin-top: -8px;
+  margin-top: 2px;
   margin-left: 8px;
 }
 
@@ -839,4 +829,3 @@
   font-style: normal;
   color: #4d5766;
 }
-
