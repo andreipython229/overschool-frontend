@@ -194,7 +194,7 @@ export const Header = memo(() => {
                     </div>
                     <p className={styles.tariffPlan_text}>{' Тариф '}
                         <span className={styles.tariffPlan_text_tariff}>{`"${currentTariff.tariff_name}"`}</span>
-                        <span style={{ color: '#BA75FF' }}>{` — ${currentTariff.days_left} дней`}</span>
+                        {currentTariff.days_left && <span style={{ color: '#BA75FF' }}>{` — ${currentTariff.days_left} дней`}</span>}
                     </p>
                 </a>}
                 <React.Fragment>

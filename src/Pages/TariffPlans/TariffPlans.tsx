@@ -19,7 +19,7 @@ export const TariffPlans: FC = () => {
   const { data, isFetching, isSuccess } = useFetchTariffPlanTableQuery()
   const [tariffPlanTable, setTariffPlanTable] = useState<TariffPlanT[]>()
   const { role } = useAppSelector(selectUser)
-  const [isModalOpen, {off: open, on: close}] = useBoolean()
+  const [isModalOpen, { off: open, on: close }] = useBoolean()
   const [selected, setSelected] = useState<TariffPlanT>()
   const tariff = useAppSelector(state => state.tariff.data)
 
@@ -73,15 +73,18 @@ export const TariffPlans: FC = () => {
                     <span>{plan.price !== '0.00' ? `${plan.price} рублей` : 'бесплатно'}</span>
                   </li>
                 </ul>
-                {role === RoleE.Admin && ((tariff && tariff.tariff_name === plan.name)?
-                <Button text={'Текущий тариф'} variant={'disabled'} />:
-                <Button text={'Купить'} variant={'create'} onClick={() => handleClick(plan)} />)}
+                {role === RoleE.Admin &&
+                  (tariff && tariff.tariff_name === plan.name ? (
+                    <Button text={'Текущий тариф'} variant={'disabled'} />
+                  ) : (
+                    <Button text={'Купить'} variant={'create'} onClick={() => handleClick(plan)} />
+                  ))}
               </div>
             </div>
           ))}
         </div>
       </div>
-      {(isModalOpen && selected) && (
+      {isModalOpen && selected && (
         <Portal closeModal={close}>
           <TariffDetailModal tariff={selected} setShowModal={close} />
         </Portal>
