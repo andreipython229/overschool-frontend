@@ -44,3 +44,8 @@ export interface UserProfileT {
   avatar: string
 }
 
+export interface ITariff {
+  tariff_name: string
+  days_left: number | null
+}
+

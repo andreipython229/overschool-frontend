@@ -6,10 +6,29 @@ import secondStep from '../../assets/img/createProject/secondStep.png'
 import { TariffPlanT, useFetchTariffPlanTableQuery } from 'api/tariffPlanService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { FC, useEffect, useState } from 'react'
+import { useBoolean } from 'customHooks'
+import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDetailModal'
+import { Portal } from 'components/Modal/Portal'
+import { useSelector } from 'react-redux'
+import { RootState } from 'store/redux/store'
+import { useAppSelector } from 'store/hooks'
+import { selectUser } from 'selectors'
+import { RoleE } from 'enum/roleE'
 
 export const TariffPlans: FC = () => {
   const { data, isFetching, isSuccess } = useFetchTariffPlanTableQuery()
   const [tariffPlanTable, setTariffPlanTable] = useState<TariffPlanT[]>()
+  const { role } = useAppSelector(selectUser)
+  const [isModalOpen, {off: open, on: close}] = useBoolean()
+  const [selected, setSelected] = useState<TariffPlanT>()
+  const tariff = useAppSelector(state => state.tariff.data)
+
+  const handleClick = (plan: TariffPlanT) => {
+    setSelected(plan)
+    console.log('modal:', isModalOpen)
+    open()
+    console.log('modal after func:', isModalOpen)
+  }
 
   useEffect(() => {
     if (data) {
@@ -54,12 +73,19 @@ export const TariffPlans: FC = () => {
                     <span>{plan.price !== '0.00' ? `${plan.price} рублей` : 'бесплатно'}</span>
                   </li>
                 </ul>
-                <Button text={'Купить'} variant={'create'} />
+                {role === RoleE.Admin && ((tariff && tariff.tariff_name === plan.name)?
+                <Button text={'Текущий тариф'} variant={'disabled'} />:
+                <Button text={'Купить'} variant={'create'} onClick={() => handleClick(plan)} />)}
               </div>
             </div>
           ))}
         </div>
       </div>
+      {(isModalOpen && selected) && (
+        <Portal closeModal={close}>
+          <TariffDetailModal tariff={selected} setShowModal={close} />
+        </Portal>
+      )}
       <p style={{ margin: 'auto', fontSize: '30px', fontWeight: '800', textAlign: 'center', color: 'grey' }}>Часто задаваемые вопросы</p>
       <div className={styles.questions}>
         <div className={styles.questions_element}>

@@ -1,5 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
-import { baseQuery } from './baseApi'
+import { baseQuery, baseQueryFn } from './baseApi'
+import { ITariff } from 'types/userT'
 
 export type TariffPlanT = {
   id: number
@@ -25,4 +26,19 @@ export const tariffPlanService = createApi({
   }),
 })
 
+export const tariffService = createApi({
+  reducerPath: 'tariffService',
+  baseQuery: baseQueryFn(),
+  tagTypes: ['tariffInfo'],
+  endpoints: build => ({
+    fetchCurrentTariffPlan: build.query<ITariff, void>({
+      query: () => ({
+        url: '/current_tariff/'
+      }),
+      providesTags: ['tariffInfo']
+    })
+  })
+})
+
 export const { useFetchTariffPlanTableQuery } = tariffPlanService
+export const { useFetchCurrentTariffPlanQuery } = tariffService

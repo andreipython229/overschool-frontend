@@ -44,8 +44,8 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
     random_questions: formik.values.rndQuest,
     random_answers: formik.values.shuffleAnswer,
     show_right_answers: formik.values.showCorrect,
-    attempt_limit: formik.values.numOfAttempts,
-    attempt_count: formik.values.attempts,
+    attempt_limit: false,
+    attempt_count: 0,
     setLessonIdAndType,
   })
 
@@ -79,7 +79,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
         <Input placeholder={'Процент ответов'} name="percent" min={0} onChange={handleChange} type={'number'} value={`${percent}`} />
       </div>
       <div className={styles.test_checkboxPack}>
-        <div className={styles.test_checkbox}>
+        {/* <div className={styles.test_checkbox}>
           <Checkbox id={'attempts'} name="numOfAttempts" checked={numOfAttempts} onChange={handleChange} />
           <div>
             <span className={formik.values.numOfAttempts ? styles.test_checkbox_text_checked : ''}>Ограничить количество попыток</span>
@@ -87,7 +87,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
           {formik.values.numOfAttempts && (
             <input className={styles.test_checkbox_attempts} type="number" min={1} name="attempts" onChange={handleChange} value={attempts} />
           )}
-        </div>
+        </div> */}
         {checkboxData.map(({ id, name, span1, span2 }) => (
           <div key={id} className={styles.test_checkbox}>
             <Checkbox id={id} name={name} checked={formik.values[name as keyof object]} onChange={handleChange} />
