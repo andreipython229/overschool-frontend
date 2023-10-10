@@ -5,7 +5,6 @@ import storage from 'redux-persist/lib/storage'
 import * as services from '../../api/index'
 import * as slices from './index'
 import { modulesReduce } from "./modules/modules";
-import {chatsReducer, unreadReducer, userProfileReducer} from "./index";
 
 export const rootReducer = combineReducers({
     [services.userProgressService.reducerPath]: services.userProgressService.reducer,
@@ -31,6 +30,7 @@ export const rootReducer = combineReducers({
     [services.schoolCreationService.reducerPath]: services.schoolCreationService.reducer,
     [services.tariffPlanService.reducerPath]: services.tariffPlanService.reducer,
     [services.videoFilesService.reducerPath]: services.videoFilesService.reducer,
+    [services.tariffService.reducerPath]: services.tariffService.reducer,
     user: slices.authReduce,
     sections: slices.sectionsReduce,
     filters: slices.filtersReducer,
@@ -38,10 +38,11 @@ export const rootReducer = combineReducers({
     school: slices.schoolReducer,
     schoolId: slices.schoolIdReducer,
     headerId: slices.headerIdReducer,
+    tariff: slices.tariffReducer,
+    unread: slices.unreadReducer,
+    chats: slices.chatsReducer,
+    userProfile: slices.userProfileReducer,
     modules: modulesReduce,
-    unread: unreadReducer,
-    chats: chatsReducer,
-    userProfile: userProfileReducer,
 })
 
 const persistConfig = {
@@ -81,6 +82,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
                 services.schoolCreationService.middleware,
                 services.tariffPlanService.middleware,
                 services.videoFilesService.middleware,
+                services.tariffService.middleware,
             ),
     })
 }

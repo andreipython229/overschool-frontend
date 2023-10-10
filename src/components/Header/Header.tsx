@@ -24,13 +24,15 @@ import {ChatI, SenderI} from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from "../../store/redux/chats/chatsSlice";
 
-import { UserProfileT } from "../../types/userT"
+import { ITariff, UserProfileT } from "../../types/userT"
 import { setUserProfile, clearUserProfile } from "../../store/redux/users/profileSlice"
 import { isEqual, omit } from 'lodash';
 import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath'
 import { RoleE } from 'enum/roleE'
 
 import { useCookies } from 'react-cookie';
+import { useFetchCurrentTariffPlanQuery } from 'api/tariffPlanService'
+import { setTariff } from 'store/redux/tariff/tariffSlice'
 
 export const Header = memo(() => {
     const dispatch = useAppDispatch()
@@ -40,6 +42,8 @@ export const Header = memo(() => {
     const headerId = localStorage.getItem('header_id')
     const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
     const { data: profile, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
+    const { data: tariffPlan, isSuccess: tariffSuccess } = useFetchCurrentTariffPlanQuery()
+    const [currentTariff, setCurrentTariff] = useState<ITariff>()
 
     const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
     const chats = useAppSelector(state => state.chats.chats);
@@ -75,6 +79,13 @@ export const Header = memo(() => {
     useEffect(() => {
         profileIsSuccess && setProfileData(profile[0])
     }, [profileIsSuccess])
+
+    useEffect(() => {
+        if (tariffPlan && Object.keys(tariffPlan).length > 0) {
+            setCurrentTariff(tariffPlan)
+            dispatch(setTariff(tariffPlan))
+        }
+    }, [tariffSuccess])
 
     useEffect(() => {
         if (profileData) {
@@ -176,14 +187,14 @@ export const Header = memo(() => {
                 <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
             </NavLink>
             <div className={styles.header_block}>
-                {(role === RoleE.Admin) && <a className={styles.tariffPlan} href={`${generatePath(Path.School + Path.TariffPlans,
+                {(role === RoleE.Admin && currentTariff) && <a className={styles.tariffPlan} href={`${generatePath(Path.School + Path.TariffPlans,
                     { school_name: localStorage.getItem('school') || window.location.href.split('/')[4] })}`}>
                     <div className={styles.tariffPlan_icon}>
                         <IconSvg width={23} height={19} viewBoxSize="0 0 23 19" path={purpleTariffPlanIconPath} />
                     </div>
                     <p className={styles.tariffPlan_text}>{' Тариф '}
-                        <span className={styles.tariffPlan_text_tariff}>{'«Бизнес»'}</span>
-                        <span style={{ color: '#BA75FF' }}>{' — 30 дней'}</span>
+                        <span className={styles.tariffPlan_text_tariff}>{`"${currentTariff.tariff_name}"`}</span>
+                        <span style={{ color: '#BA75FF' }}>{` — ${currentTariff.days_left} дней`}</span>
                     </p>
                 </a>}
                 <React.Fragment>
