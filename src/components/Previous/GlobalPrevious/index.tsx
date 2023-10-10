@@ -21,7 +21,8 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   const headerId = localStorage.getItem('header_id')
   const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(Number(headerId))
   const [setSchoolHeader] = useSetSchoolHeaderMutation()
-
+ 
+  
   const [edit, setEdit] = useState<boolean>(false)
 
   const [schoolHeaderData, setSchoolHeaderData] = useState<schoolHeaderReqT>({
@@ -32,7 +33,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   })
 
   const [schoolHeaderDataToRender, setSchoolHeaderDataToRender] = useState({
-    logo_header: '',
+    logo_school: '',
     photo_background: '',
   })
 
@@ -66,7 +67,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
 
   useEffect(() => {
     if (isSuccess) {
-      const { name, description, photo_background, logo_header } = data
+      const { name, description, photo_background, logo_school } = data
 
       setSchoolHeaderData({
         ...schoolHeaderData,
@@ -74,7 +75,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
         description,
       })
 
-      setSchoolHeaderDataToRender({ logo_header: logo_header, photo_background: photo_background })
+      setSchoolHeaderDataToRender({ logo_school: logo_school, photo_background: photo_background })
 
     }
   }, [isSuccess, data])
@@ -84,9 +85,11 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
       setEdit(false)
     }
   }, [pathname])
+  
+  
 
   const { name: headerName, description: headerDes } = schoolHeaderData
-  const { photo_background, logo_header } = schoolHeaderDataToRender
+  const { photo_background, logo_school } = schoolHeaderDataToRender
   //const isMatchPath = pathname === Path.InitialPage + Path.Courses
   const isMatchPath = true
   const changedBg = photo_background
@@ -98,6 +101,10 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
         ObjectFit: 'fill',
       }
     : { backgroundColor: '#e0dced' }
+   
+
+    
+    
 
   return (
     <div className={styles.previous} style={changedBg}>
@@ -116,14 +123,14 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
         {edit && (
           <input
             className={`${styles.previous_infoBlock_avatar} ${styles.input_change} ${styles.hide_input}`}
-            name="logo_header"
+            name="logo_school"
             type="file"
             value={''}
             onChange={handleChangeSchoolHeaderData}
           />
         )}
 
-        <img className={styles.previous_infoBlock_avatar} src={logo_header || noAvatar} alt={headerName} />
+        <img className={styles.previous_infoBlock_avatar} src={logo_school || noAvatar} alt={headerName} />
         <div className={styles.previous_infoBlock_title}>
           {edit ? (
             <input

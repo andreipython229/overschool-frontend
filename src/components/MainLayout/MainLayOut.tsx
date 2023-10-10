@@ -11,6 +11,8 @@ import { Path } from '../../enum/pathE'
 
 import styles from './mainLayOut.module.scss'
 import { Footer } from 'components/Footer'
+import { link } from 'fs'
+import { log } from 'console'
 
 export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -18,12 +20,19 @@ export const MainLayOut: FC = memo(() => {
   const navigate = useNavigate()
   const headerId = localStorage.getItem('header_id')
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
+  
+
+  useEffect(() => {
+    document.title = `${data?.name}`;
+  }, [data]);
 
   useEffect(() => {
     if (!isLogin) {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])
+
+  
 
   useEffect(() => {
     if (isSuccess) {
@@ -34,9 +43,13 @@ export const MainLayOut: FC = memo(() => {
         link.rel = 'icon'
         document.getElementsByTagName('head')[0].appendChild(link)
       }
-      data?.favicon_url ? (link.href = data?.favicon_url) : (link.href = '../public/favicon.ico')
+      data?.logo_school ? (link.href = data?.logo_school) : (link.href = '')
     }
   }, [data])
+  
+
+  
+  
 
   return (
     <div className={styles.wrapper}>
