@@ -41,13 +41,13 @@ export const StudentTestBlock: FC<any> = ({lesson}) => {
     };
 
     useEffect(() => {
-      if (lesson.random_questions) {
+      // if (lesson.random_questions) {
         const shuffledQuestions = lesson.questions.map((question: QuestionT) => {
           const shuffledAnswers = shuffleArray([...question.answers]);
           return { ...question, answers: shuffledAnswers };
         });
         setQuestions(shuffleArray(shuffledQuestions));
-      }
+      // }
     }, [lesson]);
 
     // Функция для перемешивания массива
