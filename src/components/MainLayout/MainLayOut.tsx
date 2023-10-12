@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 import { Header } from 'components/Header/Header'
@@ -20,11 +20,14 @@ export const MainLayOut: FC = memo(() => {
   const navigate = useNavigate()
   const headerId = localStorage.getItem('header_id')
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
+
   
 
   useEffect(() => {
-    document.title = `${data?.name}`;
-  }, [data]);
+    if (isSuccess) {
+    document.title = `${data?.name}`
+    }
+  }, [isSuccess]);
 
   useEffect(() => {
     if (!isLogin) {
