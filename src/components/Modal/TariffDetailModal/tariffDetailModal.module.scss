@@ -11,21 +11,117 @@
   &_tariffCard {
     display: flex;
     flex-direction: column;
-    width: 800px;
+    width: 40em;
     height: fit-content;
     padding: 2em;
     border-radius: 1em;
     box-shadow: 1em;
     background-color: rgb(253, 253, 253);
 
-    &_form {
-        margin-top: 1em;
-        height: max-content;
-        display: flex;
+    &_info {
+      align-items: center;
+      flex-direction: column;
+      display: flex;
+      margin-top: 1em;
+
+      &_cardGroup {
+        margin-top: 45px;
+        display: inline-flex;
+        align-items: center;
+        width: 90vw;
         justify-content: space-around;
-        flex-direction: row;
-        width: 100%;
+
+        &_card:hover {
+          background-color: #ebe8f5;
+          button {
+            color: #ba75ff;
+            background-color: #ffffff;
+          }
+        }
+
+        &_card {
+          width: 253px;
+          height: 310px;
+          background: #fff;
+          border-radius: 20px;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          margin-bottom: 80px;
+
+          &_text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            min-width: 100%;
+            min-height: 100%;
+
+            h3 {
+              color: #4d5766;
+              font-weight: 600;
+              font-size: 22px;
+              text-align: center;
+            }
+            hr {
+              border: 1px solid #ba75ff;
+              width: 80%;
+              height: 0;
+              opacity: 0.5;
+              text-align: center;
+            }
+            ul {
+              list-style: none;
+
+              li::before {
+                content: '\2022';
+                color: #ba75ff;
+                font-weight: bold;
+                display: inline-block;
+                width: 1em;
+                margin-left: -1em;
+              }
+              li {
+                font-size: 16px;
+                padding-bottom: 8px;
+
+                span {
+                  font-weight: 800;
+                  margin-left: 0.3em;
+                  color: #ba75ff;
+                }
+              }
+            }
+            button {
+              width: 184px;
+              height: 36px;
+              font-size: 12px;
+              position: relative;
+            }
+          }
+        }
+        @media (min-width: 767px) and (max-width: 1024px) {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          &_card {
+            margin: 0 auto 80px auto;
+          }
+        }
+        @media (min-width: 320px) and (max-width: 767px) {
+          display: flex;
+          flex-direction: column;
+        }
       }
+    }
+
+    &_form {
+      margin-top: 1em;
+      height: max-content;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: row;
+      width: 100%;
+    }
 
     &_info {
       display: flex;
@@ -107,6 +203,7 @@
     font-family: 'Inter', sans-serif;
     padding: 0 5px;
     transition: border-color 0.2s;
+    width: 15em;
   }
 }
 
@@ -117,8 +214,9 @@
 }
 
 .btn {
-  margin-top: 0.5em;
+  margin-top: 2em;
   background-color: #ccb4f9;
+  width: fit-content;
 }
 
 .paymentsMethods {

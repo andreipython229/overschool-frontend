@@ -70,14 +70,16 @@ export const TariffPlans: FC = () => {
                   </li>
                   <li>
                     Цена:
-                    <span>{plan.price !== '0.00' ? `${plan.price} рублей` : 'бесплатно'}</span>
+                    <span>{plan.price !== '0.00' ? `${plan.price} рублей/мес.` : 'бесплатно'}</span>
                   </li>
                 </ul>
                 {role === RoleE.Admin &&
-                  (tariff && tariff.tariff_name === plan.name ? (
+                  (tariff && tariff.tariff_name === plan.name && plan.name !== 'Intern' ? (
+                    <Button text={'Отменить подписку'} variant={'delete'} />
+                  ) : (plan.name !== 'Intern'?
+                    <Button text={'Подписаться'} variant={'create'} onClick={() => handleClick(plan)} />
+                    :
                     <Button text={'Текущий тариф'} variant={'disabled'} />
-                  ) : (
-                    <Button text={'Купить'} variant={'create'} onClick={() => handleClick(plan)} />
                   ))}
               </div>
             </div>

@@ -31,6 +31,7 @@ export const rootReducer = combineReducers({
     [services.tariffPlanService.reducerPath]: services.tariffPlanService.reducer,
     [services.videoFilesService.reducerPath]: services.videoFilesService.reducer,
     [services.tariffService.reducerPath]: services.tariffService.reducer,
+    [services.subscriptionService.reducerPath]: services.subscriptionService.reducer,
     user: slices.authReduce,
     sections: slices.sectionsReduce,
     filters: slices.filtersReducer,
@@ -83,6 +84,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
                 services.tariffPlanService.middleware,
                 services.videoFilesService.middleware,
                 services.tariffService.middleware,
+                services.subscriptionService.middleware
             ),
     })
 }
