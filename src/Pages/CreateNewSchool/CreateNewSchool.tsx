@@ -42,7 +42,7 @@ export const CreateNewSchool = () => {
         const userData = formik.values
         await createOwner(userData)
           .unwrap()
-          .catch(response => {
+          .catch((response: any) => {
             if (response.status === 400) {
               setError(response.data)
             }
