@@ -1,77 +1,68 @@
 import { TariffPlanT } from 'api/tariffPlanService'
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import styles from './tariffDetailModal.module.scss'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { closeHwModalPath } from '../ModalCheckHomeWork/config/svgIconsPsth'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { Button } from 'components/common/Button/Button'
-import VISA from './assets/SVG/payments-visa.svg'
-import MASTERCARD from './assets/SVG/payments-mastercard.svg'
-import { validateEmail } from 'utils/validateEmail'
-import { CardNumberInput } from 'components/common/Input/MaskedInputs/CardNumberInput'
-import { ExpirationDateInput } from 'components/common/Input/MaskedInputs/ExpirationDateInput'
-import { CVVInput } from 'components/common/Input/MaskedInputs/CVVInput'
+import { useSendSubscriptionFormMutation } from 'api/subscriptionServices'
 
 interface ITariffDetailModal {
   tariff: TariffPlanT
   setShowModal: (close: boolean) => void
 }
 
-interface IFormValues {
-  name: string
-  email: string
-  cardNumber: string
-  expirationDate: string
-  cvv: string
+export interface ISubscribe {
+  tariff: string
+  pays_count: number
+  promo_code?: string
 }
 
 export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal }) => {
-  const [disabled, setDisabled] = useState<boolean>(true)
+  const [selectedMonth, setSelectedMonth] = useState<number>(1)
+  const [sendForm, { isSuccess, isLoading }] = useSendSubscriptionFormMutation()
+  const [promoError, setPromoError] = useState(false)
 
-  const initialValues: IFormValues = {
-    name: '',
-    email: '',
-    cardNumber: '',
-    expirationDate: '',
-    cvv: '',
+  const initialValues: ISubscribe = {
+    tariff: tariff.name,
+    pays_count: selectedMonth,
+    promo_code: '',
   }
 
-  const handleSubmit = (values: IFormValues) => {
-    // ДОДЕЛАТЬ!!!!!!
-    
-    console.log(values)
+  const handleChangePeriod = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedMonth(Number(e.target.value))
   }
 
-  const validateForm = (values: IFormValues) => {
-    const errors: Partial<IFormValues> = {}
+  const handleSubmit = (values: ISubscribe) => {
+    const subForm: ISubscribe =
+      values.promo_code && values.promo_code.length > 0
+        ? {
+            tariff: tariff.name,
+            pays_count: selectedMonth,
+            promo_code: values.promo_code,
+          }
+        : {
+            tariff: tariff.name,
+            pays_count: selectedMonth,
+          }
 
-    if (!validateEmail(values.email)) {
-      errors.email = 'Проверьте правильность ввода'
-    }
+    sendForm(subForm)
+      .unwrap()
+      .then()
+      .catch(err => {
+        if (err.status === 400) {
+          setPromoError(true)
+        }
+      })
 
-    if (!values.name) {
-      errors.name = 'Поле должно быть заполнено'
-    }
-    if (!values.email) {
-      errors.email = 'Поле должно быть заполнено'
-    }
-    if (!values.cardNumber) {
-      errors.cardNumber = 'Поле должно быть заполнено'
-    }
-    if (!values.expirationDate) {
-      errors.expirationDate = 'Поле должно быть заполнено'
-    }
-    if (!values.cvv) {
-      errors.cvv = 'Поле должно быть заполнено'
-    }
-    if (values.cvv.length && values.cvv.length !== 3) {
-      errors.cvv = 'Проверьте правильность ввода'
-    }
+    // setShowModal(false)
+  }
 
-    if (Object.keys(errors).length === 0 ) {
-      setDisabled(false)
+  const validateForm = () => {
+    const errors: Partial<ISubscribe> = {}
+    if (promoError) {
+      errors.promo_code = 'Нет такого промокода'
     }
-
     return errors
   }
 
@@ -85,54 +76,54 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
             </button>
           </div>
           <div className={styles.wrapper_tariffCard_header_title}>
-            {'Оплата тарифного плана "'}
+            {'Подписка на тарифный план "'}
             <span>{`${tariff.name}"`}</span>
           </div>
         </div>
-        <div className={styles.wrapper_tariffCard_info}></div>
+        <div className={styles.wrapper_tariffCard_info_cardGroup_card_text}>
+          <hr />
+          <ul style={{ marginBottom: '1em' }}>
+            <li>
+              Количество курсов:
+              <span>{tariff.number_of_courses || 'безлимит'}</span>
+            </li>
+            <li>
+              Количество сотрудников:
+              <span>{tariff.number_of_staff || 'безлимит'}</span>
+            </li>
+            <li>
+              Студентов в месяц:
+              <span>{tariff.students_per_month || 'безлимит'}</span>
+            </li>
+            <li>
+              Всего студентов:
+              <span>{tariff.total_students || 'безлимит'}</span>
+            </li>
+            <li>
+              Цена:
+              <span>{`${Number(tariff.price) * selectedMonth} рублей${selectedMonth === 1? '/месяц': 
+              selectedMonth === 3? '/3 месяца': `/${selectedMonth} месяцев`}`}</span>
+            </li>
+          </ul>
+          <hr />
+        </div>
         <div className={styles.wrapper_tariffCard_body}>
           <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validateForm}>
             <Form className={styles.wrapper_tariffCard_form}>
-              <div>
-                <div className={styles.paymentField}>
-                  <label htmlFor="cardNumber">Номер карты:</label>
-                  <Field maxLength={19} className={styles.paymentField_inputField} type="text" id="cardNumber" name="cardNumber" component={CardNumberInput} />
-                  <ErrorMessage className={styles.error} name="cardNumber" component="div" />
-                </div>
-
-                <div className={styles.paymentField}>
-                  <label htmlFor="name">Имя и Фамилия (как на карте):</label>
-                  <Field className={styles.paymentField_inputField} type="text" id="name" name="name" />
-                  <ErrorMessage className={styles.error} name="name" component="div" />
-                </div>
-
-                <div className={styles.paymentField}>
-                  <label htmlFor="email">Email:</label>
-                  <Field className={styles.paymentField_inputField} type="email" id="email" name="email" />
-                  <ErrorMessage className={styles.error} name="email" component="div" />
-                </div>
-
-                <Button disabled={disabled} className={styles.btn} type="submit" text={'Оплатить'} />
+              <div className={styles.paymentField}>
+                <label htmlFor="pays_count">Количество месяцев:</label>
+                <select className={styles.paymentField_inputField} id="pays_count" name="pays_count" onChange={handleChangePeriod}>
+                  <option value={1}>1 месяц</option>
+                  <option value={3}>3 месяца</option>
+                  <option value={6}>6 месяцев</option>
+                  <option value={12}>12 месяцев</option>
+                </select>
+                <Button className={styles.btn} type="submit" text={'Подписаться'} />
               </div>
-
-              <div>
-                <div className={styles.paymentField}>
-                  <label htmlFor="expirationDate">Срок действия:</label>
-                  <Field maxLength={5} className={styles.paymentField_inputField} type="text" id="expirationDate" name="expirationDate" component={ExpirationDateInput} />
-                  <ErrorMessage className={styles.error} name="expirationDate" component="div" />
-                </div>
-
-                <div className={styles.paymentField}>
-                  <label htmlFor="cvv">CVV:</label>
-                  <Field maxLength={3} className={styles.paymentField_inputField} type="text" id="cvv" name="cvv" 
-                  component={CVVInput}/>
-                  <ErrorMessage className={styles.error} name="cvv" component="div" />
-                </div>
-              </div>
-
-              <div className={styles.paymentsMethods}>
-                <img src={VISA} />
-                <img src={MASTERCARD} />
+              <div className={styles.paymentField}>
+                <label htmlFor="promo_code">Есть промокод?</label>
+                <Field className={styles.paymentField_inputField} type="text" id="promo_code" name="promo_code" placeholder={'Введите его здесь'} />
+                <ErrorMessage className={styles.error} name="promo_code" component="div" />
               </div>
             </Form>
           </Formik>
