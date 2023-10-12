@@ -28,7 +28,7 @@ export const StudentTestResults: React.FC<TestResultProps> = ({results, test, us
 
     const testResults = {
         success_percent: percentage(),
-        status: percentage() > success_prercent,
+        status: percentage() >= success_prercent,
         test: test as number,
         user: user
     }

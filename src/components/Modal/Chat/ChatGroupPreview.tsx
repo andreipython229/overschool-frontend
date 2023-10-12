@@ -22,6 +22,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
   const {chats} = useAppSelector(state => state.chats)
   const dispatch = useAppDispatch()
   const [users, setUsers] = useState<SenderI[]>()
+  const [showCreateChatButton, setshowCreateChatButton] = useState(true);
 
   const [createPersonalChat, { isLoading }] = useCreatePersonalChatMutation()
 
@@ -29,24 +30,46 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
     usersList && setUsers(usersList)
   }, [usersList])
 
-  useEffect(() => {
-    console.log(chatData)
-  },[chatData])
+  // useEffect(() => {
+  //   console.log("test chat datat ===== ",chatData)
+  // },[chatData])
 
-  const createChatHundler = async (student: SenderI, teacherId: number) => {
-    try {
-      if (student.id && teacherId) {
-        const personalChatData = new FormData();
-        personalChatData.append('teacher_id', teacherId.toString());
-        personalChatData.append('student_id', student.id.toString());
-        personalChatData.append('message', "Приветствую в персональном чате");
+  // const createChatHundler = async (student: SenderI, teacherId: number, group_chat_id: string) => {
+  //   try {
+  //     if (student.id && teacherId) {
+  //       const personalChatData = new FormData();
+  //       personalChatData.append('teacher_id', teacherId.toString());
+  //       personalChatData.append('student_id', student.id.toString());
+  //       personalChatData.append('message', "Приветствую в персональном чате");
+  //       personalChatData.append('chat_id', group_chat_id)
+  //
+  //       const response = await createPersonalChat(personalChatData);
+  //     }
+  //   } catch (error) {
+  //     // Обработка ошибки
+  //     console.error('Произошла ошибка при создании персонального чата:', error);
+  //
+  //   }
+  // }
 
-        const response = await createPersonalChat(personalChatData);
-      }
-    } catch (error) {
-      // Обработка ошибки
-      console.error('Произошла ошибка при создании персонального чата:', error);
+  const createChatHundler = (student: SenderI, teacherId: number, group_chat_id: string) => {
+    setshowCreateChatButton(false)
+    if (student.id && teacherId) {
+      const personalChatData = new FormData();
+      personalChatData.append('teacher_id', teacherId.toString());
+      personalChatData.append('student_id', student.id.toString());
+      personalChatData.append('message', "Приветствую в персональном чате");
+      personalChatData.append('chat_id', group_chat_id);
 
+      createPersonalChat(personalChatData)
+          .then(response => {
+            // console.log('Успешный ответ от сервера:', response);
+            // goToChatHundler(student, userId)
+          })
+          .catch(error => {
+            console.error('Произошла ошибка при создании персонального чата:', error);
+            setshowCreateChatButton(true)
+          });
     }
   }
 
@@ -99,7 +122,11 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
               {userId !== sender.id && (
                   <>
                     {!findPersonalChatWithSender(sender)  ? (
-                        <Button text="Создать чат" variant="primary" onClick={e => {createChatHundler(sender, userId)}}/>
+                        <>
+                          {showCreateChatButton && (
+                              <Button text="Создать чат" variant="primary" onClick={e => {createChatHundler(sender, userId, chatData.id)}}/>
+                          )}
+                        </>
                     ) : (
                         <Button text="Перейти в чат" variant="primary" onClick={e => {goToChatHundler(sender, userId)}}/>
                     )}
