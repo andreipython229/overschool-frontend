@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from "../../../../components/common/Button/Button";
 import {useSendTestResultsMutation} from "../../../../api/userTestService";
 import styles from "./studentTestResults.module.scss";
 
-
+type NewAnswer = {
+    question_id: number
+    question_name: string
+}
 interface TestResultProps {
     results: { [key: number]: boolean | string };
     test: number | string;
     user: any;
-    success_prercent: any;
+    success_prercent: number;
 }
 
 export const StudentTestResults: React.FC<TestResultProps> = ({results, test, user, success_prercent}) => {
@@ -24,11 +27,15 @@ export const StudentTestResults: React.FC<TestResultProps> = ({results, test, us
     }
 
     const testResults = {
-        success_percent: String(percentage()),
-        status: percentage() > 80,
+        success_percent: percentage(),
+        status: percentage() > success_prercent,
         test: test as number,
         user: user
     }
+
+    useEffect(() => {
+        console.log(results)
+    }, [results]);
 
     const handleSendResults = (body: { [key: string]: any }) => {
         sendTestResults(body)
@@ -42,13 +49,14 @@ export const StudentTestResults: React.FC<TestResultProps> = ({results, test, us
     return (
         (showResult ?
                 (<div className={styles.wrapper}>
-                        <p>Результаты теста:</p>
-                        <p>Правильных ответов: {percentage()}%!</p>
                         <p>Отправить результаты теста?</p>
                         <Button style={{marginTop: "5px"}} text={'Отправить результаты'} onClick={() => handleSendResults(testResults)}/>
                     </div>
                 ) : (
                     <div className={styles.wrapper}>
+                        <p>Результаты теста:</p>
+                        <p>Правильных ответов: {percentage()}%!</p>
+                        <p>Для зачета необходимо: {success_prercent}%!</p>
                         <p>Ты сегодня отлично поработал, можно и отдохнуть :)</p>
                     </div>
                 )
