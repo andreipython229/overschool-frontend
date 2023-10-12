@@ -6,6 +6,7 @@ import { closeHwModalPath } from '../ModalCheckHomeWork/config/svgIconsPsth'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { Button } from 'components/common/Button/Button'
 import { useSendSubscriptionFormMutation } from 'api/subscriptionServices'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 interface ITariffDetailModal {
   tariff: TariffPlanT
@@ -55,7 +56,9 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
         }
       })
 
-    // setShowModal(false)
+    if (isSuccess && !promoError) {
+      setShowModal(false)
+    }
   }
 
   const validateForm = () => {
@@ -101,8 +104,9 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
             </li>
             <li>
               Цена:
-              <span>{`${Number(tariff.price) * selectedMonth} рублей${selectedMonth === 1? '/месяц': 
-              selectedMonth === 3? '/3 месяца': `/${selectedMonth} месяцев`}`}</span>
+              <span>{`${Number(tariff.price) * selectedMonth} рублей${
+                selectedMonth === 1 ? '/месяц' : selectedMonth === 3 ? '/3 месяца' : `/${selectedMonth} месяцев`
+              }`}</span>
             </li>
           </ul>
           <hr />
@@ -118,7 +122,7 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
                   <option value={6}>6 месяцев</option>
                   <option value={12}>12 месяцев</option>
                 </select>
-                <Button className={styles.btn} type="submit" text={'Подписаться'} />
+                <Button className={styles.btn} type="submit" text={isLoading? <SimpleLoader loaderColor='white' style={{height: '1.5em', width: '1.5em'}}/>:'Перейти к оплате'} />
               </div>
               <div className={styles.paymentField}>
                 <label htmlFor="promo_code">Есть промокод?</label>
