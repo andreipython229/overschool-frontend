@@ -33,8 +33,9 @@ export const chatsService = createApi({
       query: personalChat => {
         const teacherId = Number(personalChat.get('teacher_id'))
         const studentId = Number(personalChat.get('student_id'))
+        const chat_id = personalChat.get('chat_id')
         return {
-          url: `/chats/create_personal_chat/?teacher_id=${teacherId}&student_id=${studentId}`,
+          url: `/chats/create_personal_chat/?teacher_id=${teacherId}&student_id=${studentId}&chat_id=${chat_id}`,
           method: 'POST',
           body: personalChat,
         }
