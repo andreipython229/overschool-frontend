@@ -174,6 +174,7 @@ export const CreateNewSchool = () => {
               text={isLoading ? <SimpleLoader style={{ width: '2em', height: '2em' }} /> : 'Создать свой проект'}
               variant={'create'}
               type={'submit'}
+              style={{fontSize: '0.8rem'}}
             />
             <p className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_help}>
               Уже есть свой аккаунт?
