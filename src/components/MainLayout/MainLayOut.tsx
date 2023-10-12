@@ -1,6 +1,5 @@
 import { FC, memo, useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-
 import { Header } from 'components/Header/Header'
 import { Navbar } from 'components/Navbar/Navbar'
 import { Previous } from '../Previous/Previous'
@@ -8,11 +7,8 @@ import { useAppSelector } from '../../store/hooks'
 import { authSelector } from '../../selectors'
 import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { Path } from '../../enum/pathE'
-
 import styles from './mainLayOut.module.scss'
 import { Footer } from 'components/Footer'
-import { link } from 'fs'
-import { log } from 'console'
 
 export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
