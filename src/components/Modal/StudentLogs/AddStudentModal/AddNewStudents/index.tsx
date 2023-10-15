@@ -3,25 +3,21 @@ import React, { ChangeEventHandler, FC, MouseEventHandler, useState } from 'reac
 import { Input } from '../../../../common/Input/Input/Input'
 
 import styles from '../../studentsLog.module.scss'
+import { studentsGroupT, studentsGroupsT } from 'types/studentsGroup'
+import { SelectInput } from 'components/common/SelectInput/SelectInput'
 
 type AddNewStudentsT = {
   studentEmail: string
   onChangeEmail: (arg: number) => ChangeEventHandler<HTMLInputElement>
+  studentGroup: string
+  onChangeGroup: (id: number) => ChangeEventHandler<HTMLInputElement>
   handleRemoveStudent: (arg: number) => MouseEventHandler<HTMLButtonElement>
+  groupsList?: studentsGroupT
   index: number
   id: number
 }
 
-export const AddNewStudents: FC<AddNewStudentsT> = ({ id, index, studentEmail, handleRemoveStudent, onChangeEmail }) => {
-  const [addNameOrComment, setAddNameOrComment] = useState({ name: false, comment: false })
-
-  const handleAddNameStudent = () => {
-    setAddNameOrComment({ ...addNameOrComment, name: !addNameOrComment.name })
-  }
-  const handleAddCommentStudent = () => {
-    setAddNameOrComment({ ...addNameOrComment, comment: !addNameOrComment.comment })
-  }
-
+export const AddNewStudents: FC<AddNewStudentsT> = ({ id, index, studentEmail, handleRemoveStudent, onChangeEmail, studentGroup, onChangeGroup, groupsList }) => {
   return (
     <div className={styles.addStudent_student}>
       <div className={styles.addStudent_student_title}>
@@ -33,37 +29,14 @@ export const AddNewStudents: FC<AddNewStudentsT> = ({ id, index, studentEmail, h
         )}
       </div>
       <Input value={studentEmail} name={'email'} type={'text'} onChange={onChangeEmail(id)} placeholder={'Email ученика'} />
-      {addNameOrComment.name && (
-        <Input
-          style={{ margin: '5px 0' }}
-          value={''}
-          name={'name'}
-          type={'text'}
-          onChange={() => console.log('заглушка')}
-          placeholder={'Имя ученика'}
+      {groupsList && <div style={{marginTop: '0.5em', height: 'max-content'}}>
+        <SelectInput
+          optionsList={groupsList?.results.map(({ name, group_id }) => ({ label: name, value: String(group_id) }))}
+          defaultOption="Выберите группу"
+          selectedOption={studentGroup}
+          setSelectedValue={onChangeGroup(id)}
         />
-      )}
-      {addNameOrComment.comment && (
-        <textarea
-          className={styles.textarea__field}
-          style={{ resize: 'none' }}
-          rows={4}
-          id="story"
-          value={''}
-          onChange={() => console.log('заглушка')}
-          name="comment"
-        >
-          Оставьте комментарий.....
-        </textarea>
-      )}
-      <div>
-        <button type={'button'} onClick={handleAddNameStudent} className={styles.addStudent_student_btn}>
-          {addNameOrComment.name ? '-Удалить имя' : '+Добавить имя'}
-        </button>
-        <button type={'button'} onClick={handleAddCommentStudent} className={styles.addStudent_student_btn}>
-          {addNameOrComment.comment ? '-Удалить комментарий' : '+Добавить комментарий'}
-        </button>
-      </div>
+      </div>}
     </div>
   )
 }

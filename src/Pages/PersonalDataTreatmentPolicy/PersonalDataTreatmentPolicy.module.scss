@@ -4,13 +4,13 @@
     box-sizing: border-box;
 }
 
-table, td {
-    border: 1px solid;
-  }
-
 .PersonalDataTreatmentPolicy {
     display: flex;
     flex-direction: column;
+
+    table, td {
+        border: 1px solid;
+      }
 
     &_Preamble {
         text-align: left;

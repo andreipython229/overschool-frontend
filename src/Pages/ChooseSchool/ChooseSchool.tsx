@@ -19,7 +19,6 @@ import {Header} from "../../components/Header/Header";
 
 export const ChooseSchool = () => {
     const navigate = useNavigate();
-
     const [getSchools, {isSuccess: userSuccess}] = useGetSchoolsMutation()
     const {role: userRole, userName: name} = useAppSelector(selectUser)
 
@@ -49,7 +48,6 @@ export const ChooseSchool = () => {
         await dispatch(setSchoolId(school_id))
         localStorage.setItem('header_id', String(header_id))
         await dispatch(setHeaderId(header_id))
-        window.location.reload()
     }
 
     return (
@@ -62,7 +60,6 @@ export const ChooseSchool = () => {
                                 e.preventDefault();
                                 await handleSchool(s.school_id, s.name, s.header_school);
                                 navigate(`${userRole === RoleE.SuperAdmin ? `/school/${s.name}/settings/` : userRole === RoleE.Teacher ? `/school/${s.name}/` + Path.CourseStats : `/school/${s.name}/` + Path.Courses}`)
-                                window.location.reload();
                             }} to={`#`}>
                                 <div className={styles.bg}>
                                     <div className={styles.name}>{s.name}</div>
