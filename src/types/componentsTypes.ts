@@ -34,6 +34,7 @@ export type ContentBtnPropsT = {
 }
 
 export type AllStudentsBlockT = {
+  invite: boolean
   headerText: string
   filterKey: string
   startMark: string | number

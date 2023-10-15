@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { Button } from 'components/common/Button/Button'
@@ -8,32 +8,38 @@ import { addStudentIconPath } from '../config/svgIconsPath'
 import { AddStudentModalPropsT } from '../../ModalTypes'
 import { useFetchStudentsGroupByCourseQuery } from '../../../../api/studentsGroupService'
 import { AddNewStudents } from './AddNewStudents'
-import { useInviteMutation } from 'api/userRegisterService'
-import { studentsGroupsT } from 'types/studentsGroup'
+import { studentsGroupT, studentsGroupsT } from 'types/studentsGroup'
 import { CoursesDataT } from 'types/CoursesT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
+import { useParams } from 'react-router-dom'
+import { useAddUserAccessMutation } from 'api/userAccessService'
 
 type studentT = {
   id: number
   email: string
+  groupId: string
 }
 
 export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, courses }) => {
-  const [changeCourse, setChangeCourse] = useState<CoursesDataT>(courses[0])
-  const [changeGroup, setChangeGroup] = useState<studentsGroupsT>({} as studentsGroupsT)
-
-  const { data: groups } = useFetchStudentsGroupByCourseQuery(changeCourse['course_id'] || courses[0]['course_id'])
-
-  const [inviteStudent, { isLoading, isSuccess, isError }] = useInviteMutation()
-
+  const params = useParams()
+  const { data: groups, isFetching, isSuccess } = useFetchStudentsGroupByCourseQuery(Number(params.course_id))
+  const [addStudents, { isSuccess: studentSuccess, isLoading: studentLoading, isError: studentError }] = useAddUserAccessMutation()
+  const [groupsList, setGroupsList] = useState<studentsGroupT>()
   const [students, setStudents] = useState<studentT[]>([
     {
       id: Math.random(),
       email: '',
+      groupId: '',
     },
   ])
+
+  useEffect(() => {
+    if (isSuccess && groups) {
+      setGroupsList(groups)
+    }
+  }, [isSuccess])
 
   const handleInputEmail = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
     const checkedStudent = students.map(student => {
@@ -48,10 +54,24 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
     setStudents(checkedStudent)
   }
 
+  const handleSelectGroup = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
+    const checkedStudent = students.map(student => {
+      if (student.id === id) {
+        return {
+          ...student,
+          groupId: String(event),
+        }
+      }
+      return student
+    })
+    setStudents(checkedStudent)
+  }
+
   const handleAddNewStudent = () => {
     const newStudent = {
       id: Math.random(),
       email: '',
+      groupId: '',
     }
     setStudents([...students, newStudent])
   }
@@ -64,14 +84,25 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   const handleClose = () => {
     setShowModal(false)
   }
-
-  const handleInviteStudent = () => {
-    const studentsToInvite = students.map(student => {
-      return { sender_type: 'email', recipient: student.email, user_type: 1, course_id: changeCourse.course_id }
+  console.log(params)
+  const handleSendPermissions = async () => {
+    const formdata = new FormData()
+    students.map(student => {
+      formdata.append('emails', student.email)
+      formdata.append('role', 'Student')
+      if (groupsList) {
+        formdata.append('student_groups', student.groupId)
+      } else if (params.group_id) {
+        formdata.append('student_groups', params.group_id)
+      } else {
+        return console.log('ошибка формирования формдаты')
+      }
     })
+    await addStudents(formdata)
+  }
 
-    inviteStudent(studentsToInvite)
-    isSuccess && handleClose()
+  if (isFetching) {
+    return <SimpleLoader />
   }
 
   return (
@@ -93,9 +124,12 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
             key={student.id}
             id={student.id}
             index={index}
+            groupsList={groupsList}
             handleRemoveStudent={handleRemoveStudent}
             studentEmail={student.email}
             onChangeEmail={handleInputEmail}
+            studentGroup={student.groupId}
+            onChangeGroup={handleSelectGroup}
           />
         ))}
         <div className={styles.addStudent_btnBlock}>
@@ -103,10 +137,10 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
           <Button
             type={'button'}
             style={{ width: '474px' }}
-            variant={isLoading || !students[0].email || isError ? 'disabled' : 'primary'}
-            text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Отправить приглашение'}
-            onClick={handleInviteStudent}
-            disabled={isLoading || !students[0].email || isError}
+            variant={studentLoading || !students[0].email || studentError ? 'disabled' : 'primary'}
+            text={studentLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Отправить приглашение'}
+            onClick={handleSendPermissions}
+            disabled={studentLoading || !students[0].email || studentError}
           />
         </div>
       </div>

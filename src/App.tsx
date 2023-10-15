@@ -18,11 +18,12 @@ import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
 import styles from './App.module.scss'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { RoleE } from 'enum/roleE'
+import { useSelector } from 'react-redux'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
-  const schoolName = useAppSelector(schoolNameSelector)
+  const schoolName = useSelector(schoolNameSelector)
 
   const navigate = useNavigate()
 
@@ -33,19 +34,18 @@ export const App = () => {
   }, [isLogin, navigate])
 
   useEffect(() => {
-    if (isLogin && !schoolName) {
+    if (isLogin && schoolName.length === 0) {
       navigate(Path.ChooseSchool)
     }
   }, [schoolName, isLogin])
 
   const { pathname } = useLocation()
-  console.log(pathname.split('/')[2])
 
   useEffect(() => {
     if (pathname === '/') {
       navigate(Path.InitialPage)
     }
-    if (schoolName && pathname.split('/')[2] !== schoolName) {
+    if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
       navigate(
         generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
       )

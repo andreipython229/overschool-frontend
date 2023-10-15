@@ -59,6 +59,7 @@ export const StudentsPerCourse: FC = () => {
   return (
     <>
       <AllStudentsBlock
+        invite={true}
         headerText={'Все ученики курса'}
         addLastActiveFilter={handleAddLastActivityFilter}
         addMarkFilter={handleAddMarkFilter}

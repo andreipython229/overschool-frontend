@@ -48,8 +48,10 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption
         setDefaultOp('')
       } else {
         setSelectOption(null)
-        setDefaultOp(defaultOption || '')
+        setDefaultOp(defaultOption)
       }
+    } else {
+      setDefaultOp(defaultOption)
     }
   }, [selectedOption])
 
