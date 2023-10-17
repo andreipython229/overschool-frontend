@@ -56,6 +56,16 @@
             width: 100%;
             min-width: 100%;
             min-height: 100%;
+            animation: fadeIn 1s ease-in-out forwards;
+
+            @keyframes fadeIn {
+              from {
+                opacity: 0;
+              }
+              to {
+                opacity: 1;
+              }
+            }
 
             h3 {
               color: #4d5766;
@@ -129,6 +139,16 @@
 
     &_body {
       display: flex;
+      animation: fadeIn 1s ease-in-out forwards;
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
     }
 
     &_header {
@@ -148,6 +168,16 @@
         font-weight: 600;
         font-size: 20px;
         color: $font-title;
+        animation: fadeIn 0.7s ease-in-out forwards;
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
       }
 
       &_btnHeader {
@@ -227,5 +257,68 @@
 
   img {
     margin: 0.4em;
+  }
+}
+
+.acceptBtn {
+  display: flex;
+  margin-top: 1em;
+  background-color: #ccb4f9;
+  width: 12em;
+  height: 2.5em;
+  border-radius: 0.5em;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  color: #6b6b6b;
+  transition: background-color 0.5s, color 0.5s;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #ba75ff;
+    color: #e2e2e2;
+  }
+}
+
+.secondPhaseWrapper {
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.backwardBtn {
+  display: flex;
+  margin-top: 1em;
+  background-color: #b8b8b8;
+  width: 12em;
+  height: 2.5em;
+  border-radius: 0.5em;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  color: #1e1e1e;
+  transition: background-color 0.5s, color 0.5s;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #d2d2d2;
+    color: #000000;
+  }
+}
+
+.btnBlock {
+  display: flex;
+  a {
+    margin: 1em;
   }
 }
