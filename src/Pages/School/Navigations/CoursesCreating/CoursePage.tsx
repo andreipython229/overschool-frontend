@@ -1,4 +1,4 @@
-import {FC, memo, useEffect} from 'react'
+import {FC} from 'react'
 import {useAppSelector} from 'store/hooks'
 import {CoursesCard} from './CoursesCard'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
@@ -14,28 +14,16 @@ import {useDebouncedFilter} from '../../../../customHooks'
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import {SimpleLoader} from '../../../../components/Loaders/SimpleLoader'
 import ContentLoader from 'react-content-loader'
-import {useNavigate} from "react-router-dom";
 
-export const CoursePage: FC = memo(() => {
-    const navigate = useNavigate();
-
+export const CoursePage: FC = (() => {
     const {data: courses, isSuccess} = useFetchCoursesQuery()
-
     const {role} = useAppSelector(selectUser)
-
     const [isOpenAddCourse, {onToggle}] = useBoolean()
-
     const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
 
     const dispatchHandlerModal = () => {
         onToggle()
     }
-
-    useEffect(() => {
-        if (!localStorage.getItem('school')) {
-            navigate('/chooseSchool/')
-        }
-    }, [courses])
 
     if (!isSuccess) return (
         <>
@@ -69,7 +57,7 @@ export const CoursePage: FC = memo(() => {
                 <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath}/>
             </Input>
             <div className={styles.course}>
-                {courses?.results.length ?
+                {courses && courses?.results.length ?
                     foundCourses?.map((course: any) => (
                         <CoursesCard key={course?.course_id} course={course} role={role}/>
                     )): <></>

@@ -84,7 +84,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   const handleClose = () => {
     setShowModal(false)
   }
-  console.log(params)
+
   const handleSendPermissions = async () => {
     const formdata = new FormData()
     students.map(student => {
@@ -99,6 +99,14 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
       }
     })
     await addStudents(formdata)
+      .unwrap()
+      .then(async data => {
+        await setShowModal(false)
+        await window.location.reload()
+      })
+      .catch(err => {
+        console.log('ошибка', err)
+      })
   }
 
   if (isFetching) {

@@ -24,22 +24,20 @@ export const App = () => {
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
   const schoolName = useSelector(schoolNameSelector)
-
+  const { pathname } = useLocation()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!isLogin) {
+    if (!isLogin && pathname !== Path.CreateSchool) {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])
 
-  useEffect(() => {
-    if (isLogin && schoolName.length === 0) {
-      navigate(Path.ChooseSchool)
-    }
-  }, [schoolName, isLogin])
-
-  const { pathname } = useLocation()
+  // useEffect(() => {
+  //   if (isLogin && schoolName.length === 0) {
+  //     navigate(Path.ChooseSchool)
+  //   }
+  // }, [schoolName, isLogin, navigate])
 
   useEffect(() => {
     if (pathname === '/') {
