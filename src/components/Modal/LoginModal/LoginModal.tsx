@@ -11,33 +11,36 @@ import { AuthSelect } from '../../common/AuthSelect'
 import { useLoginMutation, useLazyGetUserInfoQuery } from '../../../api/userLoginService'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
+import { Input } from 'components/common/Input/Input/Input'
+import { getAllUsers } from 'api'
+
 
 import { isSecurity, unSecurity } from '../../../assets/img/common'
 
 import { Path } from '../../../enum/pathE'
 
-import { LoginModalPropsT } from '../ModalTypes'
+import {LoginModalPropsT} from '../ModalTypes'
 
 import styles from '../Modal.module.scss'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
-import { RoleE } from 'enum/roleE'
+import {SimpleLoader} from 'components/Loaders/SimpleLoader'
+import {RoleE} from 'enum/roleE'
 
-export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
 
-  const [attemptAccess, { error, isSuccess, isLoading }] = useLoginMutation()
-  const [getUserInfo, { data, isFetching, isError, isSuccess: userSuccess }] = useLazyGetUserInfoQuery()
+    const [attemptAccess, {error, isSuccess, isLoading}] = useLoginMutation()
+    const [getUserInfo, {data, isFetching, isError, isSuccess: userSuccess}] = useLazyGetUserInfoQuery()
 
-  const getInputVariant = (variant: keyof LoginParamsT): void => {
-    setAuthVariant(variant)
-  }
-  const changeSecurityStatus = () => {
-    setSecurity(!security)
-  }
+    const getInputVariant = (variant: keyof LoginParamsT): void => {
+        setAuthVariant(variant)
+    }
+    const changeSecurityStatus = () => {
+        setSecurity(!security)
+    }
 
   const formik = useFormik({
     validate: values => validateLogin(values, authVariant),
@@ -72,54 +75,56 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
     setShowModal(false)
   }
 
-  return (
-    <div className={styles.main}>
-      {isFetching ||
-        (isLoading && (
-          <div className={styles.loader}>
-            <SimpleLoader style={{ width: '50px', height: '50px' }} />
-          </div>
-        ))}
-      <form onSubmit={formik.handleSubmit}>
-        <div className={styles.container}>
+    return (
+        <div className={styles.main}>
+            {isFetching ||
+                (isLoading && (
+                    <div className={styles.loader}>
+                        <SimpleLoader style={{width: '50px', height: '50px'}}/>
+                    </div>
+                ))}
+            <form onSubmit={formik.handleSubmit}>
+                <div className={styles.container}>
           <span className={styles.main_closed} onClick={handleClose}>
             <IconSvg width={17} height={17} viewBoxSize="0 0 16 16" path={crossIconPath} />
           </span>
-          <div className={styles.main_title}>Вход в аккаунт</div>
-          <div className={styles.inputs_block}>
-            <InputAuth
-              name={authVariant}
-              type={authVariant === 'email' ? 'email' : 'tel'}
-              onChange={formik.handleChange}
-              value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
-              placeholder={authVariant}
-            />
-            {/* <AuthSelect getInputVariant={getInputVariant}/> */}
+                    <div className={styles.main_title}>Войти</div>
+                    <div className={styles.inputs_block}>
+                        <div>
+                            <div style={{display: 'flex'}}>
+                                <InputAuth
+                                    name={authVariant}
+                                    type={authVariant === 'email' ? 'email' : 'tel'}
+                                    onChange={formik.handleChange}
+                                    value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
+                                    placeholder={authVariant}
+                                />
+                                {/* <AuthSelect getInputVariant={getInputVariant}/> */}
+                            </div>
+                            <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин')}</div>
+                        </div>
+                        <InputAuth
+                            name={'password'}
+                            type={security ? 'password' : 'text'}
+                            onChange={formik.handleChange}
+                            value={formik.values.password}
+                            placeholder={'Пароль'}
+                            onClick={changeSecurityStatus}
+                            icon={security ? isSecurity : unSecurity}
+                        />
+                        <div className={styles.errors}>{formik.errors.password}</div>
+                    </div>
+                    <div className={styles.main_btn}>
+                        <Button type="submit" text={'Войти'} style={{width: '246px'}} variant={'primary'}/>
+                    </div>
 
-            <div className={styles.errors}>{formik.errors.email || (error && 'Неверный e-mail')}</div>
-
-            <InputAuth
-              name={'password'}
-              type={security ? 'password' : 'text'}
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              placeholder={'Пароль'}
-              onClick={changeSecurityStatus}
-              icon={security ? isSecurity : unSecurity}
-            />
-            <div className={styles.errors}>{formik.errors.password || (error && 'Неверный пароль')}</div>
-          </div>
-          <div className={styles.main_btn}>
-            <Button type="submit" text={'Войти'} style={{ width: '246px' }} variant={'primary'} />
-          </div>
-
-          <div className={styles.restorePass}>
-            <Link style={{ textDecoration: 'none', padding: '15px' }} to={'/'}>
-              Забыли пароль?
-            </Link>
-          </div>
+                    <div className={styles.restorePass}>
+                        <Link style={{textDecoration: 'none', padding: '15px'}} to={'/'}>
+                            Забыли пароль?
+                        </Link>
+                    </div>
+                </div>
+            </form>
         </div>
-      </form>
-    </div>
-  )
+    )
 }
