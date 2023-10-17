@@ -21,19 +21,36 @@ import { Path } from '../../../enum/pathE'
 
 import {LoginModalPropsT} from '../ModalTypes'
 
+
 import styles from '../Modal.module.scss'
 import {SimpleLoader} from 'components/Loaders/SimpleLoader'
-import {RoleE} from 'enum/roleE'
+
+import { useForgotPasswordMutation } from 'api/forgotPassword'
+import { useFetchAllUsersQuery } from 'api/allUsersList'
+import { log } from 'console'
 
 export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+    const [forgotPasswordFunc, {error:errorSend, isSuccess:sendSuccess}] = useForgotPasswordMutation()
+    
+    
 
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
 
     const [attemptAccess, {error, isSuccess, isLoading}] = useLoginMutation()
     const [getUserInfo, {data, isFetching, isError, isSuccess: userSuccess}] = useLazyGetUserInfoQuery()
+   
+    
+    const [isShown, setIsShown] = useState(false);
+    const [isHidden, setIsHidden] = useState(true);
+    const forgotPass = () => {
+        setIsShown(!isShown)
+        setIsHidden(!isHidden)
+    }
+     
+   
 
     const getInputVariant = (variant: keyof LoginParamsT): void => {
         setAuthVariant(variant)
@@ -41,6 +58,8 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
     const changeSecurityStatus = () => {
         setSecurity(!security)
     }
+    
+    
 
   const formik = useFormik({
     validate: values => validateLogin(values, authVariant),
@@ -75,6 +94,42 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
     setShowModal(false)
   }
 
+
+    const formikforgot = useFormik({
+        initialValues: {
+            email: '',
+        },
+
+        onSubmit: async () => {
+            const email = formikforgot.values
+            forgotPasswordFunc(email)
+        },
+    })
+       
+
+      const logOut = async () => {
+            if (!sendSuccess){
+                setTimeout(function () {
+                    window.location.reload()
+                }, 8000);  
+            }
+        }
+      
+    
+
+    const styleInput = {
+        width: "100%",
+        height: "50px",
+        border: "1px solid #e8e8e8",
+        borderRadius: "8px",
+        backgroundColor: "#f6f6f6",
+        fontFamily: "'Inter', sans-serif",
+    }
+    
+    
+
+        
+
     return (
         <div className={styles.main}>
             {isFetching ||
@@ -83,11 +138,14 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
                         <SimpleLoader style={{width: '50px', height: '50px'}}/>
                     </div>
                 ))}
+            { isHidden &&
             <form onSubmit={formik.handleSubmit}>
                 <div className={styles.container}>
           <span className={styles.main_closed} onClick={handleClose}>
             <IconSvg width={17} height={17} viewBoxSize="0 0 16 16" path={crossIconPath} />
           </span>
+            
+            <div>
                     <div className={styles.main_title}>Войти</div>
                     <div className={styles.inputs_block}>
                         <div>
@@ -112,19 +170,56 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
                             onClick={changeSecurityStatus}
                             icon={security ? isSecurity : unSecurity}
                         />
+                      
                         <div className={styles.errors}>{formik.errors.password}</div>
                     </div>
                     <div className={styles.main_btn}>
                         <Button type="submit" text={'Войти'} style={{width: '246px'}} variant={'primary'}/>
                     </div>
 
-                    <div className={styles.restorePass}>
-                        <Link style={{textDecoration: 'none', padding: '15px'}} to={'/'}>
-                            Забыли пароль?
-                        </Link>
+                    <div className={styles.main_btn}>
+                    
+                    <Button type="submit" text={'Забыли пароль?'} style={{width: '246px'}} onClick={forgotPass}/>
                     </div>
                 </div>
+             
+                    
+                </div>
             </form>
+            }
+            { isShown &&
+                        <div>
+                            <form className={styles.container} onSubmit={formikforgot.handleSubmit}>
+                            <span className={styles.main_closed} onClick={handleClose}>
+                                <IconSvg width={15} height={15} viewBoxSize="0 0 14 14" path={crossIconPath}/>
+                            </span>
+                        <div className={styles.main_title} style={{margin: "60px 0 30px 0 "}}>Введите почту</div>
+                        <div className={styles.inputs_block}>
+                            <div>
+                            
+                                <div style={{display: 'flex'}}>
+                                <Input className={styles.input_container} 
+                                name="email" type="text" onChange={formikforgot.handleChange} value={formikforgot.values.email} placeholder="Email" />
+                                </div>
+                                <div className={styles.errors_forgot}>{formikforgot.errors.email || (error && 'Неверный логин')}</div>
+                                <div className={styles.isSubmitting}>{formikforgot.isSubmitting || (sendSuccess && 'Письмо отправлено')}</div>
+                            </div>
+                        </div>
+                        <div className={styles.container_wrapper}>
+                        <Button
+                            style={{}}
+                            
+                            className={styles.profile_block_btn}
+                            type="submit"
+                            variant={'primary'}
+                            text={'Отправить'}
+                            onClick={logOut}
+                        />
+                    </div>
+                    </form>
+                    </div>
+                        }   
+                    
         </div>
     )
 }
