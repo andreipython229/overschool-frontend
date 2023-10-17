@@ -30,6 +30,7 @@ export const rootReducer = combineReducers({
     [services.schoolCreationService.reducerPath]: services.schoolCreationService.reducer,
     [services.tariffPlanService.reducerPath]: services.tariffPlanService.reducer,
     [services.videoFilesService.reducerPath]: services.videoFilesService.reducer,
+    [services.forgotPassword.reducerPath]: services.forgotPassword.reducer,
     [services.tariffService.reducerPath]: services.tariffService.reducer,
     [services.subscriptionService.reducerPath]: services.subscriptionService.reducer,
     [services.forgotPassword.reducerPath]: services.forgotPassword.reducer,

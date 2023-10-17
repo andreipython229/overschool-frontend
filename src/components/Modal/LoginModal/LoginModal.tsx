@@ -130,6 +130,42 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
 
         
 
+
+    const formikforgot = useFormik({
+        initialValues: {
+            email: '',
+        },
+
+        onSubmit: async () => {
+            const email = formikforgot.values
+            forgotPasswordFunc(email)
+        },
+    })
+       
+
+      const logOut = async () => {
+            if (!sendSuccess){
+                setTimeout(function () {
+                    window.location.reload()
+                }, 8000);  
+            }
+        }
+      
+    
+
+    const styleInput = {
+        width: "100%",
+        height: "50px",
+        border: "1px solid #e8e8e8",
+        borderRadius: "8px",
+        backgroundColor: "#f6f6f6",
+        fontFamily: "'Inter', sans-serif",
+    }
+    
+    
+
+        
+
     return (
         <div className={styles.main}>
             {isFetching ||
