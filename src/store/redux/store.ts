@@ -30,12 +30,10 @@ export const rootReducer = combineReducers({
     [services.schoolCreationService.reducerPath]: services.schoolCreationService.reducer,
     [services.tariffPlanService.reducerPath]: services.tariffPlanService.reducer,
     [services.videoFilesService.reducerPath]: services.videoFilesService.reducer,
-<<<<<<< HEAD
     [services.tariffService.reducerPath]: services.tariffService.reducer,
     [services.subscriptionService.reducerPath]: services.subscriptionService.reducer,
-=======
     [services.forgotPassword.reducerPath]: services.forgotPassword.reducer,
->>>>>>> 0e096edf (Forgot Password (отправка нового пароля на почту))
+
     user: slices.authReduce,
     sections: slices.sectionsReduce,
     filters: slices.filtersReducer,

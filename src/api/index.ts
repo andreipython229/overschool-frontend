@@ -19,12 +19,6 @@ export { userTestService } from './userTestService'
 export { getAllUsers } from './allUsersList'
 export { userAccessService } from './userAccessService'
 export { schoolCreationService } from './schoolCreationService'
-<<<<<<< HEAD
 export { tariffPlanService, tariffService } from './tariffPlanService'
 export { videoFilesService } from './videoFilesService'
 export { subscriptionService } from './subscriptionServices'
-=======
-export { tariffPlanService } from './tariffPlanService'
-export { videoFilesService } from './videoFilesService'
-export { forgotPassword } from './forgotPassword'
->>>>>>> 0e096edf (Forgot Password (отправка нового пароля на почту))
