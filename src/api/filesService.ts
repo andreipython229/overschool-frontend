@@ -7,11 +7,11 @@ export const filesService = createApi({
   baseQuery: baseQueryFn(),
   tagTypes: ['audioFiles', 'textFiles'],
   endpoints: build => ({
-    postAudioFiles: build.mutation<void, FormData>({
-      query: body => ({
+    postAudioFiles: build.mutation<void, { id: number; type: string; formdata: FormData }>({
+      query: arg => ({
         url: `/audio_files/`,
         method: 'POST',
-        body,
+        body:arg.formdata,
       }),
       invalidatesTags: ['audioFiles'],
     }),
