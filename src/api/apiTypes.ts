@@ -27,3 +27,8 @@ export interface IAllUsers {
   id: number[]
   data:[]
 }
+
+
+export interface IForgotPassword {
+  email: string
+}
