@@ -33,7 +33,6 @@ export const rootReducer = combineReducers({
     [services.tariffService.reducerPath]: services.tariffService.reducer,
     [services.subscriptionService.reducerPath]: services.subscriptionService.reducer,
     [services.forgotPassword.reducerPath]: services.forgotPassword.reducer,
-
     user: slices.authReduce,
     sections: slices.sectionsReduce,
     filters: slices.filtersReducer,
