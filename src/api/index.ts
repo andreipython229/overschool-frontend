@@ -21,4 +21,6 @@ export { userAccessService } from './userAccessService'
 export { schoolCreationService } from './schoolCreationService'
 export { tariffPlanService, tariffService } from './tariffPlanService'
 export { videoFilesService } from './videoFilesService'
+export { subscriptionService } from './subscriptionServices'
 export { forgotPassword } from './forgotPassword'
+
