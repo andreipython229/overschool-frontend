@@ -18,6 +18,8 @@ export type AnswersT = {
   answer_id: number
   body: string
   image?: Blob
+  is_correct: boolean
+  question: number
 }
 
 type QuestionT = {
