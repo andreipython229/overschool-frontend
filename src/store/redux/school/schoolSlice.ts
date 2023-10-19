@@ -15,8 +15,13 @@ const schoolSlice = createSlice({
         setSchoolName: (state, action: PayloadAction<string>): void => {
             state.schoolName = action.payload;
         },
+        removeSchoolName: (state) => {
+            return {
+                schoolName: '',
+            }
+        },
     },
 });
 
-export const {setSchoolName} = schoolSlice.actions;
+export const {setSchoolName, removeSchoolName} = schoolSlice.actions;
 export const schoolReducer = schoolSlice.reducer;

@@ -15,8 +15,14 @@ const headerIdSlice = createSlice({
         setHeaderId: (state, action: PayloadAction<number>): void => {
             state.headerId = action.payload;
         },
+        removeHeaderId: (state) => {
+          return {
+            headerId: null,
+          }
     },
+    },
+
 });
 
-export const {setHeaderId} = headerIdSlice.actions;
+export const {setHeaderId, removeHeaderId} = headerIdSlice.actions;
 export const headerIdReducer = headerIdSlice.reducer;

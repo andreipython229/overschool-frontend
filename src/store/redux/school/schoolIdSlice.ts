@@ -15,8 +15,13 @@ const schoolIdSlice = createSlice({
         setSchoolId: (state, action: PayloadAction<number>): void => {
             state.schoolId = action.payload;
         },
+        removeSchoolId: (state) => {
+            return {
+                schoolId: null,
+            }
+        },
     },
 });
 
-export const {setSchoolId} = schoolIdSlice.actions;
+export const {setSchoolId, removeSchoolId} = schoolIdSlice.actions;
 export const schoolIdReducer = schoolIdSlice.reducer;
