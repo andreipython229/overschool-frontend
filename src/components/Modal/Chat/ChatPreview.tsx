@@ -84,18 +84,19 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
                     </Avatar>
               </div>
 
-            ) : chat.type === "COURSE" ? (
-                <div className={styles.chatPreview_avatarWrap}>
-
-                  {role === RoleE.Student ? (
-                      <Avatar alt="Канал курса" src={chatCourse} sx={{ width: 46, height: 46 }} />
-                  ) : (
-                       <Badge badgeContent={chat.senders.length} color="default">
-                            <Avatar alt="Канал курса" src={chatCourse} sx={{ width: 46, height: 46 }} />
-                       </Badge>
-                  )}
-              </div>
             ) : null}
+            {/*    chat.type === "COURSE" ? (*/}
+            {/*    <div className={styles.chatPreview_avatarWrap}>*/}
+
+            {/*      {role === RoleE.Student ? (*/}
+            {/*          <Avatar alt="Канал курса" src={chatCourse} sx={{ width: 46, height: 46 }} />*/}
+            {/*      ) : (*/}
+            {/*           <Badge badgeContent={chat.senders.length} color="default">*/}
+            {/*                <Avatar alt="Канал курса" src={chatCourse} sx={{ width: 46, height: 46 }} />*/}
+            {/*           </Badge>*/}
+            {/*      )}*/}
+            {/*  </div>*/}
+            {/*) : null}*/}
 
       {/* ----------- СЕРЕДИНА ---------------*/}
       <div className={styles.chatPreview_info}>
@@ -128,21 +129,21 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
                     <div className={styles.chatPreview_lastMessage}>{chat?.last_message?.content || ''}</div>
                 </div>
 
-            ) : chat.type === "COURSE" ? (
-              <div className={styles.schoolChat}>
-                {/* Содержимое для COURSE чата */}
-                <div className={styles.chatPreview_info}>
-                  <div className={styles.chatPanel_user_avatar_userName_status}>
-                    Канал курса
-                  </div>
-                  <div className={styles.chatPreview_top}>
-                      <p>{chat.name || 'Группа без имени'}</p>
-                  </div>
-                  <div className={styles.chatPreview_lastMessage}>{chat?.last_message?.content || ''}</div>
-              </div>
-
-              </div>
             ) : null}
+          {/*    chat.type === "COURSE" ? (*/}
+          {/*     <div className={styles.schoolChat}>*/}
+          {/*       /!* Содержимое для COURSE чата *!/*/}
+          {/*       <div className={styles.chatPreview_info}>*/}
+          {/*         <div className={styles.chatPanel_user_avatar_userName_status}>*/}
+          {/*           Канал курса*/}
+          {/*         </div>*/}
+          {/*         <div className={styles.chatPreview_top}>*/}
+          {/*             <p>{chat.name || 'Группа без имени'}</p>*/}
+          {/*         </div>*/}
+          {/*        <div className={styles.chatPreview_lastMessage}>{chat?.last_message?.content || ''}</div>*/}
+          {/*           </div>*/}
+          {/*     </div>*/}
+          {/*// ) : null}*/}
       </div>
       {/* ----------------------------------- */}
 
