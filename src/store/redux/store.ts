@@ -84,7 +84,9 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
                 services.schoolCreationService.middleware,
                 services.tariffPlanService.middleware,
                 services.videoFilesService.middleware,
-                services.forgotPassword.middleware
+                services.forgotPassword.middleware,
+                services.tariffService.middleware,
+                services.subscriptionService.middleware
             ),
     })
 }
