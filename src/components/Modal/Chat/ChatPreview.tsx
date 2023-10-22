@@ -16,7 +16,8 @@ import Avatar from '@mui/material/Avatar';
 import FolderIcon from '@mui/icons-material/Folder';
 import GroupsIcon from '@mui/icons-material/Groups';
 import SchoolIcon from '@mui/icons-material/School';
-import { chatGroup } from "../../../assets/img/common/"
+import { chatGroup, chatCourse } from "../../../assets/img/common/";
+
 
 type chatPreviewT = {
   chat: ChatI
@@ -74,15 +75,28 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
                             <Avatar alt="Канал группы" src={chatGroup} sx={{ width: 46, height: 46 }} />
                        </Badge>
                   )}
-
               </div>
+
             ) : chat.type === "PERSONAL" ? (
                 <div className={styles.chatPreview_avatarWrap}>
                     <Avatar src={`${getInterlocutor(chat).avatar}`} sx={{ bgcolor: deepPurple[500], width: 46, height: 46  }}>
                         <SchoolIcon />
                     </Avatar>
               </div>
+
             ) : null}
+            {/*    chat.type === "COURSE" ? (*/}
+            {/*    <div className={styles.chatPreview_avatarWrap}>*/}
+
+            {/*      {role === RoleE.Student ? (*/}
+            {/*          <Avatar alt="Канал курса" src={chatCourse} sx={{ width: 46, height: 46 }} />*/}
+            {/*      ) : (*/}
+            {/*           <Badge badgeContent={chat.senders.length} color="default">*/}
+            {/*                <Avatar alt="Канал курса" src={chatCourse} sx={{ width: 46, height: 46 }} />*/}
+            {/*           </Badge>*/}
+            {/*      )}*/}
+            {/*  </div>*/}
+            {/*) : null}*/}
 
       {/* ----------- СЕРЕДИНА ---------------*/}
       <div className={styles.chatPreview_info}>
@@ -115,11 +129,21 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
                     <div className={styles.chatPreview_lastMessage}>{chat?.last_message?.content || ''}</div>
                 </div>
 
-            ) : chat.type === "SCHOOL" ? (
-              <div className={styles.schoolChat}>
-                {/* Содержимое для SCHOOL чата */}
-              </div>
             ) : null}
+          {/*    chat.type === "COURSE" ? (*/}
+          {/*     <div className={styles.schoolChat}>*/}
+          {/*       /!* Содержимое для COURSE чата *!/*/}
+          {/*       <div className={styles.chatPreview_info}>*/}
+          {/*         <div className={styles.chatPanel_user_avatar_userName_status}>*/}
+          {/*           Канал курса*/}
+          {/*         </div>*/}
+          {/*         <div className={styles.chatPreview_top}>*/}
+          {/*             <p>{chat.name || 'Группа без имени'}</p>*/}
+          {/*         </div>*/}
+          {/*        <div className={styles.chatPreview_lastMessage}>{chat?.last_message?.content || ''}</div>*/}
+          {/*           </div>*/}
+          {/*     </div>*/}
+          {/*// ) : null}*/}
       </div>
       {/* ----------------------------------- */}
 

@@ -33,6 +33,9 @@ import { RoleE } from 'enum/roleE'
 import { useCookies } from 'react-cookie';
 import { useFetchCurrentTariffPlanQuery } from 'api/tariffPlanService'
 import { setTariff } from 'store/redux/tariff/tariffSlice'
+import {removeSchoolId} from "../../store/redux/school/schoolIdSlice";
+import {removeHeaderId} from "../../store/redux/school/headerIdSlice";
+import {removeSchoolName} from "../../store/redux/school/schoolSlice";
 
 export const Header = memo(() => {
     const dispatch = useAppDispatch()
@@ -51,14 +54,20 @@ export const Header = memo(() => {
     const [, , removeAccessCookie] = useCookies(['access_token']);
     const [, , removeRefreshCookie] = useCookies(['refresh_token']);
 
+    const [profileData, setProfileData] = useState<profileT>()
+    const [logotype, setLogo] = useState<string | undefined>('')
 
     const logOut = async () => {
         await logout()
         if (isLoading) {
             return <SimpleLoader />
         }
+        setProfileData(undefined)
         dispatch(clearUserProfile())
         dispatch(logoutState())
+        dispatch(removeSchoolId())
+        dispatch(removeHeaderId())
+        dispatch(removeSchoolName())
         removeAccessCookie('access_token')
         removeRefreshCookie('refresh_token')
         navigate('/login/')
@@ -67,8 +76,7 @@ export const Header = memo(() => {
         // dispatch(auth(false))
     }
 
-    const [profileData, setProfileData] = useState<profileT>()
-    const [logotype, setLogo] = useState<string | undefined>('')
+
 
     useEffect(() => {
         if (isSuccess) {
@@ -78,7 +86,7 @@ export const Header = memo(() => {
 
     useEffect(() => {
         profileIsSuccess && setProfileData(profile[0])
-    }, [profileIsSuccess])
+    }, [profile])
 
     useEffect(() => {
         if (tariffPlan && Object.keys(tariffPlan).length > 0) {

@@ -20,20 +20,35 @@ type StudentQuestionT = {
     userAnswers?: any
     updateUserAnswers?: any
     onCompleteTest: () => void
+    userAnswerFull: any
+    setUserAnswerFull: any
 }
 
 export const StudentQuestion: FC<StudentQuestionT> = ({questions, length, numberTest,
-                                                          setNumberTest, updateUserAnswers, onCompleteTest}) => {
+                                                          setNumberTest, updateUserAnswers, onCompleteTest,
+                                                      userAnswerFull, setUserAnswerFull}) => {
     const questionLength = length.length
     const nameAnswer = (questions && questions.body.length > 0) ? questions.body : '';
     const progress = (100 / questionLength) * (numberTest + 1)
 
-    const handleAnswerSelect = (isCorrect: boolean | string ) => {
+    const handleAnswerSelect = (isCorrect: boolean, answer_id: string, title: string) => {
         updateUserAnswers((prevAnswers: AnswersType) => ({
             ...prevAnswers,
             [questions.question_id]: isCorrect,
-            name: questions.name
+            // name: questions.body,
         }));
+        const answer: AnswersT = {
+            answer_id: parseInt(answer_id),
+            body: title,
+            is_correct: isCorrect,
+            question: questions.question_id
+        };
+
+        setUserAnswerFull((prevUserAnswer: AnswersT) => ({
+            ...prevUserAnswer,
+            [questions.question_id]: answer,
+        }))
+
     }
 
     const handleNextQ = () => {

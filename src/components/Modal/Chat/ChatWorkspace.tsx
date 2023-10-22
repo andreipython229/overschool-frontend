@@ -101,17 +101,16 @@ export const ChatWorkspace: FC = () => {
   // }, [socket])
 
   const handleSubmit = async () => {
+    if (message.length > 0) {
+      if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
 
-    // console.log("Socket readyState = ", socketRef.current?.readyState)
-    // console.log("handleSubmit")
-    if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-      const data = {
-        message: message,
-        sender: userId,
+        const data = {
+          message: message,
+          sender: userId,
+        }
+        socketRef.current.send(JSON.stringify(data))
+        setMessage('')
       }
-      // console.log('sent')
-      socketRef.current.send(JSON.stringify(data))
-      setMessage('')
     }
   }
 
@@ -157,6 +156,10 @@ export const ChatWorkspace: FC = () => {
               {data?.is_deleted === false ? (
                   <>
                       {role === RoleE.Teacher ? (
+                          <>
+                            <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
+                          </>
+                      ) : role === RoleE.Admin ? (
                           <>
                             <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
                           </>

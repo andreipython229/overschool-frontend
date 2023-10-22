@@ -65,6 +65,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
           .then(response => {
             // console.log('Успешный ответ от сервера:', response);
             // goToChatHundler(student, userId)
+            // setshowCreateChatButton(true)
           })
           .catch(error => {
             console.error('Произошла ошибка при создании персонального чата:', error);

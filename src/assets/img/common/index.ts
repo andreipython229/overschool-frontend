@@ -19,6 +19,7 @@ import unSecurity from './unSecurity.svg'
 import deleteIcon from './deleteIcon.svg'
 import pngwing from './2869065.jpg'
 import chatGroup from './chat_group.png'
+import chatCourse from './chat_course.png'
 
 export {
     arrowUp,
@@ -41,5 +42,6 @@ export {
     unSecurity,
     deleteIcon,
     pngwing,
-    chatGroup
+    chatGroup,
+    chatCourse
 }
