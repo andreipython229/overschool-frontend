@@ -26,8 +26,7 @@ import styles from '../Modal.module.scss'
 import {SimpleLoader} from 'components/Loaders/SimpleLoader'
 
 import { useForgotPasswordMutation } from 'api/forgotPassword'
-import { useFetchAllUsersQuery } from 'api/allUsersList'
-import { log } from 'console'
+
 
 export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
     const dispatch = useAppDispatch()
