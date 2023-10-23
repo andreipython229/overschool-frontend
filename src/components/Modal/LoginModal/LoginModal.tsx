@@ -12,7 +12,7 @@ import {useLoginMutation, useLazyGetUserInfoQuery} from '../../../api/userLoginS
 import {IconSvg} from '../../common/IconSvg/IconSvg'
 import {crossIconPath} from '../../../config/commonSvgIconsPath'
 import { Input } from 'components/common/Input/Input/Input'
-import { getAllUsers } from 'api'
+
 
 
 import {isSecurity, unSecurity} from '../../../assets/img/common'
@@ -107,61 +107,11 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
     })
        
 
-      const logOut = async () => {
-            if (!sendSuccess){
-                setTimeout(function () {
-                    window.location.reload()
-                }, 8000);  
-            }
+    useEffect(()=>{
+        if (sendSuccess) {
+        setShowModal(false)
         }
-      
-    
-
-    const styleInput = {
-        width: "100%",
-        height: "50px",
-        border: "1px solid #e8e8e8",
-        borderRadius: "8px",
-        backgroundColor: "#f6f6f6",
-        fontFamily: "'Inter', sans-serif",
-    }
-    
-    
-
-        
-
-
-    const formikforgot = useFormik({
-        initialValues: {
-            email: '',
-        },
-
-        onSubmit: async () => {
-            const email = formikforgot.values
-            forgotPasswordFunc(email)
-        },
-    })
-       
-
-      const logOut = async () => {
-            if (!sendSuccess){
-                setTimeout(function () {
-                    window.location.reload()
-                }, 8000);  
-            }
-        }
-      
-    
-
-    const styleInput = {
-        width: "100%",
-        height: "50px",
-        border: "1px solid #e8e8e8",
-        borderRadius: "8px",
-        backgroundColor: "#f6f6f6",
-        fontFamily: "'Inter', sans-serif",
-    }
-    
+    }, [sendSuccess])
     
 
         
@@ -249,7 +199,6 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
                             type="submit"
                             variant={'primary'}
                             text={'Отправить'}
-                            onClick={logOut}
                         />
                     </div>
                     </form>
