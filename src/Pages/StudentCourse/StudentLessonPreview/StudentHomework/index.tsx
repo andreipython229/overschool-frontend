@@ -23,11 +23,17 @@ type studentHomeworkT = {
 export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params, activeLessonIndex }) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
 
-  const [videoLinkId, setVideoLinkId] = useState(lesson?.video)
+  const [lessonVideo, setLessonVideo] = useState<boolean>(false)
 
   useEffect(() => {
-    setVideoLinkId(lesson?.video)
-  }, [lesson])
+    if (lesson) {
+      if (('video' in lesson && lesson.video) || ('url' in lesson && lesson.url)) {
+        setLessonVideo(true)
+      } else {
+        setLessonVideo(false)
+      }
+    }
+  }, [lesson, lessonId])
 
   return (
     <div className={styles.lesson}>
@@ -42,7 +48,20 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params,
             <div className={styles.lesson__content}>
               <StudentLessonDesc text={lesson?.description || ''} />
             </div>
-            <VideoPlayer videoSrc={videoLinkId ? videoLinkId : undefined} />
+            {lessonVideo &&
+              (lesson.url && lesson.video ? (
+                <div style={{ marginBottom: '20px' }}>
+                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} />
+                </div>
+              ) : !lesson.video && lesson.url ? (
+                <div style={{ marginBottom: '20px' }}>
+                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} />
+                </div>
+              ) : (
+                <div style={{ marginBottom: '20px' }}>
+                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} />
+                </div>
+              ))}
             <div className={styles.lesson__content}>
               {/* {lesson?.code && (
                 <div className={styles.lesson__codeWraper}>

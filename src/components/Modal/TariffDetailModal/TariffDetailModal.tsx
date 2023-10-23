@@ -8,7 +8,6 @@ import { Button } from 'components/common/Button/Button'
 import { useSendSubscriptionFormMutation } from 'api/subscriptionServices'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { getNounDeclension } from 'utils/getNounDeclension'
-import { set } from 'lodash'
 
 interface ITariffDetailModal {
   tariff: TariffPlanT
@@ -70,7 +69,7 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
         await setSecondPhase(true)
       })
       .catch(err => {
-        if (err.status === 404) {
+        if (err.status === 404 || err.status === 400) {
           setPromoError(true)
         }
         if (err.status === 405) {
@@ -78,10 +77,6 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
         }
       })
   }
-
-  // if (isSuccess && !promoError) {
-  //   setShowModal(false)
-  // }
 
   const validateForm = () => {
     const errors: Partial<ISubscribe> = {}
@@ -115,7 +110,7 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
             </>
           ) : (
             <div className={styles.wrapper_tariffCard_header_title} style={{textAlign: 'center', padding: '2em', display: 'flex', justifyContent: 'center'}}>
-              {'Заказ обрабатывается. Как только транзакция будет одобрена и обработана, новый тарифный план отобразится возле вашего профиля.'}
+              {'Заказ обрабатывается. Как только транзакция будет обработана и одобрена, новый тарифный план отобразится возле вашего профиля.'}
             </div>
           )}
         </div>
