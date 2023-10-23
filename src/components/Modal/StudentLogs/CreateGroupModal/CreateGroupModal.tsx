@@ -18,12 +18,13 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   const [teacher_id, setTeacherId] = useState<string>('')
   const [studentsList, setStudentsList] = useState<any>([])
   const { data: userList } = useFetchAllUsersQuery()
+  const { data: allGroups } = useFetchStudentsGroupQuery()
+  const [createStudentsGroup, { isLoading }] = useCreateStudentsGroupMutation()
 
   const teacherList = userList ? userList.filter((teacher: any) => teacher.role === 'Teacher') : []
   const studentList = userList ? userList.filter((student: any) => student.role === 'Student') : []
-
-  const { data: allGroups } = useFetchStudentsGroupQuery()
-  const studentsGroups = allGroups?.results.map((user: any) => user.students)
+  const filteredGroupList = allGroups?.results.filter((group) => group.course_id === +courseId)
+  const studentsGroups = filteredGroupList?.map((user: any) => user.students)
 
   const studentsListWithoutGroup = studentList.filter((num: any) => {
     return !new Set(studentsGroups?.flat()).has(num.id)
@@ -37,8 +38,6 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
     setStudentsList([studentsList.map((object: any) => object['id'])])
   }
 
-  const [createStudentsGroup, { isLoading }] = useCreateStudentsGroupMutation()
-
   const onChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
     setGroupName(e.target.value)
   }
@@ -49,7 +48,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
       const groupToCreate = {
         name: groupName,
         course_id: +courseId,
-        students: studentsList? studentsList[0] : [],
+        students: studentsList? studentsList[0]: [],
         teacher_id: +teacher_id,
       }
       await createStudentsGroup(groupToCreate)
