@@ -48,7 +48,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
       const groupToCreate = {
         name: groupName,
         course_id: +courseId,
-        students: studentsList? studentsList[0]: [],
+        students: studentsList[0] || [],
         teacher_id: +teacher_id,
       }
       await createStudentsGroup(groupToCreate)
