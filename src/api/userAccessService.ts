@@ -15,7 +15,6 @@ export const userAccessService = createApi({
                 body: data,
                 responseHandler: response => response.text()
             })
-
         }),
         deleteStudentFromGroup: build.mutation<any, any>({
             query: (data) => ({

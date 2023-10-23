@@ -84,7 +84,7 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview 
         <div className={styles.redactorCourse_rightSide_functional_creating_function}>
           {/*{!('description' in lesson && lesson.description) && (<ContentBtn disabled={disabledBtn} func={openTextEditor} text={'Текст'} alt={'Add text for lesson'}*/}
           {/*             src={Text}/>)}*/}
-          <ContentBtn disabled={disabledBtn} func={openVideo} text={'Видео'} alt={'Add video for lesson'} src={Video} />
+          {(!lesson.video || !lesson.url) && <ContentBtn disabled={disabledBtn} func={openVideo} text={'Видео'} alt={'Add video for lesson'} src={Video} />}
           <ContentBtn disabled={disabledBtn} func={openAudio} text={'Аудио'} alt={'Add audio for lesson'} src={Audio} />
           {/*<ContentBtn disabled={disabledBtn} func={openCodeEditor} text={'Код'} alt={'Add code for lesson'} src={Code} />*/}
         </div>
