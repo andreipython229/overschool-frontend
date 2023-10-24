@@ -13,8 +13,6 @@ import {IconSvg} from '../../common/IconSvg/IconSvg'
 import {crossIconPath} from '../../../config/commonSvgIconsPath'
 import { Input } from 'components/common/Input/Input/Input'
 
-
-
 import {isSecurity, unSecurity} from '../../../assets/img/common'
 
 import { Path } from '../../../enum/pathE'
