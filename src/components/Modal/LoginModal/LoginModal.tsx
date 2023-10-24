@@ -50,7 +50,6 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
     }
      
    
-
     const getInputVariant = (variant: keyof LoginParamsT): void => {
         setAuthVariant(variant)
     }
@@ -59,7 +58,6 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
     }
     
     
-
   const formik = useFormik({
     validate: values => validateLogin(values, authVariant),
     initialValues: {
@@ -155,7 +153,6 @@ export const LoginModal: FC<LoginModalPropsT> = ({setShowModal}) => {
                             onClick={changeSecurityStatus}
                             icon={security ? isSecurity : unSecurity}
                         />
-                      
                         <div className={styles.errors}>{formik.errors.password}</div>
                     </div>
                     <div className={styles.main_btn}>

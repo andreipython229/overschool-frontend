@@ -1,6 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react'
 
-
 import {baseQuery} from "./baseApi";
 import { IForgotPassword } from './apiTypes';
 import { formDataConverter } from '../utils/formDataConverter'
