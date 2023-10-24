@@ -17,6 +17,7 @@ export interface ILesson {
   type: LESSON_TYPE.LESSON
   active: boolean
   url: string
+  show_right_answers: boolean
 }
 
 export interface IHomework {
@@ -37,6 +38,7 @@ export interface IHomework {
   video: string
   user_homework_checks: []
   url: string
+  show_right_answers: boolean
 }
 
 export interface ITest {
