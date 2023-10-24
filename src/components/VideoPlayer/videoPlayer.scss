@@ -1,8 +1,36 @@
+@import '../../scss/mixin.scss';
+@import '../../scss/variable.scss';
+
 .video-player {
   width: 100%;
   height: auto;
   position: relative;
   text-align: center;
+  justify-items: center;
+
+  &_btnDelete {
+    &:hover {
+      background-color: rgba(220, 130, 130, 0.4);
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px;
+    border-radius: 6px;
+    border: none;
+    width: auto;
+    height: auto;
+    background: #fef2f2;
+    text-align: center;
+    margin-top: 1em;
+  }
+
+  & svg {
+    margin: 0 auto;
+    height: 17px;
+    width: 17px;
+  }
 }
 
 .video-player video {
@@ -14,4 +42,3 @@
   width: 50%;
   height: 50%;
 }
-

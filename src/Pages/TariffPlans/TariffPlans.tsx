@@ -9,8 +9,6 @@ import { FC, useEffect, useState } from 'react'
 import { useBoolean } from 'customHooks'
 import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDetailModal'
 import { Portal } from 'components/Modal/Portal'
-import { useSelector } from 'react-redux'
-import { RootState } from 'store/redux/store'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { RoleE } from 'enum/roleE'
@@ -74,12 +72,15 @@ export const TariffPlans: FC = () => {
                   </li>
                 </ul>
                 {role === RoleE.Admin &&
-                  (tariff && tariff.tariff_name === plan.name && plan.name !== 'Intern' ? (
+                  tariff &&
+                  (tariff.tariff_name === plan.name && plan.name !== 'Intern' ? (
                     <Button text={'Отменить подписку'} variant={'delete'} />
-                  ) : (plan.name !== 'Intern'?
+                  ) : plan.name !== 'Intern' && tariff.tariff_name === 'Intern' ? (
                     <Button text={'Подписаться'} variant={'create'} onClick={() => handleClick(plan)} />
-                    :
+                  ) : plan.name === 'Intern' && tariff.tariff_name === 'Intern' ? (
                     <Button text={'Текущий тариф'} variant={'disabled'} />
+                  ) : (
+                    <Button text={'Выбор недоступен'} variant={'disabled'} />
                   ))}
               </div>
             </div>
@@ -98,10 +99,24 @@ export const TariffPlans: FC = () => {
             <p>?</p>
           </div>
           <div className={styles.questions_element_text}>
+            Как мне выбрать другой тариф?
+            <p className={styles.questions_element_text_description}>
+              Для этого нужно сначала отменить текущий оплаченный тариф, Ваш тарифный план сбросится до тарифного плана “Intern” и затем Вы сможете
+              выбрать другой тарифный план. Оставшиеся дни, по отмененному тарифному плану будут сконвертированы в вашем аккаунте и учтены при расчете
+              оплаты за новый тариф.
+            </p>
+          </div>
+        </div>
+        <div className={styles.questions_element}>
+          <div className={styles.questions_element_mark}>
+            <p>?</p>
+          </div>
+          <div className={styles.questions_element_text}>
             Можно ли повысить действующий тариф?
             <p className={styles.questions_element_text_description}>
-              Да, можно. Для этого даже не обязательно ждать окончания оплаченного периода: просто подключите нужный тариф и оставшиеся дни подписки
-              автоматически пересчитаются по новой стоимости тарифа. При понижении тарифа оставшиеся дни подписки не конвертируются.
+              Да, можно. Для этого даже не обязательно ждать окончания оплаченного периода: просто отмените текущую подписку и подключите нужный
+              тариф, а оставшиеся дни подписки автоматически пересчитаются по новой стоимости тарифа. При понижении тарифа оставшиеся дни подписки не
+              конвертируются.
             </p>
           </div>
         </div>
@@ -135,7 +150,7 @@ export const TariffPlans: FC = () => {
             <p>?</p>
           </div>
           <div className={styles.questions_element_text}>
-            Бесплатный тариф “Старт” действительно бессрочный?
+            Бесплатный тариф “Intern” действительно бессрочный?
             <p className={styles.questions_element_text_description}>
               Верно, данный тариф доступен для использования без ограничений по времени. Его не нужно продлевать или активировать заново.
             </p>
