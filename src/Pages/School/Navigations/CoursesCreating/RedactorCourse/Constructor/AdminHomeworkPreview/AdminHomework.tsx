@@ -1,7 +1,6 @@
 import { IHomework } from '../../../../../../../types/sectionT'
 import { FC, useEffect, useState } from 'react'
-import styles from '../../../../../../StudentCourse/StudentLessonPreview/lesson.module.scss'
-import { StudentCourseNavArr } from '../../../../../../StudentCourse/StudentLessonPreview/StudentCourseNavArr'
+import styles from './adminHomework.module.scss'
 import { StudentLessonDesc } from '../../../../../../StudentCourse/StudentLessonPreview/StudentLessonDesc'
 import { UploadedFile } from '../../../../../../../components/UploadedFile'
 import { AudioPlayer } from '../../../../../../../components/common/AudioPlayer'
@@ -37,15 +36,15 @@ export const AdminHomework: FC<AdminHomeworkT> = ({ lesson }) => {
             {lessonVideo &&
               (lesson.url && lesson.video ? (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} />
+                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} lessonId={lesson.homework_id}/>
                 </div>
               ) : !lesson.video && lesson.url ? (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} />
+                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} lessonId={lesson.homework_id}/>
                 </div>
               ) : (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} />
+                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} lessonId={lesson.homework_id}/>
                 </div>
               ))}
             <div className={styles.lesson__content}>

@@ -51,15 +51,15 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params,
             {lessonVideo &&
               (lesson.url && lesson.video ? (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} />
+                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} lessonId={lesson.homework_id}/>
                 </div>
               ) : !lesson.video && lesson.url ? (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} />
+                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} lessonId={lesson.homework_id}/>
                 </div>
               ) : (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} />
+                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} lessonId={lesson.homework_id}/>
                 </div>
               ))}
             <div className={styles.lesson__content}>
