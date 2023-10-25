@@ -1,7 +1,6 @@
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import { UploadedFile } from 'components/UploadedFile'
-import { Button } from 'components/common/Button/Button'
 import { AddFileBtn } from 'components/common/AddFileBtn/index'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { AddPost } from 'components/AddPost'
@@ -28,9 +27,8 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [files, setFiles] = useState<File[]>([])
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
   const [isEditing, setIsEditing] = useState(false)
-  const [lessonDescription, setLessonDescription] = useState('')
+  const [lessonDescription, setLessonDescription] = useState<string>('')
   const [isPublished, setIsPublished] = useState(false)
-  const [saveData] = usePatchLessonsMutation()
 
   const { data, isFetching, isSuccess } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type })
   const [addTextFiles] = usePostTextFilesMutation()
@@ -40,6 +38,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [lesson, setLesson] = useState(data as commonLessonT)
   const [renderFiles, setRenderFiles] = useState<IFile[]>([])
   const [lessonVideo, setLessonVideo] = useState<boolean>(false)
+  console.log(lessonDescription)
 
   useEffect(() => {
     if (data) {
@@ -73,11 +72,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     formData.append('order', String(lesson.order))
     formData.append('active', String(isPublished))
     await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
-      .unwrap()
-      .then(() => {
-        window.location.reload()
-        setIsEditing(false)
-      })
   }
 
   const renderUI = () => {
@@ -179,6 +173,17 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     justifyContent: 'space-between',
   }
 
+  useEffect(() => {
+    if (isCompleted) {
+      if (lessonDescription && lesson.type !== LESSON_TYPE.TEST) {
+        setLesson({...lesson, description: lessonDescription, active: isPublished})
+      } else {
+        setLesson({...lesson, active: isPublished})
+      }
+      setIsEditing(!isEditing)
+    }
+  }, [isCompleted, isSaving])
+
   return (
     <section
       style={{ opacity: isFetching || isDeleting || isSaving ? 0.5 : 1, position: 'relative' }}
@@ -229,15 +234,36 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                 {lessonVideo &&
                   (lesson.url && lesson.video ? (
                     <div style={{ marginBottom: '20px' }}>
-                      <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} isEditing={isEditing} handleDeleteVideo={handleDeleteVideo} isDeleted={isCompleted}/>
+                      <VideoPlayer
+                        videoSrc={lesson.video}
+                        videoSrc2={lesson.url}
+                        isEditing={isEditing}
+                        handleDeleteVideo={handleDeleteVideo}
+                        isDeleted={isCompleted}
+                        lessonId={lesson.baselesson_ptr_id}
+                      />
                     </div>
                   ) : !lesson.video && lesson.url ? (
                     <div style={{ marginBottom: '20px' }}>
-                      <VideoPlayer videoSrc={lesson.url} videoSrc2={''} isEditing={isEditing} handleDeleteVideo={handleDeleteVideo} isDeleted={isCompleted}/>
+                      <VideoPlayer
+                        videoSrc={lesson.url}
+                        videoSrc2={''}
+                        isEditing={isEditing}
+                        handleDeleteVideo={handleDeleteVideo}
+                        isDeleted={isCompleted}
+                        lessonId={lesson.baselesson_ptr_id}
+                      />
                     </div>
                   ) : (
                     <div style={{ marginBottom: '20px' }}>
-                      <VideoPlayer videoSrc={lesson.video} videoSrc2={''} isEditing={isEditing} handleDeleteVideo={handleDeleteVideo} isDeleted={isCompleted}/>
+                      <VideoPlayer
+                        videoSrc={lesson.video}
+                        videoSrc2={''}
+                        isEditing={isEditing}
+                        handleDeleteVideo={handleDeleteVideo}
+                        isDeleted={isCompleted}
+                        lessonId={lesson.baselesson_ptr_id}
+                      />
                     </div>
                   ))}
                 {'description' in lesson && lesson.description ? (

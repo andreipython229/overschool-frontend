@@ -8,6 +8,7 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from 'Pages/School/config/svgIconsPath'
 
 type playerProps = {
+  lessonId: number
   videoSrc: string | undefined
   videoSrc2?: string
   isEditing?: boolean
@@ -15,8 +16,15 @@ type playerProps = {
   isDeleted?: boolean
 }
 
-export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEditing, handleDeleteVideo, isDeleted }) => {
-  const [currentVideoSrc, setCurrentVideoSrc] = useState(videoSrc)
+export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEditing, handleDeleteVideo, isDeleted, lessonId }) => {
+  const [currentVideoSrc, setCurrentVideoSrc] = useState<string>()
+
+  useEffect(() => {
+    setCurrentVideoSrc('')
+    if (videoSrc) {
+      setCurrentVideoSrc(videoSrc)
+    }
+  }, [lessonId])
 
   const handleToggle = () => {
     if (videoSrc && videoSrc2) {
@@ -58,8 +66,9 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
       {currentVideoSrc ? (
         <ReactPlayer
           url={currentVideoSrc}
-          width={'100%'}
-          style={{ minHeight: '500px' }}
+          width="100%"
+          height="30rem"
+          style={{ minWidth: "100%", minHeight: "30rem" }}
           controls
           config={{
             file: {
