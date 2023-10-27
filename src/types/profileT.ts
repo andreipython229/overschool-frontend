@@ -22,7 +22,7 @@ export type profileUserT = {
 }
 
 export type changePasswordProfileT = {
+  new_password_again: string
   new_password: string
-  email?: string
 
 }
