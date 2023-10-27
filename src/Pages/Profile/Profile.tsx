@@ -105,7 +105,7 @@ export const Profile = () => {
                 type="submit"
                 variant={isBtnDisabled ? 'disabled' : 'primary'}
                 text={isSubmitting ? <SimpleLoader style={{ width: '15px', height: '15px' }} loaderColor="#ffff" /> : 'Сменить пароль'}
-                // onClick={logOut}
+                onClick={logOut}
               />
             </div>
           </form>
