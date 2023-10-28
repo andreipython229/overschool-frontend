@@ -15,6 +15,9 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
 import { useParams } from 'react-router-dom'
 import { useAddUserAccessMutation } from 'api/userAccessService'
+import {Portal} from "../../Portal";
+import {LimitModal} from "../../LimitModal/LimitModal";
+import {useBoolean} from "../../../../customHooks";
 
 type studentT = {
   id: number
@@ -34,6 +37,8 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
       groupId: '',
     },
   ])
+  const [isOpenLimitModal, {onToggle}] = useBoolean()
+  const [message, setMessage] = useState<string>('')
 
   useEffect(() => {
     if (isSuccess && groups) {
@@ -82,7 +87,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   }
 
   const handleClose = () => {
-    setShowModal(false)
+    setShowModal()
   }
 
   const handleSendPermissions = async () => {
@@ -101,11 +106,13 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
     await addStudents(formdata)
       .unwrap()
       .then(async data => {
-        await setShowModal(false)
+        await setShowModal()
         await window.location.reload()
       })
       .catch(err => {
         console.log('ошибка', err)
+        setMessage(err.data)
+        onToggle()
       })
   }
 
@@ -114,6 +121,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   }
 
   return (
+    <>
     <form noValidate className={styles.container}>
       <div onClick={handleClose} className={styles.container_closed}>
         <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
@@ -153,5 +161,11 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
         </div>
       </div>
     </form>
+    {isOpenLimitModal ? (
+        <Portal closeModal={onToggle}>
+            <LimitModal message={message} setShowLimitModal={onToggle} setShowMainModal={setShowModal}/>
+        </Portal>
+        ) : null}
+    </>
   )
 }

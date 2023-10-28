@@ -11,6 +11,10 @@ import {AddCourseModalPropsT} from '../ModalTypes'
 import {SimpleLoader} from 'components/Loaders/SimpleLoader'
 
 import styles from '../Modal.module.scss'
+import {useBoolean} from "../../../customHooks";
+import {Portal} from "../Portal";
+import {LimitModal} from "../LimitModal/LimitModal";
+import {checkCourseT} from "../../../types/CoursesT";
 
 export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}) => {
     const navigate = useNavigate()
@@ -24,6 +28,9 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}
     }
     const school = localStorage.getItem('school_id')
 
+    const [isOpenLimitModal, {onToggle}] = useBoolean()
+    const [message, setMessage] = useState<string>('')
+
     const addCourseName = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         if (name && school) {
@@ -31,17 +38,20 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}
             formdata.append('name', name)
             formdata.append('school', school)
 
-            const data = await createCourses(formdata)
-            const {data: course}: any = data
-
-            setShowModal()
-            if (course) {
-                navigate(
-                    generatePath(Path.CreateCourse, {
-                        course_id: course?.course_id,
-                    }),
-                )
-            }
+            await createCourses(formdata).unwrap().then(async (data: any) => {
+                const {data: course}: any = data;
+                setShowModal()
+                if (course) {
+                    navigate(
+                        generatePath(Path.CreateCourse, {
+                            course_id: course?.course_id,
+                        }),
+                    )
+                }
+            }).catch((error) => {
+                setMessage(error.data)
+                onToggle()
+            })
         }
     }
 
@@ -79,6 +89,11 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}
                     </div>
                 </form>
             </div>
+            {isOpenLimitModal ? (
+                <Portal closeModal={onToggle}>
+                    <LimitModal message={message} setShowLimitModal={onToggle} setShowMainModal={setShowModal}/>
+                </Portal>
+            ) : null}
         </div>
     )
 }
