@@ -27,14 +27,14 @@ export const Profile = () => {
   
   const changePassword = useFormik({
     initialValues: {
-      password: '',
+      new_password: '',
       email: email,
-      confirmPassword: '',
+      new_password_again: '',
     },
    // validationSchema: changePasswordSchema,
     onSubmit: (values, { resetForm }) => {
-      const { password: new_password, confirmPassword: new_password2} = values
-      changePasswordFunc({ new_password, email})
+      const { new_password: new_password, new_password_again: new_password2} = values
+      changePasswordFunc({ new_password, new_password_again})
       resetForm()
       
     },
@@ -61,7 +61,7 @@ export const Profile = () => {
   
 
   const {
-    values: { password, confirmPassword },
+    values: { new_password, new_password_again },
     errors,
     isSubmitting,
     handleSubmit: handlePasswordsSubmit,
@@ -69,7 +69,7 @@ export const Profile = () => {
   } = changePassword
 
 
-  const isBtnDisabled = !password || !confirmPassword || Boolean(errors.password) || Boolean(errors.confirmPassword) || isError || isSubmitting || password !== confirmPassword
+  const isBtnDisabled = !new_password || !new_password_again || Boolean(errors.new_password) || Boolean(errors.new_password_again) || isError || isSubmitting || new_password !== new_password_again
   /*const isEmailBtnDisabled = !email
   const email_edit = (val: any) => {
     if (!val.data) {
@@ -87,14 +87,14 @@ export const Profile = () => {
         <div className={styles.forms_wrapper}>
           <form className={styles.container} onSubmit={handlePasswordsSubmit}>
             <h5 className={styles.profile_block_title}>Смена пароля</h5>
-            <Input name="password" type="text" onChange={handlePasswordChange} value={password} placeholder="Новый пароль" />
+            <Input name="new_password" type="text" onChange={handlePasswordChange} value={new_password} placeholder="Новый пароль" />
             <div className={styles.container_wrapper}>
               <Input
-                name="confirmPassword"
+                name="new_password_again"
                 placeholder="Повторить новый пароль"
                 type="text"
                 onChange={handlePasswordChange}
-                value={confirmPassword}
+                value={new_password_again}
               />
             </div>
             <div className={styles.container_wrapper}>
