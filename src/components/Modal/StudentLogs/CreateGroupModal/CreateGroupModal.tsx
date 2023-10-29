@@ -75,7 +75,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
             required
             onChange={handleTeacher}
             options={teacherList}
-            getOptionLabel={(user: any) => user.username}
+            getOptionLabel={(user: any) => user.email}
             getOptionValue={(user: any) => user.id}
             components={{
               IndicatorSeparator: () => null,
