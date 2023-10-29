@@ -16,6 +16,9 @@ import {GroupsDropDown} from 'components/SelectDropDown/GroupsDropDown'
 import {Button} from "../../common/Button/Button";
 import {useFetchCoursesGroupsQuery} from "../../../api/coursesServices";
 import {Radio} from "../../common/Radio/Radio";
+import {useBoolean} from "../../../customHooks";
+import {Portal} from "../Portal";
+import {LimitModal} from "../LimitModal/LimitModal";
 
 
 export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmployees, setShowModal}) => {
@@ -27,6 +30,9 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
     const {data: courses, isSuccess: isGetted, isFetching} = useFetchCoursesGroupsQuery()
 
     const [checkCourses, setCheckCourses] = useState<checkCourseT[]>()
+
+    const [isOpenLimitModal, {onToggle}] = useBoolean()
+    const [message, setMessage] = useState<string>('')
 
     const handleCheck = (course_id: number, group_id: number | null) => {
         setCheckCourses(prevCourses =>
@@ -73,7 +79,12 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
                     if (course.selected_group) {
                         formData.append('student_groups', String(course.selected_group))}
                 })
-            await addAccess(formData)
+            await addAccess(formData).unwrap().then(async (accessdata: any) => {
+                console.log('uspeh')
+            }).catch((error) => {
+                setMessage(error.data)
+                onToggle()
+            })
         })
     }
 
@@ -85,6 +96,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
     }, [isAccessed])
 
     return (
+        <>
         <form onSubmit={handleCreateEmployee} className={styles.main_employee}>
             {isFetching && (
                 <div className={styles.loader}>
@@ -133,5 +145,11 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
                 </div>
             </div>
         </form>
+        {isOpenLimitModal ? (
+            <Portal closeModal={onToggle}>
+                <LimitModal message={message} setShowLimitModal={onToggle} setShowMainModal={setShowModal}/>
+            </Portal>
+            ) : null}
+        </>
     )
 }
