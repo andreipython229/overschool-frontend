@@ -58,6 +58,7 @@ export const App = () => {
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
         </Route>
+        <Route path={FooterPath.Agreement} element={<MainLayOut />} />
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PWA} element={<PWA />} />
         </Route>
