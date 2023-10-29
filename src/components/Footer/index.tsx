@@ -13,20 +13,17 @@ export const Footer = () => {
   return (
     <footer className={styles.wrapper}>
       <nav className={styles.wrapper_linksBlock}>
-        <Link className={styles.wrapper_linksBlock_link} to={`${Path.Settings}`}>
+        <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.Agreement}`}>
           Договор
         </Link>
         <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.PersonalDataTreatmentPolicy}`}>
           Политика обработки персональных данных
         </Link>
-        <Link className={styles.wrapper_linksBlock_link} to={`${Path.HelpCenter}`}>
-          Справочный центр
-        </Link>
         <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.TariffPlans}`}>
           Тарифы
         </Link>
         <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.PWA}`}>
-          PWA
+          Мобильное приложение
         </Link>
       </nav>
       <div className={styles.wrapper_appName}>
