@@ -38,7 +38,7 @@ export const UploadedFile: FC<uploadedFileT> = ({ file, index, name, size, handl
       <div className={styles.file__download_container}>
         <div className={styles.file__download_wrap}>
           <div className={styles.file__download_blackDiv}></div>
-          {!isHw? <p>{name?.split("@")[1].split('?')[0] || file?.split("@")[1].split('?')[0] || file.toString()}</p>:
+          {!isHw? <p>{name?.split("@")[1] || file.toString()}</p>:
               <p>{name}</p>}
         </div>
         <div className={styles.file__download_wrap}>

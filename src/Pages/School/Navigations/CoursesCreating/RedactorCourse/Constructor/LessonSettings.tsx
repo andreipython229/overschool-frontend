@@ -38,7 +38,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [lesson, setLesson] = useState(data as commonLessonT)
   const [renderFiles, setRenderFiles] = useState<IFile[]>([])
   const [lessonVideo, setLessonVideo] = useState<boolean>(false)
-  console.log(lessonDescription)
 
   useEffect(() => {
     if (data) {

@@ -49,7 +49,7 @@ export const UserHomeworkHistory: FC<userHomeworkHistoryT> = ({ homework }) => {
             <div style={{ maxWidth: '500px' }}>
               <div>
                 {homework?.text_files.map((file, index) => (
-                  <UploadedFile key={file.id} index={index} name={file.file_url} file={`${file.file_url}`} size={1000} />
+                  <UploadedFile key={file.id} index={index} name={file.file_url} file={`${file.file}`} size={1000} />
                 ))}
               </div>
               <div className={modalStyles.task_modal_audio}>
