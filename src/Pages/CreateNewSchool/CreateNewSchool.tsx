@@ -119,7 +119,6 @@ export const CreateNewSchool = () => {
       <div className={styles.newCoursePage_formWrapper}>
         <form className={styles.newCoursePage_formWrapper_form} onSubmit={formik.handleSubmit}>
           <p className={styles.newCoursePage_formWrapper_form_title}>Регистрация владельца школы</p>
-          {/*<p className={styles.newCoursePage_formWrapper_form_help}>Введите свои данные</p>*/}
           <div className={styles.newCoursePage_formWrapper_form_eMailWrapper}>
             {error && <p style={{ color: 'red', marginTop: '.5em' }}>{error}</p>}
             <p className={styles.newCoursePage_formWrapper_form_eMailWrapper_title}>Введите название Вашей школы:</p>
