@@ -215,7 +215,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                                                         <UploadedFile
                                                             key={file.id}
                                                             index={index}
-                                                            name={file.file}
+                                                            name={file.file_url}
                                                             file={`${file.file}`}
                                                             size={1000}
                                                         />
@@ -291,7 +291,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                     <div style={{maxWidth: '500px'}}>
                         <div>
                             {userHomework?.last_reply.text_files.map((file, index) => (
-                                <UploadedFile key={file.id} index={index} name={file.file} file={`${file.file}`}
+                                <UploadedFile key={file.id} index={index} name={file.file_url} file={`${file.file}`}
                                               size={1000}/>
                             ))}
                         </div>

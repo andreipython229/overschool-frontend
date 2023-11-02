@@ -2,7 +2,6 @@
 @import '../../scss/mixin';
 
 .wrapper {
-  // @include position_b_l (absolute, 0, 0, 5);
   @include display(flex, column, space-between, center);
   padding: 40px 40px 40px 120px;
   max-width: 100%;

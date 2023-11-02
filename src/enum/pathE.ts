@@ -45,4 +45,5 @@ export enum FooterPath {
   TariffPlans = 'tariff-plans/',
   PersonalDataTreatmentPolicy = 'personalDataTreatmentPolicy',
   PWA = 'PWA',
+  Agreement = 'agreement/',
 }

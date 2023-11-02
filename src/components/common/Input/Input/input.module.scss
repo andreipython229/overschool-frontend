@@ -4,7 +4,7 @@
 .input {
   @include display(flex, row, flex-start, center);
   width: 100%;
-  border: 1px solid #c6c3c3;
+  border: 0.1rem solid #c6c3c3;
   border-radius: 4px;
   background-color: #ffffff;
   font-family: 'Inter', sans-serif;

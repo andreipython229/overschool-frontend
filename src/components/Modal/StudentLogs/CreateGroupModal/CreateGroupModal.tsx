@@ -11,7 +11,6 @@ import {CreateGroupModalPropsT} from '../../ModalTypes'
 import {SimpleLoader} from 'components/Loaders/SimpleLoader'
 import {useFetchAllUsersQuery} from '../../../../api/allUsersList'
 import styles from '../studentsLog.module.scss'
-import {checkCourseT} from "../../../../types/CoursesT";
 
 
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, courseId}) => {
@@ -48,10 +47,6 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
             }
             if (allTeachers) {
                 const teachersGroups = filteredGroupList?.map((group: any) => group.teacher_id)
-                console.log(teachersGroups)
-                console.log(new Set(teachersGroups))
-                console.log(allTeachers)
-
                 const availableTeachers = allTeachers.filter((teacher: any) => {
                     return !new Set(teachersGroups).has(teacher.id)
                 })
@@ -61,12 +56,10 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
     }, [allGroups, allStudents, allTeachers])
 
      const handleTeacher = (teacher: any) => {
-        console.log(teacher)
         setTeacherId(teacher.id)
     }
 
     const handleStudents = (studentsList: any) => {
-        console.log(studentsList)
         setStudentsList(studentsList.map((object: any) => object.id))
     }
 
@@ -76,7 +69,6 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
 
     const handleCreateGroup = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        console.log(studentsList)
         if (courseId) {
             const groupToCreate = {
                 name: groupName,
@@ -86,7 +78,6 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
             }
             await createStudentsGroup(groupToCreate)
         }
-
         setShowModal(false)
     }
 
