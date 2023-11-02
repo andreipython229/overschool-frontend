@@ -28,7 +28,7 @@ type MainSettingsGroupPropsT = {
 }
 
 interface ITeacher {
-    username: string
+    email: string
     id: number
 }
 
@@ -52,8 +52,8 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
 
     useEffect(() => {
         allUsers && allUsers.forEach((user: any) => {
-            if (user.role === 'Teacher' && !teachersList.find((teacher: any) => teacher.username === user.username)) {
-                setTeachersList([...teachersList, {username: user.username, id: user.id}]);
+            if (user.role === 'Teacher' && !teachersList.find((teacher: any) => teacher.email === user.email)) {
+                setTeachersList([...teachersList, {email: user.email, id: user.id}]);
             }
         });
     }, [isSuccess])
@@ -61,14 +61,14 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
     useEffect(() => {
         teachersList.find((obj: any) => {
             if (obj.id === teacher) {
-                setSelectedTeacher(obj.username)
+                setSelectedTeacher(obj.email)
             }
         })
     }, [teachersList])
 
     useEffect(() => {
         teachersList.find((obj: ITeacher) => {
-            if (obj.username === selectedTeacher) {
+            if (obj.email === selectedTeacher) {
                 changeTeacher(Number(obj.id))
             }
         })

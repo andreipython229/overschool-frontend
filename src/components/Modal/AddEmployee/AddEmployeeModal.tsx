@@ -63,7 +63,6 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
     }, [courses])
 
     const handleCreateEmployee = async (event: FormEvent<HTMLFormElement>) => {
-        console.log("now", checkCourses)
         event.preventDefault()
         const newUser = {
             email: emailUser,
