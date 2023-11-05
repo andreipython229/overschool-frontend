@@ -30,9 +30,10 @@ export const TariffPlans: FC = () => {
 
   useEffect(() => {
     if (data) {
-      setTariffPlanTable(data)
+      const table = [...data]
+      setTariffPlanTable(table.sort((obj1, obj2) => Number(obj1.price) - Number(obj2.price)))
     }
-  }, [isSuccess])
+  }, [isSuccess, data])
 
   if (isFetching) {
     return <SimpleLoader />
