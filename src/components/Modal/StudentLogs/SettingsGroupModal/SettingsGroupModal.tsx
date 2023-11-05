@@ -14,12 +14,11 @@ import {
 import styles from '../studentsLog.module.scss'
 import {SimpleLoader} from "../../../Loaders/SimpleLoader";
 
-export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, groupId}) => {
+export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, groupId, courseId}) => {
     const [blockHomework, setBlockHomework] = useState<boolean>(false)
     const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
     const [textNameField, setTextNameField] = useState<string>('')
     const [currentTeacher, setCurrentTeacher] = useState<number>()
-
     const {data, isSuccess} = useFetchStudentGroupQuery(`${groupId}`)
     const [deleteStudentsGroup, {isLoading, isError}] = useDeleteStudentsGroupMutation()
     const [patchGroup] = usePatchStudentsGroupMutation()
@@ -46,7 +45,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     const handleSaveGroupSettings = async () => {
         const dataToSend = {
             name: `${textNameField}`,
-            course_id: data?.course_id,
+            course_id: courseId,
             teacher_id: currentTeacher,
             students: data?.students,
             group_settings: {
@@ -86,6 +85,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                         handlerHomeworkCheck={handlerHomeworkCheck}
                         handlerSubsequence={handlerSubsequenceCheck}
                         handleSave={handleSaveGroupSettings}
+                        course={courseId}
                     />
                 </div>
             </div>
