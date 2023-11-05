@@ -11,33 +11,14 @@ import styles from '../studentsLog.module.scss'
 import { SimpleLoader } from '../../../Loaders/SimpleLoader'
 import { useFetchAllUsersQuery } from 'api/allUsersList'
 
-export interface ITeacher {
-  username: string
-  email: string
-  id: number
-}
-
-export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, groupId }) => {
-  const { data: allUsers, isSuccess: usersSuccess } = useFetchAllUsersQuery()
-  const [teachersList, setTeachersList] = useState<ITeacher[]>([])
+export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, groupId, courseId }) => {
   const [blockHomework, setBlockHomework] = useState<boolean>(false)
   const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
   const [textNameField, setTextNameField] = useState<string>('')
   const [currentTeacher, setCurrentTeacher] = useState<number>()
-
   const { data, isSuccess } = useFetchStudentGroupQuery(`${groupId}`)
   const [deleteStudentsGroup, { isLoading, isError }] = useDeleteStudentsGroupMutation()
   const [patchGroup] = usePatchStudentsGroupMutation()
-
-  useEffect(() => {
-    if (usersSuccess) {
-      allUsers.forEach((user: any) => {
-        if (user.role === 'Teacher' && !teachersList.find((teacher: any) => teacher.email === user.email)) {
-          setTeachersList(prevTeachersList => prevTeachersList.concat({ username: user.username, id: user.id, email: user.email }))
-        }
-      })
-    }
-  }, [usersSuccess])
 
   useEffect(() => {
     setBlockHomework(Boolean(data?.group_settings?.task_submission_lock))
@@ -61,7 +42,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
   const handleSaveGroupSettings = async () => {
     const dataToSend = {
       name: `${textNameField}`,
-      course_id: data?.course_id,
+      course_id: courseId,
       teacher_id: currentTeacher,
       students: data?.students,
       group_settings: {
@@ -79,7 +60,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
 
   return (
     <>
-      {isSuccess && usersSuccess && (
+      {isSuccess && data && (
         <div className={styles.container}>
           <div onClick={closeModal} className={styles.container_closed}>
             <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
@@ -90,7 +71,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
               <span className={styles.container_header_title}>Настройки группы </span>
             </div>
             <MainSettingsGroup
-              teachersList={teachersList}
+              course={courseId}
               changeTeacher={setCurrentTeacher}
               teacher={currentTeacher as number}
               strongSubsequence={strongSubsequence}

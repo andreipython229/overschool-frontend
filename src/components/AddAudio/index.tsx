@@ -19,6 +19,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
   const [files, setFiles] = useState<File[]>([])
 
   const [addAudioFiles, { isLoading }] = usePostAudioFilesMutation()
+  const [isLoadingAudio, setIsLoadingAudio] = useState<boolean>(false);
 
   const dragStartAudioHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -42,24 +43,29 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     setDragAudio(false)
   }
 
-  const handleUploadFiles = (chosenFiles: File[]) => {
-    const uploaded = [...files]
+  const handleAudioUpload = async (lessonIdAndType: any, audio: File) => {
+    setIsLoadingAudio(true);
+    const formData = new FormData();
+    formData.append('audio', audio);
+    formData.append('section', String(lesson.section))
+    formData.append('order', String(lesson.order))
+    formData.append('base_lesson', String(lesson.baselesson_ptr_id))
 
-    chosenFiles.some(file => {
-      if (uploaded.findIndex(f => f.name === file.name) === -1) {
-        uploaded.push(file)
-      }
-    })
-
-    setFiles(uploaded)
+    try {
+        await addAudioFiles({
+            id: lessonIdAndType.id,
+            type: lessonIdAndType.type,
+            formdata: formData,
+        });
+        setIsLoadingAudio(false)
+        setShow()
+    } catch (error) {
+        setIsLoadingAudio(false)
+    }
+   
   }
-
-  const handleChangeFiles = (event: ChangeEvent<HTMLInputElement>) => {
-    const chosenFiles = Array.prototype.slice.call(event.target.files)
-
-    handleUploadFiles(chosenFiles)
-  }
-
+  console.log(lesson.baselesson_ptr_id);
+  
   return (
     <>
       {!isPreview ? (
@@ -74,7 +80,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
             <input
               disabled={isLoading}
               className={styles.redactorCourse_rightSide_functional_addContent_input}
-              onChange={handleChangeFiles}
+              onChange={(e) => handleAudioUpload(lessonIdAndType, e.target.files![0])}
               type="file"
               multiple
             />

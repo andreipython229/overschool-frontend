@@ -24,7 +24,7 @@ export const profileService = createApi({
     }),
     changePassword: build.mutation<string, changePasswordProfileT>({
       query: passwordInfo => ({
-        url: `/reset-password/reset/`,
+        url: `/change-password/`,
         method: 'POST',
         body: passwordInfo,
       }),
