@@ -9,7 +9,7 @@ export const LimitModal: FC<LimitModalPropsT> = ({message, setShowLimitModal, se
 
     const handlerModal = () => {
         setShowLimitModal()
-        setShowMainModal()
+        setShowMainModal && setShowMainModal()
     }
 
     return (

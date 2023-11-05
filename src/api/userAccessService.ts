@@ -16,6 +16,14 @@ export const userAccessService = createApi({
                 responseHandler: response => response.text()
             })
         }),
+        removeUserAccess: build.mutation<any, any>({
+            query: (data) => ({
+                url: `/access-distribution/`,
+                method: 'DELETE',
+                body: data,
+                responseHandler: response => response.text()
+            })
+        }),
         deleteStudentFromGroup: build.mutation<any, any>({
             query: (data) => ({
                 url: '/access-distribution/',
@@ -28,5 +36,6 @@ export const userAccessService = createApi({
 
 export const {
     useAddUserAccessMutation,
+    useRemoveUserAccessMutation,
     useDeleteStudentFromGroupMutation,
 } = userAccessService

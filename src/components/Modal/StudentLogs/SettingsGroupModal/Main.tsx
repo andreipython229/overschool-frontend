@@ -11,6 +11,9 @@ import {PrimeReactProvider} from "primereact/api";
 
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
+import {all} from "axios";
+import {useFetchStudentsGroupByCourseQuery} from "../../../../api/studentsGroupService";
+import {h} from "msw/lib/glossary-dc3fd077";
 
 type MainSettingsGroupPropsT = {
     strongSubsequence: boolean
@@ -25,11 +28,7 @@ type MainSettingsGroupPropsT = {
     deleteGroup: () => void
     teacher: number
     changeTeacher: Dispatch<SetStateAction<any>>
-}
-
-interface ITeacher {
-    email: string
-    id: number
+    course: number
 }
 
 export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
@@ -44,41 +43,61 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    setGroupName,
                                                                    handleSave,
                                                                    teacher,
-                                                                   changeTeacher
+                                                                   changeTeacher,
+                                                                   course
                                                                }) => {
     const {data: allUsers, isSuccess} = useFetchAllUsersQuery()
-    const [teachersList, setTeachersList] = useState<ITeacher[]>([])
+    const [allTeachers, setAllTeachers] = useState<any>([])
+    const [teachers, setTeachers] = useState<string[]>([])
     const [selectedTeacher, setSelectedTeacher] = useState<string>('')
+    const {data: courseGroups} = useFetchStudentsGroupByCourseQuery(course)
 
     useEffect(() => {
-        allUsers && allUsers.forEach((user: any) => {
-            if (user.role === 'Teacher' && !teachersList.find((teacher: any) => teacher.email === user.email)) {
-                setTeachersList([...teachersList, {email: user.email, id: user.id}]);
-            }
-        });
+        if (allUsers) {
+            const allTeachers = allUsers.filter((user: any) => user.role === 'Teacher')
+            setAllTeachers(allTeachers)
+        }
     }, [isSuccess])
 
     useEffect(() => {
-        teachersList.find((obj: any) => {
+        allTeachers.find((obj: any) => {
             if (obj.id === teacher) {
                 setSelectedTeacher(obj.email)
             }
         })
-    }, [teachersList])
+    }, [allTeachers])
 
     useEffect(() => {
-        teachersList.find((obj: ITeacher) => {
+        allTeachers.find((obj: any) => {
             if (obj.email === selectedTeacher) {
                 changeTeacher(Number(obj.id))
             }
         })
     }, [selectedTeacher])
 
+    useEffect(() => {
+        if (courseGroups) {
+            if (allTeachers) {
+                const teachersGroups = courseGroups?.results.map((group: any) => group.teacher_id)
+                const availableTeachers = allTeachers.filter((teacher: any) => {
+                    return !new Set(teachersGroups).has(teacher.id)
+                })
+                setTeachers(availableTeachers.map((teacher: any) => teacher.email))
+            }
+        }
+    }, [courseGroups, allTeachers])
+
 
     const handleChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === 'groupName') {
             setGroupName(e.target.value)
         }
+    }
+
+    const handleChangeTeacher = (e: any) => {
+        const changedTeachers = [...teachers.filter((teacher: string) => teacher !== e.value), selectedTeacher]
+        setTeachers(changedTeachers)
+        setSelectedTeacher(e.value)
     }
 
     return (
@@ -91,11 +110,10 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                 <div className="card flex p-fluid">
                     <p className={styles.textField}>Преподаватель данной группы: </p>
                     <Dropdown value={selectedTeacher}
-                              onChange={(e) => setSelectedTeacher(e.value)}
-                              options={teachersList}
-                              optionLabel="username"
-                              placeholder={`${selectedTeacher? selectedTeacher: 'Выберите преподавателя для данной группы'}`}
-                              className="w-full md:w-14rem"/>
+                         onChange={handleChangeTeacher}
+                         options={teachers}
+                         placeholder={`${selectedTeacher ? selectedTeacher : 'Выберите преподавателя для данной группы'}`}
+                         className="w-full md:w-14rem"/>
                 </div>
                 <div className={styles.groupSetting_checkboxBlock}>
                     <div className={styles.groupSetting_checkboxBlock_checkbox}>

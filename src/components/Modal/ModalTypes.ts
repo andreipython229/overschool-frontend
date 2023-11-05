@@ -92,7 +92,7 @@ export type SettingsGroupModalPropsT = {
   students?: number[]
   sequence?: boolean
   blockHomeworks?: boolean
-  courseId?: number
+  courseId: number
   groupId: number
   name: string
 
@@ -111,5 +111,5 @@ export type AddStudentModalPropsT = {
 export type LimitModalPropsT = {
   setShowLimitModal: () => void
   message: string
-  setShowMainModal: () => void
+  setShowMainModal?: () => void
 }

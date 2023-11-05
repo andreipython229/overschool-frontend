@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, useEffect, useState} from 'react'
+import React, {ChangeEvent, FC, useEffect, useState} from 'react'
 
 import {SelectInput} from 'components/common/SelectInput/SelectInput'
 import {Button} from 'components/common/Button/Button'
@@ -23,7 +23,6 @@ import {useBoolean} from "../../../../customHooks";
 type studentT = {
     id: number
     email: string
-    groupId: string
 }
 
 export const AddStudentModal: FC<AddStudentModalPropsT> = ({setShowModal, courses}) => {
@@ -36,11 +35,11 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({setShowModal, course
         isError: studentError
     }] = useAddUserAccessMutation()
     const [groupsList, setGroupsList] = useState<studentsGroupT>()
+    const [selectedGroup, setSelectedGroup] = useState<string>()
     const [students, setStudents] = useState<studentT[]>([
         {
             id: Math.random(),
-            email: '',
-            groupId: '',
+            email: ''
         },
     ])
     const [isOpenLimitModal, {onToggle}] = useBoolean()
@@ -65,24 +64,10 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({setShowModal, course
         setStudents(checkedStudent)
     }
 
-    const handleSelectGroup = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
-        const checkedStudent = students.map(student => {
-            if (student.id === id) {
-                return {
-                    ...student,
-                    groupId: String(event),
-                }
-            }
-            return student
-        })
-        setStudents(checkedStudent)
-    }
-
     const handleAddNewStudent = () => {
         const newStudent = {
             id: Math.random(),
             email: '',
-            groupId: '',
         }
         setStudents([...students, newStudent])
     }
@@ -99,19 +84,18 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({setShowModal, course
     const handleSendPermissions = async () => {
         const formdata = new FormData()
         formdata.append('role', 'Student')
+        if (groupsList && selectedGroup) {
+            formdata.append('student_groups', selectedGroup)
+        } else if (params.group_id) {
+            formdata.append('student_groups', params.group_id)
+        }
         let count = 0
         students.map(async student => {
             await registrationAdmin({email: student.email}).unwrap().then(async (data: any) => {
                 count = count + 1
                 formdata.append('emails', student.email);
-                if (groupsList && student.groupId) {
-                    formdata.append('student_groups', student.groupId)
-                } else if (params.group_id) {
-                    formdata.append('student_groups', params.group_id)}
-
                 if (count === students.length) {
                     await addStudents(formdata).unwrap().then(async (accessdata: any) => {
-                        console.log('uspeh')
                         await setShowModal()
                         await window.location.reload()
                     }).catch((error) => {
@@ -142,17 +126,26 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({setShowModal, course
                         {/* {courses && <SelectInput optionsList={courses} optionName={'name' as keyof object} setSelectedValue={setChangeCourse} />}
           {groups && <SelectInput optionsList={groups?.results} optionName={'name' as keyof object} setSelectedValue={setChangeGroup} />} */}
                     </div>
+                    {groupsList && <div style={{height: 'max-content', width: '474px', margin: '0 auto', marginBottom: 20}}>
+                        <SelectInput
+                            optionsList={groupsList?.results.map(({name, group_id}) => ({
+                                label: name,
+                                value: String(group_id)
+                            }))}
+                            defaultOption="Выберите группу"
+                            selectedOption={selectedGroup}
+                            setSelectedValue={setSelectedGroup}
+                        />
+                    </div>}
+
                     {students.map((student, index: number) => (
                         <AddNewStudents
                             key={student.id}
                             id={student.id}
                             index={index}
-                            groupsList={groupsList}
                             handleRemoveStudent={handleRemoveStudent}
                             studentEmail={student.email}
                             onChangeEmail={handleInputEmail}
-                            studentGroup={student.groupId}
-                            onChangeGroup={handleSelectGroup}
                         />
                     ))}
                     <div className={styles.addStudent_btnBlock}>

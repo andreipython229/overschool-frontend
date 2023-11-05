@@ -17,9 +17,10 @@ type StudentsGroupPropsT = {
   title: string
   countStudent: number
   id: number
+  courseId: number
 }
 
-export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent, id }) => {
+export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent, id, courseId }) => {
   const [isModalOpen, { on: close, off: open }] = useBoolean()
   const navigate = useNavigate()
 
@@ -29,7 +30,7 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
     <>
       {isModalOpen && (
         <Portal closeModal={close}>
-          <SettingsGroupModal closeModal={close} name={title} groupId={id} />
+          <SettingsGroupModal closeModal={close} name={title} groupId={id} courseId={courseId} />
         </Portal>
       )}
       <div className={styles.students_group_content_wrapper_info}
