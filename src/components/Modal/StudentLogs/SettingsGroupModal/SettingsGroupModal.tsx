@@ -6,10 +6,8 @@ import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { settingsGroupIconPath } from '../config/svgIconsPath'
 import { SettingsGroupModalPropsT } from '../../ModalTypes'
 import { useDeleteStudentsGroupMutation, useFetchStudentGroupQuery, usePatchStudentsGroupMutation } from '../../../../api/studentsGroupService'
-
 import styles from '../studentsLog.module.scss'
 import { SimpleLoader } from '../../../Loaders/SimpleLoader'
-import { useFetchAllUsersQuery } from 'api/allUsersList'
 
 export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, groupId, courseId }) => {
   const [blockHomework, setBlockHomework] = useState<boolean>(false)
