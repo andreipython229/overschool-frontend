@@ -1,95 +1,112 @@
-import {FC, useEffect, useState} from 'react'
+import { FC, useEffect, useState } from 'react'
 
-import {MainSettingsGroup} from 'components/Modal/StudentLogs/SettingsGroupModal/Main'
-import {IconSvg} from 'components/common/IconSvg/IconSvg'
-import {crossIconPath} from '../../../../config/commonSvgIconsPath'
-import {settingsGroupIconPath} from '../config/svgIconsPath'
-import {SettingsGroupModalPropsT} from '../../ModalTypes'
-import {
-    useDeleteStudentsGroupMutation,
-    useFetchStudentGroupQuery,
-    usePatchStudentsGroupMutation
-} from '../../../../api/studentsGroupService'
+import { MainSettingsGroup } from 'components/Modal/StudentLogs/SettingsGroupModal/Main'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { crossIconPath } from '../../../../config/commonSvgIconsPath'
+import { settingsGroupIconPath } from '../config/svgIconsPath'
+import { SettingsGroupModalPropsT } from '../../ModalTypes'
+import { useDeleteStudentsGroupMutation, useFetchStudentGroupQuery, usePatchStudentsGroupMutation } from '../../../../api/studentsGroupService'
 
 import styles from '../studentsLog.module.scss'
-import {SimpleLoader} from "../../../Loaders/SimpleLoader";
+import { SimpleLoader } from '../../../Loaders/SimpleLoader'
+import { useFetchAllUsersQuery } from 'api/allUsersList'
 
-export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, groupId}) => {
-    const [blockHomework, setBlockHomework] = useState<boolean>(false)
-    const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
-    const [textNameField, setTextNameField] = useState<string>('')
-    const [currentTeacher, setCurrentTeacher] = useState<number>()
+export interface ITeacher {
+  username: string
+  email: string
+  id: number
+}
 
-    const {data, isSuccess} = useFetchStudentGroupQuery(`${groupId}`)
-    const [deleteStudentsGroup, {isLoading, isError}] = useDeleteStudentsGroupMutation()
-    const [patchGroup] = usePatchStudentsGroupMutation()
+export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, groupId }) => {
+  const { data: allUsers, isSuccess: usersSuccess } = useFetchAllUsersQuery()
+  const [teachersList, setTeachersList] = useState<ITeacher[]>([])
+  const [blockHomework, setBlockHomework] = useState<boolean>(false)
+  const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
+  const [textNameField, setTextNameField] = useState<string>('')
+  const [currentTeacher, setCurrentTeacher] = useState<number>()
 
-    useEffect(() => {
-        setBlockHomework(Boolean(data?.group_settings?.task_submission_lock))
-        setStrongSubsequence(Boolean(data?.group_settings?.strict_task_order))
-        setTextNameField(String(data?.name))
-        setCurrentTeacher(Number(data?.teacher_id))
-    }, [isSuccess])
+  const { data, isSuccess } = useFetchStudentGroupQuery(`${groupId}`)
+  const [deleteStudentsGroup, { isLoading, isError }] = useDeleteStudentsGroupMutation()
+  const [patchGroup] = usePatchStudentsGroupMutation()
 
-    const handlerHomeworkCheck = () => {
-        setBlockHomework(!blockHomework)
-    }
-    const handlerSubsequenceCheck = () => {
-        setStrongSubsequence(!strongSubsequence)
-    }
-
-    const handleDeleteGroup = async () => {
-        await deleteStudentsGroup(groupId)
-        closeModal()
-    }
-
-    const handleSaveGroupSettings = async () => {
-        const dataToSend = {
-            name: `${textNameField}`,
-            course_id: data?.course_id,
-            teacher_id: currentTeacher,
-            students: data?.students,
-            group_settings: {
-                strict_task_order: strongSubsequence,
-                task_submission_lock: blockHomework,
-            }
+  useEffect(() => {
+    if (usersSuccess) {
+      allUsers.forEach((user: any) => {
+        if (user.role === 'Teacher' && !teachersList.find((teacher: any) => teacher.email === user.email)) {
+          setTeachersList(prevTeachersList => prevTeachersList.concat({ username: user.username, id: user.id, email: user.email }))
         }
-
-        await patchGroup({id: groupId, data: dataToSend})
-        closeModal()
+      })
     }
-    if (!isSuccess) {
-        return <SimpleLoader/>
+  }, [usersSuccess])
+
+  useEffect(() => {
+    setBlockHomework(Boolean(data?.group_settings?.task_submission_lock))
+    setStrongSubsequence(Boolean(data?.group_settings?.strict_task_order))
+    setTextNameField(String(data?.name))
+    setCurrentTeacher(Number(data?.teacher_id))
+  }, [isSuccess])
+
+  const handlerHomeworkCheck = () => {
+    setBlockHomework(!blockHomework)
+  }
+  const handlerSubsequenceCheck = () => {
+    setStrongSubsequence(!strongSubsequence)
+  }
+
+  const handleDeleteGroup = async () => {
+    await deleteStudentsGroup(groupId)
+    closeModal()
+  }
+
+  const handleSaveGroupSettings = async () => {
+    const dataToSend = {
+      name: `${textNameField}`,
+      course_id: data?.course_id,
+      teacher_id: currentTeacher,
+      students: data?.students,
+      group_settings: {
+        strict_task_order: strongSubsequence,
+        task_submission_lock: blockHomework,
+      },
     }
 
-    return (
-        <>
-            {isSuccess && <div className={styles.container}>
-                <div onClick={closeModal} className={styles.container_closed}>
-                    <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath}/>
-                </div>
-                <div className={styles.groupSetting}>
-                    <div className={styles.container_header}>
-                        <IconSvg width={44} height={50} viewBoxSize="0 0 44 50" path={settingsGroupIconPath}/>
-                        <span className={styles.container_header_title}>Настройки группы </span>
-                    </div>
-                    <MainSettingsGroup
-                        changeTeacher={setCurrentTeacher}
-                        teacher={currentTeacher as number}
-                        strongSubsequence={strongSubsequence}
-                        blockHomework={blockHomework}
-                        setGroupName={setTextNameField}
-                        title={textNameField}
-                        deleteGroup={handleDeleteGroup}
-                        isLoading={isLoading}
-                        isError={isError}
-                        handlerHomeworkCheck={handlerHomeworkCheck}
-                        handlerSubsequence={handlerSubsequenceCheck}
-                        handleSave={handleSaveGroupSettings}
-                    />
-                </div>
+    await patchGroup({ id: groupId, data: dataToSend })
+    closeModal()
+  }
+  if (!isSuccess) {
+    return <SimpleLoader />
+  }
+
+  return (
+    <>
+      {isSuccess && usersSuccess && (
+        <div className={styles.container}>
+          <div onClick={closeModal} className={styles.container_closed}>
+            <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
+          </div>
+          <div className={styles.groupSetting}>
+            <div className={styles.container_header}>
+              <IconSvg width={44} height={50} viewBoxSize="0 0 44 50" path={settingsGroupIconPath} />
+              <span className={styles.container_header_title}>Настройки группы </span>
             </div>
-            }
-        </>
-    )
+            <MainSettingsGroup
+              teachersList={teachersList}
+              changeTeacher={setCurrentTeacher}
+              teacher={currentTeacher as number}
+              strongSubsequence={strongSubsequence}
+              blockHomework={blockHomework}
+              setGroupName={setTextNameField}
+              title={textNameField}
+              deleteGroup={handleDeleteGroup}
+              isLoading={isLoading}
+              isError={isError}
+              handlerHomeworkCheck={handlerHomeworkCheck}
+              handlerSubsequence={handlerSubsequenceCheck}
+              handleSave={handleSaveGroupSettings}
+            />
+          </div>
+        </div>
+      )}
+    </>
+  )
 }

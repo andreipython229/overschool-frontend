@@ -1,153 +1,135 @@
-import {ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState} from 'react'
+import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 
-import {Input} from 'components/common/Input/Input/Input'
-import {Checkbox} from 'components/common/Checkbox/Checkbox'
-import {Button} from 'components/common/Button/Button'
-import {SimpleLoader} from 'components/Loaders/SimpleLoader'
-import {Dropdown} from 'primereact/dropdown';
+import { Input } from 'components/common/Input/Input/Input'
+import { Checkbox } from 'components/common/Checkbox/Checkbox'
+import { Button } from 'components/common/Button/Button'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { Dropdown } from 'primereact/dropdown'
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
-import {useFetchAllUsersQuery} from "../../../../api/allUsersList";
-import {PrimeReactProvider} from "primereact/api";
+import { useFetchAllUsersQuery } from '../../../../api/allUsersList'
+import { PrimeReactProvider } from 'primereact/api'
 
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
+import 'primereact/resources/themes/lara-light-indigo/theme.css'
+import 'primereact/resources/primereact.min.css'
+import { ITeacher } from './SettingsGroupModal'
 
 type MainSettingsGroupPropsT = {
-    strongSubsequence: boolean
-    blockHomework: boolean
-    title: string
-    isLoading: boolean
-    isError: boolean
-    setGroupName: any
-    handlerHomeworkCheck: () => void
-    handlerSubsequence: () => void
-    handleSave: (data: any) => Promise<void>
-    deleteGroup: () => void
-    teacher: number
-    changeTeacher: Dispatch<SetStateAction<any>>
-}
-
-interface ITeacher {
-    username: string
-    id: number
+  strongSubsequence: boolean
+  blockHomework: boolean
+  title: string
+  isLoading: boolean
+  isError: boolean
+  setGroupName: any
+  handlerHomeworkCheck: () => void
+  handlerSubsequence: () => void
+  handleSave: (data: any) => Promise<void>
+  deleteGroup: () => void
+  teacher: number
+  changeTeacher: Dispatch<SetStateAction<any>>
+  teachersList: ITeacher[]
 }
 
 export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
-                                                                   strongSubsequence,
-                                                                   blockHomework,
-                                                                   title,
-                                                                   isLoading,
-                                                                   isError,
-                                                                   handlerHomeworkCheck,
-                                                                   handlerSubsequence,
-                                                                   deleteGroup,
-                                                                   setGroupName,
-                                                                   handleSave,
-                                                                   teacher,
-                                                                   changeTeacher
-                                                               }) => {
-    const {data: allUsers, isSuccess} = useFetchAllUsersQuery()
-    const [teachersList, setTeachersList] = useState<ITeacher[]>([])
-    const [selectedTeacher, setSelectedTeacher] = useState<string>('')
+  teachersList,
+  strongSubsequence,
+  blockHomework,
+  title,
+  isLoading,
+  isError,
+  handlerHomeworkCheck,
+  handlerSubsequence,
+  deleteGroup,
+  setGroupName,
+  handleSave,
+  teacher,
+  changeTeacher,
+}) => {
+  const [selectedTeacher, setSelectedTeacher] = useState<string>('')
 
-    useEffect(() => {
-        allUsers && allUsers.forEach((user: any) => {
-            if (user.role === 'Teacher' && !teachersList.find((teacher: any) => teacher.username === user.username)) {
-                setTeachersList([...teachersList, {username: user.username, id: user.id}]);
-            }
-        });
-    }, [isSuccess])
+  useEffect(() => {
+    teachersList.find((obj: any) => {
+      if (obj.id === teacher) {
+        setSelectedTeacher(obj.email)
+      }
+    })
+  }, [teachersList])
 
-    useEffect(() => {
-        teachersList.find((obj: any) => {
-            if (obj.id === teacher) {
-                setSelectedTeacher(obj.username)
-            }
-        })
-    }, [teachersList])
+  useEffect(() => {
+    teachersList.find((obj: ITeacher) => {
+      if (obj.email === selectedTeacher) {
+        changeTeacher(Number(obj.id))
+      }
+    })
+  }, [selectedTeacher])
 
-    useEffect(() => {
-        teachersList.find((obj: ITeacher) => {
-            if (obj.username === selectedTeacher) {
-                changeTeacher(Number(obj.id))
-            }
-        })
-    }, [selectedTeacher])
-
-
-    const handleChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.name === 'groupName') {
-            setGroupName(e.target.value)
-        }
+  const handleChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === 'groupName') {
+      setGroupName(e.target.value)
     }
+  }
 
-    return (
-        <>
-            <PrimeReactProvider>
-                <div className={styles.groupSetting_input}>
-                    <Input name={'groupName'} value={title} type={'text'} label={'Название группы:'}
-                           onChange={handleChangeGroupName}/>
-                </div>
-                <div className="card flex p-fluid">
-                    <p className={styles.textField}>Преподаватель данной группы: </p>
-                    <Dropdown value={selectedTeacher}
-                              onChange={(e) => setSelectedTeacher(e.value)}
-                              options={teachersList}
-                              optionLabel="username"
-                              placeholder={`${selectedTeacher? selectedTeacher: 'Выберите преподавателя для данной группы'}`}
-                              className="w-full md:w-14rem"/>
-                </div>
-                <div className={styles.groupSetting_checkboxBlock}>
-                    <div className={styles.groupSetting_checkboxBlock_checkbox}>
-                        <Checkbox id={'homework'} name={'homework'} checked={blockHomework}
-                                  onChange={handlerHomeworkCheck}/>
-                        <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
-                            <span>Блокировать возможность отправки домашних заданий</span>
-                            <span>Ученики будут видеть домашние задания, смогут их выполнять, но не смогут отправлять их вам на проверку</span>
-                        </div>
-                    </div>
-                    <div className={styles.groupSetting_checkboxBlock_checkbox}>
-                        <Checkbox id={'strongSubsequence'} name={'strongSubsequence'} checked={strongSubsequence}
-                                  onChange={handlerSubsequence}/>
-                        <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
-                            <span>Строгая последовательность занятий</span>
-                            <span>Ученик сможет приступить к следующему занятию только после прохождения предыдущего</span>
-                        </div>
-                    </div>
-                </div>
-                {/*  {strongSubsequence && (*/}
-                {/*      <div className={styles.groupSetting_selectBlock}>*/}
-                {/*          /!* <div className={styles.groupSetting_selectBlock_select}>*/}
-                {/*  <span>Домашние задания</span>*/}
-                {/*  <SelectInput optionsList={homeWorkActions} optionName={'actionHomeWork' as keyof object} />*/}
-                {/*</div>*/}
-                {/*<div className={styles.groupSetting_selectBlock_select}>*/}
-                {/*  <span>Тесты</span>*/}
-                {/*  <SelectInput optionsList={testActions} optionName={'actionTest' as keyof object} />*/}
-                {/*</div> *!/*/}
-                {/*      </div>*/}
-                {/*  )}*/}
-                <div className={styles.groupSetting_btn}>
-                    <Button
-                        className={styles.groupSetting__delete_btn}
-                        disabled={isLoading || isError}
-                        variant={'secondary'}
-                        text={isLoading ?
-                            <SimpleLoader style={{width: '20px', height: '20px'}}
-                                          loaderColor="#ffff"/> : 'Сохранить изменения'}
-                        onClick={handleSave}
-                    />
-                    <Button
-                        className={styles.groupSetting__delete_btn}
-                        disabled={isLoading || isError}
-                        variant={'delete'}
-                        text={isLoading ?
-                            <SimpleLoader style={{width: '20px', height: '20px'}}
-                                          loaderColor="#ffff"/> : 'Удалить группу'}
-                        onClick={deleteGroup}
-                    />
-                </div>
-            </PrimeReactProvider>
-        </>
-    )
+  return (
+    <>
+      <PrimeReactProvider>
+        <div className={styles.groupSetting_input}>
+          <Input name={'groupName'} value={title} type={'text'} label={'Название группы:'} onChange={handleChangeGroupName} />
+        </div>
+        <div className="card flex p-fluid">
+          <p className={styles.textField}>Преподаватель данной группы: </p>
+          <Dropdown
+            value={selectedTeacher}
+            onChange={e => setSelectedTeacher(e.value)}
+            options={teachersList}
+            optionLabel="email"
+            placeholder={`${selectedTeacher ? selectedTeacher : 'Выберите преподавателя для данной группы'}`}
+            className="w-full md:w-14rem"
+          />
+        </div>
+        <div className={styles.groupSetting_checkboxBlock}>
+          <div className={styles.groupSetting_checkboxBlock_checkbox}>
+            <Checkbox id={'homework'} name={'homework'} checked={blockHomework} onChange={handlerHomeworkCheck} />
+            <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
+              <span>Блокировать возможность отправки домашних заданий</span>
+              <span>Ученики будут видеть домашние задания, смогут их выполнять, но не смогут отправлять их вам на проверку</span>
+            </div>
+          </div>
+          <div className={styles.groupSetting_checkboxBlock_checkbox}>
+            <Checkbox id={'strongSubsequence'} name={'strongSubsequence'} checked={strongSubsequence} onChange={handlerSubsequence} />
+            <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
+              <span>Строгая последовательность занятий</span>
+              <span>Ученик сможет приступить к следующему занятию только после прохождения предыдущего</span>
+            </div>
+          </div>
+        </div>
+        {/*  {strongSubsequence && (*/}
+        {/*      <div className={styles.groupSetting_selectBlock}>*/}
+        {/*          /!* <div className={styles.groupSetting_selectBlock_select}>*/}
+        {/*  <span>Домашние задания</span>*/}
+        {/*  <SelectInput optionsList={homeWorkActions} optionName={'actionHomeWork' as keyof object} />*/}
+        {/*</div>*/}
+        {/*<div className={styles.groupSetting_selectBlock_select}>*/}
+        {/*  <span>Тесты</span>*/}
+        {/*  <SelectInput optionsList={testActions} optionName={'actionTest' as keyof object} />*/}
+        {/*</div> *!/*/}
+        {/*      </div>*/}
+        {/*  )}*/}
+        <div className={styles.groupSetting_btn}>
+          <Button
+            className={styles.groupSetting__delete_btn}
+            disabled={isLoading || isError}
+            variant={'secondary'}
+            text={isLoading ? <SimpleLoader style={{ width: '20px', height: '20px' }} loaderColor="#ffff" /> : 'Сохранить изменения'}
+            onClick={handleSave}
+          />
+          <Button
+            className={styles.groupSetting__delete_btn}
+            disabled={isLoading || isError}
+            variant={'delete'}
+            text={isLoading ? <SimpleLoader style={{ width: '20px', height: '20px' }} loaderColor="#ffff" /> : 'Удалить группу'}
+            onClick={deleteGroup}
+          />
+        </div>
+      </PrimeReactProvider>
+    </>
+  )
 }

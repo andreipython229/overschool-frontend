@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react'
-import { useParams } from 'react-router-dom'
+import { generatePath, useNavigate, useParams } from 'react-router-dom'
 
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
-import { createGroupIconPath } from '../config/svgIconsPath'
+import { createGroupIconPath, publishedIconPath, studentIconPath, studentScatterIconPath } from '../config/svgIconsPath'
 import { StudentsPerCourse } from 'components/StudentsTable/StudentsPerCourse'
 import { useFetchStudentsGroupByCourseQuery } from 'api/studentsGroupService'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -13,11 +13,18 @@ import { useBoolean } from '../../../customHooks'
 import { Portal } from '../../../components/Modal/Portal'
 
 import styles from './studentsStats.module.scss'
+import { tableBallsStarPath } from 'config/commonSvgIconsPath'
+import { Path } from 'enum/pathE'
+import { useAppSelector } from 'store/hooks'
+import { schoolNameSelector } from 'selectors'
 
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
 
   const [hideStats, setHideStats] = useState<boolean>(true)
+
+  const navigate = useNavigate()
+  const school = useAppSelector(schoolNameSelector)
 
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
   const [addGroupModal, { off: offAddGroupModal, on: onAddGroupModal }] = useBoolean()
@@ -44,9 +51,15 @@ export const StudentsStats = () => {
       <section className={styles.students_group}>
         <div className={styles.students_group_header}>
           <p className={styles.students_group_header_title}>Группы учеников</p>
-          <div onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}>
-            <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} />
-            Создать новую группу
+          <div style={{display: 'flex'}}>
+            <div onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}>
+              <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} />
+              Создать новую группу
+            </div>
+            <div onClick={() => navigate(generatePath(Path.School + Path.Settings + 'employees/', {school_name: school}))} className={styles.students_group_header_add_teacher_btn}>
+              <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={tableBallsStarPath} />
+              Добавить учителей в школу
+            </div>
           </div>
         </div>
         <div className={styles.students_group_content_wrapper}>
