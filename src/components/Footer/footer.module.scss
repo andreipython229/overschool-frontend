@@ -7,14 +7,18 @@
   max-width: 100%;
   background-color: transparent;
   text-align: center;
+  @media screen and (max-width: 1024px) {
+    padding: 0 0 120px 0;
+  }
   &_linksBlock {
-    @include display(flex, row, space-between, center);
+    @include display(flex, row, center, center);
     margin-top: 40px;
     gap: 10px;
     &_link {
       @include font(500, 10px, 12px);
       color: #6b7280;
     }
+    
   }
   &_appName {
     margin: 40px 0 10px 0;
