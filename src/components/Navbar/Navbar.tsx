@@ -34,8 +34,8 @@ export const Navbar: FC = memo(() => {
     return (
         <>
             <nav className={styles.navbar}>
-                <IconSvg className={styles.navbar_menu} width={30} height={25} viewBoxSize={'0 0 30 25'}
-                         path={navMenuPath}/>
+                {/* <IconSvg className={styles.navbar_menu} width={30} height={25} viewBoxSize={'0 0 30 25'}
+                         path={navMenuPath}/> */}
                 <div className={styles.navbar_setting_account}>
                     {navlinkByRoles[role].map(({path, icon}, index: number) => (
                         <Tooltip title={(path === Path.Courses)? 'Курсы': (path === Path.CourseStats)? 'Ученики школы':

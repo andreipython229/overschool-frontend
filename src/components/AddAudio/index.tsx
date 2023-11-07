@@ -19,7 +19,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
   const [files, setFiles] = useState<File[]>([])
 
   const [addAudioFiles, { isLoading }] = usePostAudioFilesMutation()
-  const [isLoadingAudio, setIsLoadingAudio] = useState<boolean>(false);
+  const [isLoadingAudio, setIsLoadingAudio] = useState<boolean>(false)
 
   const dragStartAudioHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -36,7 +36,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     const audioFiles = [...e.dataTransfer.files]
 
     setFiles(prev => [...prev, ...audioFiles])
-    
+
     // const formdata = new FormData()
     // formdata.append('video', audioFiles[0])
 
@@ -44,28 +44,21 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
   }
 
   const handleAudioUpload = async (lessonIdAndType: any, audio: File) => {
-    setIsLoadingAudio(true);
-    const formData = new FormData();
-    formData.append('audio', audio);
-    formData.append('section', String(lesson.section))
-    formData.append('order', String(lesson.order))
+    setIsLoadingAudio(true)
+    const formData = new FormData()
+    formData.append('files', audio)
     formData.append('base_lesson', String(lesson.baselesson_ptr_id))
 
     try {
-        await addAudioFiles({
-            id: lessonIdAndType.id,
-            type: lessonIdAndType.type,
-            formdata: formData,
-        });
-        setIsLoadingAudio(false)
-        setShow()
+      await addAudioFiles(formData)
+      setIsLoadingAudio(false)
+      setShow()
     } catch (error) {
-        setIsLoadingAudio(false)
+      setIsLoadingAudio(false)
     }
-   
   }
-  console.log(lesson.baselesson_ptr_id);
-  
+  console.log(lesson.baselesson_ptr_id)
+
   return (
     <>
       {!isPreview ? (
@@ -80,7 +73,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
             <input
               disabled={isLoading}
               className={styles.redactorCourse_rightSide_functional_addContent_input}
-              onChange={(e) => handleAudioUpload(lessonIdAndType, e.target.files![0])}
+              onChange={e => handleAudioUpload(lessonIdAndType, e.target.files![0])}
               type="file"
               multiple
             />

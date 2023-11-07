@@ -146,6 +146,28 @@
       }
 
       @include display(flex, row, flex-start, center);
+      margin: 1em;
+      height: 36px;
+      padding: 10px;
+      font-style: normal;
+      @include font(500, 12px, 32px);
+      letter-spacing: 0.02em;
+      color: #ba75ff;
+      background: #e5dfff;
+      border-radius: 7px;
+      cursor: pointer;
+
+      & svg {
+        margin-right: 8px;
+      }
+    }
+    &_add_teacher_btn {
+      &:hover {
+        background-color: rgba(217, 197, 237, 0.5);
+      }
+
+      @include display(flex, row, flex-start, center);
+      margin: 1em;
       height: 36px;
       padding: 10px;
       font-style: normal;

@@ -1,6 +1,6 @@
 declare global {
   interface Window {
-    school?: any;
+    school?: string;
   }
 }
 
