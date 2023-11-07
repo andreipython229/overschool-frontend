@@ -57,7 +57,7 @@ export const Employees: FC = () => {
                                     <Employee key={employee.id} avatar={employee.avatar || avatar}
                                               name={(employee.last_name || employee.first_name) ? `${employee.last_name}  ${employee.first_name}` : "Нет имени"}
                                               contact={employee.email}
-                                              role={employee.role}/>
+                                              role={employee.role} id={employee.id} employees={employees} setEmployees={setEmployees}/>
                                 ))}
                             </> :
                             <p style={{color: 'lightslategrey'}}>Пока сотрудников в школе нет</p>}
