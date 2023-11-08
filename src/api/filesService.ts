@@ -15,6 +15,13 @@ export const filesService = createApi({
       }),
       invalidatesTags: ['audioFiles'],
     }),
+    deleteAudioFiles: build.mutation<any, any>({
+      query: id => ({
+        url: `/audio_files/${id}/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['audioFiles'],
+    }),
     postTextFiles: build.mutation<void, FormData>({
       query: formData => ({
         url: `/text_files/`,
@@ -33,4 +40,4 @@ export const filesService = createApi({
   }),
 })
 
-export const { usePostTextFilesMutation, usePostAudioFilesMutation, useDeleteTextFilesMutation } = filesService
+export const { usePostTextFilesMutation, usePostAudioFilesMutation, useDeleteTextFilesMutation, useDeleteAudioFilesMutation } = filesService

@@ -9,4 +9,5 @@ export interface IFile {
   user_homework: number
   created_at: Date
   updated_at: Date
+  size: number
 }

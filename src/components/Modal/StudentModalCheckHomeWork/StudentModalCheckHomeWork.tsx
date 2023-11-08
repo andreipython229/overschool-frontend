@@ -292,7 +292,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({id, c
                         <div>
                             {userHomework?.last_reply.text_files.map((file, index) => (
                                 <UploadedFile key={file.id} index={index} name={file.file_url} file={`${file.file}`}
-                                              size={1000}/>
+                                              size={file.size}/>
                             ))}
                         </div>
                         <div className={styles.task_modal_audio}>
