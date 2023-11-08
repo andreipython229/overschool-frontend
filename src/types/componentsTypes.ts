@@ -22,6 +22,8 @@ export type AddPostT = {
   isPreview?: boolean
   lessonIdAndType?: lessonIdAndTypeT
   addFile?: (arg: argT) => void
+  deleteAudio?: (id: number) => void
+  addAudio?: any
   handleEditorChange?: (code: string | undefined) => void
 }
 

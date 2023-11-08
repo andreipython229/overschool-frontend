@@ -1,5 +1,5 @@
 import {FC, memo} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, generatePath, useNavigate} from 'react-router-dom'
 
 import {useAppDispatch, useAppSelector} from '../../store/hooks'
 import {Path} from 'enum/pathE'
@@ -21,9 +21,14 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({setLoginShow, setRegi
     const {role: userRole, userName: name} = useAppSelector(selectUser)
     const dispatch = useAppDispatch()
     const [logout] = useLazyLogoutQuery()
+    const navigate = useNavigate()
 
     const handleLoginUser = () => {
         setLoginShow(true)
+    }
+
+    const handleRegistrationUser = () => {
+        navigate(generatePath(Path.CreateSchool))
     }
 
     const logOut = async () => {
@@ -49,7 +54,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({setLoginShow, setRegi
                 ) : (
                     <>
                         <Button variant={'logIn'} onClick={handleLoginUser} text={'Войти'}/>
-                        <Button onClick={() => setRegistrationShow(true)} variant={'registrationDisabled'}
+                        <Button onClick={handleRegistrationUser} variant={'registrationDisabled'}
                                 text={'Зарегистрироваться'}/>
                     </>
                 )}

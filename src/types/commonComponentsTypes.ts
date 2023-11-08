@@ -123,7 +123,9 @@ export type ToggleButtonDropDownT = {
 }
 
 export type AudioPlayerT = {
-  audioUrls: IFile[]
+  delete?: (id: number) => void
+  audioUrls?: IFile[]
   title?: string
   styles?: { [key: string]: string | number }
+  files?: File[]
 }

@@ -5,7 +5,7 @@ import { isSecurity, unSecurity } from '../../assets/img/common'
 import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
 import { useFormik } from 'formik'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { generatePath, useNavigate } from 'react-router-dom'
 import { useCreateSchoolOwnerMutation } from 'api/schoolCreationService'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
@@ -78,7 +78,7 @@ export const CreateNewSchool = () => {
         </DialogActions>
       </Dialog>
       <div className={styles.newCoursePage_logoWrapper}>
-        <div className={styles.newCoursePage_logoWrapper_container}>
+        <div className={styles.newCoursePage_logoWrapper_container} onClick={() => navigate(generatePath(Path.InitialPage))}>
           <svg width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"

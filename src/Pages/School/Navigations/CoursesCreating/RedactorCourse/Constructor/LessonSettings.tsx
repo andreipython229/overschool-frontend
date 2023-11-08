@@ -10,7 +10,7 @@ import { ClassesSettingsPropsT } from 'types/navigationTypes'
 import { commonLessonT } from 'types/sectionT'
 import { AddQuestion } from 'components/AddQuestion'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
-import { useDeleteTextFilesMutation, usePostTextFilesMutation } from 'api/filesService'
+import { useDeleteAudioFilesMutation, useDeleteTextFilesMutation, usePostTextFilesMutation } from 'api/filesService'
 import styles from './constructor.module.scss'
 import { LESSON_TYPE } from '../../../../../../enum/lessonTypeE'
 import { AdminLesson } from './AdminLessonPreview/AdminLesson'
@@ -22,6 +22,7 @@ import { acceptedHwPath } from '../../../../../../config/commonSvgIconsPath'
 import { IFile } from '../../../../../../types/filesT'
 import { CheckboxBall } from '../../../../../../components/common/CheckboxBall'
 import { PublishedMark } from '../../../../../../components/common/PublishedMark'
+import { AudioPlayer } from 'components/common/AudioPlayer'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [files, setFiles] = useState<File[]>([])
@@ -29,11 +30,13 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [isEditing, setIsEditing] = useState(false)
   const [lessonDescription, setLessonDescription] = useState<string>('')
   const [isPublished, setIsPublished] = useState(false)
+  const [audiofiles, setAudiofiles] = useState<File[]>([])
 
   const { data, isFetching, isSuccess } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type })
   const [addTextFiles] = usePostTextFilesMutation()
   const [saveChanges, { isLoading: isSaving, isSuccess: isCompleted }] = usePatchLessonsMutation()
   const [deleteFile, { isLoading: isDeleting }] = useDeleteTextFilesMutation()
+  const [deleteAudio, {isLoading: isAudioDeleting}] = useDeleteAudioFilesMutation()
 
   const [lesson, setLesson] = useState(data as commonLessonT)
   const [renderFiles, setRenderFiles] = useState<IFile[]>([])
@@ -144,6 +147,15 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     }
   }
 
+  const handleDeleteAudioFile = async (index: number) => {
+    if (lesson.type !== 'test') {
+      const fileToDelete = lesson.audio_files[index]
+      if (fileToDelete) {
+        await deleteAudio(fileToDelete.id)
+      }
+    }
+  }
+
   const handleDeleteFileFromLesson = async (index: number) => {
     if (lesson.type !== 'test') {
       const fileToDelete = lesson.text_files[index]
@@ -175,9 +187,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   useEffect(() => {
     if (isCompleted) {
       if (lessonDescription && lesson.type !== LESSON_TYPE.TEST) {
-        setLesson({...lesson, description: lessonDescription, active: isPublished})
+        setLesson({ ...lesson, description: lessonDescription, active: isPublished })
       } else {
-        setLesson({...lesson, active: isPublished})
+        setLesson({ ...lesson, active: isPublished })
       }
       setIsEditing(!isEditing)
     }
@@ -264,23 +276,24 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                         lessonId={lesson.baselesson_ptr_id}
                       />
                     </div>
-                  ))}
+                  ))
+                }
                 {'description' in lesson && lesson.description ? (
                   <NewTextEditor text={lesson.description} setLessonDescription={setLessonDescription} />
                 ) : (
                   <NewTextEditor text={lessonDescription} setLessonDescription={setLessonDescription} />
                 )}
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
-                  <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} />
+                  <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} deleteAudio={handleDeleteAudioFile}/>
                 </div>
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
 
-                {renderFiles?.map(({ file, id }, index: number) => (
+                {renderFiles?.map(({ file, id, size }, index: number) => (
                   <UploadedFile
                     key={id}
                     index={index}
                     file={file}
-                    size={43435} // поле сайз надо на бэке прокинуть, чтоб можно было вытянуть размер файла
+                    size={Number(size)}
                     handleDeleteFile={index => handleDeleteFileFromLesson(index)}
                   />
                 ))}

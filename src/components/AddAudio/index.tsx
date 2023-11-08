@@ -14,9 +14,8 @@ import styles from './addaudio.module.scss'
 const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
 const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
-export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPreview, lesson, setShow }) => {
+export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPreview, lesson, addAudio, setShow }) => {
   const [dragAudio, setDragAudio] = useState<boolean>(false)
-  const [files, setFiles] = useState<File[]>([])
 
   const [addAudioFiles, { isLoading }] = usePostAudioFilesMutation()
   const [isLoadingAudio, setIsLoadingAudio] = useState<boolean>(false)
@@ -35,7 +34,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     e.preventDefault()
     const audioFiles = [...e.dataTransfer.files]
 
-    setFiles(prev => [...prev, ...audioFiles])
+    addAudio && addAudio((prev: File[]) => [...prev, ...audioFiles])
 
     // const formdata = new FormData()
     // formdata.append('video', audioFiles[0])
@@ -51,13 +50,16 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
 
     try {
       await addAudioFiles(formData)
+        .unwrap()
+        .then(() => {
+          addAudio((prev: File[]) => [...prev, audio])
+        })
       setIsLoadingAudio(false)
       setShow()
     } catch (error) {
       setIsLoadingAudio(false)
     }
   }
-  console.log(lesson.baselesson_ptr_id)
 
   return (
     <>
@@ -108,8 +110,12 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
             </div>
           </div>
         </div>
+      ) : lesson.type === LESSON_TYPE.LESSON || lesson.type === LESSON_TYPE.HOMEWORK ? (
+        <>
+          {lesson.audio_files && <AudioPlayer audioUrls={lesson.audio_files} />}
+        </>
       ) : (
-        <AudioPlayer audioUrls={lesson.type === LESSON_TYPE.LESSON || lesson.type === LESSON_TYPE.HOMEWORK ? lesson?.audio_files : []} />
+        <></>
       )}
     </>
   )

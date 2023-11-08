@@ -54,18 +54,24 @@
 
           &_delete {
             @include display(flex, row, flex-start, center);
-            padding: 11px 0;
-            border-radius: 6px;
+            margin-left: 0.4em;
+            padding: 11px;
+            border-radius: 0.5em;
             border: none;
             height: 36px;
             background: #fef2f2;
             text-align: center;
+            opacity: 0.6;
             cursor: pointer;
 
             & svg {
               margin: 0 auto;
               height: 17px;
               width: 17px;
+            }
+
+            &:hover {
+              background: #ffbdbd;
             }
           }
         }
