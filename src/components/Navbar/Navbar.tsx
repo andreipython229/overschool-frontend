@@ -48,9 +48,6 @@ export const Navbar: FC = memo(() => {
                     <Tooltip title={"Чаты"} arrow placement={'right'}>
 
                         <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
-                            {/*<Badge badgeContent={unRead} color={Number(unRead) > 0 ? 'secondary' : "primary"}>*/}
-                            {/*    <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath}/>*/}
-                            {/*</Badge>*/}
                             {Number(unRead) > 0 ? (
                                   <Badge badgeContent={unRead} color="error">
                                     <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath}/>

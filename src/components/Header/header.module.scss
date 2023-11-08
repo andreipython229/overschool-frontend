@@ -13,6 +13,9 @@
   &_logotype {
     max-width: 57px;
     margin-left: 106px;
+    @media screen and (max-width: 1024px) {
+      margin-left: 5px;
+    }
   }
 
   &_block {
@@ -28,6 +31,10 @@
       margin-right: 15px;
       height: 50px;
       padding: 0 12px;
+      @media screen and (max-width: 1024px) {
+        padding: 0;
+        margin-right: 10px;
+      }
       @include font(500, 10px);
 
       &_avatar {
@@ -92,6 +99,9 @@
 
       cursor: pointer;
       margin-right: 26px;
+      @media screen and (max-width: 1024px) {
+        margin-right: 0;
+      }
     }
   }
 }
