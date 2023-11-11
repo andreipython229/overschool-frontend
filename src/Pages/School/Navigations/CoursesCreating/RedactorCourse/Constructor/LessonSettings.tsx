@@ -77,6 +77,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     formData.append('active', String(isPublished))
     await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
   }
+  console.log(renderFiles)
 
   const renderUI = () => {
     if (isSuccess) {
@@ -292,11 +293,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                 </div>
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
 
-                {renderFiles?.map(({ file, id, size }, index: number) => (
+                {renderFiles?.map(({ file, id, size, file_url }, index: number) => (
                   <UploadedFile
                     key={id}
                     index={index}
                     file={file}
+                    name={file_url}
                     size={Number(size)}
                     handleDeleteFile={index => handleDeleteFileFromLesson(index)}
                   />
@@ -307,7 +309,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
                 {urlFiles?.map(({ url, name }, index: number) => (
                   <UploadedFile
-                    isHw={true}
+                  isHw={true}
                     key={index}
                     index={index}
                     file={url}
