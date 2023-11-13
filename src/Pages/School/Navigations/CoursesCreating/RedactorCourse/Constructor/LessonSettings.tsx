@@ -46,6 +46,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     if (data) {
       setIsPublished(data.active)
     }
+
   }, [data])
 
   useEffect(() => {
@@ -53,6 +54,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       setRenderFiles(lesson.text_files)
     }
     if (lesson) {
+      console.log(lesson.video)
       if (('video' in lesson && lesson.video) || ('url' in lesson && lesson.url)) {
         setLessonVideo(true)
       }
@@ -139,12 +141,14 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
     }
     if (video && video === lesson.video) {
+      console.log(lesson.video)
       const formData = new FormData()
       formData.append('section', String(lesson.section))
       formData.append('order', String(lesson.order))
       formData.append('active', String(isPublished))
-      formData.append('video', '')
+      formData.append('video_use', String(true))
       await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
+      console.log(formData.get('video_use'))
     }
   }
 
