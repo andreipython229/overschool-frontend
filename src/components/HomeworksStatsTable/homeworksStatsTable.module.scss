@@ -1,6 +1,12 @@
 @import '../../scss/variable';
 @import '../../scss/mixin.scss';
 
+.wrapper {
+  @media screen and (max-width: 1024px) {
+    overflow-x: scroll;   
+  }
+}
+
 .table {
   position: relative;
   overflow: hidden;

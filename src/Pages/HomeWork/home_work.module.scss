@@ -1,9 +1,15 @@
 @import '../../scss/mixin.scss';
 .container {
   @include display(flex, row, space-between, center);
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 10px;
 }
 
 .pagination {
   margin-top: 260px;
+}
+
+.homework_header {
+  margin: 10px 0;
 }

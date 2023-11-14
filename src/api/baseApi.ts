@@ -5,7 +5,7 @@ const cookies = new Cookies()
 
 // При развёртывании локально для получения кук на localhost - ставим true
 // Не забываем ставить false перед деплоем!!!
-const developmentMode = true;
+const developmentMode = false;
 
 export const baseQuery = (baseUrl = `/api/`) => {
     return fetchBaseQuery({
@@ -24,7 +24,7 @@ export const baseQuery = (baseUrl = `/api/`) => {
 
 export const baseQueryFn = (baseUrl = `/api/`) => {
     const schoolName = localStorage.getItem('school') || window.location.href.split('/')[4]
-
+    
     return fetchBaseQuery({
         baseUrl: baseUrl + String(schoolName),
         credentials: 'include',
