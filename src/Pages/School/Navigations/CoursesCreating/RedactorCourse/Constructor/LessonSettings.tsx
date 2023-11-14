@@ -46,6 +46,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     if (data) {
       setIsPublished(data.active)
     }
+
   }, [data])
 
   useEffect(() => {
@@ -53,6 +54,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       setRenderFiles(lesson.text_files)
     }
     if (lesson) {
+      console.log(lesson.video)
       if (('video' in lesson && lesson.video) || ('url' in lesson && lesson.url)) {
         setLessonVideo(true)
       }
@@ -75,6 +77,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     formData.append('active', String(isPublished))
     await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
   }
+  console.log(renderFiles)
 
   const renderUI = () => {
     if (isSuccess) {
@@ -138,12 +141,14 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
     }
     if (video && video === lesson.video) {
+      console.log(lesson.video)
       const formData = new FormData()
       formData.append('section', String(lesson.section))
       formData.append('order', String(lesson.order))
       formData.append('active', String(isPublished))
-      formData.append('video', '')
+      formData.append('video_use', String(true))
       await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
+      console.log(formData.get('video_use'))
     }
   }
 
@@ -288,11 +293,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                 </div>
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
 
-                {renderFiles?.map(({ file, id, size }, index: number) => (
+                {renderFiles?.map(({ file, id, size, file_url }, index: number) => (
                   <UploadedFile
                     key={id}
                     index={index}
                     file={file}
+                    name={file_url}
                     size={Number(size)}
                     handleDeleteFile={index => handleDeleteFileFromLesson(index)}
                   />
@@ -303,7 +309,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
                 {urlFiles?.map(({ url, name }, index: number) => (
                   <UploadedFile
-                    isHw={true}
+                  isHw={true}
                     key={index}
                     index={index}
                     file={url}

@@ -72,8 +72,12 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
         type: lessonIdAndType.type,
         formdata: formData,
       })
-      setIsLoadingVideo(false)
-      setShow()
+        .unwrap()
+        .then(data => {
+          lesson.video = 'video_url'
+          setIsLoadingVideo(false)
+          setShow()
+        })
     } catch (error) {
       setIsLoadingVideo(false)
     }
@@ -89,6 +93,9 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
           {isLoadingVideo ? (
             <div className={styles.redactorCourse_loader}>
               <SimpleLoader />
+              <p style={{ fontSize: '12px', color: 'grey', textAlign: 'center' }}>
+                Пока видео грузится ничего не нажимайте в этом окне, скорость загрузки зависит от скорости вашего интернет соединения
+              </p>
             </div>
           ) : (
             <>
