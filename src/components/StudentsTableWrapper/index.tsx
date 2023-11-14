@@ -64,60 +64,62 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({students, 
 
     return (
         <>
-            <table className={styles.table} style={{borderCollapse: 'collapse', minHeight: isLoading ? '500px' : 0}}>
-                {(isTableHeaderFetching || isLoading) && (
-                    <thead className={styles.loader}>
+            <div className={styles.wrapper}>
+                <table className={styles.table} style={{borderCollapse: 'collapse', minHeight: isLoading ? '500px' : 0}}>
+                    {(isTableHeaderFetching || isLoading) && (
+                        <thead className={styles.loader}>
+                        <tr>
+                            <td>
+                                <SimpleLoader style={{width: '50px', height: '50px'}}/>
+                            </td>
+                        </tr>
+                        </thead>
+                    )}
+                    <thead className={styles.table_thead}>
                     <tr>
+                        {cols.map(col => (
+                            <th className={styles.table_thead_td} id={col} key={col}>
+                                {col}
+                            </th>
+                        ))}
                         <td>
-                            <SimpleLoader style={{width: '50px', height: '50px'}}/>
+                            <button className={styles.svgSettingsWrapper}>
+                                <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'}
+                                        path={classesSettingIconPath}/>
+                            </button>
                         </td>
                     </tr>
                     </thead>
-                )}
-                <thead className={styles.table_thead}>
-                <tr>
-                    {cols.map(col => (
-                        <th className={styles.table_thead_td} id={col} key={col}>
-                            {col}
-                        </th>
+                    <tbody className={styles.table_tbody}>
+                    {rows?.map((row, id) => (
+                        <tr key={id + Math.random()} onClick={() => setSelectedStudentId(id)}>
+                            {cols.map(col => {
+                                const cellValue = row[col] as string | number | { text: string; image: ReactNode }
+                                return (
+                                    <td
+                                        style={{
+                                            fontSize: '14px',
+                                            textTransform: 'capitalize',
+                                            verticalAlign: 'center',
+                                        }}
+                                        key={col}
+                                    >
+                                        {typeof cellValue === 'object' ? (
+                                            <div className={styles.table_user}>
+                                                {cellValue.image}
+                                                <p>{cellValue.text}</p>
+                                            </div>
+                                        ) : (
+                                            <p>{cellValue}</p>
+                                        )}
+                                    </td>
+                                )
+                            })}
+                        </tr>
                     ))}
-                    <td>
-                        <button className={styles.svgSettingsWrapper}>
-                            <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'}
-                                     path={classesSettingIconPath}/>
-                        </button>
-                    </td>
-                </tr>
-                </thead>
-                <tbody className={styles.table_tbody}>
-                {rows?.map((row, id) => (
-                    <tr key={id + Math.random()} onClick={() => setSelectedStudentId(id)}>
-                        {cols.map(col => {
-                            const cellValue = row[col] as string | number | { text: string; image: ReactNode }
-                            return (
-                                <td
-                                    style={{
-                                        fontSize: '14px',
-                                        textTransform: 'capitalize',
-                                        verticalAlign: 'center',
-                                    }}
-                                    key={col}
-                                >
-                                    {typeof cellValue === 'object' ? (
-                                        <div className={styles.table_user}>
-                                            {cellValue.image}
-                                            <p>{cellValue.text}</p>
-                                        </div>
-                                    ) : (
-                                        <p>{cellValue}</p>
-                                    )}
-                                </td>
-                            )
-                        })}
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
 
             {isModalOpen && (
                 <Portal closeModal={on}>

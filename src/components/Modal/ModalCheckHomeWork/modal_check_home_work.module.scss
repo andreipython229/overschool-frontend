@@ -14,6 +14,16 @@
   transition: transform 0.2s ease 0s, opacity 0.2s ease 0s;
   transform: scale(0.9);
   opacity: 1;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding: 1%;
+    width: 100%;
+    margin: 0 auto;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding: 1%;
+    width: 100%;
+    margin: 0 auto;
+  }
 
   &::-webkit-scrollbar {
     width: 9px;
@@ -81,6 +91,13 @@
 .task_info_wrapper {
   display: flex;
   align-items: center;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding-left: 2%;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding-left: 2%;
+  }
+  
 
   & span {
     text-transform: capitalize;
@@ -227,12 +244,19 @@
   &:hover {
     color: $font-title;
     transition: 0.3s color;
+   
   }
 
   span {
     @include position_t_l(absolute, 46%, 38%);
     width: 15px;
     height: 5px;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      left:85%;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      left:85%;
+    }
   }
 }
 
@@ -244,10 +268,26 @@
   display: inline-flex;
   align-items: center;
   margin-bottom: 20px;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .header_info > * {
   margin: auto;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    margin-top: 3%;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+   margin-top: 3%;
+  }
 }
 
 .btn_grey {
@@ -288,10 +328,23 @@
   display: inline-flex;
   margin-bottom: 47px;
 
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    flex-direction: column;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    flex-direction: column;
+  }
+
   &_item {
     @include display(flex);
     margin: 0 30px 0 0;
     align-items: center;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      padding-top: 3%;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      padding-top: 3%;
+    }
 
     span {
       @include display(flex, row, space-between, center);
@@ -408,6 +461,12 @@
   margin-bottom: 20px;
   @include font(500, 18px, 22px);
   color: $font-title;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    margin: 10% 0 3% 0;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+   margin: 10% 0 3% 0;
+  }
 }
 
 .answer_hw_header {
@@ -427,6 +486,15 @@
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
   width: 100%;
   margin-bottom: 40px;
+
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding: 2%;
+    margin-bottom: 5%;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding: 2%;
+    margin-bottom: 5%;
+  }
 }
 
 .speech_bubble:before {
@@ -501,5 +569,11 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      background-color: #fff;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      background-color: #fff;
+    }
   }
 }

@@ -126,6 +126,12 @@
 }
 
 .students_group {
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding-top: 5%;
+  }
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding-top: 5%;
+  }
   @include display(flex, column);
   width: 100%;
 
@@ -133,11 +139,25 @@
     @include display(flex, row, space-between);
     width: 100%;
     margin-top: 40px;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      align-items: center;
+      flex-direction: column;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      align-items: center;
+      flex-direction: column;
+    }
 
     &_title {
       font-style: normal;
       @include font(500, 16px, 19px);
       color: #4d5766;
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        padding-bottom: 2%;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        padding-bottom: 2%;
+      }
     }
 
     &_add_group_btn {
@@ -186,6 +206,12 @@
 
   &_content_wrapper {
     @include display(flex, column);
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      padding: 3%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      padding: 3%;
+    }
 
     &_info {
       position: relative;
@@ -229,6 +255,7 @@
           @include font(500, 14px, 17px);
           letter-spacing: -0.03em;
           color: #4d5766;
+          
         }
 
         &_amount_wrapper span {
@@ -252,6 +279,7 @@
         background: #f7f6fb;
         border-radius: 10px;
         cursor: pointer;
+        
       }
     }
 

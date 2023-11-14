@@ -19,9 +19,10 @@ export { userTestService } from './userTestService'
 export { getAllUsers } from './allUsersList'
 export { userAccessService } from './userAccessService'
 export { schoolCreationService } from './schoolCreationService'
-export { tariffPlanService, tariffService } from './tariffPlanService'
+export { tariffPlanService, tariffService, tariffPlan } from './tariffPlanService'
 export { videoFilesService } from './videoFilesService'
 export { forgotPassword } from './forgotPassword'
 export { subscriptionService } from './subscriptionServices'
+
 
 

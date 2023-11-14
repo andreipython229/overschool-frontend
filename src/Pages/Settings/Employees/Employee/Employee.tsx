@@ -37,7 +37,7 @@ export const Employee: FC<EmployeePropsT> = memo(({avatar, contact, role, name, 
     }, [isRemoved])
 
     return (
-        <>
+        <div className={styles.wrapper}>
             <div className={styles.employee_user}>
                 <div className={styles.employee_user_info}>
                     <img className={styles.employee_user_info_avatar} src={avatar} alt="User Avatar"/>
@@ -69,6 +69,6 @@ export const Employee: FC<EmployeePropsT> = memo(({avatar, contact, role, name, 
                 <LimitModal message={message} setShowLimitModal={onToggle}/>
             </Portal>
             ) : null}
-        </>
+        </div>
     )
 })

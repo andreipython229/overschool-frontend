@@ -110,6 +110,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
         await sendHomeworkCheck(dataToSend)
             .unwrap()
             .then((data) => {
+                setText('')
                 const formData = new FormData()
                 formData.append('user_homework_check', `${data.user_homework_check_id}`)
                 nativeFiles.forEach(file => {
