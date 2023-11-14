@@ -1,7 +1,11 @@
 import { FC, memo, useEffect, useState, } from 'react'
 
 import { FiltersButton } from '../FiltersButton'
-import { dropDownListFilterStudents } from '../../constants/dropDownList'
+import {
+    dropDownListFilterStudents,
+    dropDownListFilterStudentsCourses,
+    dropDownListFilterStudentsGroups
+} from '../../constants/dropDownList'
 import { Input } from '../common/Input/Input/Input'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { Button } from '../common/Button/Button'
@@ -20,6 +24,12 @@ import {RoleE} from 'enum/roleE'
 import { useAppSelector } from 'store/hooks'
 import {updateDataIcon} from "../../config/commonSvgIconsPath";
 import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentCourseModal'
+
+
+export interface FilterItem {
+  id: number;
+  title: string;
+}
 
 export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
   ({
@@ -49,6 +59,22 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             updateStudents(value)
     }
 
+
+    let filteringCategoriesList: FilterItem[] = [];
+    switch (filterKey) {
+    case 'studentsPerSchool':
+      filteringCategoriesList = dropDownListFilterStudents;
+      break;
+      case 'studentsPerCourse':
+      filteringCategoriesList = dropDownListFilterStudentsCourses;
+      break;
+    case 'studentsPerGroup':
+      filteringCategoriesList = dropDownListFilterStudentsGroups;
+      break;
+    default:
+      break;
+    }
+
     return (
       <div>
         <p className={styles.header_block_text}>{headerText}</p>
@@ -57,7 +83,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
         </div>
         <div className={invite? styles.button_search_block_wButton: styles.button_search_block}>
           <FiltersButton
-            filteringCategoriesList={dropDownListFilterStudents}
+            filteringCategoriesList={filteringCategoriesList}
             addLastActiveFilter={addLastActiveFilter}
             addMarkFilter={addMarkFilter}
             handleAddAvgFilter={handleAddAvgFilter}
