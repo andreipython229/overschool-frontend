@@ -56,4 +56,4 @@ Thumbs.db
 
 id_rsa
 id_rsa.pub
-src/api/baseApi.ts
+/src/api/baseApi.ts

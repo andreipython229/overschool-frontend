@@ -25,34 +25,34 @@ export const AdminLesson: FC<adminLessonT> = ({ lesson }) => {
   }, [lesson])
 
   return (
-    <div className={styles.lesson}>
-      <h1 className={styles.lesson__name}>{lesson?.name}</h1>
-      <div className={styles.lesson__blocks}>
-        <div className={styles.lesson__wrap}>
-          <div className={styles.lesson__card}>
-            <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
-            <div className={styles.lesson__content}>
-              <span className={styles.lesson__desc}>{lesson?.description ? parse(`${lesson?.description}`) : 'Нет описания'}</span>
+    <div className={styles.adminlesson}>
+      <h1 className={styles.adminlesson__name}>{lesson?.name}</h1>
+      <div className={styles.adminlesson__blocks}>
+        <div className={styles.adminlesson__wrap}>
+          <div className={styles.adminlesson__card}>
+            <h3 className={styles.adminlesson__name_mini}>{lesson?.name}</h3>
+            <div className={styles.adminlesson__content}>
+              <span className={styles.adminlesson__desc}>{lesson?.description ? parse(`${lesson?.description}`) : 'Нет описания'}</span>
             </div>
             {lessonVideo &&
               (lesson.url && lesson.video ? (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} />
+                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} lessonId={lesson.lesson_id}/>
                 </div>
               ) : !lesson.video && lesson.url ? (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} />
+                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} lessonId={lesson.lesson_id}/>
                 </div>
               ) : (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} />
+                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} lessonId={lesson.lesson_id}/>
                 </div>
               ))}
-            <div className={styles.lesson__content}>
+            <div className={styles.adminlesson__content}>
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
-              <span className={styles.lesson__materials}>Материалы к занятию:</span>
-              {lesson?.text_files.map(({ file, id }, index: number) => (
-                <UploadedFile key={id} file={file} index={index} size={43445} />
+              <span className={styles.adminlesson__materials}>Материалы к занятию:</span>
+              {lesson?.text_files.map(({ file, id, file_url, size }, index: number) => (
+                <UploadedFile key={id} file={file} name={file_url} index={index} size={size}/>
               ))}
             </div>
           </div>

@@ -9,19 +9,20 @@ import { ContentBtn } from 'components/ContentBtn'
 import { useBoolean, useDebounceFunc } from '../../customHooks'
 import { AddPostT } from '../../types/componentsTypes'
 import { usePatchLessonsMutation } from 'api/modulesServices'
-
-import Text from '../.././assets/img/createCourse/text.svg'
+// import Text from '../.././assets/img/createCourse/text.svg'
 import Video from '../.././assets/img/createCourse/video.svg'
 import Audio from '../.././assets/img/createCourse/audio.svg'
-import Code from '../.././assets/img/createCourse/code.svg'
+// import Code from '../.././assets/img/createCourse/code.svg'
 
 import styles from './addPost.module.scss'
+import { AudioPlayer } from 'components/common/AudioPlayer'
 
-export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview }) => {
+export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview, deleteAudio }) => {
   const [isOpenTextEditor, { on: closeTextEditor, off: openTextEditor }] = useBoolean()
   const [isOpenVideo, { on: closeVideo, off: openVideo }] = useBoolean()
   const [isOpenAudio, { on: closeAudio, off: openAudio }] = useBoolean()
   const [isOpenCodeEditor, { on: closeCodeEditor, off: openCodeEditor }] = useBoolean()
+  const [files, setFiles] = useState<File[]>([])
 
   const [addPatchData] = usePatchLessonsMutation()
 
@@ -40,22 +41,22 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview 
 
   useEffect(() => {
     if (description[0]?.props?.children && lesson) {
-      const formData = new FormData();
+      const formData = new FormData()
       formData.append('description', descriptionLesson.toString())
       formData.append('section', lesson.section.toString())
       formData.append('order', lesson.order.toString())
-      debounced({formdata: formData, id: lesson.baselesson_ptr_id as number, type: lesson.type})
+      debounced({ formdata: formData, id: lesson.baselesson_ptr_id as number, type: lesson.type })
       // patchData(lesson, `${lessonIdAndType?.type}_id`, 'description', descriptionLesson, debounced, lessonIdAndType?.type)
     }
   }, [descriptionLesson])
 
   useEffect(() => {
     if (code && lesson) {
-      const formData = new FormData();
+      const formData = new FormData()
       formData.append('code', code.toString())
       formData.append('section', lesson.section.toString())
       formData.append('order', lesson.order.toString())
-      debounced({formdata: formData, id: lesson.baselesson_ptr_id as number, type: lesson.type})
+      debounced({ formdata: formData, id: lesson.baselesson_ptr_id as number, type: lesson.type })
       // patchData(lesson, `${lessonIdAndType?.type}_id`, 'code', code.toString(), debounced, lessonIdAndType?.type)
     }
   }, [code.toString()])
@@ -68,13 +69,21 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview 
 
   return (
     <>
+      {lesson.type !== 'test' && (files || lesson.audio_files) ? (
+        <div style={{ margin: '1em' }}>
+          {lesson.audio_files && <AudioPlayer audioUrls={lesson.audio_files} delete={deleteAudio}/>}
+          {files && <AudioPlayer files={files} delete={deleteAudio}/>}
+        </div>
+      ) : (
+        <></>
+      )}
       {isOpenTextEditor && (
         <AddTextEditor isPreview={isPreview} lesson={lesson} setShow={closeTextEditor} setDescriptionLesson={setDescriptionLesson} />
       )}
       {isOpenVideo && (
         <AddVideo lessonIdAndType={lessonIdAndType} isPreview={isPreview} addFile={addPatchData} lesson={lesson} setShow={closeVideo} />
       )}
-      {isOpenAudio && <AddAudio lessonIdAndType={lessonIdAndType} isPreview={isPreview} lesson={lesson} setShow={closeAudio} />}
+      {isOpenAudio && <AddAudio addAudio={setFiles} lessonIdAndType={lessonIdAndType} isPreview={isPreview} lesson={lesson} setShow={closeAudio} />}
       {isOpenCodeEditor && (
         <AddCodeEditor isPreview={isPreview} lesson={lesson} code={code} handleEditorChange={handleEditorChange} setShow={closeCodeEditor} />
       )}
@@ -84,7 +93,9 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview 
         <div className={styles.redactorCourse_rightSide_functional_creating_function}>
           {/*{!('description' in lesson && lesson.description) && (<ContentBtn disabled={disabledBtn} func={openTextEditor} text={'Текст'} alt={'Add text for lesson'}*/}
           {/*             src={Text}/>)}*/}
-          {(!lesson.video || !lesson.url) && <ContentBtn disabled={disabledBtn} func={openVideo} text={'Видео'} alt={'Add video for lesson'} src={Video} />}
+          {(!lesson.video || !lesson.url) && (
+            <ContentBtn disabled={disabledBtn} func={openVideo} text={'Видео'} alt={'Add video for lesson'} src={Video} />
+          )}
           <ContentBtn disabled={disabledBtn} func={openAudio} text={'Аудио'} alt={'Add audio for lesson'} src={Audio} />
           {/*<ContentBtn disabled={disabledBtn} func={openCodeEditor} text={'Код'} alt={'Add code for lesson'} src={Code} />*/}
         </div>

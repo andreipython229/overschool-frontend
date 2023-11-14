@@ -3,16 +3,11 @@ import styles from './PWA.module.scss'
 export const PWA = () => {
   return (
     <section className={styles.PWA}>
-        <p className={styles.PWA_Preamble}>
-        В нашем сервисе есть возможность развертывания на Вашем мобильном
-          устройстве PWA( Progressive Web App). Это удобный формат работы с нашим
-          продуктом, Вам не нужно скачивать его в сторах( Play Market, App Store), оно не
-          занимает столько места как обычное нативное приложение, PWA хранит только
-          данные кеша и нужные данные загружает из сети. Инструкции по развертыванию в
-          различных браузерах:
+        <p className={styles.PWA_Content}>
+          Для установки приложения не телефон следуйте инструкции:
         </p>
         <p>
-          <h3 className={styles.PWA_Content}>
+          <h3 className={styles.PWA_Header}>
             Safari
           </h3>
           <ol className={styles.PWA_Content}>
@@ -37,7 +32,7 @@ export const PWA = () => {
           </ol>
         </p>
         <p>
-          <h3 className={styles.PWA_Content}>
+          <h3 className={styles.PWA_Header}>
             Chrome
           </h3>
           <ol className={styles.PWA_Content}>

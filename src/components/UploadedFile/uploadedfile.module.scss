@@ -20,10 +20,13 @@
   &__download_blackDiv {
     width: 18px;
     height: 18px;
-    background: #0f0f0f;
+    // background: #e0dced;
     border-radius: 3px;
     margin-right: 16px;
     flex-shrink: 0;
+    background-image: url('../../assets/img/createCourse/text.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
   }
 
   &__download_wrap {

@@ -5,7 +5,7 @@ import {b} from "msw/lib/glossary-dc3fd077";
 
 export interface ILesson {
   lesson_id: number
-  baselesson_ptr_id?: number
+  baselesson_ptr_id: number
   section: number
   name: string
   order: number
@@ -17,11 +17,12 @@ export interface ILesson {
   type: LESSON_TYPE.LESSON
   active: boolean
   url: string
+  show_right_answers: boolean
 }
 
 export interface IHomework {
   homework_id: number
-  baselesson_ptr_id?: number
+  baselesson_ptr_id: number
   section: number
   name: string
   order: number
@@ -37,11 +38,12 @@ export interface IHomework {
   video: string
   user_homework_checks: []
   url: string
+  show_right_answers: boolean
 }
 
 export interface ITest {
   test_id: number
-  baselesson_ptr_id?: number
+  baselesson_ptr_id: number
   section: number
   name: string
   questions: any

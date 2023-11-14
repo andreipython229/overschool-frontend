@@ -51,15 +51,15 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params,
             {lessonVideo &&
               (lesson.url && lesson.video ? (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} />
+                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} lessonId={lesson.homework_id}/>
                 </div>
               ) : !lesson.video && lesson.url ? (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} />
+                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} lessonId={lesson.homework_id}/>
                 </div>
               ) : (
                 <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} />
+                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} lessonId={lesson.homework_id}/>
                 </div>
               ))}
             <div className={styles.lesson__content}>
@@ -71,8 +71,8 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params,
                 </div>
               )} */}
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
-              {lesson?.text_files.map(({ file, id }, index: number) => (
-                <UploadedFile key={id} file={file} index={index} size={34487} />
+              {lesson?.text_files.map(({ file, id, file_url, size }, index: number) => (
+                <UploadedFile key={id} file={file} index={index} name={file_url} size={size} />
               ))}
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
             </div>

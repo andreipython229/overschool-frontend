@@ -1,6 +1,6 @@
 declare global {
   interface Window {
-    school?: any;
+    school?: string;
   }
 }
 
@@ -45,4 +45,5 @@ export enum FooterPath {
   TariffPlans = 'tariff-plans/',
   PersonalDataTreatmentPolicy = 'personalDataTreatmentPolicy',
   PWA = 'PWA',
+  Agreement = 'agreement/',
 }

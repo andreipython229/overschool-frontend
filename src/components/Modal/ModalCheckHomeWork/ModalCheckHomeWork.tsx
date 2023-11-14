@@ -110,6 +110,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
         await sendHomeworkCheck(dataToSend)
             .unwrap()
             .then((data) => {
+                setText('')
                 const formData = new FormData()
                 formData.append('user_homework_check', `${data.user_homework_check_id}`)
                 nativeFiles.forEach(file => {
@@ -285,8 +286,8 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
                 <div style={{maxWidth: '500px'}}>
                     <div>
                         {userHomework?.last_reply.text_files.map((file, index) => (
-                            <UploadedFile key={file.id} index={index} name={file.file} file={`${file.file}`}
-                                          size={1000}/>
+                            <UploadedFile key={file.id} index={index} name={file.file_url} file={`${file.file}`}
+                                          size={file.size}/>
                         ))}
                     </div>
                     <div className={styles.task_modal_audio}>

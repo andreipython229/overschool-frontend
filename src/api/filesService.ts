@@ -7,11 +7,18 @@ export const filesService = createApi({
   baseQuery: baseQueryFn(),
   tagTypes: ['audioFiles', 'textFiles'],
   endpoints: build => ({
-    postAudioFiles: build.mutation<void, { id: number; type: string; formdata: FormData }>({
-      query: arg => ({
+    postAudioFiles: build.mutation<void, FormData>({
+      query: formData => ({
         url: `/audio_files/`,
         method: 'POST',
-        body:arg.formdata,
+        body: formData,
+      }),
+      invalidatesTags: ['audioFiles'],
+    }),
+    deleteAudioFiles: build.mutation<any, any>({
+      query: id => ({
+        url: `/audio_files/${id}/`,
+        method: 'DELETE',
       }),
       invalidatesTags: ['audioFiles'],
     }),
@@ -33,4 +40,4 @@ export const filesService = createApi({
   }),
 })
 
-export const { usePostTextFilesMutation, usePostAudioFilesMutation, useDeleteTextFilesMutation } = filesService
+export const { usePostTextFilesMutation, usePostAudioFilesMutation, useDeleteTextFilesMutation, useDeleteAudioFilesMutation } = filesService

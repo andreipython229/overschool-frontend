@@ -112,4 +112,5 @@ type FileT = {
   base_lesson: number
   user_homework: number
   user_homework_check: number
+  size: number
 }
