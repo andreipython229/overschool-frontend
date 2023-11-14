@@ -141,14 +141,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
     }
     if (video && video === lesson.video) {
-      console.log(lesson.video)
       const formData = new FormData()
       formData.append('section', String(lesson.section))
       formData.append('order', String(lesson.order))
       formData.append('active', String(isPublished))
       formData.append('video_use', String(true))
       await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
-      console.log(formData.get('video_use'))
     }
   }
 
