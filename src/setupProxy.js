@@ -23,7 +23,7 @@ module.exports = function (app) {
     '/video',
     createProxyMiddleware({
       target: 'http://video.overschool.by',
-      changeOrigin: true,
+      changeOrigin: false,
       secure: false,
       pathRewrite: {
         '^/video': '/api',
