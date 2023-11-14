@@ -10,7 +10,7 @@ export const videoFilesService = createApi({
       query: arg => {
         return {
           url: `/${arg.type}s/${arg.id}/`,
-          method: 'PATCH',
+          method: 'PUT',
           body: arg.formdata,
         }
       },
