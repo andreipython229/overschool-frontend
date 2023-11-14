@@ -48,7 +48,7 @@ export const Employees: FC = () => {
 
                     <div className={styles.employees_table}>
                         {(employees && employees?.length) ?
-                            <>
+                            <div className={styles.wrapper}>
                                 <div className={styles.employees_table_title}>
                                     <div>Пользователь</div>
                                     <div>Роль</div>
@@ -59,7 +59,7 @@ export const Employees: FC = () => {
                                               contact={employee.email}
                                               role={employee.role} id={employee.id} employees={employees} setEmployees={setEmployees}/>
                                 ))}
-                            </> :
+                            </div> :
                             <p style={{color: 'lightslategrey'}}>Пока сотрудников в школе нет</p>}
                     </div>
                 </div>

@@ -41,7 +41,7 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
   }) => {
     return (
       <>
-        <p>Входящие работы от учеников</p>
+        <p className={styles.homework_header}>Входящие работы от учеников</p>
         <ChipsComponent filterKey="homework" filters={filters} chipsVal={chipsVal['homework']} />
         <div className={styles.container}>
           <div className={styles.container_1}>
