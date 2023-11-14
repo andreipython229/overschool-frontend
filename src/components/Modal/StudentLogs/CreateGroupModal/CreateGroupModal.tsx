@@ -81,6 +81,8 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
         setShowModal(false)
     }
 
+
+ 
     return (
         <form onSubmit={handleCreateGroup} style={{width: '485px'}} className={styles.container}>
             <div onClick={() => setShowModal(false)} className={styles.container_closed}>
@@ -132,4 +134,5 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
             </div>
         </form>
     )
+
 }

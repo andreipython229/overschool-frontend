@@ -31,11 +31,12 @@ import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPa
 import { RoleE } from 'enum/roleE'
 
 import { useCookies } from 'react-cookie';
-import { useFetchCurrentTariffPlanQuery } from 'api/tariffPlanService'
+import { useFetchCurrentTariffPlanQuery, useFetchTariffPlanInfoQuery } from 'api/tariffPlanService'
 import { setTariff } from 'store/redux/tariff/tariffSlice'
 import {removeSchoolId} from "../../store/redux/school/schoolIdSlice";
 import {removeHeaderId} from "../../store/redux/school/headerIdSlice";
 import {removeSchoolName} from "../../store/redux/school/schoolSlice";
+import { log } from 'console'
 
 export const Header = memo(() => {
     const dispatch = useAppDispatch()
@@ -45,8 +46,9 @@ export const Header = memo(() => {
     const headerId = localStorage.getItem('header_id')
     const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
     const { data: profile, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
-    const { data: tariffPlan, isSuccess: tariffSuccess } = useFetchCurrentTariffPlanQuery()
-    const [currentTariff, setCurrentTariff] = useState<ITariff>()
+    const { data: currentTariff, isSuccess: tariffSuccess } = useFetchCurrentTariffPlanQuery()
+    const { data: tariffPlan } = useFetchTariffPlanInfoQuery (currentTariff?.tariff)
+    
 
     const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
     const chats = useAppSelector(state => state.chats.chats);
@@ -76,8 +78,6 @@ export const Header = memo(() => {
         // dispatch(auth(false))
     }
 
-
-
     useEffect(() => {
         if (isSuccess) {
             setLogo(data?.logo_school)
@@ -88,13 +88,14 @@ export const Header = memo(() => {
         profileIsSuccess && setProfileData(profile[0])
     }, [profile])
 
-    useEffect(() => {
-        if (tariffPlan && Object.keys(tariffPlan).length > 0) {
-            setCurrentTariff(tariffPlan)
-            dispatch(setTariff(tariffPlan))
-        }
-    }, [tariffSuccess])
-
+    // useEffect(() => {
+    //     if (tariffPlan && Object.keys(tariffPlan).length > 0) {
+    //         setCurrentTariff(tariffPlan)
+    //         dispatch(setTariff(tariffPlan))
+    //     }
+    // }, [tariffSuccess])
+           
+        
     useEffect(() => {
         if (profileData) {
             const newProfileData: UserProfileT = {
@@ -167,9 +168,10 @@ export const Header = memo(() => {
             }
         }
     },[chats, fetchedChats])
-    // **************************************************************
-
-
+    // **************************************************************    
+   
+    
+    
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -202,8 +204,12 @@ export const Header = memo(() => {
                     </div>
                     <p className={styles.tariffPlan_text}>{' Тариф '}
                         <span className={styles.tariffPlan_text_tariff}>{`"${currentTariff.tariff_name}"`}</span>
-                        {currentTariff.days_left && <span style={{ color: '#BA75FF' }}>{` — ${currentTariff.days_left} дней`}</span>}
+                        {currentTariff.days_left && <span style={{ color: '#BA75FF' }}>{` — ${currentTariff.days_left} дней`} </span>}<br/>
+                        <span>Курсов:</span><span style={{ color: '#BA75FF' }}>  {`${currentTariff.number_of_courses}/${tariffPlan?.number_of_courses || 'ꝏ'}`}</span><br/>
+                        <span>Учителей:</span><span style={{ color: '#BA75FF' }}> {`${currentTariff.staff}/${tariffPlan?.staff || 'ꝏ'}`}</span><br/>
+                        <span>Студентов:</span><span style={{ color: '#BA75FF' }}>  {`${currentTariff.students}/${tariffPlan?.students || 'ꝏ'}`}</span>
                     </p>
+                   
                 </a>}
                 <React.Fragment>
                     <Tooltip title={'Аккаунт пользователя'}>

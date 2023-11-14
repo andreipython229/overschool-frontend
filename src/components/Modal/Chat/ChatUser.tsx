@@ -93,7 +93,7 @@ export const ChatUser: FC<chatUserT> = ({ openGroup, chatData, usersCount }) => 
                       ) : chatData?.type === 'PERSONAL' ? (
                             <span style={{width: '500px'}}>{getInterlocutor(chatData).first_name || 'Без имени'} {getInterlocutor(chatData).last_name || 'Без фамилии'}</span>
                       ) : null}
-                        <FormControlLabel control={<Switch checked={checked} onChange={handleChange} />} label={<span style={{ fontSize: '12px' }}>{label}</span>} sx={{marginLeft: '130px', fontSize: '10px'}}/>
+                        <FormControlLabel control={<Switch checked={checked} onChange={handleChange} />} label={<span style={{ fontSize: '12px' }}>{label}</span>} sx={{marginLeft: '95px', fontSize: '10px'}}/>
                     </div>
 
                     {chatData?.type === 'GROUP' ? (

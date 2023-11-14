@@ -13,22 +13,23 @@
   font-family: $font-family-inter;
   width: 580px;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 100%;
+    width: 98%;
     padding: 1%;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    width: 100%;
+    width: 98%;
     padding: 1%;
   }
 
   &_closed {
-    @include position_t_r(absolute, 20px, 40px);
+    @include position_t_r(absolute, 20px, 30px);
     text-align: center;
     width: 30px;
     height: 30px;
     background: #f1f1f1;
     border-radius: $bord-rad7;
     cursor: pointer;
+   
 
     & svg {
       margin-top: 8.5px;
