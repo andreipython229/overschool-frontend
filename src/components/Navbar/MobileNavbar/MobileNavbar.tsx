@@ -1,8 +1,9 @@
+import {FC, memo, useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Path } from 'enum/pathE'
 import {useLazyLogoutQuery} from 'api/userLoginService'
 import {useAppDispatch, useAppSelector} from '../../../store/hooks'
-import { setUserProfile, clearUserProfile } from "../../../store/redux/users/profileSlice"
+
 import {auth} from 'store/redux/users/slice'
 import {Chat} from 'components/Modal/Chat'
 import {useBoolean} from 'customHooks'
@@ -15,6 +16,10 @@ import Badge from '@mui/material/Badge'
 import {Portal} from 'components/Modal/Portal'
 import {selectUser} from '../../../selectors'
 import {navlinkByRoles} from '../config/navlinkByRoles'
+import {ChatI, SenderI} from 'types/chatsT'
+import { setTotalUnread } from '../../../store/redux/chats/unreadSlice'
+import { setChats } from "../../../store/redux/chats/chatsSlice";
+import { isEqual, omit } from 'lodash';
 
 
 import styles from '../navbar.module.scss'
@@ -23,13 +28,17 @@ interface IIsActive {
   isActive?: boolean
 }
 
-export const MobileNavbar = () => {
+export const MobileNavbar : FC = memo(() => {
+  const unRead = useSelector((state: RootState) => state.unread.totalUnread)
+  const {role} = useAppSelector(selectUser)
   const isActive = ({isActive}: IIsActive) => (isActive ? styles.isActive : '')
   const [logout] = useLazyLogoutQuery()
   const dispatch = useAppDispatch()
   const [isChatOpen, {on, off}] = useBoolean()
-  const unRead = useSelector((state: RootState) => state.unread.totalUnread)
-  const {role} = useAppSelector(selectUser)
+  const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
+    const chats = useAppSelector(state => state.chats.chats);
+    const [fetchedChats, setFetchedChats] = useState<ChatI[]>([])
+  
 
   const logOut = async () => {
     await localStorage.clear()
@@ -39,9 +48,65 @@ export const MobileNavbar = () => {
     dispatch(auth(false))
 }
 
+// Chat Info Update *******************************************************
+useEffect(() => {
+  const totalUnread = totalUnreadMessages || 0;
+  dispatch(setTotalUnread(totalUnread.toString()));
+}, [totalUnreadMessages])
+
+const fetchChatsData = async () => {
+  try {
+      const response = await fetch('/api/chats/info/');
+      if (response.ok) {
+          const chatsInfo = await response.json();
+          setTotalUnreadMessages(chatsInfo[0].total_unread)
+          if (chatsInfo.length > 1 && chats) {
+              const fetchChats: ChatI[] = chatsInfo.slice(1);
+              if (fetchChats) {
+                  setFetchedChats(fetchChats)
+              }
+          }
+      }
+  } catch (error) {
+      console.error(error)
+  }
+};
+
+useEffect(() => {
+  fetchChatsData();
+  const intervalId = setInterval(fetchChatsData, 10000);
+  return () => clearInterval(intervalId);
+}, []);
+
+// Удаляем AVATAR
+const omitAvatar = (sender: SenderI): SenderI => {
+  const { avatar, ...rest } = sender;
+  return rest;
+};
+// Проходимся по всем чатас и у каждого сендера удаляем аватарку
+const processChats = (chats: ChatI[]): ChatI[] => {
+  return chats.map(chat => ({
+    ...chat,
+    senders: chat.senders.map(omitAvatar)
+  }));
+};
+
+useEffect(() => {
+  if (chats && fetchedChats) {
+      const chatsWithoutAvatar = processChats(chats)
+      const fetchedChatsWithoutAvatar = processChats(fetchedChats)
+      const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
+      if (!checkChatsDifferent) {
+          dispatch(setChats(fetchedChats))
+      }
+  }
+},[chats, fetchedChats])
+// **************************************************************
+
 
   return (
     <>
+    
       <div className={styles.navbar_setting_account}>
                     {navlinkByRoles[role].map(({path, icon}, index: number) => (
                         <Tooltip title={(path === Path.Courses)? 'Курсы': (path === Path.CourseStats)? 'Ученики школы':
@@ -52,21 +117,19 @@ export const MobileNavbar = () => {
                         </Tooltip>
                     ))}
                     <Tooltip title={"Чаты"} arrow placement={'right'}>
-
-                        <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
-                            {/*<Badge badgeContent={unRead} color={Number(unRead) > 0 ? 'secondary' : "primary"}>*/}
-                            {/*    <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath}/>*/}
-                            {/*</Badge>*/}
-                            {Number(unRead) > 0 ? (
-                                  <Badge badgeContent={unRead} color="error">
-                                    <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath}/>
-                                  </Badge>
-                                ) : (
+                      <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
+                          {/*<Badge badgeContent={unRead} color={Number(unRead) > 0 ? 'secondary' : "primary"}>*/}
+                          {/*    <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath}/>*/}
+                          {/*</Badge>*/}
+                          {Number(unRead) > 0 ? (
+                                <Badge badgeContent={unRead} color="error">
                                   <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath}/>
-                            )}
-                        </div>
-                    </Tooltip>
-        
+                                </Badge>
+                              ) : (
+                                <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath}/>
+                          )}
+                      </div>
+                      </Tooltip>
 
       <NavLink to={Path.Profile} className={isActive}>
         <svg width="38" height="38" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,4 +157,4 @@ export const MobileNavbar = () => {
             )}
     </>
   )
-}
+})

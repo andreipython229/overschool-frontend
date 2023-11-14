@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation, useNavigate  } from 'react-router-dom'
+import { Route, Routes, generatePath, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 import { Path, Student, FooterPath } from 'enum/pathE'
@@ -11,11 +11,15 @@ import { StudentLessonPreview } from './MobilePages/StudentLessonPreview/'
 import { Profile } from 'Pages/Profile/Profile'
 import { ChooseSchool } from './MobilePages/MobileChooseSchool/ChooseSchool'
 import { useAppSelector } from 'store/hooks'
-import { selectUser } from 'selectors'
+import { selectUser,  authSelector, schoolNameSelector } from 'selectors'
 import { scrollToTop } from 'utils/scrollToTop'
 import { navByRolesConfig } from 'config'
 import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
-import { MainLayOut } from 'components/MainLayout/MainLayOut'
+
+import { RoleE } from 'enum/roleE'
+import { useSelector } from 'react-redux'
+
+
 
 
 
@@ -25,13 +29,27 @@ export const AppMobile = () => {
 
 
     const { role } = useAppSelector(selectUser)
+    const isLogin = useAppSelector(authSelector)
+    const schoolName = useSelector(schoolNameSelector)
   
     const navigate = useNavigate()
     const { pathname } = useLocation()
   
     useEffect(() => {
+      if (!isLogin && pathname !== Path.CreateSchool) {
+        navigate(Path.InitialPage)
+      }
+    }, [isLogin, navigate])
+
+
+    useEffect(() => {
       if (pathname === '/') {
         navigate(Path.InitialPage)
+      }
+      if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
+        navigate(
+          generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
+        )
       }
     }, [])
   

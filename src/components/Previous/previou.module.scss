@@ -10,6 +10,13 @@
   border-radius: 7px;
   overflow: hidden;
   margin-bottom: 25px;
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    margin-bottom: 3%;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    margin-bottom: 3%;
+  }
+
 
   &_loader {
     position: absolute;

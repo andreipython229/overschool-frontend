@@ -26,6 +26,20 @@ export const tariffPlanService = createApi({
   }),
 })
 
+export const tariffPlan = createApi({
+  reducerPath: 'tariffPlan',
+  baseQuery: baseQuery(),
+  tagTypes: ['tariffPlanInfo'],
+  endpoints: build => ({
+    fetchTariffPlanInfo: build.query<any, any>({
+      query: id => ({
+        url: `/schools_tariff/${id}`,
+      }),
+      providesTags: ['tariffPlanInfo'],
+    }),
+  }),
+})
+
 export const tariffService = createApi({
   reducerPath: 'tariffService',
   baseQuery: baseQueryFn(),
@@ -42,3 +56,4 @@ export const tariffService = createApi({
 
 export const { useFetchTariffPlanTableQuery } = tariffPlanService
 export const { useFetchCurrentTariffPlanQuery } = tariffService
+export const { useFetchTariffPlanInfoQuery} = tariffPlan

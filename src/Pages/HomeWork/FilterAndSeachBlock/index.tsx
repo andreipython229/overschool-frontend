@@ -44,6 +44,7 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
         <p>Входящие работы от учеников</p>
         <ChipsComponent filterKey="homework" filters={filters} chipsVal={chipsVal['homework']} />
         <div className={styles.container}>
+          <div className={styles.container_1}>
           <SelectDropDown dropdownData={initialDropDownList} onChangeStatus={onChangeStatus} />
           <FiltersButton
             filteringCategoriesList={dropDownListFilter}
@@ -53,6 +54,7 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
             removeLastActiveEndFilter={removeLastActiveEndFilter}
             {...restFilters}
           />
+          </div>
           <Input name="" type="search" value={termForFilter} onChange={handleChangeTerm} placeholder="Поиск по заданиям">
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>

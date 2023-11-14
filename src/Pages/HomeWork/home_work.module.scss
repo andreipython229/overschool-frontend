@@ -2,6 +2,24 @@
 .container {
   @include display(flex, row, space-between, center);
   margin-top: 10px;
+
+  &_1 {
+  @include display(flex, row, space-between, center);
+  margin-top: 10px;  
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding-bottom: 3%;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding-bottom: 3%;
+  }
+  }
+
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    flex-direction: column;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    flex-direction: column;
+  }
 }
 
 .pagination {

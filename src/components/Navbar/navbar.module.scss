@@ -10,6 +10,8 @@
   background: #ffffff;
   box-shadow: 0 0 5px #d9d9d9;
   padding: 25px 0;
+  
+  
 
   &_menu {
     cursor: pointer;
@@ -28,19 +30,21 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
+      width: 50%;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      align-items: center;
-      
+      align-items: center;  
+      width: 50%;    
     }
     @media only screen and (min-width: 481px) and (max-width: 1024px) {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
+      
     }
 
     & a {
