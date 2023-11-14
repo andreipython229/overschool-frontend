@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect, useState, } from 'react'
 
 import { FiltersButton } from '../FiltersButton'
 import { dropDownListFilterStudents } from '../../constants/dropDownList'
@@ -6,7 +6,7 @@ import { Input } from '../common/Input/Input/Input'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { Button } from '../common/Button/Button'
 import { AllStudentsBlockT } from '../../types/componentsTypes'
-import { useBoolean } from '../../customHooks'
+import {useBoolean, useDebouncedFilter} from '../../customHooks'
 import {searchIconPath, addStudentIconPath, updateArrPath} from './config/svgIconsPath'
 import { Portal } from '../Modal/Portal'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
@@ -33,6 +33,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     handleReloadTable,
     filters,
     filterKey,
+    updateStudents,
     ...restFilters
   }) => {
     const { data: courses } = useFetchCoursesQuery()
@@ -41,6 +42,12 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
 
     const { role } = useAppSelector(state => state.user)
     // const [term, filteredData, handleChangeTerm] = useDebouncedFilter()
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const onChangeInput = (value: string) => {
+            setSearchTerm(value)
+            updateStudents(value)
+    }
 
     return (
       <div>
@@ -58,7 +65,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             removeLastActiveEndFilter={removeLastActiveEndFilter}
             {...restFilters}
           />
-          <Input name="" type="search" value={''} onChange={() => console.log('заглушка')} placeholder="Поиск по курсам" style={{width: '100%'}}>
+          <Input name="" type="search" value={searchTerm} onChange={(e) => onChangeInput(e.target.value)} placeholder="Поиск по курсам" style={{width: '100%'}}>
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>
           <div className={styles.arrow_add_file_block} onClick={() => handleReloadTable && handleReloadTable()}>

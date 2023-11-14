@@ -35,10 +35,11 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
   removeLastActiveEndFilter,
   ...filters
 }) => {
+  const schoolId = localStorage.getItem('school_id')
   const { data } = useFetchCoursesQuery()
   const { data: homeworks } = useFetchLessonsQuery('homework')
   const { data: groups} = useFetchStudentsGroupQuery()
-  const { data: users } = useFetchStudentsDataPerSchoolQuery('School_1')
+  const { data: users } = useFetchStudentsDataPerSchoolQuery({id: schoolId})
   const firstNames = users?.map(user => ({ name: user.first_name }))
   const lastNames = users?.map(user => ({ name: user.last_name }))
 
