@@ -8,7 +8,6 @@ import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
-import {useDebouncedFilter} from "../../customHooks";
 
 export const StudentsPerCourse: FC = () => {
   const { course_id } = useParams()

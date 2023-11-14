@@ -11,7 +11,7 @@ import {useFetchLessonQuery, usePatchLessonsMutation} from '../../../api/modules
 
 import styles from '../Modal.module.scss'
 // import {classesType} from '../../../constants/other'
-// import {CheckboxBall} from "../../common/CheckboxBall";
+import {CheckboxBall} from "../../common/CheckboxBall";
 // import {PublishedMark} from "../../common/PublishedMark";
 
 export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, modulesList, lessonIdAndType}) => {
