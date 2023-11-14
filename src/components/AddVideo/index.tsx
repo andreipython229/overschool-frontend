@@ -71,7 +71,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
         id: lessonIdAndType.id,
         type: lessonIdAndType.type,
         formdata: formData,
-      })
+      }).unwrap().then((data) => lesson.video = 'video_url')
       setIsLoadingVideo(false)
       setShow()
     } catch (error) {
