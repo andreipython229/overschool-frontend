@@ -43,7 +43,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({students, 
 
     useEffect(() => {
         students && setRows(data)
-    }, [isLoading])
+    }, [isLoading, students])
 
     useEffect(() => {
         setCols(columns)

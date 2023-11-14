@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import {FC, useEffect, useMemo, useState} from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useLazyFetchCourseStatQuery } from '../../api/courseStat'
@@ -8,6 +8,7 @@ import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
+import {useDebouncedFilter} from "../../customHooks";
 
 export const StudentsPerCourse: FC = () => {
   const { course_id } = useParams()
@@ -56,6 +57,27 @@ export const StudentsPerCourse: FC = () => {
     }
   }, [isTablesHeaderFetching])
 
+  // Поиск по студентам курса
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const updateStudents = (value: string) => {
+      setSearchTerm(value)
+  }
+
+  // Фильтра для студентов курса
+  const filteredStudents = useMemo(() => {
+    if (!searchTerm) return data ?? [];
+
+    return (data ?? []).filter(student => {
+      return (
+        student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.group_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+  }, [searchTerm, data]);
+
   return (
     <>
       <AllStudentsBlock
@@ -75,8 +97,9 @@ export const StudentsPerCourse: FC = () => {
         startAvg={filters?.average_mark_min}
         endAvg={filters?.average_mark_max}
         filters={filters}
+        updateStudents={updateStudents}
       />
-      <StudentsTableWrapper students={data as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />
+      <StudentsTableWrapper students={filteredStudents as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />
     </>
   )
 }

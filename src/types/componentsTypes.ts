@@ -1,9 +1,10 @@
-import { FC, MouseEvent, ReactNode } from 'react'
+import {ChangeEvent, FC, MouseEvent, ReactNode} from 'react'
 
 import { statusFilterT } from 'types/statusFilterConfigType'
 import {CoursesDataT, CourseWithGroupsT, StGroupT} from 'types/CoursesT'
 import { commonLessonT, sectionT } from './sectionT'
 import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
+import {studentsTableInfoT} from "./courseStatT";
 
 export type setShowType = {
   setShow: () => void
@@ -52,6 +53,7 @@ export type AllStudentsBlockT = {
   removeLastActiveEndFilter?: () => void
   addLastActiveFilter?: (data1: string, data2: string) => void
   addMarkFilter?: (start_mark: string, end_mark: string) => void
+  updateStudents: (value: string) => void
 }
 
 export interface ICategories {
