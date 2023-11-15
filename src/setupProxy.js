@@ -22,12 +22,11 @@ module.exports = function (app) {
   app.use(
     '/video',
     createProxyMiddleware({
-      target: 'https://apidev.overschool.by',
+      target: 'http://45.135.234.137:8000',
       changeOrigin: false,
       secure: false,
-      
       onProxyReq(proxyReq, req, res) {
-        proxyReq.setHeader('origin', 'https://apidev.overschool.by')
+        proxyReq.setHeader('origin', 'http://45.135.234.137:8000')
       },
     }),
   )
