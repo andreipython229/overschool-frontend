@@ -3,21 +3,21 @@
 
 .wrapper {
   @media screen and (max-width: 1024px) {
-    overflow-x: scroll;   
+    overflow-x: scroll;
+    width: 100vw;
   }
 }
 
 .table {
   position: relative;
   overflow: hidden;
+  width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
   border: 0;
   box-shadow: 0 0 5px rgb(0 0 0 / 30%);
   background-color: #fff;
   border-radius: 7px;
-  max-width: 100%;
-  width: 100%;
   margin-top: 25px;
   min-height: 295px;
   &_head {
