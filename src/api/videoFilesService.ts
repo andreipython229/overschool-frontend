@@ -9,7 +9,7 @@ export const videoFilesService = createApi({
     uploadLessonVideo: build.mutation<void, { id: number; type: string; formdata: FormData }>({
       query: arg => {
         return {
-          url: `/${arg.type}s/${arg.id}/`,
+          url: `/${arg.type}_video/${arg.id}/`,
           method: 'PATCH',
           body: arg.formdata,
         }
