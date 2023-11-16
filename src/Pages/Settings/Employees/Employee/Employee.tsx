@@ -5,9 +5,8 @@ import {useBoolean} from 'customHooks'
 import {ReviewTeacherGroups} from 'components/Modal/index'
 import {Portal} from 'components/Modal/Portal'
 import {useRemoveUserAccessMutation} from 'api/userAccessService'
-
+import { userRoleName } from 'config/index'
 import styles from './employee.module.scss'
-import {checkCourseT} from "../../../../types/CoursesT";
 import {LimitModal} from "../../../../components/Modal/LimitModal/LimitModal";
 import {EmployeeT} from "../../../../types/userT";
 
@@ -47,7 +46,7 @@ export const Employee: FC<EmployeePropsT> = memo(({avatar, contact, role, name, 
                     </div>
                 </div>
                 <div className={styles.employee_user_roleBtn}>
-                    <div className={styles.employee_user_roleBtn_role}>{role}</div>
+                    <div className={styles.employee_user_roleBtn_role}>{userRoleName[role]}</div>
                     <div>
                         {role === "Teacher" &&
                         <button className={styles.employee_user_roleBtn_btn} onClick={off}>

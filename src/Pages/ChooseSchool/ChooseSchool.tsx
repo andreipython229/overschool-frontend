@@ -14,6 +14,7 @@ import {setSchoolId} from '../../store/redux/school/schoolIdSlice'
 import {setHeaderId} from '../../store/redux/school/headerIdSlice'
 import {useDispatch} from 'react-redux'
 import {useBoolean} from "../../customHooks";
+import { userRoleName } from 'config/index'
 import {Portal} from "../../components/Modal/Portal";
 import {AddSchoolModal} from "../../components/Modal/AddSchoolModal/AddSchoolModal";
 
@@ -26,7 +27,7 @@ export const ChooseSchool = () => {
     const [schools, setSchools] = useState<[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
-    const [isOpen, { off, on }] = useBoolean()
+    const [isOpen, {off, on}] = useBoolean()
 
     const dispatch = useDispatch()
 
@@ -42,6 +43,7 @@ export const ChooseSchool = () => {
         school_id: number
         name: string
         header_school: number
+        role: string
     }
 
     const handleSchool = async (school_id: number, school: string, header_id: number) => {
@@ -80,18 +82,22 @@ export const ChooseSchool = () => {
                                 to={`#`}
                             >
                                 <div className={styles.bg}>
-                                    <div className={styles.name}>{s.name}</div>
+                                    <div>
+                                        <div className={styles.name}>{s.name}</div>
+                                        <div className={styles.role}>{userRoleName[s.role]}</div>
+                                    </div>
                                     <span>→</span>
                                 </div>
                             </Link>
                         ))}
-                    <div style={{color: "blueviolet", textDecorationLine: "underline", marginLeft: 10, marginTop: 20}} onClick={off}>
-                    <span >Создать школу</span>
-                    </div>
+                        <div className={styles.create} onClick={off}>
+                            <span>Создать школу</span>
+                        </div>
                     </div>
                 )}
             </div>
-            {isOpen && <Portal closeModal={on}>{schools && <AddSchoolModal setShowModal={on} schools={schools}/>}</Portal>}
+            {isOpen &&
+                <Portal closeModal={on}>{schools && <AddSchoolModal setShowModal={on} schools={schools}/>}</Portal>}
             {/* <div className={styles.bg2}>
                 <div style={{marginRight: '1em', marginLeft: '1em'}}>
                     <img src={anton}/>

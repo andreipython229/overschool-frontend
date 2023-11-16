@@ -61,6 +61,10 @@
 .name {
   font-size: 23px;
 }
+.role {
+  color: #a2a9b4;
+}
+
 .bg {
   margin-top: 1.5em;
 
@@ -72,6 +76,9 @@
 
   &:hover {
     background-color: #a2a9b4;
+    .role {
+        color: #e9eaea;
+    }
   }
 
   display: flex;
@@ -83,6 +90,18 @@
   width: 19.5em;
   height: 4em;
 }
+
+.create {
+  color: blueviolet;
+  text-decoration-line: underline;
+  margin-left: 10px;
+  margin-top: 20px;
+  &:hover {
+    color: #a2a9b4;
+    cursor: pointer;
+  }
+}
+
 .main {
   background-color: #6b728f;
   display: flex;
