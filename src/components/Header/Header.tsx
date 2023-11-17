@@ -46,8 +46,11 @@ export const Header = memo(() => {
     const headerId = localStorage.getItem('header_id')
     const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
     const { data: profile, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
-    const { data: currentTariff, isSuccess: tariffSuccess } = useFetchCurrentTariffPlanQuery()
-    const { data: tariffPlan } = useFetchTariffPlanInfoQuery (currentTariff?.tariff)
+    // const { data: currentTariff2, isSuccess: tariffSuccess } = useFetchCurrentTariffPlanQuery()
+    const { data: tariffPlan, isSuccess: tariffSuccess } = useFetchCurrentTariffPlanQuery()
+    const [currentTariff, setCurrentTariff] = useState<ITariff>()
+    const { data: tariff } = useFetchTariffPlanInfoQuery (currentTariff?.tariff)
+    
     
 
     const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
@@ -88,12 +91,12 @@ export const Header = memo(() => {
         profileIsSuccess && setProfileData(profile[0])
     }, [profile])
 
-    // useEffect(() => {
-    //     if (tariffPlan && Object.keys(tariffPlan).length > 0) {
-    //         setCurrentTariff(tariffPlan)
-    //         dispatch(setTariff(tariffPlan))
-    //     }
-    // }, [tariffSuccess])
+    useEffect(() => {
+        if (tariffPlan && Object.keys(tariffPlan).length > 0) {
+             setCurrentTariff(tariffPlan)
+             dispatch(setTariff(tariffPlan))
+         }
+     }, [tariffSuccess])
            
         
     useEffect(() => {
@@ -170,6 +173,9 @@ export const Header = memo(() => {
     },[chats, fetchedChats])
     // **************************************************************    
    
+    console.log(tariff);
+    console.log(currentTariff);
+    
     
     
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -205,9 +211,9 @@ export const Header = memo(() => {
                     <p className={styles.tariffPlan_text}>{' Тариф '}
                         <span className={styles.tariffPlan_text_tariff}>{`"${currentTariff.tariff_name}"`}</span>
                         {currentTariff.days_left && <span style={{ color: '#BA75FF' }}>{` — ${currentTariff.days_left} дней`} </span>}<br/>
-                        <span>Курсов:</span><span style={{ color: '#BA75FF' }}>  {`${currentTariff.number_of_courses}/${tariffPlan?.number_of_courses || 'ꝏ'}`}</span><br/>
-                        <span>Учителей:</span><span style={{ color: '#BA75FF' }}> {`${currentTariff.staff}/${tariffPlan?.staff || 'ꝏ'}`}</span><br/>
-                        <span>Студентов:</span><span style={{ color: '#BA75FF' }}>  {`${currentTariff.students}/${tariffPlan?.students || 'ꝏ'}`}</span>
+                        <span>Курсов:</span><span style={{ color: '#BA75FF' }}>  {`${currentTariff.number_of_courses}/${tariff?.number_of_courses || 'ꝏ'}`}</span><br/>
+                        <span>Учителей:</span><span style={{ color: '#BA75FF' }}> {`${currentTariff.staff}/${tariff?.staff || 'ꝏ'}`}</span><br/>
+                        <span>Студентов:</span><span style={{ color: '#BA75FF' }}>  {`${currentTariff.students}/${tariff?.students || 'ꝏ'}`}</span>
                     </p>
                    
                 </a>}
