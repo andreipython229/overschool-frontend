@@ -1,10 +1,11 @@
 @import '../../scss/variable.scss';
 
 .wrapper {
+  width: 100%;
   @media screen and (max-width: 1024px) {
     overflow-x: scroll;
+    width: calc(100vw - 60px);
   }
-  width: 100vw;
 }
 
 .loader {
@@ -22,12 +23,13 @@
 
 .table {
   position: relative;
-  max-width: 100%;
+  overflow: hidden;
+  width: 100%;
   margin-top: 20px;
   border-radius: 7px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   color: #6b7484;
-  table-layout: fixed;
+  // table-layout: fixed;
 
   &_user {
     display: flex;
