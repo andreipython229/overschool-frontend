@@ -46,7 +46,6 @@ export const Header = memo(() => {
     const headerId = localStorage.getItem('header_id')
     const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
     const { data: profile, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
-    // const { data: currentTariff2, isSuccess: tariffSuccess } = useFetchCurrentTariffPlanQuery()
     const { data: tariffPlan, isSuccess: tariffSuccess } = useFetchCurrentTariffPlanQuery()
     const [currentTariff, setCurrentTariff] = useState<ITariff>()
     const { data: tariff } = useFetchTariffPlanInfoQuery (currentTariff?.tariff)
@@ -91,12 +90,12 @@ export const Header = memo(() => {
         profileIsSuccess && setProfileData(profile[0])
     }, [profile])
 
-    useEffect(() => {
-        if (tariffPlan && Object.keys(tariffPlan).length > 0) {
-             setCurrentTariff(tariffPlan)
-             dispatch(setTariff(tariffPlan))
-         }
-     }, [tariffSuccess])
+     useEffect(() => {
+         if (tariffPlan && Object.keys(tariffPlan).length > 0) {
+              setCurrentTariff(tariffPlan)
+              dispatch(setTariff(tariffPlan))
+          }
+      }, [tariffSuccess])
            
         
     useEffect(() => {
@@ -173,8 +172,6 @@ export const Header = memo(() => {
     },[chats, fetchedChats])
     // **************************************************************    
    
-    console.log(tariff);
-    console.log(currentTariff);
     
     
     
