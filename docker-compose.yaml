@@ -1,9 +1,5 @@
 version: '3.9'
 
-networks:
-  front:
-    external: false
-
 services:
   front:
     build: .
@@ -11,7 +7,7 @@ services:
     command: yarn start
     container_name: front
     networks:
-      - front
+      - traefik
 
   traefik:
     image: traefik:latest
@@ -20,16 +16,28 @@ services:
       - --providers.docker.exposedbydefault=false
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      - --certificatesresolvers.myresolver.acme.email=skrwgrwwgwwgewe@mail.ru
+      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
     ports:
       - 80:80
       - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.front.rule=Host(`overschool.by`)"
-      - "traefik.http.routers.front.entrypoints=web"
-      - "traefik.http.routers.front.service=front"
-      - "traefik.http.services.front.loadbalancer.server.port=3000"
-
+      - ./letsencrypt:/letsencrypt
+    networks:
+      - traefik
   
+  certbot:
+    image: certbot/certbot
+    command: certonly --webroot --webroot-path=/letsencrypt --email=skrwgrwwgwwgewe@mail.ru --agree-tos --no-eff-email --staging --force-renewal -d overschool.by
+    volumes:
+      - ./letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - front
+    networks:
+      - traefik
+
+networks:
+  traefik:
