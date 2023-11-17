@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 
 networks:
   front:
@@ -10,28 +10,26 @@ services:
     image: front
     command: yarn start
     container_name: front
-    ports:
-      - "3000:3000"
-
     networks:
       - front
 
-    labels:
-          - "traefik.enable=true"
-          - "traefik.http.routers.front.rule=Host(`overschool.by`)"
-          - "traefik.http.routers.front.entrypoints=web"
-          - "traefik.http.services.front.loadbalancer.server.port=3000"
-
   traefik:
-       image: traefik:latest
-       command:
-         - --providers.docker
-         - --providers.docker.exposedbydefault=false
-         - --entrypoints.web.address=:80
-         - --entrypoints.websecure.address=:443
-       ports:
-         - 80:80
-         - 443:443
-       volumes:
-         - /var/run/docker.sock:/var/run/docker.sock
+    image: traefik:latest
+    command:
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.front.rule=Host(`overschool.by`)"
+      - "traefik.http.routers.front.entrypoints=web"
+      - "traefik.http.routers.front.service=front"
+      - "traefik.http.services.front.loadbalancer.server.port=3000"
+
   
