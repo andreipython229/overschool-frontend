@@ -72,9 +72,7 @@ export const checkHomeworkStatusFilters = [
   },
 ]
 
-export const dropDownListFilter = [
-  { id: 22, title: 'Имя' }  ,
-  { id: 21, title: 'Фамилия' },
+export const dropDownListFilterHomework = [
   { id: 7, title: 'курсы' },
   { id: 8, title: 'группы' },
   { id: 9, title: 'задание' },
@@ -91,3 +89,25 @@ export const dropDownListFilterStudents = [
   { id: 16, title: 'Средний балл' },
   { id: 15, title: 'Последняя активность' },
 ]
+
+export const dropDownListFilterStudentsCourses = [
+  { id: 30, title: 'Имя' }  ,
+  { id: 29, title: 'Фамилия' },
+  { id: 18, title: 'группы' },
+  { id: 12, title: 'Суммарный балл' },
+  { id: 16, title: 'Средний балл' },
+  { id: 15, title: 'Последняя активность' },
+]
+
+export const dropDownListFilterStudentsGroups = [
+  { id: 38, title: 'Имя' }  ,
+  { id: 37, title: 'Фамилия' },
+  { id: 12, title: 'Суммарный балл' },
+  { id: 16, title: 'Средний балл' },
+  { id: 15, title: 'Последняя активность' },
+]
+
+
+
+
+

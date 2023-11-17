@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FC, memo } from 'react'
 
-import { initialDropDownList } from 'constants/dropDownList'
+import {dropDownListFilterHomework, initialDropDownList} from 'constants/dropDownList'
 import { SelectDropDown } from '../../../components/SelectDropDown/SelectDropDown'
 import { FiltersButton } from '../../../components/FiltersButton'
-import { dropDownListFilter } from '../../../constants/dropDownList'
+// import { dropDownListFilter } from '../../../constants/dropDownList'
 import { Input } from '../../../components/common/Input/Input/Input'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
@@ -47,7 +47,7 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
           <div className={styles.container_1}>
           <SelectDropDown dropdownData={initialDropDownList} onChangeStatus={onChangeStatus} />
           <FiltersButton
-            filteringCategoriesList={dropDownListFilter}
+            filteringCategoriesList={dropDownListFilterHomework}
             addLastActiveFilter={addLastActiveFilter}
             addMarkFilter={addMarkFilter}
             removeLastActiveStartFilter={removeLastActiveStartFilter}

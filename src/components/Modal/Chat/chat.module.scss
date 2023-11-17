@@ -195,27 +195,28 @@
   background: rgba(249, 250, 251);
   font-size: smaller;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 30%;
+    width: 80%;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    width: 30%;
+    width: 80%;
   }
 
   &_top {
     padding-top: 0.5rem;
     font-family: 'Inter', sans-serif;
     font-size: smaller;
+    
   }
   &_user {
     padding: 1.5rem 1.5rem 0 1.5rem;
     display: flex;
     align-items: center;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-      padding: 0 5% 0 0;
+      padding: 0 5% 0 5%;
       flex-direction: column;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
-      padding: 0 5% 0 0;
+      padding: 0 5% 0 5%;
       flex-direction: column;
     }
   }
