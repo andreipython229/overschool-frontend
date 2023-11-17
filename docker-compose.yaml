@@ -1,50 +1,10 @@
 version: '3.9'
 
 services:
-  # front:
-  #   build: .
-  #   image: front
-  #   command: yarn start
-  #   container_name: front
-  #   networks:
-  #     - traefik
-
-  traefik:
-    image: traefik:v2.10
-    command:
-      - --api.insecure=true
-      - --providers.docker
-      # - --providers.docker.exposedbydefault=false
-      # - --entrypoints.web.address=:80
-      # - --entrypoints.websecure.address=:443
-      # - --certificatesresolvers.myresolver.acme.tlschallenge=true
-      # - --certificatesresolvers.myresolver.acme.email=skrwgrwwgwwgewe@mail.ru
-      # - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+  front:
+    build: .
+    image: front
+    command: yarn start
+    container_name: front
     ports:
-      - 80:80
-      - 8080:8080
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      # - ./letsencrypt:/letsencrypt
-    networks:
-      - traefik
-  
-  # certbot:
-  #   image: certbot/certbot
-  #   command: certonly --webroot --webroot-path=/letsencrypt --email=skrwgrwwgwwgewe@mail.ru --agree-tos --no-eff-email --staging --force-renewal -d overschool.by
-  #   volumes:
-  #     - ./letsencrypt:/letsencrypt
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   depends_on:
-  #     - front
-  #   networks:
-  #     - traefik
-    
-    front:
-      image: traefik/front
-      labels:
-        - "traefik.http.routers.front.rule=Host(`front.docker.localhost`)"
-
-
-networks:
-  traefik:
+      - "80:3000"
