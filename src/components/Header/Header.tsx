@@ -196,7 +196,7 @@ export const Header = memo(() => {
 
     return (
         <header className={styles.header}>
-            <NavLink to={Path.Courses}>
+            <NavLink to={role === RoleE.Teacher? Path.CourseStats: Path.Courses}>
                 <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
             </NavLink>
             <div className={styles.header_block}>
@@ -216,7 +216,7 @@ export const Header = memo(() => {
                 </a>}
                 <React.Fragment>
                     <Tooltip title={'Аккаунт пользователя'}>
-                        <div style={{ textDecoration: 'none' }} onClick={handleClick}>
+                        <div style={{ textDecoration: 'none', cursor: 'pointer' }} onClick={handleClick}>
                             <div className={styles.header_block_user}>
                                 {profileData?.avatar ? (
                                     <img

@@ -34,7 +34,7 @@ export const AddNewStudents: FC<AddNewStudentsT> = ({
                 )}
             </div>
             <Input value={studentEmail} name={'email'} type={'text'} onChange={onChangeEmail(id)}
-                   placeholder={'Email ученика'}/>
+                   placeholder={'Email ученика'} required/>
         </div>
     )
 }
