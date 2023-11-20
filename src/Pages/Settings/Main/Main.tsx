@@ -5,6 +5,8 @@ import {Button} from 'components/common/Button/Button'
 import {Input} from 'components/common/Input/Input/Input'
 
 import styles from '../superAdmin.module.scss'
+import { useAppDispatch } from "store/hooks";
+import { setSchoolName } from "store/redux/school/schoolSlice";
 
 export const Main = memo(() => {
   const schoolId = localStorage.getItem("school_id")
@@ -19,7 +21,8 @@ export const Main = memo(() => {
   const [url, setUrl] = useState<string>('')
   const [isNewUrl, setIsNewUrl] = useState<boolean>(false)
   const [oldUrl, setOldUrl] = useState<string>('')
-
+  
+  const dispatch = useAppDispatch()
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,7 +60,7 @@ export const Main = memo(() => {
 
   const onChangeUrl = async () => {
     const formdata = new FormData()
-    formdata.append('name', oldName)
+    formdata.append('name', name)
     formdata.append('offer_url', url)
     setIsNewUrl(false)
     await updateDateSchoolName({ formdata, id: Number(schoolId) })
@@ -65,7 +68,7 @@ export const Main = memo(() => {
 
   useEffect(() => {
     if (isSuccess) {
-      localStorage.setItem("school", name)
+      dispatch(setSchoolName(name))
       navigate(`/school/${name}/settings`)
     }
   },[isSuccess])
@@ -75,7 +78,7 @@ export const Main = memo(() => {
       <div className={styles.main}>
         <div className={styles.main_title}>Основные настройки школы</div>
         <div className={styles.main_project}>Название школы</div>
-        <div className={styles.main_description} style={{color: 'red', padding: '0px', lineHeight: '1.5', fontSize: '12px'}}>
+        <div className={styles.main_description} style={{color: 'red', padding: '0px', lineHeight: '1.5', opacity: '0.6', fontWeight: 'bold', fontSize: '12px'}}>
           Название будет подставляться в url адресах относящихся к вашей школе.<br/>
           Имейте ввиду, если вы делились с кем либо url ссылками на вашу школу - то после изменения по старым url адресам она будет не доступна!!!<br />
           Частая смена не рекомендуется!!!</div>

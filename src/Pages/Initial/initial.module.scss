@@ -186,6 +186,8 @@
 
 .header_block {
   @include display(flex);
+  justify-content: center;
+  align-items: center;
 
   &_logIn {
     margin-right: 15px;
@@ -196,20 +198,31 @@
     animation: account 0.2s ease-in-out;
   }
 
+  &_name {
+    margin-right: 15em;
+    p {
+      text-align: center;
+      font-size: 16px;
+      font-style: italic;
+      font-weight: 800;
+      color: #ba75ff;
+    }
+  }
+
   &_logOut {
-    width: 25px;
-    height: 25px;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
 
     &:hover {
-      background-color: rgba(230, 230, 230, 0.5);
-      border-radius: 7px;
+      background-color: rgba(205, 205, 205, 0.5);
+      border-radius: 10px;
     }
 
     cursor: pointer;
-    margin-right: 16px;
+    margin-right: 0px;
   }
 }
 

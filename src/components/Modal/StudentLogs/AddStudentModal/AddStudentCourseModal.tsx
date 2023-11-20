@@ -19,6 +19,8 @@ import {useAddUserAccessMutation} from 'api/userAccessService'
 import {Portal} from "../../Portal";
 import {LimitModal} from "../../LimitModal/LimitModal";
 import {useBoolean} from "../../../../customHooks";
+import { validateEmail } from 'utils/validateEmail'
+import { eventNames } from 'process'
 
 type studentT = {
     id: number
@@ -44,6 +46,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({setShowModal, course
     ])
     const [isOpenLimitModal, {onToggle}] = useBoolean()
     const [message, setMessage] = useState<string>('')
+    const [error, setError] = useState<string>('')
 
     useEffect(() => {
         if (isSuccess && groups) {
@@ -52,6 +55,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({setShowModal, course
     }, [isSuccess])
 
     const handleInputEmail = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
+        setError('')
         const checkedStudent = students.map(student => {
             if (student.id === id) {
                 return {
@@ -99,12 +103,30 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({setShowModal, course
                         await setShowModal()
                         await window.location.reload()
                     }).catch((error) => {
-                        setMessage(error.data)
+                        setMessage(error.data.emails)
                         onToggle()
                     })
                 }
             })
         })
+    }
+
+    const handleSubmitForm = () => {
+        const validatedStudents: { id: number; email: string }[] = []
+        students.forEach(student => {
+            if (student.email && validateEmail(student.email)) {
+                validatedStudents.push({'id': student.id, 'email': student.email})
+            } else if (!student.email || student.email.length === 0) {
+                setError('Поле email должно быть заполнено')
+            } else {
+                setError('Проверьте правильность введенной электронной почты')
+            }
+        })
+        if (validatedStudents && selectedGroup && validatedStudents.length === students.length) {
+            handleSendPermissions()
+        } else if (!selectedGroup) {
+            setError('Выберите группу')
+        }
     }
 
     if (isFetching) {
@@ -113,7 +135,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({setShowModal, course
 
     return (
         <>
-            <form noValidate className={styles.container}>
+            <form className={styles.container}>
                 <div onClick={handleClose} className={styles.container_closed}>
                     <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath}/>
                 </div>
@@ -137,6 +159,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({setShowModal, course
                             setSelectedValue={setSelectedGroup}
                         />
                     </div>}
+                    {error && <p style={{textAlign: 'center', color: 'red', opacity: '0.9', padding: '0.5em'}}>{error}</p>}
 
                     {students.map((student, index: number) => (
                         <AddNewStudents
@@ -154,10 +177,10 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({setShowModal, course
                         <Button
                             type={'button'}
                             style={{width: '474px'}}
+                            onClick={handleSubmitForm}
                             variant={studentLoading || !students[0].email || studentError ? 'disabled' : 'primary'}
                             text={studentLoading ? <SimpleLoader style={{width: '25px', height: '25px'}}
                                                                  loaderColor="#ffff"/> : 'Отправить приглашение'}
-                            onClick={handleSendPermissions}
                             disabled={studentLoading || !students[0].email || studentError}
                         />
                     </div>
