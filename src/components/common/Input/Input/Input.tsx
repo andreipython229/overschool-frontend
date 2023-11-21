@@ -4,7 +4,7 @@ import { InputPropsT } from '../../../../types/commonComponentsTypes'
 import styles from './input.module.scss'
 
 export const Input: FC<InputPropsT> = memo(props => {
-  const { children, label, type, id, name, onChange, value, placeholder, style, focus, ...rest } = props
+  const { children, label, type, id, name, onChange, value, placeholder, style, focus, required, ...rest } = props
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export const Input: FC<InputPropsT> = memo(props => {
         <input
           {...rest}
           ref={inputRef}
-          required
+          required={!required? required: true}
           id={id}
           name={name}
           type={type}

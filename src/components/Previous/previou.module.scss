@@ -95,7 +95,7 @@
       @include display(flex, column);
       &_description {
         @include font(500, 14px, 10px);
-        color: #ba75ff;
+        color: #bdbdbd;
         font-size: 16px;
         margin-bottom: 2px;
         strong {
@@ -104,10 +104,11 @@
       }
 
       &_name {
-        @include font(500, 20px, 17px);
-        color: #bdbdbd;
+        @include font(500, 28px, 17px);
+        color: #ba75ff;
+        margin-top: 0.1em;
         strong {
-          font-weight: 600;
+          font-weight: 700;
         }
       }
 
