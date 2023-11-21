@@ -79,7 +79,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
                 <div className={styles.addGroup_input}>
                     <span>Введите название группы:</span>
                     <Input name={'group'} type={'text'} value={groupName} onChange={onChangeGroupName}/>
-                    <span>Выбирите учителя из списка:</span>
+                    <span>Выберите учителя из списка:</span>
                     <Select
                         required
                         onChange={handleTeacher}
