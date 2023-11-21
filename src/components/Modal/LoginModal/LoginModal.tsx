@@ -128,7 +128,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
                     />
                     {/* <AuthSelect getInputVariant={getInputVariant}/> */}
                   </div>
-                  <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин')}</div>
+                  <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин или пароль')}</div>
                 </div>
                 <InputAuth
                   name={'password'}
