@@ -177,9 +177,15 @@ export const Header = memo(() => {
     
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
+    const open2 = Boolean(anchorEl2);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
+    const handleClick2 = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl2(event.currentTarget);
+    };
+
     const goToProfile = () => {
         navigate(Path.Profile)
         setAnchorEl(null);
@@ -194,27 +200,62 @@ export const Header = memo(() => {
         setAnchorEl(null);
     };
 
+  
+    const goToChooseTariff = () => {
+        navigate(Path.TariffPlans)
+        setAnchorEl2(null);
+    };
+
+    const handleClose2 = () => {
+        setAnchorEl2(null);
+    };
+
     return (
         <header className={styles.header}>
             <NavLink to={role === RoleE.Teacher? Path.CourseStats: Path.Courses}>
                 <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
             </NavLink>
             <div className={styles.header_block}>
-                {(role === RoleE.Admin && currentTariff) && <a className={styles.tariffPlan} href={`${generatePath(Path.School + Path.TariffPlans,
-                    { school_name: localStorage.getItem('school') || window.location.href.split('/')[4] })}`}>
+                <React.Fragment>
+                {(role === RoleE.Admin && currentTariff) && <div>
+                <Tooltip title={'Статистика тарифа'}>
+                        <div style={{ textDecoration: 'none' }} onClick={handleClick2}>
+                        <a className={styles.tariffPlan}>
                     <div className={styles.tariffPlan_icon}>
                         <IconSvg width={23} height={19} viewBoxSize="0 0 23 19" path={purpleTariffPlanIconPath} />
                     </div>
                     <p className={styles.tariffPlan_text}>{' Тариф '}
                         <span className={styles.tariffPlan_text_tariff}>{`"${currentTariff.tariff_name}"`}</span>
                         {currentTariff.days_left && <span style={{ color: '#BA75FF' }}>{` — ${currentTariff.days_left} дней`} </span>}<br/>
-                        <span>Курсов:</span><span style={{ color: '#BA75FF' }}>  {`${currentTariff.number_of_courses}/${tariff?.number_of_courses || 'ꝏ'}`}</span><br/>
-                        <span>Учителей:</span><span style={{ color: '#BA75FF' }}> {`${currentTariff.staff}/${tariff?.staff || 'ꝏ'}`}</span><br/>
-                        <span>Студентов:</span><span style={{ color: '#BA75FF' }}>  {`${currentTariff.students}/${tariff?.students || 'ꝏ'}`}</span>
                     </p>
                    
-                </a>}
-                <React.Fragment>
+                </a>
+                        </div>
+                    </Tooltip>
+                    <Menu anchorEl={anchorEl2}
+                        id="account-menu" open={open2}
+                        onClose={handleClose2} onClick={handleClose2}
+                    >    
+                    <MenuItem>
+                            <span style={{ color: 'slategrey' }}> Курсов:</span><span style={{ color: '#BA75FF' }}>  {`${currentTariff?.number_of_courses}/${tariff?.number_of_courses || 'ꝏ'}`}</span><br/>
+                        </MenuItem>
+                        <MenuItem>
+                            <span style={{ color: 'slategrey' }}> Учителей:</span><span style={{ color: '#BA75FF' }}> {`${currentTariff?.staff}/${tariff?.staff || 'ꝏ'}`}</span><br/>
+                        </MenuItem>
+                        <MenuItem>
+                            <span style={{ color: 'slategrey' }}> Студентов:</span><span style={{ color: '#BA75FF' }}>  {`${currentTariff?.students}/${tariff?.students || 'ꝏ'}`}</span>
+                        </MenuItem>
+                        <MenuItem onClick={goToChooseTariff}>
+                            <SvgIcon width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#708090" strokeWidth="2" 
+                            strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                            </SvgIcon>
+                            <Link to={Path.TariffPlans} style={{ color: 'slategrey' }}>Все тарифы</Link>
+                        </MenuItem>
+                    </Menu>
+                    </div>}
+                    </React.Fragment>
+                    <React.Fragment>
                     <Tooltip title={'Аккаунт пользователя'}>
                         <div style={{ textDecoration: 'none', cursor: 'pointer' }} onClick={handleClick}>
                             <div className={styles.header_block_user}>
@@ -246,34 +287,7 @@ export const Header = memo(() => {
                     <Menu anchorEl={anchorEl}
                         id="account-menu" open={open}
                         onClose={handleClose} onClick={handleClose}
-                        PaperProps={{
-                            elevation: 0,
-                            sx: {
-                                overflow: 'visible',
-                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                mt: 1.5,
-                                '& .MuiAvatar-root': {
-                                    width: 32,
-                                    height: 32,
-                                    ml: -0.5,
-                                    mr: 1,
-                                },
-                                '&:before': {
-                                    content: '""',
-                                    display: 'block',
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 14,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: 'background.paper',
-                                    transform: 'translateY(-50%) rotate(45deg)',
-                                    zIndex: 0,
-                                },
-                            },
-                        }}
-                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                       
                     >
                         <MenuItem onClick={goToProfile}>
                             <Avatar />
