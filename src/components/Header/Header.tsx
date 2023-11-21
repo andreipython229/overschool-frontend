@@ -220,7 +220,7 @@ export const Header = memo(() => {
                 {(role === RoleE.Admin && currentTariff) && <div>
                 <Tooltip title={'Статистика тарифа'}>
                         <div style={{ textDecoration: 'none' }} onClick={handleClick2}>
-                        {(role === RoleE.Admin && currentTariff) && <a className={styles.tariffPlan}>
+                        <a className={styles.tariffPlan}>
                     <div className={styles.tariffPlan_icon}>
                         <IconSvg width={23} height={19} viewBoxSize="0 0 23 19" path={purpleTariffPlanIconPath} />
                     </div>
@@ -229,7 +229,7 @@ export const Header = memo(() => {
                         {currentTariff.days_left && <span style={{ color: '#BA75FF' }}>{` — ${currentTariff.days_left} дней`} </span>}<br/>
                     </p>
                    
-                </a>}
+                </a>
                         </div>
                     </Tooltip>
                     <Menu anchorEl={anchorEl2}
@@ -254,6 +254,8 @@ export const Header = memo(() => {
                         </MenuItem>
                     </Menu>
                     </div>}
+                    </React.Fragment>
+                    <React.Fragment>
                     <Tooltip title={'Аккаунт пользователя'}>
                         <div style={{ textDecoration: 'none' }} onClick={handleClick}>
                             <div className={styles.header_block_user}>
