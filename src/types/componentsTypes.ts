@@ -9,6 +9,7 @@ import {studentsTableInfoT} from "./courseStatT";
 export type setShowType = {
   setShow: () => void
   setDescriptionLesson?: (arg: string) => void
+  passStatus?: string
 }
 
 type argT = {

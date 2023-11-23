@@ -26,3 +26,13 @@
         }
     }
 }
+
+button {
+    align-self: flex-start;
+    margin-top: 32px;
+
+}
+
+button:disabled {
+    opacity: 0.5;
+}
