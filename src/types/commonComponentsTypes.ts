@@ -74,6 +74,7 @@ export type InputPropsT = DefaultInputPropsType & {
   onClick?: () => void
   onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void
   onBlur?: (e: FocusEvent) => void
+  required?: boolean
 }
 export type InputBlockT = {
   id?: string
