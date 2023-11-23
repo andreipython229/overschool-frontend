@@ -1,14 +1,28 @@
 import { Button } from 'components/common/Button/Button'
 import styles from './studentTestPreview.module.scss'
-import { FC } from 'react'
+import {FC, useEffect, useState} from 'react'
 
 import { setShowType } from '../../../../types/componentsTypes'
 
-export const StudentTestPreview: FC<setShowType> = ({ setShow }) => {
+export const StudentTestPreview: FC<setShowType> = ({ passStatus, setShow }) => {
+    const [title, setTitle] = useState<string>("Тестирование для оценки усвоения материала :) Удачи! )")
+    const [nameButton, setNameButton] = useState<string>("Приступить к тесту")
+
+    useEffect(() => {
+        if (passStatus === "passed") {
+            setTitle("Тест пройден!")
+            setNameButton("")
+        }
+        if (passStatus === "not_passed") {
+            setTitle("Тест не пройден!")
+            setNameButton("Пройти заново")
+        }
+    }, [passStatus])
+
   return (
     <div className={styles.wrapper}>
-      <h5 className={styles.wrapper_title}>Тестирование для оценки усвоения материала материала :) Удачи! )</h5>
-      <Button text={'Приступить к тесту'} variant="primary" onClick={setShow} />
+      <h5 className={styles.wrapper_title}>{title}</h5>
+        {nameButton && <Button text={nameButton} variant="primary" onClick={setShow} />}
     </div>
   )
 }
