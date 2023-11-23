@@ -58,6 +58,10 @@ export const Header = memo(() => {
 
   const [profileData, setProfileData] = useState<profileT>()
   const [logotype, setLogo] = useState<string | undefined>('')
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
+  const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
+  const open2 = Boolean(anchorEl2)
 
   const logOut = async () => {
     await logout()
@@ -168,10 +172,6 @@ export const Header = memo(() => {
   }, [chats, fetchedChats])
   // **************************************************************
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
-  const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
-  const open2 = Boolean(anchorEl2)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -227,17 +227,19 @@ export const Header = memo(() => {
               <Menu anchorEl={anchorEl2} id="account-menu" open={open2} onClose={handleClose2} onClick={handleClose2}>
                 <MenuItem>
                   <span style={{ color: 'slategrey' }}> Курсов:</span>
-                  <span style={{ color: '#BA75FF' }}> {`${currentTariff?.number_of_courses}/${tariff?.number_of_courses || 'ꝏ'}`}</span>
+                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}>
+                    {`${currentTariff?.number_of_courses}/${tariff?.number_of_courses || 'ꝏ'}`}
+                  </span>
                   <br />
                 </MenuItem>
                 <MenuItem>
-                  <span style={{ color: 'slategrey' }}> Учителей:</span>
-                  <span style={{ color: '#BA75FF' }}> {`${currentTariff?.staff}/${tariff?.staff || 'ꝏ'}`}</span>
+                  <span style={{ color: 'slategrey' }}> Сотрудников:</span>
+                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}> {`${currentTariff?.staff}/${tariff?.number_of_staff || 'ꝏ'}`}</span>
                   <br />
                 </MenuItem>
                 <MenuItem>
                   <span style={{ color: 'slategrey' }}> Студентов:</span>
-                  <span style={{ color: '#BA75FF' }}> {`${currentTariff?.students}/${tariff?.students || 'ꝏ'}`}</span>
+                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}> {`${currentTariff?.students}/${tariff?.total_students || 'ꝏ'}`}</span>
                 </MenuItem>
                 <MenuItem onClick={goToChooseTariff}>
                   <SvgIcon
@@ -254,7 +256,7 @@ export const Header = memo(() => {
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <line x1="3" y1="18" x2="21" y2="18"></line>
                   </SvgIcon>
-                  <Link to={Path.TariffPlans} style={{ color: 'slategrey', paddingLeft: '0.4em' }}>
+                  <Link to={Path.TariffPlans} style={{ color: 'slategrey', paddingLeft: '0.5rem' }}>
                     Все тарифы
                   </Link>
                 </MenuItem>
