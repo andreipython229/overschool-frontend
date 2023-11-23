@@ -885,3 +885,104 @@
   font-style: normal;
   color: #4d5766;
 }
+
+.main_school {
+  @include position_t_l(absolute, 50%, 50%, 10);
+  @include display(flex, column);
+  width: 558px;
+  background: $color-white;
+  font-family: 'Manrope', sans-serif;
+  margin: 0 auto;
+  border-radius: 7px;
+  transform: translate(-50%, -50%);
+
+  &_container {
+    margin: 36px 31px 30px 31px;
+  }
+
+  &_closedModal {
+    @include position_t_r(absolute, 17px, 16px);
+    background: #f1f1f1;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e0dced;
+
+    &:hover {
+      color: #4d5766;
+      transition: color 0.3s;
+    }
+  }
+
+  &_title {
+    @include font(500, 18px, 22px);
+    letter-spacing: 0.03em;
+    color: #4d5766;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  &_name {
+    margin-top: 32px;
+
+    & label {
+      color: #4d5766;
+      font-size: 16px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    &_input {
+      padding: 11px 0 12px 20px;
+      border: 1px solid #e5e7eb;
+      border-radius: 5px;
+      text-overflow: ellipsis;
+    }
+
+    & input {
+      border: none;
+      outline: none;
+
+      &::placeholder {
+        color: #d4d7dd;
+      }
+    }
+  }
+
+  &_btn {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    align-items: stretch;
+    gap: 15px;
+    justify-content: center;
+
+    & button {
+      padding: 10px 20px;
+    }
+  }
+
+  //&_course {
+  //  @include display(flex, column);
+  //  font-weight: 400;
+  //  margin-top: 25px;
+  //
+  //  &_title {
+  //    @include font(400, 14px);
+  //    margin-bottom: 8px;
+  //    color: $font-title;
+  //  }
+  //
+  //  &_checkbox {
+  //    @include display(flex, row, flex-start, center);
+  //    margin-bottom: 8px;
+  //    color: $font-title;
+  //    font-size: 14px;
+  //  }
+  //}
+}
+

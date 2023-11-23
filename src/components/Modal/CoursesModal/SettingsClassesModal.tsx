@@ -7,12 +7,12 @@ import {settingsClassesIconPath} from './config/svgIconsPath'
 import {crossIconPath} from '../../../config/commonSvgIconsPath'
 import {SettingsClassesModalPropT} from '../ModalTypes'
 import {useFetchLessonQuery, usePatchLessonsMutation} from '../../../api/modulesServices'
-import {patchData} from '../../../utils/patchData'
+// import {patchData} from '../../../utils/patchData'
 
 import styles from '../Modal.module.scss'
-import {classesType} from '../../../constants/other'
+// import {classesType} from '../../../constants/other'
 import {CheckboxBall} from "../../common/CheckboxBall";
-import {PublishedMark} from "../../common/PublishedMark";
+// import {PublishedMark} from "../../common/PublishedMark";
 
 export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, modulesList, lessonIdAndType}) => {
     const [isPublished, setIsPublished] = useState(false);

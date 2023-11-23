@@ -5,3 +5,4 @@ export const headerUserRoleName: { [key: string]: string } = {
   [RoleE.Student]: 'Ученик',
   [RoleE.Teacher]: 'Преподаватель',
 }
+

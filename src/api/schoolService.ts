@@ -26,7 +26,16 @@ export const schoolService = createApi({
       }),
       invalidatesTags: ['school'],
     }),
+    createSchool: build.mutation<schoolT, FormData>({
+      query: formdata => ({
+        url: `/schools/`,
+        method: 'POST',
+        body: formdata,
+        responseHandler: response => response.text()
+      }),
+      invalidatesTags: ['school'],
+    }),
   }),
 })
 
-export const { useFetchSchoolQuery, useSetSchoolMutation, } = schoolService
+export const { useFetchSchoolQuery, useSetSchoolMutation, useCreateSchoolMutation} = schoolService

@@ -36,7 +36,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [addTextFiles] = usePostTextFilesMutation()
   const [saveChanges, { isLoading: isSaving, isSuccess: isCompleted }] = usePatchLessonsMutation()
   const [deleteFile, { isLoading: isDeleting }] = useDeleteTextFilesMutation()
-  const [deleteAudio, {isLoading: isAudioDeleting}] = useDeleteAudioFilesMutation()
+  const [deleteAudio, { isLoading: isAudioDeleting }] = useDeleteAudioFilesMutation()
 
   const [lesson, setLesson] = useState(data as commonLessonT)
   const [renderFiles, setRenderFiles] = useState<IFile[]>([])
@@ -46,15 +46,22 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     if (data) {
       setIsPublished(data.active)
     }
-
   }, [data])
 
   useEffect(() => {
-    if (lesson && lesson.type !== 'test') {
+    if (lesson && lesson.type !== 'test' && lesson.text_files) {
       setRenderFiles(lesson.text_files)
+    } else if (lesson && lesson.type !== 'test' && !lesson.text_files) {
+      setRenderFiles([])
     }
+
     if (lesson) {
-      console.log(lesson.video)
+      if ('description' in lesson && lesson.description) {
+        setLessonDescription(lesson.description)
+      } else {
+        setLessonDescription('')
+      }
+
       if (('video' in lesson && lesson.video) || ('url' in lesson && lesson.url)) {
         setLessonVideo(true)
       }
@@ -141,14 +148,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
     }
     if (video && video === lesson.video) {
-      console.log(lesson.video)
       const formData = new FormData()
       formData.append('section', String(lesson.section))
       formData.append('order', String(lesson.order))
       formData.append('active', String(isPublished))
       formData.append('video_use', String(true))
       await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
-      console.log(formData.get('video_use'))
     }
   }
 
@@ -281,15 +286,14 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                         lessonId={lesson.baselesson_ptr_id}
                       />
                     </div>
-                  ))
-                }
+                  ))}
                 {'description' in lesson && lesson.description ? (
                   <NewTextEditor text={lesson.description} setLessonDescription={setLessonDescription} />
                 ) : (
                   <NewTextEditor text={lessonDescription} setLessonDescription={setLessonDescription} />
                 )}
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
-                  <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} deleteAudio={handleDeleteAudioFile}/>
+                  <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} deleteAudio={handleDeleteAudioFile} />
                 </div>
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
 
@@ -309,7 +313,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
                 {urlFiles?.map(({ url, name }, index: number) => (
                   <UploadedFile
-                  isHw={true}
+                    isHw={true}
                     key={index}
                     index={index}
                     file={url}

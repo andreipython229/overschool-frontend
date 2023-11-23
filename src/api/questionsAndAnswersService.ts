@@ -18,7 +18,7 @@ type returnQuestionT = {
 export const questionsAndAnswersService = createApi({
   reducerPath: 'questionsAndAnswersService',
   baseQuery: baseQueryFn(),
-  tagTypes: ['questions', 'answers'],
+  tagTypes: ['questions', 'answers', 'usertests'],
   endpoints: build => ({
     fetchQuestionsList: build.query({
       query: id => ({
@@ -92,6 +92,13 @@ export const questionsAndAnswersService = createApi({
       },
       invalidatesTags: ['answers'],
     }),
+    getUserTestsByTest: build.mutation({
+      query: id => {
+        return {
+          url: `/tests/${id}/usertests/`,
+        }
+      },
+    }),
   }),
 })
 
@@ -103,4 +110,5 @@ export const {
   useAddAnswerMutation,
   usePatchAnswerMutation,
   useDeleteAnswerMutation,
+  useGetUserTestsByTestMutation
 } = questionsAndAnswersService

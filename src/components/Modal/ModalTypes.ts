@@ -113,3 +113,8 @@ export type LimitModalPropsT = {
   message: string
   setShowMainModal?: () => void
 }
+
+export type AddSchoolModalPropsT = {
+  schools: any[]
+  setShowModal: () => void
+}

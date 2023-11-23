@@ -2,6 +2,7 @@
 @import '../../../../scss/variable.scss';
 
 .wrapper {
+    min-width: 700px;
     overflow: hidden;
     &_title {
         margin: 26px 0 20px 0;

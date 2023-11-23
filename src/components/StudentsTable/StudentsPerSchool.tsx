@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, useMemo } from 'react'
 
 import { StudentsTableWrapper } from 'components/StudentsTableWrapper'
 import { studentsTableInfoT } from 'types/courseStatT'
@@ -52,6 +52,28 @@ export const StudentsPerSchool: FC = () => {
     }
   }, [isTablesHeaderFetching])
 
+  // Поиск по студентам школы
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const updateStudents = (value: string) => {
+      setSearchTerm(value)
+  }
+
+  // Филтра для всех студентов
+  const filteredStudents = useMemo(() => {
+    if (!searchTerm) return data ?? [];
+
+    return (data ?? []).filter(student => {
+      return (
+        student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.course_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.group_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+  }, [searchTerm, data]);
+
   return (
     <>
       <AllStudentsBlock
@@ -71,8 +93,9 @@ export const StudentsPerSchool: FC = () => {
         startAvg={filters?.average_mark_min}
         endAvg={filters?.average_mark_max}
         filters={filters}
+        updateStudents={updateStudents}
       />
-      <StudentsTableWrapper students={data as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />
+      <StudentsTableWrapper students={filteredStudents as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />
     </>
   )
 }

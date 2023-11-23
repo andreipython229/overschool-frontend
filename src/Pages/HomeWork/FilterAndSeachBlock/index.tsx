@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FC, memo } from 'react'
 
-import { initialDropDownList } from 'constants/dropDownList'
+import {dropDownListFilterHomework, initialDropDownList} from 'constants/dropDownList'
 import { SelectDropDown } from '../../../components/SelectDropDown/SelectDropDown'
 import { FiltersButton } from '../../../components/FiltersButton'
-import { dropDownListFilter } from '../../../constants/dropDownList'
+// import { dropDownListFilter } from '../../../constants/dropDownList'
 import { Input } from '../../../components/common/Input/Input/Input'
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
@@ -44,15 +44,17 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
         <p className={styles.homework_header}>Входящие работы от учеников</p>
         <ChipsComponent filterKey="homework" filters={filters} chipsVal={chipsVal['homework']} />
         <div className={styles.container}>
+          <div className={styles.container_1}>
           <SelectDropDown dropdownData={initialDropDownList} onChangeStatus={onChangeStatus} />
           <FiltersButton
-            filteringCategoriesList={dropDownListFilter}
+            filteringCategoriesList={dropDownListFilterHomework}
             addLastActiveFilter={addLastActiveFilter}
             addMarkFilter={addMarkFilter}
             removeLastActiveStartFilter={removeLastActiveStartFilter}
             removeLastActiveEndFilter={removeLastActiveEndFilter}
             {...restFilters}
           />
+          </div>
           <Input name="" type="search" value={termForFilter} onChange={handleChangeTerm} placeholder="Поиск по заданиям">
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>

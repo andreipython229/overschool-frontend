@@ -47,5 +47,10 @@ export interface UserProfileT {
 export interface ITariff {
   tariff_name: string
   days_left: number | null
+  staff: number | null
+  students: number | null
+  number_of_courses: number | null
+  tariff: number | null
+
 }
 

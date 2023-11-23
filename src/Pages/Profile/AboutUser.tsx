@@ -144,12 +144,13 @@ export const AboutUser: FC = memo(() => {
                     onChange={handleChange}
                     value={phone_number as string}
                     placeholder={'Введите номер телефона'}
+                    required={false}
                 />
                 {/* {errors.phone_number} */}
             </div>
             <div className={styles.profile_block}>
                 <Input name={'city'} type={'text'} label={'Город:'} onChange={handleChange} value={city as string}
-                       placeholder={'Введите город'}/>
+                       placeholder={'Введите город'} required={false}/>
             </div>
             {/* <div className={styles.profile_block}>
                 <span className={styles.profile_block_avatarBlock_title}>О себе:</span>

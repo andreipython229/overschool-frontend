@@ -28,6 +28,17 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
   //   }
   // }, [chats])
 
+  
+    const [isHidden, setIsHidden] = useState(true);
+    const closeChatList = () => {
+      if (screenWidth < 1025) {
+        setIsHidden(!isHidden)
+      }
+    }
+    
+    const screenWidth = window.screen.width
+
+
     useEffect(() => {
         return () => {
           if (chatId) {
@@ -37,24 +48,32 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
     }, [])
 
   return (
-    <div className={styles.chatPanel}>
-      <div className={styles.chatPanel_top}>
-        <div className={styles.chatPanel_user}>
-          <div className={styles.chatPanel_user_avatar}>
-              {userProfile?.avatar ? (
-              <img src={`${userProfile.avatar}`} alt="avatar" />
-            ) : (
-              `${userProfile?.first_name[0] || 'Б'}${userProfile?.last_name[0] || 'И'}`
-            )}
-          </div>
-            <div>
-                {/*style={{color: '#BA75FF'}}*/}
-                <div className={styles.chatPanel_user_avatar_userName_status}>{headerUserRoleName[role]}</div>
-                <p>{userProfile?.first_name || 'Без'} {userProfile?.last_name || 'Имени'}</p>
+     
+    
+      <div className={styles.chatPanel} onClick={closeChatList}>
+        <div className={styles.chatPanel_top}>
+          <div className={styles.chatPanel_user}>
+            <div className={styles.chatPanel_user_avatar}>
+                {userProfile?.avatar ? (
+                <img src={`${userProfile.avatar}`} alt="avatar" />
+              ) : (
+                `${userProfile?.first_name[0] || 'Б'}${userProfile?.last_name[0] || 'И'}`
+              )}
             </div>
+              <div>
+                  {/*style={{color: '#BA75FF'}}*/}
+                  <div className={styles.chatPanel_user_avatar_userName_status}>{headerUserRoleName[role]}</div>
+                  <p>{userProfile?.first_name || 'Без'} {userProfile?.last_name || 'Имени'}</p>
+              </div>
+          </div>
         </div>
+        { isHidden && 
+        <ChatsList chats={chats}/>
+        }
+        
       </div>
-      <ChatsList chats={chats} />
-    </div>
-  )
+    
+    
+    )
+            
 }
