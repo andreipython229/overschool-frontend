@@ -9,7 +9,7 @@ import styles from '../superAdmin.module.scss'
 export const Main = memo(() => {
   const schoolId = localStorage.getItem("school_id")
 
-  const {data } = useFetchSchoolQuery(Number(schoolId))
+  const { data } = useFetchSchoolQuery(Number(schoolId))
   const [updateDateSchoolName, { data: newName, isLoading, isSuccess }] = useSetSchoolMutation()
 
   const [name, setName] = useState<string>('')

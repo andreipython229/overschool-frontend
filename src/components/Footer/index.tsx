@@ -1,21 +1,31 @@
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from "react"
 
 import { Path, FooterPath, SettingsPath } from 'enum/pathE'
+import { useFetchSchoolQuery } from 'api/schoolService'
 
 import styles from './footer.module.scss'
 
-// const role = if (condition) {
-  
-// }
-
 export const Footer = () => {
+
   const currentYear = new Date().getFullYear();
+  const schoolId = localStorage.getItem("school_id");
+  const { data } = useFetchSchoolQuery(Number(schoolId));
+  const [agreementUrl, setAgreementUrl] = useState<string>('');
+
+  useEffect(() => {
+    if (data) {
+      setAgreementUrl(data?.offer_url);
+    }
+  }, [data])
+
   return (
     <footer className={styles.wrapper}>
       <nav className={styles.wrapper_linksBlock}>
-        <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.Agreement}`}>
-          Договор
-        </Link>
+        {agreementUrl ? <a href={agreementUrl} className={styles.wrapper_linksBlock_link}>Договор</a>
+        : <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.Agreement}`}>
+            Договор
+          </Link>}
         <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.PersonalDataTreatmentPolicy}`}>
           Политика обработки персональных данных
         </Link>

@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
+import { Agreement } from 'components/Agreement/Agreement'
 import { PWA } from 'Pages/PWA/PWA'
 import { Initial } from 'Pages/Initial/Initial'
 import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
@@ -58,7 +59,9 @@ export const App = () => {
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
         </Route>
-        <Route path={FooterPath.Agreement} element={<MainLayOut />} />
+        <Route path={Path.School} element={<MainLayOut />}>
+          <Route path={FooterPath.Agreement} element={<Agreement />} />
+        </Route>
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PWA} element={<PWA />} />
         </Route>
