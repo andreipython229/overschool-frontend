@@ -279,7 +279,9 @@ export const Header = memo(() => {
                     {headerUserRoleName[role]}
                   </span>
                   <span className={styles.header_block_user_userName_name}>
-                    {profileData?.user.last_name || 'Без'} {profileData?.user.first_name || 'Имени'}
+                    {(!profileData?.user.last_name && !profileData?.user.first_name) ?
+                        'Без Имени' :
+                        `${profileData?.user.last_name} ${profileData?.user.first_name}`}
                   </span>
                 </div>
               </div>
