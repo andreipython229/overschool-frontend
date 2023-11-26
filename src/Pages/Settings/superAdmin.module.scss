@@ -81,15 +81,34 @@
   }
 }
 .employees {
+ 
   &_header {
     @include display (flex, row, space-between);
     margin-bottom: 38px;
     padding-right: 10px;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5%;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5%;
+    }
 
     &_title {
       @include font (500, 16px);
       margin-bottom: 20px;
       color: #4d5766;
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        margin-bottom: 0;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        margin-bottom: 0;
+      }
     }
 
     &_btn {
@@ -118,6 +137,12 @@
       width: 100%;
       font-size: 11px;
       padding: 0 20px;
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        margin: 2% 0 2% 0;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        padding: 4% 0 4% 0;
+      }
 
       & div:nth-child(1) {
         width: 60%;
@@ -143,6 +168,12 @@
   padding: 26px 32px 24px 32px;
   box-shadow: 0 0 8px #d9d9d9;
   border-radius: 8px;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding: 4% 3% 4% 3%;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding: 4% 3% 4% 3%;
+  }
 }
 
 .error {

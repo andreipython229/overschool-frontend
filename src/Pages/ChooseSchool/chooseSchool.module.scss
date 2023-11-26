@@ -58,6 +58,14 @@
   flex-direction: column;
   align-items: center;
   background-image: linear-gradient(to right top, #e4bae0, #ebd3ef, #ead4f9, #f4effe, #ebebeb);
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    justify-content: flex-start;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    justify-content: flex-start;
+    padding-top: 5%;
+  }
 }
 .name {
   font-size: 23px;

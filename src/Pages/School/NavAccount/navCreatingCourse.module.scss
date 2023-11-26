@@ -6,10 +6,31 @@
 
   & a:not(:last-child) {
     margin-right: 16px;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      margin: 0;   
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      margin: 0;
+    }
   }
   & a {
   &:hover {
     background-color: rgba(220, 220, 220, 0.4);
   }
+}
+
+@media only screen and (min-width : 320px) and (max-width : 375px) {
+  margin: 0;
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  align-items: center;  
+}
+@media only screen and (min-width : 375px) and (max-width : 480px) {
+  margin: 0;
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
 }
 }

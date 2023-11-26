@@ -182,6 +182,14 @@
   margin: 0 auto;
   border-radius: 7px;
   transform: translate(-50%, -50%);
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    width: 100%;
+    
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    width: 100%;
+    
+  }
 
   &_name {
     margin: 0;
@@ -399,6 +407,22 @@
   transform: translate(-50%, -50%);
   font-family: $font-family-inter;
   // width: 512px;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding: 2%;
+    margin: 0 auto;
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding: 2%;
+    margin: 0 auto;
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+  }
 
   &_closed {
     @include position_t_r(absolute, 20px, 20px);
@@ -412,6 +436,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      right: 10%;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      right: 10%;
+    }
 
     &:hover {
       color: #4d5766;
@@ -429,6 +459,12 @@
     display: flex;
     justify-content: center;
     gap: 25px;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      gap: 5%;
+     }
+     @media only screen and (min-width : 375px) and (max-width : 480px) {
+      gap: 5%;
+     }
 
     &_classes {
       @include display(flex, column, center, center);
@@ -439,6 +475,7 @@
       background: #f9fafb;
       color: #9ca3af;
       cursor: pointer;
+     
 
       & svg {
         margin-bottom: 8px;
@@ -454,12 +491,26 @@
       width: 464px;
       height: 60px;
       color: $font-title;
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+       width: 100%;
+       margin-bottom: 2%;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        width: 100%;
+        margin-bottom: 2%;
+      }
     }
 
     &_btnBlock {
       @include display(flex, row, center, center);
       gap: 12px;
       margin-top: 20px;
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        padding-left: 25%;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        padding-left: 25%;
+      }
 
       & button {
         width: 80px;
@@ -470,6 +521,12 @@
         font-size: 14px;
         line-height: 150%;
         padding: 10px 0;
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
+          padding: 17px;
+         }
+         @media only screen and (min-width : 375px) and (max-width : 480px) {
+          padding: 17px;
+         }
       }
     }
   }
@@ -895,7 +952,12 @@
   margin: 0 auto;
   border-radius: 7px;
   transform: translate(-50%, -50%);
-
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      width: 100%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      width: 100%;
+    }
   &_container {
     margin: 36px 31px 30px 31px;
   }
