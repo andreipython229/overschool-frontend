@@ -2,37 +2,45 @@
 @import '../../../../scss/variable.scss';
 
 .wrapper {
-    min-width: 700px;
-    
-    @include display (flex, column, flex-start, center);
-    &_title {
-        @include font (500, 11px, 13px);
-        color: #BA75FF;
-    }
-    &_question {
-        margin: 16px 0;
-        @include font (600, 16px, 20px);
-        color: #4D5766;
-    }
-    &_progressBar {
-        width: 164px;
-        height: 8px;
-        background-color: #F6F6F6;
-        border-radius: 7px;
-        overflow: hidden;
-        &_progress {
-            height: 100%;
-            background-color: #BA75FF;
-        }
-    }
-}
+  min-width: 700px;
 
-button {
+  @include display(flex, column, flex-start, center);
+
+  &_title {
+    @include font(500, 11px, 13px);
+    color: #BA75FF;
+  }
+
+  &_question {
+    margin: 16px 0;
+    @include font(600, 16px, 20px);
+    color: #4D5766;
+  }
+
+  &_progressBar {
+    width: 164px;
+    height: 8px;
+    background-color: #F6F6F6;
+    border-radius: 7px;
+    overflow: hidden;
+
+    &_progress {
+      height: 100%;
+      background-color: #BA75FF;
+    }
+  }
+
+  &_button button {
     align-self: flex-start;
     margin-top: 32px;
-
-}
-
-button:disabled {
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+         margin-top: 0;
+       }
+       @media only screen and (min-width : 375px) and (max-width : 480px) {
+         margin-top: 0;
+       }
+  }
+  &_button button:disabled {
     opacity: 0.5;
+  }
 }

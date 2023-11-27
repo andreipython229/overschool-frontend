@@ -118,12 +118,14 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
                 ))}
             {numberTest + 1 !== questionLength ?
                 (questions?.question_id !== -9999 ?
-                        <Button disabled={buttonDisabled} onClick={handleNextQ} text={'Следующий вопрос'}
-                                variant="primary"/>
+                        <span className={styles.wrapper_button}>
+                            <Button disabled={buttonDisabled} onClick={handleNextQ} text={'Следующий вопрос'}
+                                    variant="primary"/></span>
                         :
                         <></>
-                ) : <Button onClick={handleCompleteTest} text={'Завершить тест'} disabled={buttonDisabled}
-                            variant="primary"/>
+                ) : <span className={styles.wrapper_button}>
+                    <Button onClick={handleCompleteTest} text={'Завершить тест'} disabled={buttonDisabled}
+                            variant="primary"/></span>
             }
         </div>
     )
