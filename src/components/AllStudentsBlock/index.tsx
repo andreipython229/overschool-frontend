@@ -101,7 +101,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
           </div>
             {role != RoleE.Teacher && invite ? (
           <Button onClick={off} className={styles.add_students_btn} text={'Добавить учеников'} variant={'primary'}>
-            <IconSvg width={16} height={16} viewBoxSize={'0 0 16 16'} path={addStudentIconPath} />
+            <IconSvg width={30} height={30} viewBoxSize={'0 0 16 16'} path={addStudentIconPath} styles={{marginRight: '0.2em'}}/>
           </Button>) : <></>}
         </div>
         {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} />}</Portal>}
