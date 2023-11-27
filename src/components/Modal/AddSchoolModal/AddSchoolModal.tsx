@@ -35,7 +35,6 @@ export const AddSchoolModal: FC<AddSchoolModalPropsT> = ({setShowModal, schools}
         const formData = new FormData();
         formData.append('name', name);
         await createSchool(formData).unwrap().then(async (data: any) => {
-            console.log('uspeh')
             await setShowModal()
             await window.location.reload()
         }).catch((error) => {

@@ -1,6 +1,5 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react'
 import { useCreateLessonsMutation } from '../api/modulesServices'
-import { findLength } from '../utils/findLength'
 import { useAppSelector } from '../store/hooks'
 import { getSectionId } from '../selectors'
 import { sectionT } from '../types/sectionT'
@@ -8,6 +7,7 @@ import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
 
 type useCreateLessonT = {
   modulesList: sectionT[]
+  setModulesList?: Dispatch<SetStateAction<sectionT[]>>
   typeLesson: string
   time_accept?: string
   description?: string
@@ -46,10 +46,23 @@ type createLessonDataT = {
   balls_per_answer?: number
 }
 
-export const useCreateLesson = ({ setType, modulesList, typeLesson, description, success_percent, time_accept, automate_accept,
-                                  setLessonIdAndType, random_questions, random_answers, show_right_answers, attempt_limit,
-                                  attempt_count, balls_per_answer }: useCreateLessonT): UseCreateLessonReturnT => {
-
+export const useCreateLesson = ({
+  setType,
+  setModulesList,
+  modulesList,
+  typeLesson,
+  description,
+  success_percent,
+  time_accept,
+  automate_accept,
+  setLessonIdAndType,
+  random_questions,
+  random_answers,
+  show_right_answers,
+  attempt_limit,
+  attempt_count,
+  balls_per_answer,
+}: useCreateLessonT): UseCreateLessonReturnT => {
   const [nameLesson, setNameLesson] = useState<string>('')
 
   const { section_id } = useAppSelector(getSectionId)
@@ -97,9 +110,32 @@ export const useCreateLesson = ({ setType, modulesList, typeLesson, description,
       createLessonData['balls_per_answer'] = balls_per_answer
     }
 
-    await createLesson({ createLessonData, type: typeLesson }).unwrap().then(() => {window.location.reload()})
+    await createLesson({ createLessonData, type: typeLesson })
+      .unwrap()
+      .then(data => {
+        const newLessonData = {
+          type: typeLesson,
+          name: nameLesson,
+          order: data.order,
+          id: data.lesson_id,
+          active: data.active,
+          baselesson_ptr_id: data.baselesson_ptr_id,
+          viewed: false,
+          completed: false,
+        }
+        const newModulesList = [...modulesList]
+        const moduleIndexToUpdate = newModulesList.findIndex(module => module.section === section_id)
+        const moduleToUpdate = { ...newModulesList[moduleIndexToUpdate] }
+        const updatedModule = Object.assign({}, moduleToUpdate, {
+          lessons: [...moduleToUpdate.lessons, newLessonData],
+        })
+        newModulesList[moduleIndexToUpdate] = updatedModule
+        if (setModulesList) {
+          setModulesList(newModulesList)
+        }
+      })
   }
-  
+
   useEffect(() => {
     if (isSuccess) {
       const type = typeLesson.slice(0, -1)

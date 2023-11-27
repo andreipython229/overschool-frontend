@@ -51,6 +51,10 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
   }
 
   useEffect(() => {
+    setLessons(lessonsList)
+  }, [lessonsList])
+
+  useEffect(() => {
     if (lessons.length > 0) setVisibleAddBtn(true)
     if (moduleName !== changeModuleName) {
       const updateModule = {
