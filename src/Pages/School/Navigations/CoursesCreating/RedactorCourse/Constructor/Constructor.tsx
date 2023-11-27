@@ -65,6 +65,7 @@ export const Constructor: FC = () => {
             lessonIdAndType={lessonIdAndType}
             setLessonIdAndType={setLessonIdAndType}
             modulesList={modulesList}
+            setModulesList={setModulesList}
             setType={setType}
             type={type}
             courseId={courseId}

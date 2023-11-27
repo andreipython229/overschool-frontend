@@ -1,4 +1,4 @@
-import { FormEvent } from 'react'
+import { Dispatch, FormEvent, SetStateAction } from 'react'
 import { sectionT } from '../../types/sectionT'
 import { CoursesDataT } from '../../types/CoursesT'
 import {EmployeeT} from 'types/userT'
@@ -15,6 +15,7 @@ export type SettingClassesPropsT = {
   setType: (arg: keyof object) => void
   modulesList: sectionT[]
   setLessonIdAndType: (arg: lessonIdAndTypeT) => void
+  setModulesList: Dispatch<SetStateAction<sectionT[]>>
 }
 
 export type AddEmployeeModalPropsT = {

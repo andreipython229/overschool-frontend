@@ -11,12 +11,13 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from '../../Modal.module.scss'
 
-export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAndType, modulesList, setType }) => {
+export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAndType, modulesList, setType, setModulesList }) => {
   const { nameLesson, isLoading, setNameLesson, handleCreateLesson } = useCreateLesson({
     setType,
     modulesList,
     typeLesson: 'lessons',
     setLessonIdAndType,
+    setModulesList
   })
 
   const changeNameClasses = (event: ChangeEvent<HTMLInputElement>) => {

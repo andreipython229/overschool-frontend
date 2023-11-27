@@ -84,7 +84,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     formData.append('active', String(isPublished))
     await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
   }
-  console.log(renderFiles)
 
   const renderUI = () => {
     if (isSuccess) {
