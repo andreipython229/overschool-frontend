@@ -1,4 +1,4 @@
-import { FC, SetStateAction, memo, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { ModulesBlock } from './ModulesBlock'
 import { LessonAddBlockPropsT } from '../../../../../../../types/navigationTypes'
@@ -7,6 +7,11 @@ import styles from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Cons
 
 export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(({ setType, modulesList, setLessonIdAndType, isLoading }) => {
   const [selectedLessonId, setSelectedLessonId] = useState<number>()
+
+  useEffect(() => {
+    console.log('modulesList changed:', modulesList);
+  }, [modulesList]);
+  
 
   useEffect(() => {
     if (modulesList.length > 0 && modulesList[0].lessons.length > 0) {

@@ -4,6 +4,19 @@
 .redactorCourse {
   font-family: $font-family-inter;
   @include display(flex);
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2%;
+    
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2%;
+  }
 
   &_textField {
     margin-bottom: 40px;
@@ -49,10 +62,27 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      width: 100%;
+      text-align: center;
+      
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+     width: 100%;
+     text-align: center;
+    }
+    
 
     &_title {
       color: $font-title;
       font-size: 16px;
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+       
+        
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        padding: 5% 0 5% 0;
+      }
     }
 
     &_desc {
@@ -82,6 +112,14 @@
           height: 30px;
           width: 100%;
           //border: 1px blue solid;
+          @media only screen and (min-width : 320px) and (max-width : 375px) {
+            display: none;
+            
+          }
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
+            display: none;
+          }
+          
 
           &:hover {
             z-index: 0;
@@ -130,6 +168,12 @@
         cursor: pointer;
         //border: 1px solid red;
         //background-color: rgba(220, 220, 100, 1);
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
+          margin: 2% 0 2% 0;
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
+          margin: 2% 0 2% 0;
+        }
 
         &:hover {
           background-color: rgba(220, 220, 220, 1);
@@ -217,6 +261,12 @@
   &_rightSideWrapper {
     width: 100%;
     min-width: 0;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      margin: 5% 0 2% 0;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      margin: 5% 0 2% 0;
+    }
 
     &_rightSide {
       background: #ffffff;
@@ -226,6 +276,14 @@
       border-radius: 10px;
       width: 100%;
       box-shadow: $box-shadow;
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        margin: 0 auto;
+        padding: 2%;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        margin: 0 auto;
+        padding: 2%;
+      }
 
       &_review {
         display: flex;
@@ -464,6 +522,17 @@ hr {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 80px;
+  }
 
   &_text_block {
     margin: 20px 0 0 30px;

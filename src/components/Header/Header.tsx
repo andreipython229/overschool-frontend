@@ -78,8 +78,6 @@ export const Header = memo(() => {
     removeRefreshCookie('refresh_token')
     navigate('/login/')
     await localStorage.clear()
-    // window.location.reload()
-    // dispatch(auth(false))
   }
 
   useEffect(() => {

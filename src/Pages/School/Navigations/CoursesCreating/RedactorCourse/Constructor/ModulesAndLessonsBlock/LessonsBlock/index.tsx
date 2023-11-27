@@ -1,4 +1,4 @@
-import { FC, PointerEvent, useState } from 'react'
+import { FC, PointerEvent, memo } from 'react'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
@@ -13,7 +13,7 @@ import stylesModules from '../ModulesBlock/modules_block.module.scss'
 import { Reorder, useDragControls } from 'framer-motion'
 import { doBlockIconPath } from '../../../../../../../../components/Modal/SettingStudentTable/config/svgIconsPath'
 
-export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, lessonsName, id, lesson, selected, onPush }) => {
+export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, type, lessonsName, id, lesson, selected, onPush }) => {
   const [deleteLesson, { isLoading }] = useDeleteLessonsMutation()
   const controls = useDragControls()
 
@@ -71,4 +71,4 @@ export const LessonsBlock: FC<LessonsBlockT> = ({ setLessonIdAndType, type, less
       </button>
     </Reorder.Item>
   )
-}
+})

@@ -46,11 +46,51 @@
 
     & svg {
       margin-bottom: 18px;
+     
     }
 
     &_title {
       @include font(500, 22px);
       color: $font-title;
+
+      &_btn {
+        height:max-content ;
+        width: 474px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
+          width: 100%;
+          
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
+          width: 100%;
+        }    
+
+         &_add {
+          width: 474px;
+          @media only screen and (min-width : 320px) and (max-width : 375px) {
+            width: 100%;
+            
+          }
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
+            width: 100%;
+          }    
+         }
+
+         &_send {
+          width: 474px;
+          @media only screen and (min-width : 320px) and (max-width : 375px) {
+            width: 100%;
+            padding-bottom: 2%;
+            
+          }
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
+            width: 100%;
+            margin-bottom: 2%;
+          }    
+         }
+      }      
     }
   }
 
@@ -91,6 +131,14 @@
   }
 
   &_student {
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      width: 100%;
+      
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      width: 100%;
+     
+    }
     @include display(flex, column);
     text-align: left;
     width: 474px;
@@ -127,8 +175,17 @@
   }
 
   &_btnBlock {
+    
     & :nth-child(1) {
       margin-bottom: 10px;
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        width: 100%;
+        
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        width: 100%;
+       
+      }
     }
   }
 }
@@ -142,6 +199,12 @@
 
     & :nth-child(2) {
       margin-top: 10px;
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        padding-right: 20%;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        width: 100%;
+      }
     }
 
     & span {

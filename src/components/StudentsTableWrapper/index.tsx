@@ -99,7 +99,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({students, 
                                     <td
                                         style={{
                                             fontSize: '14px',
-                                            textTransform: 'capitalize',
                                             verticalAlign: 'center',
                                         }}
                                         key={col}

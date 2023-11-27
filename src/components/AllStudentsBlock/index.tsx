@@ -91,15 +91,17 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             removeLastActiveEndFilter={removeLastActiveEndFilter}
             {...restFilters}
           />
-          <Input name="" type="search" value={searchTerm} onChange={(e) => onChangeInput(e.target.value)} placeholder="Поиск по курсам" style={{width: '100%'}}>
-            <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
-          </Input>
-          <div className={styles.arrow_add_file_block} onClick={() => handleReloadTable && handleReloadTable()}>
-            <IconSvg width={19} height={23} viewBoxSize="0 0 30 30" path={updateDataIcon} />
+          <div className={styles.header_block_text_search}>
+            <Input name="" type="search" value={searchTerm} onChange={(e) => onChangeInput(e.target.value)} placeholder="Поиск по курсам" style={{width: '100%'}}>
+              <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
+            </Input>
+            <div className={styles.arrow_add_file_block} onClick={() => handleReloadTable && handleReloadTable()}>
+              <IconSvg width={19} height={23} viewBoxSize="0 0 30 30" path={updateDataIcon} />
+            </div>
           </div>
             {role != RoleE.Teacher && invite ? (
           <Button onClick={off} className={styles.add_students_btn} text={'Добавить учеников'} variant={'primary'}>
-            <IconSvg width={16} height={16} viewBoxSize={'0 0 16 16'} path={addStudentIconPath} />
+            <IconSvg width={30} height={30} viewBoxSize={'0 0 16 16'} path={addStudentIconPath} styles={{marginRight: '0.2em'}}/>
           </Button>) : <></>}
         </div>
         {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} />}</Portal>}

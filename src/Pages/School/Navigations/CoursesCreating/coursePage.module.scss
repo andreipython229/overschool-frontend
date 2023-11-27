@@ -163,6 +163,12 @@
   margin-top: 18px;
   text-align: center;
   border: none;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    margin-top: 0;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    margin-top: 0;
+  }
 
   &:hover {
     background-color: #f4e9ff;

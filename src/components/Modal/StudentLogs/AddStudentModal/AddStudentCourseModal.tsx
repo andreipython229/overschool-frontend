@@ -166,7 +166,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
           {groups && <SelectInput optionsList={groups?.results} optionName={'name' as keyof object} setSelectedValue={setChangeGroup} />} */}
           </div>
           {groupsList && (
-            <div style={{ height: 'max-content', width: '474px', margin: '0 auto', marginBottom: 20 }}>
+            <div className={styles.container_header_title_btn}>
               <SelectInput
                 optionsList={groupsList?.results.map(({ name, group_id }) => ({
                   label: name,
@@ -191,10 +191,9 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
             />
           ))}
           <div className={styles.addStudent_btnBlock}>
-            <Button type={'button'} onClick={handleAddNewStudent} style={{ width: '474px' }} variant={'secondary'} text={'Добавить ещё одного'} />
-            <Button
+            <Button type={'button'} onClick={handleAddNewStudent} className={styles.container_header_title_btn_add} variant={'secondary'} text={'Добавить ещё одного'} />
+            <Button className={styles.container_header_title_btn_send}
               type={'button'}
-              style={{ width: '474px' }}
               onClick={handleSubmitForm}
               variant={studentLoading || !students[0].email || studentError ? 'disabled' : 'primary'}
               text={studentLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Отправить приглашение'}
