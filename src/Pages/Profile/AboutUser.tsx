@@ -31,7 +31,7 @@ export const AboutUser: FC = memo(() => {
 
     const {data, isFetching, isError, isSuccess: profileIsSuccess} = useFetchProfileDataQuery()
     const [updateProfile, {isSuccess}] = useUpdateProfileMutation()
-    
+
     const [profileData, setProfileData] = useState<profileT>()
     const [sex, setSex] = useState<string>()
 
@@ -40,7 +40,7 @@ export const AboutUser: FC = memo(() => {
             avatar: profileData?.avatar || '',
             avatar_url: avatarUrl || profileData?.avatar,
             city: profileData?.city || '',
-            description: profileData?.description || '',
+            // description: profileData?.description || '',
             first_name: profileData?.user.first_name || '',
             last_name: profileData?.user.last_name || '',
             email: profileData?.user.email || '',
@@ -49,25 +49,28 @@ export const AboutUser: FC = memo(() => {
         enableReinitialize: true,
         validationSchema: userDataSchema,
         onSubmit: values => {
-            const {avatar, avatar_url, city, description, ...rest} = values
+            const {avatar, avatar_url, city, ...rest} = values
 
             const formData = new FormData()
 
             const objToSend = {
                 city,
-                description,
                 sex,
                 user: {...rest},
             }
 
             avatarFile && formData.append('avatar', avatarFile)
+            formData.append('user.email', objToSend.user.email)
             formData.append('user.first_name', objToSend.user.first_name)
             formData.append('user.last_name', objToSend.user.last_name)
+            formData.append('user.phone_number', objToSend.user.phone_number)
+            formData.append('city', objToSend.city)
+            objToSend.sex && formData.append('sex', objToSend.sex)
 
             if (data) {
                 avatarFile ?
-                    updateProfile({userInfo: formData, id: data[0]?.profile_id})
-                    : updateProfile({userInfo: objToSend, id: data[0]?.profile_id});
+                    updateProfile({userInfo: formData, id: data[0]?.profile_id}).unwrap().catch(error => console.log(error.data))
+                    : updateProfile({userInfo: objToSend, id: data[0]?.profile_id}).unwrap().catch(error => console.log(error.data));
             }
         },
     })
@@ -95,7 +98,7 @@ export const AboutUser: FC = memo(() => {
     }, [profileData])
 
     const {
-        values: {city, description, email, last_name, first_name, phone_number, avatar_url},
+        values: {city, email, last_name, first_name, phone_number, avatar_url},
         handleChange,
         handleSubmit,
         //touched,

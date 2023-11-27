@@ -63,7 +63,9 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
               <div>
                   {/*style={{color: '#BA75FF'}}*/}
                   <div className={styles.chatPanel_user_avatar_userName_status}>{headerUserRoleName[role]}</div>
-                  <p>{userProfile?.first_name || 'Без'} {userProfile?.last_name || 'Имени'}</p>
+                  <p>{(!userProfile?.first_name && !userProfile?.last_name) ?
+                            'Без Имени' :
+                            `${userProfile?.last_name} ${userProfile?.first_name}`}</p>
               </div>
           </div>
         </div>
