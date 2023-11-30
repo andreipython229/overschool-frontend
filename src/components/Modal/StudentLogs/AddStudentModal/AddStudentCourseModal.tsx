@@ -100,8 +100,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
             await addStudents(formdata)
               .unwrap()
               .then(async (accessdata: any) => {
-                await setShowModal()
-                await window.location.reload()
+                setShowModal()
               })
               .catch(error => {
                 setMessage(error.data)
