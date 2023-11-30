@@ -289,7 +289,7 @@ export const Header = memo(() => {
           </Tooltip>
           <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}>
             <MenuItem onClick={goToProfile}>
-              <Avatar />
+              <Avatar style={{width: '1.5em', height: '1.5em', display: 'flex', marginLeft: '-0.15em', marginRight: '0.35em'}}/>
               <Link to={Path.Profile} style={{ color: 'slategrey' }}>
                 Открыть профиль
               </Link>
