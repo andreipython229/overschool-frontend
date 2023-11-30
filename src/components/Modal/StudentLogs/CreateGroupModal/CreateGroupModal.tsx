@@ -11,6 +11,7 @@ import {CreateGroupModalPropsT} from '../../ModalTypes'
 import {SimpleLoader} from 'components/Loaders/SimpleLoader'
 import {useFetchAllUsersQuery} from '../../../../api/allUsersList'
 import styles from '../studentsLog.module.scss'
+import { studentsGroupsT } from 'types/studentsGroup'
 
 
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, courseId}) => {
@@ -53,11 +54,13 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
     const handleCreateGroup = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         if (courseId) {
-            const groupToCreate = {
+            const groupToCreate: studentsGroupsT = {
                 name: groupName,
                 course_id: +courseId,
                 students: [],
-                teacher_id: +teacher_id,
+            }
+            if (teacher_id) {
+                groupToCreate['teacher_id'] = +teacher_id
             }
             await createStudentsGroup(groupToCreate)
         }

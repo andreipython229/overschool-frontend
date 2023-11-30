@@ -22,11 +22,12 @@ import { acceptedHwPath } from '../../../../../../config/commonSvgIconsPath'
 import { IFile } from '../../../../../../types/filesT'
 import { CheckboxBall } from '../../../../../../components/common/CheckboxBall'
 import { PublishedMark } from '../../../../../../components/common/PublishedMark'
-import { AudioPlayer } from 'components/common/AudioPlayer'
+// import { AudioPlayer } from 'components/common/AudioPlayer'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [files, setFiles] = useState<File[]>([])
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
+  const [renderFiles, setRenderFiles] = useState<IFile[]>([])
   const [isEditing, setIsEditing] = useState(false)
   const [lessonDescription, setLessonDescription] = useState<string>('')
   const [isPublished, setIsPublished] = useState(false)
@@ -39,7 +40,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [deleteAudio, { isLoading: isAudioDeleting }] = useDeleteAudioFilesMutation()
 
   const [lesson, setLesson] = useState(data as commonLessonT)
-  const [renderFiles, setRenderFiles] = useState<IFile[]>([])
   const [lessonVideo, setLessonVideo] = useState<boolean>(false)
 
   useEffect(() => {
@@ -51,8 +51,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   useEffect(() => {
     if (lesson && lesson.type !== 'test' && lesson.text_files) {
       setRenderFiles(lesson.text_files)
+      setFiles([])
+      setUrlFiles([])
     } else if (lesson && lesson.type !== 'test' && !lesson.text_files) {
       setRenderFiles([])
+      setFiles([])
+      setUrlFiles([])
     }
 
     if (lesson) {
@@ -74,7 +78,10 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
       formData1.append('base_lesson', `${data?.baselesson_ptr_id}`)
       files.forEach(file => formData1.append('files', file))
-      await addTextFiles(formData1)
+      await addTextFiles(formData1).then(data => {
+        setFiles([])
+        setUrlFiles([])
+      })
     }
 
     const formData = new FormData()
