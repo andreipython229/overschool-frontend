@@ -12,13 +12,14 @@ import pie from "../../../../assets/img/studentPage/folder-todo.png";
 import {useFetchProgressQuery} from "../../../../api/userProgressService";
 import {SimpleLoader} from "../../../../components/Loaders/SimpleLoader";
 import {useFetchCoursesQuery} from "../../../../api/coursesServices";
+import ProgressBar from "@ramonak/react-progress-bar"
 
 type courseCard = {
     course: CoursesDataT
     renderProps?: (course: CoursesDataT) => ReactNode
     role: number
 }
-
+ 
 export const CoursesCard: FC<courseCard> = ({course, role}) => {
     const {
         data: userProgress,
@@ -29,6 +30,7 @@ export const CoursesCard: FC<courseCard> = ({course, role}) => {
     if (isLoading || isError) {
         return <SimpleLoader style={{width: '100px', height: '100px'}}/>;
     }
+    
 
     return (
         <div id={`${course?.course_id}`} className={styles?.course_card}>
@@ -78,7 +80,15 @@ export const CoursesCard: FC<courseCard> = ({course, role}) => {
                             <img className={styles.course_card_img} src={course?.photo} alt=""/>
                         </div>
                         <div className={styles.course_card_progressBar}>
-                            <div className={styles.course_card_progressBar_line}></div>
+                            <span className={styles.course_card_progressBar_line}>
+                            <ProgressBar completed={userProgress.courses[0]?.completed_percent}
+                             bgColor='#ba75ff' 
+                             labelSize='10px'
+                             borderRadius ='0px'
+                             height ="100%"
+                             customLabel=' '
+                             />
+                            </span>
                         </div>
                         <div className={styles.course_card_about}>
                             <Link onClick={() => localStorage.setItem("course_id", ""+course?.course_id)}
