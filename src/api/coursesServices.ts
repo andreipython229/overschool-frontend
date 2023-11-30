@@ -43,7 +43,7 @@ export const coursesServices = createApi({
             }),
             invalidatesTags: ['course', 'courses'],
         }),
-        patchCourses: build.mutation<FormData, UpdateCourses>({
+        patchCourses: build.mutation<any, UpdateCourses>({
             query: arg => {
                 return {
                     url: `/courses/${arg?.id}/`,
