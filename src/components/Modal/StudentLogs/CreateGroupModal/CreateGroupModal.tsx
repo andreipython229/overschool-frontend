@@ -84,6 +84,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
                     <Input name={'group'} type={'text'} value={groupName} onChange={onChangeGroupName}/>
                     <span>Выберите учителя из списка:</span>
                     <Select
+                        required
                         onChange={handleTeacher}
                         options={teachers}
                         getOptionLabel={(user: any) => user.email}
