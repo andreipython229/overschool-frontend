@@ -211,8 +211,19 @@
       font-size: $fs12;
       color: #a2a9b4;
     }
-  }
 
+    &_check {
+      display: flex;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      &_span {
+        margin-left: 10px;
+      }
+    }
+
+
+  }
+// style={{marginLeft: 10, marginTop: "1%"}}
   &_btn {
     width: 100%;
     margin-top: 22px;

@@ -3,24 +3,32 @@ import Select from 'react-select'
 
 import {Input} from 'components/common/Input/Input/Input'
 import {Button} from 'components/common/Button/Button'
+import {CheckboxBall} from 'components/common/CheckboxBall'
 import {IconSvg} from '../../../common/IconSvg/IconSvg'
 import {crossIconPath} from '../../../../config/commonSvgIconsPath'
 import {createGroupIconPath} from '../config/svgIconsPath'
-import {useCreateStudentsGroupMutation, useFetchStudentsGroupQuery} from '../../../../api/studentsGroupService'
+import {
+    useCreateStudentsGroupMutation,
+    useCreateGroupWithoutTeacherMutation,
+    useFetchStudentsGroupQuery
+} from '../../../../api/studentsGroupService'
 import {CreateGroupModalPropsT} from '../../ModalTypes'
 import {SimpleLoader} from 'components/Loaders/SimpleLoader'
 import {useFetchAllUsersQuery} from '../../../../api/allUsersList'
 import styles from '../studentsLog.module.scss'
+import {useBoolean} from "../../../../customHooks";
 
 
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, courseId}) => {
     const [groupName, setGroupName] = useState<string>('')
     const [teacher_id, setTeacherId] = useState<string>('')
+    const [withTeacher, {onToggle: toggleWithTeacher}] = useBoolean(false)
     const {data: userList} = useFetchAllUsersQuery()
     const [allTeachers, setAllTeachers] = useState<any>([])
     const [teachers, setTeachers] = useState<any>([])
     const {data: allGroups} = useFetchStudentsGroupQuery()
     const [createStudentsGroup, {isLoading}] = useCreateStudentsGroupMutation()
+    const [createGroupWithoutTeacher, {isLoading: isLoadingNoT}] = useCreateGroupWithoutTeacherMutation()
 
     useEffect(() => {
         if (userList) {
@@ -42,7 +50,13 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
         }
     }, [allGroups, allTeachers])
 
-     const handleTeacher = (teacher: any) => {
+    useEffect(() => {
+        if (!withTeacher) {
+            setTeacherId('')
+        }
+    }, [withTeacher])
+
+    const handleTeacher = (teacher: any) => {
         setTeacherId(teacher.id)
     }
 
@@ -54,18 +68,23 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
         event.preventDefault()
         if (courseId) {
             const groupToCreate = {
-                name: groupName,
-                course_id: +courseId,
-                students: [],
-                teacher_id: +teacher_id,
+                    name: groupName,
+                    course_id: +courseId,
+                    students: []
+                    // teacher_id: +teacher_id,
+                }
+            if (!withTeacher) {
+                await createGroupWithoutTeacher(groupToCreate)
             }
-            await createStudentsGroup(groupToCreate)
+            else {
+                Object.assign(groupToCreate, {teacher_id: +teacher_id})
+                await createStudentsGroup(groupToCreate)
+            }
         }
         setShowModal(false)
     }
 
 
- 
     return (
         <form onSubmit={handleCreateGroup} style={{width: '485px'}} className={styles.container}>
             <div onClick={() => setShowModal(false)} className={styles.container_closed}>
@@ -79,24 +98,32 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({setShowModal, cour
                 <div className={styles.addGroup_input}>
                     <span>Введите название группы:</span>
                     <Input name={'group'} type={'text'} value={groupName} onChange={onChangeGroupName}/>
-                    <span>Выберите учителя из списка:</span>
-                    <Select
-                        required
-                        onChange={handleTeacher}
-                        options={teachers}
-                        getOptionLabel={(user: any) => user.email}
-                        getOptionValue={(user: any) => user.id}
-                        components={{
-                            IndicatorSeparator: () => null,
-                        }}
-                        placeholder={''}
-                    />
+                    <div className={styles.addGroup_input_check}>
+                        <CheckboxBall isChecked={withTeacher} toggleChecked={toggleWithTeacher}/>
+                        <span className={styles.addGroup_input_check_span} style={{marginTop: "1%"}}>С преподавателем</span>
+                    </div>
+                    {withTeacher ?
+                        <div>
+                            <span>Выберите преподавателя из списка:</span>
+                            <Select
+                                required
+                                onChange={handleTeacher}
+                                options={teachers}
+                                getOptionLabel={(user: any) => user.email}
+                                getOptionValue={(user: any) => user.id}
+                                components={{
+                                    IndicatorSeparator: () => null,
+                                }}
+                                placeholder={''}
+                            />
+                        </div> :
+                        <></>}
                 </div>
                 <div className={styles.addGroup_btn}>
                     <Button
                         type={'submit'}
-                        disabled={!groupName || isLoading}
-                        variant={!groupName || isLoading ? 'disabled' : 'primary'}
+                        disabled={!groupName || isLoading || isLoadingNoT || withTeacher && !teacher_id}
+                        variant={!groupName || isLoading || isLoadingNoT || withTeacher && !teacher_id ? 'disabled' : 'primary'}
                         text={isLoading ? <SimpleLoader style={{width: '25px', height: '25px'}}
                                                         loaderColor="#ffff"/> : 'Создать группу'}
                     />

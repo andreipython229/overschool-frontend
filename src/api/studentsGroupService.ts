@@ -40,6 +40,14 @@ export const studentsGroupService = createApi({
             }),
             invalidatesTags: ['studentsGroup'],
         }),
+        createGroupWithoutTeacher: build.mutation<void, studentsGroupsT>({
+            query: studentsGroupInfo => ({
+                url: `/students_group_no_teacher/`,
+                method: 'POST',
+                body: studentsGroupInfo,
+            }),
+            invalidatesTags: ['studentsGroup'],
+        }),
         deleteStudentsGroup: build.mutation<void, number>({
             query: id => ({
                 url: `/students_group/${id}/`,
@@ -75,6 +83,7 @@ export const {
     useFetchStudentGroupQuery,
     useFetchStudentsGroupQuery,
     useCreateStudentsGroupMutation,
+    useCreateGroupWithoutTeacherMutation,
     useDeleteStudentsGroupMutation,
     useDeleteStudentFromGroupMutation,
 } = studentsGroupService
