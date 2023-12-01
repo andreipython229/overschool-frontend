@@ -98,7 +98,7 @@ export const StudentsPerCourse: FC = () => {
         filters={filters}
         updateStudents={updateStudents}
       />
-      <StudentsTableWrapper students={filteredStudents as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />
+      <StudentsTableWrapper handleReloadTable={handleReloadTable} students={filteredStudents as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />
     </>
   )
 }

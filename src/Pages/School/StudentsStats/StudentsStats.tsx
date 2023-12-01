@@ -24,7 +24,7 @@ export const StudentsStats = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)
 
   const navigate = useNavigate()
-  const school = useAppSelector(schoolNameSelector)
+  const school = useAppSelector(schoolNameSelector) || window.location.href.split('/')[4]
 
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
   const [addGroupModal, { off: offAddGroupModal, on: onAddGroupModal }] = useBoolean()
