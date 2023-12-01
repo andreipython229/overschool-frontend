@@ -10,6 +10,7 @@ import { StudentInfoModal, SettingStudentTable } from 'components/Modal'
 import { studentsTableInfoT, result } from 'types/courseStatT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { GenerateRow } from './types'
+import { tableFilterByNamePath, tableFilterByEmailUpPath, tableFilterByEmailDownPath } from '../../config/commonSvgIconsPath'
 
 import styles from './studentsTableBlock.module.scss'
 
@@ -32,6 +33,51 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   const { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching } = useFetchStudentsTableHeaderQuery(tableId)
 
   const { columns, data } = generateData(tableHeaderData, students, isLoading, isSuccess)
+
+  // состояние направления сортировки для каждого столбца
+  const [sortDirection, setSortDirection] = useState<{ [key: string]: 'asc' | 'desc' }>({'Имя': 'asc', 'Email': 'asc', 'Курс': 'asc', 'Группа': 'asc', 'Последняя активность': 'asc', 'Средний бал': 'asc',});
+
+  // Функция для обработки сортировки столбцов
+  const handleColumnSort = (col: string) => {
+    const direction = sortDirection[col] === 'asc' ? 'desc' : 'asc';
+    const sortedRows = rows?.slice().sort((a, b) => {
+      if (col === 'Имя') {
+        const valueA = a[col] as { text: string; image: ReactNode }
+        const valueB = b[col] as { text: string; image: ReactNode }
+
+        if (typeof a[col] === 'object' && typeof b[col] === 'object') {
+          if (valueA.text < valueB.text) {
+            return direction === 'asc' ? -1 : 1;
+          }
+          if (valueA.text > valueB.text) {
+            return direction === 'asc' ? 1 : -1;
+          }
+          return 0;
+        } else {
+          if (valueA < valueB) {
+            return direction === 'asc' ? -1 : 1;
+          }
+          if (valueA > valueB) {
+            return direction === 'asc' ? 1 : -1;
+          }
+          return 0;
+        }
+      } else {
+        if (a[col] < b[col]) {
+          return direction === 'asc' ? -1 : 1;
+        }
+        if (a[col] > b[col]) {
+          return direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      }
+    });
+
+
+    setRows(sortedRows);
+    setSortDirection({ ...sortDirection, [col]: direction });
+  };
+
 
   const handleCloseStudentModal = () => {
     toggleStudentInfoModal()
@@ -82,7 +128,21 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
           <thead className={styles.table_thead}>
             <tr>
               {cols.map(col => (
-                <th className={styles.table_thead_td} id={col} key={col}>
+                <th className={styles.table_thead_td} id={col} key={col} onClick={() => handleColumnSort(col)}>
+                  {sortDirection[col] && (
+                      <span>
+                        {sortDirection[col] === 'asc' ? (
+                          <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 3V21M7 21L3 17M7 21L11 17M15.5 14H20.5L15.5 21H20.5M16 9H20M15 10L18 3L21 10" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          ) : (
+                              <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M7 3V21M7 21L3 17M7 21L11 17M15.5 3H20.5L15.5 10H20.5M16 20H20M15 21L18 14L21 21" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                          )}
+                      </span>
+                  )}
+                  <span> </span>
                   {col}
                 </th>
               ))}
