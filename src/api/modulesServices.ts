@@ -99,10 +99,13 @@ export const modulesServices = createApi({
 
 export const {
   useFetchModulesQuery,
+  useLazyFetchModulesQuery,
   useFetchModuleLessonsQuery,
+  useLazyFetchModuleLessonsQuery,
   useCreateModulesMutation,
   useDeleteModulesMutation,
   usePatchModulesMutation,
+  useLazyFetchLessonQuery,
   useFetchLessonQuery,
   useFetchLessonsQuery,
   useCreateLessonsMutation,

@@ -33,4 +33,4 @@ export const profileService = createApi({
   }),
 })
 
-export const { useFetchProfileDataQuery, useUpdateProfileMutation, useChangePasswordMutation } = profileService
+export const { useFetchProfileDataQuery, useLazyFetchProfileDataQuery, useUpdateProfileMutation, useChangePasswordMutation } = profileService

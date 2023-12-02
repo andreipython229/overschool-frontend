@@ -4,14 +4,18 @@ import {useDispatch} from "react-redux";
 import {setModules} from "../../store/redux/modules/modules";
 
 import {sectionsT} from '../../types/sectionT'
-import {useFetchModulesQuery} from '../../api/modulesServices'
+import {useFetchModulesQuery, useLazyFetchModulesQuery} from '../../api/modulesServices'
 import {StudentAccardion} from 'components/StudentAccardion/StudentAccardion'
 import {StudentCourseHeader} from "./StudentCourseHeader";
 
 export const StudentCourse: FC = () => {
     const dispatch = useDispatch();
     const {course_id: courseId} = useParams()
-    const {data: course} = useFetchModulesQuery(courseId as string)
+    const [fetchModules, {data: course}] = useLazyFetchModulesQuery()
+
+    useEffect(() => {
+        fetchModules(courseId as string)
+    }, [])
 
     useEffect(() => {
         if (course?.sections.length !== undefined) {
