@@ -45,7 +45,6 @@ export const ChooseSchool = () => {
         setSchools(data)
       })
       .catch(err => {
-        console.log('school-selector error: ',err)
         if (err.status === 401) {
           localStorage.clear()
           logout()
