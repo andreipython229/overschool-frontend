@@ -36,7 +36,6 @@ import { setTariff } from 'store/redux/tariff/tariffSlice'
 import { removeSchoolId } from '../../store/redux/school/schoolIdSlice'
 import { removeHeaderId } from '../../store/redux/school/headerIdSlice'
 import { removeSchoolName } from '../../store/redux/school/schoolSlice'
-import { log } from 'console'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
@@ -45,7 +44,7 @@ export const Header = memo(() => {
   const [logout, { isLoading }] = useLazyLogoutQuery()
   const headerId = localStorage.getItem('header_id')
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
-  const { data: profile, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
+  const { data: profile, isSuccess: profileIsSuccess, isError, error } = useFetchProfileDataQuery()
   const { data: tariffPlan, isSuccess: tariffSuccess } = useFetchCurrentTariffPlanQuery()
   const [currentTariff, setCurrentTariff] = useState<ITariff>()
   const { data: tariff } = useFetchTariffPlanInfoQuery(currentTariff?.tariff)
@@ -69,6 +68,7 @@ export const Header = memo(() => {
       return <SimpleLoader />
     }
     setProfileData(undefined)
+    dispatch(auth(false))
     dispatch(clearUserProfile())
     dispatch(logoutState())
     dispatch(removeSchoolId())
@@ -76,9 +76,15 @@ export const Header = memo(() => {
     dispatch(removeSchoolName())
     removeAccessCookie('access_token')
     removeRefreshCookie('refresh_token')
-    navigate('/login/')
+    navigate(generatePath(Path.InitialPage))
     await localStorage.clear()
   }
+
+  useEffect(() => {
+    if (isError) {
+      logOut()
+    }
+  }, [isError])
 
   useEffect(() => {
     if (isSuccess) {
@@ -279,9 +285,9 @@ export const Header = memo(() => {
                     {headerUserRoleName[role]}
                   </span>
                   <span className={styles.header_block_user_userName_name}>
-                    {(!profileData?.user.last_name && !profileData?.user.first_name) ?
-                        'Без Имени' :
-                        `${profileData?.user.last_name} ${profileData?.user.first_name}`}
+                    {!profileData?.user.last_name && !profileData?.user.first_name
+                      ? 'Без Имени'
+                      : `${profileData?.user.last_name} ${profileData?.user.first_name}`}
                   </span>
                 </div>
               </div>
@@ -289,7 +295,7 @@ export const Header = memo(() => {
           </Tooltip>
           <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}>
             <MenuItem onClick={goToProfile}>
-              <Avatar style={{width: '1.5em', height: '1.5em', display: 'flex', marginLeft: '-0.15em', marginRight: '0.35em'}}/>
+              <Avatar style={{ width: '1.5em', height: '1.5em', display: 'flex', marginLeft: '-0.15em', marginRight: '0.35em' }} />
               <Link to={Path.Profile} style={{ color: 'slategrey' }}>
                 Открыть профиль
               </Link>
