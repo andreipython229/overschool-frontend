@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, generatePath, useNavigate } from 'react-router-dom'
 
 import { Path } from '../../enum/pathE'
 
@@ -19,32 +19,46 @@ import { Portal } from '../../components/Modal/Portal'
 import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
 import { motion } from 'framer-motion'
 
+import { auth } from 'store/redux/users/slice'
+import { useLazyLogoutQuery } from 'api/userLoginService'
+
+export type SchoolT = {
+  school_id: number
+  name: string
+  header_school: number
+  role: string
+}
+
+
 export const ChooseSchool = () => {
   const navigate = useNavigate()
-  const [getSchools, { isSuccess: userSuccess }] = useGetSchoolsMutation()
+  const [getSchools, { isSuccess: userSuccess, isError }] = useGetSchoolsMutation()
+  const [logout] = useLazyLogoutQuery()
   const { role: userRole, userName: name } = useAppSelector(selectUser)
 
-  const [schools, setSchools] = useState<[]>([])
+  const [schools, setSchools] = useState<SchoolT[]>([])
+
   const [isLoading, setIsLoading] = useState<boolean>(true)
-
   const [isOpen, { off, on }] = useBoolean()
-
   const dispatch = useDispatch()
 
   useEffect(() => {
-    getSchools().then((datas: any) => {
-      setIsLoading(false)
-      const co = JSON.parse(JSON.stringify(datas))
-      setSchools(JSON.parse(co.data))
-    })
+    getSchools()
+      .unwrap()
+      .then((data: SchoolT[]) => {
+        setIsLoading(false)
+        setSchools(data)
+      })
+      .catch(err => {
+        console.log('school-selector error: ',err)
+        if (err.status === 401) {
+          localStorage.clear()
+          logout()
+          dispatch(auth(false))
+          navigate(generatePath(Path.InitialPage))
+        }
+      })
   }, [])
-
-  type School = {
-    school_id: number
-    name: string
-    header_school: number
-    role: string
-  }
 
   const handleSchool = async (school_id: number, school: string, header_id: number) => {
     await localStorage.setItem('school', school)
@@ -72,8 +86,8 @@ export const ChooseSchool = () => {
           <SimpleLoader style={{ margin: '50px', height: '80px' }} />
         ) : (
           <div>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-              <svg style={{marginBottom: '3em'}} width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+              <svg style={{ marginBottom: '3em' }} width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -111,7 +125,7 @@ export const ChooseSchool = () => {
             </div>
 
             {schools ? (
-              schools.map((s: School, index: number) => (
+              schools.map((s, index: number) => (
                 <Link
                   key={index}
                   onClick={async e => {
