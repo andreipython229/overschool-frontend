@@ -21,6 +21,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../store/redux/store'
 import { Icon, SvgIcon } from '@mui/material'
 
+import { motion } from 'framer-motion'
+
 interface IIsActive {
   isActive?: boolean
 }
@@ -34,7 +36,16 @@ export const Navbar: FC = memo(() => {
 
   return (
     <>
-      <nav className={styles.navbar}>
+      <motion.nav className={styles.navbar}
+      initial={{
+        y:-1000,
+      }}
+      animate={{
+        y:0,
+      }}
+      transition={{
+        delay: 0.1,
+      }}>
         <Tooltip title={'Вернуться на главную'}>
           <NavLink key={'home'} to={Path.InitialPage} className={isActive}>
             <SvgIcon className={styles.navbar_menu} style={{opacity: '0.8', fontSize: '3.5em', padding: '0.1em'}}>
@@ -75,7 +86,7 @@ export const Navbar: FC = memo(() => {
             </div>
           </Tooltip>
         </div>
-      </nav>
+      </motion.nav>
       {isChatOpen && (
         <Portal closeModal={on}>
           <Chat closeModal={on} />

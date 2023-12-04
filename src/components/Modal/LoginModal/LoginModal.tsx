@@ -24,6 +24,8 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import { useForgotPasswordMutation } from 'api/forgotPassword'
 
+import { motion } from 'framer-motion'
+
 export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -100,7 +102,18 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   }, [sendSuccess])
 
   return (
-    <div className={styles.main}>
+    <motion.div className={styles.main}
+      initial={{
+        scale: 0.1,
+        opacity: 0,
+      }}
+      animate={{
+        scale: 1,
+        opacity: 1,
+      }}
+      transition={{
+        delay: 0.5,
+      }}>
       {isFetching ||
         (isLoading && (
           <div className={styles.loader}>
@@ -183,6 +196,6 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
           </form>
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }

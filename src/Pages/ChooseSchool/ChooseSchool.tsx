@@ -17,6 +17,7 @@ import { useBoolean } from '../../customHooks'
 import { userRoleName } from 'config/index'
 import { Portal } from '../../components/Modal/Portal'
 import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
+import { motion } from 'framer-motion'
 
 export const ChooseSchool = () => {
   const navigate = useNavigate()
@@ -24,7 +25,6 @@ export const ChooseSchool = () => {
   const { role: userRole, userName: name } = useAppSelector(selectUser)
 
   const [schools, setSchools] = useState<[]>([])
-  console.log(schools)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const [isOpen, { off, on }] = useBoolean()
@@ -120,13 +120,13 @@ export const ChooseSchool = () => {
                   }}
                   to={`#`}
                 >
-                  <div className={styles.bg}>
+                  <motion.div className={styles.bg} whileHover={ {scale: 1.2,}}>
                     <div>
                       <div className={styles.name}>{s.name}</div>
                       <div className={styles.role}>{userRoleName[s.role]}</div>
                     </div>
                     <span>→</span>
-                  </div>
+                  </motion.div>
                 </Link>
               ))
             ) : (

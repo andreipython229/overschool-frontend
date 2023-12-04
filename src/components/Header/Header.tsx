@@ -38,6 +38,8 @@ import { removeHeaderId } from '../../store/redux/school/headerIdSlice'
 import { removeSchoolName } from '../../store/redux/school/schoolSlice'
 import { log } from 'console'
 
+import { motion } from 'framer-motion'
+
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
   const { role } = useAppSelector(selectUser)
@@ -201,7 +203,16 @@ export const Header = memo(() => {
   }
 
   return (
-    <header className={styles.header}>
+    <motion.header className={styles.header}
+    initial={{
+      x:-1000,
+    }}
+    animate={{
+      x:0,
+    }}
+    transition={{
+      delay: 0.1,
+    }}>
       <NavLink to={role === RoleE.Teacher ? Path.CourseStats : Path.Courses}>
         <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
       </NavLink>
@@ -310,6 +321,6 @@ export const Header = memo(() => {
           </div>
         </Tooltip>
       </div>
-    </header>
+    </motion.header>
   )
 })
