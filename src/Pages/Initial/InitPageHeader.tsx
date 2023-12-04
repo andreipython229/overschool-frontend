@@ -45,7 +45,6 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
   useEffect(() => {
     if (isLogin) {
       fetchAuth().catch(err => {
-        console.log('initpage header: ', err)
         if (err.status === 401) {
           logOut()
         }

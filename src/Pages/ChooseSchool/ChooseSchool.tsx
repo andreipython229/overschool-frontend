@@ -6,7 +6,7 @@ import styles from './chooseSchool.module.scss'
 import { useEffect, useState } from 'react'
 import { useGetSchoolsMutation } from '../../api/getSchoolService'
 import { useAppSelector } from '../../store/hooks'
-import { selectUser } from '../../selectors'
+import { selectUser, schoolNameSelector } from '../../selectors'
 import { RoleE } from '../../enum/roleE'
 import { SimpleLoader } from '../../components/Loaders/SimpleLoader'
 import { setSchoolName } from '../../store/redux/school/schoolSlice'
@@ -32,6 +32,7 @@ export const ChooseSchool = () => {
   const [getSchools, { isSuccess: userSuccess, isError }] = useGetSchoolsMutation()
   const [logout] = useLazyLogoutQuery()
   const { role: userRole, userName: name } = useAppSelector(selectUser)
+  const schoolName = useAppSelector(schoolNameSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isOpen, { off, on }] = useBoolean()
@@ -45,7 +46,6 @@ export const ChooseSchool = () => {
         setSchools(data)
       })
       .catch(err => {
-        console.log('school-selector error: ',err)
         if (err.status === 401) {
           localStorage.clear()
           logout()
@@ -55,23 +55,24 @@ export const ChooseSchool = () => {
       })
   }, [])
 
-  const handleSchool = async (school_id: number, school: string, header_id: number) => {
-    await localStorage.setItem('school', school)
-    await dispatch(setSchoolName(school))
-    await localStorage.setItem('school_id', String(school_id))
-    await dispatch(setSchoolId(school_id))
-    await localStorage.setItem('header_id', String(header_id))
-    await dispatch(setHeaderId(header_id))
-    await navigate(
-      `${
+  const handleSchool = (school_id: number, school: string, header_id: number) => {
+    localStorage.setItem('school', school)
+    dispatch(setSchoolName(school))
+    localStorage.setItem('school_id', String(school_id))
+    dispatch(setSchoolId(school_id))
+    localStorage.setItem('header_id', String(header_id))
+    dispatch(setHeaderId(header_id))
+
+    navigate(
+      generatePath(
         userRole === RoleE.SuperAdmin
-          ? `/school/${school}/settings/`
+          ? Path.School + Path.Settings
           : userRole === RoleE.Teacher
-          ? `/school/${school}/` + Path.CourseStats
-          : `/school/${school}/` + Path.Courses
-      }`,
+          ? Path.School + Path.CourseStats
+          : Path.School + Path.Courses,
+        { school_name: school },
+      ),
     )
-    await window.location.reload()
   }
 
   return (
