@@ -19,8 +19,6 @@ export const MainLayOut: FC = memo(() => {
   const headerId = localStorage.getItem('header_id')
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
 
-  
-
   useEffect(() => {
     if (isSuccess) {
     document.title = `${data?.name}`

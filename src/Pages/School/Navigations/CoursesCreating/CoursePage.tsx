@@ -1,64 +1,74 @@
-import {FC, useState} from 'react'
-import {useAppSelector} from 'store/hooks'
-import {CoursesCard} from './CoursesCard'
-import {IconSvg} from 'components/common/IconSvg/IconSvg'
-import {Input} from 'components/common/Input/Input/Input'
-import {RoleE} from 'enum/roleE'
-import {searchIconPath} from 'config/commonSvgIconsPath'
-import {selectUser} from 'selectors'
-import {AddCourseModal} from 'components/Modal'
-import {useFetchCoursesQuery} from 'api/coursesServices'
-import {useBoolean} from 'customHooks/useBoolean'
-import {Portal} from 'components/Modal/Portal'
-import {useDebouncedFilter} from '../../../../customHooks'
+
+import { FC, useEffect } from 'react'
+import { useAppSelector } from 'store/hooks'
+import { CoursesCard } from './CoursesCard'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { Input } from 'components/common/Input/Input/Input'
+import { RoleE } from 'enum/roleE'
+import { searchIconPath } from 'config/commonSvgIconsPath'
+import { schoolIdSelector, schoolNameSelector, selectUser } from 'selectors'
+import { AddCourseModal } from 'components/Modal'
+import { useFetchCoursesPageQuery } from 'api/coursesServices'
+import { useBoolean } from 'customHooks/useBoolean'
+import { Portal } from 'components/Modal/Portal'
+import { useDebouncedFilter } from '../../../../customHooks'
+
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
-import {SimpleLoader} from '../../../../components/Loaders/SimpleLoader'
+import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 import ContentLoader from 'react-content-loader'
 import { ToggleButtonDropDown } from '../../../../components/common/ToggleButtonDropDown'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
-export const CoursePage: FC = (() => {
-    const {data: courses, isSuccess} = useFetchCoursesQuery()
-    const {role} = useAppSelector(selectUser)
-    const [isOpenAddCourse, {onToggle}] = useBoolean()
-    const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
-    const [isVisible, setVisible] = useState (false);
-    const handleVisible = () => setVisible(!isVisible);
 
-    const dispatchHandlerModal = () => {
-        onToggle()
+export const CoursePage: FC = () => {
+  const { role } = useAppSelector(selectUser)
+  const schoolName = useAppSelector(schoolNameSelector)
+  const { data: courses, isSuccess, refetch } = useFetchCoursesPageQuery(schoolName)
+  const schoolId = useAppSelector(schoolIdSelector)
+  const [isOpenAddCourse, { onToggle }] = useBoolean()
+  const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
+  const [isVisible, setVisible] = useState (false);
+  const handleVisible = () => setVisible(!isVisible);
+
+  const dispatchHandlerModal = () => {
+    onToggle()
+  }
+
+  useEffect(() => {
+    if (schoolName === window.location.href.split('/')[4]) {
+      refetch()
     }
+  }, [schoolId])
 
-    if (!isSuccess) return (
-        <>
-            <div>
-                <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160"
-                               backgroundColor="#fff" foregroundColor="#f2f2f2">
-                    <rect x="0" y="0" rx="3" ry="3" width="130" height="130"/>
-                </ContentLoader></div>
-            <div className={styles.skeleton}>
-                <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160"
-                               backgroundColor="#e0dced" foregroundColor="#ecebeb">
-                    <rect x="0" y="10" rx="3" ry="3" width="130" height="65"/>
-                </ContentLoader></div>
-            <div className={styles.skeleton}>
-                <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160"
-                               backgroundColor="#cccccc" foregroundColor="#ecebeb">
-                    <rect x="7" y="95" rx="3" ry="3" width="115" height="8"/>
-                    <rect x="7" y="115" rx="3" ry="3" width="100" height="8"/>
-                    <rect x="7" y="135" rx="3" ry="3" width="100" height="8"/>
-                </ContentLoader>
-            </div>
-            <div
-                style={{position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
-                <SimpleLoader style={{width: '100px', height: '100px'}}/>
-            </div>
-        </>)
+  if (!isSuccess)
     return (
-        <>
-        
-        
+      <>
+        <div>
+          <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#fff" foregroundColor="#f2f2f2">
+            <rect x="0" y="0" rx="3" ry="3" width="130" height="130" />
+          </ContentLoader>
+        </div>
+        <div className={styles.skeleton}>
+          <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#e0dced" foregroundColor="#ecebeb">
+            <rect x="0" y="10" rx="3" ry="3" width="130" height="65" />
+          </ContentLoader>
+        </div>
+        <div className={styles.skeleton}>
+          <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#cccccc" foregroundColor="#ecebeb">
+            <rect x="7" y="95" rx="3" ry="3" width="115" height="8" />
+            <rect x="7" y="115" rx="3" ry="3" width="100" height="8" />
+            <rect x="7" y="135" rx="3" ry="3" width="100" height="8" />
+          </ContentLoader>
+        </div>
+        <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+          <SimpleLoader style={{ width: '100px', height: '100px' }} />
+        </div>
+      </>
+
+    )
+  return (
+    <>
         <div className={styles.container}>
             <Input role="search-input" name="" type="search" value={nameCourses} onChange={filterData}
                    placeholder="Поиск по курсам">
@@ -107,5 +117,4 @@ export const CoursePage: FC = (() => {
         </div>
          
         </>
-    )
-})
+}

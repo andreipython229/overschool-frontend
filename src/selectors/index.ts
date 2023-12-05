@@ -6,3 +6,5 @@ export const getSectionId = (state: RootState) => state.sections
 export const userIdSelector = (state: RootState) => state.user.userId
 export const filtersSelector = (state: RootState) => state.filters
 export const schoolNameSelector = (state: RootState) => state.school.schoolName
+export const schoolIdSelector = (state: RootState) => state.schoolId
+ 

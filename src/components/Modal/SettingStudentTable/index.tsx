@@ -19,15 +19,16 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
     const {data: studentsTableInfo, isSuccess} = useFetchStudentsTableHeaderQuery(tableId)
 
     const [patchTable] = usePatchStudentsTableHeaderMutation()
+    const [checkedList, setIsCheckedList] = useState<studentGroupInfoT[]>([])
+    const [settingList, setSettingsList] = useState<studentGroupInfoT[]>([])
+    const [nameAndEmailSettingsList, setNameAndEmailSettingsList] = useState<studentGroupInfoT[]>([])
 
     const debounced = useDebounceFunc(() => patchTable({
         id: tableId,
         students_table_info: nameAndEmailSettingsList.concat(settingList)
     }), 2000)
 
-    const [checkedList, setIsCheckedList] = useState<studentGroupInfoT[]>([])
-    const [settingList, setSettingsList] = useState<studentGroupInfoT[]>([])
-    const [nameAndEmailSettingsList, setNameAndEmailSettingsList] = useState<studentGroupInfoT[]>([])
+
 
     const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
         if (checkedList.length >= 3 && event.target.checked) {
@@ -58,9 +59,11 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
     }, [isSuccess])
 
     useEffect(() => {
-        debounced()
-        const isCheckedListItem = settingList.filter(checkedItem => checkedItem.checked)
-        setIsCheckedList(isCheckedListItem)
+        if (settingList.length > 0) {
+            debounced()
+            const isCheckedListItem = settingList.filter(checkedItem => checkedItem.checked)
+            setIsCheckedList(isCheckedListItem)
+        }
     }, [settingList])
 
     return (
