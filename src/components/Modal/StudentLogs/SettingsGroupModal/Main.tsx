@@ -1,13 +1,13 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
+import {ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState} from 'react'
 
-import { Input } from 'components/common/Input/Input/Input'
-import { Checkbox } from 'components/common/Checkbox/Checkbox'
-import { Button } from 'components/common/Button/Button'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
-import { Dropdown } from 'primereact/dropdown'
+import {Input} from 'components/common/Input/Input/Input'
+import {Checkbox} from 'components/common/Checkbox/Checkbox'
+import {Button} from 'components/common/Button/Button'
+import {SimpleLoader} from 'components/Loaders/SimpleLoader'
+import {Dropdown} from 'primereact/dropdown'
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
-import { useFetchAllUsersQuery } from '../../../../api/allUsersList'
-import { PrimeReactProvider } from 'primereact/api'
+import {useFetchAllUsersQuery} from '../../../../api/allUsersList'
+import {PrimeReactProvider} from 'primereact/api'
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import {useFetchStudentsGroupByCourseQuery} from "../../../../api/studentsGroupService";
@@ -16,6 +16,7 @@ type MainSettingsGroupPropsT = {
     strongSubsequence: boolean
     blockHomework: boolean
     title: string
+    groupType: string
     isLoading: boolean
     isError: boolean
     setGroupName: any
@@ -32,6 +33,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    strongSubsequence,
                                                                    blockHomework,
                                                                    title,
+                                                                   groupType,
                                                                    isLoading,
                                                                    isError,
                                                                    handlerHomeworkCheck,
@@ -85,11 +87,11 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
     }, [courseGroups, allTeachers])
 
 
-  const handleChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === 'groupName') {
-      setGroupName(e.target.value)
+    const handleChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.name === 'groupName') {
+            setGroupName(e.target.value)
+        }
     }
-  }
 
     const handleChangeTeacher = (e: any) => {
         const changedTeachers = [...teachers.filter((teacher: string) => teacher !== e.value), selectedTeacher]
@@ -104,14 +106,15 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                     <Input name={'groupName'} value={title} type={'text'} label={'Название группы:'}
                            onChange={handleChangeGroupName}/>
                 </div>
+                {groupType === "WITH_TEACHER" ?
                 <div className="card flex p-fluid">
                     <p className={styles.textField}>Преподаватель данной группы: </p>
                     <Dropdown value={selectedTeacher}
-                         onChange={handleChangeTeacher}
-                         options={teachers}
-                         placeholder={`${selectedTeacher ? selectedTeacher : 'Выберите преподавателя для данной группы'}`}
-                         className="w-full md:w-14rem"/>
-                </div>
+                              onChange={handleChangeTeacher}
+                              options={teachers}
+                              placeholder={`${selectedTeacher ? selectedTeacher : 'Выберите преподавателя для данной группы'}`}
+                              className="w-full md:w-14rem"/>
+                </div> : <></>}
                 <div className={styles.groupSetting_checkboxBlock}>
                     <div className={styles.groupSetting_checkboxBlock_checkbox}>
                         <Checkbox id={'homework'} name={'homework'} checked={blockHomework}

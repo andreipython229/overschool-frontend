@@ -66,6 +66,17 @@ export const studentsGroupService = createApi({
             }),
             invalidatesTags: ['studentsGroup']
         }),
+        patchGroupWithoutTeacher: build.mutation<any, { id: number, data: any }>({
+            query: ({id, data}) => ({
+                url: `/students_group_no_teacher/${id}/`,
+                method: 'PATCH',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }),
+            invalidatesTags: ['studentsGroup']
+        }),
         deleteStudentFromGroup: build.mutation<any, any>({
             query: (data) => ({
                 url: '/access-distribution/',
@@ -79,6 +90,7 @@ export const studentsGroupService = createApi({
 export const {
     //useFetchUserCountByMonthDataQuery,
     usePatchStudentsGroupMutation,
+    usePatchGroupWithoutTeacherMutation,
     useFetchStudentsGroupByCourseQuery,
     useFetchStudentGroupQuery,
     useFetchStudentsGroupQuery,

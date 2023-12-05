@@ -41,7 +41,6 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
                 selected_group: group_id
             } : course)),
         )
-        console.log(checkCourses)
     }
 
     const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +55,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
         if (isGetted) {
             const updatedCourses: checkCourseT[] = courses.map(course => ({
                 ...course,
+                student_groups: course.student_groups.filter(group => group.type === "WITH_TEACHER"),
                 selected_group: null
             }))
             setCheckCourses(updatedCourses)

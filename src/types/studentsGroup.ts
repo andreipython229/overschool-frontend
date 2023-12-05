@@ -19,6 +19,7 @@ export type studentsGroupsT = {
         strict_task_order: boolean,
         task_submission_lock: boolean
     }
+    type?: string
 }
 
 export type studentsTableHeader = {
