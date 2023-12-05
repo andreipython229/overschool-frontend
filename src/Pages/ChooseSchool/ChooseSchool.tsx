@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, generatePath, useNavigate } from 'react-router-dom'
 
 import { Path } from '../../enum/pathE'
 
@@ -6,7 +6,7 @@ import styles from './chooseSchool.module.scss'
 import { useEffect, useState } from 'react'
 import { useGetSchoolsMutation } from '../../api/getSchoolService'
 import { useAppSelector } from '../../store/hooks'
-import { selectUser } from '../../selectors'
+import { selectUser, schoolNameSelector } from '../../selectors'
 import { RoleE } from '../../enum/roleE'
 import { SimpleLoader } from '../../components/Loaders/SimpleLoader'
 import { setSchoolName } from '../../store/redux/school/schoolSlice'
@@ -17,52 +17,62 @@ import { useBoolean } from '../../customHooks'
 import { userRoleName } from 'config/index'
 import { Portal } from '../../components/Modal/Portal'
 import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
+import { auth } from 'store/redux/users/slice'
+import { useLazyLogoutQuery } from 'api/userLoginService'
+
+export type SchoolT = {
+  school_id: number
+  name: string
+  header_school: number
+  role: string
+}
 
 export const ChooseSchool = () => {
   const navigate = useNavigate()
-  const [getSchools, { isSuccess: userSuccess }] = useGetSchoolsMutation()
+  const [getSchools, { isSuccess: userSuccess, isError }] = useGetSchoolsMutation()
+  const [logout] = useLazyLogoutQuery()
   const { role: userRole, userName: name } = useAppSelector(selectUser)
-
-  const [schools, setSchools] = useState<[]>([])
-  console.log(schools)
+  const schoolName = useAppSelector(schoolNameSelector)
+  const [schools, setSchools] = useState<SchoolT[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
-
   const [isOpen, { off, on }] = useBoolean()
-
   const dispatch = useDispatch()
 
   useEffect(() => {
-    getSchools().then((datas: any) => {
-      setIsLoading(false)
-      const co = JSON.parse(JSON.stringify(datas))
-      setSchools(JSON.parse(co.data))
-    })
+    getSchools()
+      .unwrap()
+      .then((data: SchoolT[]) => {
+        setIsLoading(false)
+        setSchools(data)
+      })
+      .catch(err => {
+        if (err.status === 401) {
+          localStorage.clear()
+          logout()
+          dispatch(auth(false))
+          navigate(generatePath(Path.InitialPage))
+        }
+      })
   }, [])
 
-  type School = {
-    school_id: number
-    name: string
-    header_school: number
-    role: string
-  }
+  const handleSchool = (school_id: number, school: string, header_id: number) => {
+    localStorage.setItem('school', school)
+    dispatch(setSchoolName(school))
+    localStorage.setItem('school_id', String(school_id))
+    dispatch(setSchoolId(school_id))
+    localStorage.setItem('header_id', String(header_id))
+    dispatch(setHeaderId(header_id))
 
-  const handleSchool = async (school_id: number, school: string, header_id: number) => {
-    await localStorage.setItem('school', school)
-    await dispatch(setSchoolName(school))
-    await localStorage.setItem('school_id', String(school_id))
-    await dispatch(setSchoolId(school_id))
-    await localStorage.setItem('header_id', String(header_id))
-    await dispatch(setHeaderId(header_id))
-    await navigate(
-      `${
+    navigate(
+      generatePath(
         userRole === RoleE.SuperAdmin
-          ? `/school/${school}/settings/`
+          ? Path.School + Path.Settings
           : userRole === RoleE.Teacher
-          ? `/school/${school}/` + Path.CourseStats
-          : `/school/${school}/` + Path.Courses
-      }`,
+          ? Path.School + Path.CourseStats
+          : Path.School + Path.Courses,
+        { school_name: school },
+      ),
     )
-    await window.location.reload()
   }
 
   return (
@@ -72,8 +82,8 @@ export const ChooseSchool = () => {
           <SimpleLoader style={{ margin: '50px', height: '80px' }} />
         ) : (
           <div>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-              <svg style={{marginBottom: '3em'}} width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+              <svg style={{ marginBottom: '3em' }} width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -111,7 +121,7 @@ export const ChooseSchool = () => {
             </div>
 
             {schools ? (
-              schools.map((s: School, index: number) => (
+              schools.map((s, index: number) => (
                 <Link
                   key={index}
                   onClick={async e => {

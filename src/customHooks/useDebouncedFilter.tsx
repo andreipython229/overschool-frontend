@@ -20,7 +20,6 @@ export const useDebouncedFilter = <T, K extends keyof T>(dataToFilter: T[], term
 
   const debounce = useDebounceFunc(() => setFilteredData(filteredDataByTerm?.length ? filteredDataByTerm : dataToFilter))
 
-  
   useEffect(() => {
     defaultTerm && setTerm(defaultTerm)
   }, [defaultTerm])

@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect } from 'react'
 import { Link, generatePath, useNavigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
@@ -16,6 +16,7 @@ import { IconSvg } from '../../components/common/IconSvg/IconSvg'
 import { auth } from '../../store/redux/users/slice'
 import { useLazyLogoutQuery } from '../../api/userLoginService'
 import Tooltip from '@mui/material/Tooltip'
+import { useLazyFetchProfileDataQuery } from 'api/profileService'
 
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setRegistrationShow }) => {
   const isLogin = useAppSelector(authSelector)
@@ -23,6 +24,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
   const dispatch = useAppDispatch()
   const [logout] = useLazyLogoutQuery()
   const navigate = useNavigate()
+  const [fetchAuth, { data }] = useLazyFetchProfileDataQuery()
 
   const handleLoginUser = () => {
     setLoginShow(true)
@@ -39,6 +41,16 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
 
     dispatch(auth(false))
   }
+
+  useEffect(() => {
+    if (isLogin) {
+      fetchAuth().catch(err => {
+        if (err.status === 401) {
+          logOut()
+        }
+      })
+    }
+  }, [])
 
   return (
     <header className={styles.init_header}>

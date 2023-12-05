@@ -20,6 +20,8 @@ import deleteIcon from './deleteIcon.svg'
 import pngwing from './2869065.jpg'
 import chatGroup from './chat_group.png'
 import chatCourse from './chat_course.png'
+import arrowDownTableAZ from './arrowDownTableAZ.svg'
+import arrowDownTableZA from './arrowDownTableZA.svg'
 
 export {
     arrowUp,
@@ -43,5 +45,7 @@ export {
     deleteIcon,
     pngwing,
     chatGroup,
-    chatCourse
+    chatCourse,
+    arrowDownTableAZ,
+    arrowDownTableZA
 }
