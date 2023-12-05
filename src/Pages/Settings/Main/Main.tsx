@@ -103,7 +103,7 @@ export const Main = memo(() => {
           Частая смена не рекомендуется!!!
         </div>
         <div>
-          <Input name={'name'} type={'text'} style={{ width: '320px', paddingBottom: '10px' }} value={name} onChange={handleChangeSchoolName} />
+          <Input name={'name'} type={'text'} style={{ maxWidth: '320px', paddingBottom: '10px' }} value={name} onChange={handleChangeSchoolName} />
           {error && <p className={styles.error}>{error}</p>}
           <Button
             onClick={handleOpenAlert}
@@ -119,7 +119,7 @@ export const Main = memo(() => {
         <hr />
         <div className={styles.main_project}>Ссылка на файл публичного договора оферты</div>
         <div>
-          <Input name={'name'} type={'text'} style={{ width: '320px', paddingBottom: '10px' }} value={url} onChange={handleChangeUrl} />
+          <Input name={'name'} type={'text'} style={{ maxWidth: '320px', paddingBottom: '10px' }} value={url} onChange={handleChangeUrl} />
           <Button
             onClick={onChangeUrl}
             style={{ width: '120px' }}

@@ -57,7 +57,7 @@
         height:max-content ;
         width: 474px;
         margin: 0 auto;
-        margin-bottom: 20px;
+        // margin-bottom: 20px;
 
         @media only screen and (min-width : 320px) and (max-width : 375px) {
           width: 100%;
@@ -175,7 +175,7 @@
   }
 
   &_btnBlock {
-    
+    margin: 10px 0;
     & :nth-child(1) {
       margin-bottom: 10px;
       @media only screen and (min-width : 320px) and (max-width : 375px) {
@@ -200,7 +200,7 @@
     & :nth-child(2) {
       margin-top: 10px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
-        padding-right: 20%;
+        // padding-right: 20%;
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         width: 100%;

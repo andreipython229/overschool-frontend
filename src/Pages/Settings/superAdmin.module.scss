@@ -1,6 +1,10 @@
 @import '../../scss/variable';
 @import '../../scss/mixin.scss';
 
+.fit-content {
+  width: fit-content;
+}
+
 .main {
   font-family: 'Inter', sans-serif;
   color: #4d5766;
@@ -129,7 +133,7 @@
   }
 
   &_table {
-    width: 100%;
+    min-width: fit-content;
 
     &_title {
       position: relative;
@@ -168,6 +172,7 @@
   padding: 26px 32px 24px 32px;
   box-shadow: 0 0 8px #d9d9d9;
   border-radius: 8px;
+  overflow-x: auto;
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     padding: 4% 3% 4% 3%;
   }

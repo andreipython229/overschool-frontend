@@ -11,7 +11,6 @@
   overflow: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  display: flex;
   z-index: 99;
   padding: 30px 0;
   
@@ -37,9 +36,9 @@
   width: 100%;
   min-height: 100%;
   margin: auto;
-  display: flex;
+  // display: flex;
   overflow: hidden;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
+  // flex-flow: column nowrap;
+  // align-items: center;
+  // justify-content: center;
 }

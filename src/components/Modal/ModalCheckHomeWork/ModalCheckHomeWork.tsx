@@ -297,6 +297,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
                     </div>
                 </div>
             </div>
+            
             {!hwStatus &&
                 <>
                     <h3 className={styles.answer_header}>Введите ваш ответ:</h3>
@@ -341,10 +342,11 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({id, closeModal}) =>
                     </div>
                 </>
             }
+
             <button className={styles.modal_btn_is_toggle} onClick={handleToggleHiddenBlocks}>
-        <span className={isOpen ? styles.arrow_rotate : ''}>
-          <IconSvg width={25} height={25} viewBoxSize="0 0 21 21" path={arrIconPath}/>
-        </span>
+                <span className={isOpen ? styles.arrow_rotate : ''}>
+                <IconSvg width={25} height={25} viewBoxSize="0 0 21 21" path={arrIconPath}/>
+                </span>
                 {isOpen ? 'Скрыть историю проверки' : 'Показать историю проверки'}
             </button>
             {isOpen && (
