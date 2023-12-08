@@ -39,7 +39,8 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
 
   const [isShown, setIsShown] = useState(false)
   const [isHidden, setIsHidden] = useState(true)
-  const forgotPass = () => {
+  const forgotPass = (e:any) => {
+    e.preventDefault()
     setIsShown(!isShown)
     setIsHidden(!isHidden)
   }
@@ -159,7 +160,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
               </div>
 
               <div className={styles.main_btn}>
-                <Button type="submit" text={'Забыли пароль?'} style={{ width: '246px' }} onClick={forgotPass} />
+                <a href='' onClick={forgotPass} className={styles.main_btn_href}>Забыли пароль?</a>
               </div>
             </div>
           </div>

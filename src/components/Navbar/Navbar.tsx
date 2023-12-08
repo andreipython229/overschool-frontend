@@ -64,6 +64,7 @@ export const Navbar: FC = memo(() => {
                   : path === Path.HomeWork
                   ? 'Домашние задания'
                   : 'Настройки школы'
+                  
               }
               key={index}
               arrow

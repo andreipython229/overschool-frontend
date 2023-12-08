@@ -176,18 +176,20 @@
         }
 
         &:hover {
-          background-color: rgba(220, 220, 220, 1);
+          //background-color: rgba(220, 220, 220, 1);
           border-radius: 8px;
+          border: 1px black solid;
         }
 
         &_lesson {
           @include display(flex, row, flex-start, center);
           color: $font-color-rose;
           font-size: 12px;
+          
 
-          //span {
-          //  margin-right: 10px;
-          //}
+           svg {
+            margin-right: 5px;
+          }
           //
           //& img {
           //  margin-right: 7.5px;

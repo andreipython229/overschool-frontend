@@ -1,5 +1,5 @@
 
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useAppSelector } from 'store/hooks'
 import { CoursesCard } from './CoursesCard'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -117,4 +117,5 @@ export const CoursePage: FC = () => {
         </div>
          
         </>
+  )
 }

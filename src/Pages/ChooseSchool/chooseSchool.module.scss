@@ -26,6 +26,7 @@
 }
 .tit {
   font-size: 25px;
+  font-weight: 700;
 }
 .bg2 {
   display: flex;
@@ -69,6 +70,7 @@
 }
 .name {
   font-size: 23px;
+  margin-bottom: 5px;
 }
 .role {
   color: #a2a9b4;
@@ -82,15 +84,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 1em;
+  padding-left: 2em;
   border-radius: 1em;
   width: 19.5em;
-  height: 4em;
+  height: 5em;
   transition: ease-in-out background-color 0.3s;
 
   span {
-    font-size: 32px;
-    margin-right: 0.2em;
+    font-size: 40px;
+    margin-right: 0.4em;
     color: #a83eff;
     transition: ease-in-out color 0.3s;
   }
