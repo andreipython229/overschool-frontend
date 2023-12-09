@@ -155,5 +155,31 @@
     // height: 0;
     // opacity: 0;
     transition: height 0.3s ease, opacity 0.3s ease;
+
+    &_check {
+      display: flex;
+      text-align: right;
+      justify-content: flex-end;
+
+      &_span {
+        margin-left: 10px;
+        margin-top: 2px;
+        @include font(600, 12px, 150%);
+        letter-spacing: 0.04em;
+        color: rgba(133, 86, 148, 0.78);
+      }
+
+      &_btn {
+        margin-left: auto;
+        @include font(600, 12px, 150%);
+        letter-spacing: 0.04em;
+        color: rgba(28, 26, 26, 0.56);
+      }
+
+      &_fake {
+        margin-left: auto;
+        min-height: 30px;
+      }
+    }
   }
 }

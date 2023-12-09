@@ -28,6 +28,7 @@ export interface Section {
 }
 
 export interface Lesson {
+    lesson_id: number
     section: number
     name: string
     order: number
@@ -38,6 +39,7 @@ export interface Lesson {
     type: string
     all_components: any[]
     active: boolean
+    lessonChecked?: boolean
 }
 
 export type courseStatsT = {

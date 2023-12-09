@@ -51,6 +51,7 @@ export const StudentsPerCourse: FC = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      console.log(tablesHeader)
       const id = tablesHeader.find(table => table.type === 'Course')?.students_table_info_id
       setTableId(id)
     }
