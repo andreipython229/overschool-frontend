@@ -54,7 +54,8 @@ export const Navbar: FC = memo(() => {
           </NavLink>
         </Tooltip>
         <div className={styles.navbar_setting_account}>
-          {navlinkByRoles[role].map(({ path, icon }, index: number) => (
+          {navlinkByRoles[role].map(({ path, icon }, index: number) => 
+            path !== 'doNotPath' ? (
             <Tooltip
               title={
                 path === Path.Courses
@@ -64,7 +65,6 @@ export const Navbar: FC = memo(() => {
                   : path === Path.HomeWork
                   ? 'Домашние задания'
                   : 'Настройки школы'
-                  
               }
               key={index}
               arrow
@@ -74,7 +74,7 @@ export const Navbar: FC = memo(() => {
                 {icon}
               </NavLink>
             </Tooltip>
-          ))}
+            ):(
           <Tooltip title={'Чаты'} arrow placement={'right'}>
             <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
               {Number(unRead) > 0 ? (
@@ -86,6 +86,7 @@ export const Navbar: FC = memo(() => {
               )}
             </div>
           </Tooltip>
+        ))}
         </div>
       </motion.nav>
       {isChatOpen && (
