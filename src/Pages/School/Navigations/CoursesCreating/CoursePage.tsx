@@ -1,4 +1,5 @@
-import { FC, useEffect } from 'react'
+
+import { FC, useEffect, useState } from 'react'
 import { useAppSelector } from 'store/hooks'
 import { CoursesCard } from './CoursesCard'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -11,9 +12,14 @@ import { useFetchCoursesPageQuery } from 'api/coursesServices'
 import { useBoolean } from 'customHooks/useBoolean'
 import { Portal } from 'components/Modal/Portal'
 import { useDebouncedFilter } from '../../../../customHooks'
+
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 import ContentLoader from 'react-content-loader'
+import { ToggleButtonDropDown } from '../../../../components/common/ToggleButtonDropDown'
+
+import { motion, AnimatePresence } from 'framer-motion'
+
 
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
@@ -22,6 +28,8 @@ export const CoursePage: FC = () => {
   const schoolId = useAppSelector(schoolIdSelector)
   const [isOpenAddCourse, { onToggle }] = useBoolean()
   const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
+  const [isVisible, setVisible] = useState (false);
+  const handleVisible = () => setVisible(!isVisible);
 
   const dispatchHandlerModal = () => {
     onToggle()
@@ -57,31 +65,57 @@ export const CoursePage: FC = () => {
           <SimpleLoader style={{ width: '100px', height: '100px' }} />
         </div>
       </>
+
     )
   return (
-    <div className={styles.container}>
-      <Input role="search-input" name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
-        <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
-      </Input>
-      <div className={styles.course}>
-        {courses && courses?.results.length ? (
-          foundCourses?.map((course: any) => <CoursesCard key={course?.course_id} course={course} role={role} />)
-        ) : (
-          <></>
-        )}
-        {role !== RoleE.Student && (
-          <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
-            <span className={styles.course_addCourse}>
-              <span>Создать курс</span>
-            </span>
-          </button>
-        )}
-      </div>
-      {isOpenAddCourse ? (
-        <Portal closeModal={onToggle}>
-          <AddCourseModal courses={courses?.results} setShowModal={onToggle} />
-        </Portal>
-      ) : null}
-    </div>
+    <>
+        <div className={styles.container}>
+            <Input role="search-input" name="" type="search" value={nameCourses} onChange={filterData}
+                   placeholder="Поиск по курсам">
+                <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath}/>
+            </Input>
+            <div className={styles.course_all}>
+                <ToggleButtonDropDown isOpen={isVisible} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleVisible} />
+            </div>
+            <AnimatePresence>
+            {
+              isVisible && (  
+            <motion.div className={styles.course}
+            initial={{
+                y: -50,
+                opacity: 0,
+              }}
+              animate={{
+                y:0,
+                opacity: 1,
+              }}
+              transition={{
+                delay: 0.5,
+              }}>
+                {courses && courses?.results.length ?
+                    foundCourses?.map((course: any) => (
+                        <CoursesCard key={course?.course_id} course={course} role={role}/>
+                    )): <></>
+                }
+                {role !== RoleE.Student && (
+                    <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
+                        <span className={styles.course_addCourse}>
+                          <span>Создать курс</span>
+                        </span>
+                    </button>
+                )}
+            </motion.div>
+            )
+            }
+
+        </AnimatePresence>
+            {isOpenAddCourse ? (
+                <Portal closeModal={onToggle}>
+                    <AddCourseModal courses={courses?.results} setShowModal={onToggle}/>
+                </Portal>
+            ) : null}
+        </div>
+         
+        </>
   )
 }

@@ -45,7 +45,7 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(({ setType,
           })}
         <hr />
         <div>
-          <Button onClick={handleOpenModalModule} text={'+ Модуль'} variant={'primary'} />
+          <Button onClick={handleOpenModalModule} text={'+ модуль'} variant={'primary'} />
         </div>
       </div>
     </div>
