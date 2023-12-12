@@ -9,12 +9,14 @@ import { useDeleteStudentsGroupMutation, useFetchStudentGroupQuery, usePatchStud
 import styles from '../studentsLog.module.scss'
 import { SimpleLoader } from '../../../Loaders/SimpleLoader'
 
+
 export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, groupId, courseId }) => {
+  const schoolName = window.location.href.split('/')[4]
   const [blockHomework, setBlockHomework] = useState<boolean>(false)
   const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
   const [textNameField, setTextNameField] = useState<string>('')
   const [currentTeacher, setCurrentTeacher] = useState<number>()
-  const { data, isSuccess } = useFetchStudentGroupQuery(`${groupId}`)
+  const { data, isSuccess } = useFetchStudentGroupQuery({id: String(groupId), schoolName})
   const [deleteStudentsGroup, { isLoading, isError }] = useDeleteStudentsGroupMutation()
   const [patchGroup] = usePatchStudentsGroupMutation()
 
@@ -33,7 +35,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
   }
 
   const handleDeleteGroup = async () => {
-    await deleteStudentsGroup(groupId)
+    await deleteStudentsGroup({id: groupId, schoolName})
     closeModal()
   }
 
@@ -49,7 +51,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
       },
     }
 
-    await patchGroup({ id: groupId, data: dataToSend })
+    await patchGroup({ id: groupId, data: dataToSend, schoolName })
     closeModal()
   }
   if (!isSuccess) {

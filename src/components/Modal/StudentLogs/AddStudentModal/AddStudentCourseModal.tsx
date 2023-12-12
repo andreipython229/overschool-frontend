@@ -29,7 +29,8 @@ type studentT = {
 
 export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, courses }) => {
   const params = useParams()
-  const { data: groups, isFetching, isSuccess } = useFetchStudentsGroupByCourseQuery(Number(params.course_id))
+  const schoolName = window.location.href.split('/')[4]
+  const { data: groups, isFetching, isSuccess } = useFetchStudentsGroupByCourseQuery({ id: Number(params.course_id), schoolName })
   const [registrationAdmin] = useAdminRegistrationMutation()
   const [addStudents, { isSuccess: studentSuccess, isLoading: studentLoading, isError: studentError }] = useAddUserAccessMutation()
   const [groupsList, setGroupsList] = useState<studentsGroupT>()
@@ -97,7 +98,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
           count = count + 1
           formdata.append('emails', student.email)
           if (count === students.length) {
-            await addStudents(formdata)
+            await addStudents({ data: formdata, schoolName })
               .unwrap()
               .then(async (accessdata: any) => {
                 setShowModal()
@@ -190,8 +191,15 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
             />
           ))}
           <div className={styles.addStudent_btnBlock}>
-            <Button type={'button'} onClick={handleAddNewStudent} className={styles.container_header_title_btn_add} variant={'secondary'} text={'Добавить ещё одного'} />
-            <Button className={styles.container_header_title_btn_send}
+            <Button
+              type={'button'}
+              onClick={handleAddNewStudent}
+              className={styles.container_header_title_btn_add}
+              variant={'secondary'}
+              text={'Добавить ещё одного'}
+            />
+            <Button
+              className={styles.container_header_title_btn_send}
               type={'button'}
               onClick={handleSubmitForm}
               variant={studentLoading || !students[0].email || studentError ? 'disabled' : 'primary'}

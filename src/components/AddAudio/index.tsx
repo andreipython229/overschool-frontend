@@ -10,12 +10,12 @@ import { AudioPlayer } from '../common/AudioPlayer'
 import { SimpleLoader } from '../Loaders/SimpleLoader'
 
 import styles from './addaudio.module.scss'
-
 const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
 const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
 export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPreview, lesson, addAudio, setShow }) => {
   const [dragAudio, setDragAudio] = useState<boolean>(false)
+  const schoolName = window.location.href.split('/')[4]
 
   const [addAudioFiles, { isLoading }] = usePostAudioFilesMutation()
   const [isLoadingAudio, setIsLoadingAudio] = useState<boolean>(false)
@@ -49,7 +49,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     formData.append('base_lesson', String(lesson.baselesson_ptr_id))
 
     try {
-      await addAudioFiles(formData)
+      await addAudioFiles({formData, schoolName})
         .unwrap()
         .then(() => {
           addAudio((prev: File[]) => [...prev, audio])

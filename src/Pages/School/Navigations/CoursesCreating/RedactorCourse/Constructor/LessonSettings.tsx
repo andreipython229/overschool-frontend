@@ -26,6 +26,7 @@ import { PublishedMark } from '../../../../../../components/common/PublishedMark
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [files, setFiles] = useState<File[]>([])
+  const schoolName = window.location.href.split('/')[4]
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
   const [renderFiles, setRenderFiles] = useState<IFile[]>([])
   const [isEditing, setIsEditing] = useState(false)
@@ -33,7 +34,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [isPublished, setIsPublished] = useState(false)
   const [audiofiles, setAudiofiles] = useState<File[]>([])
 
-  const { data, isFetching, isSuccess } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type })
+  const { data, isFetching, isSuccess } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type, schoolName })
   const [addTextFiles] = usePostTextFilesMutation()
   const [saveChanges, { isLoading: isSaving, isSuccess: isCompleted }] = usePatchLessonsMutation()
   const [deleteFile, { isLoading: isDeleting }] = useDeleteTextFilesMutation()
@@ -78,7 +79,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
       formData1.append('base_lesson', `${data?.baselesson_ptr_id}`)
       files.forEach(file => formData1.append('files', file))
-      await addTextFiles(formData1).then(data => {
+      await addTextFiles({formData: formData1, schoolName}).then(data => {
         setFiles([])
         setUrlFiles([])
       })
@@ -89,7 +90,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     formData.append('section', String(lesson.section))
     formData.append('order', String(lesson.order))
     formData.append('active', String(isPublished))
-    await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
+    await saveChanges({arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName})
   }
 
   const renderUI = () => {
@@ -116,7 +117,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
   const handleDeleteLesson = async () => {
     if ('id' in lessonIdAndType) {
-      await deleteLesson({ id: lessonIdAndType.id, type: lessonIdAndType.type })
+      await deleteLesson({ id: lessonIdAndType.id, type: lessonIdAndType.type, schoolName })
     }
   }
 
@@ -151,7 +152,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       formData.append('order', String(lesson.order))
       formData.append('active', String(isPublished))
       formData.append('url', '')
-      await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
+      await saveChanges({arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName})
     }
     if (video && video === lesson.video) {
       const formData = new FormData()
@@ -159,7 +160,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       formData.append('order', String(lesson.order))
       formData.append('active', String(isPublished))
       formData.append('video_use', String(true))
-      await saveChanges({ id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData })
+      await saveChanges({arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName})
     }
   }
 
@@ -167,7 +168,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     if (lesson.type !== 'test') {
       const fileToDelete = lesson.audio_files[index]
       if (fileToDelete) {
-        await deleteAudio(fileToDelete.id)
+        await deleteAudio({id: String(fileToDelete.id), schoolName})
       }
     }
   }
@@ -176,7 +177,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     if (lesson.type !== 'test') {
       const fileToDelete = lesson.text_files[index]
       if (fileToDelete) {
-        await deleteFile(fileToDelete.id)
+        await deleteFile({id: String(fileToDelete.id), schoolName})
           .unwrap()
           .then(data => setRenderFiles(renderFiles.filter(file => file.id !== fileToDelete.id)))
       }

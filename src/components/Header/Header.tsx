@@ -3,7 +3,7 @@ import { Link, NavLink, generatePath, useNavigate } from 'react-router-dom'
 
 import { useFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { auth, logoutState } from 'store/redux/users/slice'
+import { auth, logoutState, role } from 'store/redux/users/slice'
 import { Path } from 'enum/pathE'
 import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
@@ -26,30 +26,33 @@ import { setChats } from '../../store/redux/chats/chatsSlice'
 
 import { ITariff, UserProfileT } from '../../types/userT'
 import { setUserProfile, clearUserProfile } from '../../store/redux/users/profileSlice'
-import { isEqual, omit } from 'lodash'
+import { isEqual } from 'lodash'
 import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath'
 import { RoleE } from 'enum/roleE'
 
 import { useCookies } from 'react-cookie'
-import { useFetchCurrentTariffPlanQuery, useFetchTariffPlanInfoQuery } from 'api/tariffPlanService'
+import { useFetchCurrentTariffPlanQuery, useLazyFetchCurrentTariffPlanQuery, useLazyFetchTariffPlanInfoQuery } from 'api/tariffPlanService'
 import { setTariff } from 'store/redux/tariff/tariffSlice'
 import { removeSchoolId } from '../../store/redux/school/schoolIdSlice'
 import { removeHeaderId } from '../../store/redux/school/headerIdSlice'
 import { removeSchoolName } from '../../store/redux/school/schoolSlice'
+import { useDispatch } from 'react-redux'
 
 import { motion } from 'framer-motion'
 
 export const Header = memo(() => {
+  const schoolName = window.location.href.split('/')[4]
   const dispatch = useAppDispatch()
-  const { role } = useAppSelector(selectUser)
+  const dispatchRole = useDispatch()
+  const { role: userRole } = useAppSelector(selectUser)
   const navigate = useNavigate()
   const [logout, { isLoading }] = useLazyLogoutQuery()
   const headerId = localStorage.getItem('header_id')
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
   const { data: profile, isSuccess: profileIsSuccess, isError, error } = useFetchProfileDataQuery()
-  const { data: tariffPlan, isSuccess: tariffSuccess } = useFetchCurrentTariffPlanQuery()
+  const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
   const [currentTariff, setCurrentTariff] = useState<ITariff>()
-  const { data: tariff } = useFetchTariffPlanInfoQuery(currentTariff?.tariff)
+  const [fetchTariff, { data: tariff }] = useLazyFetchTariffPlanInfoQuery()
 
   const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
   const chats = useAppSelector(state => state.chats.chats)
@@ -65,21 +68,19 @@ export const Header = memo(() => {
   const open2 = Boolean(anchorEl2)
 
   const logOut = async () => {
-    await logout()
-    if (isLoading) {
-      return <SimpleLoader />
-    }
-    setProfileData(undefined)
-    dispatch(auth(false))
-    dispatch(clearUserProfile())
-    dispatch(logoutState())
-    dispatch(removeSchoolId())
-    dispatch(removeHeaderId())
-    dispatch(removeSchoolName())
-    removeAccessCookie('access_token')
-    removeRefreshCookie('refresh_token')
-    navigate(generatePath(Path.InitialPage))
-    await localStorage.clear()
+    await logout().then(data => {
+      setProfileData(undefined)
+      dispatch(clearUserProfile())
+      dispatch(logoutState())
+      dispatch(removeSchoolId())
+      dispatch(removeHeaderId())
+      dispatch(removeSchoolName())
+      removeAccessCookie('access_token')
+      removeRefreshCookie('refresh_token')
+      localStorage.clear()
+      dispatch(auth(false))
+      navigate(generatePath(Path.InitialPage))
+    })
   }
 
   useEffect(() => {
@@ -95,6 +96,12 @@ export const Header = memo(() => {
   }, [data])
 
   useEffect(() => {
+    if (userRole === RoleE.Admin) {
+      fetchCurrentTarrif(schoolName)
+    }
+  }, [])
+
+  useEffect(() => {
     profileIsSuccess && setProfileData(profile[0])
   }, [profile])
 
@@ -103,7 +110,13 @@ export const Header = memo(() => {
       setCurrentTariff(tariffPlan)
       dispatch(setTariff(tariffPlan))
     }
-  }, [tariffSuccess])
+  }, [tariffSuccess, tariffPlan])
+
+  useEffect(() => {
+    if (currentTariff && currentTariff.tariff) {
+      fetchTariff(currentTariff.tariff)
+    }
+  }, [currentTariff])
 
   useEffect(() => {
     if (profileData) {
@@ -191,6 +204,7 @@ export const Header = memo(() => {
   }
 
   const goToChooseSchool = () => {
+    dispatchRole(role(RoleE.Unknown))
     navigate(Path.ChooseSchool)
     setAnchorEl(null)
   }
@@ -219,12 +233,13 @@ export const Header = memo(() => {
     transition={{
       delay: 0.1,
     }}>
-      <NavLink to={role === RoleE.Teacher ? Path.CourseStats : Path.Courses}>
+
+      <NavLink to={userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}>
         <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
       </NavLink>
       <div className={styles.header_block}>
         <React.Fragment>
-          {role === RoleE.Admin && currentTariff && (
+          {userRole === RoleE.Admin && currentTariff && (
             <div>
               <Tooltip title={'Статистика тарифа'}>
                 <div className={styles.tariffPlan} style={{ textDecoration: 'none' }} onClick={handleClick2}>
@@ -279,7 +294,7 @@ export const Header = memo(() => {
                 )}
                 <div className={styles.header_block_user_userName}>
                   <span style={{ color: '#BA75FF' }} className={styles.header_block_user_userName_status}>
-                    {headerUserRoleName[role]}
+                    {headerUserRoleName[userRole]}
                   </span>
                   <span className={styles.header_block_user_userName_name}>
                     {!profileData?.user.last_name && !profileData?.user.first_name
@@ -309,7 +324,7 @@ export const Header = memo(() => {
         </React.Fragment>
         <Tooltip title={'Выход из профиля'}>
           <div className={styles.header_block_logOut}>
-            <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
+            {isLoading ? <SimpleLoader /> : <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />}
           </div>
         </Tooltip>
       </div>

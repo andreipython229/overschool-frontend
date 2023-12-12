@@ -20,7 +20,8 @@ export const AdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensions> 
   emailUser,
   setShowModal,
 }) => {
-  const { data: courses, isSuccess, isFetching } = useFetchCoursesQuery()
+  const schoolName = window.location.href.split('/')[4]
+  const { data: courses, isSuccess, isFetching } = useFetchCoursesQuery(schoolName)
 
   const [checkCourses, setCheckCourses] = useState<checkCoursesDataT[]>()
 

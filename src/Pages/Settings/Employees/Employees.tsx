@@ -13,7 +13,8 @@ import styles_load from "components/Modal/Modal.module.scss";
 import {SimpleLoader} from "../../../components/Loaders/SimpleLoader";
 
 export const Employees: FC = () => {
-    const {data: allUsers, isSuccess, isFetching} = useFetchAllUsersQuery()
+    const schoolName = window.location.href.split('/')[4]
+    const {data: allUsers, isSuccess, isFetching} = useFetchAllUsersQuery(schoolName)
     const [employees, setEmployees] = useState<EmployeeT[]>([])
     const [isModalOpen, {off: openModal, on: closeModal}] = useBoolean()
 

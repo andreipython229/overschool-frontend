@@ -18,6 +18,7 @@ import {checkCourseT} from "../../../types/CoursesT";
 
 export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}) => {
     const navigate = useNavigate()
+    const schoolName = window.location.href.split('/')[4]
 
     const [name, setName] = useState<string>('')
     const [createCourses, {isLoading}] = useCreateCoursesMutation()
@@ -38,7 +39,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}
             formdata.append('name', name)
             formdata.append('school', school)
 
-            await createCourses(formdata).unwrap().then(async (data: any) => {
+            await createCourses({course: formdata, schoolName}).unwrap().then(async (data: any) => {
                 const {data: course}: any = data;
                 setShowModal()
                 if (course) {

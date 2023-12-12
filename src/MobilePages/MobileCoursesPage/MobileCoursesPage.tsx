@@ -10,8 +10,10 @@ import { CoursesDataT } from '../../types/CoursesT'
 
 import styles from './mobileCoursesPage.module.scss'
 
+
 export const MobileCoursesPage: FC = memo(() => {
-  const { data: coursesList } = useFetchCoursesQuery()
+  const schoolName = window.location.href.split('/')[4]
+  const { data: coursesList } = useFetchCoursesQuery(schoolName)
 
   const [term, filteredData, handleChangeTerm] = useDebouncedFilter(coursesList?.results as CoursesDataT[], 'name')
 

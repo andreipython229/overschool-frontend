@@ -18,6 +18,7 @@ import styles from './addPost.module.scss'
 import { AudioPlayer } from 'components/common/AudioPlayer'
 
 export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview, deleteAudio }) => {
+  const schoolName = window.location.href.split('/')[4]
   const [isOpenTextEditor, { on: closeTextEditor, off: openTextEditor }] = useBoolean()
   const [isOpenVideo, { on: closeVideo, off: openVideo }] = useBoolean()
   const [isOpenAudio, { on: closeAudio, off: openAudio }] = useBoolean()
@@ -45,7 +46,7 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
       formData.append('description', descriptionLesson.toString())
       formData.append('section', lesson.section.toString())
       formData.append('order', lesson.order.toString())
-      debounced({ formdata: formData, id: lesson.baselesson_ptr_id as number, type: lesson.type })
+      debounced({arg:{ formdata: formData, id: lesson.baselesson_ptr_id as number, type: lesson.type }, schoolName})
       // patchData(lesson, `${lessonIdAndType?.type}_id`, 'description', descriptionLesson, debounced, lessonIdAndType?.type)
     }
   }, [descriptionLesson])
@@ -56,7 +57,7 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
       formData.append('code', code.toString())
       formData.append('section', lesson.section.toString())
       formData.append('order', lesson.order.toString())
-      debounced({ formdata: formData, id: lesson.baselesson_ptr_id as number, type: lesson.type })
+      debounced({arg: { formdata: formData, id: lesson.baselesson_ptr_id as number, type: lesson.type }, schoolName})
       // patchData(lesson, `${lessonIdAndType?.type}_id`, 'code', code.toString(), debounced, lessonIdAndType?.type)
     }
   }, [code.toString()])

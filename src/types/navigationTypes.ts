@@ -5,7 +5,7 @@ import { sectionT, lessonT } from './sectionT'
 export type ClassesSettingsPropsT = {
   setType: (arg: keyof object) => void
   lessonIdAndType: lessonIdAndTypeT
-  deleteLesson: (arg: lessonIdAndTypeT) => void
+  deleteLesson: (arg: {id: number, type: string, schoolName: string}) => void
 }
 
 export type ModulesBlockT = {

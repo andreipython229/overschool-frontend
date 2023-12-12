@@ -9,6 +9,7 @@ import { useSendSubscriptionFormMutation } from 'api/subscriptionServices'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { getNounDeclension } from 'utils/getNounDeclension'
 
+
 interface ITariffDetailModal {
   tariff: TariffPlanT
   setShowModal: (close: boolean) => void
@@ -28,6 +29,7 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
   const [thirdPhase, setThirdPhase] = useState<boolean>(false)
   const [paymentLink, setPaymentLink] = useState<string>()
   const [paymentPrice, setPaymentPrice] = useState<number>()
+  const schoolName = window.location.href.split('/')[4]
 
   const handleChangePhase = () => {
     if (secondPhase) {
@@ -60,7 +62,7 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
             promo_code: '',
           }
 
-    await sendForm(subForm)
+    await sendForm({data: subForm, schoolName})
       .unwrap()
       .then(async data => {
         console.log(data)

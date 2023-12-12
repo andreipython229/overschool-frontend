@@ -1,27 +1,27 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { homeworksStatsT } from '../types/homeworkT'
-import {baseQuery, baseQueryFn} from './baseApi'
+import { baseQuery } from './baseApi'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
 
 export const homeworksStatsService = createApi({
   reducerPath: 'homeworksStatsService',
-  baseQuery: baseQueryFn(),
+  baseQuery: baseQuery(),
   tagTypes: ['homeworskStats'],
   endpoints: build => ({
-    fetchHomeworkStats: build.query<homeworksStatsT, any>({
-      query: ({ filters, page }) => {
+    fetchHomeworkStats: build.query<homeworksStatsT, { filters: any; page: any; schoolName: string }>({
+      query: ({ filters, page, schoolName }) => {
         const pageToFetch = filters.status === 'Все статусы' ? page : 1
-        const url = createUrlWithParams(`/homeworks_stats/?p=${pageToFetch}&s=4`, filters)
+        const url = createUrlWithParams(`/${schoolName}/homeworks_stats/?p=${pageToFetch}&s=4`, filters)
         return {
           url,
         }
       },
       providesTags: ['homeworskStats'],
     }),
-    fetchAllHomeworkStats: build.query<homeworksStatsT, { [key: string]: string | number }>({
-      query: filters => {
-        const url = createUrlWithParams(`/homeworks_stats/`, filters)
+    fetchAllHomeworkStats: build.query<homeworksStatsT, { filters: { [key: string]: string | number }; schoolName: string }>({
+      query: ({ filters, schoolName }) => {
+        const url = createUrlWithParams(`/${schoolName}/homeworks_stats/`, filters)
         return {
           url,
         }

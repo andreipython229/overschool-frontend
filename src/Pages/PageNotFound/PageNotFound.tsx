@@ -12,11 +12,12 @@ export const PageNotFound = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const goBack = () => {
-    const pathLink = schoolName
-      ? generatePath(role === RoleE.Teacher ? `${Path.School}${Path.CourseStudent}` : `${Path.School}${Path.Courses}`, {
-          school_name: schoolName,
-        })
-      : generatePath(Path.InitialPage)
+    const pathLink =
+      schoolName && role
+        ? generatePath(role === RoleE.Teacher ? `${Path.School}${Path.CourseStudent}` : `${Path.School}${Path.Courses}`, {
+            school_name: schoolName,
+          })
+        : generatePath(Path.InitialPage)
     navigate(pathLink)
   }
 

@@ -10,10 +10,12 @@ import { patchData } from 'utils/patchData'
 
 import styles from '../previou.module.scss'
 
+
 export const CoursePrevious: FC = memo(() => {
   const { course_id } = useParams()
+  const schoolName = window.location.href.split('/')[4]
 
-  const { data } = useFetchCourseQuery(course_id as string)
+  const { data } = useFetchCourseQuery({id: course_id as string, schoolName})
 
   const [update] = usePatchCoursesMutation()
 

@@ -14,6 +14,7 @@ import { tableFilterByNamePath, tableFilterByEmailUpPath, tableFilterByEmailDown
 
 import styles from './studentsTableBlock.module.scss'
 
+
 type StudentsTableWrapperT = {
   isLoading: boolean
   tableId: number
@@ -29,8 +30,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   const [rows, setRows] = useState<GenerateRow[]>()
   const [selectedStuentId, setSelectedStudentId] = useState<number | null>(null)
   const [selectedStuent, setSelectedStudent] = useState<result | null>(null)
+  const schoolName = window.location.href.split('/')[4]
 
-  const { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching } = useFetchStudentsTableHeaderQuery(tableId)
+  const { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching } = useFetchStudentsTableHeaderQuery({id: tableId, schoolName})
 
   const { columns, data } = generateData(tableHeaderData, students, isLoading, isSuccess)
 
