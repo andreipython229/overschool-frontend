@@ -1,28 +1,28 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { studentGroupInfoT, studentsTableHeader } from 'types/studentsGroup'
-import {baseQuery, baseQueryFn} from './baseApi'
+import { baseQuery } from './baseApi'
 
 export const studentsTableService = createApi({
   reducerPath: 'studentsTableService',
-  baseQuery: baseQueryFn(),
+  baseQuery: baseQuery(),
   tagTypes: ['studentsTable'],
   endpoints: build => ({
-    fetchStudentsTablesHeader: build.query<studentsTableHeader[], void>({
-      query: () => ({
-        url: `students_table_info/`,
+    fetchStudentsTablesHeader: build.query<studentsTableHeader[], string>({
+      query: schoolName => ({
+        url: `/${schoolName}/students_table_info/`,
       }),
       providesTags: ['studentsTable'],
     }),
-    fetchStudentsTableHeader: build.query<studentsTableHeader, number>({
-      query: id => ({
-        url: `students_table_info/${id}/`,
+    fetchStudentsTableHeader: build.query<studentsTableHeader, { id: number; schoolName: string }>({
+      query: ({ id, schoolName }) => ({
+        url: `/${schoolName}/students_table_info/${id}/`,
       }),
       providesTags: ['studentsTable'],
     }),
-    patchStudentsTableHeader: build.mutation<void, { id: number; students_table_info: studentGroupInfoT[] }>({
-      query: ({ id, students_table_info }) => ({
-        url: `students_table_info/${id}/`,
+    patchStudentsTableHeader: build.mutation<void, { id: number; students_table_info: studentGroupInfoT[]; schoolName: string }>({
+      query: ({ id, students_table_info, schoolName }) => ({
+        url: `/${schoolName}/students_table_info/${id}/`,
         method: 'PATCH',
         body: { students_table_info },
       }),

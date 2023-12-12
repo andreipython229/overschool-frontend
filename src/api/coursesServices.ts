@@ -1,62 +1,62 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import { baseQuery, baseQueryFn } from './baseApi'
+import { baseQuery } from './baseApi'
 import { CoursesT, CoursesDataT, CourseWithGroupsT } from '../types/CoursesT'
 import { UpdateCourses } from './apiTypes'
 
 export const coursesServices = createApi({
   reducerPath: 'coursesServices',
-  baseQuery: baseQueryFn(),
+  baseQuery: baseQuery(),
   tagTypes: ['courses', 'course'],
   endpoints: build => ({
-    fetchCourses: build.query<CoursesT, void>({
-      query: () => ({
-        url: `/courses/`,
+    fetchCourses: build.query<CoursesT, string>({
+      query: (schoolName: string) => ({
+        url: `/${schoolName}/courses/`,
       }),
       providesTags: ['courses', 'course'],
     }),
-    fetchCoursesGroups: build.query<CourseWithGroupsT[], void>({
-      query: () => ({
-        url: `/courses/with_student_groups`,
+    fetchCoursesGroups: build.query<CourseWithGroupsT[], string>({
+      query: (schoolName: string) => ({
+        url: `/${schoolName}/courses/with_student_groups`,
       }),
       providesTags: ['courses', 'course'],
     }),
-    fetchCourse: build.query<CoursesDataT, string | number>({
-      query: id => ({
-        url: `/courses/${id}/`,
+    fetchCourse: build.query<CoursesDataT, {id: string | number, schoolName: string}>({
+      query: ({id, schoolName}) => ({
+        url: `/${schoolName}/courses/${id}/`,
       }),
     }),
-    createCourses: build.mutation<CoursesDataT, FormData>({
-      query: course => {
+    createCourses: build.mutation<CoursesDataT, {course: FormData, schoolName: string}>({
+      query: ({course, schoolName}) => {
         return {
-          url: `/courses/`,
+          url: `/${schoolName}/courses/`,
           method: 'POST',
           body: course,
         }
       },
       invalidatesTags: ['courses'],
     }),
-    deleteCourses: build.mutation<FormData, number>({
-      query: id => ({
-        url: `/courses/${id}/`,
+    deleteCourses: build.mutation<FormData, {id: number, schoolName: string}>({
+      query: ({id, schoolName}) => ({
+        url: `/${schoolName}/courses/${id}/`,
         method: 'DELETE',
       }),
       invalidatesTags: ['course', 'courses'],
     }),
-    patchCourses: build.mutation<any, UpdateCourses>({
-      query: arg => {
+    patchCourses: build.mutation<any, {arg: UpdateCourses, schoolName: string}>({
+      query: ({arg, schoolName}) => {
         return {
-          url: `/courses/${arg?.id}/`,
+          url: `/${schoolName}/courses/${arg?.id}/`,
           method: 'PATCH',
           body: arg?.formdata,
         }
       },
       invalidatesTags: ['course'],
     }),
-    cloneCourse: build.mutation<CoursesDataT, number>({
-      query: id => {
+    cloneCourse: build.mutation<CoursesDataT, {id: number, schoolName: string}>({
+      query: ({id, schoolName}) => {
         return {
-          url: `/courses/${id}/clone/`,
+          url: `/${schoolName}/courses/${id}/clone/`,
           method: 'GET',
         }
       },

@@ -21,11 +21,12 @@ type courseCard = {
 }
  
 export const CoursesCard: FC<courseCard> = ({course, role}) => {
+    const schoolName = window.location.href.split('/')[4]
     const {
         data: userProgress,
         isLoading,
         isError
-    } = (role === RoleE.Student) ? useFetchProgressQuery(course?.course_id || '') : useFetchCoursesQuery()
+    } = (role === RoleE.Student) ? useFetchProgressQuery({course_id: String(course?.course_id), schoolName}) : useFetchCoursesQuery(schoolName)
 
     if (isLoading || isError) {
         return <SimpleLoader style={{width: '100px', height: '100px'}}/>;

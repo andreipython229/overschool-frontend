@@ -12,8 +12,9 @@ export const StudentsPerSchool: FC = () => {
   const dispatch = useAppDispatch()
   const filters = useAppSelector(state => state.filters['studentsPerSchool'])
   const schoolId = localStorage.getItem('school_id')
+  const schoolName = window.location.href.split('/')[4] 
   const [fetchStudents, { data, isFetching }] = useLazyFetchStudentsPerSchoolQuery()
-  const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery()
+  const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery(schoolName)
 
   const [tableId, setTableId] = useState<number>()
 

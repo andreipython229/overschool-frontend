@@ -10,7 +10,8 @@ import styles from './setting_course.module.scss'
 
 export const SettingCourse: FC = () => {
   const { course_id: courseId } = useParams()
-  const { data: course } = useFetchCourseQuery(courseId as string)
+  const school = window.location.href.split('/')[4]
+  const { data: course } = useFetchCourseQuery({id: courseId as string, schoolName: school})
   const booleanValue = course?.public === 'О'
 
   const [isPublished, { onToggle: togglePublished }] = useBoolean(booleanValue)

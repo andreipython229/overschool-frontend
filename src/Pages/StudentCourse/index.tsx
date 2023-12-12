@@ -8,13 +8,15 @@ import {useFetchModulesQuery, useLazyFetchModulesQuery} from '../../api/modulesS
 import {StudentAccardion} from 'components/StudentAccardion/StudentAccardion'
 import {StudentCourseHeader} from "./StudentCourseHeader";
 
+
 export const StudentCourse: FC = () => {
     const dispatch = useDispatch();
     const {course_id: courseId} = useParams()
     const [fetchModules, {data: course}] = useLazyFetchModulesQuery()
+    const schoolName = window.location.href.split('/')[4]
 
     useEffect(() => {
-        fetchModules(courseId as string)
+        fetchModules({id: courseId as string, schoolName})
     }, [])
 
     useEffect(() => {

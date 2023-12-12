@@ -12,9 +12,10 @@ type QuestionHeaderT = {
 
 export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({ title, id, isOpen, onToggle, children }) => {
   const [deleteQuestion] = useRemoveQuestionsMutation()
+  const schoolName = window.location.href.split('/')[4]
 
   const handleGetTypeQuestion = async () => {
-    await deleteQuestion(id)
+    await deleteQuestion({ id: Number(id), schoolName })
   }
 
   return (
@@ -45,7 +46,9 @@ export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({
         </div> */}
         <div
           onClick={onToggle}
-          className={!isOpen? styles.header_controlIconWrapper_togglerShowOption
+          className={
+            !isOpen
+              ? styles.header_controlIconWrapper_togglerShowOption
               : styles.header_controlIconWrapper_togglerShowOption + ' ' + styles.rotate_arrow
           }
         >

@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
-import { baseQuery, baseQueryFn } from './baseApi'
+import { baseQuery } from './baseApi'
 import { ITariff } from 'types/userT'
 
 export type TariffPlanT = {
@@ -31,7 +31,7 @@ export const tariffPlan = createApi({
   baseQuery: baseQuery(),
   tagTypes: ['tariffPlanInfo'],
   endpoints: build => ({
-    fetchTariffPlanInfo: build.query<any, any>({
+    fetchTariffPlanInfo: build.query<any, number | string>({
       query: id => ({
         url: `/schools_tariff/${id}`,
       }),
@@ -42,18 +42,18 @@ export const tariffPlan = createApi({
 
 export const tariffService = createApi({
   reducerPath: 'tariffService',
-  baseQuery: baseQueryFn(),
+  baseQuery: baseQuery(),
   tagTypes: ['tariffInfo'],
   endpoints: build => ({
-    fetchCurrentTariffPlan: build.query<ITariff, void>({
-      query: () => ({
-        url: '/current_tariff/'
+    fetchCurrentTariffPlan: build.query<ITariff, string>({
+      query: schoolName => ({
+        url: `/${schoolName}/current_tariff/`,
       }),
-      providesTags: ['tariffInfo']
-    })
-  })
+      providesTags: ['tariffInfo'],
+    }),
+  }),
 })
 
 export const { useFetchTariffPlanTableQuery } = tariffPlanService
-export const { useFetchCurrentTariffPlanQuery } = tariffService
-export const { useFetchTariffPlanInfoQuery} = tariffPlan
+export const { useFetchCurrentTariffPlanQuery, useLazyFetchCurrentTariffPlanQuery } = tariffService
+export const { useFetchTariffPlanInfoQuery, useLazyFetchTariffPlanInfoQuery } = tariffPlan

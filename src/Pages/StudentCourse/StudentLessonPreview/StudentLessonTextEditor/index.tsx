@@ -25,6 +25,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
     const [replyArray, setReplyArray] = useState<CheckHw[]>(homework?.user_homework_checks)
     const [open, setOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const schoolName = window.location.href.split('/')[4]
 
     const [postHomework] = usePostUserHomeworkMutation()
     const [postFiles] = usePostTextFilesMutation()
@@ -74,7 +75,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
         formDataHw.append('homework', String(homeworkId))
         formDataHw.append('text', String(text))
 
-        await postHomework(formDataHw)
+        await postHomework({homework: formDataHw, schoolName})
             .unwrap()
             .then((data) => {
                 const formDataFile = new FormData()
@@ -103,7 +104,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({homeworkId, homework})
                         }
                     ])
                 }
-                postFiles(formDataFile)
+                postFiles({formData: formDataFile, schoolName})
                     .unwrap()
                     .then((data) => {
                         setHwStatus(true)

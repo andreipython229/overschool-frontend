@@ -11,6 +11,7 @@ import {SimpleLoader} from 'components/Loaders/SimpleLoader'
 import styles from '../../Modal/Modal.module.scss'
 import {EmployeeT} from "../../../types/userT";
 
+
 type reviewTeacherGroupsT = {
     closeModal: () => void
     name: string
@@ -25,7 +26,8 @@ type teacherGroupT = {
 }
 
 export const ReviewTeacherGroups: FC<reviewTeacherGroupsT> = ({closeModal, name, email, id}) => {
-    const {data: courses, isSuccess, isFetching} = useFetchCoursesGroupsQuery()
+    const schoolName = window.location.href.split('/')[4]
+    const {data: courses, isSuccess, isFetching} = useFetchCoursesGroupsQuery(schoolName)
     const [groups, setGroups] = useState<teacherGroupT[]>()
 
 

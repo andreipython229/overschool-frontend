@@ -62,7 +62,8 @@ const questionsMaper = {
 }
 
 export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
-  const { data: questionsList } = useFetchQuestionsListQuery(testId)
+  const schoolName = window.location.href.split('/')[4]
+  const { data: questionsList } = useFetchQuestionsListQuery({id: testId, schoolName})
 
   const [typeQuestions, setTypeQuestions] = useState<keyof QuestionT>(null as keyof object)
 

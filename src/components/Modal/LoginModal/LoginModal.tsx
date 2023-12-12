@@ -67,16 +67,16 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   useEffect(() => {
     if (isSuccess) {
       getUserInfo()
-      if (userSuccess && data) {
-        setShowModal(false)
-        dispatch(auth(true))
-        dispatch(role(data[0]?.groups[0]))
-        dispatch(userName(data[0]?.username))
-        dispatch(id(data[0]?.id))
-        navigate(Path.ChooseSchool)
-      }
+        .unwrap()
+        .then(resp => {
+          setShowModal(false)
+          dispatch(auth(true))
+          dispatch(userName(resp[0]?.username))
+          dispatch(id(resp[0]?.id))
+          navigate(Path.ChooseSchool)
+        })
     }
-  }, [isSuccess, userSuccess])
+  }, [isSuccess, isLoading])
 
   const handleClose = () => {
     setShowModal(false)

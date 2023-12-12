@@ -7,18 +7,20 @@ import { homeworksStatsT } from 'types/homeworkT'
 import { useAppSelector, useAppDispatch } from 'store/hooks/index'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { FilterAndSearchBlock } from './FilterAndSeachBlock'
-
 import styles from './home_work.module.scss'
+
+
 
 export const HomeWork: FC = () => {
   const dispatch = useAppDispatch()
   const filters = useAppSelector(state => state.filters['homework'])
+  const schoolName = window.location.href.split('/')[4]
 
   const [termForFilter, setTermForFilter] = useState<string>('')
 
   const debounce = useDebounceFunc(dispatch)
 
-  const { data: homeworksStats, isLoading } = useFetchAllHomeworkStatsQuery(filters)
+  const { data: homeworksStats, isLoading } = useFetchAllHomeworkStatsQuery({filters, schoolName})
   const [fetchHomeworkStats, { data: homeworks, isFetching }] = useLazyFetchHomeworkStatsQuery()
 
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: homeworksStats?.count as number })
@@ -48,7 +50,7 @@ export const HomeWork: FC = () => {
   }, [])
 
   useEffect(() => {
-    fetchHomeworkStats({ filters, page })
+    fetchHomeworkStats({ filters, page, schoolName })
   }, [page, filters])
 
   useEffect(() => {

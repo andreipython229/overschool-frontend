@@ -19,15 +19,19 @@ import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
 
 export const StudentLessonPreview: FC = () => {
   const params = useParams()
+  const schoolName = window.location.href.split('/')[4]
 
   const [fetchLessons, { data: lessons, isSuccess }] = useLazyFetchModuleLessonsQuery()
   const { data: lesson, isFetching: isLoading } = useFetchLessonQuery({
     id: Number(params?.lesson_id),
     type: `${params?.lesson_type}`,
+    schoolName,
   })
 
   useEffect(() => {
-    fetchLessons(`${params?.section_id}`)
+    if (params) {
+      fetchLessons({ sectionId: String(params.section_id), schoolName })
+    }
   }, [params])
 
   const activeLessonIndex = lessons?.lessons.findIndex(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)

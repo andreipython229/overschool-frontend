@@ -15,8 +15,10 @@ import styles from '../Modal.module.scss'
 import scss from './settingStudentTable.module.scss'
 import itemStyles from './SettingItem/settingItem.module.scss'
 
+
 export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tableId}) => {
-    const {data: studentsTableInfo, isSuccess} = useFetchStudentsTableHeaderQuery(tableId)
+    const schoolName = window.location.href.split('/')[4]
+    const {data: studentsTableInfo, isSuccess} = useFetchStudentsTableHeaderQuery({id: tableId, schoolName})
 
     const [patchTable] = usePatchStudentsTableHeaderMutation()
     const [checkedList, setIsCheckedList] = useState<studentGroupInfoT[]>([])
@@ -25,7 +27,8 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
 
     const debounced = useDebounceFunc(() => patchTable({
         id: tableId,
-        students_table_info: nameAndEmailSettingsList.concat(settingList)
+        students_table_info: nameAndEmailSettingsList.concat(settingList),
+        schoolName
     }), 2000)
 
 

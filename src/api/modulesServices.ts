@@ -1,93 +1,93 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { sectionT, sectionsT, commonLessonT } from 'types/sectionT'
-import { baseQueryFn } from './baseApi'
+import { baseQuery } from './baseApi'
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
-  baseQuery: baseQueryFn(),
+  baseQuery: baseQuery(),
   tagTypes: ['modules', 'lessons', 'patchLessons'],
   endpoints: build => ({
-    fetchModules: build.query<sectionsT, string>({
-      query: id => ({
-        url: `/courses/${id}/sections/`,
+    fetchModules: build.query<sectionsT, { id: string; schoolName: string }>({
+      query: ({ id, schoolName }) => ({
+        url: `/${schoolName}/courses/${id}/sections/`,
       }),
       providesTags: ['modules', 'lessons'],
     }),
-    fetchModuleLessons: build.query<sectionT, string>({
-      query: sectionId => ({
-        url: `/sections/${sectionId}/lessons/`,
+    fetchModuleLessons: build.query<sectionT, { sectionId: string; schoolName: string }>({
+      query: ({ sectionId, schoolName }) => ({
+        url: `/${schoolName}/sections/${sectionId}/lessons/`,
       }),
       providesTags: ['lessons'],
     }),
-    createModules: build.mutation<void, FormData>({
-      query: arg => ({
-        url: `/sections/`,
+    createModules: build.mutation<void, { arg: FormData; schoolName: string }>({
+      query: ({ arg, schoolName }) => ({
+        url: `/${schoolName}/sections/`,
         method: 'POST',
         body: arg,
       }),
       invalidatesTags: ['modules'],
     }),
-    deleteModules: build.mutation<void, number>({
-      query: id => ({
+    deleteModules: build.mutation<void, { id: number; schoolName: string }>({
+      query: ({ id, schoolName }) => ({
         url: `/sections/${id}/`,
         method: 'DELETE',
       }),
       invalidatesTags: ['modules'],
     }),
-    patchModules: build.mutation<void, { formdata: FormData; id: number }>({
-      query: arg => {
+    patchModules: build.mutation<void, { arg: { formdata: FormData; id: number }; schoolName: string }>({
+      query: ({ arg, schoolName }) => {
         return {
-          url: `/sections/${arg.id}/`,
+          url: `/${schoolName}/sections/${arg.id}/`,
           method: 'PATCH',
           body: arg.formdata,
         }
       },
       invalidatesTags: ['modules'],
     }),
-    fetchLesson: build.query<commonLessonT, { id: number; type: string }>({
-      query: ({ id, type }) => ({
-        url: `/${type}s/${id}/`,
+    fetchLesson: build.query<commonLessonT, { id: number; type: string; schoolName: string }>({
+      query: ({ id, type, schoolName }) => ({
+        url: `/${schoolName}/${type}s/${id}/`,
       }),
       providesTags: ['patchLessons'],
     }),
-    fetchLessons: build.query<commonLessonT[], string>({
-      query: type => ({
-        url: `/${type}s/`,
+    fetchLessons: build.query<commonLessonT[], { type: string; schoolName: string }>({
+      query: ({ type, schoolName }) => ({
+        url: `/${schoolName}/${type}s/`,
       }),
       // providesTags: ['lessons'],
     }),
     createLessons: build.mutation({
-      query: arg => {
+      query: ({ arg, schoolName }) => {
         return {
-          url: `/${arg.type}/`,
+          url: `/${schoolName}/${arg.type}/`,
           method: 'POST',
           body: arg.createLessonData,
         }
       },
       invalidatesTags: ['modules', 'lessons'],
     }),
-    deleteLessons: build.mutation<void, { id: number; type: string }>({
-      query: ({ id, type }) => ({
-        url: `/${type}s/${id}/`,
+    deleteLessons: build.mutation<void, { id: number; type: string; schoolName: string }>({
+      query: ({ id, type, schoolName }) => ({
+        url: `/${schoolName}/${type}s/${id}/`,
         method: 'DELETE',
       }),
       invalidatesTags: ['modules', 'lessons'],
     }),
-    patchLessons: build.mutation<void, { id: number; type: string; formdata: FormData }>({
-      query: arg => {
+    patchLessons: build.mutation<void, { arg: { id: number; type: string; formdata: FormData }; schoolName: string }>({
+      query: ({arg, schoolName}) => {
         return {
-          url: `/${arg.type}s/${arg.id}/`,
+          url: `/${schoolName}/${arg.type}s/${arg.id}/`,
           method: 'PATCH',
           body: arg.formdata,
         }
       },
       invalidatesTags: ['modules', 'patchLessons'],
     }),
-    updateLessonsOrders: build.mutation<void, { data: { baselesson_ptr_id: number | undefined; order: number }[] }>({
-      query: arg => {
+    updateLessonsOrders: build.mutation<void, {arg: { data: { baselesson_ptr_id: number | undefined; order: number }[] }, schoolName: string}>({
+      query: ({arg, schoolName}) => {
         return {
-          url: `/lesson_order/`,
+          url: `/${schoolName}/lesson_order/`,
           method: 'POST',
           body: arg.data,
         }

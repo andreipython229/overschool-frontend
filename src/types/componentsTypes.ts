@@ -1,10 +1,10 @@
-import {ChangeEvent, FC, MouseEvent, ReactNode} from 'react'
+import { ChangeEvent, FC, MouseEvent, ReactNode } from 'react'
 
 import { statusFilterT } from 'types/statusFilterConfigType'
-import {CoursesDataT, CourseWithGroupsT, StGroupT} from 'types/CoursesT'
+import { CoursesDataT, CourseWithGroupsT, StGroupT } from 'types/CoursesT'
 import { commonLessonT, sectionT } from './sectionT'
 import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
-import {studentsTableInfoT} from "./courseStatT";
+import { studentsTableInfoT } from './courseStatT'
 
 export type setShowType = {
   setShow: () => void
@@ -23,7 +23,7 @@ export type AddPostT = {
   code?: string
   isPreview?: boolean
   lessonIdAndType?: lessonIdAndTypeT
-  addFile?: (arg: argT) => void
+  addFile?: (arg: any) => void
   deleteAudio?: (id: number) => void
   addAudio?: any
   handleEditorChange?: (code: string | undefined) => void
@@ -130,14 +130,12 @@ export type SelectDropDownT = {
   onChangeStatus?: (status: string) => void
 }
 
-
 export type GroupsDropDownT = {
   dropdownData: StGroupT[]
   course_id: number
   selected_group: number | null
   onChangeGroup?: (course_id: number, group_id: number | null) => void
 }
-
 
 export type StatisticHeaderT = {
   hideStats?: boolean
