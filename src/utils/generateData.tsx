@@ -22,6 +22,19 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
   for (let i = 0; i < dataToRender?.length; i += 1) {
     const { mmddyyyy, hoursAndMinutes } = convertDate(new Date(dataToRender[i].last_active || ''))
 
+    // Дата добавления в группу
+    const dateAdded = dataToRender[i].date_added;
+    const { mmddyyyy: added_date, hoursAndMinutes: added_time } = dateAdded ?
+          convertDate(new Date(dateAdded)) :
+          { mmddyyyy: '', hoursAndMinutes: '' };
+
+    // Дата удаления из группы
+    const dateRemoved = dataToRender[i].date_removed;
+    const { mmddyyyy: removed_date, hoursAndMinutes: removed_time } = dateRemoved ?
+          convertDate(new Date(dateRemoved)) :
+          { mmddyyyy: '', hoursAndMinutes: '' };
+
+
     const row: GenerateRow = {
       Имя: {
         // name: `${dataToRender[i].first_name || 'Без'} ${dataToRender[i].last_name || 'Имени'}`,
@@ -33,8 +46,10 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
       'Суммарный балл': dataToRender[i].mark_sum ?? 0,
       'Средний балл': dataToRender[i].average_mark?.toFixed(0) ?? 0,
       Курс: dataToRender[i].course_name,
-      'Последняя активность': `${mmddyyyy} в ${hoursAndMinutes}`,
+      'Дата регистрации': `${mmddyyyy} в ${hoursAndMinutes}`,
       Группа: dataToRender[i].group_name,
+      'Дата добавления в группу': `${added_date} ${added_time}`,
+      'Дата удаления из группы': `${removed_date} ${removed_time}`,
     }
 
     Object.entries(row).forEach(([key, value]) => {

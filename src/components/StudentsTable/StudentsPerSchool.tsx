@@ -62,6 +62,8 @@ export const StudentsPerSchool: FC = () => {
 
   // Филтра для всех студентов
   const filteredStudents = useMemo(() => {
+    console.log("test data", data)
+    console.log("Search term", searchTerm)
     if (!searchTerm) return data ?? [];
 
     return (data ?? []).filter(student => {
