@@ -12,6 +12,7 @@ import PrevSectionButton from "./PrevSectionBtn";
 import { useDispatch } from 'react-redux';
 import {setModules} from "../../../../store/redux/modules/modules";
 
+
 type studentLessonNavBtnsT = {
   courseId: string
   sectionId: string
@@ -24,12 +25,11 @@ type studentLessonNavBtnsT = {
 export const StudentLessonNavBtns: FC<studentLessonNavBtnsT> = memo(({ courseId, sectionId, lessonType, lessonId, activeLessonIndex, lessons }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
+    const school = window.location.href.split('/')[4]
 
     const lessonBack: lessonT = lessons?.lessons[activeLessonIndex - 1]
     const lessonForward: lessonT = lessons?.lessons[activeLessonIndex + 1]
-
-    const school = window.location.href.split('/')[4]
-    const { data: course } = useFetchModulesQuery(courseId as string)
+    const { data: course } = useFetchModulesQuery({id: courseId as string, schoolName: school})
 
     const getNextSection = () => {
         if (course !== undefined && course !== null) {

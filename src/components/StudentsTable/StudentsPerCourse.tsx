@@ -1,4 +1,4 @@
-import {FC, useEffect, useMemo, useState} from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useLazyFetchCourseStatQuery } from '../../api/courseStat'
@@ -11,11 +11,12 @@ import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
 
 export const StudentsPerCourse: FC = () => {
   const { course_id } = useParams()
+  const schoolName = window.location.href.split('/')[4]
 
   const dispatch = useAppDispatch()
   const filters = useAppSelector(state => state.filters['studentsPerCourse'])
 
-  const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery()
+  const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery(schoolName)
 
   const [tableId, setTableId] = useState<number>()
 
@@ -42,7 +43,7 @@ export const StudentsPerCourse: FC = () => {
   }
 
   const handleReloadTable = () => {
-    fetchStudents({ id: course_id, filters })
+    fetchStudents({ id: String(course_id), filters, schoolName })
   }
 
   useEffect(() => {
@@ -57,15 +58,15 @@ export const StudentsPerCourse: FC = () => {
   }, [isTablesHeaderFetching])
 
   // Поиск по студентам курса
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('')
 
   const updateStudents = (value: string) => {
-      setSearchTerm(value)
+    setSearchTerm(value)
   }
 
   // Фильтра для студентов курса
   const filteredStudents = useMemo(() => {
-    if (!searchTerm) return data ?? [];
+    if (!searchTerm) return data ?? []
 
     return (data ?? []).filter(student => {
       return (
@@ -73,9 +74,9 @@ export const StudentsPerCourse: FC = () => {
         student.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.group_name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    });
-  }, [searchTerm, data]);
+      )
+    })
+  }, [searchTerm, data])
 
   return (
     <>
@@ -98,7 +99,12 @@ export const StudentsPerCourse: FC = () => {
         filters={filters}
         updateStudents={updateStudents}
       />
-      <StudentsTableWrapper handleReloadTable={handleReloadTable} students={filteredStudents as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />
+      <StudentsTableWrapper
+        handleReloadTable={handleReloadTable}
+        students={filteredStudents as studentsTableInfoT}
+        isLoading={isFetching || isTablesHeaderFetching}
+        tableId={tableId as number}
+      />
     </>
   )
 }

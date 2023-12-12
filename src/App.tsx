@@ -24,12 +24,12 @@ import { useSelector } from 'react-redux'
 export const App = () => {
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
-  const schoolName = useSelector(schoolNameSelector)
+  const schoolName = useSelector(schoolNameSelector) || window.location.href.split('/')[4]
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!isLogin && pathname !== Path.CreateSchool) {
+    if (!isLogin && pathname !== Path.CreateSchool && pathname !== Path.InitialPage) {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])

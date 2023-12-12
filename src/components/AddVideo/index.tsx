@@ -19,6 +19,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
   const [isLoadingVideo, setIsLoadingVideo] = useState<boolean>(false)
   const [youTubeLink, setYouTubeLink] = useState<string>('')
   const [addYTVideo] = usePatchLessonsMutation()
+  const schoolName = window.location.href.split('/')[4]
 
   const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -42,7 +43,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
       formData.append('section', lesson.section.toString())
       formData.append('order', lesson.order.toString())
       formData.append('url', youTubeLink)
-      await addYTVideo({ formdata: formData, id: lessonIdAndType?.id as number, type: lesson.type })
+      await addYTVideo({ arg: { formdata: formData, id: lessonIdAndType?.id as number, type: lesson.type }, schoolName })
         .unwrap()
         .then(data => {
           lesson.url = youTubeLink
@@ -68,9 +69,12 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
 
     try {
       await addVideoFile({
-        id: lessonIdAndType.id,
-        type: lessonIdAndType.type,
-        formdata: formData,
+        arg: {
+          id: lessonIdAndType.id,
+          type: lessonIdAndType.type,
+          formdata: formData,
+        },
+        schoolName,
       })
         .unwrap()
         .then(data => {

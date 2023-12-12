@@ -12,7 +12,6 @@ import styles from './studentInfoModal.module.scss'
 import { useFetchStudentProgressQuery } from '../../../../api/userProgressService'
 import { useDeleteStudentFromGroupMutation } from '../../../../api/studentsGroupService'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import { error } from 'console'
 
 type studentInfoModalT = {
   student: result | null
@@ -52,8 +51,9 @@ type studentProgressT = {
 export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal }) => {
   const lastActivity = new Date(student?.last_active || '')
   const { mmddyyyy } = convertDate(lastActivity)
+  const schoolName = window.location.href.split('/')[4]
   const [studentProgress, setStudentProgress] = useState<studentProgressT>()
-  const { data } = useFetchStudentProgressQuery(student?.student_id || '')
+  const { data } = useFetchStudentProgressQuery({user_id: String(student?.student_id), schoolName})
   const [completedPercent, setCompletedPercent] = useState<number>()
   const [openAlert, setOpenAlert] = useState<boolean>(false)
 

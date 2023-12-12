@@ -21,6 +21,7 @@ type AnswerOptionT = {
 export const AnswerOption: FC<AnswerOptionT> = memo(({ children, id, answer }) => {
   const [answerText, setAnswerText] = useState(answer?.body || '')
   const [isChecked, setIsChecked] = useState(answer?.is_correct || false)
+  const schoolName = window.location.href.split('/')[4]
 
   const [patchAnswer] = usePatchAnswerMutation()
   const [deleteAnswer] = useDeleteAnswerMutation()
@@ -37,13 +38,13 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({ children, id, answer }) =
         is_correct: isChecked,
       }
 
-      debounced({ answer: answerToPatch, answerId: answer?.answer_id })
+      debounced({ answer: answerToPatch, answerId: String(answer?.answer_id), schoolName })
     },
     [debounced, id, setIsChecked, isChecked, answer?.answer_id, setAnswerText],
   )
 
   const handleDeleteAnswer = useCallback(() => {
-    deleteAnswer(answer?.answer_id)
+    deleteAnswer({answerId: String(answer?.answer_id), schoolName})
   }, [answer?.answer_id, deleteAnswer])
 
   const handleCheckboxChange = useCallback(
@@ -55,7 +56,7 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({ children, id, answer }) =
         body: answerText,
         is_correct: newChecked,
       }
-      debounced({ answer: answerToPatch, answerId: answer?.answer_id })
+      debounced({ answer: answerToPatch, answerId: String(answer?.answer_id), schoolName })
     },
     [answer?.answer_id, answerText, debounced, id],
   )

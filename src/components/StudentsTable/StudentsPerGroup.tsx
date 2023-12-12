@@ -12,9 +12,10 @@ import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
 export const StudentsPerGroup: FC = () => {
   const { group_id } = useParams()
   const dispatch = useAppDispatch()
+  const schoolName = window.location.href.split('/')[4]
   const filters = useAppSelector(state => state.filters['studentsPerGroup'])
 
-  const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery()
+  const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery(schoolName)
   const [fetchStudents, { data, isFetching }] = useLazyFetchStudentsPerGroupQuery()
 
   const [tableId, setTableId] = useState<number>()

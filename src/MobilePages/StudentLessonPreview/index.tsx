@@ -15,14 +15,16 @@ import {SimpleLoader} from "../../components/Loaders/SimpleLoader";
 
 export const StudentLessonPreview: FC = () => {
     const params = useParams()
+    const schoolName = window.location.href.split('/')[4]
 
     const testId = params?.lesson_type === 'test' && params?.lesson_id
 
-    const {data: lessons, isSuccess} = useFetchModuleLessonsQuery(`${params?.section_id}`)
+    const {data: lessons, isSuccess} = useFetchModuleLessonsQuery({sectionId: String(params?.section_id), schoolName})
     const {data: lesson, isLoading} = !testId? useFetchLessonQuery({
         id: Number(params?.lesson_id) as number,
-        type: `${params?.lesson_type}`
-    }): useFetchQuestionsListQuery(params?.lesson_id)
+        type: `${params?.lesson_type}`,
+        schoolName
+    }): useFetchQuestionsListQuery({id: String(params?.lesson_id), schoolName})
 
     const activeLessonIndex = lessons?.lessons.findIndex(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
 

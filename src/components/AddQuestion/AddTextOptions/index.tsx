@@ -6,15 +6,18 @@ import styles from './addTextOptions.module.scss'
 
 export const AddTextOptions: FC<AddQuestionOptionsT> = ({ setTypeQuestions, setQuestions, questions, testId }) => {
   const [createOption, { data }] = useCreateQuestionsMutation()
-
+  const schoolName = window.location.href.split('/')[4]
   const handleGetTypeQuestion = () => {
     setTypeQuestions('Text' as keyof object)
     createOption({
-      question_type: 'Text',
-      body: 'Введите текст вопроса',
-      is_any_answer_correct: false,
-      only_whole_numbers: false,
-      test: testId,
+      question: {
+        question_type: 'Text',
+        body: 'Введите текст вопроса',
+        is_any_answer_correct: false,
+        only_whole_numbers: false,
+        test: testId,
+      },
+      schoolName,
     })
   }
 

@@ -17,6 +17,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId }) => {
   const [files, setFiles] = useState<File[]>([])
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
   const [text, setText] = useState<string>('')
+  const schoolName = window.location.href.split('/')[4]
 
   const [postHomewrok] = usePostUserHomeworkMutation()
   const [postFiles] = usePostTextFilesMutation()
@@ -59,8 +60,8 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId }) => {
     formData.append('file', files[0])
     formData.append('user_homework', `${homeworkId}`)
 
-    postHomewrok({ homework: homeworkId, text })
-    postFiles(formData)
+    postHomewrok({ homework: { homework: homeworkId, text }, schoolName })
+    postFiles({ formData, schoolName })
   }
 
   return (

@@ -21,6 +21,7 @@ import { useAppSelector } from 'store/hooks'
 import { updateDataIcon } from '../../config/commonSvgIconsPath'
 import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentCourseModal'
 
+
 export interface FilterItem {
   id: number
   title: string
@@ -41,7 +42,8 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     updateStudents,
     ...restFilters
   }) => {
-    const { data: courses } = useFetchCoursesQuery()
+    const schoolName = window.location.href.split('/')[4]
+    const { data: courses } = useFetchCoursesQuery(schoolName)
 
     const [isOpen, { off, on }] = useBoolean()
 
