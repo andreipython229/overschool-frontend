@@ -11,7 +11,7 @@ import { StudentLessonPreview } from './MobilePages/StudentLessonPreview/'
 import { Profile } from 'Pages/Profile/Profile'
 import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
 import { useAppSelector } from 'store/hooks'
-import { selectUser,  authSelector, schoolNameSelector } from 'selectors'
+import { selectUser, authSelector, schoolNameSelector } from 'selectors'
 import { scrollToTop } from 'utils/scrollToTop'
 import { navByRolesConfig } from 'config'
 import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
@@ -19,42 +19,34 @@ import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
 import { RoleE } from 'enum/roleE'
 import { useSelector } from 'react-redux'
 
-
-
-
-
 import styles from './App.module.scss'
 
 export const AppMobile = () => {
+  const { role } = useAppSelector(selectUser)
+  const isLogin = useAppSelector(authSelector)
+  const schoolName = useSelector(schoolNameSelector) || window.location.href.split('/')[4]
 
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
 
-    const { role } = useAppSelector(selectUser)
-    const isLogin = useAppSelector(authSelector)
-    const schoolName = useSelector(schoolNameSelector)
-  
-    const navigate = useNavigate()
-    const { pathname } = useLocation()
-  
-    useEffect(() => {
-      if (!isLogin && pathname !== Path.CreateSchool) {
-        navigate(Path.InitialPage)
-      }
-    }, [isLogin, navigate])
+  useEffect(() => {
+    if (!isLogin && pathname !== Path.CreateSchool && pathname !== Path.InitialPage) {
+      navigate(Path.InitialPage)
+    }
+  }, [isLogin, navigate])
 
+  useEffect(() => {
+    if (pathname === '/') {
+      navigate(Path.InitialPage)
+    }
+    if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
+      navigate(
+        generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
+      )
+    }
+  }, [])
 
-    useEffect(() => {
-      if (pathname === '/') {
-        navigate(Path.InitialPage)
-      }
-      if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
-        navigate(
-          generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
-        )
-      }
-    }, [])
-  
-    scrollToTop()
-
+  scrollToTop()
 
   return (
     <div className={styles.container}>

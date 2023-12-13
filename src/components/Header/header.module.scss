@@ -30,7 +30,7 @@
 
       @include display(flex, row, flex-start, center);
       margin-right: 15px;
-      height: 50px;
+      height: 60px;
       padding: 0 12px;
       @media screen and (max-width: 1024px) {
         padding: 0;
@@ -41,14 +41,14 @@
       &_avatar {
         flex-shrink: 0;
         margin-right: 10px;
-        width: 38px;
-        height: 38px;
+        width: 42px;
+        height: 42px;
         cursor: pointer;
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
+        border-radius: 8px;
+       // -webkit-border-radius: 50%;
+       // -moz-border-radius: 50%;
+       // -ms-border-radius: 50%;
+       //-o-border-radius: 50%;
       }
 
       &_avatar_div {
@@ -75,6 +75,7 @@
 
       &_userName {
         @include display(flex, column);
+        font-size: 12px;
 
         &_status {
           margin-bottom: 4px;
@@ -115,11 +116,13 @@
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   border-radius: .5rem;
   color:#303030c6;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
+  height: 60px;
+
 
   &:hover {
     background-color: #f7eaff;

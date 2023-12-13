@@ -16,9 +16,10 @@ import {CheckboxBall} from "../../common/CheckboxBall";
 
 export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, modulesList, lessonIdAndType}) => {
     const [isPublished, setIsPublished] = useState(false);
+    const schoolName = window.location.href.split('/')[4]
     const [saveData, {isSuccess}] = usePatchLessonsMutation()
 
-    const {data} = useFetchLessonQuery({id: lessonIdAndType.id, type: lessonIdAndType.type})
+    const {data} = useFetchLessonQuery({id: lessonIdAndType.id, type: lessonIdAndType.type, schoolName})
 
     const [nameLesson, setNameLesson] = useState<string>(`${data?.name}`)
     const [show_right_answers, setShowRightAnswers] = useState(false)
@@ -54,7 +55,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
         if (lessonIdAndType.type === 'test') {
             formData.append('show_right_answers', String(show_right_answers))
         }
-        saveData({id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData})
+        saveData({arg: {id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData}, schoolName})
     }
 
     useEffect(() => {

@@ -15,12 +15,13 @@ import styles from '../studentsLog.module.scss'
 import {SimpleLoader} from '../../../Loaders/SimpleLoader'
 
 export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, groupId, courseId}) => {
+    const schoolName = window.location.href.split('/')[4]
     const [blockHomework, setBlockHomework] = useState<boolean>(false)
     const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
     const [textNameField, setTextNameField] = useState<string>('')
     const [groupType, setGroupType] = useState<string>('')
     const [currentTeacher, setCurrentTeacher] = useState<number>()
-    const {data, isSuccess} = useFetchStudentGroupQuery(`${groupId}`)
+    const {data, isSuccess} = useFetchStudentGroupQuery({id: String(groupId), schoolName})
     const [deleteStudentsGroup, {isLoading, isError}] = useDeleteStudentsGroupMutation()
     const [patchGroup] = usePatchStudentsGroupMutation()
     const [patchGroupWithoutTeacher] = usePatchGroupWithoutTeacherMutation()
@@ -40,10 +41,10 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         setStrongSubsequence(!strongSubsequence)
     }
 
-    const handleDeleteGroup = async () => {
-        await deleteStudentsGroup(groupId)
-        closeModal()
-    }
+  const handleDeleteGroup = async () => {
+    await deleteStudentsGroup({id: groupId, schoolName})
+    closeModal()
+  }
 
     const handleSaveGroupSettings = async () => {
         const dataToSend = {

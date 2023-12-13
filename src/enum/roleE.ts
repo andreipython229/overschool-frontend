@@ -5,4 +5,5 @@ export enum RoleE {
   Editor = 4,
   SuperAdmin = 5,
   Admin = 6,
+  Unknown = 0,
 }

@@ -14,6 +14,7 @@ import styles from '../Modal.module.scss'
 export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, modulesList }) => {
 
   const [modulesName, setModulesMane] = useState<string>('')
+  const schoolName = window.location.href.split('/')[4]
 
   const [createModules, { isLoading, isError }] = useCreateModulesMutation()
 
@@ -31,7 +32,7 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
     }
     const formdata = formDataConverter(newModules)
 
-    await createModules(formdata)
+    await createModules({arg: formdata, schoolName})
 
     setType(null as keyof object)
   }

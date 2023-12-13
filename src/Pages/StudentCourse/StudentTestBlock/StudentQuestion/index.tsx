@@ -45,6 +45,7 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
                                                           setUserPercent
                                                       }) => {
     const questionLength = length.length
+    const schoolName = window.location.href.split('/')[4]
     const nameAnswer = (questions && questions.body.length > 0) ? questions.body : '';
     const progress = (100 / questionLength) * (numberTest + 1)
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(true)
@@ -92,7 +93,7 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
             user: user
         }
         setUserPercent(percentage())
-        sendTestResults(testResults).unwrap().then(() => {
+        sendTestResults({body: testResults, schoolName}).unwrap().then(() => {
             setShowResult(true)
         }).catch((error) => {
             console.log(error.data)

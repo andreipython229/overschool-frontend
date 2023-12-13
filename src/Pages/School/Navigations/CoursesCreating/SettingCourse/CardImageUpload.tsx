@@ -7,6 +7,7 @@ import { publishedIconPath, noPublishedIconPath } from '../../../config/svgIcons
 import styles from './setting_course.module.scss'
 import { SimpleLoader } from '../../../../../components/Loaders/SimpleLoader'
 
+
 type CardImageDownloadsT = {
   toggleCheckbox: boolean
   courseFind: CoursesDataT
@@ -15,6 +16,7 @@ type CardImageDownloadsT = {
 export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, courseFind }) => {
   const [courseImage, setCourseImage] = useState<string>(String(courseFind?.photo))
   const [updateImg, { isSuccess, isLoading }] = usePatchCoursesMutation()
+  const schoolName = window.location.href.split('/')[4]
 
   const handleImageChange = () => {
     const fileInput = document.createElement('input')
@@ -27,7 +29,7 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
         formData.append('photo', files[0])
         formData.append('order', courseFind.order.toString())
         formData.append('school', courseFind.school.toString())
-        updateImg({ formdata: formData, id: courseFind.course_id })
+        updateImg({arg: { formdata: formData, id: courseFind.course_id }, schoolName})
           .unwrap()
           .then(data => {
             if ('photo' in data && data.photo) {

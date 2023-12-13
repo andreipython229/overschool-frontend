@@ -20,6 +20,7 @@ import styles1 from '../../../../../../../../components/Modal/Modal.module.scss'
 
 export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId }) => {
   const dispatch: any = useAppDispatch()
+  const schoolName = window.location.href.split('/')[4]
 
   const handleLessonClick = (lessonId: number) => {
     setSelectedLessonId(lessonId)
@@ -37,7 +38,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
   const [deleteModule, { isLoading: deleteModuleLoading }] = useDeleteModulesMutation()
 
   const handleDeleteModule = async () => {
-    await deleteModule(id)
+    await deleteModule({id, schoolName})
   }
 
   const handleChangeModuleName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +64,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
       }
       const formdata = formDataConverter(updateModule)
       if (formdata && id) {
-        debounced({ formdata, id })
+        debounced({arg: { formdata, id }, schoolName})
       }
     }
   }, [changeModuleName])
@@ -80,7 +81,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
     }))
     const formData = { data: updatedOrderLesson }
     if (formData.data.length > 0 && updatedOrderLesson.length > 0) {
-      debouncedOrders(formData)
+      debouncedOrders({arg: formData, schoolName})
     }
   }, [newLessonsOrders])
 
@@ -118,7 +119,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(({ setType, setLessonIdAndTy
             ))}
         </Reorder.Group>
 
-        <Button className={styles.btn} text="+ Занятие" variant="secondary" onClick={handleOpenModalLesson} />
+        <Button className={styles.btn} text="+ занятие" variant="secondary" onClick={handleOpenModalLesson} />
       </ul>
     </>
   )

@@ -13,17 +13,19 @@ import {backArr} from '../config/svgIconPath'
 import studentsStyles from 'Pages/School/StudentsStats/studentsStats.module.scss'
 import styles from '../previou.module.scss'
 
+
 export const GroupPrevious: FC = memo(() => {
     const [toggleSettingModal, {on: onToggleSettingModal, off: offToggleSettingModal}] = useBoolean()
 
     const {group_id: groupId} = useParams()
     const navigate = useNavigate()
+    const schoolName = window.location.href.split('/')[4]
 
-    const {data, isSuccess} = useFetchStudentGroupQuery(`${groupId}`)
+    const {data, isSuccess} = useFetchStudentGroupQuery({id: String(groupId), schoolName})
     const [fetchCourse, {data: course}] = useLazyFetchCourseQuery()
 
     useEffect(() => {
-        isSuccess && data?.course_id && fetchCourse(data?.course_id)
+        isSuccess && data?.course_id && fetchCourse({id: data?.course_id, schoolName})
     }, [isSuccess])
 
     return (

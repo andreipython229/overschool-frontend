@@ -24,6 +24,8 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import { useForgotPasswordMutation } from 'api/forgotPassword'
 
+import { motion } from 'framer-motion'
+
 export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -37,7 +39,8 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
 
   const [isShown, setIsShown] = useState(false)
   const [isHidden, setIsHidden] = useState(true)
-  const forgotPass = () => {
+  const forgotPass = (e:any) => {
+    e.preventDefault()
     setIsShown(!isShown)
     setIsHidden(!isHidden)
   }
@@ -67,16 +70,16 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   useEffect(() => {
     if (isSuccess) {
       getUserInfo()
-      if (userSuccess && data) {
-        setShowModal(false)
-        dispatch(auth(true))
-        dispatch(role(data[0]?.groups[0]))
-        dispatch(userName(data[0]?.username))
-        dispatch(id(data[0]?.id))
-        navigate(Path.ChooseSchool)
-      }
+        .unwrap()
+        .then(resp => {
+          setShowModal(false)
+          dispatch(auth(true))
+          dispatch(userName(resp[0]?.username))
+          dispatch(id(resp[0]?.id))
+          navigate(Path.ChooseSchool)
+        })
     }
-  }, [isSuccess, userSuccess])
+  }, [isSuccess, isLoading])
 
   const handleClose = () => {
     setShowModal(false)
@@ -100,7 +103,18 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   }, [sendSuccess])
 
   return (
-    <div className={styles.main}>
+    <motion.div className={styles.main}
+      initial={{
+        scale: 0.1,
+        opacity: 0,
+      }}
+      animate={{
+        scale: 1,
+        opacity: 1,
+      }}
+      transition={{
+        delay: 0.5,
+      }}>
       {isFetching ||
         (isLoading && (
           <div className={styles.loader}>
@@ -146,7 +160,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
               </div>
 
               <div className={styles.main_btn}>
-                <Button type="submit" text={'Забыли пароль?'} style={{ width: '246px' }} onClick={forgotPass} />
+                <a href='' onClick={forgotPass} className={styles.main_btn_href}>Забыли пароль?</a>
               </div>
             </div>
           </div>
@@ -183,6 +197,6 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
           </form>
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }

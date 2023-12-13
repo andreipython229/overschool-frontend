@@ -13,10 +13,12 @@ import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
 import styles from './constructor.module.scss'
 import { SimpleLoader } from '../../../../../../components/Loaders/SimpleLoader'
 
+
 export const Constructor: FC = () => {
+  const schoolName = window.location.href.split('/')[4]
   const { course_id: courseId } = useParams()
 
-  const { data: modulesAndLessons, isSuccess } = useFetchModulesQuery(courseId as string)
+  const { data: modulesAndLessons, isSuccess } = useFetchModulesQuery({id: courseId as string, schoolName})
 
   const [deleteLesson, { isLoading: isLoad }] = useDeleteLessonsMutation()
 

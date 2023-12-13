@@ -1,15 +1,15 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
-import { baseQueryFn } from './baseApi'
+import { baseQuery } from './baseApi'
 import { ISubscribe } from 'components/Modal/TariffDetailModal/TariffDetailModal'
 
 export const subscriptionService = createApi({
   reducerPath: 'subscriptionService',
-  baseQuery: baseQueryFn(),
+  baseQuery: baseQuery(),
   tagTypes: ['subscription'],
   endpoints: build => ({
-    sendSubscriptionForm: build.mutation<any, ISubscribe>({
-      query: data => ({
-        url: '/subscribe/',
+    sendSubscriptionForm: build.mutation<any, { data: ISubscribe; schoolName: string }>({
+      query: ({ data, schoolName }) => ({
+        url: `/${schoolName}/subscribe/`,
         method: 'POST',
         body: data,
       }),

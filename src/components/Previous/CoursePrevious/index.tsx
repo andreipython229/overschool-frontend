@@ -10,10 +10,12 @@ import { patchData } from 'utils/patchData'
 
 import styles from '../previou.module.scss'
 
+
 export const CoursePrevious: FC = memo(() => {
   const { course_id } = useParams()
+  const schoolName = window.location.href.split('/')[4]
 
-  const { data } = useFetchCourseQuery(course_id as string)
+  const { data } = useFetchCourseQuery({id: course_id as string, schoolName})
 
   const [update] = usePatchCoursesMutation()
 
@@ -22,10 +24,14 @@ export const CoursePrevious: FC = memo(() => {
       patchData(data, 'course_id', 'public', 'О', update)
     }
   }
+  console.log(data?.photo);
+  
 
   return (
-    <div className={styles.previous}>
+    <div>
       <img className={styles.background_image_course} src={data?.photo} alt="" />
+    <div className={styles.previous}>
+      
       <div className={styles.previous_bcgrShadow}> </div>
       <Link className={styles.back_all_course} to={`${Path.Courses}`}>
         <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
@@ -47,6 +53,7 @@ export const CoursePrevious: FC = memo(() => {
           />
         )}
       </div>
+    </div>
     </div>
   )
 })

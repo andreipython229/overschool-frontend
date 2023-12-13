@@ -17,7 +17,10 @@ import { useBoolean } from '../../customHooks'
 import { userRoleName } from 'config/index'
 import { Portal } from '../../components/Modal/Portal'
 import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
-import { auth } from 'store/redux/users/slice'
+
+import { motion } from 'framer-motion'
+import { auth, role } from 'store/redux/users/slice'
+
 import { useLazyLogoutQuery } from 'api/userLoginService'
 
 export type SchoolT = {
@@ -27,6 +30,7 @@ export type SchoolT = {
   role: string
 }
 
+
 export const ChooseSchool = () => {
   const navigate = useNavigate()
   const [getSchools, { isSuccess: userSuccess, isError }] = useGetSchoolsMutation()
@@ -34,6 +38,7 @@ export const ChooseSchool = () => {
   const { role: userRole, userName: name } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
+
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isOpen, { off, on }] = useBoolean()
   const dispatch = useDispatch()
@@ -55,25 +60,31 @@ export const ChooseSchool = () => {
       })
   }, [])
 
-  const handleSchool = (school_id: number, school: string, header_id: number) => {
-    localStorage.setItem('school', school)
-    dispatch(setSchoolName(school))
-    localStorage.setItem('school_id', String(school_id))
-    dispatch(setSchoolId(school_id))
-    localStorage.setItem('header_id', String(header_id))
-    dispatch(setHeaderId(header_id))
-
-    navigate(
-      generatePath(
-        userRole === RoleE.SuperAdmin
-          ? Path.School + Path.Settings
-          : userRole === RoleE.Teacher
-          ? Path.School + Path.CourseStats
-          : Path.School + Path.Courses,
-        { school_name: school },
-      ),
-    )
+  const handleSchool = (school: SchoolT) => {
+    localStorage.setItem('school', school.name)
+    dispatch(setSchoolName(school.name))
+    localStorage.setItem('school_id', String(school.school_id))
+    dispatch(setSchoolId(school.school_id))
+    localStorage.setItem('header_id', String(school.header_school))
+    dispatch(setHeaderId(school.header_school))
+    const roleValue = Object.entries(RoleE).find(([key, value]) => key === school.role)?.[1]
+    roleValue && dispatch(role(+roleValue))
   }
+
+  useEffect(() => {
+    if (userRole) {
+      navigate(
+        generatePath(
+          userRole === RoleE.SuperAdmin
+            ? Path.School + Path.Settings
+            : userRole === RoleE.Teacher
+            ? Path.School + Path.CourseStats
+            : Path.School + Path.Courses,
+          { school_name: schoolName },
+        ),
+      )
+    }
+  }, [userRole])
 
   return (
     <div className={styles.bg1}>
@@ -121,22 +132,22 @@ export const ChooseSchool = () => {
             </div>
 
             {schools ? (
-              schools.map((s, index: number) => (
+              schools.map((school, index: number) => (
                 <Link
                   key={index}
                   onClick={async e => {
                     e.preventDefault()
-                    await handleSchool(s.school_id, s.name, s.header_school)
+                    await handleSchool(school)
                   }}
                   to={`#`}
                 >
-                  <div className={styles.bg}>
+                  <motion.div className={styles.bg} whileHover={ {scale: 1.2,}}>
                     <div>
-                      <div className={styles.name}>{s.name}</div>
-                      <div className={styles.role}>{userRoleName[s.role]}</div>
+                      <div className={styles.name}>{school.name}</div>
+                      <div className={styles.role}>{userRoleName[school.role]}</div>
                     </div>
                     <span>→</span>
-                  </div>
+                  </motion.div>
                 </Link>
               ))
             ) : (

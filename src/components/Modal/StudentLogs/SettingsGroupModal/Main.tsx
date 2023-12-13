@@ -1,10 +1,10 @@
-import React, {ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState} from 'react'
+import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 
-import {Input} from 'components/common/Input/Input/Input'
-import {Checkbox} from 'components/common/Checkbox/Checkbox'
-import {Button} from 'components/common/Button/Button'
-import {SimpleLoader} from 'components/Loaders/SimpleLoader'
-import {Dropdown} from 'primereact/dropdown'
+import { Input } from 'components/common/Input/Input/Input'
+import { Checkbox } from 'components/common/Checkbox/Checkbox'
+import { Button } from 'components/common/Button/Button'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { Dropdown } from 'primereact/dropdown'
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
 import {useFetchAllUsersQuery} from '../../../../api/allUsersList'
 import {PrimeReactProvider} from 'primereact/api'
@@ -12,6 +12,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import {useFetchStudentsGroupByCourseQuery} from "../../../../api/studentsGroupService";
 import {ToggleButtonDropDown} from "../../../common/ToggleButtonDropDown";
+import {useFetchStudentProgressQuery} from "../../../../api/userProgressService";
 
 type MainSettingsGroupPropsT = {
     strongSubsequence: boolean
@@ -46,48 +47,48 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    changeTeacher,
                                                                    course
                                                                }) => {
-    const {data: allUsers, isSuccess} = useFetchAllUsersQuery()
+    const schoolName = window.location.href.split('/')[4]
+    const { data: allUsers, isSuccess } = useFetchAllUsersQuery(schoolName)
     const [allTeachers, setAllTeachers] = useState<any>([])
     const [teachers, setTeachers] = useState<string[]>([])
     const [selectedTeacher, setSelectedTeacher] = useState<string>('')
-    const {data: courseGroups} = useFetchStudentsGroupByCourseQuery(course)
+    const {data: courseGroups} = useFetchStudentsGroupByCourseQuery({ id: course, schoolName })
     const [isAccardionOpen, groupInfoAccardion] = useState<boolean>(false)
 
-    useEffect(() => {
-        if (allUsers) {
-            const allTeachers = allUsers.filter((user: any) => user.role === 'Teacher')
-            setAllTeachers(allTeachers)
-        }
-    }, [isSuccess])
+  useEffect(() => {
+    if (allUsers) {
+      const allTeachers = allUsers.filter((user: any) => user.role === 'Teacher')
+      setAllTeachers(allTeachers)
+    }
+  }, [isSuccess])
 
-    useEffect(() => {
-        allTeachers.find((obj: any) => {
-            if (obj.id === teacher) {
-                setSelectedTeacher(obj.email)
-            }
+  useEffect(() => {
+    allTeachers.find((obj: any) => {
+      if (obj.id === teacher) {
+        setSelectedTeacher(obj.email)
+      }
+    })
+  }, [allTeachers])
+
+  useEffect(() => {
+    allTeachers.find((obj: any) => {
+      if (obj.email === selectedTeacher) {
+        changeTeacher(Number(obj.id))
+      }
+    })
+  }, [selectedTeacher])
+
+  useEffect(() => {
+    if (courseGroups) {
+      if (allTeachers) {
+        const teachersGroups = courseGroups?.results.map((group: any) => group.teacher_id)
+        const availableTeachers = allTeachers.filter((teacher: any) => {
+          return !new Set(teachersGroups).has(teacher.id)
         })
-    }, [allTeachers])
-
-    useEffect(() => {
-        allTeachers.find((obj: any) => {
-            if (obj.email === selectedTeacher) {
-                changeTeacher(Number(obj.id))
-            }
-        })
-    }, [selectedTeacher])
-
-    useEffect(() => {
-        if (courseGroups) {
-            if (allTeachers) {
-                const teachersGroups = courseGroups?.results.map((group: any) => group.teacher_id)
-                const availableTeachers = allTeachers.filter((teacher: any) => {
-                    return !new Set(teachersGroups).has(teacher.id)
-                })
-                setTeachers(availableTeachers.map((teacher: any) => teacher.email))
-            }
-        }
-    }, [courseGroups, allTeachers])
-
+        setTeachers(availableTeachers.map((teacher: any) => teacher.email))
+      }
+    }
+  }, [courseGroups, allTeachers])
 
     const handleChangeGroupName = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === 'groupName') {

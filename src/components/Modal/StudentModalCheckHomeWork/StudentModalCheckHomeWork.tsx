@@ -25,6 +25,7 @@ import {
 import styles from './modal_check_home_work.module.scss'
 import { TextField } from '@mui/material'
 
+
 type studentModalHomeworkT = {
   id: number
   closeModal: () => void
@@ -41,6 +42,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
   const [userHomework, setUserHomework] = useState<UserHomework>()
   const [currentUser, setCurrentUser] = useState<CurrentUser>()
   const [isUser, setIsUser] = useState<boolean>(true)
+  const schoolName = window.location.href.split('/')[4]
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isHwOpen, setIsHwOpen] = useState<boolean>(false)
@@ -51,8 +53,8 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
   const [files, setFiles] = useState<fileT[]>([])
   const [nativeFiles, setNativeFiles] = useState<File[]>([])
 
-  const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery(id)
-  const { data: homework, isFetching: isHwFetching } = useFetchHomeworkDataQuery(userHomework?.homework as number)
+  const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery({id, schoolName})
+  const { data: homework, isFetching: isHwFetching } = useFetchHomeworkDataQuery({id: userHomework?.homework as number, schoolName})
   const [sendHomeworkCheck, { data: sendResult, status: sendHwCheckSuccess }] = useCreateCheckReplyMutation()
   const [sendFiles, { isLoading, isSuccess: sendFilesSuccess }] = usePostTextFilesMutation()
 
@@ -90,7 +92,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
     }
 
     try {
-      await sendHomeworkCheck(dataToSend)
+      await sendHomeworkCheck({data: dataToSend, schoolName})
         .unwrap()
         .then(data => {
           setText('')
@@ -101,7 +103,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
           nativeFiles.forEach(file => {
             formData.append(`files`, file)
           })
-          sendFiles(formData)
+          sendFiles({formData, schoolName})
             .unwrap()
             .then(data => {
               setNativeFiles([])

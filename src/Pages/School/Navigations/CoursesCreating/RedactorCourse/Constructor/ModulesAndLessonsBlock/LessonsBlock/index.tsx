@@ -16,9 +16,10 @@ import { doBlockIconPath } from '../../../../../../../../components/Modal/Settin
 export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, type, lessonsName, id, lesson, selected, onPush }) => {
   const [deleteLesson, { isLoading }] = useDeleteLessonsMutation()
   const controls = useDragControls()
+  const schoolName = window.location.href.split('/')[4]
 
   const handleDeleteLesson = async () => {
-    await deleteLesson({ id, type })
+    await deleteLesson({ id, type, schoolName })
     setLessonIdAndType({} as lessonIdAndTypeT)
   }
 

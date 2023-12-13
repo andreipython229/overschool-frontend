@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import {baseQuery, baseQueryFn} from './baseApi'
+import { baseQuery } from './baseApi'
 import { formDataConverter } from '../utils/formDataConverter'
 
 type returnQuestionT = {
@@ -17,12 +17,12 @@ type returnQuestionT = {
 
 export const questionsAndAnswersService = createApi({
   reducerPath: 'questionsAndAnswersService',
-  baseQuery: baseQueryFn(),
+  baseQuery: baseQuery(),
   tagTypes: ['questions', 'answers', 'usertests'],
   endpoints: build => ({
-    fetchQuestionsList: build.query({
-      query: id => ({
-        url: `/tests/${id}/get_questions/`,
+    fetchQuestionsList: build.query<any, {id: string | number, schoolName: string}>({
+      query: ({ id, schoolName }) => ({
+        url: `/${schoolName}/tests/${id}/get_questions/`,
       }),
       providesTags: ['questions', 'answers'],
     }),
@@ -33,69 +33,69 @@ export const questionsAndAnswersService = createApi({
     //   providesTags: ['questions'],
     // }),
 
-    createQuestions: build.mutation({
-      query: question => {
+    createQuestions: build.mutation<any, { question: any; schoolName: string }>({
+      query: ({ question, schoolName }) => {
         return {
-          url: `/questions/`,
+          url: `/${schoolName}/questions/`,
           method: 'POST',
           body: question,
         }
       },
       invalidatesTags: ['questions'],
     }),
-    patchQuestion: build.mutation({
-      query: ({ titleQuestion, id, testId }) => {
+    patchQuestion: build.mutation<any, { titleQuestion: string; id: string | number; testId: string | number; schoolName: string }>({
+      query: ({ titleQuestion, id, testId, schoolName }) => {
         const formdata = formDataConverter({ body: titleQuestion, test: testId })
         return {
-          url: `/questions/${id}/`,
+          url: `/${schoolName}/questions/${id}/`,
           method: 'PATCH',
           body: formdata,
         }
       },
       invalidatesTags: ['questions'],
     }),
-    removeQuestions: build.mutation({
-      query: id => {
+    removeQuestions: build.mutation<any, { id: string | number; schoolName: string }>({
+      query: ({ id, schoolName }) => {
         return {
-          url: `/questions/${id}/`,
+          url: `/${schoolName}/questions/${id}/`,
           method: 'DELETE',
         }
       },
       invalidatesTags: ['questions'],
     }),
-    addAnswer: build.mutation({
-      query: body => {
+    addAnswer: build.mutation<any, { body: any; schoolName: string }>({
+      query: ({ body, schoolName }) => {
         return {
-          url: `/answers/`,
+          url: `/${schoolName}/answers/`,
           method: 'POST',
           body,
         }
       },
       invalidatesTags: ['answers'],
     }),
-    patchAnswer: build.mutation({
-      query: ({ answer, answerId }) => {
+    patchAnswer: build.mutation<any, {answer: any, answerId: string | number, schoolName: string}>({
+      query: ({ answer, answerId, schoolName }) => {
         return {
-          url: `/answers/${answerId}/`,
+          url: `/${schoolName}/answers/${answerId}/`,
           method: 'PATCH',
           body: answer,
         }
       },
       // invalidatesTags: [''],
     }),
-    deleteAnswer: build.mutation({
-      query: answerId => {
+    deleteAnswer: build.mutation<any, {answerId: string | number, schoolName: string}>({
+      query: ({ answerId, schoolName }) => {
         return {
-          url: `/answers/${answerId}/`,
+          url: `/${schoolName}/answers/${answerId}/`,
           method: 'DELETE',
         }
       },
       invalidatesTags: ['answers'],
     }),
-    getUserTestsByTest: build.mutation({
-      query: id => {
+    getUserTestsByTest: build.mutation<any, {id: string | number, schoolName: string}>({
+      query: ({ id, schoolName }) => {
         return {
-          url: `/tests/${id}/usertests/`,
+          url: `/${schoolName}/tests/${id}/usertests/`,
         }
       },
     }),
@@ -110,5 +110,5 @@ export const {
   useAddAnswerMutation,
   usePatchAnswerMutation,
   useDeleteAnswerMutation,
-  useGetUserTestsByTestMutation
+  useGetUserTestsByTestMutation,
 } = questionsAndAnswersService

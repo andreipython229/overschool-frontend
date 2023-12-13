@@ -12,8 +12,8 @@ type NextSectionButtonProps = {
 
 export const NextOrPrevSectionButton: FC<NextSectionButtonProps> = ({ sectionId, courseId}) => {
     const navigate = useNavigate()
-    const {data: nextSection, isSuccess} = useFetchModuleLessonsQuery(`${sectionId}`)
     const schoolName = window.location.href.split('/')[4]
+    const {data: nextSection, isSuccess} = useFetchModuleLessonsQuery({sectionId: String(sectionId), schoolName})
     const nextSectionHandler = () => {
         if (nextSection && nextSection.lessons?.length > 0) {
             const lesson = nextSection.lessons?.[0];

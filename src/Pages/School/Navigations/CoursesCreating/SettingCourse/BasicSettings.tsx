@@ -17,6 +17,7 @@ import {generatePath, useNavigate} from "react-router-dom";
 import {SimpleLoader} from "../../../../../components/Loaders/SimpleLoader";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 
+
 type BasicSettingsT = {
     toggleCheckbox: boolean
     toggleCheckboxPublished: () => void
@@ -29,6 +30,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({toggleCheckbox, toggleCheckbo
     const [shortDescription, setShortDescription] = useState<string>(courseFind?.description || '')
     const [deleteCourses, {isSuccess: isSuccessDelete}] = useDeleteCoursesMutation()
     const [alertOpen, setAlertOpen] = useState<boolean>(false)
+    const schoolName = window.location.href.split('/')[4]
 
     const debounce = useDebounceFunc(update)
     const navigate = useNavigate()
@@ -50,7 +52,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({toggleCheckbox, toggleCheckbo
     }
 
     const handleDeleteCourse = async () => {
-        courseFind && (await deleteCourses(courseFind?.course_id))
+        courseFind && (await deleteCourses({id: +courseFind?.course_id, schoolName}))
         setAlertOpen(false)
     }
 
@@ -64,14 +66,14 @@ export const BasicSettings: FC<BasicSettingsT> = ({toggleCheckbox, toggleCheckbo
         const formdata = formDataConverter(updateCurse)
         if (formdata && courseFind) {
             const id = courseFind?.course_id
-            debounce({formdata, id})
+            debounce({arg: {formdata, id}, schoolName})
         }
     }
 
     useEffect(() => {
         if (isSuccessDelete) {
             navigate(generatePath(Path.School + Path.Courses, {
-                school_name: localStorage.getItem('school') || window.location.href.split('/')[4],
+                school_name: schoolName,
             }))
         }
     }, [isSuccessDelete])
