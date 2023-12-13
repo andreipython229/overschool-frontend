@@ -102,3 +102,20 @@
     -o-transition: color 0.3s;
   }
 }
+
+.datepicker {
+  width: 100%;
+  margin-left: 10px;
+
+  &_open {
+    min-height: 300px;
+  }
+
+  & input {
+    border-radius: 5px;
+    color: $font-color-rose;
+    height: 25px;
+    text-align: center;
+    margin-left: 20px;
+  }
+}

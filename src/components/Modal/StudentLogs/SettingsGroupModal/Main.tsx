@@ -1,4 +1,4 @@
-import {ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState} from 'react'
+import React, {ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState} from 'react'
 
 import {Input} from 'components/common/Input/Input/Input'
 import {Checkbox} from 'components/common/Checkbox/Checkbox'
@@ -11,6 +11,7 @@ import {PrimeReactProvider} from 'primereact/api'
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import {useFetchStudentsGroupByCourseQuery} from "../../../../api/studentsGroupService";
+import {ToggleButtonDropDown} from "../../../common/ToggleButtonDropDown";
 
 type MainSettingsGroupPropsT = {
     strongSubsequence: boolean
@@ -50,6 +51,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
     const [teachers, setTeachers] = useState<string[]>([])
     const [selectedTeacher, setSelectedTeacher] = useState<string>('')
     const {data: courseGroups} = useFetchStudentsGroupByCourseQuery(course)
+    const [isAccardionOpen, groupInfoAccardion] = useState<boolean>(false)
 
     useEffect(() => {
         if (allUsers) {
@@ -133,6 +135,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                         </div>
                     </div>
                 </div>
+                <ToggleButtonDropDown isOpen={isAccardionOpen} nameOfItems={'уроки'} handleToggleHiddenBlocks={()=>groupInfoAccardion(prev => !prev)} />
                 {/*  {strongSubsequence && (*/}
                 {/*      <div className={styles.groupSetting_selectBlock}>*/}
                 {/*          /!* <div className={styles.groupSetting_selectBlock_select}>*/}

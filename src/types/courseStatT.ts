@@ -18,6 +18,7 @@ export type result = {
     mark_sum: number
     average_mark: number
     sections: Section[]
+    date_added: Date
 }
 
 export interface Section {
