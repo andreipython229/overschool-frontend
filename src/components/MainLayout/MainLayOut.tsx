@@ -10,6 +10,8 @@ import { Path } from '../../enum/pathE'
 import styles from './mainLayOut.module.scss'
 import { Footer } from 'components/Footer'
 
+import { motion } from 'framer-motion'
+
 export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
 
@@ -52,10 +54,21 @@ export const MainLayOut: FC = memo(() => {
     <div className={styles.wrapper}>
       <Navbar />
       <Header />
-      <main className={styles.container}>
+      <motion.main className={styles.container}
+       initial={{
+        x:-1000,
+        y: -1000,
+      }}
+      animate={{
+        x:0,
+        y: 0,
+      }}
+      transition={{
+        delay: 0.1,
+      }}>
         <Previous />
         <Outlet />
-      </main>
+      </motion.main>
       <Footer />
     </div>
   )

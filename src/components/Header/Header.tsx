@@ -38,6 +38,8 @@ import { removeHeaderId } from '../../store/redux/school/headerIdSlice'
 import { removeSchoolName } from '../../store/redux/school/schoolSlice'
 import { useDispatch } from 'react-redux'
 
+import { motion } from 'framer-motion'
+
 export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
   const dispatch = useAppDispatch()
@@ -214,7 +216,17 @@ export const Header = memo(() => {
   }
 
   return (
-    <header className={styles.header}>
+    <motion.header className={styles.header}
+    initial={{
+      x:-1000,
+    }}
+    animate={{
+      x:0,
+    }}
+    transition={{
+      delay: 0.1,
+    }}>
+
       <NavLink to={userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}>
         <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
       </NavLink>
@@ -253,21 +265,7 @@ export const Header = memo(() => {
                   <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}> {`${currentTariff?.students}/${currentTariff?.tariff_details?.total_students || 'ꝏ'}`}</span>
                 </MenuItem>
                 <MenuItem onClick={goToChooseTariff}>
-                  <SvgIcon
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#708090"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                  </SvgIcon>
-                  <Link to={Path.TariffPlans} style={{ color: 'slategrey', paddingLeft: '0.5rem' }}>
+                  <Link to={Path.TariffPlans} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
                     Все тарифы
                   </Link>
                 </MenuItem>
@@ -327,6 +325,6 @@ export const Header = memo(() => {
           </div>
         </Tooltip>
       </div>
-    </header>
+    </motion.header>
   )
 })

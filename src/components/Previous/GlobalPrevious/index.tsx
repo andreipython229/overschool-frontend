@@ -93,11 +93,14 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
         backgroundPosition: 'center center',
         backgroundSize: 'cover',
         ObjectFit: 'fill',
+        filter: 'blur(3px)',
       }
     : { backgroundColor: '#e0dced' }
 
   return (
-    <div className={styles.previous} style={changedBg}>
+    <div className={styles.previous}>
+      <div className={styles.previous} style={changedBg}/>
+      <div>
       {isFetching && (
         <div className={styles.previous_loader}>
           <SimpleLoader style={{ width: '50px', height: '50px' }} />
@@ -167,6 +170,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
           />
         </div>
       )}
+      </div>
     </div>
   )
 })

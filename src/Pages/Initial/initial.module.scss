@@ -42,6 +42,7 @@
       height: 112px;
       @include display(flex);
       font-weight: 800;
+      border-radius: 8px;
 
       & div:nth-child(1) {
         font-size: 24px;
@@ -231,7 +232,9 @@
   font-style: inherit;
   width: 30%;
   display: flex;
-  background-color: #ba75ff;
+  background-color: #ffffff;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+  border-radius: 8px;
 }

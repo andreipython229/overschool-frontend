@@ -1,3 +1,5 @@
+import { boolean } from "yup/lib/locale";
+
 declare global {
   interface Window {
     school?: string;
@@ -20,6 +22,7 @@ export enum Path {
   SignUp = '/signup',
   CourseStudent = 'courses-stats/:course_id/students',
   CreateSchool = '/create-school/',
+  Chat = '',
 }
 
 export enum SettingsPath {

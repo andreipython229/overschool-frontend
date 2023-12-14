@@ -17,7 +17,10 @@ import { useBoolean } from '../../customHooks'
 import { userRoleName } from 'config/index'
 import { Portal } from '../../components/Modal/Portal'
 import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
+
+import { motion } from 'framer-motion'
 import { auth, role } from 'store/redux/users/slice'
+
 import { useLazyLogoutQuery } from 'api/userLoginService'
 
 export type SchoolT = {
@@ -27,6 +30,7 @@ export type SchoolT = {
   role: string
 }
 
+
 export const ChooseSchool = () => {
   const navigate = useNavigate()
   const [getSchools, { isSuccess: userSuccess, isError }] = useGetSchoolsMutation()
@@ -34,6 +38,7 @@ export const ChooseSchool = () => {
   const { role: userRole, userName: name } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
+
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isOpen, { off, on }] = useBoolean()
   const dispatch = useDispatch()
@@ -136,13 +141,13 @@ export const ChooseSchool = () => {
                   }}
                   to={`#`}
                 >
-                  <div className={styles.bg}>
+                  <motion.div className={styles.bg} whileHover={ {scale: 1.2,}}>
                     <div>
                       <div className={styles.name}>{school.name}</div>
                       <div className={styles.role}>{userRoleName[school.role]}</div>
                     </div>
                     <span>→</span>
-                  </div>
+                  </motion.div>
                 </Link>
               ))
             ) : (

@@ -27,6 +27,8 @@ type FirstFormValuesT = {
   email: string
 }
 
+import { motion } from 'framer-motion'
+
 export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -49,7 +51,6 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
 
   const [isShown, setIsShown] = useState(false)
   const [isHidden, setIsHidden] = useState(true)
-
   const forgotPass = () => {
     setIsShown(!isShown)
     setIsHidden(!isHidden)
@@ -179,7 +180,18 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   }
 
   return (
-    <div className={styles.main}>
+    <motion.div className={styles.main}
+      initial={{
+        scale: 0.1,
+        opacity: 0,
+      }}
+      animate={{
+        scale: 1,
+        opacity: 1,
+      }}
+      transition={{
+        delay: 0.5,
+      }}>
       {isFetching ||
         (isLoading && (
           <div className={styles.loader}>
@@ -225,7 +237,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
               </div>
 
               <div className={styles.main_btn}>
-                <Button type="submit" text={'Забыли пароль?'} style={{ width: '246px' }} onClick={forgotPass} />
+                <a href='' onClick={forgotPass} className={styles.main_btn_href}>Забыли пароль?</a>
               </div>
             </div>
           </div>
@@ -348,6 +360,6 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
         </div>
       )}
       <Toast position="top-left" ref={toast} />
-    </div>
+    </motion.div>
   )
 }

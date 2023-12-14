@@ -234,12 +234,15 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                     <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
                     Изменить название урока
                   </button>
-                  <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
-                    <IconSvg functionOnClick={handleDeleteLesson} width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
-                  </button>
+                  
                   <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save} onClick={handleSaveChanges}>
                     <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
                     Сохранить изменения
+                  </button>
+
+                  <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
+                    <IconSvg functionOnClick={handleDeleteLesson} width={16} height={16} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+                    Удалить
                   </button>
                 </div>
                 <div style={publickButton}>

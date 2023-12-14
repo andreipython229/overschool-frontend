@@ -60,6 +60,7 @@
     display: inline-block;
     width: 66px;
     height: 66px;
+   
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       margin: 0 12px 0 8px;
@@ -86,7 +87,7 @@
     &_avatar {
       border: 1px solid #ffffff;
       background: #d9d9d9;
-      border-radius: 50%;
+      border-radius: 7px;
       box-sizing: border-box;
       margin-right: 16px;
     }
@@ -180,4 +181,5 @@
     @include font(500, 12px, 15px);
     margin-left: 13px;
   }
+  
 }

@@ -97,10 +97,10 @@ export const Main = memo(() => {
           style={{ color: 'red', padding: '0px', lineHeight: '1.5', opacity: '0.6', fontWeight: 'bold', fontSize: '12px' }}
         >
           Название будет подставляться в url адресах относящихся к вашей школе.
-          <br />
-          Имейте ввиду, если вы делились с кем либо url ссылками на вашу школу - то после изменения по старым url адресам она будет не доступна!!!
-          <br />
-          Частая смена не рекомендуется!!!
+          <br /> 
+          Имейте ввиду, если вы делились с кем либо url ссылками на вашу школу - то после изменения по старым url адресам она будет не доступна!
+          
+          Частая смена не рекомендуется!
         </div>
         <div>
           <Input name={'name'} type={'text'} style={{ width: '320px', paddingBottom: '10px' }} value={name} onChange={handleChangeSchoolName} />
