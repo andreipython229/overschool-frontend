@@ -77,9 +77,9 @@ export const studentsGroupService = createApi({
             }),
             invalidatesTags: ['studentsGroup']
         }),
-    deleteStudentFromGroup: build.mutation<any, any>({
-      query: data => ({
-        url: '/${schoolName}/access-distribution/',
+    deleteStudentFromGroup: build.mutation<any, { data: any; schoolName: string}>({
+      query: ({data, schoolName}) => ({
+        url: `/${schoolName}/access-distribution/`,
         method: 'DELETE',
         body: data,
       }),

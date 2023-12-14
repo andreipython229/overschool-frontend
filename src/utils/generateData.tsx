@@ -24,7 +24,9 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
 
     const row: GenerateRow = {
       Имя: {
-        name: `${dataToRender[i].first_name || 'Без'} ${dataToRender[i].last_name || 'Имени'}`,
+        // name: `${dataToRender[i].first_name || 'Без'} ${dataToRender[i].last_name || 'Имени'}`,
+        name: (dataToRender[i].last_name && dataToRender[i].first_name) ? `${dataToRender[i].last_name}  ${dataToRender[i].first_name}` :
+                        (dataToRender[i].last_name || dataToRender[i].first_name || "Нет имени"),
         avatar: dataToRender[i].avatar,
       },
       Email: dataToRender[i].email,

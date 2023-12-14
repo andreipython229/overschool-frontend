@@ -57,9 +57,9 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         }
         if (groupType === "WITH_TEACHER") {
             Object.assign(dataToSend, {teacher_id: currentTeacher})
-            await patchGroup({id: groupId, data: dataToSend}).unwrap().catch(error => console.log(error.data))
+            await patchGroup({id: groupId, data: dataToSend, schoolName: schoolName}).unwrap().catch(error => console.log(error.data))
         } else {
-            await patchGroupWithoutTeacher({id: groupId, data: dataToSend}).unwrap().catch(error => console.log(error.data))
+            await patchGroupWithoutTeacher({id: groupId, data: dataToSend, schoolName: schoolName}).unwrap().catch(error => console.log(error.data))
         }
         closeModal()
     }

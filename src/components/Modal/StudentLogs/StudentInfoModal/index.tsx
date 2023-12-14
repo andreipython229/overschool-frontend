@@ -1,12 +1,12 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, {FC, useEffect, useState} from 'react'
 
-import { crossIconPath, tableBallsStarPath } from 'config/commonSvgIconsPath'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { Button } from 'components/common/Button/Button'
-import { StudentInfoAccardion } from './StudentInfoAccardion'
-import { result } from 'types/courseStatT'
+import {crossIconPath, tableBallsStarPath} from 'config/commonSvgIconsPath'
+import {IconSvg} from 'components/common/IconSvg/IconSvg'
+import {Button} from 'components/common/Button/Button'
+import {StudentInfoAccardion} from './StudentInfoAccardion'
+import {result} from 'types/courseStatT'
 
-import { convertDate } from 'utils/convertDate'
+import {convertDate} from 'utils/convertDate'
 import mainStyles from '../../Modal.module.scss'
 import styles from './studentInfoModal.module.scss'
 import {useFetchStudentProgressQuery} from '../../../../api/userProgressService'
@@ -15,77 +15,77 @@ import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} fr
 import DatePicker, {registerLocale} from 'react-datepicker'
 
 type studentInfoModalT = {
-  student: result | null
-  closeModal: () => void
+    student: result | null
+    closeModal: () => void
 }
 
 interface ICoursesProgress {
-  course_id: number
-  course_name: string
-  all_baselessons: number
-  completed_count: number
-  completed_percent: number
-  lessons: {
+    course_id: number
+    course_name: string
+    all_baselessons: number
+    completed_count: number
     completed_percent: number
-    all_lessons: number
-    completed_lessons: number
-  }
-  homeworks: {
-    completed_percent: number
-    all_lessons: number
-    completed_lessons: number
-  }
-  tests: {
-    completed_percent: number
-    all_lessons: number
-    completed_lessons: number
-  }
+    lessons: {
+        completed_percent: number
+        all_lessons: number
+        completed_lessons: number
+    }
+    homeworks: {
+        completed_percent: number
+        all_lessons: number
+        completed_lessons: number
+    }
+    tests: {
+        completed_percent: number
+        all_lessons: number
+        completed_lessons: number
+    }
 }
 
 type studentProgressT = {
-  student: string
-  school_id: number
-  school_name: string
-  courses: ICoursesProgress[]
+    student: string
+    school_id: number
+    school_name: string
+    courses: ICoursesProgress[]
 }
 
 export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) => {
     const lastActivity = new Date(student?.last_active || '')
-    const { mmddyyyy } = convertDate(lastActivity)
+    const {mmddyyyy} = convertDate(lastActivity)
     const schoolName = window.location.href.split('/')[4]
     const [studentProgress, setStudentProgress] = useState<studentProgressT>()
-    const { data } = useFetchStudentProgressQuery({user_id: String(student?.student_id), schoolName})
+    const {data} = useFetchStudentProgressQuery({user_id: String(student?.student_id), schoolName})
     const [completedPercent, setCompletedPercent] = useState<number>()
     const [openAlert, setOpenAlert] = useState<boolean>(false)
     const [deleteStudent] = useDeleteStudentFromGroupMutation()
     const [removeDate, setRemoveDate] = useState<Date>(new Date())
     const [datePickerClass, setDatePickerClass] = useState<any>();
 
-  const handleOpenAlert = () => {
-    setOpenAlert(true)
-  }
-
-  const handleCloseAlert = () => {
-    setOpenAlert(false)
-  }
-
-  useEffect(() => {
-    setStudentProgress(data)
-  }, [data])
-
-  useEffect(() => {
-    if (studentProgress) {
-      const percentsArray = studentProgress?.courses.map(course => {
-        return course.completed_percent
-      })
-
-      const sum = percentsArray.reduce((acc, curr) => {
-        return acc + curr
-      }, 0)
-
-      setCompletedPercent(sum / percentsArray.length)
+    const handleOpenAlert = () => {
+        setOpenAlert(true)
     }
-  }, [studentProgress])
+
+    const handleCloseAlert = () => {
+        setOpenAlert(false)
+    }
+
+    useEffect(() => {
+        setStudentProgress(data)
+    }, [data])
+
+    useEffect(() => {
+        if (studentProgress) {
+            const percentsArray = studentProgress?.courses.map(course => {
+                return course.completed_percent
+            })
+
+            const sum = percentsArray.reduce((acc, curr) => {
+                return acc + curr
+            }, 0)
+
+            setCompletedPercent(sum / percentsArray.length)
+        }
+    }, [studentProgress])
 
     const onChange = (date: Date): void => {
         setRemoveDate(date)
@@ -101,7 +101,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
         const day = removeDate.getDate()
         formData.append('date', `${year}-${month}-${day}`)
 
-        await deleteStudent(formData).unwrap()
+        await deleteStudent({data: formData, schoolName: schoolName}).unwrap()
             .then(async data => {
                 await setOpenAlert(false)
                 await closeModal()
@@ -127,7 +127,9 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
                         <div
                             className={styles.student_block_avatar}>{`${student?.first_name.charAt(0) || 'Б'} ${student?.last_name.charAt(0) || 'И'}`}</div>
                     )}
-                    <h3 className={styles.student_block_name}>{`${student?.first_name || 'без'} ${student?.last_name || 'имени'}`}</h3>
+                    <h3 className={styles.student_block_name}>{(student?.last_name && student?.first_name) ? `${student?.last_name}  ${student?.first_name}` :
+                        (student?.last_name || student?.first_name || "Нет имени")}</h3>
+                    {/*{`${student?.first_name || 'без'} ${student?.last_name || 'имени'}`}*/}
                     <p className={styles.student_block_email}>{student?.email}</p>
                     <p className={styles.student_block_activity}>Был(а) онлайн {`${mmddyyyy}`}</p>
                 </div>
