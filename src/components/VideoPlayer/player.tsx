@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import './videoPlayer.scss'
+import styles from './videoPlayer.module.scss'
 import ReactPlayer from 'react-player'
 import { Box, Tab } from '@mui/material'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from 'Pages/School/config/svgIconsPath'
+import { arrDownIcon } from 'Pages/StudentCourse/constants/svgIcon'
+import { addVideoIconPath } from 'components/AddVideo/config/svgIconsPath'
+import { sendIconPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth'
 
 type playerProps = {
   lessonId: number
@@ -50,7 +53,7 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
   }, [isDeleted])
 
   return (
-    <div className="video-player">
+    <div className={styles.videoPlayer}>
       {currentVideoSrc && videoSrc && videoSrc2 && (
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={currentVideoSrc}>
@@ -68,7 +71,7 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
           url={currentVideoSrc}
           width="100%"
           height="30rem"
-          style={{ minWidth: "100%", minHeight: "30rem" }}
+          style={{ minWidth: '100%', minHeight: '30rem' }}
           controls
           config={{
             file: {
@@ -82,10 +85,20 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
         <></>
       )}
       {currentVideoSrc && isEditing && handleDeleteVideo && (
-        <button className="video-player_btnDelete" onClick={() => handleDeleteVideo(currentVideoSrc)}>
-          <p style={{ marginRight: '0.2em', color: 'grey', fontWeight: '600' }}>Удалить {videoSrc && videoSrc2 && 'выбранное'} видео</p>
-          <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
-        </button>
+        <div style={{ display: 'flex' }}>
+          {videoSrc && (
+            <a href={videoSrc} rel={'noreferrer'} target={'_blank'} download={'videoDownload'}>
+              <div className={styles.videoPlayer_btnDownload}>
+                <p style={{ marginRight: '0.2em', color: 'grey', fontWeight: '600' }}>Скачать видео</p>
+                <IconSvg width={12} height={12} viewBoxSize="10 10 64 64" path={addVideoIconPath} />
+              </div>
+            </a>
+          )}
+          <button className={styles.videoPlayer_btnDelete} onClick={() => handleDeleteVideo(currentVideoSrc)}>
+            <p style={{ marginRight: '0.2em', color: 'grey', fontWeight: '600' }}>Удалить {videoSrc && videoSrc2 && 'выбранное'} видео</p>
+            <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+          </button>
+        </div>
       )}
     </div>
   )

@@ -57,7 +57,7 @@ export const modulesServices = createApi({
       }),
       // providesTags: ['lessons'],
     }),
-    createLessons: build.mutation({
+    createLessons: build.mutation<any, {arg: any, schoolName: string}>({
       query: ({ arg, schoolName }) => {
         return {
           url: `/${schoolName}/${arg.type}/`,
