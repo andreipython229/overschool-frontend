@@ -66,9 +66,20 @@ export const studentsGroupService = createApi({
       }),
       invalidatesTags: ['studentsGroup'],
     }),
-    deleteStudentFromGroup: build.mutation<any, any>({
-      query: data => ({
-        url: '/${schoolName}/access-distribution/',
+    patchGroupWithoutTeacher: build.mutation<any, { id: number; data: any; schoolName: string}>({
+            query: ({id, data, schoolName}) => ({
+                url: `/${schoolName}/students_group_no_teacher/${id}/`,
+                method: 'PATCH',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }),
+            invalidatesTags: ['studentsGroup']
+        }),
+    deleteStudentFromGroup: build.mutation<any, { data: any; schoolName: string}>({
+      query: ({data, schoolName}) => ({
+        url: `/${schoolName}/access-distribution/`,
         method: 'DELETE',
         body: data,
       }),
@@ -77,13 +88,14 @@ export const studentsGroupService = createApi({
 })
 
 export const {
-  //useFetchUserCountByMonthDataQuery,
-  usePatchStudentsGroupMutation,
-  useFetchStudentsGroupByCourseQuery,
-  useFetchStudentGroupQuery,
-  useFetchStudentsGroupQuery,
-  useCreateStudentsGroupMutation,
-  useCreateGroupWithoutTeacherMutation,
-  useDeleteStudentsGroupMutation,
-  useDeleteStudentFromGroupMutation,
+    //useFetchUserCountByMonthDataQuery,
+    usePatchStudentsGroupMutation,
+    usePatchGroupWithoutTeacherMutation,
+    useFetchStudentsGroupByCourseQuery,
+    useFetchStudentGroupQuery,
+    useFetchStudentsGroupQuery,
+    useCreateStudentsGroupMutation,
+    useCreateGroupWithoutTeacherMutation,
+    useDeleteStudentsGroupMutation,
+    useDeleteStudentFromGroupMutation,
 } = studentsGroupService
