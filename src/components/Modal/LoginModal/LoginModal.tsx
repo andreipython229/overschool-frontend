@@ -51,7 +51,9 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
 
   const [isShown, setIsShown] = useState(false)
   const [isHidden, setIsHidden] = useState(true)
-  const forgotPass = () => {
+
+  const forgotPass = (event: any) => {
+    event.preventDefault()
     setIsShown(!isShown)
     setIsHidden(!isHidden)
   }
@@ -180,7 +182,8 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   }
 
   return (
-    <motion.div className={styles.main}
+    <motion.div
+      className={styles.main}
       initial={{
         scale: 0.1,
         opacity: 0,
@@ -191,7 +194,8 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
       }}
       transition={{
         delay: 0.5,
-      }}>
+      }}
+    >
       {isFetching ||
         (isLoading && (
           <div className={styles.loader}>
@@ -237,7 +241,9 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
               </div>
 
               <div className={styles.main_btn}>
-                <a href='' onClick={forgotPass} className={styles.main_btn_href}>Забыли пароль?</a>
+                <a href="" onClick={forgotPass} className={styles.main_btn_href}>
+                  Забыли пароль?
+                </a>
               </div>
             </div>
           </div>
