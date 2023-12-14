@@ -1,3 +1,5 @@
+import { TariffPlanT } from "api/tariffPlanService"
+
 export type UserT = {
   auth: boolean
   role: number
@@ -51,6 +53,6 @@ export interface ITariff {
   students: number | null
   number_of_courses: number | null
   tariff: number | null
-
+  tariff_details: TariffPlanT
 }
 

@@ -21,8 +21,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   const headerId = localStorage.getItem('header_id')
   const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(Number(headerId))
   const [setSchoolHeader] = useSetSchoolHeaderMutation()
- 
-  
+
   const [edit, setEdit] = useState<boolean>(false)
 
   const [schoolHeaderData, setSchoolHeaderData] = useState<schoolHeaderReqT>({
@@ -76,7 +75,6 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
       })
 
       setSchoolHeaderDataToRender({ logo_school: logo_school, photo_background: photo_background })
-
     }
   }, [isSuccess, data])
 
@@ -85,13 +83,9 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
       setEdit(false)
     }
   }, [pathname])
-  
-  
 
   const { name: headerName, description: headerDes } = schoolHeaderData
   const { photo_background, logo_school } = schoolHeaderDataToRender
-  //const isMatchPath = pathname === Path.InitialPage + Path.Courses
-  const isMatchPath = true
   const changedBg = photo_background
     ? {
         backgroundImage: `url(${photo_background})`,
@@ -102,10 +96,6 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
         filter: 'blur(3px)',
       }
     : { backgroundColor: '#e0dced' }
-   
-
-    
-    
 
   return (
     <div className={styles.previous}>
@@ -165,21 +155,19 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
       </div>
       {user.role === RoleE.Admin && (
         <div className={styles.previous_btn}>
-          {isMatchPath && (
-            <Button
-              variant={isFetching || isError || isLoading ? 'disabled' : 'primary'}
-              disabled={isFetching || isError || isLoading}
-              style={{
-                width: '220px',
-                fontSize: '10px',
-                fontWeight: '800',
-                paddingTop: '10px',
-                paddingBottom: '10px',
-              }}
-              text={edit ? 'Завершить настройку курсов' : 'Настроить страницу курсов'}
-              onClick={edit ? onChangeSchoolHeader : handleChangePrevious}
-            />
-          )}
+          <Button
+            variant={isFetching || isError || isLoading ? 'disabled' : 'primary'}
+            disabled={isFetching || isError || isLoading}
+            style={{
+              width: '220px',
+              fontSize: '10px',
+              fontWeight: '800',
+              paddingTop: '10px',
+              paddingBottom: '10px',
+            }}
+            text={edit ? 'Завершить настройку курсов' : 'Настроить страницу курсов'}
+            onClick={edit ? onChangeSchoolHeader : handleChangePrevious}
+          />
         </div>
       )}
       </div>

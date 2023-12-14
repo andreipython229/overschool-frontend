@@ -64,6 +64,7 @@ export const useCreateLesson = ({
   balls_per_answer,
 }: useCreateLessonT): UseCreateLessonReturnT => {
   const [nameLesson, setNameLesson] = useState<string>('')
+  const schoolName = window.location.href.split('/')[4]
 
   const { section_id } = useAppSelector(getSectionId)
 
@@ -110,7 +111,7 @@ export const useCreateLesson = ({
       createLessonData['balls_per_answer'] = balls_per_answer
     }
 
-    await createLesson({ createLessonData, type: typeLesson })
+    await createLesson({arg: { createLessonData, type: typeLesson }, schoolName})
       .unwrap()
       .then(data => {
         const newLessonData = {
