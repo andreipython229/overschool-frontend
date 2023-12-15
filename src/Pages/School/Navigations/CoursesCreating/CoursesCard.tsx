@@ -34,46 +34,46 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
   }
 
   return (
-    userProgress && (
-      <div id={`${course?.course_id}`} className={styles?.course_card}>
-        <>
-          {role === RoleE.Admin ? (
-            <>
-              <div className={styles.course_card_img}>
-                {course.photo ? (
-                  <img className={styles.course_card_img} src={`${course.photo}`} alt="course_cover" />
+    <div id={`${course?.course_id}`} className={styles?.course_card}>
+      <>
+        {role === RoleE.Admin ? (
+          <>
+            <div className={styles.course_card_img}>
+              {course.photo ? (
+                <img className={styles.course_card_img} src={`${course.photo}`} alt="course_cover" />
+              ) : (
+                <div className={styles.no_image_found}>
+                  <span>Нет изображения курса :(</span>
+                </div>
+              )}
+            </div>
+            <div className={styles.course_card_about}>
+              <span className={styles.course_card_status_show}>
+                {course?.public === 'О' ? (
+                  <>
+                    <img src={Public} alt="status course" />
+                    <span className={styles.course_card_status_show_public}>Опубликован</span>
+                  </>
                 ) : (
-                  <div className={styles.no_image_found}>
-                    <span>Нет изображения курса :(</span>
-                  </div>
+                  <>
+                    <img src={notPublic} alt="status course" />
+                    <span className={styles.course_card_status_show_public}>Не опубликован</span>
+                  </>
                 )}
-              </div>
-              <div className={styles.course_card_about}>
-                <span className={styles.course_card_status_show}>
-                  {course?.public === 'О' ? (
-                    <>
-                      <img src={Public} alt="status course" />
-                      <span className={styles.course_card_status_show_public}>Опубликован</span>
-                    </>
-                  ) : (
-                    <>
-                      <img src={notPublic} alt="status course" />
-                      <span className={styles.course_card_status_show_public}>Не опубликован</span>
-                    </>
-                  )}
-                </span>
-                <h5>{course.name}</h5>
-                <span className={styles.course_card_about_desc}>{course?.description}</span>
-                <Link
-                  to={generatePath(Path.CreateCourse, {
-                    course_id: `${course?.course_id}`,
-                  })}
-                >
-                  <Button className={styles.btn} text={'Редактировать'} />
-                </Link>
-              </div>
-            </>
-          ) : (
+              </span>
+              <h5>{course.name}</h5>
+              <span className={styles.course_card_about_desc}>{course?.description}</span>
+              <Link
+                to={generatePath(Path.CreateCourse, {
+                  course_id: `${course?.course_id}`,
+                })}
+              >
+                <Button className={styles.btn} text={'Редактировать'} />
+              </Link>
+            </div>
+          </>
+        ) : (
+          userProgress && (
             <>
               <div className={styles.course_card_img}>
                 <img className={styles.course_card_img} src={course?.photo} alt="" />
@@ -109,9 +109,9 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                 </Link>
               </div>
             </>
-          )}
-        </>
-      </div>
-    )
+          )
+        )}
+      </>
+    </div>
   )
 }
