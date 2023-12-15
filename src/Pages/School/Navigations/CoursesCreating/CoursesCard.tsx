@@ -34,7 +34,8 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
   }
 
   return (
-    userProgress && (
+    (userProgress && role === RoleE.Student) ||
+    (role === RoleE.Admin && (
       <div id={`${course?.course_id}`} className={styles?.course_card}>
         <>
           {role === RoleE.Admin ? (
@@ -112,6 +113,6 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
           )}
         </>
       </div>
-    )
+    ))
   )
 }
