@@ -47,6 +47,10 @@ export const StudentsPerSchool: FC = () => {
   }, [filters])
 
   useEffect(() => {
+    dispatch(addFilters({ key: 'studentsPerSchool', filters: {'show_deleted': 'true' } }));
+  }, [])
+
+  useEffect(() => {
     if (isSuccess) {
       const id = tablesHeader.find(table => table.type === 'School')?.students_table_info_id
       setTableId(id)
@@ -62,8 +66,6 @@ export const StudentsPerSchool: FC = () => {
 
   // Филтра для всех студентов
   const filteredStudents = useMemo(() => {
-    console.log("test data", data)
-    console.log("Search term", searchTerm)
     if (!searchTerm) return data ?? [];
 
     return (data ?? []).filter(student => {
@@ -81,7 +83,7 @@ export const StudentsPerSchool: FC = () => {
     <>
       <AllStudentsBlock
         invite={false}
-        headerText={'Все ученики школы'}
+        headerText={`Все ученики школы ${filteredStudents?.length}`}
         addLastActiveFilter={handleAddLastActivityFilter}
         addMarkFilter={handleAddMarkFilter}
         handleAddAvgFilter={handleAddAvgFilter}

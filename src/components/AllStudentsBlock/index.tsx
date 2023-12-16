@@ -99,7 +99,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
               type="search"
               value={searchTerm}
               onChange={e => onChangeInput(e.target.value)}
-              placeholder="Поиск по курсам"
+              placeholder="Поиск"
               style={{ width: '100%' }}
             >
               <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
