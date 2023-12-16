@@ -50,6 +50,7 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
       Группа: dataToRender[i].group_name,
       'Дата добавления в группу': `${added_date} ${added_time}`,
       'Дата удаления из группы': `${removed_date} ${removed_time}`,
+      'Прогресс': `${dataToRender[i].progress}%`
     }
 
     Object.entries(row).forEach(([key, value]) => {

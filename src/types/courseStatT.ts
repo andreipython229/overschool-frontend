@@ -21,6 +21,7 @@ export type result = {
     date_removed: string
     is_deleted: boolean
     date_added: Date
+    progress: number
 }
 
 export interface Section {
