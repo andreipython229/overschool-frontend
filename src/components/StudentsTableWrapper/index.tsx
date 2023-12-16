@@ -37,7 +37,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   const { columns, data } = generateData(tableHeaderData, students, isLoading, isSuccess)
 
   // состояние направления сортировки для каждого столбца
-  const [sortDirection, setSortDirection] = useState<{ [key: string]: 'asc' | 'desc' }>({'Имя': 'asc', 'Email': 'asc', 'Курс': 'asc', 'Группа': 'asc', 'Последняя активность': 'asc', 'Средний бал': 'asc',});
+  const [sortDirection, setSortDirection] = useState<{ [key: string]: 'asc' | 'desc' }>({'Имя': 'asc', 'Email': 'asc', 'Курс': 'asc', 'Группа': 'asc', 'Дата Регистрации': 'asc', 'Средний бал': 'asc',});
 
   // Функция для обработки сортировки столбцов
   const handleColumnSort = (col: string) => {
