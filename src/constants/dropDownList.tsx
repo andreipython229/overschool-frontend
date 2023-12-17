@@ -88,6 +88,7 @@ export const dropDownListFilterStudents = [
   { id: 12, title: 'Суммарный балл' },
   { id: 16, title: 'Средний балл' },
   { id: 15, title: 'Последняя активность' },
+  { id: 40, title: 'Спрятать удалённых' },
 ]
 
 export const dropDownListFilterStudentsCourses = [

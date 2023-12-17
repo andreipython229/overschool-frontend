@@ -56,15 +56,16 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
     setRole(role)
   }
 
-  useEffect(() => {
-    if (isGetted) {
-      const updatedCourses: checkCourseT[] = courses.map(course => ({
-        ...course,
-        selected_group: null,
-      }))
-      setCheckCourses(updatedCourses)
-    }
-  }, [courses])
+    useEffect(() => {
+        if (isGetted) {
+            const updatedCourses: checkCourseT[] = courses.map(course => ({
+                ...course,
+                student_groups: course.student_groups.filter(group => group.type === "WITH_TEACHER"),
+                selected_group: null,
+            }))
+            setCheckCourses(updatedCourses)
+        }
+    }, [courses])
 
   const handleCreateEmployee = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()

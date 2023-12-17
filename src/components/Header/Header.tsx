@@ -52,7 +52,6 @@ export const Header = memo(() => {
   const { data: profile, isSuccess: profileIsSuccess, isError, error } = useFetchProfileDataQuery()
   const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
   const [currentTariff, setCurrentTariff] = useState<ITariff>()
-  const [fetchTariff, { data: tariff }] = useLazyFetchTariffPlanInfoQuery()
 
   const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
   const chats = useAppSelector(state => state.chats.chats)
@@ -99,7 +98,7 @@ export const Header = memo(() => {
     if (userRole === RoleE.Admin) {
       fetchCurrentTarrif(schoolName)
     }
-  }, [])
+  }, [schoolName])
 
   useEffect(() => {
     profileIsSuccess && setProfileData(profile[0])
@@ -111,12 +110,6 @@ export const Header = memo(() => {
       dispatch(setTariff(tariffPlan))
     }
   }, [tariffSuccess, tariffPlan])
-
-  useEffect(() => {
-    if (currentTariff && currentTariff.tariff) {
-      fetchTariff(currentTariff.tariff)
-    }
-  }, [currentTariff])
 
   useEffect(() => {
     if (profileData) {
@@ -162,7 +155,7 @@ export const Header = memo(() => {
 
   useEffect(() => {
     fetchChatsData()
-    const intervalId = setInterval(fetchChatsData, 10000)
+    const intervalId = setInterval(fetchChatsData, 60000)
     return () => clearInterval(intervalId)
   }, [])
 
@@ -256,20 +249,20 @@ export const Header = memo(() => {
               </Tooltip>
               <Menu anchorEl={anchorEl2} id="account-menu" open={open2} onClose={handleClose2} onClick={handleClose2}>
                 <MenuItem>
-                  <span style={{ color: 'slategrey', paddingBottom:'0.5rem', paddingLeft: '1rem' }}> Курсов:</span>
-                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem', paddingBottom:'0.5rem'}}>
-                    {`${currentTariff?.number_of_courses}/${tariff?.number_of_courses || 'ꝏ'}`}
+                  <span style={{ color: 'slategrey' }}> Курсов:</span>
+                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}>
+                    {`${currentTariff?.number_of_courses}/${currentTariff?.tariff_details.number_of_courses || 'ꝏ'}`}
                   </span>
                   <br />
                 </MenuItem>
                 <MenuItem>
-                  <span style={{ color: 'slategrey', paddingBottom:'0.5rem', paddingLeft: '1rem' }}> Сотрудников:</span>
-                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem', paddingBottom:'0.5rem', paddingRight:'2rem' }}> {`${currentTariff?.staff}/${tariff?.number_of_staff || 'ꝏ'}`}</span>
+                  <span style={{ color: 'slategrey' }}> Сотрудников:</span>
+                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}> {`${currentTariff?.staff}/${currentTariff?.tariff_details?.number_of_staff || 'ꝏ'}`}</span>
                   <br />
                 </MenuItem>
                 <MenuItem>
-                  <span style={{ color: 'slategrey', paddingBottom:'0.5rem', paddingLeft: '1rem' }}> Студентов:</span>
-                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem', paddingBottom:'0.5rem' }}> {`${currentTariff?.students}/${tariff?.total_students || 'ꝏ'}`}</span>
+                  <span style={{ color: 'slategrey' }}> Студентов:</span>
+                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}> {`${currentTariff?.students}/${currentTariff?.tariff_details?.total_students || 'ꝏ'}`}</span>
                 </MenuItem>
                 <MenuItem onClick={goToChooseTariff}>
                   <Link to={Path.TariffPlans} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
@@ -324,7 +317,11 @@ export const Header = memo(() => {
         </React.Fragment>
         <Tooltip title={'Выход из профиля'}>
           <div className={styles.header_block_logOut}>
-            {isLoading ? <SimpleLoader /> : <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />}
+            {isLoading ? (
+              <SimpleLoader style={{ position: 'fixed', width: '30px', height: '30px' }} />
+            ) : (
+              <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
+            )}
           </div>
         </Tooltip>
       </div>

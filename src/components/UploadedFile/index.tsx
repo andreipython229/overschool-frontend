@@ -14,7 +14,7 @@ type uploadedFileT = {
   isHw?: boolean
 }
 
-export const UploadedFile: FC<uploadedFileT> = ({ file, index, name, size, handleDeleteFile , isHw}) => {
+export const UploadedFile: FC<uploadedFileT> = ({ file, index, name, size, handleDeleteFile, isHw }) => {
   const showMetricByFileSize = () => {
     const fileSizeInKB = size / 1024
     const fileSizeInMB = fileSizeInKB / 1024
@@ -38,14 +38,18 @@ export const UploadedFile: FC<uploadedFileT> = ({ file, index, name, size, handl
       <div className={styles.file__download_container}>
         <div className={styles.file__download_wrap}>
           <div className={styles.file__download_blackDiv}></div>
-          {!isHw? <p>{name?.split("@")[1] || file.toString()}</p>:
-              <p>{name}</p>}
+          {!isHw ? <p>{name?.split('@')[1] || file.toString()}</p> : <p>{name}</p>}
         </div>
         <div className={styles.file__download_wrap}>
           <span className={styles.file__download_size}>{showMetricByFileSize()}</span>
           {handleDeleteFile && (
-            <span className={styles.file__download_icon} onClick={e => {e.preventDefault()
-              handleDeleteFile(index)}}>
+            <span
+              className={styles.file__download_icon}
+              onClick={e => {
+                e.preventDefault()
+                handleDeleteFile(index)
+              }}
+            >
               <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
             </span>
           )}
