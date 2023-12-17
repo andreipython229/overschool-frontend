@@ -114,13 +114,6 @@ export const CoursePage: FC = () => {
                     <AddCourseModal courses={courses?.results} setShowModal={onToggle}/>
                 </Portal>
             ) : null}
-        </div>
-        </>
-        {isOpenAddCourse ? (
-          <Portal closeModal={onToggle}>
-            <AddCourseModal courses={courses?.results} setShowModal={onToggle} />
-          </Portal>
-        ) : null}
       </div>
       <ChatGPT />
     </>
