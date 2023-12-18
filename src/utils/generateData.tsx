@@ -34,6 +34,8 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
           convertDate(new Date(dateRemoved)) :
           { mmddyyyy: '', hoursAndMinutes: '' };
 
+    const progress = dataToRender[i].progress ? `${dataToRender[i].progress}%` : '0%'
+
 
     const row: GenerateRow = {
       Имя: {
@@ -50,7 +52,7 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
       Группа: dataToRender[i].group_name,
       'Дата добавления в группу': `${added_date} ${added_time}`,
       'Дата удаления из группы': `${removed_date} ${removed_time}`,
-      'Прогресс': `${dataToRender[i].progress}%`
+      'Прогресс': progress
     }
 
     Object.entries(row).forEach(([key, value]) => {

@@ -31,6 +31,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
   ({
     invite,
     headerText,
+    all_students_count,
     addLastActiveFilter,
     addMarkFilter,
     removeLastActiveStartFilter,
@@ -80,6 +81,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     return (
       <div>
         <p className={styles.header_block_text}>{headerText}</p>
+        <div style={{fontSize: "11px", color: "#3B3B3B"}}>Количество записей: {all_students_count}</div>
         <div style={{ marginBottom: '15px' }}>
           <ChipsComponent filterKey={filterKey} filters={filters} chipsVal={chipsVal['students']} />
         </div>

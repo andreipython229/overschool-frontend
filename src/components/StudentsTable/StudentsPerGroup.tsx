@@ -95,6 +95,7 @@ export const StudentsPerGroup: FC = () => {
         endAvg={filters?.average_mark_max}
         filters={filters}
         updateStudents={updateStudents}
+        all_students_count={filteredStudents?.length}
       />
       <StudentsTableWrapper handleReloadTable={handleReloadTable} students={filteredStudents as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />{' '}
     </>
