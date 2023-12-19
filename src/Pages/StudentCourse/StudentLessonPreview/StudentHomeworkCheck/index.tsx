@@ -77,11 +77,11 @@ export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({homework, reply
         <div className={styles.wrapper}>
             <h5 className={styles.wrapper_title}>Домашнее задание отправлено.</h5>
             <h5 className={isChecked ? styles.wrapper_status_done : styles.wrapper_status_onReview}>Статус:
-                <p>{`${replyArray.length > 0 ? replyArray[0].status: 'На рассмотрении у преподавателя'}`}</p>
+                <p>{`${replyArray.length > 0 ? replyArray[0].status: 'На рассмотрении у ментора'}`}</p>
             </h5>
             <ThemeProvider theme={theme}>
                 <Button variant="contained" color="violet" onClick={open}>
-                    Проверить ответ преподавателя
+                    Проверить ответ ментора
                 </Button>
             </ThemeProvider>
             {isModalOpen && (

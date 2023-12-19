@@ -137,7 +137,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
             <br />
             <div style={{ marginTop: 10 }}>
               <Radio title="Администратор" id="Admin" name="role" func={handleChangeRole} />
-              <Radio title="Преподаватель" id="Teacher" name="role" func={handleChangeRole} />
+              <Radio title="Ментор" id="Teacher" name="role" func={handleChangeRole} />
             </div>
           </div>
           {role === 'Teacher' && (

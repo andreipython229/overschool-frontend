@@ -33,7 +33,7 @@ export const HelpCenter = () => {
       <div className={styles.HelpCenterPage_quickStart}>
         <h1>Начало работы</h1>
 
-        {(headerUserRoleName[role] === 'Администратор' || headerUserRoleName[role] === 'Преподаватель') && (
+        {(headerUserRoleName[role] === 'Администратор' || headerUserRoleName[role] === 'Ментор') && (
           <div className={styles.HelpCenterPage_quickStart_cardGroup}>
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
               <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
