@@ -31,4 +31,4 @@ export const studentsTableService = createApi({
   }),
 })
 
-export const { useFetchStudentsTableHeaderQuery, usePatchStudentsTableHeaderMutation, useFetchStudentsTablesHeaderQuery } = studentsTableService
+export const { useLazyFetchStudentsTableHeaderQuery, useFetchStudentsTableHeaderQuery, usePatchStudentsTableHeaderMutation, useFetchStudentsTablesHeaderQuery } = studentsTableService

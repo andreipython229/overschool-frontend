@@ -79,7 +79,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
       formData1.append('base_lesson', `${data?.baselesson_ptr_id}`)
       files.forEach(file => formData1.append('files', file))
-      await addTextFiles({formData: formData1, schoolName}).then(data => {
+      await addTextFiles({ formData: formData1, schoolName }).then(data => {
         setFiles([])
         setUrlFiles([])
       })
@@ -90,7 +90,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     formData.append('section', String(lesson.section))
     formData.append('order', String(lesson.order))
     formData.append('active', String(isPublished))
-    await saveChanges({arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName})
+    await saveChanges({ arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName })
   }
 
   const renderUI = () => {
@@ -152,7 +152,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       formData.append('order', String(lesson.order))
       formData.append('active', String(isPublished))
       formData.append('url', '')
-      await saveChanges({arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName})
+      await saveChanges({ arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName })
     }
     if (video && video === lesson.video) {
       const formData = new FormData()
@@ -160,7 +160,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       formData.append('order', String(lesson.order))
       formData.append('active', String(isPublished))
       formData.append('video_use', String(true))
-      await saveChanges({arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName})
+      await saveChanges({ arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName })
     }
   }
 
@@ -168,7 +168,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     if (lesson.type !== 'test') {
       const fileToDelete = lesson.audio_files[index]
       if (fileToDelete) {
-        await deleteAudio({id: String(fileToDelete.id), schoolName})
+        await deleteAudio({ id: String(fileToDelete.id), schoolName })
       }
     }
   }
@@ -177,7 +177,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     if (lesson.type !== 'test') {
       const fileToDelete = lesson.text_files[index]
       if (fileToDelete) {
-        await deleteFile({id: String(fileToDelete.id), schoolName})
+        await deleteFile({ id: String(fileToDelete.id), schoolName })
           .unwrap()
           .then(data => setRenderFiles(renderFiles.filter(file => file.id !== fileToDelete.id)))
       }
@@ -234,7 +234,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                     <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
                     Изменить название урока
                   </button>
-                  
+
                   <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save} onClick={handleSaveChanges}>
                     <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
                     Сохранить изменения
@@ -257,7 +257,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
             <span className={styles.redactorCourse_rightSideWrapper_rightSide_nameSettings}>{lesson && 'name' in lesson && lesson.name}</span>
             <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
-              <></>
               <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
             </div>
             {lesson.type !== 'test' && (

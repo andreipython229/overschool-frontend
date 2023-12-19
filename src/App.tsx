@@ -24,7 +24,7 @@ import { useSelector } from 'react-redux'
 export const App = () => {
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
-  const schoolName = useSelector(schoolNameSelector) || window.location.href.split('/')[4]
+  const schoolName = window.location.href.split('/')[4]
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
