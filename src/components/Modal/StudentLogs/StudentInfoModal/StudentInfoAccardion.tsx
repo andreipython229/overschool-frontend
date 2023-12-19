@@ -1,12 +1,16 @@
-import {FC, useState} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 
-import {result} from 'types/courseStatT'
+import {result, Section} from 'types/courseStatT'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {groupIconPath, tableBallsStarPath} from 'config/commonSvgIconsPath'
 import {accardionArrPath} from 'Pages/StudentCourse/config/svgIconPath'
 import {lessonSvgMapper} from 'config'
 
 import styles from './studentInfoAccardion.module.scss'
+import {useBoolean} from "../../../../customHooks";
+import {CheckboxBall} from "../../../common/CheckboxBall";
+import {Button} from "../../../common/Button/Button";
+import {Checkbox} from "../../../common/Checkbox/Checkbox";
 
 type studentInfoAccardionT = {
     student: result | null
@@ -16,6 +20,23 @@ type studentInfoAccardionT = {
 export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({student, progress}) => {
     const [isAccardionOpen, studentInfoAccardion] = useState<boolean>(false)
     const courseStat = progress && progress.courses.find((course: any) => course.course_id === student?.course_id)
+    const [lessonsAccessSetting, {onToggle: toggleAccess}] = useBoolean(false)
+    const [checkedLessons, setCheckedLessons] = useState<Section[]>([])
+    const [ststudent, setStstudent] = useState<boolean>(true)
+
+
+    useEffect(() => {
+        if (student && ststudent) {
+        const checked = student?.sections.map((section) => ({...section, lessons: section.lessons.map(lesson => ({...lesson, lessonChecked: true}))}))
+        setCheckedLessons(checked)
+        setStstudent(false)
+    }
+    }, [student])
+
+
+    const handleLessonCheck = (e:any) => {
+        setCheckedLessons(checkedLessons.map((section) => ({...section, lessons: section.lessons.map(lesson => ({...lesson, lessonChecked: lesson.lesson_id === Number(e.target.id) ? !lesson.lessonChecked : lesson.lessonChecked}))})))
+    }
 
     return (
         <div className={styles.accardion}>
@@ -66,15 +87,24 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({student, progre
                 </div>
                 {isAccardionOpen && (
                     <div className={styles.accardion_content}>
-                        {student?.sections?.map(({lessons, section_id, name}) => (
+                        <div className={styles.accardion_content_check}>
+                            <CheckboxBall isChecked={lessonsAccessSetting} toggleChecked={toggleAccess}/>
+                            <span className={styles.accardion_content_check_span}>Настройка доступа к урокам</span>
+                            {lessonsAccessSetting ?
+                                <Button className={styles.accardion_content_check_btn} text={'Сохранить настройки'}/> :
+                                <span className={styles.accardion_content_check_fake}></span>}
+                        </div>
+                        {checkedLessons?.map(({lessons, section_id, name}) => (
                             lessons.length > 0 && (<div className={styles.accardion_item} key={section_id}>
                                 <p className={styles.accardion_item_name}>{name}</p>
                                 <div className={styles.accardion_lessons_block}>
-                                    {lessons?.map(({order, type, name, active}, index: number) => (
-
+                                    {lessons?.map(({lesson_id, order, type, name, active, lessonChecked}, index: number) => (
                                         active && (<div key={order + index} className={styles.accardion_lesson}>
                                             <div>{lessonSvgMapper[type]}</div>
                                             <p className={styles.accardion_lesson_name}>{name}</p>
+                                            {lessonsAccessSetting &&
+                                                <Checkbox id={`${lesson_id}`} name={'check'} checked={lessonChecked}
+                                             onChange={handleLessonCheck}/>}
                                             <div></div>
                                         </div>)
                                     ))}

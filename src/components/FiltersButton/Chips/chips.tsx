@@ -31,7 +31,9 @@ export const ChipsComponent: FC<chipsComponentT> = ({ filters, filterKey, chipsV
             {chipText && (
               <div key={index} className={styles.chip}>
                 <span className={styles.chips_filter}>{chipsVal[filterTerm]}:</span>
-                <span>{chipText}</span>
+                <span>{chipText == 'true' ? (
+                    <>Да</>
+                ) : ( <>{chips}</>)}</span>
                 <button className={styles.removeButton} onClick={() => handleRemoveChip(filterTerm)}>
                   <IconSvg width={8} height={8} viewBoxSize="0 0 16 12" path={crossIconPath} />
                 </button>

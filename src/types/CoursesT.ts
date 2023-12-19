@@ -22,6 +22,7 @@ export type StGroupT = {
   group_id: number
   name: string
   teacher_id?: number
+  type: string
 }
 
 export type CourseWithGroupsT = {

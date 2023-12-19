@@ -9,6 +9,7 @@ import { useFetchLessonsQuery } from 'api/modulesServices'
 import { IHomework } from 'types/sectionT'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { useFetchStudentsDataPerSchoolQuery } from 'api/schoolHeaderService'
+import { ShowDeletedFilter } from '../components/FiltersButton/FilterComponent/FilterComponent'
 
 type ComponentFilterT = {
   id: string | number
@@ -219,6 +220,16 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
         header={'ВВЕДИТЕ ИМЯ'}
         filterTerm="first_name"
       />
+    ),
+
+    '40': (
+      <ShowDeletedFilter filterKey={'studentsPerSchool'}/>
+    ),
+    '41': (
+      <ShowDeletedFilter filterKey={'studentsPerCourse'}/>
+    ),
+    '42': (
+      <ShowDeletedFilter filterKey={'studentsPerGroup'}/>
     ),
   }
 

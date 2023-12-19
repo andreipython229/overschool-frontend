@@ -18,6 +18,10 @@ export type result = {
     mark_sum: number
     average_mark: number
     sections: Section[]
+    date_removed: string
+    is_deleted: boolean
+    date_added: Date
+    progress: number
 }
 
 export interface Section {
@@ -28,6 +32,7 @@ export interface Section {
 }
 
 export interface Lesson {
+    lesson_id: number
     section: number
     name: string
     order: number
@@ -38,6 +43,7 @@ export interface Lesson {
     type: string
     all_components: any[]
     active: boolean
+    lessonChecked?: boolean
 }
 
 export type courseStatsT = {
