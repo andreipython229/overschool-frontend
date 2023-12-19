@@ -193,6 +193,16 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
                       {typeof cellValue === 'object' ? (
                         <div className={styles.table_user}>
                           {cellValue.image}
+                          {row['Дата удаления из группы'] !== ' ' && (
+                              <div
+                              style={{
+                                fontSize: '10px',
+                                backgroundColor: '#E23532',
+                                color: 'white',
+                                padding: '3px 6px 3px 6px',
+                                borderRadius: '5px'
+                              }}>Удалён</div>
+                          )}
                           <p>{cellValue.text}</p>
                         </div>
                       ) : (

@@ -99,6 +99,7 @@ export const StudentsPerCourse: FC = () => {
         endAvg={filters?.average_mark_max}
         filters={filters}
         updateStudents={updateStudents}
+        all_students_count={filteredStudents?.length}
       />
       <StudentsTableWrapper
         handleReloadTable={handleReloadTable}
