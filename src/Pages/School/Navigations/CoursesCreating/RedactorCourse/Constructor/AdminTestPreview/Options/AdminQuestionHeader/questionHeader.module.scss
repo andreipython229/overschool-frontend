@@ -59,6 +59,11 @@
     }
     &_togglerShowOption {
       cursor: pointer;
+       svg{
+        path{
+          stroke: rgb(108, 104, 104);
+        }
+       }
       &:hover {
         svg {
           path {
