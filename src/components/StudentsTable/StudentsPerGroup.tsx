@@ -1,4 +1,4 @@
-import {FC, useEffect, useMemo, useState} from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { StudentsTableWrapper } from 'components/StudentsTableWrapper'
@@ -41,7 +41,7 @@ export const StudentsPerGroup: FC = () => {
   }
 
   const handleReloadTable = () => {
-    fetchStudents({ id: group_id, filters })
+    fetchStudents({ id: group_id, filters, schoolName })
   }
 
   useEffect(() => {
@@ -56,24 +56,24 @@ export const StudentsPerGroup: FC = () => {
   }, [isTablesHeaderFetching])
 
   // Поиск по студентам группы
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('')
 
   const updateStudents = (value: string) => {
-      setSearchTerm(value)
+    setSearchTerm(value)
   }
 
   // Фильтра для студентов группы
   const filteredStudents = useMemo(() => {
-    if (!searchTerm) return data ?? [];
+    if (!searchTerm) return data ?? []
 
     return (data ?? []).filter(student => {
       return (
         student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.email.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    });
-  }, [searchTerm, data]);
+      )
+    })
+  }, [searchTerm, data])
 
   return (
     <>
@@ -96,7 +96,12 @@ export const StudentsPerGroup: FC = () => {
         filters={filters}
         updateStudents={updateStudents}
       />
-      <StudentsTableWrapper handleReloadTable={handleReloadTable} students={filteredStudents as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />{' '}
+      <StudentsTableWrapper
+        handleReloadTable={handleReloadTable}
+        students={filteredStudents as studentsTableInfoT}
+        isLoading={isFetching || isTablesHeaderFetching}
+        tableId={tableId as number}
+      />{' '}
     </>
   )
 }
