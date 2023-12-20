@@ -55,12 +55,6 @@ export const App = () => {
 
   return (
     <div className={styles.container}>
-        <div className={styles.bg1}>
-                <div className={styles.bg1_wrap1}></div>
-            </div>
-            <div className={styles.bg2}>
-                <div className={styles.bg2_wrap2}></div>
-            </div>
       <Routes>
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />

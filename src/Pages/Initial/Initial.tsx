@@ -20,6 +20,19 @@ export const Initial = () => {
     const changeCurrentCourse = (id: string) => setCurrentCourse(id)
 
     return (
+        <div>
+            <div className={styles.bg1}>
+               <div className={styles.bg1_wrap1}></div>
+            </div>
+            <div className={styles.bg2}>
+                <div className={styles.bg2_wrap2}></div>
+            </div>
+            <div className={styles.bg3}>
+                <div className={styles.bg3_wrap3}></div>
+            </div>
+            <div className={styles.bg4}>
+                <div className={styles.bg4_wrap4}></div>
+            </div>
         <div className={styles.init}>
             {registrationShow && <RegistrationModal setShowModal={setRegistrationShow} setCodeModal={setRegCodeShow}/>}
             {regCodeShow && <RegCodeModal setCodeModal={setRegCodeShow}/>}
@@ -46,6 +59,7 @@ export const Initial = () => {
                                title={title} style={style}/>
                 ))}
             </div>
+        </div>
         </div>
     )
 }
