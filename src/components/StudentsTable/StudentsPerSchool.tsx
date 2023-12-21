@@ -70,11 +70,11 @@ export const StudentsPerSchool: FC = () => {
 
     return (data ?? []).filter(student => {
       return (
-        student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.course_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.group_name.toLowerCase().includes(searchTerm.toLowerCase())
+        student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.course_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.group_name?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
   }, [searchTerm, data]);
