@@ -1,12 +1,15 @@
-// import { configureStore } from '@reduxjs/toolkit';
-// import { chatgptService } from '../../../api/chatgptService';
+import { configureStore } from '@reduxjs/toolkit';
+import { chatgptService } from '../../../api/chatgptService';
 
-// const store = configureStore({
-//   reducer: {
-//     [chatgptService.reducerPath]: chatgptService.reducer,
-//   },
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware().concat(chatgptService.middleware),
-// });
+const store = configureStore({
+  reducer: {
+    [chatgptService.reducerPath]: chatgptService.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(chatgptService.middleware),
+});
 
-// export default store;
+
+export default store;
+
+export const chatgptReducer = chatgptService.reducer;
