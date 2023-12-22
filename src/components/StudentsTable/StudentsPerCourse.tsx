@@ -71,10 +71,10 @@ export const StudentsPerCourse: FC = () => {
 
     return (data ?? []).filter(student => {
       return (
-        student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.group_name.toLowerCase().includes(searchTerm.toLowerCase())
+        student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.group_name?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     })
   }, [searchTerm, data])
@@ -99,6 +99,7 @@ export const StudentsPerCourse: FC = () => {
         endAvg={filters?.average_mark_max}
         filters={filters}
         updateStudents={updateStudents}
+        all_students_count={filteredStudents?.length}
       />
       <StudentsTableWrapper
         handleReloadTable={handleReloadTable}

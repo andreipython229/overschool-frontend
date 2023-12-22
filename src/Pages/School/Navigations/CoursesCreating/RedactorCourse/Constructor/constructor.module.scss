@@ -93,6 +93,9 @@
 
       &_headerText {
         position: relative;
+        span {
+          margin-bottom: 10px;
+        }
 
         &_title {
           position: relative;
@@ -261,7 +264,7 @@
   }
 
   &_rightSideWrapper {
-    width: 100%;
+    width: 95%;
     min-width: 0;
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       margin: 5% 0 2% 0;
@@ -272,7 +275,7 @@
 
     &_rightSide {
       background: #ffffff;
-      padding: 36px 45px 56px 45px;
+      padding: 30px 45px 50px 45px;
       height: fit-content;
       margin-bottom: 30px;
       border-radius: 10px;
@@ -331,7 +334,7 @@
             }
 
             @include display(flex, row, flex-start, center);
-            width: 215px;
+            width: 210px;
             height: 36px;
             border: none;
             text-align: center;
@@ -339,7 +342,7 @@
             font-size: 13px;
             color: #6b728f;
             border-radius: 6px;
-            padding: 11px 0 11px 16px;
+            padding: 11px 0 11px 12px;
 
             & svg {
               margin-right: 5px;

@@ -245,7 +245,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
           )}
         </div>
       </div>
-      <h3 className={styles.answer_hw_header}>Последний ответ {isUser ? 'ученика' : 'учителя'}</h3>
+      <h3 className={styles.answer_hw_header}>Последний ответ {isUser ? 'ученика' : 'ментора'}</h3>
       <div className={styles.teacher}>
         {currentUser?.avatar ? (
           <img className={styles.teacher_avatar} src={currentUser?.avatar} alt="User Avatar" />

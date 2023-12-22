@@ -70,11 +70,11 @@ export const StudentsPerSchool: FC = () => {
 
     return (data ?? []).filter(student => {
       return (
-        student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.course_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.group_name.toLowerCase().includes(searchTerm.toLowerCase())
+        student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.course_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.group_name?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
   }, [searchTerm, data]);
@@ -83,7 +83,7 @@ export const StudentsPerSchool: FC = () => {
     <>
       <AllStudentsBlock
         invite={false}
-        headerText={`Все ученики школы ${filteredStudents?.length}`}
+        headerText={`Все ученики школы`}
         addLastActiveFilter={handleAddLastActivityFilter}
         addMarkFilter={handleAddMarkFilter}
         handleAddAvgFilter={handleAddAvgFilter}
@@ -99,6 +99,7 @@ export const StudentsPerSchool: FC = () => {
         endAvg={filters?.average_mark_max}
         filters={filters}
         updateStudents={updateStudents}
+        all_students_count={filteredStudents?.length}
       />
       <StudentsTableWrapper handleReloadTable={handleReloadTable} students={filteredStudents as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />
     </>

@@ -99,12 +99,12 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
           <div className={styles.addGroup_input_check}>
             <CheckboxBall isChecked={withTeacher} toggleChecked={toggleWithTeacher} />
             <span className={styles.addGroup_input_check_span} style={{ marginTop: '1%' }}>
-              С преподавателем
+              С ментором
             </span>
           </div>
           {withTeacher ? (
             <div>
-              <span>Выберите преподавателя из списка:</span>
+              <span>Выберите ментора из списка:</span>
               <Select
                 required
                 onChange={handleTeacher}

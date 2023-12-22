@@ -26,7 +26,7 @@ import ChatGPT from '../src/components/ChatGPT';
 export const App = () => {
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
-  const schoolName = useSelector(schoolNameSelector) || window.location.href.split('/')[4]
+  const schoolName = window.location.href.split('/')[4]
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const [isOpenChatModal, { on, off }] = useBoolean()
@@ -73,6 +73,12 @@ export const App = () => {
 
   return (
     <div className={styles.container}>
+        <div className={styles.bg1}>
+                <div className={styles.bg1_wrap1}></div>
+            </div>
+            <div className={styles.bg2}>
+                <div className={styles.bg2_wrap2}></div>
+            </div>
       <Routes>
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />

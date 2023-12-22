@@ -13,7 +13,7 @@ import { RoleE } from 'enum/roleE'
 import styles from './initial.module.scss'
 import { logOutIconPath } from '../../components/Header/config/svgIconsPath'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
-import { auth } from '../../store/redux/users/slice'
+import { auth, logoutState } from '../../store/redux/users/slice'
 import { useLazyLogoutQuery } from '../../api/userLoginService'
 import Tooltip from '@mui/material/Tooltip'
 import { useLazyFetchProfileDataQuery } from 'api/profileService'
@@ -36,6 +36,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
 
   const logOut = async () => {
     await localStorage.clear()
+    dispatch(logoutState())
     await logout()
     window.location.reload()
 

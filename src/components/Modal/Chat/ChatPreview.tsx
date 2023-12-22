@@ -120,7 +120,7 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
                         {role === RoleE.Teacher ? (
                                 <div>Студент</div>
                               ): (
-                                  <div>Преподаватель</div>
+                                  <div>Ментор</div>
                               )}
                     </div>
                     <div className={styles.chatPreview_top}>
