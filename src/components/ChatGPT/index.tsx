@@ -109,18 +109,18 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
               <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={closeHwModalPath} />
             </button>
             <div className={styles.messageContainer} ref={messageContainerRef}>
-            {latestMessages.map((msg: LatestMessagesResponse, index: number) => (
-              <div key={index} className={styles.message}>
-                {msg.sender_question && (
-                  <div className="bot-response">
-                    <span><b>Вы:</b> {msg.sender_question}</span>
-                  </div>
-                )}
-                {msg.answer && (
-                  <div className="bot-response">
-                    <span><b>OVER AI:</b> {typeof msg.answer === 'string' ? msg.answer : msg.answer.bot_response}</span>
-                  </div>
-                )}
+            {latestMessages.slice().reverse().map((msg: LatestMessagesResponse, index: number) => (
+            <div key={index} className={styles.message}>
+              {msg.sender_question && (
+                <div className="bot-response">
+                  <span><b>Вы:</b> {msg.sender_question}</span>
+                </div>
+              )}
+              {msg.answer && (
+                <div className="bot-response">
+                  <span><b>OVER AI:</b> {typeof msg.answer === 'string' ? msg.answer : msg.answer.bot_response}</span>
+                </div>
+              )}
                 </div>
               ))}
             </div>
