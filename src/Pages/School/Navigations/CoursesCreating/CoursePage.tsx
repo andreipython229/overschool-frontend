@@ -19,10 +19,6 @@ import { ToggleButtonDropDown } from '../../../../components/common/ToggleButton
 
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { getUserIdFromLocalStorage } from 'utils/getUserId';
-import { chatgptService } from '../../../../api/chatgptService';
-import ChatGPT from '../../../../components/ChatGPT/index';
-
 
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
@@ -115,7 +111,6 @@ export const CoursePage: FC = () => {
                 </Portal>
             ) : null}
       </div>
-      <ChatGPT />
     </>
 
   )
