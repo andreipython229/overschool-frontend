@@ -88,17 +88,17 @@ export const ChooseSchool = () => {
 
   return (
     <div>
-        <div className={styles.bgf1}>
-                <div className={styles.bgf1_wrap1}></div>
+        <div className={styles.bgf}>
+                <div className={styles.bgf_wrap1}></div>
               </div>
-              <div className={styles.bgf2}>
-                  <div className={styles.bgf2_wrap2}></div>
+              <div className={styles.bgf}>
+                  <div className={styles.bgf_wrap2}></div>
               </div>
-              <div className={styles.bgf3}>
-                  <div className={styles.bgf3_wrap3}></div>
+              <div className={styles.bgf}>
+                  <div className={styles.bgf_wrap3}></div>
               </div>
-              <div className={styles.bgf4}>
-                  <div className={styles.bgf4_wrap4}></div>
+              <div className={styles.bgf}>
+                  <div className={styles.bgf_wrap4}></div>
               </div>
       <div className={styles.bg1}>
         <div className={styles.bg3}>

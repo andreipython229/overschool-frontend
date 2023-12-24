@@ -96,6 +96,7 @@
       }
 
       &_card {
+        position: relative;
         width: 304px;
         height: 373px;
         background: #fff;
@@ -292,258 +293,181 @@
   }
 }
 
+
+
 @keyframes bgAnimate1 {
-  0% {
-    top: -10%;
-    left: -10%;
+  from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    20% {
+      transform: translate3d(50%, 100%, 0);
+    }
+
+    30% {
+      transform: translate3d(150%, 150%, 0);
+    }
+
+      50% {
+      transform: translate3d(400%, 200%, 0);
+    }
+
+    70% {
+      transform: translate3d(300%, 70%, 0);
+    }
+
+    90% {
+    transform: translate3d(100%, 30%, 0);
+    }
+  
+
+  to {
+      transform: translate3d(0, 0, 0);
   }
-  10% {
-    top: 15%;
-    left: 0%;
-  }
-  20% {
-    top: 30%;
-    left: 10%;
-  }
-  30% {
-    top: 50%;
-    left: 25%;
-  }
-  40% {
-    top: 70%;
-    left: 60%;
-  }
-  50% {
-    top: 80%;
-    left: 80%;
-  }
-  60% {
-    top: 70%;
-    left: 80%;
-  }
-  70% {
-    top: 50%;
-    left: 70%;
-  }
-  80% {
-    top: 30%;
-    left: 60%;
-  }
-  90% {
-    top: 10%;
-    left: 40%;
-  }
-  100% {
-    top: -10%;
-    left: -10%;
-  }
-    
 }
 
 @keyframes bgAnimate2 {
-  0% {
-    top: 90%;
-    left: 90%;
+  from {
+    transform: translate3d(0%, 0%, 0);
   }
-  10% {
-    top: 85%;
-    left: 95%;
-  }
-  20% {
-    top: 50%;
-    left: 85%;
-  }
-  30% {
-    top: 30%;
-    left: 65%;
-  }
-  40% {
-    top: 10%;
-    left: 40%;
-  }
-  50% {
-    top: -10%;
-    left: -10%;
-  }
-  60% {
-    top: 15%;
-    left: 0%;
-  }
-  70% {
-    top: 35%;
-    left: 10%;
-  }
-  80% {
-    top: 60%;
-    left: 25%;
-  }
-  90% {
-    top: 85%;
-    left: 60%;
-  }
-  100% {
-    top: 100%;
-    left: 90%
-  }
+   20% {
+     transform: translate3d(-100%, -100%, 0);
+    }
+   30% {
+     transform: translate3d(-200%, -150%, 0);
+    }
+   50% {
+    transform: translate3d(-400%, -200%, 0);
+   }
+   70% {
+     transform: translate3d(-300%, -60%, 0);
+   }
+   90% {
+     transform: translate3d(-100%, -10%, 0);
+   }
+  to {
+    transform: translate3d(0%, 0%, 0);
+   }
 }
 
 @keyframes bgAnimate3 {
-  0% {
-    top: 0%;
-    left: 100%;
+  from {
+    transform: translate3d(0, 0, 0);
   }
-  10% {
-    top: 25%;
-    left: 85%;
-  }
+
   20% {
-    top: 45%;
-    left: 65%;
+    transform: translate3d(-150%, 10%, 0);
   }
+
   30% {
-    top: 60%;
-    left: 45%;
+    transform: translate3d(-300%, 100%, 0);
   }
-  40% {
-    top: 80%;
-    left: 25%;
+
+    50% {
+    transform: translate3d(-400%, 200%, 0);
   }
-  50% {
-    top: 90%;
-    left: -10%;
-  }
-  60% {
-    top: 40%;
-    left: 10%;
-  }
+
   70% {
-    top: 20%;
-    left: 30%;
+    transform: translate3d(-250%, 150%, 0);
   }
-  80% {
-    top: 10%;
-    left: 45%;
-  }
+
   90% {
-    top: 5%;
-    left: 60%;
+   transform: translate3d(-50%, 100%, 0);
   }
-  100% {
-    top: -10%;
-    left: 90%;
+
+  to {
+    transform: translate3d(0, 0, 0);
   }
-    
 }
 
 @keyframes bgAnimate4 {
-  0% {
-    top: 100%;
-    left: 0%;
+  from {
+    transform: translate3d(0, 0, 0);
   }
-  10% {
-    top: 85%;
-    left: 20%;
-  }
+
   20% {
-    top: 65%;
-    left: 40%;
+    transform: translate3d(150%, -10%, 0);
   }
-  30% {
-    top: 40%;
-    left: 60%;
+
+   30% {
+     transform: translate3d(350%, -80%, 0);
+   }
+
+    50% {
+      transform: translate3d(400%, -150%, 0);
+    }
+
+   70% {
+     transform: translate3d(250%, -140%, 0);
+   }
+
+   90% {
+    transform: translate3d(100%, -80%, 0);
+   }
+
+  to {
+    transform: translate3d(0, 0, 0);
   }
-  40% {
-    top: 25%;
-    left: 85%;
-  }
-  50% {
-    top: -10%;
-    left: 85%;
-  }
-  60% {
-    top: 15%;
-    left: 50%;
-  }
-  70% {
-    top: 30%;
-    left: 30%;
-  }
-  80% {
-    top: 50%;
-    left: 10%;
-  }
-  90% {
-    top: 70%;
-    left: 5%;
-  }
-  100% {
-    top: 100%;
-    left: 0%;
-  }
-    
 }
-.bg1 {
+    
+
+.bg {
   z-index: -1;
-  left: 10%;
-  top: 10%;
- }
+  
+  
  
- .bg1_wrap1 {
+ 
+  &_wrap1 {
    position: absolute;
-   width: 500px;
-   height: 500px;
+   width: 50px;
+   height: 50px;
    background: #8034C7;
    border-radius: 50%;
-   filter: blur(300px);
+   scale: 10;
+   filter: blur(25px);
    animation: bgAnimate1 10s linear infinite;
  }
  
  
- .bg2 {
-   z-index: -1;
-   left: 70%;
-   top: 60%;
-  }
-  
-  .bg2_wrap2 {
+   &_wrap2 {
    position: absolute;
-   width: 500px;
-   height: 500px;
+   width: 50px;
+   height: 50px;
+   left: 100%;
+   top: 100%;
+   scale: 10;
    background: #5048D8;
    border-radius: 50%;
-   filter: blur(300px);
+   filter: blur(25px);
    animation: bgAnimate2 10s linear infinite;
   }
  
-  .bg3 {
-   z-index: -1;
+  
+  
+  &_wrap3 {
+   position: absolute;
+   width: 50px;
+   height: 50px;
    left: 100%;
    top: 0%;
-  }
-  
-  .bg3_wrap3 {
-   position: absolute;
-   width: 500px;
-   height: 500px;
+   scale: 10;
    background: #CD99FF;
    border-radius: 50%;
-   filter: blur(300px);
+   filter: blur(25px);
    animation: bgAnimate3 10s linear infinite;
   }
- 
- 
-  .bg4 {
-   z-index: -1;
-   left: 100%;
-   top: -10%;
-  }
   
-  .bg4_wrap4 {
+  &_wrap4 {
    position: absolute;
-   width: 500px;
-   height: 500px;
+   width: 50px;
+   height: 50px;
+   scale: 10;
+   left: 0%;
+   top: 100%;
    background: #60A0EC;
    border-radius: 50%;
-   filter: blur(300px);
+   filter: blur(25px);
    animation: bgAnimate4 10s linear infinite;
   }
+}
+

@@ -21,17 +21,17 @@ export const Initial = () => {
 
     return (
         <div>
-            <div className={styles.bg1}>
-               <div className={styles.bg1_wrap1}></div>
+            <div className={styles.bg}>
+               <div className={styles.bg_wrap1}></div>
             </div>
-            <div className={styles.bg2}>
-                <div className={styles.bg2_wrap2}></div>
+            <div className={styles.bg}>
+                <div className={styles.bg_wrap2}></div>
             </div>
-            <div className={styles.bg3}>
-                <div className={styles.bg3_wrap3}></div>
+            <div className={styles.bg}>
+                <div className={styles.bg_wrap3}></div>
             </div>
-            <div className={styles.bg4}>
-                <div className={styles.bg4_wrap4}></div>
+            <div className={styles.bg}>
+                <div className={styles.bg_wrap4}></div>
             </div>
         <div className={styles.init}>
             {registrationShow && <RegistrationModal setShowModal={setRegistrationShow} setCodeModal={setRegCodeShow}/>}
