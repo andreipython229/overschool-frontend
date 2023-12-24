@@ -37,20 +37,25 @@ export const TariffPlans: FC = () => {
     }
   }, [isSuccess, data])
 
-  if (isFetching) {
-    return <SimpleLoader />
-  }
+  //  if (isFetching) {
+  //    return <SimpleLoader />
+  //  }
 
   return (
     <motion.div
       initial={{
+        opacity: 0,
         y:1000,
       }}
       animate={{
+        opacity:1,
         y:0,
       }}
       transition={{
-        delay: 0.1,
+        delay: 0.5,
+        ease:'easeInOut',
+        duration: 1.3,
+        
       }}>
         <div className={styles.bg1}>
                 <div className={styles.bg_wrap1}></div>
