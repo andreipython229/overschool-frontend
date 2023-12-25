@@ -3,6 +3,7 @@ import { baseQuery } from './baseApi'
 import { ITariff } from 'types/userT'
 
 export type TariffPlanT = {
+  price_rf_rub: number
   id: number
   name: string
   number_of_courses: number | null

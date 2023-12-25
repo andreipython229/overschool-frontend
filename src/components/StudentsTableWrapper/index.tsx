@@ -11,6 +11,7 @@ import { studentsTableInfoT, result } from 'types/courseStatT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { GenerateRow } from './types'
 import { tableFilterByNamePath, tableFilterByEmailUpPath, tableFilterByEmailDownPath } from '../../config/commonSvgIconsPath'
+import * as XLSX from "xlsx"
 
 import styles from './studentsTableBlock.module.scss'
 
@@ -124,6 +125,14 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
     !isStudentModalOpen && setSelectedStudentId(null)
   }, [isStudentModalOpen])
 
+  const handleOnExport = () => {
+        const wb = XLSX.utils.book_new(),
+        ws = XLSX.utils.json_to_sheet(students);
+        XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
+        XLSX.writeFile(wb, "Отчёт.xlsx");
+
+  };
+
   return (
     <>
       <div className={styles.wrapper}>
@@ -137,6 +146,8 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
               </tr>
             </thead>
           )}
+          <button className={styles.table_button} onClick={handleOnExport}>отчёт
+          </button>
           <thead className={styles.table_thead}>
             <tr>
               {cols.map(col => (
