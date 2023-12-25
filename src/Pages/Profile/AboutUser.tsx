@@ -45,6 +45,7 @@ export const AboutUser: FC = memo(() => {
             last_name: profileData?.user.last_name || '',
             email: profileData?.user.email || '',
             phone_number: profileData?.user.phone_number || '',
+            patronymic: profileData?.user.patronymic || '',
         },
         enableReinitialize: true,
         validationSchema: userDataSchema,
@@ -64,6 +65,7 @@ export const AboutUser: FC = memo(() => {
             formData.append('user.first_name', objToSend.user.first_name)
             formData.append('user.last_name', objToSend.user.last_name)
             formData.append('user.phone_number', objToSend.user.phone_number)
+            formData.append('user.patronymic', objToSend.user.patronymic)
             formData.append('city', objToSend.city)
             objToSend.sex && formData.append('sex', objToSend.sex)
 
@@ -98,7 +100,7 @@ export const AboutUser: FC = memo(() => {
     }, [profileData])
 
     const {
-        values: {city, email, last_name, first_name, phone_number, avatar_url},
+        values: {city, email, last_name, first_name, patronymic, phone_number, avatar_url},
         handleChange,
         handleSubmit,
         //touched,
@@ -138,6 +140,10 @@ export const AboutUser: FC = memo(() => {
             <div className={styles.profile_block}>
                 <Input name={'last_name'} type={'text'} label={'Фамилия:'} onChange={handleChange}
                        value={last_name as string}/>
+            </div>
+            <div className={styles.profile_block}>
+                <Input name={'patronymic'} type={'text'} label={'Отчество:'} onChange={handleChange}
+                       value={patronymic as string}/>
             </div>
             <div className={styles.profile_block}>
                 <Input
