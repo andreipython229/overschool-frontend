@@ -12,17 +12,22 @@ import { lessonSvgMapper } from 'config/index'
 import { getNounDeclension } from 'utils/getNounDeclension'
 
 import styles from './student_course_header.module.scss'
-import { useFetchProgressQuery } from '../../../api/userProgressService'
+import { useFetchProgressQuery, useLazyFetchSertificateQuery } from '../../../api/userProgressService'
 import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
+import { Button } from 'components/common/Button/Button'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { useBoolean } from 'customHooks'
 
 export const StudentCourseHeader: FC = () => {
   const { course_id: courseId } = useParams()
   const navigate = useNavigate()
   const school = window.location.href.split('/')[4]
+  const [modal, { on: close, off: open }] = useBoolean()
 
   const { data: userProgress, isLoading, isError } = useFetchProgressQuery({ course_id: courseId as string, schoolName: school })
   const { data: course } = useFetchCourseQuery({ id: courseId as string, schoolName: school })
   const { data: modules, isSuccess } = useFetchModulesQuery({ id: courseId as string, schoolName: school })
+  const [getSertificate, { data: sertData, isFetching, isError: errorSert }] = useLazyFetchSertificateQuery()
 
   const [modulesData, setModulesData] = useState(modules)
 
@@ -34,6 +39,14 @@ export const StudentCourseHeader: FC = () => {
     (acc: { [key: string]: number }, item: lessonT) => ((acc[item.type] = (acc[item.type] || 0) + 1), acc),
     {},
   )
+
+  const handleSertificate = () => {
+    if (courseId) {
+      getSertificate(courseId)
+        .unwrap()
+        .catch(() => open())
+    }
+  }
 
   useEffect(() => {
     if (isSuccess) {
@@ -47,12 +60,32 @@ export const StudentCourseHeader: FC = () => {
 
   return (
     <div className={styles.previous}>
+      <Dialog open={modal} onClose={close} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogTitle id="alert-dialog-title">{'Сертификат в данный момент недоступен :('}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Ваш сертификат находится на стадии подготовки и подписания. Подождите немного и попробуйте снова.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button style={{ marginInlineEnd: '1em', marginBottom: '.5em' }} onClick={close} text={'Окей'} />
+        </DialogActions>
+      </Dialog>
       <div className={styles.background_image_course} />
       <div className={styles.previous_bcgrShadow}></div>
       <div onClick={() => navigate(`/school/${school}/courses/`)} className={styles.back_all_course}>
         <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
         <span>Все курсы</span>
       </div>
+      {userProgress.courses[0].completed_percent === 100 && (
+        <div className={styles.previous_getSertificate}>
+          <Button
+            variant="primary"
+            text={isFetching ? <SimpleLoader style={{ width: '8em', height: '1.5em' }} /> : 'Получить сертификат'}
+            onClick={handleSertificate}
+          />
+        </div>
+      )}
       <div className={styles.previous_onlineCourses}>Онлайн-курс</div>
       <div className={styles.previous_title_name}>{course?.name}</div>
       <div className={styles.previous_courseInfo}>
