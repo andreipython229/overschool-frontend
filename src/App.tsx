@@ -19,9 +19,7 @@ import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
 import styles from './App.module.scss'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { RoleE } from 'enum/roleE'
-import { useSelector } from 'react-redux'
-import { useBoolean } from 'customHooks/useBoolean'
-import ChatGPT from '../src/components/ChatGPT';
+
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -29,7 +27,6 @@ export const App = () => {
   const schoolName = window.location.href.split('/')[4]
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const [isOpenChatModal, { on, off }] = useBoolean()
   
 
   useEffect(() => {
@@ -38,13 +35,6 @@ export const App = () => {
     }
   }, [isLogin, navigate])
 
-  const openChatModal = () => {
-    on();
-  };
-
-  const closeChatModal = () => {
-    off();
-  };
 
   // useEffect(() => {
   //   if (isLogin && schoolName.length === 0) {
@@ -95,7 +85,6 @@ export const App = () => {
         <Route path={Path.SignUp} element={<SignUp />} />
         <Route path={'*'} element={<PageNotFound />} />
       </Routes>
-      {isLogin && schoolName && <ChatGPT openChatModal={openChatModal} closeChatModal={closeChatModal} />}
     </div>
   )
 }

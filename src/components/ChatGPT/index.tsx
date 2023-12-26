@@ -1,10 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import axios, { AxiosError } from 'axios';
 import { getUserIdFromLocalStorage } from 'utils/getUserId';
-import { chatgptService, LatestMessagesResponse, SendMessagePayload, SendMessageResponse, ChatgptService, useSendMessageMutation, useFetchLatestMessagesQuery } from '../../api/chatgptService';
+import { LatestMessagesResponse, SendMessagePayload, useSendMessageMutation, useFetchLatestMessagesQuery } from '../../api/chatgptService';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
-import { useMutation } from 'react-query';
 import styles from './chatgpt.module.scss';
 
 interface ChatGPTProps {
@@ -14,11 +12,14 @@ interface ChatGPTProps {
 
 const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+
     const [messageInput, setMessageInput] = useState('');
     const messageContainerRef = useRef<HTMLDivElement>(null);
     const userId = getUserIdFromLocalStorage();
-    const { data: latestMessages = [], refetch: refetchMessages } = useFetchLatestMessagesQuery(userId?.toString() || '');
+    const { data: latestMessages = [], refetch: refetchMessages } = userId ? useFetchLatestMessagesQuery(userId.toString()) : { data: [], refetch: undefined };
+    
     const [sendMessage, mutation] = useSendMessageMutation();
+    const [error, setError] = useState<string | null>(null);
 
     const toggleDialog = () => {
       setIsDialogOpen(!isDialogOpen);
@@ -41,9 +42,11 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
     const fetchMessages = async () => {
       try {
-        await refetchMessages();
+        if (refetchMessages) {
+          await refetchMessages();
+        }
       } catch (error) {
-        console.error('Error fetching messages:', error);
+        setError('Ошибка при получении истории сообщений.');
       }
     };
 
@@ -55,6 +58,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         await fetchMessages();
       }
     };
+
+    setError(null);
 
     fetchData();
   }, [isDialogOpen]);
@@ -71,22 +76,22 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
             user_id: userId.toString(),
             message: messageInput,
           };
-          console.log(payload);
           
           await sendMessage(payload);
   
-          await refetchMessages();
+          if (refetchMessages) {
+            await refetchMessages();
+          }
   
           setMessageInput('');
+          setError(null);
         }
       } catch (error: unknown) {
-        console.error('Error sending message to GPT:', error);
-        if ((error as AxiosError)?.response) {
-          console.error('Error details:', ((error as AxiosError).response as any).data);
-        } else {
-          console.error('Error details:', error);
-        }
+          setError('Ошибка при отправке сообщения.');
       }
+      setTimeout(() => {
+          setError(null);
+        }, 10000);
     }
   };
       
@@ -124,6 +129,11 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                 </div>
               ))}
             </div>
+            {error && (
+              <div className={`${styles.errorContainer} ${error && styles.visible}`}>
+                <span className={styles.errorText}>{error}</span>
+              </div>
+            )}
             <div className={styles.inputContainer}>
               <input
                 type="text"

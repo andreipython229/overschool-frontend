@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { baseQuery } from './baseApi'
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 
