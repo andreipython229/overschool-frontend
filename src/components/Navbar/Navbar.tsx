@@ -35,17 +35,24 @@ export const Navbar: FC = memo(() => {
   const [isChatOpen, { on, off }] = useBoolean()
 
   return (
-    <>
-      <motion.nav className={styles.navbar}
+    <> 
+      <motion.nav className={styles.navbar} 
       initial={{
         y:-1000,
+        opacity: 0,
       }}
       animate={{
         y:0,
+        opacity: 1,
+      }}
+      exit={{
+        opacity: 0,
       }}
       transition={{
         delay: 0.1,
-      }}>
+        ease:'easeInOut',
+        duration: 0.5,
+      }} layout>
         <Tooltip title={'Вернуться на главную'}>
           <NavLink key={'home'} to={Path.InitialPage} className={isActive}>
             <SvgIcon className={styles.navbar_menu} style={{opacity: '0.8', fontSize: '3.5em', padding: '0.1em'}}>

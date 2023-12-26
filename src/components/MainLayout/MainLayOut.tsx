@@ -65,6 +65,8 @@ export const MainLayOut: FC = memo(() => {
       }}
       transition={{
         delay: 0.1,
+        ease:'easeInOut',
+        duration: 1.2,
       }}>
         <Previous />
         <Outlet />

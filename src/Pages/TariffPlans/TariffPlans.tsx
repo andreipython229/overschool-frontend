@@ -51,11 +51,13 @@ export const TariffPlans: FC = () => {
         opacity:1,
         y:0,
       }}
+      exit={{
+        opacity: 0,
+      }}
       transition={{
         delay: 0.5,
         ease:'easeInOut',
         duration: 1.3,
-        
       }}>
         <div className={styles.bg1}>
                 <div className={styles.bg_wrap1}></div>
@@ -114,7 +116,7 @@ export const TariffPlans: FC = () => {
                     ) : plan.name === 'Intern' && tariff.tariff_name === 'Intern' ? (
                       <Button text={'Текущий тариф'} variant={'disabled'} />
                     ) : (
-                      <Button text={'Выбор недоступен'} variant={'disabled'} />
+                      <Button text={'Выбор недоступен'} variant={'disabled'} title='сначало отмените текущую подписку' />
                     ))}
                 </div>
               </div>

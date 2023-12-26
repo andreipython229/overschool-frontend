@@ -225,6 +225,9 @@ export const Header = memo(() => {
     }}
     transition={{
       delay: 0.1,
+      ease:'easeInOut',
+      duration: 0.5,
+      
     }}>
 
       <NavLink to={userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}>

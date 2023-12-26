@@ -23,6 +23,7 @@ import { auth, role } from 'store/redux/users/slice'
 
 import { useLazyLogoutQuery } from 'api/userLoginService'
 
+
 export type SchoolT = {
   school_id: number
   name: string
@@ -102,10 +103,25 @@ export const ChooseSchool = () => {
               </div>
       <div className={styles.bg1}>
         <div className={styles.bg3}>
-          {isLoading ? (
+           {isLoading ? (
             <SimpleLoader style={{ margin: '50px', height: '80px' }} />
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          ) : ( 
+            <motion.div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
+            initial={{
+              opacity: 0,
+              scale: 0.1,
+            }}
+            animate={{
+              opacity:1,
+              scale: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            transition={{
+              ease:'easeInOut',
+              duration: 1.5,
+            }}>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <svg style={{ marginBottom: '3em' }} width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -154,7 +170,10 @@ export const ChooseSchool = () => {
                     }}
                     to={`#`}
                   >
-                    <motion.div className={styles.bg} whileHover={ {scale: 1.2,}}>
+                    <motion.div className={styles.bg} 
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.8 }}
+                      >
                       <div>
                         <div className={styles.name}>{school.name}</div>
                         <div className={styles.role}>{userRoleName[school.role]}</div>
@@ -171,8 +190,8 @@ export const ChooseSchool = () => {
               <div className={styles.create} onClick={off}>
                 <span>cоздать школу</span>
               </div>
-            </div>
-          )}
+            </motion.div>
+           )} 
         </div>
         {isOpen && <Portal closeModal={on}>{schools && <AddSchoolModal setShowModal={on} schools={schools} />}</Portal>}
         {/* <div className={styles.bg2}>
