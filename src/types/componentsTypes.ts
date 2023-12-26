@@ -1,8 +1,8 @@
-import { ChangeEvent, FC, MouseEvent, ReactNode } from 'react'
+import { ChangeEvent, Dispatch, FC, MouseEvent, ReactNode, SetStateAction } from 'react'
 
 import { statusFilterT } from 'types/statusFilterConfigType'
 import { CoursesDataT, CourseWithGroupsT, StGroupT } from 'types/CoursesT'
-import { commonLessonT, sectionT } from './sectionT'
+import { commonLessonT, IHomework, ILesson, ITest, sectionT } from './sectionT'
 import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
 import { studentsTableInfoT } from './courseStatT'
 
@@ -19,6 +19,7 @@ type argT = {
 }
 
 export type AddPostT = {
+  setLesson?: Dispatch<SetStateAction<ILesson | IHomework | ITest>>
   lesson: commonLessonT
   code?: string
   isPreview?: boolean
