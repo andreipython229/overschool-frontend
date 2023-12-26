@@ -98,7 +98,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
             <div className={styles.redactorCourse_loader}>
               <SimpleLoader />
               <p style={{ fontSize: '12px', color: 'grey', textAlign: 'center' }}>
-                Пока видео грузится ничего не нажимайте в этом окне, скорость загрузки зависит от скорости вашего интернет соединения
+                Пока видео грузится, ничего не нажимайте в этом окне. Скорость загрузки зависит от скорости вашего интернет-соединения.
               </p>
             </div>
           ) : (
