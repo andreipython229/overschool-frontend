@@ -302,7 +302,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   <NewTextEditor text={lessonDescription} setLessonDescription={setLessonDescription} />
                 )}
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
-                  <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} deleteAudio={handleDeleteAudioFile} />
+                  <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} setLesson={setLesson} deleteAudio={handleDeleteAudioFile} />
                 </div>
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
 

@@ -83,7 +83,7 @@ export const Header = memo(() => {
   }
 
   useEffect(() => {
-    if (isError) {
+    if (isError && 'originalStatus' in error && error.originalStatus === 401) {
       logOut()
     }
   }, [isError])
@@ -216,17 +216,18 @@ export const Header = memo(() => {
   }
 
   return (
-    <motion.header className={styles.header}
-    initial={{
-      x:-1000,
-    }}
-    animate={{
-      x:0,
-    }}
-    transition={{
-      delay: 0.1,
-    }}>
-
+    <motion.header
+      className={styles.header}
+      initial={{
+        x: -1000,
+      }}
+      animate={{
+        x: 0,
+      }}
+      transition={{
+        delay: 0.1,
+      }}
+    >
       <NavLink to={userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}>
         <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
       </NavLink>
@@ -257,12 +258,18 @@ export const Header = memo(() => {
                 </MenuItem>
                 <MenuItem>
                   <span style={{ color: 'slategrey' }}> Сотрудников:</span>
-                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}> {`${currentTariff?.staff}/${currentTariff?.tariff_details?.number_of_staff || 'ꝏ'}`}</span>
+                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}>
+                    {' '}
+                    {`${currentTariff?.staff}/${currentTariff?.tariff_details?.number_of_staff || 'ꝏ'}`}
+                  </span>
                   <br />
                 </MenuItem>
                 <MenuItem>
                   <span style={{ color: 'slategrey' }}> Студентов:</span>
-                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}> {`${currentTariff?.students}/${currentTariff?.tariff_details?.total_students || 'ꝏ'}`}</span>
+                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}>
+                    {' '}
+                    {`${currentTariff?.students}/${currentTariff?.tariff_details?.total_students || 'ꝏ'}`}
+                  </span>
                 </MenuItem>
                 <MenuItem onClick={goToChooseTariff}>
                   <Link to={Path.TariffPlans} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>

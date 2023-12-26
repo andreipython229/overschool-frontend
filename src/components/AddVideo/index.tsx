@@ -12,7 +12,7 @@ import { useUploadLessonVideoMutation } from 'api/videoFilesService'
 import { Input } from 'components/common/Input/Input/Input'
 import { usePatchLessonsMutation } from 'api/modulesServices'
 
-export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPreview, addFile, lesson, setShow }) => {
+export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPreview, addFile, lesson, setLesson, setShow }) => {
   const [dragVideo, setDragVideo] = useState<boolean>(false)
   const [files, setFiles] = useState<File[]>([])
   const [addVideoFile] = useUploadLessonVideoMutation()
@@ -46,9 +46,9 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
       await addYTVideo({ arg: { formdata: formData, id: lessonIdAndType?.id as number, type: lesson.type }, schoolName })
         .unwrap()
         .then(data => {
-          lesson.url = youTubeLink
+          setLesson && setLesson({ ...lesson, url: youTubeLink });
+          setShow();
         })
-      await setShow()
     }
   }
 
@@ -78,7 +78,7 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
       })
         .unwrap()
         .then(data => {
-          lesson.video = 'video_url'
+          setLesson && setLesson({ ...lesson, video: data.video })
           setIsLoadingVideo(false)
           setShow()
         })
