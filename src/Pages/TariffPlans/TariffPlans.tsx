@@ -79,7 +79,7 @@ export const TariffPlans: FC = () => {
                 <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
                   <h3>{plan.name}</h3>
                   <hr />
-                  <ul style={{ marginBottom: '1em' }}>
+                  <ul style={{marginBottom: '0.7em'}}>
                     <li>
                       Количество курсов:
                       <span>{plan.number_of_courses || '∞'}</span>
@@ -97,9 +97,13 @@ export const TariffPlans: FC = () => {
                       <span>{plan.total_students || '∞'}</span>
                     </li>
                     <li>
-                      Цена:
+                      Цена в BYN:
                       <span>{plan.price !== '0.00' ? `${plan.price} рублей/мес.` : 'бесплатно'}</span>
                     </li>
+                  <li>
+                    Цена в RUB:
+                    <span>{plan.price_rf_rub !== 0 ? `${plan.price_rf_rub} рублей/мес.` : 'бесплатно'}</span>
+                  </li>
                   </ul>
                   {role === RoleE.Admin &&
                     tariff &&
