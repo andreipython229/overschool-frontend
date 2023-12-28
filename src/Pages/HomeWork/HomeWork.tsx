@@ -44,7 +44,7 @@ export const HomeWork: FC = () => {
   const handleAddMarkFilter = (start_mark: string, end_mark: string) => {
     dispatch(addFilters({ key: 'homework', filters: { start_mark, end_mark } }))
   }
-
+ 
   const handleChangeStatus = useCallback((status: string) => {
     dispatch(addFilters({ key: 'homework', filters: { status } }))
   }, [])

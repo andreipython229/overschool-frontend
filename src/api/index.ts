@@ -24,6 +24,7 @@ export { videoFilesService } from './videoFilesService'
 export { forgotPassword } from './forgotPassword'
 export { subscriptionService } from './subscriptionServices'
 export { lessonAccessService } from './lessonAccessService'
+export { chatgptService } from './chatgptService'
 
 
 

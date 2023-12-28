@@ -68,9 +68,9 @@ export const StudentsPerGroup: FC = () => {
 
     return (data ?? []).filter(student => {
       return (
-        student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.email.toLowerCase().includes(searchTerm.toLowerCase())
+        student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.email?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     })
   }, [searchTerm, data])

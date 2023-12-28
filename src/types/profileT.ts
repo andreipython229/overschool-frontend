@@ -16,6 +16,7 @@ export type profileT = {
 export type profileUserT = {
   last_name: string
   first_name: string
+  patronymic: string
   phone_number?: string
   email?: string
   username?: string
