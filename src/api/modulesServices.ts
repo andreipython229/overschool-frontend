@@ -30,7 +30,7 @@ export const modulesServices = createApi({
     }),
     deleteModules: build.mutation<void, { id: number; schoolName: string }>({
       query: ({ id, schoolName }) => ({
-        url: `/sections/${id}/`,
+        url: `/${schoolName}/sections/${id}/`,
         method: 'DELETE',
       }),
       invalidatesTags: ['modules'],
