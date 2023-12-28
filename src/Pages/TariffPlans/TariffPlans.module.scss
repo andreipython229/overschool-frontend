@@ -2,7 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
+ .container {
+  background: none;
+ }
 .TariffPlansPage {
   h1 {
     margin: 23px;
@@ -17,7 +21,7 @@
 
     p {
       color: #ba75ff;
-      font-size: 14px;
+      font-size: 16px;
     }
     h1 {
       margin-top: 18px;
@@ -80,7 +84,7 @@
       margin-top: 45px;
       display: inline-flex;
       align-items: center;
-      width: 90vw;
+      width: 95vw;
       justify-content: space-around;
 
       &_card:hover {
@@ -92,8 +96,10 @@
       }
 
       &_card {
-        width: 253px;
-        height: 320px;
+        position: relative;
+        width: 304px;
+        height: 373px;
+
         background: #fff;
         border-radius: 20px;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -112,7 +118,7 @@
           h3 {
             color: #4d5766;
             font-weight: 600;
-            font-size: 22px;
+            font-size: 27px;
             text-align: center;
           }
           hr {
@@ -136,11 +142,11 @@
               margin-left: -1em;
             }
             li {
-              font-size: 11px;
+              font-size: 14px;
               padding-bottom: 15px;
 
               span {
-                font-weight: 800;
+                font-weight: 600;
                 margin-left: 0.3em;
                 color: #ba75ff;
               }
@@ -148,9 +154,10 @@
           }
           button {
             width: 184px;
-            height: 36px;
-            font-size: 12px;
+            height: 43px;
+            font-size: 15px;
             position: relative;
+            font-weight: 500;
           }
         }
       }
@@ -286,3 +293,182 @@
     }
   }
 }
+
+
+
+@keyframes bgAnimate1 {
+  from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    20% {
+      transform: translate3d(50%, 100%, 0);
+    }
+
+    30% {
+      transform: translate3d(150%, 150%, 0);
+    }
+
+      50% {
+      transform: translate3d(400%, 200%, 0);
+    }
+
+    70% {
+      transform: translate3d(300%, 70%, 0);
+    }
+
+    90% {
+    transform: translate3d(100%, 30%, 0);
+    }
+  
+
+  to {
+      transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bgAnimate2 {
+  from {
+    transform: translate3d(0%, 0%, 0);
+  }
+   20% {
+     transform: translate3d(-100%, -100%, 0);
+    }
+   30% {
+     transform: translate3d(-200%, -150%, 0);
+    }
+   50% {
+    transform: translate3d(-400%, -200%, 0);
+   }
+   70% {
+     transform: translate3d(-300%, -60%, 0);
+   }
+   90% {
+     transform: translate3d(-100%, -10%, 0);
+   }
+  to {
+    transform: translate3d(0%, 0%, 0);
+   }
+}
+
+@keyframes bgAnimate3 {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20% {
+    transform: translate3d(-150%, 10%, 0);
+  }
+
+  30% {
+    transform: translate3d(-300%, 100%, 0);
+  }
+
+    50% {
+    transform: translate3d(-400%, 200%, 0);
+  }
+
+  70% {
+    transform: translate3d(-250%, 150%, 0);
+  }
+
+  90% {
+   transform: translate3d(-50%, 100%, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bgAnimate4 {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20% {
+    transform: translate3d(150%, -10%, 0);
+  }
+
+   30% {
+     transform: translate3d(350%, -80%, 0);
+   }
+
+    50% {
+      transform: translate3d(400%, -150%, 0);
+    }
+
+   70% {
+     transform: translate3d(250%, -140%, 0);
+   }
+
+   90% {
+    transform: translate3d(100%, -80%, 0);
+   }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+    
+
+.bg {
+  z-index: -1;
+  
+  
+ 
+ 
+  &_wrap1 {
+   position: absolute;
+   width: 50px;
+   height: 50px;
+   background: #8034C7;
+   border-radius: 50%;
+   scale: 10;
+   filter: blur(25px);
+   animation: bgAnimate1 10s linear infinite;
+ }
+ 
+ 
+   &_wrap2 {
+   position: absolute;
+   width: 50px;
+   height: 50px;
+   left: 100%;
+   top: 100%;
+   scale: 10;
+   background: #5048D8;
+   border-radius: 50%;
+   filter: blur(25px);
+   animation: bgAnimate2 10s linear infinite;
+  }
+ 
+  
+  
+  &_wrap3 {
+   position: absolute;
+   width: 50px;
+   height: 50px;
+   left: 100%;
+   top: 0%;
+   scale: 10;
+   background: #CD99FF;
+   border-radius: 50%;
+   filter: blur(25px);
+   animation: bgAnimate3 10s linear infinite;
+  }
+  
+  &_wrap4 {
+   position: absolute;
+   width: 50px;
+   height: 50px;
+   scale: 10;
+   left: 0%;
+   top: 100%;
+   background: #60A0EC;
+   border-radius: 50%;
+   filter: blur(25px);
+   animation: bgAnimate4 10s linear infinite;
+  }
+}
+

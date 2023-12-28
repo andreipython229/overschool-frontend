@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import {NavLink} from 'react-router-dom'
 import {Portal} from '../../components/Modal/Portal'
 import {InitPageHeader} from './InitPageHeader'
 import {CourseImg} from './CourseImg'
@@ -9,17 +10,33 @@ import {useBoolean} from '../../customHooks'
 import styles from './initial.module.scss'
 import {RegCodeModal} from '../../components/Modal/RegistrationModal/RegCodeModal'
 import {Path} from "../../enum/pathE";
-import {NavLink} from "react-router-dom";
+
 
 export const Initial = () => {
     const [currentCourse, setCurrentCourse] = useState<string>('1')
     const [registrationShow, setRegistrationShow] = useState<boolean>(false)
     const [regCodeShow, setRegCodeShow] = useState<boolean>(false)
     const [isLoginModal, {off: open, on: close}] = useBoolean()
+    
 
     const changeCurrentCourse = (id: string) => setCurrentCourse(id)
 
+    
+
     return (
+        <div>
+            <div className={styles.bg}>
+               <div className={styles.bg_wrap1}></div>
+            </div>
+            <div className={styles.bg}>
+                <div className={styles.bg_wrap2}></div>
+            </div>
+            <div className={styles.bg}>
+                <div className={styles.bg_wrap3}></div>
+            </div>
+            <div className={styles.bg}>
+                <div className={styles.bg_wrap4}></div>
+            </div>
         <div className={styles.init}>
             {registrationShow && <RegistrationModal setShowModal={setRegistrationShow} setCodeModal={setRegCodeShow}/>}
             {regCodeShow && <RegCodeModal setCodeModal={setRegCodeShow}/>}
@@ -36,7 +53,7 @@ export const Initial = () => {
                     </h1>
                     <div className={styles.init_main__link}>
                         <div>Найди свое направление</div>
-                        <NavLink to={Path.ChooseSchool} className={styles.goBtn}>
+                        <NavLink to={Path.CreateSchool} className={styles.goBtn}>
                             Вперед
                         </NavLink>
                     </div>
@@ -46,6 +63,7 @@ export const Initial = () => {
                                title={title} style={style}/>
                 ))}
             </div>
+        </div>
         </div>
     )
 }

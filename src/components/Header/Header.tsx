@@ -216,18 +216,19 @@ export const Header = memo(() => {
   }
 
   return (
-    <motion.header
-      className={styles.header}
-      initial={{
-        x: -1000,
-      }}
-      animate={{
-        x: 0,
-      }}
-      transition={{
-        delay: 0.1,
-      }}
-    >
+    <motion.header className={styles.header}
+    initial={{
+      x:-1000,
+    }}
+    animate={{
+      x:0,
+    }}
+    transition={{
+      delay: 0.1,
+      ease:'easeInOut',
+      duration: 0.5,
+      
+    }}>
       <NavLink to={userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}>
         <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
       </NavLink>

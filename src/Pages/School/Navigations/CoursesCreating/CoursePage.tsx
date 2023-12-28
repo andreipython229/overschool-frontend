@@ -61,7 +61,7 @@ export const CoursePage: FC = () => {
           </ContentLoader>
         </div>
         <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          <SimpleLoader style={{ width: '100px', height: '100px' }} />
+          {/* <SimpleLoader style={{ width: '100px', height: '100px' }} /> */}
         </div>
       </>
     )
