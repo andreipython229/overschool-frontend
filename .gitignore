@@ -57,5 +57,4 @@ Thumbs.db
 id_rsa
 id_rsa.pub
 src/api/baseApi.ts
-etc/nginx/sites-enabled/overschool.by
-etc/nginx/nginx.conf
+etc/
