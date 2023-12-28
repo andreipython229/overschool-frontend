@@ -23,6 +23,7 @@ export { tariffPlanService, tariffService, tariffPlan } from './tariffPlanServic
 export { videoFilesService } from './videoFilesService'
 export { forgotPassword } from './forgotPassword'
 export { subscriptionService } from './subscriptionServices'
+export { chatgptService } from './chatgptService'
 
 
 

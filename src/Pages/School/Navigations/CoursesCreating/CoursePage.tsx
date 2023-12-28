@@ -19,11 +19,12 @@ import { ToggleButtonDropDown } from '../../../../components/common/ToggleButton
 
 import { motion, AnimatePresence } from 'framer-motion'
 
+
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
-  const { data: courses, isSuccess, refetch } = useFetchCoursesPageQuery(schoolName)
   const schoolId = useAppSelector(schoolIdSelector)
+  const { data: courses, isSuccess, refetch } = useFetchCoursesPageQuery(schoolName)
   const [isOpenAddCourse, { onToggle }] = useBoolean()
   const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
   // const [isVisible, setVisible] = useState(false)
@@ -35,9 +36,9 @@ export const CoursePage: FC = () => {
 
   useEffect(() => {
     if (schoolName === window.location.href.split('/')[4]) {
-      refetch()
+      refetch();
     }
-  }, [schoolId])
+  }, [schoolId]);
 
   if (!isSuccess)
     return (
@@ -104,12 +105,13 @@ export const CoursePage: FC = () => {
             </motion.div>
           }
         </AnimatePresence>
-        {isOpenAddCourse ? (
-          <Portal closeModal={onToggle}>
-            <AddCourseModal courses={courses?.results} setShowModal={onToggle} />
-          </Portal>
-        ) : null}
+            {isOpenAddCourse ? (
+                <Portal closeModal={onToggle}>
+                    <AddCourseModal courses={courses?.results} setShowModal={onToggle}/>
+                </Portal>
+            ) : null}
       </div>
     </>
+
   )
 }
