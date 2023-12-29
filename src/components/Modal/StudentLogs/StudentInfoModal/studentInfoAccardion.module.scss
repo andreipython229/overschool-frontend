@@ -123,18 +123,18 @@
     margin-left: 1rem;
   }
 
-  &_item {
-    margin-top: 1.25rem;
-    &:first-child {
-      margin-top: 0;
-    }
-    &_name {
-      @include font(600, 12px, 150%);
-      color: $font-title;
-    }
-    // overflow: hidden;
-    // transition: height 0.3s ease;
-  }
+  //&_item {
+  //  margin-top: 1.25rem;
+  //  &:first-child {
+  //    margin-top: 0;
+  //  }
+  //  &_name {
+  //    @include font(600, 12px, 150%);
+  //    color: $font-title;
+  //  }
+  //  // overflow: hidden;
+  //  // transition: height 0.3s ease;
+  //}
 
   &_header {
     padding: 1.25rem;

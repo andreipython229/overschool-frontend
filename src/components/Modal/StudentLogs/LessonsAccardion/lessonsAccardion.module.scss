@@ -24,6 +24,7 @@
       margin-left: 0.75rem;
       letter-spacing: -0.05em;
       color: #9ca3af;
+      text-align: left;
     }
   }
 
@@ -42,6 +43,7 @@
     &_name {
       @include font(600, 12px, 150%);
       color: $font-title;
+      text-align: left;
     }
     // overflow: hidden;
     // transition: height 0.3s ease;
