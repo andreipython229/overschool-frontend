@@ -7,6 +7,9 @@ import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
+import {usePagination} from "../../customHooks";
+import { Pagination } from "../Pagination/Pagination"
+import styles from "../../Pages/HomeWork/home_work.module.scss";
 
 export const StudentsPerSchool: FC = () => {
   const dispatch = useAppDispatch()
@@ -15,6 +18,8 @@ export const StudentsPerSchool: FC = () => {
   const schoolName = window.location.href.split('/')[4] 
   const [fetchStudents, { data, isFetching }] = useLazyFetchStudentsPerSchoolQuery()
   const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery(schoolName)
+
+  const { page, onPageChange, paginationRange } = usePagination({ totalCount: data?.count as number })
 
   const [tableId, setTableId] = useState<number>()
 
@@ -39,7 +44,7 @@ export const StudentsPerSchool: FC = () => {
   }
 
   const handleReloadTable = () => {
-    schoolId && fetchStudents({ id: Number(schoolId), filters })
+    schoolId && fetchStudents({ id: Number(schoolId), page, filters })
   }
 
   useEffect(() => {
@@ -64,11 +69,16 @@ export const StudentsPerSchool: FC = () => {
       setSearchTerm(value)
   }
 
+  // Перезагрузка после смены страницы пагинатора
+  useEffect(() => {
+    fetchStudents({ filters, page, id: Number(schoolId) })
+  }, [page,])
+
   // Филтра для всех студентов
   const filteredStudents = useMemo(() => {
-    if (!searchTerm) return data ?? [];
+    if (!searchTerm) return data?.results ?? [];
 
-    return (data ?? []).filter(student => {
+    return (data?.results ?? []).filter(student => {
       return (
         student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -99,9 +109,20 @@ export const StudentsPerSchool: FC = () => {
         endAvg={filters?.average_mark_max}
         filters={filters}
         updateStudents={updateStudents}
-        all_students_count={filteredStudents?.length}
+        all_students_count={data?.count as number}
       />
-      <StudentsTableWrapper handleReloadTable={handleReloadTable} students={filteredStudents as studentsTableInfoT} isLoading={isFetching || isTablesHeaderFetching} tableId={tableId as number} />
+      <StudentsTableWrapper
+          handleReloadTable={handleReloadTable}
+          students={filteredStudents as studentsTableInfoT}
+          isLoading={isFetching || isTablesHeaderFetching}
+          tableId={tableId as number}
+      />
+      <Pagination
+          className={styles.pagination}
+          paginationRange={paginationRange}
+          currentPage={page}
+          onPageChange={onPageChange}
+      />
     </>
   )
 }

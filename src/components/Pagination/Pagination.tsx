@@ -29,7 +29,7 @@ export const Pagination: FC<paginationT> = memo(({ onPageChange, currentPage, pa
   return (
     <div className={`pagination-bar ${props.className}`}>
       <p className="pagination-text">
-        Всего <span className="pagination-total">{paginationRange?.slice(-1)}</span>
+        Всего страниц: <span className="pagination-total">{paginationRange?.slice(-1)}</span>
       </p>
       <ul className="pagination-container">
         <li

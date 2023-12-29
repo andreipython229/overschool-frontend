@@ -8,6 +8,9 @@ import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
+import styles from "../../Pages/HomeWork/home_work.module.scss";
+import { Pagination } from "../Pagination/Pagination";
+import {usePagination} from "../../customHooks";
 
 export const StudentsPerCourse: FC = () => {
   const { course_id } = useParams()
@@ -21,6 +24,7 @@ export const StudentsPerCourse: FC = () => {
   const [tableId, setTableId] = useState<number>()
 
   const [fetchStudents, { data, isFetching }] = useLazyFetchCourseStatQuery()
+  const { page, onPageChange, paginationRange } = usePagination({ totalCount: data?.count as number })
 
   const handleAddLastActivityFilter = (data1: string, data2: string) => {
     dispatch(addFilters({ key: 'studentsPerCourse', filters: { last_active_min: data1, last_active_max: data2 } }))
@@ -43,7 +47,7 @@ export const StudentsPerCourse: FC = () => {
   }
 
   const handleReloadTable = () => {
-    fetchStudents({ id: String(course_id), filters, schoolName })
+    fetchStudents({ id: String(course_id), filters, schoolName, page })
   }
 
   useEffect(() => {
@@ -52,7 +56,7 @@ export const StudentsPerCourse: FC = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      console.log(tablesHeader)
+      // console.log(tablesHeader)
       const id = tablesHeader.find(table => table.type === 'Course')?.students_table_info_id
       setTableId(id)
     }
@@ -67,9 +71,9 @@ export const StudentsPerCourse: FC = () => {
 
   // Фильтра для студентов курса
   const filteredStudents = useMemo(() => {
-    if (!searchTerm) return data ?? []
+    if (!searchTerm) return data?.results ?? []
 
-    return (data ?? []).filter(student => {
+    return (data?.results ?? []).filter(student => {
       return (
         student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -78,6 +82,11 @@ export const StudentsPerCourse: FC = () => {
       )
     })
   }, [searchTerm, data])
+
+  // Перезагрузка после смены страницы пагинатора
+  useEffect(() => {
+    fetchStudents({ id: String(course_id), filters, schoolName, page })
+  }, [page,])
 
   return (
     <>
@@ -106,6 +115,12 @@ export const StudentsPerCourse: FC = () => {
         students={filteredStudents as studentsTableInfoT}
         isLoading={isFetching || isTablesHeaderFetching}
         tableId={tableId as number}
+      />
+      <Pagination
+          className={styles.pagination}
+          paginationRange={paginationRange}
+          currentPage={page}
+          onPageChange={onPageChange}
       />
     </>
   )
