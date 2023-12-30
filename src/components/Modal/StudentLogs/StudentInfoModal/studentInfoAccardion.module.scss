@@ -2,30 +2,30 @@
 @import '../../../../scss/mixin.scss';
 
 .accardion {
-  min-width: 600px;
+  // min-width: 600px;
   width: 100%;
   border-radius: 5px;
   margin-top: 1rem;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
 
-  &_lesson {
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    border-radius: 7px;
-    background: #f5f5f5;
-
-    &_name {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      flex-grow: 1;
-      @include font(500, 12px, 150%);
-      margin-left: 0.75rem;
-      letter-spacing: -0.05em;
-      color: #9ca3af;
-    }
-  }
+  //&_lesson {
+  //  padding: 1rem;
+  //  display: flex;
+  //  align-items: center;
+  //  border-radius: 7px;
+  //  background: #f5f5f5;
+  //
+  //  &_name {
+  //    overflow: hidden;
+  //    text-overflow: ellipsis;
+  //    white-space: nowrap;
+  //    flex-grow: 1;
+  //    @include font(500, 12px, 150%);
+  //    margin-left: 0.75rem;
+  //    letter-spacing: -0.05em;
+  //    color: #9ca3af;
+  //  }
+  //}
 
   &_control_btn {
     flex-shrink: 0;
@@ -56,12 +56,12 @@
     }
   }
 
-  &_lessons_block {
-    display: flex;
-    flex-direction: column;
-    margin-top: 0.75rem;
-    gap: 0.625rem;
-  }
+  //&_lessons_block {
+  //  display: flex;
+  //  flex-direction: column;
+  //  margin-top: 0.75rem;
+  //  gap: 0.625rem;
+  //}
 
   &_progress {
     display: flex;
@@ -72,12 +72,18 @@
     &_item {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       margin-left: 3em;
       gap: 5px;
       & span {
         @include font(500, 12px, 150%);
         color: $font-title;
       }
+
+      @media screen and (max-width: 1024px) {
+        margin-left: 0;
+      }
+
     }
   }
 
@@ -120,24 +126,24 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-left: 1rem;
+    // margin-left: 1rem;
   }
 
-  &_item {
-    margin-top: 1.25rem;
-    &:first-child {
-      margin-top: 0;
-    }
-    &_name {
-      @include font(600, 12px, 150%);
-      color: $font-title;
-    }
-    // overflow: hidden;
-    // transition: height 0.3s ease;
-  }
+  //&_item {
+  //  margin-top: 1.25rem;
+  //  &:first-child {
+  //    margin-top: 0;
+  //  }
+  //  &_name {
+  //    @include font(600, 12px, 150%);
+  //    color: $font-title;
+  //  }
+  //  // overflow: hidden;
+  //  // transition: height 0.3s ease;
+  //}
 
   &_header {
-    padding: 1.25rem;
+    padding: 1.25rem 0;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -147,39 +153,39 @@
     // }
   }
 
-  &_content {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    padding-bottom: 1.25rem;
-    margin-top: 1.75rem;
-    // height: 0;
-    // opacity: 0;
-    transition: height 0.3s ease, opacity 0.3s ease;
-
-    &_check {
-      display: flex;
-      text-align: right;
-      justify-content: flex-end;
-
-      &_span {
-        margin-left: 10px;
-        margin-top: 2px;
-        @include font(600, 12px, 150%);
-        letter-spacing: 0.04em;
-        color: rgba(133, 86, 148, 0.78);
-      }
-
-      &_btn {
-        margin-left: auto;
-        @include font(600, 12px, 150%);
-        letter-spacing: 0.04em;
-        color: rgba(28, 26, 26, 0.56);
-      }
-
-      &_fake {
-        margin-left: auto;
-        min-height: 30px;
-      }
-    }
-  }
+  //&_content {
+  //  padding-left: 1.25rem;
+  //  padding-right: 1.25rem;
+  //  padding-bottom: 1.25rem;
+  //  margin-top: 1.75rem;
+  //  // height: 0;
+  //  // opacity: 0;
+  //  transition: height 0.3s ease, opacity 0.3s ease;
+  //
+  //  &_check {
+  //    display: flex;
+  //    text-align: right;
+  //    justify-content: flex-end;
+  //
+  //    &_span {
+  //      margin-left: 10px;
+  //      margin-top: 2px;
+  //      @include font(600, 12px, 150%);
+  //      letter-spacing: 0.04em;
+  //      color: rgba(133, 86, 148, 0.78);
+  //    }
+  //
+  //    &_btn {
+  //      margin-left: auto;
+  //      @include font(600, 12px, 150%);
+  //      letter-spacing: 0.04em;
+  //      color: rgba(28, 26, 26, 0.56);
+  //    }
+  //
+  //    &_fake {
+  //      margin-left: auto;
+  //      min-height: 30px;
+  //    }
+  //  }
+  //}
 }

@@ -17,7 +17,7 @@ import Audio from '../.././assets/img/createCourse/audio.svg'
 import styles from './addPost.module.scss'
 import { AudioPlayer } from 'components/common/AudioPlayer'
 
-export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview, deleteAudio }) => {
+export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview, deleteAudio, setLesson }) => {
   const schoolName = window.location.href.split('/')[4]
   const [isOpenTextEditor, { on: closeTextEditor, off: openTextEditor }] = useBoolean()
   const [isOpenVideo, { on: closeVideo, off: openVideo }] = useBoolean()
@@ -82,7 +82,7 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
         <AddTextEditor isPreview={isPreview} lesson={lesson} setShow={closeTextEditor} setDescriptionLesson={setDescriptionLesson} />
       )}
       {isOpenVideo && (
-        <AddVideo lessonIdAndType={lessonIdAndType} isPreview={isPreview} addFile={addPatchData} lesson={lesson} setShow={closeVideo} />
+        <AddVideo lessonIdAndType={lessonIdAndType} isPreview={isPreview} addFile={addPatchData} setLesson={setLesson} lesson={lesson} setShow={closeVideo} />
       )}
       {isOpenAudio && <AddAudio addAudio={setFiles} lessonIdAndType={lessonIdAndType} isPreview={isPreview} lesson={lesson} setShow={closeAudio} />}
       {isOpenCodeEditor && (

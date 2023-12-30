@@ -1,3 +1,12 @@
+import {homeworkStatT} from "./homeworkT";
+
+export type studentsTableStatsT = {
+    count: number
+    next: null
+    previous: null
+    results: result[]
+}
+
 export type studentsTableInfoT = result[]
 
 export type result = {

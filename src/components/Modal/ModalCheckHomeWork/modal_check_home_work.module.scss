@@ -5,15 +5,14 @@
   border-radius: 10px;
   padding: 30px 33px 40px;
   margin: auto;
-  flex-shrink: 0;
-  flex-grow: 0;
   background: #fff;
-  width: 75vw;
+  // width: 75vw;
   max-width: 100%;
   overflow: visible;
   transition: transform 0.2s ease 0s, opacity 0.2s ease 0s;
   transform: scale(0.9);
   opacity: 1;
+
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     padding: 1%;
     width: 100%;
@@ -140,9 +139,8 @@
 }
 
 .task_modal {
-  position: fixed;
+  position: absolute;
   padding: 0.75rem;
-  left: 498px;
   box-sizing: border-box;
   background: #ffffff;
   border-radius: 7px;
@@ -265,9 +263,13 @@
 }
 
 .header_info {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  max-width: 700px;
   margin-bottom: 20px;
+
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     display: flex;
     flex-direction: column;
@@ -277,17 +279,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  @media only screen and (min-width : 480px) and (max-width : 1024px) {
+    margin-right: 70px;
   }
 }
 
 .header_info > * {
   margin: auto;
+
   @media only screen and (min-width : 320px) and (max-width : 375px) {
-    margin-top: 3%;
+    // margin-top: 3%;
   }
+
   @media only screen and (min-width : 375px) and (max-width : 480px) {
-   margin-top: 3%;
+  //  margin-top: 3%;
   }
+
+  @media only screen and (min-width : 480px) and (max-width : 1024px) {
+    // margin-top: 3%;
+    // margin-right: 50px;
+   }
 }
 
 .btn_grey {
@@ -320,8 +332,14 @@
 .task_status {
   @include display(flex);
   @include font(500, 18px, 22px);
-  margin-right: 40px;
+  // margin-right: 40px;
   color: #9ca3af;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    margin: 3% 0 3% 0;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+   margin: 3% 0 3% 0;
+  }
 }
 
 .task_info {
@@ -358,15 +376,36 @@
 
 .bottomButtons {
   @include display(flex, row, space-between, center);
-
+  gap: 10px;
   .btns__container {
     @include display(flex, row, flex-start, center);
-    margin-top: 30px;
+    gap: 10px;
+
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      flex-direction: column;
+    }
+
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      flex-direction: column;
+    }
+
+    @media only screen and (min-width : 480px) and (max-width : 1024px) {
+      flex-direction: row;
+    }
   }
+
   @media only screen and (min-width : 320px) and (max-width : 375px) {
+    margin: 10px 0;
     flex-direction: column;
   }
+
   @media only screen and (min-width : 375px) and (max-width : 480px) {
+    margin: 10px 0;
+    flex-direction: column;
+  }
+
+  @media only screen and (min-width : 480px) and (max-width : 1024px) {
+    margin: 10px 0;
     flex-direction: column;
   }
 
@@ -463,8 +502,7 @@
 }
 
 .answer_header {
-  margin-right: 4px;
-  margin-bottom: 20px;
+  margin: 0;
   @include font(500, 18px, 22px);
   color: $font-title;
   @media only screen and (min-width : 320px) and (max-width : 375px) {

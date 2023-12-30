@@ -47,10 +47,10 @@
   & svg {
     @include position_t_r(absolute, 16px, 20px, 2);
     @media only screen and (min-width : 320px) and (max-width : 375px) {
-      top: 65%;
+      // top: 65%;
     }
     @media only screen and (min-width : 375px) and (max-width : 480px) {
-      top: 65%;
+      // top: 65%;
     }
   }
 

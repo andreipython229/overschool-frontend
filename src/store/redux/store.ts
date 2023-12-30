@@ -27,6 +27,7 @@ export const rootReducer = combineReducers({
     [services.userTestService.reducerPath]: services.userTestService.reducer,
     [services.getAllUsers.reducerPath]: services.getAllUsers.reducer,
     [services.userAccessService.reducerPath]: services.userAccessService.reducer,
+    [services.lessonAccessService.reducerPath]: services.lessonAccessService.reducer,
     [services.schoolCreationService.reducerPath]: services.schoolCreationService.reducer,
     [services.tariffPlanService.reducerPath]: services.tariffPlanService.reducer,
     [services.videoFilesService.reducerPath]: services.videoFilesService.reducer,
@@ -35,6 +36,7 @@ export const rootReducer = combineReducers({
     [services.forgotPassword.reducerPath]: services.forgotPassword.reducer,
     [services.tariffPlan.reducerPath]: services.tariffPlan.reducer,
     [services.CoursesPageService.reducerPath]: services.CoursesPageService.reducer,
+    [services.chatgptService.reducerPath]: services.chatgptService.reducer,
     
     user: slices.authReduce,
     sections: slices.sectionsReduce,
@@ -84,6 +86,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
                 services.userTestService.middleware,
                 services.getAllUsers.middleware,
                 services.userAccessService.middleware,
+                services.lessonAccessService.middleware,
                 services.schoolCreationService.middleware,
                 services.tariffPlanService.middleware,
                 services.videoFilesService.middleware,
@@ -92,6 +95,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
                 services.subscriptionService.middleware,
                 services.tariffPlan.middleware,
                 services.CoursesPageService.middleware,
+                services.chatgptService.middleware,
             ),
     })
 }

@@ -1,12 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQuery } from './baseApi'
-// import {studentsGroupT, studentsGroupsT} from '../types/studentsGroup'
 
 export const userAccessService = createApi({
   reducerPath: 'userAccessService',
   baseQuery: baseQuery(),
-  // tagTypes: ['studentsGroup', 'studentsTable', 'stats_by_month'],
   endpoints: build => ({
     addUserAccess: build.mutation<any, { data: any; schoolName: string }>({
       query: ({ data, schoolName }) => ({

@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 // import { baseQuery } from './baseApi'
 import { schoolHeaderResT } from '../types/schoolHeaderT'
 import { UpdateCourses } from './apiTypes'
-import { studentsTableInfoT } from '../types/courseStatT'
+import {studentsTableInfoT, studentsTableStatsT} from '../types/courseStatT'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
 import {baseQuery} from "./baseApi";
 
@@ -26,9 +26,9 @@ export const schoolHeaderService = createApi({
       }),
       invalidatesTags: ['schoolHeader'],
     }),
-    fetchStudentsPerSchool: build.query<studentsTableInfoT, any>({
-      query: ({id, filters}) => ({
-        url: createUrlWithParams(`schools/${id}/stats/`, filters),
+    fetchStudentsPerSchool: build.query<studentsTableStatsT, any>({
+      query: ({id, page, filters}) => ({
+        url: createUrlWithParams(`schools/${id}/stats/?p=${page !== undefined ? page : 1}`, filters),
       }),
       providesTags: ['studentPerSchool'],
     }),

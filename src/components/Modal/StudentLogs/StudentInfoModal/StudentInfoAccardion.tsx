@@ -4,38 +4,55 @@ import {result, Section} from 'types/courseStatT'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {groupIconPath, tableBallsStarPath} from 'config/commonSvgIconsPath'
 import {accardionArrPath} from 'Pages/StudentCourse/config/svgIconPath'
-import {lessonSvgMapper} from 'config'
-
 import styles from './studentInfoAccardion.module.scss'
-import {useBoolean} from "../../../../customHooks";
-import {CheckboxBall} from "../../../common/CheckboxBall";
-import {Button} from "../../../common/Button/Button";
-import {Checkbox} from "../../../common/Checkbox/Checkbox";
+import {sectionLessons} from "../../../../types/lessonAccessT";
+import {useSetStudentLessonsAccessMutation} from '../../../../api/lessonAccessService'
+import {LessonsAccardion} from "../LessonsAccardion/LessonsAccardion";
 
 type studentInfoAccardionT = {
     student: result | null
     progress: any
+    studentLessons?: sectionLessons[]
+    setStudentLessons: any
 }
 
-export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({student, progress}) => {
+export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
+                                                                    student,
+                                                                    progress,
+                                                                    studentLessons,
+                                                                    setStudentLessons
+                                                                }) => {
     const [isAccardionOpen, studentInfoAccardion] = useState<boolean>(false)
     const courseStat = progress && progress.courses.find((course: any) => course.course_id === student?.course_id)
-    const [lessonsAccessSetting, {onToggle: toggleAccess}] = useBoolean(false)
-    const [checkedLessons, setCheckedLessons] = useState<Section[]>([])
-    const [ststudent, setStstudent] = useState<boolean>(true)
+    const [setAccess, {isSuccess}] = useSetStudentLessonsAccessMutation()
+    const schoolName = window.location.href.split('/')[4]
 
+    const handleAccessSetting = async () => {
 
-    useEffect(() => {
-        if (student && ststudent) {
-        const checked = student?.sections.map((section) => ({...section, lessons: section.lessons.map(lesson => ({...lesson, lessonChecked: true}))}))
-        setCheckedLessons(checked)
-        setStstudent(false)
-    }
-    }, [student])
+        const lesson_data: { lesson_id: number; available: boolean }[] = []
+        studentLessons &&
+        studentLessons.map(section => {
+            section.lessons.map(lesson => {
+                lesson_data.push({
+                    lesson_id: lesson.lesson_id,
+                    available: lesson.availability
+                })
+            })
+        })
+        const accessData = {
+            student_ids: [student?.student_id],
+            lesson_data: lesson_data,
+        }
 
-
-    const handleLessonCheck = (e:any) => {
-        setCheckedLessons(checkedLessons.map((section) => ({...section, lessons: section.lessons.map(lesson => ({...lesson, lessonChecked: lesson.lesson_id === Number(e.target.id) ? !lesson.lessonChecked : lesson.lessonChecked}))})))
+        console.log(accessData)
+        await setAccess({data: accessData, schoolName})
+            .unwrap()
+            .then(async () => {
+                console.log('uspeh')
+            })
+            .catch(error => {
+                console.log(error.data)
+            })
     }
 
     return (
@@ -76,9 +93,7 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({student, progre
                         <div className={styles.accardion_progress_item}>
                             <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath}/>
                             {/* заглушка */}
-                            <span>
-                {student?.average_mark?.toFixed(0) ?? 0}/{student?.mark_sum ?? 0}
-              </span>
+                            <span>{student?.average_mark?.toFixed(0) ?? 0}/{student?.mark_sum ?? 0}</span>
                         </div>
                     </div>
                     <div className={`${styles.accardion_control_btn} ${isAccardionOpen ? styles.open : ''}`}>
@@ -86,32 +101,8 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({student, progre
                     </div>
                 </div>
                 {isAccardionOpen && (
-                    <div className={styles.accardion_content}>
-                        <div className={styles.accardion_content_check}>
-                            <CheckboxBall isChecked={lessonsAccessSetting} toggleChecked={toggleAccess}/>
-                            <span className={styles.accardion_content_check_span}>Настройка доступа к урокам</span>
-                            {lessonsAccessSetting ?
-                                <Button className={styles.accardion_content_check_btn} text={'Сохранить настройки'}/> :
-                                <span className={styles.accardion_content_check_fake}></span>}
-                        </div>
-                        {checkedLessons?.map(({lessons, section_id, name}) => (
-                            lessons.length > 0 && (<div className={styles.accardion_item} key={section_id}>
-                                <p className={styles.accardion_item_name}>{name}</p>
-                                <div className={styles.accardion_lessons_block}>
-                                    {lessons?.map(({lesson_id, order, type, name, active, lessonChecked}, index: number) => (
-                                        active && (<div key={order + index} className={styles.accardion_lesson}>
-                                            <div>{lessonSvgMapper[type]}</div>
-                                            <p className={styles.accardion_lesson_name}>{name}</p>
-                                            {lessonsAccessSetting &&
-                                                <Checkbox id={`${lesson_id}`} name={'check'} checked={lessonChecked}
-                                             onChange={handleLessonCheck}/>}
-                                            <div></div>
-                                        </div>)
-                                    ))}
-                                </div>
-                            </div>)
-                        ))}
-                    </div>
+                    <LessonsAccardion sectionLessons={studentLessons} setLessons={setStudentLessons}
+                                      handleAccessSetting={handleAccessSetting}></LessonsAccardion>
                 )}
             </div>
         </div>

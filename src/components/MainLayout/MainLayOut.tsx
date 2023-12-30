@@ -9,8 +9,11 @@ import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { Path } from '../../enum/pathE'
 import styles from './mainLayOut.module.scss'
 import { Footer } from 'components/Footer'
+import { useBoolean as useBooleanHook } from '../../customHooks/useBoolean';
+import ChatGPT from '../../components/ChatGPT';
 
 import { motion } from 'framer-motion'
+
 
 export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -18,6 +21,8 @@ export const MainLayOut: FC = memo(() => {
   const navigate = useNavigate()
   const headerId = localStorage.getItem('header_id')
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
+  const schoolName = window.location.href.split('/')[4]
+  const [ toggle, handlers ] = useBooleanHook();
 
   useEffect(() => {
     if (isSuccess) {
@@ -31,7 +36,7 @@ export const MainLayOut: FC = memo(() => {
     }
   }, [isLogin, navigate])
 
-  
+
 
   useEffect(() => {
     if (isSuccess) {
@@ -45,10 +50,7 @@ export const MainLayOut: FC = memo(() => {
       data?.logo_school ? (link.href = data?.logo_school) : (link.href = '')
     }
   }, [data])
-  
 
-  
-  
 
   return (
     <div className={styles.wrapper}>
@@ -65,10 +67,15 @@ export const MainLayOut: FC = memo(() => {
       }}
       transition={{
         delay: 0.1,
+        ease:'easeInOut',
+        duration: 1.2,
       }}>
         <Previous />
         <Outlet />
       </motion.main>
+      {isLogin && schoolName && (
+        <ChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />
+      )}
       <Footer />
     </div>
   )
