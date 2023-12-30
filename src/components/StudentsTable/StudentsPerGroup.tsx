@@ -8,6 +8,9 @@ import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
+import styles from "../../Pages/HomeWork/home_work.module.scss";
+import {Pagination} from "../Pagination/Pagination";
+import {usePagination} from "../../customHooks";
 
 export const StudentsPerGroup: FC = () => {
   const { group_id } = useParams()
@@ -17,6 +20,7 @@ export const StudentsPerGroup: FC = () => {
 
   const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery(schoolName)
   const [fetchStudents, { data, isFetching }] = useLazyFetchStudentsPerGroupQuery()
+  const { page, onPageChange, paginationRange } = usePagination({ totalCount: data?.count as number })
 
   const [tableId, setTableId] = useState<number>()
 
@@ -41,7 +45,7 @@ export const StudentsPerGroup: FC = () => {
   }
 
   const handleReloadTable = () => {
-    fetchStudents({ id: group_id, filters, schoolName })
+    fetchStudents({ id: group_id, filters, schoolName, page })
   }
 
   useEffect(() => {
@@ -64,9 +68,9 @@ export const StudentsPerGroup: FC = () => {
 
   // Фильтра для студентов группы
   const filteredStudents = useMemo(() => {
-    if (!searchTerm) return data ?? []
+    if (!searchTerm) return data?.results ?? []
 
-    return (data ?? []).filter(student => {
+    return (data?.results ?? []).filter(student => {
       return (
         student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -74,6 +78,11 @@ export const StudentsPerGroup: FC = () => {
       )
     })
   }, [searchTerm, data])
+
+  // Перезагрузка после смены страницы пагинатора
+  useEffect(() => {
+    fetchStudents({ id: group_id, filters, schoolName, page })
+  }, [page,])
 
   return (
     <>
@@ -103,6 +112,12 @@ export const StudentsPerGroup: FC = () => {
         isLoading={isFetching || isTablesHeaderFetching}
         tableId={tableId as number}
       />{' '}
+      <Pagination
+          className={styles.pagination}
+          paginationRange={paginationRange}
+          currentPage={page}
+          onPageChange={onPageChange}
+      />
     </>
   )
 }
