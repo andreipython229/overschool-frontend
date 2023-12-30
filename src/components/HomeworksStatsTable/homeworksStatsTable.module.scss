@@ -1,6 +1,11 @@
 @import '../../scss/variable';
 @import '../../scss/mixin.scss';
 
+th,
+td {
+  padding: 0 10px;
+}
+
 .wrapper {
   @media screen and (max-width: 1024px) {
     overflow-x: scroll;
@@ -22,13 +27,13 @@
   min-height: 295px;
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     width: 98%;
-    font-size: 7px;
+    font-size: 14px;
     line-height: normal;
     
   }
   @media only screen and (min-width : 375px) and (max-width : 480px) {
     width: 99%;
-    font-size: 7px;
+    font-size: 14px;
     line-height: normal;
   }
 
@@ -36,7 +41,7 @@
     height: 55px;
     background: #f3f4f6;
     color: #adabb3;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     tr {
       th {
@@ -46,12 +51,12 @@
     }
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       height: 20px;
-      font-size: 8px;
+      font-size: 14px;
       text-align: center;
     }
     @media only screen and (min-width : 375px) and (max-width : 480px) {
      height: 20px;
-     font-size: 8px;
+     font-size: 14px;
      text-align: center;
     }
   }

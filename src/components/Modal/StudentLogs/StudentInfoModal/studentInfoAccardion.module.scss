@@ -2,7 +2,7 @@
 @import '../../../../scss/mixin.scss';
 
 .accardion {
-  min-width: 600px;
+  // min-width: 600px;
   width: 100%;
   border-radius: 5px;
   margin-top: 1rem;
@@ -72,12 +72,18 @@
     &_item {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       margin-left: 3em;
       gap: 5px;
       & span {
         @include font(500, 12px, 150%);
         color: $font-title;
       }
+
+      @media screen and (max-width: 1024px) {
+        margin-left: 0;
+      }
+
     }
   }
 
@@ -120,7 +126,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-left: 1rem;
+    // margin-left: 1rem;
   }
 
   &_item {
@@ -137,7 +143,7 @@
   }
 
   &_header {
-    padding: 1.25rem;
+    padding: 1.25rem 0;
     cursor: pointer;
     display: flex;
     align-items: center;
