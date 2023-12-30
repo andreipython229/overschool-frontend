@@ -10,9 +10,11 @@ import {convertDate} from 'utils/convertDate'
 import mainStyles from '../../Modal.module.scss'
 import styles from './studentInfoModal.module.scss'
 import {useFetchStudentProgressQuery} from '../../../../api/userProgressService'
+import {useLazyFetchStudentLessonsQuery} from '../../../../api/lessonAccessService'
 import {useDeleteStudentFromGroupMutation} from '../../../../api/studentsGroupService'
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material'
 import DatePicker, {registerLocale} from 'react-datepicker'
+import {groupSections, sectionLessons} from "../../../../types/lessonAccessT";
 
 type studentInfoModalT = {
     student: result | null
@@ -53,8 +55,11 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
     const lastActivity = new Date(student?.last_active || '')
     const {mmddyyyy} = convertDate(lastActivity)
     const schoolName = window.location.href.split('/')[4]
+    const schoolId = localStorage.getItem('school_id')
     const [studentProgress, setStudentProgress] = useState<studentProgressT>()
     const {data} = useFetchStudentProgressQuery({user_id: String(student?.student_id), schoolName})
+    const [fetchStudentLessons, { data: allStudentLessons, isFetching }] = useLazyFetchStudentLessonsQuery()
+    const [studentLessons, setStudentLessons] = useState<sectionLessons[]>()
     const [completedPercent, setCompletedPercent] = useState<number>()
     const [openAlert, setOpenAlert] = useState<boolean>(false)
     const [deleteStudent] = useDeleteStudentFromGroupMutation()
@@ -86,6 +91,17 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
             setCompletedPercent(sum / percentsArray.length)
         }
     }, [studentProgress])
+
+    useEffect(() => {
+        schoolId && student && fetchStudentLessons({id: schoolId, student_id: student?.student_id})
+    }, [student])
+
+    useEffect(() => {
+        if (allStudentLessons) {
+            const lessonsPerGroup: groupSections | undefined = allStudentLessons.student_data.find((item: groupSections) => item.group_id === student?.group_id)
+            lessonsPerGroup && setStudentLessons(lessonsPerGroup.sections)
+        }
+    }, [allStudentLessons])
 
     const onChange = (date: Date): void => {
         setRemoveDate(date)
@@ -129,7 +145,6 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
                     )}
                     <h3 className={styles.student_block_name}>{(student?.last_name && student?.first_name) ? `${student?.last_name}  ${student?.first_name}` :
                         (student?.last_name || student?.first_name || "Нет имени")}</h3>
-                    {/*{`${student?.first_name || 'без'} ${student?.last_name || 'имени'}`}*/}
                     <p className={styles.student_block_email}>{student?.email}</p>
                     <p className={styles.student_block_activity}>Был(а) онлайн {`${mmddyyyy}`}</p>
                 </div>
@@ -169,7 +184,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
                     </div>
                 </div>
                 <div className={styles.accardions}>
-                    <StudentInfoAccardion student={student} progress={studentProgress}/>
+                    <StudentInfoAccardion student={student} progress={studentProgress} studentLessons={studentLessons} setStudentLessons={setStudentLessons}/>
                 </div>
                 {student?.group_name && (
                     <div>

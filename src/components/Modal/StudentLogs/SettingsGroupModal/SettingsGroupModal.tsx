@@ -13,6 +13,11 @@ import {
 } from '../../../../api/studentsGroupService'
 import styles from '../studentsLog.module.scss'
 import {SimpleLoader} from '../../../Loaders/SimpleLoader'
+import {
+    useLazyFetchGroupLessonsQuery,
+    useSetGroupLessonsAccessMutation
+} from "../../../../api/lessonAccessService";
+import {groupSections, sectionLessons} from "../../../../types/lessonAccessT";
 
 export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, groupId, courseId}) => {
     const schoolName = window.location.href.split('/')[4]
@@ -25,6 +30,9 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     const [deleteStudentsGroup, {isLoading, isError}] = useDeleteStudentsGroupMutation()
     const [patchGroup] = usePatchStudentsGroupMutation()
     const [patchGroupWithoutTeacher] = usePatchGroupWithoutTeacherMutation()
+    const [fetchGroupLessons, { data: groupAccessInfo, isFetching }] = useLazyFetchGroupLessonsQuery()
+    const [groupLessons, setGroupLessons] = useState<sectionLessons[]>()
+    const [setAccess] = useSetGroupLessonsAccessMutation()
 
     useEffect(() => {
         setBlockHomework(Boolean(data?.group_settings?.task_submission_lock))
@@ -34,6 +42,16 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         data?.teacher_id && setCurrentTeacher(Number(data?.teacher_id))
     }, [isSuccess])
 
+    useEffect(() => {
+        groupId && fetchGroupLessons({group_id: groupId, schoolName: schoolName})
+    }, [groupId])
+
+    useEffect(() => {
+        if (groupAccessInfo) {
+            groupAccessInfo && setGroupLessons(groupAccessInfo.sections)
+        }
+    }, [groupAccessInfo])
+
     const handlerHomeworkCheck = () => {
         setBlockHomework(!blockHomework)
     }
@@ -41,10 +59,10 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         setStrongSubsequence(!strongSubsequence)
     }
 
-  const handleDeleteGroup = async () => {
+    const handleDeleteGroup = async () => {
     await deleteStudentsGroup({id: groupId, schoolName})
     closeModal()
-  }
+    }
 
     const handleSaveGroupSettings = async () => {
         const dataToSend = {
@@ -63,6 +81,34 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         }
         closeModal()
     }
+
+    const handleAccessSetting = async () => {
+        const lesson_data: { lesson_id: number; available: boolean }[] = []
+        groupLessons &&
+        groupLessons.map(section => {
+            section.lessons.map(lesson => {
+                lesson_data.push({
+                    lesson_id: lesson.lesson_id,
+                    available: lesson.availability
+                })
+            })
+        })
+        const accessData = {
+            student_group_id: groupId,
+            lesson_data: lesson_data,
+        }
+
+        console.log(accessData)
+        await setAccess({data: accessData, schoolName})
+            .unwrap()
+            .then(async () => {
+                console.log('uspeh')
+            })
+            .catch(error => {
+                console.log(error.data)
+            })
+    }
+
     if (!isSuccess) {
         return <SimpleLoader/>
     }
@@ -91,6 +137,9 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                             deleteGroup={handleDeleteGroup}
                             isLoading={isLoading}
                             isError={isError}
+                            groupLessons={groupLessons}
+                            setGroupLessons={setGroupLessons}
+                            handleAccessSetting={handleAccessSetting}
                             handlerHomeworkCheck={handlerHomeworkCheck}
                             handlerSubsequence={handlerSubsequenceCheck}
                             handleSave={handleSaveGroupSettings}

@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
+import React, { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 
 import { Input } from 'components/common/Input/Input/Input'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
@@ -13,6 +13,8 @@ import "primereact/resources/primereact.min.css";
 import {useFetchStudentsGroupByCourseQuery} from "../../../../api/studentsGroupService";
 import {ToggleButtonDropDown} from "../../../common/ToggleButtonDropDown";
 import {useFetchStudentProgressQuery} from "../../../../api/userProgressService";
+import {LessonsAccardion} from "../LessonsAccardion/LessonsAccardion";
+import {sectionLessons} from "../../../../types/lessonAccessT";
 
 type MainSettingsGroupPropsT = {
     strongSubsequence: boolean
@@ -29,6 +31,9 @@ type MainSettingsGroupPropsT = {
     teacher: number
     changeTeacher: Dispatch<SetStateAction<any>>
     course: number
+    groupLessons?: sectionLessons[]
+    setGroupLessons: any
+    handleAccessSetting: () => void
 }
 
 export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
@@ -45,7 +50,10 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    handleSave,
                                                                    teacher,
                                                                    changeTeacher,
-                                                                   course
+                                                                   course,
+                                                                   groupLessons,
+                                                                   setGroupLessons,
+                                                                   handleAccessSetting
                                                                }) => {
     const schoolName = window.location.href.split('/')[4]
     const { data: allUsers, isSuccess } = useFetchAllUsersQuery(schoolName)
@@ -102,6 +110,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
         setSelectedTeacher(e.value)
     }
 
+
     return (
         <>
             <PrimeReactProvider>
@@ -137,6 +146,11 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                     </div>
                 </div>
                 <ToggleButtonDropDown isOpen={isAccardionOpen} nameOfItems={'уроки'} handleToggleHiddenBlocks={()=>groupInfoAccardion(prev => !prev)} />
+                {isAccardionOpen && groupLessons && (
+                    <LessonsAccardion sectionLessons={groupLessons} setLessons={setGroupLessons}
+                                      handleAccessSetting={handleAccessSetting}></LessonsAccardion>
+                )}
+
                 {/*  {strongSubsequence && (*/}
                 {/*      <div className={styles.groupSetting_selectBlock}>*/}
                 {/*          /!* <div className={styles.groupSetting_selectBlock_select}>*/}
