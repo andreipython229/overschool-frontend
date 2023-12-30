@@ -1,7 +1,7 @@
 import { FC, memo, useEffect, useState, ReactNode } from 'react'
 
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { classesSettingIconPath } from './config/svgIconsPath'
+import { classesSettingIconPath, downLoadIconPath } from './config/svgIconsPath'
 import { generateData } from '../../utils/generateData'
 import { useLazyFetchStudentsTableHeaderQuery } from '../../api/studentTableService'
 import { useBoolean } from 'customHooks'
@@ -146,8 +146,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
               </tr>
             </thead>
           )}
-          <button className={styles.table_button} onClick={handleOnExport}>отчёт
-          </button>
+
           <thead className={styles.table_thead}>
             <tr>
               {cols.map(col => (
@@ -182,9 +181,14 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
                 </th>
               ))}
               <td>
+                <>
                 <button className={styles.svgSettingsWrapper}>
                   <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
                 </button>
+                <button className={styles.svgSettings} onClick={handleOnExport}>
+                  <IconSvg width={22} height={22} viewBoxSize={'0 0 18 18'} path={downLoadIconPath} />
+                </button>
+                </>
               </td>
             </tr>
           </thead>
