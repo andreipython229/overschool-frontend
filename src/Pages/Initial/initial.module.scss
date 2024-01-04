@@ -16,6 +16,7 @@
   &_header {
     margin: 0 45px;
     max-height: 45px;
+    width: 100vw;
     @include display(flex, row, space-between);
   }
 
@@ -189,6 +190,7 @@
   @include display(flex);
   justify-content: center;
   align-items: center;
+  margin-right: 5em;
 
   &_logIn {
     margin-right: 15px;

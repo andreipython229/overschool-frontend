@@ -29,7 +29,7 @@
     color: $font-color;
     outline: none;
     border: none;
-    padding: 14px 0 14px 5px;
+    padding: 8px 0 8px 5px;
     @include font(500, 14px);
   }
   & input ::placeholder {
