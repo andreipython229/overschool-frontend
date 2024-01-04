@@ -32,7 +32,7 @@ export const schoolHeaderService = createApi({
       }),
       providesTags: ['studentPerSchool'],
     }),
-    fetchStudentsDataPerSchool: build.query<studentsTableInfoT, any>({
+    fetchStudentsDataPerSchool: build.query<studentsTableStatsT, any>({
       query: ({id, filters}) => ({
         url: createUrlWithParams(`schools/${id}/stats/`, filters),
       }),

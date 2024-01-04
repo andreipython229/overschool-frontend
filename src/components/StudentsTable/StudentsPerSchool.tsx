@@ -7,7 +7,7 @@ import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
-import {usePagination} from "../../customHooks";
+import {useDebounceFunc, usePagination} from "../../customHooks";
 import { Pagination } from "../Pagination/Pagination"
 import styles from "../../Pages/HomeWork/home_work.module.scss";
 
@@ -22,6 +22,8 @@ export const StudentsPerSchool: FC = () => {
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: data?.count as number })
 
   const [tableId, setTableId] = useState<number>()
+
+  const debounce = useDebounceFunc(dispatch)
 
   const handleAddLastActivityFilter = (data1: string, data2: string) => {
     dispatch(addFilters({ key: 'studentsPerSchool', filters: { last_active_min: data1, last_active_max: data2 } }))
@@ -52,7 +54,7 @@ export const StudentsPerSchool: FC = () => {
   }, [filters])
 
   useEffect(() => {
-    dispatch(addFilters({ key: 'studentsPerSchool', filters: {'show_deleted': 'true' } }));
+    dispatch(addFilters({ key: 'studentsPerSchool', filters: {'hide_deleted': 'true' } }));
   }, [])
 
   useEffect(() => {
@@ -66,7 +68,12 @@ export const StudentsPerSchool: FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const updateStudents = (value: string) => {
-      setSearchTerm(value)
+      // setSearchTerm(value)
+      debounce(addFilters({ key: 'studentsPerSchool', filters: {'search_value': value } }));
+  }
+
+  const handleAddSortToFilters = (sort_by_value: string, sort_order_value: string) => {
+      dispatch(addFilters({key: 'studentsPerSchool', filters: {'sort_by': sort_by_value, 'sort_order': sort_order_value}}))
   }
 
   // Перезагрузка после смены страницы пагинатора
@@ -116,6 +123,7 @@ export const StudentsPerSchool: FC = () => {
           students={filteredStudents as studentsTableInfoT}
           isLoading={isFetching || isTablesHeaderFetching}
           tableId={tableId as number}
+          handleAddSortToFilters={handleAddSortToFilters}
       />
       <Pagination
           className={styles.pagination}

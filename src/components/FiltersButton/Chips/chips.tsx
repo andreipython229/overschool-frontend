@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import {FC, useEffect} from 'react'
 
 import { removeFilter, clearFilters } from 'store/redux/filters/slice'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -20,26 +20,30 @@ export const ChipsComponent: FC<chipsComponentT> = ({ filters, filterKey, chipsV
   const handleRemoveChip = (filterTerm: string) => {
     dispatch(removeFilter({ key: filterKey, filterName: filterTerm }))
   }
-
   const isFiltersAdded = chips?.some(([_, value]) => value !== '')
+
+  useEffect(() => {
+    console.log("chips = ", chips)
+  }, [chips]);
 
   return (
     <>
       <div className={styles.chipsContainer}>
         {chips?.map(([filterTerm, chipText], index) => (
-          <div key={String(index)+chipText}>
-            {chipText && (
-              <div key={index} className={styles.chip}>
-                <span className={styles.chips_filter}>{chipsVal[filterTerm]}:</span>
-                <span>{chipText == 'true' ? (
-                    <>Да</>
-                ) : ( <>{chipText}</>)}</span>
-                <button className={styles.removeButton} onClick={() => handleRemoveChip(filterTerm)}>
-                  <IconSvg width={8} height={8} viewBoxSize="0 0 16 12" path={crossIconPath} />
-                </button>
-              </div>
-            )}
-          </div>
+            filterTerm !== 'search_value' && filterTerm !== 'sort_by' && filterTerm !== 'sort_order' && (
+              <div key={String(index)+chipText}>
+              {chipText && (
+                <div key={index} className={styles.chip}>
+                  <span className={styles.chips_filter}>{chipsVal[filterTerm]}:</span>
+                  <span>{chipText == 'true' ? (
+                      <>Да</>
+                  ) : ( <>{chipText}</>)}</span>
+                  <button className={styles.removeButton} onClick={() => handleRemoveChip(filterTerm)}>
+                    <IconSvg width={8} height={8} viewBoxSize="0 0 16 12" path={crossIconPath} />
+                  </button>
+                </div>
+              )}
+            </div>)
         ))}
         {isFiltersAdded && (
           <button className={styles.removeChips} onClick={() => dispatch(clearFilters(filterKey))}>

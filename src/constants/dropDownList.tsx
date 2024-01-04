@@ -81,10 +81,10 @@ export const dropDownListFilterHomework = [
 ]
 
 export const dropDownListFilterStudents = [
-  { id: 20, title: 'Имя' }  ,
-  { id: 19, title: 'Фамилия' },
-  { id: 17, title: 'курсы' },
-  { id: 18, title: 'группы' },
+  // { id: 20, title: 'Имя' }  ,
+  // { id: 19, title: 'Фамилия' },
+  // { id: 17, title: 'курсы' },
+  // { id: 18, title: 'группы' },
   { id: 12, title: 'Суммарный балл' },
   { id: 16, title: 'Средний балл' },
   { id: 15, title: 'Последняя активность' },
@@ -92,17 +92,17 @@ export const dropDownListFilterStudents = [
 ]
 
 export const dropDownListFilterStudentsCourses = [
-  { id: 30, title: 'Имя' }  ,
-  { id: 29, title: 'Фамилия' },
-  { id: 18, title: 'группы' },
+  // { id: 30, title: 'Имя' }  ,
+  // { id: 29, title: 'Фамилия' },
+  // { id: 18, title: 'группы' },
   { id: 12, title: 'Суммарный балл' },
   { id: 16, title: 'Средний балл' },
   { id: 15, title: 'Последняя активность' },
 ]
 
 export const dropDownListFilterStudentsGroups = [
-  { id: 38, title: 'Имя' }  ,
-  { id: 37, title: 'Фамилия' },
+  // { id: 38, title: 'Имя' }  ,
+  // { id: 37, title: 'Фамилия' },
   { id: 12, title: 'Суммарный балл' },
   { id: 16, title: 'Средний балл' },
   { id: 15, title: 'Последняя активность' },

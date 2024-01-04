@@ -20,9 +20,10 @@ type StudentsTableWrapperT = {
   tableId: number
   students: studentsTableInfoT
   handleReloadTable?: () => void
+  handleAddSortToFilters?: (sort_by: string, sort_order: string) => void
 }
 
-export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId, handleReloadTable }) => {
+export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId, handleReloadTable, handleAddSortToFilters }) => {
   const [isModalOpen, { on, off, onToggle }] = useBoolean()
   const [isStudentModalOpen, { on: studentModalOn, off: studentModalOff, onToggle: toggleStudentInfoModal }] = useBoolean()
 
@@ -43,46 +44,53 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
     Курс: 'asc',
     Группа: 'asc',
     'Дата Регистрации': 'asc',
-    'Средний бал': 'asc',
+    'Средний балл': 'asc',
+    'Дата добавления в группу': 'desc',
+    'Дата удаления из группы': 'asc',
+    'Прогресс': 'asc',
+    'Сумарный балл': 'asc'
+
   })
 
   // Функция для обработки сортировки столбцов
   const handleColumnSort = (col: string) => {
     const direction = sortDirection[col] === 'asc' ? 'desc' : 'asc'
-    const sortedRows = rows?.slice().sort((a, b) => {
-      if (col === 'Имя') {
-        const valueA = a[col] as { text: string; image: ReactNode }
-        const valueB = b[col] as { text: string; image: ReactNode }
 
-        if (typeof a[col] === 'object' && typeof b[col] === 'object') {
-          if (valueA.text < valueB.text) {
-            return direction === 'asc' ? -1 : 1
-          }
-          if (valueA.text > valueB.text) {
-            return direction === 'asc' ? 1 : -1
-          }
-          return 0
-        } else {
-          if (valueA < valueB) {
-            return direction === 'asc' ? -1 : 1
-          }
-          if (valueA > valueB) {
-            return direction === 'asc' ? 1 : -1
-          }
-          return 0
-        }
-      } else {
-        if (a[col] < b[col]) {
-          return direction === 'asc' ? -1 : 1
-        }
-        if (a[col] > b[col]) {
-          return direction === 'asc' ? 1 : -1
-        }
-        return 0
+    if (handleAddSortToFilters) {
+      switch (col) {
+        case 'Имя':
+          handleAddSortToFilters('last_name', direction)
+          break;
+        case 'Email':
+          handleAddSortToFilters('email', direction)
+          break;
+        case 'Курс':
+          handleAddSortToFilters('course_name', direction)
+          break;
+        case 'Группа':
+          handleAddSortToFilters('group_name', direction)
+          break;
+        case 'Дата добавления в группу':
+          handleAddSortToFilters('date_added', direction)
+          break;
+        case 'Дата удаления из группы':
+          handleAddSortToFilters('date_removed', direction)
+          break;
+        case 'Прогресс':
+          handleAddSortToFilters('progress', direction)
+          break;
+        case 'Суммарный балл':
+          handleAddSortToFilters('mark_sum', direction)
+          break;
+        case 'Средний балл':
+          handleAddSortToFilters('average_mark', direction)
+          break;
+        case 'Дата регистрации':
+          handleAddSortToFilters('last_active', direction)
+          break;
       }
-    })
+    }
 
-    setRows(sortedRows)
     setSortDirection({ ...sortDirection, [col]: direction })
   }
 
@@ -154,25 +162,29 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
                   {sortDirection[col] && (
                     <span>
                       {sortDirection[col] === 'asc' ? (
-                        <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M7 3V21M7 21L3 17M7 21L11 17M15.5 14H20.5L15.5 21H20.5M16 9H20M15 10L18 3L21 10"
-                            stroke="currentColor"
-                            strokeWidth="1"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        <div className={styles.tableSortButton}>
+                          <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M7 3V21M7 21L3 17M7 21L11 17M15.5 14H20.5L15.5 21H20.5M16 9H20M15 10L18 3L21 10"
+                              stroke="currentColor"
+                              strokeWidth="1"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
                       ) : (
-                        <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M7 3V21M7 21L3 17M7 21L11 17M15.5 3H20.5L15.5 10H20.5M16 20H20M15 21L18 14L21 21"
-                            stroke="currentColor"
-                            strokeWidth="1"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        <div className={styles.tableSortButton}>
+                          <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M7 3V21M7 21L3 17M7 21L11 17M15.5 3H20.5L15.5 10H20.5M16 20H20M15 21L18 14L21 21"
+                              stroke="currentColor"
+                              strokeWidth="1"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
                       )}
                     </span>
                   )}
