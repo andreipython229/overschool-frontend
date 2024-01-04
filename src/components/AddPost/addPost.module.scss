@@ -207,6 +207,10 @@
           width: 100%;
         }
 
+        &:hover {
+          border: solid 2px #BA75FF;
+        }
+
         &_title {
           margin-bottom: 18px;
           padding-top: 14px;
