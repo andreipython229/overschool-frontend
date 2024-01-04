@@ -69,10 +69,10 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
             </Tooltip>
           </div>
         ) : (
-          <>
+          <div className={styles.header_block}>
             <Button variant={'logIn'} onClick={handleLoginUser} text={'Войти'} />
             <Button onClick={handleRegistrationUser} variant={'registrationDisabled'} text={'Создать школу'} />
-          </>
+          </div>
         )}
       </div>
     </header>

@@ -64,7 +64,6 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
             style={{
               width: '85px',
               height: '100%',
-              padding: '17px',
               fontSize: '14px',
               fontWeight: '400',
               borderRadius: '10px',

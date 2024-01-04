@@ -24,7 +24,6 @@ export const StudentCourse: FC = () => {
             localStorage.setItem('sections_count', course?.sections.length.toString());
             dispatch(setModules(course));
         }
-
     }, [course, dispatch])
 
     return (

@@ -17,22 +17,29 @@ import { Path } from '../../enum/pathE'
 
 import Badge from '@mui/material/Badge'
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store/redux/store'
 import { SvgIcon } from '@mui/material'
 
 import { motion } from 'framer-motion'
+import { role } from 'store/redux/users/slice'
+import { RoleE } from 'enum/roleE'
 
 interface IIsActive {
   isActive?: boolean
 }
 
 export const Navbar: FC = memo(() => {
-  const { role } = useAppSelector(selectUser)
+  const { role: UserRole } = useAppSelector(selectUser)
   const unRead = useSelector((state: RootState) => state.unread.totalUnread)
+  const dispatchRole = useDispatch()
 
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
   const [isChatOpen, { on, off }] = useBoolean()
+
+  const handleHome = () => {
+    dispatchRole(role(RoleE.Unknown))
+  }
 
   return (
     <>
@@ -57,14 +64,14 @@ export const Navbar: FC = memo(() => {
         layout
       >
         <Tooltip title={'Вернуться на главную'}>
-          <NavLink key={'home'} to={Path.InitialPage} className={isActive}>
+          <NavLink key={'home'} to={Path.InitialPage} onClick={handleHome} className={isActive}>
             <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.1em' }}>
               <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
             </SvgIcon>
           </NavLink>
         </Tooltip>
         <div className={styles.navbar_setting_account}>
-          {navlinkByRoles[role].map(({ path, icon }, index: number) =>
+          {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
               <Tooltip
                 title={
@@ -101,7 +108,7 @@ export const Navbar: FC = memo(() => {
             ),
           )}
           <Tooltip title={'Связаться с техподдержкой'} arrow placement={'right'}>
-            <a key={'techsupport'} href={'https://t.me/over_school'} target="_blank" rel='noreferrer'>
+            <a key={'techsupport'} href={'https://t.me/over_school'} target="_blank" rel="noreferrer">
               <SvgIcon
                 className={styles.navbar_menu}
                 viewBox={'0 0 508 508'}

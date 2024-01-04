@@ -20,21 +20,18 @@ import styles from './App.module.scss'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { RoleE } from 'enum/roleE'
 
-
 export const App = () => {
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
   const schoolName = window.location.href.split('/')[4]
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  
 
   useEffect(() => {
     if (!isLogin && pathname !== Path.CreateSchool && pathname !== Path.InitialPage) {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])
-
 
   // useEffect(() => {
   //   if (isLogin && schoolName.length === 0) {
@@ -54,10 +51,10 @@ export const App = () => {
   }, [])
 
   useEffect(() => {
-    if (isLogin && !schoolName) {
-      navigate(Path.ChooseSchool);
+    if (isLogin && !schoolName && pathname !== Path.InitialPage) {
+      navigate(Path.ChooseSchool)
     }
-  }, [isLogin, schoolName, navigate]);
+  }, [isLogin, schoolName, navigate])
 
   scrollToTop()
 
