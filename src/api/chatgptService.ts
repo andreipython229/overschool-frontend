@@ -2,10 +2,19 @@ import { baseQuery } from './baseApi'
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 
 
-export interface LatestMessagesResponse {
+export interface UserQuestion {
   sender?: string;
   sender_question: string;
-  answer: string | SendMessageResponse;
+}
+
+export interface BotAnswer {
+  sender?: string;
+  answer: string;
+}
+
+export interface LatestMessagesResponse {
+  userQuestions: Array<UserQuestion>;
+  botAnswers?: Array<BotAnswer>;
 }
 
 export interface SendMessagePayload {
