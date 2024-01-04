@@ -18,8 +18,9 @@ export const chipsVal: ChipsVal = {
     mark_sum_max: 'суммарный балл до',
     last_active_min: 'последний ответ с',
     last_active_max: 'последний ответ до',
-    show_deleted: 'Скрыть удаленные',
+    hide_deleted: 'Скрыть удаленные',
     first_name: 'Имя',
     last_name: 'Фамилия',
+    search_value: 'Поиск'
   },
 }

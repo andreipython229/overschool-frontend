@@ -10,14 +10,14 @@ import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
 import styles from "../../Pages/HomeWork/home_work.module.scss";
 import {Pagination} from "../Pagination/Pagination";
-import {usePagination} from "../../customHooks";
+import {useDebounceFunc, usePagination} from "../../customHooks";
 
 export const StudentsPerGroup: FC = () => {
   const { group_id } = useParams()
   const dispatch = useAppDispatch()
   const schoolName = window.location.href.split('/')[4]
   const filters = useAppSelector(state => state.filters['studentsPerGroup'])
-
+  const debounce = useDebounceFunc(dispatch)
   const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery(schoolName)
   const [fetchStudents, { data, isFetching }] = useLazyFetchStudentsPerGroupQuery()
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: data?.count as number })
@@ -63,7 +63,12 @@ export const StudentsPerGroup: FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const updateStudents = (value: string) => {
-    setSearchTerm(value)
+    // setSearchTerm(value)
+    debounce(addFilters({ key: 'studentsPerGroup', filters: {'search_value': value } }));
+  }
+
+  const handleAddSortToFilters = (sort_by_value: string, sort_order_value: string) => {
+      dispatch(addFilters({key: 'studentsPerGroup', filters: {'sort_by': sort_by_value, 'sort_order': sort_order_value}}))
   }
 
   // Фильтра для студентов группы
@@ -111,6 +116,7 @@ export const StudentsPerGroup: FC = () => {
         students={filteredStudents as studentsTableInfoT}
         isLoading={isFetching || isTablesHeaderFetching}
         tableId={tableId as number}
+        handleAddSortToFilters={handleAddSortToFilters}
       />{' '}
       <Pagination
           className={styles.pagination}

@@ -41,8 +41,8 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
   const { data: homeworks } = useFetchLessonsQuery({ type: 'homework', schoolName })
   const { data: groups } = useFetchStudentsGroupQuery(schoolName)
   const { data: users } = useFetchStudentsDataPerSchoolQuery({ id: schoolId })
-  const firstNames = users?.map(user => ({ name: user.first_name }))
-  const lastNames = users?.map(user => ({ name: user.last_name }))
+  const firstNames = users?.results.map(user => ({ name: user.first_name }))
+  const lastNames = users?.results.map(user => ({ name: user.last_name }))
 
   const filtersMaper: { [key: string]: JSX.Element } = {
     // Фильтра домашек
