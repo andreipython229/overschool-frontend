@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+
+html {
+    font-size: 16px;
+
+    @media screen and (min-width: 320px) and (max-width: 420px) {
+        font-size: 3px;
+    }
+    @media screen and (min-width: 420px) and (max-width: 768px) {
+        font-size: 4px;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        font-size: 7px;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1440px) {
+        font-size: 7px;
+    }
+    @media screen and (min-width: 1440px) and (max-width: 2048px) {
+        font-size: 8px;
+    }
+    @media screen and (min-width: 2048px) and (max-width: 3072px) {
+        font-size: 12px;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(255, 251, 251);
+}
+
+.main {
+    max-width: 3508px;
+    max-height: 2480px;
+    margin: 0 auto;
+    padding: 26rem 18.75rem 26rem 13.5rem;
+    border: 1px solid black;
+    background:  no-repeat bottom url('./img/courseName.svg'), linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+
+    @media screen and (min-width: 320px) and (max-width: 1024px) {
+        flex-flow: column nowrap;
+    }
+
+}
+
+.logo {
+    max-width: 1041px;
+    max-height: 1648px;
+    flex: 0 1 50%;
+    margin-right: 15rem;
+
+    @media screen and (max-width: 1024px) {
+        margin-right: 0;
+        margin-bottom: 15rem;
+    }
+
+        &__img {
+            width: 100%;
+            line-height: 0;
+        }
+}
+
+.border {
+    width: 110%;
+    position: absolute;
+    top: -10%;
+    left: -5%;
+}
+
+.certificate {
+    flex: 1 0 50%;
+    max-width: 1680px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+		&__header {
+            margin-bottom: 5.625rem;
+            font-weight: 700;
+            font-size: 12.5rem;
+            text-align: center;
+            text-transform: uppercase;
+		}
+
+		&__producer {
+            position: relative;
+            width: max-content;
+            margin-bottom: 11.875rem;
+            padding: 0.9375rem 0;     
+
+            font-weight: 600;
+            font-size: 4.75rem;
+            text-align: center;
+            text-transform: uppercase;
+		}
+
+		&__graduate {
+            margin-bottom: 6.25rem;
+            border-bottom: 1px solid rgb(255, 251, 251);
+            font-weight: 500;
+            font-size: 8.125rem;
+            text-align: center;
+            text-transform: uppercase;
+		}
+
+		&__content {
+            margin-bottom: 6.875rem;
+            font-weight: 400;
+            font-size: 3.75rem;
+            text-align: start;
+		}
+}
+
+.bold {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.signs {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    font-weight: 400;
+    font-size: 3.75rem;
+    text-align: start;
+    width: 100%;
+
+        &__date {
+            flex: 1 1 50%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-end;
+        }
+
+		&__content {
+            flex: 1 1 50%;
+		}
+}
+
+.sign {
+    display: flex;
+    justify-content: space-between;
+
+        &:nth-child(1) {
+            margin-bottom: 4.375rem;
+        }
+
+		&__signatory {
+		}
+
+		&__img {
+            flex: 0 1 250px;
+            position: relative;
+            border-bottom: 1px solid rgb(255, 251, 251);
+		}
+
+        &__stamp {
+            position: absolute;
+            width: 100%;
+        }
+}
