@@ -4,6 +4,7 @@ import { SendMessagePayload, useSendMessageMutation, useFetchLatestMessagesQuery
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
 import styles from './chatgpt.module.scss';
+import { log } from 'console';
 
 interface ChatGPTProps {
   openChatModal: () => void;
@@ -22,6 +23,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   const [sendMessage, mutation] = useSendMessageMutation();
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const userQuestions = Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
   const botAnswers = Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
@@ -44,6 +46,24 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       handleSendMessage(messageInput);
     }
   };
+
+  const formatBotAnswer = (answer: string): JSX.Element => {
+    let formattedAnswer = answer.replace(/\*\*(.*?)\*\*/g, (_, content) => `<strong>${content}</strong>`);
+    formattedAnswer = formattedAnswer.replace(/####(.*?)/g, (_, content) => `${content}`);
+    formattedAnswer = formattedAnswer.replace(/```(.*?)/g, (_, code) => {
+        const lines = code.split('\n').map((line: string, index: number) => (
+            `<pre key=${index} class="code-container">${line}</pre>`
+        ));
+        return `<div>${lines.join('')}</div>`;
+    });
+
+    return (
+        <div
+            dangerouslySetInnerHTML={{ __html: `<b style="color: #955dd3;">OVER AI:</b> ${formattedAnswer}` }}
+            style={{ wordWrap: 'break-word', color: '#333' }}
+        />
+    );
+};
 
   const fetchMessages = async () => {
     try {
@@ -76,6 +96,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const handleSendMessage = async (messageInput: string) => {
     if (messageInput.trim() !== '') {
       try {
+        setIsLoading(true);
+
         if (userId !== null) {
           const payload: SendMessagePayload = {
             user_id: userId.toString(),
@@ -93,7 +115,10 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         }
       } catch (error: unknown) {
         setError('Ошибка при отправке сообщения.');
+      } finally {
+        setIsLoading(false);
       }
+
       setTimeout(() => {
         setError(null);
       }, 10000);
@@ -114,21 +139,19 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
             </button>
             <div className={styles.messageContainer} ref={messageContainerRef}>
             {userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
-              <div key={index} className={styles.message}>
+              <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
                 <div className="user-question">
                   <span>
-                    <b>Вы:</b> {userQuestion.sender_question}
+                    <b style={{ color: '#955dd3' }}>Вы:</b> {userQuestion.sender_question}
                   </span>
                 </div>
-                  {index < botAnswers.length && (
-                    <div className="bot-response">
-                      <span>
-                        <b>OVER AI:</b> {typeof botAnswers[index].answer === 'string' ? botAnswers[index].answer : ''}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              ))}
+                {index < botAnswers.length && (
+                  <div className="bot-response" key={index} style={{ wordWrap: 'break-word' }}>
+                    {formatBotAnswer(botAnswers[index].answer)}
+                  </div>
+                )}
+              </div>
+            ))}
             </div>
             {error && (
               <div className={`${styles.errorContainer} ${error && styles.visible}`}>
@@ -136,14 +159,23 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
               </div>
             )}
             <div className={styles.inputContainer}>
-              <input
-                type="text"
-                placeholder="Задайте вопрос OVER AI"
-                value={messageInput}
-                onChange={(e) => setMessageInput(e.target.value)}
-                onKeyPress={handleKeyPress}
-              />
-              <button onClick={() => handleSendMessage(messageInput)}>▲</button>
+            {isLoading ? (
+              <div className={styles.loadingSpinner}>
+                <div className={styles.spinner}></div>
+                <span> Генерация сообщения...</span>
+              </div>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  placeholder="Задайте вопрос OVER AI"
+                  value={messageInput}
+                  onChange={(e) => setMessageInput(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                />
+                <button onClick={() => handleSendMessage(messageInput)}>▲</button>
+              </>
+            )}
             </div>
           </div>
         </div>
