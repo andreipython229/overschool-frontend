@@ -4,7 +4,6 @@ import { SendMessagePayload, useSendMessageMutation, useFetchLatestMessagesQuery
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
 import styles from './chatgpt.module.scss';
-import { log } from 'console';
 
 interface ChatGPTProps {
   openChatModal: () => void;
