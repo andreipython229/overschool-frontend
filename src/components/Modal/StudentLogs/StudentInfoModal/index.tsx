@@ -113,8 +113,8 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
         formData.append('role', 'Student')
         formData.append('student_groups', String(student?.group_id))
         const year = removeDate.getFullYear()
-        const month = removeDate.getMonth() + 1
-        const day = removeDate.getDate()
+        const month = ("0" + (removeDate.getMonth() + 1)).slice(-2)
+        const day = ("0" + removeDate.getDate()).slice(-2)
         formData.append('date', `${year}-${month}-${day}`)
 
         await deleteStudent({data: formData, schoolName: schoolName}).unwrap()
