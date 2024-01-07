@@ -228,36 +228,40 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                 </button>
               </div>
             ) : (
-              <div className={styles.coursePreviewHeaderRedactor}>
-                <div style={{ display: 'flex' }}>
-                  <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_edit} onClick={showSettingsModal}>
-                    <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
-                    Изменить название урока
-                  </button>
-
-                  <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save} onClick={handleSaveChanges}>
-                    <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
-                    Сохранить изменения
-                  </button>
-
-                  <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
-                    <IconSvg functionOnClick={handleDeleteLesson} width={16} height={16} viewBoxSize="0 0 19 19" path={deleteIconPath} />
-                    Удалить
-                  </button>
-                </div>
-                <div style={publickButton}>
-                  <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
-                  <PublishedMark isPublished={isPublished} />
-                </div>
+              <div>
+                
               </div>
             )}
           </div>
         </div>
         {isEditing ? (
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
-            <span className={styles.redactorCourse_rightSideWrapper_rightSide_nameSettings}>{lesson && 'name' in lesson && lesson.name}</span>
+            <div className={styles.redactorCourse_rightSideWrapper_rightSide_blockAll}>
+              <div className={styles.redactorCourse_rightSideWrapper_rightSide_block}>
+                <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>{lesson && 'name' in lesson && lesson.name}</span>
+              </div>
+              <div className={styles.coursePreviewHeaderRedactor}>  
+              <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_edit} onClick={showSettingsModal}>
+                <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
+                 Изменить название урока
+              </button>
+
+              <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save} onClick={handleSaveChanges}>
+                <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
+                 Сохранить изменения
+              </button>
+
+              <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
+                <IconSvg functionOnClick={handleDeleteLesson} width={16} height={16} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+              </button>
+              </div>                         
+            </div>
             <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
               <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
+              <div style={publickButton}>
+                  <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
+                  <PublishedMark isPublished={isPublished} />
+                </div>
             </div>
             {lesson.type !== 'test' && (
               <>
@@ -304,6 +308,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
                   <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} setLesson={setLesson} deleteAudio={handleDeleteAudioFile} />
                 </div>
+              
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
 
                 {renderFiles?.map(({ file, id, size, file_url }, index: number) => (
@@ -351,7 +356,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
               position: 'absolute',
               zIndex: 20,
               top: '50%',
-              left: '50%',
+              left: '-50%',
               transform: 'translate(-50%, -50%)',
             }}
           >

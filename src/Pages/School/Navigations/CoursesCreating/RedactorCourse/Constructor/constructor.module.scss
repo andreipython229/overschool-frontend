@@ -62,6 +62,7 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    align-items: center;
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       width: 100%;
       text-align: center;
@@ -93,6 +94,7 @@
 
       &_headerText {
         position: relative;
+        
 
         &_title {
           position: relative;
@@ -101,6 +103,8 @@
           background-color: transparent;
           color: $font-title;
           height: 30px;
+
+          
         }
 
         &_inputWrapper {
@@ -231,6 +235,12 @@
       }
     }
 
+    &_modul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     &_classes {
       width: 236px;
 
@@ -263,6 +273,7 @@
   &_rightSideWrapper {
     width: 95%;
     min-width: 0;
+    
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       margin: 5% 0 2% 0;
     }
@@ -272,12 +283,16 @@
 
     &_rightSide {
       background: #ffffff;
-      padding: 30px 45px 50px 45px;
+      padding: 30px 45px 0px 0px;
       height: fit-content;
       margin-bottom: 30px;
       border-radius: 10px;
       width: 100%;
-      box-shadow: $box-shadow;
+
+      &:hover {
+        border: solid 3px #BA75FF ;
+      }
+      
       @media only screen and (min-width : 320px) and (max-width : 375px) {
         margin: 0 auto;
         padding: 2%;
@@ -328,6 +343,7 @@
           &_edit {
             &:hover {
               background-color: rgba(190, 190, 190, 0.4);
+              border: solid 2px #BA75FF;
             }
 
             @include display(flex, row, flex-start, center);
@@ -336,7 +352,7 @@
             border: none;
             text-align: center;
             background: #f3f4f6;
-            font-size: 13px;
+            font-size: 12px;
             color: #6b728f;
             border-radius: 6px;
             padding: 11px 0 11px 12px;
@@ -353,6 +369,7 @@
           &_save {
             &:hover {
               background-color: rgba(190, 190, 190, 0.4);
+              border: solid 2px #BA75FF;
             }
 
             @include display(flex, row, flex-start, center);
@@ -362,7 +379,7 @@
             border: none;
             text-align: center;
             background: #f3f4f6;
-            font-size: 13px;
+            font-size: 12px;
             color: #6b728f;
             border-radius: 6px;
             padding: 11px 0 11px 16px;
@@ -379,11 +396,12 @@
           &_delete {
             &:hover {
               background-color: rgba(190, 190, 190, 0.4);
+              border: solid 2px #BA75FF;
             }
 
             @include display(flex, row, flex-start, center);
             margin-left: 15px;
-            width: 200px;
+            // width: 200px;
             height: 36px;
             border: none;
             text-align: center;
@@ -391,11 +409,11 @@
             font-size: 13px;
             color: #6b728f;
             border-radius: 6px;
-            padding: 11px 0 11px 16px;
+            padding: 5px 5px 5px 5px;
 
-            & svg {
-              margin-right: 5px;
-            }
+            // & svg {
+            //   margin-right: 5px;
+            // }
 
             input {
               @include position_t_l(absolute, 0, 0, -20);
@@ -406,15 +424,31 @@
 
       &_title {
         margin-top: 10px;
-        color: $font-title;
+        margin-left: 45px;
+        color: #BA75FF;
         font-size: 16px;
       }
 
-      &_nameSettings {
-        color: $font-title;
-        font-size: 25px;
-        font-weight: bold;
+      &_blockAll {
+        display: flex;
+        align-items: center;
       }
+      
+      &_block {
+        display: flex;
+        background-color: #BA75FF;
+        width: 270px;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        padding-left: 45px;
+
+        &_nameSettings {
+          color: #FFFFFF;
+          font-size: 20px;
+          font-weight: 700;
+        }
+
+     }
 
       &_functional {
         margin-top: 40px;
@@ -427,11 +461,12 @@
 
         &_content {
           @include display(flex, row, space-between);
-          margin-bottom: 20px;
+          margin-bottom: 50px;
+          margin-top: 50px;
 
           &_preview {
             color: $font-color-rose;
-            font-size: 12px;
+            font-size: 16px;
             margin-right: 11px;
           }
         }
@@ -441,6 +476,7 @@
             @include font(500, 16px, 19px);
             margin-bottom: 0;
             color: #4d5766;
+            margin-left: 45px;
           }
         }
       }
@@ -450,6 +486,8 @@
         margin: 8px 0 15px;
         font-size: 12px;
         color: #9f9f9f;
+        margin-left: 45px;
+        padding-bottom: 10px;
       }
     }
   }
@@ -526,7 +564,7 @@ hr {
 
 .coursePreviewHeaderRedactor {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     display: flex;

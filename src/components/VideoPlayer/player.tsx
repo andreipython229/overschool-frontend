@@ -85,7 +85,7 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
         <></>
       )}
       {currentVideoSrc && isEditing && handleDeleteVideo && (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', paddingLeft:'10px' }}>
           {videoSrc && (
             <a href={videoSrc} rel={'noreferrer'} target={'_blank'} download={'videoDownload'}>
               <div className={styles.videoPlayer_btnDownload}>
