@@ -222,10 +222,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock}>
             {!isEditing ? (
               <div className={styles.coursePreviewHeader}>
-                <button onClick={() => setIsEditing(true)} className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_setting}>
-                  <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
-                  Редактировать
-                </button>
+                
               </div>
             ) : (
               <div>
@@ -346,6 +343,15 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
           </div>
         ) : (
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
+            <div className={styles.redactorCourse_rightSideWrapper_rightSide_nameBlock}>
+              <div className={styles.redactorCourse_rightSideWrapper_rightSide_block}>
+                  <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>{lesson && 'name' in lesson && lesson.name}</span>
+              </div>
+              <button onClick={() => setIsEditing(true)} className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_setting}>
+                    <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
+                    Редактировать
+              </button>
+            </div>
             <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
             {renderUI()}
           </div>
