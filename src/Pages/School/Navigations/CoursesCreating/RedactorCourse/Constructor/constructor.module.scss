@@ -302,6 +302,12 @@
         padding: 2%;
       }
 
+      &_nameBlock {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+
       &_review {
         display: flex;
         align-items: center;
@@ -437,15 +443,17 @@
       &_block {
         display: flex;
         background-color: #BA75FF;
-        width: 270px;
+        width: auto;
         padding-top: 1%;
         padding-bottom: 1%;
         padding-left: 45px;
+        flex-wrap: nowrap;
 
         &_nameSettings {
           color: #FFFFFF;
           font-size: 20px;
           font-weight: 700;
+          margin-right: 20px;
         }
 
      }

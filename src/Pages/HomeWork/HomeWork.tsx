@@ -7,6 +7,10 @@ import { homeworksStatsT } from 'types/homeworkT'
 import { useAppSelector, useAppDispatch } from 'store/hooks/index'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { FilterAndSearchBlock } from './FilterAndSeachBlock'
+
+import { motion } from 'framer-motion'
+
+
 import styles from './home_work.module.scss'
 
 
@@ -59,6 +63,24 @@ export const HomeWork: FC = () => {
 
   return (
     <>
+    <motion.div
+    initial={{
+      x: -900,
+      opacity: 0,
+    }}
+    animate={{
+      x: 0,
+      opacity: 1,
+    }}
+    exit={{
+      opacity: 0,
+    }}
+    transition={{
+      delay: 0.1,
+      ease: 'easeInOut',
+      duration: 0.5,
+    }}
+    layout >
       <FilterAndSearchBlock
         handleChangeTerm={handleChangeTerm}
         termForFilter={termForFilter}
@@ -75,6 +97,7 @@ export const HomeWork: FC = () => {
       />
       <HomeworksStatsTable homeworks={homeworks as homeworksStatsT} isLoading={isFetching || isLoading} />
       <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
+      </motion.div>
     </>
   )
 }
