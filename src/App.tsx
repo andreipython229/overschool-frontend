@@ -19,6 +19,7 @@ import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
 import styles from './App.module.scss'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { RoleE } from 'enum/roleE'
+import { Certificate } from 'Pages/Certificate/Certificate'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -66,6 +67,7 @@ export const App = () => {
           <Route path={FooterPath.PWA} element={<PWA />} />
           <Route path={FooterPath.Agreement} element={<Agreement />} />
         </Route>
+        <Route path={Path.Certificate} element={<Certificate />} />
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />

@@ -22,4 +22,10 @@ export const userProgressService = createApi({
   }),
 })
 
-export const { useFetchProgressQuery, useLazyFetchProgressQuery, useFetchStudentProgressQuery, useLazyFetchSertificateQuery } = userProgressService
+export const {
+  useFetchProgressQuery,
+  useLazyFetchProgressQuery,
+  useFetchStudentProgressQuery,
+  useLazyFetchSertificateQuery,
+  useFetchSertificateQuery,
+} = userProgressService

@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
@@ -17,10 +17,14 @@ import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
 import { Button } from 'components/common/Button/Button'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useBoolean } from 'customHooks'
+import { Path } from 'enum/pathE'
+import { selectUser } from 'selectors'
+import { useAppSelector } from 'store/hooks'
 
 export const StudentCourseHeader: FC = () => {
   const { course_id: courseId } = useParams()
   const navigate = useNavigate()
+  const user = useAppSelector(selectUser)
   const school = window.location.href.split('/')[4]
   const [modal, { on: close, off: open }] = useBoolean()
 
@@ -44,6 +48,14 @@ export const StudentCourseHeader: FC = () => {
     if (courseId) {
       getSertificate(courseId)
         .unwrap()
+        .then(data =>
+          navigate(
+            generatePath(Path.Certificate, {
+              course_id: courseId,
+              student_id: String(user.userId),
+            }),
+          ),
+        )
         .catch(() => open())
     }
   }
@@ -61,10 +73,10 @@ export const StudentCourseHeader: FC = () => {
   return (
     <div className={styles.previous}>
       <Dialog open={modal} onClose={close} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">{'Сертификат в данный момент недоступен :('}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{'Сертификат в данном курсе недоступен :('}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Ваш сертификат находится на стадии подготовки и подписания. Подождите немного и попробуйте снова.
+            Сертификаты для данного курса недоступны. Свяжитесь с администрацией курса, если вы считаете, что тут какая-то ошибка.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
