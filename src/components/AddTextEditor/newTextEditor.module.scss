@@ -1,6 +1,7 @@
 @import '../../scss/mixin.scss';
 
 .textField {
+  margin-left: 20px;
   margin-bottom: 40px;
 
   &_btnSave {
@@ -47,7 +48,8 @@
 
     &_setting {
       &:hover {
-        background-color: rgba(196, 156, 210, 0.4);
+        background-color: #BA75FF;
+        color: #ffffff;
       }
 
       @include display(flex, row, flex-start, center);
