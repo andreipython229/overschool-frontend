@@ -10,11 +10,11 @@ import { createGroupIconPath } from '../config/svgIconsPath'
 import {
   useCreateStudentsGroupMutation,
   useCreateGroupWithoutTeacherMutation,
-  useFetchStudentsGroupQuery,
+  useLazyFetchStudentsGroupQuery,
 } from '../../../../api/studentsGroupService'
 import { CreateGroupModalPropsT } from '../../ModalTypes'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
-import { useFetchAllUsersQuery } from '../../../../api/allUsersList'
+import { useLazyFetchAllUsersQuery } from '../../../../api/allUsersList'
 import styles from '../studentsLog.module.scss'
 import { useBoolean } from '../../../../customHooks'
 import { studentsGroupsT } from 'types/studentsGroup'
@@ -24,32 +24,30 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   const [groupName, setGroupName] = useState<string>('')
   const [teacher_id, setTeacherId] = useState<string>('')
   const [withTeacher, { onToggle: toggleWithTeacher }] = useBoolean(false)
-  const { data: userList } = useFetchAllUsersQuery(schoolName)
-  const [allTeachers, setAllTeachers] = useState<any>([])
+  const [getUsers, {data: userList}] = useLazyFetchAllUsersQuery()
   const [teachers, setTeachers] = useState<any>([])
-  const { data: allGroups } = useFetchStudentsGroupQuery(schoolName)
+  const [getGroups, { data: allGroups }] = useLazyFetchStudentsGroupQuery()
   const [createStudentsGroup, { isLoading }] = useCreateStudentsGroupMutation()
   const [createGroupWithoutTeacher, { isLoading: isLoadingNoT }] = useCreateGroupWithoutTeacherMutation()
 
   useEffect(() => {
-    if (userList) {
-      const allTeachers = userList.filter((user: any) => user.role === 'Teacher')
-      setAllTeachers(allTeachers)
+    if (schoolName) {
+      getUsers(schoolName);
+      getGroups(schoolName);
     }
-  }, [userList])
+  }, [schoolName])
 
   useEffect(() => {
-    if (allGroups) {
+    if (userList && allGroups) {
+      const allTeachers = userList.filter((user: any) => user.role === 'Teacher')
       const filteredGroupList = allGroups?.results.filter(group => group.course_id === +courseId)
-      if (allTeachers) {
-        const teachersGroups = filteredGroupList?.map((group: any) => group.teacher_id)
-        const availableTeachers = allTeachers.filter((teacher: any) => {
+      const teachersGroups = filteredGroupList?.map((group: any) => group.teacher_id)
+      const availableTeachers = allTeachers.filter((teacher: any) => {
           return !new Set(teachersGroups).has(teacher.id)
         })
-        setTeachers(availableTeachers)
-      }
+      setTeachers(availableTeachers)
     }
-  }, [allGroups, allTeachers])
+  }, [userList, allGroups])
 
   useEffect(() => {
     if (!withTeacher) {
