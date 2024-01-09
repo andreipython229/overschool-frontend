@@ -14,4 +14,4 @@ export const getAllUsers = createApi({
     }),
 })
 
-export const {useFetchAllUsersQuery} = getAllUsers;
+export const {useLazyFetchAllUsersQuery, useFetchAllUsersQuery} = getAllUsers;
