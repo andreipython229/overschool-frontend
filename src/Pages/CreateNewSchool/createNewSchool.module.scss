@@ -12,6 +12,12 @@
   height: 100%;
 
   &_logoWrapper {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      display: none;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      display: none;
+    }
     display: flex;
     width: 100%;
     height: 35%;
@@ -47,6 +53,12 @@
       align-items: center;
       margin: auto;
       width: 100%;
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        background-color: #F3F4F6;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        background-color: #F3F4F6;
+      }
 
 
       &_title {
@@ -55,6 +67,7 @@
         font-size: 35px;
         line-height: 42px;
         color: #ffffff;
+        
       }
     }
   }
@@ -84,6 +97,12 @@
       margin-top: 46px;
       padding: 12px;
       min-width: 40%;
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        margin-top: 5%;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        margin-top: 5%;
+      }
 
       &_title {
         font-weight: 700;
@@ -92,6 +111,12 @@
         letter-spacing: 0.02em;
         color: #4D5766;
         text-align: center;
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          margin-bottom: 10%;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          margin-bottom: 10%;
+        }
       }
 
       &_help {
@@ -152,8 +177,36 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        
+        &_return {
+          display: none;
+          font-size: 10px;
+          color: #6F6F6F;
+          margin-left: 70%;
+          margin-top: 5%;
 
+          &:hover {
+            color: #4d5766;
+            transition: color 0.3s;
+          }
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            display: block;
+          }
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
+            display: block;
+            
+          }
+  
+        }
+
+      
         &_help {
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            display: none;
+          }
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
+            display: none;
+          }
           display: flex;
           justify-content: center;
           margin-top: 8px;
