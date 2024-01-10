@@ -119,6 +119,23 @@
     }
   }
 
+  &_registr {
+    @include position_t_r(absolute, 0.5em, 5em);
+    cursor: pointer;
+    color: #6F6F6F;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+
+    &:hover {
+      color: #000000;
+      transition: color 0.3s;
+    }
+  }
+
   &_title {
     @include font(800, 30px);
     color: #000000;

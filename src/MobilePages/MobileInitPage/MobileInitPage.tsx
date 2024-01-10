@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { Button } from 'components/common/Button/Button'
-import { LoginModal } from 'components/Modal'
+import { MobileLoginModal } from 'components/Modal'
 
 import styles from './mobileInitPage.module.scss'
 
@@ -14,7 +14,7 @@ export const MobileInitPage = () => {
 
   return (
     <div className={styles.container}>
-      {openLoginModal && <LoginModal setShowModal={showLoginModal} />}
+      {openLoginModal && <MobileLoginModal setShowModal={showLoginModal} />}
       <div className={styles.container_blur} />
       <div className={styles.initPage}>
         <h1>Образовательная онлайн платформа</h1>

@@ -18,6 +18,7 @@ export const CreateNewSchool = () => {
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const [error, setError] = useState<string>('')
+  
 
   const handleClose = () => {
     setOpen(false)
@@ -61,6 +62,12 @@ export const CreateNewSchool = () => {
 
   const changeSecurityStatus = () => {
     setSecurity(!security)
+  }
+
+
+  const returnLogin = (event: any) => {
+    event.preventDefault()
+    navigate(generatePath(Path.InitialPage))
   }
 
   return (
@@ -117,6 +124,9 @@ export const CreateNewSchool = () => {
         </div>
       </div>
       <div className={styles.newCoursePage_formWrapper}>
+        <span className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_return} onClick={returnLogin}>
+               Войти
+       </span>
         <form className={styles.newCoursePage_formWrapper_form} onSubmit={formik.handleSubmit}>
           <p className={styles.newCoursePage_formWrapper_form_title}>Регистрация владельца школы</p>
           <div className={styles.newCoursePage_formWrapper_form_eMailWrapper}>

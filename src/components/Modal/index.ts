@@ -10,3 +10,4 @@ export { SettingClassesUsually } from './ModalTypeClasses/UsuallyClasses/Usually
 export { StudentInfoModal } from './StudentLogs/StudentInfoModal/index'
 export { ReviewTeacherGroups } from './ReviewTeacherGroups/index'
 export { SettingStudentTable } from './SettingStudentTable/index'
+export { MobileLoginModal } from './LoginModal/MobileLoginModal'
