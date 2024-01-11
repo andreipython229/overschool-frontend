@@ -222,7 +222,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
                       type={authVariant === 'email' ? 'email' : 'tel'}
                       onChange={formik.handleChange}
                       value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
-                      placeholder={authVariant}
+                      placeholder={"Электронная почта"}
                     />
                     {/* <AuthSelect getInputVariant={getInputVariant}/> */}
                   </div>

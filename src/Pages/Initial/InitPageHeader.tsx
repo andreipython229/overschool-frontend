@@ -71,7 +71,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
         ) : (
           <div className={styles.header_block}>
             <Button variant={'logIn'} onClick={handleLoginUser} text={'Войти'} />
-            <Button onClick={handleRegistrationUser} variant={'registrationDisabled'} text={'Создать школу'} />
+            <Button onClick={handleRegistrationUser} variant={'logIn'} text={'Создать школу'} />
           </div>
         )}
       </div>
