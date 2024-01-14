@@ -1,4 +1,3 @@
-import exp from 'constants';
 import { baseQuery } from './baseApi'
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 

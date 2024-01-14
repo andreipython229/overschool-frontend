@@ -6,12 +6,10 @@ import {
   useFetchLatestMessagesQuery, 
   useCreateChatMutation, 
   useFetchLatestChatsQuery,
-  LatestChatsResponse 
 } from '../../api/chatgptService';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
 import styles from './chatgpt.module.scss';
-import { resolve } from 'path';
 
 interface ChatGPTProps {
   openChatModal: () => void;
