@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { getUserIdFromLocalStorage } from 'utils/getUserId';
-import { SendMessagePayload, useSendMessageMutation, useFetchLatestMessagesQuery } from '../../api/chatgptService';
+import { 
+  SendMessagePayload,
+  useSendMessageMutation, 
+  useFetchLatestMessagesQuery, 
+  useCreateChatMutation, 
+  useFetchLatestChatsQuery,
+} from '../../api/chatgptService';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
 import styles from './chatgpt.module.scss';
@@ -11,21 +17,38 @@ interface ChatGPTProps {
 }
 
 const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
   const [messageInput, setMessageInput] = useState('');
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const userId = getUserIdFromLocalStorage();
+  const [selectedChatId, setCreatedChatId] = useState<number | null>(null);
   const { data: latestMessages = [], refetch: refetchMessages } = userId
-    ? useFetchLatestMessagesQuery(userId.toString())
-    : { data: [], refetch: undefined };
+  ? useFetchLatestMessagesQuery({
+      userId: userId.toString(),
+      overai_chat_id: selectedChatId ? selectedChatId.toString() : undefined,
+    })
+  : { data: [], refetch: undefined };
 
   const [sendMessage, mutation] = useSendMessageMutation();
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [createChatMutation] = useCreateChatMutation();
+  const [chatList, setChatList] = useState<Array<number>>([]);
+  const { data: latestChats = [], refetch: refetchChats } = userId
+  ? useFetchLatestChatsQuery(userId.toString())
+  : { data: [], refetch: undefined };
+  const [chatData, setChatData] = useState<{ [id: number]: string }>({});
 
   const userQuestions = Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
   const botAnswers = Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
+  
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFetchingChats, setIsFetchingChats] = useState(false);
+  const [isLoadingMessages, setIsLoadingMessages] = useState(false);
+  const [isChatSelected, setIsChatSelected] = useState(false);
+  const [chatsLoaded, setChatsLoaded] = useState(false);
+  const [isChatSelectionDisabled, setIsChatSelectionDisabled] = useState(false);
+  const [isCreatingChatDisabled, setIsCreatingChatDisabled] = useState(false);
 
   const toggleDialog = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -36,6 +59,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const setFocusToBottom = () => {
     if (messageContainerRef.current) {
       messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  };
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setIsDialogOpen(false);
+      closeChatModal();
     }
   };
 
@@ -64,43 +94,96 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     );
 };
 
-  const fetchMessages = async () => {
-    try {
-      if (refetchMessages) {
-        await refetchMessages();
-      }
-      
-    } catch (error) {
-      setError('Ошибка при получении истории сообщений.');
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       if (isDialogOpen) {
-        setFocusToBottom();
-        await fetchMessages();
+        setIsLoadingMessages(true);
+        setIsFetchingChats(true);
+        if (!chatsLoaded) {
+          await fetchChats();
+        }
+        setIsFetchingChats(false);
+
+        if (selectedChatId && refetchMessages && isChatSelected) {
+          try {
+            await refetchMessages();
+          } catch (error) {
+            setError('Ошибка получения сообщений');
+          } finally {
+            setIsLoadingMessages(false);
+          }
+        } else {
+          setIsLoadingMessages(false);
+        }
       }
     };
 
     setError(null);
-
     fetchData();
-  }, [isDialogOpen]);
+  }, [isDialogOpen, selectedChatId, refetchMessages, isChatSelected, chatsLoaded]);
 
   useEffect(() => {
     setFocusToBottom();
-  }, [latestMessages]);
+  }, [latestMessages, isDialogOpen]);
+
+  const selectChat = (chatId: number) => {
+    if (!isChatSelectionDisabled) {
+      setCreatedChatId(chatId);
+      setIsChatSelected(true);
+    }
+  };
+
+  const createChat = async () => {
+    try {
+      if (userId !== null && userId !== undefined) {
+        setIsCreatingChatDisabled(true);
+        const response = await createChatMutation(userId.toString());
+        if ('data' in response && response.data !== undefined) {
+          const newChatId = response.data.overai_chat_id;
+          setChatList((prevChatList) => [...prevChatList, newChatId]);
+          setCreatedChatId(newChatId);
+          await fetchChats();
+        } else {
+          setError('Ошибка при создании чата.');
+        }
+      }
+    } catch (error) {
+      setError('Ошибка при создании чата.');
+    } finally {
+      setIsCreatingChatDisabled(false);
+    }
+  };
+
+  const fetchChats = async () => {
+    try {
+      if (refetchChats) {
+        const response = await refetchChats();
+  
+        if (response.status === 'fulfilled' && response.isSuccess) {
+          const receivedChatData = response.data;
+          setChatData(receivedChatData);
+          setChatsLoaded(true);
+        } else {
+          setError('Ошибка при получении списка чатов.');
+        }
+      }
+    } catch (error) {
+      setError('Ошибка при получении списка чатов.');
+    }
+  };
 
   const handleSendMessage = async (messageInput: string) => {
     if (messageInput.trim() !== '') {
       try {
         setIsLoading(true);
+        setIsChatSelectionDisabled(true);
+        setIsCreatingChatDisabled(true);
 
         if (userId !== null) {
           const payload: SendMessagePayload = {
-            user_id: userId.toString(),
+            user_id: userId,
             message: messageInput,
+            overai_chat_id: selectedChatId!,
           };
 
           await sendMessage(payload);
@@ -116,6 +199,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         setError('Ошибка при отправке сообщения.');
       } finally {
         setIsLoading(false);
+        setIsChatSelectionDisabled(false);
+        setIsCreatingChatDisabled(false);
       }
 
       setTimeout(() => {
@@ -130,51 +215,89 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         OVER AI
       </button>
       {isDialogOpen && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.dialog}>
-            <div className={styles.overAiText}>OVER AI</div>
+        <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+          <div className={`${styles.dialog} ${isDialogOpen && styles.dialogOpen}`}>
             <button className={styles.chatgpt_close} onClick={toggleDialog}>
               <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={closeHwModalPath} />
             </button>
-            <div className={styles.messageContainer} ref={messageContainerRef}>
-            {userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
-              <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
-                <div className="user-question">
-                  <span>
-                    <b style={{ color: '#955dd3' }}>Вы:</b> {userQuestion.sender_question}
-                  </span>
+            <div className={`${styles.contentContainer}`}>
+              <div className={`${styles.leftPane} ${isDialogOpen && styles.paneOpen}`}>
+              {isFetchingChats ? (
+                <div className={styles.loadingSpinner}>
+                  <div className={styles.spinner}></div>
+                  <span> Получение чатов...</span>
                 </div>
-                {index < botAnswers.length && (
-                  <div className="bot-response" key={index} style={{ wordWrap: 'break-word' }}>
-                    {formatBotAnswer(botAnswers[index].answer)}
-                  </div>
-                )}
+              ) : (
+                <>
+                  <button className={styles.createChatButton} onClick={createChat} disabled={isCreatingChatDisabled}>
+                    Создать новый чат
+                  </button>
+                  {Object.entries(chatData).reverse().map(([chatId, chatValue]) => (
+                    <div
+                      key={chatId}
+                      onClick={() => selectChat(Number(chatId))}
+                      className={`${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''}`}
+                    >
+                      {`${chatId}. ${chatValue.length > 60 ? chatValue.substring(0, 60) + '...' : chatValue}`}
+                    </div>
+                  ))}
+                </>
+              )}
               </div>
-            ))}
-            </div>
-            {error && (
-              <div className={`${styles.errorContainer} ${error && styles.visible}`}>
-                <span className={styles.errorText}>{error}</span>
-              </div>
-            )}
-            <div className={styles.inputContainer}>
-            {isLoading ? (
-              <div className={styles.loadingSpinner}>
-                <div className={styles.spinner}></div>
-                <span> Генерация сообщения...</span>
-              </div>
-            ) : (
-              <>
-                <input
-                  type="text"
-                  placeholder="Задайте вопрос OVER AI"
-                  value={messageInput}
-                  onChange={(e) => setMessageInput(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                />
-                <button onClick={() => handleSendMessage(messageInput)}>▲</button>
-              </>
-            )}
+              {selectedChatId && (
+                <div className={`${styles.rightPane} ${isDialogOpen && styles.paneOpen}`}>
+                  <div className={styles.overAiText}>Чат с OVER AI</div>
+                  {isLoadingMessages ? (
+                    <div className={styles.loadingSpinner}>
+                      <div className={styles.spinner}></div>
+                      <span> Загрузка сообщений...</span>
+                    </div>
+                  ) : (
+                    <div className={styles.messageContainer} ref={messageContainerRef}>
+                      {userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
+                        <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
+                          <div className="user-question">
+                            <span>
+                              <b style={{ color: '#955dd3' }}>Вы:</b> {userQuestion.sender_question}
+                            </span>
+                          </div>
+                          {index < botAnswers.length && (
+                            <div className="bot-response" key={index} style={{ wordWrap: 'break-word' }}>
+                              {formatBotAnswer(botAnswers[index].answer)}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                    {error && (
+                      <div className={`${styles.errorContainer} ${error && styles.visible}`}>
+                        <span className={styles.errorText}>{error}</span>
+                      </div>
+                    )}
+                    <div className={styles.inputContainer}>
+                    {isLoading ? (
+                      <div className={styles.loadingSpinner}>
+                        <div className={styles.spinner}></div>
+                        <span> Генерация сообщения...</span>
+                      </div>
+                    ) : (
+                      <>
+                        <input
+                          type="text"
+                          placeholder="Задайте вопрос OVER AI"
+                          value={messageInput}
+                          onChange={(e) => setMessageInput(e.target.value)}
+                          onKeyPress={handleKeyPress}
+                        />
+                        <button onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
+                          ▲
+                        </button>
+                      </>
+                    )}
+                    </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
