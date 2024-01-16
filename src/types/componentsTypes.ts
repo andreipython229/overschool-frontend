@@ -2,7 +2,7 @@ import { ChangeEvent, Dispatch, FC, MouseEvent, ReactNode, SetStateAction } from
 
 import { statusFilterT } from 'types/statusFilterConfigType'
 import { CoursesDataT, CourseWithGroupsT, StGroupT } from 'types/CoursesT'
-import { commonLessonT, IHomework, ILesson, ITest, sectionT } from './sectionT'
+import { commonLessonT, IBlockCode, IBlockDesc, IBlockPic, IBlockVid, IHomework, ILesson, ITest, sectionT } from './sectionT'
 import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
 import { studentsTableInfoT } from './courseStatT'
 
@@ -19,7 +19,8 @@ type argT = {
 }
 
 export type AddPostT = {
-  setLesson?: Dispatch<SetStateAction<ILesson | IHomework | ITest>>
+  setLessonBlocks?: Dispatch<SetStateAction<(IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]>>
+  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]
   lesson: commonLessonT
   code?: string
   isPreview?: boolean
@@ -27,6 +28,7 @@ export type AddPostT = {
   addFile?: (arg: any) => void
   deleteAudio?: (id: number) => void
   addAudio?: any
+  block?: IBlockCode | IBlockDesc | IBlockPic | IBlockVid
   handleEditorChange?: (code: string | undefined) => void
 }
 

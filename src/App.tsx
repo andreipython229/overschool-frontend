@@ -43,8 +43,7 @@ export const App = () => {
   useEffect(() => {
     if (pathname === '/') {
       navigate(Path.InitialPage)
-    }
-    if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
+    } else if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
       navigate(
         generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
       )

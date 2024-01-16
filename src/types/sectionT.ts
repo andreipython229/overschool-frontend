@@ -1,7 +1,36 @@
 import { HomeWork } from 'Pages/HomeWork/HomeWork'
 import { IFile } from './filesT'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
-import {b} from "msw/lib/glossary-dc3fd077";
+
+export interface IBlockDesc {
+  id: number
+  description: string
+  type: string
+  order: number
+}
+
+export interface IBlockVid {
+  id: number
+  video?: string
+  url?: string
+  type: string
+  order: number
+}
+
+export interface IBlockCode {
+  id: number
+  code: string
+  type: string
+  order: number
+}
+
+export interface IBlockPic {
+  id: number
+  picture: string
+  type: string
+  order: number
+}
+
 
 export interface ILesson {
   lesson_id: number
@@ -9,6 +38,7 @@ export interface ILesson {
   section: number
   name: string
   order: number
+  blocks: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]
   description: string
   video: string
   points: number
@@ -25,6 +55,7 @@ export interface IHomework {
   baselesson_ptr_id: number
   section: number
   name: string
+  blocks: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]
   order: number
   author_id: string
   description: string

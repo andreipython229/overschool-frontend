@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { Params } from 'react-router-dom'
+import parse from 'html-react-parser'
 
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { sectionT, IHomework } from 'types/sectionT'
@@ -12,6 +13,7 @@ import { StudentLessonNavBtns } from '../StudentLessonNavBtns'
 
 import styles from '../lesson.module.scss'
 import { VideoPlayer } from '../../../../components/VideoPlayer/player'
+import { BLOCK_TYPE } from 'enum/blockTypeE'
 
 type studentHomeworkT = {
   lesson: IHomework
@@ -23,17 +25,44 @@ type studentHomeworkT = {
 export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params, activeLessonIndex }) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
 
-  const [lessonVideo, setLessonVideo] = useState<boolean>(false)
-
-  useEffect(() => {
-    if (lesson) {
-      if (('video' in lesson && lesson.video) || ('url' in lesson && lesson.url)) {
-        setLessonVideo(true)
-      } else {
-        setLessonVideo(false)
+  const renderBlocks = () => {
+    return lesson.blocks.map(block => {
+      switch (block.type) {
+        case BLOCK_TYPE.TEXT:
+          if ('description' in block && block.description) {
+            return (
+              <div className={styles.lesson__content}>
+                <span className={styles.lesson__desc}>{parse(`${block.description}`)}</span>
+              </div>
+            )
+          } else {
+            return <></>
+          }
+        case BLOCK_TYPE.CODE:
+          if ('code' in block && block.code) {
+            return (
+              <div className={styles.lesson__codeWraper}>
+                <pre className={styles.lesson__code_text}>
+                  <code>{block.code}</code>
+                </pre>
+              </div>
+            )
+          } else {
+            return <></>
+          }
+        case BLOCK_TYPE.VIDEO:
+          if ('video' in block && block.video) {
+            return <VideoPlayer isEditing={false} lessonId={lesson.baselesson_ptr_id} videoSrc={block.video} />
+          } else if ('url' in block && block.url) {
+            return <VideoPlayer isEditing={false} lessonId={lesson.baselesson_ptr_id} videoSrc={block.url} />
+          } else {
+            return <></>
+          }
+        case BLOCK_TYPE.PICTURE:
+          return <></>
       }
-    }
-  }, [lesson, lessonId])
+    })
+  }
 
   return (
     <div className={styles.lesson}>
@@ -46,22 +75,9 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params,
           <div className={styles.lesson__card}>
             <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
             <div className={styles.lesson__content}>
-              <StudentLessonDesc text={lesson?.description || ''} />
+              {renderBlocks()}
             </div>
-            {lessonVideo &&
-              (lesson.url && lesson.video ? (
-                <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} lessonId={lesson.homework_id}/>
-                </div>
-              ) : !lesson.video && lesson.url ? (
-                <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} lessonId={lesson.homework_id}/>
-                </div>
-              ) : (
-                <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} lessonId={lesson.homework_id}/>
-                </div>
-              ))}
+            
             <div className={styles.lesson__content}>
               {/* {lesson?.code && (
                 <div className={styles.lesson__codeWraper}>
