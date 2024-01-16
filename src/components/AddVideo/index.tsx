@@ -11,8 +11,9 @@ import { SimpleLoader } from '../Loaders/SimpleLoader'
 import { useUploadLessonVideoMutation } from 'api/videoFilesService'
 import { Input } from 'components/common/Input/Input/Input'
 import { usePatchLessonsMutation } from 'api/modulesServices'
+import { IBlockCode, IBlockDesc, IBlockPic, IBlockVid } from 'types/sectionT'
 
-export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPreview, addFile, lesson, setLesson, setShow }) => {
+export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, lesson, setLessonBlocks, lessonBlocks }) => {
   const [dragVideo, setDragVideo] = useState<boolean>(false)
   const [files, setFiles] = useState<File[]>([])
   const [addVideoFile] = useUploadLessonVideoMutation()
@@ -46,9 +47,20 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
       await addYTVideo({ arg: { formdata: formData, id: lessonIdAndType?.id as number, type: lesson.type }, schoolName })
         .unwrap()
         .then(data => {
-          setLesson && setLesson({ ...lesson, url: youTubeLink });
-          setShow();
+          setIsLoadingVideo(false)
         })
+    }
+  }
+
+  const updateLessonsBlocksArray = (id: number, newValue: IBlockCode | IBlockDesc | IBlockPic | IBlockVid) => {
+    if (lessonBlocks && setLessonBlocks) {
+      const updatedBlocks = lessonBlocks.map(item => {
+        if (item.id === id) {
+          return { ...item, value: newValue }
+        }
+        return item
+      })
+      setLessonBlocks(updatedBlocks)
     }
   }
 
@@ -70,17 +82,15 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     try {
       await addVideoFile({
         arg: {
-          id: lessonIdAndType.id,
-          type: lessonIdAndType.type,
+          id: Number(block?.id),
           formdata: formData,
         },
         schoolName,
       })
         .unwrap()
         .then(data => {
-          setLesson && setLesson({ ...lesson, video: data.video })
+          updateLessonsBlocksArray(data.id, data)
           setIsLoadingVideo(false)
-          setShow()
         })
     } catch (error) {
       setIsLoadingVideo(false)
@@ -150,7 +160,10 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
                 <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
                   <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
                 </div> */}
-                <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete} onClick={setShow}>
+                <div
+                  className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete}
+                  onClick={() => console.log('удалить блок video')}
+                >
                   <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
                 </div>
               </div>

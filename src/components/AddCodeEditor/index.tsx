@@ -9,7 +9,7 @@ import { AddPostT, setShowType } from '../../types/componentsTypes'
 
 import styles from './addCodeEditor.module.scss'
 
-export const AddCodeEditor: FC<setShowType & AddPostT> = ({ lesson, isPreview, code, handleEditorChange, setShow }) => {
+export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, handleEditorChange }) => {
   const [selectedLang, setSelectedLang] = useState<string>()
 
   return (
@@ -33,13 +33,15 @@ export const AddCodeEditor: FC<setShowType & AddPostT> = ({ lesson, isPreview, c
             <div className={styles.editorWrapper_navBlock_div}>
               <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
             </div>
-            <div className={styles.editorWrapper_navBlock_delete} onClick={setShow}>
+            <div className={styles.editorWrapper_navBlock_delete} onClick={() => console.log('удалить блок code')}>
               <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
             </div>
           </div>
         </div>
       ) : (
-        <code>{/* <pre>{lesson.code}</pre> */}</code>
+        <code>
+          <pre>{code}</pre>
+        </code>
       )}
     </>
   )
