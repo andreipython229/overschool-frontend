@@ -140,12 +140,10 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         const response = await createChatMutation(userId.toString());
         if ('data' in response && response.data !== undefined) {
           const newChatId = response.data.overai_chat_id;
-
           setChatList((prevChatList) => [...prevChatList, newChatId]);
           setCreatedChatId(newChatId);
           await fetchChats();
         } else {
-          console.error('Invalid response format:', response);
           setError('Ошибка при создании чата.');
         }
       }
@@ -166,12 +164,10 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
           setChatData(receivedChatData);
           setChatsLoaded(true);
         } else {
-          console.error('Ошибка при получении чатов:', response);
           setError('Ошибка при получении списка чатов.');
         }
       }
     } catch (error) {
-      console.error('Ошибка при запросе чатов:', error);
       setError('Ошибка при получении списка чатов.');
     }
   };
