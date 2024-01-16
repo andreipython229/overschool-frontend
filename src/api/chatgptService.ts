@@ -29,12 +29,8 @@ export interface SendMessageResponse {
   bot_response: string;
 }
 
-export interface OveraiChatId {
-  overai_chat_id: number;
-}
-
 export interface LatestChatsResponse {
-  overai_chats_ids: Array<OveraiChatId>;
+  [id: number]: string;
 }
 
 export const chatgptService = createApi({

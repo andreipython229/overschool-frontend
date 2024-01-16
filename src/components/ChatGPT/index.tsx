@@ -35,7 +35,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const { data: latestChats = [], refetch: refetchChats } = userId
   ? useFetchLatestChatsQuery(userId.toString())
   : { data: [], refetch: undefined };
-  const [chatIdsArray, setChatIdsArray] = useState<Array<number>>([]);
+  const [chatData, setChatData] = useState<{ [id: number]: string }>({});
 
   const userQuestions = Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
   const botAnswers = Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
@@ -160,22 +160,21 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     try {
       if (refetchChats) {
         const response = await refetchChats();
-
-        if (response.data && Array.isArray(response.data)) {
-          const chatIdsArray = response.data;
-          setChatIdsArray(chatIdsArray);
+  
+        if (response.status === 'fulfilled' && response.isSuccess) {
+          const receivedChatData = response.data;
+          setChatData(receivedChatData);
           setChatsLoaded(true);
+        } else {
+          console.error('Ошибка при получении чатов:', response);
+          setError('Ошибка при получении списка чатов.');
         }
       }
     } catch (error) {
+      console.error('Ошибка при запросе чатов:', error);
       setError('Ошибка при получении списка чатов.');
     }
   };
-
-
-  useEffect(() => {
-    setFocusToBottom();
-  }, [latestMessages]);
 
   const handleSendMessage = async (messageInput: string) => {
     if (messageInput.trim() !== '') {
@@ -237,13 +236,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                   <button className={styles.createChatButton} onClick={createChat} disabled={isCreatingChatDisabled}>
                     Создать новый чат
                   </button>
-                  {chatIdsArray.map((chatId) => (
+                  {Object.entries(chatData).reverse().map(([chatId, chatValue]) => (
                     <div
                       key={chatId}
-                      onClick={() => selectChat(chatId)}
-                      className={`${styles.chatListItem} ${selectedChatId === chatId ? styles.activeChat : ''}`}
+                      onClick={() => selectChat(Number(chatId))}
+                      className={`${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''}`}
                     >
-                      Чат №{chatId}
+                      {`${chatId}. ${chatValue.length > 60 ? chatValue.substring(0, 60) + '...' : chatValue}`}
                     </div>
                   ))}
                 </>
