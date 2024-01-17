@@ -56,13 +56,17 @@
   &_leftSide {
     @include display(flex, column);
     margin-right: 30px;
-    margin-top: 50px;
+    //margin-top: 50px;
     //border: 1px #0af50a solid;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     align-items: center;
+    background-color: #FFFFFF;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    text-align: center;
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       width: 100%;
       text-align: center;
@@ -93,12 +97,14 @@
       //border: 1px deeppink solid;
 
       &_headerText {
-        position: relative;
+        //position: relative;
         
 
         &_title {
           position: relative;
-          display: block;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           @include font(400, 14px);
           background-color: transparent;
           color: $font-title;
@@ -149,7 +155,7 @@
           }
 
           &_btn_delete {
-            @include position_t_r(absolute, 0, 0, -10);
+            //@include position_t_r(absolute, 0, 0, -10);
             @include display(flex, row, center, center);
             border: none;
             background-color: transparent;
