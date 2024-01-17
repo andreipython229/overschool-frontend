@@ -56,7 +56,7 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
     if (lessonBlocks && setLessonBlocks) {
       const updatedBlocks = lessonBlocks.map(item => {
         if (item.id === id) {
-          return { ...item, value: newValue }
+          return newValue
         }
         return item
       })

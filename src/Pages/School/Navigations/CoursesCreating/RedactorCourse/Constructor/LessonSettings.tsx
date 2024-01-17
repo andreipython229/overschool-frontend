@@ -25,6 +25,8 @@ import { PublishedMark } from '../../../../../../components/common/PublishedMark
 import { BLOCK_TYPE } from 'enum/blockTypeE'
 import { AddCodeEditor } from 'components/AddCodeEditor'
 import { AddVideo } from 'components/AddVideo'
+import { AudioPlayer } from 'components/common/AudioPlayer'
+import { useDeleteBlockMutation } from 'api/blocksService'
 // import { AudioPlayer } from 'components/common/AudioPlayer'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
@@ -42,9 +44,8 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [saveChanges, { isLoading: isSaving, isSuccess: isCompleted }] = usePatchLessonsMutation()
   const [deleteFile, { isLoading: isDeleting }] = useDeleteTextFilesMutation()
   const [deleteAudio, { isLoading: isAudioDeleting }] = useDeleteAudioFilesMutation()
-
+  const [deleteBlock, { isLoading: isBlockDeleting }] = useDeleteBlockMutation()
   const [lesson, setLesson] = useState(data as commonLessonT)
-  const [lessonVideo, setLessonVideo] = useState<boolean>(false)
 
   useEffect(() => {
     if (data) {
@@ -65,9 +66,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
     if (lesson && lesson.type !== 'test') {
       setLessonBlocks(lesson.blocks)
-      // if (('video' in lesson && lesson.video) || ('url' in lesson && lesson.url)) {
-      //   setLessonVideo(true)
-      // }
     }
   }, [lesson])
 
@@ -76,23 +74,63 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       switch (block.type) {
         case BLOCK_TYPE.TEXT:
           if ('description' in block && block.description) {
-            return <NewTextEditor text={block.description} />
+            return <NewTextEditor text={block.description} block={block} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
           } else {
-            return <NewTextEditor text="" />
+            return <NewTextEditor text="" block={block} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
           }
         case BLOCK_TYPE.CODE:
           if ('code' in block && block.code) {
-            return <AddCodeEditor lesson={lesson} code={block.code} block={block} />
+            return (
+              <AddCodeEditor
+                isPreview={!isEditing}
+                lesson={lesson}
+                code={block.code}
+                block={block}
+                deleteBlock={deleteBlock}
+                setLessonBlocks={setLessonBlocks}
+                lessonBlocks={lessonBlocks}
+              />
+            )
           } else {
-            return <AddCodeEditor lesson={lesson} code={''} block={block} />
+            return (
+              <AddCodeEditor
+                isPreview={!isEditing}
+                lesson={lesson}
+                code={''}
+                block={block}
+                deleteBlock={deleteBlock}
+                setLessonBlocks={setLessonBlocks}
+                lessonBlocks={lessonBlocks}
+              />
+            )
           }
         case BLOCK_TYPE.VIDEO:
           if ('video' in block && block.video) {
-            return <VideoPlayer isEditing={isEditing} lessonId={lesson.baselesson_ptr_id} videoSrc={block.video} />
+            return (
+              <VideoPlayer
+                isEditing={isEditing}
+                lessonId={lesson.baselesson_ptr_id}
+                block={block}
+                videoSrc={block.video}
+                deleteBlock={deleteBlock}
+                setLessonBlocks={setLessonBlocks}
+                lessonBlocks={lessonBlocks}
+              />
+            )
           } else if ('url' in block && block.url) {
-            return <VideoPlayer isEditing={isEditing} lessonId={lesson.baselesson_ptr_id} videoSrc={block.url} />
+            return (
+              <VideoPlayer
+                isEditing={isEditing}
+                block={block}
+                lessonId={lesson.baselesson_ptr_id}
+                videoSrc={block.url}
+                deleteBlock={deleteBlock}
+                setLessonBlocks={setLessonBlocks}
+                lessonBlocks={lessonBlocks}
+              />
+            )
           } else {
-            return <AddVideo lesson={lesson} block={block} />
+            return <AddVideo lesson={lesson} block={block} deleteBlock={deleteBlock} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
           }
         case BLOCK_TYPE.PICTURE:
           return <></>
@@ -135,7 +173,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
   useEffect(() => {
     setIsEditing(false)
-    setLessonVideo(false)
   }, [lessonIdAndType])
 
   const showSettingsModal = () => {
@@ -280,11 +317,19 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
             {lesson.type !== 'test' && (
               <>
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
-                  <>
-                    {renderBlocks()}
-                    <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} setLessonBlocks={setLessonBlocks} />
-                  </>
+                  {renderBlocks()}
+                  {lessonBlocks.length < 10 && (
+                    <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
+                  )}
                 </div>
+                <>
+                  {(files || lesson.audio_files) && (
+                    <div>
+                      {lesson.audio_files && <AudioPlayer audioUrls={lesson.audio_files} delete={deleteAudio} />}
+                      {files && <AudioPlayer files={files} delete={deleteAudio} />}
+                    </div>
+                  )}
+                </>
 
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
 
@@ -338,7 +383,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
             {renderUI()}
           </div>
         )}
-        {(isFetching || isDeleting || isSaving) && (
+        {(isFetching || isDeleting || isSaving || isBlockDeleting) && (
           <div
             style={{
               position: 'absolute',

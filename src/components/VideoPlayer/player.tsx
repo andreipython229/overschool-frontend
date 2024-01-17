@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import styles from './videoPlayer.module.scss'
 import ReactPlayer from 'react-player'
 import { Box, Tab } from '@mui/material'
@@ -9,18 +9,38 @@ import { deleteIconPath } from 'Pages/School/config/svgIconsPath'
 import { arrDownIcon } from 'Pages/StudentCourse/constants/svgIcon'
 import { addVideoIconPath } from 'components/AddVideo/config/svgIconsPath'
 import { sendIconPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth'
+import { IBlockCode, IBlockDesc, IBlockPic, IBlockVid } from 'types/sectionT'
+import { useDeleteBlockMutation } from 'api/blocksService'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 type playerProps = {
+  deleteBlock?: (arg: { id: string | number; schoolName: string }) => any
+  setLessonBlocks?: Dispatch<SetStateAction<(IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]>>
+  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]
   lessonId: number
   videoSrc: string | undefined
   videoSrc2?: string
   isEditing?: boolean
   handleDeleteVideo?: (video: string | undefined) => Promise<void>
   isDeleted?: boolean
+  block?: IBlockVid
 }
 
-export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEditing, handleDeleteVideo, isDeleted, lessonId }) => {
+export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEditing, block, isDeleted, lessonId, lessonBlocks, setLessonBlocks }) => {
   const [currentVideoSrc, setCurrentVideoSrc] = useState<string>()
+  const [deleteBlock, { isLoading }] = useDeleteBlockMutation()
+  const schoolName = window.location.href.split('/')[4]
+
+  const handleDeleteVid = () => {
+    if (block && lessonBlocks && setLessonBlocks) {
+      deleteBlock({ id: block.id, schoolName })
+        .unwrap()
+        .then(data => {
+          const updatedLessons = lessonBlocks.filter(item => item.id !== block.id)
+          setLessonBlocks(updatedLessons)
+        })
+    }
+  }
 
   useEffect(() => {
     setCurrentVideoSrc('')
@@ -71,7 +91,7 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
           url={currentVideoSrc}
           width="100%"
           height="30rem"
-          style={{ minWidth: '100%', minHeight: '30rem' }}
+          style={{ minWidth: '100%', minHeight: '30rem', borderRadius: '2em' }}
           controls
           config={{
             file: {
@@ -84,8 +104,8 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
       ) : (
         <></>
       )}
-      {currentVideoSrc && isEditing && handleDeleteVideo && (
-        <div style={{ display: 'flex', paddingLeft:'10px' }}>
+      {currentVideoSrc && isEditing && (
+        <div style={{ display: 'flex', paddingLeft: '10px' }}>
           {videoSrc && (
             <a href={videoSrc} rel={'noreferrer'} target={'_blank'} download={'videoDownload'}>
               <div className={styles.videoPlayer_btnDownload}>
@@ -94,9 +114,15 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
               </div>
             </a>
           )}
-          <button className={styles.videoPlayer_btnDelete} onClick={() => handleDeleteVideo(currentVideoSrc)}>
-            <p style={{ marginRight: '0.2em', color: 'grey', fontWeight: '600' }}>Удалить {videoSrc && videoSrc2 && 'выбранное'} видео</p>
-            <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+          <button className={styles.videoPlayer_btnDelete} onClick={handleDeleteVid}>
+            {isLoading ? (
+              <SimpleLoader />
+            ) : (
+              <>
+                <p style={{ marginRight: '0.2em', color: 'grey', fontWeight: '600' }}>Удалить {videoSrc && videoSrc2 && 'выбранное'} видео</p>
+                <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+              </>
+            )}
           </button>
         </div>
       )}

@@ -21,6 +21,7 @@ type argT = {
 export type AddPostT = {
   setLessonBlocks?: Dispatch<SetStateAction<(IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]>>
   lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]
+  deleteBlock?: (arg: { id: string | number; schoolName: string }) => any
   lesson: commonLessonT
   code?: string
   isPreview?: boolean

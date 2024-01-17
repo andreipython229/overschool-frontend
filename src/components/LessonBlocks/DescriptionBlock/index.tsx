@@ -20,11 +20,11 @@ export const DescriptionLessonBlock: FC<DescLessonBlockT> = ({ lesson, block }) 
 
   return (
     <>
-      {'description' in block && block.description ? (
+      {/* {'description' in block && block.description ? (
         <NewTextEditor text={block.description} setLessonDescription={setLessonDescription} />
       ) : (
         <NewTextEditor text={lessonDescription} setLessonDescription={setLessonDescription} />
-      )}
+      )} */}
     </>
   )
 }
