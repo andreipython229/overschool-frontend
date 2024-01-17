@@ -1,5 +1,5 @@
 import { FC, memo, useEffect, useState, ReactNode } from 'react'
-
+import {RoleE} from 'enum/roleE'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { classesSettingIconPath, downLoadIconPath } from './config/svgIconsPath'
 import { generateData } from '../../utils/generateData'
@@ -14,6 +14,19 @@ import { tableFilterByNamePath, tableFilterByEmailUpPath, tableFilterByEmailDown
 import * as XLSX from "xlsx"
 
 import styles from './studentsTableBlock.module.scss'
+import {Button} from "../common/Button/Button";
+import {Chat} from "../Modal/Chat";
+import {useCreatePersonalChatForAdminOrTeacherMutation} from "../../api/chatsService";
+import {ChatI} from "../../types/chatsT";
+import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
+import {SerializedError} from "@reduxjs/toolkit";
+import {selectChat} from "../../store/redux/chats/slice";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {TRUE} from "sass";
+import {selectUser} from "../../selectors";
+import {setChats, addChat} from "../../store/redux/chats/chatsSlice";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/redux/store";
 
 type StudentsTableWrapperT = {
   isLoading: boolean
@@ -24,8 +37,13 @@ type StudentsTableWrapperT = {
 }
 
 export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId, handleReloadTable, handleAddSortToFilters }) => {
+  const dispatch = useAppDispatch()
+  const { role } = useAppSelector(selectUser)
+  // const chats = useSelector((state: RootState) => state.chats.chats);
+
   const [isModalOpen, { on, off, onToggle }] = useBoolean()
   const [isStudentModalOpen, { on: studentModalOn, off: studentModalOff, onToggle: toggleStudentInfoModal }] = useBoolean()
+  const [isChatOpen, { on: chatModalOff, off: chatModalOn , onToggle: toggleChatModal}] = useBoolean()
 
   const [cols, setCols] = useState<string[]>([])
   const [rows, setRows] = useState<GenerateRow[]>()
@@ -36,6 +54,8 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   const [fetchTableHeader, { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching }] = useLazyFetchStudentsTableHeaderQuery()
 
   const { columns, data } = generateData(tableHeaderData, students, isLoading, isSuccess)
+  const [createPersonalChatForAdminOrTeacher, { isLoading: chatIsLoading }] = useCreatePersonalChatForAdminOrTeacherMutation()
+
 
   // состояние направления сортировки для каждого столбца
   const [sortDirection, setSortDirection] = useState<{ [key: string]: 'asc' | 'desc' }>({
@@ -97,6 +117,38 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   const handleCloseStudentModal = () => {
     toggleStudentInfoModal()
   }
+
+  const handleToggleChatModal = (studentId: number) => {
+    if (students) {
+      const student = students.find((_, index) => index === studentId) || null
+      if (student?.chat_uuid) {
+        dispatch(selectChat(student?.chat_uuid))
+        chatModalOn()
+      } else if (student?.student_id) {
+        const personalChatData = new FormData();
+        personalChatData.append('user_id', student.student_id.toString());
+        personalChatData.append('role_name', RoleE[role]);
+        createPersonalChatForAdminOrTeacher(personalChatData)
+            .then((async( response: { data: ChatI } | { error: FetchBaseQueryError | SerializedError })  => {
+              if ('data' in response) {
+                dispatch(addChat(response.data))
+                dispatch(selectChat(response.data.id))
+                chatModalOn()
+              }
+            }))
+            .catch(error => {
+              console.error('Произошла ошибка при создании персонального чата:', error);
+            })
+      }
+    }
+  }
+
+  const handleRowClick = (event: any, studentId: number) => {
+  // Проверка, был ли клик на кнопке "CHAT"
+    if (!event.target.classList.contains(styles.chat_button)) {
+      setSelectedStudentId(studentId);
+    }
+  };
 
   useEffect(() => {
     if (tableId) {
@@ -206,7 +258,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
           </thead>
           <tbody className={styles.table_tbody}>
             {rows?.map((row, id) => (
-              <tr key={id + Math.random()} onClick={() => setSelectedStudentId(id)}>
+              <tr key={id + Math.random()} onClick={(event) => handleRowClick(event, id)}>
                 {cols.map(col => {
                   const cellValue = row[col] as string | number | { text: string; image: ReactNode }
                   return (
@@ -219,6 +271,10 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
                     >
                       {typeof cellValue === 'object' ? (
                         <div className={styles.table_user}>
+                          {row['Дата удаления из группы'] === ' ' && (
+                            <Button className={styles.chat_button} text={"CHAT"} onClick={() => handleToggleChatModal(id)}/>
+                            )
+                          }
                           {cellValue.image}
                           {row['Дата удаления из группы'] !== ' ' && (
                               <div
@@ -253,6 +309,12 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
       {isStudentModalOpen && (
         <Portal closeModal={studentModalOn}>
           <StudentInfoModal closeModal={toggleStudentInfoModal} student={selectedStuent} />
+        </Portal>
+      )}
+
+      {isChatOpen && (
+        <Portal closeModal={chatModalOn}>
+          <Chat closeModal={toggleChatModal} />
         </Portal>
       )}
     </>

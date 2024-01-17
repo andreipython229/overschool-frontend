@@ -27,19 +27,20 @@ export const Chat: FC<chatT> = ({ closeModal }) => {
     const dispatch = useDispatch();
     const chats = useSelector((state: RootState) => state.chats.chats);
 
-    // useEffect(() => {
-    //     isSuccess && setChats(data)
-    // }, [isFetching])
+    useEffect(() => {
+        isSuccess && dispatch(setChats(data));
+    }, [isFetching])
     //
     // useEffect(() => {
     //     return () => {
     //         setChats([]); // очищаем состояние при размонтировании
     //     };
     // }, []);
-
+    //
     // useEffect(() => {
-    //     if (data) {
+    //     if (data && isFetching) {
     //         dispatch(setChats(data));
+    //         console.log("index = ",data)
     //     }
     // }, [data, dispatch])
     //

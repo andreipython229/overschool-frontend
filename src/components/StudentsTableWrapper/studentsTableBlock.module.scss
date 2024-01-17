@@ -209,10 +209,16 @@
         }
 
         &:first-child {
-          padding-left: 2.5rem;
+          //padding-left: 2.5rem;
         }
       }
     }
+    .chat_button {
+        position: relative;
+        padding-left: 0.65rem;
+        padding-right: 0.65rem;
+        font-size: 0.575rem;
+      }
   }
   &_tbody tr:nth-child(even) {
     background-color: #fcfcfc;

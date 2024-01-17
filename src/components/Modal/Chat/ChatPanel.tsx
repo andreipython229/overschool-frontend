@@ -17,8 +17,8 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
   // const [currentUserData, setCurrentUserData] = useState<SenderI>()
     const dispatch = useAppDispatch()
     const {role} = useAppSelector(selectUser)
-  const { userId } = useAppSelector(state => state.user)
-  const { userProfile} = useAppSelector((state) => state.userProfile)
+    const { userId } = useAppSelector(state => state.user)
+    const { userProfile} = useAppSelector((state) => state.userProfile)
     const { chatId } = useAppSelector(state => state.chat)
   //
   // useEffect(() => {
@@ -35,17 +35,25 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
         setIsHidden(!isHidden)
       }
     }
-    
+
     const screenWidth = window.screen.width
 
 
-    useEffect(() => {
-        return () => {
-          if (chatId) {
-              dispatch(removeChat());
-          }
-        }
-    }, [])
+    // useEffect(() => {
+    //     return () => {
+    //       if (chatId) {
+    //           dispatch(removeChat());
+    //       }
+    //     }
+    // }, [])
+
+    // useEffect(() => {
+    //     console.log("chat list chatId = ", chatId)
+    // }, [chatId]);
+    //
+    // useEffect(() => {
+    //     console.log("chat panel = ", chats)
+    // }, [chats]);
 
   return (
      
@@ -69,7 +77,7 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
               </div>
           </div>
         </div>
-        { isHidden && 
+        { isHidden &&
         <ChatsList chats={chats}/>
         }
         

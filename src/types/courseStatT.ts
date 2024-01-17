@@ -31,6 +31,7 @@ export type result = {
     is_deleted: boolean
     date_added: Date
     progress: number
+    chat_uuid: string
 }
 
 export interface Section {

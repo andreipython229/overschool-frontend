@@ -1,6 +1,18 @@
 export type Chats = ChatI[]
 export type Messages = MessageI[]
 
+
+export interface UserChatsInformI {
+  total_unread: number
+  chats: ChatI[]
+}
+export interface UserInformI {
+  message: UserChatsInformI
+  type: string
+}
+
+
+
 export interface ChatI {
   id: string
   name: string
@@ -8,7 +20,7 @@ export interface ChatI {
   created_at: string
   senders: SenderI[]
   last_message: MessageI
-  unread_count: number
+  unread: number
   type: string
 }
 
@@ -34,4 +46,8 @@ export interface PersonalChatI {
   student_id: number
   message: string
   type: string
+}
+
+export interface PersonalChatForAdminOrTeacherI {
+  student_id: number
 }
