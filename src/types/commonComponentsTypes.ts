@@ -123,8 +123,13 @@ export type ToggleButtonDropDownT = {
   handleToggleHiddenBlocks: () => void
 }
 
+interface IDeleteFunc {
+  id: number
+  schoolName: string
+}
+
 export type AudioPlayerT = {
-  delete?: (id: number) => void
+  delete?: (arg: IDeleteFunc) => void
   audioUrls?: IFile[]
   title?: string
   styles?: { [key: string]: string | number }
