@@ -30,7 +30,7 @@ export const AccardionItem: FC<accardionItemT> = memo(({module, moduleIndex, ope
                     </h4>
                     <span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>
                         {module.lessons.length}
-                        <span>{getNounDeclension(module.lessons.length, ['Задание', 'Задания', 'Заданий'])}</span>
+                        <span>{getNounDeclension(module.lessons.length, ['Занятие', 'Занятия', 'Занятий'])}</span>
                     </span>
                 </div>
                 <span className={openIndex === moduleIndex ? styles.accardionWrapper_component_header_showBtnWrapper_active: styles.accardionWrapper_component_header_showBtnWrapper}>
