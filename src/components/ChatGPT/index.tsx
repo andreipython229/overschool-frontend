@@ -86,12 +86,12 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         return `<div>${lines.join('')}</div>`;
     });
 
-    return (
-        <div
-            dangerouslySetInnerHTML={{ __html: `<b style="color: #955dd3;">OVER AI:</b> ${formattedAnswer}` }}
-            style={{ wordWrap: 'break-word', color: '#333' }}
-        />
-    );
+     return (
+         <div
+             dangerouslySetInnerHTML={{ __html: `<div>${formattedAnswer}</div>` }}
+             //style={{ wordWrap: 'break-word', color: '#333' }}
+         />
+     );
 };
 
   useEffect(() => {
@@ -246,7 +246,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
               </div>
               {selectedChatId && (
                 <div className={`${styles.rightPane} ${isDialogOpen && styles.paneOpen}`}>
-                  <div className={styles.overAiText}>Чат с OVER AI</div>
+                  <div className={styles.overAiText}>OVER AI</div>
                   {isLoadingMessages ? (
                     <div className={styles.loadingSpinner}>
                       <div className={styles.spinner}></div>
@@ -256,14 +256,20 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                     <div className={styles.messageContainer} ref={messageContainerRef}>
                       {userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
                         <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
-                          <div className="user-question">
+                          <div className={styles.messageContainer_user}>
                             <span>
-                              <b style={{ color: '#955dd3' }}>Вы:</b> {userQuestion.sender_question}
+                              <b style={{ color: '#955dd3' }}>Вы:</b> 
+                              <div className={styles.messageContainer_user_question}>
+                              {userQuestion.sender_question}
+                              </div>
                             </span>
                           </div>
                           {index < botAnswers.length && (
-                            <div className="bot-response" key={index} style={{ wordWrap: 'break-word' }}>
-                              {formatBotAnswer(botAnswers[index].answer)}
+                            <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
+                              <p>OVER AI:</p>
+                               <div className={styles.messageContainer_bot_answer}>
+                                {formatBotAnswer(botAnswers[index].answer)}
+                               </div>`
                             </div>
                           )}
                         </div>
