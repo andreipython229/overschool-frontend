@@ -90,12 +90,12 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         return `<div>${lines.join('')}</div>`;
     });
 
-    return (
-        <div
-            dangerouslySetInnerHTML={{ __html: `<b style="color: #955dd3;">OVER AI:</b> ${formattedAnswer}` }}
-            style={{ wordWrap: 'break-word', color: '#333' }}
-        />
-    );
+     return (
+         <div
+             dangerouslySetInnerHTML={{ __html: `<div>${formattedAnswer}</div>` }}
+             //style={{ wordWrap: 'break-word', color: '#333' }}
+         />
+     );
 };
 
 useEffect(() => {
@@ -149,7 +149,7 @@ useEffect(() => {
       setIsChatSelected(true);
     }
   };
-
+  
   const createChat = async () => {
     try {
       if (userId !== null && userId !== undefined) {
@@ -281,7 +281,7 @@ useEffect(() => {
                             key={chatId}
                             onClick={() => selectChat(Number(chatId))}
                             className={`${styles.chatListItem} ${
-                              selectedChatId === Number(chatId) ? styles.activeChatWithBorder : ''
+                              selectedChatId === Number(chatId) ? styles.activeChat  : ''
                             }`}
                           >
                             <span style={{ fontSize: '13px' }}>
@@ -293,61 +293,64 @@ useEffect(() => {
                       )}
                     </div>
                     {selectedChatId && (
-                      <div className={`${styles.rightPane} ${isDialogOpen && styles.paneOpen}`}>
-                        <div className={styles.overAiText}>OVER AI</div>
-                        {isLoadingMessages ? (
-                          <div className={styles.loadingSpinner}>
-                            <div className={styles.spinner}></div>
-                            <span> Загрузка сообщений...</span>
-                          </div>
-                        ) : (
-                          <div className={styles.messageContainer} ref={messageContainerRef}>
-                            {userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
-                              <div
-                                key={index}
-                                className={index == 1 ? `${styles.message} first-message` : styles.message}
-                              >
-                                <div className="user-question">
-                                  <span>
-                                    <b style={{ color: '#955dd3' }}>Вы:</b> {userQuestion.sender_question}
-                                  </span>
-                                </div>
-                                {index < botAnswers.length && (
-                                  <div className="bot-response" key={index} style={{ wordWrap: 'break-word' }}>
-                                    {formatBotAnswer(botAnswers[index].answer)}
-                                  </div>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                        {error && (
-                          <div className={`${styles.errorContainer} ${error && styles.visible}`}>
-                            <span className={styles.errorText}>{error}</span>
-                          </div>
-                        )}
-                        <div className={styles.inputContainer}>
-                          {isLoading ? (
-                            <div className={styles.loadingSpinner}>
-                              <div className={styles.spinner}></div>
-                              <span> Генерация сообщения...</span>
-                            </div>
-                          ) : (
-                            <>
-                              <input
-                                type="text"
-                                placeholder="Задайте вопрос OVER AI"
-                                value={messageInput}
-                                onChange={(e) => setMessageInput(e.target.value)}
-                                onKeyPress={handleKeyPress}
-                              />
-                              <button onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
-                                ▲
-                              </button>
-                            </>
-                          )}
-                        </div>
+                  <div className={`${styles.rightPane} ${isDialogOpen && styles.paneOpen}`}>
+                    <div className={styles.overAiText}>OVER AI</div>
+                    {isLoadingMessages ? (
+                      <div className={styles.loadingSpinner}>
+                        <div className={styles.spinner}></div>
+                        <span> Загрузка сообщений...</span>
                       </div>
+                    ) : (
+                      <div className={styles.messageContainer} ref={messageContainerRef}>
+                        {userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
+                          <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
+                            <div className={styles.messageContainer_user}>
+                              <span>
+                                <b style={{ color: '#955dd3' }}>Вы</b> 
+                                <div className={styles.messageContainer_user_question}>
+                                {userQuestion.sender_question}
+                                </div>
+                              </span>
+                            </div>
+                            {index < botAnswers.length && (
+                              <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
+                                <p>OVER AI</p>
+                                <div className={styles.messageContainer_bot_answer}>
+                                  {formatBotAnswer(botAnswers[index].answer)}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                      {error && (
+                        <div className={`${styles.errorContainer} ${error && styles.visible}`}>
+                          <span className={styles.errorText}>{error}</span>
+                        </div>
+                      )}
+                      <div className={styles.inputContainer}>
+                      {isLoading ? (
+                        <div className={styles.loadingSpinner}>
+                          <div className={styles.spinner}></div>
+                          <span> Генерация сообщения...</span>
+                        </div>
+                      ) : (
+                        <>
+                          <input
+                            type="text"
+                            placeholder="Задайте вопрос OVER AI"
+                            value={messageInput}
+                            onChange={(e) => setMessageInput(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                          />
+                          <button onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
+                            ▲
+                          </button>
+                        </>
+                      )}
+                      </div>
+                  </div>
                     )}
                   </>
               )}

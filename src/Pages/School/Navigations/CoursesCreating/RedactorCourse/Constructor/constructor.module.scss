@@ -56,6 +56,9 @@
   &_leftSide {
     @include display(flex, column);
     margin-right: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 8px;
     //margin-top: 50px;
     //border: 1px #0af50a solid;
     user-select: none;

@@ -42,7 +42,7 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
   }
 
   return (
-    <form onSubmit={handleCreateModules} style={{ maxWidth: '440px', padding: '36px 0' }} className={styles.classesContainer}>
+    <form onSubmit={handleCreateModules} style={{ maxWidth: '440px'}} className={styles.classesContainer}>
       <div onClick={handleClose} className={styles.classesContainer_closed}>
         <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
       </div>
