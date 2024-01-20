@@ -6,7 +6,7 @@
   width: 58%;
   border: 1px solid #ccc;
   padding: 10px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   overflow: hidden;
   height: 85%;
   display: flex;
@@ -23,7 +23,7 @@
   transform: translate(-90%, -90%);
   width: 90%;
   height: 90%;
-  background: linear-gradient(to bottom right, #caa7ee, #F7F5F7);
+  background: #ffffff;
   filter: blur(280px);
   z-index: -1;
 }
@@ -55,13 +55,16 @@
 
 .leftPane {
   background-color: #f2f2f2;
-  padding: 10px;
+  padding: 15px;
   border-radius: 20px;
-  height: 100%;
+  height: 98%;
   overflow-y: auto;
   width: 30%;
   display: flex;
   flex-direction: column;
+  margin-left: 7px;
+  margin-top: 7px;
+  margin-bottom: 7px;
 }
 
 .rightPane {
@@ -69,13 +72,33 @@
   margin-top: auto;
 }
 
+.centeredText {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
 .chatListItem {
   background-color: #f2f2f2;
   border-bottom: 1px solid #ddd;
   padding: 10px;
   cursor: pointer;
-  border-radius: 10px;
   height: 10%;
+  position: relative;
+  color: #7c7575;
+  align-items: center;
+}
+
+
+.chatListItem::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #8a49b5;
+  border-bottom: 1px solid #c08de2;
 }
 
 .chatListItem:hover,
@@ -119,8 +142,8 @@
     border: none;
     color: rgba(255, 255, 255, 1);
     position: fixed;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     bottom: 20px;
     right: 15px;
     background-color: #BA75FF;
@@ -137,6 +160,12 @@
     background-color: #4b0082;
     color: white;
   }
+
+  .chatGptButton svg {
+    margin-top: 4px;
+    width: 40px;
+    height: 40px;
+  }
   
 .dialog-enter-active {
   opacity: 1;
@@ -150,7 +179,7 @@
   text-align: center;
   color: #b996e1;
   position: absolute;
-  top: 4%;
+  top: 2%;
   left: 60%;
   z-index: 1;
 }
@@ -223,7 +252,7 @@
   padding-left: 3%;
   padding: 2%;
   // border: 1px solid #ccc;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   // border-radius: 20px;
   white-space: pre-wrap;
   font-size: 14px;
@@ -243,20 +272,25 @@
 
 .inputContainer input {
   flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  border: 1px solid #7f4cbf;
   border-radius: 10px;
   background-color: transparent;
   outline: none;
+  font-size: 14px;
+}
+
+.inputContainer input::placeholder {
+  color: #7f4cbf;
 }
 
 .inputContainer button {
-  width: 46px;
-  height: 46px;
+  width: 40px;
+  height: 40px;
   padding: 10px;
   margin-left: 2px;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 6px;
   background-color: #BA75FF;
   color: white;
   cursor: pointer;
@@ -374,7 +408,7 @@
   margin-left: auto;
   margin-right: auto;
   border-radius: 8px;
-  width: 90%;
+  width: 100%;
   height: 9%;
   font-size: 14px;
 }
