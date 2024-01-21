@@ -29,7 +29,20 @@ export const ExerciseItem: FC<exerciseItemT> = memo(({ lesson, sectionId, disabl
       <div className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper}>
         <h5 className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper_title}>{lesson.name}</h5>
         <span className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper_status_neg}>
-          {lesson.viewed? 'Пройдено': 'Не пройдено'}
+          {lesson.viewed? 'Просмотрено': ''}
+          {lesson.type === "lesson" ? (
+              <>
+
+              </>
+          ) : lesson.type === "homework" ? (
+              <>
+                {lesson.viewed ? lesson.completed ? " / Принята" : " / Не принята" : ""}
+              </>
+          ) : lesson.type === "test" && (
+              <>
+                {lesson.viewed ? lesson.completed ? " / Пройден" : " / Не пройден" : ""}
+              </>
+          )}
         </span>
       </div>
     </div>

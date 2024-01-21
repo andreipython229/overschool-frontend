@@ -258,7 +258,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
           </thead>
           <tbody className={styles.table_tbody}>
             {rows?.map((row, id) => (
-              <tr key={id + Math.random()} onClick={(event) => handleRowClick(event, id)}>
+              <tr key={id} style={row['Дата удаления из группы'] !== ' ' ? {backgroundColor: '#fcf5f5'} : {}} onClick={(event) => handleRowClick(event, id)}>
                 {cols.map(col => {
                   const cellValue = row[col] as string | number | { text: string; image: ReactNode }
                   return (
@@ -275,17 +275,18 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
                             <Button className={styles.chat_button} text={"CHAT"} onClick={() => handleToggleChatModal(id)}/>
                             )
                           }
-                          {cellValue.image}
+
                           {row['Дата удаления из группы'] !== ' ' && (
                               <div
                               style={{
                                 fontSize: '10px',
-                                backgroundColor: '#E23532',
-                                color: 'white',
+                                backgroundColor: '#fa6961',
+                                color:"white",
                                 padding: '3px 6px 3px 6px',
                                 borderRadius: '5px'
                               }}>Удалён</div>
                           )}
+                          {cellValue.image}
                           <p>{cellValue.text}</p>
                         </div>
                       ) : (
