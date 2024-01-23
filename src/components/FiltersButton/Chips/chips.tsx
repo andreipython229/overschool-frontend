@@ -22,10 +22,6 @@ export const ChipsComponent: FC<chipsComponentT> = ({ filters, filterKey, chipsV
   }
   const isFiltersAdded = chips?.some(([_, value]) => value !== '')
 
-  useEffect(() => {
-    console.log("chips = ", chips)
-  }, [chips]);
-
   return (
     <>
       <div className={styles.chipsContainer}>

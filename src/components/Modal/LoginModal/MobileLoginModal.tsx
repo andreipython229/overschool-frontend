@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import { FormikHelpers, useFormik } from 'formik'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, generatePath } from 'react-router-dom'
 import { InputAuth } from '../../common/Input/InputAuth/InputAuth'
 import { Button } from '../../common/Button/Button'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
@@ -29,7 +29,7 @@ type FirstFormValuesT = {
 
 import { motion } from 'framer-motion'
 
-export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
+export const MobileLoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const toast = useRef<Toast>(null)
@@ -80,6 +80,10 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   const changeSecurityStatus = () => {
     setSecurity(!security)
   }
+ 
+  const handleRegistrationUser = () => {
+    navigate(generatePath(Path.CreateSchool))
+  }
 
   const formik = useFormik({
     validate: values => validateLogin(values, authVariant),
@@ -110,9 +114,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
     }
   }, [isSuccess, isLoading])
 
-  const handleClose = () => {
-    setShowModal(false)
-  }
+  
 
   const submitformikforgot = async (event: any) => {
     event.preventDefault()
@@ -183,7 +185,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
 
   return (
     <motion.div
-      className={styles.main_login}
+      className={styles.main}
       initial={{
         scale: 0.1,
         opacity: 0,
@@ -208,8 +210,8 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
       {isHidden && (
         <form onSubmit={formik.handleSubmit}>
           <div className={styles.container}>
-            <span className={styles.main_closed} onClick={handleClose}>
-              <IconSvg width={17} height={17} viewBoxSize="0 0 16 16" path={crossIconPath} />
+            <span className={styles.main_registr} onClick={handleRegistrationUser}>
+              Зарегистрироваться
             </span>
 
             <div>
@@ -222,7 +224,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
                       type={authVariant === 'email' ? 'email' : 'tel'}
                       onChange={formik.handleChange}
                       value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
-                      placeholder={"Электронная почта"}
+                      placeholder={authVariant}
                     />
                     {/* <AuthSelect getInputVariant={getInputVariant}/> */}
                   </div>
@@ -255,8 +257,8 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
       {isShown && step === 1 && (
         <div>
           <div className={styles.container}>
-            <span className={styles.main_closed} onClick={handleClose}>
-              <IconSvg width={15} height={15} viewBoxSize="0 0 14 14" path={crossIconPath} />
+            <span className={styles.main_registr} onClick={handleRegistrationUser}>
+              Зарегистрироваться
             </span>
             <div className={styles.main_title} style={{ margin: '60px 0 30px 0 ' }}>
               Введите почту:
@@ -285,8 +287,8 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
       {isShown && step === 2 && (
         <div>
           <div className={styles.container}>
-            <span className={styles.main_closed} onClick={handleClose}>
-              <IconSvg width={15} height={15} viewBoxSize="0 0 14 14" path={crossIconPath} />
+            <span className={styles.main_registr} onClick={handleRegistrationUser}>
+              Зарегистрироваться
             </span>
             <div className={styles.main_title} style={{ margin: '60px 0 30px 0 ' }}>
               Введите код подтверждения, который был выслан на Ваш email:
@@ -322,8 +324,8 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
       {isShown && step === 3 && (
         <div>
           <div className={styles.container}>
-            <span className={styles.main_closed} onClick={handleClose}>
-              <IconSvg width={15} height={15} viewBoxSize="0 0 14 14" path={crossIconPath} />
+            <span className={styles.main_registr} onClick={handleRegistrationUser}>
+              Зарегистрироваться
             </span>
             <div className={styles.main_title} style={{ margin: '60px 0 30px 0 ' }}>
               Введите новый пароль для вашей учетной записи:
@@ -362,6 +364,36 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
                 disabled={password.length === 0 || passwordConfirmation.length === 0 || password !== passwordConfirmation || resetLoading}
                 text={
                   resetLoading ? <SimpleLoader style={{ position: 'relative', width: '95px', height: '25px' }} loaderColor="white" /> : 'Отправить'
+                }
+              />
+            </div>
+          </div>
+        </div>
+      )}
+      {isShown && step === 4 && (
+        <div>
+          <div className={styles.container}>
+            <span className={styles.main_closed} onClick={handleRegistrationUser}>
+              <IconSvg width={15} height={15} viewBoxSize="0 0 14 14" path={crossIconPath} />
+            </span>
+            <div className={styles.main_title} style={{ margin: '60px 0 30px 0 ' }}>
+              Введите почту:
+            </div>
+            <div className={styles.inputs_block}>
+              <div>
+                <div style={{ display: 'flex' }}>
+                  <Input className={styles.input_container} name="email" type="text" onChange={handleEmail} value={email} placeholder="Email" />
+                </div>
+                <div className={styles.errors_forgot}>{errorSend && 'Неверная почта'}</div>
+              </div>
+            </div>
+            <div className={styles.container_wrapper}>
+              <Button
+                onClick={submitformikforgot}
+                variant={email.length === 0 ? 'disabled' : 'primary'}
+                disabled={email.length === 0 || sendLoading}
+                text={
+                  sendLoading ? <SimpleLoader style={{ position: 'relative', width: '95px', height: '25px' }} loaderColor="white" /> : 'Отправить'
                 }
               />
             </div>

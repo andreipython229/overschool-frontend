@@ -59,7 +59,7 @@ export const TariffPlans: FC = () => {
         ease:'easeInOut',
         duration: 1.3,
       }}>
-        <div className={styles.bg1}>
+        <div className={styles.bg}>
                 <div className={styles.bg_wrap1}></div>
               </div>
               <div className={styles.bg}>

@@ -18,8 +18,9 @@ export interface LatestMessagesResponse {
 }
 
 export interface SendMessagePayload {
-  user_id: string;
+  user_id: number;
   message: string;
+  overai_chat_id?: number,
 }
 
 export interface SendMessageResponse {
@@ -28,14 +29,18 @@ export interface SendMessageResponse {
   bot_response: string;
 }
 
+export interface LatestChatsResponse {
+  [id: number]: string;
+}
+
 export const chatgptService = createApi({
   reducerPath: 'chatgptService',
   baseQuery: baseQuery(),
   endpoints: build => ({
-    fetchLatestMessages: build.query<Array<LatestMessagesResponse>, string>({
-      query: (userId) => ({
-        url: `/chatgpt/latest_messages/${userId}/`,
-      })
+    fetchLatestMessages: build.query<Array<LatestMessagesResponse>, { userId: string; overai_chat_id?: string }>({
+      query: ({ userId, overai_chat_id }) => ({
+        url: `/chatgpt/latest_messages/${userId}/${overai_chat_id}/`
+      }),
     }),
     sendMessage: build.mutation<SendMessageResponse, SendMessagePayload>({
       query: (payload) => ({
@@ -47,8 +52,28 @@ export const chatgptService = createApi({
         },
       }),
     }),
+    createChat: build.mutation<{overai_chat_id: number}, string>({
+      query: (payload) => ({
+        url: `/chatgpt/create_chat/`,
+        method: 'POST',
+        body: payload,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
+    fetchLatestChats: build.query<LatestChatsResponse, string>({
+      query: (userId) => ({
+        url: `/chatgpt/latest_chats/${userId}/`,
+      }),
+    }),
   }),
 });
 
-export const { useFetchLatestMessagesQuery, useSendMessageMutation } = chatgptService;
+export const { 
+  useFetchLatestMessagesQuery, 
+  useSendMessageMutation, 
+  useCreateChatMutation, 
+  useFetchLatestChatsQuery 
+} = chatgptService;
 export type ChatgptService = typeof chatgptService;

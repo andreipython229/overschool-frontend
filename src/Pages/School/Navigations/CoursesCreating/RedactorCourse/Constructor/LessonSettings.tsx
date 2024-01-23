@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+import styles1 from '../../../../../../components/Modal/Modal.module.scss'
 
 import { UploadedFile } from 'components/UploadedFile'
 import { AddFileBtn } from 'components/common/AddFileBtn/index'
@@ -7,7 +8,7 @@ import { AddPost } from 'components/AddPost'
 import { deleteIconPath, settingsIconPath } from '../../../../config/svgIconsPath'
 import { useFetchLessonQuery, usePatchLessonsMutation } from 'api/modulesServices'
 import { ClassesSettingsPropsT } from 'types/navigationTypes'
-import { commonLessonT } from 'types/sectionT'
+import { BlockT, commonLessonT } from 'types/sectionT'
 import { AddQuestion } from 'components/AddQuestion'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import { useDeleteAudioFilesMutation, useDeleteTextFilesMutation, usePostTextFilesMutation } from 'api/filesService'
@@ -22,26 +23,34 @@ import { acceptedHwPath } from '../../../../../../config/commonSvgIconsPath'
 import { IFile } from '../../../../../../types/filesT'
 import { CheckboxBall } from '../../../../../../components/common/CheckboxBall'
 import { PublishedMark } from '../../../../../../components/common/PublishedMark'
-// import { AudioPlayer } from 'components/common/AudioPlayer'
+import { BLOCK_TYPE } from 'enum/blockTypeE'
+import { AddCodeEditor } from 'components/AddCodeEditor'
+import { AddVideo } from 'components/AddVideo'
+import { AudioPlayer } from 'components/common/AudioPlayer'
+import { useDeleteBlockMutation, useOrderUpdateMutation } from 'api/blocksService'
+import { useDebounceFunc } from 'customHooks'
+import { Reorder } from 'framer-motion'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
+  const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
+  const [lessonBlocks, setLessonBlocks] = useState<BlockT[]>([])
   const [files, setFiles] = useState<File[]>([])
   const schoolName = window.location.href.split('/')[4]
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
   const [renderFiles, setRenderFiles] = useState<IFile[]>([])
   const [isEditing, setIsEditing] = useState(false)
-  const [lessonDescription, setLessonDescription] = useState<string>('')
   const [isPublished, setIsPublished] = useState(false)
   const [audiofiles, setAudiofiles] = useState<File[]>([])
+  const debounceBlockOrder = useDebounceFunc(changeOrder, 2000)
+  const [newBlocksOrders, setNewBlocksOrders] = useState<BlockT[]>([])
 
   const { data, isFetching, isSuccess } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type, schoolName })
   const [addTextFiles] = usePostTextFilesMutation()
   const [saveChanges, { isLoading: isSaving, isSuccess: isCompleted }] = usePatchLessonsMutation()
   const [deleteFile, { isLoading: isDeleting }] = useDeleteTextFilesMutation()
   const [deleteAudio, { isLoading: isAudioDeleting }] = useDeleteAudioFilesMutation()
-
+  const [deleteBlock, { isLoading: isBlockDeleting }] = useDeleteBlockMutation()
   const [lesson, setLesson] = useState(data as commonLessonT)
-  const [lessonVideo, setLessonVideo] = useState<boolean>(false)
 
   useEffect(() => {
     if (data) {
@@ -60,18 +69,94 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       setUrlFiles([])
     }
 
-    if (lesson) {
-      if ('description' in lesson && lesson.description) {
-        setLessonDescription(lesson.description)
-      } else {
-        setLessonDescription('')
-      }
-
-      if (('video' in lesson && lesson.video) || ('url' in lesson && lesson.url)) {
-        setLessonVideo(true)
-      }
+    if (lesson && lesson.type !== 'test') {
+      setLessonBlocks(lesson.blocks)
     }
   }, [lesson])
+
+  const renderBlocks = () => {
+    return lessonBlocks.map(block => {
+      switch (block.type) {
+        case BLOCK_TYPE.TEXT:
+          if ('description' in block && block.description) {
+            return (
+              <NewTextEditor key={block.id} text={block.description} block={block} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
+            )
+          } else {
+            return <NewTextEditor key={block.id} text="" block={block} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
+          }
+        case BLOCK_TYPE.CODE:
+          if ('code' in block && block.code) {
+            return (
+              <AddCodeEditor
+                key={block.id}
+                isPreview={!isEditing}
+                lesson={lesson}
+                code={block.code}
+                block={block}
+                deleteBlock={deleteBlock}
+                setLessonBlocks={setLessonBlocks}
+                lessonBlocks={lessonBlocks}
+              />
+            )
+          } else {
+            return (
+              <AddCodeEditor
+                key={block.id}
+                isPreview={!isEditing}
+                lesson={lesson}
+                code={''}
+                block={block}
+                deleteBlock={deleteBlock}
+                setLessonBlocks={setLessonBlocks}
+                lessonBlocks={lessonBlocks}
+              />
+            )
+          }
+        case BLOCK_TYPE.VIDEO:
+          if ('video' in block && block.video) {
+            return (
+              <VideoPlayer
+                key={block.id}
+                isEditing={isEditing}
+                lessonId={lesson.baselesson_ptr_id}
+                block={block}
+                videoSrc={block.video}
+                deleteBlock={deleteBlock}
+                setLessonBlocks={setLessonBlocks}
+                lessonBlocks={lessonBlocks}
+              />
+            )
+          } else if ('url' in block && block.url) {
+            return (
+              <VideoPlayer
+                key={block.id}
+                isEditing={isEditing}
+                block={block}
+                lessonId={lesson.baselesson_ptr_id}
+                videoSrc={block.url}
+                deleteBlock={deleteBlock}
+                setLessonBlocks={setLessonBlocks}
+                lessonBlocks={lessonBlocks}
+              />
+            )
+          } else {
+            return (
+              <AddVideo
+                key={block.id}
+                lesson={lesson}
+                block={block}
+                deleteBlock={deleteBlock}
+                setLessonBlocks={setLessonBlocks}
+                lessonBlocks={lessonBlocks}
+              />
+            )
+          }
+        case BLOCK_TYPE.PICTURE:
+          return <></>
+      }
+    })
+  }
 
   const handleSaveChanges = async () => {
     if (files.length) {
@@ -86,7 +171,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     }
 
     const formData = new FormData()
-    formData.append('description', lessonDescription)
+    // formData.append('description', lessonDescription)
     formData.append('section', String(lesson.section))
     formData.append('order', String(lesson.order))
     formData.append('active', String(isPublished))
@@ -108,7 +193,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
   useEffect(() => {
     setIsEditing(false)
-    setLessonVideo(false)
   }, [lessonIdAndType])
 
   const showSettingsModal = () => {
@@ -203,14 +287,25 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
   useEffect(() => {
     if (isCompleted) {
-      if (lessonDescription && lesson.type !== LESSON_TYPE.TEST) {
-        setLesson({ ...lesson, description: lessonDescription, active: isPublished })
-      } else {
-        setLesson({ ...lesson, active: isPublished })
-      }
+      setLesson({ ...lesson, active: isPublished })
       setIsEditing(!isEditing)
     }
   }, [isCompleted, isSaving])
+
+  const handleOrderUpdate = (blocksWithNewOrders: BlockT[]) => {
+    setLessonBlocks(blocksWithNewOrders)
+    setNewBlocksOrders(blocksWithNewOrders)
+  }
+
+  useEffect(() => {
+    const updatedBlockOrder = newBlocksOrders.map(({ id, order }, index) => ({
+      block_id: id,
+      order: index + 1,
+    }))
+    if (updatedBlockOrder.length > 0 && updatedBlockOrder.length > 0) {
+      debounceBlockOrder({ data: updatedBlockOrder, schoolName })
+    }
+  }, [newBlocksOrders])
 
   return (
     <section
@@ -220,95 +315,60 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       <div style={{ position: 'relative' }} className={styles.redactorCourse_rightSideWrapper_rightSide}>
         <div className={styles.redactorCourse_rightSideWrapper_rightSide_header}>
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock}>
-            {!isEditing ? (
-              <div className={styles.coursePreviewHeader}>
-                <button onClick={() => setIsEditing(true)} className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_setting}>
-                  <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
-                  Редактировать
-                </button>
-              </div>
-            ) : (
-              <div>
-                
-              </div>
-            )}
+            {!isEditing ? <div className={styles.coursePreviewHeader}></div> : <div></div>}
           </div>
         </div>
         {isEditing ? (
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
             <div className={styles.redactorCourse_rightSideWrapper_rightSide_blockAll}>
               <div className={styles.redactorCourse_rightSideWrapper_rightSide_block}>
-                <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>{lesson && 'name' in lesson && lesson.name}</span>
+                <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>
+                  {lesson && 'name' in lesson && lesson.name}
+                </span>
               </div>
-              <div className={styles.coursePreviewHeaderRedactor}>  
-              <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_edit} onClick={showSettingsModal}>
-                <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
-                 Изменить название урока
-              </button>
+              <div className={styles.coursePreviewHeaderRedactor}>
+                <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_edit} onClick={showSettingsModal}>
+                  <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
+                  Изменить название урока
+                </button>
 
-              <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save} onClick={handleSaveChanges}>
-                <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
-                 Сохранить изменения
-              </button>
+                <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save} onClick={handleSaveChanges}>
+                  <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
+                  Сохранить изменения
+                </button>
 
-              <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
-                <IconSvg functionOnClick={handleDeleteLesson} width={16} height={16} viewBoxSize="0 0 19 19" path={deleteIconPath} />
-              </button>
-              </div>                         
+                <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
+                  <IconSvg functionOnClick={handleDeleteLesson} width={16} height={16} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+                </button>
+              </div>
             </div>
             <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
               <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
               <div style={publickButton}>
-                  <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
-                  <PublishedMark isPublished={isPublished} />
-                </div>
+                <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
+                <PublishedMark isPublished={isPublished} />
+              </div>
             </div>
             {lesson.type !== 'test' && (
               <>
-                {lessonVideo &&
-                  (lesson.url && lesson.video ? (
-                    <div style={{ marginBottom: '20px' }}>
-                      <VideoPlayer
-                        videoSrc={lesson.video}
-                        videoSrc2={lesson.url}
-                        isEditing={isEditing}
-                        handleDeleteVideo={handleDeleteVideo}
-                        isDeleted={isCompleted}
-                        lessonId={lesson.baselesson_ptr_id}
-                      />
-                    </div>
-                  ) : !lesson.video && lesson.url ? (
-                    <div style={{ marginBottom: '20px' }}>
-                      <VideoPlayer
-                        videoSrc={lesson.url}
-                        videoSrc2={''}
-                        isEditing={isEditing}
-                        handleDeleteVideo={handleDeleteVideo}
-                        isDeleted={isCompleted}
-                        lessonId={lesson.baselesson_ptr_id}
-                      />
-                    </div>
-                  ) : (
-                    <div style={{ marginBottom: '20px' }}>
-                      <VideoPlayer
-                        videoSrc={lesson.video}
-                        videoSrc2={''}
-                        isEditing={isEditing}
-                        handleDeleteVideo={handleDeleteVideo}
-                        isDeleted={isCompleted}
-                        lessonId={lesson.baselesson_ptr_id}
-                      />
-                    </div>
-                  ))}
-                {'description' in lesson && lesson.description ? (
-                  <NewTextEditor text={lesson.description} setLessonDescription={setLessonDescription} />
-                ) : (
-                  <NewTextEditor text={lessonDescription} setLessonDescription={setLessonDescription} />
-                )}
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
-                  <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} setLesson={setLesson} deleteAudio={handleDeleteAudioFile} />
+                  <Reorder.Group className={styles1.settings_list} style={{gap: '2em'}} values={lessonBlocks} onReorder={handleOrderUpdate} as="ul">
+                    {renderBlocks()}
+                  </Reorder.Group>
+
+                  {lessonBlocks.length < 10 && (
+                    <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
+                  )}
                 </div>
-              
+                <>
+                  {(files || lesson.audio_files) && (
+                    <div>
+                      {lesson.audio_files && <AudioPlayer audioUrls={lesson.audio_files} delete={deleteAudio} />}
+                      {files && <AudioPlayer files={files} delete={deleteAudio} />}
+                    </div>
+                  )}
+                </>
+
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
 
                 {renderFiles?.map(({ file, id, size, file_url }, index: number) => (
@@ -346,11 +406,22 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
           </div>
         ) : (
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
+            <div className={styles.redactorCourse_rightSideWrapper_rightSide_nameBlock}>
+              <div className={styles.redactorCourse_rightSideWrapper_rightSide_block}>
+                <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>
+                  {lesson && 'name' in lesson && lesson.name}
+                </span>
+              </div>
+              <button onClick={() => setIsEditing(true)} className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_setting}>
+                <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
+                Редактировать
+              </button>
+            </div>
             <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
             {renderUI()}
           </div>
         )}
-        {(isFetching || isDeleting || isSaving) && (
+        {(isFetching || isDeleting || isSaving || isBlockDeleting) && (
           <div
             style={{
               position: 'absolute',

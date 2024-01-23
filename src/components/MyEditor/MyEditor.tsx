@@ -10,9 +10,10 @@ type MyEditorT = {
   setDescriptionLesson?: (arg: string) => void
   editedText?: string
   setIsEditing?: any
+  save?: (arg: string) => void
 }
 
-export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText, setIsEditing }) => {
+export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText, setIsEditing, save }) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
   const [editorContent, setEditorContent] = useState<string>('')
   const [text, setText] = useState('')
@@ -43,6 +44,7 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
     const contentState = editorState.getCurrentContent()
     const html = stateToHTML(contentState)
     await (setDescriptionLesson && setDescriptionLesson(html))
+    save && (await save(html))
     setIsEditing && setIsEditing(false)
   }
 
@@ -105,7 +107,7 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
     setEditorState(nextState)
   }
 
-  const onInlineClick = (e:string) => {
+  const onInlineClick = (e: string) => {
     const nextState = RichUtils.toggleInlineStyle(editorState, e)
     setEditorState(nextState)
   }
@@ -121,8 +123,8 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
         {BLOCK_TYPES.map(({ label, style }, index: number) => (
           <StyleButton key={index} style={style} label={label} isActive={() => isActive(style)} onToggle={onBlockClick} />
         ))}
-        {INLINE_STYLES.map(({label, style}, index:number) => (
-          <StyleButton key={label+style} style={style} label={label} isActive={() => isActive(style)} onToggle={onInlineClick}/>
+        {INLINE_STYLES.map(({ label, style }, index: number) => (
+          <StyleButton key={label + style} style={style} label={label} isActive={() => isActive(style)} onToggle={onInlineClick} />
         ))}
       </div>
       <div className={styles.editor_table}>

@@ -19,6 +19,7 @@ import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
 import styles from './App.module.scss'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { RoleE } from 'enum/roleE'
+import { Certificate } from 'Pages/Certificate/Certificate'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -42,8 +43,7 @@ export const App = () => {
   useEffect(() => {
     if (pathname === '/') {
       navigate(Path.InitialPage)
-    }
-    if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
+    } else if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
       navigate(
         generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
       )
@@ -66,6 +66,7 @@ export const App = () => {
           <Route path={FooterPath.PWA} element={<PWA />} />
           <Route path={FooterPath.Agreement} element={<Agreement />} />
         </Route>
+        <Route path={Path.Certificate} element={<Certificate />} />
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />

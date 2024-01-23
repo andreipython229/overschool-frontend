@@ -82,7 +82,7 @@
   flex-shrink: 0;
   flex-grow: 0;
   overflow: visible;
-  width: 50%;
+  width: 550px;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 90%;
     position: absolute;
@@ -101,13 +101,43 @@
     height: 95%;
   }
 
+  &_login {
+    position: relative;
+    @include display(flex, column, center);
+    background: $color-white;
+    font-family: 'Manrope', sans-serif;
+    margin: auto;
+    border-radius: 7px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    overflow: visible;
+    width: 400px;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      width: 90%;
+      position: absolute;
+      top: 10%;
+      right: 6%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      width: 90%;
+      position: absolute;
+      top: 10%;
+      right: 6%;
+    }
+    @media only screen and (min-width: 481px) and (max-width: 1024px) {
+      position: absolute;
+      left: 30%;
+      height: 95%;
+    }
+  }
+
   &_closed {
     @include position_t_r(absolute, 1.5em, 1.5em);
     cursor: pointer;
-    color: #e0dced;
+    color: #ba75ff;
     width: 35px;
     height: 35px;
-    background-color: #f1f1f1;
+    //background-color: #f1f1f1;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -115,6 +145,23 @@
 
     &:hover {
       color: #4d5766;
+      transition: color 0.3s;
+    }
+  }
+
+  &_registr {
+    @include position_t_r(absolute, 0.5em, 5em);
+    cursor: pointer;
+    color: #6F6F6F;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+
+    &:hover {
+      color: #000000;
       transition: color 0.3s;
     }
   }
@@ -385,7 +432,7 @@
   }
 
   &_closed {
-    background: #f1f1f1;
+    //background: #f1f1f1;
     width: 30px;
     height: 30px;
     position: absolute;
@@ -393,7 +440,7 @@
     right: 17px;
     border-radius: 5px;
     cursor: pointer;
-    color: #e0dced;
+    color: #ba75ff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -954,6 +1001,7 @@
 
 .settings_list {
   list-style-type: none;
+  @include display(flex, column);
 }
 
 .settings_title {

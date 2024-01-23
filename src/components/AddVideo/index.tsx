@@ -1,24 +1,30 @@
-import { useState, FC, DragEvent, ChangeEvent } from 'react'
+import { useState, FC, DragEvent, ChangeEvent, PointerEvent } from 'react'
 
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { addVideoIconPath } from './config/svgIconsPath'
-import { arrUpPath, arrDownPath, deletePath } from '../../config/commonSvgIconsPath'
-import { AddPostT, setShowType } from '../../types/componentsTypes'
+import { deletePath } from '../../config/commonSvgIconsPath'
+import { AddPostT } from '../../types/componentsTypes'
 
 import styles from './addVideo.module.scss'
 import { SimpleLoader } from '../Loaders/SimpleLoader'
 import { useUploadLessonVideoMutation } from 'api/videoFilesService'
 import { Input } from 'components/common/Input/Input/Input'
 import { usePatchLessonsMutation } from 'api/modulesServices'
+import { IBlockCode, IBlockDesc, IBlockPic, IBlockVid } from 'types/sectionT'
+import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
+import { Reorder, useDragControls } from 'framer-motion'
+import { useDeleteBlockMutation } from 'api/blocksService'
 
-export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPreview, addFile, lesson, setLesson, setShow }) => {
+export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, lesson, setLessonBlocks, lessonBlocks }) => {
   const [dragVideo, setDragVideo] = useState<boolean>(false)
   const [files, setFiles] = useState<File[]>([])
   const [addVideoFile] = useUploadLessonVideoMutation()
   const [isLoadingVideo, setIsLoadingVideo] = useState<boolean>(false)
   const [youTubeLink, setYouTubeLink] = useState<string>('')
   const [addYTVideo] = usePatchLessonsMutation()
+  const controls = useDragControls()
+  const [deleteBlock, { isLoading }] = useDeleteBlockMutation()
   const schoolName = window.location.href.split('/')[4]
 
   const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
@@ -37,6 +43,17 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     setDragVideo(false)
   }
 
+  const handleDeleteVid = () => {
+    if (block && lessonBlocks && setLessonBlocks) {
+      deleteBlock({ id: block.id, schoolName })
+        .unwrap()
+        .then(data => {
+          const updatedLessons = lessonBlocks.filter(item => item.id !== block.id)
+          setLessonBlocks(updatedLessons)
+        })
+    }
+  }
+
   const handleYTVideo = async () => {
     if (youTubeLink.length > 0 && lesson) {
       const formData = new FormData()
@@ -46,9 +63,20 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
       await addYTVideo({ arg: { formdata: formData, id: lessonIdAndType?.id as number, type: lesson.type }, schoolName })
         .unwrap()
         .then(data => {
-          setLesson && setLesson({ ...lesson, url: youTubeLink });
-          setShow();
+          setIsLoadingVideo(false)
         })
+    }
+  }
+
+  const updateLessonsBlocksArray = (id: number, newValue: IBlockCode | IBlockDesc | IBlockPic | IBlockVid) => {
+    if (lessonBlocks && setLessonBlocks) {
+      const updatedBlocks = lessonBlocks.map(item => {
+        if (item.id === id) {
+          return newValue
+        }
+        return item
+      })
+      setLessonBlocks(updatedBlocks)
     }
   }
 
@@ -70,28 +98,39 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     try {
       await addVideoFile({
         arg: {
-          id: lessonIdAndType.id,
-          type: lessonIdAndType.type,
+          id: Number(block?.id),
           formdata: formData,
         },
         schoolName,
       })
         .unwrap()
         .then(data => {
-          setLesson && setLesson({ ...lesson, video: data.video })
+          updateLessonsBlocksArray(data.id, data)
           setIsLoadingVideo(false)
-          setShow()
         })
     } catch (error) {
       setIsLoadingVideo(false)
     }
   }
 
+  const onPointerDown = (event: PointerEvent<HTMLSpanElement>) => {
+    controls.start(event)
+  }
+
   const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
   const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
   return (
-    <>
+    <Reorder.Item
+      value={block}
+      dragListener={false}
+      dragControls={controls}
+      whileDrag={{
+        scale: 1.1,
+        borderRadius: '7px',
+      }}
+      key={block && block.id}
+    >
       {!isPreview && (!lesson.video || !lesson.url) ? (
         <div className={styles.redactorCourse_wrapper}>
           {isLoadingVideo ? (
@@ -144,14 +183,11 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
                 )}
               </div>
               <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
-                {/* <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-                  <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrUpPath} />
-                </div>
-                <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-                  <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
-                </div> */}
-                <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete} onClick={setShow}>
-                  <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
+                <span className={styles.redactorCourse_rightSide_functional_addContent_navBlock_grabBtn} onPointerDown={onPointerDown}>
+                  <IconSvg width={11} height={15} className="zIndex: 20" viewBoxSize="0 0 12 18" path={doBlockIconPath} />
+                </span>
+                <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete} onClick={handleDeleteVid}>
+                  {isLoading ? <SimpleLoader /> : <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />}
                 </div>
               </div>
             </>
@@ -170,6 +206,6 @@ export const AddVideo: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
           )}
         </>
       )}
-    </>
+    </Reorder.Item>
   )
 }

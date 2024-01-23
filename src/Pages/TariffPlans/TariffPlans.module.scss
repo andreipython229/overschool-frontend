@@ -87,7 +87,8 @@
       justify-content: space-around;
 
       &_card:hover {
-        background-color: #ebe8f5;
+        //background-color: #ebe8f5;
+        border: 3px #ba75ff solid;
         button {
           color: #ba75ff;
           background-color: #ffffff;

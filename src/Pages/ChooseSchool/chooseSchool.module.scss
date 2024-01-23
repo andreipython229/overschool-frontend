@@ -27,6 +27,12 @@
 .tit {
   font-size: 32px;
   font-weight: 700;
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    text-align: center;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    text-align: center;
+  }
 }
 .bg2 {
   display: flex;

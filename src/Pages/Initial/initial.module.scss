@@ -16,8 +16,23 @@
   &_header {
     margin: 0 45px;
     max-height: 45px;
-    width: 100vw;
+    width: 100%;
     @include display(flex, row, space-between);
+    margin-top: 80px;
+
+    &_logo {
+      width: 400px;
+      display: flex;
+
+
+      p {
+        padding-left: 20px;
+        color: #5873E2;
+        font-size: 35px;
+        font-weight: 800;
+        text-shadow: 2px 2px 4px rgba(63, 63, 63, 0.5);
+      }
+    }
   }
 
   &_main {

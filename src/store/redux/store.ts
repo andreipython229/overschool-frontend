@@ -37,6 +37,7 @@ export const rootReducer = combineReducers({
     [services.tariffPlan.reducerPath]: services.tariffPlan.reducer,
     [services.CoursesPageService.reducerPath]: services.CoursesPageService.reducer,
     [services.chatgptService.reducerPath]: services.chatgptService.reducer,
+    [services.blocksService.reducerPath]: services.blocksService.reducer,
     
     user: slices.authReduce,
     sections: slices.sectionsReduce,
@@ -96,6 +97,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
                 services.tariffPlan.middleware,
                 services.CoursesPageService.middleware,
                 services.chatgptService.middleware,
+                services.blocksService.middleware,
             ),
     })
 }

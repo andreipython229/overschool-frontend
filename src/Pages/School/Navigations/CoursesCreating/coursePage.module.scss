@@ -59,8 +59,8 @@
     box-shadow: $box-shadow;
     background: #ffffff;
     border: none;
-    transition: 0.4s ease-in-out;
-    transform: scale(0.9);
+    // transition: 0.4s ease-in-out;
+    // transform: scale(0.9);
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 100%;
   
@@ -70,8 +70,8 @@
     }
 
     &:hover {
-      box-shadow: 3px 13px 13px 3px rgba(0, 0, 0, 0.2);
-      transition: 0.4s;
+      border: 3px #ba75ff solid;
+       
     }
 
     &_img {
@@ -165,8 +165,8 @@
   align-self: flex-end;
   width: 194px;
   height: 33px;
-  background-color: #e3e0e5;
-  color: #ba75ff;
+  background-color: #ddbbff;
+  color: white;
   @include font(500, 14px);
   padding: 7px;
   margin-top: 18px;
@@ -180,7 +180,8 @@
   }
 
   &:hover {
-    background-color: #f4e9ff;
+      color: #ba75ff;
+      background-color: #ffffff;
   }
 }
 

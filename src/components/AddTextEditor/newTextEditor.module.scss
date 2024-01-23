@@ -3,6 +3,7 @@
 .textField {
   margin-left: 20px;
   margin-bottom: 40px;
+  width: 100%;
 
   &_btnSave {
     @include display(flex, row, center);
@@ -48,7 +49,7 @@
 
     &_setting {
       &:hover {
-        background-color: #BA75FF;
+        background-color: #ba75ff;
         color: #ffffff;
       }
 
@@ -67,12 +68,64 @@
   }
 
   &_description {
-
     &_text {
       margin-bottom: 10px;
       font-weight: bold;
       font-size: 16px;
-      font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif;
+      font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Helvetica, Arial, sans-serif;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  &_navBlock {
+    @include display(flex, column);
+    padding: 1em;
+    justify-content: center;
+
+    &_div {
+      background: #f3f4f6;
+      border: none;
+      border-radius: 7px;
+      width: 36px;
+      height: 36px;
+      text-align: center;
+      @include display(flex, row, center, center);
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    &_grabBtn {
+      background: #f3f4f6;
+      border: none;
+      border-radius: 7px;
+      width: 36px;
+      height: 56px;
+      text-align: center;
+      @include display(flex, row, center, center);
+      margin-bottom: 8px;
+      cursor: grab;
+    }
+
+    &_delete {
+      padding: 11px 0;
+      border-radius: 6px;
+      border: none;
+      height: 36px;
+      background: #fef2f2;
+      @include display(flex, row, flex-start, center);
+      text-align: center;
+      cursor: pointer;
+
+      & svg {
+        margin: 0 auto;
+        height: 17px;
+        width: 17px;
+      }
     }
   }
 }

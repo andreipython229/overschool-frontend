@@ -25,12 +25,28 @@ const chatsSlice = createSlice({
     updateUnreadCount: (state, action: PayloadAction<{ chatId: string; count: number }>) => {
       const chat = state.chats.find((c) => c.id === action.payload.chatId);
       if (chat) {
-        chat.unread_count = action.payload.count;
+        chat.unread = action.payload.count;
+      }
+    },
+    addChat: (state, action: PayloadAction<ChatI>) => {
+      // console.log('Incoming data:', action.payload);
+      // state.chats.push(action.payload);
+      state.chats = [...state.chats, action.payload];
+      // console.log('Updated state:', state.chats);
+    },
+    updateChat: (state, action: PayloadAction<{ chatId: string; updatedChat: ChatI }>) => {
+      const index = state.chats.findIndex((c) => c.id === action.payload.chatId);
+      if (index !== -1) {
+        state.chats[index] = action.payload.updatedChat;
       }
     },
   },
 });
 
-export const { setChats, updateLastMessage, updateUnreadCount } = chatsSlice.actions;
+export const { setChats,
+  updateLastMessage,
+  updateUnreadCount,
+  addChat,
+  updateChat } = chatsSlice.actions;
 
 export const chatsReducer = chatsSlice.reducer;

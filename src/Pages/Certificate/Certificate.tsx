@@ -1,12 +1,19 @@
-import logo from "./img/logo.svg";
-import border from "./img/border.svg";
-import logoHorizontal from "./img/logoHorizontal.svg";
-import stamp from "./img/stamp.png";
+import logo from './img/logo.svg'
+import border from './img/border.svg'
+import logoHorizontal from './img/logoHorizontal.svg'
+import stamp from './img/stamp.png'
 
-import styles from './Certificate.module.scss';
+import styles from './Certificate.module.scss'
+import { useParams } from 'react-router-dom'
+import { useFetchSertificateQuery } from 'api/userProgressService'
 
 export const Certificate = () => {
-  return (
+  const { course_id: courseId, student_id: userId } = useParams()
+  const { data: sertData, isLoading, isSuccess: succSert } = useFetchSertificateQuery(String(courseId))
+  console.log(sertData)
+  // const {data: userData} = use
+
+  return sertData ? (
     <main className={styles.main}>
       <div className={styles.wrapper}>
         <div className={styles.logo}>
@@ -22,11 +29,10 @@ export const Certificate = () => {
             <img className={styles.border} src={border} alt="border" />
             it overone programming school
           </div>
-          <div className={styles.certificate__graduate}>mikhail reshatniou</div>
+          <div className={styles.certificate__graduate}>{sertData.user_full_name}</div>
           <div className={styles.certificate__content}>
-            Has successrully completed{" "}
-            <span className={styles.bold}>python developer</span> course. Key skills: OOP,
-            SQLite3 database course, frameworks Flask and Django and Github.
+            Has successfully completed <span className={styles.bold}>{sertData.course_name}</span> course. Key skills: OOP, SQLite3 database course,
+            frameworks Flask and Django and Github.
           </div>
           <div className={styles.signs}>
             <div className={styles.signs__date}>19.09.2022</div>
@@ -54,5 +60,7 @@ export const Certificate = () => {
         </div>
       </div>
     </main>
+  ) : (
+    <></>
   )
 }

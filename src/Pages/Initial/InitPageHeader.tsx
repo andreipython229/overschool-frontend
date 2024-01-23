@@ -55,7 +55,10 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
 
   return (
     <header className={styles.init_header}>
-      <img src={logo} alt="Logotype ITOVERONE" />
+      <div className={styles.init_header_logo}>
+        <img src={logo} alt="Logotype ITOVERONE" />
+        <p> IT OVERONE</p>
+      </div>
       <div className={styles.btn_block}>
         {isLogin ? (
           <div className={styles.header_block}>
@@ -71,7 +74,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
         ) : (
           <div className={styles.header_block}>
             <Button variant={'logIn'} onClick={handleLoginUser} text={'Войти'} />
-            <Button onClick={handleRegistrationUser} variant={'registrationDisabled'} text={'Создать школу'} />
+            <Button onClick={handleRegistrationUser} variant={'logIn'} text={'Создать школу'} />
           </div>
         )}
       </div>

@@ -6,10 +6,10 @@ export const videoFilesService = createApi({
   baseQuery: baseQuery('/video/'),
   tagTypes: ['lessons', 'videoFiles', 'patchLessons', 'uploadLessonVideo'],
   endpoints: build => ({
-    uploadLessonVideo: build.mutation<any, { arg: { id: number; type: string; formdata: FormData }; schoolName: string }>({
+    uploadLessonVideo: build.mutation<any, { arg: { id: number; formdata: FormData }; schoolName: string }>({
       query: ({ arg, schoolName }) => {
         return {
-          url: `/${schoolName}/${arg.type}_video/${arg.id}/`,
+          url: `/${schoolName}/block_video/${arg.id}/`,
           method: 'PATCH',
           body: arg.formdata,
         }

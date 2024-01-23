@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setChats, updateLastMessage, updateUnreadCount } from '../../../store/redux/chats/chatsSlice'
 import { RootState } from '../../../store/redux/store'
 
+import { motion } from 'framer-motion'
+
 type chatT = {
   closeModal: () => void
 }
@@ -25,19 +27,20 @@ export const Chat: FC<chatT> = ({ closeModal }) => {
     const dispatch = useDispatch();
     const chats = useSelector((state: RootState) => state.chats.chats);
 
-    // useEffect(() => {
-    //     isSuccess && setChats(data)
-    // }, [isFetching])
+    useEffect(() => {
+        isSuccess && dispatch(setChats(data));
+    }, [isFetching])
     //
     // useEffect(() => {
     //     return () => {
     //         setChats([]); // очищаем состояние при размонтировании
     //     };
     // }, []);
-
+    //
     // useEffect(() => {
-    //     if (data) {
+    //     if (data && isFetching) {
     //         dispatch(setChats(data));
+    //         console.log("index = ",data)
     //     }
     // }, [data, dispatch])
     //
@@ -46,7 +49,21 @@ export const Chat: FC<chatT> = ({ closeModal }) => {
     // }, [])
 
     return (
-        <div className={styles.chat}>
+        <motion.div className={styles.chat}
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+        }}
+        exit={{
+          opacity: 0,
+        }}
+        transition={{
+          delay: 0.5,
+          duration: 0.4,
+        }}
+        >
           {isFetching && (
             <div className={styles.chat_loader}>
               <SimpleLoader style={{ width: '50px', height: '50px' }} />
@@ -57,6 +74,6 @@ export const Chat: FC<chatT> = ({ closeModal }) => {
           </button>
           <ChatPanel chats={chats} />
           <ChatWorkspace />
-        </div>
+        </motion.div>
     )
 }

@@ -1,4 +1,4 @@
-import {FC, memo, useState} from 'react'
+import {FC, memo, useEffect, useState} from 'react'
 
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {ExerciseItem} from '../ExerciseItem/ExerciseItem'
@@ -11,8 +11,19 @@ import {accardionItemT} from '../../../types/componentsTypes'
 import styles from './accardionItem.module.scss'
 import {completedIconPath} from "../config/svgIconPath";
 
-export const AccardionItem: FC<accardionItemT> = memo(({module, moduleIndex, openIndex, handleToggleOpen}) => {
+export const AccardionItem: FC<accardionItemT> = memo(({module, modules, moduleIndex, openIndex, handleToggleOpen}) => {
     const isLessonClickable = (lessonIndex: number) => {
+
+        if (moduleIndex > 0) {
+            const prevModule = modules?.sections[moduleIndex - 1]
+            const prevLessons = prevModule?.lessons[prevModule?.lessons.length -1]
+            if (prevLessons?.viewed) {
+                return module?.lessons.slice(0, lessonIndex).some((lesson) => !lesson.viewed);
+            } else {
+                return true;
+            }
+
+        }
         return module?.lessons.slice(0, lessonIndex).some((lesson) => !lesson.viewed);
     };
 
@@ -30,7 +41,7 @@ export const AccardionItem: FC<accardionItemT> = memo(({module, moduleIndex, ope
                     </h4>
                     <span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>
                         {module.lessons.length}
-                        <span>{getNounDeclension(module.lessons.length, ['Задание', 'Задания', 'Заданий'])}</span>
+                        <span>{getNounDeclension(module.lessons.length, ['Занятие', 'Занятия', 'Занятий'])}</span>
                     </span>
                 </div>
                 <span className={openIndex === moduleIndex ? styles.accardionWrapper_component_header_showBtnWrapper_active: styles.accardionWrapper_component_header_showBtnWrapper}>

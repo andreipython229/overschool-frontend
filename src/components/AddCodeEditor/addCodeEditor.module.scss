@@ -3,10 +3,15 @@
 
 .editorWrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   height: 300px;
-  border-radius: 7px;
+  max-height: 300px;
+  border-radius: 11px;
   background: #1e1e1e;
   width: 100%;
+  margin-top: 1.5em;
 
   &_wrapper {
     display: flex;
@@ -31,12 +36,14 @@
   }
 
   &_selectWrapper {
-    @include position_t_l(absolute, 24px, 35px);
+    @include position_t_l(absolute, -45px, 0);
     width: 176px;
   }
 
   &_navBlock {
     @include display(flex, column);
+    padding: 1em;
+    justify-content: center;
 
     &_div {
       background: #f3f4f6;
@@ -48,6 +55,18 @@
       @include display(flex, row, center, center);
       margin-bottom: 8px;
       cursor: pointer;
+    }
+
+    &_grabBtn {
+      background: #f3f4f6;
+      border: none;
+      border-radius: 7px;
+      width: 36px;
+      height: 56px;
+      text-align: center;
+      @include display(flex, row, center, center);
+      margin-bottom: 8px;
+      cursor: grab;
     }
 
     &_delete {

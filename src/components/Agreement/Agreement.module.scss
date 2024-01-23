@@ -1,0 +1,42 @@
+.agreement {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+
+    &__preamble {
+        text-align: left;
+        align-self: self-end;
+    }
+    &__header {
+        display: inline-block;
+        text-transform: uppercase;
+        text-align: center;
+        color: #4d5766;
+    }
+    &__intro {
+        text-indent: 2em;
+    }
+    &__items {
+       list-style: none;
+       counter-reset: item;
+    }
+    &__item {
+        margin-left: 2em;
+        &::before {
+            counter-increment: item;
+            content: counters(item, '.')'.';
+        }
+    }
+    &__properties {
+        display: flex;
+        justify-content: center;
+    }
+    &__property {
+        flex: 0 1 40%;
+        &::first-line {
+            font-weight: 800;
+            font-size: large;
+            color: #4d5766;
+        }
+    }
+}
