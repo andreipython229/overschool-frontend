@@ -955,7 +955,6 @@
 .settings_list {
   list-style-type: none;
   @include display(flex, column);
-  gap: 2em;
 }
 
 .settings_title {

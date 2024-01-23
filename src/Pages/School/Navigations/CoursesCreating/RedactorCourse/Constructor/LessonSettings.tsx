@@ -30,7 +30,6 @@ import { AudioPlayer } from 'components/common/AudioPlayer'
 import { useDeleteBlockMutation, useOrderUpdateMutation } from 'api/blocksService'
 import { useDebounceFunc } from 'customHooks'
 import { Reorder } from 'framer-motion'
-// import { AudioPlayer } from 'components/common/AudioPlayer'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
@@ -353,7 +352,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
             {lesson.type !== 'test' && (
               <>
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
-                  <Reorder.Group className={styles1.settings_list} values={lessonBlocks} onReorder={handleOrderUpdate} as="ul">
+                  <Reorder.Group className={styles1.settings_list} style={{gap: '2em'}} values={lessonBlocks} onReorder={handleOrderUpdate} as="ul">
                     {renderBlocks()}
                   </Reorder.Group>
 
