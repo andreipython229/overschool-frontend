@@ -183,7 +183,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
 
   return (
     <motion.div
-      className={styles.main}
+      className={styles.main_login}
       initial={{
         scale: 0.1,
         opacity: 0,
