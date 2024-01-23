@@ -28,7 +28,7 @@ export const StudentCourse: FC = () => {
 
     return (
         <>
-            <StudentCourseHeader/>
+            <StudentCourseHeader teacher_id={course?.teacher_id as number}/>
             <StudentAccardion modules={course as sectionsT}/>
         </>
     )

@@ -19,7 +19,7 @@ export const StudentAccardion: FC<studentAccardioT> = memo(({ modules }) => {
   return (
     <div className={styles.accardionWrapper}>
       {modules?.sections.map((module: sectionT, index: number) => (
-        <AccardionItem key={module.section} openIndex={openIndex} moduleIndex={index} module={module} handleToggleOpen={handleToggleOpen} />
+        <AccardionItem key={module.section} openIndex={openIndex} modules={modules} moduleIndex={index} module={module} handleToggleOpen={handleToggleOpen} />
       ))}
     </div>
   )

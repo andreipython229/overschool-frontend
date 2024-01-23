@@ -120,6 +120,7 @@ export type sectionsT = {
   course_name: string
   baselesson_ptr_id?: number
   sections: sectionT[]
+  teacher_id: number | any
 }
 
 export type studentAccardioT = {
