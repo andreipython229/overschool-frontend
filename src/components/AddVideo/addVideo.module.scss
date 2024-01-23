@@ -72,6 +72,8 @@
           @include display(flex, column);
           min-width: 36px;
           min-height: 36px;
+          justify-content: center;
+
           &_div {
             @include display(flex, row, center, center);
             background: #f3f4f6;
@@ -81,6 +83,18 @@
             height: 36px;
             text-align: center;
             cursor: pointer;
+          }
+
+          &_grabBtn {
+            background: #f3f4f6;
+            border: none;
+            border-radius: 7px;
+            width: 36px;
+            height: 56px;
+            text-align: center;
+            @include display(flex, row, center, center);
+            margin-bottom: 8px;
+            cursor: grab;
           }
 
           &_delete {

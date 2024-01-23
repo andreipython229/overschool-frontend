@@ -71,33 +71,9 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
         <div className={styles.lesson__wrap}>
           <div className={styles.lesson__card}>
             <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
-            {/* <div className={styles.lesson__content}>
-              <span className={styles.lesson__desc}>{lesson?.description ? parse(`${lesson?.description}`) : 'Нет описания'}</span>
-            </div> */}
-            {/* {lessonVideo &&
-              (lesson.url && lesson.video ? (
-                <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} lessonId={lesson.lesson_id}/>
-                </div>
-              ) : !lesson.video && lesson.url ? (
-                <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} lessonId={lesson.lesson_id}/>
-                </div>
-              ) : (
-                <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} lessonId={lesson.lesson_id}/>
-                </div>
-              ))} */}
             <div className={styles.lesson__content}>{renderBlocks()}</div>
 
             <div className={styles.lesson__content}>
-              {/* {lesson?.code && (
-                                <div className={styles.lesson__codeWraper}>
-                                  <pre className={styles.lesson__code_text}>
-                                    <code>{lesson?.code}</code>
-                                  </pre>
-                                </div>
-                              )} */}
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
               {lesson?.text_files.map(({ file, id, file_url, size }, index: number) => (

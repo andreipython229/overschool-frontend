@@ -2,6 +2,11 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { IBlockCode, IBlockDesc, IBlockPic, IBlockVid } from 'types/sectionT'
 
+type OrderT = {
+  block_id: number | string
+  order: number | string
+}
+
 export const blocksService = createApi({
   reducerPath: 'blocksService',
   baseQuery: baseQuery(),
@@ -30,7 +35,14 @@ export const blocksService = createApi({
       }),
       invalidatesTags: ['updateBlock'],
     }),
+    orderUpdate: build.mutation<void, { data: OrderT[]; schoolName: string }>({
+      query: arg => ({
+        url: `/${arg.schoolName}/block_order/`,
+        method: 'POST',
+        body: arg.data,
+      }),
+    }),
   }),
 })
 
-export const { useCreateBlockMutation, useDeleteBlockMutation, useUpdateBlockDataMutation } = blocksService
+export const { useCreateBlockMutation, useDeleteBlockMutation, useUpdateBlockDataMutation, useOrderUpdateMutation } = blocksService

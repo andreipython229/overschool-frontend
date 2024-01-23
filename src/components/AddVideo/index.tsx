@@ -1,4 +1,4 @@
-import { useState, FC, DragEvent, ChangeEvent } from 'react'
+import { useState, FC, DragEvent, ChangeEvent, PointerEvent } from 'react'
 
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -12,6 +12,8 @@ import { useUploadLessonVideoMutation } from 'api/videoFilesService'
 import { Input } from 'components/common/Input/Input/Input'
 import { usePatchLessonsMutation } from 'api/modulesServices'
 import { IBlockCode, IBlockDesc, IBlockPic, IBlockVid } from 'types/sectionT'
+import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
+import { Reorder, useDragControls } from 'framer-motion'
 
 export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, lesson, setLessonBlocks, lessonBlocks }) => {
   const [dragVideo, setDragVideo] = useState<boolean>(false)
@@ -20,6 +22,7 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
   const [isLoadingVideo, setIsLoadingVideo] = useState<boolean>(false)
   const [youTubeLink, setYouTubeLink] = useState<string>('')
   const [addYTVideo] = usePatchLessonsMutation()
+  const controls = useDragControls()
   const schoolName = window.location.href.split('/')[4]
 
   const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
@@ -97,11 +100,24 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
     }
   }
 
+  const onPointerDown = (event: PointerEvent<HTMLSpanElement>) => {
+    controls.start(event)
+  }
+
   const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
   const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
   return (
-    <>
+    <Reorder.Item
+      value={block}
+      dragListener={false}
+      dragControls={controls}
+      whileDrag={{
+        scale: 1.1,
+        borderRadius: '7px',
+      }}
+      key={block && block.id}
+    >
       {!isPreview && (!lesson.video || !lesson.url) ? (
         <div className={styles.redactorCourse_wrapper}>
           {isLoadingVideo ? (
@@ -154,12 +170,9 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
                 )}
               </div>
               <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
-                {/* <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-                  <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrUpPath} />
-                </div>
-                <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-                  <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
-                </div> */}
+                <span className={styles.redactorCourse_rightSide_functional_addContent_navBlock_grabBtn} onPointerDown={onPointerDown}>
+                  <IconSvg width={11} height={15} className="zIndex: 20" viewBoxSize="0 0 12 18" path={doBlockIconPath} />
+                </span>
                 <div
                   className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete}
                   onClick={() => console.log('удалить блок video')}
@@ -183,6 +196,6 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
           )}
         </>
       )}
-    </>
+    </Reorder.Item>
   )
 }

@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+import styles1 from '../../../../../../components/Modal/Modal.module.scss'
 
 import { UploadedFile } from 'components/UploadedFile'
 import { AddFileBtn } from 'components/common/AddFileBtn/index'
@@ -7,7 +8,7 @@ import { AddPost } from 'components/AddPost'
 import { deleteIconPath, settingsIconPath } from '../../../../config/svgIconsPath'
 import { useFetchLessonQuery, usePatchLessonsMutation } from 'api/modulesServices'
 import { ClassesSettingsPropsT } from 'types/navigationTypes'
-import { IBlockCode, IBlockDesc, IBlockPic, IBlockVid, ILesson, commonLessonT } from 'types/sectionT'
+import { BlockT, commonLessonT } from 'types/sectionT'
 import { AddQuestion } from 'components/AddQuestion'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import { useDeleteAudioFilesMutation, useDeleteTextFilesMutation, usePostTextFilesMutation } from 'api/filesService'
@@ -26,11 +27,14 @@ import { BLOCK_TYPE } from 'enum/blockTypeE'
 import { AddCodeEditor } from 'components/AddCodeEditor'
 import { AddVideo } from 'components/AddVideo'
 import { AudioPlayer } from 'components/common/AudioPlayer'
-import { useDeleteBlockMutation } from 'api/blocksService'
+import { useDeleteBlockMutation, useOrderUpdateMutation } from 'api/blocksService'
+import { useDebounceFunc } from 'customHooks'
+import { Reorder } from 'framer-motion'
 // import { AudioPlayer } from 'components/common/AudioPlayer'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
-  const [lessonBlocks, setLessonBlocks] = useState<(IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]>([])
+  const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
+  const [lessonBlocks, setLessonBlocks] = useState<BlockT[]>([])
   const [files, setFiles] = useState<File[]>([])
   const schoolName = window.location.href.split('/')[4]
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
@@ -38,6 +42,8 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [isEditing, setIsEditing] = useState(false)
   const [isPublished, setIsPublished] = useState(false)
   const [audiofiles, setAudiofiles] = useState<File[]>([])
+  const debounceBlockOrder = useDebounceFunc(changeOrder, 2000)
+  const [newBlocksOrders, setNewBlocksOrders] = useState<BlockT[]>([])
 
   const { data, isFetching, isSuccess } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type, schoolName })
   const [addTextFiles] = usePostTextFilesMutation()
@@ -74,14 +80,17 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       switch (block.type) {
         case BLOCK_TYPE.TEXT:
           if ('description' in block && block.description) {
-            return <NewTextEditor text={block.description} block={block} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
+            return (
+              <NewTextEditor key={block.id} text={block.description} block={block} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
+            )
           } else {
-            return <NewTextEditor text="" block={block} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
+            return <NewTextEditor key={block.id} text="" block={block} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
           }
         case BLOCK_TYPE.CODE:
           if ('code' in block && block.code) {
             return (
               <AddCodeEditor
+                key={block.id}
                 isPreview={!isEditing}
                 lesson={lesson}
                 code={block.code}
@@ -94,6 +103,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
           } else {
             return (
               <AddCodeEditor
+                key={block.id}
                 isPreview={!isEditing}
                 lesson={lesson}
                 code={''}
@@ -108,6 +118,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
           if ('video' in block && block.video) {
             return (
               <VideoPlayer
+                key={block.id}
                 isEditing={isEditing}
                 lessonId={lesson.baselesson_ptr_id}
                 block={block}
@@ -120,6 +131,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
           } else if ('url' in block && block.url) {
             return (
               <VideoPlayer
+                key={block.id}
                 isEditing={isEditing}
                 block={block}
                 lessonId={lesson.baselesson_ptr_id}
@@ -130,7 +142,16 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
               />
             )
           } else {
-            return <AddVideo lesson={lesson} block={block} deleteBlock={deleteBlock} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
+            return (
+              <AddVideo
+                key={block.id}
+                lesson={lesson}
+                block={block}
+                deleteBlock={deleteBlock}
+                setLessonBlocks={setLessonBlocks}
+                lessonBlocks={lessonBlocks}
+              />
+            )
           }
         case BLOCK_TYPE.PICTURE:
           return <></>
@@ -272,6 +293,21 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     }
   }, [isCompleted, isSaving])
 
+  const handleOrderUpdate = (blocksWithNewOrders: BlockT[]) => {
+    setLessonBlocks(blocksWithNewOrders)
+    setNewBlocksOrders(blocksWithNewOrders)
+  }
+
+  useEffect(() => {
+    const updatedBlockOrder = newBlocksOrders.map(({ id, order }, index) => ({
+      block_id: id,
+      order: index + 1,
+    }))
+    if (updatedBlockOrder.length > 0 && updatedBlockOrder.length > 0) {
+      debounceBlockOrder({ data: updatedBlockOrder, schoolName })
+    }
+  }, [newBlocksOrders])
+
   return (
     <section
       style={{ opacity: isFetching || isDeleting || isSaving ? 0.5 : 1, position: 'relative' }}
@@ -317,7 +353,10 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
             {lesson.type !== 'test' && (
               <>
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
-                  {renderBlocks()}
+                  <Reorder.Group className={styles1.settings_list} values={lessonBlocks} onReorder={handleOrderUpdate} as="ul">
+                    {renderBlocks()}
+                  </Reorder.Group>
+
                   {lessonBlocks.length < 10 && (
                     <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
                   )}

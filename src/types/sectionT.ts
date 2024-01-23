@@ -31,6 +31,7 @@ export interface IBlockPic {
   order: number
 }
 
+export type BlockT = IBlockCode | IBlockDesc | IBlockPic | IBlockVid
 
 export interface ILesson {
   lesson_id: number
@@ -38,7 +39,7 @@ export interface ILesson {
   section: number
   name: string
   order: number
-  blocks: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]
+  blocks: BlockT[]
   description: string
   video: string
   points: number
@@ -55,7 +56,7 @@ export interface IHomework {
   baselesson_ptr_id: number
   section: number
   name: string
-  blocks: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]
+  blocks: BlockT[]
   order: number
   author_id: string
   description: string
@@ -108,7 +109,7 @@ export type lessonT = {
 }
 
 export type sectionT = {
-  group_settings: any;
+  group_settings: any
   section_name: string
   section: number
   baselesson_ptr_id?: number
