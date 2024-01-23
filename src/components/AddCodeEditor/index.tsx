@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState, PointerEvent } from 'react'
 import Editor from '@monaco-editor/react'
 
 import { coursesSelectLanguage } from 'constants/other'
@@ -12,6 +12,8 @@ import { useDeleteBlockMutation, useUpdateBlockDataMutation } from 'api/blocksSe
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { IBlockCode } from 'types/sectionT'
 import { Button } from 'components/common/Button/Button'
+import { Reorder, useDragControls } from 'framer-motion'
+import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
 
 export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, handleEditorChange, lessonBlocks, setLessonBlocks }) => {
   const [codeData, setCodeData] = useState<string | undefined>(code)
@@ -19,6 +21,7 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
   const schoolName = window.location.href.split('/')[4]
   const [deleteBlock, { isLoading }] = useDeleteBlockMutation()
   const [saveChanges, { isLoading: isSaving }] = useUpdateBlockDataMutation()
+  const controls = useDragControls()
 
   const handleDeleteCode = () => {
     if (lessonBlocks && setLessonBlocks && block) {
@@ -54,8 +57,21 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
     }
   }
 
+  const onPointerDown = (event: PointerEvent<HTMLSpanElement>) => {
+    controls.start(event)
+  }
+
   return (
-    <>
+    <Reorder.Item
+      value={block}
+      dragListener={false}
+      dragControls={controls}
+      whileDrag={{
+        scale: 1.1,
+        borderRadius: '7px',
+      }}
+      key={block? block.id: lesson.baselesson_ptr_id}
+    >
       {!isPreview ? (
         <div className={styles.editorWrapper_wrapper}>
           <div className={styles.editorWrapper}>
@@ -76,12 +92,9 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
             )}
           </div>
           <div className={styles.editorWrapper_navBlock}>
-            <div className={styles.editorWrapper_navBlock_div}>
-              <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrUpPath} />
-            </div>
-            <div className={styles.editorWrapper_navBlock_div}>
-              <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
-            </div>
+            <span className={styles.editorWrapper_navBlock_grabBtn} onPointerDown={onPointerDown}>
+              <IconSvg width={11} height={15} className="zIndex: 20" viewBoxSize="0 0 12 18" path={doBlockIconPath} />
+            </span>
             <div className={styles.editorWrapper_navBlock_delete} onClick={handleDeleteCode}>
               {isLoading ? <SimpleLoader /> : <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />}
             </div>
@@ -92,6 +105,6 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
           <pre>{code}</pre>
         </code>
       )}
-    </>
+    </Reorder.Item>
   )
 }

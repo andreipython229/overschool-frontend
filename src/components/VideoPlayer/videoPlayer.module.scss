@@ -63,3 +63,54 @@
   width: 50%;
   height: 50%;
 }
+
+.functionalBtns {
+  width: 36px;
+  min-height: 36px;
+  @include display(flex, column);
+  justify-content: center;
+  gap: 0.4em;
+
+  &_downloadBtn {
+    background: #f3f4f6;
+    border: none;
+    border-radius: 7px;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 8px;
+    text-align: center;
+    @include display(flex, row, center, center);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+  }
+
+  &_grabBtn {
+    background: #f3f4f6;
+    border: none;
+    border-radius: 7px;
+    width: 36px;
+    height: 56px;
+    text-align: center;
+    @include display(flex, row, center, center);
+    margin-bottom: 8px;
+    cursor: grab;
+  }
+
+  &_delete {
+    padding: 11px 0;
+    border-radius: 6px;
+    border: none;
+    height: 36px;
+    background: #fef2f2;
+    @include display(flex, row, flex-start, center);
+    text-align: center;
+    cursor: pointer;
+
+    & svg {
+      margin: 0 auto;
+      height: 17px;
+      width: 17px;
+    }
+  }
+}

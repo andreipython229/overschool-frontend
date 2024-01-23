@@ -43,6 +43,7 @@
   &_navBlock {
     @include display(flex, column);
     padding: 1em;
+    justify-content: center;
 
     &_div {
       background: #f3f4f6;
@@ -54,6 +55,18 @@
       @include display(flex, row, center, center);
       margin-bottom: 8px;
       cursor: pointer;
+    }
+
+    &_grabBtn {
+      background: #f3f4f6;
+      border: none;
+      border-radius: 7px;
+      width: 36px;
+      height: 56px;
+      text-align: center;
+      @include display(flex, row, center, center);
+      margin-bottom: 8px;
+      cursor: grab;
     }
 
     &_delete {
