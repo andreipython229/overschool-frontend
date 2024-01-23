@@ -7,7 +7,7 @@ import { useFetchCourseQuery } from 'api/coursesServices'
 import { useFetchModulesQuery } from 'api/modulesServices'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { backArr } from 'components/Previous/config/svgIconPath'
-import { lessonT, sectionT } from 'types/sectionT'
+import {lessonT, sectionsT, sectionT} from 'types/sectionT'
 import { lessonSvgMapper } from 'config/index'
 import { getNounDeclension } from 'utils/getNounDeclension'
 
@@ -19,9 +19,27 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 import { useBoolean } from 'customHooks'
 import { Path } from 'enum/pathE'
 import { selectUser } from 'selectors'
-import { useAppSelector } from 'store/hooks'
+import {useAppDispatch, useAppSelector} from 'store/hooks'
+import {Portal} from "../../../components/Modal/Portal";
+import {Chat} from "../../../components/Modal/Chat";
+import {selectChat} from "../../../store/redux/chats/slice";
+import {RoleE} from "../../../enum/roleE";
+import {ChatI} from "../../../types/chatsT";
+import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
+import {SerializedError} from "@reduxjs/toolkit";
+import {addChat} from "../../../store/redux/chats/chatsSlice";
+import {useCreatePersonalChatForAdminOrTeacherMutation} from "../../../api/chatsService";
 
-export const StudentCourseHeader: FC = () => {
+export type studentCourseHeaderT = {
+  teacher_id: number
+}
+
+export const StudentCourseHeader: FC<studentCourseHeaderT> = ({teacher_id}) => {
+
+  const [isChatOpen, { on: chatModalOff, off: chatModalOn , onToggle: toggleChatModal}] = useBoolean()
+    const dispatch = useAppDispatch()
+    const { role } = useAppSelector(selectUser)
+    const [createPersonalChatForAdminOrTeacher, { isLoading: chatIsLoading }] = useCreatePersonalChatForAdminOrTeacherMutation()
   const { course_id: courseId } = useParams()
   const navigate = useNavigate()
   const user = useAppSelector(selectUser)
@@ -70,6 +88,25 @@ export const StudentCourseHeader: FC = () => {
     return <SimpleLoader style={{ width: '100px', height: '100px' }} />
   }
 
+  const handleToggleChatModal = () => {
+    if (teacher_id) {
+        const personalChatData = new FormData();
+        personalChatData.append('user_id', teacher_id.toString());
+        personalChatData.append('role_name', RoleE[role]);
+        createPersonalChatForAdminOrTeacher(personalChatData)
+            .then((async( response: { data: ChatI } | { error: FetchBaseQueryError | SerializedError })  => {
+              if ('data' in response) {
+                dispatch(addChat(response.data))
+                dispatch(selectChat(response.data.id))
+                chatModalOn()
+              }
+            }))
+            .catch(error => {
+              console.error('Произошла ошибка при создании персонального чата:', error);
+            })
+      }
+  }
+
   return (
     <div className={styles.previous}>
       <Dialog open={modal} onClose={close} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
@@ -100,7 +137,12 @@ export const StudentCourseHeader: FC = () => {
       )}
       <div className={styles.previous_onlineCourses}>Онлайн-курс</div>
       <div className={styles.previous_title_name}>{course?.name}</div>
-      <div className={styles.previous_courseInfo}>
+      <div className={styles.previous_courseInfo}>{teacher_id !== undefined ? (
+              <>
+                <Button className={styles.previous_chatButton} text={"Чат с МЕНТОРОМ"} onClick={() => handleToggleChatModal()}/>
+              </>
+            ) : null
+          }
         {countOfLessons && countOfLessons['lesson'] && (
           <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
             {lessonSvgMapper['lesson']}
@@ -121,6 +163,8 @@ export const StudentCourseHeader: FC = () => {
             <span>{`${countOfLessons['test']} ${getNounDeclension(countOfLessons['test'], ['тест', 'теста', 'тестов'])}`}</span>
           </div>
         )}
+
+
       </div>
       <div className={styles.previous_progress}>
         <div className={styles.previous_progress_graph}>
@@ -178,6 +222,12 @@ export const StudentCourseHeader: FC = () => {
           )}
         </div>
       </div>
+        {isChatOpen && (
+        <Portal closeModal={chatModalOn}>
+          <Chat closeModal={toggleChatModal} />
+        </Portal>
+      )}
     </div>
+
   )
 }

@@ -2,7 +2,18 @@ import { ChangeEvent, Dispatch, FC, MouseEvent, ReactNode, SetStateAction } from
 
 import { statusFilterT } from 'types/statusFilterConfigType'
 import { CoursesDataT, CourseWithGroupsT, StGroupT } from 'types/CoursesT'
-import { commonLessonT, IBlockCode, IBlockDesc, IBlockPic, IBlockVid, IHomework, ILesson, ITest, sectionT } from './sectionT'
+import {
+  commonLessonT,
+  IBlockCode,
+  IBlockDesc,
+  IBlockPic,
+  IBlockVid,
+  IHomework,
+  ILesson,
+  ITest,
+  sectionsT,
+  sectionT
+} from './sectionT'
 import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
 import { studentsTableInfoT } from './courseStatT'
 
@@ -149,6 +160,7 @@ export type StatisticHeaderT = {
 
 export type accardionItemT = {
   module: sectionT
+  modules: sectionsT | null
   moduleIndex: number
   openIndex: number
   handleToggleOpen: (index: number) => void

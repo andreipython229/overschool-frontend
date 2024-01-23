@@ -97,6 +97,15 @@
     }
   }
 
+  &_chatButton {
+    position: relative;
+    font-size: 0.57rem;
+    height: 1.5rem;
+    margin: 0;
+    padding-top: 0.4rem;
+    margin-right: 10px;
+  }
+
   &_btn {
     @include position_b_r(absolute, 44px, 37px);
     & button {
