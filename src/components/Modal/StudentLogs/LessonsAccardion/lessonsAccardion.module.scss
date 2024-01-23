@@ -60,8 +60,6 @@
 
     &_check {
       display: flex;
-      text-align: right;
-      justify-content: flex-end;
 
       &_span {
         margin-left: 10px;
@@ -70,18 +68,29 @@
         letter-spacing: 0.04em;
         color: rgba(133, 86, 148, 0.78);
       }
+    }
+
+    &_buttons {
+      width: 100%;
+      margin-top: 20px;
+      display: inline-flex;
+      justify-content: space-between;
 
       &_btn {
-        margin-left: auto;
+        //margin-left: auto;
         @include font(600, 12px, 150%);
         letter-spacing: 0.04em;
         color: rgba(28, 26, 26, 0.56);
-      }
 
-      &_fake {
-        margin-left: auto;
-        min-height: 30px;
+        &_right {
+          background-color: rgba(170, 0, 255, 0.26);
+          @include font(600, 12px, 150%);
+        }
       }
+    }
+
+    &_fake {
+      min-height: 30px;
     }
   }
 }

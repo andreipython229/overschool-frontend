@@ -10,7 +10,10 @@ import {convertDate} from 'utils/convertDate'
 import mainStyles from '../../Modal.module.scss'
 import styles from './studentInfoModal.module.scss'
 import {useFetchStudentProgressQuery} from '../../../../api/userProgressService'
-import {useLazyFetchStudentLessonsQuery} from '../../../../api/lessonAccessService'
+import {
+    useLazyFetchStudentLessonsQuery,
+    useResetStudentLessonsAccessMutation
+} from '../../../../api/lessonAccessService'
 import {useDeleteStudentFromGroupMutation} from '../../../../api/studentsGroupService'
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material'
 import DatePicker, {registerLocale} from 'react-datepicker'
@@ -58,8 +61,9 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
     const schoolId = localStorage.getItem('school_id')
     const [studentProgress, setStudentProgress] = useState<studentProgressT>()
     const {data} = useFetchStudentProgressQuery({user_id: String(student?.student_id), schoolName})
-    const [fetchStudentLessons, { data: allStudentLessons, isFetching }] = useLazyFetchStudentLessonsQuery()
+    const [fetchStudentLessons, {data: allStudentLessons, isFetching}] = useLazyFetchStudentLessonsQuery()
     const [studentLessons, setStudentLessons] = useState<sectionLessons[]>()
+    const [resetAccess, {isSuccess}] = useResetStudentLessonsAccessMutation()
     const [completedPercent, setCompletedPercent] = useState<number>()
     const [openAlert, setOpenAlert] = useState<boolean>(false)
     const [deleteStudent] = useDeleteStudentFromGroupMutation()
@@ -105,6 +109,22 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
 
     const onChange = (date: Date): void => {
         setRemoveDate(date)
+    }
+
+    const resetAccessSetting = async () => {
+        const data = {
+            student_id: student?.student_id,
+            group_id: student?.group_id,
+        }
+        await resetAccess({data: data, schoolName})
+            .unwrap()
+            .then(async () => {
+                console.log('uspeh')
+                schoolId && student && fetchStudentLessons({id: schoolId, student_id: student?.student_id})
+            })
+            .catch(error => {
+                console.log(error.data)
+            })
     }
 
     const handleDeleteStudent = async () => {
@@ -184,7 +204,9 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
                     </div>
                 </div>
                 <div className={styles.accardions}>
-                    <StudentInfoAccardion student={student} progress={studentProgress} studentLessons={studentLessons} setStudentLessons={setStudentLessons}/>
+                    <StudentInfoAccardion student={student} progress={studentProgress} studentLessons={studentLessons}
+                                          setStudentLessons={setStudentLessons}
+                                          resetAccessSetting={resetAccessSetting}/>
                 </div>
                 {student?.group_name && (
                     <div>

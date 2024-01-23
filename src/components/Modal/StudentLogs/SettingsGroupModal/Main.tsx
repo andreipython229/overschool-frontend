@@ -151,7 +151,8 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                       handleToggleHiddenBlocks={() => groupInfoAccardion(prev => !prev)}/>
                 {isAccardionOpen && groupLessons && (
                     <LessonsAccardion sectionLessons={groupLessons} setLessons={setGroupLessons}
-                                      handleAccessSetting={handleAccessSetting}></LessonsAccardion>
+                                      handleAccessSetting={handleAccessSetting} forStudent={false}
+                                      resetAccessSetting={undefined}></LessonsAccardion>
                 )}
 
                 {/*  {strongSubsequence && (*/}
