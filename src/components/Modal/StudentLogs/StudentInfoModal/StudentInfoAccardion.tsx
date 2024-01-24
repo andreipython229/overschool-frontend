@@ -14,13 +14,15 @@ type studentInfoAccardionT = {
     progress: any
     studentLessons?: sectionLessons[]
     setStudentLessons: any
+    resetAccessSetting: () => void
 }
 
 export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
                                                                     student,
                                                                     progress,
                                                                     studentLessons,
-                                                                    setStudentLessons
+                                                                    setStudentLessons,
+                                                                    resetAccessSetting
                                                                 }) => {
     const [isAccardionOpen, studentInfoAccardion] = useState<boolean>(false)
     const courseStat = progress && progress.courses.find((course: any) => course.course_id === student?.course_id)
@@ -102,7 +104,8 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
                 </div>
                 {isAccardionOpen && (
                     <LessonsAccardion sectionLessons={studentLessons} setLessons={setStudentLessons}
-                                      handleAccessSetting={handleAccessSetting}></LessonsAccardion>
+                                      handleAccessSetting={handleAccessSetting} forStudent={true}
+                                      resetAccessSetting={resetAccessSetting}></LessonsAccardion>
                 )}
             </div>
         </div>

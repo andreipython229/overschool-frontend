@@ -21,6 +21,13 @@ export const lessonAccessService = createApi({
                 body: data,
             }),
         }),
+        resetStudentLessonsAccess: build.mutation<any, { data: any; schoolName: string }>({
+            query: ({data, schoolName}) => ({
+                url: `/${schoolName}/lesson-availability/reset_to_group/`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
         fetchGroupLessons: build.query<groupSections, { group_id: number; schoolName: string }>({
             query: ({group_id, schoolName}) => ({
                 url: `/${schoolName}/students_group/${group_id}/section_student_group`,
@@ -40,6 +47,7 @@ export const lessonAccessService = createApi({
 export const {
     useLazyFetchStudentLessonsQuery,
     useSetStudentLessonsAccessMutation,
+    useResetStudentLessonsAccessMutation,
     useLazyFetchGroupLessonsQuery,
     useSetGroupLessonsAccessMutation
 } = lessonAccessService

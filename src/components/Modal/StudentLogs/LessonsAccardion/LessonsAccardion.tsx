@@ -13,12 +13,16 @@ type lessonsAccardionT = {
     sectionLessons?: sectionLessons[]
     setLessons: any
     handleAccessSetting: () => void
+    forStudent: boolean
+    resetAccessSetting: undefined | (() => void)
 }
 
 export const LessonsAccardion: FC<lessonsAccardionT> = ({
                                                                 sectionLessons,
                                                                 setLessons,
-                                                                handleAccessSetting
+                                                                handleAccessSetting,
+                                                                forStudent,
+                                                                resetAccessSetting
                                                             }) => {
     const [lessonsAccessSetting, {onToggle: toggleAccess}] = useBoolean(false)
 
@@ -38,11 +42,17 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({
             <div className={styles.accardion_content_check}>
                 <CheckboxBall isChecked={lessonsAccessSetting} toggleChecked={toggleAccess}/>
                 <span className={styles.accardion_content_check_span}>Настройка доступа к урокам</span>
-                {lessonsAccessSetting ?
-                    <Button className={styles.accardion_content_check_btn} text={'Сохранить настройки'}
-                            onClick={handleAccessSetting}/> :
-                    <span className={styles.accardion_content_check_fake}></span>}
             </div>
+                {lessonsAccessSetting ?
+                    <div className={styles.accardion_content_buttons}>
+                    {forStudent ?
+                    <Button className={styles.accardion_content_buttons_btn} text={'Сбросить настройки'}
+                            onClick={resetAccessSetting}/> : <span></span>}
+                    <Button className={styles.accardion_content_buttons_btn_right} text={'Сохранить настройки'}
+                            onClick={handleAccessSetting}/>
+                    </div> :
+                    <span className={styles.accardion_content_fake}></span>}
+
             {sectionLessons?.map(({lessons, section_id, name}) => (
                 lessons.length > 0 && (<div className={styles.accardion_item} key={section_id}>
                     <p className={styles.accardion_item_name}>{name}</p>
