@@ -11,6 +11,7 @@ import { VideoPlayer } from '../../../../components/VideoPlayer/player'
 
 import styles from '../lesson.module.scss'
 import { BLOCK_TYPE } from 'enum/blockTypeE'
+import { Reorder } from 'framer-motion'
 
 type studentLessonT = {
   lesson: ILesson
@@ -21,6 +22,7 @@ type studentLessonT = {
 
 export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, activeLessonIndex }) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
+  const [order, setOrder] = useState<[]>([])
 
   const renderBlocks = () => {
     return lesson.blocks.map(block => {
@@ -71,7 +73,11 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
         <div className={styles.lesson__wrap}>
           <div className={styles.lesson__card}>
             <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
-            <div className={styles.lesson__content}>{renderBlocks()}</div>
+            <div className={styles.lesson__content}>
+              <Reorder.Group style={{display: 'flex', flexDirection: 'column', gap: '1em'}} onReorder={() => setOrder} values={order}>
+                {renderBlocks()}
+              </Reorder.Group>
+            </div>
 
             <div className={styles.lesson__content}>
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
