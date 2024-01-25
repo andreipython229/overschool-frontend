@@ -25,7 +25,6 @@ import {
 import styles from './modal_check_home_work.module.scss'
 import { TextField } from '@mui/material'
 
-
 type studentModalHomeworkT = {
   id: number
   closeModal: () => void
@@ -53,8 +52,8 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
   const [files, setFiles] = useState<fileT[]>([])
   const [nativeFiles, setNativeFiles] = useState<File[]>([])
 
-  const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery({id, schoolName})
-  const { data: homework, isFetching: isHwFetching } = useFetchHomeworkDataQuery({id: userHomework?.homework as number, schoolName})
+  const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery({ id, schoolName })
+  const { data: homework, isFetching: isHwFetching } = useFetchHomeworkDataQuery({ id: userHomework?.homework as number, schoolName })
   const [sendHomeworkCheck, { data: sendResult, status: sendHwCheckSuccess }] = useCreateCheckReplyMutation()
   const [sendFiles, { isLoading, isSuccess: sendFilesSuccess }] = usePostTextFilesMutation()
 
@@ -92,30 +91,32 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
     }
 
     try {
-      await sendHomeworkCheck({data: dataToSend, schoolName})
+      await sendHomeworkCheck({ data: dataToSend, schoolName })
         .unwrap()
         .then(data => {
           setText('')
           setMark(0)
           setStatus('')
-          const formData = new FormData()
-          formData.append('user_homework_check', `${data.user_homework_check_id}`)
-          nativeFiles.forEach(file => {
-            formData.append(`files`, file)
-          })
-          sendFiles({formData, schoolName})
-            .unwrap()
-            .then(data => {
-              setNativeFiles([])
-              setFiles([])
+          if (files && files.length > 0) {
+            const formData = new FormData()
+            formData.append('user_homework_check', `${data.user_homework_check_id}`)
+            nativeFiles.forEach(file => {
+              formData.append(`files`, file)
             })
-            .catch(error => {
-              setText('')
-              setMark(0)
-              setStatus('')
-              setNativeFiles([])
-              setFiles([])
-            })
+            sendFiles({ formData, schoolName })
+              .unwrap()
+              .then(data => {
+                setNativeFiles([])
+                setFiles([])
+              })
+              .catch(error => {
+                setText('')
+                setMark(0)
+                setStatus('')
+                setNativeFiles([])
+                setFiles([])
+              })
+          }
         })
         .catch(error => {
           return null
@@ -124,6 +125,8 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
       return null
     }
   }
+
+  console.log(text)
 
   useEffect(() => {
     if (isSuccess) {
@@ -294,6 +297,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
             style={{ width: '100%' }}
             rows={5}
             onChange={event => setText(event.target.value)}
+            value={text}
           />
           <div className={styles.bottomButtons}>
             <div className={styles.files_upload_container}>
