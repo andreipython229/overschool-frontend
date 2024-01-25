@@ -171,12 +171,53 @@
   }
 }
 
+.modal {
+  @include position_t_l(absolute, 50%, 50%, 10);
+  @include display(flex, column);
+  width: 558px;
+  background: $color-white;
+  font-family: 'Manrope', sans-serif;
+  margin: 0 auto;
+  border-radius: 7px;
+  transform: translate(-50%, -50%);
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    width: 100%;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    width: 100%;
+  }
+
+  & form {
+    padding-top: 60px;
+    margin-bottom: 0;
+  }
+
+  &_closed {
+    @include position_t_r(absolute, 17px, 16px);
+    background: #f1f1f1;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e0dced;
+
+    &:hover {
+      color: #4d5766;
+      transition: color 0.3s;
+    }
+  }
+}
+
 .container {
   max-width: 100%;
   padding: 26px 36px;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: $box-shadow;
+  margin-bottom: 30px;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 100%;
     button {
@@ -186,6 +227,12 @@
       @include font(600, 10px, 0);
     }
   }
+  &_error {
+    margin-top: 10px;
+    color: red;
+    font-size: 11px;
+  }
+
   &_wrapper {
     margin-top: 16px;
   }

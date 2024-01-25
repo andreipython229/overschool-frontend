@@ -118,7 +118,7 @@ export const AboutUser: FC = memo(() => {
             <h3 className={styles.profile_title}>Настройка профиля</h3>
 
             <div className={styles.profile_block}>
-                <Input name={'email'} type={'text'} label={'Email:'} value={email as string} onChange={handleChange}/>
+                <Input name={'email'} type={'text'} label={'Email:'} value={email as string} contentEditable={false}/>
                 {/* {errors.email} */}
             </div>
             <div className={formStyles.form_avatarWrapper}>
