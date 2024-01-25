@@ -1,17 +1,14 @@
-import { useEffect, useState, FC } from 'react'
+import { useState, FC } from 'react'
 import { Params } from 'react-router-dom'
-import parse from 'html-react-parser'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { sectionT, ILesson } from 'types/sectionT'
 import { StudentCourseNavArr } from '../StudentCourseNavArr'
 import { UploadedFile } from 'components/UploadedFile/index'
 import { AudioPlayer } from 'components/common/AudioPlayer'
 import { StudentLessonNavBtns } from '../StudentLessonNavBtns'
-import { VideoPlayer } from '../../../../components/VideoPlayer/player'
-
 import styles from '../lesson.module.scss'
-import { BLOCK_TYPE } from 'enum/blockTypeE'
 import { Reorder } from 'framer-motion'
+import { renderStudentBlocks } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/AdminLessonPreview/AdminLesson'
 
 type studentLessonT = {
   lesson: ILesson
@@ -24,45 +21,6 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const [order, setOrder] = useState<[]>([])
 
-  const renderBlocks = () => {
-    return lesson.blocks.map(block => {
-      switch (block.type) {
-        case BLOCK_TYPE.TEXT:
-          if ('description' in block && block.description) {
-            return (
-              <div className={styles.lesson__content}>
-                <span className={styles.lesson__desc}>{parse(`${block.description}`)}</span>
-              </div>
-            )
-          } else {
-            return <></>
-          }
-        case BLOCK_TYPE.CODE:
-          if ('code' in block && block.code) {
-            return (
-              <div className={styles.lesson__codeWraper}>
-                <pre className={styles.lesson__code_text}>
-                  <code>{block.code}</code>
-                </pre>
-              </div>
-            )
-          } else {
-            return <></>
-          }
-        case BLOCK_TYPE.VIDEO:
-          if ('video' in block && block.video) {
-            return <VideoPlayer isEditing={false} lessonId={lesson.baselesson_ptr_id} videoSrc={block.video} />
-          } else if ('url' in block && block.url) {
-            return <VideoPlayer isEditing={false} lessonId={lesson.baselesson_ptr_id} videoSrc={block.url} />
-          } else {
-            return <></>
-          }
-        case BLOCK_TYPE.PICTURE:
-          return <></>
-      }
-    })
-  }
-
   return (
     <div className={styles.lesson}>
       <StudentCourseNavArr />
@@ -74,11 +32,10 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
           <div className={styles.lesson__card}>
             <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
             <div className={styles.lesson__content}>
-              <Reorder.Group style={{display: 'flex', flexDirection: 'column', gap: '1em'}} onReorder={() => setOrder} values={order}>
-                {renderBlocks()}
+              <Reorder.Group style={{ display: 'flex', flexDirection: 'column', gap: '1em' }} onReorder={() => setOrder} values={order}>
+                {renderStudentBlocks(lesson)}
               </Reorder.Group>
             </div>
-
             <div className={styles.lesson__content}>
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
