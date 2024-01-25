@@ -19,7 +19,7 @@ export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({
   }
 
   return (
-    <div className={styles.header}>
+    <div className={styles.header} onClick={onToggle}>
       {children}
       <h4>{title}</h4>
       <div className={styles.header_controlIconWrapper}>

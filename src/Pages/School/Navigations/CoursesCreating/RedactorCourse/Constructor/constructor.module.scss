@@ -293,11 +293,12 @@
 
     &_rightSide {
       background: #ffffff;
-      padding: 30px 45px 0px 0px;
+      padding-top: 30px;
       height: fit-content;
       margin-bottom: 30px;
       border-radius: 10px;
       width: 100%;
+      padding-bottom: 30px;
 
       &:hover {
         border: solid 3px #BA75FF ;
@@ -316,6 +317,7 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 30px;
+        padding-right: 45px;
       }
 
       &_review {
@@ -448,6 +450,7 @@
       &_blockAll {
         display: flex;
         align-items: center;
+        padding-right: 45px;
       }
       
       &_block {
@@ -482,6 +485,7 @@
           @include display(flex, row, space-between);
           margin-bottom: 50px;
           margin-top: 50px;
+          padding-right: 45px;
 
           &_preview {
             color: $font-color-rose;

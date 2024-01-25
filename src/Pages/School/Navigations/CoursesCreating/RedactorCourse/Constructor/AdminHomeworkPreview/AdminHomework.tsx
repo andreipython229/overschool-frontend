@@ -5,6 +5,8 @@ import { StudentLessonDesc } from '../../../../../../StudentCourse/StudentLesson
 import { UploadedFile } from '../../../../../../../components/UploadedFile'
 import { AudioPlayer } from '../../../../../../../components/common/AudioPlayer'
 import { VideoPlayer } from '../../../../../../../components/VideoPlayer/player'
+import { Reorder } from 'framer-motion'
+import { renderStudentBlocks } from '../AdminLessonPreview/AdminLesson'
 
 interface AdminHomeworkT {
   lesson: IHomework
@@ -13,51 +15,20 @@ interface AdminHomeworkT {
 export const AdminHomework: FC<AdminHomeworkT> = ({ lesson }) => {
   const [lessonVideo, setLessonVideo] = useState<boolean>(false)
 
-  useEffect(() => {
-    if (lesson) {
-      if (('video' in lesson && lesson.video) || ('url' in lesson && lesson.url)) {
-        setLessonVideo(true)
-      } else {
-        setLessonVideo(false)
-      }
-    }
-  }, [lesson])
-
   return (
     <div className={styles.lesson}>
-      <h1 className={styles.lesson__name}>{lesson?.name}</h1>
+      
       <div className={styles.lesson__blocks}>
         <div className={styles.lesson__wrap}>
           <div className={styles.lesson__card}>
             <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
             <div className={styles.lesson__content}>
-              <StudentLessonDesc text={lesson?.description || ''} />
-            </div>
-            {lessonVideo &&
-              (lesson.url && lesson.video ? (
-                <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={lesson.url} lessonId={lesson.homework_id}/>
-                </div>
-              ) : !lesson.video && lesson.url ? (
-                <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.url} videoSrc2={''} lessonId={lesson.homework_id}/>
-                </div>
-              ) : (
-                <div style={{ marginBottom: '20px' }}>
-                  <VideoPlayer videoSrc={lesson.video} videoSrc2={''} lessonId={lesson.homework_id}/>
-                </div>
-              ))}
-            <div className={styles.lesson__content}>
-              {/* {lesson?.code && (
-                <div className={styles.lesson__codeWraper}>
-                  <pre className={styles.lesson__code_text}>
-                    <code>{lesson?.code}</code>
-                  </pre>
-                </div>
-              )} */}
+              <Reorder.Group values={lesson.blocks} onReorder={() => setLessonVideo}>
+                {renderStudentBlocks(lesson)}
+              </Reorder.Group>
               <span className={styles.lesson__materials}>Материалы к занятию:</span>
               {lesson?.text_files.map(({ file, id, file_url, size }, index: number) => (
-                <UploadedFile key={id} file={file} index={index} size={size} name={file_url}/>
+                <UploadedFile key={id} file={file} index={index} size={size} name={file_url} />
               ))}
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
             </div>

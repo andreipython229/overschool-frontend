@@ -14,7 +14,7 @@
 
     &_title {
       @include font(500, 14px, 17px);
-      color: #4D5766;
+      color: #4d5766;
       text-align: center;
     }
 
@@ -29,4 +29,10 @@
   color: $font-title;
   font-size: 25px;
   font-weight: bold;
+}
+
+.settings_list {
+  @include display(flex, column, center);
+  padding: 0px 10px 0 10px;
+  text-align: center;
 }

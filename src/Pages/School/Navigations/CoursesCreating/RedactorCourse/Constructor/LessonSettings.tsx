@@ -29,7 +29,7 @@ import { AddVideo } from 'components/AddVideo'
 import { AudioPlayer } from 'components/common/AudioPlayer'
 import { useDeleteBlockMutation, useOrderUpdateMutation } from 'api/blocksService'
 import { useDebounceFunc } from 'customHooks'
-import { Reorder } from 'framer-motion'
+import { AnimatePresence, Reorder } from 'framer-motion'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
@@ -40,11 +40,10 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [renderFiles, setRenderFiles] = useState<IFile[]>([])
   const [isEditing, setIsEditing] = useState(false)
   const [isPublished, setIsPublished] = useState(false)
-  const [audiofiles, setAudiofiles] = useState<File[]>([])
   const debounceBlockOrder = useDebounceFunc(changeOrder, 2000)
   const [newBlocksOrders, setNewBlocksOrders] = useState<BlockT[]>([])
 
-  const { data, isFetching, isSuccess } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type, schoolName })
+  const { data, isFetching, isSuccess, refetch } = useFetchLessonQuery({ id: +lessonIdAndType.id, type: lessonIdAndType.type, schoolName })
   const [addTextFiles] = usePostTextFilesMutation()
   const [saveChanges, { isLoading: isSaving, isSuccess: isCompleted }] = usePatchLessonsMutation()
   const [deleteFile, { isLoading: isDeleting }] = useDeleteTextFilesMutation()
@@ -176,6 +175,10 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     formData.append('order', String(lesson.order))
     formData.append('active', String(isPublished))
     await saveChanges({ arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName })
+      .unwrap()
+      .then(data => {
+        refetch()
+      })
   }
 
   const renderUI = () => {
@@ -334,7 +337,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
                 <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save} onClick={handleSaveChanges}>
                   <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
-                  Сохранить изменения
+                  Сохранить и вернуться к превью
                 </button>
 
                 <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
@@ -344,15 +347,17 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
             </div>
             <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
               <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
-              <div style={publickButton}>
-                <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
-                <PublishedMark isPublished={isPublished} />
-              </div>
+              <AnimatePresence>
+                <div style={publickButton}>
+                  <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
+                  <PublishedMark isPublished={isPublished} />
+                </div>
+              </AnimatePresence>
             </div>
             {lesson.type !== 'test' && (
               <>
                 <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
-                  <Reorder.Group className={styles1.settings_list} style={{gap: '2em'}} values={lessonBlocks} onReorder={handleOrderUpdate} as="ul">
+                  <Reorder.Group className={styles1.settings_list} style={{ gap: '2em' }} values={lessonBlocks} onReorder={handleOrderUpdate} as="ul">
                     {renderBlocks()}
                   </Reorder.Group>
 
