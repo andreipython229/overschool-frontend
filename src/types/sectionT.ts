@@ -22,6 +22,7 @@ export interface IBlockCode {
   code: string
   type: string
   order: number
+  language?: string
 }
 
 export interface IBlockPic {

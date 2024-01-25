@@ -106,8 +106,8 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
           <ReactPlayer
             url={currentVideoSrc}
             width="100%"
-            height="30rem"
-            style={{ minWidth: '100%', minHeight: '30rem', borderRadius: '2em' }}
+            height='min-content'
+            style={{ minWidth: '100%', minHeight: '30rem' }}
             controls
             config={{
               file: {

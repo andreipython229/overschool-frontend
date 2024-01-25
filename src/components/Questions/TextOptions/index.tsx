@@ -9,13 +9,14 @@ import { Button } from '../../common/Button/Button'
 import { useAddAnswerMutation } from 'api/questionsAndAnswersService'
 
 import styles from './textOptions.module.scss'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 export const TextOptions: FC<PropsQuestionBlockT> = ({ question, answers, title, id, testId }) => {
   const [isOpen, { onToggle }] = useBoolean()
   const [answersToRender, setAnswersToRender] = useState(answers || [])
   const schoolName = window.location.href.split('/')[4]
 
-  const [addAnswer] = useAddAnswerMutation()
+  const [addAnswer, { isLoading }] = useAddAnswerMutation()
 
   const handleAddAnswer = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -60,7 +61,12 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({ question, answers, title,
                   ))
                 : ''}
             </div>
-            <Button text={'+ Добавить вариант'} style={{ marginTop: '26px' }} variant={'primary'} onClick={handleAddAnswer} />
+            <Button
+              text={isLoading ? <SimpleLoader style={{width: '1em', height: '1em'}}/> : '+ Добавить вариант'}
+              style={{ marginTop: '26px' }}
+              variant={'primary'}
+              onClick={handleAddAnswer}
+            />
           </div>
         )}
       </div>
