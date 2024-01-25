@@ -1,12 +1,10 @@
 import { FC, useState, PointerEvent } from 'react'
 import Editor from '@monaco-editor/react'
-
 import { coursesSelectLanguage } from 'constants/other'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { arrUpPath, arrDownPath, deletePath } from '../../config/commonSvgIconsPath'
-import { AddPostT, setShowType } from '../../types/componentsTypes'
-
+import { deletePath } from '../../config/commonSvgIconsPath'
+import { AddPostT } from '../../types/componentsTypes'
 import styles from './addCodeEditor.module.scss'
 import { useDeleteBlockMutation, useUpdateBlockDataMutation } from 'api/blocksService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
@@ -43,6 +41,10 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
         code: codeData,
       }
 
+      if (selectedLang) {
+        codeBlockData.language = selectedLang
+      }
+
       saveChanges({ data: codeBlockData, schoolName })
         .unwrap()
         .then(data => {
@@ -61,6 +63,8 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
     controls.start(event)
   }
 
+  console.log(selectedLang)
+
   return (
     <Reorder.Item
       value={block}
@@ -70,7 +74,7 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
         scale: 1.1,
         borderRadius: '7px',
       }}
-      key={block? block.id: lesson.baselesson_ptr_id}
+      key={block ? block.id : lesson.baselesson_ptr_id}
     >
       {!isPreview ? (
         <div className={styles.editorWrapper_wrapper}>
@@ -83,7 +87,7 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
             <div className={styles.editorWrapper_selectWrapper}>
               <SelectInput setSelectedValue={setSelectedLang} optionsList={coursesSelectLanguage} />
             </div>
-            {block && 'code' in block && block.code && codeData !== block.code && (
+            {block && (('code' in block && block.code && codeData !== block.code) || (codeData && 'code' in block && !block.code)) && (
               <Button
                 variant={'default'}
                 text={isSaving ? <SimpleLoader style={{ height: '19px' }} loaderColor="white" /> : 'Сохранить код'}

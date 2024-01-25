@@ -10,11 +10,11 @@ type AdminQuestionHeaderT = {
 
 export const AdminQuestionHeader: FC<AdminQuestionHeaderT & PropsQuestionBlockT> = memo(({title, id, isOpen, onToggle, children}) => {
     return (
-        <div className={styles.header}>
+        <div className={styles.header} onClick={onToggle}>
             {children}
             <h4>{title}</h4>
             <div className={styles.header_controlIconWrapper}>
-                <div onClick={onToggle} className={!isOpen ? styles.header_controlIconWrapper_togglerShowOption
+                <div className={!isOpen ? styles.header_controlIconWrapper_togglerShowOption
                             : styles.header_controlIconWrapper_togglerShowOption + ' ' + styles.rotate_arrow}>
                     <IconSvg width={42} height={37} viewBoxSize="0 0 22 22" path={arrowDownTimerIconPath}/>
                 </div>

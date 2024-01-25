@@ -8,10 +8,14 @@ import styles from '../superAdmin.module.scss'
 import { useAppDispatch } from 'store/hooks'
 import { Path } from 'enum/pathE'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { RoleE } from 'enum/roleE'
+import { role } from 'store/redux/users/slice'
+import { useDispatch } from 'react-redux'
 
 export const Main = memo(() => {
   const schoolId = localStorage.getItem('school_id')
   const [alertOpen, setAlertOpen] = useState<boolean>(false)
+  const dispatchRole = useDispatch()
 
   const { data } = useFetchSchoolQuery(Number(schoolId))
   const [updateDateSchoolName, { data: newName, isLoading, isSuccess, isError }] = useSetSchoolMutation()
@@ -79,6 +83,7 @@ export const Main = memo(() => {
 
   useEffect(() => {
     if (isSuccess) {
+      dispatchRole(role(RoleE.Unknown))
       navigate(Path.ChooseSchool)
     }
     if (isError) {
@@ -97,9 +102,8 @@ export const Main = memo(() => {
           style={{ color: 'red', padding: '0px', lineHeight: '1.5', opacity: '0.6', fontWeight: 'bold', fontSize: '12px' }}
         >
           Название будет подставляться в url адресах относящихся к вашей школе.
-          <br /> 
+          <br />
           Имейте ввиду, если вы делились с кем либо url ссылками на вашу школу - то после изменения по старым url адресам она будет не доступна!
-          
           Частая смена не рекомендуется!
         </div>
         <div>
