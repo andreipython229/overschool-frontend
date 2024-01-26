@@ -24,6 +24,7 @@ export type result = {
     course_updated_at: string
     group_name: string
     last_active: string
+    last_login: string
     mark_sum: number
     average_mark: number
     sections: Section[]
