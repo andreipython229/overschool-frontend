@@ -40,6 +40,7 @@ export const Profile = () => {
     const [logout] = useLazyLogoutQuery()
     const [error, setError] = useState<string>('')
     const [isOpen, setOpen] = useState(false)
+    const [newEmail, setNewEmail] = useState<string>('')
     const [tokenError, setTokenError] = useState<string>('')
 
     const changePassword = useFormik({
@@ -99,7 +100,7 @@ export const Profile = () => {
             email: ''
         },
         onSubmit: async (values, {resetForm}) => {
-            if (validateEmail(changeEmail.values.email)) {
+            if (validateEmail(values.email)) {
                 setError('')
                 const emailData = {user: values}
                 await changeEmailFunc({userInfo: emailData, id: profileData?.profile_id})
@@ -108,6 +109,7 @@ export const Profile = () => {
                         if (data.email_confirm) {
                             setOpen(true)
                         }
+                        setNewEmail(values.email)
                         resetForm()
                     })
                     .catch((response: any) => {
@@ -128,6 +130,7 @@ export const Profile = () => {
         onSubmit: async (values) => {
             const formData = new FormData()
             formData.append('token', values.token)
+            formData.append('email', newEmail)
             await confirmEmail(formData)
                 .unwrap()
                 .then(() => {
@@ -207,7 +210,7 @@ export const Profile = () => {
           </div> */}
                     <form className={styles.container} onSubmit={changeEmail.handleSubmit}>
                         <h5 className={styles.profile_block_title}>Смена email</h5>
-                        <Input name="email" type="text" onChange={changeEmail.handleChange}
+                        <Input name="email" type="text" onChange={changeEmail.handleChange} onInput={()=>setError('')}
                                value={changeEmail.values.email} placeholder="Новый email"/>
                         {error && <span className={styles.container_error}>{error}</span>}
                         <div className={styles.container_wrapper}>
