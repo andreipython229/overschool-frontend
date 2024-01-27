@@ -6,6 +6,7 @@ import {
   useFetchLatestMessagesQuery, 
   useCreateChatMutation, 
   useFetchLatestChatsQuery,
+  useDeleteChatsMutation
 } from '../../api/chatgptService';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
@@ -26,7 +27,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const { data: latestMessages = [], refetch: refetchMessages } = userId
   ? useFetchLatestMessagesQuery({
       userId: userId.toString(),
-      overai_chat_id: selectedChatId ? selectedChatId.toString() : undefined,
+      overai_chat_id: selectedChatId !== null ? selectedChatId.toString() : undefined,
     })
   : { data: [], refetch: undefined };
 
@@ -53,7 +54,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [isCreatingChatDisabled, setIsCreatingChatDisabled] = useState(false);
   const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
   const [showSpinner, setShowSpinner] = useState(true);
-  
+  const [deleteChats] = useDeleteChatsMutation();
 
   const toggleDialog = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -101,7 +102,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
 useEffect(() => {
   const fetchData = async () => {
-    if (isDialogOpen) {
+    if (isDialogOpen && selectedChatId !== null) {
       setError(null);
       setShowSpinner(true);
       
@@ -150,6 +151,21 @@ useEffect(() => {
       setIsChatSelected(true);
     }
   };
+
+  useEffect(() => {
+    const deleteNewChats = async () => {
+      try {
+        if (userId) {
+          await deleteChats(userId);
+          await fetchChats();
+        }
+      } catch (error) {
+        console.error('Ошибка при удалении чатов:', error);
+      }
+    };
+
+    deleteNewChats();
+  }, []);
   
   const createChat = async () => {
     try {

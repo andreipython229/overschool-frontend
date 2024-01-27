@@ -62,6 +62,15 @@ export const chatgptService = createApi({
         },
       }),
     }),
+    deleteChats: build.mutation<void, number>({
+      query: (userId) => ({
+        url: `/chatgpt/delete_chats/${userId}/`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
     fetchLatestChats: build.query<LatestChatsResponse, string>({
       query: (userId) => ({
         url: `/chatgpt/latest_chats/${userId}/`,
@@ -74,6 +83,7 @@ export const {
   useFetchLatestMessagesQuery, 
   useSendMessageMutation, 
   useCreateChatMutation, 
-  useFetchLatestChatsQuery 
+  useFetchLatestChatsQuery,
+  useDeleteChatsMutation 
 } = chatgptService;
 export type ChatgptService = typeof chatgptService;
