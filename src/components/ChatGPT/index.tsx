@@ -6,7 +6,9 @@ import {
   useFetchLatestMessagesQuery, 
   useCreateChatMutation, 
   useFetchLatestChatsQuery,
-  useDeleteChatsMutation
+  useDeleteChatsMutation,
+  useFetchWelcomeMessageQuery,
+  useUpdateWelcomeMessageMutation
 } from '../../api/chatgptService';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
@@ -19,7 +21,6 @@ interface ChatGPTProps {
 }
 
 const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
-  const isWelcomeMessageShown = localStorage.getItem('isWelcomeMessageShown');
   const [messageInput, setMessageInput] = useState('');
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const userId = getUserIdFromLocalStorage();
@@ -31,7 +32,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     })
   : { data: [], refetch: undefined };
 
-  const [sendMessage, mutation] = useSendMessageMutation();
+  const [sendMessage] = useSendMessageMutation();
 
   const [createChatMutation] = useCreateChatMutation();
   const [chatList, setChatList] = useState<Array<number>>([]);
@@ -52,9 +53,18 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [chatsLoaded, setChatsLoaded] = useState(false);
   const [isChatSelectionDisabled, setIsChatSelectionDisabled] = useState(false);
   const [isCreatingChatDisabled, setIsCreatingChatDisabled] = useState(false);
-  const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState<boolean>(true);
+  const { data: welcomeMessageData } = useFetchWelcomeMessageQuery(userId ? userId.toString() : '');
   const [showSpinner, setShowSpinner] = useState(true);
   const [deleteChats] = useDeleteChatsMutation();
+  const [updateWelcomeMessage] = useUpdateWelcomeMessageMutation();
+
+  useEffect(() => {
+    if (welcomeMessageData) {
+      setShowWelcomeMessage(welcomeMessageData.show_welcome_message);
+    }
+    
+  }, [welcomeMessageData]);
 
   const toggleDialog = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -106,7 +116,7 @@ useEffect(() => {
       setError(null);
       setShowSpinner(true);
       
-      if (isWelcomeMessageShown !== 'true') {
+      if (showWelcomeMessage !== true) {
         setShowWelcomeMessage(false);
         setShowSpinner(false);
       } else {
@@ -189,9 +199,11 @@ useEffect(() => {
   };
 
   const handleCreateChat = async () => {
+    if (userId !== null) {
+      await updateWelcomeMessage(userId.toString());
+    }
     await createChat();
     setShowWelcomeMessage(true);
-    localStorage.setItem('isWelcomeMessageShown', 'true');
   };
 
   const fetchChats = async () => {
