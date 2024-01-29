@@ -189,7 +189,7 @@ useEffect(() => {
           await fetchChats();
         }
       } catch (error) {
-        console.error('Ошибка при удалении чатов:', error);
+        setError('Ошибка при удалении чатов');
       }
     };
 
