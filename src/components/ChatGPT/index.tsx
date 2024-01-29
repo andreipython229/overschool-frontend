@@ -24,11 +24,12 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [messageInput, setMessageInput] = useState('');
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const userId = getUserIdFromLocalStorage();
-  const [selectedChatId, setCreatedChatId] = useState<number | null>(null);
+  const [selectedChatId, setCreatedChatId] = useState<number>();
+  const [isChatSelected, setIsChatSelected] = useState(false);
   const { data: latestMessages = [], refetch: refetchMessages } = userId
   ? useFetchLatestMessagesQuery({
       userId: userId.toString(),
-      overai_chat_id: selectedChatId !== null ? selectedChatId.toString() : undefined,
+      overai_chat_id: selectedChatId !== undefined ? selectedChatId.toString() : undefined,
     })
   : { data: [], refetch: undefined };
 
@@ -49,7 +50,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingChats, setIsFetchingChats] = useState(false);
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
-  const [isChatSelected, setIsChatSelected] = useState(false);
   const [chatsLoaded, setChatsLoaded] = useState(false);
   const [isChatSelectionDisabled, setIsChatSelectionDisabled] = useState(false);
   const [isCreatingChatDisabled, setIsCreatingChatDisabled] = useState(false);
@@ -154,6 +154,7 @@ useEffect(() => {
       if (selectedChatId && refetchMessages && isChatSelected) {
         try {
           await refetchMessages();
+          setFocusToBottom();
         } catch (error) {
           setError('Ошибка получения сообщений');
         } finally {
@@ -166,7 +167,7 @@ useEffect(() => {
   };
 
   fetchData();
-}, [isDialogOpen, selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage]);
+}, [isDialogOpen, selectedChatId, refetchMessages, latestMessages, isChatSelected, chatsLoaded, showWelcomeMessage]);
 
 
   useEffect(() => {
