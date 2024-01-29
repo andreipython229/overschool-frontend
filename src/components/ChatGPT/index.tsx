@@ -99,7 +99,8 @@ const formatBotAnswer = (answer: string): JSX.Element => {
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#039;')
-                .replace(/####/g, '');
+                .replace(/####/g, '')
+                .replace(/\*\*(.*?)\*\*/g, (_, content) => `<strong>${content}</strong>`);
   };
   const codeBlockRegex = /```([\s\S]*?)```/g;
   const replaceCodeBlocks = (_: any, code: string) => {
