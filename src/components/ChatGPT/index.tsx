@@ -167,12 +167,17 @@ useEffect(() => {
   };
 
   fetchData();
-}, [isDialogOpen, selectedChatId, refetchMessages, latestMessages, isChatSelected, chatsLoaded, showWelcomeMessage]);
+}, [isDialogOpen, selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage]);
 
 
-  useEffect(() => {
+useEffect(() => {
+  const timer = setTimeout(() => {
     setFocusToBottom();
-  }, [latestMessages, isDialogOpen]);
+  }, 100);
+
+  return () => clearTimeout(timer);
+}, [latestMessages, isDialogOpen, selectedChatId]);
+
 
   const selectChat = (chatId: number) => {
     if (!isChatSelectionDisabled) {
