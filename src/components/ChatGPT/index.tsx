@@ -92,22 +92,40 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }
   };
 
-  const formatBotAnswer = (answer: string): JSX.Element => {
-    let formattedAnswer = answer.replace(/\*\*(.*?)\*\*/g, (_, content) => `<strong>${content}</strong>`);
-    formattedAnswer = formattedAnswer.replace(/####(.*?)/g, (_, content) => `${content}`);
-    formattedAnswer = formattedAnswer.replace(/```(.*?)/g, (_, code) => {
-        const lines = code.split('\n').map((line: string, index: number) => (
-            `<pre key=${index} class="code-container">${line}</pre>`
-        ));
-        return `<div>${lines.join('')}</div>`;
-    });
+const formatBotAnswer = (answer: string): JSX.Element => {
+  const escapeHtml = (str: string): string => {
+      return str.replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+  };
+  const codeBlockRegex = /```([\s\S]*?)```/g;
+  const replaceCodeBlocks = (_: any, code: string) => {
+      const lines = code.trim().split('\n').map((line: string, index: number) => (
+          `${line}\n`
+      ));
+      return `${lines.join('')}`;
+  };
 
-     return (
-         <div
-             dangerouslySetInnerHTML={{ __html: `<div>${formattedAnswer}</div>` }}
-             //style={{ wordWrap: 'break-word', color: '#333' }}
-         />
-     );
+  let formattedAnswer = answer.replace(codeBlockRegex, replaceCodeBlocks);
+
+  const codeBlocks = formattedAnswer.split(codeBlockRegex);
+  const processedBlocks = codeBlocks.map((block, index) => {
+      if (index % 2 === 0) {
+          return escapeHtml(block);
+      } else {
+          return block;
+      }
+  });
+
+  formattedAnswer = processedBlocks.join('');
+
+  return (
+      <div
+          dangerouslySetInnerHTML={{ __html: formattedAnswer }}
+      />
+  );
 };
 
 useEffect(() => {
