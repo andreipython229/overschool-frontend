@@ -5,13 +5,22 @@ import stamp from './img/stamp.png'
 
 import styles from './Certificate.module.scss'
 import { useParams } from 'react-router-dom'
-import { useFetchSertificateQuery } from 'api/userProgressService'
+import { useFetchSertificateMutation } from 'api/userProgressService'
+import { useEffect } from 'react'
 
 export const Certificate = () => {
   const { course_id: courseId, student_id: userId } = useParams()
-  const { data: sertData, isLoading, isSuccess: succSert } = useFetchSertificateQuery(String(courseId))
+  const [getSertData, { data: sertData, isLoading, isSuccess: succSert }] = useFetchSertificateMutation()
+
+  useEffect(() => {
+    if (courseId && userId) {
+      getSertData({
+        user_id: Number(userId),
+        course_id: Number(courseId),
+      })
+    }
+  }, [])
   console.log(sertData)
-  // const {data: userData} = use
 
   return sertData ? (
     <main className={styles.main}>
@@ -31,8 +40,7 @@ export const Certificate = () => {
           </div>
           <div className={styles.certificate__graduate}>{sertData.user_full_name}</div>
           <div className={styles.certificate__content}>
-            Has successfully completed <span className={styles.bold}>{sertData.course_name}</span> course. Key skills: OOP, SQLite3 database course,
-            frameworks Flask and Django and Github.
+            Has successfully completed <span className={styles.bold}>{sertData.course_name}</span> course. Key skills: {sertData.course_description}.
           </div>
           <div className={styles.signs}>
             <div className={styles.signs__date}>19.09.2022</div>
