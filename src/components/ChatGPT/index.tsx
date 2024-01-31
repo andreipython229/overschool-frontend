@@ -6,6 +6,9 @@ import {
   useFetchLatestMessagesQuery, 
   useCreateChatMutation, 
   useFetchLatestChatsQuery,
+  useDeleteChatsMutation,
+  useFetchWelcomeMessageQuery,
+  useUpdateWelcomeMessageMutation
 } from '../../api/chatgptService';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
@@ -18,19 +21,19 @@ interface ChatGPTProps {
 }
 
 const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
-  const isWelcomeMessageShown = localStorage.getItem('isWelcomeMessageShown');
   const [messageInput, setMessageInput] = useState('');
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const userId = getUserIdFromLocalStorage();
-  const [selectedChatId, setCreatedChatId] = useState<number | null>(null);
+  const [selectedChatId, setCreatedChatId] = useState<number>();
+  const [isChatSelected, setIsChatSelected] = useState(false);
   const { data: latestMessages = [], refetch: refetchMessages } = userId
   ? useFetchLatestMessagesQuery({
       userId: userId.toString(),
-      overai_chat_id: selectedChatId ? selectedChatId.toString() : undefined,
+      overai_chat_id: selectedChatId !== undefined ? selectedChatId.toString() : undefined,
     })
   : { data: [], refetch: undefined };
 
-  const [sendMessage, mutation] = useSendMessageMutation();
+  const [sendMessage] = useSendMessageMutation();
 
   const [createChatMutation] = useCreateChatMutation();
   const [chatList, setChatList] = useState<Array<number>>([]);
@@ -47,13 +50,21 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingChats, setIsFetchingChats] = useState(false);
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
-  const [isChatSelected, setIsChatSelected] = useState(false);
   const [chatsLoaded, setChatsLoaded] = useState(false);
   const [isChatSelectionDisabled, setIsChatSelectionDisabled] = useState(false);
   const [isCreatingChatDisabled, setIsCreatingChatDisabled] = useState(false);
-  const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState<boolean>(true);
+  const { data: welcomeMessageData } = useFetchWelcomeMessageQuery(userId ? userId.toString() : '');
   const [showSpinner, setShowSpinner] = useState(true);
-  
+  const [deleteChats] = useDeleteChatsMutation();
+  const [updateWelcomeMessage] = useUpdateWelcomeMessageMutation();
+
+  useEffect(() => {
+    if (welcomeMessageData) {
+      setShowWelcomeMessage(welcomeMessageData.show_welcome_message);
+    }
+    
+  }, [welcomeMessageData]);
 
   const toggleDialog = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -81,31 +92,51 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }
   };
 
-  const formatBotAnswer = (answer: string): JSX.Element => {
-    let formattedAnswer = answer.replace(/\*\*(.*?)\*\*/g, (_, content) => `<strong>${content}</strong>`);
-    formattedAnswer = formattedAnswer.replace(/####(.*?)/g, (_, content) => `${content}`);
-    formattedAnswer = formattedAnswer.replace(/```(.*?)/g, (_, code) => {
-        const lines = code.split('\n').map((line: string, index: number) => (
-            `<pre key=${index} class="code-container">${line}</pre>`
-        ));
-        return `<div>${lines.join('')}</div>`;
-    });
+const formatBotAnswer = (answer: string): JSX.Element => {
+  const escapeHtml = (str: string): string => {
+      return str.replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;')
+                .replace(/####/g, '')
+                .replace(/\*\*(.*?)\*\*/g, (_, content) => `<strong>${content}</strong>`);
+  };
+  const codeBlockRegex = /```([\s\S]*?)```/g;
+  const replaceCodeBlocks = (_: any, code: string) => {
+      const lines = code.trim().split('\n').map((line: string, index: number) => (
+          `${line}\n`
+      ));
+      return `${lines.join('')}`;
+  };
 
-     return (
-         <div
-             dangerouslySetInnerHTML={{ __html: `<div>${formattedAnswer}</div>` }}
-             //style={{ wordWrap: 'break-word', color: '#333' }}
-         />
-     );
+  let formattedAnswer = answer.replace(codeBlockRegex, replaceCodeBlocks);
+
+  const codeBlocks = formattedAnswer.split(codeBlockRegex);
+  const processedBlocks = codeBlocks.map((block, index) => {
+      if (index % 2 === 0) {
+          return escapeHtml(block);
+      } else {
+          return block;
+      }
+  });
+
+  formattedAnswer = processedBlocks.join('');
+
+  return (
+      <div
+          dangerouslySetInnerHTML={{ __html: formattedAnswer }}
+      />
+  );
 };
 
 useEffect(() => {
   const fetchData = async () => {
-    if (isDialogOpen) {
+    if (isDialogOpen && selectedChatId !== null) {
       setError(null);
       setShowSpinner(true);
       
-      if (isWelcomeMessageShown !== 'true') {
+      if (showWelcomeMessage !== true) {
         setShowWelcomeMessage(false);
         setShowSpinner(false);
       } else {
@@ -125,6 +156,7 @@ useEffect(() => {
       if (selectedChatId && refetchMessages && isChatSelected) {
         try {
           await refetchMessages();
+          setFocusToBottom();
         } catch (error) {
           setError('Ошибка получения сообщений');
         } finally {
@@ -140,9 +172,14 @@ useEffect(() => {
 }, [isDialogOpen, selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage]);
 
 
-  useEffect(() => {
+useEffect(() => {
+  const timer = setTimeout(() => {
     setFocusToBottom();
-  }, [latestMessages, isDialogOpen]);
+  }, 100);
+
+  return () => clearTimeout(timer);
+}, [latestMessages, isDialogOpen, selectedChatId]);
+
 
   const selectChat = (chatId: number) => {
     if (!isChatSelectionDisabled) {
@@ -150,6 +187,21 @@ useEffect(() => {
       setIsChatSelected(true);
     }
   };
+
+  useEffect(() => {
+    const deleteNewChats = async () => {
+      try {
+        if (userId) {
+          await deleteChats(userId);
+          await fetchChats();
+        }
+      } catch (error) {
+        setError('Ошибка при удалении чатов');
+      }
+    };
+
+    deleteNewChats();
+  }, []);
   
   const createChat = async () => {
     try {
@@ -173,9 +225,11 @@ useEffect(() => {
   };
 
   const handleCreateChat = async () => {
+    if (userId !== null) {
+      await updateWelcomeMessage(userId.toString());
+    }
     await createChat();
     setShowWelcomeMessage(true);
-    localStorage.setItem('isWelcomeMessageShown', 'true');
   };
 
   const fetchChats = async () => {

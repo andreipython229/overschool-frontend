@@ -55,8 +55,7 @@ type studentProgressT = {
 }
 
 export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) => {
-    const lastActivity = new Date(student?.last_active || '')
-    const {mmddyyyy} = convertDate(lastActivity)
+    const lastActivity = student?.last_login ? new Date(student.last_login) : null;
     const schoolName = window.location.href.split('/')[4]
     const schoolId = localStorage.getItem('school_id')
     const [studentProgress, setStudentProgress] = useState<studentProgressT>()
@@ -69,6 +68,9 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
     const [deleteStudent] = useDeleteStudentFromGroupMutation()
     const [removeDate, setRemoveDate] = useState<Date>(new Date())
     const [datePickerClass, setDatePickerClass] = useState<any>();
+    const TEN_MINUTES = 10 * 60 * 1000;
+    const currentTime = new Date();
+    let activityMessage;
 
     const handleOpenAlert = () => {
         setOpenAlert(true)
@@ -109,6 +111,19 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
 
     const onChange = (date: Date): void => {
         setRemoveDate(date)
+    }
+
+    if (lastActivity) {
+        const timeDifference = currentTime.getTime() - new Date(lastActivity).getTime();
+    
+        if (timeDifference < TEN_MINUTES) {
+            activityMessage = "Онлайн";
+        } else {
+            const { mmddyyyy } = convertDate(lastActivity);
+            activityMessage = `Был(а) онлайн ${mmddyyyy}`;
+        }
+    } else {
+        activityMessage = "Был(а) онлайн давно";
     }
 
     const resetAccessSetting = async () => {
@@ -166,7 +181,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
                     <h3 className={styles.student_block_name}>{(student?.last_name && student?.first_name) ? `${student?.last_name}  ${student?.first_name}` :
                         (student?.last_name || student?.first_name || "Нет имени")}</h3>
                     <p className={styles.student_block_email}>{student?.email}</p>
-                    <p className={styles.student_block_activity}>Был(а) онлайн {`${mmddyyyy}`}</p>
+                    <p className={styles.student_block_activity}>{activityMessage}</p>
                 </div>
                 {/* <div className={styles.student_actions}>
           <Button text="Написать в чат" />
