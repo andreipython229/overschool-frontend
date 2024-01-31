@@ -1,5 +1,5 @@
-import React, {memo, useState, useEffect, useRef} from 'react'
-import { Link, NavLink, generatePath, useNavigate } from 'react-router-dom'
+import React, { memo, useState, useEffect, useRef } from 'react'
+import { Link, NavLink, generatePath, useLocation, useNavigate } from 'react-router-dom'
 
 import { useFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
@@ -20,7 +20,7 @@ import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { SvgIcon } from '@mui/material'
-import {ChatI, MessageI, SenderI, UserInformI} from 'types/chatsT'
+import { ChatI, MessageI, SenderI, UserInformI } from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from '../../store/redux/chats/chatsSlice'
 
@@ -39,7 +39,7 @@ import { removeSchoolName } from '../../store/redux/school/schoolSlice'
 import { useDispatch } from 'react-redux'
 
 import { motion } from 'framer-motion'
-import {w3cwebsocket} from "websocket";
+import { w3cwebsocket } from 'websocket'
 
 export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
@@ -47,10 +47,11 @@ export const Header = memo(() => {
   const dispatchRole = useDispatch()
   const { role: userRole } = useAppSelector(selectUser)
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const [logout, { isLoading }] = useLazyLogoutQuery()
   const headerId = localStorage.getItem('header_id')
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
-  const { data: profile, isSuccess: profileIsSuccess, isError, error } = useFetchProfileDataQuery()
+  const { data: profile, isSuccess: profileIsSuccess, isError, error, refetch: refetchUser } = useFetchProfileDataQuery()
   const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
   const [currentTariff, setCurrentTariff] = useState<ITariff>()
 
@@ -67,7 +68,6 @@ export const Header = memo(() => {
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
 
-
   const logOut = async () => {
     await logout().then(data => {
       setProfileData(undefined)
@@ -83,7 +83,7 @@ export const Header = memo(() => {
       navigate(generatePath(Path.InitialPage))
 
       if (informSocketRef.current !== null) {
-        informSocketRef.current.close();
+        informSocketRef.current.close()
         informSocketRef.current = null
       }
     })
@@ -136,46 +136,41 @@ export const Header = memo(() => {
     }
   }, [profileData])
 
-
   // Socket INFO Update *****************************************************
 
-  const informSocketRef = useRef<w3cwebsocket | null>(null);
+  const informSocketRef = useRef<w3cwebsocket | null>(null)
 
   useEffect(() => {
     if (profileIsSuccess) {
       if (informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) {
-        connectWebSocket();
+        connectWebSocket()
       }
     }
-  }, [profileIsSuccess]);
+  }, [profileIsSuccess])
 
   const connectWebSocket = () => {
     if (informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) {
-
       informSocketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/info/`)
       // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/`)
       // informSocketRef.current.onopen = () => {
-          // console.log('INFO WebSocket connected');
+      // console.log('INFO WebSocket connected');
       // };
 
-      informSocketRef.current.onmessage = (event) => {
+      informSocketRef.current.onmessage = event => {
         if (typeof event.data === 'string') {
-          const receivedMessage: UserInformI = JSON.parse(event.data);
-          if (receivedMessage.type === "short_chat_info") {
-              setTotalUnreadMessages(receivedMessage.message.total_unread)
+          const receivedMessage: UserInformI = JSON.parse(event.data)
+          if (receivedMessage.type === 'short_chat_info') {
+            setTotalUnreadMessages(receivedMessage.message.total_unread)
+          } else if (receivedMessage.type === 'full_chat_info') {
+            setTotalUnreadMessages(receivedMessage.message.total_unread)
+            console.log(receivedMessage)
 
-          } else if (receivedMessage.type === "full_chat_info") {
-              setTotalUnreadMessages(receivedMessage.message.total_unread)
-              console.log(receivedMessage)
-
-              if (receivedMessage.message.chats.length > 0 && chats) {
-                  const fetchChats: ChatI[] = receivedMessage.message.chats
-                  if (fetchChats) {
-                    setFetchedChats(fetchChats)
-                  }
-
+            if (receivedMessage.message.chats.length > 0 && chats) {
+              const fetchChats: ChatI[] = receivedMessage.message.chats
+              if (fetchChats) {
+                setFetchedChats(fetchChats)
               }
-
+            }
           }
           // console.log("SOCKET MESSAGE TYPE: ", receivedMessage.type)
         }
@@ -186,25 +181,29 @@ export const Header = memo(() => {
       // }
 
       informSocketRef.current.onclose = () => {
-          // console.log('INFO WebSocket disconnected');
-          // Переподключение при закрытии соединения
-          setTimeout(() => {
-            connectWebSocket();
-          }, 5000);
-      };
-
+        // console.log('INFO WebSocket disconnected');
+        // Переподключение при закрытии соединения
+        setTimeout(() => {
+          connectWebSocket()
+        }, 5000)
+      }
     }
-  };
+  }
 
   useEffect(() => {
     return () => {
       if (informSocketRef.current !== null) {
-        informSocketRef.current.close();
+        informSocketRef.current.close()
       }
-    };
-  }, []);
+    }
+  }, [])
 
-
+  useEffect(() => {
+    const route = generatePath(Path.School + Path.Courses, { school_name: schoolName })
+    if (pathname === route) {
+      refetchUser()
+    }
+  }, [pathname])
 
   // Chat Info Update *******************************************************
   useEffect(() => {
@@ -293,19 +292,20 @@ export const Header = memo(() => {
   }
 
   return (
-    <motion.header className={styles.header}
-    initial={{
-      x:-1000,
-    }}
-    animate={{
-      x:0,
-    }}
-    transition={{
-      delay: 0.1,
-      ease:'easeInOut',
-      duration: 0.5,
-      
-    }}>
+    <motion.header
+      className={styles.header}
+      initial={{
+        x: -1000,
+      }}
+      animate={{
+        x: 0,
+      }}
+      transition={{
+        delay: 0.1,
+        ease: 'easeInOut',
+        duration: 0.5,
+      }}
+    >
       <NavLink to={userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}>
         <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
       </NavLink>
