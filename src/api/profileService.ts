@@ -6,7 +6,7 @@ import { baseQuery } from './baseApi'
 export const profileService = createApi({
   reducerPath: 'profileService',
   baseQuery: baseQuery(),
-  tagTypes: ['profile', 'password_change'],
+  tagTypes: ['profile', 'password_change', 'email_confirm'],
   endpoints: build => ({
     fetchProfileData: build.query<profileT[], void>({
       query: () => ({
@@ -30,7 +30,16 @@ export const profileService = createApi({
       }),
       invalidatesTags: ['password_change'],
     }),
+    confirmEmail: build.mutation<any, any>({
+      query: tokenInfo => ({
+        url: `/email-confirm/`,
+        method: 'POST',
+        body: tokenInfo,
+        responseHandler: response => response.text(),
+      }),
+      invalidatesTags: ['email_confirm'],
+    }),
   }),
 })
 
-export const { useFetchProfileDataQuery, useLazyFetchProfileDataQuery, useUpdateProfileMutation, useChangePasswordMutation } = profileService
+export const { useFetchProfileDataQuery, useLazyFetchProfileDataQuery, useUpdateProfileMutation, useChangePasswordMutation, useConfirmEmailMutation } = profileService

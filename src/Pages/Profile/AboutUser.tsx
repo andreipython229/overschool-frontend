@@ -34,6 +34,7 @@ export const AboutUser: FC = memo(() => {
 
     const [profileData, setProfileData] = useState<profileT>()
     const [sex, setSex] = useState<string>()
+    const [phoneError, setPhoneError] = useState<string>()
 
     const formik = useFormik({
         initialValues: {
@@ -71,8 +72,12 @@ export const AboutUser: FC = memo(() => {
 
             if (data) {
                 avatarFile ?
-                    updateProfile({userInfo: formData, id: data[0]?.profile_id}).unwrap().catch(error => console.log(error.data))
-                    : updateProfile({userInfo: objToSend, id: data[0]?.profile_id}).unwrap().catch(error => console.log(error.data));
+                    updateProfile({userInfo: formData, id: data[0]?.profile_id}).unwrap().catch((error) => {console.log(error.data);
+                    error.data['errors']['user']['phone_number'] && setPhoneError(error.data['errors']['user']['phone_number'][0])})
+                    : updateProfile({userInfo: objToSend, id: data[0]?.profile_id}).unwrap().catch((error) => {console.log(error.data);
+                    if (error.data['errors']['user']['phone_number']) {
+                        setPhoneError(error.data['errors']['user']['phone_number'][0]);
+                        formik.setSubmitting(false)}})
             }
         },
     })
@@ -104,7 +109,7 @@ export const AboutUser: FC = memo(() => {
         handleChange,
         handleSubmit,
         //touched,
-        //errors,
+        // errors,
         isSubmitting,
     } = formik
 
@@ -118,7 +123,7 @@ export const AboutUser: FC = memo(() => {
             <h3 className={styles.profile_title}>Настройка профиля</h3>
 
             <div className={styles.profile_block}>
-                <Input name={'email'} type={'text'} label={'Email:'} value={email as string} onChange={handleChange}/>
+                <Input name={'email'} type={'text'} label={'Email:'} value={email as string} contentEditable={false}/>
                 {/* {errors.email} */}
             </div>
             <div className={formStyles.form_avatarWrapper}>
@@ -151,11 +156,12 @@ export const AboutUser: FC = memo(() => {
                     type={'text'}
                     label={'Телефон:'}
                     onChange={handleChange}
+                    onInput={() => setPhoneError('')}
                     value={phone_number as string}
                     placeholder={'Введите номер телефона'}
                     required={false}
                 />
-                {/* {errors.phone_number} */}
+                 {phoneError && <span className={styles.container_error}>{phoneError}</span>}
             </div>
             <div className={styles.profile_block}>
                 <Input name={'city'} type={'text'} label={'Город:'} onChange={handleChange} value={city as string}
