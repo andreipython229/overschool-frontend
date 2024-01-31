@@ -56,6 +56,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [showWelcomeMessage, setShowWelcomeMessage] = useState<boolean>(true);
   const { data: welcomeMessageData } = useFetchWelcomeMessageQuery(userId ? userId.toString() : '');
   const [showSpinner, setShowSpinner] = useState(true);
+  const [isBotResponsePending, setIsBotResponsePending] = useState(false);
   const [deleteChats] = useDeleteChatsMutation();
   const [updateWelcomeMessage] = useUpdateWelcomeMessageMutation();
 
@@ -253,6 +254,7 @@ useEffect(() => {
   const handleSendMessage = async (messageInput: string) => {
     if (messageInput.trim() !== '') {
       try {
+        setIsBotResponsePending(true);
         setIsLoading(true);
         setIsChatSelectionDisabled(true);
         setIsCreatingChatDisabled(true);
@@ -264,6 +266,10 @@ useEffect(() => {
             overai_chat_id: selectedChatId!,
           };
 
+          const botResponseTimeout = setTimeout(() => {
+            setError('Генерация длинного сообщения займет некоторое время...');
+          }, 10000);
+
           await sendMessage(payload);
 
           if (refetchMessages) {
@@ -272,10 +278,13 @@ useEffect(() => {
           
           setMessageInput('');
           setError(null);
+          clearTimeout(botResponseTimeout);
         }
+
       } catch (error: unknown) {
         setError('Ошибка при отправке сообщения.');
       } finally {
+        setIsBotResponsePending(false);
         setIsLoading(false);
         setIsChatSelectionDisabled(false);
         setIsCreatingChatDisabled(false);
@@ -283,7 +292,7 @@ useEffect(() => {
 
       setTimeout(() => {
         setError(null);
-      }, 10000);
+      }, 3000);
     }
   };
 
