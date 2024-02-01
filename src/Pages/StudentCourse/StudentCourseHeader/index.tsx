@@ -7,39 +7,38 @@ import { useFetchCourseQuery } from 'api/coursesServices'
 import { useFetchModulesQuery } from 'api/modulesServices'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { backArr } from 'components/Previous/config/svgIconPath'
-import {lessonT, sectionsT, sectionT} from 'types/sectionT'
+import { lessonT, sectionsT, sectionT } from 'types/sectionT'
 import { lessonSvgMapper } from 'config/index'
 import { getNounDeclension } from 'utils/getNounDeclension'
 
 import styles from './student_course_header.module.scss'
-import { useFetchProgressQuery, useLazyFetchSertificateQuery } from '../../../api/userProgressService'
+import { useFetchProgressQuery, useFetchSertificateMutation } from '../../../api/userProgressService'
 import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
 import { Button } from 'components/common/Button/Button'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useBoolean } from 'customHooks'
 import { Path } from 'enum/pathE'
 import { selectUser } from 'selectors'
-import {useAppDispatch, useAppSelector} from 'store/hooks'
-import {Portal} from "../../../components/Modal/Portal";
-import {Chat} from "../../../components/Modal/Chat";
-import {selectChat} from "../../../store/redux/chats/slice";
-import {RoleE} from "../../../enum/roleE";
-import {ChatI} from "../../../types/chatsT";
-import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
-import {SerializedError} from "@reduxjs/toolkit";
-import {addChat} from "../../../store/redux/chats/chatsSlice";
-import {useCreatePersonalChatForAdminOrTeacherMutation} from "../../../api/chatsService";
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { Portal } from '../../../components/Modal/Portal'
+import { Chat } from '../../../components/Modal/Chat'
+import { selectChat } from '../../../store/redux/chats/slice'
+import { RoleE } from '../../../enum/roleE'
+import { ChatI } from '../../../types/chatsT'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { SerializedError } from '@reduxjs/toolkit'
+import { addChat } from '../../../store/redux/chats/chatsSlice'
+import { useCreatePersonalChatForAdminOrTeacherMutation } from '../../../api/chatsService'
 
 export type studentCourseHeaderT = {
   teacher_id: number
 }
 
-export const StudentCourseHeader: FC<studentCourseHeaderT> = ({teacher_id}) => {
-
-  const [isChatOpen, { on: chatModalOff, off: chatModalOn , onToggle: toggleChatModal}] = useBoolean()
-    const dispatch = useAppDispatch()
-    const { role } = useAppSelector(selectUser)
-    const [createPersonalChatForAdminOrTeacher, { isLoading: chatIsLoading }] = useCreatePersonalChatForAdminOrTeacherMutation()
+export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) => {
+  const [isChatOpen, { on: chatModalOff, off: chatModalOn, onToggle: toggleChatModal }] = useBoolean()
+  const dispatch = useAppDispatch()
+  const { role } = useAppSelector(selectUser)
+  const [createPersonalChatForAdminOrTeacher, { isLoading: chatIsLoading }] = useCreatePersonalChatForAdminOrTeacherMutation()
   const { course_id: courseId } = useParams()
   const navigate = useNavigate()
   const user = useAppSelector(selectUser)
@@ -49,9 +48,11 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({teacher_id}) => {
   const { data: userProgress, isLoading, isError } = useFetchProgressQuery({ course_id: courseId as string, schoolName: school })
   const { data: course } = useFetchCourseQuery({ id: courseId as string, schoolName: school })
   const { data: modules, isSuccess } = useFetchModulesQuery({ id: courseId as string, schoolName: school })
-  const [getSertificate, { data: sertData, isFetching, isError: errorSert }] = useLazyFetchSertificateQuery()
+  const [getSertificate, { data: sertData, isLoading: sertLoading, isError: errorSert }] = useFetchSertificateMutation()
 
   const [modulesData, setModulesData] = useState(modules)
+
+  console.log(sertData)
 
   const arrOfLessons = modulesData?.sections.reduce((acc: lessonT[], item: sectionT) => {
     return [...acc, ...item.lessons]
@@ -63,8 +64,8 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({teacher_id}) => {
   )
 
   const handleSertificate = () => {
-    if (courseId) {
-      getSertificate(courseId)
+    if (courseId && user.userId) {
+      getSertificate({ course_id: Number(courseId), user_id: user.userId })
         .unwrap()
         .then(data =>
           navigate(
@@ -90,21 +91,21 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({teacher_id}) => {
 
   const handleToggleChatModal = () => {
     if (teacher_id) {
-        const personalChatData = new FormData();
-        personalChatData.append('user_id', teacher_id.toString());
-        personalChatData.append('role_name', RoleE[role]);
-        createPersonalChatForAdminOrTeacher(personalChatData)
-            .then((async( response: { data: ChatI } | { error: FetchBaseQueryError | SerializedError })  => {
-              if ('data' in response) {
-                dispatch(addChat(response.data))
-                dispatch(selectChat(response.data.id))
-                chatModalOn()
-              }
-            }))
-            .catch(error => {
-              console.error('Произошла ошибка при создании персонального чата:', error);
-            })
-      }
+      const personalChatData = new FormData()
+      personalChatData.append('user_id', teacher_id.toString())
+      personalChatData.append('role_name', RoleE[role])
+      createPersonalChatForAdminOrTeacher(personalChatData)
+        .then(async (response: { data: ChatI } | { error: FetchBaseQueryError | SerializedError }) => {
+          if ('data' in response) {
+            dispatch(addChat(response.data))
+            dispatch(selectChat(response.data.id))
+            chatModalOn()
+          }
+        })
+        .catch(error => {
+          console.error('Произошла ошибка при создании персонального чата:', error)
+        })
+    }
   }
 
   return (
@@ -130,19 +131,19 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({teacher_id}) => {
         <div className={styles.previous_getSertificate}>
           <Button
             variant="primary"
-            text={isFetching ? <SimpleLoader style={{ width: '8em', height: '1.5em' }} /> : 'Получить сертификат'}
+            text={sertLoading ? <SimpleLoader style={{ width: '8em', height: '1.5em' }} /> : 'Получить сертификат'}
             onClick={handleSertificate}
           />
         </div>
       )}
       <div className={styles.previous_onlineCourses}>Онлайн-курс</div>
       <div className={styles.previous_title_name}>{course?.name}</div>
-      <div className={styles.previous_courseInfo}>{teacher_id !== undefined ? (
-              <>
-                <Button className={styles.previous_chatButton} text={"Чат с МЕНТОРОМ"} onClick={() => handleToggleChatModal()}/>
-              </>
-            ) : null
-          }
+      <div className={styles.previous_courseInfo}>
+        {teacher_id !== undefined ? (
+          <>
+            <Button className={styles.previous_chatButton} text={'Чат с МЕНТОРОМ'} onClick={() => handleToggleChatModal()} />
+          </>
+        ) : null}
         {countOfLessons && countOfLessons['lesson'] && (
           <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
             {lessonSvgMapper['lesson']}
@@ -163,8 +164,6 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({teacher_id}) => {
             <span>{`${countOfLessons['test']} ${getNounDeclension(countOfLessons['test'], ['тест', 'теста', 'тестов'])}`}</span>
           </div>
         )}
-
-
       </div>
       <div className={styles.previous_progress}>
         <div className={styles.previous_progress_graph}>
@@ -222,12 +221,11 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({teacher_id}) => {
           )}
         </div>
       </div>
-        {isChatOpen && (
+      {isChatOpen && (
         <Portal closeModal={chatModalOn}>
           <Chat closeModal={toggleChatModal} />
         </Portal>
       )}
     </div>
-
   )
 }

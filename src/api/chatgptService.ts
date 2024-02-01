@@ -37,6 +37,20 @@ export const chatgptService = createApi({
   reducerPath: 'chatgptService',
   baseQuery: baseQuery(),
   endpoints: build => ({
+    updateWelcomeMessage: build.mutation<{ success: boolean }, string>({
+      query: (userId) => ({
+        url: `/chatgpt/update_welcome_message/${userId}/`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
+    fetchWelcomeMessage: build.query<{ show_welcome_message: boolean }, string>({
+      query: (userId) => ({
+        url: `/chatgpt/user_welcome_message/${userId}/`,
+      }),
+    }),
     fetchLatestMessages: build.query<Array<LatestMessagesResponse>, { userId: string; overai_chat_id?: string }>({
       query: ({ userId, overai_chat_id }) => ({
         url: `/chatgpt/latest_messages/${userId}/${overai_chat_id}/`
@@ -62,6 +76,15 @@ export const chatgptService = createApi({
         },
       }),
     }),
+    deleteChats: build.mutation<void, number>({
+      query: (userId) => ({
+        url: `/chatgpt/delete_chats/${userId}/`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
     fetchLatestChats: build.query<LatestChatsResponse, string>({
       query: (userId) => ({
         url: `/chatgpt/latest_chats/${userId}/`,
@@ -71,9 +94,12 @@ export const chatgptService = createApi({
 });
 
 export const { 
+  useFetchWelcomeMessageQuery,
   useFetchLatestMessagesQuery, 
   useSendMessageMutation, 
   useCreateChatMutation, 
-  useFetchLatestChatsQuery 
+  useFetchLatestChatsQuery,
+  useDeleteChatsMutation,
+  useUpdateWelcomeMessageMutation
 } = chatgptService;
 export type ChatgptService = typeof chatgptService;

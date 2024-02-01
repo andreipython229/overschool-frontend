@@ -54,6 +54,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}
                 onToggle()
             })
         }
+        window.location.reload();
     }
 
     return (
@@ -83,8 +84,9 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}
                             style={{minWidth: '280px'}}
                             type={'submit'}
                             variant={!name || isLoading ? 'disabled' : 'primary'}
-                            text={isLoading ? <SimpleLoader style={{width: '25px', height: '25px'}}
-                                                            loaderColor="#ffff"/> : 'Создать курс'}
+                            text={//isLoading  ? <SimpleLoader style={{width: '25px', height: '25px'}}
+                                                            //loaderColor="#ffff"/> : 
+                                                            'Создать курс'}
                             disabled={!name || isLoading}
                         />
                     </div>
