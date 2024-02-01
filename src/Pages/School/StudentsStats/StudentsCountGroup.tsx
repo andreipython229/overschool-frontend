@@ -48,6 +48,7 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
             {countStudent} {getNounDeclension(countStudent, ['ученик', 'ученика', 'учеников'])}
           </div>
         </div>
+        {role === RoleE.Admin &&
         <div
           onClick={e => {
             e.stopPropagation()
@@ -56,7 +57,7 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
           className={styles.students_group_content_wrapper_info_setings_btn}
         >
           <IconSvg width={24} height={24} viewBoxSize={'0 0 24 24'} path={studentIconPath} />
-        </div>
+        </div>}
       </div>
     </>
   )
