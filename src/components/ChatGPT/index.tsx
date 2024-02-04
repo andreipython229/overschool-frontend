@@ -24,27 +24,19 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [messageInput, setMessageInput] = useState('');
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const userId = getUserIdFromLocalStorage();
-  const [selectedChatId, setCreatedChatId] = useState<number>();
-  const [isChatSelected, setIsChatSelected] = useState(false);
-  const { data: latestMessages = [], refetch: refetchMessages } = userId
-  ? useFetchLatestMessagesQuery({
-      userId: userId.toString(),
-      overai_chat_id: selectedChatId !== undefined ? selectedChatId.toString() : undefined,
-    })
-  : { data: [], refetch: undefined };
-
-  const [sendMessage] = useSendMessageMutation();
-
-  const [createChatMutation] = useCreateChatMutation();
-  const [chatList, setChatList] = useState<Array<number>>([]);
   const { data: latestChats = [], refetch: refetchChats } = userId
   ? useFetchLatestChatsQuery(userId.toString())
   : { data: [], refetch: undefined };
   const [chatData, setChatData] = useState<{ [id: number]: string }>({});
 
-  const userQuestions = Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
-  const botAnswers = Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
-  
+  const [selectedChatId, setCreatedChatId] = useState<number>();
+  const [isChatSelected, setIsChatSelected] = useState(false);
+
+  const [sendMessage] = useSendMessageMutation();
+
+  const [createChatMutation] = useCreateChatMutation();
+  const [chatList, setChatList] = useState<Array<number>>([]);
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,6 +51,16 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [isBotResponsePending, setIsBotResponsePending] = useState(false);
   const [deleteChats] = useDeleteChatsMutation();
   const [updateWelcomeMessage] = useUpdateWelcomeMessageMutation();
+
+  const { data: latestMessages = [], refetch: refetchMessages } = userId 
+  ? useFetchLatestMessagesQuery({
+      userId: userId.toString(),
+      overai_chat_id: selectedChatId ? selectedChatId.toString() : '1'
+    })
+  : { data: [], refetch: undefined };
+
+  const userQuestions = latestMessages[0] && Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
+  const botAnswers = latestMessages[1] && Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
 
   useEffect(() => {
     if (welcomeMessageData) {
@@ -208,7 +210,7 @@ useEffect(() => {
     try {
       if (userId !== null && userId !== undefined) {
         setIsCreatingChatDisabled(true);
-        const response = await createChatMutation(userId.toString());
+        const response = await createChatMutation({ user_id: userId });
         if ('data' in response && response.data !== undefined) {
           const newChatId = response.data.overai_chat_id;
           setChatList((prevChatList) => [...prevChatList, newChatId]);
@@ -239,9 +241,11 @@ useEffect(() => {
         const response = await refetchChats();
   
         if (response.status === 'fulfilled' && response.isSuccess) {
+          
           const receivedChatData = response.data;
           setChatData(receivedChatData);
           setChatsLoaded(true);
+
         } else {
           setError('Ошибка при получении списка чатов.');
         }
@@ -295,6 +299,7 @@ useEffect(() => {
       }, 3000);
     }
   };
+
 
   return (
     <div className="fixed-button">
