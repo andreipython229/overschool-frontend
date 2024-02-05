@@ -7,6 +7,9 @@ import {CheckboxBall} from "../../../common/CheckboxBall";
 import {Button} from "../../../common/Button/Button";
 import {Checkbox} from "../../../common/Checkbox/Checkbox";
 import {sectionLessons} from "../../../../types/lessonAccessT";
+import {RoleE} from 'enum/roleE'
+import {useAppSelector} from 'store/hooks'
+import {selectUser} from 'selectors'
 
 
 type lessonsAccardionT = {
@@ -18,40 +21,44 @@ type lessonsAccardionT = {
 }
 
 export const LessonsAccardion: FC<lessonsAccardionT> = ({
-                                                                sectionLessons,
-                                                                setLessons,
-                                                                handleAccessSetting,
-                                                                forStudent,
-                                                                resetAccessSetting
-                                                            }) => {
+                                                            sectionLessons,
+                                                            setLessons,
+                                                            handleAccessSetting,
+                                                            forStudent,
+                                                            resetAccessSetting
+                                                        }) => {
     const [lessonsAccessSetting, {onToggle: toggleAccess}] = useBoolean(false)
+    const {role} = useAppSelector(selectUser)
 
     const handleLessonCheck = (e: any) => {
-        sectionLessons &&
-        setLessons(sectionLessons.map((section) => ({
-            ...section,
-            lessons: section.lessons.map(lesson => ({
-                ...lesson,
-                availability: lesson.lesson_id === Number(e.target.id) ? !lesson.availability : lesson.availability
-            }))
-        })))
+        if (role === RoleE.Admin) {
+            sectionLessons &&
+            setLessons(sectionLessons.map((section) => ({
+                ...section,
+                lessons: section.lessons.map(lesson => ({
+                    ...lesson,
+                    availability: lesson.lesson_id === Number(e.target.id) ? !lesson.availability : lesson.availability
+                }))
+            })))
+        }
     }
 
     return (
         <div className={styles.accardion_content}>
             <div className={styles.accardion_content_check}>
                 <CheckboxBall isChecked={lessonsAccessSetting} toggleChecked={toggleAccess}/>
-                <span className={styles.accardion_content_check_span}>Настройка доступа к урокам</span>
+                <span
+                    className={styles.accardion_content_check_span}>{role === RoleE.Admin ? 'Настройка доступа к урокам' : 'Просмотр доступа к урокам'}</span>
             </div>
-                {lessonsAccessSetting ?
-                    <div className={styles.accardion_content_buttons}>
+            {(lessonsAccessSetting && role === RoleE.Admin) ?
+                <div className={styles.accardion_content_buttons}>
                     {forStudent ?
-                    <Button className={styles.accardion_content_buttons_btn} text={'Сбросить настройки'}
-                            onClick={resetAccessSetting}/> : <span></span>}
+                        <Button className={styles.accardion_content_buttons_btn} text={'Сбросить настройки'}
+                                onClick={resetAccessSetting}/> : <span></span>}
                     <Button className={styles.accardion_content_buttons_btn_right} text={'Сохранить настройки'}
                             onClick={handleAccessSetting}/>
-                    </div> :
-                    <span className={styles.accardion_content_fake}></span>}
+                </div> :
+                <span className={styles.accardion_content_fake}></span>}
 
             {sectionLessons?.map(({lessons, section_id, name}) => (
                 lessons.length > 0 && (<div className={styles.accardion_item} key={section_id}>
