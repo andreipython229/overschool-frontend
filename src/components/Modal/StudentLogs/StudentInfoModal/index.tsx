@@ -19,10 +19,6 @@ import {useDeleteStudentFromGroupMutation} from '../../../../api/studentsGroupSe
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material'
 import DatePicker, {registerLocale} from 'react-datepicker'
 import {groupSections, sectionLessons} from "../../../../types/lessonAccessT";
-import {selectUser} from '../../../../selectors'
-import { headerUserRoleName } from '../../../../config/headerUserRoleName'
-import { useAppSelector } from 'store/hooks'
-
 
 type studentInfoModalT = {
     student: result | null
@@ -231,9 +227,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
                                           setStudentLessons={setStudentLessons}
                                           resetAccessSetting={resetAccessSetting}/>
                 </div>
-
-                {student?.group_name  &&  headerUserRoleName[role] === 'Администратор' &&  (
-
+                {student?.group_name && role === RoleE.Admin && (
                     <div>
  
                         <Button
