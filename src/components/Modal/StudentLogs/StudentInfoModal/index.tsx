@@ -18,6 +18,9 @@ import {useDeleteStudentFromGroupMutation} from '../../../../api/studentsGroupSe
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material'
 import DatePicker, {registerLocale} from 'react-datepicker'
 import {groupSections, sectionLessons} from "../../../../types/lessonAccessT";
+import { RoleE } from 'enum/roleE'
+import { useAppSelector } from 'store/hooks'
+import { selectUser} from 'selectors'
 
 type studentInfoModalT = {
     student: result | null
@@ -71,6 +74,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
     const TEN_MINUTES = 10 * 60 * 1000;
     const currentTime = new Date();
     let activityMessage;
+    const { role } = useAppSelector(selectUser)
 
     const handleOpenAlert = () => {
         setOpenAlert(true)
@@ -115,7 +119,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
 
     if (lastActivity) {
         const timeDifference = currentTime.getTime() - new Date(lastActivity).getTime();
-    
+
         if (timeDifference < TEN_MINUTES) {
             activityMessage = "Онлайн";
         } else {
@@ -223,7 +227,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
                                           setStudentLessons={setStudentLessons}
                                           resetAccessSetting={resetAccessSetting}/>
                 </div>
-                {student?.group_name && (
+                {student?.group_name && role === RoleE.Admin && (
                     <div>
                         <Button
                             style={{margin: '10px'}}
