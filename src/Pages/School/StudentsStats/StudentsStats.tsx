@@ -16,9 +16,12 @@ import { headerUserRoleName } from '../../../config/headerUserRoleName'
 import styles from './studentsStats.module.scss'
 import { tableBallsStarPath } from 'config/commonSvgIconsPath'
 import { Path } from 'enum/pathE'
+import { RoleE } from 'enum/roleE'
 import { useAppSelector } from 'store/hooks'
+
 import { schoolNameSelector } from 'selectors'
 import {selectUser} from '../../../selectors'
+
 
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
@@ -26,7 +29,7 @@ export const StudentsStats = () => {
   const {role} = useAppSelector(selectUser)
   
   const [hideStats, setHideStats] = useState<boolean>(true)
-
+  const { role } = useAppSelector(selectUser)
   const navigate = useNavigate()
   const school = window.location.href.split('/')[4]
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
@@ -54,7 +57,9 @@ export const StudentsStats = () => {
       <section className={styles.students_group}>
         <div className={styles.students_group_header}>
           <p className={styles.students_group_header_title}>Группы учеников</p>
+
           {(headerUserRoleName[role] === 'Администратор') && (
+
           <div style={{display: 'flex'}}>
             <div onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}>
               <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} />
@@ -65,6 +70,7 @@ export const StudentsStats = () => {
               Добавить менторов в школу
             </div>
           </div>)}
+
         </div>
         <div className={styles.students_group_content_wrapper}>
           {dataToRender?.map(({ name, students, group_id }: studentsGroupsT) => {

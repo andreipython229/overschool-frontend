@@ -66,7 +66,7 @@ export const chatgptService = createApi({
         },
       }),
     }),
-    createChat: build.mutation<{overai_chat_id: number}, string>({
+    createChat: build.mutation<{ overai_chat_id: number }, { user_id: number }>({
       query: (payload) => ({
         url: `/chatgpt/create_chat/`,
         method: 'POST',
