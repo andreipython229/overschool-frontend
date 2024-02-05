@@ -17,7 +17,6 @@
     margin-bottom: 3%;
   }
 
-
   &_loader {
     position: absolute;
     top: 0;
@@ -80,10 +79,14 @@
     @include display(flex, row, flex-start, center);
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-      position: static;
+      //position: static;
+      bottom: 15%;
+      left: 1%;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
-      position: static;
+      //position: static;
+      bottom: 15%;
+      left: 1%;
     }
     &_avatar {
       border: 1px solid #ffffff;
@@ -111,6 +114,13 @@
         margin-top: 0.1em;
         strong {
           font-weight: 700;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          font-size: 12px;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          font-size: 12px;
         }
       }
 
