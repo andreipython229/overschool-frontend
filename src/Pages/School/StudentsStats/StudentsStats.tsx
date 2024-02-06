@@ -16,7 +16,7 @@ import { headerUserRoleName } from '../../../config/headerUserRoleName'
 import styles from './studentsStats.module.scss'
 import { tableBallsStarPath } from 'config/commonSvgIconsPath'
 import { Path } from 'enum/pathE'
-import { RoleE } from 'enum/roleE'
+
 import { useAppSelector } from 'store/hooks'
 
 import { schoolNameSelector } from 'selectors'
@@ -29,7 +29,6 @@ export const StudentsStats = () => {
   const {role} = useAppSelector(selectUser)
   
   const [hideStats, setHideStats] = useState<boolean>(true)
-  const { role } = useAppSelector(selectUser)
   const navigate = useNavigate()
   const school = window.location.href.split('/')[4]
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
