@@ -10,7 +10,7 @@ import {baseQuery} from "./baseApi";
 export const schoolHeaderService = createApi({
   reducerPath: 'coursesHeaderService',
   baseQuery: baseQuery(),
-  tagTypes: ['schoolHeader', 'studentPerSchool'],
+  tagTypes: ['schoolHeader', 'studentPerSchool', 'allStudentPerSchool'],
   endpoints: build => ({
     fetchSchoolHeader: build.query<schoolHeaderResT, number>({
       query: (id?: number) => ({
@@ -32,6 +32,12 @@ export const schoolHeaderService = createApi({
       }),
       providesTags: ['studentPerSchool'],
     }),
+    fetchAllStudentsPerSchool: build.query<studentsTableInfoT, any>({
+      query: ({id, filters}) => ({
+        url: createUrlWithParams(`schools/${id}/all_stats`, filters),
+      }),
+      providesTags: ['allStudentPerSchool'],
+    }),
     fetchStudentsDataPerSchool: build.query<studentsTableStatsT, any>({
       query: ({id, filters}) => ({
         url: createUrlWithParams(`schools/${id}/stats/`, filters),
@@ -41,4 +47,4 @@ export const schoolHeaderService = createApi({
   }),
 })
 
-export const { useFetchStudentsDataPerSchoolQuery, useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation, useLazyFetchStudentsPerSchoolQuery } = schoolHeaderService
+export const { useFetchStudentsDataPerSchoolQuery, useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation, useLazyFetchStudentsPerSchoolQuery, useLazyFetchAllStudentsPerSchoolQuery } = schoolHeaderService

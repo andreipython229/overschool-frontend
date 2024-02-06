@@ -21,7 +21,7 @@ import { useAppSelector } from 'store/hooks'
 
 import { schoolNameSelector } from 'selectors'
 import {selectUser} from '../../../selectors'
-
+import { StudentsCourseExport } from '../../../components/StudentsTable/StudentsExport/StudentCourseExport'
 
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
@@ -68,6 +68,7 @@ export const StudentsStats = () => {
               <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={tableBallsStarPath} />
               Добавить менторов в школу
             </div>
+            <StudentsCourseExport />
           </div>)}
 
         </div>
