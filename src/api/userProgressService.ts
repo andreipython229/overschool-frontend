@@ -14,7 +14,7 @@ export const userProgressService = createApi({
     fetchStudentProgress: build.query<any, { user_id: string | number; schoolName: string }>({
       query: ({ user_id, schoolName }) => `/${schoolName}/student_progress/get_student_progress_for_admin_or_teacher/?student_id=${user_id}`,
     }),
-    fetchSertificate: build.mutation<any, { user_id: number; course_id: number }>({
+    fetchSertificate: build.mutation<any, { user_id: number; course_id: number; school_id: number }>({
       query: data => ({
         url: `/certificate/`,
         method: 'POST',
@@ -24,9 +24,4 @@ export const userProgressService = createApi({
   }),
 })
 
-export const {
-  useFetchProgressQuery,
-  useLazyFetchProgressQuery,
-  useFetchStudentProgressQuery,
-  useFetchSertificateMutation
-} = userProgressService
+export const { useFetchProgressQuery, useLazyFetchProgressQuery, useFetchStudentProgressQuery, useFetchSertificateMutation } = userProgressService

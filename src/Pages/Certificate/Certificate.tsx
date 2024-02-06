@@ -9,7 +9,7 @@ import { useFetchSertificateMutation } from 'api/userProgressService'
 import { useEffect } from 'react'
 
 export const Certificate = () => {
-  const { course_id: courseId, student_id: userId } = useParams()
+  const { course_id: courseId, student_id: userId, school_id: schoolId } = useParams()
   const [getSertData, { data: sertData, isLoading, isSuccess: succSert }] = useFetchSertificateMutation()
 
   useEffect(() => {
@@ -17,6 +17,7 @@ export const Certificate = () => {
       getSertData({
         user_id: Number(userId),
         course_id: Number(courseId),
+        school_id: Number(schoolId),
       })
     }
   }, [])
@@ -36,7 +37,7 @@ export const Certificate = () => {
           <div className={styles.certificate__header}>certificate</div>
           <div className={styles.certificate__producer}>
             <img className={styles.border} src={border} alt="border" />
-            it overone programming school
+            {sertData.school_name} school
           </div>
           <div className={styles.certificate__graduate}>{sertData.user_full_name}</div>
           <div className={styles.certificate__content}>
@@ -49,7 +50,7 @@ export const Certificate = () => {
                 <div className={styles.sign__signatory}>
                   Teacher
                   <br />
-                  Sinikin Rostislav
+                  {sertData.teacher}
                 </div>
                 <div className={styles.sign__img}></div>
               </div>
@@ -57,7 +58,7 @@ export const Certificate = () => {
                 <div className={styles.sign__signatory}>
                   Director
                   <br />
-                  Bolshov Nikita
+                  {sertData.school_owner}
                 </div>
                 <div className={styles.sign__img}>
                   <img className={styles.sign__stamp} src={stamp} alt="stamp" />
