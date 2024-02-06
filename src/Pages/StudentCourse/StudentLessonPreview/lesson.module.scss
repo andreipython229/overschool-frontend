@@ -191,14 +191,14 @@
     box-shadow: 0 0 8px #d9d9d9;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       min-width: 280px;
-      width: 300px;
+      width: 95%;
       iframe {
         height: 160px;
       }
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       min-width: 350px;
-      width: 355px;
+      width: 95%;
       iframe {
         height: 180px;
       }
