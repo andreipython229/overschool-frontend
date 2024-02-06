@@ -330,6 +330,9 @@
     }
 
     &_input {
+      // display: flex;
+      // height: 60px;
+      line-height: normal;
       padding: 11px 0 12px 20px;
       border: 1px solid #e5e7eb;
       border-radius: 5px;
@@ -339,6 +342,7 @@
     & input {
       border: none;
       outline: none;
+      width: 100%;
 
       &::placeholder {
         color: #d4d7dd;
