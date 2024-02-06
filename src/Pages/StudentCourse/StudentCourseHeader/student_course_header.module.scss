@@ -104,6 +104,15 @@
     margin: 0;
     padding-top: 0.4rem;
     margin-right: 10px;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font(500, 8px, 10px);
+      padding-top: 0.1rem;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(500, 8px, 8px);
+      padding-top: 0.2rem;
+    }
+
   }
 
   &_btn {
