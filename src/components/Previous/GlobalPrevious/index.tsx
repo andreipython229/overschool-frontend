@@ -93,7 +93,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
         backgroundPosition: 'center center',
         backgroundSize: 'cover',
         ObjectFit: 'fill',
-        filter: 'blur(3px)',
+        filter: 'blur(2px)',
       }
     : { backgroundColor: '#e0dced' }
 

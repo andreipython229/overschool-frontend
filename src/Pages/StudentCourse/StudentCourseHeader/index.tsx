@@ -141,7 +141,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
       <div className={styles.previous_courseInfo}>
         {teacher_id !== undefined ? (
           <>
-            <Button className={styles.previous_chatButton} text={'Чат с МЕНТОРОМ'} onClick={() => handleToggleChatModal()} />
+            <Button className={styles.previous_chatButton} text={'Чат со специалистом'} onClick={() => handleToggleChatModal()} />
           </>
         ) : null}
         {countOfLessons && countOfLessons['lesson'] && (
