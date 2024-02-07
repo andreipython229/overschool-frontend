@@ -7,7 +7,7 @@ import { createUrlWithParams } from 'utils/createUrlWithParams'
 export const courseStatService = createApi({
   reducerPath: 'courseStat',
   baseQuery: baseQuery(),
-  tagTypes: ['courseStat', 'studentsPerGroup', 'studentPerSchool'],
+  tagTypes: ['courseStat', 'studentsPerGroup', 'studentPerSchool', 'AllStudentsPerGroup', 'AllCourseStat'],
   endpoints: build => ({
     fetchCourseStat: build.query<studentsTableStatsT, { id: string | number; filters: any; schoolName: string , page: string | number}>({
       query: ({ id, filters, schoolName , page}) => ({
@@ -21,7 +21,19 @@ export const courseStatService = createApi({
       }),
       providesTags: ['studentsPerGroup'],
     }),
+    fetchAllStudentsPerGroup: build.query<studentsTableInfoT, any>({
+      query: ({ id, filters, schoolName }) => ({
+        url: createUrlWithParams(`/${schoolName}/students_group/${id}/get_all_students_for_group/`, filters),
+      }),
+      providesTags: ['AllStudentsPerGroup'],
+    }),
+    fetchAllCourseStat: build.query<studentsTableInfoT, { id: string | number; filters: any; schoolName: string }>({
+      query: ({ id, filters, schoolName }) => ({
+        url: createUrlWithParams(`/${schoolName}/courses/${id}/get_all_students_for_course/`, filters),
+      }),
+      providesTags: ['AllCourseStat'],
+    }),
   }),
 })
 
-export const { useLazyFetchCourseStatQuery, useLazyFetchStudentsPerGroupQuery } = courseStatService
+export const { useLazyFetchCourseStatQuery, useLazyFetchStudentsPerGroupQuery, useLazyFetchAllStudentsPerGroupQuery, useLazyFetchAllCourseStatQuery } = courseStatService

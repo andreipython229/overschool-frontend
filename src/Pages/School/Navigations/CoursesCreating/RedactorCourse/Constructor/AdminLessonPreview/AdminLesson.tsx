@@ -57,7 +57,7 @@ export const AdminLesson: FC<adminLessonT> = ({ lesson }) => {
       <div className={styles.adminlesson__blocks}>
         <div className={styles.adminlesson__wrap}>
           <div className={styles.adminlesson__card}>
-            <h3 className={styles.adminlesson__name_mini}>{lesson?.name}</h3>
+            {/* <h3 className={styles.adminlesson__name_mini}>{lesson?.name}</h3> */}
             <div className={styles.adminlesson__content}>
               <Reorder.Group values={lesson.blocks} style={{ display: 'flex', flexDirection: 'column', gap: '1em' }} onReorder={() => setLessonVideo}>
                 {renderStudentBlocks(lesson)}

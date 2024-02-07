@@ -18,5 +18,14 @@
     button {
         align-self: flex-start;
         margin-top: 64px;
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+            align-self: stretch;
+          }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+            align-self: stretch;
+          }
     }
+
+    
 }

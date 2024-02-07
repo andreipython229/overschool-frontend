@@ -1,13 +1,13 @@
 import { FC, useState, useEffect } from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
+import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
 import { useFetchCourseQuery } from 'api/coursesServices'
 import { useFetchModulesQuery } from 'api/modulesServices'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { backArr } from 'components/Previous/config/svgIconPath'
-import { lessonT, sectionsT, sectionT } from 'types/sectionT'
+import { lessonT, sectionT } from 'types/sectionT'
 import { lessonSvgMapper } from 'config/index'
 import { getNounDeclension } from 'utils/getNounDeclension'
 
@@ -18,7 +18,7 @@ import { Button } from 'components/common/Button/Button'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useBoolean } from 'customHooks'
 import { Path } from 'enum/pathE'
-import { selectUser } from 'selectors'
+import { schoolIdSelector, selectUser } from 'selectors'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { Portal } from '../../../components/Modal/Portal'
 import { Chat } from '../../../components/Modal/Chat'
@@ -38,6 +38,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
   const [isChatOpen, { on: chatModalOff, off: chatModalOn, onToggle: toggleChatModal }] = useBoolean()
   const dispatch = useAppDispatch()
   const { role } = useAppSelector(selectUser)
+  const { schoolId } = useAppSelector(schoolIdSelector)
   const [createPersonalChatForAdminOrTeacher, { isLoading: chatIsLoading }] = useCreatePersonalChatForAdminOrTeacherMutation()
   const { course_id: courseId } = useParams()
   const navigate = useNavigate()
@@ -65,13 +66,14 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
 
   const handleSertificate = () => {
     if (courseId && user.userId) {
-      getSertificate({ course_id: Number(courseId), user_id: user.userId })
+      getSertificate({ course_id: Number(courseId), user_id: user.userId, school_id: Number(schoolId) })
         .unwrap()
         .then(data =>
           navigate(
             generatePath(Path.Certificate, {
               course_id: courseId,
               student_id: String(user.userId),
+              school_id: String(schoolId),
             }),
           ),
         )
@@ -141,7 +143,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
       <div className={styles.previous_courseInfo}>
         {teacher_id !== undefined ? (
           <>
-            <Button className={styles.previous_chatButton} text={'Чат с МЕНТОРОМ'} onClick={() => handleToggleChatModal()} />
+            <Button className={styles.previous_chatButton} text={'Чат со специалистом'} onClick={() => handleToggleChatModal()} />
           </>
         ) : null}
         {countOfLessons && countOfLessons['lesson'] && (

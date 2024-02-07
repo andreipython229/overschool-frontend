@@ -1,4 +1,5 @@
 import React, {FC, useEffect, useState} from 'react'
+import { DateTime } from 'luxon';
 
 import {crossIconPath, tableBallsStarPath} from 'config/commonSvgIconsPath'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
@@ -18,9 +19,9 @@ import {useDeleteStudentFromGroupMutation} from '../../../../api/studentsGroupSe
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material'
 import DatePicker, {registerLocale} from 'react-datepicker'
 import {groupSections, sectionLessons} from "../../../../types/lessonAccessT";
-import { RoleE } from 'enum/roleE'
 import { useAppSelector } from 'store/hooks'
-import { selectUser} from 'selectors'
+import { headerUserRoleName } from '../../../../config/headerUserRoleName'
+import {selectUser} from '../../../../selectors'
 
 type studentInfoModalT = {
     student: result | null
@@ -58,7 +59,7 @@ type studentProgressT = {
 }
 
 export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) => {
-    const lastActivity = student?.last_login ? new Date(student.last_login) : null;
+    const lastActivity = student?.last_login ? student.last_login : null;
     const schoolName = window.location.href.split('/')[4]
     const schoolId = localStorage.getItem('school_id')
     const [studentProgress, setStudentProgress] = useState<studentProgressT>()
@@ -74,7 +75,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
     const TEN_MINUTES = 10 * 60 * 1000;
     const currentTime = new Date();
     let activityMessage;
-    const { role } = useAppSelector(selectUser)
+    const { role } = useAppSelector(selectUser);
 
     const handleOpenAlert = () => {
         setOpenAlert(true)
@@ -123,8 +124,10 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
         if (timeDifference < TEN_MINUTES) {
             activityMessage = "Онлайн";
         } else {
-            const { mmddyyyy } = convertDate(lastActivity);
-            activityMessage = `Был(а) онлайн ${mmddyyyy}`;
+            
+            const lastLoginDateTime = DateTime.fromISO(lastActivity, { zone: 'utc' });
+            const formattedDate = lastLoginDateTime.toFormat('dd.MM.yyyy');
+            activityMessage = `Был(а) онлайн ${formattedDate}`;
         }
     } else {
         activityMessage = "Был(а) онлайн давно";
@@ -227,8 +230,9 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
                                           setStudentLessons={setStudentLessons}
                                           resetAccessSetting={resetAccessSetting}/>
                 </div>
-                {student?.group_name && role === RoleE.Admin && (
+                {student?.group_name && headerUserRoleName[role] === 'Администратор' && (
                     <div>
+ 
                         <Button
                             style={{margin: '10px'}}
                             text={`Удалить ученика из группы "${student?.group_name}"`}
