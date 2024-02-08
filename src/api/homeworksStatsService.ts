@@ -12,7 +12,7 @@ export const homeworksStatsService = createApi({
     fetchHomeworkStats: build.query<homeworksStatsT, { filters: any; page: any; schoolName: string }>({
       query: ({ filters, page, schoolName }) => {
         const pageToFetch = filters.status === 'Все статусы' ? page : 1
-        const url = createUrlWithParams(`/${schoolName}/homeworks_stats/?p=${pageToFetch}&s=4`, filters)
+        const url = createUrlWithParams(`/${schoolName}/homeworks_stats/?p=${pageToFetch}`, filters)
         return {
           url,
         }
