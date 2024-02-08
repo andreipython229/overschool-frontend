@@ -10,6 +10,8 @@ import {sectionLessons} from "../../../../types/lessonAccessT";
 import {RoleE} from 'enum/roleE'
 import {useAppSelector} from 'store/hooks'
 import {selectUser} from 'selectors'
+import {tableBallsStarPath} from "../../../../config/commonSvgIconsPath";
+import {IconSvg} from "../../../common/IconSvg/IconSvg";
 
 
 type lessonsAccardionT = {
@@ -70,11 +72,24 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({
                                            type,
                                            name,
                                            active,
-                                           availability
+                                           availability,
+                                           status,
+                                           mark
                                        }, index: number) => (
                             active && (<div key={index} className={styles.accardion_lesson}>
                                 <div>{lessonSvgMapper[type]}</div>
-                                <p className={styles.accardion_lesson_name}>{name}</p>
+                                <div className={styles.accardion_lesson_name}>
+                                    <p className={styles.accardion_lesson_name_name}>{name}</p>
+                                    {forStudent && <>
+                                        <span className={styles.accardion_lesson_name_status}>{status}</span>
+                                        {mark &&
+                                            <span className={styles.accardion_lesson_name_mark}>
+                                                <IconSvg width={12} height={12} viewBoxSize={'0 0 15 15'}
+                                                         styles={{marginRight: "7px"}} path={tableBallsStarPath}/>
+                                                {mark}
+                                            </span>}
+                                    </>}
+                                </div>
                                 {lessonsAccessSetting &&
                                     <Checkbox id={`${lesson_id}`} name={'check'} checked={availability}
                                               onChange={handleLessonCheck}/>}

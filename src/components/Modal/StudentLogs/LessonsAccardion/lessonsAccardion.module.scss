@@ -20,11 +20,23 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       flex-grow: 1;
-      @include font(500, 12px, 150%);
       margin-left: 0.75rem;
-      letter-spacing: -0.05em;
-      color: #9ca3af;
       text-align: left;
+      &_name {
+        @include font(500, 12px, 150%);
+        color: #9ca3af;
+        letter-spacing: -0.05em;
+      }
+      &_status {
+        @include font(500, 9px, 100%);
+        color: rgb(204, 139, 236);
+        letter-spacing: 0.08em;
+      }
+      &_mark {
+        margin-left: 10px;
+        @include font(500, 11px, 100%);
+        color: rgb(204, 139, 236);
+      }
     }
   }
 
