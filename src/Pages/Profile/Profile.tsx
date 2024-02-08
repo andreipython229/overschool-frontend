@@ -210,7 +210,7 @@ export const Profile = () => {
           </div> */}
                     <form className={styles.container} onSubmit={changeEmail.handleSubmit}>
                         <h5 className={styles.profile_block_title}>Смена email</h5>
-                        <Input name="email" type="text" onChange={changeEmail.handleChange} onInput={()=>setError('')}
+                        <Input name="email" type="text" id={'email-change'} onChange={changeEmail.handleChange} onInput={()=>setError('')}
                                value={changeEmail.values.email} placeholder="Новый email"/>
                         {error && <span className={styles.container_error}>{error}</span>}
                         <div className={styles.container_wrapper}>

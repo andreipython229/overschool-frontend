@@ -20,7 +20,7 @@ export const CheckboxBall: FC<CheckboxBallT> = memo(({ isChecked, toggleChecked 
   }
 
   return (
-    <div className={styles.switch} data-isOn={isChecked} onClick={toggleSwitch}>
+    <div className={styles.switch} data-ison={isChecked} onClick={toggleSwitch}>
       <motion.div className={styles.handle} layout transition={spring} />
     </div>
   )

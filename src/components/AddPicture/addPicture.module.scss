@@ -1,0 +1,151 @@
+@import 'src/scss/variable';
+@import '../../scss/mixin.scss';
+
+.redactorCourse {
+  font-family: $font-family-inter;
+  @include display(flex);
+  &_loader {
+    align-items: center;
+    width: 100%;
+    height: 250px;
+  }
+
+  &_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  &_video_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    & video {
+      max-width: 100%;
+    }
+  }
+  &_rightSide {
+    background: #ffffff;
+    padding: 36px 45px 56px 45px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: $box-shadow;
+
+    &_functional {
+      margin-top: 70px;
+
+      &_addContent {
+        width: 100%;
+        @include display(flex, column, center, center);
+        background: #ffffff;
+        text-align: center;
+        padding: 40px 0;
+        border: 2px dashed #ebeef5;
+        border-radius: 7px;
+        position: relative;
+
+        & input {
+          @include position_t_l(absolute, 0, 0, 2);
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          cursor: pointer;
+        }
+
+        // & input {
+        //   padding: 0 20px;
+        //   width: 40%;
+        //   height: 40px;
+        //   margin-bottom: 20px;
+        //   @include font(500, 14px, 21px);
+        //   color: #494d55;
+        //   border-radius: 7px;
+        //   border: 1px solid #e0dced;
+        //   outline: none;
+        //   cursor: pointer;
+        //   text-overflow: ellipsis;
+        // }
+
+        &_navBlock {
+          @include display(flex, column);
+          min-width: 36px;
+          min-height: 36px;
+          justify-content: center;
+
+          &_div {
+            @include display(flex, row, center, center);
+            background: #f3f4f6;
+            border: none;
+            border-radius: 7px;
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            cursor: pointer;
+          }
+
+          &_grabBtn {
+            background: #f3f4f6;
+            border: none;
+            border-radius: 7px;
+            width: 36px;
+            height: 56px;
+            text-align: center;
+            @include display(flex, row, center, center);
+            margin-bottom: 8px;
+            cursor: grab;
+          }
+
+          &_delete {
+            @include display(flex, row, flex-start, center);
+            padding: 11px 0;
+            border-radius: 6px;
+            border: none;
+            height: 36px;
+            background: #fef2f2;
+            text-align: center;
+            cursor: pointer;
+
+            & svg {
+              margin: 0 auto;
+              height: 17px;
+              width: 17px;
+            }
+          }
+        }
+        & span {
+          margin-bottom: 32px;
+          @include font(600, 16px);
+          color: $font-title;
+        }
+      }
+    }
+  }
+}
+
+.youtubeLink {
+  &_input {
+    text-align: left;
+    min-width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      width: 70%;
+      margin: 2%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      width: 70%;
+      margin: 2%;
+    }
+  }
+}
+
+.videoHandlerWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}

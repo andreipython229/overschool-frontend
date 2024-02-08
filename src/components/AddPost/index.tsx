@@ -7,6 +7,7 @@ import Text from '../.././assets/img/createCourse/text.svg'
 import Video from '../.././assets/img/createCourse/video.svg'
 import Audio from '../.././assets/img/createCourse/audio.svg'
 import Code from '../.././assets/img/createCourse/code.svg'
+import Picture from '../.././assets/img/createCourse/picture.svg'
 
 import styles from './addPost.module.scss'
 import { AudioPlayer } from 'components/common/AudioPlayer'
@@ -59,6 +60,13 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
             <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('description')} text={'Текст'} alt={'Add text for lesson'} src={Text} />
             <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('video')} text={'Видео'} alt={'Add video for lesson'} src={Video} />
             <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('code')} text={'Код'} alt={'Add code for lesson'} src={Code} />
+            <ContentBtn
+              disabled={disabledBtn}
+              func={() => blockCreateFunc('picture')}
+              text={'Картинка'}
+              alt={'Add picture for lesson'}
+              src={Picture}
+            />
             <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('audio')} text={'Аудио'} alt={'Add audio for lesson'} src={Audio} />
           </>
         )}
