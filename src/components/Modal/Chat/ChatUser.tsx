@@ -23,7 +23,7 @@ export const ChatUser: FC<chatUserT> = ({ openGroup, chatData, usersCount }) => 
   const { role } = useAppSelector(selectUser)
   const { userId } = useAppSelector(state => state.user)
 
-  const [changeChatName, setChangeChatName] = useState<string>(chatData?.name || 'Группа без имени')
+  const [changeChatName, setChangeChatName] = useState<string>(chatData?.name || 'Анонимная')
   const [checked, setChecked] = useState<boolean | undefined>(!chatData?.is_deleted);
   const [isDeleted, setIsDeleted] = useState<boolean | undefined>(undefined);
 
@@ -105,9 +105,9 @@ export const ChatUser: FC<chatUserT> = ({ openGroup, chatData, usersCount }) => 
               ) : role === RoleE.Student ? (
                   <>
                     {chatData?.type === 'GROUP' ? (
-                        <p>{chatData?.name || 'Группа без имени'}</p>
+                        <p>{chatData?.name || 'Анонимная'}</p>
                     ) : chatData?.type === 'PERSONAL' ? (
-                        <p>{getInterlocutor(chatData).first_name || 'Группа без имени'} {getInterlocutor(chatData).last_name || ''}</p>
+                        <p>{getInterlocutor(chatData).first_name || 'Анонимная'} {getInterlocutor(chatData).last_name || ''}</p>
                     ) : null}
                   </>
               ) : null}
