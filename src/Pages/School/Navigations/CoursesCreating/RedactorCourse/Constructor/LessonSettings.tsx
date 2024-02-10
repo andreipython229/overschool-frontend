@@ -170,6 +170,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
       formData1.append('base_lesson', `${data?.baselesson_ptr_id}`)
       files.forEach(file => formData1.append('files', file))
+      
       await addTextFiles({ formData: formData1, schoolName }).then(data => {
         setFiles([])
         setUrlFiles([])
@@ -260,9 +261,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   
   const handleDeleteAudioFile = async (index: number) => {
     if (lesson.type !== 'test') {
-      console.log(index);
-      console.log(lesson.audio_files);
-      console.log(lesson.audio_files[index]);
       
       const fileToDelete = lesson.audio_files[index];
       if (fileToDelete) {
@@ -278,8 +276,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
   const handleDeleteFileFromLesson = async (index: number) => {
     if (lesson.type !== 'test') {
-      console.log(lesson.text_files);
-      console.log(lesson.text_files[index]);
       
       const fileToDelete = lesson.text_files[index]
       if (fileToDelete) {
@@ -441,25 +437,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                     </div>
                   )}
                 </>
-
-                  {/* {files || lesson.audio_files && (
-                    <div>
-                      {lesson.audio_files && lesson.audio_files.map((audio, index) => (
-                        <AudioPlayer
-                          key={index}
-                          audioUrls={[audio]}
-                          delete={() => handleDeleteAudioFile(index)}
-                        />
-                      ))}
-                     {files && files.map((file, index) => (
-                        <AudioPlayer
-                          key={index}
-                          files={[file]}
-                          delete={() => handleDeleteAudioFile(index)}
-                        />
-                      ))}
-                    </div>
-                  )} */}
 
                 {/*{urlFiles.length > 0 && (*/}
                 {/*    <Button style={{marginTop: '20px'}} variant="primary" text="Загрузить" type="submit"*/}

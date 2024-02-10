@@ -49,11 +49,12 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     formData.append('base_lesson', String(lesson.baselesson_ptr_id))
 
     try {
+      
       await addAudioFiles({formData, schoolName})
         .unwrap()
-        .then(() => {
-          addAudio((prev: File[]) => [...prev, audio])
-        })
+        // .then(() => {
+        //   addAudio((prev: File[]) => [...prev, audio])
+        // })
       setIsLoadingAudio(false)
       setShow()
     } catch (error) {

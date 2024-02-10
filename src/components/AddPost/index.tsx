@@ -81,7 +81,6 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
               alt={'Add picture for lesson'}
               src={Picture}
             />
-            <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('audio')} text={'Аудио'} alt={'Add audio for lesson'} src={Audio} />
           </>
         )}
       </div>
