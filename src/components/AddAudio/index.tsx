@@ -41,7 +41,7 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
 
     setDragAudio(false)
   }
-
+  
   const handleAudioUpload = async (lessonIdAndType: any, audio: File) => {
     setIsLoadingAudio(true)
     const formData = new FormData()
@@ -63,7 +63,6 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
 
   return (
     <>
-      {!isPreview ? (
         <div className={styles.redactorCourse_wrapper}>
           <div
             onDragStart={dragStartAudioHandler}
@@ -98,25 +97,8 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
               text={isLoading ? <SimpleLoader style={{ width: '125px', height: '25px' }} loaderColor="#ffff" /> : 'Выбрать файл'}
             />
           </div>
-          <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
-            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-              <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrUpPath} />
-            </div>
-            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-              <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
-            </div>
-            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete} onClick={setShow}>
-              <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
-            </div>
-          </div>
         </div>
-      ) : lesson.type === LESSON_TYPE.LESSON || lesson.type === LESSON_TYPE.HOMEWORK ? (
-        <>
-          {lesson.audio_files && <AudioPlayer audioUrls={lesson.audio_files} />}
-        </>
-      ) : (
-        <></>
-      )}
+
     </>
   )
 }

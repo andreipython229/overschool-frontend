@@ -12,6 +12,7 @@ import styles from './addPost.module.scss'
 import { AudioPlayer } from 'components/common/AudioPlayer'
 import { useCreateBlockMutation } from 'api/blocksService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { AddAudio } from 'components/AddAudio'
 
 export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview, setLessonBlocks, lessonBlocks }) => {
   const schoolName = window.location.href.split('/')[4]
@@ -20,36 +21,49 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
   const [addPatchData] = usePatchLessonsMutation()
   const debounced = useDebounceFunc(addPatchData, 2000)
   const disabledBtn: boolean = lessonIdAndType?.type === 'test'
-
+  const [isAddAudioClicked, setIsAddAudioClicked] = useState<boolean>(false);
+  
   const blockCreateFunc = (blockType: string) => {
     if (lesson && blockType) {
-      interface ISendData {
-        type: string
-        base_lesson: number
-        description?: string
-        code?: string
-        video?: string
-        picture?: string
-        url?: string
+      if (blockType === 'audio') {
+        setIsAddAudioClicked(true);
+      } else {
+        interface ISendData {
+          type: string;
+          base_lesson: number;
+          description?: string;
+          code?: string;
+          video?: string;
+          picture?: string;
+          url?: string;
+        }
+  
+        const dataToSend: ISendData = {
+          type: blockType,
+          base_lesson: lesson.baselesson_ptr_id,
+        };
+  
+        createBlock({ data: dataToSend, schoolName })
+          .unwrap()
+          .then(data => {
+            if (lessonBlocks && setLessonBlocks) {
+              setLessonBlocks(lessonBlocks.concat(data))
+            }
+          });
       }
-
-      const dataToSend: ISendData = {
-        type: blockType,
-        base_lesson: lesson.baselesson_ptr_id,
-      }
-
-      createBlock({ data: dataToSend, schoolName })
-        .unwrap()
-        .then(data => {
-          if (lessonBlocks && setLessonBlocks) {
-            setLessonBlocks(lessonBlocks.concat(data))
-          }
-        })
     }
-  }
+  };
 
   return (
     <section className={styles.redactorCourse_rightSide_functional_creating}>
+      {isAddAudioClicked && (
+              <AddAudio 
+              lessonIdAndType={lessonIdAndType} 
+              isPreview={isPreview} 
+              lesson={lesson} 
+              addAudio={setFiles} 
+              setShow={() => setIsAddAudioClicked(true)} />
+            )}
       <div className={styles.redactorCourse_rightSide_functional_creating_title}>Добавить контент</div>
       <div className={styles.redactorCourse_rightSide_functional_creating_function}>
         {isCreating ? (
@@ -59,7 +73,6 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
             <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('description')} text={'Текст'} alt={'Add text for lesson'} src={Text} />
             <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('video')} text={'Видео'} alt={'Add video for lesson'} src={Video} />
             <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('code')} text={'Код'} alt={'Add code for lesson'} src={Code} />
-            <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('audio')} text={'Аудио'} alt={'Add audio for lesson'} src={Audio} />
           </>
         )}
       </div>

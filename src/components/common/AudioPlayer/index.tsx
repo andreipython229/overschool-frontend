@@ -35,11 +35,16 @@ export const AudioPlayer: FC<AudioPlayerT> = ({ styles, audioUrls, files, title 
         ))}
       {urls &&
         urls.map((url, index) => (
-          <figure key={index} style={{ ...styles, width: '100%' }}>
+         <figure key={index} style={{ ...styles, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             {/* <figcaption style={{ textAlign: 'center' }}>{title}</figcaption> */}
             <audio style={{ width: '100%' }} controls src={url}>
               <a href={url}>Download audio</a>
             </audio>
+            {deleteFile && (
+              <div className={style.redactorCourse_rightSide_functional_addContent_navBlock_delete} onClick={() => handleDelete(index)}>
+                <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
+              </div>
+            )}
           </figure>
         ))}
     </>

@@ -4,6 +4,7 @@ import { statusFilterT } from 'types/statusFilterConfigType'
 import { CoursesDataT, CourseWithGroupsT, StGroupT } from 'types/CoursesT'
 import {
   commonLessonT,
+  IBlockAudio,
   IBlockCode,
   IBlockDesc,
   IBlockPic,
@@ -30,8 +31,8 @@ type argT = {
 }
 
 export type AddPostT = {
-  setLessonBlocks?: Dispatch<SetStateAction<(IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]>>
-  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]
+  setLessonBlocks?: Dispatch<SetStateAction<(IBlockCode | IBlockDesc | IBlockPic | IBlockVid | IBlockAudio)[]>>
+  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid | IBlockAudio)[]
   deleteBlock?: (arg: { id: string | number; schoolName: string }) => any
   lesson: commonLessonT
   code?: string
@@ -40,7 +41,7 @@ export type AddPostT = {
   addFile?: (arg: any) => void
   deleteAudio?: (id: number) => void
   addAudio?: any
-  block?: IBlockCode | IBlockDesc | IBlockPic | IBlockVid
+  block?: IBlockCode | IBlockDesc | IBlockPic | IBlockVid | IBlockAudio
   handleEditorChange?: (code: string | undefined) => void
 }
 

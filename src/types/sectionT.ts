@@ -32,7 +32,14 @@ export interface IBlockPic {
   order: number
 }
 
-export type BlockT = IBlockCode | IBlockDesc | IBlockPic | IBlockVid
+export interface IBlockAudio {
+  id: number
+  audio?: File[]
+  type: string
+  order: number
+}
+
+export type BlockT = IBlockCode | IBlockDesc | IBlockPic | IBlockVid | IBlockAudio
 
 export interface ILesson {
   lesson_id: number
