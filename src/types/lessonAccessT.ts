@@ -21,4 +21,6 @@ export interface lessonAccess {
     type: string
     active: boolean
     availability: boolean
+    status: string
+    mark: number
 }

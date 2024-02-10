@@ -156,6 +156,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
             )
           }
         case BLOCK_TYPE.PICTURE:
+          if ('picture' in block && block.picture) {
+            return <img src={block.picture} alt={String(block.id)} />
+          }
           return <></>
       }
     })
