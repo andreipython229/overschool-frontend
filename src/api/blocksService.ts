@@ -42,7 +42,21 @@ export const blocksService = createApi({
         body: arg.data,
       }),
     }),
+    updatePictureBlockData: build.mutation<any, { blockId: number; data: FormData; schoolName: string }>({
+      query: arg => ({
+        url: `/${arg.schoolName}/blocks/${arg.blockId}/`,
+        method: 'PATCH',
+        body: arg.data,
+      }),
+      invalidatesTags: ['updateBlock'],
+    }),
   }),
 })
 
-export const { useCreateBlockMutation, useDeleteBlockMutation, useUpdateBlockDataMutation, useOrderUpdateMutation } = blocksService
+export const {
+  useCreateBlockMutation,
+  useDeleteBlockMutation,
+  useUpdateBlockDataMutation,
+  useOrderUpdateMutation,
+  useUpdatePictureBlockDataMutation,
+} = blocksService

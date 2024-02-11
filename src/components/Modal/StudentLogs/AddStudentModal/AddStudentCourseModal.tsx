@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
 import { Button } from 'components/common/Button/Button'
@@ -6,12 +6,11 @@ import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { addStudentIconPath } from '../config/svgIconsPath'
 import { AddStudentModalPropsT } from '../../ModalTypes'
-import { useFetchStudentsGroupByCourseQuery } from '../../../../api/studentsGroupService'
+import { useFetchStudentsGroupByCourseQuery, usePatchGroupWithoutTeacherMutation } from '../../../../api/studentsGroupService'
 import { AddNewStudents } from './AddNewStudents'
 import { studentsGroupT, studentsGroupsT } from 'types/studentsGroup'
-import { checkCourseT, CoursesDataT } from 'types/CoursesT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
-
+import parse from 'html-react-parser'
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
 import { useParams } from 'react-router-dom'
 import { useAdminRegistrationMutation } from 'api/userRegisterService'
@@ -20,11 +19,13 @@ import { Portal } from '../../Portal'
 import { LimitModal } from '../../LimitModal/LimitModal'
 import { useBoolean } from '../../../../customHooks'
 import { validateEmail } from 'utils/validateEmail'
-import { eventNames } from 'process'
 
 type studentT = {
   id: number
   email: string
+  first_name: string
+  last_name: string
+  patronymic: string
 }
 
 export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, courses }) => {
@@ -32,18 +33,29 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   const schoolName = window.location.href.split('/')[4]
   const { data: groups, isFetching, isSuccess } = useFetchStudentsGroupByCourseQuery({ id: Number(params.course_id), schoolName })
   const [registrationAdmin] = useAdminRegistrationMutation()
-  const [addStudents, { isSuccess: studentSuccess, isLoading: studentLoading, isError: studentError }] = useAddUserAccessMutation()
+  const [addStudents, { isSuccess: studentSuccess, isLoading: studentLoading, isError: studentError }] = usePatchGroupWithoutTeacherMutation()
   const [groupsList, setGroupsList] = useState<studentsGroupT>()
   const [selectedGroup, setSelectedGroup] = useState<string>()
   const [students, setStudents] = useState<studentT[]>([
     {
       id: Math.random(),
+      first_name: '',
+      patronymic: '',
+      last_name: '',
       email: '',
     },
   ])
+  const [currentGroup, setCurrentGroup] = useState<studentsGroupsT>()
   const [isOpenLimitModal, { onToggle }] = useBoolean()
   const [message, setMessage] = useState<string>('')
   const [error, setError] = useState<string>('')
+
+  useEffect(() => {
+    if (selectedGroup && groupsList) {
+      const group = groupsList.results.filter(obj => obj.group_id === Number(selectedGroup))[0]
+      setCurrentGroup(group)
+    }
+  }, [selectedGroup])
 
   useEffect(() => {
     if (isSuccess && groups) {
@@ -65,10 +77,55 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
     setStudents(checkedStudent)
   }
 
+  const handleInputName = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
+    setError('')
+    const checkedStudent = students.map(student => {
+      if (student.id === id) {
+        return {
+          ...student,
+          first_name: event.target.value,
+        }
+      }
+      return student
+    })
+    setStudents(checkedStudent)
+  }
+
+  const handleInputLastName = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
+    setError('')
+    const checkedStudent = students.map(student => {
+      if (student.id === id) {
+        return {
+          ...student,
+          last_name: event.target.value,
+        }
+      }
+      return student
+    })
+    setStudents(checkedStudent)
+  }
+
+  const handleInputPatronymic = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
+    setError('')
+    const checkedStudent = students.map(student => {
+      if (student.id === id) {
+        return {
+          ...student,
+          patronymic: event.target.value,
+        }
+      }
+      return student
+    })
+    setStudents(checkedStudent)
+  }
+
   const handleAddNewStudent = () => {
     const newStudent = {
       id: Math.random(),
       email: '',
+      first_name: '',
+      patronymic: '',
+      last_name: '',
     }
     setStudents([...students, newStudent])
   }
@@ -83,33 +140,34 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   }
 
   const handleSendPermissions = async () => {
-    const formdata = new FormData()
-    formdata.append('role', 'Student')
-    if (groupsList && selectedGroup) {
-      formdata.append('student_groups', selectedGroup)
-    } else if (params.group_id) {
-      formdata.append('student_groups', params.group_id)
+    if (currentGroup) {
+      const formdata = new FormData()
+      formdata.append('role', 'Student')
+      formdata.append('course_id', String(currentGroup.course_id))
+      formdata.append('name', currentGroup.name)
+      currentGroup.students.forEach(studId => formdata.append('students', String(studId)))
+      let count = 0
+      students.map(async student => {
+        await registrationAdmin({ email: student.email })
+          .unwrap()
+          .then(async (data: any) => {
+            console.log(data)
+            count = count + 1
+            formdata.append('students', data.user_id)
+            if (count === students.length) {
+              await addStudents({ data: formdata, schoolName, id: Number(selectedGroup) })
+                .unwrap()
+                .then(async (accessdata: any) => {
+                  setShowModal()
+                })
+                .catch(error => {
+                  setMessage(parse(error.data).toString())
+                  onToggle()
+                })
+            }
+          })
+      })
     }
-    let count = 0
-    students.map(async student => {
-      await registrationAdmin({ email: student.email })
-        .unwrap()
-        .then(async (data: any) => {
-          count = count + 1
-          formdata.append('emails', student.email)
-          if (count === students.length) {
-            await addStudents({ data: formdata, schoolName })
-              .unwrap()
-              .then(async (accessdata: any) => {
-                setShowModal()
-              })
-              .catch(error => {
-                setMessage(error.data)
-                onToggle()
-              })
-          }
-        })
-    })
   }
 
   const handleSubmitForm = () => {
@@ -187,7 +245,13 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
               index={index}
               handleRemoveStudent={handleRemoveStudent}
               studentEmail={student.email}
+              studentName={student.first_name}
+              studentLastName={student.last_name}
+              studentPatronymic={student.patronymic}
               onChangeEmail={handleInputEmail}
+              onChangeName={handleInputName}
+              onChangeLastName={handleInputLastName}
+              onChangePatronymic={handleInputPatronymic}
             />
           ))}
           <div className={styles.addStudent_btnBlock}>
