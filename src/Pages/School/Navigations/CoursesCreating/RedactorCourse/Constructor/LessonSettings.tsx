@@ -31,6 +31,7 @@ import { useDeleteBlockMutation, useOrderUpdateMutation } from 'api/blocksServic
 import { useDebounceFunc } from 'customHooks'
 import { AnimatePresence, Reorder } from 'framer-motion'
 import { AddPicture } from 'components/AddPicture'
+import { AddAudio } from 'components/AddAudio'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType, setShow }) => {
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
