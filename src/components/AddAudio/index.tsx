@@ -8,6 +8,7 @@ import { AddPostT, setShowType } from '../../types/componentsTypes'
 import { usePostAudioFilesMutation } from 'api/filesService'
 import { AudioPlayer } from '../common/AudioPlayer'
 import { SimpleLoader } from '../Loaders/SimpleLoader'
+import { IFile } from 'types/filesT'
 
 import styles from './addaudio.module.scss'
 const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
@@ -47,14 +48,16 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     const formData = new FormData()
     formData.append('files', audio)
     formData.append('base_lesson', String(lesson.baselesson_ptr_id))
+    console.log(audio);
+    
 
     try {
       
       await addAudioFiles({formData, schoolName})
         .unwrap()
-        // .then(() => {
-        //   addAudio((prev: File[]) => [...prev, audio])
-        // })
+        .then(() => {
+          addAudio((prev: File[]) => [...prev, audio])
+        })
       setIsLoadingAudio(false)
       setShow()
     } catch (error) {

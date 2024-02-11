@@ -416,8 +416,32 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                     handleDeleteFile={handleDeleteFile}
                   />
                 ))}
+ 
+                {/* {files?.map((file: File, index: number) => (
+                  <UploadedFile
+                    key={index}
+                    index={index}
+                    file={file.name}
+                    size={file.size}
+                    handleDeleteFile={index => handleDeleteFileFromLesson(index)}
+                  />
+                ))} */}
 
-                <>
+                {/* <>
+                  {(lesson.audio_files) && (
+                    <div>
+                       {lesson.audio_files && lesson.audio_files.map((audio, index) => (
+                        <AudioPlayer
+                          key={index}
+                          audioUrls={[audio]}
+                          delete={() => handleDeleteAudioFile(index)}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </> */}
+
+<>
                   {(files || lesson.audio_files) && (
                     <div>
                        {lesson.audio_files && lesson.audio_files.map((audio, index) => (
