@@ -243,38 +243,19 @@ export const MobileNavbar: FC = memo(() => {
                 </div>
               </Tooltip>
               <Menu anchorEl={anchorMob} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}>
-              <MenuItem onClick={logOut}>
-                  <Link to={Path.InitialPage}style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
-                    Выход из профиля
-                  </Link>
-                </MenuItem>
                 <MenuItem onClick={goToChooseSchool}>
                   <Link to={Path.ChooseSchool} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
                     Выбор школы
                   </Link>
                 </MenuItem>
+                <MenuItem onClick={logOut}>
+                  <Link to={Path.InitialPage}style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
+                    Выйти из профиля
+                  </Link>
+                </MenuItem>
               </Menu>
             </div>
         </React.Fragment>
-          {/* <NavLink to={Path.InitialPage} title={'Выход из профиля'} onClick={logOut}>
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#e0dced"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-              <polyline points="16 17 21 12 16 7"></polyline>
-              <line x1="21" y1="12" x2="9" y2="12"></line>
-            </svg>
-          </div>
-        </NavLink> */}
         </div>
       {isChatOpen && (
         <Portal closeModal={on}>
