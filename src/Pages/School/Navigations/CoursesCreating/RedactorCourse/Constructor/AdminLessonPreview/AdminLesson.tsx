@@ -43,10 +43,11 @@ export const renderStudentBlocks = (lesson: commonLessonT) => {
             return <></>
           }
         case BLOCK_TYPE.PICTURE:
-          if ('picture' in block && block.picture) {
-            return <img src={block.picture} alt={String(block.id)} />
+          if ('picture_url' in block && block.picture_url) {
+            return <img style={{width: '100%', maxWidth: '100%', objectFit: 'contain'}} src={block.picture_url} alt={String(block.id)} />
+          } else {
+            return <></>
           }
-          return <></>
       }
     })
   }
