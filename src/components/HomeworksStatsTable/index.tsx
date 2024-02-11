@@ -1,4 +1,4 @@
-import { FC, useState, useCallback } from 'react'
+import {FC, useState, useCallback, useEffect} from 'react'
 
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { HomeworksStatsTableRow } from './HomeworksStatsTableRow'
@@ -41,7 +41,7 @@ export const HomeworksStatsTable: FC<homeworkStatsTableT> = ({ homeworks, isLoad
             </thead>
             <tbody className={styles.table_body}>
               {sortedData?.map((homework: homeworkStatT) => (
-                <HomeworksStatsTableRow key={homework.homework} homeworkData={homework} />
+                <HomeworksStatsTableRow key={homework.homework + homework.user_homework_id + homework.homework_name} homeworkData={homework} />
               ))}
             </tbody>
           </>

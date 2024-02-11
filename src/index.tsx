@@ -18,7 +18,7 @@ const persistor = persistStore(store)
 const screenWidth = window.screen.width
 
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <BrowserRouter>
             <Provider store={store}>
                     <PersistGate loading={<p>Loading...</p>} persistor={persistor}>
@@ -26,5 +26,5 @@ root.render(
                     </PersistGate>
             </Provider>
         </BrowserRouter>
-    </React.StrictMode>,
+    // </React.StrictMode>,
 )

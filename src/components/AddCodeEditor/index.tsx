@@ -63,8 +63,6 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
     controls.start(event)
   }
 
-  console.log(selectedLang)
-
   return (
     <Reorder.Item
       value={block}

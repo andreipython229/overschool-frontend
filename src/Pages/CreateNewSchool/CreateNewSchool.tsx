@@ -11,6 +11,8 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { validatePhone } from 'utils/validatePhone'
 import { validateEmail } from 'utils/validateEmail'
+import * as Yup from 'yup';
+
 
 export const CreateNewSchool = () => {
   const [security, setSecurity] = useState<boolean>(true)
@@ -25,6 +27,15 @@ export const CreateNewSchool = () => {
     navigate(Path.InitialPage)
   }
 
+  const validationSchema: any = Yup.object().shape({
+  school_name: Yup.string().min(2, "Слишком короткое!").max(50, "Слишком длинное!").required('Поле  обязательно для заполнения'),
+  email: Yup.string().email('Введите корректный email').required('Введите email'),
+  phone_number: Yup.string().required('Введите номер телефона').test('phone', 'Некорректный номер телефона', value => validatePhone(formik.values.phone_number)),
+  password: Yup.string().required('Введите пароль')
+  .min(6, "Пароль слишком короткий - должно быть минимум 6 символов"),
+  password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают').required('Поле обязательно для заполнения'),
+});
+
   const formik = useFormik({
     initialValues: {
       school_name: '',
@@ -33,6 +44,7 @@ export const CreateNewSchool = () => {
       password: '',
       password_confirmation: '',
     },
+    validationSchema: validationSchema,
     onSubmit: async () => {
       if (
         formik.values.school_name.length > 0 &&
@@ -136,13 +148,24 @@ export const CreateNewSchool = () => {
               name={'school_name'}
               type={'text'}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               value={formik.values.school_name}
               placeholder={'Название школы'}
             />
+            {formik.touched.school_name && formik.errors.school_name ? (
+              <p style={{ color: 'red', marginTop: '.5em' }}>
+                {formik.errors.school_name}
+              </p>
+            ) : null}
           </div>
           <div className={styles.newCoursePage_formWrapper_form_eMailWrapper}>
             <p className={styles.newCoursePage_formWrapper_form_eMailWrapper_title}>E-mail:</p>
-            <InputAuth name={'email'} type={'text'} onChange={formik.handleChange} value={formik.values.email} placeholder={'E-mail'} />
+            <InputAuth name={'email'} type={'text'} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} placeholder={'E-mail'} />
+            {formik.touched.email && formik.errors.email ? (
+              <p style={{ color: 'red', marginTop: '.5em' }}>
+                {formik.errors.email}
+              </p>
+            ) : null}
           </div>
           <div className={styles.newCoursePage_formWrapper_form_passwordWrapper}>
             <p className={styles.newCoursePage_formWrapper_form_passwordWrapper_title}>Номер телефона:</p>
@@ -150,9 +173,15 @@ export const CreateNewSchool = () => {
               name={'phone_number'}
               type={'tel'}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               value={formik.values.phone_number}
               placeholder={'Номер телефона'}
             />
+            {formik.errors.phone_number && formik.touched.phone_number ? (
+              <p style={{ color: 'red', marginTop: '.5em' }}>
+                {formik.errors.phone_number}
+              </p>
+            ) : null}
           </div>
           <div className={styles.newCoursePage_formWrapper_form_passwordWrapper}>
             <p className={styles.newCoursePage_formWrapper_form_passwordWrapper_title}>Пароль:</p>
@@ -160,11 +189,17 @@ export const CreateNewSchool = () => {
               name={'password'}
               type={security ? 'password' : 'text'}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               value={formik.values.password}
               placeholder={'Пароль'}
               onClick={changeSecurityStatus}
               icon={security ? isSecurity : unSecurity}
             />
+            {formik.touched.password && formik.errors.password ? (
+              <p style={{ color: 'red', marginTop: '.5em' }}>
+                {formik.errors.password}
+              </p>
+            ) : null}
           </div>
           <div className={styles.newCoursePage_formWrapper_form_passwordWrapper}>
             <p className={styles.newCoursePage_formWrapper_form_passwordWrapper_title}>Повторите пароль:</p>
@@ -172,11 +207,17 @@ export const CreateNewSchool = () => {
               name={'password_confirmation'}
               type={security ? 'password' : 'text'}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               value={formik.values.password_confirmation}
               placeholder={'Повторите пароль'}
               onClick={changeSecurityStatus}
               icon={security ? isSecurity : unSecurity}
             />
+            {formik.touched.password_confirmation && formik.errors.password_confirmation ? (
+              <p style={{ color: 'red', marginTop: '.5em' }}>
+                {formik.errors.password_confirmation}
+              </p>
+            ) : null}
           </div>
           <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper}>
             <Button

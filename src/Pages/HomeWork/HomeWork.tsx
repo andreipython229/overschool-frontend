@@ -20,14 +20,16 @@ export const HomeWork: FC = () => {
   const filters = useAppSelector(state => state.filters['homework'])
   const schoolName = window.location.href.split('/')[4]
 
+  const [homeworksData, setHomeworksData] = useState<homeworksStatsT>()
+
   const [termForFilter, setTermForFilter] = useState<string>('')
 
   const debounce = useDebounceFunc(dispatch)
 
-  const { data: homeworksStats, isLoading } = useFetchAllHomeworkStatsQuery({filters, schoolName})
+  // const { data: homeworksStats, isLoading } = useFetchAllHomeworkStatsQuery({filters, schoolName})
   const [fetchHomeworkStats, { data: homeworks, isFetching }] = useLazyFetchHomeworkStatsQuery()
 
-  const { page, onPageChange, paginationRange } = usePagination({ totalCount: homeworksStats?.count as number })
+  const { page, onPageChange, paginationRange } = usePagination({ totalCount: homeworks?.count as number })
 
   const handleChangeTerm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setTermForFilter(e.target.value)
@@ -60,6 +62,12 @@ export const HomeWork: FC = () => {
   useEffect(() => {
     debounce(addFilters({ key: 'homework', filters: { homework_name: termForFilter } }))
   }, [termForFilter])
+
+  useEffect(() => {
+    if (!isFetching) {
+      setHomeworksData(homeworks)
+    }
+  }, [homeworks]);
 
   return (
     <>
@@ -95,7 +103,7 @@ export const HomeWork: FC = () => {
         endDate={filters?.end_date}
         filters={filters}
       />
-      <HomeworksStatsTable homeworks={homeworks as homeworksStatsT} isLoading={isFetching || isLoading} />
+      <HomeworksStatsTable homeworks={homeworksData as homeworksStatsT} isLoading={isFetching} />
       <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
       </motion.div>
     </>
