@@ -30,7 +30,7 @@ import { AudioPlayer } from 'components/common/AudioPlayer'
 import { useDeleteBlockMutation, useOrderUpdateMutation } from 'api/blocksService'
 import { useDebounceFunc } from 'customHooks'
 import { AnimatePresence, Reorder } from 'framer-motion'
-import { AddAudio } from 'components/AddAudio'
+import { AddPicture } from 'components/AddPicture'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType, setShow }) => {
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
@@ -156,10 +156,29 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
             )
           }
         case BLOCK_TYPE.PICTURE:
-          if ('picture' in block && block.picture) {
-            return <img src={block.picture} alt={String(block.id)} />
+          if ('picture_url' in block && block.picture_url) {
+            return (
+              <AddPicture
+                key={block.id}
+                lesson={lesson}
+                block={block}
+                deleteBlock={deleteBlock}
+                setLessonBlocks={setLessonBlocks}
+                lessonBlocks={lessonBlocks}
+                pictureUrl={block.picture_url}
+              />
+            )
           }
-          return <></>
+          return (
+            <AddPicture
+              key={block.id}
+              lesson={lesson}
+              block={block}
+              deleteBlock={deleteBlock}
+              setLessonBlocks={setLessonBlocks}
+              lessonBlocks={lessonBlocks}
+            />
+          )
       }
     })
   }

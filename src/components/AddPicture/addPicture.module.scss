@@ -4,6 +4,7 @@
 .redactorCourse {
   font-family: $font-family-inter;
   @include display(flex);
+  
   &_loader {
     align-items: center;
     width: 100%;

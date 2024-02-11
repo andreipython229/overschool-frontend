@@ -43,6 +43,7 @@ export type AddPostT = {
   addAudio?: any
   block?: IBlockCode | IBlockDesc | IBlockPic | IBlockVid | IBlockAudio
   handleEditorChange?: (code: string | undefined) => void
+  pictureUrl?: string
 }
 
 export type ContentBtnPropsT = {

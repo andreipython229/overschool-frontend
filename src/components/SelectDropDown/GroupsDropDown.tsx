@@ -28,6 +28,7 @@ export const GroupsDropDown: FC<GroupsDropDownT> = memo(({dropdownData, course_i
     }
 
     const handleChangeGroup = (id: number | null) => () => {
+
         changeGroup(id)
         typeof onChangeGroup !== 'undefined' && onChangeGroup(course_id, id)
         onToggle()
@@ -36,19 +37,20 @@ export const GroupsDropDown: FC<GroupsDropDownT> = memo(({dropdownData, course_i
     useEffect(() => {
         changeGroup(selected_group)
     }, [selected_group])
+    
 
     return (
         <div className={styles.wrapper}>
             <div style={{display: 'flex', alignItems: 'center'}}>
                 <div ref={menuRef} onClick={onToggle} className={`${styles['bg_color_hamburger']} ${styles.header_groups_down}`}>
                     <div>
-                        <p style={{marginLeft: '10px'}}> {headerDropDown ? headerDropDown.name : "Группа не выбрана"}</p>
+                        <p style={{marginLeft: '10px'}}> {headerDropDown ? headerDropDown.name : "Нажмите для выбора группы"}</p>
                     </div>
-                    <span
+                    {/* <span
                         className={isOpen ? `${styles['arrow_humburger']} ${styles.rotate_arrow}` : `${styles['arrow_humburger']}`}>
                      <IconSvg width={15} height={15} viewBoxSize="0 0 15 15"
                               path={[{d: arrIconPath[0].d, fill: '#9A9A9A'}]}/>
-                    </span>
+                    </span> */}
                 </div>
                 <div style={{marginLeft: 10, color: 'grey'}} onClick={handleChangeGroup(null)}>
                     <IconSvg width={10} height={10} viewBoxSize="0 0 14 14" path={crossIconPath}/>

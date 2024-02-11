@@ -27,7 +27,8 @@ export interface IBlockCode {
 
 export interface IBlockPic {
   id: number
-  picture: string
+  picture: File | Blob
+  picture_url: string
   type: string
   order: number
 }
