@@ -1,15 +1,15 @@
-import { FC, memo, useState, useEffect } from 'react'
-import { NavLink, generatePath, useNavigate } from 'react-router-dom'
+import React, { FC, memo, useState, useEffect } from 'react'
+import { Link, NavLink, generatePath, useNavigate } from 'react-router-dom'
 import { Path } from 'enum/pathE'
 import { useLazyLogoutQuery } from 'api/userLoginService'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 
-import { auth, logoutState } from 'store/redux/users/slice'
+import { auth, logoutState, role } from 'store/redux/users/slice'
 import { Chat } from 'components/Modal/Chat'
 import { useBoolean } from 'customHooks'
 import { chatIconPath } from 'components/Navbar/config/svgIconPath'
 import Tooltip from '@mui/material/Tooltip'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../../store/redux/store'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import Badge from '@mui/material/Badge'
@@ -31,13 +31,19 @@ import { useCookies } from 'react-cookie'
 import { useFetchProfileDataQuery } from 'api/profileService'
 import { RoleE } from 'enum/roleE'
 
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Avatar from '@mui/material/Avatar'
+
+
+
 interface IIsActive {
   isActive?: boolean
 }
 
 export const MobileNavbar: FC = memo(() => {
   const unRead = useSelector((state: RootState) => state.unread.totalUnread)
-  const { role: UserRole } = useAppSelector(selectUser)
+  const { role: userRole } = useAppSelector(selectUser)
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
   const [logout] = useLazyLogoutQuery()
   const dispatch = useAppDispatch()
@@ -49,6 +55,10 @@ export const MobileNavbar: FC = memo(() => {
   const [, , removeRefreshCookie] = useCookies(['refresh_token'])
   const navigate = useNavigate()
   const { data: profile, isSuccess: profileIsSuccess, isError, error } = useFetchProfileDataQuery()
+  const [anchorMob, setAnchorMob] = useState<null | HTMLElement>(null)
+  const open = Boolean(anchorMob)
+  const dispatchRole = useDispatch()
+  
 
   const logOut = async () => {
     await logout().then(data => {
@@ -63,6 +73,20 @@ export const MobileNavbar: FC = memo(() => {
       dispatch(auth(false))
       navigate(generatePath(Path.InitialPage))
     })
+  }
+
+  const goToChooseSchool = () => {
+    dispatchRole(role(RoleE.Unknown))
+    navigate(Path.ChooseSchool)
+    setAnchorMob(null)
+  }
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorMob(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorMob(null)
   }
 
   useEffect(() => {
@@ -129,7 +153,7 @@ export const MobileNavbar: FC = memo(() => {
   return (
     <>
       <div className={styles.navbar_setting_account}>
-          {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
+          {navlinkByRoles[userRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
               <Tooltip
                 title={
@@ -166,7 +190,7 @@ export const MobileNavbar: FC = memo(() => {
             ),
           )}
 
-          {UserRole === RoleE.Admin && (
+          {userRole === RoleE.Admin && (
             <Tooltip title={'Связаться с техподдержкой'} arrow placement={'right'}>
               <a key={'techsupport'} href={'https://t.me/over_school'} target="_blank" rel="noreferrer">
                 <SvgIcon
@@ -196,7 +220,43 @@ export const MobileNavbar: FC = memo(() => {
             </Tooltip>
             
           )}
-          <NavLink to={Path.InitialPage} title={'Выход из профиля'} onClick={logOut}>
+          <React.Fragment>
+            <div>
+              <Tooltip title={'Выход'}>
+                <div className={styles.tariffPlan} style={{ textDecoration: 'none' }} onClick={handleClick}>
+                <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#e0dced"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+                  
+                </div>
+              </Tooltip>
+              <Menu anchorEl={anchorMob} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}>
+              <MenuItem onClick={logOut}>
+                  <Link to={Path.InitialPage}style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
+                    Выход из профиля
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={goToChooseSchool}>
+                  <Link to={Path.ChooseSchool} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
+                    Выбор школы
+                  </Link>
+                </MenuItem>
+              </Menu>
+            </div>
+        </React.Fragment>
+          {/* <NavLink to={Path.InitialPage} title={'Выход из профиля'} onClick={logOut}>
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -214,7 +274,7 @@ export const MobileNavbar: FC = memo(() => {
               <line x1="21" y1="12" x2="9" y2="12"></line>
             </svg>
           </div>
-        </NavLink>
+        </NavLink> */}
         </div>
       {isChatOpen && (
         <Portal closeModal={on}>
