@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, useEffect, useState} from 'react'
+import {ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState} from 'react'
 
 import {noPublishedGreyIconPath} from '../../../config/svgIconsPath'
 import {IconSvg} from '../../../../../components/common/IconSvg/IconSvg'
@@ -22,10 +22,11 @@ type BasicSettingsT = {
     toggleCheckbox: boolean
     toggleCheckboxPublished: () => void
     courseFind: CoursesDataT
+    refetch: () => void
 }
 
-export const BasicSettings: FC<BasicSettingsT> = ({toggleCheckbox, toggleCheckboxPublished, courseFind}) => {
-    const [update, {isLoading}] = usePatchCoursesMutation()
+export const BasicSettings: FC<BasicSettingsT> = ({toggleCheckbox, toggleCheckboxPublished, courseFind, refetch}) => {
+    const [update, {isLoading, isSuccess}] = usePatchCoursesMutation()
     const [nameCourse, setNameCourse] = useState<string>(courseFind?.name || '')
     const [shortDescription, setShortDescription] = useState<string>(courseFind?.description || '')
     const [deleteCourses, {isSuccess: isSuccessDelete}] = useDeleteCoursesMutation()
@@ -66,8 +67,14 @@ export const BasicSettings: FC<BasicSettingsT> = ({toggleCheckbox, toggleCheckbo
         const formdata = formDataConverter(updateCurse)
         if (formdata && courseFind) {
             const id = courseFind?.course_id
-            debounce({arg: {formdata, id}, schoolName})
+            await update({arg: {formdata, id}, schoolName}).unwrap().then(
+                (data) => {
+                    refetch()
+                }
+            )
+
         }
+
     }
 
     useEffect(() => {

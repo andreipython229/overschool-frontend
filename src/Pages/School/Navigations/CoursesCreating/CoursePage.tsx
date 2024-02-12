@@ -7,7 +7,7 @@ import { RoleE } from 'enum/roleE'
 import { searchIconPath } from 'config/commonSvgIconsPath'
 import { schoolIdSelector, schoolNameSelector, selectUser } from 'selectors'
 import { AddCourseModal } from 'components/Modal'
-import { useFetchCoursesPageQuery } from 'api/coursesServices'
+import {useFetchCoursesPageQuery, useLazyFetchCoursesPageQuery, useLazyFetchCoursesQuery} from 'api/coursesServices'
 import { useBoolean } from 'customHooks/useBoolean'
 import { Portal } from 'components/Modal/Portal'
 import { useDebouncedFilter } from '../../../../customHooks'
@@ -24,7 +24,8 @@ export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const schoolId = useAppSelector(schoolIdSelector)
-  const { data: courses, isSuccess, refetch } = useFetchCoursesPageQuery(schoolName)
+  // const { data: courses, isSuccess, refetch } = useFetchCoursesPageQuery(schoolName)
+    const [fetchData, { data: courses, isSuccess}] = useLazyFetchCoursesPageQuery()
   const [isOpenAddCourse, { onToggle }] = useBoolean()
   const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
   // const [isVisible, setVisible] = useState(false)
@@ -32,11 +33,15 @@ export const CoursePage: FC = () => {
 
   const dispatchHandlerModal = () => {
     onToggle()
+      fetchData(schoolName);
   }
 
   useEffect(() => {
+
     if (schoolName === window.location.href.split('/')[4]) {
-      refetch();
+      fetchData(schoolName);
+    } else {
+        fetchData(schoolName)
     }
   }, [schoolId]);
 
