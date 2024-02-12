@@ -33,8 +33,10 @@ export type SchoolT = {
 export const ChooseSchool = () => {
   const navigate = useNavigate()
   const [getSchools, { isSuccess: userSuccess, isError }] = useGetSchoolsMutation()
+  const dispatchRole = useDispatch()
   const [logout] = useLazyLogoutQuery()
   const { role: userRole, userName: name } = useAppSelector(selectUser)
+  const user = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
 
@@ -43,6 +45,7 @@ export const ChooseSchool = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatchRole(role(RoleE.Unknown))
     getSchools()
       .unwrap()
       .then((data: SchoolT[]) => {
@@ -169,7 +172,7 @@ export const ChooseSchool = () => {
                       await handleSchool(school)
                     }}
                     style={{ textDecoration: 'none' }}
-                    to={generatePath(Path.School, { school_name: school.name })}
+                    to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                   >
                     <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                       <div>
