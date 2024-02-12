@@ -78,6 +78,10 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     }
   }, [lesson])
 
+  const updateLesson = (newLesson: commonLessonT) => {
+    setLesson(newLesson);
+  };
+
   const renderBlocks = () => {
     return lessonBlocks.map(block => {
       switch (block.type) {
@@ -407,6 +411,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   lesson={lesson} 
                   addAudio={setFiles} 
                   setShow={() => setIsAddAudioClicked(true)} 
+                  updateLesson={updateLesson}
                 />
 
                 <AddFileBtn handleChangeFiles={handleChangeFiles} />
@@ -437,7 +442,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   />
                 ))}
  
-                {/* {files?.map((file: File, index: number) => (
+                {files?.map((file: File, index: number) => (
                   <UploadedFile
                     key={index}
                     index={index}
@@ -445,9 +450,8 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                     size={file.size}
                     handleDeleteFile={index => handleDeleteFileFromLesson(index)}
                   />
-                ))} */}
+                ))}
 
-                {/* <>
                   {(lesson.audio_files) && (
                     <div>
                        {lesson.audio_files && lesson.audio_files.map((audio, index) => (
@@ -459,28 +463,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                       ))}
                     </div>
                   )}
-                </> */}
-
-<>
-                  {(files || lesson.audio_files) && (
-                    <div>
-                       {lesson.audio_files && lesson.audio_files.map((audio, index) => (
-                        <AudioPlayer
-                          key={index}
-                          audioUrls={[audio]}
-                          delete={() => handleDeleteAudioFile(index)}
-                        />
-                      ))}
-                      {files && files.map((file, index) => (
-                        <AudioPlayer
-                          key={index}
-                          files={[file]}
-                          delete={() => handleDeleteAudioFile(index)}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </>
 
                 {/*{urlFiles.length > 0 && (*/}
                 {/*    <Button style={{marginTop: '20px'}} variant="primary" text="Загрузить" type="submit"*/}

@@ -5,15 +5,12 @@ import { AddPostT } from '../../types/componentsTypes'
 import { usePatchLessonsMutation } from 'api/modulesServices'
 import Text from '../.././assets/img/createCourse/text.svg'
 import Video from '../.././assets/img/createCourse/video.svg'
-import Audio from '../.././assets/img/createCourse/audio.svg'
 import Code from '../.././assets/img/createCourse/code.svg'
 import Picture from '../.././assets/img/createCourse/picture.svg'
 
 import styles from './addPost.module.scss'
-import { AudioPlayer } from 'components/common/AudioPlayer'
 import { useCreateBlockMutation } from 'api/blocksService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
-import { AddAudio } from 'components/AddAudio'
 
 export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview, setLessonBlocks, lessonBlocks }) => {
   const schoolName = window.location.href.split('/')[4]
@@ -57,14 +54,6 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
 
   return (
     <section className={styles.redactorCourse_rightSide_functional_creating}>
-      {isAddAudioClicked && (
-              <AddAudio 
-              lessonIdAndType={lessonIdAndType} 
-              isPreview={isPreview} 
-              lesson={lesson} 
-              addAudio={setFiles} 
-              setShow={() => setIsAddAudioClicked(true)} />
-            )}
       <div className={styles.redactorCourse_rightSide_functional_creating_title}>Добавить контент</div>
       <div className={styles.redactorCourse_rightSide_functional_creating_function}>
         {isCreating ? (
