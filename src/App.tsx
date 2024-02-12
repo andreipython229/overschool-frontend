@@ -51,7 +51,7 @@ export const App = () => {
   }, [])
 
   useEffect(() => {
-    if (isLogin && !schoolName && pathname !== Path.InitialPage) {
+    if (isLogin && !schoolName && pathname !== Path.InitialPage && pathname !== '/') {
       navigate(Path.ChooseSchool)
     }
   }, [isLogin, schoolName, navigate])
