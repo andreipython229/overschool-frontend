@@ -152,7 +152,6 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
         students: currentGroup.students,
       }
       let count = 0
-      console.log(requestBody)
       students.map(async student => {
         await registrationAdmin({
           email: student.email,
@@ -165,7 +164,6 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
             count = count + 1
             requestBody.students = [...requestBody.students, data.user_id]
             if (count === students.length) {
-              console.log(requestBody)
               await addStudents({ data: requestBody, schoolName, id: Number(selectedGroup) })
                 .unwrap()
                 .then(async (accessdata: any) => {
