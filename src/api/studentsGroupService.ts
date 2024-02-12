@@ -70,7 +70,7 @@ export const studentsGroupService = createApi({
             query: ({id, data, schoolName}) => ({
                 url: `/${schoolName}/students_group_no_teacher/${id}/`,
                 method: 'PATCH',
-                body: JSON.stringify(data),
+                body: data,
                 headers: {
                     'Content-Type': 'application/json',
                 },
