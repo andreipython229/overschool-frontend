@@ -45,7 +45,6 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
           : course,
       ),
     )
-    console.log(checkCourses)
   }
 
   const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
