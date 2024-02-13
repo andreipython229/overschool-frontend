@@ -53,7 +53,7 @@ export const App = () => {
   }, [])
 
   useEffect(() => {
-    if (isLogin && !schoolName && pathname !== Path.InitialPage && pathname !== '/' && pathname !== Path.Certificate) {
+    if (isLogin && !schoolName && pathname !== Path.InitialPage && pathname !== '/' && pathname.split('/')[1] !== 'certificate') {
       navigate(Path.ChooseSchool)
     }
   }, [isLogin, schoolName, navigate])
