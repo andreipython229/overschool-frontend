@@ -25,7 +25,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const userId = getUserIdFromLocalStorage();
   const { data: latestChats = [], refetch: refetchChats } = userId
-  ? useFetchLatestChatsQuery(userId)
+  ? useFetchLatestChatsQuery()
   : { data: [], refetch: undefined };
   const [chatData, setChatData] = useState<{ [id: number]: string }>({});
 
@@ -54,7 +54,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   const { data: latestMessages = [], refetch: refetchMessages } = userId 
   ? useFetchLatestMessagesQuery({
-      userId: userId,
       overai_chat_id: selectedChatId ? selectedChatId : 1
     })
   : { data: [], refetch: undefined };
@@ -195,7 +194,7 @@ useEffect(() => {
     const deleteNewChats = async () => {
       try {
         if (userId) {
-          await deleteChats(userId);
+          await deleteChats();
           await fetchChats();
         }
       } catch (error) {
@@ -210,7 +209,7 @@ useEffect(() => {
     try {
       if (userId !== null && userId !== undefined) {
         setIsCreatingChatDisabled(true);
-        const response = await createChatMutation({ user_id: userId });
+        const response = await createChatMutation();
         if ('data' in response && response.data !== undefined) {
           const newChatId = response.data.overai_chat_id;
           setChatList((prevChatList) => [...prevChatList, newChatId]);
@@ -229,7 +228,7 @@ useEffect(() => {
 
   const handleCreateChat = async () => {
     if (userId !== null) {
-      await updateWelcomeMessage(userId);
+      await updateWelcomeMessage();
     }
     await createChat();
     setShowWelcomeMessage(true);
@@ -265,13 +264,12 @@ useEffect(() => {
 
         if (userId !== null) {
           const payload: SendMessagePayload = {
-            user_id: userId,
             message: messageInput,
             overai_chat_id: selectedChatId!,
           };
 
           const botResponseTimeout = setTimeout(() => {
-            setError('Генерация длинного сообщения займет некоторое время...');
+            setError('Генерация сообщения займет некоторое время...');
           }, 10000);
 
           await sendMessage(payload);
