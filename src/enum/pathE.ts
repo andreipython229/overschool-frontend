@@ -23,7 +23,7 @@ export enum Path {
   CourseStudent = 'courses-stats/:course_id/students',
   CreateSchool = '/create-school/',
   Chat = '',
-  Certificate = '/certificate/:student_id/:course_id/:school_id/',
+  Certificate = '/certificate/:certLink',
 }
 
 export enum SettingsPath {
