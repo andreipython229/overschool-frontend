@@ -66,9 +66,10 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
 
   const generateSertLink = (courseId: number, userId: number, schoolId: number) => {
     const encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ courseId, userId, schoolId }), 'секретный_ключ').toString()
-    setSertLink(`https://overschool.by/certificate/${encryptedData}`)
+    const sanitizedData = encryptedData.replace(/\//g, '_');
+    setSertLink(`https://overschool.by/certificate/${sanitizedData}`)
 
-    return encryptedData
+    return sanitizedData
   }
 
   const decryptSertLink = (encryptedString: string): { courseId: number; userId: number; schoolId: number } => {
