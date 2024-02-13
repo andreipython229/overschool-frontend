@@ -3,5 +3,4 @@ export enum BLOCK_TYPE {
   CODE = 'code',
   VIDEO = 'video',
   PICTURE = 'picture',
-  AUDIO = 'audio',
 }

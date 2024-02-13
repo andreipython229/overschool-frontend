@@ -6,7 +6,7 @@ import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { downloadIconPath } from 'components/AddVideo/config/svgIconsPath'
-import { IBlockAudio, IBlockCode, IBlockDesc, IBlockPic, IBlockVid } from 'types/sectionT'
+import { IBlockCode, IBlockDesc, IBlockPic, IBlockVid } from 'types/sectionT'
 import { useDeleteBlockMutation } from 'api/blocksService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { deletePath } from 'config/commonSvgIconsPath'
@@ -15,8 +15,8 @@ import { Reorder, useDragControls } from 'framer-motion'
 
 type playerProps = {
   deleteBlock?: (arg: { id: string | number; schoolName: string }) => any
-  setLessonBlocks?: Dispatch<SetStateAction<(IBlockCode | IBlockDesc | IBlockPic | IBlockVid | IBlockAudio)[]>>
-  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid | IBlockAudio)[]
+  setLessonBlocks?: Dispatch<SetStateAction<(IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]>>
+  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid )[]
   lessonId: number
   videoSrc: string | undefined
   videoSrc2?: string

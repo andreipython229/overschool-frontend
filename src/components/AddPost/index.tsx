@@ -19,38 +19,33 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
   const [addPatchData] = usePatchLessonsMutation()
   const debounced = useDebounceFunc(addPatchData, 2000)
   const disabledBtn: boolean = lessonIdAndType?.type === 'test'
-  const [isAddAudioClicked, setIsAddAudioClicked] = useState<boolean>(false);
   
   const blockCreateFunc = (blockType: string) => {
     if (lesson && blockType) {
-      if (blockType === 'audio') {
-        setIsAddAudioClicked(true);
-      } else {
-        interface ISendData {
-          type: string;
-          base_lesson: number;
-          description?: string;
-          code?: string;
-          video?: string;
-          picture?: string;
-          url?: string;
-        }
-  
-        const dataToSend: ISendData = {
-          type: blockType,
-          base_lesson: lesson.baselesson_ptr_id,
-        };
-  
-        createBlock({ data: dataToSend, schoolName })
-          .unwrap()
-          .then(data => {
-            if (lessonBlocks && setLessonBlocks) {
-              setLessonBlocks(lessonBlocks.concat(data))
-            }
-          });
+      interface ISendData {
+        type: string
+        base_lesson: number
+        description?: string
+        code?: string
+        video?: string
+        picture?: string
+        url?: string
       }
+
+      const dataToSend: ISendData = {
+        type: blockType,
+        base_lesson: lesson.baselesson_ptr_id,
+      }
+
+      createBlock({ data: dataToSend, schoolName })
+        .unwrap()
+        .then(data => {
+          if (lessonBlocks && setLessonBlocks) {
+            setLessonBlocks(lessonBlocks.concat(data))
+          }
+        })
     }
-  };
+  }
 
   return (
     <section className={styles.redactorCourse_rightSide_functional_creating}>

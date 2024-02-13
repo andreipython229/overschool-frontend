@@ -3,12 +3,12 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react';
 
 
 export interface UserQuestion {
-  sender?: string;
+  sender?: number;
   sender_question: string;
 }
 
 export interface BotAnswer {
-  sender?: string;
+  sender?: number;
   answer: string;
 }
 
@@ -25,7 +25,7 @@ export interface SendMessagePayload {
 
 export interface SendMessageResponse {
   success: boolean;
-  messageId: string;
+  messageId: number;
   bot_response: string;
 }
 
@@ -37,7 +37,7 @@ export const chatgptService = createApi({
   reducerPath: 'chatgptService',
   baseQuery: baseQuery(),
   endpoints: build => ({
-    updateWelcomeMessage: build.mutation<{ success: boolean }, string>({
+    updateWelcomeMessage: build.mutation<{ success: boolean }, number>({
       query: (userId) => ({
         url: `/chatgpt/update_welcome_message/${userId}/`,
         method: 'POST',
@@ -46,12 +46,12 @@ export const chatgptService = createApi({
         },
       }),
     }),
-    fetchWelcomeMessage: build.query<{ show_welcome_message: boolean }, string>({
-      query: (userId) => ({
-        url: `/chatgpt/user_welcome_message/${userId}/`,
+    fetchWelcomeMessage: build.query<{ show_welcome_message: boolean }, void>({
+      query: () => ({
+        url: `/chatgpt/user_welcome_message/`,
       }),
     }),
-    fetchLatestMessages: build.query<Array<LatestMessagesResponse>, { userId: string; overai_chat_id?: string }>({
+    fetchLatestMessages: build.query<Array<LatestMessagesResponse>, { userId: number; overai_chat_id?: number }>({
       query: ({ userId, overai_chat_id }) => ({
         url: `/chatgpt/latest_messages/${userId}/${overai_chat_id}/`
       }),
@@ -85,7 +85,7 @@ export const chatgptService = createApi({
         },
       }),
     }),
-    fetchLatestChats: build.query<LatestChatsResponse, string>({
+    fetchLatestChats: build.query<LatestChatsResponse, number>({
       query: (userId) => ({
         url: `/chatgpt/latest_chats/${userId}/`,
       }),

@@ -25,7 +25,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const userId = getUserIdFromLocalStorage();
   const { data: latestChats = [], refetch: refetchChats } = userId
-  ? useFetchLatestChatsQuery(userId.toString())
+  ? useFetchLatestChatsQuery(userId)
   : { data: [], refetch: undefined };
   const [chatData, setChatData] = useState<{ [id: number]: string }>({});
 
@@ -46,7 +46,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [isChatSelectionDisabled, setIsChatSelectionDisabled] = useState(false);
   const [isCreatingChatDisabled, setIsCreatingChatDisabled] = useState(false);
   const [showWelcomeMessage, setShowWelcomeMessage] = useState<boolean>(true);
-  const { data: welcomeMessageData } = useFetchWelcomeMessageQuery(userId ? userId.toString() : '');
+  const { data: welcomeMessageData } = useFetchWelcomeMessageQuery();
   const [showSpinner, setShowSpinner] = useState(true);
   const [isBotResponsePending, setIsBotResponsePending] = useState(false);
   const [deleteChats] = useDeleteChatsMutation();
@@ -54,8 +54,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   const { data: latestMessages = [], refetch: refetchMessages } = userId 
   ? useFetchLatestMessagesQuery({
-      userId: userId.toString(),
-      overai_chat_id: selectedChatId ? selectedChatId.toString() : '1'
+      userId: userId,
+      overai_chat_id: selectedChatId ? selectedChatId : 1
     })
   : { data: [], refetch: undefined };
 
@@ -229,7 +229,7 @@ useEffect(() => {
 
   const handleCreateChat = async () => {
     if (userId !== null) {
-      await updateWelcomeMessage(userId.toString());
+      await updateWelcomeMessage(userId);
     }
     await createChat();
     setShowWelcomeMessage(true);
