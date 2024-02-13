@@ -300,15 +300,21 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
   const handleDeleteFileFromLesson = async (index: number) => {
     if (lesson.type !== 'test') {
-      
-      const fileToDelete = lesson.text_files[index]
+      const fileToDelete = lesson.text_files[index];
       if (fileToDelete) {
         await deleteFile({ id: String(fileToDelete.id), schoolName })
           .unwrap()
-          .then(data => setRenderFiles(renderFiles.filter(file => file.id !== fileToDelete.id)))
+          .then(data => {
+            setRenderFiles(renderFiles.filter(file => file.id !== fileToDelete.id));
+            // Обновление lesson.text_files после удаления файла
+            setLesson(prevLesson => ({
+              ...prevLesson,
+              text_files: lesson.text_files.filter(file => file.id !== fileToDelete.id)
+            }));
+          });
       }
     }
-  }
+  };
 
   const handleChangeFiles = (event: ChangeEvent<HTMLInputElement>) => {
     const chosenFiles = Array.prototype.slice.call(event.target.files)
@@ -442,7 +448,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   />
                 ))}
  
-                {files?.map((file: File, index: number) => (
+                {/* {files?.map((file: File, index: number) => (
                   <UploadedFile
                     key={index}
                     index={index}
@@ -450,7 +456,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                     size={file.size}
                     handleDeleteFile={index => handleDeleteFileFromLesson(index)}
                   />
-                ))}
+                ))} */}
 
                   {(lesson.audio_files) && (
                     <div>
