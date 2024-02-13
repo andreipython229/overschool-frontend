@@ -31,8 +31,9 @@ import { useDeleteBlockMutation, useOrderUpdateMutation } from 'api/blocksServic
 import { useDebounceFunc } from 'customHooks'
 import { AnimatePresence, Reorder } from 'framer-motion'
 import { AddPicture } from 'components/AddPicture'
+import { AddAudio } from 'components/AddAudio'
 
-export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
+export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType, setShow }) => {
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
   const [lessonBlocks, setLessonBlocks] = useState<BlockT[]>([])
   const [files, setFiles] = useState<File[]>([])
@@ -51,6 +52,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [deleteAudio, { isLoading: isAudioDeleting }] = useDeleteAudioFilesMutation()
   const [deleteBlock, { isLoading: isBlockDeleting }] = useDeleteBlockMutation()
   const [lesson, setLesson] = useState(data as commonLessonT)
+
+  const [isPreview, setIsPreview] = useState<boolean>(false);
+  const [isAddAudioClicked, setIsAddAudioClicked] = useState<boolean>(false);
 
   useEffect(() => {
     if (data) {
@@ -73,6 +77,10 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       setLessonBlocks(lesson.blocks)
     }
   }, [lesson])
+
+  const updateLesson = (newLesson: commonLessonT) => {
+    setLesson(newLesson);
+  };
 
   const renderBlocks = () => {
     return lessonBlocks.map(block => {
@@ -186,6 +194,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
       formData1.append('base_lesson', `${data?.baselesson_ptr_id}`)
       files.forEach(file => formData1.append('files', file))
+      
       await addTextFiles({ formData: formData1, schoolName }).then(data => {
         setFiles([])
         setUrlFiles([])
@@ -247,7 +256,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     })
 
     setFiles(uploaded)
-    setUrlFiles(uploadedUrlFiles)
+    // setUrlFiles(uploadedUrlFiles)
   }
 
   const handleDeleteFile = (index: number) => {
@@ -273,26 +282,39 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       await saveChanges({ arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName })
     }
   }
-
+  
   const handleDeleteAudioFile = async (index: number) => {
     if (lesson.type !== 'test') {
-      const fileToDelete = lesson.audio_files[index]
+      
+      const fileToDelete = lesson.audio_files[index];
       if (fileToDelete) {
-        await deleteAudio({ id: String(fileToDelete.id), schoolName })
+        await deleteAudio({ id: String(fileToDelete.id), schoolName });
+        const updatedAudioFiles = lesson.audio_files.filter(file => file.id !== fileToDelete.id);
+        setLesson(prevLesson => ({
+          ...prevLesson,
+          audio_files: updatedAudioFiles
+        }));
       }
     }
-  }
+  };
 
   const handleDeleteFileFromLesson = async (index: number) => {
     if (lesson.type !== 'test') {
-      const fileToDelete = lesson.text_files[index]
+      const fileToDelete = lesson.text_files[index];
       if (fileToDelete) {
         await deleteFile({ id: String(fileToDelete.id), schoolName })
           .unwrap()
-          .then(data => setRenderFiles(renderFiles.filter(file => file.id !== fileToDelete.id)))
+          .then(data => {
+            setRenderFiles(renderFiles.filter(file => file.id !== fileToDelete.id));
+            // Обновление lesson.text_files после удаления файла
+            setLesson(prevLesson => ({
+              ...prevLesson,
+              text_files: lesson.text_files.filter(file => file.id !== fileToDelete.id)
+            }));
+          });
       }
     }
-  }
+  };
 
   const handleChangeFiles = (event: ChangeEvent<HTMLInputElement>) => {
     const chosenFiles = Array.prototype.slice.call(event.target.files)
@@ -388,14 +410,18 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                     <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
                   )}
                 </div>
-                <>
-                  {(files || lesson.audio_files) && (
-                    <div>
-                      {lesson.audio_files && <AudioPlayer audioUrls={lesson.audio_files} delete={deleteAudio} />}
-                      {files && <AudioPlayer files={files} delete={deleteAudio} />}
-                    </div>
-                  )}
-                </>
+
+                <AddAudio 
+                  lessonIdAndType={lessonIdAndType} 
+                  isPreview={isPreview} 
+                  lesson={lesson} 
+                  addAudio={setFiles} 
+                  setShow={() => setIsAddAudioClicked(true)} 
+                  updateLesson={updateLesson}
+                />
+
+                <AddFileBtn handleChangeFiles={handleChangeFiles} />
+                <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
 
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
 
@@ -410,9 +436,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   />
                 ))}
 
-                <AddFileBtn handleChangeFiles={handleChangeFiles} />
-                <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
-
                 {urlFiles?.map(({ url, name }, index: number) => (
                   <UploadedFile
                     isHw={true}
@@ -424,6 +447,29 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                     handleDeleteFile={handleDeleteFile}
                   />
                 ))}
+ 
+                {files?.map((file: File, index: number) => (
+                  <UploadedFile
+                    key={index}
+                    index={index}
+                    file={file.name}
+                    size={file.size}
+                    handleDeleteFile={index => handleDeleteFileFromLesson(index)}
+                  />
+                ))}
+
+                  {(lesson.audio_files) && (
+                    <div>
+                       {lesson.audio_files && lesson.audio_files.map((audio, index) => (
+                        <AudioPlayer
+                          key={index}
+                          audioUrls={[audio]}
+                          delete={() => handleDeleteAudioFile(index)}
+                        />
+                      ))}
+                    </div>
+                  )}
+
                 {/*{urlFiles.length > 0 && (*/}
                 {/*    <Button style={{marginTop: '20px'}} variant="primary" text="Загрузить" type="submit"*/}
                 {/*            onClick={handleUploadFile}/>*/}

@@ -33,6 +33,7 @@ export interface IBlockPic {
   order: number
 }
 
+
 export type BlockT = IBlockCode | IBlockDesc | IBlockPic | IBlockVid
 
 export interface ILesson {
