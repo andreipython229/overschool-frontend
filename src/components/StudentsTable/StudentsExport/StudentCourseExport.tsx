@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { Button } from '../../common/Button/Button'
 import {useDebounceFunc} from "../../../customHooks";
+import { IconSvg } from '../../common/IconSvg/IconSvg'
+import { downLoadIconPath } from '../../StudentsTableWrapper/config/svgIconsPath'
 import styles from '../../../Pages/School/StudentsStats/studentsStats.module.scss'
 import * as XLSX from "xlsx"
 
@@ -32,8 +34,9 @@ export const StudentsCourseExport: FC = () => {
         XLSX.writeFile(wb, "Отчёт.xlsx");
   };
 
-  return (
-       <Button onClick={handleOnExport} className={styles.students_group_header_add_teacher_btn} text={'Выгрузка отчета'}>
-        </Button >
-  )
+   return (
+     <Button onClick={handleOnExport} className={styles.students_group_header_add_teacher_btn} text={''}>
+         <IconSvg width={22} height={22} viewBoxSize={"0 0 18 18"} path={downLoadIconPath} />
+     </Button>
+ )
 }

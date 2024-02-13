@@ -28,6 +28,10 @@ type studentT = {
   patronymic: string
 }
 
+type requestData = {
+  [key: string]: any
+}
+
 export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, courses }) => {
   const params = useParams()
   const schoolName = window.location.href.split('/')[4]
@@ -141,21 +145,26 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
 
   const handleSendPermissions = async () => {
     if (currentGroup) {
-      const formdata = new FormData()
-      formdata.append('role', 'Student')
-      formdata.append('course_id', String(currentGroup.course_id))
-      formdata.append('name', currentGroup.name)
-      currentGroup.students.forEach(studId => formdata.append('students', String(studId)))
+      const requestBody: requestData = {
+        role: 'Student',
+        course_id: currentGroup.course_id,
+        name: currentGroup.name,
+        students: currentGroup.students,
+      }
       let count = 0
       students.map(async student => {
-        await registrationAdmin({ email: student.email })
+        await registrationAdmin({
+          email: student.email,
+          first_name: student.first_name,
+          last_name: student.last_name,
+          patronymic: student.patronymic,
+        })
           .unwrap()
           .then(async (data: any) => {
-            console.log(data)
             count = count + 1
-            formdata.append('students', data.user_id)
+            requestBody.students = [...requestBody.students, data.user_id]
             if (count === students.length) {
-              await addStudents({ data: formdata, schoolName, id: Number(selectedGroup) })
+              await addStudents({ data: requestBody, schoolName, id: Number(selectedGroup) })
                 .unwrap()
                 .then(async (accessdata: any) => {
                   setShowModal()

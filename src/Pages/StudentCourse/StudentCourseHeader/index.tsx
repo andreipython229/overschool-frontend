@@ -1,8 +1,8 @@
 import { FC, useState, useEffect } from 'react'
-import { generatePath, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
-
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useFetchCourseQuery } from 'api/coursesServices'
 import { useFetchModulesQuery } from 'api/modulesServices'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -15,9 +15,8 @@ import styles from './student_course_header.module.scss'
 import { useFetchProgressQuery, useFetchSertificateMutation } from '../../../api/userProgressService'
 import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
 import { Button } from 'components/common/Button/Button'
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
 import { useBoolean } from 'customHooks'
-import { Path } from 'enum/pathE'
 import { schoolIdSelector, selectUser } from 'selectors'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { Portal } from '../../../components/Modal/Portal'
@@ -29,6 +28,8 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { SerializedError } from '@reduxjs/toolkit'
 import { addChat } from '../../../store/redux/chats/chatsSlice'
 import { useCreatePersonalChatForAdminOrTeacherMutation } from '../../../api/chatsService'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import CryptoJS from 'crypto-js'
 
 export type studentCourseHeaderT = {
   teacher_id: number
@@ -45,15 +46,14 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
   const user = useAppSelector(selectUser)
   const school = window.location.href.split('/')[4]
   const [modal, { on: close, off: open }] = useBoolean()
-
   const { data: userProgress, isLoading, isError } = useFetchProgressQuery({ course_id: courseId as string, schoolName: school })
   const { data: course } = useFetchCourseQuery({ id: courseId as string, schoolName: school })
   const { data: modules, isSuccess } = useFetchModulesQuery({ id: courseId as string, schoolName: school })
   const [getSertificate, { data: sertData, isLoading: sertLoading, isError: errorSert }] = useFetchSertificateMutation()
 
+  const [sertLink, setSertLink] = useState<string>('')
   const [modulesData, setModulesData] = useState(modules)
-
-  console.log(sertData)
+  const [copy, { onToggle: toggleCopy }] = useBoolean(false)
 
   const arrOfLessons = modulesData?.sections.reduce((acc: lessonT[], item: sectionT) => {
     return [...acc, ...item.lessons]
@@ -64,19 +64,29 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
     {},
   )
 
+  const generateSertLink = (courseId: number, userId: number, schoolId: number) => {
+    const encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ courseId, userId, schoolId }), 'секретный_ключ').toString()
+    const sanitizedData = encryptedData.replace(/\//g, '_');
+    setSertLink(`https://overschool.by/certificate/${sanitizedData}`)
+
+    return sanitizedData
+  }
+
+  const decryptSertLink = (encryptedString: string): { courseId: number; userId: number; schoolId: number } => {
+    const bytes = CryptoJS.AES.decrypt(encryptedString, 'секретный_ключ')
+    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+
+    return decryptedData
+  }
+
   const handleSertificate = () => {
     if (courseId && user.userId) {
       getSertificate({ course_id: Number(courseId), user_id: user.userId, school_id: Number(schoolId) })
         .unwrap()
-        .then(data =>
-          navigate(
-            generatePath(Path.Certificate, {
-              course_id: courseId,
-              student_id: String(user.userId),
-              school_id: String(schoolId),
-            }),
-          ),
-        )
+        .then(async data => {
+          await generateSertLink(Number(courseId), user.userId, Number(schoolId))
+          open()
+        })
         .catch(() => open())
     }
   }
@@ -113,12 +123,41 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
   return (
     <div className={styles.previous}>
       <Dialog open={modal} onClose={close} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">{'Сертификат в данном курсе недоступен :('}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Сертификаты для данного курса недоступны. Свяжитесь с администрацией курса, если вы считаете, что тут какая-то ошибка.
-          </DialogContentText>
-        </DialogContent>
+        {sertLink ? (
+          <>
+            <DialogTitle id="alert-dialog-title">{'Поздравляем с завершением курса!'}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                <TextField
+                  sx={{ marginTop: '0.5rem', width: '100%', minWidth: '400px' }}
+                  id="standard-name"
+                  label="Ссылка на сертификат"
+                  value={sertLink}
+                  InputProps={{
+                    endAdornment: (
+                      <CopyToClipboard text={sertLink} onCopy={() => (copy ? console.log('Уже скопировано') : toggleCopy())}>
+                        <ContentCopyIcon sx={{ padding: '5px', cursor: 'pointer' }} />
+                      </CopyToClipboard>
+                    ),
+                  }}
+                />
+                {copy && <p style={{ marginTop: '0.3rem', color: 'green' }}>Ссылка успешно скопирована!</p>}
+              </DialogContentText>
+            </DialogContent>
+          </>
+        ) : (
+          <>
+            <DialogTitle id="alert-dialog-title">{'Ссылка не может быть сформирована'}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                <p style={{ marginTop: '0.3rem' }}>
+                  Произошла ошибка при формировании ссылки на сертификат. Приносим свои извинения, наши специалисты уже работают над устранением
+                  проблемы. Пожалуйста, попробуйте позже.
+                </p>
+              </DialogContentText>
+            </DialogContent>
+          </>
+        )}
         <DialogActions>
           <Button style={{ marginInlineEnd: '1em', marginBottom: '.5em' }} onClick={close} text={'Окей'} />
         </DialogActions>

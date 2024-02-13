@@ -6,22 +6,42 @@ import stamp from './img/stamp.png'
 import styles from './Certificate.module.scss'
 import { useParams } from 'react-router-dom'
 import { useFetchSertificateMutation } from 'api/userProgressService'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import CryptoJS from 'crypto-js'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 export const Certificate = () => {
-  const { course_id: courseId, student_id: userId, school_id: schoolId } = useParams()
+  const { certLink } = useParams()
+  const [data, setData] = useState<{ courseId: number; userId: number; schoolId: number }>()
   const [getSertData, { data: sertData, isLoading, isSuccess: succSert }] = useFetchSertificateMutation()
 
+  const decryptSertLink = (encryptedString: string): { courseId: number; userId: number; schoolId: number } => {
+    const bytes = CryptoJS.AES.decrypt(encryptedString, 'секретный_ключ')
+    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+    setData(decryptedData)
+
+    return decryptedData
+  }
+
   useEffect(() => {
-    if (courseId && userId) {
+    if (certLink) {
+      decryptSertLink(certLink)
+    }
+  }, [certLink])
+
+  useEffect(() => {
+    if (data && data.courseId && data.userId && data.schoolId) {
       getSertData({
-        user_id: Number(userId),
-        course_id: Number(courseId),
-        school_id: Number(schoolId),
+        user_id: Number(data.userId),
+        course_id: Number(data.courseId),
+        school_id: Number(data.schoolId),
       })
     }
-  }, [])
-  console.log(sertData)
+  }, [data])
+
+  if (!sertData || isLoading) {
+    return <SimpleLoader />
+  }
 
   return sertData ? (
     <main className={styles.main}>

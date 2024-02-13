@@ -1,7 +1,7 @@
 import { FC, memo, useEffect, useState, ReactNode } from 'react'
 import {RoleE} from 'enum/roleE'
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { classesSettingIconPath, downLoadIconPath } from './config/svgIconsPath'
+import { classesSettingIconPath } from './config/svgIconsPath'
 import { generateData } from '../../utils/generateData'
 import { useLazyFetchStudentsTableHeaderQuery } from '../../api/studentTableService'
 import { useBoolean } from 'customHooks'
@@ -11,7 +11,6 @@ import { studentsTableInfoT, result } from 'types/courseStatT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { GenerateRow } from './types'
 import { tableFilterByNamePath, tableFilterByEmailUpPath, tableFilterByEmailDownPath } from '../../config/commonSvgIconsPath'
-import * as XLSX from "xlsx"
 
 import styles from './studentsTableBlock.module.scss'
 import {Button} from "../common/Button/Button";
@@ -185,14 +184,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
     !isStudentModalOpen && setSelectedStudentId(null)
   }, [isStudentModalOpen])
 
-  const handleOnExport = () => {
-        const wb = XLSX.utils.book_new(),
-        ws = XLSX.utils.json_to_sheet(students);
-        XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
-        XLSX.writeFile(wb, "Отчёт.xlsx");
-
-  };
-
   return (
     <>
       <div className={styles.wrapper}>
@@ -245,14 +236,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
                 </th>
               ))}
               <td>
-                <>
                 <button className={styles.svgSettingsWrapper}>
                   <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
                 </button>
-                <button className={styles.svgSettings} onClick={handleOnExport}>
-                  <IconSvg width={22} height={22} viewBoxSize={'0 0 18 18'} path={downLoadIconPath} />
-                </button>
-                </>
               </td>
             </tr>
           </thead>
