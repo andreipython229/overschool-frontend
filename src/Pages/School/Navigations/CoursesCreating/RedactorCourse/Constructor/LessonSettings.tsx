@@ -256,7 +256,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     })
 
     setFiles(uploaded)
-    setUrlFiles(uploadedUrlFiles)
+    // setUrlFiles(uploadedUrlFiles)
   }
 
   const handleDeleteFile = (index: number) => {
@@ -448,7 +448,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   />
                 ))}
  
-                {/* {files?.map((file: File, index: number) => (
+                {files?.map((file: File, index: number) => (
                   <UploadedFile
                     key={index}
                     index={index}
@@ -456,7 +456,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                     size={file.size}
                     handleDeleteFile={index => handleDeleteFileFromLesson(index)}
                   />
-                ))} */}
+                ))}
 
                   {(lesson.audio_files) && (
                     <div>
