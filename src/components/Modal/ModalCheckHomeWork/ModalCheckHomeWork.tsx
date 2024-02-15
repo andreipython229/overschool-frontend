@@ -280,7 +280,6 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
       </div>
       {!hwStatus && (
         <>
-          <h3 className={styles.answer_header}>Введите ваш ответ:</h3>
           {/*<MyEditor setDescriptionLesson={setText} />*/}
           <TextField
             id="outlined-basic"

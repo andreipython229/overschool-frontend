@@ -289,7 +289,6 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
 
       {!hwStatus && (
         <>
-          <h3 className={styles.answer_header}>Введите ваш ответ:</h3>
           <TextField
             id="outlined-basic"
             label="Введите ответ на домашнее задание..."
