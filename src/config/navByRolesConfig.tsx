@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Navigate } from 'react-router-dom'
 
 import { RoleE } from 'enum/roleE'
 import { CoursesStats } from 'Pages/CoursesStats/CoursesStats'
@@ -22,6 +22,7 @@ import { StudentsStats } from 'Pages/School/StudentsStats/StudentsStats'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
 import { Group } from '../Pages/Group'
+
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -58,7 +59,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route index element={<CoursePage />} />
         <Route path={Path.Group} element={<Group />} />
         <Route path={Path.CreateCourse} element={<RedactorCourse />}>
-          <Route index element={<Constructor />} />
+          <Route index element={<Navigate to={CreateCoursePath.Constructor} />} />
           <Route path={CreateCoursePath.Constructor} element={<Constructor />} />
           <Route path={CreateCoursePath.Student} element={<StudentsStats />} />
           <Route path={CreateCoursePath.Settings} element={<SettingCourse />} />
@@ -67,7 +68,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.Profile} element={<Profile />} />
       <Route path={Path.CourseStats} element={<CoursesStats />} />
       <Route path={Path.Settings} element={<Settings />}>
-        <Route index element={<Main />} />
+        <Route index element={<Navigate to={SettingsPath.Main} />} />
         <Route path={SettingsPath.Main} element={<Main />} />
         <Route path={SettingsPath.Employees} element={<Employees />} />
         <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
