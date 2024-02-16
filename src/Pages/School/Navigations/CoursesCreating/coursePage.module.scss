@@ -9,12 +9,15 @@
 }
 
 .course {
+  max-width: 1800px;
   grid-auto-flow: row;
+  margin: 0 auto;
   margin-top: 16px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(242px, 242px));
-  grid-gap: 10px;
+  grid-gap: 3% 1%;
   padding-bottom: 50px;
+  justify-content: space-around;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     display: flex;
     align-items: center;

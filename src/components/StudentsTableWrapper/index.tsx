@@ -127,6 +127,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
         const personalChatData = new FormData();
         personalChatData.append('user_id', student.student_id.toString());
         personalChatData.append('role_name', RoleE[role]);
+        personalChatData.append('role_reciever', "Student");
         createPersonalChatForAdminOrTeacher(personalChatData)
             .then((async( response: { data: ChatI } | { error: FetchBaseQueryError | SerializedError })  => {
               if ('data' in response) {
@@ -257,8 +258,8 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
                     >
                       {typeof cellValue === 'object' ? (
                         <div className={styles.table_user}>
-                          {row['Дата удаления из группы'] === ' ' && (
-                            <Button className={styles.chat_button} text={"CHAT"} onClick={() => handleToggleChatModal(id)}/>
+                          {row['Дата удаления из группы'] === ' ' && typeof cellValue.text !== 'number' && (
+                              <Button className={styles.chat_button} text={"CHAT"} onClick={() => handleToggleChatModal(id)}/>
                             )
                           }
 

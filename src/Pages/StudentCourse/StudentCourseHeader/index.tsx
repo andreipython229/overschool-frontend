@@ -66,17 +66,10 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
 
   const generateSertLink = (courseId: number, userId: number, schoolId: number) => {
     const encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ courseId, userId, schoolId }), 'секретный_ключ').toString()
-    const sanitizedData = encryptedData.replace(/\//g, '_');
+    const sanitizedData = encryptedData.replace(/\//g, '%2F');
     setSertLink(`https://overschool.by/certificate/${sanitizedData}`)
 
     return sanitizedData
-  }
-
-  const decryptSertLink = (encryptedString: string): { courseId: number; userId: number; schoolId: number } => {
-    const bytes = CryptoJS.AES.decrypt(encryptedString, 'секретный_ключ')
-    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
-
-    return decryptedData
   }
 
   const handleSertificate = () => {
@@ -106,6 +99,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
       const personalChatData = new FormData()
       personalChatData.append('user_id', teacher_id.toString())
       personalChatData.append('role_name', RoleE[role])
+        personalChatData.append('role_reciever', "Teacher");
       createPersonalChatForAdminOrTeacher(personalChatData)
         .then(async (response: { data: ChatI } | { error: FetchBaseQueryError | SerializedError }) => {
           if ('data' in response) {
