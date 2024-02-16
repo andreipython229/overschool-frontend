@@ -99,6 +99,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
       const personalChatData = new FormData()
       personalChatData.append('user_id', teacher_id.toString())
       personalChatData.append('role_name', RoleE[role])
+        personalChatData.append('role_reciever', "Teacher");
       createPersonalChatForAdminOrTeacher(personalChatData)
         .then(async (response: { data: ChatI } | { error: FetchBaseQueryError | SerializedError }) => {
           if ('data' in response) {
