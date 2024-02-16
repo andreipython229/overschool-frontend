@@ -63,14 +63,18 @@ export const ReviewTeacherGroups: FC<reviewTeacherGroupsT> = ({closeModal, name,
                 </div>
                 <div className={styles.main_employee_course}>
                     {groups?.length !== 0 ? <>
-                            <span className={styles.main_employee_course_title} style={{marginBottom: 15}}>Группы ментора:</span>
-                            {groups?.map(({course_id, course_name, name}: teacherGroupT) => (
-                                <p key={course_id}><span
-                                    className={styles.main_employee_course_title}>курс... </span> {course_name}
-                                    <span className={styles.main_employee_course_title}>  ...группа... </span> {name}
-                                </p>
-                            ))} </>
-                        : <span className={styles.main_employee_course_title}>У ментора групп нет</span>
+                            <span className={styles.main_employee_course_title} style={{marginBottom: 5}}>Группы ментора:</span>
+                            <table>
+                                <tbody>
+                                    {groups?.map(({ course_id, course_name, name }: teacherGroupT) => (
+                                    <tr key={course_id}>
+                                        <td><b>Курс:</b> {course_name}</td>
+                                        <td><b>Группа:</b> {name}</td>
+                                    </tr>
+                                    ))}
+                                </tbody>
+                            </table> </>
+                        : <span className={styles.main_employee_course_title}>У ментора нет групп</span>
                     }
                 </div>
 
