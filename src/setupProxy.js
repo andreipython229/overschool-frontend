@@ -15,7 +15,6 @@ module.exports = function (app) {
     '/api',
     createProxyMiddleware({
       target: 'https://apidev.overschool.by',
-      // target: 'http://localhost:8000',
       changeOrigin: true,
       secure: false,
     }),

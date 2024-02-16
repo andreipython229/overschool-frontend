@@ -5,12 +5,10 @@ import { AddPostT } from '../../types/componentsTypes'
 import { usePatchLessonsMutation } from 'api/modulesServices'
 import Text from '../.././assets/img/createCourse/text.svg'
 import Video from '../.././assets/img/createCourse/video.svg'
-import Audio from '../.././assets/img/createCourse/audio.svg'
 import Code from '../.././assets/img/createCourse/code.svg'
 import Picture from '../.././assets/img/createCourse/picture.svg'
 
 import styles from './addPost.module.scss'
-import { AudioPlayer } from 'components/common/AudioPlayer'
 import { useCreateBlockMutation } from 'api/blocksService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
@@ -21,7 +19,7 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
   const [addPatchData] = usePatchLessonsMutation()
   const debounced = useDebounceFunc(addPatchData, 2000)
   const disabledBtn: boolean = lessonIdAndType?.type === 'test'
-
+  
   const blockCreateFunc = (blockType: string) => {
     if (lesson && blockType) {
       interface ISendData {
@@ -67,7 +65,6 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
               alt={'Add picture for lesson'}
               src={Picture}
             />
-            <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('audio')} text={'Аудио'} alt={'Add audio for lesson'} src={Audio} />
           </>
         )}
       </div>

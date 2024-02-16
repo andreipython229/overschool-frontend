@@ -16,7 +16,7 @@ import { Reorder, useDragControls } from 'framer-motion'
 type playerProps = {
   deleteBlock?: (arg: { id: string | number; schoolName: string }) => any
   setLessonBlocks?: Dispatch<SetStateAction<(IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]>>
-  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]
+  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid )[]
   lessonId: number
   videoSrc: string | undefined
   videoSrc2?: string

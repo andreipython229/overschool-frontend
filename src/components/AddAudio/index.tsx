@@ -1,24 +1,26 @@
-import { useState, DragEvent, ChangeEvent, FC } from 'react'
-
-import { LESSON_TYPE } from 'enum/lessonTypeE'
+import { useState, DragEvent, FC } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { arrUpPath, arrDownPath, arrUpdatePath, deletePath } from '../../config/commonSvgIconsPath'
 import { AddPostT, setShowType } from '../../types/componentsTypes'
 import { usePostAudioFilesMutation } from 'api/filesService'
-import { AudioPlayer } from '../common/AudioPlayer'
 import { SimpleLoader } from '../Loaders/SimpleLoader'
+import { ILesson } from 'types/sectionT'
 
 import styles from './addaudio.module.scss'
 const stylesOnDrop = styles.redactorCourse_rightSide_functional_addContent + ' ' + styles.redactorCourse_rightSide_functional_addDragContent
 const stylesNoDrop = styles.redactorCourse_rightSide_functional_addContent
 
-export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPreview, lesson, addAudio, setShow }) => {
+interface AddAudioProps extends setShowType, AddPostT {
+  updateLesson: (newLesson: ILesson) => void;
+}
+
+export const AddAudio: FC<setShowType & AddPostT & AddAudioProps> = ({ lessonIdAndType, lesson, addAudio, setShow, updateLesson }) => {
   const [dragAudio, setDragAudio] = useState<boolean>(false)
   const schoolName = window.location.href.split('/')[4]
 
   const [addAudioFiles, { isLoading }] = usePostAudioFilesMutation()
   const [isLoadingAudio, setIsLoadingAudio] = useState<boolean>(false)
+  const [audioFiles, setAudioFiles] = useState<File[]>([]);
 
   const dragStartAudioHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -39,21 +41,27 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
     // const formdata = new FormData()
     // formdata.append('video', audioFiles[0])
 
+    setAudioFiles((prevAudioFiles) => [...prevAudioFiles, ...audioFiles]);
     setDragAudio(false)
   }
-
+  
   const handleAudioUpload = async (lessonIdAndType: any, audio: File) => {
     setIsLoadingAudio(true)
     const formData = new FormData()
     formData.append('files', audio)
     formData.append('base_lesson', String(lesson.baselesson_ptr_id))
-
+    
     try {
-      await addAudioFiles({formData, schoolName})
-        .unwrap()
-        .then(() => {
-          addAudio((prev: File[]) => [...prev, audio])
-        })
+      
+      const response = await addAudioFiles({formData, schoolName})
+      .unwrap()
+      
+      if (Array.isArray(response) && lesson && 'audio_files' in lesson) {
+        const updatedAudioFiles = [...lesson.audio_files, ...response];
+        if ('lesson_id' in lesson) {
+          updateLesson({ ...lesson, audio_files: updatedAudioFiles });
+        }
+    }
       setIsLoadingAudio(false)
       setShow()
     } catch (error) {
@@ -63,7 +71,6 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
 
   return (
     <>
-      {!isPreview ? (
         <div className={styles.redactorCourse_wrapper}>
           <div
             onDragStart={dragStartAudioHandler}
@@ -98,25 +105,8 @@ export const AddAudio: FC<setShowType & AddPostT> = ({ lessonIdAndType, isPrevie
               text={isLoading ? <SimpleLoader style={{ width: '125px', height: '25px' }} loaderColor="#ffff" /> : 'Выбрать файл'}
             />
           </div>
-          <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
-            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-              <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrUpPath} />
-            </div>
-            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_div}>
-              <IconSvg width={11} height={15} viewBoxSize="0 0 11 15" path={arrDownPath} />
-            </div>
-            <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete} onClick={setShow}>
-              <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
-            </div>
-          </div>
         </div>
-      ) : lesson.type === LESSON_TYPE.LESSON || lesson.type === LESSON_TYPE.HOMEWORK ? (
-        <>
-          {lesson.audio_files && <AudioPlayer audioUrls={lesson.audio_files} />}
-        </>
-      ) : (
-        <></>
-      )}
+
     </>
   )
 }

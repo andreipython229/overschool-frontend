@@ -30,6 +30,8 @@ export const Constructor: FC = () => {
 
   const [check, setCheck] = useState(false)
 
+  const [show, setShow] = useState(false);
+
   const handleCloseAllModal = () => {
     setType(null as keyof object)
   }
@@ -48,6 +50,11 @@ export const Constructor: FC = () => {
     }
   }, [courseId, modulesAndLessons?.sections, lessonIdAndType.type, isLoad])
 
+  const handleSetShow = () => {
+    setShow(!show);
+  }
+  
+
   const isLoading = modulesList[0] && modulesList[0].lessons[0] && lessonIdAndType.type
 
   if (!isSuccess)
@@ -60,7 +67,7 @@ export const Constructor: FC = () => {
   return (
     <div className={styles.redactorCourse}>
       <ModulesAndLessonsBlock setType={setType} setLessonIdAndType={setLessonIdAndType} modulesList={modulesList || []} isLoading={check} />
-      {isLoading && <LessonSettings deleteLesson={deleteLesson} lessonIdAndType={lessonIdAndType} setType={setType} />}
+      {isLoading && <LessonSettings deleteLesson={deleteLesson} lessonIdAndType={lessonIdAndType} setType={setType} setShow={handleSetShow} />}
       {type && (
         <Portal closeModal={handleCloseAllModal}>
           <ModalMaper
