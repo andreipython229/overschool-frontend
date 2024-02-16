@@ -58,6 +58,19 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
       return sender1[0]
   }
 
+  const getRoleTranslation = (role: string): string => {
+      switch (role) {
+        case 'Teacher':
+          return 'Ментор';
+        case 'Student':
+          return 'Ученик';
+        case 'Admin':
+          return 'Администратор';
+        default:
+          return 'Без роли';
+      }
+  };
+
   return (
     <div
       className={`${styles.chatPreview} ${isSelected ? styles.chatPreview_selected : ''}`}
@@ -116,13 +129,7 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
             ) : chat.type === "PERSONAL" ? (
                 <div className={styles.chatPreview_info}>
                     <div className={styles.chatPanel_user_avatar_userName_status}>
-                        {role === RoleE.Teacher || role === RoleE.Admin ? (
-                                <div>Студент</div>
-                              ): role === RoleE.Student ? (
-                                  <>
-                                      {chat.name.split(":", 1)}
-                                  </>
-                              ) : null}
+                        <div>{getRoleTranslation(getInterlocutor(chat).user_role || '')}</div>
                     </div>
                     <div className={styles.chatPreview_top}>
                       <p>{getInterlocutor(chat).first_name || 'Группа без имени'} {getInterlocutor(chat).last_name || ''}</p>
