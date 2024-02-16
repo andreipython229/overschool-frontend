@@ -31,12 +31,12 @@ export const StudentsCourseExport: FC = () => {
         const wb = XLSX.utils.book_new(),
         ws = XLSX.utils.json_to_sheet(allStudents);
         XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
-        XLSX.writeFile(wb, "Отчёт.xlsx");
+        XLSX.writeFile(wb, "Ученики курса.xlsx");
   };
 
    return (
-     <Button onClick={handleOnExport} className={styles.students_group_header_add_teacher_btn} text={''}>
-         <IconSvg width={22} height={22} viewBoxSize={"0 0 18 18"} path={downLoadIconPath} />
-     </Button>
+    <Button onClick={handleOnExport} className={styles.students_group_header_export_button} text={''}>
+        Скачать таблицу с учениками
+    </Button>
  )
 }
