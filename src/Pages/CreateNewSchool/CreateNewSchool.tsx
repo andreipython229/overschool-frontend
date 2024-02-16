@@ -30,7 +30,7 @@ export const CreateNewSchool = () => {
   const validationSchema: any = Yup.object().shape({
     school_name: Yup.string().min(2, "Слишком короткое!").max(50, "Слишком длинное!").required('Поле  обязательно для заполнения'),
     email: Yup.string().email('Введите корректный email').required('Введите email'),
-    phone_number: Yup.string().required('Введите номер телефона').min(12, 'Некорректный номер телефона'),
+    phone_number: Yup.string().required('Введите номер телефона').min(11, 'Некорректный номер телефона'),
     password: Yup.string().required('Введите пароль').min(6, "Пароль слишком короткий - должно быть минимум 6 символов"),
     password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают').required('Поле обязательно для заполнения'),
   });
@@ -170,7 +170,11 @@ export const CreateNewSchool = () => {
               <div className={styles.input_container_input}>
                 <PhoneInput
                   inputProps={{
-                    name: 'phone_number'
+                    name: 'phone_number',
+                    style: {
+                      border: "none",
+                      width: "100%"
+                      }
                   }}
                   value={formik.values.phone_number}
                   onChange={(value) => formik.setFieldValue('phone_number', value)}
