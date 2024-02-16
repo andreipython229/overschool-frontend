@@ -94,6 +94,7 @@ export const {
     useFetchStudentsGroupByCourseQuery,
     useLazyFetchStudentsGroupByCourseQuery,
     useFetchStudentGroupQuery,
+    useLazyFetchStudentGroupQuery,
     useFetchStudentsGroupQuery,
     useLazyFetchStudentsGroupQuery,
     useCreateStudentsGroupMutation,

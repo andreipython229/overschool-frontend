@@ -6,7 +6,11 @@ import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { addStudentIconPath } from '../config/svgIconsPath'
 import { AddStudentModalPropsT } from '../../ModalTypes'
-import { useFetchStudentsGroupByCourseQuery, usePatchGroupWithoutTeacherMutation } from '../../../../api/studentsGroupService'
+import {
+  useLazyFetchStudentGroupQuery,
+  useLazyFetchStudentsGroupByCourseQuery,
+  usePatchGroupWithoutTeacherMutation,
+} from '../../../../api/studentsGroupService'
 import { AddNewStudents } from './AddNewStudents'
 import { studentsGroupT, studentsGroupsT } from 'types/studentsGroup'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
@@ -34,8 +38,10 @@ type requestData = {
 
 export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, courses }) => {
   const params = useParams()
+  const { group_id: groupId } = params
   const schoolName = window.location.href.split('/')[4]
-  const { data: groups, isFetching, isSuccess } = useFetchStudentsGroupByCourseQuery({ id: Number(params.course_id), schoolName })
+  const [fetchGroups, { data: groups, isFetching, isSuccess }] = useLazyFetchStudentsGroupByCourseQuery()
+  const [fetchGroup, { data: group, isFetching: groupFetching, isSuccess: groupSuccess }] = useLazyFetchStudentGroupQuery()
   const [registrationAdmin] = useAdminRegistrationMutation()
   const [addStudents, { isSuccess: studentSuccess, isLoading: studentLoading, isError: studentError }] = usePatchGroupWithoutTeacherMutation()
   const [groupsList, setGroupsList] = useState<studentsGroupT>()
@@ -53,6 +59,14 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   const [isOpenLimitModal, { onToggle }] = useBoolean()
   const [message, setMessage] = useState<string>('')
   const [error, setError] = useState<string>('')
+
+  useEffect(() => {
+    if (groupId) {
+      fetchGroup({ id: groupId, schoolName }).unwrap().then((data) => setCurrentGroup(data))
+    } else {
+      fetchGroups({ id: Number(params.course_id), schoolName })
+    }
+  }, [params])
 
   useEffect(() => {
     if (selectedGroup && groupsList) {
@@ -164,7 +178,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
             count = count + 1
             requestBody.students = [...requestBody.students, data.user_id]
             if (count === students.length) {
-              await addStudents({ data: requestBody, schoolName, id: Number(selectedGroup) })
+              await addStudents({ data: requestBody, schoolName, id: Number(currentGroup.group_id) })
                 .unwrap()
                 .then(async (accessdata: any) => {
                   setShowModal()
