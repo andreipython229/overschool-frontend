@@ -72,7 +72,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
 
     useEffect(() => {
         if (allUsers) {
-            const allTeachers = allUsers.filter((user: any) => user.role === 'Teacher')
+            const allTeachers = allUsers.results.filter((user: any) => user.role === 'Teacher')
             setAllTeachers(allTeachers)
             if (courseGroups) {
                 const teachersGroups = courseGroups?.results.map((group: any) => group.teacher_id)
