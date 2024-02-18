@@ -24,7 +24,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   const [groupName, setGroupName] = useState<string>('')
   const [teacher_id, setTeacherId] = useState<string>('')
   const [withTeacher, { onToggle: toggleWithTeacher }] = useBoolean(false)
-  const [getUsers, {data: userList}] = useLazyFetchAllUsersQuery()
+  const [getUsers, { data: userList }] = useLazyFetchAllUsersQuery()
   const [teachers, setTeachers] = useState<any>([])
   const [getGroups, { data: allGroups }] = useLazyFetchStudentsGroupQuery()
   const [createStudentsGroup, { isLoading }] = useCreateStudentsGroupMutation()
@@ -32,19 +32,19 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
 
   useEffect(() => {
     if (schoolName) {
-      getUsers(schoolName);
-      getGroups(schoolName);
+      getUsers(schoolName)
+      getGroups(schoolName)
     }
   }, [schoolName])
 
   useEffect(() => {
     if (userList && allGroups) {
-      const allTeachers = userList.filter((user: any) => user.role === 'Teacher')
-      const filteredGroupList = allGroups?.results.filter(group => group.course_id === +courseId)
+      const allTeachers = userList.results.filter((user: any) => user.role === 'Teacher')
+      const filteredGroupList = allGroups.results.filter(group => group.course_id === +courseId)
       const teachersGroups = filteredGroupList?.map((group: any) => group.teacher_id)
       const availableTeachers = allTeachers.filter((teacher: any) => {
-          return !new Set(teachersGroups).has(teacher.id)
-        })
+        return !new Set(teachersGroups).has(teacher.id)
+      })
       setTeachers(availableTeachers)
     }
   }, [userList, allGroups])
@@ -70,6 +70,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
         name: groupName,
         course_id: +courseId,
         students: [],
+        type: withTeacher ? 'WITH_TEACHER' : 'WITHOUT_TEACHER',
       }
       if (!withTeacher) {
         await createGroupWithoutTeacher({ studentsGroupInfo: groupToCreate, schoolName })

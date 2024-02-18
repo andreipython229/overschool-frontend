@@ -28,8 +28,10 @@ export const App = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
+  console.log(pathname)
+
   useEffect(() => {
-    if (!isLogin && pathname !== Path.CreateSchool && pathname !== Path.InitialPage) {
+    if (!isLogin && pathname !== Path.CreateSchool && pathname !== Path.InitialPage && pathname.split('/')[1] !== 'certificate') {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])
@@ -51,7 +53,7 @@ export const App = () => {
   }, [])
 
   useEffect(() => {
-    if (isLogin && !schoolName && pathname !== Path.InitialPage) {
+    if (isLogin && !schoolName && pathname !== Path.InitialPage && pathname !== '/' && pathname.split('/')[1] !== 'certificate') {
       navigate(Path.ChooseSchool)
     }
   }, [isLogin, schoolName, navigate])

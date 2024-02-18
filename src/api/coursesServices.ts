@@ -87,7 +87,10 @@ export const {
   useCreateCoursesMutation,
   useDeleteCoursesMutation,
   usePatchCoursesMutation,
-  useCloneCourseMutation,
+  useCloneCourseMutation
 } = coursesServices
 
-export const { useFetchCoursesPageQuery } = CoursesPageService
+export const {
+  useFetchCoursesPageQuery ,
+  useLazyFetchCoursesPageQuery
+} = CoursesPageService

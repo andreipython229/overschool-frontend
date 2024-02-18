@@ -40,8 +40,9 @@ export type AddPostT = {
   addFile?: (arg: any) => void
   deleteAudio?: (id: number) => void
   addAudio?: any
-  block?: IBlockCode | IBlockDesc | IBlockPic | IBlockVid
+  block?: IBlockCode | IBlockDesc | IBlockPic | IBlockVid 
   handleEditorChange?: (code: string | undefined) => void
+  pictureUrl?: string
 }
 
 export type ContentBtnPropsT = {

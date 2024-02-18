@@ -22,7 +22,6 @@ export const userRegisterService = createApi({
         method: 'POST',
         // redirect: 'follow',
         body: formDataConverter(credentials),
-        responseHandler: response => response.text(),
       }),
     }),
     sendRegCode: build.mutation({

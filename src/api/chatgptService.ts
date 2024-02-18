@@ -3,12 +3,12 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react';
 
 
 export interface UserQuestion {
-  sender?: string;
+  sender?: number;
   sender_question: string;
 }
 
 export interface BotAnswer {
-  sender?: string;
+  sender?: number;
   answer: string;
 }
 
@@ -18,14 +18,13 @@ export interface LatestMessagesResponse {
 }
 
 export interface SendMessagePayload {
-  user_id: number;
   message: string;
   overai_chat_id?: number,
 }
 
 export interface SendMessageResponse {
   success: boolean;
-  messageId: string;
+  messageId: number;
   bot_response: string;
 }
 
@@ -37,23 +36,23 @@ export const chatgptService = createApi({
   reducerPath: 'chatgptService',
   baseQuery: baseQuery(),
   endpoints: build => ({
-    updateWelcomeMessage: build.mutation<{ success: boolean }, string>({
-      query: (userId) => ({
-        url: `/chatgpt/update_welcome_message/${userId}/`,
+    updateWelcomeMessage: build.mutation<{ success: boolean }, void>({
+      query: () => ({
+        url: `/chatgpt/update_welcome_message/`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
       }),
     }),
-    fetchWelcomeMessage: build.query<{ show_welcome_message: boolean }, string>({
-      query: (userId) => ({
-        url: `/chatgpt/user_welcome_message/${userId}/`,
+    fetchWelcomeMessage: build.query<{ show_welcome_message: boolean }, void>({
+      query: () => ({
+        url: `/chatgpt/user_welcome_message/`,
       }),
     }),
-    fetchLatestMessages: build.query<Array<LatestMessagesResponse>, { userId: string; overai_chat_id?: string }>({
-      query: ({ userId, overai_chat_id }) => ({
-        url: `/chatgpt/latest_messages/${userId}/${overai_chat_id}/`
+    fetchLatestMessages: build.query<Array<LatestMessagesResponse>, { overai_chat_id?: number }>({
+      query: ({ overai_chat_id }) => ({
+        url: `/chatgpt/latest_messages/${overai_chat_id}/`
       }),
     }),
     sendMessage: build.mutation<SendMessageResponse, SendMessagePayload>({
@@ -66,7 +65,7 @@ export const chatgptService = createApi({
         },
       }),
     }),
-    createChat: build.mutation<{ overai_chat_id: number }, { user_id: number }>({
+    createChat: build.mutation<{ overai_chat_id: number }, void>({
       query: (payload) => ({
         url: `/chatgpt/create_chat/`,
         method: 'POST',
@@ -76,18 +75,18 @@ export const chatgptService = createApi({
         },
       }),
     }),
-    deleteChats: build.mutation<void, number>({
-      query: (userId) => ({
-        url: `/chatgpt/delete_chats/${userId}/`,
+    deleteChats: build.mutation<void, void>({
+      query: () => ({
+        url: `/chatgpt/delete_chats/`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
       }),
     }),
-    fetchLatestChats: build.query<LatestChatsResponse, string>({
-      query: (userId) => ({
-        url: `/chatgpt/latest_chats/${userId}/`,
+    fetchLatestChats: build.query<LatestChatsResponse, void>({
+      query: () => ({
+        url: `/chatgpt/latest_chats/`,
       }),
     }),
   }),

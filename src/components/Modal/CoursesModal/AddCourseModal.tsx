@@ -33,7 +33,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}
     const [message, setMessage] = useState<string>('')
 
     const addCourseName = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+        // event.preventDefault()
         if (name && school) {
             const formdata = new FormData()
             formdata.append('name', name)
@@ -44,8 +44,9 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}
                 setShowModal()
                 if (course) {
                     navigate(
-                        generatePath(Path.CreateCourse, {
+                        generatePath(Path.School + Path.Courses + Path.CreateCourse, {
                             course_id: course?.course_id,
+                            schoolName: schoolName,
                         }),
                     )
                 }
@@ -54,7 +55,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({courses, setShowModal}
                 onToggle()
             })
         }
-        window.location.reload();
+        // window.location.reload();
     }
 
     return (

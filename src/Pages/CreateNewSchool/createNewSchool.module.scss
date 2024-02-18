@@ -1,3 +1,5 @@
+@import '../../scss/mixin.scss';
+
 * {
   margin: 0;
   padding: 0;
@@ -100,7 +102,7 @@
       margin-top: 30px;
       padding: 12px;
       width: 350px;
-      height: 600px;
+      height: 650px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin-top: 5%;
       }
@@ -234,3 +236,41 @@
     }
   }
 }
+
+.input_container {
+  width: 100%;
+  height: 40px;
+  border: 0.1rem solid #e8e8e8;
+  border-radius: 8px;
+  background-color: #f6f6f6;
+  font-family: 'Inter', sans-serif;
+  justify-content: center;
+
+  & input {
+    width: 90%;
+    outline: none;
+    border: none;
+    -webkit-box-shadow: inset 0 0 0 50px #f6f6f6;
+    //-webkit-text-fill-color: #000;
+    margin: 11px 0 11px 11px;
+    @include font(500, 14px);
+
+    &::placeholder {
+      @include font(500, 14px, 17px);
+      color: #929292;
+    }
+  }
+
+  &_input {
+    position: relative;
+    z-index: 10;
+  }
+
+  &_image {
+    @include position_t_r(absolute, 10px, 10px);
+    width: 26px;
+    height: 22px;
+    cursor: pointer;
+  }
+}
+

@@ -12,7 +12,8 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { validatePhone } from 'utils/validatePhone'
 import { validateEmail } from 'utils/validateEmail'
 import * as Yup from 'yup';
-
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 export const CreateNewSchool = () => {
   const [security, setSecurity] = useState<boolean>(true)
@@ -20,7 +21,6 @@ export const CreateNewSchool = () => {
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const [error, setError] = useState<string>('')
-  
 
   const handleClose = () => {
     setOpen(false)
@@ -28,13 +28,12 @@ export const CreateNewSchool = () => {
   }
 
   const validationSchema: any = Yup.object().shape({
-  school_name: Yup.string().min(2, "Слишком короткое!").max(50, "Слишком длинное!").required('Поле  обязательно для заполнения'),
-  email: Yup.string().email('Введите корректный email').required('Введите email'),
-  phone_number: Yup.string().required('Введите номер телефона').test('phone', 'Некорректный номер телефона', value => validatePhone(formik.values.phone_number)),
-  password: Yup.string().required('Введите пароль')
-  .min(6, "Пароль слишком короткий - должно быть минимум 6 символов"),
-  password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают').required('Поле обязательно для заполнения'),
-});
+    school_name: Yup.string().min(2, "Слишком короткое!").max(50, "Слишком длинное!").required('Поле  обязательно для заполнения'),
+    email: Yup.string().email('Введите корректный email').required('Введите email'),
+    phone_number: Yup.string().required('Введите номер телефона').min(11, 'Некорректный номер телефона'),
+    password: Yup.string().required('Введите пароль').min(6, "Пароль слишком короткий - должно быть минимум 6 символов"),
+    password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают').required('Поле обязательно для заполнения'),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -48,9 +47,7 @@ export const CreateNewSchool = () => {
     onSubmit: async () => {
       if (
         formik.values.school_name.length > 0 &&
-        formik.values.password === formik.values.password_confirmation &&
-        validatePhone(formik.values.phone_number) &&
-        validateEmail(formik.values.email)
+        formik.values.password === formik.values.password_confirmation
       ) {
         const userData = formik.values
         await createOwner(userData)
@@ -169,14 +166,24 @@ export const CreateNewSchool = () => {
           </div>
           <div className={styles.newCoursePage_formWrapper_form_passwordWrapper}>
             <p className={styles.newCoursePage_formWrapper_form_passwordWrapper_title}>Номер телефона:</p>
-            <InputAuth
-              name={'phone_number'}
-              type={'tel'}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.phone_number}
-              placeholder={'Номер телефона'}
-            />
+            <div className={styles.input_container}>
+              <div className={styles.input_container_input}>
+                <PhoneInput
+                  inputProps={{
+                    name: 'phone_number',
+                    style: {
+                      border: "none",
+                      width: "100%"
+                      }
+                  }}
+                  value={formik.values.phone_number}
+                  onChange={(value) => formik.setFieldValue('phone_number', value)}
+                  onBlur={formik.handleBlur}
+                  placeholder="Номер телефона"
+                  country={"by"}
+                />
+              </div>
+            </div>
             {formik.errors.phone_number && formik.touched.phone_number ? (
               <p style={{ color: 'red', marginTop: '.5em' }}>
                 {formik.errors.phone_number}

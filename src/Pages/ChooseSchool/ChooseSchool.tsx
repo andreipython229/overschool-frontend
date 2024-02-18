@@ -23,7 +23,6 @@ import { auth, role } from 'store/redux/users/slice'
 
 import { useLazyLogoutQuery } from 'api/userLoginService'
 
-
 export type SchoolT = {
   school_id: number
   name: string
@@ -31,12 +30,13 @@ export type SchoolT = {
   role: string
 }
 
-
 export const ChooseSchool = () => {
   const navigate = useNavigate()
   const [getSchools, { isSuccess: userSuccess, isError }] = useGetSchoolsMutation()
+  const dispatchRole = useDispatch()
   const [logout] = useLazyLogoutQuery()
   const { role: userRole, userName: name } = useAppSelector(selectUser)
+  const user = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
 
@@ -45,6 +45,7 @@ export const ChooseSchool = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatchRole(role(RoleE.Unknown))
     getSchools()
       .unwrap()
       .then((data: SchoolT[]) => {
@@ -89,39 +90,41 @@ export const ChooseSchool = () => {
 
   return (
     <div>
-        <div className={styles.bgf}>
-                <div className={styles.bgf_wrap1}></div>
-              </div>
-              <div className={styles.bgf}>
-                  <div className={styles.bgf_wrap2}></div>
-              </div>
-              <div className={styles.bgf}>
-                  <div className={styles.bgf_wrap3}></div>
-              </div>
-              <div className={styles.bgf}>
-                  <div className={styles.bgf_wrap4}></div>
-              </div>
+      <div className={styles.bgf}>
+        <div className={styles.bgf_wrap1}></div>
+      </div>
+      <div className={styles.bgf}>
+        <div className={styles.bgf_wrap2}></div>
+      </div>
+      <div className={styles.bgf}>
+        <div className={styles.bgf_wrap3}></div>
+      </div>
+      <div className={styles.bgf}>
+        <div className={styles.bgf_wrap4}></div>
+      </div>
       <div className={styles.bg1}>
         <div className={styles.bg3}>
-           {isLoading ? (
+          {isLoading ? (
             <SimpleLoader style={{ margin: '50px', height: '80px' }} />
-          ) : ( 
-            <motion.div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
-            initial={{
-              opacity: 0,
-              scale: 0.1,
-            }}
-            animate={{
-              opacity:1,
-              scale: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            transition={{
-              ease:'easeInOut',
-              duration: 1.5,
-            }}>
+          ) : (
+            <motion.div
+              style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
+              initial={{
+                opacity: 0,
+                scale: 0.1,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+              }}
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                ease: 'easeInOut',
+                duration: 1.5,
+              }}
+            >
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <svg style={{ marginBottom: '3em' }} width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -168,14 +171,14 @@ export const ChooseSchool = () => {
                       e.preventDefault()
                       await handleSchool(school)
                     }}
-                    to={`#`}
+                    style={{ textDecoration: 'none' }}
+                    to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                   >
-                    <motion.div className={styles.bg} 
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.8 }}
-                      >
+                    <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                       <div>
-                        <div className={styles.name}>{school.name}</div>
+                        <div className={styles.name} style={{ textDecoration: 'none' }}>
+                          {school.name}
+                        </div>
                         <div className={styles.role}>{userRoleName[school.role]}</div>
                       </div>
                       <span>→</span>
@@ -191,7 +194,7 @@ export const ChooseSchool = () => {
                 <span>cоздать школу</span>
               </div>
             </motion.div>
-           )} 
+          )}
         </div>
         {isOpen && <Portal closeModal={on}>{schools && <AddSchoolModal setShowModal={on} schools={schools} />}</Portal>}
         {/* <div className={styles.bg2}>

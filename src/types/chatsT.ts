@@ -32,6 +32,7 @@ export interface SenderI {
   email: string
   phone_number: string
   avatar?: string
+  user_role: string
 }
 
 export interface MessageI {
