@@ -6,7 +6,6 @@ export type ClassesSettingsPropsT = {
   setType: (arg: keyof object) => void
   lessonIdAndType: lessonIdAndTypeT
   deleteLesson: (arg: {id: number, type: string, schoolName: string}) => void
-  setShow: () => void;
 }
 
 export type ModulesBlockT = {
