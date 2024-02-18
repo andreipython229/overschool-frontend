@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import { sectionT, sectionsT, commonLessonT } from 'types/sectionT'
+import { sectionT, sectionsT, commonLessonT, TestT } from 'types/sectionT'
 import { baseQuery } from './baseApi'
 
 export const modulesServices = createApi({
@@ -57,6 +57,12 @@ export const modulesServices = createApi({
       }),
       // providesTags: ['lessons'],
     }),
+    fetchPreviousTests: build.query<TestT[], { id: number; schoolName: string }>({
+      query: ({ id, schoolName }) => ({
+        url: `/${schoolName}/tests/${id}/previous_tests/`,
+      }),
+      providesTags: ['lessons'],
+    }),
     createLessons: build.mutation<any, {arg: any, schoolName: string}>({
       query: ({ arg, schoolName }) => {
         return {
@@ -108,6 +114,7 @@ export const {
   useLazyFetchLessonQuery,
   useFetchLessonQuery,
   useFetchLessonsQuery,
+  useLazyFetchPreviousTestsQuery,
   useCreateLessonsMutation,
   useDeleteLessonsMutation,
   usePatchLessonsMutation,
