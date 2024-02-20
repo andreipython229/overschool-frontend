@@ -1,4 +1,5 @@
 import { TariffPlanT } from "api/tariffPlanService"
+import {result} from "./courseStatT";
 
 export type UserT = {
   auth: boolean
@@ -25,6 +26,13 @@ export interface ILoginUserInfo {
   phone_number: string
   username: string
   user_permissions: number[]
+}
+
+export type employeePaginatorT = {
+    count: number
+    next: null
+    previous: null
+    results: EmployeeT[]
 }
 
 export type EmployeeT = {
