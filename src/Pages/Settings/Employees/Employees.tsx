@@ -6,17 +6,23 @@ import { avatar } from '../../../assets/img/common/index'
 import { AddEmployeeModal } from 'components/Modal'
 import { Portal } from 'components/Modal/Portal/index'
 import { EmployeeT } from 'types/userT'
-import { useFetchAllUsersQuery } from '../../../api/allUsersList'
+import { useFetchAllUsersQuery, useLazyFetchAllUsersQuery } from '../../../api/allUsersList'
 
 import styles from '../superAdmin.module.scss'
 import styles_load from 'components/Modal/Modal.module.scss'
 import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
+import {Pagination} from "../../../components/Pagination/Pagination";
+import {usePagination} from "../../../customHooks";
+
 
 export const Employees: FC = () => {
   const schoolName = window.location.href.split('/')[4]
-  const { data: allUsers, isSuccess, isFetching } = useFetchAllUsersQuery(schoolName)
+  // const { data: allUsers, isSuccess, isFetching } = useFetchAllUsersQuery({schoolName: schoolName})
+  const [fetchAllUsers, { data: allUsers, isSuccess, isFetching }] = useLazyFetchAllUsersQuery()
   const [employees, setEmployees] = useState<EmployeeT[]>([])
   const [isModalOpen, { off: openModal, on: closeModal }] = useBoolean()
+
+  const { page, onPageChange, paginationRange } = usePagination({ totalCount: allUsers?.count as number })
 
   useEffect(() => {
     if (allUsers) {
@@ -24,6 +30,11 @@ export const Employees: FC = () => {
       setEmployees(filteredUsers)
     }
   }, [isSuccess, allUsers])
+
+  // Перезагрузка после смены страницы пагинатора
+  useEffect(() => {
+    fetchAllUsers({schoolName: schoolName, page: page , role: "staff"})
+  }, [page,])
 
   return (
     <>
@@ -71,6 +82,12 @@ export const Employees: FC = () => {
             )}
           </div>
         </div>
+        <Pagination
+          className={styles.pagination}
+          paginationRange={paginationRange}
+          currentPage={page}
+          onPageChange={onPageChange}
+      />
       </div>
     </>
   )
