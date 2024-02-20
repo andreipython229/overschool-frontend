@@ -713,8 +713,13 @@ hr {
       color: $font-title;
       text-align: left;
     }
-
-    // overflow: hidden;
-    // transition: height 0.3s ease;
   }
+}
+
+.no_autogeneration {
+  margin-left: 40px;
+  margin-top: 30px;
+  color: #9ca3af;
+  font-size: 14px;
+  letter-spacing: 0.06em;
 }

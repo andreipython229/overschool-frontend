@@ -76,7 +76,6 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
     await registrationAdmin(newUser)
       .unwrap()
       .then(async (data: any) => {
-        console.log(data)
         const formData = new FormData()
         formData.append('emails', emailUser)
         formData.append('role', role)
