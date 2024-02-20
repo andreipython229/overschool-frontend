@@ -202,7 +202,7 @@
 }
 
 .wrapper_form {
-  margin-top: 17px;
+  margin-top: 0px;
 }
 
 .wrapper_form_addFiles {
@@ -226,6 +226,7 @@
     display: none;
   }
 }
+
 
 .modal_btn_is_toggle {
   display: flex;
@@ -379,6 +380,7 @@
 }
 
 .bottomButtons {
+  margin-top: 5px;
   @include display(flex, row, space-between, center);
   gap: 10px;
   .btns__container {

@@ -87,9 +87,6 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
                                 <p>{item.name}</p>
                                 <div
                                     className={`${itemStyles.wrapper_item_icon} ${item.checked ? itemStyles.wrapper_item_icon_checked : ''}`}>
-                                    <IconSvg width={20} height={20} viewBoxSize={'0 0 19 19'} path={checkedIconPath}>
-                                        <circle cx="8.5" cy="8.5" r="8" stroke="currentColor"/>
-                                    </IconSvg>
                                 </div>
                             </Checkbox>
                         </div>

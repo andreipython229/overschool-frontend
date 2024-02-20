@@ -368,12 +368,14 @@ useEffect(() => {
                         <span> Загрузка сообщений...</span>
                       </div>
                     ) : (
+                      <div>
+                      <div className={styles.backgroundImage}>
                       <div className={styles.messageContainer} ref={messageContainerRef}>
                         {userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
                           <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
                             <div className={styles.messageContainer_user}>
                               <span>
-                                <b style={{ color: '#955dd3' }}>Вы</b> 
+                                <b style={{ color: '#BA75FF' }}>Вы</b> 
                                 <div className={styles.messageContainer_user_question}>
                                 {userQuestion.sender_question}
                                 </div>
@@ -389,6 +391,8 @@ useEffect(() => {
                             )}
                           </div>
                         ))}
+                      </div>
+                      </div>
                       </div>
                     )}
                       {error && (
@@ -412,7 +416,9 @@ useEffect(() => {
                             onKeyPress={handleKeyPress}
                           />
                           <button onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
-                            ▲
+                          <svg viewBox="0 0 16 13" fill="none" xmlns="http://www.w3 org/2000/svg">
+                              <path d="M7.17278 1.21787C7.56956 0.633707 8.43044 0.633706 8.82722 1.21787L15.5994 11.1881C16.0503 11.8521 15.5748 12.75 14.7722 12.75H1.22785C0.425231 12.75 -0.0503452 11.8521 0.400629 11.1881L7.17278 1.21787Z" fill="white"/>
+                          </svg>
                           </button>
                         </>
                       )}

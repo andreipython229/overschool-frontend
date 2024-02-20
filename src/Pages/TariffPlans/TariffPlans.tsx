@@ -197,8 +197,7 @@ export const TariffPlans: FC = () => {
         <div className={styles.TariffPlansPage_banner}>
           <div className={styles.TariffPlansPage_banner_createProject}>
             <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
-            <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
-            <Button text={'Создать проект'} variant={'create'} />
+            <p>Попробуйте весь функционал в процессе использования и познайте, насколько он удобен</p>
           </div>
           <div className={styles.TariffPlansPage_banner_images}>
             <img src={firstStep} alt="Создать проект" className={styles.TariffPlansPage_banner_images_firstStep} />
