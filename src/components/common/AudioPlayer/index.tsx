@@ -21,7 +21,7 @@ export const AudioPlayer: FC<AudioPlayerT> = ({ styles, audioUrls, files, title 
     <>
       {audioUrls &&
         audioUrls.map(({ file }, index) => (
-          <figure key={index} style={{ ...styles, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <figure key={index} style={{ ...styles, width: '95%', display: 'flex', marginLeft: '41px', justifyContent: 'center', alignItems: 'center' }}>
             {/* <figcaption style={{ textAlign: 'center' }}>{title}</figcaption> */}
             <audio style={{ width: '100%', margin: '0.3em' }} controls src={file}>
               <a href={file}>Download audio</a>
@@ -35,7 +35,7 @@ export const AudioPlayer: FC<AudioPlayerT> = ({ styles, audioUrls, files, title 
         ))}
       {urls &&
         urls.map((url, index) => (
-         <figure key={index} style={{ ...styles, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <figure key={index} style={{ ...styles, width: '95%', display: 'flex', marginLeft: '41px', justifyContent: 'center', alignItems: 'center' }}>
             {/* <figcaption style={{ textAlign: 'center' }}>{title}</figcaption> */}
             <audio style={{ width: '100%' }} controls src={url}>
               <a href={url}>Download audio</a>

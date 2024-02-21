@@ -33,7 +33,7 @@ import { AnimatePresence, Reorder } from 'framer-motion'
 import { AddPicture } from 'components/AddPicture'
 import { AddAudio } from 'components/AddAudio'
 
-export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType, setShow }) => {
+export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
   const [lessonBlocks, setLessonBlocks] = useState<BlockT[]>([])
   const [files, setFiles] = useState<File[]>([])

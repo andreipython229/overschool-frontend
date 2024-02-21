@@ -10,7 +10,6 @@ import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
 import {useDebounceFunc, usePagination} from "../../customHooks";
 import { Pagination } from "../Pagination/Pagination"
 import styles from "../../Pages/HomeWork/home_work.module.scss";
-import { StudentsSchoolExport } from './StudentsExport/StudentsSchoolExport'
 
 export const StudentsPerSchool: FC = () => {
   const dispatch = useAppDispatch()
@@ -99,7 +98,6 @@ export const StudentsPerSchool: FC = () => {
 
   return (
     <>
-      <StudentsSchoolExport />
       <AllStudentsBlock
         invite={false}
         headerText={`Все ученики школы`}
