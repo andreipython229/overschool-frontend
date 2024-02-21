@@ -43,7 +43,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   const [fetchGroups, { data: groups, isFetching, isSuccess }] = useLazyFetchStudentsGroupByCourseQuery()
   const [fetchGroup, { data: group, isFetching: groupFetching, isSuccess: groupSuccess }] = useLazyFetchStudentGroupQuery()
   const [registrationAdmin] = useAdminRegistrationMutation()
-  const [addStudents, { isSuccess: studentSuccess, isLoading: studentLoading, isError: studentError }] = usePatchGroupWithoutTeacherMutation()
+  const [addStudents, { isSuccess: studentSuccess, isLoading: studentLoading, isError: studentError }] = useAddUserAccessMutation()
   const [groupsList, setGroupsList] = useState<studentsGroupT>()
   const [selectedGroup, setSelectedGroup] = useState<string>()
   const [students, setStudents] = useState<studentT[]>([
@@ -62,7 +62,9 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
 
   useEffect(() => {
     if (groupId) {
-      fetchGroup({ id: groupId, schoolName }).unwrap().then((data) => setCurrentGroup(data))
+      fetchGroup({ id: groupId, schoolName })
+        .unwrap()
+        .then(data => setCurrentGroup(data))
     } else {
       fetchGroups({ id: Number(params.course_id), schoolName })
     }
@@ -158,40 +160,70 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   }
 
   const handleSendPermissions = async () => {
-    if (currentGroup) {
-      const requestBody: requestData = {
-        role: 'Student',
-        course_id: currentGroup.course_id,
-        name: currentGroup.name,
-        students: currentGroup.students,
-      }
-      let count = 0
-      students.map(async student => {
-        await registrationAdmin({
-          email: student.email,
-          first_name: student.first_name,
-          last_name: student.last_name,
-          patronymic: student.patronymic,
-        })
-          .unwrap()
-          .then(async (data: any) => {
-            count = count + 1
-            requestBody.students = [...requestBody.students, data.user_id]
-            if (count === students.length) {
-              await addStudents({ data: requestBody, schoolName, id: Number(currentGroup.group_id) })
-                .unwrap()
-                .then(async (accessdata: any) => {
-                  setShowModal()
-                })
-                .catch(error => {
-                  setMessage(parse(error.data).toString())
-                  onToggle()
-                })
-            }
-          })
-      })
+    const formdata = new FormData()
+    formdata.append('role', 'Student')
+    if (groupsList && selectedGroup) {
+      formdata.append('student_groups', selectedGroup)
+    } else if (params.group_id) {
+      formdata.append('student_groups', params.group_id)
     }
+    let count = 0
+    students.map(async student => {
+      await registrationAdmin({ email: student.email, first_name: student.first_name, last_name: student.last_name, patronymic: student.patronymic })
+        .unwrap()
+        .then(async (data: any) => {
+          count = count + 1
+          formdata.append('emails', student.email)
+          if (count === students.length) {
+            await addStudents({ data: formdata, schoolName })
+              .unwrap()
+              .then(async (accessdata: any) => {
+                setShowModal()
+              })
+              .catch(error => {
+                setMessage('При добавлении новых учеников в группу, произошла ошибка. Попробуйте позже...')
+                onToggle()
+              })
+          }
+        })
+    })
   }
+
+  // const handleSendPermissions = async () => {
+  //   if (currentGroup) {
+  //     const requestBody: requestData = {
+  //       role: 'Student',
+  //       course_id: currentGroup.course_id,
+  //       name: currentGroup.name,
+  //       students: currentGroup.students,
+  //     }
+  //     let count = 0
+  //     students.map(async student => {
+  //       await registrationAdmin({
+  //         email: student.email,
+  //         first_name: student.first_name,
+  //         last_name: student.last_name,
+  //         patronymic: student.patronymic,
+  //       })
+  //         .unwrap()
+  //         .then(async (data: any) => {
+  //           count = count + 1
+  //           requestBody.students = [...requestBody.students, data.user_id]
+  //           if (count === students.length) {
+  //             await addStudents({ data: requestBody, schoolName, id: Number(currentGroup.group_id) })
+  //               .unwrap()
+  //               .then(async (accessdata: any) => {
+  //                 setShowModal()
+  //               })
+  //               .catch(error => {
+  //                 setMessage(parse(error.data).toString())
+  //                 onToggle()
+  //               })
+  //           }
+  //         })
+  //     })
+  //   }
+  // }
 
   const handleSubmitForm = () => {
     if (groupsList) {
