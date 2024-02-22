@@ -56,8 +56,11 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     const [searchTerm, setSearchTerm] = useState('')
     const onChangeInput = (value: string) => {
       setSearchTerm(value)
-      updateStudents(value)
     }
+
+    useEffect(() => {
+      updateStudents(searchTerm)
+    }, [searchTerm]);
 
     useEffect(() => {
       if (!isOpen) {
