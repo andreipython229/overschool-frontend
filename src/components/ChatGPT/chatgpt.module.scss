@@ -4,7 +4,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 58%;
-  border: 1px solid #ccc;
+  border: 1px solid #e7e7e7;
   padding: 10px;
   background-color: rgb(255, 255, 255);
   overflow: hidden;
@@ -29,7 +29,7 @@
 }
 
 .noGradient {
-  background: #F7F5F7;
+  background: #eedffe;
 }
 
 .dialogOpen.noGradient::before {
@@ -39,6 +39,7 @@
 .contentContainer {
   display: flex;
   height: 100%;
+  background-color: #eedffe;
 }
 
 .leftPane {
@@ -54,7 +55,7 @@
 }
 
 .leftPane {
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   padding: 15px;
   border-radius: 20px;
   height: 98%;
@@ -62,6 +63,7 @@
   width: 30%;
   display: flex;
   flex-direction: column;
+  border: 2px solid #7f4cbf;
   margin-left: 7px;
   margin-top: 7px;
   margin-bottom: 7px;
@@ -73,14 +75,14 @@
 }
 
 .centeredText {
-  font-size: 13px;
+  font-size: 15px;
   display: flex;
   align-items: center;
   height: 100%;
 }
 
 .chatListItem {
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   border-bottom: 1px solid #ddd;
   padding: 10px;
   cursor: pointer;
@@ -112,12 +114,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
 }
 
 .modalOverlay::before {
@@ -127,7 +128,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom right, #c7a5ea, transparent);
   filter: blur(350px);
   z-index: -1;
 }
@@ -177,26 +177,39 @@
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  color: #b996e1;
+  color: #b963d4;
   position: absolute;
   top: 2%;
   left: 60%;
   z-index: 1;
 }
 
+.backgroundImage {
+  position: absolute;
+  top: 50px;
+  left: 32%;
+  width: 66.5%;
+  height: 80%;
+  background-image: url('../../assets/img/mainPage/overIcon.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 99999;
+}
+
 .messageContainer {
-  max-height: 80%;
+  max-height: 82%;
   width: calc(100% - 32%);
   overflow-y: auto;
   position: fixed;
-  bottom: 13%;
+  bottom: 11%;
   scrollbar-width: thin;
   scrollbar-color: #ccc white;
-  padding-left: 1%;
   padding-right: 1%;
 
   scrollbar-width: none;
   word-wrap: break-word;
+
+  background-color: transparent;
 
   &::-webkit-scrollbar {
     width: 0;
@@ -209,7 +222,7 @@
     justify-content: right;
     text-align: right;
     margin-bottom: 20px;
-    font-weight: 700;
+    font-weight: bold; 
     padding-bottom: 10px;
 
     &_question{
@@ -222,7 +235,7 @@
     border-radius: 8px;
     margin-top: 10px;
     padding: 10px;
-    font-weight: 300;
+    font-weight: 650;
     font-size: 12px;
     }
   }
@@ -266,18 +279,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 8px;
   margin-top: auto;
 }
 
 .inputContainer input {
   flex: 1;
-  padding: 12px;
-  border: 1px solid #7f4cbf;
+  padding: 10px;
+  margin-left: 2%;
+  border: 2px solid #7f4cbf;
   border-radius: 10px;
   background-color: transparent;
   outline: none;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .inputContainer input::placeholder {
@@ -288,13 +302,19 @@
   width: 40px;
   height: 40px;
   padding: 10px;
-  margin-left: 2px;
+  margin-right: 5px;
   border: 1px solid #ccc;
   border-radius: 6px;
   background-color: #BA75FF;
   color: white;
   cursor: pointer;
   outline: none;
+}
+
+.inputContainer button svg {
+  width: 100%; 
+  height: 100%; 
+  fill: white;
 }
 
 .inputContainer button:hover {
@@ -314,7 +334,7 @@
 .chatgpt_close {
   outline: none;
   border: none;
-  color: #b886f2;
+  color: #cd58eb;
   position: absolute;
   right: 10px;
   top: 10px;
@@ -444,8 +464,6 @@
 }
 
 .contentContainer svg {
-  margin-top: 20px;
-  margin-bottom: 20px;
   width: 58%;
   height: 60%;
 }

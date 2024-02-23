@@ -11,7 +11,6 @@ import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
 import styles from "../../Pages/HomeWork/home_work.module.scss";
 import {Pagination} from "../Pagination/Pagination";
 import {useDebounceFunc, usePagination} from "../../customHooks";
-import { StudentsCroupExport } from './StudentsExport/StudentsCroupExport'
 
 export const StudentsPerGroup: FC = () => {
   const { group_id } = useParams()
@@ -92,7 +91,6 @@ export const StudentsPerGroup: FC = () => {
 
   return (
     <>
-      <StudentsCroupExport />
       <AllStudentsBlock
         invite={true}
         headerText={'Все ученики группы'}

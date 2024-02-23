@@ -280,7 +280,6 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
       </div>
       {!hwStatus && (
         <>
-          <h3 className={styles.answer_header}>Введите ваш ответ:</h3>
           {/*<MyEditor setDescriptionLesson={setText} />*/}
           <TextField
             id="outlined-basic"
@@ -327,7 +326,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
         <span className={isOpen ? styles.arrow_rotate : ''}>
           <IconSvg width={25} height={25} viewBoxSize="0 0 21 21" path={arrIconPath} />
         </span>
-        {isOpen ? 'Скрыть историю проверки' : 'Показать историю проверки'}
+        <span>{isOpen ? 'Скрыть историю проверки' : 'Показать историю проверки'}</span>
       </button>
       {isOpen && (
         <div className={styles.modal_hidden_block}>

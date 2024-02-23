@@ -13,7 +13,9 @@ import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { ChipsComponent } from 'components/FiltersButton/Chips/chips'
 import { chipsVal } from 'components/FiltersButton/Chips/config'
 // import { useDebouncedFilter } from '../../customHooks/useDebouncedFilter'
-
+import { StudentsSchoolExport } from 'components/StudentsTable/StudentsExport/StudentsSchoolExport'
+import { StudentsCroupExport } from 'components/StudentsTable/StudentsExport/StudentsCroupExport'
+import { StudentsCourseExport } from 'components/StudentsTable/StudentsExport/StudentCourseExport'
 import styles from '../AllStudentsBlock/all_students_block.module.scss'
 
 import { RoleE } from 'enum/roleE'
@@ -54,8 +56,11 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     const [searchTerm, setSearchTerm] = useState('')
     const onChangeInput = (value: string) => {
       setSearchTerm(value)
-      updateStudents(value)
     }
+
+    useEffect(() => {
+      updateStudents(searchTerm)
+    }, [searchTerm]);
 
     useEffect(() => {
       if (!isOpen) {
@@ -82,6 +87,9 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
       <div>
         <p className={styles.header_block_text}>{headerText}</p>
         <div style={{fontSize: "11px", color: "#3B3B3B"}}>Количество записей: {all_students_count}</div>
+        {headerText === 'Все ученики школы' && <StudentsSchoolExport />}
+        {headerText === 'Все ученики группы' && <StudentsCroupExport />}
+        {headerText === 'Все ученики курса' && <StudentsCourseExport />}
         <div style={{ marginBottom: '15px' }}>
           <ChipsComponent filterKey={filterKey} filters={filters} chipsVal={chipsVal['students']} />
         </div>

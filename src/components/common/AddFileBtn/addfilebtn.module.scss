@@ -26,6 +26,7 @@
 
       input {
         @include position_t_l(absolute, 0, 0, -10);
+        opacity: 0;
       }
     }
   }

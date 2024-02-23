@@ -60,7 +60,7 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, type,
           />
         </span>
         <span>{lessonSvgMapper[type]}</span>
-        {lesson.name}
+        <span style={{ textAlign: 'left' }}>{lesson.name}</span>
         {isLoading && (
           <div style={{ marginLeft: '40px' }}>
             <SimpleLoader style={{ width: '20px', height: '20px' }} />

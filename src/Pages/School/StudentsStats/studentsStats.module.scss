@@ -210,6 +210,31 @@
       background: #e5dfff;
       border-radius: 7px;
       cursor: pointer;
+    }
+    
+    &_export_button {
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        line-height: normal;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        line-height: normal;
+      }
+      &:hover {
+        background-color: rgba(217, 197, 237, 0.5);
+      }
+
+      @include display(flex, row, flex-start, center);
+      margin-top: 0.5%;
+      padding: 5px 10px 5px 10px;
+      height: 36px;
+      padding: 10px;
+      font-style: normal;
+      @include font(500, 12px, 32px);
+      letter-spacing: 0.02em;
+      color: #ba75ff;
+      background: #e5dfff;
+      border-radius: 7px;
+      cursor: pointer;
 
       & svg {
         margin-right: 8px;

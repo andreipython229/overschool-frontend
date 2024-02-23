@@ -236,11 +236,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
                   {col}
                 </th>
               ))}
-              <td>
                 <button className={styles.svgSettingsWrapper}>
                   <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
                 </button>
-              </td>
             </tr>
           </thead>
           <tbody className={styles.table_tbody}>

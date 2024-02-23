@@ -5,6 +5,7 @@ import styles from './button.module.scss'
 
 export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', children, ...restProps }) => {
   let propsStyle = styles.btn_default
+  
   if (variant === 'primary') {
     propsStyle += ' ' + styles.primary
   } else if (variant === 'disabled') {
