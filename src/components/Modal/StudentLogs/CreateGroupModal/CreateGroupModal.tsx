@@ -23,7 +23,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   const schoolName = window.location.href.split('/')[4]
   const [groupName, setGroupName] = useState<string>('')
   const [teacher_id, setTeacherId] = useState<string>('')
-  const [withTeacher, { onToggle: toggleWithTeacher }] = useBoolean(false)
+  const [withTeacher, { onToggle: toggleWithTeacher }] = useBoolean(true)
   const [getUsers, { data: userList }] = useLazyFetchAllUsersQuery()
   const [teachers, setTeachers] = useState<any>([])
   const [getGroups, { data: allGroups }] = useLazyFetchStudentsGroupQuery()
@@ -32,7 +32,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
 
   useEffect(() => {
     if (schoolName) {
-      getUsers(schoolName)
+      getUsers({schoolName: schoolName, role: "staff", size: 100});
       getGroups(schoolName)
     }
   }, [schoolName])
@@ -101,6 +101,10 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
               С ментором
             </span>
           </div>
+          {!withTeacher &&
+            <div className={styles.addGroup_description}>
+              Такой тип группы предполагает отсутствие ментора и автоматическое принятие домашних заданий без проверки
+            </div>}
           {withTeacher ? (
             <div>
               <span>Выберите ментора из списка:</span>

@@ -208,7 +208,7 @@
     }
 
     & span {
-      font-size: $fs12;
+      font-size: $fs14;
       color: #a2a9b4;
     }
 
@@ -220,8 +220,11 @@
         margin-left: 10px;
       }
     }
+  }
 
-
+  &_description {
+    font-size: $fs12;
+    color: #53565b;
   }
 // style={{marginLeft: 10, marginTop: "1%"}}
   &_btn {
@@ -254,6 +257,13 @@
       opacity: 0.5;
       cursor: not-allowed !important;
     }
+  }
+
+  &_description {
+    font-size: $fs12;
+    color: #6e7073;
+    text-align: left;
+    letter-spacing: 0.04em;
   }
 
   &_checkboxBlock {

@@ -17,10 +17,11 @@ type StudentsGroupPropsT = {
   title: string
   countStudent: number
   id: number
+  type?: string
   courseId: number
 }
 
-export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent, id, courseId }) => {
+export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent, id, type, courseId }) => {
   const [isModalOpen, { on: close, off: open }] = useBoolean()
   const navigate = useNavigate()
 
@@ -47,6 +48,7 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
             </IconSvg>
             {countStudent} {getNounDeclension(countStudent, ['ученик', 'ученика', 'учеников'])}
           </div>
+          {type === "WITHOUT_TEACHER" && <span className={styles.students_group_content_wrapper_info_info_wrapper_auto}>автопроверка д/з</span>}
         </div>
         {role === RoleE.Admin &&
         <div

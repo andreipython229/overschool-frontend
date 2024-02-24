@@ -64,7 +64,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
     const [numQuestions, setNumQuestions] = useState<number>()
     const [getPreviousTests, {data: gettedTests}] = useLazyFetchPreviousTestsQuery()
     const [previousTests, setPreviousTests] = useState<checkedTestT[]>()
-    // const [selectedTests, setSelectedTests] = useState<number[]>()
     const [autogeneration, setAutogeneration] = useState(false)
     const [error, setError] = useState('')
     const [isPreview, setIsPreview] = useState<boolean>(false);
