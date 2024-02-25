@@ -61,9 +61,16 @@ export const Certificate = () => {
           </div>
           <div className={styles.certificate__graduate}>{sertData.user_full_name}</div>
           <div className={styles.certificate__content}>
-            Has successfully completed <span className={styles.bold}>{sertData.course_name}</span> course. Key skills: {sertData.course_description}.
+            Has successfully completed
+            <p> <span className={styles.bold}>{sertData.course_name}</span> course.</p> 
+            <div className={styles.certificate__content_skills}>
+              Key skills: {sertData.course_description}.
+            </div>
           </div>
-          <div className={styles.signs}>
+          
+        </div>
+      </div>
+      <div className={styles.signs}>
             <div className={styles.signs__date}>19.09.2022</div>
             <div className={styles.signs__content}>
               <div className={styles.sign}>
@@ -86,8 +93,6 @@ export const Certificate = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
     </main>
   ) : (
     <></>

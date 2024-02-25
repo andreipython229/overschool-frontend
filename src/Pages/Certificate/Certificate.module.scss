@@ -4,13 +4,18 @@
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
     color: rgb(255, 251, 251);
-    max-width: 3508px;
-    max-height: 2480px;
+    //max-width: 3400px;
+    // max-height: 2400px;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
     overflow: auto;
-    padding: 26rem 18.75rem 26rem 13.5rem;
+    padding: 5% 10% 10% 5%;
     border: 1px solid black;
     background:  no-repeat bottom url('./img/courseName.svg'), linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);
+    background-size:auto;
+
+
 }
 
 .wrapper {
@@ -19,6 +24,7 @@
     align-items: center;
     width: 100%;
     position: relative;
+    margin-bottom: 15%;
 
     @media screen and (min-width: 320px) and (max-width: 1024px) {
         flex-flow: column nowrap;
@@ -27,10 +33,14 @@
 }
 
 .logo {
-    max-width: 1041px;
-    max-height: 1648px;
-    flex: 0 1 50%;
-    margin-right: 15rem;
+    // max-width: 1041px;
+    // max-height: 1648px;
+    width: 60%;
+    height: 50%;
+    flex: 0 1 30%;
+    margin-right: 10%;
+    margin-top: 20%;
+   
 
     @media screen and (max-width: 1024px) {
         margin-right: 0;
@@ -46,20 +56,21 @@
 .border {
     width: 110%;
     position: absolute;
-    // top: -10%;
+    top: -10%;
     left: -5%;
 }
 
 .certificate {
-    flex: 1 0 50%;
-    max-width: 1680px;
+    flex: 1 0 70%;
+    width: 60%;
+    // max-width: 1680px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
 
 		&__header {
-            margin-bottom: 5.625rem;
+            margin-bottom: 10%;
             font-weight: 700;
             font-size: 12.5rem;
             text-align: center;
@@ -69,8 +80,8 @@
 		&__producer {
             position: relative;
             width: max-content;
-            margin-bottom: 11.875rem;
-            padding: 0.9375rem 0;     
+            margin-bottom: 15%;
+            padding: 0.9375rem 0; 
 
             font-weight: 600;
             font-size: 4.75rem;
@@ -88,10 +99,17 @@
 		}
 
 		&__content {
-            margin-bottom: 6.875rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10%;
             font-weight: 400;
             font-size: 3.75rem;
             text-align: start;
+
+            &_skills {
+                display: flex;
+            }
 		}
 }
 
@@ -103,21 +121,22 @@
 .signs {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: flex-end;
     font-weight: 400;
     font-size: 3.75rem;
     text-align: start;
     width: 100%;
+    margin-bottom: 8%;
 
         &__date {
-            flex: 1 1 50%;
+            flex: 1 1 30%;
             display: flex;
             justify-content: flex-start;
             align-items: flex-end;
         }
 
 		&__content {
-            flex: 1 1 50%;
+            flex: 1 1 70%;
 		}
 }
 
