@@ -5,6 +5,14 @@
   @include display(flex, row, space-between);
   padding: 30px 61px 30px 61px;
   cursor: pointer;
+
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding:5%;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding:5%;
+  }
+
   &_testIconWrapper {
     @include display(flex, column, flex-start, center);
     &_iconRow {
@@ -23,9 +31,34 @@
       }
     }
   }
+
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+
   &_controlIconWrapper {
     @include display(flex, row, space-between, center);
     width: 250px;
+
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      width: auto;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      width: auto;
+    }
+
     &_timer {
       position: relative;
       @include display(flex, row, flex-start, center);

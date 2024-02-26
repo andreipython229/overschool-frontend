@@ -99,6 +99,15 @@
       margin-left: 16px; // 16
       //border: 1px deeppink solid;
 
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        height: 300px;
+        overflow-y: scroll;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        height: 400px;
+        overflow-y: scroll;
+      }
+
       &_headerText {
         //position: relative;
         
@@ -307,10 +316,14 @@
       @media only screen and (min-width : 320px) and (max-width : 375px) {
         margin: 0 auto;
         padding: 2%;
+        display: flex;
+        flex-direction: column;
       }
       @media only screen and (min-width : 375px) and (max-width : 480px) {
         margin: 0 auto;
         padding: 2%;
+        display: flex;
+        flex-direction: column;
       }
 
       &_nameBlock {
@@ -451,6 +464,16 @@
         display: flex;
         align-items: center;
         padding-right: 45px;
+
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
+          flex-direction: column;
+          padding: 0 0 5% 0;
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
+          flex-direction: column;
+          padding: 0 0 5% 0;
+        }
+
       }
       
       &_block {
@@ -461,6 +484,13 @@
         padding-bottom: 1%;
         padding-left: 45px;
         flex-wrap: nowrap;
+
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
+          margin-bottom: 10%;
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
+          margin-bottom: 10%;
+        }
 
         &_nameSettings {
           color: #FFFFFF;
@@ -486,6 +516,13 @@
           margin-bottom: 50px;
           margin-top: 50px;
           padding-right: 45px;
+
+          @media only screen and (min-width : 320px) and (max-width : 375px) {
+            padding: 0 0 5% 0;
+          }
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
+            padding: 0 0 5% 0;
+          }
 
           &_preview {
             color: $font-color-rose;
@@ -591,14 +628,13 @@ hr {
   width: 100%;
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
   }
   @media only screen and (min-width : 375px) and (max-width : 480px) {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
-    height: 80px;
   }
 
   &_text_block {
