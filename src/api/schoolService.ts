@@ -31,7 +31,20 @@ export const schoolService = createApi({
       }),
       invalidatesTags: ['school'],
     }),
+    fetchSchoolDocument: build.query<any, string>({
+      query: schoolName => ({
+        url: `/${schoolName}/school_document/`,
+      }),
+    }),
+    setSchoolDocuments: build.mutation<any, { data: FormData; schoolName: string }>({
+      query: body => ({
+        url: `/${body.schoolName}/school_document/`,
+        method: 'POST',
+        body: body.data,
+      }),
+    }),
   }),
 })
 
-export const { useFetchSchoolQuery, useSetSchoolMutation, useCreateSchoolMutation } = schoolService
+export const { useFetchSchoolQuery, useSetSchoolMutation, useCreateSchoolMutation, useLazyFetchSchoolDocumentQuery, useSetSchoolDocumentsMutation } =
+  schoolService

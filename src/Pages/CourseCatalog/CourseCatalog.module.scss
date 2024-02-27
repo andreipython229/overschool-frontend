@@ -1,0 +1,200 @@
+@import 'src/scss/variable';
+@import '../../scss/mixin.scss';
+
+.wrapper {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  min-height: 100dvh;
+
+  &_body {
+    @include display(flex, column, center, center);
+    gap: 2rem;
+
+    &_courses {
+      @include display(flex, row, flex-start, center);
+      padding: 0 2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+
+      &_card {
+        &:hover {
+          transform: scale(1.01);
+        }
+      }
+    }
+  }
+}
+
+@keyframes bgAnimate1 {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20% {
+    transform: translate3d(50%, 100%, 0);
+  }
+
+  30% {
+    transform: translate3d(150%, 150%, 0);
+  }
+
+  50% {
+    transform: translate3d(400%, 200%, 0);
+  }
+
+  70% {
+    transform: translate3d(300%, 70%, 0);
+  }
+
+  90% {
+    transform: translate3d(100%, 30%, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bgAnimate2 {
+  from {
+    transform: translate3d(0%, 0%, 0);
+  }
+  20% {
+    transform: translate3d(-100%, -100%, 0);
+  }
+  30% {
+    transform: translate3d(-200%, -150%, 0);
+  }
+  50% {
+    transform: translate3d(-400%, -200%, 0);
+  }
+  70% {
+    transform: translate3d(-300%, -60%, 0);
+  }
+  90% {
+    transform: translate3d(-100%, -10%, 0);
+  }
+  to {
+    transform: translate3d(0%, 0%, 0);
+  }
+}
+
+@keyframes bgAnimate3 {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20% {
+    transform: translate3d(-150%, 10%, 0);
+  }
+
+  30% {
+    transform: translate3d(-300%, 100%, 0);
+  }
+
+  50% {
+    transform: translate3d(-400%, 200%, 0);
+  }
+
+  70% {
+    transform: translate3d(-250%, 150%, 0);
+  }
+
+  90% {
+    transform: translate3d(-50%, 100%, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bgAnimate4 {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20% {
+    transform: translate3d(150%, -10%, 0);
+  }
+
+  30% {
+    transform: translate3d(350%, -80%, 0);
+  }
+
+  50% {
+    transform: translate3d(400%, -150%, 0);
+  }
+
+  70% {
+    transform: translate3d(250%, -140%, 0);
+  }
+
+  90% {
+    transform: translate3d(100%, -80%, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.bg {
+  z-index: -1;
+
+  &_wrap1 {
+    position: absolute;
+    z-index: -1;
+    width: 50px;
+    height: 50px;
+    background: #8034c7;
+    border-radius: 50%;
+    scale: 10;
+    filter: blur(25px);
+    animation: bgAnimate1 10s linear infinite;
+  }
+
+  &_wrap2 {
+    z-index: -1;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 100%;
+    top: 100%;
+    scale: 10;
+    background: #5048d8;
+    border-radius: 50%;
+    filter: blur(25px);
+    animation: bgAnimate2 10s linear infinite;
+  }
+
+  &_wrap3 {
+    z-index: -1;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 100%;
+    top: 0%;
+    scale: 10;
+    background: #cd99ff;
+    border-radius: 50%;
+    filter: blur(25px);
+    animation: bgAnimate3 10s linear infinite;
+  }
+
+  &_wrap4 {
+    z-index: -1;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    scale: 10;
+    left: 0%;
+    top: 100%;
+    background: #60a0ec;
+    border-radius: 50%;
+    filter: blur(25px);
+    animation: bgAnimate4 10s linear infinite;
+  }
+}

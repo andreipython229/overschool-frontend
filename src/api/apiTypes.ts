@@ -20,15 +20,32 @@ export interface IResponse {
   }
 }
 
-
 export interface IAllUsers {
   username: string
   email?: string
   id: number[]
-  data:[]
+  data: []
 }
-
 
 export interface IForgotPassword {
   email: string
+}
+
+export type CatalogResponseT = {
+  count: number
+  next: string
+  previous: string
+  results: {
+    course_id: number
+    description: string
+    duration_days: number
+    format: string
+    is_catalog: boolean
+    name: string
+    photo: string
+    photo_url: string
+    price: number
+    public: string
+    school: number
+  }[]
 }

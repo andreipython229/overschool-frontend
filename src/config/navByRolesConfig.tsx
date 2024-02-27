@@ -22,6 +22,7 @@ import { StudentsStats } from 'Pages/School/StudentsStats/StudentsStats'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
 import { Group } from '../Pages/Group'
+import { Passport } from 'Pages/Settings/Passport'
 
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
@@ -72,6 +73,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.Main} element={<Main />} />
         <Route path={SettingsPath.Employees} element={<Employees />} />
         <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
+        <Route path={SettingsPath.SchoolPassport} element={<Passport />} />
       </Route>
       <Route path={Path.HomeWork} element={<HomeWork />} />
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
