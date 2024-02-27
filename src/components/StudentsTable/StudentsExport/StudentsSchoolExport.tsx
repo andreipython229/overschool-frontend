@@ -1,33 +1,22 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { useLazyFetchAllStudentsPerSchoolQuery } from 'api/schoolHeaderService'
-import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { useAppSelector } from 'store/hooks'
 import { Button } from '../../common/Button/Button'
-import {useDebounceFunc} from "../../../customHooks";
 import styles from '../../../Pages/School/StudentsStats/studentsStats.module.scss'
 import * as XLSX from "xlsx"
 
 export const StudentsSchoolExport: FC = () => {
-  const dispatch = useAppDispatch()
   const filters = useAppSelector(state => state.filters['studentsPerSchool'])
   const schoolId = localStorage.getItem('school_id')
-  const schoolName = window.location.href.split('/')[4] 
-  const [fetchStudents, { data, isFetching }] = useLazyFetchAllStudentsPerSchoolQuery()
-  const debounce = useDebounceFunc(dispatch)
+  const [fetchStudents] = useLazyFetchAllStudentsPerSchoolQuery()
 
-  const handleReloadTable = () => {
-    schoolId && fetchStudents({ id: Number(schoolId), filters })
-  }
-
-  useEffect(() => {
-    handleReloadTable()
-  }, [filters])
-
-  const handleExport = () => {
-      const allStudents = data ?? [];
+  const handleExport = async () => {
+      const response = await fetchStudents({ id: Number(schoolId), filters });
+      const allStudents = response.data ?? [];
       const wb = XLSX.utils.book_new(),
       ws = XLSX.utils.json_to_sheet(allStudents);
       XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
-      XLSX.writeFile(wb, "Ученики школы.xlsx");
+      XLSX.writeFile(wb, "Ученики школы.xlsx")
   };
 
  return (
@@ -36,5 +25,4 @@ export const StudentsSchoolExport: FC = () => {
      </Button>
  )
 }
-
 
