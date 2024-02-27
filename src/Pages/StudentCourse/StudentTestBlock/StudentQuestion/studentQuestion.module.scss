@@ -28,6 +28,16 @@
       height: 100%;
       background-color: #BA75FF;
     }
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin-bottom: 4%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      margin-bottom: 4%;
+    }
+    @media only screen and (min-width: 480px) and (max-width: 1024px) {
+      margin-bottom: 4%;
+    }
   }
 
   &_button button {
