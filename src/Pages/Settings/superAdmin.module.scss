@@ -163,7 +163,7 @@
   @include display (flex, column);
 
   &_title {
-    @include font (500, 16px);
+    @include font (bold, 20px);
     margin-bottom: 20px;
   }
 }

@@ -10,7 +10,6 @@ import { backArr } from 'components/Previous/config/svgIconPath'
 import { lessonT, sectionT } from 'types/sectionT'
 import { lessonSvgMapper } from 'config/index'
 import { getNounDeclension } from 'utils/getNounDeclension'
-
 import styles from './student_course_header.module.scss'
 import { useFetchProgressQuery, useFetchSertificateMutation } from '../../../api/userProgressService'
 import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'

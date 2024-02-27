@@ -20,6 +20,7 @@ import styles from './App.module.scss'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { RoleE } from 'enum/roleE'
 import { Certificate } from 'Pages/Certificate/Certificate'
+import { CourseCatalogPage } from 'Pages/CourseCatalog'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -31,7 +32,7 @@ export const App = () => {
   console.log(pathname)
 
   useEffect(() => {
-    if (!isLogin && pathname !== Path.CreateSchool && pathname !== Path.InitialPage && pathname.split('/')[1] !== 'certificate') {
+    if (!isLogin && pathname !== Path.CreateSchool && pathname !== Path.InitialPage && pathname.split('/')[1] !== 'certificate' && pathname !== Path.Catalog) {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])
@@ -53,7 +54,14 @@ export const App = () => {
   }, [])
 
   useEffect(() => {
-    if (isLogin && !schoolName && pathname !== Path.InitialPage && pathname !== '/' && pathname.split('/')[1] !== 'certificate') {
+    if (
+      isLogin &&
+      !schoolName &&
+      pathname !== Path.InitialPage &&
+      pathname !== '/' &&
+      pathname.split('/')[1] !== 'certificate' &&
+      pathname !== Path.Catalog
+    ) {
       navigate(Path.ChooseSchool)
     }
   }, [isLogin, schoolName, navigate])
@@ -63,6 +71,7 @@ export const App = () => {
   return (
     <div className={styles.container}>
       <Routes>
+        <Route path={Path.Catalog} element={<CourseCatalogPage />} />
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
           <Route path={FooterPath.PWA} element={<PWA />} />
