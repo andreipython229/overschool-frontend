@@ -31,7 +31,13 @@ export const AppMobile = () => {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    if (!isLogin && pathname !== Path.CreateSchool && pathname !== Path.InitialPage) {
+    if (
+      !isLogin &&
+      pathname !== Path.CreateSchool &&
+      pathname !== Path.InitialPage &&
+      pathname.split('/')[1] !== 'certificate' &&
+      pathname !== Path.Catalog
+    ) {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])
