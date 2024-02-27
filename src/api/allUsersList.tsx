@@ -8,8 +8,8 @@ export const getAllUsers = createApi({
     baseQuery: baseQuery(),
     endpoints: build => ({
         fetchAllUsers: build.query<employeePaginatorT, any>({
-            query: ({schoolName, page, role}) => ({
-                url: `/${schoolName}/all_users/?p=${page !== undefined ? page : 1}&role=${role}`,
+            query: ({schoolName, page, role, size}) => ({
+                url: `/${schoolName}/all_users/?p=${page !== undefined ? page : 1}&role=${role}&s=${size !== undefined ? size : 20}`,
             })
         }),
     }),

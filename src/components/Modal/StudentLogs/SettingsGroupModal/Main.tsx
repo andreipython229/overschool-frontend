@@ -65,7 +65,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
 
     useEffect(() => {
         if (schoolName && course) {
-            getUsers(schoolName);
+            getUsers({schoolName: schoolName, role: "staff", size: 100});
             getGroups({id: course, schoolName});
         }
     }, [schoolName, course])
@@ -122,13 +122,14 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                 </div>
                 {groupType === "WITH_TEACHER" ?
                     <div className="card flex p-fluid">
-                        <p className={styles.textField}>Преподаватель данной группы: </p>
+                        <p className={styles.textField}>Ментор группы: </p>
                         <Dropdown value={selectedTeacher}
                                   onChange={handleChangeTeacher}
                                   options={teachers}
-                                  placeholder={`${selectedTeacher ? selectedTeacher : 'Выберите преподавателя для данной группы'}`}
+                                  placeholder={`${selectedTeacher ? selectedTeacher : 'Выберите ментора для данной группы'}`}
                                   className="w-full md:w-14rem"/>
-                    </div> : <></>}
+                    </div>
+                    : <p className={styles.groupSetting_description}>Группа не предполагает наличие ментора. Домашние задания принимаются автоматически без проверки</p>}
                 <div className={styles.groupSetting_checkboxBlock}>
                     <div className={styles.groupSetting_checkboxBlock_checkbox}>
                         <Checkbox id={'homework'} name={'homework'} checked={blockHomework}

@@ -1,6 +1,8 @@
 import { HomeWork } from 'Pages/HomeWork/HomeWork'
 import { IFile } from './filesT'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
+import {useState} from "react";
+import {extend} from "lodash";
 
 export interface IBlockDesc {
   id: number
@@ -96,9 +98,16 @@ export interface ITest {
   active: boolean
   video: string
   url: string
+  random_test_generator: boolean
+  num_questions: number
 }
 
 export type commonLessonT = ILesson | IHomework | ITest
+
+export type TestT = ITest
+export interface checkedTestT extends TestT {
+  checked: boolean
+}
 
 export type lessonT = {
   id: number
