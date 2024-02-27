@@ -21,6 +21,7 @@ import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { RoleE } from 'enum/roleE'
 import { Certificate } from 'Pages/Certificate/Certificate'
 import { CourseCatalogPage } from 'Pages/CourseCatalog'
+import { LoginPage } from './Pages/Login/LoginPage'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -32,7 +33,7 @@ export const App = () => {
   console.log(pathname)
 
   useEffect(() => {
-    if (!isLogin && pathname !== Path.CreateSchool && pathname !== Path.InitialPage && pathname.split('/')[1] !== 'certificate' && pathname !== Path.Catalog) {
+    if (!isLogin && pathname !== Path.CreateSchool && pathname !== Path.LoginPage && pathname !== Path.InitialPage && pathname.split('/')[1] !== 'certificate' && pathname !== Path.Catalog) {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])
@@ -80,6 +81,7 @@ export const App = () => {
         <Route path={Path.Certificate} element={<Certificate />} />
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
+        <Route path={Path.LoginPage} element={<LoginPage />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.School} element={<MainLayOut />}>

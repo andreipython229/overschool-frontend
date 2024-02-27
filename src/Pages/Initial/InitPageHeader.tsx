@@ -29,6 +29,9 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
   const handleLoginUser = () => {
     setLoginShow(true)
   }
+  const handleLoginPage = () => {
+    navigate(generatePath(Path.LoginPage))
+  }
 
   const handleRegistrationUser = () => {
     navigate(generatePath(Path.CreateSchool))
@@ -73,7 +76,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
           </div>
         ) : (
           <div className={styles.header_block}>
-            <Button variant={'logIn'} onClick={handleLoginUser} text={'Войти'} />
+            <Button onClick={handleLoginPage} variant={'logIn'} text={'Войти'} />
             <Button onClick={handleRegistrationUser} variant={'logIn'} text={'Создать школу'} />
           </div>
         )}
