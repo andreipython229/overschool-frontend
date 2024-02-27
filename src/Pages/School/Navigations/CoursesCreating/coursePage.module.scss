@@ -80,10 +80,12 @@
     // transform: scale(0.9);
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 100%;
+      margin-bottom: 5%;
   
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
-      width: 100%
+      width: 100%;
+      margin-bottom: 5%;
     }
 
     &:hover {

@@ -19,6 +19,13 @@
     width: 100%;
     height: 36px;
     margin-top: 15px;
+    
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      height: 100%;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      height: 100%;
+    }
 
     label {
       margin: 0 18px 0 0;

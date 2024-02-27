@@ -17,11 +17,19 @@
     padding: 1%;
     width: 100%;
     margin: 0 auto;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   @media only screen and (min-width : 375px) and (max-width : 480px) {
     padding: 1%;
     width: 100%;
     margin: 0 auto;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   &::-webkit-scrollbar {
@@ -540,10 +548,16 @@
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     padding: 2%;
     margin-bottom: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
   @media only screen and (min-width : 375px) and (max-width : 480px) {
     padding: 2%;
     margin-bottom: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
