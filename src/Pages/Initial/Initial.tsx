@@ -53,7 +53,7 @@ export const Initial = () => {
                     </h1>
                     <div className={styles.init_main__link}>
                         <div>Найди свое направление</div>
-                        <NavLink to={Path.CreateSchool} className={styles.goBtn}>
+                        <NavLink to={Path.Catalog} className={styles.goBtn}>
                             Вперед
                         </NavLink>
                     </div>

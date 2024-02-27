@@ -157,7 +157,12 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
         const year = removeDate.getFullYear()
         const month = ("0" + (removeDate.getMonth() + 1)).slice(-2)
         const day = ("0" + removeDate.getDate()).slice(-2)
-        formData.append('date', `${year}-${month}-${day}`)
+        let hours: string = (removeDate.getHours() - 3).toString();
+        hours = ("0" + hours).slice(-2);
+        const minutes = ("0" + removeDate.getMinutes()).slice(-2);
+        const seconds = ("0" + removeDate.getSeconds()).slice(-2);
+        formData.append('date', `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`);
+        // formData.append('date', `${year}-${month}-${day}`)
 
         await deleteStudent({data: formData, schoolName: schoolName}).unwrap()
             .then(async data => {

@@ -293,7 +293,6 @@
           @include font(500, 14px, 17px);
           letter-spacing: -0.03em;
           color: #4d5766;
-          
         }
 
         &_amount_wrapper span {
@@ -306,6 +305,13 @@
             margin-right: 4px;
             margin-bottom: 2px;
           }
+        }
+
+        &_auto {
+          font-style: normal;
+          @include font(400, 12px, 17px);
+          letter-spacing: 0.02em;
+          color: #929dad;
         }
       }
 
