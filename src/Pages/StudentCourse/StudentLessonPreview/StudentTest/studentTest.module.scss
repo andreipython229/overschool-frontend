@@ -4,6 +4,7 @@
 .wrapper {
     min-width: 700px;
     overflow: hidden;
+    width: 70%;
     &_title {
         margin: 26px 0 20px 0;
         @include font (500, 24px, 29px);
