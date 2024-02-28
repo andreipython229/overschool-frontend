@@ -24,7 +24,8 @@ export enum Path {
   CreateSchool = '/create-school/',
   Chat = '',
   Certificate = '/certificate/:certLink',
-  Catalog = '/course-catalog/'
+  Catalog = '/course-catalog/',
+  LoginPage = '/login-page/',
 }
 
 export enum SettingsPath {
