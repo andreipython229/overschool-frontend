@@ -119,7 +119,7 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
           {chat.type === "GROUP" ? (
               <div className={styles.chatPreview_info}>
                   <div className={styles.chatPanel_user_avatar_userName_status}>
-                    Канал студенческой группы
+                    Канал группы
                   </div>
                   <div className={styles.chatPreview_top}>
                       <p>{chat.name || 'Группа без имени'}</p>
