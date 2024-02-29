@@ -79,26 +79,40 @@
   display: flex;
   align-items: center;
   height: 100%;
+  margin-left: 8px;
 }
 
 .chatListItem {
   background-color: #ffffff;
-  border-bottom: 1px solid #ddd;
   padding: 10px;
   cursor: pointer;
   height: 10%;
   position: relative;
   color: #7c7575;
   align-items: center;
+  // border-top: 1px si;
+  // border-bottom: 2px solid #8a49b5; /* Толщина и цвет нижней границы */
+  // border-radius: 20px; /* Закругленные углы */
 }
 
+
+// .chatListItem::after {
+//   content: '';
+//   position: absolute;
+//   bottom: 0;
+//   left: 18px;
+//   right: 0;
+//   background-color: #8a49b5;
+//   width: 86%;
+//   height: 1px;
+// }
 
 .chatListItem::after {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  margin-left: 7px;
+  width: 88%;
   background-color: #8a49b5;
   border-bottom: 1px solid #c08de2;
 }
@@ -222,40 +236,39 @@
     justify-content: right;
     text-align: right;
     margin-bottom: 20px;
-    font-weight: bold; 
     padding-bottom: 10px;
 
     &_question{
-    color: #BA75FF;
+    color: #a761ee;
     background-color: white;
     display: flex;
     text-align: right;
     display: flex;
-    border: 3px solid #BA75FF;
+    border: 3px solid #c296ee;
     border-radius: 8px;
     margin-top: 10px;
     padding: 10px;
-    font-weight: 650;
-    font-size: 12px;
+    font-weight: 400;
+    font-size: 15px;
     }
   }
 
   &_bot {
     color: #BA75FF;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 400;
 
     &_answer{
     color: white;
-    background-color: #BA75FF;
+    background-color: #cc9bfd;
     display: flex;
     text-align: left;
     display: flex;
-    border: 3px solid #BA75FF;
+    border: 3px solid #b67fed;
     border-radius: 8px;
     margin-top: 10px;
     padding: 10px;
-    font-size: 12px;
+    font-size: 15px;
     }
   }
 }
@@ -305,7 +318,7 @@
   margin-right: 5px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  background-color: #BA75FF;
+  background-color: #a761ee;
   color: white;
   cursor: pointer;
   outline: none;
@@ -318,7 +331,7 @@
 }
 
 .inputContainer button:hover {
-  background-color: #955dd3;
+  background-color: #953ded;
 }
 
 .inputContainer button:active {
@@ -434,11 +447,11 @@
 }
 
 .createChatButtonModal:hover {
-  background-color: #8a49b5;
+  background-color: #9b48ed;
 }
 
 .createChatButtonModal:active {
-  background-color: #4b0082;
+  background-color: #430073;
   color: white;
 }
 

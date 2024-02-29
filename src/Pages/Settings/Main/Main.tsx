@@ -88,7 +88,7 @@ export const Main = memo(() => {
     }
     if (isError) {
       handleCloseAlert()
-      setError('Такое имя школы уже существует')
+      setError(`Имя школы "${name}" уже существует`)
     }
   }, [isSuccess, isError])
 
