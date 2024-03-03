@@ -22,6 +22,11 @@ export const forgotPassword = createApi({
         body: data,
       }),
     }),
+    validateToken: build.query<{ email: string }, { token: string; user_id: number }>({
+      query: arg => ({
+        url: `/token-validate/${arg.user_id}/${arg.token}/`,
+      }),
+    }),
     resetPassword: build.mutation<any, FormData>({
       query: data => ({
         url: '/password-reset/',
@@ -31,4 +36,4 @@ export const forgotPassword = createApi({
     }),
   }),
 })
-export const { useForgotPasswordMutation, useVerifyEmailCodeMutation, useResetPasswordMutation } = forgotPassword
+export const { useForgotPasswordMutation, useVerifyEmailCodeMutation, useResetPasswordMutation, useLazyValidateTokenQuery } = forgotPassword

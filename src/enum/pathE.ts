@@ -1,3 +1,4 @@
+import { ResetPassword } from 'Pages/ResetPassword'
 import { boolean } from 'yup/lib/locale'
 
 declare global {
@@ -8,7 +9,7 @@ declare global {
 
 export enum Path {
   ChooseSchool = '/chooseSchool/',
-  InitialPage = '/login/',
+  InitialPage = '/',
   School = '/school/:school_name/',
   Courses = 'courses/',
   Group = 'group/:group_id',
@@ -25,7 +26,9 @@ export enum Path {
   Chat = '',
   Certificate = '/certificate/:certLink',
   Catalog = '/course-catalog/',
-  LoginPage = '/login-page/',
+  LoginPage = '/login/',
+  ResetPassword = '/token-validate/:userId/:token/',
+
 }
 
 export enum SettingsPath {

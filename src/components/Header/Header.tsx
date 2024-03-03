@@ -112,7 +112,7 @@ export const Header = memo(() => {
   }, [profile])
 
   useEffect(() => {
-    if (tariffPlan && Object.keys(tariffPlan).length > 0) {
+    if (tariffPlan && Object.keys(tariffPlan).length > 1) {
       setCurrentTariff(tariffPlan)
       dispatch(setTariff(tariffPlan))
     }

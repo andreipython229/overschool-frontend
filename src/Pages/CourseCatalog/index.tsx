@@ -47,8 +47,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export const CourseCatalogPage: FC = memo(() => {
   const [currentPage, setPage] = useState<number>(1)
   const [courses, setCourses] = useState<CatalogResponseT>()
-  const [filterCourses, { data: filteredData, isLoading }] = useFilteredSearchMutation()
-  const { data: coursesData, isFetching, isSuccess, refetch } = useFetchCourseCatalogQuery(currentPage)
+  const [filterCourses, { isLoading }] = useFilteredSearchMutation()
+  const { data: coursesData, isFetching, refetch } = useFetchCourseCatalogQuery(currentPage)
 
   useEffect(() => {
     if (currentPage) {
@@ -62,14 +62,11 @@ export const CourseCatalogPage: FC = memo(() => {
     }
   }, [coursesData])
 
-  const handleFilter = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    console.log(e.target.value)
-    filterCourses(e.target.value)
+  const handleFilter = async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    await filterCourses(e.target.value)
       .unwrap()
       .then(data => setCourses(data))
   }
-
-  console.log(courses)
 
   if (!courses) {
     return <SimpleLoader style={{ position: 'fixed', top: '35%', left: '43%' }} />
