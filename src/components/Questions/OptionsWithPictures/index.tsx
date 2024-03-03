@@ -10,6 +10,7 @@ import { PropsQuestionBlockT } from '../../AddQuestion'
 import { useBoolean } from '../../../customHooks'
 import { useAddAnswerMutation } from '../../../api/questionsAndAnswersService'
 import { useDragControls } from 'framer-motion'
+import { Button } from '../../common/Button/Button'
 
 export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, answers, id, testId }) => {
   const [isOpen, { onToggle }] = useBoolean()
@@ -34,14 +35,19 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
     const answerToAdd = {
       question: question?.question_id,
       image: File,
+      body: 'Вариант ответа'
     }
 
     addAnswer({ body: answerToAdd, schoolName })
   }
 
+  useEffect(() => {
+    setAnswersToRender(answers || [])
+  }, [answers])
+
   return (
     <div className={styles.wrapper}>
-      <QuestionHeader>
+      <QuestionHeader title={title} id={id} isOpen={isOpen} onToggle={onToggle} testId={testId}>
         <div className={styles.wrapper_header_iconWrapper}>
           <div className={styles.wrapper_header_iconWrapper_iconColumn}>
             <span />
@@ -54,13 +60,19 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
 
       {isOpen && (
         <div className={styles.wrapper_optionsContent}>
-          <Question />
+          <Question id={id} title={title} testId={testId} />
           <AnswerOption>
             <div className={styles.wrapper_addPicturesBlock}>
               <InputBlock name={''} type={'file'} value={''} />
               <IconSvg width={25} height={22} viewBoxSize="0 0 25 22" path={addPictureIconPath} />
             </div>
           </AnswerOption>
+          <Button
+              text={'+ Добавить вариант'}
+              style={{ marginTop: '26px' }}
+              variant={'primary'}
+              onClick={handleAddAnswer}
+            />
         </div>
       )}
     </div>

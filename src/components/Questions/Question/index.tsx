@@ -4,6 +4,7 @@ import { InputBlock } from 'components/common/Input/InputBlock'
 import { addCommentsIconPath } from '../config/svgIconPath'
 import { useDebounceFunc } from '../../../customHooks'
 import { usePatchQuestionMutation } from 'api/questionsAndAnswersService'
+import { PicturesAndOptions } from '../PicturesAndOptions'
 
 import styles from './question.module.scss'
 
