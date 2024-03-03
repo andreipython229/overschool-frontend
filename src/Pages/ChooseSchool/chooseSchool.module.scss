@@ -74,11 +74,42 @@
     padding-top: 5%;
   }
 }
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+
+}
+
+.schoolBox  {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 400px;
+  padding: 10%;
+  scrollbar-color: #b55bff #fff;
+  
+}
+
+
 .name {
   font-weight: 400;
   font-size: 24px;
   margin-bottom: 5px;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
 }
+.name:hover {
+  white-space:initial;
+  overflow: visible;
+}
+
+
 .role {
   color: #a2a9b4;
   font-weight: 200;
@@ -99,6 +130,11 @@
   width: 343px;
   height: 97px;
   transition: ease-in-out background-color 0.3s;
+  
+  &_container {
+    display: flex;
+    flex-direction: column;
+  }
 
 
   span {

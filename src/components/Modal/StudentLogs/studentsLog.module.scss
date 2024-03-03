@@ -3,7 +3,9 @@
 
 .container {
   @include position_t_l(absolute, 50%, 50%, 10);
-  @include display(flex, column, center, center);
+  @include display(flex, column);
+  // justify-content: center;
+  align-items: center;
   padding: 36px;
   background: $color-white;
   text-align: center;
@@ -12,6 +14,9 @@
   transform: translate(-50%, -50%);
   font-family: $font-family-inter;
   width: 580px;
+  overflow-y: auto;
+  max-height: 90%;
+  
   
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 98%;

@@ -125,7 +125,7 @@ export const ChooseSchool = () => {
                 duration: 1.5,
               }}
             >
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+              <div className={styles.logo}>
                 <svg style={{ marginBottom: '3em' }} width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     fillRule="evenodd"
@@ -162,7 +162,7 @@ export const ChooseSchool = () => {
                 </svg>
                 <span className={styles.tit}>Выберите школу для входа:</span>
               </div>
-
+              <div className={styles.schoolBox}>
               {schools ? (
                 schools.map((school, index: number) => (
                   <Link
@@ -171,11 +171,11 @@ export const ChooseSchool = () => {
                       e.preventDefault()
                       await handleSchool(school)
                     }}
-                    style={{ textDecoration: 'none' }}
+                    style={{ textDecoration: 'none', overflow: 'hidden'}}
                     to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                   >
                     <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
-                      <div>
+                      <div className={styles.bg_container}>
                         <div className={styles.name} style={{ textDecoration: 'none' }}>
                           {school.name}
                         </div>
@@ -190,9 +190,11 @@ export const ChooseSchool = () => {
                   {'Нет доступных школ :('}
                 </p>
               )}
+              </div>
               <div className={styles.create} onClick={off}>
                 <span>cоздать школу</span>
               </div>
+              
             </motion.div>
           )}
         </div>
