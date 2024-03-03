@@ -15,7 +15,6 @@ import { Path } from '../../enum/pathE'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import styles from './loginPage.module.scss'
 
-
 interface INotification {
   state: boolean
   text: string
@@ -109,9 +108,9 @@ export const LoginPage = () => {
     }
   }, [isSuccess, isLoading])
 
-//   const handleClose = () => {
-// //     setShowModal(false)
-//   }
+  //   const handleClose = () => {
+  // //     setShowModal(false)
+  //   }
 
   const submitformikforgot = async (event: any) => {
     event.preventDefault()
@@ -123,13 +122,18 @@ export const LoginPage = () => {
         toast.current?.show({
           severity: 'success',
           summary: 'Успешно',
-          detail: `Код подтверждения отправлен на почту ${email}.`,
+          detail: `Ссылка для сброса пароля успешно отправлена на почту ${email}`,
           life: 5000,
         })
-        setStep(2)
+        setTimeout(() => navigate(Path.InitialPage), 3000)
       })
       .catch(error => {
-        console.log(error.message)
+        toast.current?.show({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail: `Проверьте правильность ввода email`,
+          life: 5000,
+        })
       })
   }
 
@@ -180,9 +184,9 @@ export const LoginPage = () => {
   }
 
   return (
-  <section className={styles.loginPage}>
-    <div className={styles.loginPage_logoWrapper}>
-       <div className={styles.loginPage_logoWrapper_container} onClick={() => navigate(generatePath(Path.InitialPage))}>
+    <section className={styles.loginPage}>
+      <div className={styles.loginPage_logoWrapper}>
+        <div className={styles.loginPage_logoWrapper_container} onClick={() => navigate(generatePath(Path.InitialPage))}>
           <svg width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
@@ -218,68 +222,68 @@ export const LoginPage = () => {
             </defs>
           </svg>
           <p className={styles.loginPage_logoWrapper_container_title}>OVERSCHOOL</p>
-       </div>
-    </div>
-    <div className={styles.loginPage_formWrapper}>
-      {isFetching ||
-        (isLoading && (
-          <div className={styles.loader}>
-            <SimpleLoader style={{ width: '50px', height: '50px' }} />
-          </div>
-        ))}
-      {isHidden && (
-        <form className={styles.loginPage_formWrapper_form} onSubmit={formik.handleSubmit}>
-           <p className={styles.loginPage_formWrapper_form_title}>Войти</p>
-              <div className={styles.loginPage_formWrapper_form_eMailWrapper}>
+        </div>
+      </div>
+      <div className={styles.loginPage_formWrapper}>
+        {isFetching ||
+          (isLoading && (
+            <div className={styles.loader}>
+              <SimpleLoader style={{ width: '50px', height: '50px' }} />
+            </div>
+          ))}
+        {isHidden && (
+          <form className={styles.loginPage_formWrapper_form} onSubmit={formik.handleSubmit}>
+            <p className={styles.loginPage_formWrapper_form_title}>Войти</p>
+            <div className={styles.loginPage_formWrapper_form_eMailWrapper}>
               <p className={styles.loginPage_formWrapper_form_eMailWrapper_title}></p>
-                <InputAuth
-                  name={authVariant}
-                  type={authVariant === 'email' ? 'email' : 'tel'}
-                  onChange={formik.handleChange}
-                  value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
-                  placeholder={"Электронная почта"}
-                />
-                    {/* <AuthSelect getInputVariant={getInputVariant}/> */}
-                 <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин или пароль')}</div>
-              </div>
-              <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
+              <InputAuth
+                name={authVariant}
+                type={authVariant === 'email' ? 'email' : 'tel'}
+                onChange={formik.handleChange}
+                value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
+                placeholder={'Электронная почта'}
+              />
+              {/* <AuthSelect getInputVariant={getInputVariant}/> */}
+              <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин или пароль')}</div>
+            </div>
+            <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
               <p className={styles.loginPage_formWrapper_form_passwordWrapper_title}></p>
-                <InputAuth
-                  name={'password'}
-                  type={security ? 'password' : 'text'}
-                  onChange={formik.handleChange}
-                  value={formik.values.password}
-                  placeholder={'Пароль'}
-                  onClick={changeSecurityStatus}
-                  icon={security ? isSecurity : unSecurity}
-                />
-                <div className={styles.errors}>{formik.errors.password}</div>
+              <InputAuth
+                name={'password'}
+                type={security ? 'password' : 'text'}
+                onChange={formik.handleChange}
+                value={formik.values.password}
+                placeholder={'Пароль'}
+                onClick={changeSecurityStatus}
+                icon={security ? isSecurity : unSecurity}
+              />
+              <div className={styles.errors}>{formik.errors.password}</div>
+            </div>
+            <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
+              <div className={styles.main_btn}>
+                <Button type="submit" text={'Войти'} style={{ width: '246px' }} variant={'primary'} />
               </div>
-              <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
-                <div className={styles.main_btn}>
-                  <Button type="submit" text={'Войти'} style={{ width: '246px' }} variant={'primary'} />
-                </div>
               <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn}>
                 <a href="" onClick={forgotPass} className={styles.main_btn_href}>
                   Забыли пароль?
                 </a>
               </div>
-                <p className={styles.loginPage_formWrapper_form_btnCreateWrapper_help}>
-                  <a href={Path.InitialPage}>Вернуться на главную</a>
-                </p>
-              </div>
-        </form>
-      )}
-      {isShown && step === 1 && (
+              <p className={styles.loginPage_formWrapper_form_btnCreateWrapper_help}>
+                <a href={Path.InitialPage}>Вернуться на главную</a>
+              </p>
+            </div>
+          </form>
+        )}
+        {isShown && step === 1 && (
           <div className={styles.loginPage_formWrapper_form}>
-            <div className={styles.loginPage_formWrapper_form_title} style={{ margin: '15px 0 30px 0' }} >
+            <div className={styles.loginPage_formWrapper_form_title} style={{ margin: '15px 0 30px 0' }}>
               Введите почту:
             </div>
             <div className={styles.loginPage_formWrapper_form_eMailWrapper}>
-                <div style={{ display: 'flex' }}>
-                  <Input className={styles.input_container} name="email" type="text" onChange={handleEmail} value={email} placeholder="Email" />
-                </div>
-                <div className={styles.errors_forgot}>{errorSend && 'Неверная почта'}</div>
+              <div style={{ display: 'flex' }}>
+                <Input className={styles.input_container} name="email" type="text" onChange={handleEmail} value={email} placeholder="Email" />
+              </div>
+              <div className={styles.errors_forgot}>{errorSend && 'Неверная почта'}</div>
             </div>
             <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
               <Button
@@ -297,22 +301,15 @@ export const LoginPage = () => {
               </p>
             </div>
           </div>
-
-      )}
-      {isShown && step === 2 && (
+        )}
+        {isShown && step === 2 && (
           <div className={styles.loginPage_formWrapper_form}>
             <div className={styles.loginPage_formWrapper_form_title_next} style={{ margin: '10px 0 30px 0 ' }}>
               Введите код подтверждения, который был выслан на Ваш email:
             </div>
             <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
               <div style={{ display: 'flex' }}>
-                <Input
-                  name="code"
-                  type="text"
-                  onChange={handleCode}
-                  value={code}
-                  placeholder="Код подтверждения"
-                />
+                <Input name="code" type="text" onChange={handleCode} value={code} placeholder="Код подтверждения" />
               </div>
               <div className={styles.errors_forgot}>{errorCode && 'Неверный код'}</div>
             </div>
@@ -332,21 +329,15 @@ export const LoginPage = () => {
               </p>
             </div>
           </div>
-      )}
-      {isShown && step === 3 && (
+        )}
+        {isShown && step === 3 && (
           <div className={styles.loginPage_formWrapper_form}>
             <div className={styles.loginPage_formWrapper_form_title_next} style={{ margin: '10px 0 30px 0 ' }}>
               Введите новый пароль для вашей учетной записи:
             </div>
             <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
               <div style={{ display: 'flex' }}>
-                <Input
-                  name="newPassword"
-                  type="text"
-                  onChange={handleNewPassword}
-                  value={password}
-                  placeholder="Новый пароль"
-                />
+                <Input name="newPassword" type="text" onChange={handleNewPassword} value={password} placeholder="Новый пароль" />
               </div>
             </div>
             <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
@@ -377,9 +368,9 @@ export const LoginPage = () => {
               </p>
             </div>
           </div>
-      )}
-      <Toast position="top-left" ref={toast} />
-    </div>
-  </section>
+        )}
+        <Toast position="top-left" ref={toast} />
+      </div>
+    </section>
   )
 }
