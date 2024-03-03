@@ -9,7 +9,7 @@ declare global {
 
 export enum Path {
   ChooseSchool = '/chooseSchool/',
-  InitialPage = '/login/',
+  InitialPage = '/',
   School = '/school/:school_name/',
   Courses = 'courses/',
   Group = 'group/:group_id',
@@ -26,8 +26,9 @@ export enum Path {
   Chat = '',
   Certificate = '/certificate/:certLink',
   Catalog = '/course-catalog/',
+  LoginPage = '/login/',
   ResetPassword = '/token-validate/:userId/:token/',
-  LoginPage = '/login-page/',
+
 }
 
 export enum SettingsPath {
