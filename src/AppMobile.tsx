@@ -21,6 +21,7 @@ import { RoleE } from 'enum/roleE'
 import { useSelector } from 'react-redux'
 
 import styles from './App.module.scss'
+import { ResetPassword } from 'Pages/ResetPassword'
 
 export const AppMobile = () => {
   const { role } = useAppSelector(selectUser)
@@ -36,7 +37,8 @@ export const AppMobile = () => {
       pathname !== Path.CreateSchool &&
       pathname !== Path.InitialPage &&
       pathname.split('/')[1] !== 'certificate' &&
-      pathname !== Path.Catalog
+      pathname !== Path.Catalog &&
+      pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.InitialPage)
     }
@@ -62,6 +64,7 @@ export const AppMobile = () => {
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
+        <Route path={Path.ResetPassword} element={<ResetPassword />} />
         <Route path={Path.School} element={<MobileLayOut />}>
           {navByRolesConfig[role]}
           <Route path={Path.Courses}>

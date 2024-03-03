@@ -21,6 +21,7 @@ import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { RoleE } from 'enum/roleE'
 import { Certificate } from 'Pages/Certificate/Certificate'
 import { CourseCatalogPage } from 'Pages/CourseCatalog'
+import { ResetPassword } from 'Pages/ResetPassword'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -32,7 +33,14 @@ export const App = () => {
   console.log(pathname)
 
   useEffect(() => {
-    if (!isLogin && pathname !== Path.CreateSchool && pathname !== Path.InitialPage && pathname.split('/')[1] !== 'certificate' && pathname !== Path.Catalog) {
+    if (
+      !isLogin &&
+      pathname !== Path.CreateSchool &&
+      pathname !== Path.InitialPage &&
+      pathname.split('/')[1] !== 'certificate' &&
+      pathname !== Path.Catalog &&
+      pathname.split('/')[1] !== 'token-validate'
+    ) {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])
@@ -60,7 +68,8 @@ export const App = () => {
       pathname !== Path.InitialPage &&
       pathname !== '/' &&
       pathname.split('/')[1] !== 'certificate' &&
-      pathname !== Path.Catalog
+      pathname !== Path.Catalog &&
+      pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.ChooseSchool)
     }
@@ -85,6 +94,7 @@ export const App = () => {
         <Route path={Path.School} element={<MainLayOut />}>
           {navByRolesConfig[role]}
         </Route>
+        <Route path={Path.ResetPassword} element={<ResetPassword />} />
         <Route path={Path.SignUp} element={<SignUp />} />
         <Route path={'*'} element={<PageNotFound />} />
       </Routes>
