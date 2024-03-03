@@ -124,10 +124,10 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
         toast.current?.show({
           severity: 'success',
           summary: 'Успешно',
-          detail: `Код подтверждения отправлен на почту ${email}.`,
+          detail: `Ссылка для смены пароля успешно отправлена на почту`,
           life: 5000,
         })
-        setStep(2)
+        setTimeout(() => setShowModal(false), 5000)
       })
       .catch(error => {
         console.log(error.message)
@@ -222,7 +222,7 @@ export const LoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
                       type={authVariant === 'email' ? 'email' : 'tel'}
                       onChange={formik.handleChange}
                       value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
-                      placeholder={"Электронная почта"}
+                      placeholder={'Электронная почта'}
                     />
                     {/* <AuthSelect getInputVariant={getInputVariant}/> */}
                   </div>
