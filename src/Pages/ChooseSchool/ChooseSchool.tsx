@@ -23,6 +23,9 @@ import { auth, role } from 'store/redux/users/slice'
 
 import { useLazyLogoutQuery } from 'api/userLoginService'
 
+import  Search  from "../../components/common/Input/Search/Search";
+import { log } from 'console'
+
 export type SchoolT = {
   school_id: number
   name: string
@@ -87,6 +90,29 @@ export const ChooseSchool = () => {
       )
     }
   }, [userRole])
+  console.log(schools);
+
+  
+  const [filtered, setFiltered] = useState([{}]);
+  const search = (val:any) => {
+    let currentShools = [],
+      newList =[];
+    if (val !== "") {
+      currentShools = schools;
+      newList = currentShools.filter(school => {
+        const lc = school.name.toLowerCase();
+        const filter = val.toLowerCase();
+        return lc.includes(filter);
+      });
+    } else {
+      return newList = schools;
+    }
+    setSchools(newList);
+  };
+ 
+  console.log(filtered);
+  
+  
 
   return (
     <div>
@@ -162,6 +188,9 @@ export const ChooseSchool = () => {
                 </svg>
                 <span className={styles.tit}>Выберите школу для входа:</span>
               </div>
+              <motion.div className={styles.search} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+              <Search {...{ search }} />
+              </motion.div>
               <div className={styles.schoolBox}>
               {schools ? (
                 schools.map((school, index: number) => (
