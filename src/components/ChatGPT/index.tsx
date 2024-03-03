@@ -350,6 +350,7 @@ useEffect(() => {
                             className={`${styles.chatListItem} ${
                               selectedChatId === Number(chatId) ? styles.activeChat  : ''
                             }`}
+                            style={{ borderRadius: '20px' }}
                           >
                             <span className={styles.centeredText}>
                               {`${chatValue.length > 25 ? chatValue.substring(0, 25) + '...' : chatValue}`}
@@ -375,7 +376,7 @@ useEffect(() => {
                           <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
                             <div className={styles.messageContainer_user}>
                               <span>
-                                <b style={{ color: '#BA75FF' }}>Вы</b> 
+                                <b style={{ color: '#a761ee' }}>Вы</b> 
                                 <div className={styles.messageContainer_user_question}>
                                 {userQuestion.sender_question}
                                 </div>
@@ -383,7 +384,7 @@ useEffect(() => {
                             </div>
                             {index < botAnswers.length && (
                               <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
-                                <p>OVER AI</p>
+                                <p style={{ fontWeight: 'bold', color: '#a761ee', fontSize: '15px' }}>OVER AI</p>
                                 <div className={styles.messageContainer_bot_answer}>
                                   {formatBotAnswer(botAnswers[index].answer)}
                                 </div>

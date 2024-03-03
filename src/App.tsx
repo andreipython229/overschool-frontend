@@ -22,6 +22,7 @@ import { RoleE } from 'enum/roleE'
 import { Certificate } from 'Pages/Certificate/Certificate'
 import { CourseCatalogPage } from 'Pages/CourseCatalog'
 import { ResetPassword } from 'Pages/ResetPassword'
+import { LoginPage } from './Pages/Login/LoginPage'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -35,7 +36,7 @@ export const App = () => {
   useEffect(() => {
     if (
       !isLogin &&
-      pathname !== Path.CreateSchool &&
+      pathname !== Path.CreateSchool && pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname !== Path.Catalog &&
@@ -89,6 +90,7 @@ export const App = () => {
         <Route path={Path.Certificate} element={<Certificate />} />
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
+        <Route path={Path.LoginPage} element={<LoginPage />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.School} element={<MainLayOut />}>

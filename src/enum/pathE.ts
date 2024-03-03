@@ -26,7 +26,8 @@ export enum Path {
   Chat = '',
   Certificate = '/certificate/:certLink',
   Catalog = '/course-catalog/',
-  ResetPassword = '/token-validate/:userId/:token/'
+  ResetPassword = '/token-validate/:userId/:token/',
+  LoginPage = '/login-page/',
 }
 
 export enum SettingsPath {

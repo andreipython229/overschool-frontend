@@ -13,6 +13,32 @@
     border: 1px solid #F3F3F3;
     border-radius: 30px;
     div {        
-        @include display (flex, row, center, center);
+        @include display (flex, row, flex-start, center);
+        width: 100%;
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+            justify-content: flex-start;
+            width: 100%;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+            justify-content: flex-start;
+            width: 100%;
+        }
+        @media only screen and (min-width: 480px) and (max-width: 1024px) {
+            justify-content: flex-start;
+            width: 100%;
+        }
     }
+
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+        margin-bottom: 2%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+        margin-bottom: 2%;
+    }
+    @media only screen and (min-width: 480px) and (max-width: 1024px) {
+        margin-bottom: 2%;
+    }
+    
 }

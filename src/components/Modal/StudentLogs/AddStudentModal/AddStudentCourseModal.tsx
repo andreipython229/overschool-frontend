@@ -40,7 +40,6 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   const params = useParams()
   const { group_id: groupId } = params
   const schoolName = window.location.href.split('/')[4]
-  const courseName = window.location.href.split('/')[7]
   const [fetchGroups, { data: groups, isFetching, isSuccess }] = useLazyFetchStudentsGroupByCourseQuery()
   const [fetchGroup, { data: group, isFetching: groupFetching, isSuccess: groupSuccess }] = useLazyFetchStudentGroupQuery()
   const [registrationAdmin] = useAdminRegistrationMutation()
@@ -162,7 +161,6 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
 
   const handleSendPermissions = async () => {
     const formdata = new FormData()
-    
     formdata.append('role', 'Student')
     if (groupsList && selectedGroup) {
       formdata.append('student_groups', selectedGroup)
@@ -176,8 +174,6 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
         .then(async (data: any) => {
           count = count + 1
           formdata.append('emails', student.email)
-          formdata.append('course', courseName)
-          
           if (count === students.length) {
             
             await addStudents({ data: formdata, schoolName })

@@ -30,7 +30,7 @@ export const CreateNewSchool = () => {
   const validationSchema: any = Yup.object().shape({
     school_name: Yup.string().min(2, "Слишком короткое!").max(50, "Слишком длинное!").required('Поле  обязательно для заполнения'),
     email: Yup.string().email('Введите корректный email').required('Введите email'),
-    phone_number: Yup.string().required('Введите номер телефона').min(11, 'Некорректный номер телефона'),
+    phone_number: Yup.string().required('Введите номер телефона').min(12, 'Некорректный номер телефона'),
     password: Yup.string().required('Введите пароль').min(6, "Пароль слишком короткий - должно быть минимум 6 символов"),
     password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают').required('Поле обязательно для заполнения'),
   });
@@ -67,13 +67,16 @@ export const CreateNewSchool = () => {
     if (isSuccess) {
       setOpen(true)
     }
+    console.log(formik.values.phone_number)
   }, [isSuccess, isLoading])
 
   const changeSecurityStatus = () => {
     setSecurity(!security)
   }
 
-
+  const normalizePhoneNumber = (value: string) => {
+     return "+" + value;
+  }
   const returnLogin = (event: any) => {
     event.preventDefault()
     navigate(generatePath(Path.InitialPage))
@@ -135,7 +138,7 @@ export const CreateNewSchool = () => {
       <div className={styles.newCoursePage_formWrapper}>
         <span className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_return} onClick={returnLogin}>
                Войти
-       </span>
+        </span>
         <form className={styles.newCoursePage_formWrapper_form} onSubmit={formik.handleSubmit}>
           <p className={styles.newCoursePage_formWrapper_form_title}>Регистрация</p>
           <div className={styles.newCoursePage_formWrapper_form_eMailWrapper}>
@@ -176,8 +179,8 @@ export const CreateNewSchool = () => {
                       width: "100%"
                       }
                   }}
+                  onChange={(values) => formik.setFieldValue('phone_number', normalizePhoneNumber(values))}
                   value={formik.values.phone_number}
-                  onChange={(value) => formik.setFieldValue('phone_number', value)}
                   onBlur={formik.handleBlur}
                   placeholder="Номер телефона"
                   country={"by"}
