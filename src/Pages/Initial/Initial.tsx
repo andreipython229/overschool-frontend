@@ -17,11 +17,8 @@ export const Initial = () => {
     const [registrationShow, setRegistrationShow] = useState<boolean>(false)
     const [regCodeShow, setRegCodeShow] = useState<boolean>(false)
     const [isLoginModal, {off: open, on: close}] = useBoolean()
-    
 
     const changeCurrentCourse = (id: string) => setCurrentCourse(id)
-
-    
 
     return (
         <div>
