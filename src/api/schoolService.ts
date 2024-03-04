@@ -43,8 +43,15 @@ export const schoolService = createApi({
         body: body.data,
       }),
     }),
+    updateSchoolDocuments: build.mutation<any, { id: number; data: FormData; schoolName: string }>({
+      query: body => ({
+        url: `/${body.schoolName}/school_document/${body.id}/`,
+        method: 'PATCH',
+        body: body.data,
+      }),
+    }),
   }),
 })
 
-export const { useFetchSchoolQuery, useSetSchoolMutation, useCreateSchoolMutation, useLazyFetchSchoolDocumentQuery, useSetSchoolDocumentsMutation } =
+export const { useFetchSchoolQuery, useSetSchoolMutation, useCreateSchoolMutation, useLazyFetchSchoolDocumentQuery, useSetSchoolDocumentsMutation, useUpdateSchoolDocumentsMutation } =
   schoolService
