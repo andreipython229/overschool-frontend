@@ -23,6 +23,7 @@ import { Certificate } from 'Pages/Certificate/Certificate'
 import { CourseCatalogPage } from 'Pages/CourseCatalog'
 import { ResetPassword } from 'Pages/ResetPassword'
 import { LoginPage } from './Pages/Login/LoginPage'
+import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -36,16 +37,17 @@ export const App = () => {
   useEffect(() => {
     if (
       !isLogin &&
-      pathname !== Path.CreateSchool && pathname !== Path.LoginPage &&
+      pathname !== Path.CreateSchool &&
+      pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
       pathname.split('/')[1] !== 'certificate' &&
-      pathname !== Path.Catalog &&
+      pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])
-
+  
   // useEffect(() => {
   //   if (isLogin && schoolName.length === 0) {
   //     navigate(Path.ChooseSchool)
@@ -69,7 +71,7 @@ export const App = () => {
       pathname !== Path.InitialPage &&
       pathname !== '/' &&
       pathname.split('/')[1] !== 'certificate' &&
-      pathname !== Path.Catalog &&
+      pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.ChooseSchool)
@@ -81,7 +83,10 @@ export const App = () => {
   return (
     <div className={styles.container}>
       <Routes>
-        <Route path={Path.Catalog} element={<CourseCatalogPage />} />
+        <Route path={Path.Catalog}>
+          <Route index element={<CourseCatalogPage />} />
+          <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
+        </Route>
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
           <Route path={FooterPath.PWA} element={<PWA />} />

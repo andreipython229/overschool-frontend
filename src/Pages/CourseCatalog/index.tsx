@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import { Path } from 'enum/pathE'
 import { motion } from 'framer-motion'
 import { CatalogResponseT } from 'api/apiTypes'
+import { generatePath, useNavigate } from 'react-router-dom'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -45,6 +46,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 export const CourseCatalogPage: FC = memo(() => {
+  const navigate = useNavigate()
   const [currentPage, setPage] = useState<number>(1)
   const [courses, setCourses] = useState<CatalogResponseT>()
   const [filterCourses, { isLoading }] = useFilteredSearchMutation()
@@ -91,7 +93,7 @@ export const CourseCatalogPage: FC = memo(() => {
         <Typography gutterBottom variant="h5" color={'#ba75ff'} component="div">
           <strong color="#ba75ff">
             Каталог курсов онлайн-школ на платформе{' '}
-            <a href={Path.InitialPage} style={{ textDecoration: 'none', color: '#ba75ff' }}>
+            <a href={Path.InitialPage} style={{ textDecoration: 'none', color: '#ba75ff', fontWeight: 'bold' }}>
               Overschool.by
             </a>
           </strong>
@@ -114,7 +116,7 @@ export const CourseCatalogPage: FC = memo(() => {
                 sx={{ width: '32.5%', cursor: 'pointer', transition: 'all ease-in 0.2s' }}
                 key={index}
               >
-                <CardActionArea>
+                <CardActionArea onClick={() => navigate(generatePath(Path.Catalog + Path.CatalogCourse, { courseId: course.course_id }))}>
                   <CardMedia component="img" height="240" image={course.photo} alt={course.name} />
                   <CardContent>
                     <Typography gutterBottom variant="h5" color={'#ba75ff'} component="div">

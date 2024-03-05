@@ -26,9 +26,9 @@ export enum Path {
   Chat = '',
   Certificate = '/certificate/:certLink',
   Catalog = '/course-catalog/',
+  CatalogCourse = ':courseId/',
   LoginPage = '/login/',
   ResetPassword = '/token-validate/:userId/:token/',
-
 }
 
 export enum SettingsPath {
@@ -36,7 +36,7 @@ export enum SettingsPath {
   Employees = 'employees/',
   Logs = 'logs/',
   Decoration = 'decoration/',
-  SchoolPassport = 'passport/'
+  SchoolPassport = 'passport/',
 }
 
 export enum CreateCoursePath {
