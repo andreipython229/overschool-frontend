@@ -50,6 +50,8 @@ export type LogoAddBlockPropsT = {
   logoDesc: string
   aboutRequirements: string
   requirementsArr: string[]
+  url?: string
+  height?: number
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 

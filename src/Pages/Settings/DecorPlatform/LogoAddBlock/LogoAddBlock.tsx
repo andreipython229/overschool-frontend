@@ -4,14 +4,16 @@ import { addFileSvg } from './config/svgIconPath'
 import { LogoAddBlockPropsT } from '../../../../types/pageTypes'
 
 import styles from './logoAddBlock.module.scss'
+import formStyles from "../../../Profile/formStyles.module.scss";
 
-export const LogoAddBlock: FC<LogoAddBlockPropsT> = memo(({ logoDesc, aboutRequirements, requirementsArr, title, onChange }) => {
+export const LogoAddBlock: FC<LogoAddBlockPropsT> = memo(({ logoDesc, aboutRequirements, requirementsArr, title, url, onChange, height }) => {
   return (
     <section className={styles.logoBlock}>
       <span className={styles.logoBlock_title}>{title}</span>
       <span className={styles.logoBlock_desc}>{logoDesc}</span>
       <div className={styles.logoBlock_information}>
-        <label className={styles.logoBlock_information_label}>
+        <label className={styles.logoBlock_information_label} style={{height: height}}>
+          {url && (<img className={styles.logoBlock_information_label_img} style={{height: height}} src={url} alt="" />)}
           <input onChange={onChange} className={styles.logoBlock_information_label_fileInput} type="file" title="adasafafasf" />
           <IconSvg width={18} height={23} viewBoxSize="0 0 18 23" path={addFileSvg} />
         </label>
