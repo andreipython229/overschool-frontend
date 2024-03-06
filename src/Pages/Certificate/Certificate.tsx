@@ -42,9 +42,13 @@ export const Certificate = () => {
   if (!sertData || isLoading) {
     return <SimpleLoader />
   }
+  
+  
+  
 
   return sertData ? (
     <main className={styles.main}>
+      
       <div className={styles.wrapper}>
         <div className={styles.logo}>
           <picture className={styles.logo__img}>
@@ -63,13 +67,18 @@ export const Certificate = () => {
           <div className={styles.certificate__content}>
             Has successfully completed
             <p> <span className={styles.bold}>{sertData.course_name}</span> course.</p> 
-            <div className={styles.certificate__content_skills}>
-              Key skills: {sertData.course_description}.
-            </div>
+            
           </div>
           
         </div>
       </div>
+      <div className={styles.certificate__content_skills}>
+              {/* Key skills: {sertData.course_description}. */}
+              The course provides knowledge on the following topics:
+      </div>
+      <ul className={styles.certificate__content_modal}>{sertData.sections.map((modal:any) => 
+        <li key={modal}> {modal.name} </li>)}
+      </ul>
       <div className={styles.signs}>
             <div className={styles.signs__date}>19.09.2022</div>
             <div className={styles.signs__content}>
@@ -93,7 +102,9 @@ export const Certificate = () => {
               </div>
             </div>
           </div>
+      <div className={styles.courseName}></div>
     </main>
+    
   ) : (
     <></>
   )

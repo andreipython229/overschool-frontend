@@ -109,8 +109,6 @@ export const ChooseSchool = () => {
     }
     setSchools(newList);
   };
- 
-  console.log(filtered);
   
   
 
