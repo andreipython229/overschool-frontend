@@ -12,6 +12,8 @@ import pie from '../../../../assets/img/studentPage/folder-todo.png'
 import { useLazyFetchProgressQuery } from '../../../../api/userProgressService'
 import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 import ProgressBar from '@ramonak/react-progress-bar'
+import { CreateCoursePath } from 'enum/pathE'
+import { NavAccountBtn } from 'components/NavAccountBtn/NavAccountBtn'
 
 type courseCard = {
   course: CoursesDataT
@@ -32,6 +34,9 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
   if (isLoading || isError) {
     return <SimpleLoader style={{ width: '100px', height: '100px' }} />
   }
+
+  console.log(course);
+  
 
   return (
     <div id={`${course?.course_id}`} className={styles?.course_card}>
