@@ -18,12 +18,11 @@ import { userRoleName } from 'config/index'
 import { Portal } from '../../components/Modal/Portal'
 import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 import { auth, role } from 'store/redux/users/slice'
 
 import { useLazyLogoutQuery } from 'api/userLoginService'
 
-import  Search  from "../../components/common/Input/Search/Search";
 import { log } from 'console'
 
 export type SchoolT = {
@@ -46,6 +45,8 @@ export const ChooseSchool = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isOpen, { off, on }] = useBoolean()
   const dispatch = useDispatch()
+
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     dispatchRole(role(RoleE.Unknown))
@@ -90,30 +91,18 @@ export const ChooseSchool = () => {
       )
     }
   }, [userRole])
-  console.log(schools);
 
   
-  const [filtered, setFiltered] = useState([{}]);
-  const search = (val:any) => {
-    let currentShools = [],
-      newList =[];
-    if (val !== "") {
-      currentShools = schools;
-      newList = currentShools.filter(school => {
-        const lc = school.name.toLowerCase();
-        const filter = val.toLowerCase();
-        return lc.includes(filter);
-      });
-    } else {
-      return newList = schools;
-    }
-    setSchools(newList);
-  };
-  
-  
+
+  const filteredSchool = schools.filter(school => {
+    return school.name.toLowerCase().includes(search.toLowerCase())
+  })
+ 
+
+
 
   return (
-    <div>
+    <div className={styles.con}>
       <div className={styles.bgf}>
         <div className={styles.bgf_wrap1}></div>
       </div>
@@ -187,11 +176,17 @@ export const ChooseSchool = () => {
                 <span className={styles.tit}>Выберите школу для входа:</span>
               </div>
               <motion.div className={styles.search} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
-              <Search {...{ search }} />
+                <form>
+                  <input type='text'
+                   placeholder="Название школы..." 
+                    className={styles.search} 
+                    onChange={(event)=> setSearch(event.target.value)}>
+                  </input>
+                </form>
               </motion.div>
               <div className={styles.schoolBox}>
               {schools ? (
-                schools.map((school, index: number) => (
+                filteredSchool.map((school, index: number) => (
                   <Link
                     key={index}
                     onClick={async e => {
@@ -220,8 +215,7 @@ export const ChooseSchool = () => {
               </div>
               <div className={styles.create} onClick={off}>
                 <span>cоздать школу</span>
-              </div>
-              
+              </div>  
             </motion.div>
           )}
         </div>
