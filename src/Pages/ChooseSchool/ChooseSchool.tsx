@@ -97,28 +97,7 @@ export const ChooseSchool = () => {
   const filteredSchool = schools.filter(school => {
     return school.name.toLowerCase().includes(search.toLowerCase())
   })
- 
 
-=========
-  const [filtered, setFiltered] = useState([{}]);
-  const search = (val:any) => {
-    let currentShools = [],
-      newList =[];
-    if (val !== "") {
-      currentShools = schools;
-      newList = currentShools.filter(school => {
-        const lc = school.name.toLowerCase();
-        const filter = val.toLowerCase();
-        return lc.includes(filter);
-      });
-    } else {
-      return newList = schools;
-    }
-    setSchools(newList);
-  };
-  
-  
->>>>>>>>> Temporary merge branch 2
 
   return (
     <div className={styles.con}>
