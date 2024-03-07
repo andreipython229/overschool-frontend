@@ -93,10 +93,12 @@ export const ChooseSchool = () => {
   }, [userRole])
 
   
+
   const filteredSchool = schools.filter(school => {
     return school.name.toLowerCase().includes(search.toLowerCase())
   })
  
+
 
 
   return (

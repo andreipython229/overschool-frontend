@@ -31,13 +31,13 @@ export const ChatMessage: FC<chatMessageT> = memo(({ chatData, message }) => {
           {userInfo?.avatar ? (
             <img src={`${userInfo.avatar}`} alt="avatar" />
           ) : (
-            `${userInfo?.first_name[0] || 'б'}${userInfo?.last_name || 'и'}`
+            `${userInfo?.first_name[0] || ''}${userInfo?.last_name || ''}`
           )}
         </div>
         <div className={isAuthor ? styles.chatMessage_mess_author : styles.chatMessage_mess_left}>
         {/*<div className={styles.chatMessage_mess_author}>*/}
           {/*{!isAuthor && <p className={styles.chatMessage_user_name}>{`${userInfo?.first_name} ${userInfo?.last_name}` || 'Без имени'}</p>}*/}
-          <p className={styles.chatMessage_user_name}>{`${userInfo?.first_name} ${userInfo?.last_name}` || 'Без имени'}</p>
+          <p className={styles.chatMessage_user_name}>{`${userInfo?.first_name ?? ''} ${userInfo?.last_name ?? ''}` || 'Без имени'}</p>
           <div className={styles.chatMessage_textWrapper}>
             <p>{message?.content}</p>
             <div className={styles.chatMessage_text_time}>{message?.sent_at ? format(new Date(message?.sent_at || ''), 'HH:mm') : format(new Date(), 'HH:mm')}</div>

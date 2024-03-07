@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import styles from './coursePreview.module.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useFetchCourseDataFromCatalogMutation } from 'api/catalogServices'
@@ -10,11 +10,13 @@ import { Button } from 'components/common/Button/Button'
 import { Star } from '@mui/icons-material'
 import firstStep from '../../../assets/img/createProject/firstStep.png'
 import secondStep from '../../../assets/img/createProject/secondStep.png'
+import { CatalogCourseModules } from './courseModules'
 
 export const CoureCatalogPreview: FC = () => {
   const params = useParams()
   const navigate = useNavigate()
   const [fetchCourse, { data: course, isLoading }] = useFetchCourseDataFromCatalogMutation()
+  const [openIndex, setOpenIndex] = useState<number>(-1)
 
   useEffect(() => {
     if (params && params.courseId) {
@@ -22,7 +24,19 @@ export const CoureCatalogPreview: FC = () => {
     }
   }, [params])
 
-  console.log(course)
+  const countOfLessons = () => {
+    let count = 0
+    course?.sections.map(section => (count += section.lessons.length))
+    return count
+  }
+
+  const handleToggleOpen = (index: number) => {
+    if (openIndex === index) {
+      setOpenIndex(-1)
+    } else {
+      setOpenIndex(index)
+    }
+  }
 
   if (!course || isLoading) {
     return <SimpleLoader />
@@ -45,7 +59,7 @@ export const CoureCatalogPreview: FC = () => {
       <div className={styles.wrapper_courseStats}>
         <div className={styles.wrapper_courseStats_stat}>
           <span>Занятий:</span>
-          <span>75+</span>
+          <span>{countOfLessons()}</span>
         </div>
         <div className={styles.wrapper_courseStats_stat}>
           <span>Учеников:</span>
@@ -59,15 +73,29 @@ export const CoureCatalogPreview: FC = () => {
         </div>
       </div>
       <div className={styles.wrapper_banner}>
-        <div className={styles.wrapper_banner_createProject}>
-          <h1>Присоединяйтесь к платформе OVERSCHOOL прямо сейчас!</h1>
-          <h1>Освойте одну из самых востребованных профессий!</h1>
-          <p>Попробуйте весь функционал в процессе использования и познайте, насколько он удобен</p>
-          <Button variant="primary" text="Оставить заявку" />
+        <h2 style={{ textAlign: 'center', padding: '2rem 0 1rem', color: '#4d5766' }}>Список модулей и уроков внутри курса:</h2>
+        <div>
+          {course.sections.map((module, index: number) => (
+            <CatalogCourseModules
+              section={module}
+              sectionIndex={index}
+              key={module.section_id}
+              handleToggleOpen={handleToggleOpen}
+              openIndex={openIndex}
+            />
+          ))}
         </div>
-        <div className={styles.wrapper_banner_images}>
-          <img src={firstStep} alt="Создать проект" className={styles.wrapper_banner_images_firstStep} />
-          <img src={secondStep} alt="Создать проект" className={styles.wrapper_banner_images_secondStep} />
+        <div className={styles.wrapper_banner_content}>
+          <div className={styles.wrapper_banner_content_createProject}>
+            <h1>Присоединяйтесь к платформе OVERSCHOOL прямо сейчас!</h1>
+            <h1>Освойте одну из самых востребованных профессий!</h1>
+            <p>Попробуйте весь функционал в процессе использования и познайте, насколько он удобен</p>
+            <Button variant="primary" text="Оставить заявку" />
+          </div>
+          <div className={styles.wrapper_banner_content_images}>
+            <img src={firstStep} alt="Создать проект" className={styles.wrapper_banner_content_images_firstStep} />
+            <img src={secondStep} alt="Создать проект" className={styles.wrapper_banner_content_images_secondStep} />
+          </div>
         </div>
       </div>
     </div>

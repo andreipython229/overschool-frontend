@@ -21,7 +21,12 @@ export const ChatMessagesList: FC<chatMessagesT> = ({ messages, chatData }) => {
     let currentDate = '';
 
     return sortedMessages.map((message: MessageI) => {
-      const messageDate = message?.sent_at ? new Date(message.sent_at).toDateString() : new Date().toDateString()
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+      };
+      const messageDate = message?.sent_at ? new Date(message.sent_at).toLocaleDateString('ru-RU', options) : new Date().toLocaleDateString('ru-RU', options);
 
       if (messageDate !== currentDate) {
         currentDate = messageDate;
