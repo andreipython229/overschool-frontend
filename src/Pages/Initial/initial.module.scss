@@ -8,39 +8,29 @@
 
 .init {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   overflow: hidden;
-  margin-top: 24px;
-  width: 100%;
+  padding: 24px 0;
+  width: 100vw;
   min-height: 100vh;
+  height: 100%;
   font-family: 'Manrope', sans-serif;
-  padding-bottom: 10%;
-  @media only screen and (min-width : 1805px){
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-   
-  }
+
 
   &_header {
-    max-width: 2560px;
-    margin: 0 45px;
-    max-height: 45px;
+    width: 100%;
+    padding: 40px 0 0 70px;
     width: 100%;
     @include display(flex, row, space-between);
-    margin-top: 80px;
-    padding-right: 50px;
 
     &_logo {
       width: 400px;
       display: flex;
 
-
       p {
         padding-left: 20px;
-        color: #5873E2;
+        color: #5873e2;
         font-size: 35px;
         font-weight: 800;
         text-shadow: 2px 2px 4px rgba(63, 63, 63, 0.5);
@@ -51,8 +41,9 @@
   &_main {
     position: relative;
     margin-top: 130px;
-    width: 90%;
-    @include display(flex);
+    width: 100%;
+    max-width: 1600px;
+    @include display(flex, row, space-between, center);
 
     &_wrapper {
       @include position_t_l(relative, 0, 70px, 5);
@@ -97,7 +88,7 @@
 
       &_block {
         position: relative;
-        width: 445px;
+        width: 400px;
         height: 500px;
         margin: 0 10px;
         transition: all 1s linear 0s;
@@ -219,7 +210,7 @@
   @include display(flex);
   justify-content: center;
   align-items: center;
-  margin-right: 5em;
+  margin-right: 30px;
 
   &_logIn {
     margin-right: 15px;
@@ -259,6 +250,7 @@
 }
 
 .goBtn {
+  text-align: center;
   font-size: 20px;
   font-style: inherit;
   width: 30%;
@@ -268,6 +260,12 @@
   align-items: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
   border-radius: 8px;
+  transition: all ease-in 0.5s;
+
+  &:hover {
+    background-color: rgba(186, 117, 255, 0.3);
+    color: rgb(108, 34, 145);
+  }
 }
 
 @keyframes bgAnimate1 {
