@@ -26,6 +26,7 @@ export type AnswersT = {
 type QuestionT = {
   question_type: keyof object
   body: string
+  picture?: string
   answers: AnswersT[]
   question_id: number
 }
@@ -104,7 +105,7 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
                 testId={testId}
               />
             )
-          } else if (question.question_type === 'PicText') {
+          } else if (question.question_type === 'TextPics') {
             return (
               <PicturesAndOptions
                 answers={question.answers}

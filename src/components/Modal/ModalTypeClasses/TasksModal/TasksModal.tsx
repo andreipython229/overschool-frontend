@@ -19,13 +19,23 @@ import { timeMaper } from '../../../../constants/timeMaper'
 export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modulesList, setType }) => {
   const [descriptionHomeWork, setDescriptionHomeWork] = useState<string>('')
 
-  const { nameLesson, isLoading, setNameLesson, handleCreateLesson } = useCreateLesson({
+  const { nameLesson, isLoading, setNameLesson, handleCreateLesson, lessonId } = useCreateLesson({
     modulesList,
     setType,
     typeLesson: 'homeworks',
     description: descriptionHomeWork,
     setLessonIdAndType,
   })
+  
+  useEffect(() => {
+    console.log(nameLesson);
+    console.log(modulesList);
+    
+    
+    if (lessonId !== 0) {
+      console.log('Lesson ID:', lessonId);
+    }
+  }, [lessonId]);
 
   const handleNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
     setNameLesson(event.target.value)

@@ -76,22 +76,6 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
     [debounced, id, schoolName, answersImages]
   );
 
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, answerId: number) => {
-  //   const files = event.target.files;
-  //   if (files && files.length > 0) {
-  //     const file = files[0];
-  //     setAnswersImages(prevState => ({
-  //       ...prevState,
-  //       [answerId]: file
-  //     }));
-  //   }
-  // };
-
-  
-  useEffect(() => {
-    setAnswersToRender(answers || [])
-  }, [answers])
-
   const handleAddAnswer = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     const answerToAdd = {

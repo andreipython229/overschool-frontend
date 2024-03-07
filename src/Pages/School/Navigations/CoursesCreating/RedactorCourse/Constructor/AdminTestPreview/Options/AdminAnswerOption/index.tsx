@@ -19,7 +19,7 @@ export const AdminAnswerOption: FC<AnswerOptionT> = ({id, answer}) => {
     return (
         <div className={styles.wrapper} key={answer?.answer_id}>
             <div className={styles.answerOptionsBlock}>
-                <div className={styles.answerOptionsBlock_inputWrapper}>
+                <div className={answer?.picture ? styles.answerOptionsBlock_inputWrapperWithPicture : styles.answerOptionsBlock_inputWrapperWithoutPicture}>
                     <Grid container alignItems="left" spacing={2}>
                         <Grid item>
                             <Avatar className={styles.avatar}>{id! + 1}</Avatar>
@@ -28,11 +28,11 @@ export const AdminAnswerOption: FC<AnswerOptionT> = ({id, answer}) => {
                             <Typography variant="h6">{answer?.body}</Typography>
                         </Grid>
                     </Grid>
-                        {answer?.picture && (
-                            <Grid item>
-                                <img src={answer.picture} alt="Answer" className={styles.answerImage} />
-                            </Grid>
-                        )}
+                    {answer?.picture && (
+                        <Grid item>
+                            <img src={answer.picture} alt="Answer" className={styles.answerImage} />
+                        </Grid>
+                    )}
                 </div>
             </div>
         </div>
