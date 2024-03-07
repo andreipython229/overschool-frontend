@@ -97,8 +97,6 @@ export const ChooseSchool = () => {
   const filteredSchool = schools.filter(school => {
     return school.name.toLowerCase().includes(search.toLowerCase())
   })
- 
-
 
 
   return (
