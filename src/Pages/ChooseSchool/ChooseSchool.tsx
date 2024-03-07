@@ -18,10 +18,12 @@ import { userRoleName } from 'config/index'
 import { Portal } from '../../components/Modal/Portal'
 import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 import { auth, role } from 'store/redux/users/slice'
 
 import { useLazyLogoutQuery } from 'api/userLoginService'
+
+import { log } from 'console'
 
 export type SchoolT = {
   school_id: number
@@ -43,6 +45,8 @@ export const ChooseSchool = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isOpen, { off, on }] = useBoolean()
   const dispatch = useDispatch()
+
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     dispatchRole(role(RoleE.Unknown))
@@ -88,8 +92,15 @@ export const ChooseSchool = () => {
     }
   }, [userRole])
 
+  
+
+  const filteredSchool = schools.filter(school => {
+    return school.name.toLowerCase().includes(search.toLowerCase())
+  })
+
+
   return (
-    <div>
+    <div className={styles.con}>
       <div className={styles.bgf}>
         <div className={styles.bgf_wrap1}></div>
       </div>
@@ -125,7 +136,7 @@ export const ChooseSchool = () => {
                 duration: 1.5,
               }}
             >
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+              <div className={styles.logo}>
                 <svg style={{ marginBottom: '3em' }} width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     fillRule="evenodd"
@@ -162,20 +173,29 @@ export const ChooseSchool = () => {
                 </svg>
                 <span className={styles.tit}>Выберите школу для входа:</span>
               </div>
-
+              <motion.div className={styles.search} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+                <form>
+                  <input type='text'
+                   placeholder="Название школы..." 
+                    className={styles.search} 
+                    onChange={(event)=> setSearch(event.target.value)}>
+                  </input>
+                </form>
+              </motion.div>
+              <div className={styles.schoolBox}>
               {schools ? (
-                schools.map((school, index: number) => (
+                filteredSchool.map((school, index: number) => (
                   <Link
                     key={index}
                     onClick={async e => {
                       e.preventDefault()
                       await handleSchool(school)
                     }}
-                    style={{ textDecoration: 'none' }}
+                    style={{ textDecoration: 'none', overflow: 'hidden'}}
                     to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                   >
                     <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
-                      <div>
+                      <div className={styles.bg_container}>
                         <div className={styles.name} style={{ textDecoration: 'none' }}>
                           {school.name}
                         </div>
@@ -190,9 +210,10 @@ export const ChooseSchool = () => {
                   {'Нет доступных школ :('}
                 </p>
               )}
+              </div>
               <div className={styles.create} onClick={off}>
                 <span>cоздать школу</span>
-              </div>
+              </div>  
             </motion.div>
           )}
         </div>

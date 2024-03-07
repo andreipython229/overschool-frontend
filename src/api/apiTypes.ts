@@ -1,3 +1,6 @@
+import { CoursesDataT } from "types/CoursesT"
+import { Section } from "types/courseStatT"
+
 export interface UpdateCourses {
   formdata: FormData
   id: string | number
@@ -48,4 +51,8 @@ export type CatalogResponseT = {
     public: string
     school: number
   }[]
+}
+
+export type CatalogCourseT = CoursesDataT & {
+  sections: Section[]
 }

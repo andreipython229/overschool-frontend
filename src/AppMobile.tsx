@@ -37,7 +37,7 @@ export const AppMobile = () => {
       pathname !== Path.CreateSchool &&
       pathname !== Path.InitialPage &&
       pathname.split('/')[1] !== 'certificate' &&
-      pathname !== Path.Catalog &&
+      pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.InitialPage)

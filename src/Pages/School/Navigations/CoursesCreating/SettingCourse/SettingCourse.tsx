@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { BasicSettings } from './BasicSettings'
 import { CardImageUpload } from './CardImageUpload'
@@ -7,13 +7,13 @@ import { useParams } from 'react-router-dom'
 import { useFetchCourseQuery } from 'api/coursesServices'
 
 import styles from './setting_course.module.scss'
-import {CoursesDataT} from "../../../../../types/CoursesT";
+import { CoursesDataT } from '../../../../../types/CoursesT'
 
 export const SettingCourse: FC = () => {
   const { course_id: courseId } = useParams()
   const school = window.location.href.split('/')[4]
-  const { data: course , refetch} = useFetchCourseQuery({id: courseId as string, schoolName: school})
-  const booleanValue = course?.public === 'О'
+  const { data: course, refetch } = useFetchCourseQuery({ id: courseId as string, schoolName: school })
+  const booleanValue = course?.is_catalog
   const [isPublished, { onToggle: togglePublished }] = useBoolean(booleanValue)
 
   return (

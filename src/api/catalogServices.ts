@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
-import { CatalogResponseT } from './apiTypes'
+import { CatalogCourseT, CatalogResponseT } from './apiTypes'
+import { CoursesDataT } from 'types/CoursesT'
 
 export const catalogService = createApi({
   reducerPath: 'catalogService',
@@ -17,7 +18,12 @@ export const catalogService = createApi({
         url: `/course_catalog/?p=1&s=12&query=${filter}`,
       }),
     }),
+    fetchCourseDataFromCatalog: build.mutation<CatalogCourseT, number>({
+      query: id => ({
+        url: `/course_catalog/${id}`,
+      }),
+    }),
   }),
 })
 
-export const { useFetchCourseCatalogQuery, useFilteredSearchMutation } = catalogService
+export const { useFetchCourseCatalogQuery, useFilteredSearchMutation, useFetchCourseDataFromCatalogMutation } = catalogService
