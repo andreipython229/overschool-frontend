@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import { ReactNode } from 'react'
 
 export type CoursesDataT = {
   course_id: number
@@ -16,6 +16,7 @@ export type CoursesDataT = {
   author_id: number
   public: string
   school: number
+  is_catalog: boolean
 }
 
 export type StGroupT = {
@@ -54,4 +55,3 @@ export interface checkCoursesDataT extends CoursesDataT {
 export interface checkCourseT extends CourseWithGroupsT {
   selected_group: number | null
 }
-

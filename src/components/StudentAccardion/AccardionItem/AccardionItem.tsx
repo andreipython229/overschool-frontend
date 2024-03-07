@@ -1,15 +1,12 @@
-import {FC, memo, useEffect, useState} from 'react'
-
+import {FC, memo} from 'react'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {ExerciseItem} from '../ExerciseItem/ExerciseItem'
 import {accardionArrPath} from '../../../Pages/StudentCourse/config/svgIconPath'
 import {getNounDeclension} from 'utils/getNounDeclension'
-
 import {lessonT} from '../../../types/sectionT'
 import {accardionItemT} from '../../../types/componentsTypes'
 
 import styles from './accardionItem.module.scss'
-import {completedIconPath} from "../config/svgIconPath";
 
 export const AccardionItem: FC<accardionItemT> = memo(({module, modules, moduleIndex, openIndex, handleToggleOpen}) => {
     const isLessonClickable = (lessonIndex: number) => {

@@ -14,76 +14,79 @@
   }
 
   &_banner {
-    width: 100%;
     background: #e0dced;
-    height: 379px;
-    display: inline-flex;
+    width: 100%;
+    padding: 2rem;
     border-radius: 7px;
     margin-top: -20px;
 
-    &_createProject {
-      @include display(flex, column);
-      gap: 1rem;
-      padding-top: 60px;
-      margin-left: 120px;
-      h1 {
-        margin: 0;
-      }
-      p {
-        color: #4d5766;
-        font-size: 14px;
-        width: 80%;
-      }
-      button {
-        width: 241px;
-        height: 52px;
-        font-size: 12px;
-      }
-    }
-    &_images {
-      position: relative;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    &_content {
+      display: inline-flex;
 
-      &_firstStep {
-        width: 280px;
-        height: 209px;
-        margin-top: 133px;
-        z-index: 1;
-        position: absolute;
-      }
-      &_secondStep {
-        width: 308px;
-        height: 231px;
-        margin-left: 200px;
-        position: absolute;
-        margin-top: 36px;
-      }
-    }
-    @media (min-width: 320px) and (max-width: 1024px) {
-      &_images {
-        display: none;
-      }
-      height: auto;
       &_createProject {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        margin: 20px;
-        height: auto;
+        @include display(flex, column);
+        gap: 1rem;
+        padding-top: 60px;
+        margin-left: 120px;
         h1 {
-          font-size: 32px;
+          margin: 0;
+        }
+        p {
+          color: #4d5766;
+          font-size: 14px;
+          width: 80%;
+        }
+        button {
+          width: 241px;
+          height: 52px;
+          font-size: 12px;
         }
       }
-    }
-    @media (min-width: 320px) and (max-width: 481px) {
-      h1 {
-        font-size: 23px;
+      &_images {
+        position: relative;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        &_firstStep {
+          width: 280px;
+          height: 209px;
+          margin-top: 133px;
+          z-index: 1;
+          position: absolute;
+        }
+        &_secondStep {
+          width: 308px;
+          height: 231px;
+          margin-left: 200px;
+          position: absolute;
+          margin-top: 36px;
+        }
       }
-      button {
-        width: 150px;
-        margin: 30px 0;
+      @media (min-width: 320px) and (max-width: 1024px) {
+        &_images {
+          display: none;
+        }
+        height: auto;
+        &_createProject {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          margin: 20px;
+          height: auto;
+          h1 {
+            font-size: 32px;
+          }
+        }
+      }
+      @media (min-width: 320px) and (max-width: 481px) {
+        h1 {
+          font-size: 23px;
+        }
+        button {
+          width: 150px;
+          margin: 30px 0;
+        }
       }
     }
   }
@@ -236,6 +239,159 @@
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       @include font(500, 13px, 12px);
       color: #ffffff;
+    }
+  }
+}
+
+.accardionWrapper {
+  &_component {
+    @include display(flex, column, center);
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border-radius: 7px;
+    margin-bottom: 16px;
+    transition: all 0.3s;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin: 5px;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      margin: 5px;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+    &_header {
+      @include display(flex, row, space-between, center);
+      width: 100%;
+      padding: 27px 40px;
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        padding: 21px 11px;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        padding: 21px 11px;
+      }
+
+      &_showBtnWrapper_active > svg {
+        // fill: '#C6C6C6';
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+      }
+
+      &_showBtnWrapper > svg {
+        // fill: '#4D5766';
+        transform: rotate(0);
+        -webkit-transform: rotate(0);
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+      }
+      svg {
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          width: 15px;
+          height: 15px;
+          margin-left: 10px;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          width: 15px;
+          height: 15px;
+          margin-left: 10px;
+        }
+      }
+
+      &_completedIcon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        background: #f3e7ff;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 18px;
+        color: #ba75ff;
+        //background-color: #ba75ff;
+        border-radius: 50%;
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          width: 30px;
+          height: 25px;
+          font-size: 10px;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          width: 30px;
+          height: 25px;
+          font-size: 10px;
+        }
+
+        svg {
+          @include position_t_l(absolute, calc(50% - 8px), calc(50% - 7px));
+        }
+      }
+      &_lessonName {
+        @include display(flex, row, flex-start, center);
+        width: 100%;
+        margin-left: 32px;
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          margin-left: 9px;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          margin-left: 9px;
+        }
+
+        &_title {
+          @include display(flex, row, flex-start, center);
+          @include font(500, 14px, 16px);
+          color: #4d5766;
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            font-size: 10px;
+          }
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
+            font-size: 10px;
+          }
+
+          span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            margin: 0 10px;
+            background-color: #9ca3af;
+          }
+        }
+        &_exerciseSum {
+          @include font(500, 14px, 16px);
+          color: #9ca3af;
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            font-size: 10px;
+          }
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
+            font-size: 10px;
+          }
+          span {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+
+    &_exerciseWrapper {
+      @include display(flex, column, center, center);
+      padding: 0 89px 0 94px;
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        padding: 10px 10px;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        padding: 10px 10px;
+      }
+
+      &_exercise {
+        height: 50px;
+        margin-bottom: 16px;
+        border-radius: 7px;
+        background-color: #f1e3ff;
+      }
     }
   }
 }
