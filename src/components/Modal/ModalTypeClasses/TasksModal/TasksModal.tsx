@@ -26,16 +26,6 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modu
     description: descriptionHomeWork,
     setLessonIdAndType,
   })
-  
-  useEffect(() => {
-    console.log(nameLesson);
-    console.log(modulesList);
-    
-    
-    if (lessonId !== 0) {
-      console.log('Lesson ID:', lessonId);
-    }
-  }, [lessonId]);
 
   const handleNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
     setNameLesson(event.target.value)
