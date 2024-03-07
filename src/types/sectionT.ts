@@ -146,4 +146,5 @@ export type answerT = {
   id: string
   name: string
   title: string
+  picture?: string
 }

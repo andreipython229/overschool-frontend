@@ -13,7 +13,7 @@ import stylesModules from '../ModulesBlock/modules_block.module.scss'
 import { Reorder, useDragControls } from 'framer-motion'
 import { doBlockIconPath } from '../../../../../../../../components/Modal/SettingStudentTable/config/svgIconsPath'
 
-export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, type, lessonsName, id, lesson, selected, onPush }) => {
+export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, setFocusOnLesson, type, lessonsName, id, lesson, selected, onPush }) => {
   const [deleteLesson, { isLoading }] = useDeleteLessonsMutation()
   const controls = useDragControls()
   const schoolName = window.location.href.split('/')[4]
@@ -21,6 +21,10 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, type,
   const handleDeleteLesson = async () => {
     await deleteLesson({ id, type, schoolName })
     setLessonIdAndType({} as lessonIdAndTypeT)
+
+    if (setFocusOnLesson) {
+      setFocusOnLesson();
+    }
   }
 
   const handleChangeLesson = () => {
@@ -32,6 +36,7 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, type,
   const onPointerDown = (event: PointerEvent<SVGSVGElement | SVGPathElement>) => {
     controls.start(event)
   }
+  
 
   return (
     <Reorder.Item

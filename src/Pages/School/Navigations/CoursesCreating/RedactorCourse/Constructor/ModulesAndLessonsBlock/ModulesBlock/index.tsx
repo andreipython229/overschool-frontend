@@ -57,8 +57,14 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
       setType('lessonsModal' as keyof object)
     }
 
+    const handleSetFirstLesson = () => {
+      handleLessonClick(lessonsList[0].baselesson_ptr_id)
+    }
+
     useEffect(() => {
       setLessons(lessonsList)
+      const newLessonId = lessonsList[lessonsList.length - 1]?.baselesson_ptr_id;
+      handleLessonClick(newLessonId)
     }, [lessonsList])
 
     useEffect(() => {
@@ -122,16 +128,17 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
           <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons}>
             {lessons &&
               lessons.map(lesson => (
-                <LessonsBlock
-                  type={lesson.type}
-                  setLessonIdAndType={setLessonIdAndType}
-                  key={lesson.baselesson_ptr_id}
-                  id={lesson.id}
-                  lessonsName={lesson.name}
-                  lesson={lesson}
-                  selected={selectedLessonId === lesson.baselesson_ptr_id}
-                  onPush={() => handleLessonClick(lesson.baselesson_ptr_id)}
-                />
+                  <LessonsBlock
+                    type={lesson.type}
+                    setLessonIdAndType={setLessonIdAndType}
+                    setFocusOnLesson={() => handleSetFirstLesson()}
+                    key={lesson.baselesson_ptr_id}
+                    id={lesson.id}
+                    lessonsName={lesson.name}
+                    lesson={lesson}
+                    selected={selectedLessonId === lesson.baselesson_ptr_id }
+                    onPush={() => handleLessonClick(lesson.baselesson_ptr_id)}
+                  />
                 // lesson.id + lesson.name
               ))}
           </Reorder.Group>

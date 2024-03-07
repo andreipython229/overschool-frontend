@@ -17,7 +17,8 @@ import styles from './addQuestion.module.scss'
 export type AnswersT = {
   answer_id: number
   body: string
-  image?: Blob
+  image?: string
+  picture?: string
   is_correct: boolean
   question: number
 }

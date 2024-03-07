@@ -10,6 +10,7 @@ type AnswerOptionT = {
         answer_id?: number
         body?: string
         is_correct?: boolean
+        picture?: string
     }
 }
 
@@ -27,6 +28,11 @@ export const AdminAnswerOption: FC<AnswerOptionT> = ({id, answer}) => {
                             <Typography variant="h6">{answer?.body}</Typography>
                         </Grid>
                     </Grid>
+                        {answer?.picture && (
+                            <Grid item>
+                                <img src={answer.picture} alt="Answer" className={styles.answerImage} />
+                            </Grid>
+                        )}
                 </div>
             </div>
         </div>

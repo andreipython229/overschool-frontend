@@ -30,6 +30,7 @@ export type LessonsBlockT = {
   id: number
   type: string
   setLessonIdAndType: (arg: lessonIdAndTypeT) => void
+  setFocusOnLesson?: () => void
   lesson: lessonT
   selected: boolean
   onPush: () => void

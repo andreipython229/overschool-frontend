@@ -113,8 +113,8 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
                 <div className={styles.wrapper_progressBar_progress} style={{width: `${progress}%`}}></div>
             </div>
             {questions?.answers &&
-                questions?.answers.map(({body: answer, answer_id: id, is_correct: isCorrect}: any, index: number) => (
-                    <StudentAnswer key={index} id={id} title={answer} name={nameAnswer} isCorrect={isCorrect}
+                questions?.answers.map(({body: answer, answer_id: id, is_correct: isCorrect, picture}: any, index: number) => (
+                    <StudentAnswer key={index} id={id} title={answer} name={nameAnswer} isCorrect={isCorrect} picture={picture}
                                    onSelect={handleAnswerSelect}/>
                 ))}
             {numberTest + 1 !== questionLength ?

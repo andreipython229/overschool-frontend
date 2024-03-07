@@ -7,6 +7,7 @@ import styles from '../../../../../../../components/AddQuestion/addQuestion.modu
 import { OptionsWithPictures } from '../../../../../../../components/Questions/OptionsWithPictures'
 import { PicturesAndOptions } from '../../../../../../../components/Questions/PicturesAndOptions'
 import { AdminTextOptions } from './Options/AdminTextOption'
+import { AdminOptionsWithPictures } from './Options/AdminOptionsWithPictures'
 
 type AdminTestT = {
   testId: number
@@ -59,7 +60,7 @@ export const AdminTest: FC<AdminTestT> = ({ testId }) => {
             )
           } else if (question.question_type === 'TextPic') {
             return (
-              <OptionsWithPictures
+              <AdminOptionsWithPictures
                 answers={question.answers}
                 question={question}
                 title={question.body}
