@@ -5,19 +5,20 @@ import { LessonAddBlockPropsT } from '../../../../../../../types/navigationTypes
 
 import styles from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/constructor.module.scss'
 
-export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(({ setType, modulesList, setLessonIdAndType, isLoading }) => {
+export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(({ setType, modulesList, setLessonIdAndType, isLoading, baseLessonId }) => {
   const [selectedLessonId, setSelectedLessonId] = useState<number>()
 
   useEffect(() => {
     console.log('modulesList changed:', modulesList);
-  }, [modulesList]);
-  
-
-  useEffect(() => {
     if (modulesList.length > 0 && modulesList[0].lessons.length > 0) {
-      setSelectedLessonId(modulesList[0].lessons[0].baselesson_ptr_id)
+      if (baseLessonId) {
+        setSelectedLessonId(baseLessonId)
+      } else {
+        setSelectedLessonId(modulesList[0].lessons[0].baselesson_ptr_id)
+      }
     }
-  }, [isLoading])
+  }, [modulesList, isLoading]);
+  
 
   const handleOpenModalModule = () => {
     setType('module' as keyof object)

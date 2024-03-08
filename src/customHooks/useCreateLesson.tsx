@@ -29,7 +29,6 @@ type UseCreateLessonReturnT = {
   handleCreateLesson: (event: FormEvent<HTMLFormElement>) => void
   nameLesson: string
   isLoading?: boolean
-  lessonId: number;
 }
 
 type createLessonDataT = {
@@ -67,7 +66,6 @@ export const useCreateLesson = ({
 }: useCreateLessonT): UseCreateLessonReturnT => {
   const [nameLesson, setNameLesson] = useState<string>('')
   const schoolName = window.location.href.split('/')[4]
-  const [lessonId, setLessonId] = useState<number>(0);
 
   const { section_id } = useAppSelector(getSectionId)
 
@@ -117,7 +115,6 @@ export const useCreateLesson = ({
     await createLesson({arg: { createLessonData, type: typeLesson }, schoolName})
       .unwrap()
       .then(data => {
-        setLessonId(data.baselesson_ptr_id);
         const newLessonData = {
           type: typeLesson,
           name: nameLesson,
@@ -145,10 +142,10 @@ export const useCreateLesson = ({
     if (isSuccess) {
       const type = typeLesson.slice(0, -1)
       console.log(data)
-      setLessonIdAndType({ id: data[`${type}_id`], type: type })
+      setLessonIdAndType({ id: data[`${type}_id`], type: type, baseLessonId: data?.baselesson_ptr_id})
       setType(null as keyof object)
     }
   }, [isSuccess])
 
-  return { nameLesson, isLoading, setNameLesson, handleCreateLesson, lessonId }
+  return { nameLesson, isLoading, setNameLesson, handleCreateLesson }
 }

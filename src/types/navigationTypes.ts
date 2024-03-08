@@ -23,6 +23,7 @@ export type LessonAddBlockPropsT = {
   modulesList: sectionT[]
   setType: (arg: keyof object) => void
   isLoading: any
+  baseLessonId?: number
 }
 
 export type LessonsBlockT = {

@@ -63,23 +63,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
 
     useEffect(() => {
       setLessons(lessonsList)
-      // const newLessonId = lessonsList[lessonsList.length - 1]?.baselesson_ptr_id;
-      // handleLessonClick(newLessonId)
     }, [lessonsList])
-
-    // useEffect(() => {
-    //   setLessons(lessonsList);
-    //   if (setLessonIdAndType !== undefined) {
-    //     // Если установлен новый setLessonIdAndType, вызываем handleSetFirstLesson
-    //     console.log("handleLessonClick");
-    //     const newLessonId = lessonsList[lessonsList.length - 1]?.baselesson_ptr_id;
-    //     handleLessonClick(newLessonId);
-    //   } else {
-    //     console.log("handleSetFirstLesson");
-        
-    //     handleSetFirstLesson();
-    //   }
-    // }, [lessonsList]);
 
     useEffect(() => {
       if (lessons.length > 0) setVisibleAddBtn(true)

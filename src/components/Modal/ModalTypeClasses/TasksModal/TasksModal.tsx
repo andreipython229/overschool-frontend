@@ -19,7 +19,7 @@ import { timeMaper } from '../../../../constants/timeMaper'
 export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modulesList, setType }) => {
   const [descriptionHomeWork, setDescriptionHomeWork] = useState<string>('')
 
-  const { nameLesson, isLoading, setNameLesson, handleCreateLesson, lessonId } = useCreateLesson({
+  const { nameLesson, isLoading, setNameLesson, handleCreateLesson } = useCreateLesson({
     modulesList,
     setType,
     typeLesson: 'homeworks',

@@ -4,6 +4,7 @@ import { CoursesDataT } from '../../types/CoursesT'
 import {EmployeeT} from 'types/userT'
 
 export type lessonIdAndTypeT = {
+  baseLessonId?: number
   id: number
   type: string
 }
