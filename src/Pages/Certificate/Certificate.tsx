@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react'
 import CryptoJS from 'crypto-js'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
+
+
 export const Certificate = () => {
   const { certLink } = useParams()
   const [data, setData] = useState<{ courseId: number; userId: number; schoolId: number }>()
@@ -47,62 +49,65 @@ export const Certificate = () => {
   
 
   return sertData ? (
-    <main className={styles.main}>
-      
-      <div className={styles.wrapper}>
-        <div className={styles.logo}>
-          <picture className={styles.logo__img}>
-            <source srcSet={logo} media="(min-width: 1025px)" />
-            <source srcSet={logoHorizontal} media="(max-width: 1024px)" />
-            <img src={logo} className={styles.logo__img} alt="logo" />
-          </picture>
-        </div>
-        <div className={styles.certificate}>
-          <div className={styles.certificate__header}>certificate</div>
-          <div className={styles.certificate__producer}>
-            <img className={styles.border} src={border} alt="border" />
-            {sertData.school_name} school
+    <main>
+      <div  className={styles.main}> 
+        <div className={styles.wrapper}>
+          <div className={styles.logo}>
+            <picture className={styles.logo__img}>
+              <source srcSet={logo} media="(min-width: 1025px)" />
+              <source srcSet={logoHorizontal} media="(max-width: 1024px)" />
+              <img src={logo} className={styles.logo__img} alt="logo" />
+            </picture>
           </div>
-          <div className={styles.certificate__graduate}>{sertData.user_full_name}</div>
-          <div className={styles.certificate__content}>
-            Has successfully completed
-            <p> <span className={styles.bold}>{sertData.course_name}</span> course.</p> 
+          <div className={styles.certificate}>
+            <div className={styles.certificate__header}>certificate</div>
+            <div className={styles.certificate__producer}>
+              <img className={styles.border} src={border} alt="border" />
+              {sertData.school_name} school
+            </div>
+            <div className={styles.certificate__graduate}>{sertData.user_full_name}</div>
+            <div className={styles.certificate__content}>
+              Has successfully completed
+              <p> <span className={styles.bold}>{sertData.course_name}</span> course.</p> 
+              
+            </div>
             
           </div>
-          
         </div>
-      </div>
-      <div className={styles.certificate__content_skills}>
-              {/* Key skills: {sertData.course_description}. */}
-              The course provides knowledge on the following topics:
-      </div>
-      <ul className={styles.certificate__content_modal}>{sertData.sections.map((modal:any) => 
-        <li key={modal}> {modal.name} </li>)}
-      </ul>
-      <div className={styles.signs}>
-            <div className={styles.signs__date}>19.09.2022</div>
-            <div className={styles.signs__content}>
-              <div className={styles.sign}>
-                <div className={styles.sign__signatory}>
-                  Teacher
-                  <br />
-                  {sertData.teacher}
+        <div className={styles.signs}>
+              <div className={styles.signs__date}>19.09.2022</div>
+              <div className={styles.signs__content}>
+                <div className={styles.sign}>
+                  <div className={styles.sign__signatory}>
+                    Teacher
+                    <br />
+                    {sertData.teacher}
+                  </div>
+                  <div className={styles.sign__img}></div>
                 </div>
-                <div className={styles.sign__img}></div>
-              </div>
-              <div className={styles.sign}>
-                <div className={styles.sign__signatory}>
-                  Director
-                  <br />
-                  {sertData.school_owner}
-                </div>
-                <div className={styles.sign__img}>
-                  <img className={styles.sign__stamp} src={stamp} alt="stamp" />
+                <div className={styles.sign}>
+                  <div className={styles.sign__signatory}>
+                    Director
+                    <br />
+                    {sertData.school_owner}
+                  </div>
+                  <div className={styles.sign__img}>
+                    <img className={styles.sign__stamp} src={stamp} alt="stamp" />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-      <div className={styles.courseName}></div>
+        <div className={styles.courseName}></div>
+      </div> 
+      <div className={styles.mainSkills}>
+        <div className={styles.mainSkills__content_skills}>
+                {/* Key skills: {sertData.course_description}. */}
+                The course provides knowledge on the following topics:
+        </div>
+        <ul className={styles.mainSkills__content_modal}>{sertData.sections.map((modal:any) => 
+          <li key={modal}> {modal.name} </li>)}
+        </ul>
+      </div>
     </main>
     
   ) : (
