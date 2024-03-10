@@ -71,8 +71,9 @@
     transition: height 0.3s ease, opacity 0.3s ease;
     overflow-y: scroll;
     max-height: 250px;
+    scrollbar-color: #ba75ffd6 #f5f5f5;
 
-    &_check {
+   &_check {
       display: flex;
 
       &_span {
@@ -107,4 +108,8 @@
       min-height: 30px;
     }
   }
+}
+
+.accardion_content:hover {
+    scrollbar-color: #ba75ff #e0dced80;
 }
