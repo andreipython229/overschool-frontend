@@ -3,11 +3,11 @@ import { getUserIdFromLocalStorage } from 'utils/getUserId';
 import { 
   SendMessagePayload,
   useSendMessageMutation, 
-  useFetchLatestMessagesQuery, 
+  useLazyFetchLatestMessagesQuery, 
   useCreateChatMutation, 
-  useFetchLatestChatsQuery,
+  useLazyFetchLatestChatsQuery,
   useDeleteChatsMutation,
-  useFetchWelcomeMessageQuery,
+  useLazyFetchWelcomeMessageQuery,
   useUpdateWelcomeMessageMutation
 } from '../../api/chatgptService';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
@@ -24,19 +24,11 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [messageInput, setMessageInput] = useState('');
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const userId = getUserIdFromLocalStorage();
-  const { data: latestChats = [], refetch: refetchChats } = userId
-  ? useFetchLatestChatsQuery()
-  : { data: [], refetch: undefined };
-  const [chatData, setChatData] = useState<{ [id: number]: string }>({});
 
+  const [chatData, setChatData] = useState<{ [id: number]: string }>({});
   const [selectedChatId, setCreatedChatId] = useState<number>();
   const [isChatSelected, setIsChatSelected] = useState(false);
-
-  const [sendMessage] = useSendMessageMutation();
-
-  const [createChatMutation] = useCreateChatMutation();
   const [chatList, setChatList] = useState<Array<number>>([]);
-
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,32 +38,72 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [isChatSelectionDisabled, setIsChatSelectionDisabled] = useState(false);
   const [isCreatingChatDisabled, setIsCreatingChatDisabled] = useState(false);
   const [showWelcomeMessage, setShowWelcomeMessage] = useState<boolean>(true);
-  const { data: welcomeMessageData } = useFetchWelcomeMessageQuery();
   const [showSpinner, setShowSpinner] = useState(true);
   const [isBotResponsePending, setIsBotResponsePending] = useState(false);
+
+  const [ refetchChats, { data: latestChats }] = useLazyFetchLatestChatsQuery();
+  const [ refetchMessages, { data: latestMessages }] = useLazyFetchLatestMessagesQuery();
+  const [fetchWelcomeMessage, { data: welcomeMessageData }] = useLazyFetchWelcomeMessageQuery();  
+
   const [deleteChats] = useDeleteChatsMutation();
   const [updateWelcomeMessage] = useUpdateWelcomeMessageMutation();
+  const [createChatMutation] = useCreateChatMutation();
+  const [sendMessage] = useSendMessageMutation();
 
-  const { data: latestMessages = [], refetch: refetchMessages } = userId 
-  ? useFetchLatestMessagesQuery({
-      overai_chat_id: selectedChatId ? selectedChatId : 1
-    })
-  : { data: [], refetch: undefined };
-
-  const userQuestions = latestMessages[0] && Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
-  const botAnswers = latestMessages[1] && Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
+  const userQuestions = latestMessages && latestMessages[0] && Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
+  const botAnswers = latestMessages && latestMessages[1] && Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
 
   useEffect(() => {
-    if (welcomeMessageData) {
-      setShowWelcomeMessage(welcomeMessageData.show_welcome_message);
-    }
-    
-  }, [welcomeMessageData]);
+    const fetchData = async () => {
+      if (isDialogOpen !== false && selectedChatId !== null) {
+        setError(null);
+        setShowSpinner(true);
 
-  const toggleDialog = () => {
+        if (showWelcomeMessage !== true) {
+          setShowWelcomeMessage(false);
+          setShowSpinner(false);
+        } else {
+          setShowWelcomeMessage(true);
+          setShowSpinner(false);
+        }
+  
+        setIsLoadingMessages(true);
+        setIsFetchingChats(true);
+        
+        deleteChats();
+
+        if (!chatsLoaded) {
+          await fetchChats();
+        }
+  
+        setIsFetchingChats(false);
+  
+        if (selectedChatId && refetchMessages && isChatSelected) {
+          try {
+            await refetchMessages({ overai_chat_id: selectedChatId });
+            setFocusToBottom();
+          } catch (error) {
+            setError('Ошибка получения сообщений');
+          } finally {
+            setIsLoadingMessages(false);
+          }
+        } else {
+          setIsLoadingMessages(false);
+        }
+      }
+    };
+  
+    fetchData();
+  }, [isDialogOpen, selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage]);
+
+  const toggleDialog = async () => {
     setIsDialogOpen(!isDialogOpen);
     setFocusToBottom();
     isDialogOpen ? closeChatModal() : openChatModal();
+    const response = await fetchWelcomeMessage();
+    if (response.data) {
+      setShowWelcomeMessage(response.data.show_welcome_message);
+    }
   };
 
   const setFocusToBottom = () => {
@@ -133,48 +165,6 @@ const formatBotAnswer = (answer: string): JSX.Element => {
 };
 
 useEffect(() => {
-  const fetchData = async () => {
-    if (isDialogOpen && selectedChatId !== null) {
-      setError(null);
-      setShowSpinner(true);
-      
-      if (showWelcomeMessage !== true) {
-        setShowWelcomeMessage(false);
-        setShowSpinner(false);
-      } else {
-        setShowWelcomeMessage(true);
-        setShowSpinner(false);
-      }
-
-      setIsLoadingMessages(true);
-      setIsFetchingChats(true);
-
-      if (!chatsLoaded) {
-        await fetchChats();
-      }
-
-      setIsFetchingChats(false);
-
-      if (selectedChatId && refetchMessages && isChatSelected) {
-        try {
-          await refetchMessages();
-          setFocusToBottom();
-        } catch (error) {
-          setError('Ошибка получения сообщений');
-        } finally {
-          setIsLoadingMessages(false);
-        }
-      } else {
-        setIsLoadingMessages(false);
-      }
-    }
-  };
-
-  fetchData();
-}, [isDialogOpen, selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage]);
-
-
-useEffect(() => {
   const timer = setTimeout(() => {
     setFocusToBottom();
   }, 100);
@@ -189,21 +179,6 @@ useEffect(() => {
       setIsChatSelected(true);
     }
   };
-
-  useEffect(() => {
-    const deleteNewChats = async () => {
-      try {
-        if (userId) {
-          await deleteChats();
-          await fetchChats();
-        }
-      } catch (error) {
-        setError('Ошибка при удалении чатов');
-      }
-    };
-
-    deleteNewChats();
-  }, []);
   
   const createChat = async () => {
     try {
@@ -227,7 +202,7 @@ useEffect(() => {
   };
 
   const handleCreateChat = async () => {
-    if (userId !== null) {
+    if (userId !== null && updateWelcomeMessage !== null) {
       await updateWelcomeMessage();
     }
     await createChat();
@@ -254,6 +229,7 @@ useEffect(() => {
     }
   };
 
+
   const handleSendMessage = async (messageInput: string) => {
     if (messageInput.trim() !== '') {
       try {
@@ -275,7 +251,7 @@ useEffect(() => {
           await sendMessage(payload);
 
           if (refetchMessages) {
-            await refetchMessages();
+            await refetchMessages({ overai_chat_id: selectedChatId });
           }
           
           setMessageInput('');
