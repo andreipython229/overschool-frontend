@@ -6,13 +6,66 @@
     color: rgb(255, 251, 251);
     //max-width: 3400px;
     // max-height: 2400px;
-    width: 1300px;
-    height: 100%;
+    width: 1024px;
+    height: 600px;
     margin: 0 auto;
-    overflow: auto;
+    // overflow: auto;
     padding: 10px 10px 10px 10px;
     border: 1px solid black;
     background: linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);
+    border: 2px solid black;
+    margin-bottom: 10px;
+}
+
+.mainSkills {
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    //max-width: 3400px;
+    // max-height: 2400px;
+    width: 1024px;
+    height: 600px;
+    margin: 0 auto;
+    // overflow: auto;
+    padding: 30px 10px 10px 10px;
+    border: 1px solid black;
+    background-color: white;
+    // background: linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);
+    border: 2px solid black;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        font-weight: 400;
+        font-size: 1.5rem;
+        text-align: start;
+
+        &_skills {
+            display: flex;
+            font-weight: 400;
+            font-size: 2rem;
+            text-align: start;
+            margin-bottom: 5%;
+            padding-left: 3%;
+        }
+
+        &_modal {
+            display: flex;
+            flex-direction: column;
+            font-weight: 400;
+            font-size: 1.5rem;
+            text-align: start;
+            padding-left: 100px;
+            margin-bottom: 15%;
+
+
+            li {
+                padding-bottom: 20px;
+            }
+        }
+    }
    
 }
 
@@ -22,7 +75,7 @@
     align-items: center;
     width: 100%;
     position: relative;
-    margin-bottom: 5%;
+    // margin-bottom: 10px;
 
     @media screen and (min-width: 320px) and (max-width: 1024px) {
         flex-flow: column nowrap;
@@ -46,7 +99,7 @@
     }
 
         &__img {
-            width: 200px;
+            width: 100px;
             line-height: 0;
         }
 }
@@ -68,9 +121,9 @@
     align-items: center;
 
 		&__header {
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             font-weight: 700;
-            font-size: 5rem;
+            font-size: 3.5rem;
             text-align: center;
             text-transform: uppercase;
 		}
@@ -78,23 +131,23 @@
 		&__producer {
             position: relative;
             width: max-content;
-            margin-bottom: 40px;
-            padding: 0.9375rem 0; 
+            margin-bottom: 20px;
+            // padding: 0.9375rem 0; 
 
             font-weight: 600;
-            font-size: 3rem;
+            font-size: 2rem;
             text-align: center;
             text-transform: uppercase;
 
-            margin: 0 auto;
-            padding-bottom: 50px;
+            // margin: 0 auto;
+            padding-bottom: 20px;
 		}
 
 		&__graduate {
-            margin-bottom: 6.25rem;
+            margin-bottom: 2rem;
             border-bottom: 1px solid rgb(255, 251, 251);
             font-weight: 500;
-            font-size: 4rem;
+            font-size: 2rem;
             text-align: center;
             text-transform: uppercase;
 		}
@@ -103,9 +156,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 10%;
+            margin-bottom: 20px;
             font-weight: 400;
-            font-size: 2rem;
+            font-size: 1.5rem;
             text-align: start;
 
             &_skills {
@@ -139,10 +192,10 @@
     justify-content: space-between;
     align-items: flex-end;
     font-weight: 400;
-    font-size: 2rem;
+    font-size: 1rem;
     text-align: start;
     width: 100%;
-    margin-bottom: 8%;
+    // margin-bottom: 8%;
 
         &__date {
             flex: 1 1 30%;
@@ -163,7 +216,7 @@
     padding-right: 20px;
 
         &:nth-child(1) {
-            margin-bottom: 4.375rem;
+            margin-bottom: 1rem;
         }
 
 		&__img {
@@ -174,7 +227,7 @@
 
         &__stamp {
             position: absolute;
-            width: 100%;
+            width: 90%;
         }
 }
 
@@ -182,6 +235,6 @@
     display: flex;
     background: no-repeat bottom url('./img/courseName.svg');
     width: 100%;
-    height: 300px;
+    height: 150px;
     background-size: contain;
 }
