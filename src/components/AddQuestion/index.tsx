@@ -17,7 +17,8 @@ import styles from './addQuestion.module.scss'
 export type AnswersT = {
   answer_id: number
   body: string
-  image?: Blob
+  image?: string
+  picture?: string
   is_correct: boolean
   question: number
 }
@@ -25,6 +26,7 @@ export type AnswersT = {
 type QuestionT = {
   question_type: keyof object
   body: string
+  picture?: string
   answers: AnswersT[]
   question_id: number
 }
@@ -103,7 +105,7 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
                 testId={testId}
               />
             )
-          } else if (question.question_type === 'PicText') {
+          } else if (question.question_type === 'TextPics') {
             return (
               <PicturesAndOptions
                 answers={question.answers}
@@ -116,22 +118,22 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
             )
           }
         })}
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2em' }}>
+        {/* <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2em' }}>
           <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-        </div>
+        </div> */}
       </div>
-      {/* <div className={styles.wrapper_addQuestionsWrapper}>
+      <div className={styles.wrapper_addQuestionsWrapper}>
         <h2 className={styles.wrapper_addQuestionsWrapper_title}>Добавьте вопрос</h2>
         <div className={styles.wrapper_addQuestionsWrapper_btnWrapper}>
           <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
           <AddOptionsWithPictures setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
           <AddPicturesAndOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-          <AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
+          {/* <AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
                       questions={questions} testId={testId}/>
           <AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
-                           questions={questions} testId={testId}/>
+                           questions={questions} testId={testId}/> */}
         </div>
-      </div> */}
+      </div>
     </div>
   )
 })

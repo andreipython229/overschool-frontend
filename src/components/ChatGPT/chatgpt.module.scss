@@ -380,6 +380,7 @@
 
 .errorContainer.visible {
   opacity: 1 !important;
+  z-index: 10000000;
 }
 
 .errorText {

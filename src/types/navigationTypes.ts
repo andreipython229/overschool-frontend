@@ -23,6 +23,7 @@ export type LessonAddBlockPropsT = {
   modulesList: sectionT[]
   setType: (arg: keyof object) => void
   isLoading: any
+  baseLessonId?: number
 }
 
 export type LessonsBlockT = {
@@ -30,6 +31,7 @@ export type LessonsBlockT = {
   id: number
   type: string
   setLessonIdAndType: (arg: lessonIdAndTypeT) => void
+  setFocusOnLesson?: () => void
   lesson: lessonT
   selected: boolean
   onPush: () => void

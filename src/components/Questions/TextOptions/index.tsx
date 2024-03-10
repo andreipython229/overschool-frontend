@@ -25,7 +25,6 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({ question, answers, title,
       question: question?.question_id,
       body: 'Введите ответ',
     }
-
     addAnswer({ body: answerToAdd, schoolName })
   }
 

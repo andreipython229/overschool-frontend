@@ -4,6 +4,7 @@ import { SettingsClassesModal } from '../components/Modal/CoursesModal/SettingsC
 import { ModalTypeClasses, SettingClassesUsually, TasksModal, TestModal } from '../components/Modal'
 
 export const ModalMaper = ({ courseId, lessonIdAndType, setLessonIdAndType, type, setType, modulesList, setModulesList }: keyof object | any): JSX.Element | null => {
+
   if (type) {
     const modalMapper = {
       setting: <SettingsClassesModal lessonIdAndType={lessonIdAndType} modulesList={modulesList} setType={setType} />,

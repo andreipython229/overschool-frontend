@@ -4,9 +4,9 @@ import { orderBy } from 'lodash'
 import { SimpleLoader } from '../../../../../../../components/Loaders/SimpleLoader'
 import { AnswersT } from '../../../../../../../components/AddQuestion'
 import styles from '../../../../../../../components/AddQuestion/addQuestion.module.scss'
-import { OptionsWithPictures } from '../../../../../../../components/Questions/OptionsWithPictures'
-import { PicturesAndOptions } from '../../../../../../../components/Questions/PicturesAndOptions'
 import { AdminTextOptions } from './Options/AdminTextOption'
+import { AdminOptionsWithPictures } from './Options/AdminOptionsWithPictures'
+import { AdminPicturesAndOptions } from './Options/AdminPicturesAndOptions'
 
 type AdminTestT = {
   testId: number
@@ -59,7 +59,7 @@ export const AdminTest: FC<AdminTestT> = ({ testId }) => {
             )
           } else if (question.question_type === 'TextPic') {
             return (
-              <OptionsWithPictures
+              <AdminOptionsWithPictures
                 answers={question.answers}
                 question={question}
                 title={question.body}
@@ -67,9 +67,9 @@ export const AdminTest: FC<AdminTestT> = ({ testId }) => {
                 key={question.question_id}
               />
             )
-          } else if (question.question_type === 'PicText') {
+          } else if (question.question_type === 'TextPics') {
             return (
-              <PicturesAndOptions
+              <AdminPicturesAndOptions
                 answers={question.answers}
                 question={question}
                 title={question.body}

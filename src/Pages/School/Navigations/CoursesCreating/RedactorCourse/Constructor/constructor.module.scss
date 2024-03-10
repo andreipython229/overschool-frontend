@@ -553,6 +553,11 @@
   }
 }
 
+.newLesson {
+  background-color: #dcdcdc; // цвет фона для подсвеченного урока
+  border-radius: 8px; // скругление углов
+}
+
 .hl {
   width: 256px;
   border-bottom: 1px solid #d9d9d9;

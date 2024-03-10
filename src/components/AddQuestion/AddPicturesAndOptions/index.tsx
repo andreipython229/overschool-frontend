@@ -7,13 +7,12 @@ import { useCreateQuestionsMutation } from '../../../api/questionsAndAnswersServ
 export const AddPicturesAndOptions: FC<AddQuestionOptionsT> = ({ setTypeQuestions, testId, setQuestions, questions }) => {
   const [createOption, { data }] = useCreateQuestionsMutation()
   const schoolName = window.location.href.split('/')[4]
-
   const handleGetTypeQuestion = () => {
     setTypeQuestions('TextPics' as keyof object)
     createOption({
       question: {
-        question_type: 'PicText',
-        body: File,
+        question_type: 'TextPics',
+        body: 'Вопрос с картинкой',
         is_any_answer_correct: false,
         only_whole_numbers: false,
         test: testId,

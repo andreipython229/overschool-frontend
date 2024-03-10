@@ -66,7 +66,7 @@ export const Constructor: FC = () => {
 
   return (
     <div className={styles.redactorCourse}>
-      <ModulesAndLessonsBlock setType={setType} setLessonIdAndType={setLessonIdAndType} modulesList={modulesList || []} isLoading={check} />
+      <ModulesAndLessonsBlock setType={setType} setLessonIdAndType={setLessonIdAndType} modulesList={modulesList || []} isLoading={check} baseLessonId={lessonIdAndType.baseLessonId} />
       {isLoading && <LessonSettings deleteLesson={deleteLesson} lessonIdAndType={lessonIdAndType} setType={setType} />}
       {type && (
         <Portal closeModal={handleCloseAllModal}>

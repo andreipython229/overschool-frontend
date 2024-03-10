@@ -109,12 +109,21 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
                 :
                 <></>}
             <p className={styles.wrapper_question}>{questions?.body}</p>
+            {questions?.picture ? (
+                <div style={{ marginBottom: '15px', alignContent: 'center' }}>
+                    <img src={questions?.picture} alt="Question Image" width={300} height={275} style={{ borderRadius: '10px', display: 'block' }}/>
+                </div>
+            ) : (
+                ''
+            )
+
+            }
             <div className={styles.wrapper_progressBar}>
                 <div className={styles.wrapper_progressBar_progress} style={{width: `${progress}%`}}></div>
             </div>
             {questions?.answers &&
-                questions?.answers.map(({body: answer, answer_id: id, is_correct: isCorrect}: any, index: number) => (
-                    <StudentAnswer key={index} id={id} title={answer} name={nameAnswer} isCorrect={isCorrect}
+                questions?.answers.map(({body: answer, answer_id: id, is_correct: isCorrect, picture}: any, index: number) => (
+                    <StudentAnswer key={index} id={id} title={answer} name={nameAnswer} isCorrect={isCorrect} picture={picture}
                                    onSelect={handleAnswerSelect}/>
                 ))}
             {numberTest + 1 !== questionLength ?

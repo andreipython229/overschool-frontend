@@ -4,6 +4,7 @@ import { InputBlock } from 'components/common/Input/InputBlock'
 import { addCommentsIconPath } from '../config/svgIconPath'
 import { useDebounceFunc } from '../../../customHooks'
 import { usePatchQuestionMutation } from 'api/questionsAndAnswersService'
+import { PicturesAndOptions } from '../PicturesAndOptions'
 
 import styles from './question.module.scss'
 
@@ -11,9 +12,10 @@ type QuestionT = {
   title?: string
   id?: string | number
   testId?: number
+  children?: React.ReactNode;
 }
 
-export const Question: FC<QuestionT> = ({ id, title, testId }) => {
+export const Question: FC<QuestionT> = ({ children, id, title, testId }) => {
   const [updateTitle, { data }] = usePatchQuestionMutation()
   const schoolName = window.location.href.split('/')[4]
 
@@ -55,6 +57,7 @@ export const Question: FC<QuestionT> = ({ id, title, testId }) => {
                 </div> */}
       </div>
       <p className={styles.questionBlock_addDescription}></p>
+      {children}
     </div>
   )
 }

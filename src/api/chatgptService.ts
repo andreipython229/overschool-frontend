@@ -93,11 +93,11 @@ export const chatgptService = createApi({
 });
 
 export const { 
-  useFetchWelcomeMessageQuery,
-  useFetchLatestMessagesQuery, 
+  useLazyFetchWelcomeMessageQuery,
+  useLazyFetchLatestMessagesQuery, 
   useSendMessageMutation, 
   useCreateChatMutation, 
-  useFetchLatestChatsQuery,
+  useLazyFetchLatestChatsQuery,
   useDeleteChatsMutation,
   useUpdateWelcomeMessageMutation
 } = chatgptService;

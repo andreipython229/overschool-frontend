@@ -21,6 +21,7 @@ type useCreateLessonT = {
   attempt_limit?: boolean
   attempt_count?: number
   balls_per_answer?: number
+  lessonId?: number
 }
 
 type UseCreateLessonReturnT = {
@@ -141,7 +142,7 @@ export const useCreateLesson = ({
     if (isSuccess) {
       const type = typeLesson.slice(0, -1)
       console.log(data)
-      setLessonIdAndType({ id: data[`${type}_id`], type: type })
+      setLessonIdAndType({ id: data[`${type}_id`], type: type, baseLessonId: data?.baselesson_ptr_id})
       setType(null as keyof object)
     }
   }, [isSuccess])
