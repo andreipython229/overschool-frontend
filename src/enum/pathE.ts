@@ -16,6 +16,7 @@ export enum Path {
   Profile = 'profile/',
   Settings = 'settings/',
   CreateCourse = 'create-course/:course_id/',
+  CreateCourseStudent = 'create-course/:course_id/student',
   CourseStats = 'courses-stats/',
   HomeWork = 'home-work',
   HelpCenter = 'help-center',

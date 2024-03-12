@@ -135,6 +135,14 @@
         box-sizing: border-box;
         font-size: 11px;
         color: #a2a9b4;
+
+        &_admin {
+          display: block;
+          height: 55px;
+          box-sizing: border-box;
+          font-size: 11px;
+          color: #a2a9b4;
+        }
       }
 
       &_progressWrapper {
@@ -201,6 +209,30 @@
   &:hover {
       color: #ba75ff;
       background-color: #ffffff;
+  }
+
+  &_admin{
+    align-self: flex-end;
+    width: 194px;
+    height: 33px;
+    background-color: #ddbbff;
+    color: white;
+    @include font(500, 14px);
+    padding: 7px;
+    margin-top: 10px;
+    text-align: center;
+    border: none;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      margin-top: 0;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      margin-top: 0;
+    }
+
+    &:hover {
+        color: #ba75ff;
+        background-color: #ffffff;
+    }
   }
 }
 
