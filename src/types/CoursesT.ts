@@ -17,6 +17,7 @@ export type CoursesDataT = {
   public: string
   school: number
   is_catalog: boolean
+  is_direct: boolean
 }
 
 export type StGroupT = {

@@ -5,9 +5,7 @@ import { CardImageUpload } from './CardImageUpload'
 import { useBoolean } from 'customHooks/useBoolean'
 import { useParams } from 'react-router-dom'
 import { useFetchCourseQuery } from 'api/coursesServices'
-
 import styles from './setting_course.module.scss'
-import { CoursesDataT } from '../../../../../types/CoursesT'
 
 export const SettingCourse: FC = () => {
   const { course_id: courseId } = useParams()
