@@ -69,7 +69,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
               <h5>{course.name}</h5>
               <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
               <Link
-                to={generatePath(Path.CreateCourseStudent, {
+                to={generatePath(Path.CreateCourse + 'student/', {
                   course_id: `${course?.course_id}`,
                 })}
               >
