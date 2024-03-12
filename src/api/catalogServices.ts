@@ -23,7 +23,15 @@ export const catalogService = createApi({
         url: `/course_catalog/${id}`,
       }),
     }),
+    sendCourseAppeal: build.mutation<any, FormData>({
+      query: data => ({
+        url: '/course-appeals/',
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 })
 
-export const { useFetchCourseCatalogQuery, useFilteredSearchMutation, useFetchCourseDataFromCatalogMutation } = catalogService
+export const { useFetchCourseCatalogQuery, useFilteredSearchMutation, useFetchCourseDataFromCatalogMutation, useSendCourseAppealMutation } =
+  catalogService

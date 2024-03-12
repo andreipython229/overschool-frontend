@@ -96,7 +96,7 @@
     width: 80%;
     height: 150px;
     margin: -20px auto 0;
-    z-index: 9999;
+    z-index: 10;
     border-radius: 14px;
     box-shadow: 0 2px 8px rgb(147, 147, 147);
     background-color: #ffffff;
@@ -132,6 +132,12 @@
   border-radius: 7px;
 
   &_buttonAccept {
+    button {
+      width: 200px;
+      height: 42px;
+      font-size: 12px;
+    }
+
     @include position_b_r(absolute, 50px, 44px);
 
     @media screen and (min-width: 375px) and (max-width: 480px) {
@@ -393,5 +399,20 @@
         background-color: #f1e3ff;
       }
     }
+  }
+}
+
+.phoneInput {
+  width: 100% !important;
+  line-height: 1.4375em !important;
+  padding: 28px 48px;
+  font-size: 16px !important;
+
+  &:hover {
+    border: 1px solid black;
+  }
+
+  &:focus {
+    border: 2px solid #ba75ff;
   }
 }
