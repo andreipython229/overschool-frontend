@@ -67,13 +67,20 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                 )}
               </span>
               <h5>{course.name}</h5>
-              <span className={styles.course_card_about_desc}>{course?.description}</span>
+              <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
+              <Link
+                to={generatePath(Path.CreateCourse + 'student/', {
+                  course_id: `${course?.course_id}`,
+                })}
+              >
+                <Button className={styles.btn_admin} text={'Ученики курса'} />
+              </Link>
               <Link
                 to={generatePath(Path.CreateCourse, {
                   course_id: `${course?.course_id}`,
                 })}
               >
-                <Button className={styles.btn} text={'Редактировать'} />
+                <Button className={styles.btn_admin} text={'Редактировать'} />
               </Link>
             </div>
           </>
