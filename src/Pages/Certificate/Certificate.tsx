@@ -44,7 +44,7 @@ export const Certificate = () => {
   if (!sertData || isLoading) {
     return <SimpleLoader />
   }
-  
+ 
   
   
 
@@ -68,23 +68,13 @@ export const Certificate = () => {
             <div className={styles.certificate__graduate}>{sertData.user_full_name}</div>
             <div className={styles.certificate__content}>
               Has successfully completed
-              <p> <span className={styles.bold}>{sertData.course_name}</span> course.</p> 
-              
-            </div>
-            
+              <p> <span className={styles.bold}>{sertData.course_name}</span> course.</p>  
+            </div>  
           </div>
         </div>
         <div className={styles.signs}>
               <div className={styles.signs__date}>19.09.2022</div>
               <div className={styles.signs__content}>
-                <div className={styles.sign}>
-                  <div className={styles.sign__signatory}>
-                    Teacher
-                    <br />
-                    {sertData.teacher}
-                  </div>
-                  <div className={styles.sign__img}></div>
-                </div>
                 <div className={styles.sign}>
                   <div className={styles.sign__signatory}>
                     Director
@@ -99,7 +89,7 @@ export const Certificate = () => {
             </div>
         <div className={styles.courseName}></div>
       </div> 
-      <div className={styles.mainSkills}>
+      <div className={styles.mainSkills}>  
         <div className={styles.mainSkills__content_skills}>
                 {/* Key skills: {sertData.course_description}. */}
                 The course provides knowledge on the following topics:
@@ -107,9 +97,11 @@ export const Certificate = () => {
         <ul className={styles.mainSkills__content_modal}>{sertData.sections.map((modal:any) => 
           <li key={modal}> {modal.name} </li>)}
         </ul>
+        <p className={styles.backCourse}>
+          {sertData.course_name}
+        </p>
       </div>
-    </main>
-    
+    </main> 
   ) : (
     <></>
   )
