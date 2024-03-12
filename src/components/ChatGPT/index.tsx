@@ -55,7 +55,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isDialogOpen !== false && selectedChatId !== null) {
+      if (isDialogOpen !== false && selectedChatId == null) {
         setError(null);
         setShowSpinner(true);
 
@@ -69,8 +69,28 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   
         setIsLoadingMessages(true);
         setIsFetchingChats(true);
-        
-        deleteChats();
+
+        if (!chatsLoaded) {
+          await deleteChats();
+          await fetchChats();
+        }
+  
+        setIsFetchingChats(false);
+
+      } else if (isDialogOpen !== false && selectedChatId !== null) {
+        setError(null);
+        setShowSpinner(true);
+
+        if (showWelcomeMessage !== true) {
+          setShowWelcomeMessage(false);
+          setShowSpinner(false);
+        } else {
+          setShowWelcomeMessage(true);
+          setShowSpinner(false);
+        }
+  
+        setIsLoadingMessages(true);
+        setIsFetchingChats(true);
 
         if (!chatsLoaded) {
           await fetchChats();
@@ -119,10 +139,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage(messageInput);
+    } else if (e.key === 'Enter' && e.shiftKey) {
+      e.preventDefault();
+      setMessageInput(messageInput + '\n');
     }
   };
 
@@ -385,17 +408,16 @@ useEffect(() => {
                         </div>
                       ) : (
                         <>
-                          <input
-                            type="text"
+                          <textarea
                             placeholder="Задайте свой вопрос ИИ"
                             value={messageInput}
                             onChange={(e) => setMessageInput(e.target.value)}
-                            onKeyPress={handleKeyPress}
+                            onKeyDown={handleKeyPress}
                           />
                           <button onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
-                          <svg viewBox="0 0 16 13" fill="none" xmlns="http://www.w3 org/2000/svg">
-                              <path d="M7.17278 1.21787C7.56956 0.633707 8.43044 0.633706 8.82722 1.21787L15.5994 11.1881C16.0503 11.8521 15.5748 12.75 14.7722 12.75H1.22785C0.425231 12.75 -0.0503452 11.8521 0.400629 11.1881L7.17278 1.21787Z" fill="white"/>
-                          </svg>
+                            <svg viewBox="0 0 16 13" fill="none" xmlns="http://www.w3 org/2000/svg">
+                                <path d="M7.17278 1.21787C7.56956 0.633707 8.43044 0.633706 8.82722 1.21787L15.5994 11.1881C16.0503 11.8521 15.5748 12.75 14.7722 12.75H1.22785C0.425231 12.75 -0.0503452 11.8521 0.400629 11.1881L7.17278 1.21787Z" fill="white"/>
+                            </svg>
                           </button>
                         </>
                       )}
