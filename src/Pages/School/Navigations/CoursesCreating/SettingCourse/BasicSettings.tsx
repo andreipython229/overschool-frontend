@@ -1,7 +1,4 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react'
-
-import { noPublishedGreyIconPath } from '../../../config/svgIconsPath'
-import { IconSvg } from '../../../../../components/common/IconSvg/IconSvg'
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { Input } from '../../../../../components/common/Input/Input/Input'
 import { useDeleteCoursesMutation, usePatchCoursesMutation } from '../../../../../api/coursesServices'
 import { formDataConverter } from '../../../../../utils/formDataConverter'
@@ -15,7 +12,7 @@ import { Button } from '../../../../../components/common/Button/Button'
 import { Path } from '../../../../../enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { SimpleLoader } from '../../../../../components/Loaders/SimpleLoader'
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { Toast } from 'primereact/toast'
@@ -36,6 +33,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
   const [alertOpen, setAlertOpen] = useState<boolean>(false)
   const schoolName = window.location.href.split('/')[4]
   const [copy, { onToggle: toggleCopy }] = useBoolean(false)
+  const [isDirect, { onToggle: toggleDirect }] = useBoolean(courseFind.is_direct)
 
   const debounce = useDebounceFunc(update)
   const navigate = useNavigate()
@@ -67,6 +65,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
       description: shortDescription,
       public: 'О',
       is_catalog: toggleCheckbox,
+      is_direct: isDirect,
     }
 
     const formdata = formDataConverter(updateCurse)
@@ -102,7 +101,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
                 )} */}
       </div>
       <div className={styles.publish_switch}>
-        <p className={styles.publish_switch_title}>Опубликовать в каталоге:</p>
+        <p className={styles.publish_switch_title}>Опубликовать курс в каталоге:</p>
         <div className={styles.publish_switch_wrapper_switch}>
           <CheckboxBall isChecked={toggleCheckbox} toggleChecked={toggleCheckboxPublished} />
         </div>
@@ -115,9 +114,15 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
         <p className={styles.short_discription_title}>Кратное описание:</p>
         <Input type={'text'} name="shortDescription" value={shortDescription} onChange={handleNameCourse} />
       </div>
-      {courseFind.is_catalog && (
+      <div className={styles.publish_switch}>
+        <p className={styles.publish_switch_title}>Отображать курс в каталоге по прямой ссылке:</p>
+        <div className={styles.publish_switch_wrapper_switch}>
+          <CheckboxBall isChecked={isDirect} toggleChecked={toggleDirect} />
+        </div>
+      </div>
+      {courseFind.is_direct && (
         <div className={styles.short_discription_wrapper}>
-          <p className={styles.short_discription_title}>Страница в каталоге:</p>
+          <p className={styles.short_discription_title}>Прямая ссылка на курс в каталоге:</p>
           <Input id="catalog-link" value={`https://overschool.by/course-catalog/${courseFind.course_id}/`} type="text" name="catalog-link">
             <CopyToClipboard
               text={`https://overschool.by/course-catalog/${courseFind.course_id}/`}
