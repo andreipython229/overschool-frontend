@@ -291,10 +291,6 @@ export const Header = memo(() => {
     setAnchorEl2(null)
   }
 
-  useEffect(() => {
-    console.log("current tarif = ", currentTariff)
-  }, [currentTariff]);
-
   return (
     <motion.header
       className={styles.header}
