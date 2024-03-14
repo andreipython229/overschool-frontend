@@ -4,7 +4,7 @@ import { Header } from 'components/Header/Header'
 import { Navbar } from 'components/Navbar/Navbar'
 import { Previous } from '../Previous/Previous'
 import { useAppSelector } from '../../store/hooks'
-import { authSelector } from '../../selectors'
+import { authSelector, selectUser } from '../../selectors'
 import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { Path } from '../../enum/pathE'
 import styles from './mainLayOut.module.scss'
@@ -20,15 +20,25 @@ export const MainLayOut: FC = memo(() => {
 
   const navigate = useNavigate()
   const headerId = localStorage.getItem('header_id')
+  const { role: userRole } = useAppSelector(selectUser)
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
   const schoolName = window.location.href.split('/')[4]
   const [ toggle, handlers ] = useBooleanHook();
+  const [currentTariff, setCurrentTariff] = useState<any | null>(null);
+  const [showChat, setShowChat] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log(userRole);
+    
+    setShowChat(!!(
+      (userRole === 2 && currentTariff !== 1) ||
+      (userRole === 6 && currentTariff !== 'Intern')
+    ))
+    
     if (isSuccess) {
     document.title = `${data?.name}`
     }
-  }, [isSuccess]);
+  }, [isSuccess, isLogin, schoolName, currentTariff]);
 
   useEffect(() => {
     if (!isLogin) {
@@ -36,10 +46,14 @@ export const MainLayOut: FC = memo(() => {
     }
   }, [isLogin, navigate])
 
+  const updateTariff = (tariff: any) => {
+    setCurrentTariff(tariff);
+  };
 
 
   useEffect(() => {
     if (isSuccess) {
+      
       let link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']")
 
       if (!link) {
@@ -55,7 +69,7 @@ export const MainLayOut: FC = memo(() => {
   return (
     <div className={styles.wrapper}>
       <Navbar />
-      <Header />
+      <Header onUpdateTariff={updateTariff} />
       <motion.main className={styles.container}
        initial={{
         x:-1000,
@@ -73,10 +87,10 @@ export const MainLayOut: FC = memo(() => {
         <Previous />
         <Outlet />
       </motion.main>
-      {isLogin && schoolName && (
+      {showChat && isSuccess && (
         <ChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />
       )}
-      <Footer />
+      <Footer schoolTariffPlan={updateTariff} />
     </div>
   )
 })

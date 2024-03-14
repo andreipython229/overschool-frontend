@@ -41,7 +41,11 @@ import { useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 import { w3cwebsocket } from 'websocket'
 
-export const Header = memo(() => {
+interface HeaderProps {
+  onUpdateTariff: (tariff: any) => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
   const schoolName = window.location.href.split('/')[4]
   const dispatch = useAppDispatch()
   const dispatchRole = useDispatch()
@@ -104,6 +108,9 @@ export const Header = memo(() => {
   useEffect(() => {
     if (userRole === RoleE.Admin) {
       fetchCurrentTarrif(schoolName)
+      .then((tariff: any) => {
+        onUpdateTariff(tariff.data.tariff_name);
+      })
     }
   }, [schoolName])
 
@@ -309,6 +316,11 @@ export const Header = memo(() => {
       <NavLink to={userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}>
         <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
       </NavLink>
+      {currentTariff?.tariff_name === 'Intern' ? (
+        <div style={{ marginLeft: '12%', color: '#BA75FF', marginTop: '10px', fontWeight: 'bold' }}>
+          Перейдите на платный тариф чтобы получить доступ к OVER AI
+        </div>
+      ) : ''}
       <div className={styles.header_block}>
         <React.Fragment>
           {userRole === RoleE.Admin && currentTariff && (
@@ -412,4 +424,4 @@ export const Header = memo(() => {
       </div>
     </motion.header>
   )
-})
+}
