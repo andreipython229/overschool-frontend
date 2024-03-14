@@ -8,6 +8,7 @@ import { Path } from 'enum/pathE'
 import { motion } from 'framer-motion'
 import { CatalogResponseT } from 'api/apiTypes'
 import { generatePath, useNavigate } from 'react-router-dom'
+import { logo } from 'assets/img/common'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -90,13 +91,25 @@ export const CourseCatalogPage: FC = memo(() => {
       className={styles.wrapper}
     >
       <div className={styles.wrapper_body}>
-        <Typography gutterBottom variant="h5" color={'#ba75ff'} component="div">
-          <strong color="#ba75ff">
+        <Typography gutterBottom variant="h5" sx={{ width: '100%', textAlign: 'center' }} color={'#ba75ff'} component="div">
+          <p style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '14px' }}>
             Каталог курсов онлайн-школ на платформе{' '}
-            <a href={Path.InitialPage} style={{ textDecoration: 'none', color: '#ba75ff', fontWeight: 'bold' }}>
-              Overschool.by
+            <a
+              href={Path.InitialPage}
+              className={styles.headerButton}
+              style={{
+                textDecoration: 'none',
+                color: '#ba75ff',
+                fontWeight: 'bold',
+                padding: '0.5rem',
+                border: '2px solid #ba75ff',
+                borderRadius: '7px',
+              }}
+            >
+              <img src={logo} alt="Logotype ITOVERONE" />
+              <p>Overschool.by</p>
             </a>
-          </strong>
+          </p>
         </Typography>
         <div style={{ width: '100%', padding: '0 2rem', display: 'flex', justifyContent: 'center' }}>
           <Search sx={{ border: '1px solid gray', borderRadius: '10px', width: '80% !important', backgroundColor: 'transparent' }}>
