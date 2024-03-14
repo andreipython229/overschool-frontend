@@ -44,7 +44,7 @@ export const Certificate = () => {
   if (!sertData || isLoading) {
     return <SimpleLoader />
   }
- 
+  console.log(sertData.signature);
   
   
 
@@ -82,7 +82,8 @@ export const Certificate = () => {
                     {sertData.school_owner}
                   </div>
                   <div className={styles.sign__img}>
-                    <img className={styles.sign__stamp} src={stamp} alt="stamp" />
+                    <img className={styles.sign__signature} src={sertData.signature} alt="signature" />
+                    <img className={styles.sign__stamp} src={sertData.stamp} alt="stamp" />
                   </div>
                 </div>
               </div>

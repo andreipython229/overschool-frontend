@@ -226,12 +226,20 @@
         }
 
 		&__img {
+            
             flex: 0 1 250px;
             position: relative;
             border-bottom: 1px solid rgb(255, 251, 251);
 		}
 
+        &__signature {
+            top: -50px;
+            position: absolute;
+            width: 90%;
+        }
+
         &__stamp {
+            top: -20px;
             position: absolute;
             width: 90%;
         }
