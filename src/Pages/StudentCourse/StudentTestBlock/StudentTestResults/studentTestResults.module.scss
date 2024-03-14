@@ -8,12 +8,28 @@
   background-color: #fff;
   //border: 1px solid red;
   @include display(flex, column, flex-start, center);
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    min-width: 100%;
+    padding: 1% 0 1% 0;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+   min-width: 100%;
+   padding: 1% 0 1% 0;
+  }
 }
 
 .wrapper p {
   margin: 8px;
   @include font(600, 16px, 20px);
-  color: #4D5766
+  color: #4D5766;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      text-align: center;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      text-align: center;
+    }
 }
 
 .wrapper__answer_box{
