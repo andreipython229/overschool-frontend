@@ -51,7 +51,7 @@ export const MainLayOut: FC = memo(() => {
     setShowChat(!!(
       (userRole === 2 && currentTariff !== 1) ||
       (userRole === 6) ||
-      (userRole === 1 && overaiLockExists)
+      (userRole === 1 && overaiLockExists && currentTariff !== 1)
     ))
     
     if (isSuccess) {
