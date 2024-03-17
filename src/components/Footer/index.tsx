@@ -21,7 +21,7 @@ export const Footer: FC<FooterProps> = ({ schoolTariffPlan }) => {
   useEffect(() => {
     if (data) {
       setAgreementUrl(data?.offer_url);
-      if (data?.tariff) {
+      if (data?.tariff && data?.owner) {
         schoolTariffPlan(data?.tariff);
       }
     }

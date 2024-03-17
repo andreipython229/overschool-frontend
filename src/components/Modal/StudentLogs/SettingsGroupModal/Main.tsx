@@ -19,6 +19,7 @@ import {sectionLessons} from "../../../../types/lessonAccessT";
 type MainSettingsGroupPropsT = {
     strongSubsequence: boolean
     blockHomework: boolean
+    overAiLock: boolean
     title: string
     groupType: string
     isLoading: boolean
@@ -26,6 +27,7 @@ type MainSettingsGroupPropsT = {
     setGroupName: any
     handlerHomeworkCheck: () => void
     handlerSubsequence: () => void
+    handlerLockOverAi: () => void
     handleSave: (data: any) => Promise<void>
     deleteGroup: () => void
     teacher: number
@@ -39,12 +41,14 @@ type MainSettingsGroupPropsT = {
 export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    strongSubsequence,
                                                                    blockHomework,
+                                                                   overAiLock,
                                                                    title,
                                                                    groupType,
                                                                    isLoading,
                                                                    isError,
                                                                    handlerHomeworkCheck,
                                                                    handlerSubsequence,
+                                                                   handlerLockOverAi,
                                                                    deleteGroup,
                                                                    setGroupName,
                                                                    handleSave,
@@ -145,6 +149,14 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                         <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
                             <span>Строгая последовательность занятий</span>
                             <span>Ученик сможет приступить к следующему занятию только после прохождения предыдущего</span>
+                        </div>
+                    </div>
+                    <div className={styles.groupSetting_checkboxBlock_checkbox}>
+                        <Checkbox id={'overAiLock'} name={'overAiLock'} checked={overAiLock}
+                                  onChange={handlerLockOverAi}/>
+                        <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
+                            <span>Включить OVER AI</span>
+                            <span>Ученики групп смогут пользоваться OVER AI</span>
                         </div>
                     </div>
                 </div>

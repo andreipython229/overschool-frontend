@@ -22,6 +22,7 @@ import {groupSections, sectionLessons} from "../../../../types/lessonAccessT";
 export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, groupId, courseId}) => {
     const schoolName = window.location.href.split('/')[4]
     const [blockHomework, setBlockHomework] = useState<boolean>(false)
+    const [overAiLock, setOverAiLock] = useState<boolean>(false)
     const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
     const [textNameField, setTextNameField] = useState<string>('')
     const [groupType, setGroupType] = useState<string>('')
@@ -37,6 +38,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     useEffect(() => {
         setBlockHomework(Boolean(data?.group_settings?.task_submission_lock))
         setStrongSubsequence(Boolean(data?.group_settings?.strict_task_order))
+        setOverAiLock(Boolean(data?.group_settings?.overai_lock))
         setTextNameField(String(data?.name))
         setGroupType(String(data?.type))
         data?.teacher_id && setCurrentTeacher(Number(data?.teacher_id))
@@ -59,6 +61,10 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         setStrongSubsequence(!strongSubsequence)
     }
 
+    const handlerLockOverAi = () => {
+        setOverAiLock(!overAiLock)
+    }
+
     const handleDeleteGroup = async () => {
     await deleteStudentsGroup({id: groupId, schoolName})
     closeModal()
@@ -71,6 +77,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
             group_settings: {
                 strict_task_order: strongSubsequence,
                 task_submission_lock: blockHomework,
+                overai_lock: overAiLock,
             },
         }
         if (groupType === "WITH_TEACHER") {
@@ -131,6 +138,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                             changeTeacher={setCurrentTeacher}
                             teacher={currentTeacher as number}
                             strongSubsequence={strongSubsequence}
+                            overAiLock={overAiLock}
                             blockHomework={blockHomework}
                             setGroupName={setTextNameField}
                             title={textNameField}
@@ -142,6 +150,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                             handleAccessSetting={handleAccessSetting}
                             handlerHomeworkCheck={handlerHomeworkCheck}
                             handlerSubsequence={handlerSubsequenceCheck}
+                            handlerLockOverAi={handlerLockOverAi}
                             handleSave={handleSaveGroupSettings}
                         />
                     </div>
