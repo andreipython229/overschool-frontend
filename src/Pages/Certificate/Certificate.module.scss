@@ -27,14 +27,22 @@
     //max-width: 3400px;
     // max-height: 2400px;
     width: 1024px;
-    height: 600px;
+    height: auto;
     margin: 0 auto;
     // overflow: auto;
     padding: 60px 10px 10px 10px;
     border: 1px solid black;
     background-color: white;
-    // background: linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);
+    background: linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);
     border: 2px solid black;
+    color: #ffff;
+
+    &__title {
+        text-align: center;
+        font-weight: 700;
+        font-size: 54px;
+        padding-bottom: 1.5rem;
+    }
 
     &__content {
         display: flex;
@@ -47,11 +55,11 @@
 
         &_skills {
             display: flex;
-            font-weight: 600;
-            font-size: 2rem;
+            font-weight: 700;
+            font-size: 29px;
             text-align: start;
             margin-bottom: 5%;
-            padding-left: 3%;
+            padding-left: 54px;
         }
 
         &_modal {
@@ -61,13 +69,11 @@
             font-size: 1.5rem;
             text-align: start;
             padding-left: 150px;
-            margin-bottom: 15%;
+            margin-bottom: 20px;
 
             li {
-                padding-bottom: 20px;
-                list-style-type: circle;
-                font-weight: 600;
-                letter-spacing: 2px;
+                font-weight: 500;
+                font-weight: 26px;
                 
             }
         }
@@ -93,7 +99,7 @@
     // max-width: 1041px;
     // max-height: 1648px;
     // width: 60%;
-    height: 80px;
+    height: 90px;
     flex: 0 1 10%;
     margin-right: 10px;
     margin-top: 10px;
@@ -105,8 +111,17 @@
     }
 
         &__img {
-            width: 100px;
+            width: 90px;
             line-height: 0;
+        }
+
+        &__imgSkills {
+            position:static;
+            rotate: 90deg;
+            width: 90px;
+            line-height: 0;
+            right: 350px;
+            bottom: 0px;
         }
 }
 
@@ -252,6 +267,21 @@
     height: 150px;
     background-size: contain;
 }
+
+
+.courseNameSkills {
+    display: flex;
+    background: no-repeat bottom url('./img/courseNameSkills.svg');
+    width: 100%;
+    height: 150px;
+    background-size: contain;
+    display: flex;
+    justify-content: end;
+    padding-right: 80px;
+}
+
+
+
 
 .backCourse {
     position: relative;
