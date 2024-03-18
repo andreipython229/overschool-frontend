@@ -20,6 +20,7 @@ export type studentsGroupsT = {
         task_submission_lock: boolean
     }
     type?: string
+    training_duration: number
 }
 
 export type studentsTableHeader = {

@@ -1,12 +1,12 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react'
 
-import {groupSections, studentSectionsPerGroupsT} from '../types/lessonAccessT'
+import {groupSections, studentSectionsPerGroupsT, durationStudent} from '../types/lessonAccessT'
 import {baseQuery} from "./baseApi";
 
 export const lessonAccessService = createApi({
     reducerPath: 'lessonAccessService',
     baseQuery: baseQuery(),
-    tagTypes: ['studentSectionsPerGroup', 'groupSections'],
+    tagTypes: ['studentSectionsPerGroup', 'groupSections', 'durationStudent'],
     endpoints: build => ({
         fetchStudentLessons: build.query<studentSectionsPerGroupsT, { id: string | number; student_id: number }>({
             query: ({id, student_id}) => ({
@@ -41,6 +41,19 @@ export const lessonAccessService = createApi({
                 body: data,
             }),
         }),
+        fetchStudentTrainingDuration: build.query<durationStudent, { group_id: number; student_id: number; schoolName: string }>({
+            query: ({group_id, student_id, schoolName}) => ({
+                url: `/${schoolName}/students_group/${group_id}/student_training_duration/?student_id=${student_id}`,
+            }),
+            providesTags: ['durationStudent'],
+        }),
+        setStudentTrainingDuration: build.mutation<any, { data: any; schoolName: string }>({
+            query: ({data, schoolName}) => ({
+                url: `/${schoolName}/students_training_duration/`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
     }),
 })
 
@@ -49,5 +62,7 @@ export const {
     useSetStudentLessonsAccessMutation,
     useResetStudentLessonsAccessMutation,
     useLazyFetchGroupLessonsQuery,
-    useSetGroupLessonsAccessMutation
+    useSetGroupLessonsAccessMutation,
+    useLazyFetchStudentTrainingDurationQuery,
+    useSetStudentTrainingDurationMutation
 } = lessonAccessService

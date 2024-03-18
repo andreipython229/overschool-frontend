@@ -66,6 +66,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
     const [previousTests, setPreviousTests] = useState<checkedTestT[]>()
     const [autogeneration, setAutogeneration] = useState(false)
     const [error, setError] = useState('')
+    const [fileError, setFileError] = useState('')
     const [isPreview, setIsPreview] = useState<boolean>(false);
     const [isAddAudioClicked, setIsAddAudioClicked] = useState<boolean>(false);
 
@@ -221,15 +222,17 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
     }
 
     const handleSaveChanges = async () => {
-        setError('')
+        setError('');
+        setFileError('');
+        let tmpError = ''
         if (files.length) {
             const formData1 = new FormData()
             formData1.append('base_lesson', `${data?.baselesson_ptr_id}`)
             files.forEach(file => formData1.append('files', file))
             await addTextFiles({formData: formData1, schoolName}).then(data => {
-                setFiles([])
-                setUrlFiles([])
-            })
+                setFiles([]);
+                setUrlFiles([]);
+            });
         }
 
         const formData = new FormData()
@@ -237,7 +240,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
         formData.append('section', String(lesson.section))
         formData.append('order', String(lesson.order))
         formData.append('active', String(isPublished))
-        let tmpError = ''
+
         if (lesson.type === 'test') {
             formData.append('random_test_generator', String(autogeneration))
             if (autogeneration) {
@@ -251,7 +254,13 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                 }
             }
         }
-        !tmpError && await saveChanges({arg: {id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData}, schoolName})
+        !tmpError && await saveChanges({
+            arg: {
+                id: +lessonIdAndType.id,
+                type: lessonIdAndType.type,
+                formdata: formData
+            }, schoolName
+        })
             .unwrap()
             .then(data => {
                 console.log(data)
@@ -277,7 +286,8 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
     }, [lessonIdAndType])
 
     const showSettingsModal = () => {
-        setType('setting' as keyof object)
+        setType('setting' as keyof object);
+        setFileError('')
     }
 
     const handleDeleteLesson = async () => {
@@ -287,22 +297,30 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
     }
 
     const handleUploadFiles = (chosenFiles: File[]) => {
+        setFileError('')
         const uploaded = [...files]
         const uploadedUrlFiles = [...urlFiles]
-
+        let tmpError = ''
         chosenFiles.some(file => {
             if (uploaded.findIndex(f => f.name === file.name) === -1) {
-                uploaded.push(file)
+                if (file.size <= 2 * 1024) {
+                    uploaded.push(file)
+                } else {
+                    console.log('error')
+                    tmpError = 'Превышен допустимый размер файла'
+                    setFileError(tmpError)
+                }
             }
         })
+        if (!tmpError) {
+            chosenFiles.forEach(file => {
+                const url = URL.createObjectURL(file)
+                uploadedUrlFiles.push({url, name: file.name})
+            })
 
-        chosenFiles.forEach(file => {
-            const url = URL.createObjectURL(file)
-            uploadedUrlFiles.push({url, name: file.name})
-        })
-
-        setFiles(uploaded)
-        // setUrlFiles(uploadedUrlFiles)
+            setFiles(uploaded)
+            // setUrlFiles(uploadedUrlFiles)
+        }
     }
 
     const handleDeleteFile = (index: number) => {
@@ -436,102 +454,113 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>
                   {lesson && 'name' in lesson && lesson.name}
                 </span>
-              </div>
-              <div className={styles.coursePreviewHeaderRedactor}>
-                <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_edit} onClick={showSettingsModal}>
-                  <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
-                  Изменить название урока
-                </button>
+                            </div>
+                            <div className={styles.coursePreviewHeaderRedactor}>
+                                <button
+                                    className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_edit}
+                                    onClick={showSettingsModal}>
+                                    <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath}/>
+                                    Изменить название урока
+                                </button>
 
-                <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save} onClick={handleSaveChanges}>
-                  <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
-                  Сохранить и вернуться к превью
-                </button>
+                                <button
+                                    className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save}
+                                    onClick={handleSaveChanges}>
+                                    <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath}/>
+                                    Сохранить и вернуться к превью
+                                </button>
 
-                <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
-                  <IconSvg functionOnClick={handleDeleteLesson} width={16} height={16} viewBoxSize="0 0 19 19" path={deleteIconPath} />
-                </button>
-              </div>
-            </div>
-            <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
-              <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
-              <AnimatePresence>
-                <div style={publickButton}>
-                  <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
-                  <PublishedMark isPublished={isPublished} />
-                </div>
-              </AnimatePresence>
-            </div>
-            {lesson.type !== 'test' && (
-              <>
-                <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
-                  <Reorder.Group className={styles1.settings_list} style={{ gap: '2em' }} values={lessonBlocks} onReorder={handleOrderUpdate} as="ul">
-                    {renderBlocks()}
-                  </Reorder.Group>
+                                <button
+                                    className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
+                                    <IconSvg functionOnClick={handleDeleteLesson} width={16} height={16}
+                                             viewBoxSize="0 0 19 19" path={deleteIconPath}/>
+                                </button>
+                            </div>
+                        </div>
+                        <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
+                            <span
+                                className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
+                            <AnimatePresence>
+                                <div style={publickButton}>
+                                    <CheckboxBall isChecked={isPublished}
+                                                  toggleChecked={() => setIsPublished(!isPublished)}/>
+                                    <PublishedMark isPublished={isPublished}/>
+                                </div>
+                            </AnimatePresence>
+                        </div>
+                        {lesson.type !== 'test' && (
+                            <>
+                                <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_container}>
+                                    <Reorder.Group className={styles1.settings_list} style={{gap: '2em'}}
+                                                   values={lessonBlocks} onReorder={handleOrderUpdate} as="ul">
+                                        {renderBlocks()}
+                                    </Reorder.Group>
 
-                  {lessonBlocks.length < 10 && (
-                    <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson} setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks} />
-                  )}
-                </div>
+                                    {lessonBlocks.length < 10 && (
+                                        <AddPost lessonIdAndType={lessonIdAndType} lesson={lesson}
+                                                 setLessonBlocks={setLessonBlocks} lessonBlocks={lessonBlocks}/>
+                                    )}
+                                </div>
 
-                <AddAudio 
-                  lessonIdAndType={lessonIdAndType} 
-                  isPreview={isPreview} 
-                  lesson={lesson} 
-                  addAudio={setFiles} 
-                  setShow={() => setIsAddAudioClicked(true)} 
-                  updateLesson={updateLesson}
-                />
+                                <AddAudio
+                                    lessonIdAndType={lessonIdAndType}
+                                    isPreview={isPreview}
+                                    lesson={lesson}
+                                    addAudio={setFiles}
+                                    setShow={() => setIsAddAudioClicked(true)}
+                                    updateLesson={updateLesson}
+                                />
 
-                <AddFileBtn handleChangeFiles={handleChangeFiles} />
-                <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 2 мегабайт</span>
+                                <AddFileBtn handleChangeFiles={handleChangeFiles}/>
+                                <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 200 мегабайт</span>
+                                 {fileError && <span className={styles.redactorCourse_rightSideWrapper_rightSide_error}>{fileError}</span>}
+                                <span
+                                    className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
 
-                <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
+                                {renderFiles?.map(({file, id, size, file_url}, index: number) => (
+                                    <UploadedFile
+                                        key={id}
+                                        index={index}
+                                        file={file}
+                                        name={file_url}
+                                        size={Number(size)}
+                                        handleDeleteFile={index => handleDeleteFileFromLesson(index)}
+                                    />
+                                ))}
 
-                {renderFiles?.map(({ file, id, size, file_url }, index: number) => (
-                  <UploadedFile
-                    key={id}
-                    index={index}
-                    file={file}
-                    name={file_url}
-                    size={Number(size)}
-                    handleDeleteFile={index => handleDeleteFileFromLesson(index)}
-                  />
-                ))}
+                                {urlFiles?.map(({url, name}, index: number) => (
+                                    <UploadedFile
+                                        isHw={true}
+                                        key={index}
+                                        index={index}
+                                        file={url}
+                                        name={name}
+                                        size={files[index].size}
+                                        handleDeleteFile={handleDeleteFile}
+                                    />
+                                ))}
 
-                {urlFiles?.map(({ url, name }, index: number) => (
-                  <UploadedFile
-                    isHw={true}
-                    key={index}
-                    index={index}
-                    file={url}
-                    name={name}
-                    size={files[index].size}
-                    handleDeleteFile={handleDeleteFile}
-                  />
-                ))}
- 
-                {files?.map((file: File, index: number) => (
-                  <UploadedFile
-                    key={index}
-                    index={index}
-                    file={file.name}
-                    size={file.size}
-                    handleDeleteFile={index => handleDeleteFileFromLesson(index)}
-                  />
-                ))}
+                                {files?.map((file: File, index: number) => (
+                                    <UploadedFile
+                                        key={index}
+                                        index={index}
+                                        file={file.name}
+                                        size={file.size}
+                                        handleDeleteFile={index => handleDeleteFileFromLesson(index)}
+                                    />
+                                ))}
 
-                  {(lesson.audio_files) && (
-                    <div>
-                       {lesson.audio_files && lesson.audio_files.map((audio, index) => (
-                        <AudioPlayer
-                          key={index}
-                          audioUrls={[audio]}
-                          delete={() => handleDeleteAudioFile(index)}
-                        />
-                      ))}
-                    </div>
-                  )}
+                                {(lesson.audio_files) && (
+                                    <div>
+                                        {lesson.audio_files && lesson.audio_files.map((audio, index) => (
+                                            <AudioPlayer
+                                                key={index}
+                                                audioUrls={[audio]}
+                                                delete={() => handleDeleteAudioFile(index)}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
 
                                 {/*{urlFiles.length > 0 && (*/}
                                 {/*    <Button style={{marginTop: '20px'}} variant="primary" text="Загрузить" type="submit"*/}
@@ -586,30 +615,32 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>
                   {lesson && 'name' in lesson && lesson.name}
                 </span>
-              </div>
-              <button onClick={() => setIsEditing(true)} className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_setting}>
-                <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
-                Редактировать
-              </button>
+                            </div>
+                            <button onClick={() => setIsEditing(true)}
+                                    className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_setting}>
+                                <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath}/>
+                                Редактировать
+                            </button>
+                        </div>
+                        <span
+                            className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
+                        {renderUI()}
+                    </div>
+                )}
+                {(isFetching || isDeleting || isSaving || isBlockDeleting) && (
+                    <div
+                        style={{
+                            position: 'absolute',
+                            zIndex: 20,
+                            top: '50%',
+                            left: '-50%',
+                            transform: 'translate(-50%, -50%)',
+                        }}
+                    >
+                        <SimpleLoader style={{width: '100px', height: '100px'}}/>
+                    </div>
+                )}
             </div>
-            <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
-            {renderUI()}
-          </div>
-        )}
-        {(isFetching || isDeleting || isSaving || isBlockDeleting) && (
-          <div
-            style={{
-              position: 'absolute',
-              zIndex: 20,
-              top: '50%',
-              left: '-50%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <SimpleLoader style={{ width: '100px', height: '100px' }} />
-          </div>
-        )}
-      </div>
-    </section>
-  )
+        </section>
+    )
 })

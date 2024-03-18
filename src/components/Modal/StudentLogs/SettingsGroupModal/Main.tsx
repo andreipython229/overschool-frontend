@@ -24,6 +24,10 @@ type MainSettingsGroupPropsT = {
     isLoading: boolean
     isError: boolean
     setGroupName: any
+    duration: number
+    changeDuration: any
+    isLimited: boolean
+    handlerIsLimited: any
     handlerHomeworkCheck: () => void
     handlerSubsequence: () => void
     handleSave: (data: any) => Promise<void>
@@ -47,6 +51,10 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    handlerSubsequence,
                                                                    deleteGroup,
                                                                    setGroupName,
+                                                                   duration,
+                                                                   changeDuration,
+                                                                   isLimited,
+                                                                   handlerIsLimited,
                                                                    handleSave,
                                                                    teacher,
                                                                    changeTeacher,
@@ -148,6 +156,16 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                         </div>
                     </div>
                 </div>
+                <div className={styles.groupSetting_duration}>
+                    <label>Продолжительность обучения в днях:</label>
+                    <div className={styles.groupSetting_duration_limit}>
+                        <Checkbox id={'isLimited'} name={'isLimited'} checked={!isLimited}
+                                  onChange={handlerIsLimited}/>
+                        <span>не ограничена</span>
+                        {isLimited && <input value={duration} onChange={changeDuration} type="number"/>}
+                    </div>
+                </div>
+
                 <ToggleButtonDropDown isOpen={isAccardionOpen} nameOfItems={'уроки'}
                                       handleToggleHiddenBlocks={() => groupInfoAccardion(prev => !prev)}/>
                 {isAccardionOpen && groupLessons && (

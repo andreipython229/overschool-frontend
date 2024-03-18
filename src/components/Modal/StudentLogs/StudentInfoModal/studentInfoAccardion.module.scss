@@ -155,6 +155,50 @@
     // }
   }
 
+  &_duration {
+    margin-left: 20px;
+    margin-right: 35px;
+
+    &_label label {
+        @include font(500, 12px, 150%);
+        color: $font-title;
+     }
+    &_label span {
+      margin-left: 10px;
+        @include font(500, 12px, 150%);
+        color: rgb(162, 112, 187);
+     }
+
+    &_limit {
+      margin-top: 5px;
+      width: 100%;
+      display: inline-flex;
+      justify-content: space-between;
+      & span {
+       @include font(400, 12px, 150%);
+       color: #717985;
+     }
+      & input {
+        width: 90px;
+        height: 25px;
+        border-radius: 8px;
+        background-color: #ecd9fa;
+        margin-left: 30px;
+        text-align: center;
+     }
+      &_btn {
+        @include font(500, 12px, 150%);
+        color: $font-title;
+        height: 27px;
+        width: 100px;
+        appearance: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+     }
+    }
+  }
+
   //&_content {
   //  padding-left: 1.25rem;
   //  padding-right: 1.25rem;
