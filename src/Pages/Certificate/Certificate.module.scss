@@ -121,7 +121,6 @@
             width: 90px;
             line-height: 0;
             right: 350px;
-            bottom: 0px;
         }
 }
 
@@ -276,7 +275,7 @@
     height: 150px;
     background-size: contain;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     padding-right: 80px;
 }
 
