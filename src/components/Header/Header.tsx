@@ -349,6 +349,13 @@ export const Header = memo(() => {
                     {`${currentTariff?.students}/${currentTariff?.tariff_details?.total_students || 'ꝏ'}`}
                   </span>
                 </MenuItem>
+                <MenuItem>
+                  <span style={{ color: 'slategrey' }}> Студентов в месяц:</span>
+                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}>
+                    {' '}
+                    {`${currentTariff?.tariff_details.student_count_by_month}/${currentTariff?.tariff_details.students_per_month}`}
+                  </span>
+                </MenuItem>
                 <MenuItem onClick={goToChooseTariff}>
                   <Link to={Path.TariffPlans} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
                     Все тарифы

@@ -35,7 +35,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
     return <SimpleLoader style={{ width: '100px', height: '100px' }} />
   }
 
-  console.log(course);
+ 
   
 
   return (

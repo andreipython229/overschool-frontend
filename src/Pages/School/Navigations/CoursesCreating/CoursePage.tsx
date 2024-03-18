@@ -61,8 +61,8 @@ export const CoursePage: FC = () => {
         <div className={styles.skeleton}>
           <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#cccccc" foregroundColor="#ecebeb">
             <rect x="7" y="95" rx="3" ry="3" width="115" height="8" />
-            <rect x="7" y="115" rx="3" ry="3" width="100" height="8" />
-            <rect x="7" y="135" rx="3" ry="3" width="100" height="8" />
+            <rect x="15" y="115" rx="3" ry="3" width="100" height="8" />
+            <rect x="15" y="135" rx="3" ry="3" width="100" height="8" />
           </ContentLoader>
         </div>
         <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
