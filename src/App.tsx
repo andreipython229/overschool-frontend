@@ -7,6 +7,7 @@ import { Agreement } from 'components/Agreement/Agreement'
 import { PWA } from 'Pages/PWA/PWA'
 import { Initial } from 'Pages/Initial/Initial'
 import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
+import { TariffPlansInfo } from './Pages/TariffPlans/TariffPlansInfo'
 import { MainLayOut } from 'components/MainLayout/MainLayOut'
 import { Path, FooterPath } from 'enum/pathE'
 import { useAppSelector } from 'store/hooks'
@@ -40,6 +41,7 @@ export const App = () => {
       pathname !== Path.CreateSchool &&
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
+      pathname !== Path.TariffPlansInfo &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'token-validate'
@@ -94,6 +96,7 @@ export const App = () => {
         </Route>
         <Route path={Path.Certificate} element={<Certificate />} />
         <Route path={Path.InitialPage} element={<Initial />} />
+        <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
         <Route path={Path.LoginPage} element={<LoginPage />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
