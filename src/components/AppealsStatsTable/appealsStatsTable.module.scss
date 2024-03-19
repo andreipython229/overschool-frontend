@@ -1,0 +1,137 @@
+@import '../../scss/variable';
+@import '../../scss/mixin.scss';
+
+th,
+td {
+  padding: 0 10px;
+}
+
+.wrapper {
+  @media screen and (max-width: 1024px) {
+    overflow-x: scroll;
+    width: 100vw;
+  }
+}
+
+.table {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0;
+  box-shadow: 0 0 5px rgb(0 0 0 / 30%);
+  background-color: #fff;
+  border-radius: 7px;
+  margin-top: 25px;
+  min-height: 295px;
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    width: 98%;
+    font-size: 14px;
+    line-height: normal;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    width: 99%;
+    font-size: 14px;
+    line-height: normal;
+  }
+
+  &_head {
+    height: 55px;
+    background: #f3f4f6;
+    color: #adabb3;
+    font-size: 14px;
+    font-weight: 500;
+    tr {
+      th {
+        border: none;
+        text-align: left;
+      }
+    }
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      height: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      height: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+  &_body {
+    tr {
+      height: 55px;
+      color: #9198a1;
+      cursor: pointer;
+      &:hover {
+        background: rgba(249, 250, 251, 0.7);
+        transition: 0.1s background-color;
+      }
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        height: 30px;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        height: 30px;
+      }
+
+      td {
+        margin: 0 0 0 27px;
+        height: 55px;
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          margin-left: 2%;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          margin-left: 2%;
+        }
+      }
+      &:nth-child(1) .table_body_avatar_div {
+        background: #d3f2f8;
+        color: #72b0bc;
+      }
+
+      &:nth-child(2) .table_body_avatar_div {
+        background: #e2f6f3;
+        color: #72c5b7;
+      }
+
+      &:nth-child(3) .table_body_avatar_div {
+        background: #f9dcdc;
+        color: #d96b7d;
+      }
+
+      &:nth-child(4) .table_body_avatar_div {
+        background: #f1e3f4;
+        color: #c97fcf;
+      }
+    }
+    &_avatar_div {
+      display: flex;
+      justify-content: center;
+      width: 33px;
+      height: 33px;
+      border-radius: 50%;
+      padding: 8px 5px;
+    }
+  }
+}
+
+.table_no_results {
+  text-align: center;
+  @include font(500, 20px);
+  color: #6b7484;
+}
+
+.loader_wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  transition: 0.3s background-color;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}

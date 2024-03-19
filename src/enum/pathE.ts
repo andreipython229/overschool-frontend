@@ -29,6 +29,7 @@ export enum Path {
   CatalogCourse = ':courseId/',
   LoginPage = '/login/',
   ResetPassword = '/token-validate/:userId/:token/',
+  Appeals = 'school-appeals/',
 }
 
 export enum SettingsPath {
