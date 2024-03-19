@@ -19,6 +19,7 @@ import {sectionLessons} from "../../../../types/lessonAccessT";
 type MainSettingsGroupPropsT = {
     strongSubsequence: boolean
     blockHomework: boolean
+    overAiLock: boolean
     title: string
     groupType: string
     isLoading: boolean
@@ -26,6 +27,7 @@ type MainSettingsGroupPropsT = {
     setGroupName: any
     handlerHomeworkCheck: () => void
     handlerSubsequence: () => void
+    handlerLockOverAi: () => void
     handleSave: (data: any) => Promise<void>
     deleteGroup: () => void
     teacher: number
@@ -39,12 +41,14 @@ type MainSettingsGroupPropsT = {
 export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    strongSubsequence,
                                                                    blockHomework,
+                                                                   overAiLock,
                                                                    title,
                                                                    groupType,
                                                                    isLoading,
                                                                    isError,
                                                                    handlerHomeworkCheck,
                                                                    handlerSubsequence,
+                                                                   handlerLockOverAi,
                                                                    deleteGroup,
                                                                    setGroupName,
                                                                    handleSave,
@@ -57,6 +61,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                }) => {
     const schoolName = window.location.href.split('/')[4]
     const [getUsers, {data: allUsers, isSuccess}] = useLazyFetchAllUsersQuery()
+    const schoolTariff = localStorage.getItem("schoolTariff");
     const [allTeachers, setAllTeachers] = useState<any>([])
     const [teachers, setTeachers] = useState<string[]>([])
     const [selectedTeacher, setSelectedTeacher] = useState<string>('')
@@ -70,7 +75,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
         }
     }, [schoolName, course])
 
-    useEffect(() => {
+    useEffect(() => {        
         if (allUsers) {
             const allTeachers = allUsers.results.filter((user: any) => user.role === 'Teacher')
             setAllTeachers(allTeachers)
@@ -147,6 +152,15 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                             <span>Ученик сможет приступить к следующему занятию только после прохождения предыдущего</span>
                         </div>
                     </div>
+                    {schoolTariff != null && parseInt(schoolTariff, 10) !== 1 && (
+                        <div className={styles.groupSetting_checkboxBlock_checkbox}>
+                            <Checkbox id={'overAiLock'} name={'overAiLock'} checked={overAiLock} onChange={handlerLockOverAi}/>
+                            <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
+                                <span>Включить OVER AI</span>
+                                <span>Ученики групп смогут пользоваться OVER AI</span>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <ToggleButtonDropDown isOpen={isAccardionOpen} nameOfItems={'уроки'}
                                       handleToggleHiddenBlocks={() => groupInfoAccardion(prev => !prev)}/>

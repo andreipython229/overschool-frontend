@@ -25,7 +25,7 @@ export const CoursePage: FC = () => {
   const schoolName = useAppSelector(schoolNameSelector)
   const schoolId = useAppSelector(schoolIdSelector)
   // const { data: courses, isSuccess, refetch } = useFetchCoursesPageQuery(schoolName)
-    const [fetchData, { data: courses, isSuccess}] = useLazyFetchCoursesPageQuery()
+  const [fetchData, { data: courses, isSuccess}] = useLazyFetchCoursesPageQuery()
   const [isOpenAddCourse, { onToggle }] = useBoolean()
   const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
   // const [isVisible, setVisible] = useState(false)
@@ -37,7 +37,7 @@ export const CoursePage: FC = () => {
   }
 
   useEffect(() => {
-
+    
     if (schoolName === window.location.href.split('/')[4]) {
       fetchData(schoolName);
     } else {
