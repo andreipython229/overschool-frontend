@@ -37,8 +37,8 @@ export const StudentsStats = () => {
     setHideStats(!hideStats)
   }, [hideStats])
 
-  const reducedGroupsToShow = data?.results.slice(0, 2)
-  const dataToRender = data?.results && data?.results.length > 2 && isOpen ? data?.results : reducedGroupsToShow
+  const reducedGroupsToShow = data?.results.slice(0, 6)
+  const dataToRender = data?.results && data?.results.length > 6 && isOpen ? data?.results : reducedGroupsToShow
 
   return (
     <div>
@@ -66,19 +66,25 @@ export const StudentsStats = () => {
               Добавить менторов в школу
             </div>
           </div>)}
+        </div>
 
-        </div>
-        <div className={styles.students_group_content_wrapper}>
-          {dataToRender?.map(({ name, students, group_id, type }: studentsGroupsT) => {
-            const count = students?.length
-            return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} type={type} courseId={Number(courseId)}/>
-          })}
-          {data?.results && data?.results?.length > 2 && (
-            <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />
-          )}
-        </div>
       </section>
 
+      <div>
+        <div className={styles.container_groups}>
+            <div className={styles.groups_card_block}>
+                  {dataToRender?.map(({ name, students, group_id, type }: studentsGroupsT) => {
+                    const count = students?.length
+                    return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} type={type} courseId={Number(courseId)}/>
+                  })}
+            </div>
+        </div>
+        <div className={styles.container_groups_dropdown}>
+            {data?.results && data?.results?.length > 6 && (
+              <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />
+            )}
+        </div>
+      </div>
       <StudentsPerCourse />
       {addGroupModal && (
         <Portal closeModal={onAddGroupModal}>

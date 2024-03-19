@@ -2,6 +2,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { CatalogCourseT, CatalogResponseT } from './apiTypes'
 import { CoursesDataT } from 'types/CoursesT'
+import { appealStatT, appealsStatT } from 'types/schoolsT'
 
 export const catalogService = createApi({
   reducerPath: 'catalogService',
@@ -30,8 +31,25 @@ export const catalogService = createApi({
         body: data,
       }),
     }),
+    fetchSchoolAppeals: build.mutation<appealsStatT, any>({
+      query: arg => ({
+        url: `/${arg.schoolName}/course-appeals`,
+      }),
+    }),
+    fetchCurrentAppeal: build.mutation<appealStatT, { id: number; schoolName: string }>({
+      query: arg => ({
+        url: `/${arg.schoolName}/course-appeals/${arg.id}`,
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
-export const { useFetchCourseCatalogQuery, useFilteredSearchMutation, useFetchCourseDataFromCatalogMutation, useSendCourseAppealMutation } =
-  catalogService
+export const {
+  useFetchCourseCatalogQuery,
+  useFilteredSearchMutation,
+  useFetchCourseDataFromCatalogMutation,
+  useSendCourseAppealMutation,
+  useFetchSchoolAppealsMutation,
+  useFetchCurrentAppealMutation,
+} = catalogService

@@ -18,6 +18,7 @@ export type studentsGroupsT = {
     group_settings?: {
         strict_task_order: boolean,
         task_submission_lock: boolean
+        overai_lock: boolean
     }
     type?: string
     training_duration: number

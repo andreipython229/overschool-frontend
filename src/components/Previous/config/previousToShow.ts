@@ -12,9 +12,9 @@ const pathToSearch = Object.entries(Path).map(([key, value]) => {
 const objOfPathes = Object.assign({}, ...pathToSearch.map(key => ({ ...key })))
 
 const getCoursePath = () => {
-  let id = localStorage.getItem("course_id")
-  if (id == "" || !id) id = "1"
-  return `school/${localStorage.getItem("school")}/courses/student-course/${id}/`
+  let id = localStorage.getItem('course_id')
+  if (id == '' || !id) id = '1'
+  return `school/${localStorage.getItem('school')}/courses/student-course/${id}/`
 }
 
 export const previousToShow = [
@@ -25,6 +25,8 @@ export const previousToShow = [
   { path: SettingsPath.Employees, Component: GlobalPrevious },
   { path: SettingsPath.Decoration, Component: GlobalPrevious },
   { path: SettingsPath.Logs, Component: GlobalPrevious },
+  { path: SettingsPath.SchoolPassport, Component: GlobalPrevious },
+  { path: Path.Appeals, Component: GlobalPrevious },
   { path: objOfPathes.HomeWork, Component: GlobalPrevious },
   { path: objOfPathes.CourseStats, Component: GlobalPrevious },
   { path: objOfPathes.Profile, Component: StudentPrevious },

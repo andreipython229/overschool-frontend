@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from "react"
+import { useEffect, useState, FC } from "react"
 
 import { Path, FooterPath, SettingsPath } from 'enum/pathE'
 import { useFetchSchoolQuery } from 'api/schoolService'
 
 import styles from './footer.module.scss'
 
-export const Footer = () => {
+interface FooterProps {
+  schoolTariffPlan: (tariffPlan: string) => void;
+}
+
+
+export const Footer: FC<FooterProps> = ({ schoolTariffPlan }) => {
 
   const currentYear = new Date().getFullYear();
   const schoolId = localStorage.getItem("school_id");
@@ -16,6 +21,10 @@ export const Footer = () => {
   useEffect(() => {
     if (data) {
       setAgreementUrl(data?.offer_url);
+      if (data?.tariff) {
+        schoolTariffPlan(data?.tariff);
+        localStorage.setItem("schoolTariff", data.tariff);
+      }
     }
   }, [data])
 

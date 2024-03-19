@@ -27,4 +27,6 @@ export type schoolHeaderReqT = {
 export type schoolT = {
   name: string
   offer_url: string
+  tariff?: string
+  owner?: number
 }

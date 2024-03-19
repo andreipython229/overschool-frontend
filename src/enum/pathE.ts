@@ -20,6 +20,7 @@ export enum Path {
   HomeWork = 'home-work',
   HelpCenter = 'help-center',
   TariffPlans = 'tariff-plans',
+  TariffPlansInfo = '/tariff-plans-info',
   SignUp = '/signup',
   CourseStudent = 'courses-stats/:course_id/students',
   CreateSchool = '/create-school/',
@@ -29,6 +30,7 @@ export enum Path {
   CatalogCourse = ':courseId/',
   LoginPage = '/login/',
   ResetPassword = '/token-validate/:userId/:token/',
+  Appeals = 'school-appeals/',
 }
 
 export enum SettingsPath {
