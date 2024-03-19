@@ -107,20 +107,17 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
           </Portal>
         )}
         <ul className={styles.redactorCourse_leftSide_desc_headerText}>
-          <span className={styles.redactorCourse_leftSide_desc_headerText_title + ' ' + stylesModules.test}>{changeModuleName}
-          <button className={styles.redactorCourse_leftSide_desc_headerText_inputWrapper_btn_delete} onClick={open}>
-              <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
-            </button>
-            {deleteModuleLoading && <SimpleLoader style={{ width: '20px', height: '20px' }} />}
-          </span>
-          <span className={styles.redactorCourse_leftSide_desc_headerText_inputWrapper + ' ' + stylesModules.block}>
+          <span className={styles.redactorCourse_leftSide_desc_headerText_title + ' ' + stylesModules.test}>
             <input
               type="text"
               value={changeModuleName || ''}
               onChange={handleChangeModuleName}
               className={styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input}
             />
-            
+            <button className={styles.redactorCourse_leftSide_desc_headerText_inputWrapper_btn_delete} onClick={open}>
+              <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+            </button>
+            {deleteModuleLoading && <SimpleLoader style={{ width: '20px', height: '20px' }} />}
           </span>
 
           <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons}>
@@ -137,7 +134,6 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                     selected={selectedLessonId === lesson.baselesson_ptr_id }
                     onPush={() => handleLessonClick(lesson.baselesson_ptr_id)}
                   />
-                // lesson.id + lesson.name
               ))}
           </Reorder.Group>
 
