@@ -38,6 +38,19 @@ export const SchoolAppeals: FC = () => {
       }}
       layout
     >
+      <p
+        style={{
+          fontStyle: 'normal',
+          fontWeight: '500',
+          fontSize: '16px',
+          lineHeight: '19px',
+          letterSpacing: '-0.01em',
+          color: '#4d5766',
+          margin: '30px 0 22px 0,',
+        }}
+      >
+        Входящие заявки о поступлении на курс
+      </p>
       <AppealsStatsTable appeals={appealsData as appealsStatT} isLoading={isLoading} />
       <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
     </motion.div>
