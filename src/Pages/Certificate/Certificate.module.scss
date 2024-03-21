@@ -26,6 +26,7 @@
     color: black;
     //max-width: 3400px;
     // max-height: 2400px;
+    min-height: 600px;
     width: 1024px;
     height: auto;
     margin: 0 auto;
@@ -36,6 +37,7 @@
     background: linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);
     border: 2px solid black;
     color: #ffff;
+    position: relative;
 
     &__title {
         text-align: center;
@@ -125,10 +127,17 @@
 }
 
 .border {
+    height: 100%;
     width: 110%;
     position: absolute;
     top: -10%;
     left: -5%;
+    
+
+    &__text {
+        margin-top: 10px;
+        padding-bottom: 5px;
+    }
 }
 
 .certificate {
@@ -268,15 +277,22 @@
 }
 
 
-.courseNameSkills {
+.courseNameSkillsAll {
     display: flex;
+    justify-content: space-evenly;
+    max-width: 1024px;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+}
+
+.courseNameSkills {
     background: no-repeat bottom url('./img/courseNameSkills.svg');
-    width: 100%;
+    width: 850px;
     height: 150px;
     background-size: contain;
     display: flex;
-    justify-content: flex-end;
-    padding-right: 80px;
+    justify-content: flex-end;   
 }
 
 
