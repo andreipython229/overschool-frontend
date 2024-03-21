@@ -1,5 +1,5 @@
 import { Button } from '../../components/common/Button/Button'
-import styles from './TariffPlans.module.scss'
+import styles from './TariffPlansInfo.module.scss'
 
 import firstStep from '../../assets/img/createProject/firstStep.png'
 import secondStep from '../../assets/img/createProject/secondStep.png'
@@ -51,19 +51,21 @@ export const TariffPlansInfo: FC = () => {
         delay: 0.5,
         ease:'easeInOut',
         duration: 1.3,
-      }}>
-        {/*<div className={styles.bg}>*/}
-        {/*  <div className={styles.bg_wrap1}></div>*/}
-        {/*</div>*/}
-        {/*<div className={styles.bg}>*/}
-        {/*    <div className={styles.bg_wrap2}></div>*/}
-        {/*</div>*/}
-        {/*<div className={styles.bg}>*/}
-        {/*    <div className={styles.bg_wrap3}></div>*/}
-        {/*</div>*/}
-        {/*<div className={styles.bg}>*/}
-        {/*    <div className={styles.bg_wrap4}></div>*/}
-        {/*</div>*/}
+      }}
+      className={styles.container}>
+      <div style={{display: "block", }}>
+        <div className={styles.bg}>
+          <div className={styles.bg_wrap1}></div>
+        </div>
+        <div className={styles.bg}>
+            <div className={styles.bg_wrap2}></div>
+        </div>
+        <div className={styles.bg}>
+            <div className={styles.bg_wrap3}></div>
+        </div>
+        <div className={styles.bg}>
+            <div className={styles.bg_wrap4}></div>
+        </div>
       <section className={styles.TariffPlansPage} style={{height: "100%"}}>
         <div className={styles.TariffPlansPage_plansBlock}>
           <h1>Тарифные планы</h1>
@@ -155,7 +157,7 @@ export const TariffPlansInfo: FC = () => {
             <p>Попробуйте весь функционал в процессе использования и познайте, насколько он удобен</p>
               <div className={styles.main_btn}>
                 <Button onClick={handleLoginPage} text={'Войти'} style={{ width: '160px', fontSize: "16px" }} variant={'primary'} />
-                <Button onClick={handleRegistrationUser} variant={'primary'} text={'Создать школу'} style={{ width: '160px', fontSize: "16px" }}/>
+                <Button onClick={handleRegistrationUser} variant={'primary'} text={'Создать школу'} style={{ width: '160px', fontSize: "16px", marginLeft: "5px"}}/>
               </div>
           </div>
           <div className={styles.TariffPlansPage_banner_images}>
@@ -164,6 +166,7 @@ export const TariffPlansInfo: FC = () => {
           </div>
         </div>
       </section>
+      </div>
     </motion.div>
   )
 }

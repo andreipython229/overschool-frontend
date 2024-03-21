@@ -4,12 +4,18 @@ import { Button } from 'components/common/Button/Button'
 import { MobileLoginModal } from 'components/Modal'
 
 import styles from './mobileInitPage.module.scss'
+import {generatePath, useNavigate} from "react-router-dom";
+import {Path} from "../../enum/pathE";
 
 export const MobileInitPage = () => {
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   const showLoginModal = () => {
     setOpenLoginModal(!openLoginModal)
+  }
+  const handleTariffPage = () => {
+    navigate(generatePath(Path.TariffPlansInfo))
   }
 
   return (
@@ -27,6 +33,19 @@ export const MobileInitPage = () => {
           </div>
 
           <Button onClick={showLoginModal} variant={'primary'} text={'Вперед'} />
+          <Button
+              onClick={handleTariffPage}
+              variant={'logIn'}
+              text={'Тарифы'}
+              style={{
+                position: "fixed",
+                bottom: "20px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                color: 'white',
+                fontSize: "16px"
+              }}
+          />
         </div>
       </div>
     </div>
