@@ -303,7 +303,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({deleteLesson, le
         let tmpError = ''
         chosenFiles.some(file => {
             if (uploaded.findIndex(f => f.name === file.name) === -1) {
-                if (file.size <= 2 * 1024) {
+                if (file.size <= 200 * 1024 * 1024) {
                     uploaded.push(file)
                 } else {
                     console.log('error')
