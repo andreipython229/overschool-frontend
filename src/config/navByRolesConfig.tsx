@@ -24,6 +24,7 @@ import { Settings } from 'Pages/Settings/Settings'
 import { Group } from '../Pages/Group'
 import { Passport } from 'Pages/Settings/Passport'
 import { SchoolAppeals } from 'Pages/SchoolAppeals'
+import { PaymentMethods } from 'Pages/Settings/PaymentMethods'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -34,6 +35,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.Main} element={<Main />} />
         <Route path={SettingsPath.Employees} element={<Employees />} />
         <Route path={SettingsPath.Logs} element={<Logs />} />
+        <Route path={SettingsPath.PaymentMethods} element={<PaymentMethods />} />
         <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
         <Route path={SettingsPath.SchoolPassport} element={<Passport />} />
       </Route>
@@ -75,6 +77,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.Employees} element={<Employees />} />
         <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
         <Route path={SettingsPath.SchoolPassport} element={<Passport />} />
+        <Route path={SettingsPath.PaymentMethods} element={<PaymentMethods />} />
       </Route>
       <Route path={Path.HomeWork} element={<HomeWork />} />
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
