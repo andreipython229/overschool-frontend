@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, generatePath, useLocation, useNavigate } from 'react-router-dom'
 
 import { useFetchProfileDataQuery } from '../../api/profileService'
@@ -20,7 +20,7 @@ import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { SvgIcon } from '@mui/material'
-import { ChatI, MessageI, SenderI, UserInformI } from 'types/chatsT'
+import { ChatI, SenderI, UserInformI } from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from '../../store/redux/chats/chatsSlice'
 
@@ -42,7 +42,7 @@ import { motion } from 'framer-motion'
 import { w3cwebsocket } from 'websocket'
 
 interface HeaderProps {
-  onUpdateTariff: (tariff: any) => void;
+  onUpdateTariff: (tariff: any) => void
 }
 
 export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
@@ -107,9 +107,8 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
 
   useEffect(() => {
     if (userRole === RoleE.Admin) {
-      fetchCurrentTarrif(schoolName)
-      .then((tariff: any) => {
-        onUpdateTariff(tariff.data.tariff_name);
+      fetchCurrentTarrif(schoolName).then((tariff: any) => {
+        onUpdateTariff(tariff.data.tariff_name)
       })
     }
   }, [schoolName])
@@ -316,24 +315,51 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
       <NavLink to={userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}>
         <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
       </NavLink>
+      {!currentTariff && tariffSuccess && (
+        <p style={{ margin: '0 8%', color: 'red', marginTop: '8px', fontSize: '15px', fontWeight: '600', textAlign: 'center' }}>
+          Время действия тарифного плана истекло. Ученики и учителя не имеют доступа к школе, необходимо активировать тарифный план. Для активации
+          тарифного плана нажмите <a href={generatePath(Path.School + Path.TariffPlans, { school_name: schoolName })}>здесь</a>
+        </p>
+      )}
       {currentTariff?.tariff_name === 'Intern' ? (
         <div style={{ marginLeft: '12%', color: '#BA75FF', marginTop: '10px', fontWeight: 'bold' }}>
           Перейдите на платный тариф чтобы получить доступ к OVER AI
         </div>
-      ) : ''}
+      ) : (
+        <></>
+      )}
       <div className={styles.header_block}>
         <React.Fragment>
-          {userRole === RoleE.Admin && currentTariff && (
+          {userRole === RoleE.Admin && currentTariff && currentTariff.days_left && (
             <div>
               <Tooltip title={'Статистика тарифа'}>
                 <div className={styles.tariffPlan} style={{ textDecoration: 'none' }} onClick={handleClick2}>
                   <div className={styles.tariffPlan_icon}>
-                    <IconSvg width={23} height={19} viewBoxSize="0 0 23 19" path={purpleTariffPlanIconPath} />
+                    <IconSvg
+                      width={23}
+                      height={19}
+                      viewBoxSize="0 0 23 19"
+                      path={
+                        currentTariff.days_left > 10
+                          ? purpleTariffPlanIconPath
+                          : currentTariff.days_left > 5
+                          ? orangeTariffPlanIconPath
+                          : redTariffPlanIconPath
+                      }
+                    />
                   </div>
                   <p className={styles.tariffPlan_text}>
                     {' Тариф '}
                     <span className={styles.tariffPlan_text_tariff}>{`"${currentTariff.tariff_name}"`}</span>
-                    {currentTariff.days_left && <span style={{ color: '#BA75FF' }}>{` — ${currentTariff.days_left} дней`} </span>}
+                    {currentTariff.days_left && (
+                      <span
+                        style={
+                          currentTariff.days_left > 10 ? { color: '#BA75FF' } : currentTariff.days_left > 5 ? { color: 'orange' } : { color: 'red' }
+                        }
+                      >
+                        {` — ${currentTariff.days_left} дней`}{' '}
+                      </span>
+                    )}
                     <br />
                   </p>
                 </div>

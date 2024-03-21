@@ -51,7 +51,7 @@ export const SchoolAppeals: FC = () => {
       >
         Входящие заявки о поступлении на курс
       </p>
-      <AppealsStatsTable appeals={appealsData as appealsStatT} isLoading={isLoading} />
+      <AppealsStatsTable appeals={appealsData as appealsStatT} isLoading={isLoading} refetchTable={() => fetchData({ schoolName: schoolName })} />
       <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
     </motion.div>
   )

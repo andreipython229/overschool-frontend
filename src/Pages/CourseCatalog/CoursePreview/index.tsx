@@ -32,7 +32,8 @@ export const CoureCatalogPreview: FC = () => {
   const [fetchCourse, { data: course, isLoading }] = useFetchCourseDataFromCatalogMutation()
   const [sendAppeal, { isLoading: sendingAppeal }] = useSendCourseAppealMutation()
   const [openIndex, setOpenIndex] = useState<number>(-1)
-  const [showModal, { onToggle: toggleModal, on: closeModal, off: openModal }] = useBoolean()
+  const [showModal, { on: closeModal, off: openModal }] = useBoolean()
+  const [error, setError] = useState<boolean>(false)
 
   const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -65,6 +66,10 @@ export const CoureCatalogPreview: FC = () => {
 
   if (!course || isLoading) {
     return <SimpleLoader />
+  }
+
+  const handleForm = () => {
+    return null
   }
 
   return (
@@ -145,7 +150,9 @@ export const CoureCatalogPreview: FC = () => {
                     .then(data => {
                       console.log(data)
                       closeModal()
+                      setError(false)
                     })
+                    .catch(err => setError(true))
                 }
               },
             }}
@@ -155,6 +162,7 @@ export const CoureCatalogPreview: FC = () => {
               {'Оставьте Ваши данные и с Вами свяжется менеджер'}
             </DialogTitle>
             <DialogContent sx={{ padding: '1rem 4rem', display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1rem 0' }}>
+              {error && <p style={{ fontSize: '12px', color: 'red' }}>Ошибка отправки заявки, введены некорректные данные</p>}
               <TextField required margin="dense" id="name" name="name" label="Как к Вам обращаться:" type="text" fullWidth variant="outlined" />
               <TextField required margin="none" id="email" name="email" label="Email:" type="email" fullWidth variant="outlined" />
               <PhoneInput
@@ -180,9 +188,9 @@ export const CoureCatalogPreview: FC = () => {
                 variant="outlined"
               />
             </DialogContent>
-            <DialogActions>
+            <DialogActions sx={{ padding: '0.5rem 4rem 1.5rem' }}>
               <Button onClick={closeModal} text={'Отмена'} />
-              <Button type="submit" text={'Отправить заявку'} />
+              <Button type="submit" onClick={handleForm} text={'Отправить заявку'} />
             </DialogActions>
           </Dialog>
         )}

@@ -7,6 +7,7 @@ td {
 }
 
 .wrapper {
+  padding-bottom: 1rem;
   @media screen and (max-width: 1024px) {
     overflow-x: scroll;
     width: 100vw;
@@ -85,22 +86,22 @@ td {
           margin-left: 2%;
         }
       }
-      &:nth-child(1) .table_body_avatar_div {
+      &:nth-child(4n + 1) .table_body_avatar_div {
         background: #d3f2f8;
         color: #72b0bc;
       }
 
-      &:nth-child(2) .table_body_avatar_div {
+      &:nth-child(4n + 2) .table_body_avatar_div {
         background: #e2f6f3;
         color: #72c5b7;
       }
 
-      &:nth-child(3) .table_body_avatar_div {
+      &:nth-child(4n + 3) .table_body_avatar_div {
         background: #f9dcdc;
         color: #d96b7d;
       }
 
-      &:nth-child(4) .table_body_avatar_div {
+      &:nth-child(4n + 4) .table_body_avatar_div {
         background: #f1e3f4;
         color: #c97fcf;
       }

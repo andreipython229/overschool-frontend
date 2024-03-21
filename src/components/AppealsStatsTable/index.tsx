@@ -11,9 +11,10 @@ import { AppealsStatsTableRow } from './AppealsStatsTableRow'
 type appealStatsTableT = {
   appeals?: appealsStatT
   isLoading: boolean
+  refetchTable: () => void
 }
 
-export const AppealsStatsTable: FC<appealStatsTableT> = ({ appeals, isLoading }) => {
+export const AppealsStatsTable: FC<appealStatsTableT> = ({ appeals, isLoading, refetchTable }) => {
   const [isSortedByEmail, setIsSortedByEmail] = useState(false)
 
   const sortedData = useSortDataByProp(appeals?.results as appealStatT[], 'email', isSortedByEmail)
@@ -41,7 +42,7 @@ export const AppealsStatsTable: FC<appealStatsTableT> = ({ appeals, isLoading })
             </thead>
             <tbody className={styles.table_body}>
               {sortedData?.map((appeal: appealStatT, index) => (
-                <AppealsStatsTableRow key={appeal.id + index + appeal.created_at} appealData={appeal} />
+                <AppealsStatsTableRow key={appeal.id + index + appeal.created_at} appealData={appeal} refetchTable={refetchTable} />
               ))}
             </tbody>
           </>
