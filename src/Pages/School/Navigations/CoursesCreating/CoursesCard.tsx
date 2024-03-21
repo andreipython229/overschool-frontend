@@ -105,7 +105,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
               <div className={styles.course_card_about}>
                 <Link
                   onClick={() => localStorage.setItem('course_id', '' + course?.course_id)}
-                  to={generatePath(Student.Course, {
+                  to={course?.remaining_period===0 ? "#" : generatePath(Student.Course, {
                     course_id: `${course?.course_id}`,
                   })}
                 >
@@ -116,8 +116,16 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                   <span className={styles.course_card_status_show}> </span>
                   <h5>{course.name}</h5>
                   <span className={styles.course_card_about_desc}>{course?.description}</span>
+                  <div className={styles.course_card_duration}>
+                    <p className={styles.course_card_duration_limit}>Продолжительность обучения, дн.: {course?.limit ? course?.limit : "не ограничена"}</p>
+                    {/*{course?.limit && <p className={styles.course_card_duration_remaining}>{course?.remaining_period ? `Срок доступа истекает через, дн.: ${course?.remaining_period}` : "Срок доступа истек"}</p>}*/}
+                    {course?.limit &&
+                        (course?.remaining_period
+                        ? <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
+                        : <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>)}
+                  </div>
 
-                  <Button className={styles.btn} text={'Продолжить обучение'} />
+                  <Button className={styles.btn} text={'Продолжить обучение'} disabled={course?.remaining_period===0}/>
                 </Link>
               </div>
             </>

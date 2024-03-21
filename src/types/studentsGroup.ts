@@ -21,6 +21,7 @@ export type studentsGroupsT = {
         overai_lock: boolean
     }
     type?: string
+    training_duration: number
 }
 
 export type studentsTableHeader = {

@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react'
+import React, {ChangeEvent, FC, useEffect, useState} from 'react'
 
 import {result, Section} from 'types/courseStatT'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
@@ -6,8 +6,14 @@ import {groupIconPath, tableBallsStarPath} from 'config/commonSvgIconsPath'
 import {accardionArrPath} from 'Pages/StudentCourse/config/svgIconPath'
 import styles from './studentInfoAccardion.module.scss'
 import {sectionLessons} from "../../../../types/lessonAccessT";
-import {useSetStudentLessonsAccessMutation} from '../../../../api/lessonAccessService'
+import {useSetStudentLessonsAccessMutation, useLazyFetchStudentTrainingDurationQuery, useSetStudentTrainingDurationMutation} from '../../../../api/lessonAccessService'
 import {LessonsAccardion} from "../LessonsAccardion/LessonsAccardion";
+import {Checkbox} from "../../../common/Checkbox/Checkbox";
+import {useFetchStudentProgressQuery} from "../../../../api/userProgressService";
+import {RoleE} from "../../../../enum/roleE";
+import {Button} from "../../../common/Button/Button";
+import {selectUser} from '../../../../selectors';
+import {useAppSelector} from "../../../../store/hooks";
 
 type studentInfoAccardionT = {
     student: result | null
@@ -25,12 +31,42 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
                                                                     resetAccessSetting
                                                                 }) => {
     const [isAccardionOpen, studentInfoAccardion] = useState<boolean>(false)
+    const [isLimited, setIsLimited] = useState<boolean>(false)
     const courseStat = progress && progress.courses.find((course: any) => course.course_id === student?.course_id)
     const [setAccess, {isSuccess}] = useSetStudentLessonsAccessMutation()
     const schoolName = window.location.href.split('/')[4]
+    const [duration, setDuration] = useState<number>()
+    const [fetchDuration, {data}] = useLazyFetchStudentTrainingDurationQuery()
+    const [assignDuration] = useSetStudentTrainingDurationMutation()
+    const { role } = useAppSelector(selectUser);
+
+    useEffect(() => {
+        student && fetchDuration({group_id: Number(student?.group_id), student_id: Number(student?.student_id), schoolName})
+    }, [student])
+
+    useEffect(() => {
+        setDuration(data?.individual_limit);
+        data?.individual_limit && setIsLimited(true)
+    }, [data])
+
+    const handlerIsLimited = () => {
+        setIsLimited(!isLimited)
+    }
+
+    const handleDuration = (event: ChangeEvent<HTMLInputElement>) => {
+        setDuration(Number(event.target.value))
+    }
+
+    const saveDuration = async () => {
+        const durationData = {
+            user: student?.student_id,
+            students_group: student?.group_id,
+            limit: isLimited ? duration : 0,
+        }
+        await assignDuration({data: durationData, schoolName})
+    }
 
     const handleAccessSetting = async () => {
-
         const lesson_data: { lesson_id: number; available: boolean }[] = []
         studentLessons &&
         studentLessons.map(section => {
@@ -45,7 +81,6 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
             student_ids: [student?.student_id],
             lesson_data: lesson_data,
         }
-
         console.log(accessData)
         await setAccess({data: accessData, schoolName})
             .unwrap()
@@ -102,11 +137,30 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
                         <IconSvg width={12} height={7} viewBoxSize="0 0 22 13" path={accardionArrPath}/>
                     </div>
                 </div>
-                {isAccardionOpen && (
+                {isAccardionOpen && <>
+                    <div className={styles.accardion_duration}>
+                        <div className={styles.accardion_duration_label}>
+                            <label>Индивидуальная продолжительность обучения в днях:</label>
+                            {role === RoleE.Teacher &&
+                            <span>{isLimited ? duration : 'не установлена'}</span>}
+                        </div>
+                    {role === RoleE.Admin &&
+                    <div className={styles.accardion_duration_limit}>
+                        <div className={styles.accardion_duration_limit_check}>
+                        <Checkbox id={'isLimited'} name={'isLimited'} checked={!isLimited}
+                                  onChange={handlerIsLimited}/>
+                        <span>не установлена</span>
+                        {isLimited && <input value={duration} onChange={handleDuration} type="number"/>}
+                        </div>
+                        <Button className={styles.accardion_duration_limit_btn} text={'Сохранить'}
+                                onClick={saveDuration}/>
+                    </div>}
+
+                    </div>
                     <LessonsAccardion sectionLessons={studentLessons} setLessons={setStudentLessons}
                                       handleAccessSetting={handleAccessSetting} forStudent={true}
                                       resetAccessSetting={resetAccessSetting}></LessonsAccardion>
-                )}
+               </>}
             </div>
         </div>
     )

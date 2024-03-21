@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react'
+import {ChangeEvent, FC, useEffect, useState} from 'react'
 
 import {MainSettingsGroup} from 'components/Modal/StudentLogs/SettingsGroupModal/Main'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
@@ -26,6 +26,8 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
     const [textNameField, setTextNameField] = useState<string>('')
     const [groupType, setGroupType] = useState<string>('')
+    const [duration, setDuration] = useState<number>(0)
+    const [isLimited, setIsLimited] = useState<boolean>(false)
     const [currentTeacher, setCurrentTeacher] = useState<number>()
     const {data, isSuccess} = useFetchStudentGroupQuery({id: String(groupId), schoolName})
     const [deleteStudentsGroup, {isLoading, isError}] = useDeleteStudentsGroupMutation()
@@ -41,6 +43,8 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         setOverAiLock(Boolean(data?.group_settings?.overai_lock))
         setTextNameField(String(data?.name))
         setGroupType(String(data?.type))
+        setDuration(Number(data?.training_duration))
+        data?.training_duration && setIsLimited(true)
         data?.teacher_id && setCurrentTeacher(Number(data?.teacher_id))
     }, [isSuccess])
 
@@ -61,6 +65,14 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         setStrongSubsequence(!strongSubsequence)
     }
 
+    const handleDuration = (event: ChangeEvent<HTMLInputElement>) => {
+        setDuration(Number(event.target.value))
+    }
+
+    const handlerIsLimited = () => {
+        setIsLimited(!isLimited)
+    } 
+    
     const handlerLockOverAi = () => {
         setOverAiLock(!overAiLock)
     }
@@ -79,6 +91,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                 task_submission_lock: blockHomework,
                 overai_lock: overAiLock,
             },
+            training_duration: isLimited ? duration : 0,
         }
         if (groupType === "WITH_TEACHER") {
             Object.assign(dataToSend, {teacher_id: currentTeacher})
@@ -142,6 +155,10 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                             blockHomework={blockHomework}
                             setGroupName={setTextNameField}
                             title={textNameField}
+                            duration={duration}
+                            changeDuration={handleDuration}
+                            isLimited={isLimited}
+                            handlerIsLimited={handlerIsLimited}
                             deleteGroup={handleDeleteGroup}
                             isLoading={isLoading}
                             isError={isError}

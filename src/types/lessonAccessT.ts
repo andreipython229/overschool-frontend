@@ -24,3 +24,8 @@ export interface lessonAccess {
     status: string
     mark: number
 }
+
+export type durationStudent = {
+    final_limit: number
+    individual_limit: number
+}
