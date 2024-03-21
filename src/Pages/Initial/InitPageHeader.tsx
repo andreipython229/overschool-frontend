@@ -37,6 +37,10 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
     navigate(generatePath(Path.CreateSchool))
   }
 
+  const handleTariffPage = () => {
+    navigate(generatePath(Path.TariffPlansInfo))
+  }
+
   const logOut = async () => {
     await localStorage.clear()
     dispatch(logoutState())
@@ -76,6 +80,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
           </div>
         ) : (
           <div className={styles.header_block}>
+            <Button onClick={handleTariffPage} variant={'logIn'} text={'Тарифы'} />
             <Button onClick={handleLoginPage} variant={'logIn'} text={'Войти'} />
             <Button onClick={handleRegistrationUser} variant={'logIn'} text={'Создать школу'} />
           </div>

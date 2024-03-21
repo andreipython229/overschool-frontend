@@ -44,7 +44,10 @@ export const Certificate = () => {
   if (!sertData || isLoading) {
     return <SimpleLoader />
   }
-  console.log(sertData.signature);
+  
+  console.log(sertData);
+  console.log(data);
+  
   
   
 
@@ -63,7 +66,9 @@ export const Certificate = () => {
             <div className={styles.certificate__header}>certificate</div>
             <div className={styles.certificate__producer}>
               <img className={styles.border} src={border} alt="border" />
+              <div className={styles.border__text}>
               {sertData.school_name} school
+              </div>
             </div>
             <div className={styles.certificate__graduate}>{sertData.user_full_name}</div>
             <div className={styles.certificate__content}>
@@ -90,7 +95,10 @@ export const Certificate = () => {
             </div>
         <div className={styles.courseName}></div>
       </div> 
-      <div className={styles.mainSkills}>  
+      <div className={styles.mainSkills}> 
+        <div className={styles.mainSkills__title}>
+          COURSE PROGRAM
+        </div> 
         <div className={styles.mainSkills__content_skills}>
                 {/* Key skills: {sertData.course_description}. */}
                 The course provides knowledge on the following topics:
@@ -98,9 +106,14 @@ export const Certificate = () => {
         <ul className={styles.mainSkills__content_modal}>{sertData.sections.map((modal:any) => 
           <li key={modal}> {modal.name} </li>)}
         </ul>
-        <p className={styles.backCourse}>
-          {sertData.course_name}
-        </p>
+        <div className={styles.courseNameSkillsAll}>
+        <div className={styles.courseNameSkills}></div>
+        <picture className={styles.logo__imgSkills}>
+              <source srcSet={logo} media="(min-width: 1025px)" />
+              <source srcSet={logoHorizontal} media="(max-width: 1024px)" />
+              <img src={logo} className={styles.logo__img} alt="logo" />
+        </picture>
+        </div>
       </div>
     </main> 
   ) : (

@@ -16,6 +16,7 @@ import { scrollToTop } from 'utils/scrollToTop'
 import { navByRolesConfig } from 'config'
 import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
+import { TariffPlansInfo } from './Pages/TariffPlans/TariffPlansInfo'
 
 import { RoleE } from 'enum/roleE'
 import { useSelector } from 'react-redux'
@@ -36,6 +37,7 @@ export const AppMobile = () => {
       !isLogin &&
       pathname !== Path.CreateSchool &&
       pathname !== Path.InitialPage &&
+      pathname !== Path.TariffPlansInfo &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'token-validate'
@@ -64,6 +66,7 @@ export const AppMobile = () => {
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
+        <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
         <Route path={Path.School} element={<MobileLayOut />}>
           {navByRolesConfig[role]}

@@ -160,15 +160,17 @@
             background-color: transparent;
             color: $font-title;
             font-size: 14px;
-            border: none;
-            width: 90%;
+            border: 1px solid lightgrey;
+            border-radius: 6px;
+            text-align: center;
+            width: 85%;
             height: 100%;
             outline: none;
           }
 
           &_btn_delete {
-            //@include position_t_r(absolute, 0, 0, -10);
-            @include display(flex, row, center, center);
+            @include position_t_r(absolute, 0, 0, 8);
+            //@include display(flex, row, center, center);
             border: none;
             background-color: transparent;
             width: 30px;

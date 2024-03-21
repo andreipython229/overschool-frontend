@@ -4,13 +4,14 @@ import { Header } from 'components/Header/Header'
 import { Navbar } from 'components/Navbar/Navbar'
 import { Previous } from '../Previous/Previous'
 import { useAppSelector } from '../../store/hooks'
-import { authSelector } from '../../selectors'
+import { authSelector, selectUser } from '../../selectors'
 import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { Path } from '../../enum/pathE'
 import styles from './mainLayOut.module.scss'
 import { Footer } from 'components/Footer'
 import { useBoolean as useBooleanHook } from '../../customHooks/useBoolean';
 import ChatGPT from '../../components/ChatGPT';
+import { useLazyFetchStudentsGroupQuery } from 'api/studentsGroupService'
 
 import { motion } from 'framer-motion'
 
@@ -19,16 +20,44 @@ export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
 
   const navigate = useNavigate()
-  const headerId = localStorage.getItem('header_id')
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
   const schoolName = window.location.href.split('/')[4]
+  const headerId = localStorage.getItem('header_id')
+
+  const { role: userRole } = useAppSelector(selectUser)
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
+  const [getGroups, { data: allGroups }] = useLazyFetchStudentsGroupQuery()
   const [ toggle, handlers ] = useBooleanHook();
 
-  useEffect(() => {
+  const [currentTariff, setCurrentTariff] = useState<any | null>(null);
+  const [showChat, setShowChat] = useState<boolean>(false);
+  const [overaiLockExists, setOveraiLockExists] = useState(false);
+
+  useEffect(() => {   
+      if (userRole === 1) {
+        getGroups(schoolName)
+      }
+  }, []);
+
+  useEffect(() => {   
+    if (userRole === 1 && allGroups && allGroups.results) {
+        const hasOveraiLock = allGroups.results.some(group => 
+            group.group_settings && group.group_settings.overai_lock
+        );
+        setOveraiLockExists(hasOveraiLock);
+    }
+}, [userRole, allGroups]);
+
+  useEffect(() => {    
+    setShowChat(!!(
+      (userRole === 2 && currentTariff !== 1) ||
+      (userRole === 6) ||
+      (userRole === 1 && overaiLockExists && currentTariff !== 1)
+    ))
+    
     if (isSuccess) {
     document.title = `${data?.name}`
     }
-  }, [isSuccess]);
+  }, [isSuccess, isLogin, schoolName, currentTariff, overaiLockExists]);
 
   useEffect(() => {
     if (!isLogin) {
@@ -36,10 +65,14 @@ export const MainLayOut: FC = memo(() => {
     }
   }, [isLogin, navigate])
 
+  const updateTariff = (tariff: any) => {
+    setCurrentTariff(tariff);
+  };
 
 
   useEffect(() => {
     if (isSuccess) {
+      
       let link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']")
 
       if (!link) {
@@ -55,7 +88,7 @@ export const MainLayOut: FC = memo(() => {
   return (
     <div className={styles.wrapper}>
       <Navbar />
-      <Header />
+      <Header onUpdateTariff={updateTariff} />
       <motion.main className={styles.container}
        initial={{
         x:-1000,
@@ -73,10 +106,10 @@ export const MainLayOut: FC = memo(() => {
         <Previous />
         <Outlet />
       </motion.main>
-      {isLogin && schoolName && (
+      {showChat && isSuccess && (
         <ChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />
       )}
-      <Footer />
+      <Footer schoolTariffPlan={updateTariff} />
     </div>
   )
 })
