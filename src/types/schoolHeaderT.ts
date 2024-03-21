@@ -29,4 +29,5 @@ export type schoolT = {
   offer_url: string
   tariff?: string
   owner?: number
+  contact_link: string
 }

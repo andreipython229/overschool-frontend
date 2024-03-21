@@ -12,6 +12,7 @@ export type appealStatT = {
   message: string
   is_read: boolean
   course: number
+  course_name: string
   created_at: string
   updated_at: string
   id: number

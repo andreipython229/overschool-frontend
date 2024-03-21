@@ -17,8 +17,9 @@ export const Main = memo(() => {
   const [alertOpen, setAlertOpen] = useState<boolean>(false)
   const dispatchRole = useDispatch()
 
-  const { data } = useFetchSchoolQuery(Number(schoolId))
+  const { data, refetch } = useFetchSchoolQuery(Number(schoolId))
   const [updateDateSchoolName, { data: newName, isLoading, isSuccess, isError }] = useSetSchoolMutation()
+  const [updateSchoolLink, { data: linkData, isLoading: isLoadingLink, isSuccess: isSuccessLink, isError: isErrorLink }] = useSetSchoolMutation()
 
   const [name, setName] = useState<string>('')
   const [isNewName, setIsNewName] = useState<boolean>(false)
@@ -28,16 +29,18 @@ export const Main = memo(() => {
   const [isNewUrl, setIsNewUrl] = useState<boolean>(false)
   const [oldUrl, setOldUrl] = useState<string>('')
   const [error, setError] = useState<string>()
+  const [social, setSocial] = useState<string>('')
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
     if (data) {
-      setName(data?.name)
-      setUrl(data?.offer_url)
-      setOldName(data?.name)
-      setOldUrl(data?.offer_url)
+      setName(data.name)
+      setUrl(data.offer_url)
+      setOldName(data.name)
+      setOldUrl(data.offer_url)
+      setSocial(data.contact_link)
     }
   }, [data])
 
@@ -70,7 +73,13 @@ export const Main = memo(() => {
     const formdata = new FormData()
     formdata.append('offer_url', url)
     setIsNewUrl(false)
-    await updateDateSchoolName({ formdata, id: Number(schoolId) })
+    await updateSchoolLink({ formdata, id: Number(schoolId) })
+  }
+
+  const onChangeSocial = async () => {
+    const formdata = new FormData()
+    formdata.append('contact_link', social)
+    await updateSchoolLink({ formdata, id: Number(schoolId) })
   }
 
   const handleCloseAlert = () => {
@@ -90,7 +99,10 @@ export const Main = memo(() => {
       handleCloseAlert()
       setError(`Имя школы "${name}" уже существует`)
     }
-  }, [isSuccess, isError])
+    if (isSuccessLink) {
+      refetch()
+    }
+  }, [isSuccess, isError, isSuccessLink])
 
   return (
     <div className={styles.wrapper_actions}>
@@ -127,9 +139,28 @@ export const Main = memo(() => {
           <Button
             onClick={onChangeUrl}
             style={{ width: '120px' }}
-            variant={isNewUrl && !isLoading ? 'primary' : 'disabled'}
+            variant={isNewUrl && !isLoadingLink ? 'primary' : 'disabled'}
             text={'Сохранить'}
-            disabled={!isNewUrl || isLoading}
+            disabled={!isNewUrl || isLoadingLink}
+          />
+        </div>
+        <br />
+        <hr />
+        <div className={styles.main_project}>Ссылка для связи с руководством школы</div>
+        <div>
+          <Input
+            name={'contactUrl'}
+            type={'text'}
+            style={{ maxWidth: '320px', paddingBottom: '10px' }}
+            value={social}
+            onChange={event => setSocial(event.target.value)}
+          />
+          <Button
+            onClick={onChangeSocial}
+            style={{ width: '120px' }}
+            variant={social && !isLoadingLink && social !== data?.contact_link ? 'primary' : 'disabled'}
+            text={'Сохранить'}
+            disabled={!social || isLoadingLink || social === data?.contact_link}
           />
         </div>
       </div>

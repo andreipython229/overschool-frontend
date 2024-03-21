@@ -17,19 +17,18 @@ import { useBoolean } from '../../customHooks'
 import { userRoleName } from 'config/index'
 import { Portal } from '../../components/Modal/Portal'
 import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
-
-import { motion, useScroll } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { auth, role } from 'store/redux/users/slice'
-
 import { useLazyLogoutQuery } from 'api/userLoginService'
-
-import { log } from 'console'
+import { Dialog, DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme } from '@mui/material'
 
 export type SchoolT = {
   school_id: number
   name: string
   header_school: number
   role: string
+  tariff_paid: boolean
+  contact_link: string
 }
 
 export const ChooseSchool = () => {
@@ -41,10 +40,14 @@ export const ChooseSchool = () => {
   const user = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
+  const [selectedSchool, setSelectedSchool] = useState<SchoolT>()
 
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isOpen, { off, on }] = useBoolean()
   const dispatch = useDispatch()
+  const [showWarning, { on: close, off: open }] = useBoolean(false)
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   const [search, setSearch] = useState('')
 
@@ -92,12 +95,9 @@ export const ChooseSchool = () => {
     }
   }, [userRole])
 
-  
-
   const filteredSchool = schools.filter(school => {
     return school.name.toLowerCase().includes(search.toLowerCase())
   })
-
 
   return (
     <div className={styles.con}>
@@ -136,6 +136,23 @@ export const ChooseSchool = () => {
                 duration: 1.5,
               }}
             >
+              {showWarning && selectedSchool && (
+                <Dialog open={showWarning} onClose={close} fullScreen={fullScreen} aria-labelledby="responsive-dialog-title">
+                  <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center', color: 'red', fontWeight: 'bold', fontSize: '22px' }}>
+                    {`Доступ к школе "${selectedSchool.name}" ограничен`}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+                      Обратитесь к владельцу школы, для выяснения обстоятельств.{' '}
+                      {selectedSchool.contact_link && (
+                        <a href={selectedSchool.contact_link} rel="noreferrer" target="_blank">
+                          Ссылка для связи
+                        </a>
+                      )}
+                    </DialogContentText>
+                  </DialogContent>
+                </Dialog>
+              )}
               <div className={styles.logo}>
                 <svg style={{ marginBottom: '3em' }} width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -175,45 +192,87 @@ export const ChooseSchool = () => {
               </div>
               <motion.div className={styles.search} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                 <form>
-                  <input type='text'
-                   placeholder="Название школы..." 
-                    className={styles.search} 
-                    onChange={(event)=> setSearch(event.target.value)}>
-                  </input>
+                  <input
+                    type="text"
+                    placeholder="Название школы..."
+                    className={styles.search}
+                    onChange={event => setSearch(event.target.value)}
+                  ></input>
                 </form>
               </motion.div>
               <div className={styles.schoolBox}>
-              {schools ? (
-                filteredSchool.map((school, index: number) => (
-                  <Link
-                    key={index}
-                    onClick={async e => {
-                      e.preventDefault()
-                      await handleSchool(school)
-                    }}
-                    style={{ textDecoration: 'none', overflow: 'hidden'}}
-                    to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
-                  >
-                    <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
-                      <div className={styles.bg_container}>
-                        <div className={styles.name} style={{ textDecoration: 'none' }}>
-                          {school.name}
+                {schools ? (
+                  filteredSchool.map((school, index: number) =>
+                    school.tariff_paid ? (
+                      <Link
+                        key={index}
+                        onClick={async e => {
+                          e.preventDefault()
+                          await handleSchool(school)
+                        }}
+                        style={{ textDecoration: 'none', overflow: 'hidden' }}
+                        to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
+                      >
+                        <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+                          <div className={styles.bg_container}>
+                            <div className={styles.name} style={{ textDecoration: 'none' }}>
+                              {school.name}
+                            </div>
+                            <div className={styles.role}>{userRoleName[school.role]}</div>
+                          </div>
+                          <span>→</span>
+                        </motion.div>
+                      </Link>
+                    ) : school.role === 'Admin' ? (
+                      <Link
+                        key={index}
+                        onClick={async e => {
+                          e.preventDefault()
+                          await handleSchool(school)
+                        }}
+                        style={{ textDecoration: 'none', overflow: 'hidden' }}
+                        to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
+                      >
+                        <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+                          <div className={styles.bg_container}>
+                            <div className={styles.name} style={{ textDecoration: 'none' }}>
+                              {school.name}
+                            </div>
+                            <div className={styles.role}>{userRoleName[school.role]}</div>
+                          </div>
+                          <span>→</span>
+                        </motion.div>
+                      </Link>
+                    ) : (
+                      <motion.div
+                        className={styles.bg}
+                        style={{ cursor: 'pointer' }}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.8 }}
+                        onClick={() => {
+                          setSelectedSchool(school)
+                          open()
+                        }}
+                      >
+                        <div className={styles.bg_container}>
+                          <div className={styles.name} style={{ textDecoration: 'none' }}>
+                            {school.name}
+                          </div>
+                          <div className={styles.role}>{userRoleName[school.role]}</div>
                         </div>
-                        <div className={styles.role}>{userRoleName[school.role]}</div>
-                      </div>
-                      <span>→</span>
-                    </motion.div>
-                  </Link>
-                ))
-              ) : (
-                <p style={{ color: 'blueviolet', fontSize: '20px', textAlign: 'center', padding: '2em', fontWeight: 'bold' }}>
-                  {'Нет доступных школ :('}
-                </p>
-              )}
+                        <span>→</span>
+                      </motion.div>
+                    ),
+                  )
+                ) : (
+                  <p style={{ color: 'blueviolet', fontSize: '20px', textAlign: 'center', padding: '2em', fontWeight: 'bold' }}>
+                    {'Нет доступных школ :('}
+                  </p>
+                )}
               </div>
               <div className={styles.create} onClick={off}>
                 <span>cоздать школу</span>
-              </div>  
+              </div>
             </motion.div>
           )}
         </div>

@@ -25,10 +25,21 @@ export const TariffPlans: FC = () => {
 
   const handleClick = (plan: TariffPlanT) => {
     setSelected(plan)
-    console.log('modal:', isModalOpen)
     open()
-    console.log('modal after func:', isModalOpen)
   }
+
+  const isLowerTariff = (tariffName: string) => {
+    if (tariff && tariffPlanTable) {
+      const indexPanel = tariffPlanTable?.findIndex(value => value.name === tariffName)
+      const indexCurrentTarrif = tariffPlanTable?.findIndex(value => value.name === tariff?.tariff_name)
+
+      if (indexCurrentTarrif > indexPanel) {
+        return true
+      } else return false
+    }
+  }
+
+  isLowerTariff('Senior')
 
   useEffect(() => {
     if (data) {
@@ -37,40 +48,41 @@ export const TariffPlans: FC = () => {
     }
   }, [isSuccess, data])
 
-  //  if (isFetching) {
-  //    return <SimpleLoader />
-  //  }
+  if (isFetching) {
+    return <SimpleLoader />
+  }
 
   return (
     <motion.div
       initial={{
         opacity: 0,
-        y:1000,
+        y: 1000,
       }}
       animate={{
-        opacity:1,
-        y:0,
+        opacity: 1,
+        y: 0,
       }}
       exit={{
         opacity: 0,
       }}
       transition={{
         delay: 0.5,
-        ease:'easeInOut',
+        ease: 'easeInOut',
         duration: 1.3,
-      }}>
-        <div className={styles.bg}>
-                <div className={styles.bg_wrap1}></div>
-              </div>
-              <div className={styles.bg}>
-                  <div className={styles.bg_wrap2}></div>
-              </div>
-              <div className={styles.bg}>
-                  <div className={styles.bg_wrap3}></div>
-              </div>
-              <div className={styles.bg}>
-                  <div className={styles.bg_wrap4}></div>
-              </div>
+      }}
+    >
+      <div className={styles.bg}>
+        <div className={styles.bg_wrap1}></div>
+      </div>
+      <div className={styles.bg}>
+        <div className={styles.bg_wrap2}></div>
+      </div>
+      <div className={styles.bg}>
+        <div className={styles.bg_wrap3}></div>
+      </div>
+      <div className={styles.bg}>
+        <div className={styles.bg_wrap4}></div>
+      </div>
       <section className={styles.TariffPlansPage}>
         <div className={styles.TariffPlansPage_plansBlock}>
           <p style={{ fontWeight: '500', fontSize: '16px' }}>Смена тарифного плана</p>
@@ -81,7 +93,7 @@ export const TariffPlans: FC = () => {
                 <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
                   <h3>{plan.name}</h3>
                   <hr />
-                  <ul style={{marginBottom: '0.7em'}}>
+                  <ul style={{ marginBottom: '0.7em' }}>
                     <li>
                       Количество курсов:
                       <span>{plan.number_of_courses || '∞'}</span>
@@ -102,21 +114,23 @@ export const TariffPlans: FC = () => {
                       Цена в BYN:
                       <span>{plan.price !== '0.00' ? `${plan.price} рублей/мес.` : 'бесплатно'}</span>
                     </li>
-                  <li>
-                    Цена в RUB:
-                    <span>{plan.price_rf_rub !== 0 ? `${plan.price_rf_rub} рублей/мес.` : 'бесплатно'}</span>
-                  </li>
+                    <li>
+                      Цена в RUB:
+                      <span>{plan.price_rf_rub !== 0 ? `${plan.price_rf_rub} рублей/мес.` : 'бесплатно'}</span>
+                    </li>
                   </ul>
                   {role === RoleE.Admin &&
-                    tariff &&
-                    (tariff.tariff_name === plan.name && plan.name !== 'Intern' ? (
-                      <Button text={'Отменить подписку'} variant={'delete'} />
-                    ) : plan.name !== 'Intern' && tariff.tariff_name === 'Intern' ? (
-                      <Button text={'Подписаться'} variant={'create'} onClick={() => handleClick(plan)} />
-                    ) : plan.name === 'Intern' && tariff.tariff_name === 'Intern' ? (
-                      <Button text={'Текущий тариф'} variant={'disabled'} />
+                    (tariff ? (
+                      tariff.tariff_name === plan.name ? (
+                        // <Button text={'Отменить подписку'} variant={'delete'} />
+                        <Button text={'Текущий тариф'} variant={'disabled'} />
+                      ) : tariff.tariff_name !== plan.name && !isLowerTariff ? (
+                        <Button text={'Подписаться'} variant={'create'} onClick={() => handleClick(plan)} />
+                      ) : (
+                        <Button text={'Выбор недоступен'} variant={'disabled'} title="сначала отмените текущую подписку" />
+                      )
                     ) : (
-                      <Button text={'Выбор недоступен'} variant={'disabled'} title='сначало отмените текущую подписку' />
+                      <Button text={'Подписаться'} variant={'create'} onClick={() => handleClick(plan)} />
                     ))}
                 </div>
               </div>
@@ -138,8 +152,8 @@ export const TariffPlans: FC = () => {
               Как мне выбрать другой тариф?
               <p className={styles.questions_element_text_description}>
                 Для этого нужно сначала отменить текущий оплаченный тариф, Ваш тарифный план сбросится до тарифного плана “Intern” и затем Вы сможете
-                выбрать другой тарифный план. Оставшиеся дни, по отмененному тарифному плану будут сконвертированы в вашем аккаунте и учтены при расчете
-                оплаты за новый тариф.
+                выбрать другой тарифный план. Оставшиеся дни, по отмененному тарифному плану будут сконвертированы в вашем аккаунте и учтены при
+                расчете оплаты за новый тариф.
               </p>
             </div>
           </div>
@@ -151,8 +165,8 @@ export const TariffPlans: FC = () => {
               Можно ли повысить действующий тариф?
               <p className={styles.questions_element_text_description}>
                 Да, можно. Для этого даже не обязательно ждать окончания оплаченного периода: просто отмените текущую подписку и подключите нужный
-                тариф, а оставшиеся дни подписки автоматически пересчитаются по новой стоимости тарифа. При понижении тарифа оставшиеся дни подписки не
-                конвертируются.
+                тариф, а оставшиеся дни подписки автоматически пересчитаются по новой стоимости тарифа. При понижении тарифа оставшиеся дни подписки
+                не конвертируются.
               </p>
             </div>
           </div>
