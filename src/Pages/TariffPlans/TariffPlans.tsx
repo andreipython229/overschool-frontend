@@ -39,8 +39,6 @@ export const TariffPlans: FC = () => {
     }
   }
 
-  isLowerTariff('Senior')
-
   useEffect(() => {
     if (data) {
       const table = [...data]
@@ -125,12 +123,26 @@ export const TariffPlans: FC = () => {
                         // <Button text={'Отменить подписку'} variant={'delete'} />
                         <Button text={'Текущий тариф'} variant={'disabled'} />
                       ) : tariff.tariff_name !== plan.name && !isLowerTariff ? (
-                        <Button text={'Подписаться'} variant={'create'} onClick={() => handleClick(plan)} />
+                        <Button
+                          text={'Подписаться'}
+                          variant={'create'}
+                          onClick={() => {
+                            // handleClick(plan)
+                            console.log('Функционал временно отключен')
+                          }}
+                        />
                       ) : (
                         <Button text={'Выбор недоступен'} variant={'disabled'} title="сначала отмените текущую подписку" />
                       )
                     ) : (
-                      <Button text={'Подписаться'} variant={'create'} onClick={() => handleClick(plan)} />
+                      <Button
+                        text={'Подписаться'}
+                        variant={'create'}
+                        onClick={() => {
+                          // handleClick(plan)
+                          console.log('Функционал временно отключен')
+                        }}
+                      />
                     ))}
                 </div>
               </div>
