@@ -45,10 +45,6 @@ export const Certificate = () => {
     return <SimpleLoader />
   }
   
-  console.log(sertData);
-  console.log(data);
-  
-  
   
 
   return sertData ? (
@@ -103,9 +99,25 @@ export const Certificate = () => {
                 {/* Key skills: {sertData.course_description}. */}
                 The course provides knowledge on the following topics:
         </div>
-        <ul className={styles.mainSkills__content_modal}>{sertData.sections.map((modal:any) => 
-          <li key={modal}> {modal.name} </li>)}
+        <ul className={styles.mainSkills__content_modal}>
+              {sertData.sections.map((modal:any) => {
+                return (
+                  <>
+                    <li key={modal}>{modal.name}</li>
+                      <ul className={styles.mainSkills__content_lessons}>
+                        {modal.lessons.map(function(item:any) {
+                          return (
+                            <>
+                            <li key={item}>{item.name}</li>
+                            </> 
+                            )})}
+                      </ul>
+                  </>
+                )
+              })
+              }
         </ul>
+
         <div className={styles.courseNameSkillsAll}>
         <div className={styles.courseNameSkills}></div>
         <picture className={styles.logo__imgSkills}>
