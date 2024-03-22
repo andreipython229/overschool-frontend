@@ -84,7 +84,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   }
 
   return (
-    <form onSubmit={handleCreateGroup} style={{ width: '485px' }} className={styles.container}>
+    <form onSubmit={handleCreateGroup} className={styles.container}>
       <div onClick={() => setShowModal(false)} className={styles.container_closed}>
         <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
       </div>
