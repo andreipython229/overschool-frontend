@@ -122,7 +122,7 @@ export const TariffPlans: FC = () => {
                       tariff.tariff_name === plan.name ? (
                         // <Button text={'Отменить подписку'} variant={'delete'} />
                         <Button text={'Текущий тариф'} variant={'disabled'} />
-                      ) : tariff.tariff_name !== plan.name && !isLowerTariff ? (
+                      ) : tariff.tariff_name !== plan.name && !isLowerTariff(plan.name) ? (
                         <a href="https://t.me/over_school/" target="_blank" rel="noreferrer">
                           <Button
                             text={'Подписаться'}
