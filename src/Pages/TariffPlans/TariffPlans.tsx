@@ -123,6 +123,21 @@ export const TariffPlans: FC = () => {
                         // <Button text={'Отменить подписку'} variant={'delete'} />
                         <Button text={'Текущий тариф'} variant={'disabled'} />
                       ) : tariff.tariff_name !== plan.name && !isLowerTariff ? (
+                        <a href="https://t.me/over_school/" target="_blank" rel="noreferrer">
+                          <Button
+                            text={'Подписаться'}
+                            variant={'create'}
+                            onClick={() => {
+                              // handleClick(plan)
+                              console.log('Функционал временно отключен')
+                            }}
+                          />
+                        </a>
+                      ) : (
+                        <Button text={'Выбор недоступен'} variant={'disabled'} title="сначала отмените текущую подписку" />
+                      )
+                    ) : (
+                      <a href="https://t.me/over_school/" target="_blank" rel="noreferrer">
                         <Button
                           text={'Подписаться'}
                           variant={'create'}
@@ -131,18 +146,7 @@ export const TariffPlans: FC = () => {
                             console.log('Функционал временно отключен')
                           }}
                         />
-                      ) : (
-                        <Button text={'Выбор недоступен'} variant={'disabled'} title="сначала отмените текущую подписку" />
-                      )
-                    ) : (
-                      <Button
-                        text={'Подписаться'}
-                        variant={'create'}
-                        onClick={() => {
-                          // handleClick(plan)
-                          console.log('Функционал временно отключен')
-                        }}
-                      />
+                      </a>
                     ))}
                 </div>
               </div>
