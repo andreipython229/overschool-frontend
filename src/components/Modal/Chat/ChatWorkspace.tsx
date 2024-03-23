@@ -38,10 +38,6 @@ export const ChatWorkspace: FC = () => {
   const socketRef = useRef<w3cwebsocket | null>(null);
 
   useEffect(() => {
-    // if (socketRef.current) {
-    //   socketRef.current?.close()
-    // }
-
     if (chatId) {
       if (socketRef.current === null || socketRef.current?.readyState !== WebSocket.OPEN) {
         fetchMessages(chatId)
@@ -54,15 +50,12 @@ export const ChatWorkspace: FC = () => {
         }
 
         socketRef.current.onmessage = event => {
-          // const recievedMessage: MessageI = JSON.parse(event.data)
-          // setMessages(messages => [...messages, recievedMessage]);
-
           if (typeof event.data === 'string') {
             const receivedMessage: MessageI = JSON.parse(event.data);
             setMessages(messages => [...messages, receivedMessage]);
-            console.log('Received message:', receivedMessage);
+            // console.log('Received message:', receivedMessage);
           } else {
-            console.log('Received non-string data:', event.data);
+            // console.log('Received non-string data:', event.data);
           }
         }
         socketRef.current.onerror = event => {
@@ -76,7 +69,6 @@ export const ChatWorkspace: FC = () => {
     }
 
     return () => {
-      // console.log('close modal')
       if (socketRef.current) {
         socketRef.current.close();
       }

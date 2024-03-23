@@ -469,3 +469,24 @@
     animation: bgAnimate4 10s linear infinite;
   }
 }
+
+
+.headerButton {
+  background-color: inherit;
+  transition: all ease-in 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: max-content;
+  gap: 5px;
+
+  &:hover {
+    background-color: #dab3ff;
+    p {
+      background: linear-gradient(to right, #61a3ed, #5048d8, #9228ff, #ec40ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+  }
+}
