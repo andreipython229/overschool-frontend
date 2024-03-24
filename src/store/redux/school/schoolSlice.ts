@@ -16,9 +16,7 @@ const schoolSlice = createSlice({
             state.schoolName = action.payload;
         },
         removeSchoolName: (state) => {
-            return {
-                schoolName: '',
-            }
+            state.schoolName = '';
         },
     },
 });
