@@ -11,6 +11,8 @@ import { Portal } from 'components/Modal/Portal'
 import { motion } from 'framer-motion'
 import {generatePath, useNavigate} from "react-router-dom";
 import {Path} from "../../enum/pathE";
+import {logo} from "../../assets/img/common";
+import {Typography} from "@mui/material";
 
 export const TariffPlansInfo: FC = () => {
   const { data, isFetching, isSuccess } = useFetchTariffPlanTableQuery()
@@ -68,7 +70,26 @@ export const TariffPlansInfo: FC = () => {
         </div>
       <section className={styles.TariffPlansPage} style={{height: "100%"}}>
         <div className={styles.TariffPlansPage_plansBlock}>
-          <h1>Тарифные планы</h1>
+            <Typography gutterBottom variant="h5" sx={{ width: '100%', textAlign: 'center' }} color={'#ba75ff'} component="div">
+              <p style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '14px', fontSize: "1.5rem" }}>
+                Тарифные планы{' '}
+                <a
+                  href={Path.InitialPage}
+                  className={styles.headerButton}
+                  style={{
+                    textDecoration: 'none',
+                    color: '#ba75ff',
+                    fontWeight: 'bold',
+                    padding: '0.5rem',
+                    border: '2px solid #ba75ff',
+                    borderRadius: '7px',
+                  }}
+                >
+                  <img src={logo} alt="Logotype ITOVERONE" />
+                  <p>Overschool.by</p>
+                </a>
+              </p>
+            </Typography>
           <div className={styles.TariffPlansPage_plansBlock_cardGroup}>
             {tariffPlanTable?.map((plan, index: number) => (
               <div className={styles.TariffPlansPage_plansBlock_cardGroup_card} key={index}>

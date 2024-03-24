@@ -38,6 +38,13 @@
           cursor: pointer;
         }
 
+        &_error {
+          //display: block;
+          font-size: 12px;
+          color: rgba(224, 24, 24, 0.67);
+          //margin-left: 45px;
+        }
+
         &_navBlock {
           @include display(flex, column);
 
@@ -78,9 +85,12 @@
           }
         }
         & span {
-          margin-bottom: 32px;
+          margin-bottom: 15px;
           @include font(600, 16px);
           color: $font-title;
+        }
+        & button {
+          margin-top: 15px;
         }
       }
     }

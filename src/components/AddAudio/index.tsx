@@ -17,6 +17,7 @@ interface AddAudioProps extends setShowType, AddPostT {
 export const AddAudio: FC<setShowType & AddPostT & AddAudioProps> = ({ lessonIdAndType, lesson, addAudio, setShow, updateLesson }) => {
   const [dragAudio, setDragAudio] = useState<boolean>(false)
   const schoolName = window.location.href.split('/')[4]
+  const [audioError, setAudioError] = useState<string>('')
 
   const [addAudioFiles, { isLoading }] = usePostAudioFilesMutation()
   const [isLoadingAudio, setIsLoadingAudio] = useState<boolean>(false)
@@ -46,27 +47,33 @@ export const AddAudio: FC<setShowType & AddPostT & AddAudioProps> = ({ lessonIdA
   }
   
   const handleAudioUpload = async (lessonIdAndType: any, audio: File) => {
-    setIsLoadingAudio(true)
-    const formData = new FormData()
-    formData.append('files', audio)
-    formData.append('base_lesson', String(lesson.baselesson_ptr_id))
-    
-    try {
-      
-      const response = await addAudioFiles({formData, schoolName})
-      .unwrap()
-      
-      if (Array.isArray(response) && lesson && 'audio_files' in lesson) {
-        const updatedAudioFiles = [...lesson.audio_files, ...response];
-        if ('lesson_id' in lesson) {
-          updateLesson({ ...lesson, audio_files: updatedAudioFiles });
+    setAudioError('')
+    if (audio.size <= 200 * 1024 * 1024) {
+      setIsLoadingAudio(true)
+      const formData = new FormData()
+      formData.append('files', audio)
+      formData.append('base_lesson', String(lesson.baselesson_ptr_id))
+
+      try {
+
+        const response = await addAudioFiles({formData, schoolName})
+            .unwrap()
+
+        if (Array.isArray(response) && lesson && 'audio_files' in lesson) {
+          const updatedAudioFiles = [...lesson.audio_files, ...response];
+          if ('lesson_id' in lesson) {
+            updateLesson({...lesson, audio_files: updatedAudioFiles});
+          }
         }
+        setIsLoadingAudio(false)
+        setShow()
+      } catch (error) {
+        setIsLoadingAudio(false)
+      }
+    } else {
+      setAudioError('Допустимый размер файла не должен превышать 200 МБ')
     }
-      setIsLoadingAudio(false)
-      setShow()
-    } catch (error) {
-      setIsLoadingAudio(false)
-    }
+
   }
 
   return (
@@ -98,6 +105,7 @@ export const AddAudio: FC<setShowType & AddPostT & AddAudioProps> = ({ lessonIdA
             </IconSvg>
 
             <span>Перетащите .mp3 аудиофайл или нажмите для загрузки</span>
+            {audioError && <p className={styles.redactorCourse_rightSide_functional_addContent_error}>{audioError}</p>}
             <Button
               type={'button'}
               disabled={isLoading}

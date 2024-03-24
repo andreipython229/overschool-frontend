@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 
 export type CoursesDataT = {
+  contact_link: string
   course_id: number
   created_at: Date
   updated_at?: Date

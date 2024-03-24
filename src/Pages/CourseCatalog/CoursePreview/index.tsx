@@ -32,8 +32,9 @@ export const CoureCatalogPreview: FC = () => {
   const [fetchCourse, { data: course, isLoading }] = useFetchCourseDataFromCatalogMutation()
   const [sendAppeal, { isLoading: sendingAppeal }] = useSendCourseAppealMutation()
   const [openIndex, setOpenIndex] = useState<number>(-1)
-  const [showModal, { on: closeModal, off: openModal }] = useBoolean()
+  const [showModal, { on: close, off: openModal }] = useBoolean()
   const [error, setError] = useState<boolean>(false)
+  const [step, setStep] = useState<number>(1)
 
   const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -43,6 +44,12 @@ export const CoureCatalogPreview: FC = () => {
   ) {
     return <Slide direction="up" ref={ref} {...props} />
   })
+
+  const closeModal = () => {
+    setError(false)
+    setStep(1)
+    close()
+  }
 
   useEffect(() => {
     if (params && params.courseId) {
@@ -140,17 +147,17 @@ export const CoureCatalogPreview: FC = () => {
             scroll="body"
             PaperProps={{
               component: 'form',
-              onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+              onSubmit: async (event: React.FormEvent<HTMLFormElement>) => {
                 event.preventDefault()
+                event.stopPropagation()
                 const formData = new FormData(event.currentTarget)
                 formData.append('course', String(course.course_id))
                 if (formData) {
-                  sendAppeal(formData)
+                  await sendAppeal(formData)
                     .unwrap()
                     .then(data => {
-                      console.log(data)
-                      closeModal()
                       setError(false)
+                      setStep(2)
                     })
                     .catch(err => setError(true))
                 }
@@ -158,40 +165,55 @@ export const CoureCatalogPreview: FC = () => {
             }}
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#ba75ff' }}>
-              {'Оставьте Ваши данные и с Вами свяжется менеджер'}
-            </DialogTitle>
-            <DialogContent sx={{ padding: '1rem 4rem', display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1rem 0' }}>
-              {error && <p style={{ fontSize: '12px', color: 'red' }}>Ошибка отправки заявки, введены некорректные данные</p>}
-              <TextField required margin="dense" id="name" name="name" label="Как к Вам обращаться:" type="text" fullWidth variant="outlined" />
-              <TextField required margin="none" id="email" name="email" label="Email:" type="email" fullWidth variant="outlined" />
-              <PhoneInput
-                inputClass={styles.phoneInput}
-                inputProps={{
-                  name: 'phone',
-                  theme: { theme },
-                  required: true,
-                }}
-                placeholder="Номер телефона"
-                country={'by'}
-                onlyCountries={['by', 'ru', 'kz', 'ua']}
-              />
-              <TextField
-                margin="none"
-                id="message"
-                name="message"
-                multiline
-                minRows={2}
-                label="Дополнительная информация:"
-                type="text"
-                fullWidth
-                variant="outlined"
-              />
-            </DialogContent>
-            <DialogActions sx={{ padding: '0.5rem 4rem 1.5rem' }}>
-              <Button onClick={closeModal} text={'Отмена'} />
-              <Button type="submit" onClick={handleForm} text={'Отправить заявку'} />
-            </DialogActions>
+            {step === 1 ? (
+              <>
+                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#ba75ff' }}>
+                  {'Оставьте Ваши данные и с Вами свяжется менеджер'}
+                </DialogTitle>
+                <DialogContent sx={{ padding: '1rem 4rem', display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1rem 0' }}>
+                  {error && <p style={{ fontSize: '12px', color: 'red' }}>Ошибка отправки заявки, введены некорректные данные</p>}
+                  <TextField required margin="dense" id="name" name="name" label="Как к Вам обращаться:" type="text" fullWidth variant="outlined" />
+                  <TextField required margin="none" id="email" name="email" label="Email:" type="email" fullWidth variant="outlined" />
+                  <PhoneInput
+                    inputClass={styles.phoneInput}
+                    inputProps={{
+                      name: 'phone',
+                      theme: { theme },
+                      required: true,
+                    }}
+                    placeholder="Номер телефона"
+                    country={'by'}
+                    onlyCountries={['by', 'ru', 'kz', 'ua']}
+                  />
+                  <TextField
+                    margin="none"
+                    id="message"
+                    name="message"
+                    multiline
+                    minRows={2}
+                    label="Дополнительная информация:"
+                    type="text"
+                    fullWidth
+                    variant="outlined"
+                  />
+                </DialogContent>
+                <DialogActions sx={{ padding: '0.5rem 4rem 1.5rem' }}>
+                  <Button onClick={closeModal} text={'Отмена'} />
+                  <Button type="submit" onClick={handleForm} text={'Отправить заявку'} />
+                </DialogActions>
+              </>
+            ) : (
+              <>
+                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#ba75ff' }}>
+                  {`Заявка о поступлении на курс ${course.name} успешно отправлена, для получения дополнительной информации, Вы можете перейти по контактной ссылке данной школы`}
+                </DialogTitle>
+                <DialogContent>
+                  <a href={course.contact_link} target="_blank" rel="noreferrer">
+                    {course.contact_link}
+                  </a>
+                </DialogContent>
+              </>
+            )}
           </Dialog>
         )}
       </div>
