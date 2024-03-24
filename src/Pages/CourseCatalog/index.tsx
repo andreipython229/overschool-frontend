@@ -126,7 +126,7 @@ export const CourseCatalogPage: FC = memo(() => {
             {courses.results.map((course: any, index: number) => (
               <Card
                 className={styles.wrapper_body_courses_card}
-                sx={{ width: '32.5%', cursor: 'pointer', transition: 'all ease-in 0.2s' }}
+                sx={{ width: '30%', cursor: 'pointer', transition: 'all ease-in 0.2s' }}
                 key={index}
               >
                 <CardActionArea onClick={() => navigate(generatePath(Path.Catalog + Path.CatalogCourse, { courseId: course.course_id }))}>
