@@ -3,6 +3,27 @@ import { schoolT } from '../types/schoolHeaderT'
 import { UpdateCourses } from './apiTypes'
 import { baseQuery } from './baseApi'
 
+interface ResponsePaymentMethod {
+  id: number;
+  payment_method: string;
+  payment_method_name: string;
+  payment_link: string;
+  secret_key: string;
+  school: number;
+}
+
+interface PaymentMethod {
+  payment_method: string;
+  payment_method_name: string;
+  payment_link: string;
+  secret_key: string;
+  school: number;
+}
+
+interface PaymentMethodListResponse {
+  results: ResponsePaymentMethod[];
+}
+
 export const schoolService = createApi({
   reducerPath: 'schoolService',
   baseQuery: baseQuery(),
@@ -50,8 +71,30 @@ export const schoolService = createApi({
         body: body.data,
       }),
     }),
+    setPaymentMethod: build.mutation<PaymentMethodListResponse, PaymentMethod>({
+      query: body => ({
+        url: `/payment_method/`,
+        method: 'POST',
+        body: body,
+      }),
+    }),
+    fetchPaymentMethods: build.query<PaymentMethodListResponse, { school_id: number }>({
+      query: ({ school_id }) => ({
+        url: `/payment_method/?school_id=${school_id}`,
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
-export const { useFetchSchoolQuery, useSetSchoolMutation, useCreateSchoolMutation, useLazyFetchSchoolDocumentQuery, useSetSchoolDocumentsMutation, useUpdateSchoolDocumentsMutation } =
-  schoolService
+
+export const { 
+  useFetchSchoolQuery, 
+  useSetSchoolMutation, 
+  useCreateSchoolMutation, 
+  useLazyFetchSchoolDocumentQuery, 
+  useSetSchoolDocumentsMutation, 
+  useUpdateSchoolDocumentsMutation,
+  useSetPaymentMethodMutation,
+  useLazyFetchPaymentMethodsQuery,
+} = schoolService;
