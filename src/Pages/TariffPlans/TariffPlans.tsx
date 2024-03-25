@@ -39,8 +39,6 @@ export const TariffPlans: FC = () => {
     }
   }
 
-  isLowerTariff('Senior')
-
   useEffect(() => {
     if (data) {
       const table = [...data]
@@ -124,13 +122,31 @@ export const TariffPlans: FC = () => {
                       tariff.tariff_name === plan.name ? (
                         // <Button text={'Отменить подписку'} variant={'delete'} />
                         <Button text={'Текущий тариф'} variant={'disabled'} />
-                      ) : tariff.tariff_name !== plan.name && !isLowerTariff ? (
-                        <Button text={'Подписаться'} variant={'create'} onClick={() => handleClick(plan)} />
+                      ) : tariff.tariff_name !== plan.name && !isLowerTariff(plan.name) ? (
+                        <a href="https://t.me/over_school/" target="_blank" rel="noreferrer">
+                          <Button
+                            text={'Подписаться'}
+                            variant={'create'}
+                            onClick={() => {
+                              // handleClick(plan)
+                              console.log('Функционал временно отключен')
+                            }}
+                          />
+                        </a>
                       ) : (
                         <Button text={'Выбор недоступен'} variant={'disabled'} title="сначала отмените текущую подписку" />
                       )
                     ) : (
-                      <Button text={'Подписаться'} variant={'create'} onClick={() => handleClick(plan)} />
+                      <a href="https://t.me/over_school/" target="_blank" rel="noreferrer">
+                        <Button
+                          text={'Подписаться'}
+                          variant={'create'}
+                          onClick={() => {
+                            // handleClick(plan)
+                            console.log('Функционал временно отключен')
+                          }}
+                        />
+                      </a>
                     ))}
                 </div>
               </div>

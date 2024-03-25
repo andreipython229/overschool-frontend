@@ -35,7 +35,7 @@ import { useFetchCurrentTariffPlanQuery, useLazyFetchCurrentTariffPlanQuery, use
 import { setTariff } from 'store/redux/tariff/tariffSlice'
 import { removeSchoolId } from '../../store/redux/school/schoolIdSlice'
 import { removeHeaderId } from '../../store/redux/school/headerIdSlice'
-import { removeSchoolName } from '../../store/redux/school/schoolSlice'
+import {removeSchoolName, setSchoolName} from '../../store/redux/school/schoolSlice'
 import { useDispatch } from 'react-redux'
 
 import { motion } from 'framer-motion'
@@ -50,6 +50,8 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
   const dispatch = useAppDispatch()
   const dispatchRole = useDispatch()
   const { role: userRole } = useAppSelector(selectUser)
+  const schoolNameR = useAppSelector(state => state.school.schoolName)
+  const [socketConnect, setSocketConnect] = useState<boolean>(false)
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const [logout, { isLoading }] = useLazyLogoutQuery()
@@ -85,6 +87,7 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
       localStorage.clear()
       dispatch(auth(false))
       navigate(generatePath(Path.InitialPage))
+      setSocketConnect(false)
 
       if (informSocketRef.current !== null) {
         informSocketRef.current.close()
@@ -156,11 +159,8 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
 
   const connectWebSocket = () => {
     if (informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) {
-      informSocketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/info/`)
-      // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/`)
-      // informSocketRef.current.onopen = () => {
-      // console.log('INFO WebSocket connected');
-      // };
+      informSocketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/info/${schoolName || ''}/`)
+      // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}/`)
 
       informSocketRef.current.onmessage = event => {
         if (typeof event.data === 'string') {
@@ -178,20 +178,19 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
               }
             }
           }
-          // console.log("SOCKET MESSAGE TYPE: ", receivedMessage.type)
         }
       }
 
-      // informSocketRef.current.onerror = event => {
-      //       console.log("INFO WebSocket error = ", event)
-      // }
-
       informSocketRef.current.onclose = () => {
-        // console.log('INFO WebSocket disconnected');
+        console.log('INFO WebSocket disconnected');
         // Переподключение при закрытии соединения
-        setTimeout(() => {
-          connectWebSocket()
-        }, 5000)
+        // if (socketConnect) {
+        //   console.log('OK!!!');
+        //   setTimeout(() => {
+        //     connectWebSocket()
+        //   }, 5000)
+        // }
+
       }
     }
   }
@@ -216,30 +215,6 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
     const totalUnread = totalUnreadMessages || 0
     dispatch(setTotalUnread(totalUnread.toString()))
   }, [totalUnreadMessages])
-
-  const fetchChatsData = async () => {
-    try {
-      const response = await fetch('/api/chats/info/')
-      if (response.ok) {
-        const chatsInfo = await response.json()
-        setTotalUnreadMessages(chatsInfo[0].total_unread)
-        if (chatsInfo.length > 1 && chats) {
-          const fetchChats: ChatI[] = chatsInfo.slice(1)
-          if (fetchChats) {
-            setFetchedChats(fetchChats)
-          }
-        }
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  // useEffect(() => {
-  //   fetchChatsData()
-  //   const intervalId = setInterval(fetchChatsData, 60000)
-  //   return () => clearInterval(intervalId)
-  // }, [])
 
   // Удаляем AVATAR
   const omitAvatar = (sender: SenderI): SenderI => {
@@ -280,9 +255,25 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
 
   const goToChooseSchool = () => {
     dispatchRole(role(RoleE.Unknown))
+    setSocketConnect(false)
     navigate(Path.ChooseSchool)
     setAnchorEl(null)
   }
+
+  // useEffect(() => {
+  //   if (socketConnect) {
+  //     if (informSocketRef.current !== null) {
+  //       informSocketRef.current.close()
+  //       informSocketRef.current = null
+  //       console.log("stop socket by button")
+  //   }
+  //   }
+  // }, [socketConnect]);
+
+  // useEffect(() => {
+  //   setSocketConnect(true)
+  //   console.log("USE EFFECT school Redux = ", schoolNameR)
+  // }, [schoolNameR]);
 
   const handleClose = () => {
     setAnchorEl(null)

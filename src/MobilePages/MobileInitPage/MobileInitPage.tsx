@@ -23,7 +23,7 @@ export const MobileInitPage = () => {
       {openLoginModal && <MobileLoginModal setShowModal={showLoginModal} />}
       <div className={styles.container_blur} />
       <div className={styles.initPage}>
-        <h1>Образовательная онлайн платформа</h1>
+        <h1 style={{ textAlign: 'center' }}>Первая белорусская платформа для онлайн школ</h1>
         <div className={styles.initPage_footer}>
           <div className={styles.initPage_footer_text}>
             <p>
