@@ -25,7 +25,7 @@ export const CatalogCourseModules: FC<CatalogModulesT> = ({ section, sectionInde
           </h4>
           <span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>
             {section.lessons.length}
-            <span>{getNounDeclension(section.lessons.length, ['Занятие', 'Занятия', 'Занятий'])}</span>
+            <span>{getNounDeclension(section.lessons.length, ['занятие', 'занятия', 'занятий'])}</span>
           </span>
         </div>
         <span

@@ -89,7 +89,7 @@ export const Certificate = () => {
                 </div>
               </div>
             </div>
-        <div className={styles.courseName}></div>
+        {/* <div className={styles.courseName}></div> */}
       </div> 
       <div className={styles.mainSkills}> 
         <div className={styles.mainSkills__title}>
@@ -118,14 +118,14 @@ export const Certificate = () => {
               }
         </ul>
 
-        <div className={styles.courseNameSkillsAll}>
+        {/* <div className={styles.courseNameSkillsAll}>
         <div className={styles.courseNameSkills}></div>
         <picture className={styles.logo__imgSkills}>
               <source srcSet={logo} media="(min-width: 1025px)" />
               <source srcSet={logoHorizontal} media="(max-width: 1024px)" />
               <img src={logo} className={styles.logo__img} alt="logo" />
         </picture>
-        </div>
+        </div> */}
       </div>
     </main> 
   ) : (
