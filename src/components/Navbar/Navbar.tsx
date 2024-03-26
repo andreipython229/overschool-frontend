@@ -33,6 +33,7 @@ interface IIsActive {
 export const Navbar: FC = memo(() => {
   const { role: UserRole } = useAppSelector(selectUser)
   const unRead = useSelector((state: RootState) => state.unread.totalUnread)
+  const unReadAppeals = useSelector((state: RootState) => state.unreadAppeals.totalUnreadAppeals)
   const dispatchRole = useDispatch()
 
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
@@ -112,9 +113,14 @@ export const Navbar: FC = memo(() => {
             <div>
               <Tooltip title={'Заявки о поступлении на курс'} arrow placement={'right'} key={'appeals-data'}>
                 <NavLink to={Path.Appeals} className={isActive}>
-                  <Badge badgeContent={4} color="error">
-                    <IconSvg width={48} height={44} viewBoxSize="0 0 24 24" path={appealsIconPath} />
-                  </Badge>
+
+                  {unReadAppeals > 0 ? (
+                    <Badge badgeContent={unReadAppeals} color="error">
+                      <IconSvg width={48} height={44} viewBoxSize="0 0 24 24" path={appealsIconPath} />
+                    </Badge>
+                  ) : (
+                      <IconSvg width={48} height={44} viewBoxSize="0 0 24 24" path={appealsIconPath} />
+                  )}
                 </NavLink>
               </Tooltip>
               <Tooltip title={'Связаться с техподдержкой'} arrow placement={'right'} key={'techsupport-data-link'}>
