@@ -176,7 +176,9 @@ export const CreateNewSchool = () => {
                     name: 'phone_number',
                     style: {
                       border: "none",
-                      width: "100%"
+                      height: "38px",
+                      borderRadius: "10px",
+                      width: "100%",
                       }
                   }}
                   onChange={(values) => formik.setFieldValue('phone_number', normalizePhoneNumber(values))}
@@ -238,7 +240,7 @@ export const CreateNewSchool = () => {
             />
             <p className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_help}>
               Уже есть свой аккаунт?
-              <a href={Path.InitialPage}>Войти</a>
+              <a href={Path.LoginPage}>Войти</a>
             </p>
           </div>
         </form>
