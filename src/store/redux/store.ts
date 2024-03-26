@@ -49,6 +49,7 @@ export const rootReducer = combineReducers({
   headerId: slices.headerIdReducer,
   tariff: slices.tariffReducer,
   unread: slices.unreadReducer,
+  unreadAppeals: slices.unreadAppealsReducer,
   chats: slices.chatsReducer,
   userProfile: slices.userProfileReducer,
   modules: modulesReduce,

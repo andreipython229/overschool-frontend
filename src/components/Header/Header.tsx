@@ -20,7 +20,7 @@ import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { SvgIcon } from '@mui/material'
-import { ChatI, SenderI, UserInformI } from 'types/chatsT'
+import {ChatI, SenderI, UserInformAppealsI, UserInformI} from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from '../../store/redux/chats/chatsSlice'
 
@@ -40,6 +40,7 @@ import { useDispatch } from 'react-redux'
 
 import { motion } from 'framer-motion'
 import { w3cwebsocket } from 'websocket'
+import {setTotalUnreadAppeals} from "../../store/redux/info/unreadAppealsSlice";
 
 interface HeaderProps {
   onUpdateTariff: (tariff: any) => void
@@ -62,6 +63,7 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
   const [currentTariff, setCurrentTariff] = useState<ITariff>()
 
   const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
+  const [unreadAppeals, setUnreadAppeals] = useState<number>(0)
   const chats = useAppSelector(state => state.chats.chats)
   const [fetchedChats, setFetchedChats] = useState<ChatI[]>([])
   const [, , removeAccessCookie] = useCookies(['access_token'])
@@ -73,6 +75,9 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
   const open = Boolean(anchorEl)
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
+  const path = useLocation()
+  const [timerId, setTimerId] = useState<number | null>(null);
+
 
   const logOut = async () => {
     await logout().then(data => {
@@ -177,6 +182,10 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
                 setFetchedChats(fetchChats)
               }
             }
+          } else if (receivedMessage.type === 'unread_appeals_count') {
+            const unreadMessAppeals: UserInformAppealsI = JSON.parse(event.data)
+            setUnreadAppeals(unreadMessAppeals.unread_count)
+            console.log(unreadMessAppeals)
           }
         }
       }
@@ -184,13 +193,12 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
       informSocketRef.current.onclose = () => {
         console.log('INFO WebSocket disconnected');
         // Переподключение при закрытии соединения
-        // if (socketConnect) {
-        //   console.log('OK!!!');
-        //   setTimeout(() => {
+        // if (timerId === null) {
+        //   const tId = setTimeout(() => {
         //     connectWebSocket()
-        //   }, 5000)
+        //   }, 5000) as unknown as number;
+        //   setTimerId(tId);
         // }
-
       }
     }
   }
@@ -215,6 +223,11 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
     const totalUnread = totalUnreadMessages || 0
     dispatch(setTotalUnread(totalUnread.toString()))
   }, [totalUnreadMessages])
+
+  // Appeals Unread Update
+  useEffect(() => {
+    dispatch(setTotalUnreadAppeals(unreadAppeals || 0))
+  }, [unreadAppeals])
 
   // Удаляем AVATAR
   const omitAvatar = (sender: SenderI): SenderI => {
@@ -254,6 +267,13 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
   }
 
   const goToChooseSchool = () => {
+      // if (timerId) {
+      //   clearTimeout(timerId);
+      // }
+    if (informSocketRef.current !== null) {
+        informSocketRef.current.close()
+        informSocketRef.current = null
+    }
     dispatchRole(role(RoleE.Unknown))
     setSocketConnect(false)
     navigate(Path.ChooseSchool)

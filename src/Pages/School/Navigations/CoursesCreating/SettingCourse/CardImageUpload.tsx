@@ -16,26 +16,32 @@ type CardImageDownloadsT = {
 export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, courseFind }) => {
   const [courseImage, setCourseImage] = useState<string>(String(courseFind?.photo))
   const [updateImg, { isSuccess, isLoading }] = usePatchCoursesMutation()
+  const [imgError, setImgError] = useState<string>('')
   const schoolName = window.location.href.split('/')[4]
 
   const handleImageChange = () => {
+    setImgError('')
     const fileInput = document.createElement('input')
     fileInput.type = 'file'
     fileInput.accept = 'image/*'
     fileInput.onchange = event => {
       const files = (event.target as HTMLInputElement).files
       if (courseFind && courseFind.order && courseFind.school && files) {
-        const formData = new FormData()
-        formData.append('photo', files[0])
-        formData.append('order', courseFind.order.toString())
-        formData.append('school', courseFind.school.toString())
-        updateImg({arg: { formdata: formData, id: courseFind.course_id }, schoolName})
-          .unwrap()
-          .then(data => {
-            if ('photo' in data && data.photo) {
-              setCourseImage(String(data.photo))
-            }
-          })
+        if (files[0].size <= 7 * 1024 * 1024) {
+          const formData = new FormData()
+          formData.append('photo', files[0])
+          formData.append('order', courseFind.order.toString())
+          formData.append('school', courseFind.school.toString())
+          updateImg({arg: {formdata: formData, id: courseFind.course_id}, schoolName})
+              .unwrap()
+              .then(data => {
+                if ('photo' in data && data.photo) {
+                  setCourseImage(String(data.photo))
+                }
+              })
+        } else {
+          setImgError('Размер файла не должен превышать 7 МБ')
+        }
       }
     }
     fileInput.click()
@@ -58,6 +64,7 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
           <SimpleLoader style={{ width: '100%', height: '100%' }} />
         </label>
       )}
+      {imgError && <p className={styles.card_image_downloads_error}>{imgError}</p>}
       {toggleCheckbox ? (
         <p className={styles.text_block}>
           <IconSvg width={18} height={16} path={publishedIconPath} />

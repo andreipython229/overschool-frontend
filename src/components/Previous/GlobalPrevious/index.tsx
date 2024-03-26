@@ -23,6 +23,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   const [setSchoolHeader] = useSetSchoolHeaderMutation()
 
   const [edit, setEdit] = useState<boolean>(false)
+  const [fileError, setFileError] = useState<string>('');
 
   const [schoolHeaderData, setSchoolHeaderData] = useState<schoolHeaderReqT>({
     name: '',
@@ -52,13 +53,17 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   }
 
   const handleChangeSchoolHeaderData = (e: ChangeEvent<HTMLInputElement>) => {
+    setFileError('');
     const target = e.target
 
     if (target.files && target.files[0]) {
+      if (target.files[0].size <= 7 * 1024 * 1024) {
       const url = URL.createObjectURL(target.files[0])
-
-      setSchoolHeaderDataToRender({ ...schoolHeaderDataToRender, [target.name]: url })
-      setSchoolHeaderData({ ...schoolHeaderData, [target.name]: target.files[0] })
+      setSchoolHeaderDataToRender({...schoolHeaderDataToRender, [target.name]: url})
+      setSchoolHeaderData({...schoolHeaderData, [target.name]: target.files[0]})
+      } else {
+        setFileError('Допустимый размер файла не должен превышать 7 МБ')
+      }
     } else {
       setSchoolHeaderData({ ...schoolHeaderData, [target.name]: target.value })
     }
@@ -97,7 +102,8 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
       }
     : { backgroundColor: '#e0dced' }
 
-  return (
+  return ( <>
+     {fileError && <p className={styles.previous_error}>{fileError}</p>}
     <div className={styles.previous}>
       <div className={styles.previous} style={changedBg}/>
       <div>
@@ -172,5 +178,5 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
       )}
       </div>
     </div>
-  )
+  </>)
 })

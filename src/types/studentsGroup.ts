@@ -22,6 +22,7 @@ export type studentsGroupsT = {
     }
     type?: string
     training_duration: number
+    certificate: boolean
 }
 
 export type studentsTableHeader = {

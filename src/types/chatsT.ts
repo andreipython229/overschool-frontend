@@ -11,6 +11,12 @@ export interface UserInformI {
   type: string
 }
 
+export interface UserInformAppealsI {
+  type: string
+  school_id: number
+  unread_count: number
+}
+
 
 
 export interface ChatI {
