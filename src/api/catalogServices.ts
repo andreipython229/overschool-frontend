@@ -33,7 +33,7 @@ export const catalogService = createApi({
     }),
     fetchSchoolAppeals: build.mutation<appealsStatT, any>({
       query: arg => ({
-        url: `/${arg.schoolName}/course-appeals`,
+        url: `/${arg.schoolName}/course-appeals/?p=${arg.pageToFetch}`,
       }),
     }),
     fetchCurrentAppeal: build.mutation<appealStatT, { id: number; schoolName: string }>({
