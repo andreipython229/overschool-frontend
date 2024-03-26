@@ -120,6 +120,12 @@
       }
     }
   }
+
+  &_exit {
+    @media only screen and (min-width: 481px) and (max-width: 1024px) {
+      margin-top: 30px;
+    } 
+  }
 }
 
 .chatIcon {
