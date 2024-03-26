@@ -5,6 +5,10 @@
   padding: 1rem;
   width: 100%;
   height: auto;
+  background: #e0dced;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding: 0;
@@ -14,11 +18,16 @@
   }
 
   &_banner {
-    background: #e0dced;
-    width: 100%;
-    padding: 2rem;
+    // background: #e0dced;
+    width: 1040px;
+    padding: 2rem 0 2rem 0;
     border-radius: 7px;
     margin-top: -20px;
+
+    h2 {
+      font-weight: 700;
+      font-size: 22px;
+    }
 
     &_content {
       display: inline-flex;
@@ -27,10 +36,11 @@
         @include display(flex, column);
         gap: 1rem;
         padding-top: 60px;
-        margin-left: 120px;
+        // margin-left: 120px;
         h1 {
           margin: 0;
         }
+        
         p {
           color: #4d5766;
           font-size: 14px;
@@ -93,11 +103,12 @@
 
   &_courseStats {
     position: relative;
-    width: 80%;
-    height: 150px;
-    margin: -20px auto 0;
+    width: 831px;
+    height: 125px;
+    // margin: -20px auto 0;
+    margin-top: -20px;
     z-index: 10;
-    border-radius: 14px;
+    border-radius: 30px;
     box-shadow: 0 2px 8px rgb(147, 147, 147);
     background-color: #ffffff;
     @include display(flex, row, center, center);
@@ -112,8 +123,24 @@
 
     &_stat {
       @include display(flex, column, center, center);
-      @include font(600, 26px);
+      @include font(700, 22px);
       color: #ba75ff;
+      
+      
+
+      &_all {
+        @include display(flex, row, center, center);
+        @include font(700, 22px);
+        color: #ba75ff;
+        
+
+        &_text {
+          @include display(flex, column, center, center);
+          @include font(700, 22px);
+          color: #ba75ff;
+          padding-left: 10px 
+        }
+      }
 
       span {
         @include display(flex, row, center, center);
@@ -124,7 +151,7 @@
 
 .previous {
   position: relative;
-  width: 100%;
+  width: 1040px;
   height: 210px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
@@ -133,9 +160,11 @@
 
   &_buttonAccept {
     button {
-      width: 200px;
-      height: 42px;
-      font-size: 12px;
+      width: 203px;
+      height: 36px;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 0;
     }
 
     @include position_b_r(absolute, 50px, 44px);
@@ -171,8 +200,8 @@
 
   &_onlineCourses {
     @include position_t_l(absolute, 107px, 44px);
-    @include font(600, 20px, 24px);
-    color: #ba75ff;
+    @include font(700, 22px, 24px);
+    color: #BA75FF;
     text-transform: uppercase;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       @include position_t_l(absolute, 107px, 16px);
@@ -212,14 +241,14 @@
   text-align: center;
 }
 .previous_title_name {
-  @include position_t_l(absolute, 125px, 43px);
-  @include font(600, 24px, 28px);
+  @include position_t_l(absolute, 140px, 43px);
+  @include font(500, 22px, 28px);
   color: #fff;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    @include position_t_l(absolute, 125px, 16px);
+    @include position_t_l(absolute, 140px, 16px);
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    @include position_t_l(absolute, 125px, 16px);
+    @include position_t_l(absolute, 140px, 16px);
   }
 }
 .back_all_course {
@@ -254,7 +283,7 @@
     @include display(flex, column, center);
     background-color: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    border-radius: 7px;
+    border-radius: 20px;
     margin-bottom: 16px;
     transition: all 0.3s;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -269,7 +298,8 @@
     &_header {
       @include display(flex, row, space-between, center);
       width: 100%;
-      padding: 27px 40px;
+      height: 89px;
+      padding: 11px 40px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         padding: 21px 11px;
       }
@@ -312,11 +342,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 38px;
-        height: 38px;
+        width: 57px;
+        height: 57px;
         background: #f3e7ff;
-        font-weight: 500;
-        font-size: 15px;
+        font-weight: 700;
+        font-size: 22px;
         line-height: 18px;
         color: #ba75ff;
         //background-color: #ba75ff;
@@ -338,7 +368,7 @@
       }
       &_lessonName {
         @include display(flex, row, flex-start, center);
-        width: 100%;
+        width: 90%;
         margin-left: 32px;
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           margin-left: 9px;
@@ -349,8 +379,8 @@
 
         &_title {
           @include display(flex, row, flex-start, center);
-          @include font(500, 14px, 16px);
-          color: #4d5766;
+          @include font(700, 22px, 16px);
+          color: #BA75FF;
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             font-size: 10px;
           }
@@ -367,8 +397,8 @@
           }
         }
         &_exerciseSum {
-          @include font(500, 14px, 16px);
-          color: #9ca3af;
+          @include font(700, 22px, 16px);
+          color: #ba98dd;
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             font-size: 10px;
           }
