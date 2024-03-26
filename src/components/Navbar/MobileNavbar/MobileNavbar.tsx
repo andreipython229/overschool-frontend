@@ -161,13 +161,13 @@ export const MobileNavbar: FC = memo(() => {
             
           )}
           <React.Fragment>
-            <div>
+            <div className={styles.navbar_exit}>
               <Tooltip title={'Выход'}>
                 <div className={styles.tariffPlan} style={{ textDecoration: 'none' }} onClick={handleClick}>
                 <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="36"
-              height="36"
+              width="40"
+              height="40"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#e0dced"
