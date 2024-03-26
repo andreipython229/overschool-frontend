@@ -20,6 +20,7 @@ type MainSettingsGroupPropsT = {
     strongSubsequence: boolean
     blockHomework: boolean
     overAiLock: boolean
+    certificate: boolean
     title: string
     groupType: string
     isLoading: boolean
@@ -32,6 +33,7 @@ type MainSettingsGroupPropsT = {
     handlerHomeworkCheck: () => void
     handlerSubsequence: () => void
     handlerLockOverAi: () => void
+    handleCertificate: () => void
     handleSave: (data: any) => Promise<void>
     deleteGroup: () => void
     teacher: number
@@ -46,6 +48,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    strongSubsequence,
                                                                    blockHomework,
                                                                    overAiLock,
+                                                                   certificate,
                                                                    title,
                                                                    groupType,
                                                                    isLoading,
@@ -53,6 +56,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    handlerHomeworkCheck,
                                                                    handlerSubsequence,
                                                                    handlerLockOverAi,
+                                                                   handleCertificate,
                                                                    deleteGroup,
                                                                    setGroupName,
                                                                    duration,
@@ -169,6 +173,13 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                             </div>
                         </div>
                     )}
+                    <div className={styles.groupSetting_checkboxBlock_checkbox}>
+                        <Checkbox id={'certificate'} name={'certificate'} checked={certificate} onChange={handleCertificate}/>
+                        <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
+                            <span>Включить сертификат</span>
+                            <span>После прохождения курса ученики смогут получить сертификат</span>
+                        </div>
+                    </div>
                 </div>
                 <div className={styles.groupSetting_duration}>
                     <label>Продолжительность обучения в днях:</label>
