@@ -46,6 +46,43 @@
     text-align: center;
     position: relative;
     cursor: pointer;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      min-height: 385px;
+      border-radius: 10px;
+      border: none;
+
+      
+      &:hover {
+        border: 3px #ba75ff solid;
+         
+      }
+  
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      min-height: 385px;
+      border-radius: 10px;
+      border: none;
+
+
+      &:hover {
+        border: 3px #ba75ff solid;
+         
+      }
+      
+    }
+
+    @media only screen and (min-width: 481px) and (max-width: 1024px) {
+      min-height: 385px;
+      border-radius: 10px;
+      border: none;
+
+
+      &:hover {
+        border: 3px #ba75ff solid;
+         
+      }
+      
+    }
 
     & span {
       @include position_b_l(absolute, 132px, 64px);
@@ -53,11 +90,15 @@
       font-size: 17px;
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
-        @include position_b_l(absolute, 132px, 35%);
+        @include position_b_l(absolute, 0px, 0%);
     
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
-        @include position_b_l(absolute, 132px, 35%);
+        @include position_b_l(absolute, 140px, 35%);
+      }
+
+      @media only screen and (min-width: 481px) and (max-width: 1024px) {
+        @include position_b_l(absolute, 140px, 27%);
       }
     }
   }
@@ -83,11 +124,13 @@
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 100%;
       margin-bottom: 5%;
+      padding-bottom: 2%;
   
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       width: 100%;
       margin-bottom: 5%;
+      padding-bottom: 2%;
     }
 
     &:hover {
