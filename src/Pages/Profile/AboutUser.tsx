@@ -36,6 +36,7 @@ export const AboutUser: FC = memo(() => {
   const [profileData, setProfileData] = useState<profileT>()
   const [sex, setSex] = useState<string>()
   const [phoneError, setPhoneError] = useState<string>()
+  const [avatarError, setAvatarError] = useState<string>('')
 
   const formik = useFormik({
     initialValues: {
@@ -93,10 +94,15 @@ export const AboutUser: FC = memo(() => {
   })
 
   const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+    setAvatarError('')
     if (e.target.files && e.target.files[0]) {
-      const url = URL.createObjectURL(e.target.files[0])
-      setAvatarUrl(url)
-      setAvatarFile(e.target.files[0])
+      if (e.target.files[0].size <= 7 * 1024 * 1024) {
+        const url = URL.createObjectURL(e.target.files[0])
+        setAvatarUrl(url)
+        setAvatarFile(e.target.files[0])
+      } else {
+        setAvatarError('Допустимый размер файла не должен превышать 7 МБ')
+      }
     }
   }
 
@@ -150,6 +156,7 @@ export const AboutUser: FC = memo(() => {
           )}
           <input className={styles.profile_block_avatarBlock_input} value={''} name={'avatar'} type={'file'} onChange={onChangeAvatar} />
         </div>
+        {avatarError && <p className={formStyles.form_avatarWrapper_error}>{avatarError}</p>}
       </div>
       <div className={styles.profile_block}>
         <Input name={'first_name'} type={'text'} label={'Имя:'} onChange={handleChange} value={first_name as string} />

@@ -21,6 +21,7 @@ export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, an
     const schoolName = window.location.href.split('/')[4]
     const [questionImage, setQuestionImage] = useState<string | null>(null);
     const isAddButtonVisible = answersToRender.length < 4;
+    const [fileError, setFileError] = useState<string>('');
   
     const [addAnswer] = useAddAnswerMutation()
     const [patchAnswer] = usePatchAnswerMutation()
@@ -33,26 +34,30 @@ export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, an
   
     const handleChangeQuestion = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>, questionId: number) => {
+          setFileError('');
           const files = event.target.files;
-          
           if (files && files.length > 0) {
             const file = files[0];
-            const formData = new FormData();
-            formData.append('question', questionId.toString());
-            formData.append('body', 'Введите вопрос');
-            formData.append('picture', file);
+            if (file.size <= 7 * 1024 * 1024) {
+                const formData = new FormData();
+                formData.append('question', questionId.toString());
+                formData.append('body', 'Введите вопрос');
+                formData.append('picture', file);
 
-            if (testId) {
-                formData.append('test', testId.toString());
-              }
-      
-            fetch(`/api/${schoolName}/questions/${questionId}/`, {
-              method: 'PATCH',
-              body: formData,
-            })
-            .then(response => {
-                setQuestionImage(URL.createObjectURL(file));
-            })
+                if (testId) {
+                    formData.append('test', testId.toString());
+                }
+
+                fetch(`/api/${schoolName}/questions/${questionId}/`, {
+                    method: 'PATCH',
+                    body: formData,
+                })
+                    .then(response => {
+                        setQuestionImage(URL.createObjectURL(file));
+                    })
+            } else {
+                setFileError('Допустимый размер файла не должен превышать 7 МБ')
+            }
           }
         },
         [schoolName]
@@ -119,6 +124,7 @@ export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, an
                                     </>
                                 )}
                         </div>
+                       {fileError && <p className={styles.wrapper_answer_error}>{fileError}</p>}
                 </Question>
                 {answersToRender ? (
               orderBy(answersToRender, 'answer_id').map((answer, index) => (
