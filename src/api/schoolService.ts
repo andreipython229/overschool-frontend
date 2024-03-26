@@ -84,6 +84,13 @@ export const schoolService = createApi({
         method: 'GET',
       }),
     }),
+    deletePaymentMethod: build.mutation<PaymentMethodListResponse, string>({
+      query: paymentLink => ({
+        url: `/payment_method/`,
+        method: 'DELETE',
+        body: { paymentLink },
+      }),
+    }),
   }),
 })
 
@@ -97,4 +104,5 @@ export const {
   useUpdateSchoolDocumentsMutation,
   useSetPaymentMethodMutation,
   useLazyFetchPaymentMethodsQuery,
+  useDeletePaymentMethodMutation,
 } = schoolService;

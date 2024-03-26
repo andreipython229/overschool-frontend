@@ -41,8 +41,6 @@ const AddPaymentMethods: React.FC<AddPaymentMethodsProps> = ({ isOpen, onClose }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log(name, value);
-    
     setFormData(prevState => ({
       ...prevState,
       [name]: value
@@ -59,7 +57,9 @@ const AddPaymentMethods: React.FC<AddPaymentMethodsProps> = ({ isOpen, onClose }
         secret_key: formData.secret_key
       };
   
-      mutatePaymentMethod(paymentData);
+      mutatePaymentMethod(paymentData).then(() => {
+        onClose();
+      });
     }
   };
 
@@ -83,7 +83,7 @@ const AddPaymentMethods: React.FC<AddPaymentMethodsProps> = ({ isOpen, onClose }
               <option value="ExpressPay">ExpressPay</option>
             </select>
           </div>
-          {selectedPaymentMethod === 'Prodamus' && (
+          { (selectedPaymentMethod === 'Prodamus' || selectedPaymentMethod === 'ExpressPay') && (
             <>
               <div className={styles.formGroup}>
                 <label htmlFor="name">Название:</label>
