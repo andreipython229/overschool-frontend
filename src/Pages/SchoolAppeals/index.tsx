@@ -13,8 +13,12 @@ export const SchoolAppeals: FC = () => {
   const schoolName = window.location.href.split('/')[4]
 
   useEffect(() => {
+    fetchData({ schoolName: schoolName, pageToFetch: page })
+  }, [page])
+
+  useEffect(() => {
     if (!appealsData && schoolName) {
-      fetchData({ schoolName: schoolName })
+      fetchData({ schoolName: schoolName, pageToFetch: page })
     }
   }, [fetchData, appealsData])
 
@@ -51,7 +55,11 @@ export const SchoolAppeals: FC = () => {
       >
         Входящие заявки о поступлении на курс
       </p>
-      <AppealsStatsTable appeals={appealsData as appealsStatT} isLoading={isLoading} refetchTable={() => fetchData({ schoolName: schoolName })} />
+      <AppealsStatsTable
+        appeals={appealsData as appealsStatT}
+        isLoading={isLoading}
+        refetchTable={() => fetchData({ schoolName: schoolName, pageToFetch: page })}
+      />
       <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
     </motion.div>
   )
