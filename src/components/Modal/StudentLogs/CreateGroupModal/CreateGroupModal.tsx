@@ -72,6 +72,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
         students: [],
         type: withTeacher ? 'WITH_TEACHER' : 'WITHOUT_TEACHER',
         training_duration: 0,
+        certificate: false,
       }
       if (!withTeacher) {
         await createGroupWithoutTeacher({ studentsGroupInfo: groupToCreate, schoolName })
