@@ -23,6 +23,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     const schoolName = window.location.href.split('/')[4]
     const [blockHomework, setBlockHomework] = useState<boolean>(false)
     const [overAiLock, setOverAiLock] = useState<boolean>(false)
+    const [certificate, setCertificate] = useState<boolean>(false);
     const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
     const [textNameField, setTextNameField] = useState<string>('')
     const [groupType, setGroupType] = useState<string>('')
@@ -41,6 +42,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         setBlockHomework(Boolean(data?.group_settings?.task_submission_lock))
         setStrongSubsequence(Boolean(data?.group_settings?.strict_task_order))
         setOverAiLock(Boolean(data?.group_settings?.overai_lock))
+        setCertificate(Boolean(data?.certificate))
         setTextNameField(String(data?.name))
         setGroupType(String(data?.type))
         setDuration(Number(data?.training_duration))
@@ -77,6 +79,10 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         setOverAiLock(!overAiLock)
     }
 
+    const handleCertificate = () => {
+      setCertificate(!certificate);
+    };
+
     const handleDeleteGroup = async () => {
     await deleteStudentsGroup({id: groupId, schoolName})
     closeModal()
@@ -91,6 +97,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                 task_submission_lock: blockHomework,
                 overai_lock: overAiLock,
             },
+            certificate: certificate,
             training_duration: isLimited ? duration : 0,
         }
         if (groupType === "WITH_TEACHER") {
@@ -152,6 +159,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                             teacher={currentTeacher as number}
                             strongSubsequence={strongSubsequence}
                             overAiLock={overAiLock}
+                            certificate={certificate}
                             blockHomework={blockHomework}
                             setGroupName={setTextNameField}
                             title={textNameField}
@@ -168,6 +176,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                             handlerHomeworkCheck={handlerHomeworkCheck}
                             handlerSubsequence={handlerSubsequenceCheck}
                             handlerLockOverAi={handlerLockOverAi}
+                            handleCertificate={handleCertificate}
                             handleSave={handleSaveGroupSettings}
                         />
                     </div>

@@ -16,10 +16,6 @@ import Badge from '@mui/material/Badge'
 import { Portal } from 'components/Modal/Portal'
 import { selectUser } from '../../../selectors'
 import { navlinkByRoles } from '../config/navlinkByRoles'
-import { ChatI, SenderI } from 'types/chatsT'
-import { setTotalUnread } from '../../../store/redux/chats/unreadSlice'
-import { setChats } from '../../../store/redux/chats/chatsSlice'
-import { isEqual, omit } from 'lodash'
 import { SvgIcon } from '@mui/material'
 
 import styles from '../navbar.module.scss'
@@ -33,7 +29,7 @@ import { RoleE } from 'enum/roleE'
 
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import Avatar from '@mui/material/Avatar'
+
 
 
 
@@ -48,9 +44,6 @@ export const MobileNavbar: FC = memo(() => {
   const [logout] = useLazyLogoutQuery()
   const dispatch = useAppDispatch()
   const [isChatOpen, { on, off }] = useBoolean()
-  const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
-  const chats = useAppSelector(state => state.chats.chats)
-  const [fetchedChats, setFetchedChats] = useState<ChatI[]>([])
   const [, , removeAccessCookie] = useCookies(['access_token'])
   const [, , removeRefreshCookie] = useCookies(['refresh_token'])
   const navigate = useNavigate()
@@ -95,60 +88,7 @@ export const MobileNavbar: FC = memo(() => {
     }
   }, [isError])
 
-  // Chat Info Update *******************************************************
-  useEffect(() => {
-    const totalUnread = totalUnreadMessages || 0
-    dispatch(setTotalUnread(totalUnread.toString()))
-  }, [totalUnreadMessages])
-
-  const fetchChatsData = async () => {
-    try {
-      const response = await fetch('/api/chats/info/')
-      if (response.ok) {
-        const chatsInfo = await response.json()
-        setTotalUnreadMessages(chatsInfo[0].total_unread)
-        if (chatsInfo.length > 1 && chats) {
-          const fetchChats: ChatI[] = chatsInfo.slice(1)
-          if (fetchChats) {
-            setFetchedChats(fetchChats)
-          }
-        }
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  useEffect(() => {
-    fetchChatsData()
-    const intervalId = setInterval(fetchChatsData, 10000)
-    return () => clearInterval(intervalId)
-  }, [])
-
-  // Удаляем AVATAR
-  const omitAvatar = (sender: SenderI): SenderI => {
-    const { avatar, ...rest } = sender
-    return rest
-  }
-  // Проходимся по всем чатас и у каждого сендера удаляем аватарку
-  const processChats = (chats: ChatI[]): ChatI[] => {
-    return chats.map(chat => ({
-      ...chat,
-      senders: chat.senders.map(omitAvatar),
-    }))
-  }
-
-  useEffect(() => {
-    if (chats && fetchedChats) {
-      const chatsWithoutAvatar = processChats(chats)
-      const fetchedChatsWithoutAvatar = processChats(fetchedChats)
-      const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
-      if (!checkChatsDifferent) {
-        dispatch(setChats(fetchedChats))
-      }
-    }
-  }, [chats, fetchedChats])
-  // **************************************************************
+  
 
   return (
     <>
@@ -221,13 +161,13 @@ export const MobileNavbar: FC = memo(() => {
             
           )}
           <React.Fragment>
-            <div>
+            <div className={styles.navbar_exit}>
               <Tooltip title={'Выход'}>
                 <div className={styles.tariffPlan} style={{ textDecoration: 'none' }} onClick={handleClick}>
                 <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="36"
-              height="36"
+              width="40"
+              height="40"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#e0dced"
