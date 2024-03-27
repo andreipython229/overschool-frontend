@@ -19,6 +19,7 @@ export type CoursesDataT = {
   school: number
   is_catalog: boolean
   is_direct: boolean
+  baselessons_count?: number
   limit?: number
   remaining_period?: number
 }

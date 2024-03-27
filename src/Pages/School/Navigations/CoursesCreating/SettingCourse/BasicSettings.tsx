@@ -101,9 +101,13 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
                 )} */}
       </div>
       <div className={styles.publish_switch}>
-        <p className={styles.publish_switch_title}>Опубликовать курс в каталоге:</p>
+        {courseFind.baselessons_count && courseFind.baselessons_count>=5
+        ? <p className={styles.publish_switch_title}>Опубликовать курс в каталоге:</p>
+        : <p className={styles.publish_switch_title}>Опубликовать курс в каталоге можно при наличии в нем не менее 5 занятий</p>}
         <div className={styles.publish_switch_wrapper_switch}>
-          <CheckboxBall isChecked={toggleCheckbox} toggleChecked={toggleCheckboxPublished} />
+           {courseFind.baselessons_count && courseFind.baselessons_count>=5
+          ? <CheckboxBall isChecked={toggleCheckbox} toggleChecked={toggleCheckboxPublished}/>
+          : <CheckboxBall isChecked={toggleCheckbox}/>}
         </div>
       </div>
       <div className={styles.course_name_wrapper}>
