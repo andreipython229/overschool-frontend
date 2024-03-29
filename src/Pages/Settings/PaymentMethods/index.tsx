@@ -36,7 +36,7 @@ export const PaymentMethods = memo(() => {
       }
     };
     fetchData();
-  }, [fetchPaymentMethods, schoolId, isModalOpen]);
+  }, [fetchPaymentMethods, schoolId, isModalOpen, deletePaymentMethod]);
 
   const handleDeletePaymentMethod = async (paymentLinkId: string) => {
       deletePaymentMethod(paymentLinkId);
