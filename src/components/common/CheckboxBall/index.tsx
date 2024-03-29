@@ -10,7 +10,7 @@ const spring = {
 };
 
 type CheckboxBallT = {
-  toggleChecked: () => void
+  toggleChecked?: () => void
   isChecked: boolean
 }
 
@@ -25,3 +25,4 @@ export const CheckboxBall: FC<CheckboxBallT> = memo(({ isChecked, toggleChecked 
     </div>
   )
 })
+
