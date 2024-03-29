@@ -10,12 +10,24 @@ import { useEffect, useState } from 'react'
 import CryptoJS from 'crypto-js'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
+import { CertificatCourseModules } from './certificatModules'
+import { Lesson, Section } from 'types/courseStatT'
+
+
+type CertificatModulesT = {
+  section: Section
+  sectionIndex: number
+  handleToggleOpen: (index: number) => void
+  openIndex: number
+}
+
 
 
 export const Certificate = () => {
   const { certLink } = useParams()
   const [data, setData] = useState<{ courseId: number; userId: number; schoolId: number }>()
   const [getSertData, { data: sertData, isLoading, isSuccess: succSert }] = useFetchSertificateMutation()
+  const [openIndex, setOpenIndex] = useState<number>(0)
 
   const decryptSertLink = (encryptedString: string): { courseId: number; userId: number; schoolId: number } => {
     const bytes = CryptoJS.AES.decrypt(encryptedString, 'секретный_ключ')
@@ -43,6 +55,15 @@ export const Certificate = () => {
 
   if (!sertData || isLoading) {
     return <SimpleLoader />
+  }
+  
+
+  const handleToggleOpen = (index: number) => {
+    if (openIndex === index) {
+      setOpenIndex(-1)
+    } else {
+      setOpenIndex(index)
+    }
   }
   
   
@@ -96,36 +117,19 @@ export const Certificate = () => {
           COURSE PROGRAM
         </div> 
         <div className={styles.mainSkills__content_skills}>
-                {/* Key skills: {sertData.course_description}. */}
                 The course provides knowledge on the following topics:
         </div>
-        <ul className={styles.mainSkills__content_modal}>
-              {sertData.sections.map((modal:any) => {
-                return (
-                  <>
-                    <li key={modal}>{modal.name}</li>
-                      <ul className={styles.mainSkills__content_lessons}>
-                        {modal.lessons.map(function(item:any) {
-                          return (
-                            <>
-                            <li key={item}>{item.name}</li>
-                            </> 
-                            )})}
-                      </ul>
-                  </>
-                )
-              })
-              }
-        </ul>
-
-        {/* <div className={styles.courseNameSkillsAll}>
-        <div className={styles.courseNameSkills}></div>
-        <picture className={styles.logo__imgSkills}>
-              <source srcSet={logo} media="(min-width: 1025px)" />
-              <source srcSet={logoHorizontal} media="(max-width: 1024px)" />
-              <img src={logo} className={styles.logo__img} alt="logo" />
-        </picture>
-        </div> */}
+        <div className={styles.mainSkills__content_modules}>
+            {sertData.sections.map((module:any, index: number) => (
+              <CertificatCourseModules
+                section={module}
+                sectionIndex={index}
+                key={module.section_id}
+                handleToggleOpen={handleToggleOpen}
+                openIndex={openIndex}
+              />
+            ))}
+          </div>
       </div>
     </main> 
   ) : (

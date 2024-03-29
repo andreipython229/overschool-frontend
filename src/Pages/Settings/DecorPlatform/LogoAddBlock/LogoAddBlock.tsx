@@ -13,7 +13,7 @@ export const LogoAddBlock: FC<LogoAddBlockPropsT> = memo(({ logoDesc, aboutRequi
       <span className={styles.logoBlock_desc}>{logoDesc}</span>
       <div className={styles.logoBlock_information}>
         <label className={styles.logoBlock_information_label} style={{height: height}}>
-          {url && (<img className={styles.logoBlock_information_label_img} style={{height: height}} src={url} alt="" />)}
+          {url && (<img className={styles.logoBlock_information_label_img}  src={url} alt="" />)}
           <input onChange={onChange} className={styles.logoBlock_information_label_fileInput} type="file" title="adasafafasf" />
           <IconSvg width={18} height={23} viewBoxSize="0 0 18 23" path={addFileSvg} />
         </label>

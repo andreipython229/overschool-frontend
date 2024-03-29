@@ -406,7 +406,7 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
                   </span>
                 </MenuItem>
                 <MenuItem onClick={goToChooseTariff}>
-                  <Link to={Path.TariffPlans} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
+                  <Link to={Path.TariffPlans} style={{ color: '#ba75ff'}}>
                     Все тарифы
                   </Link>
                 </MenuItem>
