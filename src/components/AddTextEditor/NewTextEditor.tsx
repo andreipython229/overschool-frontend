@@ -89,7 +89,7 @@ export const NewTextEditor: FC<textEditorT> = ({ text, setLessonDescription, blo
       <div className={styles.wrapper}>
         <div className={styles.textField}>
           <span className={styles.textField_description_text}>Текст урока:</span>
-          <Paper elevation={3} style={{ padding: '40px', maxWidth: '100%', marginTop: '10px' }}>
+          <Paper elevation={3} className={styles.textField_paper}>
             {isEditing ? (
               <>
                 <MyEditor save={handleSaveChanges} setDescriptionLesson={setEditedText} editedText={editedText} setIsEditing={setIsEditing} />
