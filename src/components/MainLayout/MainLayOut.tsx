@@ -49,15 +49,14 @@ export const MainLayOut: FC = memo(() => {
 
   useEffect(() => {    
     setShowChat(!!(
-      (userRole === 2 && currentTariff !== 1) ||
-      (userRole === 6) ||
-      (userRole === 1 && overaiLockExists && currentTariff !== 1)
+      (userRole === 2 || userRole === 3 || userRole === 4 || userRole === 5 || userRole === 6) ||
+      (userRole === 1 && overaiLockExists)
     ))
     
     if (isSuccess) {
     document.title = `${data?.name}`
     }
-  }, [isSuccess, isLogin, schoolName, currentTariff, overaiLockExists]);
+  }, [isSuccess, overaiLockExists]);
 
   useEffect(() => {
     if (!isLogin) {

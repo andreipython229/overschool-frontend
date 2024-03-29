@@ -26,6 +26,7 @@ export const previousToShow = [
   { path: SettingsPath.Decoration, Component: GlobalPrevious },
   { path: SettingsPath.Logs, Component: GlobalPrevious },
   { path: SettingsPath.SchoolPassport, Component: GlobalPrevious },
+  { path: SettingsPath.PaymentMethods, Component: GlobalPrevious },
   { path: Path.Appeals, Component: GlobalPrevious },
   { path: objOfPathes.HomeWork, Component: GlobalPrevious },
   { path: objOfPathes.CourseStats, Component: GlobalPrevious },

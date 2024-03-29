@@ -332,13 +332,6 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
           тарифного плана нажмите <a href={generatePath(Path.School + Path.TariffPlans, { school_name: schoolName })}>здесь</a>
         </p>
       )}
-      {currentTariff?.tariff_name === 'Intern' ? (
-        <div style={{ marginLeft: '12%', color: '#BA75FF', marginTop: '10px', fontWeight: 'bold' }}>
-          Перейдите на платный тариф чтобы получить доступ к OVER AI
-        </div>
-      ) : (
-        <></>
-      )}
       <div className={styles.header_block}>
         <React.Fragment>
           {userRole === RoleE.Admin && currentTariff && currentTariff.days_left && (

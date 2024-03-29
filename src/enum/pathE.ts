@@ -39,6 +39,7 @@ export enum SettingsPath {
   Logs = 'logs/',
   Decoration = 'decoration/',
   SchoolPassport = 'passport/',
+  PaymentMethods = 'payment-methods/',
 }
 
 export enum CreateCoursePath {
