@@ -9,7 +9,7 @@ import { InitPageHeaderPT } from '../../types/pageTypes'
 import { logo } from '../../assets/img/common/index'
 import { selectUser } from 'selectors/index'
 import { RoleE } from 'enum/roleE'
-
+import TelegramIcon from '@mui/icons-material/Telegram'
 import styles from './initial.module.scss'
 import { logOutIconPath } from '../../components/Header/config/svgIconsPath'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
@@ -62,9 +62,16 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
 
   return (
     <header className={styles.init_header}>
-      <div className={styles.init_header_logo}>
-        <img src={logo} alt="Logotype ITOVERONE" />
-        <p> IT OVERONE</p>
+      <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div className={styles.init_header_logo}>
+          <img src={logo} alt="Logotype ITOVERONE" />
+          <p> IT OVERONE</p>
+        </div>
+        <Tooltip title={'Связаться с нами'}>
+          <a target="_blank" href="https://t.me/over_school" rel="noreferrer" style={{ textDecoration: 'none' }}>
+            <TelegramIcon className={styles.animatedIcon} sx={{ height: '100%', width: '40px', color: '#229ED9' }} />
+          </a>
+        </Tooltip>
       </div>
       <div className={styles.btn_block}>
         {isLogin ? (
