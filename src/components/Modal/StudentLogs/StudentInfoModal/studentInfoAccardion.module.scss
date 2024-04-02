@@ -43,6 +43,14 @@
     -moz-transition: rotate 0.2s ease-in;
     -ms-transition: rotate 0.2s ease-in;
     -o-transition: rotate 0.2s ease-in;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin-left: 1rem;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      margin-left: 1rem;
+    }
+
     &.open {
       color: #9ca3af;
       transform: rotate(180deg) translateY(-2px);
@@ -70,6 +78,13 @@
     align-items: center;
     flex-shrink: 0;
     margin-left: auto;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      gap: 10px;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      gap: 10px;
+    }
 
     &_item {
       display: flex;
@@ -111,6 +126,15 @@
     flex-shrink: 0;
     border-radius: 5px;
     background: #c7bce9;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      height: 2rem;
+      width: 2rem;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      height: 2rem;
+      width: 2rem;
+    }
   }
   &_course_img {
     height: 2.5rem;
@@ -149,6 +173,15 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      gap: 10px;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      gap: 10px;
+      padding: 1.25rem 0.5rem 1.25rem 0.5rem;
+    }
 
     // &:hover {
     //   background-color: #e0e0e0;
