@@ -24,6 +24,8 @@ import { Certificate } from 'Pages/Certificate/Certificate'
 import { CourseCatalogPage } from 'Pages/CourseCatalog'
 import { ResetPassword } from 'Pages/ResetPassword'
 import { LoginPage } from './Pages/Login/LoginPage'
+import { HelpPage } from './Pages/HelpCenter/HelpPage'
+import { HelpSchoolPage } from 'Pages/HelpCenter/HelpSchoolPage'
 import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
 
 export const App = () => {
@@ -41,9 +43,11 @@ export const App = () => {
       pathname !== Path.CreateSchool &&
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
+      pathname !== Path.LoginPage &&
       pathname !== Path.TariffPlansInfo &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
+      pathname.split('/')[1]!== 'help' &&
       pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.InitialPage)
@@ -99,6 +103,10 @@ export const App = () => {
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
         <Route path={Path.LoginPage} element={<LoginPage />} />
+        <Route path={Path.HelpPage}>
+          <Route index element={<HelpPage />} />
+          <Route path={Path.Help} element={<HelpSchoolPage />} />
+        </Route>
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.School} element={<MainLayOut />}>
