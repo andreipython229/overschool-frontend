@@ -71,7 +71,7 @@ export const TariffPlansInfo: FC = () => {
       <section className={styles.TariffPlansPage} style={{height: "100%"}}>
         <div className={styles.TariffPlansPage_plansBlock}>
             <Typography gutterBottom variant="h5" sx={{ width: '100%', textAlign: 'center' }} color={'#ba75ff'} component="div">
-              <p style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '14px', fontSize: "1.5rem" }}>
+              <p className={styles.TariffPlansPage_header} style={{fontSize: "1.5rem"}}>
                 Тарифные планы{' '}
                 <a
                   href={Path.InitialPage}
