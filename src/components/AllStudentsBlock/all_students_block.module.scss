@@ -64,25 +64,20 @@
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     margin-bottom: 10%;    
   }
   
   @media only screen and (min-width : 375px) and (max-width : 480px) {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     margin-bottom: 10%;
   }
 }
 
 .arrow_add_file_block {
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
-    height: auto;
-  }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
-   height: auto;
-  }
+  
   &:hover {
     background-color: rgba(160, 160, 160, 0.4)
   }
@@ -96,6 +91,12 @@
   margin-left: 7px;
   cursor: pointer;
   transition: background-color 0.4s;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      margin-bottom: 1rem;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      margin-bottom: 1rem;
+    }
 }
 .add_students_btn {
   @include display (flex, row, space-around, center);
