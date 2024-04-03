@@ -665,11 +665,13 @@ hr {
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    gap: 5px;
   }
   @media only screen and (min-width : 375px) and (max-width : 480px) {
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    gap: 5px;
   }
 
   &_text_block {
