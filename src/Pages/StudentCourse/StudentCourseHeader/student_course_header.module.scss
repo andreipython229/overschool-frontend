@@ -219,9 +219,11 @@
   cursor: pointer;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     @include position_t_l(absolute, -22px, 0, 10);
+    color: black;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     @include position_t_l(absolute, -25px, 0, 10);
+    color: black;
   }
 
   span {

@@ -15,6 +15,22 @@
     color: #4d5766;
     font-size: 35px;
   }
+
+  &_header{
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px; 
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      padding: 0 1rem 0 1rem;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      padding: 0 1rem 0 1rem;
+    }
+  }
+
   &_plansBlock {
     align-items: center;
     flex-direction: column;
@@ -107,6 +123,14 @@
         border-radius: 20px;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         margin-bottom: 80px;
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          margin-bottom: 2rem;
+      
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          margin-bottom: 2rem;
+        }
 
         &_text {
           display: flex;
