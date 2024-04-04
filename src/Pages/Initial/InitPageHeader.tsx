@@ -68,7 +68,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
           <p> IT OVERONE</p>
         </div>
         <Tooltip title={'Связаться с нами'}>
-          <a target="_blank" href="https://t.me/over_school" rel="noreferrer" style={{ textDecoration: 'none' }}>
+          <a target="_blank" href="https://t.me/overschool_info" rel="noreferrer" style={{ textDecoration: 'none' }}>
             <TelegramIcon className={styles.animatedIcon} sx={{ height: '100%', width: '40px', color: '#229ED9' }} />
           </a>
         </Tooltip>
