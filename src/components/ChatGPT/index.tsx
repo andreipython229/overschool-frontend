@@ -6,14 +6,21 @@ import {
   useLazyFetchLatestMessagesQuery, 
   useCreateChatMutation, 
   useLazyFetchLatestChatsQuery,
-  useDeleteChatsMutation,
   useLazyFetchWelcomeMessageQuery,
-  useUpdateWelcomeMessageMutation
+  useUpdateWelcomeMessageMutation,
+  useDeleteChatMutation,
+  useAssignChatOrderMutation,
+  CreateChatPayload,
 } from '../../api/chatgptService';
+
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
+
+import OverAiIcon from '../../assets/img/common/iconModal.svg';
+import { deleteIconPath } from 'components/Questions/config/svgIconPath';
+
 import styles from './chatgpt.module.scss';
-import OverAiIcon from '../../assets/img/common/iconModal.svg'
+
 
 interface ChatGPTProps {
   openChatModal: () => void;
@@ -25,7 +32,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const userId = getUserIdFromLocalStorage();
 
-  const [chatData, setChatData] = useState<{ [id: number]: string }>({});
+  const [chatData, setChatData] = useState<{ [id: number]: { order: number; chat_name: string } }>({});
   const [selectedChatId, setCreatedChatId] = useState<number>();
   const [isChatSelected, setIsChatSelected] = useState(false);
   const [chatList, setChatList] = useState<Array<number>>([]);
@@ -40,15 +47,18 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [showWelcomeMessage, setShowWelcomeMessage] = useState<boolean>(true);
   const [showSpinner, setShowSpinner] = useState(true);
   const [isBotResponsePending, setIsBotResponsePending] = useState(false);
+  const [draggedChatId, setDraggedChatId] = useState<number | null>(null);
+  const [draggedOverChatId, setDraggedOverChatId] = useState<number | null>(null);
 
   const [ refetchChats, { data: latestChats }] = useLazyFetchLatestChatsQuery();
   const [ refetchMessages, { data: latestMessages }] = useLazyFetchLatestMessagesQuery();
-  const [fetchWelcomeMessage, { data: welcomeMessageData }] = useLazyFetchWelcomeMessageQuery();  
+  const [ fetchWelcomeMessage, { data: welcomeMessageData }] = useLazyFetchWelcomeMessageQuery();  
 
-  const [deleteChats] = useDeleteChatsMutation();
   const [updateWelcomeMessage] = useUpdateWelcomeMessageMutation();
   const [createChatMutation] = useCreateChatMutation();
   const [sendMessage] = useSendMessageMutation();
+  const [deleteChat] = useDeleteChatMutation();
+  const [assignChatOrder] = useAssignChatOrderMutation();
 
   const userQuestions = latestMessages && latestMessages[0] && Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
   const botAnswers = latestMessages && latestMessages[1] && Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
@@ -71,7 +81,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         setIsFetchingChats(true);
 
         if (!chatsLoaded) {
-          await deleteChats();
           await fetchChats();
         }
   
@@ -114,7 +123,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     };
   
     fetchData();
-  }, [isDialogOpen, selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage]);
+  }, [isDialogOpen, selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage, deleteChat]);
 
   const toggleDialog = async () => {
     setIsDialogOpen(!isDialogOpen);
@@ -195,30 +204,80 @@ useEffect(() => {
   return () => clearTimeout(timer);
 }, [latestMessages, isDialogOpen, selectedChatId]);
 
-
   const selectChat = (chatId: number) => {
     if (!isChatSelectionDisabled) {
       setCreatedChatId(chatId);
       setIsChatSelected(true);
+      setDraggedChatId(chatId);
     }
+  };
+
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, chatId: number) => {
+    e.dataTransfer.setData('text/plain', '');
+    setDraggedChatId(chatId);
+  };
+  
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>, chatId: number) => {
+    e.preventDefault();
+    setDraggedOverChatId(chatId);
+  };
+  
+  const handleDragEnd = async () => {
+    if (draggedChatId !== null && draggedOverChatId !== null && draggedChatId !== draggedOverChatId) {
+      const updatedChatDataCopy = JSON.parse(JSON.stringify(chatData));
+      const dragOrder = updatedChatDataCopy[draggedChatId].order;
+      const dropOrder = updatedChatDataCopy[draggedOverChatId].order;
+  
+      Object.keys(updatedChatDataCopy).forEach((chatIdStr) => {
+        const chatId = parseInt(chatIdStr, 10);
+        const order = updatedChatDataCopy[chatId].order;
+        if (order > dragOrder && order <= dropOrder) {
+          updatedChatDataCopy[chatId].order -= 1;
+        } else if (order < dragOrder && order >= dropOrder) {
+          updatedChatDataCopy[chatId].order += 1;
+        }
+      });
+  
+      updatedChatDataCopy[draggedChatId].order = dropOrder;
+  
+      await assignChatOrder(updatedChatDataCopy);
+      setChatData(updatedChatDataCopy);
+      setDraggedChatId(null);
+      setDraggedOverChatId(null);
+    }
+  };
+
+  const handleCreateEmptyChat = async () => {
+    setCreatedChatId(1);
+    setIsChatSelected(true);
   };
   
   const createChat = async () => {
     try {
       if (userId !== null && userId !== undefined) {
         setIsCreatingChatDisabled(true);
-        const response = await createChatMutation();
+        const convertToCreateChatPayload = (chatData: { [id: number]: { order: number; chat_name: string } }): CreateChatPayload => {
+          const orderData = Object.entries(chatData).map(([id, { order }]) => ({ id: Number(id), order }));
+          return { orderData };
+        };
+        
+        const payload: CreateChatPayload = convertToCreateChatPayload(chatData);
+        
+        const response = await createChatMutation(payload);
         if ('data' in response && response.data !== undefined) {
           const newChatId = response.data.overai_chat_id;
           setChatList((prevChatList) => [...prevChatList, newChatId]);
-          setCreatedChatId(newChatId);
           await fetchChats();
+          setCreatedChatId(newChatId);
+          return response.data;
         } else {
           setError('Ошибка при создании чата.');
+          return null; 
         }
       }
     } catch (error) {
       setError('Ошибка при создании чата.');
+      return null; 
     } finally {
       setIsCreatingChatDisabled(false);
     }
@@ -253,8 +312,47 @@ useEffect(() => {
   };
 
 
+  const handleDeleteChat = async ( chatId: number ) => {
+    const orderData = Object.entries(chatData).map(([id, chat]) => ({ id: Number(id), order: chat.order }));
+    await deleteChat({ chat_id: chatId, orderData }); 
+    await fetchChats();
+    setCreatedChatId(undefined)
+  };
+
   const handleSendMessage = async (messageInput: string) => {
-    if (messageInput.trim() !== '') {
+    if (selectedChatId === 1) {
+      const response = await createChat();
+      console.log("response: ", response);
+      
+      setIsBotResponsePending(true);
+      setIsLoading(true);
+      setIsChatSelectionDisabled(true);
+      setIsCreatingChatDisabled(true);
+
+      if (userId !== null) {
+        const payload: SendMessagePayload = {
+          message: messageInput,
+          overai_chat_id: response?.overai_chat_id,
+        };
+
+        const botResponseTimeout = setTimeout(() => {
+           setError('Генерация сообщения займет некоторое время...');
+        }, 10000);
+
+        await sendMessage(payload);
+
+        await refetchMessages({ overai_chat_id: response?.overai_chat_id });
+          
+        setMessageInput('');
+        setError(null);
+        clearTimeout(botResponseTimeout);
+      }
+        setIsBotResponsePending(false);
+        setIsLoading(false);
+        setIsChatSelectionDisabled(false);
+        setIsCreatingChatDisabled(false);
+    }
+    if (selectedChatId !== 1 && messageInput.trim() !== '') {
       try {
         setIsBotResponsePending(true);
         setIsLoading(true);
@@ -339,30 +437,39 @@ useEffect(() => {
                         </div>
                       ) : (
                         <>
-                          <button className={styles.createChatButtonModal} onClick={createChat} disabled={isCreatingChatDisabled}>
+                          <button className={styles.createChatButtonModal} onClick={handleCreateEmptyChat} disabled={isCreatingChatDisabled}>
                             <b>Создать новый чат</b>
                           </button>
-                          {Object.entries(chatData).reverse().map(([chatId, chatValue]) => (
-                            <div
-                            key={chatId}
-                            onClick={() => selectChat(Number(chatId))}
-                            className={`${styles.chatListItem} ${
-                              selectedChatId === Number(chatId) ? styles.activeChat  : ''
-                            }`}
-                            style={{ borderRadius: '20px' }}
-                          >
-                            <span className={styles.centeredText}>
-                              {`${chatValue.length > 25 ? chatValue.substring(0, 25) + '...' : chatValue}`}
-                            </span>
-                          </div>
-                          ))}
+                          {Object.entries(chatData)
+                            .sort(([, a], [, b]) => a.order - b.order)
+                            .map(([chatId, chatValue]) => (
+                                <div
+                                    key={chatId}
+                                    onClick={() => selectChat(Number(chatId))}
+                                    draggable
+                                    onDragStart={(e) => handleDragStart(e, Number(chatId))}
+                                    onDragOver={(e) => handleDragOver(e, Number(chatId))}
+                                    onDragEnd={handleDragEnd}
+                                    className={`${styles.chatListItem} ${
+                                        selectedChatId === Number(chatId) ? styles.activeChat : ''
+                                    } ${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''}`}
+                                    style={{ borderRadius: '20px' }}
+                                >
+                                    <span className={styles.centeredText}>
+                                        {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
+                                        <button className={styles.deleteChatBtn} onClick={() => handleDeleteChat(Number(chatId))}>
+                                            <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+                                        </button>
+                                    </span>
+                                </div>
+                            ))}
                         </>
                       )}
                     </div>
                     {selectedChatId && (
                   <div className={`${styles.rightPane} ${isDialogOpen && styles.paneOpen}`}>
                     <div className={styles.overAiText}>OVER AI</div>
-                    {isLoadingMessages ? (
+                    {isLoadingMessages && selectedChatId !== 1 ? (
                       <div className={styles.loadingSpinner}>
                         <div className={styles.spinner}></div>
                         <span> Загрузка сообщений...</span>
