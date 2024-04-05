@@ -203,9 +203,13 @@
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin-top: 0;
+    height: 75vh;
+    padding: 1rem;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin-top: 0;
+    height: 80vh;
+    padding: 1rem;
   }
 }
 
@@ -336,8 +340,10 @@
   display: flex;
   flex-direction: column;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
+   
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
+   
   }
 
   &_preview {
