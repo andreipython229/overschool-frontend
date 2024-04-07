@@ -110,6 +110,7 @@ export const App = () => {
           <Route path={Path.Help} element={<HelpSchoolPage />} />
           <Route path={Path.HelpUserAccount} element={<HelpUserAccount />} />
           <Route path={Path.HelpSchoolSettings} element={<HelpSchoolSettings />} />
+          <Route path={Path.Courses} element={<HelpCoursesPage />} />
         </Route>
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
