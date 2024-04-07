@@ -29,6 +29,7 @@ import { HelpSchoolPage } from 'Pages/HelpCenter/HelpSchoolPage'
 import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
 import { HelpUserAccount } from 'Pages/HelpCenter/HelpUserAccount'
 import { HelpSchoolSettings } from 'Pages/HelpCenter/HelpSchoolSettings'
+import { HelpCoursesPage } from "./Pages/HelpCenter/HelpCoursesPage";
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
