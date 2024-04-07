@@ -1,6 +1,5 @@
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 import styles1 from '../../../../../../components/Modal/Modal.module.scss'
-
 import { UploadedFile } from 'components/UploadedFile'
 import { AddFileBtn } from 'components/common/AddFileBtn/index'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -19,7 +18,7 @@ import { NewTextEditor } from '../../../../../../components/AddTextEditor/NewTex
 import { VideoPlayer } from '../../../../../../components/VideoPlayer/player'
 import { AdminTest } from './AdminTestPreview/AdminTest'
 import { AdminHomework } from './AdminHomeworkPreview/AdminHomework'
-import { acceptedHwPath, tableBallsStarPath } from '../../../../../../config/commonSvgIconsPath'
+import { acceptedHwPath } from '../../../../../../config/commonSvgIconsPath'
 import { IFile } from '../../../../../../types/filesT'
 import { CheckboxBall } from '../../../../../../components/common/CheckboxBall'
 import { PublishedMark } from '../../../../../../components/common/PublishedMark'
@@ -31,10 +30,6 @@ import { useDeleteBlockMutation, useOrderUpdateMutation } from 'api/blocksServic
 import { useDebounceFunc } from 'customHooks'
 import { AnimatePresence, Reorder } from 'framer-motion'
 import { Checkbox } from '../../../../../../components/common/Checkbox/Checkbox'
-import { lessonSvgMapper } from '../../../../../../config'
-import { checkCourseT } from '../../../../../../types/CoursesT'
-import { RoleE } from '../../../../../../enum/roleE'
-import { c } from 'msw/lib/glossary-dc3fd077'
 import { AddPicture } from 'components/AddPicture'
 import { AddAudio } from 'components/AddAudio'
 import { MathEditor } from 'components/MathEditor'
@@ -215,6 +210,21 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
               lessonBlocks={lessonBlocks}
             />
           )
+        case BLOCK_TYPE.MATH:
+          if ('formula' in block && block.formula) {
+            return (
+              <MathEditor
+                key={block.id}
+                edit={true}
+                block={block}
+                lessonBlocks={lessonBlocks}
+                setLessonBlocks={setLessonBlocks}
+                latex={block.formula}
+              />
+            )
+          } else {
+            return <MathEditor key={block.id} edit={true} block={block} lessonBlocks={lessonBlocks} setLessonBlocks={setLessonBlocks} latex={''} />
+          }
       }
     })
   }

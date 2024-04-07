@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import { Button } from '../../../components/common/Button/Button'
-import { Input } from '../../../components/common/Input/Input/Input'
 import register from '../../../assets/img/createProject/register.png'
 import firstStep from '../../../assets/img/createProject/firstStep.png'
 import secondStep from '../../../assets/img/createProject/secondStep.png'
@@ -13,7 +11,7 @@ import {logo} from "../../../assets/img/common";
 import styles from './HelpSchoolPage.module.scss'
 
 export const HelpSchoolPage = () => {
-//   const {role} = useAppSelector(selectUser)
+   const {role} = useAppSelector(selectUser)
   const navigate = useNavigate()
 
   const handleHelpPage = () => {

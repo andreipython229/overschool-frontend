@@ -7,6 +7,7 @@ import Text from '../.././assets/img/createCourse/text.svg'
 import Video from '../.././assets/img/createCourse/video.svg'
 import Code from '../.././assets/img/createCourse/code.svg'
 import Picture from '../.././assets/img/createCourse/picture.svg'
+import Formula from '../.././assets/img/createCourse/formula.svg'
 
 import styles from './addPost.module.scss'
 import { useCreateBlockMutation } from 'api/blocksService'
@@ -29,6 +30,7 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
         code?: string
         video?: string
         picture?: string
+        formula?: string
         url?: string
       }
 
@@ -64,6 +66,13 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
               text={'Картинка'}
               alt={'Add picture for lesson'}
               src={Picture}
+            />
+            <ContentBtn
+              disabled={disabledBtn}
+              func={() => blockCreateFunc('formula')}
+              text={'Формула'}
+              alt={'Add picture for lesson'}
+              src={Formula}
             />
           </>
         )}
