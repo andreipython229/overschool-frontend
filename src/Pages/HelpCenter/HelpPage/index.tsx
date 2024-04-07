@@ -15,7 +15,7 @@ import {logo} from "../../../assets/img/common";
 import styles from './HelpPage.module.scss'
 
 export const HelpPage: FC = memo(() => {
-  //   const {role} = useAppSelector(selectUser)
+  const {role} = useAppSelector(selectUser)
   const navigate = useNavigate()
 
   const handleLoginPage = () => {
