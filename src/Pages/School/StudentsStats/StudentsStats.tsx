@@ -56,7 +56,7 @@ export const StudentsStats = () => {
 
           {(headerUserRoleName[role] === 'Администратор') && (
 
-          <div style={{display: 'flex'}}>
+          <div style={{display: 'flex', gap: '1rem'}}>
             <div onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}>
               <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} />
               Создать новую группу

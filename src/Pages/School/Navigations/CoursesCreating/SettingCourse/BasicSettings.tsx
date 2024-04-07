@@ -145,7 +145,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
           </Input>
         </div>
       )}
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1em' }}>
+      <div className={styles.btn}>
         <Button
           onClick={handleSaveChanges}
           text={isLoading ? <SimpleLoader style={{ height: '1em', width: '11em', color: 'white', zIndex: '100' }} /> : 'Применить изменения'}
