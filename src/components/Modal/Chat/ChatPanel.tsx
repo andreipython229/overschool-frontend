@@ -8,6 +8,7 @@ import styles from './chat.module.scss'
 import {removeChat} from "../../../store/redux/chats/slice";
 import {headerUserRoleName} from "../../../config";
 import {selectUser} from "../../../selectors";
+import { Button } from '../../../components/common/Button/Button'
 
 type chatPanelT = {
   chats?: Chats
@@ -30,9 +31,11 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
 
   
     const [isHidden, setIsHidden] = useState(true);
+    const [isVisible, setIsVisible] = useState(false);
     const closeChatList = () => {
       if (screenWidth < 1025) {
         setIsHidden(!isHidden)
+        setIsVisible(!isVisible)
       }
     }
 
@@ -58,8 +61,10 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
   return (
      
     
-      <div className={styles.chatPanel} onClick={closeChatList}>
+      <div className={styles.chatPanel} >
+        
         <div className={styles.chatPanel_top}>
+          
           <div className={styles.chatPanel_user}>
             <div className={styles.chatPanel_user_avatar}>
                 {userProfile?.avatar ? (
@@ -77,10 +82,15 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
               </div>
           </div>
         </div>
-        { isHidden &&
-        <ChatsList chats={chats}/>
+        {isVisible &&
+          <Button onClick={closeChatList} className={styles.chatPanel_top_btn} text={'назад'} variant={'primary'}>
+          </Button>
         }
-        
+        { isHidden &&
+        <div onClick={closeChatList}>
+        <ChatsList chats={chats} />
+        </div>
+        }
       </div>
     
     

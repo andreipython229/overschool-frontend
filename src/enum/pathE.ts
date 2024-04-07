@@ -29,6 +29,10 @@ export enum Path {
   Catalog = '/course-catalog/',
   CatalogCourse = ':courseId/',
   LoginPage = '/login/',
+  HelpPage = '/help/',
+  Help = ':school/',
+  HelpUserAccount = ':user-account',
+  HelpSchoolSettings = ':school-settings',
   ResetPassword = '/token-validate/:userId/:token/',
   Appeals = 'school-appeals/',
 }
@@ -39,6 +43,7 @@ export enum SettingsPath {
   Logs = 'logs/',
   Decoration = 'decoration/',
   SchoolPassport = 'passport/',
+  PaymentMethods = 'payment-methods/',
 }
 
 export enum CreateCoursePath {

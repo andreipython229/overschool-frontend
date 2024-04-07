@@ -35,9 +35,6 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
     return <SimpleLoader style={{ width: '100px', height: '100px' }} />
   }
 
- 
-  
-
   return (
     <div id={`${course?.course_id}`} className={styles?.course_card}>
       <>
@@ -105,9 +102,13 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
               <div className={styles.course_card_about}>
                 <Link
                   onClick={() => localStorage.setItem('course_id', '' + course?.course_id)}
-                  to={course?.remaining_period===0 ? "#" : generatePath(Student.Course, {
-                    course_id: `${course?.course_id}`,
-                  })}
+                  to={
+                    course?.remaining_period === 0
+                      ? '#'
+                      : generatePath(Student.Course, {
+                          course_id: `${course?.course_id}`,
+                        })
+                  }
                 >
                   <div className={styles.course_card_about_progressWrapper}>
                     <img src={pie} alt="pie" />
@@ -117,15 +118,16 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                   <h5>{course.name}</h5>
                   <span className={styles.course_card_about_desc}>{course?.description}</span>
                   <div className={styles.course_card_duration}>
-                    <p className={styles.course_card_duration_limit}>Продолжительность обучения, дн.: {course?.limit ? course?.limit : "не ограничена"}</p>
-                    {/*{course?.limit && <p className={styles.course_card_duration_remaining}>{course?.remaining_period ? `Срок доступа истекает через, дн.: ${course?.remaining_period}` : "Срок доступа истек"}</p>}*/}
+                    {course.limit && <p className={styles.course_card_duration_limit}>Срок доступа: {course.limit} дн.</p>}
                     {course?.limit &&
-                        (course?.remaining_period
-                        ? <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
-                        : <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>)}
+                      (course?.remaining_period ? (
+                        <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
+                      ) : (
+                        <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
+                      ))}
                   </div>
 
-                  <Button className={styles.btn} text={'Продолжить обучение'} disabled={course?.remaining_period===0}/>
+                  <Button className={styles.btn} text={'Продолжить обучение'} disabled={course?.remaining_period === 0} />
                 </Link>
               </div>
             </>

@@ -9,6 +9,7 @@ import { VideoPlayer } from '../../../../../../../components/VideoPlayer/player'
 import { BLOCK_TYPE } from 'enum/blockTypeE'
 import { Reorder } from 'framer-motion'
 import { PreviewCodeBlock } from 'components/blocks/codeBlock'
+import { MathEditor } from 'components/MathEditor'
 
 type adminLessonT = {
   lesson: ILesson
@@ -44,9 +45,15 @@ export const renderStudentBlocks = (lesson: commonLessonT) => {
           }
         case BLOCK_TYPE.PICTURE:
           if ('picture_url' in block && block.picture_url) {
-            return <img style={{width: '100%', maxWidth: '100%', objectFit: 'contain'}} src={block.picture_url} alt={String(block.id)} />
+            return <img style={{ width: '100%', maxWidth: '100%', objectFit: 'contain' }} src={block.picture_url} alt={String(block.id)} />
           } else {
             return <></>
+          }
+        case BLOCK_TYPE.MATH:
+          if ('formula' in block && block.formula) {
+            return <MathEditor key={block.id} edit={false} block={block} latex={block.formula} />
+          } else {
+            null
           }
       }
     })

@@ -71,13 +71,14 @@
     padding-bottom: 20px;
     text-align: center;
     @media only screen and (min-width : 320px) and (max-width : 375px) {
-      width: 100%;
+      width: 95%;
       text-align: center;
       
     }
     @media only screen and (min-width : 375px) and (max-width : 480px) {
-     width: 100%;
+     width: 95%;
      text-align: center;
+     margin: 0;
     }
     
 
@@ -296,10 +297,12 @@
     min-width: 0;
     
     @media only screen and (min-width : 320px) and (max-width : 375px) {
-      margin: 5% 0 2% 0;
+      padding-top: 2rem;
+      max-width: 100vw;
     }
     @media only screen and (min-width : 375px) and (max-width : 480px) {
-      margin: 5% 0 2% 0;
+      padding-top: 2rem;
+      max-width: 100vw;
     }
 
     &_rightSide {
@@ -317,13 +320,13 @@
       
       @media only screen and (min-width : 320px) and (max-width : 375px) {
         margin: 0 auto;
-        padding: 2%;
+        padding: 1rem;
         display: flex;
         flex-direction: column;
       }
       @media only screen and (min-width : 375px) and (max-width : 480px) {
         margin: 0 auto;
-        padding: 2%;
+        padding: 1rem;
         display: flex;
         flex-direction: column;
       }
@@ -333,6 +336,15 @@
         justify-content: space-between;
         margin-bottom: 30px;
         padding-right: 45px;
+
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
+          flex-direction: column;
+          padding-right: 0;
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
+          flex-direction: column;
+          padding-right: 0;
+        }
       }
 
       &_review {
@@ -489,9 +501,11 @@
 
         @media only screen and (min-width : 320px) and (max-width : 375px) {
           margin-bottom: 10%;
+          min-width: 100px;
         }
         @media only screen and (min-width : 375px) and (max-width : 480px) {
           margin-bottom: 10%;
+          min-width: 100px;
         }
 
         &_nameSettings {
@@ -511,6 +525,13 @@
           flex-direction: column;
           gap: 40px;
           padding-inline: 3em;
+
+          @media only screen and (min-width : 320px) and (max-width : 375px) {
+            padding-inline: 0;
+          }
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
+            padding-inline: 0;
+          }
         }
 
         &_content {
@@ -644,11 +665,13 @@ hr {
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    gap: 5px;
   }
   @media only screen and (min-width : 375px) and (max-width : 480px) {
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    gap: 5px;
   }
 
   &_text_block {

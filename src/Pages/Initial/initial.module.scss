@@ -6,6 +6,19 @@
   box-sizing: border-box;
 }
 
+.animatedIcon {
+  animation: zoomInOut 0.8s infinite alternate;
+}
+
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
 .init {
   display: flex;
   flex-direction: column;
@@ -17,7 +30,6 @@
   height: 100%;
   font-family: 'Manrope', sans-serif;
 
-
   &_header {
     width: 100%;
     padding: 40px 0 0 70px;
@@ -25,7 +37,7 @@
     @include display(flex, row, space-between);
 
     &_logo {
-      width: 400px;
+      width: 350px;
       display: flex;
 
       p {

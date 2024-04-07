@@ -88,25 +88,26 @@ export const NewTextEditor: FC<textEditorT> = ({ text, setLessonDescription, blo
     >
       <div className={styles.wrapper}>
         <div className={styles.textField}>
-          <span className={styles.textField_description_text}>Текст урока:</span>
-          <Paper elevation={3} style={{ padding: '40px', maxWidth: '100%', marginTop: '10px' }}>
+          <Paper elevation={3} className={styles.textField_paper} sx={{borderRadius: '8px'}}>
             {isEditing ? (
               <>
+                <span className={styles.textField_description_text}>Текст урока:</span>
                 <MyEditor save={handleSaveChanges} setDescriptionLesson={setEditedText} editedText={editedText} setIsEditing={setIsEditing} />
               </>
             ) : (
-              <>
+              <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
+                <span className={styles.textField_description_text}>Текст урока:</span>
                 <div dangerouslySetInnerHTML={{ __html: editedText }}></div>
                 <button className={styles.textField_btnEditText_setting} onClick={handleEditClick}>
                   Изменить
                 </button>
-              </>
+              </div>
             )}
           </Paper>
         </div>
         <div className={styles.wrapper_navBlock}>
           <span className={styles.wrapper_navBlock_grabBtn} onPointerDown={onPointerDown}>
-            <IconSvg width={11} height={15} className='zIndex: 20' viewBoxSize="0 0 12 18" path={doBlockIconPath} />
+            <IconSvg width={11} height={15} className="zIndex: 20" viewBoxSize="0 0 12 18" path={doBlockIconPath} />
           </span>
           <div className={styles.wrapper_navBlock_delete} onClick={handleDelete}>
             {isBlockDeleting ? <SimpleLoader /> : <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />}

@@ -1,0 +1,140 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(112, 100, 100, 0.39);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  margin-left: 70px;
+  border-radius: 10px;
+}
+  
+  .modalContent {
+    position: relative;
+    padding: 10px 10px 10px 10px;
+    max-height: 470px;
+    overflow-y: auto;
+  }
+  
+  .modalContent::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+
+
+  .closeButton {
+    outline: none;
+    border: none;
+    color: #cd58eb;
+    position: absolute;
+    right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f1f1;
+    border-radius: 5px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    transition: 0.3s color;
+    z-index: 999;
+    background: none;
+  }
+
+
+  .menuBar {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .menuBar select {
+    width: 100%;
+    padding: 8px;
+    color: #666;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    outline: none;
+  }
+  
+  .menuBar select option {
+    color: #666;
+  }
+
+  .modalContent .formGroup {
+    margin-bottom: 5px;
+
+  }
+  .modalContent input {
+    width: 100%;
+    padding: 8px;
+    color: #666;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    align-self: flex-end;
+    width: 260px;
+    height: 43px;
+    background-color: #ddbbff;
+    color: white;
+    font: 500, 14px;
+    padding: 7px;
+    margin-top: 10px;
+    text-align: center;
+    border: none;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      margin-top: 0;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      margin-top: 0;
+    }
+  
+    &:hover {
+        color: #ba75ff;
+        background-color: #ffffff;
+    }
+  
+    &:disabled {
+        color: #f9f5fd;
+        background-color: #e8e6e6;
+    }
+  
+    &_admin{
+      align-self: flex-end;
+      width: 194px;
+      height: 33px;
+      background-color: #ddbbff;
+      color: white;
+      font: 500, 14px;
+      padding: 7px;
+      margin-top: 10px;
+      text-align: center;
+      border: none;
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        // margin-top: 0;
+      }
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
+        // margin-top: 0;
+      }
+  
+      &:hover {
+          color: #ba75ff;
+          background-color: #ffffff;
+      }
+    }
+  }

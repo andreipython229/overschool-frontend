@@ -24,7 +24,6 @@ export const CoursePrevious: FC = memo(() => {
       patchData(data, 'course_id', 'public', 'О', update)
     }
   }
-  console.log(data?.photo);
   
 
   return (

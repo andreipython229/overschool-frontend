@@ -8,6 +8,15 @@
     display: flex;
     align-items: center;
     gap: 10px;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      flex-direction: column;
+      padding-bottom: 2rem;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      flex-direction: column;
+      padding-bottom: 2rem;
+    }
   }
   &_rightSide {
     background: #ffffff;
