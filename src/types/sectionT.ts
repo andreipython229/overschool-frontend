@@ -11,6 +11,13 @@ export interface IBlockDesc {
   order: number
 }
 
+export interface IBlockMath {
+  id: number
+  formula: string
+  type: string
+  order: number
+}
+
 export interface IBlockVid {
   id: number
   video?: string
@@ -36,7 +43,7 @@ export interface IBlockPic {
 }
 
 
-export type BlockT = IBlockCode | IBlockDesc | IBlockPic | IBlockVid
+export type BlockT = IBlockCode | IBlockDesc | IBlockPic | IBlockVid | IBlockMath
 
 export interface ILesson {
   lesson_id: number
