@@ -27,6 +27,7 @@ import { LoginPage } from './Pages/Login/LoginPage'
 import { HelpPage } from './Pages/HelpCenter/HelpPage'
 import { HelpSchoolPage } from 'Pages/HelpCenter/HelpSchoolPage'
 import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
+import {HelpCoursesPage} from "./Pages/HelpCenter/HelpCoursesPage";
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -107,6 +108,7 @@ export const App = () => {
         <Route path={Path.HelpPage}>
           <Route index element={<HelpPage />} />
           <Route path={Path.Help} element={<HelpSchoolPage />} />
+          <Route path={Path.Courses} element={<HelpCoursesPage />} />
         </Route>
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
