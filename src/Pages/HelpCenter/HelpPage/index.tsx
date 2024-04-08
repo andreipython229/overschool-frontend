@@ -70,6 +70,14 @@ export const HelpPage: FC = memo(() => {
               </CardActionArea>
             </div>
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'overai'))}>
+                <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                   <h3>OVERAI</h3>
+                   <p>Искусственный интеллект на платформе, используемый для улучшения качества и доступности образования</p>
+                </div>
+              </CardActionArea>
+            </div>
+            <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
               <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
 
                 <h3>Как провести вебинар</h3>
