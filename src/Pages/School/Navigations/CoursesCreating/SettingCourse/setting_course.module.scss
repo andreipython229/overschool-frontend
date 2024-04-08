@@ -23,6 +23,13 @@
   @include display(flex, column);
   width: 100%;
 
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding: 0 1rem 0 1rem;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding: 0 1rem 0 1rem;
+  }
+
   .availability_course_wrapper {
     padding: 45px 45px 30px;
     margin-top: 32px;
@@ -86,6 +93,13 @@
   box-shadow: 0 0 10px #d9d9d9;
   border-radius: 7px;
   background-color: #fff;
+
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    margin-top: 1rem;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    margin-top: 1rem;
+  }
 
   &_error {
     font-size: 12px;
@@ -154,6 +168,14 @@
   border-radius: 10px;
   box-shadow: 0 0 10px #d9d9d9;
   padding: 45px 45px 32px;
+
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding: 2rem 1rem 2rem 1rem;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding: 2rem 1rem 2rem 1rem;
+  }
+
 
   .publish_switch {
     @include display(flex, column);
@@ -299,4 +321,20 @@
     font-weight: bold;
   }
 
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between ;
+  margin-top: 1em;  
+
+
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }

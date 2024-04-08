@@ -5,12 +5,7 @@ import { StudentTest } from './StudentTest'
 import { StudentHomework } from './StudentHomework'
 import { StudentLesson } from './StudentLesson'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
-import {
-  useFetchLessonQuery,
-  useFetchModuleLessonsQuery,
-  useLazyFetchLessonQuery,
-  useLazyFetchModuleLessonsQuery,
-} from '../../../api/modulesServices'
+import { useFetchLessonQuery, useLazyFetchModuleLessonsQuery } from '../../../api/modulesServices'
 import { StudentLessonSidebar } from './StudentLessonSidebar'
 import { sectionT } from 'types/sectionT'
 

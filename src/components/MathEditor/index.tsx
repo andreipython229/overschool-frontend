@@ -1,33 +1,172 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useDeleteBlockMutation, useUpdateBlockDataMutation } from 'api/blocksService'
+import { Reorder, useDragControls } from 'framer-motion'
+import React, { useState, Dispatch, SetStateAction, PointerEvent } from 'react'
 import { addStyles, EditableMathField, StaticMathField } from 'react-mathquill'
-// import './styles.css' // assuming you have a stylesheet
+import { BlockT, IBlockMath } from 'types/sectionT'
+import styles from './mathEditor.module.scss'
+import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
+import { deletePath } from 'config/commonSvgIconsPath'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { Button } from 'components/common/Button/Button'
+import { Popover, Typography } from '@mui/material'
 
 addStyles()
 
 type MathEditorT = {
   edit: boolean
-  content: string
+  latex: string
+  block: BlockT
+  setLessonBlocks?: Dispatch<SetStateAction<BlockT[]>>
+  lessonBlocks?: BlockT[]
 }
 
-export const MathEditor: React.FC<MathEditorT> = ({ edit, content }) => {
-  const [latex, setLatex] = useState('')
+export const MathEditor: React.FC<MathEditorT> = ({ edit, lessonBlocks, setLessonBlocks, block, latex }) => {
+  const [latexStr, setLatexStr] = useState(latex)
+  const controls = useDragControls()
+  const [deleteBlock, { isLoading: isBlockDeleting }] = useDeleteBlockMutation()
+  const [saveChanges, { isLoading }] = useUpdateBlockDataMutation()
+  const schoolName = window.location.href.split('/')[4]
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
-  return (
-    <div style={{ display: 'flex', gap: '2rem', flexDirection: 'column' }}>
-      <div>
-        <p>Поле ввода:</p>
-        <EditableMathField
-          latex={latex}
-          onChange={mathField => {
-            setLatex(mathField.latex())
-          }}
-        />
-      </div>
+  const handleHelp = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
 
-      <div>
-        <p>Как отрисовываю юзеру:</p>
-        <StaticMathField>{latex}</StaticMathField>
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
+
+  const handleSaveChanges = () => {
+    if (block.type === 'formula') {
+      const updatedBlockData: IBlockMath = {
+        id: block.id,
+        type: block.type,
+        order: block.order,
+        formula: latexStr,
+      }
+      saveChanges({ data: updatedBlockData, schoolName })
+        .unwrap()
+        .then(data => {
+          const updatedArray = lessonBlocks?.map(item => {
+            if (item.id === block.id) {
+              return updatedBlockData
+            }
+            return item
+          })
+          if (updatedArray && setLessonBlocks) {
+            setLessonBlocks(updatedArray)
+          }
+        })
+    }
+  }
+
+  const onPointerDown = (event: PointerEvent<HTMLSpanElement>) => {
+    controls.start(event)
+  }
+
+  const deleteLessonBlocks = async (id: number) => {
+    if (lessonBlocks && setLessonBlocks) {
+      const updatedArray = lessonBlocks.filter(item => item.id !== id)
+      setLessonBlocks(updatedArray)
+    }
+  }
+
+  const handleDelete = () => {
+    deleteBlock({ id: block.id, schoolName })
+      .unwrap()
+      .then((data: any) => {
+        deleteLessonBlocks(block.id)
+      })
+  }
+
+  return edit ? (
+    <Reorder.Item
+      value={block}
+      dragListener={false}
+      dragControls={controls}
+      whileDrag={{
+        scale: 1.1,
+        borderRadius: '7px',
+      }}
+      key={block.id}
+    >
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div className={styles.inputWrapper}>
+          <p
+            style={{
+              fontWeight: 'bold',
+              fontSize: '16px',
+              fontFamily: '"Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif',
+            }}
+          >
+            Математическая формула:
+          </p>
+
+          <EditableMathField
+            className={`mq-math-mode ${styles.inputWrapper_mathBlock}`}
+            latex={latexStr}
+            onChange={mathField => {
+              setLatexStr(mathField.latex())
+            }}
+          />
+          <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', justifyContent: 'space-between' }}>
+            <Button
+              style={{ padding: '10px', zIndex: '100' }}
+              onClick={handleSaveChanges}
+              variant={'default'}
+              text={isLoading ? <SimpleLoader style={{ height: '19px', maxWidth: '100px' }} loaderColor="white" /> : 'Сохранить'}
+            />
+            <Button variant="logIn" text={'Помощь в написании формул'} aria-describedby={id} onClick={handleHelp} />
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <Typography sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <p>{`Ввод формул осуществляется с клавиатуры:`}</p>
+                <p>{`/ : деление; \n`}</p>
+                <p>{`* : умножение; \n`}</p>
+                <p>{`+ или - : сложение и вычитание; \n`}</p>
+                <p>{`^ : возведение в степень; \n`}</p>
+                <p>{`Для ввода квадратного корня, необходимо ввести \\sqrt; `}</p>
+                <p>{`Несколько формул в один блок поместить нельзя, 1 блок - 1 формула;`}</p>
+                <p>
+                  {`В случае возникновения вопросов по написанию формул, просьба связаться с нами по `}
+                  <a style={{ fontWeight: 'bold' }} href="https://t.me/over_school" rel="noreferrer" target="_blank">
+                    ссылке
+                  </a>
+                </p>
+              </Typography>
+            </Popover>
+          </div>
+        </div>
+
+        <div className={styles.wrapper_navBlock}>
+          <span className={styles.wrapper_navBlock_grabBtn} onPointerDown={onPointerDown}>
+            <IconSvg width={11} height={15} className="zIndex: 20" viewBoxSize="0 0 12 18" path={doBlockIconPath} />
+          </span>
+          <div className={styles.wrapper_navBlock_delete} onClick={handleDelete}>
+            {isBlockDeleting ? <SimpleLoader /> : <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />}
+          </div>
+        </div>
       </div>
+    </Reorder.Item>
+  ) : (
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px 0' }}>
+      <StaticMathField>{latex}</StaticMathField>
     </div>
   )
 }

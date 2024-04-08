@@ -81,6 +81,7 @@ export const App = () => {
       pathname !== '/' &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
+      pathname.split('/')[1]!== 'help' &&
       pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.ChooseSchool)

@@ -28,8 +28,22 @@ export interface SendMessageResponse {
   bot_response: string;
 }
 
+interface ChatData {
+  order: number;
+  chat_name: string;
+}
+
 export interface LatestChatsResponse {
-  [id: number]: string;
+  [id: number]: ChatData;
+}
+
+export interface CreateChatPayload {
+  orderData: { id: number; order: number }[];
+}
+
+interface DeleteChatRequest {
+  chat_id: number;
+  orderData: { id: number; order: number }[];
 }
 
 export const chatgptService = createApi({
@@ -65,20 +79,13 @@ export const chatgptService = createApi({
         },
       }),
     }),
-    createChat: build.mutation<{ overai_chat_id: number }, void>({
+    createChat: build.mutation<{ overai_chat_id: number }, CreateChatPayload>({
       query: (payload) => ({
         url: `/chatgpt/create_chat/`,
         method: 'POST',
-        body: payload,
-        headers: {
-          'Content-Type': 'application/json',
+        body: {
+          orderData: payload.orderData
         },
-      }),
-    }),
-    deleteChats: build.mutation<void, void>({
-      query: () => ({
-        url: `/chatgpt/delete_chats/`,
-        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -87,6 +94,23 @@ export const chatgptService = createApi({
     fetchLatestChats: build.query<LatestChatsResponse, void>({
       query: () => ({
         url: `/chatgpt/latest_chats/`,
+      }),
+    }),
+    deleteChat: build.mutation<void, DeleteChatRequest>({
+      query: ({ chat_id, orderData }) => ({
+        url: `/chatgpt/delete_chat/`,
+        method: 'POST',
+        body: { chat_id, orderData },
+      }),
+    }),
+    assignChatOrder: build.mutation<void, LatestChatsResponse>({
+      query: (payload) => ({
+        url: `/chatgpt/assign_chat_order/`,
+        method: 'POST',
+        body: payload,
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }),
     }),
   }),
@@ -98,7 +122,8 @@ export const {
   useSendMessageMutation, 
   useCreateChatMutation, 
   useLazyFetchLatestChatsQuery,
-  useDeleteChatsMutation,
-  useUpdateWelcomeMessageMutation
+  useUpdateWelcomeMessageMutation,
+  useDeleteChatMutation,
+  useAssignChatOrderMutation,
 } = chatgptService;
 export type ChatgptService = typeof chatgptService;

@@ -15,7 +15,7 @@ import {logo} from "../../../assets/img/common";
 import styles from './HelpPage.module.scss'
 
 export const HelpPage: FC = memo(() => {
-  //   const {role} = useAppSelector(selectUser)
+  const {role} = useAppSelector(selectUser)
   const navigate = useNavigate()
 
   const handleLoginPage = () => {
@@ -62,7 +62,7 @@ export const HelpPage: FC = memo(() => {
               </CardActionArea>
             </div>
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
-              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.CreateSchool))}>
+              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'courses'))}>
                 <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
                    <h3>Как создать курс</h3>
                    <p>Пошаговая инструкция по созданию и настройке курсов на платформе</p>
