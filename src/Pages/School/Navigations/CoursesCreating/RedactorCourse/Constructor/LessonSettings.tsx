@@ -486,7 +486,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
             <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
               <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Содержание занятия:</span>
               <AnimatePresence>
-                <div style={publickButton}>
+                <div className={styles.publickButton}>
                   <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
                   <PublishedMark isPublished={isPublished} />
                 </div>

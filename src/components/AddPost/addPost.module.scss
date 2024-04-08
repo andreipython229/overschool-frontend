@@ -202,9 +202,11 @@
         margin: 0 auto;
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           width: 100%;
+          height: auto;
         }
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           width: 100%;
+          height: auto;
         }
 
         &:hover {
@@ -228,6 +230,24 @@
           & div:not(:last-child) {
             margin-right: 16px;
           }
+
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            display: grid;
+            justify-content: space-around;
+            justify-items: center;
+            grid-template-columns: 90px 90px 90px;
+            grid-template-rows: repeat(2, 100px);
+            gap: 10px;
+          }
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
+            display: grid;
+            justify-content: space-around;
+            justify-items: center;
+            grid-template-columns: 90px 90px 90px;
+            grid-template-rows: repeat(2, 100px);
+            gap: 10px;
+          }
+
         }
       }
     }
