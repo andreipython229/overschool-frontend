@@ -23,6 +23,7 @@ import { useSelector } from 'react-redux'
 
 import styles from './App.module.scss'
 import { ResetPassword } from 'Pages/ResetPassword'
+import { Certificate } from 'Pages/Certificate/Certificate'
 
 export const AppMobile = () => {
   const { role } = useAppSelector(selectUser)
@@ -36,10 +37,13 @@ export const AppMobile = () => {
     if (
       !isLogin &&
       pathname !== Path.CreateSchool &&
+      pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
+      pathname !== Path.LoginPage &&
       pathname !== Path.TariffPlansInfo &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
+      pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.InitialPage)
@@ -47,10 +51,28 @@ export const AppMobile = () => {
   }, [isLogin, navigate])
 
   useEffect(() => {
+    if (
+      (isLogin && !role) ||
+      (isLogin &&
+        !schoolName &&
+        pathname !== Path.InitialPage &&
+        pathname !== '/' &&
+        pathname !== Path.ChooseSchool &&
+        pathname !== Path.TariffPlansInfo &&
+        pathname !== Path.CreateSchool &&
+        pathname.split('/')[1] !== 'certificate' &&
+        pathname.split('/')[1] !== 'course-catalog' &&
+        pathname.split('/')[1] !== 'help' &&
+        pathname.split('/')[1] !== 'token-validate')
+    ) {
+      navigate(Path.ChooseSchool)
+    }
+  }, [isLogin, schoolName, navigate])
+
+  useEffect(() => {
     if (pathname === '/') {
       navigate(Path.InitialPage)
-    }
-    if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
+    } else if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
       navigate(
         generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
       )
@@ -68,6 +90,7 @@ export const AppMobile = () => {
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
+        <Route path={Path.Certificate} element={<Certificate />} />
         <Route path={Path.School} element={<MobileLayOut />}>
           {navByRolesConfig[role]}
           <Route path={Path.Courses}>

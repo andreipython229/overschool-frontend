@@ -27,9 +27,9 @@ import { LoginPage } from './Pages/Login/LoginPage'
 import { HelpPage } from './Pages/HelpCenter/HelpPage'
 import { HelpSchoolPage } from 'Pages/HelpCenter/HelpSchoolPage'
 import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
+import { HelpCoursesPage } from './Pages/HelpCenter/HelpCoursesPage'
 import { HelpUserAccount } from 'Pages/HelpCenter/HelpUserAccount'
 import { HelpSchoolSettings } from 'Pages/HelpCenter/HelpSchoolSettings'
-import { HelpCoursesPage } from "./Pages/HelpCenter/HelpCoursesPage";
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -38,35 +38,26 @@ export const App = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
-  console.log(pathname)
-
   useEffect(() => {
     if (
       !isLogin &&
       pathname !== Path.CreateSchool &&
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
-      pathname !== Path.LoginPage &&
       pathname !== Path.TariffPlansInfo &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
-      pathname.split('/')[1]!== 'help' &&
+      pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.InitialPage)
     }
   }, [isLogin, navigate])
-  
-  // useEffect(() => {
-  //   if (isLogin && schoolName.length === 0) {
-  //     navigate(Path.ChooseSchool)
-  //   }
-  // }, [schoolName, isLogin, navigate])
 
   useEffect(() => {
     if (pathname === '/') {
       navigate(Path.InitialPage)
-    } else if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
+    } else if (schoolName && role !== 0 && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
       navigate(
         generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
       )
@@ -79,9 +70,26 @@ export const App = () => {
       !schoolName &&
       pathname !== Path.InitialPage &&
       pathname !== '/' &&
+      pathname !== Path.ChooseSchool &&
+      pathname !== Path.TariffPlansInfo &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
-      pathname.split('/')[1]!== 'help' &&
+      pathname.split('/')[1] !== 'help' &&
+      pathname.split('/')[1] !== 'token-validate'
+    ) {
+      navigate(Path.ChooseSchool)
+    }
+
+    if (
+      !role &&
+      isLogin &&
+      pathname !== Path.InitialPage &&
+      pathname !== '/' &&
+      pathname !== Path.ChooseSchool &&
+      pathname !== Path.TariffPlansInfo &&
+      pathname.split('/')[1] !== 'certificate' &&
+      pathname.split('/')[1] !== 'course-catalog' &&
+      pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.ChooseSchool)

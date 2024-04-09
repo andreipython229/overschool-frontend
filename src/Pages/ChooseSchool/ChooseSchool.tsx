@@ -36,8 +36,7 @@ export const ChooseSchool = () => {
   const [getSchools, { isSuccess: userSuccess, isError }] = useGetSchoolsMutation()
   const dispatchRole = useDispatch()
   const [logout] = useLazyLogoutQuery()
-  const { role: userRole, userName: name } = useAppSelector(selectUser)
-  const user = useAppSelector(selectUser)
+  const { role: userRole } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
   const [selectedSchool, setSelectedSchool] = useState<SchoolT>()
@@ -116,7 +115,19 @@ export const ChooseSchool = () => {
       <div className={styles.bg1}>
         <div className={styles.bg3}>
           {isLoading ? (
-            <SimpleLoader style={{ margin: '50px', height: '80px' }} />
+            <div
+              style={{
+                width: '100vw',
+                height: '70vh',
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'transparent',
+              }}
+            >
+              <SimpleLoader style={{ height: '80px' }} />
+            </div>
           ) : (
             <motion.div
               style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
