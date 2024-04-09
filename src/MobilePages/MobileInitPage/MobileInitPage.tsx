@@ -38,7 +38,7 @@ export const MobileInitPage = () => {
               variant={'logIn'}
               text={'Тарифы'}
               style={{
-                position: "fixed",
+                position: "absolute",
                 bottom: "20px",
                 left: "50%",
                 transform: "translateX(-50%)",
