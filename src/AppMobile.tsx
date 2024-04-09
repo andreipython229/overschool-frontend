@@ -24,6 +24,8 @@ import { useSelector } from 'react-redux'
 import styles from './App.module.scss'
 import { ResetPassword } from 'Pages/ResetPassword'
 import { Certificate } from 'Pages/Certificate/Certificate'
+import { CourseCatalogPage } from 'Pages/CourseCatalog'
+import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
 
 export const AppMobile = () => {
   const { role } = useAppSelector(selectUser)
@@ -91,6 +93,10 @@ export const AppMobile = () => {
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
         <Route path={Path.Certificate} element={<Certificate />} />
+        <Route path={Path.Catalog}>
+          <Route index element={<CourseCatalogPage />} />
+          <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
+        </Route>
         <Route path={Path.School} element={<MobileLayOut />}>
           {navByRolesConfig[role]}
           <Route path={Path.Courses}>
