@@ -12,6 +12,9 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { deletePath } from 'config/commonSvgIconsPath'
 import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
 import { Reorder, useDragControls } from 'framer-motion'
+import {useAppSelector} from 'store/hooks'
+import {selectUser} from 'selectors'
+import {RoleE} from "../../enum/roleE";
 
 type playerProps = {
   deleteBlock?: (arg: { id: string | number; schoolName: string }) => any
@@ -31,6 +34,7 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
   const [deleteBlock, { isLoading }] = useDeleteBlockMutation()
   const controls = useDragControls()
   const schoolName = window.location.href.split('/')[4]
+  const {role} = useAppSelector(selectUser)
 
   const handleDeleteVid = () => {
     if (block && lessonBlocks && setLessonBlocks) {
@@ -89,7 +93,7 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
       key={block && block.id}
       style={{ display: 'flex', gap: '1em' }}
     >
-      <div className={styles.videoPlayer}>
+      <div className={styles.videoPlayer} onContextMenu={event => role === RoleE.Student && event.preventDefault()}>
         {currentVideoSrc && videoSrc && videoSrc2 && (
           <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={currentVideoSrc}>

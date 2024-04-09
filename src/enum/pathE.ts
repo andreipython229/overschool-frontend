@@ -31,6 +31,8 @@ export enum Path {
   LoginPage = '/login/',
   HelpPage = '/help/',
   Help = ':school/',
+  HelpUserAccount = ':user-account',
+  HelpSchoolSettings = ':school-settings',
   ResetPassword = '/token-validate/:userId/:token/',
   Appeals = 'school-appeals/',
 }
