@@ -89,7 +89,7 @@ export const CreateNewSchool = () => {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Поздравляем, Вы стали на шаг ближе к своей цели. Теперь вы можете авторизоваться под данными Вашей, только что созданной, учётной записи и
-            приступить к администрированию собственной школы!
+            приступить к администрированию собственной платформы!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -143,14 +143,14 @@ export const CreateNewSchool = () => {
           <p className={styles.newCoursePage_formWrapper_form_title}>Регистрация</p>
           <div className={styles.newCoursePage_formWrapper_form_eMailWrapper}>
             {error && <p style={{ color: 'red', marginTop: '.5em' }}>{error}</p>}
-            <p className={styles.newCoursePage_formWrapper_form_eMailWrapper_title}>Введите название Вашей школы:</p>
+            <p className={styles.newCoursePage_formWrapper_form_eMailWrapper_title}>Введите название Вашей платформы:</p>
             <InputAuth
               name={'school_name'}
               type={'text'}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.school_name}
-              placeholder={'Название школы'}
+              placeholder={'Название платформы'}
             />
             {formik.touched.school_name && formik.errors.school_name ? (
               <p style={{ color: 'red', marginTop: '.5em' }}>

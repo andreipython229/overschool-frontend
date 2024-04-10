@@ -150,11 +150,11 @@ export const ChooseSchool = () => {
               {showWarning && selectedSchool && (
                 <Dialog open={showWarning} onClose={close} fullScreen={fullScreen} aria-labelledby="responsive-dialog-title">
                   <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center', color: 'red', fontWeight: 'bold', fontSize: '22px' }}>
-                    {`Доступ к школе "${selectedSchool.name}" ограничен`}
+                    {`Доступ к платформе "${selectedSchool.name}" ограничен`}
                   </DialogTitle>
                   <DialogContent>
                     <DialogContentText>
-                      Обратитесь к владельцу школы, для выяснения обстоятельств.{' '}
+                      Обратитесь к владельцу платформы, для выяснения обстоятельств.{' '}
                       {selectedSchool.contact_link && (
                         <a href={selectedSchool.contact_link} rel="noreferrer" target="_blank">
                           Ссылка для связи
@@ -199,13 +199,13 @@ export const ChooseSchool = () => {
                     </linearGradient>
                   </defs>
                 </svg>
-                <span className={styles.tit}>Выберите школу для входа:</span>
+                <span className={styles.tit}>Выберите платформу для входа:</span>
               </div>
               <motion.div className={styles.search} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                 <form>
                   <input
                     type="text"
-                    placeholder="Название школы..."
+                    placeholder="Название платформы..."
                     className={styles.search}
                     onChange={event => setSearch(event.target.value)}
                   ></input>
@@ -277,12 +277,12 @@ export const ChooseSchool = () => {
                   )
                 ) : (
                   <p style={{ color: 'blueviolet', fontSize: '20px', textAlign: 'center', padding: '2em', fontWeight: 'bold' }}>
-                    {'Нет доступных школ :('}
+                    {'Нет доступных платформ :('}
                   </p>
                 )}
               </div>
               <div className={styles.create} onClick={off}>
-                <span>cоздать школу</span>
+                <span>cоздать платформу</span>
               </div>
             </motion.div>
           )}

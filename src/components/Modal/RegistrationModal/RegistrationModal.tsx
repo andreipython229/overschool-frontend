@@ -131,7 +131,7 @@ export const RegistrationModal: FC<RegistrationModalPropsT> = ({setShowModal, se
                                         text={'Зарегистрироваться'}/>
                             </div>
                             <div style={{display: "flex", alignItems: "center", justifyContent: "center"}} className={styles.main_blockDescReg_description}>
-                                Есть собственная школа?
+                                Есть собственная платформа?
                                 <Link to={Path.CreateSchool} style={{marginLeft: '0.2em'}} className={styles.main_blockDescReg_link}>
                                     Создайте свой проект на нашей платформе бесплатно
                                 </Link>
