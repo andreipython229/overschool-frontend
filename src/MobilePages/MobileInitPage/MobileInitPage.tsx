@@ -4,8 +4,9 @@ import { Button } from 'components/common/Button/Button'
 import { MobileLoginModal } from 'components/Modal'
 
 import styles from './mobileInitPage.module.scss'
-import {generatePath, useNavigate} from "react-router-dom";
-import {Path} from "../../enum/pathE";
+import { generatePath, useNavigate } from 'react-router-dom'
+import { Path } from '../../enum/pathE'
+import { ManageSearch, Menu } from '@mui/icons-material'
 
 export const MobileInitPage = () => {
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false)
@@ -21,6 +22,15 @@ export const MobileInitPage = () => {
   return (
     <div className={styles.container}>
       {openLoginModal && <MobileLoginModal setShowModal={showLoginModal} />}
+      <Button
+        style={{ position: 'absolute', top: '2rem', right: '0', color: 'white', display: 'flex', alignItems: 'center', gap: '2px' }}
+        onClick={() => navigate(Path.Catalog)}
+        variant={'logIn'}
+        text={''}
+      >
+        <p>Каталог курсов</p>
+        <ManageSearch />
+      </Button>
       <div className={styles.container_blur} />
       <div className={styles.initPage}>
         <h1 style={{ textAlign: 'center' }}>Первая белорусская платформа для онлайн школ</h1>
@@ -34,17 +44,17 @@ export const MobileInitPage = () => {
 
           <Button onClick={showLoginModal} variant={'primary'} text={'Вперед'} />
           <Button
-              onClick={handleTariffPage}
-              variant={'logIn'}
-              text={'Тарифы'}
-              style={{
-                position: "fixed",
-                bottom: "20px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                color: 'white',
-                fontSize: "16px"
-              }}
+            onClick={handleTariffPage}
+            variant={'logIn'}
+            text={'Тарифы'}
+            style={{
+              position: 'absolute',
+              bottom: '20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              color: 'white',
+              fontSize: '16px',
+            }}
           />
         </div>
       </div>

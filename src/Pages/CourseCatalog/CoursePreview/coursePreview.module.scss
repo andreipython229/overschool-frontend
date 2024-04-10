@@ -3,7 +3,7 @@
 
 .wrapper {
   padding: 1rem;
-  width: 100%;
+  width: 100vw;
   height: auto;
   background: #e0dced;
   display: flex;
@@ -24,6 +24,11 @@
     border-radius: 7px;
     margin-top: -20px;
 
+    @media (max-width: 600px) {
+      width: 100%;
+      padding: 2rem 20px;
+    }
+
     h2 {
       font-weight: 700;
       font-size: 22px;
@@ -40,7 +45,7 @@
         h1 {
           margin: 0;
         }
-        
+
         p {
           color: #4d5766;
           font-size: 14px;
@@ -119,26 +124,26 @@
       flex-direction: column;
       height: auto;
       margin: -20px auto 0;
+      width: 90%;
+      gap: 20px;
+      padding: 20px;
     }
 
     &_stat {
       @include display(flex, column, center, center);
       @include font(700, 22px);
       color: #ba75ff;
-      
-      
 
       &_all {
         @include display(flex, row, center, center);
         @include font(700, 22px);
         color: #ba75ff;
-        
 
         &_text {
           @include display(flex, column, center, center);
           @include font(700, 22px);
           color: #ba75ff;
-          padding-left: 10px 
+          padding-left: 10px;
         }
       }
 
@@ -157,6 +162,11 @@
   font-weight: 500;
   background: #e0dced;
   border-radius: 7px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    height: 300px;
+  }
 
   &_buttonAccept {
     button {
@@ -201,7 +211,7 @@
   &_onlineCourses {
     @include position_t_l(absolute, 107px, 44px);
     @include font(700, 22px, 24px);
-    color: #BA75FF;
+    color: #ba75ff;
     text-transform: uppercase;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       @include position_t_l(absolute, 107px, 16px);
@@ -286,6 +296,8 @@
     border-radius: 20px;
     margin-bottom: 16px;
     transition: all 0.3s;
+    width: 100%;
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       margin: 5px;
     }
@@ -380,7 +392,7 @@
         &_title {
           @include display(flex, row, flex-start, center);
           @include font(700, 22px, 16px);
-          color: #BA75FF;
+          color: #ba75ff;
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             font-size: 10px;
           }

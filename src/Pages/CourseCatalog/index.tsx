@@ -72,7 +72,11 @@ export const CourseCatalogPage: FC = memo(() => {
   }
 
   if (!courses) {
-    return <SimpleLoader style={{ position: 'fixed', top: '35%', left: '43%' }} />
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100vh', background: 'transparent' }}>
+        <SimpleLoader style={{ height: '80px' }} />
+      </div>
+    )
   }
 
   return (
@@ -92,8 +96,8 @@ export const CourseCatalogPage: FC = memo(() => {
     >
       <div className={styles.wrapper_body}>
         <Typography gutterBottom variant="h5" sx={{ width: '100%', textAlign: 'center' }} color={'#ba75ff'} component="div">
-          <p style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '14px' }}>
-            Каталог курсов онлайн-школ на платформе{' '}
+          <p className={styles.wrapper_body_textHeader}>
+            <p>Каталог курсов онлайн-школ на платформе </p>
             <a
               href={Path.InitialPage}
               className={styles.headerButton}
@@ -111,8 +115,8 @@ export const CourseCatalogPage: FC = memo(() => {
             </a>
           </p>
         </Typography>
-        <div style={{ width: '100%', padding: '0 2rem', display: 'flex', justifyContent: 'center' }}>
-          <Search sx={{ border: '1px solid gray', borderRadius: '10px', width: '80% !important', backgroundColor: 'transparent' }}>
+        <div className={styles.search}>
+          <Search className={styles.search_field} sx={{ border: '1px solid gray', borderRadius: '10px', backgroundColor: 'transparent' }}>
             <SearchIconWrapper>
               <SearchIcon sx={{ color: '#ba75ff' }} />
             </SearchIconWrapper>
@@ -124,11 +128,7 @@ export const CourseCatalogPage: FC = memo(() => {
         ) : courses.results.length ? (
           <div className={styles.wrapper_body_courses}>
             {courses.results.map((course: any, index: number) => (
-              <Card
-                className={styles.wrapper_body_courses_card}
-                sx={{ width: '30%', cursor: 'pointer', transition: 'all ease-in 0.2s' }}
-                key={index}
-              >
+              <Card className={styles.wrapper_body_courses_card} sx={{ cursor: 'pointer', transition: 'all ease-in 0.2s' }} key={index}>
                 <CardActionArea onClick={() => navigate(generatePath(Path.Catalog + Path.CatalogCourse, { courseId: course.course_id }))}>
                   <CardMedia component="img" height="240" image={course.photo} alt={course.name} />
                   <CardContent>
