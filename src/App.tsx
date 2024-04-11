@@ -31,6 +31,8 @@ import { HelpCoursesPage } from './Pages/HelpCenter/HelpCoursesPage'
 import { HelpUserAccount } from 'Pages/HelpCenter/HelpUserAccount'
 import { HelpSchoolSettings } from 'Pages/HelpCenter/HelpSchoolSettings'
 
+import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
+
 export const App = () => {
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
@@ -120,6 +122,7 @@ export const App = () => {
           <Route path={Path.Help} element={<HelpSchoolPage />} />
           <Route path={Path.HelpUserAccount} element={<HelpUserAccount />} />
           <Route path={Path.HelpSchoolSettings} element={<HelpSchoolSettings />} />
+          <Route path={Path.HelpOverAI} element={<HelpOverAI />} />
           <Route path={Path.Courses} element={<HelpCoursesPage />} />
         </Route>
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
