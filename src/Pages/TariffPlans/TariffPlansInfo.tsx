@@ -178,7 +178,7 @@ export const TariffPlansInfo: FC = () => {
             <p>Попробуйте весь функционал в процессе использования и познайте, насколько он удобен</p>
               <div className={styles.main_btn}>
                 <Button onClick={handleLoginPage} text={'Войти'} style={{ width: '160px', fontSize: "16px" }} variant={'primary'} />
-                <Button onClick={handleRegistrationUser} variant={'primary'} text={'Создать школу'} style={{ width: '160px', fontSize: "16px", marginLeft: "5px"}}/>
+                <Button onClick={handleRegistrationUser} variant={'primary'} text={'Создать проект'} style={{ width: '160px', fontSize: "16px", marginLeft: "5px"}}/>
               </div>
           </div>
           <div className={styles.TariffPlansPage_banner_images}>

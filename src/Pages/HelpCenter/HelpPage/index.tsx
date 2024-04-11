@@ -46,7 +46,7 @@ export const HelpPage: FC = memo(() => {
             </a>
             <div className={styles.header_block}>
                <Button onClick={handleLoginPage} variant={'logIn'} style={{ fontSize: '20px', fontWeight: '700' }} text={'Войти'} />
-               <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '20px', fontWeight: '700' }} text={'Создать школу'} />
+               <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '20px', fontWeight: '700' }} text={'Создать платформу'} />
             </div>
         </div>
         <img src={frame} alt="asdfhghhgh" style={{ width: "100%", height: "auto" }} />
@@ -80,8 +80,8 @@ export const HelpPage: FC = memo(() => {
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
               <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'school-settings'))}>
                 <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-                   <h3>Настройки школы </h3>
-                   <p>Инструкция по настройкам школы, управление сотрудниками, оплата курсов </p>
+                   <h3>Настройки платформы </h3>
+                   <p>Инструкция по настройкам платформы, управление сотрудниками, оплата курсов </p>
                 </div>
               </CardActionArea>
             </div>

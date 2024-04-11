@@ -80,10 +80,10 @@ export const Navbar: FC = memo(() => {
                   path === Path.Courses
                     ? 'Курсы'
                     : path === Path.CourseStats
-                    ? 'Ученики школы'
+                    ? 'Ученики платформы'
                     : path === Path.HomeWork
                     ? 'Домашние задания'
-                    : 'Настройки школы'
+                    : 'Настройки платформы'
                 }
                 key={index + '_' + path}
                 arrow

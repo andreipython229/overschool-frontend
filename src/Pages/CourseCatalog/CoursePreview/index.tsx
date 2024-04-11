@@ -220,7 +220,7 @@ export const CoureCatalogPreview: FC = () => {
             ) : (
               <>
                 <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#ba75ff' }}>
-                  {`Заявка о поступлении на курс ${course.name} успешно отправлена, для получения дополнительной информации, Вы можете перейти по контактной ссылке данной школы`}
+                  {`Заявка о поступлении на курс ${course.name} успешно отправлена, для получения дополнительной информации, Вы можете перейти по контактной ссылке данной платформы`}
                 </DialogTitle>
                 <DialogContent>
                   <a href={course.contact_link} target="_blank" rel="noreferrer">

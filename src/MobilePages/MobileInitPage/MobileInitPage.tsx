@@ -33,7 +33,7 @@ export const MobileInitPage = () => {
       </Button>
       <div className={styles.container_blur} />
       <div className={styles.initPage}>
-        <h1 style={{ textAlign: 'center' }}>Первая белорусская платформа для онлайн школ</h1>
+        <h1 style={{ textAlign: 'center' }}>Первая белорусская онлайн платформа</h1>
         <div className={styles.initPage_footer}>
           <div className={styles.initPage_footer_text}>
             <p>
