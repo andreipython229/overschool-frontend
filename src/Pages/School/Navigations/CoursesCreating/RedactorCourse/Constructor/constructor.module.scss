@@ -472,6 +472,12 @@
         margin-left: 45px;
         color: #BA75FF;
         font-size: 16px;
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
+          margin-left: 0;
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
+          margin-left: 0;
+        }
       }
 
       &_blockAll {
@@ -501,11 +507,13 @@
 
         @media only screen and (min-width : 320px) and (max-width : 375px) {
           margin-bottom: 10%;
-          min-width: 100px;
+          padding-left: 15px;
+          padding-right: 15px;
         }
         @media only screen and (min-width : 375px) and (max-width : 480px) {
           margin-bottom: 10%;
-          min-width: 100px;
+          padding-left: 15px;
+          padding-right: 15px;
         }
 
         &_nameSettings {
@@ -513,6 +521,13 @@
           font-size: 20px;
           font-weight: 700;
           margin-right: 20px;
+
+          @media only screen and (min-width : 320px) and (max-width : 375px) {
+            margin-right: 0;;
+          }
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
+            margin-right: 0;
+          }
         }
 
      }
@@ -541,10 +556,14 @@
           padding-right: 45px;
 
           @media only screen and (min-width : 320px) and (max-width : 375px) {
-            padding: 0 0 5% 0;
+            padding: 0 0 10% 0;
+            flex-direction: column;
+            gap: 15px
           }
           @media only screen and (min-width : 375px) and (max-width : 480px) {
-            padding: 0 0 5% 0;
+            padding: 0 0 10% 0;
+            flex-direction: column;
+            gap: 15px;
           }
 
           &_preview {
@@ -795,4 +814,21 @@ hr {
   color: #9ca3af;
   font-size: 14px;
   letter-spacing: 0.06em;
+}
+
+
+.publickButton {
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    margin-left: 50%;
+    gap: 10px;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    margin-left: 50%;
+    gap: 10px;
+  }
 }

@@ -72,7 +72,11 @@ export const CoureCatalogPreview: FC = () => {
   }
 
   if (!course || isLoading) {
-    return <SimpleLoader />
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100vh' }}>
+        <SimpleLoader style={{ height: '80px' }} />
+      </div>
+    )
   }
 
   const handleForm = () => {
@@ -99,36 +103,34 @@ export const CoureCatalogPreview: FC = () => {
         </div>
         <div className={styles.wrapper_courseStats}>
           <div className={styles.wrapper_courseStats_stat_all}>
-            <CollectionsBookmark fontSize="large"/>
-            <div className={styles.wrapper_courseStats_stat_all_text}> 
+            <CollectionsBookmark fontSize="large" />
+            <div className={styles.wrapper_courseStats_stat_all_text}>
               <span>Занятий:</span>
               <span>{countOfLessons()}</span>
             </div>
           </div>
           <div className={styles.wrapper_courseStats_stat}>
             <div className={styles.wrapper_courseStats_stat_all}>
-              <Person fontSize="large"/>
+              <Person fontSize="large" />
               <div className={styles.wrapper_courseStats_stat_all_text}>
                 <span>Учеников:</span>
                 <span>100+</span>
-              </div> 
+              </div>
             </div>
           </div>
           <div className={styles.wrapper_courseStats_stat}>
             <div className={styles.wrapper_courseStats_stat_all}>
-              <StarBorder fontSize="large"/>
+              <StarBorder fontSize="large" />
               <div className={styles.wrapper_courseStats_stat_all_text}>
                 <span>Рейтинг:</span>
-                <span>
-                  5
-                </span>
+                <span>5</span>
               </div>
             </div>
           </div>
         </div>
         <div className={styles.wrapper_banner}>
           <h2 style={{ textAlign: 'center', padding: '2rem 0 1rem', color: '#7730BD' }}>Список модулей и уроков внутри курса:</h2>
-          <div>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', width: '100%' }}>
             {course.sections.map((module, index: number) => (
               <CatalogCourseModules
                 section={module}
@@ -218,7 +220,7 @@ export const CoureCatalogPreview: FC = () => {
             ) : (
               <>
                 <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#ba75ff' }}>
-                  {`Заявка о поступлении на курс ${course.name} успешно отправлена, для получения дополнительной информации, Вы можете перейти по контактной ссылке данной школы`}
+                  {`Заявка о поступлении на курс ${course.name} успешно отправлена, для получения дополнительной информации, Вы можете перейти по контактной ссылке данной платформы`}
                 </DialogTitle>
                 <DialogContent>
                   <a href={course.contact_link} target="_blank" rel="noreferrer">

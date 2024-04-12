@@ -92,7 +92,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
                             </span>
                         )}
                     </div>
-                    <Button onClick={saveChangeNameLesson} style={{width: '496px'}} variant={'primary'}
+                    <Button className={styles.settings_block_input_btnChangeNameLesson} onClick={saveChangeNameLesson} variant={'primary'}
                             text={'Сохранить'}/>
                 </form>
             </div>

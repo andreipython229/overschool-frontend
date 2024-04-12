@@ -87,7 +87,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
       <div>
         <p className={styles.header_block_text}>{headerText}</p>
         <div style={{fontSize: "11px", color: "#3B3B3B", paddingLeft: "1rem"}}>Количество записей: {all_students_count}</div>
-        {headerText === 'Все ученики школы' && <StudentsSchoolExport />}
+        {headerText === 'Все ученики платформы' && <StudentsSchoolExport />}
         {headerText === 'Все ученики группы' && <StudentsCroupExport />}
         {headerText === 'Все ученики курса' && <StudentsCourseExport />}
         <div style={{ marginBottom: '15px' }}>

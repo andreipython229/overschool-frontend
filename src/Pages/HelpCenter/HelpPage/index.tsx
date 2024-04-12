@@ -46,7 +46,7 @@ export const HelpPage: FC = memo(() => {
             </a>
             <div className={styles.header_block}>
                <Button onClick={handleLoginPage} variant={'logIn'} style={{ fontSize: '20px', fontWeight: '700' }} text={'Войти'} />
-               <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '20px', fontWeight: '700' }} text={'Создать школу'} />
+               <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '20px', fontWeight: '700' }} text={'Создать платформу'} />
             </div>
         </div>
         <img src={frame} alt="asdfhghhgh" style={{ width: "100%", height: "auto" }} />
@@ -70,17 +70,28 @@ export const HelpPage: FC = memo(() => {
               </CardActionArea>
             </div>
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
-              <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-
-                <h3>Как провести вебинар</h3>
-                <p>Детальная инструкция по проведению и настройке вебинаров на OVERSCHOOL</p>
-              </div>
+              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'overai'))}>
+                <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                   <h3>OVERAI</h3>
+                   <p>Искусственный интеллект на платформе, используемый для улучшения качества и доступности образования</p>
+                </div>
+              </CardActionArea>
             </div>
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
-              <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-                <h3>Как добавить учеников</h3>
-                <p>Инструкция по всем способам: ручным и автоматическим</p>
-              </div>
+              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'school-settings'))}>
+                <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                   <h3>Настройки платформы </h3>
+                   <p>Инструкция по настройкам платформы, управление сотрудниками, оплата курсов </p>
+                </div>
+              </CardActionArea>
+            </div>
+            <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'user-account'))}>
+                <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                    <h3>Как настроить аккаунт </h3>
+                   <p>Пошаговая инструкция по настройке аккаунт пользователя</p>
+                </div>
+              </CardActionArea>
             </div>
           </div>
 

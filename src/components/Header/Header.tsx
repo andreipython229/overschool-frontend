@@ -444,7 +444,7 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
               </SvgIcon>
               <Link to={Path.ChooseSchool} style={{ color: 'slategrey' }}>
-                Смена школы
+                Смена платформы
               </Link>
             </MenuItem>
           </Menu>

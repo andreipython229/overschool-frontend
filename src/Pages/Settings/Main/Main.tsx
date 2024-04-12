@@ -107,15 +107,15 @@ export const Main = memo(() => {
   return (
     <div className={styles.wrapper_actions}>
       <div className={styles.main}>
-        <div className={styles.main_title}>Основные настройки школы</div>
-        <div className={styles.main_project}>Название школы</div>
+        <div className={styles.main_title}>Основные настройки платформы</div>
+        <div className={styles.main_project}>Название платформы</div>
         <div
           className={styles.main_description}
           style={{ color: 'red', padding: '0px', lineHeight: '1.5', opacity: '0.6', fontWeight: 'bold', fontSize: '12px' }}
         >
-          Название будет подставляться в url адресах относящихся к вашей школе.
+          Название будет подставляться в url адресах относящихся к вашей платформе.
           <br />
-          Имейте ввиду, если вы делились с кем либо url ссылками на вашу школу - то после изменения по старым url адресам она будет не доступна!
+          Имейте ввиду, если вы делились с кем либо url ссылками на вашу платформу - то после изменения по старым url адресам она будет не доступна!
           Частая смена не рекомендуется!
         </div>
         <div>
@@ -146,7 +146,7 @@ export const Main = memo(() => {
         </div>
         <br />
         <hr />
-        <div className={styles.main_project}>Ссылка для связи с руководством школы</div>
+        <div className={styles.main_project}>Ссылка для связи с руководством платформы</div>
         <div>
           <Input
             name={'contactUrl'}
@@ -165,10 +165,10 @@ export const Main = memo(() => {
         </div>
       </div>
       <Dialog open={alertOpen} onClose={handleCloseAlert} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">{`Вы действительно хотите изменить название школы "${oldName}" на "${name}"?`}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{`Вы действительно хотите изменить название платформы "${oldName}" на "${name}"?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {' После нажатия на кнопку "Подтвердить", вы будете перенаправлены на страницу выбора школы, продолжить?'}
+            {' После нажатия на кнопку "Подтвердить", вы будете перенаправлены на страницу выбора платформы, продолжить?'}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

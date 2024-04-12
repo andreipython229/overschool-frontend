@@ -52,7 +52,7 @@ export const Initial = () => {
       <div className={styles.init_main}>
         <section className={styles.init_main_wrapper}>
           <h1 className={styles.init_main__title}>
-            <strong>Первая белорусская платформа для онлайн школ</strong>
+            <strong>Первая белорусская онлайн платформа</strong>
           </h1>
           <div className={styles.init_main__link}>
             <div>Найди свое направление</div>

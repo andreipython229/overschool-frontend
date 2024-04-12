@@ -43,11 +43,11 @@ export const HelpCoursesPage = () => {
             <div className={styles.header_block}>
                <Button onClick={handleHelpPage} variant={'logIn'} style={{ fontSize: '18px', fontWeight: '700' }} text={'Помощь'} />
                <Button onClick={handleLoginPage} variant={'logIn'} style={{ fontSize: '18px', fontWeight: '700' }} text={'Войти'} />
-               <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '18px', fontWeight: '700' }} text={'Создать школу'} />
+               <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '18px', fontWeight: '700' }} text={'Создать платформу'} />
             </div>
       </div>
       <div className={styles.HelpCenterPage_FAQ}>
-        <h1>Как создать курс в онлайн-школе OVERSCHOOL </h1>
+        <h1>Как создать курс в онлайн-платформе OVERSCHOOL </h1>
           <h2>Шаги по созданию курса</h2>
         <p>В личном кабинете вашей школы выберите опцию &quot;Создать курс&quot;.<br/>После ввода названия курса он станет доступен для редактирования.
             Теперь вы можете создать структуру курса, добавляя тематические модули и наполняя их занятиями. Следующим этапом станет добавление учеников.

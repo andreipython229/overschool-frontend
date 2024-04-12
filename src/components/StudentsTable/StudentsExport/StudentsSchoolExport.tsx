@@ -16,7 +16,7 @@ export const StudentsSchoolExport: FC = () => {
       const wb = XLSX.utils.book_new(),
       ws = XLSX.utils.json_to_sheet(allStudents);
       XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
-      XLSX.writeFile(wb, "Ученики школы.xlsx")
+      XLSX.writeFile(wb, "Ученики платформы.xlsx")
   };
 
  return (

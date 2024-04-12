@@ -33,6 +33,7 @@ export enum Path {
   Help = ':school/',
   HelpUserAccount = ':user-account',
   HelpSchoolSettings = ':school-settings',
+  HelpOverAI = 'overai',
   ResetPassword = '/token-validate/:userId/:token/',
   Appeals = 'school-appeals/',
 }

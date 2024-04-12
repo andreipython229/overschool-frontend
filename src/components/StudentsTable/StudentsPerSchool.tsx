@@ -100,7 +100,7 @@ export const StudentsPerSchool: FC = () => {
     <>
       <AllStudentsBlock
         invite={false}
-        headerText={`Все ученики школы`}
+        headerText={`Все ученики платформы`}
         addLastActiveFilter={handleAddLastActivityFilter}
         addMarkFilter={handleAddMarkFilter}
         handleAddAvgFilter={handleAddAvgFilter}

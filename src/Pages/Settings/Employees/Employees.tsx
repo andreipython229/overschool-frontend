@@ -78,7 +78,7 @@ export const Employees: FC = () => {
                 ))}
               </div>
             ) : (
-              <p style={{ color: 'lightslategrey' }}>Пока сотрудников в школе нет</p>
+              <p style={{ color: 'lightslategrey' }}>Пока сотрудников на платформе нет</p>
             )}
           </div>
         </div>
