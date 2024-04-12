@@ -15,8 +15,8 @@ interface AddPaymentMethodsProps {
 interface PaymentMethodData {
   school: number;
   payment_method_name: string;
-  payment_link: string;
-  secret_key: string;
+  account_no: string;
+  api_key: string;
   selectedPaymentMethod: string
 }
 
@@ -24,8 +24,8 @@ interface ResponsePaymentMethod {
   id: number;
   payment_method: string;
   payment_method_name: string;
-  payment_link: string;
-  secret_key: string;
+  account_no: string;
+  api_key: string;
   school: number;
 }
 
@@ -40,8 +40,8 @@ const AddPaymentMethods: React.FC<AddPaymentMethodsProps> = ({ isOpen, onClose }
     school: 0,
     selectedPaymentMethod: '',
     payment_method_name: '',
-    payment_link: '',
-    secret_key: ''
+    account_no: '',
+    api_key: ''
   });
 
   const schoolIdString = localStorage.getItem('school_id');
@@ -67,21 +67,13 @@ const AddPaymentMethods: React.FC<AddPaymentMethodsProps> = ({ isOpen, onClose }
         school: schoolId,
         payment_method: selectedPaymentMethod,
         payment_method_name: formData.payment_method_name,
-        payment_link: formData.payment_link,
-        secret_key: formData.secret_key
+        account_no: formData.account_no,
+        api_key: formData.api_key
       };
   
       await mutatePaymentMethod(paymentData);
       fetchPaymentMethods({school_id: schoolId});
       setAddPaymentMethodTrigger(prevState => !prevState);
-
-      setFormData({
-        school: 0,
-        selectedPaymentMethod: '',
-        payment_method_name: '',
-        payment_link: '',
-        secret_key: ''
-      });
     }
   };
 
@@ -156,13 +148,16 @@ const AddPaymentMethods: React.FC<AddPaymentMethodsProps> = ({ isOpen, onClose }
                         <strong>Способ оплаты:</strong> {method.payment_method}
                       </div>
                       <div style={{ padding: '8px', wordWrap: 'break-word', color: 'slategrey' }}>
-                        <strong>API-ключ:</strong> {method.secret_key}
+                        <strong>API-ключ:</strong> {method.api_key}
+                      </div>
+                      <div style={{ padding: '8px', wordWrap: 'break-word', color: 'slategrey' }}>
+                        <strong>Номер лицевого счета:</strong> {method.account_no}
                       </div>
                     </div>
                     <div style={{ marginBlockStart: '20px' }}>
                       <button 
                         style={{ borderRadius: '5px', border: '0.5px solid grey', padding: '5px' }}
-                        onClick={() => handleDeletePaymentMethod(method.payment_link)}>
+                        onClick={() => handleDeletePaymentMethod(method.account_no)}>
                         <IconSvg width={20} height={20} viewBoxSize="0 0 19 19" path={deleteIconPath}/>
                       </button>
                     </div>
@@ -175,7 +170,7 @@ const AddPaymentMethods: React.FC<AddPaymentMethodsProps> = ({ isOpen, onClose }
           <div className={styles.menuBar}>
             <select value={selectedPaymentMethod} onChange={handlePaymentMethodChange}>
               <option value="">Выберите способ оплаты</option>
-              <option value="Prodamus">Prodamus</option>
+              {/* <option value="Prodamus">Prodamus</option> */}
               <option value="ExpressPay">ExpressPay</option>
             </select>
           </div>
@@ -186,12 +181,12 @@ const AddPaymentMethods: React.FC<AddPaymentMethodsProps> = ({ isOpen, onClose }
                 <input type="text" id="name" name="payment_method_name" onChange={handleInputChange} />
               </div>
               <div className={styles.formGroup}>
-                <label htmlFor="paymentPageLink">API-ключ:</label>
-                <input type="text" id="paymentPageLink" name="payment_link" onChange={handleInputChange} />
+                <label htmlFor="api_key">API-ключ:</label>
+                <input type="text" id="api_key" name="api_key" onChange={handleInputChange} />
               </div>
               <div className={styles.formGroup}>
-                <label htmlFor="secretKey">Секретный ключ:</label>
-                <input type="text" id="secretKey" name="secret_key" onChange={handleInputChange} />
+                <label htmlFor="account_no">Номер лицевого счета:</label>
+                <input type="text" id="account_no" name="account_no" onChange={handleInputChange} />
               </div>
             </>
           )}

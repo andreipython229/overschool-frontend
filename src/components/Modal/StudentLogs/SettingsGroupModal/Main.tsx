@@ -169,7 +169,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                             <Checkbox id={'overAiLock'} name={'overAiLock'} checked={overAiLock} onChange={handlerLockOverAi}/>
                             <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
                                 <span>Включить OVER AI</span>
-                                <span>Ученики групп смогут пользоваться OVER AI</span>
+                                <span>Ученики группы смогут пользоваться OVER AI</span>
                             </div>
                         </div>
                     )}
