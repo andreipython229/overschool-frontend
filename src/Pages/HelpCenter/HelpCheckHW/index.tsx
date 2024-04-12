@@ -3,12 +3,6 @@ import { Path } from "../../../enum/pathE";
 import styles from "./HelpCheckHW.module.scss";
 import { logo } from "../../../assets/img/common";
 import { Button } from "../../../components/common/Button/Button";
-import overai_button from "../../../assets/img/overAI/overai_button.png";
-import overai_chat from "../../../assets/img/overAI/overai_chat.png";
-import overai_example_code from '../../../assets/img/overAI/overai_example_code.png';
-import overai_example_learning from '../../../assets/img/overAI/overai_example_learning.png';
-import overai_example_automation from '../../../assets/img/overAI/overai_example_automation.png';
-import overai_example_algorithm from '../../../assets/img/overAI/overai_example_algorithm.png';
 import firstStep from '../../../assets/img/createProject/firstStep.png'
 import secondStep from '../../../assets/img/createProject/secondStep.png'
 import HW_mentor from '../../../assets/img/CheckHW/HW_mentor.png'
