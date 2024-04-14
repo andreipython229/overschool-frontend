@@ -25,6 +25,9 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     const [overAiLock, setOverAiLock] = useState<boolean>(false)
     const [certificate, setCertificate] = useState<boolean>(false);
     const [strongSubsequence, setStrongSubsequence] = useState<boolean>(false)
+    const [submitHomework, setSubmitHomework] = useState<boolean>(false)
+    const [submitTest, setSubmitTest] = useState<boolean>(false)
+    const [successTest, setSuccessTest] = useState<boolean>(false)
     const [textNameField, setTextNameField] = useState<string>('')
     const [groupType, setGroupType] = useState<string>('')
     const [duration, setDuration] = useState<number>(0)
@@ -41,6 +44,9 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     useEffect(() => {
         setBlockHomework(Boolean(data?.group_settings?.task_submission_lock))
         setStrongSubsequence(Boolean(data?.group_settings?.strict_task_order))
+        setSubmitHomework(Boolean(data?.group_settings?.submit_homework_to_go_on))
+        setSubmitTest(Boolean(data?.group_settings?.submit_test_to_go_on))
+        setSuccessTest(Boolean(data?.group_settings?.success_test_to_go_on))
         setOverAiLock(Boolean(data?.group_settings?.overai_lock))
         setCertificate(Boolean(data?.certificate))
         setTextNameField(String(data?.name))
@@ -61,10 +67,34 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     }, [groupAccessInfo])
 
     const handlerHomeworkCheck = () => {
+        if (!blockHomework) {
+            setSubmitHomework(false);
+            setSubmitTest(false);
+            setSuccessTest(false);
+        }
         setBlockHomework(!blockHomework)
     }
+
     const handlerSubsequenceCheck = () => {
+        if (strongSubsequence) {
+            setSubmitHomework(false);
+            setSubmitTest(false);
+            setSuccessTest(false);
+        }
         setStrongSubsequence(!strongSubsequence)
+    }
+
+    const handlerHomeworkSubmit = () => {
+        !blockHomework && strongSubsequence && setSubmitHomework(!submitHomework)
+    }
+
+    const handlerTestSubmit = () => {
+        submitTest && setSuccessTest(false);
+        !blockHomework && strongSubsequence && setSubmitTest(!submitTest)
+    }
+
+    const handlerTestSuccess = () => {
+        !blockHomework && strongSubsequence && submitTest && setSuccessTest(!successTest)
     }
 
     const handleDuration = (event: ChangeEvent<HTMLInputElement>) => {
@@ -95,6 +125,9 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
             group_settings: {
                 strict_task_order: strongSubsequence,
                 task_submission_lock: blockHomework,
+                submit_homework_to_go_on: submitHomework,
+                submit_test_to_go_on: submitTest,
+                success_test_to_go_on: successTest,
                 overai_lock: overAiLock,
             },
             certificate: certificate,
@@ -161,6 +194,9 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                             overAiLock={overAiLock}
                             certificate={certificate}
                             blockHomework={blockHomework}
+                            submitHomework={submitHomework}
+                            submitTest={submitTest}
+                            successTest={successTest}
                             setGroupName={setTextNameField}
                             title={textNameField}
                             duration={duration}
@@ -175,6 +211,9 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                             handleAccessSetting={handleAccessSetting}
                             handlerHomeworkCheck={handlerHomeworkCheck}
                             handlerSubsequence={handlerSubsequenceCheck}
+                            handlerHomeworkSubmit={handlerHomeworkSubmit}
+                            handlerTestSubmit={handlerTestSubmit}
+                            handlerTestSuccess={handlerTestSuccess}
                             handlerLockOverAi={handlerLockOverAi}
                             handleCertificate={handleCertificate}
                             handleSave={handleSaveGroupSettings}
