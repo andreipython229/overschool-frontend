@@ -93,6 +93,14 @@ export const HelpPage: FC = memo(() => {
                 </div>
               </CardActionArea>
             </div>
+            <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'check-hw'))}>
+                <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                    <h3>Проверка домашних заданий </h3>
+                   <p>Инструкция по проверке домашних заданий на платформе</p>
+                </div>
+              </CardActionArea>
+            </div>
           </div>
 
       </div>
