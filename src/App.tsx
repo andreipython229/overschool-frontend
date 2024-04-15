@@ -30,7 +30,8 @@ import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
 import { HelpCoursesPage } from './Pages/HelpCenter/HelpCoursesPage'
 import { HelpUserAccount } from 'Pages/HelpCenter/HelpUserAccount'
 import { HelpSchoolSettings } from 'Pages/HelpCenter/HelpSchoolSettings'
-
+import { HelpStudentsPage } from 'Pages/HelpCenter/HelpStudentsPage'
+import { HelpGroupSettings } from 'Pages/HelpCenter/HelpGroupSettings'
 import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
 
@@ -125,6 +126,8 @@ export const App = () => {
           <Route path={Path.HelpSchoolSettings} element={<HelpSchoolSettings />} />
           <Route path={Path.HelpOverAI} element={<HelpOverAI />} />
           <Route path={Path.Courses} element={<HelpCoursesPage />} />
+          <Route path={Path.HelpGroupSettings} element={<HelpGroupSettings />} />
+          <Route path={Path.HelpStudents} element={<HelpStudentsPage />} />
           <Route path={Path.HelpCheckHW} element={<HelpCheckHW />} />
         </Route>
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
