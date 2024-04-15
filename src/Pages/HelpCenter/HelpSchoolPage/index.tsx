@@ -1,5 +1,6 @@
 import { Button } from '../../../components/common/Button/Button'
 import register from '../../../assets/img/createProject/register.png'
+import register2 from '../../../assets/img/createProject/register2.png'
 import firstStep from '../../../assets/img/createProject/firstStep.png'
 import secondStep from '../../../assets/img/createProject/secondStep.png'
 import { headerUserRoleName } from '../../../config/headerUserRoleName'
@@ -56,15 +57,20 @@ export const HelpSchoolPage = () => {
          Для регистрации введите название платформы, электронную почту, номер телефона и пароль
          <a style={{ color: '#BA75FF', fontWeight: '600' }} href="https://overschool.by/create-school/"> на официальном сайте. </a><br/>
         </p>
-         <div className={styles.HelpCenterPage_FAQ_images}>
+        <div className={styles.HelpCenterPage_FAQ_images}>
           <img src={register} alt="Создать проект" className={styles.HelpCenterPage_FAQ_images_firstStep} />
         </div>
-        <p> После регистрации аккаунта вы попадаете на главную страницу сайта.
-        </p>
+        <br/><br/>
         <h2>Как войти в свой аккаунт</h2>
+        <p> После регистрации аккаунта вы попадаете на главную страницу сайта. Для входа на страницу созданной онлайн-платформы
+            нажмите на кнопку &quot;Войти&quot; в правом верхнем углу страницы.
+        </p>
+        <div className={styles.HelpCenterPage_FAQ_images}>
+          <img src={register2} alt="Главнвя страница" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+        </div>
         <p>
-          Для входа на страницу созданной онлайн-платформы потребуется ввести электронную почту и пароль, котрые вы указали
-         при регистрации платформы. Вы сразу попадёте на учебный портал, где сможете собирать курсы и продавать клиентам.
+           Для входа потребуется ввести электронную почту и пароль, котрые вы указали при регистрации платформы.
+           Вы сразу попадёте на учебный портал, где сможете собирать курсы и продавать клиентам.
         </p>
 
       </div>

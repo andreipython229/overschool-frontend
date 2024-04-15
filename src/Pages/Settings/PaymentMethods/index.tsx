@@ -1,13 +1,75 @@
-import { memo, useState } from 'react'
+import { memo, useState, useEffect } from 'react'
 import { Button } from 'components/common/Button/Button'
+import { useLazyFetchPaymentLinksQuery } from "../../../api/schoolService";
+import { SchoolPaymentLinkList, SchoolPaymentLink } from 'types/paymentT';
 import AddPaymentMethods from "../../../components/Modal/AddPaymentMethods/AddPaymentMethods"
+import LinkGenerating from "../../../components/Modal/LinkGenerating/LinkGenerating"
+import LinkDetail from 'components/Modal/PaymentLinkDetail/LinkDetail';
+
 import styles from './paymentMethods.module.scss'
 
 export const PaymentMethods = memo(() => {
+  const [paymentLink, setPaymentLink] = useState<SchoolPaymentLink>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalLinkOpen, setIsModalLinkOpen] = useState(false);
+  const [isModalDetailLinkOpen, setIsModalDetailLinkOpen] = useState(false);
+  const [notification, setNotification] = useState<string | null>(null);
+
+  const [paymentLinks, setPaymentLinks] = useState<SchoolPaymentLinkList>({} as SchoolPaymentLinkList);
+  const schoolIdString = localStorage.getItem('school_id');
+  const schoolId = schoolIdString ? parseInt(schoolIdString, 10) : 0;
+
+  const [fetchLinks, paymentLinksResponse] = useLazyFetchPaymentLinksQuery();
+
+  const handleNotification = (message: string) => {
+    setNotification(message);
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
+  };
+
+  useEffect(() => {
+    if (!isModalLinkOpen) {
+      const fetchData = async () => {
+        const response = await fetchLinks({ school_id: schoolId });
+        if (response.error) {
+          console.log('Ошибка при получении способов оплаты');
+          return;
+        } else if (response.data) {
+          console.log(response.data);
+          
+          setPaymentLinks(response.data);
+        }
+      };
+      fetchData();
+    }
+  }, [isModalLinkOpen]);
 
   const toggleModal = () => {
     setIsModalOpen(prevState => !prevState);
+  }
+
+  const toggleModalLink = () => {
+    setIsModalLinkOpen(prevState => !prevState);
+  }
+
+  const toggleLinkDetail = () => {
+    setIsModalDetailLinkOpen(prevState => !prevState);
+  }
+
+  const toggleModalDetailLink = (paymentLink: SchoolPaymentLink) => {
+    setPaymentLink(paymentLink);
+    toggleLinkDetail();
+  }
+
+  const handleCopyLink = (paymentLink: string) => {
+    const tempInput = document.createElement('input');
+    tempInput.value = paymentLink;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    handleNotification("Ссылка скопирована")
   }
 
   return (
@@ -23,9 +85,59 @@ export const PaymentMethods = memo(() => {
             <path style={{ color: 'slategrey'}} id="1" d="M17.4998 14.0832C15.6129 14.0832 14.0832 15.6129 14.0832 17.4998C14.0832 19.3868 15.6129 20.9165 17.4998 20.9165C19.3868 20.9165 20.9165 19.3868 20.9165 17.4998C20.9165 15.6129 19.3868 14.0832 17.4998 14.0832ZM10.6665 17.4998C10.6665 13.7259 13.7259 10.6665 17.4998 10.6665C21.2738 10.6665 24.3332 13.7259 24.3332 17.4998C24.3332 21.2738 21.2738 24.3332 17.4998 24.3332C13.7259 24.3332 10.6665 21.2738 10.6665 17.4998Z" fill="currentColor" strokeWidth=".1" fillRule="evenodd" clipRule="evenodd" />
           </svg>
         </button>
+        <Button className={styles.generateLinkButton} onClick={toggleModalLink} text="Сгенерировать ссылку" />
       </div>
+        <div>
+          <table className={styles.paymentTable}>
+            <thead>
+              <tr>
+                <th style={{ color: 'slategrey' }}>Дата создания ссылки</th>
+                <th style={{ color: 'slategrey' }}>Ссылка для оплаты</th>
+                <th style={{ color: 'slategrey' }}></th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(paymentLinks).map(([key, paymentLink], index) => (
+                <tr key={index + 1}>
+                  <td>
+                    {new Date(paymentLink.created).toLocaleString()}
+                  </td>
+                  <td>
+                    <a
+                      href={paymentLink.payment_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCopyLink(paymentLink.payment_link);
+                      }}
+                    >
+                      {paymentLink.payment_link}
+                    </a>
+                  </td>
+                  <td style={{ textAlign: "right" }}>
+                      <Button
+                        className={styles.detailButton} // Добавляем класс из модуля стилей
+                        onClick={() => toggleModalDetailLink(paymentLink)}
+                        text="Подробнее"
+                      />
+                    </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {notification && (
+            <div className={styles.notificationContainer}>
+              {notification}
+            </div>
+          )}
+        </div>
 
       <AddPaymentMethods isOpen={isModalOpen} onClose={toggleModal} />
+      <LinkGenerating isOpen={isModalLinkOpen} onClose={toggleModalLink} />
+      {paymentLink && (
+          <LinkDetail isOpen={isModalDetailLinkOpen} onClose={toggleLinkDetail} paymentLink={paymentLink} />
+      )}
     </div>
   )
 })

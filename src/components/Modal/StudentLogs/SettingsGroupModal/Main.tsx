@@ -19,6 +19,9 @@ import {sectionLessons} from "../../../../types/lessonAccessT";
 type MainSettingsGroupPropsT = {
     strongSubsequence: boolean
     blockHomework: boolean
+    submitHomework: boolean
+    submitTest: boolean
+    successTest: boolean
     overAiLock: boolean
     certificate: boolean
     title: string
@@ -32,6 +35,9 @@ type MainSettingsGroupPropsT = {
     handlerIsLimited: any
     handlerHomeworkCheck: () => void
     handlerSubsequence: () => void
+    handlerHomeworkSubmit: () => void
+    handlerTestSubmit: () => void
+    handlerTestSuccess: () => void
     handlerLockOverAi: () => void
     handleCertificate: () => void
     handleSave: (data: any) => Promise<void>
@@ -47,6 +53,9 @@ type MainSettingsGroupPropsT = {
 export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    strongSubsequence,
                                                                    blockHomework,
+                                                                   submitHomework,
+                                                                   submitTest,
+                                                                   successTest,
                                                                    overAiLock,
                                                                    certificate,
                                                                    title,
@@ -55,6 +64,9 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    isError,
                                                                    handlerHomeworkCheck,
                                                                    handlerSubsequence,
+                                                                   handlerHomeworkSubmit,
+                                                                   handlerTestSubmit,
+                                                                   handlerTestSuccess,
                                                                    handlerLockOverAi,
                                                                    handleCertificate,
                                                                    deleteGroup,
@@ -164,12 +176,36 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                             <span>Ученик сможет приступить к следующему занятию только после прохождения предыдущего</span>
                         </div>
                     </div>
+                    <div className={styles.groupSetting_checkboxBlock_checkbox}>
+                        <Checkbox id={'submitHomework'} name={'submitHomework'} checked={submitHomework}
+                                  onChange={handlerHomeworkSubmit}/>
+                        <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
+                            <span style={blockHomework || !strongSubsequence ? {color: "#e5e7eb"} : {}}>Необходимость отправки домашних заданий</span>
+                            <span>Ученик сможет приступить к следующему занятию только после отправки очередного домашнего задания</span>
+                        </div>
+                    </div>
+                    <div className={styles.groupSetting_checkboxBlock_checkbox}>
+                        <Checkbox id={'submitTest'} name={'submitTest'} checked={submitTest}
+                                  onChange={handlerTestSubmit}/>
+                        <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
+                            <span style={blockHomework || !strongSubsequence ? {color: "#e5e7eb"} : {}}>Необходимость отправки тестов</span>
+                            <span>Ученик сможет приступить к следующему занятию только после прохождения очередного теста (с любым результатом)</span>
+                        </div>
+                    </div>
+                    <div className={styles.groupSetting_checkboxBlock_checkbox}>
+                        <Checkbox id={'successTest'} name={'successTest'} checked={successTest}
+                                  onChange={handlerTestSuccess}/>
+                        <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
+                            <span style={blockHomework || !strongSubsequence || !submitTest ? {color: "#e5e7eb"} : {}}>Необходимость успешного прохождения тестов</span>
+                            <span>Ученик сможет приступить к следующему занятию только после успешного прохождения очередного теста (необходимо набрать требуемый процент правильных ответов)</span>
+                        </div>
+                    </div>
                     {schoolTariff != null && parseInt(schoolTariff, 10) !== 1 && (
                         <div className={styles.groupSetting_checkboxBlock_checkbox}>
                             <Checkbox id={'overAiLock'} name={'overAiLock'} checked={overAiLock} onChange={handlerLockOverAi}/>
                             <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
                                 <span>Включить OVER AI</span>
-                                <span>Ученики групп смогут пользоваться OVER AI</span>
+                                <span>Ученики группы смогут пользоваться OVER AI</span>
                             </div>
                         </div>
                     )}

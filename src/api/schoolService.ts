@@ -2,27 +2,15 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { schoolT } from '../types/schoolHeaderT'
 import { UpdateCourses } from './apiTypes'
 import { baseQuery } from './baseApi'
-
-interface ResponsePaymentMethod {
-  id: number;
-  payment_method: string;
-  payment_method_name: string;
-  payment_link: string;
-  secret_key: string;
-  school: number;
-}
-
-interface PaymentMethod {
-  payment_method: string;
-  payment_method_name: string;
-  payment_link: string;
-  secret_key: string;
-  school: number;
-}
-
-interface PaymentMethodListResponse {
-  results: ResponsePaymentMethod[];
-}
+import {  
+  PaymentMethod, 
+  PaymentMethodListResponse, 
+  PaymentLinkCreatePayload, 
+  SchoolPaymentLinkList,
+  CreatePaymentLinkResponse,
+  SchoolPaymentLink,
+  UpdatePaymentLinkPayload
+} from '../types/paymentT';
 
 export const schoolService = createApi({
   reducerPath: 'schoolService',
@@ -85,10 +73,36 @@ export const schoolService = createApi({
       }),
     }),
     deletePaymentMethod: build.mutation<PaymentMethodListResponse, string>({
-      query: paymentLink => ({
+      query: account_no => ({
         url: `/payment_method/`,
         method: 'DELETE',
-        body: { paymentLink },
+        body: { account_no },
+      }),
+    }),
+    createPaymentLink: build.mutation<CreatePaymentLinkResponse, PaymentLinkCreatePayload>({
+      query: data => ({
+        url: `/payment_link/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    fetchPaymentLinks: build.query<SchoolPaymentLinkList, { school_id: number }>({
+      query: ({ school_id }) => ({
+        url: `/payment_link/?school_id=${school_id}`,
+        method: 'GET',
+      }),
+    }),
+    deletePaymentLink: build.mutation<void, number>({
+      query: invoice_no => ({
+        url: `/payment_link/${invoice_no}/`,
+        method: 'DELETE',
+      }),
+    }),
+    updatePaymentLink: build.mutation<SchoolPaymentLink, UpdatePaymentLinkPayload>({
+      query: data => ({
+        url: `/payment_link/${data.id}/`,
+        method: 'PATCH',
+        body: { data },
       }),
     }),
   }),
@@ -105,4 +119,8 @@ export const {
   useSetPaymentMethodMutation,
   useLazyFetchPaymentMethodsQuery,
   useDeletePaymentMethodMutation,
+  useCreatePaymentLinkMutation,
+  useLazyFetchPaymentLinksQuery,
+  useDeletePaymentLinkMutation,
+  useUpdatePaymentLinkMutation
 } = schoolService;
