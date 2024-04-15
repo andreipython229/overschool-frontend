@@ -19,6 +19,7 @@ import { RedactorCourse } from 'Pages/School/Navigations/CoursesCreating/Redacto
 import { Constructor } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/Constructor'
 import { SettingCourse } from 'Pages/School/Navigations/CoursesCreating/SettingCourse/SettingCourse'
 import { StudentsStats } from 'Pages/School/StudentsStats/StudentsStats'
+import { Comments } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Comments/Comments'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
 import { Group } from '../Pages/Group'
@@ -67,6 +68,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
           <Route path={CreateCoursePath.Constructor} element={<Constructor />} />
           <Route path={CreateCoursePath.Student} element={<StudentsStats />} />
           <Route path={CreateCoursePath.Settings} element={<SettingCourse />} />
+          <Route path={CreateCoursePath.Comments} element={<Comments />} />
         </Route>
       </Route>
       <Route path={Path.Profile} element={<Profile />} />
