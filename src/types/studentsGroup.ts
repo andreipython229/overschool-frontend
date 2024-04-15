@@ -18,6 +18,9 @@ export type studentsGroupsT = {
     group_settings?: {
         strict_task_order: boolean,
         task_submission_lock: boolean
+        submit_homework_to_go_on: boolean
+        submit_test_to_go_on: boolean
+        success_test_to_go_on: boolean
         overai_lock: boolean
     }
     type?: string
