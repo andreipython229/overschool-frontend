@@ -4,6 +4,7 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { Button } from 'components/common/Button/Button'
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
 import { useLazyFetchPaymentMethodsQuery, useCreatePaymentLinkMutation } from 'api/schoolService';
+import { useCreateNewLinkMutation, useCreateTestNewLinkMutation } from 'api/paymentModules';
 import { ResponsePaymentMethod } from '../../../types/paymentT'
 
 import styles from './linkGenerating.module.scss';
@@ -13,13 +14,15 @@ interface LinkGeneratingProps {
   onClose: () => void;
 }
 
-const LinkGenerating: React.FC<LinkGeneratingProps> = ({ isOpen, onClose }) => {
+export const LinkGenerating: React.FC<LinkGeneratingProps> = ({ isOpen, onClose }) => {
   const [price, setPrice] = useState('');
   const [currency, setCurrency] = useState('');
   const [error, setError] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<ResponsePaymentMethod | null>(null);
   const [fetchPaymentMethods, paymentMethodsResponse] = useLazyFetchPaymentMethodsQuery();
   const [createPaymentLinkMutationFunction] = useCreatePaymentLinkMutation();
+  const [ createNewLink, newLinkData ] = useCreateNewLinkMutation();
+  const [ createTestNewLink, newTestLinkData ] = useCreateTestNewLinkMutation();
 
   const schoolIdString = localStorage.getItem('school_id');
   const schoolId = schoolIdString ? parseInt(schoolIdString, 10) : 0;
@@ -56,7 +59,7 @@ const LinkGenerating: React.FC<LinkGeneratingProps> = ({ isOpen, onClose }) => {
       return;
     }
 
-    // const requestData = {
+    // const requestTestData = {
     //   Token: 'a75b74cbcfe446509e8ee874f421bd64',
     //   AccountNo: 10,
     //   Amount: parseFloat(price),
@@ -70,7 +73,7 @@ const LinkGenerating: React.FC<LinkGeneratingProps> = ({ isOpen, onClose }) => {
 
     const requestData = {
       Token: paymentMethod.api_key,
-      AccountNo: paymentMethod.account_no,
+      AccountNo: parseInt(paymentMethod.account_no),
       Amount: parseFloat(price),
       Surname: "",
       FirstName: "",
@@ -81,20 +84,41 @@ const LinkGenerating: React.FC<LinkGeneratingProps> = ({ isOpen, onClose }) => {
     };
   
     try {
-      // const url = `https://sandbox-api.express-pay.by/v1/invoices?token=${requestData.Token}`;
-      const url = `https://api.express-pay.by/v1/invoices?token=${requestData.Token}`
-      const response = await axios.post(url, requestData);
+      const response = await createNewLink(requestData);
+      // const response = await createTestNewLink(requestTestData)
       
-      if (response.data?.InvoiceNo && response.data?.InvoiceUrl) {
+      
+      if ('data' in response && response.data && 'InvoiceNo' in response.data && 'InvoiceUrl' in response.data) {
+        console.log(response.data.InvoiceNo);
+        
+        const invoiceNo: string | number = response.data.InvoiceNo || '';
+        const invoiceUrl: string = response.data.InvoiceUrl || '';
+
         const createPaymentLinkResponse = await createPaymentLinkMutationFunction({
-          invoice_no: response.data.InvoiceNo,
+          invoice_no: typeof invoiceNo === 'string' ? parseInt(invoiceNo) : invoiceNo,
           school_id: schoolId,
           payment_method: paymentMethod?.id || 0,
-          payment_link: response.data?.InvoiceUrl,
+          payment_link: invoiceUrl,
           amount: requestData.Amount,
           api_key: paymentMethod.api_key,
           currency: currency === 'BYN' ? '933' : currency === 'RUB' ? '643' : '840'
         });
+  
+        // const createTestPaymentLinkResponse = await createPaymentLinkMutationFunction({
+        //     invoice_no: typeof invoiceNo === 'string' ? parseInt(invoiceNo) : invoiceNo,
+        //     school_id: schoolId,
+        //     payment_method: paymentMethod?.id || 0,
+        //     payment_link: invoiceUrl,
+        //     amount: requestData.Amount,
+        //     api_key: paymentMethod.api_key,
+        //     currency: currency === 'BYN' ? '933' : currency === 'RUB' ? '643' : '840'
+        // });
+
+        // if ('data' in createTestPaymentLinkResponse && 'response' in createTestPaymentLinkResponse.data && typeof createTestPaymentLinkResponse.data.response === 'string' && createTestPaymentLinkResponse.data.response === 'success') {
+        //   onClose();
+        // } else {
+        //   setError('Не удалось добавить информацию о ссылке для оплаты в базу данных');
+        // }
 
         if ('data' in createPaymentLinkResponse && 'response' in createPaymentLinkResponse.data && typeof createPaymentLinkResponse.data.response === 'string' && createPaymentLinkResponse.data.response === 'success') {
           onClose();

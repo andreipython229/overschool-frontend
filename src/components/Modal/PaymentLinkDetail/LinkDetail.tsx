@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
-import { Button } from 'components/common/Button/Button'
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
 import { useUpdatePaymentLinkMutation } from 'api/schoolService';
+import { useLazyFetchInvoiceDetailsQuery, useLazyFetchInvoiceDetailsTestQuery } from 'api/paymentModules';
 import { SchoolPaymentLink } from '../../../types/paymentT';
 
 import styles from './linkDetail.module.scss';
@@ -18,6 +18,8 @@ const LinkDetail: React.FC<LinkDetailProps> = ({ isOpen, onClose, paymentLink })
 
   const [selectedPaymentLink, setSelectedPaymentLink] = useState<SchoolPaymentLink | null>(null);
   const [updatePaymentLink, paymentLinkData] = useUpdatePaymentLinkMutation();
+  const [ fetchLinkDetails, invoiceDetailsData ] = useLazyFetchInvoiceDetailsQuery();
+  const [ fetchTestLinkDetails, invoiceTestDetailsData ] = useLazyFetchInvoiceDetailsTestQuery();
 
   useEffect(() => {
     if (paymentLink && paymentLink.status === null) {
@@ -29,24 +31,44 @@ const LinkDetail: React.FC<LinkDetailProps> = ({ isOpen, onClose, paymentLink })
 
   const fetchInvoiceDetails = async (invoiceNo: number, apiKey: string) => {
     try {
-      const response = await axios.get(`https://api.express-pay.by/v1/invoices/${invoiceNo}?token=${apiKey}`);
-      // const response = await axios.get(`https://sandbox-api.express-pay.by/v1/invoices/${invoiceNo}?token=a75b74cbcfe446509e8ee874f421bd64`);
-      const { Status, FirstName, Surname, Patronymic } = response.data;
-      
-      const updateResponse = await updatePaymentLink({
-        id: 1,
-        payment_link: paymentLink.payment_link,
-        status: Status,
-        first_name: FirstName,
-        last_name: Surname,
-        patronymic: Patronymic
-      })
-
-      if ('data' in updateResponse) {
-        setSelectedPaymentLink(updateResponse.data);
+      await fetchLinkDetails({ invoiceNo, apiKey });
+      // await fetchTestLinkDetails();
+  
+      if (invoiceDetailsData.data) {
+        const { Status, FirstName, Surname, Patronymic } = invoiceDetailsData.data;
+  
+        const updateResponse = await updatePaymentLink({
+          id: 1,
+          payment_link: paymentLink.payment_link,
+          status: Status,
+          first_name: FirstName,
+          last_name: Surname,
+          patronymic: Patronymic
+        })
+  
+        if ('data' in updateResponse) {
+          setSelectedPaymentLink(updateResponse.data);
+        }
       }
+      
+      // if (invoiceTestDetailsData.data) {
+      //   const { Status, FirstName, Surname, Patronymic } = invoiceTestDetailsData.data;
+  
+      //   const updateResponse = await updatePaymentLink({
+      //     id: 1,
+      //     payment_link: paymentLink.payment_link,
+      //     status: Status,
+      //     first_name: FirstName,
+      //     last_name: Surname,
+      //     patronymic: Patronymic
+      //   })
+  
+      //   if ('data' in updateResponse) {
+      //     setSelectedPaymentLink(updateResponse.data);
+      //   }
+      // }
     } catch (error) {
-      console.error('Error fetching invoice details:', error);
+      console.error('Ошибка при получении деталей счета:', error);
     }
   };
 

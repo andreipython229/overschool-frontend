@@ -62,3 +62,24 @@ export interface ResponsePaymentMethod {
     last_name?: string | null;
     patronymic?: string | null;
   }
+
+  export interface CreatePaymentRequestData {
+    Token: string;
+    AccountNo: number;
+    Amount: number;
+    Surname: string;
+    FirstName: string;
+    Patronymic: string;
+    Currency: number;
+    IsNameEditable: number;
+    ReturnInvoiceUrl: number;
+  }
+  
+  export interface FetchInvoiceDetailsRequestData {
+    Token: string;
+  }
+
+  export interface ResponseData {
+    InvoiceNo?: string;
+    InvoiceUrl?: string;
+  }
