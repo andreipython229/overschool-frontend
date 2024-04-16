@@ -10,6 +10,7 @@ import { BLOCK_TYPE } from 'enum/blockTypeE'
 import { Reorder } from 'framer-motion'
 import { PreviewCodeBlock } from 'components/blocks/codeBlock'
 import { MathEditor } from 'components/MathEditor'
+import { BlockLinkButton } from 'components/BlockButtons/BlockLinkButton'
 
 type adminLessonT = {
   lesson: ILesson
@@ -53,7 +54,19 @@ export const renderStudentBlocks = (lesson: commonLessonT) => {
           if ('formula' in block && block.formula) {
             return <MathEditor key={block.id} edit={false} block={block} latex={block.formula} />
           } else {
-            null
+            return <></>
+          }
+        case BLOCK_TYPE.BUTTONS:
+          if ('buttons' in block && block.buttons) {
+            return (
+              <div style={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                {block.buttons.map((button, index) => (
+                  <BlockLinkButton key={`${button.id}_${index}`} button={button} color={button.color} />
+                ))}
+              </div>
+            )
+          } else {
+            return <></>
           }
       }
     })

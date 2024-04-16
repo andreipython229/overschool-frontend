@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
-import { IBlockCode, IBlockDesc, IBlockPic, IBlockVid } from 'types/sectionT'
+import { BlockButtonT, IBlockCode, IBlockDesc, IBlockPic, IBlockVid, IButton } from 'types/sectionT'
 
 type OrderT = {
   block_id: number | string
@@ -50,6 +50,26 @@ export const blocksService = createApi({
       }),
       invalidatesTags: ['updateBlock'],
     }),
+    createButtons: build.mutation<any, { data: BlockButtonT; schoolName: string }>({
+      query: arg => ({
+        url: `/${arg.schoolName}/block_buttons/`,
+        method: 'POST',
+        body: arg.data,
+      }),
+    }),
+    updateButtonsData: build.mutation<any, { data: IButton; schoolName: string }>({
+      query: arg => ({
+        url: `/${arg.schoolName}/block_buttons/${arg.data.id}/`,
+        method: 'PATCH',
+        body: arg.data,
+      }),
+    }),
+    deleteButton: build.mutation<void, { id: number; schoolName: string }>({
+      query: arg => ({
+        url: `/${arg.schoolName}/block_buttons/${arg.id}/`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
@@ -59,4 +79,7 @@ export const {
   useUpdateBlockDataMutation,
   useOrderUpdateMutation,
   useUpdatePictureBlockDataMutation,
+  useCreateButtonsMutation,
+  useUpdateButtonsDataMutation,
+  useDeleteButtonMutation,
 } = blocksService

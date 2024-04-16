@@ -1,7 +1,7 @@
 import { FC, PointerEvent } from 'react'
 import styles from './addPicture.module.scss'
 import { AddPostT } from 'types/componentsTypes'
-import { useDeleteBlockMutation, useUpdateBlockDataMutation, useUpdatePictureBlockDataMutation } from 'api/blocksService'
+import { useDeleteBlockMutation, useUpdatePictureBlockDataMutation } from 'api/blocksService'
 import { Reorder, useDragControls } from 'framer-motion'
 import { deletePath } from 'config/commonSvgIconsPath'
 import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
@@ -28,7 +28,6 @@ export const AddPicture: FC<AddPostT> = ({ block, setLessonBlocks, lessonBlocks,
   }
 
   const handlePictureUpload = (blockId: number, picture: File) => {
-    console.log(picture)
     if (picture && blockId && block && lessonBlocks && setLessonBlocks) {
       const dataJson = {
         picture: picture,
@@ -76,7 +75,7 @@ export const AddPicture: FC<AddPostT> = ({ block, setLessonBlocks, lessonBlocks,
         <div className={styles.videoHandlerWrapper}>
           <div className={styles.redactorCourse_rightSide_functional_addContent}>
             {pictureUrl ? (
-              <img src={pictureUrl} alt={'Lesson picture'} />
+              <img width={'100%'} src={pictureUrl} alt={'Lesson picture'} />
             ) : (
               <>
                 <input
@@ -86,7 +85,11 @@ export const AddPicture: FC<AddPostT> = ({ block, setLessonBlocks, lessonBlocks,
                   type="file"
                   multiple
                 />
-                <img style={{ width: '4rem', height: '4rem', color: '#8a49b5', marginBottom: '0.5rem' }} src={Picture} />
+                {isSaving ? (
+                  <SimpleLoader style={{ height: '3rem', width: '3rem' }} />
+                ) : (
+                  <img style={{ width: '4rem', height: '4rem', color: '#8a49b5', marginBottom: '0.5rem' }} src={Picture} />
+                )}
                 <span>Загрузите новое изображение с вашего устройства</span>
                 <Button type={'button'} disabled={isSaving} variant={'primary'} text={'Выбрать файл'} />
               </>
