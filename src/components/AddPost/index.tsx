@@ -8,11 +8,12 @@ import Video from '../.././assets/img/createCourse/video.svg'
 import Code from '../.././assets/img/createCourse/code.svg'
 import Picture from '../.././assets/img/createCourse/picture.svg'
 import Formula from '../.././assets/img/createCourse/formula.svg'
-import { useMediaQuery } from '@mui/material';
+import Link from '../.././assets/img/createCourse/link.svg'
+import { useMediaQuery } from '@mui/material'
 import styles from './addPost.module.scss'
 import { useCreateBlockMutation } from 'api/blocksService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
-import CustomizedMenus from "../CustomizedMenu";
+import CustomizedMenus from '../CustomizedMenu'
 
 export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview, setLessonBlocks, lessonBlocks }) => {
   const schoolName = window.location.href.split('/')[4]
@@ -22,7 +23,7 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
   const debounced = useDebounceFunc(addPatchData, 2000)
   const disabledBtn: boolean = lessonIdAndType?.type === 'test'
 
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery('(max-width:600px)')
 
   const blockCreateFunc = (blockType: string) => {
     if (lesson && blockType) {
@@ -52,7 +53,6 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
     }
   }
 
-
   return (
     <section className={styles.redactorCourse_rightSide_functional_creating}>
       {isMobile ? (
@@ -65,16 +65,41 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
               <SimpleLoader style={{ width: '200px', height: '100px' }} />
             ) : (
               <>
-                <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('description')} text={'Текст'} alt={'Add text for lesson'} src={Text} />
+                <ContentBtn
+                  disabled={disabledBtn}
+                  func={() => blockCreateFunc('description')}
+                  text={'Текст'}
+                  alt={'Add text for lesson'}
+                  src={Text}
+                />
                 <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('video')} text={'Видео'} alt={'Add video for lesson'} src={Video} />
                 <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('code')} text={'Код'} alt={'Add code for lesson'} src={Code} />
-                <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('picture')} text={'Картинка'} alt={'Add picture for lesson'} src={Picture} />
-                <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('formula')} text={'Формула'} alt={'Add picture for lesson'} src={Formula} />
+                <ContentBtn
+                  disabled={disabledBtn}
+                  func={() => blockCreateFunc('picture')}
+                  text={'Картинка'}
+                  alt={'Add picture for lesson'}
+                  src={Picture}
+                />
+                <ContentBtn
+                  disabled={disabledBtn}
+                  func={() => blockCreateFunc('formula')}
+                  text={'Формула'}
+                  alt={'Add formula for lesson'}
+                  src={Formula}
+                />
+                <ContentBtn
+                  disabled={disabledBtn}
+                  func={() => blockCreateFunc('buttons')}
+                  text={'Ссылка'}
+                  alt={'Add link for lesson'}
+                  src={Link}
+                />
               </>
             )}
           </div>
         </>
       )}
     </section>
-  );
-});
+  )
+})
