@@ -5,7 +5,7 @@ const cookies = new Cookies()
 
 // При развёртывании локально для получения кук на localhost - ставим true
 // Не забываем ставить false перед деплоем!!!
-const developmentMode = false;
+const developmentMode = true;
 
 export const baseQuery = (baseUrl = `/api/`) => {
   return fetchBaseQuery({
