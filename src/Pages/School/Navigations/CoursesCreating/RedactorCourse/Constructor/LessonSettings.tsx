@@ -33,6 +33,7 @@ import { Checkbox } from '../../../../../../components/common/Checkbox/Checkbox'
 import { AddPicture } from 'components/AddPicture'
 import { AddAudio } from 'components/AddAudio'
 import { MathEditor } from 'components/MathEditor'
+import { BlockButtons } from 'components/BlockButtons'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
@@ -225,6 +226,8 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
           } else {
             return <MathEditor key={block.id} edit={true} block={block} lessonBlocks={lessonBlocks} setLessonBlocks={setLessonBlocks} latex={''} />
           }
+        case BLOCK_TYPE.BUTTONS:
+          return <BlockButtons key={block.id} block={block} lessonBlocks={lessonBlocks} setLessonBlocks={setLessonBlocks} />
       }
     })
   }

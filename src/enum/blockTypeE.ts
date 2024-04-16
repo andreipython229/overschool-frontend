@@ -4,4 +4,5 @@ export enum BLOCK_TYPE {
   VIDEO = 'video',
   PICTURE = 'picture',
   MATH = 'formula',
+  BUTTONS = 'buttons',
 }
