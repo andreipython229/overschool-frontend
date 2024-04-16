@@ -52,8 +52,11 @@ export const renderStudentBlocks = (lesson: commonLessonT) => {
           }
         case BLOCK_TYPE.MATH:
           if ('formula' in block && block.formula) {
-            return <MathEditor key={block.id} edit={false} block={block} latex={block.formula} />
-          } else {
+            return (
+              <div className={styles.math}>
+                <MathEditor key={block.id} edit={false} block={block} latex={block.formula} />
+              </div>
+            )} else {
             return <></>
           }
         case BLOCK_TYPE.BUTTONS:
