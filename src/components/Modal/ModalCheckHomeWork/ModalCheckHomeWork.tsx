@@ -180,7 +180,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
         <div className={styles.task_container}>
           <button className={styles.btn_grey} onClick={() => setIsHwOpen(open => !open)}>
             <IconSvg width={19} height={20} viewBoxSize="0 0 19 20" path={taskIconPath} />
-            <span>Посмотреть задание</span>
+            <span>Посмотреть задачу в чек-поинте</span>
           </button>
           {isHwOpen && (
             <div className={styles.task_modal}>
@@ -225,7 +225,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
           </span>
         </div>
 
-        <div className={styles.task_info_item}>
+        {/* <div className={styles.task_info_item}>
           <IconSvg width={16} height={18} viewBoxSize="0 0 16 18" path={humanIconPath} />
           <span>Проверяющий: </span>
           {!isUser && (
@@ -243,7 +243,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
               </span>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
       <h3 className={styles.answer_hw_header}>Последний ответ {isUser ? 'ученика' : 'ментора'}</h3>
       <div className={styles.teacher}>

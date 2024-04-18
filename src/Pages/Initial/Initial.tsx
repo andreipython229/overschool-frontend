@@ -52,12 +52,12 @@ export const Initial = () => {
       <div className={styles.init_main}>
         <section className={styles.init_main_wrapper}>
           <h1 className={styles.init_main__title}>
-            <strong>Первая белорусская онлайн платформа</strong>
+            <strong>Платформа справочных материалов</strong>
           </h1>
           <div className={styles.init_main__link}>
             <div>Найди свое направление</div>
             <NavLink to={Path.Catalog} className={styles.goBtn}>
-              Каталог курсов
+              Каталог справочных материалов
             </NavLink>
           </div>
         </section>

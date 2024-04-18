@@ -28,12 +28,12 @@ export const MobileInitPage = () => {
         variant={'logIn'}
         text={''}
       >
-        <p>Каталог курсов</p>
+        <p>Каталог справочных материалов</p>
         <ManageSearch />
       </Button>
       <div className={styles.container_blur} />
       <div className={styles.initPage}>
-        <h1 style={{ textAlign: 'center' }}>Первая белорусская онлайн платформа</h1>
+        <h1 style={{ textAlign: 'center' }}>Платформа справочных материалов</h1>
         <div className={styles.initPage_footer}>
           <div className={styles.initPage_footer_text}>
             <p>
