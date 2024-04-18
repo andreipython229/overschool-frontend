@@ -43,7 +43,7 @@ export const MobileInitPage = () => {
           </div>
 
           <Button onClick={showLoginModal} variant={'primary'} text={'Вперед'} />
-          <Button
+          {/* <Button
             onClick={handleTariffPage}
             variant={'logIn'}
             text={'Тарифы'}
@@ -55,7 +55,7 @@ export const MobileInitPage = () => {
               color: 'white',
               fontSize: '16px',
             }}
-          />
+          /> */}
         </div>
       </div>
     </div>
