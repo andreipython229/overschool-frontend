@@ -22,7 +22,7 @@ export const MobileInitPage = () => {
   return (
     <div className={styles.container}>
       {openLoginModal && <MobileLoginModal setShowModal={showLoginModal} />}
-      <Button
+      {/* <Button
         style={{ position: 'absolute', top: '2rem', right: '0', color: 'white', display: 'flex', alignItems: 'center', gap: '2px' }}
         onClick={() => navigate(Path.Catalog)}
         variant={'logIn'}
@@ -30,7 +30,7 @@ export const MobileInitPage = () => {
       >
         <p>Каталог справочных материалов</p>
         <ManageSearch />
-      </Button>
+      </Button> */}
       <div className={styles.container_blur} />
       <div className={styles.initPage}>
         <h1 style={{ textAlign: 'center' }}>Платформа справочных материалов</h1>

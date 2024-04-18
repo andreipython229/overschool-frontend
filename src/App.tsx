@@ -104,10 +104,10 @@ export const App = () => {
   return (
     <div className={styles.container}>
       <Routes>
-        <Route path={Path.Catalog}>
+        {/* <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />
           <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
-        </Route>
+        </Route> */}
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
           <Route path={FooterPath.PWA} element={<PWA />} />
