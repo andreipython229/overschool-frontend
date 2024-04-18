@@ -56,8 +56,8 @@ export const Initial = () => {
           </h1>
           <div className={styles.init_main__link}>
             <div>Найди свое направление</div>
-            <NavLink to={Path.Catalog} className={styles.goBtn}>
-              Каталог справочных материалов
+            <NavLink to={Path.InitialPage} className={styles.goBtn}>
+              Вперед!
             </NavLink>
           </div>
         </section>
