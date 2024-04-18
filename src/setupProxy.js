@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     '/api/socket.io',
     createProxyMiddleware({
-      target: 'http://sanbox.overschool.by',
+      target: 'http://sandbox.overschool.by',
       ws: true,
       changeOrigin: true,
       secure: false,
@@ -14,7 +14,7 @@ module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://sanbox.overschool.by',
+      target: 'http://sandbox.overschool.by',
       changeOrigin: true,
       secure: false,
     }),
