@@ -26,6 +26,7 @@ import { ResetPassword } from 'Pages/ResetPassword'
 import { Certificate } from 'Pages/Certificate/Certificate'
 import { CourseCatalogPage } from 'Pages/CourseCatalog'
 import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
+import { LoginPage } from 'Pages/Login/LoginPage'
 
 export const AppMobile = () => {
   const { role } = useAppSelector(selectUser)
@@ -93,6 +94,7 @@ export const AppMobile = () => {
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
         <Route path={Path.Certificate} element={<Certificate />} />
+        <Route path={Path.LoginPage} element={<LoginPage />} />
         <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />
           <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />

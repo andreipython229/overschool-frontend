@@ -170,7 +170,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
           />
         </div>
       )}
-      <div className={styles.previous_onlineCourses}>Онлайн-курс</div>
+      <div className={styles.previous_onlineCourses}>Материал</div>
       <div className={styles.previous_title_name}>{course?.name}</div>
       <div className={styles.previous_courseInfo}>
         {teacher_id !== undefined ? (
@@ -182,14 +182,14 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
           <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
             {lessonSvgMapper['lesson']}
             <span style={{ marginLeft: '0.6em' }}>
-              {`${countOfLessons['lesson']} ${countOfLessons && getNounDeclension(countOfLessons['lesson'], ['занятие', 'занятия', 'занятий'])}`}
+              {`${countOfLessons['lesson']} ${countOfLessons && getNounDeclension(countOfLessons['lesson'], ['материал', 'материала', 'материалов'])}`}
             </span>
           </div>
         )}
         {countOfLessons && countOfLessons['homework'] && (
           <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
             {lessonSvgMapper['homework']}
-            <span>{`${countOfLessons['homework']} ${getNounDeclension(countOfLessons['homework'], ['задание', 'задания', 'заданий'])}`}</span>
+            <span>{`${countOfLessons['homework']} ${getNounDeclension(countOfLessons['homework'], ['чек-поинт', 'чек-поинта', 'чек-поинтов'])}`}</span>
           </div>
         )}
         {countOfLessons && countOfLessons['test'] && (
