@@ -22,18 +22,18 @@ export const MobileInitPage = () => {
   return (
     <div className={styles.container}>
       {openLoginModal && <MobileLoginModal setShowModal={showLoginModal} />}
-      <Button
+      {/* <Button
         style={{ position: 'absolute', top: '2rem', right: '0', color: 'white', display: 'flex', alignItems: 'center', gap: '2px' }}
         onClick={() => navigate(Path.Catalog)}
         variant={'logIn'}
         text={''}
       >
-        <p>Каталог курсов</p>
+        <p>Каталог справочных материалов</p>
         <ManageSearch />
-      </Button>
+      </Button> */}
       <div className={styles.container_blur} />
       <div className={styles.initPage}>
-        <h1 style={{ textAlign: 'center' }}>Первая белорусская онлайн платформа</h1>
+        <h1 style={{ textAlign: 'center' }}>Платформа справочных материалов</h1>
         <div className={styles.initPage_footer}>
           <div className={styles.initPage_footer_text}>
             <p>
@@ -43,7 +43,7 @@ export const MobileInitPage = () => {
           </div>
 
           <Button onClick={showLoginModal} variant={'primary'} text={'Вперед'} />
-          <Button
+          {/* <Button
             onClick={handleTariffPage}
             variant={'logIn'}
             text={'Тарифы'}
@@ -55,7 +55,7 @@ export const MobileInitPage = () => {
               color: 'white',
               fontSize: '16px',
             }}
-          />
+          /> */}
         </div>
       </div>
     </div>

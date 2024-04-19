@@ -73,7 +73,7 @@ export const CoursePage: FC = () => {
   return (
     <>
       <div className={styles.container}>
-        <Input role="search-input" name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по курсам">
+        <Input role="search-input" name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по материалам">
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
         {/* <div className={styles.course_all}>
@@ -103,7 +103,7 @@ export const CoursePage: FC = () => {
               {role !== RoleE.Student && (
                 <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
                   <span className={styles.course_addCourse}>
-                    <span>Создать курс</span>
+                    <span>Добавить материал</span>
                   </span>
                 </button>
               )}

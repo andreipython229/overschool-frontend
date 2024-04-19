@@ -264,7 +264,7 @@ export const LoginPage = () => {
                 <Button type="submit" text={'Войти'} style={{ width: '246px' }} variant={'primary'} />
               </div>
               <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn}>
-                <a href="" onClick={forgotPass} className={styles.main_btn_href}>
+                <a href="" onClick={forgotPass} style={{ textDecoration: 'none', width: 'max-content', display: 'inline-flex' }}>
                   Забыли пароль?
                 </a>
               </div>
