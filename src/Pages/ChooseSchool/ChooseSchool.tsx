@@ -281,9 +281,9 @@ export const ChooseSchool = () => {
                   </p>
                 )}
               </div>
-              <div className={styles.create} onClick={off}>
+              {/* <div className={styles.create} onClick={off}>
                 <span>cоздать платформу</span>
-              </div>
+              </div> */}
             </motion.div>
           )}
         </div>
