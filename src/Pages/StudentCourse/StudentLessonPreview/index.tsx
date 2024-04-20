@@ -30,6 +30,9 @@ export const StudentLessonPreview: FC = () => {
   }, [params])
 
   const activeLessonIndex = lessons?.lessons.findIndex(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
+  const activeLesson = lessons?.lessons.find(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
+  const sended = activeLesson?.sended
+  const completed = activeLesson?.completed
 
   const renderUI = () => {
     if (isSuccess && lessons) {
