@@ -1,8 +1,8 @@
 import { HomeWork } from 'Pages/HomeWork/HomeWork'
 import { IFile } from './filesT'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
-import {useState} from "react";
-import {extend} from "lodash";
+import { useState } from 'react'
+import { extend } from 'lodash'
 
 export interface IBlockDesc {
   id: number
@@ -42,8 +42,29 @@ export interface IBlockPic {
   order: number
 }
 
+export interface IBlockButtons {
+  id: number
+  buttons: IButton[]
+  type: string
+  order: number
+}
 
-export type BlockT = IBlockCode | IBlockDesc | IBlockPic | IBlockVid | IBlockMath
+export interface IButton {
+  id: number
+  block: number
+  name: string
+  link: string
+  color: string
+}
+
+export type BlockButtonT = {
+  block: number
+  name: string
+  link: string
+  color: string
+}
+
+export type BlockT = IBlockCode | IBlockDesc | IBlockPic | IBlockVid | IBlockMath | IBlockButtons
 
 export interface ILesson {
   lesson_id: number

@@ -87,7 +87,7 @@ export const StudentLessonNavBtns: FC<studentLessonNavBtnsT> = memo(({ courseId,
                     onClick={() => navigate(`/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${lessonBack?.type || lessonType}/${lessonBack?.id}`)}
                     disabled={lessonId === (lessonBack?.id || lessonId)}
                     className={styles.lesson__btnPrev}
-                    text="Предыдущее"
+                    text="Предыдущий материал"
                 />)
             }
 
@@ -102,7 +102,7 @@ export const StudentLessonNavBtns: FC<studentLessonNavBtnsT> = memo(({ courseId,
                     }
                     className={styles.lesson__btnNext}
                     disabled={lessonId === (lessonForward?.id || lessonId)}
-                    text="Следующее"
+                    text="Следующий материал"
                 />)
             }
 

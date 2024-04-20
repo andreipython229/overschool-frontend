@@ -10,6 +10,7 @@ import { BLOCK_TYPE } from 'enum/blockTypeE'
 import { Reorder } from 'framer-motion'
 import { PreviewCodeBlock } from 'components/blocks/codeBlock'
 import { MathEditor } from 'components/MathEditor'
+import { BlockLinkButton } from 'components/BlockButtons/BlockLinkButton'
 
 type adminLessonT = {
   lesson: ILesson
@@ -51,9 +52,24 @@ export const renderStudentBlocks = (lesson: commonLessonT) => {
           }
         case BLOCK_TYPE.MATH:
           if ('formula' in block && block.formula) {
-            return <MathEditor key={block.id} edit={false} block={block} latex={block.formula} />
+            return (
+              <div className={styles.math}>
+                <MathEditor key={block.id} edit={false} block={block} latex={block.formula} />
+              </div>
+            )} else {
+            return <></>
+          }
+        case BLOCK_TYPE.BUTTONS:
+          if ('buttons' in block && block.buttons) {
+            return (
+              <div style={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                {block.buttons.map((button, index) => (
+                  <BlockLinkButton key={`${button.id}_${index}`} button={button} color={button.color} />
+                ))}
+              </div>
+            )
           } else {
-            null
+            return <></>
           }
       }
     })
@@ -76,7 +92,7 @@ export const AdminLesson: FC<adminLessonT> = ({ lesson }) => {
             </div>
             <div className={styles.adminlesson__content}>
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
-              <span className={styles.adminlesson__materials}>Материалы к занятию:</span>
+              <span className={styles.adminlesson__materials}>Материалы:</span>
               {lesson?.text_files.map(({ file, id, file_url, size }, index: number) => (
                 <UploadedFile key={id} file={file} name={file_url} index={index} size={size} />
               ))}

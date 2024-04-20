@@ -45,7 +45,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                 <img className={styles.course_card_img} src={`${course.photo}`} alt="course_cover" />
               ) : (
                 <div className={styles.no_image_found}>
-                  <span>Нет изображения курса :(</span>
+                  <span>Нет изображения материала :(</span>
                 </div>
               )}
             </div>
@@ -70,7 +70,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                   course_id: `${course?.course_id}`,
                 })}
               >
-                <Button className={styles.btn_admin} text={'Ученики курса'} />
+                <Button className={styles.btn_admin} text={'Ученики материала'} />
               </Link>
               <Link
                 to={generatePath(Path.CreateCourse, {
@@ -127,7 +127,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                       ))}
                   </div>
 
-                  <Button className={styles.btn} text={'Продолжить обучение'} disabled={course?.remaining_period === 0} />
+                  <Button className={styles.btn} text={'Ознакомиться с материалами'} disabled={course?.remaining_period === 0} />
                 </Link>
               </div>
             </>

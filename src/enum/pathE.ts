@@ -34,6 +34,9 @@ export enum Path {
   HelpUserAccount = ':user-account',
   HelpSchoolSettings = ':school-settings',
   HelpOverAI = 'overai',
+  HelpStudents = 'students',
+  HelpGroupSettings = 'groups',
+  HelpCheckHW = 'check-hw',
   ResetPassword = '/token-validate/:userId/:token/',
   Appeals = 'school-appeals/',
 }
@@ -51,6 +54,7 @@ export enum CreateCoursePath {
   Constructor = 'constructor',
   Student = 'student',
   Settings = 'settings',
+  Comments = 'comments',
 }
 
 export enum Student {

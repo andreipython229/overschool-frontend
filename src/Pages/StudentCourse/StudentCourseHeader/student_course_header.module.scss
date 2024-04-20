@@ -168,7 +168,7 @@
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         @include font(400, 12px, 12px);
-        @include position_b_l(absolute, 100px, -95px);
+        @include position_b_l(absolute, 90px, -85px)
       }
     }
   }

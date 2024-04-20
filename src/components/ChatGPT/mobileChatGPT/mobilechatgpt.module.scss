@@ -1,0 +1,583 @@
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  border: 1px solid #eedffe;
+  padding: 10px;
+  background-color: #eedffe;
+  overflow: hidden;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: initial;
+  border-radius: 20px;
+}
+
+.overAiHeader {
+  padding-top: 10px;
+  font-weight: bold;
+  color: #a761ee;
+  font-size: 20px;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+.chevroLeft {
+  fill: #cd58eb;
+}
+
+.dialog::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-90%, -90%);
+  width: 90%;
+  height: 90%;
+  background: #eedffe;
+  filter: blur(280px);
+  z-index: -1;
+}
+
+.noGradient {
+  background: #eedffe;
+}
+
+.dialogOpen.noGradient::before {
+  display: none;
+}
+
+.contentContainer {
+  display: flex;
+  height: 100%;
+  background-color: #eedffe;
+}
+
+.leftPane {
+  height: calc(100% - 40px);
+  overflow-y: auto;
+  transition: 0.3s;
+  margin: 0;
+}
+
+.paneOpen {
+  width: 35%;
+  opacity: 1;
+}
+
+.leftPane {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 20px;
+  height: calc(100% - 47px);
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #7f4cbf;
+  margin-left: 7px;
+  margin-top: 40px;
+  margin-bottom: 7px;
+}
+
+.rightPane {
+  width: 100%;
+  flex: 1;
+  margin-top: auto;
+}
+
+.centeredText {
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-left: 8px;
+  margin-right: 35px;
+
+  @media only screen and (min-width : 1300px) and (max-width : 1400px) {
+    font-size: 13px;
+  }
+  @media only screen and (min-width : 1200px) and (max-width : 1300px) {
+    font-size: 11px;
+  }
+  @media only screen and (min-width : 1100px) and (max-width : 1200px) {
+    font-size: 10px;
+  }
+  @media only screen and (min-width : 800px) and (max-width : 1100px) {
+    font-size: 9px;
+  }
+}
+
+.deleteChatBtn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  border: none;
+  background-color: transparent;
+  width: 30px;
+  height: 30px;
+}
+
+.draggedOver {
+  background-color: lightgray;
+}
+
+.chatListItem {
+  background-color: #ffffff;
+  padding: 10px;
+  cursor: pointer;
+  height: 10%;
+  position: relative;
+  color: #7c7575;
+  align-items: center;
+}
+
+.chatListItem::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  margin-left: 7px;
+  width: 88%;
+  background-color: #8a49b5;
+  border-bottom: 1px solid #c08de2;
+
+  @media only screen and (min-width : 1500px) and (max-width : 1700px) {
+    width: 85%;
+  }
+  @media only screen and (min-width : 1200px) and (max-width : 1500px) {
+    width: 82%;
+  }
+  @media only screen and (min-width : 1000px) and (max-width : 1200px) {
+    margin-left: 5px;
+    width: 80%;
+  }
+  @media only screen and (min-width : 700px) and (max-width : 1000px) {
+    margin-left: 3px;
+    width: 77%;
+  }
+}
+
+.chatListItem:hover,
+.activeChat {
+  background-color: #e0e0e0;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(15px);
+  overflow-x: hidden;
+}
+
+.modalOverlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(350px);
+  z-index: -1;
+  overflow-x: hidden;
+}
+
+  .dialog-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  .chatGptButton {
+    outline: none;
+    border: none;
+    color: rgba(255, 255, 255, 1);
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 100px;
+    right: 25px;
+    background-color: #BA75FF;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: 0.3s background-color, 0.3s color;
+  }
+
+  .chatGptButton:hover {
+    background-color: #8a49b5;
+  }
+
+  .chatGptButton:active {
+    background-color: #4b0082;
+    color: white;
+  }
+
+  .chatGptButton img {
+    margin-top: 4px;
+    width: 40px;
+    height: 40px;
+  }
+
+.dialog-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.overAiText {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #b963d4;
+  position: absolute;
+  top: 2%;
+  left: 60%;
+  z-index: 1;
+}
+
+.backgroundImage {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  height: 80%;
+  background-image: url('../../../assets/img/mainPage/overIcon.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 99999;
+}
+
+.messageContainer {
+  max-height: 79%;
+  width: 100%;
+  overflow-y: auto;
+  position: fixed;
+  bottom: 13%;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc white;
+  padding-right: 20px;
+
+  scrollbar-width: none;
+  word-wrap: break-word;
+
+  background-color: transparent;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+
+  &_user {
+    font-size: 14px;
+    display: flex;
+    justify-content: right;
+    text-align: right;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+
+    &_question{
+    color: #a761ee;
+    background-color: white;
+    display: flex;
+    text-align: left;
+    display: flex;
+    border: 3px solid #c296ee;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 10px;
+    font-weight: 400;
+    font-size: 15px;
+    }
+  }
+
+  &_bot {
+    color: #BA75FF;
+    font-size: 14px;
+    font-weight: 400;
+
+    &_answer{
+    color: white;
+    background-color: #cc9bfd;
+    display: flex;
+    text-align: left;
+    display: flex;
+    border: 3px solid #b67fed;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 15px;
+    }
+  }
+}
+
+.message {
+  text-align: left;
+  padding-left: 3%;
+  padding: 2%;
+  // border: 1px solid #ccc;
+  margin-bottom: 5px;
+  // border-radius: 20px;
+  white-space: pre-wrap;
+  font-size: 14px;
+}
+
+.bot-response {
+  overflow-wrap: break-word;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  margin-top: auto;
+}
+
+.inputContainer textarea {
+  flex: 1;
+  padding: 10px;
+  margin-left: 2%;
+  border: 2px solid #7f4cbf;
+  border-radius: 10px;
+  background-color: transparent;
+  outline: none;
+  font-size: 15px;
+  resize: none;
+  overflow: hidden;
+  height: 40px;
+  z-index: 100000;
+
+  @media only screen and (min-width: 460px) and (max-width: 1500px) {
+    height: 40px;
+  }
+}
+
+.inputContainer input::placeholder {
+  color: #7f4cbf;
+}
+
+.inputContainer button {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #a761ee;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  z-index: 100000;
+}
+
+.inputContainer button svg {
+  width: 100%;
+  height: 100%;
+  fill: white;
+}
+
+.inputContainer button:hover {
+  background-color: #953ded;
+}
+
+.inputContainer button:active {
+  background-color: #7f4cbf;
+}
+
+.inputContainer textarea {
+  flex: 1;
+  width: 0;
+  margin-right: 10px;
+}
+
+.chatgpt_close {
+  outline: none;
+  border: none;
+  color: #cd58eb;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f1f1;
+  border-radius: 5px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  transition: 0.3s color;
+  z-index: 999;
+  background: none;
+}
+
+.dialog_close {
+  utline: none;
+  border: none;
+  color: #cd58eb;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f1f1;
+  border-radius: 5px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  transition: 0.3s color;
+  z-index: 999;
+  background: none;
+}
+
+.errorContainer {
+  position: absolute;
+  bottom: 75px;
+  left: 53%;
+  transform: translateX(-25%);
+  padding: 10px;
+  background-color: #ffcccc;
+  color: #cc0000;
+  border: 1px solid #cc0000;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.errorContainer.visible {
+  opacity: 1 !important;
+  z-index: 10000000;
+}
+
+.errorText {
+  font-size: 14px;
+}
+
+.loadingSpinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #333;
+  padding: 15px;
+  z-index: 100000;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #333;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.createChatButton {
+  background-color: #BA75FF;
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.createChatButton:hover {
+  background-color: #8a49b5;
+}
+
+.createChatButton:active {
+  background-color: #4b0082;
+  color: white;
+}
+
+.createChatButtonModal {
+  background-color: #BA75FF;
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  margin-bottom: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+  width: 100%;
+  height: 9%;
+  font-size: 14px;
+
+  @media only screen and (min-width : 375px) and (max-width : 1200px) {
+    font-size: 11px;
+    height: 30px;
+  }
+}
+
+.createChatButtonModal:hover {
+  background-color: #9b48ed;
+}
+
+.createChatButtonModal:active {
+  background-color: #430073;
+  color: white;
+}
+
+
+.welcomeMessage {
+  display: flex;
+  flex-direction: column;
+  color: #BA75FF;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+}
+
+.createChatButton {
+  width: 40%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+.contentContainer svg {
+  width: 58%;
+  height: 60%;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.orderChangeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 2px 0;
+}
+
+.orderChangeBtn img {
+  width: 20px;
+  height: 15px;
+}
