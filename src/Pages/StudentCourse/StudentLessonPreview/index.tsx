@@ -38,11 +38,11 @@ export const StudentLessonPreview: FC = () => {
     if (isSuccess && lessons) {
       switch (lesson?.type) {
         case LESSON_TYPE.LESSON:
-          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} />
+          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number}/>
         case LESSON_TYPE.HOMEWORK:
-          return <StudentHomework lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} />
+          return <StudentHomework lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} sended={sended}/>
         case LESSON_TYPE.TEST:
-          return <StudentTest lessons={lessons} params={params} activeLessonIndex={activeLessonIndex as number} />
+          return <StudentTest lessons={lessons} params={params} activeLessonIndex={activeLessonIndex as number} sended={sended} completed={completed}/>
       }
     }
   }

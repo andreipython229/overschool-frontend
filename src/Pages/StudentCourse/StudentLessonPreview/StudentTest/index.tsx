@@ -16,14 +16,19 @@ type studentTestT = {
   lessons: sectionT
   params: Params
   activeLessonIndex: number
+  sended?: boolean
+  completed?: boolean
 }
 
-export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonIndex }) => {
+export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonIndex, sended, completed}) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const schoolName = window.location.href.split('/')[4]
   const { data: lesson, isFetching } = useFetchQuestionsListQuery({ id: String(lessonId), schoolName })
   const [getUsertests] = useGetUserTestsByTestMutation()
   const [passStatus, setPassStatus] = useState('')
+  const [testSended, setTestSended] = useState(sended)
+  const [testSuccess, setTestSuccess] = useState(completed)
+  const [nextDisabled, setNextDisabled] = useState(false)
 
   useEffect(() => {
     getUsertests({ id: String(lessonId), schoolName }).then((data: any) => {
@@ -34,6 +39,11 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
       }
     })
   }, [lessonId])
+
+  useEffect(() => {
+    const disabled = lessons.group_settings.submit_test_to_go_on && !testSended || lessons.group_settings.success_test_to_go_on && !testSuccess
+    setNextDisabled(disabled)
+  }, [testSended, testSuccess])
 
   const [isOpenTest, { on: closeTest, off: openTest }] = useBoolean()
 
@@ -46,9 +56,9 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
         </div>
         <div className={styles.wrapper_testWrapper}>
           {!isOpenTest && lessonType !== 'lesson' ? (
-            <StudentTestPreview passStatus={passStatus} setShow={openTest} />
+            <StudentTestPreview passStatus={passStatus} setTestSended={setTestSended} setTestSuccess={setTestSuccess} setShow={openTest} />
           ) : (
-            isOpenTest && <StudentTestBlock lesson={lesson} />
+            isOpenTest && <StudentTestBlock lesson={lesson} setTestSended={setTestSended} setTestSuccess={setTestSuccess}/>
           )}
         </div>
         <StudentLessonNavBtns
@@ -57,6 +67,7 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
           sectionId={`${sectionId}`}
           lessonType={`${lessonType}` as LESSON_TYPE}
           activeLessonIndex={activeLessonIndex as number}
+          nextDisabled={nextDisabled}
           lessons={lessons as sectionT}
         />
       </div>

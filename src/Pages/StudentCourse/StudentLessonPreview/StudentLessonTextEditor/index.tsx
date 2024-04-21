@@ -15,9 +15,10 @@ import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 type textEditorT = {
   homeworkId: number
   homework: IHomework
+  setHwSended: (arg: boolean) => void
 }
 
-export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework }) => {
+export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework, setHwSended }) => {
   const [files, setFiles] = useState<File[]>([])
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
   const [text, setText] = useState<string>('')
@@ -78,6 +79,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework 
     await postHomework({ homework: formDataHw, schoolName })
       .unwrap()
       .then(data => {
+        setHwSended(true);
         const formDataFile = new FormData()
 
         files.forEach((file, index) => {

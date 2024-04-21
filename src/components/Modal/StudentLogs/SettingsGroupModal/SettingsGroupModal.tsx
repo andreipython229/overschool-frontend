@@ -69,8 +69,6 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     const handlerHomeworkCheck = () => {
         if (!blockHomework) {
             setSubmitHomework(false);
-            setSubmitTest(false);
-            setSuccessTest(false);
         }
         setBlockHomework(!blockHomework)
     }
@@ -90,11 +88,11 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
 
     const handlerTestSubmit = () => {
         submitTest && setSuccessTest(false);
-        !blockHomework && strongSubsequence && setSubmitTest(!submitTest)
+        strongSubsequence && setSubmitTest(!submitTest)
     }
 
     const handlerTestSuccess = () => {
-        !blockHomework && strongSubsequence && submitTest && setSuccessTest(!successTest)
+        strongSubsequence && submitTest && setSuccessTest(!successTest)
     }
 
     const handleDuration = (event: ChangeEvent<HTMLInputElement>) => {

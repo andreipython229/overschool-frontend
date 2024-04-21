@@ -50,6 +50,7 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
             sectionId={`${sectionId}`}
             lessonType={`${lessonType}` as LESSON_TYPE}
             activeLessonIndex={activeLessonIndex as number}
+            nextDisabled={false}
             lessons={lessons as sectionT}
           />
         </div>

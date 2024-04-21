@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import {FC, useEffect, useState} from 'react'
 import { Params } from 'react-router-dom'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { sectionT, IHomework } from 'types/sectionT'
@@ -16,11 +16,19 @@ type studentHomeworkT = {
   lessons: sectionT
   params: Params
   activeLessonIndex: number
+  sended?: boolean
 }
 
-export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params, activeLessonIndex }) => {
+export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params, activeLessonIndex, sended}) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const [order, setOrder] = useState([])
+  const [hwSended, setHwSended] = useState(sended)
+  const [nextDisabled, setNextDisabled] = useState(false)
+
+  useEffect(() => {
+    const disabled = lessons.group_settings.submit_homework_to_go_on && !hwSended
+    setNextDisabled(disabled)
+  }, [hwSended])
 
   return (
     <div className={styles.lesson}>
@@ -51,9 +59,10 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params,
             sectionId={`${sectionId}`}
             lessonType={`${lessonType}` as LESSON_TYPE}
             activeLessonIndex={activeLessonIndex as number}
+            nextDisabled={nextDisabled}
             lessons={lessons as sectionT}
           />
-          {!lessons.group_settings.task_submission_lock && <StudentLessonTextEditor homeworkId={lesson?.homework_id} homework={lesson} />}
+          {!lessons.group_settings.task_submission_lock && <StudentLessonTextEditor homeworkId={lesson?.homework_id} homework={lesson} setHwSended={setHwSended}/>}
         </div>
       </div>
     </div>
