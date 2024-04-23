@@ -5,10 +5,11 @@ import { sectionT, lessonT } from './sectionT'
 export type ClassesSettingsPropsT = {
   setType: (arg: keyof object) => void
   lessonIdAndType: lessonIdAndTypeT
-  deleteLesson: (arg: {id: number, type: string, schoolName: string}) => void
+  deleteLesson: (arg: { id: number; type: string; schoolName: string }) => void
 }
 
 export type ModulesBlockT = {
+  section: sectionT
   moduleName: string
   id: number
   lessonsList: lessonT[]
@@ -19,6 +20,7 @@ export type ModulesBlockT = {
 }
 
 export type LessonAddBlockPropsT = {
+  setModulesList: Dispatch<SetStateAction<sectionT[]>>
   setLessonIdAndType: (arg: lessonIdAndTypeT) => void
   modulesList: sectionT[]
   setType: (arg: keyof object) => void
