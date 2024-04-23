@@ -159,5 +159,6 @@ export const {
   useUpdateLessonsOrdersMutation,
   useCreateCommentMutation,
   useLazyFetchCommentsByLessonQuery,
-  useUpdateCommentsMutation
+  useUpdateCommentsMutation,
+  useChangeModuleOrderMutation
 } = modulesServices

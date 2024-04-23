@@ -170,88 +170,88 @@ export const Comments: FC = () => {
     }
 
     return (
-    <div className={styles.wrapper}>
-      <div className={styles.redactorCourse_leftSide}>
-        <h5 className={styles.redactorCourse_leftSide_title}>Структура курса:</h5>
-        <div className={styles.redactorCourse_leftSide_desc}>
-          {modulesList &&
-            modulesList.map((section: sectionT, index: number) => {
-              if (!section.section_name) return
-              return (
-                <>
-                  {lessons && lessons.length > 0 && (
-                    <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons.map((lesson) => ({ ...lesson, key: lesson.baselesson_ptr_id }))}>
-                      {lessons.map((lesson) => (
-                        <Reorder.Item
-                        draggable={false}
-                        onDragStart={(e) => e.preventDefault()}
-                        key={lesson.baselesson_ptr_id}
-                        value={lesson}
-                        onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
-                        className={`${styles.redactorCourse_leftSide_desc_lessonWrapper} ${stylesModules.btnWrapper} ${(selectedLessonId === lesson.baselesson_ptr_id) ? styles.selectedLesson : ''}`}
-                      >
-                        <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
-                          <span>{lessonSvgMapper[lesson.type]}</span>
-                          <span style={{ textAlign: 'left' }}>{lesson.name}</span>
-                        </span>
-                      </Reorder.Item>
-                      ))}
-                    </Reorder.Group>
-                  )}
-              </>
-              )
-            })}
-        </div>
-      </div>
-      <div style={{ position: 'relative' }} className={styles.redactorCourse_rightSideWrapper_rightSide}>
-        <section
-        style={{ opacity: isFetching ? 0.5 : 1, position: 'relative' }}
-        className={styles.redactorCourse_rightSideWrapper}
-      >
-          <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
-              <div className={styles.redactorCourse_rightSideWrapper_rightSide_nameBlock}>
-                <div className={styles.redactorCourse_rightSideWrapper_rightSide_block}>
-                  <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>
-                    {lesson && 'name' in lesson && lesson.name}
-                  </span>
-                </div>
-                <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save} onClick={handleSaveChanges}>
-                  <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
-                  Сохранить изменения
-                </button>
-              </div>
-              <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Все комментарии:</span>
-              {error && (
-                  <div role="alert" className={styles.error}>
-                    {error}
-                  </div>
-                )}
-                <div className={styles.commentContainer}>
-                {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
-                  commentsList.comments.map((comment: Comment) => (
-                    <div className={styles.commentBox} key={comment.id}>
-                      <p>Автор: {comment.author_first_name} {comment.author_last_name}</p>
-                      <p>Создан: {new Date(comment.created_at).toLocaleString()}</p>
-                      <label className={styles.publicLabel}>
-                        <p>Опубликован: &nbsp;
-                          <input
-                            type="checkbox"
-                            checked={comment.public}
-                            onChange={() => toggleCommentPublic(comment.id)}
-                            className={`${styles.publicCheckbox} ${comment.public ? styles.checked : ''}`}
-                          />
-                        </p>
-                      </label>
-                      <p>Комментарий: {comment.content}</p>
-                    </div>
-                  ))
-                ) : (
-                  <p>Комментариев пока нет</p>
-                )}
-                </div>
+      <div className={styles.wrapper}>
+        <div className={styles.redactorCourse_leftSide}>
+          <h5 className={styles.redactorCourse_leftSide_title}>Структура курса:</h5>
+          <div className={styles.redactorCourse_leftSide_desc}>
+            {modulesList &&
+              modulesList.map(({ section_name, lessons }, index: number) => {
+                if (!section_name) return
+                return (
+                  <>
+                    {lessons && lessons.length > 0 && (
+                      <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons.map((lesson) => ({ ...lesson, key: lesson.baselesson_ptr_id }))}>
+                        {lessons.map((lesson) => (
+                          <Reorder.Item
+                          draggable={false}
+                          onDragStart={(e) => e.preventDefault()}
+                          key={lesson.baselesson_ptr_id}
+                          value={lesson}
+                          onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
+                          className={`${styles.redactorCourse_leftSide_desc_lessonWrapper} ${stylesModules.btnWrapper} ${(selectedLessonId === lesson.baselesson_ptr_id) ? styles.selectedLesson : ''}`}
+                        >
+                          <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
+                            <span>{lessonSvgMapper[lesson.type]}</span>
+                            <span style={{ textAlign: 'left' }}>{lesson.name}</span>
+                          </span>
+                        </Reorder.Item>
+                        ))}
+                      </Reorder.Group>
+                    )}
+                </>
+                )
+              })}
           </div>
-            </section>
-      </div>
-      </div>
-    )
-}
+        </div>
+        <div style={{ position: 'relative' }} className={styles.redactorCourse_rightSideWrapper_rightSide}>
+          <section
+          style={{ opacity: isFetching ? 0.5 : 1, position: 'relative' }}
+          className={styles.redactorCourse_rightSideWrapper}
+        >
+            <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional}>
+                <div className={styles.redactorCourse_rightSideWrapper_rightSide_nameBlock}>
+                  <div className={styles.redactorCourse_rightSideWrapper_rightSide_block}>
+                    <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>
+                      {lesson && 'name' in lesson && lesson.name}
+                    </span>
+                  </div>
+                  <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save} onClick={handleSaveChanges}>
+                    <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
+                    Сохранить изменения
+                  </button>
+                </div>
+                <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Все комментарии:</span>
+                {error && (
+                    <div role="alert" className={styles.error}>
+                      {error}
+                    </div>
+                  )}
+                  <div className={styles.commentContainer}>
+                  {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
+                    commentsList.comments.map((comment: Comment) => (
+                      <div className={styles.commentBox} key={comment.id}>
+                        <p>Автор: {comment.author_first_name} {comment.author_last_name}</p>
+                        <p>Создан: {new Date(comment.created_at).toLocaleString()}</p>
+                        <label className={styles.publicLabel}>
+                          <p>Опубликован: &nbsp;
+                            <input
+                              type="checkbox"
+                              checked={comment.public}
+                              onChange={() => toggleCommentPublic(comment.id)}
+                              className={`${styles.publicCheckbox} ${comment.public ? styles.checked : ''}`}
+                            />
+                          </p>
+                        </label>
+                        <p>Комментарий: {comment.content}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p>Комментариев пока нет</p>
+                  )}
+                  </div>
+            </div>
+              </section>
+        </div>
+        </div>
+      )
+  }
