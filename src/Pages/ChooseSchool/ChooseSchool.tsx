@@ -205,7 +205,7 @@ export const ChooseSchool = () => {
                 <form>
                   <input
                     type="text"
-                    placeholder="Название платформы..."
+                    placeholder="Поиск..."
                     className={styles.search}
                     onChange={event => setSearch(event.target.value)}
                   ></input>
