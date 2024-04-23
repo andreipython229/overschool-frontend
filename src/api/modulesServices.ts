@@ -1,7 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { sectionT, sectionsT, commonLessonT, TestT } from 'types/sectionT'
+import { CommentList } from 'types/comments'
 import { baseQuery } from './baseApi'
+
+type OrderT = {
+  section_id: number | string
+  order: number | string
+}
 
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
@@ -63,7 +69,7 @@ export const modulesServices = createApi({
       }),
       providesTags: ['lessons'],
     }),
-    createLessons: build.mutation<any, {arg: any, schoolName: string}>({
+    createLessons: build.mutation<any, { arg: any; schoolName: string }>({
       query: ({ arg, schoolName }) => {
         return {
           url: `/${schoolName}/${arg.type}/`,
@@ -81,7 +87,7 @@ export const modulesServices = createApi({
       invalidatesTags: ['modules', 'lessons'],
     }),
     patchLessons: build.mutation<void, { arg: { id: number; type: string; formdata: FormData }; schoolName: string }>({
-      query: ({arg, schoolName}) => {
+      query: ({ arg, schoolName }) => {
         return {
           url: `/${schoolName}/${arg.type}s/${arg.id}/`,
           method: 'PATCH',
@@ -90,8 +96,8 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modules', 'patchLessons'],
     }),
-    updateLessonsOrders: build.mutation<void, {arg: { data: { baselesson_ptr_id: number | undefined; order: number }[] }, schoolName: string}>({
-      query: ({arg, schoolName}) => {
+    updateLessonsOrders: build.mutation<void, { arg: { data: { baselesson_ptr_id: number | undefined; order: number }[] }; schoolName: string }>({
+      query: ({ arg, schoolName }) => {
         return {
           url: `/${schoolName}/lesson_order/`,
           method: 'POST',
@@ -99,6 +105,38 @@ export const modulesServices = createApi({
         }
       },
       invalidatesTags: ['modules', 'lessons'],
+    }),
+    createComment: build.mutation<void, { lesson_id: number, content: string, schoolName: string }>({
+      query: ({ lesson_id, content, schoolName }) => ({
+        url: `/${schoolName}/lesson_comments/`,
+        method: 'POST',
+        body: {
+          lesson: lesson_id,
+          content: content,
+        },
+      }),
+    }),
+    fetchCommentsByLesson: build.query<CommentList, { lesson_id: number, schoolName: string }>({
+        query: ({lesson_id, schoolName}) => ({
+          url: `/${schoolName}/lesson_comments/?lesson_id=${lesson_id}`,
+        }),
+    }),
+    updateComments: build.mutation<void, { schoolName: string, lesson_id: number, comments: Record<number, boolean> }>({
+      query: ({ schoolName, lesson_id, comments }) => ({
+        url: `/${schoolName}/lesson_comments/${lesson_id}/`,
+        method: 'PATCH',
+        body: {
+          lesson_id: lesson_id,
+          comments: comments,
+        },
+      }),
+    }),
+    changeModuleOrder: build.mutation<void, { data: OrderT[]; schoolName: string }>({
+      query: arg => ({
+        url: `/${arg.schoolName}/section_order/`,
+        method: 'POST',
+        body: arg.data,
+      }),
     }),
   }),
 })
@@ -119,4 +157,8 @@ export const {
   useDeleteLessonsMutation,
   usePatchLessonsMutation,
   useUpdateLessonsOrdersMutation,
+  useCreateCommentMutation,
+  useLazyFetchCommentsByLessonQuery,
+  useUpdateCommentsMutation,
+  useChangeModuleOrderMutation
 } = modulesServices

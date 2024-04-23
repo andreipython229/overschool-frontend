@@ -13,12 +13,11 @@ import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
 import styles from './constructor.module.scss'
 import { SimpleLoader } from '../../../../../../components/Loaders/SimpleLoader'
 
-
 export const Constructor: FC = () => {
   const schoolName = window.location.href.split('/')[4]
   const { course_id: courseId } = useParams()
 
-  const { data: modulesAndLessons, isSuccess } = useFetchModulesQuery({id: courseId as string, schoolName})
+  const { data: modulesAndLessons, isSuccess } = useFetchModulesQuery({ id: courseId as string, schoolName })
 
   const [deleteLesson, { isLoading: isLoad }] = useDeleteLessonsMutation()
 
@@ -30,7 +29,7 @@ export const Constructor: FC = () => {
 
   const [check, setCheck] = useState(false)
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
   const handleCloseAllModal = () => {
     setType(null as keyof object)
@@ -51,11 +50,12 @@ export const Constructor: FC = () => {
   }, [courseId, modulesAndLessons?.sections, lessonIdAndType.type, isLoad])
 
   const handleSetShow = () => {
-    setShow(!show);
+    setShow(!show)
   }
-  
 
   const isLoading = modulesList[0] && modulesList[0].lessons[0] && lessonIdAndType.type
+
+  const hasLesson = modulesList.some(module => module.lessons && module.lessons.length > 0);
 
   if (!isSuccess)
     return (
@@ -66,8 +66,15 @@ export const Constructor: FC = () => {
 
   return (
     <div className={styles.redactorCourse}>
-      <ModulesAndLessonsBlock setType={setType} setLessonIdAndType={setLessonIdAndType} modulesList={modulesList || []} isLoading={check} baseLessonId={lessonIdAndType.baseLessonId} />
-      {isLoading && <LessonSettings deleteLesson={deleteLesson} lessonIdAndType={lessonIdAndType} setType={setType} />}
+      <ModulesAndLessonsBlock
+        setType={setType}
+        setModulesList={setModulesList}
+        setLessonIdAndType={setLessonIdAndType}
+        modulesList={modulesList || []}
+        isLoading={check}
+        baseLessonId={lessonIdAndType.baseLessonId}
+      />
+      {hasLesson && <LessonSettings deleteLesson={deleteLesson} lessonIdAndType={lessonIdAndType} setType={setType} />}
       {type && (
         <Portal closeModal={handleCloseAllModal}>
           <ModalMaper
