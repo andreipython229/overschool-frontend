@@ -60,7 +60,7 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
   const getRoleTranslation = (role: string): string => {
     switch (role) {
       case 'Teacher':
-        return 'Специалист технической-поддержки'
+        return 'Специалист техподдержки'
       case 'Student':
         return 'Пользователь'
       case 'Admin':
@@ -120,13 +120,12 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
           </div>
         ) : chat.type === 'PERSONAL' ? (
           <div className={styles.chatPreview_info}>
+            <div className={styles.chatPanel_user_avatar_userName_status}>Чат с техподдержкой</div>
             <div className={styles.chatPanel_user_avatar_userName_status}>
-              <div>{getRoleTranslation(getInterlocutor(chat).user_role || '')}</div>
+              <div>{`Специалист техподдержки ${getRoleTranslation(getInterlocutor(chat).user_role || '')}`}</div>
             </div>
             <div className={styles.chatPreview_top}>
-              <p>
-                {/* {getInterlocutor(chat).first_name || 'Канал без имени'} {getInterlocutor(chat).last_name || ''} */}
-              </p>
+              <p>{/* {getInterlocutor(chat).first_name || 'Канал без имени'} {getInterlocutor(chat).last_name || ''} */}</p>
             </div>
             <div className={styles.chatPreview_lastMessage}>{chat?.last_message?.content || ''}</div>
           </div>

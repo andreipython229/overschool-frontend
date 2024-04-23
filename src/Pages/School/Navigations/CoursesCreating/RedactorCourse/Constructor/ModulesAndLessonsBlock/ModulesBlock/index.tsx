@@ -136,7 +136,6 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                   />
               ))}
           </Reorder.Group>
-
           <Button className={styles.btn} text="+ занятие" variant="secondary" onClick={handleOpenModalLesson} />
         </ul>
       </>

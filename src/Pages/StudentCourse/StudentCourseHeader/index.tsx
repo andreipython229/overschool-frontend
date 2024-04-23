@@ -159,7 +159,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
       <div className={styles.previous_bcgrShadow}></div>
       <div onClick={() => navigate(`/school/${school}/courses/`)} className={styles.back_all_course}>
         <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
-        <span>Все курсы</span>
+        <span>Все материалы</span>
       </div>
       {userProgress.courses[0].completed_percent === 100 && (
         <div className={styles.previous_getSertificate}>
@@ -175,7 +175,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
       <div className={styles.previous_courseInfo}>
         {teacher_id !== undefined ? (
           <>
-            <Button className={styles.previous_chatButton} text={'Чат со специалистом'} onClick={() => handleToggleChatModal()} />
+            <Button className={styles.previous_chatButton} text={'Чат с техподдержкой'} onClick={() => handleToggleChatModal()} />
           </>
         ) : null}
         {countOfLessons && countOfLessons['lesson'] && (
