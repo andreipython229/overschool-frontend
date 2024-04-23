@@ -61,3 +61,4 @@ src/setupProxy.js
 etc/
 docker-compose.yaml
 Dockerfile
+public/
