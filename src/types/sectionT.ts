@@ -154,6 +154,7 @@ export type sectionT = {
   section: number
   baselesson_ptr_id?: number
   lessons: lessonT[]
+  order: number
 }
 
 export type sectionsT = {
