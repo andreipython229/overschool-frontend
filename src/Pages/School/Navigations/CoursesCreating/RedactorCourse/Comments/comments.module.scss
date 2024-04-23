@@ -1,6 +1,10 @@
 @import 'src/scss/variable';
 @import '../../../../../../scss/mixin.scss';
 
+.wrapper {
+  display: flex;
+}
+
 .redactorCourse {
   font-family: $font-family-inter;
   @include display(flex);
@@ -55,6 +59,7 @@
 
   &_leftSide {
     @include display(flex, column);
+    width: 280px;
     margin-right: 30px;
     padding-left: 20px;
     padding-right: 20px;
@@ -211,6 +216,9 @@
           @include display(flex, row, flex-start, center);
           color: $font-color-rose;
           font-size: 12px;
+          padding: 5px;
+          margin-right: 20px;
+          margin-left: 12px;
           
 
            svg {
@@ -294,6 +302,7 @@
 
   &_rightSideWrapper {
     width: 95%;
+    right: 10px;
     min-width: 0;
     
     @media only screen and (min-width : 320px) and (max-width : 375px) {
@@ -335,7 +344,6 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 30px;
-        padding-right: 45px;
 
         @media only screen and (min-width : 320px) and (max-width : 375px) {
           flex-direction: column;
@@ -831,4 +839,49 @@ hr {
     margin-left: 50%;
     gap: 10px;
   }
+}
+
+
+.commentContainer {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 10px; 
+  margin-left: 45px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.commentBox {
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.checked {
+  width: 15px;
+  height: 15px;
+  color: rgb(195, 63, 195); 
+}
+
+.publicCheckbox {
+  width: 15px;
+  height: 15px;
+  vertical-align: middle; 
+}
+
+.publicLabel {
+  display: flex;
+  align-items: center;
+}
+
+.publicLabel p {
+  margin: 0;
+  font-weight: 450;
+}
+
+.error {
+  color: red;
+  margin-left: 45px;
+  margin-top: 10px;
 }
