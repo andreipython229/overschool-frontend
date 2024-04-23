@@ -293,3 +293,16 @@
     cursor: not-allowed !important;
   }
 }
+
+.math {
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    width: 85vw;
+    overflow: scroll;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    width: 85vw;
+    overflow: scroll;
+  }
+  
+}

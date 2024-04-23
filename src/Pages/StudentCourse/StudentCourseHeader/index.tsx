@@ -159,7 +159,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
       <div className={styles.previous_bcgrShadow}></div>
       <div onClick={() => navigate(`/school/${school}/courses/`)} className={styles.back_all_course}>
         <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
-        <span>Все курсы</span>
+        <span>Все материалы</span>
       </div>
       {userProgress.courses[0].completed_percent === 100 && (
         <div className={styles.previous_getSertificate}>
@@ -170,26 +170,26 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
           />
         </div>
       )}
-      <div className={styles.previous_onlineCourses}>Онлайн-курс</div>
+      <div className={styles.previous_onlineCourses}>Материал</div>
       <div className={styles.previous_title_name}>{course?.name}</div>
       <div className={styles.previous_courseInfo}>
         {teacher_id !== undefined ? (
           <>
-            <Button className={styles.previous_chatButton} text={'Чат со специалистом'} onClick={() => handleToggleChatModal()} />
+            <Button className={styles.previous_chatButton} text={'Чат с техподдержкой'} onClick={() => handleToggleChatModal()} />
           </>
         ) : null}
         {countOfLessons && countOfLessons['lesson'] && (
           <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
             {lessonSvgMapper['lesson']}
             <span style={{ marginLeft: '0.6em' }}>
-              {`${countOfLessons['lesson']} ${countOfLessons && getNounDeclension(countOfLessons['lesson'], ['занятие', 'занятия', 'занятий'])}`}
+              {`${countOfLessons['lesson']} ${countOfLessons && getNounDeclension(countOfLessons['lesson'], ['материал', 'материала', 'материалов'])}`}
             </span>
           </div>
         )}
         {countOfLessons && countOfLessons['homework'] && (
           <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
             {lessonSvgMapper['homework']}
-            <span>{`${countOfLessons['homework']} ${getNounDeclension(countOfLessons['homework'], ['задание', 'задания', 'заданий'])}`}</span>
+            <span>{`${countOfLessons['homework']} ${getNounDeclension(countOfLessons['homework'], ['чек-поинт', 'чек-поинта', 'чек-поинтов'])}`}</span>
           </div>
         )}
         {countOfLessons && countOfLessons['test'] && (

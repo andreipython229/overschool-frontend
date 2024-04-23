@@ -178,7 +178,7 @@ export const MobileNavbar: FC = memo(() => {
             <Menu anchorEl={anchorMob} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}>
               <MenuItem onClick={goToChooseSchool}>
                 <Link to={Path.ChooseSchool} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
-                  Выбор школы
+                  Вернуться к выбору платформы
                 </Link>
               </MenuItem>
               <MenuItem onClick={logOut}>

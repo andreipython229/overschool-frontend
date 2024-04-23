@@ -210,9 +210,9 @@ export const MobileLoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
       {isHidden && (
         <form onSubmit={formik.handleSubmit}>
           <div className={styles.container}>
-            <span className={styles.main_registr} onClick={handleRegistrationUser}>
+            {/* <span className={styles.main_registr} onClick={handleRegistrationUser}>
               Зарегистрироваться
-            </span>
+            </span> */}
 
             <div>
               <div className={styles.main_title}>Войти</div>

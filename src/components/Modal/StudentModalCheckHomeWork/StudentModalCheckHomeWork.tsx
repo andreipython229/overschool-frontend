@@ -184,11 +184,11 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
       </button>
       <div className={styles.header_info}>
         <h3 className={styles.answer_header}>{userHomework?.homework_name} </h3>
-        <p className={styles.task_status}> {hwStatus ? ' Принято ментором' : ' Проверка работы'}</p>
+        <p className={styles.task_status}> {hwStatus ? ' - Принято' : ' - Отправлен запрос ИИ'}</p>
         <div className={styles.task_container}>
           <button className={styles.btn_grey} onClick={() => setIsHwOpen(open => !open)}>
             <IconSvg width={19} height={20} viewBoxSize="0 0 19 20" path={taskIconPath} />
-            <span>Посмотреть задание</span>
+            <span>Посмотреть задачу в чек-поинте</span>
           </button>
           {isHwOpen && (
             <div className={styles.task_modal}>
@@ -223,7 +223,13 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
       <div className={styles.task_info}>
         <div className={styles.task_info_item}>
           {iocnsByStatus[userHomework?.status as string]?.icon}
-          <span>{userHomework?.status}</span>
+          <span>
+            {userHomework?.status === 'Ждет проверки'
+              ? 'Отправлен запрос ИИ'
+              : userHomework?.status === 'Отклонено'
+              ? 'Вы направили некорректные данные. Рекомендуем вернуться к справочному материалу и попробовать снова'
+              : userHomework?.status}
+          </span>
         </div>
 
         <div className={styles.task_info_item}>
@@ -233,7 +239,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
           </span>
         </div>
 
-        <div className={styles.task_info_item}>
+        {/* <div className={styles.task_info_item}>
           <IconSvg width={16} height={18} viewBoxSize="0 0 16 18" path={humanIconPath} />
           <span>Проверяющий: </span>
           {!isUser && (
@@ -251,9 +257,9 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
               </span>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
-      <h3 className={styles.answer_hw_header}>Последний ответ {isUser ? 'ученика' : 'ментора'}</h3>
+      <h3 className={styles.answer_hw_header}>Последний ответ {isUser ? 'пользователя' : 'ИИ-помощника'}</h3>
       <div className={styles.teacher}>
         {currentUser?.avatar ? (
           <img className={styles.teacher_avatar} src={currentUser?.avatar} alt="User Avatar" />
@@ -291,7 +297,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
         <>
           <TextField
             id="outlined-basic"
-            label="Введите ответ на домашнее задание..."
+            label="Введите Ваш ответ..."
             variant="outlined"
             style={{ width: '100%' }}
             rows={5}
@@ -316,7 +322,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
             <div className={styles.btns__container}>
               <button className={styles.bottomButtons_btn_send} onClick={handleCreateHomeworkCheck}>
                 <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={sendIconPath} />
-                <span>Отправить ответ</span>
+                <span>Отправить данные</span>
               </button>
             </div>
           </div>

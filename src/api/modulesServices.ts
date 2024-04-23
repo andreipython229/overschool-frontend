@@ -3,6 +3,11 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { sectionT, sectionsT, commonLessonT, TestT } from 'types/sectionT'
 import { baseQuery } from './baseApi'
 
+type OrderT = {
+  section_id: number | string
+  order: number | string
+}
+
 export const modulesServices = createApi({
   reducerPath: 'modulesServices',
   baseQuery: baseQuery(),
@@ -63,7 +68,7 @@ export const modulesServices = createApi({
       }),
       providesTags: ['lessons'],
     }),
-    createLessons: build.mutation<any, {arg: any, schoolName: string}>({
+    createLessons: build.mutation<any, { arg: any; schoolName: string }>({
       query: ({ arg, schoolName }) => {
         return {
           url: `/${schoolName}/${arg.type}/`,
@@ -81,7 +86,7 @@ export const modulesServices = createApi({
       invalidatesTags: ['modules', 'lessons'],
     }),
     patchLessons: build.mutation<void, { arg: { id: number; type: string; formdata: FormData }; schoolName: string }>({
-      query: ({arg, schoolName}) => {
+      query: ({ arg, schoolName }) => {
         return {
           url: `/${schoolName}/${arg.type}s/${arg.id}/`,
           method: 'PATCH',
@@ -90,8 +95,8 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modules', 'patchLessons'],
     }),
-    updateLessonsOrders: build.mutation<void, {arg: { data: { baselesson_ptr_id: number | undefined; order: number }[] }, schoolName: string}>({
-      query: ({arg, schoolName}) => {
+    updateLessonsOrders: build.mutation<void, { arg: { data: { baselesson_ptr_id: number | undefined; order: number }[] }; schoolName: string }>({
+      query: ({ arg, schoolName }) => {
         return {
           url: `/${schoolName}/lesson_order/`,
           method: 'POST',
@@ -99,6 +104,13 @@ export const modulesServices = createApi({
         }
       },
       invalidatesTags: ['modules', 'lessons'],
+    }),
+    changeModuleOrder: build.mutation<void, { data: OrderT[]; schoolName: string }>({
+      query: arg => ({
+        url: `/${arg.schoolName}/section_order/`,
+        method: 'POST',
+        body: arg.data,
+      }),
     }),
   }),
 })
@@ -119,4 +131,5 @@ export const {
   useDeleteLessonsMutation,
   usePatchLessonsMutation,
   useUpdateLessonsOrdersMutation,
+  useChangeModuleOrderMutation,
 } = modulesServices

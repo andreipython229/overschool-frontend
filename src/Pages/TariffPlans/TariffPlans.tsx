@@ -108,14 +108,14 @@ export const TariffPlans: FC = () => {
                       Всего студентов:
                       <span>{plan.total_students || '∞'}</span>
                     </li>
-                    <li>
+                    {/* <li>
                       Цена в BYN:
                       <span>{plan.price !== '0.00' ? `${plan.price} рублей/мес.` : 'бесплатно'}</span>
                     </li>
                     <li>
                       Цена в RUB:
                       <span>{plan.price_rf_rub !== 0 ? `${plan.price_rf_rub} рублей/мес.` : 'бесплатно'}</span>
-                    </li>
+                    </li> */}
                   </ul>
                   {role === RoleE.Admin &&
                     (tariff ? (

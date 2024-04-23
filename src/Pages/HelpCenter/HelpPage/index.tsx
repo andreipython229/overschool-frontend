@@ -69,14 +69,7 @@ export const HelpPage: FC = memo(() => {
                 </div>
               </CardActionArea>
             </div>
-            <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
-              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'overai'))}>
-                <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-                   <h3>OVERAI</h3>
-                   <p>Искусственный интеллект на платформе, используемый для улучшения качества и доступности образования</p>
-                </div>
-              </CardActionArea>
-            </div>
+
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
               <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'school-settings'))}>
                 <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
@@ -93,6 +86,16 @@ export const HelpPage: FC = memo(() => {
                 </div>
               </CardActionArea>
             </div>
+          </div>
+          <div className={styles.HelpCenterPage_quickStart_cardGroup}>
+            <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'students'))}>
+                <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                    <h3>Ученики платформы </h3>
+                   <p>Инструкция по настройкам страниц с учениками на платформе</p>
+                </div>
+              </CardActionArea>
+            </div>
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
               <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'check-hw'))}>
                 <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
@@ -101,8 +104,23 @@ export const HelpPage: FC = memo(() => {
                 </div>
               </CardActionArea>
             </div>
+            <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'overai'))}>
+                <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                   <h3>OVERAI</h3>
+                   <p>Искусственный интеллект на платформе, используемый для улучшения качества и доступности образования</p>
+                </div>
+              </CardActionArea>
+            </div>
+            <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'groups'))}>
+                <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                   <h3>Настройки группы </h3>
+                   <p>Инструкция по настройкам группы: функционал и возможности </p>
+                </div>
+              </CardActionArea>
+            </div>
           </div>
-
       </div>
       <div className={styles.HelpCenterPage_FAQ}>
         <h1>Часто задаваемые вопросы</h1>

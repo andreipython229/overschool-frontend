@@ -36,7 +36,7 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, setFo
   const onPointerDown = (event: PointerEvent<SVGSVGElement | SVGPathElement>) => {
     controls.start(event)
   }
-  
+
 
   return (
     <Reorder.Item
