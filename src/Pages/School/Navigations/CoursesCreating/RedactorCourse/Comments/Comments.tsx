@@ -175,8 +175,8 @@ export const Comments: FC = () => {
         <h5 className={styles.redactorCourse_leftSide_title}>Структура курса:</h5>
         <div className={styles.redactorCourse_leftSide_desc}>
           {modulesList &&
-            modulesList.map(({ section_name, section, lessons }, index: number) => {
-              if (!section_name) return
+            modulesList.map((section: sectionT, index: number) => {
+              if (!section.section_name) return
               return (
                 <>
                   {lessons && lessons.length > 0 && (
