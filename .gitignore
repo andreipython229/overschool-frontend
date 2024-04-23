@@ -59,4 +59,5 @@ id_rsa.pub
 /src/api/baseApi.ts
 /src/setupProxy.js
 etc/
-
+docker-compose.yaml
+Dockerfile
