@@ -7,6 +7,7 @@ describe('find next order Lesson Array', () => {
         {
           section_name: 'name',
           section: 1,
+          order: 1,
           lessons: [
             { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
             { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
@@ -20,6 +21,7 @@ describe('find next order Lesson Array', () => {
           section_name: 'name 2',
           section: 2,
           lessons: [],
+          order: 1,
           group_settings: {
             strict_task_order: true,
             task_submission_lock: true,
@@ -28,6 +30,7 @@ describe('find next order Lesson Array', () => {
         {
           section_name: 'name 3',
           section: 3,
+          order: 1,
           lessons: [],
           group_settings: {
             strict_task_order: true,
@@ -43,6 +46,7 @@ describe('find next order Lesson Array', () => {
         {
           section_name: 'name',
           section: 1,
+          order: 1,
           lessons: [
             { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
             { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
@@ -56,6 +60,7 @@ describe('find next order Lesson Array', () => {
           section_name: 'name 2',
           section: 2,
           lessons: [],
+          order: 1,
           group_settings: {
             strict_task_order: true,
             task_submission_lock: true,
@@ -64,6 +69,7 @@ describe('find next order Lesson Array', () => {
         {
           section_name: 'name 3',
           section: 3,
+          order: 1,
           lessons: [],
           group_settings: {
             strict_task_order: true,
@@ -79,6 +85,7 @@ describe('find next order Lesson Array', () => {
         {
           section_name: 'name',
           section: 1,
+          order: 1,
           lessons: [
             { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
             { id: 1, name: 'string', order: 1, type: 'string', viewed: true, completed: false, active: false, baselesson_ptr_id: 1 },
@@ -92,6 +99,7 @@ describe('find next order Lesson Array', () => {
           section_name: 'name 2',
           section: 2,
           lessons: [],
+          order: 1,
           group_settings: {
             strict_task_order: true,
             task_submission_lock: true,
@@ -101,6 +109,7 @@ describe('find next order Lesson Array', () => {
           section_name: 'name 3',
           section: 3,
           lessons: [],
+          order: 1,
           group_settings: {
             strict_task_order: true,
             task_submission_lock: true,
