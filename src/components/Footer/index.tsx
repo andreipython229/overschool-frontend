@@ -42,7 +42,7 @@ export const Footer: FC<FooterProps> = ({ schoolTariffPlan }) => {
         <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.TariffPlans}`}>
           Тарифы
         </Link>
-        <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.PWA}`}>
+        <Link className={styles.wrapper_linksBlock_link_mobile} to={`${FooterPath.PWA}`}> 
           Мобильное приложение
         </Link>
       </nav>
@@ -50,6 +50,14 @@ export const Footer: FC<FooterProps> = ({ schoolTariffPlan }) => {
         <strong>OVERSCHOOL</strong>
       </div>
       <div className={styles.wrapper_social}>@{currentYear}, все права защищены</div>
+      <div className={styles.wrapper_requisites}>
+        <p> ООО Оверван </p>
+        <p>г. Минск ул. Сурганова 43-508</p>
+        <p>р/с BY55 ALFA 3012 2639 1200 1027 0000 в ЗАО Альфа-Банк,</p>
+        <p>БИК ALFABY2X</p>
+        <p>УНП 193417722</p>
+        <p> e-mail: it@overone.by </p>
+      </div>
     </footer>
   )
 }
