@@ -30,16 +30,19 @@ export const StudentLessonPreview: FC = () => {
   }, [params])
 
   const activeLessonIndex = lessons?.lessons.findIndex(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
+  const activeLesson = lessons?.lessons.find(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
+  const sended = activeLesson?.sended
+  const completed = activeLesson?.completed
 
   const renderUI = () => {
     if (isSuccess && lessons) {
       switch (lesson?.type) {
         case LESSON_TYPE.LESSON:
-          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} />
+          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number}/>
         case LESSON_TYPE.HOMEWORK:
-          return <StudentHomework lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} />
+          return <StudentHomework lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} sended={sended}/>
         case LESSON_TYPE.TEST:
-          return <StudentTest lessons={lessons} params={params} activeLessonIndex={activeLessonIndex as number} />
+          return <StudentTest lessons={lessons} params={params} activeLessonIndex={activeLessonIndex as number} sended={sended} completed={completed}/>
       }
     }
   }
