@@ -12,7 +12,7 @@ import {selectUser} from '../../../selectors'
 import { Path } from 'enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import {logo} from "../../../assets/img/common";
-import styles from './HelpGroupSettings.module.scss'
+import styles from '../HelpPage.module.scss'
 
 export const HelpGroupSettings = () => {
       const navigate = useNavigate()
@@ -30,7 +30,7 @@ export const HelpGroupSettings = () => {
       }
 
       return (
-        <section className={styles.HelpSchoolSettings}>
+        <section className={styles.HelpCenterPage}>
           <div className={styles.init_header}>
                <a
                   href={Path.InitialPage}
@@ -52,15 +52,15 @@ export const HelpGroupSettings = () => {
                    <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '18px', fontWeight: '700' }} text={'Создать платформу'} />
                 </div>
           </div>
-          <div className={styles.HelpSchoolSettings_FAQ}>
+          <div className={styles.HelpCenterPage_FAQ}>
             <h1> Настройки группы </h1>
             <h2> Переходим к настройкам группы</h2>
             <p> 
               Для того, чтобы перейти к настройкам группы, на странице &quot;Ученики курса&quot; в нужной вам
               группе кликните по &quot;Шестерёнке&quot;. В загрузившемся окне появятся настройки группы.
             </p>
-            <div className={styles.HelpSchoolSettings_FAQ_images}>
-              <img src={groups} alt="Кнопка настроек" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
+            <div className={styles.HelpCenterPage_FAQ_images}>
+              <img src={groups} alt="Кнопка настроек" className={styles.HelpCenterPage_FAQ_images_firstStep} />
             </div>
             <br/>
             <h2> Настройки группы</h2>
@@ -70,8 +70,8 @@ export const HelpGroupSettings = () => {
               сертификата после прохождения курса. Также, если вы хотите ограничить срок обучения по времени, можно
               установить продолжительность обучения в днях.
             </p>
-            <div className={styles.HelpSchoolSettings_FAQ_images}>
-              <img src={groups1} alt="Ученики платформы" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
+            <div className={styles.HelpCenterPage_FAQ_images}>
+              <img src={groups1} alt="Ученики платформы" className={styles.HelpCenterPage_FAQ_images_firstStep} />
             </div>
             <br/>
             <h2> Настройка доступа к урокам</h2>
@@ -79,19 +79,19 @@ export const HelpGroupSettings = () => {
               Внизу окна есть кнопка &quot;Показать все уроки&quot;, при нажатии отображаются все уроки курса,
               а также появляется возможность настройки доступа к урокам.
             </p>
-            <div className={styles.HelpSchoolSettings_FAQ_images}>
-              <img src={groups2} alt="Настройки таблицы" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
+            <div className={styles.HelpCenterPage_FAQ_images}>
+              <img src={groups2} alt="Настройки таблицы" className={styles.HelpCenterPage_FAQ_images_firstStep} />
             </div>
           </div>
-          <div className={styles.HelpSchoolSettings_banner}>
-            <div className={styles.HelpSchoolSettings_banner_createProject}>
+          <div className={styles.HelpCenterPage_banner}>
+            <div className={styles.HelpCenterPage_banner_createProject}>
               <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
               <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
               <Button onClick={handleRegistrationUser} text={'Создать проект'} variant={'create'} />
             </div>
-            <div className={styles.HelpSchoolSettings_banner_images}>
-              <img src={firstStep} alt="Создать проект" className={styles.HelpSchoolSettings_banner_images_firstStep} />
-              <img src={secondStep} alt="Создать проект" className={styles.HelpSchoolSettings_banner_images_secondStep} />
+            <div className={styles.HelpCenterPage_banner_images}>
+              <img src={firstStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_firstStep} />
+              <img src={secondStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_secondStep} />
             </div>
           </div>
         </section>

@@ -1,4 +1,4 @@
-@import '../../../scss/mixin.scss';
+@import '../../scss/mixin.scss';
 
 * {
     margin: 0;
@@ -6,10 +6,216 @@
     box-sizing: border-box;
 }
 .HelpCenterPage {
-    h1 {
-        margin: 23px;
-        color: #4D5766;
-        font-size: 35px;
+    &_FAQ {
+        flex-direction: column;
+        display: flex;
+        max-width: 900px;
+        margin: 0 auto;
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+            padding: 0 1rem 0 1rem;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+            padding: 0 1rem 0 1rem;
+        }
+
+        h1 {
+//             text-align: center;
+            margin: 42px 0 32px 0;
+        }
+        h2 {
+            color: #BA75FF;
+            font-size: 23px;
+            font-family: 'Manrope', sans-serif;
+        }
+        p {
+            margin-top: 20px;
+            margin-bottom: 45px;
+            font-size: 20px;
+            line-height: 1.5;
+//             font-size: var(--text-md);
+//             line-height: 24px;
+            text-align: justify;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 400;
+        }
+         &_images {
+            position: relative;
+            max-width: 100%;
+            width: 100%;
+            display: inline-block;
+//             display: grid;
+            grid-template-columns: 1fr 1fr;
+            &_firstStep {
+               display: block;
+               margin-bottom: 30px;
+               max-width: calc(100% - 4px);
+               display: block;
+               margin-left: 2px;
+               margin-right: 2px;
+               border-radius: 6px !important;
+               box-shadow: 0 0 8px 0px #bdbdbd;
+               cursor: pointer;
+               max-width: calc(100% - 4px);
+               overflow-clip-margin: content-box;
+               overflow: clip;
+               z-index: 1;
+               position: relative;
+
+            }
+
+            &_secondStep {
+                display: block;
+                margin-bottom: 30px;
+                max-width: calc(100% - 4px);
+                margin-left: 2px;
+                margin-right: 2px;
+                border-radius: 6px !important;
+                box-shadow: 0 0 8px 0px #bdbdbd;
+                cursor: pointer;
+                overflow-clip-margin: content-box;
+                overflow: clip;
+                z-index: 1;
+                position: relative;
+ 
+             }
+            &_addStudents {
+                display: block;
+                margin-bottom: 30px;
+                         width: 75%;
+                         height: auto;
+                //max-width: calc(100% - 4px);
+                margin-left: 2px;
+                margin-right: 2px;
+                border-radius: 6px !important;
+                box-shadow: 0 0 8px 0px #bdbdbd;
+                cursor: pointer;
+                max-width: calc(100% - 4px);
+                overflow-clip-margin: content-box;
+                overflow: clip;
+                z-index: 1;
+                position: relative;
+ 
+             }
+             &_createLesson {
+                display: block;
+                margin-bottom: 30px;
+                         width: 75%;
+                         height: auto;
+                //max-width: calc(100% - 4px);
+                margin-left: 2px;
+                margin-right: 2px;
+                border-radius: 6px !important;
+                box-shadow: 0 0 8px 0px #bdbdbd;
+                cursor: pointer;
+                max-width: calc(100% - 4px);
+                overflow-clip-margin: content-box;
+                overflow: clip;
+                z-index: 1;
+                position: relative;
+ 
+             }
+        }
+    }
+
+    &_banner {
+        margin-top: 35px;
+        width: 100%;
+//         background:  #934AFF;
+        background: #934aff57;
+//         background: #BA75FF;
+        height: 349px;
+        display: inline-flex;
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+         }
+         @media only screen and (min-width: 375px) and (max-width: 480px) {
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+         }
+
+        &_createProject {
+            padding-top: 80px;
+            margin-left: 170px;
+            h1 {
+                margin: 0;
+//                 color: #eef2ff;
+                font-size: 32px;
+            }
+            p {
+                margin-top: 13px;
+                color:#4D5766;
+                font-size: 14px;
+                width: 80%;
+            }
+            button {
+                margin: 46px 0 0 27px;
+                width: 241px;
+                height: 52px;
+                font-size: 12px;
+            }
+        }
+        &_images {
+            position: relative;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            &_firstStep {
+                width: 285px;
+                height: 210px;
+                margin-top: 83px;
+                margin-left: 200px;
+                z-index: 1;
+                position: absolute;
+            }
+            &_secondStep {
+                width: 285px;
+                height: 215px;
+                margin-left: 410px;
+                position: absolute;
+                margin-top: 36px;
+            }
+        }
+        @media (min-width: 320px) and (max-width: 1024px) {
+            &_images {
+                display: none;
+            }
+            height: 100%;
+            &_createProject {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                margin: 20px;
+                padding-top: 50px;
+
+                @media only screen and (min-width: 320px) and (max-width: 375px) {
+                    display: flex;
+                    flex-direction: column;
+                 }
+                 @media only screen and (min-width: 375px) and (max-width: 480px) {
+                    display: flex;
+                    flex-direction: column;
+                 }
+
+                h1 {
+                    font-size: 32px;
+                }
+            }
+        }
+        @media (min-width: 320px) and (max-width: 481px) {
+            h1 {
+                font-size: 23px;
+            }
+            button {
+                width: 150px;
+                margin: 30px auto 0 auto;
+            }
+        }
+
     }
 
     &_quickStart {
