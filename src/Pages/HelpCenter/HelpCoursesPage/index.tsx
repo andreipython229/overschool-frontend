@@ -1,6 +1,6 @@
 import {generatePath, useNavigate} from "react-router-dom";
 import {Path} from "../../../enum/pathE";
-import styles from "../HelpPage.module.scss";
+import styles from "./HelpCourses.module.scss";
 import {logo} from "../../../assets/img/common";
 import {Button} from "../../../components/common/Button/Button";
 import firstStep from "../../../assets/img/createProject/firstStep.png";

@@ -17,19 +17,6 @@ import { navByRolesConfig } from 'config'
 import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { TariffPlansInfo } from './Pages/TariffPlans/TariffPlansInfo'
-import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
-import { Agreement } from 'components/Agreement/Agreement'
-import { PWA } from 'Pages/PWA/PWA'
-
-import { HelpPage } from './Pages/HelpCenter/HelpPage'
-import { HelpSchoolPage } from 'Pages/HelpCenter/HelpSchoolPage'
-import { HelpCoursesPage } from './Pages/HelpCenter/HelpCoursesPage'
-import { HelpUserAccount } from 'Pages/HelpCenter/HelpUserAccount'
-import { HelpSchoolSettings } from 'Pages/HelpCenter/HelpSchoolSettings'
-import { HelpStudentsPage } from 'Pages/HelpCenter/HelpStudentsPage'
-import { HelpGroupSettings } from 'Pages/HelpCenter/HelpGroupSettings'
-import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
-import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
 
 import { RoleE } from 'enum/roleE'
 import { useSelector } from 'react-redux'
@@ -55,6 +42,7 @@ export const AppMobile = () => {
       pathname !== Path.CreateSchool &&
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
+      pathname !== Path.LoginPage &&
       pathname !== Path.TariffPlansInfo &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
@@ -66,46 +54,33 @@ export const AppMobile = () => {
   }, [isLogin, navigate])
 
   useEffect(() => {
+    if (
+      (isLogin && !role) ||
+      (isLogin &&
+        !schoolName &&
+        pathname !== Path.InitialPage &&
+        pathname !== '/' &&
+        pathname !== Path.ChooseSchool &&
+        pathname !== Path.TariffPlansInfo &&
+        pathname !== Path.CreateSchool &&
+        pathname.split('/')[1] !== 'certificate' &&
+        pathname.split('/')[1] !== 'course-catalog' &&
+        pathname.split('/')[1] !== 'help' &&
+        pathname.split('/')[1] !== 'token-validate')
+    ) {
+      navigate(Path.ChooseSchool)
+    }
+  }, [isLogin, schoolName, navigate])
+
+  useEffect(() => {
     if (pathname === '/') {
       navigate(Path.InitialPage)
-    } else if (schoolName && role !== 0 && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
+    } else if (schoolName && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
       navigate(
         generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
       )
     }
   }, [])
-
-  useEffect(() => {
-    if (
-      isLogin &&
-      !schoolName &&
-      pathname !== Path.InitialPage &&
-      pathname !== '/' &&
-      pathname !== Path.ChooseSchool &&
-      pathname !== Path.TariffPlansInfo &&
-      pathname.split('/')[1] !== 'certificate' &&
-      pathname.split('/')[1] !== 'course-catalog' &&
-      pathname.split('/')[1] !== 'help' &&
-      pathname.split('/')[1] !== 'token-validate'
-    ) {
-      navigate(Path.ChooseSchool)
-    }
-
-    if (
-      !role &&
-      isLogin &&
-      pathname !== Path.InitialPage &&
-      pathname !== '/' &&
-      pathname !== Path.ChooseSchool &&
-      pathname !== Path.TariffPlansInfo &&
-      pathname.split('/')[1] !== 'certificate' &&
-      pathname.split('/')[1] !== 'course-catalog' &&
-      pathname.split('/')[1] !== 'help' &&
-      pathname.split('/')[1] !== 'token-validate'
-    ) {
-      navigate(Path.ChooseSchool)
-    }
-  }, [isLogin, schoolName, navigate])
 
   scrollToTop()
 
@@ -114,34 +89,18 @@ export const AppMobile = () => {
       <Routes>
         <Route path={Path.InitialPage} element={<MobileInitPage />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
-        <Route path={Path.ChooseSchool} element={<ChooseSchool />} /> 
-        
+        <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
         <Route path={Path.Certificate} element={<Certificate />} />
-        <Route path={Path.HelpPage}>
-          <Route index element={<HelpPage />} />
-          <Route path={Path.Help} element={<HelpSchoolPage />} />
-          <Route path={Path.HelpUserAccount} element={<HelpUserAccount />} />
-          <Route path={Path.HelpSchoolSettings} element={<HelpSchoolSettings />} />
-          <Route path={Path.HelpOverAI} element={<HelpOverAI />} />
-          <Route path={Path.Courses} element={<HelpCoursesPage />} />
-          <Route path={Path.HelpGroupSettings} element={<HelpGroupSettings />} />
-          <Route path={Path.HelpStudents} element={<HelpStudentsPage />} />
-          <Route path={Path.HelpCheckHW} element={<HelpCheckHW />} />
-        </Route>
         <Route path={Path.LoginPage} element={<LoginPage />} />
         <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />
           <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
         </Route>
         <Route path={Path.School} element={<MobileLayOut />}>
-          <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
-          <Route path={FooterPath.PWA} element={<PWA />} />
-          <Route path={FooterPath.Agreement} element={<Agreement />} />
           {navByRolesConfig[role]}
-          
           <Route path={Path.Courses}>
             <Route index element={<MobileCoursesPage />} />
             <Route path={Student.Course}>

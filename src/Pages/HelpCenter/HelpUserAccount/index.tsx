@@ -9,7 +9,7 @@ import {selectUser} from '../../../selectors'
 import { Path } from 'enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import {logo} from "../../../assets/img/common";
-import styles from '../HelpPage.module.scss'
+import styles from './HelpUserAccount.module.scss'
 
 export const HelpUserAccount = () => {
       const {role} = useAppSelector(selectUser)
@@ -27,7 +27,7 @@ export const HelpUserAccount = () => {
           navigate(generatePath(Path.CreateSchool))
       }
       return (
-        <section className={styles.HelpCenterPage}>
+        <section className={styles.HelpUserAccount}>
           <div className={styles.init_header}>
                <a
                   href={Path.InitialPage}
@@ -49,47 +49,47 @@ export const HelpUserAccount = () => {
                    <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '18px', fontWeight: '700' }} text={'Создать платформу'} />
                 </div>
           </div>
-          <div className={styles.HelpCenterPage_FAQ}>
+          <div className={styles.HelpUserAccount_FAQ}>
             <h1> Как настроить аккаунт </h1>
             <h2> Переходим на страничку акканута </h2>
             <p> 
               Кликните в правом верхнем углу по иконке пользователя. 
               В появившемся контекстном меню выберите пункт &quot;Открыть профиль&quot;
             </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={main_page} alt="страничка выбора курса" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+            <div className={styles.HelpUserAccount_FAQ_images}>
+              <img src={main_page} alt="страничка выбора курса" className={styles.HelpUserAccount_FAQ_images_firstStep} />
             </div>
             <h2> Заполнение профиля </h2>
             <p>
               В загрузившемся окне появится форма для заполнения.
             </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={account_page} alt="страничка аккаунта" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+            <div className={styles.HelpUserAccount_FAQ_images}>
+              <img src={account_page} alt="страничка аккаунта" className={styles.HelpUserAccount_FAQ_images_firstStep} />
             </div>
             <p>
               Для изменения автара щёлкните по изображению пользователя в графе &quot;Аватар&quot; 
               и выберите фото с вашего устройства. После заполнения всех полей нажмите 
               кнопку &quot;Сохранить&quot;, которая расположена в самом низу
             </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={account_page_finish} alt="сохранение данных пользователя" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+            <div className={styles.HelpUserAccount_FAQ_images}>
+              <img src={account_page_finish} alt="сохранение данных пользователя" className={styles.HelpUserAccount_FAQ_images_firstStep} />
             </div>
             <p>
               После этого вся информация будет сохранена. Для выхода из странички редактирования вы можете воспользоваться
               навигационной панелью, расположенной слева
             </p>
           </div>
-          <div className={styles.HelpCenterPage_banner}>
-        <div className={styles.HelpCenterPage_banner_createProject}>
-          <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
-          <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
-          <Button onClick={handleRegistrationUser} text={'Создать проект'} variant={'create'} />
-        </div>
-        <div className={styles.HelpCenterPage_banner_images}>
-          <img src={firstStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_firstStep} />
-          <img src={secondStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_secondStep} />
-        </div>
-      </div>
+          <div className={styles.HelpUserAccount_banner}>
+            <div className={styles.HHelpUserAccount_banner_createProject}>
+              <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
+              <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
+              <Button onClick={handleRegistrationUser} text={'Создать проект'} variant={'create'} />
+            </div>
+            <div className={styles.HelpUserAccount_banner_images}>
+              <img src={firstStep} alt="Создать проект" className={styles.HelpUserAccount_banner_images_firstStep} />
+              <img src={secondStep} alt="Создать проект" className={styles.HelpUserAccount_banner_images_secondStep} />
+            </div>
+          </div>
         </section>
       )
     }
