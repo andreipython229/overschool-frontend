@@ -19,10 +19,6 @@ export const MobileInitPage = () => {
     navigate(generatePath(Path.TariffPlansInfo))
   }
 
-  const handleHelpPage = () => {
-    navigate(generatePath(Path.HelpPage))
-  }
-
   return (
     <div className={styles.container}>
       {openLoginModal && <MobileLoginModal setShowModal={showLoginModal} />}
@@ -47,8 +43,6 @@ export const MobileInitPage = () => {
           </div>
 
           <Button onClick={showLoginModal} variant={'primary'} text={'Вперед'} />
-
-          <a className={styles.help} href='/help'>Помощь</a>
           {/* <Button
             onClick={handleTariffPage}
             variant={'logIn'}

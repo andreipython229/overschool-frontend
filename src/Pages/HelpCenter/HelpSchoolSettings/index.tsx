@@ -14,7 +14,7 @@ import {selectUser} from '../../../selectors'
 import { Path } from 'enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import {logo} from "../../../assets/img/common";
-import styles from '../HelpPage.module.scss'
+import styles from './HelpSchoolSettings.module.scss'
 
 export const HelpSchoolSettings = () => {
       const {role} = useAppSelector(selectUser)
@@ -32,7 +32,7 @@ export const HelpSchoolSettings = () => {
           navigate(generatePath(Path.CreateSchool))
       }
       return (
-        <section className={styles.HelpCenterPage}>
+        <section className={styles.HelpSchoolSettings}>
           <div className={styles.init_header}>
                <a
                   href={Path.InitialPage}
@@ -54,15 +54,15 @@ export const HelpSchoolSettings = () => {
                    <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '18px', fontWeight: '700' }} text={'Создать платформу'} />
                 </div>
           </div>
-          <div className={styles.HelpCenterPage_FAQ}>
+          <div className={styles.HelpSchoolSettings_FAQ}>
             <h1> Настройки платформы </h1>
 
             <h2> Переходим на страничку настроек платформы </h2>
             <p> 
               Кликните на панели слева по &quot;Шестерёнке&quot;.
             </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={school_settings_button} alt="кнопка перехода" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+            <div className={styles.HelpSchoolSettings_FAQ_images}>
+              <img src={school_settings_button} alt="кнопка перехода" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
 
             <h2> Настроим оформление шапки вашей платформы </h2>
@@ -70,23 +70,23 @@ export const HelpSchoolSettings = () => {
               Для редактирования оформления нажмите кнопку &quot;Настроить страницу курсов&quot;. Найти её можно чуть 
               ниже иконки пользователя
             </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={school_settings_header} alt="кнопка изменения шапки" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+            <div className={styles.HelpSchoolSettings_FAQ_images}>
+              <img src={school_settings_header} alt="кнопка изменения шапки" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
             <p>
               Здесь вы сможете изменить фон секции, короткое описание, а также название и аватар платформы. После внесения всех 
               изменений нажмите кнопку &quot;Завершить настройку курсов&quot;
             </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={school_settings_header_set} alt="изменения шапки" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+            <div className={styles.HelpSchoolSettings_FAQ_images}>
+              <img src={school_settings_header_set} alt="изменения шапки" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
 
             <h2> Основные настройки платформы </h2>
             <p> 
               Для перехода к основным настройкам кликните вкладку &quot;Основные&quot;
             </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={school_settings_general} alt="Настройки основные" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+            <div className={styles.HelpSchoolSettings_FAQ_images}>
+              <img src={school_settings_general} alt="Настройки основные" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
             <p>
               Здесь можно поменять название платформы, которое будет отображаться в адресах, относящихся к вашей платформе.
@@ -102,8 +102,8 @@ export const HelpSchoolSettings = () => {
             <p> 
               Для перехода к настройке персонала кликните вкладку &quot;Сотрудники&quot;
             </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={school_settings_personal} alt="Настройки сотрудников" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+            <div className={styles.HelpSchoolSettings_FAQ_images}>
+              <img src={school_settings_personal} alt="Настройки сотрудников" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
             <p>
               Здесь вы сможете добавлять новых сотрудников платформы. При добавлении нового сотрудника вы указываете егоё email, 
@@ -113,8 +113,8 @@ export const HelpSchoolSettings = () => {
               с ролью &quot;Администратор&quot; никак не отличается от вашего. Но у пользователя с ролью &quot;Ментор&quot; 
               будет ряд ограничений, ему не будут доступны настрйоки платформы, а внешний вид страницы школы будет следующим:
             </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={school_settings_personal_mentor} alt="Вид страницы у ментора" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+            <div className={styles.HelpSchoolSettings_FAQ_images}>
+              <img src={school_settings_personal_mentor} alt="Вид страницы у ментора" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
 
             <h2> Добавление печатей и подписей </h2>
@@ -122,8 +122,8 @@ export const HelpSchoolSettings = () => {
               Для того, чтобы ваши ученики получали сертификаты с вашими печатью и подписью, их нужно добавить, перейдя во вкладку
               &quot;Печати и подписи&quot;
             </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={school_settings_stamp} alt="Страница печати и подписи" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+            <div className={styles.HelpSchoolSettings_FAQ_images}>
+              <img src={school_settings_stamp} alt="Страница печати и подписи" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
             <p>
               Следует отметить, что к добавлению подлежат только изображения, отвечающие следующим рекомендациям:
@@ -143,19 +143,19 @@ export const HelpSchoolSettings = () => {
               &quot;Оплата курсов&quot;, там нажать кнопку &quot;Добавить способ оплаты&quot; и внести 
               все необходимые реквизиты в форму:
             </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={school_settings_payment} alt="Оплата курсов" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+            <div className={styles.HelpSchoolSettings_FAQ_images}>
+              <img src={school_settings_payment} alt="Оплата курсов" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
           </div>
-          <div className={styles.HelpCenterPage_banner}>
-            <div className={styles.HelpCenterPage_banner_createProject}>
+          <div className={styles.HelpSchoolSettings_banner}>
+            <div className={styles.HelpSchoolSettings_banner_createProject}>
               <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
               <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
               <Button onClick={handleRegistrationUser} text={'Создать проект'} variant={'create'} />
             </div>
-            <div className={styles.HelpCenterPage_banner_images}>
-              <img src={firstStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_firstStep} />
-              <img src={secondStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_secondStep} />
+            <div className={styles.HelpSchoolSettings_banner_images}>
+              <img src={firstStep} alt="Создать проект" className={styles.HelpSchoolSettings_banner_images_firstStep} />
+              <img src={secondStep} alt="Создать проект" className={styles.HelpSchoolSettings_banner_images_secondStep} />
             </div>
           </div>
         </section>
