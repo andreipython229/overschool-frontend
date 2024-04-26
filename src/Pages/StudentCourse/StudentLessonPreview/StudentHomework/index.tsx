@@ -10,7 +10,7 @@ import { StudentLessonNavBtns } from '../StudentLessonNavBtns'
 import styles from '../lesson.module.scss'
 import { renderStudentBlocks } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/AdminLessonPreview/AdminLesson'
 import { Reorder } from 'framer-motion'
-import { 
+import {
   useLazyFetchCommentsByLessonQuery,
   useCreateCommentMutation
 } from 'api/modulesServices';
@@ -23,9 +23,10 @@ type studentHomeworkT = {
   lessons: sectionT
   params: Params
   activeLessonIndex: number
+  sended?: boolean
 }
 
-export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params, activeLessonIndex }) => {
+export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params, activeLessonIndex, sended}) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const [order, setOrder] = useState([])
   const schoolName = window.location.href.split('/')[4]
@@ -34,6 +35,13 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params,
   const [createComment] = useCreateCommentMutation();
   const [newCommentContent, setNewCommentContent] = useState('');
   const user = useAppSelector(selectUser)
+  const [hwSended, setHwSended] = useState(sended)
+  const [nextDisabled, setNextDisabled] = useState(false)
+
+  useEffect(() => {
+    const disabled = lessons.group_settings.submit_homework_to_go_on && !hwSended
+    setNextDisabled(disabled)
+  }, [hwSended])
 
   useEffect(() => {
     if (lesson && lesson.baselesson_ptr_id) {
@@ -128,9 +136,10 @@ const handleSubmitNewComment = (e: FormEvent<HTMLFormElement>) => {
             sectionId={`${sectionId}`}
             lessonType={`${lessonType}` as LESSON_TYPE}
             activeLessonIndex={activeLessonIndex as number}
+            nextDisabled={nextDisabled}
             lessons={lessons as sectionT}
           />
-          {!lessons.group_settings.task_submission_lock && <StudentLessonTextEditor homeworkId={lesson?.homework_id} homework={lesson} />}
+          {!lessons.group_settings.task_submission_lock && <StudentLessonTextEditor homeworkId={lesson?.homework_id} homework={lesson} setHwSended={setHwSended}/>}
           <div className={styles.commentContainer}>
           <form onSubmit={handleSubmitNewComment} className={styles.commentForm}>
             <textarea

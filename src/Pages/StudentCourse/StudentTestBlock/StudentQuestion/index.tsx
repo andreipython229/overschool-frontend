@@ -87,12 +87,12 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
 
     const handleCompleteTest = () => {
         onCompleteTest();
+        setUserPercent(percentage());
         const testResults = {
             success_percent: percentage(),
             test: test as number,
             user: user
         }
-        setUserPercent(percentage())
         sendTestResults({body: testResults, schoolName}).unwrap().then(() => {
             setShowResult(true)
         }).catch((error) => {
