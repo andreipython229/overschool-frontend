@@ -5,149 +5,70 @@
     padding: 0;
     box-sizing: border-box;
 }
-.HelpCenterPage {
+.HelpUserAccount {
     h1 {
         margin: 23px;
         color: #4D5766;
         font-size: 35px;
     }
 
-    &_quickStart {
-        align-items: center;
-        flex-direction: column;
-        display: flex;
-        h1 {
-            margin-top: 90px;
-        }
-        &_userSelect {
-            display: inline-flex;
-            align-items: center;
-            h5 {
-                margin-right: 45px;
-                font-size: 14px;
-            }
-            hr {
-                width: 150px;
-                margin-top: 6px;
-            }
-            &_authorEnabled {
-                width: 220px;
-                h5 {
-                    float: right;
-                    color: #BA75FF;
-                }
-                hr {
-                    border: 1px solid #BA75FF;
-                    float: right;
-                }
-            }
-            &_studentDisabled {
-                width: 220px;
-                h5 {
-                    color: #D6D6D6;
-                    margin-left: 45px;
-                }
-                hr {
-                    border: 1px solid #D6D6D6;
-                }
-            }
-            &_authorDisabled {
-                width: 220px;
-                h5 {
-                    float: right;
-                    color: #D6D6D6;
-                }
-                hr {
-                    border: 1px solid #D6D6D6;
-                    float: right;
-                }
-            }
-            &_studentEnabled {
-                width: 220px;
-                h5 {
-                    color: #BA75FF;
-                    margin-left: 45px;
-                }
-                hr {
-                    border: 1px solid #BA75FF;
-                }
-            }
-
-
-        }
-        &_cardGroup {
-            margin-top: 45px;
-            display: inline-flex;
-            align-items: center;
-            width: 90%;
-            justify-content: space-around;
-            &_card {
-                width: 313px;
-                height: 189px;
-                margin: 5px;
-                background: #FFFFFF;
-                border: 1px solid #BA75FF;
-                border-radius: 20px;
-                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-                &_text {
-                    margin: 40px 20px 40px 40px;
-
-                    h3 {
-                        color: #4D5766;
-                    }
-                    p {
-                        margin-top: 25px;
-                        font-size: 15px;
-                        color: #4D5766;
-                    }
-                }
-            }
-            @media (min-width: 767px) and (max-width: 1024px) {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                &_card {
-                        margin: 10px;
-                }
-            }
-            @media (min-width: 320px) and (max-width: 767px) {
-                display: flex;
-                flex-direction: column;
-                &_card {
-                    margin-bottom: 10px;
-                }
-            }
-        }
-        @media (min-width: 320px) and (max-width: 767px) {
-
-                h5 {
-                    font-size: 11px;
-                }
-        }
-    }
     &_FAQ {
         flex-direction: column;
         display: flex;
-        max-width: 725px;
+        max-width: 900px;
         margin: 0 auto;
         h1 {
-            text-align: center;
-            margin: 82px 0 52px 0;
+//             text-align: center;
+            margin: 42px 0 32px 0;
         }
         h2 {
             color: #BA75FF;
             font-size: 23px;
+            font-family: 'Manrope', sans-serif;
         }
         p {
             margin-top: 20px;
             margin-bottom: 45px;
-            font-size: 15px;
+            font-size: 20px;
+            line-height: 1.5;
+//             font-size: var(--text-md);
+//             line-height: 24px;
+            text-align: justify;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 400;
+        }
+         &_images {
+            position: relative;
+            max-width: 100%;
+            width: 100%;
+            display: inline-block;
+//             display: grid;
+            grid-template-columns: 1fr 1fr;
+            &_firstStep {
+               display: block;
+               margin-bottom: 30px;
+               max-width: calc(100% - 4px);
+               display: block;
+               margin-left: 2px;
+               margin-right: 2px;
+               border-radius: 6px !important;
+               box-shadow: 0 0 8px 0px #bdbdbd;
+               cursor: pointer;
+               max-width: calc(100% - 4px);
+               overflow-clip-margin: content-box;
+               overflow: clip;
+               z-index: 1;
+               position: relative;
+
+            }
         }
     }
 
     &_banner {
         margin-top: 35px;
         width: 100%;
-        background:  #934AFF;
+//         background:  #934AFF;
+        background: #934aff57;
 //         background: #BA75FF;
         height: 349px;
         display: inline-flex;
@@ -157,12 +78,12 @@
             margin-left: 170px;
             h1 {
                 margin: 0;
-                color: #eef2ff;
+//                 color: #eef2ff;
                 font-size: 32px;
             }
             p {
                 margin-top: 13px;
-                color:#eef2ff;
+                color:#4D5766;
                 font-size: 14px;
                 width: 80%;
             }
