@@ -26,6 +26,9 @@
             counter-increment: item;
             content: counters(item, '.')'.';
         }
+        @media screen and (max-width: 1024px) {
+            margin-left: 0.5rem;
+          }
     }
     &__properties {
         display: flex;

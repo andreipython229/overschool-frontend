@@ -14,6 +14,7 @@ import styles from '../components/MainLayout/mainLayOut.module.scss'
 import MobileChatGPT from "../components/ChatGPT/mobileChatGPT"
 import {useBoolean as useBooleanHook} from "../customHooks";
 import {useLazyFetchStudentsGroupQuery} from "../api/studentsGroupService";
+import { Footer } from 'components/Footer'
 
 export const MobileLayOut : FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -28,6 +29,7 @@ export const MobileLayOut : FC = memo(() => {
   const [showChat, setShowChat] = useState<boolean>(false);
   const [overaiLockExists, setOveraiLockExists] = useState(false);
   const [ toggle, handlers ] = useBooleanHook();
+  const [currentTariff, setCurrentTariff] = useState<any | null>(null);
 
   useEffect(() => {
       if (userRole === 1) {
@@ -68,15 +70,20 @@ export const MobileLayOut : FC = memo(() => {
     }
   }, [data])
 
+  const updateTariff = (tariff: any) => {
+    setCurrentTariff(tariff);
+  };
+
   return (
     <div className={styles.wrapper}>
       <main className={styles.main}>
         <Previous />
         <Outlet />
       </main>
-      {showChat && isSuccess && (
+      
         <MobileChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off}/>
-      )}
+      
+      <Footer schoolTariffPlan={updateTariff} />
       <nav className={styles.mobileFooter}>
         <MobileNavbar/>
       </nav>
