@@ -24,9 +24,11 @@ type studentHomeworkT = {
   params: Params
   activeLessonIndex: number
   sended?: boolean
+  nextDisabled: boolean
+  setNextDisabled: (arg: boolean) => void
 }
 
-export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params, activeLessonIndex, sended}) => {
+export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params, activeLessonIndex, sended, nextDisabled, setNextDisabled}) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const [order, setOrder] = useState([])
   const schoolName = window.location.href.split('/')[4]
@@ -36,7 +38,6 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params,
   const [newCommentContent, setNewCommentContent] = useState('');
   const user = useAppSelector(selectUser)
   const [hwSended, setHwSended] = useState(sended)
-  const [nextDisabled, setNextDisabled] = useState(false)
 
   useEffect(() => {
     const disabled = lessons.group_settings.submit_homework_to_go_on && !hwSended

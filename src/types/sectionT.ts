@@ -161,6 +161,7 @@ export type sectionT = {
 export type sectionsT = {
   course_id: number
   course_name: string
+  group_settings: any
   baselesson_ptr_id?: number
   sections: sectionT[]
   teacher_id: number | any
