@@ -22,6 +22,7 @@
         h1 {
 //             text-align: center;
             margin: 42px 0 32px 0;
+            color: #BA75FF; 
         }
         h2 {
             color: #BA75FF;
@@ -31,7 +32,8 @@
         p {
             margin-top: 20px;
             margin-bottom: 45px;
-            font-size: 20px;
+            // font-size: 20px;
+            font-size: 24px;
             line-height: 1.5;
 //             font-size: var(--text-md);
 //             line-height: 24px;
@@ -354,7 +356,8 @@
         p {
             margin-top: 20px;
             margin-bottom: 45px;
-            font-size: 15px;
+            // font-size: 15px;
+            font-size: 18px;
         }
     }
 
@@ -583,4 +586,8 @@
       color: #ba75ff;
     }
   }
+}
+
+.mail {
+    color: #9228ff;
 }

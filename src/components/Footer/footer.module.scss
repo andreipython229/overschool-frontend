@@ -21,8 +21,17 @@
       @include font(500, 10px, 12px);
       color: #6b7280;
 
-      &_mobile {
+      &_tariff {
+        
         display: none;
+        
+        
+      }
+
+      &_mobile {
+        @media screen and (max-width: 1024px) {
+          display: none;
+        }
       }
     }
   }
