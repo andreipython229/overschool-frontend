@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { sectionT, sectionsT, commonLessonT, TestT } from 'types/sectionT'
+import { CommentList } from 'types/comments'
 import { baseQuery } from './baseApi'
 
 type OrderT = {
@@ -105,6 +106,31 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modules', 'lessons'],
     }),
+    createComment: build.mutation<void, { lesson_id: number, content: string, schoolName: string }>({
+      query: ({ lesson_id, content, schoolName }) => ({
+        url: `/${schoolName}/lesson_comments/`,
+        method: 'POST',
+        body: {
+          lesson: lesson_id,
+          content: content,
+        },
+      }),
+    }),
+    fetchCommentsByLesson: build.query<CommentList, { lesson_id: number, schoolName: string }>({
+        query: ({lesson_id, schoolName}) => ({
+          url: `/${schoolName}/lesson_comments/?lesson_id=${lesson_id}`,
+        }),
+    }),
+    updateComments: build.mutation<void, { schoolName: string, lesson_id: number, comments: Record<number, boolean> }>({
+      query: ({ schoolName, lesson_id, comments }) => ({
+        url: `/${schoolName}/lesson_comments/${lesson_id}/`,
+        method: 'PATCH',
+        body: {
+          lesson_id: lesson_id,
+          comments: comments,
+        },
+      }),
+    }),
     changeModuleOrder: build.mutation<void, { data: OrderT[]; schoolName: string }>({
       query: arg => ({
         url: `/${arg.schoolName}/section_order/`,
@@ -131,5 +157,8 @@ export const {
   useDeleteLessonsMutation,
   usePatchLessonsMutation,
   useUpdateLessonsOrdersMutation,
-  useChangeModuleOrderMutation,
+  useCreateCommentMutation,
+  useLazyFetchCommentsByLessonQuery,
+  useUpdateCommentsMutation,
+  useChangeModuleOrderMutation
 } = modulesServices

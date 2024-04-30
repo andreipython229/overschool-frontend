@@ -9,7 +9,6 @@ import { useSendSubscriptionFormMutation } from 'api/subscriptionServices'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { getNounDeclension } from 'utils/getNounDeclension'
 
-
 interface ITariffDetailModal {
   tariff: TariffPlanT
   setShowModal: (close: boolean) => void
@@ -17,8 +16,10 @@ interface ITariffDetailModal {
 
 export interface ISubscribe {
   tariff: string
-  pays_count: number
+  days_interval?: number
+  pays_count?: number
   promo_code?: string
+  subscription_type: string
 }
 
 export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal }) => {
@@ -40,8 +41,7 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
 
   const initialValues: ISubscribe = {
     tariff: tariff.name,
-    pays_count: selectedMonth,
-    promo_code: '',
+    subscription_type: 'monthly',
   }
 
   const handleChangePeriod = async (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -49,23 +49,22 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
   }
 
   const handleSubmit = async (values: ISubscribe) => {
-    const subForm: ISubscribe =
-      values.promo_code && values.promo_code.length > 0
-        ? {
-            tariff: tariff.name,
-            pays_count: selectedMonth,
-            promo_code: values.promo_code,
-          }
-        : {
-            tariff: tariff.name,
-            pays_count: selectedMonth,
-            promo_code: '',
-          }
+    const subForm: ISubscribe = {
+      tariff: tariff.name,
+      subscription_type: selectedMonth > 1 ? 'upfront' : 'monthly',
+    }
 
-    await sendForm({data: subForm, schoolName})
+    if (selectedMonth > 1) {
+      subForm.pays_count = selectedMonth
+    }
+
+    if (values.promo_code && values.promo_code.length > 0) {
+      subForm.promo_code = values.promo_code
+    }
+
+    await sendForm({ data: subForm, schoolName })
       .unwrap()
       .then(async data => {
-        console.log(data)
         await setPaymentPrice(data.plan.amount / 100)
         await setPaymentLink(data.redirect_url)
         await setSecondPhase(true)
@@ -111,7 +110,10 @@ export const TariffDetailModal: FC<ITariffDetailModal> = ({ tariff, setShowModal
               )}
             </>
           ) : (
-            <div className={styles.wrapper_tariffCard_header_title} style={{textAlign: 'center', padding: '2em', display: 'flex', justifyContent: 'center'}}>
+            <div
+              className={styles.wrapper_tariffCard_header_title}
+              style={{ textAlign: 'center', padding: '2em', display: 'flex', justifyContent: 'center' }}
+            >
               {'Заказ обрабатывается. Как только транзакция будет обработана и одобрена, новый тарифный план отобразится возле вашего профиля.'}
             </div>
           )}

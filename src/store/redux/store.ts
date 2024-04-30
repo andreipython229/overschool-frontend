@@ -39,6 +39,8 @@ export const rootReducer = combineReducers({
   [services.chatgptService.reducerPath]: services.chatgptService.reducer,
   [services.blocksService.reducerPath]: services.blocksService.reducer,
   [services.catalogService.reducerPath]: services.catalogService.reducer,
+  [services.prodamusService.reducerPath]: services.prodamusService.reducer,
+
 
   user: slices.authReduce,
   sections: slices.sectionsReduce,
@@ -101,6 +103,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.chatgptService.middleware,
         services.blocksService.middleware,
         services.catalogService.middleware,
+        services.prodamusService.middleware,
       ),
   })
 }
