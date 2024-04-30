@@ -8,9 +8,10 @@ import {SimpleLoader} from '../../../../components/Loaders/SimpleLoader'
 type NextSectionButtonProps = {
   sectionId: number;
   courseId: number;
+  nextDisabled: boolean
 };
 
-export const NextOrPrevSectionButton: FC<NextSectionButtonProps> = ({ sectionId, courseId}) => {
+export const NextOrPrevSectionButton: FC<NextSectionButtonProps> = ({ sectionId, courseId, nextDisabled}) => {
     const navigate = useNavigate()
     const schoolName = window.location.href.split('/')[4]
     const {data: nextSection, isSuccess} = useFetchModuleLessonsQuery({sectionId: String(sectionId), schoolName})
@@ -28,6 +29,7 @@ export const NextOrPrevSectionButton: FC<NextSectionButtonProps> = ({ sectionId,
                 onClick={nextSectionHandler}
                 className={styles.lesson__btnNext}
                 text="Следующий раздел"
+                disabled={nextDisabled}
             />
         )} else {
         return (

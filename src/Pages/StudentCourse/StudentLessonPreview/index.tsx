@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import {FC, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 
 import { StudentTest } from './StudentTest'
@@ -22,6 +22,7 @@ export const StudentLessonPreview: FC = () => {
     type: `${params?.lesson_type}`,
     schoolName,
   })
+  const [nextDisabled, setNextDisabled] = useState(false)
 
   useEffect(() => {
     if (params) {
@@ -30,16 +31,19 @@ export const StudentLessonPreview: FC = () => {
   }, [params])
 
   const activeLessonIndex = lessons?.lessons.findIndex(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
+  const activeLesson = lessons?.lessons.find(lesson => `${lesson.id}` === params?.lesson_id && lesson.type === params?.lesson_type)
+  const sended = activeLesson?.sended
+  const completed = activeLesson?.completed
 
   const renderUI = () => {
     if (isSuccess && lessons) {
       switch (lesson?.type) {
         case LESSON_TYPE.LESSON:
-          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} />
+          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number}/>
         case LESSON_TYPE.HOMEWORK:
-          return <StudentHomework lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} />
+          return <StudentHomework lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} sended={sended} nextDisabled={nextDisabled} setNextDisabled={setNextDisabled}/>
         case LESSON_TYPE.TEST:
-          return <StudentTest lessons={lessons} params={params} activeLessonIndex={activeLessonIndex as number} />
+          return <StudentTest lessons={lessons} params={params} activeLessonIndex={activeLessonIndex as number} sended={sended} completed={completed} nextDisabled={nextDisabled} setNextDisabled={setNextDisabled}/>
       }
     }
   }
@@ -54,6 +58,7 @@ export const StudentLessonPreview: FC = () => {
           sectionId={`${params?.section_id}`}
           activeLessonIndex={activeLessonIndex as number}
           lessons={lessons as sectionT}
+          nextDisabled={nextDisabled}
         />
       </div>
     )
