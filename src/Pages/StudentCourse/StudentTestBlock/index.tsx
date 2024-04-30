@@ -29,7 +29,7 @@ export type AnswersType = {
 }
 
 
-export const StudentTestBlock: FC<any> = ({lesson}) => {
+export const StudentTestBlock: FC<any> = ({lesson, setTestSended, setTestSuccess}) => {
     const [numberTest, setNumberTest] = useState<number>(0)
     const [userAnswers, updateUserAnswers] = useState<AnswersType>({})
     const [userAnswerFull, setUserAnswerFull] = useState<AnswersT[]>()
@@ -41,12 +41,19 @@ export const StudentTestBlock: FC<any> = ({lesson}) => {
 
 
     const completeTest = () => {
+        if (!testCompleted) {
+           setTestSended(true)
+        }
         setTestCompleted(!testCompleted);
     };
 
     useEffect(() => {
         setQuestions(lesson.questions);
     }, [lesson]);
+
+    useEffect(() => {
+        userPercent >= lesson.success_percent && setTestSuccess(true)
+    }, [userPercent]);
 
     // useEffect(() => {
     //   // if (lesson.random_questions) {
