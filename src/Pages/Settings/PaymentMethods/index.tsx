@@ -87,6 +87,7 @@ export const PaymentMethods = memo(() => {
         </button>
         <Button className={styles.generateLinkButton} onClick={toggleModalLink} text="Сгенерировать ссылку" />
       </div>
+      {Object.keys(paymentLinks).length > 0 ? (
         <div>
           <table className={styles.paymentTable}>
             <thead>
@@ -117,7 +118,7 @@ export const PaymentMethods = memo(() => {
                   </td>
                   <td style={{ textAlign: "right" }}>
                       <Button
-                        className={styles.detailButton} // Добавляем класс из модуля стилей
+                        className={styles.detailButton}
                         onClick={() => toggleModalDetailLink(paymentLink)}
                         text="Подробнее"
                       />
@@ -132,7 +133,9 @@ export const PaymentMethods = memo(() => {
             </div>
           )}
         </div>
-
+      ) : (
+        <h4 style={{ textAlign: "center" }}>Список ссылок пока пуст</h4>
+      )}
       <AddPaymentMethods isOpen={isModalOpen} onClose={toggleModal} />
       <LinkGenerating isOpen={isModalLinkOpen} onClose={toggleModalLink} />
       {paymentLink && (

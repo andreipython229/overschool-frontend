@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, memo } from 'react'
 import { Link, NavLink, generatePath, useLocation, useNavigate } from 'react-router-dom'
 
 import { useFetchProfileDataQuery } from '../../api/profileService'
@@ -42,11 +42,7 @@ import { motion } from 'framer-motion'
 import { w3cwebsocket } from 'websocket'
 import {setTotalUnreadAppeals} from "../../store/redux/info/unreadAppealsSlice";
 
-interface HeaderProps {
-  onUpdateTariff: (tariff: any) => void
-}
-
-export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
+export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
   const dispatch = useAppDispatch()
   const dispatchRole = useDispatch()
@@ -115,9 +111,7 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
 
   useEffect(() => {
     if (userRole === RoleE.Admin) {
-      fetchCurrentTarrif(schoolName).then((tariff: any) => {
-        onUpdateTariff(tariff.data.tariff_name)
-      })
+      fetchCurrentTarrif(schoolName)
     }
   }, [schoolName])
 
@@ -461,4 +455,4 @@ export const Header: React.FC<HeaderProps> = ({ onUpdateTariff }) => {
       </div>
     </motion.header>
   )
-}
+})

@@ -18,6 +18,7 @@ export const StudentsPerSchool: FC = () => {
   const schoolName = window.location.href.split('/')[4] 
   const [fetchStudents, { data, isFetching }] = useLazyFetchStudentsPerSchoolQuery()
   const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery(schoolName)
+  const [isGroupingStudents, setIsGroupingStudents] = useState(false)
 
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: data?.count as number })
 
@@ -76,10 +77,16 @@ export const StudentsPerSchool: FC = () => {
       dispatch(addFilters({key: 'studentsPerSchool', filters: {'sort_by': sort_by_value, 'sort_order': sort_order_value}}))
   }
 
+  const handleSetGroupingStudents = (is_grouping: boolean) => {
+    setIsGroupingStudents(is_grouping)
+    handleAddSortToFilters('email', 'asc')
+}
+
+
   // Перезагрузка после смены страницы пагинатора
   useEffect(() => {
     fetchStudents({ filters, page, id: Number(schoolId) })
-  }, [page,])
+  }, [page,isGroupingStudents])
 
   // Филтра для всех студентов
   const filteredStudents = useMemo(() => {
@@ -124,6 +131,7 @@ export const StudentsPerSchool: FC = () => {
           isLoading={isFetching || isTablesHeaderFetching}
           tableId={tableId as number}
           handleAddSortToFilters={handleAddSortToFilters}
+          isGrouping={handleSetGroupingStudents}
       />
       <Pagination
           className={styles.pagination}

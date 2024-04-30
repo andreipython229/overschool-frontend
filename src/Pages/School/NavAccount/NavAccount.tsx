@@ -9,9 +9,7 @@ import { selectUser } from '../../../selectors'
 import styles from './navAccount.module.scss'
 
 export const NavAccount: FC = memo(() => {
-  const { role, userId } = useAppSelector(selectUser)
-  const owner = localStorage.getItem('owner')
-  const ownerId = owner ? parseInt(owner, 10) : 0;
+  const { role } = useAppSelector(selectUser)
 
   return (
     <nav className={styles.nav_account}>

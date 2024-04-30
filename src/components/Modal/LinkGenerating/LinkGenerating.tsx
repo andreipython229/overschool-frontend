@@ -22,7 +22,6 @@ export const LinkGenerating: React.FC<LinkGeneratingProps> = ({ isOpen, onClose 
   const [fetchPaymentMethods, paymentMethodsResponse] = useLazyFetchPaymentMethodsQuery();
   const [createPaymentLinkMutationFunction] = useCreatePaymentLinkMutation();
   const [ createNewLink, newLinkData ] = useCreateNewLinkMutation();
-  const [ createTestNewLink, newTestLinkData ] = useCreateTestNewLinkMutation();
 
   const schoolIdString = localStorage.getItem('school_id');
   const schoolId = schoolIdString ? parseInt(schoolIdString, 10) : 0;
