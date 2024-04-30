@@ -153,10 +153,13 @@
   }
 
   &_lastMessage {
-    overflow: hidden;
+    overflow: auto;
+    min-height: 1rem;
+    max-height: 3rem;
+    width: 17vw;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 12px;
+    // white-space: nowrap;
+    font-size: 10px;
     color: #838383;
     //border: 1px solid deeppink;
   }
@@ -189,7 +192,7 @@
 .chatsList {
   overflow-y: auto;
   overflow-x: hidden;
-  height: 80%;
+  height: 70vh;
   margin-top: 1rem;
   &::-webkit-scrollbar {
     width: 9px;
@@ -219,6 +222,7 @@
   flex: 0 1 0;
   background: rgba(249, 250, 251);
   font-size: smaller;
+  width: 40%;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 100%;
   }

@@ -39,6 +39,8 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
   const [deleteBlock, { isLoading }] = useDeleteBlockMutation()
   const schoolName = window.location.href.split('/')[4]
 
+  const [videoError, setVideoError] = useState<string>('')
+
     const [progress, setProgress] = useState<number>(0)
 
   const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
@@ -103,6 +105,10 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
   }
 
   const handleVideoUpload = async (lessonIdAndType: any, video: File) => {
+    setVideoError('')
+    console.log(video);
+    
+    if (video.size <= 4000 * 1024 * 1024) {
     setIsLoadingVideo(true);
     const formData = new FormData();
     formData.append('video', video);
@@ -128,7 +134,10 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
         }
     }
     xhr.send(formData);
+  } else {
+    setVideoError('Превышен допустимый размер файла')
   }
+}
 
   const onPointerDown = (event: PointerEvent<HTMLSpanElement>) => {
     controls.start(event)
@@ -201,6 +210,8 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
                     />
                     <IconSvg width={83} height={84} viewBoxSize="0 0 83 84" path={addVideoIconPath} />
                     <span>Перетащите .mp4 видеофайл или нажмите для загрузки</span>
+                    <p>(размер файла не должен превышать 4 ГБ)</p>
+                    {videoError && <p className={styles.redactorCourse_rightSide_functional_addContent_error}>{videoError}</p>}
                     <Button
                       type={'button'}
                       // disabled={isLoading}

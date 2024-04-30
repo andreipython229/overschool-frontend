@@ -107,10 +107,11 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
           </Box>
         )}
         {currentVideoSrc ? (
+          <div className={styles.playerWrapper}>
           <ReactPlayer
             url={currentVideoSrc}
             width="100%"
-            height='min-content'
+            height='100%'
             // style={{ minWidth: '100%', minHeight: '30rem' }}
             controls
             config={{
@@ -121,6 +122,7 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
               },
             }}
           />
+          </div>
         ) : (
           <></>
         )}

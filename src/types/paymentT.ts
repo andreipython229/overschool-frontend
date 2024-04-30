@@ -6,14 +6,16 @@ export interface ResponsePaymentMethod {
     api_key: string;
     school: number;
     currency: string;
+    payment_url: string;
   }
   
   export interface PaymentMethod {
     payment_method: string;
     payment_method_name: string;
-    account_no: string;
+    account_no?: string;
     api_key: string;
     school: number;
+    payment_url: string;
   }
   
   export interface PaymentMethodListResponse {
@@ -50,9 +52,9 @@ export interface ResponsePaymentMethod {
     api_key: string;
   }
 
-  export interface SchoolPaymentLinkList {
+ export interface SchoolPaymentLinkList {
     paymentLinks: SchoolPaymentLink[];
-  }
+}
 
   export interface UpdatePaymentLinkPayload {
     id: number;
