@@ -127,6 +127,7 @@ const handleSubmitNewComment = (e: FormEvent<HTMLFormElement>) => {
             sectionId={`${sectionId}`}
             lessonType={`${lessonType}` as LESSON_TYPE}
             activeLessonIndex={activeLessonIndex as number}
+            nextDisabled={false}
             lessons={lessons as sectionT}
           />
           <div className={styles.commentContainer}>

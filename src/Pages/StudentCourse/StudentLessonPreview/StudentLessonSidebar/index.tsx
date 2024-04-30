@@ -15,16 +15,21 @@ type studentLessonSidebar = {
   activeLessonIndex: number
   lessons: sectionT
   lessonType: LESSON_TYPE
+  nextDisabled: boolean
 }
 
 export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(
-  ({ courseId, sectionId, activeLessonIndex, lessons: initialLessons, lessonType }) => {
+  ({ courseId, sectionId, activeLessonIndex, lessons: initialLessons, lessonType, nextDisabled }) => {
     const navigate = useNavigate()
     const [lessonsComp, setLessonsComp] = useState<sectionT>(initialLessons)
     const school = window.location.href.split('/')[4]
 
     const isLessonClickable = (lessonIndex: number) => {
-      return lessonsComp?.lessons.slice(0, lessonIndex).some(lesson => !lesson.viewed)
+      if (!lessonsComp.group_settings.strict_task_order) {
+        return false
+      }
+      const someNotViewed = lessonsComp?.lessons.slice(0, lessonIndex).some(lesson => !lesson.viewed)
+      return lessonIndex > activeLessonIndex && nextDisabled || someNotViewed
     }
 
     const updateLessonViewed = (lessonIndex: number, viewed: boolean) => {

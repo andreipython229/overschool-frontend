@@ -46,11 +46,24 @@ export const HelpPage: FC = memo(() => {
             </a>
             <div className={styles.header_block}>
                <Button onClick={handleLoginPage} variant={'logIn'} style={{ fontSize: '20px', fontWeight: '700' }} text={'Войти'} />
-               <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '20px', fontWeight: '700' }} text={'Создать платформу'} />
+               {/* <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '20px', fontWeight: '700' }} text={'Создать платформу'} /> */}
             </div>
         </div>
         <img src={frame} alt="asdfhghhgh" style={{ width: "100%", height: "auto" }} />
-        <div className={styles.HelpCenterPage_quickStart}>
+        <div className={styles.HelpCenterPage_FAQ}>
+          <h1>Дорогой Пользователь!</h1>
+          <p>
+          Приветствуем тебя на платформе Overschool. Здесь ты можешь осваивать материалы по выбранному тобой направлению. Также ты можешь расширить свой доступ, тогда для тебя могут стать доступны несколько направлений. Функционал платформы позволит тебе ознакомится с материалами из любого удобного места в удобное для тебя время. Ты можешь знакомиться с материалами с компьютера или ноутбука, а также посредством мобильного приложения (прикрепить активную ссылку на инструкцию).  Также ты можешь осваивать материалы в предложенном порядке или при желании обращаться к конкретному нужному тебе материалу. Также функционал платформы позволит тебе пользоваться автоматизированными тестами, чтобы проверить себя. Если тебе понадобится помощь, наша техподдержка (активная ссылка на чат с техподдержкой) поможет тебе при ближайшей возможности. 
+
+          Мы постоянно развиваем и дорабатываем наш софт. 
+          Уже совсем скоро планируем загрузить обновления с более расширенным функционалом. 
+          Если у тебя есть пожелания и рекомендации по нашей работе, напиши, пожалуйста, на нашу почту <span className={styles.mail}>it@overone.by</span>. Мы благодарны за обратную связь, ведь каждый день мы стараемся стать ещё лучше для тебя! 
+
+          Приятного пользования платформой, дорогой друг! 🫶
+          </p>
+          
+      </div>
+        {/* <div className={styles.HelpCenterPage_quickStart}>
           <h1>Начало работы</h1>
           <div className={styles.HelpCenterPage_quickStart_cardGroup}>
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
@@ -96,6 +109,14 @@ export const HelpPage: FC = memo(() => {
                 </div>
               </CardActionArea>
             </div>
+              <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
+              <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + Path.HelpChat))}>
+                <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
+                    <h3>Как создать чат </h3>
+                   <p>Инструкция по созданию чатов с учениками школы</p>
+                </div>
+              </CardActionArea>
+            </div>
             <div className={styles.HelpCenterPage_quickStart_cardGroup_card}>
               <CardActionArea style={{ width: "100%", height: "100%" }} onClick={() => navigate(generatePath(Path.HelpPage + 'check-hw'))}>
                 <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
@@ -121,8 +142,8 @@ export const HelpPage: FC = memo(() => {
               </CardActionArea>
             </div>
           </div>
-      </div>
-      <div className={styles.HelpCenterPage_FAQ}>
+      </div> */}
+      {/* <div className={styles.HelpCenterPage_FAQ}>
         <h1>Часто задаваемые вопросы</h1>
         <h2>Как оплатить подписку со счета организации?</h2>
         <p>
@@ -143,8 +164,8 @@ export const HelpPage: FC = memo(() => {
         <h2>Бесплатный тариф “Intern” действительно бессрочный?</h2>
         <p>Верно, данный тариф доступен для использования без ограничений по времени.
         Его не нужно продлевать или активировать заново.</p>
-      </div>
-      <div className={styles.HelpCenterPage_banner}>
+      </div> */}
+      {/* <div className={styles.HelpCenterPage_banner}>
         <div className={styles.HelpCenterPage_banner_createProject}>
           <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
           <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
@@ -154,7 +175,7 @@ export const HelpPage: FC = memo(() => {
           <img src={firstStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_firstStep} />
           <img src={secondStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_secondStep} />
         </div>
-      </div>
+      </div> */}
     </section>
     </>
   )
