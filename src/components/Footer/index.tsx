@@ -39,7 +39,7 @@ export const Footer: FC<FooterProps> = ({ schoolTariffPlan }) => {
         <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.PersonalDataTreatmentPolicy}`}>
           Политика обработки персональных данных
         </Link>
-        <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.TariffPlans}`}>
+        <Link className={styles.wrapper_linksBlock_link_tariff} to={`${FooterPath.TariffPlans}`}>
           Тарифы
         </Link>
         <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.PWA}`}>

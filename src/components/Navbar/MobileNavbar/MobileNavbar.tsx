@@ -26,6 +26,7 @@ import { removeSchoolName } from 'store/redux/school/schoolSlice'
 import { useCookies } from 'react-cookie'
 import { useFetchProfileDataQuery } from 'api/profileService'
 import { RoleE } from 'enum/roleE'
+import { logOutIconPath } from './svgIconsPath'
 
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -154,41 +155,58 @@ export const MobileNavbar: FC = memo(() => {
             </a>
           </Tooltip>
         )}
-        <React.Fragment>
-          <div className={styles.navbar_exit}>
-            <Tooltip title={'Выход'}>
-              <div className={styles.tariffPlan} style={{ textDecoration: 'none' }} onClick={handleClick}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#e0dced"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                  <polyline points="16 17 21 12 16 7"></polyline>
-                  <line x1="21" y1="12" x2="9" y2="12"></line>
-                </svg>
-              </div>
-            </Tooltip>
-            <Menu anchorEl={anchorMob} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}>
-              <MenuItem onClick={goToChooseSchool}>
-                <Link to={Path.ChooseSchool} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
-                  Вернуться к выбору платформы
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={logOut}>
-                <Link to={Path.InitialPage} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
-                  Выйти из профиля
-                </Link>
-              </MenuItem>
-            </Menu>
-          </div>
-        </React.Fragment>
+        
+        {userRole === RoleE.Student ? (
+                  <React.Fragment>
+                    <Tooltip title={'Вернуться к выбору платформы'}>
+                      <NavLink to={Path.ChooseSchool} onClick={goToChooseSchool}>
+                        <SvgIcon className={styles.navbar_exit} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.1em' }}>
+                          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                        </SvgIcon>
+                      </NavLink>
+                    </Tooltip>
+                    <Tooltip title={'Выйти из профиля'} className={styles.navbar_exit}>
+                      <IconSvg width={38} height={28} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
+                    </Tooltip>
+                    </React.Fragment>
+                    ):(
+                      <React.Fragment>
+                        <div className={styles.navbar_exit}>
+                          <Tooltip title={'Выход'}>
+                            <div className={styles.tariffPlan} style={{ textDecoration: 'none' }} onClick={handleClick}>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="40"
+                                height="40"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#e0dced"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                              </svg>
+                            </div>
+                          </Tooltip>
+                          <Menu anchorEl={anchorMob} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}>
+                            <MenuItem onClick={goToChooseSchool}>
+                              <Link to={Path.ChooseSchool} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
+                                Вернуться к выбору платформы
+                              </Link>
+                            </MenuItem>
+                            <MenuItem onClick={logOut}>
+                              <Link to={Path.InitialPage} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
+                                Выйти из профиля
+                              </Link>
+                            </MenuItem>
+                          </Menu>
+                        </div>
+                      </React.Fragment>
+                       )
+         } 
       </div>
       {isChatOpen && (
         <Portal closeModal={on}>
