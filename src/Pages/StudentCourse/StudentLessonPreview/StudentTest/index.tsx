@@ -25,9 +25,11 @@ type studentTestT = {
   activeLessonIndex: number
   sended?: boolean
   completed?: boolean
+  nextDisabled: boolean
+  setNextDisabled: (arg: boolean) => void
 }
 
-export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonIndex, sended, completed}) => {
+export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonIndex, sended, completed, nextDisabled, setNextDisabled}) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const schoolName = window.location.href.split('/')[4]
   const { data: lesson, isFetching } = useFetchQuestionsListQuery({ id: String(lessonId), schoolName })
@@ -40,7 +42,6 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
   const user = useAppSelector(selectUser)
   const [testSended, setTestSended] = useState(sended)
   const [testSuccess, setTestSuccess] = useState(completed)
-  const [nextDisabled, setNextDisabled] = useState(false)
 
   useEffect(() => {
     getUsertests({ id: String(lessonId), schoolName }).then((data: any) => {
