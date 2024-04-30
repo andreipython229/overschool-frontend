@@ -15,6 +15,7 @@ import {
     CreateProdamusPaymentLinkData, ProdamusPaymentlinkResponse,
     UpdateProdamusPaymentLinkData, ProdamusPaymentLinkList
 } from '../types/ProdamusPaymenT';
+import { schoolStudentsGroupingData } from 'types/studentsGroup';
 
 export const schoolService = createApi({
     reducerPath: 'schoolService',
@@ -138,6 +139,19 @@ export const schoolService = createApi({
                 method: 'GET',
             }),
         }),
+        fetchSchoolStudentsGrouping: build.query<schoolStudentsGroupingData, { school_id: number }>({
+          query: ({ school_id }) => ({
+            url: `/school_students_table_settings/${school_id}/`,
+            method: 'GET',
+          }),
+        }),
+        updateSchoolStudentsGrouping: build.mutation<void, { school: number; is_students_grouped: boolean }>({
+          query: ({ school, is_students_grouped }) => ({
+            url: `/school_students_table_settings/${school}/`,
+            method: 'PUT',
+            body: { is_students_grouped, school },
+          }),
+        }),
     }),
 })
 
@@ -160,5 +174,6 @@ export const {
     useUpdateProdamusPaymentLinkMutation,
     useDeleteProdamusPaymentLinkMutation,
     useLazyFetchProdamusPaymentLinksQuery,
-
+    useFetchSchoolStudentsGroupingQuery,
+    useUpdateSchoolStudentsGroupingMutation
 } = schoolService;
