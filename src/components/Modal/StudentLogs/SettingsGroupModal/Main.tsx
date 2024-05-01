@@ -188,7 +188,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                         <Checkbox id={'submitTest'} name={'submitTest'} checked={submitTest}
                                   onChange={handlerTestSubmit}/>
                         <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
-                            <span style={blockHomework || !strongSubsequence ? {color: "#e5e7eb"} : {}}>Необходимость отправки тестов</span>
+                            <span style={!strongSubsequence ? {color: "#e5e7eb"} : {}}>Необходимость отправки тестов</span>
                             <span>Ученик сможет приступить к следующему занятию только после прохождения очередного теста (с любым результатом)</span>
                         </div>
                     </div>
@@ -196,7 +196,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                         <Checkbox id={'successTest'} name={'successTest'} checked={successTest}
                                   onChange={handlerTestSuccess}/>
                         <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
-                            <span style={blockHomework || !strongSubsequence || !submitTest ? {color: "#e5e7eb"} : {}}>Необходимость успешного прохождения тестов</span>
+                            <span style={!strongSubsequence || !submitTest ? {color: "#e5e7eb"} : {}}>Необходимость успешного прохождения тестов</span>
                             <span>Ученик сможет приступить к следующему занятию только после успешного прохождения очередного теста (необходимо набрать требуемый процент правильных ответов)</span>
                         </div>
                     </div>

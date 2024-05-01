@@ -15,9 +15,10 @@ import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 type textEditorT = {
   homeworkId: number
   homework: IHomework
+  setHwSended: (arg: boolean) => void
 }
 
-export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework }) => {
+export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework, setHwSended }) => {
   const [files, setFiles] = useState<File[]>([])
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
   const [text, setText] = useState<string>('')
@@ -78,6 +79,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework 
     await postHomework({ homework: formDataHw, schoolName })
       .unwrap()
       .then(data => {
+        setHwSended(true);
         const formDataFile = new FormData()
 
         files.forEach((file, index) => {
@@ -117,8 +119,8 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework 
               setIsLoading(false)
             })
         } else {
-            setHwStatus(true)
-            setIsLoading(false)
+          setHwStatus(true)
+          setIsLoading(false)
         }
       })
       .catch(error => {
@@ -142,10 +144,10 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework 
 
   return !hwStatus ? (
     <div className={styles.wrapper}>
-      <h5 className={styles.wrapper_title}>Введите ответ на задание:</h5>
+      <h5 className={styles.wrapper_title}>Отправить данные, запросить ответ ИИ:</h5>
       <TextareaAutosize
-        aria-label="Введите ответ на домашнее задание..."
-        placeholder="Введите ответ на домашнее задание..."
+        aria-label="Введите ответ на чек-поинт..."
+        placeholder="Введите ответ на чек-поинт..."
         style={{
           width: '100%',
           borderRadius: '5px',
@@ -156,8 +158,8 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework 
         value={text}
         onChange={event => setText(event.target.value)}
       />
+      <span className={styles.wrapper_form_help}>Добавьте файл(-ы):</span>
       <AddFileBtn handleChangeFiles={handleChangeFiles} />
-      <span className={styles.wrapper_form_help}>Добавьте файл(-ы) с решением задания</span>
       {urlFiles?.map(({ url, name }, index: number) => (
         <UploadedFile
           key={index}
@@ -177,7 +179,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework 
       <Stack spacing={2} sx={{ width: '100%' }}>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
-            {'Ошибка отправки домашней работы :('}
+            {'Ошибка отправки чек-поинта :('}
           </Alert>
         </Snackbar>
       </Stack>

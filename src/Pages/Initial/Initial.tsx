@@ -52,16 +52,27 @@ export const Initial = () => {
       <div className={styles.init_main}>
         <section className={styles.init_main_wrapper}>
           <h1 className={styles.init_main__title}>
-            <strong>Первая белорусская онлайн платформа</strong>
+            <strong>Платформа справочных материалов</strong>
           </h1>
-          <div className={styles.init_main__link}>
+          {/* <div className={styles.init_main__link}>
             <div>Найди свое направление</div>
-            <NavLink to={Path.Catalog} className={styles.goBtn}>
-              Каталог курсов
+            <NavLink to={Path.InitialPage} className={styles.goBtn}>
+              Вперед!
             </NavLink>
-          </div>
+          </div> */}
+          <p className={styles.init_main__title_text}>
+          <h3>Добро пожаловать на платформу IT OVERONE!</h3>
+
+          Мы рады приветствовать вас на нашей платформе! Здесь вы можете найти множество актуальных справочных материалов из области программирования и  дизайна!
+
+          Мы стремимся сделать процесс изучения материалов  доступным и легким для всех. Наша платформа предоставляет вам возможность ознакомиться с материалами по дизайну и  программированию и начать свой успешный путь в IT-индустрии.
+
+          Не важно, являетесь ли вы новичком в программировании или опытным специалистом, наша платформа предоставляет вам все необходимые инструменты и ресурсы для развития ваших навыков и создания впечатляющих проектов.
+
+          Мы приглашаем вас присоединиться к IT OVERONE и, пользуясь функционалом нашей платформы, начать свое увлекательное путешествие в мир программирования и дизайна. Давайте вместе создавать будущее в IT-индустрии!
+          </p>
         </section>
-        <div style={{ display: 'flex', position: 'relative', right: '30px' }}>
+        <div style={{ display: 'flex', position: 'relative', right: '30px'}}>
           {coursesImgsData.map(({ id, title, style }) => (
             <CourseImg key={id} currentCourse={currentCourse} changeCurrentCourse={changeCurrentCourse} id={id} title={title} style={style} />
           ))}

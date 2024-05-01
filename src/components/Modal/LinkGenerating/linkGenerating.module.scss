@@ -17,6 +17,8 @@
     padding: 20px;
     border-radius: 10px;
     height: 40%;
+    max-height: 90%;
+    overflow-y: auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 
     @media only screen and (min-width : 2400px) and (max-width : 3500px) {

@@ -145,6 +145,7 @@ export type lessonT = {
   baselesson_ptr_id: number
   viewed: boolean
   completed: boolean
+  sended?: boolean
   active: boolean
 }
 
@@ -154,11 +155,13 @@ export type sectionT = {
   section: number
   baselesson_ptr_id?: number
   lessons: lessonT[]
+  order: number
 }
 
 export type sectionsT = {
   course_id: number
   course_name: string
+  group_settings: any
   baselesson_ptr_id?: number
   sections: sectionT[]
   teacher_id: number | any

@@ -54,6 +54,13 @@
           cursor: pointer;
         }
 
+        &_error {
+          //display: block;
+          font-size: 12px;
+          color: rgba(224, 24, 24, 0.99);
+          //margin-left: 45px;
+        }
+
         // & input {
         //   padding: 0 20px;
         //   width: 40%;
@@ -115,9 +122,13 @@
           }
         }
         & span {
-          margin-bottom: 32px;
+          margin-bottom: 16px;
           @include font(600, 16px);
           color: $font-title;
+        }
+        & p {
+          font-size: 12px;
+          margin-bottom: 1rem;
         }
       }
     }

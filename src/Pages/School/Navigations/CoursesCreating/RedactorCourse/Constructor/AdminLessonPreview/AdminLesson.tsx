@@ -92,7 +92,7 @@ export const AdminLesson: FC<adminLessonT> = ({ lesson }) => {
             </div>
             <div className={styles.adminlesson__content}>
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
-              <span className={styles.adminlesson__materials}>Материалы к занятию:</span>
+              <span className={styles.adminlesson__materials}>Материалы:</span>
               {lesson?.text_files.map(({ file, id, file_url, size }, index: number) => (
                 <UploadedFile key={id} file={file} name={file_url} index={index} size={size} />
               ))}

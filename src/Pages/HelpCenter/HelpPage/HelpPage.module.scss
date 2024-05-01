@@ -78,9 +78,11 @@
         &_cardGroup {
             margin-top: 45px;
             display: inline-flex;
+            flex-wrap: wrap;
             align-items: center;
             width: 90%;
             justify-content: space-around;
+            gap: 45px;
             &_card {
                 width: 313px;
                 height: 189px;

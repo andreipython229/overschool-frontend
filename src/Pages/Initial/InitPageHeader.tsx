@@ -82,7 +82,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
           <div className={styles.header_block}>
             <Button onClick={handleHelpPage} variant={'logIn'} text={'Помощь'} />
             <Link className={styles.header_block_logIn} to={Path.ChooseSchool}>
-              <Button type={'button'} text={'Перейти к выбору платформы'} style={{ marginRight: '-0.2em' }} />
+              <Button type={'button'} text={'Ко входу на платформу'} style={{ marginRight: '-0.2em' }} />
             </Link>
             <Tooltip title={'Выход из профиля'}>
               <div className={styles.header_block_logOut}>
@@ -92,7 +92,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
           </div>
         ) : (
           <div className={styles.header_block}>
-            <Button onClick={handleTariffPage} variant={'logIn'} text={'Тарифы'} />
+            {/* <Button onClick={handleTariffPage} variant={'logIn'} text={'Тарифы'} /> */}
             <Button onClick={handleHelpPage} variant={'logIn'} text={'Помощь'} />
             <Button onClick={handleLoginPage} variant={'logIn'} text={'Войти'} />
             <Button onClick={handleRegistrationUser} variant={'logIn'} text={'Создать платформу'} />

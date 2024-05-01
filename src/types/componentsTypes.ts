@@ -21,6 +21,8 @@ export type setShowType = {
   setShow: () => void
   setDescriptionLesson?: (arg: string) => void
   passStatus?: string
+  setTestSended?: (arg: boolean) => void
+  setTestSuccess?: (arg: boolean) => void
 }
 
 type argT = {

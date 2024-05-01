@@ -3,7 +3,7 @@ import { ChangeEvent, FC, memo, PointerEvent, useEffect, useState } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deleteIconPath } from '../../../../../../config/svgIconsPath'
-import { useDeleteModulesMutation, usePatchLessonsMutation, usePatchModulesMutation, useUpdateLessonsOrdersMutation } from 'api/modulesServices'
+import { useDeleteModulesMutation, usePatchModulesMutation, useUpdateLessonsOrdersMutation } from 'api/modulesServices'
 import { formDataConverter } from 'utils/formDataConverter'
 import { LessonsBlock } from '../LessonsBlock'
 import { ModulesBlockT } from '../../../../../../../../types/navigationTypes'
@@ -14,18 +14,22 @@ import { useAppDispatch } from 'store/hooks'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../../constructor.module.scss'
-import stylesModules from '../ModulesBlock/modules_block.module.scss'
-import { Reorder } from 'framer-motion'
+import stylesModules from './modules_block.module.scss'
+import { Reorder, useDragControls } from 'framer-motion'
 import styles1 from '../../../../../../../../components/Modal/Modal.module.scss'
 import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
 import { WarningModal } from 'components/Modal/Warning'
+import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
+import { ArrowDownward, ArrowDropDown, ArrowUpward } from '@mui/icons-material'
 
 export const ModulesBlock: FC<ModulesBlockT> = memo(
-  ({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId }) => {
+  ({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId, section }) => {
     const dispatch: any = useAppDispatch()
+    const [showLessons, { onToggle: toggleLessons }] = useBoolean(true)
     const schoolName = window.location.href.split('/')[4]
     const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
+    const controls = useDragControls()
 
     const handleLessonClick = (lessonId: number) => {
       setSelectedLessonId(lessonId)
@@ -95,8 +99,23 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
       }
     }, [newLessonsOrders])
 
+    const onPointerDown = (event: PointerEvent<SVGSVGElement | SVGPathElement>) => {
+      controls.start(event)
+    }
+
     return (
-      <>
+      <Reorder.Item
+        dragControls={controls}
+        dragListener={false}
+        draggable={false}
+        key={section.section + section.order}
+        value={section}
+        whileDrag={{
+          scale: 1.1,
+          boxShadow: 'rgba(0,0,0, 0.12) 0px 1px 3px, rgba(0,0,0, 0.24) 0px 1px 2px',
+          borderRadius: '7px',
+        }}
+      >
         {showModal && (
           <Portal closeModal={close}>
             <WarningModal
@@ -108,6 +127,16 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
         )}
         <ul className={styles.redactorCourse_leftSide_desc_headerText}>
           <span className={styles.redactorCourse_leftSide_desc_headerText_title + ' ' + stylesModules.test}>
+            <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_btn_drag_and_drop_module + ' ' + stylesModules.btn}>
+              <IconSvg
+                styles={{ cursor: 'grab', width: '14px', height: '14px', position: 'absolute', top: '8px', left: '6px', zIndex: '30' }}
+                width={12}
+                height={18}
+                viewBoxSize={'0 0 12 18'}
+                onPointerDown={onPointerDown}
+                path={doBlockIconPath}
+              />
+            </span>
             <input
               type="text"
               value={changeModuleName || ''}
@@ -120,9 +149,25 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
             {deleteModuleLoading && <SimpleLoader style={{ width: '20px', height: '20px' }} />}
           </span>
 
-          <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons}>
-            {lessons &&
-              lessons.map(lesson => (
+          <span
+            onClick={() => toggleLessons()}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              fontSize: '12px',
+              cursor: 'pointer',
+              paddingBottom: '1rem',
+            }}
+            className={styles.showBtn}
+          >
+            {showLessons ? `Скрыть материалы модуля` : `Показать материалы`} {showLessons ? <ArrowUpward /> : <ArrowDownward />}
+          </span>
+          {showLessons && (
+            <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons}>
+              {lessons &&
+                lessons.map(lesson => (
                   <LessonsBlock
                     type={lesson.type}
                     setLessonIdAndType={setLessonIdAndType}
@@ -131,15 +176,15 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                     id={lesson.id}
                     lessonsName={lesson.name}
                     lesson={lesson}
-                    selected={selectedLessonId === lesson.baselesson_ptr_id }
+                    selected={selectedLessonId === lesson.baselesson_ptr_id}
                     onPush={() => handleLessonClick(lesson.baselesson_ptr_id)}
                   />
-              ))}
-          </Reorder.Group>
-
+                ))}
+            </Reorder.Group>
+          )}
           <Button className={styles.btn} text="+ занятие" variant="secondary" onClick={handleOpenModalLesson} />
         </ul>
-      </>
+      </Reorder.Item>
     )
   },
 )

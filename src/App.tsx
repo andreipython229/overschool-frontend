@@ -33,6 +33,7 @@ import { HelpSchoolSettings } from 'Pages/HelpCenter/HelpSchoolSettings'
 import { HelpStudentsPage } from 'Pages/HelpCenter/HelpStudentsPage'
 import { HelpGroupSettings } from 'Pages/HelpCenter/HelpGroupSettings'
 import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
+import {HelpChat} from "./Pages/HelpCenter/HelpChat";
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
 
 export const App = () => {
@@ -105,10 +106,10 @@ export const App = () => {
   return (
     <div className={styles.container}>
       <Routes>
-        <Route path={Path.Catalog}>
+        {/* <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />
           <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
-        </Route>
+        </Route> */}
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
           <Route path={FooterPath.PWA} element={<PWA />} />
@@ -129,6 +130,7 @@ export const App = () => {
           <Route path={Path.HelpGroupSettings} element={<HelpGroupSettings />} />
           <Route path={Path.HelpStudents} element={<HelpStudentsPage />} />
           <Route path={Path.HelpCheckHW} element={<HelpCheckHW />} />
+          <Route path={Path.HelpChat} element={<HelpChat />} />
         </Route>
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />

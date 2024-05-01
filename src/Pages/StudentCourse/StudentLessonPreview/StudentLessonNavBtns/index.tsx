@@ -19,10 +19,11 @@ type studentLessonNavBtnsT = {
   lessonId: string
   lessonType: LESSON_TYPE
   activeLessonIndex: number
+  nextDisabled: boolean
   lessons: sectionT
 }
 
-export const StudentLessonNavBtns: FC<studentLessonNavBtnsT> = memo(({ courseId, sectionId, lessonType, lessonId, activeLessonIndex, lessons }) => {
+export const StudentLessonNavBtns: FC<studentLessonNavBtnsT> = memo(({ courseId, sectionId, lessonType, lessonId, activeLessonIndex, nextDisabled, lessons }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const school = window.location.href.split('/')[4]
@@ -87,7 +88,7 @@ export const StudentLessonNavBtns: FC<studentLessonNavBtnsT> = memo(({ courseId,
                     onClick={() => navigate(`/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${lessonBack?.type || lessonType}/${lessonBack?.id}`)}
                     disabled={lessonId === (lessonBack?.id || lessonId)}
                     className={styles.lesson__btnPrev}
-                    text="Предыдущее"
+                    text="Предыдущий материал"
                 />)
             }
 
@@ -101,13 +102,13 @@ export const StudentLessonNavBtns: FC<studentLessonNavBtnsT> = memo(({ courseId,
                       navigate(`/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${lessonForward?.type || lessonType}/${lessonForward?.id}`)
                     }
                     className={styles.lesson__btnNext}
-                    disabled={lessonId === (lessonForward?.id || lessonId)}
-                    text="Следующее"
+                    disabled={(lessonType !== "lesson" && nextDisabled) || (lessonId === (lessonForward?.id || lessonId))}
+                    text="Следующий материал"
                 />)
             }
 
             {nextSectionButtonVisible() && (
-                <NextOrPrevSectionButton sectionId={getNextSection()} courseId={parseInt(courseId)} />
+                <NextOrPrevSectionButton sectionId={getNextSection()} courseId={parseInt(courseId)} nextDisabled={nextDisabled}/>
             )}
         </div>
         )
