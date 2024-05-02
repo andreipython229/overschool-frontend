@@ -1,4 +1,4 @@
-import {FC, useState, useEffect, ChangeEvent} from 'react'
+import React, {useRef, FC, useState, useEffect, ChangeEvent, MouseEvent, MouseEventHandler} from 'react'
 import {Reorder} from 'framer-motion'
 
 import {Checkbox} from 'components/common/Checkbox/Checkbox'
@@ -16,7 +16,8 @@ import scss from './settingStudentTable.module.scss'
 import itemStyles from './SettingItem/settingItem.module.scss'
 
 
-export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tableId}) => {
+export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tableId, is_students_grouped, onCloseModal}) => {
+    const modalRef = useRef<HTMLDivElement>(null);
     const schoolName = window.location.href.split('/')[4]
     const {data: studentsTableInfo, isSuccess} = useFetchStudentsTableHeaderQuery({id: tableId, schoolName})
 
@@ -24,6 +25,7 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
     const [checkedList, setIsCheckedList] = useState<studentGroupInfoT[]>([])
     const [settingList, setSettingsList] = useState<studentGroupInfoT[]>([])
     const [nameAndEmailSettingsList, setNameAndEmailSettingsList] = useState<studentGroupInfoT[]>([])
+    const [isStudentsGrouped, setIsStudentsGrouped] = useState<boolean>(is_students_grouped);
 
     const debounced = useDebounceFunc(() => patchTable({
         id: tableId,
@@ -31,7 +33,9 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
         schoolName
     }), 2000)
 
-
+    const handleGroupStudents = (event: ChangeEvent<HTMLInputElement>) => {
+        setIsStudentsGrouped(event.target.checked);
+    };
 
     const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
         if (checkedList.length >= 3 && event.target.checked) {
@@ -51,6 +55,7 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
     }
 
     const closeSettingsModal = () => {
+        onCloseModal(isStudentsGrouped);
         setShowModal()
     }
 
@@ -71,7 +76,7 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
 
     return (
         <div className={styles.main}>
-            <div className={styles.container}>
+            <div className={styles.container} ref={modalRef}>
         <span className={styles.main_closed}>
           <IconSvg functionOnClick={closeSettingsModal} width={18} height={18} viewBoxSize="0 0 15 15"
                    path={crossIconPath}/>
@@ -79,6 +84,16 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
                 <div className={styles.settings_title}>Настройка таблицы учеников</div>
                 <p style={{fontSize: '14px', textAlign: 'center', margin: '10px 0', userSelect: 'none'}}>Выберите до 5
                     колонок для отображения в таблице</p>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                        <label htmlFor="groupStudentsCheckbox" style={{ marginRight: '5px' }}>Сгруппировать учеников</label>
+                        <input type="checkbox" id="groupStudentsCheckbox" name="groupStudentsCheckbox" style={{ 
+                            backgroundColor: '#ba75ff', 
+                            width: '15px', 
+                            height: '15px', 
+                            marginBlockStart: '5px' 
+                        }} 
+                        onChange={handleGroupStudents} checked={isStudentsGrouped} />
+                    </div>    
                 <form className={scss.form}>
                     {nameAndEmailSettingsList.map(item => (
                         <div className={`${itemStyles.wrapper_item} ${styles.wrapper_item_init}`} key={item.id}>

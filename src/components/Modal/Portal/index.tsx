@@ -17,22 +17,23 @@ export const Portal: FC<PortalT> = ({ closeModal, children}) => {
   const [container] = useState(() => createOverlay())
 
   const clickMouseHandler = (event: MouseEvent) => {
-    const target = event?.target as HTMLHeadingElement
-    if (target.className.includes('portal_wrapper')) {
-      closeModal()
+    const target = event?.target as HTMLElement;
+    if (target.classList.contains(styles.wrapper)) {
+      closeModal();
     }
   }
+
   const keydownHandler = ({ key }: KeyboardEvent) => {
     if (key === 'Escape') {
       closeModal()
     }
   }
 
-
-  const handleClick = (event:MouseEvent) => {
-    const target = event?.target as HTMLHeadingElement
-    if (target.className.includes('portal_wrapper')) {
-      closeModal()
+  const handleClick = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    const isCloseButton = target.closest(`.${styles.main_closed}`);
+    if (!isCloseButton) {
+      event.stopPropagation();
     }
   };
 

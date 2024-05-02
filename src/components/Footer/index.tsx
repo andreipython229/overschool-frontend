@@ -6,12 +6,7 @@ import { useFetchSchoolQuery } from 'api/schoolService'
 
 import styles from './footer.module.scss'
 
-interface FooterProps {
-  schoolTariffPlan: (tariffPlan: string) => void;
-}
-
-
-export const Footer: FC<FooterProps> = ({ schoolTariffPlan }) => {
+export const Footer = () => {
 
   const currentYear = new Date().getFullYear();
   const schoolId = localStorage.getItem("school_id");
@@ -21,11 +16,6 @@ export const Footer: FC<FooterProps> = ({ schoolTariffPlan }) => {
   useEffect(() => {
     if (data) {
       setAgreementUrl(data?.offer_url);
-      if (data?.tariff && data?.owner) {
-        schoolTariffPlan(data?.tariff);
-        localStorage.setItem("schoolTariff", data.tariff);
-        localStorage.setItem("owner", data.owner.toString());
-      }
     }
   }, [data])
 
