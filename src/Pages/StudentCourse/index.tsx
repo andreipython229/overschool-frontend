@@ -32,7 +32,6 @@ export const StudentCourse: FC = () => {
     }, [isError])
 
     useEffect(() => {
-        console.log(course)
         if (course?.sections.length !== undefined) {
             localStorage.setItem('sections_count', course?.sections.length.toString());
             dispatch(setModules(course));
