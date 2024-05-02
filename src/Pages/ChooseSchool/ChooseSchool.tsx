@@ -201,7 +201,7 @@ export const ChooseSchool = () => {
                 </svg>
                 <span className={styles.tit}>Выберите платформу для входа:</span>
               </div>
-              <motion.div className={styles.search} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+              {/* <motion.div className={styles.search} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                 <form>
                   <input
                     type="text"
@@ -210,7 +210,7 @@ export const ChooseSchool = () => {
                     onChange={event => setSearch(event.target.value)}
                   ></input>
                 </form>
-              </motion.div>
+              </motion.div> */}
               <div className={styles.schoolBox}>
                 {schools ? (
                   filteredSchool.map((school, index: number) =>

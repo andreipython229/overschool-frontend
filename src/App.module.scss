@@ -12,14 +12,14 @@ body {
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     min-width: 375px;
-    width: 100%;
+    width: 100vw;
     display: flex;
     height: 100%;
   }
 
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     min-width: 375px;
-    width: 100%;
+    width: 100vw;
     display: flex;
     height: 100%;
   }

@@ -30,6 +30,7 @@ export const CoursePage: FC = () => {
   const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
   // const [isVisible, setVisible] = useState(false)
   // const handleVisible = () => setVisible(!isVisible)
+  const [search, setSearch] = useState('')
 
   const dispatchHandlerModal = () => {
     onToggle()
@@ -44,6 +45,13 @@ export const CoursePage: FC = () => {
         fetchData(schoolName)
     }
   }, [schoolId]);
+
+  const filteredCourses = courses?.results.filter((course:any) => {
+    return course.name.toLowerCase().includes(search.toLowerCase())
+  })
+
+  
+  
 
   if (!isSuccess)
     return (
@@ -73,7 +81,7 @@ export const CoursePage: FC = () => {
   return (
     <>
       <div className={styles.container}>
-        <Input role="search-input" name="" type="search" value={nameCourses} onChange={filterData} placeholder="Поиск по материалам">
+        <Input role="search-input" name="" type="search" value={search} onChange={event => setSearch(event.target.value)} placeholder="Поиск по материалам">
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
         {/* <div className={styles.course_all}>
@@ -95,10 +103,14 @@ export const CoursePage: FC = () => {
                 delay: 0.5,
               }}
             >
-              {courses && courses?.results.length ? (
-                foundCourses?.map((course: any) => <CoursesCard key={course?.course_id} course={course} role={role} />)
+              {courses && filteredCourses?.length !== 0 ? (
+                filteredCourses?.map((course: any) => <CoursesCard key={course?.course_id} course={course} role={role} />)
               ) : (
-                <></>
+                <>
+                  <div className={styles.search}>
+                    <p color="gray">По результатам поиска ничего не найдено...</p>
+                  </div>
+                </>
               )}
               {role !== RoleE.Student && (
                 <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
