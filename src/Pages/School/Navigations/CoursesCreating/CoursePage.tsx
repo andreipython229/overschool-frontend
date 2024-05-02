@@ -50,7 +50,7 @@ export const CoursePage: FC = () => {
     return course.name.toLowerCase().includes(search.toLowerCase())
   })
 
-  console.log(filteredCourses);
+  
   
 
   if (!isSuccess)

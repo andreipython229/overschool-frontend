@@ -9,7 +9,7 @@ import {selectUser} from '../../../selectors'
 import { Path } from 'enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import {logo} from "../../../assets/img/common";
-import styles from './HelpUserAccount.module.scss'
+import styles from '../HelpPage.module.scss'
 
 export const HelpUserAccount = () => {
       const {role} = useAppSelector(selectUser)
