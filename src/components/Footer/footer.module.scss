@@ -1,5 +1,6 @@
 @import '../../scss/variable';
 @import '../../scss/mixin';
+
 .wrapper {
   @include display(flex, column, space-between, center);
   padding: 40px 40px 40px 95px;
@@ -21,30 +22,14 @@
       color: #6b7280;
 
       &_tariff {
-
         display: none;
-
-
       }
 
       &_mobile {
-        @media screen and (max-width: 1024px) {
-          display: none;
-        }
+        display: none;
       }
     }
   }
-
-    
-          
-            
-    
-
-          
-          Expand Down
-    
-    
-  
   &_appName {
     margin: 40px 0 10px 0;
     @include font(800, 33px, 40px);
@@ -60,8 +45,10 @@
       display: none;
     }
   }
+
   &_requisites {
     display: none;
+
     @media screen and (max-width: 1024px) {
       display: flex;
       flex-direction: column;
