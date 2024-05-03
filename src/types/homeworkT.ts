@@ -1,4 +1,5 @@
 import {CheckHw} from "../Pages/StudentCourse/StudentLessonPreview/StudentHomeworkCheck";
+import { BlockT } from "./sectionT";
 
 export type homeworksStatsT = {
   count: number
@@ -86,6 +87,7 @@ export interface UserHomeworkCheck {
 }
 
 export interface Homework {
+  blocks: BlockT[]
   homework_id: number
   section: number
   name: string
