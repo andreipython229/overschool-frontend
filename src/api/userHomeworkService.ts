@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { UserHomework, Homework } from 'types/homeworkT'
 import { baseQuery } from './baseApi'
+import { IHomework } from 'types/sectionT'
 
 interface CheckReply {
   user_homework_check_id: number
@@ -24,7 +25,7 @@ export const userHomeworkService = createApi({
       }),
       providesTags: ['userHomework'],
     }),
-    fetchHomeworkData: build.query<Homework, { id: number; schoolName: string }>({
+    fetchHomeworkData: build.query<IHomework, { id: number; schoolName: string }>({
       query: ({ id, schoolName }) => ({
         url: `/${schoolName}/homeworks/${id}/`,
       }),
