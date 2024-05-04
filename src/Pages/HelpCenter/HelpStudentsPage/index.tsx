@@ -12,7 +12,7 @@ import {selectUser} from '../../../selectors'
 import { Path } from 'enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import {logo} from "../../../assets/img/common";
-import styles from './HelpStudentsPage.module.scss'
+import styles from '../HelpPage.module.scss'
 
 export const HelpStudentsPage = () => {
       const navigate = useNavigate()

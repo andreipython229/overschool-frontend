@@ -27,6 +27,8 @@ import {
 
 import styles from './modal_check_home_work.module.scss'
 import { TextField } from '@mui/material'
+import { renderStudentBlocks } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/AdminLessonPreview/AdminLesson'
+import { Reorder } from 'framer-motion'
 
 type modalHomeworkT = {
   id: number
@@ -188,7 +190,11 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
                 <div className={styles.task_modal_inner}>
                   <div className={styles.task_modal_title}>
                     <h3>{homework?.name}</h3>
-                    {/* <span>{userHomework?.course_name}</span> */}
+                    {homework && (
+                      <Reorder.Group values={homework?.blocks} onReorder={() => console.log('#')}>
+                        <span>{renderStudentBlocks(homework)}</span>
+                      </Reorder.Group>
+                    )}
                   </div>
                   <div className={styles.task_modal_text}>{parse(homework?.description || '')}</div>
                   {((homework?.audio_files && homework.audio_files.length > 0) || (homework?.text_files && homework.text_files.length > 0)) && (

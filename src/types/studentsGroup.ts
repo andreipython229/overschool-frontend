@@ -42,3 +42,10 @@ export type studentGroupInfoT = {
     label?: string
     id: number
 }
+
+
+export type schoolStudentsGroupingData = {
+    id: number;
+    school: number;
+    is_students_grouped: boolean;
+  }

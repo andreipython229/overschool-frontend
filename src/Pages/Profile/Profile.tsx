@@ -228,6 +228,18 @@ export const Profile = () => {
                             />
                         </div>
                     </form>
+                    <form className={styles.container}>
+                        <h5 className={styles.profile_block_title}>Уведомления</h5>
+
+                        <div className={styles.container_wrapper}>
+                            <Button
+                                className={styles.profile_block_btn}
+                                variant={'primary'}
+                                text={'Включить Телеграм уведомления'}
+                                onClick={() => window.open('https://t.me/test_over_bot', '_blank')}
+                            />
+                        </div>
+                    </form>
                 </div>
                 {isOpen && (
             <div className={styles.modal}>

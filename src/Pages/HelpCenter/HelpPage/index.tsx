@@ -12,7 +12,7 @@ import { Path } from 'enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import {logo} from "../../../assets/img/common";
 
-import styles from './HelpPage.module.scss'
+import styles from '../HelpPage.module.scss'
 
 export const HelpPage: FC = memo(() => {
   const {role} = useAppSelector(selectUser)
