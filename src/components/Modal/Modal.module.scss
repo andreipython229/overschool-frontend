@@ -497,6 +497,13 @@
     margin-bottom: 16px;
   }
 
+  &_desc {
+    @include font(400, 16px);
+    margin-bottom: 16px;
+    color: #be4848;
+    text-align: center;
+  }
+
   &_input {
     margin-bottom: 16px;
   }
