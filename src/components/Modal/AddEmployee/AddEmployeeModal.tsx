@@ -24,6 +24,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
   const schoolName = window.location.href.split('/')[4]
   const [emailUser, setEmailUser] = useState<string>('')
   const [role, setRole] = useState<string>('')
+  const [pseudonym, setPseudonym] = useState<string>('')
   const [registrationAdmin, { isSuccess: isRegistered }] = useAdminRegistrationMutation()
   const [addAccess, { isSuccess: isAccessed }] = useAddUserAccessMutation()
 
@@ -55,6 +56,11 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
     setRole(role)
   }
 
+  const handleChangePseudonym = (event: ChangeEvent<HTMLInputElement>) => {
+    setPseudonym(event.target.value);
+  }
+
+
     useEffect(() => {
         if (isGetted) {
             const updatedCourses: checkCourseT[] = courses.map(course => ({
@@ -79,6 +85,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
         const formData = new FormData()
         formData.append('emails', emailUser)
         formData.append('role', role)
+        formData.append('pseudonym', pseudonym)
         role === 'Teacher' &&
           checkCourses &&
           checkCourses.length &&
@@ -101,7 +108,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
 
   useEffect(() => {
     if (isAccessed) {
-      setEmployees([...employees, { email: emailUser, role: role }])
+      setEmployees([...employees, { email: emailUser, role: role, pseudonym: pseudonym }])
       setShowModal()
     }
   }, [isAccessed])
@@ -130,6 +137,12 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
             <br />
             <div className={styles.main_employee_invite_input}>
               <input value={emailUser} onChange={handleChangeEmail} type="text" placeholder={'example@mailbox.ru'} />
+            </div>
+            <br />
+            <label htmlFor="pseudonym">Псевдоним нового сотрудника:</label>
+            <br />
+            <div className={styles.main_employee_invite_input}>
+              <input value={pseudonym} onChange={handleChangePseudonym} type="text" placeholder={'Введите псевдоним'} />
             </div>
             <br />
             <label htmlFor="role">Роль нового сотрудника:</label>

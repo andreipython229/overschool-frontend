@@ -43,6 +43,7 @@ export type EmployeePropsT = {
   id?: number
   employees: EmployeeT[]
   setEmployees: (arg: EmployeeT[]) => void
+  isModalRenameOpen: () => void
 }
 
 export type LogoAddBlockPropsT = {

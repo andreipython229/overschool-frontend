@@ -99,6 +99,10 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
         }
     }, [schoolName, course])
 
+    useEffect(() => {
+        console.log(schoolTariff);
+    })
+
     useEffect(() => {        
         if (allUsers) {
             const allTeachers = allUsers.results.filter((user: any) => user.role === 'Teacher')

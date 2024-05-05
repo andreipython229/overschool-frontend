@@ -37,6 +37,7 @@ type StudentsTableWrapperT = {
   isGrouping?: (is_grouping: boolean) => void
 }
 
+
 export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId, handleReloadTable, handleAddSortToFilters, isGrouping }) => {
   const dispatch = useAppDispatch()
   const schoolId = localStorage.getItem('school_id');
@@ -89,8 +90,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
           handleAddSortToFilters('last_name', direction)
           break;
         case 'Email':
-          console.log("yes email");
-          
           handleAddSortToFilters('email', direction)
           break;
         case 'Курс':
@@ -157,7 +156,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
     }
   }
 
-  const handleRowClick = (event: any, studentId: number) => {
+  const handleRowClick = (event: any, studentId: any) => {
   // Проверка, был ли клик на кнопке "CHAT"
     if (!event.target.classList.contains(styles.chat_button)) {
       setSelectedStudentId(studentId);
@@ -201,13 +200,14 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
 
   useEffect(() => {
     students && setRows(data)
-  }, [isLoading, students])
+  }, [isGroupingStudents, isLoading, students])
 
   useEffect(() => {
     setCols(columns)
   }, [isSuccess, tableHeaderData])
 
   useEffect(() => {
+    
     typeof selectedStuentId === 'number' && studentModalOff()
 
     if (students) {
@@ -288,9 +288,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
                const showEmailCell = rowspan === 1;
                return (
                  <tr 
-                   key={`row-${rowIndex}`} 
+                   key={rowIndex} 
                    style={row['Дата удаления из группы'] !== ' ' ? {backgroundColor: '#fcf5f5'} : {}}
-                   onClick={(event) => handleRowClick(event, rowIndex)}
+                   onClick={(event) => handleRowClick(event, row.id)}
                  >
                    {cols.map((col: string, colIndex: number) => {
                      const cellValue = row[col] as string | number | { text: string; image: ReactNode };
@@ -406,7 +406,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
           ) : (
             <tbody className={styles.table_tbody}>
               {rows?.map((row, id) => (
-                <tr key={id} style={row['Дата удаления из группы'] !== ' ' ? {backgroundColor: '#fcf5f5'} : {}} onClick={(event) => handleRowClick(event, id)}>
+                <tr key={id} style={row['Дата удаления из группы'] !== ' ' ? {backgroundColor: '#fcf5f5'} : {}} onClick={(event) => handleRowClick(event, row.id)}>
                   {cols.map(col => {
                     const cellValue = row[col] as string | number | { text: string; image: ReactNode }
                     return (

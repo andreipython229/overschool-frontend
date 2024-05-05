@@ -13,28 +13,35 @@ import styles_load from 'components/Modal/Modal.module.scss'
 import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
 import {Pagination} from "../../../components/Pagination/Pagination";
 import {usePagination} from "../../../customHooks";
+import { getUserIdFromLocalStorage } from 'utils/getUserId';
 
 
 export const Employees: FC = () => {
   const schoolName = window.location.href.split('/')[4]
+  const userId = getUserIdFromLocalStorage();
   // const { data: allUsers, isSuccess, isFetching } = useFetchAllUsersQuery({schoolName: schoolName})
   const [fetchAllUsers, { data: allUsers, isSuccess, isFetching }] = useLazyFetchAllUsersQuery()
   const [employees, setEmployees] = useState<EmployeeT[]>([])
   const [isModalOpen, { off: openModal, on: closeModal }] = useBoolean()
+  const [isRenameModalOpenState, setIsRenameModalOpenState] = useState<boolean>(false);
 
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: allUsers?.count as number })
+
+  const handleOpenRenameModal = () => {
+    setIsRenameModalOpenState(true);
+  }
 
   useEffect(() => {
     if (allUsers) {
       const filteredUsers = allUsers.results.filter((user: any) => user.role === 'Teacher' || user.role === 'Admin')
       setEmployees(filteredUsers)
     }
-  }, [isSuccess, allUsers])
+  }, [isRenameModalOpenState, isSuccess, allUsers])
 
-  // Перезагрузка после смены страницы пагинатора
   useEffect(() => {
     fetchAllUsers({schoolName: schoolName, page: page , role: "staff"})
-  }, [page,])
+    setIsRenameModalOpenState(false);
+  }, [isRenameModalOpenState, page])
 
   return (
     <>
@@ -68,17 +75,18 @@ export const Employees: FC = () => {
                   <Employee
                     key={employee.id}
                     avatar={employee.avatar || avatar}
-                    name={employee.last_name || employee.first_name ? `${employee.last_name}  ${employee.first_name}` : 'Нет имени'}
+                    name={(employee.pseudonym && employee.id !== userId)? `${employee.pseudonym}` : (employee.last_name || employee.first_name) ? `${employee.last_name}  ${employee.first_name}` : 'Нет имени'}
                     contact={employee.email}
                     role={employee.role}
                     id={employee.id}
                     employees={employees}
                     setEmployees={setEmployees}
+                    isModalRenameOpen={handleOpenRenameModal}
                   />
                 ))}
               </div>
             ) : (
-              <p style={{ color: 'lightslategrey' }}>Пока сотрудников на платформе нет</p>
+              <p style={{ color: 'lightslategrey' }}>Пока что сотрудников на платформе нет</p>
             )}
           </div>
         </div>

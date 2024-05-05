@@ -152,6 +152,17 @@ export const schoolService = createApi({
             body: { is_students_grouped, school },
           }),
         }),
+        updateUserPseudonym: build.mutation<void, { school: number; pseudonym: string, user: number }>({
+            query: ({ school, pseudonym, user }) => ({
+                url: `/user_pseudonym/${school}/`,
+                method: 'PUT',
+                body: {
+                    pseudonym,
+                    school,
+                    user
+                },
+            }),
+        }),
     }),
 })
 
@@ -175,5 +186,6 @@ export const {
     useDeleteProdamusPaymentLinkMutation,
     useLazyFetchProdamusPaymentLinksQuery,
     useFetchSchoolStudentsGroupingQuery,
-    useUpdateSchoolStudentsGroupingMutation
+    useUpdateSchoolStudentsGroupingMutation,
+    useUpdateUserPseudonymMutation
 } = schoolService;
