@@ -152,9 +152,9 @@ export const schoolService = createApi({
             body: { is_students_grouped, school },
           }),
         }),
-        updateUserPseudonym: build.mutation<void, { school: number; pseudonym: string, user: number }>({
-            query: ({ school, pseudonym, user }) => ({
-                url: `/user_pseudonym/${school}/`,
+        updateUserPseudonym: build.mutation<void, { schoolName: string, school: number; pseudonym: string, user: number }>({
+            query: ({ schoolName, school, pseudonym, user }) => ({
+                url: `/${schoolName}/user_pseudonym/${school}/`,
                 method: 'PUT',
                 body: {
                     pseudonym,

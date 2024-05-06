@@ -85,7 +85,6 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                }) => {
     const schoolName = window.location.href.split('/')[4]
     const [getUsers, {data: allUsers, isSuccess}] = useLazyFetchAllUsersQuery()
-    const schoolTariff = localStorage.getItem("schoolTariff");
     const [allTeachers, setAllTeachers] = useState<any>([])
     const [teachers, setTeachers] = useState<string[]>([])
     const [selectedTeacher, setSelectedTeacher] = useState<string>('')
@@ -98,10 +97,6 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
             getGroups({id: course, schoolName});
         }
     }, [schoolName, course])
-
-    useEffect(() => {
-        console.log(schoolTariff);
-    })
 
     useEffect(() => {        
         if (allUsers) {
@@ -204,15 +199,13 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                             <span>Ученик сможет приступить к следующему занятию только после успешного прохождения очередного теста (необходимо набрать требуемый процент правильных ответов)</span>
                         </div>
                     </div>
-                    {schoolTariff != null && parseInt(schoolTariff, 10) !== 1 && (
-                        <div className={styles.groupSetting_checkboxBlock_checkbox}>
-                            <Checkbox id={'overAiLock'} name={'overAiLock'} checked={overAiLock} onChange={handlerLockOverAi}/>
-                            <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
-                                <span>Включить OVER AI</span>
-                                <span>Ученики группы смогут пользоваться OVER AI</span>
-                            </div>
+                    <div className={styles.groupSetting_checkboxBlock_checkbox}>
+                        <Checkbox id={'overAiLock'} name={'overAiLock'} checked={overAiLock} onChange={handlerLockOverAi}/>
+                        <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
+                            <span>Включить OVER AI</span>
+                            <span>Ученики группы смогут пользоваться OVER AI</span>
                         </div>
-                    )}
+                    </div>
                     <div className={styles.groupSetting_checkboxBlock_checkbox}>
                         <Checkbox id={'certificate'} name={'certificate'} checked={certificate} onChange={handleCertificate}/>
                         <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>

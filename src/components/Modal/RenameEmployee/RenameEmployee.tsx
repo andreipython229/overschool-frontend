@@ -20,6 +20,7 @@ interface RenameEmployeeProps {
         e.preventDefault();
         try {
             await updateUserPseudonym({
+                schoolName: schoolName,
                 school: Number(school_id),
                 pseudonym: newName,
                 user: userId
