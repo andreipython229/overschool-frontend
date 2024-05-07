@@ -3,14 +3,17 @@
   min-height: 48px;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 1em;
+
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 1em;
   }
+
 }
 
 .nav_account a:nth-last-child(n + 2) {

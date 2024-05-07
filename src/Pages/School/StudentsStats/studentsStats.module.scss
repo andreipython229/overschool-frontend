@@ -125,6 +125,15 @@
   }
 }
 
+.students {
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    margin-left: 50px;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+   margin-top: 50px;
+  }
+}
+
 .students_group {
   @media only screen and (min-width : 375px) and (max-width : 480px) {
     padding: 2rem 1rem 2rem 1rem;

@@ -5,21 +5,25 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
-    padding-top: 10px;
-    width: 100vw;
-  }
-
-  @media only screen and (min-width: 481px) and (max-width: 1024px) {
-    height: 100%;
-    width: 100vw;
-    padding-top: 10px;
-   }
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)),
     url('../../assets/mobileImg/bg1.jpg') no-repeat center center;
   background-size: cover;
   font-family: 'Manrope', sans-serif;
   padding: 0 20px;
+
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding: 0 0;
+    width: 100vw;
+    padding-top: 10px;
+    overflow-y: auto;
+  }
+
+  @media only screen and (min-width: 481px) and (max-width: 1024px) {
+    padding-top: 10px;
+    width: 100vw;
+    padding: 0 0;
+    overflow-y: auto;
+   }
 }
 
 .initPage {
@@ -28,21 +32,23 @@
     @include font (800, 32px, 32px);
     margin: 112px 0 128px 0;
     @media only screen and (min-width : 320px) and (max-width : 375px) {
-      margin: 50px 0 0 0;
-      padding: 0 1% 0 1%;
+      margin: 20px 0 0 0;
+      padding: 0 25px 0 25px;
+      font-size: 16px;
+      display: flex;
       
     }
     @media only screen and (min-width : 375px) and (max-width : 480px) {
       margin: 20px 0 0 0;
-      padding: 0 1% 0 1%;
-      font-size: 22px;
+      padding: 0 25px 0 25px;
+      font-size: 16px;
       display: flex;
       
     }
      @media only screen and (min-width: 481px) and (max-width: 1024px) {
       font-size: 46px;
       margin: 20px 0 2% 0;
-      font-size: 24px;
+      font-size: 20px;
      }
   }
 
@@ -68,8 +74,9 @@
         @include font (600, 16px);
         color: #ffffff;
         margin: 0 0 80px 0;
-        @media only screen and (min-width : 375px) and (max-width : 480px) {
+        @media only screen and (min-width : 320px) and (max-width : 480px) {
           margin: 2rem 0 2rem 0;
+          font-size: 12px;
         }
          @media (min-width: 481px) and (max-width: 1024px) {
           font-size: 28px;

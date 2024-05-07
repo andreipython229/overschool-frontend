@@ -3,6 +3,21 @@
 
 .wrapper {
   display: flex;
+
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
 }
 
 .redactorCourse {
@@ -306,11 +321,9 @@
     min-width: 0;
     
     @media only screen and (min-width : 320px) and (max-width : 375px) {
-      padding-top: 2rem;
       max-width: 100vw;
     }
     @media only screen and (min-width : 375px) and (max-width : 480px) {
-      padding-top: 2rem;
       max-width: 100vw;
     }
 
@@ -332,12 +345,14 @@
         padding: 1rem;
         display: flex;
         flex-direction: column;
+        margin-top: 1rem;
       }
       @media only screen and (min-width : 375px) and (max-width : 480px) {
         margin: 0 auto;
         padding: 1rem;
         display: flex;
         flex-direction: column;
+        margin-top: 1rem;
       }
 
       &_nameBlock {
@@ -849,6 +864,12 @@ hr {
   margin-left: 45px;
   margin-top: 10px;
   width: 100%;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    margin-left: 35px;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+   margin-left: 35px;
+  }
 }
 
 .commentBox {
