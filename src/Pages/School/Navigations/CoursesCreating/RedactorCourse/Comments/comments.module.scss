@@ -843,7 +843,7 @@ hr {
 
 
 .commentContainer {
-  background-color: #f5f5f5;
+
   border-radius: 10px;
   padding: 10px; 
   margin-left: 45px;
@@ -884,4 +884,43 @@ hr {
   color: red;
   margin-left: 45px;
   margin-top: 10px;
+}
+
+.commentTable {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.commentTable th,
+.commentTable td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  width: 25%;
+  word-wrap: break-word;
+}
+
+.commentTable tr {
+  width: 25%;
+  word-wrap: break-word;
+}
+
+.commentTable tbody tr:last-child {
+  border-bottom: none;
+}
+
+.centeredContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.centeredCheckbox {
+  margin: 0;
+}
+
+.commentTable .publicCheckbox input[type="checkbox"]:checked {
+  background-color: rgb(195, 63, 195);
 }
