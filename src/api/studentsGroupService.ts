@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQuery } from './baseApi'
-import { studentsGroupT, studentsGroupsT } from '../types/studentsGroup'
+import {studentsGroupT, studentsGroupsT, groupCourseAccessT} from '../types/studentsGroup'
 
 export const studentsGroupService = createApi({
   reducerPath: 'studentsGroupService',
@@ -84,6 +84,24 @@ export const studentsGroupService = createApi({
         body: data,
       }),
     }),
+    addGroupCourseAccess: build.mutation<any, { data: any; schoolName: string }>({
+      query: ({data, schoolName}) => ({
+        url: `/${schoolName}/group_course_access/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    fetchGroupCourseAccess: build.query<groupCourseAccessT[], { id: string; schoolName: string }>({
+      query: ({ id, schoolName }) => ({
+        url: `/${schoolName}/group_course_access/?group_id=${id}`,
+      }),
+    }),
+    deleteAllGroupCourseAccess: build.mutation<any, { id: string; schoolName: string}>({
+      query: ({id, schoolName}) => ({
+        url: `/${schoolName}/group_course_access/custom_destroy/?group_id=${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
@@ -101,4 +119,7 @@ export const {
     useCreateGroupWithoutTeacherMutation,
     useDeleteStudentsGroupMutation,
     useDeleteStudentFromGroupMutation,
+    useAddGroupCourseAccessMutation,
+    useLazyFetchGroupCourseAccessQuery,
+    useDeleteAllGroupCourseAccessMutation
 } = studentsGroupService
