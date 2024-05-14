@@ -128,9 +128,13 @@ export const LinkGenerating: React.FC<LinkGeneratingProps> = ({isOpen, onClose})
                             const ProdamusPaymentLinkResponse = await createProdamusNewLink(ProdamusUrl) // Получение платежной ссылки от Продамуса
                             if ('data' in ProdamusPaymentLinkResponse) {
                                 const ProdamusPaymentLink = ProdamusPaymentLinkResponse.data.payment_link;
-                                await updateProdamusNewLink({id: ProdamusDataSignature.data.id, payment_link: ProdamusPaymentLink}) //Сохранение ссылки в БД
-                                console.log(ProdamusPaymentLink);
-                                onClose()
+                                if (ProdamusPaymentLink) {
+                                    await updateProdamusNewLink({id: ProdamusDataSignature.data.id, payment_link: ProdamusPaymentLink}) //Сохранение ссылки в БД
+                                    onClose()
+                                } else {
+                                    console.error('Ответ не содержит данных:', ProdamusPaymentLinkResponse);
+                                    setError('Не удалось получить ссылку для оплаты');
+                                }
                             } else {
                                 console.error('Ответ не содержит данных:', ProdamusPaymentLinkResponse);
                                 setError('Не удалось получить ссылку для оплаты');
@@ -144,7 +148,6 @@ export const LinkGenerating: React.FC<LinkGeneratingProps> = ({isOpen, onClose})
                         setError('Не удалось добавить информацию о ссылке для оплаты в базу данных');
 
                     }
-
 
 
                 } catch (error) {
@@ -163,16 +166,16 @@ export const LinkGenerating: React.FC<LinkGeneratingProps> = ({isOpen, onClose})
                     ReturnInvoiceUrl: 1
                 };
                 // const requestTestData = {
-    //   Token: 'a75b74cbcfe446509e8ee874f421bd64',
-    //   AccountNo: 10,
-    //   Amount: parseFloat(price),
-    //   Surname: "",
-    //   FirstName: "",
-    //   Patronymic: "",
-    //   Currency: currency === 'BYN' ? 933 : currency === 'RUB' ? 643 : 840,
-    //   IsNameEditable: 1,
-    //   ReturnInvoiceUrl: 1
-    // };
+                //   Token: 'a75b74cbcfe446509e8ee874f421bd64',
+                //   AccountNo: 10,
+                //   Amount: parseFloat(price),
+                //   Surname: "",
+                //   FirstName: "",
+                //   Patronymic: "",
+                //   Currency: currency === 'BYN' ? 933 : currency === 'RUB' ? 643 : 840,
+                //   IsNameEditable: 1,
+                //   ReturnInvoiceUrl: 1
+                // };
                 try {
                     const response = await createNewLink(requestData);
                     // const response = await createTestNewLink(requestTestData)

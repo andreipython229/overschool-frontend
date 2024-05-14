@@ -26,6 +26,8 @@ import { Group } from '../Pages/Group'
 import { Passport } from 'Pages/Settings/Passport'
 import { SchoolAppeals } from 'Pages/SchoolAppeals'
 import { PaymentMethods } from 'Pages/Settings/PaymentMethods'
+import {SchoolMeetings} from "../components/Meetings";
+import StudentSchoolMeeting from "../components/StudentsMeetings";
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -56,6 +58,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       </Route>
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
+        <Route path={Path.Meetings} element={<StudentSchoolMeeting />} />
     </>
   ),
   [RoleE.Admin]: (
@@ -85,6 +88,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
       <Route path={Path.Appeals} element={<SchoolAppeals />} />
+      <Route path={Path.Meetings} element={<SchoolMeetings />} />
     </>
   ),
   [RoleE.Teacher]: (
@@ -96,6 +100,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.CourseStudent} element={<StudentsStats />} />
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
+        <Route path={Path.Meetings} element={<StudentSchoolMeeting />} />
     </>
   ),
 }

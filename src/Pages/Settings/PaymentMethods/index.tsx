@@ -41,7 +41,6 @@ export const PaymentMethods = memo(() => {
                     console.log('Ошибка при получении способов оплаты');
                     return;
                 } else if (response.data) {
-                    console.log(response.data);
                     setPaymentLinks(response.data);
                 }
             };
