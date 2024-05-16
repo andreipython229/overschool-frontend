@@ -95,6 +95,7 @@ export const StudentsPerSchool: FC = () => {
     return (data?.results ?? []).filter(student => {
       return (
         student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.id ||
         student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.course_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||

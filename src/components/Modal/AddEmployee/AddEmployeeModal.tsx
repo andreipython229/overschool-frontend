@@ -31,6 +31,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
     const [employeeData, setEmployeeData] = useState<FormData>()
     const [prevRole, setPrevRole] = useState<string>('')
     const [roleExist, setRoleExist] = useState<boolean>(false)
+    const [pseudonym, setPseudonym] = useState<string>('')
     const [registrationAdmin, {isSuccess: isRegistered}] = useAdminRegistrationMutation()
     const [addAccess, {isSuccess: isAccessed}] = useAddUserAccessMutation()
     const [deleteAccess] = useRemoveUserAccessMutation()
@@ -59,9 +60,14 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
         setEmailUser(event.target.value)
     }
 
-    const handleChangeRole = (role: string) => {
-        setRole(role)
-    }
+  const handleChangeRole = (role: string) => {
+    setRole(role)
+  }
+
+  const handleChangePseudonym = (event: ChangeEvent<HTMLInputElement>) => {
+    setPseudonym(event.target.value);
+  }
+
 
     useEffect(() => {
         if (isGetted) {
@@ -74,44 +80,45 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
         }
     }, [courses])
 
-    const handleCreateEmployee = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        const newUser = {
-            email: emailUser,
-            // password: 'Alpha1234',
-            // password_confirmation: 'Alpha1234',
-        }
-        await registrationAdmin(newUser)
-            .unwrap()
-            .then(async (data: any) => {
-                const formData = new FormData()
-                formData.append('emails', emailUser)
-                formData.append('role', role)
-                role === 'Teacher' &&
-                checkCourses &&
-                checkCourses.length &&
-                checkCourses.map((course: checkCourseT) => {
-                    if (course.selected_group) {
-                        formData.append('student_groups', String(course.selected_group))
-                    }
-                })
-                await addAccess({data: formData, schoolName})
-                    .unwrap()
-                    .then(async (accessdata: any) => {
-                        console.log('uspeh')
-                    })
-                    .catch(error => {
-                        console.log(error)
-                        const info = error.data.split(';')
-                        setMessage(info[0]);
-                        if (error.data.startsWith('Пользователь уже имеет другую роль в этой школе')) {
-                            setEmployeeData(formData);
-                            setRoleExist(true);
-                            setPrevRole(info[1]);
-                        }
-                        onToggle();
-                    })
+  const handleCreateEmployee = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const newUser = {
+      email: emailUser,
+      // password: 'Alpha1234',
+      // password_confirmation: 'Alpha1234',
+    }
+    await registrationAdmin(newUser)
+      .unwrap()
+      .then(async (data: any) => {
+        const formData = new FormData()
+        formData.append('emails', emailUser)
+        formData.append('role', role)
+        formData.append('pseudonym', pseudonym)
+        role === 'Teacher' &&
+          checkCourses &&
+          checkCourses.length &&
+          checkCourses.map((course: checkCourseT) => {
+            if (course.selected_group) {
+              formData.append('student_groups', String(course.selected_group))
+            }
+          })
+        await addAccess({ data: formData, schoolName })
+          .unwrap()
+          .then(async (accessdata: any) => {
+            console.log('uspeh')
+          })
+          .catch(error => {
+            console.log(error)
+            const info = error.data.split(';')
+            setMessage(info[0]);
+            if (error.data.startsWith('Пользователь уже имеет другую роль в этой школе')) {
+              setEmployeeData(formData);
+              setRoleExist(true);
+              setPrevRole(info[1]);
+            }
+            onToggle();
             })
+          })
     }
 
     const changeAccess = async () => {
@@ -138,12 +145,12 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
             })
     }
 
-    useEffect(() => {
-        if (isAccessed) {
-            setEmployees([...employees, {email: emailUser, role: role}])
-            setShowModal()
-        }
-    }, [isAccessed])
+  useEffect(() => {
+    if (isAccessed) {
+      setEmployees([...employees, { email: emailUser, role: role, pseudonym: pseudonym }])
+      setShowModal()
+    }
+  }, [isAccessed])
 
     return (
         <>
@@ -163,52 +170,56 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
               Если пользователь еще не зарегистрирован в системе, <br/>
               отправим пароль на Email. <br/> Получив его, сотрудник сможет настроить свой профиль
             </span>
-                    </div>
-                    <div className={styles.main_employee_invite}>
-                        <label htmlFor="email">Email нового сотрудника:</label>
-                        <br/>
-                        <div className={styles.main_employee_invite_input}>
-                            <input value={emailUser} onChange={handleChangeEmail} type="text"
-                                   placeholder={'example@mailbox.ru'}/>
-                        </div>
-                        <br/>
-                        <label htmlFor="role">Роль нового сотрудника:</label>
-                        <br/>
-                        <div style={{marginTop: 10}}>
-                            <Radio title="Администратор" id="Admin" name="role" func={handleChangeRole}/>
-                            <Radio title="Ментор" id="Teacher" name="role" func={handleChangeRole}/>
-                        </div>
-                    </div>
-                    {role === 'Teacher' && (
-                        <div className={styles.main_employee_course}>
-                            <span className={styles.main_employee_course_title}>Выбор студенческих групп курсов</span>
-                            {checkCourses?.map(({course_id, name, student_groups, selected_group}: checkCourseT) => (
-                                <>
-                                    <span style={{marginTop: 15, marginBottom: 10}}>{name}</span>
-                                    <GroupsDropDown dropdownData={student_groups} course_id={course_id}
-                                                    selected_group={selected_group} onChangeGroup={handleCheck}/>
-                                </>
-                            ))}
-                        </div>
-                    )}
-                    <div className={styles.main_employee_btn}>
-                        <Button
-                            style={{width: '220px'}}
-                            type="submit"
-                            disabled={!emailUser || !role}
-                            text={'Добавить'}
-                            variant={emailUser && role ? 'primary' : 'disabled'}
-                        />
-                    </div>
-                </div>
-            </form>
-            {isOpenLimitModal ? (
+          </div>
+          <div className={styles.main_employee_invite}>
+            <label htmlFor="email">Email нового сотрудника:</label>
+            <br />
+            <div className={styles.main_employee_invite_input}>
+              <input value={emailUser} onChange={handleChangeEmail} type="text" placeholder={'example@mailbox.ru'} />
+            </div>
+            <br />
+            <label htmlFor="pseudonym">Псевдоним нового сотрудника:</label>
+            <br />
+            <div className={styles.main_employee_invite_input}>
+              <input value={pseudonym} onChange={handleChangePseudonym} type="text" placeholder={'Введите псевдоним'} />
+            </div>
+            <br />
+            <label htmlFor="role">Роль нового сотрудника:</label>
+            <br />
+            <div style={{ marginTop: 10 }}>
+              <Radio title="Администратор" id="Admin" name="role" func={handleChangeRole} />
+              <Radio title="Ментор" id="Teacher" name="role" func={handleChangeRole} />
+            </div>
+          </div>
+          {role === 'Teacher' && (
+            <div className={styles.main_employee_course}>
+              <span className={styles.main_employee_course_title}>Выбор студенческих групп курсов</span>
+              {checkCourses?.map(({ course_id, name, student_groups, selected_group }: checkCourseT) => (
+                <>
+                  <span style={{ marginTop: 15, marginBottom: 10 }}>{name}</span>
+                  <GroupsDropDown dropdownData={student_groups} course_id={course_id} selected_group={selected_group} onChangeGroup={handleCheck} />
+                </>
+              ))}
+            </div>
+          )}
+          <div className={styles.main_employee_btn}>
+            <Button
+              style={{ width: '220px' }}
+              type="submit"
+              disabled={!emailUser || !role}
+              text={'Добавить'}
+              variant={emailUser && role ? 'primary' : 'disabled'}
+            />
+          </div>
+        </div>
+      </form>
+      {isOpenLimitModal ? (
                 <Portal closeModal={onToggle}>
-                    {roleExist
-                        ? <LimitModal message={message} setShowLimitModal={onToggle} setShowMainModal={setShowModal} action={changeAccess} roleExist={roleExist}/>
-                        : <LimitModal message={message} setShowLimitModal={onToggle} setShowMainModal={setShowModal}/>}
-                </Portal>
-            ) : null}
-        </>
-    )
+                {roleExist
+                    ? <LimitModal message={message} setShowLimitModal={onToggle} setShowMainModal={setShowModal} action={changeAccess} roleExist={roleExist}/>
+                    : <LimitModal message={message} setShowLimitModal={onToggle} setShowMainModal={setShowModal}/>}
+            </Portal>
+      ) : null}
+    </>
+  )
 }

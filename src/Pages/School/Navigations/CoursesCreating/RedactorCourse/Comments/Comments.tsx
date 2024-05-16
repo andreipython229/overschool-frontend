@@ -226,29 +226,43 @@ export const Comments: FC = () => {
                       {error}
                     </div>
                   )}
-                  <div className={styles.commentContainer}>
-                  {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
-                    commentsList.comments.map((comment: Comment) => (
-                      <div className={styles.commentBox} key={comment.id}>
-                        <p>Автор: {comment.author_first_name} {comment.author_last_name}</p>
-                        <p>Создан: {new Date(comment.created_at).toLocaleString()}</p>
-                        <label className={styles.publicLabel}>
-                          <p>Опубликован: &nbsp;
+          <div className={styles.commentContainer}>
+            {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
+              <table className={styles.commentTable}>
+                <thead>
+                  <tr>
+                    <th>Автор</th>
+                    <th>Создан</th>
+                    <th>Комментарий</th>
+                    <th>Опубликован</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {commentsList.comments.map((comment: Comment) => (
+                    <tr key={comment.id}>
+                      <td>{`${comment.author_first_name} ${comment.author_last_name}`}</td>
+                      <td>{new Date(comment.created_at).toLocaleString()}</td>
+                      <td>{comment.content}</td>
+                      <td>
+                        <div className={styles.centeredContent}>
+                          <label className={`${styles.publicLabel} ${styles.centeredCheckbox}`}>
                             <input
                               type="checkbox"
                               checked={comment.public}
                               onChange={() => toggleCommentPublic(comment.id)}
                               className={`${styles.publicCheckbox} ${comment.public ? styles.checked : ''}`}
                             />
-                          </p>
-                        </label>
-                        <p>Комментарий: {comment.content}</p>
-                      </div>
-                    ))
-                  ) : (
-                    <p>Комментариев пока нет</p>
-                  )}
-                  </div>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>Комментариев пока нет</p>
+            )}
+          </div>
             </div>
               </section>
         </div>
