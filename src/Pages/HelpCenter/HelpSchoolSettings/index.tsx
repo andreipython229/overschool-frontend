@@ -14,7 +14,7 @@ import {selectUser} from '../../../selectors'
 import { Path } from 'enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import {logo} from "../../../assets/img/common";
-import styles from './HelpSchoolSettings.module.scss'
+import styles from '../HelpPage.module.scss'
 
 export const HelpSchoolSettings = () => {
       const {role} = useAppSelector(selectUser)
@@ -119,7 +119,7 @@ export const HelpSchoolSettings = () => {
 
             <h2> Добавление печатей и подписей </h2>
             <p>
-              Для того, чтобы ваши ученики получали сертификаты с вашими печатью и подписью, их нужно добавить, перейдя во вкладку
+              Для того, чтобы ваши пользователи получали сертификаты с вашими печатью и подписью, их нужно добавить, перейдя во вкладку
               &quot;Печати и подписи&quot;
             </p>
             <div className={styles.HelpSchoolSettings_FAQ_images}>

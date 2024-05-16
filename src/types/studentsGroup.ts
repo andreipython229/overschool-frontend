@@ -1,4 +1,5 @@
 import {b} from "msw/lib/glossary-dc3fd077";
+import {sectionLessons} from "./lessonAccessT";
 
 export type studentsGroupT = {
     next?: null
@@ -41,4 +42,17 @@ export type studentGroupInfoT = {
     checked: boolean
     label?: string
     id: number
+}
+
+
+export type schoolStudentsGroupingData = {
+    id: number;
+    school: number;
+    is_students_grouped: boolean;
+}
+
+export type groupCourseAccessT = {
+    current_group: number;
+    group: number;
+    course: number;
 }

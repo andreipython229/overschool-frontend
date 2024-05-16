@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import { NavLink } from 'react-router-dom'
-
+import VideocamIcon from '@mui/icons-material/Videocam';
 import { useAppSelector } from '../../store/hooks'
 import { navlinkByRoles } from './config/navlinkByRoles'
 import { IconSvg } from '../common/IconSvg/IconSvg'
@@ -34,11 +34,11 @@ export const Navbar: FC = memo(() => {
   const { role: UserRole } = useAppSelector(selectUser)
   const unRead = useSelector((state: RootState) => state.unread.totalUnread)
   const unReadAppeals = useSelector((state: RootState) => state.unreadAppeals.totalUnreadAppeals)
+  const totalMeetingCount = useSelector((state: RootState) => state.meetings.totalMeetingCount);
   const dispatchRole = useDispatch()
 
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
   const [isChatOpen, { on, off }] = useBoolean()
-
   const handleHome = () => {
     dispatchRole(role(RoleE.Unknown))
   }
@@ -73,6 +73,15 @@ export const Navbar: FC = memo(() => {
           </NavLink>
         </Tooltip>
         <div className={styles.navbar_setting_account}>
+          <Tooltip title={'Видеоконференции'} arrow placement={'right'} key={'meetings-data'}>
+                  <NavLink to={Path.Meetings} className={isActive}>
+                    <Badge badgeContent={totalMeetingCount} color="error">
+                      <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.1em' }}>
+                        <VideocamIcon/>
+                      </SvgIcon>
+                    </Badge>
+                  </NavLink>
+                </Tooltip>
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
               <Tooltip
@@ -150,7 +159,7 @@ export const Navbar: FC = memo(() => {
                   </SvgIcon>
                 </a>
               </Tooltip>
-            </div>
+                          </div>
           )}
         </div>
       </motion.nav>

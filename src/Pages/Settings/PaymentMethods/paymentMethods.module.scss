@@ -5,11 +5,37 @@
   box-shadow: 0 0 8px #d9d9d9;
   border-radius: 8px;
   overflow-x: auto;
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding: 4% 3% 4% 3%;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding: 4% 3% 4% 3%;
+  }
+
+  .selectContainer {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1px;
+    display: inline-block;
+    margin-left: 10px;
+    width: 175px;
+    position: relative;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin-top: 3%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      margin-top: 3%;
+    }
+  }
+
+  select {
+    width: 100%;
+    padding: 8px;
+    color: #666;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    outline: none;
   }
 }
 
@@ -36,93 +62,92 @@
 }
 
 .btn {
+  align-self: flex-end;
+  width: 260px;
+  height: 43px;
+  background-color: #ddbbff;
+  color: white;
+  font: 500, 14px;
+  padding: 7px;
+  margin-top: 10px;
+  margin-left: 10px;
+  text-align: center;
+  border: none;
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    margin-top: 0;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    margin-top: 0;
+  }
+
+  &:hover {
+    color: #ba75ff;
+    background-color: #ffffff;
+  }
+
+  &:disabled {
+    color: #f9f5fd;
+    background-color: #e8e6e6;
+  }
+
+  &_admin {
     align-self: flex-end;
-    width: 260px;
-    height: 43px;
+    width: 194px;
+    height: 33px;
     background-color: #ddbbff;
     color: white;
     font: 500, 14px;
     padding: 7px;
     margin-top: 10px;
-    margin-left: 10px;
     text-align: center;
     border: none;
-    @media only screen and (min-width : 320px) and (max-width : 375px) {
-      margin-top: 0;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      // margin-top: 0;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
-      margin-top: 0;
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      // margin-top: 0;
     }
-  
+
     &:hover {
-        color: #ba75ff;
-        background-color: #ffffff;
-    }
-  
-    &:disabled {
-        color: #f9f5fd;
-        background-color: #e8e6e6;
-    }
-  
-    &_admin{
-      align-self: flex-end;
-      width: 194px;
-      height: 33px;
-      background-color: #ddbbff;
-      color: white;
-      font: 500, 14px;
-      padding: 7px;
-      margin-top: 10px;
-      text-align: center;
-      border: none;
-      @media only screen and (min-width : 320px) and (max-width : 375px) {
-        // margin-top: 0;
-      }
-      @media only screen and (min-width : 375px) and (max-width : 480px) {
-        // margin-top: 0;
-      }
-  
-      &:hover {
-          color: #ba75ff;
-          background-color: #ffffff;
-      }
+      color: #ba75ff;
+      background-color: #ffffff;
     }
   }
+}
 
-  .paymentTable {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .paymentTable th,
-  .paymentTable td {
-    border-bottom: 1px solid black;
-    padding: 8px;
-    text-align: center;
-  }
-  
-  .paymentTable th:first-child,
-  .paymentTable td:first-child {
-    border-left: none;
-  }
-  
-  .paymentTable th:last-child,
-  .paymentTable td:last-child {
-    border-right: none;
-  }
+.paymentTable {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-  .detailButtonCell {
-    text-align: right;
-  }
+.paymentTable th,
+.paymentTable td {
+  border-bottom: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
 
-  .detailButton {
-    background-color: #fff;
-    color: #545151;
-    border: 1px solid #545151;
-    border-radius: 7px;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
+.paymentTable th:first-child,
+.paymentTable td:first-child {
+  border-left: none;
+}
+
+.paymentTable th:last-child,
+.paymentTable td:last-child {
+  border-right: none;
+}
+
+.detailButtonCell {
+  text-align: right;
+}
+
+.detailButton {
+  background-color: #fff;
+  color: #545151;
+  border: 1px solid #545151;
+  border-radius: 7px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+}

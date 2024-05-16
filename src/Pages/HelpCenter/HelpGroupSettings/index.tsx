@@ -12,7 +12,7 @@ import {selectUser} from '../../../selectors'
 import { Path } from 'enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import {logo} from "../../../assets/img/common";
-import styles from './HelpGroupSettings.module.scss'
+import styles from '../HelpPage.module.scss'
 
 export const HelpGroupSettings = () => {
       const navigate = useNavigate()
@@ -56,7 +56,7 @@ export const HelpGroupSettings = () => {
             <h1> Настройки группы </h1>
             <h2> Переходим к настройкам группы</h2>
             <p> 
-              Для того, чтобы перейти к настройкам группы, на странице &quot;Ученики курса&quot; в нужной вам
+              Для того, чтобы перейти к настройкам группы, на странице &quot;Пользователи курса&quot; в нужной вам
               группе кликните по &quot;Шестерёнке&quot;. В загрузившемся окне появятся настройки группы.
             </p>
             <div className={styles.HelpSchoolSettings_FAQ_images}>
@@ -66,12 +66,12 @@ export const HelpGroupSettings = () => {
             <h2> Настройки группы</h2>
             <p>
               Здесь вы можете выбрать настройки для группы: блокировать возможность отправки домашних заданий, строгая
-              последовательность занятий, доступ ученикам группы к пользованию OVER AI, возможность получения учениками
+              последовательность занятий, доступ пользователей группы к пользованию OVER AI, возможность получения пользователями
               сертификата после прохождения курса. Также, если вы хотите ограничить срок обучения по времени, можно
               установить продолжительность обучения в днях.
             </p>
             <div className={styles.HelpSchoolSettings_FAQ_images}>
-              <img src={groups1} alt="Ученики платформы" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
+              <img src={groups1} alt="Пользователи платформы" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
             <br/>
             <h2> Настройка доступа к урокам</h2>

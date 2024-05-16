@@ -64,10 +64,6 @@ export const MainLayOut: FC = memo(() => {
     }
   }, [isLogin, navigate])
 
-  const updateTariff = (tariff: any) => {
-    setCurrentTariff(tariff);
-  };
-
 
   useEffect(() => {
     if (isSuccess) {
@@ -87,7 +83,7 @@ export const MainLayOut: FC = memo(() => {
   return (
     <div className={styles.wrapper}>
       <Navbar />
-      <Header onUpdateTariff={updateTariff} />
+      <Header />
       <motion.main className={styles.container}
        initial={{
         x:-1000,
@@ -108,7 +104,7 @@ export const MainLayOut: FC = memo(() => {
       {showChat && isSuccess && (
         <ChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />
       )}
-      <Footer schoolTariffPlan={updateTariff} />
+      <Footer />
     </div>
   )
 })

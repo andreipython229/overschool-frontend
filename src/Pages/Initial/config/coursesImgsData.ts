@@ -9,5 +9,5 @@ export const coursesImgsData = [
   { id: '2', title: 'Java', style: { backgroundImage: 'url(' + Java + ')' } },
   { id: '3', title: 'Front-end', style: { backgroundImage: 'url(' + Frontend + ')' } },
   { id: '4', title: 'UX/UI Design', style: { backgroundImage: 'url(' + UI + ')' } },
-  { id: '5', title: 'QA', style: { backgroundImage: 'url(' + QA + ')' } },
+  // { id: '5', title: 'QA', style: { backgroundImage: 'url(' + QA + ')' } },
 ]

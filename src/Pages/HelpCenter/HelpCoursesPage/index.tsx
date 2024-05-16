@@ -1,6 +1,6 @@
 import {generatePath, useNavigate} from "react-router-dom";
 import {Path} from "../../../enum/pathE";
-import styles from "./HelpCourses.module.scss";
+import styles from "../HelpPage.module.scss";
 import {logo} from "../../../assets/img/common";
 import {Button} from "../../../components/common/Button/Button";
 import firstStep from "../../../assets/img/createProject/firstStep.png";
@@ -50,7 +50,7 @@ export const HelpCoursesPage = () => {
         <h1>Как создать курс в онлайн-платформе OVERSCHOOL </h1>
           <h2>Шаги по созданию курса</h2>
         <p>В личном кабинете вашей школы выберите опцию &quot;Создать курс&quot;.<br/>После ввода названия курса он станет доступен для редактирования.
-            Теперь вы можете создать структуру курса, добавляя тематические модули и наполняя их занятиями. Следующим этапом станет добавление учеников.
+            Теперь вы можете создать структуру курса, добавляя тематические модули и наполняя их занятиями. Следующим этапом станет добавление пользователей.
         </p>
          <div className={styles.HelpCenterPage_FAQ_images}>
           <img src={firstStep} alt="Создать курс" className={styles.HelpCenterPage_FAQ_images_firstStep} />
@@ -64,11 +64,11 @@ export const HelpCoursesPage = () => {
           <div className={styles.HelpCenterPage_FAQ_images}>
           <img src={createLesson} alt="Создать занятие" className={styles.HelpCenterPage_FAQ_images_createLesson} />
         </div>
-          <h2>Как добавить учеников</h2>
-          <p>Для добавления учеников создайте требуемое количество групп, выберете нужную вам группу и нажмите добавить учеников. Заполните форму данными учеников и отправьте приглашение.
+          <h2>Как добавить пользователей</h2>
+          <p>Для добавления пользователей создайте требуемое количество групп, выберете нужную вам группу и нажмите добавить пользователей. Заполните форму данными пользователей и отправьте приглашение.
               </p>
           <div className={styles.HelpCenterPage_FAQ_images}>
-          <img src={addStudents} alt="Добавление учеников" className={styles.HelpCenterPage_FAQ_images_addStudents} />
+          <img src={addStudents} alt="Добавление пользователей" className={styles.HelpCenterPage_FAQ_images_addStudents} />
         </div>
           <p>Также для групп есть возможность добавления менторов. Для этого необходимо выбрать менторов, доступных в вашей школе. Добавить менторов в школу можно в настройках, в разделе &quot;Сотрудники&quot;.</p>
       </div>

@@ -9,17 +9,23 @@ import { accardionItemT } from '../../../types/componentsTypes'
 import styles from './accardionItem.module.scss'
 
 export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, moduleIndex, openIndex, handleToggleOpen }) => {
+
   const isLessonClickable = (lessonIndex: number) => {
-    if (moduleIndex > 0) {
-      const prevModule = modules?.sections[moduleIndex - 1]
-      const prevLessons = prevModule?.lessons[prevModule?.lessons.length - 1]
-      if (prevLessons?.viewed) {
-        return module?.lessons.slice(0, lessonIndex).some(lesson => !lesson.viewed)
-      } else {
-        return true
-      }
+    if (!modules?.group_settings.strict_task_order || moduleIndex === 0 && lessonIndex === 0) {
+        return false
     }
-    return module?.lessons.slice(0, lessonIndex).some(lesson => !lesson.viewed)
+    const prevModule = moduleIndex > 0 ? modules?.sections[moduleIndex - 1] : null
+    const prevLesson = (prevModule && lessonIndex === 0)
+        ? prevModule?.lessons[prevModule?.lessons.length - 1]
+        : module?.lessons[lessonIndex - 1]
+
+    const somePrevNotViewed = module?.lessons.slice(0, lessonIndex).some(lesson => !lesson.viewed)
+
+    const disabledFromPrev = prevLesson.type === "homework" && modules?.group_settings.submit_homework_to_go_on && !prevLesson.sended ||
+        prevLesson.type === "test" && (modules?.group_settings.submit_test_to_go_on && !prevLesson.sended ||
+        modules?.group_settings.success_test_to_go_on && !prevLesson.completed)
+
+    return !prevLesson.viewed || somePrevNotViewed || disabledFromPrev
   }
 
   return (

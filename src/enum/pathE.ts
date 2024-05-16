@@ -40,6 +40,7 @@ export enum Path {
   ResetPassword = '/token-validate/:userId/:token/',
   HelpChat = 'chat/',
   Appeals = 'school-appeals/',
+  Meetings = 'meetings/'
 }
 
 export enum SettingsPath {

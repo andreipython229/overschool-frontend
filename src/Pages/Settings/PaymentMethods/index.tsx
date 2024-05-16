@@ -16,6 +16,7 @@ export const PaymentMethods = memo(() => {
     const [isModalLinkOpen, setIsModalLinkOpen] = useState(false);
     const [isModalDetailLinkOpen, setIsModalDetailLinkOpen] = useState(false);
     const [notification, setNotification] = useState<string | null>(null);
+    const [filterType, setFilterType] = useState<string | null>(null);
 
     const [paymentLinks, setPaymentLinks] = useState<SchoolPaymentLinkList>({} as SchoolPaymentLinkList);
     const [prodamusPaymentLinks, setProdamusPaymentLinks] = useState<ProdamusPaymentLinkList>({} as ProdamusPaymentLinkList);
@@ -40,7 +41,6 @@ export const PaymentMethods = memo(() => {
                     console.log('Ошибка при получении способов оплаты');
                     return;
                 } else if (response.data) {
-                    console.log(response.data);
                     setPaymentLinks(response.data);
                 }
             };
@@ -86,6 +86,11 @@ export const PaymentMethods = memo(() => {
         document.body.removeChild(tempInput);
         handleNotification("Ссылка скопирована")
     }
+
+    const filteredPaymentLinks = filterType ? (
+        filterType === 'ProdamusPaymentLink' ? Object.values(prodamusPaymentLinks) : Object.values(paymentLinks)
+    ) : [...Object.values(paymentLinks), ...Object.values(prodamusPaymentLinks)];
+
     return (
         <div className={styles.wrapper_actions}>
             <div style={{color: 'slategrey', fontSize: '20px', marginBlockEnd: '20px'}}>
@@ -110,6 +115,17 @@ export const PaymentMethods = memo(() => {
                     </svg>
                 </button>
                 <Button className={styles.generateLinkButton} onClick={toggleModalLink} text="Сгенерировать ссылку"/>
+                <div className={styles.selectContainer}>
+                    <select
+                        value={filterType || ''}
+                        onChange={(e) => setFilterType(e.target.value || null)}
+                    >
+                        <option value="">Все ссылки</option>
+                        <option value="ProdamusPaymentLink">Prodamus</option>
+                        <option value="ExpressPayLink">ExpressPay</option>
+                    </select>
+                </div>
+
             </div>
             <div>
                 <table className={styles.paymentTable}>
@@ -121,7 +137,7 @@ export const PaymentMethods = memo(() => {
                     </tr>
                     </thead>
                     <tbody>
-                    {[...Object.values(paymentLinks), ...Object.values(prodamusPaymentLinks)].map((paymentLink, index) => (
+                    {filteredPaymentLinks.map((paymentLink, index) => (
                         <tr key={index + 1}>
                             <td>
                                 {new Date(paymentLink.created).toLocaleString()}

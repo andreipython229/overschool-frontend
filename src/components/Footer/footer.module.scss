@@ -10,7 +10,8 @@
   bottom: 0;
   width: 100%;
   @media screen and (max-width: 1024px) {
-    padding: 0 0 120px 0;
+    padding: 0 20px 120px 20px;
+    align-items: stretch;
   }
   &_linksBlock {
     @include display(flex, row, center, center);
@@ -19,15 +20,41 @@
     &_link {
       @include font(500, 10px, 12px);
       color: #6b7280;
+
+      &_tariff {
+        display: none;
+      }
+
+      &_mobile {
+        display: none;
+      }
     }
   }
   &_appName {
     margin: 40px 0 10px 0;
     @include font(800, 33px, 40px);
     color: #d7d7d7;
+    @media screen and (max-width: 1024px) {
+      display: none;
+    }
   }
   &_social {
     @include font(500, 14px, 17px);
     color: #d7d7d7;
+    @media screen and (max-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &_requisites {
+    display: none;
+
+    @media screen and (max-width: 1024px) {
+      display: flex;
+      flex-direction: column;
+      padding-top: 20px;
+      font-size: 10px;
+      align-items: flex-start;
+    }
   }
 }

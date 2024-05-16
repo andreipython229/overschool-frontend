@@ -1,5 +1,5 @@
 import { Route, Routes, generatePath, useLocation, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
@@ -41,6 +41,7 @@ export const App = () => {
   const isLogin = useAppSelector(authSelector)
   const schoolName = window.location.href.split('/')[4]
   const { pathname } = useLocation()
+  const [utmParams, setUtmParams] = useState<{ [key: string]: string }>({});
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -55,19 +56,37 @@ export const App = () => {
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate'
     ) {
-      navigate(Path.InitialPage)
+      navigate(`${Path.InitialPage}?utm_source=${utmParams.utm_source}&utm_medium=${utmParams.utm_medium}&utm_campaign=${utmParams.utm_campaign}&utm_term=${utmParams.utm_term}&utm_content=${utmParams.utm_content}`);
     }
   }, [isLogin, navigate])
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const params: { [key: string]: string } = {};
+    for (const [key, value] of searchParams) {
+      if (typeof key === 'string' && key.startsWith('utm_')) {
+        params[key] = value;
+      }
+    }
+
+    setUtmParams(params);
+    localStorage.setItem('utmParams', JSON.stringify(params));
+  }, []);
+  
+  useEffect(() => {
     if (pathname === '/') {
-      navigate(Path.InitialPage)
+      const queryParams = Object.keys(utmParams)
+        .filter(([_, value]) => value !== 'undefined')
+        .map(key => `${key}=${utmParams[key]}`)
+        .join('&');
+      const pathWithParams = `${Path.InitialPage}${queryParams ? `?${queryParams}` : ''}`;
+      navigate(pathWithParams);
     } else if (schoolName && role !== 0 && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
       navigate(
         generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
       )
     }
-  }, [])
+  }, [utmParams])
 
   useEffect(() => {
     if (

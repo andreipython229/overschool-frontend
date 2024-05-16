@@ -1,4 +1,5 @@
 import {CheckHw} from "../Pages/StudentCourse/StudentLessonPreview/StudentHomeworkCheck";
+import { BlockT } from "./sectionT";
 
 export type homeworksStatsT = {
   count: number
@@ -26,6 +27,7 @@ export type homeworkStatT = {
 export type CurrentUser = {
   name: string
   surname: string
+  pseudonym?: string
   avatar: string
   text_files: FileT[]
   audio_files: FileT[]
@@ -47,6 +49,7 @@ export interface UserHomework {
   teacher: number
   teacher_first_name: string
   teacher_last_name: string
+  teacher_pseudonym: string
   teacher_avatar: string
   text_files: FileT[]
   audio_files: FileT[]
@@ -64,6 +67,7 @@ export interface LastReply {
   author: number
   author_first_name: string
   author_last_name: string
+  author_pseudonym: string
   profile_avatar: string
   text_files: FileT[]
   audio_files: FileT[]
@@ -80,12 +84,14 @@ export interface UserHomeworkCheck {
   author: number
   author_first_name: string
   author_last_name: string
+  author_pseudonym: string
   profile_avatar: string
   text_files: FileT[]
   audio_files: FileT[]
 }
 
 export interface Homework {
+  blocks: BlockT[]
   homework_id: number
   section: number
   name: string

@@ -127,11 +127,11 @@
     @include display(flex);
     color: #fff;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-      @include position_b_l(absolute, 15px, 16px, 5);
+      @include position_b_l(absolute, 15px, 10px, 5);
       @include font(500, 8px, 10px);
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
-      @include position_b_l(absolute, 15px, 16px, 5);
+      @include position_b_l(absolute, 15px, 10px, 5);
       @include font(500, 10px, 10px);
     }
   }

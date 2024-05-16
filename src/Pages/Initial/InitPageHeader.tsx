@@ -1,5 +1,5 @@
 import { FC, memo, useEffect } from 'react'
-import { Link, generatePath, useNavigate } from 'react-router-dom'
+import { Link, generatePath, useNavigate, Params } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { Path } from 'enum/pathE'
@@ -34,7 +34,17 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
   }
 
   const handleRegistrationUser = () => {
-    navigate(generatePath(Path.CreateSchool))
+    const paramsString = localStorage.getItem('utmParams');
+    if (paramsString !== null) {
+      const parsedParams = JSON.parse(paramsString);
+      const queryParams = Object.keys(parsedParams)
+        .map(key => `${key}=${parsedParams[key]}`)
+        .join('&');
+      const pathWithParams = `${Path.CreateSchool}?${queryParams}`;
+      navigate(pathWithParams);
+    } else {
+      navigate(Path.CreateSchool);
+    }
   }
 
   const handleTariffPage = () => {
@@ -82,7 +92,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
           <div className={styles.header_block}>
             <Button onClick={handleHelpPage} variant={'logIn'} text={'Помощь'} />
             <Link className={styles.header_block_logIn} to={Path.ChooseSchool}>
-              <Button type={'button'} text={'Перейти к выбору платформы'} style={{ marginRight: '-0.2em' }} />
+              <Button type={'button'} text={'Ко входу на платформу'} style={{ marginRight: '-0.2em' }} />
             </Link>
             <Tooltip title={'Выход из профиля'}>
               <div className={styles.header_block_logOut}>

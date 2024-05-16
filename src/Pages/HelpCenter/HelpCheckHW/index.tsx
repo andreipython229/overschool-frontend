@@ -1,6 +1,6 @@
 import { generatePath, useNavigate } from "react-router-dom";
 import { Path } from "../../../enum/pathE";
-import styles from "./HelpCheckHW.module.scss";
+import styles from "../HelpPage.module.scss";
 import { logo } from "../../../assets/img/common";
 import { Button } from "../../../components/common/Button/Button";
 import firstStep from '../../../assets/img/createProject/firstStep.png'
@@ -50,8 +50,8 @@ export const HelpCheckHW = () => {
             <div className={styles.HelpCenterPage_FAQ}>
                 <h1>Проверка домашних заданий </h1>
                 <h2>Менторы</h2>
-                <p>После создания группы и последующего добавления в неё учеников, у вас появится возможность добавить одного и более менторов.
-                    <br/>Они, в свою очередь, будут заниматься проверкой домашних заданий и поддержкой учеников в изучении материала.
+                <p>После создания группы и последующего добавления в неё пользователей, у вас появится возможность добавить одного и более менторов.
+                    <br/>Они, в свою очередь, будут заниматься проверкой домашних заданий и поддержкой пользователей в изучении материала.
                     <br/>
                 </p>
                 <div className={styles.HelpCenterPage_FAQ_images}>
@@ -59,8 +59,8 @@ export const HelpCheckHW = () => {
                 </div>
                 {/* <h2>Как создать занятие</h2> */}
                 <h2>Как менторам проверять домашние задания</h2>
-                <p>Посмотреть работы учеников можно в навигационной панели во вкладке <b>Домашние задания</b>.
-                    <br/>На данной странице ментору будут доступны работы учеников, которые он может фильтровать по разным катергориям и статусам.
+                <p>Посмотреть работы пользователей можно в навигационной панели во вкладке <b>Домашние задания</b>.
+                    <br/>На данной странице ментору будут доступны работы пользователей, которые он может фильтровать по разным катергориям и статусам.
                 </p>
                 <div className={styles.HelpCenterPage_FAQ_images}>
                     <img src={HW_checkpage} alt="чат с помощником" className={styles.HelpCenterPage_FAQ_images_firstStep} />
@@ -73,7 +73,7 @@ export const HelpCheckHW = () => {
                     <img src={HW_checkhw} alt="пример взаимодействия с помощником" className={styles.HelpCenterPage_FAQ_images_firstStep} />
                 </div>
                 <p>
-                    Плюсом ко всему, ментору будет доступна история проверки работ учеников.
+                    Плюсом ко всему, ментору будет доступна история проверки работ пользователей.
                 </p>
             </div>
             <div className={styles.HelpCenterPage_banner}>

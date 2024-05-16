@@ -26,6 +26,7 @@ import {selectUser} from '../../../../selectors'
 type studentInfoModalT = {
     student: result | null
     closeModal: () => void
+    isStudentDeleted: () => void
 }
 
 interface ICoursesProgress {
@@ -58,7 +59,7 @@ type studentProgressT = {
     courses: ICoursesProgress[]
 }
 
-export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) => {
+export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, isStudentDeleted}) => {
     const lastActivity = student?.last_login ? student.last_login : null;
     const schoolName = window.location.href.split('/')[4]
     const schoolId = localStorage.getItem('school_id')
@@ -173,6 +174,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal}) =
                 console.log(error.data)
                 await closeModal()
             })
+            await isStudentDeleted()
     }
 
     return (

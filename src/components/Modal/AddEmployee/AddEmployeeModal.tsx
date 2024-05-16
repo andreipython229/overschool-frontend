@@ -1,59 +1,73 @@
-import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
-import { useAppSelector } from 'store/hooks'
-import { schoolNameSelector, selectUser } from 'selectors'
-import { RoleE } from 'enum/roleE'
+import React, {ChangeEvent, FC, FormEvent, useEffect, useState} from 'react'
+import {useAppSelector} from 'store/hooks'
+import {schoolNameSelector, selectUser} from 'selectors'
+import {RoleE} from 'enum/roleE'
 
-import { AddEmployeeModalPropsT } from '../ModalTypes'
+import {AddEmployeeModalPropsT} from '../ModalTypes'
 
-import { useAdminRegistrationMutation } from '../../../api/userRegisterService'
-import { useAddUserAccessMutation } from '../../../api/userAccessService'
+import {useAdminRegistrationMutation} from '../../../api/userRegisterService'
+import {useAddUserAccessMutation} from '../../../api/userAccessService'
 import styles from '../Modal.module.scss'
-import { SimpleLoader } from '../../Loaders/SimpleLoader'
-import { IconSvg } from '../../common/IconSvg/IconSvg'
-import { burgerdHwPath, crossIconPath } from '../../../config/commonSvgIconsPath'
-import { checkCourseT } from '../../../types/CoursesT'
-import { GroupsDropDown } from 'components/SelectDropDown/GroupsDropDown'
-import { Button } from '../../common/Button/Button'
-import { useFetchCoursesGroupsQuery } from '../../../api/coursesServices'
-import { Radio } from '../../common/Radio/Radio'
-import { useBoolean } from '../../../customHooks'
-import { Portal } from '../Portal'
-import { LimitModal } from '../LimitModal/LimitModal'
+import {SimpleLoader} from '../../Loaders/SimpleLoader'
+import {IconSvg} from '../../common/IconSvg/IconSvg'
+import {burgerdHwPath, crossIconPath} from '../../../config/commonSvgIconsPath'
+import {checkCourseT} from '../../../types/CoursesT'
+import {GroupsDropDown} from 'components/SelectDropDown/GroupsDropDown'
+import {Button} from '../../common/Button/Button'
+import {useFetchCoursesGroupsQuery} from '../../../api/coursesServices'
+import {Radio} from '../../common/Radio/Radio'
+import {useBoolean} from '../../../customHooks'
+import {Portal} from '../Portal'
+import {LimitModal} from '../LimitModal/LimitModal'
+import {useDeleteStudentFromGroupMutation} from "../../../api/studentsGroupService";
+import { useRemoveUserAccessMutation } from 'api/userAccessService';
+import {Simulate} from "react-dom/test-utils";
+// import change = Simulate.change;
 
-export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmployees, setShowModal }) => {
-  const schoolName = window.location.href.split('/')[4]
-  const [emailUser, setEmailUser] = useState<string>('')
-  const [role, setRole] = useState<string>('')
-  const [registrationAdmin, { isSuccess: isRegistered }] = useAdminRegistrationMutation()
-  const [addAccess, { isSuccess: isAccessed }] = useAddUserAccessMutation()
+export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmployees, setShowModal}) => {
+    const schoolName = window.location.href.split('/')[4]
+    const [emailUser, setEmailUser] = useState<string>('')
+    const [role, setRole] = useState<string>('')
+    const [employeeData, setEmployeeData] = useState<FormData>()
+    const [prevRole, setPrevRole] = useState<string>('')
+    const [roleExist, setRoleExist] = useState<boolean>(false)
+    const [pseudonym, setPseudonym] = useState<string>('')
+    const [registrationAdmin, {isSuccess: isRegistered}] = useAdminRegistrationMutation()
+    const [addAccess, {isSuccess: isAccessed}] = useAddUserAccessMutation()
+    const [deleteAccess] = useRemoveUserAccessMutation()
 
-  const { data: courses, isSuccess: isGetted, isFetching } = useFetchCoursesGroupsQuery(schoolName)
+    const {data: courses, isSuccess: isGetted, isFetching} = useFetchCoursesGroupsQuery(schoolName)
 
-  const [checkCourses, setCheckCourses] = useState<checkCourseT[]>()
+    const [checkCourses, setCheckCourses] = useState<checkCourseT[]>()
 
-  const [isOpenLimitModal, { onToggle }] = useBoolean()
-  const [message, setMessage] = useState<string>('')
+    const [isOpenLimitModal, {onToggle}] = useBoolean()
+    const [message, setMessage] = useState<string>('')
 
-  const handleCheck = (course_id: number, group_id: number | null) => {
-    setCheckCourses(prevCourses =>
-      prevCourses?.map(course =>
-        course.course_id === course_id
-          ? {
-              ...course,
-              selected_group: group_id,
-            }
-          : course,
-      ),
-    )
-  }
+    const handleCheck = (course_id: number, group_id: number | null) => {
+        setCheckCourses(prevCourses =>
+            prevCourses?.map(course =>
+                course.course_id === course_id
+                    ? {
+                        ...course,
+                        selected_group: group_id,
+                    }
+                    : course,
+            ),
+        )
+    }
 
-  const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmailUser(event.target.value)
-  }
+    const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+        setEmailUser(event.target.value)
+    }
 
   const handleChangeRole = (role: string) => {
     setRole(role)
   }
+
+  const handleChangePseudonym = (event: ChangeEvent<HTMLInputElement>) => {
+    setPseudonym(event.target.value);
+  }
+
 
     useEffect(() => {
         if (isGetted) {
@@ -79,6 +93,7 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
         const formData = new FormData()
         formData.append('emails', emailUser)
         formData.append('role', role)
+        formData.append('pseudonym', pseudonym)
         role === 'Teacher' &&
           checkCourses &&
           checkCourses.length &&
@@ -93,36 +108,67 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
             console.log('uspeh')
           })
           .catch(error => {
-            setMessage(error.data)
-            onToggle()
+            console.log(error)
+            const info = error.data.split(';')
+            setMessage(info[0]);
+            if (error.data.startsWith('Пользователь уже имеет другую роль в этой школе')) {
+              setEmployeeData(formData);
+              setRoleExist(true);
+              setPrevRole(info[1]);
+            }
+            onToggle();
+            })
           })
-      })
-  }
+    }
+
+    const changeAccess = async () => {
+        const formData = new FormData()
+        formData.append('emails', emailUser);
+        formData.append('role', prevRole);
+        await deleteAccess({data: formData, schoolName: schoolName})
+            .unwrap()
+            .then(async (data: any) => {
+                console.log('Доступ удален');
+                await addAccess({data: employeeData, schoolName})
+                    .unwrap()
+                    .then(async (accessdata: any) => {
+                        console.log('uspeh')
+                    })
+                    .catch(async error => {
+                        setMessage(error.data);
+                        onToggle();
+                    })
+            })
+            .catch(error => {
+                setMessage(error.data);
+                onToggle();
+            })
+    }
 
   useEffect(() => {
     if (isAccessed) {
-      setEmployees([...employees, { email: emailUser, role: role }])
+      setEmployees([...employees, { email: emailUser, role: role, pseudonym: pseudonym }])
       setShowModal()
     }
   }, [isAccessed])
 
-  return (
-    <>
-      <form onSubmit={handleCreateEmployee} className={styles.main_employee}>
-        {isFetching && (
-          <div className={styles.loader}>
-            <SimpleLoader style={{ width: '50px', height: '50px' }} />
-          </div>
-        )}
-        <div className={styles.main_employee_container}>
-          <div className={styles.main_employee_closedModal} onClick={setShowModal}>
-            <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <h3 className={styles.main_employee_title}>Добавление сотрудника</h3>
-            <span className={styles.main_employee_subs}>
-              Если пользователь еще не зарегистрирован в системе, <br />
-              отправим пароль на Email. <br /> Получив его, сотрудник сможет настроить свой профиль
+    return (
+        <>
+            <form onSubmit={handleCreateEmployee} className={styles.main_employee}>
+                {isFetching && (
+                    <div className={styles.loader}>
+                        <SimpleLoader style={{width: '50px', height: '50px'}}/>
+                    </div>
+                )}
+                <div className={styles.main_employee_container}>
+                    <div className={styles.main_employee_closedModal} onClick={setShowModal}>
+                        <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath}/>
+                    </div>
+                    <div style={{textAlign: 'center'}}>
+                        <h3 className={styles.main_employee_title}>Добавление сотрудника</h3>
+                        <span className={styles.main_employee_subs}>
+              Если пользователь еще не зарегистрирован в системе, <br/>
+              отправим пароль на Email. <br/> Получив его, сотрудник сможет настроить свой профиль
             </span>
           </div>
           <div className={styles.main_employee_invite}>
@@ -130,6 +176,12 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
             <br />
             <div className={styles.main_employee_invite_input}>
               <input value={emailUser} onChange={handleChangeEmail} type="text" placeholder={'example@mailbox.ru'} />
+            </div>
+            <br />
+            <label htmlFor="pseudonym">Псевдоним нового сотрудника:</label>
+            <br />
+            <div className={styles.main_employee_invite_input}>
+              <input value={pseudonym} onChange={handleChangePseudonym} type="text" placeholder={'Введите псевдоним'} />
             </div>
             <br />
             <label htmlFor="role">Роль нового сотрудника:</label>
@@ -162,9 +214,11 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({ employees, setEmp
         </div>
       </form>
       {isOpenLimitModal ? (
-        <Portal closeModal={onToggle}>
-          <LimitModal message={message} setShowLimitModal={onToggle} setShowMainModal={setShowModal} />
-        </Portal>
+                <Portal closeModal={onToggle}>
+                {roleExist
+                    ? <LimitModal message={message} setShowLimitModal={onToggle} setShowMainModal={setShowModal} action={changeAccess} roleExist={roleExist}/>
+                    : <LimitModal message={message} setShowLimitModal={onToggle} setShowMainModal={setShowModal}/>}
+            </Portal>
       ) : null}
     </>
   )

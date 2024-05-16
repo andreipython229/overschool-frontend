@@ -12,7 +12,7 @@ import {selectUser} from '../../../selectors'
 import { Path } from 'enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import {logo} from "../../../assets/img/common";
-import styles from './HelpStudentsPage.module.scss'
+import styles from '../HelpPage.module.scss'
 
 export const HelpStudentsPage = () => {
       const navigate = useNavigate()
@@ -53,17 +53,17 @@ export const HelpStudentsPage = () => {
                 </div>
           </div>
           <div className={styles.HelpSchoolSettings_FAQ}>
-            <h1> Ученики платформы </h1>
-            <h2> Переходим на страницу ученики платформы</h2>
+            <h1> Пользователи платформы </h1>
+            <h2> Переходим на страницу пользователи платформы</h2>
             <p> 
-              Кликните в боковой левой панели по иконке &quot;Ученики платформы&quot;.
-              В загрузившемся окне появится таблица со всеми учениками платформы.
+              Кликните в боковой левой панели по иконке &quot;Пользователи платформы&quot;.
+              В загрузившемся окне появится таблица со всеми пользователями платформы.
             </p>
             <div className={styles.HelpSchoolSettings_FAQ_images}>
-              <img src={students1} alt="Ученики платформы" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
+              <img src={students1} alt="Пользователи платформы" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
 
-            <h2> Настроим таблицу с учениками </h2>
+            <h2> Настроим таблицу с пользователями </h2>
             <p>
               Для настройки таблицы нажмите на &quot;Шестерёнку&quot; в правом верхнем углу таблицы.
             </p>
@@ -71,9 +71,9 @@ export const HelpStudentsPage = () => {
               <img src={students2} alt="Кнопка настроек" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
             <p>
-              Здесь вы можете выбрать какие колонки будут отображаться в вашей таблице с учениками кроме имя и Email:
+              Здесь вы можете выбрать какие колонки будут отображаться в вашей таблице с пользователями кроме имя и Email:
               суммарный бал, курс, дата регистрации, группа, средний балл, дата добавления и дата удаления из группы, а также
-              прогресс ученика. Для отображения в таблице можете выбрать до 5 колонок.
+              прогресс пользователя. Для отображения в таблице можете выбрать до 5 колонок.
             </p>
             <div className={styles.HelpSchoolSettings_FAQ_images}>
               <img src={students3} alt="Настройки таблицы" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
@@ -81,26 +81,26 @@ export const HelpStudentsPage = () => {
             <h2> Использование фильтрации</h2>
             <p> 
               Для применения фильтров нажмите на кнопку &quot;Добавить фильтры&quot;, расположенную слева над таблицей.
-              Выберите критерии фильтрации: суммарный балл, средний балл, последняя активность и спрятать удаленных учеников.
+              Выберите критерии фильтрации: суммарный балл, средний балл, последняя активность и спрятать удаленных пользователей.
             </p>
             <div className={styles.HelpSchoolSettings_FAQ_images}>
               <img src={students4} alt="Фильтры" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
             <h2> Выбор курса</h2>
             <p>
-              Также для отображения таблицы с учениками определенного курса, а не всей платформы, кликнете на вкладку
+              Также для отображения таблицы с пользователями определенного курса, а не всей платформы, кликнете на вкладку
               &quot;Показать все курсы&quot;.
             </p>
             <div className={styles.HelpSchoolSettings_FAQ_images}>
               <img src={students5} alt="Выбор курса" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
             <p>
-              Отобразятся все курсы вашей платформы. Кликнете на нужный курс и вы попадете на страницу с учениками
+              Отобразятся все курсы вашей платформы. Кликнете на нужный курс и вы попадете на страницу с пользователями
               данного курса.
             </p>
-            <h2> Выгрузка таблицы с учениками в Excel </h2>
+            <h2> Выгрузка таблицы с пользователями в Excel </h2>
             <p>
-              Для выгрузки таблицы с учениками в Excel нажмите на кнопку над таблицей &quot;Выгрузка таблицы с учениками&quot;,
+              Для выгрузки таблицы с пользователями в Excel нажмите на кнопку над таблицей &quot;Выгрузка таблицы с пользователями&quot;,
               как показано на рисунке ниже:
             </p>
             <div className={styles.HelpSchoolSettings_FAQ_images}>

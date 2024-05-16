@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState, ReactNode } from 'react'
+import React, { FC, memo, useEffect, useState, ReactNode } from 'react'
 import {RoleE} from 'enum/roleE'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { classesSettingIconPath } from './config/svgIconsPath'
@@ -26,6 +26,7 @@ import {selectUser} from "../../selectors";
 import {setChats, addChat} from "../../store/redux/chats/chatsSlice";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/redux/store";
+import { useFetchSchoolStudentsGroupingQuery, useUpdateSchoolStudentsGroupingMutation } from 'api/schoolService'
 
 type StudentsTableWrapperT = {
   isLoading: boolean
@@ -33,16 +34,20 @@ type StudentsTableWrapperT = {
   students: studentsTableInfoT
   handleReloadTable?: () => void
   handleAddSortToFilters?: (sort_by: string, sort_order: string) => void
+  isGrouping?: (is_grouping: boolean) => void
 }
 
-export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId, handleReloadTable, handleAddSortToFilters }) => {
+
+export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId, handleReloadTable, handleAddSortToFilters, isGrouping }) => {
   const dispatch = useAppDispatch()
+  const schoolId = localStorage.getItem('school_id');
   const { role } = useAppSelector(selectUser)
   // const chats = useSelector((state: RootState) => state.chats.chats);
 
   const [isModalOpen, { on, off, onToggle }] = useBoolean()
   const [isStudentModalOpen, { on: studentModalOn, off: studentModalOff, onToggle: toggleStudentInfoModal }] = useBoolean()
   const [isChatOpen, { on: chatModalOff, off: chatModalOn , onToggle: toggleChatModal}] = useBoolean()
+  const [isStudentDeleted, setIsStudentDeleted] = useState<boolean>(false);
 
   const [cols, setCols] = useState<string[]>([])
   const [rows, setRows] = useState<GenerateRow[]>()
@@ -54,6 +59,10 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
 
   const { columns, data } = generateData(tableHeaderData, students, isLoading, isSuccess)
   const [createPersonalChatForAdminOrTeacher, { isLoading: chatIsLoading }] = useCreatePersonalChatForAdminOrTeacherMutation()
+
+  const { data: groupingStudents, error: groupingStudentsError } = useFetchSchoolStudentsGroupingQuery({ school_id: Number(schoolId) || 0 });
+  const [updateSchoolStudentsGroupingMutation] = useUpdateSchoolStudentsGroupingMutation();
+  const [isGroupingStudents, setIsGroupingStudents] = useState(false) 
 
 
   // состояние направления сортировки для каждого столбца
@@ -117,6 +126,10 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
     toggleStudentInfoModal()
   }
 
+  const handleDeleteStudent = () => {
+    setIsStudentDeleted(true)
+  }
+
   const handleToggleChatModal = (studentId: number) => {
     if (students) {
       const student = students.find((_, index) => index === studentId) || null
@@ -143,12 +156,32 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
     }
   }
 
-  const handleRowClick = (event: any, studentId: number) => {
+  const handleRowClick = (event: any, studentId: any) => {
   // Проверка, был ли клик на кнопке "CHAT"
     if (!event.target.classList.contains(styles.chat_button)) {
       setSelectedStudentId(studentId);
     }
   };
+
+  const handleModalClose = async (isStudentsGrouped: boolean) => {
+    if (isGroupingStudents !== isStudentsGrouped) {
+      try {
+        await updateSchoolStudentsGroupingMutation({ school: Number(schoolId) || 0, is_students_grouped: isStudentsGrouped });
+        setIsGroupingStudents(isStudentsGrouped)
+        if (isGrouping && isStudentsGrouped === true) {
+          isGrouping(true)
+        }
+      } catch (error) {
+        console.error('Ошибка при выполнении мутации:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (groupingStudents) {
+      setIsGroupingStudents(groupingStudents.is_students_grouped)
+    }
+  }, [groupingStudents])
 
   useEffect(() => {
     if (tableId) {
@@ -161,18 +194,20 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
       setSelectedStudentId(null)
       handleReloadTable && handleReloadTable()
       document.body.style.overflow = 'auto'
+      setIsStudentDeleted(false)
     }
-  }, [isStudentModalOpen])
+  }, [isStudentDeleted])
 
   useEffect(() => {
     students && setRows(data)
-  }, [isLoading, students])
+  }, [isGroupingStudents, isLoading, students])
 
   useEffect(() => {
     setCols(columns)
   }, [isSuccess, tableHeaderData])
 
   useEffect(() => {
+    
     typeof selectedStuentId === 'number' && studentModalOff()
 
     if (students) {
@@ -202,8 +237,8 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
           <thead className={styles.table_thead}>
             <tr>
               {cols.map(col => (
-                <th className={styles.table_thead_td} id={col} key={col} onClick={() => handleColumnSort(col)}>
-                  {sortDirection[col] && (
+                <th className={styles.table_thead_td} id={col} key={col} onClick={() => isGroupingStudents ? handleColumnSort('Email') : handleColumnSort(col)}>
+                  {!isGroupingStudents && sortDirection[col] && (
                     <span>
                       {sortDirection[col] === 'asc' ? (
                         <div className={styles.tableSortButton}>
@@ -241,60 +276,198 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
                 </button>
             </tr>
           </thead>
-          <tbody className={styles.table_tbody}>
-            {rows?.map((row, id) => (
-              <tr key={id} style={row['Дата удаления из группы'] !== ' ' ? {backgroundColor: '#fcf5f5'} : {}} onClick={(event) => handleRowClick(event, id)}>
-                {cols.map(col => {
-                  const cellValue = row[col] as string | number | { text: string; image: ReactNode }
-                  return (
-                    <td
-                      style={{
-                        fontSize: '14px',
-                        verticalAlign: 'center',
-                      }}
-                      key={col}
-                    >
-                      {typeof cellValue === 'object' ? (
-                        <div className={styles.table_user}>
-                          {row['Дата удаления из группы'] === ' ' && typeof cellValue.text !== 'number' && (
-                              <Button className={styles.chat_button} text={"CHAT"} onClick={() => handleToggleChatModal(id)}/>
-                            )
-                          }
+          
+          {isGroupingStudents ? (
+           <tbody className={styles.table_tbody}>
+           {rows && rows
+             .sort((a: any, b: any) => (a['Email'] > b['Email'] ? 1 : -1)) // Сортировка по email
+             .map((row: any, rowIndex: number) => {
+               const email = row['Email'] as string;
+               const name = row['Имя'].text as string; // Получаем текст из объекта с именем
+               const rowspan = rows.filter(r => r['Email'] === email).length;
+               const showEmailCell = rowspan === 1;
+               return (
+                 <tr 
+                   key={rowIndex} 
+                   style={row['Дата удаления из группы'] !== ' ' ? {backgroundColor: '#fcf5f5'} : {}}
+                   onClick={(event) => handleRowClick(event, row.id)}
+                 >
+                   {cols.map((col: string, colIndex: number) => {
+                     const cellValue = row[col] as string | number | { text: string; image: ReactNode };
+                     if (col === 'Email') {
+                       if (showEmailCell) {
+                         return (
+                           <td
+                             style={{
+                               fontSize: '14px',
+                               verticalAlign: 'center',
+                             }}
+                             rowSpan={rowspan}
+                             key={`${col}-${rowIndex}`}
+                           >
+                             {email}
+                           </td>
+                         );
+                       } else if (rowIndex === rows.findIndex((r: any) => r['Email'] === email && r['Имя'].text === name)) {
+                         return (
+                           <td
+                             style={{
+                               fontSize: '14px',
+                               verticalAlign: 'center',
+                             }}
+                             rowSpan={rowspan}
+                             key={`${col}-${rowIndex}`}
+                           >
+                             {email}
+                           </td>
+                         );
+                       } else {
+                         return null;
+                       }
+                     } else if (col === 'Имя') {
+                       if (showEmailCell) {
+                         return (
+                           <td
+                             style={{
+                               fontSize: '14px',
+                               verticalAlign: 'center',
+                               paddingLeft: '20px'
+                             }}
+                             rowSpan={rowspan}
+                             key={`${col}-${rowIndex}`}
+                           >
+                             <div style={{ display: 'flex', alignItems: 'center' }}>
+                               {row['Дата удаления из группы'] === ' ' && typeof cellValue === 'object' && 'text' in cellValue && (
+                                 <Button className={styles.chat_button} text={"CHAT"} onClick={() => handleToggleChatModal(rowIndex)} />
+                               )}
+                               <span style={{ marginLeft: '5px' }}>{cellValue && typeof cellValue === 'object' && 'image' in cellValue && cellValue.image}</span>
+                               <span style={{ marginLeft: '5px' }}>{name}</span>
+                             </div>
+                           </td>
+                         );
+                       } else if (rowIndex === rows.findIndex((r: any) => r['Email'] === email)) {
+                         return (
+                           <td
+                             style={{
+                               fontSize: '14px',
+                               verticalAlign: 'center',
+                               paddingLeft: '20px'
+                             }}
+                             rowSpan={rowspan}
+                             key={`${col}-${rowIndex}`}
+                           >
+                             <div style={{ display: 'flex', alignItems: 'center' }}>
+                               {row['Дата удаления из группы'] === ' ' && typeof cellValue === 'object' && 'text' in cellValue && (
+                                 <Button className={styles.chat_button} text={"CHAT"} onClick={() => handleToggleChatModal(rowIndex)} />
+                               )}
+                               <span style={{ marginLeft: '5px' }}>{cellValue && typeof cellValue === 'object' && 'image' in cellValue && cellValue.image}</span>
+                               <span style={{ marginLeft: '5px' }}>{name}</span>
+                             </div>
+                           </td>
+                         );
+                       } else {
+                         return null;
+                       }
+                     } else {
+                       return (
+                         <td
+                           style={{
+                             fontSize: '14px',
+                             verticalAlign: 'center',
+                           }}
+                           key={`${col}-${rowIndex}`}
+                         >
+                           {typeof cellValue === 'object' ? (
+                             <div className={styles.table_user}>
+                               {row['Дата удаления из группы'] !== ' ' && (
+                                 <div
+                                   style={{
+                                     fontSize: '10px',
+                                     backgroundColor: '#fa6961',
+                                     color: "white",
+                                     padding: '3px 6px 3px 6px',
+                                     borderRadius: '5px'
+                                   }}>Удалён</div>
+                               )}
+                               {cellValue.image}
+                               <p>{cellValue.text}</p>
+                             </div>
+                           ) : (
+                             <p>{cellValue}</p>
+                           )}
+                         </td>
+                       );
+                     }
+                   })}
+                 </tr>
+               );
+             })}
+         </tbody>
+          ) : (
+            <tbody className={styles.table_tbody}>
+              {rows?.map((row, id) => (
+                <tr key={id} style={row['Дата удаления из группы'] !== ' ' ? {backgroundColor: '#fcf5f5'} : {}} onClick={(event) => handleRowClick(event, row.id)}>
+                  {cols.map(col => {
+                    const cellValue = row[col] as string | number | { text: string; image: ReactNode }
+                    return (
+                      <td
+                        style={{
+                          fontSize: '14px',
+                          verticalAlign: 'center',
+                        }}
+                        key={col}
+                      >
+                        {typeof cellValue === 'object' ? (
+                          <div className={styles.table_user}>
+                            {row['Дата удаления из группы'] === ' ' && typeof cellValue.text !== 'number' && (
+                                <Button className={styles.chat_button} text={"CHAT"} onClick={() => handleToggleChatModal(id)}/>
+                              )
+                            }
 
-                          {row['Дата удаления из группы'] !== ' ' && (
-                              <div
-                              style={{
-                                fontSize: '10px',
-                                backgroundColor: '#fa6961',
-                                color:"white",
-                                padding: '3px 6px 3px 6px',
-                                borderRadius: '5px'
-                              }}>Удалён</div>
-                          )}
-                          {cellValue.image}
-                          <p>{cellValue.text}</p>
-                        </div>
-                      ) : (
-                        <p>{cellValue}</p>
-                      )}
-                    </td>
-                  )
-                })}
-              </tr>
-            ))}
-          </tbody>
+                            {row['Дата удаления из группы'] !== ' ' && (
+                                <div
+                                style={{
+                                  fontSize: '10px',
+                                  backgroundColor: '#fa6961',
+                                  color:"white",
+                                  padding: '3px 6px 3px 6px',
+                                  borderRadius: '5px'
+                                }}>Удалён</div>
+                            )}
+                            {cellValue.image}
+                            <p>{cellValue.text}</p>
+                          </div>
+                        ) : (
+                          <p>{cellValue}</p>
+                        )}
+                      </td>
+                    )
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
       </div>
 
       {isModalOpen && (
         <Portal closeModal={on}>
-          <SettingStudentTable setShowModal={onToggle} tableId={tableId} />
+          <SettingStudentTable 
+            setShowModal={onToggle} 
+            tableId={tableId} 
+            is_students_grouped={isGroupingStudents} 
+            onCloseModal={handleModalClose}
+          />
         </Portal>
       )}
 
       {isStudentModalOpen && (
         <Portal closeModal={studentModalOn}>
-          <StudentInfoModal closeModal={toggleStudentInfoModal} student={selectedStuent} />
+          <StudentInfoModal
+            student={selectedStuent}
+            closeModal={toggleStudentInfoModal}
+            isStudentDeleted={handleDeleteStudent}
+          />
         </Portal>
       )}
 

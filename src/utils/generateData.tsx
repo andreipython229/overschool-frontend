@@ -38,6 +38,7 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
 
 
     const row: GenerateRow = {
+      id: i,
       Имя: {
         // name: `${dataToRender[i].first_name || 'Без'} ${dataToRender[i].last_name || 'Имени'}`,
         name: (dataToRender[i].last_name && dataToRender[i].first_name) ? `${dataToRender[i].last_name}  ${dataToRender[i].first_name}` :

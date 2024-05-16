@@ -9,18 +9,24 @@ import { userRoleName } from 'config/index'
 import styles from './employee.module.scss'
 import { LimitModal } from '../../../../components/Modal/LimitModal/LimitModal'
 import { EmployeeT } from '../../../../types/userT'
+import { getUserIdFromLocalStorage } from 'utils/getUserId';
+import { RenameEmployee } from 'components/Modal/RenameEmployee/RenameEmployee'
 
-export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name, id, employees, setEmployees }) => {
+export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name, id, employees, setEmployees, isModalRenameOpen }) => {
+  const userId = getUserIdFromLocalStorage();
+  const school_id = localStorage.getItem('school_id')
   const [removeAccess, { isSuccess: isRemoved }] = useRemoveUserAccessMutation()
   const schoolName = window.location.href.split('/')[4]
   const [isOpenLimitModal, { onToggle }] = useBoolean()
   const [message, setMessage] = useState<string>('')
   const [isModalOpen, { on, off }] = useBoolean()
+  const [isRenameModalOpen, { onToggle: toggleRenameModal }] = useBoolean()
 
   const handleDeleteEmployee = async () => {
     const formData = new FormData()
     formData.append('emails', contact)
     formData.append('role', role)
+    formData.append('pseudonym', name)
     await removeAccess({ data: formData, schoolName })
       .unwrap()
       .then(async (accessdata: any) => {
@@ -32,11 +38,20 @@ export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name,
       })
   }
 
+  const handleChangePseudonym = () => {
+    toggleRenameModal();
+  }
+
   useEffect(() => {
     if (isRemoved) {
       setEmployees(employees.filter(employee => employee.id !== id))
     }
   }, [isRemoved])
+
+  useEffect(() => {
+    isModalRenameOpen();
+  }, [isRenameModalOpen])
+
 
   return (
     <div className={styles.wrapper}>
@@ -44,7 +59,18 @@ export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name,
         <div className={styles.employee_user_info}>
           <img className={styles.employee_user_info_avatar} src={avatar} alt="User Avatar" />
           <div className={styles.employee_user_info_name}>
-            <span>{name}</span>
+            <span>
+            {userId !== id ? (
+              <>
+                {name} |
+                <button className={styles.changePseudonymBtn} onClick={handleChangePseudonym}>Переименовать</button>
+              </>
+            ) : (
+              <>
+                {name}
+              </>
+            )}
+            </span>
             <span>{contact}</span>
           </div>
         </div>
@@ -65,6 +91,11 @@ export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name,
       {isModalOpen && (
         <Portal closeModal={on}>
           <ReviewTeacherGroups closeModal={on} name={name} email={contact} id={id} />
+        </Portal>
+      )}
+      {isRenameModalOpen && id && school_id && (
+        <Portal closeModal={toggleRenameModal}>
+          <RenameEmployee onClose={toggleRenameModal} userId={id} school_id={school_id} schoolName={schoolName} />
         </Portal>
       )}
       {isOpenLimitModal ? (

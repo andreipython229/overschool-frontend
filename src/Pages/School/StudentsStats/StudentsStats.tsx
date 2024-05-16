@@ -41,7 +41,7 @@ export const StudentsStats = () => {
   const dataToRender = data?.results && data?.results.length > 6 && isOpen ? data?.results : reducedGroupsToShow
 
   return (
-    <div>
+    <div className={styles.students}>
       {/*<section className={styles.statistics}>*/}
       {/*  <StatisticHeader hideStats={hideStats} handleHideStats={handleHideStats} />*/}
       {/*  {hideStats && (*/}
