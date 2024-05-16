@@ -102,3 +102,8 @@ export interface ProdamusPaymentLinkDetail {
     signature?: string;
     payment_link?: string
 }
+
+export interface ProdamusApiResponse {
+    payment_link: string ;
+    status?: string
+}

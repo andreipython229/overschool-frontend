@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {CreateProdamusPaymentLinkData} from "../types/ProdamusPaymenT";
+import {CreateProdamusPaymentLinkData, ProdamusApiResponse} from "../types/ProdamusPaymenT";
 
 export interface Product {
     price: string;
@@ -181,7 +181,7 @@ export const prodamusService = createApi({
     reducerPath: 'prodamusApi',
     baseQuery: fetchBaseQuery({baseUrl: ''}),
     endpoints: (builder) => ({
-        getLink: builder.mutation<any, string>({
+        getLink: builder.mutation<ProdamusApiResponse, string>({
             query: (url: string) => ({
                 url: url,
                 method: 'GET',
