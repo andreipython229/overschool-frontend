@@ -9,7 +9,10 @@ import {
     useDeleteStudentsGroupMutation,
     useFetchStudentGroupQuery,
     usePatchStudentsGroupMutation,
-    usePatchGroupWithoutTeacherMutation
+    usePatchGroupWithoutTeacherMutation,
+    useAddGroupCourseAccessMutation,
+    useLazyFetchGroupCourseAccessQuery,
+    useDeleteAllGroupCourseAccessMutation
 } from '../../../../api/studentsGroupService'
 import styles from '../studentsLog.module.scss'
 import {SimpleLoader} from '../../../Loaders/SimpleLoader'
@@ -18,6 +21,9 @@ import {
     useSetGroupLessonsAccessMutation
 } from "../../../../api/lessonAccessService";
 import {groupSections, sectionLessons} from "../../../../types/lessonAccessT";
+import {checkCourseT} from "../../../../types/CoursesT";
+import {groupCourseAccessT} from "../../../../types/studentsGroup";
+import {useFetchCoursesGroupsQuery} from "../../../../api/coursesServices";
 
 export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, groupId, courseId}) => {
     const schoolName = window.location.href.split('/')[4]
@@ -37,9 +43,14 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     const [deleteStudentsGroup, {isLoading, isError}] = useDeleteStudentsGroupMutation()
     const [patchGroup] = usePatchStudentsGroupMutation()
     const [patchGroupWithoutTeacher] = usePatchGroupWithoutTeacherMutation()
-    const [fetchGroupLessons, { data: groupAccessInfo, isFetching }] = useLazyFetchGroupLessonsQuery()
+    const [fetchGroupLessons, {data: groupAccessInfo, isFetching}] = useLazyFetchGroupLessonsQuery()
     const [groupLessons, setGroupLessons] = useState<sectionLessons[]>()
     const [setAccess] = useSetGroupLessonsAccessMutation()
+    const [fetchNextCourses, {data: nextCourses, isSuccess: isNextCoursesGetted}] = useLazyFetchGroupCourseAccessQuery()
+    const {data: courses, isSuccess: isCoursesGetted} = useFetchCoursesGroupsQuery(schoolName)
+    const [checkCourses, setCheckCourses] = useState<checkCourseT[]>()
+    const [addGroupCourseAccess] = useAddGroupCourseAccessMutation()
+    const [deleteGroupCourseAccess] = useDeleteAllGroupCourseAccessMutation()
 
     useEffect(() => {
         setBlockHomework(Boolean(data?.group_settings?.task_submission_lock))
@@ -57,7 +68,10 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
     }, [isSuccess])
 
     useEffect(() => {
-        groupId && fetchGroupLessons({group_id: groupId, schoolName: schoolName})
+        if (groupId) {
+            fetchGroupLessons({group_id: groupId, schoolName: schoolName})
+            fetchNextCourses({id: String(groupId), schoolName: schoolName})
+        }
     }, [groupId])
 
     useEffect(() => {
@@ -65,6 +79,22 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
             groupAccessInfo && setGroupLessons(groupAccessInfo.sections)
         }
     }, [groupAccessInfo])
+
+    useEffect(() => {
+        if (courses?.length) {
+            const updatedCourses: checkCourseT[] = courses.filter(courseItem => courseItem.course_id !== courseId)
+                .map(courseItem => {
+                    const accessedCourse: groupCourseAccessT | undefined = nextCourses?.length
+                        ? nextCourses.find((nextCourse: groupCourseAccessT) => nextCourse.course === courseItem.course_id)
+                        : undefined
+                    return {
+                        ...courseItem,
+                        selected_group: accessedCourse ? accessedCourse?.group : null,
+                    }
+                })
+            setCheckCourses(updatedCourses)
+        }
+    }, [courses, nextCourses])
 
     const handlerHomeworkCheck = () => {
         if (!blockHomework) {
@@ -101,19 +131,19 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
 
     const handlerIsLimited = () => {
         setIsLimited(!isLimited)
-    } 
-    
+    }
+
     const handlerLockOverAi = () => {
         setOverAiLock(!overAiLock)
     }
 
     const handleCertificate = () => {
-      setCertificate(!certificate);
+        setCertificate(!certificate);
     };
 
     const handleDeleteGroup = async () => {
-    await deleteStudentsGroup({id: groupId, schoolName})
-    closeModal()
+        await deleteStudentsGroup({id: groupId, schoolName})
+        closeModal()
     }
 
     const handleSaveGroupSettings = async () => {
@@ -133,9 +163,17 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
         }
         if (groupType === "WITH_TEACHER") {
             Object.assign(dataToSend, {teacher_id: currentTeacher})
-            await patchGroup({id: groupId, data: dataToSend, schoolName: schoolName}).unwrap().catch(error => console.log(error.data))
+            await patchGroup({
+                id: groupId,
+                data: dataToSend,
+                schoolName: schoolName
+            }).unwrap().catch(error => console.log(error.data))
         } else {
-            await patchGroupWithoutTeacher({id: groupId, data: dataToSend, schoolName: schoolName}).unwrap().catch(error => console.log(error.data))
+            await patchGroupWithoutTeacher({
+                id: groupId,
+                data: dataToSend,
+                schoolName: schoolName
+            }).unwrap().catch(error => console.log(error.data))
         }
         closeModal()
     }
@@ -165,6 +203,28 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
             .catch(error => {
                 console.log(error.data)
             })
+    }
+
+    const handleNextCourses = async () => {
+        const newNextCourses = checkCourses?.filter(courseItem => courseItem.selected_group)
+            .map((courseItem: checkCourseT) => ({
+                current_group: groupId,
+                course: courseItem.course_id,
+                group: courseItem.selected_group,
+            }))
+        console.log(newNextCourses)
+        if (newNextCourses && newNextCourses?.length > 0) {
+            await addGroupCourseAccess({data: newNextCourses, schoolName})
+                .unwrap()
+                .then(async () => {
+                    console.log('ok')
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        } else {
+            await deleteGroupCourseAccess({id: String(groupId), schoolName})
+        }
     }
 
     if (!isSuccess) {
@@ -215,6 +275,9 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({closeModal, gr
                             handlerLockOverAi={handlerLockOverAi}
                             handleCertificate={handleCertificate}
                             handleSave={handleSaveGroupSettings}
+                            checkCourses={checkCourses}
+                            setCheckCourses={setCheckCourses}
+                            handleNextCourses={handleNextCourses}
                         />
                     </div>
                 </div>

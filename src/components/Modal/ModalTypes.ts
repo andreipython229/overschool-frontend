@@ -113,6 +113,8 @@ export type LimitModalPropsT = {
   setShowLimitModal: () => void
   message: string
   setShowMainModal?: () => void
+  action?: () => void
+  roleExist?: boolean
 }
 
 export type AddSchoolModalPropsT = {
