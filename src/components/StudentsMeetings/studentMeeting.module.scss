@@ -1,0 +1,53 @@
+@import '../../scss/mixin.scss';
+.wrapper_actions {
+  background-color: #ffffff;
+  padding: 26px 32px 24px 32px;
+  box-shadow: 0 0 8px #d9d9d9;
+  border-radius: 8px;
+  overflow-x: auto;
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    padding: 4% 3% 4% 3%;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    padding: 4% 3% 4% 3%;
+  }}
+
+
+.meetingTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.meetingTable th,
+.meetingTable td {
+  border-bottom: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
+
+.meetingTable th:first-child,
+.meetingTable td:first-child {
+  border-left: none;
+}
+
+.meetingTable th:last-child,
+.meetingTable td:last-child {
+  border-right: none;
+}
+
+.detailButtonCell {
+  text-align: right;
+}
+
+.generateMeetingButton{
+  border: 1px solid slategrey;
+  cursor: pointer;
+  margin-left: 1%;
+  margin-bottom: 1rem;
+}
+
+.table_no_results {
+  text-align: center;
+  @include font(500, 20px);
+  color: #6b7484;
+}

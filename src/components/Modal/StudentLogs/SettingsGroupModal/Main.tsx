@@ -6,6 +6,7 @@ import {Button} from 'components/common/Button/Button'
 import {SimpleLoader} from 'components/Loaders/SimpleLoader'
 import {Dropdown} from 'primereact/dropdown'
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
+import styles_check from 'components/Modal/StudentLogs/LessonsAccardion/lessonsAccardion.module.scss'
 import {useLazyFetchAllUsersQuery} from '../../../../api/allUsersList'
 import {PrimeReactProvider} from 'primereact/api'
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -15,6 +16,9 @@ import {ToggleButtonDropDown} from "../../../common/ToggleButtonDropDown";
 import {useFetchStudentProgressQuery} from "../../../../api/userProgressService";
 import {LessonsAccardion} from "../LessonsAccardion/LessonsAccardion";
 import {sectionLessons} from "../../../../types/lessonAccessT";
+import {checkCourseT} from "../../../../types/CoursesT";
+import {GroupsDropDown} from "../../../SelectDropDown/GroupsDropDown";
+import {CheckboxBall} from "../../../common/CheckboxBall";
 
 type MainSettingsGroupPropsT = {
     strongSubsequence: boolean
@@ -48,6 +52,9 @@ type MainSettingsGroupPropsT = {
     groupLessons?: sectionLessons[]
     setGroupLessons: any
     handleAccessSetting: () => void
+    checkCourses?: checkCourseT[]
+    setCheckCourses: any
+    handleNextCourses: () => void
 }
 
 export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
@@ -81,7 +88,10 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                                                    course,
                                                                    groupLessons,
                                                                    setGroupLessons,
-                                                                   handleAccessSetting
+                                                                   handleAccessSetting,
+                                                                   checkCourses,
+                                                                   setCheckCourses,
+                                                                   handleNextCourses
                                                                }) => {
     const schoolName = window.location.href.split('/')[4]
     const [getUsers, {data: allUsers, isSuccess}] = useLazyFetchAllUsersQuery()
@@ -90,6 +100,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
     const [selectedTeacher, setSelectedTeacher] = useState<string>('')
     const [getGroups, {data: courseGroups}] = useLazyFetchStudentsGroupByCourseQuery()
     const [isAccardionOpen, groupInfoAccardion] = useState<boolean>(false)
+    const [isSelectNextCourses, setIsSelectNextCourses] = useState<boolean>(false)
 
     useEffect(() => {
         if (schoolName && course) {
@@ -98,7 +109,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
         }
     }, [schoolName, course])
 
-    useEffect(() => {        
+    useEffect(() => {
         if (allUsers) {
             const allTeachers = allUsers.results.filter((user: any) => user.role === 'Teacher')
             setAllTeachers(allTeachers)
@@ -140,6 +151,22 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
         setSelectedTeacher(e.value)
     }
 
+    const handleIsSelect = () => {
+        setIsSelectNextCourses(!isSelectNextCourses)
+    }
+
+    const handleCheck = (course_id: number, group_id: number | null) => {
+        setCheckCourses((prevCourses: checkCourseT[]) =>
+            prevCourses?.map((courseItem: checkCourseT) =>
+                courseItem.course_id === course_id
+                    ? {
+                        ...courseItem,
+                        selected_group: group_id,
+                    }
+                    : courseItem,
+            )
+        )
+    }
 
     return (
         <>
@@ -157,7 +184,8 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                                   placeholder={`${selectedTeacher ? selectedTeacher : 'Выберите ментора для данной группы'}`}
                                   className="w-full md:w-14rem"/>
                     </div>
-                    : <p className={styles.groupSetting_description}>Группа не предполагает наличие ментора. Домашние задания принимаются автоматически без проверки</p>}
+                    : <p className={styles.groupSetting_description}>Группа не предполагает наличие ментора. Домашние
+                        задания принимаются автоматически без проверки</p>}
                 <div className={styles.groupSetting_checkboxBlock}>
                     <div className={styles.groupSetting_checkboxBlock_checkbox}>
                         <Checkbox id={'homework'} name={'homework'} checked={blockHomework}
@@ -187,7 +215,8 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                         <Checkbox id={'submitTest'} name={'submitTest'} checked={submitTest}
                                   onChange={handlerTestSubmit}/>
                         <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
-                            <span style={!strongSubsequence ? {color: "#e5e7eb"} : {}}>Необходимость отправки тестов</span>
+                            <span
+                                style={!strongSubsequence ? {color: "#e5e7eb"} : {}}>Необходимость отправки тестов</span>
                             <span>Ученик сможет приступить к следующему занятию только после прохождения очередного теста (с любым результатом)</span>
                         </div>
                     </div>
@@ -207,7 +236,8 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                         </div>
                     </div>
                     <div className={styles.groupSetting_checkboxBlock_checkbox}>
-                        <Checkbox id={'certificate'} name={'certificate'} checked={certificate} onChange={handleCertificate}/>
+                        <Checkbox id={'certificate'} name={'certificate'} checked={certificate}
+                                  onChange={handleCertificate}/>
                         <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
                             <span>Включить сертификат</span>
                             <span>После прохождения курса ученики смогут получить сертификат</span>
@@ -230,6 +260,36 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                     <LessonsAccardion sectionLessons={groupLessons} setLessons={setGroupLessons}
                                       handleAccessSetting={handleAccessSetting} forStudent={false}
                                       resetAccessSetting={undefined}></LessonsAccardion>
+                )}
+                {/*<div className={styles.groupSetting_checkboxBlock_checkbox}>*/}
+                {/*    <Checkbox id={'selectCourses'} name={'selectCourses'} checked={isSelectNextCourses}*/}
+                {/*              onChange={handleIsSelect}/>*/}
+                {/*    <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>*/}
+                {/*        <span>Выбрать курсы, доступные после прохождения текущего</span>*/}
+                {/*        <span>Ученик будет добавлен в выбранные группы соответствующих курсов после прохождения курса текущей группы</span>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                <div className={styles.groupSetting_courseAccess_header}>
+                <div className={styles_check.accardion_content_check}>
+                    <CheckboxBall isChecked={isSelectNextCourses} toggleChecked={handleIsSelect}/>
+                    <span
+                        className={styles_check.accardion_content_check_span}>Настройка последующего доступа к курсам</span>
+                </div>
+                {isSelectNextCourses
+                    ? <Button className={styles_check.accardion_content_buttons_btn_right} text={'Сохранить'}
+                                onClick={handleNextCourses}/>
+                    :<span className={styles_check.accardion_content_fake}></span>}</div>
+                {isSelectNextCourses && (
+                     <div className={styles.groupSetting_courseAccess_content}>
+                          <span className={styles.groupSetting_courseAccess_content_desc}>Ученик будет добавлен в выбранные группы соответствующих курсов после прохождения курса текущей группы</span>
+                            {checkCourses?.map(({course_id, name, student_groups, selected_group}: checkCourseT, index) => (
+                                <div className={styles.groupSetting_courseAccess_content_course} key={index}>
+                                    <div className={styles.groupSetting_courseAccess_content_course_name}><span>{name}</span></div>
+                                    <GroupsDropDown dropdownData={student_groups} course_id={course_id}
+                                                    selected_group={selected_group} onChangeGroup={handleCheck}/>
+                                </div>
+                            ))}
+                     </div>
                 )}
 
                 {/*  {strongSubsequence && (*/}
