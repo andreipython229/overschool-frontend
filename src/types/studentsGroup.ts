@@ -13,6 +13,7 @@ export type studentsGroupsT = {
     updated_at?: Date
     name: string
     course_id?: number
+    course_name?: string
     teacher_id?: number
     students: number[]
     group_settings?: {
