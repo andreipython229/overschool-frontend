@@ -50,8 +50,9 @@
         height: 62%;
       }
       @media only screen and (min-width : 100px) and (max-width : 1300px) {
-        width: 40%;
-        height: 70%;
+        width: 90vw;
+        height: 70vh;
+        left: 50%;
       }
 }
   

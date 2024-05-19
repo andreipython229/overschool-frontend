@@ -358,6 +358,32 @@
     }
   }
 
+  &_courseAccess_header {
+     width: 100%;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    display: inline-flex;
+    justify-content: space-between;
+  }
+  &_courseAccess_content {
+    margin-bottom: 30px;
+
+    &_desc {
+      font-size: $fs14;
+      color: #bd9fc4;
+    }
+    &_course {
+      text-align: left;
+      margin-top: 15px;
+
+      &_name {
+        @include font(600, 12px, 150%);
+        color: #5a555b;
+        margin-bottom: 8px;
+      }
+    }
+  }
+
   &_selectBlock {
     margin-top: 20px;
 

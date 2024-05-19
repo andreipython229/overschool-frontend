@@ -132,19 +132,20 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
     if (isSuccess) {
       setUserHomework(data)
       const {
-        last_reply: { author_last_name, author_first_name, updated_at, profile_avatar, text_files, audio_files, text },
+        last_reply: { author_last_name, author_first_name, updated_at, profile_avatar, text_files, audio_files, text, author_pseudonym },
       } = data
-
+      
       const user = {
         name: author_first_name,
         surname: author_last_name,
+        pseudonym: author_pseudonym,
         last_reply: updated_at,
         avatar: profile_avatar,
         text_files,
         audio_files,
         text,
       }
-
+      
       setCurrentUser(user)
 
       if (data.status.toLocaleLowerCase() === 'ждет проверки') {
@@ -270,7 +271,9 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
           </div>
         )}
         <div className={styles.teacher_teacherData}>
-          <span className={styles.teacher_teacherData_name}>{`${currentUser?.surname || 'Без'} ${currentUser?.name || 'Имени'}`}</span>
+        <span className={styles.teacher_teacherData_name}>
+          {currentUser?.pseudonym || `${currentUser?.surname || 'Без'} ${currentUser?.name || 'Имени'}`}
+        </span>
           <span className={styles.teacher_teacherData_date}>
             {mmddyyyy} в {hoursAndMinutes}
           </span>

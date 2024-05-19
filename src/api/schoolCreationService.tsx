@@ -7,6 +7,11 @@ type registrationCredentials = {
   phone_number: string
   password: string
   password_confirmation: string
+  utm_source: string
+  utm_medium: string
+  utm_campaign: string
+  utm_term: string
+  utm_content: string
 }
 
 export const schoolCreationService = createApi({

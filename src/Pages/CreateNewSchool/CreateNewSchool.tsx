@@ -5,7 +5,7 @@ import { isSecurity, unSecurity } from '../../assets/img/common'
 import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
 import { useFormik } from 'formik'
 import { useEffect, useState } from 'react'
-import { generatePath, useNavigate } from 'react-router-dom'
+import { generatePath, useNavigate, useLocation } from 'react-router-dom'
 import { useCreateSchoolOwnerMutation } from 'api/schoolCreationService'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
@@ -16,6 +16,14 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
 export const CreateNewSchool = () => {
+  const location = useLocation();
+  const [utmParams, setUtmParams] = useState<{ 
+    utm_source?: string; 
+    utm_medium?: string; 
+    utm_campaign?: string; 
+    utm_term?: string; 
+    utm_content?: string;
+  }>({});
   const [security, setSecurity] = useState<boolean>(true)
   const [createOwner, { isSuccess, isLoading }] = useCreateSchoolOwnerMutation()
   const [open, setOpen] = useState(false)
@@ -27,12 +35,40 @@ export const CreateNewSchool = () => {
     navigate(Path.InitialPage)
   }
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const params: { [key: string]: string } = {};
+    for (const [key, value] of searchParams) {
+      if (typeof key === 'string' && key.startsWith('utm_')) {
+        params[key] = value;
+      }
+    }
+    setUtmParams(params);
+  }, [location.search]);
+
+  useEffect(() => {
+    formik.setValues({
+      ...formik.values,
+      utm_source: utmParams['utm_source'] || '',
+      utm_medium: utmParams['utm_medium'] || '',
+      utm_campaign: utmParams['utm_campaign'] || '',
+      utm_term: utmParams['utm_term'] || '',
+      utm_content: utmParams['utm_content'] || '',
+    });
+  }, [utmParams]);
+  
+
   const validationSchema: any = Yup.object().shape({
     school_name: Yup.string().min(2, "Слишком короткое!").max(50, "Слишком длинное!").required('Поле  обязательно для заполнения'),
     email: Yup.string().email('Введите корректный email').required('Введите email'),
     phone_number: Yup.string().required('Введите номер телефона').min(12, 'Некорректный номер телефона'),
     password: Yup.string().required('Введите пароль').min(6, "Пароль слишком короткий - должно быть минимум 6 символов"),
     password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают').required('Поле обязательно для заполнения'),
+    utm_source: Yup.string(),
+    utm_medium: Yup.string(),
+    utm_campaign: Yup.string(),
+    utm_term: Yup.string(),
+    utm_content: Yup.string(),
   });
 
   const formik = useFormik({
@@ -42,6 +78,7 @@ export const CreateNewSchool = () => {
       phone_number: '',
       password: '',
       password_confirmation: '',
+      ...utmParams
     },
     validationSchema: validationSchema,
     onSubmit: async () => {
@@ -49,7 +86,19 @@ export const CreateNewSchool = () => {
         formik.values.school_name.length > 0 &&
         formik.values.password === formik.values.password_confirmation
       ) {
-        const userData = formik.values
+        const utmData = {
+          utm_source: formik.values.utm_source || '',
+          utm_medium: formik.values.utm_medium || '',
+          utm_campaign: formik.values.utm_campaign || '',
+          utm_term: formik.values.utm_term || '',
+          utm_content: formik.values.utm_content || '',
+        };
+
+        const userData = {
+          ...formik.values,
+          ...utmData,
+        };
+        
         await createOwner(userData)
           .unwrap()
           .catch((response: any) => {
