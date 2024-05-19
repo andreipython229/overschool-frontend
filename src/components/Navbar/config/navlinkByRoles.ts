@@ -29,6 +29,7 @@ export const navlinkByRoles: { [key: number]: navLinkConfigT[] } = {
   ],
   
   [RoleE.Teacher]: [
+    { path: Path.Courses, icon: navlinkIcon[Path.Courses] },
     { path: Path.CourseStats, icon: navlinkIcon[Path.CourseStats] },
     { path: Path.HomeWork, icon: navlinkIcon[Path.HomeWork] },
     { path: 'doNotPath', icon: navlinkIcon[Path.Chat] },
