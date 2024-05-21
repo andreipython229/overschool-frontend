@@ -121,7 +121,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
       <div className={styles.publish_switch}>
         <p className={styles.publish_switch_title}>Отображать курс в каталоге по прямой ссылке:</p>
         <div className={styles.publish_switch_wrapper_switch}>
-          <CheckboxBall isChecked={isDirect} toggleChecked={toggleDirect} />
+          <CheckboxBall isChecked={isDirect}  toggleChecked={toggleDirect} />
         </div>
       </div>
       {courseFind.is_direct && (
