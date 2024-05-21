@@ -102,6 +102,7 @@ export const HomeWork: FC = () => {
         startDate={filters?.start_date}
         endDate={filters?.end_date}
         filters={filters}
+        all_homeworks_count={homeworks?.count as number}
       />
       <HomeworksStatsTable homeworks={homeworksData as homeworksStatsT} isLoading={isFetching} />
       <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
