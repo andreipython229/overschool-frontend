@@ -60,7 +60,7 @@ export const HomeWork: FC = () => {
   }, [page, filters])
 
   useEffect(() => {
-    debounce(addFilters({ key: 'homework', filters: { homework_name: termForFilter } }))
+    debounce(addFilters({ key: 'homework', filters: { student: termForFilter } }))
   }, [termForFilter])
 
   useEffect(() => {

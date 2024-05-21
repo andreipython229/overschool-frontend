@@ -60,7 +60,7 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
             {...restFilters}
           />
           </div>
-          <Input name="" type="search" value={termForFilter} onChange={handleChangeTerm} placeholder="Поиск по заданиям">
+          <Input name="" type="search" value={termForFilter} onChange={handleChangeTerm} placeholder="Поиск по ФИО и email">
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>
         </div>
