@@ -56,7 +56,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
             <div className={styles.course_card_about}>
               <span className={styles.course_card_status_show}>
                 {role === RoleE.Admin ? (
-                  course?.is_catalog === true ? (
+                  course?.public === 'О' ? (
                     <>
                       <img src={Public} alt="status course" />
                       <span className={styles.course_card_status_show_public}>Опубликован</span>
