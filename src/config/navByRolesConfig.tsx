@@ -28,6 +28,8 @@ import { SchoolAppeals } from 'Pages/SchoolAppeals'
 import { PaymentMethods } from 'Pages/Settings/PaymentMethods'
 import {SchoolMeetings} from "../components/Meetings";
 import StudentSchoolMeeting from "../components/StudentsMeetings";
+import { Materials } from 'Pages/School/Navigations/CoursesCreating/MaterialsPage'
+import { CourseMaterials } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CourseMaterials/CourseMaterials'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -97,10 +99,17 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.Group} element={<Group />} />
       <Route path={Path.HomeWork} element={<HomeWork />} />
       <Route path={Path.CourseStats} element={<CoursesStats />} />
+      <Route path={Path.Courses} element={<School />}>
+      <Route index element={<Materials />} />
+      <Route path={Path.CreateCourse} element={<RedactorCourse />}>
+          <Route index element={<Navigate to={CreateCoursePath.Materials} />} />
+          <Route path={CreateCoursePath.Materials} element={<CourseMaterials />} />
+        </Route>
+      </Route>
       <Route path={Path.CourseStudent} element={<StudentsStats />} />
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
-        <Route path={Path.Meetings} element={<StudentSchoolMeeting />} />
+      <Route path={Path.Meetings} element={<StudentSchoolMeeting />} />
     </>
   ),
 }

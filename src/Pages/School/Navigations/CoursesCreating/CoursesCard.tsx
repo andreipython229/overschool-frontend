@@ -35,10 +35,14 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
     return <SimpleLoader style={{ width: '100px', height: '100px' }} />
   }
 
+  if (role === RoleE.Teacher && !course.is_catalog) {
+    return null
+  }
+
   return (
     <div id={`${course?.course_id}`} className={styles?.course_card}>
       <>
-        {role === RoleE.Admin ? (
+        {role === RoleE.Admin || role === RoleE.Teacher ? (
           <>
             <div className={styles.course_card_img}>
               {course.photo ? (
@@ -51,34 +55,50 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
             </div>
             <div className={styles.course_card_about}>
               <span className={styles.course_card_status_show}>
-                {course?.public === 'О' ? (
-                  <>
-                    <img src={Public} alt="status course" />
-                    <span className={styles.course_card_status_show_public}>Опубликован</span>
-                  </>
+                {role === RoleE.Admin ? (
+                  course?.public === 'О' ? (
+                    <>
+                      <img src={Public} alt="status course" />
+                      <span className={styles.course_card_status_show_public}>Опубликован</span>
+                    </>
+                  ) : (
+                    <>
+                      <img src={notPublic} alt="status course" />
+                      <span className={styles.course_card_status_show_public}>Не опубликован</span>
+                    </>
+                  )
                 ) : (
-                  <>
-                    <img src={notPublic} alt="status course" />
-                    <span className={styles.course_card_status_show_public}>Не опубликован</span>
-                  </>
+                  <div />
                 )}
               </span>
               <h5>{course.name}</h5>
               <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
-              <Link
-                to={generatePath(Path.CreateCourse + 'student/', {
-                  course_id: `${course?.course_id}`,
-                })}
-              >
-                <Button className={styles.btn_admin} text={'Ученики материала'} />
-              </Link>
-              <Link
-                to={generatePath(Path.CreateCourse, {
-                  course_id: `${course?.course_id}`,
-                })}
-              >
-                <Button className={styles.btn_admin} text={'Редактировать'} />
-              </Link>
+              {role === RoleE.Admin ? (
+                <>
+                  <Link
+                    to={generatePath(Path.CreateCourse + 'student/', {
+                      course_id: `${course?.course_id}`,
+                    })}
+                  >
+                    <Button className={styles.btn_admin} text={'Ученики материала'} />
+                  </Link>
+                  <Link
+                    to={generatePath(Path.CreateCourse, {
+                      course_id: `${course?.course_id}`,
+                    })}
+                  >
+                    <Button className={styles.btn_admin} text={'Редактировать'} />
+                  </Link>
+                </>
+                ) : (
+                  <Link
+                    to={generatePath(Path.CreateCourse, {
+                      course_id: `${course?.course_id}`,
+                    })}
+                  >
+                    <Button className={styles.btn_admin} text={'Материалы'} />
+                  </Link>
+                )}
             </div>
           </>
         ) : (
