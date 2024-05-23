@@ -35,9 +35,6 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
     return <SimpleLoader style={{ width: '100px', height: '100px' }} />
   }
 
-  console.log(course?.is_catalog);
-  
-
   return (
     <div id={`${course?.course_id}`} className={styles?.course_card}>
       <>

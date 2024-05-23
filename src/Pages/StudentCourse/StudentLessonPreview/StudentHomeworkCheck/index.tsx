@@ -67,9 +67,7 @@ export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
     setIsChecked(replyArray.length > 0 ? replyArray[0].status === 'Принято' : false)
   }, [replyArray])
 
-  console.log(replyArray.length);
   
-
   return (
     <div className={styles.wrapper}>
       <h5 className={styles.wrapper_title}>Данные отправлены.</h5>
