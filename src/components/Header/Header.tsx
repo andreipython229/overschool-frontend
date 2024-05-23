@@ -85,10 +85,12 @@ export const Header = memo(() => {
       dispatch(removeSchoolName())
       removeAccessCookie('access_token')
       removeRefreshCookie('refresh_token')
+      window.location.reload()
       localStorage.clear()
       dispatch(auth(false))
       navigate(generatePath(Path.InitialPage))
       setSocketConnect(false)
+      
 
       if (informSocketRef.current !== null) {
         informSocketRef.current.close()
@@ -419,7 +421,7 @@ export const Header = memo(() => {
                   </span>
                   <span className={styles.header_block_user_userName_name}>
                     {!profileData?.user.last_name && !profileData?.user.first_name
-                      ? 'Без Имени'
+                      ? ''
                       : `${profileData?.user.last_name} ${profileData?.user.first_name}`}
                   </span>
                 </div>
