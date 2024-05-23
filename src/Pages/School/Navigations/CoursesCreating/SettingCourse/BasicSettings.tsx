@@ -89,6 +89,12 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
     }
   }, [isSuccessDelete])
 
+  useEffect(() => {
+    if (!isDirect) {
+      return toggleCheckboxPublished
+    }
+  }, [isDirect])
+
   return (
     <div className={`${styles.basic_settings}`}>
       <div className={`${styles.header_basic_settings}`}>
