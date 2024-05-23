@@ -3,6 +3,7 @@ import {FC, useEffect} from "react";
 import styles from "./studentMeeting.module.scss";
 import {setTotalMeetingCount} from "../../store/redux/meetings/meetingSlice";
 import {useDispatch} from "react-redux";
+import Timer from "../Timer/Timer";
 
 
 export const StudentSchoolMeeting: FC = () => {
@@ -30,7 +31,7 @@ export const StudentSchoolMeeting: FC = () => {
                         <thead>
                         <tr>
                             <th>Ссылка</th>
-                            <th>Дата и время</th>
+                            <th>Время до старта</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -38,7 +39,7 @@ export const StudentSchoolMeeting: FC = () => {
                             <tr key={meeting.id}>
                                 <td><a href={meeting.link} target="_blank" rel="noopener noreferrer">{meeting.link}</a>
                                 </td>
-                                <td>{dateFormatter.format(new Date(meeting.start_date))}</td>
+                                <td><Timer targetDate={new Date(meeting.start_date)} /></td>
                             </tr>
                         ))}
                         </tbody>
