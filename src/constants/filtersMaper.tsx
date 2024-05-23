@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { ScoresFilter } from '../components/FiltersButton/ScoresFilter/ScoresFilter'
 import { CalendarFilter } from '../components/FiltersButton/CalendarFilter/CalendarFilter'
 import { SearchFilter } from '../components/FiltersButton/SearchFilter/SearchFilter'
+import { SearchFilterGroup } from '../components/FiltersButton/SearchFilterGroup/SearchFilterGroup'
 import { CoursesDataT } from '../types/CoursesT'
 import { useFetchCoursesQuery } from '../api/coursesServices'
 import { useFetchStudentsGroupQuery } from '../api/studentsGroupService'
@@ -59,7 +60,7 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
       />
     ),
     '8': (
-      <SearchFilter
+      <SearchFilterGroup
         key={2}
         filterKey={'homework'}
         data={groups?.results as studentsGroupsT[]}
@@ -110,7 +111,7 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
       />
     ),
     '18': (
-      <SearchFilter
+      <SearchFilterGroup
         key={4}
         filterKey={'studentsPerSchool'}
         data={groups?.results as studentsGroupsT[]}
@@ -156,7 +157,7 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
       <ScoresFilter title={'ВЫБЕРИТЕ ДИАПАЗОН БАЛЛОВ'} addMarkFilter={handleAddAvgFilter} startMark={filters.startAvg} endMark={filters.endAvg} />
     ),
     '28': (
-      <SearchFilter
+      <SearchFilterGroup
         key={4}
         filterKey={'studentsPerCourse'}
         data={groups?.results as studentsGroupsT[]}
