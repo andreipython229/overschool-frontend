@@ -16,6 +16,7 @@ import {CoursesDataT} from "../../types/CoursesT";
 import {setTotalMeetingCount} from "../../store/redux/meetings/meetingSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/redux/store";
+import Timer from "../Timer/Timer";
 
 export const SchoolMeetings: FC = () => {
     const isLogin = useAppSelector(authSelector);
@@ -88,6 +89,7 @@ export const SchoolMeetings: FC = () => {
                             <th>Ссылка</th>
                             <th>Дата и время</th>
                             <th>Группы</th>
+                            <th>Время до старта</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -101,6 +103,7 @@ export const SchoolMeetings: FC = () => {
                                     const group = studentsGroups?.results.find(g => g.group_id === groupId);
                                     return group ? group.name : '';
                                 }).join(', ')}</td>
+                                <td><Timer targetDate={new Date(meeting.start_date)} /></td>
                                 <td>
                                     <Button onClick={() => handleDeleteMeeting(meeting.id)} text="Удалить"/>
                                 </td>

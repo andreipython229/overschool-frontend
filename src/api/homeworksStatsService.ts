@@ -3,6 +3,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { homeworksStatsT } from '../types/homeworkT'
 import { baseQuery } from './baseApi'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
+import {studentsTableStatsT} from "../types/courseStatT";
 
 export const homeworksStatsService = createApi({
   reducerPath: 'homeworksStatsService',
@@ -28,7 +29,13 @@ export const homeworksStatsService = createApi({
       },
       providesTags: ['homeworskStats'],
     }),
+    fetchAllStudentsHomework: build.query<any, any>({
+      query: ({ filters, schoolName }) => ({
+        url: createUrlWithParams(`/${schoolName}/homeworks_stats/`, filters)
+      }),
+      providesTags: ['homeworskStats'],
+    }),
   }),
 })
 
-export const { useFetchHomeworkStatsQuery, useLazyFetchHomeworkStatsQuery, useFetchAllHomeworkStatsQuery } = homeworksStatsService
+export const { useFetchHomeworkStatsQuery, useLazyFetchHomeworkStatsQuery, useFetchAllHomeworkStatsQuery, useLazyFetchAllStudentsHomeworkQuery } = homeworksStatsService
