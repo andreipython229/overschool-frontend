@@ -16,12 +16,13 @@ import { NotificationItem } from './NotificationItem'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import { profileT } from 'types/profileT'
 import { useLazyLogoutQuery } from "../../api/userLoginService";
-import { useAppDispatch } from '../../store/hooks'
-import { auth } from "../../store/redux/users/slice"
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { auth, role } from "../../store/redux/users/slice"
 import { validateEmail } from 'utils/validateEmail'
 import { tgNotificationsService, useFetchNotificationsQuery } from 'api/tgNotificationsServices'
 
 import { motion } from 'framer-motion'
+import {authSelector, selectUser} from "../../selectors";
 
 
 import styles from './profile.module.scss'
@@ -32,6 +33,14 @@ import { Path } from "../../enum/pathE";
 import { log } from 'console'
 import { boolean } from 'yup/lib/locale'
 import { bool } from 'yup'
+
+type notifForStudentAndTeacher = {
+    id: number;
+    info: string;
+    desc: string;
+    toggleType: string;
+}
+
 
 export const Profile = () => {
     const [changePasswordFunc, { isError, isSuccess }] = useChangePasswordMutation()
@@ -46,10 +55,28 @@ export const Profile = () => {
     const [isOpen, setOpen] = useState(false)
     const [newEmail, setNewEmail] = useState<string>('')
     const [tokenError, setTokenError] = useState<string>('')
-    const { data: notificationsData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
+    const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
+    const [notificationsData, setNotificatonsData] = useState<notifForStudentAndTeacher[]>([])
+    const isLogin = useAppSelector(authSelector);
+    const {role: userRole} = useAppSelector(selectUser);
 
-    console.log(notificaionsSuccess);
+  
+    // console.log(notificaionsSuccess);
+    // console.log(typeof userRole);
+    const notifForStudentAndTeacher = notifications.slice(0, 2)
+    const notifForAdmin = notifications.slice(1, 3)
 
+    useEffect(() => {
+        if (userRole === 1 || userRole === 2) {          
+            setNotificatonsData(notifForStudentAndTeacher)       
+        } else if (userRole === 6) {
+            setNotificatonsData(notifForAdmin)
+
+        } else {
+            setNotificatonsData(notificationsData)
+        }
+    }, [])
+    
 
     const changePassword = useFormik({
         initialValues: {
@@ -161,6 +188,11 @@ export const Profile = () => {
     }
 
 
+
+    // console.log(notifications.slice(1, 3));
+    
+
+
     return (
         <motion.div className={styles.wrapper}
             initial={{
@@ -234,11 +266,12 @@ export const Profile = () => {
                         </div>
                     </form>
 
-                    {notificationsData && notificationsData[0] ? (
+
+                    {notificationsResponseData && notificationsResponseData[0] ? (
                         <div className={styles.notification}>
                             <h5 className={styles.profile_block_title}>Уведомления</h5>
                             <div className={styles.notification_toggleWrapper}>
-                                {notificationsData && notificationsData[0] ? notifications.map(({ id, info, desc, toggleType }) => {
+                                {notificationsResponseData && notificationsResponseData[0] ? notificationsData.map(({ id, info, desc, toggleType }) => {
                                     if (isToggleType(toggleType)) {
                                         return (
                                             <NotificationItem
@@ -247,10 +280,12 @@ export const Profile = () => {
                                                 info={info}
                                                 desc={desc}
                                                 initialStates={{
-                                                    id: notificationsData[0].id,
-                                                    homework_notifications: Boolean(notificationsData[0].homework_notifications),
-                                                    messages_notifications: Boolean(notificationsData[0].messages_notifications),
-                                                    completed_courses_notifications: Boolean(notificationsData[0].completed_courses_notifications)
+                                                    id: notificationsResponseData[0].id,
+                                                    homework_notifications: Boolean(notificationsResponseData[0].homework_notifications),
+                                                    messages_notifications: Boolean(notificationsResponseData[0].messages_notifications),
+                                                    completed_courses_notifications: Boolean(notificationsResponseData[0].completed_courses_notifications),
+                                                    tg_user: notificationsResponseData[0].tg_user,
+                                                    user_role: userRole
                                                 }}
                                                 toggleType={toggleType}
                                             />
