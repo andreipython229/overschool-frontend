@@ -19,10 +19,11 @@ import { Path } from 'enum/pathE'
 
 import { useAppSelector } from 'store/hooks'
 import {selectUser} from '../../../selectors'
+import {LimitModal} from "../../../components/Modal/LimitModal/LimitModal";
+import {useFetchCourseQuery} from "../../../api/coursesServices";
 
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
-
   const {role} = useAppSelector(selectUser)
   
   const [hideStats, setHideStats] = useState<boolean>(true)
@@ -30,7 +31,7 @@ export const StudentsStats = () => {
   const school = window.location.href.split('/')[4]
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
   const [addGroupModal, { off: offAddGroupModal, on: onAddGroupModal }] = useBoolean()
-
+  const { data: course } = useFetchCourseQuery({id: String(courseId), schoolName: school})
   const { data } = useFetchStudentsGroupByCourseQuery({id: String(courseId), schoolName: school})
 
   const handleHideStats = useCallback(() => {
@@ -86,10 +87,13 @@ export const StudentsStats = () => {
         </div>
       </div>
       <StudentsPerCourse />
-      {addGroupModal && (
-        <Portal closeModal={onAddGroupModal}>
-          <CreateGroupModal setShowModal={onAddGroupModal} courseId={courseId as string} />{' '}
-        </Portal>
+      {addGroupModal && (course?.public === 'О'
+        ? <Portal closeModal={onAddGroupModal}>
+             <CreateGroupModal setShowModal={onAddGroupModal} courseId={courseId as string} />{' '}
+          </Portal>
+        : <Portal closeModal={onAddGroupModal}>
+             <LimitModal message={"Курс не опубликован. Создание учебных групп недоступно"} setShowLimitModal={onAddGroupModal}/>
+          </Portal>
       )}
     </div>
   )
