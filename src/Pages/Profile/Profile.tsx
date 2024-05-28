@@ -303,7 +303,7 @@ export const Profile = () => {
                                     className={styles.profile_block_btn}
                                     variant={'primary'}
                                     text={'Включить Телеграм уведомления'}
-                                    onClick={() => window.open('https://t.me/test_over_bot', '_blank')}
+                                    onClick={() => window.open('https://t.me/overschool_news_bot', '_blank')}
                                 />
                             </div>
                         </form>
