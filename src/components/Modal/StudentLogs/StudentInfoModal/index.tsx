@@ -100,7 +100,10 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
                 return acc + curr
             }, 0)
 
-            setCompletedPercent(sum / percentsArray.length)
+            const average = sum / percentsArray.length;
+            const roundedAverage = Math.round((average + Number.EPSILON) * 100) / 100;
+
+            setCompletedPercent(roundedAverage);
         }
     }, [studentProgress])
 

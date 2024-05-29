@@ -27,6 +27,7 @@ export const StudentsPerCourse: FC = () => {
 
   const [fetchStudents, { data, isFetching }] = useLazyFetchCourseStatQuery()
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: data?.count as number })
+  const [isGroupingStudents, setIsGroupingStudents] = useState(true)
 
   const handleAddLastActivityFilter = (data1: string, data2: string) => {
     dispatch(addFilters({ key: 'studentsPerCourse', filters: { last_active_min: data1, last_active_max: data2 } }))
@@ -90,6 +91,10 @@ export const StudentsPerCourse: FC = () => {
     })
   }, [searchTerm, data])
 
+  const handleUpdateGroupingStudents = () => {
+    setIsGroupingStudents(!isGroupingStudents)
+  }
+
   // Перезагрузка после смены страницы пагинатора
   useEffect(() => {
     fetchStudents({ id: String(course_id), filters, schoolName, page })
@@ -106,6 +111,7 @@ export const StudentsPerCourse: FC = () => {
         removeLastActiveStartFilter={handleRemoveLastActivityStartFilter}
         removeLastActiveEndFilter={handleRemoveLastActivityEndFilter}
         handleReloadTable={handleReloadTable}
+        isGrouping={handleUpdateGroupingStudents}
         filterKey={'studentsPerCourse'}
         startMark={filters?.mark_sum_min}
         endMark={filters?.mark_sum_max}
@@ -123,6 +129,7 @@ export const StudentsPerCourse: FC = () => {
         isLoading={isFetching || isTablesHeaderFetching}
         tableId={tableId as number}
         handleAddSortToFilters={handleAddSortToFilters}
+        isGrouping={isGroupingStudents}
       />
       <Pagination
           className={styles.pagination}
