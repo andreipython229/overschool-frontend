@@ -22,6 +22,7 @@ import {groupSections, sectionLessons} from "../../../../types/lessonAccessT";
 import { useAppSelector } from 'store/hooks'
 import { headerUserRoleName } from '../../../../config/headerUserRoleName'
 import {selectUser} from '../../../../selectors'
+import { log } from 'console';
 
 type studentInfoModalT = {
     student: result | null
@@ -99,13 +100,12 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
             const sum = percentsArray.reduce((acc, curr) => {
                 return acc + curr
             }, 0)
-
-            const average = sum / percentsArray.length;
-            const roundedAverage = Math.round((average + Number.EPSILON) * 100) / 100;
-
-            setCompletedPercent(roundedAverage);
+            
+            setCompletedPercent(+(sum / percentsArray.length).toFixed(2))
         }
     }, [studentProgress])
+
+    
 
     useEffect(() => {
         schoolId && student && fetchStudentLessons({id: schoolId, student_id: student?.student_id})
