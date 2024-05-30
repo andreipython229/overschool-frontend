@@ -58,6 +58,7 @@ type studentHomeworkCheckI = {
   replyArray: CheckHw[]
 }
 
+
 export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, replyArray }) => {
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const [isModalOpen, { off: open, on: close }] = useBoolean()
@@ -66,6 +67,7 @@ export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
     setIsChecked(replyArray.length > 0 ? replyArray[0].status === 'Принято' : false)
   }, [replyArray])
 
+  
   return (
     <div className={styles.wrapper}>
       <h5 className={styles.wrapper_title}>Данные отправлены.</h5>
@@ -78,7 +80,7 @@ export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
               : replyArray[0].status === 'Отклонено'
               ? 'Вы направили некорректные данные. Рекомендуем вернуться к справочному материалу и попробовать снова'
               : 'Отправлен запрос ИИ'
-            : 'Отправлен запрос ИИ'
+            : 'Ошибка запроса'
         }`}</p>
       </h5>
       <ThemeProvider theme={theme}>

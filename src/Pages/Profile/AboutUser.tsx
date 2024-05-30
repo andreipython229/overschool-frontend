@@ -141,9 +141,9 @@ export const AboutUser: FC = memo(() => {
         <span style={{ display: 'flex', alignItems: 'center', lineHeight: '19px', gap: '0.5rem', fontSize: '16px' }}>
           <strong>Email:</strong>
           {email}
-          <label htmlFor='email-change'>
+          {/* <label htmlFor='email-change'>
             <ModeEditIcon sx={{ color: 'green' }} />
-          </label>
+          </label> */}
         </span>
       </div>
       <div className={formStyles.form_avatarWrapper}>
