@@ -1,6 +1,6 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react'
 import {baseQuery} from './baseApi'
-import {TgNotificationsUpdateForAdmin, TgNotificationsUpdateForStidentAndTeacher, TgNotifications} from "../types/tgNotifications";
+import {TgNotificationsUpdateForAdmin, TgNotificationsUpdateForStudentAndTeacher, TgNotifications} from "../types/tgNotifications";
 
 export const tgNotificationsService = createApi({
     reducerPath: 'tgNotificationsService',
@@ -14,7 +14,15 @@ export const tgNotificationsService = createApi({
             providesTags: ['tgNotifications'],
         }),
 
-        updateNotificationsForStudentAndTeacher: build.mutation<TgNotifications, { id: number; data: TgNotificationsUpdateForStidentAndTeacher}>({
+        updateNotificationsForStudentAndTeacher: build.mutation<TgNotifications, { id: number; data: TgNotificationsUpdateForStudentAndTeacher}>({
+            query: ({id, data}) => ({
+                url: `/tg_notification/tg_notif/${id}/`,
+                method: 'PATCH',
+                body: data,
+            }),
+            invalidatesTags: ['tgNotifications'],
+        }),
+        updateNotificationsForAdmin: build.mutation<TgNotifications, { id: number; data: TgNotificationsUpdateForAdmin}>({
             query: ({id, data}) => ({
                 url: `/tg_notification/tg_notif/${id}/`,
                 method: 'PATCH',
@@ -28,4 +36,5 @@ export const tgNotificationsService = createApi({
 export const {
     useFetchNotificationsQuery,
     useUpdateNotificationsForStudentAndTeacherMutation,
+    useUpdateNotificationsForAdminMutation
 } = tgNotificationsService;
