@@ -93,6 +93,12 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
     }
   }, [isSuccessDelete])
 
+  useEffect(() => {
+    if (!isDirect) {
+      return toggleCheckboxPublished
+    }
+  }, [isDirect])
+
   return (
     <div className={`${styles.basic_settings}`}>
       <div className={`${styles.header_basic_settings}`}>
@@ -125,7 +131,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
         : <p className={styles.publish_switch_title}>Опубликовать курс в каталоге можно при условии его публикации в школе и при наличии в нем не менее 5 занятий</p>}
         <span className={styles.publish_switch_desc}>курс попадает в каталог и становится доступным для общего поиска в интернете</span>
         <div className={styles.publish_switch_wrapper_switch}>
-           {courseFind.baselessons_count && courseFind.baselessons_count>=5 && toggleCheckbox
+          {courseFind.baselessons_count && courseFind.baselessons_count>=5 && toggleCheckbox
           ? <CheckboxBall isChecked={isCatalog} toggleChecked={toggleCatalog}/>
           : <CheckboxBall isChecked={isCatalog}/>}
         </div>
