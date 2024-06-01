@@ -204,6 +204,7 @@ export const SchoolMeetings: FC = () => {
                                                     }}
                                                 />
                                                 {group.name}
+                                                <span> (Количество участников: {group.students.length})</span>
                                             </div>
                                         );
                                     }
