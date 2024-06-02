@@ -16,7 +16,6 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 import CopyToClipboard from 'react-copy-to-clipboard'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { Toast } from 'primereact/toast'
-import {b} from "msw/lib/glossary-dc3fd077";
 
 type BasicSettingsT = {
   toggleCheckbox: boolean
@@ -92,6 +91,12 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
       )
     }
   }, [isSuccessDelete])
+
+  useEffect(() => {
+    if (!isDirect) {
+      return toggleCheckboxPublished
+    }
+  }, [isDirect])
 
   return (
     <div className={`${styles.basic_settings}`}>
