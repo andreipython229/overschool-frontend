@@ -16,7 +16,7 @@ import scss from './settingStudentTable.module.scss'
 import itemStyles from './SettingItem/settingItem.module.scss'
 
 
-export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tableId, is_students_grouped, onCloseModal}) => {
+export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tableId}) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const schoolName = window.location.href.split('/')[4]
     const {data: studentsTableInfo, isSuccess} = useFetchStudentsTableHeaderQuery({id: tableId, schoolName})
@@ -25,17 +25,12 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
     const [checkedList, setIsCheckedList] = useState<studentGroupInfoT[]>([])
     const [settingList, setSettingsList] = useState<studentGroupInfoT[]>([])
     const [nameAndEmailSettingsList, setNameAndEmailSettingsList] = useState<studentGroupInfoT[]>([])
-    const [isStudentsGrouped, setIsStudentsGrouped] = useState<boolean>(is_students_grouped);
 
     const debounced = useDebounceFunc(() => patchTable({
         id: tableId,
         students_table_info: nameAndEmailSettingsList.concat(settingList),
         schoolName
     }), 2000)
-
-    const handleGroupStudents = (event: ChangeEvent<HTMLInputElement>) => {
-        setIsStudentsGrouped(event.target.checked);
-    };
 
     const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
         if (checkedList.length >= 3 && event.target.checked) {
@@ -55,7 +50,6 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
     }
 
     const closeSettingsModal = () => {
-        onCloseModal(isStudentsGrouped);
         setShowModal()
     }
 
@@ -83,17 +77,7 @@ export const SettingStudentTable: FC<SettingStudentTableT> = ({setShowModal, tab
         </span>
                 <div className={styles.settings_title}>Настройка таблицы учеников</div>
                 <p style={{fontSize: '14px', textAlign: 'center', margin: '10px 0', userSelect: 'none'}}>Выберите до 5
-                    колонок для отображения в таблице</p>
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                        <label htmlFor="groupStudentsCheckbox" style={{ marginRight: '5px' }}>Сгруппировать учеников</label>
-                        <input type="checkbox" id="groupStudentsCheckbox" name="groupStudentsCheckbox" style={{ 
-                            backgroundColor: '#ba75ff', 
-                            width: '15px', 
-                            height: '15px', 
-                            marginBlockStart: '5px' 
-                        }} 
-                        onChange={handleGroupStudents} checked={isStudentsGrouped} />
-                    </div>    
+                    колонок для отображения в таблице</p>  
                 <form className={scss.form}>
                     {nameAndEmailSettingsList.map(item => (
                         <div className={`${itemStyles.wrapper_item} ${styles.wrapper_item_init}`} key={item.id}>

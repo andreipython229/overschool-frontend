@@ -171,7 +171,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
           handleDeleteFile={handleDeleteFile}
         />
       ))}
-      {text && <Button style={{ marginTop: '20px' }} variant="primary" text="Отправить" type="submit" onClick={handleSendHomework} />}
+      {(text || urlFiles.length > 0) && <Button style={{ marginTop: '20px' }} variant="primary" text="Отправить" type="submit" onClick={handleSendHomework} />}
     </div>
   ) : (
     <>
