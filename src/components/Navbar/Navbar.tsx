@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import { NavLink } from 'react-router-dom'
-import VideocamIcon from '@mui/icons-material/Videocam';
+// import VideocamIcon from '@mui/icons-material/Videocam';
 import { useAppSelector } from '../../store/hooks'
 import { navlinkByRoles } from './config/navlinkByRoles'
 import { IconSvg } from '../common/IconSvg/IconSvg'
@@ -73,7 +73,7 @@ export const Navbar: FC = memo(() => {
           </NavLink>
         </Tooltip>
         <div className={styles.navbar_setting_account}>
-          <Tooltip title={'Видеоконференции'} arrow placement={'right'} key={'meetings-data'}>
+          {/* <Tooltip title={'Видеоконференции'} arrow placement={'right'} key={'meetings-data'}>
                   <NavLink to={Path.Meetings} className={isActive}>
                     <Badge badgeContent={totalMeetingCount} color="error">
                       <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.1em' }}>
@@ -81,12 +81,14 @@ export const Navbar: FC = memo(() => {
                       </SvgIcon>
                     </Badge>
                   </NavLink>
-                </Tooltip>
+                </Tooltip> */}
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
               <Tooltip
                 title={
-                  path === Path.Courses
+                    path === Path.Meetings
+                    ? 'Видеоконференции'
+                    :path === Path.Courses
                     ? 'Курсы'
                     : path === Path.CourseStats
                     ? 'Ученики платформы'

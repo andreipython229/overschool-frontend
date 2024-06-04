@@ -287,6 +287,8 @@
       border-radius: 7px;
       box-shadow: $box-shadow;
       transition: background-color 0.2s, transform 0.2s;
+      min-height: 90px;
+      align-items: stretch;
 
       &:hover {
         cursor: pointer;

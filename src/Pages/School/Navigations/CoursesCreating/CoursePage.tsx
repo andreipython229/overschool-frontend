@@ -84,6 +84,9 @@ export const CoursePage: FC = () => {
         <Input role="search-input" name="" type="search" value={search} onChange={event => setSearch(event.target.value)} placeholder="Поиск по материалам">
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
+        <div className={styles.search}>
+                    <p color="gray">По результатам поиска ничего не найдено...</p>
+                  </div>
         {/* <div className={styles.course_all}>
                 <ToggleButtonDropDown isOpen={isVisible} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleVisible} />
             </div> */}
@@ -107,9 +110,9 @@ export const CoursePage: FC = () => {
                 filteredCourses?.map((course: any) => <CoursesCard key={course?.course_id} course={course} role={role} />)
               ) : (
                 <>
-                  <div className={styles.search}>
+                  {/* <div className={styles.search}>
                     <p color="gray">По результатам поиска ничего не найдено...</p>
-                  </div>
+                  </div> */}
                 </>
               )}
               {role !== RoleE.Student && (
