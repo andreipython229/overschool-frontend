@@ -1,29 +1,40 @@
 @import 'src/scss/variable';
 @import '../../../../../../scss/mixin.scss';
 
-.showBtn {
-  color: rgb(173, 173, 173);
+.wrapper {
+  display: flex;
 
-  &:hover {
-    color: #ba75ff;
-    opacity: 0.7;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
   }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
 }
 
 .redactorCourse {
   font-family: $font-family-inter;
   @include display(flex);
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 50px;
+    padding-top: 2%;
+    
   }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 50px;
+    padding-top: 2%;
   }
 
   &_textField {
@@ -63,10 +74,12 @@
 
   &_leftSide {
     @include display(flex, column);
+    width: 280px;
     margin-right: 30px;
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 8px;
+    height: 550px;
     //margin-top: 50px;
     //border: 1px #0af50a solid;
     user-select: none;
@@ -74,28 +87,30 @@
     -moz-user-select: none;
     -ms-user-select: none;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
     padding-top: 50px;
     padding-bottom: 20px;
     text-align: center;
-    margin-bottom: 30px;
-  
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
       width: 95%;
       text-align: center;
+      
     }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      width: 95%;
-      text-align: center;
-      margin: 0;
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+     width: 95%;
+     text-align: center;
+     margin: 0;
     }
+    
 
     &_title {
       color: $font-title;
       font-size: 16px;
-      @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+       
+        
       }
-      @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
         padding: 5% 0 5% 0;
       }
     }
@@ -106,44 +121,50 @@
       margin-left: 16px; // 16
       //border: 1px deeppink solid;
 
-      @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
         height: 300px;
         overflow-y: scroll;
       }
-      @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
         height: 400px;
         overflow-y: scroll;
       }
 
       &_headerText {
         //position: relative;
-       
+        
 
         &_title {
           position: relative;
-          @include display(flex, row, flex-start, center);
+          display: flex;
+          align-items: center;
+          justify-content: center;
           @include font(400, 14px);
           background-color: transparent;
           color: $font-title;
           height: 30px;
           margin-bottom: 15px;
+
+          
         }
 
         &_inputWrapper {
           position: absolute;
           top: -7px;
           //margin-bottom: 10px;
-          left: 30px;
+          left: 0;
           @include display(flex, row, space-between, center);
           height: 30px;
           width: 100%;
           //border: 1px blue solid;
-          @media only screen and (min-width: 320px) and (max-width: 375px) {
+          @media only screen and (min-width : 320px) and (max-width : 375px) {
+            display: none;
+            
+          }
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
             display: none;
           }
-          @media only screen and (min-width: 375px) and (max-width: 480px) {
-            display: none;
-          }
+          
 
           &:hover {
             z-index: 0;
@@ -156,7 +177,7 @@
           &_input {
             position: absolute;
             top: 0;
-            left: 30px;
+            left: 0;
             z-index: 0;
             background-color: transparent;
             color: $font-title;
@@ -164,7 +185,7 @@
             border: 1px solid lightgrey;
             border-radius: 6px;
             text-align: center;
-            width: 75%;
+            width: 85%;
             height: 100%;
             outline: none;
           }
@@ -191,13 +212,14 @@
         list-style-type: none;
         margin-bottom: 16px;
         margin-left: 0px;
+        margin-right: 5px;
         cursor: pointer;
         //border: 1px solid red;
         //background-color: rgba(220, 220, 100, 1);
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
           margin: 2% 0 2% 0;
         }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
           margin: 2% 0 2% 0;
         }
 
@@ -211,8 +233,12 @@
           @include display(flex, row, flex-start, center);
           color: $font-color-rose;
           font-size: 12px;
+          padding: 5px;
+          margin-right: 20px;
+          margin-left: 12px;
+          
 
-          svg {
+           svg {
             margin-right: 5px;
           }
           //
@@ -243,21 +269,6 @@
           flex: 0 0 auto;
           white-space: nowrap;
           z-index: -10;
-          background-color: transparent;
-          width: 30px;
-          height: 30px;
-
-          & svg {
-            & path {
-              fill: #c1c1c1;
-            }
-          }
-        }
-
-        &_btn_drag_and_drop_module {
-          position: relative;
-          flex: 0 0 auto;
-          white-space: nowrap;
           background-color: transparent;
           width: 30px;
           height: 30px;
@@ -308,14 +319,13 @@
 
   &_rightSideWrapper {
     width: 95%;
+    right: 10px;
     min-width: 0;
-
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      padding-top: 2rem;
+    
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
       max-width: 100vw;
     }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      padding-top: 2rem;
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
       max-width: 100vw;
     }
 
@@ -327,37 +337,36 @@
       border-radius: 10px;
       width: 100%;
       padding-bottom: 30px;
-      position: sticky;
-      top: 100px;
 
       &:hover {
-        border: solid 3px #ba75ff;
+        border: solid 3px #BA75FF ;
       }
-
-      @media only screen and (min-width: 320px) and (max-width: 375px) {
+      
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
         margin: 0 auto;
         padding: 1rem;
         display: flex;
         flex-direction: column;
+        margin-top: 1rem;
       }
-      @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @media only screen and (min-width : 375px) and (max-width : 480px) {
         margin: 0 auto;
         padding: 1rem;
         display: flex;
         flex-direction: column;
+        margin-top: 1rem;
       }
 
       &_nameBlock {
         display: flex;
         justify-content: space-between;
         margin-bottom: 30px;
-        padding-right: 45px;
 
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
           flex-direction: column;
           padding-right: 0;
         }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
           flex-direction: column;
           padding-right: 0;
         }
@@ -404,7 +413,7 @@
           &_edit {
             &:hover {
               background-color: rgba(190, 190, 190, 0.4);
-              border: solid 2px #ba75ff;
+              border: solid 2px #BA75FF;
             }
 
             @include display(flex, row, flex-start, center);
@@ -430,7 +439,7 @@
           &_save {
             &:hover {
               background-color: rgba(190, 190, 190, 0.4);
-              border: solid 2px #ba75ff;
+              border: solid 2px #BA75FF;
             }
 
             @include display(flex, row, flex-start, center);
@@ -457,7 +466,7 @@
           &_delete {
             &:hover {
               background-color: rgba(190, 190, 190, 0.4);
-              border: solid 2px #ba75ff;
+              border: solid 2px #BA75FF;
             }
 
             @include display(flex, row, flex-start, center);
@@ -486,12 +495,12 @@
       &_title {
         margin-top: 10px;
         margin-left: 45px;
-        color: #ba75ff;
+        color: #BA75FF;
         font-size: 16px;
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
           margin-left: 0;
         }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
           margin-left: 0;
         }
       }
@@ -501,50 +510,52 @@
         align-items: center;
         padding-right: 45px;
 
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
           flex-direction: column;
           padding: 0 0 5% 0;
         }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
           flex-direction: column;
           padding: 0 0 5% 0;
         }
-      }
 
+      }
+      
       &_block {
         display: flex;
-        background-color: #ba75ff;
+        background-color: #BA75FF;
         width: auto;
         padding-top: 1%;
         padding-bottom: 1%;
         padding-left: 45px;
         flex-wrap: nowrap;
 
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
           margin-bottom: 10%;
           padding-left: 15px;
           padding-right: 15px;
         }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
           margin-bottom: 10%;
           padding-left: 15px;
           padding-right: 15px;
         }
 
         &_nameSettings {
-          color: #ffffff;
+          color: #FFFFFF;
           font-size: 20px;
           font-weight: 700;
           margin-right: 20px;
 
-          @media only screen and (min-width: 320px) and (max-width: 375px) {
-            margin-right: 0;
+          @media only screen and (min-width : 320px) and (max-width : 375px) {
+            margin-right: 0;;
           }
-          @media only screen and (min-width: 375px) and (max-width: 480px) {
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
             margin-right: 0;
           }
         }
-      }
+
+     }
 
       &_functional {
         margin-top: 40px;
@@ -555,10 +566,10 @@
           gap: 40px;
           padding-inline: 3em;
 
-          @media only screen and (min-width: 320px) and (max-width: 375px) {
+          @media only screen and (min-width : 320px) and (max-width : 375px) {
             padding-inline: 0;
           }
-          @media only screen and (min-width: 375px) and (max-width: 480px) {
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
             padding-inline: 0;
           }
         }
@@ -569,12 +580,12 @@
           margin-top: 50px;
           padding-right: 45px;
 
-          @media only screen and (min-width: 320px) and (max-width: 375px) {
+          @media only screen and (min-width : 320px) and (max-width : 375px) {
             padding: 0 0 10% 0;
             flex-direction: column;
-            gap: 15px;
+            gap: 15px
           }
-          @media only screen and (min-width: 375px) and (max-width: 480px) {
+          @media only screen and (min-width : 375px) and (max-width : 480px) {
             padding: 0 0 10% 0;
             flex-direction: column;
             gap: 15px;
@@ -694,13 +705,13 @@ hr {
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
     display: flex;
     flex-direction: row;
     align-items: stretch;
     gap: 5px;
   }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -760,7 +771,7 @@ hr {
       margin-left: 20px;
     }
     & label {
-      color: #9ca3af;
+     color: #9ca3af;
     }
   }
 
@@ -822,26 +833,8 @@ hr {
   }
 }
 
-.no_autogeneration {
-  margin-left: 40px;
-  margin-top: 30px;
-  color: #9ca3af;
-  font-size: 14px;
-  letter-spacing: 0.06em;
-}
-
-.publickButton {
-  width: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    margin-left: 50%;
-    gap: 10px;
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    margin-left: 50%;
-    gap: 10px;
-  }
+.scrollable {
+  max-height: 500px;
+  overflow-y: auto;
+  width: 240px;
 }

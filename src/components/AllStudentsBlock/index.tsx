@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState, ChangeEvent } from 'react'
 
 import { FiltersButton } from '../FiltersButton'
 import { dropDownListFilterStudents, dropDownListFilterStudentsCourses, dropDownListFilterStudentsGroups } from '../../constants/dropDownList'
@@ -10,6 +10,7 @@ import { useBoolean, useDebouncedFilter } from '../../customHooks'
 import { searchIconPath, addStudentIconPath, updateArrPath } from './config/svgIconsPath'
 import { Portal } from '../Modal/Portal'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
+import { useFetchSchoolStudentsGroupingQuery, useUpdateSchoolStudentsGroupingMutation } from 'api/schoolService'
 import { ChipsComponent } from 'components/FiltersButton/Chips/chips'
 import { chipsVal } from 'components/FiltersButton/Chips/config'
 // import { useDebouncedFilter } from '../../customHooks/useDebouncedFilter'
@@ -40,13 +41,19 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     removeLastActiveEndFilter,
     handleAddAvgFilter,
     handleReloadTable,
+    isGrouping,
     filters,
     filterKey,
     updateStudents,
     ...restFilters
   }) => {
     const schoolName = window.location.href.split('/')[4]
+    const schoolId = localStorage.getItem('school_id');
     const { data: courses } = useFetchCoursesQuery(schoolName)
+
+    const { data: groupingStudents, error: groupingStudentsError } = useFetchSchoolStudentsGroupingQuery({ school_id: Number(schoolId) || 0 });
+    const [updateSchoolStudentsGroupingMutation] = useUpdateSchoolStudentsGroupingMutation();
+    const [isGroupingStudents, setIsGroupingStudents] = useState<boolean | null>(null); 
 
     const [isOpen, { off, on }] = useBoolean()
 
@@ -57,6 +64,29 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     const onChangeInput = (value: string) => {
       setSearchTerm(value)
     }
+
+    const handleGroupStudents = async (event: ChangeEvent<HTMLInputElement>) => {
+      setIsGroupingStudents(!isGroupingStudents);
+      try {
+        if (isGroupingStudents !== null) {
+          await updateSchoolStudentsGroupingMutation({ 
+            school: Number(schoolId) || 0, 
+            is_students_grouped: event.target.checked 
+          });
+        }
+      } catch (error) {
+        console.error('Ошибка при выполнении мутации:', error);
+      }
+
+      isGrouping(event.target.checked)
+    };
+
+    useEffect(() => {
+      if (groupingStudents && !groupingStudentsError) {
+        setIsGroupingStudents(groupingStudents.is_students_grouped);
+        isGrouping(groupingStudents.is_students_grouped)
+      }
+    }, [groupingStudents]);
 
     useEffect(() => {
       updateStudents(searchTerm)
@@ -86,7 +116,18 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     return (
       <div>
         <p className={styles.header_block_text}>{headerText}</p>
-        <div style={{fontSize: "11px", color: "#3B3B3B", paddingLeft: "1rem"}}>Количество записей: {all_students_count}</div>
+        <div style={{fontSize: "12px", color: "#3B3B3B"}}>Количество: <b>{all_students_count}</b></div>
+        {headerText === 'Все ученики платформы' && (
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px', marginBlockStart: '5px' }}>
+            <label htmlFor="groupStudentsCheckbox" style={{ marginRight: '5px', fontSize: "14px", }}>Сгруппировать учеников:</label>
+            <input type="checkbox" id="groupStudentsCheckbox" name="groupStudentsCheckbox" style={{ 
+              width: '15px', 
+              height: '15px', 
+              marginBlockStart: '2px' 
+            }} 
+            onChange={handleGroupStudents} checked={isGroupingStudents ?? false} />
+          </div>  
+        )}
         {headerText === 'Все ученики платформы' && <StudentsSchoolExport />}
         {headerText === 'Все ученики группы' && <StudentsCroupExport />}
         {headerText === 'Все ученики курса' && <StudentsCourseExport />}

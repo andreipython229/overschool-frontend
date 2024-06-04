@@ -32,4 +32,5 @@ export const previousToShow = [
   { path: objOfPathes.CourseStats, Component: GlobalPrevious },
   { path: objOfPathes.Profile, Component: StudentPrevious },
   { path: objOfPathes.Group, Component: GroupPrevious },
+  { path: objOfPathes.Meetings, Component: GlobalPrevious },
 ]

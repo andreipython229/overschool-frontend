@@ -41,6 +41,8 @@ export const rootReducer = combineReducers({
   [services.catalogService.reducerPath]: services.catalogService.reducer,
   [services.prodamusService.reducerPath]: services.prodamusService.reducer,
   [services.meetingService.reducerPath]: services.meetingService.reducer,
+  [services.tgNotificationsService.reducerPath]: services.tgNotificationsService.reducer,
+  [services.domainService.reducerPath]: services.domainService.reducer,
 
 
   user: slices.authReduce,
@@ -106,7 +108,9 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.blocksService.middleware,
         services.catalogService.middleware,
         services.prodamusService.middleware,
-          services.meetingService.middleware,
+        services.meetingService.middleware,
+        services.tgNotificationsService.middleware,
+          services.domainService.middleware,
       ),
   })
 }

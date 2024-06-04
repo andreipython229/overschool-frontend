@@ -11,6 +11,7 @@ import { chipsVal } from 'components/FiltersButton/Chips/config'
 
 import styles from '../home_work.module.scss'
 import { ChipsComponent } from 'components/FiltersButton/Chips/chips'
+import {StudentsHomeworkExport} from "../../../components/StudentsTable/StudentsExport/StudentHomeworkExport";
 
 type FilterAndSearchBlockT = {
   termForFilter: string
@@ -25,12 +26,14 @@ type FilterAndSearchBlockT = {
   addMarkFilter?: (start_mark: string, end_mark: string) => void
   handleChangeTerm: (e: ChangeEvent<HTMLInputElement>) => void
   onChangeStatus: (status: string) => void
+  all_homeworks_count: number
 }
 
 export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
   ({
     termForFilter,
     handleChangeTerm,
+    all_homeworks_count,
     onChangeStatus,
     addLastActiveFilter,
     addMarkFilter,
@@ -42,6 +45,8 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
     return (
       <>
         <p className={styles.homework_header}>Входящие работы от учеников</p>
+        <div style={{fontSize: "11px", color: "#3B3B3B", paddingLeft: "1rem"}}>Количество записей: {all_homeworks_count}</div>
+        <StudentsHomeworkExport />
         <ChipsComponent filterKey="homework" filters={filters} chipsVal={chipsVal['homework']} />
         <div className={styles.container}>
           <div className={styles.container_1}>
@@ -55,7 +60,7 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
             {...restFilters}
           />
           </div>
-          <Input name="" type="search" value={termForFilter} onChange={handleChangeTerm} placeholder="Поиск по заданиям">
+          <Input name="" type="search" value={termForFilter} onChange={handleChangeTerm} placeholder="Поиск по ФИО и email">
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>
         </div>
