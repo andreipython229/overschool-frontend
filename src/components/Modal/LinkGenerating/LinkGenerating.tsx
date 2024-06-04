@@ -12,6 +12,7 @@ import {ResponsePaymentMethod} from '../../../types/paymentT'
 import {CreateProdamusPaymentLinkData} from '../../../types/ProdamusPaymenT'
 import styles from './linkGenerating.module.scss';
 import {PaymentData, useGetLinkMutation, buildUrlParams, transformData} from 'api/prodamusService'
+import { log } from 'console';
 
 interface LinkGeneratingProps {
     isOpen: boolean;
@@ -241,6 +242,9 @@ export const LinkGenerating: React.FC<LinkGeneratingProps> = ({isOpen, onClose})
         };
         fetchData();
     }, [isOpen]);
+
+    console.log(paymentMethod);
+    
 
     return (
         <div className={styles['modal-wrapper']} style={{display: isOpen ? 'block' : 'none'}}>

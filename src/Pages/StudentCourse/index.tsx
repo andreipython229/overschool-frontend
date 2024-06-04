@@ -1,7 +1,7 @@
 import {FC, useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {useDispatch} from "react-redux";
-import {setModules} from "../../store/redux/modules/modules";
+import {setModules, clearModules, modulesSlice, modulesReduce} from "../../store/redux/modules/modules";
 
 import {sectionsT} from '../../types/sectionT'
 import {useFetchModulesQuery, useLazyFetchModulesQuery} from '../../api/modulesServices'
@@ -15,33 +15,37 @@ import {useBoolean} from "../../customHooks";
 export const StudentCourse: FC = () => {
     const dispatch = useDispatch();
     const {course_id: courseId} = useParams()
-    const [fetchModules, {data: course, error, isError}] = useLazyFetchModulesQuery()
+    const [fetchModules, {data, error, isError}] = useLazyFetchModulesQuery()
     const [isOpenLimitModal, { onToggle }] = useBoolean()
     const [message, setMessage] = useState<string>('')
+    const [course, setCourse] = useState<any>()
     const schoolName = window.location.href.split('/')[4]
 
     useEffect(() => {
         fetchModules({id: courseId as string, schoolName})
-    }, [])
+    }, [courseId])
 
     useEffect(() => {
+        if (data) {
+           setCourse(data)
+        }
+        if (data?.sections.length !== undefined) {
+            localStorage.setItem('sections_count', data?.sections.length.toString());
+            dispatch(setModules(data));
+        }
         if (error && "data" in error) {
            setMessage(JSON.parse(JSON.stringify(error.data)).error);
            onToggle();
+           setCourse(null);
         }
-    }, [isError])
-
-    useEffect(() => {
-        if (course?.sections.length !== undefined) {
-            localStorage.setItem('sections_count', course?.sections.length.toString());
-            dispatch(setModules(course));
-        }
-    }, [course, dispatch])
+    }, [data, error, dispatch])
 
     return (
         <>
             <StudentCourseHeader teacher_id={course?.teacher_id as number}/>
+            {course ?
             <StudentAccardion modules={course as sectionsT}/>
+                : <></>}
              {isOpenLimitModal ? (
                <Portal closeModal={onToggle}>
                    <LimitModal message={message} setShowLimitModal={onToggle}/>

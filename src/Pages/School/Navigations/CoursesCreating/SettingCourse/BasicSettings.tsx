@@ -20,11 +20,15 @@ import { Toast } from 'primereact/toast'
 type BasicSettingsT = {
   toggleCheckbox: boolean
   toggleCheckboxPublished: () => void
+  isCatalog: boolean
+  toggleCatalog: () => void
+  isDirect: boolean
+  toggleDirect: () => void
   courseFind: CoursesDataT
   refetch: () => void
 }
 
-export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckboxPublished, courseFind, refetch }) => {
+export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckboxPublished, isCatalog, toggleCatalog, isDirect, toggleDirect, courseFind, refetch }) => {
   const toast = useRef<Toast>(null)
   const [update, { isLoading, isSuccess }] = usePatchCoursesMutation()
   const [nameCourse, setNameCourse] = useState<string>(courseFind?.name || '')
@@ -33,7 +37,6 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
   const [alertOpen, setAlertOpen] = useState<boolean>(false)
   const schoolName = window.location.href.split('/')[4]
   const [copy, { onToggle: toggleCopy }] = useBoolean(false)
-  const [isDirect, { onToggle: toggleDirect }] = useBoolean(courseFind.is_direct)
 
   const debounce = useDebounceFunc(update)
   const navigate = useNavigate()
@@ -63,8 +66,8 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
     const updateCurse = {
       name: nameCourse,
       description: shortDescription,
-      public: 'О',
-      is_catalog: toggleCheckbox,
+      public: toggleCheckbox ? 'О' : 'Н',
+      is_catalog: isCatalog,
       is_direct: isDirect,
     }
 
@@ -101,13 +104,10 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
                 )} */}
       </div>
       <div className={styles.publish_switch}>
-        {courseFind.baselessons_count && courseFind.baselessons_count>=5
-        ? <p className={styles.publish_switch_title}>Опубликовать курс в каталоге:</p>
-        : <p className={styles.publish_switch_title}>Опубликовать курс в каталоге можно при наличии в нем не менее 5 занятий</p>}
+        <p className={styles.publish_switch_title}>Опубликовать курс в школе</p>
+        <span className={styles.publish_switch_desc}>весь функционал, связанный с процессом обучения на курсе, становится доступным</span>
         <div className={styles.publish_switch_wrapper_switch}>
-           {courseFind.baselessons_count && courseFind.baselessons_count>=5
-          ? <CheckboxBall isChecked={toggleCheckbox} toggleChecked={toggleCheckboxPublished}/>
-          : <CheckboxBall isChecked={toggleCheckbox}/>}
+          <CheckboxBall isChecked={toggleCheckbox} toggleChecked={toggleCheckboxPublished}/>
         </div>
       </div>
       <div className={styles.course_name_wrapper}>
@@ -119,14 +119,30 @@ export const BasicSettings: FC<BasicSettingsT> = ({ toggleCheckbox, toggleCheckb
         <Input type={'text'} name="shortDescription" value={shortDescription} onChange={handleNameCourse} />
       </div>
       <div className={styles.publish_switch}>
-        <p className={styles.publish_switch_title}>Отображать курс в каталоге по прямой ссылке:</p>
+        {courseFind.baselessons_count && courseFind.baselessons_count>=5 && toggleCheckbox
+        ? <p className={styles.publish_switch_title}>Опубликовать курс в каталоге</p>
+        : <p className={styles.publish_switch_title}>Опубликовать курс в каталоге можно при условии его публикации в школе и при наличии в нем не менее 5 занятий</p>}
+        <span className={styles.publish_switch_desc}>курс попадает в каталог и становится доступным для общего поиска в интернете</span>
         <div className={styles.publish_switch_wrapper_switch}>
-          <CheckboxBall isChecked={isDirect} toggleChecked={toggleDirect} />
+           {courseFind.baselessons_count && courseFind.baselessons_count>=5 && toggleCheckbox
+          ? <CheckboxBall isChecked={isCatalog} toggleChecked={toggleCatalog}/>
+          : <CheckboxBall isChecked={isCatalog}/>}
+        </div>
+      </div>
+      <div className={styles.publish_switch}>
+        {toggleCheckbox
+        ? <p className={styles.publish_switch_title}>Доступ к курсу по прямой ссылке</p>
+        : <p className={styles.publish_switch_title}>Доступ к курсу по прямой ссылке (возможен при условии публикации курса в школе)</p>}
+        <span className={styles.publish_switch_desc}>курс можно найти по прямой ссылке даже при его отсутствии в каталоге</span>
+        <div className={styles.publish_switch_wrapper_switch}>
+          {toggleCheckbox
+          ? <CheckboxBall isChecked={isDirect} toggleChecked={toggleDirect}/>
+          : <CheckboxBall isChecked={isDirect}/>}
         </div>
       </div>
       {courseFind.is_direct && (
         <div className={styles.short_discription_wrapper}>
-          <p className={styles.short_discription_title}>Прямая ссылка на курс в каталоге:</p>
+          <p className={styles.short_discription_title}>Прямая ссылка на курс:</p>
           <Input id="catalog-link" value={`https://overschool.by/course-catalog/${courseFind.course_id}/`} type="text" name="catalog-link">
             <CopyToClipboard
               text={`https://overschool.by/course-catalog/${courseFind.course_id}/`}

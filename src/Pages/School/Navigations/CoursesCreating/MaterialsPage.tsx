@@ -20,25 +20,14 @@ import { ToggleButtonDropDown } from '../../../../components/common/ToggleButton
 import { motion, AnimatePresence } from 'framer-motion'
 
 
-export const CoursePage: FC = () => {
+export const Materials: FC = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const schoolId = useAppSelector(schoolIdSelector)
-  // const { data: courses, isSuccess, refetch } = useFetchCoursesPageQuery(schoolName)
   const [fetchData, { data: courses, isSuccess}] = useLazyFetchCoursesPageQuery()
-  const [isOpenAddCourse, { onToggle }] = useBoolean()
-  const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
-  // const [isVisible, setVisible] = useState(false)
-  // const handleVisible = () => setVisible(!isVisible)
   const [search, setSearch] = useState('')
 
-  const dispatchHandlerModal = () => {
-    onToggle()
-      fetchData(schoolName);
-  }
-
   useEffect(() => {
-    
     if (schoolName === window.location.href.split('/')[4]) {
       fetchData(schoolName);
     } else {
@@ -49,9 +38,6 @@ export const CoursePage: FC = () => {
   const filteredCourses = courses?.results.filter((course:any) => {
     return course.name.toLowerCase().includes(search.toLowerCase())
   })
-
-  
-  
 
   if (!isSuccess)
     return (
@@ -74,7 +60,6 @@ export const CoursePage: FC = () => {
           </ContentLoader>
         </div>
         <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          {/* <SimpleLoader style={{ width: '100px', height: '100px' }} /> */}
         </div>
       </>
     )
@@ -84,12 +69,6 @@ export const CoursePage: FC = () => {
         <Input role="search-input" name="" type="search" value={search} onChange={event => setSearch(event.target.value)} placeholder="Поиск по материалам">
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
-        <div className={styles.search}>
-                    <p color="gray">По результатам поиска ничего не найдено...</p>
-                  </div>
-        {/* <div className={styles.course_all}>
-                <ToggleButtonDropDown isOpen={isVisible} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleVisible} />
-            </div> */}
         <AnimatePresence>
           {
             <motion.div
@@ -110,26 +89,14 @@ export const CoursePage: FC = () => {
                 filteredCourses?.map((course: any) => <CoursesCard key={course?.course_id} course={course} role={role} />)
               ) : (
                 <>
-                  {/* <div className={styles.search}>
+                  <div className={styles.search}>
                     <p color="gray">По результатам поиска ничего не найдено...</p>
-                  </div> */}
+                  </div>
                 </>
-              )}
-              {role !== RoleE.Student && (
-                <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
-                  <span className={styles.course_addCourse}>
-                    <span>Добавить материал</span>
-                  </span>
-                </button>
               )}
             </motion.div>
           }
         </AnimatePresence>
-            {isOpenAddCourse ? (
-                <Portal closeModal={onToggle}>
-                    <AddCourseModal courses={courses?.results} setShowModal={onToggle}/>
-                </Portal>
-            ) : null}
       </div>
     </>
 

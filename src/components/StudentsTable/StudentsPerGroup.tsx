@@ -21,6 +21,7 @@ export const StudentsPerGroup: FC = () => {
   const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery(schoolName)
   const [fetchStudents, { data, isFetching }] = useLazyFetchStudentsPerGroupQuery()
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: data?.count as number })
+  const [isGroupingStudents, setIsGroupingStudents] = useState(true)
 
   const [tableId, setTableId] = useState<number>()
 
@@ -84,6 +85,10 @@ export const StudentsPerGroup: FC = () => {
     })
   }, [searchTerm, data])
 
+  const handleUpdateGroupingStudents = () => {
+    setIsGroupingStudents(!isGroupingStudents)
+  }
+
   // Перезагрузка после смены страницы пагинатора
   useEffect(() => {
     fetchStudents({ id: group_id, filters, schoolName, page })
@@ -100,6 +105,7 @@ export const StudentsPerGroup: FC = () => {
         removeLastActiveStartFilter={handleRemoveLastActivityStartFilter}
         removeLastActiveEndFilter={handleRemoveLastActivityEndFilter}
         handleReloadTable={handleReloadTable}
+        isGrouping={handleUpdateGroupingStudents}
         filterKey={'studentsPerGroup'}
         startMark={filters?.mark_sum_min}
         endMark={filters?.mark_sum_max}
@@ -117,7 +123,8 @@ export const StudentsPerGroup: FC = () => {
         isLoading={isFetching || isTablesHeaderFetching}
         tableId={tableId as number}
         handleAddSortToFilters={handleAddSortToFilters}
-      />{' '}
+        isGrouping={isGroupingStudents}
+      />
       <Pagination
           className={styles.pagination}
           paginationRange={paginationRange}

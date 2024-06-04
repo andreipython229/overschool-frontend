@@ -83,8 +83,6 @@ export type RegCodeModalPropsT = {
 export type SettingStudentTableT = {
   setShowModal: (arg?: boolean) => void
   tableId: number
-  is_students_grouped: boolean
-  onCloseModal: (isStudentsGrouped: boolean) => void;
 }
 
 export type SettingsGroupModalPropsT = {

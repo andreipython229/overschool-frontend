@@ -32,6 +32,7 @@ export type result = {
   is_deleted: boolean
   date_added: Date
   progress: number
+  unique_students_count: number
   chat_uuid: string
 }
 

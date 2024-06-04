@@ -73,6 +73,7 @@ export type AllStudentsBlockT = {
   addLastActiveFilter?: (data1: string, data2: string) => void
   addMarkFilter?: (start_mark: string, end_mark: string) => void
   updateStudents: (value: string) => void
+  isGrouping: (isStudentsGrouped: boolean) => void;
   all_students_count: number | null
 }
 
