@@ -12,8 +12,9 @@ import pie from '../../../../assets/img/studentPage/folder-todo.png'
 import { useLazyFetchProgressQuery } from '../../../../api/userProgressService'
 import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 import ProgressBar from '@ramonak/react-progress-bar'
-import { CreateCoursePath } from 'enum/pathE'
-import { NavAccountBtn } from 'components/NavAccountBtn/NavAccountBtn'
+import {Portal} from "../../../../components/Modal/Portal";
+import {LimitModal} from "../../../../components/Modal/LimitModal/LimitModal";
+import {useBoolean} from "../../../../customHooks";
 
 type courseCard = {
   course: CoursesDataT
@@ -24,12 +25,18 @@ type courseCard = {
 export const CoursesCard: FC<courseCard> = ({ course, role }) => {
   const schoolName = window.location.href.split('/')[4]
   const [fetchProgress, { data: userProgress, isLoading, isError }] = useLazyFetchProgressQuery()
+  const [isOpenModal, { onToggle }] = useBoolean()
 
   useEffect(() => {
     if (role === RoleE.Student) {
       fetchProgress({ course_id: String(course?.course_id), schoolName })
     }
   }, [course])
+
+  const onStudentClick = () => {
+    localStorage.setItem('course_id', '' + course?.course_id)
+    course?.public !== 'О' && onToggle()
+  }
 
   if (isLoading || isError) {
     return <SimpleLoader style={{ width: '100px', height: '100px' }} />
@@ -121,9 +128,9 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
               </div>
               <div className={styles.course_card_about}>
                 <Link
-                  onClick={() => localStorage.setItem('course_id', '' + course?.course_id)}
+                  onClick={onStudentClick}
                   to={
-                    course?.remaining_period === 0
+                    course?.remaining_period === 0 || course?.public !== 'О'
                       ? '#'
                       : generatePath(Student.Course, {
                           course_id: `${course?.course_id}`,
@@ -150,6 +157,11 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                   <Button className={styles.btn} text={'Ознакомиться с материалами'} disabled={course?.remaining_period === 0} />
                 </Link>
               </div>
+              {isOpenModal ? (
+               <Portal closeModal={onToggle}>
+                 <LimitModal message={"Доступ к курсу временно заблокирован. Обратитесь к администратору"} setShowLimitModal={onToggle}/>
+               </Portal>
+                ) : null}
             </>
           )
         )}

@@ -68,12 +68,12 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
       {toggleCheckbox ? (
         <p className={styles.text_block}>
           <IconSvg width={18} height={16} path={publishedIconPath} />
-          опубликовано
+          опубликован
         </p>
       ) : (
         <p className={styles.text_block}>
           <IconSvg width={18} height={16} path={noPublishedIconPath} />
-          не опубликовано
+          не опубликован
         </p>
       )}
       <p className={styles.text_name}>{courseFind?.name}</p>

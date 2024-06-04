@@ -190,6 +190,12 @@
       color: #6c7889;
     }
 
+    &_desc {
+      @include font(200, 10px, 15px);
+      letter-spacing: 0.03em;
+      color: #c0c8d0;
+    }
+
     &_wrapper_switch {
       margin-top: 13px;
 
