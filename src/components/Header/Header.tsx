@@ -20,7 +20,7 @@ import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { SvgIcon } from '@mui/material'
-import {ChatI, SenderI, UserInformAppealsI, UserInformI} from 'types/chatsT'
+import { ChatI, SenderI, UserInformAppealsI, UserInformI } from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from '../../store/redux/chats/chatsSlice'
 
@@ -35,12 +35,15 @@ import { useFetchCurrentTariffPlanQuery, useLazyFetchCurrentTariffPlanQuery, use
 import { setTariff } from 'store/redux/tariff/tariffSlice'
 import { removeSchoolId } from '../../store/redux/school/schoolIdSlice'
 import { removeHeaderId } from '../../store/redux/school/headerIdSlice'
-import {removeSchoolName, setSchoolName} from '../../store/redux/school/schoolSlice'
+import { removeSchoolName, setSchoolName } from '../../store/redux/school/schoolSlice'
 import { useDispatch } from 'react-redux'
 
 import { motion } from 'framer-motion'
 import { w3cwebsocket } from 'websocket'
-import {setTotalUnreadAppeals} from "../../store/redux/info/unreadAppealsSlice";
+import { setTotalUnreadAppeals } from "../../store/redux/info/unreadAppealsSlice";
+import { useFetchNotificationsQuery } from 'api/tgNotificationsServices'
+import { p } from 'msw/lib/glossary-dc3fd077'
+import warning from '../../assets/img/notifications/warning.svg'
 
 export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
@@ -74,6 +77,8 @@ export const Header = memo(() => {
   const path = useLocation()
   const [timerId, setTimerId] = useState<number | null>(null);
 
+  const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
+
 
   const logOut = async () => {
     await logout().then(data => {
@@ -90,7 +95,7 @@ export const Header = memo(() => {
       dispatch(auth(false))
       navigate(generatePath(Path.InitialPage))
       setSocketConnect(false)
-      
+
 
       if (informSocketRef.current !== null) {
         informSocketRef.current.close()
@@ -263,12 +268,12 @@ export const Header = memo(() => {
   }
 
   const goToChooseSchool = () => {
-      // if (timerId) {
-      //   clearTimeout(timerId);
-      // }
+    // if (timerId) {
+    //   clearTimeout(timerId);
+    // }
     if (informSocketRef.current !== null) {
-        informSocketRef.current.close()
-        informSocketRef.current = null
+      informSocketRef.current.close()
+      informSocketRef.current = null
     }
     dispatchRole(role(RoleE.Unknown))
     setSocketConnect(false)
@@ -329,6 +334,20 @@ export const Header = memo(() => {
         </p>
       )}
       <div className={styles.header_block}>
+        {notificationsResponseData && notificationsResponseData.length === 0 ? (
+          <Tooltip title={'Включите телеграм уведомления'}>
+            <Link to={Path.Profile}>
+              <div className={styles.notifications}>
+                <img src={warning} alt="" style={{
+                  width: '20px',
+                  paddingRight: '5px'
+                }} />
+                <p>Включите уведомления</p>
+              </div>
+            </Link>
+          </Tooltip>
+
+        ) : null}
         <React.Fragment>
           {userRole === RoleE.Admin && currentTariff && currentTariff.days_left && (
             <div>
@@ -343,8 +362,8 @@ export const Header = memo(() => {
                         currentTariff.days_left > 10
                           ? purpleTariffPlanIconPath
                           : currentTariff.days_left > 5
-                          ? orangeTariffPlanIconPath
-                          : redTariffPlanIconPath
+                            ? orangeTariffPlanIconPath
+                            : redTariffPlanIconPath
                       }
                     />
                   </div>
@@ -395,7 +414,7 @@ export const Header = memo(() => {
                   </span>
                 </MenuItem>
                 <MenuItem onClick={goToChooseTariff}>
-                  <Link to={Path.TariffPlans} style={{ color: '#ba75ff'}}>
+                  <Link to={Path.TariffPlans} style={{ color: '#ba75ff' }}>
                     Все тарифы
                   </Link>
                 </MenuItem>
