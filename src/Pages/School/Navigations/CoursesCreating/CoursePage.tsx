@@ -141,7 +141,7 @@ export const CoursePage: FC = () => {
 
             {foldersVisible && folders && (
               <motion.div
-                style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}
+                style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}
                 initial={{
                   x: -50,
                   opacity: 0,
