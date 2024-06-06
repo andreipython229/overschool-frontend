@@ -84,9 +84,9 @@ export const CoursePage: FC = () => {
         <Input role="search-input" name="" type="search" value={search} onChange={event => setSearch(event.target.value)} placeholder="Поиск по материалам">
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
-        <div className={styles.search}>
+        {/* <div className={styles.search}>
                     <p color="gray">По результатам поиска ничего не найдено...</p>
-                  </div>
+        </div> */}
         {/* <div className={styles.course_all}>
                 <ToggleButtonDropDown isOpen={isVisible} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleVisible} />
             </div> */}
@@ -107,21 +107,25 @@ export const CoursePage: FC = () => {
               }}
             >
               {courses && filteredCourses?.length !== 0 ? (
-                filteredCourses?.map((course: any) => <CoursesCard key={course?.course_id} course={course} role={role} />)
-              ) : (
                 <>
-                  {/* <div className={styles.search}>
-                    <p color="gray">По результатам поиска ничего не найдено...</p>
-                  </div> */}
-                </>
-              )}
-              {role !== RoleE.Student && (
+                {filteredCourses?.map((course: any) => <CoursesCard key={course?.course_id} course={course} role={role} />)}
+                {role !== RoleE.Student && (
                 <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
                   <span className={styles.course_addCourse}>
                     <span>Добавить материал</span>
                   </span>
                 </button>
               )}
+              </>
+              ) : (
+                <>
+                  <div className={styles.search}>
+                    <p color="gray">По результатам поиска ничего не найдено...</p>
+                  </div>
+                </>
+              )}
+
+              
             </motion.div>
           }
         </AnimatePresence>
