@@ -22,6 +22,7 @@ export type CoursesDataT = {
   baselessons_count?: number
   limit?: number
   remaining_period?: number
+  certificate?: boolean
 }
 
 export type StGroupT = {
