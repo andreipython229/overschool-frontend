@@ -24,14 +24,11 @@ export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const schoolId = useAppSelector(schoolIdSelector)
-  // const { data: courses, isSuccess, refetch } = useFetchCoursesPageQuery(schoolName)
   const [fetchData, { data: coursesData, isSuccess }] = useLazyFetchCoursesPageQuery()
   const { data: folders, isError, refetch } = useFetchCourseFoldersQuery(schoolName)
   const [isOpenAddCourse, { onToggle }] = useBoolean()
   const [courses, setCourses] = useState<CoursesT>()
   const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
-  // const [isVisible, setVisible] = useState(false)
-  // const handleVisible = () => setVisible(!isVisible)
   const [search, setSearch] = useState('')
   const [foldersVisible, { on: hideFolders, off: showFolders, onToggle: toggleFolders }] = useBoolean(false)
   const [activeFolder, setActiveFolder] = useState<string>('')
@@ -141,7 +138,7 @@ export const CoursePage: FC = () => {
 
             {foldersVisible && folders && (
               <motion.div
-                style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}
+                style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}
                 initial={{
                   x: -50,
                   opacity: 0,
