@@ -349,7 +349,7 @@ export const Header = memo(() => {
         </p>
       )}
       <div className={styles.header_block}>
-        {notificationsResponseData && notificationsResponseData.length === 0 ? (
+        {userRole === RoleE.Student && notificationsResponseData && notificationsResponseData.length === 0 ? (
           <Tooltip title={'Включите телеграм уведомления'}>
             <Link to={Path.Profile}>
               <div className={styles.notifications}>
