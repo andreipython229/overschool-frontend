@@ -1,0 +1,36 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 500px;
+  height: auto;
+  border-radius: 0.7rem;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem 1.5rem;
+
+  &_closeModal {
+    background: transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e0dced;
+
+    &:hover {
+      color: #4d5766;
+      transition: color 0.3s;
+    }
+  }
+}
