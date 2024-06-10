@@ -6,15 +6,25 @@ import firstStep from '../../../assets/img/createProject/firstStep.png'
 import secondStep from '../../../assets/img/createProject/secondStep.png'
 import frame from '../../../assets/img/createProject/frame.png'
 import { headerUserRoleName } from '../../../config/headerUserRoleName'
-import { useAppSelector } from '../../../store/hooks'
-import {selectUser} from '../../../selectors'
+import { useAppSelector, useAppDispatch } from '../../../store/hooks'
+import {selectUser, authSelector} from '../../../selectors'
 import { Path } from 'enum/pathE'
-import { generatePath, useNavigate } from 'react-router-dom'
-import {logo} from "../../../assets/img/common";
+import { generatePath, useNavigate, Link } from 'react-router-dom'
+import Tooltip from '@mui/material/Tooltip'
+import {logo} from "../../../assets/img/common"
+import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
+import { logOutIconPath } from '../../../components/Header/config/svgIconsPath'
+import { auth, logoutState } from '../../../store/redux/users/slice'
+import { useLazyLogoutQuery } from '../../../api/userLoginService'
 
 import styles from '../HelpPage.module.scss'
 
 export const HelpPage: FC = memo(() => {
+
+  const isLogin = useAppSelector(authSelector)
+  const dispatch = useAppDispatch()
+  const [logout] = useLazyLogoutQuery()
+
   const {role} = useAppSelector(selectUser)
   const navigate = useNavigate()
 
@@ -24,6 +34,15 @@ export const HelpPage: FC = memo(() => {
 
   const handleRegistrationUser = () => {
       navigate(generatePath(Path.CreateSchool))
+  }
+
+  const logOut = async () => {
+    await localStorage.clear()
+    dispatch(logoutState())
+    await logout()
+    window.location.reload()
+
+    dispatch(auth(false))
   }
 
   return (
@@ -44,10 +63,24 @@ export const HelpPage: FC = memo(() => {
                <img src={logo} alt="Logotype ITOVERONE" />
                <p> IT OVERONE</p>
             </a>
-            <div className={styles.header_block}>
-               <Button onClick={handleLoginPage} variant={'logIn'} style={{ fontSize: '20px', fontWeight: '700' }} text={'Войти'} />
-               {/* <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '20px', fontWeight: '700' }} text={'Создать платформу'} /> */}
-            </div>
+            {isLogin ? (
+                <div className={styles.header_block}>
+                  <Link className={styles.header_block_logIn} to={Path.ChooseSchool}>
+                    <Button type={'button'} text={'Ко входу на платформу'} style={{ marginRight: '-0.2em' }} />
+                  </Link>
+                  <Tooltip title={'Выход из профиля'}>
+                    <div className={styles.header_block_logOut}>
+                      <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
+                    </div>
+                  </Tooltip>
+                </div>
+              ) : (
+                <div className={styles.header_block}>
+                  {/* <Button onClick={handleTariffPage} variant={'logIn'} text={'Тарифы'} /> */}
+                  <Button onClick={handleLoginPage} variant={'logIn'} text={'Войти'} />
+                  {/* <Button onClick={handleRegistrationUser} variant={'logIn'} text={'Создать платформу'} /> */}
+                </div>
+            )}
         </div>
         <img src={frame} alt="asdfhghhgh" style={{ width: "100%", height: "auto" }} />
         <div className={styles.HelpCenterPage_FAQ}>
