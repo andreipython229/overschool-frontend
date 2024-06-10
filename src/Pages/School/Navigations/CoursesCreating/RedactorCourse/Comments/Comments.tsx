@@ -249,12 +249,6 @@ export const Comments: FC = () => {
                           <label className={`${styles.publicLabel} ${styles.centeredCheckbox}`}>
                           <Checkbox  name={'isComment'} checked={comment.public}
                                   onChange={() => toggleCommentPublic(comment.id)}/>
-                            {/* <input
-                              type="checkbox"
-                              checked={comment.public}
-                              onChange={() => toggleCommentPublic(comment.id)}
-                              className={`${styles.publicCheckbox} ${comment.public ? styles.checked : ''}`}
-                            /> */}
                           </label>
                         </div>
                       </td>
