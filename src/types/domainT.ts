@@ -5,6 +5,7 @@ export interface Domain {
     domain_name: string;
     nginx_configured?: boolean;
     created_at?: string;
+    school?: number;
 }
 
 export interface updateDomain {
@@ -12,4 +13,5 @@ export interface updateDomain {
     domain_name: string;
     nginx_configured?: boolean;
     created_at?: string;
+    school?: number;
 }
