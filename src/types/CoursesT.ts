@@ -22,11 +22,6 @@ export type CoursesDataT = {
   baselessons_count?: number
   limit?: number
   remaining_period?: number
-  certificate?: boolean
-  folder: {
-    id: number
-    name: string
-  }
 }
 
 export type StGroupT = {

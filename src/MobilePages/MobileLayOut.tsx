@@ -16,8 +16,6 @@ import {useBoolean as useBooleanHook} from "../customHooks";
 import {useLazyFetchStudentsGroupQuery} from "../api/studentsGroupService";
 import { Footer } from 'components/Footer'
 
-import { motion } from 'framer-motion'
-
 export const MobileLayOut : FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
 
@@ -77,18 +75,7 @@ export const MobileLayOut : FC = memo(() => {
   };
 
   return (
-    <motion.div className={styles.wrapper}
-      initial={{
-        x: -2000,
-      }}
-      animate={{
-        x: 0,
-        y: 0,
-      }}
-      transition={{
-        ease: 'easeInOut',
-        duration: 0.4,
-      }} >
+    <div className={styles.wrapper}>
       <main className={styles.main}>
         <Previous />
         <Outlet />
@@ -100,6 +87,6 @@ export const MobileLayOut : FC = memo(() => {
       <nav className={styles.mobileFooter}>
         <MobileNavbar/>
       </nav>
-    </motion.div>
+    </div>
   )
 })

@@ -17,8 +17,3 @@ export interface TgNotifications {
     completed_courses_notifications: Boolean;
     tg_user: number;
 }
-
-export interface TgMessage {
-    message: string;
-    students_groups: number[];
-}

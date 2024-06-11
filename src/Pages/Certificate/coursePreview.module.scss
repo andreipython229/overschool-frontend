@@ -281,7 +281,7 @@
 .accardionWrapper {
   &_component {
     @include display(flex, column, center);
-    background-color: rgba(205, 178, 211, 0.99);
+    background-color: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
     margin-bottom: 16px;
@@ -300,7 +300,7 @@
     &_header {
       @include display(flex, row, space-between, center);
       width: 100%;
-      height: 65px;
+      height: 89px;
       padding: 11px 40px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         padding: 21px 11px;
@@ -344,13 +344,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: #e3cdfa;
+        width: 57px;
+        height: 57px;
+        background: #f3e7ff;
         font-weight: 700;
         font-size: 22px;
         line-height: 18px;
-        color: #a958fa;
+        color: #ba75ff;
         //background-color: #ba75ff;
         border-radius: 50%;
         @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -381,8 +381,8 @@
 
         &_title {
           @include display(flex, row, flex-start, center);
-          @include font(600, 20px, 16px);
-          color: #8b37d0;
+          @include font(700, 22px, 16px);
+          color: #BA75FF;
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             font-size: 10px;
           }
@@ -395,12 +395,12 @@
             width: 20px;
             height: 2px;
             margin: 0 10px;
-            background-color: #a958fa;
+            background-color: #9ca3af;
           }
         }
         &_exerciseSum {
-          @include font(600, 20px, 16px);
-          color: #a958fa;
+          @include font(700, 22px, 16px);
+          color: #ba98dd;
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             font-size: 10px;
           }

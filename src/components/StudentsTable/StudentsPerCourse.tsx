@@ -50,21 +50,7 @@ export const StudentsPerCourse: FC = () => {
   }
 
   const handleReloadTable = () => {
-    if (tablesHeader && tablesHeader.length > 2) {
-      const studentsTableInfo = tablesHeader[1].students_table_info || [];
-      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
-      if (checkedFields) {
-        fetchStudents({ 
-          filters, 
-          page, 
-          id: String(course_id),
-          schoolName,
-          fields: checkedFields
-        });
-      }
-    } else {
-      console.log('tablesHeader is undefined or does not have enough elements');
-    }
+    fetchStudents({ id: String(course_id), filters, schoolName, page })
   }
 
   useEffect(() => {
@@ -111,22 +97,8 @@ export const StudentsPerCourse: FC = () => {
 
   // Перезагрузка после смены страницы пагинатора
   useEffect(() => {
-    if (tablesHeader && tablesHeader.length > 2) {
-      const studentsTableInfo = tablesHeader[1].students_table_info || [];
-      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
-      if (checkedFields) {
-        fetchStudents({ 
-          filters, 
-          page, 
-          id: String(course_id),
-          schoolName,
-          fields: checkedFields
-        });
-      }
-    } else {
-      console.log('tablesHeader is undefined or does not have enough elements');
-    }
-  }, [page, isGroupingStudents, tablesHeader]);
+    fetchStudents({ id: String(course_id), filters, schoolName, page })
+  }, [page,])
 
   return (
     <>
@@ -158,7 +130,6 @@ export const StudentsPerCourse: FC = () => {
         tableId={tableId as number}
         handleAddSortToFilters={handleAddSortToFilters}
         isGrouping={isGroupingStudents}
-        tableType={'Курс'}
       />
       <Pagination
           className={styles.pagination}

@@ -5,7 +5,6 @@ import { schoolHeaderResT } from '../types/schoolHeaderT'
 import { UpdateCourses } from './apiTypes'
 import {studentsTableInfoT, studentsTableStatsT} from '../types/courseStatT'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
-import { createUrlWithFiltersAndFields } from 'utils/createUrlWithFiltersAndFields'
 import {baseQuery} from "./baseApi";
 
 export const schoolHeaderService = createApi({
@@ -28,8 +27,8 @@ export const schoolHeaderService = createApi({
       invalidatesTags: ['schoolHeader'],
     }),
     fetchStudentsPerSchool: build.query<studentsTableStatsT, any>({
-      query: ({id, page, filters, fields}) => ({
-        url: createUrlWithFiltersAndFields(`schools/${id}/stats/?p=${page !== undefined ? page : 1}`, filters, fields),
+      query: ({id, page, filters}) => ({
+        url: createUrlWithParams(`schools/${id}/stats/?p=${page !== undefined ? page : 1}`, filters),
       }),
       providesTags: ['studentPerSchool'],
     }),
