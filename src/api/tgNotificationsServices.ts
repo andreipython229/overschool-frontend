@@ -1,6 +1,6 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react'
 import {baseQuery} from './baseApi'
-import {TgNotificationsUpdateForAdmin, TgNotificationsUpdateForStudentAndTeacher, TgNotifications, TgMessage} from "../types/tgNotifications";
+import {TgNotificationsUpdateForAdmin, TgNotificationsUpdateForStudentAndTeacher, TgNotifications} from "../types/tgNotifications";
 
 export const tgNotificationsService = createApi({
     reducerPath: 'tgNotificationsService',
@@ -30,20 +30,11 @@ export const tgNotificationsService = createApi({
             }),
             invalidatesTags: ['tgNotifications'],
         }),
-        updateTgMessage: build.mutation<TgMessage, {data: TgMessage}>({
-            query: ({data}) => ({
-                url: `/tg_notification/tg_messages/send-message/`,
-                method: 'POST',
-                body: data,
-            }),
-            invalidatesTags: ['tgNotifications'],
-        }),
     }),
 });
 
 export const {
     useFetchNotificationsQuery,
     useUpdateNotificationsForStudentAndTeacherMutation,
-    useUpdateNotificationsForAdminMutation,
-    useUpdateTgMessageMutation,
+    useUpdateNotificationsForAdminMutation
 } = tgNotificationsService;
