@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {Checkbox} from "../../../../../../components/common/Checkbox/Checkbox";
 
 import { 
   useFetchModulesQuery, 
@@ -247,8 +246,12 @@ export const Comments: FC = () => {
                       <td>
                         <div className={styles.centeredContent}>
                           <label className={`${styles.publicLabel} ${styles.centeredCheckbox}`}>
-                          <Checkbox  name={'isComment'} checked={comment.public}
-                                  onChange={() => toggleCommentPublic(comment.id)}/>
+                            <input
+                              type="checkbox"
+                              checked={comment.public}
+                              onChange={() => toggleCommentPublic(comment.id)}
+                              className={`${styles.publicCheckbox} ${comment.public ? styles.checked : ''}`}
+                            />
                           </label>
                         </div>
                       </td>

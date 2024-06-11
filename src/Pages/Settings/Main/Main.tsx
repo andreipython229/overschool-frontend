@@ -11,7 +11,8 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 import { RoleE } from 'enum/roleE'
 import { role } from 'store/redux/users/slice'
 import { useDispatch } from 'react-redux'
-
+import {useCreateDomainMutation, useFetchDomainQuery, useUpdateDomainMutation} from "../../../api/DomainService";
+import {Domain} from "../../../types/domainT";
 
 export const Main = memo(() => {
   const schoolId = localStorage.getItem('school_id')
@@ -22,6 +23,9 @@ export const Main = memo(() => {
   const { data, refetch } = useFetchSchoolQuery(Number(schoolId))
   const [updateDateSchoolName, { data: newName, isLoading, isSuccess, isError }] = useSetSchoolMutation()
   const [updateSchoolLink, { data: linkData, isLoading: isLoadingLink, isSuccess: isSuccessLink, isError: isErrorLink }] = useSetSchoolMutation()
+  const [createDomain, {isLoading: domainIsLoading, error: domainError}] = useCreateDomainMutation()
+  const [updateDomain, { isLoading: domainUpdateIsLoading, error: domainUpdateError }] = useUpdateDomainMutation();
+  const {data: domains, isSuccess: domainSuccess, isLoading: domainLoading} = useFetchDomainQuery({schoolName: schoolName});
 
   const [name, setName] = useState<string>('')
   const [isNewName, setIsNewName] = useState<boolean>(false)
@@ -33,6 +37,9 @@ export const Main = memo(() => {
   const [error, setError] = useState<string>()
   const [social, setSocial] = useState<string>('')
 
+  const [domain, setDomain] = useState<string>('')
+  const [isNewDomain, setIsNewDomain] = useState<boolean>(false)
+  const [oldDomain, setOldDomain] = useState<string>('')
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -65,6 +72,15 @@ export const Main = memo(() => {
     setIsNewUrl(url !== oldUrl)
   }, [url])
 
+  const handleChangeDomain = (event: ChangeEvent<HTMLInputElement>) => {
+    setDomain(event.currentTarget.value)
+    setIsNewDomain(true)
+  }
+
+  useEffect(() => {
+    setIsNewDomain(domain !== oldDomain)
+  }, [domain])
+
   const onChangeProjectName = async () => {
     const formdata = new FormData()
     formdata.append('name', name)
@@ -85,6 +101,22 @@ export const Main = memo(() => {
     await updateSchoolLink({ formdata, id: Number(schoolId) })
   }
 
+  const onChangeDomain = async () => {
+    try {
+    if (domains && domains.length > 0) {
+      // Если домен существует, обновляем его
+      const existingDomain = domains[0] as Domain;
+      await updateDomain({ id: existingDomain.id, data: { domain_name: domain }, schoolName: schoolName });
+    } else {
+      // Если домена нет, создаем новый
+      await createDomain({ data: { domain_name: domain }, schoolName: schoolName });
+    }
+    setIsNewDomain(false);
+  } catch (error) {
+    console.error("Error updating/creating domain:", error);
+    setError(`Error updating/creating domain:`);
+  }
+}
 
   const handleCloseAlert = () => {
     setAlertOpen(false)
@@ -146,6 +178,19 @@ export const Main = memo(() => {
             variant={isNewUrl && !isLoadingLink ? 'primary' : 'disabled'}
             text={'Сохранить'}
             disabled={!isNewUrl || isLoadingLink}
+          />
+        </div>
+        <br />
+        <hr />
+        <div className={styles.main_project}>Пользовательский домен</div>
+        <div>
+          <Input name={'domain'} type={'text'} className={styles.main_input} value={domain} onChange={handleChangeDomain} />
+          <Button
+            onClick={onChangeDomain}
+            style={{ width: '120px' }}
+            variant={isNewDomain && !isLoadingLink ? 'primary' : 'disabled'}
+            text={'Сохранить'}
+            disabled={!isNewDomain || isLoadingLink}
           />
         </div>
         <br />

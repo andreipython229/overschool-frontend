@@ -67,8 +67,6 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
     const encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ courseId, userId, schoolId }), 'секретный_ключ').toString()
     const sanitizedData = encryptedData.replace(/\//g, '%2F');
     setSertLink(`https://overschool.by/certificate/${sanitizedData}`)
-      // setSertLink(`https://overschool.by/certificate/${sanitizedData}`)
-      console.log(sanitizedData)
 
     return sanitizedData
   }
@@ -163,7 +161,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
         <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
         <span>Все материалы</span>
       </div>
-      {userProgress.courses[0].completed_percent === 100 && course?.certificate && (
+      {userProgress.courses[0].completed_percent === 100 && (
         <div className={styles.previous_getSertificate}>
           <Button
             variant="primary"

@@ -35,7 +35,6 @@ import { HelpGroupSettings } from 'Pages/HelpCenter/HelpGroupSettings'
 import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
 import {HelpChat} from "./Pages/HelpCenter/HelpChat";
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
-import   DomainError   from "./Pages/DomainAccessDenied/DomainError";
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -55,8 +54,7 @@ export const App = () => {
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
-      pathname.split('/')[1] !== 'token-validate' &&
-        pathname !== '/access-denied'
+      pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(`${Path.InitialPage}?utm_source=${utmParams.utm_source}&utm_medium=${utmParams.utm_medium}&utm_campaign=${utmParams.utm_campaign}&utm_term=${utmParams.utm_term}&utm_content=${utmParams.utm_content}`);
     }
@@ -101,8 +99,7 @@ export const App = () => {
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
-      pathname.split('/')[1] !== 'token-validate' &&
-        pathname !== '/access-denied'
+      pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.ChooseSchool)
     }
@@ -117,8 +114,7 @@ export const App = () => {
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
-      pathname.split('/')[1] !== 'token-validate' &&
-        pathname !== '/access-denied'
+      pathname.split('/')[1] !== 'token-validate'
     ) {
       navigate(Path.ChooseSchool)
     }
@@ -129,10 +125,10 @@ export const App = () => {
   return (
     <div className={styles.container}>
       <Routes>
-        <Route path={Path.Catalog}>
+        {/* <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />
           <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
-        </Route>
+        </Route> */}
         <Route path={Path.School} element={<MainLayOut />}>
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
           <Route path={FooterPath.PWA} element={<PWA />} />
@@ -163,7 +159,6 @@ export const App = () => {
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
         <Route path={Path.SignUp} element={<SignUp />} />
         <Route path={'*'} element={<PageNotFound />} />
-        <Route path="/access-denied" element={<DomainError />} />
       </Routes>
     </div>
   )

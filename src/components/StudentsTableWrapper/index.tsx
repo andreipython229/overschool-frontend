@@ -35,11 +35,10 @@ type StudentsTableWrapperT = {
   handleReloadTable?: () => void
   handleAddSortToFilters?: (sort_by: string, sort_order: string) => void
   isGrouping?: boolean
-  tableType?: string
 }
 
 
-export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId, handleReloadTable, handleAddSortToFilters, isGrouping, tableType }) => {
+export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId, handleReloadTable, handleAddSortToFilters, isGrouping }) => {
   const dispatch = useAppDispatch()
   const schoolId = localStorage.getItem('school_id');
   const { role } = useAppSelector(selectUser)
@@ -80,40 +79,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   const handleColumnSort = (col: string) => {
     const direction = sortDirection[col] === 'asc' ? 'desc' : 'asc'
 
-    if (handleAddSortToFilters && tableType != 'Группа') {
-      switch (col) {
-        case 'Имя':
-          handleAddSortToFilters('students__last_name', direction)
-          break;
-        case 'Email':
-          handleAddSortToFilters('students__email', direction)
-          break;
-        case 'Курс':
-          handleAddSortToFilters('course_id__name', direction)
-          break;
-        case 'Группа':
-          handleAddSortToFilters('name', direction)
-          break;
-        case 'Дата добавления в группу':
-          handleAddSortToFilters('date_added_student', direction)
-          break;
-        case 'Дата удаления из группы':
-          handleAddSortToFilters('date_removed_student', direction)
-          break;
-        case 'Прогресс':
-          handleAddSortToFilters('progress', direction)
-          break;
-        case 'Суммарный балл':
-          handleAddSortToFilters('mark_sum', direction)
-          break;
-        case 'Средний балл':
-          handleAddSortToFilters('average_mark', direction)
-          break;
-        case 'Дата регистрации':
-          handleAddSortToFilters('students__date_joined', direction)
-          break;
-      }
-    } else if (handleAddSortToFilters && tableType == 'Группа') {
+    if (handleAddSortToFilters) {
       switch (col) {
         case 'Имя':
           handleAddSortToFilters('last_name', direction)

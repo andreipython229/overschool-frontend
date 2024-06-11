@@ -23,18 +23,6 @@ import { WarningModal } from 'components/Modal/Warning'
 import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
 import { ArrowDownward, ArrowDropDown, ArrowUpward } from '@mui/icons-material'
 
-const show = {
-  opacity: 1,
-  display: 'block',
-}
-
-const hide = {
-  opacity: 0,
-  transitionEnd: {
-    display: 'none',
-  },
-}
-
 export const ModulesBlock: FC<ModulesBlockT> = memo(
   ({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId, section }) => {
     const dispatch: any = useAppDispatch()
@@ -120,13 +108,11 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
         dragControls={controls}
         dragListener={false}
         draggable={false}
-        // transition={{ duration: 0 }}
         key={section.section + section.order}
         value={section}
         whileDrag={{
-          // transition: { duration: 0.3 },
+          scale: 1.1,
           boxShadow: 'rgba(0,0,0, 0.12) 0px 1px 3px, rgba(0,0,0, 0.24) 0px 1px 2px',
-          transformOrigin: 'center center',
           borderRadius: '7px',
         }}
       >
@@ -178,29 +164,24 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
           >
             {showLessons ? `Скрыть материалы модуля` : `Показать материалы`} {showLessons ? <ArrowUpward /> : <ArrowDownward />}
           </span>
-          <Reorder.Group
-            className={styles1.settings_list}
-            transition={{ duration: 0.4 }}
-            animate={showLessons ? show : hide}
-            as="ul"
-            onReorder={handleOrderUpdate}
-            values={lessons}
-          >
-            {lessons &&
-              lessons.map(lesson => (
-                <LessonsBlock
-                  type={lesson.type}
-                  setLessonIdAndType={setLessonIdAndType}
-                  setFocusOnLesson={() => handleSetFirstLesson()}
-                  key={lesson.baselesson_ptr_id}
-                  id={lesson.id}
-                  lessonsName={lesson.name}
-                  lesson={lesson}
-                  selected={selectedLessonId === lesson.baselesson_ptr_id}
-                  onPush={() => handleLessonClick(lesson.baselesson_ptr_id)}
-                />
-              ))}
-          </Reorder.Group>
+          {showLessons && (
+            <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons}>
+              {lessons &&
+                lessons.map(lesson => (
+                  <LessonsBlock
+                    type={lesson.type}
+                    setLessonIdAndType={setLessonIdAndType}
+                    setFocusOnLesson={() => handleSetFirstLesson()}
+                    key={lesson.baselesson_ptr_id}
+                    id={lesson.id}
+                    lessonsName={lesson.name}
+                    lesson={lesson}
+                    selected={selectedLessonId === lesson.baselesson_ptr_id}
+                    onPush={() => handleLessonClick(lesson.baselesson_ptr_id)}
+                  />
+                ))}
+            </Reorder.Group>
+          )}
           <Button className={styles.btn} text="+ занятие" variant="secondary" onClick={handleOpenModalLesson} />
         </ul>
       </Reorder.Item>

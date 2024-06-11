@@ -10,8 +10,6 @@ import { CoursesDataT } from '../../types/CoursesT'
 
 import styles from './mobileCoursesPage.module.scss'
 
-import { motion } from 'framer-motion'
-
 
 export const MobileCoursesPage: FC = memo(() => {
   const schoolName = window.location.href.split('/')[4]
@@ -20,19 +18,7 @@ export const MobileCoursesPage: FC = memo(() => {
   const [term, filteredData, handleChangeTerm] = useDebouncedFilter(coursesList?.results as CoursesDataT[], 'name')
 
   return (
-    <motion.div
-      initial={{
-        x: -2000,
-      }}
-      animate={{
-        x: 0,
-        y: 0,
-      }}
-      transition={{
-        ease: 'easeInOut',
-        duration: 0.4,
-      }} 
-      className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.container_search}>
         <Input name="" type="search" value={term} onChange={handleChangeTerm} placeholder="Поиск по курсам и категориям">
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
@@ -53,6 +39,6 @@ export const MobileCoursesPage: FC = memo(() => {
             />
           ))}
       </div>
-    </motion.div>
+    </div>
   )
 })
