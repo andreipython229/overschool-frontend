@@ -83,11 +83,11 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
               {role === RoleE.Admin ? (
                 <>
                   <Link
-                    to={generatePath(Path.CreateCourse + 'student/', {
+                    to={generatePath(Path.CreateCourse + 'student', {
                       course_id: `${course?.course_id}`,
                     })}
                   >
-                    <Button className={styles.btn_admin} text={'Ученики материала'} />
+                    <Button className={styles.btn_admin} text={'Ученики курса'} />
                   </Link>
                   <Link
                     to={generatePath(Path.CreateCourse, {
