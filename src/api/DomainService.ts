@@ -36,6 +36,12 @@ export const domainService = createApi({
             }),
             invalidatesTags: ['domain'],
         }),
+        fetchConfiguredDomains: build.query<Domain[], void>({
+            query: () => ({
+                url: '/configured_domains/',
+            }),
+            providesTags: ['domain'],
+        }),
     }),
 });
 
@@ -44,4 +50,5 @@ export const {
     useCreateDomainMutation,
     useUpdateDomainMutation,
     useDeleteDomainMutation,
+    useFetchConfiguredDomainsQuery
 } = domainService;
