@@ -22,7 +22,7 @@ import { auth, role } from 'store/redux/users/slice'
 import { useLazyLogoutQuery } from 'api/userLoginService'
 import { Dialog, DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme } from '@mui/material'
 import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
-
+import {Domain} from "../../types/domainT";
 
 export type SchoolT = {
   school_id: number
@@ -56,35 +56,32 @@ export const ChooseSchool = () => {
   const [schoolsWithDomain, setSchoolsWithDomain] = useState<SchoolT[]>()
 
   useEffect(() => {
-    if (DomainData && schools && schools.length > 0) {
+  // console.log('DomainData:', DomainData);
+  // console.log('Schools:', schools);
+
+  if (DomainData && schools && schools.length > 0) {
+    const domainArray = Array.isArray(DomainData) ? DomainData : (DomainData as { data: Domain[] }).data || [];
+
+    if (Array.isArray(domainArray)) {
       const domainSchoolsArray = schools.map(school => {
-        const configuredDomain = DomainData.find(domain => domain.school === school.school_id)
+        const configuredDomain = domainArray.find(domain => domain.school === school.school_id);
         if (configuredDomain) {
           return {
             ...school,
             domain_name: configuredDomain.domain_name,
-          }
+          };
         }
-        return school
-      })
-      if (domainSchoolsArray) {
-        setSchoolsWithDomain(domainSchoolsArray)
-      }
+        return school;
+      });
+      console.log('Schools with domain:', domainSchoolsArray);
+      setSchoolsWithDomain(domainSchoolsArray);
+    } else {
+      console.error('DomainData is not an array or does not contain a valid array');
     }
-  }, [DomainSuccess, DomainData, schoolsWithDomain])
-
-  //   const schoolsWithDomain = schools.map(school => {
-  //     if (DomainData) {
-  //       const configuredDomain = DomainData.find(domain => domain.school === school.school_id)
-  //       if (configuredDomain) {
-  //         return {
-  //           ...school,
-  //           domain_name: configuredDomain.domain_name,
-  //         }
-  //       }
-  //     }
-  //     return school
-  //   })
+  } else {
+    console.error('DomainData is invalid or schools array is empty');
+  }
+}, [DomainSuccess, DomainData, schools]);
 
   useEffect(() => {
     dispatchRole(role(RoleE.Unknown))
@@ -190,7 +187,6 @@ export const ChooseSchool = () => {
             >
               {showWarning && selectedSchool && (
                 <Dialog open={showWarning} onClose={close} fullScreen={fullScreen} aria-labelledby="responsive-dialog-title">
-
                   <DialogTitle
                     id="responsive-dialog-title"
                     sx={{
@@ -200,7 +196,6 @@ export const ChooseSchool = () => {
                       fontSize: '22px',
                     }}
                   >
-
                     {`Доступ к платформе "${selectedSchool.name}" ограничен`}
                   </DialogTitle>
                   <DialogContent>
@@ -263,7 +258,6 @@ export const ChooseSchool = () => {
                 </form>
               </motion.div> */}
               <div className={styles.schoolBox}>
-
                 {schoolsWithDomain && schoolsWithDomain.length > 0 ? (
                   schoolsWithDomain.map((school, index) => {
                     const link = school.domain_name
@@ -272,14 +266,12 @@ export const ChooseSchool = () => {
                     // console.log("Generated link for school:", school.name, link);
                     return school.tariff_paid ? (
                       <a
-
                         key={index}
                         onClick={async e => {
                           e.preventDefault()
                           await handleSchool(school)
                         }}
                         style={{ textDecoration: 'none', overflow: 'hidden' }}
-
                         href={link}
                       >
                         <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
@@ -301,7 +293,6 @@ export const ChooseSchool = () => {
                         }}
                         style={{ textDecoration: 'none', overflow: 'hidden' }}
                         href={link}
-
                       >
                         <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                           <div className={styles.bg_container}>
@@ -312,9 +303,7 @@ export const ChooseSchool = () => {
                           </div>
                           <span>→</span>
                         </motion.div>
-
                       </a>
-
                     ) : (
                       <motion.div
                         className={styles.bg}
@@ -334,7 +323,6 @@ export const ChooseSchool = () => {
                         </div>
                         <span>→</span>
                       </motion.div>
-
                     )
                   })
                 ) : (
@@ -347,7 +335,6 @@ export const ChooseSchool = () => {
                       fontWeight: 'bold',
                     }}
                   >
-
                     {'Нет доступных платформ :('}
                   </p>
                 )}

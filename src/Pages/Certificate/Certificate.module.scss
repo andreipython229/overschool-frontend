@@ -41,27 +41,18 @@
 
     &__title {
         text-align: center;
-        font-weight: 700;
-        font-size: 54px;
+        font-weight: 500;
+        font-size: 40px;
         padding-bottom: 1.5rem;
     }
 
     &__content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 20px;
-        font-weight: 400;
-        font-size: 1.5rem;
-        text-align: start;
 
         &_skills {
-            display: flex;
-            font-weight: 700;
-            font-size: 29px;
-            text-align: start;
+            font-weight: 400;
+            font-size: 1.5rem;
+            text-align: center;
             margin-bottom: 5%;
-            padding-left: 54px;
         }
 
         &_modules {
@@ -92,8 +83,9 @@
     // width: 60%;
     height: 90px;
     flex: 0 1 10%;
-    margin-right: 10px;
+    //margin-right: 10px;
     margin-top: 10px;
+    margin-left: 20px;
    
 
     @media screen and (max-width: 1024px) {
@@ -137,9 +129,11 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    padding-right: 30px;
 
 		&__header {
             margin-bottom: 30px;
+            margin-top: 10px;
             font-weight: 700;
             font-size: 3.5rem;
             text-align: center;
@@ -222,7 +216,7 @@
     font-size: 1rem;
     text-align: start;
     width: 100%;
-    align-items: center;
+    //align-items: center;
     // margin-bottom: 8%;
 
         &__date {
@@ -230,7 +224,8 @@
             display: flex;
             justify-content: flex-start;
             align-items: flex-end;
-            padding-left: 10px;
+            padding-left: 20px;
+            //font-size: 16px;
         }
 
 		&__content {
@@ -255,13 +250,13 @@
 		}
 
         &__signature {
-            top: -50px;
+            top: -55px;
             position: absolute;
             width: 90%;
         }
 
         &__stamp {
-            top: -40px;
+            top: -50px;
             right: -60px;
             position: absolute;
             width: 80%;

@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import * as services from '../../api/index'
 import * as slices from './index'
 import { modulesReduce } from './modules/modules'
+import errorMiddleware from "../DomainErrorMiddleware";
 
 export const rootReducer = combineReducers({
   [services.userProgressService.reducerPath]: services.userProgressService.reducer,
@@ -111,6 +112,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.meetingService.middleware,
         services.tgNotificationsService.middleware,
           services.domainService.middleware,
+          errorMiddleware,
       ),
   })
 }

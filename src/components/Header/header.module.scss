@@ -14,6 +14,7 @@
     max-width: 57px;
     margin-left: 106px;
     border-radius: 8px;
+
     @media screen and (max-width: 1024px) {
       margin-left: 5px;
     }
@@ -32,10 +33,12 @@
       margin-right: 15px;
       height: 60px;
       padding: 0 12px;
+
       @media screen and (max-width: 1024px) {
         padding: 0;
         margin-right: 10px;
       }
+
       @include font(500, 10px);
 
       &_avatar {
@@ -45,10 +48,10 @@
         height: 42px;
         cursor: pointer;
         border-radius: 8px;
-       // -webkit-border-radius: 50%;
-       // -moz-border-radius: 50%;
-       // -ms-border-radius: 50%;
-       //-o-border-radius: 50%;
+        // -webkit-border-radius: 50%;
+        // -moz-border-radius: 50%;
+        // -ms-border-radius: 50%;
+        //-o-border-radius: 50%;
       }
 
       &_avatar_div {
@@ -101,6 +104,7 @@
 
       cursor: pointer;
       margin-right: 26px;
+
       @media screen and (max-width: 1024px) {
         margin-right: 0;
       }
@@ -143,7 +147,7 @@
   font-weight: 500;
   font-size: 14px;
   border-radius: .5rem;
-  color:#303030c6;
+  color: #303030c6;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
   height: 60px;
