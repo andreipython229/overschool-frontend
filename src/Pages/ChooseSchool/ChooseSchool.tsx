@@ -22,7 +22,6 @@ import { auth, role } from 'store/redux/users/slice'
 import { useLazyLogoutQuery } from 'api/userLoginService'
 import { Dialog, DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme } from '@mui/material'
 import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
-import {Domain} from "../../types/domainT";
 
 
 export type SchoolT = {
@@ -57,32 +56,35 @@ export const ChooseSchool = () => {
   const [schoolsWithDomain, setSchoolsWithDomain] = useState<SchoolT[]>()
 
   useEffect(() => {
-  // console.log('DomainData:', DomainData);
-  // console.log('Schools:', schools);
-
-  if (DomainData && schools && schools.length > 0) {
-    const domainArray = Array.isArray(DomainData) ? DomainData : (DomainData as { data: Domain[] }).data || [];
-
-    if (Array.isArray(domainArray)) {
+    if (DomainData && schools && schools.length > 0) {
       const domainSchoolsArray = schools.map(school => {
-        const configuredDomain = domainArray.find(domain => domain.school === school.school_id);
+        const configuredDomain = DomainData.find(domain => domain.school === school.school_id)
         if (configuredDomain) {
           return {
             ...school,
             domain_name: configuredDomain.domain_name,
-          };
+          }
         }
-        return school;
-      });
-      console.log('Schools with domain:', domainSchoolsArray);
-      setSchoolsWithDomain(domainSchoolsArray);
-    } else {
-      console.error('DomainData is not an array or does not contain a valid array');
+        return school
+      })
+      if (domainSchoolsArray) {
+        setSchoolsWithDomain(domainSchoolsArray)
+      }
     }
-  } else {
-    console.error('DomainData is invalid or schools array is empty');
-  }
-}, [DomainSuccess, DomainData, schools]);
+  }, [DomainSuccess, DomainData, schoolsWithDomain])
+
+  //   const schoolsWithDomain = schools.map(school => {
+  //     if (DomainData) {
+  //       const configuredDomain = DomainData.find(domain => domain.school === school.school_id)
+  //       if (configuredDomain) {
+  //         return {
+  //           ...school,
+  //           domain_name: configuredDomain.domain_name,
+  //         }
+  //       }
+  //     }
+  //     return school
+  //   })
 
   useEffect(() => {
     dispatchRole(role(RoleE.Unknown))
