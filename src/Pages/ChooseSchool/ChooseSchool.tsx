@@ -21,6 +21,9 @@ import { motion } from 'framer-motion'
 import { auth, role } from 'store/redux/users/slice'
 import { useLazyLogoutQuery } from 'api/userLoginService'
 import { Dialog, DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme } from '@mui/material'
+import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
+import {Domain} from "../../types/domainT";
+
 
 export type SchoolT = {
   school_id: number
@@ -29,6 +32,7 @@ export type SchoolT = {
   role: string
   tariff_paid: boolean
   contact_link: string
+  domain_name?: string
 }
 
 export const ChooseSchool = () => {
@@ -49,6 +53,36 @@ export const ChooseSchool = () => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   const [search, setSearch] = useState('')
+  const { data: DomainData, isSuccess: DomainSuccess } = useFetchConfiguredDomainsQuery()
+  const [schoolsWithDomain, setSchoolsWithDomain] = useState<SchoolT[]>()
+
+  useEffect(() => {
+  // console.log('DomainData:', DomainData);
+  // console.log('Schools:', schools);
+
+  if (DomainData && schools && schools.length > 0) {
+    const domainArray = Array.isArray(DomainData) ? DomainData : (DomainData as { data: Domain[] }).data || [];
+
+    if (Array.isArray(domainArray)) {
+      const domainSchoolsArray = schools.map(school => {
+        const configuredDomain = domainArray.find(domain => domain.school === school.school_id);
+        if (configuredDomain) {
+          return {
+            ...school,
+            domain_name: configuredDomain.domain_name,
+          };
+        }
+        return school;
+      });
+      console.log('Schools with domain:', domainSchoolsArray);
+      setSchoolsWithDomain(domainSchoolsArray);
+    } else {
+      console.error('DomainData is not an array or does not contain a valid array');
+    }
+  } else {
+    console.error('DomainData is invalid or schools array is empty');
+  }
+}, [DomainSuccess, DomainData, schools]);
 
   useEffect(() => {
     dispatchRole(role(RoleE.Unknown))
@@ -130,7 +164,12 @@ export const ChooseSchool = () => {
             </div>
           ) : (
             <motion.div
-              style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
               initial={{
                 opacity: 0,
                 scale: 0.1,
@@ -149,7 +188,17 @@ export const ChooseSchool = () => {
             >
               {showWarning && selectedSchool && (
                 <Dialog open={showWarning} onClose={close} fullScreen={fullScreen} aria-labelledby="responsive-dialog-title">
-                  <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center', color: 'red', fontWeight: 'bold', fontSize: '22px' }}>
+
+                  <DialogTitle
+                    id="responsive-dialog-title"
+                    sx={{
+                      textAlign: 'center',
+                      color: 'red',
+                      fontWeight: 'bold',
+                      fontSize: '22px',
+                    }}
+                  >
+
                     {`Доступ к платформе "${selectedSchool.name}" ограничен`}
                   </DialogTitle>
                   <DialogContent>
@@ -212,17 +261,24 @@ export const ChooseSchool = () => {
                 </form>
               </motion.div> */}
               <div className={styles.schoolBox}>
-                {schools ? (
-                  filteredSchool.map((school, index: number) =>
-                    school.tariff_paid ? (
-                      <Link
+
+                {schoolsWithDomain && schoolsWithDomain.length > 0 ? (
+                  schoolsWithDomain.map((school, index) => {
+                    const link = school.domain_name
+                      ? `https://${school.domain_name}${generatePath('/school/:school_name/courses/', { school_name: school.name })}`
+                      : `${window.location.origin}${generatePath(`${Path.School}courses/`, { school_name: school.name })}`
+                    // console.log("Generated link for school:", school.name, link);
+                    return school.tariff_paid ? (
+                      <a
+
                         key={index}
                         onClick={async e => {
                           e.preventDefault()
                           await handleSchool(school)
                         }}
                         style={{ textDecoration: 'none', overflow: 'hidden' }}
-                        to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
+
+                        href={link}
                       >
                         <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                           <div className={styles.bg_container}>
@@ -233,16 +289,17 @@ export const ChooseSchool = () => {
                           </div>
                           <span>→</span>
                         </motion.div>
-                      </Link>
+                      </a>
                     ) : school.role === 'Admin' ? (
-                      <Link
+                      <a
                         key={index}
                         onClick={async e => {
                           e.preventDefault()
                           await handleSchool(school)
                         }}
                         style={{ textDecoration: 'none', overflow: 'hidden' }}
-                        to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
+                        href={link}
+
                       >
                         <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                           <div className={styles.bg_container}>
@@ -253,7 +310,9 @@ export const ChooseSchool = () => {
                           </div>
                           <span>→</span>
                         </motion.div>
-                      </Link>
+
+                      </a>
+
                     ) : (
                       <motion.div
                         className={styles.bg}
@@ -273,10 +332,20 @@ export const ChooseSchool = () => {
                         </div>
                         <span>→</span>
                       </motion.div>
-                    ),
-                  )
+
+                    )
+                  })
                 ) : (
-                  <p style={{ color: 'blueviolet', fontSize: '20px', textAlign: 'center', padding: '2em', fontWeight: 'bold' }}>
+                  <p
+                    style={{
+                      color: 'blueviolet',
+                      fontSize: '20px',
+                      textAlign: 'center',
+                      padding: '2em',
+                      fontWeight: 'bold',
+                    }}
+                  >
+
                     {'Нет доступных платформ :('}
                   </p>
                 )}
