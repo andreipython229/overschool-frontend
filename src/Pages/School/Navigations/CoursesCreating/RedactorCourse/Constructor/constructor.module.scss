@@ -79,8 +79,7 @@
     padding-bottom: 20px;
     text-align: center;
     margin-bottom: 30px;
-    width: 450px;
-
+  
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 95%;
       text-align: center;
@@ -104,10 +103,7 @@
     &_desc {
       @include display(flex, column);
       margin-top: 23px;
-      width: 100%;
       margin-left: 16px; // 16
-      max-height: 830px;
-      overflow-y: auto;
       //border: 1px deeppink solid;
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -120,7 +116,8 @@
       }
 
       &_headerText {
-        // position: relative;
+        //position: relative;
+       
 
         &_title {
           position: relative;
@@ -214,7 +211,6 @@
           @include display(flex, row, flex-start, center);
           color: $font-color-rose;
           font-size: 12px;
-          max-width: 270px;
 
           svg {
             margin-right: 5px;
@@ -331,8 +327,8 @@
       border-radius: 10px;
       width: 100%;
       padding-bottom: 30px;
-      // position: sticky;
-      // top: 100px;
+      position: sticky;
+      top: 100px;
 
       &:hover {
         border: solid 3px #ba75ff;
@@ -848,9 +844,4 @@ hr {
     margin-left: 50%;
     gap: 10px;
   }
-}
-
-.redactorCourse_leftSide_desc::-webkit-scrollbar {
-  width: 8px;
-  margin-left: 10px;
 }

@@ -52,7 +52,6 @@ export enum SettingsPath {
   Decoration = 'decoration/',
   SchoolPassport = 'passport/',
   PaymentMethods = 'payment-methods/',
-  DomainSettings = 'domain/',
 }
 
 export enum CreateCoursePath {

@@ -91,10 +91,10 @@ export const CoureCatalogPreview: FC = () => {
             <img src={course.photo} />
           </div>
           <div className={styles.previous_bcgrShadow}></div>
-          {/* <div onClick={() => navigate(Path.Catalog)} className={styles.back_all_course}>
+          <div onClick={() => navigate(Path.Catalog)} className={styles.back_all_course}>
             <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
             <span>Назад в каталог</span>
-          </div> */}
+          </div>
           <div className={styles.previous_onlineCourses}>Онлайн-курс</div>
           <div className={styles.previous_title_name}>{course?.name}</div>
           <div className={styles.previous_buttonAccept}>

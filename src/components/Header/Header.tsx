@@ -21,6 +21,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { SvgIcon } from '@mui/material'
 import { ChatI, SenderI, UserInformAppealsI, UserInformI } from 'types/chatsT'
+
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from '../../store/redux/chats/chatsSlice'
 
@@ -31,11 +32,11 @@ import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPa
 import { RoleE } from 'enum/roleE'
 
 import { useCookies } from 'react-cookie'
-import { useLazyFetchCurrentTariffPlanQuery } from 'api/tariffPlanService'
+import { useFetchCurrentTariffPlanQuery, useLazyFetchCurrentTariffPlanQuery, useLazyFetchTariffPlanInfoQuery } from 'api/tariffPlanService'
 import { setTariff } from 'store/redux/tariff/tariffSlice'
 import { removeSchoolId } from '../../store/redux/school/schoolIdSlice'
 import { removeHeaderId } from '../../store/redux/school/headerIdSlice'
-import { removeSchoolName } from '../../store/redux/school/schoolSlice'
+import {removeSchoolName, setSchoolName} from '../../store/redux/school/schoolSlice'
 import { useDispatch } from 'react-redux'
 
 import { motion } from 'framer-motion'
@@ -43,6 +44,7 @@ import { w3cwebsocket } from 'websocket'
 import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice'
 import { useFetchNotificationsQuery } from 'api/tgNotificationsServices'
 import warning from '../../assets/img/notifications/warning.svg'
+
 
 export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
@@ -58,25 +60,7 @@ export const Header = memo(() => {
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
   const { data: profile, isSuccess: profileIsSuccess, isError, error, refetch: refetchUser } = useFetchProfileDataQuery()
   const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
-  const [currentTariff, setCurrentTariff] = useState<ITariff>({
-    tariff_name: '',
-    days_left: null,
-    staff: null,
-    students: null,
-    number_of_courses: null,
-    tariff: null,
-    tariff_details: {
-      price_rf_rub: 0,
-      id: 0,
-      name: '',
-      number_of_courses: null,
-      number_of_staff: null,
-      students_per_month: null,
-      total_students: null,
-      price: '',
-      student_count_by_month: null,
-    },
-  })
+  const [currentTariff, setCurrentTariff] = useState<ITariff>()
 
   const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
   const [unreadAppeals, setUnreadAppeals] = useState<number>(0)
@@ -92,7 +76,7 @@ export const Header = memo(() => {
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
   const path = useLocation()
-  const [timerId, setTimerId] = useState<number | null>(null)
+  const [timerId, setTimerId] = useState<number | null>(null);
 
   const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
 
@@ -111,6 +95,7 @@ export const Header = memo(() => {
       dispatch(auth(false))
       navigate(generatePath(Path.InitialPage))
       setSocketConnect(false)
+      
 
       if (informSocketRef.current !== null) {
         informSocketRef.current.close()
@@ -207,7 +192,7 @@ export const Header = memo(() => {
       }
 
       informSocketRef.current.onclose = () => {
-        console.log('INFO WebSocket disconnected')
+        console.log('INFO WebSocket disconnected');
         // Переподключение при закрытии соединения
         // if (timerId === null) {
         //   const tId = setTimeout(() => {
@@ -283,12 +268,12 @@ export const Header = memo(() => {
   }
 
   const goToChooseSchool = () => {
-    // if (timerId) {
-    //   clearTimeout(timerId);
-    // }
+      // if (timerId) {
+      //   clearTimeout(timerId);
+      // }
     if (informSocketRef.current !== null) {
-      informSocketRef.current.close()
-      informSocketRef.current = null
+        informSocketRef.current.close()
+        informSocketRef.current = null
     }
     dispatchRole(role(RoleE.Unknown))
     setSocketConnect(false)
@@ -432,7 +417,7 @@ export const Header = memo(() => {
                   </span>
                 </MenuItem>
                 <MenuItem onClick={goToChooseTariff}>
-                  <Link to={Path.TariffPlans} style={{ color: '#ba75ff' }}>
+                  <Link to={Path.TariffPlans} style={{ color: '#ba75ff'}}>
                     Все тарифы
                   </Link>
                 </MenuItem>

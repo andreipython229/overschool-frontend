@@ -24,6 +24,7 @@ import { Dialog, DialogContent, DialogContentText, DialogTitle, useMediaQuery, u
 import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
 import {Domain} from "../../types/domainT";
 
+
 export type SchoolT = {
   school_id: number
   name: string
@@ -187,6 +188,7 @@ export const ChooseSchool = () => {
             >
               {showWarning && selectedSchool && (
                 <Dialog open={showWarning} onClose={close} fullScreen={fullScreen} aria-labelledby="responsive-dialog-title">
+
                   <DialogTitle
                     id="responsive-dialog-title"
                     sx={{
@@ -196,6 +198,7 @@ export const ChooseSchool = () => {
                       fontSize: '22px',
                     }}
                   >
+
                     {`Доступ к платформе "${selectedSchool.name}" ограничен`}
                   </DialogTitle>
                   <DialogContent>
@@ -258,6 +261,7 @@ export const ChooseSchool = () => {
                 </form>
               </motion.div> */}
               <div className={styles.schoolBox}>
+
                 {schoolsWithDomain && schoolsWithDomain.length > 0 ? (
                   schoolsWithDomain.map((school, index) => {
                     const link = school.domain_name
@@ -266,12 +270,14 @@ export const ChooseSchool = () => {
                     // console.log("Generated link for school:", school.name, link);
                     return school.tariff_paid ? (
                       <a
+
                         key={index}
                         onClick={async e => {
                           e.preventDefault()
                           await handleSchool(school)
                         }}
                         style={{ textDecoration: 'none', overflow: 'hidden' }}
+
                         href={link}
                       >
                         <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
@@ -293,6 +299,7 @@ export const ChooseSchool = () => {
                         }}
                         style={{ textDecoration: 'none', overflow: 'hidden' }}
                         href={link}
+
                       >
                         <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                           <div className={styles.bg_container}>
@@ -303,7 +310,9 @@ export const ChooseSchool = () => {
                           </div>
                           <span>→</span>
                         </motion.div>
+
                       </a>
+
                     ) : (
                       <motion.div
                         className={styles.bg}
@@ -323,6 +332,7 @@ export const ChooseSchool = () => {
                         </div>
                         <span>→</span>
                       </motion.div>
+
                     )
                   })
                 ) : (
@@ -335,6 +345,7 @@ export const ChooseSchool = () => {
                       fontWeight: 'bold',
                     }}
                   >
+
                     {'Нет доступных платформ :('}
                   </p>
                 )}
