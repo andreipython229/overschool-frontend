@@ -20,8 +20,7 @@ import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { SvgIcon } from '@mui/material'
-import { ChatI, SenderI, UserInformAppealsI, UserInformI } from 'types/chatsT'
-
+import {ChatI, SenderI, UserInformAppealsI, UserInformI} from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from '../../store/redux/chats/chatsSlice'
 
@@ -41,10 +40,7 @@ import { useDispatch } from 'react-redux'
 
 import { motion } from 'framer-motion'
 import { w3cwebsocket } from 'websocket'
-import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice'
-import { useFetchNotificationsQuery } from 'api/tgNotificationsServices'
-import warning from '../../assets/img/notifications/warning.svg'
-
+import {setTotalUnreadAppeals} from "../../store/redux/info/unreadAppealsSlice";
 
 export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
@@ -78,7 +74,6 @@ export const Header = memo(() => {
   const path = useLocation()
   const [timerId, setTimerId] = useState<number | null>(null);
 
-  const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
 
   const logOut = async () => {
     await logout().then(data => {
@@ -334,23 +329,6 @@ export const Header = memo(() => {
         </p>
       )}
       <div className={styles.header_block}>
-        {notificationsResponseData && notificationsResponseData.length === 0 ? (
-          <Tooltip title={'Включите телеграм уведомления'}>
-            <Link to={Path.Profile}>
-              <div className={styles.notifications}>
-                <img
-                  src={warning}
-                  alt=""
-                  style={{
-                    width: '20px',
-                    paddingRight: '5px',
-                  }}
-                />
-                <p>Включите уведомления</p>
-              </div>
-            </Link>
-          </Tooltip>
-        ) : null}
         <React.Fragment>
           {userRole === RoleE.Admin && currentTariff && currentTariff.days_left && (
             <div>
