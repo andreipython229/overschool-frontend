@@ -1,0 +1,25 @@
+@import '../../scss/mixin.scss';
+
+.main {
+  @include display (flex, column, center, center);
+  width: 100%;
+  height: 97vh;
+  background-color: #ddd7fa;
+  @media only screen and (min-width : 320px) and (max-width : 376px) {
+    height: 100vh;
+  }
+
+  &_container {
+    width: 750px;
+    color: black;
+    font-size: 32px;
+    margin: 0 auto;
+    text-align: center;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      width: auto;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      width: auto;
+    }
+  }
+}
