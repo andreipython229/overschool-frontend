@@ -44,13 +44,14 @@ import { useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 import { w3cwebsocket } from 'websocket'
 import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice'
-import { useFetchNotificationsQuery, useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
+import { useFetchNotificationsQuery, useUpdateTgMessageMutation, useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
 import warning from '../../assets/img/notifications/warning.svg'
 import { TgMessage } from 'types/tgNotifications'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { CoursesDataT } from 'types/CoursesT'
 import { Button } from 'components/common/Button/Button'
+
 
 export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
@@ -100,7 +101,7 @@ export const Header = memo(() => {
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
   const path = useLocation()
-  const [timerId, setTimerId] = useState<number | null>(null)
+  const [timerId, setTimerId] = useState<number | null>(null);
 
   const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupQuery(schoolName);
   const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName);
