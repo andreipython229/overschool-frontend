@@ -3,25 +3,26 @@ import {Link, generatePath, useNavigate} from 'react-router-dom'
 import {Path} from '../../enum/pathE'
 
 import styles from './chooseSchool.module.scss'
-import {useEffect, useState} from 'react'
-import {useGetSchoolsMutation} from '../../api/getSchoolService'
-import {useAppSelector} from '../../store/hooks'
-import {selectUser, schoolNameSelector} from '../../selectors'
-import {RoleE} from '../../enum/roleE'
-import {SimpleLoader} from '../../components/Loaders/SimpleLoader'
-import {setSchoolName} from '../../store/redux/school/schoolSlice'
-import {setSchoolId} from '../../store/redux/school/schoolIdSlice'
-import {setHeaderId} from '../../store/redux/school/headerIdSlice'
-import {useDispatch} from 'react-redux'
-import {useBoolean} from '../../customHooks'
-import {userRoleName} from 'config/index'
-import {Portal} from '../../components/Modal/Portal'
-import {AddSchoolModal} from '../../components/Modal/AddSchoolModal/AddSchoolModal'
-import {motion} from 'framer-motion'
-import {auth, role} from 'store/redux/users/slice'
-import {useLazyLogoutQuery} from 'api/userLoginService'
-import {Dialog, DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme} from '@mui/material'
-import {useFetchConfiguredDomainsQuery} from "../../api/DomainService";
+import { useEffect, useState } from 'react'
+import { useGetSchoolsMutation } from '../../api/getSchoolService'
+import { useAppSelector } from '../../store/hooks'
+import { selectUser, schoolNameSelector } from '../../selectors'
+import { RoleE } from '../../enum/roleE'
+import { SimpleLoader } from '../../components/Loaders/SimpleLoader'
+import { setSchoolName } from '../../store/redux/school/schoolSlice'
+import { setSchoolId } from '../../store/redux/school/schoolIdSlice'
+import { setHeaderId } from '../../store/redux/school/headerIdSlice'
+import { useDispatch } from 'react-redux'
+import { useBoolean } from '../../customHooks'
+import { userRoleName } from 'config/index'
+import { Portal } from '../../components/Modal/Portal'
+import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
+import { motion } from 'framer-motion'
+import { auth, role } from 'store/redux/users/slice'
+import { useLazyLogoutQuery } from 'api/userLoginService'
+import { Dialog, DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme } from '@mui/material'
+import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
+
 
 export type SchoolT = {
     school_id: number
@@ -50,20 +51,40 @@ export const ChooseSchool = () => {
     const theme = useTheme()
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
-    const [search, setSearch] = useState('')
-    const {data: DomainData, isSuccess: DomainSuccess} = useFetchConfiguredDomainsQuery()
-    const schoolsWithDomain = schools.map(school => {
-        if (DomainData) {
-            const configuredDomain = DomainData.find(domain => domain.school === school.school_id);
-            if (configuredDomain) {
-                return {
-                    ...school,
-                    domain_name: configuredDomain.domain_name
-                };
-            }
+  const [search, setSearch] = useState('')
+  const { data: DomainData, isSuccess: DomainSuccess } = useFetchConfiguredDomainsQuery()
+  const [schoolsWithDomain, setSchoolsWithDomain] = useState<SchoolT[]>()
+
+  useEffect(() => {
+    if (DomainData && schools && schools.length > 0) {
+      const domainSchoolsArray = schools.map(school => {
+        const configuredDomain = DomainData.find(domain => domain.school === school.school_id)
+        if (configuredDomain) {
+          return {
+            ...school,
+            domain_name: configuredDomain.domain_name,
+          }
         }
-        return school;
-    });
+        return school
+      })
+      if (domainSchoolsArray) {
+        setSchoolsWithDomain(domainSchoolsArray)
+      }
+    }
+  }, [DomainSuccess, DomainData, schoolsWithDomain])
+
+  //   const schoolsWithDomain = schools.map(school => {
+  //     if (DomainData) {
+  //       const configuredDomain = DomainData.find(domain => domain.school === school.school_id)
+  //       if (configuredDomain) {
+  //         return {
+  //           ...school,
+  //           domain_name: configuredDomain.domain_name,
+  //         }
+  //       }
+  //     }
+  //     return school
+  //   })
 
     useEffect(() => {
         dispatchRole(role(RoleE.Unknown))
