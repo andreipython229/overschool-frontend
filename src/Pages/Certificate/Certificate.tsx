@@ -12,6 +12,7 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import { CertificatCourseModules } from './certificatModules'
 import { Lesson, Section } from 'types/courseStatT'
+import {DateTime} from "luxon";
 
 
 type CertificatModulesT = {
@@ -28,6 +29,7 @@ export const Certificate = () => {
   const [data, setData] = useState<{ courseId: number; userId: number; schoolId: number }>()
   const [getSertData, { data: sertData, isLoading, isSuccess: succSert }] = useFetchSertificateMutation()
   const [openIndex, setOpenIndex] = useState<number>(0)
+  const [finishDate, setFinishDate] = useState<string>()
 
   const decryptSertLink = (encryptedString: string): { courseId: number; userId: number; schoolId: number } => {
     const bytes = CryptoJS.AES.decrypt(encryptedString, 'секретный_ключ')
@@ -53,6 +55,14 @@ export const Certificate = () => {
     }
   }, [data])
 
+  useEffect(() => {
+    if (sertData) {
+      const date = sertData.date ? sertData.date : new Date();
+      const formattedDate = DateTime.fromISO(date, { zone: 'utc' }).toFormat('dd.MM.yyyy');
+      setFinishDate(formattedDate);
+    }
+  }, [sertData])
+
   if (!sertData || isLoading) {
     return <SimpleLoader />
   }
@@ -65,8 +75,6 @@ export const Certificate = () => {
       setOpenIndex(index)
     }
   }
-  
-  
 
   return sertData ? (
     <main>
@@ -90,12 +98,12 @@ export const Certificate = () => {
             <div className={styles.certificate__graduate}>{sertData.user_full_name}</div>
             <div className={styles.certificate__content}>
               Has successfully completed
-              <p> <span className={styles.bold}>{sertData.course_name}</span> course.</p>  
+              <p> <span className={styles.bold}>{sertData.course_name}</span> course</p>
             </div>  
           </div>
         </div>
         <div className={styles.signs}>
-              <div className={styles.signs__date}>19.09.2022</div>
+              <div className={styles.signs__date}>{finishDate}</div>
               <div className={styles.signs__content}>
                 <div className={styles.sign}>
                   <div className={styles.sign__signatory}>

@@ -9,6 +9,15 @@ export const coursesServices = createApi({
   baseQuery: baseQuery(),
   tagTypes: ['courses', 'course'],
   endpoints: build => ({
+    fetchCourseFolders: build.query<any, string>({
+      query: school => `/${school}/folder_course/`,
+    }),
+    createNewFolders: build.mutation<any, { data: { name: string }; schoolName: string }>({
+      query: arg => ({ url: `/${arg.schoolName}/folder_course/`, method: 'POST', body: arg.data }),
+    }),
+    deleteFolder: build.mutation<any, { id: number; schoolName: string }>({
+      query: arg => ({ url: `/${arg.schoolName}/folder_course/${arg.id}/`, method: 'DELETE' }),
+    }),
     fetchCourses: build.query<CoursesT, string>({
       query: (schoolName: string) => ({
         url: `/${schoolName}/courses/`,
@@ -21,13 +30,13 @@ export const coursesServices = createApi({
       }),
       providesTags: ['courses', 'course'],
     }),
-    fetchCourse: build.query<CoursesDataT, {id: string | number, schoolName: string}>({
-      query: ({id, schoolName}) => ({
+    fetchCourse: build.query<CoursesDataT, { id: string | number; schoolName: string }>({
+      query: ({ id, schoolName }) => ({
         url: `/${schoolName}/courses/${id}/`,
       }),
     }),
-    createCourses: build.mutation<CoursesDataT, {course: FormData, schoolName: string}>({
-      query: ({course, schoolName}) => {
+    createCourses: build.mutation<CoursesDataT, { course: FormData; schoolName: string }>({
+      query: ({ course, schoolName }) => {
         return {
           url: `/${schoolName}/courses/`,
           method: 'POST',
@@ -36,15 +45,15 @@ export const coursesServices = createApi({
       },
       invalidatesTags: ['courses'],
     }),
-    deleteCourses: build.mutation<FormData, {id: number, schoolName: string}>({
-      query: ({id, schoolName}) => ({
+    deleteCourses: build.mutation<FormData, { id: number; schoolName: string }>({
+      query: ({ id, schoolName }) => ({
         url: `/${schoolName}/courses/${id}/`,
         method: 'DELETE',
       }),
       invalidatesTags: ['course', 'courses'],
     }),
-    patchCourses: build.mutation<any, {arg: UpdateCourses, schoolName: string}>({
-      query: ({arg, schoolName}) => {
+    patchCourses: build.mutation<any, { arg: UpdateCourses; schoolName: string }>({
+      query: ({ arg, schoolName }) => {
         return {
           url: `/${schoolName}/courses/${arg?.id}/`,
           method: 'PATCH',
@@ -53,8 +62,8 @@ export const coursesServices = createApi({
       },
       invalidatesTags: ['course'],
     }),
-    cloneCourse: build.mutation<CoursesDataT, {id: number, schoolName: string}>({
-      query: ({id, schoolName}) => {
+    cloneCourse: build.mutation<CoursesDataT, { id: number; schoolName: string }>({
+      query: ({ id, schoolName }) => {
         return {
           url: `/${schoolName}/courses/${id}/clone/`,
           method: 'GET',
@@ -87,10 +96,10 @@ export const {
   useCreateCoursesMutation,
   useDeleteCoursesMutation,
   usePatchCoursesMutation,
-  useCloneCourseMutation
+  useCloneCourseMutation,
+  useFetchCourseFoldersQuery,
+  useCreateNewFoldersMutation,
+  useDeleteFolderMutation,
 } = coursesServices
 
-export const {
-  useFetchCoursesPageQuery ,
-  useLazyFetchCoursesPageQuery
-} = CoursesPageService
+export const { useFetchCoursesPageQuery, useLazyFetchCoursesPageQuery } = CoursesPageService
