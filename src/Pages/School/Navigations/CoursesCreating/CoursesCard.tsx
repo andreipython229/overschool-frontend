@@ -47,6 +47,11 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
   }
 
   return (
+    <Link
+      to={generatePath(Path.CreateCourse, {
+      course_id: `${course?.course_id}`,
+      })}
+    >
     <div id={`${course?.course_id}`} className={styles?.course_card}>
       <>
         {role === RoleE.Admin || role === RoleE.Teacher ? (
@@ -167,5 +172,6 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
         )}
       </>
     </div>
+    </Link>
   )
 }
