@@ -19,7 +19,10 @@ import Tooltip from '@mui/material/Tooltip'
 import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import { SvgIcon } from '@mui/material'
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import TextField from '@mui/material/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import { SvgIcon, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import { ChatI, SenderI, UserInformAppealsI, UserInformI } from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from '../../store/redux/chats/chatsSlice'
@@ -41,8 +44,14 @@ import { useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 import { w3cwebsocket } from 'websocket'
 import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice'
-import { useFetchNotificationsQuery } from 'api/tgNotificationsServices'
+import { useFetchNotificationsQuery, useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
 import warning from '../../assets/img/notifications/warning.svg'
+import { TgMessage } from 'types/tgNotifications'
+import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
+import { useFetchCoursesQuery } from 'api/coursesServices'
+import { CoursesDataT } from 'types/CoursesT'
+import { Button } from 'components/common/Button/Button'
+
 
 export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
@@ -92,9 +101,19 @@ export const Header = memo(() => {
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
   const path = useLocation()
-  const [timerId, setTimerId] = useState<number | null>(null)
+  const [timerId, setTimerId] = useState<number | null>(null);
+
+  const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupQuery(schoolName);
+  const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName);
+  const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null);
 
   const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
+  const [showTgMessageForm, setShowTgMessageForm] = useState(false)
+  const [createTgMessage] = useUpdateTgMessageMutation()
+  const [tgMessage, setTgMessage] = useState<TgMessage>({
+    message: '',
+    students_groups: [],
+  })
 
   const logOut = async () => {
     await logout().then(data => {
@@ -324,6 +343,25 @@ export const Header = memo(() => {
     setAnchorEl2(null)
   }
 
+  const handleSendTgMessage = () => {
+    createTgMessage({
+      data: tgMessage
+    })
+    setShowTgMessageForm(false)
+  }
+
+  const handleAddTgMessageForm = () => {
+    setTgMessage({
+      ...tgMessage,
+      students_groups: [],
+    });
+    setShowTgMessageForm(true)
+  }
+
+  const handleCourseChange = (courseId: number) => {
+    setSelectedCourse(Courses?.results.find(course => course.course_id === courseId) || null)
+  };
+
   return (
     <motion.header
       className={styles.header}
@@ -349,7 +387,7 @@ export const Header = memo(() => {
         </p>
       )}
       <div className={styles.header_block}>
-        {notificationsResponseData && notificationsResponseData.length === 0 ? (
+        {userRole === RoleE.Student && notificationsResponseData && notificationsResponseData.length === 0 ? (
           <Tooltip title={'Включите телеграм уведомления'}>
             <Link to={Path.Profile}>
               <div className={styles.notifications}>
@@ -366,6 +404,103 @@ export const Header = memo(() => {
             </Link>
           </Tooltip>
         ) : null}
+
+
+        <React.Fragment>
+          {userRole === RoleE.Admin && (
+            <Tooltip title={'Отправить оповещение студентам в телеграме'}>
+              <div className={styles.header_block}>
+                <Button className={styles.generateMeetingButton} onClick={handleAddTgMessageForm} text="Оповещения" />
+                <Dialog open={showTgMessageForm} onClose={() => setShowTgMessageForm(false)}
+                  PaperProps={{ style: { maxHeight: '100vh', maxWidth: '600px', width: '100%' }, }}>
+                  <DialogTitle>Отправить оповещение студентам</DialogTitle>
+                  <DialogContent>
+                    <div style={{ marginBottom: '1rem', marginTop: '1rem' }}>
+                      <TextareaAutosize style={{
+                        width: '34vh',
+                        maxWidth: '34vh',
+                        height: '10vh',
+                        maxHeight: '20vh',
+                        borderColor: 'gray',
+                        borderRadius: '4px',
+                      }}
+                        
+                        className={styles.textarea}
+                        id="message"
+                        placeholder="Введите сообщение"
+                        value={tgMessage.message}
+                        minLength={1}
+                        onChange={(e) =>
+                          setTgMessage({ ...tgMessage, message: e.target.value })
+                        }
+                        // error={tgMessage.message}
+                        
+                      />
+                    </div>
+                    <div>
+                      <TextField
+                        className={styles.textarea}
+                        id="course"
+                        select
+                        label="Выберите курс"
+                        fullWidth={true}
+                        onChange={(e) => {
+                          const courseId = parseInt(e.target.value);
+                          handleCourseChange(courseId);
+                        }}
+                        value={selectedCourse?.course_id || ""}
+                        // error={selectedCourse?.course_id}
+                      >
+                        {Courses?.results.map(course => (
+                          <MenuItem key={course.course_id} value={course.course_id}>
+                            {course.name}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </div>
+                    {studentsGroups && selectedCourse && studentsGroups.results
+                      .filter(group => group.course_id === selectedCourse.course_id)
+                      .map(group => {
+                        if (group.course_id === selectedCourse.course_id) {
+                          return (
+                            <div key={group.group_id}>
+                              <Checkbox
+                                onChange={(e) => {
+                                  const isChecked = e.target.checked;
+                                  if (isChecked) {
+                                    setTgMessage((prevData: TgMessage) => ({
+                                      ...prevData,
+                                      students_groups: [...prevData.students_groups, group.group_id],
+                                    }) as TgMessage);
+                                  } else {
+                                    setTgMessage((prevData: TgMessage) => ({
+                                      ...prevData,
+                                      students_groups: prevData.students_groups.filter(
+                                        (id) => id !== group.group_id
+                                      ),
+                                    }));
+                                  }
+                                }}
+                              />
+                              {group.name}
+                              <span> (Кол-во студентов: {group.students.length})</span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleSendTgMessage} text="Отправить" />
+                    <Button onClick={() => setShowTgMessageForm(false)} text="Отмена" />
+                  </DialogActions>
+                </Dialog>
+              </div>
+            </Tooltip>)}
+
+        </React.Fragment>
+
+
         <React.Fragment>
           {userRole === RoleE.Admin && currentTariff && currentTariff.days_left && (
             <div>
@@ -380,8 +515,8 @@ export const Header = memo(() => {
                         currentTariff.days_left > 10
                           ? purpleTariffPlanIconPath
                           : currentTariff.days_left > 5
-                          ? orangeTariffPlanIconPath
-                          : redTariffPlanIconPath
+                            ? orangeTariffPlanIconPath
+                            : redTariffPlanIconPath
                       }
                     />
                   </div>
