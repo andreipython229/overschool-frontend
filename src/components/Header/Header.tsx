@@ -406,7 +406,7 @@ export const Header = memo(() => {
         ) : null}
 
 
-        <React.Fragment>
+<React.Fragment>
           {userRole === RoleE.Admin && (
             <Tooltip title={'Отправить оповещение студентам в телеграме'}>
               <div className={styles.header_block}>
@@ -417,14 +417,14 @@ export const Header = memo(() => {
                   <DialogContent>
                     <div style={{ marginBottom: '1rem', marginTop: '1rem' }}>
                       <TextareaAutosize style={{
-                        width: '34vh',
                         maxWidth: '34vh',
-                        height: '10vh',
+                        minWidth: '34vh',
+                        minHeight: '10vh',
                         maxHeight: '20vh',
                         borderColor: 'gray',
                         borderRadius: '4px',
-                      }}
-                        
+                        overflow: 'auto'
+                      }}   
                         className={styles.textarea}
                         id="message"
                         placeholder="Введите сообщение"
@@ -433,38 +433,28 @@ export const Header = memo(() => {
                         onChange={(e) =>
                           setTgMessage({ ...tgMessage, message: e.target.value })
                         }
-                        // error={tgMessage.message}
                         
                       />
                     </div>
                     <div>
-                      <TextField
-                        className={styles.textarea}
-                        id="course"
-                        select
-                        label="Выберите курс"
-                        fullWidth={true}
-                        onChange={(e) => {
-                          const courseId = parseInt(e.target.value);
-                          handleCourseChange(courseId);
-                        }}
-                        value={selectedCourse?.course_id || ""}
-                        // error={selectedCourse?.course_id}
-                      >
-                        {Courses?.results.map(course => (
-                          <MenuItem key={course.course_id} value={course.course_id}>
-                            {course.name}
-                          </MenuItem>
-                        ))}
-                      </TextField>
+                      <h2 style={{
+                        margin: '0',
+                        fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
+                        fontWeight: '500',
+                        lineHeight: '1.6',
+                        fontSize: '1.25rem',
+                        padding: '16px 10px'
+                      }}>Выберите одну или несколько групп:</h2>
+                      
                     </div>
-                    {studentsGroups && selectedCourse && studentsGroups.results
-                      .filter(group => group.course_id === selectedCourse.course_id)
+                    {studentsGroups && studentsGroups.results
                       .map(group => {
-                        if (group.course_id === selectedCourse.course_id) {
                           return (
                             <div key={group.group_id}>
                               <Checkbox
+                              style ={{
+                                color: "#ba75ff",
+                              }}
                                 onChange={(e) => {
                                   const isChecked = e.target.checked;
                                   if (isChecked) {
@@ -486,8 +476,6 @@ export const Header = memo(() => {
                               <span> (Кол-во студентов: {group.students.length})</span>
                             </div>
                           );
-                        }
-                        return null;
                       })}
                   </DialogContent>
                   <DialogActions>
