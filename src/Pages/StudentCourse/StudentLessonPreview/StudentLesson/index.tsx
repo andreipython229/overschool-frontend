@@ -131,15 +131,7 @@ const handleSubmitNewComment = (e: FormEvent<HTMLFormElement>) => {
             lessons={lessons as sectionT}
           />
           <div className={styles.commentContainer}>
-          <form onSubmit={handleSubmitNewComment} className={styles.commentForm}>
-            <textarea
-              value={newCommentContent}
-              onChange={handleNewCommentChange}
-              placeholder="Введите ваш комментарий..."
-            />
-            <button type="submit">Отправить</button>
-          </form>
-                {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
+                 {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
                   commentsList.comments.map((comment: Comment) => (
                     <div className={styles.commentBox} key={comment.id}>
                       <p><b>{comment.author_first_name} {comment.author_last_name}</b></p>
@@ -150,6 +142,15 @@ const handleSubmitNewComment = (e: FormEvent<HTMLFormElement>) => {
                 ) : (
                   <p style={{ marginBlockStart: '10px' }}><b>Комментариев пока нет</b></p>
                 )}
+            <form onSubmit={handleSubmitNewComment} className={styles.commentForm}>
+              <textarea
+                value={newCommentContent}
+                onChange={handleNewCommentChange}
+                placeholder="Введите ваш комментарий..."
+              />
+              <button type="submit">Отправить</button>
+            </form>
+
               </div>
         </div>
       </div>
