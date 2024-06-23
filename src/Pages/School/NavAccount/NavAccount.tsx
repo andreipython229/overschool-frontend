@@ -9,7 +9,8 @@ import { selectUser } from '../../../selectors'
 import styles from './navAccount.module.scss'
 
 export const NavAccount: FC = memo(() => {
-  const { role } = useAppSelector(selectUser)
+  const { userId, role } = useAppSelector(selectUser)
+  const schoolName = window.location.href.split('/')[4]
 
   return (
     <nav className={styles.nav_account}>
@@ -18,7 +19,8 @@ export const NavAccount: FC = memo(() => {
       {role === RoleE.SuperAdmin && <NavAccountBtn path={SettingsPath.Logs} text={'Логи'} />}
       <NavAccountBtn path={SettingsPath.SchoolPassport} text={'Печати и подписи'} />
       {(role === RoleE.SuperAdmin  || role === RoleE.Admin) && <NavAccountBtn path={SettingsPath.PaymentMethods} text={'Оплата'} />}
-        <NavAccountBtn path={SettingsPath.DomainSettings} text={'Домены'} />
+      <NavAccountBtn path={SettingsPath.DomainSettings} text={'Домены'} />
+      {(userId === 154 && schoolName == 'OVERONE') && <NavAccountBtn path={SettingsPath.EmailNewsLetter} text={'Рассылка'} />}
     </nav>
   )
 })

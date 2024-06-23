@@ -31,6 +31,7 @@ import StudentSchoolMeeting from "../components/StudentsMeetings";
 import { Materials } from 'Pages/School/Navigations/CoursesCreating/MaterialsPage'
 import { CourseMaterials } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CourseMaterials/CourseMaterials'
 import {DomainSettings} from "../Pages/Settings/Domain";
+import { EmailNewsLetter } from 'Pages/Settings/EmailNewsLetter'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -88,6 +89,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.SchoolPassport} element={<Passport />} />
         <Route path={SettingsPath.PaymentMethods} element={<PaymentMethods />} />
         <Route path={SettingsPath.DomainSettings} element={<DomainSettings />} />
+        <Route path={SettingsPath.EmailNewsLetter} element={<EmailNewsLetter />} />
       </Route>
       <Route path={Path.HomeWork} element={<HomeWork />} />
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
