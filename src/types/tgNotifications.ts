@@ -1,11 +1,13 @@
-export interface TgNotificationsUpdateForStidentAndTeacher {
-    homework_notifications: Boolean;
-    messages_notifications: Boolean;
+export interface TgNotificationsUpdateForStudentAndTeacher {
+    homework_notifications?: Boolean;
+    messages_notifications?: Boolean;
+    tg_user: number
 }
 
 export interface TgNotificationsUpdateForAdmin {
-    messages_notifications: Boolean;
-    completed_courses_notifications: Boolean;
+    messages_notifications?: Boolean;
+    completed_courses_notifications?: Boolean;
+    tg_user: number
 }
 
 export interface TgNotifications {
@@ -14,4 +16,9 @@ export interface TgNotifications {
     messages_notifications: Boolean;
     completed_courses_notifications: Boolean;
     tg_user: number;
+}
+
+export interface TgMessage {
+    message: string;
+    students_groups: number[];
 }

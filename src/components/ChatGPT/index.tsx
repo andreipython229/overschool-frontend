@@ -49,6 +49,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [isBotResponsePending, setIsBotResponsePending] = useState(false);
   const [draggedChatId, setDraggedChatId] = useState<number | null>(null);
   const [draggedOverChatId, setDraggedOverChatId] = useState<number | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState('RU');
 
   const [ refetchChats, { data: latestChats }] = useLazyFetchLatestChatsQuery();
   const [ refetchMessages, { data: latestMessages }] = useLazyFetchLatestMessagesQuery();
@@ -319,6 +320,10 @@ useEffect(() => {
     setCreatedChatId(undefined)
   };
 
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedLanguage(e.target.value);
+  };
+
   const handleSendMessage = async (messageInput: string) => {
     if (selectedChatId === 1) {
       const response = await createChat();
@@ -333,6 +338,7 @@ useEffect(() => {
         const payload: SendMessagePayload = {
           message: messageInput,
           overai_chat_id: response?.overai_chat_id,
+          language: selectedLanguage
         };
 
         const botResponseTimeout = setTimeout(() => {
@@ -363,6 +369,7 @@ useEffect(() => {
           const payload: SendMessagePayload = {
             message: messageInput,
             overai_chat_id: selectedChatId!,
+            language: selectedLanguage
           };
 
           const botResponseTimeout = setTimeout(() => {
@@ -526,6 +533,27 @@ useEffect(() => {
                                 <path d="M7.17278 1.21787C7.56956 0.633707 8.43044 0.633706 8.82722 1.21787L15.5994 11.1881C16.0503 11.8521 15.5748 12.75 14.7722 12.75H1.22785C0.425231 12.75 -0.0503452 11.8521 0.400629 11.1881L7.17278 1.21787Z" fill="white"/>
                             </svg>
                           </button>
+                          <div style={{ zIndex: '10000000' }}>
+                            <select
+                              value={selectedLanguage}
+                              onChange={handleLanguageChange}
+                              disabled={isChatSelectionDisabled}
+                              style={{
+                                height: '39px',
+                                backgroundColor: '#9b48ed',
+                                color: 'white',
+                                border: 'none',
+                                padding: '5px',
+                                borderRadius: '5px',
+                                cursor: 'pointer',
+                                outline: 'none',
+                                boxShadow: 'none'
+                              }}
+                            >
+                              <option value="RU">RU</option>
+                              <option value="ENG">ENG</option>
+                            </select>
+                          </div>
                         </>
                       )}
                       </div>

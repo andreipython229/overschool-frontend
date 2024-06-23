@@ -20,6 +20,7 @@ export interface LatestMessagesResponse {
 export interface SendMessagePayload {
   message: string;
   overai_chat_id?: number,
+  language: string
 }
 
 export interface SendMessageResponse {

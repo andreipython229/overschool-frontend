@@ -456,7 +456,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       style={{ opacity: isFetching || isDeleting || isSaving ? 0.5 : 1, position: 'relative' }}
       className={styles.redactorCourse_rightSideWrapper}
     >
-      <div style={{ position: 'relative' }} className={styles.redactorCourse_rightSideWrapper_rightSide}>
+      <div  className={styles.redactorCourse_rightSideWrapper_rightSide}>
         <div className={styles.redactorCourse_rightSideWrapper_rightSide_header}>
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock}>
             {!isEditing ? <div className={styles.coursePreviewHeader}></div> : <div></div>}

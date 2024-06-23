@@ -45,7 +45,7 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
     return (
       <>
         <p className={styles.homework_header}>Входящие работы от учеников</p>
-        <div style={{fontSize: "11px", color: "#3B3B3B", paddingLeft: "1rem"}}>Количество записей: {all_homeworks_count}</div>
+        <div style={{fontSize: "11px", color: "#3B3B3B"}}>Количество записей: {all_homeworks_count}</div>
         <StudentsHomeworkExport />
         <ChipsComponent filterKey="homework" filters={filters} chipsVal={chipsVal['homework']} />
         <div className={styles.container}>

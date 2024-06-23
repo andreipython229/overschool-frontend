@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import * as services from '../../api/index'
 import * as slices from './index'
 import { modulesReduce } from './modules/modules'
+import errorMiddleware from '../DomainErrorMiddleware'
 
 export const rootReducer = combineReducers({
   [services.userProgressService.reducerPath]: services.userProgressService.reducer,
@@ -43,7 +44,7 @@ export const rootReducer = combineReducers({
   [services.meetingService.reducerPath]: services.meetingService.reducer,
   [services.tgNotificationsService.reducerPath]: services.tgNotificationsService.reducer,
   [services.courseLandingServices.reducerPath]: services.courseLandingServices.reducer,
-
+  [services.domainService.reducerPath]: services.domainService.reducer,
 
   user: slices.authReduce,
   sections: slices.sectionsReduce,
@@ -60,12 +61,13 @@ export const rootReducer = combineReducers({
   modules: modulesReduce,
   meetings: slices.meetingReducer,
   landing: slices.landingReducer,
+  schoolProgress: slices.schoolProgressReducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'sections', 'filters', 'school', 'schoolId', 'headerId', 'landing'],
+  whitelist: ['user', 'sections', 'filters', 'school', 'schoolId', 'headerId', 'landing', 'schoolProgress'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -112,6 +114,8 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.meetingService.middleware,
         services.tgNotificationsService.middleware,
         services.courseLandingServices.middleware,
+        services.domainService.middleware,
+        errorMiddleware,
       ),
   })
 }
