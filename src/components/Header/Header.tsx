@@ -5,11 +5,11 @@ import { useFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { auth, logoutState, role } from 'store/redux/users/slice'
 import { Path } from 'enum/pathE'
-import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
+import { useFetchSchoolHeaderQuery, useGetSchoolProgressionDataMutation } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutIconPath } from './config/svgIconsPath'
 import { useLazyLogoutQuery } from 'api/userLoginService'
-import { selectUser } from '../../selectors'
+import { schoolProgressSelector, selectUser } from '../../selectors'
 import { logo } from '../../assets/img/common'
 import { headerUserRoleName } from 'config/index'
 import { profileT } from 'types/profileT'
@@ -19,9 +19,9 @@ import Tooltip from '@mui/material/Tooltip'
 import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import TextField from '@mui/material/TextField';
-import Checkbox from '@mui/material/Checkbox';
+import TextareaAutosize from '@mui/material/TextareaAutosize'
+import TextField from '@mui/material/TextField'
+import Checkbox from '@mui/material/Checkbox'
 import { SvgIcon, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import { ChatI, SenderI, UserInformAppealsI, UserInformI } from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
@@ -51,13 +51,14 @@ import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { CoursesDataT } from 'types/CoursesT'
 import { Button } from 'components/common/Button/Button'
-
+import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
 
 export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
   const dispatch = useAppDispatch()
   const dispatchRole = useDispatch()
   const { role: userRole } = useAppSelector(selectUser)
+  const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
   const schoolNameR = useAppSelector(state => state.school.schoolName)
   const [socketConnect, setSocketConnect] = useState<boolean>(false)
   const navigate = useNavigate()
@@ -86,7 +87,8 @@ export const Header = memo(() => {
       student_count_by_month: null,
     },
   })
-
+  const [getProgress, { data: schoolProgressData, isSuccess: progressReady, isLoading: isLoadingProgress, isError: notFound }] =
+    useGetSchoolProgressionDataMutation()
   const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
   const [unreadAppeals, setUnreadAppeals] = useState<number>(0)
   const chats = useAppSelector(state => state.chats.chats)
@@ -101,11 +103,11 @@ export const Header = memo(() => {
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
   const path = useLocation()
-  const [timerId, setTimerId] = useState<number | null>(null);
+  const [timerId, setTimerId] = useState<number | null>(null)
 
-  const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupQuery(schoolName);
-  const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName);
-  const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null);
+  const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupQuery(schoolName)
+  const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
+  const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null)
 
   const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
   const [showTgMessageForm, setShowTgMessageForm] = useState(false)
@@ -159,6 +161,21 @@ export const Header = memo(() => {
   useEffect(() => {
     profileIsSuccess && setProfileData(profile[0])
   }, [profile])
+
+  useEffect(() => {
+    if (
+      userRole === RoleE.Admin &&
+      schoolProgress &&
+      schoolProgress.completion_percentage < 100 &&
+      !notFound &&
+      !schoolProgressData &&
+      !isLoadingProgress
+    ) {
+      getProgress(schoolName)
+        .unwrap()
+        .then(data => dispatch(updateSchoolTask(data)))
+    }
+  }, [schoolProgress, schoolProgressData, isLoadingProgress])
 
   useEffect(() => {
     if (tariffPlan && Object.keys(tariffPlan).length > 1) {
@@ -345,7 +362,7 @@ export const Header = memo(() => {
 
   const handleSendTgMessage = () => {
     createTgMessage({
-      data: tgMessage
+      data: tgMessage,
     })
     setShowTgMessageForm(false)
   }
@@ -354,13 +371,13 @@ export const Header = memo(() => {
     setTgMessage({
       ...tgMessage,
       students_groups: [],
-    });
+    })
     setShowTgMessageForm(true)
   }
 
   const handleCourseChange = (courseId: number) => {
     setSelectedCourse(Courses?.results.find(course => course.course_id === courseId) || null)
-  };
+  }
 
   return (
     <motion.header
@@ -405,36 +422,35 @@ export const Header = memo(() => {
           </Tooltip>
         ) : null}
 
-
         <React.Fragment>
           {userRole === RoleE.Admin && (
             <Tooltip title={'Отправить оповещение студентам в телеграме'}>
               <div className={styles.header_block}>
                 <Button className={styles.generateMeetingButton} onClick={handleAddTgMessageForm} text="Оповещения" />
-                <Dialog open={showTgMessageForm} onClose={() => setShowTgMessageForm(false)}
-                  PaperProps={{ style: { maxHeight: '100vh', maxWidth: '600px', width: '100%' }, }}>
+                <Dialog
+                  open={showTgMessageForm}
+                  onClose={() => setShowTgMessageForm(false)}
+                  PaperProps={{ style: { maxHeight: '100vh', maxWidth: '600px', width: '100%' } }}
+                >
                   <DialogTitle>Отправить оповещение студентам</DialogTitle>
                   <DialogContent>
                     <div style={{ marginBottom: '1rem', marginTop: '1rem' }}>
-                      <TextareaAutosize style={{
-                        width: '34vh',
-                        maxWidth: '34vh',
-                        height: '10vh',
-                        maxHeight: '20vh',
-                        borderColor: 'gray',
-                        borderRadius: '4px',
-                      }}
-                        
+                      <TextareaAutosize
+                        style={{
+                          width: '34vh',
+                          maxWidth: '34vh',
+                          height: '10vh',
+                          maxHeight: '20vh',
+                          borderColor: 'gray',
+                          borderRadius: '4px',
+                        }}
                         className={styles.textarea}
                         id="message"
                         placeholder="Введите сообщение"
                         value={tgMessage.message}
                         minLength={1}
-                        onChange={(e) =>
-                          setTgMessage({ ...tgMessage, message: e.target.value })
-                        }
+                        onChange={e => setTgMessage({ ...tgMessage, message: e.target.value })}
                         // error={tgMessage.message}
-                        
                       />
                     </div>
                     <div>
@@ -444,11 +460,11 @@ export const Header = memo(() => {
                         select
                         label="Выберите курс"
                         fullWidth={true}
-                        onChange={(e) => {
-                          const courseId = parseInt(e.target.value);
-                          handleCourseChange(courseId);
+                        onChange={e => {
+                          const courseId = parseInt(e.target.value)
+                          handleCourseChange(courseId)
                         }}
-                        value={selectedCourse?.course_id || ""}
+                        value={selectedCourse?.course_id || ''}
                         // error={selectedCourse?.course_id}
                       >
                         {Courses?.results.map(course => (
@@ -458,37 +474,40 @@ export const Header = memo(() => {
                         ))}
                       </TextField>
                     </div>
-                    {studentsGroups && selectedCourse && studentsGroups.results
-                      .filter(group => group.course_id === selectedCourse.course_id)
-                      .map(group => {
-                        if (group.course_id === selectedCourse.course_id) {
-                          return (
-                            <div key={group.group_id}>
-                              <Checkbox
-                                onChange={(e) => {
-                                  const isChecked = e.target.checked;
-                                  if (isChecked) {
-                                    setTgMessage((prevData: TgMessage) => ({
-                                      ...prevData,
-                                      students_groups: [...prevData.students_groups, group.group_id],
-                                    }) as TgMessage);
-                                  } else {
-                                    setTgMessage((prevData: TgMessage) => ({
-                                      ...prevData,
-                                      students_groups: prevData.students_groups.filter(
-                                        (id) => id !== group.group_id
-                                      ),
-                                    }));
-                                  }
-                                }}
-                              />
-                              {group.name}
-                              <span> (Кол-во студентов: {group.students.length})</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
+                    {studentsGroups &&
+                      selectedCourse &&
+                      studentsGroups.results
+                        .filter(group => group.course_id === selectedCourse.course_id)
+                        .map(group => {
+                          if (group.course_id === selectedCourse.course_id) {
+                            return (
+                              <div key={group.group_id}>
+                                <Checkbox
+                                  onChange={e => {
+                                    const isChecked = e.target.checked
+                                    if (isChecked) {
+                                      setTgMessage(
+                                        (prevData: TgMessage) =>
+                                          ({
+                                            ...prevData,
+                                            students_groups: [...prevData.students_groups, group.group_id],
+                                          } as TgMessage),
+                                      )
+                                    } else {
+                                      setTgMessage((prevData: TgMessage) => ({
+                                        ...prevData,
+                                        students_groups: prevData.students_groups.filter(id => id !== group.group_id),
+                                      }))
+                                    }
+                                  }}
+                                />
+                                {group.name}
+                                <span> (Кол-во студентов: {group.students.length})</span>
+                              </div>
+                            )
+                          }
+                          return null
+                        })}
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={handleSendTgMessage} text="Отправить" />
@@ -496,10 +515,9 @@ export const Header = memo(() => {
                   </DialogActions>
                 </Dialog>
               </div>
-            </Tooltip>)}
-
+            </Tooltip>
+          )}
         </React.Fragment>
-
 
         <React.Fragment>
           {userRole === RoleE.Admin && currentTariff && currentTariff.days_left && (
@@ -515,8 +533,8 @@ export const Header = memo(() => {
                         currentTariff.days_left > 10
                           ? purpleTariffPlanIconPath
                           : currentTariff.days_left > 5
-                            ? orangeTariffPlanIconPath
-                            : redTariffPlanIconPath
+                          ? orangeTariffPlanIconPath
+                          : redTariffPlanIconPath
                       }
                     />
                   </div>

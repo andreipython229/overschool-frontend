@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import * as services from '../../api/index'
 import * as slices from './index'
 import { modulesReduce } from './modules/modules'
-import errorMiddleware from "../DomainErrorMiddleware";
+import errorMiddleware from '../DomainErrorMiddleware'
 
 export const rootReducer = combineReducers({
   [services.userProgressService.reducerPath]: services.userProgressService.reducer,
@@ -45,7 +45,6 @@ export const rootReducer = combineReducers({
   [services.tgNotificationsService.reducerPath]: services.tgNotificationsService.reducer,
   [services.domainService.reducerPath]: services.domainService.reducer,
 
-
   user: slices.authReduce,
   sections: slices.sectionsReduce,
   filters: slices.filtersReducer,
@@ -60,12 +59,13 @@ export const rootReducer = combineReducers({
   userProfile: slices.userProfileReducer,
   modules: modulesReduce,
   meetings: slices.meetingReducer,
+  schoolProgress: slices.schoolProgressReducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'sections', 'filters', 'school', 'schoolId', 'headerId'],
+  whitelist: ['user', 'sections', 'filters', 'school', 'schoolId', 'headerId', 'schoolProgress'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -111,8 +111,8 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.prodamusService.middleware,
         services.meetingService.middleware,
         services.tgNotificationsService.middleware,
-          services.domainService.middleware,
-          errorMiddleware,
+        services.domainService.middleware,
+        errorMiddleware,
       ),
   })
 }
