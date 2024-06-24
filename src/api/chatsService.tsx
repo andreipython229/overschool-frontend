@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
 import {Chats, ChatI, Messages, MessageI, PersonalChatI, PersonalChatForAdminOrTeacherI} from 'types/chatsT'
+import { baseQueryWithReauth } from './reauthBaseQuery';
 
 export const chatsService = createApi({
   reducerPath: 'chatsService',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['chats'],
   endpoints: build => ({
     fetchChats: build.query<Chats, void>({

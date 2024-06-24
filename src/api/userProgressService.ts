@@ -1,9 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
+import { baseQueryWithReauth } from './reauthBaseQuery';
 
 export const userProgressService = createApi({
   reducerPath: 'userProgressService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['userProgress', 'progress'],
   endpoints: build => ({
     fetchProgress: build.query<any, { course_id: string | number; schoolName: string }>({

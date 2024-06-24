@@ -1,10 +1,11 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react'
 import {baseQuery} from './baseApi'
 import {Domain, updateDomain} from "../types/domainT";
+import { baseQueryWithReauth } from './reauthBaseQuery';
 
 export const domainService = createApi({
     reducerPath: 'domainService',
-    baseQuery: baseQuery(),
+    baseQuery: baseQueryWithReauth,
     tagTypes: ['domain'],
     endpoints: build => ({
         fetchDomain: build.query<Domain[], { schoolName: string }>({

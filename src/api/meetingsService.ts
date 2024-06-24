@@ -1,10 +1,11 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react'
 import {baseQuery} from './baseApi'
 import {SchoolUpdateMeeting, SchoolMeeting} from "../types/schoolMeetingsT";
+import { baseQueryWithReauth } from './reauthBaseQuery';
 
 export const meetingService = createApi({
     reducerPath: 'meetingService',
-    baseQuery: baseQuery(),
+    baseQuery: baseQueryWithReauth,
     tagTypes: ['meeting'],
     endpoints: build => ({
         fetchMeeting: build.query<SchoolMeeting, { id: number; schoolName: string }>({

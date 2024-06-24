@@ -1,4 +1,4 @@
-import {useState, FC, DragEvent, ChangeEvent, PointerEvent, useEffect} from 'react'
+import { useState, FC, DragEvent, ChangeEvent, PointerEvent, useEffect } from 'react'
 
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -15,10 +15,12 @@ import { IBlockCode, IBlockDesc, IBlockPic, IBlockVid } from 'types/sectionT'
 import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
 import { Reorder, useDragControls } from 'framer-motion'
 import { useDeleteBlockMutation } from 'api/blocksService'
-import CircularProgress, {CircularProgressProps, } from '@mui/material/CircularProgress'
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import { createTheme, alpha, ThemeProvider } from '@mui/material/styles';
+import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import { createTheme, alpha, ThemeProvider } from '@mui/material/styles'
+import { useAppSelector } from 'store/hooks'
+import { selectUser } from 'selectors'
 
 const theme = createTheme({
   palette: {
@@ -26,7 +28,7 @@ const theme = createTheme({
       main: '#BA75FF',
     },
   },
-});
+})
 
 export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, lesson, setLessonBlocks, lessonBlocks }) => {
   const [dragVideo, setDragVideo] = useState<boolean>(false)
@@ -38,10 +40,11 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
   const controls = useDragControls()
   const [deleteBlock, { isLoading }] = useDeleteBlockMutation()
   const schoolName = window.location.href.split('/')[4]
+  const { access: token } = useAppSelector(selectUser).authState
 
   const [videoError, setVideoError] = useState<string>('')
 
-    const [progress, setProgress] = useState<number>(0)
+  const [progress, setProgress] = useState<number>(0)
 
   const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -86,13 +89,13 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
 
   const updateLessonsBlocksArray = (id: number, newValue: IBlockCode | IBlockDesc | IBlockPic | IBlockVid) => {
     if (lessonBlocks && setLessonBlocks) {
-        const updatedBlocks = lessonBlocks.map(item => {
+      const updatedBlocks = lessonBlocks.map(item => {
         if (item.id === id) {
           return newValue
         }
         return item
-        })
-        setLessonBlocks(updatedBlocks)
+      })
+      setLessonBlocks(updatedBlocks)
     }
   }
 
@@ -106,38 +109,45 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
 
   const handleVideoUpload = async (lessonIdAndType: any, video: File) => {
     setVideoError('')
-    console.log(video);
-    
+    console.log(video)
+
     if (video.size <= 4000 * 1024 * 1024) {
-    setIsLoadingVideo(true);
-    const formData = new FormData();
-    formData.append('video', video);
-    formData.append('section', String(lesson.section));
-    formData.append('order', String(lesson.order));
+      setIsLoadingVideo(true)
+      const formData = new FormData()
+      formData.append('video', video)
+      formData.append('section', String(lesson.section))
+      formData.append('order', String(lesson.order))
 
-    const xhr = new XMLHttpRequest();
-    xhr.open('PATCH', `/video/${schoolName}/block_video/${Number(block?.id)}/`, true);
-
-    xhr.upload.addEventListener('progress', (event) => {
-      if (event.lengthComputable) {
-          const percent = Math.round((event.loaded / event.total) * 100);
+      const xhr = new XMLHttpRequest()
+      xhr.open('PATCH', `/video/${schoolName}/block_video/${Number(block?.id)}/`, true)
+      xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+      xhr.upload.addEventListener('progress', event => {
+        if (event.lengthComputable) {
+          const percent = Math.round((event.loaded / event.total) * 100)
           setProgress(percent)
-      }
-    });
-    xhr.onload = () => {
-        if (xhr.status === 200) {
-            const response = JSON.parse(xhr.response);
-            updateLessonsBlocksArray(response.id, response);
-            setIsLoadingVideo(false);
-        } else {
-            setIsLoadingVideo(false);
         }
+      })
+
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.response)
+          updateLessonsBlocksArray(response.id, response)
+          setIsLoadingVideo(false)
+        } else {
+          setIsLoadingVideo(false)
+        }
+      }
+
+      xhr.onerror = () => {
+        console.error('Error sending request:', xhr.status, xhr.statusText);
+        setIsLoadingVideo(false);
+      };      
+
+      xhr.send(formData)
+    } else {
+      setVideoError('Превышен допустимый размер файла')
     }
-    xhr.send(formData);
-  } else {
-    setVideoError('Превышен допустимый размер файла')
   }
-}
 
   const onPointerDown = (event: PointerEvent<HTMLSpanElement>) => {
     controls.start(event)
@@ -161,30 +171,26 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
         <div className={styles.redactorCourse_wrapper}>
           {isLoadingVideo ? (
             <div className={styles.redactorCourse_loader}>
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                        <ThemeProvider theme={theme}>
-                            <CircularProgress variant="determinate" value={progress} sx={{ bgcolor: 'violet.light', width: 40, height: 20 }} />
-                        </ThemeProvider>
-                        <Box
-                            sx={{
-                                top: '55%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                position: 'absolute',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <Typography
-                                variant="caption"
-                                component="div"
-                                color="text.secondary"
-                            >{`${progress}%`}</Typography>
-                        </Box>
-                    </Box>
-                </div>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                  <ThemeProvider theme={theme}>
+                    <CircularProgress variant="determinate" value={progress} sx={{ bgcolor: 'violet.light', width: 40, height: 20 }} />
+                  </ThemeProvider>
+                  <Box
+                    sx={{
+                      top: '55%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      position: 'absolute',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Typography variant="caption" component="div" color="text.secondary">{`${progress}%`}</Typography>
+                  </Box>
+                </Box>
+              </div>
               );
               <p style={{ fontSize: '12px', color: 'grey', textAlign: 'center' }}>
                 Пока видео грузится, ничего не нажимайте в этом окне. Скорость загрузки зависит от скорости вашего интернет-соединения.

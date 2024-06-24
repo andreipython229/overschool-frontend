@@ -1,5 +1,5 @@
 export { coursesServices, CoursesPageService } from './coursesServices'
-export { userLoginService } from './userLoginService'
+export { userLoginService, authApi, refreshApi } from './userLoginService'
 export { modulesServices } from './modulesServices'
 export { schoolHeaderService } from './schoolHeaderService'
 export { schoolService } from './schoolService'
@@ -31,3 +31,4 @@ export { prodamusService } from './prodamusService'
 export { meetingService } from './meetingsService'
 export { tgNotificationsService } from './tgNotificationsServices'
 export {domainService } from './DomainService'
+

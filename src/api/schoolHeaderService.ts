@@ -8,10 +8,11 @@ import { createUrlWithParams } from 'utils/createUrlWithParams'
 import { createUrlWithFiltersAndFields } from 'utils/createUrlWithFiltersAndFields'
 import { baseQuery } from './baseApi'
 import { IProgressionState } from 'store/redux/newSchoolProgression/slice'
+import { baseQueryWithReauth } from './reauthBaseQuery'
 
 export const schoolHeaderService = createApi({
   reducerPath: 'coursesHeaderService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['schoolHeader', 'studentPerSchool', 'allStudentPerSchool'],
   endpoints: build => ({
     fetchSchoolHeader: build.query<schoolHeaderResT, number>({

@@ -3,10 +3,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { IForgotPassword } from './apiTypes'
 import { formDataConverter } from '../utils/formDataConverter'
+import { baseQueryWithReauth } from './reauthBaseQuery'
 
 export const forgotPassword = createApi({
   reducerPath: 'forgotPassword',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   endpoints: build => ({
     forgotPassword: build.mutation<IForgotPassword, FormData>({
       query: data => ({

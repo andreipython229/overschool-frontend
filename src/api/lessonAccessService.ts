@@ -2,10 +2,11 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react'
 
 import {groupSections, studentSectionsPerGroupsT, durationStudent} from '../types/lessonAccessT'
 import {baseQuery} from "./baseApi";
+import { baseQueryWithReauth } from './reauthBaseQuery';
 
 export const lessonAccessService = createApi({
     reducerPath: 'lessonAccessService',
-    baseQuery: baseQuery(),
+    baseQuery: baseQueryWithReauth,
     tagTypes: ['studentSectionsPerGroup', 'groupSections', 'durationStudent'],
     endpoints: build => ({
         fetchStudentLessons: build.query<studentSectionsPerGroupsT, { id: string | number; student_id: number }>({

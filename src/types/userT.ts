@@ -1,7 +1,11 @@
-import { TariffPlanT } from "api/tariffPlanService"
-import {result} from "./courseStatT";
+import { TariffPlanT } from 'api/tariffPlanService'
+import { result } from './courseStatT'
 
 export type UserT = {
+  authState: {
+    access: string
+    refresh: string
+  }
   auth: boolean
   role: number
 }
@@ -29,21 +33,21 @@ export interface ILoginUserInfo {
 }
 
 export type employeePaginatorT = {
-    count: number
-    next: null
-    previous: null
-    results: EmployeeT[]
+  count: number
+  next: null
+  previous: null
+  results: EmployeeT[]
 }
 
 export type EmployeeT = {
-    username?: string
-    id?: number
-    role: string
-    email: string
-    first_name?: string
-    last_name?: string
-    pseudonym?: string
-    avatar?: string
+  username?: string
+  id?: number
+  role: string
+  email: string
+  first_name?: string
+  last_name?: string
+  pseudonym?: string
+  avatar?: string
 }
 export interface UserProfileT {
   id: number
@@ -64,4 +68,3 @@ export interface ITariff {
   tariff: number | null
   tariff_details: TariffPlanT
 }
-
