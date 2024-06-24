@@ -79,7 +79,7 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
                 const commentsList: CommentList = { comments: publicCommentsData };
                 setCommentsList(commentsList);
             }
-        }).catch(error => {
+        }).catch((error: any) => {
             console.error('Ошибка при загрузке комментариев:', error);
         });
     }
@@ -114,7 +114,7 @@ const handleSubmitNewComment = (e: FormEvent<HTMLFormElement>) => {
                 const commentsList: CommentList = { comments: publicCommentsData };
                 setCommentsList(commentsList);
             }
-        }).catch(error => {
+        }).catch((error: any) => {
             console.error('Ошибка при загрузке комментариев:', error);
         });
     }

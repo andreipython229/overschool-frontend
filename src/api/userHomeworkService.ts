@@ -2,6 +2,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { UserHomework, Homework } from 'types/homeworkT'
 import { baseQuery } from './baseApi'
 import { IHomework } from 'types/sectionT'
+import { baseQueryWithReauth } from './reauthBaseQuery'
 
 interface CheckReply {
   user_homework_check_id: number
@@ -16,7 +17,7 @@ interface CheckReply {
 
 export const userHomeworkService = createApi({
   reducerPath: 'userHomeworkService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['userHomework'],
   endpoints: build => ({
     fetchUserHomework: build.query<UserHomework, { id: number; schoolName: string }>({

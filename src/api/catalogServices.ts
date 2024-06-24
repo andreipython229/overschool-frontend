@@ -3,10 +3,11 @@ import { baseQuery } from './baseApi'
 import { CatalogCourseT, CatalogResponseT } from './apiTypes'
 import { CoursesDataT } from 'types/CoursesT'
 import { appealStatT, appealsStatT } from 'types/schoolsT'
+import { baseQueryWithReauth } from './reauthBaseQuery'
 
 export const catalogService = createApi({
   reducerPath: 'catalogService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['catalog'],
   endpoints: build => ({
     fetchCourseCatalog: build.query<CatalogResponseT, number>({

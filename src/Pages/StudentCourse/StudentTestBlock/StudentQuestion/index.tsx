@@ -95,7 +95,7 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
         }
         sendTestResults({body: testResults, schoolName}).unwrap().then(() => {
             setShowResult(true)
-        }).catch((error) => {
+        }).catch((error: { data: any }) => {
             console.log(error.data)
         });
     }

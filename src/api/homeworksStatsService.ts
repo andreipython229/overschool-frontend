@@ -4,10 +4,11 @@ import { homeworksStatsT } from '../types/homeworkT'
 import { baseQuery } from './baseApi'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
 import {studentsTableStatsT} from "../types/courseStatT";
+import { baseQueryWithReauth } from './reauthBaseQuery';
 
 export const homeworksStatsService = createApi({
   reducerPath: 'homeworksStatsService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['homeworskStats'],
   endpoints: build => ({
     fetchHomeworkStats: build.query<homeworksStatsT, { filters: any; page: any; schoolName: string }>({

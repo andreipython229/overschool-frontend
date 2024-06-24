@@ -1,10 +1,11 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react'
 import {baseQuery} from './baseApi'
 import {TgNotificationsUpdateForAdmin, TgNotificationsUpdateForStudentAndTeacher, TgNotifications, TgMessage} from "../types/tgNotifications";
+import { baseQueryWithReauth } from './reauthBaseQuery';
 
 export const tgNotificationsService = createApi({
     reducerPath: 'tgNotificationsService',
-    baseQuery: baseQuery(),
+    baseQuery: baseQueryWithReauth,
     tagTypes: ['tgNotifications'],
     endpoints: build => ({
         fetchNotifications: build.query<TgNotifications[], void>({

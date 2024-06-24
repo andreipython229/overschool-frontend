@@ -1,10 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQuery } from './baseApi'
+import { baseQueryWithReauth } from './reauthBaseQuery';
 
 export const userAccessService = createApi({
   reducerPath: 'userAccessService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   endpoints: build => ({
     addUserAccess: build.mutation<any, { data: any; schoolName: string }>({
       query: ({ data, schoolName }) => ({
