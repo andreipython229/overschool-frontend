@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { ISubscribe } from 'components/Modal/TariffDetailModal/TariffDetailModal'
-import { baseQueryWithReauth } from './reauthBaseQuery';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const subscriptionService = createApi({
   reducerPath: 'subscriptionService',

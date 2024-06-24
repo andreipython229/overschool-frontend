@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQuery } from './baseApi'
 import {studentsGroupT, studentsGroupsT, groupCourseAccessT} from '../types/studentsGroup'
-import { baseQueryWithReauth } from './reauthBaseQuery';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const studentsGroupService = createApi({
   reducerPath: 'studentsGroupService',

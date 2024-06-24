@@ -3,7 +3,7 @@ import { baseQuery } from './baseApi'
 import { CatalogCourseT, CatalogResponseT } from './apiTypes'
 import { CoursesDataT } from 'types/CoursesT'
 import { appealStatT, appealsStatT } from 'types/schoolsT'
-import { baseQueryWithReauth } from './reauthBaseQuery'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const catalogService = createApi({
   reducerPath: 'catalogService',

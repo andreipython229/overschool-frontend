@@ -109,7 +109,6 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
 
   const handleVideoUpload = async (lessonIdAndType: any, video: File) => {
     setVideoError('')
-    console.log(video)
 
     if (video.size <= 4000 * 1024 * 1024) {
       setIsLoadingVideo(true)

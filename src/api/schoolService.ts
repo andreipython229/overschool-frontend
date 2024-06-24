@@ -16,7 +16,7 @@ import {
     UpdateProdamusPaymentLinkData, ProdamusPaymentLinkList
 } from '../types/ProdamusPaymenT';
 import { schoolStudentsGroupingData } from 'types/studentsGroup';
-import { baseQueryWithReauth } from './reauthBaseQuery';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const schoolService = createApi({
     reducerPath: 'schoolService',

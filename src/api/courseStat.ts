@@ -4,7 +4,7 @@ import {studentsTableInfoT, studentsTableStatsT} from '../types/courseStatT'
 import { baseQuery } from './baseApi'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
 import { createUrlWithFiltersAndFields } from 'utils/createUrlWithFiltersAndFields'
-import { baseQueryWithReauth } from './reauthBaseQuery'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const courseStatService = createApi({
   reducerPath: 'courseStat',

@@ -8,7 +8,7 @@ import { createUrlWithParams } from 'utils/createUrlWithParams'
 import { createUrlWithFiltersAndFields } from 'utils/createUrlWithFiltersAndFields'
 import { baseQuery } from './baseApi'
 import { IProgressionState } from 'store/redux/newSchoolProgression/slice'
-import { baseQueryWithReauth } from './reauthBaseQuery'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const schoolHeaderService = createApi({
   reducerPath: 'coursesHeaderService',

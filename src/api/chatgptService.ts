@@ -1,6 +1,6 @@
 import { baseQuery } from './baseApi'
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseQueryWithReauth } from './reauthBaseQuery';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 
 export interface UserQuestion {

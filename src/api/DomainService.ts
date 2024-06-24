@@ -1,7 +1,7 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react'
 import {baseQuery} from './baseApi'
 import {Domain, updateDomain} from "../types/domainT";
-import { baseQueryWithReauth } from './reauthBaseQuery';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const domainService = createApi({
     reducerPath: 'domainService',

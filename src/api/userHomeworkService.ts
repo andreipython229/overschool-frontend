@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { UserHomework, Homework } from 'types/homeworkT'
 import { baseQuery } from './baseApi'
 import { IHomework } from 'types/sectionT'
-import { baseQueryWithReauth } from './reauthBaseQuery'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 interface CheckReply {
   user_homework_check_id: number

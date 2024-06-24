@@ -1,7 +1,7 @@
 import {createApi} from '@reduxjs/toolkit/query/react'
 import {baseQuery} from './baseApi'
 import {employeePaginatorT} from "../types/userT";
-import { baseQueryWithReauth } from './reauthBaseQuery';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 
 export const getAllUsers = createApi({
