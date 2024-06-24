@@ -4,10 +4,12 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { tableFilterByNamePath, tableFilterByEmailUpPath, tableFilterByEmailDownPath } from '../../../config/commonSvgIconsPath'
 
 type homeworksStatsTableHeaderT = {
-  hadleChangeProp: () => void
+  handleChangeProp: () => void;
+  handleSortByDate: () => void;
+  handleSortByStatus: () => void;
 }
 
-export const HomeworksStatsTableHeader: FC<homeworksStatsTableHeaderT> = ({ hadleChangeProp }) => {
+export const HomeworksStatsTableHeader: FC<homeworksStatsTableHeaderT> = ({ handleChangeProp, handleSortByDate, handleSortByStatus }) => {
   return (
     <tr>
       <th>
@@ -16,7 +18,7 @@ export const HomeworksStatsTableHeader: FC<homeworksStatsTableHeaderT> = ({ hadl
       </th>
       <th style={{ height: '55px', display: 'flex', alignItems: 'center' }}>
         <span style={{ margin: '0 3px 0 0' }}>Email</span>
-        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} onClick={hadleChangeProp}>
+        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} onClick={handleChangeProp}>
           <IconSvg width={8} height={5} viewBoxSize={'0 0 8 5'} path={tableFilterByEmailUpPath} />
           <IconSvg width={8} height={5} viewBoxSize={'0 0 8 5'} path={tableFilterByEmailDownPath} />
         </div>
@@ -27,11 +29,15 @@ export const HomeworksStatsTableHeader: FC<homeworksStatsTableHeaderT> = ({ hadl
       <th>
         <span>Курс</span>
       </th>
-      <th>
-        <span>Дата</span>
+      <th onClick={handleSortByDate}>
+        <span style={{ margin: '0 0 0 0' }}>Дата</span>
       </th>
-      <th>
-        <span>Статус</span>
+      <th style={{ height: '55px', display: 'flex', alignItems: 'center' }}>
+        <span style={{ margin: '0 3px 0 0' }}>Статус</span>
+          <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} onClick={handleSortByStatus}>
+          <IconSvg width={8} height={5} viewBoxSize={'0 0 8 5'} path={tableFilterByEmailUpPath} />
+          <IconSvg width={8} height={5} viewBoxSize={'0 0 8 5'} path={tableFilterByEmailDownPath} />
+        </div>
       </th>
     </tr>
   )

@@ -6,7 +6,7 @@ import { Path } from 'enum/pathE'
 import { Button } from 'components/common/Button/Button'
 import { authSelector } from 'selectors'
 import { InitPageHeaderPT } from '../../types/pageTypes'
-import { logo } from '../../assets/img/common/index'
+import { full_logo } from '../../assets/img/common/index'
 import { selectUser } from 'selectors/index'
 import { RoleE } from 'enum/roleE'
 import TelegramIcon from '@mui/icons-material/Telegram'
@@ -78,8 +78,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
     <header className={styles.init_header}>
       <div style={{ display: 'flex', gap: '0.5rem' }}>
         <div className={styles.init_header_logo}>
-          <img src={logo} alt="Logotype ITOVERONE" />
-          <p> IT OVERONE</p>
+          <img src={full_logo} alt="Logotype ITOVERONE" />
         </div>
         <Tooltip title={'Связаться с нами'}>
           <a target="_blank" href="https://t.me/overschool_info" rel="noreferrer" style={{ textDecoration: 'none' }}>
