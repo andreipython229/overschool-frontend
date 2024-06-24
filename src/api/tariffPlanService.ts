@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { ITariff } from 'types/userT'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export type TariffPlanT = {
   price_rf_rub: number
@@ -16,7 +17,7 @@ export type TariffPlanT = {
 
 export const tariffPlanService = createApi({
   reducerPath: 'tariffPlanService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['tariffPlan'],
   endpoints: build => ({
     fetchTariffPlanTable: build.query<TariffPlanT[], void>({
@@ -30,7 +31,7 @@ export const tariffPlanService = createApi({
 
 export const tariffPlan = createApi({
   reducerPath: 'tariffPlan',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['tariffPlanInfo'],
   endpoints: build => ({
     fetchTariffPlanInfo: build.query<any, number | string>({
@@ -44,7 +45,7 @@ export const tariffPlan = createApi({
 
 export const tariffService = createApi({
   reducerPath: 'tariffService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['tariffInfo'],
   endpoints: build => ({
     fetchCurrentTariffPlan: build.query<ITariff, string>({

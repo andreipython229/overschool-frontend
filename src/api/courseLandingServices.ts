@@ -4,10 +4,11 @@ import { baseQuery } from './baseApi'
 import {BlockKeys} from "Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/types/blocksControllerT";
 import {appealStatT} from "../types/schoolsT";
 import {UpdateCourses} from "./apiTypes";
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const courseLandingServices = createApi({
   reducerPath: 'courseLandingServices',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['landing',],
   endpoints: build => ({
     fetchCourseLanding: build.mutation<BlockKeys, {schoolName: string, id: number}>({
