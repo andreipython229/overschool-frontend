@@ -1,0 +1,13 @@
+@import 'scss/mixin.scss';
+@import 'scss/variable.scss';
+
+.wrapper {
+  position: relative;
+  width: 1040px;
+
+  h2 {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    color: #7730BD;
+  }
+}

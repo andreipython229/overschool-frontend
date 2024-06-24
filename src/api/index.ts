@@ -30,5 +30,6 @@ export { catalogService } from './catalogServices'
 export { prodamusService } from './prodamusService'
 export { meetingService } from './meetingsService'
 export { tgNotificationsService } from './tgNotificationsServices'
+export { courseLandingServices } from './courseLandingServices'
 export {domainService } from './DomainService'
 
