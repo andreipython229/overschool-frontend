@@ -1,0 +1,49 @@
+@import 'scss/mixin.scss';
+@import 'scss/variable.scss';
+
+.courseStats {
+  position: relative;
+  width: 831px;
+  height: 125px;
+  // margin: -20px auto 0;
+  margin-top: -20px;
+  z-index: 10;
+  border-radius: 30px;
+  box-shadow: 0 2px 8px rgb(147, 147, 147);
+  background-color: #ffffff;
+  @include display(flex, row, center, center);
+  gap: 5rem;
+  padding: 2rem;
+
+  @media screen and (min-width: 375px) and (max-width: 480px) {
+    flex-direction: column;
+    height: auto;
+    margin: -20px auto 0;
+    width: 90%;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  &_stat {
+    @include display(flex, column, center, center);
+    @include font(700, 22px);
+    color: #ba75ff;
+
+    &_all {
+      @include display(flex, row, center, center);
+      @include font(700, 22px);
+      color: #ba75ff;
+
+      &_text {
+        @include display(flex, column, center, center);
+        @include font(700, 22px);
+        color: #ba75ff;
+        padding-left: 10px;
+      }
+    }
+
+    span {
+      @include display(flex, row, center, center);
+    }
+  }
+}

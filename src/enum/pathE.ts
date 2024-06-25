@@ -60,6 +60,7 @@ export enum CreateCoursePath {
   Constructor = 'constructor',
   Student = 'student',
   Settings = 'settings',
+  Page = 'page',
   Comments = 'comments',
   Materials = 'materials',
 }

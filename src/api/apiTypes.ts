@@ -13,8 +13,8 @@ export interface ICredentials {
 }
 
 export interface IResponse {
-  access_token: string
-  refresh_token: string
+  access: string
+  refresh: string
   user: {
     pk: number
     username: string

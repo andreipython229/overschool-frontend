@@ -18,10 +18,11 @@ import {
     ProdamusPaymentLinkList
 } from '../types/ProdamusPaymenT';
 import { schoolStudentsGroupingData } from 'types/studentsGroup';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const schoolService = createApi({
     reducerPath: 'schoolService',
-    baseQuery: baseQuery(),
+    baseQuery: baseQueryWithReauth,
     tagTypes: ['school'],
     endpoints: build => ({
         fetchSchool: build.query<schoolT, number>({

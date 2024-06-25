@@ -2,6 +2,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQuery } from './baseApi'
 import { formDataConverter } from '../utils/formDataConverter'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 type returnQuestionT = {
   body: string
@@ -17,7 +18,7 @@ type returnQuestionT = {
 
 export const questionsAndAnswersService = createApi({
   reducerPath: 'questionsAndAnswersService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['questions', 'answers', 'usertests'],
   endpoints: build => ({
     fetchQuestionsList: build.query<any, {id: string | number, schoolName: string}>({
