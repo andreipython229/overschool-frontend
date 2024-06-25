@@ -1,11 +1,12 @@
 import {createApi} from '@reduxjs/toolkit/query/react'
 import {baseQuery} from './baseApi'
 import {employeePaginatorT} from "../types/userT";
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 
 export const getAllUsers = createApi({
     reducerPath: 'AllUsers',
-    baseQuery: baseQuery(),
+    baseQuery: baseQueryWithReauth,
     endpoints: build => ({
         fetchAllUsers: build.query<employeePaginatorT, any>({
             query: ({schoolName, page, role, size}) => ({

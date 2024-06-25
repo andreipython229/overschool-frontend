@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useFormik } from 'formik'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
 import { useAppDispatch } from '../../store/hooks'
-import { auth, id, userName } from 'store/redux/users/slice'
+import { auth, authState, id, userName } from 'store/redux/users/slice'
 import { useLoginMutation, useLazyGetUserInfoQuery } from '../../api/userLoginService'
 import { Input } from 'components/common/Input/Input/Input'
 import { isSecurity, unSecurity } from '../../assets/img/common'
@@ -26,7 +26,6 @@ type FirstFormValuesT = {
 type LoginModalPropsT = {
   setShowModal: (value: boolean) => void
 }
-import { motion } from 'framer-motion'
 
 export const LoginPage = () => {
   const dispatch = useAppDispatch()
@@ -91,7 +90,12 @@ export const LoginPage = () => {
     onSubmit: async () => {
       const { email, password, phone } = formik.values
       const user = { login: phone ? phone : email, password }
-      await attemptAccess(user)
+      try {
+        const { access, refresh } = await attemptAccess(user).unwrap()
+        dispatch(authState({ access: access, refresh: refresh }))
+      } catch {
+        console.log('smth went wrong')
+      }
     },
   })
 
@@ -105,6 +109,7 @@ export const LoginPage = () => {
           dispatch(id(resp[0]?.id))
           navigate(Path.ChooseSchool)
         })
+        .catch(() => console.log('error получения данных пользователя'))
     }
   }, [isSuccess, isLoading])
 
@@ -118,7 +123,7 @@ export const LoginPage = () => {
     formdata.append('email', email)
     await forgotPasswordFunc(formdata)
       .unwrap()
-      .then(data => {
+      .then(() => {
         toast.current?.show({
           severity: 'success',
           summary: 'Успешно',
@@ -127,7 +132,7 @@ export const LoginPage = () => {
         })
         setTimeout(() => navigate(Path.InitialPage), 3000)
       })
-      .catch(error => {
+      .catch(() => {
         toast.current?.show({
           severity: 'error',
           summary: 'Ошибка',

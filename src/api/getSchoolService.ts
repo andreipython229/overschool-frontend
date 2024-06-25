@@ -1,10 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import {baseQuery} from "./baseApi";
 import { SchoolT } from 'Pages/ChooseSchool/ChooseSchool';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const getSchoolService = createApi({
   reducerPath: 'getSchoolService',
-  baseQuery: baseQuery('/api'),
+  baseQuery: baseQueryWithReauth,
   endpoints: builder => ({
     getSchools: builder.mutation<SchoolT[], void>({
       query: () => {
