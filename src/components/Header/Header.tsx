@@ -53,11 +53,15 @@ import { CoursesDataT } from 'types/CoursesT'
 import { Button } from 'components/common/Button/Button'
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
 
+type WebSocketHeaders = {
+  [key: string]: string | string[] | number
+}
+
 export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
   const dispatch = useAppDispatch()
   const dispatchRole = useDispatch()
-  const { role: userRole } = useAppSelector(selectUser)
+  const { role: userRole, authState, userId } = useAppSelector(selectUser)
   const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
   const schoolNameR = useAppSelector(state => state.school.schoolName)
   const [socketConnect, setSocketConnect] = useState<boolean>(false)
@@ -216,8 +220,10 @@ export const Header = memo(() => {
 
   const connectWebSocket = () => {
     if (informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) {
-      informSocketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/info/${schoolName || ''}/`)
-      // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}/`)
+
+      informSocketRef.current = new w3cwebsocket(`ws://sandbox.overschool.by/ws/info/${schoolName || ''}?user_id=${userId}`)
+      // informSocketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/info/${schoolName || ''}?user_id=${userId}`)
+      // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}?user_id=${userId}`)
 
       informSocketRef.current.onmessage = event => {
         if (typeof event.data === 'string') {
@@ -226,7 +232,6 @@ export const Header = memo(() => {
             setTotalUnreadMessages(receivedMessage.message.total_unread)
           } else if (receivedMessage.type === 'full_chat_info') {
             setTotalUnreadMessages(receivedMessage.message.total_unread)
-            console.log(receivedMessage)
 
             if (receivedMessage.message.chats.length > 0 && chats) {
               const fetchChats: ChatI[] = receivedMessage.message.chats
@@ -237,7 +242,6 @@ export const Header = memo(() => {
           } else if (receivedMessage.type === 'unread_appeals_count') {
             const unreadMessAppeals: UserInformAppealsI = JSON.parse(event.data)
             setUnreadAppeals(unreadMessAppeals.unread_count)
-            console.log(unreadMessAppeals)
           }
         }
       }
@@ -422,8 +426,7 @@ export const Header = memo(() => {
           </Tooltip>
         ) : null}
 
-
-    <React.Fragment>
+        <React.Fragment>
           {userRole === RoleE.Admin && (
             <Tooltip title={'Отправить оповещение студентам в телеграме'}>
               <div className={styles.header_block}>
@@ -436,66 +439,68 @@ export const Header = memo(() => {
                   <DialogTitle>Отправить оповещение студентам</DialogTitle>
                   <DialogContent>
                     <div style={{ marginBottom: '1rem', marginTop: '1rem' }}>
-                      <TextareaAutosize style={{
-                        maxWidth: '34vh',
-                        minWidth: '34vh',
-                        minHeight: '10vh',
-                        maxHeight: '20vh',
-                        borderColor: 'gray',
-                        borderRadius: '4px',
-                        overflow: 'auto'
-                      }}
+                      <TextareaAutosize
+                        style={{
+                          maxWidth: '34vh',
+                          minWidth: '34vh',
+                          minHeight: '10vh',
+                          maxHeight: '20vh',
+                          borderColor: 'gray',
+                          borderRadius: '4px',
+                          overflow: 'auto',
+                        }}
                         className={styles.textarea}
                         id="message"
                         placeholder="Введите сообщение"
                         value={tgMessage.message}
                         minLength={1}
-                        onChange={(e) =>
-                          setTgMessage({ ...tgMessage, message: e.target.value })
-                        }
-
+                        onChange={e => setTgMessage({ ...tgMessage, message: e.target.value })}
                       />
                     </div>
                     <div>
-                      <h2 style={{
-                        margin: '0',
-                        fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
-                        fontWeight: '500',
-                        lineHeight: '1.6',
-                        fontSize: '1.25rem',
-                        padding: '16px 10px'
-                      }}>Выберите одну или несколько групп:</h2>
-
+                      <h2
+                        style={{
+                          margin: '0',
+                          fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+                          fontWeight: '500',
+                          lineHeight: '1.6',
+                          fontSize: '1.25rem',
+                          padding: '16px 10px',
+                        }}
+                      >
+                        Выберите одну или несколько групп:
+                      </h2>
                     </div>
-                    {studentsGroups && studentsGroups.results
-                      .map(group => {
-                          return (
-                            <div key={group.group_id}>
-                              <Checkbox
-                              style ={{
-                                color: "#ba75ff",
+                    {studentsGroups &&
+                      studentsGroups.results.map(group => {
+                        return (
+                          <div key={group.group_id}>
+                            <Checkbox
+                              style={{
+                                color: '#ba75ff',
                               }}
-                                onChange={(e) => {
-                                  const isChecked = e.target.checked;
-                                  if (isChecked) {
-                                    setTgMessage((prevData: TgMessage) => ({
-                                      ...prevData,
-                                      students_groups: [...prevData.students_groups, group.group_id],
-                                    }) as TgMessage);
-                                  } else {
-                                    setTgMessage((prevData: TgMessage) => ({
-                                      ...prevData,
-                                      students_groups: prevData.students_groups.filter(
-                                        (id) => id !== group.group_id
-                                      ),
-                                    }));
-                                  }
-                                }}
-                              />
-                              {group.name}
-                              <span> (Кол-во студентов: {group.students.length})</span>
-                            </div>
-                          );
+                              onChange={e => {
+                                const isChecked = e.target.checked
+                                if (isChecked) {
+                                  setTgMessage(
+                                    (prevData: TgMessage) =>
+                                      ({
+                                        ...prevData,
+                                        students_groups: [...prevData.students_groups, group.group_id],
+                                      } as TgMessage),
+                                  )
+                                } else {
+                                  setTgMessage((prevData: TgMessage) => ({
+                                    ...prevData,
+                                    students_groups: prevData.students_groups.filter(id => id !== group.group_id),
+                                  }))
+                                }
+                              }}
+                            />
+                            {group.name}
+                            <span> (Кол-во студентов: {group.students.length})</span>
+                          </div>
+                        )
                       })}
                   </DialogContent>
                   <DialogActions>
