@@ -2,6 +2,7 @@ import { memo } from 'react'
 import { NavAccountBtn } from 'components/NavAccountBtn/NavAccountBtn'
 import { CreateCoursePath } from 'enum/pathE'
 import { useAppSelector } from 'store/hooks'
+import { Path } from '../../../enum/pathE'
 
 import { selectUser } from 'selectors'
 import { RoleE } from 'enum/roleE'
@@ -20,6 +21,7 @@ export const NavCreatingCourse = memo(() => {
             <NavAccountBtn text={'Настройки курса'} path={CreateCoursePath.Settings} />
             <NavAccountBtn text={'Страница курса'} path={CreateCoursePath.Page} />
             <NavAccountBtn text={'Комментарии'} path={CreateCoursePath.Comments} />
+            <NavAccountBtn text={'Курсы'} path={CreateCoursePath.Courses} />
         </>
       ) : (
         <NavAccountBtn text={'Материалы курса'} path={CreateCoursePath.Materials} />
