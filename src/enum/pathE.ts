@@ -62,7 +62,6 @@ export enum CreateCoursePath {
   Page = 'page',
   Comments = 'comments',
   Materials = 'materials',
-  Courses = '/school/:school_name/courses',
 }
 
 export enum Student {
