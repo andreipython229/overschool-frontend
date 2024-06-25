@@ -5,7 +5,6 @@ export const baseQuery = fetchBaseQuery({
   baseUrl: '/api',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
-    console.log((getState() as RootState).user.authState)
     const token = (getState() as RootState).user.authState.access
     if (token && token !== '') {
       headers.set('Authorization', `Bearer ${token}`)
