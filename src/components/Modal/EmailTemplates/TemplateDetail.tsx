@@ -42,6 +42,7 @@ const TemplateDetail: React.FC<TemplateDetailProps> = ({ isOpen, onClose, templa
     const handleSaveButtonClick = async () => {
         if (editedTemplate && template) {
             try {
+                onClose();
                 await updateNewsletterTemplate({
                     schoolName: schoolName,
                     id: template.id,
@@ -50,7 +51,6 @@ const TemplateDetail: React.FC<TemplateDetailProps> = ({ isOpen, onClose, templa
                     text: editedTemplate.text,
                     delay_days: editedTemplate.delay_days
                 }).unwrap();
-                onClose();
             } catch (error) {
                 console.error('Failed to update the template:', error);
             }

@@ -29,12 +29,13 @@ export const EmailNewsLetter = memo(() => {
     };
 
     const closeDetailModal = async () => {
-        await fetchNewsletterTemplates({ schoolName: schoolName });
         setIsDetailModalOpen(false);
         setSelectedTemplate(null);
+        await fetchNewsletterTemplates({ schoolName: schoolName });
     };
 
-    const toggleModalLink = () => {
+    const toggleModalLink = async () => {
+        await fetchNewsletterTemplates({ schoolName: schoolName });
         setIsModalLinkOpen(prevState => !prevState);
     };
 
