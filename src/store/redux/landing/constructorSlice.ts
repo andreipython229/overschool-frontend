@@ -20,7 +20,13 @@ export const slice = createSlice({
       state.blocks = action.payload
     },
     rollBackBlocks: state => {
-      state.blocks = initialBlocks
+      state.blocks = {
+        header: state.blocks.header,
+        stats: initialBlocks.stats,
+        audience: initialBlocks.audience,
+        trainingProgram: initialBlocks.trainingProgram,
+        trainingPurpose: initialBlocks.trainingPurpose,
+      }
     },
     addFile: (state, action: PayloadAction<{key: string, file: File | Blob}>) => {
       const { key, file } = action.payload

@@ -1,0 +1,121 @@
+@import 'scss/mixin.scss';
+@import 'scss/variable.scss';
+
+.wrapper {
+  position: relative;
+  width: 1040px;
+
+  h2 {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    color: #7730BD;
+  }
+
+  &_description {
+    display: flex;
+    justify-content: center;
+
+    &_text {
+      border: none;
+      background: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      padding: 10px;
+      border-radius: 5px;
+      width: 500px;
+      resize: none;
+      overflow-wrap: break-word;
+      text-align: center;
+    }
+  }
+
+  &_cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+
+    &_addButton {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        font-size: 20px;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background: none;
+        color: #ba75ff;
+        visibility: hidden; // По умолчанию кнопки невидимы
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease-in-out;
+      }
+
+    &_chip {
+      position: relative;
+      width: 290px;
+      margin: 10px 20px;
+      min-height: 100px;
+
+      &_addButtonBefor,
+      &_addButtonAfter {
+        position: absolute;
+        top: 150px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        font-size: 20px;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background: none;
+        color: #ba75ff;
+        visibility: hidden; // По умолчанию кнопки невидимы
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease-in-out;
+      }
+
+      &_addButtonBefor {
+        left: -40px;
+      }
+
+      &_addButtonAfter {
+        right: -40px;
+      }
+
+      &_addButtonBefor:hover,
+      &_addButtonAfter:hover {
+        color: #7730BD;
+        border-radius: 50%;
+        background: rgba(1, 1, 1, 0.15);
+      }
+    }
+
+    &_addButton {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      font-size: 20px;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      background: none;
+      color: #ba75ff;
+    }
+
+    &_addButton:hover {
+      color: #7730BD;
+      border-radius: 50%;
+      background: rgba(1, 1, 1, 0.15);
+    }
+  }
+
+  &:hover {
+    .wrapper_cardContainer_addButton,
+    .wrapper_cardContainer_chip_addButtonBefor,
+    .wrapper_cardContainer_chip_addButtonAfter {
+      visibility: visible; // При наведении контейнер становится видимым
+      opacity: 1;
+    }
+  }
+}

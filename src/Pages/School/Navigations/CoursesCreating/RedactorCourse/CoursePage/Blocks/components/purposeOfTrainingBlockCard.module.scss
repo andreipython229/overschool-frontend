@@ -3,17 +3,16 @@
 
 .wrapper {
   width: 100%;
-  height: 330px;
+  min-height: 150px;
   border-radius: 20px;
   box-shadow: 0 2px 8px rgb(147, 147, 147);
   background-color: #ffffff;
   display: grid;
-  grid-template-rows: 170px 40px 40px;
-  grid-gap: 15px;
+  grid-template: auto auto / 150px auto;
+  grid-gap: 5px;
   //@include display(flex, column, center, center);
   //gap: 5rem;
   //padding: 2rem;
-  margin-bottom: 20px;
   position: relative;
 
   button {
@@ -45,6 +44,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    grid-row: 1 / span 2;
 
     img {
       width: 140px;
@@ -56,31 +56,34 @@
 
     &_error {
       z-index: 5;
+      white-space: nowrap;
       position: absolute;
-      bottom: -20px;
+      top: 0;
+      left: 150px;
       font-size: 15px;
       padding: 5px;
       border-radius: 10px;
       color: rgb(224, 24, 24);
       background: rgba(224, 24, 24, 0.3);
-      margin: 5px 5px 0 5px;
+      margin-top: 5px;
       text-align: center;
     }
   }
 
   &_title {
     width: 100%;
+    min-height: 70px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: flex-end;
 
     textarea {
-      padding: 5px;
+      padding: 10px;
       width: 90%;
       color: #ba75ff;
-      text-align: center;
       font-weight: bolder;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       outline: none;
       font-family: 'Inter', sans-serif;
       resize: none;
@@ -93,16 +96,17 @@
 
   &_description {
     width: 100%;
+    min-height: 70px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
 
     textarea {
-      padding: 5px;
+      padding: 10px;
       width: 90%;
       color: #34495e;
-      text-align: center;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       outline: none;
       font-family: 'Inter', sans-serif;
       resize: none;
