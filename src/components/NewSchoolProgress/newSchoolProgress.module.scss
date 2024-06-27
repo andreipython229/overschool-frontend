@@ -1,0 +1,45 @@
+.wrapper {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  left: 33.3%;
+  top: 90px;
+  width: 33.3vw;
+  height: max-content;
+  border-radius: 20px;
+  padding: 1rem;
+  border: 1.5px solid rgb(179, 84, 205);
+  z-index: 10000;
+  background: rgba(247, 190, 255, 0.5);
+
+  &_top {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  &_title {
+    text-align: center;
+    width: 100%;
+    font-size: 18px;
+    color: blueviolet;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  &_gift {
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+    color: blueviolet;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  &_task {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+  }
+}

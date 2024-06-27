@@ -123,7 +123,7 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
         </div> */}
       </div>
       <div className={styles.wrapper_addQuestionsWrapper}>
-        <h2 className={styles.wrapper_addQuestionsWrapper_title}>Добавьте вопрос</h2>
+        <h2 className={styles.wrapper_addQuestionsWrapper_title}>Выберите задание</h2>
         <div className={styles.wrapper_addQuestionsWrapper_btnWrapper}>
           <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
           <AddOptionsWithPictures setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />

@@ -18,7 +18,7 @@ export const StudentsPerSchool: FC = () => {
   const schoolName = window.location.href.split('/')[4] 
   const [fetchStudents, { data, isFetching }] = useLazyFetchStudentsPerSchoolQuery()
   const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery(schoolName)
-  const [isGroupingStudents, setIsGroupingStudents] = useState(false)
+  const [isGroupingStudents, setIsGroupingStudents] = useState<boolean>()
 
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: data?.count as number })
 
@@ -47,7 +47,25 @@ export const StudentsPerSchool: FC = () => {
   }
 
   const handleReloadTable = () => {
-    schoolId && fetchStudents({ id: Number(schoolId), page, filters })
+    if (tablesHeader && tablesHeader.length > 2) {
+    const studentsTableInfo = tablesHeader[2].students_table_info || [];
+      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
+      if (schoolId && checkedFields) {
+        fetchStudents({ 
+          filters, 
+          page, 
+          id: Number(schoolId),
+          fields: checkedFields
+        });
+      }
+    } else {
+      console.log('tablesHeader is undefined or does not have enough elements');
+    }
+  }
+
+  const handleUpdateGroupingStudents = (is_grouping_students: boolean) => {
+    setIsGroupingStudents(is_grouping_students)
+    handleAddSortToFilters('students__email', 'asc')
   }
 
   useEffect(() => {
@@ -77,16 +95,23 @@ export const StudentsPerSchool: FC = () => {
       dispatch(addFilters({key: 'studentsPerSchool', filters: {'sort_by': sort_by_value, 'sort_order': sort_order_value}}))
   }
 
-  const handleSetGroupingStudents = (is_grouping: boolean) => {
-    setIsGroupingStudents(is_grouping)
-    handleAddSortToFilters('email', 'asc')
-}
-
-
   // Перезагрузка после смены страницы пагинатора
   useEffect(() => {
-    fetchStudents({ filters, page, id: Number(schoolId) })
-  }, [page,isGroupingStudents])
+    if (tablesHeader && tablesHeader.length > 2) {
+      const studentsTableInfo = tablesHeader[2].students_table_info || [];
+      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
+      if (checkedFields) {
+        fetchStudents({ 
+          filters, 
+          page, 
+          id: Number(schoolId),
+          fields: checkedFields
+        });
+      }
+    } else {
+      console.log('tablesHeader is undefined or does not have enough elements');
+    }
+  }, [page, isGroupingStudents, tablesHeader]);
 
   // Филтра для всех студентов
   const filteredStudents = useMemo(() => {
@@ -104,6 +129,10 @@ export const StudentsPerSchool: FC = () => {
     });
   }, [searchTerm, data]);
 
+  const allStudentsCount = isGroupingStudents
+  ? (data && data.results && data.results.length > 0 ? data.results[0].unique_students_count : 0)
+  : (data && data.count ? data.count : 0);
+
   return (
     <>
       <AllStudentsBlock
@@ -115,6 +144,7 @@ export const StudentsPerSchool: FC = () => {
         removeLastActiveStartFilter={handleRemoveLastActivityStartFilter}
         removeLastActiveEndFilter={handleRemoveLastActivityEndFilter}
         handleReloadTable={handleReloadTable}
+        isGrouping={handleUpdateGroupingStudents}
         filterKey={'studentsPerSchool'}
         startMark={filters?.mark_sum_min}
         endMark={filters?.mark_sum_max}
@@ -124,7 +154,7 @@ export const StudentsPerSchool: FC = () => {
         endAvg={filters?.average_mark_max}
         filters={filters}
         updateStudents={updateStudents}
-        all_students_count={data?.count as number}
+        all_students_count={allStudentsCount} 
       />
       <StudentsTableWrapper
           handleReloadTable={handleReloadTable}
@@ -132,7 +162,8 @@ export const StudentsPerSchool: FC = () => {
           isLoading={isFetching || isTablesHeaderFetching}
           tableId={tableId as number}
           handleAddSortToFilters={handleAddSortToFilters}
-          isGrouping={handleSetGroupingStudents}
+          isGrouping={isGroupingStudents}
+          tableType={'Школа'}
       />
       <Pagination
           className={styles.pagination}

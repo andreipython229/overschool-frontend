@@ -1,5 +1,6 @@
 import { baseQuery } from './baseApi'
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 
 export interface UserQuestion {
@@ -20,6 +21,7 @@ export interface LatestMessagesResponse {
 export interface SendMessagePayload {
   message: string;
   overai_chat_id?: number,
+  language: string
 }
 
 export interface SendMessageResponse {
@@ -48,7 +50,7 @@ interface DeleteChatRequest {
 
 export const chatgptService = createApi({
   reducerPath: 'chatgptService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   endpoints: build => ({
     updateWelcomeMessage: build.mutation<{ success: boolean }, void>({
       query: () => ({

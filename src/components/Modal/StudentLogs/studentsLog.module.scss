@@ -343,6 +343,10 @@
 
     &_limit {
       margin-top: 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
       & span {
         font-size: $fs14;
         color: #bd9fc4;

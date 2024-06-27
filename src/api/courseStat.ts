@@ -3,21 +3,23 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import {studentsTableInfoT, studentsTableStatsT} from '../types/courseStatT'
 import { baseQuery } from './baseApi'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
+import { createUrlWithFiltersAndFields } from 'utils/createUrlWithFiltersAndFields'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const courseStatService = createApi({
   reducerPath: 'courseStat',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['courseStat', 'studentsPerGroup', 'studentPerSchool', 'AllStudentsPerGroup', 'AllCourseStat'],
   endpoints: build => ({
-    fetchCourseStat: build.query<studentsTableStatsT, { id: string | number; filters: any; schoolName: string , page: string | number}>({
-      query: ({ id, filters, schoolName , page}) => ({
-        url: createUrlWithParams(`/${schoolName}/courses/${id}/get_students_for_course/?p=${page !== undefined ? page : 1}`, filters),
+    fetchCourseStat: build.query<studentsTableStatsT, { id: string | number; filters: any; schoolName: string , page: string | number, fields: any[]}>({
+      query: ({ id, filters, schoolName , page, fields}) => ({
+        url: createUrlWithFiltersAndFields(`/${schoolName}/courses/${id}/get_students_for_course/?p=${page !== undefined ? page : 1}`, filters, fields),
       }),
       providesTags: ['courseStat'],
     }),
     fetchStudentsPerGroup: build.query<studentsTableStatsT, any>({
-      query: ({ id, filters, schoolName, page }) => ({
-        url: createUrlWithParams(`/${schoolName}/students_group/${id}/get_students_for_group/?p=${page !== undefined ? page : 1}`, filters),
+      query: ({ id, filters, schoolName, page, fields }) => ({
+        url: createUrlWithFiltersAndFields(`/${schoolName}/students_group/${id}/get_students_for_group/?p=${page !== undefined ? page : 1}`, filters, fields),
       }),
       providesTags: ['studentsPerGroup'],
     }),

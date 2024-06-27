@@ -45,7 +45,7 @@ export const StudentLessonNavBtns: FC<studentLessonNavBtnsT> = memo(({ courseId,
     const getPrevSection = () => {
         if (course !== undefined && course !== null) {
             const currentIndex = course?.sections.findIndex(
-              (section) => section.section === parseInt(sectionId, 10)
+              (section: { section: number }) => section.section === parseInt(sectionId, 10)
             );
             if (currentIndex !== -1 && currentIndex > 0) {
               return course.sections[currentIndex - 1].section;

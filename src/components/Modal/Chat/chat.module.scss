@@ -162,6 +162,14 @@
     font-size: 10px;
     color: #838383;
     //border: 1px solid deeppink;
+
+    @media only screen and (min-width: 481px) and (max-width: 1024px) {
+      width: 60vw;
+     }
+  
+     @media only screen and (min-width: 2200px) and (max-width: 4600px) {
+      width: 60vw;
+     }
   }
 
   &_newMessage {
@@ -276,7 +284,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    // margin-right: 1rem;
+    margin-right: 0.5rem;
     flex-shrink: 0;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 50px;

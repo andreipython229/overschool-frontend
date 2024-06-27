@@ -12,10 +12,12 @@ import { RoleE } from 'enum/roleE'
 import { role } from 'store/redux/users/slice'
 import { useDispatch } from 'react-redux'
 
+
 export const Main = memo(() => {
   const schoolId = localStorage.getItem('school_id')
   const [alertOpen, setAlertOpen] = useState<boolean>(false)
   const dispatchRole = useDispatch()
+  const schoolName = window.location.href.split('/')[4];
 
   const { data, refetch } = useFetchSchoolQuery(Number(schoolId))
   const [updateDateSchoolName, { data: newName, isLoading, isSuccess, isError }] = useSetSchoolMutation()
@@ -30,6 +32,7 @@ export const Main = memo(() => {
   const [oldUrl, setOldUrl] = useState<string>('')
   const [error, setError] = useState<string>()
   const [social, setSocial] = useState<string>('')
+
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -81,6 +84,7 @@ export const Main = memo(() => {
     formdata.append('contact_link', social)
     await updateSchoolLink({ formdata, id: Number(schoolId) })
   }
+
 
   const handleCloseAlert = () => {
     setAlertOpen(false)

@@ -34,11 +34,12 @@ type StudentsTableWrapperT = {
   students: studentsTableInfoT
   handleReloadTable?: () => void
   handleAddSortToFilters?: (sort_by: string, sort_order: string) => void
-  isGrouping?: (is_grouping: boolean) => void
+  isGrouping?: boolean
+  tableType?: string
 }
 
 
-export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId, handleReloadTable, handleAddSortToFilters, isGrouping }) => {
+export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students, isLoading, tableId, handleReloadTable, handleAddSortToFilters, isGrouping, tableType }) => {
   const dispatch = useAppDispatch()
   const schoolId = localStorage.getItem('school_id');
   const { role } = useAppSelector(selectUser)
@@ -60,11 +61,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   const { columns, data } = generateData(tableHeaderData, students, isLoading, isSuccess)
   const [createPersonalChatForAdminOrTeacher, { isLoading: chatIsLoading }] = useCreatePersonalChatForAdminOrTeacherMutation()
 
-  const { data: groupingStudents, error: groupingStudentsError } = useFetchSchoolStudentsGroupingQuery({ school_id: Number(schoolId) || 0 });
-  const [updateSchoolStudentsGroupingMutation] = useUpdateSchoolStudentsGroupingMutation();
-  const [isGroupingStudents, setIsGroupingStudents] = useState(false) 
-
-
   // состояние направления сортировки для каждого столбца
   const [sortDirection, setSortDirection] = useState<{ [key: string]: 'asc' | 'desc' }>({
     Имя: 'asc',
@@ -84,7 +80,40 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
   const handleColumnSort = (col: string) => {
     const direction = sortDirection[col] === 'asc' ? 'desc' : 'asc'
 
-    if (handleAddSortToFilters) {
+    if (handleAddSortToFilters && tableType != 'Группа') {
+      switch (col) {
+        case 'Имя':
+          handleAddSortToFilters('students__last_name', direction)
+          break;
+        case 'Email':
+          handleAddSortToFilters('students__email', direction)
+          break;
+        case 'Курс':
+          handleAddSortToFilters('course_id__name', direction)
+          break;
+        case 'Группа':
+          handleAddSortToFilters('name', direction)
+          break;
+        case 'Дата добавления в группу':
+          handleAddSortToFilters('date_added_student', direction)
+          break;
+        case 'Дата удаления из группы':
+          handleAddSortToFilters('date_removed_student', direction)
+          break;
+        case 'Прогресс':
+          handleAddSortToFilters('progress', direction)
+          break;
+        case 'Суммарный балл':
+          handleAddSortToFilters('mark_sum', direction)
+          break;
+        case 'Средний балл':
+          handleAddSortToFilters('average_mark', direction)
+          break;
+        case 'Дата регистрации':
+          handleAddSortToFilters('students__date_joined', direction)
+          break;
+      }
+    } else if (handleAddSortToFilters && tableType == 'Группа') {
       switch (col) {
         case 'Имя':
           handleAddSortToFilters('last_name', direction)
@@ -163,26 +192,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
     }
   };
 
-  const handleModalClose = async (isStudentsGrouped: boolean) => {
-    if (isGroupingStudents !== isStudentsGrouped) {
-      try {
-        await updateSchoolStudentsGroupingMutation({ school: Number(schoolId) || 0, is_students_grouped: isStudentsGrouped });
-        setIsGroupingStudents(isStudentsGrouped)
-        if (isGrouping && isStudentsGrouped === true) {
-          isGrouping(true)
-        }
-      } catch (error) {
-        console.error('Ошибка при выполнении мутации:', error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (groupingStudents) {
-      setIsGroupingStudents(groupingStudents.is_students_grouped)
-    }
-  }, [groupingStudents])
-
   useEffect(() => {
     if (tableId) {
       fetchTableHeader({ id: tableId, schoolName })
@@ -200,7 +209,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
 
   useEffect(() => {
     students && setRows(data)
-  }, [isGroupingStudents, isLoading, students])
+  }, [isGrouping, isLoading, students])
 
   useEffect(() => {
     setCols(columns)
@@ -237,8 +246,8 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
           <thead className={styles.table_thead}>
             <tr>
               {cols.map(col => (
-                <th className={styles.table_thead_td} id={col} key={col} onClick={() => isGroupingStudents ? handleColumnSort('Email') : handleColumnSort(col)}>
-                  {!isGroupingStudents && sortDirection[col] && (
+                <th className={styles.table_thead_td} id={col} key={col} onClick={() => isGrouping ? handleColumnSort('Email') : handleColumnSort(col)}>
+                  {!isGrouping && sortDirection[col] && (
                     <span>
                       {sortDirection[col] === 'asc' ? (
                         <div className={styles.tableSortButton}>
@@ -277,7 +286,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
             </tr>
           </thead>
           
-          {isGroupingStudents ? (
+          {isGrouping ? (
            <tbody className={styles.table_tbody}>
            {rows && rows
              .sort((a: any, b: any) => (a['Email'] > b['Email'] ? 1 : -1)) // Сортировка по email
@@ -455,8 +464,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(({ students,
           <SettingStudentTable 
             setShowModal={onToggle} 
             tableId={tableId} 
-            is_students_grouped={isGroupingStudents} 
-            onCloseModal={handleModalClose}
           />
         </Portal>
       )}

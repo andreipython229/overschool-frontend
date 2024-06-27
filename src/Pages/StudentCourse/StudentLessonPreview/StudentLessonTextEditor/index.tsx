@@ -78,8 +78,8 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
 
     await postHomework({ homework: formDataHw, schoolName })
       .unwrap()
-      .then(data => {
-        setHwSended(true);
+      .then((data) => {
+        setHwSended(true)
         const formDataFile = new FormData()
 
         files.forEach((file, index) => {
@@ -109,11 +109,11 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
         if (files && files.length > 0) {
           postFiles({ formData: formDataFile, schoolName })
             .unwrap()
-            .then(data => {
+            .then(() => {
               setHwStatus(true)
               setIsLoading(false)
             })
-            .catch(error => {
+            .catch(() => {
               setHwStatus(true)
               setOpen(true)
               setIsLoading(false)
@@ -123,7 +123,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
           setIsLoading(false)
         }
       })
-      .catch(error => {
+      .catch(() => {
         setIsLoading(false)
         setHwStatus(true)
         setOpen(true)
@@ -171,7 +171,9 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
           handleDeleteFile={handleDeleteFile}
         />
       ))}
-      {text && <Button style={{ marginTop: '20px' }} variant="primary" text="Отправить" type="submit" onClick={handleSendHomework} />}
+      {(text || urlFiles.length > 0) && (
+        <Button style={{ marginTop: '20px' }} variant="primary" text="Отправить" type="submit" onClick={handleSendHomework} />
+      )}
     </div>
   ) : (
     <>

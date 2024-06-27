@@ -1,7 +1,6 @@
 @import '../../../../scss/variable';
 @import '../../../../scss/mixin.scss';
 
-
 .skeleton {
   position: absolute;
   left: 132px;
@@ -18,6 +17,7 @@
   grid-gap: 3% 5%;
   padding-bottom: 50px;
   justify-content: start;
+  margin-bottom: 4rem;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     display: flex;
     align-items: center;
@@ -25,7 +25,6 @@
     width: 90%;
     margin: 0 auto;
     padding-top: 5%;
-
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     display: flex;
@@ -36,11 +35,9 @@
     padding-top: 5%;
   }
 
-  
-
   &_addCourse {
     width: 100%;
-    height: 100%;
+    height: 390.8px;
     background: url('../../../../assets/img/createCourse/addCourse.svg') center center no-repeat;
     display: inline-block;
     text-align: center;
@@ -51,24 +48,19 @@
       border-radius: 10px;
       border: none;
 
-      
       &:hover {
         border: 3px #ba75ff solid;
-         
       }
-  
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       min-height: 385px;
       border-radius: 10px;
       border: none;
 
-
       // &:hover {
       //   border: 3px #ba75ff solid;
-         
+
       // }
-      
     }
 
     @media only screen and (min-width: 481px) and (max-width: 1024px) {
@@ -76,22 +68,18 @@
       border-radius: 10px;
       border: none;
 
-
       &:hover {
         border: 3px #ba75ff solid;
-         
       }
-      
     }
 
     & span {
-      @include position_b_l(absolute, 132px, 64px);
+      @include position_b_l(absolute, 132px, 17%);
       color: #e0dced;
       font-size: 17px;
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         @include position_b_l(absolute, 0px, 0%);
-    
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         @include position_b_l(absolute, 140px, 35%);
@@ -126,7 +114,6 @@
       width: 100%;
       margin-bottom: 5%;
       padding-bottom: 2%;
-  
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       width: 100%;
@@ -136,7 +123,6 @@
 
     &:hover {
       border: 3px #ba75ff solid;
-       
     }
 
     &_img {
@@ -153,7 +139,6 @@
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           object-fit: contain;
         }
-        
       }
     }
 
@@ -265,24 +250,24 @@
   margin-top: 10px;
   text-align: center;
   border: none;
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin-top: 0;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin-top: 0;
   }
 
   &:hover {
-      color: #ba75ff;
-      background-color: #ffffff;
+    color: #ba75ff;
+    background-color: #ffffff;
   }
 
   &:disabled {
-      color: #f9f5fd;
-      background-color: #e8e6e6;
+    color: #f9f5fd;
+    background-color: #e8e6e6;
   }
 
-  &_admin{
+  &_admin {
     align-self: flex-end;
     width: 194px;
     height: 33px;
@@ -293,16 +278,16 @@
     margin-top: 10px;
     text-align: center;
     border: none;
-    @media only screen and (min-width : 320px) and (max-width : 375px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
       // margin-top: 0;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       // margin-top: 0;
     }
 
     &:hover {
-        color: #ba75ff;
-        background-color: #ffffff;
+      color: #ba75ff;
+      background-color: #ffffff;
     }
   }
 }
@@ -327,15 +312,16 @@
 .search {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   font-size: 24px;
   width: 100vw;
   padding-top: 2rem;
+  margin-bottom: 2rem;
 
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding: 1rem 1rem 0 1rem;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding: 1rem 1rem 0 1rem;
   }
 }
