@@ -35,8 +35,8 @@ export const EmailNewsLetter = memo(() => {
     };
 
     const toggleModalLink = async () => {
-        await fetchNewsletterTemplates({ schoolName: schoolName });
         setIsModalLinkOpen(prevState => !prevState);
+        await fetchNewsletterTemplates({ schoolName: schoolName });
     };
 
     return (
