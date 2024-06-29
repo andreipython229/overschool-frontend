@@ -18,6 +18,7 @@ export const NavCreatingCourse = memo(() => {
             <NavAccountBtn text={'Конструктор'} path={CreateCoursePath.Constructor} />
             <NavAccountBtn text={'Ученики курса'} path={CreateCoursePath.Student} />
             <NavAccountBtn text={'Настройки курса'} path={CreateCoursePath.Settings} />
+            <NavAccountBtn text={'Страница курса'} path={CreateCoursePath.Page} />
             <NavAccountBtn text={'Комментарии'} path={CreateCoursePath.Comments} />
         </>
       ) : (

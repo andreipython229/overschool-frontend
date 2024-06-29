@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { BlockButtonT, IBlockCode, IBlockDesc, IBlockPic, IBlockVid, IButton } from 'types/sectionT'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 type OrderT = {
   block_id: number | string
@@ -9,7 +10,7 @@ type OrderT = {
 
 export const blocksService = createApi({
   reducerPath: 'blocksService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['block', 'createBlock', 'deleteBlock', 'updateBlock'],
   endpoints: build => ({
     createBlock: build.mutation<any, { data: any; schoolName: string }>({

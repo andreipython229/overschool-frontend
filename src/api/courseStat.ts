@@ -4,10 +4,11 @@ import {studentsTableInfoT, studentsTableStatsT} from '../types/courseStatT'
 import { baseQuery } from './baseApi'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
 import { createUrlWithFiltersAndFields } from 'utils/createUrlWithFiltersAndFields'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const courseStatService = createApi({
   reducerPath: 'courseStat',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['courseStat', 'studentsPerGroup', 'studentPerSchool', 'AllStudentsPerGroup', 'AllCourseStat'],
   endpoints: build => ({
     fetchCourseStat: build.query<studentsTableStatsT, { id: string | number; filters: any; schoolName: string , page: string | number, fields: any[]}>({

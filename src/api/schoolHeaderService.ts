@@ -3,14 +3,16 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 // import { baseQuery } from './baseApi'
 import { schoolHeaderResT } from '../types/schoolHeaderT'
 import { UpdateCourses } from './apiTypes'
-import {studentsTableInfoT, studentsTableStatsT} from '../types/courseStatT'
+import { studentsTableInfoT, studentsTableStatsT } from '../types/courseStatT'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
 import { createUrlWithFiltersAndFields } from 'utils/createUrlWithFiltersAndFields'
-import {baseQuery} from "./baseApi";
+import { baseQuery } from './baseApi'
+import { IProgressionState } from 'store/redux/newSchoolProgression/slice'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const schoolHeaderService = createApi({
   reducerPath: 'coursesHeaderService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['schoolHeader', 'studentPerSchool', 'allStudentPerSchool'],
   endpoints: build => ({
     fetchSchoolHeader: build.query<schoolHeaderResT, number>({
@@ -28,24 +30,34 @@ export const schoolHeaderService = createApi({
       invalidatesTags: ['schoolHeader'],
     }),
     fetchStudentsPerSchool: build.query<studentsTableStatsT, any>({
-      query: ({id, page, filters, fields}) => ({
+      query: ({ id, page, filters, fields }) => ({
         url: createUrlWithFiltersAndFields(`schools/${id}/stats/?p=${page !== undefined ? page : 1}`, filters, fields),
       }),
       providesTags: ['studentPerSchool'],
     }),
     fetchAllStudentsPerSchool: build.query<studentsTableInfoT, any>({
-      query: ({id, filters}) => ({
+      query: ({ id, filters }) => ({
         url: createUrlWithParams(`schools/${id}/all_stats`, filters),
       }),
       providesTags: ['allStudentPerSchool'],
     }),
     fetchStudentsDataPerSchool: build.query<studentsTableStatsT, any>({
-      query: ({id, filters}) => ({
+      query: ({ id, filters }) => ({
         url: createUrlWithParams(`schools/${id}/stats/`, filters),
       }),
       providesTags: ['studentPerSchool'],
     }),
+    getSchoolProgressionData: build.mutation<IProgressionState, string>({
+      query: schoolName => ({ url: `/${schoolName}/school_tasks`, method: 'GET' }),
+    }),
   }),
 })
 
-export const { useFetchStudentsDataPerSchoolQuery, useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation, useLazyFetchStudentsPerSchoolQuery, useLazyFetchAllStudentsPerSchoolQuery } = schoolHeaderService
+export const {
+  useFetchStudentsDataPerSchoolQuery,
+  useFetchSchoolHeaderQuery,
+  useSetSchoolHeaderMutation,
+  useLazyFetchStudentsPerSchoolQuery,
+  useLazyFetchAllStudentsPerSchoolQuery,
+  useGetSchoolProgressionDataMutation,
+} = schoolHeaderService
