@@ -56,3 +56,10 @@ export type CatalogResponseT = {
 export type CatalogCourseT = CoursesDataT & {
   sections: Section[]
 }
+
+export type NewsletterTemplate = {
+  schoolName: string
+  template_name: string
+  text: string
+  delay_days: number
+}
