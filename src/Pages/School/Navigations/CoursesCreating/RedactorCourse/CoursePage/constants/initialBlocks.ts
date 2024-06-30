@@ -13,6 +13,7 @@ export const initialBlocks: BlockKeys = {
     photoBackground: "",
     name: "",
     description: "",
+    contact_link: "",
   },
   stats: {
     id: 1,
@@ -40,7 +41,7 @@ export const initialBlocks: BlockKeys = {
     content: blocksNamesE.trainingProgram,
     visible: true,
     canUp: true,
-    canDown: false,
+    canDown: true,
     sections: []
   },
   trainingPurpose: {
@@ -52,7 +53,7 @@ export const initialBlocks: BlockKeys = {
         { id: -1, position: 1, photo: "", title: 'Изучите навык 2', description: '' },
     ],
     visible: true,
-    canUp: false,
-    canDown: true
+    canUp: true,
+    canDown: false,
   },
 }

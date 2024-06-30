@@ -74,14 +74,12 @@
     @include position_t_l(absolute, 80px, 44px);
     width: 700px;
 
-    input {
+    &_name {
       width: 100%;
       padding: 5px;
       color: #ba75ff;
       background: none;
       border: none;
-      border-radius: 5px;
-      outline: none;
       @include font(700, 22px, 24px);
       text-transform: uppercase;
 
@@ -94,17 +92,13 @@
         @include font(500, 16px, 17px);
       }
     }
-
-    input:hover {
-      background: rgba(248, 229, 255, 0.1);
-    }
   }
 }
 .previous_title_name {
   @include position_t_l(absolute, 120px, 43px);
   width: 700px;
 
-  textarea {
+  &_description {
     @include font(500, 22px, 28px);
     width: 100%;
     background: none;
@@ -112,8 +106,6 @@
     padding: 5px 5px;
     text-align: left;
     border: none;
-    border-radius: 5px;
-    outline: none;
     font-family: 'Inter', sans-serif;
     resize: none;
     font-size: 17px;

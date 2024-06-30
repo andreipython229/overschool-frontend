@@ -136,7 +136,7 @@ const AddPaymentMethods: React.FC<AddPaymentMethodsProps> = ({isOpen, onClose}) 
                     <button className={styles.closeButton} onClick={handleCloseButtonClick}>
                         <IconSvg width={15} height={15} viewBoxSize="0 0 17 17" path={closeHwModalPath}/>
                     </button>
-                    <h3 style={{textAlign: 'center', marginBottom: '15px'}}>Настройки способов оплаты</h3>
+                    <h3 style={{textAlign: 'center', marginBottom: '15px'}}>Добавление способов оплаты</h3>
                     <div style={{textAlign: 'center', color: 'red'}}>
                         {error && (
                             <div className={styles.error}>

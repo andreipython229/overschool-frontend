@@ -114,7 +114,7 @@ export const PaymentMethods = memo(() => {
 
     return (
         <div className={styles.wrapper_actions}>
-            <div style={{color: 'slategrey', fontSize: '20px', marginBlockEnd: '20px'}}>
+            <div style={{ color: 'slategrey', fontSize: '20px', marginBlockEnd: '20px' }}>
                 Оплата
                 <button
                     style={{
@@ -135,11 +135,15 @@ export const PaymentMethods = memo(() => {
                               fill="currentColor" strokeWidth=".1" fillRule="evenodd" clipRule="evenodd"/>
                     </svg>
                 </button>
-                <Button className={styles.generateLinkButton} onClick={toggleModalLink} text="Сгенерировать ссылку"/>
+                <Button
+                    className={styles.generateLinkButton}
+                    onClick={toggleModalLink}
+                    text="Сгенерировать ссылку"
+                />
                 <div className={styles.selectContainer}>
                     <select
                         value={filterType || ''}
-                        onChange={(e) => setFilterType(e.target.value || null)}
+                        onChange={e => setFilterType(e.target.value || null)}
                     >
                         <option value="">Все ссылки</option>
                         <option value="ProdamusPaymentLink">Prodamus</option>
@@ -148,11 +152,12 @@ export const PaymentMethods = memo(() => {
                 </div>
 
             </div>
-            <div>
-                <table className={styles.paymentTable}>
-                    <thead>
-                    <tr>
-                        <th
+            {filteredPaymentLinks.length > 0 ? (
+                <div>
+                    <table className={styles.paymentTable}>
+                        <thead>
+                            <tr>
+                                <th
                             onClick={() => {
                                 setFilterType(null);
                                 sortLinksByDate();
@@ -166,18 +171,16 @@ export const PaymentMethods = memo(() => {
                         >
                             Дата создания ссылки
                         </th>
-                        <th style={{color: 'slategrey'}}>Ссылка для оплаты</th>
-                        <th style={{color: 'slategrey'}}></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {filteredPaymentLinks.map((paymentLink, index) => (
-                        <tr key={index + 1}>
-                            <td>
-                                {new Date(paymentLink.created).toLocaleString()}
-                            </td>
-                            <td>
-                                <a
+                                <th style={{ color: 'slategrey' }}>Ссылка для оплаты</th>
+                                <th style={{ color: 'slategrey' }}></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredPaymentLinks.map((paymentLink, index) => (
+                                <tr key={index + 1}>
+                                    <td>{new Date(paymentLink.created).toLocaleString()}</td>
+                                    <td>
+                                        <a
                                     href={paymentLink?.payment_link || ''}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -192,35 +195,39 @@ export const PaymentMethods = memo(() => {
                                 >
                                     {paymentLink?.payment_link || 'No Payment Link'}
                                 </a>
-                            </td>
-                            <td style={{textAlign: "right"}}>
-                                <Button
-                                    className={styles.detailButton}
-                                    onClick={() => toggleModalDetailLink(paymentLink)}
-                                    text="Подробнее"
-                                />
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-                {notification && (
-                    <div className={styles.notificationContainer}>
-                        {notification}
-                    </div>
-                )}
-            </div>
-
-            <AddPaymentMethods isOpen={isModalOpen} onClose={toggleModal}/>
-            <LinkGenerating isOpen={isModalLinkOpen} onClose={toggleModalLink}/>
-            {paymentLink && (
-                'signature' in paymentLink ? (
-                    <ProdamusLinkDetail isOpen={isModalDetailLinkOpen} onClose={toggleLinkDetail}
-                                        paymentLink={paymentLink as ProdamusPaymentLinkDetail}/>
-                ) : (
-                    <LinkDetail isOpen={isModalDetailLinkOpen} onClose={toggleLinkDetail}
-                                paymentLink={paymentLink as SchoolPaymentLink}/>
-                )
+                                    </td>
+                                    <td style={{ textAlign: 'right' }}>
+                                        <Button
+                                            className={styles.detailButton}
+                                            onClick={() => toggleModalDetailLink(paymentLink)}
+                                            text="Подробнее"
+                                        />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    {notification && (
+                        <div className={styles.notificationContainer}>{notification}</div>
+                    )}
+                </div>
+            ) : (
+                <div className={styles.noLinksMessage}>Ссылок пока нет</div>
+            )}
+            <AddPaymentMethods isOpen={isModalOpen} onClose={toggleModal} />
+            <LinkGenerating isOpen={isModalLinkOpen} onClose={toggleModalLink} />
+            {paymentLink && 'signature' in paymentLink ? (
+                <ProdamusLinkDetail
+                    isOpen={isModalDetailLinkOpen}
+                    onClose={toggleLinkDetail}
+                    paymentLink={paymentLink as ProdamusPaymentLinkDetail}
+                />
+            ) : (
+                <LinkDetail
+                    isOpen={isModalDetailLinkOpen}
+                    onClose={toggleLinkDetail}
+                    paymentLink={paymentLink as SchoolPaymentLink}
+                />
             )}
         </div>
     )

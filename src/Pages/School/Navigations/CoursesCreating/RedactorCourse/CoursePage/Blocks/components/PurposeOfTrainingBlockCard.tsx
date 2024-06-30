@@ -1,19 +1,19 @@
 import React, {ChangeEvent, useState, useEffect} from 'react';
 import {CardPropsT} from "../types/audienceBlockT";
-import styles from "./audienceBlockCard.module.scss"
+import styles from "./purposeOfTrainingBlockCard.module.scss"
 import { TextareaAutosize, Avatar } from '@mui/material';
 import { DeleteForever } from "@mui/icons-material";
 import {useAppDispatch, useAppSelector} from "store/hooks";
 import { changeBlocks, addFile } from 'store/redux/landing/constructorSlice';
 
-export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) => {
+export const PurposeOfTrainingBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) => {
   const dispatch = useAppDispatch()
   const landing = useAppSelector(state => state.landing.blocks)
 
-  const [titleValue, setTitleValue] = useState<string>(landing.audience.chips[position].title);
-  const [descriptionValue, setDescriptionValue] = useState<string>(landing.audience.chips[position].description);
+  const [titleValue, setTitleValue] = useState<string>(landing.trainingPurpose.chips[position].title);
+  const [descriptionValue, setDescriptionValue] = useState<string>(landing.trainingPurpose.chips[position].description);
 
-  const [cardImage, setCardImage] = useState<string>(landing.audience.chips[position].photo)
+  const [cardImage, setCardImage] = useState<string>(landing.trainingPurpose.chips[position].photo)
   const [imgError, setImgError] = useState<string>('')
 
   const handleImageChange = () => {
@@ -29,12 +29,12 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
           setCardImage(url)
           // сохраняем файл в redux для последующей отправки в составе формы
           dispatch(addFile({
-            key:`photo_audience_${position}`,
+            key:`photo_trainingPurpose_${position}`,
             file: files[0]
           }))
 
           // сохраняем временнную ссылку на файл в redux
-          const chips = landing.audience.chips.map( item => {
+          const chips = landing.trainingPurpose.chips.map( item => {
           if (item.position === position) {
               return { ...item, photo: url };
             }
@@ -44,8 +44,8 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
           // формируем новый объект Лендинга
           const lndng = {
             ...landing,
-            audience: {
-              ...landing.audience,
+            trainingPurpose: {
+              ...landing.trainingPurpose,
               chips: chips
             }
           }
@@ -61,7 +61,7 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
   const handleChangeTitle = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setTitleValue(event.target.value)
 
-    const chips = landing.audience.chips.map( item => {
+    const chips = landing.trainingPurpose.chips.map( item => {
       if (item.position === position) {
         return { ...item, title: event.target.value};
       }
@@ -70,8 +70,8 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
 
     const lndng = {
       ...landing,
-      audience: {
-        ...landing.audience,
+      trainingPurpose: {
+        ...landing.trainingPurpose,
         chips: chips
       }
     }
@@ -82,7 +82,7 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
   const handleChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setDescriptionValue(event.target.value)
 
-    const chips = landing.audience.chips.map( item => {
+    const chips = landing.trainingPurpose.chips.map( item => {
       if (item.position === position) {
         return { ...item, description: event.target.value};
       }
@@ -91,8 +91,8 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
 
     const lndng = {
       ...landing,
-      audience: {
-        ...landing.audience,
+      trainingPurpose: {
+        ...landing.trainingPurpose,
         chips: chips
       }
     }
@@ -115,8 +115,6 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
           value={titleValue}
           onChange={handleChangeTitle}
           placeholder="Заголовок карточки"
-          maxRows={2}
-          maxLength={35}
         />
       </div>
       <div className={styles.wrapper_description}>
@@ -124,8 +122,6 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
           value={descriptionValue}
           onChange={handleChangeDescription}
           placeholder="Добавьте описание, если необходимо..."
-          maxRows={3}
-          maxLength={85}
         />
       </div>
       <button onClick={onDelete}>

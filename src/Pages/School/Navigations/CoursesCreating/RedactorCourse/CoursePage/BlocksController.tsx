@@ -1,22 +1,32 @@
-import React, {FC, ReactNode } from 'react';
+import React, {FC, ReactNode, useEffect } from 'react';
 import { HeaderBlock } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/Blocks/HeaderBlock'
 import { StatsBlock } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/Blocks/StatsBlock'
 import { BlocksControllerT } from "./types/blocksControllerT"
 import { TrainingProgram } from "./Blocks/TrainingProgram";
 import { AudienceBlock } from "./Blocks/AudienceBlock";
+import { PurposeOfTrainingBlock } from "./Blocks/PurposeOfTrainingBlock"
 import styles from "./styles/blocksController.module.scss"
 import { KeyboardArrowDown, KeyboardArrowUp, Visibility, VisibilityOff } from "@mui/icons-material";
 import { blocksNamesE } from "./enum/blocksNamesE";
 import {useAppDispatch, useAppSelector} from "store/hooks";
 import { changeBlocks, rollBackBlocks, removeFiles } from 'store/redux/landing/constructorSlice';
 import {Button} from "components/common/Button/Button";
-import {useSendCourseLandingMutation, useSendLandingImagesMutation} from 'api/courseLandingServices'
+import {useSendLandingImagesMutation} from 'api/courseLandingServices'
 import {useParams} from "react-router-dom";
+import {SimpleLoader} from "components/Loaders/SimpleLoader";
 
 export const BlocksController: FC<BlocksControllerT> = ({ openModal, showModal, isLoading2 }) => {
   const params = useParams()
   // const [sendLanding, {data: f_landing, isLoading}] = useSendCourseLandingMutation()
   const [sendLanding, {data: f_landing, isLoading}] = useSendLandingImagesMutation()
+
+  const dispatch = useAppDispatch()
+  const landing = useAppSelector(state => state.landing.blocks)
+  const files = useAppSelector(state => state.landing.files)
+
+  useEffect(()=> {
+    if (f_landing && !isLoading) dispatch(changeBlocks(f_landing))
+  }, [f_landing,])
 
   const getBlock = (name: string): ReactNode => {
     switch (name) {
@@ -28,14 +38,12 @@ export const BlocksController: FC<BlocksControllerT> = ({ openModal, showModal, 
         return <AudienceBlock />
       case blocksNamesE.trainingProgram:
         return <TrainingProgram />
+      case blocksNamesE.trainingPurpose:
+        return <PurposeOfTrainingBlock />
       default:
         return null
     }
   }
-
-  const dispatch = useAppDispatch()
-  const landing = useAppSelector(state => state.landing.blocks)
-  const files = useAppSelector(state => state.landing.files)
 
   // Скрытие и отображение блока
   const setBlockVisibility = (id: number, isVisible: boolean) => {
@@ -118,6 +126,14 @@ export const BlocksController: FC<BlocksControllerT> = ({ openModal, showModal, 
     dispatch(removeFiles())
   };
 
+  if (isLoading) {
+    return (
+      <div className={styles.loaderBox}>
+        <SimpleLoader style={{ height: '80px' }} />
+      </div>
+    )
+  }
+
   // Формирование списка из блоков
   const getListedBlocks = () => {
     return Object.values(landing).sort((a, b) => a.id - b.id)
@@ -135,9 +151,6 @@ export const BlocksController: FC<BlocksControllerT> = ({ openModal, showModal, 
       // sendLanding({schoolName: String(params.school_name), id: Number(params.course_id), data: landing})
     }
   }
-
-  console.log("===================")
-  console.log(files)
 
   return (
     <div className={styles.blocksController}>

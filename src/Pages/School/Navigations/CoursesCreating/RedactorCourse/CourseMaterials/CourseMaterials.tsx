@@ -119,22 +119,21 @@ export const CourseMaterials: FC = () => {
                 return (
                   <>
                     {lessons && lessons.length > 0 ? (
-                      <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons.map((lesson) => ({ ...lesson, key: lesson.baselesson_ptr_id }))}>
-                        {lessons.map((lesson) => (
-                          <Reorder.Item
-                          draggable={false}
+                      <ul className={styles1.settings_list}>
+                      {lessons.map((lesson) => (
+                        <li
                           key={lesson.baselesson_ptr_id}
-                          value={lesson}
                           onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
                           className={`${styles.redactorCourse_leftSide_desc_lessonWrapper} ${stylesModules.btnWrapper} ${(selectedLessonId === lesson.baselesson_ptr_id) ? styles.selectedLesson : ''}`}
+                          style={{ cursor: 'pointer' }}
                         >
                           <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
                             <span>{lessonSvgMapper[lesson.type]}</span>
                             <span style={{ textAlign: 'left' }}>{lesson.name}</span>
                           </span>
-                        </Reorder.Item>
-                        ))}
-                      </Reorder.Group>
+                        </li>
+                      ))}
+                    </ul>
                     ) : (
                       <>
                         Нет доступных уроков
