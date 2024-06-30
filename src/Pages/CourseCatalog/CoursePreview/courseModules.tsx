@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import styles from './coursePreview.module.scss'
+import styles from './styles/coursePreview.module.scss'
 import { Lesson, Section } from 'types/courseStatT'
 import { getNounDeclension } from 'utils/getNounDeclension'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'

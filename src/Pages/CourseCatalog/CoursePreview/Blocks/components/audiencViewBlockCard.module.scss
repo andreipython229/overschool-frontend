@@ -73,21 +73,16 @@
     display: flex;
     justify-content: center;
 
-    textarea {
+    &_text {
       padding: 5px;
       width: 90%;
       color: #ba75ff;
       text-align: center;
       font-weight: bolder;
       border: none;
-      border-radius: 5px;
-      outline: none;
       font-family: 'Inter', sans-serif;
       resize: none;
       font-size: 20px;
-    }
-    textarea:hover {
-      background: rgba(248, 229, 255, 0.68);
     }
   }
 
@@ -96,20 +91,15 @@
     display: flex;
     justify-content: center;
 
-    textarea {
+    &_text {
       padding: 5px;
       width: 90%;
       color: #34495e;
       text-align: center;
       border: none;
-      border-radius: 5px;
-      outline: none;
       font-family: 'Inter', sans-serif;
       resize: none;
       font-size: 17px;
-    }
-    textarea:hover {
-      background: rgba(248, 229, 255, 0.68);
     }
   }
 }
