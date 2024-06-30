@@ -17,7 +17,7 @@ export const PaymentMethods = memo(() => {
     const [isModalDetailLinkOpen, setIsModalDetailLinkOpen] = useState(false);
     const [notification, setNotification] = useState<string | null>(null);
     const [filterType, setFilterType] = useState<string | null>(null);
-
+    const [filteredPaymentLinks, setFilteredPaymentLinks] = useState<(SchoolPaymentLink | ProdamusPaymentLinkDetail)[]>([]);
     const [paymentLinks, setPaymentLinks] = useState<SchoolPaymentLinkList>({} as SchoolPaymentLinkList);
     const [prodamusPaymentLinks, setProdamusPaymentLinks] = useState<ProdamusPaymentLinkList>({} as ProdamusPaymentLinkList);
     const schoolIdString = localStorage.getItem('school_id');
@@ -25,7 +25,7 @@ export const PaymentMethods = memo(() => {
 
     const [fetchLinks, paymentLinksResponse] = useLazyFetchPaymentLinksQuery();
     const [fetchProdamusLinks, prodamusPaymentLinksResponse] = useLazyFetchProdamusPaymentLinksQuery();
-
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
     const handleNotification = (message: string) => {
         setNotification(message);
         setTimeout(() => {
@@ -87,9 +87,30 @@ export const PaymentMethods = memo(() => {
         handleNotification("Ссылка скопирована")
     }
 
-    const filteredPaymentLinks = filterType ? (
-        filterType === 'ProdamusPaymentLink' ? Object.values(prodamusPaymentLinks) : Object.values(paymentLinks)
-    ) : [...Object.values(paymentLinks), ...Object.values(prodamusPaymentLinks)];
+
+    useEffect(() => {
+        const updateFilteredLinks = () => {
+            const allPaymentLinks = [...Object.values(paymentLinks), ...Object.values(prodamusPaymentLinks)];
+            const filteredLinks = filterType ? (
+                filterType === 'ProdamusPaymentLink' ? Object.values(prodamusPaymentLinks) : Object.values(paymentLinks)
+            ) : allPaymentLinks;
+
+            const sortedLinks = [...filteredLinks].sort((a, b) => {
+                if (sortDirection === 'asc') {
+                    return new Date(a.created).getTime() - new Date(b.created).getTime();
+                } else {
+                    return new Date(b.created).getTime() - new Date(a.created).getTime();
+                }
+            });
+
+            setFilteredPaymentLinks(sortedLinks);
+        };
+
+        updateFilteredLinks();
+    }, [paymentLinks, prodamusPaymentLinks, filterType, sortDirection]);
+    const sortLinksByDate = () => {
+        setSortDirection(prevDirection => (prevDirection === 'asc' ? 'desc' : 'asc'));
+    };
 
     return (
         <div className={styles.wrapper_actions}>
@@ -131,7 +152,20 @@ export const PaymentMethods = memo(() => {
                 <table className={styles.paymentTable}>
                     <thead>
                     <tr>
-                        <th style={{color: 'slategrey'}}>Дата создания ссылки</th>
+                        <th
+                            onClick={() => {
+                                setFilterType(null);
+                                sortLinksByDate();
+                            }}
+                            style={{
+                                color: 'slategrey',
+                                cursor: 'pointer',
+                                width: '0%',
+                                textAlign: 'left'
+                            }}
+                        >
+                            Дата создания ссылки
+                        </th>
                         <th style={{color: 'slategrey'}}>Ссылка для оплаты</th>
                         <th style={{color: 'slategrey'}}></th>
                     </tr>
@@ -144,15 +178,19 @@ export const PaymentMethods = memo(() => {
                             </td>
                             <td>
                                 <a
-                                    href={paymentLink.payment_link}
+                                    href={paymentLink?.payment_link || ''}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        handleCopyLink(paymentLink.payment_link);
+                                        if (paymentLink?.payment_link) {
+                                            handleCopyLink(paymentLink.payment_link);
+                                        } else {
+                                            console.error('Payment link is undefined or null');
+                                        }
                                     }}
                                 >
-                                    {paymentLink.payment_link}
+                                    {paymentLink?.payment_link || 'No Payment Link'}
                                 </a>
                             </td>
                             <td style={{textAlign: "right"}}>
