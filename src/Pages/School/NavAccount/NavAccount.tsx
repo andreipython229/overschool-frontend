@@ -9,7 +9,7 @@ import { selectUser } from '../../../selectors'
 import styles from './navAccount.module.scss'
 
 export const NavAccount: FC = memo(() => {
-  const { userId, role } = useAppSelector(selectUser)
+  const { role } = useAppSelector(selectUser)
   const schoolName = window.location.href.split('/')[4]
 
   return (
@@ -20,7 +20,7 @@ export const NavAccount: FC = memo(() => {
       <NavAccountBtn path={SettingsPath.SchoolPassport} text={'Печати и подписи'} />
       {(role === RoleE.SuperAdmin  || role === RoleE.Admin) && <NavAccountBtn path={SettingsPath.PaymentMethods} text={'Оплата'} />}
       <NavAccountBtn path={SettingsPath.DomainSettings} text={'Домены'} />
-      {(userId === 154 && schoolName == 'OVERONE') && <NavAccountBtn path={SettingsPath.EmailNewsLetter} text={'Рассылка'} />}
+      {((role === RoleE.SuperAdmin  || role === RoleE.Admin) && schoolName == 'OVERONE') && <NavAccountBtn path={SettingsPath.EmailNewsLetter} text={'Рассылка'} />}
     </nav>
   )
 })
