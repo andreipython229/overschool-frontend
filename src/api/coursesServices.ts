@@ -3,10 +3,11 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { CoursesT, CoursesDataT, CourseWithGroupsT } from '../types/CoursesT'
 import { UpdateCourses } from './apiTypes'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const coursesServices = createApi({
   reducerPath: 'coursesServices',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['courses', 'course'],
   endpoints: build => ({
     fetchCourseFolders: build.query<any, string>({
@@ -76,7 +77,7 @@ export const coursesServices = createApi({
 
 export const CoursesPageService = createApi({
   reducerPath: 'CoursesPageService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['CoursesPage'],
   endpoints: build => ({
     fetchCoursesPage: build.query<CoursesT, string>({
