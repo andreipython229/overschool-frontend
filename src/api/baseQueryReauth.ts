@@ -7,6 +7,8 @@ import { baseQuery } from './baseApi'
 
 const mutex = new Mutex()
 
+const requestQueue: (string | FetchArgs)[] = []
+
 export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
   await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
@@ -19,7 +21,11 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
           .unwrap()
         if (refreshResult.access && refreshResult.refresh) {
           api.dispatch(authState(refreshResult))
-          result = await baseQuery(args, api, extraOptions)
+          // Добавлено для проверки бесшовности обновления токена!!!! (возможно не будет работать -_-)
+          for (const request of requestQueue) {
+            result = await baseQuery(request, api, extraOptions)
+          }
+          requestQueue.length = 0 // чистка очереди
         } else {
           api.dispatch(logoutState())
         }
@@ -28,6 +34,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
       }
     } else {
       await mutex.waitForUnlock()
+      requestQueue.push(args) // добавление запросов в очередь
       result = await baseQuery(args, api, extraOptions)
     }
   }
