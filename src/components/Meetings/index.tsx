@@ -17,7 +17,7 @@ import {setTotalMeetingCount} from "../../store/redux/meetings/meetingSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/redux/store";
 import Timer from "../Timer/Timer";
-
+import Tooltip from '@mui/material/Tooltip';
 export const SchoolMeetings: FC = () => {
     const isLogin = useAppSelector(authSelector);
     const totalMeetingCount = useSelector((state: RootState) => state.meetings.totalMeetingCount);
@@ -73,54 +73,78 @@ export const SchoolMeetings: FC = () => {
     };
 
     const renderMeetingLinks = () => {
-        const dateFormatter = new Intl.DateTimeFormat('ru-RU', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-        });
+    const dateFormatter = new Intl.DateTimeFormat('ru-RU', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+    });
 
-        if (meetingsSuccess) {
-            return (
-                    <table className={styles.meetingTable}>
-                        <thead>
-                        <tr>
-                            <th>Ссылка</th>
-                            <th>Дата и время</th>
-                            <th>Группы</th>
-                            <th>Время до старта</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {meetingsData.map((meeting, index) => (
-                            <tr key={meeting.id}>
-                                <td><a href={meeting.link} target="_blank" rel="noopener noreferrer">{meeting.link}</a>
-                                </td>
-                                <td>{dateFormatter.format(new Date(meeting.start_date))}</td>
-                                <td>{meeting.students_groups.map(groupId => {
+    const MAX_GROUPS_DISPLAY = 4;
+
+    if (meetingsSuccess) {
+        return (
+            <table className={styles.meetingTable}>
+                <thead>
+                    <tr>
+                        <th>Ссылка</th>
+                        <th>Дата и время</th>
+                        <th>Группы</th>
+                        <th>Время до старта</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {meetingsData.map((meeting, index) => (
+                        <tr key={meeting.id}>
+                            <td>
+                                <a href={meeting.link} target="_blank" rel="noopener noreferrer">
+                                    {meeting.link}
+                                </a>
+                            </td>
+                            <td>{dateFormatter.format(new Date(meeting.start_date))}</td>
+                            <td>
+                                {meeting.students_groups.slice(0, MAX_GROUPS_DISPLAY).map(groupId => {
                                     const group = studentsGroups?.results.find(g => g.group_id === groupId);
                                     return group ? group.name : '';
-                                }).join(', ')}</td>
-                                <td><Timer targetDate={new Date(meeting.start_date)} /></td>
-                                <td>
-                                    <Button onClick={() => handleDeleteMeeting(meeting.id)} text="Удалить"/>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
-            );
-        }
-        return <table className={styles.meetingTable}>
-                <tbody>
-                    <tr className={styles.table_no_results}>
-                        <td>Ничего не найдено</td>
-                    </tr>
+                                }).join(', ')}
+                                {meeting.students_groups.length > MAX_GROUPS_DISPLAY && (
+                                    <Tooltip
+                                        title={
+                                            meeting.students_groups.map(groupId => {
+                                                const group = studentsGroups?.results.find(g => g.group_id === groupId);
+                                                return group ? group.name : '';
+                                            }).join(', ')
+                                        }
+                                        arrow
+                                    >
+                                        <span>
+                                            , и ещё {meeting.students_groups.length - MAX_GROUPS_DISPLAY}
+                                        </span>
+                                    </Tooltip>
+                                )}
+                            </td>
+                            <td><Timer targetDate={new Date(meeting.start_date)} /></td>
+                            <td>
+                                <Button onClick={() => handleDeleteMeeting(meeting.id)} text="Удалить"/>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
-            </table>;
-    };
+            </table>
+        );
+    }
+    return (
+        <table className={styles.meetingTable}>
+            <tbody>
+                <tr className={styles.table_no_results}>
+                    <td>Ничего не найдено</td>
+                </tr>
+            </tbody>
+        </table>
+    );
+};
 
     return (
         <div className={styles.wrapper_actions}>
