@@ -44,6 +44,7 @@ export const rootReducer = combineReducers({
   [services.meetingService.reducerPath]: services.meetingService.reducer,
   [services.tgNotificationsService.reducerPath]: services.tgNotificationsService.reducer,
   [services.domainService.reducerPath]: services.domainService.reducer,
+  [services.schoolBonusService.reducerPath]: services.schoolBonusService.reducer,
 
 
   user: slices.authReduce,
@@ -60,6 +61,7 @@ export const rootReducer = combineReducers({
   userProfile: slices.userProfileReducer,
   modules: modulesReduce,
   meetings: slices.meetingReducer,
+  bonuses: slices.bonusReducer,
 })
 
 const persistConfig = {
@@ -110,6 +112,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.catalogService.middleware,
         services.prodamusService.middleware,
         services.meetingService.middleware,
+        services.schoolBonusService.middleware,
         services.tgNotificationsService.middleware,
           services.domainService.middleware,
           errorMiddleware,

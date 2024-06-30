@@ -19,6 +19,9 @@ import { Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTi
 import { Delete, FolderCopyOutlined } from '@mui/icons-material'
 import { AddNewFolderModal } from 'components/Modal/AddFolderModal'
 import { Button } from 'components/common/Button/Button'
+import {useLazyFetchBonusesQuery} from "../../../../api/schoolBonusService";
+import {setStudentBonus} from "store/redux/bonuses/bonusSlice";
+import {useDispatch} from "react-redux";
 
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
@@ -40,6 +43,8 @@ export const CoursePage: FC = () => {
     name: string
   }>()
   const [deleteFolder, { isSuccess: deletedSuccessfuly }] = useDeleteFolderMutation()
+  const [getBonuses, { data: bonuses, isSuccess: bonusSuccess }] = useLazyFetchBonusesQuery()
+  const dispatch = useDispatch();
 
   const dispatchHandlerModal = () => {
     onToggle()
@@ -64,7 +69,16 @@ export const CoursePage: FC = () => {
     } else {
       fetchData(schoolName)
     }
+    if (role === RoleE.Student) {
+      getBonuses(schoolName)
+    }
   }, [schoolId])
+
+  useEffect(() => {
+    if (bonusSuccess && bonuses?.length) {
+      dispatch(setStudentBonus(bonuses[0]));
+    }
+  }, [bonusSuccess, bonuses]);
 
   const filterCoursesByFolders = (folderId: number) => {
     if (coursesData) {
