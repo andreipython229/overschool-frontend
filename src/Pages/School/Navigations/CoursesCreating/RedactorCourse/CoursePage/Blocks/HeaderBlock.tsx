@@ -1,29 +1,20 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, ChangeEvent} from 'react';
 import styles from './styles/headerBlock.module.scss'
 import {Button} from "components/common/Button/Button";
 
 import { HeaderBlockT } from "../types/blocksControllerT"
 import {useAppDispatch, useAppSelector} from "store/hooks";
-import {useSendLandingImagesMutation} from 'api/courseLandingServices'
-import {useParams} from "react-router-dom";
 import {addFile, changeBlocks} from "store/redux/landing/constructorSlice";
+import {TextareaAutosize} from "@mui/material";
 
 export const HeaderBlock:FC<HeaderBlockT> = ({openModal}) => {
-  const params = useParams()
   const dispatch = useAppDispatch()
   const landing = useAppSelector(state => state.landing.blocks)
 
+  const [titleValue, setTitleValue] = useState<string>(landing.header.name);
+  const [descriptionValue, setDescriptionValue] = useState<string>(landing.header.description);
   const [courseImage, setCourseImage] = useState<string>(landing.header.photoBackground)
-  // const [sendImage, {data: f_landing, isLoading}] = useSendLandingImagesMutation()
   const [imgError, setImgError] = useState<string>('')
-  const schoolName = window.location.href.split('/')[4]
-
-  // useEffect(() => {
-  //   if(f_landing) {
-  //     setCourseImage(String(f_landing.header.photoBackground))
-  //     dispatch(changeBlocks(f_landing))
-  //   }
-  // }, [f_landing, ])
 
   const handleImageChange = () => {
     setImgError('')
@@ -60,14 +51,60 @@ export const HeaderBlock:FC<HeaderBlockT> = ({openModal}) => {
     fileInput.click()
   }
 
+  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitleValue(event.target.value)
+
+    dispatch(changeBlocks({
+      ...landing,
+      header: {
+        ...landing.header,
+        name: event.target.value
+      }
+    }));
+  };
+
+  const handleChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setDescriptionValue(event.target.value)
+
+    dispatch(changeBlocks({
+      ...landing,
+      header: {
+        ...landing.header,
+        description: event.target.value
+      }
+    }));
+  };
+
   return (
     <div className={styles.previous}>
       <div className={styles.background_image_course}>
-        <img src={courseImage} alt={landing.header.name} style={{ objectFit: 'cover', width: '100%', height: '100%' }} onClick={handleImageChange}/>
+        <img src={courseImage}
+             alt={landing.header.name}
+             style={{objectFit: 'cover', width: '100%', height: '100%'}}
+             onClick={handleImageChange}/>
+        {imgError && <p className={styles.background_image_course_error}>{imgError}</p>}
       </div>
-      {/*<div className={styles.previous_bcgrShadow}></div>*/}
-      <div className={styles.previous_onlineCourses}>Онлайн-курс</div>
-      <div className={styles.previous_title_name}>{landing.header.name}</div>
+      <div className={styles.previous_bcgrShadow}
+           onClick={handleImageChange}>
+      </div>
+      <div className={styles.previous_onlineCourses}>
+        <input
+          type="text"
+          maxLength={256}
+          value={titleValue}
+          onChange={handleChangeTitle}
+          placeholder="Название курса"
+        />
+      </div>
+      <div className={styles.previous_title_name}>
+        <TextareaAutosize
+          value={descriptionValue}
+          onChange={handleChangeDescription}
+          placeholder="Добавьте описание, если необходимо..."
+          maxRows={3}
+          maxLength={85}
+        />
+      </div>
       <div className={styles.previous_buttonAccept}>
         <Button variant="primary" onClick={openModal} text="Оставить заявку"/>
       </div>

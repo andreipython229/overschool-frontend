@@ -245,46 +245,79 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       const formData1 = new FormData()
       formData1.append('base_lesson', `${data?.baselesson_ptr_id}`)
       files.forEach(file => formData1.append('files', file))
-      await addTextFiles({ formData: formData1, schoolName }).then(data => {
+      await addTextFiles({ formData: formData1, schoolName }).then(async data => {
         setFiles([])
         setUrlFiles([])
+        const formData = new FormData()
+        // formData.append('description', lessonDescription)
+        formData.append('section', String(lesson.section))
+        formData.append('order', String(lesson.order))
+        formData.append('active', String(isPublished))
+
+        if (lesson.type === 'test') {
+          formData.append('random_test_generator', String(autogeneration))
+          if (autogeneration) {
+            const selectedTests = previousTests?.filter((test: checkedTestT) => test.checked)
+            if (numQuestions && selectedTests?.length) {
+              formData.append('num_questions', String(numQuestions))
+              selectedTests.map((test: checkedTestT) => formData.append('tests_ids', String(test.test_id)))
+            } else {
+              tmpError = 'Необходимо выбрать количество вопросов и тесты для генерации списка вопросов'
+              setError(tmpError)
+            }
+          }
+        }
+        !tmpError &&
+          (await saveChanges({
+            arg: {
+              id: +lessonIdAndType.id,
+              type: lessonIdAndType.type,
+              formdata: formData,
+            },
+            schoolName,
+          })
+            .unwrap()
+            .then(data => {
+              console.log(data)
+              refetch()
+            }))
       })
-    }
+    } else {
+      const formData = new FormData()
+      // formData.append('description', lessonDescription)
+      formData.append('section', String(lesson.section))
+      formData.append('order', String(lesson.order))
+      formData.append('active', String(isPublished))
 
-    const formData = new FormData()
-    // formData.append('description', lessonDescription)
-    formData.append('section', String(lesson.section))
-    formData.append('order', String(lesson.order))
-    formData.append('active', String(isPublished))
-
-    if (lesson.type === 'test') {
-      formData.append('random_test_generator', String(autogeneration))
-      if (autogeneration) {
-        const selectedTests = previousTests?.filter((test: checkedTestT) => test.checked)
-        if (numQuestions && selectedTests?.length) {
-          formData.append('num_questions', String(numQuestions))
-          selectedTests.map((test: checkedTestT) => formData.append('tests_ids', String(test.test_id)))
-        } else {
-          tmpError = 'Необходимо выбрать количество вопросов и тесты для генерации списка вопросов'
-          setError(tmpError)
+      if (lesson.type === 'test') {
+        formData.append('random_test_generator', String(autogeneration))
+        if (autogeneration) {
+          const selectedTests = previousTests?.filter((test: checkedTestT) => test.checked)
+          if (numQuestions && selectedTests?.length) {
+            formData.append('num_questions', String(numQuestions))
+            selectedTests.map((test: checkedTestT) => formData.append('tests_ids', String(test.test_id)))
+          } else {
+            tmpError = 'Необходимо выбрать количество вопросов и тесты для генерации списка вопросов'
+            setError(tmpError)
+          }
         }
       }
+      !tmpError &&
+        (await saveChanges({
+          arg: {
+            id: +lessonIdAndType.id,
+            type: lessonIdAndType.type,
+            formdata: formData,
+          },
+          schoolName,
+        })
+          .unwrap()
+          .then(data => {
+            console.log(data)
+            refetch()
+          }))
     }
-    !tmpError &&
-      (await saveChanges({
-        arg: {
-          id: +lessonIdAndType.id,
-          type: lessonIdAndType.type,
-          formdata: formData,
-        },
-        schoolName,
-      })
-        .unwrap()
-        .then(data => {
-          // console.log(data)
-          refetch()
-        }))
-  }
+
 
   const renderUI = () => {
     if (isSuccess) {
@@ -461,7 +494,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       style={{ opacity: isFetching || isDeleting || isSaving ? 0.5 : 1, position: 'relative' }}
       className={styles.redactorCourse_rightSideWrapper}
     >
-      <div  className={styles.redactorCourse_rightSideWrapper_rightSide}>
+      <div className={styles.redactorCourse_rightSideWrapper_rightSide}>
         <div className={styles.redactorCourse_rightSideWrapper_rightSide_header}>
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock}>
             {!isEditing ? <div className={styles.coursePreviewHeader}></div> : <div></div>}

@@ -1,23 +1,21 @@
-import {FC, useState, useEffect, ChangeEvent, useRef} from 'react'
+import { FC, useState, useEffect, ChangeEvent, useRef } from 'react'
 import { RoleE } from 'enum/roleE'
 import { ChatInput } from './ChatInput'
 import { ChatUser } from './ChatUser'
 import { ChatMessagesList } from './ChatMessagesList'
 import { ChatGroupPreview } from './ChatGroupPreview'
-import { useAppDispatch, useAppSelector} from 'store/hooks'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { useLazyFetchChatQuery } from 'api/chatsService'
-import { ChatI, MessageI, Messages, SenderI} from 'types/chatsT'
+import { ChatI, MessageI, Messages, SenderI } from 'types/chatsT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from './chat.module.scss'
 
 import { useLazyFetchMessagesQuery } from '../../../api/chatsService'
 
-import { w3cwebsocket, IMessageEvent } from 'websocket';
-import {removeChat} from "../../../store/redux/chats/slice";
-import { selectUser} from "../../../selectors";
-
-
+import { w3cwebsocket, IMessageEvent } from 'websocket'
+import { removeChat } from '../../../store/redux/chats/slice'
+import { selectUser } from '../../../selectors'
 
 export const ChatWorkspace: FC = () => {
   const { chatId } = useAppSelector(state => state.chat)
@@ -32,10 +30,10 @@ export const ChatWorkspace: FC = () => {
   const [message, setMessage] = useState<string>('')
 
   const [fetchChatData, { data, isFetching, isSuccess }] = useLazyFetchChatQuery()
-  const [fetchMessages, { data: messagesData}] = useLazyFetchMessagesQuery()
+  const [fetchMessages, { data: messagesData }] = useLazyFetchMessagesQuery()
 
-  const messagesRef = useRef<HTMLDivElement | null>(null);
-  const socketRef = useRef<w3cwebsocket | null>(null);
+  const messagesRef = useRef<HTMLDivElement | null>(null)
+  const socketRef = useRef<w3cwebsocket | null>(null)
 
   useEffect(() => {
     if (chatId) {
@@ -43,23 +41,24 @@ export const ChatWorkspace: FC = () => {
         fetchMessages(chatId)
         fetchChatData(chatId)
 
-        socketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/chats/${chatId}/`)
-        // socketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/chats/${chatId}/`)
+        socketRef.current = new w3cwebsocket(`ws://sandbox.overschool.by/ws/chats/${chatId}?user_id=${userId}`)
+        // socketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/chats/${chatId}?user_id=${userId}`)
+        // socketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/chats/${chatId}?user_id=${userId}`)
         socketRef.current.onopen = () => {
           console.log('WebSocket connected')
         }
 
         socketRef.current.onmessage = event => {
           if (typeof event.data === 'string') {
-            const receivedMessage: MessageI = JSON.parse(event.data);
-            setMessages(messages => [...messages, receivedMessage]);
+            const receivedMessage: MessageI = JSON.parse(event.data)
+            setMessages(messages => [...messages, receivedMessage])
             // console.log('Received message:', receivedMessage);
           } else {
             // console.log('Received non-string data:', event.data);
           }
         }
         socketRef.current.onerror = event => {
-          console.log("socket error = ", event)
+          console.log('socket error = ', event)
         }
 
         socketRef.current.onclose = event => {
@@ -70,18 +69,16 @@ export const ChatWorkspace: FC = () => {
 
     return () => {
       if (socketRef.current) {
-        socketRef.current.close();
+        socketRef.current.close()
       }
     }
   }, [chatId])
 
-
   useEffect(() => {
     if (messagesData) {
-      setMessages(messagesData);
+      setMessages(messagesData)
     }
-  }, [messagesData]);
-
+  }, [messagesData])
 
   // useEffect(() => {
   //   if (socket && socket.readyState === WebSocket.OPEN) {
@@ -95,7 +92,6 @@ export const ChatWorkspace: FC = () => {
   const handleSubmit = async () => {
     if (message.length > 0) {
       if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-
         const data = {
           message: message,
           sender: userId,
@@ -119,9 +115,9 @@ export const ChatWorkspace: FC = () => {
 
   useEffect(() => {
     if (messagesRef.current) {
-      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight
     }
-  }, [messages]);
+  }, [messages])
 
   return (
     <div className={styles.chatWorkspace}>
@@ -139,33 +135,29 @@ export const ChatWorkspace: FC = () => {
               <ChatUser openGroup={setOpenGroupPreview} chatData={selectedChatData as ChatI} usersCount={usersInGroup?.length as number} />
               <div className={styles.chatWorkspace_wrapper} ref={messagesRef}>
                 <div className={styles.chatWorkspace_content}>
-                    <ChatMessagesList messages={messages as Messages} chatData={selectedChatData as ChatI} />
+                  <ChatMessagesList messages={messages as Messages} chatData={selectedChatData as ChatI} />
                 </div>
               </div>
 
-
-
               {data?.is_deleted === false ? (
-                  <>
-                      {role === RoleE.Teacher ? (
-                          <>
-                            <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
-                          </>
-                      ) : role === RoleE.Admin ? (
-                          <>
-                            <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
-                          </>
-                      ) : role === RoleE.Student ? (
-                          <>
-                            {data?.type === "PERSONAL" ? (
-                                <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
-                            ) : null}
-                          </>
+                <>
+                  {role === RoleE.Teacher ? (
+                    <>
+                      <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
+                    </>
+                  ) : role === RoleE.Admin ? (
+                    <>
+                      <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
+                    </>
+                  ) : role === RoleE.Student ? (
+                    <>
+                      {data?.type === 'PERSONAL' ? (
+                        <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
                       ) : null}
-                  </>
+                    </>
+                  ) : null}
+                </>
               ) : null}
-
-
             </>
           ) : (
             <div className={styles.chatWorkspace_preview}>

@@ -103,7 +103,9 @@ export const CreateNewSchool = () => {
           .unwrap()
           .catch((response: any) => {
             if (response.status === 400) {
-              setError(response.data)
+              const errorResponse = JSON.parse(response.data);
+              const errorMessage = errorResponse.errors.phone_number[0];
+              setError(errorMessage)
             }
           })
       } else {
