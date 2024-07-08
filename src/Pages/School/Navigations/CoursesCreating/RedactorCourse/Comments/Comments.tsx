@@ -9,7 +9,6 @@ import {
   useUpdateCommentsMutation
 } from 'api/modulesServices';
 
-import { Reorder } from 'framer-motion';
 import { lessonSvgMapper } from 'config';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { acceptedHwPath } from 'config/commonSvgIconsPath';
@@ -52,10 +51,9 @@ export const Comments: FC = () => {
     const handleChangeLesson = (lessonId: number, baselesson: number, lessonType: string) => {
       return () => {
         const idAndType: lessonIdAndTypeT = { id: lessonId, type: lessonType };
+        setLessonIdAndType(idAndType);
+        setSelectedLessonId(baselesson);
         fetchComments({lesson_id: baselesson, schoolName: schoolName}).then((data) => {
-          setLessonIdAndType(idAndType);
-          setSelectedLessonId(baselesson);
-
           if (data && data.data) {
             const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
               return {
@@ -145,10 +143,6 @@ export const Comments: FC = () => {
       }
     }, [modulesList, check]);
 
-    const handleOrderUpdate = () => {
-      return NaN
-    }
-
     const handleSaveChanges = async () => {
       try {
         
@@ -180,25 +174,23 @@ export const Comments: FC = () => {
                 if (!section_name) return
                 return (
                   <>
-                    {lessons && lessons.length > 0 && (
-                      <Reorder.Group className={styles1.settings_list} as="ul" onReorder={handleOrderUpdate} values={lessons.map((lesson) => ({ ...lesson, key: lesson.baselesson_ptr_id }))}>
-                        {lessons.map((lesson) => (
-                          <Reorder.Item
-                          draggable={false}
-                          onDragStart={(e) => e.preventDefault()}
+                  {lessons && lessons.length > 0 && (
+                    <ul className={styles1.settings_list}>
+                      {lessons.map((lesson) => (
+                        <li
                           key={lesson.baselesson_ptr_id}
-                          value={lesson}
                           onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
                           className={`${styles.redactorCourse_leftSide_desc_lessonWrapper} ${stylesModules.btnWrapper} ${(selectedLessonId === lesson.baselesson_ptr_id) ? styles.selectedLesson : ''}`}
+                          style={{ cursor: 'pointer' }}
                         >
                           <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
                             <span>{lessonSvgMapper[lesson.type]}</span>
                             <span style={{ textAlign: 'left' }}>{lesson.name}</span>
                           </span>
-                        </Reorder.Item>
-                        ))}
-                      </Reorder.Group>
-                    )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </>
                 )
               })}

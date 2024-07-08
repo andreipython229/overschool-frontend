@@ -101,6 +101,18 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
     const [getGroups, {data: courseGroups}] = useLazyFetchStudentsGroupByCourseQuery()
     const [isAccardionOpen, groupInfoAccardion] = useState<boolean>(false)
     const [isSelectNextCourses, setIsSelectNextCourses] = useState<boolean>(false)
+    const [selectedCourses, setSelectedCourses] = useState<checkCourseT[]>([]);
+    const addCourse = (courseId: string) => {
+        // console.log('Выбранный ID курса:', courseId);
+        if (courseId) {
+            const selectedCourse = checkCourses?.find(course => course.course_id === parseInt(courseId));
+            if (selectedCourse && !selectedCourses.some(course => course.course_id === parseInt(courseId))) {
+                const updatedCourses = [...selectedCourses, selectedCourse];
+                setSelectedCourses(updatedCourses);
+                // console.log('Обновленные выбранные курсы:', updatedCourses);
+            }
+        }
+    };
 
     useEffect(() => {
         if (schoolName && course) {
@@ -229,7 +241,8 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                         </div>
                     </div>
                     <div className={styles.groupSetting_checkboxBlock_checkbox}>
-                        <Checkbox id={'overAiLock'} name={'overAiLock'} checked={overAiLock} onChange={handlerLockOverAi}/>
+                        <Checkbox id={'overAiLock'} name={'overAiLock'} checked={overAiLock}
+                                  onChange={handlerLockOverAi}/>
                         <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
                             <span>Включить OVER AI</span>
                             <span>Ученики группы смогут пользоваться OVER AI</span>
@@ -270,28 +283,47 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
                 {/*    </div>*/}
                 {/*</div>*/}
                 <div className={styles.groupSetting_courseAccess_header}>
-                <div className={styles_check.accardion_content_check}>
-                    <CheckboxBall isChecked={isSelectNextCourses} toggleChecked={handleIsSelect}/>
-                    <span
-                        className={styles_check.accardion_content_check_span}>Настройка последующего доступа к курсам</span>
-                </div>
-                {isSelectNextCourses
-                    ? <Button className={styles_check.accardion_content_buttons_btn_right} text={'Сохранить'}
-                                onClick={handleNextCourses}/>
-                    :<span className={styles_check.accardion_content_fake}></span>}</div>
+                    <div className={styles_check.accardion_content_check}>
+                        <CheckboxBall isChecked={isSelectNextCourses} toggleChecked={handleIsSelect}/>
+                        <span
+                            className={styles_check.accardion_content_check_span}>Настройка последующего доступа к курсам</span>
+                    </div>
+                    {isSelectNextCourses
+                        ? <Button className={styles_check.accardion_content_buttons_btn_right} text={'Сохранить'}
+                                  onClick={handleNextCourses}/>
+                        : <span className={styles_check.accardion_content_fake}></span>}</div>
                 {isSelectNextCourses && (
-                     <div className={styles.groupSetting_courseAccess_content}>
-                          <span className={styles.groupSetting_courseAccess_content_desc}>Ученик будет добавлен в выбранные группы соответствующих курсов после прохождения курса текущей группы</span>
-                            {checkCourses?.map(({course_id, name, student_groups, selected_group}: checkCourseT, index) => (
-                                <div className={styles.groupSetting_courseAccess_content_course} key={index}>
-                                    <div className={styles.groupSetting_courseAccess_content_course_name}><span>{name}</span></div>
-                                    <GroupsDropDown dropdownData={student_groups} course_id={course_id}
-                                                    selected_group={selected_group} onChangeGroup={handleCheck}/>
+                    <div className={styles.groupSetting_courseAccess_content}>
+        <span className={styles.groupSetting_courseAccess_content_desc}>
+            Ученик будет добавлен в выбранные группы соответствующих курсов после прохождения курса текущей группы
+        </span>
+                        <div className={styles.courseSelect}>
+                            <select onChange={(e) => addCourse(e.target.value)}>
+                                <option value="">Выберите курс</option>
+                                {checkCourses && checkCourses.map(({course_id, name}) => (
+                                    <option key={course_id} value={course_id}>{name}</option>
+                                ))}
+                            </select></div>
+                        {selectedCourses.map(({
+                                                  course_id,
+                                                  name,
+                                                  student_groups,
+                                                  selected_group
+                                              }, index) => (
+                            <div className={styles.groupSetting_courseAccess_content_course} key={index}>
+                                <div className={styles.groupSetting_courseAccess_content_course_name}>
+                                    <span>{name}</span>
                                 </div>
-                            ))}
-                     </div>
+                                <GroupsDropDown
+                                    dropdownData={student_groups}
+                                    course_id={course_id}
+                                    selected_group={selected_group}
+                                    onChangeGroup={(group) => handleCheck(course_id, group)}
+                                />
+                            </div>
+                        ))}
+                    </div>
                 )}
-
                 {/*  {strongSubsequence && (*/}
                 {/*      <div className={styles.groupSetting_selectBlock}>*/}
                 {/*          /!* <div className={styles.groupSetting_selectBlock_select}>*/}
