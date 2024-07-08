@@ -36,7 +36,7 @@ export const CoursePageConstruct: FC = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   // const [fetchCourse, { data: course, isLoading }] = useFetchCourseDataFromCatalogMutation()
-  const [sendAppeal, { isLoading: sendingAppeal }] = useSendCourseAppealMutation()
+  // const [sendAppeal, { isLoading: sendingAppeal }] = useSendCourseAppealMutation()
   const [fetchLanding, {data: f_landing, isLoading}] = useFetchCourseLandingMutation()
   // const [openIndex, setOpenIndex] = useState<number>(-1)
   const [showModal, { on: close, off: openModal }] = useBoolean()
@@ -61,16 +61,15 @@ export const CoursePageConstruct: FC = () => {
   useEffect(() => {
     const school_name = params.school_name
     if (school_name) {
-      // fetchCourse(Number(params.course_id))
       fetchLanding({schoolName: String(params.school_name), id: Number(params.course_id)})
     }
-  }, [params])
+  }, [params,])
 
   useEffect(() => {
     if (f_landing) {
       dispatch(changeBlocks(f_landing))
     }
-  }, [f_landing,])
+  }, [f_landing, ])
 
   // const handleToggleOpen = (index: number) => {
   //   if (openIndex === index) {
@@ -80,7 +79,7 @@ export const CoursePageConstruct: FC = () => {
   //   }
   // }
 
-  if (!f_landing || isLoading) {
+  if (isLoading) {
     return (
       <div className={styles.loaderBox}>
         <SimpleLoader style={{ height: '80px' }} />
@@ -97,15 +96,11 @@ export const CoursePageConstruct: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <div className={styles.wrapper}>
-        <BlocksController
-          // course={course}
+        {!isLoading && <BlocksController
           openModal={openModal}
           showModal={showModal}
-          // countOfLessons={countOfLessons}
           isLoading2={isLoading}
-          // handleToggleOpen={handleToggleOpen}
-          // openIndex={openIndex}
-        />
+        />}
       {/*  <div className={styles.wrapper_banner}>*/}
       {/*    /!*<h2 style={{ textAlign: 'center', padding: '2rem 0 1rem', color: '#7730BD' }}>Список модулей и уроков внутри курса:</h2>*!/*/}
       {/*    /!*<div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', width: '100%' }}>*!/*/}

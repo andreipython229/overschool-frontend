@@ -22,6 +22,7 @@ import chatGroup from './chat_group.png'
 import chatCourse from './chat_course.png'
 import arrowDownTableAZ from './arrowDownTableAZ.svg'
 import arrowDownTableZA from './arrowDownTableZA.svg'
+import full_logo from './full_logotype.svg'
 
 export {
     arrowUp,
@@ -47,5 +48,6 @@ export {
     chatGroup,
     chatCourse,
     arrowDownTableAZ,
-    arrowDownTableZA
+    arrowDownTableZA,
+    full_logo
 }
