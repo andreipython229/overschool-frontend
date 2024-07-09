@@ -47,7 +47,7 @@ export const App = () => {
     if (
       !isLogin &&
       pathname !== Path.CreateSchool &&
-      pathname !== Path.CreateSchoolRef &&
+      pathname.split('/')[1] !== 'create-school' &&
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
       pathname !== Path.TariffPlansInfo &&
@@ -142,7 +142,8 @@ export const App = () => {
         <Route path={Path.Certificate} element={<Certificate />} />
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
-        <Route path={Path.CreateSchool || Path.CreateSchoolRef} element={<CreateNewSchool />} />
+        <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
+        <Route path={Path.CreateSchoolRef} element={<CreateNewSchool />} />
         <Route path={Path.LoginPage} element={<LoginPage />} />
         <Route path={Path.HelpPage}>
           <Route index element={<HelpPage />} />

@@ -37,13 +37,15 @@ export const CreateNewSchool = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search)
-    const params: { [key: string]: string } = {}
-    for (const [key, value] of searchParams) {
-      if (typeof key === 'string' && key.startsWith('utm_')) {
-        params[key] = value
+    if (searchParams && searchParams.values.length > 2) {
+      const params: { [key: string]: string } = {}
+      for (const [key, value] of searchParams) {
+        if (typeof key === 'string' && key.startsWith('utm_')) {
+          params[key] = value
+        }
       }
+      setUtmParams(params)
     }
-    setUtmParams(params)
   }, [location.search])
 
   useEffect(() => {

@@ -317,7 +317,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
             refetch()
           }))
     }
-
+  }
 
   const renderUI = () => {
     if (isSuccess) {
@@ -519,13 +519,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   Сохранить и вернуться к превью
                 </button>
                 {showModal && (
-                    <Portal closeModal={close}>
-                      <WarningModal
-                        setShowModal={setShow}
-                        task={handleDeleteLesson}
-                        textModal={`Вы действительно хотите удалить занятие?`}
-                      />
-                    </Portal>
+                  <Portal closeModal={close}>
+                    <WarningModal setShowModal={setShow} task={handleDeleteLesson} textModal={`Вы действительно хотите удалить занятие?`} />
+                  </Portal>
                 )}
                 <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
                   <IconSvg functionOnClick={open} width={16} height={16} viewBoxSize="0 0 19 19" path={deleteIconPath} />
