@@ -1,6 +1,5 @@
 import { Route, Routes, generatePath, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
-
 import { Path, Student, FooterPath } from 'enum/pathE'
 import { MobileInitPage } from 'MobilePages/MobileInitPage/MobileInitPage'
 import { MobileLayOut } from './MobilePages/MobileLayOut'
@@ -20,7 +19,6 @@ import { TariffPlansInfo } from './Pages/TariffPlans/TariffPlansInfo'
 import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
 import { Agreement } from 'components/Agreement/Agreement'
 import { PWA } from 'Pages/PWA/PWA'
-
 import { HelpPage } from './Pages/HelpCenter/HelpPage'
 import { HelpSchoolPage } from 'Pages/HelpCenter/HelpSchoolPage'
 import { HelpCoursesPage } from './Pages/HelpCenter/HelpCoursesPage'
@@ -30,10 +28,8 @@ import { HelpStudentsPage } from 'Pages/HelpCenter/HelpStudentsPage'
 import { HelpGroupSettings } from 'Pages/HelpCenter/HelpGroupSettings'
 import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
-
 import { RoleE } from 'enum/roleE'
 import { useSelector } from 'react-redux'
-
 import styles from './App.module.scss'
 import { ResetPassword } from 'Pages/ResetPassword'
 import { Certificate } from 'Pages/Certificate/Certificate'
@@ -53,6 +49,7 @@ export const AppMobile = () => {
     if (
       !isLogin &&
       pathname !== Path.CreateSchool &&
+      pathname !== Path.CreateSchoolRef &&
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
       pathname !== Path.TariffPlansInfo &&
