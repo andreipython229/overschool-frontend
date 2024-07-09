@@ -192,6 +192,7 @@ export const CreateNewSchool = () => {
         </span>
         <form className={styles.newCoursePage_formWrapper_form} onSubmit={formik.handleSubmit}>
           <p className={styles.newCoursePage_formWrapper_form_title}>Регистрация</p>
+          <p className={styles.newCoursePage_formWrapper_form_title_comment}>Создайте свой уникальный проект</p>
           <div className={styles.newCoursePage_formWrapper_form_eMailWrapper}>
             {error && <p style={{ color: 'red', marginTop: '.5em' }}>{error}</p>}
             <p className={styles.newCoursePage_formWrapper_form_eMailWrapper_title}>Введите название Вашей платформы:</p>

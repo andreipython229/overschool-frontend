@@ -47,6 +47,11 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
   }
 
   return (
+    <Link
+      to={generatePath(Path.CreateCourse, {
+      course_id: `${course?.course_id}`,
+      })}
+    >
     <div id={`${course?.course_id}`} className={styles?.course_card}>
       <>
         {role === RoleE.Admin || role === RoleE.Teacher ? (
@@ -83,11 +88,11 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
               {role === RoleE.Admin ? (
                 <>
                   <Link
-                    to={generatePath(Path.CreateCourse + 'student/', {
+                    to={generatePath(Path.CreateCourse + 'student', {
                       course_id: `${course?.course_id}`,
                     })}
                   >
-                    <Button className={styles.btn_admin} text={'Ученики материала'} />
+                    <Button className={styles.btn_admin} text={'Ученики курса'} />
                   </Link>
                   <Link
                     to={generatePath(Path.CreateCourse, {
@@ -167,5 +172,6 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
         )}
       </>
     </div>
+    </Link>
   )
 }

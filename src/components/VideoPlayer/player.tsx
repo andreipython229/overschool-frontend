@@ -113,7 +113,7 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
             width="100%"
             height='100%'
             // style={{ minWidth: '100%', minHeight: '30rem' }}
-            controls
+            controls={true}
             config={{
               file: {
                 attributes: {
