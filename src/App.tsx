@@ -142,6 +142,7 @@ export const App = () => {
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
+        <Route path={Path.CreateSchoolRef} element={<CreateNewSchool />} />
         <Route path={Path.LoginPage} element={<LoginPage />} />
         <Route path={Path.HelpPage}>
           <Route index element={<HelpPage />} />

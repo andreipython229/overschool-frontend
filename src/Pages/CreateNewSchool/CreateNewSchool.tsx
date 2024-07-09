@@ -5,27 +5,27 @@ import { isSecurity, unSecurity } from '../../assets/img/common'
 import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
 import { useFormik } from 'formik'
 import { useEffect, useState } from 'react'
-import { generatePath, useNavigate, useLocation } from 'react-router-dom'
-import { useCreateSchoolOwnerMutation } from 'api/schoolCreationService'
+import { generatePath, useNavigate, useLocation, useParams } from 'react-router-dom'
+import { useCreateSchoolOwnerMutation, useCreateSchoolOwnerRefMutation } from 'api/schoolCreationService'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
-import { validatePhone } from 'utils/validatePhone'
-import { validateEmail } from 'utils/validateEmail'
-import * as Yup from 'yup';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import * as Yup from 'yup'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 export const CreateNewSchool = () => {
-  const location = useLocation();
-  const [utmParams, setUtmParams] = useState<{ 
-    utm_source?: string; 
-    utm_medium?: string; 
-    utm_campaign?: string; 
-    utm_term?: string; 
-    utm_content?: string;
-  }>({});
+  const { refCode } = useParams()
+  const location = useLocation()
+  const [utmParams, setUtmParams] = useState<{
+    utm_source?: string
+    utm_medium?: string
+    utm_campaign?: string
+    utm_term?: string
+    utm_content?: string
+  }>({})
   const [security, setSecurity] = useState<boolean>(true)
   const [createOwner, { isSuccess, isLoading }] = useCreateSchoolOwnerMutation()
+  const [createOwnerRef, { isSuccess: successRef, isLoading: loadingRef }] = useCreateSchoolOwnerRefMutation()
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const [error, setError] = useState<string>('')
@@ -36,15 +36,15 @@ export const CreateNewSchool = () => {
   }
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const params: { [key: string]: string } = {};
+    const searchParams = new URLSearchParams(location.search)
+    const params: { [key: string]: string } = {}
     for (const [key, value] of searchParams) {
       if (typeof key === 'string' && key.startsWith('utm_')) {
-        params[key] = value;
+        params[key] = value
       }
     }
-    setUtmParams(params);
-  }, [location.search]);
+    setUtmParams(params)
+  }, [location.search])
 
   useEffect(() => {
     formik.setValues({
@@ -54,22 +54,23 @@ export const CreateNewSchool = () => {
       utm_campaign: utmParams['utm_campaign'] || '',
       utm_term: utmParams['utm_term'] || '',
       utm_content: utmParams['utm_content'] || '',
-    });
-  }, [utmParams]);
-  
+    })
+  }, [utmParams])
 
   const validationSchema: any = Yup.object().shape({
-    school_name: Yup.string().min(2, "Слишком короткое!").max(50, "Слишком длинное!").required('Поле  обязательно для заполнения'),
+    school_name: Yup.string().min(2, 'Слишком короткое!').max(50, 'Слишком длинное!').required('Поле  обязательно для заполнения'),
     email: Yup.string().email('Введите корректный email').required('Введите email'),
     phone_number: Yup.string().required('Введите номер телефона').min(12, 'Некорректный номер телефона'),
-    password: Yup.string().required('Введите пароль').min(6, "Пароль слишком короткий - должно быть минимум 6 символов"),
-    password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Пароли не совпадают').required('Поле обязательно для заполнения'),
+    password: Yup.string().required('Введите пароль').min(6, 'Пароль слишком короткий - должно быть минимум 6 символов'),
+    password_confirmation: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Пароли не совпадают')
+      .required('Поле обязательно для заполнения'),
     utm_source: Yup.string(),
     utm_medium: Yup.string(),
     utm_campaign: Yup.string(),
     utm_term: Yup.string(),
     utm_content: Yup.string(),
-  });
+  })
 
   const formik = useFormik({
     initialValues: {
@@ -78,36 +79,44 @@ export const CreateNewSchool = () => {
       phone_number: '',
       password: '',
       password_confirmation: '',
-      ...utmParams
+      ...utmParams,
     },
     validationSchema: validationSchema,
     onSubmit: async () => {
-      if (
-        formik.values.school_name.length > 0 &&
-        formik.values.password === formik.values.password_confirmation
-      ) {
+      if (formik.values.school_name.length > 0 && formik.values.password === formik.values.password_confirmation) {
         const utmData = {
           utm_source: formik.values.utm_source || '',
           utm_medium: formik.values.utm_medium || '',
           utm_campaign: formik.values.utm_campaign || '',
           utm_term: formik.values.utm_term || '',
           utm_content: formik.values.utm_content || '',
-        };
+        }
 
         const userData = {
           ...formik.values,
           ...utmData,
-        };
-        
-        await createOwner(userData)
-          .unwrap()
-          .catch((response: any) => {
-            if (response.status === 400) {
-              const errorResponse = JSON.parse(response.data);
-              const errorMessage = errorResponse.errors.phone_number[0];
-              setError(errorMessage)
-            }
-          })
+        }
+        if (refCode && refCode.length > 0) {
+          await createOwnerRef({ credentials: userData, ref: refCode })
+            .unwrap()
+            .catch((response: any) => {
+              if (response.status === 400) {
+                const errorResponse = JSON.parse(response.data)
+                const errorMessage = errorResponse.errors.phone_number[0]
+                setError(errorMessage)
+              }
+            })
+        } else {
+          await createOwner(userData)
+            .unwrap()
+            .catch((response: any) => {
+              if (response.status === 400) {
+                const errorResponse = JSON.parse(response.data)
+                const errorMessage = errorResponse.errors.phone_number[0]
+                setError(errorMessage)
+              }
+            })
+        }
       } else {
         setError('Проверьте правильность введенных данных')
       }
@@ -115,18 +124,17 @@ export const CreateNewSchool = () => {
   })
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || successRef) {
       setOpen(true)
     }
-    console.log(formik.values.phone_number)
-  }, [isSuccess, isLoading])
+  }, [isSuccess, isLoading, loadingRef, successRef])
 
   const changeSecurityStatus = () => {
     setSecurity(!security)
   }
 
   const normalizePhoneNumber = (value: string) => {
-     return "+" + value;
+    return '+' + value
   }
   const returnLogin = (event: any) => {
     event.preventDefault()
@@ -188,7 +196,7 @@ export const CreateNewSchool = () => {
       </div>
       <div className={styles.newCoursePage_formWrapper}>
         <span className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_return} onClick={returnLogin}>
-               Войти
+          Войти
         </span>
         <form className={styles.newCoursePage_formWrapper_form} onSubmit={formik.handleSubmit}>
           <p className={styles.newCoursePage_formWrapper_form_title}>Регистрация</p>
@@ -204,19 +212,20 @@ export const CreateNewSchool = () => {
               placeholder={'Название платформы'}
             />
             {formik.touched.school_name && formik.errors.school_name ? (
-              <p style={{ color: 'red', marginTop: '.5em' }}>
-                {formik.errors.school_name}
-              </p>
+              <p style={{ color: 'red', marginTop: '.5em' }}>{formik.errors.school_name}</p>
             ) : null}
           </div>
           <div className={styles.newCoursePage_formWrapper_form_eMailWrapper}>
             <p className={styles.newCoursePage_formWrapper_form_eMailWrapper_title}>E-mail:</p>
-            <InputAuth name={'email'} type={'text'} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} placeholder={'E-mail'} />
-            {formik.touched.email && formik.errors.email ? (
-              <p style={{ color: 'red', marginTop: '.5em' }}>
-                {formik.errors.email}
-              </p>
-            ) : null}
+            <InputAuth
+              name={'email'}
+              type={'text'}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+              placeholder={'E-mail'}
+            />
+            {formik.touched.email && formik.errors.email ? <p style={{ color: 'red', marginTop: '.5em' }}>{formik.errors.email}</p> : null}
           </div>
           <div className={styles.newCoursePage_formWrapper_form_passwordWrapper}>
             <p className={styles.newCoursePage_formWrapper_form_passwordWrapper_title}>Номер телефона:</p>
@@ -226,24 +235,22 @@ export const CreateNewSchool = () => {
                   inputProps={{
                     name: 'phone_number',
                     style: {
-                      border: "none",
-                      height: "38px",
-                      borderRadius: "10px",
-                      width: "100%",
-                      }
+                      border: 'none',
+                      height: '38px',
+                      borderRadius: '10px',
+                      width: '100%',
+                    },
                   }}
-                  onChange={(values) => formik.setFieldValue('phone_number', normalizePhoneNumber(values))}
+                  onChange={values => formik.setFieldValue('phone_number', normalizePhoneNumber(values))}
                   value={formik.values.phone_number}
                   onBlur={formik.handleBlur}
                   placeholder="Номер телефона"
-                  country={"by"}
+                  country={'by'}
                 />
               </div>
             </div>
             {formik.errors.phone_number && formik.touched.phone_number ? (
-              <p style={{ color: 'red', marginTop: '.5em' }}>
-                {formik.errors.phone_number}
-              </p>
+              <p style={{ color: 'red', marginTop: '.5em' }}>{formik.errors.phone_number}</p>
             ) : null}
           </div>
           <div className={styles.newCoursePage_formWrapper_form_passwordWrapper}>
@@ -258,11 +265,7 @@ export const CreateNewSchool = () => {
               onClick={changeSecurityStatus}
               icon={security ? isSecurity : unSecurity}
             />
-            {formik.touched.password && formik.errors.password ? (
-              <p style={{ color: 'red', marginTop: '.5em' }}>
-                {formik.errors.password}
-              </p>
-            ) : null}
+            {formik.touched.password && formik.errors.password ? <p style={{ color: 'red', marginTop: '.5em' }}>{formik.errors.password}</p> : null}
           </div>
           <div className={styles.newCoursePage_formWrapper_form_passwordWrapper}>
             <p className={styles.newCoursePage_formWrapper_form_passwordWrapper_title}>Повторите пароль:</p>
@@ -277,9 +280,7 @@ export const CreateNewSchool = () => {
               icon={security ? isSecurity : unSecurity}
             />
             {formik.touched.password_confirmation && formik.errors.password_confirmation ? (
-              <p style={{ color: 'red', marginTop: '.5em' }}>
-                {formik.errors.password_confirmation}
-              </p>
+              <p style={{ color: 'red', marginTop: '.5em' }}>{formik.errors.password_confirmation}</p>
             ) : null}
           </div>
           <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper}>
@@ -287,7 +288,7 @@ export const CreateNewSchool = () => {
               text={isLoading ? <SimpleLoader style={{ width: '2em', height: '2em' }} /> : 'Создать свой проект'}
               variant={'create'}
               type={'submit'}
-              style={{fontSize: '0.8rem'}}
+              style={{ fontSize: '0.8rem' }}
             />
             <p className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_help}>
               Уже есть свой аккаунт?
