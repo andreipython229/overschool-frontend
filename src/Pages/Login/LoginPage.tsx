@@ -238,7 +238,8 @@ export const LoginPage = () => {
           ))}
         {isHidden && (
           <form className={styles.loginPage_formWrapper_form} onSubmit={formik.handleSubmit}>
-            <p className={styles.loginPage_formWrapper_form_title}>Войти</p>
+            <p className={styles.loginPage_formWrapper_form_title}>Вход</p>
+            <p className={styles.loginPage_formWrapper_form_title_comment}>Введите свои данные для входа</p>
             <div className={styles.loginPage_formWrapper_form_eMailWrapper}>
               <p className={styles.loginPage_formWrapper_form_eMailWrapper_title}></p>
               <InputAuth

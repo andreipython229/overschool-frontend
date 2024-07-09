@@ -50,3 +50,9 @@
   @include font(500, 20px);
   color: #6b7484;
 }
+
+.reminders {
+  padding: 5px;
+
+  @include font(400, 19px);
+}

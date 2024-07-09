@@ -1,22 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allison&display=swap');
+
 
 
 .main {
+    display: flex;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
-    color: rgb(255, 251, 251);
+    // color: rgb(255, 251, 251);
     //max-width: 3400px;
     // max-height: 2400px;
-    width: 1024px;
-    height: 600px;
+    width: 842px;
+    height: 595px;
     margin: 0 auto;
     // overflow: auto;
     padding: 10px 10px 10px 10px;
     border: 1px solid black;
-    background: linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);
+    // background: linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);
+    background: linear-gradient(to bottom left, #F57AF5 -250%, white);
     border: 2px solid black;
     margin-bottom: 10px;
+    margin-top: 30px;
 }
+
+
+.tape {
+    position: relative;
+	left: 655px;
+	top: -10px;
+    width: 80px;
+    height: 520px; 
+    border-width: 50px 30px 20px;
+    border-style: solid;
+    border-color: #F57AF5 #F57AF5 transparent;
+    }
+
+.complete {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    left: 370px;
+    top: -350px;
+}
+
 
 .mainSkills {
     display: flex;
@@ -26,33 +52,36 @@
     color: black;
     //max-width: 3400px;
     // max-height: 2400px;
-    min-height: 600px;
-    width: 1024px;
+    min-height: 595px;
+    width: 842px;
     height: auto;
     margin: 0 auto;
     // overflow: auto;
     padding: 60px 10px 10px 10px;
     border: 1px solid black;
     background-color: white;
-    background: linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);
+    background: linear-gradient(to bottom left, #9e99fa -80%, white ,  #eddfed 170%);
     border: 2px solid black;
     color: #ffff;
     position: relative;
+    
 
     &__title {
         text-align: center;
-        font-weight: 500;
-        font-size: 40px;
-        padding-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 30px;
+        padding-bottom: 1rem;
+        color: #323232;
     }
 
     &__content {
 
         &_skills {
-            font-weight: 400;
-            font-size: 1.5rem;
+            font-weight: 500;
+            font-size: 16px;
             text-align: center;
-            margin-bottom: 5%;
+            margin-bottom: 2rem;
+            color: #323232;
         }
 
         &_modules {
@@ -64,12 +93,9 @@
 }
 
 .wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    position: relative;
-    margin-bottom: 100px;
+    display: grid;
+    grid-template-columns: 20% 80%;
+   
 
     @media screen and (min-width: 320px) and (max-width: 1024px) {
         flex-flow: column nowrap;
@@ -78,14 +104,31 @@
 }
 
 .logo {
+    display: flex;
+    position: relative;
     // max-width: 1041px;
     // max-height: 1648px;
     // width: 60%;
     height: 90px;
-    flex: 0 1 10%;
-    //margin-right: 10px;
-    margin-top: 10px;
-    margin-left: 20px;
+    //margin-right: 10px;    
+    top: 200px;
+    left: -200px;
+    rotate: -90deg;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 42px;
+    color: #F57AF5;
+    text-transform: uppercase;
+    width: 450px;
+
+    &__over {
+        position: relative;
+        top: 0px;
+        left: 100px;
+        rotate: 90deg;
+        width: 50px;
+        height: 33.69px;
+    }
    
 
     @media screen and (max-width: 1024px) {
@@ -122,23 +165,64 @@
 }
 
 .certificate {
-    flex: 1 0 90%;
-    // width: 60%;
-    // max-width: 1680px;
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    padding-right: 30px;
+    flex-direction: column;
+    position: relative;
+    left: -100px;
 
 		&__header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
             margin-bottom: 30px;
             margin-top: 10px;
             font-weight: 700;
-            font-size: 3.5rem;
+            font-size: 50px;
             text-align: center;
+            height: auto;
+            color: #F57AF5;
             text-transform: uppercase;
+            letter-spacing: 8px;
+            
+            
+                &_middle {
+                    position: relative;
+                    width: 144px;
+                    height: 40px;
+                    font-family: "Allison", cursive;
+                    font-weight: 400;
+                    font-size: 40px;
+                    line-height: 39.76px;
+                    color: #323232;
+                    top: -25px;
+                    letter-spacing: 10px;
+                    padding-left: 25px;
+                    text-transform: none;
+                }
+
+            &_completion {
+                height: 28px;
+                display: flex;
+                flex-direction: row;
+                color: #323232;
+                font-size: 20px;
+                font-weight: 600;
+                text-transform: none;
+                margin-top: 2rem;
+                letter-spacing: normal;
+                line-height: 28px;
+            }
+
+            &_down {
+                margin-top: -50px;
+            }
 		}
+
+        &_line {
+            width: 50px;
+            height: 10px;
+            background-color: #F57AF5;
+        }
 
 		&__producer {
             position: relative;
@@ -156,22 +240,27 @@
 		}
 
 		&__graduate {
-            margin-bottom: 2rem;
-            border-bottom: 1px solid rgb(255, 251, 251);
-            font-weight: 500;
-            font-size: 2rem;
-            text-align: center;
-            text-transform: uppercase;
+            display: flex;
+            width: 70%;
+            height: 56px;
+            font-weight: 600;
+            font-size: 40px;
+            margin-bottom: 1.5rem;
+            margin-top: 1.5rem;
 		}
 
 		&__content {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-            font-weight: 400;
-            font-size: 1.5rem;
-            text-align: start;
+            align-items: flex-start;
+            font-size: 16px;
+            font-weight: 500;
+            color: #323232;
+            margin-bottom: 3rem;
+            
+            &_nameCourse{
+                background: linear-gradient(to top,  #F57AF5 50%, transparent 50%);
+            }
 
             &_skills {
                 display: flex;
@@ -204,63 +293,84 @@
 }
 
 .bold {
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
+    font-size: 30px;
+    color: #323232;
+
 }
 
 .signs {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    font-weight: 400;
-    font-size: 1rem;
-    text-align: start;
-    width: 100%;
-    //align-items: center;
-    // margin-bottom: 8%;
+    flex-direction: row;
+    position: relative;
+    left: 200px;
+    width: 400px;
 
-        &__date {
-            flex: 1 1 30%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-end;
-            padding-left: 20px;
-            //font-size: 16px;
+    &__date {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        left: -80px;
+
+       
+
+        &_text {
+            border-bottom: 1px solid black;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 28px;
+           
+
+
+            &_issue {
+                font-size: 14px;
+                font-weight: 600;
+                color: #969696;
+            }
         }
+    }
 
-		&__content {
-            flex: 1 1 70%;
-		}
+    // &__content {
+        
+    // }
 }
 
 .sign {
     display: flex;
-    justify-content: space-between;
-    padding-right: 90px;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: 600;
+    color: #969696;
 
-        &:nth-child(1) {
-            margin-bottom: 1rem;
-        }
+    &__QR {
+        position: relative;
+        left: -150px;
+        width: 60px;
+        height: 60px;
+    }
 
-		&__img {
-            
-            flex: 0 1 250px;
-            position: relative;
-            border-bottom: 1px solid rgb(255, 251, 251);
-		}
+    &__signature {
+        position: relative;
+        width: 200px;
+        height: 150px;
+        top: -60px;
+    }
 
-        &__signature {
-            top: -55px;
-            position: absolute;
-            width: 90%;
-        }
 
-        &__stamp {
-            top: -50px;
-            right: -60px;
-            position: absolute;
-            width: 80%;
-        }
+    &__signatory {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        border-top: 1px solid black;
+        top: 27px;
+        
+    }
+
+    &__stamp {
+        width: 100px;
+        height: 100px;
+    }
 }
 
 .courseName {
@@ -316,4 +426,3 @@
     height: 100%;
     
 }
-

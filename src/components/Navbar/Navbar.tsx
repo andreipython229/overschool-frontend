@@ -26,6 +26,8 @@ import { role } from 'store/redux/users/slice'
 import { RoleE } from 'enum/roleE'
 import { MarkEmailUnreadRounded } from '@mui/icons-material'
 
+import { coursesNavPath } from '../Navbar/config/svgIconPath'
+
 interface IIsActive {
   isActive?: boolean
 }
@@ -65,13 +67,13 @@ export const Navbar: FC = memo(() => {
         }}
         layout
       >
-        <Tooltip title={'Вернуться на главную'} key={'homePage_1'}>
-          <NavLink key={'home'} to={Path.InitialPage} onClick={handleHome} className={isActive}>
-            <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.1em' }}>
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-            </SvgIcon>
-          </NavLink>
-        </Tooltip>
+        <div className={styles.navbar_menu} >
+          <Tooltip title={'Курсы'} key={'Курсы'}>
+            <NavLink key={'Курсы'} to={Path.Courses} className={isActive}>
+            <IconSvg width={38} height={32} viewBoxSize={'0 0 38 32'} path={coursesNavPath} />
+            </NavLink>
+          </Tooltip>
+        </div>
         <div className={styles.navbar_setting_account}>
           {/* <Tooltip title={'Видеоконференции'} arrow placement={'right'} key={'meetings-data'}>
                   <NavLink to={Path.Meetings} className={isActive}>
@@ -86,10 +88,10 @@ export const Navbar: FC = memo(() => {
             path !== 'doNotPath' ? (
               <Tooltip
                 title={
-                    path === Path.Meetings
+                    // path === Path.Courses
+                    // ? 'Курсы'
+                     path === Path.Meetings
                     ? 'Видеоконференции'
-                    :path === Path.Courses
-                    ? 'Курсы'
                     : path === Path.CourseStats
                     ? 'Ученики платформы'
                     : path === Path.HomeWork

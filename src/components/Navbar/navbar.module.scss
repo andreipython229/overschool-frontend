@@ -43,17 +43,30 @@
   }
 
   &_menu {
-    cursor: pointer;
-    margin-top: -0.2em;
-    border-radius: 10px;
-    color: #d2cfdc;
-    width: max-content;
-    height: max-content;
+    // cursor: pointer;
+    // margin-top: -0.2em;
+    // border-radius: 10px;
+    // color: #d2cfdc;
+    // width: max-content;
+    // height: max-content;
 
-    &:hover {
-      border-radius: 10px;
-      background: #e0dced;
-      color: #ba75ff;
+    // &:hover {
+    //   border-radius: 10px;
+    //   background: #e0dced;
+    //   color: #ba75ff;
+    // }
+    & a {
+      @include display(flex, row, center, center);
+      width: 57px;
+      height: 57px;
+      text-align: center;
+      color: #e0dced;
+
+      &:hover {
+        border-radius: 10px;
+        background: #e0dced;
+        color: #ba75ff;
+      }
     }
   }
 
