@@ -32,7 +32,7 @@ export type AnswersType = {
 export const StudentTestBlock: FC<any> = ({lesson, setTestSended, setTestSuccess}) => {
     const [numberTest, setNumberTest] = useState<number>(0)
     const [userAnswers, updateUserAnswers] = useState<AnswersType>({})
-    const [userAnswerFull, setUserAnswerFull] = useState<AnswersT[]>()
+    const [userAnswerFull, setUserAnswerFull] = useState<AnswersT[]>([]);    
     const [testCompleted, setTestCompleted] = useState(false);
     const user = useSelector(selectUser);
     const [userPercent, setUserPercent] = useState<number>(0);
@@ -41,6 +41,7 @@ export const StudentTestBlock: FC<any> = ({lesson, setTestSended, setTestSuccess
 
 
     const completeTest = () => {
+        updateUserAnswers({})
         if (!testCompleted) {
            setTestSended(true)
         }
@@ -100,7 +101,7 @@ export const StudentTestBlock: FC<any> = ({lesson, setTestSended, setTestSuccess
                                         onCompleteTest={completeTest} setNumberTest={setNumberTest}
                                         showResult={showResult}/>
                 ) : (
-                    <StudentQuestion questions={questions[numberTest]}
+                    <StudentQuestion questions={questions} question={questions[numberTest]}
                                      length={questions} numberTest={numberTest} setUserPercent={setUserPercent}
                                      setNumberTest={setNumberTest} userAnswers={userAnswers}
                                      userAnswerFull={userAnswerFull} setUserAnswerFull={setUserAnswerFull}
@@ -108,7 +109,7 @@ export const StudentTestBlock: FC<any> = ({lesson, setTestSended, setTestSuccess
                                      test={lesson.test} user={user.userId} setShowResult={setShowResult}/>
                 )
             ) : (
-                <StudentQuestion questions={nullQuestionTest[0]} length={lesson.questions} test={lesson.test}
+                <StudentQuestion questions={nullQuestionTest[0]}  question={nullQuestionTest[0]} length={lesson.questions} test={lesson.test}
                                  user={user.userId} setShowResult={setShowResult} setUserPercent={setUserPercent}
                                  numberTest={numberTest} setNumberTest={setNumberTest} onCompleteTest={completeTest}
                                  userAnswerFull={userAnswerFull} setUserAnswerFull={setUserAnswerFull}/>

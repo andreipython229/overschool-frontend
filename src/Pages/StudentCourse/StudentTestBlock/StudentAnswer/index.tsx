@@ -1,5 +1,5 @@
 import { FC, useState, useEffect, useRef } from 'react';
-import { Checkbox } from 'components/common/Checkbox/Checkbox'; // Измените на ваш компонент чекбокса
+import { Checkbox } from 'components/common/Checkbox/Checkbox';
 import styles from './studentAnswer.module.scss';
 import { AnswersT } from '../../../../components/AddQuestion';
 
@@ -10,29 +10,29 @@ type StudentAnswerProps = {
     onSelect: (answerCorrect: boolean, answer_id: string, title: string) => void;
     isCorrect: boolean;
     picture?: string;
-    resetSelection: boolean; // Добавляем проп для сброса выбора
+    resetSelection: boolean;
 };
 
 export const StudentAnswer: FC<StudentAnswerProps> = ({ id, title, name, onSelect, isCorrect, picture, resetSelection }) => {
-    const [selected, setSelected] = useState<boolean>(false); // Состояние для отслеживания выбранности ответа
-    const prevResetSelection = useRef<boolean>(false); // Ссылка на предыдущее значение resetSelection
+    const [selected, setSelected] = useState<boolean>(false); 
+    const prevResetSelection = useRef<boolean>(false);
 
     useEffect(() => {
         if (prevResetSelection.current !== resetSelection) {
-            setSelected(false); // Сбрасываем выбор при изменении resetSelection
-            prevResetSelection.current = resetSelection; // Обновляем предыдущее значение
+            setSelected(false);
+            prevResetSelection.current = resetSelection;
         }
     }, [resetSelection]);
 
     const handleSelect = () => {
-        setSelected(!selected); // Инвертируем состояние выбранности
-        onSelect(isCorrect, id, title); // Вызываем колбэк onSelect с информацией о выборе
+        setSelected(!selected);
+        onSelect(isCorrect, id, title);
     };
 
     return (
         <div className={styles.wrapper} onClick={handleSelect}>
             <div className={styles.answer}>
-                <Checkbox checked={selected} /> {/* Используйте компонент чекбокса или другого типа элемента для отображения выбора */}
+                <Checkbox checked={selected} />
                 <span className={styles.answerTitle}>{title}</span>
             </div>
             {picture && (
