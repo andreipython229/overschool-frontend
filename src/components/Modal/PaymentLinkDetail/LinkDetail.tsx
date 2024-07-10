@@ -106,31 +106,33 @@ const LinkDetail: React.FC<LinkDetailProps> = ({ isOpen, onClose, paymentLink })
           <h3>Данные об оплате</h3>
 
           {paymentLinkData.isLoading ? (
-              <p style={{ textAlign: 'center' }}>...Loading...</p>
-            ) : selectedPaymentLink ? (
-              <div>
-                <p>Номер счета: {selectedPaymentLink.invoice_no}</p>
-                <p>Статус операции: {getStatusText(selectedPaymentLink.status)}</p>
-                {selectedPaymentLink.first_name ? (
-                  <p>Имя плательщика: {selectedPaymentLink.first_name}</p>
-                ) : (
-                  <p>Имя плательщика: Не указано</p>
-                )}
-                {selectedPaymentLink.last_name ? (
-                  <p>Фамилия плательщика: {selectedPaymentLink.last_name}</p>
-                ) : (
-                  <p>Фамилия плательщика: Не указано</p>
-                )}
-                {selectedPaymentLink.patronymic ? (
-                  <p>Отчество плательщика: {selectedPaymentLink.patronymic}</p>
-                ) : (
-                  <p>Отчество плательщика: Не указано</p>
-                )}
-                <p>Сумма операции: {selectedPaymentLink.amount} {selectedPaymentLink.currency === '933' ? 'BYN' : selectedPaymentLink.currency === '643' ? 'RUB' : 'USD'}</p>
-                <p>Ссылка на оплату: {selectedPaymentLink.payment_link}</p>
-                <p>Дата создания ссылки: {new Date(selectedPaymentLink.created).toLocaleString()}</p>
-              </div>
-            ) : null}
+          <p style={{ textAlign: 'center' }}>...Loading...</p>
+        ) : selectedPaymentLink ? (
+          <div>
+            <p>Номер счета: {selectedPaymentLink.invoice_no}</p>
+            <p>Статус операции: {getStatusText(selectedPaymentLink.status)}</p>
+            {selectedPaymentLink.first_name ? (
+              <p>Имя плательщика: {selectedPaymentLink.first_name}</p>
+            ) : (
+              <p>Имя плательщика: Не указано</p>
+            )}
+            {selectedPaymentLink.last_name ? (
+              <p>Фамилия плательщика: {selectedPaymentLink.last_name}</p>
+            ) : (
+              <p>Фамилия плательщика: Не указано</p>
+            )}
+            {selectedPaymentLink.patronymic ? (
+              <p>Отчество плательщика: {selectedPaymentLink.patronymic}</p>
+            ) : (
+              <p>Отчество плательщика: Не указано</p>
+            )}
+            <p>Сумма операции: {selectedPaymentLink.amount} {selectedPaymentLink.currency === '933' ? 'BYN' : selectedPaymentLink.currency === '643' ? 'RUB' : 'USD'}</p>
+            <p>Ссылка на оплату: {selectedPaymentLink.payment_link}</p>
+            <p>Дата создания ссылки: {new Date(selectedPaymentLink.created).toLocaleString()}</p>
+          </div>
+        ) : (
+          <p style={{ textAlign: 'center' }}>Данных об оплате не найдено</p>
+        )}
 
         </div>
       </div>

@@ -22,3 +22,11 @@ export interface TgMessage {
     message: string;
     students_groups: number[];
 }
+
+export interface TgMeetingReminders {
+    daily?: boolean;
+    in_three_hours?: boolean;
+    ten_minute?: boolean;
+    sent?: boolean
+    meeting: number
+}
