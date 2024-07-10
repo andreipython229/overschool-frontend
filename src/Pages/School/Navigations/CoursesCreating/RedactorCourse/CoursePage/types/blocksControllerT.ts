@@ -22,6 +22,7 @@ export type HeaderT = {
   photoBackground: string;
   name: string;
   description: string;
+  contact_link: string;
 }
 
 export type StatsT = {

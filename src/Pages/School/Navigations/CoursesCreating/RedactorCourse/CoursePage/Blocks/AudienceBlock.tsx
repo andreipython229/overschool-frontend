@@ -8,18 +8,8 @@ import {useAppDispatch, useAppSelector,} from "store/hooks";
 import {changeBlocks, changeKeys, changeKeysAfterDel, removeFile} from 'store/redux/landing/constructorSlice';
 
 export const AudienceBlock = () => {
-  // const [value, setValue] = useState<string>('');
-  // const [isHovered, setIsHovered] = useState<boolean>(false);
-
   const dispatch = useAppDispatch()
   const landing = useAppSelector(state => state.landing.blocks)
-  // const audience = useAppSelector(state => state.landing.blocks.audience)
-
-  // const [cards, setCards] = useState<CardDataT[]>([
-  //   { id: 0, title: 'Начинающим изучение темы', description: '' },
-  //   { id: 1, title: 'Профессионалам в данной теме', description: '' },
-  //   { id: 2, title: 'Специалистам в данной теме', description: '' },
-  // ]);
 
   // изменение этой переменной тригерит перерендеринг списка карточек
   const [key, setKey] = useState<number>(0)
@@ -43,24 +33,6 @@ export const AudienceBlock = () => {
 
   // добавить карточку по указанному index
   const addCardAtIndex = (index: number) => {
-    // const newCard: CardDataT = {
-    //   id: cards.length, // Обеспечиваем уникальный id для новой карточки
-    //   title: 'Заголовок карточки',
-    //   description: ''
-    // };
-    //
-    // // Копируем текущие карточки и добавляем новую на нужный индекс
-    // const newCards = [...cards];
-    // newCards.splice(index, 0, newCard);
-    //
-    // // Перенумеровываем все карточки
-    // const updatedCards = newCards.map((card, i) => ({
-    //   ...card,
-    //   id: i,
-    // }));
-    //
-    // setCards(updatedCards);
-
     const chips = landing.audience.chips
 
     const newCard: CardDataT = {
@@ -84,7 +56,6 @@ export const AudienceBlock = () => {
       position: i,
     }));
 
-    // const lndng = Object.assign({}, landing);
     const lndng = {
       ...landing,
       audience: {
@@ -92,22 +63,12 @@ export const AudienceBlock = () => {
         chips: updatedCards
       }
     }
-    // lndng.audience.block.chips = updatedCards
 
     dispatch(changeBlocks(lndng));
   };
 
   // удалить карточку с указанным id
   const deleteCard = (position: number) => {
-    // const newCards = cards
-    //   .filter(card => card.id !== id)
-    //   .map((card, i) => ({
-    //     ...card,
-    //     id: i,
-    //   }));
-    //
-    // setCards(newCards);
-
     // меняем индексы в именах файлов из редакса
     dispatch(changeKeysAfterDel({index: position}))
     // удаляем файл из редакса
@@ -159,7 +120,6 @@ export const AudienceBlock = () => {
       <div className={styles.wrapper_cardContainer}>
         {getChips().map((card, index) => (
           <React.Fragment key={key - card.position}>
-          {/*<React.Fragment key={card.id}>*/}
             <div className={styles.wrapper_cardContainer_chip}>
               <button
                 className={styles.wrapper_cardContainer_chip_addButtonBefor}

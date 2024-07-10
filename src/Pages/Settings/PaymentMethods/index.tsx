@@ -17,7 +17,7 @@ export const PaymentMethods = memo(() => {
     const [isModalDetailLinkOpen, setIsModalDetailLinkOpen] = useState(false);
     const [notification, setNotification] = useState<string | null>(null);
     const [filterType, setFilterType] = useState<string | null>(null);
-
+    const [filteredPaymentLinks, setFilteredPaymentLinks] = useState<(SchoolPaymentLink | ProdamusPaymentLinkDetail)[]>([]);
     const [paymentLinks, setPaymentLinks] = useState<SchoolPaymentLinkList>({} as SchoolPaymentLinkList);
     const [prodamusPaymentLinks, setProdamusPaymentLinks] = useState<ProdamusPaymentLinkList>({} as ProdamusPaymentLinkList);
     const schoolIdString = localStorage.getItem('school_id');
@@ -25,7 +25,7 @@ export const PaymentMethods = memo(() => {
 
     const [fetchLinks, paymentLinksResponse] = useLazyFetchPaymentLinksQuery();
     const [fetchProdamusLinks, prodamusPaymentLinksResponse] = useLazyFetchProdamusPaymentLinksQuery();
-
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
     const handleNotification = (message: string) => {
         setNotification(message);
         setTimeout(() => {
@@ -87,13 +87,34 @@ export const PaymentMethods = memo(() => {
         handleNotification("Ссылка скопирована")
     }
 
-    const filteredPaymentLinks = filterType ? (
-        filterType === 'ProdamusPaymentLink' ? Object.values(prodamusPaymentLinks) : Object.values(paymentLinks)
-    ) : [...Object.values(paymentLinks), ...Object.values(prodamusPaymentLinks)];
+
+    useEffect(() => {
+        const updateFilteredLinks = () => {
+            const allPaymentLinks = [...Object.values(paymentLinks), ...Object.values(prodamusPaymentLinks)];
+            const filteredLinks = filterType ? (
+                filterType === 'ProdamusPaymentLink' ? Object.values(prodamusPaymentLinks) : Object.values(paymentLinks)
+            ) : allPaymentLinks;
+
+            const sortedLinks = [...filteredLinks].sort((a, b) => {
+                if (sortDirection === 'asc') {
+                    return new Date(a.created).getTime() - new Date(b.created).getTime();
+                } else {
+                    return new Date(b.created).getTime() - new Date(a.created).getTime();
+                }
+            });
+
+            setFilteredPaymentLinks(sortedLinks);
+        };
+
+        updateFilteredLinks();
+    }, [paymentLinks, prodamusPaymentLinks, filterType, sortDirection]);
+    const sortLinksByDate = () => {
+        setSortDirection(prevDirection => (prevDirection === 'asc' ? 'desc' : 'asc'));
+    };
 
     return (
         <div className={styles.wrapper_actions}>
-            <div style={{color: 'slategrey', fontSize: '20px', marginBlockEnd: '20px'}}>
+            <div style={{ color: 'slategrey', fontSize: '20px', marginBlockEnd: '20px' }}>
                 Оплата
                 <button
                     style={{
@@ -114,11 +135,15 @@ export const PaymentMethods = memo(() => {
                               fill="currentColor" strokeWidth=".1" fillRule="evenodd" clipRule="evenodd"/>
                     </svg>
                 </button>
-                <Button className={styles.generateLinkButton} onClick={toggleModalLink} text="Сгенерировать ссылку"/>
+                <Button
+                    className={styles.generateLinkButton}
+                    onClick={toggleModalLink}
+                    text="Сгенерировать ссылку"
+                />
                 <div className={styles.selectContainer}>
                     <select
                         value={filterType || ''}
-                        onChange={(e) => setFilterType(e.target.value || null)}
+                        onChange={e => setFilterType(e.target.value || null)}
                     >
                         <option value="">Все ссылки</option>
                         <option value="ProdamusPaymentLink">Prodamus</option>
@@ -127,62 +152,82 @@ export const PaymentMethods = memo(() => {
                 </div>
 
             </div>
-            <div>
-                <table className={styles.paymentTable}>
-                    <thead>
-                    <tr>
-                        <th style={{color: 'slategrey'}}>Дата создания ссылки</th>
-                        <th style={{color: 'slategrey'}}>Ссылка для оплаты</th>
-                        <th style={{color: 'slategrey'}}></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {filteredPaymentLinks.map((paymentLink, index) => (
-                        <tr key={index + 1}>
-                            <td>
-                                {new Date(paymentLink.created).toLocaleString()}
-                            </td>
-                            <td>
-                                <a
-                                    href={paymentLink.payment_link}
+            {filteredPaymentLinks.length > 0 ? (
+                <div>
+                    <table className={styles.paymentTable}>
+                        <thead>
+                            <tr>
+                                <th
+                            onClick={() => {
+                                setFilterType(null);
+                                sortLinksByDate();
+                            }}
+                            style={{
+                                color: 'slategrey',
+                                cursor: 'pointer',
+                                width: '0%',
+                                textAlign: 'left'
+                            }}
+                        >
+                            Дата создания ссылки
+                        </th>
+                                <th style={{ color: 'slategrey' }}>Ссылка для оплаты</th>
+                                <th style={{ color: 'slategrey' }}></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredPaymentLinks.map((paymentLink, index) => (
+                                <tr key={index + 1}>
+                                    <td>{new Date(paymentLink.created).toLocaleString()}</td>
+                                    <td>
+                                        <a
+                                    href={paymentLink?.payment_link || ''}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        handleCopyLink(paymentLink.payment_link);
+                                        if (paymentLink?.payment_link) {
+                                            handleCopyLink(paymentLink.payment_link);
+                                        } else {
+                                            console.error('Payment link is undefined or null');
+                                        }
                                     }}
                                 >
-                                    {paymentLink.payment_link}
+                                    {paymentLink?.payment_link || 'No Payment Link'}
                                 </a>
-                            </td>
-                            <td style={{textAlign: "right"}}>
-                                <Button
-                                    className={styles.detailButton}
-                                    onClick={() => toggleModalDetailLink(paymentLink)}
-                                    text="Подробнее"
-                                />
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-                {notification && (
-                    <div className={styles.notificationContainer}>
-                        {notification}
-                    </div>
-                )}
-            </div>
-
-            <AddPaymentMethods isOpen={isModalOpen} onClose={toggleModal}/>
-            <LinkGenerating isOpen={isModalLinkOpen} onClose={toggleModalLink}/>
-            {paymentLink && (
-                'signature' in paymentLink ? (
-                    <ProdamusLinkDetail isOpen={isModalDetailLinkOpen} onClose={toggleLinkDetail}
-                                        paymentLink={paymentLink as ProdamusPaymentLinkDetail}/>
-                ) : (
-                    <LinkDetail isOpen={isModalDetailLinkOpen} onClose={toggleLinkDetail}
-                                paymentLink={paymentLink as SchoolPaymentLink}/>
-                )
+                                    </td>
+                                    <td style={{ textAlign: 'right' }}>
+                                        <Button
+                                            className={styles.detailButton}
+                                            onClick={() => toggleModalDetailLink(paymentLink)}
+                                            text="Подробнее"
+                                        />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    {notification && (
+                        <div className={styles.notificationContainer}>{notification}</div>
+                    )}
+                </div>
+            ) : (
+                <div className={styles.noLinksMessage}>Ссылок пока нет</div>
+            )}
+            <AddPaymentMethods isOpen={isModalOpen} onClose={toggleModal} />
+            <LinkGenerating isOpen={isModalLinkOpen} onClose={toggleModalLink} />
+            {paymentLink && 'signature' in paymentLink ? (
+                <ProdamusLinkDetail
+                    isOpen={isModalDetailLinkOpen}
+                    onClose={toggleLinkDetail}
+                    paymentLink={paymentLink as ProdamusPaymentLinkDetail}
+                />
+            ) : (
+                <LinkDetail
+                    isOpen={isModalDetailLinkOpen}
+                    onClose={toggleLinkDetail}
+                    paymentLink={paymentLink as SchoolPaymentLink}
+                />
             )}
         </div>
     )

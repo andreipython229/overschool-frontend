@@ -17,6 +17,12 @@ import {setTotalMeetingCount} from "../../store/redux/meetings/meetingSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/redux/store";
 import Timer from "../Timer/Timer";
+import { TgMeetingReminders } from "types/tgNotifications";
+import {
+    useCreateMeetingsRemindersMutation,
+    // useDeleteMeetingsRemindersMutation
+     } from "api/tgNotificationsServices";
+import { number } from "yup";
 
 export const SchoolMeetings: FC = () => {
     const isLogin = useAppSelector(authSelector);
@@ -29,6 +35,8 @@ export const SchoolMeetings: FC = () => {
     const {data: meetingsData, isSuccess: meetingsSuccess} = useFetchAllMeetingsQuery({schoolName: schoolName});
     const [showAddMeetingForm, setShowAddMeetingForm] = useState(false);
     const [createMeeting, {isLoading, error}] = useCreateMeetingMutation();
+    const [createMeetingsReminder] = useCreateMeetingsRemindersMutation();
+    // const [deleteMeetingsReminder] = useDeleteMeetingsRemindersMutation();
     const [deleteMeeting, {isLoading: isDeleting, error: deleteError}] = useDeleteMeetingMutation();
     const {data: studentsGroups, isSuccess: groupsSuccess} = useFetchStudentsGroupQuery(schoolName);
     const {data: Courses, isSuccess: coursesSuccess} = useFetchCoursesQuery(schoolName);
@@ -39,6 +47,17 @@ export const SchoolMeetings: FC = () => {
         link: '',
         start_date: new Date(),
     });
+
+    const [newMeetingReminder, setNewMeetingReminder] = useState<TgMeetingReminders>({
+        daily: false,
+        in_three_hours: false,
+        ten_minute: false,
+        sent: false,
+        meeting: newMeetingData.id
+    })
+
+    const [showReminderOptions, setShowReminderOptions] = useState(false);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -51,12 +70,31 @@ export const SchoolMeetings: FC = () => {
         createMeeting({
             data: newMeetingData,
             schoolName,
-        });
-        setShowAddMeetingForm(false);
-         dispatch(setTotalMeetingCount(totalMeetingCount + 1));
+        })
+        .unwrap()
+        .then((meetingResponse) => {
+            console.log(meetingResponse.id);
+
+            if (meetingResponse.id) {
+                // Здесь вы устанавливаете meeting_id в newMeetingReminder
+                const updatedMeetingReminder = { ...newMeetingReminder, meeting: meetingResponse.id };
+
+                createMeetingsReminder({
+                    data: updatedMeetingReminder,
+                })
+                .unwrap()
+                .then(() => {
+                    dispatch(setTotalMeetingCount(totalMeetingCount + 1));
+                    setShowAddMeetingForm(false);
+                })
+                .catch((error) => {
+                    console.error("Error creating meeting reminder", error);
+                });
+            }
+        })
     };
 
-    const handleDeleteMeeting = (meetingId: number) => {
+    const handleDeleteMeeting = (meetingId: number, ) => {
         deleteMeeting({id: meetingId, schoolName});
         dispatch(setTotalMeetingCount(totalMeetingCount - 1));
     };
@@ -71,6 +109,24 @@ export const SchoolMeetings: FC = () => {
     const handleCourseChange = (courseId: number) => {
         setSelectedCourse(Courses?.results.find(course => course.course_id === courseId) || null)
     };
+
+    const handleGroupChange = (groupId: number) => {
+        setNewMeetingData(prevData => ({
+            ...prevData,
+            students_groups: [...prevData.students_groups, groupId],
+        }));
+        setShowReminderOptions(true); // Показываем опции напоминаний после выбора группы
+    };
+
+    const handleReminderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = event.target;
+        setNewMeetingReminder(prevReminder => ({
+            ...prevReminder,
+            [name]: checked,
+        }));
+    };
+
+
 
     const renderMeetingLinks = () => {
         const dateFormatter = new Intl.DateTimeFormat('ru-RU', {
@@ -193,6 +249,7 @@ export const SchoolMeetings: FC = () => {
                                                                 ...prevData,
                                                                 students_groups: [...prevData.students_groups, group.group_id],
                                                             }) as SchoolMeeting);
+                                                            setShowReminderOptions(true)
                                                         } else {
                                                             setNewMeetingData((prevData: SchoolMeeting) => ({
                                                                 ...prevData,
@@ -210,6 +267,29 @@ export const SchoolMeetings: FC = () => {
                                     }
                                     return null;
                                 })}
+                            {showReminderOptions && (
+                                <div>
+                                    <div className={styles.reminders}>Установить телеграм напоминание за:</div>
+                                    <Checkbox
+                                        name="daily"
+                                        onChange={handleReminderChange}
+                                        checked={newMeetingReminder.daily}
+                                    />
+                                    За день
+                                    <Checkbox
+                                        name="in_three_hours"
+                                        onChange={handleReminderChange}
+                                        checked={newMeetingReminder.in_three_hours}
+                                    />
+                                    За три часа
+                                    <Checkbox
+                                        name="ten_minute"
+                                        onChange={handleReminderChange}
+                                        checked={newMeetingReminder.ten_minute}
+                                    />
+                                    За десять минут
+                                </div>
+                            )}
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleAddMeeting} text="Добавить"/>

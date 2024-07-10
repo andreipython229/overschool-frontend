@@ -13,15 +13,28 @@ type appealStatsTableT = {
   isLoading: boolean
   refetchTable: () => void
 }
+type appealStatKeys = keyof appealStatT;
 
 export const AppealsStatsTable: FC<appealStatsTableT> = ({ appeals, isLoading, refetchTable }) => {
-  const [isSortedByEmail, setIsSortedByEmail] = useState(false)
+  const [isSorted, setIsSorted] = useState(false);
+  const [sortProp, setSortProp] = useState<appealStatKeys>('email');
 
-  const sortedData = useSortDataByProp(appeals?.results as appealStatT[], 'email', isSortedByEmail)
+  const sortedData = useSortDataByProp(appeals?.results as appealStatT[], sortProp, isSorted)
 
-  const hadleChangeProp = useCallback(() => {
-    setIsSortedByEmail(prop => !prop)
+  const handleChangeProp = useCallback(() => {
+    setSortProp('email');
+    setIsSorted(prop => !prop);
   }, [])
+
+  const handleSortByDate = useCallback(() => {
+    setSortProp('created_at');
+    setIsSorted(prop => !prop);
+  }, []);
+
+  const handleSortByStatus = useCallback(() => {
+    setSortProp('is_read');
+    setIsSorted(prop => !prop);
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -38,7 +51,9 @@ export const AppealsStatsTable: FC<appealStatsTableT> = ({ appeals, isLoading, r
         {sortedData?.length ? (
           <>
             <thead className={styles.table_head}>
-              <HomeworksStatsTableHeader hadleChangeProp={hadleChangeProp} />
+              <HomeworksStatsTableHeader handleChangeProp={handleChangeProp}
+                                         handleSortByDate={handleSortByDate}
+                                         handleSortByStatus={handleSortByStatus} />
             </thead>
             <tbody className={styles.table_body}>
               {sortedData?.map((appeal: appealStatT, index) => (

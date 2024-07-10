@@ -3,7 +3,7 @@
 
 .wrapper {
   width: 100%;
-  height: 320px;
+  height: 330px;
   border-radius: 20px;
   box-shadow: 0 2px 8px rgb(147, 147, 147);
   background-color: #ffffff;
@@ -54,12 +54,17 @@
       border: none;
     }
 
-    &_imageInput {
+    &_error {
+      z-index: 5;
       position: absolute;
-      width: 125px;
-      height: 125px;
-      border-radius: 50%;
-      opacity: 0;
+      bottom: -20px;
+      font-size: 15px;
+      padding: 5px;
+      border-radius: 10px;
+      color: rgb(224, 24, 24);
+      background: rgba(224, 24, 24, 0.3);
+      margin: 5px 5px 0 5px;
+      text-align: center;
     }
   }
 
@@ -69,11 +74,13 @@
     justify-content: center;
 
     textarea {
+      padding: 5px;
       width: 90%;
       color: #ba75ff;
       text-align: center;
       font-weight: bolder;
       border: none;
+      border-radius: 5px;
       outline: none;
       font-family: 'Inter', sans-serif;
       resize: none;
@@ -90,10 +97,12 @@
     justify-content: center;
 
     textarea {
+      padding: 5px;
       width: 90%;
       color: #34495e;
       text-align: center;
       border: none;
+      border-radius: 5px;
       outline: none;
       font-family: 'Inter', sans-serif;
       resize: none;

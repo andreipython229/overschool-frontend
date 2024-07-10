@@ -27,13 +27,16 @@ import { AddCodeEditor } from 'components/AddCodeEditor'
 import { AddVideo } from 'components/AddVideo'
 import { AudioPlayer } from 'components/common/AudioPlayer'
 import { useDeleteBlockMutation, useOrderUpdateMutation } from 'api/blocksService'
-import { useDebounceFunc } from 'customHooks'
+import { useDebounceFunc, useBoolean } from 'customHooks'
 import { AnimatePresence, Reorder } from 'framer-motion'
 import { Checkbox } from '../../../../../../components/common/Checkbox/Checkbox'
 import { AddPicture } from 'components/AddPicture'
 import { AddAudio } from 'components/AddAudio'
 import { MathEditor } from 'components/MathEditor'
 import { BlockButtons } from 'components/BlockButtons'
+
+import { Portal } from 'components/Modal/Portal'
+import { WarningModal } from 'components/Modal/Warning'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
@@ -66,6 +69,8 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [fileError, setFileError] = useState('')
   const [isPreview, setIsPreview] = useState<boolean>(false)
   const [isAddAudioClicked, setIsAddAudioClicked] = useState<boolean>(false)
+
+  const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
 
   useEffect(() => {
     if (data) {
@@ -240,45 +245,78 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       const formData1 = new FormData()
       formData1.append('base_lesson', `${data?.baselesson_ptr_id}`)
       files.forEach(file => formData1.append('files', file))
-      await addTextFiles({ formData: formData1, schoolName }).then(data => {
+      await addTextFiles({ formData: formData1, schoolName }).then(async data => {
         setFiles([])
         setUrlFiles([])
+        const formData = new FormData()
+        // formData.append('description', lessonDescription)
+        formData.append('section', String(lesson.section))
+        formData.append('order', String(lesson.order))
+        formData.append('active', String(isPublished))
+
+        if (lesson.type === 'test') {
+          formData.append('random_test_generator', String(autogeneration))
+          if (autogeneration) {
+            const selectedTests = previousTests?.filter((test: checkedTestT) => test.checked)
+            if (numQuestions && selectedTests?.length) {
+              formData.append('num_questions', String(numQuestions))
+              selectedTests.map((test: checkedTestT) => formData.append('tests_ids', String(test.test_id)))
+            } else {
+              tmpError = 'Необходимо выбрать количество вопросов и тесты для генерации списка вопросов'
+              setError(tmpError)
+            }
+          }
+        }
+        !tmpError &&
+          (await saveChanges({
+            arg: {
+              id: +lessonIdAndType.id,
+              type: lessonIdAndType.type,
+              formdata: formData,
+            },
+            schoolName,
+          })
+            .unwrap()
+            .then(data => {
+              console.log(data)
+              refetch()
+            }))
       })
-    }
+    } else {
+      const formData = new FormData()
+      // formData.append('description', lessonDescription)
+      formData.append('section', String(lesson.section))
+      formData.append('order', String(lesson.order))
+      formData.append('active', String(isPublished))
 
-    const formData = new FormData()
-    // formData.append('description', lessonDescription)
-    formData.append('section', String(lesson.section))
-    formData.append('order', String(lesson.order))
-    formData.append('active', String(isPublished))
-
-    if (lesson.type === 'test') {
-      formData.append('random_test_generator', String(autogeneration))
-      if (autogeneration) {
-        const selectedTests = previousTests?.filter((test: checkedTestT) => test.checked)
-        if (numQuestions && selectedTests?.length) {
-          formData.append('num_questions', String(numQuestions))
-          selectedTests.map((test: checkedTestT) => formData.append('tests_ids', String(test.test_id)))
-        } else {
-          tmpError = 'Необходимо выбрать количество вопросов и тесты для генерации списка вопросов'
-          setError(tmpError)
+      if (lesson.type === 'test') {
+        formData.append('random_test_generator', String(autogeneration))
+        if (autogeneration) {
+          const selectedTests = previousTests?.filter((test: checkedTestT) => test.checked)
+          if (numQuestions && selectedTests?.length) {
+            formData.append('num_questions', String(numQuestions))
+            selectedTests.map((test: checkedTestT) => formData.append('tests_ids', String(test.test_id)))
+          } else {
+            tmpError = 'Необходимо выбрать количество вопросов и тесты для генерации списка вопросов'
+            setError(tmpError)
+          }
         }
       }
+      !tmpError &&
+        (await saveChanges({
+          arg: {
+            id: +lessonIdAndType.id,
+            type: lessonIdAndType.type,
+            formdata: formData,
+          },
+          schoolName,
+        })
+          .unwrap()
+          .then(data => {
+            console.log(data)
+            refetch()
+          }))
     }
-    !tmpError &&
-      (await saveChanges({
-        arg: {
-          id: +lessonIdAndType.id,
-          type: lessonIdAndType.type,
-          formdata: formData,
-        },
-        schoolName,
-      })
-        .unwrap()
-        .then(data => {
-          console.log(data)
-          refetch()
-        }))
   }
 
   const renderUI = () => {
@@ -316,7 +354,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     let tmpError = ''
     chosenFiles.some(file => {
       if (uploaded.findIndex(f => f.name === file.name) === -1) {
-        if (file.size <= 200 * 1024 * 1024) {
+        if (file.size < 201 * 1024 * 1024) {
           uploaded.push(file)
         } else {
           console.log('error')
@@ -456,7 +494,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       style={{ opacity: isFetching || isDeleting || isSaving ? 0.5 : 1, position: 'relative' }}
       className={styles.redactorCourse_rightSideWrapper}
     >
-      <div  className={styles.redactorCourse_rightSideWrapper_rightSide}>
+      <div className={styles.redactorCourse_rightSideWrapper_rightSide}>
         <div className={styles.redactorCourse_rightSideWrapper_rightSide_header}>
           <div className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock}>
             {!isEditing ? <div className={styles.coursePreviewHeader}></div> : <div></div>}
@@ -480,9 +518,13 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
                   Сохранить и вернуться к превью
                 </button>
-
+                {showModal && (
+                  <Portal closeModal={close}>
+                    <WarningModal setShowModal={setShow} task={handleDeleteLesson} textModal={`Вы действительно хотите удалить занятие?`} />
+                  </Portal>
+                )}
                 <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
-                  <IconSvg functionOnClick={handleDeleteLesson} width={16} height={16} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+                  <IconSvg functionOnClick={open} width={16} height={16} viewBoxSize="0 0 19 19" path={deleteIconPath} />
                 </button>
               </div>
             </div>

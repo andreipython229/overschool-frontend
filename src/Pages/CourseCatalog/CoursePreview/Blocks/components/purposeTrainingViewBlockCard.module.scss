@@ -1,0 +1,109 @@
+@import 'scss/mixin.scss';
+@import 'scss/variable.scss';
+
+.wrapper {
+  width: 100%;
+  min-height: 150px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgb(147, 147, 147);
+  background-color: #ffffff;
+  display: grid;
+  grid-template: auto auto / 150px auto;
+  grid-gap: 5px;
+  //@include display(flex, column, center, center);
+  //gap: 5rem;
+  //padding: 2rem;
+  position: relative;
+
+  button {
+    padding: 3px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: #ff3d32;
+    visibility: hidden; // По умолчанию кнопки невидимы
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+  }
+
+  &:hover button {
+    visibility: visible; // При наведении контейнер становится видимым
+    opacity: 1;
+  }
+
+  button:hover {
+    color: red;
+    background: rgba(248, 90, 90, 0.2);
+    border-radius: 5px;
+  }
+
+  &_imageBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    grid-row: 1 / span 2;
+
+    img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: rgba(248, 229, 255, 0.68);
+      border: none;
+    }
+
+    &_error {
+      z-index: 5;
+      white-space: nowrap;
+      position: absolute;
+      top: 0;
+      left: 150px;
+      font-size: 15px;
+      padding: 5px;
+      border-radius: 10px;
+      color: rgb(224, 24, 24);
+      background: rgba(224, 24, 24, 0.3);
+      margin-top: 5px;
+      text-align: center;
+    }
+  }
+
+  &_title {
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+
+    &_text {
+      padding: 10px;
+      width: 90%;
+      color: #ba75ff;
+      font-weight: bolder;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      resize: none;
+      font-size: 20px;
+    }
+  }
+
+  &_description {
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    &_text {
+      padding: 10px;
+      width: 90%;
+      color: #34495e;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      resize: none;
+      font-size: 17px;
+    }
+  }
+}

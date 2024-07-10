@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { getUserIdFromLocalStorage } from 'utils/getUserId';
 import { 
   SendMessagePayload,
   useSendMessageMutation, 
@@ -13,10 +12,9 @@ import {
   CreateChatPayload,
 } from '../../api/chatgptService';
 
+import OverAiIcon from '../../assets/img/common/iconModal.svg';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
-
-import OverAiIcon from '../../assets/img/common/iconModal.svg';
 import { deleteIconPath } from 'components/Questions/config/svgIconPath';
 
 import styles from './chatgpt.module.scss';
@@ -30,12 +28,10 @@ interface ChatGPTProps {
 const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [messageInput, setMessageInput] = useState('');
   const messageContainerRef = useRef<HTMLDivElement>(null);
-  const userId = getUserIdFromLocalStorage();
 
   const [chatData, setChatData] = useState<{ [id: number]: { order: number; chat_name: string } }>({});
   const [selectedChatId, setCreatedChatId] = useState<number>();
   const [isChatSelected, setIsChatSelected] = useState(false);
-  const [chatList, setChatList] = useState<Array<number>>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,8 +41,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [isChatSelectionDisabled, setIsChatSelectionDisabled] = useState(false);
   const [isCreatingChatDisabled, setIsCreatingChatDisabled] = useState(false);
   const [showWelcomeMessage, setShowWelcomeMessage] = useState<boolean>(true);
-  const [showSpinner, setShowSpinner] = useState(true);
-  const [isBotResponsePending, setIsBotResponsePending] = useState(false);
   const [draggedChatId, setDraggedChatId] = useState<number | null>(null);
   const [draggedOverChatId, setDraggedOverChatId] = useState<number | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState('RU');
@@ -68,14 +62,11 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     const fetchData = async () => {
       if (isDialogOpen !== false && selectedChatId == null) {
         setError(null);
-        setShowSpinner(true);
 
         if (showWelcomeMessage !== true) {
           setShowWelcomeMessage(false);
-          setShowSpinner(false);
         } else {
           setShowWelcomeMessage(true);
-          setShowSpinner(false);
         }
   
         setIsLoadingMessages(true);
@@ -89,14 +80,11 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
       } else if (isDialogOpen !== false && selectedChatId !== null) {
         setError(null);
-        setShowSpinner(true);
 
         if (showWelcomeMessage !== true) {
           setShowWelcomeMessage(false);
-          setShowSpinner(false);
         } else {
           setShowWelcomeMessage(true);
-          setShowSpinner(false);
         }
   
         setIsLoadingMessages(true);
@@ -255,7 +243,6 @@ useEffect(() => {
   
   const createChat = async () => {
     try {
-      if (userId !== null && userId !== undefined) {
         setIsCreatingChatDisabled(true);
         const convertToCreateChatPayload = (chatData: { [id: number]: { order: number; chat_name: string } }): CreateChatPayload => {
           const orderData = Object.entries(chatData).map(([id, { order }]) => ({ id: Number(id), order }));
@@ -267,7 +254,6 @@ useEffect(() => {
         const response = await createChatMutation(payload);
         if ('data' in response && response.data !== undefined) {
           const newChatId = response.data.overai_chat_id;
-          setChatList((prevChatList) => [...prevChatList, newChatId]);
           await fetchChats();
           setCreatedChatId(newChatId);
           return response.data;
@@ -275,7 +261,6 @@ useEffect(() => {
           setError('Ошибка при создании чата.');
           return null; 
         }
-      }
     } catch (error) {
       setError('Ошибка при создании чата.');
       return null; 
@@ -285,7 +270,7 @@ useEffect(() => {
   };
 
   const handleCreateChat = async () => {
-    if (userId !== null && updateWelcomeMessage !== null) {
+    if (updateWelcomeMessage !== null) {
       await updateWelcomeMessage();
     }
     await createChat();
@@ -327,70 +312,59 @@ useEffect(() => {
   const handleSendMessage = async (messageInput: string) => {
     if (selectedChatId === 1) {
       const response = await createChat();
-      console.log("response: ", response);
-      
-      setIsBotResponsePending(true);
       setIsLoading(true);
       setIsChatSelectionDisabled(true);
       setIsCreatingChatDisabled(true);
+      const payload: SendMessagePayload = {
+        message: messageInput,
+        overai_chat_id: response?.overai_chat_id,
+        language: selectedLanguage
+      };
 
-      if (userId !== null) {
-        const payload: SendMessagePayload = {
-          message: messageInput,
-          overai_chat_id: response?.overai_chat_id,
-          language: selectedLanguage
-        };
+      const botResponseTimeout = setTimeout(() => {
+          setError('Генерация сообщения займет некоторое время...');
+      }, 10000);
 
-        const botResponseTimeout = setTimeout(() => {
-           setError('Генерация сообщения займет некоторое время...');
-        }, 10000);
+      await sendMessage(payload);
 
-        await sendMessage(payload);
-
-        await refetchMessages({ overai_chat_id: response?.overai_chat_id });
+      await refetchMessages({ overai_chat_id: response?.overai_chat_id });
           
-        setMessageInput('');
-        setError(null);
-        clearTimeout(botResponseTimeout);
-      }
-        setIsBotResponsePending(false);
-        setIsLoading(false);
-        setIsChatSelectionDisabled(false);
-        setIsCreatingChatDisabled(false);
+      setMessageInput('');
+      setError(null);
+      clearTimeout(botResponseTimeout);
+
+      setIsLoading(false);
+      setIsChatSelectionDisabled(false);
+      setIsCreatingChatDisabled(false);
     }
     if (selectedChatId !== 1 && messageInput.trim() !== '') {
       try {
-        setIsBotResponsePending(true);
         setIsLoading(true);
         setIsChatSelectionDisabled(true);
         setIsCreatingChatDisabled(true);
 
-        if (userId !== null) {
-          const payload: SendMessagePayload = {
-            message: messageInput,
-            overai_chat_id: selectedChatId!,
-            language: selectedLanguage
-          };
+        const payload: SendMessagePayload = {
+          message: messageInput,
+          overai_chat_id: selectedChatId!,
+          language: selectedLanguage
+        };
 
-          const botResponseTimeout = setTimeout(() => {
-            setError('Генерация сообщения займет некоторое время...');
-          }, 10000);
+        const botResponseTimeout = setTimeout(() => {
+          setError('Генерация сообщения займет некоторое время...');
+        }, 10000);
 
-          await sendMessage(payload);
+        await sendMessage(payload);
 
-          if (refetchMessages) {
-            await refetchMessages({ overai_chat_id: selectedChatId });
-          }
-          
-          setMessageInput('');
-          setError(null);
-          clearTimeout(botResponseTimeout);
+        if (refetchMessages) {
+          await refetchMessages({ overai_chat_id: selectedChatId });
         }
-
+          
+        setMessageInput('');
+        setError(null);
+        clearTimeout(botResponseTimeout);
       } catch (error: unknown) {
         setError('Ошибка при отправке сообщения.');
       } finally {
-        setIsBotResponsePending(false);
         setIsLoading(false);
         setIsChatSelectionDisabled(false);
         setIsCreatingChatDisabled(false);

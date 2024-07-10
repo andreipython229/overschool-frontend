@@ -26,8 +26,9 @@
 
   &_wrapper {
     display: flex;
-    gap: 30px;
-    width: 100%;
+    gap: 10px;
+    width: 80%;
+    margin: 0 auto;
     @media only screen and (min-width : 375px) and (max-width : 480px) {
       display: flex;
       flex-wrap: wrap;
@@ -214,7 +215,7 @@
     border-radius: 7px;
     padding: 32px 0 40px;
     min-width: 700px;
-    width: 100%;
+    width: 90%;
     background: #fff;
     box-shadow: 0 0 8px #d9d9d9;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -237,7 +238,9 @@
   &__btns {
     @include display(flex, row, flex-start, center);
     margin-top: 32px;
-    margin-right: 5px;
+    // margin-right: 5px;
+    justify-content: end;
+    width: 90%;
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       @include display(flex, row, flex-start, center);
     }
@@ -257,7 +260,7 @@
   &__btnNext,
   &__btnPrev {
     @include display(flex, row, center, center);
-    width: 50%;
+    width: 145px;
     border: none;
     outline: none;
     background: #e1e1e1;
@@ -417,7 +420,7 @@
   border-radius: 10px;
   padding: 10px; 
   margin-top: 10px;
-  width: 100%;
+  width: 90%;
 }
 
 .commentBox {
@@ -428,13 +431,14 @@
 }
 
 .commentForm {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 82% 18%;
+  margin-top: 5%;
 
   textarea {
-      height: 70px;
+      height: 62px;
       padding: 10px;
-      margin-bottom: 10px;
+      // margin-bottom: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
       resize: none;

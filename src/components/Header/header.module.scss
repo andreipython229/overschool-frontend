@@ -131,6 +131,15 @@
 
 .textarea {
   
+  // max-width: 34vh;
+  width: 550px;
+  min-height: 200px;
+  max-height: 200px;
+  border: 1px solid #ba75ff;
+  border-radius: 4px;
+  resize: none;
+  padding: 0.375rem;
+  overflow: auto !important;
   border-color: #ba75ff !important;
 
   &:focus {

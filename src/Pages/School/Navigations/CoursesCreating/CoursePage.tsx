@@ -100,7 +100,6 @@ export const CoursePage: FC = () => {
   const filteredCourses = courses?.results.filter((course: any) => {
     return course.name.toLowerCase().includes(search.toLowerCase())
   })
-
   if (!isSuccess)
     return (
       <>
@@ -130,7 +129,7 @@ export const CoursePage: FC = () => {
     <>
       <div className={styles.container}>
         <AnimatePresence>
-          <div style={{ display: 'flex', gap: '1rem', paddingBottom: '1rem' }}>
+          <div style={{ display: 'flex', gap: '1rem', paddingBottom: '1rem', width:'85%', margin: '0 auto' }}>
             {activeFolder.length > 0 && (
               <Chip
                 label={'Убрать фильтрацию'}
@@ -265,9 +264,14 @@ export const CoursePage: FC = () => {
                 </>
               ) : (
                 <>
-                  <div className={styles.search}>
-                    <p color="gray">По результатам поиска ничего не найдено...</p>
-                  </div>
+                  {/*<div className={styles.search}>*/}
+                  {/*  <p color="gray">По результатам поиска ничего не найдено...</p>*/}
+                  {/*</div>*/}
+                  <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
+                      <span className={styles.course_addCourse}>
+                        <span>Добавить материал</span>
+                      </span>
+                    </button>
                 </>
               )}
             </motion.div>

@@ -17,16 +17,18 @@ export const CertificatCourseModules: FC<CertificatModulesT> = ({ section, secti
   return (
     <div className={styles.accardionWrapper_component}>
       <div onClick={() => handleToggleOpen(sectionIndex)} className={styles.accardionWrapper_component_header}>
-        <span className={styles.accardionWrapper_component_header_completedIcon}>{sectionIndex + 1}</span>
-        <div className={styles.accardionWrapper_component_header_lessonName}>
-          <h4 className={styles.accardionWrapper_component_header_lessonName_title}>
-            {section?.name}
-            <span></span>
-          </h4>
-          <span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>
-            {section.lessons.length}
-            <span>{getNounDeclension(section.lessons.length, ['занятие', 'занятия', 'занятий'])}</span>
-          </span>
+        <div className={styles.accardionWrapper_component_header_title}>
+          <span className={styles.accardionWrapper_component_header_completedIcon}>{sectionIndex + 1}</span>
+          <div className={styles.accardionWrapper_component_header_lessonName}>
+            <h4 className={styles.accardionWrapper_component_header_lessonName_title}>
+              {section?.name}
+              <span></span>
+            </h4>
+            <span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>
+              {section.lessons.length}
+              <span>{getNounDeclension(section.lessons.length, ['занятие', 'занятия', 'занятий'])}</span>
+            </span>
+          </div>
         </div>
         <span
           className={
