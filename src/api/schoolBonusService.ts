@@ -2,10 +2,11 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQuery } from './baseApi'
 import { BonusT } from '../types/bonusesT'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const schoolBonusService = createApi({
   reducerPath: 'schoolBonusService',
-  baseQuery: baseQuery(),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['bonuses', 'bonus'],
   endpoints: build => ({
     fetchBonuses: build.query<BonusT[], string>({
