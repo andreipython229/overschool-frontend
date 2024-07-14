@@ -24,7 +24,6 @@ export enum Path {
   SignUp = '/signup',
   CourseStudent = 'courses-stats/:course_id/students',
   CreateSchool = '/create-school/',
-  CreateSchoolRef = '/create-school/:refCode',
   Chat = '',
   Certificate = '/certificate/:certLink',
   Catalog = '/course-catalog/',

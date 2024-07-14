@@ -5,7 +5,7 @@ import { isSecurity, unSecurity } from '../../assets/img/common'
 import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
 import { useFormik } from 'formik'
 import { useEffect, useState } from 'react'
-import { generatePath, useNavigate, useLocation, useParams } from 'react-router-dom'
+import { generatePath, useNavigate, useLocation, useSearchParams } from 'react-router-dom'
 import { useCreateSchoolOwnerMutation, useCreateSchoolOwnerRefMutation } from 'api/schoolCreationService'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
@@ -14,7 +14,6 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
 export const CreateNewSchool = () => {
-  const { refCode } = useParams()
   const location = useLocation()
   const [utmParams, setUtmParams] = useState<{
     utm_source?: string
@@ -23,6 +22,7 @@ export const CreateNewSchool = () => {
     utm_term?: string
     utm_content?: string
   }>({})
+  const [searchParams, setSearchParams] = useSearchParams(location.search)
   const [security, setSecurity] = useState<boolean>(true)
   const [createOwner, { isSuccess, isLoading }] = useCreateSchoolOwnerMutation()
   const [createOwnerRef, { isSuccess: successRef, isLoading: loadingRef }] = useCreateSchoolOwnerRefMutation()
@@ -98,8 +98,8 @@ export const CreateNewSchool = () => {
           ...formik.values,
           ...utmData,
         }
-        if (refCode && refCode.length > 0) {
-          await createOwnerRef({ credentials: userData, ref: refCode })
+        if (searchParams && searchParams.get('ref_code')) {
+          await createOwnerRef({ credentials: userData, ref: String(searchParams.get('ref_code')) })
             .unwrap()
             .catch((response: any) => {
               if (response.status === 400) {
