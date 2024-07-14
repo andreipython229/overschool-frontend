@@ -12,11 +12,11 @@ export const createUrlWithFiltersAndFields = (url: string, filters: any, fields?
     }
     
     if (fields && fields.length > 0) {
-        console.log("fields: ", fields);
+        // console.log("fields: ", fields);
         
       fields.forEach((field) => urlParams.append('fields', field));
     }
-    console.log("urlParams: ", urlParams);
+    // console.log("urlParams: ", urlParams);
     
     return `${url}&${urlParams.toString()}`;
   };

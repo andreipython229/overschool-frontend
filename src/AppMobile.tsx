@@ -49,7 +49,6 @@ export const AppMobile = () => {
     if (
       !isLogin &&
       pathname !== Path.CreateSchool &&
-      pathname !== Path.CreateSchoolRef &&
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
       pathname !== Path.TariffPlansInfo &&
