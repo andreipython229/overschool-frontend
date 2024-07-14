@@ -20,6 +20,7 @@ export const NavAccount: FC = memo(() => {
       <NavAccountBtn path={SettingsPath.SchoolPassport} text={'Печати и подписи'} />
       {(role === RoleE.SuperAdmin  || role === RoleE.Admin) && <NavAccountBtn path={SettingsPath.PaymentMethods} text={'Оплата'} />}
       <NavAccountBtn path={SettingsPath.DomainSettings} text={'Домены'} />
+      <NavAccountBtn path={SettingsPath.Bonuses} text={'Бонусы / акции'} />
       {((role === RoleE.SuperAdmin  || role === RoleE.Admin) && schoolName == 'OVERONE') && <NavAccountBtn path={SettingsPath.EmailNewsLetter} text={'Рассылка'} />}
     </nav>
   )

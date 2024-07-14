@@ -1,6 +1,6 @@
-import { FC, memo } from 'react'
+import React, { FC, memo } from 'react'
 import { NavLink } from 'react-router-dom'
-// import VideocamIcon from '@mui/icons-material/Videocam';
+import RedeemIcon from '@mui/icons-material/Redeem';
 import { useAppSelector } from '../../store/hooks'
 import { navlinkByRoles } from './config/navlinkByRoles'
 import { IconSvg } from '../common/IconSvg/IconSvg'
@@ -14,7 +14,7 @@ import styles from './navbar.module.scss'
 import { selectUser } from '../../selectors'
 import Tooltip from '@mui/material/Tooltip'
 import { Path } from '../../enum/pathE'
-
+import Timer from "../Timer/Timer";
 import Badge from '@mui/material/Badge'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -37,6 +37,7 @@ export const Navbar: FC = memo(() => {
   const unRead = useSelector((state: RootState) => state.unread.totalUnread)
   const unReadAppeals = useSelector((state: RootState) => state.unreadAppeals.totalUnreadAppeals)
   const totalMeetingCount = useSelector((state: RootState) => state.meetings.totalMeetingCount);
+  const studentBonus = useSelector((state: RootState) => state.bonuses.studentBonus);
   const dispatchRole = useDispatch()
 
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
@@ -74,6 +75,24 @@ export const Navbar: FC = memo(() => {
             </NavLink>
           </Tooltip>
         </div>
+        {UserRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ?
+            <div style={{ marginTop: '35px' }}>
+              <Tooltip title={`Акции/бонусы. ${studentBonus.text}`} arrow placement={'right'} key={'bonus'}>
+                <a key={'bonus'} href={studentBonus.link}>
+                  {studentBonus.logo
+                    ? <div className={styles.navbar_menu} style={{ textAlign: 'center', padding: '0.40em' }}>
+                        <img width={42} height={40} src={studentBonus.logo} alt="Logo" />
+                      </div>
+                    : <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em' }}>
+                        <RedeemIcon/>
+                      </SvgIcon>}
+                  <div style={{ fontSize: '0.7em', textAlign: 'center' }}>
+                    <Timer targetDate={new Date(studentBonus.expire_date)} target='bonus'/>
+                  </div>
+                </a>
+              </Tooltip>
+            </div>
+            :<div></div>}
         <div className={styles.navbar_setting_account}>
           {/* <Tooltip title={'Видеоконференции'} arrow placement={'right'} key={'meetings-data'}>
                   <NavLink to={Path.Meetings} className={isActive}>
