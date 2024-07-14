@@ -4,6 +4,7 @@
 .profile {
   position: relative;
   @include display(flex);
+  justify-content: space-evenly;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     @include display(flex, column, flex-start, center);
   }
