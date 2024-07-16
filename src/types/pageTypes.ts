@@ -75,4 +75,6 @@ export type BonusPropsT = {
   setIsEdit: (arg: boolean) => void
   setIsActivate: (arg: boolean) => void
   setShowBonusForm: (arg: boolean) => void
+  groupIds: number[]
+  setIsAllGroupsSelected: (arg: boolean) => void
 }

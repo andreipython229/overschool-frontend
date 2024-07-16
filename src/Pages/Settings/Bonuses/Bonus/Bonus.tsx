@@ -7,7 +7,8 @@ import styles from './bonus.module.scss'
 import {IconSvg} from "../../../../components/common/IconSvg/IconSvg";
 import {deleteIconPath, settingsIconPath} from "../../../School/config/svgIconsPath";
 
-export const Bonus: FC<BonusPropsT> = memo(({ bonus, bonuses, setBonuses, setFormBonus, setIsEdit, setIsActivate, setShowBonusForm}) => {
+export const Bonus: FC<BonusPropsT> = memo(({ bonus, bonuses, setBonuses, setFormBonus, setIsEdit,
+                                                setIsActivate, setShowBonusForm, groupIds, setIsAllGroupsSelected}) => {
   const [deleteBonus, { isSuccess: isDeleted }] = useDeleteBonusMutation()
   const schoolName = window.location.href.split('/')[4]
 
@@ -22,6 +23,13 @@ export const Bonus: FC<BonusPropsT> = memo(({ bonus, bonuses, setBonuses, setFor
            setIsActivate(false);
         } else {
            setIsActivate(true);
+        }
+        const notIncludedGroups = groupIds.filter(id => ! bonus.student_groups.includes(id))
+
+        if (notIncludedGroups.length) {
+            setIsAllGroupsSelected(false);
+        } else {
+            setIsAllGroupsSelected(true);
         }
         setShowBonusForm(true);
   };
