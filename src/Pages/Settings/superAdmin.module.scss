@@ -386,6 +386,18 @@
       margin-bottom: 5px;
     }
   }
+
+  &_groups {
+    padding-left: 13px;
+    padding-top: 15px;
+    cursor: pointer;
+    border: thin solid #bbbaba;
+    border-radius: 4px;
+    height: 56px;
+    font-size: 17px;
+    color: #818080;
+    font-weight: 400;
+  }
 }
 
 .bonus {

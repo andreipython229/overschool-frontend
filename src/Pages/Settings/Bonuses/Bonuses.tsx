@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, memo, useEffect, useState} from "react";
-import {useFetchBonusesQuery, useFetchBonusQuery, useCreateBonusMutation, useDeleteBonusMutation, usePatchBonusMutation,} from "api/schoolBonusService";
+import {useFetchBonusesQuery, useCreateBonusMutation, usePatchBonusMutation,} from "api/schoolBonusService";
 import {BonusT} from "types/bonusesT";
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
@@ -8,8 +8,6 @@ import {useFetchStudentsGroupQuery} from "api/studentsGroupService";
 import styles from '../superAdmin.module.scss'
 import {Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Stack, Chip} from "@mui/material";
 import {Button} from 'components/common/Button/Button'
-import MenuItem from "@mui/material/MenuItem"
-import CancelIcon from "@mui/icons-material/Cancel";
 import styles_load from "../../../components/Modal/Modal.module.scss";
 import {SimpleLoader} from "../../../components/Loaders/SimpleLoader";
 import {Bonus} from "../Bonuses/Bonus/Bonus";
@@ -21,6 +19,7 @@ export const Bonuses: FC = () => {
     const [createBonus, {isSuccess: isCreated, error}] = useCreateBonusMutation();
     const [patchBonus, {isSuccess: isUpdated, error: patchError}] = usePatchBonusMutation();
     const {data: studentsGroups, isSuccess: groupsSuccess} = useFetchStudentsGroupQuery(schoolName);
+    const [groupIds, setGroupIds] = useState<number[]>([])
     const [isEdit, setIsEdit] = useState(false);
     const [isActivate, setIsActivate] = useState(true);
     const emptyBonus = {
@@ -36,6 +35,8 @@ export const Bonuses: FC = () => {
     const [bonuses, setBonuses] = useState<BonusT[]>([])
     const [logoFile, setLogoFile] = useState<File | Blob>()
     const [logoError, setLogoError] = useState<string>('')
+    const [showGroupForm, setShowGroupForm] = useState(false)
+    const [isAllGroupsSelected, setIsAllGroupsSelected] = useState(false);
 
     useEffect(() => {
       if (bonusesSuccess) {
@@ -48,6 +49,12 @@ export const Bonuses: FC = () => {
         setBonuses([...bonuses, formBonus])
       }
     }, [isCreated])
+
+    useEffect(() => {
+      if (studentsGroups?.results) {
+         setGroupIds(studentsGroups.results.map(group => group.group_id as number));
+      }
+    }, [studentsGroups]);
 
    function getLocalISOString(date: Date) {
       const offset = date.getTimezoneOffset()
@@ -108,6 +115,7 @@ export const Bonuses: FC = () => {
     const handleCreateForm = () => {
         setIsEdit(false);
         setFormBonus(emptyBonus);
+        setIsAllGroupsSelected(false);
         setShowBonusForm(true);
     }
 
@@ -127,29 +135,45 @@ export const Bonuses: FC = () => {
       }
     }
 
-    const handleChangeGroups = (event: any) => {
-       setFormBonus({...formBonus, student_groups: event.target.value})
-    };
+    // const handleChangeGroups = (event: any) => {
+    //    setFormBonus({...formBonus, student_groups: event.target.value})
+    // };
+    //
+    // const renderSelectedGroups = (selected: any) => {
+    //     return (
+    //       <Stack gap={1} direction="row" flexWrap="wrap">
+    //         {selected?.map((value: any) => (
+    //           <Chip
+    //             key={value}
+    //             label={studentsGroups?.results.find((group) => group.group_id === value)?.name}
+    //             onDelete={() =>
+    //               setFormBonus({...formBonus, student_groups: formBonus.student_groups.filter((group) => group !== value)})
+    //             }
+    //             deleteIcon={
+    //               <CancelIcon
+    //                 onMouseDown={(event) => event.stopPropagation()}
+    //               />
+    //             }
+    //           />
+    //         ))}
+    //       </Stack>
+    //     )}
 
-    const renderSelectedGroups = (selected: any) => {
-        return (
-          <Stack gap={1} direction="row" flexWrap="wrap">
-            {selected?.map((value: any) => (
-              <Chip
-                key={value}
-                label={studentsGroups?.results.find((group) => group.group_id === value)?.name}
-                onDelete={() =>
-                  setFormBonus({...formBonus, student_groups: formBonus.student_groups.filter((group) => group !== value)})
-                }
-                deleteIcon={
-                  <CancelIcon
-                    onMouseDown={(event) => event.stopPropagation()}
-                  />
-                }
-              />
-            ))}
-          </Stack>
-        )}
+    const handleSelectAllGroups = (isChecked: boolean) => {
+      if (isChecked) {
+        setIsAllGroupsSelected(true);
+        setFormBonus({
+          ...formBonus,
+          student_groups: groupIds,
+        });
+      } else {
+        setIsAllGroupsSelected(false);
+        setFormBonus({
+          ...formBonus,
+          student_groups: [],
+        });
+      }
+    };
 
     return (
         <>
@@ -186,6 +210,8 @@ export const Bonuses: FC = () => {
                         setIsEdit={setIsEdit}
                         setIsActivate={setIsActivate}
                         setShowBonusForm={setShowBonusForm}
+                        groupIds={groupIds}
+                        setIsAllGroupsSelected={setIsAllGroupsSelected}
                     />
                 ))}
               </div>
@@ -252,26 +278,97 @@ export const Bonuses: FC = () => {
                                     }
                                 />
                             </div>
+                            {/*<div style={{marginBottom: '1.5rem'}}>*/}
+                            {/*    <TextField*/}
+                            {/*        id="student_groups"*/}
+                            {/*        select*/}
+                            {/*        SelectProps={{*/}
+                            {/*          multiple: true,*/}
+                            {/*          value: formBonus.student_groups,*/}
+                            {/*          onChange: handleChangeGroups,*/}
+                            {/*          renderValue: renderSelectedGroups,*/}
+                            {/*        }}*/}
+                            {/*        label="Выберите группы"*/}
+                            {/*        fullWidth={true}*/}
+                            {/*    >*/}
+                            {/*        {studentsGroups?.results.map(group => (*/}
+                            {/*            <MenuItem key={group.group_id} value={group.group_id}>*/}
+                            {/*                {group.name}*/}
+                            {/*            </MenuItem>*/}
+                            {/*        ))}*/}
+                            {/*    </TextField>*/}
+                            {/*</div>*/}
+
                             <div style={{marginBottom: '1.5rem'}}>
-                                <TextField
-                                    id="student_groups"
-                                    select
-                                    SelectProps={{
-                                      multiple: true,
-                                      value: formBonus.student_groups,
-                                      onChange: handleChangeGroups,
-                                      renderValue: renderSelectedGroups,
-                                    }}
-                                    label="Выберите группы"
-                                    fullWidth={true}
-                                >
-                                    {studentsGroups?.results.map(group => (
-                                        <MenuItem key={group.group_id} value={group.group_id}>
-                                            {group.name}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
+                                <div className={styles.form_groups}
+                                    onClick={() => setShowGroupForm(true)}>
+                                    Выберите одну или несколько групп
+                                </div>
                             </div>
+                            <Dialog
+                  open={showGroupForm}
+                  onClose={() => setShowGroupForm(false)}
+                  PaperProps={{ style: { maxHeight: '100vh', maxWidth: '600px', width: '100%' } }}
+                >
+                  <DialogTitle>Доступные для выбора группы</DialogTitle>
+                  <DialogContent>
+
+                    <span>Выбор всех групп</span>
+                    {studentsGroups && (
+                      <Checkbox
+                      style={{ color: '#ba75ff' }}
+                      checked={isAllGroupsSelected}
+                      onChange={(e) => handleSelectAllGroups(e.target.checked)}
+                      color='primary'
+                    />
+                    )}
+                    {studentsGroups &&
+                      Object.entries(
+                        studentsGroups.results
+                          .reduce<Record<string, typeof studentsGroups.results>>((acc, group) => {
+                            const courseName = group.course_name;
+                            if (courseName) {
+                              if (!acc[courseName]) {
+                                acc[courseName] = [];
+                              }
+                              acc[courseName].push(group);
+                            }
+                            return acc;
+                          }, {})
+                      ).map(([courseName, groups]) => (
+                        <div key={courseName} style={{ marginBlockStart: '3px' }}>
+                          <b>{courseName}</b>
+                          {groups.map((group, index) => (
+                            <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
+                              <Checkbox
+                                style={{ color: '#ba75ff' }}
+                                checked={formBonus.student_groups.includes(group.group_id as number)}
+                                onChange={e => {
+                                  const isChecked = e.target.checked;
+                                  if (isChecked && group.group_id !== undefined) {
+                                    setFormBonus({
+                                      ...formBonus,
+                                      student_groups: [...formBonus.student_groups, group.group_id as number],
+                                    });
+                                  } else if (!isChecked && group.group_id !== undefined) {
+                                    setFormBonus({
+                                      ...formBonus,
+                                      student_groups: formBonus.student_groups.filter(id => id !== group.group_id),
+                                    });
+                                  }
+                                }}
+                              />
+                              {group.name}
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={() => setShowGroupForm(false)} text="Подтвердить" />
+                  </DialogActions>
+                  </Dialog>
+
                              {isEdit &&
                              <div style={{marginBottom: '1.5rem'}}>
                                 <FormControlLabel control={<Checkbox
