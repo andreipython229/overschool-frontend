@@ -103,8 +103,9 @@ export const LoginPage = () => {
       const { email, password, phone } = formik.values
       const user = { login: phone ? phone : email, password }
       try {
-        const { access, refresh } = await attemptAccess(user).unwrap()
+        const { access, refresh, user: userResponse } = await attemptAccess(user).unwrap()
         dispatch(authState({ access: access, refresh: refresh }))
+        dispatch(id(userResponse.id))
       } catch {
         console.log('smth went wrong')
       }
@@ -291,7 +292,8 @@ export const LoginPage = () => {
           ))}
         {isHidden && (
           <form className={styles.loginPage_formWrapper_form} onSubmit={formik.handleSubmit}>
-            <p className={styles.loginPage_formWrapper_form_title}>Войти</p>
+            <p className={styles.loginPage_formWrapper_form_title}>Вход</p>
+            <p className={styles.loginPage_formWrapper_form_title_comment}>Введите свои данные для входа</p>
             <div className={styles.loginPage_formWrapper_form_eMailWrapper}>
               <p className={styles.loginPage_formWrapper_form_eMailWrapper_title}></p>
               <InputAuth

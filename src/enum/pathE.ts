@@ -42,7 +42,7 @@ export enum Path {
   Appeals = 'school-appeals/',
   Meetings = 'meetings/',
   Materials = 'materials/',
-  CourseMaterials = 'materials/:course_id/'
+  CourseMaterials = 'materials/:course_id/',
 }
 
 export enum SettingsPath {
@@ -53,6 +53,7 @@ export enum SettingsPath {
   SchoolPassport = 'passport/',
   PaymentMethods = 'payment-methods/',
   DomainSettings = 'domain/',
+  Bonuses = 'bonuses/',
   EmailNewsLetter = 'email-newsletter/',
 }
 

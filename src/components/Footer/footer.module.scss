@@ -26,7 +26,8 @@
       }
 
       &_mobile {
-        display: none;
+        @include font(500, 10px, 12px);
+        color: #6b7280;
       }
     }
   }

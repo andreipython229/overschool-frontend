@@ -4,6 +4,7 @@
 .profile {
   position: relative;
   @include display(flex);
+  justify-content: space-evenly;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     @include display(flex, column, flex-start, center);
   }
@@ -59,7 +60,7 @@
   }
 
   &_block {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 
     &_select {
       -webkit-appearance: none;

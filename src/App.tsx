@@ -1,6 +1,5 @@
 import { Route, Routes, generatePath, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
 import { Agreement } from 'components/Agreement/Agreement'
@@ -16,7 +15,6 @@ import { navByRolesConfig } from 'config'
 import { SignUp } from 'Pages/SignUp'
 import { scrollToTop } from 'utils/scrollToTop'
 import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
-
 import styles from './App.module.scss'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { RoleE } from 'enum/roleE'
@@ -33,22 +31,23 @@ import { HelpSchoolSettings } from 'Pages/HelpCenter/HelpSchoolSettings'
 import { HelpStudentsPage } from 'Pages/HelpCenter/HelpStudentsPage'
 import { HelpGroupSettings } from 'Pages/HelpCenter/HelpGroupSettings'
 import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
-import {HelpChat} from "./Pages/HelpCenter/HelpChat";
+import { HelpChat } from './Pages/HelpCenter/HelpChat'
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
-import   DomainError   from "./Pages/DomainAccessDenied/DomainError";
+import DomainError from './Pages/DomainAccessDenied/DomainError'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
   const schoolName = window.location.href.split('/')[4]
   const { pathname } = useLocation()
-  const [utmParams, setUtmParams] = useState<{ [key: string]: string }>({});
+  const [utmParams, setUtmParams] = useState<{ [key: string]: string }>({})
   const navigate = useNavigate()
 
   useEffect(() => {
     if (
       !isLogin &&
       pathname !== Path.CreateSchool &&
+      pathname.split('/')[1] !== 'create-school' &&
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
       pathname !== Path.TariffPlansInfo &&
@@ -56,33 +55,35 @@ export const App = () => {
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
-        pathname !== '/access-denied'
+      pathname !== '/access-denied'
     ) {
-      navigate(`${Path.InitialPage}?utm_source=${utmParams.utm_source}&utm_medium=${utmParams.utm_medium}&utm_campaign=${utmParams.utm_campaign}&utm_term=${utmParams.utm_term}&utm_content=${utmParams.utm_content}`);
+      navigate(
+        `${Path.InitialPage}?utm_source=${utmParams.utm_source}&utm_medium=${utmParams.utm_medium}&utm_campaign=${utmParams.utm_campaign}&utm_term=${utmParams.utm_term}&utm_content=${utmParams.utm_content}`,
+      )
     }
   }, [isLogin, navigate])
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const params: { [key: string]: string } = {};
+    const searchParams = new URLSearchParams(location.search)
+    const params: { [key: string]: string } = {}
     for (const [key, value] of searchParams) {
       if (typeof key === 'string' && key.startsWith('utm_')) {
-        params[key] = value;
+        params[key] = value
       }
     }
 
-    setUtmParams(params);
-    localStorage.setItem('utmParams', JSON.stringify(params));
-  }, []);
-  
+    setUtmParams(params)
+    localStorage.setItem('utmParams', JSON.stringify(params))
+  }, [])
+
   useEffect(() => {
-    if (pathname === '/') {
+    if (pathname === Path.InitialPage) {
       const queryParams = Object.keys(utmParams)
         .filter(([_, value]) => value !== 'undefined')
         .map(key => `${key}=${utmParams[key]}`)
-        .join('&');
-      const pathWithParams = `${Path.InitialPage}${queryParams ? `?${queryParams}` : ''}`;
-      navigate(pathWithParams);
+        .join('&')
+      const pathWithParams = `${Path.InitialPage}${queryParams ? `?${queryParams}` : ''}`
+      navigate(pathWithParams)
     } else if (schoolName && role !== 0 && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
       navigate(
         generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
@@ -102,7 +103,7 @@ export const App = () => {
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
-        pathname !== '/access-denied'
+      pathname !== '/access-denied'
     ) {
       navigate(Path.ChooseSchool)
     }
@@ -118,7 +119,7 @@ export const App = () => {
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
-        pathname !== '/access-denied'
+      pathname !== '/access-denied'
     ) {
       navigate(Path.ChooseSchool)
     }

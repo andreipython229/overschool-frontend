@@ -32,6 +32,18 @@ export const schoolCreationService = createApi({
       },
       invalidatesTags: ['createOwner'],
     }),
+    createSchoolOwnerRef: build.mutation<any, { credentials: registrationCredentials; ref: string }>({
+      query: data => {
+        return {
+          url: `/register-school-owner/${data.ref}/`,
+          method: 'POST',
+          body: data.credentials,
+          redirect: 'follow',
+          responseHandler: response => response.text(),
+        }
+      },
+      invalidatesTags: ['createOwner'],
+    }),
   }),
 })
-export const { useCreateSchoolOwnerMutation } = schoolCreationService
+export const { useCreateSchoolOwnerMutation, useCreateSchoolOwnerRefMutation } = schoolCreationService

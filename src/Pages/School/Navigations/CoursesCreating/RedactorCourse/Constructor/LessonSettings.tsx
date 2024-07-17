@@ -27,13 +27,16 @@ import { AddCodeEditor } from 'components/AddCodeEditor'
 import { AddVideo } from 'components/AddVideo'
 import { AudioPlayer } from 'components/common/AudioPlayer'
 import { useDeleteBlockMutation, useOrderUpdateMutation } from 'api/blocksService'
-import { useDebounceFunc } from 'customHooks'
+import { useDebounceFunc, useBoolean } from 'customHooks'
 import { AnimatePresence, Reorder } from 'framer-motion'
 import { Checkbox } from '../../../../../../components/common/Checkbox/Checkbox'
 import { AddPicture } from 'components/AddPicture'
 import { AddAudio } from 'components/AddAudio'
 import { MathEditor } from 'components/MathEditor'
 import { BlockButtons } from 'components/BlockButtons'
+
+import { Portal } from 'components/Modal/Portal'
+import { WarningModal } from 'components/Modal/Warning'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
@@ -66,6 +69,8 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [fileError, setFileError] = useState('')
   const [isPreview, setIsPreview] = useState<boolean>(false)
   const [isAddAudioClicked, setIsAddAudioClicked] = useState<boolean>(false)
+
+  const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
 
   useEffect(() => {
     if (data) {
@@ -349,7 +354,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     let tmpError = ''
     chosenFiles.some(file => {
       if (uploaded.findIndex(f => f.name === file.name) === -1) {
-        if (file.size <= 200 * 1024 * 1024) {
+        if (file.size < 201 * 1024 * 1024) {
           uploaded.push(file)
         } else {
           console.log('error')
@@ -513,9 +518,13 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   <IconSvg width={16} height={16} viewBoxSize="0 0 20 20" path={acceptedHwPath} />
                   Сохранить и вернуться к превью
                 </button>
-
+                {showModal && (
+                  <Portal closeModal={close}>
+                    <WarningModal setShowModal={setShow} task={handleDeleteLesson} textModal={`Вы действительно хотите удалить занятие?`} />
+                  </Portal>
+                )}
                 <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_delete}>
-                  <IconSvg functionOnClick={handleDeleteLesson} width={16} height={16} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+                  <IconSvg functionOnClick={open} width={16} height={16} viewBoxSize="0 0 19 19" path={deleteIconPath} />
                 </button>
               </div>
             </div>
