@@ -14,6 +14,7 @@ import {Path} from "../../enum/pathE";
 import {logo} from "../../assets/img/common";
 import {Typography} from "@mui/material";
 
+
 export const TariffPlansInfo: FC = () => {
   const { data, isFetching, isSuccess } = useFetchTariffPlanTableQuery()
   const [tariffPlanTable, setTariffPlanTable] = useState<TariffPlanT[]>()
@@ -34,6 +35,20 @@ export const TariffPlansInfo: FC = () => {
 
   const handleRegistrationUser = () => {
       navigate(generatePath(Path.CreateSchool))
+  }
+
+  const handleRegistrationSchool = () => {
+    const paramsString = localStorage.getItem('utmParams');
+    if (paramsString !== null) {
+      const parsedParams = JSON.parse(paramsString);
+      const queryParams = Object.keys(parsedParams)
+        .map(key => `${key}=${parsedParams[key]}`)
+        .join('&');
+      const pathWithParams = `${Path.CreateSchool}?${queryParams}`;
+      navigate(pathWithParams);
+    } else {
+      navigate(Path.CreateSchool);
+    }
   }
 
   return (
@@ -132,6 +147,9 @@ export const TariffPlansInfo: FC = () => {
             <TariffDetailModal tariff={selected} setShowModal={close} />
           </Portal>
         )}
+        <div className={styles.btnCreate}>
+          <Button  onClick={handleRegistrationSchool} variant={'primary'} text={'Создать платформу'} />
+        </div>
         <p style={{ margin: 'auto', fontSize: '30px', fontWeight: '800', textAlign: 'center', color: 'grey' }}>Часто задаваемые вопросы</p>
         <div className={styles.questions}>
           <div className={styles.questions_element}>
