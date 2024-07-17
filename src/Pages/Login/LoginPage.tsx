@@ -91,8 +91,9 @@ export const LoginPage = () => {
       const { email, password, phone } = formik.values
       const user = { login: phone ? phone : email, password }
       try {
-        const { access, refresh } = await attemptAccess(user).unwrap()
+        const { access, refresh, user: userResponse } = await attemptAccess(user).unwrap()
         dispatch(authState({ access: access, refresh: refresh }))
+        dispatch(id(userResponse.id))
       } catch {
         console.log('smth went wrong')
       }
@@ -101,21 +102,10 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      getUserInfo()
-        .unwrap()
-        .then(resp => {
-          dispatch(auth(true))
-          dispatch(userName(resp[0]?.username))
-          dispatch(id(resp[0]?.id))
-          navigate(Path.ChooseSchool)
-        })
-        .catch(() => console.log('error получения данных пользователя'))
+      dispatch(auth(true))
+      navigate(Path.ChooseSchool)
     }
-  }, [isSuccess, isLoading])
-
-  //   const handleClose = () => {
-  // //     setShowModal(false)
-  //   }
+  }, [isSuccess])
 
   const submitformikforgot = async (event: any) => {
     event.preventDefault()

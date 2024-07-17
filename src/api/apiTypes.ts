@@ -16,6 +16,7 @@ export interface IResponse {
   access: string
   refresh: string
   user: {
+    id: number
     pk: number
     username: string
     email: string
