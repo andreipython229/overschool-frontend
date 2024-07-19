@@ -2,13 +2,13 @@
 
 .previous {
   position: relative;
-  width: 85%;
+  width: 100%;
   height: 210px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   background: #e0dced;
   border-radius: 7px;
-  margin: 25px auto;
+  margin-bottom: 25px;
 
   &_getSertificate {
     @media only screen and (min-width: 320px) and (max-width: 375px) {
