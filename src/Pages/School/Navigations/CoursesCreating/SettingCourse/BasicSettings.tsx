@@ -64,10 +64,12 @@ export const BasicSettings: FC<BasicSettingsT> = ({
   }
 
   useEffect(() => {
-    if (!selectedFolder && courseFind) {
-      setSelectedFolder(courseFind.folder.id)
+    if (courseFind && courseFind.folder && courseFind.folder.id !== null) {
+      if (selectedFolder === null) {
+        setSelectedFolder(courseFind.folder.id);
+      }
     }
-  }, [courseFind])
+  }, [courseFind, selectedFolder]);
 
   useEffect(() => {
     if (successFolders && foldersData) {

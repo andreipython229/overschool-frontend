@@ -52,10 +52,17 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modules'],
     }),
-    fetchLesson: build.query<commonLessonT, { id: number; type: string; schoolName: string }>({
-      query: ({ id, type, schoolName }) => ({
-        url: `/${schoolName}/${type}s/${id}/`,
-      }),
+    fetchLesson: build.query<commonLessonT, { id: number; type: string; schoolName: string; courseId?: string }>({
+      query: ({ id, type, schoolName, courseId }) => {
+        // Формируем URL с учетом необязательного параметра courseId
+        const url = `/${schoolName}/${type}s/${id}/`;
+        const params = courseId ? `?courseId=${courseId}` : '';
+        
+        return {
+          url: url + params,
+          method: 'GET',
+        };
+      },
       providesTags: ['patchLessons'],
     }),
     fetchLessons: build.query<commonLessonT[], { type: string; schoolName: string }>({

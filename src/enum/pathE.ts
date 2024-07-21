@@ -42,7 +42,7 @@ export enum Path {
   Appeals = 'school-appeals/',
   Meetings = 'meetings/',
   Materials = 'materials/',
-  CourseMaterials = 'materials/:course_id/',
+  CourseMaterials = 'create-course/:course_id/materials/'
 }
 
 export enum SettingsPath {

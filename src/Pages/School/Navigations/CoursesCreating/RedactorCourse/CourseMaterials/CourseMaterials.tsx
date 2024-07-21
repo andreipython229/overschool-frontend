@@ -54,17 +54,26 @@ export const CourseMaterials: FC = () => {
 
   useEffect(() => {
     const asycnFetchLesson = async () => {
-      if (lessonIdAndType.id !== undefined && lessonIdAndType.type !== undefined) {
-        const resp = await fetchLesson({id: lessonIdAndType.id, type: lessonIdAndType.type, schoolName: schoolName});
-        if (resp.data) {
-          setLesson(resp.data);
+      if (lessonIdAndType.id !== undefined && lessonIdAndType.type !== undefined && courseId !== undefined) {
+        if (courseId === '247') {
+          const resp = await fetchLesson({id: lessonIdAndType.id, type: lessonIdAndType.type, schoolName: schoolName, courseId: courseId });
+          if (resp.data) {
+            setLesson(resp.data);
+          } else {
+            console.error("No data returned for the lesson");
+          }
         } else {
-          console.error("No data returned for the lesson");
+          const resp = await fetchLesson({id: lessonIdAndType.id, type: lessonIdAndType.type, schoolName: schoolName });
+          if (resp.data) {
+            setLesson(resp.data);
+          } else {
+            console.error("No data returned for the lesson");
+          }
         }
       }
     }
     asycnFetchLesson();
-  }, [lessonIdAndType.type, lessonIdAndType.id])
+  }, [lessonIdAndType])
 
     const handleChangeLesson = (lessonId: number, baselesson: number, lessonType: string) => {
       return () => {
@@ -83,10 +92,6 @@ export const CourseMaterials: FC = () => {
         }
       }
     }, [modulesList, check]);
-
-    const handleOrderUpdate = () => {
-      return NaN
-    }
 
     const renderUI = () => {
       if (isSuccess) {
@@ -120,24 +125,42 @@ export const CourseMaterials: FC = () => {
                   <>
                     {lessons && lessons.length > 0 ? (
                       <ul className={styles1.settings_list}>
-                      {lessons.map((lesson) => (
-                        <li
-                          key={lesson.baselesson_ptr_id}
-                          onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
-                          className={`${styles.redactorCourse_leftSide_desc_lessonWrapper} ${stylesModules.btnWrapper} ${(selectedLessonId === lesson.baselesson_ptr_id) ? styles.selectedLesson : ''}`}
-                          style={{ cursor: 'pointer' }}
-                        >
-                          <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
-                            <span>{lessonSvgMapper[lesson.type]}</span>
-                            <span style={{ textAlign: 'left' }}>{lesson.name}</span>
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
+                        {(courseId === '247') ? (
+                          lessons.filter(lesson => lesson.active).length > 0 ? (
+                            lessons.filter(lesson => lesson.active).map((lesson) => (
+                              <li
+                                key={lesson.baselesson_ptr_id}
+                                onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
+                                className={`${styles.redactorCourse_leftSide_desc_lessonWrapper} ${stylesModules.btnWrapper} ${(selectedLessonId === lesson.baselesson_ptr_id) ? styles.selectedLesson : ''}`}
+                                style={{ cursor: 'pointer' }}
+                              >
+                                <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
+                                  <span>{lessonSvgMapper[lesson.type]}</span>
+                                  <span style={{ textAlign: 'left' }}>{lesson.name}</span>
+                                </span>
+                              </li>
+                            ))
+                          ) : (
+                            <p>Нет доступных уроков</p>
+                          )
+                        ) : (
+                          lessons.map((lesson) => (
+                            <li
+                              key={lesson.baselesson_ptr_id}
+                              onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
+                              className={`${styles.redactorCourse_leftSide_desc_lessonWrapper} ${stylesModules.btnWrapper} ${(selectedLessonId === lesson.baselesson_ptr_id) ? styles.selectedLesson : ''}`}
+                              style={{ cursor: 'pointer' }}
+                            >
+                              <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
+                                <span>{lessonSvgMapper[lesson.type]}</span>
+                                <span style={{ textAlign: 'left' }}>{lesson.name}</span>
+                              </span>
+                            </li>
+                          ))
+                        )}
+                      </ul>
                     ) : (
-                      <>
-                        Нет доступных уроков
-                      </>
+                      <p>Нет доступных уроков</p>
                     )}
                 </>
                 )

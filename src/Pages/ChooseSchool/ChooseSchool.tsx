@@ -32,6 +32,7 @@ export type SchoolT = {
   tariff_paid: boolean
   contact_link: string
   domain_name?: string
+  test_course: boolean
 }
 
 export const ChooseSchool = () => {
@@ -68,7 +69,7 @@ export const ChooseSchool = () => {
         if (configuredDomain) {
           return {
             ...school,
-            domain_name: configuredDomain.domain_name,
+            domain_name: configuredDomain.domain_name
           };
         }
         return school;
@@ -107,6 +108,7 @@ export const ChooseSchool = () => {
     localStorage.setItem('school_id', String(school.school_id))
     dispatch(setSchoolId(school.school_id))
     localStorage.setItem('header_id', String(school.header_school))
+    localStorage.setItem('test_course', String(school.test_course))
     dispatch(setHeaderId(school.header_school))
     const roleValue = Object.entries(RoleE).find(([key, value]) => key === school.role)?.[1]
     roleValue && dispatch(role(+roleValue))

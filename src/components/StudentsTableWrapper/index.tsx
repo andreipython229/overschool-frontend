@@ -65,7 +65,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
       'Средний балл': 'asc',
       'Дата добавления в группу': 'desc',
       'Дата удаления из группы': 'asc',
-      Прогресс: 'asc',
+      'Прогресс': 'asc',
       'Сумарный балл': 'asc',
       'Номер телефона': 'asc',
     })
