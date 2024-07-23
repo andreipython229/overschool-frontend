@@ -14,7 +14,7 @@ import { usePatchLessonsMutation } from 'api/modulesServices'
 import { IBlockCode, IBlockDesc, IBlockPic, IBlockVid } from 'types/sectionT'
 import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
 import { Reorder, useDragControls } from 'framer-motion'
-import { useDeleteBlockMutation } from 'api/blocksService'
+import { useDeleteBlockMutation, useUpdateBlockDataMutation } from 'api/blocksService'
 import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
@@ -36,11 +36,12 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
   const [addVideoFile] = useUploadLessonVideoMutation()
   const [isLoadingVideo, setIsLoadingVideo] = useState<boolean>(false)
   const [youTubeLink, setYouTubeLink] = useState<string>('')
-  const [addYTVideo] = usePatchLessonsMutation()
+  const [addYTVideo] = useUpdateBlockDataMutation()
   const controls = useDragControls()
   const [deleteBlock, { isLoading }] = useDeleteBlockMutation()
   const schoolName = window.location.href.split('/')[4]
   const { access: token } = useAppSelector(selectUser).authState
+  const [ytVideoError, setYTVideoError] = useState<string>('')
 
   const [videoError, setVideoError] = useState<string>('')
 
@@ -53,6 +54,7 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
 
   const handleChangeLink = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'youtubeLink') {
+      setYTVideoError('')
       setYouTubeLink(event.target.value)
     }
   }
@@ -74,16 +76,20 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
   }
 
   const handleYTVideo = async () => {
-    if (youTubeLink.length > 0 && lesson) {
-      const formData = new FormData()
-      formData.append('section', lesson.section.toString())
-      formData.append('order', lesson.order.toString())
-      formData.append('url', youTubeLink)
-      await addYTVideo({ arg: { formdata: formData, id: lessonIdAndType?.id as number, type: lesson.type }, schoolName })
+    if (youTubeLink.length > 0 && lesson && block) {
+      const dataToSend: IBlockVid = {
+        id: block.id,
+        url: youTubeLink,
+        type: block.type,
+        order: block.order,
+      }
+      await addYTVideo({ data: dataToSend, schoolName })
         .unwrap()
         .then(data => {
           setIsLoadingVideo(false)
+          updateLessonsBlocksArray(block.id, dataToSend)
         })
+        .catch(() => setYTVideoError('Введите правильный URL'))
     }
   }
 
@@ -138,9 +144,9 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
       }
 
       xhr.onerror = () => {
-        console.error('Error sending request:', xhr.status, xhr.statusText);
-        setIsLoadingVideo(false);
-      };      
+        console.error('Error sending request:', xhr.status, xhr.statusText)
+        setIsLoadingVideo(false)
+      }
 
       xhr.send(formData)
     } else {
@@ -227,16 +233,19 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
                 )}
                 {!lesson.video && !lesson.url && <p style={{ color: 'grey', padding: '0.5em' }}>или</p>}
                 {!lesson.url && (
-                  <div className={styles.youtubeLink_input}>
-                    <Input
-                      name={'youtubeLink'}
-                      value={youTubeLink}
-                      type={'text'}
-                      placeholder={'Вставьте ссылку на видео YouTube'}
-                      onChange={handleChangeLink}
-                    />
-                    <Button style={{ marginLeft: '0.5em' }} type={'submit'} text={'Добавить'} onClick={handleYTVideo} />
-                  </div>
+                  <>
+                    <div className={styles.youtubeLink_input}>
+                      <Input
+                        name={'youtubeLink'}
+                        value={youTubeLink}
+                        type={'text'}
+                        placeholder={'Вставьте ссылку на видео YouTube'}
+                        onChange={handleChangeLink}
+                      />
+                      <Button style={{ marginLeft: '0.5em' }} type={'submit'} text={'Добавить'} onClick={handleYTVideo} />
+                    </div>
+                    {ytVideoError && <p className={styles.redactorCourse_rightSide_functional_addContent_error}>{ytVideoError}</p>}
+                  </>
                 )}
               </div>
               <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
