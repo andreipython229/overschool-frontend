@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
 import { formDataConverter } from '../utils/formDataConverter'
 import { baseQuery } from './baseApi'
-import { baseQueryWithReauth } from './reauthBaseQuery'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const userRegisterService = createApi({
   reducerPath: 'userRegisterService',

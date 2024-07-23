@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
 import {Chats, ChatI, Messages, MessageI, PersonalChatI, PersonalChatForAdminOrTeacherI} from 'types/chatsT'
-import { baseQueryWithReauth } from './reauthBaseQuery';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const chatsService = createApi({
   reducerPath: 'chatsService',

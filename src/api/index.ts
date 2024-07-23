@@ -29,6 +29,8 @@ export { blocksService } from './blocksService'
 export { catalogService } from './catalogServices'
 export { prodamusService } from './prodamusService'
 export { meetingService } from './meetingsService'
+export { schoolBonusService } from './schoolBonusService'
 export { tgNotificationsService } from './tgNotificationsServices'
+export { courseLandingServices } from './courseLandingServices'
 export {domainService } from './DomainService'
 

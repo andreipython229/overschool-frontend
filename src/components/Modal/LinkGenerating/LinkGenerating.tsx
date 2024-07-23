@@ -243,111 +243,117 @@ export const LinkGenerating: React.FC<LinkGeneratingProps> = ({isOpen, onClose})
         fetchData();
     }, [isOpen]);
 
-    console.log(paymentMethod);
-    
 
     return (
-        <div className={styles['modal-wrapper']} style={{display: isOpen ? 'block' : 'none'}}>
-            <div className={styles['modal-content']}>
-                <button className={styles.closeButton} onClick={handleCloseButtonClick}>
-                    <IconSvg width={15} height={15} viewBoxSize="0 0 17 17" path={closeHwModalPath}/>
-                </button>
-                <h2 style={{marginBlockStart: "15px"}}>Генерация ссылки для оплаты</h2>
-                {error && <p>{error}</p>}
-                <div className={styles['label-container']}>
-                    <label htmlFor="price">Cпособ оплаты:</label>
-                </div>
-                <div className={styles.currencyContainer}>
-                    <select id="paymentMethod" value={paymentMethod?.id.toString() || ''}
-                            onChange={handlePaymentMethodChange}>
-                        <option value="">Выбор способа оплаты</option>
-                        {Array.isArray(paymentMethodsResponse.data) && paymentMethodsResponse.data.map((method: ResponsePaymentMethod) => (
-                            <option key={method.id} value={method.id.toString()}>{method.payment_method}</option>
-                        ))}
-                    </select>
-                </div>
-                {showExpressPayFields && (
-                    <>
-                        <div className={styles['label-container']}>
-                            <label htmlFor="price">Сумма оплаты:</label>
-                        </div>
-                        <div className={styles['input-container']}>
-                            <input type="text" id="price" value={price} onChange={handlePriceChange}/>
-                        </div>
-                        <div className={styles['label-container']}>
-                            <label htmlFor="currency">Валюта:</label>
-                        </div>
-                        <div className={styles.currencyContainer}>
-                            <select id="currency" value={currency} onChange={handleCurrencyChange}>
-                                <option value="">Выбор валюты</option>
-                                <option value="BYN">BYN</option>
-                                <option value="RUB">RUB</option>
-                                <option value="USD">USD</option>
-                            </select>
-                        </div>
-                    </>
-                )}
-                {showProdamusFields && (
-                    <>
-                        <div className={styles['label-container']}>
-                            <label htmlFor="order_id">Номер заказа:</label>
-                        </div>
-                        <div className={styles['input-container']}>
-                            <input type="text" id="order_id" value={orderId} onChange={handleOrderIdChange}/>
-                        </div>
-                        <div className={styles['label-container']}>
-                            <label htmlFor="customer_phone">Мобильный телефон клиента:</label>
-                        </div>
-                        <div className={styles['input-container']}>
-                            <input type="text" id="customer_phone" value={customerPhone}
-                                   onChange={handleCustomerPhoneChange}/>
-                        </div>
-                        <div className={styles['label-container']}>
-                            <label htmlFor="customer_email">Email клиента:</label>
-                        </div>
-                        <div className={styles['input-container']}>
-                            <input type="text" id="customer_email" value={customerEmail}
-                                   onChange={handleCustomerEmailChange}/>
-                        </div>
-                        <div className={styles['label-container']}>
-                            <label htmlFor="name">Наименование товара:</label>
-                        </div>
-                        <div className={styles['input-container']}>
-                            <input type="text" id="name" value={productName} onChange={handleProductNameChange}/>
-                        </div>
-                        <div className={styles['label-container']}>
-                            <label htmlFor="price">Цена товара:</label>
-                        </div>
-                        <div className={styles['input-container']}>
-                            <input type="text" id="price" value={productPrice} onChange={handleProductPriceChange}/>
-                        </div>
-                        <div className={styles['label-container']}>
-                            <label htmlFor="quantity">Количество товара:</label>
-                        </div>
-                        <div className={styles['input-container']}>
-                            <input type="text" id="quantity" value={productQuantity}
-                                   onChange={handleProductQuantityChange}/>
-                        </div>
-                        <div className={styles['label-container']}>
-                            <label htmlFor="currency">Валюта:</label>
-                        </div>
-                        <div className={styles.currencyContainer}>
-                            <select id="currency" value={productCurrency} onChange={handleProductCurrencyChange}>
-                                <option value="">Выбор валюты</option>
-                                <option value="eur">EUR</option>
-                                <option value="rub">RUB</option>
-                                <option value="usd">USD</option>
-                                <option value="kzt">KZT</option>
-                            </select>
-                        </div>
-                    </>
-                )}
-                <div>
-                    <Button className={styles.btn} text={'Сгенерировать'} onClick={handleGenerateLink}/>
-                </div>
-            </div>
+    <div className={styles['modal-wrapper']} style={{ display: isOpen ? 'block' : 'none' }}>
+        <div className={styles['modal-content']}>
+            <button className={styles.closeButton} onClick={handleCloseButtonClick}>
+                <IconSvg width={15} height={15} viewBoxSize="0 0 17 17" path={closeHwModalPath} />
+            </button>
+            <h2 style={{ marginBlockStart: "15px" }}>Генерация ссылки для оплаты</h2>
+            {error && <p>{error}</p>}
+            {Array.isArray(paymentMethodsResponse.data) && paymentMethodsResponse.data.length > 0 ? (
+                <>
+                    <div className={styles['label-container']}>
+                        <label htmlFor="paymentMethod">Cпособ оплаты:</label>
+                    </div>
+                    <div className={styles.currencyContainer}>
+                        <select id="paymentMethod" value={paymentMethod?.id.toString() || ''} onChange={handlePaymentMethodChange}>
+                            <option value="">Выбор способа оплаты</option>
+                            {paymentMethodsResponse.data.map((method: ResponsePaymentMethod) => (
+                                <option key={method.id} value={method.id.toString()}>{method.payment_method}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {showExpressPayFields && (
+                        <>
+                            <div className={styles['label-container']}>
+                                <label htmlFor="price">Сумма оплаты:</label>
+                            </div>
+                            <div className={styles['input-container']}>
+                                <input type="text" id="price" value={price} onChange={handlePriceChange} />
+                            </div>
+                            <div className={styles['label-container']}>
+                                <label htmlFor="currency">Валюта:</label>
+                            </div>
+                            <div className={styles.currencyContainer}>
+                                <select id="currency" value={currency} onChange={handleCurrencyChange}>
+                                    <option value="">Выбор валюты</option>
+                                    <option value="BYN">BYN</option>
+                                    <option value="RUB">RUB</option>
+                                    <option value="USD">USD</option>
+                                </select>
+                            </div>
+                        </>
+                    )}
+
+                    {showProdamusFields && (
+                        <>
+                            <div className={styles['label-container']}>
+                                <label htmlFor="order_id">Номер заказа:</label>
+                            </div>
+                            <div className={styles['input-container']}>
+                                <input type="text" id="order_id" value={orderId} onChange={handleOrderIdChange} />
+                            </div>
+                            <div className={styles['label-container']}>
+                                <label htmlFor="customer_phone">Мобильный телефон клиента:</label>
+                            </div>
+                            <div className={styles['input-container']}>
+                                <input type="text" id="customer_phone" value={customerPhone} onChange={handleCustomerPhoneChange} />
+                            </div>
+                            <div className={styles['label-container']}>
+                                <label htmlFor="customer_email">Email клиента:</label>
+                            </div>
+                            <div className={styles['input-container']}>
+                                <input type="text" id="customer_email" value={customerEmail} onChange={handleCustomerEmailChange} />
+                            </div>
+                            <div className={styles['label-container']}>
+                                <label htmlFor="name">Наименование товара:</label>
+                            </div>
+                            <div className={styles['input-container']}>
+                                <input type="text" id="name" value={productName} onChange={handleProductNameChange} />
+                            </div>
+                            <div className={styles['label-container']}>
+                                <label htmlFor="price">Цена товара:</label>
+                            </div>
+                            <div className={styles['input-container']}>
+                                <input type="text" id="price" value={productPrice} onChange={handleProductPriceChange} />
+                            </div>
+                            <div className={styles['label-container']}>
+                                <label htmlFor="quantity">Количество товара:</label>
+                            </div>
+                            <div className={styles['input-container']}>
+                                <input type="text" id="quantity" value={productQuantity} onChange={handleProductQuantityChange} />
+                            </div>
+                            <div className={styles['label-container']}>
+                                <label htmlFor="currency">Валюта:</label>
+                            </div>
+                            <div className={styles.currencyContainer}>
+                                <select id="currency" value={productCurrency} onChange={handleProductCurrencyChange}>
+                                    <option value="">Выбор валюты</option>
+                                    <option value="eur">EUR</option>
+                                    <option value="rub">RUB</option>
+                                    <option value="usd">USD</option>
+                                    <option value="kzt">KZT</option>
+                                </select>
+                            </div>
+                        </>
+                    )}
+
+                    <div>
+                        <Button className={styles.btn} text={'Сгенерировать'} onClick={handleGenerateLink} />
+                    </div>
+                </>
+            ) : (<>
+                    <p>Сперва вам необходимо подключить и добавить метод оплаты.</p>
+                <p>Подключить Express Pay платежи вы можете перейдя по <a href="https://express-pay.by/?ref_code=d0cb09950976">ссылке</a></p>
+            </>
+
+
+            )}
         </div>
-    );
-};
+    </div>
+);}
 
 export default LinkGenerating;

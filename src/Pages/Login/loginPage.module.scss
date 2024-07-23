@@ -72,7 +72,6 @@
         font-size: 35px;
         line-height: 42px;
         color: #ffffff;
-        
       }
     }
   }
@@ -123,6 +122,13 @@
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           margin-bottom: 10%;
         }
+
+        &_comment {
+          margin-top: 1rem;
+          text-align: center;
+          color: #BA75FF;
+        }
+        
       }
 
       &_title_next {

@@ -2,7 +2,7 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react'
 
 import {groupSections, studentSectionsPerGroupsT, durationStudent} from '../types/lessonAccessT'
 import {baseQuery} from "./baseApi";
-import { baseQueryWithReauth } from './reauthBaseQuery';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const lessonAccessService = createApi({
     reducerPath: 'lessonAccessService',

@@ -50,7 +50,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({
   const [copy, { onToggle: toggleCopy }] = useBoolean(false)
   const { data: foldersData, isSuccess: successFolders } = useFetchCourseFoldersQuery(school)
   const [foldersList, setFoldersList] = useState<{ label: string; value: string }[]>()
-  const [selectedFolder, setSelectedFolder] = useState()
+  const [selectedFolder, setSelectedFolder] = useState<number | string>()
 
   const debounce = useDebounceFunc(update)
   const navigate = useNavigate()
@@ -62,6 +62,12 @@ export const BasicSettings: FC<BasicSettingsT> = ({
   const handleOpenAlert = () => {
     setAlertOpen(true)
   }
+
+  useEffect(() => {
+    if (!selectedFolder && courseFind) {
+      setSelectedFolder(courseFind.folder.id)
+    }
+  }, [courseFind])
 
   useEffect(() => {
     if (successFolders && foldersData) {

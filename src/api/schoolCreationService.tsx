@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
-import { baseQueryWithReauth } from './reauthBaseQuery'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 type registrationCredentials = {
   school_name: string
@@ -32,6 +32,18 @@ export const schoolCreationService = createApi({
       },
       invalidatesTags: ['createOwner'],
     }),
+    createSchoolOwnerRef: build.mutation<any, { credentials: registrationCredentials; ref: string }>({
+      query: data => {
+        return {
+          url: `/register-school-owner/${data.ref}/`,
+          method: 'POST',
+          body: data.credentials,
+          redirect: 'follow',
+          responseHandler: response => response.text(),
+        }
+      },
+      invalidatesTags: ['createOwner'],
+    }),
   }),
 })
-export const { useCreateSchoolOwnerMutation } = schoolCreationService
+export const { useCreateSchoolOwnerMutation, useCreateSchoolOwnerRefMutation } = schoolCreationService

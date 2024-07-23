@@ -3,7 +3,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { sectionT, sectionsT, commonLessonT, TestT } from 'types/sectionT'
 import { CommentList } from 'types/comments'
 import { baseQuery } from './baseApi'
-import { baseQueryWithReauth } from './reauthBaseQuery'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 type OrderT = {
   section_id: number | string

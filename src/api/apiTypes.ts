@@ -16,6 +16,7 @@ export interface IResponse {
   access: string
   refresh: string
   user: {
+    id: number
     pk: number
     username: string
     email: string
@@ -55,4 +56,11 @@ export type CatalogResponseT = {
 
 export type CatalogCourseT = CoursesDataT & {
   sections: Section[]
+}
+
+export type NewsletterTemplate = {
+  schoolName: string
+  template_name: string
+  text: string
+  delay_days: number
 }

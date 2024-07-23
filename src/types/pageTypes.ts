@@ -3,6 +3,7 @@ import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps } from 'react'
 import { studentsGroupsT } from './studentsGroup'
 import { CoursesDataT } from './CoursesT'
 import {EmployeeT} from "./userT";
+import {BonusT} from "./bonusesT";
 
 export type CoursesMiniCardT = {
   photo?: string
@@ -64,4 +65,16 @@ export type NavAccountBtnPropsT = DefaultButtonPropsType & {
 }
 export interface IIsActive {
   isActive?: boolean
+}
+
+export type BonusPropsT = {
+  bonus: BonusT
+  bonuses: BonusT[]
+  setBonuses: (arg: BonusT[]) => void
+  setFormBonus: (arg: BonusT) => void
+  setIsEdit: (arg: boolean) => void
+  setIsActivate: (arg: boolean) => void
+  setShowBonusForm: (arg: boolean) => void
+  groupIds: number[]
+  setIsAllGroupsSelected: (arg: boolean) => void
 }

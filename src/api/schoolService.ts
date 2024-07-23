@@ -1,7 +1,7 @@
-import {createApi} from '@reduxjs/toolkit/dist/query/react'
-import {schoolT} from '../types/schoolHeaderT'
-import {UpdateCourses} from './apiTypes'
-import {baseQuery} from './baseApi'
+import { createApi } from '@reduxjs/toolkit/dist/query/react'
+import { schoolT } from '../types/schoolHeaderT'
+import { UpdateCourses, NewsletterTemplate } from './apiTypes'
+import { baseQuery } from './baseApi'
 import {
     PaymentMethod,
     PaymentMethodListResponse,
@@ -12,11 +12,13 @@ import {
     UpdatePaymentLinkPayload
 } from '../types/paymentT';
 import {
-    CreateProdamusPaymentLinkData, ProdamusPaymentlinkResponse,
-    UpdateProdamusPaymentLinkData, ProdamusPaymentLinkList
+    CreateProdamusPaymentLinkData, 
+    ProdamusPaymentlinkResponse,
+    UpdateProdamusPaymentLinkData, 
+    ProdamusPaymentLinkList
 } from '../types/ProdamusPaymenT';
 import { schoolStudentsGroupingData } from 'types/studentsGroup';
-import { baseQueryWithReauth } from './reauthBaseQuery';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const schoolService = createApi({
     reducerPath: 'schoolService',
@@ -164,6 +166,43 @@ export const schoolService = createApi({
                 },
             }),
         }),
+        createNewsletterTemplate: build.mutation<void, { schoolName: string, is_public: boolean, template_name: string, text: string, delay_days: number }>({
+            query: ({ schoolName, is_public, template_name, text, delay_days }) => ({
+                url: `/${schoolName}/newsletter_templates/`,
+                method: 'POST',
+                body: {
+                    is_public,
+                    template_name, 
+                    text, 
+                    delay_days
+                },
+            }),
+        }),
+        fetchNewsletterTemplates: build.query<{ id: number, is_public: boolean, template_name: string, text: string, delay_days: number }[], { schoolName: string }>({
+            query: ({ schoolName }) => ({
+              url: `/${schoolName}/newsletter_templates/`,
+              method: 'GET',
+            }),
+          }),
+        deleteNewsletterTemplate: build.mutation<void, { schoolName: string, id: number }>({
+            query: ({ schoolName, id }) => ({
+              url: `/${schoolName}/newsletter_templates/`,
+              method: 'DELETE',
+              body: { id },
+            }),
+          }),
+        updateNewsletterTemplate: build.mutation<void, { schoolName: string, id: number, is_public: boolean, template_name: string, text: string, delay_days: number }>({
+            query: ({ schoolName, id, is_public, template_name, text, delay_days }) => ({
+                url: `/${schoolName}/newsletter_templates/${id}/`,
+                method: 'PATCH',
+                body: {
+                    is_public,
+                    template_name, 
+                    text, 
+                    delay_days
+                },
+            }),
+        }),
     }),
 })
 
@@ -188,5 +227,10 @@ export const {
     useLazyFetchProdamusPaymentLinksQuery,
     useFetchSchoolStudentsGroupingQuery,
     useUpdateSchoolStudentsGroupingMutation,
-    useUpdateUserPseudonymMutation
+    useUpdateUserPseudonymMutation,
+    useCreateNewsletterTemplateMutation,
+    useFetchNewsletterTemplatesQuery,
+    useLazyFetchNewsletterTemplatesQuery,
+    useDeleteNewsletterTemplateMutation,
+    useUpdateNewsletterTemplateMutation
 } = schoolService;

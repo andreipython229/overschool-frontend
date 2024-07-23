@@ -175,7 +175,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
       <div className={styles.previous_onlineCourses}>Материал</div>
       <div className={styles.previous_title_name}>{course?.name}</div>
       <div className={styles.previous_courseInfo}>
-        {teacher_id !== undefined ? (
+        {teacher_id !== undefined && teacher_id !== null ? (
           <>
             <Button className={styles.previous_chatButton} text={'Чат с техподдержкой'} onClick={() => handleToggleChatModal()} />
           </>

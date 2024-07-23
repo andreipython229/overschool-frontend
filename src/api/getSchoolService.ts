@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import {baseQuery} from "./baseApi";
 import { SchoolT } from 'Pages/ChooseSchool/ChooseSchool';
-import { baseQueryWithReauth } from './reauthBaseQuery';
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const getSchoolService = createApi({
   reducerPath: 'getSchoolService',

@@ -1,7 +1,7 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react'
 import {baseQuery} from './baseApi'
-import {TgNotificationsUpdateForAdmin, TgNotificationsUpdateForStudentAndTeacher, TgNotifications, TgMessage} from "../types/tgNotifications";
-import { baseQueryWithReauth } from './reauthBaseQuery';
+import {TgNotificationsUpdateForAdmin, TgNotificationsUpdateForStudentAndTeacher, TgNotifications, TgMessage, TgMeetingReminders} from "../types/tgNotifications";
+import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const tgNotificationsService = createApi({
     reducerPath: 'tgNotificationsService',
@@ -39,6 +39,22 @@ export const tgNotificationsService = createApi({
             }),
             invalidatesTags: ['tgNotifications'],
         }),
+        createMeetingsReminders: build.mutation<TgMeetingReminders, {data: TgMeetingReminders}>({
+            query: ({data}) => ({
+                url: `/tg_notification/reminders/`,
+                method: 'POST',
+                body: data,
+            }),
+            invalidatesTags: ['tgNotifications'],
+        }),
+        // deleteMeetingsReminders: build.mutation<void, {meeting_id: number}>({
+        //     query: ({meeting_id}) => ({
+        //         url: `/tg_notification/reminders/delete-by-secondary-key/${meeting_id}`,
+        //         method: 'DELETE',
+        //     }),
+        //     invalidatesTags: ['tgNotifications'],
+        // }),
+        
     }),
 });
 
@@ -47,4 +63,6 @@ export const {
     useUpdateNotificationsForStudentAndTeacherMutation,
     useUpdateNotificationsForAdminMutation,
     useUpdateTgMessageMutation,
+    useCreateMeetingsRemindersMutation,
+    // useDeleteMeetingsRemindersMutation,
 } = tgNotificationsService;

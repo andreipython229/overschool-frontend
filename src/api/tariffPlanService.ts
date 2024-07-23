@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { ITariff } from 'types/userT'
-import { baseQueryWithReauth } from './reauthBaseQuery'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export type TariffPlanT = {
   price_rf_rub: number

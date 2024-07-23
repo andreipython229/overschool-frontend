@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { lessonSvgMapper } from 'config/index'
 
-import styles from '../../../components/StudentAccardion/ExerciseItem/exerciseItem.module.scss'
+import styles from 'components/StudentAccardion/ExerciseItem/exerciseItem.module.scss'
 import { Lesson } from 'types/courseStatT'
 
 type lessonItemT = {

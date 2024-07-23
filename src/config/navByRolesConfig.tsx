@@ -19,6 +19,7 @@ import { RedactorCourse } from 'Pages/School/Navigations/CoursesCreating/Redacto
 import { Constructor } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/Constructor'
 import { SettingCourse } from 'Pages/School/Navigations/CoursesCreating/SettingCourse/SettingCourse'
 import { StudentsStats } from 'Pages/School/StudentsStats/StudentsStats'
+import { CoursePageConstruct } from  'Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/CoursePage'
 import { Comments } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Comments/Comments'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
@@ -31,6 +32,8 @@ import StudentSchoolMeeting from "../components/StudentsMeetings";
 import { Materials } from 'Pages/School/Navigations/CoursesCreating/MaterialsPage'
 import { CourseMaterials } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CourseMaterials/CourseMaterials'
 import {DomainSettings} from "../Pages/Settings/Domain";
+import {Bonuses} from "Pages/Settings/Bonuses/Bonuses";
+import { EmailNewsLetter } from 'Pages/Settings/EmailNewsLetter'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -44,7 +47,8 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.PaymentMethods} element={<PaymentMethods />} />
         <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
         <Route path={SettingsPath.SchoolPassport} element={<Passport />} />
-          <Route path={SettingsPath.DomainSettings} element={<DomainSettings />} />
+        <Route path={SettingsPath.DomainSettings} element={<DomainSettings />} />
+        <Route path={SettingsPath.Bonuses} element={<Bonuses />} />
       </Route>
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
@@ -75,6 +79,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
           <Route path={CreateCoursePath.Constructor} element={<Constructor />} />
           <Route path={CreateCoursePath.Student} element={<StudentsStats />} />
           <Route path={CreateCoursePath.Settings} element={<SettingCourse />} />
+          <Route path={CreateCoursePath.Page} element={<CoursePageConstruct />} />
           <Route path={CreateCoursePath.Comments} element={<Comments />} />
         </Route>
       </Route>
@@ -88,6 +93,8 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.SchoolPassport} element={<Passport />} />
         <Route path={SettingsPath.PaymentMethods} element={<PaymentMethods />} />
         <Route path={SettingsPath.DomainSettings} element={<DomainSettings />} />
+        <Route path={SettingsPath.Bonuses} element={<Bonuses />} />
+        <Route path={SettingsPath.EmailNewsLetter} element={<EmailNewsLetter />} />
       </Route>
       <Route path={Path.HomeWork} element={<HomeWork />} />
       <Route path={Path.HelpCenter} element={<HelpCenter />} />

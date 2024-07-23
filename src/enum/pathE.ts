@@ -1,6 +1,3 @@
-import { ResetPassword } from 'Pages/ResetPassword'
-import { boolean } from 'yup/lib/locale'
-
 declare global {
   interface Window {
     school?: string
@@ -42,7 +39,7 @@ export enum Path {
   Appeals = 'school-appeals/',
   Meetings = 'meetings/',
   Materials = 'materials/',
-  CourseMaterials = 'materials/:course_id/'
+  CourseMaterials = 'materials/:course_id/',
 }
 
 export enum SettingsPath {
@@ -53,12 +50,15 @@ export enum SettingsPath {
   SchoolPassport = 'passport/',
   PaymentMethods = 'payment-methods/',
   DomainSettings = 'domain/',
+  Bonuses = 'bonuses/',
+  EmailNewsLetter = 'email-newsletter/',
 }
 
 export enum CreateCoursePath {
   Constructor = 'constructor',
   Student = 'student',
   Settings = 'settings',
+  Page = 'page',
   Comments = 'comments',
   Materials = 'materials',
 }

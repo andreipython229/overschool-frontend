@@ -3,7 +3,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { CoursesT, CoursesDataT, CourseWithGroupsT } from '../types/CoursesT'
 import { UpdateCourses } from './apiTypes'
-import { baseQueryWithReauth } from './reauthBaseQuery'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const coursesServices = createApi({
   reducerPath: 'coursesServices',

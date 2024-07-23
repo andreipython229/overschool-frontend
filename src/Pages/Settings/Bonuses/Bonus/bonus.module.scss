@@ -1,0 +1,140 @@
+@import '../../../../scss/variable';
+@import '../../../../scss/mixin.scss';
+
+.bonus {
+  
+  position: relative;
+  @include display (flex);
+  width: 100%;
+  font-size: 11px;
+  margin-top: 28px;
+  padding: 0 20px;
+  font-family: $font-family-inter;
+
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    margin: 5% 1% 5% 0;
+    padding: 0 2%;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    margin: 5% 1% 5% 0;
+    padding: 0 2%;
+  }
+
+  &_item {
+    @include display (flex, row, flex-start, center);
+    width: 25%;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      width: 50%;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      width: 50%;
+    }
+   
+
+    &_logo {
+      width: 50px;
+      height: 50px;
+      //border-radius: 50%;
+      margin-right: 12px;
+    }
+
+    //&_name {
+    //  @include display (flex, column);
+    //
+    //  & span:nth-child(1) {
+    //    color: #111827;
+    //    @include font (500, 11px);
+    //    margin-bottom: 4px;
+    //  }
+    //
+    //  & span:nth-child(2) {
+    //    color: #bdbdbd;
+    //    font-size: 10px;
+    //  }
+    //}
+    //
+    //&_btn {
+    //  width: 140px;
+    //}
+  }
+
+  &_text {
+    @include display(flex, row, flex-start, center);
+    width: 40%;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      width: 50%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      width: 50%;
+    }
+  }
+
+  &_date {
+    @include display(flex, row, flex-start, center);
+    width: 15%;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      width: 50%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      width: 50%;
+    }
+  }
+
+  &_setting {
+    @include display (flex, row, space-between);
+    width: 20%;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      width: 45%;
+      align-items: center;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      width: 45%;
+      align-items: center;
+    }
+
+    &_active {
+      @include display (flex, row, flex-start, center);
+
+      &_on {
+        color: #64ce60;
+        font-size: larger;
+        font-weight: bold;
+      }
+      &_off {
+         color: #ce6074;
+      }
+    }
+
+    &_buttons {
+      @include display (flex, row, flex-start, center);
+      &_btn {
+        border: none;
+        outline: none;
+        //background: none;
+        background-color: transparent;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        color: #ba75ff;
+        margin-left: 10px;
+        &:hover {
+              z-index: 10;
+            }
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          width: 100%;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+.bonus::after {
+  content: '';
+  @include position_t_l (absolute, -13px, 1%);
+  width: 98%;
+  background: #e5e7eb;
+  height: 1px;
+}
+

@@ -20,9 +20,11 @@ export const NewSchoolProgress: FC = () => {
   useEffect(() => {
     if (schoolProgressState) {
       const filteredTasks = schoolProgressState.tasks.filter(task => !task.completed)
-      setCurrentTask(filteredTasks[0].task)
+      if (filteredTasks.length > 0) {
+        setCurrentTask(filteredTasks[0].task)
+      }
     }
-  }, [])
+  }, [schoolProgressState])
 
   if (!show) {
     return <></>
@@ -66,7 +68,7 @@ export const NewSchoolProgress: FC = () => {
           />
         </div>
         {allTasks && (
-          <motion.div style={{marginTop: '1rem', width: '100%'}}>
+          <motion.div style={{ marginTop: '1rem', width: '100%' }}>
             {schoolProgressState.tasks.map((task, index) => (
               <div className={styles.wrapper_task} key={index}>
                 <p>{`${index + 1}. ${task.task}`}</p>

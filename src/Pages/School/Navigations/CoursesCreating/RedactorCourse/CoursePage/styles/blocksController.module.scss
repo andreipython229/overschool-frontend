@@ -1,0 +1,87 @@
+@import 'scss/mixin.scss';
+@import 'scss/variable.scss';
+
+.loaderBox {
+  display: flex;
+  justifyContent: center;
+  alignItems: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.blocksController {
+  width: 1040px;
+  padding: 2rem 0 2rem 0;
+  margin-top: -20px;
+
+  &_controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-direction: row;
+    height: 40px;
+
+    button {
+      width: 203px;
+      height: 36px;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 0;
+      margin-left: 10px;
+    }
+  }
+
+  &_wrapper {
+    min-height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative; // Добавлено для корректного позиционирования _buttonPanel
+
+    &_block {
+      position: relative;
+
+      &_buttonPanel {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        z-index: 10;
+        visibility: hidden; // По умолчанию панель невидима
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease-in-out;
+
+        button {
+          border: none;
+          background: none;
+          color: #ba75ff;
+          border-radius: 5px;
+          padding: 5px;
+        }
+
+        button:hover {
+          color: #7730BD;
+          background: rgba(1, 1, 1, 0.15);
+        }
+      }
+    }
+
+    &:hover {
+      .blocksController_wrapper_block_buttonPanel {
+        visibility: visible; // При наведении панель становится видимой
+        opacity: 1;
+      }
+    }
+  }
+
+  &_emptySpace {
+    minHeight: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    button {
+      border: none;
+      background: none;
+    }
+  }
+}

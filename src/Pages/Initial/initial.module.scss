@@ -37,8 +37,11 @@
     @include display(flex, row, space-between);
 
     &_logo {
-      width: 350px;
+      height: 35px;
+      width: auto;
+      max-width: 500px;
       display: flex;
+      margin-right: 50px;
 
       p {
         padding-left: 20px;

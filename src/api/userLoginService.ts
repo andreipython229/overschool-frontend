@@ -6,7 +6,7 @@ import { ICredentials, IResponse } from './apiTypes'
 import { ILoginUserInfo } from 'types/userT'
 import { RootState } from 'store/redux/store'
 import { authState, logoutState } from 'store/redux/users/slice'
-import { baseQueryWithReauth } from './reauthBaseQuery'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const refreshApi = createApi({
   reducerPath: 'refreshApi',

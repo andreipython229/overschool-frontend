@@ -46,7 +46,9 @@ export const rootReducer = combineReducers({
   [services.prodamusService.reducerPath]: services.prodamusService.reducer,
   [services.meetingService.reducerPath]: services.meetingService.reducer,
   [services.tgNotificationsService.reducerPath]: services.tgNotificationsService.reducer,
+  [services.courseLandingServices.reducerPath]: services.courseLandingServices.reducer,
   [services.domainService.reducerPath]: services.domainService.reducer,
+  [services.schoolBonusService.reducerPath]: services.schoolBonusService.reducer,
 
   user: slices.authReduce,
   sections: slices.sectionsReduce,
@@ -62,13 +64,15 @@ export const rootReducer = combineReducers({
   userProfile: slices.userProfileReducer,
   modules: modulesReduce,
   meetings: slices.meetingReducer,
+  bonuses: slices.bonusReducer,
+  landing: slices.landingReducer,
   schoolProgress: slices.schoolProgressReducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'sections', 'filters', 'school', 'schoolId', 'headerId', 'schoolProgress'],
+  whitelist: ['user', 'sections', 'filters', 'school', 'schoolId', 'headerId', 'landing', 'schoolProgress'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -115,7 +119,9 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.catalogService.middleware,
         services.prodamusService.middleware,
         services.meetingService.middleware,
+        services.schoolBonusService.middleware,
         services.tgNotificationsService.middleware,
+        services.courseLandingServices.middleware,
         services.domainService.middleware,
         errorMiddleware,
       ),
