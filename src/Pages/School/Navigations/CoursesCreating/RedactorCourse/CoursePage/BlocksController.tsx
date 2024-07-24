@@ -15,7 +15,7 @@ import {useSendLandingImagesMutation} from 'api/courseLandingServices'
 import {useParams} from "react-router-dom";
 import {SimpleLoader} from "components/Loaders/SimpleLoader";
 
-export const BlocksController: FC<BlocksControllerT> = ({ openModal, showModal, isLoading2 }) => {
+export const BlocksController: FC<BlocksControllerT> = ({ openModal }) => {
   const params = useParams()
   // const [sendLanding, {data: f_landing, isLoading}] = useSendCourseLandingMutation()
   const [sendLanding, {data: f_landing, isLoading}] = useSendLandingImagesMutation()
