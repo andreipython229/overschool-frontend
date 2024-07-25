@@ -226,7 +226,7 @@ export const CreateNewSchool = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.email}
-              placeholder={'E-mail'}
+              placeholder={'Электронная почта'}
             />
             {formik.touched.email && formik.errors.email ? <p style={{ color: 'red', marginTop: '.5em' }}>{formik.errors.email}</p> : null}
           </div>
