@@ -141,7 +141,7 @@ export const Profile = () => {
                 await changeEmailFunc({ userInfo: emailData, id: profileData?.profile_id })
                     .unwrap()
                     .then(async (data: any) => {
-                        if (data.email_confirm) {
+                        if (data.profile_id) {
                             setOpen(true)
                         }
                         setNewEmail(values.email)

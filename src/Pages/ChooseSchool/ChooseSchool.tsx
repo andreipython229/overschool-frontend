@@ -52,36 +52,6 @@ export const ChooseSchool = () => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   const [search, setSearch] = useState('')
-  const { data: DomainData, isSuccess: DomainSuccess } = useFetchConfiguredDomainsQuery()
-  const [schoolsWithDomain, setSchoolsWithDomain] = useState<SchoolT[]>()
-
-  useEffect(() => {
-  // console.log('DomainData:', DomainData);
-  // console.log('Schools:', schools);
-
-  if (DomainData && schools && schools.length > 0) {
-    const domainArray = Array.isArray(DomainData) ? DomainData : (DomainData as { data: Domain[] }).data || [];
-
-    if (Array.isArray(domainArray)) {
-      const domainSchoolsArray = schools.map(school => {
-        const configuredDomain = domainArray.find(domain => domain.school === school.school_id);
-        if (configuredDomain) {
-          return {
-            ...school,
-            domain_name: configuredDomain.domain_name,
-          };
-        }
-        return school;
-      });
-      console.log('Schools with domain:', domainSchoolsArray);
-      setSchoolsWithDomain(domainSchoolsArray);
-    } else {
-      console.error('DomainData is not an array or does not contain a valid array');
-    }
-  } else {
-    console.error('DomainData is invalid or schools array is empty');
-  }
-}, [DomainSuccess, DomainData, schools]);
 
   useEffect(() => {
     dispatchRole(role(RoleE.Unknown))
@@ -258,21 +228,17 @@ export const ChooseSchool = () => {
                 </form>
               </motion.div> */}
               <div className={styles.schoolBox}>
-                {schoolsWithDomain && schoolsWithDomain.length > 0 ? (
-                  schoolsWithDomain.map((school, index) => {
-                    const link = school.domain_name
-                      ? `https://${school.domain_name}${generatePath('/school/:school_name/courses/', { school_name: school.name })}`
-                      : `${window.location.origin}${generatePath(`${Path.School}courses/`, { school_name: school.name })}`
-                    // console.log("Generated link for school:", school.name, link);
-                    return school.tariff_paid ? (
-                      <a
+                {schools ? (
+                  filteredSchool.map((school, index: number) =>
+                    school.tariff_paid ? (
+                      <Link
                         key={index}
                         onClick={async e => {
                           e.preventDefault()
                           await handleSchool(school)
                         }}
                         style={{ textDecoration: 'none', overflow: 'hidden' }}
-                        href={link}
+                        to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                       >
                         <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                           <div className={styles.bg_container}>
@@ -283,16 +249,16 @@ export const ChooseSchool = () => {
                           </div>
                           <span>→</span>
                         </motion.div>
-                      </a>
+                      </Link>
                     ) : school.role === 'Admin' ? (
-                      <a
+                      <Link
                         key={index}
                         onClick={async e => {
                           e.preventDefault()
                           await handleSchool(school)
                         }}
                         style={{ textDecoration: 'none', overflow: 'hidden' }}
-                        href={link}
+                        to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                       >
                         <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                           <div className={styles.bg_container}>
@@ -303,7 +269,7 @@ export const ChooseSchool = () => {
                           </div>
                           <span>→</span>
                         </motion.div>
-                      </a>
+                      </Link>
                     ) : (
                       <motion.div
                         className={styles.bg}
@@ -323,18 +289,10 @@ export const ChooseSchool = () => {
                         </div>
                         <span>→</span>
                       </motion.div>
-                    )
-                  })
+                    ),
+                  )
                 ) : (
-                  <p
-                    style={{
-                      color: 'blueviolet',
-                      fontSize: '20px',
-                      textAlign: 'center',
-                      padding: '2em',
-                      fontWeight: 'bold',
-                    }}
-                  >
+                  <p style={{ color: 'blueviolet', fontSize: '20px', textAlign: 'center', padding: '2em', fontWeight: 'bold' }}>
                     {'Нет доступных платформ :('}
                   </p>
                 )}

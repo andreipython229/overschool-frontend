@@ -65,7 +65,6 @@ export const Header = memo(() => {
   const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
   const schoolNameR = useAppSelector(state => state.school.schoolName)
   const [socketConnect, setSocketConnect] = useState<boolean>(false)
-  const [isAllGroupsSelected, setIsAllGroupsSelected] = useState(false);
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const [logout, { isLoading }] = useLazyLogoutQuery()
@@ -138,10 +137,10 @@ export const Header = memo(() => {
       navigate(generatePath(Path.InitialPage))
       setSocketConnect(false)
 
-      // if (informSocketRef.current !== null) {
-      //   informSocketRef.current.close()
-      //   informSocketRef.current = null
-      // }
+      if (informSocketRef.current !== null) {
+        informSocketRef.current.close()
+        informSocketRef.current = null
+      }
     })
   }
 
@@ -207,109 +206,109 @@ export const Header = memo(() => {
     }
   }, [profileData])
 
-  // // Socket INFO Update *****************************************************
+  // Socket INFO Update *****************************************************
 
-  // const informSocketRef = useRef<w3cwebsocket | null>(null)
+  const informSocketRef = useRef<w3cwebsocket | null>(null)
 
-  // useEffect(() => {
-  //   if (profileIsSuccess) {
-  //     if (informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) {
-  //       connectWebSocket()
-  //     }
-  //   }
-  // }, [profileIsSuccess])
+  useEffect(() => {
+    if (profileIsSuccess) {
+      if (informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) {
+        connectWebSocket()
+      }
+    }
+  }, [profileIsSuccess])
 
-  // const connectWebSocket = () => {
-  //   if (informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) {
+  const connectWebSocket = () => {
+    if (informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) {
 
-  //     informSocketRef.current = new w3cwebsocket(`ws://sandbox.overschool.by/ws/info/${schoolName || ''}?user_id=${userId}`)
-  //     // informSocketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/info/${schoolName || ''}?user_id=${userId}`)
-  //     // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}?user_id=${userId}`)
+      informSocketRef.current = new w3cwebsocket(`ws://sandbox.overschool.by/ws/info/${schoolName || ''}?user_id=${userId}`)
+      // informSocketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/info/${schoolName || ''}?user_id=${userId}`)
+      // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}?user_id=${userId}`)
 
-  //     informSocketRef.current.onmessage = event => {
-  //       if (typeof event.data === 'string') {
-  //         const receivedMessage: UserInformI = JSON.parse(event.data)
-  //         if (receivedMessage.type === 'short_chat_info') {
-  //           setTotalUnreadMessages(receivedMessage.message.total_unread)
-  //         } else if (receivedMessage.type === 'full_chat_info') {
-  //           setTotalUnreadMessages(receivedMessage.message.total_unread)
+      informSocketRef.current.onmessage = event => {
+        if (typeof event.data === 'string') {
+          const receivedMessage: UserInformI = JSON.parse(event.data)
+          if (receivedMessage.type === 'short_chat_info') {
+            setTotalUnreadMessages(receivedMessage.message.total_unread)
+          } else if (receivedMessage.type === 'full_chat_info') {
+            setTotalUnreadMessages(receivedMessage.message.total_unread)
 
-  //           if (receivedMessage.message.chats.length > 0 && chats) {
-  //             const fetchChats: ChatI[] = receivedMessage.message.chats
-  //             if (fetchChats) {
-  //               setFetchedChats(fetchChats)
-  //             }
-  //           }
-  //         } else if (receivedMessage.type === 'unread_appeals_count') {
-  //           const unreadMessAppeals: UserInformAppealsI = JSON.parse(event.data)
-  //           setUnreadAppeals(unreadMessAppeals.unread_count)
-  //         }
-  //       }
-  //     }
+            if (receivedMessage.message.chats.length > 0 && chats) {
+              const fetchChats: ChatI[] = receivedMessage.message.chats
+              if (fetchChats) {
+                setFetchedChats(fetchChats)
+              }
+            }
+          } else if (receivedMessage.type === 'unread_appeals_count') {
+            const unreadMessAppeals: UserInformAppealsI = JSON.parse(event.data)
+            setUnreadAppeals(unreadMessAppeals.unread_count)
+          }
+        }
+      }
 
-  //     informSocketRef.current.onclose = () => {
-  //       console.log('INFO WebSocket disconnected')
-  //       // Переподключение при закрытии соединения
-  //       // if (timerId === null) {
-  //       //   const tId = setTimeout(() => {
-  //       //     connectWebSocket()
-  //       //   }, 5000) as unknown as number;
-  //       //   setTimerId(tId);
-  //       // }
-  //     }
-  //   }
-  // }
+      informSocketRef.current.onclose = () => {
+        console.log('INFO WebSocket disconnected')
+        // Переподключение при закрытии соединения
+        // if (timerId === null) {
+        //   const tId = setTimeout(() => {
+        //     connectWebSocket()
+        //   }, 5000) as unknown as number;
+        //   setTimerId(tId);
+        // }
+      }
+    }
+  }
 
-  // useEffect(() => {
-  //   return () => {
-  //     if (informSocketRef.current !== null) {
-  //       informSocketRef.current.close()
-  //     }
-  //   }
-  // }, [])
+  useEffect(() => {
+    return () => {
+      if (informSocketRef.current !== null) {
+        informSocketRef.current.close()
+      }
+    }
+  }, [])
 
-  // useEffect(() => {
-  //   const route = generatePath(Path.School + Path.Courses, { school_name: schoolName })
-  //   if (pathname === route) {
-  //     refetchUser()
-  //   }
-  // }, [pathname])
+  useEffect(() => {
+    const route = generatePath(Path.School + Path.Courses, { school_name: schoolName })
+    if (pathname === route) {
+      refetchUser()
+    }
+  }, [pathname])
 
-  // // Chat Info Update *******************************************************
-  // useEffect(() => {
-  //   const totalUnread = totalUnreadMessages || 0
-  //   dispatch(setTotalUnread(totalUnread.toString()))
-  // }, [totalUnreadMessages])
+  // Chat Info Update *******************************************************
+  useEffect(() => {
+    const totalUnread = totalUnreadMessages || 0
+    dispatch(setTotalUnread(totalUnread.toString()))
+  }, [totalUnreadMessages])
 
-  // // Appeals Unread Update
-  // useEffect(() => {
-  //   dispatch(setTotalUnreadAppeals(unreadAppeals || 0))
-  // }, [unreadAppeals])
+  // Appeals Unread Update
+  useEffect(() => {
+    dispatch(setTotalUnreadAppeals(unreadAppeals || 0))
+  }, [unreadAppeals])
 
-  // // Удаляем AVATAR
-  // const omitAvatar = (sender: SenderI): SenderI => {
-  //   const { avatar, ...rest } = sender
-  //   return rest
-  // }
-  // // Проходимся по всем чатас и у каждого сендера удаляем аватарку
-  // const processChats = (chats: ChatI[]): ChatI[] => {
-  //   return chats.map(chat => ({
-  //     ...chat,
-  //     senders: chat.senders.map(omitAvatar),
-  //   }))
-  // }
+  // Удаляем AVATAR
+  const omitAvatar = (sender: SenderI): SenderI => {
+    const { avatar, ...rest } = sender
+    return rest
+  }
+  // Проходимся по всем чатас и у каждого сендера удаляем аватарку
+  const processChats = (chats: ChatI[]): ChatI[] => {
+    return chats.map(chat => ({
+      ...chat,
+      senders: chat.senders.map(omitAvatar),
+    }))
+  }
 
-  // useEffect(() => {
-  //   if (chats && fetchedChats) {
-  //     const chatsWithoutAvatar = processChats(chats)
-  //     const fetchedChatsWithoutAvatar = processChats(fetchedChats)
-  //     const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
-  //     if (!checkChatsDifferent) {
-  //       dispatch(setChats(fetchedChats))
-  //     }
-  //   }
-  // }, [chats, fetchedChats])
-  // // **************************************************************
+  useEffect(() => {
+    if (chats && fetchedChats) {
+      const chatsWithoutAvatar = processChats(chats)
+      const fetchedChatsWithoutAvatar = processChats(fetchedChats)
+      const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
+      if (!checkChatsDifferent) {
+        dispatch(setChats(fetchedChats))
+      }
+    }
+  }, [chats, fetchedChats])
+  // **************************************************************
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -327,10 +326,10 @@ export const Header = memo(() => {
     // if (timerId) {
     //   clearTimeout(timerId);
     // }
-    // if (informSocketRef.current !== null) {
-    //   informSocketRef.current.close()
-    //   informSocketRef.current = null
-    // }
+    if (informSocketRef.current !== null) {
+      informSocketRef.current.close()
+      informSocketRef.current = null
+    }
     dispatchRole(role(RoleE.Unknown))
     setSocketConnect(false)
     navigate(Path.ChooseSchool)
@@ -383,35 +382,6 @@ export const Header = memo(() => {
   const handleCourseChange = (courseId: number) => {
     setSelectedCourse(Courses?.results.find(course => course.course_id === courseId) || null)
   }
-
-  useEffect(() => {
-    if (studentsGroups?.results) {
-      const filteredStudentGroups = studentsGroups.results
-        .filter(group => typeof group.group_id === 'number')
-        .map(group => group.group_id as number);
-  
-      if (isAllGroupsSelected) {
-        setTgMessage(prevData => ({
-          ...prevData,
-          students_groups: filteredStudentGroups,
-        }));
-      } else {
-        setTgMessage(prevData => ({
-          ...prevData,
-          students_groups: [],
-        }));
-      }
-    }
-  }, [isAllGroupsSelected, studentsGroups]);
-
-  const handleSelectAllGroups = (isChecked: boolean) => {
-    console.log(isChecked);
-      if (isChecked) {
-        setIsAllGroupsSelected(true);
-      } else {
-        setIsAllGroupsSelected(false);
-      }
-  };
 
   return (
     <motion.header
@@ -470,6 +440,15 @@ export const Header = memo(() => {
                   <DialogContent>
                     <div style={{ marginBottom: '1rem', marginTop: '1rem' }}>
                       <TextareaAutosize
+                        style={{
+                          maxWidth: '34vh',
+                          minWidth: '34vh',
+                          minHeight: '10vh',
+                          maxHeight: '20vh',
+                          borderColor: 'gray',
+                          borderRadius: '4px',
+                          overflow: 'auto',
+                        }}
                         className={styles.textarea}
                         id="message"
                         placeholder="Введите сообщение"
@@ -486,64 +465,43 @@ export const Header = memo(() => {
                           fontWeight: '500',
                           lineHeight: '1.6',
                           fontSize: '1.25rem',
-                          padding: '10px 0px',
+                          padding: '16px 10px',
                         }}
                       >
                         Выберите одну или несколько групп:
                       </h2>
                     </div>
-                    <span>Выбор всех групп</span>
-                    {studentsGroups && (
-                      <Checkbox
-                      style={{ color: '#ba75ff' }}
-                      checked={isAllGroupsSelected}
-                      onChange={(e) => handleSelectAllGroups(e.target.checked)}
-                      color='primary'
-                    />
-                    )}
                     {studentsGroups &&
-                      Object.entries(
-                        studentsGroups.results
-                          .filter(group => group.students.length > 0)
-                          .reduce<Record<string, typeof studentsGroups.results>>((acc, group) => {
-                            const courseName = group.course_name;
-                            if (courseName) {
-                              if (!acc[courseName]) {
-                                acc[courseName] = [];
-                              }
-                              acc[courseName].push(group);
-                            }
-                            return acc;
-                          }, {})
-                      ).map(([courseName, groups]) => (
-                        <div key={courseName} style={{ marginBlockStart: '3px' }}>
-                          <b>{courseName}</b>
-                          {groups.map((group, index) => (
-                            <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
-                              <Checkbox
-                                style={{ color: '#ba75ff' }}
-                                checked={tgMessage.students_groups.includes(group.group_id as number)}
-                                onChange={e => {
-                                  const isChecked = e.target.checked;
-                                  if (isChecked && group.group_id !== undefined) {
-                                    setTgMessage(prevData => ({
-                                      ...prevData,
-                                      students_groups: [...prevData.students_groups, group.group_id as number],
-                                    }));
-                                  } else if (!isChecked && group.group_id !== undefined) {
-                                    setTgMessage(prevData => ({
-                                      ...prevData,
-                                      students_groups: prevData.students_groups.filter(id => id !== group.group_id),
-                                    }));
-                                  }
-                                }}
-                              />
-                              {group.name}
-                              <span> (Студентов: {group.students.length})</span>
-                            </div>
-                          ))}
-                        </div>
-                      ))}
+                      studentsGroups.results.map(group => {
+                        return (
+                          <div key={group.group_id}>
+                            <Checkbox
+                              style={{
+                                color: '#ba75ff',
+                              }}
+                              onChange={e => {
+                                const isChecked = e.target.checked
+                                if (isChecked) {
+                                  setTgMessage(
+                                    (prevData: TgMessage) =>
+                                      ({
+                                        ...prevData,
+                                        students_groups: [...prevData.students_groups, group.group_id],
+                                      } as TgMessage),
+                                  )
+                                } else {
+                                  setTgMessage((prevData: TgMessage) => ({
+                                    ...prevData,
+                                    students_groups: prevData.students_groups.filter(id => id !== group.group_id),
+                                  }))
+                                }
+                              }}
+                            />
+                            {group.name}
+                            <span> (Кол-во студентов: {group.students.length})</span>
+                          </div>
+                        )
+                      })}
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={handleSendTgMessage} text="Отправить" />

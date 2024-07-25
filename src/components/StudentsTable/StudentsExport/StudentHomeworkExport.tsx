@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useLazyFetchAllStudentsHomeworkQuery } from 'api/homeworksStatsService'
+import { useLazyFetchHomeworkStatsQuery } from 'api/homeworksStatsService'
 import { useAppSelector } from 'store/hooks'
 import { Button } from '../../common/Button/Button'
 import styles from '../../../Pages/School/StudentsStats/studentsStats.module.scss'
@@ -8,7 +8,7 @@ import * as XLSX from "xlsx"
 export const StudentsHomeworkExport: FC = () => {
   const filters = useAppSelector(state => state.filters['homework'])
   const schoolName = localStorage.getItem('school')
-  const [fetchHomeworks] = useLazyFetchAllStudentsHomeworkQuery()
+  const [fetchHomeworks] = useLazyFetchHomeworkStatsQuery()
 
   // формирование спика словарей по статистеке проверенных преподами домашек
   const getTeacherStatus = (data: any) => {
@@ -43,12 +43,18 @@ export const StudentsHomeworkExport: FC = () => {
   }
 
   const handleExport = async () => {
-      const response = await fetchHomeworks({ filters, schoolName });
-      const allHomeworks = response.data ?? [];
-      const wb = XLSX.utils.book_new(),
-      ws = XLSX.utils.json_to_sheet(getTeacherStatus(allHomeworks.results));
-      XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
-      XLSX.writeFile(wb, "Домашние задания учеников.xlsx")
+    if (schoolName) {
+        const response = await fetchHomeworks({ 
+          filters: filters, 
+          page: -1, 
+          schoolName: schoolName 
+        });
+        const allHomeworks = response.data ?? [];
+        const wb = XLSX.utils.book_new(),
+        ws = XLSX.utils.json_to_sheet(getTeacherStatus(allHomeworks));
+        XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
+        XLSX.writeFile(wb, "Домашние задания учеников.xlsx")
+    }
   };
 
  return (
