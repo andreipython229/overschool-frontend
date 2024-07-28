@@ -33,4 +33,5 @@ export { schoolBonusService } from './schoolBonusService'
 export { tgNotificationsService } from './tgNotificationsServices'
 export { courseLandingServices } from './courseLandingServices'
 export {domainService } from './DomainService'
+export { ratingService } from './ratingService'
 
