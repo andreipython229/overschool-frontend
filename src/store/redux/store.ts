@@ -49,6 +49,7 @@ export const rootReducer = combineReducers({
   [services.courseLandingServices.reducerPath]: services.courseLandingServices.reducer,
   [services.domainService.reducerPath]: services.domainService.reducer,
   [services.schoolBonusService.reducerPath]: services.schoolBonusService.reducer,
+  [services.ratingService.reducerPath]: services.ratingService.reducer,
 
   user: slices.authReduce,
   sections: slices.sectionsReduce,
@@ -123,6 +124,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.tgNotificationsService.middleware,
         services.courseLandingServices.middleware,
         services.domainService.middleware,
+        services.ratingService.middleware,
         errorMiddleware,
       ),
   })
