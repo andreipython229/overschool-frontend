@@ -78,13 +78,7 @@ export type BlockKeys = {
 export type BlocksT = BlockT[];
 
 export type BlocksControllerT = {
-  // course: CatalogCourseT;
   openModal: () => void;
-  showModal: boolean;
-  // countOfLessons: () => number;
-  isLoading2: boolean;
-  // handleToggleOpen: (index: number) => void;
-  // openIndex: number;
 }
 
 export interface HeaderBlockT {
