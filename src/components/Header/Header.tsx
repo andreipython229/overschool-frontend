@@ -166,8 +166,6 @@ export const Header = memo(() => {
     profileIsSuccess && setProfileData(profile[0])
   }, [profile])
 
-  console.log(userId)
-
   useEffect(() => {
     if (
       userRole === RoleE.Admin &&

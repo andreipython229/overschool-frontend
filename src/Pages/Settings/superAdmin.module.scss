@@ -5,9 +5,22 @@
   width: fit-content;
 }
 
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  width: 100%;
+}
+
 .main {
   font-family: 'Inter', sans-serif;
   color: #4d5766;
+
+  &_input {
+    width: 100%;
+    min-width: 100%;
+  }
 
   &_title {
     font-size: 16px;
