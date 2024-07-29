@@ -85,6 +85,21 @@ export const studentsGroupService = createApi({
         body: data,
       }),
     }),
+    updateGroup: build.mutation<any, { user_ids: number[]; new_group_id: number; schoolName: string; id: number }>({
+      query: ({ user_ids, new_group_id, schoolName, id  }) => {
+        const formData = new FormData();
+        formData.append('user_ids', JSON.stringify(user_ids));
+        formData.append('role', "Student");
+        formData.append('new_group_id', new_group_id.toString());
+    
+        return {
+          url: `/${schoolName}/access-distribution/${id}/update-group/`,
+          method: 'PATCH',
+          body: formData,
+        };
+      },
+      invalidatesTags: ['studentsGroup'],
+    }),
     addGroupCourseAccess: build.mutation<any, { data: any; schoolName: string }>({
       query: ({data, schoolName}) => ({
         url: `/${schoolName}/group_course_access/`,
@@ -122,5 +137,6 @@ export const {
     useDeleteStudentFromGroupMutation,
     useAddGroupCourseAccessMutation,
     useLazyFetchGroupCourseAccessQuery,
-    useDeleteAllGroupCourseAccessMutation
+    useDeleteAllGroupCourseAccessMutation,
+    useUpdateGroupMutation,
 } = studentsGroupService

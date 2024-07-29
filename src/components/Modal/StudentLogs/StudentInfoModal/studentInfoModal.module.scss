@@ -127,3 +127,17 @@
     margin-left: 20px;
   }
 }
+
+.student_button {
+  background-color: #f0e1fd;
+  color: #BA75FF;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.student_button:hover {
+  background-color: #BA75FF !important;
+  color: #ffffff !important;
+}
