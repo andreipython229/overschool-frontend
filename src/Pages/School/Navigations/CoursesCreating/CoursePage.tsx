@@ -20,9 +20,9 @@ import { Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTi
 import { Delete, FolderCopyOutlined, Visibility, VisibilityOff } from '@mui/icons-material'
 import { AddNewFolderModal } from 'components/Modal/AddFolderModal'
 import { Button } from 'components/common/Button/Button'
-import {useLazyFetchBonusesQuery} from "../../../../api/schoolBonusService";
-import {setStudentBonus} from "store/redux/bonuses/bonusSlice";
-import {useDispatch} from "react-redux";
+import { useLazyFetchBonusesQuery } from '../../../../api/schoolBonusService'
+import { setStudentBonus } from 'store/redux/bonuses/bonusSlice'
+import { useDispatch } from 'react-redux'
 
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
@@ -81,9 +81,9 @@ export const CoursePage: FC = () => {
 
   useEffect(() => {
     if (bonusSuccess && bonuses?.length) {
-      dispatch(setStudentBonus(bonuses[0]));
+      dispatch(setStudentBonus(bonuses[0]))
     }
-  }, [bonusSuccess, bonuses]);
+  }, [bonusSuccess, bonuses])
 
   const filterCoursesByFolders = (folderId: number) => {
     if (coursesData) {
@@ -158,7 +158,7 @@ export const CoursePage: FC = () => {
     <>
       <div className={styles.container}>
         <AnimatePresence>
-          <div style={{ display: 'flex', gap: '1rem', paddingBottom: '1rem', width:'85%', margin: '0 auto' }}>
+          <div style={{ display: 'flex', gap: '1rem', paddingBottom: '1rem' }}>
             {activeFolder.length > 0 && (
               <Chip
                 label={'Убрать фильтрацию'}
@@ -301,14 +301,16 @@ export const CoursePage: FC = () => {
                 </>
               ) : (
                 <>
-                  {/*<div className={styles.search}>*/}
-                  {/*  <p color="gray">По результатам поиска ничего не найдено...</p>*/}
-                  {/*</div>*/}
-                  <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
+                  <div className={styles.search}>
+                    <p color="gray">Нет доступных к просмотру материалов...</p>
+                  </div>
+                  {role !== RoleE.Student && (
+                    <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
                       <span className={styles.course_addCourse}>
                         <span>Добавить материал</span>
                       </span>
                     </button>
+                  )}
                 </>
               )}
             </motion.div>

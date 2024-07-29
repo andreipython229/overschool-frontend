@@ -1,6 +1,3 @@
-import { ResetPassword } from 'Pages/ResetPassword'
-import { boolean } from 'yup/lib/locale'
-
 declare global {
   interface Window {
     school?: string

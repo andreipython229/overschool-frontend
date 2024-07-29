@@ -51,30 +51,30 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
 
   return (
     <>
-    {role === RoleE.Admin ? (
+      {role === RoleE.Admin ? (
       <>
         {(((course.course_id === 247) && userId === 154) || (course.course_id !== 247)) ? (
-          <Link
-            to={generatePath(Path.CreateCourse, {
-            course_id: `${course?.course_id}`,
-            })}
-          >
-          <div id={`${course?.course_id}`} className={styles?.course_card}>
-            <>
-              {role === RoleE.Admin || role === RoleE.Teacher ? (
-                <>
-                  <div className={styles.course_card_img}>
-                    {course.photo ? (
-                      <img className={styles.course_card_img} src={`${course.photo}`} alt="course_cover" />
-                    ) : (
-                      <div className={styles.no_image_found}>
-                        <span>Нет изображения материала :(</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className={styles.course_card_about}>
-                    <span className={styles.course_card_status_show}>
-                      {role === RoleE.Admin && (course.course_id !== 247) ? (
+              <Link
+                to={generatePath(Path.CreateCourse, {
+                  course_id: `${course?.course_id}`,
+                })}
+              >
+                <div id={`${course?.course_id}`} className={styles?.course_card}>
+                  <>
+                    {role === RoleE.Admin || role === RoleE.Teacher ? (
+                      <>
+                        <div className={styles.course_card_img}>
+                          {course.photo ? (
+                            <img className={styles.course_card_img} src={`${course.photo}`} alt="course_cover" />
+                          ) : (
+                            <div className={styles.no_image_found}>
+                              <span>Нет изображения материала :(</span>
+                            </div>
+                          )}
+                        </div>
+                        <div className={styles.course_card_about}>
+                          <span className={styles.course_card_status_show}>
+                            {role === RoleE.Admin && (course.course_id !== 247) ? (
                         course?.public === 'О' ? (
                           <>
                             <img src={Public} alt="status course" />
@@ -192,24 +192,24 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                   <div className={styles.course_card_about}>
                     <span className={styles.course_card_status_show}>
                       {role === RoleE.Admin && (course.course_id !== 247) ? (
-                        course?.public === 'О' ? (
-                          <>
-                            <img src={Public} alt="status course" />
-                            <span className={styles.course_card_status_show_public}>Опубликован</span>
-                          </>
-                        ) : (
-                          <>
-                            <img src={notPublic} alt="status course" />
-                            <span className={styles.course_card_status_show_public}>Не опубликован</span>
-                          </>
-                        )
-                      ) : (
-                        <div />
-                      )}
-                    </span>
-                    <h5>{course.name}</h5>
-                    <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
-                    {role === RoleE.Admin ? (
+                              course?.public === 'О' ? (
+                                <>
+                                  <img src={Public} alt="status course" />
+                                  <span className={styles.course_card_status_show_public}>Опубликован</span>
+                                </>
+                              ) : (
+                                <>
+                                  <img src={notPublic} alt="status course" />
+                                  <span className={styles.course_card_status_show_public}>Не опубликован</span>
+                                </>
+                              )
+                            ) : (
+                              <div />
+                            )}
+                          </span>
+                          <h5>{course.name}</h5>
+                          <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
+                          {role === RoleE.Admin ? (
                       <>
                       {course.course_id === 247 && userId !== 154 ? (
                         <Link
@@ -220,221 +220,222 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                               <Button className={styles.btn_admin} style={{ marginTop: '55px' }} text={'Ознакомиться'} />
                         </Link>
                       ) : (
-                        <>
-                          <Link
-                            to={generatePath(Path.CreateCourse + 'student', {
-                              course_id: `${course?.course_id}`,
-                            })}
-                          >
-                            <Button className={styles.btn_admin} text={'Ученики курса'} />
-                          </Link>
-                          <Link
-                            to={generatePath(Path.CreateCourse, {
-                              course_id: `${course?.course_id}`,
-                            })}
-                          >
-                            <Button className={styles.btn_admin} text={'Редактировать'} />
-                          </Link>
+                              <>
+                                <Link
+                                  to={generatePath(Path.CreateCourse + 'student', {
+                                    course_id: `${course?.course_id}`,
+                                  })}
+                                >
+                                  <Button className={styles.btn_admin} text={'Ученики курса'} />
+                                </Link>
+                                <Link
+                                  to={generatePath(Path.CreateCourse, {
+                                    course_id: `${course?.course_id}`,
+                                  })}
+                                >
+                                  <Button className={styles.btn_admin} text={'Редактировать'} />
+                                </Link>
                         </>
                       )}
-                      </>
-                      ) : (
-                        <Link
-                          to={generatePath(Path.CreateCourse, {
-                            course_id: `${course?.course_id}`,
-                          })}
-                        >
-                          <Button className={styles.btn_admin} text={'Материалы'} />
-                        </Link>
-                      )}
-                  </div>
-                </>
-              ) : (
-                userProgress && (
-                  <>
-                    <div className={styles.course_card_img}>
-                      <img className={styles.course_card_img} src={course?.photo} alt="" />
-                    </div>
-                    <div className={styles.course_card_progressBar}>
-                      <span className={styles.course_card_progressBar_line}>
-                        <ProgressBar
-                          completed={userProgress.courses[0]?.completed_percent}
-                          bgColor="#ba75ff"
-                          labelSize="10px"
-                          borderRadius="0px"
-                          height="100%"
-                          customLabel=" "
-                        />
-                      </span>
-                    </div>
-                    <div className={styles.course_card_about}>
-                      <Link
-                        onClick={onStudentClick}
-                        to={
-                          course?.remaining_period === 0 || course?.public !== 'О' 
-                            ? '#'
-                            : generatePath(Student.Course, {
+                            </>
+                          ) : (
+                            <Link
+                              to={generatePath(Path.CreateCourse, {
                                 course_id: `${course?.course_id}`,
-                              })
-                        }
-                      >
-                        <div className={styles.course_card_about_progressWrapper}>
-                          <img src={pie} alt="pie" />
-                          <span className={styles.course_card_about_progressWrapper_title}>{userProgress.courses[0].completed_percent}% пройдено</span>
+                              })}
+                            >
+                              <Button className={styles.btn_admin} text={'Материалы'} />
+                            </Link>
+                          )}
                         </div>
-                        <span className={styles.course_card_status_show}> </span>
-                        <h5>{course.name}</h5>
-                        <span className={styles.course_card_about_desc}>{course?.description}</span>
-                        <div className={styles.course_card_duration}>
-                          {course.limit && <p className={styles.course_card_duration_limit}>Срок доступа: {course.limit} дн.</p>}
-                          {course?.limit &&
-                            (course?.remaining_period ? (
-                              <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
-                            ) : (
-                              <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
-                            ))}
-                        </div>
+                      </>
+                    ) : (
+                      userProgress && (
+                        <>
+                          <div className={styles.course_card_img}>
+                            <img className={styles.course_card_img} src={course?.photo} alt="" />
+                          </div>
+                          <div className={styles.course_card_progressBar}>
+                            <span className={styles.course_card_progressBar_line}>
+                              <ProgressBar
+                                completed={userProgress.courses[0]?.completed_percent}
+                                bgColor="#ba75ff"
+                                labelSize="10px"
+                                borderRadius="0px"
+                                height="100%"
+                                customLabel=" "
+                              />
+                            </span>
+                          </div>
+                          <div className={styles.course_card_about}>
+                            <Link
+                              onClick={onStudentClick}
+                              to={
+                                course?.remaining_period === 0 || course?.public !== 'О'
+                                  ? '#'
+                                  : generatePath(Student.Course, {
+                                      course_id: `${course?.course_id}`,
+                                    })
+                              }
+                            >
+                              <div className={styles.course_card_about_progressWrapper}>
+                                <img src={pie} alt="pie" />
+                                <span className={styles.course_card_about_progressWrapper_title}>
+                            {userProgress.courses[0].completed_percent}% пройдено
+                          </span>
+                              </div>
+                              <span className={styles.course_card_status_show}> </span>
+                              <h5>{course.name}</h5>
+                              <span className={styles.course_card_about_desc}>{course?.description}</span>
+                              <div className={styles.course_card_duration}>
+                                {course.limit && <p className={styles.course_card_duration_limit}>Срок доступа: {course.limit} дн.</p>}
+                                {course?.limit &&
+                                  (course?.remaining_period ? (
+                                    <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
+                                  ) : (
+                                    <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
+                                  ))}
+                              </div>
 
-                        <Button className={styles.btn} text={'Ознакомиться с материалами'} disabled={course?.remaining_period === 0} />
-                      </Link>
-                    </div>
-                    {isOpenModal ? (
-                    <Portal closeModal={onToggle}>
-                      <LimitModal message={"Доступ к курсу временно заблокирован. Обратитесь к администратору"} setShowLimitModal={onToggle}/>
-                    </Portal>
-                      ) : null}
+                              <Button className={styles.btn} text={'Ознакомиться с материалами'} disabled={course?.remaining_period === 0} />
+                            </Link>
+                          </div>
+                          {isOpenModal ? (
+                           <Portal closeModal={onToggle}>
+                             <LimitModal message={'Доступ к курсу временно заблокирован. Обратитесь к администратору'} setShowLimitModal={onToggle} />
+                           </Portal>
+                          ) : null}
+                        </>
+                      )
+                    )}
                   </>
-                )
-              )}
-            </>
-          </div>
-          </Link>
+                </div>
+              </Link>
         </>
       )}
       </>
-    ):(
-      <div id={`${course?.course_id}`} className={styles?.course_card}>
-      <>
-        {role === RoleE.Admin || role === RoleE.Teacher ? (
+      ) : (
+        <div id={`${course?.course_id}`} className={styles?.course_card}>
           <>
-            <div className={styles.course_card_img}>
-              {course.photo ? (
-                <img className={styles.course_card_img} src={`${course.photo}`} alt="course_cover" />
-              ) : (
-                <div className={styles.no_image_found}>
-                  <span>Нет изображения материала :(</span>
+            {role === RoleE.Admin || role === RoleE.Teacher ? (
+              <>
+                <div className={styles.course_card_img}>
+                  {course.photo ? (
+                    <img className={styles.course_card_img} src={`${course.photo}`} alt="course_cover" />
+                  ) : (
+                    <div className={styles.no_image_found}>
+                      <span>Нет изображения материала :(</span>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            <div className={styles.course_card_about}>
-              <span className={styles.course_card_status_show}>
-                {role === RoleE.Admin ? (
-                  course?.public === 'О' ? (
+                <div className={styles.course_card_about}>
+                  <span className={styles.course_card_status_show}>
+                    {role === RoleE.Admin ? (
+                      course?.public === 'О' ? (
+                        <>
+                          <img src={Public} alt="status course" />
+                          <span className={styles.course_card_status_show_public}>Опубликован</span>
+                        </>
+                      ) : (
+                        <>
+                          <img src={notPublic} alt="status course" />
+                          <span className={styles.course_card_status_show_public}>Не опубликован</span>
+                        </>
+                      )
+                    ) : (
+                      <div />
+                    )}
+                  </span>
+                  <h5>{course.name}</h5>
+                  <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
+                  {role === RoleE.Admin ? (
                     <>
-                      <img src={Public} alt="status course" />
-                      <span className={styles.course_card_status_show_public}>Опубликован</span>
+                      <Link
+                        to={generatePath(Path.CreateCourse + 'student', {
+                          course_id: `${course?.course_id}`,
+                        })}
+                      >
+                        <Button className={styles.btn_admin} text={'Ученики курса'} />
+                      </Link>
+                      <Link
+                        to={generatePath(Path.CreateCourse, {
+                          course_id: `${course?.course_id}`,
+                        })}
+                      >
+                        <Button className={styles.btn_admin} text={'Редактировать'} />
+                      </Link>
                     </>
                   ) : (
-                    <>
-                      <img src={notPublic} alt="status course" />
-                      <span className={styles.course_card_status_show_public}>Не опубликован</span>
-                    </>
-                  )
-                ) : (
-                  <div />
-                )}
-              </span>
-              <h5>{course.name}</h5>
-              <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
-              {role === RoleE.Admin ? (
+                    <Link
+                      to={generatePath(Path.CreateCourse, {
+                        course_id: `${course?.course_id}`,
+                      })}
+                    >
+                      <Button className={styles.btn_admin} text={'Материалы'} />
+                    </Link>
+                  )}
+                </div>
+              </>
+            ) : (
+              userProgress && (
                 <>
-                  <Link
-                    to={generatePath(Path.CreateCourse + 'student', {
-                      course_id: `${course?.course_id}`,
-                    })}
-                  >
-                    <Button className={styles.btn_admin} text={'Ученики курса'} />
-                  </Link>
-                  <Link
-                    to={generatePath(Path.CreateCourse, {
-                      course_id: `${course?.course_id}`,
-                    })}
-                  >
-                    <Button className={styles.btn_admin} text={'Редактировать'} />
-                  </Link>
-                </>
-                ) : (
-                  <Link
-                    to={generatePath(Path.CreateCourse, {
-                      course_id: `${course?.course_id}`,
-                    })}
-                  >
-                    <Button className={styles.btn_admin} text={'Материалы'} />
-                  </Link>
-                )}
-            </div>
-          </>
-        ) : (
-          userProgress && (
-            <>
-              <div className={styles.course_card_img}>
-                <img className={styles.course_card_img} src={course?.photo} alt="" />
-              </div>
-              <div className={styles.course_card_progressBar}>
-                <span className={styles.course_card_progressBar_line}>
-                  <ProgressBar
-                    completed={userProgress.courses[0]?.completed_percent}
-                    bgColor="#ba75ff"
-                    labelSize="10px"
-                    borderRadius="0px"
-                    height="100%"
-                    customLabel=" "
-                  />
-                </span>
-              </div>
-              <div className={styles.course_card_about}>
-                <Link
-                  onClick={onStudentClick}
-                  to={
-                    course?.remaining_period === 0 || course?.public !== 'О'
-                      ? '#'
-                      : generatePath(Student.Course, {
-                          course_id: `${course?.course_id}`,
-                        })
-                  }
-                >
-                  <div className={styles.course_card_about_progressWrapper}>
-                    <img src={pie} alt="pie" />
-                    <span className={styles.course_card_about_progressWrapper_title}>{userProgress.courses[0].completed_percent}% пройдено</span>
+                  <div className={styles.course_card_img}>
+                    <img className={styles.course_card_img} src={course?.photo} alt="" />
                   </div>
-                  <span className={styles.course_card_status_show}> </span>
-                  <h5>{course.name}</h5>
-                  <span className={styles.course_card_about_desc}>{course?.description}</span>
-                  <div className={styles.course_card_duration}>
-                    {course.limit && <p className={styles.course_card_duration_limit}>Срок доступа: {course.limit} дн.</p>}
-                    {course?.limit &&
-                      (course?.remaining_period ? (
-                        <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
-                      ) : (
-                        <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
-                      ))}
+                  <div className={styles.course_card_progressBar}>
+                    <span className={styles.course_card_progressBar_line}>
+                      <ProgressBar
+                        completed={userProgress.courses[0]?.completed_percent}
+                        bgColor="#ba75ff"
+                        labelSize="10px"
+                        borderRadius="0px"
+                        height="100%"
+                        customLabel=" "
+                      />
+                    </span>
                   </div>
+                  <div className={styles.course_card_about}>
+                    <Link
+                      onClick={onStudentClick}
+                      to={
+                        course?.remaining_period === 0 || course?.public !== 'О'
+                          ? '#'
+                          : generatePath(Student.Course, {
+                              course_id: `${course?.course_id}`,
+                            })
+                      }
+                    >
+                      <div className={styles.course_card_about_progressWrapper}>
+                        <img src={pie} alt="pie" />
+                        <span className={styles.course_card_about_progressWrapper_title}>{userProgress.courses[0].completed_percent}% пройдено</span>
+                      </div>
+                      <span className={styles.course_card_status_show}> </span>
+                      <h5>{course.name}</h5>
+                      <span className={styles.course_card_about_desc}>{course?.description}</span>
+                      <div className={styles.course_card_duration}>
+                        {course.limit && <p className={styles.course_card_duration_limit}>Срок доступа: {course.limit} дн.</p>}
+                        {course?.limit &&
+                          (course?.remaining_period ? (
+                            <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
+                          ) : (
+                            <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
+                          ))}
+                      </div>
 
-                  <Button className={styles.btn} text={'Ознакомиться с материалами'} disabled={course?.remaining_period === 0} />
-                </Link>
-              </div>
-              {isOpenModal ? (
-               <Portal closeModal={onToggle}>
-                 <LimitModal message={"Доступ к курсу временно заблокирован. Обратитесь к администратору"} setShowLimitModal={onToggle}/>
-               </Portal>
-                ) : null}
-            </>
-          )
-        )}
-      </>
-    </div>
-    )
-  }
-  </>
+                      <Button className={styles.btn} text={'Ознакомиться с материалами'} disabled={course?.remaining_period === 0} />
+                    </Link>
+                  </div>
+                  {isOpenModal ? (
+                    <Portal closeModal={onToggle}>
+                      <LimitModal message={'Доступ к курсу временно заблокирован. Обратитесь к администратору'} setShowLimitModal={onToggle} />
+                    </Portal>
+                  ) : null}
+                </>
+              )
+            )}
+          </>
+        </div>
+      )}
+    </>
   )
 }
