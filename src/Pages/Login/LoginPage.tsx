@@ -106,6 +106,7 @@ export const LoginPage = () => {
         const { access, refresh, user: userResponse } = await attemptAccess(user).unwrap()
         dispatch(authState({ access: access, refresh: refresh }))
         dispatch(id(userResponse.id))
+        localStorage.setItem('id', userResponse.id.toString());
       } catch {
         console.log('smth went wrong')
       }

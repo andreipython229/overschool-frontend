@@ -171,12 +171,14 @@ export const CoursePage: FC = () => {
                 }}
               />
             )}
-            <Chip
-              icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
-              label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
-              variant="filled"
-              onClick={() => toggleTestCourseVisibility(!showTestCourse)}
-            />
+            {role === RoleE.Admin && (
+              <Chip
+                icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
+                label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
+                variant="filled"
+                onClick={() => toggleTestCourseVisibility(!showTestCourse)}
+              />
+            )}
             <Chip
               icon={<FolderCopyOutlined />}
               label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}

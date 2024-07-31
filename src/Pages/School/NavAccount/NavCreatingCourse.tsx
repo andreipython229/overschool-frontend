@@ -13,7 +13,8 @@ import styles from './navCreatingCourse.module.scss'
 
 export const NavCreatingCourse = memo(() => {
   const course_id = window.location.href.split('/')[7]
-  const { role: UserRole, userId } = useAppSelector(selectUser)
+  const userId = localStorage.getItem('id');
+  const { role: UserRole } = useAppSelector(selectUser)
   const navigate = useNavigate()
   const schoolName = useAppSelector(schoolNameSelector)
   const backCourses = () => {
@@ -43,7 +44,7 @@ export const NavCreatingCourse = memo(() => {
           </>
         ) : (
           <>
-            {userId === 154 ? (
+            {userId === '154' ? (
               <>
                 <NavAccountBtn text={'Конструктор'} path={CreateCoursePath.Constructor} />
                 <NavAccountBtn text={'Ученики курса'} path={CreateCoursePath.Student} />

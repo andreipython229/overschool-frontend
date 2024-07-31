@@ -12,8 +12,6 @@ import pie from '../../../../assets/img/studentPage/folder-todo.png'
 import { useLazyFetchProgressQuery } from '../../../../api/userProgressService'
 import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 import ProgressBar from '@ramonak/react-progress-bar'
-import { useAppSelector } from 'store/hooks'
-import { selectUser } from 'selectors'
 import {Portal} from "../../../../components/Modal/Portal";
 import {LimitModal} from "../../../../components/Modal/LimitModal/LimitModal";
 import {useBoolean} from "../../../../customHooks";
@@ -28,7 +26,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
   const schoolName = window.location.href.split('/')[4]
   const [fetchProgress, { data: userProgress, isLoading, isError }] = useLazyFetchProgressQuery()
   const [isOpenModal, { onToggle }] = useBoolean()
-  const { userId } = useAppSelector(selectUser)
+  const userId = localStorage.getItem('id');
 
   useEffect(() => {
     if (role === RoleE.Student) {
@@ -53,7 +51,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
     <>
       {role === RoleE.Admin ? (
       <>
-        {(((course.course_id === 247) && userId === 154) || (course.course_id !== 247)) ? (
+        {(((course.course_id === 247) && userId === '154') || (course.course_id !== 247)) ? (
               <Link
                 to={generatePath(Path.CreateCourse, {
                   course_id: `${course?.course_id}`,
@@ -155,7 +153,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                           <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
                           {role === RoleE.Admin ? (
                       <>
-                      {course.course_id === 247 && userId !== 154 ? (
+                      {course.course_id === 247 && userId !== '154' ? (
                         <Link
                               to={generatePath(Path.CourseMaterials, {
                                 course_id: `${course?.course_id}`,
