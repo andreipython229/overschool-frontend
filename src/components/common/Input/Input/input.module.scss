@@ -26,7 +26,8 @@
   }
 
   & input {
-    width: 96%;
+    width: 100%;
+    min-width: 100%;
     color: $font-color;
     outline: none;
     border: none;

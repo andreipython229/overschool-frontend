@@ -3,6 +3,8 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { BonusT } from '../types/bonusesT'
 import { baseQueryWithReauth } from './baseQueryReauth'
+import { IBanner } from './apiTypes'
+import { url } from 'inspector'
 
 export const schoolBonusService = createApi({
   reducerPath: 'schoolBonusService',
@@ -10,7 +12,7 @@ export const schoolBonusService = createApi({
   tagTypes: ['bonuses', 'bonus'],
   endpoints: build => ({
     fetchBonuses: build.query<BonusT[], string>({
-      query: (schoolName) => ({
+      query: schoolName => ({
         url: `/${schoolName}/school_bonuses/`,
       }),
       providesTags: ['bonuses', 'bonus'],
@@ -47,10 +49,41 @@ export const schoolBonusService = createApi({
       },
       invalidatesTags: ['bonus'],
     }),
+    getSchoolBanners: build.query<IBanner[], string>({
+      query: schoolName => `/${schoolName}/banners/`,
+    }),
+    getStudentBanner: build.query<IBanner, string>({
+      query: schoolName => `/${schoolName}/banners/`,
+    }),
+    updateSchoolBanner: build.mutation<IBanner, { schoolName: string; data: FormData; id: number }>({
+      query: args => ({
+        url: `/${args.schoolName}/banners/${args.id}/`,
+        method: 'PATCH',
+        body: args.data,
+      }),
+    }),
+    createNewBanner: build.mutation<IBanner, { data: FormData; schoolName: string }>({
+      query: args => ({
+        url: `/${args.schoolName}/banners/`,
+        method: 'POST',
+        body: args.data,
+      }),
+    }),
+    deleteBanner: build.mutation<any, { id: number | string; schoolName: string }>({
+      query: args => ({
+        url: `/${args.schoolName}/banners/${args.id}/`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
 export const {
+  useDeleteBannerMutation,
+  useCreateNewBannerMutation,
+  useUpdateSchoolBannerMutation,
+  useGetSchoolBannersQuery,
+  useLazyGetStudentBannerQuery,
   useFetchBonusesQuery,
   useLazyFetchBonusesQuery,
   useFetchBonusQuery,

@@ -12,12 +12,11 @@ import { RoleE } from 'enum/roleE'
 import { role } from 'store/redux/users/slice'
 import { useDispatch } from 'react-redux'
 
-
 export const Main = memo(() => {
   const schoolId = localStorage.getItem('school_id')
   const [alertOpen, setAlertOpen] = useState<boolean>(false)
   const dispatchRole = useDispatch()
-  const schoolName = window.location.href.split('/')[4];
+  const schoolName = window.location.href.split('/')[4]
 
   const { data, refetch } = useFetchSchoolQuery(Number(schoolId))
   const [updateDateSchoolName, { data: newName, isLoading, isSuccess, isError }] = useSetSchoolMutation()
@@ -32,7 +31,6 @@ export const Main = memo(() => {
   const [oldUrl, setOldUrl] = useState<string>('')
   const [error, setError] = useState<string>()
   const [social, setSocial] = useState<string>('')
-
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -85,7 +83,6 @@ export const Main = memo(() => {
     await updateSchoolLink({ formdata, id: Number(schoolId) })
   }
 
-
   const handleCloseAlert = () => {
     setAlertOpen(false)
   }
@@ -122,8 +119,8 @@ export const Main = memo(() => {
           Имейте ввиду, если вы делились с кем либо url ссылками на вашу платформу - то после изменения по старым url адресам она будет не доступна!
           Частая смена не рекомендуется!
         </div>
-        <div>
-          <Input className={styles.main_input}  name={'name'} type={'text'} value={name} onChange={handleChangeSchoolName} />
+        <div className={styles.text}>
+          <Input className={styles.main_input} name={'name'} type={'text'} value={name} onChange={handleChangeSchoolName} />
           {error && <p className={styles.error}>{error}</p>}
           <Button
             onClick={handleOpenAlert}
@@ -138,8 +135,8 @@ export const Main = memo(() => {
         </div>
         <hr />
         <div className={styles.main_project}>Ссылка на файл публичного договора оферты</div>
-        <div>
-          <Input name={'name'} type={'text'} className={styles.main_input} value={url} onChange={handleChangeUrl} />
+        <div className={styles.text}>
+          <Input name={'name'} type={'text'} placeholder='Введите ссылку для договора публичной оферты' className={styles.main_input} value={url} onChange={handleChangeUrl} />
           <Button
             onClick={onChangeUrl}
             style={{ width: '120px' }}
@@ -151,14 +148,8 @@ export const Main = memo(() => {
         <br />
         <hr />
         <div className={styles.main_project}>Ссылка для связи с руководством платформы</div>
-        <div>
-          <Input
-            name={'contactUrl'}
-            type={'text'}
-            value={social}
-            onChange={event => setSocial(event.target.value)}
-            className={styles.main_input}
-          />
+        <div className={styles.text}>
+          <Input name={'contactUrl'} type={'text'} value={social} onChange={event => setSocial(event.target.value)} className={styles.main_input} />
           <Button
             onClick={onChangeSocial}
             style={{ width: '120px' }}

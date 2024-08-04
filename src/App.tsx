@@ -143,11 +143,6 @@ export const App = () => {
           <Route index element={<CourseCatalogPage />} />
           <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
         </Route>
-        <Route path={Path.School} element={<MainLayOut />}>
-          <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
-          <Route path={FooterPath.PWA} element={<PWA />} />
-          <Route path={FooterPath.Agreement} element={<Agreement />} />
-        </Route>
         <Route path={Path.Certificate} element={<Certificate />} />
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
@@ -169,9 +164,11 @@ export const App = () => {
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.School} element={<MainLayOut />}>
           {navByRolesConfig[role]}
+          <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
+          <Route path={FooterPath.PWA} element={<PWA />} />
+          <Route path={FooterPath.Agreement} element={<Agreement />} />
         </Route>
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
-        <Route path={Path.SignUp} element={<SignUp />} />
         <Route path={'*'} element={<PageNotFound />} />
         <Route path="/access-denied" element={<DomainError />} />
       </Routes>

@@ -102,7 +102,7 @@ export const DomainSettings: FC = () => {
                     которым пользователи будут получать доступ к вашей платформе.
 
                 </div>
-                <div>
+                <div className={styles.text}>
                     <Input name={'domain'} type={'text'} className={styles.main_input} value={domain}
                            onChange={handleChangeDomain}/>
                     <Button
