@@ -1,0 +1,164 @@
+@import '../../../scss//mixin.scss';
+@import '../../../scss/variable.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 170px;
+  gap: 2rem;
+  padding: 0.5rem 0.8rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  transition: all ease-in 0.2s;
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 15px;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 0;
+
+    &_groups {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+
+      &_item {
+        display: flex;
+        gap: 0.2rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+    }
+
+    &_title {
+      font-family: 'Inter', sans-serif;
+      color: #4d5766;
+      font-size: 20px;
+      font-weight: 600;
+      cursor: default;
+    }
+
+    &_description {
+      font-family: 'Inter', sans-serif;
+      color: #4d5766;
+      font-size: 14px;
+      cursor: default;
+    }
+  }
+
+  &_buttons {
+    padding: 1rem 0;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    &_delete {
+      padding: 11px;
+      border-radius: 6px;
+      border: none;
+      height: 36px;
+      background: #fef2f2;
+      @include display(flex, row, flex-start, center);
+      text-align: center;
+      cursor: pointer;
+      transition: all ease-in 0.2s;
+
+      &:hover {
+        background: #fc6d6d;
+      }
+
+      & svg {
+        margin: 0 auto;
+        height: 17px;
+        width: 17px;
+      }
+    }
+
+    &_confirm {
+      padding: 11px;
+      border-radius: 6px;
+      border: none;
+      height: 36px;
+      background: #c6ffd7;
+      @include display(flex, row, flex-start, center);
+      text-align: center;
+      cursor: pointer;
+      transition: all ease-in 0.2s;
+
+      &:hover {
+        background: #75ff9e;
+      }
+
+      & svg {
+        margin: 0 auto;
+        height: 17px;
+        width: 17px;
+      }
+    }
+
+    &_edit {
+      padding: 11px;
+      border-radius: 6px;
+      border: none;
+      height: 36px;
+      background: #ececec;
+      @include display(flex, row, flex-start, center);
+      text-align: center;
+      cursor: pointer;
+      transition: all ease-in 0.2s;
+
+      &:hover {
+        background: #f7f7f7;
+      }
+
+      & svg {
+        margin: 0 auto;
+        height: 17px;
+        width: 17px;
+      }
+    }
+  }
+
+  &:hover {
+    img {
+      scale: 1.05;
+    }
+  }
+}
+
+.image {
+  transition: all ease-in 0.2s;
+  width: 150px;
+  height: 150px;
+}
+
+.textarea {
+  // max-width: 34vh;
+  width: 100%;
+  min-height: 150px;
+  max-height: 300px;
+  border: 1px solid #ba75ff;
+  border-radius: 4px;
+  resize: none;
+  padding: 0.375rem;
+  overflow: auto !important;
+  border: 0.1rem solid #c6c3c3 !important;
+  transition: all ease-in 0.1s;
+
+  &:focus {
+    border: 0.1rem solid #c6c3c3 !important;
+    outline: none !important;
+  }
+
+  &:hover {
+    outline: none !important;
+    border: 0.1rem solid #ba75ff !important;
+    // box-shadow: 0 0 10px #ba75ff;
+  }
+  @include font(400, 14px);
+}

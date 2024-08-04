@@ -5,8 +5,9 @@ import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { userDataSchema } from './schemas'
 import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/profileService'
+import { useFetchIndividualRatingQuery } from '../../api/ratingService'
 import { useAppSelector } from 'store/hooks/index'
-import { userIdSelector } from 'selectors/index'
+import {selectUser, userIdSelector} from 'selectors/index'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import { profileT } from 'types/profileT'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
@@ -14,6 +15,8 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit'
 
 import styles from './profile.module.scss'
 import formStyles from './formStyles.module.scss'
+import {individualRatingT} from "../../types/ratingT";
+import {RoleE} from "../../enum/roleE";
 
 const optionsList = [
   {
@@ -27,6 +30,7 @@ const optionsList = [
 ]
 
 export const AboutUser: FC = memo(() => {
+  const { role: UserRole } = useAppSelector(selectUser)
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
   const [avatarUrl, setAvatarUrl] = useState<string>('')
 
@@ -37,6 +41,9 @@ export const AboutUser: FC = memo(() => {
   const [sex, setSex] = useState<string>()
   const [phoneError, setPhoneError] = useState<string>()
   const [avatarError, setAvatarError] = useState<string>('')
+  const schoolName = window.location.href.split('/')[4]
+  const { data: ratingData, isSuccess: ratingSuccess } = useFetchIndividualRatingQuery({schoolName: schoolName})
+  const [rating, setRating] = useState<individualRatingT>()
 
   const formik = useFormik({
     initialValues: {
@@ -120,6 +127,12 @@ export const AboutUser: FC = memo(() => {
     profileData && setSex(profileData.sex)
   }, [profileData])
 
+  useEffect(() => {
+    if (ratingSuccess) {
+      setRating(ratingData)
+    }
+  }, [ratingSuccess])
+
   const {
     values: { city, email, last_name, first_name, patronymic, phone_number, avatar_url },
     handleChange,
@@ -136,6 +149,11 @@ export const AboutUser: FC = memo(() => {
           <SimpleLoader style={{ width: '50px', height: '50px' }} />
         </div>
       )}
+      {UserRole === RoleE.Student &&
+      <div className={styles.profile_rating}>
+        <p className={styles.profile_rating_top}>Пройденных занятий: {rating?.completed_lessons} {rating?.top_by_lessons_num && <span> | вы в топ {rating?.top_by_lessons_num} пользователей</span>}</p>
+        <p>Доступных курсов: {rating?.available_courses} {rating?.top_by_courses_num && <span> | вы в топ {rating?.top_by_courses_num} пользователей</span>}</p>
+      </div>}
       <h1 className={styles.profile_title}>Настройка профиля</h1>
       <div className={styles.profile_block}>
         <span style={{ display: 'flex', alignItems: 'center', lineHeight: '19px', gap: '0.5rem', fontSize: '16px' }}>

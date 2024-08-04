@@ -11,16 +11,13 @@ type MyEditorT = {
   editedText?: string
   setIsEditing?: any
   save?: (arg: string) => void
+  setBannerDescription?: (arg: string) => void
+  banner?: boolean
 }
 
-export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText, setIsEditing, save }) => {
+export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText, setIsEditing, save, banner, setBannerDescription }) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
   const [editorContent, setEditorContent] = useState<string>('')
-  const [text, setText] = useState('')
-
-  const handleChange = (value: React.SetStateAction<string>) => {
-    setText(value)
-  }
 
   useEffect(() => {
     if (editedText) {
@@ -49,6 +46,13 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
   }
 
   const handleCancelClick = () => {
+    if (editedText) {
+      const blocksFromHTML = convertFromHTML(editedText)
+      const contentState = ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap)
+      const newEditorState = EditorState.createWithContent(contentState)
+      setEditorState(newEditorState)
+      setEditorContent(editedText)
+    }
     setIsEditing && setIsEditing(false)
   }
 
@@ -136,14 +140,16 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
           onChange={handleEditorChange}
         />
       </div>
-      <div style={{ display: 'flex', margin: '1em' }}>
-        <button className={styles.textField_btnSave} onClick={handleSaveClick}>
-          Сохранить
-        </button>
-        <button className={styles.textField_btnCancel} onClick={handleCancelClick}>
-          Отмена
-        </button>
-      </div>
+      {stateToHTML(editorState.getCurrentContent()) !== editedText && (
+        <div style={{ display: 'flex', margin: '1em' }}>
+          <button className={styles.textField_btnSave} onClick={handleSaveClick}>
+            Сохранить текст
+          </button>
+          <button className={styles.textField_btnCancel} onClick={handleCancelClick}>
+            Отмена
+          </button>
+        </div>
+      )}
     </div>
   )
 })

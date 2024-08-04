@@ -43,6 +43,7 @@ export enum Path {
 }
 
 export enum SettingsPath {
+  Banner = 'banner/',
   Main = 'main/',
   Employees = 'employees/',
   Logs = 'logs/',
@@ -55,6 +56,7 @@ export enum SettingsPath {
 }
 
 export enum CreateCoursePath {
+  Banner = 'banner',
   Constructor = 'constructor',
   Student = 'student',
   Settings = 'settings',

@@ -25,6 +25,27 @@
     z-index: 9999;
   }
 
+  &_rating {
+    //font-weight: bold;
+    //font-size: 20px;
+    //line-height: 19px;
+    //letter-spacing: -0.02em;
+    //margin-bottom: 20px;
+    width: fit-content;
+    color: #4d5766;
+    font-size: 12px;
+    letter-spacing: 0.01em;
+    background-color: #e8d5ec;
+    border-radius: 10px;
+    float: right;
+    padding: 14px 14px 14px 14px;
+    box-shadow: $box-shadow;
+
+    &_top {
+      margin-bottom: 5px;
+    }
+  }
+
   &_title {
     font-weight: bold;
     font-size: 20px;
