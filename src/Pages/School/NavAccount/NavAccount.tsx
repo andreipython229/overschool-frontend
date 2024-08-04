@@ -18,10 +18,13 @@ export const NavAccount: FC = memo(() => {
       <NavAccountBtn path={SettingsPath.Employees} text={'Сотрудники'} />
       {role === RoleE.SuperAdmin && <NavAccountBtn path={SettingsPath.Logs} text={'Логи'} />}
       <NavAccountBtn path={SettingsPath.SchoolPassport} text={'Печати и подписи'} />
-      {(role === RoleE.SuperAdmin  || role === RoleE.Admin) && <NavAccountBtn path={SettingsPath.PaymentMethods} text={'Оплата'} />}
+      {(role === RoleE.SuperAdmin || role === RoleE.Admin) && <NavAccountBtn path={SettingsPath.PaymentMethods} text={'Оплата'} />}
       <NavAccountBtn path={SettingsPath.DomainSettings} text={'Домены'} />
       <NavAccountBtn path={SettingsPath.Bonuses} text={'Бонусы / акции'} />
-      {((role === RoleE.SuperAdmin  || role === RoleE.Admin) && schoolName == 'OVERONE') && <NavAccountBtn path={SettingsPath.EmailNewsLetter} text={'Рассылка'} />}
+      <NavAccountBtn text="Баннер объявлений для участников" path={SettingsPath.Banner} />
+      {(role === RoleE.SuperAdmin || role === RoleE.Admin) && schoolName == 'OVERONE' && (
+        <NavAccountBtn path={SettingsPath.EmailNewsLetter} text={'Рассылка'} />
+      )}
     </nav>
   )
 })

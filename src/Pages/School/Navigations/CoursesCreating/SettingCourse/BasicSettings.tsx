@@ -64,7 +64,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({
   }
 
   useEffect(() => {
-    if (!selectedFolder && courseFind) {
+    if (!selectedFolder && courseFind && courseFind.folder && courseFind.folder.id) {
       setSelectedFolder(courseFind.folder.id)
     }
   }, [courseFind])
