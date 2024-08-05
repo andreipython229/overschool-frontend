@@ -232,7 +232,7 @@ export const Header = memo(() => {
   const connectWebSocket = () => {
     if ((informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) && userId) {
       // informSocketRef.current = new w3cwebsocket(`ws://sandbox.overschool.by/ws/info/${schoolName || ''}?user_id=${userId}`)
-      informSocketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/info/${schoolName || ''}?user_id=${userId}`)
+      informSocketRef.current = new w3cwebsocket(`wss://apidev.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`)
       // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}?user_id=${userId}`)
 
       informSocketRef.current.onmessage = event => {
