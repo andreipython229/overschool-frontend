@@ -40,6 +40,7 @@ export enum Path {
   Meetings = 'meetings/',
   Materials = 'materials/',
   CourseMaterials = 'materials/:course_id/',
+  Rating = 'rating/',
 }
 
 export enum SettingsPath {

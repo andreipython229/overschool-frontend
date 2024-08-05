@@ -34,6 +34,7 @@ import { CourseMaterials } from 'Pages/School/Navigations/CoursesCreating/Redact
 import {DomainSettings} from "../Pages/Settings/Domain";
 import {Bonuses} from "Pages/Settings/Bonuses/Bonuses";
 import { EmailNewsLetter } from 'Pages/Settings/EmailNewsLetter'
+import {Rating} from "Pages/Rating";
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -67,6 +68,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.Meetings} element={<StudentSchoolMeeting />} />
+      <Route path={Path.Rating} element={<Rating/>} />
     </>
   ),
   [RoleE.Admin]: (
@@ -101,6 +103,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
       <Route path={Path.Appeals} element={<SchoolAppeals />} />
       <Route path={Path.Meetings} element={<SchoolMeetings />} />
+      <Route path={Path.Rating} element={<Rating/>} />
     </>
   ),
   [RoleE.Teacher]: (

@@ -129,7 +129,7 @@ export const LoginPage = () => {
       .then(resp => {
         dispatch(auth(true));
         dispatch(userName(resp[0]?.username));
-        dispatch(id(resp[0]?.id));
+        // dispatch(id(resp[0]?.id));
         if (DefaultDomains.includes(currentDomain)) {
           navigate(generatePath(Path.ChooseSchool));
         } else {
