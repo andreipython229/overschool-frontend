@@ -7,7 +7,7 @@ module.exports = function (app) {
     '/api/socket.io',
     createProxyMiddleware({
       // target: 'http://sandbox.coursehb.ru',
-      target: 'https://apidev.overschool.by',
+      target: 'https://apidev.coursehb.ru',
       ws: true,
       changeOrigin: true,
       secure: false,
@@ -18,7 +18,7 @@ module.exports = function (app) {
     '/api',
     createProxyMiddleware({
       // target: 'http://sandbox.coursehb.ru',
-      target: 'https://apidev.overschool.by',
+      target: 'https://apidev.coursehb.ru',
       changeOrigin: true,
       secure: false,
     }),
