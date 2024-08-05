@@ -34,6 +34,7 @@ import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
 import { HelpChat } from './Pages/HelpCenter/HelpChat'
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
 import DomainError from './Pages/DomainAccessDenied/DomainError'
+import RouteHandler from "./components/RouteHandler/RouteHandler";
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -77,6 +78,13 @@ export const App = () => {
   }, [])
 
   useEffect(() => {
+    const savedPath = localStorage.getItem('savedPath');
+
+  // Если есть сохранённый путь, то останавливаем выполнение useEffect, навигация происходит в компоненте RouteHandler
+    if (savedPath) {
+    localStorage.removeItem('savedPath'); // Удаление пути после навигации
+    return;
+  }
     if (pathname === Path.InitialPage) {
       const queryParams = Object.keys(utmParams)
         .filter(([_, value]) => value !== 'undefined')
@@ -129,15 +137,11 @@ export const App = () => {
 
   return (
     <div className={styles.container}>
+      <RouteHandler/>
       <Routes>
         <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />
           <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
-        </Route>
-        <Route path={Path.School} element={<MainLayOut />}>
-          <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
-          <Route path={FooterPath.PWA} element={<PWA />} />
-          <Route path={FooterPath.Agreement} element={<Agreement />} />
         </Route>
         <Route path={Path.Certificate} element={<Certificate />} />
         <Route path={Path.InitialPage} element={<Initial />} />
@@ -160,9 +164,11 @@ export const App = () => {
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.School} element={<MainLayOut />}>
           {navByRolesConfig[role]}
+          <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
+          <Route path={FooterPath.PWA} element={<PWA />} />
+          <Route path={FooterPath.Agreement} element={<Agreement />} />
         </Route>
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
-        <Route path={Path.SignUp} element={<SignUp />} />
         <Route path={'*'} element={<PageNotFound />} />
         <Route path="/access-denied" element={<DomainError />} />
       </Routes>

@@ -16,6 +16,13 @@ export const HeaderBlock:FC<HeaderBlockT> = ({openModal}) => {
   const [courseImage, setCourseImage] = useState<string>(landing.header.photoBackground)
   const [imgError, setImgError] = useState<string>('')
 
+  // перерендерим шапку, в случае подброса устаревших значений из кэша
+  useEffect(()=> {
+    if (titleValue !== landing.header.name) setTitleValue(landing.header.name)
+    if (descriptionValue !== landing.header.description) setDescriptionValue(landing.header.description)
+    if (courseImage !== landing.header.photoBackground) setCourseImage(landing.header.photoBackground)
+  }, [landing,])
+
   const handleImageChange = () => {
     setImgError('')
     const fileInput = document.createElement('input')

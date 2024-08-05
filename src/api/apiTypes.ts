@@ -1,5 +1,5 @@
-import { CoursesDataT } from "types/CoursesT"
-import { Section } from "types/courseStatT"
+import { CoursesDataT } from 'types/CoursesT'
+import { Section } from 'types/courseStatT'
 
 export interface UpdateCourses {
   formdata: FormData
@@ -63,4 +63,17 @@ export type NewsletterTemplate = {
   template_name: string
   text: string
   delay_days: number
+}
+
+export interface IBanner {
+  id: number
+  clicks_count: string
+  unique_clicks_count: string
+  is_accepted_by_user: boolean
+  title: string
+  description: string
+  is_active: boolean
+  link: string
+  school: number
+  groups: number[]
 }
