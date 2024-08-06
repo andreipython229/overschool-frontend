@@ -14,9 +14,11 @@ export const ratingService = createApi({
             }),
             providesTags: ['studentRating'],
         }),
-        fetchAllStudentRating: build.query<ratingPaginatorT, { schoolName: string; lessonsFlag: boolean; coursesFlag: boolean; page: number|undefined; size: number|undefined }>({
-            query: ({ schoolName, lessonsFlag, coursesFlag, page, size }) => ({
-                url: `/${schoolName}/student_rating/all_rating?lessons_flag=${lessonsFlag}&courses_flag=${coursesFlag}&?p=${page !== undefined ? page : 1}&s=${size !== undefined ? size : 30}`,
+        fetchAllStudentRating: build.query<ratingPaginatorT, { schoolName: string; flag: string; page: number|undefined; size: number|undefined }>({
+            query: ({ schoolName, flag, page, size }) => ({
+                url: flag === 'lessons'
+                    ? `/${schoolName}/student_rating/all_rating?lessons_flag=True&p=${page !== undefined ? page : 1}&s=${size !== undefined ? size : 30}`
+                    : `/${schoolName}/student_rating/all_rating?courses_flag=True&p=${page !== undefined ? page : 1}&s=${size !== undefined ? size : 30}`,
             }),
             providesTags: ['studentRating'],
         }),
@@ -25,5 +27,5 @@ export const ratingService = createApi({
 
 export const {
     useFetchIndividualRatingQuery,
-    useFetchAllStudentRatingQuery
+    useLazyFetchAllStudentRatingQuery
 } = ratingService

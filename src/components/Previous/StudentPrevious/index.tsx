@@ -1,5 +1,5 @@
 import {FC, useState, useEffect} from 'react'
-
+import { Link } from 'react-router-dom'
 import {Button} from '../../common/Button/Button'
 import {useFetchProfileDataQuery} from 'api/profileService'
 import {useLazyLogoutQuery} from '../../../api/userLoginService'
@@ -8,6 +8,7 @@ import {auth} from '../../../store/redux/users/slice'
 import {profileT} from 'types/profileT'
 
 import styles from '../previou.module.scss'
+import {Path} from "../../../enum/pathE";
 
 export const StudentPrevious: FC = () => {
     const dispatch = useAppDispatch()
@@ -39,6 +40,19 @@ export const StudentPrevious: FC = () => {
                     </p>
                 </div>
             </div>
+            <Link to={Path.Rating}>
+            <div className={styles.previous_btn_rate}>
+                <Button
+                    variant="primary"
+                    style={{
+                        width: '148px',
+                        fontSize: '12px',
+                        fontWeight: '500',
+                    }}
+                    text={'Рейтинг учеников'}
+                />
+            </div>
+             </Link>
             <div className={styles.previous_btn}>
                 <Button
                     variant="delete"
