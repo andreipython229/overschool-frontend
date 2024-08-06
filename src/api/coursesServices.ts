@@ -63,10 +63,10 @@ export const coursesServices = createApi({
       },
       invalidatesTags: ['course'],
     }),
-    cloneCourse: build.mutation<CoursesDataT, { id: number; schoolName: string }>({
-      query: ({ id, schoolName }) => {
+    cloneCourse: build.mutation<CoursesDataT, { id: number; schoolName: string; userEmail: string }>({
+      query: ({ id, schoolName, userEmail }) => {
         return {
-          url: `/${schoolName}/courses/${id}/clone/`,
+          url: `/${schoolName}/courses/${id}/clone/?user_email=${encodeURIComponent(userEmail)}`,
           method: 'GET',
         }
       },

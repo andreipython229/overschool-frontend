@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { Input } from '../../../../../components/common/Input/Input/Input'
-import { useDeleteCoursesMutation, useFetchCourseFoldersQuery, usePatchCoursesMutation } from '../../../../../api/coursesServices'
+import { useDeleteCoursesMutation, useFetchCourseFoldersQuery, usePatchCoursesMutation, useCloneCourseMutation } from '../../../../../api/coursesServices'
 import { formDataConverter } from '../../../../../utils/formDataConverter'
 import { CheckboxBall } from '../../../../../components/common/CheckboxBall'
 
@@ -45,13 +45,18 @@ export const BasicSettings: FC<BasicSettingsT> = ({
   const [nameCourse, setNameCourse] = useState<string>(courseFind?.name || '')
   const [shortDescription, setShortDescription] = useState<string>(courseFind?.description || '')
   const [deleteCourses, { isSuccess: isSuccessDelete }] = useDeleteCoursesMutation()
+  const [cloneCourse, { isLoading: isCloning, isSuccess: isCloned, error: cloneError }] = useCloneCourseMutation();
   const [alertOpen, setAlertOpen] = useState<boolean>(false)
   const schoolName = window.location.href.split('/')[4]
   const [copy, { onToggle: toggleCopy }] = useBoolean(false)
   const { data: foldersData, isSuccess: successFolders } = useFetchCourseFoldersQuery(school)
   const [foldersList, setFoldersList] = useState<{ label: string; value: string }[]>()
   const [selectedFolder, setSelectedFolder] = useState<number | string>()
-
+  const [email, setEmail] = useState<string>('')
+  const [revokeAccessOpen, setRevokeAccessOpen] = useState<boolean>(false);
+  const [emailsWithAccess, setEmailsWithAccess] = useState<string[]>([])
+  const [selectedEmails, setSelectedEmails] = useState<string[]>([])
+  
   const debounce = useDebounceFunc(update)
   const navigate = useNavigate()
 
@@ -61,6 +66,46 @@ export const BasicSettings: FC<BasicSettingsT> = ({
 
   const handleOpenAlert = () => {
     setAlertOpen(true)
+  }
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
+  }
+
+  const handleCloseRevokeAccess = () => {
+    setRevokeAccessOpen(false);
+  };
+
+  const handleSendEmail = async () => {
+    if (email) {
+      await cloneCourse({ id: courseFind?.course_id, schoolName, userEmail: email });
+    }
+    if (!cloneError) {
+      toast.current?.show({
+        severity: 'success',
+        summary: 'Успешно',
+        detail: `Вы успешно поделились курсом с ${email}`,
+        life: 5000,
+      });
+    }
+  }
+
+  const handleRevokeAccess = () => {
+    toast.current?.show({
+      severity: 'info',
+      summary: 'Доступ отозван',
+      detail: `Вы успешно отозвали доступ к курсу у ${email}`,
+      life: 5000,
+    });
+  }
+
+  const handleRevokeAccessAll = () => {
+    toast.current?.show({
+      severity: 'info',
+      summary: 'Доступ отозван',
+      detail: `Вы успешно отозвали доступ к курсу у всех владельцев`,
+      life: 5000,
+    });
   }
 
   useEffect(() => {
@@ -129,6 +174,14 @@ export const BasicSettings: FC<BasicSettingsT> = ({
     }
   }, [isSuccessDelete])
 
+  const handleEmailSelectionChange = (email: string) => {
+    setSelectedEmails(prevSelected =>
+      prevSelected.includes(email)
+        ? prevSelected.filter(e => e !== email)
+        : [...prevSelected, email]
+    )
+  }
+
   return (
     <div className={`${styles.basic_settings}`}>
       <div className={`${styles.header_basic_settings}`}>
@@ -155,6 +208,37 @@ export const BasicSettings: FC<BasicSettingsT> = ({
         <p className={styles.short_discription_title}>Кратное описание:</p>
         <Input type={'text'} name="shortDescription" value={shortDescription} onChange={handleNameCourse} />
       </div>
+      <div className={styles.short_discription_wrapper}>
+        <p className={styles.short_discription_title}>Поделиться курсом по email:</p>
+        <Input type={'email'} name="email" value={email} onChange={handleEmailChange} />
+      </div>
+      <div className={styles.btn}>
+        <Button onClick={handleSendEmail} text={'Поделиться'} />
+        <Button onClick={() => setRevokeAccessOpen(true)} text={'Отозвать доступ'} variant={'delete'} />
+      </div>
+      <Dialog open={revokeAccessOpen} onClose={handleCloseRevokeAccess} aria-labelledby="revoke-access-dialog-title" aria-describedby="revoke-access-dialog-description">
+        <DialogTitle id="revoke-access-dialog-title">Отозвать доступ к курсу</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="revoke-access-dialog-description">
+            Выберите пользователей, у которых хотите отозвать доступ к курсу:
+          </DialogContentText>
+          <div>
+            {emailsWithAccess.map(email => (
+              <div key={email}>
+                <CheckboxBall
+                  isChecked={selectedEmails.includes(email)}
+                  toggleChecked={() => handleEmailSelectionChange(email)}
+                />
+                <span>{email}</span>
+              </div>
+            ))}
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseRevokeAccess} text="Отмена" />
+          <Button onClick={handleRevokeAccess} text="Отозвать" variant={'delete'} />
+        </DialogActions>
+      </Dialog>
       <div className={styles.publish_switch}>
         {courseFind.baselessons_count && courseFind.baselessons_count >= 5 && toggleCheckbox ? (
           <p className={styles.publish_switch_title}>Опубликовать курс в каталоге</p>
