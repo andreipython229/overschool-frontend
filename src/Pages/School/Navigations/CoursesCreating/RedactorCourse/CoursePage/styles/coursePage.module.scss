@@ -3,15 +3,15 @@
 
 .loaderBox {
   display: flex;
-  justifyContent: center;
-  alignItems: center;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
 }
 
 .wrapper {
   padding: 1rem;
-  width: 100vw;
+  width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;

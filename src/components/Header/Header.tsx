@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, memo } from 'react'
 import { Link, NavLink, generatePath, useLocation, useNavigate } from 'react-router-dom'
-
 import { useFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { auth, logoutState, role } from 'store/redux/users/slice'
@@ -20,9 +19,8 @@ import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
-import TextField from '@mui/material/TextField'
 import Checkbox from '@mui/material/Checkbox'
-import { SvgIcon, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
+import { SvgIcon, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@mui/material'
 import { ChatI, SenderI, UserInformAppealsI, UserInformI } from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from '../../store/redux/chats/chatsSlice'
@@ -52,6 +50,8 @@ import { useFetchCoursesQuery } from 'api/coursesServices'
 import { CoursesDataT } from 'types/CoursesT'
 import { Button } from 'components/common/Button/Button'
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
+import { useAcceptBannerMutation, useLazyGetStudentBannerQuery } from 'api/schoolBonusService'
+import { useBoolean } from 'customHooks'
 
 type WebSocketHeaders = {
   [key: string]: string | string[] | number
@@ -61,6 +61,8 @@ export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
   const dispatch = useAppDispatch()
   const dispatchRole = useDispatch()
+  const [getBanner, { data: banner }] = useLazyGetStudentBannerQuery()
+  const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(false)
   const { role: userRole, authState, userId } = useAppSelector(selectUser)
   const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
   const schoolNameR = useAppSelector(state => state.school.schoolName)
@@ -112,6 +114,7 @@ export const Header = memo(() => {
   const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupQuery(schoolName)
   const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
   const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null)
+  const [acceptBanner] = useAcceptBannerMutation()
 
   const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
   const [showTgMessageForm, setShowTgMessageForm] = useState(false)
@@ -144,6 +147,14 @@ export const Header = memo(() => {
     })
   }
 
+  const handleCloseBanner = () => {
+    if (userRole === RoleE.Student && banner) {
+      acceptBanner({ id: banner.id, schoolName: schoolName })
+        .unwrap()
+        .then(() => closeBanner())
+    }
+  }
+
   useEffect(() => {
     if (isError && 'originalStatus' in error && error.originalStatus === 401) {
       logOut()
@@ -159,12 +170,20 @@ export const Header = memo(() => {
   useEffect(() => {
     if (userRole === RoleE.Admin) {
       fetchCurrentTarrif(schoolName)
+    } else if (userRole === RoleE.Student) {
+      getBanner(schoolName)
     }
   }, [schoolName])
 
   useEffect(() => {
     profileIsSuccess && setProfileData(profile[0])
   }, [profile])
+
+  useEffect(() => {
+    if (banner && !banner.is_accepted_by_user) {
+      openBanner()
+    }
+  }, [banner, getBanner])
 
   useEffect(() => {
     if (
@@ -219,10 +238,9 @@ export const Header = memo(() => {
   }, [profileIsSuccess])
 
   const connectWebSocket = () => {
-    if (informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) {
-
-      informSocketRef.current = new w3cwebsocket(`ws://sandbox.overschool.by/ws/info/${schoolName || ''}?user_id=${userId}`)
-      // informSocketRef.current = new w3cwebsocket(`wss://apidev.overschool.by/ws/info/${schoolName || ''}?user_id=${userId}`)
+    if ((informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) && userId) {
+      informSocketRef.current = new w3cwebsocket(`ws://sandbox.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`)
+      // informSocketRef.current = new w3cwebsocket(`wss://apidev.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`)
       // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}?user_id=${userId}`)
 
       informSocketRef.current.onmessage = event => {
@@ -398,11 +416,45 @@ export const Header = memo(() => {
         duration: 0.5,
       }}
     >
+      {banner && (
+        <Dialog open={showBanner} onClose={closeBanner} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+          <DialogTitle sx={{ minWidth: 600 }} id="alert-dialog-title">
+            {banner.title}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText sx={{ marginBottom: '1rem' }} id="alert-dialog-description">
+              {banner.description}
+            </DialogContentText>
+            <a href={banner.link} target="_blank" rel="noreferrer">
+              <Button text={'Перейти по ссылке'} />
+            </a>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={handleCloseBanner}
+              autoFocus
+              text={banner.is_accepted_by_user ? 'Закрыть' : 'Подтвердить и закрыть'}
+              variant={'primary'}
+            />
+          </DialogActions>
+        </Dialog>
+      )}
+
       <NavLink to={userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}>
         <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
       </NavLink>
-      {!currentTariff && tariffSuccess && (
-        <p style={{ margin: '0 8%', color: 'red', marginTop: '8px', fontSize: '15px', fontWeight: '600', textAlign: 'center' }}>
+      {currentTariff && !currentTariff.days_left && tariffSuccess && (
+        <p
+          style={{
+            margin: '0 8%',
+            color: '#C02020',
+            marginTop: '8px',
+            fontSize: '15px',
+            fontWeight: '600',
+            textAlign: 'center',
+            fontFamily: '"Inter", sans-serif',
+          }}
+        >
           Время действия тарифного плана истекло. Ученики и учителя не имеют доступа к школе, необходимо активировать тарифный план. Для активации
           тарифного плана нажмите <a href={generatePath(Path.School + Path.TariffPlans, { school_name: schoolName })}>здесь</a>
         </p>

@@ -24,8 +24,9 @@ export const Input: FC<InputPropsT> = memo(props => {
         {children}
         <input
           {...rest}
+          className={styles.input_input}
           ref={inputRef}
-          required={!required? required: true}
+          required={!required ? required : true}
           id={id}
           name={name}
           type={type}

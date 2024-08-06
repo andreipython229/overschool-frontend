@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useFormik } from 'formik'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
 import { useAppDispatch } from '../../store/hooks'
-import {auth, authState, id, role, userName} from 'store/redux/users/slice'
-import {useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery} from '../../api/userLoginService'
+import { auth, authState, id, role, userName } from 'store/redux/users/slice'
+import { useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery } from '../../api/userLoginService'
 import { Input } from 'components/common/Input/Input/Input'
 import { isSecurity, unSecurity } from '../../assets/img/common'
 import { useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailCodeMutation } from 'api/forgotPassword'
@@ -14,13 +14,13 @@ import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
 import { Path } from '../../enum/pathE'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import styles from './loginPage.module.scss'
-import {setSchoolName} from "../../store/redux/school/schoolSlice";
-import {setSchoolId} from "../../store/redux/school/schoolIdSlice";
-import {setHeaderId} from "../../store/redux/school/headerIdSlice";
-import {RoleE} from "../../enum/roleE";
-import {SchoolT} from "../ChooseSchool/ChooseSchool";
-import {useFetchConfiguredDomainsQuery} from "../../api/DomainService";
-import {useGetSchoolsMutation} from "../../api/getSchoolService";
+import { setSchoolName } from '../../store/redux/school/schoolSlice'
+import { setSchoolId } from '../../store/redux/school/schoolIdSlice'
+import { setHeaderId } from '../../store/redux/school/headerIdSlice'
+import { RoleE } from '../../enum/roleE'
+import { SchoolT } from '../ChooseSchool/ChooseSchool'
+import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
+import { useGetSchoolsMutation } from '../../api/getSchoolService'
 
 interface INotification {
   state: boolean
@@ -35,7 +35,7 @@ type LoginModalPropsT = {
 }
 
 export const LoginPage = () => {
-  const DefaultDomains = ['localhost', 'overschool.by', 'sandbox.overschool.by'];
+  const DefaultDomains = ['localhost', 'overschool.by', 'sandbox.overschool.by']
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const toast = useRef<Toast>(null)
@@ -60,7 +60,7 @@ export const LoginPage = () => {
 
   const [isShown, setIsShown] = useState(false)
   const [isHidden, setIsHidden] = useState(true)
-  const currentDomain = window.location.hostname;
+  const currentDomain = window.location.hostname
 
   const forgotPass = (event: any) => {
     event.preventDefault()
@@ -103,10 +103,13 @@ export const LoginPage = () => {
       const { email, password, phone } = formik.values
       const user = { login: phone ? phone : email, password }
       try {
-        const { access, refresh, user: userResponse } = await attemptAccess(user).unwrap()
-        dispatch(authState({ access: access, refresh: refresh }))
-        dispatch(id(userResponse.id))
-        localStorage.setItem('id', userResponse.id.toString());
+        await attemptAccess(user)
+          .unwrap()
+          .then((data) => {
+            dispatch(authState({ access: data.access, refresh: data.refresh }))
+            dispatch(id(data.user.id))
+            localStorage.setItem('id', data.user.id.toString());
+          })
       } catch {
         console.log('smth went wrong')
       }
@@ -123,50 +126,50 @@ export const LoginPage = () => {
     roleValue && dispatch(role(+roleValue))
   }
 
- useEffect(() => {
-  if (isSuccess) {
-    getUserInfo()
-      .unwrap()
-      .then(resp => {
-        dispatch(auth(true));
-        dispatch(userName(resp[0]?.username));
-        dispatch(id(resp[0]?.id));
-        if (DefaultDomains.includes(currentDomain)) {
-          navigate(generatePath(Path.ChooseSchool));
-        } else {
-          if (DomainSuccess && DomainData) {
-            const currentDomainData = DomainData.find(domain => domain.domain_name === currentDomain);
-            if (currentDomainData) {
-              const currentSchoolId = currentDomainData.school;
-              dispatch(role(RoleE.Unknown));
-              getSchools()
-                .unwrap()
-                .then((data: SchoolT[]) => {
-                  const school = data.find(school => school.school_id === currentSchoolId);
-                  if (school) {
-                    handleSchool(school);
-                    navigate(Path.School + Path.Courses);
-                  }
-                }).catch(err => {
-                  if (err.status === 401) {
-                    localStorage.clear();
-                    logout();
-                    dispatch(auth(false));
-                    navigate(generatePath(Path.InitialPage));
-                  }
-                });
-            } else {
-              console.error('No current domain data found.');
-            }
+  useEffect(() => {
+    if (isSuccess) {
+      getUserInfo()
+        .unwrap()
+        .then(resp => {
+          dispatch(auth(true))
+          dispatch(userName(resp[0]?.username))
+          // dispatch(id(resp[0]?.id))
+          if (DefaultDomains.includes(currentDomain)) {
+            navigate(generatePath(Path.ChooseSchool))
           } else {
-            console.error('DomainData is not available.');
+            if (DomainSuccess && DomainData) {
+              const currentDomainData = DomainData.find(domain => domain.domain_name === currentDomain)
+              if (currentDomainData) {
+                const currentSchoolId = currentDomainData.school
+                dispatch(role(RoleE.Unknown))
+                getSchools()
+                  .unwrap()
+                  .then((data: SchoolT[]) => {
+                    const school = data.find(school => school.school_id === currentSchoolId)
+                    if (school) {
+                      handleSchool(school)
+                      navigate(Path.School + Path.Courses)
+                    }
+                  })
+                  .catch(err => {
+                    if (err.status === 401) {
+                      localStorage.clear()
+                      logout()
+                      dispatch(auth(false))
+                      navigate(generatePath(Path.InitialPage))
+                    }
+                  })
+              } else {
+                console.error('No current domain data found.')
+              }
+            } else {
+              console.error('DomainData is not available.')
+            }
           }
-        }
-      })
-      .catch(() => console.log('Error fetching user data'));
-  }
-}, [isSuccess, isLoading]);
-
+        })
+        .catch(() => console.log('Error fetching user data'))
+    }
+  }, [isSuccess, isLoading])
 
   //   const handleClose = () => {
   // //     setShowModal(false)

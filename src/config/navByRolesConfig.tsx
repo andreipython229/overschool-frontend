@@ -19,7 +19,7 @@ import { RedactorCourse } from 'Pages/School/Navigations/CoursesCreating/Redacto
 import { Constructor } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/Constructor'
 import { SettingCourse } from 'Pages/School/Navigations/CoursesCreating/SettingCourse/SettingCourse'
 import { StudentsStats } from 'Pages/School/StudentsStats/StudentsStats'
-import { CoursePageConstruct } from  'Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/CoursePage'
+import { CoursePageConstruct } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/CoursePage'
 import { Comments } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Comments/Comments'
 import { Profile } from 'Pages/Profile/Profile'
 import { Settings } from 'Pages/Settings/Settings'
@@ -27,13 +27,15 @@ import { Group } from '../Pages/Group'
 import { Passport } from 'Pages/Settings/Passport'
 import { SchoolAppeals } from 'Pages/SchoolAppeals'
 import { PaymentMethods } from 'Pages/Settings/PaymentMethods'
-import {SchoolMeetings} from "../components/Meetings";
-import StudentSchoolMeeting from "../components/StudentsMeetings";
+import { SchoolMeetings } from '../components/Meetings'
+import StudentSchoolMeeting from '../components/StudentsMeetings'
 import { Materials } from 'Pages/School/Navigations/CoursesCreating/MaterialsPage'
 import { CourseMaterials } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CourseMaterials/CourseMaterials'
-import {DomainSettings} from "../Pages/Settings/Domain";
-import {Bonuses} from "Pages/Settings/Bonuses/Bonuses";
+import { DomainSettings } from '../Pages/Settings/Domain'
+import { Bonuses } from 'Pages/Settings/Bonuses/Bonuses'
 import { EmailNewsLetter } from 'Pages/Settings/EmailNewsLetter'
+import { NotificationBanner } from 'Pages/Settings/NotificationBannerSettings'
+import {Rating} from "Pages/Rating";
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -66,7 +68,8 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       </Route>
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
-        <Route path={Path.Meetings} element={<StudentSchoolMeeting />} />
+      <Route path={Path.Meetings} element={<StudentSchoolMeeting />} />
+      <Route path={Path.Rating} element={<Rating/>} />
     </>
   ),
   [RoleE.Admin]: (
@@ -96,12 +99,14 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.DomainSettings} element={<DomainSettings />} />
         <Route path={SettingsPath.Bonuses} element={<Bonuses />} />
         <Route path={SettingsPath.EmailNewsLetter} element={<EmailNewsLetter />} />
+        <Route path={SettingsPath.Banner} element={<NotificationBanner />} />
       </Route>
       <Route path={Path.HomeWork} element={<HomeWork />} />
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
       <Route path={Path.Appeals} element={<SchoolAppeals />} />
       <Route path={Path.Meetings} element={<SchoolMeetings />} />
+      <Route path={Path.Rating} element={<Rating/>} />
     </>
   ),
   [RoleE.Teacher]: (
@@ -111,8 +116,8 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.HomeWork} element={<HomeWork />} />
       <Route path={Path.CourseStats} element={<CoursesStats />} />
       <Route path={Path.Courses} element={<School />}>
-      <Route index element={<Materials />} />
-      <Route path={Path.CreateCourse} element={<RedactorCourse />}>
+        <Route index element={<Materials />} />
+        <Route path={Path.CreateCourse} element={<RedactorCourse />}>
           <Route index element={<Navigate to={CreateCoursePath.Materials} />} />
           <Route path={CreateCoursePath.Materials} element={<CourseMaterials />} />
         </Route>
