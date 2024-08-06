@@ -75,10 +75,17 @@ export const schoolBonusService = createApi({
         method: 'DELETE',
       }),
     }),
+    acceptBanner: build.mutation<IBanner, { id: string | number; schoolName: string }>({
+      query: args => ({
+        url: `/${args.schoolName}/banners/${args.id}/accept/`,
+        method: 'POST',
+      }),
+    }),
   }),
 })
 
 export const {
+  useAcceptBannerMutation,
   useDeleteBannerMutation,
   useCreateNewBannerMutation,
   useUpdateSchoolBannerMutation,

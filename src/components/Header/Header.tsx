@@ -19,7 +19,6 @@ import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
-import TextField from '@mui/material/TextField'
 import Checkbox from '@mui/material/Checkbox'
 import { SvgIcon, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@mui/material'
 import { ChatI, SenderI, UserInformAppealsI, UserInformI } from 'types/chatsT'
@@ -51,7 +50,7 @@ import { useFetchCoursesQuery } from 'api/coursesServices'
 import { CoursesDataT } from 'types/CoursesT'
 import { Button } from 'components/common/Button/Button'
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
-import { useLazyGetStudentBannerQuery } from 'api/schoolBonusService'
+import { useAcceptBannerMutation, useLazyGetStudentBannerQuery } from 'api/schoolBonusService'
 import { useBoolean } from 'customHooks'
 
 type WebSocketHeaders = {
@@ -115,6 +114,7 @@ export const Header = memo(() => {
   const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupQuery(schoolName)
   const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
   const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null)
+  const [acceptBanner] = useAcceptBannerMutation()
 
   const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
   const [showTgMessageForm, setShowTgMessageForm] = useState(false)
@@ -147,6 +147,14 @@ export const Header = memo(() => {
     })
   }
 
+  const handleCloseBanner = () => {
+    if (userRole === RoleE.Student && banner) {
+      acceptBanner({ id: banner.id, schoolName: schoolName })
+        .unwrap()
+        .then(() => closeBanner())
+    }
+  }
+
   useEffect(() => {
     if (isError && 'originalStatus' in error && error.originalStatus === 401) {
       logOut()
@@ -172,7 +180,7 @@ export const Header = memo(() => {
   }, [profile])
 
   useEffect(() => {
-    if (banner) {
+    if (banner && !banner.is_accepted_by_user) {
       openBanner()
     }
   }, [banner, getBanner])
@@ -422,7 +430,12 @@ export const Header = memo(() => {
             </a>
           </DialogContent>
           <DialogActions>
-            <Button onClick={closeBanner} autoFocus text={banner.is_accepted_by_user ? 'Закрыть' : 'Подтвердить и закрыть'} variant={'primary'} />
+            <Button
+              onClick={handleCloseBanner}
+              autoFocus
+              text={banner.is_accepted_by_user ? 'Закрыть' : 'Подтвердить и закрыть'}
+              variant={'primary'}
+            />
           </DialogActions>
         </Dialog>
       )}
