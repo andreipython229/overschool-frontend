@@ -108,6 +108,7 @@ export type RadioPropsT = {
   title: string
   id: string | any
   func?: (arg: string) => void
+  width?: string
 }
 
 export type SelectInputPropsT = {
