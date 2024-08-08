@@ -5,6 +5,7 @@ import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import {crossIconPath} from 'config/commonSvgIconsPath'
 import {Checkbox} from 'components/common/Checkbox/Checkbox'
 import {Button} from 'components/common/Button/Button'
+import { useFetchAllUsersQuery } from 'api/allUsersList'
 import {useFetchCoursesGroupsQuery} from "api/coursesServices";
 import {SimpleLoader} from 'components/Loaders/SimpleLoader'
 
@@ -28,23 +29,40 @@ type teacherGroupT = {
 export const ReviewTeacherGroups: FC<reviewTeacherGroupsT> = ({closeModal, name, email, id}) => {
     const schoolName = window.location.href.split('/')[4]
     const {data: courses, isSuccess, isFetching} = useFetchCoursesGroupsQuery(schoolName)
+    const {data: allUsers, isSuccess: userSuccess} = useFetchAllUsersQuery({ schoolName: schoolName, role: 'staff', size: 100 })
     const [groups, setGroups] = useState<teacherGroupT[]>()
+    const [allTeachers, setAllTeachers] = useState<any>([])
 
 
     useEffect(() => {
         if (isSuccess) {
             const updatedCourses = courses.map(course => ({
                 ...course,
+                teacher_ids: course.student_groups.map(group => group.teacher_id),
                 student_groups: course.student_groups.filter(group => (group.teacher_id === id))
             }))
-            const teacherCourses = updatedCourses.filter(course => (course.student_groups.length !== 0))
+            const teacherCourses = updatedCourses.filter(course => (course.student_groups.length !== 0)).map(course => ({
+                ...course,
+                available_teachers: allTeachers?.filter((teacher: any) => {
+                    return !new Set(course.teacher_ids).has(teacher.id)
+                })
+            }))
+
             setGroups(teacherCourses.map(course => ({
                 course_id: course.course_id,
                 course_name: course.name,
-                name: course.student_groups[0].name
+                name: course.student_groups[0].name,
+                available_teachers: course.available_teachers
             })))
         }
-    }, [courses])
+    }, [courses, allTeachers])
+
+    useEffect(() => {
+      if (userSuccess) {
+        const allTeachers = allUsers.results.filter((user: any) => user.role === 'Teacher')
+        setAllTeachers(allTeachers)
+      }
+    }, [allUsers])
 
     return (
         <form /*onSubmit={handleCreatEmployee}*/ className={styles.main_employee}>
