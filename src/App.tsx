@@ -34,6 +34,7 @@ import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
 import { HelpChat } from './Pages/HelpCenter/HelpChat'
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
 import DomainError from './Pages/DomainAccessDenied/DomainError'
+import RouteHandler from "./components/RouteHandler/RouteHandler";
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -77,6 +78,13 @@ export const App = () => {
   }, [])
 
   useEffect(() => {
+    const savedPath = localStorage.getItem('savedPath');
+
+  // Если есть сохранённый путь, то останавливаем выполнение useEffect, навигация происходит в компоненте RouteHandler
+    if (savedPath) {
+    localStorage.removeItem('savedPath'); // Удаление пути после навигации
+    return;
+  }
     if (pathname === Path.InitialPage) {
       const queryParams = Object.keys(utmParams)
         .filter(([_, value]) => value !== 'undefined')
@@ -129,6 +137,7 @@ export const App = () => {
 
   return (
     <div className={styles.container}>
+      <RouteHandler/>
       <Routes>
         <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />
