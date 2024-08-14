@@ -79,10 +79,16 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
       </Dialog>
       <img src={HubImage} className={styles.image} />
       <div className={styles.wrapper_content}>
-        {isEditing && (
+        {isEditing ? (
           <div style={{ display: 'flex', gap: '10px' }}>
             <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
-            <span style={{ fontWeight: '500' }}>{isActive ? 'Банер включен' : 'Выключен'}</span>
+            <span style={{ fontWeight: '500' }}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <span style={{ fontWeight: '500' }}>
+              {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер неактивен</p>}
+            </span>
           </div>
         )}
         {!isEditing ? (
@@ -121,35 +127,72 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             <div className={styles.wrapper_content_groups}>
               <span style={{ fontWeight: '500' }}>Группы в которых отображается этот баннер при входе на платформу:</span>
               <div style={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'column' }}>
-                {groups.results.map(
+                {/* {groups.results.map(
                   grp =>
                     activeGroups.includes(Number(grp.group_id)) && (
                       <span style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem', flexBasis: 20 }}>{grp.name}</span>
                     ),
-                )}
+                )} */}
+                {Object.entries(
+                  groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
+                    const courseName = group.course_name
+                    if (courseName) {
+                      if (!acc[courseName]) {
+                        acc[courseName] = []
+                      }
+                      acc[courseName].push(group)
+                    }
+                    return acc
+                  }, {}),
+                ).map(([courseName, groups]) => (
+                  <div key={courseName} style={{ marginBlockStart: '8px' }}>
+                    <b>{courseName}</b>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                      {groups.map((group, index) => (
+                        <span key={group.group_id} style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem' }}>
+                          {group.name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           ) : (
             <div className={styles.wrapper_content_groups}>
               <span style={{ fontWeight: '500' }}>Группы в которых будет отображен этот баннер:</span>
-              {groups.results.map(group => (
-                <div className={styles.wrapper_content_groups_item} key={group.group_id}>
-                  <Checkbox
-                    style={{
-                      color: '#ba75ff',
-                    }}
-                    checked={isCheckedFunc(group.group_id as number, activeGroups)}
-                    onChange={e => {
-                      const isChecked = e.target.checked
-                      if (!isChecked) {
-                        setActiveGroups(prevGrps => prevGrps.filter(grp => grp !== Number(group.group_id)))
-                      } else {
-                        setActiveGroups(prevGrps => prevGrps.concat(Number(group.group_id)))
-                      }
-                    }}
-                  />
-                  {group.name}
-                  <span> (Кол-во студентов: {group.students.length})</span>
+              {Object.entries(
+                groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
+                  const courseName = group.course_name
+                  if (courseName) {
+                    if (!acc[courseName]) {
+                      acc[courseName] = []
+                    }
+                    acc[courseName].push(group)
+                  }
+                  return acc
+                }, {}),
+              ).map(([courseName, groups]) => (
+                <div key={courseName} style={{ marginBlockStart: '3px' }}>
+                  <b>{courseName}</b>
+                  {groups.map((group, index) => (
+                    <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
+                      <Checkbox
+                        style={{ color: '#ba75ff' }}
+                        checked={isCheckedFunc(group.group_id as number, activeGroups)}
+                        onChange={e => {
+                          const isChecked = e.target.checked
+                          if (!isChecked) {
+                            setActiveGroups(prevGrps => prevGrps.filter(grp => grp !== Number(group.group_id)))
+                          } else {
+                            setActiveGroups(prevGrps => prevGrps.concat(Number(group.group_id)))
+                          }
+                        }}
+                      />
+                      {group.name}
+                      <span> (Кол-во студентов: {group.students.length})</span>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>

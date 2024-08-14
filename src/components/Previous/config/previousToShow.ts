@@ -29,6 +29,7 @@ export const previousToShow = [
   { path: SettingsPath.PaymentMethods, Component: GlobalPrevious },
   { path: SettingsPath.Bonuses, Component: GlobalPrevious },
   { path: SettingsPath.EmailNewsLetter, Component: GlobalPrevious },
+  { path: SettingsPath.Banner, Component: GlobalPrevious },
   { path: Path.Appeals, Component: GlobalPrevious },
   { path: objOfPathes.HomeWork, Component: GlobalPrevious },
   { path: objOfPathes.CourseStats, Component: GlobalPrevious },
