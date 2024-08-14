@@ -407,6 +407,24 @@
       font-size: 14px;
     }
   }
+
+  &_change {
+    margin-bottom: 12px;
+
+    &_button {
+      @include font(400, 12px);
+      margin: 0 auto;
+    }
+
+    &_checkbox {
+      @include display(flex, row, flex-start, center);
+      margin-bottom: 6px;
+      margin-left: 10px;
+      color: $font-title;
+      font-size: 12px;
+      width: fit-content;
+    }
+  }
 }
 
 .inputs_block {
