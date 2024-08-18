@@ -92,6 +92,7 @@ export const {
   useLazyFetchCoursesQuery,
   useFetchCoursesQuery,
   useFetchCoursesGroupsQuery,
+  useLazyFetchCoursesGroupsQuery,
   useFetchCourseQuery,
   useLazyFetchCourseQuery,
   useCreateCoursesMutation,
