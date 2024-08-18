@@ -32,6 +32,7 @@ export const CourseMaterials: FC = () => {
     const { data: modulesAndLessons } = useFetchModulesQuery({id: courseId as string, schoolName});
     const [fetchLesson, { data, isFetching, isSuccess }] = useLazyFetchLessonQuery();
     const [lesson, setLesson] = useState(data as commonLessonT)
+    
 
   useEffect(() => {
     const fetchInitialLesson = async () => {
@@ -63,7 +64,7 @@ export const CourseMaterials: FC = () => {
             console.error("No data returned for the lesson");
           }
         } else {
-          const resp = await fetchLesson({id: lessonIdAndType.id, type: lessonIdAndType.type, schoolName: schoolName });
+          const resp = await fetchLesson({id: lessonIdAndType.id, type: lessonIdAndType.type, schoolName: schoolName, courseId: courseId });
           if (resp.data) {
             setLesson(resp.data);
           } else {

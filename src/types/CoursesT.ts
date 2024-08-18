@@ -17,12 +17,15 @@ export type CoursesDataT = {
   author_id: number
   public: string
   school: number
+  is_copy: boolean
+  is_access: boolean
   is_catalog: boolean
   is_direct: boolean
   baselessons_count?: number
   limit?: number
   remaining_period?: number
   certificate?: boolean
+  course_removed?: Date
   folder: {
     id: number
     name: string

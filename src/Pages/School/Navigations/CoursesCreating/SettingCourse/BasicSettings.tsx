@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { Input } from '../../../../../components/common/Input/Input/Input'
-import { useDeleteCoursesMutation, useFetchCourseFoldersQuery, usePatchCoursesMutation, useCloneCourseMutation } from '../../../../../api/coursesServices'
+import { useDeleteCoursesMutation, useFetchCourseFoldersQuery, usePatchCoursesMutation, useCloneCourseMutation, useDeleteCourseCopyAccessMutation, useLazyFetchCourseCopyOwnersQuery, useLazyFetchCourseQuery } from '../../../../../api/coursesServices'
 import { formDataConverter } from '../../../../../utils/formDataConverter'
 import { CheckboxBall } from '../../../../../components/common/CheckboxBall'
 
@@ -12,7 +12,7 @@ import { Button } from '../../../../../components/common/Button/Button'
 import { Path } from '../../../../../enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { SimpleLoader } from '../../../../../components/Loaders/SimpleLoader'
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Checkbox, FormControlLabel } from '@mui/material'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { Toast } from 'primereact/toast'
@@ -45,7 +45,10 @@ export const BasicSettings: FC<BasicSettingsT> = ({
   const [nameCourse, setNameCourse] = useState<string>(courseFind?.name || '')
   const [shortDescription, setShortDescription] = useState<string>(courseFind?.description || '')
   const [deleteCourses, { isSuccess: isSuccessDelete }] = useDeleteCoursesMutation()
+  const [fetchCourse, fetchingCourse] = useLazyFetchCourseQuery()
   const [cloneCourse, { isLoading: isCloning, isSuccess: isCloned, error: cloneError }] = useCloneCourseMutation();
+  const [deleteCourseAccess] = useDeleteCourseCopyAccessMutation()
+  const [fetchCourseCopyOwners, { data: owners }] = useLazyFetchCourseCopyOwnersQuery();
   const [alertOpen, setAlertOpen] = useState<boolean>(false)
   const schoolName = window.location.href.split('/')[4]
   const [copy, { onToggle: toggleCopy }] = useBoolean(false)
@@ -76,37 +79,84 @@ export const BasicSettings: FC<BasicSettingsT> = ({
     setRevokeAccessOpen(false);
   };
 
+  const handleRestoreAccess = async () => {
+    const id = courseFind?.course_id
+    const updateCurse = {
+      course_removed: null
+    }
+    const formdata = formDataConverter(updateCurse)
+    const response = await update({ arg: { formdata, id }, schoolName })
+    if ('data' in response && response.data.status === 200) {
+      window.location.reload()
+    }
+    
+  }
+
   const handleSendEmail = async () => {
     if (email) {
-      await cloneCourse({ id: courseFind?.course_id, schoolName, userEmail: email });
-    }
-    if (!cloneError) {
-      toast.current?.show({
-        severity: 'success',
-        summary: 'Успешно',
-        detail: `Вы успешно поделились курсом с ${email}`,
-        life: 5000,
-      });
+      try {
+        await cloneCourse({ id: courseFind?.course_id, schoolName, userEmail: email }).unwrap();
+        toast.current?.show({
+          severity: 'success',
+          summary: 'Успешно',
+          detail: `Вы успешно поделились курсом с ${email}`,
+          life: 5000,
+        });
+        const response = await fetchCourseCopyOwners({ courseName: courseFind.name, id: courseFind.course_id, schoolName: schoolName });        
+        const newEmails = response.data.map((email: { email: string }) => email.email);
+        setEmailsWithAccess(prevEmails => [
+          ...new Set([...prevEmails, ...newEmails])
+        ]);
+      } catch (error) {
+        const errorResponse = error as { data?: { detail?: string } }; 
+        const errorMessage = errorResponse?.data?.detail || 'Произошла ошибка при выполнении запроса';
+        toast.current?.show({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail: errorMessage,
+          life: 5000,
+        });
+      }
     }
   }
 
-  const handleRevokeAccess = () => {
-    toast.current?.show({
-      severity: 'info',
-      summary: 'Доступ отозван',
-      detail: `Вы успешно отозвали доступ к курсу у ${email}`,
-      life: 5000,
-    });
+  const handleRevokeAccess = async () => {
+    if (selectedEmails.length > 0) {
+      try {
+        await deleteCourseAccess({ emails: selectedEmails, courseName: courseFind.name, id: courseFind.course_id, schoolName: schoolName })
+        toast.current?.show({
+          severity: 'info',
+          summary: 'Доступ отозван',
+          detail: `Вы успешно отозвали доступ к курсу у выбранных пользователей`,
+          life: 5000,
+        })
+        setEmailsWithAccess(prevEmails => prevEmails.filter(email => !selectedEmails.includes(email)))
+        handleCloseRevokeAccess()
+      } catch (error) {
+        console.error('Ошибка при отзыве доступа:', error)
+        toast.current?.show({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail: 'Произошла ошибка при удалении доступа',
+          life: 5000,
+        })
+      }
+    }
   }
 
-  const handleRevokeAccessAll = () => {
-    toast.current?.show({
-      severity: 'info',
-      summary: 'Доступ отозван',
-      detail: `Вы успешно отозвали доступ к курсу у всех владельцев`,
-      life: 5000,
-    });
-  }
+  useEffect(() => {
+    const fetchOwnersData = async () => {
+      if (courseFind?.name, courseFind.course_id, schoolName) {
+        const response = await fetchCourseCopyOwners({ courseName: courseFind.name, id: courseFind.course_id, schoolName: schoolName });
+        const newEmails = response.data.map((email: { email: string }) => email.email);
+        setEmailsWithAccess(prevEmails => [
+          ...new Set([...prevEmails, ...newEmails])
+        ]);
+      }
+    };
+  
+    fetchOwnersData();
+  }, [courseFind?.name]);
 
   useEffect(() => {
     if (!selectedFolder && courseFind && courseFind.folder && courseFind.folder.id) {
@@ -139,6 +189,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({
   const handleDeleteCourse = async () => {
     courseFind && (await deleteCourses({ id: +courseFind?.course_id, schoolName }))
     setAlertOpen(false)
+    window.location.reload()
   }
 
   const handleSaveChanges = async () => {
@@ -222,12 +273,20 @@ export const BasicSettings: FC<BasicSettingsT> = ({
           </DialogContentText>
           <div>
             {emailsWithAccess.map(email => (
-              <div key={email}>
-                <CheckboxBall
-                  isChecked={selectedEmails.includes(email)}
-                  toggleChecked={() => handleEmailSelectionChange(email)}
+              <div key={email} style={{ marginBlockStart: '2px' }}>
+                <FormControlLabel
+                  key={email}
+                  control={
+                    <Checkbox
+                      style={{
+                        color: '#ba75ff',
+                      }}
+                      checked={selectedEmails.includes(email)}
+                      onChange={() => handleEmailSelectionChange(email)}
+                    />
+                  }
+                  label={email}
                 />
-                <span>{email}</span>
               </div>
             ))}
           </div>
@@ -302,14 +361,19 @@ export const BasicSettings: FC<BasicSettingsT> = ({
           text={isLoading ? <SimpleLoader style={{ height: '1em', width: '11em', color: 'white', zIndex: '100' }} /> : 'Применить изменения'}
           variant={'primary'}
         />
-        <Button onClick={handleOpenAlert} text={'Удалить курс'} variant={'delete'} />
+      {courseFind.course_removed ? (
+          <Button onClick={handleRestoreAccess} text={'Восстановить курс'} />
+        ) : (
+          <Button onClick={handleOpenAlert} text={'Удалить курс'} variant={'delete'} />
+        )}
       </div>
       <Dialog open={alertOpen} onClose={handleCloseAlert} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{`Вы действительно хотите удалить курс "${courseFind.name}"?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Это действие безвозвратно удалит курс, если вы не уверены, что хотите удалять курс {`"${courseFind.name}"`}, то нажмите {'отмена'}. Если
-            вы уверены, что хотите продолжить, нажмите {'удалить'}.
+            Этот курс будет перемещен в корзину и останется там на протяжении недели. Вы сможете его восстановить в течение этого времени.
+            Если вы не восстановите курс, он будет удален навсегда.
+            Если вы уверены, что хотите удалить курс {`"${courseFind.name}"`}, нажмите {'удалить'}. В противном случае нажмите {'отмена'}.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

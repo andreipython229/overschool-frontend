@@ -36,14 +36,17 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
 
   const onStudentClick = () => {
     localStorage.setItem('course_id', '' + course?.course_id)
-    course?.public !== 'О' && onToggle()
+    localStorage.setItem('course_copy', '' + course?.is_copy)
+    if (course?.public !== 'O') {
+      onToggle()
+    }
   }
 
   if (isLoading || isError) {
     return <SimpleLoader style={{ width: '100px', height: '100px' }} />
   }
 
-  if (role === RoleE.Teacher && !course.is_catalog) {
+  if (role === RoleE.Teacher && course.public !== 'O') {
     return null
   }
 
@@ -51,8 +54,9 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
     <>
       {role === RoleE.Admin ? (
       <>
-        {(((course.course_id === 247) && userId === '154') || (course.course_id !== 247)) ? (
+        {(((course.course_id === 247) && userId === '154') || ((course.course_id !== 247) && (course.is_copy === false))) ? (
               <Link
+                onClick={onStudentClick}
                 to={generatePath(Path.CreateCourse, {
                   course_id: `${course?.course_id}`,
                 })}
@@ -91,6 +95,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     <h5>{course.name}</h5>
                     <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
                     <Link
+                      onClick={onStudentClick}
                       to={generatePath(Path.CreateCourse + 'student', {
                         course_id: `${course?.course_id}`,
                       })}
@@ -98,6 +103,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     <Button className={styles.btn_admin} text={'Ученики курса'} />
                     </Link>
                     <Link
+                      onClick={onStudentClick}
                       to={generatePath(Path.CreateCourse, {
                         course_id: `${course?.course_id}`,
                       })}
@@ -133,7 +139,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                   </div>
                   <div className={styles.course_card_about}>
                     <span className={styles.course_card_status_show}>
-                      {role === RoleE.Admin && (course.course_id !== 247) ? (
+                      {role === RoleE.Admin && (course.course_id !== 247) && (course.is_copy === false) ? (
                               course?.public === 'О' ? (
                                 <>
                                   <img src={Public} alt="status course" />
@@ -153,36 +159,49 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                           <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
                           {role === RoleE.Admin ? (
                       <>
-                      {course.course_id === 247 && userId !== '154' ? (
+                      {(course.course_id === 247 && userId !== '154') ? (
                         <Link
-                              to={generatePath(Path.CourseMaterials, {
-                                course_id: `${course?.course_id}`,
-                              })}
-                            >
-                              <Button className={styles.btn_admin} style={{ marginTop: '55px' }} text={'Ознакомиться'} />
+                          onClick={onStudentClick}
+                          to={generatePath(Path.CourseMaterials, {
+                            course_id: `${course?.course_id}`,
+                          })}
+                        >
+                          <Button className={styles.btn_admin} style={{ marginTop: '55px' }} text={'Ознакомиться'} />
                         </Link>
+                      ) : course.is_copy === true ? (
+                        <div style={{ marginTop: '15px' }}>
+                          <Link
+                            onClick={onStudentClick}
+                            to={generatePath(Path.CreateCourse + 'student', {
+                              course_id: `${course?.course_id}`,
+                            })}
+                          >
+                            <Button className={styles.btn_admin} text={'Ученики курса'} />
+                          </Link>
+                          <Link
+                            onClick={onStudentClick}
+                            to={generatePath(Path.CourseMaterials, {
+                              course_id: `${course?.course_id}`,
+                            })}
+                          >
+                            <Button className={styles.btn_admin} text={'Материалы'} />
+                          </Link>
+                        </ div>
                       ) : (
-                              <>
-                                <Link
-                                  to={generatePath(Path.CreateCourse + 'student', {
-                                    course_id: `${course?.course_id}`,
-                                  })}
-                                >
-                                  <Button className={styles.btn_admin} text={'Ученики курса'} />
-                                </Link>
-                                <Link
-                                  to={generatePath(Path.CreateCourse, {
-                                    course_id: `${course?.course_id}`,
-                                  })}
-                                >
-                                  <Button className={styles.btn_admin} text={'Редактировать'} />
-                                </Link>
-                        </>
+                        <Link
+                          onClick={onStudentClick}
+                          to={generatePath(Path.CourseMaterials, {
+                            course_id: `${course?.course_id}`,
+                          })}
+                        >
+                          <Button className={styles.btn_admin} text={'Материалы'} />
+                        </Link>
                       )}
                             </>
                           ) : (
                             <Link
-                              to={generatePath(Path.CreateCourse, {
+                              onClick={onStudentClick}
+                              to={generatePath(Path.CourseMaterials, {
                                 course_id: `${course?.course_id}`,
                               })}
                             >
@@ -192,63 +211,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                         </div>
                       </>
                     ) : (
-                      userProgress && (
-                        <>
-                          <div className={styles.course_card_img}>
-                            <img className={styles.course_card_img} src={course?.photo} alt="" />
-                          </div>
-                          <div className={styles.course_card_progressBar}>
-                            <span className={styles.course_card_progressBar_line}>
-                              <ProgressBar
-                                completed={userProgress.courses[0]?.completed_percent}
-                                bgColor="#ba75ff"
-                                labelSize="10px"
-                                borderRadius="0px"
-                                height="100%"
-                                customLabel=" "
-                              />
-                            </span>
-                          </div>
-                          <div className={styles.course_card_about}>
-                            <Link
-                              onClick={onStudentClick}
-                              to={
-                                course?.remaining_period === 0 || course?.public !== 'О'
-                                  ? '#'
-                                  : generatePath(Student.Course, {
-                                      course_id: `${course?.course_id}`,
-                                    })
-                              }
-                            >
-                              <div className={styles.course_card_about_progressWrapper}>
-                                <img src={pie} alt="pie" />
-                                <span className={styles.course_card_about_progressWrapper_title}>
-                            {userProgress.courses[0].completed_percent}% пройдено
-                          </span>
-                              </div>
-                              <span className={styles.course_card_status_show}> </span>
-                              <h5>{course.name}</h5>
-                              <span className={styles.course_card_about_desc}>{course?.description}</span>
-                              <div className={styles.course_card_duration}>
-                                {course.limit && <p className={styles.course_card_duration_limit}>Срок доступа: {course.limit} дн.</p>}
-                                {course?.limit &&
-                                  (course?.remaining_period ? (
-                                    <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
-                                  ) : (
-                                    <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
-                                  ))}
-                              </div>
-
-                              <Button className={styles.btn} text={'Ознакомиться с материалами'} disabled={course?.remaining_period === 0} />
-                            </Link>
-                          </div>
-                          {isOpenModal ? (
-                           <Portal closeModal={onToggle}>
-                             <LimitModal message={'Доступ к курсу временно заблокирован. Обратитесь к администратору'} setShowLimitModal={onToggle} />
-                           </Portal>
-                          ) : null}
-                        </>
-                      )
+                      <></>
                     )}
                   </>
                 </div>
@@ -340,9 +303,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     <Link
                       onClick={onStudentClick}
                       to={
-                        course?.remaining_period === 0 || course?.public !== 'О'
-                          ? '#'
-                          : generatePath(Student.Course, {
+                          generatePath(Student.Course, {
                               course_id: `${course?.course_id}`,
                             })
                       }
@@ -364,7 +325,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                           ))}
                       </div>
 
-                      <Button className={styles.btn_student} text={'Материалы'} disabled={course?.remaining_period === 0} />
+                      <Button className={styles.btn_student} text={'Ознакомиться с материалами'} disabled={course?.remaining_period === 0} />
                     </Link>
                   </div>
                   {isOpenModal ? (
