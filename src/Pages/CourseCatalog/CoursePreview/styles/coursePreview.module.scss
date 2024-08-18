@@ -156,16 +156,17 @@
 
 .previous {
   position: relative;
-  width: 1040px;
-  height: 210px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   background: #e0dced;
   border-radius: 7px;
+  z-index: 20;
+  height: auto;
+  height: auto;
 
   @media (max-width: 600px) {
     width: 100%;
-    height: 300px;
+    height: auto;
   }
 
   &_buttonAccept {
@@ -194,8 +195,11 @@
   }
 
   .background_image_course {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     border-radius: 7px;
     background-color: rgba(248, 229, 255, 0.68);
 

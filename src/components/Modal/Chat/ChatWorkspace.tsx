@@ -41,7 +41,7 @@ export const ChatWorkspace: FC = () => {
         fetchMessages(chatId)
         fetchChatData(chatId)
 
-        // socketRef.current = new w3cwebsocket(`ws://sandbox.overschool.by/ws/chats/${chatId}?user_id=${userId}`)
+        // socketRef.current = new w3cwebsocket(`ws://sandbox.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`)
         socketRef.current = new w3cwebsocket(`wss://apidev.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`)
         // socketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/chats/${chatId}?user_id=${userId}`)
         socketRef.current.onopen = () => {
