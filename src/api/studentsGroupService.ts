@@ -1,8 +1,8 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQuery } from './baseApi'
-import {studentsGroupT, studentsGroupsT, groupCourseAccessT} from '../types/studentsGroup'
-import { baseQueryWithReauth } from './baseQueryReauth';
+import { studentsGroupT, studentsGroupsT, groupCourseAccessT } from '../types/studentsGroup'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const studentsGroupService = createApi({
   reducerPath: 'studentsGroupService',
@@ -67,19 +67,19 @@ export const studentsGroupService = createApi({
       }),
       invalidatesTags: ['studentsGroup'],
     }),
-    patchGroupWithoutTeacher: build.mutation<any, { id: number; data: any; schoolName: string}>({
-            query: ({id, data, schoolName}) => ({
-                url: `/${schoolName}/students_group_no_teacher/${id}/`,
-                method: 'PATCH',
-                body: data,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }),
-            invalidatesTags: ['studentsGroup']
-        }),
-    deleteStudentFromGroup: build.mutation<any, { data: any; schoolName: string}>({
-      query: ({data, schoolName}) => ({
+    patchGroupWithoutTeacher: build.mutation<any, { id: number; data: any; schoolName: string }>({
+      query: ({ id, data, schoolName }) => ({
+        url: `/${schoolName}/students_group_no_teacher/${id}/`,
+        method: 'PATCH',
+        body: data,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      invalidatesTags: ['studentsGroup'],
+    }),
+    deleteStudentFromGroup: build.mutation<any, { data: any; schoolName: string }>({
+      query: ({ data, schoolName }) => ({
         url: `/${schoolName}/access-distribution/`,
         method: 'DELETE',
         body: data,
@@ -101,7 +101,7 @@ export const studentsGroupService = createApi({
       invalidatesTags: ['studentsGroup'],
     }),
     addGroupCourseAccess: build.mutation<any, { data: any; schoolName: string }>({
-      query: ({data, schoolName}) => ({
+      query: ({ data, schoolName }) => ({
         url: `/${schoolName}/group_course_access/`,
         method: 'POST',
         body: data,
@@ -112,31 +112,38 @@ export const studentsGroupService = createApi({
         url: `/${schoolName}/group_course_access/?group_id=${id}`,
       }),
     }),
-    deleteAllGroupCourseAccess: build.mutation<any, { id: string; schoolName: string}>({
-      query: ({id, schoolName}) => ({
+    deleteAllGroupCourseAccess: build.mutation<any, { id: string; schoolName: string }>({
+      query: ({ id, schoolName }) => ({
         url: `/${schoolName}/group_course_access/custom_destroy/?group_id=${id}`,
         method: 'DELETE',
       }),
+    }),
+    fetchStudentsGroupWithParams: build.query<studentsGroupT, { schoolName: string; params: string }>({
+      query: args => ({
+        url: `/${args.schoolName}/students_group/${args.params.length > 0 ? `?${args.params}` : ''}`,
+      }),
+      providesTags: ['studentsGroup'],
     }),
   }),
 })
 
 export const {
-    //useFetchUserCountByMonthDataQuery,
-    usePatchStudentsGroupMutation,
-    usePatchGroupWithoutTeacherMutation,
-    useFetchStudentsGroupByCourseQuery,
-    useLazyFetchStudentsGroupByCourseQuery,
-    useFetchStudentGroupQuery,
-    useLazyFetchStudentGroupQuery,
-    useFetchStudentsGroupQuery,
-    useLazyFetchStudentsGroupQuery,
-    useCreateStudentsGroupMutation,
-    useCreateGroupWithoutTeacherMutation,
-    useDeleteStudentsGroupMutation,
-    useDeleteStudentFromGroupMutation,
-    useAddGroupCourseAccessMutation,
-    useLazyFetchGroupCourseAccessQuery,
-    useDeleteAllGroupCourseAccessMutation,
-    useUpdateGroupMutation,
+  useFetchStudentsGroupWithParamsQuery,
+  //useFetchUserCountByMonthDataQuery,
+  usePatchStudentsGroupMutation,
+  usePatchGroupWithoutTeacherMutation,
+  useFetchStudentsGroupByCourseQuery,
+  useLazyFetchStudentsGroupByCourseQuery,
+  useFetchStudentGroupQuery,
+  useLazyFetchStudentGroupQuery,
+  useFetchStudentsGroupQuery,
+  useLazyFetchStudentsGroupQuery,
+  useCreateStudentsGroupMutation,
+  useCreateGroupWithoutTeacherMutation,
+  useDeleteStudentsGroupMutation,
+  useDeleteStudentFromGroupMutation,
+  useAddGroupCourseAccessMutation,
+  useLazyFetchGroupCourseAccessQuery,
+  useDeleteAllGroupCourseAccessMutation,
+  useUpdateGroupMutation,
 } = studentsGroupService

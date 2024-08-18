@@ -34,7 +34,7 @@ import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
 import { HelpChat } from './Pages/HelpCenter/HelpChat'
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
 import DomainError from './Pages/DomainAccessDenied/DomainError'
-import RouteHandler from "./components/RouteHandler/RouteHandler";
+import RouteHandler from './components/RouteHandler/RouteHandler'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -58,9 +58,13 @@ export const App = () => {
       pathname.split('/')[1] !== 'token-validate' &&
       pathname !== '/access-denied'
     ) {
-      navigate(
-        `${Path.InitialPage}?utm_source=${utmParams.utm_source}&utm_medium=${utmParams.utm_medium}&utm_campaign=${utmParams.utm_campaign}&utm_term=${utmParams.utm_term}&utm_content=${utmParams.utm_content}`,
-      )
+      if (utmParams.utm_source) {
+        navigate(
+          `${Path.InitialPage}?utm_source=${utmParams.utm_source}&utm_medium=${utmParams.utm_medium}&utm_campaign=${utmParams.utm_campaign}&utm_term=${utmParams.utm_term}&utm_content=${utmParams.utm_content}`,
+        )
+      } else {
+        navigate(Path.InitialPage)
+      }
     }
   }, [isLogin, navigate])
 
@@ -77,27 +81,28 @@ export const App = () => {
     localStorage.setItem('utmParams', JSON.stringify(params))
   }, [])
 
-  useEffect(() => {
-    const savedPath = localStorage.getItem('savedPath');
-
-  // Если есть сохранённый путь, то останавливаем выполнение useEffect, навигация происходит в компоненте RouteHandler
-    if (savedPath) {
-    localStorage.removeItem('savedPath'); // Удаление пути после навигации
-    return;
-  }
-    if (pathname === Path.InitialPage) {
-      const queryParams = Object.keys(utmParams)
-        .filter(([_, value]) => value !== 'undefined')
-        .map(key => `${key}=${utmParams[key]}`)
-        .join('&')
-      const pathWithParams = `${Path.InitialPage}${queryParams ? `?${queryParams}` : ''}`
-      navigate(pathWithParams)
-    } else if (schoolName && role !== 0 && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
-      navigate(
-        generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
-      )
-    }
-  }, [utmParams])
+  // ЗАКОММЕНТИРОВАНО НА ДОРАБОТКУ (ПЛОХО РАБОТАЕТ РОУТИНГ ЧЕРЕЗ ОБЫЧНЫЕ ССЫЛКИ)
+  // useEffect(() => {
+  //   const savedPath = localStorage.getItem('savedPath')
+  //
+  //   // Если есть сохранённый путь, то останавливаем выполнение useEffect, навигация происходит в компоненте RouteHandler
+  //   if (savedPath) {
+  //     localStorage.removeItem('savedPath') // Удаление пути после навигации
+  //     return
+  //   }
+  //   if (pathname === Path.InitialPage) {
+  //     const queryParams = Object.keys(utmParams)
+  //       .filter(([_, value]) => value !== 'undefined')
+  //       .map(key => `${key}=${utmParams[key]}`)
+  //       .join('&')
+  //     const pathWithParams = `${Path.InitialPage}${queryParams ? `?${queryParams}` : ''}`
+  //     navigate(pathWithParams)
+  //   } else if (schoolName && role !== 0 && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
+  //     navigate(
+  //       generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
+  //     )
+  //   }
+  // }, [utmParams])
 
   useEffect(() => {
     if (
@@ -137,7 +142,7 @@ export const App = () => {
 
   return (
     <div className={styles.container}>
-      <RouteHandler/>
+      {/* <RouteHandler /> */}
       <Routes>
         <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />

@@ -45,7 +45,7 @@ import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice
 import { useFetchNotificationsQuery, useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
 import warning from '../../assets/img/notifications/warning.svg'
 import { TgMessage } from 'types/tgNotifications'
-import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
+import { useFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { CoursesDataT } from 'types/CoursesT'
 import { Button } from 'components/common/Button/Button'
@@ -111,7 +111,7 @@ export const Header = memo(() => {
   const path = useLocation()
   const [timerId, setTimerId] = useState<number | null>(null)
 
-  const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupQuery(schoolName)
+  const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupWithParamsQuery({ schoolName: schoolName, params: 's=100' })
   const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
   const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null)
   const [acceptBanner] = useAcceptBannerMutation()
@@ -180,7 +180,7 @@ export const Header = memo(() => {
   }, [profile])
 
   useEffect(() => {
-    if (banner && !banner.is_accepted_by_user) {
+    if (banner && 'is_accepted_by_user' in banner && !banner.is_accepted_by_user) {
       openBanner()
     }
   }, [banner, getBanner])
@@ -239,7 +239,7 @@ export const Header = memo(() => {
 
   const connectWebSocket = () => {
     if ((informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) && userId) {
-      informSocketRef.current = new w3cwebsocket(`ws://sandbox.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`)
+      informSocketRef.current = new w3cwebsocket(`ws://sandbox.courehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`)
       // informSocketRef.current = new w3cwebsocket(`wss://apidev.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`)
       // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}?user_id=${userId}`)
 

@@ -46,6 +46,7 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
   const [videoError, setVideoError] = useState<string>('')
 
   const [progress, setProgress] = useState<number>(0)
+  const [xhr, setXhr] = useState<XMLHttpRequest | null>(null)
 
   const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -113,6 +114,37 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
     setDragVideo(false)
   }
 
+  const handleStartUpload = (formData: FormData) => {
+    const newXhr = new XMLHttpRequest()
+    setXhr(newXhr)
+
+    newXhr.open('PATCH', `/video/${schoolName}/block_video/${Number(block?.id)}/`, true)
+    newXhr.setRequestHeader('Authorization', `Bearer ${token}`)
+    newXhr.upload.addEventListener('progress', event => {
+      if (event.lengthComputable) {
+        const percent = Math.round((event.loaded / event.total) * 100)
+        setProgress(percent)
+      }
+    })
+
+    newXhr.onload = () => {
+      if (newXhr.status === 200) {
+        const response = JSON.parse(newXhr.response)
+        updateLessonsBlocksArray(response.id, response)
+        setIsLoadingVideo(false)
+      } else {
+        setIsLoadingVideo(false)
+      }
+    }
+
+    newXhr.onerror = () => {
+      console.error('Error sending request:', newXhr.status, newXhr.statusText)
+      setIsLoadingVideo(false)
+    }
+
+    newXhr.send(formData)
+  }
+
   const handleVideoUpload = async (lessonIdAndType: any, video: File) => {
     setVideoError('')
 
@@ -123,34 +155,16 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
       formData.append('section', String(lesson.section))
       formData.append('order', String(lesson.order))
 
-      const xhr = new XMLHttpRequest()
-      xhr.open('PATCH', `/video/${schoolName}/block_video/${Number(block?.id)}/`, true)
-      xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-      xhr.upload.addEventListener('progress', event => {
-        if (event.lengthComputable) {
-          const percent = Math.round((event.loaded / event.total) * 100)
-          setProgress(percent)
-        }
-      })
-
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          const response = JSON.parse(xhr.response)
-          updateLessonsBlocksArray(response.id, response)
-          setIsLoadingVideo(false)
-        } else {
-          setIsLoadingVideo(false)
-        }
-      }
-
-      xhr.onerror = () => {
-        console.error('Error sending request:', xhr.status, xhr.statusText)
-        setIsLoadingVideo(false)
-      }
-
-      xhr.send(formData)
+      handleStartUpload(formData)
     } else {
       setVideoError('Превышен допустимый размер файла')
+    }
+  }
+
+  const handleCancelUpload = () => {
+    if (xhr) {
+      xhr.abort()
+      setIsLoadingVideo(false)
     }
   }
 
@@ -199,6 +213,7 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
               <p style={{ fontSize: '13px', color: 'grey', textAlign: 'center', marginBlockStart: '10px' }}>
                 Пока видео грузится, ничего не нажимайте в этом окне. Скорость загрузки зависит от скорости вашего интернет-соединения.
               </p>
+              <Button text={'Отменить загрузку'} variant="delete" onClick={handleCancelUpload} />
             </div>
           ) : (
             <>
