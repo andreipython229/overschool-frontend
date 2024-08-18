@@ -32,7 +32,7 @@ export const HelpSchoolSettings = () => {
           navigate(generatePath(Path.CreateSchool))
       }
       return (
-        <section className={styles.HelpSchoolSettings}>
+        <section className={styles.HelpCenterPage}>
           <div className={styles.init_header}>
                <a
                   href={Path.InitialPage}
@@ -54,7 +54,7 @@ export const HelpSchoolSettings = () => {
                    <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '18px', fontWeight: '700' }} text={'Создать платформу'} />
                 </div>
           </div>
-          <div className={styles.HelpSchoolSettings_FAQ}>
+          <div className={styles.HelpCenterPage_FAQ}>
             <h1> Настройки платформы </h1>
 
             <h2> Переходим на страничку настроек платформы </h2>
@@ -147,15 +147,15 @@ export const HelpSchoolSettings = () => {
               <img src={school_settings_payment} alt="Оплата курсов" className={styles.HelpSchoolSettings_FAQ_images_firstStep} />
             </div>
           </div>
-          <div className={styles.HelpSchoolSettings_banner}>
-            <div className={styles.HelpSchoolSettings_banner_createProject}>
+          <div className={styles.HelpCenterPage_banner}>
+            <div className={styles.HelpCenterPage_banner_createProject}>
               <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
               <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
               <Button onClick={handleRegistrationUser} text={'Создать проект'} variant={'create'} />
             </div>
-            <div className={styles.HelpSchoolSettings_banner_images}>
-              <img src={firstStep} alt="Создать проект" className={styles.HelpSchoolSettings_banner_images_firstStep} />
-              <img src={secondStep} alt="Создать проект" className={styles.HelpSchoolSettings_banner_images_secondStep} />
+            <div className={styles.HelpCenterPage_banner_images}>
+              <img src={firstStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_firstStep} />
+              <img src={secondStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_secondStep} />
             </div>
           </div>
         </section>

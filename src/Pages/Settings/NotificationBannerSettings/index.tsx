@@ -3,13 +3,14 @@ import styles from '../superAdmin.module.scss'
 import { useCreateNewBannerMutation, useGetSchoolBannersQuery } from 'api/schoolBonusService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { BannerPreview } from './BannerPreview'
-import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
+
 import { Button } from 'components/common/Button/Button'
+import { useFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
 
 export const NotificationBanner: FC = () => {
   const schoolName = window.location.href.split('/')[4]
   const { data: banners, isLoading, refetch } = useGetSchoolBannersQuery(schoolName)
-  const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupQuery(schoolName)
+  const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupWithParamsQuery({schoolName: schoolName, params: 's=100'})
   const [createNewBanner, { isLoading: bannerCreating }] = useCreateNewBannerMutation()
 
   const createBanner = () => {
