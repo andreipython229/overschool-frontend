@@ -5,12 +5,12 @@ import styles from './initial.module.scss'
 
 export const CourseImg: FC<CourseImgPropsT> = memo(({ currentCourse, changeCurrentCourse, id, style, title }) => {
   return (
-    <section className={styles.init_main_course}>
+    <section className={styles.init_course}>
       <div
-        className={currentCourse === id ? styles.init_main_course_block : styles.init_main_course_block + ' ' + styles.smallImg}
+        className={styles.init_main_course_block}
         style={style}
-        onMouseEnter={() => changeCurrentCourse(id)}
-        onMouseLeave={() => changeCurrentCourse('-1')}
+        // onMouseEnter={() => changeCurrentCourse(id)}
+        // onMouseLeave={() => changeCurrentCourse('-1')}
       >
         <h2 className={currentCourse === id ? styles.init_main_course_block_title : styles.init_main_course_block_title + ' ' + styles.title_rotate}>
           <strong>{title}</strong>

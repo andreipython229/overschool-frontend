@@ -23,6 +23,49 @@ import chatCourse from './chat_course.png'
 import arrowDownTableAZ from './arrowDownTableAZ.svg'
 import arrowDownTableZA from './arrowDownTableZA.svg'
 import full_logo from './full_logotype.svg'
+import logoHeader from './logoHeader.png'
+import plus from './plus.png'
+import footerlogo from './footerlogo.png'
+import callfooter from './callfooter.png'
+import mailfooter from './mailfooter.png'
+import locationfooter from './locationfooter.png'
+import removebg from './removebg.png'
+import analytics from './analytics.png'
+import chatst from './chatst.png'
+import dateInf from './dateInf.png'
+import logoHeaderLogin from './logoHeaderLogin.png'
+import facebook from './Facebook.png'
+import google from './Google.png'
+import maillog from './Mail.png'
+import leftArrow  from './left-arrow.png'
+import constructor from './construktor.png'
+import hat from './hat.png'
+import cam from './cam.png'
+import ok from './ok.png'
+import chat from './chat.png'
+import result from './result.png'
+import mobile from './mobile.png'
+import comp from './comp.png'
+import  zimer from '../systemLogo/zapier.png'
+import  amocmr from '../systemLogo/amocmr.png'
+import  bitriks from '../systemLogo/bitriks.png'
+import  googleanalytics from '../systemLogo/googleanalytics.png'
+import  tbank from '../systemLogo/tbank.png'
+import  tilda from '../systemLogo/tilda.png'
+import  vk from '../systemLogo/vk.png'
+import  wordpress from '../systemLogo/wordpress.png'
+import  youtube from '../systemLogo/youtube.png'
+import  zoom from '../systemLogo/zoom.png'
+import  kassa from '../systemLogo/kassa.png'
+import  metrika from '../systemLogo/metrika.png'
+import  rocketfree from './rocketfree.png'
+import  line from './line.png'
+import record from './record.png'
+
+
+
+
+
 
 export {
     arrowUp,
@@ -36,6 +79,7 @@ export {
     isSecurity,
     logo,
     logOut,
+    logoHeader,
     mail,
     message,
     navbar_menu,
@@ -49,5 +93,43 @@ export {
     chatCourse,
     arrowDownTableAZ,
     arrowDownTableZA,
-    full_logo
-}
+    full_logo,
+    footerlogo,
+    callfooter,
+    mailfooter,
+    locationfooter,
+    removebg,
+    analytics,
+    chatst,
+    dateInf,
+    logoHeaderLogin,
+    plus,
+    facebook,
+    google,
+    maillog,
+    leftArrow,
+    constructor,
+    hat,
+    cam,
+    ok, 
+    chat,
+    result,
+    mobile,
+    comp,
+    zimer,
+    amocmr,
+    bitriks,
+    googleanalytics,
+    tbank,
+    tilda,
+    vk,
+    wordpress,
+    youtube,
+    zoom,
+    kassa,
+    metrika,
+    rocketfree,
+    line,
+    record
+    
+} 

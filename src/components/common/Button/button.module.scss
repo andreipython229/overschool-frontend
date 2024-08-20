@@ -1,6 +1,22 @@
 @import '../../../scss/variable';
 @import '../../../scss/mixin.scss';
 
+@font-face {
+  font-family: SFPROBold;
+  src: url(../../../assets/fonts/SFProText/SFProText-Bold.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: SFPROMedium;
+  src: url(../../../assets/fonts/SFProText/SFProText-Medium.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
+
 * {
   box-sizing: border-box;
 }
@@ -113,6 +129,205 @@
     &:hover:not(:disabled) {
     color: #fff;
     background: #d8b0ff;
+  }
+  }
+}
+
+.newCreate {
+  display: flex;
+  flex-direction: row;
+  width: 252px;
+  height: 46px;
+  background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
+  align-items: center;
+  justify-content: space-evenly;
+  font-family: 'SFPRORegular';
+  @include font(700, 16px, 19.09px);
+  border-radius: 10px;
+  color: #FFFFFF;
+  padding: 10px 25px 10px 25px;
+
+  &:hover {
+    &:hover:not(:disabled) {
+      color: #FFFFFF;
+      background: #357EEB;
+  }
+  }
+}
+
+.newLogIn {
+  width: 100px;
+  height: 46px;
+  background: #CFE2FF;
+  align-items: center;
+  justify-content: space-evenly;
+  font-family: 'SFPRORegular'; 
+  @include font(700, 16px, 19.09px);
+  border-radius: 10px;
+  letter-spacing: 0.02em;
+  color: #324195;
+  padding: 10px 25px 10px 25px;
+
+  &:hover {
+    &:hover:not(:disabled) {
+    color: #FFFFFF;
+    background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
+  }
+  }
+}
+
+.leaveRequest {
+  width: 444px;
+  height: 80px;
+  align-items: center;
+  justify-content: space-evenly;
+  font-family: 'SFPRORegular';
+  font-weight: 700;
+  font-size: 24px;
+  padding: 11px 25px;
+  background: transparent;
+  background: #357EEB;
+  border-radius: 20px;
+  line-height: 28.64px;
+  color: #FFFFFF;
+
+  &:hover {
+    &:hover:not(:disabled) {
+    color: #FFFFFF;
+    background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
+  }
+  }
+}
+
+.newPrimary {
+  font-family: 'SFPRORegular';
+  color: #FFFFFF;
+  background: #357EEB;
+  @include font(700, 20px, 23.87px);
+  font-family: 'SFPRORegular';
+  transition: 0.3s ease-in;
+  &:hover:not(:disabled) {
+      color: #FFFFFF;
+      background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%)
+  }
+  
+}
+
+.newSecondary {
+  font-family: 'SFPRORegular';
+  @include font(700, 16px, 19.09px);
+  padding: 11px 25px;
+  background: transparent;
+  color: #332F36;
+
+  &:hover {
+    &:hover:not(:disabled) {
+    color: #FFFFFF;
+    background: #357EEB;
+  }
+  }
+}
+
+.goPlatform {
+  font-family: 'SFPRORegular';
+  width: 400px;
+  height: 70px;
+  align-items: center;
+  justify-content: space-evenly;
+  font-weight: 700;
+  font-size: 24px;
+  padding: 11px 25px;
+  background: transparent;
+  background: #357EEB;
+  border-radius: 20px;
+  line-height: 28.64px;
+  color: #FFFFFF;
+
+  &:hover {
+    &:hover:not(:disabled) {
+    color: #FFFFFF;
+    background: linear-gradient(to right, #0D28BB, #357EEB);
+    transform: scale(1.2);
+  }
+  }
+}
+
+.more {
+  width: 212px;
+  height: 50px;
+  align-items: center;
+  justify-content: space-evenly;
+  font-family: 'SFPRORegular';
+  font-weight: 500;
+  font-size: 24px;
+  padding: 11px 25px;
+  background: transparent;
+  background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
+  border-radius: 10px;
+  line-height: 28.64px;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+
+  &:hover {
+    &:hover:not(:disabled) {
+    color: #FFFFFF;
+    background: linear-gradient(#0D28BB, #357EEB);
+  }
+  }
+}
+
+.tryForFree {
+  font-family: 'SFPRORegular';
+  width: 388px;
+  height: 54px;
+  align-items: center;
+  justify-content: space-evenly;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 23.87px;
+  color: #0D28BB;
+  background: transparent;
+  background: #FFFFFF;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+ 
+
+  &:hover {
+    &:hover:not(:disabled) {
+    color: #FFFFFF;
+    background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
+    border: 1px solid #FFFFFF;
+  }
+  }
+}
+
+.mobile {
+  width: 300px;
+  height: 48px;
+  align-items: center;
+  justify-content: space-evenly;
+  font-family: 'SFPRORegular';
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 23.87px;
+  color: #FFFFFF;
+  background: transparent;
+  background: #808080;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  background-image: url(../../../assets/img/common/android.png);
+  background-repeat: no-repeat;
+  background-position: top 10px left 30px;
+  padding-left: 60px;
+ 
+
+  &:hover {
+    &:hover:not(:disabled) {
+    color: #FFFFFF;
+    background: #0D28BB;
+    background-image: url(../../../assets/img/common/android.png);
+    background-repeat: no-repeat;
+    background-position: top 10px left 30px;
   }
   }
 }

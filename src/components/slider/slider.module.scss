@@ -1,0 +1,106 @@
+.init {
+
+    &_container {
+        width: 656px;
+        height: 496px;
+        border-radius: 30px;
+        background: linear-gradient(to right, #0D28BB, #357EEB);
+
+
+
+
+        &_box {
+           
+            display: grid;
+            grid-template-areas: 
+                "photo info"
+                "rev rev";
+
+
+            &_photo {
+                grid-area: photo;
+                margin-top: 26px;
+                margin-left: 36px;
+
+                img{
+                    border-radius: 50%;
+                    width: 157px;
+                    height: 157px;
+                }
+             
+            }
+
+            &_info {
+                width: 347px;
+                height: 107px;
+                grid-area: info;
+                margin-top: 26px;
+                margin-left: 36px;
+            }
+
+            &_rev {
+                border-radius: 30px;
+                background: #FFFFFF;
+                width: 584px;
+                height: 277px;
+                grid-area: rev;
+                text-align: 20px;
+                margin-left: 26px;
+                padding: 35.78px 11.93px 11.93px 11.93px;
+            }
+
+            &_leave {
+                
+                color: #324195;
+                font-size: 32px;
+                background: #CFE2FF;
+            }
+        }
+
+      
+    }
+
+    &_containerLeave {
+        width: 656px;
+        height: 496px;
+        border-radius: 30px;
+        background: #CFE2FF;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+    }
+    
+}
+
+.swiper {
+    padding-bottom: 30px;
+}
+
+
+.swiper-button-prev {
+    width: 44px;
+    height: 44px;
+    background-color: #E1EBF9;
+    left: 600px;
+    color: #CFE2FF;
+}
+
+.swiper-button-next {
+    width: 44px;
+    height: 44px;
+    background: #E1EBF9;
+    right: 600px;
+}
+
+.swiper-slide-prev {
+    width: 100px;
+}
+
+
+
+
+
+
+
+
