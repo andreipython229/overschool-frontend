@@ -27,11 +27,11 @@ p {
 }
 
 h1 {
-  font-family: 'SFPROHeavy';
+  font-family: 'SFPRORegular';
 }
 
 h2 {
-  font-family: 'SFPROHeavy';
+  font-family: 'SFPRORegular';
 }
 
 h3 h5 {
@@ -145,6 +145,7 @@ li {
               margin-top: 45px;
 
               h3 {
+                font-family: 'SFPRORegular';
                 font-weight: 700;
                 font-size: 20px;
                 color: #2643DC;
@@ -152,18 +153,22 @@ li {
                   -webkit-background-clip: text;
                   -webkit-text-fill-color: transparent;
                 line-height: 23.87px;
+                margin-bottom: 70px;
               }
 
               h1 {
-                font-weight: 800;
+                font-family: 'SFPRORegular';
+                font-weight: 500;
                 font-size: 46px;
                 color: #332F36;
-                line-height: 62px;
+                line-height: 54.89px;
+                margin-bottom: 20px;
               }
 
               p {
+                font-family: 'SFPROBold';
                 font-size: 20px;
-                font-weight: 600;
+                font-weight: 700;
                 line-height: 23.87px;
                 color: #324195;
                 margin-bottom: 30px;

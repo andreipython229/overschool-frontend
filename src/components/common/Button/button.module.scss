@@ -11,6 +11,11 @@
   src: url(../../../assets/fonts/SFProText/SFProText-Medium.ttf) format("opentype");
 }
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 
 * {
   box-sizing: border-box;
@@ -136,6 +141,7 @@
   background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
   align-items: center;
   justify-content: space-evenly;
+  font-family: 'SFPRORegular';
   @include font(700, 16px, 19.09px);
   border-radius: 10px;
   color: #FFFFFF;
@@ -155,7 +161,7 @@
   background: #CFE2FF;
   align-items: center;
   justify-content: space-evenly;
-  font-family: 'SFPROBold'; 
+  font-family: 'SFPRORegular'; 
   @include font(700, 16px, 19.09px);
   border-radius: 10px;
   letter-spacing: 0.02em;
@@ -175,6 +181,7 @@
   height: 80px;
   align-items: center;
   justify-content: space-evenly;
+  font-family: 'SFPRORegular';
   font-weight: 700;
   font-size: 24px;
   padding: 11px 25px;
@@ -193,10 +200,11 @@
 }
 
 .newPrimary {
+  font-family: 'SFPRORegular';
   color: #FFFFFF;
   background: #357EEB;
   @include font(700, 20px, 23.87px);
-  font-family: 'SFPROBold';
+  font-family: 'SFPRORegular';
   transition: 0.3s ease-in;
   &:hover:not(:disabled) {
       color: #FFFFFF;
@@ -206,7 +214,7 @@
 }
 
 .newSecondary {
-  font-family: 'SFPROBold';
+  font-family: 'SFPRORegular';
   @include font(700, 16px, 19.09px);
   padding: 11px 25px;
   background: transparent;
@@ -221,6 +229,7 @@
 }
 
 .goPlatform {
+  font-family: 'SFPRORegular';
   width: 400px;
   height: 70px;
   align-items: center;
@@ -248,7 +257,7 @@
   height: 50px;
   align-items: center;
   justify-content: space-evenly;
-  font-family: 'SFPROMedium';
+  font-family: 'SFPRORegular';
   font-weight: 500;
   font-size: 24px;
   padding: 11px 25px;
@@ -268,6 +277,7 @@
 }
 
 .tryForFree {
+  font-family: 'SFPRORegular';
   width: 388px;
   height: 54px;
   align-items: center;
@@ -296,6 +306,7 @@
   height: 48px;
   align-items: center;
   justify-content: space-evenly;
+  font-family: 'SFPRORegular';
   font-weight: 600;
   font-size: 20px;
   line-height: 23.87px;

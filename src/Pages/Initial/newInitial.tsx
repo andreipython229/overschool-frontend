@@ -17,6 +17,7 @@ import styles from './newInitial.module.scss'
 import { RegCodeModal } from '../../components/Modal/RegistrationModal/RegCodeModal'
 import { Path } from '../../enum/pathE'
 import { motion, useTime } from 'framer-motion'
+import   WordSwitcher  from '../../components/WorldSwitcher/worldSwitcher'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
@@ -65,21 +66,6 @@ export const Initial = () => {
     navigate(generatePath(Path.Catalog))
   }
 
-  const words = [
-    "онлайн-обучения",
-    "новых возможностей",
-  ];
- 
-  let currentWord = 0;
-  const intervalid = setInterval(() => {
-    if (currentWord == words.length - 1)
-      currentWord = 0;
-    else
-     currentWord +=1;
-    const obj = document?.getElementById("qualityWord");
-    obj!.innerText = words[currentWord];
-  }, 3000);
-
 
   const swiperRef = useRef<SwiperType | null>(null); 
   const [activeSlide, setActiveSlide] = useState(0);
@@ -124,13 +110,13 @@ export const Initial = () => {
         <div className={styles.init_main_info}>
           <div className={styles.init_main_info_quality}>
             <div className={styles.init_main_info_quality_text}>
-              <h3>КОГДА КАЧЕСТВО ОБУЧЕНИЯ В ПРИОРИТЕТЕ</h3>
+              <p>КОГДА КАЧЕСТВО ОБУЧЕНИЯ В ПРИОРИТЕТЕ</p>
               <h1>
-              Удобная платформа <br /> для <span id="qualityWord"></span>
+              Удобная платформа <br /> <WordSwitcher/>
               </h1>
-              <p>
+              <h3>
               Первая белорусская платформа Overschool для онлайн-обучения с пожизненным бесплатным тарифом. Попробуй прямо сейчас!
-              </p>
+              </h3>
               <Button onClick={handleRegistrationUser} variant={'leaveRequest'} text={'Попробовать бесплатно'}  />
             </div>
             <div className={styles.init_main_info_quality_pic}>
