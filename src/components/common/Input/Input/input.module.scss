@@ -8,14 +8,9 @@
   border-radius: 4px;
   background-color: #ffffff;
   font-family: 'Inter', sans-serif;
-  padding: 0 5px;
+  padding: 0 21px;
   transition: border-color 0.2s;
   // margin-bottom: 1rem;
-  
-
-  svg {
-    margin-left: 10px;
-  }
 
   &:hover {
     border-color: #ba75ff;
@@ -26,7 +21,8 @@
   }
 
   & input {
-    width: 96%;
+    width: 100%;
+    min-width: 100%;
     color: $font-color;
     outline: none;
     border: none;

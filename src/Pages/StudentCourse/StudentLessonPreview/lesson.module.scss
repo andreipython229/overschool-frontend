@@ -239,7 +239,7 @@
     @include display(flex, row, flex-start, center);
     margin-top: 32px;
     // margin-right: 5px;
-    justify-content: end;
+    justify-content: flex-end;
     width: 90%;
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       @include display(flex, row, flex-start, center);

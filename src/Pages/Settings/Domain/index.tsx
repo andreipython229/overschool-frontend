@@ -82,7 +82,7 @@ export const DomainSettings: FC = () => {
                         <li>
                             Добавьте A-запись в настройках DNS у вашего регистратора. A-запись должна указывать на
                             IP-адрес нашего сервера:
-                            45.87.219.3
+                            45.135.234.9
                         </li>
                         <li>Введите приобретенное доменное имя в поле ниже и нажмите кнопку &quot;Сохранить&quot;.</li>
                     </ol>
@@ -102,7 +102,7 @@ export const DomainSettings: FC = () => {
                     которым пользователи будут получать доступ к вашей платформе.
 
                 </div>
-                <div>
+                <div className={styles.text}>
                     <Input name={'domain'} type={'text'} className={styles.main_input} value={domain}
                            onChange={handleChangeDomain}/>
                     <Button

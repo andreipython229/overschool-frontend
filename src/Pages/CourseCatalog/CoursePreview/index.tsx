@@ -1,8 +1,8 @@
-import {FC, forwardRef, ReactNode, useEffect, useState} from 'react'
+import { FC, forwardRef, ReactNode, useEffect, useState } from 'react'
 import styles from './styles/coursePreview.module.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useFetchCourseDataFromCatalogMutation, useSendCourseAppealMutation } from 'api/catalogServices'
-import { useFetchCourseLandingMutation, } from 'api/courseLandingServices'
+import { useFetchCourseLandingMutation } from 'api/courseLandingServices'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { backArr } from 'components/Previous/config/svgIconPath'
@@ -14,21 +14,11 @@ import secondStep from 'assets/img/createProject/secondStep.png'
 import { CatalogCourseModules } from 'Pages/CourseCatalog/CoursePreview/courseModules'
 import { useBoolean } from 'customHooks'
 import { TransitionProps } from '@mui/material/transitions'
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Slide,
-  TextField,
-  ThemeProvider,
-  createTheme,
-  styled
-} from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogTitle, Slide, TextField, ThemeProvider, createTheme, styled } from '@mui/material'
 import PhoneInput from 'react-phone-input-2'
-import {LandingBlocks} from "./LandingBlocks";
-import {changeBlocks} from "store/redux/landing/constructorSlice";
-import {useAppDispatch} from "store/hooks";
+import { LandingBlocks } from './LandingBlocks'
+import { changeBlocks } from 'store/redux/landing/constructorSlice'
+import { useAppDispatch } from 'store/hooks'
 
 const theme = createTheme({
   palette: {
@@ -61,7 +51,7 @@ export const CoureCatalogPreview: FC = () => {
     if (f_landing) {
       dispatch(changeBlocks(f_landing))
     }
-  }, [f_landing, ])
+  }, [f_landing])
 
   const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -93,26 +83,18 @@ export const CoureCatalogPreview: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <div className={styles.wrapper}>
-        {/*<div className={styles.previous}>*/}
-        {/*  <div onClick={() => navigate(Path.Catalog)} className={styles.back_all_course}>*/}
-        {/*    <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />*/}
-        {/*    <span>Назад в каталог</span>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
-        <LandingBlocks
-          openModal={openModal}
-        />
+        <LandingBlocks openModal={openModal} />
         <div className={styles.wrapper_banner}>
           <div className={styles.wrapper_banner_content}>
             <div className={styles.wrapper_banner_content_createProject}>
               <h1>Присоединяйтесь к платформе OVERSCHOOL прямо сейчас!</h1>
               <h1>Освойте одну из самых востребованных профессий!</h1>
               <p>Попробуйте весь функционал в процессе использования и познайте, насколько он удобен</p>
-              <Button variant="primary" onClick={openModal} text="Оставить заявку"/>
+              <Button variant="primary" onClick={openModal} text="Оставить заявку" />
             </div>
             <div className={styles.wrapper_banner_content_images}>
-              <img src={firstStep} alt="Подать заявку" className={styles.wrapper_banner_content_images_firstStep}/>
-              <img src={secondStep} alt="Подать заявку" className={styles.wrapper_banner_content_images_secondStep}/>
+              <img src={firstStep} alt="Подать заявку" className={styles.wrapper_banner_content_images_firstStep} />
+              <img src={secondStep} alt="Подать заявку" className={styles.wrapper_banner_content_images_secondStep} />
             </div>
           </div>
         </div>
@@ -144,22 +126,18 @@ export const CoureCatalogPreview: FC = () => {
           >
             {step === 1 ? (
               <>
-                <DialogTitle sx={{textAlign: 'center', fontWeight: 'bold', color: '#ba75ff'}}>
+                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#ba75ff' }}>
                   {'Оставьте Ваши данные и с Вами свяжется менеджер'}
                 </DialogTitle>
-                <DialogContent
-                  sx={{padding: '1rem 4rem', display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1rem 0'}}>
-                  {error &&
-                    <p style={{fontSize: '12px', color: 'red'}}>Ошибка отправки заявки, введены некорректные данные</p>}
-                  <TextField required margin="dense" id="name" name="name" label="Как к Вам обращаться:" type="text"
-                             fullWidth variant="outlined"/>
-                  <TextField required margin="none" id="email" name="email" label="Email:" type="email" fullWidth
-                             variant="outlined"/>
+                <DialogContent sx={{ padding: '1rem 4rem', display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1rem 0' }}>
+                  {error && <p style={{ fontSize: '12px', color: 'red' }}>Ошибка отправки заявки, введены некорректные данные</p>}
+                  <TextField required margin="dense" id="name" name="name" label="Как к Вам обращаться:" type="text" fullWidth variant="outlined" />
+                  <TextField required margin="none" id="email" name="email" label="Email:" type="email" fullWidth variant="outlined" />
                   <PhoneInput
                     inputClass={styles.phoneInput}
                     inputProps={{
                       name: 'phone',
-                      theme: {theme},
+                      theme: { theme },
                       required: true,
                     }}
                     placeholder="Номер телефона"
@@ -178,14 +156,14 @@ export const CoureCatalogPreview: FC = () => {
                     variant="outlined"
                   />
                 </DialogContent>
-                <DialogActions sx={{padding: '0.5rem 4rem 1.5rem'}}>
-                  <Button onClick={closeModal} text={'Отмена'}/>
-                  <Button type="submit" onClick={handleForm} text={'Отправить заявку'}/>
+                <DialogActions sx={{ padding: '0.5rem 4rem 1.5rem' }}>
+                  <Button onClick={closeModal} text={'Отмена'} />
+                  <Button type="submit" onClick={handleForm} text={'Отправить заявку'} />
                 </DialogActions>
               </>
             ) : (
               <>
-                <DialogTitle sx={{textAlign: 'center', fontWeight: 'bold', color: '#ba75ff'}}>
+                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#ba75ff' }}>
                   {`Заявка о поступлении на курс ${f_landing.header.name} успешно отправлена, для получения дополнительной информации, Вы можете перейти по контактной ссылке данной платформы`}
                 </DialogTitle>
                 <DialogContent>

@@ -1,16 +1,22 @@
-import React, {FC, ReactNode} from 'react';
-import {LandingBlockT} from "./types/LandingT";
-import {useAppSelector} from "store/hooks";
-import {blocksNamesE} from "Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/enum/blocksNamesE";
-import {StatsBlock} from "Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/Blocks/StatsBlock";
-import {TrainingProgram} from "Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/Blocks/TrainingProgram";
-import styles from "./styles/landingBlocks.module.scss";
-import {HeaderViewBlock} from "./Blocks/HeaderViewBlock";
-import {AudienceViewBlock} from "./Blocks/AudienceViewBlock";
-import {PurposeTrainingViewBlock} from "./Blocks/PurposeTrainingViewBlock";
+import React, { FC, ReactNode } from 'react'
+import { LandingBlockT } from './types/LandingT'
+import { useAppSelector } from 'store/hooks'
+import { blocksNamesE } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/enum/blocksNamesE'
+import { StatsBlock } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/Blocks/StatsBlock'
+import { TrainingProgram } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/Blocks/TrainingProgram'
+import styles from './styles/landingBlocks.module.scss'
+import style1 from './styles/coursePreview.module.scss'
+import { HeaderViewBlock } from './Blocks/HeaderViewBlock'
+import { AudienceViewBlock } from './Blocks/AudienceViewBlock'
+import { PurposeTrainingViewBlock } from './Blocks/PurposeTrainingViewBlock'
+import { backArr } from 'components/Previous/config/svgIconPath'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { useNavigate } from 'react-router-dom'
+import { Path } from 'enum/pathE'
 
-export const LandingBlocks: FC<LandingBlockT> = ({openModal}) => {
+export const LandingBlocks: FC<LandingBlockT> = ({ openModal }) => {
   const landing = useAppSelector(state => state.landing.blocks)
+  const navigate = useNavigate()
 
   const getBlock = (name: string): ReactNode => {
     switch (name) {
@@ -36,17 +42,20 @@ export const LandingBlocks: FC<LandingBlockT> = ({openModal}) => {
 
   return (
     <div className={styles.blocksController}>
-      {getListedBlocks().map((block) =>
-        block.visible && (
-          <div key={block.id}
-               className={styles.blocksController_wrapper}
-          >
-            <div className={styles.blocksController_wrapper_block}>
-              {getBlock(block.content)}
+      <div className={style1.previous}>
+        <div onClick={() => navigate(Path.Catalog)} className={style1.back_all_course}>
+          <IconSvg width={9} height={15} viewBoxSize="0 0 8 13" path={backArr} />
+          <span>Назад в каталог</span>
+        </div>
+      </div>
+      {getListedBlocks().map(
+        block =>
+          block.visible && (
+            <div key={block.id} className={styles.blocksController_wrapper}>
+              <div className={styles.blocksController_wrapper_block}>{getBlock(block.content)}</div>
             </div>
-          </div>
-        ))
-      }
+          ),
+      )}
     </div>
-  );
-};
+  )
+}

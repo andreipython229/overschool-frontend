@@ -128,95 +128,97 @@ export const CoursePage: FC = () => {
   return (
     <>
       <div className={styles.container}>
-        <AnimatePresence>
-          <div style={{ display: 'flex', gap: '1rem', paddingBottom: '1rem' }}>
-            {activeFolder.length > 0 && (
+        {role === RoleE.Admin && (
+          <AnimatePresence>
+            <div style={{ display: 'flex', gap: '1rem', paddingBottom: '1rem' }}>
+              {activeFolder.length > 0 && (
+                <Chip
+                  label={'Убрать фильтрацию'}
+                  icon={<Delete />}
+                  variant="outlined"
+                  onClick={() => {
+                    setActiveFolder('')
+                    setCourses(coursesData)
+                    hideFolders()
+                  }}
+                />
+              )}
               <Chip
-                label={'Убрать фильтрацию'}
-                icon={<Delete />}
-                variant="outlined"
-                onClick={() => {
-                  setActiveFolder('')
-                  setCourses(coursesData)
-                  hideFolders()
-                }}
+                icon={<FolderCopyOutlined />}
+                label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
+                variant="filled"
+                onClick={toggleFolders}
               />
-            )}
-            <Chip
-              icon={<FolderCopyOutlined />}
-              label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
-              variant="filled"
-              onClick={toggleFolders}
-            />
 
-            {foldersVisible && folders && (
-              <motion.div
-                style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}
-                initial={{
-                  x: -50,
-                  opacity: 0,
-                }}
-                animate={{
-                  x: 0,
-                  opacity: 1,
-                }}
-                transition={{
-                  delay: 0.2,
-                }}
-              >
-                {folders.map((folder: any, index: Key | null | undefined) => (
-                  <Chip
-                    key={index}
-                    label={folder.name}
-                    variant="outlined"
-                    sx={deleting ? { background: '#ff3131' } : {}}
-                    onClick={() => {
-                      if (deleting) {
-                        startDeleteModal(folder)
-                      } else {
-                        filterCoursesByFolders(folder.id)
-                        setActiveFolder(folder.name)
-                        hideFolders()
-                      }
+              {foldersVisible && folders && (
+                <motion.div
+                  style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}
+                  initial={{
+                    x: -50,
+                    opacity: 0,
+                  }}
+                  animate={{
+                    x: 0,
+                    opacity: 1,
+                  }}
+                  transition={{
+                    delay: 0.2,
+                  }}
+                >
+                  {folders.map((folder: any, index: Key | null | undefined) => (
+                    <Chip
+                      key={index}
+                      label={folder.name}
+                      variant="outlined"
+                      sx={deleting ? { background: '#ff3131' } : {}}
+                      onClick={() => {
+                        if (deleting) {
+                          startDeleteModal(folder)
+                        } else {
+                          filterCoursesByFolders(folder.id)
+                          setActiveFolder(folder.name)
+                          hideFolders()
+                        }
+                      }}
+                    />
+                  ))}
+                  <button
+                    style={{
+                      width: '1.8rem',
+                      height: '1.8rem',
+                      borderRadius: '50%',
+                      background: '#ba75ff',
+                      border: 'none',
+                      color: 'white',
+                      fontSize: '30px',
+                      position: 'relative',
                     }}
-                  />
-                ))}
-                <button
-                  style={{
-                    width: '1.8rem',
-                    height: '1.8rem',
-                    borderRadius: '50%',
-                    background: '#ba75ff',
-                    border: 'none',
-                    color: 'white',
-                    fontSize: '30px',
-                    position: 'relative',
-                  }}
-                  onClick={toggleModal}
-                >
-                  <span style={{ position: 'absolute', top: '-0.28rem', left: '0.28rem' }}>+</span>
-                </button>
-                <button
-                  style={{
-                    width: '1.8rem',
-                    height: '1.8rem',
-                    borderRadius: '50%',
-                    background: 'transparent',
-                    border: 'none',
-                    color: 'white',
-                    fontSize: '30px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  onClick={toggleDeleting}
-                >
-                  <Delete sx={{ color: 'red' }} />
-                </button>
-              </motion.div>
-            )}
-          </div>
-        </AnimatePresence>
+                    onClick={toggleModal}
+                  >
+                    <span style={{ position: 'absolute', top: '-0.28rem', left: '0.28rem' }}>+</span>
+                  </button>
+                  <button
+                    style={{
+                      width: '1.8rem',
+                      height: '1.8rem',
+                      borderRadius: '50%',
+                      background: 'transparent',
+                      border: 'none',
+                      color: 'white',
+                      fontSize: '30px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    onClick={toggleDeleting}
+                  >
+                    <Delete sx={{ color: 'red' }} />
+                  </button>
+                </motion.div>
+              )}
+            </div>
+          </AnimatePresence>
+        )}
         <Input
           role="search-input"
           name=""

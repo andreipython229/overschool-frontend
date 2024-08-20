@@ -40,9 +40,11 @@ export enum Path {
   Meetings = 'meetings/',
   Materials = 'materials/',
   CourseMaterials = 'materials/:course_id/',
+  Rating = 'rating/',
 }
 
 export enum SettingsPath {
+  Banner = 'banner/',
   Main = 'main/',
   Employees = 'employees/',
   Logs = 'logs/',
@@ -55,6 +57,7 @@ export enum SettingsPath {
 }
 
 export enum CreateCoursePath {
+  Banner = 'banner',
   Constructor = 'constructor',
   Student = 'student',
   Settings = 'settings',
