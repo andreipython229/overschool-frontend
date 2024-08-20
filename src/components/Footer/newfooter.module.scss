@@ -2,8 +2,15 @@
 @import '../../scss/mixin';
 
 @font-face {
-  font-family: 'SFPROSemiBold';
-  src: url(../../assets/fonts/SFProText-Semibold.ttf) format("opentype");
+  font-family: 'SFPROBold';
+  src: url(../../assets/fonts/SFProText/SFProText-Bold.ttf) format("opentype");
+}
+h1 {
+  font-family: 'SFPROBold';
+}
+
+p {
+  font-family: 'SFPROBold';
 }
 
 .wrapper {
@@ -32,7 +39,6 @@
     gap: 1rem;
 
     h1 {
-      font-family: 'SFPROSemiBold';
       font-weight: 600;
       font-size: 20px;
       line-height: 23.87px;
@@ -40,7 +46,6 @@
     }
 
     p {
-      font-family: 'SFPROSemiBold';
       font-weight: 600;
       font-size: 16px;
       line-height: 19.09px;

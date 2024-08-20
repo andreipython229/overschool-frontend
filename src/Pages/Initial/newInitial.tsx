@@ -9,8 +9,8 @@ import { Footer } from 'components/Footer/newindex '
 import { removebg, analytics, chatst, dateInf, constructor, hat, cam, ok, chat,
          result, mobile, comp, zimer, youtube, amocmr, bitriks, googleanalytics, tbank, tilda, vk, wordpress, zoom,
           kassa, metrika, rocketfree, record } from '../../assets/img/common/index'
-
-import { Slider } from '../../components/slider/slider'
+ 
+import  { Slider }  from '../../components/slider/slider'
 
 import styles from './newInitial.module.scss'
 
@@ -19,7 +19,7 @@ import { Path } from '../../enum/pathE'
 import { motion, useTime } from 'framer-motion'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 
 
 
@@ -79,7 +79,6 @@ export const Initial = () => {
     obj!.innerText = words[currentWord];
   }, 3000);
 
-  const menu = ['Slide 1', 'Slide 2', 'Slide 3']
 
   
   return (      
@@ -239,7 +238,7 @@ export const Initial = () => {
               disableOnInteraction: false,
             }}
             pagination={{
-              clickable: true,
+              clickable:true,
             }}
             modules={[Autoplay, Pagination]}
             className={styles.init_main_create_swiper}

@@ -3,22 +3,45 @@
 
 @font-face {
   font-family: 'SFPROBold';
-  src: url(../../assets/fonts/SFProText-Bold.ttf) format("opentype");
+  src: url(../../assets/fonts/SFProText/SFProText-Bold.ttf) format("opentype");
 }
 
 @font-face {
   font-family: 'SFPROMedium';
-  src: url(../../assets/fonts/SFProText-Medium.ttf) format("opentype");
+  src: url(../../assets/fonts/SFProText/SFProText-Medium.ttf) format("opentype");
 }
 
 @font-face {
   font-family: 'SFPROHeavy';
-  src: url(../../assets/fonts/SFProText-Heavy.ttf) format("opentype");
+  src: url(../../assets/fonts/SFProText/SFProText-Heavy.ttf) format("opentype");
 }
 
 @font-face {
-  font-family: 'SFPROSemiBold';
-  src: url(../../assets/fonts/SFProText-Semibold.ttf) format("opentype");
+  font-family: 'SFPRORegular';
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
+p {
+  font-family: 'SFPRORegular';
+}
+
+h1 {
+  font-family: 'SFPROHeavy';
+}
+
+h2 {
+  font-family: 'SFPROHeavy';
+}
+
+h3 {
+  font-family: 'SFPROHeavy';
+}
+
+li {
+  font-family: 'SFPRORegular';
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23.87px;
 }
 
 
@@ -63,6 +86,9 @@
     box-shadow: 0px -2px 4px 0px #357EEB, 0px 2px 4px 0px #357EEB, ;
     @include display(flex, row, center, center);
     padding: 0px 162px 0px 162px;
+    position: fixed;
+    z-index: 99;
+    opacity: 0.9;
 
     &_logo {
       height: 55px;
@@ -74,7 +100,7 @@
 
   &_main {
     position: relative;
-    margin-top: 70px;
+    margin-top: 110px;
     margin-bottom: 70px;
     width: 1570px;
     max-width: 1600px;
@@ -89,7 +115,6 @@
 
 
     &_header {
-      font-family: 'SFPROHeavy';
       font-size: 36px;
       font-weight: 800;
       line-height: 42.96px;
@@ -102,22 +127,21 @@
       display: flex;
       margin: 0 auto;
       flex-direction: column;
-      margin-bottom: 70px;
+      margin-bottom: 110px;
       
 
       &_quality {
         display: flex;
         flex-direction: row;
-        gap: 250px;
+        gap: 240px;
         align-items: center;
 
 
             &_text {
-              width: 659px;
+              width: 680px;
               margin-top: 45px;
 
               h3 {
-                font-family: 'SFPROBold';
                 font-weight: 700;
                 font-size: 20px;
                 color: #2643DC;
@@ -128,7 +152,6 @@
               }
 
               h1 {
-                font-family: 'SFPROBold';
                 font-weight: 800;
                 font-size: 46px;
                 color: #332F36;
@@ -172,7 +195,6 @@
               }
               
               p {
-                font-family: 'SFPROSemiBold';
                 font-weight: 600;
                 font-size: 20px;
                 line-height: 23.87px;
@@ -270,7 +292,8 @@
         background: url(../../assets/img/common/unlimited.png), #CFE2FF;;
         background-repeat: no-repeat;
         background-position:top 34px left 85px;
-        color: #324195; 
+        color: #324195;
+        transition: 0.3s ease; 
         
         &:hover {
           background:url(../../assets/img/common/unlimited2.png), #0D28BB ;
@@ -289,8 +312,9 @@
         align-items: center;
         background: url(../../assets/img/common/annex.png), #CFE2FF;;
         background-repeat: no-repeat;
-        background-position:top 34px left 85px;
+        background-position:top 20px left 75px;
         color: #324195;
+        transition: 0.3s ease; 
         
         &:hover {
           background:url(../../assets/img/common/annex2.png),#0D28BB ;
@@ -311,11 +335,12 @@
         background-repeat: no-repeat;
         background-position:top 34px left 85px;
         color: #324195;
+        transition: 0.3s ease; 
         
         &:hover {
           background:url(../../assets/img/common/gb2.png),#0D28BB ;
           background-repeat: no-repeat;
-          background-position:top 20px left 75px;
+          background-position:top 34px left 85px;
           color: #FFFFFF;
         }
       }
@@ -366,12 +391,6 @@
           font-size: 24px;
           line-height: 28.64px;
           margin-bottom: 1rem;
-        }
-
-        li {
-          font-weight: 600;
-          font-size: 20px;
-          line-height: 23.87px;
         }
         
         ul {
@@ -933,8 +952,6 @@
     animation: bgAnimate4 10s linear infinite;
   }
 }
-
-
 
 
 

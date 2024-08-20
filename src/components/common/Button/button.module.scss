@@ -3,12 +3,12 @@
 
 @font-face {
   font-family: SFPROBold;
-  src: url(../../../assets/fonts/SFProText-Bold.ttf) format("opentype");
+  src: url(../../../assets/fonts/SFProText/SFProText-Bold.ttf) format("opentype");
 }
 
 @font-face {
   font-family: SFPROMedium;
-  src: url(../../../assets/fonts/SFProText-Medium.ttf) format("opentype");
+  src: url(../../../assets/fonts/SFProText/SFProText-Medium.ttf) format("opentype");
 }
 
 
@@ -155,7 +155,7 @@
   background: #CFE2FF;
   align-items: center;
   justify-content: space-evenly;
-  font-family: SFPROBold; 
+  font-family: 'SFPROBold'; 
   @include font(700, 16px, 19.09px);
   border-radius: 10px;
   letter-spacing: 0.02em;
@@ -196,7 +196,7 @@
   color: #FFFFFF;
   background: #357EEB;
   @include font(700, 20px, 23.87px);
-  font-family: SFPROBold;
+  font-family: 'SFPROBold';
   transition: 0.3s ease-in;
   &:hover:not(:disabled) {
       color: #FFFFFF;
@@ -206,7 +206,7 @@
 }
 
 .newSecondary {
-  font-family: SFPROBold;
+  font-family: 'SFPROBold';
   @include font(700, 16px, 19.09px);
   padding: 11px 25px;
   background: transparent;
@@ -248,7 +248,7 @@
   height: 50px;
   align-items: center;
   justify-content: space-evenly;
-  font-family: SFPROMedium;
+  font-family: 'SFPROMedium';
   font-weight: 500;
   font-size: 24px;
   padding: 11px 25px;
