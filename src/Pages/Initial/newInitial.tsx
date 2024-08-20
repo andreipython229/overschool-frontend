@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { NavLink, useNavigate, generatePath } from 'react-router-dom'
 import { Portal } from '../../components/Modal/Portal'
 import { InitPageHeader } from './newInitialPageHeader'
@@ -18,8 +18,9 @@ import { RegCodeModal } from '../../components/Modal/RegistrationModal/RegCodeMo
 import { Path } from '../../enum/pathE'
 import { motion, useTime } from 'framer-motion'
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Pagination } from 'swiper/modules'
+import { Swiper as SwiperType } from 'swiper'
 
 
 
@@ -80,6 +81,22 @@ export const Initial = () => {
   }, 3000);
 
 
+  const swiperRef = useRef<SwiperType | null>(null); 
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const goToSlide = (index: number) => {
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(index); 
+    }
+  };
+
+  const handleSlideChange = (swiper: SwiperType) => {
+    setActiveSlide(swiper.activeIndex);
+  };
+
+  console.log(activeSlide);
+  
+  
   
   return (      
     <div className={styles.init}>
@@ -229,6 +246,26 @@ export const Initial = () => {
             <Button onClick={handleRegistrationUser} variant={'tryForFree'} text={'Попробовать бесплатно'}/>
           </div>
         </div>
+        <div className={styles.init_main_create_swiper_navigationButtons}>
+          <button 
+            className={activeSlide === 0 ? styles.init_main_create_swiper_navigationButtons_activeButton : styles.init_main_create_swiper_navigationButtons_button} 
+            onClick={() => goToSlide(0)}
+          >
+            <h5>ПРОСТОЙ КОСТРУКТОР ОБУЧЕНИЯ</h5>
+          </button>
+          <button 
+            className={activeSlide === 1 ? styles.init_main_create_swiper_navigationButtons_activeButton : styles.init_main_create_swiper_navigationButtons_button} 
+            onClick={() => goToSlide(1)}
+          >
+            <h5>ВСТРОЕННЫЙ ЧАТ С УЧЕНИКАМИ</h5>
+          </button>
+          <button 
+            className={activeSlide === 2 ? styles.init_main_create_swiper_navigationButtons_activeButton : styles.init_main_create_swiper_navigationButtons_button} 
+            onClick={() => goToSlide(2)}
+          >
+            <h5>АНАЛИТИКА ОБУЧЕНИЯ</h5>
+          </button>
+        </div>
         <div className={styles.init_main_create}>
           <Swiper
             spaceBetween={30}
@@ -242,6 +279,8 @@ export const Initial = () => {
             }}
             modules={[Autoplay, Pagination]}
             className={styles.init_main_create_swiper}
+            onInit={(swiper:any) => { swiperRef.current = swiper; }}
+            onSlideChange={handleSlideChange}
           >
             <SwiperSlide>
               <div className={styles.init_main_create_swiper_block}>

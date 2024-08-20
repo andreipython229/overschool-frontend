@@ -6,7 +6,7 @@ import { Path } from 'enum/pathE'
 import { Button } from 'components/common/Button/Button'
 import {authSelector, schoolNameSelector} from 'selectors'
 import { InitPageHeaderPT } from '../../types/pageTypes'
-import { logoHeader, plus } from '../../assets/img/common/index'
+import { logoHeader, plus, hat } from '../../assets/img/common/index'
 import { selectUser } from 'selectors/index'
 import { RoleE } from 'enum/roleE'
 import TelegramIcon from '@mui/icons-material/Telegram'
@@ -18,6 +18,7 @@ import { useLazyLogoutQuery } from '../../api/userLoginService'
 import Tooltip from '@mui/material/Tooltip'
 import { useLazyFetchProfileDataQuery } from 'api/profileService'
 import { Instagram } from 'react-content-loader'
+
 
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setRegistrationShow }) => {
   const DefaultDomains = ['localhost', 'overschool.by', 'sandbox.overschool.by'];
@@ -120,7 +121,17 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
         ) : (
           <div className={styles.header_block}>
             <div className={styles.header_block_menu}>
-             <Button onClick={handleCatalog} variant={'newSecondary'} text={'Платформа'} />
+              <div className={styles.header_block_menu_platforma}>
+              <Button onClick={handleCatalog} variant={'newSecondary'} text={'Платформа'} />
+              <div className={styles.header_block_menu_platforma_content}>
+                  <a href="#"><img src={hat} alt="hat" /><h5>Для начинающих экспертов</h5></a>
+                  <a href="#"><img src={hat} alt="hat" /><h5>Для онлайн школ</h5></a>
+                  <a href="#"><img src={hat} alt="hat" /><h5>Для обучения персонала</h5></a>
+                  <a href="#"><img src={hat} alt="hat" /><h5>Возможности</h5></a>
+                  <a href="#"><img src={hat} alt="hat" /><h5>Отзывы пользователей</h5></a>
+                  <a href="#"><img src={hat} alt="hat" /><h5>Партнёрская программа</h5></a>
+              </div>
+             </div>
               <Button onClick={handleTariffPage} variant={'newSecondary'} text={'Тарифы'} /> 
               <Button onClick={handleHelpPage} variant={'newSecondary'} text={'Помощь'} />
               <Tooltip title={'Связаться с нами'}>
