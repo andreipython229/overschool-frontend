@@ -787,6 +787,7 @@ li {
     overflow: hidden;
     width: 0;
     transition: width 1s;
+    justify-content: space-around;
 
     &_platforma {
 
@@ -837,7 +838,7 @@ li {
   }
 
   .header_block:hover &_menu{
-    width: 512px;
+    width: 510px;
   }
   
 
