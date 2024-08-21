@@ -77,4 +77,6 @@ export enum FooterPath {
   PersonalDataTreatmentPolicy = 'personalDataTreatmentPolicy',
   PWA = 'PWA',
   Agreement = 'agreement/',
+  HelpPage = '/help/',
+  
 }

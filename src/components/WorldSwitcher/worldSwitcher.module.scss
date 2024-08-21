@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'SFPRORegular';
+    src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  }
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 1rem;
+    height: 125px;
+
+    p {
+        font-family: 'SFPRORegular';
+        font-weight: 500;
+        font-size: 46px;
+        line-height: 54.89px;
+        color: #332F36;
+    }
+
+    &_worlds {
+        font-family: 'SFPRORegular';
+        color: #357EEB;
+        font-weight: 500;
+        font-size: 46px;
+        line-height: 62px;
+    }
+}

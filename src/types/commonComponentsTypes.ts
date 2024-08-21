@@ -12,7 +12,7 @@ export type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTML
 export type SuperButtonPropsT = DefaultButtonPropsType & {
   text: string | ReactNode
   children?: DetailedHTMLProps<HTMLAttributes<SVGElement>, SVGElement>
-  variant?: 'default' | 'primary' | 'disabled' | 'registrationDisabled' | 'secondary' | 'withoutBack' | 'delete' | 'logIn' | 'create'
+  variant?: 'default' | 'primary' | 'disabled' | 'registrationDisabled' | 'secondary' | 'withoutBack' | 'delete' | 'logIn' | 'create' | 'newCreate' | 'newLogIn' | 'leaveRequest' | 'newSecondary' | 'goPlatform' | 'more' | 'tryForFree' | 'newPrimary' | 'mobile'
 }
 
 export type CheckboxPropsT = {
