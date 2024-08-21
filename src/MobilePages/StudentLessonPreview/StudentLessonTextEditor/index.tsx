@@ -61,10 +61,12 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId }) => {
     formData.append('file', files[0])
     formData.append('user_homework', `${homeworkId}`)
 
-    if (courseId) {
-      postHomewrok({ homework: homeworkId, text, schoolName, course_id: Number(courseId) })
-      postFiles({ formData, schoolName })
-    }
+    // if (courseId) {
+    //   postHomewrok({ homework: homeworkId, text, schoolName, course_id: Number(courseId) })
+    //   postFiles({ formData, schoolName })
+    // }
+    postHomewrok({ homework: { homework: homeworkId, text }, schoolName })
+    postFiles({ formData, schoolName })
   }
 
   return (

@@ -74,12 +74,17 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
     setIsLoading(true)
 
     if (courseId) {
+      // const formDataHw = new FormData()
+      // formDataHw.append('homework', String(homeworkId))
+      // formDataHw.append('text', String(text))
+      // console.log(formDataHw, homeworkId, text);
+      
+      // await postHomework({ homework: homeworkId, text, schoolName, course_id: Number(courseId) })
       const formDataHw = new FormData()
       formDataHw.append('homework', String(homeworkId))
       formDataHw.append('text', String(text))
-      console.log(formDataHw, homeworkId, text);
-      
-      await postHomework({ homework: homeworkId, text, schoolName, course_id: Number(courseId) })
+  
+      await postHomework({ homework: formDataHw, schoolName })
       .unwrap()
       .then((data) => {
         setHwSended(true)
