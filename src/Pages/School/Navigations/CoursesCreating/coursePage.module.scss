@@ -103,7 +103,7 @@
     border-radius: 10px;
     width: auto;
     height: 400px;
-    //height: fit-content;
+    // height: fit-content;
     //max-height: fit-content;
     box-shadow: $box-shadow;
     background: #ffffff;
@@ -164,7 +164,7 @@
 
       &_desc {
         display: block;
-        height: 80px;
+        height: 70px;
         box-sizing: border-box;
         font-size: 11px;
         color: #a2a9b4;
@@ -195,7 +195,7 @@
     }
 
     &_duration {
-      height: 50px;
+      height: 40px;
       &_limit {
         font-size: 11px;
         color: #ba75ff;
@@ -301,7 +301,6 @@
     color: white;
     @include font(500, 14px);
     padding: 7px;
-    margin-top: -80px;
     text-align: center;
     border: none;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -325,7 +324,7 @@
     color: white;
     @include font(500, 14px);
     padding: 7px;
-    margin-top: 70px;
+    margin-top: 80px;
     text-align: center;
     border: none;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
