@@ -1,6 +1,16 @@
 @import '../../scss/mixin.scss';
 @import '../../scss/variable.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: 'SFPROBold';
+  src: url(../../assets/fonts/SFProText/SFProText-Bold.ttf) format("opentype");
+}
+
 :root {
   --background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
   --gray: #34495e;
@@ -32,7 +42,7 @@
   // height: 100vh;
   display: flex;
   flex-direction: row;
-  padding: 10% 0 10% 0;
+  padding: 2% 0 2% 0;
 }
 .tit {
   font-size: 32px;
@@ -88,38 +98,99 @@
 .logo {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding-bottom: 20px;
+  width: 100%;
+  height: 100%;
+
+  &_btnBack {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    position: absolute;
+    left: 10%;
+    top: 6%;
+    background: #CFE2FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 20px;
+      height: 32px;
+    }
+
+    
+  }
+
+  &_rolePic {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    &_box {
+      display: flex;
+      width: 400px;
+      height: 401px;
+      
+
+      &_role {
+        display: inline-block;
+        width: 400px;
+        height: 300px;
+      }
+    }
+  }
+
+  &_logoWrapper {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      display: none;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      display: none;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 70px;
+  }
 }
 
 .schoolBox {
+  display: flex;
+  flex-direction: row;
+  width: 1280px;
+  height: 180px;
   overflow-y: auto;
   overflow-x: hidden;
   height: auto;
   padding: 5% 10% 5% 10%;
-  scrollbar-color: #b55bff #fff;
+  scrollbar-color: #357EEB #fff;
+  gap: 2rem;
   
 }
 
 .name {
-  font-weight: 400;
-  font-size: 24px;
+  font-family: 'SFPRORegular';
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 35.8px;
   margin-bottom: 5px;
   width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.name:hover {
-  white-space: initial;
-  overflow: visible;
+  color: #0D28BB;
 }
 
+
 .role {
-  color: #a2a9b4;
-  font-weight: 200;
+  font-family: 'SFPROBold';
+  color: #332F36;
+  font-weight: 600;
   font-size: 20px;
+  line-height: 23.87px;
 }
 
 .search {
@@ -157,17 +228,15 @@
 .bg {
   margin-top: 1.5em;
   position: relative;
-  background-color: hsl(0, 0%, 100%);
-  border-style: solid;
-  border-color: hsl(273, 100%, 74%);
+  background-color: #CFE2FF;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding-left: 2em;
-  border-radius: 10px;
-  width: 343px;
-  height: 97px;
+  border-radius: 24px;
+  width: 397px;
+  height: 161px;
   transition: ease-in-out background-color 0.3s;
+  padding: 20px 16px 20px 16px;
 
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -184,10 +253,10 @@
 
   span {
     font-size: 70px;
-    margin-right: 0.4em;
-    color: #a83eff;
+    margin-right: 9rem;
+    color: #3686FF;
     transition: ease-in-out color 0.3s;
-    height: 100%;
+    height: 50%;
     @include display(flex, row, center, center);
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       align-items: stretch;
@@ -198,16 +267,22 @@
   }
 
   &:hover {
-    background-color: #e3e3e3;
-    border-color: #a83eff;
+    background: linear-gradient(to right, #0D28BB, #357EEB);
+   
     span {
-      color: #b55bff;
+      color: #FFFAFA;
     }
     .role {
-      color: #b55bff;
+      color: #FFFAFA;
     }
+
+    .name {
+      color: #FFFAFA;
+    }
+    
   }
 }
+
 
 .create {
   display: flex;
@@ -215,18 +290,21 @@
   position: relative;
   justify-content: center;
   align-items: center;
-  color: blueviolet;
-  -webkit-text-fill-color: #ffff;
+  color: #0D28BB;
   height: 57px;
   width: 343px;
   border-radius: 10px;
-  background-color: #ba75ff;
-  font-size: 24px;
+  background-color:#CFE2FF;
+  font-family: 'SFPRORegular';
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 23.87px;
   transition: all ease-in 0.3s;
 
   &:hover {
-    transform: scale(1.1);
-    cursor: pointer;
+    color: #FFFFFF;
+    background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
+    border: 1px solid #FFFFFF;
   }
 }
 
@@ -393,7 +471,7 @@
     position: absolute;
     width: 50px;
     height: 50px;
-    background: #8034c7;
+    background: #3686FF;
     border-radius: 50%;
     scale: 10;
     filter: blur(25px);
@@ -407,7 +485,7 @@
     left: 100%;
     top: 100%;
     scale: 10;
-    background: #5048d8;
+    background: #3686FF;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate2 10s linear infinite;
@@ -420,7 +498,7 @@
     left: 100%;
     top: 0%;
     scale: 10;
-    background: #cd99ff;
+    background: #3686FF;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate3 10s linear infinite;
@@ -433,7 +511,7 @@
     scale: 10;
     left: 0%;
     top: 100%;
-    background: #60a0ec;
+    background: #3686FF;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate4 10s linear infinite;

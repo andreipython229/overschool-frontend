@@ -23,6 +23,7 @@ import { useLazyLogoutQuery } from 'api/userLoginService'
 import { Dialog, DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme } from '@mui/material'
 import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
 import {Domain} from "../../types/domainT";
+import { logoHeaderLogin, leftArrow, admin, admin2, teacher, teacher2, student, student2 } from '../../assets/img/common/index'
 
 export type SchoolT = {
   school_id: number
@@ -52,6 +53,10 @@ export const ChooseSchool = () => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   const [search, setSearch] = useState('')
+
+  const [isHoveredAdmin, setIsHoveredAdmin] = useState(false);
+  const [isHoveredTeacher, setIsHoveredTeacher] = useState(false);
+  const [isHoveredStudent, setIsHoveredStudent] = useState(false);
 
   useEffect(() => {
     dispatchRole(role(RoleE.Unknown))
@@ -100,6 +105,10 @@ export const ChooseSchool = () => {
   const filteredSchool = schools.filter(school => {
     return school.name.toLowerCase().includes(search.toLowerCase())
   })
+
+  
+  
+
 
   return (
     <div className={styles.con}>
@@ -181,41 +190,87 @@ export const ChooseSchool = () => {
                 </Dialog>
               )}
               <div className={styles.logo}>
-                <svg style={{ marginBottom: '3em' }} width="230" height="103" viewBox="0 0 230 103" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M174.192 -0.000967405C174.904 -0.00278475 175.589 0.265959 176.117 0.752598L210.92 32.9128L229.043 49.3535C230.294 50.4876 230.322 52.4704 229.104 53.6405L216.612 65.6498L181.693 101.708C181.157 102.26 180.429 102.571 179.669 102.573L136.491 102.684C133.936 102.69 132.661 99.5321 134.482 97.7044L179.251 52.7929C179.93 52.0414 179.888 51.7491 179.251 51.0602L170.272 41.4769L131.505 5.15145C129.594 3.36052 130.832 0.110076 133.429 0.1034L174.192 -0.000967405Z"
-                    fill="url(#paint0_linear_1323_4107)"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M68.4455 74.6878C67.4499 75.8543 67.5243 77.6104 68.614 78.6856L91.5215 101.278C92.7028 102.443 94.6034 102.352 95.6726 101.08L176.552 4.79767C178.139 2.90863 176.818 -0.00723445 174.377 -0.000966474L133.392 0.103958C132.569 0.106072 131.787 0.470392 131.246 1.10331L68.4455 74.6878Z"
-                    fill="url(#paint1_linear_1323_4107)"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M21.0084 26.3669L46.0685 1.16134C46.6015 0.620036 47.3227 0.315242 48.0754 0.313313L90.3417 0.205088C92.8834 0.198561 94.1643 3.32724 92.3713 5.16357L48.7023 49.8892C48.3891 50.2232 48.3837 50.4334 48.7023 50.8181L95.3713 97.8173C97.1716 99.6447 95.9061 102.778 93.3651 102.785L90.656 102.792C90.6366 102.792 90.6175 102.792 90.5981 102.792L52.2512 102.891C52.2328 102.891 52.2145 102.891 52.1962 102.89L51.538 102.892C50.7604 102.894 50.0157 102.572 49.4761 102.002L0.798224 50.4967C-0.289989 49.3451 -0.262078 47.5144 0.86075 46.3981L21.0084 26.3669Z"
-                    fill="url(#paint2_linear_1323_4107)"
-                  />
-                  <defs>
-                    <linearGradient id="paint0_linear_1323_4107" x1="140.844" y1="0.0844086" x2="209.849" y2="59.4753" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#9228FF" />
-                      <stop offset="1" stopColor="#EC40FF" />
-                    </linearGradient>
-                    <linearGradient id="paint1_linear_1323_4107" x1="150.641" y1="0.0597811" x2="67.4794" y2="103.714" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#CD99FF" />
-                      <stop offset="1" stopColor="#6D1CBA" />
-                    </linearGradient>
-                    <linearGradient id="paint2_linear_1323_4107" x1="8.10532" y1="38.9434" x2="70.8075" y2="102.291" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#61A3ED" />
-                      <stop offset="1" stopColor="#5048D8" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <span className={styles.tit}>Выберите платформу для входа:</span>
+                <div className={styles.logo_btnBack}>
+                  <a href={Path.InitialPage}><img src={leftArrow} alt="leftArrow"/></a>
+                </div>
+                <div className={styles.logo_logoWrapper}>
+                  <img src={logoHeaderLogin} alt="logoHeaderLogin"/>
+                </div>
+                <div className={styles.logo_rolePic}>
+                  <div className={styles.logo_rolePic_box}>
+                    <motion.div
+                      onMouseEnter={() => setIsHoveredAdmin(true)} 
+                      onMouseLeave={() => setIsHoveredAdmin(false)}
+                      className={styles.logo_rolePic_box_role}>
+                      {isHoveredAdmin ? (
+                        <motion.img 
+                          src={admin2} 
+                          alt="admin2" 
+                          initial={{ opacity: 0 }} 
+                          animate={{ opacity: 1 }} 
+                          transition={{ duration: 0.3 }} 
+                        />
+                      ) : (
+                        <motion.img 
+                          src={admin} 
+                          alt="admin" 
+                          initial={{ opacity: 1 }} 
+                          animate={{ opacity: 1 }} 
+                          transition={{ duration: 0.3 }} 
+                        />
+                      )}
+                    </motion.div>
+                  </div>
+                  <div className={styles.logo_rolePic_box}>
+                    <motion.div
+                      onMouseEnter={() => setIsHoveredTeacher(true)} 
+                      onMouseLeave={() => setIsHoveredTeacher(false)}
+                      className={styles.logo_rolePic_box_role}>
+                      {isHoveredTeacher ? (
+                        <motion.img 
+                          src={teacher2} 
+                          alt="teacher2" 
+                          initial={{ opacity: 0 }} 
+                          animate={{ opacity: 1 }} 
+                          transition={{ duration: 0.3 }} 
+                        />
+                      ) : (
+                        <motion.img 
+                          src={teacher} 
+                          alt="teacher" 
+                          initial={{ opacity: 1 }} 
+                          animate={{ opacity: 1 }} 
+                          transition={{ duration: 0.3 }} 
+                        />
+                      )}
+                    </motion.div>
+                  </div>
+                  <div className={styles.logo_rolePic_box}>
+                    <motion.div
+                      onMouseEnter={() => setIsHoveredStudent(true)} 
+                      onMouseLeave={() => setIsHoveredStudent(false)}
+                      className={styles.logo_rolePic_box_role}>
+                      {isHoveredStudent ? (
+                        <motion.img 
+                          src={student2} 
+                          alt="student2" 
+                          initial={{ opacity: 0 }} 
+                          animate={{ opacity: 1 }} 
+                          transition={{ duration: 0.3 }} 
+                        />
+                      ) : (
+                        <motion.img 
+                          src={student} 
+                          alt="student" 
+                          initial={{ opacity: 1 }} 
+                          animate={{ opacity: 1 }} 
+                          transition={{ duration: 0.3 }} 
+                        />
+                      )}
+                    </motion.div>
+                  </div>
+                </div>
+                  <span className={styles.tit}>Выберите платформу для входа:</span>
               </div>
               {/* <motion.div className={styles.search} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                 <form>
@@ -240,7 +295,7 @@ export const ChooseSchool = () => {
                         style={{ textDecoration: 'none', overflow: 'hidden' }}
                         to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                       >
-                        <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+                        <div className={styles.bg}>
                           <div className={styles.bg_container}>
                             <div className={styles.name} style={{ textDecoration: 'none' }}>
                               {school.name}
@@ -248,7 +303,7 @@ export const ChooseSchool = () => {
                             <div className={styles.role}>{userRoleName[school.role]}</div>
                           </div>
                           <span>→</span>
-                        </motion.div>
+                        </div>
                       </Link>
                     ) : school.role === 'Admin' ? (
                       <Link
@@ -260,7 +315,7 @@ export const ChooseSchool = () => {
                         style={{ textDecoration: 'none', overflow: 'hidden' }}
                         to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                       >
-                        <motion.div className={styles.bg} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+                        <div className={styles.bg}>
                           <div className={styles.bg_container}>
                             <div className={styles.name} style={{ textDecoration: 'none' }}>
                               {school.name}
@@ -268,15 +323,10 @@ export const ChooseSchool = () => {
                             <div className={styles.role}>{userRoleName[school.role]}</div>
                           </div>
                           <span>→</span>
-                        </motion.div>
+                        </div>
                       </Link>
                     ) : (
-                      <motion.div
-                        className={styles.bg}
-                        style={{ cursor: 'pointer' }}
-                        whileHover={{ scale: 1.2 }}
-                        whileTap={{ scale: 0.8 }}
-                        onClick={() => {
+                      <div className={styles.bg} onClick={() => {
                           setSelectedSchool(school)
                           open()
                         }}
@@ -288,7 +338,7 @@ export const ChooseSchool = () => {
                           <div className={styles.role}>{userRoleName[school.role]}</div>
                         </div>
                         <span>→</span>
-                      </motion.div>
+                      </div>
                     ),
                   )
                 ) : (
@@ -304,17 +354,7 @@ export const ChooseSchool = () => {
           )}
         </div>
         {isOpen && <Portal closeModal={on}>{schools && <AddSchoolModal setShowModal={on} schools={schools} />}</Portal>}
-        {/* <div className={styles.bg2}>
-                  <div style={{marginRight: '1em', marginLeft: '1em'}}>
-                      <img src={anton}/>
-                  </div>
-                  <div>
-                      <div className={styles.bg2_citate}>Overschool в разы превосходит по функциональности и
-                          работоспособности все ранее используемые нами системы.
-                      </div>
-                      <div className={styles.bg2_c}>Антон Селивончик (менеджер)</div>
-                  </div>
-              </div> */}
+        
       </div>
     </div>
   )
