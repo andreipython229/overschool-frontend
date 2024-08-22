@@ -25,6 +25,10 @@ import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
 import {Domain} from "../../types/domainT";
 import { logoHeaderLogin, leftArrow, admin, admin2, teacher, teacher2, student, student2 } from '../../assets/img/common/index'
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules'
+
+
 export type SchoolT = {
   school_id: number
   name: string
@@ -284,63 +288,71 @@ export const ChooseSchool = () => {
               </motion.div> */}
               <div className={styles.schoolBox}>
                 {schools ? (
-                  filteredSchool.map((school, index: number) =>
-                    school.tariff_paid ? (
-                      <Link
-                        key={index}
-                        onClick={async e => {
-                          e.preventDefault()
-                          await handleSchool(school)
-                        }}
-                        style={{ textDecoration: 'none' }}
-                        to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
-                      >
-                        <div className={styles.bg}>
-                          <div className={styles.bg_container}>
-                            <div className={styles.name} style={{ textDecoration: 'none' }}>
-                              {school.name}
+                  <Swiper
+                    modules={[Navigation, Pagination]}
+                    pagination={{
+                      dynamicBullets: true,
+                    }}
+                    spaceBetween={5}
+                    slidesPerView={3}                   >
+                    {filteredSchool.map((school, index) => (
+                      <SwiperSlide key={index}>
+                        {school.tariff_paid ? (
+                          <Link
+                            onClick={async e => {
+                              e.preventDefault();
+                              await handleSchool(school);
+                            }}
+                            style={{ textDecoration: 'none' }}
+                            to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
+                          >
+                            <div className={styles.bg}>
+                              <div className={styles.bg_container}>
+                                <div className={styles.name} style={{ textDecoration: 'none' }}>
+                                  {school.name}
+                                </div>
+                                <div className={styles.role}>{userRoleName[school.role]}</div>
+                              </div>
+                              <span>→</span>
                             </div>
-                            <div className={styles.role}>{userRoleName[school.role]}</div>
-                          </div>
-                          <span>→</span>
-                        </div>
-                      </Link>
-                    ) : school.role === 'Admin' ? (
-                      <Link
-                        key={index}
-                        onClick={async e => {
-                          e.preventDefault()
-                          await handleSchool(school)
-                        }}
-                        style={{ textDecoration: 'none', overflow: 'hidden' }}
-                        to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
-                      >
-                        <div className={styles.bg}>
-                          <div className={styles.bg_container}>
-                            <div className={styles.name} style={{ textDecoration: 'none' }}>
-                              {school.name}
+                          </Link>
+                        ) : school.role === 'Admin' ? (
+                          <Link
+                            onClick={async e => {
+                              e.preventDefault();
+                              await handleSchool(school);
+                            }}
+                            style={{ textDecoration: 'none', overflow: 'hidden' }}
+                            to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
+                          >
+                            <div className={styles.bg}>
+                              <div className={styles.bg_container}>
+                                <div className={styles.name} style={{ textDecoration: 'none' }}>
+                                  {school.name}
+                                </div>
+                                <div className={styles.role}>{userRoleName[school.role]}</div>
+                              </div>
+                              <span>→</span>
                             </div>
-                            <div className={styles.role}>{userRoleName[school.role]}</div>
+                          </Link>
+                        ) : (
+                          <div className={styles.bg} onClick={() => {
+                              setSelectedSchool(school);
+                              open();
+                            }}
+                          >
+                            <div className={styles.bg_container}>
+                              <div className={styles.name} style={{ textDecoration: 'none' }}>
+                                {school.name}
+                              </div>
+                              <div className={styles.role}>{userRoleName[school.role]}</div>
+                            </div>
+                            <span>→</span>
                           </div>
-                          <span>→</span>
-                        </div>
-                      </Link>
-                    ) : (
-                      <div className={styles.bg} onClick={() => {
-                          setSelectedSchool(school)
-                          open()
-                        }}
-                      >
-                        <div className={styles.bg_container}>
-                          <div className={styles.name} style={{ textDecoration: 'none' }}>
-                            {school.name}
-                          </div>
-                          <div className={styles.role}>{userRoleName[school.role]}</div>
-                        </div>
-                        <span>→</span>
-                      </div>
-                    ),
-                  )
+                        )}
+                      </SwiperSlide>
+                    ))}
+                    </Swiper>
                 ) : (
                   <p style={{ color: 'blueviolet', fontSize: '20px', textAlign: 'center', padding: '2em', fontWeight: 'bold' }}>
                     {'Нет доступных платформ :('}
@@ -352,6 +364,7 @@ export const ChooseSchool = () => {
               </div>
             </motion.div>
           )}
+
         </div>
         {isOpen && <Portal closeModal={on}>{schools && <AddSchoolModal setShowModal={on} schools={schools} />}</Portal>}
         

@@ -160,7 +160,7 @@
 .schoolBox {
   display: flex;
   flex-direction: row;
-  width: 1280px;
+  width: 1295px;
   height: 180px;
   overflow-y: hidden;
   overflow-x: auto;
@@ -168,6 +168,8 @@
   padding: 5% 0;
   scrollbar-color: #357EEB #fff;
   margin-bottom: 2rem;
+  margin-top: 2rem;
+  height: 300px;
   
 }
 
@@ -227,7 +229,7 @@
 
 .bg {
   margin-top: 1.5em;
-  margin-left: 2rem;
+  margin-left: 1rem;
   position: relative;
   background-color: #CFE2FF;
   display: flex;
