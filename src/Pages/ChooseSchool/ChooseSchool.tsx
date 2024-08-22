@@ -292,7 +292,7 @@ export const ChooseSchool = () => {
                           e.preventDefault()
                           await handleSchool(school)
                         }}
-                        style={{ textDecoration: 'none', overflow: 'hidden' }}
+                        style={{ textDecoration: 'none' }}
                         to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                       >
                         <div className={styles.bg}>

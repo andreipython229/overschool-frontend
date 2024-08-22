@@ -162,12 +162,12 @@
   flex-direction: row;
   width: 1280px;
   height: 180px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-y: hidden;
+  overflow-x: auto;
   height: auto;
-  padding: 5% 10% 5% 10%;
+  padding: 5% 0;
   scrollbar-color: #357EEB #fff;
-  gap: 2rem;
+  margin-bottom: 2rem;
   
 }
 
@@ -227,6 +227,7 @@
 
 .bg {
   margin-top: 1.5em;
+  margin-left: 2rem;
   position: relative;
   background-color: #CFE2FF;
   display: flex;
