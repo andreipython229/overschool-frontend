@@ -1,18 +1,23 @@
 import {useLocation, useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 
 
 const RouteHandler = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const isInitialLoad = useRef(true);
 
     useEffect(() => {
-        // Восстановление сохраненного пути при загрузке страницы
-        const savedPath = localStorage.getItem('savedPath');
-        if (savedPath) {
-            navigate(savedPath, {replace: true});
+        const isInitialLoad = sessionStorage.getItem('isInitialLoad') === null;
+
+        if (isInitialLoad) {
+            const savedPath = localStorage.getItem('savedPath');
+            if (savedPath && savedPath !== location.pathname) {
+                navigate(savedPath, { replace: true });
+            }
+            sessionStorage.setItem('isInitialLoad', 'false');
         }
-    }, [navigate]);
+    }, [navigate, location.pathname]);
 
     useEffect(() => {
         // Сохранение текущего пути перед закрытием окна
