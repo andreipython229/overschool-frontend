@@ -14,14 +14,32 @@ export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', 
     propsStyle += ' ' + styles.registartionDisabled
   } else if (variant === 'secondary') {
     propsStyle += ' ' + styles.secondary
+  } else if (variant === 'leaveRequest') {
+    propsStyle += ' ' + styles.leaveRequest
+  } else if (variant === 'newPrimary') {
+    propsStyle += ' ' + styles.newPrimary
+  } else if (variant === 'newSecondary') {
+    propsStyle += ' ' + styles.newSecondary
   } else if (variant === 'withoutBack') {
     propsStyle += ' ' + styles.withoutBack
   } else if (variant === 'delete') {
     propsStyle += ' ' + styles.delete
   } else if (variant === 'logIn') {
     propsStyle += ' ' + styles.logIn
+  } else if (variant === 'newLogIn') {
+    propsStyle += ' ' + styles.newLogIn
   } else if (variant === 'create') {
     propsStyle += ' ' + styles.create
+  } else if (variant === 'newCreate') {
+    propsStyle += ' ' + styles.newCreate
+  } else if (variant === 'goPlatform') {
+    propsStyle += ' ' + styles.goPlatform
+  } else if (variant === 'more') {
+    propsStyle += ' ' + styles.more
+  } else if (variant === 'tryForFree') {
+    propsStyle += ' ' + styles.tryForFree
+  } else if (variant === 'mobile') {
+    propsStyle += ' ' + styles.mobile
   } else {
     propsStyle = styles.btn_default
   }

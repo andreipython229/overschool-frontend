@@ -39,7 +39,7 @@ export enum Path {
   Appeals = 'school-appeals/',
   Meetings = 'meetings/',
   Materials = 'materials/',
-  CourseMaterials = 'materials/:course_id/',
+  CourseMaterials = 'create-course/:course_id/materials/',
   Rating = 'rating/',
 }
 
@@ -77,4 +77,6 @@ export enum FooterPath {
   PersonalDataTreatmentPolicy = 'personalDataTreatmentPolicy',
   PWA = 'PWA',
   Agreement = 'agreement/',
+  HelpPage = '/help/',
+  
 }

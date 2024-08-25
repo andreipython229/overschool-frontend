@@ -63,14 +63,29 @@ export const coursesServices = createApi({
       },
       invalidatesTags: ['course'],
     }),
-    cloneCourse: build.mutation<CoursesDataT, { id: number; schoolName: string }>({
-      query: ({ id, schoolName }) => {
+    cloneCourse: build.mutation<CoursesDataT, { id: number; schoolName: string; userEmail: string }>({
+      query: ({ id, schoolName, userEmail }) => {
         return {
-          url: `/${schoolName}/courses/${id}/clone/`,
+          url: `/${schoolName}/courses/${id}/clone/?user_email=${encodeURIComponent(userEmail)}`,
           method: 'GET',
         }
       },
       invalidatesTags: ['courses'],
+    }),
+    fetchCourseCopyOwners: build.query<any, { schoolName: string; courseName: string; id: number }>({
+      query: ({ courseName, schoolName, id }) => ({
+        url: `/${schoolName}/courses/${id}/get_course_copy_owners/`,
+        method: 'GET',
+        params: { course_name: courseName },
+      }),
+    }),
+    deleteCourseCopyAccess: build.mutation<any, { emails: string[]; schoolName: string; courseName: string; id: number }>({
+      query: ({ emails, courseName, schoolName, id }) => ({
+        url: `/${schoolName}/courses/${id}/delete_course_access/`,
+        method: 'PATCH',
+        body: { user_emails: emails, course_name: courseName },
+      }),
+      invalidatesTags: ['courses', 'course'],
     }),
   }),
 })
@@ -99,6 +114,9 @@ export const {
   useDeleteCoursesMutation,
   usePatchCoursesMutation,
   useCloneCourseMutation,
+  useFetchCourseCopyOwnersQuery,
+  useLazyFetchCourseCopyOwnersQuery,
+  useDeleteCourseCopyAccessMutation,
   useFetchCourseFoldersQuery,
   useCreateNewFoldersMutation,
   useDeleteFolderMutation,

@@ -1,0 +1,101 @@
+@import '../../scss/variable';
+@import '../../scss/mixin';
+
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
+}
+h1 {
+  font-family: 'SFPRORegular';
+}
+
+p {
+  font-family: 'SFPRORegular';
+}
+
+.wrapper {
+  width: 1280px;
+  height: 581px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 100px;
+
+  &_img {
+    width: 1080px;
+    display: flex;
+    padding-top: 11px;
+    padding-bottom: 5px;
+  }
+
+  &_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 1080px;
+    height: 256px;
+    gap: 1rem;
+
+    h1 {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 23.87px;
+      color: #324195;
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.09px;
+      color: #357eeb;
+    }
+
+    a {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.09px;
+      color: #357eeb;
+    }
+
+    &_contact {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      &_pack {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+      }
+    }
+
+    &_directions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      &_link {
+        font-family: 'SFPROSemiBold';
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19.09px;
+        color: #357eeb;
+      }
+    }
+
+    &_networks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    &_users {
+      width: 233px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+}
