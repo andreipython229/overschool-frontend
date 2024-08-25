@@ -42,7 +42,7 @@ export const ChatWorkspace: FC = () => {
         fetchChatData(chatId)
 
         socketRef.current = new w3cwebsocket(
-          process.env.RUN_MODE === 'PRODUCTION'
+          process.env.REACT_APP_RUN_MODE === 'PRODUCTION'
             ? `wss://apidev.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`
             : `ws://sandbox.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`,
         )
