@@ -84,6 +84,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
           <Route path={CreateCoursePath.Settings} element={<SettingCourse />} />
           <Route path={CreateCoursePath.Page} element={<CoursePageConstruct />} />
           <Route path={CreateCoursePath.Comments} element={<Comments />} />
+          <Route path={CreateCoursePath.Materials} element={<CourseMaterials />} />
         </Route>
       </Route>
       <Route path={Path.Profile} element={<Profile />} />

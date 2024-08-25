@@ -25,6 +25,7 @@ export const TariffPlansInfo: FC = () => {
   useEffect(() => {
     if (data) {
       const table = [...data]
+      
       setTariffPlanTable(table.sort((obj1, obj2) => Number(obj1.price) - Number(obj2.price)))
     }
   }, [isSuccess, data])
@@ -118,7 +119,7 @@ export const TariffPlansInfo: FC = () => {
                     </li>
                     <li>
                       Количество сотрудников:
-                      <span>{plan.number_of_staff || '∞'}</span>
+                      <span>{plan.number_of_staff !== null ? (plan.number_of_staff !== 0 ? plan.number_of_staff : '0') : '∞'}</span>
                     </li>
                     <li>
                       Студентов в месяц:

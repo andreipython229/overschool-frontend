@@ -15,13 +15,15 @@ import {
     useLazyFetchStudentLessonsQuery,
     useResetStudentLessonsAccessMutation
 } from '../../../../api/lessonAccessService'
+import { useFetchStudentsGroupQuery, useUpdateGroupMutation } from 'api/studentsGroupService'
 import {useDeleteStudentFromGroupMutation} from '../../../../api/studentsGroupService'
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material'
+import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, Select} from '@mui/material'
 import DatePicker, {registerLocale} from 'react-datepicker'
 import {groupSections, sectionLessons} from "../../../../types/lessonAccessT";
 import { useAppSelector } from 'store/hooks'
 import { headerUserRoleName } from '../../../../config/headerUserRoleName'
 import {selectUser} from '../../../../selectors'
+import { studentsGroupsT } from 'types/studentsGroup';
 import { log } from 'console';
 
 type studentInfoModalT = {
@@ -60,6 +62,17 @@ type studentProgressT = {
     courses: ICoursesProgress[]
 }
 
+type Group = {
+    id: number
+    course_id: number
+    name: string
+}
+
+type TargetGroup = {
+    id: number;
+    name: string;
+} | null;
+
 export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, isStudentDeleted}) => {
     const lastActivity = student?.last_login ? student.last_login : null;
     const schoolName = window.location.href.split('/')[4]
@@ -67,10 +80,12 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
     const [studentProgress, setStudentProgress] = useState<studentProgressT>()
     const {data} = useFetchStudentProgressQuery({user_id: String(student?.student_id), schoolName})
     const [fetchStudentLessons, {data: allStudentLessons, isFetching}] = useLazyFetchStudentLessonsQuery()
+    const { data: groups } = useFetchStudentsGroupQuery(schoolName)
     const [studentLessons, setStudentLessons] = useState<sectionLessons[]>()
     const [resetAccess, {isSuccess}] = useResetStudentLessonsAccessMutation()
     const [completedPercent, setCompletedPercent] = useState<number>()
     const [openAlert, setOpenAlert] = useState<boolean>(false)
+    const [openMoveStudent, setMoveStudent] = useState<boolean>(false)
     const [deleteStudent] = useDeleteStudentFromGroupMutation()
     const [removeDate, setRemoveDate] = useState<Date>(new Date())
     const [datePickerClass, setDatePickerClass] = useState<any>();
@@ -78,6 +93,8 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
     const currentTime = new Date();
     let activityMessage;
     const { role } = useAppSelector(selectUser);
+    const [targetGroup, setTargetGroup] = useState<TargetGroup>(null);
+    const [updateGroup] = useUpdateGroupMutation();
 
     const handleOpenAlert = () => {
         setOpenAlert(true)
@@ -85,6 +102,14 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
 
     const handleCloseAlert = () => {
         setOpenAlert(false)
+    }
+
+    const handleOpenMoveStudent = () => {
+        setMoveStudent(true)
+    }
+
+    const handleCloseMoveStudent = () => {
+        setMoveStudent(false)
     }
 
     useEffect(() => {
@@ -180,6 +205,32 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
             await isStudentDeleted()
     }
 
+    const handleMoveStudent = async () => {
+        if (student?.student_id && targetGroup) {
+            try {
+                await updateGroup({
+                    user_ids: [student.student_id],
+                    new_group_id: targetGroup.id,
+                    schoolName,
+                    id: student.group_id
+                }).unwrap();
+                handleCloseMoveStudent();
+                closeModal();
+                isStudentDeleted();
+            } catch (error) {
+                console.error('Ошибка при перемещении студента:', error);
+            }
+        }
+    }
+
+    const availableGroups = groups?.results
+    ? groups.results.filter((group: studentsGroupsT) => 
+        group.course_id === student?.course_id && group.group_id !== student?.group_id
+      )
+    : [];
+
+    console.log(availableGroups)
+
     return (
         <div className={mainStyles.main} role="dialog" aria-modal="true">
             <div className={styles.close_btn} onClick={closeModal}>
@@ -240,8 +291,49 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
                                           resetAccessSetting={resetAccessSetting}/>
                 </div>
                 {student?.group_name && headerUserRoleName[role] === 'Администратор' && (
-                    <div>
- 
+                    <div className="button-container" style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Button
+                            className={styles.student_button}
+                            text={`Переместить ученика в другую группу`}
+                            onClick={handleOpenMoveStudent}
+                            />
+                        <Dialog
+                            open={openMoveStudent}
+                            onClose={handleCloseMoveStudent}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                            <DialogTitle id="alert-dialog-title">Переместить студента</DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                    Выберите группу, в которую хотите переместить студента:
+                                </DialogContentText>
+                                <Select
+                                    value={targetGroup ? targetGroup.id.toString() : ''}
+                                    onChange={(e) => {
+                                        const selectedGroupId = parseInt(e.target.value, 10);
+                                        const selectedGroup = availableGroups.find(group => group.group_id === selectedGroupId);
+                                        if (selectedGroup && selectedGroup.group_id !== undefined) {
+                                            setTargetGroup({ id: selectedGroup.group_id, name: selectedGroup.name });
+                                        }
+                                    }}
+                                    fullWidth
+                                >
+                                    <MenuItem value="Выберите группу для переноса" disabled>
+                                        Выберите группу для переноса
+                                    </MenuItem>
+                                    {availableGroups.map(group => (
+                                        <MenuItem key={group.group_id} value={group.group_id}>
+                                            {group.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleCloseMoveStudent} color="primary" text={`Отмена`} />
+                                <Button onClick={handleMoveStudent} color="primary" autoFocus text={`Переместить`} />
+                            </DialogActions>
+                        </Dialog>
                         <Button
                             style={{margin: '10px'}}
                             text={`Удалить ученика из группы "${student?.group_name}"`}

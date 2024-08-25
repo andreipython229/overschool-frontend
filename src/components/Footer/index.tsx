@@ -18,6 +18,7 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
 
   useEffect(() => {
     if (data) {
+      localStorage.setItem('test_course', String(data.test_course))
       setAgreementUrl(data?.offer_url)
     }
   }, [data])
