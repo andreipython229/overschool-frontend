@@ -21,10 +21,17 @@ export const questionsAndAnswersService = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['questions', 'answers', 'usertests'],
   endpoints: build => ({
-    fetchQuestionsList: build.query<any, {id: string | number, schoolName: string}>({
-      query: ({ id, schoolName }) => ({
-        url: `/${schoolName}/tests/${id}/get_questions/`,
-      }),
+    fetchQuestionsList: build.query<any, { id: string | number; schoolName: string; course_id?: string }>({
+      query: ({ id, schoolName, course_id }) => {
+        // Формируем URL с учетом наличия course_id
+        const url = course_id
+          ? `/${schoolName}/tests/${id}/get_questions/?courseId=${course_id}`
+          : `/${schoolName}/tests/${id}/get_questions/`;
+    
+        return {
+          url,
+        };
+      },
       providesTags: ['questions', 'answers'],
     }),
     // fetchQuestions: build.query({
@@ -105,6 +112,7 @@ export const questionsAndAnswersService = createApi({
 
 export const {
   useFetchQuestionsListQuery,
+  useLazyFetchQuestionsListQuery,
   usePatchQuestionMutation,
   useCreateQuestionsMutation,
   useRemoveQuestionsMutation,

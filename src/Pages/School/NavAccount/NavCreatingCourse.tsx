@@ -11,6 +11,9 @@ import { generatePath, useNavigate } from 'react-router-dom'
 import styles from './navCreatingCourse.module.scss'
 
 export const NavCreatingCourse = memo(() => {
+  const course_id = window.location.href.split('/')[7]
+  const course_copy = localStorage.getItem('course_copy') === 'true';
+  const userId = localStorage.getItem('id');
   const { role: UserRole } = useAppSelector(selectUser)
   const navigate = useNavigate()
   const schoolName = useAppSelector(schoolNameSelector)
@@ -21,23 +24,55 @@ export const NavCreatingCourse = memo(() => {
 
     navigate(pathLink)
   }
-
+  
   return (
     <nav className={styles.creatingCourse}>
       {UserRole === RoleE.Admin ? (
         <>
-          <NavAccountBtn text={'Конструктор'} path={CreateCoursePath.Constructor} />
-          <NavAccountBtn text={'Ученики курса'} path={CreateCoursePath.Student} />
-          <NavAccountBtn text={'Настройки курса'} path={CreateCoursePath.Settings} />
-          <NavAccountBtn text={'Страница курса'} path={CreateCoursePath.Page} />
-          <NavAccountBtn text={'Комментарии'} path={CreateCoursePath.Comments} />
-          <button className={styles.creatingCourse_backButton} onClick={backCourses}>
-            Курсы
-          </button>
+          {course_id !== '247' ? (
+            !course_copy ? (
+              <>
+                <NavAccountBtn text={'Конструктор'} path={CreateCoursePath.Constructor} />
+                <NavAccountBtn text={'Ученики курса'} path={CreateCoursePath.Student} />
+                <NavAccountBtn text={'Настройки курса'} path={CreateCoursePath.Settings} />
+                <NavAccountBtn text={'Страница курса'} path={CreateCoursePath.Page} />
+                <NavAccountBtn text={'Комментарии'} path={CreateCoursePath.Comments} />
+                <button className={styles.creatingCourse_backButton} onClick={backCourses}>
+                  Курсы
+                </button>
+              </>
+            ) : (
+              <>
+                <NavAccountBtn text={'Материалы курса'} path={CreateCoursePath.Materials} />
+                <NavAccountBtn text={'Ученики курса'} path={CreateCoursePath.Student} />
+                <button className={styles.creatingCourse_backButton} onClick={backCourses}>
+                  Курсы
+                </button>
+              </>
+            )
+          ) : (
+            <>
+              {userId === '154' ? (
+                <>
+                  <NavAccountBtn text={'Конструктор'} path={CreateCoursePath.Constructor} />
+                  <NavAccountBtn text={'Ученики курса'} path={CreateCoursePath.Student} />
+                  <NavAccountBtn text={'Настройки курса'} path={CreateCoursePath.Settings} />
+                  <NavAccountBtn text={'Страница курса'} path={CreateCoursePath.Page} />
+                  <NavAccountBtn text={'Комментарии'} path={CreateCoursePath.Comments} />
+                  <button className={styles.creatingCourse_backButton} onClick={backCourses}>
+                    Курсы
+                  </button>
+                </>
+              ) : (
+                <>
+                </>
+              )}
+            </>
+          )}
         </>
       ) : (
         <NavAccountBtn text={'Материалы курса'} path={CreateCoursePath.Materials} />
       )}
     </nav>
-  )
+  );
 })

@@ -27,6 +27,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const schoolName = window.location.href.split('/')[4]
+  const courseId = localStorage.getItem('course_id')
 
   const [postHomework] = usePostUserHomeworkMutation()
   const [postFiles] = usePostTextFilesMutation()
@@ -72,11 +73,18 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
     e.preventDefault()
     setIsLoading(true)
 
-    const formDataHw = new FormData()
-    formDataHw.append('homework', String(homeworkId))
-    formDataHw.append('text', String(text))
-
-    await postHomework({ homework: formDataHw, schoolName })
+    if (courseId) {
+      // const formDataHw = new FormData()
+      // formDataHw.append('homework', String(homeworkId))
+      // formDataHw.append('text', String(text))
+      // console.log(formDataHw, homeworkId, text);
+      
+      // await postHomework({ homework: homeworkId, text, schoolName, course_id: Number(courseId) })
+      const formDataHw = new FormData()
+      formDataHw.append('homework', String(homeworkId))
+      formDataHw.append('text', String(text))
+  
+      await postHomework({ homework: formDataHw, schoolName })
       .unwrap()
       .then((data) => {
         setHwSended(true)
@@ -128,6 +136,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
         setHwStatus(true)
         setOpen(true)
       })
+    }
   }
 
   useEffect(() => {

@@ -8,6 +8,7 @@ import { searchIconPath } from 'config/commonSvgIconsPath'
 import { schoolIdSelector, schoolNameSelector, selectUser } from 'selectors'
 import { AddCourseModal } from 'components/Modal'
 import { useDeleteFolderMutation, useFetchCourseFoldersQuery, useLazyFetchCoursesPageQuery } from 'api/coursesServices'
+import { useSetSchoolMutation } from 'api/schoolService'
 import { useBoolean } from 'customHooks/useBoolean'
 import { Portal } from 'components/Modal/Portal'
 import { useDebouncedFilter } from '../../../../customHooks'
@@ -16,7 +17,7 @@ import ContentLoader from 'react-content-loader'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CoursesT } from 'types/CoursesT'
 import { Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import { Delete, FolderCopyOutlined } from '@mui/icons-material'
+import { Delete, FolderCopyOutlined, Visibility, VisibilityOff } from '@mui/icons-material'
 import { AddNewFolderModal } from 'components/Modal/AddFolderModal'
 import { Button } from 'components/common/Button/Button'
 import { useLazyFetchBonusesQuery } from '../../../../api/schoolBonusService'
@@ -27,6 +28,8 @@ export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const schoolId = useAppSelector(schoolIdSelector)
+  const school_id = localStorage.getItem('school_id')
+  const test_course = localStorage.getItem('test_course')
   const [fetchData, { data: coursesData, isSuccess }] = useLazyFetchCoursesPageQuery()
   const { data: folders, isError, refetch } = useFetchCourseFoldersQuery(schoolName)
   const [isOpenAddCourse, { onToggle }] = useBoolean()
@@ -42,9 +45,11 @@ export const CoursePage: FC = () => {
     id: number
     name: string
   }>()
+  const [showTestCourse, setShowTestCourse] = useState(true)
   const [deleteFolder, { isSuccess: deletedSuccessfuly }] = useDeleteFolderMutation()
   const [getBonuses, { data: bonuses, isSuccess: bonusSuccess }] = useLazyFetchBonusesQuery()
-  const dispatch = useDispatch()
+  const [updateSchoolTestCourse, { data: isLoading }] = useSetSchoolMutation()
+  const dispatch = useDispatch();
 
   const dispatchHandlerModal = () => {
     onToggle()
@@ -89,6 +94,30 @@ export const CoursePage: FC = () => {
       if (filteredArray) {
         setCourses({ ...courses, results: filteredArray })
       }
+    }
+  }
+
+  useEffect(() => {
+    if (test_course) {
+      const isTestCourse = test_course.toLowerCase();
+      if (isTestCourse === 'true') {
+        setShowTestCourse(true);
+      } else {
+        setShowTestCourse(false)
+      }
+    }
+  }, [test_course]);
+
+  const toggleTestCourseVisibility = async (newState: boolean) => {
+    setShowTestCourse(newState);
+    const formdata = new FormData();
+    formdata.append('test_course', JSON.stringify(newState));
+    try {
+      await updateSchoolTestCourse({ formdata, id: Number(school_id) });
+      await fetchData(schoolName);
+      setCourses(coursesData)
+    } catch (error) {
+      console.error('Error updating test course:', error);
     }
   }
 
@@ -144,6 +173,12 @@ export const CoursePage: FC = () => {
                 />
               )}
               <Chip
+                icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
+                label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
+                variant="filled"
+                onClick={() => toggleTestCourseVisibility(!showTestCourse)}
+              />
+            <Chip
                 icon={<FolderCopyOutlined />}
                 label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
                 variant="filled"
@@ -254,7 +289,9 @@ export const CoursePage: FC = () => {
               {courses && filteredCourses?.length !== 0 ? (
                 <>
                   {filteredCourses?.map((course: any) => (
-                    <CoursesCard key={course?.course_id} course={course} role={role} />
+                    showTestCourse || (course.course_id !== 247) ? (
+                      <CoursesCard key={course?.course_id} course={course} role={role} />
+                    ) : null
                   ))}
                   {role !== RoleE.Student && (
                     <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>

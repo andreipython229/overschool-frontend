@@ -5,7 +5,7 @@ import { StudentTest } from './StudentTest'
 import { StudentHomework } from './StudentHomework'
 import { StudentLesson } from './StudentLesson'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
-import { useFetchLessonQuery, useLazyFetchModuleLessonsQuery } from '../../../api/modulesServices'
+import { useFetchLessonQuery, useLazyFetchLessonQuery, useLazyFetchModuleLessonsQuery } from '../../../api/modulesServices'
 import { StudentLessonSidebar } from './StudentLessonSidebar'
 import { sectionT } from 'types/sectionT'
 
@@ -18,20 +18,23 @@ import {LimitModal} from "../../../components/Modal/LimitModal/LimitModal";
 export const StudentLessonPreview: FC = () => {
   const params = useParams()
   const schoolName = window.location.href.split('/')[4]
+  const courseId = localStorage.getItem('course_id')
 
   const [fetchLessons, {data: lessons, isSuccess, error}] = useLazyFetchModuleLessonsQuery()
-  const {data: lesson, isFetching: isLoading} = useFetchLessonQuery({
-    id: Number(params?.lesson_id),
-    type: `${params?.lesson_type}`,
-    schoolName,
-  })
+  const [fetchLesson, {data: lesson, isFetching: isLoading}] = useLazyFetchLessonQuery();
   const [nextDisabled, setNextDisabled] = useState(false)
   const [isOpenLimitModal, {onToggle}] = useBoolean()
   const [message, setMessage] = useState<string>('')
 
   useEffect(() => {
-    if (params) {
-      fetchLessons({sectionId: String(params.section_id), schoolName})
+    if (params && courseId) {
+      fetchLessons({sectionId: String(params.section_id), schoolName, courseId})
+    }
+  }, [params])
+
+  useEffect(() => {
+    if (params && courseId) {
+      fetchLesson({id: Number(params?.lesson_id), type: `${params?.lesson_type}`, schoolName, courseId})
     }
   }, [params])
 

@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { useFetchQuestionsListQuery } from '../../../../../../../api/questionsAndAnswersService'
+import { useFetchQuestionsListQuery, useLazyFetchQuestionsListQuery } from '../../../../../../../api/questionsAndAnswersService'
 import { orderBy } from 'lodash'
 import { SimpleLoader } from '../../../../../../../components/Loaders/SimpleLoader'
 import { AnswersT } from '../../../../../../../components/AddQuestion'
@@ -7,6 +7,7 @@ import styles from '../../../../../../../components/AddQuestion/addQuestion.modu
 import { AdminTextOptions } from './Options/AdminTextOption'
 import { AdminOptionsWithPictures } from './Options/AdminOptionsWithPictures'
 import { AdminPicturesAndOptions } from './Options/AdminPicturesAndOptions'
+import { ITest } from 'types/sectionT'
 
 type AdminTestT = {
   testId: number
@@ -21,7 +22,8 @@ type QuestionT = {
 
 export const AdminTest: FC<AdminTestT> = ({ testId }) => {
   const schoolName = window.location.href.split('/')[4]
-  const { data: questionsList, isLoading, isSuccess } = useFetchQuestionsListQuery({ id: String(testId), schoolName })
+  const course_id = localStorage.getItem('course_id')
+  const [fetchQuestionsList, { data: questionsList, isLoading, isSuccess }] = useLazyFetchQuestionsListQuery();
 
   // для функционала не только с текстовыми тестами =>
   // const [typeQuestions, setTypeQuestions] = useState<keyof QuestionT>(null as keyof object)
@@ -29,6 +31,12 @@ export const AdminTest: FC<AdminTestT> = ({ testId }) => {
   const [questions, setQuestions] = useState<QuestionT[]>([])
 
   const sortedQuestions = orderBy(questions, 'question_id')
+
+  useEffect(() => {
+    if (testId && schoolName && course_id) {
+      fetchQuestionsList({ id: String(testId), schoolName, course_id });
+    }
+  }, [testId, schoolName, course_id]);
 
   useEffect(() => {
     if (questionsList) {
