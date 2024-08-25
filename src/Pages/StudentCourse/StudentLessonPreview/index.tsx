@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { StudentTest } from './StudentTest'
@@ -11,37 +11,37 @@ import { sectionT } from 'types/sectionT'
 
 import styles from './lesson.module.scss'
 import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
-import {useBoolean} from "../../../customHooks";
-import {Portal} from "../../../components/Modal/Portal";
-import {LimitModal} from "../../../components/Modal/LimitModal/LimitModal";
+import { useBoolean } from '../../../customHooks'
+import { Portal } from '../../../components/Modal/Portal'
+import { LimitModal } from '../../../components/Modal/LimitModal/LimitModal'
 
 export const StudentLessonPreview: FC = () => {
   const params = useParams()
   const schoolName = window.location.href.split('/')[4]
   const courseId = localStorage.getItem('course_id')
 
-  const [fetchLessons, {data: lessons, isSuccess, error}] = useLazyFetchModuleLessonsQuery()
-  const [fetchLesson, {data: lesson, isFetching: isLoading}] = useLazyFetchLessonQuery();
+  const [fetchLessons, { data: lessons, isSuccess, error }] = useLazyFetchModuleLessonsQuery()
+  const [fetchLesson, { data: lesson, isFetching: isLoading }] = useLazyFetchLessonQuery()
   const [nextDisabled, setNextDisabled] = useState(false)
-  const [isOpenLimitModal, {onToggle}] = useBoolean()
+  const [isOpenLimitModal, { onToggle }] = useBoolean()
   const [message, setMessage] = useState<string>('')
 
   useEffect(() => {
     if (params && courseId) {
-      fetchLessons({sectionId: String(params.section_id), schoolName, courseId})
+      fetchLessons({ sectionId: String(params.section_id), schoolName })
     }
   }, [params])
 
   useEffect(() => {
     if (params && courseId) {
-      fetchLesson({id: Number(params?.lesson_id), type: `${params?.lesson_type}`, schoolName, courseId})
+      fetchLesson({ id: Number(params?.lesson_id), type: `${params?.lesson_type}`, schoolName, courseId })
     }
   }, [params])
 
   useEffect(() => {
-    if (error && "data" in error) {
-      setMessage(JSON.parse(JSON.stringify(error.data)).error);
-      onToggle();
+    if (error && 'data' in error) {
+      setMessage(JSON.parse(JSON.stringify(error.data)).error)
+      onToggle()
     }
   }, [error])
 
@@ -54,43 +54,59 @@ export const StudentLessonPreview: FC = () => {
     if (isSuccess && lessons) {
       switch (lesson?.type) {
         case LESSON_TYPE.LESSON:
-          return <StudentLesson lessons={lessons} lesson={lesson} params={params}
-                                activeLessonIndex={activeLessonIndex as number}/>
+          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} />
         case LESSON_TYPE.HOMEWORK:
-          return <StudentHomework lessons={lessons} lesson={lesson} params={params}
-                                  activeLessonIndex={activeLessonIndex as number} sended={sended}
-                                  nextDisabled={nextDisabled} setNextDisabled={setNextDisabled}/>
+          return (
+            <StudentHomework
+              lessons={lessons}
+              lesson={lesson}
+              params={params}
+              activeLessonIndex={activeLessonIndex as number}
+              sended={sended}
+              nextDisabled={nextDisabled}
+              setNextDisabled={setNextDisabled}
+            />
+          )
         case LESSON_TYPE.TEST:
-          return <StudentTest lessons={lessons} params={params} activeLessonIndex={activeLessonIndex as number}
-                              sended={sended} completed={completed} nextDisabled={nextDisabled}
-                              setNextDisabled={setNextDisabled}/>
+          return (
+            <StudentTest
+              lessons={lessons}
+              params={params}
+              activeLessonIndex={activeLessonIndex as number}
+              sended={sended}
+              completed={completed}
+              nextDisabled={nextDisabled}
+              setNextDisabled={setNextDisabled}
+            />
+          )
       }
     }
   }
 
   if (!isLoading && isSuccess) {
     return (
-        <div className={styles.lesson_wrapper}>
-          {renderUI()}
-          <StudentLessonSidebar
-              lessonType={`${params?.lesson_type}` as LESSON_TYPE}
-              courseId={`${params?.course_id}`}
-              sectionId={`${params?.section_id}`}
-              activeLessonIndex={activeLessonIndex as number}
-              lessons={lessons as sectionT}
-              nextDisabled={nextDisabled}
-          />
-        </div>
+      <div className={styles.lesson_wrapper}>
+        {renderUI()}
+        <StudentLessonSidebar
+          lessonType={`${params?.lesson_type}` as LESSON_TYPE}
+          courseId={`${params?.course_id}`}
+          sectionId={`${params?.section_id}`}
+          activeLessonIndex={activeLessonIndex as number}
+          lessons={lessons as sectionT}
+          nextDisabled={nextDisabled}
+        />
+      </div>
     )
   } else {
-    return (<>
-          {isOpenLimitModal ? (
-              <Portal closeModal={onToggle}>
-                <LimitModal message={message} setShowLimitModal={onToggle}/>
-              </Portal>
-          ) : null}
-          <SimpleLoader/>
-        </>
+    return (
+      <>
+        {isOpenLimitModal ? (
+          <Portal closeModal={onToggle}>
+            <LimitModal message={message} setShowLimitModal={onToggle} />
+          </Portal>
+        ) : null}
+        <SimpleLoader />
+      </>
     )
   }
 }

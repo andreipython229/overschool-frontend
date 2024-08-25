@@ -78,64 +78,64 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
       // formDataHw.append('homework', String(homeworkId))
       // formDataHw.append('text', String(text))
       // console.log(formDataHw, homeworkId, text);
-      
+
       // await postHomework({ homework: homeworkId, text, schoolName, course_id: Number(courseId) })
       const formDataHw = new FormData()
       formDataHw.append('homework', String(homeworkId))
       formDataHw.append('text', String(text))
-  
+
       await postHomework({ homework: formDataHw, schoolName })
-      .unwrap()
-      .then((data) => {
-        setHwSended(true)
-        const formDataFile = new FormData()
+        .unwrap()
+        .then(data => {
+          setHwSended(true)
+          const formDataFile = new FormData()
 
-        files.forEach((file, index) => {
-          formDataFile.append('files', file)
+          files.forEach((file, index) => {
+            formDataFile.append('files', file)
+          })
+          formDataFile.append('user_homework', String(data.user_homework_id))
+
+          if (!replyArray) {
+            setReplyArray([
+              {
+                audio_files: [],
+                author: data.author,
+                author_first_name: '',
+                author_last_name: '',
+                created_at: data.created_at,
+                mark: 0,
+                profile_avatar: '',
+                status: data.status,
+                text: String(formDataHw.get('text')) || '',
+                text_files: [],
+                updated_at: data.updated_at,
+                user_homework: data.user_homework_id,
+                user_homework_check_id: 0,
+              },
+            ])
+          }
+          if (files && files.length > 0) {
+            postFiles({ formData: formDataFile, schoolName })
+              .unwrap()
+              .then(() => {
+                setHwStatus(true)
+                setIsLoading(false)
+              })
+              .catch(() => {
+                setHwStatus(true)
+                setOpen(true)
+                setIsLoading(false)
+              })
+          } else {
+            setHwStatus(true)
+            setIsLoading(false)
+          }
         })
-        formDataFile.append('user_homework', String(data.user_homework_id))
-
-        if (!replyArray) {
-          setReplyArray([
-            {
-              audio_files: [],
-              author: data.author,
-              author_first_name: '',
-              author_last_name: '',
-              created_at: data.created_at,
-              mark: 0,
-              profile_avatar: '',
-              status: data.status,
-              text: String(formDataHw.get('text')) || '',
-              text_files: [],
-              updated_at: data.updated_at,
-              user_homework: data.user_homework_id,
-              user_homework_check_id: 0,
-            },
-          ])
-        }
-        if (files && files.length > 0) {
-          postFiles({ formData: formDataFile, schoolName })
-            .unwrap()
-            .then(() => {
-              setHwStatus(true)
-              setIsLoading(false)
-            })
-            .catch(() => {
-              setHwStatus(true)
-              setOpen(true)
-              setIsLoading(false)
-            })
-        } else {
-          setHwStatus(true)
+        .catch(() => {
           setIsLoading(false)
-        }
-      })
-      .catch(() => {
-        setIsLoading(false)
-        setHwStatus(true)
-        setOpen(true)
-      })
+          setHwStatus(true)
+          setOpen(true)
+        })
     }
   }
 
@@ -155,14 +155,8 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
     <div className={styles.wrapper}>
       <h5 className={styles.wrapper_title}>Отправить данные, запросить ответ ИИ:</h5>
       <TextareaAutosize
-        aria-label="Введите ответ на чек-поинт..."
-        placeholder="Введите ответ на чек-поинт..."
-        style={{
-          width: '100%',
-          borderRadius: '5px',
-          border: '1px solid rgba(0, 0, 0, 0.3)',
-          padding: '10px',
-        }}
+        aria-label="Введите ответ на индивидуальное занятие..."
+        placeholder="Введите ответ на индивидуальное занятие..."
         minRows={5}
         value={text}
         onChange={event => setText(event.target.value)}

@@ -180,7 +180,7 @@ export const Header = memo(() => {
   }, [profile])
 
   useEffect(() => {
-    if (banner && !banner.is_accepted_by_user) {
+    if (banner && 'is_accepted_by_user' in banner && !banner.is_accepted_by_user) {
       openBanner()
     }
   }, [banner, getBanner])

@@ -27,9 +27,9 @@ export const modulesServices = createApi({
       }),
       providesTags: ['modules', 'lessons'],
     }),
-    fetchModuleLessons: build.query<sectionT, { sectionId: string; schoolName: string, courseId?: string }>({
-      query: ({ sectionId, schoolName, courseId }) => ({
-        url: `/${schoolName}/sections/${sectionId}/lessons/${courseId}/`,
+    fetchModuleLessons: build.query<sectionT, { sectionId: string; schoolName: string }>({
+      query: ({ sectionId, schoolName }) => ({
+        url: `/${schoolName}/sections/${sectionId}/lessons/`,
       }),
       providesTags: ['lessons'],
     }),
@@ -61,13 +61,13 @@ export const modulesServices = createApi({
     fetchLesson: build.query<commonLessonT, { id: number; type: string; schoolName: string; courseId?: string }>({
       query: ({ id, type, schoolName, courseId }) => {
         // Формируем URL с учетом необязательного параметра courseId
-        const url = `/${schoolName}/${type}s/${id}/`;
-        const params = courseId ? `?courseId=${courseId}` : '';
-        
+        const url = `/${schoolName}/${type}s/${id}/`
+        const params = courseId ? `?courseId=${courseId}` : ''
+
         return {
           url: url + params,
           method: 'GET',
-        };
+        }
       },
       providesTags: ['patchLessons'],
     }),
