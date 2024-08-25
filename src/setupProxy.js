@@ -6,8 +6,7 @@ module.exports = function (app) {
   app.use(
     '/api/socket.io',
     createProxyMiddleware({
-      target: 'http://sandbox.coursehb.ru',
-      // target: 'https://apidev.coursehb.ru',
+      target: process.env.RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru',
       ws: true,
       changeOrigin: true,
       secure: false,
@@ -17,8 +16,7 @@ module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://sandbox.coursehb.ru',
-      // target: 'https://apidev.coursehb.ru',
+      target: process.env.RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru',
       changeOrigin: true,
       secure: false,
     }),
@@ -26,13 +24,11 @@ module.exports = function (app) {
   app.use(
     '/video',
     createProxyMiddleware({
-      target: 'http://45.135.234.21:8000',
-      // target: 'http://45.135.234.9:8000',
+      target: process.env.RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru',
       changeOrigin: false,
       secure: false,
       onProxyReq(proxyReq, req, res) {
-        proxyReq.setHeader('origin', 'http://45.135.234.21:8000')
-        // proxyReq.setHeader('origin', 'http://45.135.234.9:8000')
+        proxyReq.setHeader('origin', process.env.RUN_MODE === 'PRODUCTION' ? 'http://45.135.234.9:8000' : 'http://45.135.234.21:8000')
       },
     }),
   )
