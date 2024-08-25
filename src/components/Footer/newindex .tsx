@@ -36,7 +36,7 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
           <h1>КОНТАКТЫ</h1>
           <div className={styles.wrapper_box_contact_pack}>
             <img src={callfooter} alt="callfooter" /> 
-            <p> +375 (33) 33 33 193 </p>
+            <p> +375 (29) 253 21 51 </p>
           </div>
           <div className={styles.wrapper_box_contact_pack}>
             <img src={mailfooter} alt="mailfooter" /> 
@@ -44,8 +44,8 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
           </div>
           <div className={styles.wrapper_box_contact_pack}>
             <img src={locationfooter} alt="locationfooter" /> 
-            <p> 220013, Республика Беларусь,<br /> г. Минск, ул. Сурганова, д.43,< br />
-            оф. 508.</p>
+            <p> 220013, Республика Беларусь,<br /> г. Минск, ул.Некрасова, д. 5,< br />
+            оф. 911.</p>
           </div>
           
         </div>
@@ -53,17 +53,17 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
           <h1>Направления</h1>
           <p>Возможности</p>
           <Link className={styles.wrapper_box_directions_link} to={`${FooterPath.TariffPlans}`}>
-            Тарифы
+            <p>Тарифы</p>
           </Link>
           <Link className={styles.wrapper_box_directions_link}  to={`${FooterPath.HelpPage}`}>
-            Помощь
+          <p>Помощь</p>
           </Link>
         </div>
         <div className={styles.wrapper_box_networks}>
           <h1>СОЦ.СЕТИ</h1>
           <p>Instagram</p>
           <p>Вконтакте</p>
-          <p>Telegram</p>
+          <a href="https://t.me/@course_hb" target="_blank" rel="noopener noreferrer"><p>Telegram</p></a>
         </div>
         <div className={styles.wrapper_box_users}>
           <h1>ПОЛЬЗОВАТЕЛЯМ</h1>

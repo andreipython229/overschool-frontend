@@ -2,15 +2,15 @@
 @import '../../scss/mixin';
 
 @font-face {
-  font-family: 'SFPROBold';
-  src: url(../../assets/fonts/SFProText/SFProText-Bold.ttf) format("opentype");
+  font-family: 'SFPRORegular';
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
 }
 h1 {
-  font-family: 'SFPROBold';
+  font-family: 'SFPRORegular';
 }
 
 p {
-  font-family: 'SFPROBold';
+  font-family: 'SFPRORegular';
 }
 
 .wrapper {
