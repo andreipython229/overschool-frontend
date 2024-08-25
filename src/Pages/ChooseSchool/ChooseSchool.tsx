@@ -22,12 +22,11 @@ import { auth, role } from 'store/redux/users/slice'
 import { useLazyLogoutQuery } from 'api/userLoginService'
 import { Dialog, DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme } from '@mui/material'
 import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
-import {Domain} from "../../types/domainT";
+import { Domain } from '../../types/domainT'
 import { logoHeaderLogin, leftArrow, admin, admin2, teacher, teacher2, student, student2 } from '../../assets/img/common/index'
 
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
-
 
 export type SchoolT = {
   school_id: number
@@ -62,36 +61,36 @@ export const ChooseSchool = () => {
   const [schoolsWithDomain, setSchoolsWithDomain] = useState<SchoolT[]>()
 
   useEffect(() => {
-  // console.log('DomainData:', DomainData);
-  // console.log('Schools:', schools);
+    // console.log('DomainData:', DomainData);
+    // console.log('Schools:', schools);
 
-  if (DomainData && schools && schools.length > 0) {
-    const domainArray = Array.isArray(DomainData) ? DomainData : (DomainData as { data: Domain[] }).data || [];
+    if (DomainData && schools && schools.length > 0) {
+      const domainArray = Array.isArray(DomainData) ? DomainData : (DomainData as { data: Domain[] }).data || []
 
-    if (Array.isArray(domainArray)) {
-      const domainSchoolsArray = schools.map(school => {
-        const configuredDomain = domainArray.find(domain => domain.school === school.school_id);
-        if (configuredDomain) {
-          return {
-            ...school,
-            domain_name: configuredDomain.domain_name
-          };
-        }
-        return school;
-      });
-      console.log('Schools with domain:', domainSchoolsArray);
-      setSchoolsWithDomain(domainSchoolsArray);
+      if (Array.isArray(domainArray)) {
+        const domainSchoolsArray = schools.map(school => {
+          const configuredDomain = domainArray.find(domain => domain.school === school.school_id)
+          if (configuredDomain) {
+            return {
+              ...school,
+              domain_name: configuredDomain.domain_name,
+            }
+          }
+          return school
+        })
+        console.log('Schools with domain:', domainSchoolsArray)
+        setSchoolsWithDomain(domainSchoolsArray)
+      } else {
+        console.error('DomainData is not an array or does not contain a valid array')
+      }
     } else {
-      console.error('DomainData is not an array or does not contain a valid array');
+      console.error('DomainData is invalid or schools array is empty')
     }
-  } else {
-    console.error('DomainData is invalid or schools array is empty');
-  }
-}, [DomainSuccess, DomainData, schools]);
+  }, [DomainSuccess, DomainData, schools])
 
-  const [isHoveredAdmin, setIsHoveredAdmin] = useState(false);
-  const [isHoveredTeacher, setIsHoveredTeacher] = useState(false);
-  const [isHoveredStudent, setIsHoveredStudent] = useState(false);
+  const [isHoveredAdmin, setIsHoveredAdmin] = useState(false)
+  const [isHoveredTeacher, setIsHoveredTeacher] = useState(false)
+  const [isHoveredStudent, setIsHoveredStudent] = useState(false)
 
   useEffect(() => {
     dispatchRole(role(RoleE.Unknown))
@@ -141,10 +140,6 @@ export const ChooseSchool = () => {
   const filteredSchool = schools.filter(school => {
     return school.name.toLowerCase().includes(search.toLowerCase())
   })
-
-  
-  
-
 
   return (
     <div className={styles.con}>
@@ -227,86 +222,55 @@ export const ChooseSchool = () => {
               )}
               <div className={styles.logo}>
                 <div className={styles.logo_btnBack}>
-                  <a href={Path.InitialPage}><img src={leftArrow} alt="leftArrow"/></a>
+                  <a href={Path.InitialPage}>
+                    <img src={leftArrow} alt="leftArrow" />
+                  </a>
                 </div>
                 <div className={styles.logo_logoWrapper}>
-                  <img src={logoHeaderLogin} alt="logoHeaderLogin"/>
+                  <img src={logoHeaderLogin} alt="logoHeaderLogin" />
                 </div>
                 <div className={styles.logo_rolePic}>
                   <div className={styles.logo_rolePic_box}>
                     <motion.div
-                      onMouseEnter={() => setIsHoveredAdmin(true)} 
+                      onMouseEnter={() => setIsHoveredAdmin(true)}
                       onMouseLeave={() => setIsHoveredAdmin(false)}
-                      className={styles.logo_rolePic_box_role}>
+                      className={styles.logo_rolePic_box_role}
+                    >
                       {isHoveredAdmin ? (
-                        <motion.img 
-                          src={admin2} 
-                          alt="admin2" 
-                          initial={{ opacity: 0 }} 
-                          animate={{ opacity: 1 }} 
-                          transition={{ duration: 0.3 }} 
-                        />
+                        <motion.img src={admin2} alt="admin2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
                       ) : (
-                        <motion.img 
-                          src={admin} 
-                          alt="admin" 
-                          initial={{ opacity: 1 }} 
-                          animate={{ opacity: 1 }} 
-                          transition={{ duration: 0.3 }} 
-                        />
+                        <motion.img src={admin} alt="admin" initial={{ opacity: 1 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
                       )}
                     </motion.div>
                   </div>
                   <div className={styles.logo_rolePic_box}>
                     <motion.div
-                      onMouseEnter={() => setIsHoveredTeacher(true)} 
+                      onMouseEnter={() => setIsHoveredTeacher(true)}
                       onMouseLeave={() => setIsHoveredTeacher(false)}
-                      className={styles.logo_rolePic_box_role}>
+                      className={styles.logo_rolePic_box_role}
+                    >
                       {isHoveredTeacher ? (
-                        <motion.img 
-                          src={teacher2} 
-                          alt="teacher2" 
-                          initial={{ opacity: 0 }} 
-                          animate={{ opacity: 1 }} 
-                          transition={{ duration: 0.3 }} 
-                        />
+                        <motion.img src={teacher2} alt="teacher2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
                       ) : (
-                        <motion.img 
-                          src={teacher} 
-                          alt="teacher" 
-                          initial={{ opacity: 1 }} 
-                          animate={{ opacity: 1 }} 
-                          transition={{ duration: 0.3 }} 
-                        />
+                        <motion.img src={teacher} alt="teacher" initial={{ opacity: 1 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
                       )}
                     </motion.div>
                   </div>
                   <div className={styles.logo_rolePic_box}>
                     <motion.div
-                      onMouseEnter={() => setIsHoveredStudent(true)} 
+                      onMouseEnter={() => setIsHoveredStudent(true)}
                       onMouseLeave={() => setIsHoveredStudent(false)}
-                      className={styles.logo_rolePic_box_role}>
+                      className={styles.logo_rolePic_box_role}
+                    >
                       {isHoveredStudent ? (
-                        <motion.img 
-                          src={student2} 
-                          alt="student2" 
-                          initial={{ opacity: 0 }} 
-                          animate={{ opacity: 1 }} 
-                          transition={{ duration: 0.3 }} 
-                        />
+                        <motion.img src={student2} alt="student2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
                       ) : (
-                        <motion.img 
-                          src={student} 
-                          alt="student" 
-                          initial={{ opacity: 1 }} 
-                          animate={{ opacity: 1 }} 
-                          transition={{ duration: 0.3 }} 
-                        />
+                        <motion.img src={student} alt="student" initial={{ opacity: 1 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
                       )}
                     </motion.div>
                   </div>
                 </div>
-                  <span className={styles.tit}>Выберите платформу для входа:</span>
+                <span className={styles.tit}>Выберите платформу для входа:</span>
               </div>
               {/* <motion.div className={styles.search} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
                 <form>
@@ -319,21 +283,22 @@ export const ChooseSchool = () => {
                 </form>
               </motion.div> */}
               <div className={styles.schoolBox}>
-                {schools ? (
+                {schools && filteredSchool ? (
                   <Swiper
                     modules={[Navigation, Pagination]}
                     pagination={{
                       dynamicBullets: true,
                     }}
                     spaceBetween={5}
-                    slidesPerView={3}                   >
+                    slidesPerView={filteredSchool.length > 3 ? 3 : filteredSchool.length}
+                  >
                     {filteredSchool.map((school, index) => (
                       <SwiperSlide key={index}>
                         {school.tariff_paid ? (
                           <Link
                             onClick={async e => {
-                              e.preventDefault();
-                              await handleSchool(school);
+                              e.preventDefault()
+                              await handleSchool(school)
                             }}
                             style={{ textDecoration: 'none' }}
                             to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
@@ -351,8 +316,8 @@ export const ChooseSchool = () => {
                         ) : school.role === 'Admin' ? (
                           <Link
                             onClick={async e => {
-                              e.preventDefault();
-                              await handleSchool(school);
+                              e.preventDefault()
+                              await handleSchool(school)
                             }}
                             style={{ textDecoration: 'none', overflow: 'hidden' }}
                             to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
@@ -368,9 +333,11 @@ export const ChooseSchool = () => {
                             </div>
                           </Link>
                         ) : (
-                          <div className={styles.bg} onClick={() => {
-                              setSelectedSchool(school);
-                              open();
+                          <div
+                            className={styles.bg}
+                            onClick={() => {
+                              setSelectedSchool(school)
+                              open()
                             }}
                           >
                             <div className={styles.bg_container}>
@@ -384,7 +351,7 @@ export const ChooseSchool = () => {
                         )}
                       </SwiperSlide>
                     ))}
-                    </Swiper>
+                  </Swiper>
                 ) : (
                   <p style={{ color: 'blueviolet', fontSize: '20px', textAlign: 'center', padding: '2em', fontWeight: 'bold' }}>
                     {'Нет доступных платформ :('}
@@ -396,10 +363,8 @@ export const ChooseSchool = () => {
               </div>
             </motion.div>
           )}
-
         </div>
         {isOpen && <Portal closeModal={on}>{schools && <AddSchoolModal setShowModal={on} schools={schools} />}</Portal>}
-        
       </div>
     </div>
   )
