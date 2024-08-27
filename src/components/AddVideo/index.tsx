@@ -210,7 +210,7 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
                   </Box>
                 </Box>
               </div>
-              <p style={{ fontSize: '12px', color: 'grey', textAlign: 'center' }}>
+              <p style={{ fontSize: '13px', color: 'grey', textAlign: 'center', marginBlockStart: '10px' }}>
                 Пока видео грузится, ничего не нажимайте в этом окне. Скорость загрузки зависит от скорости вашего интернет-соединения.
               </p>
               <Button text={'Отменить загрузку'} variant="delete" onClick={handleCancelUpload} />

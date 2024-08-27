@@ -61,6 +61,13 @@ import  metrika from '../systemLogo/metrika.png'
 import  rocketfree from './rocketfree.png'
 import  line from './line.png'
 import record from './record.png'
+import admin from './Admin.png'
+import admin2 from './Admin2.png'
+import teacher from './Teacher.png'
+import teacher2 from './Teacher2.png'
+import student from './Student.png'
+import student2 from './Student2.png'
+
 
 
 
@@ -130,6 +137,12 @@ export {
     metrika,
     rocketfree,
     line,
-    record
+    record,
+    admin,
+    admin2,
+    teacher,
+    teacher2,
+    student,
+    student2
     
 } 

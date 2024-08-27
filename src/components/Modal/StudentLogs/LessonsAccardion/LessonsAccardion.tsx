@@ -63,7 +63,8 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({
                 <span className={styles.accardion_content_fake}></span>}
 
             {sectionLessons?.map(({lessons, section_id, name}) => (
-                lessons.length > 0 && (<div className={styles.accardion_item} key={section_id}>
+                lessons.length > 0 && (
+                <div className={styles.accardion_item} key={section_id}>
                     <p className={styles.accardion_item_name}>{name}</p>
                     <div className={styles.accardion_lessons_block}>
                         {lessons?.map(({
@@ -97,7 +98,8 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({
                             </div>)
                         ))}
                     </div>
-                </div>)
+                </div>
+                )
             ))}
         </div>
     )

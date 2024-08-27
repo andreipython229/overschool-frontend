@@ -156,8 +156,10 @@
 }
 
 .newLogIn {
-  width: 100px;
   height: 46px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   background: #CFE2FF;
   align-items: center;
   justify-content: space-evenly;

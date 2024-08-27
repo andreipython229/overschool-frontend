@@ -51,7 +51,7 @@ export const StudentsPerCourse: FC = () => {
 
   const handleReloadTable = () => {
     if (tablesHeader && tablesHeader.length > 2) {
-      const studentsTableInfo = tablesHeader[1].students_table_info || [];
+      const studentsTableInfo = tablesHeader[2].students_table_info || [];
       const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
       if (checkedFields) {
         fetchStudents({ 
@@ -112,7 +112,7 @@ export const StudentsPerCourse: FC = () => {
   // Перезагрузка после смены страницы пагинатора
   useEffect(() => {
     if (tablesHeader && tablesHeader.length > 2) {
-      const studentsTableInfo = tablesHeader[1].students_table_info || [];
+      const studentsTableInfo = tablesHeader[2].students_table_info || [];
       const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
       if (checkedFields) {
         fetchStudents({ 
