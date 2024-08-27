@@ -24,7 +24,7 @@ module.exports = function (app) {
   app.use(
     '/video',
     createProxyMiddleware({
-      target: process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru',
+      target: process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'http://45.135.234.9:8000' : 'http://45.135.234.21:8000',
       changeOrigin: false,
       secure: false,
       onProxyReq(proxyReq, req, res) {
