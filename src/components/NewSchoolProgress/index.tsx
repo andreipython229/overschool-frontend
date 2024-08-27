@@ -12,24 +12,23 @@ import DoneIcon from '@mui/icons-material/Done'
 import ClearIcon from '@mui/icons-material/Clear'
 
 export const NewSchoolProgress: FC = () => {
-//  const [show, { onToggle }] = useBoolean(true)
-  const [show, setShow] = useState(false)
+  const [show, { onToggle }] = useBoolean(false)
   const { data: schoolProgressState } = useAppSelector(schoolProgressSelector)
   const [currentTask, setCurrentTask] = useState<string>('')
-   const [allTasks, setAllTasks] = useState(false)
+  const [allTasks, { onToggle: toggleTasks }] = useBoolean(false)
 
   useEffect(() => {
     const lastShownDate = localStorage.getItem('popupDate')
     const today = new Date().toDateString()
 
     if (lastShownDate !== today) {
-      setShow(true)
+      onToggle()
       localStorage.setItem('popupDate', today)
     }
-  }, [])
+  }, [onToggle])
 
   const handleClose = () => {
-    setShow(false)
+    onToggle()
   }
 
   useEffect(() => {
@@ -42,7 +41,7 @@ export const NewSchoolProgress: FC = () => {
   }, [schoolProgressState])
 
   if (!show) {
-    return null
+    return <></>
   }
 
   return (
@@ -77,7 +76,7 @@ export const NewSchoolProgress: FC = () => {
         <LinearProgressWithLabel value={schoolProgressState.completion_percentage} />
         <div className={styles.wrapper_top} style={{ marginTop: '1rem' }}>
           <Button
-             onClick={() => setAllTasks(!allTasks)}
+             onClick={toggleTasks}
             style={{ fontSize: '10px', padding: '5px 10px' }}
             text={allTasks ? 'Скрыть задачи' : 'Показать все задания'}
           />
