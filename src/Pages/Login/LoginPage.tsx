@@ -322,8 +322,8 @@ export const LoginPage = () => {
               {/* <div className={styles.main_btn}>
                   <Button onClick={handleRegistrationUser} type="submit" text={'Зарегестрироваться'} style={{ width: '400px', height:'54px', borderRadius: '10px', marginBottom:'3rem' }} variant={'newCreate'} />
               </div> */}
-              <div className={styles.main_btn}>
-                <Button type="submit" text={'Вход'} style={{ width: '400px', height:'54px', borderRadius: '10px'}} variant={'newPrimary'} />
+              <div className={styles.btn}>
+                <Button type="submit" text={'Вход'} style={{ height:'54px', borderRadius: '10px'}} variant={'newPrimary'} />
               </div>
               <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn}>
                 <a href="" onClick={forgotPass} style={{ textDecoration: 'none', width: 'max-content', display: 'inline-flex' }}>
