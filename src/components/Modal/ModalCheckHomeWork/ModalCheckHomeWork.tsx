@@ -29,6 +29,7 @@ import styles from './modal_check_home_work.module.scss'
 import { TextField } from '@mui/material'
 import { renderStudentBlocks } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/AdminLessonPreview/AdminLesson'
 import { Reorder } from 'framer-motion'
+import { AudioPlayer } from 'components/common/AudioPlayer'
 
 type modalHomeworkT = {
   id: number
@@ -206,9 +207,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
                         ))}
                       </div>
                       <div className={styles.task_modal_audio}>
-                        {homework?.audio_files.map(file => (
-                          <AudioFile key={file.id} audioUrl={`${file.file_url}`} />
-                        ))}
+                        <AudioPlayer audioUrls={homework?.audio_files} />
                       </div>
                     </div>
                   )}

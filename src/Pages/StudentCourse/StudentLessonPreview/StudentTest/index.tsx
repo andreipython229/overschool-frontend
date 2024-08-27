@@ -9,7 +9,7 @@ import { useBoolean } from '../../../../customHooks'
 import { StudentTestBlock } from 'Pages/StudentCourse/StudentTestBlock'
 import { StudentLessonNavBtns } from '../StudentLessonNavBtns'
 import { LESSON_TYPE } from '../../../../enum/lessonTypeE'
-import { useFetchQuestionsListQuery, useGetUserTestsByTestMutation } from '../../../../api/questionsAndAnswersService'
+import { useFetchQuestionsListQuery, useLazyFetchQuestionsListQuery, useGetUserTestsByTestMutation } from '../../../../api/questionsAndAnswersService'
 import {
   useLazyFetchCommentsByLessonQuery,
   useCreateCommentMutation
@@ -32,7 +32,8 @@ type studentTestT = {
 export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonIndex, sended, completed, nextDisabled, setNextDisabled}) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const schoolName = window.location.href.split('/')[4]
-  const { data: lesson, isFetching } = useFetchQuestionsListQuery({ id: String(lessonId), schoolName })
+  const course_id = localStorage.getItem('course_id')
+  const [fetchQuestionsList, { data: lesson, isFetching }] = useLazyFetchQuestionsListQuery();
   const [getUsertests] = useGetUserTestsByTestMutation()
   const [passStatus, setPassStatus] = useState('')
   const [fetchComments, comments] = useLazyFetchCommentsByLessonQuery();
@@ -42,6 +43,12 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
   const user = useAppSelector(selectUser)
   const [testSended, setTestSended] = useState(sended)
   const [testSuccess, setTestSuccess] = useState(completed)
+
+  useEffect(() => {
+    if (lessonId && schoolName && course_id) {
+      fetchQuestionsList({ id: String(lessonId), schoolName, course_id });
+    }
+  }, [lessonId, schoolName, course_id]);
 
   useEffect(() => {
     getUsertests({ id: String(lessonId), schoolName }).then((data: any) => {

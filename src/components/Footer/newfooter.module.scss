@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: 'SFPRORegular';
-  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
 }
 h1 {
   font-family: 'SFPRORegular';
@@ -16,7 +16,7 @@ p {
 .wrapper {
   width: 1280px;
   height: 581px;
-  background: #FFFFFF;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,7 +27,6 @@ p {
     display: flex;
     padding-top: 11px;
     padding-bottom: 5px;
-
   }
 
   &_box {
@@ -49,12 +48,16 @@ p {
       font-weight: 600;
       font-size: 16px;
       line-height: 19.09px;
-      color: #357EEB;
+      color: #357eeb;
     }
 
-    
+    a {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.09px;
+      color: #357eeb;
+    }
 
-    
     &_contact {
       display: flex;
       flex-direction: column;
@@ -78,7 +81,7 @@ p {
         font-weight: 600;
         font-size: 16px;
         line-height: 19.09px;
-        color: #357EEB;
+        color: #357eeb;
       }
     }
 
@@ -89,11 +92,10 @@ p {
     }
 
     &_users {
-        width: 233px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      
+      width: 233px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
   }
 }

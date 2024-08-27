@@ -37,8 +37,10 @@ import { BlockButtons } from 'components/BlockButtons'
 
 import { Portal } from 'components/Modal/Portal'
 import { WarningModal } from 'components/Modal/Warning'
+import { useParams } from 'react-router-dom'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
+  const { course_id: courseId } = useParams();
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
   const [lessonBlocks, setLessonBlocks] = useState<BlockT[]>([])
   const [files, setFiles] = useState<File[]>([])
@@ -54,6 +56,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     id: +lessonIdAndType.id,
     type: lessonIdAndType.type,
     schoolName,
+    courseId: courseId
   })
   const [addTextFiles] = usePostTextFilesMutation()
   const [saveChanges, { isLoading: isSaving, isSuccess: isCompleted }] = usePatchLessonsMutation()

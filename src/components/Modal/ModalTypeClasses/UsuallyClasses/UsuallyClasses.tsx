@@ -42,7 +42,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAnd
       </div>
 
       <div className={styles.usually_input}>
-        <span className={styles.usually_title}>Название занятие:</span>
+        <span className={styles.usually_title}>Название занятия:</span>
         <Input
           placeholder={'Название занятия'}
           name={'name classes'}

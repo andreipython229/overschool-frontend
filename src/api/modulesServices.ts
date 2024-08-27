@@ -21,6 +21,12 @@ export const modulesServices = createApi({
       }),
       providesTags: ['modules', 'lessons'],
     }),
+    fetchStudentModules: build.query<sectionsT, { id: string; schoolName: string; query?: string }>({
+      query: ({ id, schoolName, query }) => ({
+        url: `/${schoolName}/courses/${id}/sections/${query && `?search_query=${query}`}`,
+      }),
+      providesTags: ['modules', 'lessons'],
+    }),
     fetchModuleLessons: build.query<sectionT, { sectionId: string; schoolName: string }>({
       query: ({ sectionId, schoolName }) => ({
         url: `/${schoolName}/sections/${sectionId}/lessons/`,
@@ -52,10 +58,17 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modules'],
     }),
-    fetchLesson: build.query<commonLessonT, { id: number; type: string; schoolName: string }>({
-      query: ({ id, type, schoolName }) => ({
-        url: `/${schoolName}/${type}s/${id}/`,
-      }),
+    fetchLesson: build.query<commonLessonT, { id: number; type: string; schoolName: string; courseId?: string }>({
+      query: ({ id, type, schoolName, courseId }) => {
+        // Формируем URL с учетом необязательного параметра courseId
+        const url = `/${schoolName}/${type}s/${id}/`
+        const params = courseId ? `?courseId=${courseId}` : ''
+
+        return {
+          url: url + params,
+          method: 'GET',
+        }
+      },
       providesTags: ['patchLessons'],
     }),
     fetchLessons: build.query<commonLessonT[], { type: string; schoolName: string }>({
@@ -107,7 +120,7 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modules', 'lessons'],
     }),
-    createComment: build.mutation<void, { lesson_id: number, content: string, schoolName: string }>({
+    createComment: build.mutation<void, { lesson_id: number; content: string; schoolName: string }>({
       query: ({ lesson_id, content, schoolName }) => ({
         url: `/${schoolName}/lesson_comments/`,
         method: 'POST',
@@ -117,12 +130,12 @@ export const modulesServices = createApi({
         },
       }),
     }),
-    fetchCommentsByLesson: build.query<CommentList, { lesson_id: number, schoolName: string }>({
-        query: ({lesson_id, schoolName}) => ({
-          url: `/${schoolName}/lesson_comments/?lesson_id=${lesson_id}`,
-        }),
+    fetchCommentsByLesson: build.query<CommentList, { lesson_id: number; schoolName: string }>({
+      query: ({ lesson_id, schoolName }) => ({
+        url: `/${schoolName}/lesson_comments/?lesson_id=${lesson_id}`,
+      }),
     }),
-    updateComments: build.mutation<void, { schoolName: string, lesson_id: number, comments: Record<number, boolean> }>({
+    updateComments: build.mutation<void, { schoolName: string; lesson_id: number; comments: Record<number, boolean> }>({
       query: ({ schoolName, lesson_id, comments }) => ({
         url: `/${schoolName}/lesson_comments/${lesson_id}/`,
         method: 'PATCH',
@@ -143,6 +156,7 @@ export const modulesServices = createApi({
 })
 
 export const {
+  useFetchStudentModulesQuery,
   useFetchModulesQuery,
   useLazyFetchModulesQuery,
   useFetchModuleLessonsQuery,
@@ -161,5 +175,5 @@ export const {
   useCreateCommentMutation,
   useLazyFetchCommentsByLessonQuery,
   useUpdateCommentsMutation,
-  useChangeModuleOrderMutation
+  useChangeModuleOrderMutation,
 } = modulesServices

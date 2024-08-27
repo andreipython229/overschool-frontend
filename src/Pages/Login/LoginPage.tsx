@@ -124,6 +124,7 @@ export const LoginPage = () => {
           .then((data) => {
             dispatch(authState({ access: data.access, refresh: data.refresh }))
             dispatch(id(data.user.id))
+            localStorage.setItem('id', data.user.id.toString());
           })
       } catch {
         console.log('smth went wrong')
