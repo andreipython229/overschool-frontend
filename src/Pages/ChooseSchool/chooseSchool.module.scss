@@ -235,7 +235,8 @@
 }
 
 .swiper {
-  height: 100%; /* Убедитесь, что контейнер имеет высоту для вертикального отображения */
+  height: 100%; 
+  width: 100%;
 }
 .swiper-wrapper {
   width: 100vw;
@@ -243,9 +244,9 @@
 
 .slide {
   display: flex;
-  align-items: center; /* Центрируем контент по вертикали */
-  justify-content: center; /* Центрируем контент по горизонтали */
-  flex-direction: column; /* Устанавливаем направление на колонку */
+  align-items: center; 
+  justify-content: center; 
+  flex-direction: column; 
 }
 
 .name {
