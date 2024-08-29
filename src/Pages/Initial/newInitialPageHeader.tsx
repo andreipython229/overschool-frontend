@@ -21,7 +21,7 @@ import { Instagram } from 'react-content-loader'
 
 
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setRegistrationShow }) => {
-  const DefaultDomains = ['localhost', 'overschool.by', 'sandbox.overschool.by'];
+  const DefaultDomains = ['localhost', 'platform.coursehb.ru', 'sandbox.coursehb.ru'];
   const isLogin = useAppSelector(authSelector)
   const { role: userRole, userName: name } = useAppSelector(selectUser)
   const dispatch = useAppDispatch()
@@ -118,7 +118,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
               </div>
               <Button onClick={handleHelpPage} variant={'newSecondary'} text={'Помощь'} />
               <Tooltip title={'Связаться с нами'}>
-                <a target="_blank" href="https://t.me/overschool_info" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   <TelegramIcon className={styles.animatedIcon} sx={{ height: '30px', width: '32.56px', color: '#357EEB' }} />
                 </a>
               </Tooltip>
@@ -147,7 +147,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
               <Button onClick={handleTariffPage} variant={'newSecondary'} text={'Тарифы'} /> 
               <Button onClick={handleHelpPage} variant={'newSecondary'} text={'Помощь'} />
               <Tooltip title={'Связаться с нами'}>
-                <a target="_blank" href="https://t.me/overschool_info" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   <TelegramIcon className={styles.animatedIcon} sx={{ height: '24', width: '24', color: '#357EEB', marginRight: '0.5rem' }} />
                 </a>
               </Tooltip>
