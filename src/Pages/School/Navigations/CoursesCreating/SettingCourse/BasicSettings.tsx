@@ -144,19 +144,19 @@ export const BasicSettings: FC<BasicSettingsT> = ({
     }
   }
 
-  // useEffect(() => {
-  //   const fetchOwnersData = async () => {
-  //     if (courseFind?.name, courseFind.course_id, schoolName) {
-  //       const response = await fetchCourseCopyOwners({ courseName: courseFind.name, id: courseFind.course_id, schoolName: schoolName });
-  //       const newEmails = response.data.map((email: { email: string }) => email.email);
-  //       setEmailsWithAccess(prevEmails => [
-  //         ...new Set([...prevEmails, ...newEmails])
-  //       ]);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchOwnersData = async () => {
+      if (courseFind?.name, courseFind.course_id, schoolName) {
+        const response = await fetchCourseCopyOwners({ courseName: courseFind.name, id: courseFind.course_id, schoolName: schoolName });
+        const newEmails = response.data.map((email: { email: string }) => email.email);
+        setEmailsWithAccess(prevEmails => [
+          ...new Set([...prevEmails, ...newEmails])
+        ]);
+      }
+    };
   
-  //   fetchOwnersData();
-  // }, [courseFind?.name]);
+    fetchOwnersData();
+  }, [courseFind?.name]);
 
   useEffect(() => {
     if (!selectedFolder && courseFind && courseFind.folder && courseFind.folder.id) {
@@ -189,7 +189,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({
   const handleDeleteCourse = async () => {
     courseFind && (await deleteCourses({ id: +courseFind?.course_id, schoolName }))
     setAlertOpen(false)
-    // window.location.reload()
+    window.location.reload()
   }
 
   const handleSaveChanges = async () => {
@@ -257,7 +257,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({
         <p className={styles.short_discription_title}>Кратное описание:</p>
         <Input type={'text'} name="shortDescription" value={shortDescription} onChange={handleNameCourse} />
       </div>
-      {/* <div className={styles.short_discription_wrapper}>
+      <div className={styles.short_discription_wrapper}>
         <p className={styles.short_discription_title}>Поделиться курсом по email:</p>
         <Input type={'email'} name="email" value={email} onChange={handleEmailChange} />
       </div>
@@ -295,7 +295,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({
           <Button onClick={handleCloseRevokeAccess} text="Отмена" />
           <Button onClick={handleRevokeAccess} text="Отозвать" variant={'delete'} />
         </DialogActions>
-      </Dialog> */}
+      </Dialog>
       <div className={styles.publish_switch}>
         {courseFind.baselessons_count && courseFind.baselessons_count >= 5 && toggleCheckbox ? (
           <p className={styles.publish_switch_title}>Опубликовать курс в каталоге</p>
@@ -361,24 +361,19 @@ export const BasicSettings: FC<BasicSettingsT> = ({
           text={isLoading ? <SimpleLoader style={{ height: '1em', width: '11em', color: 'white', zIndex: '100' }} /> : 'Применить изменения'}
           variant={'primary'}
         />
-        <Button onClick={handleOpenAlert} text={'Удалить курс'} variant={'delete'} />
-      {/* {courseFind.course_removed ? (
+      {courseFind.course_removed ? (
           <Button onClick={handleRestoreAccess} text={'Восстановить курс'} />
         ) : (
           <Button onClick={handleOpenAlert} text={'Удалить курс'} variant={'delete'} />
-        )} */}
+        )}
       </div>
       <Dialog open={alertOpen} onClose={handleCloseAlert} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{`Вы действительно хотите удалить курс "${courseFind.name}"?`}</DialogTitle>
         <DialogContent>
-          {/* <DialogContentText id="alert-dialog-description">
+          <DialogContentText id="alert-dialog-description">
             Этот курс будет перемещен в корзину и останется там на протяжении недели. Вы сможете его восстановить в течение этого времени.
             Если вы не восстановите курс, он будет удален навсегда.
             Если вы уверены, что хотите удалить курс {`"${courseFind.name}"`}, нажмите {'удалить'}. В противном случае нажмите {'отмена'}.
-          </DialogContentText> */}
-          <DialogContentText id="alert-dialog-description">
-            Это действие безвозвратно удалит курс, если вы не уверены, что хотите удалять курс {`"${courseFind.name}"`}, то нажмите {'отмена'}. Если
-            вы уверены, что хотите продолжить, нажмите {'удалить'}.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

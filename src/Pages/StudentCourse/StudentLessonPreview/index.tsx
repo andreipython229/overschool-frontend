@@ -17,8 +17,8 @@ import {LimitModal} from "../../../components/Modal/LimitModal/LimitModal";
 
 export const StudentLessonPreview: FC = () => {
   const params = useParams()
+  const { course_id: courseId } = useParams()
   const schoolName = window.location.href.split('/')[4]
-  const courseId = localStorage.getItem('course_id')
 
   const [fetchLessons, {data: lessons, isSuccess, error}] = useLazyFetchModuleLessonsQuery()
   const [fetchLesson, {data: lesson, isFetching: isLoading}] = useLazyFetchLessonQuery();
@@ -27,16 +27,16 @@ export const StudentLessonPreview: FC = () => {
   const [message, setMessage] = useState<string>('')
 
   useEffect(() => {
-    if (params && courseId) {
+    if (params && courseId !== undefined) {
       fetchLessons({sectionId: String(params.section_id), schoolName, courseId})
     }
-  }, [params])
+  }, [params, courseId])
 
   useEffect(() => {
-    if (params && courseId) {
+    if (params && courseId !== undefined) {
       fetchLesson({id: Number(params?.lesson_id), type: `${params?.lesson_type}`, schoolName, courseId})
     }
-  }, [params])
+  }, [params, courseId])
 
   useEffect(() => {
     if (error && "data" in error) {

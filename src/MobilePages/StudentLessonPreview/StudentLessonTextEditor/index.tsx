@@ -8,6 +8,7 @@ import { UploadedFile } from 'components/UploadedFile'
 import { usePostTextFilesMutation } from 'api/filesService'
 
 import styles from './studentLessonTextEditor.module.scss'
+import { useParams } from 'react-router-dom'
 
 type textEditorT = {
   homeworkId: number
@@ -18,8 +19,8 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId }) => {
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
   const [text, setText] = useState<string>('')
   const schoolName = window.location.href.split('/')[4]
-  const courseId = localStorage.getItem('course_id')
-
+  const { course_id: courseId } = useParams()
+  
   const [postHomewrok] = usePostUserHomeworkMutation()
   const [postFiles] = usePostTextFilesMutation()
 
@@ -61,12 +62,10 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId }) => {
     formData.append('file', files[0])
     formData.append('user_homework', `${homeworkId}`)
 
-    // if (courseId) {
-    //   postHomewrok({ homework: homeworkId, text, schoolName, course_id: Number(courseId) })
-    //   postFiles({ formData, schoolName })
-    // }
-    postHomewrok({ homework: { homework: homeworkId, text }, schoolName })
-    postFiles({ formData, schoolName })
+    if (courseId) {
+      postHomewrok({ homework: homeworkId, text, schoolName, course_id: Number(courseId) })
+      postFiles({ formData, schoolName })
+    }
   }
 
   return (

@@ -7,9 +7,9 @@ import { SelectDropDown } from 'components/SelectDropDown/SelectDropDown'
 import { checkHomeworkStatusFilters } from 'constants/dropDownList'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { tableBallsStarPath } from '../../../config/commonSvgIconsPath'
-import { useFetchUserHomeworkQuery, useFetchHomeworkDataQuery, useCreateCheckReplyMutation } from '../../../api/userHomeworkService'
+import { useLazyFetchUserHomeworkQuery, useFetchUserHomeworkQuery, useFetchHomeworkDataQuery, useCreateCheckReplyMutation } from '../../../api/userHomeworkService'
 import { convertDate } from 'utils/convertDate'
-import { UserHomework, CurrentUser } from 'types/homeworkT'
+import { UserHomework, CurrentUser, homeworkStatT } from 'types/homeworkT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { UserHomeworkHistory } from 'components/UserHomeworkHistory'
 import { usePostTextFilesMutation } from 'api/filesService'
@@ -32,7 +32,7 @@ import { Reorder } from 'framer-motion'
 import { AudioPlayer } from 'components/common/AudioPlayer'
 
 type modalHomeworkT = {
-  id: number
+  homeworkData: homeworkStatT
   closeModal: () => void
 }
 
@@ -42,7 +42,7 @@ type fileT = {
   file: string
 }
 
-export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) => {
+export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ homeworkData, closeModal }) => {
   const [userHomework, setUserHomework] = useState<UserHomework>()
   const [currentUser, setCurrentUser] = useState<CurrentUser>()
   const [isUser, setIsUser] = useState<boolean>(true)
@@ -56,8 +56,8 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
   const [hwStatus, setHwStatus] = useState<boolean>()
   const schoolName = window.location.href.split('/')[4]
 
-  const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery({ id, schoolName })
-  const { data: homework, isFetching: isHwFetching } = useFetchHomeworkDataQuery({ id: userHomework?.homework as number, schoolName })
+  const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery({ id: homeworkData.user_homework_id, schoolName, courseId: homeworkData.copy_course_id ? String(homeworkData.copy_course_id) : String(homeworkData.course_id) })
+  const { data: homework, isFetching: isHwFetching } = useFetchHomeworkDataQuery({ id: homeworkData.homework as number, schoolName })
   const [sendHomeworkCheck, { isLoading: sendHwLoading, isSuccess: sendHwCheckSuccess }] = useCreateCheckReplyMutation()
   const [sendFiles, { isLoading, isSuccess: sendFilesSuccess }] = usePostTextFilesMutation()
 
@@ -105,6 +105,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
       text,
       mark,
       user_homework: userHomework?.user_homework_id,
+      courseId: homeworkData.copy_course_id ? homeworkData.copy_course_id : homeworkData.course_id
     }
 
     await sendHomeworkCheck({ data: dataToSend, schoolName })
@@ -113,6 +114,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
         setText('')
         const formData = new FormData()
         formData.append('user_homework_check', `${data.user_homework_check_id}`)
+        formData.append('courseId', `${homeworkData.copy_course_id ? homeworkData.copy_course_id : homeworkData.course_id}`)
         nativeFiles.forEach(file => {
           formData.append(`files`, file)
         })
@@ -131,7 +133,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
   }
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data) {
       setUserHomework(data)
       const {
         last_reply: { author_last_name, author_first_name, updated_at, profile_avatar, text_files, audio_files, text },
@@ -149,7 +151,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ id, closeModal }) 
 
       setCurrentUser(user)
 
-      if (data.status.toLocaleLowerCase() === 'ждет проверки') {
+      if (data && data.status.toLocaleLowerCase() === 'ждет проверки') {
         setIsUser(true)
       } else {
         setIsUser(false)

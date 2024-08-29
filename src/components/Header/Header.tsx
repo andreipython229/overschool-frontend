@@ -162,6 +162,18 @@ export const Header = memo(() => {
   }, [isError])
 
   useEffect(() => {
+    if (coursesSuccess && Courses) {
+      const courseData: { [key: string]: boolean } = {}; 
+      
+      Courses.results.forEach(course => {
+        courseData[course.course_id] = course.is_copy;
+      });
+  
+      localStorage.setItem('course_data', JSON.stringify(courseData));
+    }
+  }, [coursesSuccess, Courses]);
+
+  useEffect(() => {
     if (isSuccess) {
       setLogo(data?.logo_school)
     }

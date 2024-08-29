@@ -36,7 +36,7 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
 
   useEffect(() => {
     if (lesson && lesson.baselesson_ptr_id) {
-        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName }).then((data) => {
+        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName, course_id: Number(courseId) }).then((data) => {
             if (data && data.data) {
                 const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
                     return {
@@ -68,10 +68,10 @@ const handleNewCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
 const handleSubmitNewComment = (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   if (newCommentContent.trim() !== '') {
-    createComment({ lesson_id: lesson.baselesson_ptr_id, content: newCommentContent, schoolName: schoolName }).then(() => {
+    createComment({ lesson_id: lesson.baselesson_ptr_id, content: newCommentContent, schoolName: schoolName, course_id: Number(courseId) }).then(() => {
       setNewCommentContent('');
       if (lesson && lesson.baselesson_ptr_id) {
-        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName }).then((data) => {
+        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName, course_id: Number(courseId) }).then((data) => {
             if (data && data.data) {
                 const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
                     return {

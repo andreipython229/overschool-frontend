@@ -1,4 +1,5 @@
 import React, { FC, ChangeEvent, useState, MouseEvent, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 import { AddFileBtn } from 'components/common/AddFileBtn/index'
 import { Button } from 'components/common/Button/Button'
@@ -27,7 +28,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const schoolName = window.location.href.split('/')[4]
-  const courseId = localStorage.getItem('course_id')
+  const { course_id: courseId } = useParams()
 
   const [postHomework] = usePostUserHomeworkMutation()
   const [postFiles] = usePostTextFilesMutation()
@@ -74,68 +75,68 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
     setIsLoading(true)
 
     if (courseId) {
-      // const formDataHw = new FormData()
-      // formDataHw.append('homework', String(homeworkId))
-      // formDataHw.append('text', String(text))
-      // console.log(formDataHw, homeworkId, text);
-      
-      // await postHomework({ homework: homeworkId, text, schoolName, course_id: Number(courseId) })
+      // Извлекаем список курсов и их значений is_copy из localStorage
+      const courseData = JSON.parse(localStorage.getItem('course_data') || '{}');
       const formDataHw = new FormData()
       formDataHw.append('homework', String(homeworkId))
       formDataHw.append('text', String(text))
-  
-      await postHomework({ homework: formDataHw, schoolName })
-      .unwrap()
-      .then((data) => {
-        setHwSended(true)
-        const formDataFile = new FormData()
 
-        files.forEach((file, index) => {
-          formDataFile.append('files', file)
+      // Если courseId является копией, добавляем его в запрос
+      const homeworkPayload = { homework: homeworkId, text, schoolName, course_id: Number(courseId) }
+
+      await postHomework(homeworkPayload)
+        .unwrap()
+        .then((data) => {
+          setHwSended(true)
+          const formDataFile = new FormData()
+
+          files.forEach((file, index) => {
+            formDataFile.append('files', file)
+            formDataFile.append('courseId', courseId)
+          })
+          formDataFile.append('user_homework', String(data.user_homework_id))
+
+          if (!replyArray) {
+            setReplyArray([
+              {
+                audio_files: [],
+                author: data.author,
+                author_first_name: '',
+                author_last_name: '',
+                created_at: data.created_at,
+                mark: 0,
+                profile_avatar: '',
+                status: data.status,
+                text: String(formDataHw.get('text')) || '',
+                text_files: [],
+                updated_at: data.updated_at,
+                user_homework: data.user_homework_id,
+                user_homework_check_id: 0,
+              },
+            ])
+          }
+          if (files && files.length > 0) {
+            postFiles({ formData: formDataFile, schoolName })
+              .unwrap()
+              .then(() => {
+                setHwStatus(true)
+                setIsLoading(false)
+              })
+              .catch(() => {
+                setHwStatus(true)
+                setOpen(true)
+                setIsLoading(false)
+              })
+          } else {
+            setHwStatus(true)
+            setIsLoading(false)
+          }
         })
-        formDataFile.append('user_homework', String(data.user_homework_id))
-
-        if (!replyArray) {
-          setReplyArray([
-            {
-              audio_files: [],
-              author: data.author,
-              author_first_name: '',
-              author_last_name: '',
-              created_at: data.created_at,
-              mark: 0,
-              profile_avatar: '',
-              status: data.status,
-              text: String(formDataHw.get('text')) || '',
-              text_files: [],
-              updated_at: data.updated_at,
-              user_homework: data.user_homework_id,
-              user_homework_check_id: 0,
-            },
-          ])
-        }
-        if (files && files.length > 0) {
-          postFiles({ formData: formDataFile, schoolName })
-            .unwrap()
-            .then(() => {
-              setHwStatus(true)
-              setIsLoading(false)
-            })
-            .catch(() => {
-              setHwStatus(true)
-              setOpen(true)
-              setIsLoading(false)
-            })
-        } else {
-          setHwStatus(true)
+        .catch(() => {
           setIsLoading(false)
-        }
-      })
-      .catch(() => {
-        setIsLoading(false)
-        setHwStatus(true)
-        setOpen(true)
-      })
+          setHwStatus(true)
+          setOpen(true)
+        })
     }
   }
 

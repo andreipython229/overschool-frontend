@@ -10,6 +10,8 @@ export type homeworksStatsT = {
 
 export type homeworkStatT = {
   course_name: string
+  course_id: number
+  copy_course_id: number
   group_id: number
   homework: number
   homework_name: string
