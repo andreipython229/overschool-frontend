@@ -156,14 +156,8 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
     <div className={styles.wrapper}>
       <h5 className={styles.wrapper_title}>Отправить данные, запросить ответ ИИ:</h5>
       <TextareaAutosize
-        aria-label="Введите ответ на чек-поинт..."
-        placeholder="Введите ответ на чек-поинт..."
-        style={{
-          width: '100%',
-          borderRadius: '5px',
-          border: '1px solid rgba(0, 0, 0, 0.3)',
-          padding: '10px',
-        }}
+        aria-label="Введите ответ на индивидуальное занятие..."
+        placeholder="Введите ответ на индивидуальное занятие..."
         minRows={5}
         value={text}
         onChange={event => setText(event.target.value)}

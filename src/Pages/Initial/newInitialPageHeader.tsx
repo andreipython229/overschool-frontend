@@ -21,7 +21,7 @@ import { Instagram } from 'react-content-loader'
 
 
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setRegistrationShow }) => {
-  const DefaultDomains = ['localhost', 'overschool.by', 'sandbox.overschool.by'];
+  const DefaultDomains = ['localhost', 'platform.coursehb.ru', 'sandbox.coursehb.ru'];
   const isLogin = useAppSelector(authSelector)
   const { role: userRole, userName: name } = useAppSelector(selectUser)
   const dispatch = useAppDispatch()
@@ -104,13 +104,25 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
       
         {isLogin ? (
           <div className={styles.header_block}>
-            <Button onClick={handleCatalog} variant={'newSecondary'} text={'Каталог'} />
-            <Button onClick={handleHelpPage} variant={'newSecondary'} text={'Помощь'} />
-            <Tooltip title={'Связаться с нами'}>
-              <a target="_blank" href="https://t.me/overschool_info" rel="noreferrer" style={{ textDecoration: 'none' }}>
-                <TelegramIcon className={styles.animatedIcon} sx={{ height: '30px', width: '32.56px', color: '#357EEB' }} />
-              </a>
-            </Tooltip>
+            <div className={styles.header_block_menu}>
+              <div className={styles.header_block_menu_platforma}>
+                  <Button onClick={handleCatalog} variant={'newSecondary'} text={'Платформа'} />
+                  <div className={styles.header_block_menu_platforma_content}>
+                    <a href="#"><img src={hat} alt="hat" /><h5>Для начинающих экспертов</h5></a>
+                    <a href="#"><img src={hat} alt="hat" /><h5>Для онлайн школ</h5></a>
+                    <a href="#"><img src={hat} alt="hat" /><h5>Для обучения персонала</h5></a>
+                    <a href="#"><img src={hat} alt="hat" /><h5>Возможности</h5></a>
+                    <a href="#"><img src={hat} alt="hat" /><h5>Отзывы пользователей</h5></a>
+                    <a href="#"><img src={hat} alt="hat" /><h5>Партнёрская программа</h5></a>
+                  </div>
+              </div>
+              <Button onClick={handleHelpPage} variant={'newSecondary'} text={'Помощь'} />
+              <Tooltip title={'Связаться с нами'}>
+                <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                  <TelegramIcon className={styles.animatedIcon} sx={{ height: '30px', width: '32.56px', color: '#357EEB' }} />
+                </a>
+              </Tooltip>
+            </div>
             <Button onClick={handlePlatformEntry} variant={'newLogIn'} text={'Ко входу на платформу'}/>
             <Tooltip title={'Выход из профиля'}>
               <div className={styles.header_block_logOut}>
@@ -122,20 +134,20 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
           <div className={styles.header_block}>
             <div className={styles.header_block_menu}>
               <div className={styles.header_block_menu_platforma}>
-              <Button onClick={handleCatalog} variant={'newSecondary'} text={'Платформа'} />
-              <div className={styles.header_block_menu_platforma_content}>
+                <Button onClick={handleCatalog} variant={'newSecondary'} text={'Платформа'} />
+                <div className={styles.header_block_menu_platforma_content}>
                   <a href="#"><img src={hat} alt="hat" /><h5>Для начинающих экспертов</h5></a>
                   <a href="#"><img src={hat} alt="hat" /><h5>Для онлайн школ</h5></a>
                   <a href="#"><img src={hat} alt="hat" /><h5>Для обучения персонала</h5></a>
                   <a href="#"><img src={hat} alt="hat" /><h5>Возможности</h5></a>
                   <a href="#"><img src={hat} alt="hat" /><h5>Отзывы пользователей</h5></a>
                   <a href="#"><img src={hat} alt="hat" /><h5>Партнёрская программа</h5></a>
-              </div>
+                </div>
              </div>
               <Button onClick={handleTariffPage} variant={'newSecondary'} text={'Тарифы'} /> 
               <Button onClick={handleHelpPage} variant={'newSecondary'} text={'Помощь'} />
               <Tooltip title={'Связаться с нами'}>
-                <a target="_blank" href="https://t.me/overschool_info" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   <TelegramIcon className={styles.animatedIcon} sx={{ height: '24', width: '24', color: '#357EEB', marginRight: '0.5rem' }} />
                 </a>
               </Tooltip>
