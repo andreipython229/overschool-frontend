@@ -9,6 +9,10 @@ export const baseQuery = fetchBaseQuery({
     if (token && token !== '') {
       headers.set('Authorization', `Bearer ${token}`)
     }
+    const domain = window.location.origin
+    if (domain) {
+      headers.set('X-ORIGIN', domain)
+    }
     return headers
   },
 })
