@@ -21,6 +21,7 @@ import Box from '@mui/material/Box'
 import { createTheme, alpha, ThemeProvider } from '@mui/material/styles'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
+import { useDropzone } from 'react-dropzone'
 
 const theme = createTheme({
   palette: {
@@ -42,6 +43,22 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
   const schoolName = window.location.href.split('/')[4]
   const { access: token } = useAppSelector(selectUser).authState
   const [ytVideoError, setYTVideoError] = useState<string>('')
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: video => {
+      setVideoError('')
+
+      if (video[0].size <= 4000 * 1024 * 1024) {
+        setIsLoadingVideo(true)
+        const formData = new FormData()
+        formData.append('video', video[0])
+        formData.append('section', String(lesson.section))
+        formData.append('order', String(lesson.order))
+        handleStartUpload(formData)
+      } else {
+        setVideoError('Превышен допустимый размер файла')
+      }
+    },
+  })
 
   const [videoError, setVideoError] = useState<string>('')
 
@@ -225,6 +242,7 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
                     onDragOver={dragStartHandler}
                     onDrop={onDropHandler}
                     className={dragVideo ? stylesOnDrop : stylesNoDrop}
+                    {...getRootProps()}
                   >
                     <input
                       // disabled={isLoading}
@@ -232,6 +250,7 @@ export const AddVideo: FC<AddPostT> = ({ lessonIdAndType, isPreview, block, less
                       onChange={e => handleVideoUpload(lessonIdAndType, e.target.files![0])}
                       type="file"
                       multiple
+                      {...getInputProps()}
                     />
                     <IconSvg width={83} height={84} viewBoxSize="0 0 83 84" path={addVideoIconPath} />
                     <span>Перетащите .mp4 видеофайл или нажмите для загрузки</span>

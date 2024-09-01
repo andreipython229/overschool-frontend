@@ -141,6 +141,23 @@ export const ChooseSchool = () => {
     return school.name.toLowerCase().includes(search.toLowerCase())
   })
 
+
+  const [isVertical, setIsVertical] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsVertical(window.innerWidth < 640);
+    };
+
+    handleResize(); // вызовите для установки начального состояния
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  
+
+
   return (
     <div className={styles.con}>
       <div className={styles.bgf}>
@@ -285,15 +302,20 @@ export const ChooseSchool = () => {
               <div className={styles.schoolBox}>
                 {schools && filteredSchool ? (
                   <Swiper
+                    className={styles.swiper}
                     modules={[Navigation, Pagination]}
                     pagination={{
                       dynamicBullets: true,
                     }}
                     spaceBetween={5}
-                    slidesPerView={filteredSchool.length > 3 ? 3 : filteredSchool.length}
-                  >
+
+                    slidesPerView={isVertical ? 2 : 3} // При вертикальной ориентации показываем 1 слайд
+                    direction={isVertical ? 'vertical' : 'horizontal'} // Устанавливаем направление              
+                                       >
+
                     {filteredSchool.map((school, index) => (
-                      <SwiperSlide key={index}>
+                      <SwiperSlide className={styles.slide}
+                       key={index}>
                         {school.tariff_paid ? (
                           <Link
                             onClick={async e => {

@@ -80,7 +80,6 @@ export const Initial = () => {
     setActiveSlide(swiper.activeIndex);
   };
 
-  console.log(activeSlide);
   
   
   
