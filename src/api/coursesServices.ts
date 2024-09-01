@@ -80,11 +80,17 @@ export const coursesServices = createApi({
       }),
     }),
     deleteCourseCopyAccess: build.mutation<any, { emails: string[]; schoolName: string; courseName: string; id: number }>({
-      query: ({ emails, courseName, schoolName, id }) => ({
-        url: `/${schoolName}/courses/${id}/delete_course_access/`,
-        method: 'PATCH',
-        body: { user_emails: emails, course_name: courseName },
-      }),
+      query: ({ emails, courseName, schoolName, id }) => {
+        const queryParams = new URLSearchParams({
+          user_emails: emails.join(','),
+          course_name: courseName,
+        });
+    
+        return {
+          url: `/${schoolName}/courses/${id}/delete_course_access/?${queryParams.toString()}`,
+          method: 'PATCH',
+        };
+      },
       invalidatesTags: ['courses', 'course'],
     }),
   }),

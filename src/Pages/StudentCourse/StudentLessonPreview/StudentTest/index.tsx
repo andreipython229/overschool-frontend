@@ -32,7 +32,6 @@ type studentTestT = {
 export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonIndex, sended, completed, nextDisabled, setNextDisabled}) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const schoolName = window.location.href.split('/')[4]
-  const course_id = localStorage.getItem('course_id')
   const [fetchQuestionsList, { data: lesson, isFetching }] = useLazyFetchQuestionsListQuery();
   const [getUsertests] = useGetUserTestsByTestMutation()
   const [passStatus, setPassStatus] = useState('')
@@ -45,10 +44,10 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
   const [testSuccess, setTestSuccess] = useState(completed)
 
   useEffect(() => {
-    if (lessonId && schoolName && course_id) {
-      fetchQuestionsList({ id: String(lessonId), schoolName, course_id });
+    if (lessonId && schoolName && courseId) {
+      fetchQuestionsList({ id: String(lessonId), schoolName, course_id: courseId });
     }
-  }, [lessonId, schoolName, course_id]);
+  }, [lessonId, schoolName, courseId]);
 
   useEffect(() => {
     getUsertests({ id: String(lessonId), schoolName }).then((data: any) => {
@@ -67,7 +66,7 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
 
   useEffect(() => {
     if (lesson && lesson.baselesson_ptr_id) {
-        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName }).then((data) => {
+        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName, course_id: Number(courseId) }).then((data) => {
             if (data && data.data) {
                 const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
                     return {
@@ -99,10 +98,10 @@ const handleNewCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
 const handleSubmitNewComment = (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   if (newCommentContent.trim() !== '') {
-    createComment({ lesson_id: lesson.baselesson_ptr_id, content: newCommentContent, schoolName: schoolName }).then(() => {
+    createComment({ lesson_id: lesson.baselesson_ptr_id, content: newCommentContent, schoolName: schoolName, course_id: Number(courseId) }).then(() => {
       setNewCommentContent('');
       if (lesson && lesson.baselesson_ptr_id) {
-        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName }).then((data) => {
+        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName, course_id: Number(courseId) }).then((data) => {
             if (data && data.data) {
                 const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
                     return {

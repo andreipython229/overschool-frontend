@@ -8,6 +8,7 @@ import { AdminTextOptions } from './Options/AdminTextOption'
 import { AdminOptionsWithPictures } from './Options/AdminOptionsWithPictures'
 import { AdminPicturesAndOptions } from './Options/AdminPicturesAndOptions'
 import { ITest } from 'types/sectionT'
+import { useParams } from 'react-router-dom'
 
 type AdminTestT = {
   testId: number
@@ -22,7 +23,7 @@ type QuestionT = {
 
 export const AdminTest: FC<AdminTestT> = ({ testId }) => {
   const schoolName = window.location.href.split('/')[4]
-  const course_id = localStorage.getItem('course_id')
+  const { course_id: courseId } = useParams()
   const [fetchQuestionsList, { data: questionsList, isLoading, isSuccess }] = useLazyFetchQuestionsListQuery();
 
   // для функционала не только с текстовыми тестами =>
@@ -33,10 +34,10 @@ export const AdminTest: FC<AdminTestT> = ({ testId }) => {
   const sortedQuestions = orderBy(questions, 'question_id')
 
   useEffect(() => {
-    if (testId && schoolName && course_id) {
-      fetchQuestionsList({ id: String(testId), schoolName, course_id });
+    if (testId && schoolName && courseId) {
+      fetchQuestionsList({ id: String(testId), schoolName, course_id: courseId });
     }
-  }, [testId, schoolName, course_id]);
+  }, [testId, schoolName, courseId]);
 
   useEffect(() => {
     if (questionsList) {

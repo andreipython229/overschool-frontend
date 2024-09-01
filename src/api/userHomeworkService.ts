@@ -20,9 +20,9 @@ export const userHomeworkService = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['userHomework'],
   endpoints: build => ({
-    fetchUserHomework: build.query<UserHomework, { id: number; schoolName: string }>({
-      query: ({ id, schoolName }) => ({
-        url: `/${schoolName}/user_homeworks/${id}/`,
+    fetchUserHomework: build.query<UserHomework, { id: number; schoolName: string; courseId?: string }>({
+      query: ({ id, schoolName, courseId }) => ({
+        url: courseId ? `/${schoolName}/user_homeworks/${id}/${courseId}/` : `/${schoolName}/user_homeworks/${id}/`,
       }),
       providesTags: ['userHomework'],
     }),
@@ -38,20 +38,12 @@ export const userHomeworkService = createApi({
       }),
       providesTags: ['userHomework'],
     }),
-    // postUserHomework: build.mutation<CheckReply, { homework: number, text: string, schoolName: string, course_id: number}>({
-    //   query: ({  homework, text, schoolName, course_id }) => {
-    //     return {
-    //       url: `/${schoolName}/user_homeworks/`,
-    //       method: 'POST',
-    //       body: {homework, text, course_id},
-    //     }
-    //   },
-    postUserHomework: build.mutation<CheckReply, {homework: any, schoolName: string}>({
-      query: ({ homework, schoolName }) => {
+    postUserHomework: build.mutation<CheckReply, { homework: number, text: string, schoolName: string, course_id?: number}>({
+      query: ({  homework, text, schoolName, course_id }) => {
         return {
           url: `/${schoolName}/user_homeworks/`,
           method: 'POST',
-          body: homework,
+          body: {homework, text, course_id},
         }
       },
       invalidatesTags: ['userHomework'],
@@ -81,8 +73,10 @@ export const userHomeworkService = createApi({
 
 export const {
   useFetchUserHomeworkQuery,
+  useLazyFetchUserHomeworkQuery,
   useFetchTeacherHomeworkQuery,
   usePostUserHomeworkMutation,
   useFetchHomeworkDataQuery,
+  useLazyFetchHomeworkDataQuery,
   useCreateCheckReplyMutation,
 } = userHomeworkService
