@@ -20,6 +20,10 @@ export const HomeWork: FC = () => {
   const filters = useAppSelector(state => state.filters['homework'])
   const schoolName = window.location.href.split('/')[4]
 
+  const course_data = localStorage.getItem('course_data')
+  const parsedCourseData = course_data ? JSON.parse(course_data) : {}
+  const courseIds = Object.keys(parsedCourseData) // Извлекаем ключи (цифры)
+
   const [homeworksData, setHomeworksData] = useState<homeworksStatsT>()
 
   const [termForFilter, setTermForFilter] = useState<string>('')
@@ -56,8 +60,10 @@ export const HomeWork: FC = () => {
   }, [])
 
   useEffect(() => {
-    fetchHomeworkStats({ filters, page, schoolName })
-  }, [page, filters])
+    if (course_data) {
+      fetchHomeworkStats({ filters, page, schoolName, course_data: courseIds })
+    }
+  }, [course_data, page, filters])
 
   useEffect(() => {
     debounce(addFilters({ key: 'homework', filters: { student: termForFilter } }))
@@ -67,7 +73,7 @@ export const HomeWork: FC = () => {
     if (!isFetching) {
       setHomeworksData(homeworks)
     }
-  }, [homeworks]);
+  }, [homeworks])
 
   return (
     <>

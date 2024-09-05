@@ -37,17 +37,12 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
     }
   }, [course])
 
-  // const onStudentClick = () => {
-  //   localStorage.setItem('course_id', '' + course?.course_id)
-  //   localStorage.setItem('course_copy', '' + course?.is_copy)
-  //   if (course?.public !== 'O') {
-  //     onToggle()
-  //   }
-  // }
-
   const onStudentClick = () => {
     localStorage.setItem('course_id', '' + course?.course_id)
-    course?.public !== 'О' && onToggle()
+    localStorage.setItem('course_copy', '' + course?.is_copy)
+    if (course?.public !== 'O') {
+      onToggle()
+    }
   }
 
   if (isLoading || isError) {
@@ -83,9 +78,11 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
     <>
       {role === RoleE.Admin ? (
       <>
+
         {/* {(((course.course_id === 247) && userId === '154') || ((course.course_id !== 247) && (course.is_copy === false))) ? ( */}
         {(((course.course_id === 247) && userId === '154') || (course.course_id !== 247)) ? (
               
+
                 <div id={`${course?.course_id}`} className={styles?.course_card}>
                   <>
                     {role === RoleE.Admin || role === RoleE.Teacher ? (
@@ -134,7 +131,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     <h5>{course.name}</h5>
                     <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
                     <Link
-                      // onClick={onStudentClick}
+                      onClick={onStudentClick}
                       to={generatePath(Path.CreateCourse + 'student', {
                         course_id: `${course?.course_id}`,
                       })}
@@ -142,7 +139,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     <Button className={styles.btn_admin} text={'Ученики курса'} />
                     </Link>
                     <Link
-                      // onClick={onStudentClick}
+                      onClick={onStudentClick}
                       to={generatePath(Path.CreateCourse, {
                         course_id: `${course?.course_id}`,
                       })}
@@ -159,6 +156,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
       ) : (
         <>
         <Link
+            onClick={onStudentClick}
             to={generatePath(Path.CourseMaterials, {
             course_id: `${course?.course_id}`,
             })}
@@ -178,8 +176,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                   </div>
                   <div className={styles.course_card_about}>
                     <span className={styles.course_card_status_show}>
-                      {/* {role === RoleE.Admin && (course.course_id !== 247) && (course.is_copy === false) ? ( */}
-                      {role === RoleE.Admin && (course.course_id !== 247) ? (
+                      {role === RoleE.Admin && (course.course_id !== 247) && (course.is_copy === false) ? (
                               course?.public === 'О' ? (
                                 <>
                                   <img src={Public} alt="status course" />
@@ -198,89 +195,50 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                           <h5>{course.name}</h5>
                           <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
                           {role === RoleE.Admin ? (
-                      // <>
-                      //   {(course.course_id === 247 && userId !== '154') ? (
-                      //   <Link
-                      //     onClick={onStudentClick}
-                      //     to={generatePath(Path.CourseMaterials, {
-                      //       course_id: `${course?.course_id}`,
-                      //     })}
-                      //   >
-                      //     <Button className={styles.btn_admin} style={{ marginTop: '55px' }} text={'Ознакомиться'} />
-                      //   </Link>
-                      //   ) : course.is_copy === true ? (
-                      //   <div style={{ marginTop: '15px' }}>
-                      //     <Link
-                      //       onClick={onStudentClick}
-                      //       to={generatePath(Path.CreateCourse + 'student', {
-                      //         course_id: `${course?.course_id}`,
-                      //       })}
-                      //     >
-                      //       <Button className={styles.btn_admin} text={'Ученики курса'} />
-                      //     </Link>
-                      //     <Link
-                      //       onClick={onStudentClick}
-                      //       to={generatePath(Path.CourseMaterials, {
-                      //         course_id: `${course?.course_id}`,
-                      //       })}
-                      //     >
-                      //       <Button className={styles.btn_admin} text={'Материалы'} />
-                      //     </Link>
-                      //   </ div>
-                      //   ) : (
-                      //   <Link
-                      //     onClick={onStudentClick}
-                      //     to={generatePath(Path.CourseMaterials, {
-                      //       course_id: `${course?.course_id}`,
-                      //     })}
-                      //   >
-                      //     <Button className={styles.btn_admin} text={'Материалы'} />
-                      //   </Link>
-                      //   )}
-                      //       </>
-                      //     ) : (
-                      //       <Link
-                      //         onClick={onStudentClick}
-                      //         to={generatePath(Path.CourseMaterials, {
-                      //           course_id: `${course?.course_id}`,
-                      //         })}
-                      //       >
-                      //         <Button className={styles.btn_admin} text={'Материалы'} />
-                      //       </Link>
-                      //     )}
-                      //   </div>
-                      // </>
                       <>
-                      {course.course_id === 247 && userId !== '154' ? (
+                      {(course.course_id === 247 && userId !== '154') ? (
                         <Link
-                              to={generatePath(Path.CourseMaterials, {
-                                course_id: `${course?.course_id}`,
-                              })}
-                            >
-                              <Button className={styles.btn_admin} style={{ marginTop: '55px' }} text={'Ознакомиться'} />
+                          onClick={onStudentClick}
+                          to={generatePath(Path.CourseMaterials, {
+                            course_id: `${course?.course_id}`,
+                          })}
+                        >
+                          <Button className={styles.btn_admin} style={{ marginTop: '55px' }} text={'Ознакомиться'} />
                         </Link>
+                      ) : course.is_copy === true ? (
+                        <div style={{ marginTop: '15px' }}>
+                          <Link
+                            onClick={onStudentClick}
+                            to={generatePath(Path.CreateCourse + 'student', {
+                              course_id: `${course?.course_id}`,
+                            })}
+                          >
+                            <Button className={styles.btn_admin} text={'Ученики курса'} />
+                          </Link>
+                          <Link
+                            onClick={onStudentClick}
+                            to={generatePath(Path.CourseMaterials, {
+                              course_id: `${course?.course_id}`,
+                            })}
+                          >
+                            <Button className={styles.btn_admin} text={'Материалы'} />
+                          </Link>
+                        </ div>
                       ) : (
-                          <>
-                                <Link
-                                  to={generatePath(Path.CreateCourse + 'student', {
-                                    course_id: `${course?.course_id}`,
-                                  })}
-                                >
-                                  <Button className={styles.btn_admin} text={'Ученики курса'} />
-                                </Link>
-                                <Link
-                                  to={generatePath(Path.CreateCourse, {
-                                    course_id: `${course?.course_id}`,
-                                  })}
-                                >
-                                  <Button className={styles.btn_admin} text={'Редактировать'} />
-                                </Link>
-                        </>
+                        <Link
+                          onClick={onStudentClick}
+                          to={generatePath(Path.CourseMaterials, {
+                            course_id: `${course?.course_id}`,
+                          })}
+                        >
+                          <Button className={styles.btn_admin} text={'Материалы'} />
+                        </Link>
                       )}
                             </>
                           ) : (
                             <Link
-                              to={generatePath(Path.CreateCourse, {
+                              onClick={onStudentClick}
+                              to={generatePath(Path.CourseMaterials, {
                                 course_id: `${course?.course_id}`,
                               })}
                             >
@@ -335,6 +293,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                   {role === RoleE.Admin ? (
                     <>
                       <Link
+                        onClick={onStudentClick}
                         to={generatePath(Path.CreateCourse + 'student', {
                           course_id: `${course?.course_id}`,
                         })}
@@ -342,6 +301,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                         <Button className={styles.btn_admin} text={'Ученики курса'} />
                       </Link>
                       <Link
+                        onClick={onStudentClick}
                         to={generatePath(Path.CreateCourse, {
                           course_id: `${course?.course_id}`,
                         })}
@@ -351,6 +311,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     </>
                   ) : (
                     <Link
+                      onClick={onStudentClick}
                       to={generatePath(Path.CreateCourse, {
                         course_id: `${course?.course_id}`,
                       })}
@@ -379,20 +340,10 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     </span>
                   </div>
                   <div className={styles.course_card_about}>
-                    {/* <Link
-                      onClick={onStudentClick}
-                      to={
-                          generatePath(Student.Course, {
-                              course_id: `${course?.course_id}`,
-                            })
-                      }
-                    > */}
                     <Link
                       onClick={onStudentClick}
                       to={
-                        course?.remaining_period === 0 || course?.public !== 'О'
-                          ? '#'
-                          : generatePath(Student.Course, {
+                          generatePath(Student.Course, {
                               course_id: `${course?.course_id}`,
                             })
                       }

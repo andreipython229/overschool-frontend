@@ -1,4 +1,5 @@
 import React, { FC, ChangeEvent, useState, MouseEvent, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 import { AddFileBtn } from 'components/common/AddFileBtn/index'
 import { Button } from 'components/common/Button/Button'
@@ -27,7 +28,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const schoolName = window.location.href.split('/')[4]
-  const courseId = localStorage.getItem('course_id')
+  const { course_id: courseId } = useParams()
 
   const [postHomework] = usePostUserHomeworkMutation()
   const [postFiles] = usePostTextFilesMutation()
@@ -74,24 +75,24 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
     setIsLoading(true)
 
     if (courseId) {
-      // const formDataHw = new FormData()
-      // formDataHw.append('homework', String(homeworkId))
-      // formDataHw.append('text', String(text))
-      // console.log(formDataHw, homeworkId, text);
-
-      // await postHomework({ homework: homeworkId, text, schoolName, course_id: Number(courseId) })
+      // Извлекаем список курсов и их значений is_copy из localStorage
+      const courseData = JSON.parse(localStorage.getItem('course_data') || '{}');
       const formDataHw = new FormData()
       formDataHw.append('homework', String(homeworkId))
       formDataHw.append('text', String(text))
 
-      await postHomework({ homework: formDataHw, schoolName })
+      // Если courseId является копией, добавляем его в запрос
+      const homeworkPayload = { homework: homeworkId, text, schoolName, course_id: Number(courseId) }
+
+      await postHomework(homeworkPayload)
         .unwrap()
-        .then(data => {
+        .then((data) => {
           setHwSended(true)
           const formDataFile = new FormData()
 
           files.forEach((file, index) => {
             formDataFile.append('files', file)
+            formDataFile.append('courseId', courseId)
           })
           formDataFile.append('user_homework', String(data.user_homework_id))
 

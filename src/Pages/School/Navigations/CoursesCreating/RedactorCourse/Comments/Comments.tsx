@@ -34,6 +34,7 @@ export const Comments: FC = () => {
         id: +lessonIdAndType.id,
         type: lessonIdAndType.type,
         schoolName,
+        courseId
       });
     const [lesson, setLesson] = useState(data as commonLessonT);
     const [fetchComments, comments] = useLazyFetchCommentsByLessonQuery();
@@ -53,7 +54,7 @@ export const Comments: FC = () => {
         const idAndType: lessonIdAndTypeT = { id: lessonId, type: lessonType };
         setLessonIdAndType(idAndType);
         setSelectedLessonId(baselesson);
-        fetchComments({lesson_id: baselesson, schoolName: schoolName}).then((data) => {
+        fetchComments({lesson_id: baselesson, schoolName: schoolName, course_id: Number(courseId)}).then((data) => {
           if (data && data.data) {
             const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
               return {
@@ -117,7 +118,7 @@ export const Comments: FC = () => {
           setSelectedLessonId(lessonIdAndType.baseLessonId)
         } else {
           setSelectedLessonId(modulesList[0].lessons[0].baselesson_ptr_id)
-          fetchComments({lesson_id: modulesList[0].lessons[0].baselesson_ptr_id, schoolName: schoolName}).then((data) => {
+          fetchComments({lesson_id: modulesList[0].lessons[0].baselesson_ptr_id, schoolName: schoolName, course_id: Number(courseId)}).then((data) => {
   
             if (data && data.data) {
               const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
@@ -152,7 +153,7 @@ export const Comments: FC = () => {
             commentsToUpdate[comment.id] = comment.public
           })
           if (selectedLessonId) {
-            await updateComments({ schoolName: schoolName, lesson_id: selectedLessonId, comments: commentsToUpdate });
+            await updateComments({ schoolName: schoolName, lesson_id: selectedLessonId, comments: commentsToUpdate, course_id: Number(courseId) });
           } else {
             showErrorForSevenSeconds(`Не удалось получить идентификатор курса`);
           }

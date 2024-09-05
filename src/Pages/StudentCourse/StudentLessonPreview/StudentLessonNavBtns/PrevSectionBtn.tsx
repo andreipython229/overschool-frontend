@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react'
 import { Button } from '../../../../components/common/Button/Button'
 import styles from '../lesson.module.scss'
 import { useFetchModuleLessonsQuery } from '../../../../api/modulesServices'
-import { generatePath, useNavigate } from 'react-router-dom'
+import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 
 
@@ -14,7 +14,7 @@ type PrevSectionButtonProps = {
 export const PrevSectionButton: FC<PrevSectionButtonProps> = ({ sectionId, courseId }) => {
   const navigate = useNavigate()
   const schoolName = window.location.href.split('/')[4]
-  const { data: prevSection, isSuccess } = useFetchModuleLessonsQuery({ sectionId: String(sectionId), schoolName })
+  const { data: prevSection, isSuccess } = useFetchModuleLessonsQuery({ sectionId: String(sectionId), schoolName, courseId: String(courseId) })
   const prevSectionHandler = () => {
     if (prevSection && prevSection.lessons?.length > 0) {
       const lesson = prevSection.lessons?.[prevSection.lessons?.length - 1]

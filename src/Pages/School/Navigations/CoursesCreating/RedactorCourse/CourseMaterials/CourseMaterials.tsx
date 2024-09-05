@@ -6,9 +6,7 @@ import {
   useLazyFetchLessonQuery, 
 } from 'api/modulesServices';
 
-import { Reorder } from 'framer-motion';
 import { lessonSvgMapper } from 'config';
-
 import { lessonIdAndTypeT } from 'components/Modal/ModalTypes';
 
 import { LESSON_TYPE } from 'enum/lessonTypeE';

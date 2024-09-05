@@ -4,7 +4,7 @@ import parse from 'html-react-parser'
 import { UploadedFile } from 'components/UploadedFile'
 import { iocnsByStatus } from 'components/HomeworksStatsTable/config/iocnsByStatus'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
-import { useFetchUserHomeworkQuery, useFetchHomeworkDataQuery, useCreateCheckReplyMutation } from '../../../api/userHomeworkService'
+import { useLazyFetchUserHomeworkQuery, useCreateCheckReplyMutation, useLazyFetchHomeworkDataQuery } from '../../../api/userHomeworkService'
 import { convertDate } from 'utils/convertDate'
 import { UserHomework, CurrentUser } from 'types/homeworkT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
@@ -24,6 +24,7 @@ import {
 
 import styles from './modal_check_home_work.module.scss'
 import { TextField } from '@mui/material'
+import { useParams } from 'react-router-dom'
 
 type studentModalHomeworkT = {
   id: number
@@ -42,6 +43,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
   const [currentUser, setCurrentUser] = useState<CurrentUser>()
   const [isUser, setIsUser] = useState<boolean>(true)
   const schoolName = window.location.href.split('/')[4]
+  const { course_id: courseId } = useParams()
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isHwOpen, setIsHwOpen] = useState<boolean>(false)
@@ -52,11 +54,26 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
   const [files, setFiles] = useState<fileT[]>([])
   const [nativeFiles, setNativeFiles] = useState<File[]>([])
 
-  const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery({ id, schoolName })
-  const { data: homework, isFetching: isHwFetching } = useFetchHomeworkDataQuery({ id: userHomework?.homework as number, schoolName })
+  const [fetchHomework, { data, isFetching, isSuccess }] = useLazyFetchUserHomeworkQuery()
+  const [fetchHomeworkData, { data: homework, isFetching: isHwFetching }] = useLazyFetchHomeworkDataQuery()
   const [sendHomeworkCheck, { data: sendResult, status: sendHwCheckSuccess }] = useCreateCheckReplyMutation()
   const [sendFiles, { isLoading, isSuccess: sendFilesSuccess }] = usePostTextFilesMutation()
 
+  useEffect(() => {
+    const fetchHomeworkData = async () => {
+      if (courseId) {
+        await fetchHomework({ id, schoolName, courseId });
+      }
+    };
+    fetchHomeworkData();
+  }, []);
+
+  useEffect(() => {
+    if (userHomework?.homework) {
+      fetchHomeworkData({id: userHomework.homework as number, schoolName})
+    }
+  }, [userHomework])
+  
   const handleToggleHiddenBlocks = (): void => {
     setIsOpen(!isOpen)
   }
@@ -88,6 +105,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
       text,
       mark,
       user_homework: userHomework?.user_homework_id,
+      courseId
     }
 
     try {
@@ -100,6 +118,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
           if (files && files.length > 0) {
             const formData = new FormData()
             formData.append('user_homework_check', `${data.user_homework_check_id}`)
+            formData.append('courseId', `${courseId}`)
             nativeFiles.forEach(file => {
               formData.append(`files`, file)
             })
@@ -126,10 +145,8 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
     }
   }
 
-  console.log(text)
-
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data) {
       setUserHomework(data)
       const {
         last_reply: { author_last_name, author_first_name, updated_at, profile_avatar, text_files, audio_files, text, author_pseudonym },
@@ -148,7 +165,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
       
       setCurrentUser(user)
 
-      if (data.status.toLocaleLowerCase() === 'ждет проверки') {
+      if (data && data.status.toLocaleLowerCase() === 'ждет проверки') {
         setIsUser(true)
       } else {
         setIsUser(false)
@@ -200,7 +217,7 @@ export const StudentModalCheckHomeWork: FC<studentModalHomeworkT> = memo(({ id, 
                     {/* <span>{userHomework?.course_name}</span> */}
                   </div>
                   <div className={styles.task_modal_text}>{parse(homework?.description || '')}</div>
-                  {((homework?.audio_files && homework.audio_files.length > 0) || (homework?.text_files && homework.text_files.length > 0)) && (
+                  {((homework?.audio_files && homework.audio_files.length > 0) || (homework?.text_files && homework.text_files.length > 0) || (homework && homework?.blocks.length > 0)) && (
                     <div className={styles.task_modal_files}>
                       <span>Материалы к заданию:</span>
                       <div>
