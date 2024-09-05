@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 import { CoursesDataT } from '../../../../types/CoursesT'
 
 import styles from './coursePage.module.scss'
@@ -15,6 +15,9 @@ import ProgressBar from '@ramonak/react-progress-bar'
 import {Portal} from "../../../../components/Modal/Portal";
 import {LimitModal} from "../../../../components/Modal/LimitModal/LimitModal";
 import {useBoolean} from "../../../../customHooks";
+import { usePatchCoursesMutation} from '../../../../api/coursesServices'
+import { formDataConverter } from '../../../../utils/formDataConverter'
+import { CheckboxBall } from '../../../../components/common/CheckboxBall'
 
 type courseCard = {
   course: CoursesDataT
@@ -55,22 +58,44 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
     return null
   }
 
+  const [isPublished, setIsPublished] = useState(course.public === 'О');
+  const [update, { isLoading:isLoad, isSuccess }] = usePatchCoursesMutation()
+
+  
+  const handleSaveChanges = async () => {
+    const updateCurse = {
+       public : isPublished ? 'Н' : 'О' 
+    }
+    
+    const formdata = formDataConverter(updateCurse)
+    if (formdata && course) {
+      const id = course?.course_id
+      await update({ arg: { formdata, id }, schoolName })
+        .unwrap()
+        .then(data => {
+          window.location.reload()
+        })
+    }
+  };
+  
+
   return (
     <>
       {role === RoleE.Admin ? (
       <>
         {/* {(((course.course_id === 247) && userId === '154') || ((course.course_id !== 247) && (course.is_copy === false))) ? ( */}
         {(((course.course_id === 247) && userId === '154') || (course.course_id !== 247)) ? (
-              <Link
-                // onClick={onStudentClick}
-                to={generatePath(Path.CreateCourse, {
-                  course_id: `${course?.course_id}`,
-                })}
-              >
+              
                 <div id={`${course?.course_id}`} className={styles?.course_card}>
                   <>
                     {role === RoleE.Admin || role === RoleE.Teacher ? (
                       <>
+                      <Link
+                        // onClick={onStudentClick}
+                        to={generatePath(Path.CreateCourse, {
+                          course_id: `${course?.course_id}`,
+                        })}
+                      >
                         <div className={styles.course_card_img}>
                           {course.photo ? (
                             <img className={styles.course_card_img} src={`${course.photo}`} alt="course_cover" />
@@ -80,24 +105,32 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                             </div>
                           )}
                         </div>
+                      </Link>
                         <div className={styles.course_card_about}>
                           <span className={styles.course_card_status_show}>
                             {role === RoleE.Admin && (course.course_id !== 247) ? (
                         course?.public === 'О' ? (
                           <>
-                            <img src={Public} alt="status course" />
+                            <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
                             <span className={styles.course_card_status_show_public}>Опубликован</span>
                           </>
                         ) : (
                           <>
-                            <img src={notPublic} alt="status course" />
+                            <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
                             <span className={styles.course_card_status_show_public}>Не опубликован</span>
+                          
                           </>
                         )
                       ) : (
                         <div />
                       )}
                     </span>
+                    <Link
+                        // onClick={onStudentClick}
+                        to={generatePath(Path.CreateCourse, {
+                          course_id: `${course?.course_id}`,
+                        })}
+                      >
                     <h5>{course.name}</h5>
                     <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
                     <Link
@@ -116,13 +149,13 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     >
                       <Button className={styles.btn_admin} text={'Редактировать'} />
                     </Link>
-
+                  </Link>
                   </div>
                 </>
               ) : (<></>)}
             </>
           </div>
-          </Link>
+         
       ) : (
         <>
         <Link
