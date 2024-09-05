@@ -45,6 +45,7 @@ export const NavCreatingCourse = memo(() => {
               <>
                 <NavAccountBtn text={'Материалы курса'} path={CreateCoursePath.Materials} />
                 <NavAccountBtn text={'Ученики курса'} path={CreateCoursePath.Student} />
+                <NavAccountBtn text={'Комментарии'} path={CreateCoursePath.Comments} />
                 <button className={styles.creatingCourse_backButton} onClick={backCourses}>
                   Курсы
                 </button>
