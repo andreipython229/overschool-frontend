@@ -19,7 +19,7 @@ import {RoleE} from "../../enum/roleE";
 type playerProps = {
   deleteBlock?: (arg: { id: string | number; schoolName: string }) => any
   setLessonBlocks?: Dispatch<SetStateAction<(IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]>>
-  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid )[]
+  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]
   lessonId: number
   videoSrc: string | undefined
   videoSrc2?: string
@@ -27,9 +27,10 @@ type playerProps = {
   handleDeleteVideo?: (video: string | undefined) => Promise<void>
   isDeleted?: boolean
   block?: IBlockVid
+  download?: boolean
 }
 
-export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEditing, block, isDeleted, lessonId, lessonBlocks, setLessonBlocks }) => {
+export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEditing, block, isDeleted, lessonId, lessonBlocks, setLessonBlocks, download }) => {
   const [currentVideoSrc, setCurrentVideoSrc] = useState<string>()
   const [deleteBlock, { isLoading }] = useDeleteBlockMutation()
   const controls = useDragControls()
@@ -93,7 +94,7 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
       key={block && block.id}
       style={{ display: 'flex', gap: '1em' }}
     >
-      <div className={styles.videoPlayer} onContextMenu={event => role === RoleE.Student && event.preventDefault()}>
+      <div className={styles.videoPlayer} onContextMenu={event => role === RoleE.Student && !download && event.preventDefault()}>
         {currentVideoSrc && videoSrc && videoSrc2 && (
           <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={currentVideoSrc}>
