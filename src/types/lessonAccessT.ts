@@ -28,4 +28,5 @@ export interface lessonAccess {
 export type durationStudent = {
     final_limit: number
     individual_limit: number
+    download: boolean
 }

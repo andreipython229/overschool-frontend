@@ -14,19 +14,26 @@ import {Button} from "components/common/Button/Button";
 import {useSendLandingImagesMutation} from 'api/courseLandingServices'
 import {useParams} from "react-router-dom";
 import {SimpleLoader} from "components/Loaders/SimpleLoader";
+import {LinkBlock} from "./Blocks/LinkBlock";
 
 export const BlocksController: FC<BlocksControllerT> = ({ openModal }) => {
   const params = useParams()
   // const [sendLanding, {data: f_landing, isLoading}] = useSendCourseLandingMutation()
   const [sendLanding, {data: f_landing, isLoading}] = useSendLandingImagesMutation()
-
   const dispatch = useAppDispatch()
   const landing = useAppSelector(state => state.landing.blocks)
   const files = useAppSelector(state => state.landing.files)
 
-  useEffect(()=> {
-    if (f_landing && !isLoading) dispatch(changeBlocks(f_landing))
-  }, [f_landing,])
+
+useEffect(() => {
+  if (f_landing && !isLoading) {
+    dispatch(changeBlocks(f_landing));
+  }
+}, [f_landing, isLoading]);
+
+useEffect(() => {
+  sessionStorage.setItem('landingState', JSON.stringify(landing));
+}, [landing]);
 
   const getBlock = (name: string): ReactNode => {
     switch (name) {
@@ -40,6 +47,8 @@ export const BlocksController: FC<BlocksControllerT> = ({ openModal }) => {
         return <TrainingProgram />
       case blocksNamesE.trainingPurpose:
         return <PurposeOfTrainingBlock />
+      case blocksNamesE.linkButton:
+        return <LinkBlock />
       default:
         return null
     }

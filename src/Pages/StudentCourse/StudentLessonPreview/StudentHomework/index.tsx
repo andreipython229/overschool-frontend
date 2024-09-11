@@ -26,9 +26,10 @@ type studentHomeworkT = {
   sended?: boolean
   nextDisabled: boolean
   setNextDisabled: (arg: boolean) => void
+  download?: boolean
 }
 
-export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params, activeLessonIndex, sended, nextDisabled, setNextDisabled}) => {
+export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params, activeLessonIndex, sended, nextDisabled, setNextDisabled, download}) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const [order, setOrder] = useState([])
   const schoolName = window.location.href.split('/')[4]
@@ -46,7 +47,7 @@ export const StudentHomework: FC<studentHomeworkT> = ({ lesson, lessons, params,
 
   useEffect(() => {
     if (lesson && lesson.baselesson_ptr_id) {
-        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName }).then((data) => {
+        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName, course_id: Number(courseId) }).then((data) => {
             if (data && data.data) {
                 const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
                     return {
@@ -78,10 +79,10 @@ const handleNewCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
 const handleSubmitNewComment = (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   if (newCommentContent.trim() !== '') {
-    createComment({ lesson_id: lesson.baselesson_ptr_id, content: newCommentContent, schoolName: schoolName }).then(() => {
+    createComment({ lesson_id: lesson.baselesson_ptr_id, content: newCommentContent, schoolName: schoolName, course_id: Number(courseId) }).then(() => {
       setNewCommentContent('');
       if (lesson && lesson.baselesson_ptr_id) {
-        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName }).then((data) => {
+        fetchComments({ lesson_id: lesson.baselesson_ptr_id, schoolName: schoolName, course_id: Number(courseId) }).then((data) => {
             if (data && data.data) {
                 const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
                     return {
@@ -120,7 +121,7 @@ const handleSubmitNewComment = (e: FormEvent<HTMLFormElement>) => {
             <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
             <div className={styles.lesson__content}>
               <Reorder.Group style={{ display: 'flex', flexDirection: 'column', gap: '1em' }} onReorder={() => setOrder} values={order}>
-                {renderStudentBlocks(lesson)}
+                {renderStudentBlocks(lesson, download)}
               </Reorder.Group>
             </div>
             <div className={styles.lesson__content}>

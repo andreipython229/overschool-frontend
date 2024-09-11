@@ -1,4 +1,4 @@
-import { useState, FC } from 'react'
+import {useState, FC, useEffect} from 'react'
 import parse from 'html-react-parser'
 import { ILesson, commonLessonT } from 'types/sectionT'
 import { UploadedFile } from 'components/UploadedFile/index'
@@ -16,7 +16,7 @@ type adminLessonT = {
   lesson: ILesson
 }
 
-export const renderStudentBlocks = (lesson: commonLessonT) => {
+export const renderStudentBlocks = (lesson: commonLessonT, download?: boolean) => {
   if (lesson.type !== 'test') {
     return lesson.blocks.map(block => {
       switch (block.type) {
@@ -38,9 +38,9 @@ export const renderStudentBlocks = (lesson: commonLessonT) => {
           }
         case BLOCK_TYPE.VIDEO:
           if ('video' in block && block.video) {
-            return <VideoPlayer isEditing={false} key={block.id} lessonId={lesson.baselesson_ptr_id} videoSrc={block.video} />
+            return <VideoPlayer isEditing={false} key={block.id} lessonId={lesson.baselesson_ptr_id} videoSrc={block.video} download={download}/>
           } else if ('url' in block && block.url) {
-            return <VideoPlayer isEditing={false} key={block.id} lessonId={lesson.baselesson_ptr_id} videoSrc={block.url} />
+            return <VideoPlayer isEditing={false} key={block.id} lessonId={lesson.baselesson_ptr_id} videoSrc={block.url} download={download}/>
           } else {
             return <></>
           }

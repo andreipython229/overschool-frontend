@@ -34,7 +34,8 @@ export const CoursePageConstruct: FC = () => {
   }, [params,])
 
   useEffect(() => {
-    if (f_landing) {
+    const savedState = sessionStorage.getItem('landingState');
+    if (f_landing && !savedState) {
       dispatch(changeBlocks(f_landing))
     }
   }, [f_landing, ])

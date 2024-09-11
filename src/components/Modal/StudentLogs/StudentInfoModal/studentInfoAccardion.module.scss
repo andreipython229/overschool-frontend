@@ -209,14 +209,13 @@
     &_limit {
       margin-top: 5px;
       width: 100%;
-      display: inline-flex;
+      //display: inline-flex;
       justify-content: space-between;
 
       &_check {
         display: flex;
         align-items: center;
       }
-
 
       & span {
        @include font(400, 12px, 150%);
@@ -239,6 +238,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        margin-top: 15px;
      }
     }
   }

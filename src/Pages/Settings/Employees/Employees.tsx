@@ -75,7 +75,13 @@ export const Employees: FC = () => {
                   <Employee
                     key={employee.id}
                     avatar={employee.avatar || avatar}
-                    name={(employee.pseudonym && employee.id !== userId)? `${employee.pseudonym}` : (employee.last_name || employee.first_name) ? `${employee.last_name}  ${employee.first_name}` : 'Нет имени'}
+                    name={
+                      employee.pseudonym && employee.id !== userId ? 
+                        employee.pseudonym :
+                        employee.last_name || employee.first_name ? 
+                          `${employee.last_name || ''} ${employee.first_name || ''}`.trim() :
+                          'Нет имени'
+                    }
                     contact={employee.email}
                     role={employee.role}
                     id={employee.id}

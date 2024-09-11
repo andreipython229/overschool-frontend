@@ -11,10 +11,14 @@ export const homeworksStatsService = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['homeworskStats'],
   endpoints: build => ({
-    fetchHomeworkStats: build.query<homeworksStatsT, { filters: any; page: any; schoolName: string }>({
-      query: ({ filters, page, schoolName }) => {
+    fetchHomeworkStats: build.query<homeworksStatsT, { filters: any; page: any; schoolName: string; course_data?: any }>({
+      query: ({ filters, page, schoolName, course_data }) => {
         const pageToFetch = page ? page : 1
-        const url = createUrlWithParams(`/${schoolName}/homeworks_stats/?p=${pageToFetch}`, filters)
+        // Условно добавляем courseId в параметры запроса, если он передан
+        const url = createUrlWithParams(
+          `/${schoolName}/homeworks_stats/?p=${pageToFetch}${course_data ? `&course_data=${course_data}` : ''}`,
+          filters
+        )
         return {
           url,
         }

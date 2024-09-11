@@ -57,7 +57,7 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = memo(({ homew
       </tr>
       {isModalOpen && (
         <Portal closeModal={close}>
-          <ModalCheckHomeWork id={user_homework_id} closeModal={close} />
+          <ModalCheckHomeWork homeworkData={homeworkData} closeModal={close} />
         </Portal>
       )}
     </>
