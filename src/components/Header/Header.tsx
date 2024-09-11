@@ -29,8 +29,8 @@ import { ITariff, UserProfileT } from '../../types/userT'
 import { setUserProfile, clearUserProfile } from '../../store/redux/users/profileSlice'
 import { isEqual } from 'lodash'
 import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath'
-import TeacherIcon from '../../assets/img/common/teacher.svg';
-import StudentIcon from '../../assets/img/common/student.svg';
+import TeacherIcon from '../../assets/img/common/teacher.svg'
+import StudentIcon from '../../assets/img/common/student.svg'
 import { RoleE } from 'enum/roleE'
 
 import { useCookies } from 'react-cookie'
@@ -441,7 +441,7 @@ export const Header = memo(() => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ marginBottom: '1rem' }} id="alert-dialog-description">
-              {HTMLReactParser(banner.description)}
+              {typeof banner.description === 'string' && HTMLReactParser(banner.description)}
             </DialogContentText>
             <a href={banner.link} target="_blank" rel="noreferrer">
               <Button text={'Перейти по ссылке'} type="button" />
