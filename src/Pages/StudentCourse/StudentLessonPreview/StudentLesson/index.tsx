@@ -22,9 +22,10 @@ type studentLessonT = {
   lessons: sectionT
   params: Params
   activeLessonIndex: number
+  download?: boolean
 }
 
-export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, activeLessonIndex }) => {
+export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, activeLessonIndex, download }) => {
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const schoolName = window.location.href.split('/')[4]
   const [order, setOrder] = useState<[]>([])
@@ -110,7 +111,7 @@ const handleSubmitNewComment = (e: FormEvent<HTMLFormElement>) => {
             <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
             <div className={styles.lesson__content}>
               <Reorder.Group style={{ display: 'flex', flexDirection: 'column', gap: '1em' }} onReorder={() => setOrder} values={order}>
-                {renderStudentBlocks(lesson)}
+                {renderStudentBlocks(lesson, download)}
               </Reorder.Group>
             </div>
             <div className={styles.lesson__content}>
