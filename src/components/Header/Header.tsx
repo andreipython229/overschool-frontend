@@ -29,6 +29,8 @@ import { ITariff, UserProfileT } from '../../types/userT'
 import { setUserProfile, clearUserProfile } from '../../store/redux/users/profileSlice'
 import { isEqual } from 'lodash'
 import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath'
+import TeacherIcon from '../../assets/img/common/teacher.svg';
+import StudentIcon from '../../assets/img/common/student.svg';
 import { RoleE } from 'enum/roleE'
 
 import { useCookies } from 'react-cookie'
@@ -741,6 +743,19 @@ export const Header = memo(() => {
                 Смена платформы
               </Link>
             </MenuItem>
+            {/* <MenuItem onClick={goToChooseSchool}>
+              <img src={StudentIcon} alt="Student Icon" width="24px" height="24px" />
+              <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
+                Сменить роль на Студент
+              </Link>
+            </MenuItem>
+
+            <MenuItem onClick={goToChooseSchool}>
+              <img src={TeacherIcon} alt="Teacher Icon" width="24px" height="24px" />
+              <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
+                Сменить роль на Учитель
+              </Link>
+            </MenuItem> */}
           </Menu>
         </React.Fragment>
         <Tooltip title={'Выход из профиля'}>

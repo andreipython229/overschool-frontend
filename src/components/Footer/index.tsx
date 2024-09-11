@@ -44,6 +44,9 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
         <Link className={styles.wrapper_linksBlock_link_mobile} to={`${FooterPath.PWA}`}>
           Мобильное приложение
         </Link>
+        <Link className={styles.wrapper_linksBlock_link_mobile} to={`${FooterPath.HelpPage}`}>
+          Помощь
+        </Link>
       </nav>
       <div className={styles.wrapper_appName}>
         <strong>OVERSCHOOL</strong>
