@@ -4,4 +4,5 @@ export const blocksNamesE = {
   audience: "audience",
   trainingProgram: "trainingProgram",
   trainingPurpose: "trainingPurpose",
+  linkButton: "linkButton",
 }

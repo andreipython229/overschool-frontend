@@ -1,9 +1,12 @@
 import { FC } from 'react'
 import styles from './blockButtons.module.scss'
 import { IButton } from 'types/sectionT'
+import {
+  LinkButtonT
+} from "../../Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/types/blocksControllerT";
 
 interface LinkButtonI {
-  button: IButton
+  button: IButton | LinkButtonT
   color: string
   link?: string
   text?: string
