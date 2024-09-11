@@ -1,5 +1,5 @@
 import { IBanner } from 'api/apiTypes'
-import { FC, FormEvent, useState } from 'react'
+import { FC, FormEvent, useRef, useState } from 'react'
 import styles from './Banner.module.scss'
 import HubImage from './assets/course-hub-banner.png'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -18,6 +18,7 @@ import { motion } from 'framer-motion'
 import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
 import { isCheckedFunc } from 'utils/isCheckedFunc'
+import { Toast } from 'primereact/toast'
 
 interface IBannerPreview {
   banner: IBanner
@@ -26,6 +27,7 @@ interface IBannerPreview {
 }
 
 export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) => {
+  const toast = useRef<Toast>(null)
   const schoolName = window.location.href.split('/')[4]
   const [isEditing, { on: closeEditing, off: openEditing }] = useBoolean(false)
   const [isActive, { onToggle: toggleActive }] = useBoolean(banner.is_active)
@@ -66,18 +68,28 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
       formdata.append('description', description)
       formdata.append('is_active', String(isActive))
       formdata.append('link', link)
-      activeGroups.map(grp => formdata.append('groups', String(grp)))
-      await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
-        .unwrap()
-        .then(() => {
-          closeEditing()
-          refetch()
+      if (activeGroups.length === 0) {
+        toast.current?.show({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail: `Необходимо выбрать как минимум одну группу`,
+          life: 5000,
         })
+      } else {
+        activeGroups.map(grp => formdata.append('groups', String(grp)))
+        await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
+          .unwrap()
+          .then(() => {
+            closeEditing()
+            refetch()
+          })
+      }
     }
   }
 
   return (
     <motion.div className={styles.wrapper}>
+      <Toast position="bottom-right" ref={toast} />
       <Dialog open={showDeleteModal} onClose={close} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{`Вы действительно хотите удалить баннер "${banner.title}"?`}</DialogTitle>
         <DialogContent>
