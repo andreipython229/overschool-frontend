@@ -1,73 +1,133 @@
-import React, { FC, FormEvent, memo, useState, useEffect } from 'react';
+import React, { FC, FormEvent, memo, useState, useEffect, useRef } from 'react';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { crossIconPath } from 'config/commonSvgIconsPath';
-import { useUpdateUserPseudonymMutation } from 'api/schoolService';
+import { useAssignRoleMutation, useRemoveRoleMutation } from 'api/schoolService';
+import { Toast } from 'primereact/toast'
 import styles from './newUserRole.module.scss';
+import { response } from 'msw';
 
 interface NewUserRoleProps {
     school_id: string;
-    schoolName: string;
     userId: number;
-    role: string;
+    additional_roles?: string[];
+    contact: string;
     onClose: () => void;
 }
 
 const roleTranslation: { [key: string]: string } = {
-    'Admin': 'Администратор',
-    'Student': 'Студент',
-    'Teacher': 'Помощник',
+    'Администратор': 'Администратор',
+    'Студент': 'Студент',
+    'Помощник': 'Помощник',
 };
 
-const allRoles = ['Admin', 'Student', 'Teacher'];
+const allRoles = ['Администратор', 'Студент', 'Помощник'];
 
-export const NewUserRole: FC<NewUserRoleProps> = memo(({ school_id, schoolName, userId, role, onClose }) => {
-    const [selectedRole, setSelectedRole] = useState('');
-    const [updateUserPseudonym, { isLoading, error }] = useUpdateUserPseudonymMutation();
+export const NewUserRole: FC<NewUserRoleProps> = memo(({ school_id, userId, additional_roles, contact, onClose }) => {
+    const toast = useRef<Toast>(null)
+    const [selectedRole, setSelectedRole] = useState('Администратор');
+    const [assignRole, { isLoading: isAssignLoading, error: assignError }] = useAssignRoleMutation();
+    const [removeRole, { isLoading: isRemoveLoading, error: removeError }] = useRemoveRoleMutation();
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            await updateUserPseudonym({
-                schoolName: schoolName,
-                school: Number(school_id),
-                pseudonym: selectedRole,
-                user: userId
-            });
-            onClose();
+            if (selectedRole) {
+                const response = await assignRole({
+                    school_id: parseInt(school_id),
+                    user_id: userId, 
+                    role_name: selectedRole
+                });
+
+                if ('error' in response) {
+                    const error = response.error as { data?: { error?: { type?: string, message?: string } } };
+                    const errorMessage = error.data?.error?.message || 'Попробуйте позже';
+                    const errorType = error.data?.error?.type || 'Неизвестная ошибка';
+                    
+                    toast.current?.show({
+                        severity: 'error',
+                        summary: `Ошибка`,
+                        detail: `Ошибка при выдаче роли: ${errorMessage}`,
+                        life: 5000,
+                    });
+                } else {
+                    toast.current?.show({
+                        severity: 'success',
+                        summary: `Роль выдана`,
+                        detail: `Вы успешно выдали роль ${selectedRole} сотруднику ${contact}`,
+                        life: 5000,
+                    });
+                }
+            } else {
+                toast.current?.show({
+                  severity: 'error',
+                  summary: 'Ошибка',
+                  detail: 'Роль не выбрана',
+                  life: 5000,
+                });
+                console.log('Роль не выбрана')
+            }
         } catch (error) {
-            console.error('Ошибка при обновлении псевдонима:', error);
+            toast.current?.show({
+                severity: 'error',
+                summary: 'Ошибка',
+                detail: `Ошибка при выдаче роли: ${error}`,
+                life: 5000,
+              });
+            console.error('Ошибка при выдаче новой роли:', error);
         }
     };
 
     const handleRevokeRole = async (e: FormEvent) => {
       e.preventDefault();
       try {
-          await updateUserPseudonym({
-              schoolName: schoolName,
-              school: Number(school_id),
-              pseudonym: selectedRole,
-              user: userId
+        if (selectedRole) {
+          await removeRole({
+            school_id: parseInt(school_id),
+            user_id: userId, 
+            role_name: selectedRole
           });
-          onClose();
+          toast.current?.show({
+            severity: 'success',
+            summary: `Роль отозвана`,
+            detail: `Вы успешно отозвали роль ${selectedRole} у сотрудника ${contact}`,
+            life: 5000,
+          })
+        } else {
+            toast.current?.show({
+              severity: 'error',
+              summary: 'Ошибка',
+              detail: 'Роль не выбрана',
+              life: 5000,
+            });
+            console.log('Роль не выбрана')
+        }
       } catch (error) {
-          console.error('Ошибка при обновлении псевдонима:', error);
+        toast.current?.show({
+            severity: 'error',
+            summary: 'Ошибка',
+            detail: `Ошибка при отзыве роли: ${error}`,
+            life: 5000,
+          });
+          console.error('Ошибка при отзыве роли:', error);
       }
   };
-
-    useEffect(() => {
-      console.log(role);
-    }, [role]);
 
     return (
         <div className={styles.modalBackground}>
             <div className={styles.modalContainer}>
                 <div className={styles.modalHeader}>
-                    <h2 className={styles.modalTitle}>Управление ролями сотрудника</h2>
+                    <h2 className={styles.modalTitle}>Управление ролями сотрудника {contact}</h2>
                     <div className={styles.closedModal} onClick={onClose}>
                         <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
                     </div>
                 </div>
-                <p>Платформа: {schoolName}</p>
+                <p>Дополнительные роли пользователя: </p>
+                {additional_roles && additional_roles.length > 0 ? (
+                    <div>{additional_roles.join(', ')}</div>
+                ): (
+                    <p>Пока нет ролей</p>
+                )}
+                <br />
                 <form onSubmit={handleSubmit}>
                   <div className={styles.labelContainer}>
                       <label>Выберите роль:</label>
@@ -83,10 +143,12 @@ export const NewUserRole: FC<NewUserRoleProps> = memo(({ school_id, schoolName, 
                   </div>
                   <div className={styles.buttonContainer}>
                     <button type="submit" className={styles.submitButton}>Выдать роль</button>
-                    <button type="button" className={styles.revokeButton} onClick={handleRevokeRole}>Отозвать роль</button>
+                    <button className={styles.revokeButton} onClick={handleRevokeRole}>Отозвать роль</button>
                 </div>
               </form>
             </div>
+            <Toast position="bottom-left" ref={toast} style={{ marginLeft: '100px' }} />
         </div>
+        
     );
 });

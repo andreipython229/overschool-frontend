@@ -78,11 +78,11 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
     const lastActivity = student?.last_login ? student.last_login : null;
     const schoolName = window.location.href.split('/')[4]
     const schoolId = localStorage.getItem('school_id')
-    const { course_id: courseId } = useParams()
+    const courseId = student?.course_id
     const [studentProgress, setStudentProgress] = useState<studentProgressT>()
     const {data} = useFetchStudentProgressQuery({user_id: String(student?.student_id), schoolName})
     const [fetchStudentLessons, {data: allStudentLessons, isFetching}] = useLazyFetchStudentLessonsQuery()
-    const { data: groups } = useFetchStudentsGroupByCourseQuery({ schoolName, id: courseId ?? '' });
+    const [fetchStudentsGroups, {data: groups}] = useLazyFetchStudentsGroupByCourseQuery()
     const [studentLessons, setStudentLessons] = useState<sectionLessons[]>()
     const [resetAccess, {isSuccess}] = useResetStudentLessonsAccessMutation()
     const [completedPercent, setCompletedPercent] = useState<number>()
@@ -132,7 +132,9 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
         }
     }, [studentProgress])
 
-    
+    useEffect(() => {
+        courseId && fetchStudentsGroups({ schoolName, id: courseId })
+    }, [courseId])
 
     useEffect(() => {
         schoolId && student && fetchStudentLessons({id: schoolId, student_id: student?.student_id})

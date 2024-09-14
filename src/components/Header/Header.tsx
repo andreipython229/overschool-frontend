@@ -73,6 +73,7 @@ export const Header = memo(() => {
   const { pathname } = useLocation()
   const [logout, { isLoading }] = useLazyLogoutQuery()
   const headerId = localStorage.getItem('header_id')
+  const school_id = Number(localStorage.getItem('school_id'))
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
   const { data: profile, isSuccess: profileIsSuccess, isError, error, refetch: refetchUser } = useFetchProfileDataQuery()
   const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
@@ -696,7 +697,7 @@ export const Header = memo(() => {
                 Смена платформы
               </Link>
             </MenuItem>
-            {/* <MenuItem onClick={goToChooseSchool}>
+            <MenuItem onClick={goToChooseSchool}>
               <img src={StudentIcon} alt="Student Icon" width="24px" height="24px" />
               <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
                 Сменить роль на Студент
@@ -708,7 +709,7 @@ export const Header = memo(() => {
               <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
                 Сменить роль на Учитель
               </Link>
-            </MenuItem> */}
+            </MenuItem>
           </Menu>
         </React.Fragment>
         <Tooltip title={'Выход из профиля'}>
