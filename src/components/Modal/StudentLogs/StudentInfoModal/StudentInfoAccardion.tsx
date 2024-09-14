@@ -36,6 +36,7 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
     const [setAccess, {isSuccess}] = useSetStudentLessonsAccessMutation()
     const schoolName = window.location.href.split('/')[4]
     const [duration, setDuration] = useState<number>()
+    const [download, setDownload] = useState<boolean>()
     const [fetchDuration, {data}] = useLazyFetchStudentTrainingDurationQuery()
     const [assignDuration] = useSetStudentTrainingDurationMutation()
     const { role } = useAppSelector(selectUser);
@@ -46,6 +47,7 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
 
     useEffect(() => {
         setDuration(data?.individual_limit);
+        setDownload(data?.download);
         data?.individual_limit && setIsLimited(true)
     }, [data])
 
@@ -57,11 +59,16 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
         setDuration(Number(event.target.value))
     }
 
+    const handleDownload = () => {
+        setDownload(!download)
+    }
+
     const saveDuration = async () => {
         const durationData = {
             user: student?.student_id,
             students_group: student?.group_id,
             limit: isLimited ? duration : 0,
+            download: download
         }
         await assignDuration({data: durationData, schoolName})
     }
@@ -139,23 +146,31 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
                 </div>
                 {isAccardionOpen && <>
                     <div className={styles.accardion_duration}>
+                        {role === RoleE.Teacher && <>
                         <div className={styles.accardion_duration_label}>
                             <label>Индивидуальная продолжительность обучения в днях:</label>
-                            {role === RoleE.Teacher &&
-                            <span>{isLimited ? duration : 'не установлена'}</span>}
+                            <span>{isLimited ? duration : 'не установлена'}</span>
                         </div>
-                    {role === RoleE.Admin &&
+                        <div className={styles.accardion_duration_label}>
+                            <label>Скачивание видео-уроков:</label>
+                            <span>{download ? 'разрешено' : 'не разрешено'}</span>
+                        </div></>}
+                    {role === RoleE.Admin && <>
                     <div className={styles.accardion_duration_limit}>
                         <div className={styles.accardion_duration_limit_check}>
-                        <Checkbox id={'isLimited'} name={'isLimited'} checked={!isLimited}
-                                  onChange={handlerIsLimited}/>
-                        <span>не установлена</span>
-                        {isLimited && <input value={duration} onChange={handleDuration} type="number"/>}
+                            <Checkbox id={'isLimited'} name={'isLimited'} checked={isLimited}
+                                      onChange={handlerIsLimited}/>
+                            <span>индивидуальная продолжительность обучения в днях</span>
+                            {isLimited && <input value={duration} onChange={handleDuration} type="number"/>}
                         </div>
-                        <Button className={styles.accardion_duration_limit_btn} text={'Сохранить'}
-                                onClick={saveDuration}/>
-                    </div>}
-
+                        <div className={styles.accardion_duration_limit_check}>
+                            <Checkbox id={'download'} name={'download'} checked={download}
+                                      onChange={handleDownload}/>
+                            <span>разрешить скачивать видео-уроки</span>
+                        </div>
+                    </div>
+                    <Button className={styles.accardion_duration_limit_btn} text={'Сохранить'}
+                                onClick={saveDuration}/> </>}
                     </div>
                     <LessonsAccardion sectionLessons={studentLessons} setLessons={setStudentLessons}
                                       handleAccessSetting={handleAccessSetting} forStudent={true}

@@ -26,6 +26,7 @@ type MainSettingsGroupPropsT = {
   submitHomework: boolean
   submitTest: boolean
   successTest: boolean
+  download: boolean
   overAiLock: boolean
   certificate: boolean
   title: string
@@ -42,6 +43,7 @@ type MainSettingsGroupPropsT = {
   handlerHomeworkSubmit: () => void
   handlerTestSubmit: () => void
   handlerTestSuccess: () => void
+  handlerDownload: () => void
   handlerLockOverAi: () => void
   handleCertificate: () => void
   handleSave: (data: any) => Promise<void>
@@ -63,6 +65,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
   submitHomework,
   submitTest,
   successTest,
+  download,
   overAiLock,
   certificate,
   title,
@@ -74,6 +77,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
   handlerHomeworkSubmit,
   handlerTestSubmit,
   handlerTestSuccess,
+  handlerDownload,
   handlerLockOverAi,
   handleCertificate,
   deleteGroup,
@@ -238,6 +242,15 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
               <span>
                 Ученик сможет приступить к следующему занятию только после успешного прохождения очередного теста (необходимо набрать требуемый
                 процент правильных ответов)
+              </span>
+            </div>
+          </div>
+          <div className={styles.groupSetting_checkboxBlock_checkbox}>
+            <Checkbox id={'download'} name={'download'} checked={download} onChange={handlerDownload} />
+            <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
+              <span>Возможность скачивания видео</span>
+              <span>
+                Ученик сможет скачивать видео-уроки
               </span>
             </div>
           </div>

@@ -66,6 +66,17 @@ export type TrainingPurpT = {
   canUp: boolean;
   canDown: boolean;
 }
+export interface LinkButtonT {
+  id: number;
+  content: string;
+  name: string;
+  link?: string;
+  color: string;
+  visible: boolean;
+  onlyShow?: boolean;
+  canUp: boolean;
+  canDown: boolean;
+}
 
 export type BlockKeys = {
   header: HeaderT,
@@ -73,6 +84,7 @@ export type BlockKeys = {
   audience: AudiencT,
   trainingProgram: TrainingProgT,
   trainingPurpose: TrainingPurpT,
+  linkButton: LinkButtonT,
 }
 
 export type BlocksT = BlockT[];

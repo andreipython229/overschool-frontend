@@ -29,8 +29,8 @@ import { ITariff, UserProfileT } from '../../types/userT'
 import { setUserProfile, clearUserProfile } from '../../store/redux/users/profileSlice'
 import { isEqual } from 'lodash'
 import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath'
-import TeacherIcon from '../../assets/img/common/teacher.svg';
-import StudentIcon from '../../assets/img/common/student.svg';
+import TeacherIcon from '../../assets/img/common/teacher.svg'
+import StudentIcon from '../../assets/img/common/student.svg'
 import { RoleE } from 'enum/roleE'
 
 import { useCookies } from 'react-cookie'
@@ -54,6 +54,7 @@ import { Button } from 'components/common/Button/Button'
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
 import { useAcceptBannerMutation, useLazyGetStudentBannerQuery } from 'api/schoolBonusService'
 import { useBoolean } from 'customHooks'
+import HTMLReactParser from 'html-react-parser'
 
 type WebSocketHeaders = {
   [key: string]: string | string[] | number
@@ -166,15 +167,15 @@ export const Header = memo(() => {
 
   useEffect(() => {
     if (coursesSuccess && Courses) {
-      const courseData: { [key: string]: boolean } = {}; 
-      
+      const courseData: { [key: string]: boolean } = {}
+
       Courses.results.forEach(course => {
-        courseData[course.course_id] = course.is_copy;
-      });
-  
-      localStorage.setItem('course_data', JSON.stringify(courseData));
+        courseData[course.course_id] = course.is_copy
+      })
+
+      localStorage.setItem('course_data', JSON.stringify(courseData))
     }
-  }, [coursesSuccess, Courses]);
+  }, [coursesSuccess, Courses])
 
   useEffect(() => {
     if (isSuccess) {
@@ -441,10 +442,10 @@ export const Header = memo(() => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ marginBottom: '1rem' }} id="alert-dialog-description">
-              {banner.description}
+              {typeof banner.description === 'string' && HTMLReactParser(banner.description)}
             </DialogContentText>
             <a href={banner.link} target="_blank" rel="noreferrer">
-              <Button text={'Перейти по ссылке'} />
+              <Button text={'Перейти по ссылке'} type="button" />
             </a>
           </DialogContent>
           <DialogActions>
@@ -535,13 +536,59 @@ export const Header = memo(() => {
                           fontWeight: '500',
                           lineHeight: '1.6',
                           fontSize: '1.25rem',
-                          padding: '16px 10px',
+                          padding: '16px 0',
                         }}
                       >
                         Выберите одну или несколько групп:
                       </h2>
                     </div>
-                    {studentsGroups &&
+                    {studentsGroups && (
+                      <div className={styles.wrapper_content_groups}>
+                        {Object.entries(
+                          studentsGroups.results.reduce<Record<string, typeof studentsGroups.results>>((acc, group) => {
+                            const courseName = group.course_name
+                            if (courseName) {
+                              if (!acc[courseName]) {
+                                acc[courseName] = []
+                              }
+                              acc[courseName].push(group)
+                            }
+                            return acc
+                          }, {}),
+                        ).map(([courseName, groups]) => (
+                          <div key={courseName} style={{ marginBlockStart: '3px' }}>
+                            <b>{courseName}</b>
+                            {groups.map((group, index) => (
+                              <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
+                                <Checkbox
+                                  style={{ color: '#ba75ff' }}
+                                  onChange={e => {
+                                    const isChecked = e.target.checked
+                                    if (isChecked) {
+                                      setTgMessage(
+                                        (prevData: TgMessage) =>
+                                          ({
+                                            ...prevData,
+                                            students_groups: [...prevData.students_groups, group.group_id],
+                                          } as TgMessage),
+                                      )
+                                    } else {
+                                      setTgMessage((prevData: TgMessage) => ({
+                                        ...prevData,
+                                        students_groups: prevData.students_groups.filter(id => id !== group.group_id),
+                                      }))
+                                    }
+                                  }}
+                                />
+                                {group.name}
+                                <span> (Кол-во студентов: {group.students.length})</span>
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {/* {studentsGroups &&
                       studentsGroups.results.map(group => {
                         return (
                           <div key={group.group_id}>
@@ -571,7 +618,7 @@ export const Header = memo(() => {
                             <span> (Кол-во студентов: {group.students.length})</span>
                           </div>
                         )
-                      })}
+                      })} */}
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={handleSendTgMessage} text="Отправить" />

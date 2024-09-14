@@ -9,7 +9,7 @@ import { useAppSelector } from '../../store/hooks'
 import { selectUser, schoolNameSelector } from '../../selectors'
 import { RoleE } from '../../enum/roleE'
 import { SimpleLoader } from '../../components/Loaders/SimpleLoader'
-import { setSchoolName } from '../../store/redux/school/schoolSlice'
+import { setContactLink, setSchoolName } from '../../store/redux/school/schoolSlice'
 import { setSchoolId } from '../../store/redux/school/schoolIdSlice'
 import { setHeaderId } from '../../store/redux/school/headerIdSlice'
 import { useDispatch } from 'react-redux'
@@ -102,6 +102,7 @@ export const ChooseSchool = () => {
       })
       .catch(err => {
         if (err.status === 401) {
+          setIsLoading(false)
           localStorage.clear()
           logout()
           dispatch(auth(false))
@@ -111,6 +112,7 @@ export const ChooseSchool = () => {
   }, [])
 
   const handleSchool = (school: SchoolT) => {
+    dispatch(setContactLink(school.contact_link))
     localStorage.setItem('school', school.name)
     dispatch(setSchoolName(school.name))
     localStorage.setItem('school_id', String(school.school_id))
@@ -141,22 +143,18 @@ export const ChooseSchool = () => {
     return school.name.toLowerCase().includes(search.toLowerCase())
   })
 
-
-  const [isVertical, setIsVertical] = useState(false);
+  const [isVertical, setIsVertical] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
-      setIsVertical(window.innerWidth < 640);
-    };
+      setIsVertical(window.innerWidth < 640)
+    }
 
-    handleResize(); // вызовите для установки начального состояния
-    window.addEventListener('resize', handleResize);
+    handleResize() // вызовите для установки начального состояния
+    window.addEventListener('resize', handleResize)
 
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  
-  
-
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   return (
     <div className={styles.con}>
@@ -308,14 +306,11 @@ export const ChooseSchool = () => {
                       dynamicBullets: true,
                     }}
                     spaceBetween={5}
-
                     slidesPerView={isVertical ? 2 : 3} // При вертикальной ориентации показываем 1 слайд
-                    direction={isVertical ? 'vertical' : 'horizontal'} // Устанавливаем направление              
-                                       >
-
+                    direction={isVertical ? 'vertical' : 'horizontal'} // Устанавливаем направление
+                  >
                     {filteredSchool.map((school, index) => (
-                      <SwiperSlide className={styles.slide}
-                       key={index}>
+                      <SwiperSlide className={styles.slide} key={index}>
                         {school.tariff_paid ? (
                           <Link
                             onClick={async e => {

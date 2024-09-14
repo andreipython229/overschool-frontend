@@ -1,25 +1,31 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface SchoolState {
-    schoolName: string;
+  schoolName: string
+  contactLink: string
 }
 
 const initialState: SchoolState = {
-    schoolName: '',
-};
+  schoolName: '',
+  contactLink: '',
+}
 
 const schoolSlice = createSlice({
-    name: 'school',
-    initialState,
-    reducers: {
-        setSchoolName: (state, action: PayloadAction<string>): void => {
-            state.schoolName = action.payload;
-        },
-        removeSchoolName: (state) => {
-            state.schoolName = '';
-        },
+  name: 'school',
+  initialState,
+  reducers: {
+    setContactLink: (state, action: PayloadAction<string>): void => {
+      state.contactLink = action.payload
     },
-});
+    setSchoolName: (state, action: PayloadAction<string>): void => {
+      state.schoolName = action.payload
+    },
+    removeSchoolName: state => {
+      state.schoolName = ''
+      state.contactLink = ''
+    },
+  },
+})
 
-export const {setSchoolName, removeSchoolName} = schoolSlice.actions;
-export const schoolReducer = schoolSlice.reducer;
+export const { setContactLink, setSchoolName, removeSchoolName } = schoolSlice.actions
+export const schoolReducer = schoolSlice.reducer

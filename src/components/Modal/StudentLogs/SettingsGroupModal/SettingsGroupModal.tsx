@@ -31,6 +31,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
   const [submitHomework, setSubmitHomework] = useState<boolean>(false)
   const [submitTest, setSubmitTest] = useState<boolean>(false)
   const [successTest, setSuccessTest] = useState<boolean>(false)
+  const [download, setDownload] = useState<boolean>(false)
   const [textNameField, setTextNameField] = useState<string>('')
   const [groupType, setGroupType] = useState<string>('')
   const [duration, setDuration] = useState<number>(0)
@@ -55,6 +56,8 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
     setSubmitHomework(Boolean(data?.group_settings?.submit_homework_to_go_on))
     setSubmitTest(Boolean(data?.group_settings?.submit_test_to_go_on))
     setSuccessTest(Boolean(data?.group_settings?.success_test_to_go_on))
+    console.log(data?.group_settings)
+    setDownload(Boolean(data?.group_settings?.download))
     setOverAiLock(Boolean(data?.group_settings?.overai_lock))
     setCertificate(Boolean(data?.certificate))
     setTextNameField(String(data?.name))
@@ -123,6 +126,10 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
     strongSubsequence && submitTest && setSuccessTest(!successTest)
   }
 
+  const handlerDownload = () => {
+    setDownload(!download)
+  }
+
   const handleDuration = (event: ChangeEvent<HTMLInputElement>) => {
     setDuration(Number(event.target.value))
   }
@@ -154,6 +161,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
         submit_homework_to_go_on: submitHomework,
         submit_test_to_go_on: submitTest,
         success_test_to_go_on: successTest,
+        download: download,
         overai_lock: overAiLock,
       },
       certificate: certificate,
@@ -258,6 +266,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
               submitHomework={submitHomework}
               submitTest={submitTest}
               successTest={successTest}
+              download={download}
               setGroupName={setTextNameField}
               title={textNameField}
               duration={duration}
@@ -275,6 +284,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
               handlerHomeworkSubmit={handlerHomeworkSubmit}
               handlerTestSubmit={handlerTestSubmit}
               handlerTestSuccess={handlerTestSuccess}
+              handlerDownload={handlerDownload}
               handlerLockOverAi={handlerLockOverAi}
               handleCertificate={handleCertificate}
               handleSave={handleSaveGroupSettings}

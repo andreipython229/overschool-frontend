@@ -13,6 +13,7 @@ import { backArr } from 'components/Previous/config/svgIconPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { useNavigate } from 'react-router-dom'
 import { Path } from 'enum/pathE'
+import {LinkViewBlock} from "./Blocks/LinkViewBlock";
 
 export const LandingBlocks: FC<LandingBlockT> = ({ openModal }) => {
   const landing = useAppSelector(state => state.landing.blocks)
@@ -21,19 +22,21 @@ export const LandingBlocks: FC<LandingBlockT> = ({ openModal }) => {
   const getBlock = (name: string): ReactNode => {
     switch (name) {
       case blocksNamesE.header:
-        return <HeaderViewBlock openModal={openModal} />
+        return <HeaderViewBlock openModal={openModal} />;
       case blocksNamesE.stats:
-        return <StatsBlock />
+        return <StatsBlock />;
       case blocksNamesE.audience:
-        return <AudienceViewBlock />
+        return <AudienceViewBlock />;
       case blocksNamesE.trainingProgram:
-        return <TrainingProgram />
+        return <TrainingProgram />;
       case blocksNamesE.trainingPurpose:
-        return <PurposeTrainingViewBlock />
+        return <PurposeTrainingViewBlock />;
+      case blocksNamesE.linkButton:
+        return <LinkViewBlock />;
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   // Формирование списка из блоков
   const getListedBlocks = () => {

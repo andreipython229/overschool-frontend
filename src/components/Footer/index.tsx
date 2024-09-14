@@ -49,16 +49,17 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
         </Link>
       </nav>
       <div className={styles.wrapper_appName}>
-        <strong>OVERSCHOOL</strong>
+        <strong>COURSEHUB</strong>
       </div>
       <div className={styles.wrapper_social}>@{currentYear}, все права защищены</div>
       <div className={styles.wrapper_requisites}>
-        <p> ООО Оверван </p>
-        <p>г. Минск ул. Сурганова 43-508</p>
+        <p>ООО Оверван</p>
+        <p>г. Минск, ул.Некрасова, д. 5, офис 911</p>
         <p>р/с BY55 ALFA 3012 2639 1200 1027 0000 в ЗАО Альфа-Банк,</p>
         <p>БИК ALFABY2X</p>
         <p>УНП 193417722</p>
-        <p> e-mail: it@overone.by </p>
+        <p>e-mail: admin@coursehb.ru</p>
+        <p>+375292532151</p>
       </div>
     </footer>
   )

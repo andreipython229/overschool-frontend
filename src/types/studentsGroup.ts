@@ -23,6 +23,7 @@ export type studentsGroupsT = {
         submit_homework_to_go_on: boolean
         submit_test_to_go_on: boolean
         success_test_to_go_on: boolean
+        download: boolean
         overai_lock: boolean
     }
     type?: string

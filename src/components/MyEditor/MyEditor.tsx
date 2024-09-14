@@ -142,10 +142,10 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
       </div>
       {stateToHTML(editorState.getCurrentContent()) !== editedText && (
         <div style={{ display: 'flex', margin: '1em' }}>
-          <button className={styles.textField_btnSave} onClick={handleSaveClick}>
+          <button type="button" className={styles.textField_btnSave} onClick={handleSaveClick}>
             Сохранить текст
           </button>
-          <button className={styles.textField_btnCancel} onClick={handleCancelClick}>
+          <button type="button" className={styles.textField_btnCancel} onClick={handleCancelClick}>
             Отмена
           </button>
         </div>
