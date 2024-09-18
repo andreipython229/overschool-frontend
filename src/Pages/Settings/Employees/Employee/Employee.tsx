@@ -11,6 +11,7 @@ import { LimitModal } from '../../../../components/Modal/LimitModal/LimitModal'
 import { EmployeeT } from '../../../../types/userT'
 import { getUserIdFromLocalStorage } from 'utils/getUserId';
 import { RenameEmployee } from 'components/Modal/RenameEmployee/RenameEmployee'
+import { NewUserRole } from 'components/Modal/NewUserRole/NewUserRole'
 
 export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name, id, employees, setEmployees, isModalRenameOpen }) => {
   const userId = getUserIdFromLocalStorage();
@@ -21,6 +22,7 @@ export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name,
   const [message, setMessage] = useState<string>('')
   const [isModalOpen, { on, off }] = useBoolean()
   const [isRenameModalOpen, { onToggle: toggleRenameModal }] = useBoolean()
+  const [isNewRoleModalOpen, { onToggle: toggleNewRoleModal }] = useBoolean()
 
   const handleDeleteEmployee = async () => {
     const formData = new FormData()
@@ -36,6 +38,10 @@ export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name,
         setMessage(error.data)
         onToggle()
       })
+  }
+
+  const handleAddRole = async () => {
+    toggleNewRoleModal();
   }
 
   const handleChangePseudonym = () => {
@@ -85,6 +91,9 @@ export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name,
             <button className={styles.employee_user_roleBtn_btn} onClick={handleDeleteEmployee}>
               Удалить
             </button>
+            {/* <button className={styles.employee_user_roleBtn_btn} onClick={handleAddRole}>
+              Упр. ролями
+            </button> */}
           </div>
         </div>
       </div>
@@ -98,6 +107,11 @@ export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name,
           <RenameEmployee onClose={toggleRenameModal} userId={id} school_id={school_id} schoolName={schoolName} />
         </Portal>
       )}
+      {/* {isNewRoleModalOpen && id && school_id && (
+        <Portal closeModal={toggleRenameModal}>
+          <NewUserRole onClose={toggleNewRoleModal} userId={id} school_id={school_id} schoolName={schoolName} role={role} />
+        </Portal>
+      )} */}
       {isOpenLimitModal ? (
         <Portal closeModal={onToggle}>
           <LimitModal message={message} setShowLimitModal={onToggle} />

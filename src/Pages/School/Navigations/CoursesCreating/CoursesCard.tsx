@@ -328,8 +328,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                             <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
                           ))}
                       </div>
-
-                      <Button className={styles.btn_student} text={'Ознакомиться с материалами'} disabled={course?.remaining_period === 0} />
+                      <Button className={styles.btn_student} text={'Перейти к курсу'} disabled={course?.remaining_period === 0} />
                     </Link>
                   </div>
                   {isOpenModal ? (
