@@ -41,11 +41,22 @@ export const App = () => {
   const currentDomain = window.location.hostname;
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
-  const schoolName = window.location.href.split('/')[4]
+  let schoolName = window.location.href.split('/')[4];
   const { pathname } = useLocation()
   const [utmParams, setUtmParams] = useState<{ [key: string]: string }>({})
   const navigate = useNavigate()
   const [fetchSchoolByDomain, { data: schoolByDomain }] = useLazyFetchSchoolByDomainQuery();
+  if (!schoolName) {
+    schoolName = localStorage.getItem('school') || '';
+  }
+
+  useEffect(() => {
+    const email = localStorage.getItem('email');
+    const validEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru'];
+    if (email && validEmails.includes(email) && schoolName) {
+      navigate(generatePath(`${Path.School}${Path.Courses}`, { school_name: schoolName }));
+    }
+  }, [isLogin]);
 
   useEffect(() => {
     if (

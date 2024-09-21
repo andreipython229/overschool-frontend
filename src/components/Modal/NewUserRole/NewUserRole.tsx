@@ -28,6 +28,17 @@ export const NewUserRole: FC<NewUserRoleProps> = memo(({ school_id, userId, addi
     const [assignRole, { isLoading: isAssignLoading, error: assignError }] = useAssignRoleMutation();
     const [removeRole, { isLoading: isRemoveLoading, error: removeError }] = useRemoveRoleMutation();
 
+    useEffect(() => {
+        if (selectedRole === 'Студент') {
+            toast.current?.show({
+                severity: 'warn',
+                summary: 'Предупреждение',
+                detail: 'Обратите внимание, если вы хотите выдать роль "Студент", убедитесь, что аккаунт student@coursehub.ru находится на одном из ваших курсов. Иначе функционал работы с курсами будет недоступен.',
+                life: 10000,
+            });
+        }
+    }, [selectedRole]);
+
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
@@ -41,7 +52,6 @@ export const NewUserRole: FC<NewUserRoleProps> = memo(({ school_id, userId, addi
                 if ('error' in response) {
                     const error = response.error as { data?: { error?: { type?: string, message?: string } } };
                     const errorMessage = error.data?.error?.message || 'Попробуйте позже';
-                    const errorType = error.data?.error?.type || 'Неизвестная ошибка';
                     
                     toast.current?.show({
                         severity: 'error',
