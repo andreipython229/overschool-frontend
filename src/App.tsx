@@ -35,6 +35,7 @@ import { HelpChat } from './Pages/HelpCenter/HelpChat'
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
 import DomainError from './Pages/DomainAccessDenied/DomainError'
 import RouteHandler from './components/RouteHandler/RouteHandler'
+import CourseCardsTS from 'Pages/CourseCardsTS/CourseCardsTS'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -56,6 +57,8 @@ export const App = () => {
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
+      pathname.split('/')[1] !== 'CourseCardsTS' &&
+
       pathname !== '/access-denied'
     ) {
       if (utmParams.utm_source) {
@@ -116,6 +119,7 @@ export const App = () => {
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
+      pathname.split('/')[1] !== 'CourseCardsTS' &&
       pathname !== '/access-denied'
     ) {
       navigate(Path.ChooseSchool)
@@ -132,6 +136,7 @@ export const App = () => {
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
+      pathname.split('/')[1] !== 'CourseCardsTS' &&
       pathname !== '/access-denied'
     ) {
       navigate(Path.ChooseSchool)
@@ -174,6 +179,7 @@ export const App = () => {
           <Route path={FooterPath.Agreement} element={<Agreement />} />
         </Route>
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
+        <Route path="/CourseCardsTS" element={<CourseCardsTS />} />
         <Route path={'*'} element={<PageNotFound />} />
         <Route path="/access-denied" element={<DomainError />} />
       </Routes>
