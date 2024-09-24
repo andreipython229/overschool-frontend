@@ -30,6 +30,7 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({
                                                             resetAccessSetting
                                                         }) => {
     const [lessonsAccessSetting, {onToggle: toggleAccess}] = useBoolean(false)
+    const [totalAvailability, setTotalAvailability] = useState<boolean>(false)
     const {role} = useAppSelector(selectUser)
 
     const handleLessonCheck = (e: any) => {
@@ -43,6 +44,18 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({
                 }))
             })))
         }
+    }
+
+    const handleAllCheck = (e: any) => {
+        sectionLessons &&
+        setLessons(sectionLessons.map((section) => ({
+            ...section,
+            lessons: section.lessons.map(lesson => ({
+                ...lesson,
+                availability: !totalAvailability
+            }))
+        })))
+        setTotalAvailability(!totalAvailability)
     }
 
     return (
@@ -62,6 +75,12 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({
                 </div> :
                 <span className={styles.accardion_content_fake}></span>}
 
+            {(lessonsAccessSetting && sectionLessons?.length) &&
+            <div className={styles.accardion_content_checkbox}>
+                <Checkbox id={`totalAvailability`} name={'check'} checked={totalAvailability}
+                                              onChange={handleAllCheck}/>
+                <span>все уроки доступны</span>
+            </div>}
             {sectionLessons?.map(({lessons, section_id, name}) => (
                 lessons.length > 0 && (
                 <div className={styles.accardion_item} key={section_id}>

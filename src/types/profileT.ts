@@ -11,6 +11,12 @@ export type profileT = {
   profile_id: number
   sex: sex
   user: profileUserT
+  additional_roles: additionalRoleT[]
+}
+
+export type additionalRoleT = {
+  school_id: number
+  roles: string[]
 }
 
 export type profileUserT = {

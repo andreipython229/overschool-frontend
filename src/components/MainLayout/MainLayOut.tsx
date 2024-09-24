@@ -1,5 +1,5 @@
 import { FC, memo, useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import {generatePath, Outlet, useNavigate} from 'react-router-dom'
 import { Header } from 'components/Header/Header'
 import { Navbar } from 'components/Navbar/Navbar'
 import { Previous } from '../Previous/Previous'
@@ -15,9 +15,14 @@ import { useLazyFetchStudentsGroupQuery } from 'api/studentsGroupService'
 
 import { motion } from 'framer-motion'
 import { NewSchoolProgress } from 'components/NewSchoolProgress'
+import {auth} from "../../store/redux/users/slice";
+import {useDispatch} from "react-redux";
+import {useLazyLogoutQuery} from "../../api/userLoginService";
 
 export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
+  const dispatch = useDispatch()
+  const [logout] = useLazyLogoutQuery()
 
   const navigate = useNavigate()
   const schoolName = window.location.href.split('/')[4]
@@ -26,7 +31,7 @@ export const MainLayOut: FC = memo(() => {
 
   const { role: userRole } = useAppSelector(selectUser)
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
-  const [getGroups, { data: allGroups }] = useLazyFetchStudentsGroupQuery()
+  const [getGroups, { data: allGroups, error: groupsError }] = useLazyFetchStudentsGroupQuery()
   const [toggle, handlers] = useBooleanHook()
 
   const [currentTariff, setCurrentTariff] = useState<any | null>(null)
@@ -72,6 +77,16 @@ export const MainLayOut: FC = memo(() => {
       data?.logo_school ? (link.href = data?.logo_school) : (link.href = '')
     }
   }, [data])
+
+   useEffect(() => {
+    getGroups(schoolName)
+    if (groupsError && 'originalStatus' in groupsError && groupsError.originalStatus === 404) {
+      localStorage.clear()
+      logout()
+      dispatch(auth(false))
+      navigate(generatePath(Path.InitialPage))
+    }
+  }, [groupsError, navigate])
 
   return (
     <div className={styles.wrapper}>
