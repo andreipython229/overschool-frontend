@@ -1,6 +1,7 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react'
 import {baseQuery} from './baseApi'
 import {Domain, updateDomain} from "../types/domainT";
+import { SchoolT } from 'Pages/ChooseSchool/ChooseSchool';
 import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const domainService = createApi({
@@ -43,6 +44,12 @@ export const domainService = createApi({
             }),
             providesTags: ['domain'],
         }),
+        fetchSchoolByDomain: build.query<SchoolT, { domain: string }>({
+            query: ({ domain }) => ({
+              url: '/school-by-domain/',
+              params: { domain },
+            }),
+          }),
     }),
 });
 
@@ -51,5 +58,7 @@ export const {
     useCreateDomainMutation,
     useUpdateDomainMutation,
     useDeleteDomainMutation,
-    useFetchConfiguredDomainsQuery
+    useFetchConfiguredDomainsQuery,
+    useFetchSchoolByDomainQuery,
+    useLazyFetchSchoolByDomainQuery,
 } = domainService;

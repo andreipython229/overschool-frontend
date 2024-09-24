@@ -5,7 +5,6 @@ import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { AboutUser } from './AboutUser'
 import { notifications } from './config/notif'
-import { changePasswordSchema } from './schemas/changePasswordSchema'
 import {
     useChangePasswordMutation,
     useFetchProfileDataQuery,
@@ -17,22 +16,17 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import { profileT } from 'types/profileT'
 import { useLazyLogoutQuery } from "../../api/userLoginService";
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { auth, role } from "../../store/redux/users/slice"
+import { auth } from "../../store/redux/users/slice"
 import { validateEmail } from 'utils/validateEmail'
-import { tgNotificationsService, useFetchNotificationsQuery } from 'api/tgNotificationsServices'
+import { useFetchNotificationsQuery } from 'api/tgNotificationsServices'
 
 import { motion } from 'framer-motion'
 import {authSelector, selectUser} from "../../selectors";
 
 
 import styles from './profile.module.scss'
-import { validatePhone } from "../../utils/validatePhone";
 import { IconSvg } from "../../components/common/IconSvg/IconSvg";
 import { crossIconPath } from "../../config/commonSvgIconsPath";
-import { Path } from "../../enum/pathE";
-import { log } from 'console'
-import { boolean } from 'yup/lib/locale'
-import { bool } from 'yup'
 
 type notifForStudentAndTeacher = {
     id: number;
@@ -59,6 +53,9 @@ export const Profile = () => {
     const [notificationsData, setNotificatonsData] = useState<notifForStudentAndTeacher[]>([])
     const isLogin = useAppSelector(authSelector);
     const {role: userRole} = useAppSelector(selectUser);
+    const restrictedEmails = ["admin@coursehub.ru", "teacher@coursehub.ru", "student@coursehub.ru"];
+    const [isRestrictedUser, setIsRestrictedUser] = useState(false);
+    
 
   
     // console.log(notificaionsSuccess);
@@ -103,6 +100,12 @@ export const Profile = () => {
     useEffect(() => {
         if (profileIsSuccess) {
             setProfileData(data[0])
+            const userEmail = data[0]?.user?.email;
+            if (userEmail && restrictedEmails.includes(userEmail)) {
+                setIsRestrictedUser(true);
+            } else {
+                setIsRestrictedUser(false);
+            }
         }
     }, [profileIsSuccess])
 
@@ -195,154 +198,155 @@ export const Profile = () => {
 
     return (
         <motion.div className={styles.wrapper}
-            initial={{
-                scale: 0.1,
-                opacity: 0,
-            }}
-            animate={{
-                scale: 1,
-                opacity: 1,
-            }}
-            exit={{
-                opacity: 0,
-            }}
-            transition={{
-                delay: 0.1,
-                ease: 'easeInOut',
-                duration: 0.5,
-            }}
+          initial={{
+            scale: 0.1,
+            opacity: 0,
+          }}
+          animate={{
+            scale: 1,
+            opacity: 1,
+          }}
+          exit={{
+            opacity: 0,
+          }}
+          transition={{
+            delay: 0.1,
+            ease: 'easeInOut',
+            duration: 0.5,
+          }}
         >
-            <div className={styles.profile}>
-                <AboutUser />
-                <div className={styles.forms_wrapper}>
-                    <form className={styles.container} onSubmit={handlePasswordsSubmit}>
-                        <h5 className={styles.profile_block_title}>Смена пароля</h5>
-                        <Input name="new_password" type="text" onChange={handlePasswordChange} value={new_password}
-                            placeholder="Новый пароль" />
-                        <div className={styles.container_wrapper}>
-                            <Input
-                                name="new_password_again"
-                                placeholder="Повторить новый пароль"
-                                type="text"
-                                onChange={handlePasswordChange}
-                                value={new_password_again}
-                            />
-                        </div>
-                        <div className={styles.container_wrapper}>
-                            <Button
-                                style={{
-                                    paddingTop: isSubmitting ? '7px' : '11px',
-                                    paddingBottom: isSubmitting ? '7px' : '11px'
-                                }}
-                                disabled={isBtnDisabled}
-                                className={styles.profile_block_btn}
-                                type="submit"
-                                variant={isBtnDisabled ? 'disabled' : 'primary'}
-                                text={isSubmitting ? <SimpleLoader style={{ width: '15px', height: '15px' }}
-                                    loaderColor="#ffff" /> : 'Сменить пароль'}
-                                onClick={logOut}
-                            />
-                        </div>
-                    </form>
-
-                    <form className={styles.container} onSubmit={changeEmail.handleSubmit}>
-                        <h5 className={styles.profile_block_title}>Смена email</h5>
-                        <Input name="email" type="text" id={'email-change'} onChange={changeEmail.handleChange} onInput={() => setError('')}
-                            value={changeEmail.values.email} placeholder="Новый email" />
-                        {error && <span className={styles.container_error}>{error}</span>}
-                        <div className={styles.container_wrapper}>
-                            <Button
-                                style={{
-                                    paddingTop: changeEmail.isSubmitting ? '7px' : '11px',
-                                    paddingBottom: changeEmail.isSubmitting ? '7px' : '11px'
-                                }}
-                                disabled={!changeEmail.values.email}
-                                className={styles.profile_block_btn}
-                                type="submit"
-                                variant={!changeEmail.values.email ? 'disabled' : 'primary'}
-                                text={changeEmail.isSubmitting ? <SimpleLoader style={{ width: '15px', height: '15px' }}
-                                    loaderColor="#ffff" /> : 'Сменить email'}
-                            />
-                        </div>
-                    </form>
-
-
-                    {notificationsResponseData && notificationsResponseData[0] ? (
-                        <div className={styles.notification}>
-                            <h5 className={styles.profile_block_title}>Уведомления</h5>
-                            <div className={styles.notification_toggleWrapper}>
-                                {notificationsResponseData && notificationsResponseData[0] ? notificationsData.map(({ id, info, desc, toggleType }) => {
-                                    if (isToggleType(toggleType)) {
-                                        return (
-                                            <NotificationItem
-                                                key={id}
-                                                id={id}
-                                                info={info}
-                                                desc={desc}
-                                                initialStates={{
-                                                    id: notificationsResponseData[0].id,
-                                                    homework_notifications: Boolean(notificationsResponseData[0].homework_notifications),
-                                                    messages_notifications: Boolean(notificationsResponseData[0].messages_notifications),
-                                                    completed_courses_notifications: Boolean(notificationsResponseData[0].completed_courses_notifications),
-                                                    tg_user: notificationsResponseData[0].tg_user,
-                                                    user_role: userRole
-                                                }}
-                                                toggleType={toggleType}
-                                            />
-                                        );
-                                    }
-                                }) : null}
-                            </div>
-                        </div>
-                    ) : (
-                        <form className={styles.container}>
-                            <h5 className={styles.profile_block_title}>Уведомления</h5>
-
-                            <div className={styles.container_wrapper}>
-                                <Button
-                                    className={styles.profile_block_btn}
-                                    variant={'primary'}
-                                    text={'Включить Телеграм уведомления'}
-                                    onClick={() => window.open('https://t.me/overschool_news_bot', '_blank')}
-                                />
-                            </div>
-                        </form>
-                    )}
-
-
-                </div>
-                {isOpen && (
-                    <div className={styles.modal}>
-                        <div>
-                            <div className={styles.modal_closed} onClick={handleClose}>
-                                <IconSvg width={15} height={15} viewBoxSize="0 0 14 14" path={crossIconPath} />
-                            </div>
-                            <form className={styles.container} onSubmit={sendToken.handleSubmit}>
-                                <h5 className={styles.profile_block_title}>Введите токен подтверждения, который был выслан
-                                    на Ваш новый email:</h5>
-                                <Input name="token" type="text" onChange={sendToken.handleChange}
-                                    value={sendToken.values.token} placeholder="Токен подтверждения" />
-                                {tokenError && <span className={styles.container_error}>{tokenError}</span>}
-                                <div className={styles.container_wrapper}>
-                                    <Button
-                                        style={{
-                                            paddingTop: sendToken.isSubmitting ? '7px' : '11px',
-                                            paddingBottom: sendToken.isSubmitting ? '7px' : '11px'
-                                        }}
-                                        disabled={!sendToken.values.token}
-                                        className={styles.profile_block_btn}
-                                        type="submit"
-                                        variant={!sendToken.values.token ? 'disabled' : 'primary'}
-                                        text={sendToken.isSubmitting ?
-                                            <SimpleLoader style={{ width: '15px', height: '15px' }}
-                                                loaderColor="#ffff" /> : 'Отправить'}
-                                    />
-                                </div>
-                            </form>
-                        </div>
+          <div className={styles.profile}>
+            <AboutUser />
+            <div className={styles.forms_wrapper}>
+              {!isRestrictedUser && (
+                <>
+                  <form className={styles.container} onSubmit={handlePasswordsSubmit}>
+                    <h5 className={styles.profile_block_title}>Смена пароля</h5>
+                    <Input name="new_password" type="text" onChange={handlePasswordChange} value={new_password}
+                      placeholder="Новый пароль" />
+                    <div className={styles.container_wrapper}>
+                      <Input
+                        name="new_password_again"
+                        placeholder="Повторить новый пароль"
+                        type="text"
+                        onChange={handlePasswordChange}
+                        value={new_password_again}
+                      />
                     </div>
-                )}
+                    <div className={styles.container_wrapper}>
+                      <Button
+                        style={{
+                          paddingTop: isSubmitting ? '7px' : '11px',
+                          paddingBottom: isSubmitting ? '7px' : '11px'
+                        }}
+                        disabled={isBtnDisabled}
+                        className={styles.profile_block_btn}
+                        type="submit"
+                        variant={isBtnDisabled ? 'disabled' : 'primary'}
+                        text={isSubmitting ? <SimpleLoader style={{ width: '15px', height: '15px' }}
+                          loaderColor="#ffff" /> : 'Сменить пароль'}
+                        onClick={logOut}
+                      />
+                    </div>
+                  </form>
+      
+                  <form className={styles.container} onSubmit={changeEmail.handleSubmit}>
+                    <h5 className={styles.profile_block_title}>Смена email</h5>
+                    <Input name="email" type="text" id={'email-change'} onChange={changeEmail.handleChange} onInput={() => setError('')}
+                      value={changeEmail.values.email} placeholder="Новый email" />
+                    {error && <span className={styles.container_error}>{error}</span>}
+                    <div className={styles.container_wrapper}>
+                      <Button
+                        style={{
+                          paddingTop: changeEmail.isSubmitting ? '7px' : '11px',
+                          paddingBottom: changeEmail.isSubmitting ? '7px' : '11px'
+                        }}
+                        disabled={!changeEmail.values.email}
+                        className={styles.profile_block_btn}
+                        type="submit"
+                        variant={!changeEmail.values.email ? 'disabled' : 'primary'}
+                        text={changeEmail.isSubmitting ? <SimpleLoader style={{ width: '15px', height: '15px' }}
+                          loaderColor="#ffff" /> : 'Сменить email'}
+                      />
+                    </div>
+                  </form>
+                </>
+              )}
+      
+              {notificationsResponseData && notificationsResponseData[0] ? (
+                <div className={styles.notification}>
+                  <h5 className={styles.profile_block_title}>Уведомления</h5>
+                  <div className={styles.notification_toggleWrapper}>
+                    {notificationsData.map(({ id, info, desc, toggleType }) => {
+                      if (isToggleType(toggleType)) {
+                        return (
+                          <NotificationItem
+                            key={id}
+                            id={id}
+                            info={info}
+                            desc={desc}
+                            initialStates={{
+                              id: notificationsResponseData[0].id,
+                              homework_notifications: Boolean(notificationsResponseData[0].homework_notifications),
+                              messages_notifications: Boolean(notificationsResponseData[0].messages_notifications),
+                              completed_courses_notifications: Boolean(notificationsResponseData[0].completed_courses_notifications),
+                              tg_user: notificationsResponseData[0].tg_user,
+                              user_role: userRole
+                            }}
+                            toggleType={toggleType}
+                          />
+                        );
+                      }
+                    })}
+                  </div>
+                </div>
+              ) : (
+                <form className={styles.container}>
+                  <h5 className={styles.profile_block_title}>Уведомления</h5>
+      
+                  <div className={styles.container_wrapper}>
+                    <Button
+                      className={styles.profile_block_btn}
+                      variant={'primary'}
+                      text={'Включить Телеграм уведомления'}
+                      onClick={() => window.open('https://t.me/overschool_news_bot', '_blank')}
+                    />
+                  </div>
+                </form>
+              )}
             </div>
+      
+            {isOpen && (
+              <div className={styles.modal}>
+                <div>
+                  <div className={styles.modal_closed} onClick={handleClose}>
+                    <IconSvg width={15} height={15} viewBoxSize="0 0 14 14" path={crossIconPath} />
+                  </div>
+                  <form className={styles.container} onSubmit={sendToken.handleSubmit}>
+                    <h5 className={styles.profile_block_title}>Введите токен подтверждения, который был выслан
+                      на Ваш новый email:</h5>
+                    <Input name="token" type="text" onChange={sendToken.handleChange}
+                      value={sendToken.values.token} placeholder="Токен подтверждения" />
+                    {tokenError && <span className={styles.container_error}>{tokenError}</span>}
+                    <div className={styles.container_wrapper}>
+                      <Button
+                        style={{
+                          paddingTop: sendToken.isSubmitting ? '7px' : '11px',
+                          paddingBottom: sendToken.isSubmitting ? '7px' : '11px'
+                        }}
+                        disabled={!sendToken.values.token}
+                        className={styles.profile_block_btn}
+                        type="submit"
+                        variant={!sendToken.values.token ? 'disabled' : 'primary'}
+                        text={sendToken.isSubmitting ? <SimpleLoader style={{ width: '15px', height: '15px' }}
+                          loaderColor="#ffff" /> : 'Отправить'}
+                      />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+          </div>
         </motion.div>
-    )
-}
+      )
+    }

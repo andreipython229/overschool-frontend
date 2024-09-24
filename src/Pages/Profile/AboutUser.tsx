@@ -45,6 +45,9 @@ export const AboutUser: FC = memo(() => {
   const { data: ratingData, isSuccess: ratingSuccess } = useFetchIndividualRatingQuery({schoolName: schoolName})
   const [rating, setRating] = useState<individualRatingT>()
 
+  const restrictedEmails = ["admin@coursehub.ru", "teacher@coursehub.ru", "student@coursehub.ru"];
+  const [isRestrictedUser, setIsRestrictedUser] = useState(false)
+
   const formik = useFormik({
     initialValues: {
       avatar: profileData?.avatar || '',
@@ -60,6 +63,8 @@ export const AboutUser: FC = memo(() => {
     enableReinitialize: true,
     validationSchema: userDataSchema,
     onSubmit: values => {
+      if (isRestrictedUser) return;
+
       const { avatar, avatar_url, city, ...rest } = values
 
       const formData = new FormData()
@@ -120,6 +125,13 @@ export const AboutUser: FC = memo(() => {
   useEffect(() => {
     if (profileIsSuccess) {
       setProfileData(data[0])
+
+      const userEmail = data[0]?.user?.email;
+      if (userEmail && restrictedEmails.includes(userEmail)) {
+        setIsRestrictedUser(true);
+      } else {
+        setIsRestrictedUser(false);
+      }
     }
   }, [profileIsSuccess])
 
@@ -172,18 +184,18 @@ export const AboutUser: FC = memo(() => {
           ) : (
             <div className={styles.profile_block_avatarBlock_avatar} />
           )}
-          <input className={styles.profile_block_avatarBlock_input} value={''} name={'avatar'} type={'file'} onChange={onChangeAvatar} />
+          <input className={styles.profile_block_avatarBlock_input} value={''} name={'avatar'} type={'file'} onChange={onChangeAvatar} disabled={isRestrictedUser} />
         </div>
         {avatarError && <p className={formStyles.form_avatarWrapper_error}>{avatarError}</p>}
       </div>
       <div className={styles.profile_block}>
-        <Input name={'first_name'} type={'text'} label={'Имя:'} onChange={handleChange} value={first_name as string} />
+        <Input name={'first_name'} type={'text'} label={'Имя:'} onChange={handleChange} value={first_name as string} disabled={isRestrictedUser} />
       </div>
       <div className={styles.profile_block}>
-        <Input name={'last_name'} type={'text'} label={'Фамилия:'} onChange={handleChange} value={last_name as string} />
+        <Input name={'last_name'} type={'text'} label={'Фамилия:'} onChange={handleChange} value={last_name as string} disabled={isRestrictedUser} />
       </div>
       <div className={styles.profile_block}>
-        <Input name={'patronymic'} type={'text'} label={'Отчество:'} onChange={handleChange} value={patronymic as string} />
+        <Input name={'patronymic'} type={'text'} label={'Отчество:'} onChange={handleChange} value={patronymic as string} disabled={isRestrictedUser} />
       </div>
       <div className={styles.profile_block}>
         <Input
@@ -195,6 +207,7 @@ export const AboutUser: FC = memo(() => {
           value={phone_number as string}
           placeholder={'Введите номер телефона'}
           required={false}
+          disabled={isRestrictedUser}
         />
         {phoneError && <span className={styles.container_error}>{phoneError}</span>}
       </div>
@@ -207,6 +220,7 @@ export const AboutUser: FC = memo(() => {
           value={city as string}
           placeholder={'Введите город'}
           required={false}
+          disabled={isRestrictedUser}
         />
       </div>
       {/* <div className={styles.profile_block}>
@@ -224,10 +238,11 @@ export const AboutUser: FC = memo(() => {
                 />
             </div> */}
       <div className={styles.profile_block}>
-        <SelectInput optionsList={optionsList} selectedOption={sex} defaultOption="Выберите пол" setSelectedValue={setSex} />
+        {!isRestrictedUser && <SelectInput optionsList={optionsList} selectedOption={sex} defaultOption="Выберите пол" setSelectedValue={setSex} />}
       </div>
       <div className={formStyles.form_btnSave}>
-        <Button
+        {!isRestrictedUser && (
+          <Button
           style={{ paddingTop: '11px', paddingBottom: '11px' }}
           disabled={isSubmitting || isFetching || isError}
           className={styles.profile_block_btn}
@@ -235,6 +250,7 @@ export const AboutUser: FC = memo(() => {
           text={'Сохранить'}
           variant={isSubmitting || isFetching || isError ? 'disabled' : 'primary'}
         />
+        )}
       </div>
     </form>
   )
