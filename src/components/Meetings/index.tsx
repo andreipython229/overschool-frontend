@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {useAppSelector} from "../../store/hooks";
 import {authSelector, selectUser} from "../../selectors";
 import {useFetchSchoolHeaderQuery} from "../../api/schoolHeaderService";
@@ -41,6 +41,7 @@ export const SchoolMeetings: FC = () => {
     const {data: studentsGroups, isSuccess: groupsSuccess} = useFetchStudentsGroupQuery(schoolName);
     const {data: Courses, isSuccess: coursesSuccess} = useFetchCoursesQuery(schoolName);
     const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null);
+    const [allGroups, setAllGroups] = useState<boolean>(false);
     const [newMeetingData, setNewMeetingData] = useState<SchoolMeeting>({
         id: 0,
         students_groups: [],
@@ -107,6 +108,7 @@ export const SchoolMeetings: FC = () => {
     setShowAddMeetingForm(true);};
 
     const handleCourseChange = (courseId: number) => {
+        setAllGroups(false);
         setSelectedCourse(Courses?.results.find(course => course.course_id === courseId) || null)
     };
 
@@ -126,7 +128,28 @@ export const SchoolMeetings: FC = () => {
         }));
     };
 
-
+    const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const isAll = event.target.checked
+        setAllGroups(isAll)
+        const groupsByCourse = studentsGroups?.results.filter(group => group.course_id === selectedCourse?.course_id)
+        const groupsIds = groupsByCourse?.map(group => group.group_id)
+        if (isAll) {
+            groupsByCourse?.map(group => {
+                    setNewMeetingData((prevData: SchoolMeeting) => ({
+                        ...prevData,
+                        students_groups: [...prevData.students_groups, group.group_id],
+                    }) as SchoolMeeting);
+                })
+            setShowReminderOptions(true)
+        } else {
+            setNewMeetingData((prevData: SchoolMeeting) => ({
+                ...prevData,
+                students_groups: prevData.students_groups.filter((id) => {
+                    return !new Set(groupsIds).has(id)
+                }),
+            }));
+        }
+    };
 
     const renderMeetingLinks = () => {
         const dateFormatter = new Intl.DateTimeFormat('ru-RU', {
@@ -235,6 +258,11 @@ export const SchoolMeetings: FC = () => {
                                     ))}
                                 </TextField>
                             </div>
+                            {studentsGroups && selectedCourse &&
+                            <div>
+                                <Checkbox checked={allGroups} onChange={(e) => {handleAllGroups(e)}}/>
+                                <span><b>все группы курса</b></span>
+                            </div>}
                             {studentsGroups && selectedCourse && studentsGroups.results
                                 .filter(group => group.course_id === selectedCourse.course_id)
                                 .map(group => {
@@ -251,6 +279,7 @@ export const SchoolMeetings: FC = () => {
                                                             }) as SchoolMeeting);
                                                             setShowReminderOptions(true)
                                                         } else {
+                                                            setAllGroups(false)
                                                             setNewMeetingData((prevData: SchoolMeeting) => ({
                                                                 ...prevData,
                                                                 students_groups: prevData.students_groups.filter(
@@ -259,6 +288,7 @@ export const SchoolMeetings: FC = () => {
                                                             }));
                                                         }
                                                     }}
+                                                    checked={new Set(newMeetingData.students_groups).has(Number(group.group_id))}
                                                 />
                                                 {group.name}
                                                 <span> (Количество участников: {group.students.length})</span>

@@ -126,6 +126,7 @@ export const Header = memo(() => {
     message: '',
     students_groups: [],
   })
+  const [allGroups, setAllGroups] = useState<boolean>(false);
 
   const logOut = async () => {
     await logout().then(data => {
@@ -400,6 +401,23 @@ export const Header = memo(() => {
     setAnchorEl2(null)
   }
 
+  const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const isAll = event.target.checked
+        setAllGroups(isAll)
+        const groupsIds = studentsGroups?.results.map(group => Number(group.group_id))
+        if (isAll) {
+            setTgMessage((prevData: TgMessage) => ({
+                ...prevData,
+                students_groups: groupsIds,
+            }) as TgMessage);
+        } else {
+            setTgMessage((prevData: TgMessage) => ({
+                ...prevData,
+                students_groups: [],
+            }));
+        }
+  };
+
   const handleSendTgMessage = () => {
     createTgMessage({
       data: tgMessage,
@@ -541,6 +559,12 @@ export const Header = memo(() => {
                         Выберите одну или несколько групп:
                       </h2>
                     </div>
+                    {studentsGroups &&
+                      <div>
+                        <Checkbox style={{color: '#ba75ff'}} checked={allGroups}
+                                              onChange={(e) => {handleAllGroups(e)}}/>
+                        <span><b>выбрать все группы</b></span>
+                      </div>}
                     {studentsGroups && (
                       <div className={styles.wrapper_content_groups}>
                         {Object.entries(
@@ -572,12 +596,14 @@ export const Header = memo(() => {
                                           } as TgMessage),
                                       )
                                     } else {
+                                      setAllGroups(false)
                                       setTgMessage((prevData: TgMessage) => ({
                                         ...prevData,
                                         students_groups: prevData.students_groups.filter(id => id !== group.group_id),
                                       }))
                                     }
                                   }}
+                                  checked={new Set(tgMessage.students_groups).has(Number(group.group_id))}
                                 />
                                 {group.name}
                                 <span> (Кол-во студентов: {group.students.length})</span>
@@ -587,37 +613,6 @@ export const Header = memo(() => {
                         ))}
                       </div>
                     )}
-                    {/* {studentsGroups &&
-                      studentsGroups.results.map(group => {
-                        return (
-                          <div key={group.group_id}>
-                            <Checkbox
-                              style={{
-                                color: '#ba75ff',
-                              }}
-                              onChange={e => {
-                                const isChecked = e.target.checked
-                                if (isChecked) {
-                                  setTgMessage(
-                                    (prevData: TgMessage) =>
-                                      ({
-                                        ...prevData,
-                                        students_groups: [...prevData.students_groups, group.group_id],
-                                      } as TgMessage),
-                                  )
-                                } else {
-                                  setTgMessage((prevData: TgMessage) => ({
-                                    ...prevData,
-                                    students_groups: prevData.students_groups.filter(id => id !== group.group_id),
-                                  }))
-                                }
-                              }}
-                            />
-                            {group.name}
-                            <span> (Кол-во студентов: {group.students.length})</span>
-                          </div>
-                        )
-                      })} */}
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={handleSendTgMessage} text="Отправить" />
