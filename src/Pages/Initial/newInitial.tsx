@@ -5,7 +5,7 @@ import { InitPageHeader } from './newInitialPageHeader'
 import { RegistrationModal, LoginModal } from 'components/Modal'
 import { useBoolean } from '../../customHooks'
 import { Button } from 'components/common/Button/Button'
-import { Footer } from 'components/Footer/newindex '
+import { Footer } from 'components/Footer/index'
 import { removebg, analytics, chatst, dateInf, constructor, hat, cam, ok, chat,
          result, mobile, comp, zimer, youtube, amocmr, bitriks, googleanalytics, tbank, tilda, vk, wordpress, zoom,
           kassa, metrika, rocketfree, record } from '../../assets/img/common/index'
