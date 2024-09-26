@@ -91,7 +91,7 @@ export const StudentProgressBlock: FC = () => {
               </linearGradient>
             </defs>
           </IconSvg>
-          <div className={styles.progressWrapper_progressSlice_block_ball}>{1.4}</div>
+          <div className={styles.progressWrapper_progressSlice_block_ball}>{4.9}</div>
           <h4>Средний балл</h4>
         </div>
         <div className={styles.progressWrapper_progressSlice_block} style={{ gap: 0, justifyContent: 'flex-start' }}>
