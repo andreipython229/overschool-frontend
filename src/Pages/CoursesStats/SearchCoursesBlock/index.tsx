@@ -10,7 +10,6 @@ import { searchCourseBlockT } from '../../../types/pageTypes'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 
-
 import styles from '../courses_stats.module.scss'
 
 export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, courses }) => {

@@ -48,6 +48,7 @@ export type EmployeeT = {
   last_name?: string
   pseudonym?: string
   avatar?: string
+  additional_roles?: string[]
 }
 export interface UserProfileT {
   id: number

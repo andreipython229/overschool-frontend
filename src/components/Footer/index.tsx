@@ -3,14 +3,14 @@ import { useEffect, useState, FC } from 'react'
 
 import { Path, FooterPath, SettingsPath } from 'enum/pathE'
 import { useFetchSchoolQuery } from 'api/schoolService'
+import { callfooter, footerlogo, locationfooter, mailfooter, line } from '../../assets/img/common/index'
 
 import styles from './footer.module.scss'
-
 interface IFooter {
   schoolTariffPlan?: (tariff: any) => void
 }
 
-export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
+export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
   const currentYear = new Date().getFullYear()
   const schoolId = localStorage.getItem('school_id')
   const { data } = useFetchSchoolQuery(Number(schoolId))
@@ -18,48 +18,72 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
 
   useEffect(() => {
     if (data) {
-      localStorage.setItem('test_course', String(data.test_course))
       setAgreementUrl(data?.offer_url)
     }
   }, [data])
 
   return (
     <footer className={styles.wrapper}>
-      <nav className={styles.wrapper_linksBlock}>
-        {agreementUrl ? (
-          <a href={agreementUrl} className={styles.wrapper_linksBlock_link}>
-            Договор
-          </a>
-        ) : (
-          <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.Agreement}`}>
-            Договор
-          </Link>
-        )}
-        <Link className={styles.wrapper_linksBlock_link} to={`${FooterPath.PersonalDataTreatmentPolicy}`}>
-          Политика обработки персональных данных
-        </Link>
-        <Link className={styles.wrapper_linksBlock_link_tariff} to={`${FooterPath.TariffPlans}`}>
-          Тарифы
-        </Link>
-        <Link className={styles.wrapper_linksBlock_link_mobile} to={`${FooterPath.PWA}`}>
-          Мобильное приложение
-        </Link>
-        <Link className={styles.wrapper_linksBlock_link_mobile} to={`${FooterPath.HelpPage}`}>
-          Помощь
-        </Link>
-      </nav>
-      <div className={styles.wrapper_appName}>
-        <strong>COURSEHUB</strong>
+
+      <div className={styles.wrapper_img}>
+        <img src={footerlogo} alt="footerlogo" />
       </div>
-      <div className={styles.wrapper_social}>@{currentYear}, все права защищены</div>
-      <div className={styles.wrapper_requisites}>
-        <p>ООО Оверван</p>
-        <p>г. Минск, ул.Некрасова, д. 5, офис 911</p>
-        <p>р/с BY55 ALFA 3012 2639 1200 1027 0000 в ЗАО Альфа-Банк,</p>
-        <p>БИК ALFABY2X</p>
-        <p>УНП 193417722</p>
-        <p>e-mail: admin@coursehb.ru</p>
-        <p>+375292532151</p>
+      <div>
+        <img src={line} alt="line" />
+      </div>
+      <div className={styles.wrapper_box}>
+        <div className={styles.wrapper_box_contact}>
+          <h1>КОНТАКТЫ</h1>
+          <div className={styles.wrapper_box_contact_pack}>
+            <img src={callfooter} alt="callfooter" />
+            <a href="tel:+375292532151" type="tel">
+              {' '}
+              +375 (29) 253 21 51{' '}
+            </a>
+          </div>
+          <div className={styles.wrapper_box_contact_pack}>
+            <img src={mailfooter} alt="mailfooter" />
+            <a href="mailto:admin@coursehb.ru" type="email">
+              {' '}
+              admin@coursehb.ru
+            </a>
+          </div>
+          <div className={styles.wrapper_box_contact_pack}>
+            <img src={locationfooter} alt="locationfooter" />
+            <p>
+              {' '}
+              220013, Республика Беларусь,
+              <br /> г. Минск, ул.Некрасова, д. 5,
+              <br />
+              оф. 911.
+            </p>
+          </div>
+        </div>
+        <div className={styles.wrapper_box_directions}>
+          <h1>Направления</h1>
+          <p>Возможности</p>
+          <Link className={styles.wrapper_box_directions_link} to={`${FooterPath.TariffPlans}`}>
+            <p>Тарифы</p>
+          </Link>
+          <Link className={styles.wrapper_box_directions_link} to={`${FooterPath.HelpPage}`}>
+            <p>Помощь</p>
+          </Link>
+        </div>
+        <div className={styles.wrapper_box_networks}>
+          <h1>СОЦ.СЕТИ</h1>
+          <p>Instagram</p>
+          <p>Вконтакте</p>
+          <a href="https://t.me/@course_hb" target="_blank" rel="noopener noreferrer">
+            <p>Telegram</p>
+          </a>
+        </div>
+        <div className={styles.wrapper_box_users}>
+          <h1>ПОЛЬЗОВАТЕЛЯМ</h1>
+          <p>Политика в отношении обработки cookie</p>
+          <p>Политика обработки персональных данных</p>
+          <p>Отказ в отношении обработки cookie</p>
+          <p>Отзыв согласия обработки персональных данных</p>
+        </div>
       </div>
     </footer>
   )

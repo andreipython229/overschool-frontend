@@ -13,7 +13,7 @@ import { getUserIdFromLocalStorage } from 'utils/getUserId';
 import { RenameEmployee } from 'components/Modal/RenameEmployee/RenameEmployee'
 import { NewUserRole } from 'components/Modal/NewUserRole/NewUserRole'
 
-export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name, id, employees, setEmployees, isModalRenameOpen }) => {
+export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name, id, employees, additional_roles, setEmployees, isModalRenameOpen }) => {
   const userId = getUserIdFromLocalStorage();
   const school_id = localStorage.getItem('school_id')
   const [removeAccess, { isSuccess: isRemoved }] = useRemoveUserAccessMutation()
@@ -88,12 +88,24 @@ export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name,
                 Уч. группы
               </button>
             )}
-            <button className={styles.employee_user_roleBtn_btn} onClick={handleDeleteEmployee}>
-              Удалить
-            </button>
-            {/* <button className={styles.employee_user_roleBtn_btn} onClick={handleAddRole}>
-              Упр. ролями
-            </button> */}
+            {(userId === 154 || (userId !== 154 && contact !== 'admin@coursehub.ru' && contact !== 'teacher@coursehub.ru')) ? (
+              <button className={styles.employee_user_roleBtn_btn} onClick={handleDeleteEmployee}>
+                Удалить
+              </button>
+            ) : (
+              <button className={`${styles.employee_user_roleBtn_btn} ${styles.disabled}`} disabled>
+                <span style={{ color: 'red' }}>Нельзя удалить</span>
+              </button>
+            )}
+            {(contact === 'admin@coursehub.ru' || contact === 'teacher@coursehub.ru') ? (
+              <button className={styles.employee_user_roleBtn_btn} disabled>
+                <span style={{ color: 'red' }}>Роль постоянна</span>
+              </button>
+            ) : (
+              <button className={styles.employee_user_roleBtn_btn} onClick={handleAddRole}>
+                Упр. ролями
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -107,11 +119,11 @@ export const Employee: FC<EmployeePropsT> = memo(({ avatar, contact, role, name,
           <RenameEmployee onClose={toggleRenameModal} userId={id} school_id={school_id} schoolName={schoolName} />
         </Portal>
       )}
-      {/* {isNewRoleModalOpen && id && school_id && (
+      {isNewRoleModalOpen && id && school_id && (
         <Portal closeModal={toggleRenameModal}>
-          <NewUserRole onClose={toggleNewRoleModal} userId={id} school_id={school_id} schoolName={schoolName} role={role} />
+          <NewUserRole onClose={toggleNewRoleModal} userId={id} school_id={school_id} contact={contact} additional_roles={additional_roles} />
         </Portal>
-      )} */}
+      )}
       {isOpenLimitModal ? (
         <Portal closeModal={onToggle}>
           <LimitModal message={message} setShowLimitModal={onToggle} />

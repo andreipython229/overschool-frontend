@@ -3,19 +3,18 @@
 
 @font-face {
   font-family: SFPROBold;
-  src: url(../../../assets/fonts/SFProText/SFProText-Bold.ttf) format("opentype");
+  src: url(../../../assets/fonts/SFProText/SFProText-Bold.ttf) format('opentype');
 }
 
 @font-face {
   font-family: SFPROMedium;
-  src: url(../../../assets/fonts/SFProText/SFProText-Medium.ttf) format("opentype");
+  src: url(../../../assets/fonts/SFProText/SFProText-Medium.ttf) format('opentype');
 }
 
 @font-face {
   font-family: 'SFPRORegular';
-  src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
 }
-
 
 * {
   box-sizing: border-box;
@@ -50,10 +49,10 @@
     color: $font-color-rose;
     background: #e0dced;
   }
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     // margin: 0 auto;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     // margin: 0 auto;
   }
 }
@@ -64,10 +63,10 @@
   @include font(600, 18px);
   font-family: 'Inter', sans-serif;
   transition: 0.3s ease-in;
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding: 10px;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding: 10px;
   }
   &:hover:not(:disabled) {
@@ -127,9 +126,9 @@
 
   &:hover {
     &:hover:not(:disabled) {
-    color: #fff;
-    background: #d8b0ff;
-  }
+      color: #fff;
+      background: #d8b0ff;
+    }
   }
 }
 
@@ -138,20 +137,20 @@
   flex-direction: row;
   width: 252px;
   height: 46px;
-  background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
+  background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
   align-items: center;
   justify-content: space-evenly;
   font-family: 'SFPRORegular';
   @include font(700, 16px, 19.09px);
   border-radius: 10px;
-  color: #FFFFFF;
+  color: #ffffff;
   padding: 10px 25px 10px 25px;
 
   &:hover {
     &:hover:not(:disabled) {
-      color: #FFFFFF;
-      background: #357EEB;
-  }
+      color: #ffffff;
+      background: #357eeb;
+    }
   }
 }
 
@@ -160,10 +159,10 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  background: #CFE2FF;
+  background: #cfe2ff;
   align-items: center;
   justify-content: space-evenly;
-  font-family: 'SFPRORegular'; 
+  font-family: 'SFPRORegular';
   @include font(700, 16px, 19.09px);
   border-radius: 10px;
   letter-spacing: 0.02em;
@@ -172,9 +171,9 @@
 
   &:hover {
     &:hover:not(:disabled) {
-    color: #FFFFFF;
-    background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
-  }
+      color: #ffffff;
+      background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+    }
   }
 }
 
@@ -188,31 +187,30 @@
   font-size: 24px;
   padding: 11px 25px;
   background: transparent;
-  background: #357EEB;
+  background: #357eeb;
   border-radius: 20px;
   line-height: 28.64px;
-  color: #FFFFFF;
+  color: #ffffff;
 
   &:hover {
     &:hover:not(:disabled) {
-    color: #FFFFFF;
-    background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
-  }
+      color: #ffffff;
+      background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+    }
   }
 }
 
 .newPrimary {
   font-family: 'SFPRORegular';
-  color: #FFFFFF;
-  background: #357EEB;
+  color: #ffffff;
+  background: #357eeb;
   @include font(700, 20px, 23.87px);
   font-family: 'SFPRORegular';
   transition: 0.3s ease-in;
   &:hover:not(:disabled) {
-      color: #FFFFFF;
-      background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%)
+    color: #ffffff;
+    background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
   }
-  
 }
 
 .newSecondary {
@@ -220,13 +218,13 @@
   @include font(700, 16px, 19.09px);
   padding: 11px 25px;
   background: transparent;
-  color: #332F36;
+  color: #332f36;
 
   &:hover {
     &:hover:not(:disabled) {
-    color: #FFFFFF;
-    background: #357EEB;
-  }
+      color: #ffffff;
+      background: #357eeb;
+    }
   }
 }
 
@@ -240,17 +238,17 @@
   font-size: 24px;
   padding: 11px 25px;
   background: transparent;
-  background: #357EEB;
+  background: #357eeb;
   border-radius: 20px;
   line-height: 28.64px;
-  color: #FFFFFF;
+  color: #ffffff;
 
   &:hover {
     &:hover:not(:disabled) {
-    color: #FFFFFF;
-    background: linear-gradient(to right, #0D28BB, #357EEB);
-    transform: scale(1.2);
-  }
+      color: #ffffff;
+      background: linear-gradient(to right, #0d28bb, #357eeb);
+      transform: scale(1.2);
+    }
   }
 }
 
@@ -264,17 +262,45 @@
   font-size: 24px;
   padding: 11px 25px;
   background: transparent;
-  background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
+  background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
   border-radius: 10px;
   line-height: 28.64px;
-  color: #FFFFFF;
-  border: 2px solid #FFFFFF;
+  color: #ffffff;
+  border: 2px solid #ffffff;
 
   &:hover {
     &:hover:not(:disabled) {
-    color: #FFFFFF;
-    background: linear-gradient(#0D28BB, #357EEB);
+      color: #ffffff;
+      background: linear-gradient(#0d28bb, #357eeb);
+    }
   }
+}
+
+.emptyInside {
+  font-family: 'SFPROMedium';
+  display: flex;
+  padding: 0.75rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background: transparent;
+  border-radius: 0.625rem;
+  border: 2px solid var(--Button, #357eeb);
+  color: #357eeb;
+
+  &:hover {
+    background: #357eeb !important;
+    color: white;
+
+    svg {
+      path {
+        stroke: white;
+      }
+    }
   }
 }
 
@@ -287,19 +313,18 @@
   font-weight: 600;
   font-size: 20px;
   line-height: 23.87px;
-  color: #0D28BB;
+  color: #0d28bb;
   background: transparent;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 12px;
   margin-bottom: 1rem;
- 
 
   &:hover {
     &:hover:not(:disabled) {
-    color: #FFFFFF;
-    background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
-    border: 1px solid #FFFFFF;
-  }
+      color: #ffffff;
+      background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+      border: 1px solid #ffffff;
+    }
   }
 }
 
@@ -312,7 +337,7 @@
   font-weight: 600;
   font-size: 20px;
   line-height: 23.87px;
-  color: #FFFFFF;
+  color: #ffffff;
   background: transparent;
   background: #808080;
   border-radius: 10px;
@@ -321,15 +346,14 @@
   background-repeat: no-repeat;
   background-position: top 10px left 30px;
   padding-left: 60px;
- 
 
   &:hover {
     &:hover:not(:disabled) {
-    color: #FFFFFF;
-    background: #0D28BB;
-    background-image: url(../../../assets/img/common/android.png);
-    background-repeat: no-repeat;
-    background-position: top 10px left 30px;
-  }
+      color: #ffffff;
+      background: #0d28bb;
+      background-image: url(../../../assets/img/common/android.png);
+      background-repeat: no-repeat;
+      background-position: top 10px left 30px;
+    }
   }
 }

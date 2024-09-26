@@ -1,5 +1,5 @@
 import { IBanner } from 'api/apiTypes'
-import { FC, FormEvent, useRef, useState } from 'react'
+import React, { FC, useState } from 'react'
 import styles from './Banner.module.scss'
 import HubImage from './assets/course-hub-banner.png'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -18,7 +18,6 @@ import { motion } from 'framer-motion'
 import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
 import { isCheckedFunc } from 'utils/isCheckedFunc'
-import { Toast } from 'primereact/toast'
 
 interface IBannerPreview {
   banner: IBanner
@@ -27,7 +26,6 @@ interface IBannerPreview {
 }
 
 export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) => {
-  const toast = useRef<Toast>(null)
   const schoolName = window.location.href.split('/')[4]
   const [isEditing, { on: closeEditing, off: openEditing }] = useBoolean(false)
   const [isActive, { onToggle: toggleActive }] = useBoolean(banner.is_active)
@@ -38,18 +36,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
   const [activeGroups, setActiveGroups] = useState<number[]>(banner.groups)
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
-
-  const handleCheckAll = () => {
-    const checkedGrps = groups.results.map(grp => grp.group_id)
-    const validateArray = checkedGrps instanceof Array && (checkedGrps as number[]).every(item => typeof item === 'number')
-    if (validateArray) {
-      setActiveGroups(checkedGrps as number[])
-    }
-  }
-
-  const handleUncheckAll = () => {
-    setActiveGroups([])
-  }
+  const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length)
 
   const handleDeleteBanner = () => {
     deleteBanner({ id: banner.id, schoolName: schoolName })
@@ -60,36 +47,35 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
       })
   }
 
-  const handleSave = async (e: FormEvent) => {
-    e.preventDefault()
+  const handleSave = async () => {
     if (title && description) {
       const formdata = new FormData()
       formdata.append('title', title)
       formdata.append('description', description)
       formdata.append('is_active', String(isActive))
-      formdata.append('link', link)
-      if (activeGroups.length === 0) {
-        toast.current?.show({
-          severity: 'error',
-          summary: 'Ошибка',
-          detail: `Необходимо выбрать как минимум одну группу`,
-          life: 5000,
+      activeGroups.map(grp => formdata.append('groups', String(grp)))
+      await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
+        .unwrap()
+        .then(() => {
+          closeEditing()
+          refetch()
         })
-      } else {
-        activeGroups.map(grp => formdata.append('groups', String(grp)))
-        await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
-          .unwrap()
-          .then(() => {
-            closeEditing()
-            refetch()
-          })
-      }
+    }
+  }
+
+  const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isAll = event.target.checked
+    setAllGroups(isAll)
+    const groupsIds = groups?.results.map(group => Number(group.group_id))
+    if (isAll) {
+      setActiveGroups(groupsIds)
+    } else {
+      setActiveGroups([])
     }
   }
 
   return (
     <motion.div className={styles.wrapper}>
-      <Toast position="bottom-right" ref={toast} />
       <Dialog open={showDeleteModal} onClose={close} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{`Вы действительно хотите удалить баннер "${banner.title}"?`}</DialogTitle>
         <DialogContent>
@@ -104,102 +90,61 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
         </DialogActions>
       </Dialog>
       <img src={HubImage} className={styles.image} />
-      <form className={styles.wrapper} onSubmit={handleSave}>
-        <div className={styles.wrapper_content}>
-          {isEditing ? (
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
-              <span style={{ fontWeight: '500' }}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
+      <div className={styles.wrapper_content}>
+        {isEditing ? (
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
+            <span style={{ fontWeight: '500' }}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <span style={{ fontWeight: '500' }}>
+              {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер неактивен</p>}
+            </span>
+          </div>
+        )}
+        {!isEditing ? (
+          <span className={styles.wrapper_content_title}>{banner.title}</span>
+        ) : (
+          <>
+            <span style={{ fontWeight: '500' }}>Название баннера</span>
+            <Input value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" />
+          </>
+        )}
+        {!isEditing ? (
+          <span className={styles.wrapper_content_description}>{HTMLReactParser(banner.description)}</span>
+        ) : (
+          <>
+            <span style={{ fontWeight: '500' }}>
+              Объявление <span style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
+            </span>
+            <div style={{ width: 'calc(100% + 10px)' }}>
+              <MyEditor editedText={description} setDescriptionLesson={setDescription} />
             </div>
-          ) : (
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <span style={{ fontWeight: '500' }}>
-                {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер неактивен</p>}
-              </span>
-            </div>
-          )}
-          {!isEditing ? (
-            <span className={styles.wrapper_content_title}>{banner.title}</span>
+          </>
+        )}
+        {banner.link &&
+          (!isEditing ? (
+            <a href={banner.link} target="_blank" rel="noreferrer">
+              <Button text="Перейти по ссылке" />
+            </a>
           ) : (
             <>
-              <span style={{ fontWeight: '500' }}>Название баннера</span>
-              <Input value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" required />
+              <span style={{ fontWeight: '500' }}>Ссылка под кнопкой в баннере</span>
+              <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" />
             </>
-          )}
-          {!isEditing ? (
-            <span className={styles.wrapper_content_description}>{HTMLReactParser(banner.description)}</span>
-          ) : (
-            <>
-              <span style={{ fontWeight: '500' }}>
-                Объявление <span style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
-              </span>
-              <div style={{ width: 'calc(100% + 10px)' }}>
-                <MyEditor editedText={description} setDescriptionLesson={setDescription} />
-              </div>
-            </>
-          )}
-          {banner.link &&
-            (!isEditing ? (
-              <a href={banner.link} target="_blank" rel="noreferrer">
-                <Button text="Перейти по ссылке" />
-              </a>
-            ) : (
-              <>
-                <span style={{ fontWeight: '500' }}>Ссылка под кнопкой в баннере</span>
-                <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" required />
-              </>
-            ))}
-          {groups &&
-            (!isEditing ? (
-              <div className={styles.wrapper_content_groups}>
-                <span style={{ fontWeight: '500' }}>Группы в которых отображается этот баннер при входе на платформу:</span>
-                <div style={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'column' }}>
-                  {/* {groups.results.map(
+          ))}
+        {groups &&
+          (!isEditing ? (
+            <div className={styles.wrapper_content_groups}>
+              <span style={{ fontWeight: '500' }}>Группы в которых отображается этот баннер при входе на платформу:</span>
+              <div style={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'column' }}>
+                {/* {groups.results.map(
                   grp =>
                     activeGroups.includes(Number(grp.group_id)) && (
                       <span style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem', flexBasis: 20 }}>{grp.name}</span>
                     ),
                 )} */}
-                  {Object.entries(
-                    groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
-                      const courseName = group.course_name
-                      if (courseName) {
-                        if (!acc[courseName]) {
-                          acc[courseName] = []
-                        }
-                        acc[courseName].push(group)
-                      }
-                      return acc
-                    }, {}),
-                  ).map(([courseName, groups]) => (
-                    <div key={courseName} style={{ marginBlockStart: '8px' }}>
-                      <b>{`Группы курса "${courseName}":`}</b>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                        {groups.map(
-                          grp =>
-                            activeGroups.includes(Number(grp.group_id)) && (
-                              <span key={grp.group_id} style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem' }}>
-                                {grp.name}
-                              </span>
-                            ),
-                        )}
-                        {/* {groups.map((group, index) => (
-                        <span key={group.group_id} style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem' }}>
-                          {group.name}
-                        </span>
-                      ))} */}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className={styles.wrapper_content_groups}>
-                <span style={{ fontWeight: '500' }}>Группы в которых будет отображен этот баннер:</span>
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                  <Button text={'Выбрать все группы'} onClick={handleCheckAll} type="button" />
-                  <Button text={'Снять выделение со всех групп'} variant="delete" onClick={handleUncheckAll} type="button" />
-                </div>
                 {Object.entries(
                   groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
                     const courseName = group.course_name
@@ -212,52 +157,93 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                     return acc
                   }, {}),
                 ).map(([courseName, groups]) => (
-                  <div key={courseName} style={{ marginBlockStart: '3px' }}>
-                    <b>{courseName}</b>
-                    {groups.map((group, index) => (
-                      <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
-                        <Checkbox
-                          style={{ color: '#ba75ff' }}
-                          checked={isCheckedFunc(group.group_id as number, activeGroups)}
-                          onChange={e => {
-                            const isChecked = e.target.checked
-                            if (!isChecked) {
-                              setActiveGroups(prevGrps => prevGrps.filter(grp => grp !== Number(group.group_id)))
-                            } else {
-                              setActiveGroups(prevGrps => prevGrps.concat(Number(group.group_id)))
-                            }
-                          }}
-                        />
-                        {group.name}
-                        <span> (Кол-во студентов: {group.students.length})</span>
-                      </div>
-                    ))}
+                  <div key={courseName} style={{ marginBlockStart: '8px' }}>
+                    {groups.length > 0 && groups.find(grp => activeGroups.includes(Number(grp.group_id))) && <b>{courseName}</b>}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                      {groups.map(
+                        (group, index) =>
+                          activeGroups.includes(Number(group.group_id)) && (
+                            <span style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem', flexBasis: 20 }}>{group.name}</span>
+                          ),
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
-            ))}
-        </div>
-        <div className={styles.wrapper_buttons}>
-          {!isEditing ? (
-            <button className={styles.wrapper_buttons_edit} onClick={openEditing}>
-              <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
-            </button>
+            </div>
           ) : (
-            <>
-              <Tooltip title="Сохранить баннер">
-                <button className={styles.wrapper_buttons_confirm} type="submit">
-                  {isLoading ? <SimpleLoader /> : <CheckIcon />}
-                </button>
-              </Tooltip>
-              <Tooltip title="Удалить баннер">
-                <div className={styles.wrapper_buttons_delete} onClick={open}>
-                  <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
+            <div className={styles.wrapper_content_groups}>
+              <span style={{ fontWeight: '500' }}>Группы в которых будет отображен этот баннер:</span>
+              <div>
+                <Checkbox
+                  style={{ color: '#ba75ff' }}
+                  checked={allGroups}
+                  onChange={e => {
+                    handleAllGroups(e)
+                  }}
+                />
+                <span>
+                  <b>выбрать все группы</b>
+                </span>
+              </div>
+              {Object.entries(
+                groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
+                  const courseName = group.course_name
+                  if (courseName) {
+                    if (!acc[courseName]) {
+                      acc[courseName] = []
+                    }
+                    acc[courseName].push(group)
+                  }
+                  return acc
+                }, {}),
+              ).map(([courseName, groups]) => (
+                <div key={courseName} style={{ marginBlockStart: '3px' }}>
+                  <b>{courseName}</b>
+                  {groups.map((group, index) => (
+                    <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
+                      <Checkbox
+                        style={{ color: '#ba75ff' }}
+                        checked={isCheckedFunc(group.group_id as number, activeGroups)}
+                        onChange={e => {
+                          const isChecked = e.target.checked
+                          if (!isChecked) {
+                            setAllGroups(false)
+                            setActiveGroups(prevGrps => prevGrps.filter(grp => grp !== Number(group.group_id)))
+                          } else {
+                            setActiveGroups(prevGrps => prevGrps.concat(Number(group.group_id)))
+                          }
+                        }}
+                      />
+                      {group.name}
+                      <span> (Кол-во студентов: {group.students.length})</span>
+                    </div>
+                  ))}
                 </div>
-              </Tooltip>
-            </>
-          )}
-        </div>
-      </form>
+              ))}
+            </div>
+          ))}
+      </div>
+      <div className={styles.wrapper_buttons}>
+        {!isEditing ? (
+          <button className={styles.wrapper_buttons_edit} onClick={openEditing}>
+            <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
+          </button>
+        ) : (
+          <>
+            <Tooltip title="Сохранить баннер">
+              <div className={styles.wrapper_buttons_confirm} onClick={handleSave}>
+                {isLoading ? <SimpleLoader /> : <CheckIcon />}
+              </div>
+            </Tooltip>
+            <Tooltip title="Удалить баннер">
+              <div className={styles.wrapper_buttons_delete} onClick={open}>
+                <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
+              </div>
+            </Tooltip>
+          </>
+        )}
+      </div>
     </motion.div>
   )
 }

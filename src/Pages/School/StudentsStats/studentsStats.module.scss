@@ -126,19 +126,19 @@
 }
 
 .students {
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin-left: 50px;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
-   margin-top: 50px;
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    margin-top: 50px;
   }
 }
 
 .students_group {
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding: 2rem 1rem 2rem 1rem;
   }
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding: 2rem 1rem 2rem 1rem;
   }
   @include display(flex, column);
@@ -170,15 +170,14 @@
     }
 
     &_add_group_btn {
-      @media only screen and (min-width : 320px) and (max-width : 375px) {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
         line-height: normal;
       }
-      @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
         line-height: normal;
       }
       &:hover {
         background-color: rgba(217, 197, 237, 0.5);
-        
       }
 
       @include display(flex, row, flex-start, center);
@@ -198,10 +197,10 @@
       }
     }
     &_add_teacher_btn {
-      @media only screen and (min-width : 320px) and (max-width : 375px) {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
         line-height: normal;
       }
-      @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
         line-height: normal;
       }
       &:hover {
@@ -220,12 +219,12 @@
       border-radius: 7px;
       cursor: pointer;
     }
-    
+
     &_export_button {
-      @media only screen and (min-width : 320px) and (max-width : 375px) {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
         line-height: normal;
       }
-      @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
         line-height: normal;
       }
       &:hover {
@@ -245,10 +244,10 @@
       border-radius: 7px;
       cursor: pointer;
 
-      @media only screen and (min-width : 320px) and (max-width : 375px) {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin-left: 1rem;
       }
-      @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
         margin-left: 1rem;
       }
 
@@ -320,8 +319,8 @@
             width: 90%;
           }
           @media only screen and (min-width: 375px) and (max-width: 480px) {
-           display: flex;
-           width: 90%;
+            display: flex;
+            width: 90%;
           }
         }
 
@@ -353,7 +352,6 @@
         background: #f7f6fb;
         border-radius: 10px;
         cursor: pointer;
-        
       }
     }
 
@@ -643,15 +641,15 @@ $max-columns: 3;
 $gap: 10px;
 
 .groups_card_block {
-  display: grid;
+  padding: 1rem 0;
+  width: 100%;
   margin-bottom: 20px;
   width: 100%;
   display: flex;
+  align-items: flex-end;
+  align-content: flex-end;
+  justify-content: space-between;
+  gap: 2rem 1rem;
+  align-self: stretch;
   flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: flex-start;//space-around;
-  padding: $gap;
-  gap: 12px;
 }
-
-

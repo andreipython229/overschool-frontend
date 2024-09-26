@@ -65,10 +65,10 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
 
   const generateSertLink = (courseId: number, userId: number, schoolId: number) => {
     const encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ courseId, userId, schoolId }), 'секретный_ключ').toString()
-    const sanitizedData = encryptedData.replace(/\//g, '%2F');
+    const sanitizedData = encryptedData.replace(/\//g, '%2F')
     setSertLink(`https://overschool.by/certificate/${sanitizedData}`)
-      // setSertLink(`https://overschool.by/certificate/${sanitizedData}`)
-      console.log(sanitizedData)
+    // setSertLink(`https://overschool.by/certificate/${sanitizedData}`)
+    console.log(sanitizedData)
 
     return sanitizedData
   }
@@ -91,7 +91,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
     }
   }, [isSuccess])
 
-  if (isLoading || isError) {
+  if (isLoading || isError || !userProgress) {
     return <SimpleLoader style={{ width: '100px', height: '100px' }} />
   }
 
@@ -100,7 +100,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
       const personalChatData = new FormData()
       personalChatData.append('user_id', teacher_id.toString())
       personalChatData.append('role_name', RoleE[role])
-        personalChatData.append('role_reciever', "Teacher");
+      personalChatData.append('role_reciever', 'Teacher')
       createPersonalChatForAdminOrTeacher(personalChatData)
         .then(async (response: { data: ChatI } | { error: FetchBaseQueryError | SerializedError }) => {
           if ('data' in response) {
@@ -184,14 +184,20 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
           <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
             {lessonSvgMapper['lesson']}
             <span style={{ marginLeft: '0.6em' }}>
-              {`${countOfLessons['lesson']} ${countOfLessons && getNounDeclension(countOfLessons['lesson'], ['материал', 'материала', 'материалов'])}`}
+              {`${countOfLessons['lesson']} ${
+                countOfLessons && getNounDeclension(countOfLessons['lesson'], ['материал', 'материала', 'материалов'])
+              }`}
             </span>
           </div>
         )}
         {countOfLessons && countOfLessons['homework'] && (
           <div style={{ marginRight: '32px', display: 'flex', alignItems: 'center' }}>
             {lessonSvgMapper['homework']}
-            <span>{`${countOfLessons['homework']} ${getNounDeclension(countOfLessons['homework'], ['чек-поинт', 'чек-поинта', 'чек-поинтов'])}`}</span>
+            <span>{`${countOfLessons['homework']} ${getNounDeclension(countOfLessons['homework'], [
+              'чек-поинт',
+              'чек-поинта',
+              'чек-поинтов',
+            ])}`}</span>
           </div>
         )}
         {countOfLessons && countOfLessons['test'] && (

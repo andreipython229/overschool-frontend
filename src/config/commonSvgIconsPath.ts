@@ -9,7 +9,14 @@ import {
   tableBallsStarIcon,
   iconSvgHomeWorkPage,
   chatGroup,
-  groupIcon, updateSvgIcon, emailSvgIcon, teacherGroupIcon, tariffPlanIcon
+  groupIcon,
+  updateSvgIcon,
+  emailSvgIcon,
+  teacherGroupIcon,
+  tariffPlanIcon,
+  peopleIcon,
+  settingsIcon,
+  arrowLeftIcon,
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -55,9 +62,15 @@ export const chatsGroup = [{ d: chatGroup.d1 }, { d: chatGroup.d2, fill: 'curren
 
 export const groupIconPath = [{ d: groupIcon, fill: '#BA75FF' }]
 
-export const updateDataIcon = [{ d: updateSvgIcon.d1, fill: '#b3b3b3' }, { d: updateSvgIcon.d2, fill: '#b3b3b3' }]
+export const updateDataIcon = [
+  { d: updateSvgIcon.d1, fill: '#b3b3b3' },
+  { d: updateSvgIcon.d2, fill: '#b3b3b3' },
+]
 
-export const emailSvgIconPath = [{ d: emailSvgIcon, fill: '#b3b3b3' }, { d: emailSvgIcon, fill: '#b3b3b3' }]
+export const emailSvgIconPath = [
+  { d: emailSvgIcon, fill: '#b3b3b3' },
+  { d: emailSvgIcon, fill: '#b3b3b3' },
+]
 
 export const groupChatListIconPath = [{ d: teacherGroupIcon, stroke: '#D1D5DB', strokeWidth: '0', fill: '#BA75FF' }]
 
@@ -66,3 +79,22 @@ export const redTariffPlanIconPath = [{ d: tariffPlanIcon, fill: 'red' }]
 export const orangeTariffPlanIconPath = [{ d: tariffPlanIcon, fill: 'orange' }]
 
 export const purpleTariffPlanIconPath = [{ d: tariffPlanIcon, fill: '#BA75FF' }]
+
+export const peopleIconPath: pathT[] = [
+  { d: peopleIcon.d1, fill: 'url(#paint0_linear_14245_85147)' },
+  { d: peopleIcon.d2, fill: 'url(#paint1_linear_14245_85147)' },
+  { d: peopleIcon.d3, fill: 'url(#paint2_linear_14245_85147)' },
+  { d: peopleIcon.d4, fill: 'url(#paint3_linear_14245_85147)' },
+  { d: peopleIcon.d5, fill: 'url(#paint4_linear_14245_85147)' },
+  { d: peopleIcon.d6, fill: 'url(#paint5_linear_14245_85147)' },
+]
+
+export const settingsIconPath: pathT[] = [
+  { d: settingsIcon.d1, fill: 'white' },
+  { d: settingsIcon.d2, fill: 'white' },
+]
+
+export const arrowLeftIconPath: pathT[] = [
+  { d: arrowLeftIcon.d1, stroke: '#357EEB', strokeWidth: '1.6', strokeLinejoin: 'round', strokeLinecap: 'round' },
+  { d: arrowLeftIcon.d2, stroke: '#357EEB', strokeWidth: '1.6', strokeLinejoin: 'round', strokeLinecap: 'round' },
+]
