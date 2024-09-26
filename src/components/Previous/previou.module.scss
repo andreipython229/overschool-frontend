@@ -21,6 +21,10 @@
     border-radius: 1.5rem;
     background-color: rgba(51, 47, 54, 0.5);
     z-index: 1;
+
+    @media screen and (max-width: 700px) {
+      border-radius: 0.625rem;
+    }
   }
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -55,15 +59,15 @@
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     @include display(flex, row, flex-start, center);
-    margin-top: 10px;
     margin-bottom: 0;
-    height: 58px;
+    height: 11.25rem;
+    border-radius: 0.625rem;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     @include display(flex, row, flex-start, center);
-    margin-top: 10px;
     margin-bottom: 0;
-    height: 58px;
+    height: 11.25rem;
+    border-radius: 0.625rem;
   }
 
   &_bcgrShadow {
@@ -113,16 +117,20 @@
     background: linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%);
     z-index: 3;
 
-    // @media only screen and (min-width: 320px) and (max-width: 375px) {
-    //   //position: static;
-    //   bottom: 15%;
-    //   left: 1%;
-    // }
-    // @media only screen and (min-width: 375px) and (max-width: 480px) {
-    //   //position: static;
-    //   bottom: 15%;
-    //   left: 1%;
-    // }
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      display: inline-flex;
+      padding: 0rem 5.8125rem 0rem 5.75rem;
+      justify-content: center;
+      align-items: center;
+      height: 2.25rem;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      display: inline-flex;
+      padding: 0rem 5.8125rem 0rem 5.75rem;
+      justify-content: center;
+      align-items: center;
+      height: 2.25rem;
+    }
 
     &_title {
       @include display(flex, column);
