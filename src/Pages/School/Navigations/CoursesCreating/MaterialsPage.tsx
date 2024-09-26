@@ -5,30 +5,29 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Input } from 'components/common/Input/Input/Input'
 import { searchIconPath } from 'config/commonSvgIconsPath'
 import { schoolIdSelector, schoolNameSelector, selectUser } from 'selectors'
-import {useLazyFetchCoursesPageQuery} from 'api/coursesServices'
+import { useLazyFetchCoursesPageQuery } from 'api/coursesServices'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import ContentLoader from 'react-content-loader'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
-
 export const Materials: FC = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
   const schoolId = useAppSelector(schoolIdSelector)
-  const [fetchData, { data: courses, isSuccess}] = useLazyFetchCoursesPageQuery()
+  const [fetchData, { data: courses, isSuccess }] = useLazyFetchCoursesPageQuery()
   const [search, setSearch] = useState('')
 
   useEffect(() => {
     if (schoolName === window.location.href.split('/')[4]) {
-      fetchData(schoolName);
+      fetchData(schoolName)
     } else {
-        fetchData(schoolName)
+      fetchData(schoolName)
     }
-  }, [schoolId]);
+  }, [schoolId])
 
-  const filteredCourses = courses?.results.filter((course:any) => {
+  const filteredCourses = courses?.results.filter((course: any) => {
     return course.name.toLowerCase().includes(search.toLowerCase())
   })
 
@@ -52,14 +51,20 @@ export const Materials: FC = () => {
             <rect x="15" y="135" rx="3" ry="3" width="100" height="8" />
           </ContentLoader>
         </div>
-        <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-        </div>
+        <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}></div>
       </>
     )
   return (
     <>
       <div className={styles.container}>
-        <Input role="search-input" name="" type="search" value={search} onChange={event => setSearch(event.target.value)} placeholder="Поиск по материалам">
+        <Input
+          role="search-input"
+          name=""
+          type="search"
+          value={search}
+          onChange={event => setSearch(event.target.value)}
+          placeholder="Поиск по материалам"
+        >
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
         <AnimatePresence>
@@ -78,7 +83,7 @@ export const Materials: FC = () => {
                 delay: 0.5,
               }}
             >
-              {courses && filteredCourses?.length !== 0 ? (
+              {courses && filteredCourses && filteredCourses?.length !== 0 ? (
                 filteredCourses?.map((course: any) => <CoursesCard key={course?.course_id} course={course} role={role} />)
               ) : (
                 <>
@@ -92,6 +97,5 @@ export const Materials: FC = () => {
         </AnimatePresence>
       </div>
     </>
-
   )
 }
