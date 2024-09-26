@@ -78,10 +78,10 @@ export const Header = memo(() => {
   const school_id = Number(localStorage.getItem('school_id'))
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
   const { data: profileD, isSuccess: profileIsSuccess, isError, error, refetch: refetchUser } = useFetchProfileDataQuery()
-  let profile = profileD;
-  const [fetchProfile, profileDt] = useLazyFetchProfileDataQuery();
+  let profile = profileD
+  const [fetchProfile, profileDt] = useLazyFetchProfileDataQuery()
   const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
-  const [loginUser, { isLoading: loginLoading, isSuccess: loginSuccess }] = useLoginMutation();
+  const [loginUser, { isLoading: loginLoading, isSuccess: loginSuccess }] = useLoginMutation()
   const [currentTariff, setCurrentTariff] = useState<ITariff>({
     tariff_name: '',
     days_left: null,
@@ -132,10 +132,10 @@ export const Header = memo(() => {
     message: '',
     students_groups: [],
   })
-  const [allGroups, setAllGroups] = useState<boolean>(false);
+  const [allGroups, setAllGroups] = useState<boolean>(false)
 
-  const restrictedEmails = ["admin@coursehub.ru", "teacher@coursehub.ru", "student@coursehub.ru"];
-  const canChangePlatform = profileData?.user?.email ? !restrictedEmails.includes(profileData.user.email) : false;
+  const restrictedEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru']
+  const canChangePlatform = profileData?.user?.email ? !restrictedEmails.includes(profileData.user.email) : false
 
   const logOut = async () => {
     await logout().then(data => {
@@ -166,23 +166,23 @@ export const Header = memo(() => {
       const result = await loginUser(formData).unwrap()
       if (result) {
         const { access, refresh, user } = result
-        
+
         dispatch(setAuthState({ access, refresh }))
         dispatch(id(user.id))
-        let userRole;
+        let userRole
         if (user.email === 'admin@coursehub.ru') {
-          userRole = 6;
+          userRole = 6
         } else if (user.email === 'teacher@coursehub.ru') {
-          userRole = 2;
+          userRole = 2
         } else if (user.email === 'student@coursehub.ru') {
-          userRole = 1;
+          userRole = 1
         } else {
-          userRole = 0;
+          userRole = 0
         }
-  
-        dispatch(role(userRole));
-        await fetchProfile();
-        profile = profileDt.data;
+
+        dispatch(role(userRole))
+        await fetchProfile()
+        profile = profileDt.data
         localStorage.setItem('id', user.id.toString())
         localStorage.setItem('email', user.email)
       }
@@ -202,12 +202,12 @@ export const Header = memo(() => {
   useEffect(() => {
     if (profileIsSuccess && profile) {
       const profileData = Array.isArray(profile) ? profile[0] : profile
-      
-      const rolesForSchool = profileData.additional_roles.find(
-        (role: additionalRoleT) => role.school_id === school_id
-      )
 
-      setSchoolRoles(rolesForSchool)
+      if ('additional_roles' in profileData) {
+        const rolesForSchool = profileData.additional_roles.find((role: additionalRoleT) => role.school_id === school_id)
+
+        setSchoolRoles(rolesForSchool)
+      }
     }
   }, [profile, profileIsSuccess, school_id])
 
@@ -454,21 +454,24 @@ export const Header = memo(() => {
   }
 
   const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const isAll = event.target.checked
-        setAllGroups(isAll)
-        const groupsIds = studentsGroups?.results.map(group => Number(group.group_id))
-        if (isAll) {
-            setTgMessage((prevData: TgMessage) => ({
-                ...prevData,
-                students_groups: groupsIds,
-            }) as TgMessage);
-        } else {
-            setTgMessage((prevData: TgMessage) => ({
-                ...prevData,
-                students_groups: [],
-            }));
-        }
-  };
+    const isAll = event.target.checked
+    setAllGroups(isAll)
+    const groupsIds = studentsGroups?.results.map(group => Number(group.group_id))
+    if (isAll) {
+      setTgMessage(
+        (prevData: TgMessage) =>
+          ({
+            ...prevData,
+            students_groups: groupsIds,
+          } as TgMessage),
+      )
+    } else {
+      setTgMessage((prevData: TgMessage) => ({
+        ...prevData,
+        students_groups: [],
+      }))
+    }
+  }
 
   const handleSendTgMessage = () => {
     createTgMessage({
@@ -611,12 +614,20 @@ export const Header = memo(() => {
                         Выберите одну или несколько групп:
                       </h2>
                     </div>
-                    {studentsGroups &&
+                    {studentsGroups && (
                       <div>
-                        <Checkbox style={{color: '#ba75ff'}} checked={allGroups}
-                                              onChange={(e) => {handleAllGroups(e)}}/>
-                        <span><b>выбрать все группы</b></span>
-                      </div>}
+                        <Checkbox
+                          style={{ color: '#ba75ff' }}
+                          checked={allGroups}
+                          onChange={e => {
+                            handleAllGroups(e)
+                          }}
+                        />
+                        <span>
+                          <b>выбрать все группы</b>
+                        </span>
+                      </div>
+                    )}
                     {studentsGroups && (
                       <div className={styles.wrapper_content_groups}>
                         {Object.entries(

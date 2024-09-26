@@ -136,7 +136,14 @@ export const Main = memo(() => {
         <hr />
         <div className={styles.main_project}>Ссылка на файл публичного договора оферты</div>
         <div className={styles.text}>
-          <Input name={'name'} type={'text'} placeholder='Введите ссылку для договора публичной оферты' className={styles.main_input} value={url} onChange={handleChangeUrl} />
+          <Input
+            name={'name'}
+            type={'text'}
+            placeholder="Введите ссылку для договора публичной оферты"
+            className={styles.main_input}
+            value={url}
+            onChange={handleChangeUrl}
+          />
           <Button
             onClick={onChangeUrl}
             style={{ width: '120px' }}
@@ -148,6 +155,14 @@ export const Main = memo(() => {
         <br />
         <hr />
         <div className={styles.main_project}>Ссылка для связи с руководством платформы</div>
+        <div
+          className={styles.main_description}
+          style={{ color: 'red', padding: '0px', lineHeight: '1.5', opacity: '0.6', fontWeight: 'bold', fontSize: '12px' }}
+        >
+          По этой ссылке ученики платформы смогут связаться с вами в социальных сетях.
+          <br />
+          Важно для заполнения, чтобы ученики не теряли возможность обращаться к руководству или поддержке школы.
+        </div>
         <div className={styles.text}>
           <Input name={'contactUrl'} type={'text'} value={social} onChange={event => setSocial(event.target.value)} className={styles.main_input} />
           <Button
@@ -159,6 +174,7 @@ export const Main = memo(() => {
           />
         </div>
       </div>
+
       <Dialog open={alertOpen} onClose={handleCloseAlert} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{`Вы действительно хотите изменить название платформы "${oldName}" на "${name}"?`}</DialogTitle>
         <DialogContent>
