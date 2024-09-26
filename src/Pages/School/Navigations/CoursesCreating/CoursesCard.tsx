@@ -12,10 +12,10 @@ import pie from '../../../../assets/img/studentPage/folder-todo.png'
 import { useLazyFetchProgressQuery } from '../../../../api/userProgressService'
 import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 import ProgressBar from '@ramonak/react-progress-bar'
-import {Portal} from "../../../../components/Modal/Portal";
-import {LimitModal} from "../../../../components/Modal/LimitModal/LimitModal";
-import {useBoolean} from "../../../../customHooks";
-import { usePatchCoursesMutation} from '../../../../api/coursesServices'
+import { Portal } from '../../../../components/Modal/Portal'
+import { LimitModal } from '../../../../components/Modal/LimitModal/LimitModal'
+import { useBoolean } from '../../../../customHooks'
+import { usePatchCoursesMutation } from '../../../../api/coursesServices'
 import { formDataConverter } from '../../../../utils/formDataConverter'
 import { CheckboxBall } from '../../../../components/common/CheckboxBall'
 
@@ -29,21 +29,15 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
   const schoolName = window.location.href.split('/')[4]
   const [fetchProgress, { data: userProgress, isLoading, isError }] = useLazyFetchProgressQuery()
   const [isOpenModal, { onToggle }] = useBoolean()
-  const userId = localStorage.getItem('id');
+  const userId = localStorage.getItem('id')
+  const [isPublished, setIsPublished] = useState(course.public === 'О')
+  const [update, { isLoading: isLoad, isSuccess }] = usePatchCoursesMutation()
 
   useEffect(() => {
-    if (role === RoleE.Student) {
+    if (role === RoleE.Student && !userProgress && !isLoading) {
       fetchProgress({ course_id: String(course?.course_id), schoolName })
     }
-  }, [course])
-
-  // const onStudentClick = () => {
-  //   localStorage.setItem('course_id', '' + course?.course_id)
-  //   localStorage.setItem('course_copy', '' + course?.is_copy)
-  //   if (course?.public !== 'O') {
-  //     onToggle()
-  //   }
-  // }
+  }, [course, role, schoolName, userProgress, isLoading])
 
   const onStudentClick = () => {
     localStorage.setItem('course_id', '' + course?.course_id)
@@ -55,18 +49,14 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
   }
 
   if (role === RoleE.Teacher && course.public !== 'О') {
-    return null
+    return <></>
   }
 
-  const [isPublished, setIsPublished] = useState(course.public === 'О');
-  const [update, { isLoading:isLoad, isSuccess }] = usePatchCoursesMutation()
-
-  
   const handleSaveChanges = async () => {
     const updateCurse = {
-       public : isPublished ? 'Н' : 'О' 
+      public: isPublished ? 'Н' : 'О',
     }
-    
+
     const formdata = formDataConverter(updateCurse)
     if (formdata && course) {
       const id = course?.course_id
@@ -76,26 +66,95 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
           window.location.reload()
         })
     }
-  };
-  
+  }
 
   return (
     <>
       {role === RoleE.Admin ? (
-      <>
-        {/* {(((course.course_id === 247) && userId === '154') || ((course.course_id !== 247) && (course.is_copy === false))) ? ( */}
-        {(((course.course_id === 247) && userId === '154') || (course.course_id !== 247)) ? (
-              
-                <div id={`${course?.course_id}`} className={styles?.course_card}>
+        <>
+          {/* {(((course.course_id === 247) && userId === '154') || ((course.course_id !== 247) && (course.is_copy === false))) ? ( */}
+          {(course.course_id === 247 && userId === '154') || course.course_id !== 247 ? (
+            <div id={`${course?.course_id}`} className={styles?.course_card}>
+              <>
+                {role === RoleE.Admin || role === RoleE.Teacher ? (
                   <>
-                    {role === RoleE.Admin || role === RoleE.Teacher ? (
-                      <>
+                    <Link
+                      // onClick={onStudentClick}
+                      to={generatePath(Path.CreateCourse, {
+                        course_id: `${course?.course_id}`,
+                      })}
+                    >
+                      <div className={styles.course_card_img}>
+                        {course.photo ? (
+                          <img className={styles.course_card_img} src={`${course.photo}`} alt="course_cover" />
+                        ) : (
+                          <div className={styles.no_image_found}>
+                            <span>Нет изображения материала :(</span>
+                          </div>
+                        )}
+                      </div>
+                    </Link>
+                    <div className={styles.course_card_about}>
+                      <span className={styles.course_card_status_show}>
+                        {role === RoleE.Admin && course.course_id !== 247 ? (
+                          course?.public === 'О' ? (
+                            <>
+                              <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
+                              <span className={styles.course_card_status_show_public}>Опубликован</span>
+                            </>
+                          ) : (
+                            <>
+                              <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
+                              <span className={styles.course_card_status_show_public}>Не опубликован</span>
+                            </>
+                          )
+                        ) : (
+                          <div />
+                        )}
+                      </span>
                       <Link
                         // onClick={onStudentClick}
                         to={generatePath(Path.CreateCourse, {
                           course_id: `${course?.course_id}`,
                         })}
                       >
+                        <h5>{course.name}</h5>
+                        <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
+                        <Link
+                          // onClick={onStudentClick}
+                          to={generatePath(Path.CreateCourse + 'student', {
+                            course_id: `${course?.course_id}`,
+                          })}
+                        >
+                          <Button className={styles.btn_admin} text={'Ученики курса'} />
+                        </Link>
+                        <Link
+                          // onClick={onStudentClick}
+                          to={generatePath(Path.CreateCourse, {
+                            course_id: `${course?.course_id}`,
+                          })}
+                        >
+                          <Button className={styles.btn_admin} text={'Редактировать'} />
+                        </Link>
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </>
+            </div>
+          ) : (
+            <>
+              <Link
+                to={generatePath(Path.CourseMaterials, {
+                  course_id: `${course.course_id}`,
+                })}
+              >
+                <div id={`${course.course_id}`} className={styles.course_card}>
+                  <>
+                    {role === RoleE.Admin || role === RoleE.Teacher ? (
+                      <>
                         <div className={styles.course_card_img}>
                           {course.photo ? (
                             <img className={styles.course_card_img} src={`${course.photo}`} alt="course_cover" />
@@ -105,81 +164,10 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                             </div>
                           )}
                         </div>
-                      </Link>
                         <div className={styles.course_card_about}>
                           <span className={styles.course_card_status_show}>
-                            {role === RoleE.Admin && (course.course_id !== 247) ? (
-                        course?.public === 'О' ? (
-                          <>
-                            <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
-                            <span className={styles.course_card_status_show_public}>Опубликован</span>
-                          </>
-                        ) : (
-                          <>
-                            <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
-                            <span className={styles.course_card_status_show_public}>Не опубликован</span>
-                          
-                          </>
-                        )
-                      ) : (
-                        <div />
-                      )}
-                    </span>
-                    <Link
-                        // onClick={onStudentClick}
-                        to={generatePath(Path.CreateCourse, {
-                          course_id: `${course?.course_id}`,
-                        })}
-                      >
-                    <h5>{course.name}</h5>
-                    <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
-                    <Link
-                      // onClick={onStudentClick}
-                      to={generatePath(Path.CreateCourse + 'student', {
-                        course_id: `${course?.course_id}`,
-                      })}
-                    >
-                    <Button className={styles.btn_admin} text={'Ученики курса'} />
-                    </Link>
-                    <Link
-                      // onClick={onStudentClick}
-                      to={generatePath(Path.CreateCourse, {
-                        course_id: `${course?.course_id}`,
-                      })}
-                    >
-                      <Button className={styles.btn_admin} text={'Редактировать'} />
-                    </Link>
-                  </Link>
-                  </div>
-                </>
-              ) : (<></>)}
-            </>
-          </div>
-         
-      ) : (
-        <>
-        <Link
-            to={generatePath(Path.CourseMaterials, {
-            course_id: `${course?.course_id}`,
-            })}
-          >
-          <div id={`${course?.course_id}`} className={styles?.course_card}>
-            <>
-              {role === RoleE.Admin || role === RoleE.Teacher ? (
-                <>
-                  <div className={styles.course_card_img}>
-                    {course.photo ? (
-                      <img className={styles.course_card_img} src={`${course.photo}`} alt="course_cover" />
-                    ) : (
-                      <div className={styles.no_image_found}>
-                        <span>Нет изображения материала :(</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className={styles.course_card_about}>
-                    <span className={styles.course_card_status_show}>
-                      {/* {role === RoleE.Admin && (course.course_id !== 247) && (course.is_copy === false) ? ( */}
-                      {role === RoleE.Admin && (course.course_id !== 247) ? (
+                            {/* {role === RoleE.Admin && (course.course_id !== 247) && (course.is_copy === false) ? ( */}
+                            {role === RoleE.Admin && course.course_id !== 247 ? (
                               course?.public === 'О' ? (
                                 <>
                                   <img src={Public} alt="status course" />
@@ -198,85 +186,85 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                           <h5>{course.name}</h5>
                           <span className={styles.course_card_about_desc_admin}>{course?.description}</span>
                           {role === RoleE.Admin ? (
-                      // <>
-                      //   {(course.course_id === 247 && userId !== '154') ? (
-                      //   <Link
-                      //     onClick={onStudentClick}
-                      //     to={generatePath(Path.CourseMaterials, {
-                      //       course_id: `${course?.course_id}`,
-                      //     })}
-                      //   >
-                      //     <Button className={styles.btn_admin} style={{ marginTop: '55px' }} text={'Ознакомиться'} />
-                      //   </Link>
-                      //   ) : course.is_copy === true ? (
-                      //   <div style={{ marginTop: '15px' }}>
-                      //     <Link
-                      //       onClick={onStudentClick}
-                      //       to={generatePath(Path.CreateCourse + 'student', {
-                      //         course_id: `${course?.course_id}`,
-                      //       })}
-                      //     >
-                      //       <Button className={styles.btn_admin} text={'Ученики курса'} />
-                      //     </Link>
-                      //     <Link
-                      //       onClick={onStudentClick}
-                      //       to={generatePath(Path.CourseMaterials, {
-                      //         course_id: `${course?.course_id}`,
-                      //       })}
-                      //     >
-                      //       <Button className={styles.btn_admin} text={'Материалы'} />
-                      //     </Link>
-                      //   </ div>
-                      //   ) : (
-                      //   <Link
-                      //     onClick={onStudentClick}
-                      //     to={generatePath(Path.CourseMaterials, {
-                      //       course_id: `${course?.course_id}`,
-                      //     })}
-                      //   >
-                      //     <Button className={styles.btn_admin} text={'Материалы'} />
-                      //   </Link>
-                      //   )}
-                      //       </>
-                      //     ) : (
-                      //       <Link
-                      //         onClick={onStudentClick}
-                      //         to={generatePath(Path.CourseMaterials, {
-                      //           course_id: `${course?.course_id}`,
-                      //         })}
-                      //       >
-                      //         <Button className={styles.btn_admin} text={'Материалы'} />
-                      //       </Link>
-                      //     )}
-                      //   </div>
-                      // </>
-                      <>
-                      {course.course_id === 247 && userId !== '154' ? (
-                        <Link
-                              to={generatePath(Path.CourseMaterials, {
-                                course_id: `${course?.course_id}`,
-                              })}
-                            >
-                              <Button className={styles.btn_admin} style={{ marginTop: '55px' }} text={'Ознакомиться'} />
-                        </Link>
-                      ) : (
-                          <>
+                            // <>
+                            //   {(course.course_id === 247 && userId !== '154') ? (
+                            //   <Link
+                            //     onClick={onStudentClick}
+                            //     to={generatePath(Path.CourseMaterials, {
+                            //       course_id: `${course?.course_id}`,
+                            //     })}
+                            //   >
+                            //     <Button className={styles.btn_admin} style={{ marginTop: '55px' }} text={'Ознакомиться'} />
+                            //   </Link>
+                            //   ) : course.is_copy === true ? (
+                            //   <div style={{ marginTop: '15px' }}>
+                            //     <Link
+                            //       onClick={onStudentClick}
+                            //       to={generatePath(Path.CreateCourse + 'student', {
+                            //         course_id: `${course?.course_id}`,
+                            //       })}
+                            //     >
+                            //       <Button className={styles.btn_admin} text={'Ученики курса'} />
+                            //     </Link>
+                            //     <Link
+                            //       onClick={onStudentClick}
+                            //       to={generatePath(Path.CourseMaterials, {
+                            //         course_id: `${course?.course_id}`,
+                            //       })}
+                            //     >
+                            //       <Button className={styles.btn_admin} text={'Материалы'} />
+                            //     </Link>
+                            //   </ div>
+                            //   ) : (
+                            //   <Link
+                            //     onClick={onStudentClick}
+                            //     to={generatePath(Path.CourseMaterials, {
+                            //       course_id: `${course?.course_id}`,
+                            //     })}
+                            //   >
+                            //     <Button className={styles.btn_admin} text={'Материалы'} />
+                            //   </Link>
+                            //   )}
+                            //       </>
+                            //     ) : (
+                            //       <Link
+                            //         onClick={onStudentClick}
+                            //         to={generatePath(Path.CourseMaterials, {
+                            //           course_id: `${course?.course_id}`,
+                            //         })}
+                            //       >
+                            //         <Button className={styles.btn_admin} text={'Материалы'} />
+                            //       </Link>
+                            //     )}
+                            //   </div>
+                            // </>
+                            <>
+                              {course.course_id === 247 && userId !== '154' ? (
                                 <Link
-                                  to={generatePath(Path.CreateCourse + 'student', {
+                                  to={generatePath(Path.CourseMaterials, {
                                     course_id: `${course?.course_id}`,
                                   })}
                                 >
-                                  <Button className={styles.btn_admin} text={'Ученики курса'} />
+                                  <Button className={styles.btn_admin} style={{ marginTop: '55px' }} text={'Ознакомиться'} />
                                 </Link>
-                                <Link
-                                  to={generatePath(Path.CreateCourse, {
-                                    course_id: `${course?.course_id}`,
-                                  })}
-                                >
-                                  <Button className={styles.btn_admin} text={'Редактировать'} />
-                                </Link>
-                        </>
-                      )}
+                              ) : (
+                                <>
+                                  <Link
+                                    to={generatePath(Path.CreateCourse + 'student', {
+                                      course_id: `${course?.course_id}`,
+                                    })}
+                                  >
+                                    <Button className={styles.btn_admin} text={'Ученики курса'} />
+                                  </Link>
+                                  <Link
+                                    to={generatePath(Path.CreateCourse, {
+                                      course_id: `${course?.course_id}`,
+                                    })}
+                                  >
+                                    <Button className={styles.btn_admin} text={'Редактировать'} />
+                                  </Link>
+                                </>
+                              )}
                             </>
                           ) : (
                             <Link
@@ -295,13 +283,13 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                   </>
                 </div>
               </Link>
+            </>
+          )}
         </>
-      )}
-      </>
       ) : (
         <div id={`${course?.course_id}`} className={styles?.course_card}>
           <>
-            {role === RoleE.Admin || role === RoleE.Teacher ? (
+            {/* {role === RoleE.Admin || role === RoleE.Teacher ? (
               <>
                 <div className={styles.course_card_img}>
                   {course.photo ? (
@@ -360,26 +348,26 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                   )}
                 </div>
               </>
-            ) : (
-              userProgress && (
-                <>
-                  <div className={styles.course_card_img}>
-                    <img className={styles.course_card_img} src={course?.photo} alt="" />
-                  </div>
-                  <div className={styles.course_card_progressBar}>
-                    <span className={styles.course_card_progressBar_line}>
-                      <ProgressBar
-                        completed={userProgress.courses[0]?.completed_percent}
-                        bgColor="#ba75ff"
-                        labelSize="10px"
-                        borderRadius="0px"
-                        height="100%"
-                        customLabel=" "
-                      />
-                    </span>
-                  </div>
-                  <div className={styles.course_card_about}>
-                    {/* <Link
+            ) : ( */}
+            {userProgress && (
+              <>
+                <div className={styles.course_card_img}>
+                  <img className={styles.course_card_img} src={course?.photo} alt="" />
+                </div>
+                <div className={styles.course_card_progressBar}>
+                  <span className={styles.course_card_progressBar_line}>
+                    <ProgressBar
+                      completed={userProgress.courses[0]?.completed_percent}
+                      bgColor="#ba75ff"
+                      labelSize="10px"
+                      borderRadius="0px"
+                      height="100%"
+                      customLabel=" "
+                    />
+                  </span>
+                </div>
+                <div className={styles.course_card_about}>
+                  {/* <Link
                       onClick={onStudentClick}
                       to={
                           generatePath(Student.Course, {
@@ -387,43 +375,43 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                             })
                       }
                     > */}
-                    <Link
-                      onClick={onStudentClick}
-                      to={
-                        course?.remaining_period === 0 || course?.public !== 'О'
-                          ? '#'
-                          : generatePath(Student.Course, {
-                              course_id: `${course?.course_id}`,
-                            })
-                      }
-                    >
-                      <div className={styles.course_card_about_progressWrapper}>
-                          <img src={pie} alt="pie" />
-                          <span className={styles.course_card_about_progressWrapper_title}>{userProgress.courses[0].completed_percent}% пройдено</span>
-                        </div>
-                      <span className={styles.course_card_status_show}> </span>
-                      <h5>{course.name}</h5>
-                      <span className={styles.course_card_about_desc}>{course?.description}</span>
-                      <div className={styles.course_card_duration}>
-                        {course.limit && <p className={styles.course_card_duration_limit}>Срок доступа: {course.limit} дн.</p>}
-                        {course?.limit &&
-                          (course?.remaining_period ? (
-                            <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
-                          ) : (
-                            <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
-                          ))}
-                      </div>
-                      <Button className={styles.btn_student} text={'Перейти к курсу'} disabled={course?.remaining_period === 0} />
-                    </Link>
-                  </div>
-                  {isOpenModal ? (
-                    <Portal closeModal={onToggle}>
-                      <LimitModal message={'Доступ к курсу временно заблокирован. Обратитесь к администратору'} setShowLimitModal={onToggle} />
-                    </Portal>
-                  ) : null}
-                </>
-              )
+                  <Link
+                    onClick={onStudentClick}
+                    to={
+                      course?.remaining_period === 0 || course?.public !== 'О'
+                        ? '#'
+                        : generatePath(Student.Course, {
+                            course_id: `${course?.course_id}`,
+                          })
+                    }
+                  >
+                    <div className={styles.course_card_about_progressWrapper}>
+                      <img src={pie} alt="pie" />
+                      <span className={styles.course_card_about_progressWrapper_title}>{userProgress.courses[0].completed_percent}% пройдено</span>
+                    </div>
+                    <span className={styles.course_card_status_show}> </span>
+                    <h5>{course.name}</h5>
+                    <span className={styles.course_card_about_desc}>{course?.description}</span>
+                    <div className={styles.course_card_duration}>
+                      {course.limit && <p className={styles.course_card_duration_limit}>Срок доступа: {course.limit} дн.</p>}
+                      {course?.limit &&
+                        (course?.remaining_period ? (
+                          <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
+                        ) : (
+                          <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
+                        ))}
+                    </div>
+                    <Button className={styles.btn_student} text={'Перейти к курсу'} disabled={course?.remaining_period === 0} />
+                  </Link>
+                </div>
+                {isOpenModal ? (
+                  <Portal closeModal={onToggle}>
+                    <LimitModal message={'Доступ к курсу временно заблокирован. Обратитесь к администратору'} setShowLimitModal={onToggle} />
+                  </Portal>
+                ) : null}
+              </>
             )}
+            {/* )} */}
           </>
         </div>
       )}
