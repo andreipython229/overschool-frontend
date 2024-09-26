@@ -105,6 +105,17 @@
     &_fake {
       min-height: 30px;
     }
+
+    &_checkbox {
+      display: flex;
+      margin-top: 20px;
+
+      & span {
+        padding-top: 4px;
+        font-size: $fs14;
+        color: #b592bd;
+      }
+    }
   }
 }
 

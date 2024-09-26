@@ -1,0 +1,44 @@
+@import '../../scss/mixin.scss';
+@import '../../scss/variable.scss';
+
+.navigator {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 900px) {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.62rem;
+
+    div {
+      align-self: flex-start;
+      button {
+        font-size: 1rem;
+        padding: 0.2rem 0.5rem;
+      }
+    }
+  }
+
+  &_course {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+
+    color: var(--Black, #332f36);
+    text-align: center;
+    font-family: 'SFPROBold';
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    @media screen and (max-width: 900px) {
+      font-size: 1.5rem;
+    }
+  }
+}

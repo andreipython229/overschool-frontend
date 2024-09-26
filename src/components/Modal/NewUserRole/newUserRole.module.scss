@@ -1,0 +1,202 @@
+@import './src/scss/variable';
+@import '../../../scss//mixin.scss';
+
+.modalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(111, 104, 104, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContainer {
+    position: relative;
+    width: 35%;
+    height: fit-content;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+  
+  .modalHeader h2 {
+    font-size: 15px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .modalContainer form {
+    margin-bottom: 20px;
+  }
+  
+  .modalContainer label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .modalContainer input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .modalContainer button {
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .modalContainer button + button {
+    margin-left: 10px;
+  }
+  
+  .modalContainer button[type="submit"] {
+    background-color: #ba75ff;
+  }
+  
+  .modalContainer button[type="submit"]:hover,
+  .modalContainer button[type="button"]:hover {
+    background-color: #963eee;
+  }
+  
+  .modalContainer button[type="submit"]:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .modalContainer button[type="submit"]:disabled:hover {
+    background-color: #6c757d;
+  }
+  
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .closedModal {
+    align-items: right;
+    background: #f1f1f1;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e0dced;
+
+    &:hover {
+      color: #4d5766;
+      transition: color 0.3s;
+    }
+  }
+
+  .modalContainer label {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: black;
+  }
+
+  .modalContainer label input {
+    margin-top: 5px;
+  }
+
+  .modalContainer .submitButton {
+    position: absolute;
+    bottom: 20px;
+    padding: 10px;
+    width: calc(100% - 40px);
+    border: none;
+    background-color: #963eee;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .labelContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .selectContainer {
+    select {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: white;
+      font-size: 14px;
+      color: #333;
+  
+      &:focus {
+        outline: none;
+        border-color: #999;
+      }
+    }
+  }
+
+  .buttonContainer {
+    position: relative;
+    height: 30hv;
+    margin-top: 70px;
+
+    button {
+      width: 150px;
+      height: 40px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  
+    .submitButton {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      background-color: #4CAF50;
+      color: white;
+      width: 150px;
+      height: 40px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  
+    .revokeButton {
+      position: absolute;
+      right: 0;
+      bottom: 0; 
+      background-color: #f44336;
+      color: rgb(251, 244, 244);
+      width: 150px;
+      height: 40px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      
+        &:hover {
+          background-color: #d32f2f !important;
+          opacity: 0.9;
+        }
+      }
+  
+    button:hover {
+      opacity: 0.9; 
+    }
+  }

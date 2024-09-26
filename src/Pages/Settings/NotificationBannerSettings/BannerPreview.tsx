@@ -1,5 +1,5 @@
 import { IBanner } from 'api/apiTypes'
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import styles from './Banner.module.scss'
 import HubImage from './assets/course-hub-banner.png'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -18,6 +18,7 @@ import { motion } from 'framer-motion'
 import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
 import { isCheckedFunc } from 'utils/isCheckedFunc'
+import {TgMessage} from "../../../types/tgNotifications";
 
 interface IBannerPreview {
   banner: IBanner
@@ -36,6 +37,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
   const [activeGroups, setActiveGroups] = useState<number[]>(banner.groups)
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
+  const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length);
 
   const handleDeleteBanner = () => {
     deleteBanner({ id: banner.id, schoolName: schoolName })
@@ -61,6 +63,17 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
         })
     }
   }
+
+  const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isAll = event.target.checked
+    setAllGroups(isAll)
+    const groupsIds = groups?.results.map(group => Number(group.group_id))
+    if (isAll) {
+      setActiveGroups(groupsIds)
+    } else {
+      setActiveGroups([])
+    }
+  };
 
   return (
     <motion.div className={styles.wrapper}>
@@ -161,6 +174,10 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
           ) : (
             <div className={styles.wrapper_content_groups}>
               <span style={{ fontWeight: '500' }}>Группы в которых будет отображен этот баннер:</span>
+              <div>
+                <Checkbox style={{color: '#ba75ff'}} checked={allGroups} onChange={(e) => {handleAllGroups(e)}}/>
+                <span><b>выбрать все группы</b></span>
+              </div>
               {Object.entries(
                 groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
                   const courseName = group.course_name
@@ -183,6 +200,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                         onChange={e => {
                           const isChecked = e.target.checked
                           if (!isChecked) {
+                            setAllGroups(false)
                             setActiveGroups(prevGrps => prevGrps.filter(grp => grp !== Number(group.group_id)))
                           } else {
                             setActiveGroups(prevGrps => prevGrps.concat(Number(group.group_id)))

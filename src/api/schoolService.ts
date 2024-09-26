@@ -203,6 +203,37 @@ export const schoolService = createApi({
                 },
             }),
         }),
+        assignRole: build.mutation<void, { school_id: number; user_id: number; role_name: string }>({
+            query: ({ school_id, user_id, role_name }) => ({
+                url: `/school-new-roles/assign_role/`,
+                method: 'POST',
+                body: {
+                    school_id,
+                    user_id,
+                    role_name,
+                },
+            }),
+        }),
+        removeRole: build.mutation<void, { school_id: number; user_id: number; role_name: string }>({
+            query: ({ school_id, user_id, role_name }) => ({
+                url: `/school-new-roles/remove_role/`,
+                method: 'DELETE',
+                body: {
+                    school_id,
+                    user_id,
+                    role_name,
+                },
+            }),
+        }),
+        fetchRolesByUser: build.query<{ school: number; role_name: string }[], { user_id: number }>({
+            query: ({ user_id }) => ({
+                url: `/school-new-roles/get_roles_by_user/`,
+                method: 'GET',
+                params: {
+                    user_id,
+                },
+            }),
+        }),
     }),
 })
 
@@ -232,5 +263,8 @@ export const {
     useFetchNewsletterTemplatesQuery,
     useLazyFetchNewsletterTemplatesQuery,
     useDeleteNewsletterTemplateMutation,
-    useUpdateNewsletterTemplateMutation
+    useUpdateNewsletterTemplateMutation,
+    useAssignRoleMutation,
+    useRemoveRoleMutation,
+    useFetchRolesByUserQuery,
 } = schoolService;

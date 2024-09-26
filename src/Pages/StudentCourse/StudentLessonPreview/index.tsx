@@ -14,6 +14,9 @@ import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
 import { useBoolean } from '../../../customHooks'
 import { Portal } from '../../../components/Modal/Portal'
 import { LimitModal } from '../../../components/Modal/LimitModal/LimitModal'
+import {useLazyFetchStudentTrainingDurationQuery} from "../../../api/lessonAccessService";
+import {useAppSelector} from "../../../store/hooks";
+import {selectUser} from "../../../selectors";
 
 export const StudentLessonPreview: FC = () => {
   const params = useParams()
@@ -25,6 +28,9 @@ export const StudentLessonPreview: FC = () => {
   const [nextDisabled, setNextDisabled] = useState(false)
   const [isOpenLimitModal, { onToggle }] = useBoolean()
   const [message, setMessage] = useState<string>('')
+  const [fetchDownload, {data}] = useLazyFetchStudentTrainingDurationQuery()
+  const [download, setDownload] = useState<boolean>(false)
+  const user = useAppSelector(selectUser)
 
   useEffect(() => {
     if (params && courseId !== undefined) {
@@ -37,6 +43,18 @@ export const StudentLessonPreview: FC = () => {
       fetchLesson({id: Number(params?.lesson_id), type: `${params?.lesson_type}`, schoolName, courseId})
     }
   }, [params, courseId])
+
+  useEffect(() => {
+    if (lesson && lessons && lesson?.type !== LESSON_TYPE.TEST) {
+      fetchDownload({group_id: Number(lessons?.group_id), student_id: Number(user?.userId), schoolName})
+    }
+  }, [lessons, lesson])
+
+  useEffect(() => {
+    if (data) {
+      setDownload(data.download)
+    }
+  }, [data])
 
   useEffect(() => {
     if (error && 'data' in error) {
@@ -54,7 +72,7 @@ export const StudentLessonPreview: FC = () => {
     if (isSuccess && lessons) {
       switch (lesson?.type) {
         case LESSON_TYPE.LESSON:
-          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} />
+          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} download={download}/>
         case LESSON_TYPE.HOMEWORK:
           return (
             <StudentHomework
@@ -65,6 +83,7 @@ export const StudentLessonPreview: FC = () => {
               sended={sended}
               nextDisabled={nextDisabled}
               setNextDisabled={setNextDisabled}
+              download={download}
             />
           )
         case LESSON_TYPE.TEST:

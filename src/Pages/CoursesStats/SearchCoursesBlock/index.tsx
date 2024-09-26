@@ -1,4 +1,4 @@
-import { memo, useState, FC } from 'react'
+import { memo, useState, FC, useEffect } from 'react'
 
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../components/common/Input/Input/Input'
@@ -7,10 +7,13 @@ import { useDebouncedFilter } from '../../../customHooks'
 import { ToggleButtonDropDown } from '../../../components/common/ToggleButtonDropDown'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
 import { searchCourseBlockT } from '../../../types/pageTypes'
+import { useAppSelector } from 'store/hooks'
+import { selectUser } from 'selectors'
 
 import styles from '../courses_stats.module.scss'
 
 export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, courses }) => {
+  const { userId } = useAppSelector(selectUser)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [term, filteredData, handleChangeTerm] = useDebouncedFilter(courses, 'name')
 
@@ -29,9 +32,11 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>
           <div className={styles.courses_card_block}>
-            {filteredData?.map(({ photo, name, course_id }) => (
-              <CoursesMiniCard key={course_id} groups={groups} photo={photo} name={name} courseId={course_id} />
-            ))}
+            {filteredData
+              ?.filter(({ course_id }) => course_id !== 247 || userId === 154)
+              .map(({ photo, name, course_id }) => (
+                <CoursesMiniCard key={course_id} groups={groups} photo={photo} name={name} courseId={course_id} />
+              ))}
           </div>
         </>
       )}

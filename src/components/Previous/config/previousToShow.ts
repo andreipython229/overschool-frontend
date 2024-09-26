@@ -18,7 +18,8 @@ const getCoursePath = () => {
 }
 
 export const previousToShow = [
-  { path: objOfPathes.CreateCourse, Component: CoursePrevious },
+  { path: Path.Courses + Student.Course, Component: GlobalPrevious },
+  { path: objOfPathes.CreateCourse, Component: GlobalPrevious },
   { path: objOfPathes.Settings, Component: GlobalPrevious },
   { path: objOfPathes.Courses, Component: GlobalPrevious },
   { path: SettingsPath.Main, Component: GlobalPrevious },

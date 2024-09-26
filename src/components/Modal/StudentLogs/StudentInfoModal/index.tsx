@@ -15,7 +15,7 @@ import {
     useLazyFetchStudentLessonsQuery,
     useResetStudentLessonsAccessMutation
 } from '../../../../api/lessonAccessService'
-import { useFetchStudentsGroupQuery, useUpdateGroupMutation } from 'api/studentsGroupService'
+import { useFetchStudentsGroupByCourseQuery, useFetchStudentsGroupQuery, useLazyFetchStudentsGroupByCourseQuery, useUpdateGroupMutation } from 'api/studentsGroupService'
 import {useDeleteStudentFromGroupMutation} from '../../../../api/studentsGroupService'
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, Select} from '@mui/material'
 import DatePicker, {registerLocale} from 'react-datepicker'
@@ -25,6 +25,7 @@ import { headerUserRoleName } from '../../../../config/headerUserRoleName'
 import {selectUser} from '../../../../selectors'
 import { studentsGroupsT } from 'types/studentsGroup';
 import { log } from 'console';
+import { useParams } from 'react-router-dom';
 
 type studentInfoModalT = {
     student: result | null
@@ -77,10 +78,11 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
     const lastActivity = student?.last_login ? student.last_login : null;
     const schoolName = window.location.href.split('/')[4]
     const schoolId = localStorage.getItem('school_id')
+    const courseId = student?.course_id
     const [studentProgress, setStudentProgress] = useState<studentProgressT>()
     const {data} = useFetchStudentProgressQuery({user_id: String(student?.student_id), schoolName})
     const [fetchStudentLessons, {data: allStudentLessons, isFetching}] = useLazyFetchStudentLessonsQuery()
-    const { data: groups } = useFetchStudentsGroupQuery(schoolName)
+    const [fetchStudentsGroups, {data: groups}] = useLazyFetchStudentsGroupByCourseQuery()
     const [studentLessons, setStudentLessons] = useState<sectionLessons[]>()
     const [resetAccess, {isSuccess}] = useResetStudentLessonsAccessMutation()
     const [completedPercent, setCompletedPercent] = useState<number>()
@@ -130,7 +132,9 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
         }
     }, [studentProgress])
 
-    
+    useEffect(() => {
+        courseId && fetchStudentsGroups({ schoolName, id: courseId })
+    }, [courseId])
 
     useEffect(() => {
         schoolId && student && fetchStudentLessons({id: schoolId, student_id: student?.student_id})

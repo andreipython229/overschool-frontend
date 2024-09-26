@@ -54,6 +54,17 @@ export const initialBlocks: BlockKeys = {
     ],
     visible: true,
     canUp: true,
-    canDown: false,
+    canDown: true,
   },
+  linkButton: {
+    id: 5,
+    content: blocksNamesE.linkButton,
+    name: 'Кнопка 1',
+    link: 'https://example.com',
+    color: '#BA75FF',
+    visible: true,
+    canUp: true,
+    canDown: false,
+    onlyShow: true,
+      }
 }

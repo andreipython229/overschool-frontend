@@ -24,6 +24,7 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
 
   return (
     <footer className={styles.wrapper}>
+
       <div className={styles.wrapper_img}>
         <img src={footerlogo} alt="footerlogo" />
       </div>
