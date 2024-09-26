@@ -84,6 +84,7 @@ export const Employees: FC = () => {
                     }
                     contact={employee.email}
                     role={employee.role}
+                    additional_roles={employee.additional_roles}
                     id={employee.id}
                     employees={employees}
                     setEmployees={setEmployees}
