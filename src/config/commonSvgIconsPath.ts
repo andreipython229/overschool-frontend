@@ -16,6 +16,7 @@ import {
   tariffPlanIcon,
   peopleIcon,
   settingsIcon,
+  arrowLeftIcon,
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -91,4 +92,9 @@ export const peopleIconPath: pathT[] = [
 export const settingsIconPath: pathT[] = [
   { d: settingsIcon.d1, fill: 'white' },
   { d: settingsIcon.d2, fill: 'white' },
+]
+
+export const arrowLeftIconPath: pathT[] = [
+  { d: arrowLeftIcon.d1, stroke: '#357EEB', strokeWidth: '1.6', strokeLinejoin: 'round', strokeLinecap: 'round' },
+  { d: arrowLeftIcon.d2, stroke: '#357EEB', strokeWidth: '1.6', strokeLinejoin: 'round', strokeLinecap: 'round' },
 ]

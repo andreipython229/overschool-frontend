@@ -18,7 +18,6 @@ import { motion } from 'framer-motion'
 import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
 import { isCheckedFunc } from 'utils/isCheckedFunc'
-import {TgMessage} from "../../../types/tgNotifications";
 
 interface IBannerPreview {
   banner: IBanner
@@ -37,7 +36,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
   const [activeGroups, setActiveGroups] = useState<number[]>(banner.groups)
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
-  const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length);
+  const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length)
 
   const handleDeleteBanner = () => {
     deleteBanner({ id: banner.id, schoolName: schoolName })
@@ -73,7 +72,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
     } else {
       setActiveGroups([])
     }
-  };
+  }
 
   return (
     <motion.div className={styles.wrapper}>
@@ -159,13 +158,14 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                   }, {}),
                 ).map(([courseName, groups]) => (
                   <div key={courseName} style={{ marginBlockStart: '8px' }}>
-                    <b>{courseName}</b>
+                    {groups.length > 0 && groups.find(grp => activeGroups.includes(Number(grp.group_id))) && <b>{courseName}</b>}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                      {groups.map((group, index) => (
-                        <span key={group.group_id} style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem' }}>
-                          {group.name}
-                        </span>
-                      ))}
+                      {groups.map(
+                        (group, index) =>
+                          activeGroups.includes(Number(group.group_id)) && (
+                            <span style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem', flexBasis: 20 }}>{group.name}</span>
+                          ),
+                      )}
                     </div>
                   </div>
                 ))}
@@ -175,8 +175,16 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             <div className={styles.wrapper_content_groups}>
               <span style={{ fontWeight: '500' }}>Группы в которых будет отображен этот баннер:</span>
               <div>
-                <Checkbox style={{color: '#ba75ff'}} checked={allGroups} onChange={(e) => {handleAllGroups(e)}}/>
-                <span><b>выбрать все группы</b></span>
+                <Checkbox
+                  style={{ color: '#ba75ff' }}
+                  checked={allGroups}
+                  onChange={e => {
+                    handleAllGroups(e)
+                  }}
+                />
+                <span>
+                  <b>выбрать все группы</b>
+                </span>
               </div>
               {Object.entries(
                 groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {

@@ -78,33 +78,38 @@ export const StudentsStats = () => {
         </div>
       </section>
 
-      <div>
-        <div className={styles.container_groups}>
-          <div className={styles.groups_card_block}>
-            {dataToRender?.map(({ name, students, group_id, type }: studentsGroupsT) => {
-              const count = students?.length
-              return (
-                <StudentGroupMiniCard
-                  active={activeGroup === group_id}
-                  key={group_id}
-                  id={group_id as number}
-                  click={handleClick}
-                  title={name}
-                  countStudent={count}
-                  type={type}
-                  courseId={Number(courseId)}
-                />
-              )
-              // return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} type={type} courseId={Number(courseId)}/>
-            })}
+      {dataToRender && (
+        <div>
+          <div className={styles.container_groups}>
+            <div
+              className={styles.groups_card_block}
+              style={dataToRender.length < 3 ? { justifyContent: 'flex-start' } : { justifyContent: 'space-between' }}
+            >
+              {dataToRender?.map(({ name, students, group_id, type }: studentsGroupsT) => {
+                const count = students?.length
+                return (
+                  <StudentGroupMiniCard
+                    active={activeGroup === group_id}
+                    key={group_id}
+                    id={group_id as number}
+                    click={handleClick}
+                    title={name}
+                    countStudent={count}
+                    type={type}
+                    courseId={Number(courseId)}
+                  />
+                )
+                // return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} type={type} courseId={Number(courseId)}/>
+              })}
+            </div>
+          </div>
+          <div className={styles.container_groups_dropdown}>
+            {data?.results && data?.results?.length > 6 && (
+              <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />
+            )}
           </div>
         </div>
-        <div className={styles.container_groups_dropdown}>
-          {data?.results && data?.results?.length > 6 && (
-            <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />
-          )}
-        </div>
-      </div>
+      )}
       <StudentsPerCourse />
       {addGroupModal && (
         <Portal closeModal={onAddGroupModal}>

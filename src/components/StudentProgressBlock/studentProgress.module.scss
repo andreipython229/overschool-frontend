@@ -1,0 +1,432 @@
+@import '../../scss/variable.scss';
+@import '../../scss/mixin.scss';
+
+.progressWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  width: 100%;
+
+  @media screen and (max-width: 700px) {
+    display: flex;
+    height: 11rem;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  &_progressSlice {
+    display: flex;
+    width: 25.625rem;
+    align-items: center;
+    align-content: center;
+    gap: 0.625rem;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 700px) {
+      display: flex;
+      width: 49%;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+    }
+
+    &_block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 12.5rem;
+      height: 12.5rem;
+      gap: 1.25rem;
+      flex-shrink: 0;
+      border-radius: 2.125rem;
+      background: var(--Blue-inactive-gradient, linear-gradient(180deg, #cfe2ff 0%, #bbceeb 100%));
+
+      svg {
+        @media screen and (max-width: 700px) {
+          width: 4rem;
+          height: 4rem;
+        }
+      }
+
+      @media screen and (max-width: 700px) {
+        width: 5.375rem;
+        height: 5.375rem;
+        flex-shrink: 0;
+        border-radius: 1rem;
+        padding: 0.35rem;
+        gap: 0.19rem;
+      }
+
+      &_ball {
+        color: var(--White, #fff);
+        text-align: center;
+        position: absolute;
+        top: 2.5rem;
+        font-family: 'SFPROMedium';
+        font-size: 3.76894rem;
+        font-style: normal;
+        font-weight: 500;
+        letter-spacing: -1px;
+        line-height: 5.07981rem; /* 134.783% */
+
+        @media screen and (max-width: 700px) {
+          top: 0;
+          font-size: 1.5rem;
+        }
+      }
+
+      h4,
+      p {
+        color: var(--Button, #357eeb);
+        text-align: center;
+
+        /* Desktop/Head/H4 */
+        font-family: 'SFPROMedium';
+        font-size: 1.25rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -1px;
+        text-wrap: wrap;
+
+        @media screen and (max-width: 700px) {
+          font-size: 0.625rem;
+        }
+      }
+    }
+  }
+
+  &_peopleStats {
+    display: flex;
+    width: 25.9375rem;
+    height: 28.5625rem;
+    padding: 1.5rem 0rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    gap: 1.5625rem;
+    flex-shrink: 0;
+    background-image: url(./assets/bg_top.png);
+    background-color: #cfe2ff;
+    background-repeat: repeat;
+    border-radius: 2.125rem;
+
+    @media screen and (max-width: 700px) {
+      display: none;
+    }
+
+    &_rates {
+      width: 23.125rem;
+      height: 11.3125rem;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      &_rate1 {
+        width: 7.375rem;
+        border-radius: 1.5rem;
+        height: 7.375rem;
+        flex-shrink: 0;
+        align-self: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow: hidden;
+
+        &_medal {
+          @include position_t_r(absolute, 0, 0);
+          width: 3.09569rem;
+          height: 5.00063rem;
+          flex-shrink: 0;
+        }
+      }
+
+      &_rate2 {
+        width: 7.375rem;
+        border-radius: 1.5rem;
+        height: 7.375rem;
+        flex-shrink: 0;
+        align-self: flex-end;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow: hidden;
+
+        &_medal {
+          @include position_t_r(absolute, 0, 0);
+          width: 3.09569rem;
+          height: 5.00063rem;
+          flex-shrink: 0;
+        }
+      }
+
+      &_rate3 {
+        width: 7.375rem;
+        border-radius: 1.5rem;
+        height: 7.375rem;
+        flex-shrink: 0;
+        align-self: flex-end;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow: hidden;
+
+        &_medal {
+          @include position_t_r(absolute, 0, 0);
+          width: 3.09569rem;
+          height: 5.00063rem;
+          flex-shrink: 0;
+        }
+      }
+    }
+
+    &_text {
+      @include fontReg(500, 1.5rem, normal);
+      h3 {
+        background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      h4 {
+        font-size: 1.25rem;
+        color: var(--Black, #332f36);
+      }
+    }
+
+    &_personalData {
+      display: flex;
+      width: 19.1875rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+
+      &_title {
+        width: 100%;
+        text-align: center;
+
+        /* Desktop/Head/H3 */
+        font-family: 'SFPROMedium';
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -1px;
+
+        background: var(--gradient, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      &_placement {
+        display: flex;
+        padding: 0rem 0.5rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.25rem;
+        align-self: stretch;
+
+        &_text {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.5rem;
+
+          h5 {
+            color: var(--Black, #332f36);
+            text-align: center;
+
+            /* Desktop/Head/H5 */
+            font-family: 'SFPROMedium';
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            letter-spacing: -1px;
+          }
+
+          h3 {
+            text-align: center;
+
+            /* Desktop/Head/H3 */
+            font-family: 'SFPROMedium';
+            font-size: 1.5rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            letter-spacing: -1px;
+
+            background: var(--gradient, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+        }
+
+        &_progressData {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          align-self: stretch;
+          border-radius: 1rem;
+          overflow: hidden;
+          background: var(--gradient, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%));
+
+          &_photoBlock {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            &_photo {
+              width: 3rem;
+              height: 3rem;
+              border-radius: 1rem;
+            }
+
+            &_username {
+              color: var(--White, #fff);
+
+              /* Desktop/Text/Text small */
+              font-family: 'SFPROMedium';
+              font-size: 1rem;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+            }
+          }
+          &_percent {
+            display: flex;
+            width: 4rem;
+            height: 1.5rem;
+            flex-direction: column;
+            justify-content: center;
+
+            h4 {
+              color: var(--White, #fff);
+              text-align: center;
+
+              /* Desktop/Head/H4 */
+              font-family: 'SFPROMedium';
+              font-size: 1.25rem;
+              font-style: normal;
+              font-weight: 500;
+              line-height: normal;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &_overallProgress {
+    display: flex;
+    width: 25.9375rem;
+    height: 25.625rem;
+    padding: 1rem 0.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-shrink: 0;
+
+    border-radius: 2.125rem;
+    background: var(--Blue-inactive-gradient, linear-gradient(180deg, #cfe2ff 0%, #bbceeb 100%));
+    box-shadow: 0px 0px 40px 0px rgba(255, 255, 255, 0.25);
+
+    @media screen and (max-width: 700px) {
+      display: flex;
+      width: 11.125rem;
+      height: 11rem;
+      padding: 0.39038rem 0.19519rem;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0.19519rem;
+    }
+
+    &_text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      gap: 0.5rem;
+
+      @media screen and (max-width: 700px) {
+        margin-top: -1.5rem;
+        gap: 0.25rem;
+      }
+
+      p {
+        color: var(--Button);
+        text-align: center;
+
+        font-family: 'SFPROMedium';
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -1px;
+
+        @media screen and (max-width: 700px) {
+          font-size: 1rem;
+        }
+      }
+
+      span {
+        color: var(--Button);
+        text-align: center;
+
+        font-family: 'SFPROMedium';
+        font-size: 1.25rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -1px;
+        @media screen and (max-width: 700px) {
+          font-size: 0.625rem;
+        }
+      }
+    }
+  }
+}
+
+.personProgressData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1875rem;
+
+  h4,
+  h5 {
+    text-align: center;
+    color: var(--Black, #332f36);
+    text-align: center;
+
+    /* Desktop/Head/H4 */
+    font-family: 'SFPROMedium';
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -1px;
+  }
+}
+
+.hw {
+  margin-top: -1.5rem;
+
+  @media screen and (max-width: 700px) {
+    margin-top: -0.5rem;
+  }
+}

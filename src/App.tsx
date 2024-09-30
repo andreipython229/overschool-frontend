@@ -36,7 +36,6 @@ import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
 import DomainError from './Pages/DomainAccessDenied/DomainError'
 import { useLazyFetchSchoolByDomainQuery } from 'api/DomainService'
 import RouteHandler from './components/RouteHandler/RouteHandler'
-import CourseCardsTS from 'Pages/CourseCardsTS/CourseCardsTS'
 
 export const App = () => {
   const currentDomain = window.location.hostname;
