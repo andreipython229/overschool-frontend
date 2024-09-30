@@ -106,14 +106,14 @@ export const StudentLessonPreview: FC = () => {
     return (
       <div className={styles.lesson_wrapper}>
         {renderUI()}
-        <StudentLessonSidebar
+        {/* <StudentLessonSidebar
           lessonType={`${params?.lesson_type}` as LESSON_TYPE}
           courseId={`${params?.course_id}`}
           sectionId={`${params?.section_id}`}
           activeLessonIndex={activeLessonIndex as number}
           lessons={lessons as sectionT}
           nextDisabled={nextDisabled}
-        />
+        /> */}
       </div>
     )
   } else {

@@ -24,6 +24,7 @@ export const Input: FC<InputPropsT> = memo(props => {
         {children}
         <input
           {...rest}
+          style={{ borderStyle: 'hidden' }}
           className={styles.input_input}
           ref={inputRef}
           required={!required ? required : true}
