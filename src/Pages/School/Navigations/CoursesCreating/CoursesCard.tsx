@@ -18,6 +18,8 @@ import { useBoolean } from '../../../../customHooks'
 import { usePatchCoursesMutation } from '../../../../api/coursesServices'
 import { formDataConverter } from '../../../../utils/formDataConverter'
 import { CheckboxBall } from '../../../../components/common/CheckboxBall'
+import { useFetchProgressQuery } from 'api/userProgressService'
+
 import tests from 'assets/img/CourseCardsTS/tests.svg'
 import video from 'assets/img/CourseCardsTS/video.svg'
 import homeTask from 'assets/img/CourseCardsTS/home-tasks.svg'
@@ -50,6 +52,8 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
       fetchProgress({ course_id: String(course?.course_id), schoolName })
     }
   }, [course, role, schoolName, userProgress, isLoading])
+
+
 
   const onStudentClick = () => {
     localStorage.setItem('course_id', '' + course?.course_id)
@@ -143,10 +147,11 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                       </div>
                     </Link>
 
+                   
                     <div className="CourseCardsTS__admin-property-wrapper">
                       <div className="CourseCardsTS__admin-property">
                         <img src={course?.public === 'О' ? video_admin : video_dark} className="CourseCardsTS__admin-property-img" alt="" />
-                        <p className="CourseCardsTS__admin-property-name">152 видео</p>
+                        <p className="CourseCardsTS__admin-property-name">20 видео</p>
                       </div>
                       <div className="CourseCardsTS__admin-property">
                         <img src={course?.public === 'О' ? homeTask_admin : homeTask_dark} className="CourseCardsTS__admin-property-img" alt="" />
@@ -157,6 +162,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                         <p className="CourseCardsTS__admin-property-name">9 тестов</p>
                       </div>
                     </div>
+                 
                     <div className={styles.course_card_about}>
                       <Link
                         to={generatePath(Path.CreateCourse, {
@@ -299,24 +305,27 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
             <div className="CourseCardsTS__title ">{course.name}</div>
 
             <div className="CourseCardsTS__properties">
+
+  {userProgress && (
+                <>
+
               <div className="CourseCardsTS__property-wrapper">
                 <div className="CourseCardsTS__property">
                   <img src={video} className="CourseCardsTS__property-img" alt="" />
-                  <p className="CourseCardsTS__property-name">32/152 видео</p>
+                  <p className="CourseCardsTS__property-name">   {userProgress.courses[0].lessons.completed_lessons}/{userProgress.courses[0].lessons.all_lessons}  видео</p>
                 </div>
                 <div className="CourseCardsTS__line"></div>
                 <div className="CourseCardsTS__property">
                   <img src={homeTask} className="CourseCardsTS__property-img" alt="" />
-                  <p className="CourseCardsTS__property-name">4/11 Домашних заданий</p>
+                  <p className="CourseCardsTS__property-name"> {userProgress.courses[0].homeworks.completed_homeworks}/{userProgress.courses[0].homeworks.all_homeworks}  Домашних заданий</p>
                 </div>
                 <div className="CourseCardsTS__line"></div>
                 <div className="CourseCardsTS__property">
                   <img src={tests} className="CourseCardsTS__property-img" alt="" />
-                  <p className="CourseCardsTS__property-name">4/9 тестов</p>
+                  <p className="CourseCardsTS__property-name">      {userProgress.courses[0].tests.completed_tests}/{userProgress.courses[0].tests.all_tests} тестов</p>
                 </div>
               </div>
-              {userProgress && (
-                <>
+            
                   <div className="progress">
                     <progress max="100" value={~~userProgress.courses[0]?.completed_percent}></progress>
                     <div className="progress-value"></div>
