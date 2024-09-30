@@ -13,8 +13,9 @@
   margin: 0 auto;
   margin-top: 16px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 500px));
-  grid-gap: 3% 5%;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  // grid-gap: 3% 5%;
+  gap: 50px;
   padding-bottom: 50px;
   justify-content: start;
   margin-bottom: 4rem;

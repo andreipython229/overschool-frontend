@@ -71,7 +71,7 @@ export const App = () => {
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
-      pathname.split('/')[1] !== 'CourseCardsTS' &&
+      // pathname.split('/')[1] !== 'CourseCardsTS' &&
 
       pathname !== '/access-denied'
     ) {
@@ -148,7 +148,7 @@ export const App = () => {
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
-      pathname.split('/')[1] !== 'CourseCardsTS' &&
+      // pathname.split('/')[1] !== 'CourseCardsTS' &&
       pathname !== '/access-denied'
     ) {
       navigate(Path.ChooseSchool)
@@ -165,7 +165,7 @@ export const App = () => {
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
-      pathname.split('/')[1] !== 'CourseCardsTS' &&
+      // pathname.split('/')[1] !== 'CourseCardsTS' &&
       pathname !== '/access-denied'
     ) {
       navigate(Path.ChooseSchool)
@@ -208,7 +208,7 @@ export const App = () => {
           <Route path={FooterPath.Agreement} element={<Agreement />} />
         </Route>
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
-        <Route path="/CourseCardsTS" element={<CourseCardsTS />} />
+        {/* <Route path="/CourseCardsTS" element={<CourseCardsTS />} /> */}
         <Route path={'*'} element={<PageNotFound />} />
         <Route path="/access-denied" element={<DomainError />} />
       </Routes>
