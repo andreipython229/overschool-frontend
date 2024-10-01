@@ -70,6 +70,7 @@ export const App = () => {
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
+
       pathname !== '/access-denied'
     ) {
       if (utmParams.utm_source) {
@@ -171,7 +172,6 @@ export const App = () => {
 
   return (
     <div className={styles.container}>
-      {/* <RouteHandler /> */}
       <Routes>
         <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />

@@ -19,6 +19,24 @@
     }
   }
 }
+.wrapper_body_courses_card_name {
+  padding: 16px;
+  background: linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%);
+  border-radius: 16px;
+  color: white;
+  font-family: 'SFPRORegular';
+  //styleName: H3-SF Pro Text 32 Bold;
+  // font-family: SF Pro Text;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38.19px;
+}
+.wrapper_body_courses_card {
+  border-radius: 24px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
 
 .wrapper {
   width: 100%;
