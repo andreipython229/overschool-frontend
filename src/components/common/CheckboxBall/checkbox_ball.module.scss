@@ -1,7 +1,7 @@
 @import '../../../scss/variable';
 
 .switch {
-  width: 37px;
+  width: 40px;
   height: 20px;
   background-color: $backgroundCheckBox;
   display: flex;
@@ -15,11 +15,15 @@
 .switch[data-isOn='true'] {
   justify-content: flex-end;
   background-color: $font-color-rose;
+  .handle{
+  background-color: $color-white;
+
+  }
 }
 
 .handle {
   width: 15px;
   height: 15px;
-  background-color: $color-white;
+  background-color: #BEBEBE;
   border-radius: $bord-rad50;
 }
