@@ -30,7 +30,6 @@ import tests_dark from 'assets/img/CourseCardsTS/tests-dark.svg'
 import video_dark from 'assets/img/CourseCardsTS/video-dark.svg'
 import homeTask_dark from 'assets/img/CourseCardsTS/home-tasks-dark.svg'
 
-
 import '../../Navigations/CoursesCreating/courses_new_card.scss'
 
 type courseCard = {
@@ -52,8 +51,6 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
       fetchProgress({ course_id: String(course?.course_id), schoolName })
     }
   }, [course, role, schoolName, userProgress, isLoading])
-
-
 
   const onStudentClick = () => {
     localStorage.setItem('course_id', '' + course?.course_id)
@@ -147,7 +144,6 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                       </div>
                     </Link>
 
-                   
                     <div className="CourseCardsTS__admin-property-wrapper">
                       <div className="CourseCardsTS__admin-property">
                         <img src={course?.public === 'О' ? video_admin : video_dark} className="CourseCardsTS__admin-property-img" alt="" />
@@ -162,7 +158,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                         <p className="CourseCardsTS__admin-property-name">9 тестов</p>
                       </div>
                     </div>
-                 
+
                     <div className={styles.course_card_about}>
                       <Link
                         to={generatePath(Path.CreateCourse, {
@@ -305,32 +301,38 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
             <div className="CourseCardsTS__title ">{course.name}</div>
 
             <div className="CourseCardsTS__properties">
-
-  {userProgress && (
+              {userProgress && (
                 <>
+                  <div className="CourseCardsTS__property-wrapper">
+                    <div className="CourseCardsTS__property">
+                      <img src={video} className="CourseCardsTS__property-img" alt="" />
+                      <p className="CourseCardsTS__property-name">
+                        {' '}
+                        {userProgress.courses[0].lessons.completed_lessons}/{userProgress.courses[0].lessons.all_lessons} видео
+                      </p>
+                    </div>
+                    <div className="CourseCardsTS__line"></div>
+                    <div className="CourseCardsTS__property">
+                      <img src={homeTask} className="CourseCardsTS__property-img" alt="" />
+                      <p className="CourseCardsTS__property-name">
+                        {' '}
+                        {userProgress.courses[0].homeworks.completed_homeworks}/{userProgress.courses[0].homeworks.all_homeworks} Домашних заданий
+                      </p>
+                    </div>
+                    <div className="CourseCardsTS__line"></div>
+                    <div className="CourseCardsTS__property">
+                      <img src={tests} className="CourseCardsTS__property-img" alt="" />
+                      <p className="CourseCardsTS__property-name">
+                        {' '}
+                        {userProgress.courses[0].tests.completed_tests}/{userProgress.courses[0].tests.all_tests} тестов
+                      </p>
+                    </div>
+                  </div>
 
-              <div className="CourseCardsTS__property-wrapper">
-                <div className="CourseCardsTS__property">
-                  <img src={video} className="CourseCardsTS__property-img" alt="" />
-                  <p className="CourseCardsTS__property-name">   {userProgress.courses[0].lessons.completed_lessons}/{userProgress.courses[0].lessons.all_lessons}  видео</p>
-                </div>
-                <div className="CourseCardsTS__line"></div>
-                <div className="CourseCardsTS__property">
-                  <img src={homeTask} className="CourseCardsTS__property-img" alt="" />
-                  <p className="CourseCardsTS__property-name"> {userProgress.courses[0].homeworks.completed_homeworks}/{userProgress.courses[0].homeworks.all_homeworks}  Домашних заданий</p>
-                </div>
-                <div className="CourseCardsTS__line"></div>
-                <div className="CourseCardsTS__property">
-                  <img src={tests} className="CourseCardsTS__property-img" alt="" />
-                  <p className="CourseCardsTS__property-name">      {userProgress.courses[0].tests.completed_tests}/{userProgress.courses[0].tests.all_tests} тестов</p>
-                </div>
-              </div>
-            
                   <div className="progress">
-                    <progress max="100" value={~~userProgress.courses[0]?.completed_percent}></progress>
-                    <div className="progress-value"></div>
+                    <div className="progress-value">{~~userProgress.courses[0]?.completed_percent}%</div>
                     <div className="progress-bg">
-                      <div className="progress-bar"></div>
+                      <div className="progress-bar" style={{ width: `${~~userProgress.courses[0]?.completed_percent}%` }}></div>
                     </div>
                   </div>
 
