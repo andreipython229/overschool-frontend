@@ -54,8 +54,8 @@ export const StudentProgressBlock: FC = () => {
               <div className={styles.progressWrapper_peopleStats_rates_rate2} style={{ backgroundImage: `url(${person})` }}>
                 <img src={secondMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
               </div>
-              <h4>90%</h4>
-              <h5>Аня</h5>
+              <h4>-</h4>
+              <h5>-</h5>
             </div>
           )}
           {userProgress.courses[0].top_leaders && userProgress.courses[0].top_leaders.length && userProgress.courses[0].top_leaders[0] ? (
@@ -74,8 +74,8 @@ export const StudentProgressBlock: FC = () => {
               <div className={styles.progressWrapper_peopleStats_rates_rate1} style={{ backgroundImage: `url(${person})` }}>
                 <img src={firstMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
               </div>
-              <h4>100%</h4>
-              <h5>Макс</h5>
+              <h4>-</h4>
+              <h5>-</h5>
             </div>
           )}
           {userProgress.courses[0].top_leaders && userProgress.courses[0].top_leaders.length && userProgress.courses[0].top_leaders[2] ? (
@@ -94,8 +94,8 @@ export const StudentProgressBlock: FC = () => {
               <div className={styles.progressWrapper_peopleStats_rates_rate3} style={{ backgroundImage: `url(${person})` }}>
                 <img src={thirdMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
               </div>
-              <h4>89%</h4>
-              <h5>Вика</h5>
+              <h4>-</h4>
+              <h5>-</h5>
             </div>
           )}
         </div>
@@ -130,7 +130,7 @@ export const StudentProgressBlock: FC = () => {
               </linearGradient>
             </defs>
           </IconSvg>
-          <div className={styles.progressWrapper_progressSlice_block_ball}>{userProgress.courses[0].average_mark || 4.9}</div>
+          <div className={styles.progressWrapper_progressSlice_block_ball}>{userProgress.courses[0].average_mark || '-'}</div>
           <h4>Средний балл</h4>
         </div>
         <div className={styles.progressWrapper_progressSlice_block} style={{ gap: 0, justifyContent: 'flex-start' }}>

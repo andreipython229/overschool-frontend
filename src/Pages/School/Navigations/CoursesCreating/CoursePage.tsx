@@ -23,6 +23,7 @@ import { Button } from 'components/common/Button/Button'
 import { useLazyFetchBonusesQuery } from '../../../../api/schoolBonusService'
 import { setStudentBonus } from 'store/redux/bonuses/bonusSlice'
 import { useDispatch } from 'react-redux'
+import zIndex from '@mui/material/styles/zIndex'
 
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
@@ -49,7 +50,7 @@ export const CoursePage: FC = () => {
   const [deleteFolder, { isSuccess: deletedSuccessfuly }] = useDeleteFolderMutation()
   const [getBonuses, { data: bonuses, isSuccess: bonusSuccess }] = useLazyFetchBonusesQuery()
   const [updateSchoolTestCourse, { data: isLoading }] = useSetSchoolMutation()
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const dispatchHandlerModal = () => {
     onToggle()
@@ -99,25 +100,25 @@ export const CoursePage: FC = () => {
 
   useEffect(() => {
     if (test_course) {
-      const isTestCourse = test_course.toLowerCase();
+      const isTestCourse = test_course.toLowerCase()
       if (isTestCourse === 'true') {
-        setShowTestCourse(true);
+        setShowTestCourse(true)
       } else {
         setShowTestCourse(false)
       }
     }
-  }, [test_course]);
+  }, [test_course])
 
   const toggleTestCourseVisibility = async (newState: boolean) => {
-    setShowTestCourse(newState);
-    const formdata = new FormData();
-    formdata.append('test_course', JSON.stringify(newState));
+    setShowTestCourse(newState)
+    const formdata = new FormData()
+    formdata.append('test_course', JSON.stringify(newState))
     try {
-      await updateSchoolTestCourse({ formdata, id: Number(school_id) });
-      await fetchData(schoolName);
+      await updateSchoolTestCourse({ formdata, id: Number(school_id) })
+      await fetchData(schoolName)
       setCourses(coursesData)
     } catch (error) {
-      console.error('Error updating test course:', error);
+      console.error('Error updating test course:', error)
     }
   }
 
@@ -131,28 +132,28 @@ export const CoursePage: FC = () => {
   })
   if (!isSuccess)
     return (
-      <>
-        <div>
+      <div style={{ width: '270px', height: '550px', position: 'relative' }}>
+        <div className={styles.skeleton} style={{ top: 0 }}>
           <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#fff" foregroundColor="#f2f2f2">
             <rect x="0" y="0" rx="3" ry="3" width="130" height="130" />
           </ContentLoader>
         </div>
-        <div className={styles.skeleton}>
+        <div className={styles.skeleton} style={{top: '-100px'}}>
           <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#e0dced" foregroundColor="#ecebeb">
             <rect x="0" y="10" rx="3" ry="3" width="130" height="65" />
           </ContentLoader>
         </div>
-        <div className={styles.skeleton}>
+        <div className={styles.skeleton} style={{top: '-100px'}}>
           <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#cccccc" foregroundColor="#ecebeb">
             <rect x="7" y="95" rx="3" ry="3" width="115" height="8" />
             <rect x="15" y="115" rx="3" ry="3" width="100" height="8" />
             <rect x="15" y="135" rx="3" ry="3" width="100" height="8" />
           </ContentLoader>
         </div>
-        <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          {/* <SimpleLoader style={{ width: '100px', height: '100px' }} /> */}
-        </div>
-      </>
+        {/* <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}> */}
+        {/* <SimpleLoader style={{ width: '100px', height: '100px' }} /> */}
+        {/* </div> */}
+      </div>
     )
   return (
     <>
@@ -178,7 +179,7 @@ export const CoursePage: FC = () => {
                 variant="filled"
                 onClick={() => toggleTestCourseVisibility(!showTestCourse)}
               />
-            <Chip
+              <Chip
                 icon={<FolderCopyOutlined />}
                 label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
                 variant="filled"
@@ -261,6 +262,7 @@ export const CoursePage: FC = () => {
           value={search}
           onChange={event => setSearch(event.target.value)}
           placeholder="Поиск по материалам"
+          style={{ width: '100%', position: 'relative' }}
         >
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
@@ -288,11 +290,9 @@ export const CoursePage: FC = () => {
             >
               {courses && filteredCourses?.length !== 0 ? (
                 <>
-                  {filteredCourses?.map((course: any) => (
-                    showTestCourse || (course.course_id !== 247) ? (
-                      <CoursesCard key={course?.course_id} course={course} role={role} />
-                    ) : null
-                  ))}
+                  {filteredCourses?.map((course: any) =>
+                    showTestCourse || course.course_id !== 247 ? <CoursesCard key={course?.course_id} course={course} role={role} /> : null,
+                  )}
                   {role !== RoleE.Student && (
                     <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
                       <span className={styles.course_addCourse}>

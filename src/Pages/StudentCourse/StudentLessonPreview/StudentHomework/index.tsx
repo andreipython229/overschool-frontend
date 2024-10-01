@@ -160,7 +160,7 @@ export const StudentHomework: FC<studentHomeworkT> = ({
             <div className={styles.lesson__content}>
               {lesson.text_files && lesson.text_files.length > 0 && (
                 <>
-                  <span className={styles.lesson__materials}>Материалы к занятию:</span>
+                  <span className={styles.lesson__materials}>Материалы</span>
                   <div className={styles.lesson__materials_files}>
                     {lesson.text_files.map(({ file, id, file_url, size }, index: number) => (
                       <UploadedFile key={id} file={file} index={index} name={file_url} size={size} />
