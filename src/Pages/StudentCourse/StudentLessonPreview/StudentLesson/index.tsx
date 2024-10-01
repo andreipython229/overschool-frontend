@@ -15,6 +15,8 @@ import { selectUser } from 'selectors'
 import { Button } from 'components/common/Button/Button'
 import { arrowLeftIconPath } from 'config/commonSvgIconsPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { useFetchCourseQuery } from 'api/coursesServices'
+import { StudentCourseHeaderBanner } from 'Pages/StudentCourse/StudentLessonHeaderBanner'
 
 type studentLessonT = {
   lesson: ILesson
@@ -136,10 +138,16 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
             </div>
             <div className={styles.lesson__content}>
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
-              <span className={styles.lesson__materials}>Материалы:</span>
-              {lesson?.text_files.map(({ file, id, file_url, size }, index: number) => (
-                <UploadedFile key={id} file={file} name={file_url} index={index} size={size} />
-              ))}
+              {lesson.text_files && lesson.text_files.length > 0 && (
+                <>
+                  <span className={styles.lesson__materials}>Материалы к занятию:</span>
+                  <div className={styles.lesson__materials_files}>
+                    {lesson.text_files.map(({ file, id, file_url, size }, index: number) => (
+                      <UploadedFile key={id} file={file} index={index} name={file_url} size={size} />
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
           <div className={styles.commentContainer}>

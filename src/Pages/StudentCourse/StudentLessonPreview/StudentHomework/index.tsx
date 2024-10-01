@@ -16,6 +16,8 @@ import { selectUser } from 'selectors'
 import { arrowLeftIconPath } from 'config/commonSvgIconsPath'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { useFetchCourseQuery } from 'api/coursesServices'
+import { StudentCourseHeaderBanner } from 'Pages/StudentCourse/StudentLessonHeaderBanner'
 
 type studentHomeworkT = {
   lesson: IHomework
@@ -43,6 +45,7 @@ export const StudentHomework: FC<studentHomeworkT> = ({
   const schoolName = window.location.href.split('/')[4]
   const [fetchComments, comments] = useLazyFetchCommentsByLessonQuery()
   const [commentsList, setCommentsList] = useState<CommentList>()
+  const { data: courseData } = useFetchCourseQuery({ id: Number(courseId), schoolName: schoolName })
   const [createComment] = useCreateCommentMutation()
   const [newCommentContent, setNewCommentContent] = useState('')
   const user = useAppSelector(selectUser)
@@ -145,23 +148,26 @@ export const StudentHomework: FC<studentHomeworkT> = ({
           />
         </div>
       </div>
-      <h1 className={styles.lesson__name}>
-        {activeLessonIndex + 1}. {lesson?.name}
-      </h1>
+      {courseData && <StudentCourseHeaderBanner photo={courseData.photo || ''} courseName={lesson.name} />}
       <div className={styles.lesson__blocks}>
         <div className={styles.lesson__wrap}>
           <div className={styles.lesson__card}>
-            <h3 className={styles.lesson__name_mini}>{lesson?.name}</h3>
             <div className={styles.lesson__content}>
               <Reorder.Group style={{ display: 'flex', flexDirection: 'column', gap: '1em' }} onReorder={() => setOrder} values={order}>
                 {renderStudentBlocks(lesson, download)}
               </Reorder.Group>
             </div>
             <div className={styles.lesson__content}>
-              <span className={styles.lesson__materials}>Материалы к занятию:</span>
-              {lesson?.text_files.map(({ file, id, file_url, size }, index: number) => (
-                <UploadedFile key={id} file={file} index={index} name={file_url} size={size} />
-              ))}
+              {lesson.text_files && lesson.text_files.length > 0 && (
+                <>
+                  <span className={styles.lesson__materials}>Материалы к занятию:</span>
+                  <div className={styles.lesson__materials_files}>
+                    {lesson.text_files.map(({ file, id, file_url, size }, index: number) => (
+                      <UploadedFile key={id} file={file} index={index} name={file_url} size={size} />
+                    ))}
+                  </div>
+                </>
+              )}
               <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
             </div>
           </div>

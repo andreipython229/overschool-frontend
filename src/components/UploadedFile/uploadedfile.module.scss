@@ -1,71 +1,101 @@
-.file {
-  &__download_container {
+.fileWrapper {
+  position: static;
+  width: 9.75rem;
+  height: 8.19rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 13;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  text-decoration: none;
+
+  /* Blue inactive */
+  background: rgb(207, 226, 255);
+
+  &_body {
+    position: static;
+    width: 100%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    background: #f3f4f6;
-    border-radius: 7px;
-    width: 94.3%;
-    padding: 8px 24px;
-    margin-top: 10px;
-    margin-left: 45px;
+    gap: 4px;
+    padding: 0rem;
 
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      margin: 0 auto;
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      margin: 0 auto;
+    &_icon {
+      /* Component 134 (Component 133) */
+      position: static;
+      width: 3rem;
+      height: 3rem;
     }
 
-    
-  &:hover {
-    border: 3px solid #ba75ff;
-  }
- 
-  }
+    &_text {
+      /* Frame 1171280436 */
+      position: static;
+      width: 7.75rem;
+      height: 2.94rem;
+      /* Автолейаут */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      padding: 0rem;
 
-  &__download_icon {
-    color: #e0dced;
-    &:hover {
-      color: #ef4444;
+      &_title {
+        /* Материалы */
+        width: 7.75rem;
+        height: 1.19rem;
+        /* Автолейаут */
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 4px;
+        padding: 0rem;
+        p {
+          color: rgb(51, 47, 54);
+          font-family: 'SFPRORegular';
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.19rem;
+          letter-spacing: 0%;
+          text-align: left;
+          text-decoration: none;
+          width: 7.75rem;
+          white-space: nowrap; // текст в одну строку
+          overflow: hidden; // скрывает все что выходит за зону контейнера
+          text-overflow: ellipsis; // заменяет скрытый текст на многоточие
+        }
+      }
+
+      &_size {
+        /* Frame 1171280330 */
+        position: static;
+        width: 5.19rem;
+        height: 1.5rem;
+        /* Автолейаут */
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 13px;
+        padding: 0rem;
+
+        p {
+          /* Desktop/Text/Text small */
+          color: rgb(51, 47, 54);
+          font-family: 'SFPRORegular';
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.19rem;
+          letter-spacing: 0%;
+          text-align: left;
+        }
+      }
     }
-  }
-
-  &__download_blackDiv {
-    width: 18px;
-    height: 18px;
-    // background: #e0dced;
-    border-radius: 3px;
-    margin-right: 16px;
-    flex-shrink: 0;
-    background-image: url('../../assets/img/createCourse/text.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-
-  &__download_wrap {
-    display: flex;
-    align-items: center;
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 12px;
-    color: #4d5766;
-    min-width: 0;
-
-    & p {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      min-width: 0;
-    }
-  }
-
-  &__download_wrap:nth-child(2) {
-    flex-shrink: 0;
-    margin-left: 0.5rem;
-  }
-
-  &__download_size {
-    margin-right: 14px;
   }
 }

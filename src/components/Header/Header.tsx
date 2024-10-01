@@ -138,7 +138,7 @@ export const Header = memo(() => {
   const canChangePlatform = profileData?.user?.email ? !restrictedEmails.includes(profileData.user.email) : false
 
   const logOut = async () => {
-    await logout().then(data => {
+    await logout().then(() => {
       setProfileData(undefined)
       dispatch(clearUserProfile())
       dispatch(logoutState())
@@ -147,9 +147,7 @@ export const Header = memo(() => {
       dispatch(removeSchoolName())
       removeAccessCookie('access_token')
       removeRefreshCookie('refresh_token')
-      window.location.reload()
       localStorage.clear()
-      dispatch(auth(false))
       navigate(generatePath(Path.InitialPage))
       setSocketConnect(false)
 

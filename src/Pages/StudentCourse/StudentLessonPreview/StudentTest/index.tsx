@@ -136,7 +136,7 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
 
   const [isOpenTest, { on: closeTest, off: openTest }] = useBoolean()
 
-  if (!isFetching) {
+  if (!isFetching && lesson) {
     return (
       <div className={styles.wrapper}>
         <div className={styles.lessonHeader}>

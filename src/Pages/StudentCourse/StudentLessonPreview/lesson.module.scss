@@ -185,6 +185,7 @@
 
   &__blocks {
     display: flex;
+    width: 100%;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       @include display(flex, column, flex-start, center);
     }
@@ -202,6 +203,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    gap: 2rem;
     //align-items: flex-end;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       @include display(flex, column, flex-start, center);
@@ -215,6 +217,9 @@
     border-radius: 7px;
     min-width: 700px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       min-width: 280px;
       width: 70%;
@@ -238,6 +243,7 @@
     gap: 1.875rem;
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       @include display(flex, row, flex-start, center);
+      gap: 0.5rem;
     }
   }
 
@@ -255,12 +261,22 @@
   }
 
   &__materials {
-    display: inline-block;
+    color: rgb(51, 47, 54);
+    font-family: 'SFPROMedium';
+    font-size: 2.25rem;
     font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-    color: #4d5766;
-    margin: 24px 0 12px;
+    line-height: 2.69rem;
+    letter-spacing: 0%;
+    text-align: left;
+    width: 100%;
+
+    &_files {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
   }
 
   &__block {
@@ -356,7 +372,7 @@
 }
 
 .commentContainer {
-  // background-color: #f5f5f5; 
+  // background-color: #f5f5f5;
   border-radius: 10px;
   width: 100%;
 }
@@ -433,6 +449,112 @@
     button {
       font-size: 1.25rem !important;
       letter-spacing: -1px;
+
+      @media screen and (max-width: 700px) {
+        font-size: 0.75rem !important;
+        padding: 0.25rem 0.75rem;
+        gap: 0.225rem;
+      }
+    }
+  }
+}
+
+.lessonHeaderBanner {
+  position: relative;
+  width: 100%;
+  height: 26.25rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  background: #e0dced;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  margin-bottom: 25px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1.5rem;
+    background-color: rgba(51, 47, 54, 0.5);
+    z-index: 1;
+
+    @media screen and (max-width: 700px) {
+      border-radius: 0.625rem;
+    }
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    @include display(flex, row, flex-start, center);
+    margin-bottom: 0;
+    height: 11.25rem;
+    border-radius: 0.625rem;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    @include display(flex, row, flex-start, center);
+    margin-bottom: 0;
+    height: 11.25rem;
+    border-radius: 0.625rem;
+  }
+
+  &_infoBlock {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    height: 6.4375rem;
+    padding: 1.5rem 4rem;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    background: linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%);
+    z-index: 3;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      display: inline-flex;
+      padding: 0rem 5.8125rem 0rem 5.75rem;
+      justify-content: center;
+      align-items: center;
+      height: 2.25rem;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      display: inline-flex;
+      padding: 0rem 5.8125rem 0rem 5.75rem;
+      justify-content: center;
+      align-items: center;
+      height: 2.25rem;
+    }
+    &_title {
+      @include display(flex, column);
+      &_description {
+        @include font(500, 14px, 10px);
+        color: #bdbdbd;
+        font-size: 16px;
+        margin-bottom: 2px;
+        strong {
+          font-weight: 600;
+        }
+      }
+
+      &_name {
+        color: #fff;
+        text-align: center;
+        font-family: 'SFPRORegular';
+        font-size: 2.875rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 3.875rem; /* 134.783% */
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          font-size: 12px;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          font-size: 12px;
+        }
+      }
     }
   }
 }
