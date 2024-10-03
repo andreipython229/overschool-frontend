@@ -48,7 +48,7 @@ export const renderStudentBlocks = (lesson: commonLessonT, download?: boolean) =
           if ('picture_url' in block && block.picture_url) {
             return (
               <img
-                style={{ width: '100%', maxWidth: '100%', objectFit: 'contain', borderRadius: '1.5rem' }}
+                style={{ width: '100%', maxWidth: '100%', objectFit: 'contain', borderRadius: '2rem' }}
                 src={block.picture_url}
                 alt={String(block.id)}
               />

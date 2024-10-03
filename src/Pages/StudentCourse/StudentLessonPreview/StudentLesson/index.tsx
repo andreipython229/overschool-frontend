@@ -17,6 +17,7 @@ import { arrowLeftIconPath } from 'config/commonSvgIconsPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { useFetchCourseQuery } from 'api/coursesServices'
 import { StudentCourseHeaderBanner } from 'Pages/StudentCourse/StudentLessonHeaderBanner'
+import { LessonComments } from 'components/LessonComments'
 
 type studentLessonT = {
   lesson: ILesson
@@ -150,29 +151,12 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
               )}
             </div>
           </div>
-          <div className={styles.commentContainer}>
-            {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
-              commentsList.comments.map((comment: Comment) => (
-                <div className={styles.commentBox} key={comment.id}>
-                  <p>
-                    <b>
-                      {comment.author_first_name} {comment.author_last_name}
-                    </b>
-                  </p>
-                  <p>Опубликован: {new Date(comment.created_at).toLocaleString()}</p>
-                  <p>Комментарий: {comment.content}</p>
-                </div>
-              ))
-            ) : (
-              <p style={{ marginBlockStart: '10px' }}>
-                <b>Комментариев пока нет</b>
-              </p>
-            )}
-            <form onSubmit={handleSubmitNewComment} className={styles.commentForm}>
-              <textarea value={newCommentContent} onChange={handleNewCommentChange} placeholder="Введите ваш комментарий..." />
-              <button type="submit">Отправить</button>
-            </form>
-          </div>
+          <LessonComments
+            handleNewCommentChange={handleNewCommentChange}
+            handleSubmitNewComment={handleSubmitNewComment}
+            newCommentContent={newCommentContent}
+            commentsList={commentsList}
+          />
         </div>
       </div>
     </div>

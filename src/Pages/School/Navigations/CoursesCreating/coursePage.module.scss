@@ -37,6 +37,7 @@
 
   &_addCourse {
     width: 100%;
+    max-width: 50%;
     height: 390.8px;
     background: url('../../../../assets/img/createCourse/addCourse.svg') center center no-repeat;
     display: inline-block;
@@ -101,6 +102,7 @@
   &_card {
     border-radius: 10px;
     width: auto;
+    max-width: 48%;
     height: 400px;
     // height: fit-content;
     //max-height: fit-content;
