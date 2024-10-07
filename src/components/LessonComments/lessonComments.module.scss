@@ -66,9 +66,25 @@
     }
     padding-bottom: calc(0rem + 5rem);
     padding-top: calc(0rem + 2rem);
-    padding-left: calc(0rem + 2rem);
+    padding-left: calc(0rem + 5rem);
     padding-right: calc(8rem + 2rem);
     position: relative;
+    font-family: 'SFPRORegular';
+    font-size: 1rem;
+  }
+
+  &_commentDate {
+    z-index: 2;
+    width: 100%;
+    font-family: 'SFPRORegular';
+    color: rgb(134, 134, 134);
+    font-size: 1rem;
+    @media screen and (max-width: 700px) {
+      padding-top: 8%;
+    }
+    padding-top: calc(0rem + 2rem);
+    padding-left: calc(0rem + 1rem);
+    position: absolute;
   }
 
   &_username {

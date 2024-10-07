@@ -16,7 +16,13 @@ export const LessonComments: FC<ICommentBlock> = ({ commentsList, handleNewComme
     <div className={styles.commentContainer}>
       <h3>Комментарии к уроку</h3>
       <form onSubmit={handleSubmitNewComment} className={styles.commentForm}>
-        <textarea value={newCommentContent} onChange={handleNewCommentChange} placeholder="Введите ваш комментарий..." />
+        <textarea
+          style={{ resize: 'vertical' }}
+          value={newCommentContent}
+          rows={4}
+          onChange={handleNewCommentChange}
+          placeholder="Введите ваш комментарий..."
+        />
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
           <span></span>
           <Button variant="newPrimary" text="Отправить" type="submit" />
@@ -26,14 +32,10 @@ export const LessonComments: FC<ICommentBlock> = ({ commentsList, handleNewComme
         commentsList.comments.map((comment: Comment) => (
           <div style={{ width: '100%' }} key={comment.id}>
             <div className={styles.commentBox}>
-              {/* <p>
-              <b>
-                {comment.author_first_name} {comment.author_last_name}
-              </b>
-            </p>
-            <p>Опубликован: {new Date(comment.created_at).toLocaleString()}</p>
-            <p>Комментарий: {comment.content}</p> */}
               <div className={styles.commentBox_commentCloud} />
+              <div className={styles.commentBox_commentDate}>
+                {String(comment.created_at.getHours()).padStart(2, '0')}:{String(comment.created_at.getMinutes()).padStart(2, '0')}
+              </div>
               <div className={styles.commentBox_commentText}>{comment.content}</div>
               <div className={styles.commentBox_avatar} style={{ backgroundImage: `url(${userImage})` }} />
               <div className={styles.commentBox_username}>
