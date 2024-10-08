@@ -5,9 +5,7 @@ import { StudentTest } from './StudentTest'
 import { StudentHomework } from './StudentHomework'
 import { StudentLesson } from './StudentLesson'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
-import { useFetchLessonQuery, useLazyFetchLessonQuery, useLazyFetchModuleLessonsQuery } from '../../../api/modulesServices'
-import { StudentLessonSidebar } from './StudentLessonSidebar'
-import { sectionT } from 'types/sectionT'
+import { useLazyFetchLessonQuery, useLazyFetchModuleLessonsQuery } from '../../../api/modulesServices'
 
 import styles from './lesson.module.scss'
 import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
@@ -106,14 +104,14 @@ export const StudentLessonPreview: FC = () => {
     return (
       <div className={styles.lesson_wrapper}>
         {renderUI()}
-        <StudentLessonSidebar
+        {/* <StudentLessonSidebar
           lessonType={`${params?.lesson_type}` as LESSON_TYPE}
           courseId={`${params?.course_id}`}
           sectionId={`${params?.section_id}`}
           activeLessonIndex={activeLessonIndex as number}
           lessons={lessons as sectionT}
           nextDisabled={nextDisabled}
-        />
+        /> */}
       </div>
     )
   } else {

@@ -1,6 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
-import { baseQuery } from './baseApi'
 import { baseQueryWithReauth } from './baseQueryReauth'
+
+interface ITopUser {
+  student_name: string
+  student_avatar: string
+  progress_percent: number
+}
 
 interface IUserProgress {
   courses: {
@@ -9,6 +14,9 @@ interface IUserProgress {
     completed_percent: number
     course_id: number
     course_name: string
+    rank_in_course: number
+    average_mark: number
+    top_leaders: ITopUser[]
     homeworks: {
       completed_percent: number
       all_homeworks: number

@@ -1,0 +1,163 @@
+.commentContainer {
+  // background-color: #f5f5f5;
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  h3 {
+    color: rgb(51, 47, 54);
+    font-family: 'SFPRORegular';
+    font-size: 2.25rem;
+    font-weight: 500;
+    line-height: 2.69rem;
+    letter-spacing: -1px;
+    text-align: left;
+  }
+}
+
+.commentBox {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1280px;
+
+  &_commentCloud {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    bottom: 3rem;
+    right: 8rem;
+    box-sizing: border-box;
+    border: 1.5px solid #357eeb;
+    // border-width: 1.5px;
+    border-radius: 1.5rem 1.5rem 0rem 1.5rem;
+    // border-style: solid;
+    // border-image: linear-gradient(to right, #0d28bb 0%, #357eeb 100%) 1;
+    box-shadow: 0rem 0rem 0.5rem 0rem rgba(50, 65, 149, 0.3);
+    background: rgb(255, 255, 255);
+    padding: 1.5rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: calc(100% - 28.5px);
+      left: 100%;
+      border: 15px solid;
+      border-color: transparent transparent #357eeb #357eeb;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      top: calc(100% - 26px);
+      left: 100%;
+      border: 13px solid;
+      border-color: transparent transparent #ffffff #ffffff;
+    }
+  }
+  &_commentText {
+    z-index: 2;
+    width: 100%;
+    @media screen and (max-width: 700px) {
+      padding-top: 8%;
+      padding-bottom: 8%;
+    }
+    padding-bottom: calc(0rem + 5rem);
+    padding-top: calc(0rem + 2rem);
+    padding-left: calc(0rem + 5rem);
+    padding-right: calc(8rem + 2rem);
+    position: relative;
+    font-family: 'SFPRORegular';
+    font-size: 1rem;
+  }
+
+  &_commentDate {
+    z-index: 2;
+    width: 100%;
+    font-family: 'SFPRORegular';
+    color: rgb(134, 134, 134);
+    font-size: 1rem;
+    @media screen and (max-width: 700px) {
+      padding-top: 8%;
+    }
+    padding-top: calc(0rem + 2rem);
+    padding-left: calc(0rem + 1rem);
+    position: absolute;
+  }
+
+  &_username {
+    position: absolute;
+    bottom: 1rem;
+    right: 8rem;
+    left: 0;
+    text-align: right;
+    /* Desktop/Head/H3 */
+    color: rgb(51, 47, 54);
+    font-family: 'SFPROMedium';
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.81rem;
+    letter-spacing: -1px;
+  }
+
+  &_avatar {
+    position: absolute;
+    bottom: 1rem;
+    right: 0;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 1rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 1.5rem;
+
+  box-shadow: 0rem 0rem 0.58rem 0.25rem rgba(53, 126, 235, 0.45);
+  /* Blue inactive gradient */
+  background: linear-gradient(180deg, rgb(207, 226, 255), rgb(187, 206, 235) 100%);
+
+  textarea {
+    min-height: 62px;
+    width: 100%;
+    padding: 0.63rem 1.25rem 0.63rem 1.25rem;
+    // margin-bottom: 10px;
+    box-sizing: border-box;
+    /* White */
+    border: 0.06rem solid rgb(255, 255, 255);
+    border-radius: 0.88rem;
+    /* White */
+    background: rgb(255, 255, 255);
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  button {
+    // padding: 8px 16px;
+    // background-color: #ba75ff;
+    // color: #fff;
+    // border: none;
+    // border-radius: 5px;
+    // cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1.25rem;
+    padding: 1rem 2.5rem 1rem 2.5rem;
+    width: 11.13rem;
+    height: 3.38rem;
+
+    // &:hover {
+    //   background-color: #8a49b5;
+    // }
+  }
+}

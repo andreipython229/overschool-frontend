@@ -1,4 +1,4 @@
-import {useState, FC, useEffect} from 'react'
+import { useState, FC, useEffect } from 'react'
 import parse from 'html-react-parser'
 import { ILesson, commonLessonT } from 'types/sectionT'
 import { UploadedFile } from 'components/UploadedFile/index'
@@ -38,15 +38,21 @@ export const renderStudentBlocks = (lesson: commonLessonT, download?: boolean) =
           }
         case BLOCK_TYPE.VIDEO:
           if ('video' in block && block.video) {
-            return <VideoPlayer isEditing={false} key={block.id} lessonId={lesson.baselesson_ptr_id} videoSrc={block.video} download={download}/>
+            return <VideoPlayer isEditing={false} key={block.id} lessonId={lesson.baselesson_ptr_id} videoSrc={block.video} download={download} />
           } else if ('url' in block && block.url) {
-            return <VideoPlayer isEditing={false} key={block.id} lessonId={lesson.baselesson_ptr_id} videoSrc={block.url} download={download}/>
+            return <VideoPlayer isEditing={false} key={block.id} lessonId={lesson.baselesson_ptr_id} videoSrc={block.url} download={download} />
           } else {
             return <></>
           }
         case BLOCK_TYPE.PICTURE:
           if ('picture_url' in block && block.picture_url) {
-            return <img style={{ width: '100%', maxWidth: '100%', objectFit: 'contain' }} src={block.picture_url} alt={String(block.id)} />
+            return (
+              <img
+                style={{ width: '100%', maxWidth: '100%', objectFit: 'contain', borderRadius: '2rem' }}
+                src={block.picture_url}
+                alt={String(block.id)}
+              />
+            )
           } else {
             return <></>
           }
@@ -56,7 +62,8 @@ export const renderStudentBlocks = (lesson: commonLessonT, download?: boolean) =
               <div className={styles.math}>
                 <MathEditor key={block.id} edit={false} block={block} latex={block.formula} />
               </div>
-            )} else {
+            )
+          } else {
             return <></>
           }
         case BLOCK_TYPE.BUTTONS:

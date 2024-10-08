@@ -18,24 +18,27 @@
   @media only screen and (min-width: 481px) and (max-width: 1024px) {
     min-width: 98%;
     max-width: 98%;
-   }
-  
-  min-width: 30vw;
-  max-width: 60vw;
-  
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  align-self: stretch;
+  width: 100%;
 
   &_wrapper {
     display: flex;
     gap: 10px;
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       display: flex;
       flex-wrap: wrap;
       flex-direction: row;
       justify-content: space-evenly;
     }
-    @media only screen and (min-width : 320px) and (max-width : 375px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
       display: flex;
       flex-wrap: wrap;
       flex-direction: row;
@@ -46,7 +49,7 @@
       flex-wrap: wrap;
       flex-direction: row;
       justify-content: space-evenly;
-     }
+    }
   }
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -102,7 +105,7 @@
     @media only screen and (min-width: 481px) and (max-width: 1024px) {
       align-self: flex-start;
       margin-top: 5%;
-     }
+    }
   }
 
   &__navBack_text {
@@ -128,7 +131,6 @@
   }
 
   &__content {
-    padding: 0 32px;
     display: flex;
     flex-direction: column;
     gap: 2em;
@@ -144,12 +146,11 @@
         width: 100vw;
       }
 
-      
       pre,
       code {
         width: 100vw;
         display: block;
-        white-space:initial;
+        white-space: initial;
       }
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
@@ -164,12 +165,11 @@
         // width: 100vw;
       }
 
-      
       pre,
       code {
         // width: 100vw;
         display: block;
-        white-space:initial;
+        white-space: initial;
       }
     }
   }
@@ -185,6 +185,7 @@
 
   &__blocks {
     display: flex;
+    width: 100%;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       @include display(flex, column, flex-start, center);
     }
@@ -195,13 +196,14 @@
       flex-direction: column;
       min-width: 98%;
       max-width: 98%;
-     }
-
+    }
   }
 
   &__wrap {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    gap: 2rem;
     //align-items: flex-end;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       @include display(flex, column, flex-start, center);
@@ -213,11 +215,11 @@
 
   &__card {
     border-radius: 7px;
-    padding: 32px 0 40px;
     min-width: 700px;
-    width: 90%;
-    background: #fff;
-    box-shadow: 0 0 8px #d9d9d9;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       min-width: 280px;
       width: 70%;
@@ -228,7 +230,7 @@
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       min-width: 350px;
       width: 98vw;
-      padding: 5% 2% 6% 2% ;
+      padding: 5% 2% 6% 2%;
       iframe {
         height: 180px;
       }
@@ -237,61 +239,12 @@
 
   &__btns {
     @include display(flex, row, flex-start, center);
-    margin-top: 32px;
-    // margin-right: 5px;
     justify-content: flex-end;
-    width: 90%;
+    gap: 1.875rem;
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       @include display(flex, row, flex-start, center);
+      gap: 0.5rem;
     }
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      margin-top: 3%;
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      margin-top: 3%;
-    }
-    @media only screen and (min-width: 481px) and (max-width: 1024px) {
-      margin-top: 3%;
-      width: 100%;
-    }
-    
-  }
-
-  &__btnNext,
-  &__btnPrev {
-    @include display(flex, row, center, center);
-    width: 145px;
-    border: none;
-    outline: none;
-    background: #e1e1e1;
-    border-radius: 7px;
-    padding: 8px 16px;
-    @include font(500, 11px, 150%);
-    text-align: center;
-    color: #6b7280;
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      height: 35px;
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      height: 35px;
-    }
-  }
-
-  &__btnNext {
-    //background: #c180ff;
-    margin-left: 16px;
-    //color: #ffffff;
-    letter-spacing: 0.03em;
-  }
-
-  &__btnPrev:before {
-    content: url(../../../assets/img/studentPage/arr-left.svg);
-    margin-right: 6px;
-  }
-
-  &__btnNext:after {
-    content: url(../../../assets/img/studentPage/arr-right-v1.svg);
-    margin-left: 6px;
   }
 
   &__desc {
@@ -308,32 +261,37 @@
   }
 
   &__materials {
-    display: inline-block;
+    color: rgb(51, 47, 54);
+    font-family: 'SFPROMedium';
+    font-size: 2.25rem;
     font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-    color: #4d5766;
-    margin: 24px 0 12px;
+    line-height: 2.69rem;
+    letter-spacing: 0%;
+    text-align: left;
+    width: 100%;
+
+    &_files {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
   }
 
   &__block {
     padding: 26px 14px 37px 12px;
-    max-width: 330px;
     width: 100%;
-    box-shadow: 0 0 8px #d9d9d9;
     box-sizing: border-box;
-    background: #fff;
     border-radius: 7px;
-    max-height: 455px;
     overflow-y: auto;
     flex-shrink: 0;
-    margin-top: 85px;
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       max-width: 100%;
     }
     @media only screen and (min-width: 481px) and (max-width: 1024px) {
-     margin-top: 10px;
-     }
+      margin-top: 10px;
+    }
 
     &::-webkit-scrollbar {
       width: 9px;
@@ -351,7 +309,6 @@
       -o-border-radius: 5px;
       border-radius: 5px;
     }
-   
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       margin: 32px 0 0 0;
@@ -414,53 +371,142 @@
   }
 }
 
+.lessonHeader {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 2rem;
 
-.commentContainer {
-  background-color: #f5f5f5;
-  border-radius: 10px; 
-  margin-top: 10px;
-  width: 90%;
-}
+  &_title {
+    color: var(--Black, #332f36);
+    text-align: center;
 
-.commentBox {
-  margin-top: 10px;
-  background-color: white;
-  border-radius: 10px;
-  padding: 15px;
-}
+    /* Desktop/Head/H2 */
+    font-family: 'SFPROMedium';
+    font-size: 2.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -1px;
+  }
 
-.commentForm {
-  display: grid;
-  grid-template-columns: 82% 18%;
-  margin-top: 5%;
-  gap: 10px;
+  &_nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    height: 3.375rem;
 
-  textarea {
-      height: 62px;
-      padding: 10px;
-      // margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      resize: none;
-      overflow: auto;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-      &::-webkit-scrollbar {
-        display: none;
+    button {
+      font-size: 1.25rem !important;
+      letter-spacing: -1px;
+
+      @media screen and (max-width: 700px) {
+        font-size: 0.75rem !important;
+        padding: 0.25rem 0.75rem;
+        gap: 0.225rem;
       }
     }
+  }
+}
 
-  button {
-    padding: 8px 16px;
-    background-color: #BA75FF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.lessonHeaderBanner {
+  position: relative;
+  width: 100%;
+  height: 26.25rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  background: #e0dced;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  margin-bottom: 25px;
 
-    &:hover {
-      background-color: #8a49b5;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1.5rem;
+    background-color: rgba(51, 47, 54, 0.5);
+    z-index: 1;
+
+    @media screen and (max-width: 700px) {
+      border-radius: 0.625rem;
+    }
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    @include display(flex, row, flex-start, center);
+    margin-bottom: 0;
+    height: 11.25rem;
+    border-radius: 0.625rem;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    @include display(flex, row, flex-start, center);
+    margin-bottom: 0;
+    height: 11.25rem;
+    border-radius: 0.625rem;
+  }
+
+  &_infoBlock {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    height: 6.4375rem;
+    padding: 1.5rem 4rem;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    background: linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%);
+    z-index: 3;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      display: inline-flex;
+      padding: 0rem 5.8125rem 0rem 5.75rem;
+      justify-content: center;
+      align-items: center;
+      height: 2.25rem;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      display: inline-flex;
+      padding: 0rem 5.8125rem 0rem 5.75rem;
+      justify-content: center;
+      align-items: center;
+      height: 2.25rem;
+    }
+    &_title {
+      @include display(flex, column);
+      &_description {
+        @include font(500, 14px, 10px);
+        color: #bdbdbd;
+        font-size: 16px;
+        margin-bottom: 2px;
+        strong {
+          font-weight: 600;
+        }
+      }
+
+      &_name {
+        color: #fff;
+        text-align: center;
+        font-family: 'SFPRORegular';
+        font-size: 2.875rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 3.875rem; /* 134.783% */
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          font-size: 12px;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          font-size: 12px;
+        }
+      }
     }
   }
 }
