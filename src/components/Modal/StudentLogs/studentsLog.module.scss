@@ -5,17 +5,21 @@
   @include position_t_l(absolute, 50%, 50%, 10);
   @include display(flex, column);
   align-items: center;
-  padding: 65px 40px;
-  background: #FFFFFF;
+  padding: 65px 84px;
+  background: #ffffff;
   text-align: center;
   margin: 0 auto;
   border-radius: 34px;
   overflow: hidden;
+  overflow-y: scroll;
   transform: translate(-50%, -50%);
   font-family: $font-family-inter;
-  width: 580px;
-  max-height: 90%;
-  
+  max-width: 661px;
+  width: 90%;
+  height: 80%;
+  max-height: 965px;
+  // position: relative;
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 100%;
     padding: 2rem 1rem 0 1rem;
@@ -25,13 +29,24 @@
     padding: 2rem 1rem 0 1rem;
   }
 
+  &_decoration_shadow {
+    width: 385px;
+    height: 385px;
+    border-radius: 385px;
+    background: #57b8ff;
+    filter: blur(200px);
+    width: 385px;
+    height: 385px;
+    position: absolute;
+    top: -322px;
+    z-index: 1;
+  }
   &_closed {
-    @include position_t_r(absolute, 20px , 20px);
+    @include position_t_r(absolute, 20px, 20px);
     text-align: center;
     width: 40px;
     height: 40px;
     cursor: pointer;
-   
 
     & svg {
       margin-top: 8.5px;
@@ -45,55 +60,57 @@
   &_header {
     @include display(flex, row, flex-start, center);
     margin-bottom: 36px;
-gap: 15px ;
-justify-content: center;
+    gap: 15px;
+    justify-content: center;
+    position: relative;
     & svg {
       margin-bottom: 18px;
-     
     }
 
     &_title {
-      @include font(500, 22px);
-      color: $font-title;
+
+      color: var(--Black, #332F36);
+
+font-family: "SF Pro Text",sans-serif;
+
+
+      @include font(700, 32px);
 
       &_btn {
-        height:max-content ;
+        height: max-content;
         width: 474px;
         margin: 0 auto;
         // margin-bottom: 20px;
 
-        @media only screen and (min-width : 320px) and (max-width : 375px) {
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
           width: 100%;
-          
         }
-        @media only screen and (min-width : 375px) and (max-width : 480px) {
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
           width: 100%;
-        }    
+        }
 
-         &_add {
+        &_add {
           width: 474px;
-          @media only screen and (min-width : 320px) and (max-width : 375px) {
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
             width: 100%;
-            
           }
-          @media only screen and (min-width : 375px) and (max-width : 480px) {
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
             width: 100%;
-          }    
-         }
+          }
+        }
 
-         &_send {
+        &_send {
           width: 474px;
-          @media only screen and (min-width : 320px) and (max-width : 375px) {
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
             width: 100%;
             padding-bottom: 2%;
-            
           }
-          @media only screen and (min-width : 375px) and (max-width : 480px) {
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
             width: 100%;
             margin-bottom: 2%;
-          }    
-         }
-      }      
+          }
+        }
+      }
     }
   }
 
@@ -139,13 +156,11 @@ justify-content: center;
   }
 
   &_student {
-    @media only screen and (min-width : 320px) and (max-width : 375px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 100%;
-      
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       width: 100%;
-     
     }
     @include display(flex, column);
     text-align: left;
@@ -186,13 +201,11 @@ justify-content: center;
     margin: 10px 0;
     & :nth-child(1) {
       margin-bottom: 10px;
-      @media only screen and (min-width : 320px) and (max-width : 375px) {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
         width: 100%;
-        
       }
-      @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
         width: 100%;
-       
       }
     }
   }
@@ -207,7 +220,6 @@ justify-content: center;
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       padding-bottom: 5%;
-
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       padding-bottom: 5%;
@@ -221,7 +233,7 @@ justify-content: center;
       // }
       // @media only screen and (min-width: 375px) and (max-width: 480px) {
       //   width: 100%;
-    
+
       // }
     }
 
@@ -244,13 +256,12 @@ justify-content: center;
     font-size: $fs12;
     color: #53565b;
   }
-// style={{marginLeft: 10, marginTop: "1%"}}
+  // style={{marginLeft: 10, marginTop: "1%"}}
   &_btn {
     width: 100%;
     margin-top: 22px;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       padding-bottom: 5%;
-
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       padding-bottom: 5%;
@@ -263,7 +274,6 @@ justify-content: center;
   }
 }
 .groupSetting {
-
   &_input {
     text-align: left;
     margin: 32px 0 20px 0;
@@ -294,11 +304,9 @@ justify-content: center;
       margin-top: 10px;
       margin-bottom: 19px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
-    
         margin: 2%;
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
-       
         margin: 2%;
       }
     }
@@ -307,11 +315,9 @@ justify-content: center;
       @include display(flex, row, flex-start);
       text-align: left;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
-    
         margin: 2%;
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
-       
         margin: 2%;
       }
 
@@ -360,7 +366,7 @@ justify-content: center;
   }
 
   &_courseAccess_header {
-     width: 100%;
+    width: 100%;
     margin-top: 40px;
     margin-bottom: 20px;
     display: inline-flex;
@@ -467,32 +473,30 @@ justify-content: center;
   text-align: left;
   margin-left: 1%;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    
     margin: 2%;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-   
     margin: 2%;
   }
 }
 .courseSelect {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 1px;
-    margin-bottom: 15px;
-    margin-top: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 1px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 
-    label {
-      display: block;
-    }
-
-    select {
-      width: 100%;
-      padding: 8px;
-      color: #666;
-      border: none;
-      border-radius: 8px;
-      background-color: transparent;
-      outline: none;
-    }
+  label {
+    display: block;
   }
+
+  select {
+    width: 100%;
+    padding: 8px;
+    color: #666;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    outline: none;
+  }
+}

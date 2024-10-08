@@ -16,6 +16,8 @@ import styles from '../previou.module.scss'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { settingsIconPath } from 'config/commonSvgIconsPath'
 import zIndex from '@mui/material/styles/zIndex'
+import {  courseLogo } from '../../../assets/img/common/index'
+
 
 export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   const user = useAppSelector(selectUser)
@@ -138,7 +140,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
             />
           )}
 
-          <img className={styles.previous_avatar} src={logo_school || noAvatar} alt={headerName} />
+          <img className={styles.previous_avatar} src={courseLogo || noAvatar} alt={headerName} />
           <div className={styles.previous_infoBlock}>
             <div className={styles.previous_infoBlock_title}>
               {edit ? (

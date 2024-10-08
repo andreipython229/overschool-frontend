@@ -165,9 +165,18 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                           course_id: `${course?.course_id}`,
                         })}
                         className="CourseCardsTS__admin-buttons"
+                        style={{gridTemplateColumns: course?.public === 'О' ? '1fr 1fr': '1fr', gap: course?.public === 'О' ? '10px': 0}} 
                       >
                         <Link
-                          style={{ maxWidth: course?.public === 'О' ? '100%' : '0', padding: course?.public === 'О' ? '16px 40px' : ' 0' }}
+                          style={{
+                            maxWidth: course?.public === 'О' ? '100%' : '0',
+                            padding:
+                              course?.public === 'О' && window.innerWidth > 500
+                                ? '16px 40px'
+                                : course?.public === 'О' && window.innerWidth <= 500
+                                ? '10px'
+                                : '0',
+                          }}
                           className="CourseCardsTS__admin-button-students"
                           to={generatePath(Path.CreateCourse + 'student', {
                             course_id: `${course?.course_id}`,
@@ -283,6 +292,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
         </>
       ) : (
         <Link
+        style={{width: '100%', height: '100%'}}
           onClick={onStudentClick}
           to={
             course?.remaining_period === 0 || course?.public !== 'О'
@@ -298,7 +308,12 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
             style={{ background: `url(${course?.photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className="CourseCardsTS__bg-filter"></div>
-            <div className="CourseCardsTS__title ">{course.name}</div>
+
+            {userProgress && (
+              <div className="CourseCardsTS__title ">
+                {course.name} <p className="CourseCardsTS__percents CourseCardsTS__persents-top">{~~userProgress.courses[0]?.completed_percent}%</p>
+              </div>
+            )}
 
             <div className="CourseCardsTS__properties">
               {userProgress && (
@@ -307,7 +322,6 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     <div className="CourseCardsTS__property">
                       <img src={video} className="CourseCardsTS__property-img" alt="" />
                       <p className="CourseCardsTS__property-name">
-                        {' '}
                         {userProgress.courses[0].lessons.completed_lessons}/{userProgress.courses[0].lessons.all_lessons} видео
                       </p>
                     </div>
@@ -315,7 +329,6 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     <div className="CourseCardsTS__property">
                       <img src={homeTask} className="CourseCardsTS__property-img" alt="" />
                       <p className="CourseCardsTS__property-name">
-                        {' '}
                         {userProgress.courses[0].homeworks.completed_homeworks}/{userProgress.courses[0].homeworks.all_homeworks} Домашних заданий
                       </p>
                     </div>
@@ -323,7 +336,6 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     <div className="CourseCardsTS__property">
                       <img src={tests} className="CourseCardsTS__property-img" alt="" />
                       <p className="CourseCardsTS__property-name">
-                        {' '}
                         {userProgress.courses[0].tests.completed_tests}/{userProgress.courses[0].tests.all_tests} тестов
                       </p>
                     </div>
@@ -352,7 +364,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     <a href="#" className="CourseCardsTS__button">
                       Продолжить обучаться
                     </a>
-                    <p className="CourseCardsTS__percents">{~~userProgress.courses[0]?.completed_percent}%</p>
+                    <p className="CourseCardsTS__percents CourseCardsTS__percents-bottom">{~~userProgress.courses[0]?.completed_percent}%</p>
                   </div>
                 </>
               )}
