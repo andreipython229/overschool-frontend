@@ -3,6 +3,7 @@ import { AudioPlayerT } from '../../../types/commonComponentsTypes'
 import style from '../../AddAudio/addaudio.module.scss'
 import { deletePath } from 'config/commonSvgIconsPath'
 import { IconSvg } from '../IconSvg/IconSvg'
+import { musicIconPath } from '../../NewAudioPlayer/icons'
 
 export const AudioPlayer: FC<AudioPlayerT> = ({ styles, audioUrls, files, title = 'Listen to the T-Rex:', delete: deleteFile }) => {
   const [urls, setUrls] = useState<string[]>([])
@@ -14,15 +15,17 @@ export const AudioPlayer: FC<AudioPlayerT> = ({ styles, audioUrls, files, title 
   }, [files])
 
   const handleDelete = async (index: number) => {
-    deleteFile && (await deleteFile({id: index, schoolName}))
+    deleteFile && (await deleteFile({ id: index, schoolName }))
   }
 
   return (
     <>
       {audioUrls &&
         audioUrls.map(({ file }, index) => (
-          <figure key={index} style={{ ...styles, width: '95%', display: 'flex', marginLeft: '41px', justifyContent: 'center', alignItems: 'center' }}>
-            {/* <figcaption style={{ textAlign: 'center' }}>{title}</figcaption> */}
+          <figure
+            key={index}
+            style={{ ...styles, width: '95%', display: 'flex', marginLeft: '41px', justifyContent: 'center', alignItems: 'center' }}
+          >
             <audio style={{ width: '100%', margin: '0.3em' }} controls src={file}>
               <a href={file}>Download audio</a>
             </audio>
@@ -35,8 +38,10 @@ export const AudioPlayer: FC<AudioPlayerT> = ({ styles, audioUrls, files, title 
         ))}
       {urls &&
         urls.map((url, index) => (
-          <figure key={index} style={{ ...styles, width: '95%', display: 'flex', marginLeft: '41px', justifyContent: 'center', alignItems: 'center' }}>
-            {/* <figcaption style={{ textAlign: 'center' }}>{title}</figcaption> */}
+          <figure
+            key={index}
+            style={{ ...styles, width: '95%', display: 'flex', marginLeft: '41px', justifyContent: 'center', alignItems: 'center' }}
+          >
             <audio style={{ width: '100%' }} controls src={url}>
               <a href={url}>Download audio</a>
             </audio>

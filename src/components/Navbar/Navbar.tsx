@@ -170,7 +170,9 @@ export const Navbar: FC = memo(() => {
           >
             <a
               key={'techsupport'}
-              href={UserRole === RoleE.Admin ? 'https://t.me/course_hb' : contactLink?.length > 0 ? contactLink : 'https://t.me/course_hb'}
+              href={
+                UserRole === RoleE.Admin ? 'https://t.me/course_hb' : contactLink && contactLink.length > 0 ? contactLink : 'https://t.me/course_hb'
+              }
               target="_blank"
               rel="noreferrer"
             >

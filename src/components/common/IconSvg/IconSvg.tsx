@@ -16,6 +16,7 @@ export const IconSvg: FC<IconSvgT> = memo(
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        {children}
         {path &&
           path.map((path, id) => {
             const { d, fill, stroke, strokeWidth, strokeLinecap, strokeLinejoin, fillRule, clipRule } = path
@@ -34,7 +35,6 @@ export const IconSvg: FC<IconSvgT> = memo(
               />
             )
           })}
-        {children}
       </svg>
     )
   },

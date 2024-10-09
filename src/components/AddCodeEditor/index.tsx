@@ -15,7 +15,7 @@ import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svg
 
 export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, handleEditorChange, lessonBlocks, setLessonBlocks }) => {
   const [codeData, setCodeData] = useState<string | undefined>(code)
-  const [selectedLang, setSelectedLang] = useState<string>()
+  const [selectedLang, setSelectedLang] = useState<string>(block && 'language' in block && block.language ? block.language : '')
   const schoolName = window.location.href.split('/')[4]
   const [deleteBlock, { isLoading }] = useDeleteBlockMutation()
   const [saveChanges, { isLoading: isSaving }] = useUpdateBlockDataMutation()
@@ -83,7 +83,7 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
               </div>
             </div>
             <div className={styles.editorWrapper_selectWrapper}>
-              <SelectInput setSelectedValue={setSelectedLang} optionsList={coursesSelectLanguage} />
+              <SelectInput setSelectedValue={setSelectedLang} selectedOption={selectedLang} optionsList={coursesSelectLanguage} />
             </div>
             {block && (('code' in block && block.code && codeData !== block.code) || (codeData && 'code' in block && !block.code)) && (
               <Button

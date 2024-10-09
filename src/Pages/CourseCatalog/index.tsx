@@ -9,7 +9,7 @@ import { motion } from 'framer-motion'
 import { CatalogResponseT } from 'api/apiTypes'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { logo } from 'assets/img/common'
-
+import courseBack from 'assets/img/course/qa.jpg'
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -138,6 +138,14 @@ export const CourseCatalogPage: FC = memo(() => {
                   </CardContent>
                 </CardActionArea>
               </Card>
+              // <Card
+              //   style={{ background: `url(${courseBack}` }}
+              //   className={styles.wrapper_body_courses_card}
+              //   sx={{ cursor: 'pointer', transition: 'all ease-in 0.2s' }}
+              //   key={index}
+              // >
+              //   <div className={styles.wrapper_body_courses_card_name}>{course.name}</div>
+              // </Card>
             ))}
           </div>
         ) : (

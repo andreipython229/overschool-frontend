@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, memo } from 'react'
 import { Link, NavLink, generatePath, useLocation, useNavigate } from 'react-router-dom'
-import { useFetchProfileDataQuery } from '../../api/profileService'
+import { useFetchProfileDataQuery, useLazyFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { auth, logoutState, role } from 'store/redux/users/slice'
+import { auth, logoutState, role, id, authState as setAuthState } from 'store/redux/users/slice'
 import { Path } from 'enum/pathE'
 import { useFetchSchoolHeaderQuery, useGetSchoolProgressionDataMutation } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
@@ -11,7 +11,7 @@ import { useLazyLogoutQuery } from 'api/userLoginService'
 import { schoolProgressSelector, selectUser } from '../../selectors'
 import { logo } from '../../assets/img/common'
 import { headerUserRoleName } from 'config/index'
-import { profileT } from 'types/profileT'
+import { additionalRoleT, profileT } from 'types/profileT'
 import styles from './header.module.scss'
 import { SimpleLoader } from '../Loaders/SimpleLoader'
 import Tooltip from '@mui/material/Tooltip'
@@ -49,6 +49,7 @@ import warning from '../../assets/img/notifications/warning.svg'
 import { TgMessage } from 'types/tgNotifications'
 import { useFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
 import { useFetchCoursesQuery } from 'api/coursesServices'
+import { useLoginMutation } from '../../api/userLoginService'
 import { CoursesDataT } from 'types/CoursesT'
 import { Button } from 'components/common/Button/Button'
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
@@ -74,9 +75,13 @@ export const Header = memo(() => {
   const { pathname } = useLocation()
   const [logout, { isLoading }] = useLazyLogoutQuery()
   const headerId = localStorage.getItem('header_id')
+  const school_id = Number(localStorage.getItem('school_id'))
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
-  const { data: profile, isSuccess: profileIsSuccess, isError, error, refetch: refetchUser } = useFetchProfileDataQuery()
+  const { data: profileD, isSuccess: profileIsSuccess, isError, error, refetch: refetchUser } = useFetchProfileDataQuery()
+  let profile = profileD
+  const [fetchProfile, profileDt] = useLazyFetchProfileDataQuery()
   const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
+  const [loginUser, { isLoading: loginLoading, isSuccess: loginSuccess }] = useLoginMutation()
   const [currentTariff, setCurrentTariff] = useState<ITariff>({
     tariff_name: '',
     days_left: null,
@@ -106,6 +111,7 @@ export const Header = memo(() => {
   const [, , removeRefreshCookie] = useCookies(['refresh_token'])
 
   const [profileData, setProfileData] = useState<profileT>()
+  const [schoolRoles, setSchoolRoles] = useState<additionalRoleT | undefined>(undefined)
   const [logotype, setLogo] = useState<string | undefined>('')
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -126,10 +132,13 @@ export const Header = memo(() => {
     message: '',
     students_groups: [],
   })
-  const [allGroups, setAllGroups] = useState<boolean>(false);
+  const [allGroups, setAllGroups] = useState<boolean>(false)
+
+  const restrictedEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru']
+  const canChangePlatform = profileData?.user?.email ? !restrictedEmails.includes(profileData.user.email) : false
 
   const logOut = async () => {
-    await logout().then(data => {
+    await logout().then(() => {
       setProfileData(undefined)
       dispatch(clearUserProfile())
       dispatch(logoutState())
@@ -138,9 +147,7 @@ export const Header = memo(() => {
       dispatch(removeSchoolName())
       removeAccessCookie('access_token')
       removeRefreshCookie('refresh_token')
-      window.location.reload()
       localStorage.clear()
-      dispatch(auth(false))
       navigate(generatePath(Path.InitialPage))
       setSocketConnect(false)
 
@@ -149,6 +156,37 @@ export const Header = memo(() => {
         informSocketRef.current = null
       }
     })
+  }
+
+  const handleLogin = async (login: string, password: string) => {
+    try {
+      const formData = { login, password }
+      const result = await loginUser(formData).unwrap()
+      if (result) {
+        const { access, refresh, user } = result
+
+        dispatch(setAuthState({ access, refresh }))
+        dispatch(id(user.id))
+        let userRole
+        if (user.email === 'admin@coursehub.ru') {
+          userRole = 6
+        } else if (user.email === 'teacher@coursehub.ru') {
+          userRole = 2
+        } else if (user.email === 'student@coursehub.ru') {
+          userRole = 1
+        } else {
+          userRole = 0
+        }
+
+        dispatch(role(userRole))
+        await fetchProfile()
+        profile = profileDt.data
+        localStorage.setItem('id', user.id.toString())
+        localStorage.setItem('email', user.email)
+      }
+    } catch (err) {
+      console.error('Login failed:', err)
+    }
   }
 
   const handleCloseBanner = () => {
@@ -160,7 +198,19 @@ export const Header = memo(() => {
   }
 
   useEffect(() => {
-    if (isError && 'originalStatus' in error && error.originalStatus === 401) {
+    if (profileIsSuccess && profile) {
+      const profileData = Array.isArray(profile) ? profile[0] : profile
+
+      if ('additional_roles' in profileData) {
+        const rolesForSchool = profileData.additional_roles.find((role: additionalRoleT) => role.school_id === school_id)
+
+        setSchoolRoles(rolesForSchool)
+      }
+    }
+  }, [profile, profileIsSuccess, school_id])
+
+  useEffect(() => {
+    if (isError && error && 'originalStatus' in error && error.originalStatus === 401) {
       logOut()
     }
   }, [isError])
@@ -192,7 +242,7 @@ export const Header = memo(() => {
   }, [schoolName])
 
   useEffect(() => {
-    profileIsSuccess && setProfileData(profile[0])
+    profile && profileIsSuccess && setProfileData(profile[0])
   }, [profile])
 
   useEffect(() => {
@@ -402,21 +452,24 @@ export const Header = memo(() => {
   }
 
   const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const isAll = event.target.checked
-        setAllGroups(isAll)
-        const groupsIds = studentsGroups?.results.map(group => Number(group.group_id))
-        if (isAll) {
-            setTgMessage((prevData: TgMessage) => ({
-                ...prevData,
-                students_groups: groupsIds,
-            }) as TgMessage);
-        } else {
-            setTgMessage((prevData: TgMessage) => ({
-                ...prevData,
-                students_groups: [],
-            }));
-        }
-  };
+    const isAll = event.target.checked
+    setAllGroups(isAll)
+    const groupsIds = studentsGroups?.results.map(group => Number(group.group_id))
+    if (isAll) {
+      setTgMessage(
+        (prevData: TgMessage) =>
+          ({
+            ...prevData,
+            students_groups: groupsIds,
+          } as TgMessage),
+      )
+    } else {
+      setTgMessage((prevData: TgMessage) => ({
+        ...prevData,
+        students_groups: [],
+      }))
+    }
+  }
 
   const handleSendTgMessage = () => {
     createTgMessage({
@@ -559,12 +612,20 @@ export const Header = memo(() => {
                         Выберите одну или несколько групп:
                       </h2>
                     </div>
-                    {studentsGroups &&
+                    {studentsGroups && (
                       <div>
-                        <Checkbox style={{color: '#ba75ff'}} checked={allGroups}
-                                              onChange={(e) => {handleAllGroups(e)}}/>
-                        <span><b>выбрать все группы</b></span>
-                      </div>}
+                        <Checkbox
+                          style={{ color: '#ba75ff' }}
+                          checked={allGroups}
+                          onChange={e => {
+                            handleAllGroups(e)
+                          }}
+                        />
+                        <span>
+                          <b>выбрать все группы</b>
+                        </span>
+                      </div>
+                    )}
                     {studentsGroups && (
                       <div className={styles.wrapper_content_groups}>
                         {Object.entries(
@@ -730,27 +791,40 @@ export const Header = memo(() => {
                 Открыть профиль
               </Link>
             </MenuItem>
-            <MenuItem onClick={goToChooseSchool}>
-              <SvgIcon color="disabled" fontSize={'large'} viewBox="3 0 24 24">
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-              </SvgIcon>
-              <Link to={Path.ChooseSchool} style={{ color: 'slategrey' }}>
-                Смена платформы
-              </Link>
-            </MenuItem>
-            {/* <MenuItem onClick={goToChooseSchool}>
-              <img src={StudentIcon} alt="Student Icon" width="24px" height="24px" />
-              <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
-                Сменить роль на Студент
-              </Link>
-            </MenuItem>
-
-            <MenuItem onClick={goToChooseSchool}>
-              <img src={TeacherIcon} alt="Teacher Icon" width="24px" height="24px" />
-              <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
-                Сменить роль на Учитель
-              </Link>
-            </MenuItem> */}
+            {canChangePlatform && (
+              <MenuItem onClick={goToChooseSchool}>
+                <SvgIcon color="disabled" fontSize={'large'} viewBox="3 0 24 24">
+                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </SvgIcon>
+                <Link to={Path.ChooseSchool} style={{ color: 'slategrey' }}>
+                  Смена платформы
+                </Link>
+              </MenuItem>
+            )}
+            {schoolRoles && schoolRoles.roles.includes('Студент') && (
+              <MenuItem onClick={() => handleLogin('student@coursehub.ru', 'ac4LMPEzwy')}>
+                <img src={StudentIcon} alt="Student Icon" width="24px" height="24px" />
+                <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
+                  Сменить роль на Студент
+                </Link>
+              </MenuItem>
+            )}
+            {schoolRoles && schoolRoles.roles.includes('Учитель') && (
+              <MenuItem onClick={() => handleLogin('teacher@coursehub.ru', 'm4OjkNzZPh')}>
+                <img src={TeacherIcon} alt="Teacher Icon" width="24px" height="24px" />
+                <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
+                  Сменить роль на Учитель
+                </Link>
+              </MenuItem>
+            )}
+            {schoolRoles && schoolRoles.roles.includes('Администратор') && (
+              <MenuItem onClick={() => handleLogin('admin@coursehub.ru', 'yQoJ5TaFpK')}>
+                <img src={TeacherIcon} alt="Teacher Icon" width="24px" height="24px" />
+                <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
+                  Сменить роль на Администратор
+                </Link>
+              </MenuItem>
+            )}
           </Menu>
         </React.Fragment>
         <Tooltip title={'Выход из профиля'}>

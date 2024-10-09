@@ -38,9 +38,10 @@ import { BlockButtons } from 'components/BlockButtons'
 import { Portal } from 'components/Modal/Portal'
 import { WarningModal } from 'components/Modal/Warning'
 import { useParams } from 'react-router-dom'
+import { NewAudioPlayer } from 'components/NewAudioPlayer'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
-  const { course_id: courseId } = useParams();
+  const { course_id: courseId } = useParams()
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
   const [lessonBlocks, setLessonBlocks] = useState<BlockT[]>([])
   const [files, setFiles] = useState<File[]>([])
@@ -56,7 +57,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     id: +lessonIdAndType.id,
     type: lessonIdAndType.type,
     schoolName,
-    courseId: courseId
+    courseId: courseId,
   })
   const [addTextFiles] = usePostTextFilesMutation()
   const [saveChanges, { isLoading: isSaving, isSuccess: isCompleted }] = usePatchLessonsMutation()
@@ -561,49 +562,52 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   updateLesson={updateLesson}
                 />
 
-                <AddFileBtn handleChangeFiles={handleChangeFiles} />
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '2rem', paddingInline: '3em', marginTop: '2rem' }}>
+                  <AddFileBtn handleChangeFiles={handleChangeFiles} />
+                </div>
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 200 мегабайт</span>
                 {fileError && <span className={styles.redactorCourse_rightSideWrapper_rightSide_error}>{fileError}</span>}
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '2rem', paddingInline: '3em', marginTop: '2rem' }}>
+                  {renderFiles?.map(({ file, id, size, file_url }, index: number) => (
+                    <UploadedFile
+                      key={id}
+                      index={index}
+                      file={file}
+                      name={file_url}
+                      size={Number(size)}
+                      handleDeleteFile={index => handleDeleteFileFromLesson(index)}
+                    />
+                  ))}
 
-                {renderFiles?.map(({ file, id, size, file_url }, index: number) => (
-                  <UploadedFile
-                    key={id}
-                    index={index}
-                    file={file}
-                    name={file_url}
-                    size={Number(size)}
-                    handleDeleteFile={index => handleDeleteFileFromLesson(index)}
-                  />
-                ))}
+                  {urlFiles?.map(({ url, name }, index: number) => (
+                    <UploadedFile
+                      isHw={true}
+                      key={index}
+                      index={index}
+                      file={url}
+                      name={name}
+                      size={files[index].size}
+                      handleDeleteFile={handleDeleteFile}
+                    />
+                  ))}
 
-                {urlFiles?.map(({ url, name }, index: number) => (
-                  <UploadedFile
-                    isHw={true}
-                    key={index}
-                    index={index}
-                    file={url}
-                    name={name}
-                    size={files[index].size}
-                    handleDeleteFile={handleDeleteFile}
-                  />
-                ))}
-
-                {files?.map((file: File, index: number) => (
-                  <UploadedFile
-                    key={index}
-                    index={index}
-                    file={file.name}
-                    size={file.size}
-                    handleDeleteFile={index => handleDeleteFileFromLesson(index)}
-                  />
-                ))}
+                  {files?.map((file: File, index: number) => (
+                    <UploadedFile
+                      key={index}
+                      index={index}
+                      file={file.name}
+                      size={file.size}
+                      handleDeleteFile={index => handleDeleteFileFromLesson(index)}
+                    />
+                  ))}
+                </div>
 
                 {lesson.audio_files && (
-                  <div>
+                  <div style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '2rem', paddingInline: '3em', marginTop: '2rem' }}>
                     {lesson.audio_files &&
                       lesson.audio_files.map((audio, index) => (
-                        <AudioPlayer key={index} audioUrls={[audio]} delete={() => handleDeleteAudioFile(index)} />
+                        <NewAudioPlayer key={index} music={audio.file} delete={() => handleDeleteAudioFile(index)} index={index} />
                       ))}
                   </div>
                 )}

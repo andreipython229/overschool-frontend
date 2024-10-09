@@ -18,24 +18,30 @@ import { tableBallsStarPath } from 'config/commonSvgIconsPath'
 import { Path } from 'enum/pathE'
 
 import { useAppSelector } from 'store/hooks'
-import {selectUser} from '../../../selectors'
-import {LimitModal} from "../../../components/Modal/LimitModal/LimitModal";
+import { selectUser } from '../../../selectors'
+import { LimitModal } from '../../../components/Modal/LimitModal/LimitModal'
+import { StudentGroupMiniCard } from 'components/StudentGroupMiniCard'
 // import {useFetchCourseQuery} from "../../../api/coursesServices";
 
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
-  const {role} = useAppSelector(selectUser)
-  
+  const { role } = useAppSelector(selectUser)
+
   const [hideStats, setHideStats] = useState<boolean>(true)
   const navigate = useNavigate()
   const school = window.location.href.split('/')[4]
   const [isOpen, { onToggle: toggleIsOpen }] = useBoolean()
   const [addGroupModal, { off: offAddGroupModal, on: onAddGroupModal }] = useBoolean()
-  const { data } = useFetchStudentsGroupByCourseQuery({id: String(courseId), schoolName: school})
+  const { data } = useFetchStudentsGroupByCourseQuery({ id: String(courseId), schoolName: school })
+  const [activeGroup, setActiveGroup] = useState<number>(0)
 
   const handleHideStats = useCallback(() => {
     setHideStats(!hideStats)
   }, [hideStats])
+
+  const handleClick = (id: number) => {
+    setActiveGroup(activeGroup === id ? -100 : id)
+  }
 
   const reducedGroupsToShow = data?.results.slice(0, 6)
   const dataToRender = data?.results && data?.results.length > 6 && isOpen ? data?.results : reducedGroupsToShow
@@ -54,42 +60,62 @@ export const StudentsStats = () => {
         <div className={styles.students_group_header}>
           <p className={styles.students_group_header_title}>Группы учеников</p>
 
-          {(headerUserRoleName[role] === 'Администратор') && (
-
-          <div style={{display: 'flex', gap: '1rem'}}>
-            <div onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}>
-              <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} />
-              Создать новую группу
+          {headerUserRoleName[role] === 'Администратор' && (
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <div onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}>
+                <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} />
+                Создать новую группу
+              </div>
+              <div
+                onClick={() => navigate(generatePath(Path.School + Path.Settings + 'employees/', { school_name: school }))}
+                className={styles.students_group_header_add_teacher_btn}
+              >
+                <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={tableBallsStarPath} />
+                Добавить менторов в школу
+              </div>
             </div>
-            <div onClick={() => navigate(generatePath(Path.School + Path.Settings + 'employees/', {school_name: school}))} className={styles.students_group_header_add_teacher_btn}>
-              <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={tableBallsStarPath} />
-              Добавить менторов в школу
-            </div>
-          </div>)}
+          )}
         </div>
-
       </section>
 
-      <div>
-        <div className={styles.container_groups}>
-            <div className={styles.groups_card_block}>
-                  {dataToRender?.map(({ name, students, group_id, type }: studentsGroupsT) => {
-                    const count = students?.length
-                    return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} type={type} courseId={Number(courseId)}/>
-                  })}
+      {dataToRender && (
+        <div>
+          <div className={styles.container_groups}>
+            <div
+              className={styles.groups_card_block}
+              style={dataToRender.length < 3 ? { justifyContent: 'flex-start' } : { justifyContent: 'space-between' }}
+            >
+              {dataToRender?.map(({ name, students, group_id, type }: studentsGroupsT) => {
+                const count = students?.length
+                return (
+                  <StudentGroupMiniCard
+                    active={activeGroup === group_id}
+                    key={group_id}
+                    id={group_id as number}
+                    click={handleClick}
+                    title={name}
+                    countStudent={count}
+                    type={type}
+                    courseId={Number(courseId)}
+                  />
+                )
+                // return <StudentGroup key={group_id} id={group_id as number} title={name} countStudent={count} type={type} courseId={Number(courseId)}/>
+              })}
             </div>
-        </div>
-        <div className={styles.container_groups_dropdown}>
+          </div>
+          <div className={styles.container_groups_dropdown}>
             {data?.results && data?.results?.length > 6 && (
               <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'группы'} handleToggleHiddenBlocks={toggleIsOpen} />
             )}
+          </div>
         </div>
-      </div>
+      )}
       <StudentsPerCourse />
-      {addGroupModal &&
+      {addGroupModal && (
         <Portal closeModal={onAddGroupModal}>
-            <CreateGroupModal setShowModal={onAddGroupModal} courseId={courseId as string} />{' '}
-        </Portal>}
+          <CreateGroupModal setShowModal={onAddGroupModal} courseId={courseId as string} />{' '}
+        </Portal>
+      )}
     </div>
   )
 }
