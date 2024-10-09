@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { Portal } from '../../Modal/Portal'
 import { ModalCheckHomeWork } from '../../Modal/ModalCheckHomeWork/ModalCheckHomeWork'
-import { tableBallsStarPath } from '../../../config/commonSvgIconsPath'
+import { tableBallsPth } from '../../../config/commonSvgIconsPath'
 import { iocnsByStatus } from '../config/iocnsByStatus'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { homeworkStatT } from 'types/homeworkT'
@@ -26,10 +26,10 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = memo(({ homew
   return (
     <>
       <tr onClick={open} role="row">
-        <td style={{ display: 'flex', alignItems: 'center' }}>
+        <td>
           {user_avatar ? (
             <img
-              style={{ borderRadius: '50%', width: '32px', height: '32px' }}
+              style={{ borderRadius: '14px', width: '64px', height: '64px' }}
               src={user_avatar}
               alt="avatar"
             />
@@ -38,21 +38,25 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = memo(({ homew
               {`${user_last_name.charAt(0).toUpperCase() || 'Б'}${user_first_name.charAt(0).toUpperCase() || 'И'}`}
             </div>
           )}
-          <span style={{ marginLeft: '15px', color: '#424345' }}>{`${user_last_name || 'Без'} ${user_first_name || 'Имени'}`}</span>
+          <span>{`${user_last_name || 'Без'} ${user_first_name || 'Имени'}`}</span>
         </td>
-        <td style={{ margin: '0 0 0 27px' }}>{user_email}</td>
-        <td style={{ margin: '0 0 0 27px' }}>{homework_name}</td>
-        <td style={{ margin: '0 0 0 27px' }}>{course_name}</td>
-        <td style={{ margin: '0 0 0 27px' }}>
+        <td>{user_email}</td>
+        <td>{homework_name}</td>
+        <td>{course_name}</td>
+        <td>
           {mmddyyyy} в {hoursAndMinutes}
         </td>
-        <td style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
-          {iocnsByStatus[status].icon}
-          <span style={{ margin: '0 0 0 5px', color: iocnsByStatus[status].textColor }}>{status}</span>
+        <td>
+          <div style={ status === "Принято" ? { backgroundColor: '#357EEB' } : {}} className={styles.table_body_status}>
+            <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: iocnsByStatus[status].circleColor }}></div>
+            <span style={{ color: iocnsByStatus[status].textColor }}>{status}</span>
+          </div>
         </td>
-        <td style={{ margin: '0 0 0 27px' }}>
-          <IconSvg width={16} height={15} viewBoxSize={'0 0 16 15'} path={tableBallsStarPath} />
-          <span style={{ margin: '0 0 0 7px' }}>{mark || 0}</span>
+        <td>
+          <div className={styles.table_body_mark}>
+            <span>{mark || 0}</span>
+            <IconSvg width={24} height={24} viewBoxSize={'0 0 24 24'} path={tableBallsPth} />
+          </div>
         </td>
       </tr>
       {isModalOpen && (
