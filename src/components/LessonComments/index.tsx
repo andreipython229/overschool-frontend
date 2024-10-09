@@ -37,7 +37,7 @@ export const LessonComments: FC<ICommentBlock> = ({ commentsList, handleNewComme
                 {String(comment.created_at.getHours()).padStart(2, '0')}:{String(comment.created_at.getMinutes()).padStart(2, '0')}
               </div>
               <div className={styles.commentBox_commentText}>{comment.content}</div>
-              <div className={styles.commentBox_avatar} style={{ backgroundImage: `url(${userImage})` }} />
+              <div className={styles.commentBox_avatar} style={comment.avatar ? {backgroundImage: `url(${comment.avatar})`}: { backgroundImage: `url(${userImage})` }} />
               <div className={styles.commentBox_username}>
                 {comment.author_first_name} {comment.author_last_name}
               </div>

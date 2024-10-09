@@ -17,6 +17,7 @@ import { selectUser } from 'selectors'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrowLeftIconPath } from 'config/commonSvgIconsPath'
+import { LessonComments } from 'components/LessonComments'
 
 type studentTestT = {
   lessons: sectionT
@@ -71,6 +72,7 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
           if (data && data.data) {
             const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
               return {
+                avatar: commentData.avatar,
                 id: commentData.id,
                 author: commentData.author,
                 author_first_name: commentData.author_first_name,
@@ -109,6 +111,7 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
                 if (data && data.data) {
                   const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
                     return {
+                      avatar: commentData.avatar,
                       id: commentData.id,
                       author: commentData.author,
                       author_first_name: commentData.author_first_name,
@@ -165,29 +168,12 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
             isOpenTest && <StudentTestBlock lesson={lesson} setTestSended={setTestSended} setTestSuccess={setTestSuccess} />
           )}
         </div>
-        <div className={styles.commentContainer}>
-          <form onSubmit={handleSubmitNewComment} className={styles.commentForm}>
-            <textarea value={newCommentContent} onChange={handleNewCommentChange} placeholder="Введите ваш комментарий..." />
-            <button type="submit">Отправить</button>
-          </form>
-          {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
-            commentsList.comments.map((comment: Comment) => (
-              <div className={styles.commentBox} key={comment.id}>
-                <p>
-                  <b>
-                    {comment.author_first_name} {comment.author_last_name}
-                  </b>
-                </p>
-                <p>Опубликован: {new Date(comment.created_at).toLocaleString()}</p>
-                <p>Комментарий: {comment.content}</p>
-              </div>
-            ))
-          ) : (
-            <p style={{ marginBlockStart: '10px' }}>
-              <b>Комментариев пока нет</b>
-            </p>
-          )}
-        </div>
+        <LessonComments
+          handleNewCommentChange={handleNewCommentChange}
+          handleSubmitNewComment={handleSubmitNewComment}
+          newCommentContent={newCommentContent}
+          commentsList={commentsList}
+        />
       </div>
     )
   } else {

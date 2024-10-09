@@ -18,6 +18,8 @@ import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { useFetchCourseQuery } from 'api/coursesServices'
 import { StudentCourseHeaderBanner } from 'Pages/StudentCourse/StudentLessonHeaderBanner'
+import { NewAudioPlayer } from 'components/NewAudioPlayer'
+import { LessonComments } from 'components/LessonComments'
 
 type studentHomeworkT = {
   lesson: IHomework
@@ -64,6 +66,7 @@ export const StudentHomework: FC<studentHomeworkT> = ({
           if (data && data.data) {
             const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
               return {
+                avatar: commentData.avatar,
                 id: commentData.id,
                 author: commentData.author,
                 author_first_name: commentData.author_first_name,
@@ -102,6 +105,7 @@ export const StudentHomework: FC<studentHomeworkT> = ({
                 if (data && data.data) {
                   const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
                     return {
+                      avatar: commentData.avatar,
                       id: commentData.id,
                       author: commentData.author,
                       author_first_name: commentData.author_first_name,
@@ -168,35 +172,20 @@ export const StudentHomework: FC<studentHomeworkT> = ({
                   </div>
                 </>
               )}
-              <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
+              {lesson.audio_files &&
+                lesson.audio_files.length > 0 &&
+                lesson.audio_files.map(audio => <NewAudioPlayer music={audio.file} key={audio.id} />)}
             </div>
           </div>
           {!lessons.group_settings.task_submission_lock && (
             <StudentLessonTextEditor homeworkId={lesson?.homework_id} homework={lesson} setHwSended={setHwSended} />
           )}
-          <div className={styles.commentContainer}>
-            <form onSubmit={handleSubmitNewComment} className={styles.commentForm}>
-              <textarea value={newCommentContent} onChange={handleNewCommentChange} placeholder="Введите ваш комментарий..." />
-              <button type="submit">Отправить</button>
-            </form>
-            {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
-              commentsList.comments.map((comment: Comment) => (
-                <div className={styles.commentBox} key={comment.id}>
-                  <p>
-                    <b>
-                      {comment.author_first_name} {comment.author_last_name}
-                    </b>
-                  </p>
-                  <p>Опубликован: {new Date(comment.created_at).toLocaleString()}</p>
-                  <p>Комментарий: {comment.content}</p>
-                </div>
-              ))
-            ) : (
-              <p style={{ marginBlockStart: '10px' }}>
-                <b>Комментариев пока нет</b>
-              </p>
-            )}
-          </div>
+          <LessonComments
+            handleNewCommentChange={handleNewCommentChange}
+            handleSubmitNewComment={handleSubmitNewComment}
+            newCommentContent={newCommentContent}
+            commentsList={commentsList}
+          />
         </div>
       </div>
     </div>

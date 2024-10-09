@@ -11,6 +11,7 @@ import { Reorder } from 'framer-motion'
 import { PreviewCodeBlock } from 'components/blocks/codeBlock'
 import { MathEditor } from 'components/MathEditor'
 import { BlockLinkButton } from 'components/BlockButtons/BlockLinkButton'
+import { NewAudioPlayer } from 'components/NewAudioPlayer'
 
 type adminLessonT = {
   lesson: ILesson
@@ -98,7 +99,10 @@ export const AdminLesson: FC<adminLessonT> = ({ lesson }) => {
               </Reorder.Group>
             </div>
             <div className={styles.adminlesson__content}>
-              <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
+              {lesson.audio_files &&
+                lesson.audio_files.length > 0 &&
+                lesson.audio_files.map(audio => <NewAudioPlayer music={audio.file} key={audio.id} />)}
+              {/* <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" /> */}
               <span className={styles.adminlesson__materials}>Материалы:</span>
               {lesson?.text_files.map(({ file, id, file_url, size }, index: number) => (
                 <UploadedFile key={id} file={file} name={file_url} index={index} size={size} />

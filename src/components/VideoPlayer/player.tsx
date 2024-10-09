@@ -16,6 +16,7 @@ import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { RoleE } from '../../enum/roleE'
 import previewImage from './assets/previewImage.png'
+import { PlayIcon } from 'components/NewAudioPlayer/icons'
 
 type playerProps = {
   deleteBlock?: (arg: { id: string | number; schoolName: string }) => any
@@ -132,15 +133,7 @@ export const VideoPlayer: React.FC<playerProps> = ({
               width="100%"
               height="100%"
               light={previewImage}
-              playIcon={
-                <svg xmlns="http://www.w3.org/2000/svg" width="124" height="124" viewBox="0 0 124 124" fill="none">
-                  <circle cx="62" cy="62" r="62" scale={2} fill="#357EEB" />
-                  <path
-                    d="M91.7598 55.9378C96.4264 58.6321 96.4264 65.3678 91.7598 68.0621L52.3701 90.8037C47.7035 93.498 41.8702 90.1302 41.8702 84.7416L41.8702 39.2584C41.8702 33.8698 47.7035 30.5019 52.3702 33.1962L91.7598 55.9378Z"
-                    fill="white"
-                  />
-                </svg>
-              }
+              playIcon={<PlayIcon width={124} height={124} />}
               style={{
                 borderRadius: '1.5rem',
                 boxShadow: '0px 0px 9.3px 4px rgba(53, 126, 235, 0.45)',

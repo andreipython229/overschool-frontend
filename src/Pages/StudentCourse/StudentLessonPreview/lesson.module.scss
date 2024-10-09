@@ -134,6 +134,7 @@
     display: flex;
     flex-direction: column;
     gap: 2em;
+    align-items: center;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       padding: 0;
       figure {
@@ -215,7 +216,6 @@
 
   &__card {
     border-radius: 7px;
-    min-width: 700px;
     width: 100%;
     display: flex;
     flex-direction: column;

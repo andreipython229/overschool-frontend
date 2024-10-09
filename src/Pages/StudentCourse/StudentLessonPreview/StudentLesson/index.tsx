@@ -15,9 +15,8 @@ import { selectUser } from 'selectors'
 import { Button } from 'components/common/Button/Button'
 import { arrowLeftIconPath } from 'config/commonSvgIconsPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { useFetchCourseQuery } from 'api/coursesServices'
-import { StudentCourseHeaderBanner } from 'Pages/StudentCourse/StudentLessonHeaderBanner'
 import { LessonComments } from 'components/LessonComments'
+import { NewAudioPlayer } from 'components/NewAudioPlayer'
 
 type studentLessonT = {
   lesson: ILesson
@@ -31,7 +30,7 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
   const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
   const schoolName = window.location.href.split('/')[4]
   const [order, setOrder] = useState<[]>([])
-  const [fetchComments, comments] = useLazyFetchCommentsByLessonQuery()
+  const [fetchComments, { data: comments }] = useLazyFetchCommentsByLessonQuery()
   const [commentsList, setCommentsList] = useState<CommentList>()
   const [createComment] = useCreateCommentMutation()
   const [newCommentContent, setNewCommentContent] = useState('')
@@ -45,6 +44,7 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
           if (data && data.data) {
             const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
               return {
+                avatar: commentData.avatar,
                 id: commentData.id,
                 author: commentData.author,
                 author_first_name: commentData.author_first_name,
@@ -83,6 +83,7 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
                 if (data && data.data) {
                   const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
                     return {
+                      avatar: commentData.avatar,
                       id: commentData.id,
                       author: commentData.author,
                       author_first_name: commentData.author_first_name,
@@ -138,7 +139,9 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
               </Reorder.Group>
             </div>
             <div className={styles.lesson__content}>
-              <AudioPlayer styles={{ margin: '5px' }} audioUrls={lesson?.audio_files} title="" />
+              {lesson.audio_files &&
+                lesson.audio_files.length > 0 &&
+                lesson.audio_files.map(audio => <NewAudioPlayer music={audio.file} key={audio.id} />)}
               {lesson.text_files && lesson.text_files.length > 0 && (
                 <>
                   <span className={styles.lesson__materials}>Материалы</span>
