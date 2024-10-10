@@ -23,7 +23,6 @@ import { Button } from 'components/common/Button/Button'
 import { useLazyFetchBonusesQuery } from '../../../../api/schoolBonusService'
 import { setStudentBonus } from 'store/redux/bonuses/bonusSlice'
 import { useDispatch } from 'react-redux'
-import zIndex from '@mui/material/styles/zIndex'
 
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
@@ -54,6 +53,7 @@ export const CoursePage: FC = () => {
 
   const dispatchHandlerModal = () => {
     onToggle()
+    fetchData(schoolName)
   }
 
   useEffect(() => {
@@ -131,35 +131,48 @@ export const CoursePage: FC = () => {
   })
   if (!isSuccess)
     return (
-      <div style={{ width: '270px', height: '550px', position: 'relative' }}>
-        <div className={styles.skeleton} style={{ top: 0 }}>
+      <div>
+        <div>
           <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#fff" foregroundColor="#f2f2f2">
             <rect x="0" y="0" rx="3" ry="3" width="130" height="130" />
           </ContentLoader>
         </div>
-        <div className={styles.skeleton} style={{ top: '-100px' }}>
+        <div className={styles.skeleton}>
           <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#e0dced" foregroundColor="#ecebeb">
             <rect x="0" y="10" rx="3" ry="3" width="130" height="65" />
           </ContentLoader>
         </div>
-        <div className={styles.skeleton} style={{ top: '-100px' }}>
+        <div className={styles.skeleton}>
           <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#cccccc" foregroundColor="#ecebeb">
             <rect x="7" y="95" rx="3" ry="3" width="115" height="8" />
             <rect x="15" y="115" rx="3" ry="3" width="100" height="8" />
             <rect x="15" y="135" rx="3" ry="3" width="100" height="8" />
           </ContentLoader>
         </div>
-        {/* <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}> */}
-        {/* <SimpleLoader style={{ width: '100px', height: '100px' }} /> */}
-        {/* </div> */}
+        <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+          {/* <SimpleLoader style={{ width: '100px', height: '100px' }} /> */}
+        </div>
       </div>
     )
   return (
-    <>
+    <div style={{ maxWidth: '1360px', margin: 'auto' }}>
       <div className={styles.container}>
         {role === RoleE.Admin && (
           <AnimatePresence>
-            <div style={{ display: 'flex', gap: '1rem', paddingBottom: '1rem' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '1rem',
+                paddingBottom: '1rem',
+                justifyContent: 'space-between',
+                ...(window.innerWidth <= 480
+                  ? {
+                      margin: '30px 0 0 0',
+                    }
+                  : {}),
+              }}
+            >
               {activeFolder.length > 0 && (
                 <Chip
                   label={'Убрать фильтрацию'}
@@ -172,22 +185,166 @@ export const CoursePage: FC = () => {
                   }}
                 />
               )}
-              <Chip
-                icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
-                label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
-                variant="filled"
-                onClick={() => toggleTestCourseVisibility(!showTestCourse)}
-              />
-              <Chip
-                icon={<FolderCopyOutlined />}
-                label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
-                variant="filled"
-                onClick={toggleFolders}
-              />
+              <div
+                style={{
+                  display: 'flex',
+                  WebkitFlexWrap: 'wrap',
+                  gap: ' 20px 50px',
+                  ...(window.innerWidth <= 1200
+                    ? {
+                        gap: '10px',
+                      }
+                    : {}),
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    WebkitFlexWrap: 'wrap',
+                    gap: '20px',
+                  
+                      ...(window.innerWidth <= 850
+                        ? {
+                            display: 'none'
+                          }
+                        : {}),
+                  }}
+                >
+                  <Chip
+                    // icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
+                    label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
+                    variant="filled"
+                    // sx={deleting ? { background: '#ff3131' } : {}}
+                    sx={{
+                      background: 'transparent',
+                      border: '2px solid #357EEB',
+                      borderRadius: '10px',
+                      padding: '30px 40px',
+                      width: 'fit-content',
+                      color: '#357EEB',
+                      fontSize: '20px',
+                      lineHeight: '23.87px',
+                      '@media (max-width: 1500px)': {
+                        padding: '20px 20px',
+                        fontSize: '14px',
+                        lineHeight: 'normal',
+                      },
+                      '@media (max-width: 1200px)': {
+                        padding: '8px 15px',
+                      },
+                    }}
+                    onClick={() => toggleTestCourseVisibility(!showTestCourse)}
+                  />
+
+                  <Chip
+                    sx={{
+                      background: 'transparent',
+                      border: '2px solid #357EEB',
+                      borderRadius: '10px',
+                      padding: '30px 40px',
+                      width: 'fit-content',
+                      color: '#357EEB',
+                      fontSize: '20px',
+                      lineHeight: '23.87px',
+                      '@media (max-width: 1500px)': {
+                        padding: '20px 20px',
+                        fontSize: '14px',
+                        lineHeight: 'normal',
+                      },
+                      '@media (max-width: 1200px)': {
+                        padding: '8px 15px',
+                      },
+                    }}
+                    label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
+                    variant="filled"
+                    onClick={toggleFolders}
+                  />
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    WebkitFlexWrap: 'wrap',
+                    gap: '20px',
+                    ...(window.innerWidth <= 1500
+                      ? {
+                          gap: '10px',
+                        }
+                      : {}),
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      fontSize: '24px',
+                      whiteSpace: 'nowrap',
+                      ...(window.innerWidth <= 1500
+                        ? {
+                            fontSize: '16px',
+                          }
+                        : {}),
+
+                      ...(window.innerWidth <= 1200
+                        ? {
+                            fontSize: '14px',
+                          }
+                        : {}),
+                    }}
+                    className=""
+                  >
+                    Новые заявки <span style={{ color: '#357EEB' }}> ()</span>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      fontSize: '24px',
+                      whiteSpace: 'nowrap',
+                      ...(window.innerWidth <= 1500
+                        ? {
+                            fontSize: '16px',
+                          }
+                        : {}),
+
+                      ...(window.innerWidth <= 1200
+                        ? {
+                            fontSize: '14px',
+                          }
+                        : {}),
+                    }}
+                    className=""
+                  >
+                    Корзина <span style={{ color: '#357EEB' }}> ()</span>
+                  </div>
+                </div>
+              </div>
+              {/* {role !== RoleE.Student && ( */}
+              <button
+                type="button"
+                onClick={dispatchHandlerModal}
+                className={styles.course_button_add}
+                style={{
+                  ...(window.innerWidth <= 1500
+                    ? {
+                        fontSize: '16px',
+                      }
+                    : {}),
+                  ...(window.innerWidth <= 1200
+                    ? {
+                        padding: '8px 10px',
+                        fontSize: '12px',
+                      }
+                    : {}),
+                }}
+              >
+                <span>Создать курс</span>
+              </button>
+              {/* )} */}
 
               {foldersVisible && folders && (
                 <motion.div
-                  style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}
+                  style={{ display: 'flex', WebkitFlexWrap: 'wrap', gap: '1rem', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}
                   initial={{
                     x: -50,
                     opacity: 0,
@@ -261,10 +418,88 @@ export const CoursePage: FC = () => {
           value={search}
           onChange={event => setSearch(event.target.value)}
           placeholder="Поиск по материалам"
-          style={{ width: '100%', position: 'relative' }}
         >
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
+
+        <div
+          style={{
+            display: 'none',
+            WebkitFlexWrap: 'wrap',
+            gap: '10px',
+
+            ...(window.innerWidth <= 850
+              ? {
+                  display: 'grid',
+                  
+                  gridTemplateColumns: '1fr 1fr',
+                  justifyContent:'center',
+                  margin: '20px 0 0 0'
+                }
+              : {}),
+              
+            ...(window.innerWidth <= 475
+              ? {
+                  margin: '0',
+                  display: 'flex',
+                 flexDirection:'column'
+                }
+              : {}),
+          }}
+        >
+          <Chip
+            // icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
+            label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
+            variant="filled"
+            // sx={deleting ? { background: '#ff3131' } : {}}
+            sx={{
+              background: 'transparent',
+              border: '2px solid #357EEB',
+              borderRadius: '10px',
+              padding: '30px 40px',
+              width: '100%',
+              color: '#357EEB',
+              fontSize: '20px',
+              lineHeight: '23.87px',
+              '@media (max-width: 1500px)': {
+                padding: '20px 20px',
+                fontSize: '14px',
+                lineHeight: 'normal',
+              },
+              '@media (max-width: 1200px)': {
+                padding: '10px ',
+              },
+            }}
+            onClick={() => toggleTestCourseVisibility(!showTestCourse)}
+          />
+
+          <Chip
+            sx={{
+              background: 'transparent',
+              border: '2px solid #357EEB',
+              borderRadius: '10px',
+              padding: '30px 40px',
+              width: '100%',
+              color: '#357EEB',
+              fontSize: '20px',
+              lineHeight: '23.87px',
+
+              '@media (max-width: 1500px)': {
+                padding: '20px 20px',
+                fontSize: '14px',
+                lineHeight: 'normal',
+              },
+              '@media (max-width: 1200px)': {
+                padding: '10px ',
+
+              },
+            }}
+            label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
+            variant="filled"
+            onClick={toggleFolders}
+          />
+        </div>
+
         {/* <div className={styles.search}>
                     <p color="gray">По результатам поиска ничего не найдено...</p>
         </div> */}
@@ -274,7 +509,7 @@ export const CoursePage: FC = () => {
         <AnimatePresence>
           {
             <motion.div
-              className={styles.course}
+              className={role === RoleE.Student ? styles.course : styles.course_admin}
               initial={{
                 y: -50,
                 opacity: 0,
@@ -292,7 +527,7 @@ export const CoursePage: FC = () => {
                   {filteredCourses?.map((course: any) =>
                     showTestCourse || course.course_id !== 247 ? <CoursesCard key={course?.course_id} course={course} role={role} /> : null,
                   )}
-                  {role === RoleE.Admin && (
+                  {role !== RoleE.Student && (
                     <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
                       <span className={styles.course_addCourse}>
                         <span>Добавить материал</span>
@@ -305,7 +540,7 @@ export const CoursePage: FC = () => {
                   <div className={styles.search}>
                     <p color="gray">Нет доступных к просмотру материалов...</p>
                   </div>
-                  {role === RoleE.Admin && (
+                  {role !== RoleE.Student && (
                     <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
                       <span className={styles.course_addCourse}>
                         <span>Добавить материал</span>
@@ -349,6 +584,6 @@ export const CoursePage: FC = () => {
           </DialogActions>
         </Dialog>
       </div>
-    </>
+    </div>
   )
 }

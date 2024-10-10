@@ -1,5 +1,4 @@
 @import '../../scss/mixin.scss';
-
 .previous {
   position: relative;
   width: 100%;
@@ -13,6 +12,7 @@
 
   &::before {
     content: '';
+
     position: absolute;
     top: 0;
     left: 0;
@@ -26,7 +26,6 @@
       border-radius: 0.625rem;
     }
   }
-
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin-bottom: 3%;
   }
@@ -56,7 +55,6 @@
     background-color: rgba(255, 255, 255, 0.649);
     z-index: 9999;
   }
-
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     @include display(flex, row, flex-start, center);
     margin-bottom: 0;
@@ -69,7 +67,6 @@
     height: 11.25rem;
     border-radius: 0.625rem;
   }
-
   &_bcgrShadow {
     @include position_t_l(absolute, 0, 0);
     opacity: 0.5;
@@ -78,7 +75,6 @@
     background-color: #000;
     z-index: 3;
   }
-
   .background_image_course {
     width: 100%;
     height: 100%;
@@ -102,7 +98,6 @@
       height: 40px;
     }
   }
-
   &_infoBlock {
     position: absolute;
     bottom: 0;
@@ -116,7 +111,6 @@
     flex-shrink: 0;
     background: linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%);
     z-index: 3;
-
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       display: inline-flex;
       padding: 0rem 5.8125rem 0rem 5.75rem;
@@ -131,7 +125,6 @@
       align-items: center;
       height: 2.25rem;
     }
-
     &_title {
       @include display(flex, column);
       &_description {
@@ -160,20 +153,17 @@
           font-size: 12px;
         }
       }
-
       &_about {
         @include font(500, 20px, 24px);
         color: #bdbdbd;
       }
     }
   }
-
   &_onlineCourses {
     @include position_t_l(absolute, 125px, 44px);
     @include font(500, 14px, 17px);
     color: #ba75ff;
   }
-
   &_btn {
     @include position_t_r(absolute, 1rem, 1rem);
     width: 24px;
@@ -190,7 +180,6 @@
       padding: 10px 14px;
     }
   }
-
   &_btn_rate {
     @include position_t_r(absolute, 44px, 37px);
     //@media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -203,7 +192,6 @@
     //  padding: 10px 14px;
     //}
   }
-
   &_error {
     font-size: 12px;
     color: rgb(224, 24, 24);

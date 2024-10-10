@@ -68,7 +68,10 @@ import teacher2 from './Teacher2.png'
 import student from './Student.png'
 import student2 from './Student2.png'
 
+import courseLogo from './courseLogo.svg'
+
 export {
+  courseLogo,
   arrowUp,
   arrowDown,
   avatar,
