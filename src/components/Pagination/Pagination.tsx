@@ -1,3 +1,4 @@
+
 import { FC, memo } from 'react'
 import classnames from 'classnames'
 
@@ -28,9 +29,9 @@ export const Pagination: FC<paginationT> = memo(({ onPageChange, currentPage, pa
   const lastPage = paginationRange && paginationRange[paginationRange?.length - 1]
   return (
     <div className={`pagination-bar ${props.className}`}>
-      <p className="pagination-text">
-        Всего страниц: <span className="pagination-total">{paginationRange?.slice(-1)}</span>
-      </p>
+      {/*<p className="pagination-text">*/}
+      {/*  Всего страниц: <span className="pagination-total">{paginationRange?.slice(-1)}</span>*/}
+      {/*</p>*/}
       <ul className="pagination-container">
         <li
           className={classnames('pagination-item', {
@@ -53,7 +54,7 @@ export const Pagination: FC<paginationT> = memo(({ onPageChange, currentPage, pa
               })}
               onClick={() => typeof pageNumber === 'number' && onPageChange(pageNumber)}
             >
-              {pageNumber}
+            <span style={{textAlign: "center", width: "100%"}}>{pageNumber}</span>
             </li>
           )
         })}
