@@ -131,7 +131,7 @@ export const CoursePage: FC = () => {
   })
   if (!isSuccess)
     return (
-      <div >
+      <div>
         <div>
           <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#fff" foregroundColor="#f2f2f2">
             <rect x="0" y="0" rx="3" ry="3" width="130" height="130" />
@@ -155,7 +155,7 @@ export const CoursePage: FC = () => {
       </div>
     )
   return (
-    <div  style={{maxWidth:'1360px', margin: 'auto'}}>
+    <div style={{ maxWidth: '1360px', margin: 'auto' }}>
       <div className={styles.container}>
         {role === RoleE.Admin && (
           <AnimatePresence>
@@ -168,7 +168,7 @@ export const CoursePage: FC = () => {
                 justifyContent: 'space-between',
                 ...(window.innerWidth <= 480
                   ? {
-                     margin:'30px 0 0 0'
+                      margin: '30px 0 0 0',
                     }
                   : {}),
               }}
@@ -185,8 +185,31 @@ export const CoursePage: FC = () => {
                   }}
                 />
               )}
-              <div style={{ display: 'flex', WebkitFlexWrap: 'wrap', gap: ' 20px 50px' }}>
-                <div style={{ display: 'flex', WebkitFlexWrap: 'wrap', gap: '20px' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  WebkitFlexWrap: 'wrap',
+                  gap: ' 20px 50px',
+                  ...(window.innerWidth <= 1200
+                    ? {
+                        gap: '10px',
+                      }
+                    : {}),
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    WebkitFlexWrap: 'wrap',
+                    gap: '20px',
+                  
+                      ...(window.innerWidth <= 850
+                        ? {
+                            display: 'none'
+                          }
+                        : {}),
+                  }}
+                >
                   <Chip
                     // icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
                     label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
@@ -201,10 +224,13 @@ export const CoursePage: FC = () => {
                       color: '#357EEB',
                       fontSize: '20px',
                       lineHeight: '23.87px',
-                      '@media (max-width: 600px)': {
+                      '@media (max-width: 1500px)': {
                         padding: '20px 20px',
-                        fontSize:'14px',
-                        lineHeight:'normal'
+                        fontSize: '14px',
+                        lineHeight: 'normal',
+                      },
+                      '@media (max-width: 1200px)': {
+                        padding: '8px 15px',
                       },
                     }}
                     onClick={() => toggleTestCourseVisibility(!showTestCourse)}
@@ -220,10 +246,13 @@ export const CoursePage: FC = () => {
                       color: '#357EEB',
                       fontSize: '20px',
                       lineHeight: '23.87px',
-                      '@media (max-width: 600px)': {
+                      '@media (max-width: 1500px)': {
                         padding: '20px 20px',
-                          fontSize:'14px',
-                        lineHeight:'normal'
+                        fontSize: '14px',
+                        lineHeight: 'normal',
+                      },
+                      '@media (max-width: 1200px)': {
+                        padding: '8px 15px',
                       },
                     }}
                     label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
@@ -232,17 +261,83 @@ export const CoursePage: FC = () => {
                   />
                 </div>
 
-                <div style={{ display: 'flex', WebkitFlexWrap: 'wrap', gap: '20px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', fontSize: '24px', whiteSpace: 'nowrap' }} className="">
+                <div
+                  style={{
+                    display: 'flex',
+                    WebkitFlexWrap: 'wrap',
+                    gap: '20px',
+                    ...(window.innerWidth <= 1500
+                      ? {
+                          gap: '10px',
+                        }
+                      : {}),
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      fontSize: '24px',
+                      whiteSpace: 'nowrap',
+                      ...(window.innerWidth <= 1500
+                        ? {
+                            fontSize: '16px',
+                          }
+                        : {}),
+
+                      ...(window.innerWidth <= 1200
+                        ? {
+                            fontSize: '14px',
+                          }
+                        : {}),
+                    }}
+                    className=""
+                  >
                     Новые заявки <span style={{ color: '#357EEB' }}> ()</span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', fontSize: '24px', whiteSpace: 'nowrap' }} className="">
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      fontSize: '24px',
+                      whiteSpace: 'nowrap',
+                      ...(window.innerWidth <= 1500
+                        ? {
+                            fontSize: '16px',
+                          }
+                        : {}),
+
+                      ...(window.innerWidth <= 1200
+                        ? {
+                            fontSize: '14px',
+                          }
+                        : {}),
+                    }}
+                    className=""
+                  >
                     Корзина <span style={{ color: '#357EEB' }}> ()</span>
                   </div>
                 </div>
               </div>
               {/* {role !== RoleE.Student && ( */}
-              <button type="button" onClick={dispatchHandlerModal} className={styles.course_button_add}>
+              <button
+                type="button"
+                onClick={dispatchHandlerModal}
+                className={styles.course_button_add}
+                style={{
+                  ...(window.innerWidth <= 1500
+                    ? {
+                        fontSize: '16px',
+                      }
+                    : {}),
+                  ...(window.innerWidth <= 1200
+                    ? {
+                        padding: '8px 10px',
+                        fontSize: '12px',
+                      }
+                    : {}),
+                }}
+              >
                 <span>Создать курс</span>
               </button>
               {/* )} */}
@@ -326,6 +421,85 @@ export const CoursePage: FC = () => {
         >
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
         </Input>
+
+        <div
+          style={{
+            display: 'none',
+            WebkitFlexWrap: 'wrap',
+            gap: '10px',
+
+            ...(window.innerWidth <= 850
+              ? {
+                  display: 'grid',
+                  
+                  gridTemplateColumns: '1fr 1fr',
+                  justifyContent:'center',
+                  margin: '20px 0 0 0'
+                }
+              : {}),
+              
+            ...(window.innerWidth <= 475
+              ? {
+                  margin: '0',
+                  display: 'flex',
+                 flexDirection:'column'
+                }
+              : {}),
+          }}
+        >
+          <Chip
+            // icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
+            label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
+            variant="filled"
+            // sx={deleting ? { background: '#ff3131' } : {}}
+            sx={{
+              background: 'transparent',
+              border: '2px solid #357EEB',
+              borderRadius: '10px',
+              padding: '30px 40px',
+              width: '100%',
+              color: '#357EEB',
+              fontSize: '20px',
+              lineHeight: '23.87px',
+              '@media (max-width: 1500px)': {
+                padding: '20px 20px',
+                fontSize: '14px',
+                lineHeight: 'normal',
+              },
+              '@media (max-width: 1200px)': {
+                padding: '10px ',
+              },
+            }}
+            onClick={() => toggleTestCourseVisibility(!showTestCourse)}
+          />
+
+          <Chip
+            sx={{
+              background: 'transparent',
+              border: '2px solid #357EEB',
+              borderRadius: '10px',
+              padding: '30px 40px',
+              width: '100%',
+              color: '#357EEB',
+              fontSize: '20px',
+              lineHeight: '23.87px',
+
+              '@media (max-width: 1500px)': {
+                padding: '20px 20px',
+                fontSize: '14px',
+                lineHeight: 'normal',
+              },
+              '@media (max-width: 1200px)': {
+                padding: '10px ',
+
+              },
+            }}
+            label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
+            variant="filled"
+            onClick={toggleFolders}
+          />
+        </div>
+
         {/* <div className={styles.search}>
                     <p color="gray">По результатам поиска ничего не найдено...</p>
         </div> */}
