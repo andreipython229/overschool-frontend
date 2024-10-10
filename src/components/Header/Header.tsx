@@ -308,7 +308,7 @@ export const Header = memo(() => {
       const socketPath =
         process.env.REACT_APP_RUN_MODE === 'PRODUCTION'
           ? `wss://apidev.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
-          : `wss://sandbox.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
+          : `ws://sandbox.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
       informSocketRef.current = new w3cwebsocket(socketPath)
       // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}?user_id=${userId}`)
 
