@@ -23,7 +23,7 @@ import { Button } from 'components/common/Button/Button'
 import { useLazyFetchBonusesQuery } from '../../../../api/schoolBonusService'
 import { setStudentBonus } from 'store/redux/bonuses/bonusSlice'
 import { useDispatch } from 'react-redux'
-
+import loop from '../../../../assets/img/common/loop.svg'
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
@@ -49,6 +49,7 @@ export const CoursePage: FC = () => {
   const [deleteFolder, { isSuccess: deletedSuccessfuly }] = useDeleteFolderMutation()
   const [getBonuses, { data: bonuses, isSuccess: bonusSuccess }] = useLazyFetchBonusesQuery()
   const [updateSchoolTestCourse, { data: isLoading }] = useSetSchoolMutation()
+  
   const dispatch = useDispatch()
 
   const dispatchHandlerModal = () => {
@@ -419,7 +420,8 @@ export const CoursePage: FC = () => {
           onChange={event => setSearch(event.target.value)}
           placeholder="Поиск по материалам"
         >
-          <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
+          {/* <IconSvg width={20} height={20} viewBoxSize="20" path={searchIconPath} /> */}
+          <img src={loop} alt="" />
         </Input>
 
         <div
@@ -528,11 +530,12 @@ export const CoursePage: FC = () => {
                     showTestCourse || course.course_id !== 247 ? <CoursesCard key={course?.course_id} course={course} role={role} /> : null,
                   )}
                   {role !== RoleE.Student && (
-                    <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
-                      <span className={styles.course_addCourse}>
-                        <span>Добавить материал</span>
-                      </span>
-                    </button>
+                    <></>
+                    // <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
+                    //   <span className={styles.course_addCourse}>
+                    //     <span>Добавить материал</span>
+                    //   </span>
+                    // </button>
                   )}
                 </>
               ) : (
@@ -541,11 +544,12 @@ export const CoursePage: FC = () => {
                     <p color="gray">Нет доступных к просмотру материалов...</p>
                   </div>
                   {role !== RoleE.Student && (
-                    <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
-                      <span className={styles.course_addCourse}>
-                        <span>Добавить материал</span>
-                      </span>
-                    </button>
+                    <></>
+                    // <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
+                    //   <span className={styles.course_addCourse}>
+                    //     <span>Добавить материал</span>
+                    //   </span>
+                    // </button>
                   )}
                 </>
               )}

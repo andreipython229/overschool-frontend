@@ -1,46 +1,70 @@
 @import '../../../../scss/mixin.scss';
-
 .input_container {
+  overflow: hidden;
   width: 100%;
   height: 54px;
-  border: 1px solid #357EEB;
+  border: 1px solid #332f36;
   border-radius: 10px;
-  background-color: #FFFF;
+  background-color: #ffff;
   font-family: 'Inter', sans-serif;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding-left: 1rem;
+  transition: 0.3s;
+
+  &:hover {
+    border: 1px solid #357eeb;
+  }
+
+  & input:focus {
+    background-color: inherit; 
+  }
+
+  &:has(input:focus) {
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid #357eeb;
+  }
 
   & input {
-    width: 90%;
+    width: 100%;
+    height: 100%;
     outline: none;
+    transition: 0.3s;
     border: none;
-    color: #808080;
-    margin: 11px 0 11px 11px;
+    color: #332F36;
     @include font(500, 20px);
 
     &::placeholder {
-      @include font(400, 14px, 17px);
+      @include font(400, 20px, 17px);
       color: #808080;
+    }
+
+    &:focus {
+      color: #357eeb;
+      &::placeholder{
+        color: #332F36;
+
+      }
+    }
+    &:hover{
+      &::placeholder{
+        color: #332F36;
+      }
     }
   }
 
   &_input {
+    width: 100%;
+    // height: 100%;
+    display: grid;
     position: relative;
     z-index: 2;
   }
 
-  //&_textFieldLabel {
-  //  color: #BDBDBDBD;
-  //  position: absolute;
-  //  top: 16px;
-  //  left: 16px;
-  //  z-index: 0;
-  //}
-
   &_image {
-    @include position_t_r(absolute, 10px, -80px);
+    @include position_t_r(absolute, auto, 10px);
+    align-self: center;
     width: 26px;
     height: 22px;
     cursor: pointer;
