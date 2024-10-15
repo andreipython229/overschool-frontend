@@ -86,7 +86,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
       {role === RoleE.Admin ? (
         <>
           {/* {(((course.course_id === 247) && userId === '154') || ((course.course_id !== 247) && (course.is_copy === false))) ? ( */}
-          {(course.course_id === 247 && userId === '154') || course.course_id !== 247 ? (
+          {( userId !== '154') || course.course_id === 247 ? (
             <div
               style={{
                 background: course?.public === 'О' ? '#CFE2FF' : '#CDCDCD',
@@ -292,7 +292,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
         </>
       ) : (
         <Link
-        style={{width: '100%', height: '100%'}}
+        style={{width: '100%', height: '100%', maxWidth: '660px', minWidth:'320px'}}
           onClick={onStudentClick}
           to={
             course?.remaining_period === 0 || course?.public !== 'О'
