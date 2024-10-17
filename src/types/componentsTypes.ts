@@ -2,20 +2,10 @@ import { ChangeEvent, Dispatch, FC, MouseEvent, ReactNode, SetStateAction } from
 
 import { statusFilterT } from 'types/statusFilterConfigType'
 import { CoursesDataT, CourseWithGroupsT, StGroupT } from 'types/CoursesT'
-import {
-  commonLessonT,
-  IBlockCode,
-  IBlockDesc,
-  IBlockPic,
-  IBlockVid,
-  IHomework,
-  ILesson,
-  ITest,
-  sectionsT,
-  sectionT
-} from './sectionT'
+import { commonLessonT, IBlockCode, IBlockDesc, IBlockPic, IBlockVid, IHomework, ILesson, ITest, lessonT, sectionsT, sectionT } from './sectionT'
 import { lessonIdAndTypeT } from '../components/Modal/ModalTypes'
 import { studentsTableInfoT } from './courseStatT'
+import { questionT } from 'Pages/StudentCourse/StudentTestBlock/StudentQuestion'
 
 export type setShowType = {
   setShow: () => void
@@ -23,6 +13,14 @@ export type setShowType = {
   passStatus?: string
   setTestSended?: (arg: boolean) => void
   setTestSuccess?: (arg: boolean) => void
+}
+
+export type StudentTestPreviewT = {
+  setShow: () => void
+  passStatus?: string
+  setTestSended?: (arg: boolean) => void
+  setTestSuccess?: (arg: boolean) => void
+  lesson: ITest
 }
 
 type argT = {
@@ -42,7 +40,7 @@ export type AddPostT = {
   addFile?: (arg: any) => void
   deleteAudio?: (id: number) => void
   addAudio?: any
-  block?: IBlockCode | IBlockDesc | IBlockPic | IBlockVid 
+  block?: IBlockCode | IBlockDesc | IBlockPic | IBlockVid
   handleEditorChange?: (code: string | undefined) => void
   pictureUrl?: string
 }
@@ -73,7 +71,7 @@ export type AllStudentsBlockT = {
   addLastActiveFilter?: (data1: string, data2: string) => void
   addMarkFilter?: (start_mark: string, end_mark: string) => void
   updateStudents: (value: string) => void
-  isGrouping: (isStudentsGrouped: boolean) => void;
+  isGrouping: (isStudentsGrouped: boolean) => void
   all_students_count: number | null
 }
 

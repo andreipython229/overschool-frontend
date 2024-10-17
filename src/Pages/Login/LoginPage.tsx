@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useFormik } from 'formik'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
-import { useAppDispatch } from '../../store/hooks'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { auth, authState, id, role, userName } from 'store/redux/users/slice'
 import { useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery } from '../../api/userLoginService'
 import { Input } from 'components/common/Input/Input/Input'
@@ -23,6 +23,7 @@ import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
 import { useGetSchoolsMutation } from '../../api/getSchoolService'
 
 import { logoHeaderLogin, facebook, google, maillog, leftArrow } from '../../assets/img/common/index'
+import { selectUser } from 'selectors'
 
 interface INotification {
   state: boolean
@@ -55,6 +56,7 @@ export const LoginPage = () => {
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
   const [schools, setSchools] = useState<SchoolT[]>([])
+  const { auth: authetificationState } = useAppSelector(selectUser)
 
   const [attemptAccess, { error, isSuccess, isLoading }] = useLoginMutation()
   const [getUserInfo, { data, isFetching, isError, isSuccess: userSuccess }] = useLazyGetUserInfoQuery()
@@ -93,17 +95,23 @@ export const LoginPage = () => {
     setSecurity(!security)
   }
 
+  useEffect(() => {
+    if (authetificationState) {
+      navigate(generatePath(Path.ChooseSchool))
+    }
+  }, [authetificationState])
+
   const handleRegistrationUser = () => {
-    const paramsString = localStorage.getItem('utmParams');
+    const paramsString = localStorage.getItem('utmParams')
     if (paramsString !== null) {
-      const parsedParams = JSON.parse(paramsString);
+      const parsedParams = JSON.parse(paramsString)
       const queryParams = Object.keys(parsedParams)
         .map(key => `${key}=${parsedParams[key]}`)
-        .join('&');
-      const pathWithParams = `${Path.CreateSchool}?${queryParams}`;
-      navigate(pathWithParams);
+        .join('&')
+      const pathWithParams = `${Path.CreateSchool}?${queryParams}`
+      navigate(pathWithParams)
     } else {
-      navigate(Path.CreateSchool);
+      navigate(Path.CreateSchool)
     }
   }
 
@@ -121,10 +129,10 @@ export const LoginPage = () => {
       try {
         await attemptAccess(user)
           .unwrap()
-          .then((data) => {
+          .then(data => {
             dispatch(authState({ access: data.access, refresh: data.refresh }))
             dispatch(id(data.user.id))
-            localStorage.setItem('id', data.user.id.toString());
+            localStorage.setItem('id', data.user.id.toString())
           })
       } catch {
         console.log('smth went wrong')
@@ -277,10 +285,12 @@ export const LoginPage = () => {
         <div className={styles.bg_wrap4}></div>
       </div>
       <div className={styles.loginPage_btnBack}>
-        <a href={Path.InitialPage}><img src={leftArrow} alt="leftArrow"/></a>
+        <a href={Path.InitialPage}>
+          <img src={leftArrow} alt="leftArrow" />
+        </a>
       </div>
       <div className={styles.loginPage_logoWrapper}>
-        <img src={logoHeaderLogin} alt="logoHeaderLogin"/>
+        <img src={logoHeaderLogin} alt="logoHeaderLogin" />
       </div>
       <div className={styles.loginPage_formWrapper}>
         {isFetching ||
@@ -324,7 +334,7 @@ export const LoginPage = () => {
                   <Button onClick={handleRegistrationUser} type="submit" text={'Зарегестрироваться'} style={{ width: '400px', height:'54px', borderRadius: '10px', marginBottom:'3rem' }} variant={'newCreate'} />
               </div> */}
               <div className={styles.btn}>
-                <Button type="submit" text={'Вход'} style={{ height:'54px', borderRadius: '10px'}} variant={'newPrimary'} />
+                <Button type="submit" text={'Вход'} style={{ height: '54px', borderRadius: '10px' }} variant={'newPrimary'} />
               </div>
               <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn}>
                 <a href="" onClick={forgotPass} style={{ textDecoration: 'none', width: 'max-content', display: 'inline-flex' }}>
@@ -337,9 +347,9 @@ export const LoginPage = () => {
                 <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
               </div>
               <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_socialMedia}>
-                <img src={facebook} alt="facebook"/>
-                <img src={google} alt="google"/>
-                <img src={maillog} alt="maillog"/>
+                <img src={facebook} alt="facebook" />
+                <img src={google} alt="google" />
+                <img src={maillog} alt="maillog" />
               </div>
             </div>
           </form>

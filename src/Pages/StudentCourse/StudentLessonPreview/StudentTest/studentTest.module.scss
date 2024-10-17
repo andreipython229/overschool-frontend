@@ -11,7 +11,10 @@
     color: #4d5766;
   }
   &_testWrapper {
-    @include display(flex);
+    @include display(flex, row, center, center);
+    width: 100%;
+    margin: 2rem 0;
+    padding: 0 2rem;
   }
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {

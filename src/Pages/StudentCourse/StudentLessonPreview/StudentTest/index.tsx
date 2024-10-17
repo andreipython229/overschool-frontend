@@ -163,9 +163,17 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
         </div>
         <div className={styles.wrapper_testWrapper}>
           {!isOpenTest && lessonType !== 'lesson' ? (
-            <StudentTestPreview passStatus={passStatus} setTestSended={setTestSended} setTestSuccess={setTestSuccess} setShow={openTest} />
+            <StudentTestPreview lesson={lesson} passStatus={passStatus} setTestSended={setTestSended} setTestSuccess={setTestSuccess} setShow={openTest} />
           ) : (
-            isOpenTest && <StudentTestBlock lesson={lesson} setTestSended={setTestSended} setTestSuccess={setTestSuccess} />
+            isOpenTest && (
+              <StudentTestBlock
+                lesson={lesson}
+                activeLessonIndex={activeLessonIndex}
+                lessons={lessons}
+                setTestSended={setTestSended}
+                setTestSuccess={setTestSuccess}
+              />
+            )
           )}
         </div>
         <LessonComments
