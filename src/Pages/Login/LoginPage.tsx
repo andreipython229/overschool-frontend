@@ -341,7 +341,7 @@ export const LoginPage = () => {
                   Забыли пароль?
                 </a>
               </div>
-              <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or}>
+              {/* <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or}>
                 <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineLeft}></div>
                 <p>Или</p>
                 <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
@@ -350,7 +350,7 @@ export const LoginPage = () => {
                 <img src={facebook} alt="facebook" />
                 <img src={google} alt="google" />
                 <img src={maillog} alt="maillog" />
-              </div>
+              </div> */}
             </div>
           </form>
         )}

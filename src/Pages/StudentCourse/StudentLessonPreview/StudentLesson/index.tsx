@@ -134,7 +134,7 @@ export const StudentLesson: FC<studentLessonT> = ({ lesson, lessons, params, act
         <div className={styles.lesson__wrap}>
           <div className={styles.lesson__card}>
             <div className={styles.lesson__content}>
-              <Reorder.Group style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }} onReorder={() => setOrder} values={order}>
+              <Reorder.Group style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%' }} onReorder={() => setOrder} values={order}>
                 {renderStudentBlocks(lesson, download)}
               </Reorder.Group>
             </div>

@@ -35,9 +35,9 @@ const FirstWaterLinePath: FC<IWaterLine> = ({ style }) => {
         />
       </g>
       <defs>
-        <linearGradient id="paint0_linear_16602_38652" x1="763" y1="0.5" x2="763" y2="13.5" gradientUnits="userSpaceOnUse">
+        <linearGradient id="paint0_linear_16602_38652" x1="0%" y1="0%" x2="0%" y2="100%" gradientUnits="userSpaceOnUse">
           <stop stopColor="#CFE2FF" />
-          <stop offset="1" stopColor="#BBCEEB" />
+          <stop offset="1" stopColor="#357EEB" />
         </linearGradient>
       </defs>
     </svg>

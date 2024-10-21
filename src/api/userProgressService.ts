@@ -19,8 +19,8 @@ interface IUserProgress {
     top_leaders: ITopUser[]
     homeworks: {
       completed_percent: number
-      all_homeworks: number
-      completed_homeworks: number
+      all_lessons: number
+      completed_lessons: number
     }
     lessons: {
       completed_perсent: number
@@ -29,8 +29,8 @@ interface IUserProgress {
     }
     tests: {
       completed_percent: number
-      all_tests: number
-      completed_tests: number
+      all_lessons: number
+      completed_lessons: number
     }
   }[]
   school_id: number

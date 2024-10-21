@@ -90,7 +90,7 @@ export const MainLayOut: FC = memo(() => {
 
   return (
     <div className={styles.wrapper}>
-      {userRole === 6 && progress.completion_percentage < 100 && <NewSchoolProgress />}
+      {userRole === 6 && progress.completion_percentage < 100 && <NewSchoolProgress />} 
       <Navbar />
       <Header />
       <motion.main

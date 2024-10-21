@@ -19,6 +19,16 @@
   justify-content: space-between;
   gap: 1rem;
 
+  @media screen and (max-width: 500px) {
+      min-width: 100%;
+  }
+
+  &_volumeLine {
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+
   &_playButton,
   &_volumeButton {
     background: none;

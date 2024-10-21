@@ -43,7 +43,7 @@ export const StudentTestResults: React.FC<TestResultProps> = ({
   lessons,
   activeLessonIndex,
 }) => {
-  const isSuccess = user_percent === success_percent
+  const isSuccess = user_percent >= success_percent
   const { school_name: school, section_id: sectionId, course_id: courseId } = useParams()
   const lessonForward: lessonT = lessons?.lessons[activeLessonIndex + 1]
   const navigate = useNavigate()

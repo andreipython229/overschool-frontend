@@ -22,7 +22,7 @@ export const userHomeworkService = createApi({
   endpoints: build => ({
     fetchUserHomework: build.query<UserHomework, { id: number; schoolName: string; courseId?: string }>({
       query: ({ id, schoolName, courseId }) => ({
-        url: courseId ? `/${schoolName}/user_homeworks/${id}/${courseId}/` : `/${schoolName}/user_homeworks/${id}/`,
+        url: courseId ? `/${schoolName}/user_homeworks/${id}/?course_id=${courseId}` : `/${schoolName}/user_homeworks/${id}`,
       }),
       providesTags: ['userHomework'],
     }),

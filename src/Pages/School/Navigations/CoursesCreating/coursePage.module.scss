@@ -1,6 +1,13 @@
 @import '../../../../scss/variable';
 @import '../../../../scss/mixin.scss';
 
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
 .skeleton {
   position: absolute;
   left: 132px;
@@ -22,7 +29,6 @@
 }
 .course {
   grid-auto-flow: row;
-  margin: 0 auto;
   margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));

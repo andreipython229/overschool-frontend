@@ -54,7 +54,9 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
 
   const onStudentClick = () => {
     localStorage.setItem('course_id', '' + course?.course_id)
-    course?.public !== 'О' && onToggle()
+    if (course?.public !== 'О' || (course.limit && course.remaining_period && course.remaining_period === 0)) {
+      onToggle()
+    }
   }
 
   if (isLoading || isError) {
@@ -86,7 +88,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
       {role === RoleE.Admin ? (
         <>
           {/* {(((course.course_id === 247) && userId === '154') || ((course.course_id !== 247) && (course.is_copy === false))) ? ( */}
-          {( userId !== '154') || course.course_id === 247 ? (
+          {userId !== '154' || course.course_id === 247 ? (
             <div
               style={{
                 background: course?.public === 'О' ? '#CFE2FF' : '#CDCDCD',
@@ -165,7 +167,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                           course_id: `${course?.course_id}`,
                         })}
                         className="CourseCardsTS__admin-buttons"
-                        style={{gridTemplateColumns: course?.public === 'О' ? '1fr 1fr': '1fr', gap: course?.public === 'О' ? '10px': 0}} 
+                        style={{ gridTemplateColumns: course?.public === 'О' ? '1fr 1fr' : '1fr', gap: course?.public === 'О' ? '10px' : 0 }}
                       >
                         <Link
                           style={{
@@ -292,10 +294,10 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
         </>
       ) : (
         <Link
-        style={{width: '100%', height: '100%', maxWidth: '660px', minWidth:'320px'}}
+          style={{ width: '100%', height: '100%', maxWidth: '660px', minWidth: '320px' }}
           onClick={onStudentClick}
           to={
-            course?.remaining_period === 0 || course?.public !== 'О'
+            (course.remaining_period && course?.remaining_period === 0) || course?.public !== 'О'
               ? '#'
               : generatePath(Student.Course, {
                   course_id: `${course?.course_id}`,
@@ -329,14 +331,14 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     <div className="CourseCardsTS__property">
                       <img src={homeTask} className="CourseCardsTS__property-img" alt="" />
                       <p className="CourseCardsTS__property-name">
-                        {userProgress.courses[0].homeworks.completed_homeworks}/{userProgress.courses[0].homeworks.all_homeworks} Домашних заданий
+                        {userProgress.courses[0].homeworks.completed_lessons}/{userProgress.courses[0].homeworks.all_lessons} Домашних заданий
                       </p>
                     </div>
                     <div className="CourseCardsTS__line"></div>
                     <div className="CourseCardsTS__property">
                       <img src={tests} className="CourseCardsTS__property-img" alt="" />
                       <p className="CourseCardsTS__property-name">
-                        {userProgress.courses[0].tests.completed_tests}/{userProgress.courses[0].tests.all_tests} тестов
+                        {userProgress.courses[0].tests.completed_lessons}/{userProgress.courses[0].tests.all_lessons} тестов
                       </p>
                     </div>
                   </div>
@@ -349,15 +351,14 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                   </div>
 
                   <div className={styles.course_card_about}>
-                    {/*             
-               <div className={styles.course_card_duration}>
-                 {course?.limit &&
-                   (course?.remaining_period ? (
-                     <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
-                   ) : (
-                     <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
-                   ))}
-               </div> */}
+                    <div className={styles.course_card_duration}>
+                      {course?.limit &&
+                        (course?.remaining_period ? (
+                          <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
+                        ) : (
+                          <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
+                        ))}
+                    </div>
                   </div>
 
                   <div className="CourseCardsTS__bottom">
