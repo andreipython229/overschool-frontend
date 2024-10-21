@@ -2,67 +2,49 @@
 @import '../../../../scss/variable.scss';
 
 .wrapper {
-    position: relative;
-    @include display (flex, row, center, center);
-    align-self: flex-start;
+  position: relative;
+  @include display(flex, column, flex-start, flex-start);
+  align-self: flex-start;
+  width: 20rem;
+  height: auto;
+  background-color: transparent;
+  border-radius: 1rem;
+  gap: 0.6rem;
+
+  &_imageBorder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: flex-end !important;
     width: 100%;
-    height: 100%;
-    margin-top: 16px;
-    padding: 10px 15px;
-    background-color: #FCFCFC;
-    border: 1px solid #F3F3F3;
-    border-radius: 30px;
-    div {        
-        @include display (flex, row, flex-start, center);
-        width: 100%;
+    height: 9rem;
+    border-radius: 1rem;
 
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
-            justify-content: flex-start;
-            width: 100%;
-        }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
-            justify-content: flex-start;
-            width: 100%;
-        }
-        @media only screen and (min-width: 480px) and (max-width: 1024px) {
-            justify-content: flex-start;
-            width: 100%;
-        }
+    /* Blue Linear 2 */
+    background: linear-gradient(90deg, rgb(49, 112, 231) 13.5%, rgb(122, 144, 247) 100%);
+
+    &_image {
+      width: 17.94rem;
+      height: 8.44rem;
+      border-radius: 1rem;
     }
+  }
+
+  div {
+    @include display(flex, row, flex-start, center);
+    width: 100%;
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-        margin-bottom: 2%;
+      justify-content: flex-start;
+      width: 100%;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
-        margin-bottom: 2%;
+      justify-content: flex-start;
+      width: 100%;
     }
     @media only screen and (min-width: 480px) and (max-width: 1024px) {
-        margin-bottom: 2%;
+      justify-content: flex-start;
+      width: 100%;
     }
-    
-}
-
-
-.image {
-    width: 300px;
-    height: 270px;
-    margin-top: 10px;
-    border-radius: 10px;
-
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-        margin-right: 5px;
-    }
-    
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-        margin-right: 43%;
-    }
-    
-    @media only screen and (min-width: 480px) and (max-width: 1024px) {
-         margin-right: 63%;
-    }
-    
-}
-
-.answer {
-    margin-right: 10px;
+  }
 }

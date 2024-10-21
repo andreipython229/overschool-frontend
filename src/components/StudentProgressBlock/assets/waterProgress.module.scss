@@ -30,12 +30,12 @@
   &_percentageTextTo60 {
     position: absolute;
     z-index: 4;
-    background: var(--Blue-Linear-2);
+    background: var(--Blue-Linear-2, #3170e7);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     align-self: center;
-    font: 800 46px/1 SFPROMedium, -apple-system, Roboto, Helvetica, sans-serif;
+    font: 800 46px/1 'SFPROMedium', -apple-system, Roboto, Helvetica, sans-serif;
 
     @media screen and (max-width: 700px) {
       font-size: 16px;
@@ -45,12 +45,16 @@
   &_percentageTextAfter60 {
     position: absolute;
     z-index: 4;
-    background: var(--Blue-inactive-gradient);
+    background: var(--Blue-inactive-gradient, linear-gradient(180deg, #cfe2ff 0%, #bbceeb 100%));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     align-self: center;
-    font: 800 46px/1 SF Pro Display, -apple-system, Roboto, Helvetica, sans-serif;
+    font: 800 46px/1 'SFPROMedium', -apple-system, Roboto, Helvetica, sans-serif;
+
+    @media screen and (max-width: 720px) {
+      font-size: 16px;
+    }
   }
 
   &_waterPlayground {
@@ -61,7 +65,7 @@
     position: absolute;
     border-radius: 16.25rem;
     border: 3px solid rgba(49, 112, 231, 0.8);
-    background: var(--Blue-inactive-gradient);
+    background: var(--Blue-inactive-gradient, linear-gradient(180deg, #cfe2ff 0%, #bbceeb 100%));
     box-shadow: 0px 0px 25px 0px #357eeb;
     backdrop-filter: blur(17.5px);
 

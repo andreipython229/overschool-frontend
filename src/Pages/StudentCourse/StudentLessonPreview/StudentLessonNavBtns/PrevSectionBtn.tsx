@@ -4,7 +4,8 @@ import styles from '../lesson.module.scss'
 import { useFetchModuleLessonsQuery } from '../../../../api/modulesServices'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
-
+import { arrowLeftIconPath } from 'config/commonSvgIconsPath'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
 
 type PrevSectionButtonProps = {
   sectionId: number
@@ -24,7 +25,11 @@ export const PrevSectionButton: FC<PrevSectionButtonProps> = ({ sectionId, cours
   }
 
   if (isSuccess) {
-    return <Button onClick={prevSectionHandler} className={styles.lesson__btnPrev} text="Предыдущий раздел" />
+    return (
+      <Button text="Предыдущий раздел" onClick={prevSectionHandler} variant="emptyInside">
+        <IconSvg viewBoxSize="0 0 24 24" height={24} width={24} path={arrowLeftIconPath} />
+      </Button>
+    )
   } else {
     return <SimpleLoader />
   }

@@ -143,7 +143,7 @@ export type ToggleButtonDropDownT = {
   handleToggleHiddenBlocks: () => void
 }
 
-interface IDeleteFunc {
+export interface IDeleteFunc {
   id: number
   schoolName: string
 }

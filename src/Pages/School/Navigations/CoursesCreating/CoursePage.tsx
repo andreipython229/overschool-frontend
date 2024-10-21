@@ -23,7 +23,7 @@ import { Button } from 'components/common/Button/Button'
 import { useLazyFetchBonusesQuery } from '../../../../api/schoolBonusService'
 import { setStudentBonus } from 'store/redux/bonuses/bonusSlice'
 import { useDispatch } from 'react-redux'
-
+import loop from '../../../../assets/img/common/loop.svg'
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
@@ -49,7 +49,8 @@ export const CoursePage: FC = () => {
   const [deleteFolder, { isSuccess: deletedSuccessfuly }] = useDeleteFolderMutation()
   const [getBonuses, { data: bonuses, isSuccess: bonusSuccess }] = useLazyFetchBonusesQuery()
   const [updateSchoolTestCourse, { data: isLoading }] = useSetSchoolMutation()
-  const dispatch = useDispatch();
+
+  const dispatch = useDispatch()
 
   const dispatchHandlerModal = () => {
     onToggle()
@@ -99,25 +100,25 @@ export const CoursePage: FC = () => {
 
   useEffect(() => {
     if (test_course) {
-      const isTestCourse = test_course.toLowerCase();
+      const isTestCourse = test_course.toLowerCase()
       if (isTestCourse === 'true') {
-        setShowTestCourse(true);
+        setShowTestCourse(true)
       } else {
         setShowTestCourse(false)
       }
     }
-  }, [test_course]);
+  }, [test_course])
 
   const toggleTestCourseVisibility = async (newState: boolean) => {
-    setShowTestCourse(newState);
-    const formdata = new FormData();
-    formdata.append('test_course', JSON.stringify(newState));
+    setShowTestCourse(newState)
+    const formdata = new FormData()
+    formdata.append('test_course', JSON.stringify(newState))
     try {
-      await updateSchoolTestCourse({ formdata, id: Number(school_id) });
-      await fetchData(schoolName);
+      await updateSchoolTestCourse({ formdata, id: Number(school_id) })
+      await fetchData(schoolName)
       setCourses(coursesData)
     } catch (error) {
-      console.error('Error updating test course:', error);
+      console.error('Error updating test course:', error)
     }
   }
 
@@ -129,9 +130,10 @@ export const CoursePage: FC = () => {
   const filteredCourses = courses?.results.filter((course: any) => {
     return course.name.toLowerCase().includes(search.toLowerCase())
   })
+
   if (!isSuccess)
     return (
-      <>
+      <div>
         <div>
           <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#fff" foregroundColor="#f2f2f2">
             <rect x="0" y="0" rx="3" ry="3" width="130" height="130" />
@@ -152,204 +154,439 @@ export const CoursePage: FC = () => {
         <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
           {/* <SimpleLoader style={{ width: '100px', height: '100px' }} /> */}
         </div>
-      </>
+      </div>
     )
   return (
-    <>
-      <div className={styles.container}>
-        {role === RoleE.Admin && (
-          <AnimatePresence>
-            <div style={{ display: 'flex', gap: '1rem', paddingBottom: '1rem' }}>
-              {activeFolder.length > 0 && (
-                <Chip
-                  label={'Убрать фильтрацию'}
-                  icon={<Delete />}
-                  variant="outlined"
-                  onClick={() => {
-                    setActiveFolder('')
-                    setCourses(coursesData)
-                    hideFolders()
-                  }}
-                />
-              )}
-              <Chip
-                icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
-                label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
-                variant="filled"
-                onClick={() => toggleTestCourseVisibility(!showTestCourse)}
-              />
-            <Chip
-                icon={<FolderCopyOutlined />}
-                label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
-                variant="filled"
-                onClick={toggleFolders}
-              />
-
-              {foldersVisible && folders && (
-                <motion.div
-                  style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}
-                  initial={{
-                    x: -50,
-                    opacity: 0,
-                  }}
-                  animate={{
-                    x: 0,
-                    opacity: 1,
-                  }}
-                  transition={{
-                    delay: 0.2,
-                  }}
-                >
-                  {folders.map((folder: any, index: Key | null | undefined) => (
-                    <Chip
-                      key={index}
-                      label={folder.name}
-                      variant="outlined"
-                      sx={deleting ? { background: '#ff3131' } : {}}
-                      onClick={() => {
-                        if (deleting) {
-                          startDeleteModal(folder)
-                        } else {
-                          filterCoursesByFolders(folder.id)
-                          setActiveFolder(folder.name)
-                          hideFolders()
-                        }
-                      }}
-                    />
-                  ))}
-                  <button
-                    style={{
-                      width: '1.8rem',
-                      height: '1.8rem',
-                      borderRadius: '50%',
-                      background: '#ba75ff',
-                      border: 'none',
-                      color: 'white',
-                      fontSize: '30px',
-                      position: 'relative',
-                    }}
-                    onClick={toggleModal}
-                  >
-                    <span style={{ position: 'absolute', top: '-0.28rem', left: '0.28rem' }}>+</span>
-                  </button>
-                  <button
-                    style={{
-                      width: '1.8rem',
-                      height: '1.8rem',
-                      borderRadius: '50%',
-                      background: 'transparent',
-                      border: 'none',
-                      color: 'white',
-                      fontSize: '30px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                    onClick={toggleDeleting}
-                  >
-                    <Delete sx={{ color: 'red' }} />
-                  </button>
-                </motion.div>
-              )}
-            </div>
-          </AnimatePresence>
-        )}
-        <Input
-          role="search-input"
-          name=""
-          type="search"
-          value={search}
-          onChange={event => setSearch(event.target.value)}
-          placeholder="Поиск по материалам"
-        >
-          <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
-        </Input>
-        {/* <div className={styles.search}>
-                    <p color="gray">По результатам поиска ничего не найдено...</p>
-        </div> */}
-        {/* <div className={styles.course_all}>
-                <ToggleButtonDropDown isOpen={isVisible} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleVisible} />
-            </div> */}
+    <div className={styles.container}>
+      {role === RoleE.Admin && (
         <AnimatePresence>
-          {
-            <motion.div
-              className={styles.course}
-              initial={{
-                y: -50,
-                opacity: 0,
-              }}
-              animate={{
-                y: 0,
-                opacity: 1,
-              }}
-              transition={{
-                delay: 0.5,
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '1rem',
+              padding: '1rem',
+              justifyContent: 'space-between',
+              ...(window.innerWidth <= 480
+                ? {
+                    margin: '30px 0 0 0',
+                  }
+                : {}),
+            }}
+          >
+            {activeFolder.length > 0 && (
+              <Chip
+                label={'Убрать фильтрацию'}
+                icon={<Delete />}
+                variant="outlined"
+                onClick={() => {
+                  setActiveFolder('')
+                  setCourses(coursesData)
+                  hideFolders()
+                }}
+              />
+            )}
+
+            <div
+              style={{
+                display: 'flex',
+                WebkitFlexWrap: 'wrap',
+                gap: ' 20px 50px',
+                ...(window.innerWidth <= 1200
+                  ? {
+                      gap: '10px',
+                    }
+                  : {}),
               }}
             >
-              {courses && filteredCourses?.length !== 0 ? (
-                <>
-                  {filteredCourses?.map((course: any) => (
-                    showTestCourse || (course.course_id !== 247) ? (
-                      <CoursesCard key={course?.course_id} course={course} role={role} />
-                    ) : null
-                  ))}
-                  {role !== RoleE.Student && (
-                    <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
-                      <span className={styles.course_addCourse}>
-                        <span>Добавить материал</span>
-                      </span>
-                    </button>
-                  )}
-                </>
-              ) : (
-                <>
-                  <div className={styles.search}>
-                    <p color="gray">Нет доступных к просмотру материалов...</p>
-                  </div>
-                  {role !== RoleE.Student && (
-                    <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
-                      <span className={styles.course_addCourse}>
-                        <span>Добавить материал</span>
-                      </span>
-                    </button>
-                  )}
-                </>
-              )}
-            </motion.div>
-          }
-        </AnimatePresence>
-        {showModal && (
-          <Portal closeModal={toggleModal}>
-            <AddNewFolderModal close={toggleModal} refreshFolders={refetch} />
-          </Portal>
-        )}
-        {isOpenAddCourse ? (
-          <Portal closeModal={onToggle}>
-            <AddCourseModal courses={courses?.results} setShowModal={onToggle} />
-          </Portal>
-        ) : null}
-        <Dialog open={alertOpen} onClose={closeAlert} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-          <DialogTitle id="alert-dialog-title">{`Вы действительно хотите удалить папку "${deletingFolder?.name}"?`}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Это действие безвозвратно удалит папку, если вы не уверены, что хотите удалять папку {`"${deletingFolder?.name}"`}, то нажмите{' '}
-              {'отмена'}. Если вы уверены, что хотите продолжить, нажмите {'удалить'}.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={closeAlert} text={'Отмена'} />
-            <Button
-              onClick={() => {
-                deleteFolder({ id: Number(deletingFolder?.id), schoolName })
-                closeAlert()
+              <div
+                style={{
+                  display: 'flex',
+                  WebkitFlexWrap: 'wrap',
+                  gap: '20px',
+
+                  ...(window.innerWidth <= 850
+                    ? {
+                        display: 'none',
+                      }
+                    : {}),
+                }}
+              >
+                <Chip
+                  // icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
+                  label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
+                  variant="filled"
+                  // sx={deleting ? { background: '#ff3131' } : {}}
+                  sx={{
+                    background: 'transparent',
+                    border: '2px solid #357EEB',
+                    borderRadius: '10px',
+                    padding: '30px 40px',
+                    width: 'fit-content',
+                    color: '#357EEB',
+                    fontSize: '20px',
+                    lineHeight: '23.87px',
+                    '@media (max-width: 1500px)': {
+                      padding: '20px 20px',
+                      fontSize: '14px',
+                      lineHeight: 'normal',
+                    },
+                    '@media (max-width: 1200px)': {
+                      padding: '8px 15px',
+                    },
+                  }}
+                  onClick={() => toggleTestCourseVisibility(!showTestCourse)}
+                />
+
+                <Chip
+                  sx={{
+                    background: 'transparent',
+                    border: '2px solid #357EEB',
+                    borderRadius: '10px',
+                    padding: '30px 40px',
+                    width: 'fit-content',
+                    color: '#357EEB',
+                    fontSize: '20px',
+                    lineHeight: '23.87px',
+                    '@media (max-width: 1500px)': {
+                      padding: '20px 20px',
+                      fontSize: '14px',
+                      lineHeight: 'normal',
+                    },
+                    '@media (max-width: 1200px)': {
+                      padding: '8px 15px',
+                    },
+                  }}
+                  label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
+                  variant="filled"
+                  onClick={toggleFolders}
+                />
+              </div>
+
+              <div
+                style={{
+                  display: 'flex',
+                  WebkitFlexWrap: 'wrap',
+                  gap: '20px',
+                  ...(window.innerWidth <= 1500
+                    ? {
+                        gap: '10px',
+                      }
+                    : {}),
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    fontSize: '24px',
+                    whiteSpace: 'nowrap',
+                    ...(window.innerWidth <= 1500
+                      ? {
+                          fontSize: '16px',
+                        }
+                      : {}),
+
+                    ...(window.innerWidth <= 1200
+                      ? {
+                          fontSize: '14px',
+                        }
+                      : {}),
+                  }}
+                  className=""
+                >
+                  Новые заявки <span style={{ color: '#357EEB' }}> ()</span>
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    fontSize: '24px',
+                    whiteSpace: 'nowrap',
+                    ...(window.innerWidth <= 1500
+                      ? {
+                          fontSize: '16px',
+                        }
+                      : {}),
+
+                    ...(window.innerWidth <= 1200
+                      ? {
+                          fontSize: '14px',
+                        }
+                      : {}),
+                  }}
+                  className=""
+                >
+                  Корзина <span style={{ color: '#357EEB' }}> ()</span>
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={dispatchHandlerModal}
+              className={styles.course_button_add}
+              style={{
+                ...(window.innerWidth <= 1500
+                  ? {
+                      fontSize: '16px',
+                    }
+                  : {}),
+                ...(window.innerWidth <= 1200
+                  ? {
+                      padding: '8px 10px',
+                      fontSize: '12px',
+                    }
+                  : {}),
               }}
-              autoFocus
-              text={'Удалить'}
-              variant={'delete'}
-            />
-          </DialogActions>
-        </Dialog>
-      </div>
-    </>
+            >
+              <span>Создать курс</span>
+            </button>
+
+            {foldersVisible && folders && (
+              <motion.div
+                style={{ display: 'flex', WebkitFlexWrap: 'wrap', gap: '1rem', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}
+                initial={{
+                  x: -50,
+                  opacity: 0,
+                }}
+                animate={{
+                  x: 0,
+                  opacity: 1,
+                }}
+                transition={{
+                  delay: 0.2,
+                }}
+              >
+                {folders.map((folder: any, index: Key | null | undefined) => (
+                  <Chip
+                    key={index}
+                    label={folder.name}
+                    variant="outlined"
+                    sx={deleting ? { background: '#ff3131' } : {}}
+                    onClick={() => {
+                      if (deleting) {
+                        startDeleteModal(folder)
+                      } else {
+                        filterCoursesByFolders(folder.id)
+                        setActiveFolder(folder.name)
+                        hideFolders()
+                      }
+                    }}
+                  />
+                ))}
+                <button
+                  style={{
+                    width: '1.8rem',
+                    height: '1.8rem',
+                    borderRadius: '50%',
+                    background: '#ba75ff',
+                    border: 'none',
+                    color: 'white',
+                    fontSize: '30px',
+                    position: 'relative',
+                  }}
+                  onClick={toggleModal}
+                >
+                  <span style={{ position: 'absolute', top: '-0.28rem', left: '0.28rem' }}>+</span>
+                </button>
+                <button
+                  style={{
+                    width: '1.8rem',
+                    height: '1.8rem',
+                    borderRadius: '50%',
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'white',
+                    fontSize: '30px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  onClick={toggleDeleting}
+                >
+                  <Delete sx={{ color: 'red' }} />
+                </button>
+              </motion.div>
+            )}
+          </div>
+        </AnimatePresence>
+      )}
+      <Input
+        role="search-input"
+        name=""
+        type="search"
+        value={search}
+        onChange={event => setSearch(event.target.value)}
+        placeholder="Поиск по материалам"
+      >
+        {/* <IconSvg width={20} height={20} viewBoxSize="20" path={searchIconPath} /> */}
+        <img src={loop} alt="" />
+      </Input>
+
+      {role === RoleE.Admin && (
+        <div
+          style={{
+            display: 'none',
+            WebkitFlexWrap: 'wrap',
+            gap: '10px',
+
+            ...(window.innerWidth <= 850
+              ? {
+                  display: 'grid',
+
+                  gridTemplateColumns: '1fr 1fr',
+                  justifyContent: 'center',
+                  margin: '20px 0 0 0',
+                }
+              : {}),
+
+            ...(window.innerWidth <= 475
+              ? {
+                  margin: '0',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }
+              : {}),
+          }}
+        >
+          <Chip
+            // icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
+            label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
+            variant="filled"
+            // sx={deleting ? { background: '#ff3131' } : {}}
+            sx={{
+              background: 'transparent',
+              border: '2px solid #357EEB',
+              borderRadius: '10px',
+              padding: '30px 40px',
+              width: '100%',
+              color: '#357EEB',
+              fontSize: '20px',
+              lineHeight: '23.87px',
+              '@media (max-width: 1500px)': {
+                padding: '20px 20px',
+                fontSize: '14px',
+                lineHeight: 'normal',
+              },
+              '@media (max-width: 1200px)': {
+                padding: '10px ',
+              },
+            }}
+            onClick={() => toggleTestCourseVisibility(!showTestCourse)}
+          />
+
+          <Chip
+            sx={{
+              background: 'transparent',
+              border: '2px solid #357EEB',
+              borderRadius: '10px',
+              padding: '30px 40px',
+              width: '100%',
+              color: '#357EEB',
+              fontSize: '20px',
+              lineHeight: '23.87px',
+
+              '@media (max-width: 1500px)': {
+                padding: '20px 20px',
+                fontSize: '14px',
+                lineHeight: 'normal',
+              },
+              '@media (max-width: 1200px)': {
+                padding: '10px ',
+              },
+            }}
+            label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
+            variant="filled"
+            onClick={toggleFolders}
+          />
+        </div>
+      )}
+
+      {/* <div className={styles.search}>
+                    <p color="gray">По результатам поиска ничего не найдено...</p>
+        </div> */}
+      {/* <div className={styles.course_all}>
+                <ToggleButtonDropDown isOpen={isVisible} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleVisible} />
+            </div> */}
+      <AnimatePresence>
+        {
+          <motion.div
+            className={role === RoleE.Student ? styles.course : styles.course_admin}
+            initial={{
+              y: -50,
+              opacity: 0,
+            }}
+            animate={{
+              y: 0,
+              opacity: 1,
+            }}
+            transition={{
+              delay: 0.5,
+            }}
+          >
+            {courses && filteredCourses?.length !== 0 ? (
+              <>
+                {filteredCourses?.map((course: any) =>
+                  showTestCourse || course.course_id !== 247 ? <CoursesCard key={course?.course_id} course={course} role={role} /> : null,
+                )}
+                {role !== RoleE.Student && (
+                  <></>
+                  // <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
+                  //   <span className={styles.course_addCourse}>
+                  //     <span>Добавить материал</span>
+                  //   </span>
+                  // </button>
+                )}
+              </>
+            ) : (
+              <>
+                <div className={styles.search}>
+                  <p color="gray">Нет доступных к просмотру материалов...</p>
+                </div>
+                {role !== RoleE.Student && (
+                  <></>
+                  // <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
+                  //   <span className={styles.course_addCourse}>
+                  //     <span>Добавить материал</span>
+                  //   </span>
+                  // </button>
+                )}
+              </>
+            )}
+          </motion.div>
+        }
+      </AnimatePresence>
+      {showModal && (
+        <Portal closeModal={toggleModal}>
+          <AddNewFolderModal close={toggleModal} refreshFolders={refetch} />
+        </Portal>
+      )}
+      {isOpenAddCourse ? (
+        <Portal closeModal={onToggle}>
+          <AddCourseModal courses={courses?.results} setShowModal={onToggle} />
+        </Portal>
+      ) : null}
+      <Dialog open={alertOpen} onClose={closeAlert} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogTitle id="alert-dialog-title">{`Вы действительно хотите удалить папку "${deletingFolder?.name}"?`}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Это действие безвозвратно удалит папку, если вы не уверены, что хотите удалять папку {`"${deletingFolder?.name}"`}, то нажмите {'отмена'}.
+            Если вы уверены, что хотите продолжить, нажмите {'удалить'}.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeAlert} text={'Отмена'} />
+          <Button
+            onClick={() => {
+              deleteFolder({ id: Number(deletingFolder?.id), schoolName })
+              closeAlert()
+            }}
+            autoFocus
+            text={'Удалить'}
+            variant={'delete'}
+          />
+        </DialogActions>
+      </Dialog>
+    </div>
   )
 }

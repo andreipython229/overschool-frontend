@@ -21,6 +21,7 @@ import { groupSections, sectionLessons } from '../../../../types/lessonAccessT'
 import { checkCourseT } from '../../../../types/CoursesT'
 import { groupCourseAccessT } from '../../../../types/studentsGroup'
 import { useFetchCoursesGroupsQuery } from '../../../../api/coursesServices'
+import setting from '../../../../assets/img/course/setting.svg'
 
 export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, groupId, courseId }) => {
   const schoolName = window.location.href.split('/')[4]
@@ -246,15 +247,19 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
     <>
       {isSuccess && data && (
         <div className={styles.container}>
+          <div className={styles.container_decoration_shadow}></div>
+
           <div onClick={closeModal} className={styles.container_closed}>
-            <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
+            <IconSvg width={25} height={25} viewBoxSize="0 0 14 14" path={crossIconPath} />
           </div>
           <div className={styles.groupSetting}>
             <div className={styles.container_header}>
-              <IconSvg width={44} height={50} viewBoxSize="0 0 44 50" path={settingsGroupIconPath} />
+              <img src={setting} alt="" />
               <span className={styles.container_header_title}>Настройки группы </span>
             </div>
+            
             <MainSettingsGroup
+            
               course={courseId}
               groupType={groupType}
               changeTeacher={setCurrentTeacher}

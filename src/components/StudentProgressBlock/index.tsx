@@ -38,34 +38,73 @@ export const StudentProgressBlock: FC = () => {
           <h4>среди учеников</h4>
         </div>
         <div className={styles.progressWrapper_peopleStats_rates}>
-          <div className={styles.personProgressData} style={{ alignSelf: 'flex-end' }}>
-            <div className={styles.progressWrapper_peopleStats_rates_rate2} style={{ backgroundImage: `url(${person})` }}>
-              <img src={secondMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
+          {userProgress.courses[0].top_leaders && userProgress.courses[0].top_leaders.length && userProgress.courses[0].top_leaders[1] ? (
+            <div className={styles.personProgressData} style={{ alignSelf: 'flex-end' }}>
+              <div
+                className={styles.progressWrapper_peopleStats_rates_rate2}
+                style={{ backgroundImage: `url(${userProgress.courses[0].top_leaders[1].student_avatar})` }}
+              >
+                <img src={secondMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
+              </div>
+              <h4>{userProgress.courses[0].top_leaders[1].progress_percent}%</h4>
+              <h5>{userProgress.courses[0].top_leaders[1].student_name}</h5>
             </div>
-            <h4>90%</h4>
-            <h5>Аня</h5>
-          </div>
-          <div className={styles.personProgressData} style={{ alignSelf: 'flex-start' }}>
-            <div className={styles.progressWrapper_peopleStats_rates_rate1} style={{ backgroundImage: `url(${person})` }}>
-              <img src={firstMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
+          ) : (
+            <div className={styles.personProgressData} style={{ alignSelf: 'flex-end' }}>
+              <div className={styles.progressWrapper_peopleStats_rates_rate2} style={{ backgroundImage: `url(${person})` }}>
+                <img src={secondMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
+              </div>
+              <h4>-</h4>
+              <h5>-</h5>
             </div>
-            <h4>100%</h4>
-            <h5>Макс</h5>
-          </div>
-          <div className={styles.personProgressData} style={{ alignSelf: 'flex-end' }}>
-            <div className={styles.progressWrapper_peopleStats_rates_rate3} style={{ backgroundImage: `url(${person})` }}>
-              <img src={thirdMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
+          )}
+          {userProgress.courses[0].top_leaders && userProgress.courses[0].top_leaders.length && userProgress.courses[0].top_leaders[0] ? (
+            <div className={styles.personProgressData} style={{ alignSelf: 'flex-start' }}>
+              <div
+                className={styles.progressWrapper_peopleStats_rates_rate1}
+                style={{ backgroundImage: `url(${userProgress.courses[0].top_leaders[0].student_avatar})` }}
+              >
+                <img src={firstMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
+              </div>
+              <h4>{userProgress.courses[0].top_leaders[0].progress_percent}%</h4>
+              <h5>{userProgress.courses[0].top_leaders[0].student_name}</h5>
             </div>
-            <h4>89%</h4>
-            <h5>Вика</h5>
-          </div>
+          ) : (
+            <div className={styles.personProgressData} style={{ alignSelf: 'flex-start' }}>
+              <div className={styles.progressWrapper_peopleStats_rates_rate1} style={{ backgroundImage: `url(${person})` }}>
+                <img src={firstMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
+              </div>
+              <h4>-</h4>
+              <h5>-</h5>
+            </div>
+          )}
+          {userProgress.courses[0].top_leaders && userProgress.courses[0].top_leaders.length && userProgress.courses[0].top_leaders[2] ? (
+            <div className={styles.personProgressData} style={{ alignSelf: 'flex-end' }}>
+              <div
+                className={styles.progressWrapper_peopleStats_rates_rate3}
+                style={{ backgroundImage: `url(${userProgress.courses[0].top_leaders[2].student_avatar})` }}
+              >
+                <img src={thirdMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
+              </div>
+              <h4>{userProgress.courses[0].top_leaders[2].progress_percent}%</h4>
+              <h5>{userProgress.courses[0].top_leaders[2].student_name}</h5>
+            </div>
+          ) : (
+            <div className={styles.personProgressData} style={{ alignSelf: 'flex-end' }}>
+              <div className={styles.progressWrapper_peopleStats_rates_rate3} style={{ backgroundImage: `url(${person})` }}>
+                <img src={thirdMedal} className={styles.progressWrapper_peopleStats_rates_rate1_medal} />
+              </div>
+              <h4>-</h4>
+              <h5>-</h5>
+            </div>
+          )}
         </div>
         <div className={styles.progressWrapper_peopleStats_personalData}>
           <div className={styles.progressWrapper_peopleStats_personalData_title}>ТОП среди учеников</div>
           <div className={styles.progressWrapper_peopleStats_personalData_placement}>
             <div className={styles.progressWrapper_peopleStats_personalData_placement_text}>
               <h5>Ваше место в рейтинге :</h5>
-              <h3>4</h3>
+              <h3>{userProgress.courses[0].rank_in_course || 4}</h3>
             </div>
             <div className={styles.progressWrapper_peopleStats_personalData_placement_progressData}>
               <div className={styles.progressWrapper_peopleStats_personalData_placement_progressData_photoBlock}>
@@ -91,7 +130,7 @@ export const StudentProgressBlock: FC = () => {
               </linearGradient>
             </defs>
           </IconSvg>
-          <div className={styles.progressWrapper_progressSlice_block_ball}>{4.9}</div>
+          <div className={styles.progressWrapper_progressSlice_block_ball}>{userProgress.courses[0].average_mark || '-'}</div>
           <h4>Средний балл</h4>
         </div>
         <div className={styles.progressWrapper_progressSlice_block} style={{ gap: 0, justifyContent: 'flex-start' }}>
@@ -99,7 +138,7 @@ export const StudentProgressBlock: FC = () => {
             <TestDefs />
           </IconSvg>
           <h4>
-            {userProgress.courses[0].tests.completed_tests}/{userProgress.courses[0].tests.all_tests} тестов
+            {userProgress.courses[0].tests.completed_lessons}/{userProgress.courses[0].tests.all_lessons} тестов
           </h4>
         </div>
         <div className={styles.progressWrapper_progressSlice_block} style={{ gap: 0, justifyContent: 'flex-start' }}>
@@ -115,7 +154,7 @@ export const StudentProgressBlock: FC = () => {
             <HomeworkDefs />
           </IconSvg>
           <h4 className={styles.hw}>
-            {userProgress.courses[0].homeworks.completed_homeworks}/{userProgress.courses[0].homeworks.all_homeworks} <p>Домашних работ</p>
+            {userProgress.courses[0].homeworks.completed_lessons}/{userProgress.courses[0].homeworks.all_lessons} <p>Домашних работ</p>
           </h4>
         </div>
       </div>

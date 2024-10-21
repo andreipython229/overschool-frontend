@@ -138,7 +138,7 @@ export const Header = memo(() => {
   const canChangePlatform = profileData?.user?.email ? !restrictedEmails.includes(profileData.user.email) : false
 
   const logOut = async () => {
-    await logout().then(data => {
+    await logout().then(() => {
       setProfileData(undefined)
       dispatch(clearUserProfile())
       dispatch(logoutState())
@@ -147,9 +147,7 @@ export const Header = memo(() => {
       dispatch(removeSchoolName())
       removeAccessCookie('access_token')
       removeRefreshCookie('refresh_token')
-      window.location.reload()
       localStorage.clear()
-      dispatch(auth(false))
       navigate(generatePath(Path.InitialPage))
       setSocketConnect(false)
 
@@ -310,7 +308,7 @@ export const Header = memo(() => {
       const socketPath =
         process.env.REACT_APP_RUN_MODE === 'PRODUCTION'
           ? `wss://apidev.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
-          : `ws://sandbox.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
+          : `wss://sandbox.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
       informSocketRef.current = new w3cwebsocket(socketPath)
       // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}?user_id=${userId}`)
 

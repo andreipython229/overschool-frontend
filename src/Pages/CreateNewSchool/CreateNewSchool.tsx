@@ -217,6 +217,7 @@ export const CreateNewSchool = () => {
             <div className={styles.input_container}>
               <div className={styles.input_container_input}>
                 <PhoneInput
+                
                   inputProps={{
                     name: 'phone_number',
                     style: {
