@@ -25,7 +25,7 @@ export const homeworksStatsService = createApi({
       },
       providesTags: ['homeworskStats'],
     }),
-    fetchAllHomeworkStats: build.query<homeworksStatsT, { filters: { [key: string]: string | number }; schoolName: string }>({
+    fetchAllHomeworkStats: build.query<homeworksStatsT | [], { filters: { [key: string]: string | number }; schoolName: string }>({
       query: ({ filters, schoolName }) => {
         const url = createUrlWithParams(`/${schoolName}/homeworks_stats/`, filters)
         return {

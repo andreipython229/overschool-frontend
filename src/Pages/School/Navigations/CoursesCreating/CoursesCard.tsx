@@ -54,7 +54,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
 
   const onStudentClick = () => {
     localStorage.setItem('course_id', '' + course?.course_id)
-    if (course?.public !== 'О' || (course.limit && course.remaining_period && course.remaining_period === 0)) {
+    if (course?.public !== 'О' || (course.limit && typeof course.remaining_period === 'number' && course.remaining_period === 0)) {
       onToggle()
     }
   }
@@ -293,17 +293,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
           )}
         </>
       ) : (
-        <Link
-          style={{ width: '100%', height: '100%', maxWidth: '660px', minWidth: '320px' }}
-          onClick={onStudentClick}
-          to={
-            (course.remaining_period && course?.remaining_period === 0) || course?.public !== 'О'
-              ? '#'
-              : generatePath(Student.Course, {
-                  course_id: `${course?.course_id}`,
-                })
-          }
-        >
+        <Link style={{ width: '100%', height: '100%', maxWidth: '660px', minWidth: '320px' }} onClick={onStudentClick} to={'#'}>
           <div
             id={`${course?.course_id}`}
             className="CourseCardsTS__student"
@@ -370,19 +360,14 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                 </>
               )}
             </div>
-
-            <>
-              <>
-                {isOpenModal ? (
-                  <Portal closeModal={onToggle}>
-                    <LimitModal message={'Доступ к курсу временно заблокирован. Обратитесь к администратору'} setShowLimitModal={onToggle} />
-                  </Portal>
-                ) : null}
-              </>
-            </>
           </div>
         </Link>
       )}
+      {isOpenModal ? (
+        <Portal closeModal={onToggle}>
+          <LimitModal message={'Доступ к курсу временно заблокирован. Обратитесь к администратору'} setShowLimitModal={onToggle} />
+        </Portal>
+      ) : null}
     </>
   )
 }
