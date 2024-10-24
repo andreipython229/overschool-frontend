@@ -283,7 +283,15 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
           )}
         </>
       ) : (
-        <Link style={{ width: '100%', height: '100%', maxWidth: '660px', minWidth: '320px' }} onClick={onStudentClick} to={'#'}>
+        <Link
+          style={{ width: '100%', height: '100%', maxWidth: '660px', minWidth: '320px' }}
+          onClick={onStudentClick}
+          to={
+            course?.public !== 'О' || (course.limit && typeof course.remaining_period === 'number' && course.remaining_period === 0)
+              ? '#'
+              : generatePath(Path.School + Path.Courses + Student.Course, { school_name: schoolName, course_id: String(course.course_id) })
+          }
+        >
           <div
             id={`${course?.course_id}`}
             className="CourseCardsTS__student"
