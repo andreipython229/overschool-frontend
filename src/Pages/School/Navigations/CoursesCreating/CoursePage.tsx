@@ -525,33 +525,13 @@ export const CoursePage: FC = () => {
             }}
           >
             {courses && filteredCourses?.length !== 0 ? (
-              <>
-                {filteredCourses?.map((course: any) =>
-                  showTestCourse || course.course_id !== 247 ? <CoursesCard key={course?.course_id} course={course} role={role} /> : null,
-                )}
-                {role !== RoleE.Student && (
-                  <></>
-                  // <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
-                  //   <span className={styles.course_addCourse}>
-                  //     <span>Добавить материал</span>
-                  //   </span>
-                  // </button>
-                )}
-              </>
+              filteredCourses?.map((course: any) =>
+                showTestCourse || course.course_id !== 247 ? <CoursesCard key={course?.course_id} course={course} role={role} /> : null,
+              )
             ) : (
-              <>
-                <div className={styles.search}>
-                  <p color="gray">Нет доступных к просмотру материалов...</p>
-                </div>
-                {role !== RoleE.Student && (
-                  <></>
-                  // <button type="button" onClick={dispatchHandlerModal} className={styles.course_card}>
-                  //   <span className={styles.course_addCourse}>
-                  //     <span>Добавить материал</span>
-                  //   </span>
-                  // </button>
-                )}
-              </>
+              <div className={styles.search}>
+                <p color="gray">Нет доступных к просмотру материалов...</p>
+              </div>
             )}
           </motion.div>
         }

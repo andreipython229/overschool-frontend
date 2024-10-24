@@ -785,8 +785,8 @@ li {
     align-items: center;
     display: flex;
     overflow: hidden;
-    width: 0;
-    transition: width 1s;
+    width: 510px;
+    // transition: width 1s;
     justify-content: space-around;
 
     &_platforma {
@@ -837,9 +837,9 @@ li {
 
   }
 
-  .header_block:hover &_menu{
-    width: 510px;
-  }
+  // .header_block:hover &_menu{
+  //   width: 510px;
+  // }
   
 
   
