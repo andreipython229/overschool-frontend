@@ -7,32 +7,34 @@ interface ITopUser {
   progress_percent: number
 }
 
-interface IUserProgress {
-  courses: {
-    all_baselessons: number
-    completed_count: number
+export interface ICoursesProgress {
+  all_baselessons: number
+  completed_count: number
+  completed_percent: number
+  course_id: number
+  course_name: string
+  rank_in_course: number
+  average_mark: number
+  top_leaders: ITopUser[]
+  homeworks: {
     completed_percent: number
-    course_id: number
-    course_name: string
-    rank_in_course: number
-    average_mark: number
-    top_leaders: ITopUser[]
-    homeworks: {
-      completed_percent: number
-      all_lessons: number
-      completed_lessons: number
-    }
-    lessons: {
-      completed_perсent: number
-      all_lessons: number
-      completed_lessons: number
-    }
-    tests: {
-      completed_percent: number
-      all_lessons: number
-      completed_lessons: number
-    }
-  }[]
+    all_lessons: number
+    completed_lessons: number
+  }
+  lessons: {
+    completed_perсent: number
+    all_lessons: number
+    completed_lessons: number
+  }
+  tests: {
+    completed_percent: number
+    all_lessons: number
+    completed_lessons: number
+  }
+}
+
+export interface IUserProgress {
+  courses: ICoursesProgress[]
   school_id: number
   school_name: string
   student: string
@@ -48,6 +50,11 @@ export const userProgressService = createApi({
         url: `/${schoolName}/student_progress/homework_progress/?course_id=${course_id}`,
       }),
     }),
+    fetchAllProgress: build.query<IUserProgress, { schoolName: string }>({
+      query: ({ schoolName }) => ({
+        url: `/${schoolName}/student_progress/homework_progress/`,
+      }),
+    }),
     fetchStudentProgress: build.query<any, { user_id: string | number; schoolName: string }>({
       query: ({ user_id, schoolName }) => `/${schoolName}/student_progress/get_student_progress_for_admin_or_teacher/?student_id=${user_id}`,
     }),
@@ -61,4 +68,10 @@ export const userProgressService = createApi({
   }),
 })
 
-export const { useFetchProgressQuery, useLazyFetchProgressQuery, useFetchStudentProgressQuery, useFetchSertificateMutation } = userProgressService
+export const {
+  useFetchProgressQuery,
+  useLazyFetchProgressQuery,
+  useLazyFetchAllProgressQuery,
+  useFetchStudentProgressQuery,
+  useFetchSertificateMutation,
+} = userProgressService

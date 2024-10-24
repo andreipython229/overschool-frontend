@@ -24,6 +24,8 @@ import { useLazyFetchBonusesQuery } from '../../../../api/schoolBonusService'
 import { setStudentBonus } from 'store/redux/bonuses/bonusSlice'
 import { useDispatch } from 'react-redux'
 import loop from '../../../../assets/img/common/loop.svg'
+import { useLazyFetchAllProgressQuery, useLazyFetchProgressQuery } from 'api/userProgressService'
+import { index } from 'd3'
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
@@ -49,6 +51,7 @@ export const CoursePage: FC = () => {
   const [deleteFolder, { isSuccess: deletedSuccessfuly }] = useDeleteFolderMutation()
   const [getBonuses, { data: bonuses, isSuccess: bonusSuccess }] = useLazyFetchBonusesQuery()
   const [updateSchoolTestCourse, { data: isLoading }] = useSetSchoolMutation()
+  const [fetchProgress, { data: userProgress, isLoading: progressLoading, isError: progressError }] = useLazyFetchAllProgressQuery()
 
   const dispatch = useDispatch()
 
@@ -86,6 +89,12 @@ export const CoursePage: FC = () => {
     }
   }, [bonusSuccess, bonuses])
 
+  useEffect(() => {
+    if (role === RoleE.Student && !userProgress && !progressLoading) {
+      fetchProgress({ schoolName })
+    }
+  }, [role, schoolName, userProgress, progressLoading])
+
   const filterCoursesByFolders = (folderId: number) => {
     if (coursesData) {
       const filteredArray = coursesData.results.filter(course => {
@@ -120,6 +129,13 @@ export const CoursePage: FC = () => {
     } catch (error) {
       console.error('Error updating test course:', error)
     }
+  }
+
+  const getProgress = (courseId: number) => {
+    if (userProgress) {
+      const currentProgress = userProgress.courses.find(course => course.course_id === courseId)
+      return currentProgress
+    } else return undefined
   }
 
   const startDeleteModal = (folder: { id: number; name: string }) => {
@@ -524,9 +540,11 @@ export const CoursePage: FC = () => {
               delay: 0.5,
             }}
           >
-            {courses && filteredCourses?.length !== 0 ? (
-              filteredCourses?.map((course: any) =>
-                showTestCourse || course.course_id !== 247 ? <CoursesCard key={course?.course_id} course={course} role={role} /> : null,
+            {courses && filteredCourses?.length !== 0 && userProgress ? (
+              filteredCourses?.map((course: any, index) =>
+                showTestCourse || course.course_id !== 247 ? (
+                  <CoursesCard userProgress={getProgress(course.course_id)} key={course?.course_id} course={course} role={role} />
+                ) : null,
               )
             ) : (
               <div className={styles.search}>
