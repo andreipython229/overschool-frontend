@@ -540,7 +540,7 @@ export const CoursePage: FC = () => {
               delay: 0.5,
             }}
           >
-            {courses && filteredCourses?.length !== 0 && userProgress ? (
+            {courses && filteredCourses?.length !== 0 ? (
               filteredCourses?.map((course: any, index) =>
                 showTestCourse || course.course_id !== 247 ? (
                   <CoursesCard userProgress={getProgress(course.course_id)} key={course?.course_id} course={course} role={role} />
