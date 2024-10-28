@@ -11,6 +11,10 @@ import { Portal } from '../../components/Modal/Portal'
 import { LimitModal } from '../../components/Modal/LimitModal/LimitModal'
 import { useBoolean } from '../../customHooks'
 import { SearchInput } from 'components/common/SearchInput'
+import { GlobalPrevious } from 'components/Previous/GlobalPrevious'
+import { StudentProgressBlock } from 'components/StudentProgressBlock'
+import { CourseNavigationHeader } from 'components/CourseNavigationHeader'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 export const StudentCourse: FC = () => {
   const dispatch = useDispatch()
@@ -43,9 +47,16 @@ export const StudentCourse: FC = () => {
     }
   }, [data, error, dispatch])
 
+  if (!course) {
+    return <SimpleLoader />
+  }
+
   return (
-    <>
-      <StudentCourseHeader teacher_id={course?.teacher_id as number} />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%' }}>
+      {/* <StudentCourseHeader teacher_id={course?.teacher_id as number} /> */}
+      <CourseNavigationHeader course={course} />
+      <GlobalPrevious />
+      <StudentProgressBlock />
       <SearchInput value={query} setValue={setQuery} />
       {course ? <StudentAccardion modules={course as sectionsT} /> : <></>}
       {isOpenLimitModal ? (
@@ -53,6 +64,6 @@ export const StudentCourse: FC = () => {
           <LimitModal message={message} setShowLimitModal={onToggle} />
         </Portal>
       ) : null}
-    </>
+    </div>
   )
 }

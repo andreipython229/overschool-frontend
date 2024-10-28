@@ -35,7 +35,6 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
           { mmddyyyy: '', hoursAndMinutes: '' };
 
     const progress = dataToRender[i].progress ? `${dataToRender[i].progress}%` : '0%'
-    console.log(dataToRender)
 
 
     const row: GenerateRow = {

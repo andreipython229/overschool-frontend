@@ -1,39 +1,45 @@
 @import '../../../../scss/variable';
 @import '../../../../scss/mixin.scss';
 
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
 .skeleton {
   position: absolute;
   left: 132px;
   top: 215px;
 }
-
-.course {
-  // max-width: 1800px;
-  grid-auto-flow: row;
-  margin: 0 auto;
-  margin-top: 16px;
+.course_admin {
+  margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(242px, 242px));
-  grid-gap: 3% 5%;
-  padding-bottom: 50px;
-  justify-content: start;
-  margin-bottom: 4rem;
-  
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 90%;
-    margin: 0 auto;
-    padding-top: 5%;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 50px;
+  position: relative;
+  z-index: 0;
+  @media only screen and (min-width: 320px) and (max-width: 500px) {
+    gap: 10px;
+    grid-template-columns: 1fr;
   }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 90%;
-    margin: 0 auto;
-    padding-top: 5%;
+}
+.course {
+  grid-auto-flow: row;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-rows: 1fr;
+  gap: 40px;
+  padding-bottom: 50px;
+  justify-content: center;
+  margin-bottom: 250px;
+  position: relative;
+  z-index: 0;
+
+  @media only screen and (min-width: 320px) and (max-width: 450px) {
+    grid-template-columns: 1fr;
   }
 
   &_addCourse {
@@ -98,10 +104,20 @@
     justify-content: center;
     align-items: center;
   }
-
+  &_button_add {
+    background: #357eeb;
+    padding: 15px 35px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    font-weight: 500;
+    color: #ffffff;
+    text-align: center;
+  }
   &_card {
     border-radius: 10px;
     width: auto;
+    max-width: 500px;
     height: 400px;
     // height: fit-content;
     //max-height: fit-content;
@@ -145,8 +161,8 @@
 
     &_progressBar {
       width: 100%;
-      height: 5px;
-      background-color: #f3f4f6;
+      height: 27px;
+      background-color: #ffffff;
 
       &_line {
         width: 13%;
@@ -156,18 +172,12 @@
     }
 
     &_about {
-      height: 198px;
-      // min-height: fit-content;
-      text-align: center;
-      padding: 16px 23px;
-      background: #ffffff;
-
       &_desc {
         display: block;
         height: 70px;
         box-sizing: border-box;
         font-size: 11px;
-        color: #a2a9b4;
+        color: #b4a2a2;
 
         &_admin {
           display: block;
@@ -203,7 +213,7 @@
       }
       &_remaining {
         font-size: 10px;
-        color: rgba(192, 185, 196, 0.95);
+        color: rgba(255, 0, 0, 0.95);
 
         &_expired {
           font-size: 10px;
@@ -342,16 +352,19 @@
 }
 
 .no_image_found {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
   width: 100%;
   height: 100%;
-  background-color: rgba(210, 199, 236, 0.7);
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px 10px 0 0;
-
   span {
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 16px;
     opacity: 0.7;
     font-weight: bold;
@@ -372,5 +385,13 @@
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding: 1rem 1rem 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .course {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 }

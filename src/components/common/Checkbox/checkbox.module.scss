@@ -18,7 +18,7 @@
     height: 21px;
     flex-shrink: 0;
     flex-grow: 0;
-    border: 1px solid #e8e8e8;
+    border: 1px solid #3b3b3b;
     border-radius: 3px;
     margin-right: 13px;
     background-color: transparent;
@@ -30,11 +30,11 @@
 }
 .label_input:checked + .label_customCheckbox {
   background-image: url('../../../assets/img/common/done_icon.svg');
-  background-position: 1px center;
-  background-color: $font-color-rose;
+  background-position: center;
+  background-color: rgb(53, 126, 235);
   cursor: pointer;
 }
 .label:hover + .label_customCheckbox {
-  border-color: #dcdcdc;
+  border-color: #3b3b3b;
   cursor: pointer;
 }

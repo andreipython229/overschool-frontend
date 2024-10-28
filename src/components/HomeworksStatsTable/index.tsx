@@ -23,7 +23,7 @@ export const HomeworksStatsTable: FC<homeworkStatsTableT> = ({ homeworks, isLoad
   }, [])
 
   return (
-    <div className={styles.wrapper}>
+    <div>
       <table className={styles.table} style={{ minHeight: !sortedData?.length ? '295px' : 'unset' }}>
         {isLoading && (
           <tbody>

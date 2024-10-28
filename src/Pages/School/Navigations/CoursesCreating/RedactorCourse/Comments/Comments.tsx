@@ -58,6 +58,7 @@ export const Comments: FC = () => {
           if (data && data.data) {
             const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
               return {
+                avatar: commentData.avatar,
                 id: commentData.id,
                 author: commentData.author,
                 author_first_name: commentData.author_first_name,
@@ -123,6 +124,7 @@ export const Comments: FC = () => {
             if (data && data.data) {
               const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
                 return {
+                  avatar: commentData.avatar,
                   id: commentData.id,
                   author: commentData.author,
                   author_first_name: commentData.author_first_name,

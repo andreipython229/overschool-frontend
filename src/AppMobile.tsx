@@ -110,8 +110,8 @@ export const AppMobile = () => {
       <Routes>
         <Route path={Path.InitialPage} element={<MobileInitPage />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
-        <Route path={Path.ChooseSchool} element={<ChooseSchool />} /> 
-        
+        <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
+
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
@@ -137,14 +137,7 @@ export const AppMobile = () => {
           <Route path={FooterPath.PWA} element={<PWA />} />
           <Route path={FooterPath.Agreement} element={<Agreement />} />
           {navByRolesConfig[role]}
-          
-          <Route path={Path.Courses}>
-            <Route index element={<MobileCoursesPage />} />
-            <Route path={Student.Course}>
-              <Route index element={<CourseModules />} />
-              <Route path={Student.Lesson} element={<StudentLessonPreview />} />
-            </Route>
-          </Route>
+
           <Route path={Path.Profile} element={<Profile />} />
         </Route>
         <Route path={'*'} element={<PageNotFound />} />

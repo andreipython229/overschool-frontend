@@ -5,15 +5,16 @@ import { StudentTest } from './StudentTest'
 import { StudentHomework } from './StudentHomework'
 import { StudentLesson } from './StudentLesson'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
-import { useFetchLessonQuery, useLazyFetchLessonQuery, useLazyFetchModuleLessonsQuery } from '../../../api/modulesServices'
-import { StudentLessonSidebar } from './StudentLessonSidebar'
-import { sectionT } from 'types/sectionT'
+import { useLazyFetchLessonQuery, useLazyFetchModuleLessonsQuery } from '../../../api/modulesServices'
 
 import styles from './lesson.module.scss'
 import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
 import { useBoolean } from '../../../customHooks'
 import { Portal } from '../../../components/Modal/Portal'
 import { LimitModal } from '../../../components/Modal/LimitModal/LimitModal'
+import {useLazyFetchStudentTrainingDurationQuery} from "../../../api/lessonAccessService";
+import {useAppSelector} from "../../../store/hooks";
+import {selectUser} from "../../../selectors";
 
 export const StudentLessonPreview: FC = () => {
   const params = useParams()
@@ -25,6 +26,9 @@ export const StudentLessonPreview: FC = () => {
   const [nextDisabled, setNextDisabled] = useState(false)
   const [isOpenLimitModal, { onToggle }] = useBoolean()
   const [message, setMessage] = useState<string>('')
+  const [fetchDownload, {data}] = useLazyFetchStudentTrainingDurationQuery()
+  const [download, setDownload] = useState<boolean>(false)
+  const user = useAppSelector(selectUser)
 
   useEffect(() => {
     if (params && courseId !== undefined) {
@@ -37,6 +41,18 @@ export const StudentLessonPreview: FC = () => {
       fetchLesson({id: Number(params?.lesson_id), type: `${params?.lesson_type}`, schoolName, courseId})
     }
   }, [params, courseId])
+
+  useEffect(() => {
+    if (lesson && lessons && lesson?.type !== LESSON_TYPE.TEST) {
+      fetchDownload({group_id: Number(lessons?.group_id), student_id: Number(user?.userId), schoolName})
+    }
+  }, [lessons, lesson])
+
+  useEffect(() => {
+    if (data) {
+      setDownload(data.download)
+    }
+  }, [data])
 
   useEffect(() => {
     if (error && 'data' in error) {
@@ -54,7 +70,7 @@ export const StudentLessonPreview: FC = () => {
     if (isSuccess && lessons) {
       switch (lesson?.type) {
         case LESSON_TYPE.LESSON:
-          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} />
+          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} download={download}/>
         case LESSON_TYPE.HOMEWORK:
           return (
             <StudentHomework
@@ -65,6 +81,7 @@ export const StudentLessonPreview: FC = () => {
               sended={sended}
               nextDisabled={nextDisabled}
               setNextDisabled={setNextDisabled}
+              download={download}
             />
           )
         case LESSON_TYPE.TEST:
@@ -87,14 +104,14 @@ export const StudentLessonPreview: FC = () => {
     return (
       <div className={styles.lesson_wrapper}>
         {renderUI()}
-        <StudentLessonSidebar
+        {/* <StudentLessonSidebar
           lessonType={`${params?.lesson_type}` as LESSON_TYPE}
           courseId={`${params?.course_id}`}
           sectionId={`${params?.section_id}`}
           activeLessonIndex={activeLessonIndex as number}
           lessons={lessons as sectionT}
           nextDisabled={nextDisabled}
-        />
+        /> */}
       </div>
     )
   } else {

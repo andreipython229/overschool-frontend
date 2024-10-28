@@ -1,21 +1,46 @@
 @import '../../scss/mixin.scss';
-
 .previous {
   position: relative;
   width: 100%;
-  height: 210px;
+  height: 26.25rem;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   background: #e0dced;
-  border-radius: 7px;
+  border-radius: 1.5rem;
   overflow: hidden;
   margin-bottom: 25px;
 
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1.5rem;
+    background-color: rgba(51, 47, 54, 0.5);
+    z-index: 1;
+
+    @media screen and (max-width: 700px) {
+      border-radius: 0.625rem;
+    }
+  }
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin-bottom: 3%;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin-bottom: 3%;
+  }
+
+  &_avatar {
+    @include position_t_l(absolute, 10px, 10px);
+    border: 1px solid #ffffff;
+    background: #d9d9d9;
+    border-radius: 7px;
+    box-sizing: border-box;
+    margin-right: 16px;
+    z-index: 3;
   }
 
   &_loader {
@@ -30,38 +55,37 @@
     background-color: rgba(255, 255, 255, 0.649);
     z-index: 9999;
   }
-
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     @include display(flex, row, flex-start, center);
-    margin-top: 10px;
     margin-bottom: 0;
-    height: 58px;
+    height: 11.25rem;
+    border-radius: 0.625rem;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     @include display(flex, row, flex-start, center);
-    margin-top: 10px;
     margin-bottom: 0;
-    height: 58px;
+    height: 11.25rem;
+    border-radius: 0.625rem;
   }
-
   &_bcgrShadow {
     @include position_t_l(absolute, 0, 0);
     opacity: 0.5;
     width: 100%;
     height: 100%;
     background-color: #000;
+    z-index: 3;
   }
-
   .background_image_course {
     width: 100%;
     height: 100%;
+    z-index: 3;
   }
   img {
     display: inline-block;
     border-radius: 50%;
     width: 66px;
     height: 66px;
-   
+    z-index: 3;
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       margin: 0 12px 0 8px;
@@ -74,29 +98,33 @@
       height: 40px;
     }
   }
-
   &_infoBlock {
-    @include position_b_l(absolute, 26px, 34px);
-    @include display(flex, row, flex-start, center);
-
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    height: 6.4375rem;
+    padding: 1.5rem 4rem;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    background: linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%);
+    z-index: 3;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-      //position: static;
-      bottom: 15%;
-      left: 1%;
+      display: inline-flex;
+      padding: 0rem 5.8125rem 0rem 5.75rem;
+      justify-content: center;
+      align-items: center;
+      height: 2.25rem;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
-      //position: static;
-      bottom: 15%;
-      left: 1%;
+      display: inline-flex;
+      padding: 0rem 5.8125rem 0rem 5.75rem;
+      justify-content: center;
+      align-items: center;
+      height: 2.25rem;
     }
-    &_avatar {
-      border: 1px solid #ffffff;
-      background: #d9d9d9;
-      border-radius: 7px;
-      box-sizing: border-box;
-      margin-right: 16px;
-    }
-
     &_title {
       @include display(flex, column);
       &_description {
@@ -110,12 +138,13 @@
       }
 
       &_name {
-        @include font(500, 28px, 17px);
-        color: #ba75ff;
-        margin-top: 0.1em;
-        strong {
-          font-weight: 700;
-        }
+        color: #fff;
+        text-align: center;
+        font-family: 'SFPRORegular';
+        font-size: 2.875rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 3.875rem; /* 134.783% */
 
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           font-size: 12px;
@@ -124,22 +153,23 @@
           font-size: 12px;
         }
       }
-
       &_about {
         @include font(500, 20px, 24px);
         color: #bdbdbd;
       }
     }
   }
-
   &_onlineCourses {
     @include position_t_l(absolute, 125px, 44px);
     @include font(500, 14px, 17px);
     color: #ba75ff;
   }
-
   &_btn {
-    @include position_b_r(absolute, 44px, 37px);
+    @include position_t_r(absolute, 1rem, 1rem);
+    width: 24px;
+    height: 24px;
+    z-index: 3;
+    cursor: pointer;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       display: none;
     }
@@ -150,7 +180,6 @@
       padding: 10px 14px;
     }
   }
-
   &_btn_rate {
     @include position_t_r(absolute, 44px, 37px);
     //@media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -163,7 +192,6 @@
     //  padding: 10px 14px;
     //}
   }
-
   &_error {
     font-size: 12px;
     color: rgb(224, 24, 24);
@@ -213,5 +241,4 @@
     @include font(500, 12px, 15px);
     margin-left: 13px;
   }
-  
 }

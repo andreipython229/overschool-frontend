@@ -1,5 +1,5 @@
 import { IBanner } from 'api/apiTypes'
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import styles from './Banner.module.scss'
 import HubImage from './assets/course-hub-banner.png'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -36,6 +36,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
   const [activeGroups, setActiveGroups] = useState<number[]>(banner.groups)
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
+  const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length)
 
   const handleDeleteBanner = () => {
     deleteBanner({ id: banner.id, schoolName: schoolName })
@@ -59,6 +60,17 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
           closeEditing()
           refetch()
         })
+    }
+  }
+
+  const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isAll = event.target.checked
+    setAllGroups(isAll)
+    const groupsIds = groups?.results.map(group => Number(group.group_id))
+    if (isAll) {
+      setActiveGroups(groupsIds)
+    } else {
+      setActiveGroups([])
     }
   }
 
@@ -146,13 +158,14 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                   }, {}),
                 ).map(([courseName, groups]) => (
                   <div key={courseName} style={{ marginBlockStart: '8px' }}>
-                    <b>{courseName}</b>
+                    {groups.length > 0 && groups.find(grp => activeGroups.includes(Number(grp.group_id))) && <b>{courseName}</b>}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                      {groups.map((group, index) => (
-                        <span key={group.group_id} style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem' }}>
-                          {group.name}
-                        </span>
-                      ))}
+                      {groups.map(
+                        (group, index) =>
+                          activeGroups.includes(Number(group.group_id)) && (
+                            <span style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem', flexBasis: 20 }}>{group.name}</span>
+                          ),
+                      )}
                     </div>
                   </div>
                 ))}
@@ -161,6 +174,18 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
           ) : (
             <div className={styles.wrapper_content_groups}>
               <span style={{ fontWeight: '500' }}>Группы в которых будет отображен этот баннер:</span>
+              <div>
+                <Checkbox
+                  style={{ color: '#ba75ff' }}
+                  checked={allGroups}
+                  onChange={e => {
+                    handleAllGroups(e)
+                  }}
+                />
+                <span>
+                  <b>выбрать все группы</b>
+                </span>
+              </div>
               {Object.entries(
                 groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
                   const courseName = group.course_name
@@ -183,6 +208,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                         onChange={e => {
                           const isChecked = e.target.checked
                           if (!isChecked) {
+                            setAllGroups(false)
                             setActiveGroups(prevGrps => prevGrps.filter(grp => grp !== Number(group.group_id)))
                           } else {
                             setActiveGroups(prevGrps => prevGrps.concat(Number(group.group_id)))

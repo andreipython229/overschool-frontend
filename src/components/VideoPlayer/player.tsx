@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState, PointerEvent } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState, PointerEvent, useRef } from 'react'
 import styles from './videoPlayer.module.scss'
 import ReactPlayer from 'react-player'
 import { Box, Tab } from '@mui/material'
@@ -12,14 +12,16 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { deletePath } from 'config/commonSvgIconsPath'
 import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
 import { Reorder, useDragControls } from 'framer-motion'
-import {useAppSelector} from 'store/hooks'
-import {selectUser} from 'selectors'
-import {RoleE} from "../../enum/roleE";
+import { useAppSelector } from 'store/hooks'
+import { selectUser } from 'selectors'
+import { RoleE } from '../../enum/roleE'
+import previewImage from './assets/previewImage.png'
+import { PlayIcon } from 'components/NewAudioPlayer/icons'
 
 type playerProps = {
   deleteBlock?: (arg: { id: string | number; schoolName: string }) => any
   setLessonBlocks?: Dispatch<SetStateAction<(IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]>>
-  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid )[]
+  lessonBlocks?: (IBlockCode | IBlockDesc | IBlockPic | IBlockVid)[]
   lessonId: number
   videoSrc: string | undefined
   videoSrc2?: string
@@ -27,14 +29,26 @@ type playerProps = {
   handleDeleteVideo?: (video: string | undefined) => Promise<void>
   isDeleted?: boolean
   block?: IBlockVid
+  download?: boolean
 }
 
-export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEditing, block, isDeleted, lessonId, lessonBlocks, setLessonBlocks }) => {
+export const VideoPlayer: React.FC<playerProps> = ({
+  videoSrc,
+  videoSrc2,
+  isEditing,
+  block,
+  isDeleted,
+  lessonId,
+  lessonBlocks,
+  setLessonBlocks,
+  download,
+}) => {
   const [currentVideoSrc, setCurrentVideoSrc] = useState<string>()
   const [deleteBlock, { isLoading }] = useDeleteBlockMutation()
   const controls = useDragControls()
   const schoolName = window.location.href.split('/')[4]
-  const {role} = useAppSelector(selectUser)
+  const { role } = useAppSelector(selectUser)
+  const videoPreviewRef = useRef<HTMLDivElement | null>(null)
 
   const handleDeleteVid = () => {
     if (block && lessonBlocks && setLessonBlocks) {
@@ -77,6 +91,12 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
     }
   }, [isDeleted])
 
+  useEffect(() => {
+    if (videoPreviewRef.current) {
+      videoPreviewRef.current.classList.add(styles['react-player__preview'])
+    }
+  }, [])
+
   const onPointerDown = (event: PointerEvent<HTMLSpanElement>) => {
     controls.start(event)
   }
@@ -93,7 +113,7 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
       key={block && block.id}
       style={{ display: 'flex', gap: '1em' }}
     >
-      <div className={styles.videoPlayer} onContextMenu={event => role === RoleE.Student && event.preventDefault()}>
+      <div className={styles.videoPlayer} onContextMenu={event => role === RoleE.Student && !download && event.preventDefault()}>
         {currentVideoSrc && videoSrc && videoSrc2 && (
           <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={currentVideoSrc}>
@@ -108,20 +128,26 @@ export const VideoPlayer: React.FC<playerProps> = ({ videoSrc, videoSrc2, isEdit
         )}
         {currentVideoSrc ? (
           <div className={styles.playerWrapper}>
-          <ReactPlayer
-            url={currentVideoSrc}
-            width="100%"
-            height='100%'
-            // style={{ minWidth: '100%', minHeight: '30rem' }}
-            controls={true}
-            config={{
-              file: {
-                attributes: {
-                  controlsList: 'nodownload',
+            <ReactPlayer
+              url={currentVideoSrc}
+              width="100%"
+              height="100%"
+              light={previewImage}
+              playIcon={<PlayIcon width={124} height={124} />}
+              style={{
+                borderRadius: '1.5rem',
+                boxShadow: '0px 0px 9.3px 4px rgba(53, 126, 235, 0.45)',
+              }}
+              // style={{ minWidth: '100%', minHeight: '30rem' }}
+              controls={true}
+              config={{
+                file: {
+                  attributes: {
+                    controlsList: 'nodownload',
+                  },
                 },
-              },
-            }}
-          />
+              }}
+            />
           </div>
         ) : (
           <></>

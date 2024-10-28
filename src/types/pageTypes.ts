@@ -41,6 +41,7 @@ export type EmployeePropsT = {
   name: string
   contact: string
   role: string
+  additional_roles?: string[]
   id?: number
   employees: EmployeeT[]
   setEmployees: (arg: EmployeeT[]) => void

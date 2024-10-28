@@ -56,9 +56,4 @@ Thumbs.db
 
 id_rsa
 id_rsa.pub
-**/baseApi.ts
-**/setupProxy.js
 etc/
-**/docker-compose.yaml
-**/Dockerfile
-public/

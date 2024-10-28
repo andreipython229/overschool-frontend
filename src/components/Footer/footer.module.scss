@@ -1,61 +1,132 @@
 @import '../../scss/variable';
 @import '../../scss/mixin';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
+}
+h1 {
+  font-family: 'SFPRORegular';
+}
+
+p {
+  font-family: 'SFPRORegular';
+}
+
 .wrapper {
-  @include display(flex, column, space-between, center);
-  padding: 40px 40px 40px 95px;
-  max-width: 100%;
-  background-color: transparent;
-  text-align: center;
-  bottom: 0;
   width: 100%;
-  @media screen and (max-width: 1024px) {
-    padding: 0 20px 120px 20px;
-    align-items: stretch;
-  }
-  &_linksBlock {
-    @include display(flex, row, center, center);
-    margin-top: 40px;
-    gap: 10px;
-    &_link {
-      @include font(500, 10px, 12px);
-      color: #6b7280;
+  max-width: 1260px;
+  height: max-content;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 100px;
+  margin: 0 auto;
 
-      &_tariff {
-        display: none;
+  @media screen and (max-width: 1360px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-bottom: 6rem;
+  }
+
+  &_img {
+    width: 100%;
+    max-width: 1260px;
+    display: flex;
+    padding-top: 11px;
+    padding-bottom: 5px;
+
+    img {
+      @media screen and (max-width: 600px) {
+        margin: 0 auto;
       }
-
-      &_mobile {
-        @include font(500, 10px, 12px);
-        color: #6b7280;
-      }
-    }
-  }
-  &_appName {
-    margin: 40px 0 10px 0;
-    @include font(800, 33px, 40px);
-    color: #d7d7d7;
-    @media screen and (max-width: 1024px) {
-      display: none;
-    }
-  }
-  &_social {
-    @include font(500, 14px, 17px);
-    color: #d7d7d7;
-    @media screen and (max-width: 1024px) {
-      display: none;
     }
   }
 
-  &_requisites {
-    display: none;
+  &_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 1080px;
+    height: 100%;
+    gap: 1rem;
+    flex-wrap: wrap;
 
-    @media screen and (max-width: 1024px) {
+    h1 {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 23.87px;
+      color: #324195;
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.09px;
+      color: #357eeb;
+    }
+
+    a {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.09px;
+      color: #357eeb;
+    }
+
+    &_contact {
       display: flex;
       flex-direction: column;
-      padding-top: 20px;
-      font-size: 10px;
-      align-items: flex-start;
+      gap: 10px;
+
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
+
+      &_pack {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+      }
+    }
+
+    &_directions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
+
+      &_link {
+        font-family: 'SFPROSemiBold';
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19.09px;
+        color: #357eeb;
+      }
+    }
+
+    &_networks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
+    }
+
+    &_users {
+      width: 233px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
     }
   }
 }
