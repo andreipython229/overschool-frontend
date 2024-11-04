@@ -18,6 +18,7 @@ import { NewSchoolProgress } from 'components/NewSchoolProgress'
 import {auth} from "../../store/redux/users/slice";
 import {useDispatch} from "react-redux";
 import {useLazyLogoutQuery} from "../../api/userLoginService";
+import { RoleE } from 'enum/roleE'
 
 export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -90,7 +91,7 @@ export const MainLayOut: FC = memo(() => {
 
   return (
     <div className={styles.wrapper}>
-      {userRole === 6 && progress.completion_percentage < 100 && <NewSchoolProgress />} 
+      {userRole === RoleE.Admin && progress.completion_percentage < 100 && <NewSchoolProgress />} 
       <Navbar />
       <Header />
       <motion.main

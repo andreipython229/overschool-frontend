@@ -1,0 +1,39 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  max-width: 233px;
+  width: 100%;
+
+  p {
+    font-family: 'SFPRORegular';
+    font-size: 27.84px;
+    font-weight: 500;
+    line-height: 27.84px;
+    text-align: center;
+  }
+}
+
+.slider_container {
+  position: relative;
+  width: 100%;
+  max-width: 233px;
+  height: 200px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.slide {
+  position: absolute;
+  height: 97%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+
+.active {
+  opacity: 1;
+}
