@@ -20,7 +20,6 @@ export const NewSchoolProgress: FC = () => {
   useEffect(() => {
     const lastShownDate = localStorage.getItem('popupDate')
     const today = new Date().toDateString()
-
     if (lastShownDate !== today) {
       onToggle()
       localStorage.setItem('popupDate', today)
@@ -76,7 +75,7 @@ export const NewSchoolProgress: FC = () => {
         <LinearProgressWithLabel value={schoolProgressState.completion_percentage} />
         <div className={styles.wrapper_top} style={{ marginTop: '1rem' }}>
           <Button
-             onClick={toggleTasks}
+            onClick={toggleTasks}
             style={{ fontSize: '10px', padding: '5px 10px' }}
             text={allTasks ? 'Скрыть задачи' : 'Показать все задания'}
           />

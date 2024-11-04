@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useState, MouseEvent, useEffect } from 'react'
+import React, { FC, ChangeEvent, useState, useEffect, FormEvent } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { AddFileBtn } from 'components/common/AddFileBtn/index'
@@ -6,7 +6,7 @@ import { Button } from 'components/common/Button/Button'
 import { usePostUserHomeworkMutation } from 'api/userHomeworkService'
 import { UploadedFile } from 'components/UploadedFile'
 import { usePostTextFilesMutation } from 'api/filesService'
-import { Alert, Snackbar, Stack, TextareaAutosize } from '@mui/material'
+import { Alert, Snackbar, Stack } from '@mui/material'
 import { IHomework } from '../../../../types/sectionT'
 import { CheckHw, StudentHomeworkCheck } from '../StudentHomeworkCheck'
 
@@ -70,13 +70,13 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
     handleUploadFiles(chosenFiles)
   }
 
-  const handleSendHomework = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
+  const handleSendHomework = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     setIsLoading(true)
 
     if (courseId) {
       // Извлекаем список курсов и их значений is_copy из localStorage
-      const courseData = JSON.parse(localStorage.getItem('course_data') || '{}');
+      const courseData = JSON.parse(localStorage.getItem('course_data') || '{}')
       const formDataHw = new FormData()
       formDataHw.append('homework', String(homeworkId))
       formDataHw.append('text', String(text))
@@ -86,7 +86,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
 
       await postHomework(homeworkPayload)
         .unwrap()
-        .then((data) => {
+        .then(data => {
           setHwSended(true)
           const formDataFile = new FormData()
 
@@ -153,32 +153,60 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
   }
 
   return !hwStatus ? (
-    <div className={styles.wrapper}>
-      <h5 className={styles.wrapper_title}>Отправить данные, запросить ответ ИИ:</h5>
-      <TextareaAutosize
-        aria-label="Введите ответ на индивидуальное занятие..."
-        placeholder="Введите ответ на индивидуальное занятие..."
-        minRows={5}
-        value={text}
-        onChange={event => setText(event.target.value)}
-      />
-      <span className={styles.wrapper_form_help}>Добавьте файл(-ы):</span>
-      <AddFileBtn handleChangeFiles={handleChangeFiles} />
-      {urlFiles?.map(({ url, name }, index: number) => (
-        <UploadedFile
-          key={index}
-          file={url}
-          index={index}
-          name={name}
-          size={files.length > 0 ? files[index].size : 0}
-          isHw={true}
-          handleDeleteFile={handleDeleteFile}
+    // <div className={styles.wrapper}>
+    //   <h5 className={styles.wrapper_title}>Отправить данные, запросить ответ ИИ:</h5>
+    //   <TextareaAutosize
+    //     aria-label="Введите ответ на индивидуальное занятие..."
+    //     placeholder="Введите ответ на индивидуальное занятие..."
+    //     minRows={5}
+    //     value={text}
+    //     onChange={event => setText(event.target.value)}
+    //   />
+    //   <span className={styles.wrapper_form_help}>Добавьте файл(-ы):</span>
+    //   <AddFileBtn handleChangeFiles={handleChangeFiles} />
+    //   {urlFiles?.map(({ url, name }, index: number) => (
+    //     <UploadedFile
+    //       key={index}
+    //       file={url}
+    //       index={index}
+    //       name={name}
+    //       size={files.length > 0 ? files[index].size : 0}
+    //       isHw={true}
+    //       handleDeleteFile={handleDeleteFile}
+    //     />
+    //   ))}
+    //   {(text || urlFiles.length > 0) && (
+    //     <Button style={{ marginTop: '20px' }} variant="primary" text="Отправить" type="submit" onClick={handleSendHomework} />
+    //   )}
+    // </div>
+    <>
+      <h5 className={styles.hwTitle}>Проверка практической работы</h5>
+      <form onSubmit={handleSendHomework} className={styles.commentForm}>
+        <textarea
+          style={{ resize: 'vertical' }}
+          value={text}
+          rows={4}
+          onChange={event => setText(event.target.value)}
+          placeholder="Введите сообщение..."
         />
-      ))}
-      {(text || urlFiles.length > 0) && (
-        <Button style={{ marginTop: '20px' }} variant="primary" text="Отправить" type="submit" onClick={handleSendHomework} />
-      )}
-    </div>
+
+        {urlFiles?.map(({ url, name }, index: number) => (
+          <UploadedFile
+            key={index}
+            file={url}
+            index={index}
+            name={name}
+            size={files.length > 0 ? files[index].size : 0}
+            isHw={true}
+            handleDeleteFile={handleDeleteFile}
+          />
+        ))}
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+          <AddFileBtn handleChangeFiles={handleChangeFiles} style={{ background: 'transparent', fontWeight: 700, alignSelf: 'center' }} />
+          <Button variant="newPrimary" text="Отправить" type="submit" />
+        </div>
+      </form>
+    </>
   ) : (
     <>
       <StudentHomeworkCheck homework={homework} replyArray={replyArray?.length > 0 ? replyArray : []} />
