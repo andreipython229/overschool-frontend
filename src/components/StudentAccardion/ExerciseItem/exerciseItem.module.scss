@@ -1,32 +1,34 @@
 @import '../../../scss/mixin.scss';
 
 .accardionWrapper_component_exerciseWrapper {
-  @include display(flex, column, center, center);
-  padding: 0 89px 0 94px;
+  //@include display(flex, column, center, center);
+  //padding: 0 89px 0 94px;
 
   &_exercise {
     @include display(flex, row, flex-start, center);
     width: 100%;
-    height: 50px;
-    padding: 11px 0 11px 20px;
-    margin-bottom: 16px;
-    border-radius: 7px;
-    background: #f5f5f5;
+    height: 58px;
+    padding: 0 10px 0 8px;
+    //margin-bottom: 16px;
+    border-radius: 16px;
+    //background: #f5f5f5;
     transition: background-color 0.3s ease, transform 0.3s ease;
     transform-origin: top;
-    // background-color: #f1e3ff;
+    background-color: #ffffff;
+    filter:drop-shadow(0px 0px 8px rgba(0.19607843458652496,0.2549019753932953,0.5843137502670288,0.30000001192092896));
     &:hover {
-      background-color: #d8bef5;
+      background-color: #b4cffc;
       transform: scale(1.05);
     }
 
     &_nameWrapper {
-      @include display(flex, column);
+      @include display(flex, row, space-between, center);
       margin-left: 15px;
+      width: 100%;
 
       &_title {
-        @include font(500, 12px, 15px);
-        color: #4d5766;
+        @include font(500, 20px, 15px);
+        color: #000000;
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           margin: 0;
         }
@@ -36,8 +38,8 @@
       }
 
       &_status {
-        @include font(400, 8px, 10px);
-        color: #ba75ff;
+        //@include font(400, 8px, 10px);
+        //color: #ba75ff;
       }
 
       &_status_neg {
@@ -47,6 +49,59 @@
     }
   }
 }
+
+.accardionWrapper_component_exerciseWrapperImage {
+
+  &_exerciseimage {
+    @include display(flex, column, flex-start, center);
+    padding:0;
+    gap:4px;
+    //&:hover {
+    //  background-color: #b4cffc;
+    //  transform: scale(1.05);
+    //}
+    &_imageDiv {
+      //@include display(flex, row, space-between, center);
+      height:160px;
+      width: 100%;
+      border-radius:24px;
+      padding:0;
+      position:relative;
+      background-color: #d2d8e0;
+      &_image {
+        height:160px;
+        width: 100%;
+        background-color: #93bffa;
+        border-radius:24px;
+      }
+
+      &_status {
+        position: absolute;
+        right: 12px;
+        top: 15px;
+        width: 21px;
+        height: 21px;
+      }
+    }
+    &_nameWrapper {
+      width: 100%;
+      height:72px;
+      &_title {
+        @include font(500, 15px, 15px);
+        color: #000000;
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          margin: 0;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          margin: 0;
+        }
+        text-align:left;
+        vertical-align:middle;
+      }
+    }
+  }
+}
+
 
 .inactive {
   opacity: 0.5;

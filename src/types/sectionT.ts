@@ -147,6 +147,7 @@ export type lessonT = {
   completed: boolean
   sended?: boolean
   active: boolean
+  video_screenshot?: string
 }
 
 export type sectionT = {
@@ -157,6 +158,14 @@ export type sectionT = {
   baselesson_ptr_id?: number
   lessons: lessonT[]
   order: number
+  completed_count?: number
+  homework_count?: number
+  completed_hw_count?: number
+  lesson_count?: number
+  completed_les_count?: number
+  test_count?: number
+  completed_test_count?: number
+  sum_marks?: number
 }
 
 export type sectionsT = {
