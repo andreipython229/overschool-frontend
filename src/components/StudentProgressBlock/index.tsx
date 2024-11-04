@@ -138,7 +138,7 @@ export const StudentProgressBlock: FC = () => {
             <TestDefs />
           </IconSvg>
           <h4>
-            {userProgress.courses[0].tests.completed_tests}/{userProgress.courses[0].tests.all_tests} тестов
+            {userProgress.courses[0].tests.completed_lessons}/{userProgress.courses[0].tests.all_lessons} тестов
           </h4>
         </div>
         <div className={styles.progressWrapper_progressSlice_block} style={{ gap: 0, justifyContent: 'flex-start' }}>
@@ -154,7 +154,7 @@ export const StudentProgressBlock: FC = () => {
             <HomeworkDefs />
           </IconSvg>
           <h4 className={styles.hw}>
-            {userProgress.courses[0].homeworks.completed_homeworks}/{userProgress.courses[0].homeworks.all_homeworks} <p>Домашних работ</p>
+            {userProgress.courses[0].homeworks.completed_lessons}/{userProgress.courses[0].homeworks.all_lessons} <p>Домашних работ</p>
           </h4>
         </div>
       </div>

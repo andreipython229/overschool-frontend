@@ -9,7 +9,7 @@ import { generatePath, Link } from 'react-router-dom'
 import { Path, Student } from '../../../../enum/pathE'
 import { Button } from '../../../../components/common/Button/Button'
 import pie from '../../../../assets/img/studentPage/folder-todo.png'
-import { useLazyFetchProgressQuery } from '../../../../api/userProgressService'
+import { ICoursesProgress, IUserProgress, useLazyFetchProgressQuery } from '../../../../api/userProgressService'
 import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 import ProgressBar from '@ramonak/react-progress-bar'
 import { Portal } from '../../../../components/Modal/Portal'
@@ -36,29 +36,21 @@ type courseCard = {
   course: CoursesDataT
   renderProps?: (course: CoursesDataT) => ReactNode
   role: number
+  userProgress?: ICoursesProgress
 }
 
-export const CoursesCard: FC<courseCard> = ({ course, role }) => {
+export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
   const schoolName = window.location.href.split('/')[4]
-  const [fetchProgress, { data: userProgress, isLoading, isError }] = useLazyFetchProgressQuery()
   const [isOpenModal, { onToggle }] = useBoolean()
   const userId = localStorage.getItem('id')
   const [isPublished, setIsPublished] = useState(course.public === 'О')
   const [update, { isLoading: isLoad, isSuccess }] = usePatchCoursesMutation()
 
-  useEffect(() => {
-    if (role === RoleE.Student && !userProgress && !isLoading) {
-      fetchProgress({ course_id: String(course?.course_id), schoolName })
-    }
-  }, [course, role, schoolName, userProgress, isLoading])
-
   const onStudentClick = () => {
     localStorage.setItem('course_id', '' + course?.course_id)
-    course?.public !== 'О' && onToggle()
-  }
-
-  if (isLoading || isError) {
-    return <SimpleLoader style={{ width: '100px', height: '100px' }} />
+    if (course?.public !== 'О' || (course.limit && typeof course.remaining_period === 'number' && course.remaining_period === 0)) {
+      onToggle()
+    }
   }
 
   if (role === RoleE.Teacher && course.public !== 'О') {
@@ -86,7 +78,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
       {role === RoleE.Admin ? (
         <>
           {/* {(((course.course_id === 247) && userId === '154') || ((course.course_id !== 247) && (course.is_copy === false))) ? ( */}
-          {(course.course_id === 247 && userId === '154') || course.course_id !== 247 ? (
+          {userId !== '154' || course.course_id === 247 ? (
             <div
               style={{
                 background: course?.public === 'О' ? '#CFE2FF' : '#CDCDCD',
@@ -165,7 +157,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                           course_id: `${course?.course_id}`,
                         })}
                         className="CourseCardsTS__admin-buttons"
-                        style={{gridTemplateColumns: course?.public === 'О' ? '1fr 1fr': '1fr', gap: course?.public === 'О' ? '10px': 0}} 
+                        style={{ gridTemplateColumns: course?.public === 'О' ? '1fr 1fr' : '1fr', gap: course?.public === 'О' ? '10px' : 0 }}
                       >
                         <Link
                           style={{
@@ -292,14 +284,12 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
         </>
       ) : (
         <Link
-        style={{width: '100%', height: '100%'}}
+          style={{ width: '100%', height: '100%', maxWidth: '660px', minWidth: '320px' }}
           onClick={onStudentClick}
           to={
-            course?.remaining_period === 0 || course?.public !== 'О'
+            course?.public !== 'О' || (course.limit && typeof course.remaining_period === 'number' && course.remaining_period === 0)
               ? '#'
-              : generatePath(Student.Course, {
-                  course_id: `${course?.course_id}`,
-                })
+              : generatePath(Path.School + Path.Courses + Student.Course, { school_name: schoolName, course_id: String(course.course_id) })
           }
         >
           <div
@@ -311,7 +301,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
 
             {userProgress && (
               <div className="CourseCardsTS__title ">
-                {course.name} <p className="CourseCardsTS__percents CourseCardsTS__persents-top">{~~userProgress.courses[0]?.completed_percent}%</p>
+                {course.name} <p className="CourseCardsTS__percents CourseCardsTS__persents-top">{~~userProgress.completed_percent}%</p>
               </div>
             )}
 
@@ -322,66 +312,60 @@ export const CoursesCard: FC<courseCard> = ({ course, role }) => {
                     <div className="CourseCardsTS__property">
                       <img src={video} className="CourseCardsTS__property-img" alt="" />
                       <p className="CourseCardsTS__property-name">
-                        {userProgress.courses[0].lessons.completed_lessons}/{userProgress.courses[0].lessons.all_lessons} видео
+                        {userProgress.lessons.completed_lessons}/{userProgress.lessons.all_lessons} видео
                       </p>
                     </div>
                     <div className="CourseCardsTS__line"></div>
                     <div className="CourseCardsTS__property">
                       <img src={homeTask} className="CourseCardsTS__property-img" alt="" />
                       <p className="CourseCardsTS__property-name">
-                        {userProgress.courses[0].homeworks.completed_homeworks}/{userProgress.courses[0].homeworks.all_homeworks} Домашних заданий
+                        {userProgress.homeworks.completed_lessons}/{userProgress.homeworks.all_lessons} Домашних заданий
                       </p>
                     </div>
                     <div className="CourseCardsTS__line"></div>
                     <div className="CourseCardsTS__property">
                       <img src={tests} className="CourseCardsTS__property-img" alt="" />
                       <p className="CourseCardsTS__property-name">
-                        {userProgress.courses[0].tests.completed_tests}/{userProgress.courses[0].tests.all_tests} тестов
+                        {userProgress.tests.completed_lessons}/{userProgress.tests.all_lessons} тестов
                       </p>
                     </div>
                   </div>
 
                   <div className="progress">
-                    <div className="progress-value">{~~userProgress.courses[0]?.completed_percent}%</div>
+                    <div className="progress-value">{~~userProgress.completed_percent}%</div>
                     <div className="progress-bg">
-                      <div className="progress-bar" style={{ width: `${~~userProgress.courses[0]?.completed_percent}%` }}></div>
+                      <div className="progress-bar" style={{ width: `${~~userProgress.completed_percent}%` }}></div>
                     </div>
                   </div>
 
                   <div className={styles.course_card_about}>
-                    {/*             
-               <div className={styles.course_card_duration}>
-                 {course?.limit &&
-                   (course?.remaining_period ? (
-                     <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
-                   ) : (
-                     <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
-                   ))}
-               </div> */}
+                    <div className={styles.course_card_duration}>
+                      {course?.limit &&
+                        (course?.remaining_period ? (
+                          <p className={styles.course_card_duration_remaining}>Срок доступа истекает через, дн.: {course?.remaining_period}</p>
+                        ) : (
+                          <p className={styles.course_card_duration_remaining_expired}>Срок доступа истек</p>
+                        ))}
+                    </div>
                   </div>
 
                   <div className="CourseCardsTS__bottom">
                     <a href="#" className="CourseCardsTS__button">
                       Продолжить обучаться
                     </a>
-                    <p className="CourseCardsTS__percents CourseCardsTS__percents-bottom">{~~userProgress.courses[0]?.completed_percent}%</p>
+                    <p className="CourseCardsTS__percents CourseCardsTS__percents-bottom">{~~userProgress.completed_percent}%</p>
                   </div>
                 </>
               )}
             </div>
-
-            <>
-              <>
-                {isOpenModal ? (
-                  <Portal closeModal={onToggle}>
-                    <LimitModal message={'Доступ к курсу временно заблокирован. Обратитесь к администратору'} setShowLimitModal={onToggle} />
-                  </Portal>
-                ) : null}
-              </>
-            </>
           </div>
         </Link>
       )}
+      {isOpenModal ? (
+        <Portal closeModal={onToggle}>
+          <LimitModal message={'Доступ к курсу временно заблокирован. Обратитесь к администратору'} setShowLimitModal={onToggle} />
+        </Portal>
+      ) : null}
     </>
   )
 }

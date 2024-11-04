@@ -2,9 +2,8 @@
 @import '../../../../scss/variable.scss';
 
 .wrapper {
-  min-width: 700px;
-  font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif;
-  padding: 34px 42px 40px 42px;
+  width: 100%;
+  font-family: "SFPRORegular", sans-serif;
   background-color: #fff;
   //border: 1px solid red;
   @include display(flex, column, flex-start, center);

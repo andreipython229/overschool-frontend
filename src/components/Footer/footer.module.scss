@@ -14,20 +14,34 @@ p {
 }
 
 .wrapper {
-  width: 1280px;
-  height: 581px;
-  background: #ffffff;
+  width: 100%;
+  max-width: 1260px;
+  height: max-content;
+  background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 100px;
   margin: 0 auto;
 
+  @media screen and (max-width: 1360px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-bottom: 6rem;
+  }
+
   &_img {
-    width: 1080px;
+    width: 100%;
+    max-width: 1260px;
     display: flex;
     padding-top: 11px;
     padding-bottom: 5px;
+
+    img {
+      @media screen and (max-width: 600px) {
+        margin: 0 auto;
+      }
+    }
   }
 
   &_box {
@@ -35,8 +49,9 @@ p {
     flex-direction: row;
     justify-content: space-around;
     width: 1080px;
-    height: 256px;
+    height: 100%;
     gap: 1rem;
+    flex-wrap: wrap;
 
     h1 {
       font-weight: 600;
@@ -64,6 +79,10 @@ p {
       flex-direction: column;
       gap: 10px;
 
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
+
       &_pack {
         display: flex;
         flex-direction: row;
@@ -76,6 +95,10 @@ p {
       display: flex;
       flex-direction: column;
       gap: 10px;
+
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
 
       &_link {
         font-family: 'SFPROSemiBold';
@@ -90,6 +113,9 @@ p {
       display: flex;
       flex-direction: column;
       gap: 10px;
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
     }
 
     &_users {
@@ -97,6 +123,10 @@ p {
       display: flex;
       flex-direction: column;
       gap: 10px;
+
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
     }
   }
 }

@@ -1,28 +1,32 @@
 @import '../../../../scss/variable';
 @import '../../../../scss/mixin.scss';
 
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
 .skeleton {
   position: absolute;
   left: 132px;
   top: 215px;
 }
-.course_admin{
-  margin: 0 auto;
+.course_admin {
   margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 50px;
   position: relative;
   z-index: 0;
   @media only screen and (min-width: 320px) and (max-width: 500px) {
-   gap: 10px;
-  grid-template-columns: 1fr;
-}
-
+    gap: 10px;
+    grid-template-columns: 1fr;
+  }
 }
 .course {
   grid-auto-flow: row;
-  margin: 0 auto;
   margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -34,12 +38,9 @@
   position: relative;
   z-index: 0;
 
-  
   @media only screen and (min-width: 320px) and (max-width: 450px) {
     grid-template-columns: 1fr;
-
   }
- 
 
   &_addCourse {
     width: 100%;
@@ -103,17 +104,16 @@
     justify-content: center;
     align-items: center;
   }
-&_button_add{
-  background: #357EEB;
-padding: 15px 35px;
-border-radius: 10px;
-border: none;
-font-size: 20px;
-font-weight: 500;
-color: #FFFFFF;
-text-align: center;
-
-}
+  &_button_add {
+    background: #357eeb;
+    padding: 15px 35px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    font-weight: 500;
+    color: #ffffff;
+    text-align: center;
+  }
   &_card {
     border-radius: 10px;
     width: auto;
@@ -143,7 +143,6 @@ text-align: center;
     }
 
     &_img {
- 
       border-radius: 10px 10px 0 0;
       width: 100%;
       height: 146px;
@@ -173,7 +172,6 @@ text-align: center;
     }
 
     &_about {
-
       &_desc {
         display: block;
         height: 70px;
@@ -357,7 +355,7 @@ text-align: center;
   position: absolute;
   top: 0;
   bottom: 0;
-  
+
   width: 100%;
   height: 100%;
   background-color: transparent;
@@ -390,14 +388,10 @@ text-align: center;
   }
 }
 
-
-
-
-@media (max-width:768px)
-{
-  .course{
-   display: flex;
-   flex-direction: column;
-   gap: 20px;
+@media (max-width: 768px) {
+  .course {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 }
