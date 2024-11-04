@@ -126,7 +126,7 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, module
         </span>
       </div>
       {openIndex === moduleIndex && module && (
-        module.lessons.length < 3
+        module.lessons.length > 14
           ? <div className={styles.accardionWrapper_component_exerciseWrapper}>
           {module &&
             module.lessons.map((lesson: lessonT, lessonIndex: number) => (
@@ -140,13 +140,6 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, module
             ))}
             </div>
         )}
-        {/*// <div className={styles.accardionWrapper_component_exerciseWrapper}>*/}
-        {/*//   {module &&*/}
-        {/*     module.lessons.map((lesson: lessonT, lessonIndex: number) => (*/}
-        {/*      <ExerciseItem key={lesson.order + lesson.id} lesson={lesson} sectionId={module.section} disabled={isLessonClickable(lessonIndex)} />*/}
-        {/*     ))}*/}
-        {/* </div>*/}
-      {/*// )}*/}
     </div>
   )
 })
