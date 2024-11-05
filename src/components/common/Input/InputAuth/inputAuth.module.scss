@@ -14,7 +14,7 @@
   transition: 0.3s;
 
   &:hover {
-    border: 1px solid #357eeb;
+    border: 1px solid rgb(53, 126, 235);
   }
 
   & input:focus {
@@ -22,7 +22,7 @@
   }
 
   &:has(input:focus) {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(53, 126, 235, 0.8);
     border: 1px solid #357eeb;
   }
 
@@ -31,6 +31,7 @@
   input:-webkit-autofill:focus {
     -webkit-text-fill-color: #357eeb;
     transition: background-color 5000s ease-in-out 0s;
+    -webkit-background-clip: text;
   }
 
   & input {
