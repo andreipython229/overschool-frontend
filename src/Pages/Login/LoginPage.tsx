@@ -311,6 +311,7 @@ export const LoginPage = () => {
                 onChange={formik.handleChange}
                 value={authVariant === 'email' ? formik.values.email : formik.values.phone.replace(/\D/g, '')}
                 placeholder={'Адрес электронной почты'}
+                error={error ? true : false}
               />
               {/* <AuthSelect getInputVariant={getInputVariant}/> */}
               <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин или пароль')}</div>
@@ -325,6 +326,7 @@ export const LoginPage = () => {
                 placeholder={'Пароль'}
                 onClick={changeSecurityStatus}
                 icon={security ? isSecurity : unSecurity}
+                error={formik.errors.password && formik.errors.password.length > 0 ? true : false}
               />
               <div className={styles.errors}>{formik.errors.password}</div>
             </div>

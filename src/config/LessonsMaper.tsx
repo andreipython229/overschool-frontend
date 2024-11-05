@@ -8,7 +8,7 @@ import {
 } from '../Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/ModulesAndLessonsBlock/LessonsBlock/config'
 
 export const lessonSvgMapper: { [key: string]: ReactNode } = {
-  homework: <IconSvg width={22} height={22} viewBoxSize='0 0 10 16' path={homeworkIcon} />,
-  lesson: <IconSvg width={22} height={22} viewBoxSize='0 0 22 20' path={lessonIcon} />,
-  test: <IconSvg width={22} height={20} viewBoxSize='0 0 12 14'  path={testIcon} />,
+  homework: <IconSvg width={36} height={36} viewBoxSize='0 0 44 44' path={homeworkIcon} />,
+  lesson: <IconSvg width={36} height={36} viewBoxSize='0 0 46 46' path={lessonIcon} />,
+  test: <IconSvg width={36} height={36} viewBoxSize='0 0 46 46'  path={testIcon} />,
 }

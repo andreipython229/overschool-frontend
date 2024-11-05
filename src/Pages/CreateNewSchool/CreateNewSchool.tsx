@@ -14,6 +14,7 @@ import PhoneInput from 'react-phone-input-2'
 import { logoHeaderLogin, facebook, google, maillog, leftArrow } from '../../assets/img/common/index'
 
 import 'react-phone-input-2/lib/style.css'
+import { Input } from 'components/common/Input/Input/Input'
 
 export const CreateNewSchool = () => {
   const location = useLocation()
@@ -159,7 +160,7 @@ export const CreateNewSchool = () => {
           <Button style={{ marginInlineEnd: '1em', marginBottom: '.5em' }} onClick={handleClose} text={'Окей'} />
         </DialogActions>
       </Dialog>
-      
+
       <div className={styles.bg}>
         <div className={styles.bg_wrap1}></div>
       </div>
@@ -173,10 +174,12 @@ export const CreateNewSchool = () => {
         <div className={styles.bg_wrap4}></div>
       </div>
       <div className={styles.newCoursePage_btnBack}>
-        <a href={Path.InitialPage}><img src={leftArrow} alt="leftArrow"/></a>
+        <a href={Path.InitialPage}>
+          <img src={leftArrow} alt="leftArrow" />
+        </a>
       </div>
       <div className={styles.newCoursePage_logoWrapper}>
-        <img src={logoHeaderLogin} alt="logoHeaderLogin"/>
+        <img src={logoHeaderLogin} alt="logoHeaderLogin" />
       </div>
       <div className={styles.newCoursePage_formWrapper}>
         <span className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_return} onClick={returnLogin}>
@@ -195,6 +198,7 @@ export const CreateNewSchool = () => {
               onBlur={formik.handleBlur}
               value={formik.values.school_name}
               placeholder={'Название платформы'}
+              error={formik.touched.school_name && formik.errors.school_name ? true : false}
             />
             {formik.touched.school_name && formik.errors.school_name ? (
               <p style={{ color: 'red', marginTop: '.5em' }}>{formik.errors.school_name}</p>
@@ -209,32 +213,23 @@ export const CreateNewSchool = () => {
               onBlur={formik.handleBlur}
               value={formik.values.email}
               placeholder={'Электронная почта'}
+              error={formik.touched.email && formik.errors.email ? true : false}
             />
             {formik.touched.email && formik.errors.email ? <p style={{ color: 'red', marginTop: '.5em' }}>{formik.errors.email}</p> : null}
           </div>
           <div className={styles.newCoursePage_formWrapper_form_passwordWrapper}>
             <p className={styles.newCoursePage_formWrapper_form_passwordWrapper_title}>Номер телефона:</p>
-            <div className={styles.input_container}>
-              <div className={styles.input_container_input}>
-                <PhoneInput
-                
-                  inputProps={{
-                    name: 'phone_number',
-                    style: {
-                      border: 'none',
-                      height: '38px',
-                      borderRadius: '10px',
-                      width: '100%',
-                    },
-                  }}
-                  onChange={values => formik.setFieldValue('phone_number', normalizePhoneNumber(values))}
-                  value={formik.values.phone_number}
-                  onBlur={formik.handleBlur}
-                  placeholder="Номер телефона"
-                  country={'by'}
-                />
-              </div>
-            </div>
+
+            <Input
+              onChangePhone={values => formik.setFieldValue('phone_number', normalizePhoneNumber(values))}
+              value={formik.values.phone_number}
+              onBlur={formik.handleBlur}
+              name="phone_number"
+              type="text"
+              variant="phone"
+              error={formik.errors.phone_number && formik.touched.phone_number ? true : false}
+            />
+
             {formik.errors.phone_number && formik.touched.phone_number ? (
               <p style={{ color: 'red', marginTop: '.5em' }}>{formik.errors.phone_number}</p>
             ) : null}
@@ -250,6 +245,7 @@ export const CreateNewSchool = () => {
               placeholder={'Пароль'}
               onClick={changeSecurityStatus}
               icon={security ? isSecurity : unSecurity}
+              error={formik.touched.password && formik.errors.password ? true : false}
             />
             {formik.touched.password && formik.errors.password ? <p style={{ color: 'red', marginTop: '.5em' }}>{formik.errors.password}</p> : null}
           </div>
@@ -264,6 +260,7 @@ export const CreateNewSchool = () => {
               placeholder={'Повторите пароль'}
               onClick={changeSecurityStatus}
               icon={security ? isSecurity : unSecurity}
+              error={formik.touched.password_confirmation && formik.errors.password_confirmation ? true : false}
             />
             {formik.touched.password_confirmation && formik.errors.password_confirmation ? (
               <p style={{ color: 'red', marginTop: '.5em' }}>{formik.errors.password_confirmation}</p>
@@ -274,24 +271,23 @@ export const CreateNewSchool = () => {
               text={isLoading ? <SimpleLoader style={{ width: '2em', height: '2em' }} /> : 'Создать свой проект'}
               variant={'newCreate'}
               type={'submit'}
-              style={{ width: '400px', height:'54px', borderRadius: '10px', marginBottom:'1rem' }}
+              style={{ width: '400px', height: '54px', borderRadius: '10px', marginBottom: '1rem' }}
             />
             <p className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_help}>
               Уже есть свой аккаунт?
               <a href={Path.LoginPage}>Войти</a>
             </p>
             <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_or}>
-                <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_or_lineLeft}></div>
-                <p>Или</p>
-                <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
-              </div>
-              <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_socialMedia}>
-                <img src={facebook} alt="facebook"/>
-                <img src={google} alt="google"/>
-                <img src={maillog} alt="maillog"/>
-              </div>
+              <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_or_lineLeft}></div>
+              <p>Или</p>
+              <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
+            </div>
+            <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_socialMedia}>
+              <img src={facebook} alt="facebook" />
+              <img src={google} alt="google" />
+              <img src={maillog} alt="maillog" />
+            </div>
           </div>
-          
         </form>
       </div>
     </section>

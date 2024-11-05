@@ -15,6 +15,7 @@ import { GlobalPrevious } from 'components/Previous/GlobalPrevious'
 import { StudentProgressBlock } from 'components/StudentProgressBlock'
 import { CourseNavigationHeader } from 'components/CourseNavigationHeader'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const StudentCourse: FC = () => {
   const dispatch = useDispatch()
@@ -48,7 +49,7 @@ export const StudentCourse: FC = () => {
   }, [data, error, dispatch])
 
   if (!course) {
-    return <SimpleLoader />
+    return <LoaderLayout />
   }
 
   return (

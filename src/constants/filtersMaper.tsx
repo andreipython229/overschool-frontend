@@ -81,12 +81,12 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
         endDate={filters.endDate}
       />
     ),
-    '11': <ScoresFilter title={'ВЫБЕРИТЕ ДИАПАЗОН БАЛЛОВ'} addMarkFilter={addMarkFilter} startMark={filters.startMark} endMark={filters.endMark} />,
+    '11': <ScoresFilter title={'Выберите диапазон баллов:'} addMarkFilter={addMarkFilter} startMark={filters.startMark} endMark={filters.endMark} />,
     // '21': <SearchFilter key={1} filterKey={'homework'} data={lastNames && lastNames.length > 0 ? lastNames : []} name={''} header={'ВВЕДИТЕ ФАМИЛИЮ'} filterTerm="last_name" />,
     // '22': <SearchFilter key={2} filterKey={'homework'} data={firstNames && firstNames.length > 0 ? firstNames : []} name={''} header={'ВВЕДИТЕ ИМЯ'} filterTerm="first_name" />,
 
     // Фильтра всех студентов школы
-    '12': <ScoresFilter title={'ВЫБЕРИТЕ ДИАПАЗОН БАЛЛОВ'} addMarkFilter={addMarkFilter} startMark={filters.startMark} endMark={filters.endMark} />,
+    '12': <ScoresFilter title={'Выберите диапазон баллов:'} addMarkFilter={addMarkFilter} startMark={filters.startMark} endMark={filters.endMark} />,
     '14': <ScoresFilter title={'ВЫБЕРИТЕ ДИАПАЗОН ПРОГРЕССА'} />,
     '15': (
       <CalendarFilter
@@ -98,7 +98,7 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
       />
     ),
     '16': (
-      <ScoresFilter title={'ВЫБЕРИТЕ ДИАПАЗОН БАЛЛОВ'} addMarkFilter={handleAddAvgFilter} startMark={filters.startAvg} endMark={filters.endAvg} />
+      <ScoresFilter title={'Выберите диапазон баллов:'} addMarkFilter={handleAddAvgFilter} startMark={filters.startAvg} endMark={filters.endAvg} />
     ),
     '17': (
       <SearchFilter

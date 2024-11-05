@@ -5,7 +5,7 @@ import { useFetchProgressQuery } from 'api/userProgressService'
 import { useFetchCourseQuery } from 'api/coursesServices'
 import { useFetchModulesQuery } from 'api/modulesServices'
 import { useParams } from 'react-router-dom'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { NewLoader, SimpleLoader } from 'components/Loaders/SimpleLoader'
 import firstMedal from './assets/1st_place.png'
 import secondMedal from './assets/2nd_place.png'
 import thirdMedal from './assets/3rd_place.png'
@@ -13,6 +13,7 @@ import person from './assets/defaultPerson.png'
 import { useFetchProfileDataQuery } from 'api/profileService'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { CameraDefs, HomeworkDefs, TestDefs, cloudSvgPath, homeworkSvgIconPath, testSvgIconPath, videoCameraSvgIconPath } from './assets/svgIconsPath'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const StudentProgressBlock: FC = () => {
   const school = window.location.href.split('/')[4]
@@ -21,7 +22,7 @@ export const StudentProgressBlock: FC = () => {
   const { data: profile } = useFetchProfileDataQuery()
 
   if (!userProgress || !profile) {
-    return <SimpleLoader />
+    return <LoaderLayout />
   }
   return (
     <div className={styles.progressWrapper}>

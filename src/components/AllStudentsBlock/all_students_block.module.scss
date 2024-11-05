@@ -1,29 +1,38 @@
 @import '../../scss/mixin.scss';
 @import '../../scss/variable.scss';
+
 .header_block_text {
   font-style: normal;
-  @include font (500, 16px, 19px);
+  @include font(500, 16px, 19px);
   letter-spacing: -0.01em;
   color: #4d5766;
   margin: 30px 0 22px 0;
 
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding-left: 1rem;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding-left: 1rem;
   }
 
 
   &_search {
+    height: 62px;
+    width: 1264px;
+    align-self: flex-start;
+    padding-top: 16px;
+    padding-bottom: 16px;
     display: flex;
-    gap: 7px;
-    @media only screen and (min-width : 320px) and (max-width : 375px) {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
       display: flex;
       padding: 1rem 0 1rem 1rem;
       width: 100%;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       display: flex;
       padding: 1rem 0 1rem 1rem;
       width: 100%;
@@ -40,18 +49,18 @@
   width: 100%;
   min-width: 100%;
   height: auto;
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 1rem;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 1rem;
-   
+
   }
 }
 
@@ -62,14 +71,14 @@
   align-items: center;
   width: 100%;
   height: 36px;
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin-bottom: 10%;    
+    margin-bottom: 10%;
   }
-  
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -78,11 +87,11 @@
 }
 
 .arrow_add_file_block {
-  
+
   &:hover {
     background-color: rgba(160, 160, 160, 0.4)
   }
-  @include display (flex, row, center, center);
+  @include display(flex, row, center, center);
   background: #e0dced;
   border: none;
   border-radius: 7px;
@@ -92,16 +101,16 @@
   margin-left: 7px;
   cursor: pointer;
   transition: background-color 0.4s;
-    @media only screen and (min-width : 320px) and (max-width : 375px) {
-      margin-bottom: 1rem;
-    }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
-      margin-bottom: 1rem;
-    }
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    margin-bottom: 1rem;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    margin-bottom: 1rem;
+  }
 }
 .add_students_btn {
-  @include display (flex, row, space-around, center);
-  @include font (500, 12px);
+  @include display(flex, row, space-around, center);
+  @include font(500, 12px);
   font-size: 12px;
   font-weight: 500;
   color: #fff;
@@ -114,3 +123,67 @@
   height: 100%;
 }
 
+.property_1 {
+  height: 62px;
+  width: 1360px;
+  padding: 0px;
+
+  .sorting {
+    background-color: #ffffff;
+    height: 62px;
+    width: 1360px;
+    filter: drop-shadow(0px 0px 8px rgba(0.19607843458652496, 0.2549019753932953, 0.5843137502670288, 0.30000001192092896));
+    border-radius: 14px;
+    padding-left: 48px;
+    padding-right: 48px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    .frame {
+      height: 62px;
+      width: 1264px;
+      align-self: flex-start;
+      left: 48px;
+      top: 0px;
+      position: absolute;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 20px;
+
+      .search_icon {
+        height: 30px;
+        width: 30px;
+        padding: 0px;
+        border-style: hidden;
+        outline: none;
+      }
+
+      .search_filter_icon {
+
+        height: 62px;
+        width: 64px;
+        padding: 0px;
+        border-style: hidden;
+        outline: none;
+
+        &.active {
+          background-color: #CFE2FF;
+          border-radius: 4px;
+          padding: 5px;
+        }
+      }
+    }
+  }
+}
+
+.filter_button{
+  margin-bottom: 20px;
+}

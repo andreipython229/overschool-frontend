@@ -18,6 +18,7 @@ import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrowLeftIconPath } from 'config/commonSvgIconsPath'
 import { LessonComments } from 'components/LessonComments'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 type studentTestT = {
   lessons: sectionT
@@ -43,6 +44,8 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
   const [testSended, setTestSended] = useState(sended)
   const [testSuccess, setTestSuccess] = useState(completed)
   const navigate = useNavigate()
+
+  console.log(lesson)
 
   useEffect(() => {
     if (lessonId && schoolName && courseId) {
@@ -185,6 +188,6 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
       </div>
     )
   } else {
-    return <SimpleLoader />
+    return <LoaderLayout />
   }
 }
