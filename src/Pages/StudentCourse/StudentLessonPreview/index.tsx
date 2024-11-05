@@ -16,6 +16,7 @@ import { useLazyFetchStudentTrainingDurationQuery } from '../../../api/lessonAcc
 import { useAppSelector } from '../../../store/hooks'
 import { selectUser } from '../../../selectors'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
+import { CompletedTest } from '../StudentTestBlock/StudentTestCompleted'
 
 export const StudentLessonPreview: FC = () => {
   const params = useParams()
@@ -68,7 +69,7 @@ export const StudentLessonPreview: FC = () => {
   const completed = activeLesson?.completed
 
   const renderUI = () => {
-    if (isSuccess && lessons) {
+    if (isSuccess && lessons && lesson?.type) {
       switch (lesson?.type) {
         case LESSON_TYPE.LESSON:
           return (
@@ -100,6 +101,8 @@ export const StudentLessonPreview: FC = () => {
             />
           )
       }
+    } else if (isSuccess && lessons && !lesson?.type) {
+      return <CompletedTest activeLessonIndex={activeLessonIndex as number} lessons={lessons} params={params} />
     }
   }
 

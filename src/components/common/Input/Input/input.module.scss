@@ -63,13 +63,6 @@
 .input_container {
   width: 100%;
 
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    padding-bottom: 1rem;
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    padding-bottom: 1rem;
-  }
-
   &_textFieldLabel {
     display: inline-block;
     margin-bottom: 8px;

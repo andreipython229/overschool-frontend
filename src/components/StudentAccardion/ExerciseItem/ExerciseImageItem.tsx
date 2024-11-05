@@ -17,7 +17,6 @@ type exerciseItemT = {
 
 export const ExerciseImageItem: FC<exerciseItemT> = memo(({ lesson, sectionId, disabled }) => {
   const navigate = useNavigate()
-  console.log(lesson.video_screenshot)
   const handleClick = () => {
     if (!disabled) {
       navigate(generatePath(Student.Lesson, { section_id: `${sectionId}`, lesson_type: `${lesson.type}`, lesson_id: `${lesson.id}` }))

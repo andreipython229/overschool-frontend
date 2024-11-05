@@ -22,7 +22,7 @@
   }
 
   &:has(input:focus) {
-    background-color: rgba(53, 126, 235, 0.8);
+    background-color: inherit;
     border: 1px solid #357eeb;
   }
 

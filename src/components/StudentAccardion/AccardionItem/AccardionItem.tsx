@@ -29,11 +29,6 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, module
 
     return !prevLesson.viewed || somePrevNotViewed || disabledFromPrev
   }
-  if (openIndex === moduleIndex) {
-    console.log('hw', module?.homework_count, 'c', module?.completed_hw_count)
-    console.log('les', module?.lesson_count, 'c', module?.completed_les_count)
-    console.log('t', module?.test_count, 'c', module?.completed_test_count)
-  }
 
   return (
     <div className={styles.accardionWrapper_component}>

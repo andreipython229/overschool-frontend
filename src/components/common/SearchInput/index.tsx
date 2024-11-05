@@ -4,6 +4,7 @@ import { Button } from '../Button/Button'
 import styles from '../../FiltersButton/Chips/chips.module.scss'
 import { IconSvg } from '../IconSvg/IconSvg'
 import { crossIconPath } from 'config/commonSvgIconsPath'
+import { SearchIconPath } from 'assets/Icons/svgIconPath'
 
 interface ISearchInput {
   value: string
@@ -45,11 +46,20 @@ export const SearchInput: FC<ISearchInput> = ({ value, setValue }) => {
           id="search-input"
           name="search-input"
           placeholder="Фильтр по ключевому слову"
-          type="text"
+          type="search"
           value={queryString}
           onChange={e => setQueryString(e.target.value)}
-        />
-        <Button type="submit" text="Применить" onClick={handleSearch} style={{ cursor: 'pointer' }} />
+        >
+          <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={SearchIconPath} className={styles.searchIcon}>
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#0D28BB" />
+                <stop offset="100%" stopColor="#357EEB" />
+              </linearGradient>
+            </defs>
+          </IconSvg>
+        </Input>
+        <Button type="submit" variant='newPrimary' text="Применить" onClick={handleSearch} style={{ cursor: 'pointer' }} />
       </form>
     </div>
   )
