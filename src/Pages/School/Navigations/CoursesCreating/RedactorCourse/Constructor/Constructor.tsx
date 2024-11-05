@@ -12,6 +12,7 @@ import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
 
 import styles from './constructor.module.scss'
 import { SimpleLoader } from '../../../../../../components/Loaders/SimpleLoader'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const Constructor: FC = () => {
   const schoolName = window.location.href.split('/')[4]
@@ -55,13 +56,14 @@ export const Constructor: FC = () => {
 
   const isLoading = modulesList[0] && modulesList[0].lessons[0] && lessonIdAndType.type
 
-  const hasLesson = modulesList.some(module => module.lessons && module.lessons.length > 0);
+  const hasLesson = modulesList.some(module => module.lessons && module.lessons.length > 0)
 
   if (!isSuccess)
     return (
-      <div className={styles.loader_container}>
-        <SimpleLoader />
-      </div>
+      // <div className={styles.loader_container}>
+      //   <SimpleLoader />
+      // </div>
+      <LoaderLayout />
     )
 
   return (

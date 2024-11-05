@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { useFetchQuestionsListQuery, useLazyFetchQuestionsListQuery } from '../../../../../../../api/questionsAndAnswersService'
 import { orderBy } from 'lodash'
-import { SimpleLoader } from '../../../../../../../components/Loaders/SimpleLoader'
+import { NewLoader, SimpleLoader } from '../../../../../../../components/Loaders/SimpleLoader'
 import { AnswersT } from '../../../../../../../components/AddQuestion'
 import styles from '../../../../../../../components/AddQuestion/addQuestion.module.scss'
 import { AdminTextOptions } from './Options/AdminTextOption'
@@ -46,7 +46,7 @@ export const AdminTest: FC<AdminTestT> = ({ testId }) => {
   }, [questionsList, testId])
 
   if (isLoading) {
-    return <SimpleLoader />
+    return <NewLoader />
   }
 
   return isSuccess ? (

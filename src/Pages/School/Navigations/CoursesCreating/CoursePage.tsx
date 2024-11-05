@@ -27,6 +27,8 @@ import loop from '../../../../assets/img/common/loop.svg'
 import { useLazyFetchAllProgressQuery, useLazyFetchProgressQuery } from 'api/userProgressService'
 import { index } from 'd3'
 import { SearchIconPath } from 'assets/Icons/svgIconPath'
+import { NewLoader } from 'components/Loaders/SimpleLoader'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
@@ -148,31 +150,7 @@ export const CoursePage: FC = () => {
     return course.name.toLowerCase().includes(search.toLowerCase())
   })
 
-  if (!isSuccess)
-    return (
-      <div>
-        <div>
-          <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#fff" foregroundColor="#f2f2f2">
-            <rect x="0" y="0" rx="3" ry="3" width="130" height="130" />
-          </ContentLoader>
-        </div>
-        <div className={styles.skeleton}>
-          <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#e0dced" foregroundColor="#ecebeb">
-            <rect x="0" y="10" rx="3" ry="3" width="130" height="65" />
-          </ContentLoader>
-        </div>
-        <div className={styles.skeleton}>
-          <ContentLoader speed={2} width={270} height={550} viewBox="0 0 150 160" backgroundColor="#cccccc" foregroundColor="#ecebeb">
-            <rect x="7" y="95" rx="3" ry="3" width="115" height="8" />
-            <rect x="15" y="115" rx="3" ry="3" width="100" height="8" />
-            <rect x="15" y="135" rx="3" ry="3" width="100" height="8" />
-          </ContentLoader>
-        </div>
-        <div style={{ position: 'absolute', zIndex: 20, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          {/* <SimpleLoader style={{ width: '100px', height: '100px' }} /> */}
-        </div>
-      </div>
-    )
+  if (!isSuccess) return <LoaderLayout />
   return (
     <div className={styles.container}>
       {role === RoleE.Admin && (
