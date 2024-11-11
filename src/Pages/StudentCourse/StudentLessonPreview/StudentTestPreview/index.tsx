@@ -5,6 +5,7 @@ import { FC, useEffect, useState } from 'react'
 import { setShowType, StudentTestPreviewT } from '../../../../types/componentsTypes'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { bigQuestionIconPath, questionIconPath } from 'Pages/StudentCourse/StudentTestBlock/StudentQuestion/assets/vectorPath'
+import { convertSecondsToTime } from 'utils/convertDate'
 
 export const StudentTestPreview: FC<StudentTestPreviewT> = ({ passStatus, setTestSended, setTestSuccess, setShow, lesson }) => {
   const [title, setTitle] = useState<string>('Тестирование для оценки усвоения материала :) Удачи! )')
@@ -22,7 +23,7 @@ export const StudentTestPreview: FC<StudentTestPreviewT> = ({ passStatus, setTes
                 Количество вопросов: <span style={{ color: '#357EEB' }}>{lesson.questions.length}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', maxWidth: '353px' }}>
-                Время выполнения: <span style={{ color: '#357EEB' }}>00:00</span>
+                Время выполнения: <span style={{ color: '#357EEB' }}>{lesson.has_timer ? convertSecondsToTime(lesson.time_limit) : 'не ограничено'}</span>
               </div>
               <Button text={nameButton} variant="newPrimary" className={styles.button} style={{ width: '259px' }} onClick={setShow} />
             </div>

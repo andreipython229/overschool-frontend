@@ -16,7 +16,7 @@ import { Portal } from '../Portal'
 import { LimitModal } from '../LimitModal/LimitModal'
 import { checkCourseT } from '../../../types/CoursesT'
 
-export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal }) => {
+export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal, refetch }) => {
   const navigate = useNavigate()
   const schoolName = window.location.href.split('/')[4]
 
@@ -43,6 +43,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal
         .unwrap()
         .then(async (data: any) => {
           const { data: course }: any = data
+          refetch(schoolName)
           setShowModal()
           if (course) {
             navigate(

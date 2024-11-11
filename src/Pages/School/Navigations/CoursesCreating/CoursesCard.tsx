@@ -94,7 +94,13 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                       <p className="CourseCardsTS__admin-student-count">{course?.public === 'О' && '152 ученика'}</p>
 
                       {role === RoleE.Admin && course.course_id !== 247 ? (
-                        course?.public === 'О' ? (
+                        course.course_removed ? (
+                          <div className="wraper">
+                            <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className="CourseCardsTS__public">
+                              Курс удален
+                            </span>
+                          </div>
+                        ) : course?.public === 'О' ? (
                           <div className="wraper">
                             <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className="CourseCardsTS__public">
                               Опубликован

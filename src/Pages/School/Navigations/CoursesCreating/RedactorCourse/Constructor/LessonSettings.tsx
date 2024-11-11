@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+import { ChangeEvent, FC, memo, useEffect, useRef, useState } from 'react'
 import styles1 from '../../../../../../components/Modal/Modal.module.scss'
 import { UploadedFile } from 'components/UploadedFile'
 import { AddFileBtn } from 'components/common/AddFileBtn/index'
@@ -39,8 +39,13 @@ import { Portal } from 'components/Modal/Portal'
 import { WarningModal } from 'components/Modal/Warning'
 import { useParams } from 'react-router-dom'
 import { NewAudioPlayer } from 'components/NewAudioPlayer'
+import { convertSecondsToTime } from 'utils/convertDate'
+import { Toast } from 'primereact/toast'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
+  const toast = useRef<Toast>(null)
+  const [testHasTimer, setTestHasTimer] = useState(false)
+  const [timeValue, setTimeValue] = useState<{ minutes: string; seconds: string }>({ minutes: '00', seconds: '00' })
   const { course_id: courseId } = useParams()
   const [changeOrder, { isLoading: changingOrder }] = useOrderUpdateMutation()
   const [lessonBlocks, setLessonBlocks] = useState<BlockT[]>([])
@@ -60,7 +65,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     courseId: courseId,
   })
   const [addTextFiles] = usePostTextFilesMutation()
-  const [saveChanges, { isLoading: isSaving, isSuccess: isCompleted }] = usePatchLessonsMutation()
+  const [saveChanges, { isLoading: isSaving, isSuccess: isCompleted, isError, error: saveError }] = usePatchLessonsMutation()
   const [deleteFile, { isLoading: isDeleting }] = useDeleteTextFilesMutation()
   const [deleteAudio, { isLoading: isAudioDeleting }] = useDeleteAudioFilesMutation()
   const [deleteBlock, { isLoading: isBlockDeleting }] = useDeleteBlockMutation()
@@ -100,6 +105,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       setLessonBlocks(lesson.blocks)
     } else if (lesson && lesson.type === 'test') {
       getPreviousTests({ id: lessonIdAndType.id, schoolName: schoolName })
+      setTestHasTimer(lesson.has_timer)
+      if (lesson.has_timer && lesson.time_limit) {
+        const minutes = lesson.time_limit.split(':')[1]
+        const seconds = lesson.time_limit.split(':')[2]
+        setTimeValue({ minutes: minutes, seconds: seconds })
+      }
     }
   }, [lesson])
 
@@ -113,7 +124,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
         ...test,
         checked: false,
       }))
-      console.log(checkedTests)
       setPreviousTests(checkedTests)
     }
   }, [gettedTests])
@@ -260,6 +270,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
         if (lesson.type === 'test') {
           formData.append('random_test_generator', String(autogeneration))
+          formData.append('has_timer', String(testHasTimer))
+          if (testHasTimer) {
+            formData.append('time_limit', `${timeValue.minutes}:${timeValue.seconds}`)
+          } else {
+            formData.append('time_limit', '00:00')
+          }
           if (autogeneration) {
             const selectedTests = previousTests?.filter((test: checkedTestT) => test.checked)
             if (numQuestions && selectedTests?.length) {
@@ -295,6 +311,12 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
 
       if (lesson.type === 'test') {
         formData.append('random_test_generator', String(autogeneration))
+        formData.append('has_timer', String(testHasTimer))
+        if (testHasTimer) {
+          formData.append('time_limit', `${timeValue.minutes}:${timeValue.seconds}`)
+        } else {
+          formData.append('time_limit', '00:00')
+        }
         if (autogeneration) {
           const selectedTests = previousTests?.filter((test: checkedTestT) => test.checked)
           if (numQuestions && selectedTests?.length) {
@@ -335,6 +357,18 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       }
     }
   }
+
+  useEffect(() => {
+    if (isError && saveError) {
+      toast.current?.show({
+        severity: 'error',
+        summary: 'Ошибка сохранения',
+        detail: `Возникла проблема с сохранением урока. Проверьте правильность введенных данных. Текст ошибки: ${
+          'data' in saveError ? JSON.stringify(saveError.data) : ''
+        }`,
+      })
+    }
+  }, [isError])
 
   useEffect(() => {
     setIsEditing(false)
@@ -624,6 +658,44 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   <CheckboxBall isChecked={autogeneration} toggleChecked={() => setAutogeneration(!autogeneration)} />
                   <span>Автогенерация теста</span>
                 </div>
+                <div className={styles.check_autotest}>
+                  <CheckboxBall isChecked={testHasTimer} toggleChecked={() => setTestHasTimer(!testHasTimer)} />
+                  <span>Таймер для прохождения теста:</span>
+                </div>
+                {testHasTimer && timeValue && (
+                  <div className={styles.timeLimit}>
+                    <label htmlFor="timer">Время (МИН:СЕК):</label>
+                    <div className={styles.timeLimit_input} id="timer">
+                      <input
+                        value={timeValue.minutes}
+                        onChange={e => setTimeValue({ ...timeValue, minutes: e.target.value })}
+                        type="tel"
+                        min={0}
+                        max={99}
+                        id="timer-minutes"
+                        name="timer-minutes"
+                        inputMode="numeric"
+                        maxLength={2}
+                        onKeyDown={e => {
+                          return /[0-9]/i.test(e.key)
+                        }}
+                      />
+                      :
+                      <input
+                        value={timeValue.seconds}
+                        onChange={e => setTimeValue({ ...timeValue, seconds: e.target.value })}
+                        type="tel"
+                        min={0}
+                        inputMode="numeric"
+                        maxLength={2}
+                        max={59}
+                        pattern="[0-9]{2}"
+                        id="timer-seconds"
+                        name="timer-seconds"
+                      />
+                    </div>
+                  </div>
+                )}
                 {autogeneration ? (
                   previousTests?.length ? (
                     <div className={styles.autogeneration}>
@@ -700,6 +772,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
           </div>
         )}
       </div>
+      <Toast ref={toast} position="bottom-right" />
     </section>
   )
 })
