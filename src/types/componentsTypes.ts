@@ -167,3 +167,8 @@ export type accardionItemT = {
   openIndex: number
   handleToggleOpen: (index: number) => void
 }
+
+export type SocialMediaBtnPropsT = {
+  path: string
+  children: React.ReactNode
+}
