@@ -1,22 +1,20 @@
-import { FormEvent, ChangeEvent, FC, useState, useEffect } from 'react'
+import { FormEvent, ChangeEvent, FC, useState } from 'react'
 import { generatePath, useNavigate } from 'react-router-dom'
 
-import { useCreateCoursesMutation, useLazyFetchCourseQuery } from 'api/coursesServices'
+import { useCreateCoursesMutation } from 'api/coursesServices'
 import { Path } from '../../../enum/pathE'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { Button } from '../../common/Button/Button'
 import { Input } from '../../common/Input/Input/Input'
 import { crossIconPath } from '../../../config/commonSvgIconsPath'
 import { AddCourseModalPropsT } from '../ModalTypes'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from '../Modal.module.scss'
 import { useBoolean } from '../../../customHooks'
 import { Portal } from '../Portal'
 import { LimitModal } from '../LimitModal/LimitModal'
-import { checkCourseT } from '../../../types/CoursesT'
 
-export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal }) => {
+export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal, refetch }) => {
   const navigate = useNavigate()
   const schoolName = window.location.href.split('/')[4]
 
@@ -43,6 +41,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal
         .unwrap()
         .then(async (data: any) => {
           const { data: course }: any = data
+          refetch(schoolName)
           setShowModal()
           if (course) {
             navigate(

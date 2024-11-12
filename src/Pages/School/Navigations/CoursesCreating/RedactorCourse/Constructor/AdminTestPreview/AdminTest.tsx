@@ -1,14 +1,14 @@
 import { FC, useEffect, useState } from 'react'
-import { useFetchQuestionsListQuery, useLazyFetchQuestionsListQuery } from '../../../../../../../api/questionsAndAnswersService'
+import { useLazyFetchQuestionsListQuery } from '../../../../../../../api/questionsAndAnswersService'
 import { orderBy } from 'lodash'
-import { NewLoader, SimpleLoader } from '../../../../../../../components/Loaders/SimpleLoader'
+import { NewLoader } from '../../../../../../../components/Loaders/SimpleLoader'
 import { AnswersT } from '../../../../../../../components/AddQuestion'
 import styles from '../../../../../../../components/AddQuestion/addQuestion.module.scss'
 import { AdminTextOptions } from './Options/AdminTextOption'
 import { AdminOptionsWithPictures } from './Options/AdminOptionsWithPictures'
 import { AdminPicturesAndOptions } from './Options/AdminPicturesAndOptions'
-import { ITest } from 'types/sectionT'
 import { useParams } from 'react-router-dom'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 type AdminTestT = {
   testId: number
@@ -91,6 +91,6 @@ export const AdminTest: FC<AdminTestT> = ({ testId }) => {
       </div>
     </div>
   ) : (
-    <SimpleLoader />
+    <LoaderLayout />
   )
 }

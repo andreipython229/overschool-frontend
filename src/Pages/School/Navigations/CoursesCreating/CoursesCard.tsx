@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { FC, ReactNode, useState } from 'react'
 import { CoursesDataT } from '../../../../types/CoursesT'
 
 import styles from './coursePage.module.scss'
@@ -8,17 +8,13 @@ import notPublic from '../../../../assets/img/createCourse/notPublic.svg'
 import { generatePath, Link } from 'react-router-dom'
 import { Path, Student } from '../../../../enum/pathE'
 import { Button } from '../../../../components/common/Button/Button'
-import pie from '../../../../assets/img/studentPage/folder-todo.png'
-import { ICoursesProgress, IUserProgress, useLazyFetchProgressQuery } from '../../../../api/userProgressService'
-import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
-import ProgressBar from '@ramonak/react-progress-bar'
+import { ICoursesProgress } from '../../../../api/userProgressService'
 import { Portal } from '../../../../components/Modal/Portal'
 import { LimitModal } from '../../../../components/Modal/LimitModal/LimitModal'
 import { useBoolean } from '../../../../customHooks'
 import { usePatchCoursesMutation } from '../../../../api/coursesServices'
 import { formDataConverter } from '../../../../utils/formDataConverter'
 import { CheckboxBall } from '../../../../components/common/CheckboxBall'
-import { useFetchProgressQuery } from 'api/userProgressService'
 
 import tests from 'assets/img/CourseCardsTS/tests.svg'
 import video from 'assets/img/CourseCardsTS/video.svg'
@@ -94,7 +90,13 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                       <p className="CourseCardsTS__admin-student-count">{course?.public === 'О' && '152 ученика'}</p>
 
                       {role === RoleE.Admin && course.course_id !== 247 ? (
-                        course?.public === 'О' ? (
+                        course.course_removed ? (
+                          <div className="wraper">
+                            <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className="CourseCardsTS__public">
+                              Курс удален
+                            </span>
+                          </div>
+                        ) : course?.public === 'О' ? (
                           <div className="wraper">
                             <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className="CourseCardsTS__public">
                               Опубликован
