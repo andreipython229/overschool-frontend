@@ -2,6 +2,7 @@ import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps, FocusEvent, HTMLA
 
 import { IFile } from 'types/filesT'
 import { LoginParamsT } from '../utils/validationLogin'
+import { CountryData } from 'react-phone-input-2'
 
 export type AuthSelectPropsT = {
   getInputVariant: (variant: keyof LoginParamsT) => void
@@ -92,8 +93,11 @@ export type InputPropsT = DefaultInputPropsType & {
   children?: React.ReactNode | React.ReactNode[] | undefined
   onClick?: () => void
   onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void
+  onChangePhone?: (value: string, data: any | CountryData, event: ChangeEvent<HTMLInputElement>, formattedValue: string) => void
   onBlur?: (e: FocusEvent) => void
   required?: boolean
+  variant?: 'default' | 'phone' | 'feedback'
+  error?: boolean
 }
 export type InputBlockT = {
   id?: string
@@ -120,6 +124,7 @@ export type InputAuthPropsT = {
   onClick?: () => void
   onChange: (value: ChangeEvent<HTMLInputElement>) => void
   onBlur?: (e: FocusEvent) => void
+  error?: boolean
 }
 
 export type RadioPropsT = {

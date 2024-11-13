@@ -12,9 +12,11 @@ import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
 import { useBoolean } from '../../../customHooks'
 import { Portal } from '../../../components/Modal/Portal'
 import { LimitModal } from '../../../components/Modal/LimitModal/LimitModal'
-import {useLazyFetchStudentTrainingDurationQuery} from "../../../api/lessonAccessService";
-import {useAppSelector} from "../../../store/hooks";
-import {selectUser} from "../../../selectors";
+import { useLazyFetchStudentTrainingDurationQuery } from '../../../api/lessonAccessService'
+import { useAppSelector } from '../../../store/hooks'
+import { selectUser } from '../../../selectors'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
+import { CompletedTest } from '../StudentTestBlock/StudentTestCompleted'
 
 export const StudentLessonPreview: FC = () => {
   const params = useParams()
@@ -26,25 +28,25 @@ export const StudentLessonPreview: FC = () => {
   const [nextDisabled, setNextDisabled] = useState(false)
   const [isOpenLimitModal, { onToggle }] = useBoolean()
   const [message, setMessage] = useState<string>('')
-  const [fetchDownload, {data}] = useLazyFetchStudentTrainingDurationQuery()
+  const [fetchDownload, { data }] = useLazyFetchStudentTrainingDurationQuery()
   const [download, setDownload] = useState<boolean>(false)
   const user = useAppSelector(selectUser)
 
   useEffect(() => {
     if (params && courseId !== undefined) {
-      fetchLessons({sectionId: String(params.section_id), schoolName, courseId})
+      fetchLessons({ sectionId: String(params.section_id), schoolName, courseId })
     }
   }, [params, courseId])
 
   useEffect(() => {
     if (params && courseId !== undefined) {
-      fetchLesson({id: Number(params?.lesson_id), type: `${params?.lesson_type}`, schoolName, courseId})
+      fetchLesson({ id: Number(params?.lesson_id), type: `${params?.lesson_type}`, schoolName, courseId })
     }
   }, [params, courseId])
 
   useEffect(() => {
     if (lesson && lessons && lesson?.type !== LESSON_TYPE.TEST) {
-      fetchDownload({group_id: Number(lessons?.group_id), student_id: Number(user?.userId), schoolName})
+      fetchDownload({ group_id: Number(lessons?.group_id), student_id: Number(user?.userId), schoolName })
     }
   }, [lessons, lesson])
 
@@ -67,10 +69,12 @@ export const StudentLessonPreview: FC = () => {
   const completed = activeLesson?.completed
 
   const renderUI = () => {
-    if (isSuccess && lessons) {
+    if (isSuccess && lessons && lesson?.type) {
       switch (lesson?.type) {
         case LESSON_TYPE.LESSON:
-          return <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} download={download}/>
+          return (
+            <StudentLesson lessons={lessons} lesson={lesson} params={params} activeLessonIndex={activeLessonIndex as number} download={download} />
+          )
         case LESSON_TYPE.HOMEWORK:
           return (
             <StudentHomework
@@ -97,6 +101,8 @@ export const StudentLessonPreview: FC = () => {
             />
           )
       }
+    } else if (isSuccess && lessons && !lesson?.type) {
+      return <CompletedTest activeLessonIndex={activeLessonIndex as number} lessons={lessons} params={params} />
     }
   }
 
@@ -122,7 +128,7 @@ export const StudentLessonPreview: FC = () => {
             <LimitModal message={message} setShowLimitModal={onToggle} />
           </Portal>
         ) : null}
-        <SimpleLoader />
+        <LoaderLayout />
       </>
     )
   }

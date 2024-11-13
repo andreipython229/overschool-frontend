@@ -1,7 +1,7 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react'
 import { sectionT } from '../../types/sectionT'
 import { CoursesDataT } from '../../types/CoursesT'
-import {EmployeeT} from 'types/userT'
+import { EmployeeT } from 'types/userT'
 
 export type lessonIdAndTypeT = {
   baseLessonId?: number
@@ -35,6 +35,7 @@ export type AddEmpoyeeModalExtensions = {
 export type AddCourseModalPropsT = {
   setShowModal: () => void
   courses: CoursesDataT[] | undefined
+  refetch: (school: string) => void
 }
 
 export type AddModuleModalPropsT = {
@@ -98,7 +99,6 @@ export type SettingsGroupModalPropsT = {
   courseId: number
   groupId: number
   name: string
-
 }
 
 export type CreateGroupModalPropsT = {

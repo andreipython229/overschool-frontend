@@ -4,16 +4,15 @@
   &_component {
     @include display(flex, column, center);
     background-color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    border-radius: 7px;
+    //box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    //border-radius: 7px;
     margin-bottom: 16px;
     transition: all 0.3s;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       margin: 5px;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       margin: 5px;
-      
     }
     &:hover {
       cursor: pointer;
@@ -21,13 +20,32 @@
     &_header {
       @include display(flex, row, space-between, center);
       width: 100%;
-      padding: 27px 40px;
+      height: 80px;
+      border-radius: 24px;
+      padding: 15px 20px;
+      background-color: #cfe2ff;
+      color: #332f36;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         padding: 21px 11px;
       }
-      @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
         padding: 21px 11px;
-        
+      }
+
+      &_active {
+        @include display(flex, row, space-between, center);
+        background-color: #357dea;
+        color: #ffffff;
+        width: 100%;
+        height: 80px;
+        border-radius: 24px;
+        padding: 15px 20px;
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          padding: 21px 11px;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          padding: 21px 11px;
+        }
       }
 
       &_showBtnWrapper_active > svg {
@@ -53,71 +71,100 @@
           height: 15px;
           margin-left: 10px;
         }
-        @media only screen and (min-width : 375px) and (max-width : 480px) {
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
           width: 15px;
           height: 15px;
           margin-left: 10px;
         }
       }
 
-      &_completedIcon {
+      &_number {
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 38px;
-        height: 38px;
-        background: #f3e7ff;
+        width: 48px;
+        height: 48px;
         font-weight: 500;
-        font-size: 15px;
-        line-height: 18px;
-        color: #ba75ff;
-        //background-color: #ba75ff;
+        font-size: 24px;
+        //line-height: auto;
+        color: #ffffff;
+        background-color: #357dea;
         border-radius: 50%;
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           width: 30px;
-          height: 25px;
+          height: 30px;
           font-size: 10px;
         }
-        @media only screen and (min-width : 375px) and (max-width : 480px) {
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
           width: 30px;
-          height: 25px;
+          height: 30px;
           font-size: 10px;
+        }
+
+        &_active {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+          font-weight: 500;
+          font-size: 24px;
+          background-color: #ffffff;
+          color: #332f36;
+          border-radius: 50%;
+
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            width: 30px;
+            height: 30px;
+            font-size: 10px;
+          }
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
+            width: 30px;
+            height: 30px;
+            font-size: 10px;
+          }
         }
 
         svg {
           @include position_t_l(absolute, calc(50% - 8px), calc(50% - 7px));
         }
       }
+      &_marks {
+        @include display(flex, row, flex-start, center);
+        gap: 4px;
+        font-size: 16px;
+        margin-left: 15px;
+      }
       &_lessonName {
         @include display(flex, row, flex-start, center);
         width: 100%;
-        margin-left: 32px;
+        margin-left: 50px;
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           margin-left: 9px;
         }
-        @media only screen and (min-width : 375px) and (max-width : 480px) {
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
           margin-left: 9px;
         }
 
         &_title {
           @include display(flex, row, flex-start, center);
-          @include font(500, 14px, 16px);
-          color: #4d5766;
+          @include font(500, 24px, 16px);
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             font-size: 10px;
           }
-          @media only screen and (min-width : 375px) and (max-width : 480px) {
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
             font-size: 10px;
           }
 
-          span {
-            display: block;
-            width: 20px;
-            height: 2px;
-            margin: 0 10px;
-            background-color: #9ca3af;
-          }
+          //span {
+          //  display: block;
+          //  width: 20px;
+          //  height: 2px;
+          //  margin: 0 10px;
+          //  background-color: #9ca3af;
+          //}
         }
         &_exerciseSum {
           @include font(500, 14px, 16px);
@@ -125,7 +172,7 @@
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             font-size: 10px;
           }
-          @media only screen and (min-width : 375px) and (max-width : 480px) {
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
             font-size: 10px;
           }
           span {
@@ -133,24 +180,72 @@
           }
         }
       }
+      &_stats {
+        @include display(flex, row, flex-start, center);
+        gap: 8px;
+        font-size: 16px;
+        margin-right: 50px;
+
+        &_lesson {
+          @include display(flex, row, flex-start, center);
+          gap: 4px;
+        }
+      }
+      &_status {
+        margin-right: 50px;
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          width: 20px;
+          height: 20px;
+          min-width: 20px;
+          min-height: 20px;
+          font-size: 10px;
+          margin: 0 5px;
+
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          width: 20px;
+          height: 20px;
+          min-width: 20px;
+          min-height: 20px;
+          font-size: 10px;
+          margin: 0 5px;
+
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
     }
 
     &_exerciseWrapper {
+      //padding-bottom: 16px;
       @include display(flex, column, center, center);
-      padding: 0 89px 0 94px;
-      gap: 10px;
+      padding: 16px 32px 0 32px;
+      gap: 16px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         padding: 10px 10px;
       }
-      @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
         padding: 10px 10px;
       }
+    }
 
-      &_exercise {
-        height: 50px;
-        margin-bottom: 16px;
-        border-radius: 7px;
-        background-color: #f1e3ff;
+    &_exerciseWrapperImage {
+      //@include display(flex, row, flex-start, flex-start);
+      margin-top: 15px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(auto-fit, 212px);
+      gap: 20px 20px;
+      @media only screen and (max-width: 800px) {
+        padding: 10px 10px;
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   }

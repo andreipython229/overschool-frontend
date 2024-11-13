@@ -1,4 +1,53 @@
 @import '../../../../scss/mixin.scss';
+
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 1.5rem;
+
+  box-shadow: 0rem 0rem 0.58rem 0.25rem rgba(53, 126, 235, 0.45);
+  /* Blue inactive gradient */
+  background: linear-gradient(180deg, rgb(207, 226, 255), rgb(187, 206, 235) 100%);
+
+  textarea {
+    min-height: 62px;
+    width: 100%;
+    padding: 0.63rem 1.25rem 0.63rem 1.25rem;
+    // margin-bottom: 10px;
+    box-sizing: border-box;
+    /* White */
+    border: 0.06rem solid rgb(255, 255, 255);
+    border-radius: 0.88rem;
+    /* White */
+    background: rgb(255, 255, 255);
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  button {
+    transition: all 0.3s;
+    font-size: 1.25rem;
+    padding: 1rem 2.5rem 1rem 2.5rem;
+    width: 11.13rem;
+    height: 3.38rem;
+  }
+}
+
+.hwTitle {
+  color: rgb(51, 47, 54);
+  font-family: 'SFPRORegular';
+  font-size: 2.25rem;
+  font-weight: 500;
+  line-height: 2.69rem;
+  letter-spacing: -1px;
+  text-align: left;
+}
+
 .wrapper {
   width: 100%;
   margin-top: 13px;

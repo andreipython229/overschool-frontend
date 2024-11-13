@@ -20,6 +20,8 @@ import { useFetchCourseQuery } from 'api/coursesServices'
 import { StudentCourseHeaderBanner } from 'Pages/StudentCourse/StudentLessonHeaderBanner'
 import { NewAudioPlayer } from 'components/NewAudioPlayer'
 import { LessonComments } from 'components/LessonComments'
+import { NewLoader } from 'components/Loaders/SimpleLoader'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 type studentHomeworkT = {
   lesson: IHomework

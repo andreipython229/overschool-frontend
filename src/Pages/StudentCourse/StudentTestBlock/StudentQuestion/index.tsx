@@ -10,6 +10,7 @@ import { useSendTestResultsMutation } from '../../../../api/userTestService'
 import { Pagination } from 'components/Pagination/Pagination'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { bigQuestionIconPath, questionIconPath } from './assets/vectorPath'
+import { convertSecondsToTime } from 'utils/convertDate'
 
 export type questionT = {
   question_id: number
@@ -31,6 +32,7 @@ export type StudentQuestionT = {
   user: any
   setShowResult: any
   setUserPercent: any
+  timer?: number
 }
 
 export const StudentQuestion: FC<StudentQuestionT> = ({
@@ -48,6 +50,7 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
   user,
   setShowResult,
   setUserPercent,
+  timer,
 }) => {
   const questionLength = length.length
   const schoolName = window.location.href.split('/')[4]
@@ -154,12 +157,16 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
   }
 
   useEffect(() => {
+    if (timer && timer <= 0) {
+      handleCompleteTest()
+    }
+  }, [timer])
+
+  useEffect(() => {
     if (resetSelection) {
       setResetSelection(false)
     }
   }, [resetSelection])
-
-  console.log(question)
 
   return (
     <div className={styles.wrapper}>
@@ -247,7 +254,7 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
             )}
           </div>
           <div className={styles.questionBlock_question_timer}>
-            <p>Осталось 00:00</p>
+            <p>Осталось {convertSecondsToTime(String(timer))}</p>
             <h2>
               Вопросы {numberTest} из {questionLength}
             </h2>
@@ -262,50 +269,6 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
           </div>
         </div>
       </div>
-      {/* {question?.question_id !== -9999 ? (
-        <h5 className={styles.wrapper_title}>
-          вопрос {numberTest + 1} из {questionLength}
-        </h5>
-      ) : (
-        <></>
-      )}
-      <p className={styles.wrapper_question}>{question?.body}</p>
-      {question?.picture ? (
-        <div style={{ marginBottom: '15px', alignContent: 'center' }}>
-          <img src={question?.picture} alt="Question Image" width={300} height={275} style={{ borderRadius: '10px', display: 'block' }} />
-        </div>
-      ) : (
-        ''
-      )}
-      <div className={styles.wrapper_progressBar}>
-        <div className={styles.wrapper_progressBar_progress} style={{ width: `${progress}%` }}></div>
-      </div>
-      {question?.answers &&
-        question?.answers.map(({ body: answer, answer_id: id, is_correct: isCorrect, picture }: any, index: number) => (
-          <StudentAnswer
-            key={index}
-            id={id}
-            title={answer}
-            name={nameAnswer}
-            isCorrect={isCorrect}
-            picture={picture}
-            resetSelection={resetSelection}
-            onSelect={handleAnswerSelect}
-          />
-        ))}
-      {numberTest + 1 !== questionLength ? (
-        question?.question_id !== -9999 ? (
-          <span className={styles.wrapper_button}>
-            <Button disabled={buttonDisabled} onClick={handleNextQ} text={'Следующий вопрос'} variant="primary" />
-          </span>
-        ) : (
-          <></>
-        )
-      ) : (
-        <span className={styles.wrapper_button}>
-          <Button onClick={handleCompleteTest} text={'Завершить тест'} disabled={buttonDisabled} variant="primary" />
-        </span>
-      )} */}
     </div>
   )
 }

@@ -4,44 +4,77 @@
   @include position_t_l(absolute, 0, 0);
   @include display(flex, column, space-between, center);
   max-width: 500px;
-  width: 445px;
-  height: 165px;
+  width: 238px;
+  height: 178px;
   padding: 19px 20px;
-  border-radius: 10px;
-  background-color: #ffffff;
-  box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 32px;
+  backdrop-filter: blur(14px);
+  background: rgba(207, 226, 255, 0.7);
+
   h5 {
-    @include font(600, 10px, 12px);
-    color: #d2d6dc;
-  }
-  button {
-    width: 100%;
-    font-size: 14px;
+    @include font(500, 14px, 19px);
+    color: rgb(51, 47, 54);
+    letter-spacing: 0;
+    line-height: 19px;
+    text-align: left;
   }
 
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  button {
+    width: 184px;
+    height: 40px;
+    color: rgb(53, 126, 235);
+    box-sizing: border-box;
+    background: rgba(207, 226, 255, 0.7);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: SF Pro Display;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    border: 2px solid rgb(53, 126, 235);
+    border-radius: 10px;
+  }
+
+  button:hover,
+   {
+    outline: none;
+    background: rgba(207, 226, 255, 0.7);
+    color: rgb(53, 126, 235);
+    }
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 70vw;
     left: -30px;
   }
-  
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 70vw;
     left: -30px;
   }
 }
+
 .input_container {
   @include display(flex, row, flex-start, center);
-  width: 100%;
+  width: 206px;
+  height: 39px;
+  gap: 16px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+  padding: 0px;
+
   p {
     @include font(400, 12px, 14px);
     color: #6b7484;
-    margin-right: 14px;
+    margin: 0px 16px;
   }
+
   p:last-of-type {
     margin: 0 14px;
   }
+
   input {
     max-width: 146px;
-    margin-right: 10px;
   }
 }

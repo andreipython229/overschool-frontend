@@ -14,16 +14,24 @@
   transition: 0.3s;
 
   &:hover {
-    border: 1px solid #357eeb;
+    border: 1px solid rgb(53, 126, 235);
   }
 
   & input:focus {
-    background-color: inherit; 
+    background-color: inherit;
   }
 
   &:has(input:focus) {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: inherit;
     border: 1px solid #357eeb;
+  }
+
+  & input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #357eeb;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-background-clip: text;
   }
 
   & input {
@@ -32,24 +40,23 @@
     outline: none;
     transition: 0.3s;
     border: none;
-    color: #332F36;
+    color: #357eeb;
     @include font(500, 20px);
 
     &::placeholder {
       @include font(400, 20px, 17px);
-      color: #808080;
+      color: #656465;
     }
 
     &:focus {
       color: #357eeb;
-      &::placeholder{
-        color: #332F36;
-
+      &::placeholder {
+        color: #357eeb;
       }
     }
-    &:hover{
-      &::placeholder{
-        color: #332F36;
+    &:hover {
+      &::placeholder {
+        color: #357eeb;
       }
     }
   }
@@ -69,4 +76,8 @@
     height: 22px;
     cursor: pointer;
   }
+}
+
+.error {
+  border: 1px solid red !important;
 }
