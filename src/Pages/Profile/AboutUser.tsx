@@ -29,7 +29,11 @@ const optionsList = [
   },
 ]
 
-export const AboutUser: FC = memo(() => {
+type AboutUserT = {
+  submitaboutuser: boolean
+}
+
+export const AboutUser: FC<AboutUserT> = memo(({ submitaboutuser }) => {
   const { role: UserRole } = useAppSelector(selectUser)
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
   const [avatarUrl, setAvatarUrl] = useState<string>('')
@@ -154,6 +158,13 @@ export const AboutUser: FC = memo(() => {
     isSubmitting,
   } = formik
 
+
+  useEffect(() => {
+    if (submitaboutuser) {
+      handleSubmit()
+    }
+  }, [submitaboutuser])
+
   return (
     <form className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
       {(isSubmitting || isFetching) && (
@@ -167,20 +178,32 @@ export const AboutUser: FC = memo(() => {
         <p>Доступных курсов: {rating?.available_courses} {rating?.top_by_courses_num && <span> | вы в топ {rating?.top_by_courses_num} пользователей</span>}</p>
       </div>}
       <h1 className={styles.profile_title}>Настройка профиля</h1>
-      <div className={styles.profile_block}>
-        <span style={{ display: 'flex', alignItems: 'center', lineHeight: '19px', gap: '0.5rem', fontSize: '16px' }}>
-          <strong>Email:</strong>
-          {email}
-          {/* <label htmlFor='email-change'>
-            <ModeEditIcon sx={{ color: 'green' }} />
-          </label> */}
-        </span>
-      </div>
+      {/*<div className={styles.profile_block}>*/}
+      {/*  <span style={{ display: 'flex', alignItems: 'center', lineHeight: '19px', gap: '0.5rem', fontSize: '16px' }}>*/}
+      {/*    <strong>Email:</strong>*/}
+      {/*    {email}*/}
+      {/*    /!* <label htmlFor='email-change'>*/}
+      {/*      <ModeEditIcon sx={{ color: 'green' }} />*/}
+      {/*    </label> *!/*/}
+      {/*  </span>*/}
+      {/*</div>*/}
       <div className={formStyles.form_avatarWrapper}>
         <div className={formStyles.form_avatarWrapper_avatarBlock}>
-          <span className={formStyles.form_avatarWrapper_avatarBlock_title}>Аватар:</span>
+          {/*<span className={formStyles.form_avatarWrapper_avatarBlock_title}>Аватар:</span>*/}
           {avatar_url ? (
+              <div className={styles.profile_block}>
             <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={avatar_url} alt="" />
+                <span style={{ display: 'flex', position: 'absolute', alignItems: 'center', lineHeight: '19px',
+                  gap: '0.5rem', fontSize: '16px', marginLeft:'120px', top: '40px'}}>
+                <strong>Имя пользователя:</strong>
+          {first_name}
+                </span>
+        <span style={{ display: 'flex', position: 'absolute', alignItems: 'center', lineHeight: '19px', gap: '0.5rem',
+          fontSize: '16px', marginLeft:'120px', top: '70px'}}>
+          <strong>Email:</strong>
+          {email}
+        </span>
+      </div>
           ) : (
             <div className={styles.profile_block_avatarBlock_avatar} />
           )}
@@ -211,18 +234,18 @@ export const AboutUser: FC = memo(() => {
         />
         {phoneError && <span className={styles.container_error}>{phoneError}</span>}
       </div>
-      <div className={styles.profile_block}>
-        <Input
-          name={'city'}
-          type={'text'}
-          label={'Город:'}
-          onChange={handleChange}
-          value={city as string}
-          placeholder={'Введите город'}
-          required={false}
-          disabled={isRestrictedUser}
-        />
-      </div>
+      {/*<div className={styles.profile_block}>*/}
+      {/*  <Input*/}
+      {/*    name={'city'}*/}
+      {/*    type={'text'}*/}
+      {/*    label={'Город:'}*/}
+      {/*    onChange={handleChange}*/}
+      {/*    value={city as string}*/}
+      {/*    placeholder={'Введите город'}*/}
+      {/*    required={false}*/}
+      {/*    disabled={isRestrictedUser}*/}
+      {/*  />*/}
+      {/*</div>*/}
       {/* <div className={styles.profile_block}>
                 <span className={styles.profile_block_avatarBlock_title}>О себе:</span>
                 <textarea
@@ -237,21 +260,21 @@ export const AboutUser: FC = memo(() => {
                     }
                 />
             </div> */}
-      <div className={styles.profile_block}>
-        {!isRestrictedUser && <SelectInput optionsList={optionsList} selectedOption={sex} defaultOption="Выберите пол" setSelectedValue={setSex} />}
-      </div>
-      <div className={formStyles.form_btnSave}>
-        {!isRestrictedUser && (
-          <Button
-          style={{ paddingTop: '11px', paddingBottom: '11px' }}
-          disabled={isSubmitting || isFetching || isError}
-          className={styles.profile_block_btn}
-          type="submit"
-          text={'Сохранить'}
-          variant={isSubmitting || isFetching || isError ? 'disabled' : 'primary'}
-        />
-        )}
-      </div>
+      {/*<div className={styles.profile_block}>*/}
+      {/*  {!isRestrictedUser && <SelectInput optionsList={optionsList} selectedOption={sex} defaultOption="Выберите пол" setSelectedValue={setSex} />}*/}
+      {/*</div>*/}
+      {/*<div className={formStyles.form_btnSave}>*/}
+      {/*  {!isRestrictedUser && (*/}
+      {/*    <Button*/}
+      {/*    style={{ paddingTop: '11px', paddingBottom: '11px' }}*/}
+      {/*    disabled={isSubmitting || isFetching || isError}*/}
+      {/*    className={styles.profile_block_btn}*/}
+      {/*    type="submit"*/}
+      {/*    text={'Сохранить'}*/}
+      {/*    variant={isSubmitting || isFetching || isError ? 'disabled' : 'newPrimary'}*/}
+      {/*  />*/}
+      {/*  )}*/}
+      {/*</div>*/}
     </form>
   )
 })
