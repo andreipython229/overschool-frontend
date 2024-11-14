@@ -170,5 +170,5 @@ export type accardionItemT = {
 
 export type SocialMediaBtnPropsT = {
   path: string
-  children: React.ReactNode
+  variant?: 'Instagram' | 'VK' | 'Telegram' | 'Link' | 'X' | 'Youtube'
 }

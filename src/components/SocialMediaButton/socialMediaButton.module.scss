@@ -1,4 +1,7 @@
 .social_btn {
   text-decoration: none;
   color: #332F36;
+  &_hover {
+    fill: radial-gradient(92.18% 99.11% at 26.56% 107.7%, #FFDD55 0%, #FFDD55 10%, #FF543E 50%, #C837AB 100%);
+  }
 }
