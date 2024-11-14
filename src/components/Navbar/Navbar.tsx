@@ -42,6 +42,7 @@ export const Navbar: FC = memo(() => {
   const dispatchRole = useDispatch()
   const contactLink = useAppSelector(contactLinkSelector)
 
+  // const isNavBarShow = ({})
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
   const [isChatOpen, { on, off }] = useBoolean()
   const handleHome = () => {
@@ -70,13 +71,23 @@ export const Navbar: FC = memo(() => {
         }}
         layout
       >
+        <div className={styles.navbar_show_btn}>
+          <div className={styles.navbar_show_btn_round}>
+            <div className={styles.navbar_show_btn_round_line}></div>
+            <div className={styles.navbar_show_btn_round_line}></div>
+            <div className={styles.navbar_show_btn_round_line}></div>
+          </div>
+        </div>
+
         <div className={styles.navbar_menu}>
           <Tooltip title={'Курсы'} key={'Курсы'}>
             <NavLink key={'Курсы'} to={Path.Courses} className={isActive}>
-              <IconSvg width={38} height={32} viewBoxSize={'0 0 38 32'} path={coursesNavPath} />
+              <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
             </NavLink>
           </Tooltip>
+          <p>Главная</p>
         </div>
+
         {UserRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
           <div style={{ marginTop: '35px' }}>
             <Tooltip title={`Акции/бонусы. ${studentBonus.text}`} arrow placement={'right'} key={'bonus'}>
@@ -118,10 +129,10 @@ export const Navbar: FC = memo(() => {
                   path === Path.Meetings
                     ? 'Видеоконференции'
                     : path === Path.CourseStats
-                    ? 'Ученики платформы'
-                    : path === Path.HomeWork
-                    ? 'Домашние задания'
-                    : 'Настройки платформы'
+                      ? 'Ученики платформы'
+                      : path === Path.HomeWork
+                        ? 'Домашние задания'
+                        : 'Настройки платформы'
                 }
                 key={index + '_' + path}
                 arrow

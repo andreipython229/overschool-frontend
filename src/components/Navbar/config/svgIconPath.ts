@@ -23,7 +23,10 @@ export const appealsIconPath: pathT[] = [
 ]
 
 export const coursesNavPath: pathT[] = [
-  { d: coursesNavIcon, stroke: 'currentColor', fill: '`#e0dce`d', strokeWidth: '3.5', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: coursesNavIcon.d1, stroke: 'currentColor', fill: '#332F36', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: coursesNavIcon.d2, stroke: 'currentColor', fill: '#332F36', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: coursesNavIcon.d3, stroke: 'currentColor', fill: '#332F36', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: coursesNavIcon.d4, stroke: 'currentColor', fill: '#332F36', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
 ]
 
 export const coursesStatsNavPath: pathT[] = [
