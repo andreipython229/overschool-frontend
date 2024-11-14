@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Button } from '../../../../components/common/Button/Button'
 import styles from '../StudentQuestion/studentQuestion.module.scss'
 import { AnswersT } from '../../../../components/AddQuestion'
-import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 import { useNavigate, useParams } from 'react-router-dom'
 import { lessonT, sectionT } from 'types/sectionT'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
+import { convertSecondsToTime } from 'utils/convertDate'
 
 type NewAnswer = {
   question_id: number
@@ -22,6 +23,8 @@ interface TestResultProps {
   showResult: boolean
   lessons: sectionT
   activeLessonIndex: number
+  time?: number
+  showPreview: () => void
 }
 
 type QuestionT = {
@@ -34,14 +37,13 @@ type QuestionT = {
 export const StudentTestResults: React.FC<TestResultProps> = ({
   success_percent,
   user_percent,
-  questions,
-  showRightAnswers,
-  full_results,
   onCompleteTest,
   setNumberTest,
   showResult,
   lessons,
   activeLessonIndex,
+  time,
+  showPreview,
 }) => {
   const isSuccess = user_percent >= success_percent
   const { school_name: school, section_id: sectionId, course_id: courseId } = useParams()
@@ -50,6 +52,7 @@ export const StudentTestResults: React.FC<TestResultProps> = ({
   const handleRestartTest = () => {
     onCompleteTest()
     setNumberTest(1)
+    showPreview()
   }
 
   return showResult ? (
@@ -60,7 +63,7 @@ export const StudentTestResults: React.FC<TestResultProps> = ({
             <div className={styles.questionBlock_question_questionBlock_results}>
               <div className={styles.questionBlock_question_questionBlock_results_header}>
                 <div className={styles.questionBlock_question_questionBlock_results_header_time}>
-                  Время выполнения: <span>00:00</span>
+                  Время выполнения: <span>{time ? convertSecondsToTime(String(time)) : '00:00'}</span>
                 </div>
                 <div className={styles.questionBlock_question_questionBlock_results_header_correctAnswers}>
                   Правильных ответов: <span>{user_percent}%</span>
@@ -116,6 +119,7 @@ export const StudentTestResults: React.FC<TestResultProps> = ({
                   navigate(`/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${lessonForward?.type}/${lessonForward?.id}`)
                 }
                 variant="newPrimary"
+                disabled={lessons.lessons[activeLessonIndex].id === lessonForward?.id}
                 className={styles.button_complete}
               />
             )}
@@ -124,6 +128,6 @@ export const StudentTestResults: React.FC<TestResultProps> = ({
       </div>
     </div>
   ) : (
-    <SimpleLoader style={{ width: '100px', height: '100px' }} />
+    <LoaderLayout />
   )
 }

@@ -2,16 +2,15 @@ import { FC, useEffect, useState, FormEvent, ChangeEvent } from 'react'
 import { Params, useNavigate } from 'react-router-dom'
 
 import styles from './studentTest.module.scss'
-import { sectionT, ITest } from 'types/sectionT'
+import { sectionT } from 'types/sectionT'
 import { StudentTestPreview } from '../StudentTestPreview'
 import { useBoolean } from '../../../../customHooks'
 import { StudentTestBlock } from 'Pages/StudentCourse/StudentTestBlock'
 import { StudentLessonNavBtns } from '../StudentLessonNavBtns'
 import { LESSON_TYPE } from '../../../../enum/lessonTypeE'
-import { useFetchQuestionsListQuery, useLazyFetchQuestionsListQuery, useGetUserTestsByTestMutation } from '../../../../api/questionsAndAnswersService'
+import { useLazyFetchQuestionsListQuery, useGetUserTestsByTestMutation } from '../../../../api/questionsAndAnswersService'
 import { useLazyFetchCommentsByLessonQuery, useCreateCommentMutation } from 'api/modulesServices'
 import { CommentList, Comment } from 'types/comments'
-import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { Button } from 'components/common/Button/Button'
@@ -44,8 +43,6 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
   const [testSended, setTestSended] = useState(sended)
   const [testSuccess, setTestSuccess] = useState(completed)
   const navigate = useNavigate()
-
-  console.log(lesson)
 
   useEffect(() => {
     if (lessonId && schoolName && courseId) {
@@ -170,6 +167,7 @@ export const StudentTest: FC<studentTestT> = ({ lessons, params, activeLessonInd
           ) : (
             isOpenTest && (
               <StudentTestBlock
+                showPreview={closeTest}
                 lesson={lesson}
                 activeLessonIndex={activeLessonIndex}
                 lessons={lessons}

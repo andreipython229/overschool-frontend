@@ -17,3 +17,15 @@ export const convertDate = (date: Date, divider = '.') => {
 
   return { mmddyyyy, reversedmmddyyyy, hoursAndMinutes }
 }
+
+export const convertSecondsToTime = (seconds: string) => {
+  let totalSeconds = Math.floor(parseFloat(seconds))
+  const hours = Math.floor(totalSeconds / 3600)
+  totalSeconds %= 3600
+  const minutes = Math.floor(totalSeconds / 60)
+  const secs = totalSeconds % 60
+
+  const formattedTime = [String(hours).padStart(2, '0'), String(minutes).padStart(2, '0'), String(secs).padStart(2, '0')].join(':')
+
+  return formattedTime
+}

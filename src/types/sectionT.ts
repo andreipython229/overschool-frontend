@@ -107,6 +107,8 @@ export interface IHomework {
 }
 
 export interface ITest {
+  time_limit: string
+  has_timer: boolean
   test_id: number
   baselesson_ptr_id: number
   section: number

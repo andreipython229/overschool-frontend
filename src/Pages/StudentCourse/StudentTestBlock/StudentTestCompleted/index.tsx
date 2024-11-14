@@ -78,6 +78,7 @@ export const CompletedTest: React.FC<TestCompleted> = ({ lessons, activeLessonIn
                 navigate(`/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${lessonForward?.type}/${lessonForward?.id}`)
               }
               variant="newPrimary"
+              disabled={!lessonForward}
               className={styles.button_complete}
             />
           </div>

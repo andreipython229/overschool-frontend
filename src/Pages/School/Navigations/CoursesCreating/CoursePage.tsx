@@ -4,7 +4,6 @@ import { CoursesCard } from './CoursesCard'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Input } from 'components/common/Input/Input/Input'
 import { RoleE } from 'enum/roleE'
-import { searchIconPath } from 'config/commonSvgIconsPath'
 import { schoolIdSelector, schoolNameSelector, selectUser } from 'selectors'
 import { AddCourseModal } from 'components/Modal'
 import { useDeleteFolderMutation, useFetchCourseFoldersQuery, useLazyFetchCoursesPageQuery } from 'api/coursesServices'
@@ -13,22 +12,19 @@ import { useBoolean } from 'customHooks/useBoolean'
 import { Portal } from 'components/Modal/Portal'
 import { useDebouncedFilter } from '../../../../customHooks'
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
-import ContentLoader from 'react-content-loader'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CoursesT } from 'types/CoursesT'
 import { Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import { Delete, FolderCopyOutlined, Visibility, VisibilityOff } from '@mui/icons-material'
+import { Delete } from '@mui/icons-material'
 import { AddNewFolderModal } from 'components/Modal/AddFolderModal'
 import { Button } from 'components/common/Button/Button'
 import { useLazyFetchBonusesQuery } from '../../../../api/schoolBonusService'
 import { setStudentBonus } from 'store/redux/bonuses/bonusSlice'
 import { useDispatch } from 'react-redux'
-import loop from '../../../../assets/img/common/loop.svg'
-import { useLazyFetchAllProgressQuery, useLazyFetchProgressQuery } from 'api/userProgressService'
-import { index } from 'd3'
+import { useLazyFetchAllProgressQuery } from 'api/userProgressService'
 import { SearchIconPath } from 'assets/Icons/svgIconPath'
-import { NewLoader } from 'components/Loaders/SimpleLoader'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
+
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
   const schoolName = useAppSelector(schoolNameSelector)
@@ -60,7 +56,6 @@ export const CoursePage: FC = () => {
 
   const dispatchHandlerModal = () => {
     onToggle()
-    fetchData(schoolName)
   }
 
   useEffect(() => {
@@ -146,9 +141,16 @@ export const CoursePage: FC = () => {
     setDeletingFolder(folder)
   }
 
-  const filteredCourses = courses?.results.filter((course: any) => {
-    return course.name.toLowerCase().includes(search.toLowerCase())
-  })
+  const filteredCourses =
+    role === RoleE.Student
+      ? courses?.results
+          .filter(course => {
+            return course.name.toLowerCase().includes(search.toLowerCase())
+          })
+          .filter(course => course.public === 'О')
+      : courses?.results.filter(course => {
+          return course.name.toLowerCase().includes(search.toLowerCase())
+        })
 
   if (!isSuccess) return <LoaderLayout />
   return (
@@ -527,7 +529,7 @@ export const CoursePage: FC = () => {
           >
             {courses && filteredCourses?.length !== 0 ? (
               filteredCourses?.map((course: any, index) =>
-                showTestCourse || course.course_id !== 247 ? (
+                (RoleE.Admin === role && showTestCourse) || course.course_id !== 247 ? (
                   <CoursesCard userProgress={getProgress(course.course_id)} key={course?.course_id} course={course} role={role} />
                 ) : null,
               )
@@ -546,7 +548,7 @@ export const CoursePage: FC = () => {
       )}
       {isOpenAddCourse ? (
         <Portal closeModal={onToggle}>
-          <AddCourseModal courses={courses?.results} setShowModal={onToggle} />
+          <AddCourseModal courses={courses?.results} refetch={fetchData} setShowModal={onToggle} />
         </Portal>
       ) : null}
       <Dialog open={alertOpen} onClose={closeAlert} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
