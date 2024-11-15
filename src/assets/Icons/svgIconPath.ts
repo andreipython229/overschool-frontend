@@ -318,13 +318,16 @@ export const InstagramIconPath: pathT[] = [
     strokeWidth: '2.66667',
     strokeLinejoin: 'round',
   },
-  { d: InstagramIcon.d3 },
+  {
+    d: InstagramIcon.d3,
+    fill: 'currentColor',
+  },
 ] //instagram
 
 export const TelegramIconPath = [
   {
     d: TelegramIcon.d1,
-    fill: '#332F36',
+    fill: 'currentColor',
   },
 ] //telegram
 
@@ -338,11 +341,11 @@ export const VKIconPath = [
 export const YoutubeIconPath = [
   {
     d: YoutubeIcon.d1,
-    fill: '#332F36',
+    fill: 'currentColor',
   },
   {
     d: YoutubeIcon.d2,
-    fill: '#ffffff',
+    fill: 'white',
   },
 ] //youtube
 
@@ -353,7 +356,7 @@ export const LinkIconPath = [
   },
 ] //link
 
-export const XIconPath = [
+export const XIconPath: pathT[] = [
   {
     d: XIcon.d1,
     stroke: '#332F36',

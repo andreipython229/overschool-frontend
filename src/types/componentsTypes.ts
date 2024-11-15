@@ -169,6 +169,6 @@ export type accardionItemT = {
 }
 
 export type SocialMediaBtnPropsT = {
-  path: string
-  variant?: 'Instagram' | 'VK' | 'Telegram' | 'Link' | 'X' | 'Youtube'
+  url: string
+  variant: 'Instagram' | 'VK' | 'Telegram' | 'Link' | 'X' | 'Youtube'
 }

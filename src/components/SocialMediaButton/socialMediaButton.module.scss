@@ -1,7 +1,34 @@
-.social_btn {
+.social_button {
   text-decoration: none;
-  color: #332F36;
-  &_hover {
-    fill: radial-gradient(92.18% 99.11% at 26.56% 107.7%, #FFDD55 0%, #FFDD55 10%, #FF543E 50%, #C837AB 100%);
-  }
+  color: inherit;
+}
+
+.telegram:hover path {
+  fill: #59bfeb;
+  transition: 0.3s linear;
+}
+
+.vk:hover path {
+  fill: #357eeb;
+  transition: 0.3s linear;
+}
+
+.x:hover path {
+  fill: #332f36;
+  transition: 0.3s linear;
+}
+
+.youtube:hover path:first-child {
+  transition: 0.3s linear;
+  fill: #ff0000;
+}
+
+.link:hover path {
+  fill: url(#gradient_link);
+  transition: 0.3s linear;
+}
+
+.instagram:hover path {
+  stroke: url(#gradient_instagram);
+  transition: 0.3s linear;
 }
