@@ -1,5 +1,5 @@
 import {FC, useState, useEffect} from 'react'
-import {Link, NavLink} from 'react-router-dom'
+import {Link, NavLink, useParams} from 'react-router-dom'
 import {Button} from '../../common/Button/Button'
 import {useFetchProfileDataQuery} from 'api/profileService'
 import {useLazyLogoutQuery} from '../../../api/userLoginService'
@@ -13,42 +13,47 @@ import {RoleE} from "../../../enum/roleE";
 import {selectUser} from "../../../selectors";
 import {arrowLeftIconPath} from "../../../config/commonSvgIconsPath";
 import {IconSvg} from "../../common/IconSvg/IconSvg";
+import {useFetchCourseQuery} from "../../../api/coursesServices";
+import {useFetchSchoolHeaderQuery} from "../../../api/schoolHeaderService";
 
 export const StudentPrevious: FC = () => {
     const dispatch = useAppDispatch()
 
-    const {data, isSuccess} = useFetchProfileDataQuery()
+    // const {data, isSuccess} = useFetchProfileDataQuery()
 
     const [profileData, setProfileData] = useState<profileT>()
 
     const [logout] = useLazyLogoutQuery()
+
+
+
+    const headerId = localStorage.getItem('header_id')
+    const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(Number(headerId))
+
+
 
     const handleLogout = () => {
         dispatch(auth(false))
         logout()
     }
 
-    useEffect(() => {
-        isSuccess && setProfileData(data[0])
-    }, [isSuccess])
+    // useEffect(() => {
+    //     isSuccess && setProfileData(data[0])
+    // }, [isSuccess])
 
     return (
         <div>
             <p className={styles.previous_infoBlock_title_name}>Профиль</p>
-            <div>
+            <div className={styles.previousHeader_nav}>
                 <NavLink to={Path.Courses}>
-                    <Button style={{width: '280px',
-                        position: 'absolute',
-                        top: '40px',
-                        height: '55px',
-                       fontSize: '18px',
-                       fontWeight: '500',}} variant={"emptyInside"} text={'К материалам курса'}>
+                    <Button  className={styles.lessonHeader_backToMaterials}
+                            variant={"emptyInside"} text={'К материалам курса'}>
                     <IconSvg viewBoxSize="0 0 24 24" height={24} width={24} path={arrowLeftIconPath} />
                         </Button>
                 </NavLink>
             </div>
          <div className={styles.previous}>
-             <img className={styles.background_image_course} src="/images/Изображение курса.png" alt="bg"/>
+             <img className={styles.background_image_course} src={data?.photo_background} alt="bg"/>
                 {/*<img className={styles.previous_infoBlock_avatar} src="/images/Логотип.png" alt=""/>*/}
                 {/*    <p className={styles.previous_infoBlock_title_about}>*/}
                 {/*        {(!profileData?.user.last_name && !profileData?.user.first_name) ?*/}
@@ -81,7 +86,7 @@ export const StudentPrevious: FC = () => {
             {/*        }}*/}
             {/*        text={'Выйти из профиля'}*/}
             {/*    />*/}
-        </div>
+            </div>
             </div>
     )
 }

@@ -7,6 +7,7 @@ import {Button} from "../../common/Button/Button";
 import {TelegramModalPropsT} from "../ModalTypes";
 import {useAppSelector} from "../../../store/hooks";
 import {selectUser} from "../../../selectors";
+import {NotificationsIconPath, SettingsIconPath} from "../../../assets/Icons/svgIconPath";
 
 
 
@@ -28,7 +29,7 @@ export const SetupNotificationTelegramAdmin: FC<TelegramModalPropsT> = ({ setSho
     return (
         <div>
             <div className={styles.modalTelegram}>
-                <div className={styles.modalTelegram_container}>
+                <div className={styles.container}>
                     <div className={styles.bg}>
                         <div className={styles.bg_wrap1}></div>
                     </div>
@@ -48,17 +49,20 @@ export const SetupNotificationTelegramAdmin: FC<TelegramModalPropsT> = ({ setSho
                         <div style={{
                             display: 'flex',
                             textAlign: 'center',
-                            width: '400px',
-                            height: '40px',
-                            paddingBottom: '75px',
-                            paddingTop: '20px'
+                            // gap: '40px',
+                             maxWidth: '380px',
+                             paddingBottom: '75px',
+                             paddingTop: '30px',
+                             marginLeft: '30px',
+                             paddingLeft: '20px',
+                             paddingRight: '20px',
                         }}>
-                            <img alt="logo" src="/images/img.png"
-                                 width="30" height="30"/>
+                            <IconSvg viewBoxSize="0 0 24 20" height={27} width={27} path={SettingsIconPath} />
                             <h2>Настройка уведомлений
                                 Telegram</h2>
                         </div>
-                        <div className={styles.container_wrapper}>
+
+                        <div className={styles.container}>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <h2 style={{
                                     display: 'absolute',
@@ -69,7 +73,7 @@ export const SetupNotificationTelegramAdmin: FC<TelegramModalPropsT> = ({ setSho
                         </div>
 
                         { userRole === 1  &&
-                            <div className={styles.container_wrapper}>
+                            <div className={styles.container}>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <span style={{fontSize: '20px'}}> Напоминание о предстоящем вебинаре</span>
                                 <CheckboxBall toggleChecked={() => setReminder_webinar(!reminder_webinar)} isChecked={reminder_webinar}/>
@@ -78,7 +82,7 @@ export const SetupNotificationTelegramAdmin: FC<TelegramModalPropsT> = ({ setSho
                         }
 
                         { userRole === 2 &&
-                            <div className={styles.container_wrapper}>
+                            <div className={styles.container}>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <span style={{fontSize: '20px'}}>Ученик прислал ответ на задание</span>
                                 <CheckboxBall toggleChecked={() => setHomework_notifications(!homework_notifications)} isChecked={homework_notifications}/>
@@ -88,14 +92,14 @@ export const SetupNotificationTelegramAdmin: FC<TelegramModalPropsT> = ({ setSho
 
                         { (userRole === 6 || userRole === 2) &&
                             <div>
-                        <div className={styles.container_wrapper}>
+                        <div className={styles.container}>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <span style={{fontSize: '20px'}}>Ученик ждет ответа уже 24 часа</span>
                                 <CheckboxBall toggleChecked={() => setTimeanswer(!timeanswer)} isChecked={timeanswer}/>
                             </div>
                         </div>
 
-                            <div className={styles.container_wrapper}>
+                            <div className={styles.container}>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <span style={{fontSize: '20px'}}>Ученик завершил курс</span>
                                 <CheckboxBall toggleChecked={() => setCompleted_courses_notifications(!completed_courses_notifications)} isChecked={completed_courses_notifications}/>
@@ -104,21 +108,15 @@ export const SetupNotificationTelegramAdmin: FC<TelegramModalPropsT> = ({ setSho
                                 </div>
                         }
 
-                        <div className={styles.container_wrapper}>
+                        <div className={styles.container}>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <span style={{fontSize: '20px'}}>Уведомлять о непрочитанных
                                     сообщениях</span>
                                 <CheckboxBall toggleChecked={() => setMessages_notifications(!messages_notifications)} isChecked={messages_notifications}/>
                             </div>
                         </div>
-                        <div className={styles.container_wrapper}>
+                        <div className={styles.modalTelegram_container}>
                             <Button
-                                style={{
-                                    display: 'absolute',
-                                    width: '460px',
-                                    height: '40px',
-                                    paddingBottom: '35px'
-                                }}
                                 onClick={setShowModal}
                                 variant='newPrimary'
                                 text={'Сохранить изменения'}
@@ -127,6 +125,6 @@ export const SetupNotificationTelegramAdmin: FC<TelegramModalPropsT> = ({ setSho
                     </div>
                 </div>
             </div>
-        </div>
+         </div>
     )
 }

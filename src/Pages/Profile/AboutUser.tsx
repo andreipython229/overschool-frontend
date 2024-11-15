@@ -178,31 +178,25 @@ export const AboutUser: FC<AboutUserT> = memo(({ submitaboutuser }) => {
         <p>Доступных курсов: {rating?.available_courses} {rating?.top_by_courses_num && <span> | вы в топ {rating?.top_by_courses_num} пользователей</span>}</p>
       </div>}
       <h1 className={styles.profile_title}>Настройка профиля</h1>
-      {/*<div className={styles.profile_block}>*/}
-      {/*  <span style={{ display: 'flex', alignItems: 'center', lineHeight: '19px', gap: '0.5rem', fontSize: '16px' }}>*/}
-      {/*    <strong>Email:</strong>*/}
-      {/*    {email}*/}
-      {/*    /!* <label htmlFor='email-change'>*/}
-      {/*      <ModeEditIcon sx={{ color: 'green' }} />*/}
-      {/*    </label> *!/*/}
-      {/*  </span>*/}
-      {/*</div>*/}
+      <div className={styles.profile_block}>
+        <span style={{ display: 'flex', alignItems: 'center', lineHeight: '19px', gap: '0.5rem', fontSize: '16px', marginBottom: '20px', marginTop: '20px' }}>
+          <strong>Email:</strong>
+          {email}
+          {/* <label htmlFor='email-change'>
+            <ModeEditIcon sx={{ color: 'green' }} />
+          </label> */}
+        </span>
+        <span style={{ display: 'flex', alignItems: 'center', lineHeight: '19px', gap: '0.5rem', fontSize: '16px' }}>
+          <strong>Имя Пользователя:</strong>
+          {first_name}
+        </span>
+      </div>
       <div className={formStyles.form_avatarWrapper}>
         <div className={formStyles.form_avatarWrapper_avatarBlock}>
           {/*<span className={formStyles.form_avatarWrapper_avatarBlock_title}>Аватар:</span>*/}
           {avatar_url ? (
               <div className={styles.profile_block}>
             <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={avatar_url} alt="" />
-                <span style={{ display: 'flex', position: 'absolute', alignItems: 'center', lineHeight: '19px',
-                  gap: '0.5rem', fontSize: '16px', marginLeft:'120px', top: '40px'}}>
-                <strong>Имя пользователя:</strong>
-          {first_name}
-                </span>
-        <span style={{ display: 'flex', position: 'absolute', alignItems: 'center', lineHeight: '19px', gap: '0.5rem',
-          fontSize: '16px', marginLeft:'120px', top: '70px'}}>
-          <strong>Email:</strong>
-          {email}
-        </span>
       </div>
           ) : (
             <div className={styles.profile_block_avatarBlock_avatar} />

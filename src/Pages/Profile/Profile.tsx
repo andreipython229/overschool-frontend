@@ -37,6 +37,10 @@ import {
     SetupNotificationTelegramAdmin
 } from "../../components/Modal/ProfileModalTelegramNotification/profilemodaltelegramnotification";
 import { Portal } from 'components/Modal/Portal'
+import {
+    NotificationsIconPath,
+    FilterIconPath
+} from "../../assets/Icons/svgIconPath";
 
 
 type notifForStudentAndTeacher = {
@@ -256,19 +260,20 @@ export const Profile = () => {
                                 <div className={styles.container_notification_toggle} data-ison={isActiveNotification}>
                                     <div style={{display: 'flex', gap: '25px'}}>
                                         {isActiveNotification ?
-                                        <img alt="logo" style={{cursor: 'pointer'}} onClick={onToggle}
-                                             src="/images/Property 1=Filter.png"
-                                             width="25" height="25"/> : <img alt="logo"
-                                             src="/images/Property 1=Filter.png"
-                                             width="25" height="25"/>}
-                                        <img alt="logo" src="/images/notification.png"
-                                             width="25" height="25"/>
+                                           <IconSvg styles={{cursor: 'pointer'}} onPointerDown={onToggle}
+                                                    viewBoxSize="0 0 28 28" height={24} width={24} path={FilterIconPath}/>
+                                            :
+                                            <IconSvg  viewBoxSize="0 0 28 28" height={24} width={24} path={FilterIconPath} />
+                                        }
+                                        <IconSvg viewBoxSize="0 0 24 24" height={24} width={24} path={NotificationsIconPath} />
                                         <span style={{fontWeight: '200'}}>
-                                       {isActiveNotification ? <h5 style={{color: 'white'}}>Уведомления включены</h5> :
-                                           <h5 style={{color: 'black'}}>Уведомления выключены</h5>}
+                                       {isActiveNotification ? <h5 style={{color: 'white',width: '200px',
+                                               whiteSpace: 'nowrap', marginTop: '3px'}}>Уведомления включены</h5> :
+                                           <h5 style={{color: 'black', width: '200px', whiteSpace: 'nowrap',
+                                               marginTop: '3px'}}>Уведомления выключены</h5>}
                                         </span>
                                         {!isActiveNotification ? (
-                                            <a onClick={() => window.open('https://t.me/overschool_news_bot', '_blank')}>
+                                             <a onClick={() => window.open('https://t.me/overschool_news_bot', '_blank')}>
                                                 <CheckboxBall toggleChecked={toggleActive} isChecked={isActiveNotification}/>
                                             </a>) : (<CheckboxBall toggleChecked={toggleActive} isChecked={isActiveNotification}/>)}
                                     </div>
@@ -333,7 +338,7 @@ export const Profile = () => {
                                 </div>
                             </form>
                             <div>
-                                <div style={{display: "flex",justifyContent: "flex-end"}}>
+                                <div style={{display: "flex",justifyContent: "flex-end", marginRight:'30px'}}>
                                     <Button
                                         variant="delete"
                                         onClick={logOut}
