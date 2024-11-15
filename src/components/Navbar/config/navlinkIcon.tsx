@@ -10,6 +10,6 @@ export const navlinkIcon: { [key: string]: ReactNode } = {
   [Path.Courses]: <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />,
   [Path.CourseStats]: <IconSvg width={36} height={36} viewBoxSize={'0 0 36 36'} path={coursesStatsNavPath} />,
   [Path.HomeWork]: <IconSvg width={39} height={33} viewBoxSize={'0 0 39 33'} path={homeworkNavPath} />,
-  [Path.Settings]: <IconSvg width={35} height={35} viewBoxSize={'0 0 35 35'} path={settingsNavPath} />,
-  [Path.Chat]: <IconSvg width={38} height={34} viewBoxSize={'0 0 28 24'} path={chatIconPath} />,
+  [Path.Settings]: <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={settingsNavPath} />,
+  [Path.Chat]: <IconSvg width={50} height={50} viewBoxSize={'0 0 28 50'} path={chatIconPath} />,
 }

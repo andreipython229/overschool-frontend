@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import React, { FC, memo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import RedeemIcon from '@mui/icons-material/Redeem'
 import { useAppSelector } from '../../store/hooks'
@@ -29,7 +29,7 @@ import { MarkEmailUnreadRounded } from '@mui/icons-material'
 import { coursesNavPath } from '../Navbar/config/svgIconPath'
 
 interface IIsActive {
-  isActive?: boolean
+  isActive?: boolean;
 }
 
 export const Navbar: FC = memo(() => {
@@ -42,12 +42,16 @@ export const Navbar: FC = memo(() => {
   const dispatchRole = useDispatch()
   const contactLink = useAppSelector(contactLinkSelector)
 
-  // const isNavBarShow = ({})
+  const [isNavBarShow, setIsNavBarShow] = useState(false);
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
   const [isChatOpen, { on, off }] = useBoolean()
   const handleHome = () => {
     dispatchRole(role(RoleE.Unknown))
   }
+
+  const toggleNavBar = () => {
+    setIsNavBarShow(prevState => !prevState);
+  };
 
   return (
     <>
@@ -71,7 +75,7 @@ export const Navbar: FC = memo(() => {
         }}
         layout
       >
-        <div className={styles.navbar_show_btn}>
+        <div onClick={toggleNavBar} className={styles.navbar_show_btn}>
           <div className={styles.navbar_show_btn_round}>
             <div className={styles.navbar_show_btn_round_line}></div>
             <div className={styles.navbar_show_btn_round_line}></div>
@@ -173,6 +177,7 @@ export const Navbar: FC = memo(() => {
               </Tooltip>
             </div>
           )}
+
           <Tooltip
             title={UserRole === RoleE.Admin ? 'Связаться с техподдержкой' : 'Связаться с руководством школы'}
             arrow
