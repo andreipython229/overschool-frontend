@@ -8,8 +8,8 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 export const navlinkIcon: { [key: string]: ReactNode } = {
   [Path.Meetings]: <VideocamIcon style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.1em' }}/>,
   [Path.Courses]: <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />,
-  [Path.CourseStats]: <IconSvg width={36} height={36} viewBoxSize={'0 0 36 36'} path={coursesStatsNavPath} />,
-  [Path.HomeWork]: <IconSvg width={39} height={33} viewBoxSize={'0 0 39 33'} path={homeworkNavPath} />,
+  [Path.CourseStats]: <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesStatsNavPath} />,
+  [Path.HomeWork]: <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={homeworkNavPath} />,
   [Path.Settings]: <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={settingsNavPath} />,
-  [Path.Chat]: <IconSvg width={50} height={50} viewBoxSize={'0 0 28 50'} path={chatIconPath} />,
+  [Path.Chat]: <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={chatIconPath} />,
 }

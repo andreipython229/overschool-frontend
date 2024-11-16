@@ -9,6 +9,7 @@ import { chatIconPath } from 'components/Navbar/config/svgIconPath'
 import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
 import { Chat } from 'components/Modal/Chat'
+import classNames from 'classnames';
 
 import styles from './navbar.module.scss'
 import { contactLinkSelector, selectUser } from '../../selectors'
@@ -32,6 +33,7 @@ interface IIsActive {
   isActive?: boolean;
 }
 
+
 export const Navbar: FC = memo(() => {
   const { role: UserRole } = useAppSelector(selectUser)
   const school = useAppSelector(state => state.school)
@@ -43,6 +45,7 @@ export const Navbar: FC = memo(() => {
   const contactLink = useAppSelector(contactLinkSelector)
 
   const [isNavBarShow, setIsNavBarShow] = useState(false);
+  const [isBtnToggled, setIsBtnToggled] = useState(false);
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
   const [isChatOpen, { on, off }] = useBoolean()
   const handleHome = () => {
@@ -51,12 +54,13 @@ export const Navbar: FC = memo(() => {
 
   const toggleNavBar = () => {
     setIsNavBarShow(prevState => !prevState);
+    setIsBtnToggled(prevState => !prevState);
   };
 
   return (
     <>
       <motion.nav
-        className={styles.navbar}
+        className={classNames(styles.navbar, { [styles.isNavBarShow]: isNavBarShow })}
         initial={{
           y: -1000,
           opacity: 0,
@@ -76,7 +80,7 @@ export const Navbar: FC = memo(() => {
         layout
       >
         <div onClick={toggleNavBar} className={styles.navbar_show_btn}>
-          <div className={styles.navbar_show_btn_round}>
+        <div className={classNames(styles.navbar_show_btn_round, { [styles.isBtnToggled]: isBtnToggled })}>
             <div className={styles.navbar_show_btn_round_line}></div>
             <div className={styles.navbar_show_btn_round_line}></div>
             <div className={styles.navbar_show_btn_round_line}></div>
@@ -147,19 +151,18 @@ export const Navbar: FC = memo(() => {
                 </NavLink>
               </Tooltip>
             ) : (
-              <div key={index + '_' + path}>
-                <Tooltip title={'Чаты'} arrow placement={'right'} key={'chats_2'}>
-                  <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
+              // <div key={index + '_' + path}>
+                  <a className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
                     {Number(unRead) > 0 ? (
                       <Badge badgeContent={unRead} color="error">
-                        <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath} />
+                        <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
                       </Badge>
                     ) : (
-                      <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath} />
+                      <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
                     )}
-                  </div>
-                </Tooltip>
-              </div>
+                  </a>
+                
+              // </div>
             ),
           )}
           {UserRole === RoleE.Admin && (
@@ -178,7 +181,7 @@ export const Navbar: FC = memo(() => {
             </div>
           )}
 
-          <Tooltip
+          {/* <Tooltip
             title={UserRole === RoleE.Admin ? 'Связаться с техподдержкой' : 'Связаться с руководством школы'}
             arrow
             placement={'right'}
@@ -216,7 +219,7 @@ export const Navbar: FC = memo(() => {
                 />
               </SvgIcon>
             </a>
-          </Tooltip>
+          </Tooltip> */}
         </div>
       </motion.nav>
       {isChatOpen && (
