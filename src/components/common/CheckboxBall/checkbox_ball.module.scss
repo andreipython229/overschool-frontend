@@ -31,15 +31,15 @@
   position: relative;
 
   &::before {
-    content: ''; /* Пустой элемент */
+    content: '';
     position: absolute;
-    top: 50%; /* Центровка по вертикали */
-    left: 50%; /* Центровка по горизонтали */
-    transform: translate(-50%, -50%); /* Смещение для точной центровки */
-    width: 12px; /* Диаметр внутреннего круга */
-    height: 12px; /* Диаметр внутреннего круга */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
     background-color: #ffffff ;
     border: 1px solid rgb(53, 126, 235);
-    border-radius: 50%; /* Закругление для круга */
+    border-radius: 50%;
   }
 }
