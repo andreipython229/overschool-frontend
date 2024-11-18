@@ -33,7 +33,6 @@ interface IIsActive {
   isActive?: boolean;
 }
 
-
 export const Navbar: FC = memo(() => {
   const { role: UserRole } = useAppSelector(selectUser)
   const school = useAppSelector(state => state.school)
@@ -48,6 +47,7 @@ export const Navbar: FC = memo(() => {
   const [isBtnToggled, setIsBtnToggled] = useState(false);
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
   const [isChatOpen, { on, off }] = useBoolean()
+  
   const handleHome = () => {
     dispatchRole(role(RoleE.Unknown))
   }
@@ -55,6 +55,21 @@ export const Navbar: FC = memo(() => {
   const toggleNavBar = () => {
     setIsNavBarShow(prevState => !prevState);
     setIsBtnToggled(prevState => !prevState);
+  };
+
+  const getPathLabel = (path: Path): string => {
+    switch (path) {
+      case Path.Meetings:
+        return 'Конференции';
+      case Path.CourseStats:
+        return 'Ученики';
+      case Path.HomeWork:
+        return 'Домашнее заданее';
+      case Path.Settings:
+        return 'Настройки';
+      default:
+        return '';
+    }
   };
 
   return (
@@ -88,32 +103,29 @@ export const Navbar: FC = memo(() => {
         </div>
 
         <div className={styles.navbar_menu}>
-          <Tooltip title={'Курсы'} key={'Курсы'}>
-            <NavLink key={'Курсы'} to={Path.Courses} className={isActive}>
-              <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
-            </NavLink>
-          </Tooltip>
+          <NavLink key={'Курсы'} to={Path.Courses} className={isActive}>
+            <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
+          </NavLink>
           <p>Главная</p>
         </div>
 
         {UserRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
           <div style={{ marginTop: '35px' }}>
-            <Tooltip title={`Акции/бонусы. ${studentBonus.text}`} arrow placement={'right'} key={'bonus'}>
-              <a key={'bonus'} href={studentBonus.link}>
-                {studentBonus.logo ? (
-                  <div className={styles.navbar_menu} style={{ textAlign: 'center', padding: '0.40em' }}>
-                    <img width={42} height={40} src={studentBonus.logo} alt="Logo" />
-                  </div>
-                ) : (
-                  <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em' }}>
-                    <RedeemIcon />
-                  </SvgIcon>
-                )}
-                <div style={{ fontSize: '0.7em', textAlign: 'center' }}>
-                  <Timer targetDate={new Date(studentBonus.expire_date)} target="bonus" />
+            <a key={'bonus'} href={studentBonus.link}>
+              {studentBonus.logo ? (
+                <div className={styles.navbar_menu} style={{ textAlign: 'center', padding: '0.40em' }}>
+                  <img width={50} height={50} src={studentBonus.logo} alt="Logo" />
                 </div>
-              </a>
-            </Tooltip>
+              ) : (
+                <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em' }}>
+                  <RedeemIcon />
+                </SvgIcon>
+              )}
+              <div style={{ fontSize: '0.7em', textAlign: 'center' }}>
+                <Timer targetDate={new Date(studentBonus.expire_date)} target="bonus" />
+              </div>
+            </a>
+
           </div>
         ) : (
           <></>
@@ -130,54 +142,40 @@ export const Navbar: FC = memo(() => {
                 </Tooltip> */}
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
-              <Tooltip
-                title={
-                  // path === Path.Courses
-                  // ? 'Курсы'
-                  path === Path.Meetings
-                    ? 'Видеоконференции'
-                    : path === Path.CourseStats
-                      ? 'Ученики платформы'
-                      : path === Path.HomeWork
-                        ? 'Домашние задания'
-                        : 'Настройки платформы'
-                }
-                key={index + '_' + path}
-                arrow
-                placement={'right'}
-              >
-                <NavLink key={index} to={path} className={isActive}>
-                  {icon}
-                </NavLink>
-              </Tooltip>
+              <div className={styles.navbar_setting_account_icon_container}>
+              <NavLink key={index} to={path} className={isActive}>
+                {icon}
+              </NavLink>
+              <p>{getPathLabel(path as Path)}</p>
+              </div>
             ) : (
               // <div key={index + '_' + path}>
-              <a className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
-                {Number(unRead) > 0 ? (
-                  <Badge badgeContent={unRead} color="error">
-                    <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
-                  </Badge>
-                ) : (
-                  <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
-                )}
-              </a>
+              <div key={index + '_' + path}>
+                <a className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
+                  {Number(unRead) > 0 ? (
+                    <Badge badgeContent={unRead} color="error">
+                      <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
 
-              // </div>
+                    </Badge>
+                  ) : (
+                    <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
+                  )}
+                </a>
+                <p>Чат</p>
+              </div>
             ),
           )}
           {UserRole === RoleE.Admin && (
             <div>
-              <Tooltip title={'Заявки о поступлении на курс'} arrow placement={'right'} key={'appeals-data'}>
-                <NavLink to={Path.Appeals} className={isActive}>
-                  {unReadAppeals > 0 ? (
-                    <Badge badgeContent={unReadAppeals} color="error">
-                      <IconSvg width={48} height={44} viewBoxSize="0 0 24 24" path={appealsIconPath} />
-                    </Badge>
-                  ) : (
-                    <IconSvg width={48} height={44} viewBoxSize="0 0 24 24" path={appealsIconPath} />
-                  )}
-                </NavLink>
-              </Tooltip>
+              <NavLink to={Path.Appeals} className={isActive}>
+                {unReadAppeals > 0 ? (
+                  <Badge badgeContent={unReadAppeals} color="error" >
+                    <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={appealsIconPath} />
+                  </Badge>
+                ) : (
+                  <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={appealsIconPath} />
+                )}
+              </NavLink>
             </div>
           )}
 

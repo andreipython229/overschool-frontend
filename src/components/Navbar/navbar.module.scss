@@ -6,10 +6,12 @@
   @include display(flex, column, flex-end, center);
   top: 36px;
   left: 20px;
-  // bottom: 36px;
+  white-space: nowrap;
+  overflow: hidden;
   max-height: 90vh;
   height: 90vh;
   min-width: 100px;
+  max-width: 100px;
   padding: 20px 0;
   border-radius: 24px;
   background: linear-gradient(180deg, rgba(207, 226, 255, 0.7) 0%, rgba(177, 196, 225, 0.7) 100%);
@@ -54,6 +56,8 @@
 
   &_show_btn {
     @include display(flex, column, space-between, center);
+    position: fixed;
+    top: 20px;
     width: 60px;
     height: 60px;
 
@@ -75,12 +79,11 @@
 
     }
 
-
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
 
-    & .isBtnToggled{
+    & .isBtnToggled {
       padding: 27px;
     }
   }
@@ -103,20 +106,6 @@
     & p {
       font-size: 14px;
     }
-
-    & a {
-      @include display(flex, row, center, center);
-      width: 57px;
-      height: 57px;
-      text-align: center;
-      color: #e0dced;
-
-      &:hover {
-        border-radius: 10px;
-        background: #e0dced;
-        color: #ba75ff;
-      }
-    }
   }
 
   &_settings {
@@ -126,7 +115,7 @@
   &_setting_account {
     @include display(flex, column, space-between, center);
     cursor: pointer;
-    
+
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       height: 100%;
@@ -160,6 +149,19 @@
 
     }
 
+
+    &_icon_container {
+      width: 100px;
+      border-radius: 10px;
+      padding: 0 10px;
+
+      &:hover {
+        // border-radius: 10px;
+        color: #fff;
+        background-color:#357EEB;
+      }
+    }
+
     & a {
       @include display(flex, row, center, center);
       width: 57px;
@@ -167,11 +169,8 @@
       text-align: center;
       color: #111;
 
-      &:hover {
-        border-radius: 10px;
-        background: #e0dced;
-        color: #ba75ff;
-      }
+
+      
     }
 
     & a {
@@ -185,6 +184,17 @@
         margin: 0;
       }
     }
+
+    & p {
+      font-size: 14px;
+      text-align: center;
+      word-wrap: break-word;
+      white-space: normal;
+
+      &:hover {
+        color: #fff;
+      }
+    }
   }
 
   &_exit {
@@ -194,7 +204,7 @@
   }
 
 
-  &.isNavBarShow{
+  &.isNavBarShow {
     max-height: 100px;
     height: 100px;
   }
