@@ -72,15 +72,15 @@ export const Navbar: FC = memo(() => {
         exit={{
           opacity: 0,
         }}
-        transition={{
-          delay: 0.1,
-          ease: 'easeInOut',
-          duration: 0.5,
-        }}
+        // transition={{
+        //   delay: 0.1,
+        //   ease: 'easeInOut',
+        //   duration: 0.5,
+        // }}
         layout
       >
         <div onClick={toggleNavBar} className={styles.navbar_show_btn}>
-        <div className={classNames(styles.navbar_show_btn_round, { [styles.isBtnToggled]: isBtnToggled })}>
+          <div className={classNames(styles.navbar_show_btn_round, { [styles.isBtnToggled]: isBtnToggled })}>
             <div className={styles.navbar_show_btn_round_line}></div>
             <div className={styles.navbar_show_btn_round_line}></div>
             <div className={styles.navbar_show_btn_round_line}></div>
@@ -152,16 +152,16 @@ export const Navbar: FC = memo(() => {
               </Tooltip>
             ) : (
               // <div key={index + '_' + path}>
-                  <a className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
-                    {Number(unRead) > 0 ? (
-                      <Badge badgeContent={unRead} color="error">
-                        <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
-                      </Badge>
-                    ) : (
-                      <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
-                    )}
-                  </a>
-                
+              <a className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
+                {Number(unRead) > 0 ? (
+                  <Badge badgeContent={unRead} color="error">
+                    <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
+                  </Badge>
+                ) : (
+                  <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
+                )}
+              </a>
+
               // </div>
             ),
           )}

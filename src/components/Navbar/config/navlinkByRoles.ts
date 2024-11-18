@@ -11,12 +11,14 @@ type navLinkConfigT = {
 
 export const navlinkByRoles: { [key: number]: navLinkConfigT[] } = {
   [RoleE.Admin]: [
-    // { path: Path.Courses, icon: navlinkIcon[Path.Courses] },
+    { path: 'doNotPath', icon: navlinkIcon[Path.Chat] },
     { path: Path.Meetings, icon: navlinkIcon[Path.Meetings] },
     { path: Path.CourseStats, icon: navlinkIcon[Path.CourseStats] },
     { path: Path.HomeWork, icon: navlinkIcon[Path.HomeWork] },
-    { path: 'doNotPath', icon: navlinkIcon[Path.Chat] },
     { path: Path.Settings, icon: navlinkIcon[Path.Settings] },  
+
+
+    // { path: Path.Courses, icon: navlinkIcon[Path.Courses] },
   ],
 
   [RoleE.Student]: [
