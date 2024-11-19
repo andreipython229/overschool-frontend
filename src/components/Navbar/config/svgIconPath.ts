@@ -33,6 +33,7 @@ export const coursesStatsNavPath: pathT[] = [
   { d: coursesStatsIcon.d1, fill: 'currentColor', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
   { d: coursesStatsIcon.d2, fill: 'currentColor', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
   { d: coursesStatsIcon.d3, fill: 'currentColor', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: coursesStatsIcon.d4, fill: 'currentColor', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
 ]
 
 export const homeworkNavPath: pathT[] = [
