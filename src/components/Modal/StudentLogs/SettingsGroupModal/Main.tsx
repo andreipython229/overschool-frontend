@@ -206,7 +206,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
             Группа не предполагает наличие ментора. Домашние задания принимаются автоматически без проверки
           </p>
         )}
-        <div className={styles.groupSetting_checkboxBlock}>
+        <div className={styles.groupSetting_checkboxBlock} >
           <div className={styles.groupSetting_checkboxBlock_checkbox}>
             <Checkbox id={'homework'} name={'homework'} checked={blockHomework} onChange={handlerHomeworkCheck} />
             <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
@@ -268,26 +268,27 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
               <span>После прохождения курса ученики смогут получить сертификат</span>
             </div>
           </div>
-        </div>
-        <div className={styles.groupSetting_duration}>
-          <label>Продолжительность обучения в днях:</label>
-          <div className={styles.groupSetting_duration_limit}>
-            <Checkbox id={'isLimited'} name={'isLimited'} checked={!isLimited} onChange={handlerIsLimited} />
-            <span>не ограничена</span>
+          <div className={styles.groupSetting_checkboxBlock_checkbox}>
+          <Checkbox id={'isLimited'} name={'isLimited'} checked={!isLimited} onChange={handlerIsLimited} />
+            <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
+            <span>Продолжительность обучения в днях:</span>
+            {!isLimited && <span>не ограничена</span>}
             {isLimited && <input value={duration} onChange={changeDuration} type="number" />}
           </div>
         </div>
+        </div>
 
-        <ToggleButtonDropDown isOpen={isAccardionOpen} nameOfItems={'уроки'} handleToggleHiddenBlocks={() => groupInfoAccardion(prev => !prev)} />
-        {isAccardionOpen && groupLessons && (
-          <LessonsAccardion
-            sectionLessons={groupLessons}
-            setLessons={setGroupLessons}
-            handleAccessSetting={handleAccessSetting}
-            forStudent={false}
-            resetAccessSetting={undefined}
-          ></LessonsAccardion>
-        )}
+
+        {/*<ToggleButtonDropDown isOpen={isAccardionOpen} nameOfItems={'уроки'} handleToggleHiddenBlocks={() => groupInfoAccardion(prev => !prev)} />*/}
+        {/*{isAccardionOpen && groupLessons && (*/}
+        {/*  <LessonsAccardion*/}
+        {/*    sectionLessons={groupLessons}*/}
+        {/*    setLessons={setGroupLessons}*/}
+        {/*    handleAccessSetting={handleAccessSetting}*/}
+        {/*    forStudent={false}*/}
+        {/*    resetAccessSetting={undefined}*/}
+        {/*  ></LessonsAccardion>*/}
+        {/*)}*/}
         {/*<div className={styles.groupSetting_checkboxBlock_checkbox}>*/}
         {/*    <Checkbox id={'selectCourses'} name={'selectCourses'} checked={isSelectNextCourses}*/}
         {/*              onChange={handleIsSelect}/>*/}
@@ -299,7 +300,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
         <div className={styles.groupSetting_courseAccess_header}>
           <div className={styles_check.accardion_content_check}>
             <CheckboxBall isChecked={isSelectNextCourses} toggleChecked={handleIsSelect} />
-            <span className={styles_check.accardion_content_check_span}>Настройка последующего доступа к курсам</span>
+            <span className={styles_check.accardion_content_check_span}>Настройка доступа к курсам</span>
           </div>
           {isSelectNextCourses ? (
             <Button className={styles_check.accardion_content_buttons_btn_right} text={'Сохранить'} onClick={handleNextCourses} />
@@ -352,16 +353,14 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
         {/*  )}*/}
         <div className={styles.groupSetting_btn}>
           <Button
-            className={styles.groupSetting__delete_btn}
+            className={styles.groupSetting__save_btn}
             disabled={isLoading || isError}
-            variant={'secondary'}
             text={isLoading ? <SimpleLoader style={{ width: '20px', height: '20px' }} loaderColor="#ffff" /> : 'Сохранить изменения'}
             onClick={handleSave}
           />
           <Button
             className={styles.groupSetting__delete_btn}
             disabled={isLoading || isError}
-            variant={'delete'}
             text={isLoading ? <SimpleLoader style={{ width: '20px', height: '20px' }} loaderColor="#ffff" /> : 'Удалить группу'}
             onClick={deleteGroup}
           />

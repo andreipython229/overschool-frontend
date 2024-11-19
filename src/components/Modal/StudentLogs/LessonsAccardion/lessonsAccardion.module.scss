@@ -73,13 +73,14 @@
 
    &_check {
       display: flex;
+     justify-content: center;
+     align-items: center;
 
       &_span {
         margin-left: 10px;
-        margin-top: 2px;
-        @include font(600, 12px, 150%);
-        letter-spacing: 0.04em;
-        color: rgba(133, 86, 148, 0.78);
+        @include font(500, 16px, 150%);
+        letter-spacing: 0;
+        color: #4d5766;
       }
     }
 
@@ -96,8 +97,14 @@
         color: rgba(28, 26, 26, 0.56);
 
         &_right {
-          background-color: rgba(170, 0, 255, 0.26);
+          color: #ffffff;
+          background: rgb(53, 126, 235);
+
           @include font(600, 12px, 150%);
+          &:hover:not(:disabled) {
+          color: #ffff;
+          background: rgb(53, 126, 235);
+    }
         }
       }
     }
