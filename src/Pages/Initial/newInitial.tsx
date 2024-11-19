@@ -116,7 +116,7 @@ export const Initial = () => {
               <h3>
               Первая белорусская платформа Overschool для онлайн-обучения с пожизненным бесплатным тарифом. Попробуй прямо сейчас!
               </h3>
-              <Button onClick={handleRegistrationUser} variant={'leaveRequest'} text={'Попробовать бесплатно'}  />
+              <Button onClick={handleRegistrationUser} variant={'newLeaveRequest'} text={'Попробовать бесплатно'}  />
             </div>
             <div className={styles.init_main_info_quality_pic}>
               <div className={styles.init_main_info_quality_pic_info}>
@@ -228,7 +228,7 @@ export const Initial = () => {
               <li>Полный функционал платформы</li>
               <li>Возможность протестировать все функции платформы</li>
             </ul>
-            <Button onClick={handleRegistrationUser} variant={'tryForFree'} text={'Попробовать бесплатно'}/>
+            <Button onClick={handleRegistrationUser} variant={'newTryForFree'} text={'Попробовать бесплатно'}/>
           </div>
         </div>
         <div className={styles.init_main_create_swiper_navigationButtons}>
@@ -276,7 +276,7 @@ export const Initial = () => {
                   <p> <img src={cam} alt="cam" /> Проверяйте домашние задания и делитесь обратной связью </p>
                   <p> <img src={hat} alt="hat" /> Проводите вебинары и онлайн-конференции </p>
                 </div>
-                <img src={constructor} alt="constructor" />
+                <img className={styles.init_main_create_swiper_block_img} src={constructor} alt="constructor" />
               </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -288,7 +288,7 @@ export const Initial = () => {
                   <p> <img src={cam} alt="cam" /> Отдельные чаты для каждого курса и группы <br /> учеников </p>
                   <p> <img src={hat} alt="hat" /> Настройки доступов для учеников/преподавателей </p>
                 </div>
-                <img src={chat} alt="chat" />
+                <img className={styles.init_main_create_swiper_block_img} src={chat} alt="chat" />
               </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -300,7 +300,7 @@ export const Initial = () => {
                   <p> <img src={cam} alt="cam" /> Выдавайте доступ к курсам на время </p>
                   <p> <img src={hat} alt="hat" /> Детально отслеживайте результаты обучения </p>
                 </div>
-                <img src={result} alt="result" />
+                <img className={styles.init_main_create_swiper_block_img} src={result} alt="result" />
               </div>
             </SwiperSlide>
           </Swiper>
@@ -312,8 +312,8 @@ export const Initial = () => {
             <p>Эффективное обучение всегда в кармане: просмотр курсов, общение с кураторами, рейтинги и новости - все это всегда под рукой у учащегося.</p>
             <p> И даже без интернета!</p>
             <div className={styles.init_main_mobile_text_button}>
-            <Button onClick={handleRegistrationUser} variant={'mobile'} text={'Доступно на Android'}  />
-            <Button onClick={handleRegistrationUser} variant={'mobile'} text={'Доступно на Iphone'}  />
+            <Button onClick={handleRegistrationUser} variant={'newMobile'} text={'Доступно на Android'}  />
+            <Button onClick={handleRegistrationUser} variant={'newMobile'} text={'Доступно на Iphone'}  />
             </div>
           </div>
         </div>
@@ -321,8 +321,8 @@ export const Initial = () => {
           <div className={styles.init_main_record_block}>
               <h2>Запишитесь на бесплатную демонстрацию сервиса</h2>
               <p>За 30 минут покажем основные возможности платформы и ответим на все Ваши вопросы</p>
-              <Button onClick={handleRegistrationUser} variant={'tryForFree'} text={'Записаться на демонстрацию'}  />
-              <Button onClick={handleRegistrationUser} variant={'tryForFree'} text={'Смотреть видеообзор'}  />
+              <Button onClick={handleRegistrationUser} variant={'newTryForFree'} text={'Записаться на демонстрацию'}  />
+              <Button onClick={handleRegistrationUser} variant={'newTryForFree'} text={'Смотреть видеообзор'}  />
           </div>
             <motion.div className={styles.init_main_record_img}
               whileHover={{ scale: 1.1 }}
@@ -346,7 +346,7 @@ export const Initial = () => {
             <div className={styles.init_main_free_block}>
               <h2>Перенесем ваши курсы с другой платформы бесплатно за 3 дня</h2>
               <p>И подарим до 3-х месяцев подписки! Оставьте заявку и узнайте подробнее:</p>
-              <Button onClick={handleRegistrationUser} variant={'tryForFree'} text={'Узнать подробнее'}  />
+              <Button onClick={handleRegistrationUser} variant={'newTryForFree'} text={'Узнать подробнее'}  />
             </div>
             <motion.div className={styles.init_main_record_img}
               whileHover={{ scale: 1.1 }}
@@ -375,7 +375,7 @@ export const Initial = () => {
             <div className={styles.init_main_takeFree_block}>
               <h2>Попробовать бесплатно</h2>
               <p>Получить бесплатный доступ</p>
-              <Button onClick={handleRegistrationUser} variant={'tryForFree'} text={'Узнать подробнее'}  />
+              <Button onClick={handleRegistrationUser} variant={'newTryForFree'} text={'Узнать подробнее'}  />
             </div>
             <div >
               <img src={rocketfree} alt="rocketfree"/>

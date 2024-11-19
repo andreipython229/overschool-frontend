@@ -13,18 +13,36 @@
     height: 125px;
 
     p {
-        font-family: 'SFPRORegular';
-        font-weight: 500;
-        font-size: 46px;
-        line-height: 54.89px;
-        color: #332F36;
+        @media only screen and (min-width: 1150px){
+            font-family: 'SFPRORegular';
+            font-weight: 500;
+            font-size: 46px;
+            line-height: 54.89px;
+            color: #332F36;
+        }
+        @media only screen and (min-width: 800px) and (max-width: 1150px){
+            font-family: 'SFPRORegular';
+            font-weight: 500;
+            font-size: 36px;
+            line-height: 44.89px;
+            color: #332F36;
+       }
     }
 
     &_worlds {
-        font-family: 'SFPRORegular';
-        color: #357EEB;
-        font-weight: 500;
-        font-size: 46px;
-        line-height: 62px;
+        @media only screen and (min-width: 1150px){
+            font-family: 'SFPRORegular';
+            color: #357EEB;
+            font-weight: 500;
+            font-size: 46px;
+            line-height: 62px;
+        }
+        @media only screen and (min-width: 800px) and (max-width: 1150px){
+            font-family: 'SFPRORegular';
+            color: #357EEB;
+            font-weight: 500;
+            font-size: 36px;
+            line-height: 52px;
+       }
     }
 }
