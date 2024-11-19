@@ -25,7 +25,7 @@ import { SvgIcon } from '@mui/material'
 import { motion } from 'framer-motion'
 import { role } from 'store/redux/users/slice'
 import { RoleE } from 'enum/roleE'
-import { MarkEmailUnreadRounded } from '@mui/icons-material'
+import { MarkEmailUnreadRounded, SetMealSharp } from '@mui/icons-material'
 
 import { coursesNavPath } from '../Navbar/config/svgIconPath'
 
@@ -55,6 +55,8 @@ export const Navbar: FC = memo(() => {
   const toggleNavBar = () => {
     setIsNavBarShow(prevState => !prevState);
     setIsBtnToggled(prevState => !prevState);
+    console.log(isNavBarShow);
+    
   };
 
   const getPathLabel = (path: Path): string => {
@@ -150,7 +152,7 @@ export const Navbar: FC = memo(() => {
               </div>
             ) : (
               // <div key={index + '_' + path}>
-              <div key={index + '_' + path}>
+              <div className={styles.chatIcon_container} key={index + '_' + path}>
                 <a className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
                   {Number(unRead) > 0 ? (
                     <Badge badgeContent={unRead} color="error">
