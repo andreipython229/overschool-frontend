@@ -4,7 +4,7 @@ import RedeemIcon from '@mui/icons-material/Redeem'
 import { useAppSelector } from '../../store/hooks'
 import { navlinkByRoles } from './config/navlinkByRoles'
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { appealsIconPath, navMenuPath } from './config/svgIconPath'
+import { appealsIconPath, navMenuPath, tgNavPath } from './config/svgIconPath'
 import { chatIconPath } from 'components/Navbar/config/svgIconPath'
 import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
@@ -47,7 +47,7 @@ export const Navbar: FC = memo(() => {
   const [isBtnToggled, setIsBtnToggled] = useState(false);
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
   const [isChatOpen, { on, off }] = useBoolean()
-  
+
   const handleHome = () => {
     dispatchRole(role(RoleE.Unknown))
   }
@@ -55,8 +55,6 @@ export const Navbar: FC = memo(() => {
   const toggleNavBar = () => {
     setIsNavBarShow(prevState => !prevState);
     setIsBtnToggled(prevState => !prevState);
-    console.log(isNavBarShow);
-    
   };
 
   const getPathLabel = (path: Path): string => {
@@ -145,10 +143,10 @@ export const Navbar: FC = memo(() => {
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
               <div className={styles.navbar_setting_account_icon_container}>
-              <NavLink key={index} to={path} className={isActive}>
-                {icon}
-              </NavLink>
-              <p>{getPathLabel(path as Path)}</p>
+                <NavLink key={index} to={path} className={isActive}>
+                  {icon}
+                </NavLink>
+                <p>{getPathLabel(path as Path)}</p>
               </div>
             ) : (
               // <div key={index + '_' + path}>
@@ -167,7 +165,7 @@ export const Navbar: FC = memo(() => {
               </div>
             ),
           )}
-          {UserRole === RoleE.Admin && (
+          {/* {UserRole === RoleE.Admin && (
             <div>
               <NavLink to={Path.Appeals} className={isActive}>
                 {unReadAppeals > 0 ? (
@@ -179,7 +177,17 @@ export const Navbar: FC = memo(() => {
                 )}
               </NavLink>
             </div>
-          )}
+          )} */}
+
+          <a className={styles.tg_container} key={'techsupport-data-link'}
+            href={
+              UserRole === RoleE.Admin ? 'https://t.me/course_hb' : contactLink && contactLink.length > 0 ? contactLink : 'https://t.me/course_hb'
+            }>
+            <NavLink key={'Курсы'} to={Path.Courses} className={isActive}>
+              <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={tgNavPath} />
+            </NavLink>
+            <p>Главная</p>
+          </a>
 
           {/* <Tooltip
             title={UserRole === RoleE.Admin ? 'Связаться с техподдержкой' : 'Связаться с руководством школы'}

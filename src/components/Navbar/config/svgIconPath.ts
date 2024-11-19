@@ -1,5 +1,5 @@
 import { pathT } from '../../../types/commonComponentsTypes'
-import { coursesNavIcon, coursesStatsIcon, homeworkIcon, settingsNavIcon, chatIcon, meetingsIcon } from '../constants/svgIcon'
+import { coursesNavIcon, coursesStatsIcon, homeworkIcon, settingsNavIcon, chatIcon, meetingsIcon, tgIcon } from '../constants/svgIcon'
 
 export const navMenuPath: pathT[] = [
   { d: 'M2 2H28M2 9H18.5455M2 16H28M2 23H18.5455', stroke: '#E0DCED', strokeWidth: '3', strokeLinecap: 'round', strokeLinejoin: 'round' },
@@ -30,7 +30,9 @@ export const coursesNavPath: pathT[] = [
 ]
 
 export const coursesStatsNavPath: pathT[] = [
-  { d: coursesStatsIcon, fill: 'currentColor', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: coursesStatsIcon.d1, fill: 'currentColor', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: coursesStatsIcon.d2, fill: 'currentColor', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: coursesStatsIcon.d3, fill: 'currentColor', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
 ]
 
 export const homeworkNavPath: pathT[] = [
@@ -38,8 +40,6 @@ export const homeworkNavPath: pathT[] = [
   { d: homeworkIcon.d2, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
   { d: homeworkIcon.d3, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
   { d: homeworkIcon.d4, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
-  { d: homeworkIcon.d5, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
-  { d: homeworkIcon.d6, fill: 'currentColor', strokeWidth: '.1', fillRule: 'evenodd', clipRule: 'evenodd' },
 ]
 
 export const settingsNavPath: pathT[] = [
@@ -51,5 +51,10 @@ export const meetingsNavPath: pathT[] = [
   { d: meetingsIcon.d1, stroke: 'currentColor', fill: '#332F36', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
   { d: meetingsIcon.d2, stroke: 'currentColor', fill: '#332F36', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
   { d: meetingsIcon.d3, stroke: 'currentColor', fill: '#332F36', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
+]
+
+
+export const tgNavPath: pathT[] = [
+  { d: tgIcon.d, stroke: 'currentColor', fill: '#332F36', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
 
 ]

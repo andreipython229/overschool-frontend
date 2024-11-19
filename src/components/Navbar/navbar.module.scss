@@ -89,9 +89,11 @@
     }
   }
 
-  &_menu {
+  &_menu{
+    @include display(flex, column, center, center);
     margin-top: auto;
     transition-duration: $trans-dur05;
+
     // cursor: pointer;
     // margin-top: -0.2em;
     // border-radius: 10px;
@@ -116,7 +118,8 @@
 
   &_setting_account {
     @include display(flex, column, space-between, center);
-    cursor: pointer;
+    // cursor: pointer;
+    gap: 20px;
     transition-duration: $trans-dur05;
 
 
@@ -149,30 +152,27 @@
       justify-content: space-evenly;
       margin: 20px;
       align-items: center;
-
     }
 
-
-    &_icon_container {
+    &_icon_container, &_setting_account {
+      @include display(flex, column, center, center);
       width: 100px;
       border-radius: 10px;
-      padding: 0 10px;
+      padding: 5px 20px;
+      transition-duration: $trans-dur02;
 
       &:hover {
-        // border-radius: 10px;
+        border-radius: 10px;
         color: $color-white;
         background-color: #357EEB;
         cursor: pointer;
         fill: $color-white;
 
-        svg {
+        svg path {
           fill: $color-white;
           stroke: $color-white;
         }
-
       }
-
-
     }
 
     & a {
@@ -187,7 +187,7 @@
     }
 
     & a {
-      margin-top: 30px;
+      // margin-top: 30px;
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin: 0;
@@ -208,6 +208,10 @@
       //   color: #fff;
       // }
     }
+
+    & .tg_container{
+      @include display(flex, column, center, center);
+    } 
   }
 
   &_exit {
@@ -252,9 +256,22 @@
   }
 
   &:hover {
-    background: #e0dced;
-    color: #ba75ff;
+    border-radius: 10px;
+    color: $color-white;
+    background-color: #357EEB;
+    cursor: pointer;
+    fill: $color-white;
+
+    svg path {
+      fill: $color-white;
+      stroke: $color-white;
+    }
   }
+
+  // &:hover {
+  //   background: #357EEB;
+  //   color: $color-white;
+  // }
 
   &_container{
     transition-duration: $trans-dur05;
@@ -262,8 +279,8 @@
 }
 
 .chatIcon_active {
-  background: #e0dced;
-  color: #ba75ff;
+  background: #357EEB;
+    color: $color-white;
 }
 
 .isActive {
