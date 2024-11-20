@@ -6,10 +6,8 @@ export const navMenuPath: pathT[] = [
 ]
 
 export const chatIconPath: pathT[] = [
-  { d: chatIcon.d1, stroke: 'currentColor', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
-  { d: chatIcon.d2, stroke: 'currentColor', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
-  // { d: chatIcon.d3, stroke: 'currentColor', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
-  // { d: chatIcon.d4, stroke: 'currentColor', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: chatIcon.d1, stroke: 'currentColor', strokeWidth: '.1', fill: 'currentColor', strokeLinecap: 'round', strokeLinejoin: 'round' },
+  { d: chatIcon.d2, stroke: 'currentColor', strokeWidth: '.1', fill: 'currentColor', strokeLinecap: 'round', strokeLinejoin: 'round' },
 ]
 
 export const appealsIconPath: pathT[] = [
