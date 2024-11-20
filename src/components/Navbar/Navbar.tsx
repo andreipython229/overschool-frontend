@@ -103,7 +103,7 @@ export const Navbar: FC = memo(() => {
         </div>
 
         <div className={styles.navbar_menu}>
-          <NavLink key={'Курсы'} to={Path.Courses} className={isActive}>
+          <NavLink key={'Курсы'} to={Path.Courses}>
             <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
           </NavLink>
           <p>Главная</p>
@@ -159,9 +159,9 @@ export const Navbar: FC = memo(() => {
             href={
               UserRole === RoleE.Admin ? 'https://t.me/course_hb' : contactLink && contactLink.length > 0 ? contactLink : 'https://t.me/course_hb'
             }>
-            <NavLink key={'Курсы'} to={Path.Courses} className={isActive}>
+            <a>
               <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={tgNavPath} />
-            </NavLink>
+            </a>
             <p>Тех поддержка</p>
           </a>
         </div>

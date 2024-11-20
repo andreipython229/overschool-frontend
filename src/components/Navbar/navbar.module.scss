@@ -10,7 +10,6 @@
   overflow: hidden;
   max-height: 90vh;
   height: 90vh;
-  // width: 5vw;
   max-width: 100px;
   padding: 20px 0;
   border-radius: 24px;
@@ -18,9 +17,6 @@
   box-shadow: 0px 0px 25px 0px #357EEB;
   backdrop-filter: blur(35px);
   transition: $trans-dur05 ease-in-out;
-
-
-
 
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -89,10 +85,19 @@
     }
   }
 
-  &_menu{
+  &_menu {
     @include display(flex, column, center, center);
     margin-top: auto;
     transition-duration: $trans-dur05;
+    width: 100%;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+
+    & a {
+      @include display(flex, column, center, center);
+      width: 100%;
+    }
 
     // cursor: pointer;
     // margin-top: -0.2em;
@@ -109,6 +114,18 @@
 
     & p {
       font-size: $fs14;
+    }
+  }
+
+  &_menu:hover {
+    background-color: $color-blue;
+
+    & p {
+      color: $color-white;
+    }
+
+    & a svg path {
+      fill: $color-white;
     }
   }
 
@@ -154,11 +171,12 @@
       align-items: center;
     }
 
-    &_icon_container, &_setting_account {
+    &_icon_container,
+    &_setting_account {
       @include display(flex, column, center, center);
       width: 100px;
       border-radius: 10px;
-      padding: 5px 20px;
+      padding: 5px 10px;
       transition-duration: $trans-dur02;
 
       &:hover {
@@ -196,15 +214,37 @@
     }
 
     & p {
+      width: 100%;
       font-size: $fs14;
       text-align: center;
       word-wrap: break-word;
       white-space: normal;
     }
 
-    & .tg_container{
+    & .tg_container {
       @include display(flex, column, center, center);
-    } 
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      padding: 5px 0;
+      transition-duration: $trans_dur02;
+
+      & a{
+        height: auto;
+      }
+
+      &:hover{
+        background-color: $color-blue;
+
+        & a svg path {
+          fill: $color-white;
+        }
+
+        & p{
+          color: $color-white;
+        }
+      }
+    }
   }
 
   &_exit {
@@ -218,8 +258,10 @@
     max-height: 100px;
     height: 100px;
 
-    .navbar_menu, .chatIcon_container, .navbar_setting_account {
-      opacity: 0; 
+    .navbar_menu,
+    .chatIcon_container,
+    .navbar_setting_account {
+      opacity: 0;
     }
   }
 
@@ -248,26 +290,27 @@
     margin: 0;
   }
 
-  
+
 
   // &:hover {
   //   background: #357EEB;
   //   color: $color-white;
   // }
 
-  &_container{
+  &_container {
     @include display(flex, column, center, center);
     transition-duration: $trans-dur02;
     width: 100%;
     padding: 5px;
     border-radius: 10px;
+
     &:hover {
       border-radius: 10px;
       color: $color-white;
       background-color: #357EEB;
       cursor: pointer;
       fill: $color-white;
-  
+
       svg path {
         fill: $color-white;
         stroke: $color-white;
@@ -278,15 +321,20 @@
 
 .chatIcon_active {
   background: $color-blue;
-    color: $color-white;
+  color: $color-white;
 }
 
 .isActive {
-  // @include display(flex, row, center, center);
   background: $color-blue;
   border-radius: 10px;
   text-align: center;
-  color: #ba75ff !important;
+  color: $color-white !important;
+
+  & a {
+    & svg path {
+      fill: $color-white;
+    }
+  }
 }
 
 .mobileIsActive {
