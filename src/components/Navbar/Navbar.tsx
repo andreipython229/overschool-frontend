@@ -133,7 +133,9 @@ export const Navbar: FC = memo(() => {
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
               <div className={styles.navbar_setting_account_icon_container}>
-                <NavLink key={index} to={path} className={isActive}>
+                <NavLink key={index} to={path} 
+                // className={isActive}
+                >
                   {icon}
                 </NavLink>
                 <p>{getPathLabel(path as Path)}</p>
