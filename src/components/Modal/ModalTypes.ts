@@ -119,3 +119,7 @@ export type AddSchoolModalPropsT = {
   schools: any[]
   setShowModal: () => void
 }
+
+export type SuccessHomeworkSendedT = {
+  toggle: () => void
+}

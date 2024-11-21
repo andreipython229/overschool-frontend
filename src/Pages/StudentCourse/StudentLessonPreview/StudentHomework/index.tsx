@@ -3,7 +3,6 @@ import { Params, useNavigate } from 'react-router-dom'
 import { LESSON_TYPE } from 'enum/lessonTypeE'
 import { sectionT, IHomework } from 'types/sectionT'
 import { UploadedFile } from 'components/UploadedFile/index'
-import { AudioPlayer } from 'components/common/AudioPlayer'
 import { StudentLessonTextEditor } from '../StudentLessonTextEditor'
 import { StudentLessonNavBtns } from '../StudentLessonNavBtns'
 import styles from '../lesson.module.scss'
@@ -20,8 +19,6 @@ import { useFetchCourseQuery } from 'api/coursesServices'
 import { StudentCourseHeaderBanner } from 'Pages/StudentCourse/StudentLessonHeaderBanner'
 import { NewAudioPlayer } from 'components/NewAudioPlayer'
 import { LessonComments } from 'components/LessonComments'
-import { NewLoader } from 'components/Loaders/SimpleLoader'
-import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 type studentHomeworkT = {
   lesson: IHomework

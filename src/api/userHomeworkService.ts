@@ -38,17 +38,17 @@ export const userHomeworkService = createApi({
       }),
       providesTags: ['userHomework'],
     }),
-    postUserHomework: build.mutation<CheckReply, { homework: number, text: string, schoolName: string, course_id?: number}>({
-      query: ({  homework, text, schoolName, course_id }) => {
+    postUserHomework: build.mutation<CheckReply, { homework: number; text: string; schoolName: string; course_id?: number }>({
+      query: ({ homework, text, schoolName, course_id }) => {
         return {
           url: `/${schoolName}/user_homeworks/`,
           method: 'POST',
-          body: {homework, text, course_id},
+          body: { homework, text, course_id },
         }
       },
       invalidatesTags: ['userHomework'],
     }),
-    patchUserHomework: build.mutation<void, {homework: any, schoolName: string}>({
+    patchUserHomework: build.mutation<void, { homework: any; schoolName: string }>({
       query: ({ homework, schoolName }) => {
         return {
           url: `/${schoolName}/user_homeworks/`,
@@ -58,7 +58,7 @@ export const userHomeworkService = createApi({
       },
       invalidatesTags: ['userHomework'],
     }),
-    createCheckReply: build.mutation<CheckReply, {data: any, schoolName: string}>({
+    createCheckReply: build.mutation<CheckReply, { data: any; schoolName: string }>({
       query: ({ data, schoolName }) => {
         return {
           url: `/${schoolName}/user_homework_checks/`,

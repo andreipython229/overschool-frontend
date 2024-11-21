@@ -15,7 +15,7 @@ export const AddFileBtn: FC<addFileBtnT> = ({ handleChangeFiles, ...rest }) => {
     <form acceptCharset="utf-8" className={styles.addFileBtn} style={{ alignSelf: 'center' }}>
       <label className={styles.addFileBtn_form_addFiles} {...rest}>
         <IconSvg width={22} height={18} viewBoxSize="0 0 20 18" path={paperClipIconPath} />
-        <input onChange={handleChangeFiles} type="file" multiple />
+        <input onChange={handleChangeFiles} type="file" multiple  />
         Прикрепить файл
       </label>
     </form>
