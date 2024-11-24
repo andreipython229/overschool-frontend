@@ -24,12 +24,26 @@
   }
 
   &_title {
+    display: flex;
     text-align: center;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
     font-size: 18px;
     font-weight: 500;
-    color: #4d5766;
+    color: #111111;
     letter-spacing: 0.02em;
-    margin-bottom: 16px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+
+  &_wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &_wrapper_title {
+    font-size: 20px;
   }
 
 
@@ -108,6 +122,8 @@
   display: flex;
   flex-direction: column;
 }
+
+
 
 .bg {
   z-index: -1;

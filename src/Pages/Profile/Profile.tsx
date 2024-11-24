@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState, FormEvent, useRef} from 'react'
 import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
@@ -35,12 +35,13 @@ import {NavLink} from "react-router-dom";
 import formStyles from "./formStyles.module.scss";
 import {
     SetupNotificationTelegramAdmin
-} from "../../components/Modal/ProfileModalTelegramNotification/profilemodaltelegramnotification";
+} from "../../components/Modal/ProfileModalTelegramNotification/index";
 import { Portal } from 'components/Modal/Portal'
 import {
     NotificationsIconPath,
     FilterIconPath
 } from "../../assets/Icons/svgIconPath";
+
 
 
 type notifForStudentAndTeacher = {
@@ -52,6 +53,8 @@ type notifForStudentAndTeacher = {
 
 
 export const Profile = () => {
+
+
     const [changePasswordFunc, { isError, isSuccess }] = useChangePasswordMutation()
     const [changeEmailFunc] = useUpdateProfileMutation()
     const [confirmEmail] = useConfirmEmailMutation()
@@ -72,15 +75,13 @@ export const Profile = () => {
     const [isRestrictedUser, setIsRestrictedUser] = useState(false);
 
 
-    const [referralLink, setReferral] = useState('')
-    const [oldpassword, setOldpassword] = useState('')
+    const [referralLink, setReferralLink] = useState('')
+    const [oldPassword, setOldPassword] = useState('')
     const [isActiveNotification, { onToggle: toggleActive }] = useBoolean(false)
 
     const [isOpenModalTelegram, { onToggle }] = useBoolean()
+    const [handleSubmitAboutUser, setHandleSubmitAboutUser] = useState(false)
 
-    const [submitaboutuser, setSubmitaboutuser] = useState(false)
-
-    
 
   
     // console.log(notificaionsSuccess);
@@ -216,7 +217,6 @@ export const Profile = () => {
     }
 
 
-
     // console.log(notifications.slice(1, 3));
 
 
@@ -252,12 +252,38 @@ export const Profile = () => {
                 <div className={styles.bg_wrap4}></div>
             </div>
             <div className={styles.profile}>
-                <AboutUser submitaboutuser={submitaboutuser}/>
+                <AboutUser handleSubmitAboutUser={handleSubmitAboutUser}/>
                 <div className={styles.forms_wrapper}>
-                    {isRestrictedUser && (
-                        <>
-                            <form className={styles.container}>
-                                <div className={styles.container_notification_toggle} data-ison={isActiveNotification}>
+                    {notificationsResponseData && notificationsResponseData[0] ? (
+                      <div className={styles.notification}>
+                        <h5 className={styles.profile_block_title}>Уведомления</h5>
+                        <div className={styles.notification_toggleWrapper}>
+                          {notificationsData.map(({ id, info, desc, toggleType }) => {
+                            if (isToggleType(toggleType)) {
+                              return (
+                                <NotificationItem
+                                  key={id}
+                                  id={id}
+                                  info={info}
+                                  desc={desc}
+                                  initialStates={{
+                                    id: notificationsResponseData[0].id,
+                                    homework_notifications: Boolean(notificationsResponseData[0].homework_notifications),
+                                    messages_notifications: Boolean(notificationsResponseData[0].messages_notifications),
+                                    completed_courses_notifications: Boolean(notificationsResponseData[0].completed_courses_notifications),
+                                    tg_user: notificationsResponseData[0].tg_user,
+                                    user_role: userRole
+                                  }}
+                                  toggleType={toggleType}
+                                />
+                              );
+                            }
+                          })}
+                        </div>
+                      </div>
+                    ) : (
+                        <form className={styles.container}>
+                      <div className={styles.container_notification_toggle} data-ison={isActiveNotification}>
                                     <div style={{display: 'flex', gap: '25px'}}>
                                         {isActiveNotification ?
                                            <IconSvg styles={{cursor: 'pointer'}} onPointerDown={onToggle}
@@ -278,11 +304,15 @@ export const Profile = () => {
                                             </a>) : (<CheckboxBall toggleChecked={toggleActive} isChecked={isActiveNotification}/>)}
                                     </div>
                                 </div>
-                            </form>
+                        </form>
+                    )}
+
+                    {isRestrictedUser && (
+                        <>
                             <form className={styles.container} onSubmit={handlePasswordsSubmit}>
                                 <h5 className={styles.profile_block_title}>Смена пароля:</h5>
-                                <Input name="" type="text" onChange={(event) => setOldpassword(event.target.value)}
-                                       value={oldpassword}
+                                <Input name="" type="text" onChange={(event) => setOldPassword(event.target.value)}
+                                       value={oldPassword}
                                        placeholder="Старый пароль"/>
                                 <div className={styles.container_wrapper}>
                                     <Input name="new_password" type="text" onChange={handlePasswordChange}
@@ -347,8 +377,8 @@ export const Profile = () => {
                                         text={'Выйти из аккаунта'}
                                     />
                                     <Button
-                                    onClick={() => setSubmitaboutuser(true)}
-                                    type="submit"
+                                        onClick={() => setHandleSubmitAboutUser(true)}
+                                    // type="submit"
                                     style={{paddingTop: '11px', marginLeft: '11px', paddingBottom: '11px'}}
                                     className={styles.profile_block_btn}
                                     text={'Сохранить'}
@@ -359,48 +389,6 @@ export const Profile = () => {
                             </div>
                         </>
                     )}
-
-                    {/*{notificationsResponseData && notificationsResponseData[0] ? (*/}
-                    {/*  <div className={styles.notification}>*/}
-                    {/*    <h5 className={styles.profile_block_title}>Уведомления</h5>*/}
-                    {/*    <div className={styles.notification_toggleWrapper}>*/}
-                    {/*      {notificationsData.map(({ id, info, desc, toggleType }) => {*/}
-                    {/*        if (isToggleType(toggleType)) {*/}
-                    {/*          return (*/}
-                    {/*            <NotificationItem*/}
-                    {/*              key={id}*/}
-                    {/*              id={id}*/}
-                    {/*              info={info}*/}
-                    {/*              desc={desc}*/}
-                    {/*              initialStates={{*/}
-                    {/*                id: notificationsResponseData[0].id,*/}
-                    {/*                homework_notifications: Boolean(notificationsResponseData[0].homework_notifications),*/}
-                    {/*                messages_notifications: Boolean(notificationsResponseData[0].messages_notifications),*/}
-                    {/*                completed_courses_notifications: Boolean(notificationsResponseData[0].completed_courses_notifications),*/}
-                    {/*                tg_user: notificationsResponseData[0].tg_user,*/}
-                    {/*                user_role: userRole*/}
-                    {/*              }}*/}
-                    {/*              toggleType={toggleType}*/}
-                    {/*            />*/}
-                    {/*          );*/}
-                    {/*        }*/}
-                    {/*      })}*/}
-                    {/*    </div>*/}
-                    {/*  </div>*/}
-                    {/*) : (*/}
-                    {/*  <form className={styles.container}>*/}
-                    {/*    <h5 className={styles.profile_block_title}>Уведомления</h5>*/}
-
-                    {/*    <div className={styles.container_wrapper}>*/}
-                    {/*      <Button*/}
-                    {/*        className={styles.profile_block_btn}*/}
-                    {/*        variant={'primary'}*/}
-                    {/*        text={'Включить Телеграм уведомления'}*/}
-                    {/*        onClick={() => window.open('https://t.me/overschool_news_bot', '_blank')}*/}
-                    {/*      />*/}
-                    {/*    </div>*/}
-                    {/*  </form>*/}
-                    {/*)}*/}
                 </div>
 
                 {isOpen && (
@@ -449,7 +437,7 @@ export const Profile = () => {
             <div className={styles.container}>
                 <h5 className={styles.profile_block_title}>Реферальная ссылка:</h5>
             <div style={{ display: 'flex', width: '100%', marginBottom: '20px', alignItems: 'center', gap: '5px' }}>
-                <Input name="" type="text"  onChange={(event) => setReferral(event.target.value)}
+                <Input name="" type="text"  onChange={(event) => setReferralLink(event.target.value)}
                        value={referralLink} placeholder="Введите ссылку" disabled={!isRestrictedUser}/>
                 <Button
                     style={{fontSize: '12px', height: '43px'}}

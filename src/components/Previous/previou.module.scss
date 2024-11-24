@@ -80,6 +80,14 @@
     height: 100%;
     z-index: 3;
   }
+
+  .background_image_profile {
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    z-index: 3;
+  }
+
   img {
     display: inline-block;
     //border-radius: 20%;//50%

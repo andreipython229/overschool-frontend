@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+import {ChangeEvent, FC, FormEvent, memo, useEffect, useState, forwardRef, useImperativeHandle, Ref} from 'react'
 import { useFormik } from 'formik'
 
 import { Input } from 'components/common/Input/Input/Input'
@@ -18,6 +18,7 @@ import formStyles from './formStyles.module.scss'
 import {individualRatingT} from "../../types/ratingT";
 import {RoleE} from "../../enum/roleE";
 
+
 const optionsList = [
   {
     label: 'Женский',
@@ -29,11 +30,13 @@ const optionsList = [
   },
 ]
 
+
 type AboutUserT = {
-  submitaboutuser: boolean
+   handleSubmitAboutUser: boolean;
 }
 
-export const AboutUser: FC<AboutUserT> = memo(({ submitaboutuser }) => {
+
+export const AboutUser: FC<AboutUserT> = memo(({handleSubmitAboutUser}) => {
   const { role: UserRole } = useAppSelector(selectUser)
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
   const [avatarUrl, setAvatarUrl] = useState<string>('')
@@ -51,6 +54,9 @@ export const AboutUser: FC<AboutUserT> = memo(({ submitaboutuser }) => {
 
   const restrictedEmails = ["admin@coursehub.ru", "teacher@coursehub.ru", "student@coursehub.ru"];
   const [isRestrictedUser, setIsRestrictedUser] = useState(false)
+
+
+
 
   const formik = useFormik({
     initialValues: {
@@ -149,6 +155,8 @@ export const AboutUser: FC<AboutUserT> = memo(({ submitaboutuser }) => {
     }
   }, [ratingSuccess])
 
+
+
   const {
     values: { city, email, last_name, first_name, patronymic, phone_number, avatar_url },
     handleChange,
@@ -160,13 +168,16 @@ export const AboutUser: FC<AboutUserT> = memo(({ submitaboutuser }) => {
 
 
   useEffect(() => {
-    if (submitaboutuser) {
+    if (handleSubmitAboutUser) {
       handleSubmit()
     }
-  }, [submitaboutuser])
+  }, [handleSubmitAboutUser])
+
+
+
 
   return (
-    <form className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
+     <form className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
       {(isSubmitting || isFetching) && (
         <div className={styles.profile_loader}>
           <SimpleLoader style={{ width: '50px', height: '50px' }} />
@@ -182,9 +193,6 @@ export const AboutUser: FC<AboutUserT> = memo(({ submitaboutuser }) => {
         <span style={{ display: 'flex', alignItems: 'center', lineHeight: '19px', gap: '0.5rem', fontSize: '16px', marginBottom: '20px', marginTop: '20px' }}>
           <strong>Email:</strong>
           {email}
-          {/* <label htmlFor='email-change'>
-            <ModeEditIcon sx={{ color: 'green' }} />
-          </label> */}
         </span>
         <span style={{ display: 'flex', alignItems: 'center', lineHeight: '19px', gap: '0.5rem', fontSize: '16px' }}>
           <strong>Имя Пользователя:</strong>
@@ -193,7 +201,6 @@ export const AboutUser: FC<AboutUserT> = memo(({ submitaboutuser }) => {
       </div>
       <div className={formStyles.form_avatarWrapper}>
         <div className={formStyles.form_avatarWrapper_avatarBlock}>
-          {/*<span className={formStyles.form_avatarWrapper_avatarBlock_title}>Аватар:</span>*/}
           {avatar_url ? (
               <div className={styles.profile_block}>
             <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={avatar_url} alt="" />
@@ -228,47 +235,8 @@ export const AboutUser: FC<AboutUserT> = memo(({ submitaboutuser }) => {
         />
         {phoneError && <span className={styles.container_error}>{phoneError}</span>}
       </div>
-      {/*<div className={styles.profile_block}>*/}
-      {/*  <Input*/}
-      {/*    name={'city'}*/}
-      {/*    type={'text'}*/}
-      {/*    label={'Город:'}*/}
-      {/*    onChange={handleChange}*/}
-      {/*    value={city as string}*/}
-      {/*    placeholder={'Введите город'}*/}
-      {/*    required={false}*/}
-      {/*    disabled={isRestrictedUser}*/}
-      {/*  />*/}
-      {/*</div>*/}
-      {/* <div className={styles.profile_block}>
-                <span className={styles.profile_block_avatarBlock_title}>О себе:</span>
-                <textarea
-                    className={styles.profile_block_textArea}
-                    onChange={handleChange}
-                    value={description}
-                    name="description"
-                    placeholder={
-                        description
-                            ? description
-                            : 'Опишите вашу карьеру и достижения. Эта информация будет отображена на страницах курсов, в которых вы являетесь преподавателем'
-                    }
-                />
-            </div> */}
-      {/*<div className={styles.profile_block}>*/}
-      {/*  {!isRestrictedUser && <SelectInput optionsList={optionsList} selectedOption={sex} defaultOption="Выберите пол" setSelectedValue={setSex} />}*/}
-      {/*</div>*/}
-      {/*<div className={formStyles.form_btnSave}>*/}
-      {/*  {!isRestrictedUser && (*/}
-      {/*    <Button*/}
-      {/*    style={{ paddingTop: '11px', paddingBottom: '11px' }}*/}
-      {/*    disabled={isSubmitting || isFetching || isError}*/}
-      {/*    className={styles.profile_block_btn}*/}
-      {/*    type="submit"*/}
-      {/*    text={'Сохранить'}*/}
-      {/*    variant={isSubmitting || isFetching || isError ? 'disabled' : 'newPrimary'}*/}
-      {/*  />*/}
-      {/*  )}*/}
-      {/*</div>*/}
     </form>
   )
 })
+
+

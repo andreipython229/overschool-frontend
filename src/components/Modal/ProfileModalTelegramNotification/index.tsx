@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from "react";
-import styles from "../../Modal/ProfileModalTelegramNotification/profilemodaltelegramnotification.module.scss";
+import styles from "./ProfileModalTelegramNotification.module.scss";
 import {IconSvg} from "../../common/IconSvg/IconSvg";
 import {arrowLeftIconPath, crossIconPath} from "../../../config/commonSvgIconsPath";
 import {CheckboxBall} from "../../common/CheckboxBall";
@@ -17,12 +17,12 @@ export const SetupNotificationTelegramAdmin: FC<TelegramModalPropsT> = ({ setSho
 
 
     const {role: userRole} = useAppSelector(selectUser);
-    const [timeanswer, setTimeanswer ] = useState(false)
+    const [timeAnswer, setTimeAnswer ] = useState(false)
     const [sound, setSound] = useState(false)
-    const [messages_notifications, setMessages_notifications] = useState(false)
-    const [completed_courses_notifications, setCompleted_courses_notifications] = useState(false)
-    const [homework_notifications, setHomework_notifications] = useState(false)
-    const [reminder_webinar, setReminder_webinar] = useState(false)
+    const [messagesNotifications, setMessagesNotifications] = useState(false)
+    const [completedCoursesNotifications, setCompletedCoursesNotifications] = useState(false)
+    const [homeworkNotifications, setHomeworkNotifications] = useState(false)
+    const [reminderWebinar, setReminderWebinar] = useState(false)
 
 
 
@@ -46,46 +46,41 @@ export const SetupNotificationTelegramAdmin: FC<TelegramModalPropsT> = ({ setSho
                         <div className={styles.modalTelegram_closed} onClick={setShowModal}>
                             <IconSvg width={25} height={25} viewBoxSize="0 0 14 14" path={crossIconPath}/>
                         </div>
-                        <div style={{
-                            display: 'flex',
-                            textAlign: 'center',
-                            // gap: '40px',
-                             maxWidth: '380px',
-                             paddingBottom: '75px',
-                             paddingTop: '30px',
-                             marginLeft: '30px',
-                             paddingLeft: '20px',
-                             paddingRight: '20px',
-                        }}>
-                            <IconSvg viewBoxSize="0 0 24 20" height={27} width={27} path={SettingsIconPath} />
-                            <h2>Настройка уведомлений
+                        <div className={styles.modalTelegram_title}>
+                            <h2><IconSvg viewBoxSize="0 0 24 20" height={27} width={27} path={SettingsIconPath} />
+                                Настройка уведомлений
                                 Telegram</h2>
                         </div>
 
                         <div className={styles.container}>
-                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                            <div className={styles.modalTelegram_wrapper}>
                                 <h2 style={{
-                                    display: 'absolute',
                                     paddingBottom: '25px'
                                 }}>Включить звук</h2>
+                                <div>
                                 <CheckboxBall toggleChecked={() => setSound(!sound)} isChecked={sound}/>
+                                    </div>
                             </div>
                         </div>
 
                         { userRole === 1  &&
                             <div className={styles.container}>
-                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                <span style={{fontSize: '20px'}}> Напоминание о предстоящем вебинаре</span>
-                                <CheckboxBall toggleChecked={() => setReminder_webinar(!reminder_webinar)} isChecked={reminder_webinar}/>
+                            <div className={styles.modalTelegram_wrapper}>
+                                <span className={styles.modalTelegram_wrapper_title}> Напоминание о предстоящем вебинаре</span>
+                                <div>
+                                <CheckboxBall toggleChecked={() => setReminderWebinar(!reminderWebinar)} isChecked={reminderWebinar}/>
+                                    </div>
                             </div>
                         </div>
                         }
 
                         { userRole === 2 &&
                             <div className={styles.container}>
-                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                <span style={{fontSize: '20px'}}>Ученик прислал ответ на задание</span>
-                                <CheckboxBall toggleChecked={() => setHomework_notifications(!homework_notifications)} isChecked={homework_notifications}/>
+                            <div className={styles.modalTelegram_wrapper}>
+                                <span className={styles.modalTelegram_wrapper_title}>Ученик прислал ответ на задание</span>
+                                <div>
+                                <CheckboxBall toggleChecked={() => setHomeworkNotifications(!homeworkNotifications)} isChecked={homeworkNotifications}/>
+                                    </div>
                             </div>
                         </div>
                         }
@@ -93,26 +88,32 @@ export const SetupNotificationTelegramAdmin: FC<TelegramModalPropsT> = ({ setSho
                         { (userRole === 6 || userRole === 2) &&
                             <div>
                         <div className={styles.container}>
-                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                <span style={{fontSize: '20px'}}>Ученик ждет ответа уже 24 часа</span>
-                                <CheckboxBall toggleChecked={() => setTimeanswer(!timeanswer)} isChecked={timeanswer}/>
+                            <div className={styles.modalTelegram_wrapper}>
+                                <span className={styles.modalTelegram_wrapper_title}>Ученик ждет ответа уже 24 часа</span>
+                                <div>
+                                <CheckboxBall toggleChecked={() => setTimeAnswer(!timeAnswer)} isChecked={timeAnswer}/>
+                                    </div>
                             </div>
                         </div>
 
                             <div className={styles.container}>
-                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                <span style={{fontSize: '20px'}}>Ученик завершил курс</span>
-                                <CheckboxBall toggleChecked={() => setCompleted_courses_notifications(!completed_courses_notifications)} isChecked={completed_courses_notifications}/>
+                            <div className={styles.modalTelegram_wrapper}>
+                                <span className={styles.modalTelegram_wrapper_title}>Ученик завершил курс</span>
+                                <div>
+                                <CheckboxBall toggleChecked={() => setCompletedCoursesNotifications(!completedCoursesNotifications)} isChecked={completedCoursesNotifications}/>
+                                    </div>
                             </div>
                         </div>
                                 </div>
                         }
 
                         <div className={styles.container}>
-                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                <span style={{fontSize: '20px'}}>Уведомлять о непрочитанных
+                            <div className={styles.modalTelegram_wrapper}>
+                                <span className={styles.modalTelegram_wrapper_title}>Уведомлять о непрочитанных
                                     сообщениях</span>
-                                <CheckboxBall toggleChecked={() => setMessages_notifications(!messages_notifications)} isChecked={messages_notifications}/>
+                                <div>
+                                <CheckboxBall toggleChecked={() => setMessagesNotifications(!messagesNotifications)} isChecked={messagesNotifications}/>
+                                    </div>
                             </div>
                         </div>
                         <div className={styles.modalTelegram_container}>
