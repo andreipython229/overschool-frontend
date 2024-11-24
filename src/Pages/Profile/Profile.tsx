@@ -307,7 +307,7 @@ export const Profile = () => {
                         </form>
                     )}
 
-                    {isRestrictedUser && (
+                    {!isRestrictedUser && (
                         <>
                             <form className={styles.container} onSubmit={handlePasswordsSubmit}>
                                 <h5 className={styles.profile_block_title}>Смена пароля:</h5>
