@@ -33,12 +33,6 @@ export type SuperButtonPropsT = DefaultButtonPropsType & {
     | 'newPrimary'
     | 'mobile'
     | 'emptyInside'
-    | 'newSecondaryHeader'
-    | 'newLogInHeader'
-    | 'newCreateHeader'
-    | 'newLeaveRequest'
-    | 'newTryForFree'
-    | 'newMobile'
 }
 
 export type CheckboxPropsT = {

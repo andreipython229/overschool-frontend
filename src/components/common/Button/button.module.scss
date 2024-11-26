@@ -154,53 +154,6 @@
   }
 }
 
-.newCreateHeader{
-
-    @media only screen and (min-width: 1150px){
-        display: flex;
-        flex-direction: row;
-        width: 252px;
-        height: 46px;
-        background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-        align-items: center;
-        justify-content: space-evenly;
-        font-family: 'SFPRORegular';
-        @include font(700, 16px, 19.09px);
-        border-radius: 10px;
-        color: #ffffff;
-        padding: 10px 25px 10px 25px;
-
-        &:hover {
-        &:hover:not(:disabled) {
-          color: #ffffff;
-          background: #357eeb;
-            }
-        }
-    }
-
-    @media only screen and (min-width: 800px) and (max-width: 1150px){
-        display: flex;
-        flex-direction: row;
-        width: 200px;
-        height: 36px;
-        background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-        align-items: center;
-        justify-content: space-evenly;
-        font-family: 'SFPRORegular';
-        @include font(700, 12px, 19.09px);
-        border-radius: 10px;
-        color: #ffffff;
-        padding: 10px 15px 10px 15px;
-
-        &:hover {
-        &:hover:not(:disabled) {
-          color: #ffffff;
-          background: #357eeb;
-            }
-        }
-    }
-}
-
 .newLogIn {
   height: 46px;
   display: flex;
@@ -224,56 +177,6 @@
   }
 }
 
-.newLogInHeader {
-
-    @media only screen and (min-width: 1150px){
-        height: 46px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        background: #cfe2ff;
-        align-items: center;
-        justify-content: space-evenly;
-        font-family: 'SFPRORegular';
-        @include font(700, 16px, 19.09px);
-        border-radius: 10px;
-        letter-spacing: 0.02em;
-        color: #324195;
-        padding: 10px 25px 10px 25px;
-
-        &:hover {
-        &:hover:not(:disabled) {
-          color: #ffffff;
-          background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-            }
-        }
-    }
-
-    @media only screen and (min-width: 800px) and (max-width: 1150px){
-        height: 32px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        background: #cfe2ff;
-        align-items: center;
-        justify-content: space-evenly;
-        font-family: 'SFPRORegular';
-        @include font(700, 14px, 19.09px);
-        border-radius: 10px;
-        letter-spacing: 0.02em;
-        color: #324195;
-        padding: 5px 15px 5px 15px;
-
-        &:hover {
-        &:hover:not(:disabled) {
-          color: #ffffff;
-          background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-            }
-        }
-    }
-}
-
-
 .leaveRequest {
   width: 444px;
   height: 80px;
@@ -296,54 +199,6 @@
     }
   }
 }
-
-.newLeaveRequest{
-    @media only screen and (min-width: 1150px){
-        width: 444px;
-        height: 80px;
-        align-items: center;
-        justify-content: space-evenly;
-        font-family: 'SFPRORegular';
-        font-weight: 700;
-        font-size: 24px;
-        padding: 11px 25px;
-        background: transparent;
-        background: #357eeb;
-        border-radius: 20px;
-        line-height: 28.64px;
-        color: #ffffff;
-
-        &:hover {
-        &:hover:not(:disabled) {
-        color: #ffffff;
-        background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-        }
-    }
-}
-    @media only screen and (min-width: 800px) and (max-width: 1150px){
-        width: 314px;
-        height: 55px;
-        align-items: center;
-        justify-content: space-evenly;
-        font-family: 'SFPRORegular';
-        font-weight: 700;
-        font-size: 20px;
-        padding: 11px 25px;
-        background: transparent;
-        background: #357eeb;
-        border-radius: 20px;
-        line-height: 28.64px;
-        color: #ffffff;
-
-        &:hover {
-        &:hover:not(:disabled) {
-        color: #ffffff;
-        background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-            }
-        }
-    }
-}
-
 
 .newPrimary {
   font-family: 'SFPRORegular';
@@ -371,39 +226,6 @@
       background: #357eeb;
     }
   }
-}
-
-.newSecondaryHeader {
-
-    @media only screen and (min-width: 1150px){
-        font-family: 'SFPRORegular';
-        @include font(700, 16px, 19.09px);
-        padding: 11px 25px;
-        background: transparent;
-        color: #332f36;
-
-        &:hover {
-        &:hover:not(:disabled) {
-          color: #ffffff;
-          background: #355eeb;
-            }
-        }
-    }
-    @media only screen and (min-width: 800px) and (max-width: 1150px){
-        font-family: 'SFPRORegular';
-        @include font(700, 14px, 19.09px);
-        padding: 5px 12px 5px 12px;
-        background: transparent;
-        color: #332f36;
-
-
-        &:hover {
-        &:hover:not(:disabled) {
-          color: #ffffff;
-          background: #355eeb;
-            }
-        }
-    }
 }
 
 .goPlatform {
@@ -506,49 +328,6 @@
   }
 }
 
-.newTryForFree{
-    @media only screen and (min-width: 1150px){
-        font-family: 'SFPRORegular';
-        width: 388px;
-        height: 54px;
-        align-items: center;
-        justify-content: space-evenly;
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 23.87px;
-        color: #0d28bb;
-        background: transparent;
-        background: #ffffff;
-        border-radius: 12px;
-        margin-bottom: 1rem;
-        }
-
-    @media only screen and (min-width: 800px) and (max-width: 1150px){
-        font-family: 'SFPRORegular';
-        width: 278px;
-        height: 44px;
-        align-items: center;
-        justify-content: space-evenly;
-        font-weight: 600;
-        font-size: 17px;
-        line-height: 23.87px;
-        color: #0d28bb;
-        background: transparent;
-        background: #ffffff;
-        border-radius: 12px;
-        margin-bottom: 0.4rem;
-    }
-
-    &:hover {
-    &:hover:not(:disabled) {
-        color: #ffffff;
-        background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-        border: 1px solid #ffffff;
-    }
-    }
-  }
-
-
 .mobile {
   width: 300px;
   height: 48px;
@@ -578,65 +357,3 @@
     }
   }
 }
-
-.newMobile {
-    @media only screen and (min-width: 1150px){
-        width: 300px;
-        height: 48px;
-        align-items: center;
-        justify-content: space-evenly;
-        font-family: 'SFPRORegular';
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 23.87px;
-        color: #ffffff;
-        background: transparent;
-        background: #808080;
-        border-radius: 10px;
-        margin-bottom: 1rem;
-        background-image: url(../../../assets/img/common/android.png);
-        background-repeat: no-repeat;
-        background-position: top 10px left 30px;
-        padding-left: 60px;
-
-        &:hover {
-        &:hover:not(:disabled) {
-          color: #ffffff;
-          background: #0d28bb;
-          background-image: url(../../../assets/img/common/android.png);
-          background-repeat: no-repeat;
-          background-position: top 10px left 30px;
-        }
-    }
-}
-    @media only screen and (min-width: 800px) and (max-width: 1150px){
-        width: 250px;
-        height: 45px;
-        align-items: center;
-        justify-content: space-evenly;
-        font-family: 'SFPRORegular';
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 23.87px;
-        color: #ffffff;
-        background: transparent;
-        background: #808080;
-        border-radius: 10px;
-        margin-bottom: 1rem;
-        background-image: url(../../../assets/img/common/android.png);
-        background-repeat: no-repeat;
-        background-position: top 10px left 30px;
-        padding-left: 60px;
-
-        &:hover {
-        &:hover:not(:disabled) {
-          color: #ffffff;
-          background: #0d28bb;
-          background-image: url(../../../assets/img/common/android.png);
-          background-repeat: no-repeat;
-          background-position: top 10px left 30px;
-        }
-    }
-}
-}
-
