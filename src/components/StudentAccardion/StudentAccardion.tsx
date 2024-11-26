@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react'
+import {FC, memo, useEffect, useState} from 'react'
 
 import { AccardionItem } from './AccardionItem/AccardionItem'
 import { sectionT, studentAccardioT } from '../../types/sectionT'
@@ -15,6 +15,14 @@ export const StudentAccardion: FC<studentAccardioT> = memo(({ modules }) => {
       setOpenIndex(index)
     }
   }
+    useEffect(() => {
+    const firstUncompletedIndex = modules.sections.findIndex(
+      (module) => module.completed_count !== module.lessons.length
+    );
+    if (firstUncompletedIndex !== -1) {
+      setOpenIndex(firstUncompletedIndex);
+    }
+  }, [modules.sections]);
 
   return (
     <div className={styles.accardionWrapper}>
