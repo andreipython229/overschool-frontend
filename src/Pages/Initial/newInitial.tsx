@@ -377,7 +377,7 @@ export const Initial = () => {
               <p>Получить бесплатный доступ</p>
               <Button onClick={handleRegistrationUser} variant={'newTryForFree'} text={'Узнать подробнее'}  />
             </div>
-            <div >
+            <div className={styles.init_main_takeFree_block_img}>
               <img src={rocketfree} alt="rocketfree"/>
             </div>
         </div>

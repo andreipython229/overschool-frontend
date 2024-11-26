@@ -150,8 +150,12 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
                 <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   <TelegramIcon className={styles.animatedIcon} sx={{ height: '24', width: '24', color: '#357EEB', marginRight: '0.5rem',
                                                                         '@media screen and (min-width: 800px) and (max-width: 1150px)': {
-                                                                            marginRight: '-0.5rem'
-                                                                            },}} />
+                                                                          marginRight: '-0.5rem'
+                                                                            },
+                                                                        '@media only screen and (min-width: 390px) and (max-width: 435px)': {
+                                                                          marginRight: '-0.4rem',
+                                                                          width: '14px',
+                                                                          },}} />
                 </a>
               </Tooltip>
             </div>
