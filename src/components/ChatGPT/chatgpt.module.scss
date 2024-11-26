@@ -7,9 +7,9 @@
   // top: 50%;
   // left: 50%;
   // transform: translate(-50%, -50%);
-  width: 35vw;
+  width: 64vh;
   height: 80vh;
-  padding: 20px;
+  padding: 14px;
   overflow: hidden;
 
   
@@ -45,18 +45,10 @@
 }
 
 .contentContainer {
-  @include display(flex, column, initial, initial);
+  @include display(flex, column, space-between , center);
   width: 100%;
-  
   height: 100%;
   background-color: $color-white;
-}
-
-.leftPane {
-  height: calc(100% - 40px);
-  overflow-y: auto;
-  transition: 0.3s;
-  margin: 0;
 }
 
 .paneOpen {
@@ -64,34 +56,30 @@
   opacity: 1;
 }
 
-.leftPane {
+.topPane {
+  @include display(flex, column, space-between , center);
   background-color: $color-white;
-  padding: 15px;
   border-radius: 20px;
-  height: 98%;
-  overflow-y: auto;
-  width: 30%;
+  height: 12.7%;
+  width: 100%;
+  // overflow-y: auto;
   display: flex;
   flex-direction: column;
-  // border: 2px solid #7f4cbf;
-  border: 1px solid #357EEB;
-  margin-left: 7px;
-  margin-top: 7px;
-  margin-bottom: 7px;
+  // border: 1px solid #357EEB;
+  transition: 0.3s;
+  // margin: 0;
 }
 
-.rightPane {
-  flex: 1;
-  margin-top: auto;
+.bottomPane {
+  @include display(flex, column, space-between , center);
+  width: 100%;
+  height: 87.3%;
 }
 
 .centeredText {
+  @include display(flex, column, center , center);
   font-size: 15px;
-  display: flex;
-  align-items: center;
   height: 100%;
-  margin-left: 8px;
-  margin-right: 35px;
 
   @media only screen and (min-width : 1300px) and (max-width : 1400px) {
     font-size: 13px;
@@ -237,13 +225,10 @@
 }
 
 .overAiText {
+  @include display(flex, column, space-between , center);
   font-size: 24px;
-  font-weight: bold;
-  text-align: center;
+  font-weight: 500;
   color: #332F36;
-  position: absolute;
-  top: 2%;
-  left: 60%;
   z-index: 1;
 }
 
@@ -260,18 +245,20 @@
 // }
 
 .messageContainer {
-  max-height: 79%;
-  width: 20vw;
-  overflow-y: auto;
-  position: fixed;
-  bottom: 13%;
+  width: 100%;
+  height: 100%;
+  margin-top: 2.76vh;
+
   scrollbar-width: thin;
   scrollbar-color: #ccc white;
   padding-right: 1%;
   border: 1px solid #357EEB;
+  border-radius: 18px;
+  box-shadow: 0px 0px 8px 0px #3241954D;
+
   scrollbar-width: none;
   word-wrap: break-word;
-  // width: 100%;
+  
   background-color: transparent;
 
   &::-webkit-scrollbar {
@@ -338,35 +325,42 @@
 }
 
 .inputContainer {
+  width: 100%;
+  height: 72px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
-  margin-top: auto;
+  border: 1px solid #357EEB;
+  border-radius: 18px;
+  margin-top: 2.76vh;
 }
 
 .inputContainer textarea {
+  @include display(flex, column, center , center);
   flex: 1;
-  padding: 10px;
-  margin-left: 2%;
-  // border: 2px solid #7f4cbf;
-  border: 1px solid #357EEB;
-  border-radius: 10px;
+  padding: 14px 10px;
+  border: 0;
+  line-height: 26px;
   background-color: transparent;
   outline: none;
-  font-size: 15px;
+  font-size: 16px;
   resize: none;
   overflow: hidden;
-  height: 55px;
+  height: 100%;
   z-index: 100000;
 
   @media only screen and (min-width: 460px) and (max-width: 1500px) {
-    height: 40px;
+    // height: 40px;
   }
+
+ 
 }
+
+
 
 .inputContainer input::placeholder {
   color: #7f4cbf;
+
 }
 
 .inputContainer button {
@@ -383,6 +377,7 @@
   z-index: 100000;
 }
 
+
 .inputContainer button svg {
   width: 100%;
   height: 100%;
@@ -397,11 +392,6 @@
   background-color: #7f4cbf;
 }
 
-.inputContainer textarea {
-  flex: 1;
-  width: 0;
-  margin-right: 10px;
-}
 
 .chatgpt_close {
   outline: none;

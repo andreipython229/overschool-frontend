@@ -410,7 +410,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                 </div>
               ) : (
                 <>
-                  <div className={`${styles.leftPane} ${isDialogOpen && styles.paneOpen}`}>
+                  <div className={`${styles.topPane} ${isDialogOpen && styles.paneOpen}`}>
+                    <div className={styles.overAiText}>OVER AI</div>
                     {isFetchingChats ? (
                       <div className={styles.loadingSpinner}>
                         <div className={styles.spinner}></div>
@@ -447,39 +448,35 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                     )}
                   </div>
                   {selectedChatId && (
-                    <div className={`${styles.rightPane} ${isDialogOpen && styles.paneOpen}`}>
-                      <div className={styles.overAiText}>OVER AI</div>
+                    <div className={`${styles.bottomPane} ${isDialogOpen && styles.paneOpen}`}>
+
                       {isLoadingMessages && selectedChatId !== 1 ? (
                         <div className={styles.loadingSpinner}>
                           <div className={styles.spinner}></div>
                           <span> Загрузка сообщений...</span>
                         </div>
                       ) : (
-                        <div>
-                          <div className={styles.backgroundImage}>
-                            <div className={styles.messageContainer} ref={messageContainerRef}>
-                              {userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
-                                <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
-                                  <div className={styles.messageContainer_user}>
-                                    <span>
-                                      <b style={{ color: '#a761ee' }}>Вы</b>
-                                      <div className={styles.messageContainer_user_question}>
-                                        {userQuestion.sender_question}
-                                      </div>
-                                    </span>
+                        <div className={styles.messageContainer} ref={messageContainerRef}>
+                          {userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
+                            <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
+                              <div className={styles.messageContainer_user}>
+                                <span>
+                                  <b style={{ color: '#a761ee' }}>Вы</b>
+                                  <div className={styles.messageContainer_user_question}>
+                                    {userQuestion.sender_question}
                                   </div>
-                                  {index < botAnswers.length && (
-                                    <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
-                                      <p style={{ fontWeight: 'bold', color: '#a761ee', fontSize: '15px' }}>OVER AI</p>
-                                      <div className={styles.messageContainer_bot_answer}>
-                                        {formatBotAnswer(botAnswers[index].answer)}
-                                      </div>
-                                    </div>
-                                  )}
+                                </span>
+                              </div>
+                              {index < botAnswers.length && (
+                                <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
+                                  <p style={{ fontWeight: 'bold', color: '#a761ee', fontSize: '15px' }}>OVER AI</p>
+                                  <div className={styles.messageContainer_bot_answer}>
+                                    {formatBotAnswer(botAnswers[index].answer)}
+                                  </div>
                                 </div>
-                              ))}
+                              )}
                             </div>
-                          </div>
+                          ))}
                         </div>
                       )}
                       {error && (
@@ -496,7 +493,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                         ) : (
                           <>
                             <textarea
-                              placeholder="Задайте свой вопрос ИИ"
+                              rows={1}
+                              placeholder="Отправьте сообщение..."
                               value={messageInput}
                               onChange={(e) => setMessageInput(e.target.value)}
                               onKeyDown={handleKeyPress}
