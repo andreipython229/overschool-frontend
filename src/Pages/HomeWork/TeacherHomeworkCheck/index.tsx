@@ -1,7 +1,5 @@
-import { IHomework } from '../../../../types/sectionT'
 import { ChangeEvent, FC, useEffect, useState } from 'react'
-import styles from './studentHomeworkCheck.module.scss'
-import { StudentModalCheckHomeWork } from '../../../../components/Modal/StudentModalCheckHomeWork/StudentModalCheckHomeWork'
+import styles from './teacherHomeworkCheck.module.scss'
 import { AddFileBtn } from 'components/common/AddFileBtn'
 import { Button } from 'components/common/Button/Button'
 import { UploadedFile } from 'components/UploadedFile'
@@ -10,6 +8,8 @@ import { usePostTextFilesMutation } from 'api/filesService'
 import { useParams } from 'react-router-dom'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { UserHomework } from 'types/homeworkT'
+import { IHomework } from 'types/sectionT'
+import { StudentModalCheckHomeWork } from 'components/Modal/StudentModalCheckHomeWork/StudentModalCheckHomeWork'
 
 export interface CheckHw {
   audio_files: File[]
@@ -30,16 +30,18 @@ export interface CheckHw {
 type studentHomeworkCheckI = {
   homework: IHomework
   replyArray: CheckHw[]
+  userHomework: UserHomework
+  refetch: () => void
+  isFetching: boolean
 }
 
-export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, replyArray }) => {
+export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, replyArray, userHomework, refetch, isFetching }) => {
   const schoolName = window.location.href.split('/')[4]
   const { course_id: courseId } = useParams()
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const [files, setFiles] = useState<File[]>([])
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
   const [text, setText] = useState<string>('')
-  const { data: userHomework, isFetching, isSuccess, refetch } = useFetchUserHomeworkQuery({ id: replyArray[0].user_homework, schoolName, courseId })
   const [sendHomeworkCheck, { data: checkData, isLoading: sendingReply, isSuccess: successReply }] = useCreateCheckReplyMutation()
   const [sendFiles, { data: filesData, isLoading, isSuccess: sendFilesSuccess }] = usePostTextFilesMutation()
 
