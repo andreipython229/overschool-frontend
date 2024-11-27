@@ -26,6 +26,10 @@ export type CoursesDataT = {
   remaining_period?: number
   certificate?: boolean
   course_removed?: Date
+  video_count: number | null
+  test_count: number | null
+  students_count: number | null
+  homework_count: number | null
   folder: {
     id: number
     name: string

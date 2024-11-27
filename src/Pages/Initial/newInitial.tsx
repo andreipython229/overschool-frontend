@@ -13,7 +13,9 @@ import { removebg, analytics, chatst, dateInf, constructor, hat, cam, ok, chat,
 import  { Slider }  from '../../components/slider/slider'
 
 import styles from './newInitial.module.scss'
-
+import unlimitedImage from './../../assets/img/common/unlimited2.png';
+import AnnexImage from './../../assets/img/common/annex.png'
+import gbImage from './../../assets/img/common/gb.png'
 import { RegCodeModal } from '../../components/Modal/RegistrationModal/RegCodeModal'
 import { Path } from '../../enum/pathE'
 import { motion, useTime } from 'framer-motion'
@@ -22,6 +24,7 @@ import   WordSwitcher  from '../../components/WorldSwitcher/worldSwitcher'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper as SwiperType } from 'swiper'
+import MiniBlock from "../../components/MiniBlocks";
 
 
 
@@ -202,19 +205,11 @@ export const Initial = () => {
           </div>
           
         </div>
+
         <div className={styles.init_main_pros}>
-          <div className={styles.init_main_pros_unlimited}>
-            <h3>Безлимит учеников</h3>
-            <p>База обучающихся без ограничений</p>
-          </div>
-          <div className={styles.init_main_pros_annex}>
-            <h3>Бесплатное приложение</h3>
-            <p>Обучение с любых устройств</p>
-          </div>
-          <div className={styles.init_main_pros_gb}>
-            <h3>Безлимит гигабайт</h3>
-            <p>Загружайте файлы без ограничений</p>
-          </div>
+          <MiniBlock title={'Безлимит учеников'} text={'База обучающихся без ограничений'} image={unlimitedImage}/>
+        <MiniBlock title={'Бесплатное приложение'} text={'Обучение с любых устройств'} image={AnnexImage}/>
+        <MiniBlock title={'Безлимит гигабайт'} text={'Загружайте файлы без ограничений'} image={gbImage}/>
         </div>
         <div className={styles.init_main_intern}>
           <div className={styles.init_main_intern_img}>

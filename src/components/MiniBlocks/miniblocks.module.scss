@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+  font-family: 'SFPROBold';
+  src: url(../../assets/fonts/SFProText/SFProText-Bold.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: 'SFPROMedium';
+  src: url(../../assets/fonts/SFProText/SFProText-Medium.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: 'SFPROHeavy';
+  src: url(../../assets/fonts/SFProText/SFProText-Heavy.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
+.block {
+  width: 400px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  transition: 0.3s ease;
+  background: rgb(207, 226, 255);
+  color: #324195;
+  position: relative;
+  padding-top: 20px;
+
+  h2 {
+    color: rgb(50, 65, 149);
+    font-family: 'SFPRORegular';
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 28.64px;
+    letter-spacing: 0;
+
+  }
+
+  p {
+    color: rgb(50, 65, 149);
+    font-family: 'SFPRORegular';
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19.09px;
+    text-align: left;
+
+  }
+
+  &:hover {
+    color: #FFFFFF;
+    background: linear-gradient(90.00deg, rgb(13, 40, 187), rgb(53, 126, 235) 100%);
+
+    .block_image {
+      transform: scale(1.18);
+      color: #FFFFFF;
+
+    }
+
+    h2, p {
+      color: #FFFFFF;
+    }
+  }
+
+  &_image {
+    object-fit: cover;
+    max-height: 210px;
+    margin-top: 30px;
+    z-index: 1;
+    color: rgb(53, 126, 235);
+
+    &:hover {
+      color: #FFFFFF;
+    }
+  }
+}

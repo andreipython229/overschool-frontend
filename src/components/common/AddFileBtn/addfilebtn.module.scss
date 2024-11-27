@@ -25,7 +25,9 @@
       }
 
       input {
-        @include position_t_l(absolute, 0, 0, -10);
+        position: absolute;
+        left: 0;
+        z-index: -10;
         opacity: 0;
       }
     }

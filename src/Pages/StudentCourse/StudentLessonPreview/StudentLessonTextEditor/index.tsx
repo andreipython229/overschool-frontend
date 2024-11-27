@@ -12,6 +12,10 @@ import { CheckHw, StudentHomeworkCheck } from '../StudentHomeworkCheck'
 
 import styles from './studentLessonTextEditor.module.scss'
 import { SimpleLoader } from '../../../../components/Loaders/SimpleLoader'
+import { useBoolean } from 'customHooks'
+import { Portal } from 'components/Modal/Portal'
+import { ModalSuccessHomeworkSended } from 'components/Modal/ModalSuccessHomeworkSended'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 type textEditorT = {
   homeworkId: number
@@ -29,6 +33,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
   const [isLoading, setIsLoading] = useState(false)
   const schoolName = window.location.href.split('/')[4]
   const { course_id: courseId } = useParams()
+  const [showSuccess, { onToggle: toggleModal }] = useBoolean(false)
 
   const [postHomework] = usePostUserHomeworkMutation()
   const [postFiles] = usePostTextFilesMutation()
@@ -96,45 +101,26 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
           })
           formDataFile.append('user_homework', String(data.user_homework_id))
 
-          if (!replyArray) {
-            setReplyArray([
-              {
-                audio_files: [],
-                author: data.author,
-                author_first_name: '',
-                author_last_name: '',
-                created_at: data.created_at,
-                mark: 0,
-                profile_avatar: '',
-                status: data.status,
-                text: String(formDataHw.get('text')) || '',
-                text_files: [],
-                updated_at: data.updated_at,
-                user_homework: data.user_homework_id,
-                user_homework_check_id: 0,
-              },
-            ])
-          }
           if (files && files.length > 0) {
             postFiles({ formData: formDataFile, schoolName })
               .unwrap()
               .then(() => {
-                setHwStatus(true)
                 setIsLoading(false)
               })
               .catch(() => {
-                setHwStatus(true)
                 setOpen(true)
                 setIsLoading(false)
               })
           } else {
-            setHwStatus(true)
             setIsLoading(false)
+          }
+
+          if (!replyArray) {
+            toggleModal()
           }
         })
         .catch(() => {
           setIsLoading(false)
-          setHwStatus(true)
           setOpen(true)
         })
     }
@@ -148,37 +134,17 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
     setUrlFiles([])
   }, [homeworkId, homework])
 
+  const handleModalButton = () => {
+    if (showSuccess) {
+      window.location.reload()
+    }
+  }
+
   if (isLoading) {
-    return <SimpleLoader />
+    return <LoaderLayout />
   }
 
   return !hwStatus ? (
-    // <div className={styles.wrapper}>
-    //   <h5 className={styles.wrapper_title}>Отправить данные, запросить ответ ИИ:</h5>
-    //   <TextareaAutosize
-    //     aria-label="Введите ответ на индивидуальное занятие..."
-    //     placeholder="Введите ответ на индивидуальное занятие..."
-    //     minRows={5}
-    //     value={text}
-    //     onChange={event => setText(event.target.value)}
-    //   />
-    //   <span className={styles.wrapper_form_help}>Добавьте файл(-ы):</span>
-    //   <AddFileBtn handleChangeFiles={handleChangeFiles} />
-    //   {urlFiles?.map(({ url, name }, index: number) => (
-    //     <UploadedFile
-    //       key={index}
-    //       file={url}
-    //       index={index}
-    //       name={name}
-    //       size={files.length > 0 ? files[index].size : 0}
-    //       isHw={true}
-    //       handleDeleteFile={handleDeleteFile}
-    //     />
-    //   ))}
-    //   {(text || urlFiles.length > 0) && (
-    //     <Button style={{ marginTop: '20px' }} variant="primary" text="Отправить" type="submit" onClick={handleSendHomework} />
-    //   )}
-    // </div>
     <>
       <h5 className={styles.hwTitle}>Проверка практической работы</h5>
       <form onSubmit={handleSendHomework} className={styles.commentForm}>
@@ -206,6 +172,11 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
           <Button variant="newPrimary" text="Отправить" type="submit" />
         </div>
       </form>
+      {showSuccess && (
+        <Portal closeModal={handleModalButton}>
+          <ModalSuccessHomeworkSended toggle={handleModalButton} />
+        </Portal>
+      )}
     </>
   ) : (
     <>
@@ -213,7 +184,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
       <Stack spacing={2} sx={{ width: '100%' }}>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
-            {'Ошибка отправки чек-поинта :('}
+            {'Ошибка отправки домашней работы :('}
           </Alert>
         </Snackbar>
       </Stack>
