@@ -33,7 +33,7 @@ export const renderStudentBlocks = (lesson: commonLessonT, download?: boolean) =
           }
         case BLOCK_TYPE.CODE:
           if ('code' in block && block.code) {
-            return <PreviewCodeBlock block={block} />
+            return <PreviewCodeBlock block={block} key={block.id}/>
           } else {
             return <></>
           }
@@ -52,6 +52,7 @@ export const renderStudentBlocks = (lesson: commonLessonT, download?: boolean) =
                 style={{ width: '100%', maxWidth: '100%', objectFit: 'contain', borderRadius: '2rem' }}
                 src={block.picture_url}
                 alt={String(block.id)}
+                key={block.id}
               />
             )
           } else {
@@ -70,7 +71,7 @@ export const renderStudentBlocks = (lesson: commonLessonT, download?: boolean) =
         case BLOCK_TYPE.BUTTONS:
           if ('buttons' in block && block.buttons) {
             return (
-              <div style={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+              <div key={block.id} style={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
                 {block.buttons.map((button, index) => (
                   <BlockLinkButton key={`${button.id}_${index}`} button={button} color={button.color} />
                 ))}

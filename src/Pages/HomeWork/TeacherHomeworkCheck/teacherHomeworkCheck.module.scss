@@ -20,7 +20,7 @@
     align-items: center;
     gap: 8px;
     color: rgb(51, 47, 54);
-    font-family: "SFPRORegular";
+    font-family: 'SFPRORegular';
     font-size: 1.5rem;
     font-weight: 600;
     line-height: 2.69rem;
@@ -101,8 +101,27 @@
   button {
     transition: all 0.3s;
     font-size: 1.25rem;
-    padding: 1rem 2.5rem 1rem 2.5rem;
-    width: 11.13rem;
+    padding: 1rem 1.5rem;
+    width: 14.13rem;
     height: 3.38rem;
+  }
+}
+
+.dropdownWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+
+  .text {
+    //styleName: Desktop/Buttons/Button;
+    font-family: 'SFPRORegular';
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 23.87px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
   }
 }

@@ -10,6 +10,12 @@ import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { UserHomework } from 'types/homeworkT'
 import { IHomework } from 'types/sectionT'
 import { StudentModalCheckHomeWork } from 'components/Modal/StudentModalCheckHomeWork/StudentModalCheckHomeWork'
+import { SelectDropDown } from 'components/SelectDropDown/SelectDropDown'
+import { CheckSelectChildren } from 'components/common/CheckSelect/CheckSelectChildren'
+import { Dropdown } from 'primereact/dropdown'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { MedalIconPath } from 'assets/Icons/svgIconPath'
+import { checkHomeworkStatusFilters } from 'constants/dropDownList'
 
 export interface CheckHw {
   audio_files: File[]
@@ -44,12 +50,16 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
   const [text, setText] = useState<string>('')
   const [sendHomeworkCheck, { data: checkData, isLoading: sendingReply, isSuccess: successReply }] = useCreateCheckReplyMutation()
   const [sendFiles, { data: filesData, isLoading, isSuccess: sendFilesSuccess }] = usePostTextFilesMutation()
+  const [mark, setMark] = useState<number>(0)
+  const [status, setStatus] = useState<string>('')
 
   const handleCreateHomeworkCheck = () => {
     const dataToSend = {
+      status,
       text,
+      mark,
       user_homework: userHomework?.user_homework_id,
-      courseId,
+      courseId: courseId,
     }
 
     sendHomeworkCheck({ data: dataToSend, schoolName })
@@ -155,7 +165,29 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
           ))}
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
             <AddFileBtn handleChangeFiles={handleChangeFiles} style={{ background: 'transparent', fontWeight: 700, alignSelf: 'center' }} />
-            <Button variant="newPrimary" onClick={handleCreateHomeworkCheck} text="Отправить" />
+            <div className={styles.dropdownWrapper}>
+              <p>Количество баллов:</p>
+              <Dropdown
+                options={['1', '2', '3', '4', '5']}
+                style={{ display: 'flex', alignItems: 'center' }}
+                value={mark}
+                onChange={e => setMark(e.target.value)}
+                placeholder="-"
+              />
+              <IconSvg width={21} height={21} viewBoxSize="0 0 21 21" path={MedalIconPath} />
+            </div>
+            <div className={styles.dropdownWrapper}>
+              <p>Статус:</p>
+              <Dropdown
+                options={checkHomeworkStatusFilters}
+                style={{ display: 'flex', alignItems: 'center' }}
+                value={status}
+                onChange={e => setStatus(e.target.value)}
+                defaultValue={'Не принято'}
+                placeholder="Выберите вариант"
+              />
+            </div>
+            <Button variant="newPrimary" onClick={handleCreateHomeworkCheck} text="Отправить ответ" />
           </div>
         </div>
       )}
