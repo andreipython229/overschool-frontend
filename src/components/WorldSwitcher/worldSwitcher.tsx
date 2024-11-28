@@ -16,7 +16,7 @@ const WordSwitcher = () => {
   }, []);
 
   return (
-    <div style={{ fontSize: '2rem', textAlign: 'center' }}>
+    <div className={styles.text_container}>
       <AnimatePresence>
         <motion.div
           key={words[index]}
