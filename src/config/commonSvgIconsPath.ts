@@ -84,7 +84,7 @@ export const redTariffPlanIconPath = [{ d: tariffPlanIcon, fill: 'red' }]
 
 export const orangeTariffPlanIconPath = [{ d: tariffPlanIcon, fill: 'orange' }]
 
-export const purpleTariffPlanIconPath = [{ d: tariffPlanIcon, fill: '#BA75FF' }]
+export const purpleTariffPlanIconPath = [{ d: tariffPlanIcon, fill: '#357EEB' }]
 
 export const peopleIconPath: pathT[] = [
   { d: peopleIcon.d1, fill: 'url(#paint0_linear_14245_85147)' },

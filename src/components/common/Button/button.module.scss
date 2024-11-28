@@ -25,6 +25,10 @@
   background: #f3f4f6;
   width: auto;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   padding: 11px 13px;
   @include font(800, 16px);
   font-family: 'Inter', sans-serif;
@@ -219,6 +223,7 @@
   padding: 11px 25px;
   background: transparent;
   color: #332f36;
+  border: 1px solid #357eeb;
 
   &:hover {
     &:hover:not(:disabled) {

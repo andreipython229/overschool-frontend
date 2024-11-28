@@ -18,9 +18,11 @@
   transition: 0.3s linear;
 }
 
-.youtube:hover path:first-child {
-  transition: 0.3s linear;
-  fill: #ff0000;
+.youtube:hover {
+  path:nth-child(3) {
+    transition: 0.3s linear;
+    fill: #ff0000;
+  }
 }
 
 .link:hover path {
