@@ -140,8 +140,9 @@ export const Navbar: FC = memo(() => {
               </NavLink>
             ) : (
 
-              <a className={styles.chatIcon_container} key={index + '_' + path}>
-                <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
+              <a className={styles.chatIcon_container} key={index + '_' + path} onClick={off}>
+                <div className={styles.chatIcon}>
+                  {/* className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`}  */}
                   {Number(unRead) > 0 ? (
                     <Badge badgeContent={unRead} color="error">
                       <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
