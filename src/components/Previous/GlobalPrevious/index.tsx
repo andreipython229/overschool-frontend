@@ -13,26 +13,9 @@ import { RoleE } from 'enum/roleE'
 import styles from '../previou.module.scss'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { settingsIconPath } from 'config/commonSvgIconsPath'
-import zIndex from '@mui/material/styles/zIndex'
 
 export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   const user = useAppSelector(selectUser)
-
-    
-          
-            
-    
-
-          
-          
-          
-            
-    
-
-          
-          
-    
-  
   const { pathname }: Location = useLocation()
   const headerId = localStorage.getItem('header_id')
   const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(Number(headerId))
@@ -49,9 +32,11 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
     logo_school: '',
     photo_background: '',
   })
+
   const handleChangePrevious = () => {
     setEdit(!edit)
   }
+
   const onChangeSchoolHeader = () => {
     const formdata = new FormData()
     Object.entries(schoolHeaderData).forEach(([key, value]) => {
@@ -60,6 +45,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
     setSchoolHeader({ formdata, id: Number(headerId) })
     setEdit(false)
   }
+
   const handleChangeSchoolHeaderData = (e: ChangeEvent<HTMLInputElement>) => {
     setFileError('')
     const target = e.target
@@ -75,6 +61,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
       setSchoolHeaderData({ ...schoolHeaderData, [target.name]: target.value })
     }
   }
+
   useEffect(() => {
     if (isSuccess) {
       const { name, description, photo_background, logo_school } = data
@@ -86,11 +73,13 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
       setSchoolHeaderDataToRender({ logo_school: logo_school, photo_background: photo_background })
     }
   }, [isSuccess, data])
+
   useEffect(() => {
     if (pathname !== Path.InitialPage + Path.Courses) {
       setEdit(false)
     }
   }, [pathname])
+
   const { name: headerName, description: headerDes } = schoolHeaderData
   const { photo_background, logo_school } = schoolHeaderDataToRender
   const changedBg = photo_background
@@ -103,6 +92,7 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
         zIndex: 2,
       }
     : { backgroundColor: 'rgba(51, 47, 54, 0.5)' }
+
   return (
     <>
       {fileError && <p className={styles.previous_error}>{fileError}</p>}

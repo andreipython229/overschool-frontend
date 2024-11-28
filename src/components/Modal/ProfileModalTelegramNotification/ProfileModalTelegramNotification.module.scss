@@ -1,0 +1,185 @@
+@import 'src/scss/variable';
+@import '../../../scss/mixin.scss';
+
+
+.modalTelegram {
+  @include position_t_l(absolute, 50%, 50%, 5);
+  @include display(flex, column);
+  outline: 0.01px solid #357EEB; /*  рамка */
+  width: 600px;
+  background: #ffffff;
+  font-family: $font-family-inter;
+  margin: auto;
+  border-radius: 30px;
+  transform: translate(-50%, -50%);
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    width: 100%;
+
+
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    width: 100%;
+
+  }
+
+  &_title {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #111111;
+    letter-spacing: 0.02em;
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+
+  &_wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &_wrapper_title {
+    font-size: 20px;
+  }
+
+
+  &_container {
+    padding: 36px 130px;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &_closed {
+    @include position_t_r(absolute, 10px, 20px);
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(224, 220, 237);
+
+    &:hover {
+      color: #357EEB;
+      transition: color 0.3s;
+    }
+  }
+}
+
+.container {
+  max-width: 100%;
+  padding: 15px 44px;
+  border-radius: 10px;
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    width: 100%;
+    button {
+      width: 105px;
+      height: 27px;
+      border-radius: 5px;
+      @include font(600, 10px, 0);
+    }
+  }
+  &_error {
+    margin-top: 10px;
+    color: red;
+    font-size: 11px;
+  }
+
+  &_wrapper {
+    left: 25%;
+    margin-top: 16px;
+    margin-bottom: 20px;
+
+
+
+
+  }
+  & input::placeholder {
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    letter-spacing: 0.05em;
+    color: #d2d7dc;
+  }
+}
+
+.forms_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.bg {
+  z-index: -1;
+
+  &_wrap1 {
+    position: absolute;
+    z-index: -1;
+    left: 45%;
+    width: 50px;
+    height: 50px;
+    background: #97C1FF;
+    border-radius: 50%;
+    scale: 4;
+    filter: blur(25px);
+    animation: bgAnimate1 10s linear infinite;
+  }
+
+  &_wrap2 {
+    z-index: -1;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 100%;
+    top: 100%;
+    scale: 10;
+    background: #FFFFFFE5;
+    border-radius: 50%;
+    filter: blur(25px);
+    animation: bgAnimate2 10s linear infinite;
+  }
+
+  &_wrap3 {
+    z-index: -1;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 45%;
+    top: 90%;
+    scale: 4;
+    background: #97C1FF;
+    border-radius: 50%;
+    filter: blur(25px);
+    animation: bgAnimate3 10s linear infinite;
+  }
+
+  &_wrap4 {
+    z-index: -1;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    scale: 10;
+    left: 0%;
+    top: 100%;
+    background: #FFFFFFE5;
+    border-radius: 50%;
+    filter: blur(25px);
+    animation: bgAnimate4 10s linear infinite;
+  }
+}

@@ -214,9 +214,9 @@ export const MailNotificationsIconPath = [
 ] //sms-notification
 
 export const MedalIconPath: pathT[] = [
-  { d: MedalIcon.d1, fill: 'currentColor', fillRule: 'evenodd', clipRule: 'evenodd' },
-  { d: MedalIcon.d2, fill: 'currentColor' },
-  { d: MedalIcon.d3, fill: 'currentColor', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: MedalIcon.d1, fill: '#357EEB', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: MedalIcon.d2, fill: '#357EEB' },
+  { d: MedalIcon.d3, fill: '#357EEB', fillRule: 'evenodd', clipRule: 'evenodd' },
   { d: MedalIcon.d4, fill: 'white', fillRule: 'evenodd', clipRule: 'evenodd' },
 ] //Medal
 

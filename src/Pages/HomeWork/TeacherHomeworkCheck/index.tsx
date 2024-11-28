@@ -1,7 +1,5 @@
-import { IHomework } from '../../../../types/sectionT'
 import { ChangeEvent, FC, useEffect, useState } from 'react'
-import styles from './studentHomeworkCheck.module.scss'
-import { StudentModalCheckHomeWork } from '../../../../components/Modal/StudentModalCheckHomeWork/StudentModalCheckHomeWork'
+import styles from './teacherHomeworkCheck.module.scss'
 import { AddFileBtn } from 'components/common/AddFileBtn'
 import { Button } from 'components/common/Button/Button'
 import { UploadedFile } from 'components/UploadedFile'
@@ -10,6 +8,14 @@ import { usePostTextFilesMutation } from 'api/filesService'
 import { useParams } from 'react-router-dom'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { UserHomework } from 'types/homeworkT'
+import { IHomework } from 'types/sectionT'
+import { StudentModalCheckHomeWork } from 'components/Modal/StudentModalCheckHomeWork/StudentModalCheckHomeWork'
+import { SelectDropDown } from 'components/SelectDropDown/SelectDropDown'
+import { CheckSelectChildren } from 'components/common/CheckSelect/CheckSelectChildren'
+import { Dropdown } from 'primereact/dropdown'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { MedalIconPath } from 'assets/Icons/svgIconPath'
+import { checkHomeworkStatusFilters } from 'constants/dropDownList'
 
 export interface CheckHw {
   audio_files: File[]
@@ -30,24 +36,30 @@ export interface CheckHw {
 type studentHomeworkCheckI = {
   homework: IHomework
   replyArray: CheckHw[]
+  userHomework: UserHomework
+  refetch: () => void
+  isFetching: boolean
 }
 
-export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, replyArray }) => {
+export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, replyArray, userHomework, refetch, isFetching }) => {
   const schoolName = window.location.href.split('/')[4]
   const { course_id: courseId } = useParams()
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const [files, setFiles] = useState<File[]>([])
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
   const [text, setText] = useState<string>('')
-  const { data: userHomework, isFetching, isSuccess, refetch } = useFetchUserHomeworkQuery({ id: replyArray[0].user_homework, schoolName, courseId })
   const [sendHomeworkCheck, { data: checkData, isLoading: sendingReply, isSuccess: successReply }] = useCreateCheckReplyMutation()
   const [sendFiles, { data: filesData, isLoading, isSuccess: sendFilesSuccess }] = usePostTextFilesMutation()
+  const [mark, setMark] = useState<number>(0)
+  const [status, setStatus] = useState<string>('')
 
   const handleCreateHomeworkCheck = () => {
     const dataToSend = {
+      status,
       text,
+      mark,
       user_homework: userHomework?.user_homework_id,
-      courseId,
+      courseId: courseId,
     }
 
     sendHomeworkCheck({ data: dataToSend, schoolName })
@@ -153,7 +165,29 @@ export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
           ))}
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
             <AddFileBtn handleChangeFiles={handleChangeFiles} style={{ background: 'transparent', fontWeight: 700, alignSelf: 'center' }} />
-            <Button variant="newPrimary" onClick={handleCreateHomeworkCheck} text="Отправить" />
+            <div className={styles.dropdownWrapper}>
+              <p>Количество баллов:</p>
+              <Dropdown
+                options={['1', '2', '3', '4', '5']}
+                style={{ display: 'flex', alignItems: 'center' }}
+                value={mark}
+                onChange={e => setMark(e.target.value)}
+                placeholder="-"
+              />
+              <IconSvg width={21} height={21} viewBoxSize="0 0 21 21" path={MedalIconPath} />
+            </div>
+            <div className={styles.dropdownWrapper}>
+              <p>Статус:</p>
+              <Dropdown
+                options={checkHomeworkStatusFilters}
+                style={{ display: 'flex', alignItems: 'center' }}
+                value={status}
+                onChange={e => setStatus(e.target.value)}
+                defaultValue={'Не принято'}
+                placeholder="Выберите вариант"
+              />
+            </div>
+            <Button variant="newPrimary" onClick={handleCreateHomeworkCheck} text="Отправить ответ" />
           </div>
         </div>
       )}

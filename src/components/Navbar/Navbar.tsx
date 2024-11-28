@@ -9,7 +9,7 @@ import { chatIconPath } from 'components/Navbar/config/svgIconPath'
 import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
 import { Chat } from 'components/Modal/Chat'
-import classNames from 'classnames';
+import classNames from 'classnames'
 
 import styles from './navbar.module.scss'
 import { contactLinkSelector, selectUser } from '../../selectors'
@@ -30,7 +30,7 @@ import { MarkEmailUnreadRounded, SetMealSharp } from '@mui/icons-material'
 import { coursesNavPath } from '../Navbar/config/svgIconPath'
 
 interface IIsActive {
-  isActive?: boolean;
+  isActive?: boolean
 }
 
 export const Navbar: FC = memo(() => {
@@ -43,8 +43,8 @@ export const Navbar: FC = memo(() => {
   const dispatchRole = useDispatch()
   const contactLink = useAppSelector(contactLinkSelector)
 
-  const [isNavBarShow, setIsNavBarShow] = useState(false);
-  const [isBtnToggled, setIsBtnToggled] = useState(false);
+  const [isNavBarShow, setIsNavBarShow] = useState(false)
+  const [isBtnToggled, setIsBtnToggled] = useState(false)
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
   const [isChatOpen, { on, off }] = useBoolean()
 
@@ -53,24 +53,24 @@ export const Navbar: FC = memo(() => {
   }
 
   const toggleNavBar = () => {
-    setIsNavBarShow(prevState => !prevState);
-    setIsBtnToggled(prevState => !prevState);
-  };
+    setIsNavBarShow(prevState => !prevState)
+    setIsBtnToggled(prevState => !prevState)
+  }
 
   const getPathLabel = (path: Path): string => {
     switch (path) {
       case Path.Meetings:
-        return 'Конференции';
+        return 'Конференции'
       case Path.CourseStats:
-        return 'Ученики';
+        return 'Ученики'
       case Path.HomeWork:
-        return 'Домашнее заданее';
+        return 'Домашние задания'
       case Path.Settings:
-        return 'Настройки';
+        return 'Настройки'
       default:
-        return '';
+        return ''
     }
-  };
+  }
 
   return (
     <>
@@ -155,10 +155,15 @@ export const Navbar: FC = memo(() => {
             ),
           )}
 
-          <a className={styles.tg_container} key={'techsupport-data-link'}
+          <a
+            className={styles.tg_container}
+            key={'techsupport-data-link'}
+            target="_blank"
+            rel="noreferrer"
             href={
               UserRole === RoleE.Admin ? 'https://t.me/course_hb' : contactLink && contactLink.length > 0 ? contactLink : 'https://t.me/course_hb'
-            }>
+            }
+          >
             <a>
               <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={tgNavPath} />
             </a>
