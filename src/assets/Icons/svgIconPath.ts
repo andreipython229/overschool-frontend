@@ -290,8 +290,8 @@ export const UpdateIconPath: pathT[] = [
 export const UploadIconPath: pathT[] = [{ d: UploadIcon.d1, fill: 'currentColor' }]
 
 export const UserIconPath = [
-  { d: UserIcon.d1, fill: 'currentColor' },
-  { d: UserIcon.d2, fill: 'currentColor' },
+  { d: UserIcon.d1, fill: 'dodgerblue' },
+  { d: UserIcon.d2, fill: 'dodgerblue' },
 ] //profile
 
 export const VariantIconPath = [
