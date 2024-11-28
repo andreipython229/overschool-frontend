@@ -136,12 +136,28 @@
     }
   }
 }
+
+.wrapper_contentemployees {
+  background-color: #ffffff;
+  //padding: 26px 32px 24px 32px;
+  box-shadow: 0 0 8px #d9d9d9;
+  border-radius: 20px;
+  overflow-x: auto;
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    padding: 4% 3% 4% 3%;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    padding: 4% 3% 4% 3%;
+  }
+}
+
+
 .employees {
  
   &_header {
     @include display (flex, row, space-between);
-    margin-bottom: 38px;
-    padding-right: 10px;
+    margin-bottom: 15px;
+    padding-left: 10px;
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       display: flex;
       justify-content: space-between;
@@ -172,27 +188,28 @@
       @include font (800, 10px);
       border: none;
       outline: none;
-      background: #ba75ff;
-      width: 100px;
-      border-radius: 5px;
+      background: #357EEB;
+      width: 180px;
+      border-radius: 10px;
       color: #ffffff;
       text-align: center;
       align-items: center;
       padding: 10px 0;
       cursor: pointer;
-      margin-right: 40px;
     }
   }
 
   &_table {
     min-width: fit-content;
 
+
     &_title {
       position: relative;
       @include display (flex, row, space-between);
       width: 100%;
       font-size: 11px;
-      padding: 0 20px;
+      margin-bottom: 13px;
+      //padding: 0 20px;
       @media only screen and (min-width : 320px) and (max-width : 375px) {
         margin: 2% 0 2% 0;
       }
@@ -200,11 +217,22 @@
         padding: 4% 0 4% 0;
       }
 
+
       & div:nth-child(1) {
         width: 60%;
+        height: 45px;
+        padding-left: 30px;
+        padding-top: 10px;
+        background-color: #e3ecff;
+
       }
+
+
       & div:nth-child(2) {
         width: 40%;
+        height: 45px;
+        padding-top: 10px;
+        background-color: #e3ecff;
       }
     }
   }
@@ -315,7 +343,7 @@
   background-color: #ffffff;
   padding: 26px 32px 24px 32px;
   box-shadow: 0 0 8px #d9d9d9;
-  border-radius: 8px;
+  border-radius: 20px;
   overflow-x: auto;
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     padding: 4% 3% 4% 3%;
