@@ -89,12 +89,19 @@
     width: 100%;
     padding: 5px;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 0.8vh;
 
-    & a {
+    & div {
       @include display(flex, column, center, center);
       width: 100%;
       text-decoration: none;
+      height: $icon-size; 
+      margin-bottom: 3px;
+
+      svg{
+        height: 100%;
+        width: auto;
+      }
     }
 
     & p {
@@ -139,8 +146,9 @@
 
   &_setting_account {
     @include display(flex, column, space-between, center);
+    width: 100%;
     // cursor: pointer;
-    gap: 10px;
+    gap: 0.8vh;
     transition-duration: $trans-dur02;
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -176,9 +184,19 @@
     &_setting_account {
       @include display(flex, column, center, center);
       width: 100%;
+      height: auto;
       border-radius: 10px;
       padding: 5% 10%;
       transition-duration: $trans-dur02;
+
+      div{
+        height: $icon-size; 
+        margin-bottom: 3px;
+        svg{
+          height: 100%;
+          width: auto;
+        }
+      }
 
       &:hover {
         border-radius: 10px;
@@ -232,7 +250,12 @@
     transition-duration: $trans_dur02;
 
     & a {
-      height: auto;
+      height: $icon-size; 
+      margin-bottom: 3px;
+      svg{
+        height: 100%;
+        width: auto;
+      }
     }
 
     &:hover {
@@ -265,6 +288,7 @@
       opacity: 0;
     }
   }
+
 }
 
 .chatIcon {
@@ -273,10 +297,14 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 57px;
-  height: 57px;
   text-align: center;
   border-radius: 10px;
+  height: $icon-size; 
+  margin-bottom: 3px;
+  svg{
+    height: 100%;
+    width: auto;
+  }
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin: 0;
@@ -285,6 +313,8 @@
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin: 0;
   }
+
+
 
   // &:hover {
   //   background: #357EEB;
