@@ -48,6 +48,13 @@ import {
   VideoListIcon,
   VideoProgressIcon,
   WarningIcon,
+  InstagramIcon,
+  TelegramIcon,
+  VKIcon,
+  XIcon,
+  YoutubeIcon,
+  LinkIcon,
+  MessageConvertIcon,
 } from './svgIcons'
 import { pathT } from '../../types/commonComponentsTypes'
 
@@ -208,11 +215,16 @@ export const MailNotificationsIconPath = [
 ] //sms-notification
 
 export const MedalIconPath: pathT[] = [
-  { d: MedalIcon.d1, fill: 'currentColor', fillRule: 'evenodd', clipRule: 'evenodd' },
-  { d: MedalIcon.d2, fill: 'currentColor' },
-  { d: MedalIcon.d3, fill: 'currentColor', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: MedalIcon.d1, fill: '#357EEB', fillRule: 'evenodd', clipRule: 'evenodd' },
+  { d: MedalIcon.d2, fill: '#357EEB' },
+  { d: MedalIcon.d3, fill: '#357EEB', fillRule: 'evenodd', clipRule: 'evenodd' },
   { d: MedalIcon.d4, fill: 'white', fillRule: 'evenodd', clipRule: 'evenodd' },
 ] //Medal
+
+export const MessageConvertIconPath: pathT[] = [
+  { d: MessageConvertIcon.d1, fill: '#357EEB' },
+  { d: MessageConvertIcon.d2, fill: '#357EEB' },
+] // сообщение конверт 0 0 18 18
 
 export const MessageNotifIconPath = [
   { d: MessageNotifIcon.d1, fill: 'currentColor' },
@@ -278,8 +290,8 @@ export const UpdateIconPath: pathT[] = [
 export const UploadIconPath: pathT[] = [{ d: UploadIcon.d1, fill: 'currentColor' }]
 
 export const UserIconPath = [
-  { d: UserIcon.d1, fill: 'currentColor' },
-  { d: UserIcon.d2, fill: 'currentColor' },
+  { d: UserIcon.d1, fill: 'dodgerblue' },
+  { d: UserIcon.d2, fill: 'dodgerblue' },
 ] //profile
 
 export const VariantIconPath = [
@@ -298,3 +310,64 @@ export const WarningIconPath = [
   { d: WarningIcon.d2, fill: 'currentColor' },
   { d: WarningIcon.d3, fill: 'currentColor' },
 ] //vuesax
+
+export const InstagramIconPath: pathT[] = [
+  {
+    d: InstagramIcon.d1,
+    stroke: '#332F36',
+    strokeWidth: '2.66667',
+    strokeLinejoin: 'round',
+  },
+  {
+    d: InstagramIcon.d2,
+    stroke: '#332F36',
+    strokeWidth: '2.66667',
+    strokeLinejoin: 'round',
+  },
+  {
+    d: InstagramIcon.d3,
+    fill: 'currentColor',
+  },
+] //instagram
+
+export const TelegramIconPath = [
+  {
+    d: TelegramIcon.d1,
+    fill: 'currentColor',
+  },
+] //telegram
+
+export const VKIconPath = [
+  {
+    d: VKIcon.d1,
+    fill: '#332F36',
+  },
+] //vk
+
+export const YoutubeIconPath = [
+  {
+    d: YoutubeIcon.d1,
+    fill: 'currentColor',
+  },
+  {
+    d: YoutubeIcon.d2,
+    fill: 'white',
+  },
+] //youtube
+
+export const LinkIconPath = [
+  {
+    d: LinkIcon.d1,
+    fill: '#332F36',
+  },
+] //link
+
+export const XIconPath: pathT[] = [
+  {
+    d: XIcon.d1,
+    stroke: '#332F36',
+    strokeWidth: '2',
+    strokeLinejoin: 'round',
+    strokeLinecap: 'round',
+  },
+] //x

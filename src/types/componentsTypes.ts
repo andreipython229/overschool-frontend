@@ -167,3 +167,8 @@ export type accardionItemT = {
   openIndex: number
   handleToggleOpen: (index: number) => void
 }
+
+export type SocialMediaBtnPropsT = {
+  url: string
+  variant: 'Instagram' | 'VK' | 'Telegram' | 'Link' | 'X' | 'Youtube'
+}

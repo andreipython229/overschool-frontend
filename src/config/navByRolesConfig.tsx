@@ -35,7 +35,8 @@ import { DomainSettings } from '../Pages/Settings/Domain'
 import { Bonuses } from 'Pages/Settings/Bonuses/Bonuses'
 import { EmailNewsLetter } from 'Pages/Settings/EmailNewsLetter'
 import { NotificationBanner } from 'Pages/Settings/NotificationBannerSettings'
-import {Rating} from "Pages/Rating";
+import { Rating } from 'Pages/Rating'
+import { AdminOrTeacherReplyHomework } from 'Pages/HomeWork/AdminOrTeacherReply'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -69,7 +70,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
       <Route path={Path.Meetings} element={<StudentSchoolMeeting />} />
-      <Route path={Path.Rating} element={<Rating/>} />
+      <Route path={Path.Rating} element={<Rating />} />
     </>
   ),
   [RoleE.Admin]: (
@@ -101,19 +102,25 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.EmailNewsLetter} element={<EmailNewsLetter />} />
         <Route path={SettingsPath.Banner} element={<NotificationBanner />} />
       </Route>
-      <Route path={Path.HomeWork} element={<HomeWork />} />
+      <Route path={Path.HomeWork} element={<School />}>
+        <Route index element={<HomeWork />} />
+        <Route path={Path.CheckHomeWork} element={<AdminOrTeacherReplyHomework />} />
+      </Route>
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
       <Route path={Path.Appeals} element={<SchoolAppeals />} />
       <Route path={Path.Meetings} element={<SchoolMeetings />} />
-      <Route path={Path.Rating} element={<Rating/>} />
+      <Route path={Path.Rating} element={<Rating />} />
     </>
   ),
   [RoleE.Teacher]: (
     <>
       <Route path={Path.Profile} element={<Profile />} />
       <Route path={Path.Group} element={<Group />} />
-      <Route path={Path.HomeWork} element={<HomeWork />} />
+      <Route path={Path.HomeWork} element={<School />}>
+        <Route index element={<HomeWork />} />
+        <Route path={Path.CheckHomeWork} element={<AdminOrTeacherReplyHomework />} />
+      </Route>
       <Route path={Path.CourseStats} element={<CoursesStats />} />
       <Route path={Path.Courses} element={<School />}>
         <Route index element={<Materials />} />

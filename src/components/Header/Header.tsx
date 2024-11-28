@@ -1,30 +1,28 @@
-import React, { useState, useEffect, useRef, memo } from 'react'
-import { Link, NavLink, generatePath, useLocation, useNavigate } from 'react-router-dom'
+import React, { useState, useEffect, useRef, memo} from 'react'
+import { Link, generatePath, useLocation, useNavigate } from 'react-router-dom'
 import { useFetchProfileDataQuery, useLazyFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { auth, logoutState, role, id, authState as setAuthState } from 'store/redux/users/slice'
+import { logoutState, role, id, authState as setAuthState } from 'store/redux/users/slice'
 import { Path } from 'enum/pathE'
 import { useFetchSchoolHeaderQuery, useGetSchoolProgressionDataMutation } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutIconPath } from './config/svgIconsPath'
 import { useLazyLogoutQuery } from 'api/userLoginService'
 import { schoolProgressSelector, selectUser } from '../../selectors'
-import { logo } from '../../assets/img/common'
+import { logoHeader } from '../../assets/img/common'
 import { headerUserRoleName } from 'config/index'
 import { additionalRoleT, profileT } from 'types/profileT'
 import styles from './header.module.scss'
 import { SimpleLoader } from '../Loaders/SimpleLoader'
-import Tooltip from '@mui/material/Tooltip'
-import Avatar from '@mui/material/Avatar'
+import tariffImg from './config/image.png'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
 import Checkbox from '@mui/material/Checkbox'
-import { SvgIcon, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@mui/material'
 import { ChatI, SenderI, UserInformAppealsI, UserInformI } from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from '../../store/redux/chats/chatsSlice'
-
 import { ITariff, UserProfileT } from '../../types/userT'
 import { setUserProfile, clearUserProfile } from '../../store/redux/users/profileSlice'
 import { isEqual } from 'lodash'
@@ -32,7 +30,6 @@ import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPa
 import TeacherIcon from '../../assets/img/common/teacher.svg'
 import StudentIcon from '../../assets/img/common/student.svg'
 import { RoleE } from 'enum/roleE'
-
 import { useCookies } from 'react-cookie'
 import { useLazyFetchCurrentTariffPlanQuery } from 'api/tariffPlanService'
 import { setTariff } from 'store/redux/tariff/tariffSlice'
@@ -40,12 +37,10 @@ import { removeSchoolId } from '../../store/redux/school/schoolIdSlice'
 import { removeHeaderId } from '../../store/redux/school/headerIdSlice'
 import { removeSchoolName } from '../../store/redux/school/schoolSlice'
 import { useDispatch } from 'react-redux'
-
 import { motion } from 'framer-motion'
 import { w3cwebsocket } from 'websocket'
 import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice'
 import { useFetchNotificationsQuery, useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
-import warning from '../../assets/img/notifications/warning.svg'
 import { TgMessage } from 'types/tgNotifications'
 import { useFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
 import { useFetchCoursesQuery } from 'api/coursesServices'
@@ -56,6 +51,12 @@ import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
 import { useAcceptBannerMutation, useLazyGetStudentBannerQuery } from 'api/schoolBonusService'
 import { useBoolean } from 'customHooks'
 import HTMLReactParser from 'html-react-parser'
+import {
+  HomeIconPath,
+  MessageConvertIconPath,
+  UserIconPath,
+} from 'assets/Icons/svgIconPath'
+import { SocialMediaButton } from 'components/SocialMediaButton'
 
 type WebSocketHeaders = {
   [key: string]: string | string[] | number
@@ -65,11 +66,11 @@ export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
   const dispatch = useAppDispatch()
   const dispatchRole = useDispatch()
+  const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false)
   const [getBanner, { data: banner }] = useLazyGetStudentBannerQuery()
   const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(false)
-  const { role: userRole, authState, userId } = useAppSelector(selectUser)
+  const { role: userRole, userId } = useAppSelector(selectUser)
   const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
-  const schoolNameR = useAppSelector(state => state.school.schoolName)
   const [socketConnect, setSocketConnect] = useState<boolean>(false)
   const navigate = useNavigate()
   const { pathname } = useLocation()
@@ -81,7 +82,7 @@ export const Header = memo(() => {
   let profile = profileD
   const [fetchProfile, profileDt] = useLazyFetchProfileDataQuery()
   const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
-  const [loginUser, { isLoading: loginLoading, isSuccess: loginSuccess }] = useLoginMutation()
+  const [loginUser] = useLoginMutation()
   const [currentTariff, setCurrentTariff] = useState<ITariff>({
     tariff_name: '',
     days_left: null,
@@ -101,7 +102,7 @@ export const Header = memo(() => {
       student_count_by_month: null,
     },
   })
-  const [getProgress, { data: schoolProgressData, isSuccess: progressReady, isLoading: isLoadingProgress, isError: notFound }] =
+  const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] =
     useGetSchoolProgressionDataMutation()
   const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
   const [unreadAppeals, setUnreadAppeals] = useState<number>(0)
@@ -117,10 +118,8 @@ export const Header = memo(() => {
   const open = Boolean(anchorEl)
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
-  const path = useLocation()
-  const [timerId, setTimerId] = useState<number | null>(null)
 
-  const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupWithParamsQuery({ schoolName: schoolName, params: 's=100' })
+  const { data: studentsGroups } = useFetchStudentsGroupWithParamsQuery({ schoolName: schoolName, params: 's=100' })
   const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
   const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null)
   const [acceptBanner] = useAcceptBannerMutation()
@@ -490,14 +489,22 @@ export const Header = memo(() => {
     setSelectedCourse(Courses?.results.find(course => course.course_id === courseId) || null)
   }
 
+  useEffect(() => {
+    if ((anchorEl || anchorEl2) && !isMenuHover) {
+      toggleHover()
+    } else if (!anchorEl && !anchorEl2 && isMenuHover) {
+      toggleHover()
+    }
+  }, [anchorEl, anchorEl2, isMenuHover])
+
   return (
     <motion.header
-      className={styles.header}
+      className={`${isMenuHover && styles.headerActive} ${styles.header}`}
       initial={{
         x: -1000,
       }}
       animate={{
-        x: 0,
+        x: '-50%',
       }}
       transition={{
         delay: 0.1,
@@ -528,275 +535,220 @@ export const Header = memo(() => {
           </DialogActions>
         </Dialog>
       )}
-
-      <NavLink to={userRole === RoleE.Teacher ? Path.CourseStats : Path.Courses}>
-        <img className={styles.header_logotype} src={logotype || logo} alt="Logotype IT Overone" />
-      </NavLink>
-      {currentTariff && !currentTariff.days_left && tariffSuccess && (
-        <p
-          style={{
-            margin: '0 8%',
-            color: '#C02020',
-            marginTop: '8px',
-            fontSize: '15px',
-            fontWeight: '600',
-            textAlign: 'center',
-            fontFamily: '"Inter", sans-serif',
-          }}
-        >
-          Время действия тарифного плана истекло. Ученики и учителя не имеют доступа к школе, необходимо активировать тарифный план. Для активации
-          тарифного плана нажмите <a href={generatePath(Path.School + Path.TariffPlans, { school_name: schoolName })}>здесь</a>
-        </p>
-      )}
-      <div className={styles.header_block}>
-        {userRole === RoleE.Student && notificationsResponseData && notificationsResponseData.length === 0 ? (
-          <Tooltip title={'Включите телеграм уведомления'}>
-            <Link to={Path.Profile}>
-              <div className={styles.notifications}>
-                <img
-                  src={warning}
-                  alt=""
-                  style={{
-                    width: '20px',
-                    paddingRight: '5px',
-                  }}
-                />
-                <p>Включите уведомления</p>
-              </div>
-            </Link>
-          </Tooltip>
-        ) : null}
-
+      <div className={styles.header_logo} onClick={() => navigate(generatePath(Path.Courses))}>
+        <img src={logoHeader} alt="Logotype ITOVERONE" />
+      </div>
+      <div className={styles.header_hiddenBlock}>
         <React.Fragment>
           {userRole === RoleE.Admin && (
-            <Tooltip title={'Отправить оповещение студентам в телеграме'}>
-              <div className={styles.header_block}>
-                <Button className={styles.generateMeetingButton} onClick={handleAddTgMessageForm} text="Оповещения" />
-                <Dialog
-                  open={showTgMessageForm}
-                  onClose={() => setShowTgMessageForm(false)}
-                  PaperProps={{ style: { maxHeight: '100vh', maxWidth: '600px', width: '100%' } }}
-                >
-                  <DialogTitle>Отправить оповещение студентам</DialogTitle>
-                  <DialogContent>
-                    <div style={{ marginBottom: '1rem', marginTop: '1rem' }}>
-                      <TextareaAutosize
-                        style={{
-                          maxWidth: '34vh',
-                          minWidth: '34vh',
-                          minHeight: '10vh',
-                          maxHeight: '20vh',
-                          borderColor: 'gray',
-                          borderRadius: '4px',
-                          overflow: 'auto',
-                        }}
-                        className={styles.textarea}
-                        id="message"
-                        placeholder="Введите сообщение"
-                        value={tgMessage.message}
-                        minLength={1}
-                        onChange={e => setTgMessage({ ...tgMessage, message: e.target.value })}
-                      />
-                    </div>
+            <div className={styles.header_block}>
+              <Button className={styles.messageBtn} variant="newSecondary" onClick={handleAddTgMessageForm} text="Оповещения">
+                <IconSvg viewBoxSize="0 0 18 18" width={18} height={18} path={MessageConvertIconPath} />
+              </Button>
+              <Dialog
+                open={showTgMessageForm}
+                onClose={() => setShowTgMessageForm(false)}
+                PaperProps={{ style: { maxHeight: '100vh', maxWidth: '600px', width: '100%' } }}
+              >
+                <DialogTitle>Отправить оповещение студентам</DialogTitle>
+                <DialogContent>
+                  <div style={{ marginBottom: '1rem', marginTop: '1rem' }}>
+                    <TextareaAutosize
+                      style={{
+                        maxWidth: '34vh',
+                        minWidth: '34vh',
+                        minHeight: '10vh',
+                        maxHeight: '20vh',
+                        borderColor: 'gray',
+                        borderRadius: '4px',
+                        overflow: 'auto',
+                      }}
+                      className={styles.textarea}
+                      id="message"
+                      placeholder="Введите сообщение"
+                      value={tgMessage.message}
+                      minLength={1}
+                      onChange={e => setTgMessage({ ...tgMessage, message: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <h2
+                      style={{
+                        margin: '0',
+                        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+                        fontWeight: '500',
+                        lineHeight: '1.6',
+                        fontSize: '1.25rem',
+                        padding: '16px 0',
+                      }}
+                    >
+                      Выберите одну или несколько групп:
+                    </h2>
+                  </div>
+                  {studentsGroups && (
                     <div>
-                      <h2
-                        style={{
-                          margin: '0',
-                          fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-                          fontWeight: '500',
-                          lineHeight: '1.6',
-                          fontSize: '1.25rem',
-                          padding: '16px 0',
+                      <Checkbox
+                        style={{ color: '#357EEB' }}
+                        checked={allGroups}
+                        onChange={e => {
+                          handleAllGroups(e)
                         }}
-                      >
-                        Выберите одну или несколько групп:
-                      </h2>
+                      />
+                      <span>
+                        <b>выбрать все группы</b>
+                      </span>
                     </div>
-                    {studentsGroups && (
-                      <div>
-                        <Checkbox
-                          style={{ color: '#ba75ff' }}
-                          checked={allGroups}
-                          onChange={e => {
-                            handleAllGroups(e)
-                          }}
-                        />
-                        <span>
-                          <b>выбрать все группы</b>
-                        </span>
-                      </div>
-                    )}
-                    {studentsGroups && (
-                      <div className={styles.wrapper_content_groups}>
-                        {Object.entries(
-                          studentsGroups.results.reduce<Record<string, typeof studentsGroups.results>>((acc, group) => {
-                            const courseName = group.course_name
-                            if (courseName) {
-                              if (!acc[courseName]) {
-                                acc[courseName] = []
-                              }
-                              acc[courseName].push(group)
+                  )}
+                  {studentsGroups && (
+                    <div className={styles.wrapper_content_groups}>
+                      {Object.entries(
+                        studentsGroups.results.reduce<Record<string, typeof studentsGroups.results>>((acc, group) => {
+                          const courseName = group.course_name
+                          if (courseName) {
+                            if (!acc[courseName]) {
+                              acc[courseName] = []
                             }
-                            return acc
-                          }, {}),
-                        ).map(([courseName, groups]) => (
-                          <div key={courseName} style={{ marginBlockStart: '3px' }}>
-                            <b>{courseName}</b>
-                            {groups.map((group, index) => (
-                              <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
-                                <Checkbox
-                                  style={{ color: '#ba75ff' }}
-                                  onChange={e => {
-                                    const isChecked = e.target.checked
-                                    if (isChecked) {
-                                      setTgMessage(
-                                        (prevData: TgMessage) =>
-                                          ({
-                                            ...prevData,
-                                            students_groups: [...prevData.students_groups, group.group_id],
-                                          } as TgMessage),
-                                      )
-                                    } else {
-                                      setAllGroups(false)
-                                      setTgMessage((prevData: TgMessage) => ({
-                                        ...prevData,
-                                        students_groups: prevData.students_groups.filter(id => id !== group.group_id),
-                                      }))
-                                    }
-                                  }}
-                                  checked={new Set(tgMessage.students_groups).has(Number(group.group_id))}
-                                />
-                                {group.name}
-                                <span> (Кол-во студентов: {group.students.length})</span>
-                              </div>
-                            ))}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleSendTgMessage} text="Отправить" />
-                    <Button onClick={() => setShowTgMessageForm(false)} text="Отмена" />
-                  </DialogActions>
-                </Dialog>
-              </div>
-            </Tooltip>
+                            acc[courseName].push(group)
+                          }
+                          return acc
+                        }, {}),
+                      ).map(([courseName, groups]) => (
+                        <div key={courseName} style={{ marginBlockStart: '3px' }}>
+                          <b>{courseName}</b>
+                          {groups.map((group, index) => (
+                            <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
+                              <Checkbox
+                                style={{ color: '#357EEB' }}
+                                onChange={e => {
+                                  const isChecked = e.target.checked
+                                  if (isChecked) {
+                                    setTgMessage(
+                                      (prevData: TgMessage) =>
+                                        ({
+                                          ...prevData,
+                                          students_groups: [...prevData.students_groups, group.group_id],
+                                        } as TgMessage),
+                                    )
+                                  } else {
+                                    setAllGroups(false)
+                                    setTgMessage((prevData: TgMessage) => ({
+                                      ...prevData,
+                                      students_groups: prevData.students_groups.filter(id => id !== group.group_id),
+                                    }))
+                                  }
+                                }}
+                                checked={new Set(tgMessage.students_groups).has(Number(group.group_id))}
+                              />
+                              {group.name}
+                              <span> (Кол-во студентов: {group.students.length})</span>
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleSendTgMessage} text="Отправить" />
+                  <Button onClick={() => setShowTgMessageForm(false)} text="Отмена" />
+                </DialogActions>
+              </Dialog>
+            </div>
           )}
         </React.Fragment>
 
         <React.Fragment>
           {userRole === RoleE.Admin && currentTariff && currentTariff.days_left && (
             <div>
-              <Tooltip title={'Статистика тарифа'}>
-                <div className={styles.tariffPlan} style={{ textDecoration: 'none' }} onClick={handleClick2}>
-                  <div className={styles.tariffPlan_icon}>
-                    <IconSvg
-                      width={23}
-                      height={19}
-                      viewBoxSize="0 0 23 19"
-                      path={
-                        currentTariff.days_left > 10
-                          ? purpleTariffPlanIconPath
-                          : currentTariff.days_left > 5
-                          ? orangeTariffPlanIconPath
-                          : redTariffPlanIconPath
-                      }
-                    />
-                  </div>
-                  <p className={styles.tariffPlan_text}>
-                    {' Тариф '}
-                    <span className={styles.tariffPlan_text_tariff}>{`"${currentTariff.tariff_name}"`}</span>
-                    {currentTariff.days_left && (
-                      <span
-                        style={
-                          currentTariff.days_left > 10 ? { color: '#BA75FF' } : currentTariff.days_left > 5 ? { color: 'orange' } : { color: 'red' }
-                        }
-                      >
-                        {` — ${currentTariff.days_left} дней`}{' '}
-                      </span>
-                    )}
-                    <br />
-                  </p>
+              <div className={styles.tariffPlan} style={{ textDecoration: 'none' }} onClick={handleClick2}>
+                <div className={styles.tariffPlan_icon}>
+                  <IconSvg
+                    width={23}
+                    height={19}
+                    viewBoxSize="0 0 23 19"
+                    path={
+                      currentTariff.days_left > 10
+                        ? purpleTariffPlanIconPath
+                        : currentTariff.days_left > 5
+                        ? orangeTariffPlanIconPath
+                        : redTariffPlanIconPath
+                    }
+                  />
                 </div>
-              </Tooltip>
-              <Menu anchorEl={anchorEl2} id="account-menu" open={open2} onClose={handleClose2} onClick={handleClose2}>
+                <p className={styles.tariffPlan_text}>
+                  <span className={styles.tariffPlan_text_tariff}>{`${'Тариф'} "${currentTariff.tariff_name}"`}</span>
+                  {currentTariff.days_left && (
+                    <span
+                      style={
+                        currentTariff.days_left > 10 ? { color: '#357EEB' } : currentTariff.days_left > 5 ? { color: 'orange' } : { color: 'red' }
+                      }
+                    >
+                      {`${currentTariff.days_left} дней`}
+                    </span>
+                  )}
+                </p>
+              </div>
+              <Menu anchorEl={anchorEl2} id="account-menu" open={open2} onClose={handleClose2} onClick={handleClose2} className={styles.popoverWrapper}>
                 <MenuItem>
-                  <span style={{ color: 'slategrey' }}> Курсов:</span>
-                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}>
+                  <span> Курсов:</span>
+                  <span style={{ paddingLeft: '0.3rem' }}>
                     {`${currentTariff?.number_of_courses}/${currentTariff?.tariff_details.number_of_courses || 'ꝏ'}`}
                   </span>
                   <br />
                 </MenuItem>
                 <MenuItem>
-                  <span style={{ color: 'slategrey' }}> Сотрудников:</span>
-                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}>
+                  <span> Сотрудников:</span>
+                  <span style={{ paddingLeft: '0.3rem' }}>
                     {' '}
                     {`${currentTariff?.staff}/${currentTariff?.tariff_details?.number_of_staff || 'ꝏ'}`}
                   </span>
                   <br />
                 </MenuItem>
                 <MenuItem>
-                  <span style={{ color: 'slategrey' }}> Студентов:</span>
-                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}>
+                  <span > Студентов:</span>
+                  <span style={{ paddingLeft: '0.3rem' }}>
                     {' '}
                     {`${currentTariff?.students}/${currentTariff?.tariff_details?.total_students || 'ꝏ'}`}
                   </span>
                 </MenuItem>
                 <MenuItem>
-                  <span style={{ color: 'slategrey' }}> Студентов в месяц:</span>
-                  <span style={{ color: '#BA75FF', paddingLeft: '0.3rem' }}>
+                  <span> Студентов в месяц:</span>
+                  <span style={{ paddingLeft: '0.3rem' }}>
                     {' '}
                     {`${currentTariff?.tariff_details.student_count_by_month}/${currentTariff?.tariff_details.students_per_month}`}
                   </span>
                 </MenuItem>
-                <MenuItem onClick={goToChooseTariff}>
-                  <Link to={Path.TariffPlans} style={{ color: '#ba75ff' }}>
-                    Все тарифы
-                  </Link>
-                </MenuItem>
+                <div onClick={goToChooseTariff} className={styles.goToTariff}>
+                  <p>Перейти на тариф</p>
+                  <img src={tariffImg} alt='tariffs-page'/>
+                </div>
               </Menu>
             </div>
           )}
         </React.Fragment>
+        <div className={styles.header_socialIcons}>
+          <SocialMediaButton url={'https://t.me/course_hb'} variant="Telegram" />
+          <SocialMediaButton variant="Instagram" url="https://instagram.com/" />
+          <SocialMediaButton variant="X" url="https://x.com/" />
+          <SocialMediaButton variant="Youtube" url="https://youtube.com/" />
+          <SocialMediaButton variant="VK" url="https://vk.ru/" />
+          <SocialMediaButton variant="Link" url="#" />
+        </div>
         <React.Fragment>
-          <Tooltip title={'Аккаунт пользователя'}>
-            <div style={{ textDecoration: 'none', cursor: 'pointer' }} onClick={handleClick}>
-              <div className={styles.header_block_user}>
-                {profileData?.avatar ? (
-                  <img width={'50'} height={'50'} className={styles.header_block_user_avatar} src={profileData?.avatar} alt="avatar" />
-                ) : (
-                  <div className={styles.header_block_user_avatar_div}>
-                    {profileData?.user.last_name[0] || 'Б'}
-                    {profileData?.user.first_name[0] || 'И'}
-                  </div>
-                )}
-                <div className={styles.header_block_user_userName}>
-                  <span style={{ color: '#BA75FF' }} className={styles.header_block_user_userName_status}>
-                    {headerUserRoleName[userRole]}
-                  </span>
-                  <span className={styles.header_block_user_userName_name}>
-                    {!profileData?.user.last_name && !profileData?.user.first_name
-                      ? ''
-                      : `${profileData?.user.last_name} ${profileData?.user.first_name}`}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </Tooltip>
-          <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}>
+          <Button variant="newPrimary" text={headerUserRoleName[userRole]} onClick={handleClick} style={{ fontSize: '16px' }}>
+            <IconSvg width={18} height={18} viewBoxSize="0 0 24 24" path={UserIconPath} />
+          </Button>
+          <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose} className={styles.popoverWrapper}>
             <MenuItem onClick={goToProfile}>
-              <Avatar style={{ width: '1.5em', height: '1.5em', display: 'flex', marginLeft: '-0.15em', marginRight: '0.35em' }} />
-              <Link to={Path.Profile} style={{ color: 'slategrey' }}>
+              <IconSvg viewBoxSize="0 0 24 24" width={18} height={18} path={UserIconPath}/>
+              <Link to={Path.Profile}>
                 Открыть профиль
               </Link>
             </MenuItem>
             {canChangePlatform && (
               <MenuItem onClick={goToChooseSchool}>
-                <SvgIcon color="disabled" fontSize={'large'} viewBox="3 0 24 24">
-                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                </SvgIcon>
-                <Link to={Path.ChooseSchool} style={{ color: 'slategrey' }}>
+                <IconSvg viewBoxSize='0 0 24 24' width={18} height={18} path={HomeIconPath}/>
+                <Link to={Path.ChooseSchool}>
                   Смена платформы
                 </Link>
               </MenuItem>
@@ -827,15 +779,14 @@ export const Header = memo(() => {
             )}
           </Menu>
         </React.Fragment>
-        <Tooltip title={'Выход из профиля'}>
-          <div className={styles.header_block_logOut}>
-            {isLoading ? (
-              <SimpleLoader style={{ position: 'fixed', width: '30px', height: '30px' }} />
-            ) : (
-              <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
-            )}
-          </div>
-        </Tooltip>
+        <div className={styles.header_logOut} onClick={logOut}>
+          <p>Выйти</p>
+          {isLoading ? (
+            <SimpleLoader style={{ position: 'fixed', width: '30px', height: '30px' }} loaderColor="#357EEB" />
+          ) : (
+            <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} />
+          )}
+        </div>
       </div>
     </motion.header>
   )

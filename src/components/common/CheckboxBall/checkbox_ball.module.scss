@@ -1,29 +1,44 @@
 @import '../../../scss/variable';
 
 .switch {
-  width: 40px;
-  height: 22px;
-  background-color: #E3E3E3;
+  width: 57px;
+  height: 26px;
   display: flex;
   justify-content: flex-start;
-  border-radius: $bord-rad10;
-  border: 1px solid #E3E3E3;
-  padding: 2.5px;
+  border-radius: 36px;
+  background: rgb(249, 251, 255);
   position: relative;
   cursor: pointer;
+  border: 1px solid rgb(53, 126, 235);
 }
 
 .switch[data-isOn='true'] {
   justify-content: flex-end;
-  background-color: #ffffff;
-  .handle{
-  background-color: #357EEB;
+  background: linear-gradient(90deg, rgb(13, 40, 187), rgb(53, 126, 235) 100%);
+  .handle {
+    background-color: #ffffff;
+    border-color: rgb(53, 126, 235);
   }
 }
 
 .handle {
-  width: 15px;
-  height: 15px;
-  background-color: #BEBEBE;
-  border-radius: $bord-rad50;
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff;
+  border-color: rgb(53, 126, 235);
+  border-radius: 50%;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background-color: #ffffff;
+    border: 1px solid rgb(53, 126, 235);
+    border-radius: 50%;
+  }
 }
