@@ -17,6 +17,9 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
 import { deleteIconPath } from 'components/Questions/config/svgIconPath';
 
+
+import { aiButtonIcon } from './constants/svgIcon';
+import { aiButtonNavIcon } from './svg/svgIconPath';
 import styles from './chatgpt.module.scss';
 
 
@@ -500,6 +503,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                               onKeyDown={handleKeyPress}
                             />
                             <button onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
+                            <IconSvg path={aiButtonNavIcon}  width={20} height={20} viewBoxSize={'0 0 20 20'}></IconSvg>
                               {/* <svg viewBox="0 0 16 13" fill="none" xmlns="http://www.w3 org/2000/svg">
                                 <path d="M7.17278 1.21787C7.56956 0.633707 8.43044 0.633706 8.82722 1.21787L15.5994 11.1881C16.0503 11.8521 15.5748 12.75 14.7722 12.75H1.22785C0.425231 12.75 -0.0503452 11.8521 0.400629 11.1881L7.17278 1.21787Z" fill="white"/>
                             </svg> */}
