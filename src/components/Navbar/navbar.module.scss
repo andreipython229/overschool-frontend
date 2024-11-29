@@ -4,8 +4,8 @@
 .navbar {
   @include position_b_l(fixed, 0, 0, 10);
   @include display(flex, column, flex-end, center);
-  top: 2.5rem;
-  left: 1rem;
+  top: 2rem;
+  left: 1.5rem;
   white-space: nowrap;
   overflow: hidden;
   max-height: 90vh;
@@ -89,12 +89,23 @@
     width: 100%;
     padding: 5px;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 0.8vh;
 
-    & a {
+    & div {
       @include display(flex, column, center, center);
       width: 100%;
       text-decoration: none;
+      height: $icon-size; 
+      margin-bottom: 3px;
+
+      svg{
+        height: 100%;
+        width: auto;
+      }
+    }
+
+    & p {
+      color: #332F36;
     }
 
     // cursor: pointer;
@@ -124,7 +135,7 @@
       color: $color-white;
     }
 
-    & a svg path {
+    & div svg path {
       fill: $color-white;
     }
   }
@@ -135,8 +146,9 @@
 
   &_setting_account {
     @include display(flex, column, space-between, center);
+    width: 100%;
     // cursor: pointer;
-    gap: 10px;
+    gap: 0.8vh;
     transition-duration: $trans-dur02;
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -171,10 +183,20 @@
     &_icon_container,
     &_setting_account {
       @include display(flex, column, center, center);
-      width: 100px;
+      width: 100%;
+      height: auto;
       border-radius: 10px;
-      padding: 5px 10px;
+      padding: 5% 10%;
       transition-duration: $trans-dur02;
+
+      div{
+        height: $icon-size; 
+        margin-bottom: 3px;
+        svg{
+          height: 100%;
+          width: auto;
+        }
+      }
 
       &:hover {
         border-radius: 10px;
@@ -187,19 +209,17 @@
           fill: $color-white;
           stroke: $color-white;
         }
+
+        // Изменяем цвет текста только для текущего элемента
+        p {
+          color: $color-white; // Применяем цвет только к p внутри текущего элемента
+        }
       }
     }
 
     & a {
-      @include display(flex, row, center, center);
-      width: 57px;
-      height: 57px;
       text-align: center;
-      color: #111;
-    }
-
-    & a {
-      // margin-top: 30px;
+      color: #332F36;
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin: 0;
@@ -216,32 +236,40 @@
       text-align: center;
       word-wrap: break-word;
       white-space: normal;
+      color: #332F36;
+      transition-duration: $trans-dur02;
     }
+  }
 
-    & .tg_container {
-      @include display(flex, column, center, center);
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      padding: 5px 0;
-      transition-duration: $trans_dur02;
+  & .tg_container {
+    @include display(flex, column, center, center);
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    padding: 5px 0;
+    transition-duration: $trans_dur02;
 
-      & a {
-        height: auto;
-      }
-
-      &:hover {
-        background-color: $color-blue;
-
-        & a svg path {
-          fill: $color-white;
-        }
-
-        & p {
-          color: $color-white;
-        }
+    & a {
+      height: $icon-size; 
+      margin-bottom: 3px;
+      svg{
+        height: 100%;
+        width: auto;
       }
     }
+
+    &:hover {
+      background-color: $color-blue;
+
+      & a svg path {
+        fill: $color-white;
+      }
+
+      & p {
+        color: $color-white;
+      }
+    }
+
   }
 
   &_exit {
@@ -260,21 +288,23 @@
       opacity: 0;
     }
   }
+
 }
 
 .chatIcon {
-  color: #e0dced;
-  // color: #111;
+  color: #332F36;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 57px;
-  height: 57px;
   text-align: center;
-  // margin-top: 30px;
   border-radius: 10px;
-  // fill:#111;
+  height: $icon-size; 
+  margin-bottom: 3px;
+  svg{
+    height: 100%;
+    width: auto;
+  }
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin: 0;
@@ -283,6 +313,8 @@
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin: 0;
   }
+
+
 
   // &:hover {
   //   background: #357EEB;
@@ -306,6 +338,10 @@
       svg path {
         fill: $color-white;
         stroke: $color-white;
+      }
+
+      p{
+        color: $color-white;
       }
     }
   }

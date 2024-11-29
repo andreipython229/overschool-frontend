@@ -22,6 +22,10 @@ import {LimitModal} from '../LimitModal/LimitModal'
 import {useDeleteStudentFromGroupMutation} from "../../../api/studentsGroupService";
 import { useRemoveUserAccessMutation } from 'api/userAccessService';
 import {Simulate} from "react-dom/test-utils";
+import {Input} from "../../common/Input/Input/Input";
+import {AddUserIcon} from "../../../assets/Icons/svgIcons";
+import {UserIconPath,
+} from "../../../assets/Icons/svgIconPath";
 // import change = Simulate.change;
 
 export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmployees, setShowModal}) => {
@@ -162,10 +166,13 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
                 )}
                 <div className={styles.main_employee_container}>
                     <div className={styles.main_employee_closedModal} onClick={setShowModal}>
-                        <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath}/>
+                        <IconSvg width={20} height={20} viewBoxSize="0 0 14 14" path={crossIconPath}/>
                     </div>
                     <div style={{textAlign: 'center'}}>
-                        <h3 className={styles.main_employee_title}>Добавление сотрудника</h3>
+                        <div style={{marginBottom: 20}}>
+                        <IconSvg width={55} height={55} viewBoxSize="0 0 25 25" path={UserIconPath}/>
+                        </div>
+                        <h2>Добавление сотрудника</h2>
                         <span className={styles.main_employee_subs}>
               Если пользователь еще не зарегистрирован в системе, <br/>
               отправим пароль на Email. <br/> Получив его, сотрудник сможет настроить свой профиль
@@ -174,21 +181,20 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
           <div className={styles.main_employee_invite}>
             <label htmlFor="email">Email нового сотрудника:</label>
             <br />
-            <div className={styles.main_employee_invite_input}>
-              <input value={emailUser} onChange={handleChangeEmail} type="text" placeholder={'example@mailbox.ru'} />
-            </div>
+                <Input name="email" type="text" onChange={handleChangeEmail} value={emailUser}
+                      placeholder="Введите Email нового сотрудника" />
+
             <br />
             <label htmlFor="pseudonym">Псевдоним нового сотрудника:</label>
             <br />
-            <div className={styles.main_employee_invite_input}>
-              <input value={pseudonym} onChange={handleChangePseudonym} type="text" placeholder={'Введите псевдоним'} />
-            </div>
+              <Input name="pseudonym" type="text" onChange={handleChangePseudonym} value={pseudonym}
+                      placeholder="Введите псевдоним нового сотрудника" />
             <br />
             <label htmlFor="role">Роль нового сотрудника:</label>
             <br />
-            <div style={{ marginTop: 10 }}>
+              <div className={styles.main_employee_radiowrapper}>
               <Radio title="Администратор" id="Admin" name="role" func={handleChangeRole} />
-              <Radio title="Ментор" id="Teacher" name="role" func={handleChangeRole} />
+              <Radio title="Преподователь" id="Teacher" name="role" func={handleChangeRole} />
             </div>
           </div>
           {role === 'Teacher' && (
@@ -204,11 +210,11 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
           )}
           <div className={styles.main_employee_btn}>
             <Button
-              style={{ width: '220px' }}
+                style={{ width: '100%' }}
               type="submit"
               disabled={!emailUser || !role}
               text={'Добавить'}
-              variant={emailUser && role ? 'primary' : 'disabled'}
+              variant={emailUser && role ? 'newPrimary' : 'newPrimary'}
             />
           </div>
         </div>

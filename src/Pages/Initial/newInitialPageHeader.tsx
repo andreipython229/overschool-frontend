@@ -106,7 +106,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
           <div className={styles.header_block}>
             <div className={styles.header_block_menu}>
               <div className={styles.header_block_menu_platforma}>
-                  <Button onClick={handleCatalog} variant={'newSecondary'} text={'Платформа'} />
+                  <Button onClick={handleCatalog} variant={'newSecondaryHeader'} text={'Платформа'} />
                   <div className={styles.header_block_menu_platforma_content}>
                     <a href="#"><img src={hat} alt="hat" /><h5>Для начинающих экспертов</h5></a>
                     <a href="#"><img src={hat} alt="hat" /><h5>Для онлайн школ</h5></a>
@@ -116,7 +116,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
                     <a href="#"><img src={hat} alt="hat" /><h5>Партнёрская программа</h5></a>
                   </div>
               </div>
-              <Button onClick={handleHelpPage} variant={'newSecondary'} text={'Помощь'} />
+              <Button onClick={handleHelpPage} variant={'newSecondaryHeader'} text={'Помощь'} />
               <Tooltip title={'Связаться с нами'}>
                 <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   <TelegramIcon className={styles.animatedIcon} sx={{ height: '30px', width: '32.56px', color: '#357EEB' }} />
@@ -134,7 +134,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
           <div className={styles.header_block}>
             <div className={styles.header_block_menu}>
               <div className={styles.header_block_menu_platforma}>
-                <Button onClick={handleCatalog} variant={'newSecondary'} text={'Платформа'} />
+                <Button onClick={handleCatalog} variant={'newSecondaryHeader'} text={'Платформа'} />
                 <div className={styles.header_block_menu_platforma_content}>
                   <a href="#"><img src={hat} alt="hat" /><h5>Для начинающих экспертов</h5></a>
                   <a href="#"><img src={hat} alt="hat" /><h5>Для онлайн школ</h5></a>
@@ -144,16 +144,23 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
                   <a href="#"><img src={hat} alt="hat" /><h5>Партнёрская программа</h5></a>
                 </div>
              </div>
-              <Button onClick={handleTariffPage} variant={'newSecondary'} text={'Тарифы'} /> 
-              <Button onClick={handleHelpPage} variant={'newSecondary'} text={'Помощь'} />
+              <Button onClick={handleTariffPage} variant={'newSecondaryHeader'} text={'Тарифы'} />
+              <Button onClick={handleHelpPage} variant={'newSecondaryHeader'} text={'Помощь'} />
               <Tooltip title={'Связаться с нами'}>
                 <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>
-                  <TelegramIcon className={styles.animatedIcon} sx={{ height: '24', width: '24', color: '#357EEB', marginRight: '0.5rem' }} />
+                  <TelegramIcon className={styles.animatedIcon} sx={{ height: '24', width: '24', color: '#357EEB', marginRight: '0.5rem',
+                                                                        '@media screen and (min-width: 800px) and (max-width: 1150px)': {
+                                                                          marginRight: '-0.5rem'
+                                                                            },
+                                                                        '@media only screen and (min-width: 390px) and (max-width: 435px)': {
+                                                                          marginRight: '-0.4rem',
+                                                                          width: '14px',
+                                                                          },}} />
                 </a>
               </Tooltip>
             </div>
-            <Button onClick={handleLoginPage} variant={'newLogIn'} text={'Войти'} />
-            <Button onClick={handleRegistrationUser} variant={'newCreate'} text={'Создать платформу'}>
+            <Button onClick={handleLoginPage} variant={'newLogInHeader'} text={'Войти'} />
+            <Button onClick={handleRegistrationUser} variant={'newCreateHeader'} text={'Создать платформу'}>
                <img className={styles.header_block_plus} src={plus} alt="Plus" /> 
             </Button>
             

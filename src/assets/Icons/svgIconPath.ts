@@ -54,6 +54,7 @@ import {
   XIcon,
   YoutubeIcon,
   LinkIcon,
+  MessageConvertIcon,
 } from './svgIcons'
 import { pathT } from '../../types/commonComponentsTypes'
 
@@ -220,6 +221,11 @@ export const MedalIconPath: pathT[] = [
   { d: MedalIcon.d4, fill: 'white', fillRule: 'evenodd', clipRule: 'evenodd' },
 ] //Medal
 
+export const MessageConvertIconPath: pathT[] = [
+  { d: MessageConvertIcon.d1, fill: '#357EEB' },
+  { d: MessageConvertIcon.d2, fill: '#357EEB' },
+] // сообщение конверт 0 0 18 18
+
 export const MessageNotifIconPath = [
   { d: MessageNotifIcon.d1, fill: 'currentColor' },
   { d: MessageNotifIcon.d2, fill: 'currentColor' },
@@ -284,8 +290,8 @@ export const UpdateIconPath: pathT[] = [
 export const UploadIconPath: pathT[] = [{ d: UploadIcon.d1, fill: 'currentColor' }]
 
 export const UserIconPath = [
-  { d: UserIcon.d1, fill: 'currentColor' },
-  { d: UserIcon.d2, fill: 'currentColor' },
+  { d: UserIcon.d1, fill: 'dodgerblue' },
+  { d: UserIcon.d2, fill: 'dodgerblue' },
 ] //profile
 
 export const VariantIconPath = [

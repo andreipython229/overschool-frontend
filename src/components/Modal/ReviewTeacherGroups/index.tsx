@@ -154,7 +154,7 @@ export const ReviewTeacherGroups: FC<reviewTeacherGroupsT> = ({closeModal, name,
             )}
             <div className={styles.main_employee_container}>
                 <div className={styles.main_employee_closedModal} onClick={closeModal}>
-                    <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath}/>
+                    <IconSvg width={20} height={20} viewBoxSize="0 0 14 14" path={crossIconPath}/>
                 </div>
                 <div className={styles.main_employee_info}>
                     <h3 className={styles.main_employee_name}>{name}</h3>
@@ -196,14 +196,14 @@ export const ReviewTeacherGroups: FC<reviewTeacherGroupsT> = ({closeModal, name,
                               ? <Button
                                 onClick={() => setIsChangeMode(true)}
                                 text={'Замена ментора или типа групп'}
-                                variant={'primary'}
+                                variant={'newPrimary'}
                                 className={styles.main_employee_change_button}
                                 />
                               : <Button
                                 type="submit"
                                 onClick={handleSaveChanges}
                                 text={'Сохранить'}
-                                variant={'primary'}
+                                variant={'newPrimary'}
                                 className={styles.main_employee_change_button}
                                 />}
                             </>

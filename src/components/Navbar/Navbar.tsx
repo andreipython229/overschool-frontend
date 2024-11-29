@@ -102,12 +102,12 @@ export const Navbar: FC = memo(() => {
           </div>
         </div>
 
-        <div className={styles.navbar_menu}>
-          <NavLink key={'Курсы'} to={Path.Courses}>
+        <NavLink key={'Курсы'} to={Path.Courses} className={styles.navbar_menu}>
+          <div>
             <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
-          </NavLink>
-          <span>Главная</span>
-        </div>
+          </div>
+          <p>Главная</p>
+        </NavLink>
 
         {/* {UserRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
           <div style={{ marginTop: '35px' }}>
@@ -132,19 +132,17 @@ export const Navbar: FC = memo(() => {
         <div className={styles.navbar_setting_account}>
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
-              <div className={styles.navbar_setting_account_icon_container}>
-                <NavLink
-                  key={index}
-                  to={path}
-                  // className={isActive}
-                >
+              <NavLink key={index} to={path} className={styles.navbar_setting_account_icon_container}>
+                <div>
                   {icon}
-                </NavLink>
+                </div>
                 <p>{getPathLabel(path as Path)}</p>
-              </div>
+              </NavLink>
             ) : (
-              <div className={styles.chatIcon_container} key={index + '_' + path}>
-                <a className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
+
+              <a className={styles.chatIcon_container} key={index + '_' + path} onClick={off}>
+                <div className={styles.chatIcon}>
+                  {/* className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`}  */}
                   {Number(unRead) > 0 ? (
                     <Badge badgeContent={unRead} color="error">
                       <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
@@ -152,9 +150,9 @@ export const Navbar: FC = memo(() => {
                   ) : (
                     <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
                   )}
-                </a>
+                </div>
                 <p>Чат</p>
-              </div>
+              </a>
             ),
           )}
 

@@ -1,5 +1,5 @@
 import { FC, memo, useEffect, useState } from 'react'
-import {generatePath, Outlet, useNavigate} from 'react-router-dom'
+import { generatePath, Outlet, useNavigate } from 'react-router-dom'
 import { Header } from 'components/Header/Header'
 import { Navbar } from 'components/Navbar/Navbar'
 import { Previous } from '../Previous/Previous'
@@ -15,9 +15,9 @@ import { useLazyFetchStudentsGroupQuery } from 'api/studentsGroupService'
 
 import { motion } from 'framer-motion'
 import { NewSchoolProgress } from 'components/NewSchoolProgress'
-import {auth} from "../../store/redux/users/slice";
-import {useDispatch} from "react-redux";
-import {useLazyLogoutQuery} from "../../api/userLoginService";
+import { auth } from '../../store/redux/users/slice'
+import { useDispatch } from 'react-redux'
+import { useLazyLogoutQuery } from '../../api/userLoginService'
 import { RoleE } from 'enum/roleE'
 
 export const MainLayOut: FC = memo(() => {
@@ -79,7 +79,7 @@ export const MainLayOut: FC = memo(() => {
     }
   }, [data])
 
-   useEffect(() => {
+  useEffect(() => {
     getGroups(schoolName)
     if (groupsError && 'originalStatus' in groupsError && groupsError.originalStatus === 404) {
       localStorage.clear()
@@ -90,31 +90,45 @@ export const MainLayOut: FC = memo(() => {
   }, [groupsError, navigate])
 
   return (
-    <div className={styles.wrapper}>
-      {userRole === RoleE.Admin && progress.completion_percentage < 100 && <NewSchoolProgress />} 
-      <Navbar />
-      <Header />
-      <motion.main
-        className={styles.container}
-        initial={{
-          x: -1000,
-          y: -1000,
-        }}
-        animate={{
-          x: 0,
-          y: 0,
-        }}
-        transition={{
-          delay: 0.1,
-          ease: 'easeInOut',
-          duration: 1.2,
-        }}
-      >
-        <Previous />
-        <Outlet />
-      </motion.main>
-      {showChat && isSuccess && <ChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />}
-      <Footer />
-    </div>
+    <>
+      <div className={styles.wrapper}>
+        {userRole === RoleE.Admin && progress.completion_percentage < 100 && <NewSchoolProgress />}
+        <Navbar />
+        <Header />
+        <motion.main
+          className={styles.container}
+          initial={{
+            x: -1000,
+            y: -1000,
+          }}
+          animate={{
+            x: 0,
+            y: 0,
+          }}
+          transition={{
+            delay: 0.1,
+            ease: 'easeInOut',
+            duration: 1.2,
+          }}
+        >
+          <Previous />
+          <Outlet />
+        </motion.main>
+        {showChat && isSuccess && <ChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />}
+        <Footer />
+      </div>
+      <div className={styles.bg}>
+        <div className={styles.bg_wrap1}></div>
+      </div>
+      <div className={styles.bg}>
+        <div className={styles.bg_wrap2}></div>
+      </div>
+      <div className={styles.bg}>
+        <div className={styles.bg_wrap3}></div>
+      </div>
+      <div className={styles.bg}>
+        <div className={styles.bg_wrap4}></div>
+      </div>
+    </>
   )
 })

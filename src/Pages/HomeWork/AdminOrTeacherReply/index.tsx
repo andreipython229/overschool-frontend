@@ -18,12 +18,16 @@ import { StudentModalCheckHomeWork } from 'components/Modal/StudentModalCheckHom
 import { useFetchUserHomeworkQuery } from 'api/userHomeworkService'
 import { CheckHw, StudentHomeworkCheck } from 'Pages/StudentCourse/StudentLessonPreview/StudentHomeworkCheck'
 import { TeacherHomeworkCheck } from '../TeacherHomeworkCheck'
+import { useAppSelector } from 'store/hooks'
+import { selectUser } from 'selectors'
+import { RoleE } from 'enum/roleE'
 
 export const AdminOrTeacherReplyHomework: FC = () => {
   const { lesson_id: lessonId, studentHomeworkId: userHomeworkId, courseId } = useParams()
   const schoolName = window.location.href.split('/')[4]
   const { data: lesson, isFetching: isLoading } = useFetchLessonQuery({ id: Number(lessonId), type: 'homework', schoolName })
   const { data: courseData } = useFetchCourseQuery({ id: Number(courseId), schoolName: schoolName })
+  const { role } = useAppSelector(selectUser)
   const {
     data: userHomework,
     isFetching,
