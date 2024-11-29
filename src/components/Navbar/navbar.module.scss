@@ -4,8 +4,8 @@
 .navbar {
   @include position_b_l(fixed, 0, 0, 10);
   @include display(flex, column, flex-end, center);
-  top: 36px;
-  left: 20px;
+  top: 2.5rem;
+  left: 1rem;
   white-space: nowrap;
   overflow: hidden;
   max-height: 90vh;
@@ -14,10 +14,9 @@
   padding: 20px 0;
   border-radius: 24px;
   background: linear-gradient(180deg, rgba(207, 226, 255, 0.7) 0%, rgba(177, 196, 225, 0.7) 100%);
-  box-shadow: 0px 0px 25px 0px #357EEB;
+  box-shadow: 0px 0px 25px 0px #357eeb;
   backdrop-filter: blur(35px);
   transition: $trans-dur05 ease-in-out;
-
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     @include position_b_l(fixed, 0, 0, 10);
@@ -49,7 +48,6 @@
     padding: 35px 0;
   }
 
-
   &_show_btn {
     @include display(flex, column, space-between, center);
     position: fixed;
@@ -64,7 +62,7 @@
       width: 60px;
       height: 60px;
       border-radius: 30px;
-      box-shadow: 0px 0px 4px 0px #357EEB inset;
+      box-shadow: 0px 0px 4px 0px #357eeb inset;
       padding: 20px;
       transition-duration: $trans-dur05;
 
@@ -73,7 +71,6 @@
         width: 30px;
         height: 0;
       }
-
     }
 
     &:hover {
@@ -97,6 +94,7 @@
     & a {
       @include display(flex, column, center, center);
       width: 100%;
+      text-decoration: none;
     }
 
     // cursor: pointer;
@@ -112,7 +110,9 @@
     //   color: #ba75ff;
     // }
 
-    & p {
+    & span {
+      text-decoration: none;
+      cursor: pointer;
       font-size: $fs14;
     }
   }
@@ -139,7 +139,6 @@
     gap: 10px;
     transition-duration: $trans-dur02;
 
-
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       height: 100%;
       width: 100%;
@@ -148,7 +147,6 @@
       justify-content: space-between;
       margin: 20px;
       align-items: center;
-
     }
 
     @media only screen and (min-width: 375px) and (max-width: 480px) {
@@ -158,7 +156,6 @@
       flex-direction: row;
       justify-content: space-evenly;
       align-items: center;
-
     }
 
     @media only screen and (min-width: 481px) and (max-width: 1024px) {
@@ -182,7 +179,7 @@
       &:hover {
         border-radius: 10px;
         color: $color-white;
-        background-color: #357EEB;
+        background-color: #357eeb;
         cursor: pointer;
         fill: $color-white;
 
@@ -229,18 +226,18 @@
       padding: 5px 0;
       transition-duration: $trans_dur02;
 
-      & a{
+      & a {
         height: auto;
       }
 
-      &:hover{
+      &:hover {
         background-color: $color-blue;
 
         & a svg path {
           fill: $color-white;
         }
 
-        & p{
+        & p {
           color: $color-white;
         }
       }
@@ -253,7 +250,6 @@
     }
   }
 
-
   &.isNavBarShow {
     max-height: 100px;
     height: 100px;
@@ -264,8 +260,6 @@
       opacity: 0;
     }
   }
-
-
 }
 
 .chatIcon {
@@ -290,8 +284,6 @@
     margin: 0;
   }
 
-
-
   // &:hover {
   //   background: #357EEB;
   //   color: $color-white;
@@ -307,7 +299,7 @@
     &:hover {
       border-radius: 10px;
       color: $color-white;
-      background-color: #357EEB;
+      background-color: #357eeb;
       cursor: pointer;
       fill: $color-white;
 

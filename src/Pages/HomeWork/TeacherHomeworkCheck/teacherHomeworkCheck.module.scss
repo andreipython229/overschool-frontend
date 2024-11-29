@@ -1,0 +1,127 @@
+@import '../../../scss/mixin.scss';
+
+.wrapper {
+  width: 100%;
+  margin-top: 13px;
+  padding: 32px 40px 22px 40px;
+  border-radius: 1.5rem;
+  box-shadow: 0rem 0rem 0.58rem 0.25rem rgba(53, 126, 235, 0.45);
+  background: rgb(207, 226, 255);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media screen and (max-width: 600px) {
+    padding: 1rem;
+  }
+
+  &_title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgb(51, 47, 54);
+    font-family: 'SFPRORegular';
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 2.69rem;
+    letter-spacing: 0%;
+    text-align: left;
+  }
+
+  &_status_done {
+    display: flex;
+    @include font(500, 14px, 17px);
+    margin-bottom: 18px;
+    color: #4d5766;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin: 0 0 15px 2px;
+      @include font(500, 10px, 12px);
+    }
+  }
+
+  &_status_done p {
+    @include font(500, 14px, 17px);
+    margin-bottom: 18px;
+    margin-left: 5px;
+    color: #92b601;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin: 0 0 15px 2px;
+      @include font(500, 10px, 12px);
+    }
+  }
+
+  &_status_onReview {
+    @include font(500, 14px, 17px);
+    display: flex;
+    margin-bottom: 18px;
+    color: #4d5766;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin: 0 0 15px 2px;
+      @include font(500, 10px, 12px);
+    }
+  }
+
+  &_status_onReview p {
+    @include font(500, 14px, 17px);
+    margin-bottom: 18px;
+    margin-left: 5px;
+    color: #1ee9e2;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin: 0 0 15px 2px;
+      @include font(500, 10px, 12px);
+    }
+  }
+}
+
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-radius: 1.5rem;
+
+  textarea {
+    min-height: 62px;
+    width: 100%;
+    padding: 0.63rem 1.25rem 0.63rem 1.25rem;
+    // margin-bottom: 10px;
+    box-sizing: border-box;
+    /* White */
+    border: 0.06rem solid rgb(255, 255, 255);
+    border-radius: 0.88rem;
+    /* White */
+    background: rgb(255, 255, 255);
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  button {
+    transition: all 0.3s;
+    font-size: 1.25rem;
+    padding: 1rem 1.5rem;
+    width: 14.13rem;
+    height: 3.38rem;
+  }
+}
+
+.dropdownWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+
+  .text {
+    //styleName: Desktop/Buttons/Button;
+    font-family: 'SFPRORegular';
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 23.87px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+  }
+}

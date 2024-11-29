@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
+.container {
+  background-color: #cadbf4;
+  overflow: auto;
+  height: 100vh;
+
+  @media only screen and (min-width: 1500px) and (max-width: 1890px) {
+    height: 100%;
+  }
+}
+
+.wrapper {
+  display: flex;
+  padding: 21px;
+  width: 100%;
+  align-items: center;
+
+  @media only screen and (min-width: 1500px) and (max-width: 1890px) {
+    align-items: inherit;
+  }
+
+  &_person {
+    max-width: 1024px;
+    margin: 30px 0 0 71px;
+  }
+
+  &_image {
+    object-fit: cover;
+    width: 100%;
+  }
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+
+    &_image {
+      align-self: flex-end;
+      max-width: 374px;
+      height: 104px;
+      margin-bottom: 35px;
+    }
+    
+    &_text {
+      font-family: 'SFPRORegular';
+      font-size: 2rem;
+      line-height: 40.20px;
+      font-weight: 600;
+      text-align: left;
+      color: rgba(51, 47, 54, 1);
+      max-width: 728px;
+      row-gap: 37px;
+      margin-right: 49px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      @media only screen and (min-width: 1473px) and (max-width: 1890px) {
+        row-gap: 43px;
+      }
+
+      @media only screen and (min-width: 1500px) and (max-width: 1890px) {
+        font-size: 46px;
+        line-height: 57.28px;
+      }
+
+      &_sorry {
+        font-family: 'SFPRORegular';
+        font-size: 2.8rem;
+        line-height: 40.20px;
+        font-weight: 600;
+        text-align: left;
+        color: rgba(51, 47, 54, 1);
+
+        @media only screen and (min-width: 1500px) and (max-width: 1890px) {
+          font-size: 5rem;
+          line-height: 114.56px;
+        }
+      }
+    }
+  }
+}
