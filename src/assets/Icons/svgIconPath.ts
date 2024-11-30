@@ -24,7 +24,7 @@ import {
   FilterIcon2,
   FolderIcon,
   HomeIcon,
-  ImageIcon,
+  ImageIcon, LinkIcon,
   LinkSquareIcon,
   MailNotificationsIcon,
   MedalIcon,
@@ -39,15 +39,15 @@ import {
   SettingsIcon,
   SortDownIcon,
   SortUpIcon,
-  SuccessIcon,
+  SuccessIcon, TelegramIcon,
   UpdateIcon,
   UploadIcon,
   UserIcon,
   VariantIcon,
   VideoIcon,
   VideoListIcon,
-  VideoProgressIcon,
-  WarningIcon,
+  VideoProgressIcon, VKIcon,
+  WarningIcon, XIcon,
 } from './svgIcons'
 import { pathT } from '../../types/commonComponentsTypes'
 
@@ -298,3 +298,16 @@ export const WarningIconPath = [
   { d: WarningIcon.d2, fill: 'currentColor' },
   { d: WarningIcon.d3, fill: 'currentColor' },
 ] //vuesax
+
+export const TelegramIconPath: pathT[] = [
+  { d: TelegramIcon.d1, fill: 'currentColor', fillRule: 'nonzero' },
+]
+export const VKIconPath: pathT[] = [
+  { d: VKIcon.d1, fill: 'currentColor', fillRule: 'evenodd' },
+]
+export const XIconPath: pathT[] = [
+  { d: XIcon.d1, fill: 'currentColor', fillRule: 'evenodd', strokeLinejoin:'round', strokeLinecap:'round', strokeWidth:'2', stroke: '#332F36' },
+]
+export const LinkIconPath: pathT[] = [
+  { d: LinkIcon.d1, fill: 'currentColor', fillRule: 'nonzero', strokeLinejoin:'round', strokeLinecap:'round', strokeWidth:'2', stroke: '#332F36' },
+]
