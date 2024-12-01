@@ -9,11 +9,11 @@
   // transform: translate(-50%, -50%);
   width: 64vh;
   height: 80vh;
-  padding: 14px;
+  padding: 14px*$ai-window-ratio;
   overflow: hidden;
 
   
-  border-radius: 24px;
+  border-radius: 24px*$ai-window-ratio;
   border: 1px solid transparent;
   box-shadow: 0px 0px 8px 0px #3241954D;
   // background-color: $color-white;
@@ -59,7 +59,7 @@
 .topPane {
   @include display(flex, column, space-between , center);
   background-color: $color-white;
-  border-radius: 20px;
+  border-radius: 20px*$ai-window-ratio;
   height: 12.7%;
   width: 100%;
   // overflow-y: auto;
@@ -159,7 +159,7 @@
 .modalOverlay {
   box-shadow: 0px 0px 8px 0px #3241954D;
   position: fixed;
-  border-radius: 24px;
+  border-radius: 24px*$ai-window-ratio;
   // top: 0;
   // left: 0;
   right: 90px;
@@ -257,7 +257,7 @@
   scrollbar-color: #ccc white;
   padding-right: 1%;
   border: 1px solid #357EEB;
-  border-radius: 18px;
+  border-radius: 18px*$ai-window-ratio;
   box-shadow: 0px 0px 8px 0px #3241954D;
 
   scrollbar-width: none;
@@ -336,7 +336,7 @@
   align-items: center;
   border: 1px solid #858D9D;
   box-shadow: 0px 0px 8px 0px #3241954D;
-  border-radius: 18px;
+  border-radius: 18px*$ai-window-ratio;
   margin-top: 2.76vh;
 }
 
@@ -372,10 +372,10 @@
   @include display(flex, row, center , center);
   font-size: 16px;
   height: calc(100% - 20px);
-  margin: 10px 14px;
-  padding: 0 14px;
+  margin: 10px*$ai-window-ratio 14px*$ai-window-ratio;
+  padding: 0 14px*$ai-window-ratio;
   border: 1px solid #357EEB;
-  border-radius: 14px;
+  border-radius: 14px*$ai-window-ratio;
   background-color: $color-white;
   color:  #357EEB;
   cursor: pointer;
