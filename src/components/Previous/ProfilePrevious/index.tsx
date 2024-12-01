@@ -17,7 +17,9 @@ export const ProfilePrevious: FC = () => {
 
     return (
         <>
-            <p className={styles.previous_infoBlock_title_name}>Профиль</p>
+            <div>
+            <p className={styles.title_profile}>Профиль</p>
+            </div>
             <div className={styles.previousHeader_nav}>
                 <NavLink to={Path.Courses}>
                     <Button  className={styles.lessonHeader_backToMaterials}
