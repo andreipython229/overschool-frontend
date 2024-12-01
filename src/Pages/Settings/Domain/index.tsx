@@ -63,9 +63,10 @@ export const DomainSettings: FC = () => {
 
 
     return (
+        <>
+        <div className={styles.main_title}>Настройки пользовательского домена</div>
         <div className={styles.wrapper_actions}>
             <div className={styles.main}>
-                <div className={styles.main_title}>Настройки пользовательского домена</div>
                 <div className={styles.instructions}>
                     <div className={styles.instructionsTitle}>Что такое домен и зачем он нужен?</div>
                     <p className={styles.instructionsText}>
@@ -88,15 +89,7 @@ export const DomainSettings: FC = () => {
                     </ol>
                 </div>
                 <div
-                    className={styles.main_description}
-                    style={{
-                        color: 'red',
-                        padding: '0px',
-                        lineHeight: '1.5',
-                        opacity: '0.6',
-                        fontWeight: 'bold',
-                        fontSize: '12px'
-                    }}
+                     className={styles.main_description}
                 >
                     Введите пользовательский домен для вашей платформы. Он будет использоваться в URL-адресах, по
                     которым пользователи будут получать доступ к вашей платформе.
@@ -104,11 +97,12 @@ export const DomainSettings: FC = () => {
                 </div>
                 <div className={styles.text}>
                     <Input name={'domain'} type={'text'} className={styles.main_input} value={domain}
+                           placeholder="Введите пользовательский домен"
                            onChange={handleChangeDomain}/>
                     <Button
                         onClick={onChangeDomain}
-                        style={{width: '120px'}}
-                        variant={isNewDomain ? 'primary' : 'disabled'}
+                        className={styles.btndomain}
+                        variant={isNewDomain ? 'newPrimary' : 'newPrimary'}
                         text={'Сохранить'}
                         disabled={!isNewDomain}
                     />
@@ -121,5 +115,6 @@ export const DomainSettings: FC = () => {
             </div>
 
         </div>
+            </>
     );
 };
