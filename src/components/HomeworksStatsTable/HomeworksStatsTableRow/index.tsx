@@ -10,13 +10,26 @@ import { convertDate } from '../../../constants'
 import { useBoolean } from 'customHooks/useBoolean'
 
 import styles from '../homeworksStatsTable.module.scss'
+import { generatePath, useNavigate } from 'react-router-dom'
+import { Path } from 'enum/pathE'
 
 type homeworksStatsTableRowT = {
   homeworkData: homeworkStatT
 }
 
 export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = memo(({ homeworkData }) => {
-  const [isModalOpen, { off: open, on: close }] = useBoolean()
+  // const [isModalOpen, { off: open, on: close }] = useBoolean()
+  const navigate = useNavigate()
+
+  const open = () => {
+    navigate(
+      generatePath(Path.CheckHomeWork, {
+        lesson_id: String(homeworkData.homework),
+        studentHomeworkId: String(homeworkData.user_homework_id),
+        courseId: String(homeworkData.course_id),
+      }),
+    )
+  }
 
   const { user_email, mark, status, user_avatar, homework_name, last_reply, course_name, user_first_name, user_last_name, user_homework_id } =
     homeworkData
@@ -28,11 +41,7 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = memo(({ homew
       <tr onClick={open} role="row">
         <td>
           {user_avatar ? (
-            <img
-              style={{ borderRadius: '14px', width: '64px', height: '64px' }}
-              src={user_avatar}
-              alt="avatar"
-            />
+            <img style={{ borderRadius: '14px', width: '64px', height: '64px' }} src={user_avatar} alt="avatar" />
           ) : (
             <div className={styles.table_body_avatar_div}>
               {`${user_last_name.charAt(0).toUpperCase() || 'Б'}${user_first_name.charAt(0).toUpperCase() || 'И'}`}
@@ -47,7 +56,7 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = memo(({ homew
           {mmddyyyy} в {hoursAndMinutes}
         </td>
         <td>
-          <div style={ status === "Принято" ? { backgroundColor: '#357EEB' } : {}} className={styles.table_body_status}>
+          <div style={status === 'Принято' ? { backgroundColor: '#357EEB' } : {}} className={styles.table_body_status}>
             <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: iocnsByStatus[status].circleColor }}></div>
             <span style={{ color: iocnsByStatus[status].textColor }}>{status}</span>
           </div>
@@ -59,11 +68,11 @@ export const HomeworksStatsTableRow: FC<homeworksStatsTableRowT> = memo(({ homew
           </div>
         </td>
       </tr>
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <Portal closeModal={close}>
           <ModalCheckHomeWork homeworkData={homeworkData} closeModal={close} />
         </Portal>
-      )}
+      )} */}
     </>
   )
 })

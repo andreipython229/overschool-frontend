@@ -36,6 +36,7 @@ import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
 import DomainError from './Pages/DomainAccessDenied/DomainError'
 import { useLazyFetchSchoolByDomainQuery } from 'api/DomainService'
 import RouteHandler from './components/RouteHandler/RouteHandler'
+import { TechnicalWorks } from 'Pages/TechnicalWorks/TechnicalWorks'
 
 export const App = () => {
   const currentDomain = window.location.hostname;
@@ -205,6 +206,7 @@ export const App = () => {
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
         <Route path={'*'} element={<PageNotFound />} />
         <Route path="/access-denied" element={<DomainError />} />
+        <Route path="/technical-works" element={<TechnicalWorks />} />
       </Routes>
     </div>
   )

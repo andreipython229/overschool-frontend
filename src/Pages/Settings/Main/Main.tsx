@@ -14,7 +14,14 @@ import {useDispatch} from 'react-redux'
 import {divide} from "lodash";
 import {peopleIconPath} from "../../../config/commonSvgIconsPath";
 import {IconSvg} from "../../../components/common/IconSvg/IconSvg";
-import {LinkIconPath, TelegramIconPath, VKIconPath, XIconPath} from "../../../assets/Icons/svgIconPath";
+import {
+    InstagramIconPath,
+    LinkIconPath,
+    TelegramIconPath,
+    VKIconPath,
+    XIconPath,
+    YoutubeIconPath
+} from "../../../assets/Icons/svgIconPath";
 import {InstagramIcon, PenIcon, YoutubeIcon} from "./iconComponents";
 
 export const Main = memo(() => {
@@ -283,7 +290,7 @@ export const Main = memo(() => {
                         </div>
 
                         <div className={styles.text}>
-                            <InstagramIcon/>
+                            <IconSvg path={InstagramIconPath} width={32} height={32} viewBoxSize="0 0 32 32"/>
                             <div className={styles.inputWrapper}>
                             <Input
                                 name="instagram"
@@ -325,7 +332,8 @@ export const Main = memo(() => {
                         </div>
 
                         <div className={styles.text}>
-                            <YoutubeIcon/>
+                            {/*<YoutubeIcon/>*/}
+                            <IconSvg path={YoutubeIconPath} width={32} height={32} viewBoxSize="0 0 32 32"/>
                             <div className={styles.inputWrapper}>
                             <Input
                                 name="youtube"

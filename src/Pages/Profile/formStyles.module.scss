@@ -3,9 +3,9 @@
 
 .form {
   position: relative;
-  max-width: 60%;
+  max-width: 66%;
   width: 100%;
-  margin: 0 26px 0 0;
+  margin: 15px 20px 0 0;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     max-width: 100%;
@@ -39,7 +39,7 @@
 
     &_avatarBlock {
       position: relative;
-      height: 110px;
+      height: 120px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         width: 49px;
         height: 49px;
@@ -60,6 +60,8 @@
           display: none;
         }
       }
+
+
       &_img {
         @include position_t_l(absolute, 28px, 10px, 1);
         width: 84px;

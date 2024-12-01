@@ -48,16 +48,16 @@
 
   &_title {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 25px;
     line-height: 19px;
     letter-spacing: -0.02em;
-    margin-bottom: 20px;
-    color: #4d5766;
+    margin-bottom: 10px;
+    color: #111111;
   }
 
   &_block_title {
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 700;
+    font-size: 16px;
     line-height: 17px;
     letter-spacing: -0.02em;
     color: #4d5766;
@@ -81,7 +81,7 @@
   }
 
   &_block {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 
     &_select {
       -webkit-appearance: none;
@@ -233,13 +233,35 @@
   }
 }
 
+
+
+.container_notification_toggle {
+  max-width: 100%;
+  padding: 10px 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  transition: background 2s;
+
+}
+
+.container_notification_toggle[data-isOn='true'] {
+  justify-content: flex-end;
+  background-color: #357EEB;
+}
+
+
+
+
 .container {
   max-width: 100%;
-  padding: 26px 36px;
+  padding: 15px 44px;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: $box-shadow;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  //margin-left: 3px;
+  //margin-right: 3px;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 100%;
     button {
@@ -257,6 +279,8 @@
 
   &_wrapper {
     margin-top: 16px;
+    //margin-right: 48px;
+
   }
   & input::placeholder {
     font-weight: 500;
@@ -343,5 +367,63 @@ h5 {
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     @include font(600, 12px, 14px);
     margin: 0 0 20px 0;
+  }
+}
+
+.bg {
+  z-index: -1;
+
+  &_wrap1 {
+    position: absolute;
+    z-index: -1;
+    width: 50px;
+    height: 50px;
+    background: #97C1FF;
+    border-radius: 50%;
+    scale: 10;
+    filter: blur(25px);
+    animation: bgAnimate1 10s linear infinite;
+  }
+
+  &_wrap2 {
+    z-index: -1;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 100%;
+    top: 100%;
+    scale: 8;
+    background: #97C1FF;
+    border-radius: 50%;
+    filter: blur(25px);
+    animation: bgAnimate2 10s linear infinite;
+  }
+
+  &_wrap3 {
+    z-index: -1;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 100%;
+    top: 0%;
+    scale: 8;
+    background: #97C1FF;
+    border-radius: 50%;
+    filter: blur(25px);
+    animation: bgAnimate3 10s linear infinite;
+  }
+
+  &_wrap4 {
+    z-index: -1;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    scale: 6;
+    left: 0%;
+    top: 100%;
+    background: #97C1FF;
+    border-radius: 50%;
+    filter: blur(25px);
+    animation: bgAnimate4 10s linear infinite;
   }
 }

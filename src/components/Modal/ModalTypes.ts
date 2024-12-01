@@ -9,6 +9,10 @@ export type lessonIdAndTypeT = {
   type: string
 }
 
+export type TelegramModalPropsT = {
+  setShowModal: () => void
+}
+
 export type SettingClassesPropsT = {
   setType: (arg: keyof object) => void
   modulesList: sectionT[]
@@ -118,4 +122,8 @@ export type LimitModalPropsT = {
 export type AddSchoolModalPropsT = {
   schools: any[]
   setShowModal: () => void
+}
+
+export type SuccessHomeworkSendedT = {
+  toggle: () => void
 }

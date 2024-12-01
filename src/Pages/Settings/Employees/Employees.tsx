@@ -55,20 +55,19 @@ export const Employees: FC = () => {
           <AddEmployeeModal employees={employees} setEmployees={setEmployees} setShowModal={closeModal} />
         </Portal>
       )}
-      <div className={styles.wrapper_actions}>
-        <div className={styles.employees}>
-          <div className={styles.employees_header}>
+      <div className={styles.employees_header}>
             <div className={styles.employees_header_title}>Сотрудники</div>
             <button onClick={openModal} className={styles.employees_header_btn}>
               + Сотрудник
             </button>
           </div>
-
+      <div className={styles.wrapper_contentemployees}>
+        <div className={styles.employees}>
           <div className={styles.employees_table}>
             {employees && employees?.length ? (
-              <div className={styles.wrapper}>
+               <div className={styles.wrapper}>
                 <div className={styles.employees_table_title}>
-                  <div>Пользователь</div>
+                  <div>Имя</div>
                   <div>Роль</div>
                 </div>
                 {employees?.map((employee: EmployeeT) => (
@@ -90,19 +89,20 @@ export const Employees: FC = () => {
                     setEmployees={setEmployees}
                     isModalRenameOpen={handleOpenRenameModal}
                   />
+
                 ))}
-              </div>
-            ) : (
-              <p style={{ color: 'lightslategrey' }}>Пока что сотрудников на платформе нет</p>
-            )}
-          </div>
-        </div>
-        <Pagination
+                   <Pagination
           className={styles.pagination}
           paginationRange={paginationRange}
           currentPage={page}
           onPageChange={onPageChange}
       />
+              </div>
+            ) : (
+              <p style={{ color: 'lightslategrey', marginLeft: '50px' }}>Пока что сотрудников на платформе нет</p>
+            )}
+          </div>
+        </div>
       </div>
     </>
   )

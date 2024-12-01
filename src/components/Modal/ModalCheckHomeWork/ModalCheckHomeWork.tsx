@@ -7,7 +7,12 @@ import { SelectDropDown } from 'components/SelectDropDown/SelectDropDown'
 import { checkHomeworkStatusFilters } from 'constants/dropDownList'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import { tableBallsStarPath } from '../../../config/commonSvgIconsPath'
-import { useLazyFetchUserHomeworkQuery, useFetchUserHomeworkQuery, useFetchHomeworkDataQuery, useCreateCheckReplyMutation } from '../../../api/userHomeworkService'
+import {
+  useLazyFetchUserHomeworkQuery,
+  useFetchUserHomeworkQuery,
+  useFetchHomeworkDataQuery,
+  useCreateCheckReplyMutation,
+} from '../../../api/userHomeworkService'
 import { convertDate } from 'utils/convertDate'
 import { UserHomework, CurrentUser, homeworkStatT } from 'types/homeworkT'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
@@ -56,7 +61,11 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ homeworkData, clos
   const [hwStatus, setHwStatus] = useState<boolean>()
   const schoolName = window.location.href.split('/')[4]
 
-  const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery({ id: homeworkData.user_homework_id, schoolName, courseId: homeworkData.copy_course_id ? String(homeworkData.copy_course_id) : String(homeworkData.course_id) })
+  const { data, isFetching, isSuccess } = useFetchUserHomeworkQuery({
+    id: homeworkData.user_homework_id,
+    schoolName,
+    courseId: homeworkData.copy_course_id ? String(homeworkData.copy_course_id) : String(homeworkData.course_id),
+  })
   const { data: homework, isFetching: isHwFetching } = useFetchHomeworkDataQuery({ id: homeworkData.homework as number, schoolName })
   const [sendHomeworkCheck, { isLoading: sendHwLoading, isSuccess: sendHwCheckSuccess }] = useCreateCheckReplyMutation()
   const [sendFiles, { isLoading, isSuccess: sendFilesSuccess }] = usePostTextFilesMutation()
@@ -105,7 +114,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ homeworkData, clos
       text,
       mark,
       user_homework: userHomework?.user_homework_id,
-      courseId: homeworkData.copy_course_id ? homeworkData.copy_course_id : homeworkData.course_id
+      courseId: homeworkData.copy_course_id ? homeworkData.copy_course_id : homeworkData.course_id,
     }
 
     await sendHomeworkCheck({ data: dataToSend, schoolName })
@@ -341,7 +350,7 @@ export const ModalCheckHomeWork: FC<modalHomeworkT> = memo(({ homeworkData, clos
 
           <div className={styles.modal_hidden_block_history}>
             {userHomework?.user_homework_checks?.map(homework => (
-              <UserHomeworkHistory key={homework.user_homework_check_id} homework={homework} />
+              <UserHomeworkHistory key={homework.user_homework_check_id} homework={homework} today={false} />
             ))}
           </div>
         </div>
