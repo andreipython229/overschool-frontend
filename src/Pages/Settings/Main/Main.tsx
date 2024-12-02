@@ -120,7 +120,7 @@ export const Main = memo(() => {
 
     const onChangeX = async () => {
         const formdata = new FormData();
-        formdata.append('x_link', x);
+        formdata.append('twitter_link', x);
         await updateSchoolLink({formdata, id: Number(schoolId)});
     };
 
@@ -138,7 +138,7 @@ export const Main = memo(() => {
 
     const onChangeCustomSocial = async () => {
         const formdata = new FormData();
-        formdata.append('custom_link', customSocial);
+        formdata.append('extra_link', customSocial);
         await updateSchoolLink({formdata, id: Number(schoolId)});
     };
 

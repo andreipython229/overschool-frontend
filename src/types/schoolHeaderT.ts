@@ -32,8 +32,8 @@ export type schoolT = {
   test_course: boolean
   vk_link?: string
   youtube_link?: string
-  x_link?: string
+  twitter_link?: string
   instagram_link?: string
-  custom_link?: string
+  extra_link?: string
   telegram_link?: string
 }
