@@ -733,10 +733,10 @@ export const Header = memo(() => {
     <>
       <SocialMediaButton url={schoolData.telegram_link || 'https://t.me/course_hb'} variant="Telegram" />
       <SocialMediaButton variant="Instagram" url={schoolData.instagram_link || 'https://instagram.com/'} />
-      <SocialMediaButton variant="X" url={schoolData.x_link || "https://x.com/"} />
+      <SocialMediaButton variant="X" url={schoolData.twitter_link || "https://x.com/"} />
       <SocialMediaButton variant="Youtube" url={schoolData.youtube_link || "https://youtube.com/"} />
       <SocialMediaButton variant="VK" url={schoolData.vk_link ||"https://vk.ru/"} />
-      <SocialMediaButton variant="Link" url={schoolData.custom_link ||"#"} />
+      <SocialMediaButton variant="Link" url={schoolData.extra_link ||"#"} />
     </>
   )}
 </div>
