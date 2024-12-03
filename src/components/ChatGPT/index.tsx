@@ -12,7 +12,7 @@ import {
   CreateChatPayload,
 } from '../../api/chatgptService';
 
-import OverAiIcon from '../../assets/img/common/iconModal.svg';
+import OverAiIcon from '../../assets/img/common/newIconModal.svg';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
 import { deleteIconPath } from 'components/Questions/config/svgIconPath';
@@ -383,7 +383,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   return (
     <div className="fixed-button">
       <button className={styles.chatGptButton} onClick={toggleDialog}>
-        <img src={OverAiIcon} alt="OverAI Icon" />
+        <img className={`${isDialogOpen && styles.chatGptButton_Pushed}`} src={OverAiIcon} alt="OverAI Icon" />
       </button>
       {isDialogOpen && (
         <div className={styles.modalOverlay} onClick={handleOverlayClick}>
@@ -422,31 +422,34 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                       </div>
                     ) : (
                       <>
-                        <button className={styles.createChatButtonModal} onClick={handleCreateEmptyChat} disabled={isCreatingChatDisabled}>
-                          <b>Создать новый чат</b>
-                        </button>
-                        {Object.entries(chatData)
-                          .sort(([, a], [, b]) => a.order - b.order)
-                          .map(([chatId, chatValue]) => (
-                            <div
-                              key={chatId}
-                              onClick={() => selectChat(Number(chatId))}
-                              draggable
-                              onDragStart={(e) => handleDragStart(e, Number(chatId))}
-                              onDragOver={(e) => handleDragOver(e, Number(chatId))}
-                              onDragEnd={handleDragEnd}
-                              className={`${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''
-                                } ${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''}`}
-                              style={{ borderRadius: '20px' }}
-                            >
-                              <span className={styles.centeredText}>
-                                {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
-                                <button className={styles.deleteChatBtn} onClick={() => handleDeleteChat(Number(chatId))}>
-                                  <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
-                                </button>
-                              </span>
-                            </div>
-                          ))}
+                        <div className={styles.listOfChatSection}>
+                          <button className={styles.createChatButtonModal} onClick={handleCreateEmptyChat} disabled={isCreatingChatDisabled}>
+                            <b>+</b>
+                          </button>
+                          {Object.entries(chatData)
+                            .sort(([, a], [, b]) => a.order - b.order)
+                            .map(([chatId, chatValue]) => (
+                              <div
+                                key={chatId}
+                                onClick={() => selectChat(Number(chatId))}
+                                draggable
+                                onDragStart={(e) => handleDragStart(e, Number(chatId))}
+                                onDragOver={(e) => handleDragOver(e, Number(chatId))}
+                                onDragEnd={handleDragEnd}
+                                className={`${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''} ${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''}`}
+                                style={{ borderRadius: '20px' }}
+                              >
+                                <div className={styles.chatListItem_Circle}></div>
+                                <span className={styles.centeredText}>
+                                  {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
+                                  {/* {/* <button className={styles.deleteChatBtn} onClick={() => handleDeleteChat(Number(chatId))}> */}
+                                    {/* <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} /> */}
+                                  {/* </button> */} 
+                                </span>
+                              </div>
+                            ))}
+                        </div>
+                        <div ></div>
                       </>
                     )}
                   </div>
@@ -464,7 +467,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                             <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
                               <div className={styles.messageContainer_user}>
                                 <span>
-                                  <b style={{ color: '#a761ee' }}>Вы</b>
+                                  <b>Пользователь</b>
                                   <div className={styles.messageContainer_user_question}>
                                     {userQuestion.sender_question}
                                   </div>
@@ -472,7 +475,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                               </div>
                               {index < botAnswers.length && (
                                 <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
-                                  <p style={{ fontWeight: 'bold', color: '#a761ee', fontSize: '15px' }}>OVER AI</p>
+                                  <p>OverAi bot</p>
                                   <div className={styles.messageContainer_bot_answer}>
                                     {formatBotAnswer(botAnswers[index].answer)}
                                   </div>
@@ -503,7 +506,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                               onKeyDown={handleKeyPress}
                             />
                             <button onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
-                            <IconSvg path={aiButtonNavIcon}  width={20} height={20} viewBoxSize={'0 0 20 20'}></IconSvg>
+                              <IconSvg path={aiButtonNavIcon} width={20} height={20} viewBoxSize={'0 0 20 20'}></IconSvg>
                               {/* <svg viewBox="0 0 16 13" fill="none" xmlns="http://www.w3 org/2000/svg">
                                 <path d="M7.17278 1.21787C7.56956 0.633707 8.43044 0.633706 8.82722 1.21787L15.5994 11.1881C16.0503 11.8521 15.5748 12.75 14.7722 12.75H1.22785C0.425231 12.75 -0.0503452 11.8521 0.400629 11.1881L7.17278 1.21787Z" fill="white"/>
                             </svg> */}
