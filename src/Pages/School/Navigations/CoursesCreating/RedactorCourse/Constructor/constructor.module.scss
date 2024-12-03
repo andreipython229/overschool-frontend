@@ -1,6 +1,11 @@
 @import 'src/scss/variable';
 @import '../../../../../../scss/mixin.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 .showBtn {
   color: rgb(173, 173, 173);
 
@@ -63,9 +68,7 @@
 
   &_leftSide {
     @include display(flex, column);
-    margin-right: 30px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px 33px 20px 32px;
     border-radius: 8px;
     //margin-top: 50px;
     //border: 1px #0af50a solid;
@@ -74,12 +77,11 @@
     -moz-user-select: none;
     -ms-user-select: none;
     align-items: center;
-    background-color: #ffffff;
-    padding-top: 50px;
-    padding-bottom: 20px;
+    background-color: $color-white;
     text-align: center;
     margin-bottom: 30px;
-    width: 450px;
+    max-width: 460px;
+    width: 100%;
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 95%;
@@ -92,23 +94,69 @@
     }
 
     &_title {
-      color: $font-title;
-      font-size: 16px;
+      border-radius: 16px;
+      padding: 11px;
+      max-width: 379px;
+      width: 100%;
+      background-image: linear-gradient(90deg, #332F36 -5.88%, rgba(51, 47, 54, 0) 100%), url(../../../../../../assets/img/createCourse/course-background.jpeg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      z-index: 2;
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 16px;
+        background: rgba(51, 47, 54, 0.5);
+        z-index: 3;
+      }
       @media only screen and (min-width: 320px) and (max-width: 375px) {
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         padding: 5% 0 5% 0;
       }
+
+      &_name {
+        font-family: 'SFPRORegular';
+        line-height: 28.64px;
+        font-weight: 500;
+        color: $color-white;
+        font-size: 24px;
+        text-align: start;
+        position: relative;
+        z-index: 4;
+        padding: 5px;
+      }
     }
 
     &_desc {
       @include display(flex, column);
-      margin-top: 23px;
+      margin-top: 10px;
+      max-width: 395px;
       width: 100%;
-      margin-left: 16px; // 16
-      max-height: 830px;
-      overflow-y: auto;
-      //border: 1px deeppink solid;
+      height: 554px;
+      padding: 0 5.5px;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 4px !important;
+        display: block;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: #357EEB;
+        border-radius: 5px;
+      }
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         height: 300px;
@@ -119,28 +167,33 @@
         overflow-y: scroll;
       }
 
+      &_wrapper {
+        @include display(flex, row, flex-start, center);
+      }
+
       &_headerText {
-        // position: relative;
 
         &_title {
           position: relative;
-          @include display(flex, row, flex-start, center);
+          @include display(flex, row, space-between, center);
           @include font(400, 14px);
-          background-color: transparent;
-          color: $font-title;
-          height: 30px;
-          margin-bottom: 15px;
+          background-color: #CFE2FF;
+          box-shadow: 0px 0px 4px 0px rgba(50, 65, 149, 0.3);
+          padding: 6px 26px 5px 5px;
+          border-radius: 10px;
+          transition: 400ms ease-out;
+          &:hover {
+            cursor: pointer;
+          }
         }
 
         &_inputWrapper {
           position: absolute;
           top: -7px;
-          //margin-bottom: 10px;
           left: 30px;
           @include display(flex, row, space-between, center);
           height: 30px;
           width: 100%;
-          //border: 1px blue solid;
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             display: none;
           }
@@ -157,46 +210,44 @@
           }
 
           &_input {
-            position: absolute;
-            top: 0;
-            left: 30px;
-            z-index: 0;
             background-color: transparent;
-            color: $font-title;
-            font-size: 14px;
-            border: 1px solid lightgrey;
-            border-radius: 6px;
-            text-align: center;
-            width: 75%;
-            height: 100%;
+            color: $color-text;
+            font-family: 'SFPRORegular';
+            line-height: 21.48px;
+            font-weight: 500;
+            font-size: 18px;
+            border: none;
+            text-align: start;
             outline: none;
           }
 
           &_btn_delete {
-            @include position_t_r(absolute, 0, 0, 8);
-            //@include display(flex, row, center, center);
+            position: relative;
+            z-index: -10;
+            @include display(flex, row, center, center);
             border: none;
             background-color: transparent;
-            width: 30px;
-            height: 30px;
             cursor: pointer;
-
-            &:hover {
-              z-index: 10;
-            }
+            transition: 400ms ease-out;
           }
         }
       }
 
       &_lessonWrapper {
         position: relative;
+        z-index: 8;
         @include display(flex, row, space-between, center);
         list-style-type: none;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
         margin-left: 0px;
+        padding: 4px 26px 4px 5px;
         cursor: pointer;
-        //border: 1px solid red;
-        //background-color: rgba(220, 220, 100, 1);
+        border-radius: 10px;
+        background-color: $color-white;
+        border: none;
+        box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+        transition: 400ms ease-out;
+
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           margin: 2% 0 2% 0;
         }
@@ -204,25 +255,23 @@
           margin: 2% 0 2% 0;
         }
 
-        &:hover {
-          //background-color: rgba(220, 220, 220, 1);
-          border-radius: 8px;
-          border: 1px black solid;
+        &:hover + .btn {
+          box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+          border: 1px solid #357EEB;
         }
 
         &_lesson {
           @include display(flex, row, flex-start, center);
-          color: $font-color-rose;
-          font-size: 12px;
-          max-width: 270px;
+          font-family: 'SFPRORegular';
+          line-height: 19.09px;
+          font-weight: 400;
+          font-size: 15px;
+          color: $color-text;
+          text-align: center;
 
           svg {
             margin-right: 5px;
           }
-          //
-          //& img {
-          //  margin-right: 7.5px;
-          //}
         }
 
         &_btn_deleteLesson {
@@ -231,15 +280,8 @@
           @include display(flex, row, center, center);
           border: none;
           background-color: transparent;
-          width: 30px;
-          height: 30px;
           cursor: pointer;
-
-          & svg {
-            & path {
-              fill: #c1c1c1;
-            }
-          }
+          transition: 400ms ease-out;
         }
 
         &_btn_drag_and_drop {
@@ -248,14 +290,6 @@
           white-space: nowrap;
           z-index: -10;
           background-color: transparent;
-          width: 30px;
-          height: 30px;
-
-          & svg {
-            & path {
-              fill: #c1c1c1;
-            }
-          }
         }
 
         &_btn_drag_and_drop_module {
@@ -263,14 +297,6 @@
           flex: 0 0 auto;
           white-space: nowrap;
           background-color: transparent;
-          width: 30px;
-          height: 30px;
-
-          & svg {
-            & path {
-              fill: #c1c1c1;
-            }
-          }
         }
       }
     }
@@ -633,18 +659,20 @@
 }
 
 .btn {
-  margin-bottom: 43px;
-  width: 236px;
-  background: #e0dced;
-  font-size: 12px;
-  padding: 11px 0;
+  margin: 10px auto 10px;
+  background: #357EEB;
+  padding: 10px 15px;
   border: none;
-  border-radius: 7px;
-  color: $font-color-rose;
+  border-radius: 40px;
+  color: $color-white;
+  font-family: 'SFPRORegular';
+  line-height: 19.09px;
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
 
   &:hover {
-    background: $font-color-rose;
-    color: #e0dced;
+    background: #357EEB !important;
   }
 }
 
@@ -726,8 +754,9 @@ hr {
 }
 
 .selectedLesson {
-  background-color: #dcdcdc;
+  background-color: #357EEB;
   border-radius: 8px;
+  color: $color-white;
 }
 
 .check_autotest {
@@ -879,7 +908,73 @@ hr {
   }
 }
 
-.redactorCourse_leftSide_desc::-webkit-scrollbar {
-  width: 8px;
-  margin-left: 10px;
+.showLessons {
+  background-color: #357EEB;
+  box-shadow: 0px 0px 4px 0px rgba(50, 65, 149, 0.3);
+  color: #ffffff;
+}
+
+.showLessons:hover {
+  border: 1px solid #324195
+}
+
+.showLessonsInput {
+  color: #ffffff;
+}
+
+.lesson_buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.openEye {
+  background-color: #C6C6C6;
+  color: #808080;
+  cursor: default;
+}
+
+.lesson_buttons_visible {
+  z-index: 10;
+}
+
+.lessonTypeIcon {
+  margin-top: 3px;
+  margin-left: 13px;
+}
+
+.fillColorWhite path {
+  fill: $color-white;
+}
+
+.fillColorGrey path {
+  fill: #808080;
+}
+
+.strokeColorGrey path {
+  stroke: #808080;
+}
+
+.strokeColorWhite path {
+  stroke: $color-white;
+}
+
+.doBlockIcon {
+  cursor: grab;
+  margin-top: 4px;
+  opacity: 1;
+}
+
+.unvisible {
+  position: relative;
+  z-index: -10;
+}
+
+.heightTransition {
+  margin-bottom: 10px;
+  max-height: 42px;
+  transition: max-height 400ms ease-out;
+  &:hover {
+    max-height: 103px;
+    transition: max-height 400ms ease-out;
+  }
 }
