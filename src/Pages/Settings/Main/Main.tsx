@@ -22,7 +22,7 @@ import {
     XIconPath,
     YoutubeIconPath
 } from "../../../assets/Icons/svgIconPath";
-import {InstagramIcon, PenIcon, YoutubeIcon} from "./iconComponents";
+import {PenIcon} from "./iconComponents";
 
 export const Main = memo(() => {
     const schoolId = localStorage.getItem('school_id')
