@@ -102,7 +102,7 @@ export const DomainSettings: FC = () => {
                     <Button
                         onClick={onChangeDomain}
                         className={styles.btndomain}
-                        variant={isNewDomain ? 'newPrimary' : 'newPrimary'}
+                        variant={'newPrimary'}
                         text={'Сохранить'}
                         disabled={!isNewDomain}
                     />
