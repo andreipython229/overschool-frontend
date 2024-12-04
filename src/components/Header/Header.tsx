@@ -57,6 +57,7 @@ import {
   UserIconPath,
 } from 'assets/Icons/svgIconPath'
 import { SocialMediaButton } from 'components/SocialMediaButton'
+import {useFetchSchoolQuery} from "../../api/schoolService";
 
 type WebSocketHeaders = {
   [key: string]: string | string[] | number
@@ -64,6 +65,7 @@ type WebSocketHeaders = {
 
 export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
+  const schoolId = localStorage.getItem('school_id')
   const dispatch = useAppDispatch()
   const dispatchRole = useDispatch()
   const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false)
@@ -82,6 +84,7 @@ export const Header = memo(() => {
   let profile = profileD
   const [fetchProfile, profileDt] = useLazyFetchProfileDataQuery()
   const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
+  const { data: schoolData, isLoading: schoolDataLoading, error: schoolDataErorr } = useFetchSchoolQuery(Number(schoolId))
   const [loginUser] = useLoginMutation()
   const [currentTariff, setCurrentTariff] = useState<ITariff>({
     tariff_name: '',
@@ -271,7 +274,6 @@ export const Header = memo(() => {
       dispatch(setTariff(tariffPlan))
     }
   }, [tariffSuccess, tariffPlan])
-
   useEffect(() => {
     if (profileData) {
       const newProfileData: UserProfileT = {
@@ -727,13 +729,17 @@ export const Header = memo(() => {
           )}
         </React.Fragment>
         <div className={styles.header_socialIcons}>
-          <SocialMediaButton url={'https://t.me/course_hb'} variant="Telegram" />
-          <SocialMediaButton variant="Instagram" url="https://instagram.com/" />
-          <SocialMediaButton variant="X" url="https://x.com/" />
-          <SocialMediaButton variant="Youtube" url="https://youtube.com/" />
-          <SocialMediaButton variant="VK" url="https://vk.ru/" />
-          <SocialMediaButton variant="Link" url="#" />
-        </div>
+  {schoolData && (
+    <>
+      <SocialMediaButton url={schoolData.telegram_link || 'https://t.me/course_hb'} variant="Telegram" />
+      <SocialMediaButton variant="Instagram" url={schoolData.instagram_link || 'https://instagram.com/'} />
+      <SocialMediaButton variant="X" url={schoolData.twitter_link || "https://x.com/"} />
+      <SocialMediaButton variant="Youtube" url={schoolData.youtube_link || "https://youtube.com/"} />
+      <SocialMediaButton variant="VK" url={schoolData.vk_link ||"https://vk.ru/"} />
+      <SocialMediaButton variant="Link" url={schoolData.extra_link ||"#"} />
+    </>
+  )}
+</div>
         <React.Fragment>
           <Button variant="newPrimary" text={headerUserRoleName[userRole]} onClick={handleClick} style={{ fontSize: '16px' }}>
             <IconSvg width={18} height={18} viewBoxSize="0 0 24 24" path={UserIconPath} />
