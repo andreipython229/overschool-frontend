@@ -1,21 +1,13 @@
-import { FC, memo, useEffect } from 'react'
+import { FC, memo } from 'react'
 import { RoleE } from 'enum/roleE'
 import { ChatI } from 'types/chatsT'
-import { formatTime } from 'utils/convertDateToUnits'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { chatsGroup, emailSvgIconPath, groupChatListIconPath, updateDataIcon } from 'config/commonSvgIconsPath'
+import { emailSvgIconPath } from 'config/commonSvgIconsPath'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { selectChat, removeChat } from 'store/redux/chats/slice'
-
 import styles from './chat.module.scss'
 import Badge from '@mui/material/Badge'
-import { deepPurple } from '@mui/material/colors'
-import { headerUserRoleName } from '../../../config'
 import { selectUser } from '../../../selectors'
-import Avatar from '@mui/material/Avatar'
-import FolderIcon from '@mui/icons-material/Folder'
-import GroupsIcon from '@mui/icons-material/Groups'
-import SchoolIcon from '@mui/icons-material/School'
 import { chatGroup, chatCourse } from '../../../assets/img/common/'
 
 type chatPreviewT = {
@@ -72,45 +64,66 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
 
   return (
     <div
-      className={`${styles.chatPreview} ${isSelected ? styles.chatPreview_selected : ''}`}
+      className={`${chat.type === 'PERSONAL' ? styles.chatPreviewSupport : styles.chatPreview} ${isSelected ? styles.chatPreview_selected : ''}`}
       onClick={() => {
-        dispatch(selectChat(chat.id))
+        if (chatId !== chat.id) {
+          dispatch(selectChat(chat.id))
+        } else {
+          dispatch(selectChat(''))
+        }
       }}
     >
       {chat.type === 'GROUP' ? (
         <div className={styles.chatPreview_avatarWrap}>
           {role === RoleE.Student ? (
-            <Avatar alt="Информационный канал" src={chatGroup} sx={{ width: 46, height: 46 }} />
+            <img className={styles.chatPreview_avatarWrap_avatar} alt="Информационный канал" src={chatGroup} />
           ) : (
-            <Badge badgeContent={chat.senders.length} color="default">
-              <Avatar alt="Информационный канал" src={chatGroup} sx={{ width: 46, height: 46 }} />
-            </Badge>
+            <img className={styles.chatPreview_avatarWrap_avatar} alt="Информационный канал" src={chatGroup} />
           )}
         </div>
       ) : chat.type === 'PERSONAL' ? (
         <div className={styles.chatPreview_avatarWrap}>
-          <Avatar src={`${getInterlocutor(chat)?.avatar || ''}`} sx={{ bgcolor: deepPurple[500], width: 46, height: 46 }}>
-            <SchoolIcon />
-          </Avatar>
+          <img src={`${getInterlocutor(chat)?.avatar || ''}`} className={styles.chatPreview_avatarWrap_avatar}>
+            {/* <SchoolIcon /> */}
+          </img>
         </div>
       ) : chat.type === 'COURSE' ? (
         <div className={styles.chatPreview_avatarWrap}>
           {role === RoleE.Student ? (
-            <Avatar alt="Информационный канал" src={chatCourse} sx={{ width: 46, height: 46 }} />
+            <img className={styles.chatPreview_avatarWrap_avatar} alt="Информационный канал" src={chatCourse} />
           ) : (
-            <Badge badgeContent={chat.senders.length} color="default">
-              <Avatar alt="Информационный канал" src={chatCourse} sx={{ width: 46, height: 46 }} />
-            </Badge>
+            <img className={styles.chatPreview_avatarWrap_avatar} alt="Информационный канал" src={chatCourse} />
           )}
         </div>
       ) : null}
 
       {/* ----------- СЕРЕДИНА ---------------*/}
-      <div className={styles.chatPreview_info}>
-        {/*{chat.type === "GROUP" ? (*/}
-        {/*    <div className={styles.chatPanel_user_avatar_userName_status}>{headerUserRoleName[role]}</div>*/}
-        {/*) : null}*/}
-        {chat.type === 'GROUP' ? (
+
+      {/*{chat.type === "GROUP" ? (*/}
+      {/*    <div className={styles.chatPanel_user_avatar_userName_status}>{headerUserRoleName[role]}</div>*/}
+      {/*) : null}*/}
+      {chat.type === 'GROUP' ? (
+        <div className={styles.chatPreview_info}>
+          <div className={styles.chatPanel_user_avatar_userName_status}>Информационный канал</div>
+          <div className={styles.chatPreview_top}>
+            <p>{chat.name || 'Канал без имени'}</p>
+          </div>
+          <div className={styles.chatPreview_lastMessage}>{chat?.last_message?.content || ''}</div>
+        </div>
+      ) : chat.type === 'PERSONAL' ? (
+        <div className={styles.chatPreview_info}>
+          <div className={styles.chatPanel_user_avatar_userName_statusSupport}>Чат с поддержкой</div>
+          {/* <div className={styles.chatPanel_user_avatar_userName_status}>
+              {`Специалист техподдержки ${getRoleTranslation(getInterlocutor(chat).user_role || '')}`}
+            </div> */}
+          <div className={styles.chatPreview_top}>
+            <p>{/* {getInterlocutor(chat).first_name || 'Канал без имени'} {getInterlocutor(chat).last_name || ''} */}</p>
+          </div>
+          <div className={styles.chatPreview_lastMessageSupport}>{chat?.last_message?.content || ''}</div>
+        </div>
+      ) : chat.type === 'COURSE' ? (
+        <div className={styles.schoolChat}>
+          {/* Содержимое для COURSE чата */}
           <div className={styles.chatPreview_info}>
             <div className={styles.chatPanel_user_avatar_userName_status}>Информационный канал</div>
             <div className={styles.chatPreview_top}>
@@ -118,45 +131,18 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
             </div>
             <div className={styles.chatPreview_lastMessage}>{chat?.last_message?.content || ''}</div>
           </div>
-        ) : chat.type === 'PERSONAL' ? (
-          <div className={styles.chatPreview_info}>
-            <div className={styles.chatPanel_user_avatar_userName_status}>Чат с техподдержкой</div>
-            <div className={styles.chatPanel_user_avatar_userName_status}>
-              <div>{`Специалист техподдержки ${getRoleTranslation(getInterlocutor(chat).user_role || '')}`}</div>
-            </div>
-            <div className={styles.chatPreview_top}>
-              <p>{/* {getInterlocutor(chat).first_name || 'Канал без имени'} {getInterlocutor(chat).last_name || ''} */}</p>
-            </div>
-            <div className={styles.chatPreview_lastMessage}>{chat?.last_message?.content || ''}</div>
-          </div>
-        ) : chat.type === 'COURSE' ? (
-          <div className={styles.schoolChat}>
-            {/* Содержимое для COURSE чата */}
-            <div className={styles.chatPreview_info}>
-              <div className={styles.chatPanel_user_avatar_userName_status}>Информационный канал</div>
-              <div className={styles.chatPreview_top}>
-                <p>{chat.name || 'Канал без имени'}</p>
-              </div>
-              <div className={styles.chatPreview_lastMessage}>{chat?.last_message?.content || ''}</div>
-            </div>
-          </div>
-        ) : null}
-      </div>
+        </div>
+      ) : (
+        <div className={styles.chatPreview_info}></div>
+      )}
+
       {/* ----------------------------------- */}
 
       {/* ----ПРАВЫЙ КРАЙ ДАТА и БЕЙДЖИК {chat?.last_message && formatTimeOrDate(chat?.last_message?.sent_at)}-----*/}
       <div className={styles.chatPreview_newMessage}>
         {/*<p className={styles.chatPreview_time}>{chat?.last_message && formatTime(new Date(chat?.last_message?.sent_at))}</p>*/}
         <p className={styles.chatPreview_time}>{chat?.last_message?.sent_at ? formatTimeOrDate(new Date(chat?.last_message?.sent_at)) : ''}</p>
-        {Number(chat?.unread) > 0 ? (
-          <div className={styles.chatPreview_badge}>
-            <Badge badgeContent={chat?.unread || 0} color="error">
-              <IconSvg width={22} height={22} viewBoxSize="0 0 24 24" path={emailSvgIconPath} />
-            </Badge>
-          </div>
-        ) : (
-          <></>
-        )}
+        {Number(chat?.unread) > 0 ? <div className={styles.chatPreview_badge}>{chat?.unread || 0}</div> : <></>}
       </div>
       {/*  -----------------------------------*/}
     </div>

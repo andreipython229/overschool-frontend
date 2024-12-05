@@ -30,4 +30,10 @@ export type schoolT = {
   tariff?: string
   contact_link: string
   test_course: boolean
+  vk_link?: string
+  youtube_link?: string
+  twitter_link?: string
+  instagram_link?: string
+  extra_link?: string
+  telegram_link?: string
 }
