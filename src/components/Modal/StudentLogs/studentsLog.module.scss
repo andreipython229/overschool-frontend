@@ -11,13 +11,12 @@
   margin: 0 auto;
   border-radius: 34px;
   overflow: hidden;
-  overflow-y: scroll;
   transform: translate(-50%, -50%);
   font-family: $font-family-inter;
   max-width: 661px;
   width: 90%;
-  height: 80%;
-  max-height: 965px;
+  height: auto;
+
   // position: relative;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -41,6 +40,7 @@
     top: -322px;
     z-index: 1;
   }
+
   &_closed {
     @include position_t_r(absolute, 20px, 20px);
     text-align: center;
@@ -50,10 +50,11 @@
 
     & svg {
       margin-top: 8.5px;
+      color: rgb(172, 172, 172);
     }
 
     & svg :hover {
-      stroke: #4d5766;
+      stroke: rgb(172, 172, 172);
     }
   }
 
@@ -63,6 +64,7 @@
     gap: 15px;
     justify-content: center;
     position: relative;
+
     & svg {
       margin-bottom: 18px;
     }
@@ -71,7 +73,7 @@
 
       color: var(--Black, #332F36);
 
-font-family: "SF Pro Text",sans-serif;
+      font-family: "SF Pro Text", sans-serif;
 
 
       @include font(700, 32px);
@@ -172,6 +174,7 @@ font-family: "SF Pro Text",sans-serif;
       font-size: 18px;
       margin-bottom: 8px;
     }
+
     &_btn_remove {
       color: #bb0e0e;
       background: none;
@@ -199,6 +202,7 @@ font-family: "SF Pro Text",sans-serif;
 
   &_btnBlock {
     margin: 10px 0;
+
     & :nth-child(1) {
       margin-bottom: 10px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -210,6 +214,7 @@ font-family: "SF Pro Text",sans-serif;
     }
   }
 }
+
 .addGroup {
   width: 100%;
 
@@ -246,6 +251,7 @@ font-family: "SF Pro Text",sans-serif;
       display: flex;
       margin-top: 15px;
       margin-bottom: 15px;
+
       &_span {
         margin-left: 10px;
       }
@@ -256,6 +262,7 @@ font-family: "SF Pro Text",sans-serif;
     font-size: $fs12;
     color: #53565b;
   }
+
   // style={{marginLeft: 10, marginTop: "1%"}}
   &_btn {
     width: 100%;
@@ -273,10 +280,12 @@ font-family: "SF Pro Text",sans-serif;
     }
   }
 }
+
 .groupSetting {
-  &_input {
+    &_input {
     text-align: left;
-    margin: 32px 0 20px 0;
+    height: 104px;
+    margin: 32px 0 10px 0;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 100%;
     }
@@ -284,8 +293,43 @@ font-family: "SF Pro Text",sans-serif;
       width: 100%;
     }
   }
+  & input {
+    height: 43px;
+      font-size: 24px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0;
+    text-align: left;
+  }
 
   &__delete_btn {
+    color: #ffffff;
+    height: 54px;
+    border-radius: 10px;
+    background: rgb(127, 127, 127);
+
+    &:hover:not(:disabled) {
+      color: #ffff;
+      background: rgb(127, 127, 127);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed !important;
+    }
+  }
+
+  &__save_btn {
+    color: #ffffff;
+    height: 54px;
+    border-radius: 10px;
+    background: rgb(53, 126, 235);
+
+    &:hover:not(:disabled) {
+      color: #ffff;
+      background: rgb(53, 126, 235);
+    }
+
     &:disabled {
       opacity: 0.5;
       cursor: not-allowed !important;
@@ -300,6 +344,31 @@ font-family: "SF Pro Text",sans-serif;
   }
 
   &_checkboxBlock {
+    overflow-y: auto;
+    height: 409px;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      margin-top: 24px;
+      background: rgb(255, 255, 255);
+      border-radius: 4px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgb(207, 226, 255);
+      border-radius: 4px;
+      border: 2px solid rgb(255, 255, 255);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgb(53, 126, 235);
+    }
+    scrollbar-width: thin;
+    scrollbar-color: rgb(207, 226, 255) rgb(255, 255, 255);
     & :not(:last-child) {
       margin-top: 10px;
       margin-bottom: 19px;
@@ -351,9 +420,10 @@ font-family: "SF Pro Text",sans-serif;
       align-items: center;
 
       & span {
-        font-size: $fs14;
-        color: #bd9fc4;
+        font-size: $fs16;
+        color: #a2a9b4;
       }
+
       & input {
         width: 100px;
         height: 25px;
@@ -372,13 +442,15 @@ font-family: "SF Pro Text",sans-serif;
     display: inline-flex;
     justify-content: space-between;
   }
+
   &_courseAccess_content {
     margin-bottom: 30px;
 
     &_desc {
       font-size: $fs14;
-      color: #bd9fc4;
+      color: #4d5766;
     }
+
     &_course {
       text-align: left;
       margin-top: 15px;
@@ -411,13 +483,17 @@ font-family: "SF Pro Text",sans-serif;
   &_btn {
     margin-top: 40px;
     width: 100%;
+    height: 54px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+
 
     & button {
+
       width: 100%;
-      margin-bottom: 10px;
     }
   }
 
@@ -457,6 +533,7 @@ font-family: "SF Pro Text",sans-serif;
     }
   }
 }
+
 .textarea__field {
   border: 1px solid #d5d3d3;
   margin-top: 2px;
@@ -479,6 +556,7 @@ font-family: "SF Pro Text",sans-serif;
     margin: 2%;
   }
 }
+
 .courseSelect {
   border: 1px solid #ccc;
   border-radius: 10px;

@@ -2,8 +2,21 @@ import { FC, memo } from 'react'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { ExerciseItem } from '../ExerciseItem/ExerciseItem'
 import { ExerciseImageItem } from '../ExerciseItem/ExerciseImageItem'
-import { accardionArrPath, successStatusActive, successStatus, middleStatusActive, middleStatus, failStatusActive, failStatus, markIcon } from '../../../Pages/StudentCourse/config/svgIconPath'
-import { lessonHeaderIcon, testHeaderIcon, homeworkHeaderIcon } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/ModulesAndLessonsBlock/LessonsBlock/config'
+import {
+  accardionArrPath,
+  successStatusActive,
+  successStatus,
+  middleStatusActive,
+  middleStatus,
+  failStatusActive,
+  failStatus,
+  markIcon,
+} from '../../../Pages/StudentCourse/config/svgIconPath'
+import {
+  lessonHeaderIcon,
+  testHeaderIcon,
+  homeworkHeaderIcon,
+} from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/ModulesAndLessonsBlock/LessonsBlock/config'
 import { getNounDeclension } from 'utils/getNounDeclension'
 import { lessonT } from '../../../types/sectionT'
 import { accardionItemT } from '../../../types/componentsTypes'
@@ -11,38 +24,36 @@ import { accardionItemT } from '../../../types/componentsTypes'
 import styles from './accardionItem.module.scss'
 
 export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, moduleIndex, openIndex, handleToggleOpen }) => {
-
   const isLessonClickable = (lessonIndex: number) => {
-    if (!modules?.group_settings.strict_task_order || moduleIndex === 0 && lessonIndex === 0) {
-        return false
+    if (!modules?.group_settings.strict_task_order || (moduleIndex === 0 && lessonIndex === 0)) {
+      return false
     }
     const prevModule = moduleIndex > 0 ? modules?.sections[moduleIndex - 1] : null
-    const prevLesson = (prevModule && lessonIndex === 0)
-        ? prevModule?.lessons[prevModule?.lessons.length - 1]
-        : module?.lessons[lessonIndex - 1]
+    const prevLesson = prevModule && lessonIndex === 0 ? prevModule?.lessons[prevModule?.lessons.length - 1] : module?.lessons[lessonIndex - 1]
 
     const somePrevNotViewed = module?.lessons.slice(0, lessonIndex).some(lesson => !lesson.viewed)
 
-    const disabledFromPrev = prevLesson.type === "homework" && modules?.group_settings.submit_homework_to_go_on && !prevLesson.sended ||
-        prevLesson.type === "test" && (modules?.group_settings.submit_test_to_go_on && !prevLesson.sended ||
-        modules?.group_settings.success_test_to_go_on && !prevLesson.completed)
+    const disabledFromPrev =
+      (prevLesson.type === 'homework' && modules?.group_settings.submit_homework_to_go_on && !prevLesson.sended) ||
+      (prevLesson.type === 'test' &&
+        ((modules?.group_settings.submit_test_to_go_on && !prevLesson.sended) ||
+          (modules?.group_settings.success_test_to_go_on && !prevLesson.completed)))
 
     return !prevLesson.viewed || somePrevNotViewed || disabledFromPrev
   }
 
   return (
     <div className={styles.accardionWrapper_component}>
-      <div onClick={() => handleToggleOpen(moduleIndex)} className={
-        openIndex === moduleIndex
-          ? styles.accardionWrapper_component_header_active
-          : styles.accardionWrapper_component_header
-      }>
-        <span className={
-          openIndex === moduleIndex
-            ? styles.accardionWrapper_component_header_number_active
-            : styles.accardionWrapper_component_header_number
-          }>
-          <span style={{width: '64px', textAlign: 'center'}}>{moduleIndex + 1}</span>
+      <div
+        onClick={() => handleToggleOpen(moduleIndex)}
+        className={openIndex === moduleIndex ? styles.accardionWrapper_component_header_active : styles.accardionWrapper_component_header}
+      >
+        <span
+          className={
+            openIndex === moduleIndex ? styles.accardionWrapper_component_header_number_active : styles.accardionWrapper_component_header_number
+          }
+        >
+          <span style={{ width: '64px', textAlign: 'center' }}>{moduleIndex + 1}</span>
         </span>
         <span className={styles.accardionWrapper_component_header_marks}>
           <IconSvg
@@ -54,9 +65,7 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, module
           {module?.sum_marks}/{module?.homework_count ? module?.homework_count * 5 : 0}
         </span>
         <div className={styles.accardionWrapper_component_header_lessonName}>
-          <h4 className={styles.accardionWrapper_component_header_lessonName_title}>
-            {module?.section_name}
-          </h4>
+          <h4 className={styles.accardionWrapper_component_header_lessonName_title}>{module?.section_name}</h4>
           {/*<span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>*/}
           {/*  {module.lessons.length !== 0 */}
           {/*  ? <span>{module.lessons.length} {getNounDeclension(module.lessons.length, ['Занятие', 'Занятия', 'Занятий'])}</span>*/}
@@ -95,14 +104,22 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, module
         </div>
         <span className={styles.accardionWrapper_component_header_status}>
           <IconSvg
-              width={30}
-              height={30}
-              viewBoxSize="0 0 30 30"
-              path={module?.completed_count === 0
-                    ? (openIndex === moduleIndex ? failStatusActive : failStatus)
-                    : module?.completed_count === module?.lessons.length
-                       ? (openIndex === moduleIndex ? successStatusActive : successStatus)
-                       : (openIndex === moduleIndex ? middleStatusActive : middleStatus) }
+            width={30}
+            height={30}
+            viewBoxSize="0 0 30 30"
+            path={
+              module?.completed_count === 0
+                ? openIndex === moduleIndex
+                  ? failStatusActive
+                  : failStatus
+                : module?.completed_count === module?.lessons.length
+                ? openIndex === moduleIndex
+                  ? successStatusActive
+                  : successStatus
+                : openIndex === moduleIndex
+                ? middleStatusActive
+                : middleStatus
+            }
           />
         </span>
         <span
@@ -120,21 +137,28 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, module
           />
         </span>
       </div>
-      {openIndex === moduleIndex && module && (
-        module.lessons.length > 14
-          ? <div className={styles.accardionWrapper_component_exerciseWrapper}>
-          {module &&
-            module.lessons.map((lesson: lessonT, lessonIndex: number) => (
-              <ExerciseItem key={lesson.order + lesson.id} lesson={lesson} sectionId={module.section} disabled={isLessonClickable(lessonIndex)} />
-            ))}
+      {openIndex === moduleIndex &&
+        module &&
+        (module.lessons.length > 14 || window.innerWidth <= 800 ? (
+          <div className={styles.accardionWrapper_component_exerciseWrapper}>
+            {module &&
+              module.lessons.map((lesson: lessonT, lessonIndex: number) => (
+                <ExerciseItem key={lesson.order + lesson.id} lesson={lesson} sectionId={module.section} disabled={isLessonClickable(lessonIndex)} />
+              ))}
           </div>
-          : <div className={styles.accardionWrapper_component_exerciseWrapperImage}>
-          {module &&
-            module.lessons.map((lesson: lessonT, lessonIndex: number) => (
-              <ExerciseImageItem key={lesson.order + lesson.id} lesson={lesson} sectionId={module.section} disabled={isLessonClickable(lessonIndex)} />
-            ))}
-            </div>
-        )}
+        ) : (
+          <div className={styles.accardionWrapper_component_exerciseWrapperImage}>
+            {module &&
+              module.lessons.map((lesson: lessonT, lessonIndex: number) => (
+                <ExerciseImageItem
+                  key={lesson.order + lesson.id}
+                  lesson={lesson}
+                  sectionId={module.section}
+                  disabled={isLessonClickable(lessonIndex)}
+                />
+              ))}
+          </div>
+        ))}
     </div>
   )
 })

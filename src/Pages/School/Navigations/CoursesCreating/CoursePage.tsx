@@ -141,9 +141,16 @@ export const CoursePage: FC = () => {
     setDeletingFolder(folder)
   }
 
-  const filteredCourses = courses?.results.filter((course: any) => {
-    return course.name.toLowerCase().includes(search.toLowerCase())
-  })
+  const filteredCourses =
+    role === RoleE.Student
+      ? courses?.results
+          .filter(course => {
+            return course.name.toLowerCase().includes(search.toLowerCase())
+          })
+          .filter(course => course.public === 'О')
+      : courses?.results.filter(course => {
+          return course.name.toLowerCase().includes(search.toLowerCase())
+        })
 
   if (!isSuccess) return <LoaderLayout />
   return (
@@ -522,7 +529,7 @@ export const CoursePage: FC = () => {
           >
             {courses && filteredCourses?.length !== 0 ? (
               filteredCourses?.map((course: any, index) =>
-                showTestCourse || course.course_id !== 247 ? (
+                (RoleE.Admin === role && showTestCourse) || course.course_id !== 247 ? (
                   <CoursesCard userProgress={getProgress(course.course_id)} key={course?.course_id} course={course} role={role} />
                 ) : null,
               )

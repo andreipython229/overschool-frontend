@@ -27,6 +27,7 @@ import video_dark from 'assets/img/CourseCardsTS/video-dark.svg'
 import homeTask_dark from 'assets/img/CourseCardsTS/home-tasks-dark.svg'
 
 import '../../Navigations/CoursesCreating/courses_new_card.scss'
+import { getNounDeclension } from 'utils/getNounDeclension'
 
 type courseCard = {
   course: CoursesDataT
@@ -87,7 +88,10 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                 {role === RoleE.Admin || role === RoleE.Teacher ? (
                   <>
                     <div className="CourseCardsTS__admin-top">
-                      <p className="CourseCardsTS__admin-student-count">{course?.public === 'О' && '152 ученика'}</p>
+                      <p className="CourseCardsTS__admin-student-count">
+                        {course?.public === 'О' &&
+                          `${course.students_count} ${getNounDeclension(course.students_count || 0, ['ученик', 'ученика', 'учеников'])}`}
+                      </p>
 
                       {role === RoleE.Admin && course.course_id !== 247 ? (
                         course.course_removed ? (
@@ -141,15 +145,22 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                     <div className="CourseCardsTS__admin-property-wrapper">
                       <div className="CourseCardsTS__admin-property">
                         <img src={course?.public === 'О' ? video_admin : video_dark} className="CourseCardsTS__admin-property-img" alt="" />
-                        <p className="CourseCardsTS__admin-property-name">20 видео</p>
+                        <p className="CourseCardsTS__admin-property-name">{course.video_count || 0} Видео</p>
                       </div>
                       <div className="CourseCardsTS__admin-property">
                         <img src={course?.public === 'О' ? homeTask_admin : homeTask_dark} className="CourseCardsTS__admin-property-img" alt="" />
-                        <p className="CourseCardsTS__admin-property-name">11 Домашних заданий</p>
+                        <p className="CourseCardsTS__admin-property-name">{`${course.homework_count || 0} ${getNounDeclension(
+                          course.homework_count || 0,
+                          ['Домашнее задание', 'Домашних задания', 'Домашних заданий'],
+                        )}`}</p>
                       </div>
                       <div className="CourseCardsTS__admin-property">
                         <img src={course?.public === 'О' ? tests_admin : tests_dark} className="CourseCardsTS__admin-property-img" alt="" />
-                        <p className="CourseCardsTS__admin-property-name">9 тестов</p>
+                        <p className="CourseCardsTS__admin-property-name">{`${course.test_count || 0} ${getNounDeclension(course.test_count || 0, [
+                          'Тест',
+                          'Теста',
+                          'Тестов',
+                        ])}`}</p>
                       </div>
                     </div>
 
