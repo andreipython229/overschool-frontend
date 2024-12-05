@@ -141,7 +141,7 @@ export const DiogramIconPath = [
   { d: DiogramIcon.d2, fill: 'currentColor' },
 ] //diogram
 
-export const DownloadIconPath = [{ d: DownloadIcon.d1, fill: 'currentColor' }] //download
+export const DownloadIconPath = [{ d: DownloadIcon.d1, fill: 'dodgerblue' }] //download
 
 export const EmojiIconPath = [
   { d: EmojiIcon.d1, fill: 'currentColor' },

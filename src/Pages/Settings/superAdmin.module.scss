@@ -329,6 +329,23 @@
   color: #808996;
 }
 
+.title_passport {
+  display: flex;
+  gap: 35.5%;
+  margin-bottom: 20px;
+
+  &_header {
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  &_block {
+    display: flex;
+    gap: 40px;
+  }
+
+}
+
 .decor {
   font-family: 'Inter', sans-serif;
   color: #4d5766;
