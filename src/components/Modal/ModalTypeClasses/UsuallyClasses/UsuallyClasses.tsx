@@ -10,6 +10,7 @@ import { useCreateLesson } from '../../../../customHooks'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from '../../Modal.module.scss'
+import { PenIcon } from 'Pages/Settings/Main/iconComponents'
 
 export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAndType, modulesList, setType, setModulesList }) => {
   const { nameLesson, isLoading, setNameLesson, handleCreateLesson } = useCreateLesson({
@@ -49,7 +50,9 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAnd
           type={'text'}
           value={nameLesson}
           style={{ marginBottom: '24px' }}
-        />
+        >
+        <PenIcon />
+        </Input>
       </div>
 
       <div className={styles.classesContainer_type_btnBlock} style={{marginTop: 0}}>

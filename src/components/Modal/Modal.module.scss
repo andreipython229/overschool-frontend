@@ -750,6 +750,21 @@
     width: 100%;
     text-overflow: ellipsis;
     text-align: left;
+
+    div {
+
+      div {
+        flex-direction: row-reverse;
+        border: 1px solid transparent;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+      }
+    }
+
+    input::placeholder {
+      font-weight: 400;
+      font-size: 16px;
+      color: #808080;
+    }
   }
 
   &_title {
@@ -845,6 +860,29 @@
     @include font(500, 20px, 23.87px);
     color: #000000;
     text-align: left;
+    margin-bottom: 12px; 
+  }
+
+  &_input {
+    width: 100%;
+    text-overflow: ellipsis;
+    text-align: left;
+    margin-bottom: 24px; 
+
+    div {
+
+      div {
+        flex-direction: row-reverse;
+        border: 1px solid transparent;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+      }
+    }
+
+    input::placeholder {
+      font-weight: 400;
+      font-size: 16px;
+      color: #808080;
+    }
   }
 
   &_checkboxPack {
@@ -870,11 +908,6 @@
     &_text {
       @include display(flex, column);
       margin-top: 11px;
-
-      &_checked {
-        @include font(400, $fs12);
-        color: $font-color-rose;
-      }
 
       &_desc {
         @include font(500, 16px, 19.09px);
@@ -1007,28 +1040,35 @@
   &_input {
     width: 495px;
     text-align: left;
-    // margin: 0.5rem 1rem;
-    // border: 1px solid !important;
-    // border-image: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) !important;
-    // border-radius: 10px;
+
     div {
 
       div {
-        border: 1px solid !important;
-        border-image: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) !important;
+        flex-direction: row-reverse;
+        border: 1px solid transparent;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
       }
     }
 
     input::placeholder {
       font-weight: 400;
       font-size: 16px;
+      color: #808080;
     }
 
     &_label {
       font-size: 14px;
       color: #a2a9b4;
     }
+
+    &_penIcon {
+      display: block;
+    }
   }
+}
+
+.module_input input:focus ~ .module_input_penIcon {
+    display: none;
 }
 
 .settings {

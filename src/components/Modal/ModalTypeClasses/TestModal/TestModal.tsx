@@ -14,6 +14,7 @@ import { useCreateLesson } from 'customHooks/useCreateLesson'
 import { SimpleLoader } from '../../../Loaders/SimpleLoader'
 
 import styles from '../../Modal.module.scss'
+import { PenIcon } from 'Pages/Settings/Main/iconComponents'
 
 export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLessonIdAndType }) => {
   const formik = useFormik({
@@ -70,12 +71,16 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
         <span className={styles.classesContainer_title}>Настройте тест</span>
       </div>
 
-      <div style={{ marginTop: '15px' }} className={styles.usually_input}>
-        <Input placeholder={'Введите название теста'} name="classesName" onChange={handleCreateTestName} type={'text'} value={nameLesson} />
+      <div className={styles.test_input}>
+        <Input placeholder={'Введите название теста'} name="classesName" onChange={handleCreateTestName} type={'text'} value={nameLesson}>
+          <PenIcon />
+        </Input>
       </div>
-      <div style={{ margin: '15px 0 25px' }} className={styles.usually_input}>
-        <span className={styles.test_title}>Процент правильных ответов для выполнения</span>
-        <Input placeholder={'0'} name="percent" min={0} onChange={handleChange} type={'number'} value={`${percent}`} />
+      <span className={styles.test_title}>Процент правильных ответов для выполнения</span>
+      <div style={{ marginBottom: '24px' }} className={styles.test_input}>
+        <Input placeholder={'0'} name="percent" min={0} onChange={handleChange} type={'number'} value={`${percent}`}>
+          <PenIcon />
+        </Input>
       </div>
       <div className={styles.test_checkboxPack}>
         {/* <div className={styles.test_checkbox}>
@@ -90,7 +95,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
         {checkboxData.map(({ id, name, span1, span2 }) => (
           <>
           <div className={styles.test_title}>
-            <span className={formik.values[name as keyof object] ? styles.test_checkbox_text_checked : ''}>{span1}</span>
+            <span>{span1}</span>
           </div>
             <div key={id} className={styles.test_checkbox}>
             <Checkbox id={id} name={name} checked={formik.values[name as keyof object]} onChange={handleChange} />

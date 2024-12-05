@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, FormEvent, useEffect, useState} from 'react'
+import {ChangeEvent, FC, FormEvent, useState} from 'react'
 import { useCreateModulesMutation } from 'api/modulesServices'
 
 import { Input } from 'components/common/Input/Input/Input'
@@ -10,6 +10,7 @@ import { AddModuleModalPropsT } from '../ModalTypes'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../Modal.module.scss'
+import { PenIcon } from 'Pages/Settings/Main/iconComponents'
 
 export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, modulesList }) => {
 
@@ -56,7 +57,9 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
           type={'text'}
           focus={true}
           onChange={handleInputNameModules}
-        />
+        >
+        <PenIcon />
+        </Input>
       </div>
       <Button
         style={{ width: '100%' }}

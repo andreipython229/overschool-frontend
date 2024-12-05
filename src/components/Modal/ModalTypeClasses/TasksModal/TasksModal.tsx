@@ -15,6 +15,7 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import styles from '../../Modal.module.scss'
 import { timeMaper } from '../../../../constants/timeMaper'
 import { TasksModalIcon } from '../constants/tasksModalIcon'
+import { PenIcon } from 'Pages/Settings/Main/iconComponents'
 
 export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modulesList, setType }) => {
   const [descriptionHomeWork, setDescriptionHomeWork] = useState<string>('')
@@ -57,7 +58,9 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modu
           type={'text'}
           value={nameLesson}
           style={{ marginBottom: '24px' }}
-        />
+        >
+        <PenIcon />
+        </Input>
       </div>
 
       <div className={styles.classesContainer_type_btnBlock} style={{marginTop: 0}}>

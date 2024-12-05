@@ -1,5 +1,5 @@
 
-export const PenIcon = ({ width = 28, height = 28 }) => {
+export const PenIcon = ({ width = 24, height = 24 }) => {
   return (
     <svg
       width={width}
@@ -62,4 +62,3 @@ export const PenIcon = ({ width = 28, height = 28 }) => {
     </svg>
   );
 };
-
