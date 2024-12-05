@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  &__persents-top {
+  &__persents_top {
     display: none;
   }
   &__student {
@@ -22,7 +22,7 @@
     // margin: auto;
   }
 
-  &__bg-filter {
+  &__bg_filter {
     background: #332f3680;
     position: absolute;
     top: 0;
@@ -75,7 +75,7 @@
     align-items: center;
     gap: 16px;
 
-    &-wrapper {
+    &_wrapper {
       align-items: center;
       display: flex;
       width: 100%;
@@ -86,7 +86,7 @@
       flex-wrap: wrap;
     }
 
-    &-name {
+    &_name {
       font-size: 14px;
       white-space: nowrap;
       color: #fff;
@@ -147,17 +147,17 @@
 
     justify-content: space-between;
 
-    &-top {
+    &_top {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    &-student-count {
+    &_studentCount {
     }
 
-    &-main {
+    &_main {
       max-height: 230px;
       position: relative;
       border-radius: 24px;
@@ -165,7 +165,7 @@
       padding: 0 0 160px 0;
     }
 
-    &-main-img {
+    &_main_img {
       position: absolute;
       height: 100%;
       width: 100%;
@@ -176,7 +176,7 @@
       object-fit: cover;
     }
 
-    &-title {
+    &_title {
       position: relative;
       z-index: 2;
       background: linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%);
@@ -187,7 +187,7 @@
       color: #fffafa;
     }
 
-    &-bg-filter {
+    &_bg_filter {
       background: #332f3680;
       position: absolute;
       top: 0;
@@ -197,7 +197,7 @@
       z-index: 1;
     }
 
-    &-property-wrapper {
+    &_property_wrapper {
       align-items: center;
       display: flex;
       width: 100%;
@@ -208,24 +208,24 @@
       z-index: 3;
     }
 
-    &-property {
+    &_property {
       display: flex;
       align-items: center;
       gap: 5px;
-      &-name {
+      &_name {
         white-space: nowrap;
         font-size: 14px;
       }
     }
 
-    &-buttons {
+    &_buttons {
       display: grid;
       width: 100%;
     }
 
-    &-button-students {
+    &_button_students {
       background: #357eeb;
-      padding: 16px ;
+      padding: 16px;
       border-radius: 10px;
       text-decoration: none;
       font-size: 16px;
@@ -239,9 +239,9 @@
       border: none;
     }
 
-    &-button-edit {
+    &_button_edit {
       background: #f5f5f5;
-      padding: 16px ;
+      padding: 16px;
       border: none;
       border-radius: 10px;
       text-decoration: none;
@@ -255,7 +255,7 @@
       white-space: nowrap;
     }
 
-    &-student-count {
+    &_student_count {
       font-size: 16px;
       font-weight: 600;
       line-height: 19.09px;
@@ -279,14 +279,14 @@
   position: relative;
   overflow: hidden;
 
-  &-value {
+  &_value {
     color: #333;
     display: none;
     line-height: 21px;
     text-align: center;
   }
 
-  &-bg {
+  &_bg {
     background: #e6e9ed;
     position: relative;
     height: 27px;
@@ -295,7 +295,7 @@
     margin: 16px 0 32px 0;
   }
 
-  &-bar {
+  &_bar {
     background: #ffffff;
     height: 100%;
     position: absolute;
@@ -337,14 +337,14 @@
   gap: 10px;
 }
 
-.switch-wrap {
+.switchWrap {
   cursor: pointer;
   background: transparent;
   padding: 2px;
   width: 40px;
   height: calc(40px / 2 + 2px);
   border-radius: calc(40px / 2);
-  transition: background 0.2s;
+  transition: all 0.2s;
   position: relative;
 
   input {
@@ -412,29 +412,28 @@
       padding: 10px;
     }
     &__admin {
-
       max-width: none;
       width: 100%;
-      &-property-wrapper {
-        img{
+      &_property_wrapper {
+        img {
           width: 15px;
         }
       }
-      &-button-edit {
+      &_button_edit {
         padding: 10px;
         font-size: 12px;
       }
-      &-button-students {
+      &_button_students {
         // padding: 10px !important;
         line-height: normal;
         font-size: 12px;
       }
 
-      &-property-name {
+      &_property_name {
         line-height: normal;
         font-size: 10px;
       }
-      &-title {
+      &_title {
         font-size: 20px;
         line-height: 24px;
         padding: 20px;
@@ -443,12 +442,12 @@
         line-height: normal;
       }
 
-      &-student-count {
+      &_student_count {
         line-height: normal;
         font-size: 12px;
       }
 
-      &-main{
+      &_main {
         padding: 0;
       }
     }
@@ -467,13 +466,13 @@
 
       padding: 4px 20px;
     }
-    &__property-name {
+    &__property_name {
       font-size: 10px;
     }
     &__line {
       display: none;
     }
-    &__property-wrapper {
+    &__property_wrapper {
       // flex-direction: column;
       gap: 5px;
     }
@@ -495,10 +494,10 @@
         width: 14px;
       }
     }
-    &__percents-bottom {
+    &__percents_bottom {
       display: none;
     }
-    &__persents-top {
+    &__persents_top {
       display: block;
       font-size: 16px;
       font-weight: 700;
@@ -512,10 +511,10 @@
   .progress {
     display: none;
   }
-  .progress-value {
+  .progress_value {
     display: none;
   }
-  .progress-bg {
+  .progress_bg {
     margin: 20px 0;
   }
 }
