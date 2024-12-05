@@ -4,7 +4,7 @@ import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from 'config/commonSvgIconsPath'
-import { basicModalHeaderIconPath } from '../config/svgIconsPath'
+import { UsuallyClassesIcon } from '../constants/usuallyClassesIcon'
 import { SettingClassesPropsT } from '../../ModalTypes'
 import { useCreateLesson } from '../../../../customHooks'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
@@ -32,33 +32,37 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAnd
   }
 
   return (
-    <form onSubmit={handleCreateLesson} className={styles.classesContainer}>
+    <form onSubmit={handleCreateLesson} className={styles.classesContainer} style={{ maxWidth: '600px', width: '100%' }}>
       <div onClick={closedAll} className={styles.classesContainer_closed}>
-        <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
+        <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
       </div>
       <div className={styles.usually_header}>
-        <IconSvg width={60} height={53} viewBoxSize="0 0 60 53" path={basicModalHeaderIconPath} />
-        <span>Настройте занятие</span>
+        <UsuallyClassesIcon width={140} height={140}/>
+        <span className={styles.classesContainer_title}>Настройте занятие</span>
       </div>
 
       <div className={styles.usually_input}>
-        <span className={styles.usually_title}>Название занятия:</span>
         <Input
-          placeholder={'Название занятия'}
+          placeholder={'Введите название занятия'}
           name={'name classes'}
           onChange={changeNameClasses}
           type={'text'}
           value={nameLesson}
-          style={{ marginBottom: '25px' }}
+          style={{ marginBottom: '24px' }}
         />
       </div>
 
-      <div className={styles.btnBlock}>
-        <Button onClick={goToBack} text={'Назад'} />
+      <div className={styles.classesContainer_type_btnBlock} style={{marginTop: 0}}>
+        <Button
+            style={{padding: '14px'}}
+            variant={'cancel'}
+            onClick={goToBack}
+            text={'Назад'}
+          />
         <Button
           type={'submit'}
           text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить занятие'}
-          variant={isLoading ? 'disabled' : 'primary'}
+          variant={isLoading ? 'inActive' : 'newPrimary'}
           disabled={isLoading}
         />
       </div>

@@ -42,15 +42,15 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
   }
 
   return (
-    <form onSubmit={handleCreateModules} style={{ maxWidth: '440px'}} className={styles.classesContainer}>
+    <form onSubmit={handleCreateModules} style={{ maxWidth: '600px', width: '100%'}} className={styles.classesContainer}>
       <div onClick={handleClose} className={styles.classesContainer_closed}>
-        <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
+        <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
       </div>
       <div className={styles.module_title}>Создание модуля</div>
       <div className={styles.module_input}>
-        <span className={styles.module_input_label}>Введите название модуля:</span>
         <Input
-          style={{ marginTop: '8px', marginBottom: '16px' }}
+          style={{ marginTop: '45px', marginBottom: '24px'}}
+          placeholder='Введите название модуля'
           name={'module'}
           value={modulesName}
           type={'text'}
@@ -59,11 +59,11 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
         />
       </div>
       <Button
-        style={{ minWidth: '280px' }}
+        style={{ width: '100%' }}
         disabled={isLoading || isError}
         type={'submit'}
         text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Создать модуль'}
-        variant={isLoading || isError ? 'disabled' : 'primary'}
+        variant={isLoading || isError ? 'inActive' : 'newPrimary'}
       />
     </form>
   )
