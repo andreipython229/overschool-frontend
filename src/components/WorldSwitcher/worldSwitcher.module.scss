@@ -10,8 +10,8 @@
     text-align: center;
     }
 
-  @media only screen and (min-width: 800px) and (max-width: 1150px){
-    font-size: 1.3rem;
+  @media only screen and (min-width: 490px) and (max-width: 1150px){
+    font-size: 2vw;
     text-align: center;
    }
 
@@ -45,11 +45,11 @@
         line-height: 54.89px;
         color: #332F36;
       }
-      @media only screen and (min-width: 800px) and (max-width: 1150px){
+      @media only screen and (min-width: 490px) and (max-width: 1150px){
         font-family: 'SFPRORegular';
         font-weight: 500;
-        font-size: 36px;
-        line-height: 44.89px;
+        font-size: 3vw;
+        line-height: 54.89px;
         color: #332F36;
      }
       @media only screen and (min-width: 390px) and (max-width: 435px){
@@ -70,11 +70,11 @@
         line-height: 62px;
       }
 
-      @media only screen and (min-width: 800px) and (max-width: 1150px){
+      @media only screen and (min-width: 490px) and (max-width: 1150px){
         font-family: 'SFPRORegular';
         color: #357EEB;
         font-weight: 500;
-        font-size: 36px;
+        font-size: 3vw;
         line-height: 52px;
       }
 

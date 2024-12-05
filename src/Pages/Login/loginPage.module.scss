@@ -14,13 +14,18 @@
   height: 100%;
 
   &_btnBack {
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
+
+    @media only screen and (min-width: 320px) and (max-width: 1000px){
       left: 10px;
-      top: 70px;
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      left: 10px;
-      top: 70px;
+      top: 13vw;
+      width: 5vw;
+      height: 5vw;
+      border-radius: 10px;
+      position: absolute;
+      background: #CFE2FF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     width: 50px;
     height: 50px;
@@ -36,16 +41,23 @@
     img {
       width: 20px;
       height: 32px;
+
+      @media only screen and (min-width: 320px) and (max-width: 1000px){
+        width: 3vw;
+        height: 3.5vw;
+      }
     }
   }
 
   &_logoWrapper {
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      display: none;
+
+    img{
+      @media only screen and (min-width: 320px) and (max-width: 1000px){
+        width: 30vw;
+        margin-top: 7vw;
+      }
     }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      display: none;
-    }
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,6 +106,8 @@
         font-size: 35px;
         line-height: 42px;
         color: #ffffff;
+
+
       }
     }
   }
@@ -119,22 +133,16 @@
       }
     }
 
+
     &_form {
       margin-top: 40px;
       width: 400px;
       height: 650px;
-      @media only screen and (min-width: 320px) and (max-width: 375px) {
-        margin-top: 20%;
+
+      @media only screen and (min-width: 320px) and (max-width: 1000px){
         display: flex;
         flex-direction: column;
         align-items: center;
-      }
-      @media only screen and (min-width: 375px) and (max-width: 480px) {
-        margin-top: 20%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      
       }
 
       &_title {
@@ -144,18 +152,29 @@
         letter-spacing: 0.02em;
         color: #252762;
         text-align: center;
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
-          margin-bottom: 20%;
+
+        @media only screen and (min-width: 320px) and (max-width: 1000px){
+          font-weight: 700;
+          font-size: 3vw;
+          line-height: 3vw;
+          letter-spacing: 0.02em;
+          color: #252762;
+          text-align: center;
         }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
-          margin-bottom: 20%;
-        }
+
 
         &_comment {
           margin-top: 1rem;
           text-align: center;
           color: #252762;
           font-size: 14px;
+
+          @media only screen and (min-width: 320px) and (max-width: 1000px){
+            margin-top: 1rem;
+            text-align: center;
+            color: #252762;
+            font-size: 1.5vw;
+          }
         }
 
         
@@ -181,15 +200,11 @@
       }
 
       &_eMailWrapper {
-        
-          @media only screen and (min-width: 320px) and (max-width: 375px) {
-            width: 95vw;
-          }
-          @media only screen and (min-width: 375px) and (max-width: 480px) {
-            width: 95vw;
+
+          @media only screen and (min-width: 320px) and (max-width: 1000px){
+            width: 40vw;
           }
 
-       
 
         &_title {
           margin-top: 20px;
@@ -204,21 +219,16 @@
 
       &_passwordWrapper {
 
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
-          width: 95vw;
-        }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
-          width: 95vw;
+        @media only screen and (min-width: 320px) and (max-width: 1000px){
+          width: 40vw;
+          margin-top: 8px;
         }
 
         margin-top: 18px;
 
         img {
-          @media only screen and (min-width: 320px) and (max-width: 375px) {
-            right: -60px;
-          }
-          @media only screen and (min-width: 375px) and (max-width: 480px) {
-            right: -60px;
+          @media only screen and (min-width: 320px) and (max-width: 1000px){
+            width: 3vw;
           }
         }
       }
@@ -243,6 +253,14 @@
           line-height: 14px;
           margin: 5px 0 5px 0;
           color: #252762;
+
+          @media only screen and (min-width: 320px) and (max-width: 1000px){
+            font-weight: 400;
+            font-size: 1.5vw;
+            line-height: 14px;
+            margin: 5px 0 5px 0;
+            color: #252762;
+          }
         }
 
         
@@ -271,13 +289,10 @@
 
         &_btn {
 
-          @media only screen and (min-width: 320px) and (max-width: 375px) {
+          @media only screen and (min-width: 320px) and (max-width: 1000px){
             right: 0;
             margin-bottom: 10%;
-          }
-          @media only screen and (min-width: 375px) and (max-width: 480px) {
-            right: 0;
-            margin-bottom: 10%;
+            font-size: 1.5vw;
           }
 
           text-align: center;
@@ -292,6 +307,8 @@
           &_href {
             color: #808080;
           }
+
+
         }
 
         &_or {
@@ -336,19 +353,19 @@
 .btn {
   button {
     width: 400px;
-  }
+    height: 54px;
 
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    button {
-      width: 350px;
-    }
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    button {
-      width: 350px;
+    @media only screen and (min-width: 320px) and (max-width: 1000px){
+      width: 35vw;
+      height: 6vw;
+      font-size: 3vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
+
 
 .errors {
   color: #ff3c3c;
