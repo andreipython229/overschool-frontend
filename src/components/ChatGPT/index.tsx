@@ -13,13 +13,14 @@ import {
 } from '../../api/chatgptService';
 
 import OverAiIcon from '../../assets/img/common/newIconModal.svg';
+import arrowUp from '../../assets/img/common/arrow-up.svg'
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
 import { deleteIconPath } from 'components/Questions/config/svgIconPath';
 
 
 import { aiButtonIcon } from './constants/svgIcon';
-import { aiButtonNavIcon } from './svg/svgIconPath';
+import { aiButtonNavIcon, arrowUpNavIcon } from './svg/svgIconPath';
 import styles from './chatgpt.module.scss';
 
 
@@ -380,6 +381,10 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   };
 
 
+  
+
+
+
   return (
     <div className="fixed-button">
       <button className={styles.chatGptButton} onClick={toggleDialog}>
@@ -426,32 +431,40 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                           <button className={styles.createChatButtonModal} onClick={handleCreateEmptyChat} disabled={isCreatingChatDisabled}>
                             <b>+</b>
                           </button>
-                          {Object.entries(chatData)
-                            .sort(([, a], [, b]) => a.order - b.order)
-                            .map(([chatId, chatValue]) => (
-                              <div
-                                key={chatId}
-                                onClick={() => selectChat(Number(chatId))}
-                                draggable
-                                onDragStart={(e) => handleDragStart(e, Number(chatId))}
-                                onDragOver={(e) => handleDragOver(e, Number(chatId))}
-                                onDragEnd={handleDragEnd}
-                                className={`${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''} ${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''}`}
-                                style={{ borderRadius: '20px' }}
-                              >
-                                <div className={styles.chatListItem_Circle}></div>
-                                <span className={styles.centeredText}>
-                                  {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
-                                  {/* {/* <button className={styles.deleteChatBtn} onClick={() => handleDeleteChat(Number(chatId))}> */}
+                          <div
+                            className={styles.listOfChatContainer}
+                          >
+                            {Object.entries(chatData)
+                              .sort(([, a], [, b]) => a.order - b.order)
+                              .map(([chatId, chatValue]) => (
+                                <div
+                                  key={chatId}
+                                  onClick={() => selectChat(Number(chatId))}
+                                  draggable
+                                  onDragStart={(e) => handleDragStart(e, Number(chatId))}
+                                  onDragOver={(e) => handleDragOver(e, Number(chatId))}
+                                  onDragEnd={handleDragEnd}
+                                  className={`${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''} ${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''}`}
+                                  style={{ borderRadius: '20px' }}
+                                >
+                                  <div className={styles.chatListItem_Circle}></div>
+                                  <span className={styles.centeredText}>
+                                    {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
+                                    {/* {/* <button className={styles.deleteChatBtn} onClick={() => handleDeleteChat(Number(chatId))}> */}
                                     {/* <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} /> */}
-                                  {/* </button> */} 
-                                </span>
-                              </div>
-                            ))}
+                                    {/* </button> */}
+                                  </span>
+                                </div>
+                              ))}
+                          </div>
+                          <button className={styles.chatMessageHistoryButton}>
+                            <IconSvg path={arrowUpNavIcon} viewBoxSize='0 0 17 17' width={14} height={14} />
+                          </button>
                         </div>
                         <div ></div>
                       </>
                     )}
+
                   </div>
                   {selectedChatId && (
                     <div className={`${styles.bottomPane} ${isDialogOpen && styles.paneOpen}`}>
