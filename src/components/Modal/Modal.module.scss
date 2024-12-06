@@ -919,11 +919,45 @@
   }
 
   &_checkbox {
-    @include display(flex, row, flex-start, center);
+    @include display(flex, row, flex-start);
+    gap: 24px;
     @include font(500, 20px, 23.87px);
     color: #000000;
     width: 100%;
     text-align: left;
+
+    div {
+      div {
+        width: 40px;
+        height: 20px;
+        background: rgba(128, 128, 128, 1);
+        border: none;
+
+        &[data-isOn='true'] {
+          background: transparent;
+          border: 1px solid rgba(53, 126, 235, 1);
+
+          div {
+            &::before {
+              background: rgba(53, 126, 235, 1);
+              border: none;
+          }
+          }
+      }
+
+        div {
+          width: 16px;
+          height: 16px;
+
+          &::before {
+            width: 16px;
+            height: 16px;
+            background: #ffffff;
+            border: none;
+          }
+        }
+      }
+    }
 
     &_attempts {
       width: 50px;

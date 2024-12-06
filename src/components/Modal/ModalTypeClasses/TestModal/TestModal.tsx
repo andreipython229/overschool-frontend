@@ -38,6 +38,8 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
     handleChange,
   } = formik
 
+  const [isShowCorrect, setIsShowCorrect] = useState<boolean>(formik.values.showCorrect)
+
   const { nameLesson, isLoading, setNameLesson, handleCreateLesson } = useCreateLesson({
     setType,
     modulesList,
@@ -77,12 +79,15 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
           <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
         </Input>
       </div>
+
       <span className={styles.test_title}>Процент правильных ответов для выполнения</span>
+
       <div style={{ marginBottom: '24px' }} className={styles.test_input}>
         <Input placeholder={'0'} name="percent" min={0} onChange={handleChange} type={'number'} value={`${percent}`}>
           <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
         </Input>
       </div>
+
       <div className={styles.test_checkboxPack}>
         {/* <div className={styles.test_checkbox}>
           <Checkbox id={'attempts'} name="numOfAttempts" checked={numOfAttempts} onChange={handleChange} />
@@ -94,18 +99,17 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
           )}
         </div> */}
         {checkboxData.map(({ id, name, span1, span2 }) => (
-          <>
-          <div className={styles.test_title}>
-            <span>{span1}</span>
-          </div>
-            <div key={id} className={styles.test_checkbox}>
-            <Checkbox id={id} name={name} checked={formik.values[name as keyof object]} onChange={handleChange } />
-              {/* <CheckboxBall isChecked={formik.values[name as keyof object]} toggleChecked={() => { setToggle(!(formik.values[name as keyof object])) }} /> */}
-            <div>
+          <div key={id}>
+            <div className={styles.test_title}>
+              <span>{span1}</span>
+            </div>
+            <div className={styles.test_checkbox}>
+              <div className={styles.publish_switch_wrapper_switch}>
+                <CheckboxBall isChecked={isShowCorrect} toggleChecked={() => setIsShowCorrect(!isShowCorrect)} />
+              </div>
               <span className={styles.test_checkbox_text_desc}>{span2}</span>
             </div>
-            </div>
-          </>
+          </div>
         ))}
       </div>
 
