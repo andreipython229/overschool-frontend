@@ -10,7 +10,7 @@ import { AddModuleModalPropsT } from '../ModalTypes'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../Modal.module.scss'
-import { PenIcon } from 'Pages/Settings/Main/iconComponents'
+import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 
 export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, modulesList }) => {
 
@@ -58,7 +58,7 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
           focus={true}
           onChange={handleInputNameModules}
         >
-        <PenIcon />
+        <IconSvg className={styles.module_input_penIcon} width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
         </Input>
       </div>
       <Button

@@ -1067,10 +1067,6 @@
   }
 }
 
-.module_input input:focus ~ .module_input_penIcon {
-    display: none;
-}
-
 .settings {
   &_header {
     @include display(flex, column, center, center);

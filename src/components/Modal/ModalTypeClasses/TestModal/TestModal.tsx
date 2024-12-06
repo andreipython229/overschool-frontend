@@ -14,7 +14,8 @@ import { useCreateLesson } from 'customHooks/useCreateLesson'
 import { SimpleLoader } from '../../../Loaders/SimpleLoader'
 
 import styles from '../../Modal.module.scss'
-import { PenIcon } from 'Pages/Settings/Main/iconComponents'
+import { penIconPath } from 'Pages/Settings/Main/iconComponents'
+import { CheckboxBall } from 'components/common/CheckboxBall'
 
 export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLessonIdAndType }) => {
   const formik = useFormik({
@@ -73,13 +74,13 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
 
       <div className={styles.test_input}>
         <Input placeholder={'Введите название теста'} name="classesName" onChange={handleCreateTestName} type={'text'} value={nameLesson}>
-          <PenIcon />
+          <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
         </Input>
       </div>
       <span className={styles.test_title}>Процент правильных ответов для выполнения</span>
       <div style={{ marginBottom: '24px' }} className={styles.test_input}>
         <Input placeholder={'0'} name="percent" min={0} onChange={handleChange} type={'number'} value={`${percent}`}>
-          <PenIcon />
+          <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
         </Input>
       </div>
       <div className={styles.test_checkboxPack}>
@@ -98,7 +99,8 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
             <span>{span1}</span>
           </div>
             <div key={id} className={styles.test_checkbox}>
-            <Checkbox id={id} name={name} checked={formik.values[name as keyof object]} onChange={handleChange} />
+            <Checkbox id={id} name={name} checked={formik.values[name as keyof object]} onChange={handleChange } />
+              {/* <CheckboxBall isChecked={formik.values[name as keyof object]} toggleChecked={() => { setToggle(!(formik.values[name as keyof object])) }} /> */}
             <div>
               <span className={styles.test_checkbox_text_desc}>{span2}</span>
             </div>
