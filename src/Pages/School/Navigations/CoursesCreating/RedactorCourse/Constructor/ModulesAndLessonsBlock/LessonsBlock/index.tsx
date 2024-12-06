@@ -13,9 +13,13 @@ import { Reorder, useDragControls, motion, useAnimation } from 'framer-motion'
 import { deleteHoverIconPath, deleteOpenEyeIconPath, eyeCloseIconPath, eyeOpenIconPath } from './config'
 import { DoBlockIconPath } from 'Pages/School/config/svgIconsPath'
 import { animateVisibility } from './constants/animationConstants'
+import { useBoolean } from 'customHooks'
+import { WarningModal } from 'components/Modal/Warning'
+import { Portal } from 'components/Modal/Portal'
 
 export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, setFocusOnLesson, type, lessonsName, id, lesson, selected, onPush, onOpenModalLesson, openedEye }) => {
   const [deleteLesson, { isLoading }] = useDeleteLessonsMutation()
+  const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
   const controls = useDragControls()
   const schoolName = window.location.href.split('/')[4]
   const [isOpenEye, setIsOpenEye] = useState<boolean>(false)
@@ -70,6 +74,15 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, setFo
         borderRadius: '7px',
         }}
       >
+        {showModal && (
+          <Portal closeModal={close}>
+            <WarningModal
+              setShowModal={setShow}
+              task={handleDeleteLesson}
+              textModal={`Удалить ${lesson.name}?`}
+            />
+          </Portal>
+        )}
         <span className={!isOpenEye ? (`${styles.redactorCourse_leftSide_desc_lessonWrapper_lesson} ${selected ? styles.selectedLesson : ''}`) : (
           `${styles.redactorCourse_leftSide_desc_lessonWrapper_lesson} ${selected ? styles.selectedLesson : ''} ${styles.openEye}`)}>
           <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_btn_drag_and_drop_module + ' ' + stylesModules.btn}>
@@ -100,7 +113,7 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, setFo
             </button>
             <button
               className={`${styles.redactorCourse_leftSide_desc_lessonWrapper_btn_deleteLesson} ${styles.lesson_buttons_visible}`}
-              onClick={handleDeleteLesson}
+              onClick={open}
             >
               <IconSvg className={!isOpenEye ? styles.fillColorWhite : ''} width={20} height={20} viewBoxSize="0 0 20 20" path={!isOpenEye ? deleteHoverIconPath : deleteOpenEyeIconPath} />
             </button>
@@ -115,7 +128,7 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(({ setLessonIdAndType, setFo
             </button>
             <button
               className={!isOpenEye ? (styles.redactorCourse_leftSide_desc_lessonWrapper_btn_deleteLesson + ' ' + stylesModules.btn) : `${styles.redactorCourse_leftSide_desc_lessonWrapper_btn_deleteLesson} ${styles.lesson_buttons_visible}`}
-              onClick={handleDeleteLesson}
+              onClick={open}
             >
               <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={!isOpenEye ? deleteHoverIconPath : deleteOpenEyeIconPath} />
             </button>

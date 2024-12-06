@@ -62,13 +62,39 @@
     justify-content: center;
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 24px;
+
+    & button {
+      width: 115px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        padding: 17px;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        padding: 17px;
+      }
+    }
+  }
+
+  &_title {
+    max-width: 495px;
+    width: 100%;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38.19px;
+    color: $color-text;
+    margin-bottom: 30px;
+    text-align: center;
   }
 }
 
 .container {
-  // margin: 56px 62px 70px;
-  margin: 40px 62px 50px;
+  padding: 60px 53px 55px 52px;
+  font-family: 'SFPRORegular';
+  box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin: 16px;
   }
@@ -95,7 +121,8 @@
   flex-shrink: 0;
   flex-grow: 0;
   overflow: visible;
-  width: 550px;
+  width: 600px;
+  transition: 400ms ease-out;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 98%;
     position: absolute;
@@ -146,20 +173,22 @@
   }
 
   &_closed {
-    @include position_t_r(absolute, 1.5em, 1.5em);
+    @include position_t_r(absolute, 0px, 0px);
+    text-align: center;
     cursor: pointer;
-    color: #ba75ff;
-    width: 35px;
-    height: 35px;
-    //background-color: #f1f1f1;
-    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: color 0.3s;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      right: 10%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      right: 10%;
+    }
 
-    &:hover {
-      color: #4d5766;
-      transition: color 0.3s;
+    svg:hover path{
+      fill: $color-blue;
     }
   }
 
