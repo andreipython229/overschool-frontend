@@ -40,10 +40,14 @@ export const DecorPlatform = memo(() => {
   }
 
   return (
+      <>
+      <div className={styles.title_passport}>
+      <span className={styles.title_passport_header}>Оформление платформы</span>
+        <span className={styles.title_passport_header}>Оформление платформы</span>
+          </div>
+        <div className={styles.title_passport_block}>
     <div className={styles.wrapper_actions}>
       <div className={styles.decor}>
-        <div className={styles.decor_title}>Оформление платформы</div>
-
         <LogoAddBlock
           title={'Ваш логотип'}
           logoDesc={'Загрузите логотип Вашей компании: он будет отображаться в интерфейсе и системных email'}
@@ -52,6 +56,10 @@ export const DecorPlatform = memo(() => {
           requirementsArr={['Формат файла PNG', 'Размер файла не более 2 мб', ' Оптимальный размер логотипа 200px х 50px']}
         />
         {logoError && <span>{logoError}</span>}
+        </div>
+      </div>
+          <div className={styles.wrapper_actions}>
+      <div className={styles.decor}>
         <LogoAddBlock
           title={'Ваш favicon'}
           logoDesc={'Загрузите favicon Вашей компании: он будет отображаться на страницах вашей школы во вкладке браузера'}
@@ -62,5 +70,7 @@ export const DecorPlatform = memo(() => {
         {faviconError && <span>{faviconError}</span>}
       </div>
     </div>
+          </div>
+  </>
   )
 })

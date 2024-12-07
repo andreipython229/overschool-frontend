@@ -359,7 +359,7 @@ align-items: center;
 
 .title_passport {
   display: flex;
-  gap: 35.5%;
+  justify-content: space-around;
   margin-bottom: 20px;
 
   &_header {
