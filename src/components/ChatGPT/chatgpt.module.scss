@@ -130,6 +130,7 @@
   border: none;
   height: 32px*$ai-window-ratio;
   width: 32px*$ai-window-ratio;
+  min-width: 32px*$ai-window-ratio;
   border-radius: 14px*$ai-window-ratio;
   font-size: 14px*$ai-window-ratio;
   background-color: #F5F5F5;
@@ -274,7 +275,8 @@
 
   &Left {
     @include display(flex, row, space-between, center);
-    p{
+
+    p {
       font-size: 16px*$ai-window-ratio;
       margin: auto 0 auto 16px*$ai-window-ratio;
       color: #332F36;
@@ -292,8 +294,8 @@
       border-radius: 16px*$ai-window-ratio;
       border: 2px solid var(--grey, #808080);
 
-      svg{
-        
+      svg {
+
         position: relative;
         margin: auto;
         left: -1px;
@@ -400,7 +402,49 @@
   z-index: 1;
 }
 
+.messageContainer_bot_wrapper {
+  @include display(flex, row, center, start);
+  justify-self: start;
+  gap: 8px*$ai-window-ratio;
+}
 
+.chatIndicatorContainer {
+
+  div {
+    @include display(flex, row, center, center);
+    position: relative;
+    width: 24px*$ai-window-ratio;
+    height: 24px*$ai-window-ratio;
+    border-radius: 12px*$ai-window-ratio;
+    border: 1px solid var(--grey, #808080);
+
+    div {
+      border: none;
+      position: absolute;
+      height: 8px*$ai-window-ratio;
+      width: 8px*$ai-window-ratio;
+      border-radius: 4px*$ai-window-ratio;
+      background-color: #268750;
+      right: -1px;
+      bottom: -1px;
+    }
+
+    svg {
+      position: absolute;
+      left: 2px*$ai-window-ratio;
+      top: 3px*$ai-window-ratio;
+      width: 24px*$ai-window-ratio;
+      height: 24px*$ai-window-ratio;
+
+      // margin: 2px;
+      path {
+        // width: auto !important;
+        // height: auto !important;
+      }
+    }
+  }
+
+}
 
 .messageContainer {
   width: 100%;
@@ -457,13 +501,14 @@
   }
 
   &_bot {
+    @include display(flex, column, initial, initial);
     color: #332F36;
     font-size: 14px;
     font-weight: 400;
 
-    @include display(flex, column, initial, initial);
 
     p {
+      line-height: 24px*$ai-window-ratio;
       color: #667085;
       font-weight: 400;
       font-size: 12px;

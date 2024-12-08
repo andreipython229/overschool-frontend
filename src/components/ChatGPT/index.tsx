@@ -495,10 +495,18 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                 </span>
                               </div>
                               {index < botAnswers.length && (
-                                <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
-                                  <p>OverAi bot</p>
-                                  <div className={styles.messageContainer_bot_answer}>
-                                    {formatBotAnswer(botAnswers[index].answer)}
+                                <div className={styles.messageContainer_bot_wrapper}>
+                                  <div className={styles.chatIndicatorContainer}>
+                                    <div className={styles.chatIndicatorIcon}>
+                                      <div className={styles.chatIndicator}></div>
+                                      <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
+                                    </div>
+                                  </div>
+                                  <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
+                                    <p>OverAi bot</p>
+                                    <div className={styles.messageContainer_bot_answer}>
+                                      {formatBotAnswer(botAnswers[index].answer)}
+                                    </div>
                                   </div>
                                 </div>
                               )}
