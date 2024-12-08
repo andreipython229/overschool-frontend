@@ -182,25 +182,14 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
               </div>
               {deleteModuleLoading && <SimpleLoader style={{ width: '20px', height: '20px' }} />}
             </span>
-            {(!showLessons || isOpenEye) ? (
-              <motion.button
+            <motion.button
                 className={styles.btn}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
                 variants={animateVisibility}
-                onClick={onOpenModalModule}
+                onClick={(!showLessons || isOpenEye) ? onOpenModalModule : handleOpenModalLesson}
                 >
-                {'+ Добавить новый модуль'}
-              </motion.button>
-            ) : (
-              <motion.button
-                className={styles.btn}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-                variants={animateVisibility}
-                onClick={handleOpenModalLesson}
-              >
-              {'+ Добавить новый урок'}
-              </motion.button>
-            )}
+                {(!showLessons || isOpenEye) ? '+ Добавить новый модуль' : '+ Добавить новый урок'}
+            </motion.button>
           </motion.div>
 
           <Reorder.Group

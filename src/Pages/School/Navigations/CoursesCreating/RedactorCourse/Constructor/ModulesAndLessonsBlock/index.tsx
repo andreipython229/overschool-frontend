@@ -74,7 +74,9 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
           <Reorder.Group className={styles1.settings_list} values={modulesList} onReorder={handleOrderUpdate} as="ul">
             {modulesList &&
               modulesList.map((section: sectionT, index: number) => {
-                if (!section.section_name) return
+                if (!section.section_name) return (
+                  <Button className={styles.btn} onClick={handleOpenModalModule} text={'+ Добавить новый модуль'} />
+                )
                 return (
                   <ModulesBlock
                     section={section}
