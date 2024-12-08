@@ -82,6 +82,7 @@
   font-size: 14px*$ai-window-ratio;
   line-height: 18px*$ai-window-ratio;
   margin-right: 8px*$ai-window-ratio;
+  white-space: nowrap;
 
   @media only screen and (min-width : 1300px) and (max-width : 1400px) {
     font-size: 13px;
@@ -105,16 +106,22 @@
   width: 100%;
 }
 
+
+
 .listOfChatContainer {
   @include display(flex, row, initial, initial);
   width: 100%;
   gap: 4px*$ai-window-ratio;
-  overflow-x: hidden;
+  overflow-x: scroll;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
 
   div {
     scroll-snap-align: start
+  }
+
+  &::-webkit-scrollbar {
+    height: 0px;
   }
 }
 
