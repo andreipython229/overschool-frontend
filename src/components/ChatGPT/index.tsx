@@ -20,7 +20,7 @@ import { deleteIconPath } from 'components/Questions/config/svgIconPath';
 
 
 import { aiButtonIcon } from './constants/svgIcon';
-import { aiButtonNavIcon, arrowUpNavIcon, messageNavIcon } from './svg/svgIconPath';
+import { aiButtonNavIcon, arrowUpNavIcon, messageNavIcon, ratingChangeNavIcon } from './svg/svgIconPath';
 import styles from './chatgpt.module.scss';
 
 
@@ -468,6 +468,14 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                               <IconSvg path={messageNavIcon} width={15} height={15} viewBoxSize='0 0 15 15'></IconSvg>
                             </div>
                             <p>Чат с ботом</p>
+                          </div>
+                          <div className={styles.chatRatingSection}>
+                            <button className={styles.chatRatingUp}>
+                              <IconSvg path={ratingChangeNavIcon} viewBoxSize='0 0 32 32' width={30} height={30} />
+                            </button>
+                            <button className={styles.chatRatingDown}>
+                              <IconSvg path={ratingChangeNavIcon} viewBoxSize='0 0 32 32' width={30} height={30} />
+                            </button>
                           </div>
                         </div>
                       </>

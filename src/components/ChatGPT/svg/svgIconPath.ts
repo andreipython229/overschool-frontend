@@ -1,5 +1,5 @@
 import { pathT } from '../../../types/commonComponentsTypes'
-import { aiButtonIcon, arrowUpIcon, messageIcon } from '../constants/svgIcon'
+import { aiButtonIcon, arrowUpIcon, messageIcon, ratingChangeIcon } from '../constants/svgIcon'
 // stroke="#357EEB" stroke-width="1.5" stroke-linejoin="round"/>
 
 
@@ -19,4 +19,8 @@ export const messageNavIcon: pathT[] = [
     { d: messageIcon.d2, stroke: "#357EEB", fill: "#357EEB",  strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
     { d: messageIcon.d3, stroke: "#357EEB", fill: "#357EEB",  strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
     { d: messageIcon.d4, stroke: "#357EEB", fill: "#357EEB",  strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
+]
+
+export const ratingChangeNavIcon: pathT[]=[
+    { d: ratingChangeIcon.d1, stroke: "#332F36", fill: "#332F36",  strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' }
 ]
