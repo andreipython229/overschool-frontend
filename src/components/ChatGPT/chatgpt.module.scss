@@ -168,13 +168,44 @@
 }
 
 .welcomeMessage {
-  text-align: center;
-  color: #BA75FF;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  white-space: nowrap;
+  @include display(flex, column, center, center);
+  border: 1px solid #858D9D;
+  border-radius: 18px*$ai-window-ratio;
+  box-shadow: 0px 0px 8px 0px #3241954D;
+  height: 70%;
+  margin-top: 2.76vh;
+
+  &User{
+    @include display(flex, column, flex-end, center);
+    width: 100px*$ai-window-ratio;
+    height: 100px*$ai-window-ratio;
+    background-color: #357EEB;
+    border-radius: 50px*$ai-window-ratio;
+    svg{
+      @include display(flex, column, flex-end, center);
+      width: 100% !important;
+      height: 100% !important;
+      path{
+        fill: $color-white;
+      }
+    }
+  }
+
+  p{
+    width: 40%;
+    text-align: center;
+    span{
+      color: #357EEB;
+
+    }
+  }
+  // text-align: center;
+  // color: #BA75FF;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  // white-space: nowrap;
 }
 
 .deleteChatBtn {
@@ -287,6 +318,11 @@
       font-size: 16px*$ai-window-ratio;
       margin: auto 0 auto 16px*$ai-window-ratio;
       color: #332F36;
+      // p{
+        @include display(flex, row, center, center);
+        // margin: 0;
+        line-height: 32px*$ai-window-ratio;
+      // }
     }
 
     .chatIndicatorIcon {
@@ -319,6 +355,8 @@
         right: -1px;
         bottom: -1px;
       }
+
+      
     }
   }
 }
@@ -598,7 +636,7 @@
 
 .inputContainer {
   width: 100%;
-  height: 72px;
+  min-height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
