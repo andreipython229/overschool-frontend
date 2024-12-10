@@ -13,5 +13,5 @@ export const navlinkIcon: { [key: string]: ReactNode } = {
   [Path.CourseStats]: <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesStatsNavPath} />,
   [Path.HomeWork]: <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={homeworkNavPath} />,
   [Path.Settings]: <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={settingsNavPath} />,
-  
+
 }
