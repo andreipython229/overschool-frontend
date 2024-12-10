@@ -433,9 +433,9 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                               <div className={styles.chatListItem_Circle}></div>
                               <span className={styles.centeredText}>
                                 {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
-                                <button className={styles.deleteChatBtn} onClick={() => handleDeleteChat(Number(chatId))}>
+                                {/* <button className={styles.deleteChatBtn} onClick={() => handleDeleteChat(Number(chatId))}>
                                   <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
-                                </button>
+                                </button> */}
                               </span>
                             </div>
                           ))}
