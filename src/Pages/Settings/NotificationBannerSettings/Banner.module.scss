@@ -11,6 +11,13 @@
   align-items: flex-start;
   justify-content: flex-start;
   transition: all ease-in 0.2s;
+  box-shadow: 0px 0px 18px 0px #3241954D;
+  border-radius: 20px;
+  margin-top: 24px;
+
+  span {
+    font-weight: 500;
+  }
 
   &_content {
     display: flex;
@@ -48,6 +55,12 @@
       color: #4d5766;
       font-size: 14px;
       cursor: default;
+    }
+
+    &_announcement{
+      box-shadow: 0px 0px 8px 0px #3241954D;
+      border-radius: 20px;
+      padding: 20px;
     }
   }
 
@@ -160,5 +173,6 @@
     border: 0.1rem solid #ba75ff !important;
     // box-shadow: 0 0 10px #ba75ff;
   }
+
   @include font(400, 14px);
 }

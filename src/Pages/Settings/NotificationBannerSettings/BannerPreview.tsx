@@ -90,38 +90,42 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
         </DialogActions>
       </Dialog>
       <img src={HubImage} className={styles.image} />
+
       <div className={styles.wrapper_content}>
-        {isEditing ? (
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
-            <span style={{ fontWeight: '500' }}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
-          </div>
-        ) : (
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <span style={{ fontWeight: '500' }}>
-              {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер неактивен</p>}
-            </span>
-          </div>
-        )}
+        <span>
+          {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>}
+        </span>
+        {/* {isEditing ? ( */}
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
+          <span>{isActive ? 'Баннер включен' : 'Выключен'}</span>
+        </div>
+        {/* // ) : ( */}
+        {/* // <div style={{ display: 'flex', gap: '10px' }}> */}
+        {/* <span style={{ fontWeight: '500' }}> */}
+        {/* {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>} */}
+        {/* </span> */}
+        {/* </div> */}
+        {/* // )} */}
         {!isEditing ? (
           <span className={styles.wrapper_content_title}>{banner.title}</span>
         ) : (
           <>
-            <span style={{ fontWeight: '500' }}>Название баннера</span>
+            <span>Название баннера</span>
             <Input value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" />
           </>
         )}
         {!isEditing ? (
           <span className={styles.wrapper_content_description}>{HTMLReactParser(banner.description)}</span>
         ) : (
-          <>
-            <span style={{ fontWeight: '500' }}>
+          <div className={styles.wrapper_content_announcement}>
+            <span>
               Объявление <span style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
             </span>
             <div style={{ width: 'calc(100% + 10px)' }}>
               <MyEditor editedText={description} setDescriptionLesson={setDescription} />
             </div>
-          </>
+          </div>
         )}
         {banner.link &&
           (!isEditing ? (
@@ -130,14 +134,14 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             </a>
           ) : (
             <>
-              <span style={{ fontWeight: '500' }}>Ссылка под кнопкой в баннере</span>
+              <span>Ссылка под кнопкой в баннере</span>
               <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" />
             </>
           ))}
         {groups &&
           (!isEditing ? (
             <div className={styles.wrapper_content_groups}>
-              <span style={{ fontWeight: '500' }}>Группы в которых отображается этот баннер при входе на платформу:</span>
+              <span>Группы в которых отображается этот баннер при входе на платформу:</span>
               <div style={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'column' }}>
                 {/* {groups.results.map(
                   grp =>
@@ -173,7 +177,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             </div>
           ) : (
             <div className={styles.wrapper_content_groups}>
-              <span style={{ fontWeight: '500' }}>Группы в которых будет отображен этот баннер:</span>
+              <span>Группы в которых будет отображен этот баннер:</span>
               <div>
                 <Checkbox
                   style={{ color: '#ba75ff' }}
