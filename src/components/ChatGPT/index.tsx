@@ -440,9 +440,9 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                             </div>
                           ))}
                       </div>
-                      <button className={styles.chatMessageHistoryButton}>
+                      {/* <button className={styles.chatMessageHistoryButton}>
                         <IconSvg path={arrowUpNavIcon} viewBoxSize='0 0 17 17' width={14} height={14} />
-                      </button>
+                      </button> */}
                     </div>
                     <div className={styles.chatIndicatorSection}>
                       <div className={styles.chatIndicatorSectionLeft}>
@@ -452,14 +452,14 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                         </div>
                         <p>Чат с ботом</p>
                       </div>
-                      <div className={styles.chatRatingSection}>
+                      {/* <div className={styles.chatRatingSection}>
                         <button className={styles.chatRatingUp}>
                           <IconSvg path={ratingChangeNavIcon} viewBoxSize='0 0 32 32' width={30} height={30} />
                         </button>
                         <button className={styles.chatRatingDown}>
                           <IconSvg path={ratingChangeNavIcon} viewBoxSize='0 0 32 32' width={30} height={30} />
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </>
                 )}
