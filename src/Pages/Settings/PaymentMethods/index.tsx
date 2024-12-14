@@ -31,7 +31,8 @@ export const PaymentMethods = memo(() => {
     const [fetchProdamusLinks, prodamusPaymentLinksResponse] = useLazyFetchProdamusPaymentLinksQuery();
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
     const [isShown, setIsShown] = useState(false);
-    const [eleCallBack] = useIsClickOut(setIsShown)
+    const [eleCallBack] = useIsClickOut(setIsShown);
+    const [eleCallBackModal] = useIsClickOut(setIsModalLinkOpen)
 
     const handleNotification = (message: string) => {
         setNotification(message);
@@ -222,7 +223,9 @@ export const PaymentMethods = memo(() => {
                 <div className={styles.noLinksMessage}>Ссылок пока нет</div>
             )}
             <AddPaymentMethods isOpen={isModalOpen} onClose={toggleModal} />
-            <LinkGenerating isOpen={isModalLinkOpen} onClose={toggleModalLink} />
+            <div ref={eleCallBackModal} >
+              <LinkGenerating isOpen={isModalLinkOpen} onClose={toggleModalLink}/>
+            </div>
             {paymentLink && 'signature' in paymentLink ? (
                 <ProdamusLinkDetail
                     isOpen={isModalDetailLinkOpen}
