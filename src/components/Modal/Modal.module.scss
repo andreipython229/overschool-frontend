@@ -142,6 +142,32 @@
     height: 95%;
   }
 
+  &_feedback {
+    max-width: 952px;
+    width: 100%;
+    position: relative;
+    @include display(flex, column, center);
+    border-radius: 30px;
+    margin: auto;
+    flex-shrink: 0;
+    flex-grow: 0;
+    overflow: visible;
+    border: 1px solid #357EEB;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(23px);
+
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: 30px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-mask: linear-gradient(180deg, #cfe2ff 0%, #bbceeb 100%), linear-gradient(90deg, #3170e7 13.5%, #7a90f7 100%);
+    }
+  }
+
   &_login {
     position: relative;
     @include display(flex, column, center);
@@ -1276,4 +1302,133 @@
   //    font-size: 14px;
   //  }
   //}
+}
+
+.feedback {
+  @include display(flex, column, center, center);
+      box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
+      border-radius: 30px;
+      position: relative;
+      z-index: 2;
+
+  &_img {
+    margin-left: 40px;
+  }
+
+  &_content {
+    @include display(flex, column, center, center);
+    max-width: 592px;
+    width: 100%;
+    padding-bottom: 45px;
+
+    @media only screen and (min-width: 1400px) and (max-width: 1890px){
+      padding-bottom: 63px;
+    }
+
+    &_title {
+      @include font(700, 25px, 42.96px);
+      font-family: 'SFPRORegular';
+      color: #332F36;
+      text-align: center;
+      margin-bottom: 25px;
+
+      @media only screen and (min-width: 1400px) and (max-width: 1890px){
+        @include font(400, 36px, 23.87px);
+        margin-bottom: 36px;
+      }
+    }
+
+    &_info {
+      @include display(flex, column,center, initial);
+      width: 100%;
+
+      &_rating {
+        @include display(flex, row, space-between, center);
+  
+        &_title {
+          @include font(400, 16px, 23.87px);
+          font-family: 'SFPRORegular';
+          color: #000000;
+
+          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+            @include font(400, 20px, 23.87px);
+          }
+        }
+  
+        &_value {
+          display: flex;
+          gap: 16px;
+          align-items: center;
+        }
+  
+        span {
+          gap: 16px;
+        }
+  
+        label {
+          color: #faaf00;
+
+          svg path {
+            fill: #faaf00;
+          }
+        }
+      }
+
+      &_textarea {
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+
+        textarea {
+          overflow: auto;
+          border: none;
+          width: 100%;
+          min-height: 120px;
+          border-radius: 10px;
+          outline: none;
+          resize: none;
+          padding: 0.5rem 1rem;
+          font-family: 'SFPRORegular';
+          @include font(400, 16px, 23.87px);
+          color: #357eeb;
+
+          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+            @include font(400, 20px, 23.87px);
+          }
+
+          &::placeholder {
+            @include font(400, 16px, 23.87px);
+            color: #808080;
+            font-family: 'SFPRORegular';
+
+            @media only screen and (min-width: 1400px) and (max-width: 1890px){
+              @include font(400, 20px, 23.87px);
+            }
+          }
+        }
+      }
+
+      &_input {
+        width: 100%;
+        margin: 9px 0;
+
+        div {
+          div {
+            border: 1px solid transparent;
+            background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+          }
+        }
+
+        &::placeholder {
+          @include font(400, 16px, 23.87px);
+          color: #808080;
+
+          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+            @include font(400, 20px, 23.87px);
+          }
+        }
+      }
+    }
+  }
 }
