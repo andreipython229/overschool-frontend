@@ -13,10 +13,13 @@ import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
 import styles from './constructor.module.scss'
 import { SimpleLoader } from '../../../../../../components/Loaders/SimpleLoader'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
+import { useFetchCourseQuery } from 'api/coursesServices'
 
 export const Constructor: FC = () => {
   const schoolName = window.location.href.split('/')[4]
   const { course_id: courseId } = useParams()
+
+  const { data: course } = useFetchCourseQuery({ id: courseId as string, schoolName })
 
   const { data: modulesAndLessons, isSuccess } = useFetchModulesQuery({ id: courseId as string, schoolName })
 
@@ -75,6 +78,7 @@ export const Constructor: FC = () => {
         modulesList={modulesList || []}
         isLoading={check}
         baseLessonId={lessonIdAndType.baseLessonId}
+        courseName={course?.name || ''}
       />
       {hasLesson && <LessonSettings deleteLesson={deleteLesson} lessonIdAndType={lessonIdAndType} setType={setType} />}
       {type && (

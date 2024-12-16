@@ -17,6 +17,7 @@ export type ModulesBlockT = {
   setType: (arg: keyof object) => void
   selectedLessonId: number | undefined
   setSelectedLessonId: Dispatch<SetStateAction<number | undefined>>
+  onOpenModalModule: () => void
 }
 
 export type LessonAddBlockPropsT = {
@@ -26,6 +27,7 @@ export type LessonAddBlockPropsT = {
   setType: (arg: keyof object) => void
   isLoading: any
   baseLessonId?: number
+  courseName: string
 }
 
 export type LessonsBlockT = {
@@ -37,4 +39,6 @@ export type LessonsBlockT = {
   lesson: lessonT
   selected: boolean
   onPush: () => void
+  onOpenModalLesson?: () => void
+  openedEye?: boolean
 }

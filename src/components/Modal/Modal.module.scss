@@ -1,6 +1,11 @@
 @import './src/scss/variable';
 @import '../../scss/mixin.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 .wrapper {
   // @include position_t_l (absolute, 0, 0, 15);
   display: flex;
@@ -57,13 +62,39 @@
     justify-content: center;
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 24px;
+
+    & button {
+      width: 115px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        padding: 17px;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        padding: 17px;
+      }
+    }
+  }
+
+  &_title {
+    max-width: 495px;
+    width: 100%;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38.19px;
+    color: $color-text;
+    margin-bottom: 30px;
+    text-align: center;
   }
 }
 
 .container {
-  // margin: 56px 62px 70px;
-  margin: 40px 62px 50px;
+  padding: 60px 53px 55px 52px;
+  font-family: 'SFPRORegular';
+  box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin: 16px;
   }
@@ -90,7 +121,8 @@
   flex-shrink: 0;
   flex-grow: 0;
   overflow: visible;
-  width: 550px;
+  width: 600px;
+  transition: 400ms ease-out;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 98%;
     position: absolute;
@@ -108,6 +140,32 @@
     position: absolute;
     left: 30%;
     height: 95%;
+  }
+
+  &_feedback {
+    max-width: 952px;
+    width: 100%;
+    position: relative;
+    @include display(flex, column, center);
+    border-radius: 30px;
+    margin: auto;
+    flex-shrink: 0;
+    flex-grow: 0;
+    overflow: visible;
+    border: 1px solid #357EEB;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(23px);
+
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: 30px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-mask: linear-gradient(180deg, #cfe2ff 0%, #bbceeb 100%), linear-gradient(90deg, #3170e7 13.5%, #7a90f7 100%);
+    }
   }
 
   &_login {
@@ -141,20 +199,22 @@
   }
 
   &_closed {
-    @include position_t_r(absolute, 1.5em, 1.5em);
+    @include position_t_r(absolute, 0px, 0px);
+    text-align: center;
     cursor: pointer;
-    color: #ba75ff;
-    width: 35px;
-    height: 35px;
-    //background-color: #f1f1f1;
-    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: color 0.3s;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      right: 10%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      right: 10%;
+    }
 
-    &:hover {
-      color: #4d5766;
-      transition: color 0.3s;
+    svg:hover path{
+      fill: $color-blue;
     }
   }
 
@@ -260,7 +320,7 @@
   background: $color-white;
   font-family: 'Manrope', sans-serif;
   margin: 0 auto;
-  border-radius: 7px;
+  border-radius: 20px;
   transform: translate(-50%, -50%);
   max-height: 100vh;
   overflow: auto;
@@ -300,7 +360,7 @@
 
   &_closedModal {
     @include position_t_r(absolute, 17px, 16px);
-    background: #f1f1f1;
+    //background: #f1f1f1;
     width: 30px;
     height: 30px;
     border-radius: 5px;
@@ -311,7 +371,7 @@
     color: #e0dced;
 
     &:hover {
-      color: #4d5766;
+      color: #357EEB;
       transition: color 0.3s;
     }
   }
@@ -329,6 +389,8 @@
     display: inline-block;
     margin-top: 15px;
   }
+
+
 
   &_invite {
     margin-top: 32px;
@@ -359,6 +421,14 @@
         color: #d4d7dd;
       }
     }
+  }
+
+  &_radiowrapper {
+    display: flex;
+    justify-content: space-around;
+    gap: 200px;
+    margin-top: 10px;
+    margin-right: 400px;
   }
 
   &_role {
@@ -412,6 +482,7 @@
     margin-bottom: 12px;
 
     &_button {
+      width:60%;
       @include font(400, 12px);
       margin: 0 auto;
     }
@@ -454,13 +525,15 @@
 .mainCourse {
   @include position_t_l(absolute, 50%, 50%, 10);
   @include display(flex, column);
-  width: 438px;
   background: #ffffff;
-  font-family: $font-family-inter;
+  box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+  font-family: 'SFPRORegular';
   margin: 0 auto;
-  border-radius: 7px;
+  padding: 24px 30px 40px 34px;
+  border-radius: 24px;
   transform: translate(-50%, -50%);
-
+  max-width: 677px;
+  width: 100%;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 99%;
 
@@ -471,48 +544,28 @@
   }
 
   &_container {
-    padding: 36px 80px;
+    position: relative;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-      padding: 30px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
-      padding: 30px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
   }
 
-  &_closed {
-    //background: #f1f1f1;
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 17px;
-    right: 17px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #ba75ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:hover {
-      color: #4d5766;
-      transition: color 0.3s;
-    }
+  &_header {
+    @include display(flex, column, flex-start, center);
   }
 
   &_title {
+    @include font(700, 36px, 42.96px);
     text-align: center;
-    font-size: 18px;
-    font-weight: 500;
-    color: #4d5766;
-    letter-spacing: 0.02em;
-    margin-bottom: 16px;
+    color: #000000;
+    margin: 36px 0;
   }
 
   &_desc {
@@ -521,23 +574,19 @@
     color: #be4848;
     text-align: center;
   }
-
-  &_input {
-    margin-bottom: 16px;
-  }
 }
 
 .classesContainer {
   @include position_t_l(absolute, 50%, 50%, 10);
-  @include display(flex, column, center, center);
-  padding: 32px;
+  @include display(flex, column, center);
+  padding: 49px 53px 47px 52px;
   background: #ffffff;
   text-align: center;
   margin: 0 auto;
-  border-radius: 7px;
+  border-radius: 24px;
   transform: translate(-50%, -50%);
-  font-family: $font-family-inter;
-  // width: 512px;
+  font-family: 'SFPRORegular';
+  box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding: 2%;
     margin: 0 auto;
@@ -556,17 +605,13 @@
   }
 
   &_closed {
-    @include position_t_r(absolute, 20px, 20px);
+    @include position_t_r(absolute, 0px, 0px);
     text-align: center;
-    width: 30px;
-    height: 30px;
-    background: #f1f1f1;
-    border-radius: 7px;
     cursor: pointer;
-    color: #e0dced;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: color 0.3s;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       right: 10%;
     }
@@ -574,22 +619,22 @@
       right: 10%;
     }
 
-    &:hover {
-      color: #4d5766;
-      transition: color 0.3s;
+    svg:hover path{
+      fill: $color-blue;
     }
   }
 
   &_title {
-    font-size: 18px;
-    color: $font-title;
+    @include font(700, 32px, 38.19px);
+    color: $color-text;
+    margin-bottom: 45px;
   }
 
   &_type {
-    margin: 27px 0 17px 0;
+    margin: 30px 0 24px 0;
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 22px;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       gap: 5%;
     }
@@ -599,28 +644,22 @@
 
     &_classes {
       @include display(flex, column, center, center);
-      width: 100px;
-      height: 110px;
-      border: 2px solid #e0dced;
+      @include font(600, 20px, 23.87px);
+      width: 150px;
+      height: 184px;
+      box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
       border-radius: 7px;
-      background: #f9fafb;
-      color: #9ca3af;
+      background: $color-white;
+      color: $color-text;
       cursor: pointer;
-
-      & svg {
-        margin-bottom: 8px;
-
-        path {
-          fill: #9ca3af;
-        }
-      }
     }
 
     &_subs {
       @include font(400, 16px);
-      width: 464px;
-      // height: 60px;
-      color: $font-title;
+      max-width: 372px;
+      width: 100%;
+      margin: 0 auto;
+      color: $color-text;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         width: 100%;
         margin-bottom: 2%;
@@ -632,8 +671,9 @@
     }
 
     &_btnBlock {
-      @include display(flex, row, center, center);
-      gap: 12px;
+      @include display(flex, row, space-between, center);
+      max-width: 495px;
+      width: 100%;
       margin-top: 20px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         // padding-left: 25%;
@@ -643,14 +683,11 @@
       }
 
       & button {
-        width: 80px;
+        width: 235px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 150%;
-        padding: 10px 0;
+        padding: 16px;
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           padding: 17px;
         }
@@ -726,31 +763,17 @@
 }
 
 .active {
-  border: 2px solid #ba75ff;
-  color: $font-color-rose;
-
-  & svg {
-    margin-bottom: 8px;
-
-    path {
-      stroke: $font-color-rose;
-      fill: $font-color-rose;
-    }
-  }
+  background: #2051D1;
+  box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+  color: $color-white;
 }
 
 .usually {
   &_header {
     @include display(flex, column, flex-start, center);
-    margin-bottom: 15px;
 
     & svg {
-      margin-bottom: 28px;
-    }
-
-    & span {
-      font-size: 18px;
-      color: $font-title;
+      margin-bottom: 24px;
     }
   }
 
@@ -759,8 +782,19 @@
     text-overflow: ellipsis;
     text-align: left;
 
-    & div {
-      margin-top: 8px;
+    div {
+
+      div {
+        flex-direction: row-reverse;
+        border: 1px solid transparent;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+      }
+    }
+
+    input::placeholder {
+      font-weight: 400;
+      font-size: 16px;
+      color: #808080;
     }
   }
 
@@ -793,10 +827,9 @@
 
 .tasks {
   @include display(flex, column, center, center);
-  margin-bottom: 23px;
 
   & svg {
-    margin-bottom: 15px;
+    margin-bottom: 26px;
   }
 
   &_checkbox {
@@ -851,7 +884,36 @@
   text-align: center;
 
   & svg {
-    margin-bottom: 13px;
+    margin-bottom: 26px;
+  }
+
+  &_title {
+    @include font(500, 20px, 23.87px);
+    color: #000000;
+    text-align: left;
+    margin-bottom: 12px; 
+  }
+
+  &_input {
+    width: 100%;
+    text-overflow: ellipsis;
+    text-align: left;
+    margin-bottom: 24px; 
+
+    div {
+
+      div {
+        flex-direction: row-reverse;
+        border: 1px solid transparent;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+      }
+    }
+
+    input::placeholder {
+      font-weight: 400;
+      font-size: 16px;
+      color: #808080;
+    }
   }
 
   &_checkboxPack {
@@ -859,11 +921,45 @@
   }
 
   &_checkbox {
-    @include display(flex, row, flex-start, center);
-    @include font(400, $fs12);
-    width: 90%;
+    @include display(flex, row, flex-start);
+    gap: 24px;
+    @include font(500, 20px, 23.87px);
+    color: #000000;
+    width: 100%;
     text-align: left;
-    color: $font-title;
+
+    div {
+      div {
+        width: 40px;
+        height: 20px;
+        background: rgba(128, 128, 128, 1);
+        border: none;
+
+        &[data-isOn='true'] {
+          background: transparent;
+          border: 1px solid rgba(53, 126, 235, 1);
+
+          div {
+            &::before {
+              background: rgba(53, 126, 235, 1);
+              border: none;
+          }
+          }
+      }
+
+        div {
+          width: 16px;
+          height: 16px;
+
+          &::before {
+            width: 16px;
+            height: 16px;
+            background: #ffffff;
+            border: none;
+          }
+        }
+      }
+    }
 
     &_attempts {
       width: 50px;
@@ -878,14 +974,10 @@
       @include display(flex, column);
       margin-top: 11px;
 
-      &_checked {
-        @include font(400, $fs12);
-        color: $font-color-rose;
-      }
-
       &_desc {
-        font-size: 10px;
-        color: #868b94;
+        @include font(500, 16px, 19.09px);
+        text-align: left;
+        color: #808080;
       }
     }
   }
@@ -1005,18 +1097,37 @@
 
 .module {
   &_title {
-    @include font(500, 18px);
-    color: $font-title;
-    margin-bottom: 18px;
+    @include font(700, 32px);
+    color: $color-text;
+    line-height: 38.19px;
   }
 
   &_input {
-    width: 280px;
+    width: 495px;
     text-align: left;
+
+    div {
+
+      div {
+        flex-direction: row-reverse;
+        border: 1px solid transparent;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+      }
+    }
+
+    input::placeholder {
+      font-weight: 400;
+      font-size: 16px;
+      color: #808080;
+    }
 
     &_label {
       font-size: 14px;
       color: #a2a9b4;
+    }
+
+    &_penIcon {
+      display: block;
     }
   }
 }
@@ -1191,4 +1302,133 @@
   //    font-size: 14px;
   //  }
   //}
+}
+
+.feedback {
+  @include display(flex, column, center, center);
+      box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
+      border-radius: 30px;
+      position: relative;
+      z-index: 2;
+
+  &_img {
+    margin-left: 40px;
+  }
+
+  &_content {
+    @include display(flex, column, center, center);
+    max-width: 592px;
+    width: 100%;
+    padding-bottom: 45px;
+
+    @media only screen and (min-width: 1400px) and (max-width: 1890px){
+      padding-bottom: 63px;
+    }
+
+    &_title {
+      @include font(700, 25px, 42.96px);
+      font-family: 'SFPRORegular';
+      color: #332F36;
+      text-align: center;
+      margin-bottom: 25px;
+
+      @media only screen and (min-width: 1400px) and (max-width: 1890px){
+        @include font(400, 36px, 23.87px);
+        margin-bottom: 36px;
+      }
+    }
+
+    &_info {
+      @include display(flex, column,center, initial);
+      width: 100%;
+
+      &_rating {
+        @include display(flex, row, space-between, center);
+  
+        &_title {
+          @include font(400, 16px, 23.87px);
+          font-family: 'SFPRORegular';
+          color: #000000;
+
+          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+            @include font(400, 20px, 23.87px);
+          }
+        }
+  
+        &_value {
+          display: flex;
+          gap: 16px;
+          align-items: center;
+        }
+  
+        span {
+          gap: 16px;
+        }
+  
+        label {
+          color: #faaf00;
+
+          svg path {
+            fill: #faaf00;
+          }
+        }
+      }
+
+      &_textarea {
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+
+        textarea {
+          overflow: auto;
+          border: none;
+          width: 100%;
+          min-height: 120px;
+          border-radius: 10px;
+          outline: none;
+          resize: none;
+          padding: 0.5rem 1rem;
+          font-family: 'SFPRORegular';
+          @include font(400, 16px, 23.87px);
+          color: #357eeb;
+
+          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+            @include font(400, 20px, 23.87px);
+          }
+
+          &::placeholder {
+            @include font(400, 16px, 23.87px);
+            color: #808080;
+            font-family: 'SFPRORegular';
+
+            @media only screen and (min-width: 1400px) and (max-width: 1890px){
+              @include font(400, 20px, 23.87px);
+            }
+          }
+        }
+      }
+
+      &_input {
+        width: 100%;
+        margin: 9px 0;
+
+        div {
+          div {
+            border: 1px solid transparent;
+            background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+          }
+        }
+
+        &::placeholder {
+          @include font(400, 16px, 23.87px);
+          color: #808080;
+
+          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+            @include font(400, 20px, 23.87px);
+          }
+        }
+      }
+    }
+  }
 }

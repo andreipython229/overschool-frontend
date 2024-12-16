@@ -7,7 +7,7 @@ import { ChatGroupPreview } from './ChatGroupPreview'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { useLazyFetchChatQuery } from 'api/chatsService'
 import { ChatI, MessageI, Messages, SenderI } from 'types/chatsT'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { NewLoader, SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from './chat.module.scss'
 
@@ -44,7 +44,7 @@ export const ChatWorkspace: FC = () => {
         socketRef.current = new w3cwebsocket(
           process.env.REACT_APP_RUN_MODE === 'PRODUCTION'
             ? `wss://apidev.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`
-            : `wss://sandbox.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`,
+            : `ws://sandbox.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`,
         )
         // socketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/chats/${chatId}?user_id=${userId}`)
         socketRef.current.onopen = () => {
@@ -126,7 +126,7 @@ export const ChatWorkspace: FC = () => {
     <div className={styles.chatWorkspace}>
       {isFetching && (
         <div className={styles.chat_loader}>
-          <SimpleLoader style={{ width: '30px', height: '30px' }} />
+          <NewLoader />
         </div>
       )}
       {openGroupPreview ? (
@@ -164,7 +164,7 @@ export const ChatWorkspace: FC = () => {
             </>
           ) : (
             <div className={styles.chatWorkspace_preview}>
-              <p>Выберите чат, чтобы начать общение</p>
+              <p>Выберите чат для общения</p>
             </div>
           )}
         </>

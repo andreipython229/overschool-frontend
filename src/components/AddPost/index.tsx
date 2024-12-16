@@ -3,12 +3,17 @@ import { ContentBtn } from 'components/ContentBtn'
 import { useDebounceFunc } from '../../customHooks'
 import { AddPostT } from '../../types/componentsTypes'
 import { usePatchLessonsMutation } from 'api/modulesServices'
-import Text from '../.././assets/img/createCourse/text.svg'
-import Video from '../.././assets/img/createCourse/video.svg'
-import Code from '../.././assets/img/createCourse/code.svg'
-import Picture from '../.././assets/img/createCourse/picture.svg'
-import Formula from '../.././assets/img/createCourse/formula.svg'
-import Link from '../.././assets/img/createCourse/link.svg'
+import Text from '../../assets/img/createCourse/text.svg'
+import Audio from '../../assets/img/createCourse/audio.svg'
+import File from '../../assets/img/createCourse/file.svg'
+import Table from '../../assets/img/createCourse/table.svg'
+import Embed from '../../assets/img/createCourse/embed.svg'
+import ButtonIcon from '../../assets/img/createCourse/button.svg'
+import Quote from '../../assets/img/createCourse/quote.svg'
+import Video from '../../assets/img/createCourse/video.svg'
+import Code from '../../assets/img/createCourse/code.svg'
+import Picture from '../../assets/img/createCourse/picture.svg'
+import Formula from '../../assets/img/createCourse/formula.svg'
 import { useMediaQuery } from '@mui/material'
 import styles from './addPost.module.scss'
 import { useCreateBlockMutation } from 'api/blocksService'
@@ -67,13 +72,46 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
               <>
                 <ContentBtn
                   disabled={disabledBtn}
+                  func={() => blockCreateFunc('video')}
+                  text={'Видео'}
+                  alt={'Add video for lesson'}
+                  src={Video}
+                />
+                <ContentBtn
+                  disabled={disabledBtn}
+                  // func={() => blockCreateFunc('description')}
+                  text={'Файл'}
+                  alt={'Add file for lesson'}
+                  src={File}
+                />
+                <ContentBtn
+                  disabled={disabledBtn}
+                  func={() => blockCreateFunc('code')}
+                  text={'Код'}
+                  alt={'Add code for lesson'}
+                  src={Code}
+                    />
+                <ContentBtn
+                  disabled={disabledBtn}
+                  // func={() => blockCreateFunc('picture')}
+                  text={'Презентация'}
+                  alt={'Add presentation for lesson'}
+                  src={Picture}
+                />
+                <ContentBtn
+                  disabled={disabledBtn}
+                  // func={() => blockCreateFunc('formula')}
+                  text={'Аудио'}
+                  alt={'Add audio for lesson'}
+                  src={Audio}
+                />
+                <ContentBtn
+                  disabled={disabledBtn}
                   func={() => blockCreateFunc('description')}
                   text={'Текст'}
                   alt={'Add text for lesson'}
                   src={Text}
                 />
-                <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('video')} text={'Видео'} alt={'Add video for lesson'} src={Video} />
-                <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc('code')} text={'Код'} alt={'Add code for lesson'} src={Code} />
                 <ContentBtn
                   disabled={disabledBtn}
                   func={() => blockCreateFunc('picture')}
@@ -83,17 +121,38 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
                 />
                 <ContentBtn
                   disabled={disabledBtn}
+                  // func={() => blockCreateFunc('description')}
+                  text={'Таблица'}
+                  alt={'Add table for lesson'}
+                  src={Table}
+                />
+                <ContentBtn
+                  disabled={disabledBtn}
+                  // func={() => blockCreateFunc('description')}
+                  text={'Цитата'}
+                  alt={'Add text for lesson'}
+                  src={Quote}
+                />
+                <ContentBtn
+                  disabled={disabledBtn}
+                  // func={() => blockCreateFunc('description')}
+                  text={'Embed'}
+                  alt={'Add embed for lesson'}
+                  src={Embed}
+                />
+                <ContentBtn
+                  disabled={disabledBtn}
+                  // func={() => blockCreateFunc('description')}
+                  text={'Кнопка'}
+                  alt={'Add button for lesson'}
+                  src={ButtonIcon}
+                />
+                <ContentBtn
+                  disabled={disabledBtn}
                   func={() => blockCreateFunc('formula')}
                   text={'Формула'}
                   alt={'Add formula for lesson'}
                   src={Formula}
-                />
-                <ContentBtn
-                  disabled={disabledBtn}
-                  func={() => blockCreateFunc('buttons')}
-                  text={'Ссылка'}
-                  alt={'Add link for lesson'}
-                  src={Link}
                 />
               </>
             )}

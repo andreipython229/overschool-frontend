@@ -1,0 +1,77 @@
+@import '../../../../scss/mixin.scss';
+@import '../../../../scss/variable.scss';
+
+.wrapperBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &_image {
+    object-fit: cover;
+  }
+
+  &_text {
+    font-family: 'SFPRORegular';
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28.64px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: $color-white;
+  }
+
+  &_price {
+    font-family: 'SFPRORegular';
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.09px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: $color-white;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+  }
+}
+
+.smallPrizeIcon {
+  width: 38px;
+  height: 38px;
+  position: relative;
+  background: center / cover no-repeat url('./assets/single.png');
+
+  &_count {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    width: 21px;
+    height: 20px;
+    background: center / cover no-repeat url('./assets/cloud.png');
+    z-index: 99999;
+
+    font-family: 'SFPRORegular';
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14.32px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.prizeBuy {
+  width: min-content;
+  font-size: 14px;
+  border-radius: $bord-rad10;
+  margin: 0;
+  height: 43px;
+  padding: 0 2rem;
+}

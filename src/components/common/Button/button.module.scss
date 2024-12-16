@@ -25,6 +25,10 @@
   background: #f3f4f6;
   width: auto;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   padding: 11px 13px;
   @include font(800, 16px);
   font-family: 'Inter', sans-serif;
@@ -375,13 +379,12 @@
 .newPrimary {
   font-family: 'SFPRORegular';
   color: #ffffff;
-  background: #357eeb;
+  background: #357EEB;
   @include font(700, 20px, 23.87px);
-  font-family: 'SFPRORegular';
   transition: 0.3s ease-in;
   &:hover:not(:disabled) {
     color: #ffffff;
-    background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
   }
 }
 
@@ -391,6 +394,7 @@
   padding: 11px 25px;
   background: transparent;
   color: #332f36;
+  border: 1px solid #357eeb;
 
   &:hover {
     &:hover:not(:disabled) {
@@ -677,5 +681,27 @@
 }
 
 
+}
+
+.inActive {
+  color: $color-grey;
+  background: #CFE2FF;
+  cursor: not-allowed !important;
+  font-family: 'SFPRORegular';
+  @include font(500, 20px, 23.87px);
+}
+
+.cancel {
+  font-family: 'SFPRORegular';
+  color: #357EEB;
+  background: transparent;
+  border: 2px solid #357EEB;
+  @include font(600, 20px, 23.87px);
+  transition: 0.3s ease-in;
+  &:hover:not(:disabled) {
+    color: #ffffff;
+    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    border: none;
+  }
 }
 

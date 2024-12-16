@@ -16,6 +16,9 @@ import { Dropdown } from 'primereact/dropdown'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { MedalIconPath } from 'assets/Icons/svgIconPath'
 import { checkHomeworkStatusFilters } from 'constants/dropDownList'
+import { useAppSelector } from 'store/hooks'
+import { selectUser } from 'selectors'
+import { RoleE } from 'enum/roleE'
 
 export interface CheckHw {
   audio_files: File[]
@@ -43,8 +46,9 @@ type studentHomeworkCheckI = {
 
 export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, replyArray, userHomework, refetch, isFetching }) => {
   const schoolName = window.location.href.split('/')[4]
-  const { course_id: courseId } = useParams()
+  const { courseId } = useParams()
   const [isChecked, setIsChecked] = useState<boolean>(false)
+  const { role } = useAppSelector(selectUser)
   const [files, setFiles] = useState<File[]>([])
   const [urlFiles, setUrlFiles] = useState<{ [key: string]: string }[]>([])
   const [text, setText] = useState<string>('')
@@ -55,11 +59,11 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
 
   const handleCreateHomeworkCheck = () => {
     const dataToSend = {
-      status,
+      status: status.length > 0 ? status : 'Отклонено',
       text,
-      mark,
+      mark: Number(mark),
       user_homework: userHomework?.user_homework_id,
-      courseId: courseId,
+      courseId: Number(courseId),
     }
 
     sendHomeworkCheck({ data: dataToSend, schoolName })
@@ -141,7 +145,7 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
       </h5>
       {userHomework && <StudentModalCheckHomeWork userHomework={userHomework} closeModal={close} hwStatus={isChecked} />}
 
-      {userHomework?.status !== 'Принято' && (
+      {userHomework?.status !== 'Принято' && RoleE.Teacher === role && (
         <div className={styles.commentForm}>
           <textarea
             style={{ resize: 'vertical' }}
@@ -173,18 +177,20 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
                 value={mark}
                 onChange={e => setMark(e.target.value)}
                 placeholder="-"
+                required
               />
               <IconSvg width={21} height={21} viewBoxSize="0 0 21 21" path={MedalIconPath} />
             </div>
             <div className={styles.dropdownWrapper}>
               <p>Статус:</p>
               <Dropdown
-                options={checkHomeworkStatusFilters}
+                options={['Принято', 'Отклонено']}
                 style={{ display: 'flex', alignItems: 'center' }}
                 value={status}
                 onChange={e => setStatus(e.target.value)}
-                defaultValue={'Не принято'}
+                defaultValue={'Отклонено'}
                 placeholder="Выберите вариант"
+                required
               />
             </div>
             <Button variant="newPrimary" onClick={handleCreateHomeworkCheck} text="Отправить ответ" />
