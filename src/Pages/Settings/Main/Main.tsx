@@ -22,7 +22,7 @@ import {
     XIconPath,
     YoutubeIconPath
 } from "../../../assets/Icons/svgIconPath";
-import {PenIcon} from "./iconComponents";
+import {penIconPath} from "./iconComponents";
 
 export const Main = memo(() => {
     const schoolId = localStorage.getItem('school_id')
@@ -190,9 +190,11 @@ export const Main = memo(() => {
                     </div>
                     <div className={styles.text}>
                         <div className={styles.inputWrapper}>
-                        <Input className={styles.main_input} name={'name'} type={'text'} value={name}
-                               onChange={handleChangeSchoolName}/>
-                        <div className={styles.penIcon}><PenIcon/></div>
+                            <Input className={styles.main_input} name={'name'} type={'text'} value={name}
+                                onChange={handleChangeSchoolName}/>
+                            <div className={styles.penIcon}>
+                                <IconSvg width={24} height={24}viewBoxSize={'0 0 24 24'} path={penIconPath}/>
+                            </div>
                         </div>
                         {error && <p className={styles.error}>{error}</p>}
                         <Button
@@ -218,7 +220,9 @@ export const Main = memo(() => {
                             value={url}
                             onChange={handleChangeUrl}
                         />
-                        <div className={styles.penIcon}><PenIcon/></div>
+                        <div className={styles.penIcon}>
+                            <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+                        </div>
                         </div>
                         <Button
                             onClick={onChangeUrl}
@@ -251,7 +255,9 @@ export const Main = memo(() => {
                         <Input name={'contactUrl'} type={'text'} value={social}
                                onChange={event => setSocial(event.target.value)} className={styles.main_input}
                                placeholder="Введите ссылку для связи с руководством платформы"/>
-                        <div className={styles.penIcon}><PenIcon/></div>
+                        <div className={styles.penIcon}>
+                            <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+                        </div>
                         </div>
                         <Button
                             onClick={onChangeSocial}
@@ -279,7 +285,9 @@ export const Main = memo(() => {
                                 value={telegram}
                                 onChange={(event) => setTelegram(event.target.value)}
                             />
-                            <div className={styles.penIcon}><PenIcon/></div>
+                            <div className={styles.penIcon}>
+                                <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+                            </div>
                             </div>
                             <Button
                                 onClick={onChangeTelegram}
@@ -300,7 +308,9 @@ export const Main = memo(() => {
                                 value={instagram}
                                 onChange={(event) => setInstagram(event.target.value)}
                             />
-                            <div className={styles.penIcon}><PenIcon/></div>
+                            <div className={styles.penIcon}>
+                                <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+                            </div>
                             </div>
                             <Button
                                 onClick={onChangeInstagram}
@@ -321,7 +331,9 @@ export const Main = memo(() => {
                                 value={x}
                                 onChange={(event) => setX(event.target.value)}
                             />
-                            <div className={styles.penIcon}><PenIcon/></div>
+                            <div className={styles.penIcon}>
+                                <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+                            </div>
                             </div>
                             <Button
                                 onClick={onChangeX}
@@ -343,7 +355,9 @@ export const Main = memo(() => {
                                 value={youtube}
                                 onChange={(event) => setYoutube(event.target.value)}
                             />
-                            <div className={styles.penIcon}><PenIcon/></div>
+                            <div className={styles.penIcon}>
+                                <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+                            </div>
                             </div>
                             <Button
                                 onClick={onChangeYoutube}
@@ -364,8 +378,10 @@ export const Main = memo(() => {
                                     value={vk}
                                     onChange={(event) => setVk(event.target.value)}
                                 />
-                                <div className={styles.penIcon}><PenIcon/></div>
+                                <div className={styles.penIcon}>
+                                    <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
                                 </div>
+                            </div>
                                 <Button
                                     onClick={onChangeVk}
                                     className={styles.save_button}
@@ -385,7 +401,9 @@ export const Main = memo(() => {
                                         value={customSocial}
                                         onChange={(event) => setCustomSocial(event.target.value)}
                                     />
-                                    <div className={styles.penIcon}><PenIcon/></div>
+                                    <div className={styles.penIcon}>
+                                        <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+                                    </div>
                                 </div>
                                 <Button
                                     onClick={onChangeCustomSocial}

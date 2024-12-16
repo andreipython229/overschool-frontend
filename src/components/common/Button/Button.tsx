@@ -54,6 +54,10 @@ export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', 
      propsStyle += ' ' + styles.newTryForFree
   } else if (variant === 'newMobile') {
      propsStyle += ' ' + styles.newMobile
+  } else if (variant === 'inActive') {
+    propsStyle += ' ' + styles.inActive
+  } else if (variant === 'cancel') {
+    propsStyle += ' ' + styles.cancel
   } else {
     propsStyle = styles.btn_default
   }

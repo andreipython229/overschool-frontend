@@ -425,13 +425,12 @@
 .newPrimary {
   font-family: 'SFPRORegular';
   color: #ffffff;
-  background: #357eeb;
+  background: #357EEB;
   @include font(700, 20px, 23.87px);
-  font-family: 'SFPRORegular';
   transition: 0.3s ease-in;
   &:hover:not(:disabled) {
     color: #ffffff;
-    background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
   }
 }
 
@@ -777,6 +776,28 @@
       background-position: top 10px left 30px;
       }
     }
+  }
+}
+
+.inActive {
+  color: $color-grey;
+  background: #CFE2FF;
+  cursor: not-allowed !important;
+  font-family: 'SFPRORegular';
+  @include font(500, 20px, 23.87px);
+}
+
+.cancel {
+  font-family: 'SFPRORegular';
+  color: #357EEB;
+  background: transparent;
+  border: 2px solid #357EEB;
+  @include font(600, 20px, 23.87px);
+  transition: 0.3s ease-in;
+  &:hover:not(:disabled) {
+    color: #ffffff;
+    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    border: none;
   }
 }
 
