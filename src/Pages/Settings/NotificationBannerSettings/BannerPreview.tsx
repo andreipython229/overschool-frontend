@@ -1,7 +1,7 @@
 import { IBanner } from 'api/apiTypes'
 import React, { FC, useState } from 'react'
 import styles from './Banner.module.scss'
-import HubImage from './assets/course-hub-banner.png'
+import HubImage from '../../../assets/img/common/present_image.png'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deletePath } from 'config/commonSvgIconsPath'
 import { settingsIconPath } from 'Pages/School/config/svgIconsPath'
@@ -18,7 +18,8 @@ import { motion } from 'framer-motion'
 import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
 import { isCheckedFunc } from 'utils/isCheckedFunc'
-
+import { NewTextEditor } from 'components/AddTextEditor/NewTextEditor'
+import { SelectInput } from '../../../components/common/SelectInput/SelectInput'
 interface IBannerPreview {
   banner: IBanner
   groups: studentsGroupT
@@ -37,6 +38,16 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [activeGroups, setActiveGroups] = useState<number[]>(banner.groups)
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
   const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length)
+
+
+  const optionsList = [
+    { value: 'option1', label: 'Опция 1' },
+    { value: 'option2', label: 'Опция 2' },
+    { value: 'option3', label: 'Опция 3' },
+  ];
+
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined);
+
 
   const handleDeleteBanner = () => {
     deleteBanner({ id: banner.id, schoolName: schoolName })
@@ -123,7 +134,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
               Объявление <span style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
             </span>
             <div style={{ width: 'calc(100% + 10px)' }}>
-              <MyEditor editedText={description} setDescriptionLesson={setDescription} />
+              {/* <NewTextEditor text={description} setLessonDescription={setDescription} block={} setLessonBlocks={} lessonBlocks={} /> */}
             </div>
           </div>
         )}
@@ -178,7 +189,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
           ) : (
             <div className={styles.wrapper_content_groups}>
               <span>Группы в которых будет отображен этот баннер:</span>
-              <div>
+              {/* <div>
                 <Checkbox
                   style={{ color: '#ba75ff' }}
                   checked={allGroups}
@@ -189,7 +200,11 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                 <span>
                   <b>выбрать все группы</b>
                 </span>
-              </div>
+              </div> */}
+              <SelectInput className={styles.customSelect}
+                optionsList={optionsList}
+              ></SelectInput>
+
               {Object.entries(
                 groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
                   const courseName = group.course_name
