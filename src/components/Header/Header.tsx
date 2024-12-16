@@ -731,7 +731,7 @@ export const Header = memo(() => {
         <div className={styles.header_socialIcons}>
   {schoolData && (
     <>
-      <SocialMediaButton url={schoolData.telegram_link || 'https://t.me/course_hb'} variant="Telegram" />
+      <SocialMediaButton variant="Telegram" url={schoolData.telegram_link || 'https://t.me/course_hb'} />
       <SocialMediaButton variant="Instagram" url={schoolData.instagram_link || 'https://instagram.com/'} />
       <SocialMediaButton variant="X" url={schoolData.twitter_link || "https://x.com/"} />
       <SocialMediaButton variant="Youtube" url={schoolData.youtube_link || "https://youtube.com/"} />

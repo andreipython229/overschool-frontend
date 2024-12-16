@@ -92,6 +92,18 @@ export const MainLayOut: FC = memo(() => {
   return (
     <>
       <div className={styles.wrapper}>
+        <div className={styles.bg}>
+          <div className={styles.bg_wrap1}></div>
+        </div>
+        <div className={styles.bg}>
+          <div className={styles.bg_wrap2}></div>
+        </div>
+        <div className={styles.bg}>
+          <div className={styles.bg_wrap3}></div>
+        </div>
+        <div className={styles.bg}>
+          <div className={styles.bg_wrap4}></div>
+        </div>
         {userRole === RoleE.Admin && progress.completion_percentage < 100 && <NewSchoolProgress />}
         <Navbar />
         <Header />
@@ -116,18 +128,6 @@ export const MainLayOut: FC = memo(() => {
         </motion.main>
         {showChat && isSuccess && <ChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />}
         <Footer />
-      </div>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap1}></div>
-      </div>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap2}></div>
-      </div>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap3}></div>
-      </div>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap4}></div>
       </div>
     </>
   )

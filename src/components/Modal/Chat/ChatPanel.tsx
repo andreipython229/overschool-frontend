@@ -31,16 +31,7 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
   //   }
   // }, [chats])
 
-  const [isHidden, setIsHidden] = useState(true)
-  const [isVisible, setIsVisible] = useState(false)
-  const closeChatList = () => {
-    if (screenWidth < 1025) {
-      setIsHidden(!isHidden)
-      setIsVisible(!isVisible)
-    }
-  }
-
-  const screenWidth = window.screen.width
+  const mobile = window.screen.width < 1024
 
   // useEffect(() => {
   //     return () => {
@@ -58,7 +49,7 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
   //     console.log("chat panel = ", chats)
   // }, [chats]);
 
-  return (
+  return mobile && chatId ? null : (
     <div className={styles.chatPanel}>
       <div className={styles.chatPanel_top}>
         <Input
@@ -69,6 +60,7 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
           type="search"
           placeholder="Поиск..."
         />
+
         {/* <div className={styles.chatPanel_user}>
           <div className={styles.chatPanel_user_avatar}>
             {userProfile?.avatar ? (
@@ -83,8 +75,7 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
           </div>
         </div> */}
       </div>
-      {isVisible && <Button onClick={closeChatList} className={styles.chatPanel_top_btn} text={'назад'} variant={'primary'}></Button>}
-      {isHidden && <ChatsList chats={chats} />}
+      <ChatsList chats={chats} />
     </div>
   )
 }

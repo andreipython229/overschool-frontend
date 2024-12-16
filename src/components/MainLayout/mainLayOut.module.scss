@@ -11,6 +11,7 @@
   font-family: $font-family-inter;
   padding: 0 1rem 5%;
   gap: 2rem;
+  z-index: 1;
   overflow: hidden;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -201,7 +202,11 @@
 
 .bg {
   z-index: -1;
-  position: relative;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
   &_wrap1 {
     position: absolute;
