@@ -28,6 +28,7 @@ import { useAppSelector } from 'store/hooks'
 import { schoolNameSelector } from 'selectors'
 import { PrizeWinner } from './components/PrizeWinner'
 import { useBoolean } from 'customHooks'
+import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth'
 
 const tabs = [{ label: 'Баллы' }, { label: 'Деньги' }]
 const boxesArr: IPrizeBox[] = [
@@ -80,7 +81,7 @@ export const BonusesPage: FC = () => {
           <div className={styles.wrapper_body_main_winners}>
             <div className={styles.wrapper_body_main_winners_header}>
               <h2>Победители</h2>
-              <span onClick={toggleWinners}>{showMore ? 'Закрыть': 'Кто еще выйграл'}</span>
+              <span onClick={toggleWinners}>{showMore ? 'Закрыть' : 'Кто еще выйграл'}</span>
             </div>
             <div className={styles.wrapper_body_main_winners_list}>
               <PrizeWinner />
@@ -124,8 +125,8 @@ export const BonusesPage: FC = () => {
         <motion.div className={`${show ? '' : styles.hide} ${styles.wrapper_body_deposit}`}>
           <div className={styles.wrapper_body_deposit_header}>
             <p>Коробки</p>
-            <div onClick={() => setShow(!show)} style={{ cursor: 'pointer' }}>
-              <IconSvg path={crossIconPath} viewBoxSize="0 0 14 14" height={30} width={30} />
+            <div onClick={() => setShow(!show)} style={{ cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <IconSvg path={closeHwModalPath} viewBoxSize="0 0 17 17" height={30} width={30} />
             </div>
           </div>
           <div className={styles.wrapper_body_deposit_slider}>
