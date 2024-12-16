@@ -95,17 +95,17 @@
       @include display(flex, column, center, center);
       width: 100%;
       text-decoration: none;
-      height: $icon-size; 
+      height: $icon-size;
       margin-bottom: 3px;
 
-      svg{
+      svg {
         height: 100%;
         width: auto;
       }
     }
 
     & p {
-      color: #332F36;
+      color: #332f36;
     }
 
     // cursor: pointer;
@@ -189,10 +189,10 @@
       padding: 5% 10%;
       transition-duration: $trans-dur02;
 
-      div{
-        height: $icon-size; 
+      div {
+        height: $icon-size;
         margin-bottom: 3px;
-        svg{
+        svg {
           height: 100%;
           width: auto;
         }
@@ -219,7 +219,7 @@
 
     & a {
       text-align: center;
-      color: #332F36;
+      color: #332f36;
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin: 0;
@@ -236,7 +236,7 @@
       text-align: center;
       word-wrap: break-word;
       white-space: normal;
-      color: #332F36;
+      color: #332f36;
       transition-duration: $trans-dur02;
     }
   }
@@ -249,10 +249,10 @@
     padding: 5px 0;
     transition-duration: $trans_dur02;
 
-    & a {
-      height: $icon-size; 
+    span {
+      height: $icon-size;
       margin-bottom: 3px;
-      svg{
+      svg {
         height: 100%;
         width: auto;
       }
@@ -261,15 +261,15 @@
     &:hover {
       background-color: $color-blue;
 
-      & a svg path {
+      span svg path {
         fill: $color-white;
+        stroke: $color-white;
       }
 
       & p {
         color: $color-white;
       }
     }
-
   }
 
   &_exit {
@@ -288,20 +288,24 @@
       opacity: 0;
     }
   }
-
 }
 
 .chatIcon {
-  color: #332F36;
+  color: #332f36;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   text-align: center;
   border-radius: 10px;
-  height: $icon-size; 
+  height: $icon-size;
   margin-bottom: 3px;
-  svg{
+
+  span:nth-child(1) {
+    height: 100%;
+  }
+
+  svg {
     height: 100%;
     width: auto;
   }
@@ -313,8 +317,6 @@
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin: 0;
   }
-
-
 
   // &:hover {
   //   background: #357EEB;
@@ -340,7 +342,7 @@
         stroke: $color-white;
       }
 
-      p{
+      p {
         color: $color-white;
       }
     }
