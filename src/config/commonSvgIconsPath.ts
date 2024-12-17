@@ -32,7 +32,10 @@ export const toggleBtnArr: pathT[] = [
 
 export const deletePath = [{ d: classesSettingSvgIcon.deleteIcon, fill: 'currentColor' }]
 
-export const crossIconPath: pathT[] = [{ d: cross, stroke: 'currentColor', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }]
+export const crossIconPath = [
+    { d: cross.d1, fill: '#808080' },
+    { d: cross.d2, fill: '#808080' },
+]
 
 export const searchIconPath: pathT[] = [{ d: searchSvgIcon, stroke: '#D1D5DB', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }]
 

@@ -1,6 +1,5 @@
 import { FC, ReactNode, useState } from 'react'
 import { CoursesDataT } from '../../../../types/CoursesT'
-
 import styles from './coursePage.module.scss'
 import { RoleE } from '../../../../enum/roleE'
 import Public from '../../../../assets/img/createCourse/public.svg'
@@ -15,7 +14,6 @@ import { useBoolean } from '../../../../customHooks'
 import { usePatchCoursesMutation } from '../../../../api/coursesServices'
 import { formDataConverter } from '../../../../utils/formDataConverter'
 import { CheckboxBall } from '../../../../components/common/CheckboxBall'
-
 import tests from 'assets/img/CourseCardsTS/tests.svg'
 import video from 'assets/img/CourseCardsTS/video.svg'
 import homeTask from 'assets/img/CourseCardsTS/home-tasks.svg'
@@ -26,7 +24,7 @@ import tests_dark from 'assets/img/CourseCardsTS/tests-dark.svg'
 import video_dark from 'assets/img/CourseCardsTS/video-dark.svg'
 import homeTask_dark from 'assets/img/CourseCardsTS/home-tasks-dark.svg'
 
-import '../../Navigations/CoursesCreating/courses_new_card.scss'
+import stylesCard from './courseCard.module.scss'
 import { getNounDeclension } from 'utils/getNounDeclension'
 
 type courseCard = {
@@ -82,34 +80,34 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                 boxShadow: course?.public === 'О' ? '2px 2px 7px 0px #357EEB73' : '2px 2px 7px 0px #CDCDCD8C',
               }}
               id={`${course?.course_id}`}
-              className="CourseCardsTS__admin"
+              className={stylesCard.CourseCardsTS__admin}
             >
               <>
                 {role === RoleE.Admin || role === RoleE.Teacher ? (
                   <>
-                    <div className="CourseCardsTS__admin-top">
-                      <p className="CourseCardsTS__admin-student-count">
+                    <div className={stylesCard.CourseCardsTS__admin_top}>
+                      <p className={stylesCard.CourseCardsTS__admin_studentCount}>
                         {course?.public === 'О' &&
                           `${course.students_count} ${getNounDeclension(course.students_count || 0, ['ученик', 'ученика', 'учеников'])}`}
                       </p>
 
                       {role === RoleE.Admin && course.course_id !== 247 ? (
                         course.course_removed ? (
-                          <div className="wraper">
-                            <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className="CourseCardsTS__public">
+                          <div className={stylesCard.wraper}>
+                            <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className={stylesCard.CourseCardsTS__public}>
                               Курс удален
                             </span>
                           </div>
                         ) : course?.public === 'О' ? (
-                          <div className="wraper">
-                            <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className="CourseCardsTS__public">
+                          <div className={stylesCard.wraper}>
+                            <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className={stylesCard.CourseCardsTS__public}>
                               Опубликован
                             </span>
                             <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
                           </div>
                         ) : (
-                          <div className="wraper">
-                            <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className="CourseCardsTS__public">
+                          <div className={stylesCard.wraper}>
+                            <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className={stylesCard.CourseCardsTS__public}>
                               Не опубликован
                             </span>
                             <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
@@ -126,41 +124,52 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                         course_id: `${course?.course_id}`,
                       })}
                     >
-                      <div className="CourseCardsTS__admin-main ">
-                        <div className="CourseCardsTS__admin-title ">{course.name}</div>
+                      <div className={stylesCard.CourseCardsTS__admin_main}>
+                        <div className={stylesCard.CourseCardsTS__admin_title}>{course.name}</div>
 
                         {course.photo ? (
                           <>
-                            <img src={course.photo} alt="" className="CourseCardsTS__admin-main-img" />
+                            <img src={course.photo} alt="" className={stylesCard.CourseCardsTS__admin_main_img} />
                           </>
                         ) : (
                           <div className={styles.no_image_found}>
                             <span>Нет изображения материала :(</span>
                           </div>
                         )}
-                        <div className="CourseCardsTS__admin-bg-filter"></div>
+                        <div className={stylesCard.CourseCardsTS__admin_bg_filter}></div>
                       </div>
                     </Link>
 
-                    <div className="CourseCardsTS__admin-property-wrapper">
-                      <div className="CourseCardsTS__admin-property">
-                        <img src={course?.public === 'О' ? video_admin : video_dark} className="CourseCardsTS__admin-property-img" alt="" />
-                        <p className="CourseCardsTS__admin-property-name">{course.video_count || 0} Видео</p>
+                    <div className={stylesCard.CourseCardsTS__admin_property_wrapper}>
+                      <div className={stylesCard.CourseCardsTS__admin_property}>
+                        <img
+                          src={course?.public === 'О' ? video_admin : video_dark}
+                          className={stylesCard.CourseCardsTS__admin_property_img}
+                          alt=""
+                        />
+                        <p className={stylesCard.CourseCardsTS__admin_property_name}>{course.video_count || 0} Видео</p>
                       </div>
-                      <div className="CourseCardsTS__admin-property">
-                        <img src={course?.public === 'О' ? homeTask_admin : homeTask_dark} className="CourseCardsTS__admin-property-img" alt="" />
-                        <p className="CourseCardsTS__admin-property-name">{`${course.homework_count || 0} ${getNounDeclension(
+                      <div className={stylesCard.CourseCardsTS__admin_property}>
+                        <img
+                          src={course?.public === 'О' ? homeTask_admin : homeTask_dark}
+                          className={stylesCard.CourseCardsTS__admin_property_img}
+                          alt=""
+                        />
+                        <p className={stylesCard.CourseCardsTS__admin_property_name}>{`${course.homework_count || 0} ${getNounDeclension(
                           course.homework_count || 0,
                           ['Домашнее задание', 'Домашних задания', 'Домашних заданий'],
                         )}`}</p>
                       </div>
-                      <div className="CourseCardsTS__admin-property">
-                        <img src={course?.public === 'О' ? tests_admin : tests_dark} className="CourseCardsTS__admin-property-img" alt="" />
-                        <p className="CourseCardsTS__admin-property-name">{`${course.test_count || 0} ${getNounDeclension(course.test_count || 0, [
-                          'Тест',
-                          'Теста',
-                          'Тестов',
-                        ])}`}</p>
+                      <div className={stylesCard.CourseCardsTS__admin_property}>
+                        <img
+                          src={course?.public === 'О' ? tests_admin : tests_dark}
+                          className={stylesCard.CourseCardsTS__admin_property_img}
+                          alt=""
+                        />
+                        <p className={stylesCard.CourseCardsTS__admin_property_name}>{`${course.test_count || 0} ${getNounDeclension(
+                          course.test_count || 0,
+                          ['Тест', 'Теста', 'Тестов'],
+                        )}`}</p>
                       </div>
                     </div>
 
@@ -169,7 +178,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                         to={generatePath(Path.CreateCourse, {
                           course_id: `${course?.course_id}`,
                         })}
-                        className="CourseCardsTS__admin-buttons"
+                        className={stylesCard.CourseCardsTS__admin_buttons}
                         style={{ gridTemplateColumns: course?.public === 'О' ? '1fr 1fr' : '1fr', gap: course?.public === 'О' ? '10px' : 0 }}
                       >
                         <Link
@@ -182,7 +191,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                                 ? '10px'
                                 : '0',
                           }}
-                          className="CourseCardsTS__admin-button-students"
+                          className={stylesCard.CourseCardsTS__admin_button_students}
                           to={generatePath(Path.CreateCourse + 'student', {
                             course_id: `${course?.course_id}`,
                           })}
@@ -190,7 +199,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                           {course?.public === 'О' && 'Ученики курса'}
                         </Link>
                         <Link
-                          className="CourseCardsTS__admin-button-edit"
+                          className={stylesCard.CourseCardsTS__admin_button_edit}
                           to={generatePath(Path.CreateCourse, {
                             course_id: `${course?.course_id}`,
                           })}
@@ -307,47 +316,48 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
         >
           <div
             id={`${course?.course_id}`}
-            className="CourseCardsTS__student"
+            className={stylesCard.CourseCardsTS__student}
             style={{ background: `url(${course?.photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
-            <div className="CourseCardsTS__bg-filter"></div>
+            <div className={stylesCard.CourseCardsTS__bg_filter}></div>
 
             {userProgress && (
-              <div className="CourseCardsTS__title ">
-                {course.name} <p className="CourseCardsTS__percents CourseCardsTS__persents-top">{~~userProgress.completed_percent}%</p>
+              <div className={stylesCard.CourseCardsTS__title}>
+                {course.name}{' '}
+                <p className={stylesCard.CourseCardsTS__percents + stylesCard.CourseCardsTS__persents_top}>{~~userProgress.completed_percent}%</p>
               </div>
             )}
 
-            <div className="CourseCardsTS__properties">
+            <div className={stylesCard.CourseCardsTS__properties}>
               {userProgress && (
                 <>
-                  <div className="CourseCardsTS__property-wrapper">
-                    <div className="CourseCardsTS__property">
-                      <img src={video} className="CourseCardsTS__property-img" alt="" />
-                      <p className="CourseCardsTS__property-name">
+                  <div className={stylesCard.CourseCardsTS__property_wrapper}>
+                    <div className={stylesCard.CourseCardsTS__property}>
+                      <img src={video} className={stylesCard.CourseCardsTS__property_img} alt="" />
+                      <p className={stylesCard.CourseCardsTS__property_name}>
                         {userProgress.lessons.completed_lessons}/{userProgress.lessons.all_lessons} видео
                       </p>
                     </div>
-                    <div className="CourseCardsTS__line"></div>
-                    <div className="CourseCardsTS__property">
-                      <img src={homeTask} className="CourseCardsTS__property-img" alt="" />
-                      <p className="CourseCardsTS__property-name">
+                    <div className={stylesCard.CourseCardsTS__line}></div>
+                    <div className={stylesCard.CourseCardsTS__property}>
+                      <img src={homeTask} className={stylesCard.CourseCardsTS__property_img} alt="" />
+                      <p className={stylesCard.CourseCardsTS__property_name}>
                         {userProgress.homeworks.completed_lessons}/{userProgress.homeworks.all_lessons} Домашних заданий
                       </p>
                     </div>
-                    <div className="CourseCardsTS__line"></div>
-                    <div className="CourseCardsTS__property">
-                      <img src={tests} className="CourseCardsTS__property-img" alt="" />
-                      <p className="CourseCardsTS__property-name">
+                    <div className={stylesCard.CourseCardsTS__line}></div>
+                    <div className={stylesCard.CourseCardsTS__property}>
+                      <img src={tests} className={stylesCard.CourseCardsTS__property_img} alt="" />
+                      <p className={stylesCard.CourseCardsTS__property_name}>
                         {userProgress.tests.completed_lessons}/{userProgress.tests.all_lessons} тестов
                       </p>
                     </div>
                   </div>
 
-                  <div className="progress">
-                    <div className="progress-value">{~~userProgress.completed_percent}%</div>
-                    <div className="progress-bg">
-                      <div className="progress-bar" style={{ width: `${~~userProgress.completed_percent}%` }}></div>
+                  <div className={stylesCard.progress}>
+                    <div className={stylesCard.progress_value}>{~~userProgress.completed_percent}%</div>
+                    <div className={stylesCard.progress_bg}>
+                      <div className={stylesCard.progress_bar} style={{ width: `${~~userProgress.completed_percent}%` }}></div>
                     </div>
                   </div>
 
@@ -362,11 +372,13 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                     </div>
                   </div>
 
-                  <div className="CourseCardsTS__bottom">
-                    <a href="#" className="CourseCardsTS__button">
+                  <div className={stylesCard.CourseCardsTS__bottom}>
+                    <a href="#" className={stylesCard.CourseCardsTS__button}>
                       Продолжить обучаться
                     </a>
-                    <p className="CourseCardsTS__percents CourseCardsTS__percents-bottom">{~~userProgress.completed_percent}%</p>
+                    <p className={stylesCard.CourseCardsTS__percents + stylesCard.CourseCardsTS__percents_bottom}>
+                      {~~userProgress.completed_percent}%
+                    </p>
                   </div>
                 </>
               )}

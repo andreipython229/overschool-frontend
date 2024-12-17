@@ -37,6 +37,7 @@ import { EmailNewsLetter } from 'Pages/Settings/EmailNewsLetter'
 import { NotificationBanner } from 'Pages/Settings/NotificationBannerSettings'
 import { Rating } from 'Pages/Rating'
 import { AdminOrTeacherReplyHomework } from 'Pages/HomeWork/AdminOrTeacherReply'
+import { BonusesPage } from 'Pages/Bonuses'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -62,6 +63,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.Profile} element={<Profile />} />
       <Route path={Path.Courses}>
         <Route index element={<CoursePage />} />
+        <Route path={Path.Bonus} element={<BonusesPage />} />
         <Route path={Student.Course}>
           <Route index element={<StudentCourse />} />
           <Route path={Student.Lesson} element={<StudentLessonPreview />} />
@@ -124,6 +126,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.CourseStats} element={<CoursesStats />} />
       <Route path={Path.Courses} element={<School />}>
         <Route index element={<Materials />} />
+        <Route path={Path.Bonus} element={<BonusesPage />} />
         <Route path={Path.CreateCourse} element={<RedactorCourse />}>
           <Route index element={<Navigate to={CreateCoursePath.Materials} />} />
           <Route path={CreateCoursePath.Materials} element={<CourseMaterials />} />

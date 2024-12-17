@@ -1,0 +1,50 @@
+@import '../../scss/mixin.scss';
+@import '../../scss/variable.scss';
+
+.wrapper {
+  position: relative;
+  display: flex;
+  min-height: 64px;
+  width: 330px;
+  margin: 0 auto;
+  gap: 0px;
+  border-radius: 48px;
+  justify-content: space-between;
+  opacity: 0px;
+  background: linear-gradient(180deg, #cfe2ff 0%, #bbceeb 100%);
+  border: 1px solid #357eeb;
+}
+
+.tab {
+  position: relative;
+  width: 160px;
+  height: 64px;
+  outline: 0;
+  border: none;
+  background-color: transparent;
+  font-family: 'SFPRORegular';
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 23.87px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  inset: 1;
+
+  p {
+    z-index: 11;
+    position: relative;
+  }
+}
+
+.activeTab {
+  color: $color-white;
+}
+
+.spanEl {
+  border-radius: 64px;
+  background: #357eeb;
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+}

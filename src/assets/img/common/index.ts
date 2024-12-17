@@ -69,8 +69,10 @@ import student from './Student.png'
 import student2 from './Student2.png'
 
 import courseLogo from './courseLogo.svg'
+import feedback from './feedback.svg'
 
 export {
+  feedback,
   courseLogo,
   arrowUp,
   arrowDown,

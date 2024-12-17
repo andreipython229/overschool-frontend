@@ -13,6 +13,8 @@ import styles from '../Modal.module.scss'
 import { useBoolean } from '../../../customHooks'
 import { Portal } from '../Portal'
 import { LimitModal } from '../LimitModal/LimitModal'
+import { CreateCourseModalIcon } from './constants/createCourseModalIcon'
+import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 
 export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal, refetch }) => {
   const navigate = useNavigate()
@@ -64,30 +66,34 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal
   return (
     <div className={styles.mainCourse}>
       <div className={styles.mainCourse_container}>
-        <div className={styles.mainCourse_closed} onClick={setShowModal}>
-          <IconSvg width={25} height={25} path={crossIconPath} />
+        <div className={styles.classesContainer_closed} onClick={setShowModal}>
+          <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
         </div>
 
-        <div className={styles.mainCourse_title}>Создание курса</div>
+        <div className={styles.mainCourse_header}>
+          <CreateCourseModalIcon width={157} height={121} />
+          <span className={styles.mainCourse_title}>Создание курса</span>
+        </div>
         <form onSubmit={addCourseName}>
-          <div className={styles.mainCourse_input}>
+          <div className={styles.usually_input}>
             <Input
-              style={{ width: '280px' }}
-              label="Введите название курса:"
               placeholder="Введите название курса"
               name={'course'}
               type={'text'}
               onChange={nameCourse}
               value={name}
               focus={true}
-            />
+              style={{ marginBottom: '36px' }}
+            >
+            <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+            </Input>
           </div>
 
           <div className={styles.mainCourse_btn}>
             <Button
-              style={{ minWidth: '280px' }}
+              style={{ width: '100%' }}
               type={'submit'}
-              variant={!name || isLoading ? 'disabled' : 'primary'}
+              variant={!name || isLoading ? 'inActive' : 'newPrimary'}
               text={
                 //isLoading  ? <SimpleLoader style={{width: '25px', height: '25px'}}
                 //loaderColor="#ffff"/> :

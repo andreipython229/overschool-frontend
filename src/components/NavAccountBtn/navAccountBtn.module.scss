@@ -18,18 +18,17 @@
     border: 0.5px solid #dedede;
     padding: 10px 12px;
   }
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
-   padding: 2%;
-   margin: 0; 
-    
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    padding: 2%;
+    margin: 0;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding: 2%;
     margin: 0;
   }
 }
 
 .active {
-  background: #E5CCFF;
-  color: #FFFFFF;
+  background: #357eeb;
+  color: #ffffff;
 }
