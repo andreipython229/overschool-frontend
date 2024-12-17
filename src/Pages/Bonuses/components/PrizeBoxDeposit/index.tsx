@@ -35,33 +35,34 @@ export const PrizeBoxDeposit: FC<IPrizeBox> = ({ variant, price, count, freeBoxe
 
   return (
     <div className={styles.wrapperBox}>
-      <img
-        src={imageBox}
-        className={styles.wrapperBox_image}
-        style={
-          variant === 'fifty'
-            ? { width: '202px', height: '162px' }
-            : variant === 'hundred'
-            ? { width: '286px', height: '229px' }
-            : variant === 'single'
-            ? { width: '106px', height: '106px' }
-            : { width: '156px', height: '120px' }
-        }
-        alt={`${count}-box`}
-      />
-      <p className={styles.wrapperBox_text}>{`${count} ${getNounDeclension(count, ['коробка', 'коробки', 'коробок'])}`}</p>
-      <span className={styles.wrapperBox_price}>
-        <span>{price}$</span>
+      <div className={styles.wrapperBox_imageBox}>
+        <img
+          src={imageBox}
+          className={styles.wrapperBox_imageBox_image}
+          // style={
+          //   variant === 'fifty'
+          //     ? { width: '202px', height: '162px' }
+          //     : variant === 'hundred'
+          //     ? { width: '286px', height: '229px' }
+          //     : variant === 'single'
+          //     ? { width: '106px', height: '106px' }
+          //     : { width: '156px', height: '120px' }
+          // }
+          alt={`${count}-box`}
+        />
         {freeBoxes > 0 && (
-          <span className={styles.wrapperBox_price}>
+          <span className={styles.wrapperBox_imageBox_free}>
             <span>+</span>
             <span className={styles.smallPrizeIcon}>
               <span className={styles.smallPrizeIcon_count}>x{freeBoxes}</span>
             </span>
-            <span>бесплатно</span>
           </span>
         )}
+        <span className={styles.wrapperBox_imageBox_price}>
+        <span>{price}$</span>
       </span>
+      </div>
+      <p className={styles.wrapperBox_text}>{`${count} ${getNounDeclension(count, ['коробка', 'коробки', 'коробок'])}`}</p>
       <Button variant="newTryForFree" text={'Купить'} className={styles.prizeBuy} />
     </div>
   )

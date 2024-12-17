@@ -19,6 +19,15 @@
     animation: initialBlight 6s linear 0.5s;
   }
 
+  &_openingLights {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: center / cover no-repeat url('./assets/6ee131fef24842205c3a8e509bce5611.jpeg');
+    opacity: 0;
+    animation: openingBlight 2s linear;
+  }
+
   &_body {
     backdrop-filter: blur(5px);
     width: 100%;
@@ -248,33 +257,11 @@
       &_menu {
         position: relative;
         width: 100%;
-        height: 500px;
-
-        div:nth-child(1) {
-          position: absolute;
-          left: 36%;
-          top: 0;
-        }
-        div:nth-child(2) {
-          position: absolute;
-          left: 0;
-          top: 25%;
-        }
-        div:nth-child(3) {
-          position: absolute;
-          left: 58%;
-          top: 25%;
-        }
-        div:nth-child(4) {
-          position: absolute;
-          left: 0;
-          top: 50%;
-        }
-        div:nth-child(5) {
-          position: absolute;
-          left: 58%;
-          top: 50%;
-        }
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-end: span 3;
+        gap: 2rem;
+        justify-items: center;
       }
     }
 
@@ -346,6 +333,27 @@
   }
 }
 
+@keyframes openingBlight {
+  0% {
+    opacity: 0.3;
+  }
+  25% {
+    opacity: 0.4;
+  }
+  40% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  75% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .hide {
   transform: translateX(150%);
 }
@@ -389,4 +397,54 @@
   border: 2px solid $color-white;
   border-radius: $bord-rad50;
   font-size: large;
+}
+
+.prizeWinnerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 366px;
+  height: 167px;
+  padding: 24px 34px 24px 34px;
+  gap: 18px;
+  border-radius: 34px;
+  background: #ffffff4d;
+
+  &_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 162px;
+    height: 100%;
+    color: #fffafa;
+
+    h3 {
+      //styleName: Desktop/Head/H1;
+      font-family: 'SFPRORegular';
+      font-size: 46px;
+      font-weight: 500;
+      line-height: 62px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      letter-spacing: -1px;
+    }
+
+    p {
+      font-family: 'SFPRORegular';
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 23.87px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      letter-spacing: -1px;
+    }
+  }
+
+  img {
+    height: 100%;
+    object-fit: contain;
+  }
 }

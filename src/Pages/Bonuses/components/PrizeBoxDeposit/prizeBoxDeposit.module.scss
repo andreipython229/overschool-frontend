@@ -1,41 +1,69 @@
 @import '../../../../scss/mixin.scss';
 @import '../../../../scss/variable.scss';
 
+.wrapperBox:last-child {
+  grid-column: span 2;
+}
+
 .wrapperBox {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: 150px;
+  color: #fff;
+  gap: 5px;
 
-  &_image {
-    object-fit: cover;
+  &_imageBox {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    position: relative;
+
+    &_image {
+      object-fit: contain;
+      height: 100%;
+      width: 100%;
+    }
+
+    &_free {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 40px;
+      align-self: flex-end;
+    }
+
+    &_price {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-family: 'SFPRORegular';
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 19.09px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: $color-white;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
   }
 
   &_text {
     font-family: 'SFPRORegular';
-    font-size: 24px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 600;
     line-height: 28.64px;
     text-align: center;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: $color-white;
-  }
-
-  &_price {
-    font-family: 'SFPRORegular';
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 19.09px;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: $color-white;
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 5px;
+    letter-spacing: -1px;
   }
 }
 
