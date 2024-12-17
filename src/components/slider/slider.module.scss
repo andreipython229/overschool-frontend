@@ -16,9 +16,9 @@
         opacity: 1;
         transition: all 0.4s ease-out;
 
-        @media only screen and (min-width: 390px) and (max-width: 435px){
-          max-width: 257px;
-          max-height: 196px;
+        @media only screen and (min-width: 320px) and (max-width: 1150px){
+          max-width: 65vw;
+          max-height: 49vw;
           border-radius: 30px;
           background: linear-gradient(to right, #0D28BB, #357EEB);
         }
@@ -26,10 +26,10 @@
 
 
         &_box {
-           
+
             display: grid;
             padding: 24px 30px 24px 24px;
-            grid-template-areas: 
+            grid-template-areas:
                 "photo info"
                 "rev rev";
 
@@ -37,17 +37,12 @@
             &_photo {
                 grid-area: photo;
 
-                @media only screen and (min-width: 390px) and (max-width: 435px){
-                  grid-area: photo;
-                }
-
-
                 img{
                     border-radius: 100px;
                     width: 140px;
                     height: 140px;
                 }
-             
+
             }
 
             &_info {
@@ -59,20 +54,20 @@
                 color: rgba(255, 255, 255, 1);
                 @include font(500, 24px, 28.64px);
 
-                @media only screen and (min-width: 390px) and (max-width: 435px){
-                  width: 155px;
-                  height: 37px;
+                @media only screen and (min-width: 320px) and (max-width: 1150px){
+                  width: 40vw;
+                  height: 10vw;
                   grid-area: info;
-                  margin-top: 16px;
-                  margin-left: 5px;
-                  font-size: 8px;
-                  margin-bottom: 11px;
+                  margin-top: 26px;
+                  margin-left: 36px;
+                  font-size: 2vw;
                 }
 
                 &_position {
                   @include font(500, 23px, 28.87px);
                   margin-bottom: 0;
                   color: rgba(255, 255, 255, 0.6);
+
                 }
             }
 
@@ -92,16 +87,16 @@
                 color: rgba(25, 33, 79, 1);
                 @include font(500, 16px, 19.09px);
 
-                @media only screen and (min-width: 390px) and (max-width: 435px){
+                @media only screen and (min-width: 320px) and (max-width: 1150px){
                   border-radius: 30px;
                   background: #FFFFFF;
-                  width: 260px;
-                  height: 107px;
+                  width: 65vw;
+                  height: 30vw;
                   grid-area: rev;
                   text-align: 20px;
-                  margin-left: 10px;
-                  padding: 15.78px 20.93px 6.93px 6.93px;
-                  font-size: 8px;
+                  margin-left: 4vw;
+                  padding: 35.78px 15vw 11.93px 11.93px;
+                  font-size: 1.5vw;
                 }
 
                 &_block {
@@ -121,11 +116,11 @@
               color: #324195;
               background: #CFE2FF;
 
-              @media only screen and (min-width: 390px) and (max-width: 435px){
-                color: #324195;
-                font-size: 14px;
-                background: #CFE2FF;
-              }
+                @media only screen and (min-width: 320px) and (max-width: 1150px){
+                  color: #324195;
+                  font-size: 3vw;
+                  background: #CFE2FF;
+                }
             }
         }
    }
@@ -141,9 +136,9 @@
         justify-content: center;
         cursor: pointer;
 
-        @media only screen and (min-width: 390px) and (max-width: 435px){
-          max-width: 257px;
-          max-height: 196px;
+        @media only screen and (min-width: 320px) and (max-width: 1150px){
+          max-width: 65vw;
+          max-height: 49vw;
           border-radius: 30px;
           background: #CFE2FF;
           display: flex;
@@ -152,7 +147,7 @@
           justify-content: center;
         }
     }
-    
+
 }
 
 .swiper {
@@ -162,8 +157,15 @@
 .swiper-slide-prev {
     width: 100px;
 
-    @media only screen and (min-width: 390px) and (max-width: 435px){
-        width: 10px;
+
+    @media only screen and (min-width: 320px) and (max-width: 435px){
+      width: 4px;
+      height: 4px;
+      background-color: #E1EBF9;
+      left: 200px;
+      color: #CFE2FF;
+
+
     }
 }
 
@@ -189,8 +191,9 @@
       background: #357EEB;
       color:#FFFFFF;
       fill: #FFFFFF;
-    }
+
   }
+}
 }
 
 .pagination {

@@ -182,42 +182,19 @@
     }
   }
 
-  @media only screen and (min-width: 800px) and (max-width: 1150px){
+  @media only screen and (min-width: 320px) and (max-width: 1150px){
     display: flex;
     flex-direction: row;
-    width: 200px;
-    height: 36px;
+    width: 18vw;
+    height: 5vw;
     background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
     align-items: center;
     justify-content: space-evenly;
     font-family: 'SFPRORegular';
-    @include font(700, 12px, 19.09px);
+    @include font(700, 1.4vw, 2vw);
     border-radius: 10px;
     color: #ffffff;
-    padding: 10px 15px 10px 15px;
-
-    &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: #357eeb;
-      }
-    }
-  }
-
-  @media only screen and (min-width: 390px) and (max-width: 435px){
-    display: flex;
-    flex-direction: row;
-    width: 80px;
-    height: 26px;
-    background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-    align-items: center;
-    justify-content: space-evenly;
-    font-family: 'SFPRORegular';
-    @include font(700, 8px, 10.09px);
-    border-radius: 10px;
-    color: #ffffff;
-    padding: 5px 7px 5px 7px;
-    margin-right: 0.2rem;
+    padding: 1vw;
 
     &:hover {
     &:hover:not(:disabled) {
@@ -276,8 +253,8 @@
     }
   }
 
-  @media only screen and (min-width: 800px) and (max-width: 1150px){
-    height: 32px;
+  @media only screen and (min-width: 320px) and (max-width: 1150px){
+    height: 2vh;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -285,11 +262,11 @@
     align-items: center;
     justify-content: space-evenly;
     font-family: 'SFPRORegular';
-    @include font(700, 14px, 19.09px);
+    @include font(700, 1.8vw, 19.09px);
     border-radius: 10px;
     letter-spacing: 0.02em;
     color: #324195;
-    padding: 5px 15px 5px 15px;
+    padding: 2vw;
 
     &:hover {
     &:hover:not(:disabled) {
@@ -299,31 +276,31 @@
     }
   }
 
-  @media only screen and (min-width: 390px) and (max-width: 435px){
-    height: 32px;
-    width: 13px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    background: #cfe2ff;
-    align-items: center;
-    justify-content: space-evenly;
-    font-family: 'SFPRORegular';
-    @include font(700, 11px, 5.09px);
-    border-radius: 10px;
-    letter-spacing: 0.02em;
-    color: #324195;
-    padding: 0px 0px 0px 0px;
-    margin-right: 0.5rem;
-
-
-    &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-      }
-    }
-  }
+//   @media only screen and (min-width: 320px) and (max-width: 400px){
+//     height: 32px;
+//     width: 13px;
+//     display: flex;
+//     flex-direction: row;
+//     flex-wrap: nowrap;
+//     background: #cfe2ff;
+//     align-items: center;
+//     justify-content: space-evenly;
+//     font-family: 'SFPRORegular';
+//     @include font(700, 11px, 5.09px);
+//     border-radius: 10px;
+//     letter-spacing: 0.02em;
+//     color: #324195;
+//     padding: 0px 0px 0px 0px;
+//     margin-right: 0.5rem;
+//
+//
+//     &:hover {
+//     &:hover:not(:disabled) {
+//       color: #ffffff;
+//       background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+//       }
+//     }
+//   }
 }
 
 
@@ -374,42 +351,19 @@
   }
 }
 
-  @media only screen and (min-width: 800px) and (max-width: 1150px){
-    width: 314px;
-    height: 55px;
+  @media only screen and (min-width: 320px) and (max-width: 1150px){
+    width: 30vw;
+    height: 5vw;
     align-items: center;
     justify-content: space-evenly;
     font-family: 'SFPRORegular';
     font-weight: 700;
-    font-size: 20px;
-    padding: 11px 25px;
+    font-size: 1.6vw;
+    padding: 2vw 2vw;
     background: transparent;
     background: #357eeb;
     border-radius: 20px;
-    line-height: 28.64px;
-    color: #ffffff;
-
-    &:hover {
-    &:hover:not(:disabled) {
-    color: #ffffff;
-    background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-      }
-    }
-  }
-
-  @media only screen and (min-width: 390px) and (max-width: 435px){
-    width: 115px;
-    height: 20px;
-    align-items: center;
-    justify-content: space-evenly;
-    font-family: 'SFPRORegular';
-    font-weight: 700;
-    font-size: 8px;
-    padding: 1px 1px;
-    background: transparent;
-    background: #357eeb;
-    border-radius: 20px;
-    line-height: 8.64px;
+    line-height: 1.5vw;
     color: #ffffff;
 
     &:hover {
@@ -466,10 +420,10 @@
       }
     }
   }
-  @media only screen and (min-width: 800px) and (max-width: 1150px){
+  @media only screen and (min-width: 320px) and (max-width: 1150px){
     font-family: 'SFPRORegular';
-    @include font(700, 14px, 19.09px);
-    padding: 5px 12px 5px 12px;
+    @include font(700, 1.6vw, 19.09px);
+    padding: 1vw;
     background: transparent;
     color: #332f36;
 
@@ -482,21 +436,21 @@
     }
   }
 
-  @media only screen and (min-width: 390px) and (max-width: 435px){
-    font-family: 'SFPRORegular';
-    @include font(700, 10px, 19.09px);
-    padding: 0px 0px 0px 0px;
-    background: transparent;
-    color: #332f36;
-
-
-    &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: #355eeb;
-      }
-    }
-  }
+//   @media only screen and (min-width: 320px) and (max-width: 400px){
+//     font-family: 'SFPRORegular';
+//     @include font(700, 10px, 19.09px);
+//     padding: 0px 0px 0px 0px;
+//     background: transparent;
+//     color: #332f36;
+//
+//
+//     &:hover {
+//     &:hover:not(:disabled) {
+//       color: #ffffff;
+//       background: #355eeb;
+//       }
+//     }
+//   }
 }
 
 .goPlatform {
@@ -616,44 +570,21 @@
     margin-bottom: 1rem;
   }
 
-  @media only screen and (min-width: 800px) and (max-width: 1150px){
+  @media only screen and (min-width: 320px) and (max-width: 1150px){
     font-family: 'SFPRORegular';
-    width: 278px;
-    height: 44px;
+    width: 30vw;
+    height: 4vw;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    display: flex;
     font-weight: 600;
-    font-size: 17px;
-    line-height: 23.87px;
+    font-size: 1.5vw;
+    line-height: 1vw;
     color: #0d28bb;
     background: transparent;
     background: #ffffff;
     border-radius: 12px;
-    margin-bottom: 0.4rem;
-  }
-
-  @media only screen and (min-width: 390px) and (max-width: 435px){
-    font-family: 'SFPRORegular';
-    width: 188px;
-    height: 24px;
-    align-items: center;
-    justify-content: space-evenly;
-    font-weight: 600;
-    font-size: 10px;
-    line-height: 3px;
-    color: #0d28bb;
-    background: transparent;
-    background: #ffffff;
-    border-radius: 12px;
-    margin-bottom: 0.3rem;
-  }
-
-    &:hover {
-    &:hover:not(:disabled) {
-        color: #ffffff;
-        background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-        border: 1px solid #ffffff;
-    }
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -718,15 +649,15 @@
     }
   }
 }
-  @media only screen and (min-width: 800px) and (max-width: 1150px){
-    width: 250px;
-    height: 45px;
+  @media only screen and (min-width: 320px) and (max-width: 1150px){
+    width: 20vw;
+    height: 4vw;
     align-items: center;
     justify-content: space-evenly;
     font-family: 'SFPRORegular';
     font-weight: 600;
-    font-size: 14px;
-    line-height: 23.87px;
+    font-size: 1vw;
+    line-height: 0.3vw;
     color: #ffffff;
     background: transparent;
     background: #808080;
@@ -734,8 +665,9 @@
     margin-bottom: 1rem;
     background-image: url(../../../assets/img/common/android.png);
     background-repeat: no-repeat;
-    background-position: top 10px left 30px;
-    padding-left: 60px;
+    background-size: 10% 50%;
+    background-position: 10% 50%;
+    padding-left: 3vw;
 
     &:hover {
     &:hover:not(:disabled) {
@@ -747,36 +679,8 @@
     }
   }
 }
-  @media only screen and (min-width: 390px) and (max-width: 435px){
-    width: 150px;
-    height: 25px;
-    align-items: center;
-    justify-content: space-evenly;
-    font-family: 'SFPRORegular';
-    font-weight: 600;
-    font-size: 6px;
-    line-height: 3px;
-    color: #ffffff;
-    background: transparent;
-    background: #808080;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    background-image: url(../../../assets/img/common/android.png);
-    background-repeat: no-repeat;
-    background-size: 12%;
-    background-position: 10% 50%;
-    padding-left: 21px;
 
-    &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: #0d28bb;
-      background-image: url(../../../assets/img/common/android.png);
-      background-repeat: no-repeat;
-      background-position: top 10px left 30px;
-      }
-    }
-  }
+
 }
 
 .inActive {

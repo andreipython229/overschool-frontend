@@ -13,6 +13,7 @@ import {CreateProdamusPaymentLinkData} from '../../../types/ProdamusPaymenT'
 import styles from './linkGenerating.module.scss';
 import {PaymentData, useGetLinkMutation, buildUrlParams, transformData} from 'api/prodamusService'
 import { log } from 'console';
+import useIsClickOut from '../../../Pages/Settings/PaymentMethods/useIsClickOut'
 
 interface LinkGeneratingProps {
     isOpen: boolean;
@@ -247,12 +248,10 @@ export const LinkGenerating: React.FC<LinkGeneratingProps> = ({isOpen, onClose})
     return (
     <div className={styles['modal-wrapper']} style={{ display: isOpen ? 'block' : 'none' }}>
         <div className={styles['modal-content']}>
-            <button className={styles.closeButton} onClick={handleCloseButtonClick}>
-                <IconSvg width={15} height={15} viewBoxSize="0 0 17 17" path={closeHwModalPath} />
-            </button>
-            <h2 style={{ marginBlockStart: "15px" }}>Генерация ссылки для оплаты</h2>
+            <h2>Генерация ссылки для оплаты</h2>
             {error && <p>{error}</p>}
-            {Array.isArray(paymentMethodsResponse.data) && paymentMethodsResponse.data.length > 0 ? (
+{/*             {Array.isArray(paymentMethodsResponse.data) && paymentMethodsResponse.data.length > 0 ? ( */}
+               {Array.isArray(paymentMethodsResponse.data) && paymentMethodsResponse.data.length === 0 ? (
                 <>
                     <div className={styles['label-container']}>
                         <label htmlFor="paymentMethod">Cпособ оплаты:</label>
@@ -342,7 +341,9 @@ export const LinkGenerating: React.FC<LinkGeneratingProps> = ({isOpen, onClose})
                     )}
 
                     <div>
-                        <Button className={styles.btn} text={'Сгенерировать'} onClick={handleGenerateLink} />
+                        <button className={styles.btn} onClick={handleGenerateLink}>
+                          Сгенерировать
+                        </button>
                     </div>
                 </>
             ) : (<>
