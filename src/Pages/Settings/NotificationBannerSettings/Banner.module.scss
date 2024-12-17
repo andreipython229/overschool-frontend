@@ -33,6 +33,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.3rem;
+      width: 100%;
 
       &_item {
         display: flex;
@@ -69,20 +70,26 @@
     display: flex;
     gap: 20px;
     align-items: center;
+    
 
     &_delete {
+      border: 2px solid #357EEB;
       padding: 11px;
-      border-radius: 6px;
-      border: none;
-      height: 36px;
-      background: #fef2f2;
-      @include display(flex, row, flex-start, center);
+      border-radius: 10px;
+      height: 54px;
+      width: 288px;
+      color: $color-blue;
+      font-weight: 500;
+      font-size: 20px;
+      background: transparent;
+      @include display(flex, row, center, center);
       text-align: center;
       cursor: pointer;
       transition: all ease-in 0.2s;
 
       &:hover {
-        background: #fc6d6d;
+        background: $color-blue;
+        color: $color-white;
       }
 
       & svg {
@@ -94,17 +101,21 @@
 
     &_confirm {
       padding: 11px;
-      border-radius: 6px;
+      border-radius: 10px;
       border: none;
-      height: 36px;
-      background: #c6ffd7;
-      @include display(flex, row, flex-start, center);
+      height: 54px;
+      width: 288px;
+      font-weight: 500;
+      font-size: 20px;
+      background: $color-blue;
+      color: $color-white;
+      @include display(flex, row,   center, center);
       text-align: center;
       cursor: pointer;
       transition: all ease-in 0.2s;
 
       &:hover {
-        background: #75ff9e;
+        filter: brightness(0.85);
       }
 
       & svg {

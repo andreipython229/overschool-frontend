@@ -187,9 +187,10 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
               </div>
             </div>
           ) : (
-            <div className={styles.wrapper_content_groups}>
-              <span>Группы в которых будет отображен этот баннер:</span>
-              {/* <div>
+            <>
+              <div className={styles.wrapper_content_groups}>
+                <span>Группы в которых будет отображен этот баннер:</span>
+                {/* <div>
                 <Checkbox
                   style={{ color: '#ba75ff' }}
                   checked={allGroups}
@@ -201,68 +202,63 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                   <b>выбрать все группы</b>
                 </span>
               </div> */}
-              <SelectInput className={styles.customSelect}
+                {/* <SelectInput 
                 optionsList={optionsList}
-              ></SelectInput>
+              ></SelectInput> */}
 
-              {Object.entries(
-                groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
-                  const courseName = group.course_name
-                  if (courseName) {
-                    if (!acc[courseName]) {
-                      acc[courseName] = []
+                {Object.entries(
+                  groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
+                    const courseName = group.course_name
+                    if (courseName) {
+                      if (!acc[courseName]) {
+                        acc[courseName] = []
+                      }
+                      acc[courseName].push(group)
                     }
-                    acc[courseName].push(group)
-                  }
-                  return acc
-                }, {}),
-              ).map(([courseName, groups]) => (
-                <div key={courseName} style={{ marginBlockStart: '3px' }}>
-                  <b>{courseName}</b>
-                  {groups.map((group, index) => (
-                    <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
-                      <Checkbox
-                        style={{ color: '#ba75ff' }}
-                        checked={isCheckedFunc(group.group_id as number, activeGroups)}
-                        onChange={e => {
-                          const isChecked = e.target.checked
-                          if (!isChecked) {
-                            setAllGroups(false)
-                            setActiveGroups(prevGrps => prevGrps.filter(grp => grp !== Number(group.group_id)))
-                          } else {
-                            setActiveGroups(prevGrps => prevGrps.concat(Number(group.group_id)))
-                          }
-                        }}
-                      />
-                      {group.name}
-                      <span> (Кол-во студентов: {group.students.length})</span>
-                    </div>
-                  ))}
+                    return acc
+                  }, {}),
+                ).map(([courseName, groups]) => (
+                  <div key={courseName} style={{ marginBlockStart: '3px' }}>
+                    <b>{courseName}</b>
+                    {groups.map((group, index) => (
+                      <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
+                        <Checkbox
+                          style={{ color: '#ba75ff' }}
+                          checked={isCheckedFunc(group.group_id as number, activeGroups)}
+                          onChange={e => {
+                            const isChecked = e.target.checked
+                            if (!isChecked) {
+                              setAllGroups(false)
+                              setActiveGroups(prevGrps => prevGrps.filter(grp => grp !== Number(group.group_id)))
+                            } else {
+                              setActiveGroups(prevGrps => prevGrps.concat(Number(group.group_id)))
+                            }
+                          }}
+                        />
+                        {group.name}
+                        <span> (Кол-во студентов: {group.students.length})</span>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+
+              <div className={styles.wrapper_buttons}>
+                <div className={styles.wrapper_buttons_confirm} onClick={handleSave}>
+                  Сохранить
                 </div>
-              ))}
-            </div>
+                <div className={styles.wrapper_buttons_delete} onClick={open}>
+                  Удалить
+                </div>
+              </div>
+            </>
           ))}
       </div>
-      <div className={styles.wrapper_buttons}>
-        {!isEditing ? (
-          <button className={styles.wrapper_buttons_edit} onClick={openEditing}>
-            <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
-          </button>
-        ) : (
-          <>
-            <Tooltip title="Сохранить баннер">
-              <div className={styles.wrapper_buttons_confirm} onClick={handleSave}>
-                {isLoading ? <SimpleLoader /> : <CheckIcon />}
-              </div>
-            </Tooltip>
-            <Tooltip title="Удалить баннер">
-              <div className={styles.wrapper_buttons_delete} onClick={open}>
-                <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
-              </div>
-            </Tooltip>
-          </>
-        )}
-      </div>
+      {!isEditing ? (
+        <button className={styles.wrapper_buttons_edit} onClick={openEditing}>
+          <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
+        </button>
+      ) : (<div></div>)}
     </motion.div>
   )
 }
