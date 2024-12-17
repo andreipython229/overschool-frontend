@@ -8,13 +8,14 @@ import { arrNumber, arrTime } from '../../../../constants'
 import { MyEditor } from 'components/MyEditor/MyEditor'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
-import { taskModalPath } from '../config/svgIconsPath'
 import { TasksModalPropsT } from '../../ModalTypes'
 import { useCreateLesson } from '../../../../customHooks/useCreateLesson'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../../Modal.module.scss'
 import { timeMaper } from '../../../../constants/timeMaper'
+import { TasksModalIcon } from '../constants/tasksModalIcon'
+import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 
 export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modulesList, setType }) => {
   const [descriptionHomeWork, setDescriptionHomeWork] = useState<string>('')
@@ -40,33 +41,39 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modu
   }
 
   return (
-    <form onSubmit={handleCreateLesson} className={styles.classesContainer}>
+    <form onSubmit={handleCreateLesson} className={styles.classesContainer} style={{ maxWidth: '600px', width: '100%' }}>
       <div onClick={handleCloseAllModal} className={styles.classesContainer_closed}>
-        <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
+        <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
       </div>
       <div className={styles.tasks}>
-        <IconSvg width={58} height={58} viewBoxSize="0 0 58 58" path={taskModalPath} />
-        <span className={styles.classesContainer_title}>Настройте задания</span>
+        <TasksModalIcon width={140} height={140} />
+        <span className={styles.classesContainer_title}>Настройте задание</span>
       </div>
 
-      <div style={{ marginTop: '15px' }} className={styles.usually_input}>
-        <span className={styles.usually_title}>Название занятия:</span>
+      <div className={styles.usually_input}>
         <Input
-          placeholder={'Название домашнего задания'}
+          placeholder={'Введите название домашнего задания'}
           name={'name classes'}
           onChange={handleNameClasses}
           type={'text'}
           value={nameLesson}
-          style={{ marginBottom: '25px' }}
-        />
+          style={{ marginBottom: '24px' }}
+        >
+        <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+        </Input>
       </div>
 
-      <div className={styles.btnBlock}>
-        <Button onClick={goToBack} text={'Назад'} />
+      <div className={styles.classesContainer_type_btnBlock} style={{marginTop: 0}}>
+        <Button
+            style={{padding: '14px'}}
+            variant={'cancel'}
+            onClick={goToBack}
+            text={'Назад'}
+          />
         <Button
           type={'submit'}
-          text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить занятие'}
-          variant={isLoading ? 'disabled' : 'primary'}
+          text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить задание'}
+          variant={isLoading ? 'inActive' : 'newPrimary'}
           disabled={isLoading}
         />
       </div>

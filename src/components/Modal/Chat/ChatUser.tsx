@@ -9,9 +9,12 @@ import { formDataConverter } from '../../../utils/formDataConverter'
 import { usePatchChatMutation } from '../../../api/chatsService'
 import Switch from '@mui/material/Switch'
 import TextField from '@mui/material/TextField'
-import { useAppSelector } from '../../../store/hooks'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { selectUser } from '../../../selectors'
 import { chatGroup, chatCourse } from '../../../assets/img/common/'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { iconBackPath } from './assets/icon'
+import { removeChat } from 'store/redux/chats/slice'
 
 type chatUserT = {
   openGroup?: (isOpen: boolean) => void
@@ -22,6 +25,8 @@ type chatUserT = {
 export const ChatUser: FC<chatUserT> = ({ openGroup, chatData, usersCount }) => {
   const { role } = useAppSelector(selectUser)
   const { userId } = useAppSelector(state => state.user)
+  const { chatId } = useAppSelector(state => state.chat)
+  const dispatch = useAppDispatch()
 
   const [changeChatName, setChangeChatName] = useState<string>(chatData?.name || 'Анонимная')
   const [checked, setChecked] = useState<boolean | undefined>(!chatData?.is_deleted)
@@ -84,12 +89,17 @@ export const ChatUser: FC<chatUserT> = ({ openGroup, chatData, usersCount }) => 
     <div className={styles.chatUser}>
       <div>
         <div className={styles.chatUser_info}>
-          {chatData && (
+          {chatId && (
+            <div onClick={() => dispatch(removeChat())} style={{ cursor: 'pointer' }}>
+              <IconSvg path={iconBackPath} viewBoxSize="0 0 7 11" width={7} height={11} />
+            </div>
+          )}
+          {chatData && chatData.senders.length > 0 && (
             <img
               className={styles.chatPreview_avatarWrap_avatar}
               style={{ height: '3rem', width: '3rem' }}
               alt="Информационный канал"
-              src={getInterlocutor(chatData).avatar}
+              src={getInterlocutor(chatData) ? getInterlocutor(chatData).avatar : ''}
             />
           )}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'flex-start', justifyContent: 'flex-start' }}>

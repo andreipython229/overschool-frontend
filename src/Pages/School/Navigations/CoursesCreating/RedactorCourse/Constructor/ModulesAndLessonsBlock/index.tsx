@@ -8,9 +8,10 @@ import { useChangeModuleOrderMutation } from 'api/modulesServices'
 import { useDebounceFunc } from 'customHooks'
 import { sectionT } from 'types/sectionT'
 import { Reorder } from 'framer-motion'
+import stylesModules from './ModulesBlock/modules_block.module.scss'
 
 export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
-  ({ setType, modulesList, setModulesList, setLessonIdAndType, isLoading, baseLessonId }) => {
+  ({ setType, modulesList, courseName, setModulesList, setLessonIdAndType, isLoading, baseLessonId }) => {
     const [changeOrder, { isLoading: changingOrder }] = useChangeModuleOrderMutation()
     const debounceBlockOrder = useDebounceFunc(changeOrder, 2000)
     const [selectedLessonId, setSelectedLessonId] = useState<number>()
@@ -66,12 +67,16 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
 
     return (
       <div className={styles.redactorCourse_leftSide}>
-        <h5 className={styles.redactorCourse_leftSide_title}>Структура курса:</h5>
+        <div className={styles.redactorCourse_leftSide_title}>
+          <h5 className={styles.redactorCourse_leftSide_title_name}>{courseName}</h5>
+        </div>
         <div className={styles.redactorCourse_leftSide_desc}>
           <Reorder.Group className={styles1.settings_list} values={modulesList} onReorder={handleOrderUpdate} as="ul">
             {modulesList &&
               modulesList.map((section: sectionT, index: number) => {
-                if (!section.section_name) return
+                if (!section.section_name) return (
+                  <Button className={styles.btn} onClick={handleOpenModalModule} text={'+ Добавить новый модуль'} />
+                )
                 return (
                   <ModulesBlock
                     section={section}
@@ -83,14 +88,11 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
                     lessonsList={section.lessons}
                     selectedLessonId={selectedLessonId}
                     setSelectedLessonId={setSelectedLessonId}
+                    onOpenModalModule={handleOpenModalModule}
                   />
                 )
               })}
           </Reorder.Group>
-          <hr />
-          <div className={styles.redactorCourse_leftSide_modul}>
-            <Button onClick={handleOpenModalModule} text={'+ модуль'} variant={'primary'} />
-          </div>
         </div>
       </div>
     )
