@@ -203,7 +203,8 @@ li {
 
 
     &_info {
-        width: 100vw;
+        width: 100%;
+        max-width: 85vw;
         display: flex;
         margin: 0 auto;
         flex-direction: column;
@@ -224,8 +225,6 @@ li {
           gap: 20vw;
           align-items: center;
         }
-
-
 
             &_text {
               @media only screen and (min-width: 1435px){
@@ -291,7 +290,7 @@ li {
                   font-weight: 700;
                   line-height: 23.87px;
                   color: #324195;
-                  margin-bottom: 30px;
+                  // margin-bottom: 30px;
                 }
 
                 @media only screen and (min-width: 320px) and (max-width: 1150px){
@@ -1312,7 +1311,7 @@ li {
       img {
         @media only screen and (min-width: 1240px){
           position: absolute;
-          right: 650px;
+          left: -10%;
         }
         @media only screen and (min-width: 490px) and (max-width: 1240px){
           position: absolute;
