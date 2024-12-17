@@ -36,20 +36,7 @@ export const PrizeBoxDeposit: FC<IPrizeBox> = ({ variant, price, count, freeBoxe
   return (
     <div className={styles.wrapperBox}>
       <div className={styles.wrapperBox_imageBox}>
-        <img
-          src={imageBox}
-          className={styles.wrapperBox_imageBox_image}
-          // style={
-          //   variant === 'fifty'
-          //     ? { width: '202px', height: '162px' }
-          //     : variant === 'hundred'
-          //     ? { width: '286px', height: '229px' }
-          //     : variant === 'single'
-          //     ? { width: '106px', height: '106px' }
-          //     : { width: '156px', height: '120px' }
-          // }
-          alt={`${count}-box`}
-        />
+        <img src={imageBox} className={styles.wrapperBox_imageBox_image} alt={`${count}-box`} />
         {freeBoxes > 0 && (
           <span className={styles.wrapperBox_imageBox_free}>
             <span>+</span>
@@ -59,8 +46,8 @@ export const PrizeBoxDeposit: FC<IPrizeBox> = ({ variant, price, count, freeBoxe
           </span>
         )}
         <span className={styles.wrapperBox_imageBox_price}>
-        <span>{price}$</span>
-      </span>
+          <span>{price}$</span>
+        </span>
       </div>
       <p className={styles.wrapperBox_text}>{`${count} ${getNounDeclension(count, ['коробка', 'коробки', 'коробок'])}`}</p>
       <Button variant="newTryForFree" text={'Купить'} className={styles.prizeBuy} />

@@ -158,9 +158,8 @@
   }
 }
 
-.newCreateHeader{
-
-  @media only screen and (min-width: 1150px){
+.newCreateHeader {
+  @media only screen and (min-width: 1150px) {
     display: flex;
     flex-direction: row;
     width: 252px;
@@ -175,14 +174,14 @@
     padding: 10px 25px 10px 25px;
 
     &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: #357eeb;
+      &:hover:not(:disabled) {
+        color: #ffffff;
+        background: #357eeb;
       }
     }
   }
 
-  @media only screen and (min-width: 320px) and (max-width: 1150px){
+  @media only screen and (min-width: 320px) and (max-width: 1150px) {
     display: flex;
     flex-direction: row;
     width: 18vw;
@@ -197,9 +196,9 @@
     padding: 1vw;
 
     &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: #357eeb;
+      &:hover:not(:disabled) {
+        color: #ffffff;
+        background: #357eeb;
       }
     }
   }
@@ -229,8 +228,7 @@
 }
 
 .newLogInHeader {
-
-  @media only screen and (min-width: 1150px){
+  @media only screen and (min-width: 1150px) {
     height: 46px;
     display: flex;
     flex-direction: row;
@@ -246,14 +244,14 @@
     padding: 10px 25px 10px 25px;
 
     &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+      &:hover:not(:disabled) {
+        color: #ffffff;
+        background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
       }
     }
   }
 
-  @media only screen and (min-width: 320px) and (max-width: 1150px){
+  @media only screen and (min-width: 320px) and (max-width: 1150px) {
     height: 2vh;
     display: flex;
     flex-direction: row;
@@ -269,40 +267,39 @@
     padding: 2vw;
 
     &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+      &:hover:not(:disabled) {
+        color: #ffffff;
+        background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
       }
     }
   }
 
-//   @media only screen and (min-width: 320px) and (max-width: 400px){
-//     height: 32px;
-//     width: 13px;
-//     display: flex;
-//     flex-direction: row;
-//     flex-wrap: nowrap;
-//     background: #cfe2ff;
-//     align-items: center;
-//     justify-content: space-evenly;
-//     font-family: 'SFPRORegular';
-//     @include font(700, 11px, 5.09px);
-//     border-radius: 10px;
-//     letter-spacing: 0.02em;
-//     color: #324195;
-//     padding: 0px 0px 0px 0px;
-//     margin-right: 0.5rem;
-//
-//
-//     &:hover {
-//     &:hover:not(:disabled) {
-//       color: #ffffff;
-//       background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
-//       }
-//     }
-//   }
+  //   @media only screen and (min-width: 320px) and (max-width: 400px){
+  //     height: 32px;
+  //     width: 13px;
+  //     display: flex;
+  //     flex-direction: row;
+  //     flex-wrap: nowrap;
+  //     background: #cfe2ff;
+  //     align-items: center;
+  //     justify-content: space-evenly;
+  //     font-family: 'SFPRORegular';
+  //     @include font(700, 11px, 5.09px);
+  //     border-radius: 10px;
+  //     letter-spacing: 0.02em;
+  //     color: #324195;
+  //     padding: 0px 0px 0px 0px;
+  //     margin-right: 0.5rem;
+  //
+  //
+  //     &:hover {
+  //     &:hover:not(:disabled) {
+  //       color: #ffffff;
+  //       background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+  //       }
+  //     }
+  //   }
 }
-
 
 .leaveRequest {
   width: 444px;
@@ -327,8 +324,8 @@
   }
 }
 
-.newLeaveRequest{
-  @media only screen and (min-width: 1150px){
+.newLeaveRequest {
+  @media only screen and (min-width: 1150px) {
     width: 444px;
     height: 80px;
     align-items: center;
@@ -344,14 +341,14 @@
     color: #ffffff;
 
     &:hover {
-    &:hover:not(:disabled) {
-    color: #ffffff;
-    background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+      &:hover:not(:disabled) {
+        color: #ffffff;
+        background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+      }
     }
   }
-}
 
-  @media only screen and (min-width: 320px) and (max-width: 1150px){
+  @media only screen and (min-width: 320px) and (max-width: 1150px) {
     width: 30vw;
     height: 5vw;
     align-items: center;
@@ -367,24 +364,23 @@
     color: #ffffff;
 
     &:hover {
-    &:hover:not(:disabled) {
-    color: #ffffff;
-    background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+      &:hover:not(:disabled) {
+        color: #ffffff;
+        background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
       }
     }
   }
 }
 
-
 .newPrimary {
   font-family: 'SFPRORegular';
   color: #ffffff;
-  background: #357EEB;
+  background: #357eeb;
   @include font(700, 20px, 23.87px);
   transition: 0.3s ease-in;
   &:hover:not(:disabled) {
     color: #ffffff;
-    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
   }
 }
 
@@ -405,8 +401,7 @@
 }
 
 .newSecondaryHeader {
-
-  @media only screen and (min-width: 1150px){
+  @media only screen and (min-width: 1150px) {
     font-family: 'SFPRORegular';
     @include font(700, 16px, 19.09px);
     padding: 11px 25px;
@@ -414,43 +409,42 @@
     color: #332f36;
 
     &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: #355eeb;
+      &:hover:not(:disabled) {
+        color: #ffffff;
+        background: #355eeb;
       }
     }
   }
-  @media only screen and (min-width: 320px) and (max-width: 1150px){
+  @media only screen and (min-width: 320px) and (max-width: 1150px) {
     font-family: 'SFPRORegular';
     @include font(700, 1.6vw, 19.09px);
     padding: 1vw;
     background: transparent;
     color: #332f36;
 
-
     &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: #355eeb;
+      &:hover:not(:disabled) {
+        color: #ffffff;
+        background: #355eeb;
       }
     }
   }
 
-//   @media only screen and (min-width: 320px) and (max-width: 400px){
-//     font-family: 'SFPRORegular';
-//     @include font(700, 10px, 19.09px);
-//     padding: 0px 0px 0px 0px;
-//     background: transparent;
-//     color: #332f36;
-//
-//
-//     &:hover {
-//     &:hover:not(:disabled) {
-//       color: #ffffff;
-//       background: #355eeb;
-//       }
-//     }
-//   }
+  //   @media only screen and (min-width: 320px) and (max-width: 400px){
+  //     font-family: 'SFPRORegular';
+  //     @include font(700, 10px, 19.09px);
+  //     padding: 0px 0px 0px 0px;
+  //     background: transparent;
+  //     color: #332f36;
+  //
+  //
+  //     &:hover {
+  //     &:hover:not(:disabled) {
+  //       color: #ffffff;
+  //       background: #355eeb;
+  //       }
+  //     }
+  //   }
 }
 
 .goPlatform {
@@ -553,8 +547,16 @@
   }
 }
 
-.newTryForFree{
-  @media only screen and (min-width: 1150px){
+.newTryForFree {
+  transition: all ease-in-out 0.2s;
+
+  &:hover:not(:disabled) {
+    color: #fff;
+    background-color: #357eeb;
+    border: 1px solid #fff;
+  }
+
+  @media only screen and (min-width: 1150px) {
     font-family: 'SFPRORegular';
     width: 388px;
     height: 54px;
@@ -565,12 +567,12 @@
     line-height: 23.87px;
     color: #0d28bb;
     background: transparent;
-    background: #ffffff;
+    background-color: #ffffff;
     border-radius: 12px;
     margin-bottom: 1rem;
   }
 
-  @media only screen and (min-width: 320px) and (max-width: 1150px){
+  @media only screen and (min-width: 320px) and (max-width: 1150px) {
     font-family: 'SFPRORegular';
     width: 30vw;
     height: 4vw;
@@ -587,7 +589,6 @@
     margin-bottom: 0.5rem;
   }
 }
-
 
 .mobile {
   width: 300px;
@@ -620,7 +621,7 @@
 }
 
 .newMobile {
-  @media only screen and (min-width: 1150px){
+  @media only screen and (min-width: 1150px) {
     width: 300px;
     height: 48px;
     align-items: center;
@@ -640,16 +641,16 @@
     padding-left: 60px;
 
     &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: #0d28bb;
-      background-image: url(../../../assets/img/common/android.png);
-      background-repeat: no-repeat;
-      background-position: top 10px left 30px;
+      &:hover:not(:disabled) {
+        color: #ffffff;
+        background: #0d28bb;
+        background-image: url(../../../assets/img/common/android.png);
+        background-repeat: no-repeat;
+        background-position: top 10px left 30px;
+      }
     }
   }
-}
-  @media only screen and (min-width: 320px) and (max-width: 1150px){
+  @media only screen and (min-width: 320px) and (max-width: 1150px) {
     width: 20vw;
     height: 4vw;
     align-items: center;
@@ -670,22 +671,20 @@
     padding-left: 3vw;
 
     &:hover {
-    &:hover:not(:disabled) {
-      color: #ffffff;
-      background: #0d28bb;
-      background-image: url(../../../assets/img/common/android.png);
-      background-repeat: no-repeat;
-      background-position: top 10px left 30px;
+      &:hover:not(:disabled) {
+        color: #ffffff;
+        background: #0d28bb;
+        background-image: url(../../../assets/img/common/android.png);
+        background-repeat: no-repeat;
+        background-position: top 10px left 30px;
+      }
     }
   }
 }
 
-
-}
-
 .inActive {
   color: $color-grey;
-  background: #CFE2FF;
+  background: #cfe2ff;
   cursor: not-allowed !important;
   font-family: 'SFPRORegular';
   @include font(500, 20px, 23.87px);
@@ -693,15 +692,14 @@
 
 .cancel {
   font-family: 'SFPRORegular';
-  color: #357EEB;
+  color: #357eeb;
   background: transparent;
-  border: 2px solid #357EEB;
+  border: 2px solid #357eeb;
   @include font(600, 20px, 23.87px);
   transition: 0.3s ease-in;
   &:hover:not(:disabled) {
     color: #ffffff;
-    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
     border: none;
   }
 }
-
