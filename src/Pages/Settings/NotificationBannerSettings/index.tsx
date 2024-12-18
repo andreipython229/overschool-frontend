@@ -34,7 +34,7 @@ export const NotificationBanner: FC = () => {
               {bannerCreating && <SimpleLoader style={{ height: '25px', width: '25px' }} />}
             </Button>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
+          <div style={{ position: 'relative',overflow: 'visible', display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
             {banners.map((banner, index) => (
               <>
                 <BannerPreview banner={banner} key={banner.id} refetch={refetch} groups={studentsGroups} />

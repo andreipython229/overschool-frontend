@@ -1,7 +1,7 @@
 import { IBanner } from 'api/apiTypes'
 import React, { FC, useState } from 'react'
 import styles from './Banner.module.scss'
-import HubImage from './assets/course-hub-banner.png'
+import HubImage from '../../../assets/img/common/present_image.png'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deletePath } from 'config/commonSvgIconsPath'
 import { settingsIconPath } from 'Pages/School/config/svgIconsPath'
@@ -18,7 +18,8 @@ import { motion } from 'framer-motion'
 import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
 import { isCheckedFunc } from 'utils/isCheckedFunc'
-
+import { NewTextEditor } from 'components/AddTextEditor/NewTextEditor'
+import { SelectInput } from '../../../components/common/SelectInput/SelectInput'
 interface IBannerPreview {
   banner: IBanner
   groups: studentsGroupT
@@ -37,6 +38,16 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [activeGroups, setActiveGroups] = useState<number[]>(banner.groups)
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
   const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length)
+
+
+  const optionsList = [
+    { value: 'option1', label: 'Опция 1' },
+    { value: 'option2', label: 'Опция 2' },
+    { value: 'option3', label: 'Опция 3' },
+  ];
+
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined);
+
 
   const handleDeleteBanner = () => {
     deleteBanner({ id: banner.id, schoolName: schoolName })
@@ -90,38 +101,42 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
         </DialogActions>
       </Dialog>
       <img src={HubImage} className={styles.image} />
+
       <div className={styles.wrapper_content}>
-        {isEditing ? (
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
-            <span style={{ fontWeight: '500' }}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
-          </div>
-        ) : (
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <span style={{ fontWeight: '500' }}>
-              {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер неактивен</p>}
-            </span>
-          </div>
-        )}
+        <span>
+          {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>}
+        </span>
+        {/* {isEditing ? ( */}
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
+          <span>{isActive ? 'Баннер включен' : 'Выключен'}</span>
+        </div>
+        {/* // ) : ( */}
+        {/* // <div style={{ display: 'flex', gap: '10px' }}> */}
+        {/* <span style={{ fontWeight: '500' }}> */}
+        {/* {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>} */}
+        {/* </span> */}
+        {/* </div> */}
+        {/* // )} */}
         {!isEditing ? (
           <span className={styles.wrapper_content_title}>{banner.title}</span>
         ) : (
           <>
-            <span style={{ fontWeight: '500' }}>Название баннера</span>
+            <span>Название баннера</span>
             <Input value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" />
           </>
         )}
         {!isEditing ? (
           <span className={styles.wrapper_content_description}>{HTMLReactParser(banner.description)}</span>
         ) : (
-          <>
-            <span style={{ fontWeight: '500' }}>
+          <div className={styles.wrapper_content_announcement}>
+            <span>
               Объявление <span style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
             </span>
             <div style={{ width: 'calc(100% + 10px)' }}>
-              <MyEditor editedText={description} setDescriptionLesson={setDescription} />
+              {/* <NewTextEditor text={description} setLessonDescription={setDescription} block={} setLessonBlocks={} lessonBlocks={} /> */}
             </div>
-          </>
+          </div>
         )}
         {banner.link &&
           (!isEditing ? (
@@ -130,14 +145,14 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             </a>
           ) : (
             <>
-              <span style={{ fontWeight: '500' }}>Ссылка под кнопкой в баннере</span>
+              <span>Ссылка под кнопкой в баннере</span>
               <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" />
             </>
           ))}
         {groups &&
           (!isEditing ? (
             <div className={styles.wrapper_content_groups}>
-              <span style={{ fontWeight: '500' }}>Группы в которых отображается этот баннер при входе на платформу:</span>
+              <span>Группы в которых отображается этот баннер при входе на платформу:</span>
               <div style={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'column' }}>
                 {/* {groups.results.map(
                   grp =>
@@ -173,8 +188,8 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             </div>
           ) : (
             <div className={styles.wrapper_content_groups}>
-              <span style={{ fontWeight: '500' }}>Группы в которых будет отображен этот баннер:</span>
-              <div>
+              <span>Группы в которых будет отображен этот баннер:</span>
+              {/* <div>
                 <Checkbox
                   style={{ color: '#ba75ff' }}
                   checked={allGroups}
@@ -185,7 +200,11 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                 <span>
                   <b>выбрать все группы</b>
                 </span>
-              </div>
+              </div> */}
+              <SelectInput className={styles.customSelect}
+                optionsList={optionsList}
+              ></SelectInput>
+
               {Object.entries(
                 groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
                   const courseName = group.course_name
