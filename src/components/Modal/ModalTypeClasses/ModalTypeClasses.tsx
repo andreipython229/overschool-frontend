@@ -3,8 +3,11 @@ import { FC, memo, useEffect, useState } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { typeClasses } from '../../../constants/typeClasses'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { modalTypeClassesTrainingPath, modalTypeClassesTaskPath, modalTypeClassesTextPath, modalTypeClassesWebinarPath } from './config/svgIconsPath'
 import { ModalClassesPropsT } from '../ModalTypes'
+import { crossIconPath } from 'config/commonSvgIconsPath'
+import { UsuallyClassesIcon } from './constants/usuallyClassesIcon'
+import { TasksModalIcon } from './constants/tasksModalIcon'
+import { TestModalIcon } from './constants/testModalIcon'
 
 import styles from '../Modal.module.scss'
 
@@ -20,7 +23,10 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
   }
 
   return (
-    <div className={styles.classesContainer}>
+    <div className={styles.classesContainer} style={{ maxWidth: '600px', width: '100%' }}>
+      <div onClick={handleClose} className={styles.classesContainer_closed}>
+        <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
+      </div>
       <div className={styles.classesContainer_main}>
         <span className={styles.classesContainer_title}>Выберите тип занятий</span>
         <div className={styles.classesContainer_type}>
@@ -28,7 +34,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
             onClick={() => setActiveClasses('lesson' as keyof object)}
             className={activeClasses === 'lesson' ? styles.classesContainer_type_classes + ' ' + styles.active : styles.classesContainer_type_classes}
           >
-            <IconSvg width={42} height={37} viewBoxSize="0 0 42 37" path={modalTypeClassesTrainingPath} />
+            <UsuallyClassesIcon width={121} height={106}/>
             <span>Обычное</span>
           </div>
           <div
@@ -37,14 +43,14 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
               activeClasses === 'homework' ? styles.classesContainer_type_classes + ' ' + styles.active : styles.classesContainer_type_classes
             }
           >
-            <IconSvg width={41} height={40} viewBoxSize="0 0 41 40" path={modalTypeClassesTaskPath} />
+            <TasksModalIcon width={121} height={106} />
             <span>Домашнее задание</span>
           </div>
           <div
             onClick={() => setActiveClasses('test' as keyof object)}
             className={activeClasses === 'test' ? styles.classesContainer_type_classes + ' ' + styles.active : styles.classesContainer_type_classes}
           >
-            <IconSvg width={30} height={40} viewBoxSize="0 0 30 40" path={modalTypeClassesTextPath} />
+            <TestModalIcon width={109} height={106}/>
             <span>Тест</span>
           </div>
           {/*<div*/}
@@ -61,23 +67,13 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
         <div className={styles.classesContainer_type_subs}>{typeClasses.map(el => (el.type === activeClasses ? el.text : null))}</div>
         <div className={styles.classesContainer_type_btnBlock}>
           <Button
-            style={{
-              width: '85px',
-              height: '100%',
-              fontSize: '14px',
-              fontWeight: '400',
-              borderRadius: '10px',
-            }}
+            style={{padding: '14px'}}
+            variant={'cancel'}
             onClick={handleClose}
             text={'Отмена'}
           />
           <Button
-            style={{
-              marginLeft: '12px',
-              fontSize: '14px',
-              fontWeight: '400',
-            }}
-            variant={'primary'}
+            variant={'newPrimary'}
             onClick={setClassesType}
             text={'Далее'}
           />

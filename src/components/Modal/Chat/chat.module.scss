@@ -6,10 +6,10 @@
 .chat {
   position: relative;
   background: $color-white;
-  max-width: calc(100vw - 80px);
-  max-height: calc(100vh - 80px);
-  min-height: 80vh;
-  width: 80%;
+  max-width: 1160px;
+  max-height: 70vh;
+  min-height: 70vh;
+  width: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -20,16 +20,17 @@
   fill: #9698fc;
 
   @media only screen and (max-width: 1024px) {
-    max-width: calc(100vw - 1rem);
-    max-height: calc(100dvh - 1rem);
+    max-width: calc(100vw - 2rem);
+    max-height: 85dvh;
     display: flex;
     flex-direction: column;
     width: 100%;
+    top: 45%;
   }
 
   @media only screen and (min-width: 2200px) and (max-width: 4600px) {
     max-height: 70vh;
-    max-width: 1600px;
+    max-width: 1160px;
     min-height: 50vh;
   }
 
@@ -77,6 +78,7 @@
   overflow: visible;
   min-height: 80px;
   z-index: 99999;
+  max-height: 100%;
 }
 
 .chatPreviewSupport {
@@ -112,13 +114,13 @@
   z-index: 999999;
   width: 100%;
   gap: 0.5rem;
+  cursor: pointer;
 
   &_selected {
     width: calc(100% + 30px);
     position: absolute;
   }
 
-  cursor: pointer;
   &:hover {
     background: #f3f4f6;
   }
@@ -221,14 +223,6 @@
     line-clamp: 1;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
-
-    @media only screen and (min-width: 481px) and (max-width: 1024px) {
-      width: 60vw;
-    }
-
-    @media only screen and (min-width: 2200px) and (max-width: 4600px) {
-      width: 60vw;
-    }
   }
 
   &_newMessage {
@@ -265,13 +259,14 @@
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  width: 500px;
-  height: 90vh;
-  gap: 4px;
+  width: 43.5vw;
+  max-width: 500px;
+  height: 80dvh;
+  gap: 6px;
   overflow: hidden;
   overflow-y: auto;
   scroll-behavior: smooth;
-  padding: 8px 50px 100px 1rem;
+  padding: 8px 50px 25dvh 1rem;
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
@@ -294,15 +289,11 @@
     border-radius: 5px;
   }
 
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
+  @media only screen and (max-width: 1024px) {
     margin-top: 0;
     height: 75vh;
     padding: 1rem;
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    margin-top: 0;
-    height: 80vh;
-    padding: 1rem;
+    width: 100%;
   }
 }
 
@@ -318,24 +309,18 @@
   width: 40%;
   z-index: 10;
   // min-width: 468px;
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 100%;
+  @media screen and (max-width: 1024px) {
     min-width: 100%;
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 100%;
-    min-width: 100%;
+    padding: 1.5rem 0;
   }
 
   &_top {
     padding: 1rem;
     font-family: 'Inter', sans-serif;
     font-size: smaller;
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      padding: 1rem 0;
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      padding: 1rem 0;
+    @media screen and (max-width: 1024px) {
+      padding: 0 1rem;
     }
 
     &_btn {
@@ -409,6 +394,17 @@
         text-align: left;
         text-underline-position: from-font;
         text-decoration-skip-ink: none;
+        overflow: hidden;
+        max-height: 100%;
+        width: 100%;
+        text-overflow: ellipsis;
+        word-break: keep-all;
+        white-space: initial;
+        display: -webkit-box;
+        line-height: 1rem;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
       }
 
       &_statusSupport {
@@ -421,6 +417,17 @@
         text-align: left;
         text-underline-position: from-font;
         text-decoration-skip-ink: none;
+        overflow: hidden;
+        max-height: 100%;
+        width: 100%;
+        text-overflow: ellipsis;
+        word-break: keep-all;
+        white-space: initial;
+        display: -webkit-box;
+        line-height: 1rem;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
       }
 
       &_name {
@@ -457,9 +464,10 @@
   display: flex;
   z-index: 3;
   flex-direction: column;
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
+
+  @media screen and (max-width: 1024px) {
+    left: 0;
+    width: 100%;
   }
 
   &_preview {

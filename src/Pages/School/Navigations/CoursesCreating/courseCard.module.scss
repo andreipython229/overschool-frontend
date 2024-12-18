@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
   &__persents_top {
     display: none;
   }
@@ -105,6 +106,8 @@
     position: relative;
     z-index: 3;
     align-items: center;
+    text-decoration: none;
+    color: #fff;
   }
 
   &__button {
@@ -131,6 +134,7 @@
     line-height: 38.19px;
     text-align: left;
     color: #ffffff;
+    text-decoration: none;
   }
 
   &__admin {

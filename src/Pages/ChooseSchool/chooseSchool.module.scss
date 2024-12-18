@@ -47,11 +47,10 @@
 .tit {
   font-size: 32px;
   font-weight: 700;
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    text-align: center;
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    text-align: center;
+
+  @media only screen and (min-width: 320px) and (max-width: 1000px){
+    font-size: 3.5vw;
+    font-weight: 700;
   }
 }
 .bg2 {
@@ -86,22 +85,12 @@
   align-items: center;
   //background-image: linear-gradient(to right top, #e4bae0, #ebd3ef, #ead4f9, #f4effe, #ebebeb);
 
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 100vw;
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
+  @media only screen and (min-width: 320px) and (max-width: 1000px) {
     width: 100vw;
   }
 }
 
 .logo {
-
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 100vw;
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    width: 100vw;
-  }
 
   display: flex;
   flex-direction: column;
@@ -111,16 +100,17 @@
 
   &_btnBack {
 
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      width: 30px;
-      height: 30px;
-      left: 5%;
-
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      width: 30px;
-      height: 30px;
-      left: 5%;
+    @media only screen and (min-width: 320px) and (max-width: 1000px){
+      left: 10px;
+      top: 13vw;
+      width: 5vw;
+      height: 5vw;
+      border-radius: 10px;
+      position: absolute;
+      background: #CFE2FF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     width: 50px;
@@ -135,14 +125,9 @@
     justify-content: center;
 
     img {
-      @media only screen and (min-width: 320px) and (max-width: 375px) {
-        width: 10px;
-        height: 20px;
-  
-      }
-      @media only screen and (min-width: 375px) and (max-width: 480px) {
-        width: 10px;
-        height: 20px;
+      @media only screen and (min-width: 320px) and (max-width: 1000px){
+        width: 3vw;
+        height: 3.5vw;
       }
 
       width: 20px;
@@ -150,34 +135,53 @@
 
     }
 
-    
+
   }
 
   &_rolePic {
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      display: none;
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      display: none;
-    }
-
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 2rem;
     margin-bottom: 2rem;
 
+    @media only screen and (min-width: 320px) and (max-width: 1000px){
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+
+      }
+
     &_box {
       display: flex;
       width: 400px;
       height: 401px;
-      
+
+      @media only screen and (min-width: 320px) and (max-width: 1400px){
+        display: flex;
+        width: 30vw;
+        height: 35vw;
+      }
 
       &_role {
         display: inline-block;
         width: 400px;
         height: 300px;
+
+        @media only screen and (min-width: 320px) and (max-width: 1400px){
+          display: inline-block;
+          max-width: 30vw;
+          height: 300px;
+        }
       }
+
+      img{
+        @media only screen and (min-width: 320px) and (max-width: 1400px){
+          width: 30vw;
+          }
+        }
     }
   }
 
@@ -188,37 +192,24 @@
     margin-bottom: 70px;
 
     img {
-      @media only screen and (min-width: 320px) and (max-width: 375px) {
-        width: 70%;
-      }
-      @media only screen and (min-width: 375px) and (max-width: 480px) {
-        width: 70%;
+      @media only screen and (min-width: 320px) and (max-width: 1000px){
+        width: 30vw;
+        margin-top: 7vw;
       }
     }
   }
 }
 
 .schoolBox {
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 1300px) {
     margin-bottom: 1rem;
     margin-top: 1rem;
-    width: 100%;
+    width: 100vw;
     height: 500px;
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
   }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-    width: 100%;
-    height: 500px;
-    flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: auto;
-
-  }
-
 
   display: flex;
   flex-direction: row;
@@ -231,11 +222,11 @@
   margin-bottom: 2rem;
   margin-top: 2rem;
 
-  
+
 }
 
 .swiper {
-  height: 100%; 
+  height: 100%;
   width: 100%;
 }
 .swiper-wrapper {
@@ -244,9 +235,9 @@
 
 .slide {
   display: flex;
-  align-items: center; 
-  justify-content: center; 
-  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .name {
@@ -260,6 +251,19 @@
   overflow: hidden;
   text-overflow: ellipsis;
   color: #0D28BB;
+
+  @media only screen and (min-width: 320px) and (max-width: 1000px) {
+    font-family: 'SFPRORegular';
+    font-weight: 700;
+    font-size: 3.5vw;
+    line-height: 4vw;
+    margin-bottom: 1vw;
+    width: 30vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #0D28BB;
+  }
 }
 
 
@@ -269,6 +273,14 @@
   font-weight: 600;
   font-size: 20px;
   line-height: 23.87px;
+
+  @media only screen and (min-width: 320px) and (max-width: 1000px) {
+    font-family: 'SFPROBold';
+    color: #332F36;
+    font-weight: 600;
+    font-size: 2.4vw;
+    line-height: 2vw;
+  }
 }
 
 .search {
@@ -285,12 +297,12 @@
   height: 60px;
   transition: ease-in-out background-color 0.3s;
   padding: 5px;
-  
+
 
   form {
     width: 100%;
     height: 100%;
-    
+
     input {
       margin: 0;
       line-height: 30px;
@@ -304,19 +316,19 @@
 }
 
 .bg {
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    margin-left: 0;
-    margin-top: 0;
-    flex-direction: row;
-    justify-content: center;
-    width: 360px;
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    margin-left: 0;
-    margin-top: 0;
-    flex-direction: row;
-    justify-content: center;
-    width: 360px;
+  @media only screen and (min-width: 320px) and (max-width: 1000px) {
+    margin-top: 1.5em;
+    margin-left: 1rem;
+    position: relative;
+    background-color: #CFE2FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 24px;
+    width: 40vw;
+    height: 17vw;
+    transition: ease-in-out background-color 0.3s;
+    padding: 20px 16px 20px 16px;
   }
 
   margin-top: 1.5em;
@@ -345,17 +357,22 @@
     transition: ease-in-out color 0.3s;
     height: 50%;
     @include display(flex, row, center, center);
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
+
+    @media only screen and (min-width: 320px) and (max-width: 1000px) {
       align-items: center;
+      font-size: 6vw;
+      margin-right: 75%;
+      color: #3686FF;
+      transition: ease-in-out color 0.3s;
+      height: 50%;
+      @include display(flex, row, center, center);
     }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      align-items: center;
-    }
+
   }
 
   &:hover {
     background: linear-gradient(to right, #0D28BB, #357EEB);
-   
+
     span {
       color: #FFFAFA;
     }
@@ -366,20 +383,36 @@
     .name {
       color: #FFFAFA;
     }
-    
+
   }
 }
 
 
 .create {
 
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    margin-bottom: 20px;
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    margin-bottom: 20px;
-  }
+  @media only screen and (min-width: 320px) and (max-width: 1000px) {
+    display: flex;
+    font-weight: 300;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    color: #0D28BB;
+    height: 6vw;
+    width: 33vw;
+    border-radius: 10px;
+    background-color:#CFE2FF;
+    font-family: 'SFPRORegular';
+    font-weight: 600;
+    font-size: 2vw;
+    line-height: 23.87px;
+    transition: all ease-in 0.3s;
 
+    &:hover {
+      color: #FFFFFF;
+      background: linear-gradient(to right, #0D28BB 100%, #357EEB 100%);
+      border: 1px solid #FFFFFF;
+    }
+  }
   display: flex;
   font-weight: 300;
   position: relative;
@@ -416,7 +449,7 @@
   }
 }
 .title {
-  font-size: 40px;
+  font-size: 20px;
   text-align: center;
   margin-bottom: 100px;
 }
@@ -612,9 +645,6 @@
     animation: bgAnimate4 10s linear infinite;
   }
 
- 
+
 
 }
-
-
-    

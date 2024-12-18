@@ -39,6 +39,8 @@ export type SuperButtonPropsT = DefaultButtonPropsType & {
     | 'newLeaveRequest'
     | 'newTryForFree'
     | 'newMobile'
+    | 'inActive'
+    | 'cancel'
 }
 
 export type CheckboxPropsT = {
