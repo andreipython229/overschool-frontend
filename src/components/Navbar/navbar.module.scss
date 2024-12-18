@@ -4,8 +4,8 @@
 .navbar {
   @include position_b_l(fixed, 0, 0, 10);
   @include display(flex, column, flex-end, center);
-  top: 2rem;
-  left: 1.5rem;
+  top: 2.5rem;
+  left: 1rem;
   white-space: nowrap;
   overflow: hidden;
   max-height: 90vh;
