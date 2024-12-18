@@ -32,12 +32,13 @@ import StudentSchoolMeeting from '../components/StudentsMeetings'
 import { Materials } from 'Pages/School/Navigations/CoursesCreating/MaterialsPage'
 import { CourseMaterials } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CourseMaterials/CourseMaterials'
 import { DomainSettings } from '../Pages/Settings/Domain'
-import { Bonuses } from 'Pages/Settings/Bonuses/Bonuses'
+import { PromotionSettings } from 'Pages/Settings/Promotions/Bonuses'
 import { EmailNewsLetter } from 'Pages/Settings/EmailNewsLetter'
 import { NotificationBanner } from 'Pages/Settings/NotificationBannerSettings'
 import { Rating } from 'Pages/Rating'
 import { AdminOrTeacherReplyHomework } from 'Pages/HomeWork/AdminOrTeacherReply'
 import { BonusesPage } from 'Pages/Bonuses'
+import { BonusesSettings } from 'Pages/Settings/Bonuses'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -52,7 +53,8 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
         <Route path={SettingsPath.SchoolPassport} element={<Passport />} />
         <Route path={SettingsPath.DomainSettings} element={<DomainSettings />} />
-        <Route path={SettingsPath.Bonuses} element={<Bonuses />} />
+        <Route path={SettingsPath.PromotionSettings} element={<PromotionSettings />} />
+        <Route path={SettingsPath.Bonuses} element={<BonusesSettings />} />
       </Route>
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
@@ -100,9 +102,10 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.SchoolPassport} element={<Passport />} />
         <Route path={SettingsPath.PaymentMethods} element={<PaymentMethods />} />
         <Route path={SettingsPath.DomainSettings} element={<DomainSettings />} />
-        <Route path={SettingsPath.Bonuses} element={<Bonuses />} />
+        <Route path={SettingsPath.PromotionSettings} element={<PromotionSettings />} />
         <Route path={SettingsPath.EmailNewsLetter} element={<EmailNewsLetter />} />
         <Route path={SettingsPath.Banner} element={<NotificationBanner />} />
+        <Route path={SettingsPath.Bonuses} element={<BonusesSettings />} />
       </Route>
       <Route path={Path.HomeWork} element={<School />}>
         <Route index element={<HomeWork />} />

@@ -3,7 +3,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { BonusT } from '../types/bonusesT'
 import { baseQueryWithReauth } from './baseQueryReauth'
-import { IBanner } from './apiTypes'
+import { IBanner, IPrize, ISchoolBoxes, ISchoolBoxesCreate } from './apiTypes'
 import { url } from 'inspector'
 
 export const schoolBonusService = createApi({
@@ -81,10 +81,25 @@ export const schoolBonusService = createApi({
         method: 'POST',
       }),
     }),
+    fetchSchoolBoxes: build.query<ISchoolBoxes[], string>({
+      query: schoolName => `/${schoolName}/school_box/`,
+    }),
+    createSchoolBox: build.mutation<any, { data: ISchoolBoxesCreate; schoolName: string }>({
+      query: args => ({
+        url: `/${args.schoolName}/school_box/`,
+        method: 'POST',
+        body: args.data,
+      }),
+    }),
+    fetchSchoolPrizes: build.query<IPrize[], string>({
+      query: schoolName => `/${schoolName}/school_prize/`,
+    }),
   }),
 })
 
 export const {
+  useFetchSchoolPrizesQuery,
+  useFetchSchoolBoxesQuery,
   useAcceptBannerMutation,
   useDeleteBannerMutation,
   useCreateNewBannerMutation,
