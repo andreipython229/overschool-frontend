@@ -77,3 +77,39 @@ export interface IBanner {
   school: number
   groups: number[]
 }
+
+export interface IPrize {
+  id: number
+  name: string
+  icon: string
+  school: number
+  drop_chance: number
+  guaranteed_box_count: number
+  is_active: boolean
+}
+
+export interface IPrizeBox {
+  prize: IPrize
+}
+
+export interface ISchoolBoxes {
+  id: number
+  name: string
+  icon: string
+  school: number
+  price: string
+  quantity: number
+  bonus_quantity: number
+  is_active: boolean
+  auto_deactivation_time: string
+  prizes: IPrizeBox[]
+}
+
+export interface ISchoolBoxesCreate {
+  name: string
+  price: string
+  quantity: number
+  bonus_quantity?: number
+  is_active?: boolean
+  auto_deactivation_time?: string
+}

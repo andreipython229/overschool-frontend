@@ -71,9 +71,14 @@ export const Passport = memo(() => {
   }
 
   return (
+      <>
+        <div className={styles.title_passport}>
+      <span className={styles.title_passport_header}>Печать платформы</span>
+        <span className={styles.title_passport_header}>Подпись владельца платформы</span>
+          </div>
+      <div className={styles.title_passport_block}>
     <div className={styles.wrapper_actions}>
       <div className={styles.decor}>
-        {/*<div className={styles.decor_title}>Персональная информация владельца платформы</div>*/}
         <LogoAddBlock
           title={'Печать платформы'}
           logoDesc={
@@ -81,11 +86,15 @@ export const Passport = memo(() => {
           }
           aboutRequirements={'Требования к печати:'}
           url={stampUrl}
-          height={200}
+          height={100}
           onChange={onChangeStamp}
           requirementsArr={['Формат файла PNG (без заднего фона)', 'Размер файла не более 2 мб', ' Оптимальный размер печати 200px х 200px']}
         />
         {stampError && <span>{stampError}</span>}
+        </div>
+      </div>
+      <div className={styles.wrapper_actions}>
+      <div className={styles.decor}>
         <LogoAddBlock
           title={'Подпись владельца платформы'}
           logoDesc={
@@ -100,5 +109,7 @@ export const Passport = memo(() => {
         {signError && <span>{signError}</span>}
       </div>
     </div>
+        </div>
+        </>
   )
 })
