@@ -12,11 +12,13 @@ import { Button } from '../../../../../components/common/Button/Button'
 import { Path } from '../../../../../enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { SimpleLoader } from '../../../../../components/Loaders/SimpleLoader'
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Checkbox, FormControlLabel } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Checkbox, FormControlLabel, createTheme, ThemeProvider } from '@mui/material'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { Toast } from 'primereact/toast'
 import { SelectInput } from 'components/common/SelectInput/SelectInput'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 
 type BasicSettingsT = {
   toggleCheckbox: boolean
@@ -59,6 +61,14 @@ export const BasicSettings: FC<BasicSettingsT> = ({
   const [revokeAccessOpen, setRevokeAccessOpen] = useState<boolean>(false);
   const [emailsWithAccess, setEmailsWithAccess] = useState<string[]>([])
   const [selectedEmails, setSelectedEmails] = useState<string[]>([])
+
+  const theme = createTheme({
+    typography: {
+      allVariants: {
+        fontFamily: 'SFPRORegular',
+      },
+    },
+  });
   
   const debounce = useDebounceFunc(update)
   const navigate = useNavigate()
@@ -233,15 +243,12 @@ export const BasicSettings: FC<BasicSettingsT> = ({
 
   return (
     <div className={`${styles.basic_settings}`}>
-      <div className={`${styles.header_basic_settings}`}>
-        <p>Основные настройки</p>
         {/* {!toggleCheckbox && (
                     <p className={styles.right_content_header}>
                         <IconSvg width={20} height={15} viewBoxSize=" 0 0 21 16" path={noPublishedGreyIconPath}/>
                         Не опубликован
                     </p>
                 )} */}
-      </div>
       <div className={styles.publish_switch}>
         <p className={styles.publish_switch_title}>Опубликовать курс в школе</p>
         <span className={styles.publish_switch_desc}>весь функционал, связанный с процессом обучения на курсе, становится доступным</span>
@@ -251,51 +258,81 @@ export const BasicSettings: FC<BasicSettingsT> = ({
       </div>
       <div className={styles.course_name_wrapper}>
         <p className={styles.course_name_title}>Название курса:</p>
-        <Input type={'text'} name="nameCourse" value={nameCourse} onChange={handleNameCourse} />
+        <div className={styles.settings_input}>
+          <Input type={'text'} placeholder={'Введите название курса'} name="nameCourse" value={nameCourse} onChange={handleNameCourse}>
+            <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+          </Input>
+        </div>
       </div>
       <div className={styles.short_discription_wrapper}>
         <p className={styles.short_discription_title}>Кратное описание:</p>
-        <Input type={'text'} name="shortDescription" value={shortDescription} onChange={handleNameCourse} />
+        <div className={styles.settings_input}>
+          <Input type={'text'} placeholder={'Введите краткое описание курса'} name="shortDescription" value={shortDescription} onChange={handleNameCourse}>
+            <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+          </Input>
+        </div>
       </div>
       <div className={styles.short_discription_wrapper}>
         <p className={styles.short_discription_title}>Поделиться курсом по email:</p>
-        <Input type={'email'} name="email" value={email} onChange={handleEmailChange} />
+        <div className={styles.settings_input}>
+          <Input type={'email'} placeholder={'Введите email'} name="email" value={email} onChange={handleEmailChange}>
+            <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+          </Input>
+        </div>
       </div>
       <div className={styles.btn}>
-        <Button onClick={handleSendEmail} text={'Поделиться'} />
-        <Button onClick={() => setRevokeAccessOpen(true)} text={'Отозвать доступ'} variant={'delete'} />
+        <Button
+          style={{padding: '15px 89px'}}
+          onClick={handleSendEmail}
+          text={'Поделиться'}
+          variant={'newPrimary'}
+        />
+        <Button
+          style={{padding: '15px 40px'}}
+          variant={'cancel'}
+          onClick={() => setRevokeAccessOpen(true)}
+          text={'Отозвать доступ'}
+        />
       </div>
-      <Dialog open={revokeAccessOpen} onClose={handleCloseRevokeAccess} aria-labelledby="revoke-access-dialog-title" aria-describedby="revoke-access-dialog-description">
-        <DialogTitle id="revoke-access-dialog-title">Отозвать доступ к курсу</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="revoke-access-dialog-description">
-            Выберите пользователей, у которых хотите отозвать доступ к курсу:
-          </DialogContentText>
-          <div>
-            {emailsWithAccess.map(email => (
-              <div key={email} style={{ marginBlockStart: '2px' }}>
-                <FormControlLabel
-                  key={email}
-                  control={
-                    <Checkbox
-                      style={{
-                        color: '#ba75ff',
-                      }}
-                      checked={selectedEmails.includes(email)}
-                      onChange={() => handleEmailSelectionChange(email)}
-                    />
-                  }
-                  label={email}
-                />
-              </div>
-            ))}
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseRevokeAccess} text="Отмена" />
-          <Button onClick={handleRevokeAccess} text="Отозвать" variant={'delete'} />
-        </DialogActions>
-      </Dialog>
+      <ThemeProvider theme={theme}>
+        <Dialog open={revokeAccessOpen} onClose={handleCloseRevokeAccess} aria-labelledby="revoke-access-dialog-title" aria-describedby="revoke-access-dialog-description" sx={{
+          '.css-1t1j96h-MuiPaper-root-MuiDialog-paper': {
+            borderRadius: '10px',
+            margin: 0,
+            padding: '16px'
+          }
+        }}>
+          <DialogTitle id="revoke-access-dialog-title">Отозвать доступ к курсу</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="revoke-access-dialog-description">
+              Выберите пользователей, у которых хотите отозвать доступ к курсу:
+            </DialogContentText>
+            <div>
+              {emailsWithAccess.map(email => (
+                <div key={email} style={{ marginBlockStart: '2px' }}>
+                  <FormControlLabel
+                    key={email}
+                    control={
+                      <Checkbox
+                        style={{
+                          color: '#ba75ff',
+                        }}
+                        checked={selectedEmails.includes(email)}
+                        onChange={() => handleEmailSelectionChange(email)}
+                      />
+                    }
+                    label={email}
+                  />
+                </div>
+              ))}
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseRevokeAccess} text="Отмена" variant={'cancel'}/>
+            <Button onClick={handleRevokeAccess} text="Отозвать" variant={'newPrimary'} />
+          </DialogActions>
+        </Dialog>
+      </ThemeProvider>
       <div className={styles.publish_switch}>
         {courseFind.baselessons_count && courseFind.baselessons_count >= 5 && toggleCheckbox ? (
           <p className={styles.publish_switch_title}>Опубликовать курс в каталоге</p>
@@ -304,7 +341,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({
             Опубликовать курс в каталоге можно при условии его публикации в школе и при наличии в нем не менее 5 занятий
           </p>
         )}
-        <span className={styles.publish_switch_desc}>курс попадает в каталог и становится доступным для общего поиска в интернете</span>
+        <span className={styles.publish_switch_desc} style={{margin: '20px 0'}}>курс попадает в каталог и становится доступным для общего поиска в интернете</span>
         <div className={styles.publish_switch_wrapper_switch}>
           {courseFind.baselessons_count && courseFind.baselessons_count >= 5 && toggleCheckbox ? (
             <CheckboxBall isChecked={isCatalog} toggleChecked={toggleCatalog} />
@@ -313,13 +350,13 @@ export const BasicSettings: FC<BasicSettingsT> = ({
           )}
         </div>
       </div>
-      <div className={styles.publish_switch}>
+      <div className={styles.publish_switch} style={{marginTop: '20px'}}>
         {toggleCheckbox ? (
           <p className={styles.publish_switch_title}>Доступ к курсу по прямой ссылке</p>
         ) : (
           <p className={styles.publish_switch_title}>Доступ к курсу по прямой ссылке (возможен при условии публикации курса в школе)</p>
         )}
-        <span className={styles.publish_switch_desc}>курс можно найти по прямой ссылке даже при его отсутствии в каталоге</span>
+        <span className={styles.publish_switch_desc} style={{margin: '20px 0'}}>курс можно найти по прямой ссылке даже при его отсутствии в каталоге</span>
         <div className={styles.publish_switch_wrapper_switch}>
           {toggleCheckbox ? <CheckboxBall isChecked={isDirect} toggleChecked={toggleDirect} /> : <CheckboxBall isChecked={isDirect} />}
         </div>
@@ -327,7 +364,15 @@ export const BasicSettings: FC<BasicSettingsT> = ({
       {courseFind.is_direct && (
         <div className={styles.short_discription_wrapper}>
           <p className={styles.short_discription_title}>Прямая ссылка на курс:</p>
-          <Input id="catalog-link" value={`https://overschool.by/course-catalog/${courseFind.course_id}/`} type="text" name="catalog-link">
+          <div className={styles.short_discription_input}>
+            <Input
+              id="catalog-link"
+              type={'text'}
+              placeholder={'Введите'}
+              name="catalog-link"
+              value={`https://overschool.by/course-catalog/${courseFind.course_id}/`}
+            >
+            <IconSvg className={styles.penIcon} width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath} />
             <CopyToClipboard
               text={`https://overschool.by/course-catalog/${courseFind.course_id}/`}
               onCopy={() => {
@@ -342,45 +387,55 @@ export const BasicSettings: FC<BasicSettingsT> = ({
             >
               <ContentCopyIcon sx={{ padding: '3px', cursor: 'pointer', color: '#6c7889' }} />
             </CopyToClipboard>
-          </Input>
+            </Input>
+          </div>
         </div>
       )}
       {foldersList && (
-        <div style={{ paddingTop: '1.5rem', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+        <div className={styles.folderslist}>
           <p className={styles.publish_switch_title}>Выберите папку для курса:</p>
-          <SelectInput
-            optionsList={foldersList}
-            setSelectedValue={setSelectedFolder}
-            defaultOption={courseFind.folder ? courseFind.folder.name : 'Без папки'}
-          />
+            <SelectInput
+              optionsList={foldersList}
+              setSelectedValue={setSelectedFolder}
+              defaultOption={courseFind.folder ? courseFind.folder.name : 'Без папки'}
+            />
         </div>
       )}
-      <div className={styles.btn}>
+      <div className={styles.btn} style={{margin: 0}}>
         <Button
+          style={{padding: '15px 40px'}}
           onClick={handleSaveChanges}
           text={isLoading ? <SimpleLoader style={{ height: '1em', width: '11em', color: 'white', zIndex: '100' }} /> : 'Применить изменения'}
-          variant={'primary'}
+          variant={'newPrimary'}
         />
       {courseFind.course_removed ? (
-          <Button onClick={handleRestoreAccess} text={'Восстановить курс'} />
+          <Button onClick={handleRestoreAccess} text={'Восстановить курс'} variant={'newPrimary'} style={{padding: '15px 40px'}}/>
         ) : (
-          <Button onClick={handleOpenAlert} text={'Удалить курс'} variant={'delete'} />
+          <Button onClick={handleOpenAlert} text={'Удалить курс'} variant={'cancel'} style={{padding: '15px 40px'}}/>
         )}
       </div>
-      <Dialog open={alertOpen} onClose={handleCloseAlert} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">{`Вы действительно хотите удалить курс "${courseFind.name}"?`}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Этот курс будет перемещен в корзину и останется там на протяжении недели. Вы сможете его восстановить в течение этого времени.
-            Если вы не восстановите курс, он будет удален навсегда.
-            Если вы уверены, что хотите удалить курс {`"${courseFind.name}"`}, нажмите {'удалить'}. В противном случае нажмите {'отмена'}.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseAlert} text={'Отмена'} />
-          <Button onClick={handleDeleteCourse} autoFocus text={'Удалить'} variant={'delete'} />
-        </DialogActions>
-      </Dialog>
+      <ThemeProvider theme={theme}>
+        <Dialog open={alertOpen} onClose={handleCloseAlert} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description" sx={{
+          '.css-1t1j96h-MuiPaper-root-MuiDialog-paper': {
+            borderRadius: '10px',
+          }
+        }}>
+          <DialogTitle id="alert-dialog-title">{`Вы действительно хотите удалить курс "${courseFind.name}"?`}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description" sx={{
+                textAlign: 'justify'
+            }}>
+              Этот курс будет перемещен в корзину и останется там на протяжении недели. Вы сможете его восстановить в течение этого времени.
+              Если вы не восстановите курс, он будет удален навсегда.
+              Если вы уверены, что хотите удалить курс {`"${courseFind.name}"`}, нажмите {'удалить'}. В противном случае нажмите {'отмена'}.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseAlert} text={'Отмена'} variant={'cancel'}/>
+            <Button onClick={handleDeleteCourse} autoFocus text={'Удалить'} variant={'newPrimary'} />
+          </DialogActions>
+        </Dialog>
+      </ThemeProvider>
       <Toast position="bottom-left" ref={toast} style={{ marginLeft: '100px' }} />
     </div>
   )
