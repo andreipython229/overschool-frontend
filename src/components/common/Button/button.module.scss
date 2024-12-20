@@ -793,11 +793,9 @@
   background: transparent;
   border: 2px solid #357EEB;
   @include font(600, 20px, 23.87px);
-  transition: 0.3s ease-in;
   &:hover:not(:disabled) {
     color: #ffffff;
     background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
-    border: none;
   }
 }
 

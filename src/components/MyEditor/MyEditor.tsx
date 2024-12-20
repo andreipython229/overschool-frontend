@@ -1,10 +1,15 @@
-import React, { memo, MouseEvent, useEffect, useState, useRef, FC } from 'react'
-import { ContentState, convertFromHTML, convertToRaw, Editor, EditorState, RichUtils } from 'draft-js'
-import { BLOCK_TYPES, INLINE_STYLES } from './config/blockTypes'
+import React, { memo, MouseEvent, useEffect, useState, useRef, FC, ChangeEvent } from 'react'
+import { ContentBlock, ContentState, convertFromHTML, convertToRaw, Editor, EditorState, Modifier, RichUtils } from 'draft-js'
+import { BLOCK_TYPES, LIST_TYPES, DROPDOWN_STYLES, INLINE_STYLES, LINK, DIVIDER } from './config/blockTypes'
 import { IEditor } from 'types/componentsTypes'
 import { stateToHTML } from 'draft-js-export-html'
 import 'draft-js/dist/Draft.css'
 import styles from './editor.module.scss'
+import { Button } from 'components/common/Button/Button'
+import { Select, MenuItem } from '@mui/material'
+import { decorator } from './Link/Link'
+import { Input } from 'components/common/Input/Input/Input'
+import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
 
 type MyEditorT = {
   setDescriptionLesson?: (arg: string) => void
@@ -13,17 +18,33 @@ type MyEditorT = {
   save?: (arg: string) => void
   setBannerDescription?: (arg: string) => void
   banner?: boolean
+  html?: string
 }
 
-export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText, setIsEditing, save, banner, setBannerDescription }) => {
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
+export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText, setIsEditing, save, banner, setBannerDescription, html }) => {
+  const [showUrlInput, setShowUrlInput] = useState<boolean>(false)
+  const [urlValue, setUrlValue] = useState<string>('')
+  const blocksFromHTML = convertFromHTML(urlValue || '')
+
+  const state = ContentState.createFromBlockArray(
+    blocksFromHTML.contentBlocks,
+    blocksFromHTML.entityMap,
+  );
+
+  const [editorState, setEditorState] = useState(() =>
+    html
+      ? EditorState.createWithContent(state, decorator)
+      : EditorState.createEmpty(decorator))
+
   const [editorContent, setEditorContent] = useState<string>('')
+  const [selectedStyle, setSelectedStyle] = React.useState('left')
 
   useEffect(() => {
     if (editedText) {
       const contentState = ContentState.createFromText(editedText)
       const newEditorState = EditorState.push(editorState, contentState, 'insert-characters')
       setEditorState(newEditorState)
+      console.log(editorState.getCurrentContent())
     }
   }, [editedText])
 
@@ -73,7 +94,7 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
     }
 
     return (
-      <button className={active ? styles.editor_panel_button_active : ''} onMouseDown={onClickButton}>
+      <button className={active ? `${styles.editor_panel_button} ${styles.editor_panel_button_active}` : styles.editor_panel_button} onMouseDown={onClickButton}>
         {label}
       </button>
     )
@@ -103,6 +124,9 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
         editable: false,
       }
     }
+    if (block.getType() === 'blockquote') { 
+      return 'RichEditor-blockquote';
+    }
     return null
   }
 
@@ -121,35 +145,148 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
     return currentStyle.includes(style)
   }
 
+  const getTextAlignStyle = (block: ContentBlock) => {
+    switch (block.getType()) {
+      case 'left':
+        return styles.align_left;
+      case 'center':
+        return styles.align_center;
+      case 'right':
+        return styles.align_right;
+      default:
+        return '';
+    }
+  }
+    
+  const onAddLink = () => {
+    const selection = editorState.getSelection();
+    if (!selection.isCollapsed()) {
+      const contentState = editorState.getCurrentContent();
+      const startKey = editorState.getSelection().getStartKey();
+      const startOffset = editorState.getSelection().getStartOffset();
+      const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
+      const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
+      let url = '';
+      if (linkKey) {
+        const linkInstance = contentState.getEntity(linkKey);
+        url = linkInstance.getData().url;
+      }
+
+      setShowUrlInput(true);
+      setUrlValue(url);
+    }
+  };
+
+  const confirmLink = () => {
+    const currentContent = editorState.getCurrentContent();
+    const createEntity = currentContent.createEntity("LINK", "MUTABLE", {
+      url: urlValue,
+    });
+    const entityKey = currentContent.getLastCreatedEntityKey();
+    const selection = editorState.getSelection();
+    const textWithEntity = Modifier.applyEntity(
+      currentContent,
+      selection,
+      entityKey
+    );
+    const newState = EditorState.createWithContent(textWithEntity, decorator);
+
+    setEditorState(newState);
+    setShowUrlInput(false);
+    setUrlValue('');
+  }
+
+  const onUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUrlValue(e.target.value);
+  }
+
   return (
     <div className={styles.editor}>
       <div className={styles.editor_panel}>
-        {BLOCK_TYPES.map(({ label, style }, index: number) => (
+        <div className={styles.editor_select}>
+        <Select 
+          value={selectedStyle}
+          onChange={e => {
+            handleEditorChange(RichUtils.toggleBlockType(editorState, String(e.target.value)))
+            setSelectedStyle(String(e.target.value))
+            setTimeout(() => {
+              focus()
+            }, 50)
+          }}
+            sx={{
+              '.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select': {
+                height: '24px'
+              },
+              '.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input': {
+                paddingRight: '26px'
+              },
+          }}
+        >
+        {DROPDOWN_STYLES.map(({ label, style }, index: number) => (
+          <MenuItem key={label + style + index} value={style}>{label}</MenuItem>
+        ))}
+        </Select>
+        </div>
+        {INLINE_STYLES.map(({ label, style }, index: number) => (
+          <StyleButton key={label + style + index} style={style} label={label} isActive={() => isActive(style)} onToggle={onInlineClick} />
+        ))}
+        {LIST_TYPES.map(({ label, style }, index: number) => (
           <StyleButton key={index} style={style} label={label} isActive={() => isActive(style)} onToggle={onBlockClick} />
         ))}
-        {INLINE_STYLES.map(({ label, style }, index: number) => (
-          <StyleButton key={label + style} style={style} label={label} isActive={() => isActive(style)} onToggle={onInlineClick} />
+        {LINK.map(({ label, style }) => (
+          <StyleButton key={label + style} style={style} label={label} isActive={() => isActive(style)} onToggle={onAddLink} />
+         ))}
+        {BLOCK_TYPES.map(({ label, style }, index: number) => (
+          <StyleButton key={index + style} style={style} label={label} isActive={() => isActive(style)} onToggle={onBlockClick} />
+        ))}
+        {DIVIDER.map(({ label, style }, index: number) => (
+          <StyleButton key={index + style} style={style} label={label} isActive={() => isActive(style)} onToggle={onBlockClick} />
         ))}
       </div>
       <div className={styles.editor_table}>
         <Editor
-          placeholder={'Введите сообщение...'}
+          placeholder={'Введите текст...'}
           ref={editor}
           blockRendererFn={mediaBlockRenderer}
           editorState={editorState}
           onChange={handleEditorChange}
+          blockStyleFn={getTextAlignStyle}
         />
       </div>
       {stateToHTML(editorState.getCurrentContent()) !== editedText && (
-        <div style={{ display: 'flex', margin: '1em' }}>
-          <button type="button" className={styles.textField_btnSave} onClick={handleSaveClick}>
-            Сохранить текст
-          </button>
-          <button type="button" className={styles.textField_btnCancel} onClick={handleCancelClick}>
-            Отмена
-          </button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <Button
+            variant={'cancel'}
+            type='button'
+            onClick={handleCancelClick}
+            text={'Отменить'}
+            className={styles.textField_btn}
+          />
+          <Button
+            variant={'newPrimary'}
+            type='button'
+            text={'Сохранить'}
+            onClick={handleSaveClick}
+            className={styles.textField_btn}
+          />
         </div>
       )}
+      {showUrlInput && ( 
+        <div className={styles.url_container}>
+          <div className={styles.url_container_input}>
+            <Input
+              onChange={onUrlChange}
+              type="text"
+              value={urlValue}
+              name={'LINK'}
+            />
+          </div>
+          <Button onMouseDown={confirmLink} text={''} variant='newPrimary' style={{padding: '4px'}}>
+            <TrendingFlatIcon />
+          </Button> 
+        </div>
+  )
+  }
     </div>
   )
 })
