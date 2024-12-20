@@ -78,6 +78,15 @@ export interface IBanner {
   groups: number[]
 }
 
+export interface IBox {
+  box_id: number
+  box_name: string
+  box_icon: string
+  unopened_count: number
+  opened_count: number
+  remaining_to_guarantee: number | null
+}
+
 export interface IPrize {
   id: number
   name: string
@@ -112,4 +121,9 @@ export interface ISchoolBoxesCreate {
   bonus_quantity?: number
   is_active?: boolean
   auto_deactivation_time?: string
+}
+
+export interface IOpenBox {
+  message: string
+  prize: IPrize
 }

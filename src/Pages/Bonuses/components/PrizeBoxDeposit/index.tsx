@@ -1,56 +1,79 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import styles from './prizeBoxDeposit.module.scss'
 import singleBox from './assets/single.png'
-import fiveBox from './assets/five.png'
-import tenBox from './assets/ten.png'
 import { Button } from 'components/common/Button/Button'
 import { getNounDeclension } from 'utils/getNounDeclension'
+import { ISchoolBoxes } from 'api/apiTypes'
+import { useGetBoxPaymentLinkMutation } from 'api/schoolBonusService'
+import { useAppSelector } from 'store/hooks'
+import { schoolNameSelector } from 'selectors'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
-export interface IPrizeBox {
-  variant: 'single' | 'five' | 'ten' | 'fifty' | 'hundred'
-  price: number
-  count: number
-  freeBoxes: number
+interface IPrizeDeposit {
+  openPayment: (link: string, payment: ISchoolBoxes) => void
 }
 
-export const PrizeBoxDeposit: FC<IPrizeBox> = ({ variant, price, count, freeBoxes }) => {
-  const [imageBox, setImageBox] = useState<string>('')
+export const PrizeBoxDeposit: FC<ISchoolBoxes & IPrizeDeposit> = ({
+  quantity,
+  bonus_quantity,
+  price,
+  icon,
+  prizes,
+  id,
+  auto_deactivation_time,
+  openPayment,
+  name,
+  school,
+  is_active,
+}) => {
+  const schoolName = useAppSelector(schoolNameSelector)
+  const [generateLink, { isLoading }] = useGetBoxPaymentLinkMutation()
 
-  useEffect(() => {
-    if (!imageBox.length) {
-      switch (variant) {
-        case 'single':
-          return setImageBox(singleBox)
-        case 'five':
-          return setImageBox(fiveBox)
-        case 'ten':
-          return setImageBox(tenBox)
-        case 'fifty':
-          return setImageBox(tenBox)
-        case 'hundred':
-          return setImageBox(tenBox)
+  const buyClick = () => {
+    if (schoolName) {
+      const box: ISchoolBoxes = {
+        id,
+        icon,
+        prizes,
+        price,
+        bonus_quantity,
+        quantity,
+        auto_deactivation_time,
+        name,
+        school,
+        is_active,
       }
+      const form = new FormData()
+      form.append('box_id', String(id))
+      generateLink({ school: schoolName, data: form })
+        .unwrap()
+        .then(data => openPayment(data.payment_link, box))
+        .catch(err => console.error('smth went wrong', err))
     }
-  }, [imageBox])
+  }
+
+  if (isLoading) {
+    return <LoaderLayout />
+  }
 
   return (
     <div className={styles.wrapperBox}>
       <div className={styles.wrapperBox_imageBox}>
-        <img src={imageBox} className={styles.wrapperBox_imageBox_image} alt={`${count}-box`} />
-        {freeBoxes > 0 && (
+        <img src={icon || singleBox} className={styles.wrapperBox_imageBox_image} alt={`${icon}-box`} />
+        {bonus_quantity > 0 && (
           <span className={styles.wrapperBox_imageBox_free}>
             <span>+</span>
             <span className={styles.smallPrizeIcon}>
-              <span className={styles.smallPrizeIcon_count}>x{freeBoxes}</span>
+              <span className={styles.smallPrizeIcon_count}>x{bonus_quantity}</span>
             </span>
           </span>
         )}
         <span className={styles.wrapperBox_imageBox_price}>
-          <span>{price}$</span>
+          <span>{price}BYN</span>
         </span>
       </div>
-      <p className={styles.wrapperBox_text}>{`${count} ${getNounDeclension(count, ['коробка', 'коробки', 'коробок'])}`}</p>
-      <Button variant="newTryForFree" text={'Купить'} className={styles.prizeBuy} />
+      <p className={styles.wrapperBox_text}>{`${quantity} ${getNounDeclension(quantity, ['коробка', 'коробки', 'коробок'])}`}</p>
+      <Button variant="newTryForFree" text={'Купить'} className={styles.prizeBuy} onClick={buyClick} />
     </div>
   )
 }

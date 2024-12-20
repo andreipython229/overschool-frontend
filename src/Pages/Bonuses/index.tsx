@@ -1,26 +1,13 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import styles from './bonuses.module.scss'
-import p5 from './assets/iconsPng/5.png'
-import p10 from './assets/iconsPng/10.png'
-import p15 from './assets/iconsPng/15.png'
 import p20 from './assets/iconsPng/20.png'
-import p25 from './assets/iconsPng/25.png'
-import p30 from './assets/iconsPng/30.png'
-import p35 from './assets/iconsPng/35.png'
-import p40 from './assets/iconsPng/40.png'
-import p45 from './assets/iconsPng/45.png'
-import p75 from './assets/iconsPng/75.png'
 import boxes from './assets/iconsPng/boxes.png'
-import courses from './assets/iconsPng/courses.png'
-import course from './assets/iconsPng/course.png'
-import english from './assets/iconsPng/english.png'
 import noPrize from './assets/noPrize.png'
-import userPrize from './assets/image.png'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrowLeftIconPath } from 'config/commonSvgIconsPath'
 import { AnimatedTabs } from 'components/AnimatedTabs'
-import { IPrizeBox, PrizeBoxDeposit } from './components/PrizeBoxDeposit'
+import { PrizeBoxDeposit } from './components/PrizeBoxDeposit'
 import prizeBox from './assets/box.png'
 import tip1Image from './assets/tip1.png'
 import { motion } from 'framer-motion'
@@ -32,31 +19,71 @@ import { PrizeWinner } from './components/PrizeWinner'
 import { useBoolean } from 'customHooks'
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth'
 import { Prize } from './components/Prize'
+import { useFetchSchoolBoxesQuery, useFetchSchoolPrizesQuery, useFetchUserBoxesQuery, useOpenUserBoxMutation } from 'api/schoolBonusService'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
+import { IBox, IPrize, ISchoolBoxes } from 'api/apiTypes'
+import { AnimatedModal } from 'components/Modal/AnimatedModal'
 
 const tabs = [{ label: 'Баллы' }, { label: 'Деньги' }]
-const boxesArr: IPrizeBox[] = [
-  { variant: 'single', count: 1, freeBoxes: 0, price: 5 },
-  { variant: 'five', freeBoxes: 2, price: 50, count: 5 },
-  { variant: 'ten', count: 10, freeBoxes: 4, price: 100 },
-  { variant: 'fifty', count: 50, freeBoxes: 10, price: 150 },
-  { variant: 'hundred', count: 100, freeBoxes: 30, price: 250 },
-]
 
 export const BonusesPage: FC = () => {
+  const schoolName = useAppSelector(schoolNameSelector)
+  const { data: userBoxes } = useFetchUserBoxesQuery(schoolName)
+  const { data: schoolBoxes } = useFetchSchoolBoxesQuery(schoolName)
+  const { data: schoolPrizes } = useFetchSchoolPrizesQuery(schoolName)
+  const [openNewBox, { isLoading: isOpeningBox }] = useOpenUserBoxMutation()
   const [show, setShow] = useState<boolean>(true)
   const [showTopTips, { onToggle: toggleTips }] = useBoolean(false)
   const [showMore, { onToggle: toggleWinners }] = useBoolean(false)
   const [isOpening, { onToggle: toggleBox, off: showOpening, on: hideOpening }] = useBoolean(false)
   const [isOpen, { onToggle: toggleOpenBox, off: showPrize }] = useBoolean(false)
+  const [unopenedCount, setUnopenedCount] = useState<number>(0)
+  const [userPrize, setUserPrize] = useState<IPrize | null>(null)
   const [userWonPrize, setUserWonPrize] = useState<boolean>(false)
+  const [paymentLink, setPaymentLink] = useState<string>('')
+  const [order, setOrder] = useState<ISchoolBoxes>()
+  const [isShowPayment, { off: showPayment, on: hidePayment }] = useBoolean(false)
   const navigate = useNavigate()
-  const schoolName = useAppSelector(schoolNameSelector)
+
+  const openPayment = (link: string, payment: ISchoolBoxes) => {
+    setOrder(payment)
+    setPaymentLink(link)
+    showPayment()
+  }
+
+  const closePayment = () => {
+    setOrder(undefined)
+    setPaymentLink('')
+    hidePayment()
+  }
+
+  useEffect(() => {
+    if (isOpeningBox) {
+      showOpening()
+      setTimeout(hideOpening, 2000)
+      setTimeout(showPrize, 2000)
+    }
+  }, [isOpeningBox])
+
+  useEffect(() => {
+    if (userBoxes && userBoxes.length > 0) {
+      const count = userBoxes.reduce((total: number, box: IBox) => total + box.unopened_count, 0)
+      if (count > 0) {
+        setUnopenedCount(count)
+      }
+    }
+  }, [userBoxes])
 
   const openBox = () => {
-    showOpening()
-    setTimeout(hideOpening, 2000)
-    setTimeout(showPrize, 2000)
-    setUserWonPrize(true)
+    if (!isOpeningBox && !isOpen && unopenedCount > 0 && userBoxes && userBoxes.length > 0) {
+      openNewBox({ schoolName, boxId: userBoxes[0].box_id })
+        .unwrap()
+        .then(data => {
+          setUserPrize(data.prize)
+          setUserWonPrize(true)
+        })
+        .catch(err => console.log('smth went wrong =>', err))
+    }
   }
 
   const repeatOpening = () => {
@@ -64,6 +91,10 @@ export const BonusesPage: FC = () => {
       setUserWonPrize(false)
       toggleOpenBox()
     }
+  }
+
+  if (!userBoxes || !schoolBoxes || !schoolPrizes) {
+    return <LoaderLayout />
   }
 
   return (
@@ -78,20 +109,9 @@ export const BonusesPage: FC = () => {
             <div className={styles.wrapper_body_prizes}>
               <div className={styles.wrapper_body_prizes_title}>Возможные призы</div>
               <div className={styles.wrapper_body_prizes_icons}>
-                <img src={p5} alt="" />
-                <img src={p10} alt="" />
-                <img src={p15} alt="" />
-                <img src={p20} alt="" />
-                <img src={p25} alt="" />
-                <img src={p30} alt="" />
-                <img src={p35} alt="" />
-                <img src={p40} alt="" />
-                <img src={p45} alt="" />
-                <img src={p75} alt="" />
-                <img src={boxes} alt="" />
-                <img src={courses} alt="" />
-                <img src={course} alt="" />
-                <img src={english} alt="" />
+                {schoolPrizes.map(prize => (
+                  <img src={prize.icon} alt={prize.name} key={prize.id} />
+                ))}
               </div>
             </div>
             <Button
@@ -108,9 +128,9 @@ export const BonusesPage: FC = () => {
               <div className={styles.wrapper_body_main_winners_header} style={{ justifyContent: 'center' }}>
                 {userWonPrize ? <h2>Вы выиграли!</h2> : <h2>Выигрыша нет :(</h2>}
               </div>
-              {userWonPrize && (
+              {userWonPrize && userPrize && (
                 <div className={styles.wrapper_body_main_winners_list} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                  <Prize image={p20} header="скидка!" description="На все курсы" />
+                  <Prize image={userPrize.icon} header={userPrize.name} description="" />
                 </div>
               )}
             </div>
@@ -141,9 +161,9 @@ export const BonusesPage: FC = () => {
               </div>
             </div>
           )}
-          <img src={isOpen ? (userWonPrize ? userPrize : noPrize) : prizeBox} className={styles.wrapper_body_main_box} alt="prize-box" />
+          <img src={isOpen ? (userWonPrize ? userPrize?.icon : noPrize) : prizeBox} className={styles.wrapper_body_main_box} alt="prize-box" />
           <div className={styles.wrapper_body_main_bottom}>
-            {isOpen ? <></> : <div className={styles.wrapper_body_main_bottom_lasts}>Осталось коробок: 10</div>}
+            {isOpen ? <></> : <div className={styles.wrapper_body_main_bottom_lasts}>Осталось коробок: {unopenedCount}</div>}
             {isOpen ? (
               <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                 <Button variant="newPrimary" text={userWonPrize ? 'Получить приз' : 'Попробовать еще'} onClick={repeatOpening} />
@@ -156,9 +176,9 @@ export const BonusesPage: FC = () => {
                 <Button variant="newPrimary" text="Купить" onClick={() => setShow(true)} />
               </div>
             )}
-            {!userWonPrize && (
+            {!userWonPrize && userBoxes.length > 0 && typeof userBoxes[0].remaining_to_guarantee === 'number' && (
               <div className={styles.wrapper_body_main_bottom_garant}>
-                Гарантированный приз через: 10 коробок <span className={styles.bubbleI}>i</span>
+                Гарантированный приз через: {userBoxes[0].remaining_to_guarantee} коробок <span className={styles.bubbleI}>i</span>
               </div>
             )}
           </div>
@@ -179,12 +199,44 @@ export const BonusesPage: FC = () => {
             <AnimatedTabs tabs={tabs} />
           </div>
           <div className={styles.wrapper_body_deposit_menu}>
-            {boxesArr.map((box, index) => (
-              <PrizeBoxDeposit count={box.count} freeBoxes={box.freeBoxes} price={box.price} variant={box.variant} key={index} />
+            {schoolBoxes.map((box, index) => (
+              <PrizeBoxDeposit
+                prizes={box.prizes}
+                auto_deactivation_time={box.auto_deactivation_time}
+                quantity={box.quantity}
+                id={box.id}
+                name={box.name}
+                is_active={box.is_active}
+                school={box.school}
+                bonus_quantity={box.bonus_quantity}
+                icon={box.icon}
+                price={box.price}
+                key={index}
+                openPayment={openPayment}
+              />
             ))}
           </div>
         </motion.div>
       </div>
+      <AnimatedModal handleClose={closePayment} show={isShowPayment}>
+        <div className={styles.paymentModal}>
+          <h3 className={styles.paymentModal_title}>Подтверждение заказа</h3>
+          <div className={styles.paymentModal_paymentInfo}>
+            <p>Информация о заказе:</p>
+            {order && (
+              <ul>
+                <li>Заказ: {order.name}</li>
+                <li>Количество коробок: {`${order.quantity} ${order.bonus_quantity > 0 ? `+ ${order.bonus_quantity} бонусные` : ''}`}</li>
+                <li>Стоимость: {order.price}$</li>
+              </ul>
+            )}
+            <p>Для совершения оплаты перейдите по ссылке ниже:</p>
+          </div>
+          <a href={paymentLink} rel="noreferrer" target="_blank">
+            Перейти к оплате
+          </a>
+        </div>
+      </AnimatedModal>
     </div>
   )
 }

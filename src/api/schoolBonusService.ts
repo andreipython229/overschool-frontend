@@ -3,8 +3,10 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { BonusT } from '../types/bonusesT'
 import { baseQueryWithReauth } from './baseQueryReauth'
-import { IBanner, IPrize, ISchoolBoxes, ISchoolBoxesCreate } from './apiTypes'
+import { IBanner, IBox, IOpenBox, IPrize, ISchoolBoxes, ISchoolBoxesCreate } from './apiTypes'
 import { url } from 'inspector'
+import { number, string } from 'yup'
+import { method } from 'lodash'
 
 export const schoolBonusService = createApi({
   reducerPath: 'schoolBonusService',
@@ -94,10 +96,29 @@ export const schoolBonusService = createApi({
     fetchSchoolPrizes: build.query<IPrize[], string>({
       query: schoolName => `/${schoolName}/school_prize/`,
     }),
+    fetchUserBoxes: build.query<IBox[], string>({
+      query: school => `/${school}/user_boxes/`,
+    }),
+    openUserBox: build.mutation<IOpenBox, { schoolName: string; boxId: number | string }>({
+      query: args => ({
+        url: `/${args.schoolName}/open_box/${args.boxId}/`,
+        method: 'POST',
+      }),
+    }),
+    getBoxPaymentLink: build.mutation<{ payment_link: string }, { data: FormData; school: string }>({
+      query: args => ({
+        url: `/${args.school}/box_payment_link/`,
+        method: 'POST',
+        body: args.data,
+      }),
+    }),
   }),
 })
 
 export const {
+  useGetBoxPaymentLinkMutation,
+  useOpenUserBoxMutation,
+  useFetchUserBoxesQuery,
   useFetchSchoolPrizesQuery,
   useFetchSchoolBoxesQuery,
   useAcceptBannerMutation,
