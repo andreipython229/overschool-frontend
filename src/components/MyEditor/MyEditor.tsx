@@ -7,9 +7,9 @@ import 'draft-js/dist/Draft.css'
 import styles from './editor.module.scss'
 import { Button } from 'components/common/Button/Button'
 import { Select, MenuItem } from '@mui/material'
-import { decorator } from './Link/Link'
+import { decorator, mapWithButton } from './Link/Link'
 import { Input } from 'components/common/Input/Input/Input'
-import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 type MyEditorT = {
   setDescriptionLesson?: (arg: string) => void
@@ -24,7 +24,7 @@ type MyEditorT = {
 export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText, setIsEditing, save, banner, setBannerDescription, html }) => {
   const [showUrlInput, setShowUrlInput] = useState<boolean>(false)
   const [urlValue, setUrlValue] = useState<string>('')
-  const blocksFromHTML = convertFromHTML(urlValue || '')
+  const blocksFromHTML = convertFromHTML(html || '')
 
   const state = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
@@ -44,7 +44,6 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
       const contentState = ContentState.createFromText(editedText)
       const newEditorState = EditorState.push(editorState, contentState, 'insert-characters')
       setEditorState(newEditorState)
-      console.log(editorState.getCurrentContent())
     }
   }, [editedText])
 
@@ -127,6 +126,12 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
     if (block.getType() === 'blockquote') { 
       return 'RichEditor-blockquote';
     }
+    if (block.getType() === "hr") {
+      return {
+        component: () => <hr />,
+        editable: false
+      };
+    }
     return null
   }
 
@@ -200,6 +205,22 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
     setUrlValue(e.target.value);
   }
 
+  const addHr = () => {
+    let contentState;
+    const html = '<p>.</p><hr /><p>.</p>';
+    const blocksFromHTML = convertFromHTML(html, undefined, mapWithButton);
+    const { contentBlocks, entityMap } = blocksFromHTML;
+    contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+
+    contentState = Modifier.replaceWithFragment(
+      editorState.getCurrentContent(),
+      editorState.getSelection(),
+      contentState.getBlockMap()
+    );
+
+    setEditorState(EditorState.push(editorState, contentState, "insert-fragment"));
+  };
+
   return (
     <div className={styles.editor}>
       <div className={styles.editor_panel}>
@@ -239,8 +260,8 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
         {BLOCK_TYPES.map(({ label, style }, index: number) => (
           <StyleButton key={index + style} style={style} label={label} isActive={() => isActive(style)} onToggle={onBlockClick} />
         ))}
-        {DIVIDER.map(({ label, style }, index: number) => (
-          <StyleButton key={index + style} style={style} label={label} isActive={() => isActive(style)} onToggle={onBlockClick} />
+         {DIVIDER.map(({ label, style }, index: number) => (
+          <StyleButton key={index + style} style={style} label={label} isActive={() => isActive(style)} onToggle={addHr} />
         ))}
       </div>
       <div className={styles.editor_table}>
@@ -282,7 +303,7 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
             />
           </div>
           <Button onMouseDown={confirmLink} text={''} variant='newPrimary' style={{padding: '4px'}}>
-            <TrendingFlatIcon />
+            <ArrowForwardIosIcon />
           </Button> 
         </div>
   )

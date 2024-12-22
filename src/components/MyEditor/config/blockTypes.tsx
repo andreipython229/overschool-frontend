@@ -37,7 +37,7 @@ export const DIVIDER = [
        <rect x="6.5" y="11.375" width="15" height="1.25" fill="#332F36"/>
       </svg>
     ),
-    style: 'HR'
+    style: 'hr'
   }
 ]
 
@@ -50,12 +50,12 @@ export const INLINE_STYLES = [
 
 export const DROPDOWN_STYLES = [
   {
-    label: <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={pathes.labelTextAlignCenterPath} />,
-    style: 'center'
-  },
-  {
     label: <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={pathes.labelTextAlignStartPath} />,
     style: 'left'
+  },
+  {
+    label: <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={pathes.labelTextAlignCenterPath} />,
+    style: 'center'
   },
   {
     label: <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={pathes.labelTextAlignRightPath} />,

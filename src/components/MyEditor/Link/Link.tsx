@@ -1,4 +1,4 @@
-import { ContentState, ContentBlock, CompositeDecorator } from "draft-js";
+import { ContentState, ContentBlock, CompositeDecorator, DefaultDraftBlockRenderMap } from "draft-js";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 
@@ -38,3 +38,13 @@ export const decorator = new CompositeDecorator([
     component: LinkComponent,
   },
 ]);
+
+import { Map } from "immutable";
+
+export const mapWithButton = Map({
+  hr: {
+    element: "hr"
+  }
+}).merge(DefaultDraftBlockRenderMap);
+
+
