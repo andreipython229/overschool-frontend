@@ -148,6 +148,7 @@ export type SelectInputPropsT = {
   selectedOption?: string
   defaultOption?: string
   setSelectedValue?: (value: any) => void
+  className?: string
 }
 
 export type ToggleButtonDropDownT = {

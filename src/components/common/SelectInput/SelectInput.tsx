@@ -8,7 +8,7 @@ import { SelectInputPropsT } from '../../../types/commonComponentsTypes'
 
 import styles from './selectInput.module.scss'
 
-export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption, defaultOption = 'выбрать', setSelectedValue }) => {
+export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption, defaultOption = 'выбрать', setSelectedValue, className }) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
   const [selectOption, setSelectOption] = useState<number | null>(null)
   const [defaultOp, setDefaultOp] = useState<string>('')
@@ -56,7 +56,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption
   }, [selectedOption])
 
   return (
-    <div ref={menuRef} className={styles.wrapper} onClick={toggleOptions}>
+    <div ref={menuRef} className={`${styles.wrapper} ${className}`} onClick={toggleOptions}>
       <div className={styles.container}>
         <IconSvg
           styles={{ transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}` }}
@@ -92,3 +92,5 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption
     </div>
   )
 }
+
+export default SelectInput;

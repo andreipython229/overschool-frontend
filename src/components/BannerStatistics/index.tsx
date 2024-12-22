@@ -6,7 +6,9 @@ import { color, pointRadial, tickStep } from 'd3';
 import { size } from 'lodash';
 import { layouts } from 'chart.js/dist';
 import { Height, Padding } from '@mui/icons-material';
+import SelectInput from '../common/SelectInput/SelectInput';
 
+import styles from './bannerstatistics.module.scss'
 
 Chart.register(ChartDataLabels);
 
@@ -21,10 +23,15 @@ interface BannerStatisticsProps {
 export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ data }) => {
     const [timeRange, setTimeRange] = useState<'24h' | 'week' | 'year'>('24h');
 
-    const handleTimeRangeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setTimeRange(event.target.value as '24h' | 'week' | 'year');
-    };
+    const handleTimeRangeChange = (value: '24h' | 'week' | 'year') => {
+        setTimeRange(value);
+      };
 
+    const optionsList = [
+        { value: '24h', label: '24 часа' },
+        { value: 'week', label: 'Неделя' },
+        { value: 'year', label: 'Год' },
+      ];
 
     const labels = timeRange === '24h'
         ? ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00']
@@ -120,8 +127,8 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ data }) => {
                     borderRadius: 12,
                     useBorderRadius: true,
                     padding: 20,
-                    color: '#332F36', 
-                    font:{
+                    color: '#332F36',
+                    font: {
                         size: 16,
                         weight: 500,
                     }
@@ -169,13 +176,20 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ data }) => {
 
     return (
         <div>
-            <div>
-                <p>Статистика показов и переходов</p>
-                <select value={timeRange} onChange={handleTimeRangeChange}>
+            <div className={styles.chart_header_container}>
+                <p className={styles.chart_header}>Статистика показов и переходов</p>
+                <SelectInput
+                    optionsList={optionsList}
+                    selectedOption={timeRange}
+                    defaultOption="выбрать"
+                    setSelectedValue={handleTimeRangeChange}
+                    className={styles.select}
+                />
+                {/* <select value={timeRange} onChange={handleTimeRangeChange}>
                     <option value="24h">24 часа</option>
                     <option value="week">Неделя</option>
                     <option value="year">Год</option>
-                </select>
+                </select> */}
             </div>
             <Bar data={chartData} options={options} />
         </div >
