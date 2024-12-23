@@ -55,6 +55,7 @@ import {
   YoutubeIcon,
   LinkIcon,
   MessageConvertIcon,
+  GiftIcon,
 } from './svgIcons'
 import { pathT } from '../../types/commonComponentsTypes'
 
@@ -141,7 +142,7 @@ export const DiogramIconPath = [
   { d: DiogramIcon.d2, fill: 'currentColor' },
 ] //diogram
 
-export const DownloadIconPath = [{ d: DownloadIcon.d1, fill: 'currentColor' }] //download
+export const DownloadIconPath = [{ d: DownloadIcon.d1, fill: 'dodgerblue' }] //download
 
 export const EmojiIconPath = [
   { d: EmojiIcon.d1, fill: 'currentColor' },
@@ -371,3 +372,12 @@ export const XIconPath: pathT[] = [
     strokeLinecap: 'round',
   },
 ] //x
+
+export const GiftIconPath: pathT[] = [
+  {
+    d: GiftIcon.d,
+    fill: '#332F36',
+    clipRule: 'evenodd',
+    fillRule: 'evenodd',
+  },
+] // 0 0 38 41 gift navbar icon

@@ -55,7 +55,7 @@ export const Input: FC<InputPropsT> = memo(props => {
           {label}
         </label>
       )}
-      <div className={`${inputClass} ${error ? styles.error : ''}`}>
+      <div className={`${rest.className} ${inputClass} ${error ? styles.error : ''}`}>
         {children}
         {variant === 'phone' && onChangePhone ? (
           <PhoneInput
@@ -66,7 +66,7 @@ export const Input: FC<InputPropsT> = memo(props => {
                 height: '38px',
                 borderRadius: '10px',
                 width: '100%',
-                fontSize: '20px'
+                fontSize: '20px',
               },
             }}
             onChange={onChangePhone}
