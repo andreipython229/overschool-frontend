@@ -183,7 +183,7 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ data }) => {
                     selectedOption={timeRange}
                     defaultOption="выбрать"
                     setSelectedValue={handleTimeRangeChange}
-                    className={styles.select}
+                    className={styles.selectInput}
                 />
                 {/* <select value={timeRange} onChange={handleTimeRangeChange}>
                     <option value="24h">24 часа</option>
