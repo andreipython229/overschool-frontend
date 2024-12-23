@@ -35,6 +35,9 @@ export const SettingCourse: FC = () => {
     <div className={styles.container}>
       {course && <CardImageUpload toggleCheckbox={isPublished} courseFind={course} />}
       <div className={styles.container_right}>
+        <div className={styles.header_basic_settings}>
+          <p>Основные настройки</p>
+        </div>
         {course && <BasicSettings refetch={refetch} courseFind={course} toggleCheckbox={isPublished} toggleCheckboxPublished={handlePublished} isCatalog={isCatalog} toggleCatalog={() =>setIsCatalog(!isCatalog)} isDirect={isDirect} toggleDirect={() =>setIsDirect(!isDirect)}/>}
       </div>
     </div>
