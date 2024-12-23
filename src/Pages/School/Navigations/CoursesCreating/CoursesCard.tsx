@@ -73,147 +73,140 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
       {role === RoleE.Admin ? (
         <>
           {/* {(((course.course_id === 247) && userId === '154') || ((course.course_id !== 247) && (course.is_copy === false))) ? ( */}
-          {userId !== '154' || course.course_id === 247 ? (
-            <div
-              style={{
-                background: course?.public === 'О' ? '#CFE2FF' : '#CDCDCD',
-                boxShadow: course?.public === 'О' ? '2px 2px 7px 0px #357EEB73' : '2px 2px 7px 0px #CDCDCD8C',
-              }}
-              id={`${course?.course_id}`}
-              className={stylesCard.CourseCardsTS__admin}
-            >
-              <>
-                {role === RoleE.Admin || role === RoleE.Teacher ? (
-                  <>
-                    <div className={stylesCard.CourseCardsTS__admin_top}>
-                      <p className={stylesCard.CourseCardsTS__admin_studentCount}>
-                        {course?.public === 'О' &&
-                          `${course.students_count} ${getNounDeclension(course.students_count || 0, ['ученик', 'ученика', 'учеников'])}`}
-                      </p>
 
-                      {role === RoleE.Admin && course.course_id !== 247 ? (
-                        course.course_removed ? (
-                          <div className={stylesCard.wraper}>
-                            <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className={stylesCard.CourseCardsTS__public}>
-                              Курс удален
-                            </span>
-                          </div>
-                        ) : course?.public === 'О' ? (
-                          <div className={stylesCard.wraper}>
-                            <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className={stylesCard.CourseCardsTS__public}>
-                              Опубликован
-                            </span>
-                            <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
-                          </div>
-                        ) : (
-                          <div className={stylesCard.wraper}>
-                            <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className={stylesCard.CourseCardsTS__public}>
-                              Не опубликован
-                            </span>
-                            <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
-                          </div>
-                        )
+          <div
+            style={{
+              background: course?.public === 'О' ? '#CFE2FF' : '#CDCDCD',
+              boxShadow: course?.public === 'О' ? '2px 2px 7px 0px #357EEB73' : '2px 2px 7px 0px #CDCDCD8C',
+            }}
+            id={`${course?.course_id}`}
+            className={stylesCard.CourseCardsTS__admin}
+          >
+            <>
+              {role === RoleE.Admin || role === RoleE.Teacher ? (
+                <>
+                  <div className={stylesCard.CourseCardsTS__admin_top}>
+                    <p className={stylesCard.CourseCardsTS__admin_studentCount}>
+                      {course?.public === 'О' &&
+                        `${course.students_count} ${getNounDeclension(course.students_count || 0, ['ученик', 'ученика', 'учеников'])}`}
+                    </p>
+
+                    {role === RoleE.Admin && course.course_id !== 247 ? (
+                      course.course_removed ? (
+                        <div className={stylesCard.wraper}>
+                          <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className={stylesCard.CourseCardsTS__public}>
+                            Курс удален
+                          </span>
+                        </div>
+                      ) : course?.public === 'О' ? (
+                        <div className={stylesCard.wraper}>
+                          <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className={stylesCard.CourseCardsTS__public}>
+                            Опубликован
+                          </span>
+                          <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
+                        </div>
                       ) : (
-                        <div />
-                      )}
-                    </div>
+                        <div className={stylesCard.wraper}>
+                          <span style={{ color: course?.public === 'О' ? '#357EEB' : '#808080' }} className={stylesCard.CourseCardsTS__public}>
+                            Не опубликован
+                          </span>
+                          <CheckboxBall isChecked={isPublished} toggleChecked={handleSaveChanges} />
+                        </div>
+                      )
+                    ) : (
+                      <div />
+                    )}
+                  </div>
 
+                  <Link
+                    // onClick={onStudentClick}
+                    to={generatePath(Path.CreateCourse, {
+                      course_id: `${course?.course_id}`,
+                    })}
+                  >
+                    <div className={stylesCard.CourseCardsTS__admin_main}>
+                      <div className={stylesCard.CourseCardsTS__admin_title}>{course.name}</div>
+
+                      {course.photo ? (
+                        <>
+                          <img src={course.photo} alt="" className={stylesCard.CourseCardsTS__admin_main_img} />
+                        </>
+                      ) : (
+                        <div className={styles.no_image_found}>
+                          <span>Нет изображения материала :(</span>
+                        </div>
+                      )}
+                      <div className={stylesCard.CourseCardsTS__admin_bg_filter}></div>
+                    </div>
+                  </Link>
+
+                  <div className={stylesCard.CourseCardsTS__admin_property_wrapper}>
+                    <div className={stylesCard.CourseCardsTS__admin_property}>
+                      <img src={course?.public === 'О' ? video_admin : video_dark} className={stylesCard.CourseCardsTS__admin_property_img} alt="" />
+                      <p className={stylesCard.CourseCardsTS__admin_property_name}>{course.video_count || 0} Видео</p>
+                    </div>
+                    <div className={stylesCard.CourseCardsTS__admin_property}>
+                      <img
+                        src={course?.public === 'О' ? homeTask_admin : homeTask_dark}
+                        className={stylesCard.CourseCardsTS__admin_property_img}
+                        alt=""
+                      />
+                      <p className={stylesCard.CourseCardsTS__admin_property_name}>{`${course.homework_count || 0} ${getNounDeclension(
+                        course.homework_count || 0,
+                        ['Домашнее задание', 'Домашних задания', 'Домашних заданий'],
+                      )}`}</p>
+                    </div>
+                    <div className={stylesCard.CourseCardsTS__admin_property}>
+                      <img src={course?.public === 'О' ? tests_admin : tests_dark} className={stylesCard.CourseCardsTS__admin_property_img} alt="" />
+                      <p className={stylesCard.CourseCardsTS__admin_property_name}>{`${course.test_count || 0} ${getNounDeclension(
+                        course.test_count || 0,
+                        ['Тест', 'Теста', 'Тестов'],
+                      )}`}</p>
+                    </div>
+                  </div>
+
+                  <div className={styles.course_card_about}>
                     <Link
-                      // onClick={onStudentClick}
                       to={generatePath(Path.CreateCourse, {
                         course_id: `${course?.course_id}`,
                       })}
+                      className={stylesCard.CourseCardsTS__admin_buttons}
+                      style={{ gridTemplateColumns: course?.public === 'О' ? '1fr 1fr' : '1fr', gap: course?.public === 'О' ? '10px' : 0 }}
                     >
-                      <div className={stylesCard.CourseCardsTS__admin_main}>
-                        <div className={stylesCard.CourseCardsTS__admin_title}>{course.name}</div>
-
-                        {course.photo ? (
-                          <>
-                            <img src={course.photo} alt="" className={stylesCard.CourseCardsTS__admin_main_img} />
-                          </>
-                        ) : (
-                          <div className={styles.no_image_found}>
-                            <span>Нет изображения материала :(</span>
-                          </div>
-                        )}
-                        <div className={stylesCard.CourseCardsTS__admin_bg_filter}></div>
-                      </div>
-                    </Link>
-
-                    <div className={stylesCard.CourseCardsTS__admin_property_wrapper}>
-                      <div className={stylesCard.CourseCardsTS__admin_property}>
-                        <img
-                          src={course?.public === 'О' ? video_admin : video_dark}
-                          className={stylesCard.CourseCardsTS__admin_property_img}
-                          alt=""
-                        />
-                        <p className={stylesCard.CourseCardsTS__admin_property_name}>{course.video_count || 0} Видео</p>
-                      </div>
-                      <div className={stylesCard.CourseCardsTS__admin_property}>
-                        <img
-                          src={course?.public === 'О' ? homeTask_admin : homeTask_dark}
-                          className={stylesCard.CourseCardsTS__admin_property_img}
-                          alt=""
-                        />
-                        <p className={stylesCard.CourseCardsTS__admin_property_name}>{`${course.homework_count || 0} ${getNounDeclension(
-                          course.homework_count || 0,
-                          ['Домашнее задание', 'Домашних задания', 'Домашних заданий'],
-                        )}`}</p>
-                      </div>
-                      <div className={stylesCard.CourseCardsTS__admin_property}>
-                        <img
-                          src={course?.public === 'О' ? tests_admin : tests_dark}
-                          className={stylesCard.CourseCardsTS__admin_property_img}
-                          alt=""
-                        />
-                        <p className={stylesCard.CourseCardsTS__admin_property_name}>{`${course.test_count || 0} ${getNounDeclension(
-                          course.test_count || 0,
-                          ['Тест', 'Теста', 'Тестов'],
-                        )}`}</p>
-                      </div>
-                    </div>
-
-                    <div className={styles.course_card_about}>
                       <Link
+                        style={{
+                          maxWidth: course?.public === 'О' ? '100%' : '0',
+                          padding:
+                            course?.public === 'О' && window.innerWidth > 500
+                              ? '16px 40px'
+                              : course?.public === 'О' && window.innerWidth <= 500
+                              ? '10px'
+                              : '0',
+                        }}
+                        className={stylesCard.CourseCardsTS__admin_button_students}
+                        to={generatePath(Path.CreateCourse + 'student', {
+                          course_id: `${course?.course_id}`,
+                        })}
+                      >
+                        {course?.public === 'О' && 'Ученики курса'}
+                      </Link>
+                      <Link
+                        className={stylesCard.CourseCardsTS__admin_button_edit}
                         to={generatePath(Path.CreateCourse, {
                           course_id: `${course?.course_id}`,
                         })}
-                        className={stylesCard.CourseCardsTS__admin_buttons}
-                        style={{ gridTemplateColumns: course?.public === 'О' ? '1fr 1fr' : '1fr', gap: course?.public === 'О' ? '10px' : 0 }}
                       >
-                        <Link
-                          style={{
-                            maxWidth: course?.public === 'О' ? '100%' : '0',
-                            padding:
-                              course?.public === 'О' && window.innerWidth > 500
-                                ? '16px 40px'
-                                : course?.public === 'О' && window.innerWidth <= 500
-                                ? '10px'
-                                : '0',
-                          }}
-                          className={stylesCard.CourseCardsTS__admin_button_students}
-                          to={generatePath(Path.CreateCourse + 'student', {
-                            course_id: `${course?.course_id}`,
-                          })}
-                        >
-                          {course?.public === 'О' && 'Ученики курса'}
-                        </Link>
-                        <Link
-                          className={stylesCard.CourseCardsTS__admin_button_edit}
-                          to={generatePath(Path.CreateCourse, {
-                            course_id: `${course?.course_id}`,
-                          })}
-                        >
-                          Редактировать
-                        </Link>
+                        Редактировать
                       </Link>
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-              </>
-            </div>
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
+            </>
+          </div>
+          {/* 
           ) : (
             <>
               <Link
@@ -236,7 +229,6 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                         </div>
                         <div className={styles.course_card_about}>
                           <span className={styles.course_card_status_show}>
-                            {/* {role === RoleE.Admin && (course.course_id !== 247) && (course.is_copy === false) ? ( */}
                             {role === RoleE.Admin && course.course_id !== 247 ? (
                               course?.public === 'О' ? (
                                 <>
@@ -303,6 +295,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
               </Link>
             </>
           )}
+           */}
         </>
       ) : (
         <Link
