@@ -102,16 +102,8 @@ export const Navbar: FC = memo(() => {
             <div className={styles.navbar_show_btn_round_line}></div>
           </div>
         </div>
-
-        <NavLink key={'Курсы'} to={Path.Courses} className={styles.navbar_menu}>
-          <div>
-            <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
-          </div>
-          <p>Главная</p>
-        </NavLink>
-
-        {/* {UserRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
-          <div style={{ marginTop: '35px' }}>
+        {UserRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
+          <div style={{ marginTop: 'auto' }}>
             <a key={'bonus'} href={studentBonus.link}>
               {studentBonus.logo ? (
                 <div className={styles.navbar_menu} style={{ textAlign: 'center', padding: '0.40em' }}>
@@ -127,9 +119,13 @@ export const Navbar: FC = memo(() => {
               </div>
             </a>
           </div>
-        ) : (
-          <></>
-        )} */}
+        ) : null}
+        <NavLink key={'Курсы'} to={Path.Courses} className={styles.navbar_menu}>
+          <div>
+            <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
+          </div>
+          <p>Главная</p>
+        </NavLink>
         <div className={styles.navbar_setting_account}>
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
