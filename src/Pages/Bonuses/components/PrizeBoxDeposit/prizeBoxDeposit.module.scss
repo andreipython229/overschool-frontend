@@ -1,7 +1,7 @@
 @import '../../../../scss/mixin.scss';
 @import '../../../../scss/variable.scss';
 
-.wrapperBox:last-child {
+.wrapperBox:last-child:nth-child(odd):not(:first-child):not(:only-child) {
   grid-column: span 2;
 }
 

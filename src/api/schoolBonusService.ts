@@ -3,7 +3,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { BonusT } from '../types/bonusesT'
 import { baseQueryWithReauth } from './baseQueryReauth'
-import { IBanner, IBox, IOpenBox, IPrize, ISchoolBoxes, ISchoolBoxesCreate } from './apiTypes'
+import { IBanner, IBox, IOpenBox, IPrize, ISchoolBoxes, ISchoolBoxesCreate, ISchoolPrizeWinner } from './apiTypes'
 import { url } from 'inspector'
 import { number, string } from 'yup'
 import { method } from 'lodash'
@@ -86,7 +86,7 @@ export const schoolBonusService = createApi({
     fetchSchoolBoxes: build.query<ISchoolBoxes[], string>({
       query: schoolName => `/${schoolName}/school_box/`,
     }),
-    createSchoolBox: build.mutation<any, { data: ISchoolBoxesCreate; schoolName: string }>({
+    createSchoolBox: build.mutation<any, { data: FormData; schoolName: string }>({
       query: args => ({
         url: `/${args.schoolName}/school_box/`,
         method: 'POST',
@@ -98,6 +98,9 @@ export const schoolBonusService = createApi({
     }),
     fetchUserBoxes: build.query<IBox[], string>({
       query: school => `/${school}/user_boxes/`,
+    }),
+    updateSchoolBox: build.mutation<IBox[], { schoolName: string; id: number; data: FormData }>({
+      query: args => ({ url: `/${args.schoolName}/school_box/${args.id}/`, method: 'PATCH', body: args.data }),
     }),
     openUserBox: build.mutation<IOpenBox, { schoolName: string; boxId: number | string }>({
       query: args => ({
@@ -112,10 +115,32 @@ export const schoolBonusService = createApi({
         body: args.data,
       }),
     }),
+    updateSchoolPrize: build.mutation<IPrize, { schoolName: string; id: number; data: FormData }>({
+      query: args => ({
+        url: `/${args.schoolName}/school_prize/${args.id}/`,
+        method: 'PATCH',
+        body: args.data,
+      }),
+    }),
+    createSchoolPrize: build.mutation<IPrize, { schoolName: string; data: FormData }>({
+      query: args => ({
+        url: `/${args.schoolName}/school_prize/`,
+        method: 'POST',
+        body: args.data,
+      }),
+    }),
+    getAllSchoolPrizeWinners: build.query<ISchoolPrizeWinner[], string>({
+      query: school => `/${school}/user_prizes/`,
+    }),
   }),
 })
 
 export const {
+  useGetAllSchoolPrizeWinnersQuery,
+  useCreateSchoolPrizeMutation,
+  useUpdateSchoolPrizeMutation,
+  useUpdateSchoolBoxMutation,
+  useCreateSchoolBoxMutation,
   useGetBoxPaymentLinkMutation,
   useOpenUserBoxMutation,
   useFetchUserBoxesQuery,

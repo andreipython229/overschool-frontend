@@ -127,3 +127,10 @@ export interface IOpenBox {
   message: string
   prize: IPrize
 }
+
+export interface ISchoolPrizeWinner {
+  is_used: boolean
+  prize: IPrize
+  received_at: string
+  user_email: string
+}

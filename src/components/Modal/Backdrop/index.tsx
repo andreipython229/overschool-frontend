@@ -9,7 +9,7 @@ interface IBackdrop {
 
 export const Backdrop: FC<IBackdrop> = ({ children, onClose }) => {
   return (
-    <motion.div onClick={onClose} className={styles.backdrop} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+    <motion.div onClick={onClose} role="dialog"  aria-labelledby="modal-backdrop" className={styles.backdrop} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       {children}
     </motion.div>
   )

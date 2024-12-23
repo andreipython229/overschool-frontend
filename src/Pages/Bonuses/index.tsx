@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react'
 import styles from './bonuses.module.scss'
-import p20 from './assets/iconsPng/20.png'
 import boxes from './assets/iconsPng/boxes.png'
 import noPrize from './assets/noPrize.png'
 import { Button } from 'components/common/Button/Button'
@@ -10,6 +9,7 @@ import { AnimatedTabs } from 'components/AnimatedTabs'
 import { PrizeBoxDeposit } from './components/PrizeBoxDeposit'
 import prizeBox from './assets/box.png'
 import tip1Image from './assets/tip1.png'
+import prizeImg from './assets/image.png'
 import { motion } from 'framer-motion'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { Path } from 'enum/pathE'
@@ -28,7 +28,7 @@ const tabs = [{ label: 'Баллы' }, { label: 'Деньги' }]
 
 export const BonusesPage: FC = () => {
   const schoolName = useAppSelector(schoolNameSelector)
-  const { data: userBoxes } = useFetchUserBoxesQuery(schoolName)
+  const { data: userBoxes, refetch } = useFetchUserBoxesQuery(schoolName)
   const { data: schoolBoxes } = useFetchSchoolBoxesQuery(schoolName)
   const { data: schoolPrizes } = useFetchSchoolPrizesQuery(schoolName)
   const [openNewBox, { isLoading: isOpeningBox }] = useOpenUserBoxMutation()
@@ -79,8 +79,13 @@ export const BonusesPage: FC = () => {
       openNewBox({ schoolName, boxId: userBoxes[0].box_id })
         .unwrap()
         .then(data => {
-          setUserPrize(data.prize)
-          setUserWonPrize(true)
+          if (data.prize) {
+            setUserPrize(data.prize)
+            setUserWonPrize(true)
+          } else {
+            setUserPrize(null)
+            setUserWonPrize(false)
+          }
         })
         .catch(err => console.log('smth went wrong =>', err))
     }
@@ -88,6 +93,7 @@ export const BonusesPage: FC = () => {
 
   const repeatOpening = () => {
     if (isOpen) {
+      refetch()
       setUserWonPrize(false)
       toggleOpenBox()
     }
@@ -109,9 +115,9 @@ export const BonusesPage: FC = () => {
             <div className={styles.wrapper_body_prizes}>
               <div className={styles.wrapper_body_prizes_title}>Возможные призы</div>
               <div className={styles.wrapper_body_prizes_icons}>
-                {schoolPrizes.map(prize => (
-                  <img src={prize.icon} alt={prize.name} key={prize.id} />
-                ))}
+                {schoolPrizes.map(prize => {
+                  if (prize.is_active) return <img src={prize.icon} alt={prize.name} key={prize.id} />
+                })}
               </div>
             </div>
             <Button
@@ -130,7 +136,7 @@ export const BonusesPage: FC = () => {
               </div>
               {userWonPrize && userPrize && (
                 <div className={styles.wrapper_body_main_winners_list} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                  <Prize image={userPrize.icon} header={userPrize.name} description="" />
+                  <Prize image={userPrize.icon} header="" description={userPrize.name} />
                 </div>
               )}
             </div>
@@ -142,7 +148,7 @@ export const BonusesPage: FC = () => {
               </div>
               <div className={styles.wrapper_body_main_winners_list}>
                 <PrizeWinner />
-                <PrizeWinner />
+                {/* <PrizeWinner /> */}
               </div>
               <div className={styles.wrapper_body_main_winners_tipsButton}>
                 <span onClick={toggleTips}>i</span>
@@ -156,12 +162,21 @@ export const BonusesPage: FC = () => {
                       <p>Для открытия коробок нужны ключи, которые можно получить за выполнение заданий или купить.</p>
                       <img src={boxes} alt="keys-tip" />
                     </div>
+                    <div className={styles.wrapper_body_main_winners_tipsButton_tips_tip}>
+                      <img src={prizeBox} alt="first-tip" />
+                      <p>
+                        Для получения подарка напишите в телеграм менеджеру{' '}
+                        <a href="https://t.me/course_hub_olya" style={{ textDecoration: 'none', color: '#0d28bb' }} target="_blank" rel="noreferrer">
+                          @course_hub_olya
+                        </a>
+                      </p>
+                    </div>
                   </div>
                 )}
               </div>
             </div>
           )}
-          <img src={isOpen ? (userWonPrize ? userPrize?.icon : noPrize) : prizeBox} className={styles.wrapper_body_main_box} alt="prize-box" />
+          <img src={isOpen ? (userWonPrize ? prizeImg : noPrize) : prizeBox} className={styles.wrapper_body_main_box} alt="prize-box" />
           <div className={styles.wrapper_body_main_bottom}>
             {isOpen ? <></> : <div className={styles.wrapper_body_main_bottom_lasts}>Осталось коробок: {unopenedCount}</div>}
             {isOpen ? (
@@ -199,22 +214,26 @@ export const BonusesPage: FC = () => {
             <AnimatedTabs tabs={tabs} />
           </div>
           <div className={styles.wrapper_body_deposit_menu}>
-            {schoolBoxes.map((box, index) => (
-              <PrizeBoxDeposit
-                prizes={box.prizes}
-                auto_deactivation_time={box.auto_deactivation_time}
-                quantity={box.quantity}
-                id={box.id}
-                name={box.name}
-                is_active={box.is_active}
-                school={box.school}
-                bonus_quantity={box.bonus_quantity}
-                icon={box.icon}
-                price={box.price}
-                key={index}
-                openPayment={openPayment}
-              />
-            ))}
+            {schoolBoxes.map((box, index) => {
+              if (box.is_active) {
+                return (
+                  <PrizeBoxDeposit
+                    prizes={box.prizes}
+                    auto_deactivation_time={box.auto_deactivation_time}
+                    quantity={box.quantity}
+                    id={box.id}
+                    name={box.name}
+                    is_active={box.is_active}
+                    school={box.school}
+                    bonus_quantity={box.bonus_quantity}
+                    icon={box.icon}
+                    price={box.price}
+                    key={index}
+                    openPayment={openPayment}
+                  />
+                )
+              }
+            })}
           </div>
         </motion.div>
       </div>
@@ -227,7 +246,7 @@ export const BonusesPage: FC = () => {
               <ul>
                 <li>Заказ: {order.name}</li>
                 <li>Количество коробок: {`${order.quantity} ${order.bonus_quantity > 0 ? `+ ${order.bonus_quantity} бонусные` : ''}`}</li>
-                <li>Стоимость: {order.price}$</li>
+                <li>Стоимость: {order.price} BYN</li>
               </ul>
             )}
             <p>Для совершения оплаты перейдите по ссылке ниже:</p>
