@@ -1,4 +1,4 @@
-import { Pagination, EffectCoverflow } from 'swiper/modules'
+import { Pagination, EffectCoverflow, Navigation } from 'swiper/modules'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -9,9 +9,25 @@ import 'swiper/css/scrollbar'
 import 'swiper/css/effect-coverflow'
 
 import styles from './slider.module.scss'
+import { useFetchFeedbacksQuery } from 'api/feedbacksService'
+import Rating from '@mui/material/Rating';
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { AddFeedbackModal } from 'components/Modal/AddFeedback/AddFeedbackModal'
+import { Portal } from 'components/Modal/Portal'
+import { useBoolean } from 'customHooks'
+import { AnimatePresence } from 'framer-motion'
+import { addFeedbackIconPath } from './config/svgIconPath'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useRef } from 'react'
 
 export const Slider = () => {
+  const { data } = useFetchFeedbacksQuery()
+  const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
+  const paginationRef = useRef<HTMLDivElement | null>(null);
+
   return (
+    <>
     <Swiper
       effect={'coverflow'}
       grabCursor={true}
@@ -21,72 +37,81 @@ export const Slider = () => {
       loop={true}
       coverflowEffect={{
         rotate: 0,
-        stretch: 0,
-        depth: 200,
-        modifier: 0,
-        slideShadows: true,
+        stretch: -25,
+        depth: 100,
+        modifier: 2,
+        slideShadows: false,
       }}
       pagination={{
-        dynamicBullets: true,
+        el: paginationRef.current,
+        clickable: true,
       }}
-      modules={[EffectCoverflow, Pagination]}
+      navigation={{
+        prevEl: '.button_prev',
+        nextEl: '.button_next',
+     }}
+      modules={[EffectCoverflow, Pagination, Navigation]}
       className="mySwiper"
     >
-      <SwiperSlide className={styles.init_container}>
-        <div className={styles.init_container_box}>
-          <div className={styles.init_container_box_photo}>{/* <img src={}></img> */}</div>
-          <div className={styles.init_container_box_info}>
-            <p className={styles.init_box_container_info_name}>Влад Середа</p>
-            <p className={styles.init_box_container_info_name}>25 лет, java разработчик</p>
+      {data && data?.map(({id, name, surname, avatar, position, content, rating, created_at}) => {
+        return (
+          <SwiperSlide key={id}>
+            {({ isActive }) => (
+              <div className={isActive ? styles.init_container : `${styles.init_container} ${styles.inactive}`}>
+              <div className={styles.init_container_box}>
+                <div className={styles.init_container_box_photo}>
+                  <img style={{opacity: 0}} src={avatar} alt='avatar' />
+                </div>
+                <div className={styles.init_container_box_info}>
+                  <p className={styles.init_container_box_info_name}>{name} {surname}</p>
+                  <p className={styles.init_container_box_info_position}>{position}</p>
+                </div>
+                <div className={styles.init_container_box_rev}>
+                  <p>{content}</p>
+                  <div className={styles.init_container_box_rev_block}>
+                    <p className={styles.init_container_box_rev_block_date}>
+                      {`${(new Date(created_at).getDate() < 10 ? '0' : '') + new Date(created_at)
+                        .getDate()}.${(new Date(created_at).getMonth() + 1 < 10 ? '0' : '') + (new Date(created_at)
+                          .getMonth() + 1)}.${new Date(created_at).getFullYear()}`}
+                    </p>
+                    <Rating name="read-only" value={rating} readOnly />
+                  </div>
+                </div>
+              </div>
+              </div>
+            )}
+          </SwiperSlide>
+        )
+      })}
+        {data && data[data.length - 1] ? <SwiperSlide className={styles.init_containerLeave} onClick={open}>
+          <div className={styles.init_container_box}>
+            <div className={styles.init_container_box_leave}>
+              <IconSvg width={54} height={54} viewBoxSize="0 0 54 54" path={addFeedbackIconPath} />
+              <p>Написать отзыв</p>
+            </div>
           </div>
-          <div className={styles.init_container_box_rev}>
-            <p>
-              Раньше я думал, что нормально зарабатывать в нашей стране нереально. но после IT мое мнение кардинально поменялось. За короткое время я
-              полностью ознакомился с материалами по Java. И вот мой результат- после окончания я нашел работу за 2 месяца с зарплатой на старте 750$
-            </p>
-            <div></div>
-          </div>
+        </SwiperSlide> : null}
+      <AnimatePresence>
+      {showModal && (
+          <Portal closeModal={close}>
+            <AddFeedbackModal
+            setShowModal={setShow}
+            />
+          </Portal>
+        )}
+      </AnimatePresence>
+      </Swiper>
+      <div className={styles.buttons_nav}>
+        <div className='button_prev'>
+          <div className={styles.buttons_nav_btn}><ArrowBackIosNewIcon /></div>
         </div>
-      </SwiperSlide>
-      <SwiperSlide className={styles.init_container}>
-        <div className={styles.init_container_box}>
-          <div className={styles.init_container_box_photo}>{/* <img src={com2}></img> */}</div>
-          <div className={styles.init_container_box_info}>
-            <p className={styles.init_box_container_info_name}>Александра Орлова</p>
-            <p className={styles.init_box_container_info_name}>Support Lead в Хохлов Сабатовский</p>
-          </div>
-          <div className={styles.init_container_box_rev}>
-            <p>
-              Привлекло то, что у Course Hub приятный интерфейс как для наших учеников, так и для админов. Плюс, мы увидели заинтересованность проекта
-              в развитии. Для нас это важно,так как мы сами стремимся постоянно развиваться.
-            </p>
-            <div></div>
-          </div>
+        <div className={styles.pagination}>
+          <div ref={paginationRef}></div>
         </div>
-      </SwiperSlide>
-      <SwiperSlide className={styles.init_container}>
-        <div className={styles.init_container_box}>
-          <div className={styles.init_container_box_photo}>{/* <img src={com3}></img> */}</div>
-          <div className={styles.init_container_box_info}>
-            <p className={styles.init_box_container_info_name}>Зоя Мананникова</p>
-            <p className={styles.init_box_container_info_name}>Руководитель обучения</p>
-          </div>
-          <div className={styles.init_container_box_rev}>
-            <p>
-              Привлекло то, что у Course Hub приятный интерфейс как для наших учеников, так и для админов. Плюс, мы увидели заинтересованность проекта
-              в развитии. Для нас это важно,так как мы сами стремимся постоянно развиваться.
-            </p>
-            <div></div>
-          </div>
+        <div className='button_next'>
+          <div className={styles.buttons_nav_btn}><ArrowForwardIosIcon /></div>
         </div>
-      </SwiperSlide>
-      <SwiperSlide className={styles.init_containerLeave}>
-        <div className={styles.init_container_box}>
-          <div className={styles.init_container_box_leave}>
-            <p>Оставить отзыв</p>
-          </div>
-        </div>
-      </SwiperSlide>
-    </Swiper>
+      </div>
+    </>
   )
 }

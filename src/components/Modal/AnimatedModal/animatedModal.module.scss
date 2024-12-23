@@ -1,0 +1,61 @@
+@import '../../../scss/variable.scss';
+
+.modal {
+  margin: 0 auto;
+  align-self: center;
+  position: relative;
+  z-index: 101;
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 14px;
+  background-color: #fff;
+  padding: 2rem;
+  box-shadow: 0px 0px 8px 0px #3241954d;
+  backdrop-filter: blur(35px);
+  overflow: hidden;
+
+  &_circle1 {
+    border-radius: 100%;
+    position: absolute;
+    z-index: -1;
+    width: 150%;
+    aspect-ratio: 1;
+    top: 50%;
+    left: -100%;
+    background: #57b9ff;
+    filter: blur(150px);
+  }
+
+  &_circle2 {
+    border-radius: 100%;
+    position: absolute;
+    z-index: -1;
+    width: 150%;
+    aspect-ratio: 1;
+    top: -250%;
+    right: -100%;
+    background: #57b8ff;
+    filter: blur(100px);
+  }
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: transparent;
+  border: none;
+
+  &:hover {
+    svg path {
+      stroke: #b5b5b5;
+      fill: #b5b5b5;
+    }
+  }
+
+  svg path {
+    fill: $color-grey;
+    stroke: $color-grey;
+    transition: all 0.2s;
+  }
+}

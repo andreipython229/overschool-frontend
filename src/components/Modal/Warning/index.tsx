@@ -32,15 +32,15 @@ export const WarningModal: FC<WarningT> = ({ setShowModal, task, textModal }) =>
     >
       <div className={styles.container}>
         <span className={styles.main_closed} onClick={() => setShowModal(false)}>
-          <IconSvg width={15} height={15} viewBoxSize="0 0 14 14" path={crossIconPath} />
+          <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
         </span>
-        <div className={styles.main_title} style={{ margin: '30px 0 30px 0 ' }}>
+        <div className={styles.warning_title}>
           {textModal}
         </div>
 
         <div className={styles.warning_wrapper}>
-          <Button onClick={task} variant={'delete'} text={'Да, удалить'} />
-          <Button onClick={() => setShowModal(false)} variant='default' text={'Отмена'}/>
+          <Button style={{padding: '14px'}} onClick={() => setShowModal(false)} variant={'cancel'} text={'Нет'} />
+          <Button onClick={task} variant={'newPrimary'} text={'Да'} />
         </div>
       </div>
     </motion.div>

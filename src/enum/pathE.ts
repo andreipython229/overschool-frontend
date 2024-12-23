@@ -42,6 +42,7 @@ export enum Path {
   Materials = 'materials/',
   CourseMaterials = 'create-course/:course_id/materials/',
   Rating = 'rating/',
+  Bonus = 'bonus/',
 }
 
 export enum SettingsPath {
@@ -53,8 +54,9 @@ export enum SettingsPath {
   SchoolPassport = 'passport/',
   PaymentMethods = 'payment-methods/',
   DomainSettings = 'domain/',
-  Bonuses = 'bonuses/',
+  PromotionSettings = 'promo/',
   EmailNewsLetter = 'email-newsletter/',
+  Bonuses = 'bonuses/',
 }
 
 export enum CreateCoursePath {
@@ -79,5 +81,4 @@ export enum FooterPath {
   PWA = 'PWA',
   Agreement = 'agreement/',
   HelpPage = '/help/',
-  
 }

@@ -126,21 +126,15 @@ export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
             />
           )}
 
-          <img className={styles.previous_avatar} src={logo_school || noAvatar} alt={headerName} />
+          <img
+            className={styles.previous_avatar}
+            src={logo_school || noAvatar}
+            alt={headerName}
+            style={logo_school ? {} : { objectFit: 'contain' }}
+          />
           <div className={styles.previous_infoBlock}>
             <div className={styles.previous_infoBlock_title}>
               {edit ? (
-
-    
-          
-            
-    
-
-          
-          
-    
-    
-  
                 <input
                   className={`${styles.previous_infoBlock_title_name} ${styles.input_change}`}
                   name="description"
