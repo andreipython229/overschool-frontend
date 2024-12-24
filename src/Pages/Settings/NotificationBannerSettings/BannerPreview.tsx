@@ -85,6 +85,8 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
     }
   }
 
+
+
   return (
     <motion.div className={styles.wrapper}>
       <Dialog open={showDeleteModal} onClose={close} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
@@ -130,11 +132,12 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
           <span className={styles.wrapper_content_description}>{HTMLReactParser(banner.description)}</span>
         ) : (
           <div className={styles.wrapper_content_announcement}>
-            <span>
-              Введите текст нового баннера <span style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
+            <span className={styles.wrapper_content_announcement_header}>
+              Введите текст нового баннера <span className={styles.wrapper_content_announcement_header} style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
             </span>
             <div style={{ width: 'calc(100% + 10px)' }}>
-              {/* <NewTextEditor text={description} setLessonDescription={setDescription} block={} setLessonBlocks={} lessonBlocks={} /> */}
+
+              <MyEditor editedText={description} setDescriptionLesson={setDescription} />
             </div>
           </div>
         )}
@@ -145,8 +148,10 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             </a>
           ) : (
             <>
-              <span>Ссылка под кнопкой в баннере</span>
-              <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" />
+              <div className={styles.banner_link_container}>
+                <span>Ссылка под кнопкой в баннере</span>
+                <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" />
+              </div>
             </>
           ))}
         {groups &&
@@ -190,21 +195,22 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             <>
               <div className={styles.wrapper_content_groups}>
                 <span>Группы в которых будет отображен этот баннер:</span>
+                <button className={styles.banner_groups_btn}>Выберите одну или несколько групп</button>
                 <div>
-                <Checkbox
-                  style={{ color: '#ba75ff' }}
-                  checked={allGroups}
-                  onChange={e => {
-                    handleAllGroups(e)
-                  }}
-                />
-                <span>
-                  <b>выбрать все группы</b>
-                </span>
-              </div>
+                  <Checkbox
+                    style={{ color: '#ba75ff' }}
+                    checked={allGroups}
+                    onChange={e => {
+                      handleAllGroups(e)
+                    }}
+                  />
+                  <span>
+                    <b>выбрать все группы</b>
+                  </span>
+                </div>
                 {/* {/* <SelectInput  */}
                 {/* optionsList={optionsList} */}
-              {/* ></SelectInput> */}
+                {/* ></SelectInput> */}
 
                 {Object.entries(
                   groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {

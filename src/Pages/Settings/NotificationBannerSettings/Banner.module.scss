@@ -18,7 +18,7 @@
 
 
   span {
-    
+
     color: #000;
     font-weight: 500;
     font-size: 20px;
@@ -29,6 +29,28 @@
     font-size: 16px;
     color: #357EEB;
 
+  }
+
+  .banner_link_container {
+    @include display(flex, column, center, start);
+    width: 100%;
+    gap: 10px;
+  }
+
+  .banner_groups_btn {
+    background-color: transparent;
+    border: 1px solid #332f36;
+    border-radius: 10px;
+    text-align: start;
+    height: 54px;
+    padding: 0.5rem 1rem;
+    font-size: 20px;
+    color: var(--grey, #808080);
+    transition-duration: $trans-dur02;
+
+    &:hover {
+      border: 1px solid #357EEB;
+    }
   }
 
   &_content {
@@ -44,7 +66,7 @@
     &_groups {
       display: flex;
       flex-direction: column;
-      gap: 0.3rem;
+      gap: 10px;
       width: 100%;
 
       &_item {
@@ -74,6 +96,10 @@
       box-shadow: 0px 0px 8px 0px #3241954D;
       border-radius: 20px;
       padding: 20px;
+
+      &_header {
+        font-size: 14px !important;
+      }
     }
   }
 
