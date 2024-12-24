@@ -217,7 +217,7 @@
       max-width: 527px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 32px;
       padding: 2rem 1rem;
       position: absolute;
@@ -225,6 +225,7 @@
       top: 50%;
       transform: translateY(-50%);
       transition: all 0.5s;
+      overflow: hidden;
 
       &_header {
         display: flex;
@@ -269,6 +270,7 @@
       border: 1px solid #fff;
       border-width: 1px 1px 1px 0;
       height: auto;
+      min-height: 676px;
       border-radius: 0 34px 34px 0;
       background: linear-gradient(90deg, rgba(13, 40, 187, 0.4) 0%, rgba(53, 126, 235, 0.4) 100%),
         linear-gradient(0deg, rgba(51, 47, 54, 0.1), rgba(51, 47, 54, 0.1));
@@ -276,7 +278,7 @@
       max-width: 28vw;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 32px;
       padding: 2rem 1rem;
 
@@ -446,5 +448,78 @@
   img {
     height: 100%;
     object-fit: contain;
+  }
+}
+
+.paymentModal {
+  @include display(flex, column, flex-start, center);
+  padding: 0 2rem;
+  gap: 2rem;
+  min-width: 600px;
+
+  &_title {
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 42.96px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #357eeb;
+  }
+
+  &_paymentInfo {
+    margin-top: -1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #0d28bb;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 23.87px;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: #3e3e3e;
+
+      li {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 19.09px;
+
+      }
+    }
+
+    p {
+      width: 100%;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 19.09px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+    }
+  }
+
+  a {
+    background: #357eeb;
+    padding: 12px 20px;
+    border-radius: 14px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 23.87px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+    &:hover {
+      background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
+    }
   }
 }

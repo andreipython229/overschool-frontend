@@ -56,7 +56,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption
   }, [selectedOption])
 
   return (
-    <div ref={menuRef} className={`${styles.wrapper} ${className}`} onClick={toggleOptions}>
+    <div ref={menuRef} className={`${className} ${styles.wrapper}`} onClick={toggleOptions}>
       <div className={styles.container}>
         <IconSvg
           styles={{ transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}` }}

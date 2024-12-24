@@ -123,7 +123,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
                 </a>
               </Tooltip>
             </div>
-            <Button onClick={handlePlatformEntry} variant={'newLogIn'} text={'Ко входу на платформу'}/>
+            <Button onClick={handlePlatformEntry} variant={'newLogInHeader'} text={'Ко входу на платформу'}/>
             <Tooltip title={'Выход из профиля'}>
               <div className={styles.header_block_logOut}>
                 <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />

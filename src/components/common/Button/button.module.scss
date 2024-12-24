@@ -260,7 +260,7 @@
     align-items: center;
     justify-content: space-evenly;
     font-family: 'SFPRORegular';
-    @include font(700, 1.8vw, 19.09px);
+    @include font(700, 1.8vw, 2vw);
     border-radius: 10px;
     letter-spacing: 0.02em;
     color: #324195;
@@ -389,7 +389,7 @@
   @include font(700, 16px, 19.09px);
   padding: 11px 25px;
   background: transparent;
-  color: #332f36;
+  color: #357eeb;
   border: 1px solid #357eeb;
 
   &:hover {
@@ -696,10 +696,8 @@
   background: transparent;
   border: 2px solid #357eeb;
   @include font(600, 20px, 23.87px);
-  transition: 0.3s ease-in;
   &:hover:not(:disabled) {
     color: #ffffff;
-    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
-    border: none;
+    background: #357eeb;
   }
 }
