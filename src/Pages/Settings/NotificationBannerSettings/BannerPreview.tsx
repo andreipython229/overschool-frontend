@@ -109,7 +109,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
         {/* {isEditing ? ( */}
         <div style={{ display: 'flex', gap: '10px' }}>
           <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
-          <span>{isActive ? 'Баннер включен' : 'Выключен'}</span>
+          <span className={styles.banner_checkbox_status}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
         </div>
         {/* // ) : ( */}
         {/* // <div style={{ display: 'flex', gap: '10px' }}> */}
@@ -131,7 +131,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
         ) : (
           <div className={styles.wrapper_content_announcement}>
             <span>
-              Объявление <span style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
+              Введите текст нового баннера <span style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
             </span>
             <div style={{ width: 'calc(100% + 10px)' }}>
               {/* <NewTextEditor text={description} setLessonDescription={setDescription} block={} setLessonBlocks={} lessonBlocks={} /> */}
@@ -190,7 +190,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             <>
               <div className={styles.wrapper_content_groups}>
                 <span>Группы в которых будет отображен этот баннер:</span>
-                {/* <div>
+                <div>
                 <Checkbox
                   style={{ color: '#ba75ff' }}
                   checked={allGroups}
@@ -201,10 +201,10 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                 <span>
                   <b>выбрать все группы</b>
                 </span>
-              </div> */}
-                {/* <SelectInput 
-                optionsList={optionsList}
-              ></SelectInput> */}
+              </div>
+                {/* {/* <SelectInput  */}
+                {/* optionsList={optionsList} */}
+              {/* ></SelectInput> */}
 
                 {Object.entries(
                   groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
