@@ -41,3 +41,18 @@
     }
 }
 
+.clicks_counter{
+    color: #357EEB;
+    font-weight: 500;
+    font-size: 46px;
+
+
+    &_container{
+        position: absolute;
+    }
+    
+    &_header{
+        color: #B2B2B2;
+        font-size: 20px;
+    }
+}

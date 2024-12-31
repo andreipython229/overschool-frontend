@@ -17,9 +17,13 @@ import HTMLReactParser from 'html-react-parser'
 import { motion } from 'framer-motion'
 import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
-import { isCheckedFunc } from 'utils/isCheckedFunc'
+
 import { NewTextEditor } from 'components/AddTextEditor/NewTextEditor'
 import { SelectInput } from '../../../components/common/SelectInput/SelectInput'
+import { BannerGrops } from 'components/Modal/BannerGroups/BannerGroups'
+import { Portal } from 'components/Modal/Portal'
+import { penIconPath } from "../Main/iconComponents"
+
 interface IBannerPreview {
   banner: IBanner
   groups: studentsGroupT
@@ -35,18 +39,11 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [link, setLink] = useState<string>(banner.link)
   const [saveChanges, { isLoading }] = useUpdateSchoolBannerMutation()
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
-  const [activeGroups, setActiveGroups] = useState<number[]>(banner.groups)
+
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
-  const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length)
 
+  const [showGroupsModal, { on: closeGroups, off: openGroups, onToggle: setShow }] = useBoolean()
 
-  const optionsList = [
-    { value: 'option1', label: 'Опция 1' },
-    { value: 'option2', label: 'Опция 2' },
-    { value: 'option3', label: 'Опция 3' },
-  ];
-
-  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined);
 
 
   const handleDeleteBanner = () => {
@@ -64,7 +61,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
       formdata.append('title', title)
       formdata.append('description', description)
       formdata.append('is_active', String(isActive))
-      activeGroups.map(grp => formdata.append('groups', String(grp)))
+      // activeGroups.map(grp => formdata.append('groups', String(grp)))  //перенести в bannerGroup
       await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
         .unwrap()
         .then(() => {
@@ -74,16 +71,6 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
     }
   }
 
-  const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isAll = event.target.checked
-    setAllGroups(isAll)
-    const groupsIds = groups?.results.map(group => Number(group.group_id))
-    if (isAll) {
-      setActiveGroups(groupsIds)
-    } else {
-      setActiveGroups([])
-    }
-  }
 
 
 
@@ -125,8 +112,14 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
         ) : (
           <>
             <span>Название баннера</span>
-            <Input value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" />
+            <div className={styles.banner_input_container}>
+              <Input value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" />
+              <div className={styles.penIcon}>
+                <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath} />
+              </div>
+            </div>
           </>
+
         )}
         {!isEditing ? (
           <span className={styles.wrapper_content_description}>{HTMLReactParser(banner.description)}</span>
@@ -150,14 +143,19 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             <>
               <div className={styles.banner_link_container}>
                 <span>Ссылка под кнопкой в баннере</span>
-                <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" />
+                <div className={styles.banner_input_container}>
+                  <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" />
+                  <div className={styles.penIcon}>
+                    <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath} />
+                  </div>
+                </div>
               </div>
             </>
           ))}
         {groups &&
           (!isEditing ? (
             <div className={styles.wrapper_content_groups}>
-              <span>Группы в которых отображается этот баннер при входе на платформу:</span>
+              {/* <span>Группы в которых отображается этот баннер при входе на платформу:</span> */}
               <div style={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'column' }}>
                 {/* {groups.results.map(
                   grp =>
@@ -165,7 +163,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                       <span style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem', flexBasis: 20 }}>{grp.name}</span>
                     ),
                 )} */}
-                {Object.entries(
+                {/* {Object.entries(
                   groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
                     const courseName = group.course_name
                     if (courseName) {
@@ -188,15 +186,26 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                       )}
                     </div>
                   </div>
-                ))}
+                ))} */}
               </div>
             </div>
           ) : (
             <>
+
+
+
               <div className={styles.wrapper_content_groups}>
                 <span>Группы в которых будет отображен этот баннер:</span>
-                <button className={styles.banner_groups_btn}>Выберите одну или несколько групп</button>
-                <div>
+                <button onClick={setShow} className={styles.banner_groups_btn}>Выберите одну или несколько групп</button>
+
+                {showGroupsModal && (
+                  <Portal closeModal={closeGroups}>
+                    <BannerGrops refetch={refetch} schoolName={schoolName} setShowModal={setShow} groups={groups} banner={banner} />
+                  </Portal>
+                )}
+
+
+                {/* <div>
                   <Checkbox
                     style={{ color: '#ba75ff' }}
                     checked={allGroups}
@@ -207,12 +216,9 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                   <span>
                     <b>выбрать все группы</b>
                   </span>
-                </div>
-                {/* {/* <SelectInput  */}
-                {/* optionsList={optionsList} */}
-                {/* ></SelectInput> */}
+                </div> */}
 
-                {Object.entries(
+                {/* {Object.entries(
                   groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
                     const courseName = group.course_name
                     if (courseName) {
@@ -246,8 +252,12 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                       </div>
                     ))}
                   </div>
-                ))}
+                ))} */}
               </div>
+
+
+
+
 
               <div className={styles.wrapper_buttons}>
                 <div className={styles.wrapper_buttons_confirm} onClick={handleSave}>
@@ -260,11 +270,13 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             </>
           ))}
       </div>
-      {!isEditing ? (
-        <button className={styles.wrapper_buttons_edit} onClick={openEditing}>
-          <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
-        </button>
-      ) : (<div></div>)}
-    </motion.div>
+      {
+        !isEditing ? (
+          <button className={styles.wrapper_buttons_edit} onClick={openEditing}>
+            <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
+          </button>
+        ) : (<div></div>)
+      }
+    </motion.div >
   )
 }

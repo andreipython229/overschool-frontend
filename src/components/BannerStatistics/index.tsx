@@ -191,6 +191,10 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ data }) => {
                     <option value="year">Год</option>
                 </select> */}
             </div>
+            <div className={styles.clicks_counter_container}>
+                <p className={styles.clicks_counter_header}>Всего кликов</p>
+                <p className={styles.clicks_counter}>15345</p>
+            </div>
             <Bar data={chartData} options={options} />
         </div >
     );

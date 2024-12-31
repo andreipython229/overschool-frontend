@@ -22,7 +22,8 @@
     gap: 20px;
   }
 
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter',
+  sans-serif;
   color: #4d5766;
 
   &_input {
@@ -123,7 +124,7 @@
     border-radius: 5px;
   }
 
-  &_create_banner_btn{
+  &_create_banner_btn {
     background-color: #357EEB;
     border-radius: 10px;
     color: #fff;
@@ -132,7 +133,7 @@
     font-weight: 500;
     transition-duration: $trans-dur02 !important;
 
-    &:hover{
+    &:hover {
       background-color: #357EEB !important;
       filter: brightness(0.85);
     }
@@ -426,6 +427,7 @@
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       padding: 4% 3% 4% 3%;
     }
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       padding: 4% 3% 4% 3%;
     }
@@ -633,6 +635,6 @@
   pointer-events: none;
 }
 
-.statistics_container{
+.statistics_container {
   padding: 5% 8%;
 }
