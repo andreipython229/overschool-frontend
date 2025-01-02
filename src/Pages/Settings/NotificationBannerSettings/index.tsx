@@ -37,7 +37,7 @@ export const NotificationBanner: FC = () => {
         <div className={styles.main}>
           <div className={styles.main_title} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <p>Настройки баннеров объявлений для участников школы</p>
-            <Button className={styles.main_create_banner_btn} disabled={bannerCreating} style={{ display: 'flex', alignItems: 'center', gap: '10px' }} text={'Добавить баннер'} onClick={createBanner}>
+            <Button className={styles.main_create_banner_btn} disabled={bannerCreating} variant={'newPrimary'} style={{ display: 'flex', alignItems: 'center', gap: '10px' }} text={'Добавить баннер'} onClick={createBanner}>
               {bannerCreating && <SimpleLoader style={{ height: '25px', width: '25px' }} />}
             </Button>
           </div>

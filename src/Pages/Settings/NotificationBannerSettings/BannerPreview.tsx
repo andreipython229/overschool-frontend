@@ -137,7 +137,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
         {banner.link &&
           (!isEditing ? (
             <a href={banner.link} target="_blank" rel="noreferrer">
-              <Button className={styles.banner_go_link_btn} text="Перейти по ссылке" />
+              <Button className={styles.banner_go_link_btn} variant={'newPrimary'} text="Перейти по ссылке" />
             </a>
           ) : (
             <>
@@ -260,12 +260,8 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
 
 
               <div className={styles.wrapper_buttons}>
-                <div className={styles.wrapper_buttons_confirm} onClick={handleSave}>
-                  Сохранить
-                </div>
-                <div className={styles.wrapper_buttons_delete} onClick={open}>
-                  Удалить
-                </div>
+                <Button style={{ padding: '17px 40px' }} onClick={handleSave} text="Сохранить" variant={'newPrimary'} />
+                <Button style={{ padding: '15px 40px' }} onClick={open} text="Удалить" variant={'cancel'} />
               </div>
             </>
           ))}

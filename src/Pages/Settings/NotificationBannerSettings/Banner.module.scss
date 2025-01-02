@@ -72,11 +72,6 @@
     font-size: 20px;
     font-weight: 500;
     transition-duration: $trans-dur02 !important;
-
-    &:hover{
-      background-color: #357EEB !important;
-      filter: brightness(0.85);
-    }
   }
 
   &_content {

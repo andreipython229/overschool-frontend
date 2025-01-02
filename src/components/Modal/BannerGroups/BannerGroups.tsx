@@ -61,20 +61,18 @@ export const BannerGrops: FC<BannerGropsT> = ({refetch, schoolName, setShowModal
 
                 <span className={styles.main_closed} onClick={async () => {
                     setShowModal(false);
-                    console.log(activeGroups)
-                    const formdata = new FormData()
+                    const formdata = new FormData();
                     activeGroups.map(grp => formdata.append('groups', String(grp)));
                     await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
                         .unwrap()
                         .then(() => {
                             closeEditing()
                             refetch()
+                            console.log(activeGroups)
                         })
-
                 }
                 }>
                     <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
-
                 </span>
 
                 {Object.entries(
