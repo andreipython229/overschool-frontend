@@ -20,7 +20,7 @@ import { studentsGroupT } from 'types/studentsGroup'
 
 import { NewTextEditor } from 'components/AddTextEditor/NewTextEditor'
 import { SelectInput } from '../../../components/common/SelectInput/SelectInput'
-import { BannerGrops } from 'components/Modal/BannerGroups/BannerGroups'
+import { BannerCources } from 'components/Modal/BannerCources/BannerCources'
 import { Portal } from 'components/Modal/Portal'
 import { penIconPath } from "../Main/iconComponents"
 
@@ -200,7 +200,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
 
                 {showGroupsModal && (
                   <Portal closeModal={closeGroups}>
-                    <BannerGrops refetch={refetch} schoolName={schoolName} setShowModal={setShow} groups={groups} banner={banner} />
+                    <BannerCources refetch={refetch} schoolName={schoolName} setShowModal={setShow} groups={groups} banner={banner} />
                   </Portal>
                 )}
 
