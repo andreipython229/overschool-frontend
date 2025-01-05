@@ -1,10 +1,42 @@
 @import '../../../scss/variable.scss';
 @import '../../../scss/mixin.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 .header {
-  @include display(flex, row, space-between);
-  padding: 30px 61px 30px 61px;
-  cursor: pointer;
+  @include display(flex, column, center);
+  color: $color-text;
+  font-family: 'SFPRORegular';
+  text-align: left;
+  max-width: 485px;
+  width: 100%;
+
+  &_container {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 10px;
+
+    &_question {
+      width: 100%;
+      max-width: 427px;
+    }
+  }
+
+  &_subtitle {
+    @include font(500, 10px, 11.93px);
+    font-family: 'SFPRORegular';
+    letter-spacing: -0.01em;
+    margin-top: 4px;
+    color: $color-grey;
+  }
+
+  &_title {
+    @include font(700, 18px, 21.48px);
+  }
+
   &_testIconWrapper {
     @include display(flex, column, flex-start, center);
     &_iconRow {
@@ -24,7 +56,7 @@
     }
   }
   &_controlIconWrapper {
-    @include display(flex, row, space-around, center);
+    @include display(flex, row, space-between, center);
     width: 250px;
     &_timer {
       position: relative;
@@ -65,7 +97,7 @@
       &:hover {
         svg {
           path {
-            stroke: #ba75ff;
+            stroke: #357eeb;
           }
         }
       }
@@ -75,7 +107,7 @@
       &:hover {
         svg {
           path {
-            fill: #ba75ff;
+            fill: #357eeb;
           }
         }
       }
@@ -97,4 +129,10 @@
 }
 .rotate_arrow {
   transform: rotate(180deg);
+}
+
+.avatar {
+  background: linear-gradient(90deg, #3170E7 13.5%, #7A90F7 100%) !important;
+  width: 34px !important;
+  height: 34px !important;
 }

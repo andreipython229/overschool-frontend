@@ -1,5 +1,4 @@
-import { FC, useEffect, useState } from 'react'
-import { useLazyFetchQuestionsListQuery } from '../../../../../../../api/questionsAndAnswersService'
+import { FC } from 'react'
 import { orderBy } from 'lodash'
 import { NewLoader } from '../../../../../../../components/Loaders/SimpleLoader'
 import { AnswersT } from '../../../../../../../components/AddQuestion'
@@ -7,11 +6,13 @@ import styles from '../../../../../../../components/AddQuestion/addQuestion.modu
 import { AdminTextOptions } from './Options/AdminTextOption'
 import { AdminOptionsWithPictures } from './Options/AdminOptionsWithPictures'
 import { AdminPicturesAndOptions } from './Options/AdminPicturesAndOptions'
-import { useParams } from 'react-router-dom'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 type AdminTestT = {
-  testId: number
+  testId?: number
+  isLoading?: boolean
+  isSuccess?: boolean
+  questions?: QuestionT[]
 }
 
 type QuestionT = {
@@ -19,31 +20,11 @@ type QuestionT = {
   body: string
   answers: AnswersT[]
   question_id: number
+  multiple_answer: boolean
 }
 
-export const AdminTest: FC<AdminTestT> = ({ testId }) => {
-  const schoolName = window.location.href.split('/')[4]
-  const { course_id: courseId } = useParams()
-  const [fetchQuestionsList, { data: questionsList, isLoading, isSuccess }] = useLazyFetchQuestionsListQuery();
-
-  // для функционала не только с текстовыми тестами =>
-  // const [typeQuestions, setTypeQuestions] = useState<keyof QuestionT>(null as keyof object)
-
-  const [questions, setQuestions] = useState<QuestionT[]>([])
-
+export const AdminTest: FC<AdminTestT> = ({ isLoading, isSuccess, questions }) => {
   const sortedQuestions = orderBy(questions, 'question_id')
-
-  useEffect(() => {
-    if (testId && schoolName && courseId) {
-      fetchQuestionsList({ id: String(testId), schoolName, course_id: courseId });
-    }
-  }, [testId, schoolName, courseId]);
-
-  useEffect(() => {
-    if (questionsList) {
-      setQuestions(questionsList?.questions)
-    }
-  }, [questionsList, testId])
 
   if (isLoading) {
     return <NewLoader />
@@ -52,9 +33,6 @@ export const AdminTest: FC<AdminTestT> = ({ testId }) => {
   return isSuccess ? (
     <div className={styles.wrapper}>
       <div className={styles.settings_list}>
-        <span className={styles.nameSettings}>
-          {questionsList && typeof questionsList === 'object' && 'name' in questionsList && 'Тест на тему: ' + '"' + questionsList.name + '"'}
-        </span>
         {sortedQuestions.map(question => {
           if (question.question_type === 'Text') {
             return (
@@ -64,6 +42,7 @@ export const AdminTest: FC<AdminTestT> = ({ testId }) => {
                 title={question.body}
                 id={question.question_id}
                 key={question.question_id}
+                questions={sortedQuestions}
               />
             )
           } else if (question.question_type === 'TextPic') {
@@ -74,6 +53,7 @@ export const AdminTest: FC<AdminTestT> = ({ testId }) => {
                 title={question.body}
                 id={question.question_id}
                 key={question.question_id}
+                questions={sortedQuestions}
               />
             )
           } else if (question.question_type === 'TextPics') {
@@ -84,6 +64,7 @@ export const AdminTest: FC<AdminTestT> = ({ testId }) => {
                 title={question.body}
                 id={question.question_id}
                 key={question.question_id}
+                questions={sortedQuestions}
               />
             )
           }

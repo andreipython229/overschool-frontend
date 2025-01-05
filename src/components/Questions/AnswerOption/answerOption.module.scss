@@ -1,28 +1,60 @@
 @import '../../../scss/variable.scss';
-@import '../../../scss/mixin.scss';    
+@import '../../../scss/mixin.scss'; 
+
+@font-face {
+    font-family: 'SFPRORegular';
+    src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
 
 .answerOptionsBlock {
-    margin-top: 32px;
     &_title {
         @include font (500, 14px,17px);
         color: #4D5766;
     }
-    &_inputWrapper {            
-        @include display (flex, row, space-between, center);
+    &_inputWrapper {
+        @include display (flex, row, flex-start, center);
         width: 100%;
-        height: 36px;
-        margin-top: 15px;
+        height: 27px;
+        margin-bottom: 10px;
+
+        div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         label {
-            margin: 0 18px 0 0;
-            width: 70%;
-            height: 100%;
+            display: flex;
+
             input {
-                padding: 0 10px;
+                padding: 4px 9.4px;
+                border-radius: 5px;
+                max-width: 119px;
+                width: 100%;
+                height: 100%;
+                transition: all 0.2s;
+                @include font (500, 13px, 16.71px);
+                color: $color-text;
 
                 &::placeholder {
                 @include font (500, 14px, 21px);
-                color: #D4D7DD;
+                color: $color-grey;
                 }
+
+            &:hover {
+                border: 1px solid #357eeb;
+            }
+            }
+
+            span {
+                width: 24px;
+                height: 24px;
+                border: 1px solid #332F36;
+                border-radius: 4px;
+            }
+
+            input:checked ~ span {
+                border: none;
             }
         }
         &_correctAnswerWrapper {
@@ -53,15 +85,16 @@
             &:hover {
                 svg {
                     path {
-                        stroke: #BA75FF;
+                        stroke: #357eeb;
                     }
                     line {
-                        stroke: #BA75FF;
+                        stroke: #357eeb;
                     }
                 }
             }
         }
         &_delete {
+            margin-left: 4px;
             cursor: pointer;
             &:hover {
                 svg {
@@ -75,4 +108,8 @@
             cursor: grab;
         }
     }
+}
+
+.children {
+    flex-direction: column;
 }

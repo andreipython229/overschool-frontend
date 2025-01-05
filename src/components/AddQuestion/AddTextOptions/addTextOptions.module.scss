@@ -1,42 +1,30 @@
 @import '../../../scss/variable.scss';
 @import '../../../scss/mixin.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 .wrapper {
-  @include display(flex, row, space-between, center);
-  width: auto;
-  height: 60px;
-  border-radius: 20px;
-  padding: 20px 25px;
-  border: #4d5766;
-  background-color: #f3f4f6;
+  @include display(flex, column, space-between, center);
+  gap: 5px;
+  max-width: 205px;
+  width: 100%;
+  border-radius: 16px;
+  padding: 17px 0;
+  border: transparent;
+  background-color: $color-blue;
   cursor: pointer;
   &:hover {
-    border: 2px solid #ba75ff;
     transform: scale(1.1);
     transition: transform 0.15s ease-in-out;
   }
-  &_iconWrapper {
-    @include display(flex, column, flex-start, center);
-    &_iconRow {
-      width: 50px;
-      height: 9px;
-      margin: 2px 0;
-      padding: 2px 4px;
-      border-radius: 22px;
-      background-color: #6b7280;
-      span {
-        display: block;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background-color: #fff;
-      }
-    }
-  }
+
   &_title {
-    @include font(600, 14px, 20px);
-    margin-left: 1em;
-    color: #4d5766;
+    @include font(500, 14px, 16.71px);
+    color: $color-white;
     text-align: center;
+    font-family: 'SFPRORegular';
   }
 }

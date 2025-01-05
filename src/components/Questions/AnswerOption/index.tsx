@@ -64,21 +64,18 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({ children, id, answer }) =
   return (
     <div className={styles.wrapper} key={answer?.answer_id}>
       <div className={styles.answerOptionsBlock}>
-        <div className={styles.answerOptionsBlock_inputWrapper}>
+        <div className={children ? `${styles.answerOptionsBlock_inputWrapper} ${styles.children}`: styles.answerOptionsBlock_inputWrapper}>
           {children}
-          <InputBlock
-            id={`${id}-${answerText}`}
-            name={''}
-            type={'text'}
-            value={answerText}
-            placeholder={'Вариант ответа'}
-            onChange={handleChangeAnswer}
-          />
-          <div className={styles.answerOptionsBlock_inputWrapper_correctAnswerWrapper}>
-            <Checkbox id={`${id}`} checked={isChecked} onChange={handleCheckboxChange}>
-              Правильный ответ
-            </Checkbox>
-          </div>
+          <div>
+            <Checkbox id={`${id}`} checked={isChecked} onChange={handleCheckboxChange}/>
+            <InputBlock
+              id={`${id}-${answerText}`}
+              name={''}
+              type={'text'}
+              value={answerText}
+              placeholder={'Введите ответ'}
+              onChange={handleChangeAnswer}
+            />
           {/* <div className={styles.answerOptionsBlock_inputWrapper_comment}>
                         <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={addCommentsIconPath}>
                             <line x1="7.97656" y1="6.00781" x2="11.9531" y2="6.00781" stroke="#D4D7DD"
@@ -89,8 +86,9 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({ children, id, answer }) =
                                   strokeLinecap="round"/>
                         </IconSvg>
                     </div> */}
-          <div className={styles.answerOptionsBlock_inputWrapper_delete}>
-            <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} functionOnClick={handleDeleteAnswer} />
+            <div className={styles.answerOptionsBlock_inputWrapper_delete}>
+              <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} functionOnClick={handleDeleteAnswer} />
+            </div>
           </div>
         </div>
       </div>

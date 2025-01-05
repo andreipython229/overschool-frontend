@@ -3,26 +3,24 @@ import { Question } from '../Question';
 import { AnswerOption } from '../AnswerOption';
 import { QuestionHeader } from '../QuestionHeader';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
-import { addPictureIconPath} from '../config/svgIconPath';
 import { InputBlock } from 'components/common/Input/InputBlock';
 import {PropsQuestionBlockT} from "../../AddQuestion";
 import { FC, MouseEvent, PointerEvent, useEffect, useState, useCallback } from 'react'
-import { useBoolean } from '../../../customHooks'
-import { useAddAnswerMutation } from '../../../api/questionsAndAnswersService'
+import { useAddAnswerMutation, useRemoveQuestionsMutation } from '../../../api/questionsAndAnswersService'
 import { useDragControls } from 'framer-motion'
 import { usePatchAnswerMutation } from 'api/questionsAndAnswersService'
 import { Button } from '../../common/Button/Button'
 import { orderBy } from 'lodash';
+import { picturesOptionsIconPath } from 'components/AddQuestion/config/svgIconPath';
 
-export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, answers, id, testId}) => {
+export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, answers, id, testId, questions}) => {
     const [questionState, setQuestionState] = useState(question);
-    const [isOpen, { onToggle }] = useBoolean()
     const [answersToRender, setAnswersToRender] = useState(answers || [])
     const schoolName = window.location.href.split('/')[4]
-    const [questionImage, setQuestionImage] = useState<string | null>(null);
-    const isAddButtonVisible = answersToRender.length < 4;
+    const [questionImage, setQuestionImage] = useState<string | null>(null)
+    // const isAddButtonVisible = answersToRender.length < 4;
     const [fileError, setFileError] = useState<string>('');
-  
+    const [deleteQuestion] = useRemoveQuestionsMutation()
     const [addAnswer] = useAddAnswerMutation()
     const [patchAnswer] = usePatchAnswerMutation()
   
@@ -33,37 +31,37 @@ export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, an
     }
   
     const handleChangeQuestion = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>, questionId: number) => {
-          setFileError('');
-          const files = event.target.files;
-          if (files && files.length > 0) {
-            const file = files[0];
-            if (file.size <= 7 * 1024 * 1024) {
-                const formData = new FormData();
-                formData.append('question', questionId.toString());
-                formData.append('body', 'Введите вопрос');
-                formData.append('picture', file);
+      (event: React.ChangeEvent<HTMLInputElement>, questionId: number) => {
+        setFileError('');
+        const files = event.target.files;
+        if (files && files.length > 0) {
+          const file = files[0];
+          if (file.size <= 7 * 1024 * 1024) {
+              const formData = new FormData();
+              formData.append('question', questionId.toString());
+              formData.append('body', 'Введите вопрос');
+              formData.append('picture', file);
 
-                if (testId) {
-                    formData.append('test', testId.toString());
-                }
+              if (testId) {
+                  formData.append('test', testId.toString());
+              }
 
-                fetch(`/api/${schoolName}/questions/${questionId}/`, {
-                    method: 'PATCH',
-                    body: formData,
-                })
-                    .then(response => {
-                        setQuestionImage(URL.createObjectURL(file));
-                    })
-            } else {
-                setFileError('Допустимый размер файла не должен превышать 7 МБ')
-            }
+              fetch(`/api/${schoolName}/questions/${questionId}/`, {
+                  method: 'PATCH',
+                  body: formData,
+              })
+                  .then(response => {
+                      setQuestionImage(URL.createObjectURL(file));
+                  })
+          } else {
+              setFileError('Допустимый размер файла не должен превышать 7 МБ')
           }
-        },
-        [schoolName]
-      );
+        }
+      },
+      [schoolName]
+    );
 
-      useEffect(() => {
+  useEffect(() => {
         setQuestionState(question);
         if (question?.picture) {
             setQuestionImage(question.picture)
@@ -85,41 +83,45 @@ export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, an
       
     }, [answers])
 
+  const handleGetTypeQuestion = async () => {
+    await deleteQuestion({ id: Number(id), schoolName })
+  }
+
   return (
     <div className={styles.wrapper}>
-        <QuestionHeader title={title} id={id} isOpen={isOpen} onToggle={onToggle} testId={testId}>
-            <div className={styles.wrapper_header_iconWrapper}>
-                <div className={styles.wrapper_header_iconWrapper_iconColumn}>
-                    <span/>
-                </div>
-                <div className={styles.wrapper_header_iconWrapper_iconRowWrapper}>
-                <div className={styles.wrapper_header_iconWrapper_iconRowWrapper_iconRow}>
-                    <span/>
-                </div>
-                <div className={styles.wrapper_header_iconWrapper_iconRowWrapper_iconRow}>
-                    <span/>
-                </div>
-                <div className={styles.wrapper_header_iconWrapper_iconRowWrapper_iconRow}>
-                    <span/>
-                </div>
-                </div>
-            </div>
-        </QuestionHeader>
+      <Button
+        onClick={handleGetTypeQuestion}
+        variant={'cancel'}
+        text={'Удалить'}
+        style={{ fontSize: '16px', padding: '6px 21px', position: 'absolute', top: '20px', right: '20px' }}
+      />
+      <h2 className={styles.wrapper_question_count}>Вопрос {questions && question && questions?.indexOf(question) + 1} из {questions?.length}</h2>
+      <div className={styles.wrapper_drop_down_menu}>
+      <h2 className={styles.wrapper_drop_down_menu_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
+        <div style={{width: '100%', maxWidth: '485px', alignSelf: 'center'}}>
+          <QuestionHeader title={title} id={id} testId={testId} questions={questions} question={question} />
+        </div>
         
-        {isOpen && (
             <div className={styles.wrapper_optionsContent}>
                 <Question id={id} title={title} testId={testId}>
                         <div className={styles.wrapper_optionsContent_addPicture}>
                             {questionImage ? (
-                                <div style={{ marginBottom: '-15px', marginLeft: '33%' }}>
-                                    <img src={questionImage} alt="Question Image" width={300} height={275} style={{ borderRadius: '10px', display: 'block' }}/>
-                                 </div>
+                                  <div style={{ marginBottom: '10px' }}>
+                                    <img src={questionImage} alt="Question Image" width={180} height={82} style={{ borderRadius: '16px', display: 'block' }}/>
+                                  </div>
                                 ) : (
                                     <>
-                                        <p className={styles.wrapper_optionsContent_addPicture_text}>Добавить изображение</p>
                                         <div className={styles.wrapper_optionsContent_addPicture_iconWrapper}>
-                                            <InputBlock name={''} type={'file'} value={''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeQuestion(e, question?.question_id ?? 0)} />
-                                            <IconSvg width={25} height={22} viewBoxSize="0 0 25 22" path={addPictureIconPath} />
+                                            <InputBlock 
+                                              name={''}
+                                              type={'file'}
+                                              value={''}
+                                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeQuestion(e, question?.question_id ?? 0)}
+                                            />
+                                            <div style={{flexDirection: 'column', margin: '0 auto'}}>
+                                              <IconSvg className={styles.fillColorBlue} width={24} height={24} viewBoxSize="0 0 24 24" path={picturesOptionsIconPath} />
+                                              <h5 className={styles.upload_title}>Загрузите изображение</h5>
+                                            </div>
                                         </div>
                                     </>
                                 )}
@@ -129,22 +131,22 @@ export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, an
                 {answersToRender ? (
               orderBy(answersToRender, 'answer_id').map((answer, index) => (
                 <div key={`${answer.body}_${index}`} className={styles.answerOptionContainer}>
-                      <AnswerOption id={id} answer={answer} />
+                    <AnswerOption id={id} answer={answer} />
                 </div>
               ))
             ) : (
               ''
-            )}
-            </div>
-            )}
-            {isOpen && isAddButtonVisible && (
-            <Button
-                text={'+ Добавить вариант'}
-                style={{ marginTop: '26px', marginLeft: '38%', display: 'block' }}
-                variant={'primary'}
-                onClick={handleAddAnswer}
-            />
-            )}
+          )}
+            {/* {isOpen && isAddButtonVisible && ( */}
+          <Button
+            text={'+ Добавить вариант'}
+            style={{ lineHeight: '16.71px', fontWeight: '600', fontSize: '14px', marginTop: '10px' }}
+            variant={'newPrimary'}
+            onClick={handleAddAnswer}
+          />
+          {/* )} */}
+        </div>
+      </div>
     </div>
   )
 }
