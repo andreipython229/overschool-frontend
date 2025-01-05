@@ -89,10 +89,10 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [questions, setQuestions] = useState<QuestionT[]>([])
 
   useEffect(() => {
-    if (lessonIdAndType.id && schoolName && courseId) {
+    if (lessonIdAndType.id && schoolName && courseId && lesson && lesson.type === 'test') {
       fetchQuestionsList({ id: String(lessonIdAndType.id), schoolName, course_id: courseId });
     }
-  }, [lessonIdAndType.id, schoolName, courseId]);
+  }, [lessonIdAndType.id, schoolName, courseId, lesson]);
 
   useEffect(() => {
     if (questionsList) {
