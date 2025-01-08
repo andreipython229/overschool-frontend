@@ -13,7 +13,7 @@ import { useDebounceFunc } from 'customHooks/useDebounceFunc'
 import { usePatchAnswerMutation } from 'api/questionsAndAnswersService'
 import { picturesOptionsIconPath } from 'components/AddQuestion/config/svgIconPath'
 
-export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, answers, id, testId, questions }) => {
+export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, answers, id, testId, questions, multiple_answer }) => {
   const [answersToRender, setAnswersToRender] = useState(answers || [])
   const schoolName = window.location.href.split('/')[4]
   const [answersImages, setAnswersImages] = useState<{ [key: number]: File | null }>({})
@@ -103,7 +103,7 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
       <div className={styles.wrapper_drop_down_menu}>
         <h2 className={styles.wrapper_drop_down_menu_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
         <div style={{width: '100%', maxWidth: '485px', alignSelf: 'center'}}>
-          <QuestionHeader title={title} id={id} testId={testId} questions={questions} question={question} />
+          <QuestionHeader title={title} id={id} testId={testId} questions={questions} question={question} multiple_answer={multiple_answer}/>
         </div>
 
         <div className={styles.wrapper_optionsContent}>
@@ -123,7 +123,7 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
                             style={{ borderRadius: '16px', display: 'block' }}
                           />
                         </div>
-                        <AnswerOption id={id} answer={answer}>
+                        <AnswerOption id={id} answer={answer} question={question} multiple_answer={multiple_answer || false}>
                           <div className={styles.wrapper_addPicturesBlock} style={{ display: 'none' }}>
                             <InputBlock
                               name={''}
@@ -137,7 +137,7 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
                       </>
                     )}
                     {!answer.picture && (
-                      <AnswerOption id={id} answer={answer}>
+                      <AnswerOption id={id} answer={answer} multiple_answer={multiple_answer || false} question={question}>
                         <div className={styles.wrapper_addPicturesBlock}>
                           <InputBlock
                             name={''}

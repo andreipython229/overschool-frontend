@@ -54,6 +54,7 @@ export type PropsQuestionBlockT = {
   testId?: number
   // setQuestions?: (arg: QuestionT[]) => void
   questions?: QuestionT[]
+  multiple_answer?: boolean
 }
 
 const questionsMaper = {
@@ -94,6 +95,7 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
                 key={question.question_id}
                 testId={testId}
                 questions={sortedQuestions}
+                multiple_answer={question.multiple_answer}
               />
             )
           } else if (question.question_type === 'TextPic') {
@@ -106,6 +108,7 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
                 key={question.question_id}
                 testId={testId}
                 questions={sortedQuestions}
+                multiple_answer={question.multiple_answer}
               />
             )
           } else if (question.question_type === 'TextPics') {
@@ -118,6 +121,7 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
                 key={question.question_id}
                 testId={testId}
                 questions={sortedQuestions}
+                multiple_answer={question.multiple_answer}
               />
             )
           }

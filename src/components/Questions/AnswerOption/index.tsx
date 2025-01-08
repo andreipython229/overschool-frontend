@@ -7,6 +7,7 @@ import { useDebounceFunc } from 'customHooks/useDebounceFunc'
 import { usePatchAnswerMutation, useDeleteAnswerMutation } from 'api/questionsAndAnswersService'
 
 import styles from './answerOption.module.scss'
+import { QuestionT } from 'components/AddQuestion'
 
 type AnswerOptionT = {
   children?: ReactNode
@@ -16,6 +17,8 @@ type AnswerOptionT = {
     body?: string
     is_correct?: boolean
   }
+  question?: QuestionT
+  multiple_answer?: boolean
 }
 
 export const AnswerOption: FC<AnswerOptionT> = memo(({ children, id, answer }) => {
@@ -67,15 +70,17 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({ children, id, answer }) =
         <div className={children ? `${styles.answerOptionsBlock_inputWrapper} ${styles.children}`: styles.answerOptionsBlock_inputWrapper}>
           {children}
           <div>
-            <Checkbox id={`${id}`} checked={isChecked} onChange={handleCheckboxChange}/>
-            <InputBlock
-              id={`${id}-${answerText}`}
-              name={''}
-              type={'text'}
-              value={answerText}
-              placeholder={'Введите ответ'}
-              onChange={handleChangeAnswer}
-            />
+            <Checkbox id={`${id}`} checked={isChecked} onChange={handleCheckboxChange} />
+            <div className={isChecked ? styles.answerOptionsBlock_inputWrapper_correctAnswerWrapper : ''}>
+              <InputBlock
+                id={`${id}-${answerText}`}
+                name={''}
+                type={'text'}
+                value={answerText}
+                placeholder={'Введите ответ'}
+                onChange={handleChangeAnswer}
+              />
+           </div>
           {/* <div className={styles.answerOptionsBlock_inputWrapper_comment}>
                         <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={addCommentsIconPath}>
                             <line x1="7.97656" y1="6.00781" x2="11.9531" y2="6.00781" stroke="#D4D7DD"

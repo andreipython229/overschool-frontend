@@ -13,7 +13,7 @@ import { Button } from '../../common/Button/Button'
 import { orderBy } from 'lodash';
 import { picturesOptionsIconPath } from 'components/AddQuestion/config/svgIconPath';
 
-export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, answers, id, testId, questions}) => {
+export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, answers, id, testId, questions, multiple_answer}) => {
     const [questionState, setQuestionState] = useState(question);
     const [answersToRender, setAnswersToRender] = useState(answers || [])
     const schoolName = window.location.href.split('/')[4]
@@ -99,11 +99,11 @@ export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, an
       <div className={styles.wrapper_drop_down_menu}>
       <h2 className={styles.wrapper_drop_down_menu_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
         <div style={{width: '100%', maxWidth: '485px', alignSelf: 'center'}}>
-          <QuestionHeader title={title} id={id} testId={testId} questions={questions} question={question} />
+          <QuestionHeader title={title} id={id} testId={testId} questions={questions} question={question} multiple_answer={multiple_answer}/>
         </div>
         
             <div className={styles.wrapper_optionsContent}>
-                <Question id={id} title={title} testId={testId}>
+                <Question id={id} title={title} testId={testId} multiple_answer={multiple_answer}>
                         <div className={styles.wrapper_optionsContent_addPicture}>
                             {questionImage ? (
                                   <div style={{ marginBottom: '10px' }}>
@@ -131,7 +131,7 @@ export const PicturesAndOptions: FC<PropsQuestionBlockT> = ({question, title, an
                 {answersToRender ? (
               orderBy(answersToRender, 'answer_id').map((answer, index) => (
                 <div key={`${answer.body}_${index}`} className={styles.answerOptionContainer}>
-                    <AnswerOption id={id} answer={answer} />
+                    <AnswerOption id={id} answer={answer} multiple_answer={multiple_answer || false} question={question}/>
                 </div>
               ))
             ) : (

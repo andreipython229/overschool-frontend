@@ -9,7 +9,7 @@ import { useAddAnswerMutation, useRemoveQuestionsMutation } from 'api/questionsA
 import styles from './previewtextOptions.module.scss'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
-export const TextOptions: FC<PropsQuestionBlockT> = ({ question, answers, title, id, testId, questions }) => {
+export const TextOptions: FC<PropsQuestionBlockT> = ({ question, answers, title, id, testId, questions, multiple_answer }) => {
   const [answersToRender, setAnswersToRender] = useState(answers || [])
   const [deleteQuestion] = useRemoveQuestionsMutation()
   const schoolName = window.location.href.split('/')[4]
@@ -46,12 +46,12 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({ question, answers, title,
         <h2 className={styles.wrapper_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
         <div className={styles.wrapper_drop_down_menu}>
           <h2 className={styles.wrapper_drop_down_menu_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
-          <QuestionHeader title={title} id={id} testId={testId} questions={questions} question={question} />
+          <QuestionHeader title={title} id={id} testId={testId} questions={questions} question={question} multiple_answer={multiple_answer} />
           <div>
             <div className={styles.settings_list}>
               {answersToRender
                 ? orderBy(answersToRender, 'answer_id').map((answer, index) => (
-                  <AnswerOption key={`${answer.body}_${index}`} id={id} answer={answer} />
+                  <AnswerOption key={`${answer.body}_${index}`} id={id} answer={answer} question={question} multiple_answer={multiple_answer || false}/>
                 ))
                 : ''}
             </div>

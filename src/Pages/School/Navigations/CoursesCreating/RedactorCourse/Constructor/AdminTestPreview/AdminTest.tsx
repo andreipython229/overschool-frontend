@@ -43,6 +43,7 @@ export const AdminTest: FC<AdminTestT> = ({ isLoading, isSuccess, questions }) =
                 id={question.question_id}
                 key={question.question_id}
                 questions={sortedQuestions}
+                multiple_answer={question.multiple_answer}
               />
             )
           } else if (question.question_type === 'TextPic') {
@@ -54,6 +55,7 @@ export const AdminTest: FC<AdminTestT> = ({ isLoading, isSuccess, questions }) =
                 id={question.question_id}
                 key={question.question_id}
                 questions={sortedQuestions}
+                multiple_answer={question.multiple_answer}
               />
             )
           } else if (question.question_type === 'TextPics') {
@@ -65,6 +67,7 @@ export const AdminTest: FC<AdminTestT> = ({ isLoading, isSuccess, questions }) =
                 id={question.question_id}
                 key={question.question_id}
                 questions={sortedQuestions}
+                multiple_answer={question.multiple_answer}
               />
             )
           }

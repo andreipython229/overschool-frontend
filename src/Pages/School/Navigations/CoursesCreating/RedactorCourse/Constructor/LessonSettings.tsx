@@ -835,7 +835,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   </div>
                     <div className={styles.admin_preview_container_wrapper}>
                       <span>Количество вопросов:</span>
-                      <span className={styles.admin_preview_container_wrapper_value}>-</span>
                       {questions?.length ? <span className={styles.admin_preview_container_wrapper_value}>{questions?.length}</span> : <span className={styles.admin_preview_container_wrapper_value}>0</span>}
                     </div>
                     <div className={styles.admin_preview_container_wrapper} style={{marginTop: '23px'}}>

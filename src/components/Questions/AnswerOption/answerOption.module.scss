@@ -58,25 +58,10 @@
             }
         }
         &_correctAnswerWrapper {
-            @include display (flex);
-            height: 100%;
-            border: 1px solid #E5E7EB;
-            border-radius: 5px;
-            margin: 0 9px 0 0;
-            cursor: pointer;
             label {
-                @include display (flex);
-                margin: 0;
-                padding: 9px;
-                width: fit-content;
-                @include font (500, 12px, 18px);
-                color: #BABCBF;
                 input {
-                    cursor: pointer;
-                }
-                span {
-                    width: 15px;
-                    height: 15px;
+                    color: $color-blue;
+                    border: 1px solid #357eeb;
                 }
             }
         }

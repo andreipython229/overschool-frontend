@@ -2,6 +2,7 @@ import {FC, ReactNode} from 'react'
 
 import styles from './adminAnswerOption.module.scss'
 import {Avatar, Grid, Typography} from "@mui/material";
+import { QuestionT } from 'components/AddQuestion';
 
 type AnswerOptionT = {
     children?: ReactNode
@@ -12,9 +13,10 @@ type AnswerOptionT = {
         is_correct?: boolean
         picture?: string
     }
+    multiple_answer: boolean
 }
 
-export const AdminAnswerOption: FC<AnswerOptionT> = ({answer}) => {
+export const AdminAnswerOption: FC<AnswerOptionT> = ({answer, multiple_answer}) => {
 
     return (
         <div className={styles.wrapper} key={answer?.answer_id}>
@@ -22,7 +24,7 @@ export const AdminAnswerOption: FC<AnswerOptionT> = ({answer}) => {
                 <div className={answer?.picture ? styles.answerOptionsBlock_inputWrapperWithPicture : styles.answerOptionsBlock_inputWrapperWithoutPicture}>
                     <Grid container spacing={2} className={styles.grid_container}>
                         <Grid item>
-                            <Avatar className={styles.avatar} />
+                            { multiple_answer ? <Avatar className={styles.avatar_square} variant="square"/> : <Avatar className={styles.avatar_rounded} />}
                         </Grid>
                         <Grid item>
                             <Typography className={styles.answer_body} variant="h6">{answer?.body}</Typography>

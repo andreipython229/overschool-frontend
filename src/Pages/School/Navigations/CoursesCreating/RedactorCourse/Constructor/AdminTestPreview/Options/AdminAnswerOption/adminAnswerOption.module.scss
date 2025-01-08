@@ -6,11 +6,19 @@
   src: url(../../../../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
 }
 
-.avatar {
+.avatar_rounded {
   background-color: #ffffff !important;
   border: 1px solid #324195;
+  width: 26px !important;
+  height: 26px !important;
+}
+
+.avatar_square {
+  background-color: #ffffff !important;
+  border: 1px solid $color-text;
   width: 24px !important;
   height: 24px !important;
+  border-radius: 4px !important;
 }
 
 .answer_body {
