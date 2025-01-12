@@ -10,6 +10,7 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Button } from 'components/common/Button/Button'
 import { Popover, Typography } from '@mui/material'
+import { DoBlockIconPath } from 'Pages/School/config/svgIconsPath'
 
 addStyles()
 
@@ -94,73 +95,80 @@ export const MathEditor: React.FC<MathEditorT> = ({ edit, lessonBlocks, setLesso
       }}
       key={block.id}
     >
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <div className={styles.inputWrapper}>
-          <p
-            style={{
-              fontWeight: 'bold',
-              fontSize: '16px',
-              fontFamily: '"Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif',
-            }}
-          >
-            Математическая формула:
-          </p>
-
-          <EditableMathField
-            className={`mq-math-mode ${styles.inputWrapper_mathBlock}`}
-            latex={latexStr}
-            onChange={mathField => {
-              setLatexStr(mathField.latex())
-            }}
-          />
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', justifyContent: 'space-between' }}>
-            <Button
-              style={{ padding: '10px', zIndex: '100' }}
-              onClick={handleSaveChanges}
-              variant={'default'}
-              text={isLoading ? <SimpleLoader style={{ height: '19px', maxWidth: '100px' }} loaderColor="white" /> : 'Сохранить'}
-            />
-            <Button variant="logIn" text={'Помощь в написании формул'} aria-describedby={id} onClick={handleHelp} />
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-            >
-              <Typography sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <p>{`Ввод формул осуществляется с клавиатуры:`}</p>
-                <p>{`/ : деление; \n`}</p>
-                <p>{`* : умножение; \n`}</p>
-                <p>{`+ или - : сложение и вычитание; \n`}</p>
-                <p>{`^ : возведение в степень; \n`}</p>
-                <p>{`Для ввода квадратного корня, необходимо ввести \\sqrt; `}</p>
-                <p>{`Несколько формул в один блок поместить нельзя, 1 блок - 1 формула;`}</p>
-                <p>
-                  {`В случае возникновения вопросов по написанию формул, просьба связаться с нами по `}
-                  <a style={{ fontWeight: 'bold' }} href="https://t.me/over_school" rel="noreferrer" target="_blank">
-                    ссылке
-                  </a>
-                </p>
-              </Typography>
-            </Popover>
-          </div>
-        </div>
-
+      <div className={styles.inputWrapper}>
         <div className={styles.wrapper_navBlock}>
           <span className={styles.wrapper_navBlock_grabBtn} onPointerDown={onPointerDown}>
-            <IconSvg width={11} height={15} className="zIndex: 20" viewBoxSize="0 0 12 18" path={doBlockIconPath} />
+            <IconSvg width={24} height={24} viewBoxSize={'0 0 24 24'} path={DoBlockIconPath} />
           </span>
-          <div className={styles.wrapper_navBlock_delete} onClick={handleDelete}>
-            {isBlockDeleting ? <SimpleLoader /> : <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />}
-          </div>
+          <Button
+            variant="cancel"
+            className={styles.wrapper_navBlock_delete}
+            text={isLoading ? <SimpleLoader /> : 'Удалить'}
+            onClick={handleDelete}
+          />
+        </div>
+        <p
+          style={{
+            fontWeight: 'bold',
+            fontSize: '16px',
+            fontFamily: '"SFPRORegular", sans-serif',
+          }}
+        >
+          Математическая формула:
+        </p>
+
+        <EditableMathField
+          className={`mq-math-mode ${styles.inputWrapper_mathBlock}`}
+          latex={latexStr}
+          placeholder="Введите математическую формулу..."
+          onChange={mathField => {
+            setLatexStr(mathField.latex())
+          }}
+        />
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', justifyContent: 'space-between' }}>
+          <Button
+            style={{ padding: '10px 30px', fontSize: '16px', fontWeight: 500, zIndex: '100' }}
+            onClick={handleSaveChanges}
+            variant={'newPrimary'}
+            text={isLoading ? <SimpleLoader style={{ height: '19px', maxWidth: '100px' }} loaderColor="white" /> : 'Сохранить'}
+          />
+          <Button
+            variant="cancel"
+            style={{ fontSize: '16px', fontWeight: 500, padding: '10px 30px' }}
+            text={'Помощь в написании формул'}
+            aria-describedby={id}
+            onClick={handleHelp}
+          />
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          >
+            <Typography sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <p>{`Ввод формул осуществляется с клавиатуры:`}</p>
+              <p>{`/ : деление; \n`}</p>
+              <p>{`* : умножение; \n`}</p>
+              <p>{`+ или - : сложение и вычитание; \n`}</p>
+              <p>{`^ : возведение в степень; \n`}</p>
+              <p>{`Для ввода квадратного корня, необходимо ввести \\sqrt; `}</p>
+              <p>{`Несколько формул в один блок поместить нельзя, 1 блок - 1 формула;`}</p>
+              <p>
+                {`В случае возникновения вопросов по написанию формул, просьба связаться с нами по `}
+                <a style={{ fontWeight: 'bold' }} href="https://t.me/over_school" rel="noreferrer" target="_blank">
+                  ссылке
+                </a>
+              </p>
+            </Typography>
+          </Popover>
         </div>
       </div>
     </Reorder.Item>
