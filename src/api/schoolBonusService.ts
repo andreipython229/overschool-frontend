@@ -109,7 +109,7 @@ export const schoolBonusService = createApi({
       query: args => ({ url: `/${args.schoolName}/school_box/bulk_delete/`, method: 'DELETE', body: { ids: args.ids } }),
     }),
     updateSchoolPrizes: build.mutation<IPrize[], { schoolName: string; data: IPrize[] }>({
-      query: args => ({ url: `/${args.schoolName}/school_prize/bulk_update/`, method: 'PUT', body: args.data }),
+      query: args => ({ url: `/${args.schoolName}/school_prize/bulk_update/`, method: 'PATCH', body: args.data }),
     }),
     deleteSchoolPrizes: build.mutation<IPrize[], { schoolName: string; ids: number[] }>({
       query: args => ({ url: `/${args.schoolName}/school_prize/bulk_delete/`, method: 'DELETE', body: { ids: args.ids } }),
