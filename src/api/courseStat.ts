@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
-import {studentsTableInfoT, studentsTableStatsT} from '../types/courseStatT'
+import {studentsTableInfoT, studentsTableStatsT, bannerStatInfoT} from '../types/courseStatT'
 import { baseQuery } from './baseApi'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
 import { createUrlWithFiltersAndFields } from 'utils/createUrlWithFiltersAndFields'
@@ -9,7 +9,7 @@ import { baseQueryWithReauth } from './baseQueryReauth'
 export const courseStatService = createApi({
   reducerPath: 'courseStat',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['courseStat', 'studentsPerGroup', 'studentPerSchool', 'AllStudentsPerGroup', 'AllCourseStat'],
+  tagTypes: ['courseStat', 'studentsPerGroup', 'studentPerSchool', 'AllStudentsPerGroup', 'AllCourseStat', 'BannerStat'],
   endpoints: build => ({
     fetchCourseStat: build.query<studentsTableStatsT, { id: string | number; filters: any; schoolName: string , page: string | number, fields: any[]}>({
       query: ({ id, filters, schoolName , page, fields}) => ({
@@ -35,7 +35,16 @@ export const courseStatService = createApi({
       }),
       providesTags: ['AllCourseStat'],
     }),
+    fetchBannerStat: build.query<bannerStatInfoT, { bannerId: string | number; start_date: string; end_date: string;  schoolName: string, filters: any  }>({
+      query: ({ bannerId, start_date, end_date, schoolName, filters }) => {
+        return {
+          url: createUrlWithParams(`/${schoolName}/banners/${bannerId}/statistics/?start_date=${start_date}&end_date=${end_date}`, filters),
+        };
+      },
+      providesTags: ['BannerStat'],
+    }),
+    
   }),
 })
 
-export const { useLazyFetchCourseStatQuery, useLazyFetchStudentsPerGroupQuery, useLazyFetchAllStudentsPerGroupQuery, useLazyFetchAllCourseStatQuery } = courseStatService
+export const { useLazyFetchCourseStatQuery, useLazyFetchStudentsPerGroupQuery, useLazyFetchAllStudentsPerGroupQuery, useLazyFetchAllCourseStatQuery, useFetchBannerStatQuery } = courseStatService

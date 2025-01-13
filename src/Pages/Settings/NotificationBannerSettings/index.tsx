@@ -2,11 +2,12 @@ import { FC } from 'react'
 import styles from '../superAdmin.module.scss'
 import { useCreateNewBannerMutation, useGetSchoolBannersQuery } from 'api/schoolBonusService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
-import { BannerStatistics } from 'components/BannerStatistics'
+
 import { BannerPreview } from './BannerPreview'
 
 import { Button } from 'components/common/Button/Button'
 import { useFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
+import { b } from 'msw/lib/glossary-dc3fd077'
 
 export const NotificationBanner: FC = () => {
   const schoolName = window.location.href.split('/')[4]
@@ -14,11 +15,7 @@ export const NotificationBanner: FC = () => {
   const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupWithParamsQuery({ schoolName: schoolName, params: 's=100' })
   const [createNewBanner, { isLoading: bannerCreating }] = useCreateNewBannerMutation()
 
-  const chartData = {
-    '24h': [2000, 3000, 1500, 4000, 5000, 6000, 7000, 8000],
-    week: [10000, 12000, 9000, 13000, 16000, 11000, 14000],
-    year: [120000, 150000, 130000, 170000, 190000, 160000, 200000, 220000, 210000, 230000, 240000, 250000],
-  };
+
 
   const createBanner = () => {
     const formdata = new FormData()
@@ -46,11 +43,10 @@ export const NotificationBanner: FC = () => {
               <>
                 <BannerPreview banner={banner} key={banner.id} refetch={refetch} groups={studentsGroups} />
                 {banners.length > index + 1 && <div style={{ width: '100%', height: 0, border: '1px #D9D9D9 solid' }}></div>}
+                
               </>
             ))}
-            <div className={styles.statistics_container}>
-              <BannerStatistics data={chartData}/>
-            </div>
+
           </div>
 
 

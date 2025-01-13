@@ -11,15 +11,16 @@ import { isCheckedFunc } from 'utils/isCheckedFunc'
 import { useDeleteBannerMutation, useUpdateSchoolBannerMutation } from 'api/schoolBonusService'
 import { useBoolean } from 'customHooks'
 
-export type BannerGropsT = {
+export type BannerGroupsT = {
     setShowModal: (value: boolean) => void
     groups: studentsGroupT
     banner: IBanner
     schoolName: string
+    courseName: string
     refetch: () => void
 }
 
-export const BannerGrops: FC<BannerGropsT> = ({refetch, schoolName, setShowModal, groups, banner }) => {
+export const BannerGroups: FC<BannerGroupsT> = ({refetch, schoolName, setShowModal, groups, banner, courseName }) => {
     const [activeGroups, setActiveGroups] = useState<number[]>(banner.groups)
     const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length)
     const [saveChanges, { isLoading }] = useUpdateSchoolBannerMutation()
@@ -54,10 +55,7 @@ export const BannerGrops: FC<BannerGropsT> = ({refetch, schoolName, setShowModal
             }}
         >
             <div className={styles.container}>
-                <div className={styles.container_buttons}>
-                    <Button style={{ padding: '12px 30px' }} onClick={handleSelectAllGroups} variant={'newPrimary'} text={'Выбрать все группы'} />
-                    <Button style={{ padding: '12px 30px' }} onClick={handleUnselectAllGroups} variant={'cancel'} text={'Снять выделение со всех групп'} />
-                </div>
+                <p className={styles.groups_header}>Выберите группу</p>
 
                 <span className={styles.main_closed} onClick={async () => {
                     setShowModal(false);
@@ -77,14 +75,13 @@ export const BannerGrops: FC<BannerGropsT> = ({refetch, schoolName, setShowModal
 
                 {Object.entries(
                     groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
-                        const courseName = group.course_name
-                        if (courseName) {
+                        if (courseName === group.course_name) {
                             if (!acc[courseName]) {
-                                acc[courseName] = []
+                                acc[courseName] = [];
                             }
-                            acc[courseName].push(group)
+                            acc[courseName].push(group);
                         }
-                        return acc
+                        return acc;
                     }, {}),
                 ).map(([courseName, groups]) => (
                     <div className={styles.courses_container} key={courseName} style={{ marginBlockStart: '3px' }}>
@@ -104,7 +101,7 @@ export const BannerGrops: FC<BannerGropsT> = ({refetch, schoolName, setShowModal
                                     }}
                                 />
                                 {group.name}
-                                <span> (Кол-во студентов: {group.students.length})</span>
+                                <span> (студентов: {group.students.length})</span>
                             </div>
                         ))}
                     </div>

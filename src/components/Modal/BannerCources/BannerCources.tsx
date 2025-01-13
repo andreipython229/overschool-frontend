@@ -2,7 +2,7 @@ import { Checkbox } from '../../common/Checkbox/Checkbox'
 import styles from '../Modal.module.scss'
 import { motion } from 'framer-motion'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { crossIconPath } from 'config/commonSvgIconsPath'
+import { crossIconPath, arrowDownPoligonPath } from 'config/commonSvgIconsPath'
 import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
 import { IBanner } from 'api/apiTypes'
@@ -10,6 +10,8 @@ import React, { FC, useState } from 'react'
 import { isCheckedFunc } from 'utils/isCheckedFunc'
 import { useDeleteBannerMutation, useUpdateSchoolBannerMutation } from 'api/schoolBonusService'
 import { useBoolean } from 'customHooks'
+import { Portal } from 'components/Modal/Portal'
+import { BannerGroups } from 'components/Modal/BannerGroups/BannerGroups'
 
 export type BannerCourcesT = {
     setShowModal: (value: boolean) => void
@@ -19,11 +21,13 @@ export type BannerCourcesT = {
     refetch: () => void
 }
 
-export const BannerCources: FC<BannerCourcesT> = ({refetch, schoolName, setShowModal, groups, banner }) => {
+export const BannerCources: FC<BannerCourcesT> = ({ refetch, schoolName, setShowModal, groups, banner }) => {
     const [activeGroups, setActiveGroups] = useState<number[]>(banner.groups)
     const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length)
     const [saveChanges, { isLoading }] = useUpdateSchoolBannerMutation()
     const [isEditing, { on: closeEditing, off: openEditing }] = useBoolean(false)
+
+    const [showGroupsModal, { on: closeGroups, off: openGroups, onToggle: setShow }] = useBoolean()
 
 
     const handleSelectAllGroups = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -34,6 +38,8 @@ export const BannerCources: FC<BannerCourcesT> = ({refetch, schoolName, setShowM
     const handleUnselectAllGroups = (event: React.MouseEvent<HTMLButtonElement>) => {
         setActiveGroups([])
     }
+
+
 
     return (
         <motion.div
@@ -68,48 +74,59 @@ export const BannerCources: FC<BannerCourcesT> = ({refetch, schoolName, setShowM
                         .then(() => {
                             closeEditing()
                             refetch()
-                            console.log(activeGroups)
                         })
                 }
                 }>
                     <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
                 </span>
 
-                {Object.entries(
-                    groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
-                        const courseName = group.course_name
-                        if (courseName) {
-                            if (!acc[courseName]) {
-                                acc[courseName] = []
+                <div className={styles.courses_container}>
+                    {Object.entries(
+                        groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
+                            const courseName = group.course_name
+                            if (courseName) {
+                                if (!acc[courseName]) {
+                                    acc[courseName] = []
+                                }
+                                acc[courseName].push(group)
                             }
-                            acc[courseName].push(group)
-                        }
-                        return acc
-                    }, {}),
-                ).map(([courseName, groups]) => (
-                    <div className={styles.courses_container} key={courseName} style={{ marginBlockStart: '3px' }}>
-                        {/* <b>{courseName}</b> */}
-                        {groups.map((group, index) => (
-                            <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
-                                <Checkbox
-                                    checked={isCheckedFunc(group.group_id as number, activeGroups)}
-                                    onChange={e => {
-                                        const isChecked = e.target.checked
-                                        if (!isChecked) {
-                                            setAllGroups(false)
-                                            setActiveGroups(prevGrps => prevGrps.filter(grp => grp !== Number(group.group_id)))
-                                        } else {
-                                            setActiveGroups(prevGrps => prevGrps.concat(Number(group.group_id)))
-                                        }
-                                    }}
-                                />
-                                {group.name}
-                                <span> (Кол-во студентов: {group.students.length})</span>
+                            return acc
+                        }, {}),
+                    )
+                        .map(([courseName, localGroups]) => (
+                            <div className={styles.course_container} key={courseName} style={{ marginBlockStart: '3px' }}>
+                                <div>
+                                    <Checkbox
+                                        checked={localGroups.every(group => activeGroups.includes(Number(group.group_id)))}
+                                        onChange={e => {
+                                            const isChecked = e.target.checked;
+                                            const groupIds = localGroups.map(group => Number(group.group_id));
+                                            if (isChecked) {
+                                                setActiveGroups(prevGrps => [...new Set([...prevGrps, ...groupIds])]);
+                                            } else {
+                                                setActiveGroups(prevGrps => prevGrps.filter(grp => !groupIds.includes(grp)));
+                                            }
+                                        }}
+                                    />
+                                    {courseName}
+
+                                    <span> (групп: {localGroups.length})</span>
+                                </div>
+                                <button onClick={setShow
+                                } className={styles.to_select_groups}>
+                                    <IconSvg width={14} height={15} viewBoxSize="0 0 14 15" path={arrowDownPoligonPath}></IconSvg>
+                                </button>
+
+                                {showGroupsModal && (
+                                    <Portal closeModal={closeGroups}>
+                                        <BannerGroups courseName={courseName} refetch={refetch} schoolName={schoolName} setShowModal={setShow} groups={groups} banner={banner} />
+                                    </Portal>
+                                )}
+                                {/* </div> */}
+                                {/* ))} */}
                             </div>
                         ))}
-                    </div>
-                ))}
-
+                </div>
                 {/* <div className={styles.warning_wrapper}>
             
                 </div> */}

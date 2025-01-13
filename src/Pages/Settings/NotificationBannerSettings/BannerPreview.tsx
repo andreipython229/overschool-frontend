@@ -17,6 +17,7 @@ import HTMLReactParser from 'html-react-parser'
 import { motion } from 'framer-motion'
 import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
+import { BannerStatistics } from 'components/BannerStatistics'
 
 import { NewTextEditor } from 'components/AddTextEditor/NewTextEditor'
 import { SelectInput } from '../../../components/common/SelectInput/SelectInput'
@@ -43,6 +44,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
 
   const [showGroupsModal, { on: closeGroups, off: openGroups, onToggle: setShow }] = useBoolean()
+
 
 
 
@@ -89,81 +91,82 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
           <Button onClick={handleDeleteBanner} autoFocus text={'Удалить'} variant={'delete'} />
         </DialogActions>
       </Dialog>
-      <img src={HubImage} className={styles.image} />
+      <div className={styles.content_section}>
+        <img src={HubImage} className={styles.image} />
 
-      <div className={styles.wrapper_content}>
-        <span>
-          {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>}
-        </span>
-        {/* {isEditing ? ( */}
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
-          <span className={styles.banner_checkbox_status}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
-        </div>
-        {/* // ) : ( */}
-        {/* // <div style={{ display: 'flex', gap: '10px' }}> */}
-        {/* <span style={{ fontWeight: '500' }}> */}
-        {/* {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>} */}
-        {/* </span> */}
-        {/* </div> */}
-        {/* // )} */}
-        {!isEditing ? (
-          <span className={styles.wrapper_content_title}>{banner.title}</span>
-        ) : (
-          <>
-            <span>Название баннера</span>
-            <div className={styles.banner_input_container}>
-              <Input value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" />
-              <div className={styles.penIcon}>
-                <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath} />
-              </div>
-            </div>
-          </>
-
-        )}
-        {!isEditing ? (
-          <span className={styles.wrapper_content_description}>{HTMLReactParser(banner.description)}</span>
-        ) : (
-          <div className={styles.wrapper_content_announcement}>
-            <span className={styles.wrapper_content_announcement_header}>
-              Введите текст нового баннера <span className={styles.wrapper_content_announcement_header} style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
-            </span>
-            <div style={{ width: 'calc(100% + 10px)' }}>
-
-              <MyEditor editedText={description} setDescriptionLesson={setDescription} />
-            </div>
+        <div className={styles.wrapper_content}>
+          <span>
+            {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>}
+          </span>
+          {/* {isEditing ? ( */}
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
+            <span className={styles.banner_checkbox_status}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
           </div>
-        )}
-        {banner.link &&
-          (!isEditing ? (
-            <a href={banner.link} target="_blank" rel="noreferrer">
-              <Button className={styles.banner_go_link_btn} variant={'newPrimary'} text="Перейти по ссылке" />
-            </a>
+          {/* // ) : ( */}
+          {/* // <div style={{ display: 'flex', gap: '10px' }}> */}
+          {/* <span style={{ fontWeight: '500' }}> */}
+          {/* {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>} */}
+          {/* </span> */}
+          {/* </div> */}
+          {/* // )} */}
+          {!isEditing ? (
+            <span className={styles.wrapper_content_title}>{banner.title}</span>
           ) : (
             <>
-              <div className={styles.banner_link_container}>
-                <span>Ссылка под кнопкой в баннере</span>
-                <div className={styles.banner_input_container}>
-                  <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" />
-                  <div className={styles.penIcon}>
-                    <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath} />
-                  </div>
+              <span>Название баннера</span>
+              <div className={styles.banner_input_container}>
+                <Input value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" />
+                <div className={styles.penIcon}>
+                  <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath} />
                 </div>
               </div>
             </>
-          ))}
-        {groups &&
-          (!isEditing ? (
-            <div className={styles.wrapper_content_groups}>
-              {/* <span>Группы в которых отображается этот баннер при входе на платформу:</span> */}
-              <div style={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'column' }}>
-                {/* {groups.results.map(
+
+          )}
+          {!isEditing ? (
+            <span className={styles.wrapper_content_description}>{HTMLReactParser(banner.description)}</span>
+          ) : (
+            <div className={styles.wrapper_content_announcement}>
+              <span className={styles.wrapper_content_announcement_header}>
+                Введите текст нового баннера <span className={styles.wrapper_content_announcement_header} style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
+              </span>
+              <div style={{ width: 'calc(100% + 10px)' }}>
+
+                <MyEditor editedText={description} setDescriptionLesson={setDescription} />
+              </div>
+            </div>
+          )}
+          {banner.link &&
+            (!isEditing ? (
+              <a href={banner.link} target="_blank" rel="noreferrer">
+                <Button className={styles.banner_go_link_btn} variant={'newPrimary'} text="Перейти по ссылке" />
+              </a>
+            ) : (
+              <>
+                <div className={styles.banner_link_container}>
+                  <span>Ссылка под кнопкой в баннере</span>
+                  <div className={styles.banner_input_container}>
+                    <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" />
+                    <div className={styles.penIcon}>
+                      <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath} />
+                    </div>
+                  </div>
+                </div>
+              </>
+            ))}
+          {groups &&
+            (!isEditing ? (
+              <div className={styles.wrapper_content_groups}>
+                {/* <span>Группы в которых отображается этот баннер при входе на платформу:</span> */}
+                <div style={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'column' }}>
+                  {/* {groups.results.map(
                   grp =>
                     activeGroups.includes(Number(grp.group_id)) && (
                       <span style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem', flexBasis: 20 }}>{grp.name}</span>
                     ),
                 )} */}
-                {/* {Object.entries(
+                  {/* {Object.entries(
                   groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
                     const courseName = group.course_name
                     if (courseName) {
@@ -187,25 +190,25 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                     </div>
                   </div>
                 ))} */}
+                </div>
               </div>
-            </div>
-          ) : (
-            <>
+            ) : (
+              <>
 
 
 
-              <div className={styles.wrapper_content_groups}>
-                <span>Группы в которых будет отображен этот баннер:</span>
-                <button onClick={setShow} className={styles.banner_groups_btn}>Выберите одну или несколько групп</button>
+                <div className={styles.wrapper_content_groups}>
+                  <span>Группы в которых будет отображен этот баннер:</span>
+                  <button onClick={setShow} className={styles.banner_groups_btn}>Выберите одну или несколько групп</button>
 
-                {showGroupsModal && (
-                  <Portal closeModal={closeGroups}>
-                    <BannerCources refetch={refetch} schoolName={schoolName} setShowModal={setShow} groups={groups} banner={banner} />
-                  </Portal>
-                )}
+                  {showGroupsModal && (
+                    <Portal closeModal={closeGroups}>
+                      <BannerCources refetch={refetch} schoolName={schoolName} setShowModal={setShow} groups={groups} banner={banner} />
+                    </Portal>
+                  )}
 
 
-                {/* <div>
+                  {/* <div>
                   <Checkbox
                     style={{ color: '#ba75ff' }}
                     checked={allGroups}
@@ -218,7 +221,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                   </span>
                 </div> */}
 
-                {/* {Object.entries(
+                  {/* {Object.entries(
                   groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
                     const courseName = group.course_name
                     if (courseName) {
@@ -253,19 +256,30 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                     ))}
                   </div>
                 ))} */}
-              </div>
+                </div>
 
 
 
 
 
-              <div className={styles.wrapper_buttons}>
-                <Button style={{ padding: '17px 40px' }} onClick={handleSave} text="Сохранить" variant={'newPrimary'} />
-                <Button style={{ padding: '15px 40px' }} onClick={open} text="Удалить" variant={'cancel'} />
-              </div>
-            </>
-          ))}
+                <div className={styles.wrapper_buttons}>
+                  <Button style={{ padding: '17px 40px' }} onClick={handleSave} text="Сохранить" variant={'newPrimary'} />
+                  <Button style={{ padding: '15px 40px' }} onClick={open} text="Удалить" variant={'cancel'} />
+                </div>
+
+              </>
+
+            ))}
+
+        </div>
       </div>
+      {
+        isEditing ? (
+          <div className={styles.statistics_container}>
+            <BannerStatistics banner={banner} schoolName={schoolName} />
+          </div>
+        ):(<div></div>)
+      }
       {
         !isEditing ? (
           <button className={styles.wrapper_buttons_edit} onClick={openEditing}>

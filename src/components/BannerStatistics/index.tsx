@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import Chart, { ChartData } from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -7,31 +7,121 @@ import { size } from 'lodash';
 import { layouts } from 'chart.js/dist';
 import { Height, Padding } from '@mui/icons-material';
 import SelectInput from '../common/SelectInput/SelectInput';
-
+import { useFetchBannerStatQuery } from 'api/courseStat'
+import { IBanner } from 'api/apiTypes'
 import styles from './bannerstatistics.module.scss'
+import { ClickDetail } from 'types/courseStatT';
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { number } from 'yup';
 
 Chart.register(ChartDataLabels);
 
+
 interface BannerStatisticsProps {
-    data: {
-        '24h': number[];
-        week: number[];
-        year: number[];
-    };
+    schoolName: string
+    banner: IBanner
 }
 
-export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ data }) => {
+
+
+export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, schoolName }) => {
     const [timeRange, setTimeRange] = useState<'24h' | 'week' | 'year'>('24h');
+    const bannerId = banner.id;
+    const filters = useAppSelector(state => state.filters[""])
+    const { start_date, end_date } = getStartEndDates();
+    const { data: bannerStats, error, isLoading } = useFetchBannerStatQuery({ bannerId, filters, schoolName, start_date, end_date })
+    const [allClicksData, setAllClicksData] = useState<number[]>([]);
+    const [uniqueClicksData, setUniqueClicksData] = useState<number[]>([]);
+
+    useEffect(() => {
+        if (bannerStats) {
+            
+            setAllClicksData(statProcessing(bannerStats.click_details, false))
+            setUniqueClicksData(statProcessing(bannerStats.click_details, true))
+            // setAllClicksData(bannerStats?.click_details); 
+        }
+    }, [bannerStats, isLoading, error]);
+
+    function formatDate(date: any) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+        return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+    }
+
+    function getStartEndDates() {
+        const now = new Date();
+        let start_date;
+        const end_date = formatDate(now);
+        switch (timeRange) {
+            case '24h':
+                start_date = new Date(now.getTime() - 365 * 2 * 24 * 60 * 60 * 1000);
+                break;
+            case 'week':
+                start_date = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                break;
+            default:
+                start_date = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
+                break;
+        }
+        start_date = formatDate(start_date);
+        return { start_date, end_date };
+    }
+
+    const statProcessing = (clicks: ClickDetail[], unique: boolean): number[] => {//поделить на 2 функции
+        let result: number[];
+
+        if (timeRange === '24h') {
+            result = Array(8).fill(0); 
+        } else if (timeRange === 'week') {
+            result = Array(7).fill(0);
+        } else if (timeRange === 'year') {
+            result = Array(12).fill(0);
+        } else {
+            throw new Error('Invalid timerange');
+        }
+    
+        const uniqueEmails = new Set<string>();
+
+        clicks.forEach(click => {
+            const date = new Date(click.timestamp);
+            const email = click.user__email;
+
+            if (unique) {
+                if (!uniqueEmails.has(email)) {
+                    uniqueEmails.add(email); 
+                } else {
+                    return;
+                }
+            }
+
+            if (timeRange === '24h') {
+                const hour = date.getUTCHours();
+                const intervalIndex = Math.floor(hour / 3);
+                result[intervalIndex] += 1; 
+            } else if (timeRange === 'week') {
+                const day = date.getUTCDay(); 
+                result[day] += 1; 
+            } else if (timeRange === 'year') {
+                const month = date.getUTCMonth();
+                result[month] += 1; 
+            }
+        });
+        return result;
+    };
 
     const handleTimeRangeChange = (value: '24h' | 'week' | 'year') => {
         setTimeRange(value);
-      };
+    };
 
     const optionsList = [
         { value: '24h', label: '24 часа' },
         { value: 'week', label: 'Неделя' },
         { value: 'year', label: 'Год' },
-      ];
+    ];
 
     const labels = timeRange === '24h'
         ? ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00']
@@ -45,21 +135,20 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ data }) => {
         datasets: [
             {
                 label: 'Показы',
-                data: data[timeRange],
+                data: allClicksData,
                 backgroundColor: '#CFE2FF',
                 barPercentage: 1,
                 categoryPercentage: 0.6,
             },
             {
                 label: 'Переходы',
-                data: data[timeRange].map(value => value * 0.25),
+                data: uniqueClicksData,
                 backgroundColor: '#357EEB',
                 barPercentage: 1,
                 categoryPercentage: 0.6,
             },
         ],
     };
-
 
     const options = {
         scales: {
@@ -193,7 +282,7 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ data }) => {
             </div>
             <div className={styles.clicks_counter_container}>
                 <p className={styles.clicks_counter_header}>Всего кликов</p>
-                <p className={styles.clicks_counter}>15345</p>
+                {/* <p className={styles.clicks_counter}>{bannerStats?.unique_clicks}</p> maybe undefined */}
             </div>
             <Bar data={chartData} options={options} />
         </div >
