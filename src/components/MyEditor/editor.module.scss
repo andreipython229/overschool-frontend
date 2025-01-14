@@ -1,16 +1,25 @@
 @import '../../scss/mixin.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 .editor {
-  border: 1px solid #ebeef5;
+  border: 1px solid #DCDCDC;
   width: calc(100% - 10px);
   border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px;
 
   &_panel {
     position: relative;
     display: flex;
     text-align: center;
     align-items: center;
-    padding: 19px 0 19px 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #DCDCDC;
+    flex-wrap: wrap;
     max-width: 100%;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       display: none;
@@ -19,22 +28,20 @@
       display: none;
     }
 
-    & button {
-      // position: static;
+    &_button {
       border: none;
       background: transparent;
       cursor: pointer;
       width: auto;
-      padding: 4px 10px;
+      padding: 0 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &:hover {
         background: #f6f5f5;
         border-radius: 7px;
       }
-    }
-    &_button_active {
-      background: #f6f5f5;
-      border-radius: 7px;
     }
   }
 
@@ -45,22 +52,18 @@
     word-wrap: break-word;
     max-height: 200px;
     min-height: 100px;
-    padding: 15px 19px 15px 19px;
+    padding: 10px 0;
 
     div {
       height: 100%;
-      min-height: 100px;
+      min-height: 25px;
+
+      div {
+        @include font(500, 16px, 19.09px);
+        font-family: 'SFPRORegular';
+      }
     }
   }
-}
-
-.editor_panel ::after {
-  content: '';
-  border-bottom: 1px solid #ebeef5;
-  position: absolute;
-  top: 58px;
-  left: 9px;
-  width: 97%;
 }
 
 .media {
@@ -72,35 +75,84 @@
 .textField {
   margin-bottom: 40px;
 
-  &_btnSave {
-    @include display(flex, row, center);
-    margin-top: 10px;
-    margin-left: 5px;
-    width: auto;
-    height: 36px;
-    border: none;
+  &_btn {
+    @include font(500, 14px, 16.71px);
+    padding: 10px 20px;
+  }
+}
+
+.align_center {
+  div {
     text-align: center;
-    background: #6b728f;
-    font-size: 14px;
-    color: #ffffff;
-    border-radius: 6px;
-    padding: 11px;
-    cursor: pointer;
+  }
+}
+
+.align_right {
+  div {
+    text-align: right;
+  }
+}
+
+.align_left {
+  div {
+    text-align: left;
+  }
+}
+
+.editor_select {
+  fieldset {
+    border: none;
+
+    &::after {
+      content: none;
+    }
   }
 
-  &_btnCancel {
-    @include display(flex, row, center);
-    margin-top: 10px;
-    margin-left: 15px;
-    width: 120px;
-    height: 36px;
-    border: none;
-    text-align: center;
-    background: #f3f4f6;
-    font-size: 14px;
-    color: #6b728f;
-    border-radius: 6px;
-    padding: 11px 0 11px;
-    cursor: pointer;
+  div {
+    div {
+      padding: 0;
+    }
+  }
+}
+
+.active {
+  background: #d3e7f9;
+  border-radius: 7px;
+}
+
+.url_container {
+  display: flex;
+  max-width: 200px;
+  position: absolute;
+  top: 60px;
+  left: 250px;
+  gap: 5px;
+  align-items: center;
+
+  &_input {
+    width: 100%;
+    margin: 0;
+  
+    div {
+      div {
+        padding: 5px;
+        font-size: 16px;
+        border: 1px solid transparent;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+      }
+    }
+
+    input {
+      font-size: 16px;
+
+      &::placeholder {
+        @include font(400, 16px, 23.87px);
+        color: #808080;
+    
+        @media only screen and (min-width: 1400px) and (max-width: 1890px){
+          @include font(400, 20px, 23.87px);
+        }
+      }
+    }
   }
 }

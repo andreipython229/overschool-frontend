@@ -39,6 +39,8 @@ export type SuperButtonPropsT = DefaultButtonPropsType & {
     | 'newLeaveRequest'
     | 'newTryForFree'
     | 'newMobile'
+    | 'inActive'
+    | 'cancel'
 }
 
 export type CheckboxPropsT = {
@@ -146,6 +148,7 @@ export type SelectInputPropsT = {
   selectedOption?: string
   defaultOption?: string
   setSelectedValue?: (value: any) => void
+  className?: string
 }
 
 export type ToggleButtonDropDownT = {

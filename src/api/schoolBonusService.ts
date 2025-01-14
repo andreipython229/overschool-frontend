@@ -3,8 +3,10 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { baseQuery } from './baseApi'
 import { BonusT } from '../types/bonusesT'
 import { baseQueryWithReauth } from './baseQueryReauth'
-import { IBanner } from './apiTypes'
+import { IBanner, IBox, IOpenBox, IPrize, ISchoolBoxes, ISchoolBoxesCreate, ISchoolPrizeWinner } from './apiTypes'
 import { url } from 'inspector'
+import { number, string } from 'yup'
+import { method } from 'lodash'
 
 export const schoolBonusService = createApi({
   reducerPath: 'schoolBonusService',
@@ -81,10 +83,85 @@ export const schoolBonusService = createApi({
         method: 'POST',
       }),
     }),
+    fetchSchoolBoxes: build.query<ISchoolBoxes[], string>({
+      query: schoolName => `/${schoolName}/school_box/`,
+    }),
+    createSchoolBox: build.mutation<any, { data: FormData; schoolName: string }>({
+      query: args => ({
+        url: `/${args.schoolName}/school_box/`,
+        method: 'POST',
+        body: args.data,
+      }),
+    }),
+    fetchSchoolPrizes: build.query<IPrize[], string>({
+      query: schoolName => `/${schoolName}/school_prize/`,
+    }),
+    fetchUserBoxes: build.query<IBox[], string>({
+      query: school => `/${school}/user_boxes/`,
+    }),
+    updateSchoolBox: build.mutation<IBox[], { schoolName: string; id: number; data: FormData }>({
+      query: args => ({ url: `/${args.schoolName}/school_box/${args.id}/`, method: 'PATCH', body: args.data }),
+    }),
+    updateSchoolBoxes: build.mutation<ISchoolBoxes[], { schoolName: string; data: ISchoolBoxes[] }>({
+      query: args => ({ url: `/${args.schoolName}/school_box/bulk_update/`, method: 'PATCH', body: args.data }),
+    }),
+    deleteSchoolBoxes: build.mutation<ISchoolBoxes[], { schoolName: string; ids: number[] }>({
+      query: args => ({ url: `/${args.schoolName}/school_box/bulk_delete/`, method: 'DELETE', body: { ids: args.ids } }),
+    }),
+    updateSchoolPrizes: build.mutation<IPrize[], { schoolName: string; data: IPrize[] }>({
+      query: args => ({ url: `/${args.schoolName}/school_prize/bulk_update/`, method: 'PATCH', body: args.data }),
+    }),
+    deleteSchoolPrizes: build.mutation<IPrize[], { schoolName: string; ids: number[] }>({
+      query: args => ({ url: `/${args.schoolName}/school_prize/bulk_delete/`, method: 'DELETE', body: { ids: args.ids } }),
+    }),
+    openUserBox: build.mutation<IOpenBox, { schoolName: string; boxId: number | string }>({
+      query: args => ({
+        url: `/${args.schoolName}/open_box/${args.boxId}/`,
+        method: 'POST',
+      }),
+    }),
+    getBoxPaymentLink: build.mutation<{ payment_link: string }, { data: FormData; school: string }>({
+      query: args => ({
+        url: `/${args.school}/box_payment_link/`,
+        method: 'POST',
+        body: args.data,
+      }),
+    }),
+    updateSchoolPrize: build.mutation<IPrize, { schoolName: string; id: number; data: FormData }>({
+      query: args => ({
+        url: `/${args.schoolName}/school_prize/${args.id}/`,
+        method: 'PATCH',
+        body: args.data,
+      }),
+    }),
+    createSchoolPrize: build.mutation<IPrize, { schoolName: string; data: FormData }>({
+      query: args => ({
+        url: `/${args.schoolName}/school_prize/`,
+        method: 'POST',
+        body: args.data,
+      }),
+    }),
+    getAllSchoolPrizeWinners: build.query<ISchoolPrizeWinner[], string>({
+      query: school => `/${school}/user_prizes/`,
+    }),
   }),
 })
 
 export const {
+  useDeleteSchoolPrizesMutation,
+  useUpdateSchoolPrizesMutation,
+  useDeleteSchoolBoxesMutation,
+  useUpdateSchoolBoxesMutation,
+  useGetAllSchoolPrizeWinnersQuery,
+  useCreateSchoolPrizeMutation,
+  useUpdateSchoolPrizeMutation,
+  useUpdateSchoolBoxMutation,
+  useCreateSchoolBoxMutation,
+  useGetBoxPaymentLinkMutation,
+  useOpenUserBoxMutation,
+  useFetchUserBoxesQuery,
+  useFetchSchoolPrizesQuery,
+  useFetchSchoolBoxesQuery,
   useAcceptBannerMutation,
   useDeleteBannerMutation,
   useCreateNewBannerMutation,

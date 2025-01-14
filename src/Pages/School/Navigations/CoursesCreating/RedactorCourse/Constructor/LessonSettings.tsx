@@ -596,10 +596,21 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                   updateLesson={updateLesson}
                 />
 
-                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '2rem', paddingInline: '3em', marginTop: '2rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: '20px',
+                    gap: '2rem',
+                    margin: '2rem 3em',
+                    padding: '1rem',
+                    boxShadow: '0px 0px 8px 0px #3241954D',
+                  }}
+                >
                   <AddFileBtn handleChangeFiles={handleChangeFiles} />
+                  <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 200 мегабайт</span>
                 </div>
-                <span className={styles.redactorCourse_rightSideWrapper_rightSide_desc}>Любые файлы размером не более 200 мегабайт</span>
+
                 {fileError && <span className={styles.redactorCourse_rightSideWrapper_rightSide_error}>{fileError}</span>}
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_functional_form_title}>Прикреплённые файлы</span>
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '2rem', paddingInline: '3em', marginTop: '2rem' }}>

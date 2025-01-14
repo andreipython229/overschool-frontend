@@ -1,0 +1,338 @@
+@import '../../../scss/mixin.scss';
+@import '../../../scss/variable.scss';
+
+.wrapper {
+  @include display(flex, column, flex-start, flex-start);
+  gap: 2rem;
+  background: transparent;
+  width: 100%;
+  font-family: 'SFPRORegular';
+  letter-spacing: -1px;
+  position: relative;
+  z-index: 10;
+
+  &_prizesTextBlock {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    flex-direction: column;
+
+    &_images {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      img {
+        width: 60px;
+        height: 60px;
+      }
+
+      p {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19.09px;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+      }
+    }
+
+    &_description {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 19.09px;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: $color-grey;
+    }
+  }
+
+  &_title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28.64px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+  }
+
+  &_tips {
+    @include display(flex, row, space-between, center);
+    gap: 40px;
+
+    &_tip {
+      @include display(flex, row, space-between, center);
+      width: 100%;
+      padding: 8px 24px 8px 24px;
+      opacity: 0px;
+      background: #02337c66;
+      backdrop-filter: blur(27.799999237060547px);
+      border-radius: 34px;
+      gap: 50px;
+
+      &_image {
+        width: 100px;
+        height: 100px;
+        gap: 0px;
+        opacity: 0px;
+        object-fit: contain;
+      }
+
+      &_text {
+        color: $color-white;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19.09px;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+      }
+    }
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0px 0px 8px 0px #3241954d;
+
+  &_header {
+    background: #cfe2ff;
+
+    &_item {
+      padding: 20px 8px 20px 8px;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19.09px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+    }
+  }
+
+  &_body {
+    background: #ffffff;
+
+    &_row {
+      border: 1px solid #ebebeb;
+      background: #ffffff;
+
+      &_icon {
+        width: 100%;
+        height: 100%;
+        @include display(flex, row, center, center);
+        padding: 16px;
+        img {
+          width: 37px;
+          height: 40px;
+        }
+      }
+
+      &_count {
+        width: 100%;
+        height: 100%;
+        @include display(flex, row, space-between, center);
+        padding: 16px;
+
+        p {
+          text-align: left;
+          font-size: 20px;
+          font-weight: 500;
+          line-height: 23.87px;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+        }
+      }
+
+      &_price {
+        @include display(flex, row, center, center);
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        input[type='number'] {
+          -moz-appearance: textfield;
+        }
+
+        &_item1 {
+          border-radius: 4px 0 0 4px;
+          border: 1px solid #2689ff;
+          border-width: 1px 0.5px 1px 1px;
+          padding: 10px 25px;
+          width: 100%;
+          height: 40px;
+          color: $color-grey;
+          text-align: center;
+        }
+
+        &_item2 {
+          border-radius: 0 4px 4px 0;
+          border: 1px solid #2689ff;
+          padding: 10px 25px;
+          border-width: 1px 1px 1px 0.5px;
+          width: 100%;
+          height: 40px;
+          color: $color-grey;
+          text-align: center;
+
+          svg path {
+            fill: $color-grey;
+          }
+        }
+      }
+
+      &_bonus {
+        width: 100%;
+        height: 100%;
+        @include display(flex, row, center, center);
+        padding: 16px;
+        input {
+          text-align: center;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        input[type='number'] {
+          -moz-appearance: textfield;
+        }
+
+        input {
+          border-radius: 4px;
+          border: 1px solid #2689ff;
+          padding: 10px 25px;
+          width: 100%;
+          height: 40px;
+          color: $color-grey;
+        }
+      }
+
+      &_expires {
+        width: 100%;
+        height: 100%;
+        @include display(flex, row, center, center);
+        padding: 16px;
+
+        p {
+          color: #357eeb;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 19.09px;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+        }
+      }
+
+      &_status {
+        width: 100%;
+        height: 100%;
+        @include display(flex, row, center, center);
+        padding: 16px;
+        cursor: pointer;
+
+        &_button {
+          @include display(flex, row, center, center);
+          gap: 8px;
+          background: #357eeb;
+          width: 100%;
+          min-width: 192px;
+          height: 27px;
+          padding: 4px;
+          border-radius: 8px;
+
+          &_active {
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            background: #4cc700;
+          }
+
+          &_inactive {
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            background: #c70000;
+          }
+
+          p {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 19.09px;
+            text-align: left;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.buttons {
+  @include display(flex, row, flex-start, center);
+  gap: 2rem;
+  width: 100%;
+  margin-top: -1rem;
+
+  button {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23.87px;
+    padding: 12px 30px;
+    width: 288px;
+  }
+}
+
+.winner {
+  margin: -1rem 0;
+  div p {
+    color: black;
+  }
+}
+
+.addBoxModal {
+  @include display(flex, column, flex-start, flex-start);
+  padding: 0 2rem;
+  gap: 2rem;
+  min-width: 600px;
+
+  &_title {
+    width: 100%;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 42.96px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #357eeb;
+  }
+
+  &_data {
+    @include display(flex, column, flex-start, flex-start);
+    gap: 2rem;
+
+    &_el {
+      @include display(flex, column, flex-start, flex-start);
+      gap: 0.5rem;
+
+      &_fileInput {
+        @include position_t_l(absolute, 0, 0, -2);
+        display: none;
+      }
+    }
+  }
+}

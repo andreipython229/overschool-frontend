@@ -9,6 +9,8 @@ import { useDeleteBlockMutation, useUpdateBlockDataMutation } from 'api/blocksSe
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { Reorder, useDragControls } from 'framer-motion'
 import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
+import { Button } from 'components/common/Button/Button'
+import { DoBlockIconPath } from 'Pages/School/config/svgIconsPath'
 
 interface textEditorT {
   text: string
@@ -88,30 +90,45 @@ export const NewTextEditor: FC<textEditorT> = ({ text, setLessonDescription, blo
     >
       <div className={styles.wrapper}>
         <div className={styles.textField}>
-          <Paper elevation={3} className={styles.textField_paper} sx={{borderRadius: '8px'}}>
+          <Paper elevation={3} className={styles.textField_paper} sx={{borderRadius: '20px', boxShadow: '0px 0px 8px 0px #3241954D'}}>
             {isEditing ? (
               <>
+                 <div className={styles.wrapper_navBlock}>
+                  <span className={styles.wrapper_navBlock_grabBtn} onPointerDown={onPointerDown}>
+                  <IconSvg
+                    width={24}
+                    height={24}
+                    viewBoxSize={'0 0 24 24'}
+                    path={DoBlockIconPath}
+                  />
+          </span>
+                    {isBlockDeleting ? <SimpleLoader /> : (
+                      <Button
+                        variant={'cancel'}
+                        type='button'
+                        onClick={handleDelete}
+                        text={'Удалить'}
+                        className={styles.wrapper_navBlock_delete}
+                      />
+                    )}
+        </div>
                 <span className={styles.textField_description_text}>Текст урока:</span>
                 <MyEditor save={handleSaveChanges} setDescriptionLesson={setEditedText} editedText={editedText} setIsEditing={setIsEditing} />
               </>
             ) : (
               <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
                 <span className={styles.textField_description_text}>Текст урока:</span>
-                <div dangerouslySetInnerHTML={{ __html: editedText }}></div>
-                <button className={styles.textField_btnEditText_setting} onClick={handleEditClick}>
-                  Изменить
-                </button>
+                  <div dangerouslySetInnerHTML={{ __html: editedText }}></div>
+                  <Button
+                    variant={'newPrimary'}
+                    type='button'
+                    text={'Изменить'}
+                    onClick={handleEditClick}
+                    className={styles.textField_btnEditText_setting}
+                  />
               </div>
             )}
           </Paper>
-        </div>
-        <div className={styles.wrapper_navBlock}>
-          <span className={styles.wrapper_navBlock_grabBtn} onPointerDown={onPointerDown}>
-            <IconSvg width={11} height={15} className="zIndex: 20" viewBoxSize="0 0 12 18" path={doBlockIconPath} />
-          </span>
-          <div className={styles.wrapper_navBlock_delete} onClick={handleDelete}>
-            {isBlockDeleting ? <SimpleLoader /> : <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />}
-          </div>
         </div>
       </div>
     </Reorder.Item>

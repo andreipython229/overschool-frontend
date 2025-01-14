@@ -39,25 +39,25 @@ import RouteHandler from './components/RouteHandler/RouteHandler'
 import { TechnicalWorks } from 'Pages/TechnicalWorks/TechnicalWorks'
 
 export const App = () => {
-  const currentDomain = window.location.hostname;
+  const currentDomain = window.location.hostname
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
-  let schoolName = window.location.href.split('/')[4];
+  let schoolName = window.location.href.split('/')[4]
   const { pathname } = useLocation()
   const [utmParams, setUtmParams] = useState<{ [key: string]: string }>({})
   const navigate = useNavigate()
-  const [fetchSchoolByDomain, { data: schoolByDomain }] = useLazyFetchSchoolByDomainQuery();
+  const [fetchSchoolByDomain, { data: schoolByDomain }] = useLazyFetchSchoolByDomainQuery()
   if (!schoolName) {
-    schoolName = localStorage.getItem('school') || '';
+    schoolName = localStorage.getItem('school') || ''
   }
 
   useEffect(() => {
-    const email = localStorage.getItem('email');
-    const validEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru'];
+    const email = localStorage.getItem('email')
+    const validEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru']
     if (email && validEmails.includes(email) && schoolName) {
-      navigate(generatePath(`${Path.School}${Path.Courses}`, { school_name: schoolName }));
+      navigate(generatePath(`${Path.School}${Path.Courses}`, { school_name: schoolName }))
     }
-  }, [isLogin]);
+  }, [isLogin])
 
   useEffect(() => {
     if (
@@ -71,7 +71,6 @@ export const App = () => {
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
-
       pathname !== '/access-denied'
     ) {
       if (utmParams.utm_source) {

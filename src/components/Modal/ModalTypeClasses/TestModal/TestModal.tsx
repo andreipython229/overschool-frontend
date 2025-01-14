@@ -7,13 +7,15 @@ import { Button } from '../../../common/Button/Button'
 import { Radio } from '../../../common/Radio/Radio'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { checkboxData } from './config/checkboxData'
-import { modalTestBlockTextPath } from '../config/svgIconsPath'
+import { TestModalIcon } from '../constants/testModalIcon'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { TestModalPropsT } from '../../ModalTypes'
 import { useCreateLesson } from 'customHooks/useCreateLesson'
 import { SimpleLoader } from '../../../Loaders/SimpleLoader'
 
 import styles from '../../Modal.module.scss'
+import { penIconPath } from 'Pages/Settings/Main/iconComponents'
+import { CheckboxBall } from 'components/common/CheckboxBall'
 
 export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLessonIdAndType }) => {
   const formik = useFormik({
@@ -35,6 +37,8 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
     values: { percent, attempts, numOfAttempts },
     handleChange,
   } = formik
+
+  const [isShowCorrect, setIsShowCorrect] = useState<boolean>(formik.values.showCorrect)
 
   const { nameLesson, isLoading, setNameLesson, handleCreateLesson } = useCreateLesson({
     setType,
@@ -61,23 +65,29 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
   }
 
   return (
-    <form onSubmit={handleCreateLesson} className={styles.classesContainer}>
+    <form onSubmit={handleCreateLesson} className={styles.classesContainer} style={{ maxWidth: '600px', width: '100%' }}>
       <div onClick={closedAll} className={styles.classesContainer_closed}>
-        <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
+        <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
       </div>
       <div className={styles.test}>
-        <IconSvg width={47} height={63} viewBoxSize="0 0 47 63" path={modalTestBlockTextPath} />
+        <TestModalIcon width={140} height={140}/>
         <span className={styles.classesContainer_title}>Настройте тест</span>
       </div>
 
-      <div style={{ marginTop: '15px' }} className={styles.usually_input}>
-        <span className={styles.usually_title}>Название теста:</span>
-        <Input placeholder={'Название теста'} name="classesName" onChange={handleCreateTestName} type={'text'} value={nameLesson} />
+      <div className={styles.test_input}>
+        <Input placeholder={'Введите название теста'} name="classesName" onChange={handleCreateTestName} type={'text'} value={nameLesson}>
+          <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+        </Input>
       </div>
-      <div style={{ margin: '15px 0 25px' }} className={styles.usually_input}>
-        <span className={styles.usually_title}>Процент правильных ответов для выполнения:</span>
-        <Input placeholder={'Процент ответов'} name="percent" min={0} onChange={handleChange} type={'number'} value={`${percent}`} />
+
+      <span className={styles.test_title}>Процент правильных ответов для выполнения</span>
+
+      <div style={{ marginBottom: '24px' }} className={styles.test_input}>
+        <Input placeholder={'0'} name="percent" min={0} onChange={handleChange} type={'number'} value={`${percent}`}>
+          <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+        </Input>
       </div>
+
       <div className={styles.test_checkboxPack}>
         {/* <div className={styles.test_checkbox}>
           <Checkbox id={'attempts'} name="numOfAttempts" checked={numOfAttempts} onChange={handleChange} />
@@ -89,22 +99,31 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
           )}
         </div> */}
         {checkboxData.map(({ id, name, span1, span2 }) => (
-          <div key={id} className={styles.test_checkbox}>
-            <Checkbox id={id} name={name} checked={formik.values[name as keyof object]} onChange={handleChange} />
-            <div className={styles.test_checkbox_text}>
-              <span className={formik.values[name as keyof object] ? styles.test_checkbox_text_checked : ''}>{span1}</span>
+          <div key={id}>
+            <div className={styles.test_title}>
+              <span>{span1}</span>
+            </div>
+            <div className={styles.test_checkbox}>
+              <div className={styles.publish_switch_wrapper_switch}>
+                <CheckboxBall isChecked={isShowCorrect} toggleChecked={() => setIsShowCorrect(!isShowCorrect)} />
+              </div>
               <span className={styles.test_checkbox_text_desc}>{span2}</span>
             </div>
           </div>
         ))}
       </div>
 
-      <div className={styles.btnBlock}>
-        <Button onClick={goToBack} text={'Назад'} />
+      <div className={styles.classesContainer_type_btnBlock} style={{marginTop: 0}}>
+        <Button
+            style={{padding: '14px'}}
+            variant={'cancel'}
+            onClick={goToBack}
+            text={'Назад'}
+          />
         <Button
           type={'submit'}
-          text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить занятие'}
-          variant={isLoading ? 'disabled' : 'primary'}
+          text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить задание'}
+          variant={isLoading ? 'inActive' : 'newPrimary'}
           disabled={isLoading}
         />
       </div>

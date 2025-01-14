@@ -1,55 +1,133 @@
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
 
-.wrapper_actions {
+.main {
+  width: 100%;
+  top: 701px;
+  left: 280px;
+  gap: 20px;
+
+  &_payment {
+    width: 100%;
+    font-family: 'SFPRORegular';
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28.64px;
+    color: #332f36;
+  }
+}
+.wrapper {
+  width: 100%;
+  border-radius: 20px;
   background-color: #ffffff;
-  padding: 26px 32px 24px 32px;
-  box-shadow: 0 0 8px #d9d9d9;
-  border-radius: 8px;
-  overflow-x: auto;
+  padding: 26px 34px 24px 34px;
+  box-shadow: 0 0 18px #3241954d;
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding: 4% 3% 4% 3%;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding: 4% 3% 4% 3%;
   }
+}
+.actions {
+  width: 100%;
+  gap: 24px;
+}
+.block {
+  width: 704.83px;
+  height: 54px;
+  gap: 24px;
+  display: flex;
+}
 
-  .selectContainer {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 1px;
-    display: inline-block;
-    margin-left: 10px;
-    width: 150px;
-    font-size: 15px;
-    position: relative;
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      margin-top: 3%;
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      margin-top: 3%;
-    }
+.menuButton {
+  border: 2px solid #357eeb;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  width: 290px;
+  height: 54px;
+  font-size: 15px;
+  position: relative;
+  justify-content: space-between;
+  color: #357eeb;
+  font-family: 'SF Pro Display';
+  font-size: 20px;
+  line-height: 23.87px;
+  font-weight: 500;
+  background-color: white;
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    margin-top: 3%;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    margin-top: 3%;
   }
 
-  select {
-    width: 100%;
-    padding: 8px;
-    color: #666;
-    border: none;
-    border-radius: 8px;
-    background-color: transparent;
-    outline: none;
+  img {
+    margin-left: 140px;
+    margin-top: 9px;
   }
 }
 
+.dropdown {
+  position: inline-block;
+}
+
+/* Выпадающее содержимое (скрыто по умолчанию) */
+.dropdownContentMenu {
+  display: none;
+  position: absolute;
+  width: 193px;
+  height: 192px;
+  margin-left: 142px;
+  box-shadow: 0px 0px 8px 0px #3241954d;
+  border-radius: 24px;
+  margin-top: 3px;
+  padding: 24px 34px 24px 34px;
+  gap: 36px;
+  background-color: white;
+}
+
+.dropdownContentMenu button {
+  width: 105px;
+  display: flex;
+  margin-bottom: 36px;
+  margin-left: 15px;
+  font-family: 'SF Pro Display';
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23.87px;
+  color: #808080;
+  background-color: white;
+  border: none;
+}
+
 .generateLinkButton {
-  font-size: 15px;
-  cursor: pointer;
-  margin-left: 1%;
+  width: 290px;
+  height: 54px;
+  border-radius: 10px;
+  padding: 16px 40px 16px 40px;
+  gap: 10px;
+  background-color: #357eeb;
+  color: #ffffff;
+  font-family: 'SF Pro Display';
+  font-size: 20px;
+  line-height: 23.87px;
+  font-weight: 500;
+  position: relative;
+  justify: space-between;
+  border: none;
+
+  &:hover {
+    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
+  }
 }
 
 .notificationContainer {
   width: 220px;
   height: 40px;
-  background-color: #BA75FF;
+  background-color: #ba75ff;
   color: white;
   position: fixed;
   padding: 11px;
@@ -157,7 +235,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  font-size: 20px;
-  color: slategrey;
+  height: 75%;
+  color: #332f36;
+  width: 230px;
+  font-family: 'SF Pro Display';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19.09px;
+  align: center;
 }

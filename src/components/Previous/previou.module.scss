@@ -35,8 +35,9 @@
 
   &_avatar {
     @include position_t_l(absolute, 10px, 10px);
-    border: 1px solid #ffffff;
-    background: #d9d9d9;
+    // border: 1px solid #ffffff;
+    background: transparent;
+    object-fit: cover;
     border-radius: 7px;
     box-sizing: border-box;
     margin-right: 16px;
@@ -242,6 +243,7 @@
   width: 30%;
   display: flex;
   flex-direction: column;
+  z-index: 3;
   color: #ffffff;
   background: rgba(0, 0, 0, 0.3);
   text-align: center;

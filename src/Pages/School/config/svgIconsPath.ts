@@ -5,6 +5,9 @@ import {
   settingsIcon,
   studentScatterIcon,
   studentScatterIco,
+  ArrowDownIcon,
+  ArrowRightIcon,
+  DoBlockIcon,
 } from '../constants/svgIcons'
 import { pathT } from '../../../types/commonComponentsTypes'
 
@@ -38,4 +41,55 @@ export const createGroupIconPath = [
 
 export const showAllGroups: pathT[] = [
   { d: 'M1.25 1.15625L7.5 7.40625L13.75 1.15625', stroke: '#9CA3AF', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+]
+
+export const DoBlockIconPath: pathT[] = [
+  {
+    d: DoBlockIcon.d1,
+    fill: '#808080',
+    fillRule: 'evenodd',
+    clipRule: 'evenodd',
+  },
+  {
+    d: DoBlockIcon.d2,
+    fill: '#808080',
+    fillRule: 'evenodd',
+    clipRule: 'evenodd',
+  },
+]
+
+export const DoBlockHoverIconPath: pathT[] = [
+  {
+    d: DoBlockIcon.d1,
+    fill: '#FFFFFF',
+    fillRule: 'evenodd',
+    clipRule: 'evenodd',
+  },
+  {
+    d: DoBlockIcon.d2,
+    fill: '#808080',
+    fillRule: 'evenodd',
+    clipRule: 'evenodd',
+  },
+]
+
+export const ArrowRightIconPath = [
+  {
+    d: ArrowRightIcon.d1,
+    fill: '#A5A5A5',
+  },
+]
+
+export const ArrowDownIconPath = [
+  {
+    d: ArrowDownIcon.d1,
+    fill: '#ffffff',
+  },
+]
+
+export const ArrowDownGreyIconPath = [
+  {
+    d: ArrowDownIcon.d1,
+    fill: '#808080',
+  },
 ]

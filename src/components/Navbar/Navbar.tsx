@@ -28,6 +28,7 @@ import { RoleE } from 'enum/roleE'
 import { MarkEmailUnreadRounded, SetMealSharp } from '@mui/icons-material'
 
 import { coursesNavPath } from '../Navbar/config/svgIconPath'
+import { GiftIconPath } from 'assets/Icons/svgIconPath'
 
 interface IIsActive {
   isActive?: boolean
@@ -101,16 +102,8 @@ export const Navbar: FC = memo(() => {
             <div className={styles.navbar_show_btn_round_line}></div>
           </div>
         </div>
-
-        <NavLink key={'Курсы'} to={Path.Courses} className={styles.navbar_menu}>
-          <div>
-            <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
-          </div>
-          <p>Главная</p>
-        </NavLink>
-
-        {/* {UserRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
-          <div style={{ marginTop: '35px' }}>
+        {UserRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
+          <div style={{ marginTop: 'auto' }}>
             <a key={'bonus'} href={studentBonus.link}>
               {studentBonus.logo ? (
                 <div className={styles.navbar_menu} style={{ textAlign: 'center', padding: '0.40em' }}>
@@ -126,20 +119,21 @@ export const Navbar: FC = memo(() => {
               </div>
             </a>
           </div>
-        ) : (
-          <></>
-        )} */}
+        ) : null}
+        <NavLink key={'Курсы'} to={Path.Courses} className={styles.navbar_menu}>
+          <div>
+            <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
+          </div>
+          <p>Главная</p>
+        </NavLink>
         <div className={styles.navbar_setting_account}>
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
               <NavLink key={index} to={path} className={styles.navbar_setting_account_icon_container}>
-                <div>
-                  {icon}
-                </div>
+                <div>{icon}</div>
                 <p>{getPathLabel(path as Path)}</p>
               </NavLink>
             ) : (
-
               <a className={styles.chatIcon_container} key={index + '_' + path} onClick={off}>
                 <div className={styles.chatIcon}>
                   {/* className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`}  */}
@@ -165,11 +159,19 @@ export const Navbar: FC = memo(() => {
               UserRole === RoleE.Admin ? 'https://t.me/course_hb' : contactLink && contactLink.length > 0 ? contactLink : 'https://t.me/course_hb'
             }
           >
-            <a>
+            <span>
               <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={tgNavPath} />
-            </a>
+            </span>
             <p>Тех поддержка</p>
           </a>
+          {(UserRole === RoleE.Student || UserRole === RoleE.Teacher) && (
+            <NavLink to={Path.Courses + Path.Bonus} className={styles.navbar_setting_account_icon_container}>
+              <div>
+                <IconSvg width={38} height={41} viewBoxSize={'0 0 38 41'} path={GiftIconPath} />
+              </div>
+              <p>Бонусы</p>
+            </NavLink>
+          )}
         </div>
       </motion.nav>
       {isChatOpen && (
