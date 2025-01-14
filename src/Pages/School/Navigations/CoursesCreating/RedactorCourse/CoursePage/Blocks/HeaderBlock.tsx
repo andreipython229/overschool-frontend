@@ -72,7 +72,6 @@ export const HeaderBlock:FC<HeaderBlockT> = ({openModal}) => {
 
   const handleChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setDescriptionValue(event.target.value)
-    console.log(event.target.value)
 
     dispatch(changeBlocks({
       ...landing,
