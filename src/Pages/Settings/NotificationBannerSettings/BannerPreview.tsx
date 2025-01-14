@@ -21,7 +21,7 @@ import { BannerStatistics } from 'components/BannerStatistics'
 
 import { NewTextEditor } from 'components/AddTextEditor/NewTextEditor'
 import { SelectInput } from '../../../components/common/SelectInput/SelectInput'
-import { BannerCources } from 'components/Modal/BannerCources/BannerCources'
+import { BannerGroups } from 'components/Modal/BannerGroups/BannerGroups'
 import { Portal } from 'components/Modal/Portal'
 import { penIconPath } from "../Main/iconComponents"
 
@@ -203,7 +203,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
 
                   {showGroupsModal && (
                     <Portal closeModal={closeGroups}>
-                      <BannerCources refetch={refetch} schoolName={schoolName} setShowModal={setShow} groups={groups} banner={banner} />
+                      <BannerGroups refetch={refetch} schoolName={schoolName} setShowModal={setShow} groups={groups} banner={banner} />
                     </Portal>
                   )}
 

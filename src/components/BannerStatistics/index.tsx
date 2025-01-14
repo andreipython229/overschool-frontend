@@ -35,10 +35,8 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
 
     useEffect(() => {
         if (bannerStats) {
-            
             setAllClicksData(statProcessing(bannerStats.click_details, false))
             setUniqueClicksData(statProcessing(bannerStats.click_details, true))
-            // setAllClicksData(bannerStats?.click_details); 
         }
     }, [bannerStats, isLoading, error]);
 
