@@ -72,6 +72,7 @@ export const HeaderBlock:FC<HeaderBlockT> = ({openModal}) => {
 
   const handleChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setDescriptionValue(event.target.value)
+    console.log(event.target.value)
 
     dispatch(changeBlocks({
       ...landing,
@@ -113,7 +114,7 @@ export const HeaderBlock:FC<HeaderBlockT> = ({openModal}) => {
         />
       </div>
       <div className={styles.previous_buttonAccept}>
-        <Button variant="primary" onClick={openModal} text="Оставить заявку"/>
+        <Button variant="newPrimary" onClick={openModal} text="Оставить заявку"/>
       </div>
     </div>
   );

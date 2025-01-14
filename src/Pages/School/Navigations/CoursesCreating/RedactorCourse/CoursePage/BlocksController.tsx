@@ -6,7 +6,9 @@ import { TrainingProgram } from "./Blocks/TrainingProgram";
 import { AudienceBlock } from "./Blocks/AudienceBlock";
 import { PurposeOfTrainingBlock } from "./Blocks/PurposeOfTrainingBlock"
 import styles from "./styles/blocksController.module.scss"
-import { KeyboardArrowDown, KeyboardArrowUp, Visibility, VisibilityOff } from "@mui/icons-material";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { blocksNamesE } from "./enum/blocksNamesE";
 import {useAppDispatch, useAppSelector} from "store/hooks";
 import { changeBlocks, rollBackBlocks, removeFiles } from 'store/redux/landing/constructorSlice';
@@ -164,10 +166,10 @@ useEffect(() => {
   return (
     <div className={styles.blocksController}>
       <div className={styles.blocksController_controls}>
-        <Button variant="secondary"
+        <Button variant="newSecondary"
                 onClick={resetBlocks}
                 text="По умолчанию"/>
-        <Button variant="primary"
+        <Button variant="newPrimary"
                 onClick={sendlandingInfo}
                 text="Сохранить изменения"/>
       </div>
@@ -180,7 +182,7 @@ useEffect(() => {
               {getBlock(block.content)}
               <div className={styles.blocksController_wrapper_block_buttonPanel}>
                 {!block.onlyShow && <button onClick={() => setBlockVisibility(block.id, false)}>
-                    <VisibilityOff fontSize="large"/>
+                    <VisibilityOffOutlinedIcon fontSize="large"/>
                 </button>}
                 {block.canUp && <button onClick={() => moveUp(block.id)}>
                     <KeyboardArrowUp fontSize="large"/>
@@ -195,7 +197,7 @@ useEffect(() => {
         ) : (
           <div key={block.id} className={styles.blocksController_emptySpace}>
             <button onClick={() => setBlockVisibility(block.id, true)}>
-              <Visibility fontSize="large"/>
+              <VisibilityOutlinedIcon fontSize="large"/>
             </button>
           </div>
         )
