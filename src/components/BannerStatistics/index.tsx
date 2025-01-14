@@ -58,7 +58,7 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
         const end_date = formatDate(now);
         switch (timeRange) {
             case '24h':
-                start_date = new Date(now.getTime() - 365 * 2 * 24 * 60 * 60 * 1000);
+                start_date = new Date(now.getTime() - 24 * 60 * 60 * 1000);
                 break;
             case 'week':
                 start_date = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
