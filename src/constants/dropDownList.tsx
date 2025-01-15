@@ -1,7 +1,17 @@
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { burgerdHwPath, acceptedHwPath, autoCheckHwPath, underRevisionHwPath, rejectedHwPath, waitingdHwPath } from '../config/commonSvgIconsPath'
+import { burgerdHwPath, acceptedHwPath, rejectedHwPath, waitingdHwPath } from '../config/commonSvgIconsPath'
 
-export const initialDropDownList = [
+export interface IDropDownListItem {
+  id: number
+  icon: JSX.Element
+  title: string
+  bg: string
+  arrow: string
+  arrow_fill: string
+  variant: 'newPrimary' | 'newSecondary' | 'newDelete' | 'newDisabled'
+}
+
+export const initialDropDownList: IDropDownListItem[] = [
   {
     id: 1,
     icon: <IconSvg width={15} height={13} viewBoxSize="0 0 15 15" path={burgerdHwPath} />,
@@ -9,6 +19,7 @@ export const initialDropDownList = [
     bg: 'bg_color_hamburger',
     arrow: 'arrow_humburger',
     arrow_fill: '#9A9A9A',
+    variant: 'newSecondary',
   },
 
   {
@@ -18,6 +29,7 @@ export const initialDropDownList = [
     bg: 'bg_color_accepted',
     arrow: 'arrow_accepted',
     arrow_fill: '#4bc3af',
+    variant: 'newPrimary',
   },
   // {
   //   id: 3,
@@ -42,6 +54,7 @@ export const initialDropDownList = [
     bg: 'bg_color_rejected',
     arrow: 'arrow_rejected',
     arrow_fill: '#ef4444',
+    variant: 'newDelete',
   },
   {
     id: 6,
@@ -50,6 +63,7 @@ export const initialDropDownList = [
     bg: 'bg_color_waiting',
     arrow: 'arrow_waiting',
     arrow_fill: '#6b7280',
+    variant: 'newDisabled',
   },
 ]
 
@@ -73,11 +87,12 @@ export const checkHomeworkStatusFilters = [
 ]
 
 export const dropDownListFilterHomework = [
-  { id: 7, title: 'курсы' },
-  { id: 8, title: 'группы' },
-  { id: 9, title: 'задание' },
-  { id: 10, title: 'последний ответ' },
-  { id: 11, title: 'баллы' },
+  // { id: 7, title: 'курсы' },
+  // { id: 8, title: 'группы' },
+  // { id: 9, title: 'задание' },
+  // { id: 10, title: 'последний ответ' },
+  { id: 11, title: 'По баллам' },
+  { id: 5, title: 'По статусу' },
 ]
 
 export const dropDownListFilterStudents = [
@@ -107,8 +122,3 @@ export const dropDownListFilterStudentsGroups = [
   { id: 16, title: 'Средний балл' },
   { id: 15, title: 'Последняя активность' },
 ]
-
-
-
-
-

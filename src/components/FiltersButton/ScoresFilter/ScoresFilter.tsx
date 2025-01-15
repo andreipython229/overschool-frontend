@@ -37,10 +37,10 @@ export const ScoresFilter: FC<ScoresFilterT> = ({ title, addMarkFilter, endMark,
     <div className={styles.scores_container}>
       <h5>{title}</h5>
       <div className={styles.input_container}>
-        <Input name="start" type="number" value={scoresStart} onChange={handleInputScores} min={0} max={10} placeholder="От"/>
-          <Input name="end" type="number" value={scoresEnd} onChange={handleInputScores} min={1} max={10} className={styles.input} placeholder="До"/>
+        <Input name="start" type="number" value={scoresStart} onChange={handleInputScores} min={0} max={10} placeholder="От" />
+        <Input name="end" type="number" value={scoresEnd} onChange={handleInputScores} min={1} max={10} className={styles.input} placeholder="До" />
       </div>
-      <Button className={styles.scores_btn} variant={isBtnDisabled ? 'disabled' : 'primary'} text="Применить" onClick={handleAddFilters} />
+      <Button className={styles.scores_btn} variant={isBtnDisabled ? 'disabled' : 'newSecondary'} text="Применить" onClick={handleAddFilters} />
     </div>
   )
 }

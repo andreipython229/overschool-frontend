@@ -9,7 +9,7 @@
   padding: 19px 20px;
   border-radius: 32px;
   backdrop-filter: blur(14px);
-  background: rgba(207, 226, 255, 0.7);
+  background: #cfe2ff;
 
   h5 {
     @include font(500, 14px, 19px);
@@ -24,7 +24,7 @@
     height: 40px;
     color: rgb(53, 126, 235);
     box-sizing: border-box;
-    background: rgba(207, 226, 255, 0.7);
+    background: #cfe2ff;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -36,12 +36,11 @@
     border-radius: 10px;
   }
 
-  button:hover,
-   {
+  button:hover {
     outline: none;
-    background: rgba(207, 226, 255, 0.7);
+    background: #cfe2ff;
     color: rgb(53, 126, 235);
-    }
+  }
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 70vw;

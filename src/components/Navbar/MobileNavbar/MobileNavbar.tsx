@@ -140,10 +140,10 @@ export const MobileNavbar: FC = memo(() => {
                   <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
                     {Number(unRead) > 0 ? (
                       <Badge badgeContent={unRead} color="error">
-                        <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath} />
+                        <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
                       </Badge>
                     ) : (
-                      <IconSvg width={38} height={34} viewBoxSize="0 0 28 24" path={chatIconPath} />
+                      <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
                     )}
                   </div>
                 </Tooltip>

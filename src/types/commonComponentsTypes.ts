@@ -41,6 +41,8 @@ export type SuperButtonPropsT = DefaultButtonPropsType & {
     | 'newMobile'
     | 'inActive'
     | 'cancel'
+    | 'newDisabled'
+    | 'newDelete'
 }
 
 export type CheckboxPropsT = {
