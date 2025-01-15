@@ -19,8 +19,9 @@
     }
 
     &_btnWrapper {
-      @include display(flex, row, space-around, center);
-      margin-top: 26px;
+      @include display(flex, row, center, center);
+      margin-top: 15px;
+      gap: 15px;
     }
   }
 }
@@ -32,7 +33,7 @@
 }
 
 .settings_list {
-  @include display(flex, column, center);
-  padding: 0px 10px 0 10px;
+  @include display(flex, column, center, center);
   text-align: center;
+  gap: 20px;
 }

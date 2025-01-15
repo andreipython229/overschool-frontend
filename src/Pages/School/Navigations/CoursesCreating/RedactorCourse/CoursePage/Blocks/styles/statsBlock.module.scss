@@ -1,19 +1,23 @@
 @import 'scss/mixin.scss';
 @import 'scss/variable.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 .courseStats {
   position: relative;
-  width: 831px;
-  height: 125px;
-  // margin: -20px auto 0;
+  max-width: 826px;
+  width: 100%;
   margin-top: -20px;
   z-index: 10;
   border-radius: 30px;
-  box-shadow: 0 2px 8px rgb(147, 147, 147);
   background-color: #ffffff;
-  @include display(flex, row, center, center);
-  gap: 5rem;
-  padding: 2rem;
+  box-shadow: 2px 2px 7px 0px #357EEB73;
+  backdrop-filter: blur(12.5px);
+  @include display(flex, row, space-between, center);
+  padding: 1.25rem;
 
   @media screen and (min-width: 375px) and (max-width: 480px) {
     flex-direction: column;
@@ -27,18 +31,28 @@
   &_stat {
     @include display(flex, column, center, center);
     @include font(700, 22px);
-    color: #ba75ff;
+    color: $color-blue;
 
     &_all {
       @include display(flex, row, center, center);
       @include font(700, 22px);
-      color: #ba75ff;
+      color: $color-blue;
+
+      svg {
+        height: 38px;
+        width: 48px;
+      }
 
       &_text {
         @include display(flex, column, center, center);
-        @include font(700, 22px);
-        color: #ba75ff;
-        padding-left: 10px;
+        @include font(500, 36px, 42.96px);
+        font-family: 'SFPRORegular';
+        color: #000000;
+        padding-left: 12px;
+
+        @media screen and (min-width: 320px) and (max-width: 1450px) {
+          @include font(500, 30px, 35.96px);
+        }
       }
     }
 

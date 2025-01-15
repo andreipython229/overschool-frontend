@@ -1,30 +1,28 @@
 import styles from './optionsWithPictures.module.scss'
-import { Question } from '../Question'
 import { AnswerOption } from '../AnswerOption'
 import { QuestionHeader } from '../QuestionHeader'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { addPictureIconPath } from '../config/svgIconPath'
 import { InputBlock } from 'components/common/Input/InputBlock'
-import { FC, MouseEvent, PointerEvent, useEffect, useState, useCallback, ChangeEvent } from 'react'
+import { FC, MouseEvent, PointerEvent, useEffect, useState, useCallback } from 'react'
 import { PropsQuestionBlockT } from '../../AddQuestion'
-import { useBoolean } from '../../../customHooks'
-import { useAddAnswerMutation } from '../../../api/questionsAndAnswersService'
+import { useAddAnswerMutation, useRemoveQuestionsMutation } from '../../../api/questionsAndAnswersService'
 import { useDragControls } from 'framer-motion'
 import { Button } from '../../common/Button/Button'
 import { orderBy } from 'lodash'
 import { useDebounceFunc } from 'customHooks/useDebounceFunc'
 import { usePatchAnswerMutation } from 'api/questionsAndAnswersService'
+import { picturesOptionsIconPath } from 'components/AddQuestion/config/svgIconPath'
 
-export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, answers, id, testId }) => {
-  const [isOpen, { onToggle }] = useBoolean()
+export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, answers, id, testId, questions, multiple_answer }) => {
   const [answersToRender, setAnswersToRender] = useState(answers || [])
   const schoolName = window.location.href.split('/')[4]
   const [answersImages, setAnswersImages] = useState<{ [key: number]: File | null }>({})
-  const isAddButtonVisible = answersToRender.length < 4
+  // const isAddButtonVisible = answersToRender.length < 4
   const [fileError, setFileError] = useState<string>('')
   const [addAnswer] = useAddAnswerMutation()
   const [patchAnswer] = usePatchAnswerMutation()
   const debounced = useDebounceFunc(patchAnswer, 1000)
+  const [deleteQuestion] = useRemoveQuestionsMutation()
 
   const controls = useDragControls()
 
@@ -89,24 +87,26 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
     setAnswersToRender(answers || [])
   }, [answers])
 
+  const handleGetTypeQuestion = async () => {
+    await deleteQuestion({ id: Number(id), schoolName })
+  }
+
   return (
     <div className={styles.wrapper}>
-      <QuestionHeader title={title} id={id} isOpen={isOpen} onToggle={onToggle} testId={testId}>
-        <div className={styles.wrapper_header_iconWrapper}>
-          <div className={styles.wrapper_header_iconWrapper_iconColumn}>
-            <span />
-          </div>
-          <div className={styles.wrapper_header_iconWrapper_iconColumn}>
-            <span />
-          </div>
+      <Button
+        onClick={handleGetTypeQuestion}
+        variant={'cancel'}
+        text={'Удалить'}
+        style={{ fontSize: '16px', padding: '6px 21px', position: 'absolute', top: '20px', right: '20px' }}
+      />
+      <h2 className={styles.wrapper_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
+      <div className={styles.wrapper_drop_down_menu}>
+        <h2 className={styles.wrapper_drop_down_menu_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
+        <div style={{width: '100%', maxWidth: '485px', alignSelf: 'center'}}>
+          <QuestionHeader title={title} id={id} testId={testId} questions={questions} question={question} multiple_answer={multiple_answer}/>
         </div>
-      </QuestionHeader>
 
-      {isOpen && (
         <div className={styles.wrapper_optionsContent}>
-          <div style={{ alignItems: 'center', marginLeft: '6%', width: '80%' }}>
-            <Question id={id} title={title} testId={testId} />
-          </div>
           <div className={styles.settings_list}>
             {fileError && <p className={styles.wrapper_answer_error}>{fileError}</p>}
             {answersToRender
@@ -114,30 +114,30 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
                   <div key={`${answer.body}_${index}`} className={styles.answerOptionContainer}>
                     {answer.picture && (
                       <>
-                        <div style={{ marginBottom: '-25px', marginTop: '10px', marginLeft: '33%' }}>
+                        <div style={{marginBottom: '10px'}}>
                           <img
                             src={answer.picture}
                             alt="Selected Image"
-                            width={300}
-                            height={275}
-                            style={{ borderRadius: '10px', display: 'block' }}
+                            width={180}
+                            height={82}
+                            style={{ borderRadius: '16px', display: 'block' }}
                           />
                         </div>
-                        <AnswerOption id={id} answer={answer}>
-                          <div className={styles.wrapper_addPicturesBlock} style={{ opacity: 0 }}>
+                        <AnswerOption id={id} answer={answer} question={question} multiple_answer={multiple_answer || false}>
+                          <div className={styles.wrapper_addPicturesBlock} style={{ display: 'none' }}>
                             <InputBlock
                               name={''}
                               type={'file'}
                               value={''}
                               onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeAnswer(e, answer.answer_id)}
                             />
-                            <IconSvg width={25} height={22} viewBoxSize="0 0 25 22" path={addPictureIconPath} />
+                            <IconSvg className={styles.fillColorBlue} width={24} height={24} viewBoxSize="0 0 24 24" path={picturesOptionsIconPath} />
                           </div>
                         </AnswerOption>
                       </>
                     )}
                     {!answer.picture && (
-                      <AnswerOption id={id} answer={answer}>
+                      <AnswerOption id={id} answer={answer} multiple_answer={multiple_answer || false} question={question}>
                         <div className={styles.wrapper_addPicturesBlock}>
                           <InputBlock
                             name={''}
@@ -145,7 +145,10 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
                             value={''}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeAnswer(e, answer.answer_id)}
                           />
-                          <IconSvg width={25} height={22} viewBoxSize="0 0 25 22" path={addPictureIconPath} />
+                          <div style={{flexDirection: 'column', margin: '0 auto'}}>
+                            <IconSvg className={styles.fillColorBlue} width={24} height={24} viewBoxSize="0 0 24 24" path={picturesOptionsIconPath} />
+                            <h5 className={styles.upload_title}>Загрузите изображение</h5>
+                          </div>
                         </div>
                       </AnswerOption>
                     )}
@@ -153,16 +156,16 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
                 ))
               : ''}
           </div>
-          {isAddButtonVisible && (
+          {/* {isAddButtonVisible && ( */}
             <Button
               text={'+ Добавить вариант'}
-              style={{ marginTop: '26px', marginLeft: '38%', display: 'block' }}
-              variant={'primary'}
+              style={{ lineHeight: '16.71px', fontWeight: '600', fontSize: '14px', marginTop: '10px' }}
+              variant={'newPrimary'}
               onClick={handleAddAnswer}
             />
-          )}
+          {/* )} */}
         </div>
-      )}
+      </div>
     </div>
   )
 }

@@ -3,14 +3,15 @@
 
 .loaderBox {
   display: flex;
-  justifyContent: center;
-  alignItems: center;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
 }
 
 .blocksController {
-  width: 1040px;
+  max-width: 1360px;
+  width: 100%;
   padding: 2rem 0 2rem 0;
   margin-top: -20px;
 
@@ -32,14 +33,13 @@
   }
 
   &_wrapper {
-    min-height: 50px;
     width: 100%;
-    display: flex;
-    justify-content: center;
     position: relative; // Добавлено для корректного позиционирования _buttonPanel
 
     &_block {
       position: relative;
+      display: flex;
+      justify-content: center;
 
       &_buttonPanel {
         position: absolute;
@@ -50,16 +50,21 @@
         opacity: 0;
         transition: visibility 0s, opacity 0.3s ease-in-out;
 
+        svg {
+          height: 40px;
+          width: 40px;
+        }
+
         button {
           border: none;
           background: none;
-          color: #ba75ff;
+          color: $color-blue;
           border-radius: 5px;
           padding: 5px;
         }
 
         button:hover {
-          color: #7730BD;
+          color: $color-blue;
           background: rgba(1, 1, 1, 0.15);
         }
       }

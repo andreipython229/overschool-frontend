@@ -3,6 +3,8 @@ import { AddQuestionOptionsT } from '../index'
 import { useCreateQuestionsMutation } from 'api/questionsAndAnswersService'
 
 import styles from './addTextOptions.module.scss'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { textOptionsIconPath } from '../config/svgIconPath'
 
 export const AddTextOptions: FC<AddQuestionOptionsT> = ({ setTypeQuestions, setQuestions, questions, testId }) => {
   const [createOption, { data }] = useCreateQuestionsMutation()
@@ -29,18 +31,8 @@ export const AddTextOptions: FC<AddQuestionOptionsT> = ({ setTypeQuestions, setQ
 
   return (
     <button onClick={handleGetTypeQuestion} className={styles.wrapper}>
-      <div className={styles.wrapper_iconWrapper}>
-        <div className={styles.wrapper_iconWrapper_iconRow}>
-          <span />
-        </div>
-        <div className={styles.wrapper_iconWrapper_iconRow}>
-          <span />
-        </div>
-        <div className={styles.wrapper_iconWrapper_iconRow}>
-          <span />
-        </div>
-      </div>
-      <h4 className={styles.wrapper_title}>Добавить вопрос</h4>
+      <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={textOptionsIconPath} />
+      <h4 className={styles.wrapper_title}>Вопрос с текстом</h4>
     </button>
   )
 }
