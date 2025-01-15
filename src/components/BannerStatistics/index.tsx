@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
-import Chart, { ChartData } from 'chart.js/auto';
+import Chart, { ChartData, Legend } from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { color, pointRadial, tickStep } from 'd3';
 import { size } from 'lodash';
-import { layouts } from 'chart.js/dist';
+import { layouts, plugins } from 'chart.js/dist';
 import { Height, Padding } from '@mui/icons-material';
 import SelectInput from '../common/SelectInput/SelectInput';
 import { useFetchBannerStatQuery } from 'api/courseStat'
@@ -73,7 +73,7 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
         let result: number[];
 
         if (timeRange === '24h') {
-            result = Array(8).fill(0); 
+            result = Array(8).fill(0);
         } else if (timeRange === 'week') {
             result = Array(7).fill(0);
         } else if (timeRange === 'year') {
@@ -81,7 +81,7 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
         } else {
             throw new Error('Invalid timerange');
         }
-    
+
         const uniqueEmails = new Set<string>();
 
         clicks.forEach(click => {
@@ -90,7 +90,7 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
 
             if (unique) {
                 if (!uniqueEmails.has(email)) {
-                    uniqueEmails.add(email); 
+                    uniqueEmails.add(email);
                 } else {
                     return;
                 }
@@ -99,13 +99,13 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
             if (timeRange === '24h') {
                 const hour = date.getUTCHours();
                 const intervalIndex = Math.floor(hour / 3);
-                result[intervalIndex] += 1; 
+                result[intervalIndex] += 1;
             } else if (timeRange === 'week') {
-                const day = date.getUTCDay(); 
-                result[day] += 1; 
+                const day = date.getUTCDay();
+                result[day] += 1;
             } else if (timeRange === 'year') {
                 const month = date.getUTCMonth();
-                result[month] += 1; 
+                result[month] += 1;
             }
         });
         return result;
@@ -147,6 +147,18 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
             },
         ],
     };
+
+    const legendMargin = {
+        id: 'legendMargin',
+        beforeInit(chart: any, legend: any, options: any) {
+            const fitValue = chart.legend.fit;
+            console.log(fitValue)
+            chart.legend.fit = function fit() {
+                fitValue.bind(chart.legend)();
+                return this.height += 50;
+            }
+        }
+    }
 
     const options = {
         scales: {
@@ -190,6 +202,7 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
             },
 
         },
+
         layout: {
             padding: {
                 top: 20,
@@ -206,9 +219,7 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
                 }
             },
             legend: {
-                // display: false,
                 position: 'top' as const,
-                // align: 'end',
                 labels: {
                     usePointStyle: true,
                     borderRadius: 12,
@@ -220,22 +231,6 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
                         weight: 500,
                     }
                 },
-
-
-
-
-                // labels: {
-                //     generateLabels: (chart) => {
-                //         const data = chart.data as { datasets: Array<{ label: string; backgroundColor: string }> };
-                //         return data.datasets.map((dataset, i) => ({
-                //             text: dataset.label,
-                //             fillStyle: dataset.backgroundColor,
-                //             hidden: !chart.isDatasetVisible(i),
-                //             index: i,
-                //             lineCap: 'round',
-                //         }));
-                //     },
-                // },
             },
             datalabels: {
                 anchor: 'end',
@@ -254,11 +249,13 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
                     return value.toString();
                 },
             },
+
         },
         title: {
             display: true,
             text: `Данные за ${timeRange === '24h' ? '24 часа' : timeRange === 'week' ? 'неделю' : 'год'}`,
         },
+
     } as const;
 
     return (
@@ -272,17 +269,13 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
                     setSelectedValue={handleTimeRangeChange}
                     className={styles.selectInput}
                 />
-                {/* <select value={timeRange} onChange={handleTimeRangeChange}>
-                    <option value="24h">24 часа</option>
-                    <option value="week">Неделя</option>
-                    <option value="year">Год</option>
-                </select> */}
             </div>
             <div className={styles.clicks_counter_container}>
                 <p className={styles.clicks_counter_header}>Всего кликов</p>
-                {/* <p className={styles.clicks_counter}>{bannerStats?.unique_clicks}</p> maybe undefined */}
+                <p className={styles.clicks_counter}>{bannerStats?.unique_clicks}</p>
             </div>
-            <Bar data={chartData} options={options} />
+            <Bar data={chartData} options={options} plugins={[legendMargin]} />
+            
         </div >
     );
 };
