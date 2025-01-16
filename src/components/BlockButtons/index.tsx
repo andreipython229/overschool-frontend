@@ -10,6 +10,8 @@ import { useCreateButtonsMutation, useDeleteBlockMutation } from 'api/blocksServ
 import { deletePath } from 'config/commonSvgIconsPath'
 import { AddBox } from '@mui/icons-material'
 import { ButtonRedactor } from 'components/ButtonRedactor'
+import { Button } from 'components/common/Button/Button'
+import { DoBlockIconPath } from 'Pages/School/config/svgIconsPath'
 
 export interface IBlockButtonsProps {
   block: BlockT
@@ -87,27 +89,32 @@ export const BlockButtons: FC<IBlockButtonsProps> = ({ block, lessonBlocks, setL
       key={block.id}
     >
       <div className={styles.wrapper}>
+        <div className={styles.wrapper_navBlock}>
+          <span className={styles.wrapper_navBlock_grabBtn} onPointerDown={onPointerDown}>
+            <IconSvg width={24} height={24} viewBoxSize={'0 0 24 24'} path={DoBlockIconPath} />
+          </span>
+          <Button
+            variant="cancel"
+            className={styles.wrapper_navBlock_delete}
+            text={isBlockDeleting ? <SimpleLoader /> : 'Удалить'}
+            onClick={handleDelete}
+          />
+        </div>
         <div className={styles.wrapper_redactorField}>
-          <Paper elevation={3} className={styles.wrapper_redactorField_paper} sx={{ borderRadius: '8px' }}>
+          <Paper className={styles.wrapper_redactorField_paper} sx={{ borderRadius: '8px', boxShadow: 'none', padding: '1rem 0' }}>
             <span className={styles.wrapper_redactorField_paper_title}>Блок ссылок:</span>
             {blockData?.map((button, index) => (
               <ButtonRedactor key={index} button={button} block={block} lessonBlocks={lessonBlocks} setLessonBlocks={setLessonBlocks} />
             ))}
             {(!blockData || blockData?.length < 4) && (
-              <div className={styles.createButton} style={{}} onClick={handleCreateButton}>
-                {isButtonCreating ? <SimpleLoader style={{ height: '15px', width: '15px' }} /> : <AddBox sx={{ color: '#BA75FF' }} />}
-                <p>добавить новую кнопку</p>
-              </div>
+              <Button
+                variant="newPrimary"
+                className={styles.createButton}
+                text={isButtonCreating ? <SimpleLoader style={{ height: '15px', width: '15px' }} loaderColor="#fff" /> : 'Добавить новую ссылку'}
+                onClick={handleCreateButton}
+              />
             )}
           </Paper>
-        </div>
-        <div className={styles.wrapper_navBlock}>
-          <span className={styles.wrapper_navBlock_grabBtn} onPointerDown={onPointerDown}>
-            <IconSvg width={11} height={15} className="zIndex: 20" viewBoxSize="0 0 12 18" path={doBlockIconPath} />
-          </span>
-          <div className={styles.wrapper_navBlock_delete} onClick={handleDelete}>
-            {isBlockDeleting ? <SimpleLoader /> : <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />}
-          </div>
         </div>
       </div>
     </Reorder.Item>

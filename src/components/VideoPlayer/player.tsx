@@ -17,6 +17,8 @@ import { selectUser } from 'selectors'
 import { RoleE } from '../../enum/roleE'
 import previewImage from './assets/previewImage.png'
 import { PlayIcon } from 'components/NewAudioPlayer/icons'
+import { DoBlockIconPath } from 'Pages/School/config/svgIconsPath'
+import { Button } from 'components/common/Button/Button'
 
 type playerProps = {
   deleteBlock?: (arg: { id: string | number; schoolName: string }) => any
@@ -111,8 +113,30 @@ export const VideoPlayer: React.FC<playerProps> = ({
         borderRadius: '7px',
       }}
       key={block && block.id}
-      style={{ display: 'flex', gap: '1em' }}
+      style={
+        isEditing
+          ? { display: 'flex', flexDirection: 'column', gap: '1em', boxShadow: '0px 0px 8px 0px #3241954d', borderRadius: '20px', padding: '1rem' }
+          : { display: 'flex', flexDirection: 'column', gap: '1em' }
+      }
     >
+      {currentVideoSrc && isEditing && (
+        <div className={styles.functionalBtns}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <span className={styles.functionalBtns_grabBtn} onPointerDown={onPointerDown}>
+              <IconSvg width={24} height={24} viewBoxSize={'0 0 24 24'} path={DoBlockIconPath} />
+            </span>
+            <a href={videoSrc} rel={'noreferrer'} target={'_blank'} download={'videoDownload'}>
+              <Button variant="newPrimary" text={'Скачать'} style={{ padding: '7px 25px', fontSize: '16px', fontWeight: 500 }} />
+            </a>
+          </div>
+          <Button
+            variant="cancel"
+            className={styles.functionalBtns_delete}
+            text={isLoading ? <SimpleLoader /> : 'Удалить'}
+            onClick={handleDeleteVid}
+          />
+        </div>
+      )}
       <div className={styles.videoPlayer} onContextMenu={event => role === RoleE.Student && !download && event.preventDefault()}>
         {currentVideoSrc && videoSrc && videoSrc2 && (
           <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -153,21 +177,6 @@ export const VideoPlayer: React.FC<playerProps> = ({
           <></>
         )}
       </div>
-      {currentVideoSrc && isEditing && (
-        <div className={styles.functionalBtns}>
-          <a href={videoSrc} rel={'noreferrer'} target={'_blank'} download={'videoDownload'}>
-            <div className={styles.functionalBtns_downloadBtn}>
-              <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={downloadIconPath} />
-            </div>
-          </a>
-          <span className={styles.functionalBtns_grabBtn} onPointerDown={onPointerDown}>
-            <IconSvg width={11} height={15} className="zIndex: 20" viewBoxSize="0 0 12 18" path={doBlockIconPath} />
-          </span>
-          <div className={styles.functionalBtns_delete} onClick={handleDeleteVid}>
-            {isLoading ? <SimpleLoader /> : <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />}
-          </div>
-        </div>
-      )}
     </Reorder.Item>
   )
 }

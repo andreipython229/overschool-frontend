@@ -12,6 +12,7 @@ import {useFetchLessonQuery, usePatchLessonsMutation} from '../../../api/modules
 import styles from '../Modal.module.scss'
 // import {classesType} from '../../../constants/other'
 import {CheckboxBall} from "../../common/CheckboxBall";
+import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 // import {PublishedMark} from "../../common/PublishedMark";
 
 export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, modulesList, lessonIdAndType}) => {
@@ -21,7 +22,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
 
     const {data} = useFetchLessonQuery({id: lessonIdAndType.id, type: lessonIdAndType.type, schoolName})
 
-    const [nameLesson, setNameLesson] = useState<string>(`${data?.name}`)
+    const [nameLesson, setNameLesson] = useState<string>(data?.name || '')
     const [show_right_answers, setShowRightAnswers] = useState(false)
 
     useEffect(() => {
@@ -36,6 +37,12 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
     useEffect(() => {
         console.log(lessonIdAndType)
     }, [lessonIdAndType]);
+
+    useEffect(() => {
+        if (data?.name !== undefined) {
+            setNameLesson(data?.name)
+        }
+    }, [data?.name]);
 
     const handleClose = () => {
         setType(null as keyof object)
@@ -69,7 +76,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
             <div className={styles.classesContainer}>
                 <form>
                     <div onClick={handleClose} className={styles.classesContainer_closed}>
-                        <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath}/>
+                      <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
                     </div>
                     <div className={styles.settings_header}>
                         <IconSvg width={60} height={60} viewBoxSize={'0 0 60 60'} path={settingsClassesIconPath}/>
@@ -79,7 +86,16 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
                     <div className={styles.settings_block}>
                         <div className={styles.settings_block_input}>
                             <span className={styles.settings_block_input_title}>Изменить название</span>
-                            <Input name={'name'} type={'text'} value={nameLesson} onChange={handleChangeNameLesson}/>
+                            <div className={styles.module_input}>
+                                <Input
+                                  name={'name'}
+                                  value={nameLesson}
+                                  type={'text'}
+                                  onChange={handleChangeNameLesson}
+                                >
+                                <IconSvg className={styles.module_input_penIcon} width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+                                </Input>
+                            </div>
                         </div>
                         {/* <span className={styles.settings_block_input_isPublished}>
                             <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)}/>
@@ -87,13 +103,19 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
                         </span> */}
                         {lessonIdAndType.type === 'test' && (
                             <span className={styles.settings_block_input_isPublished}>
-                                <CheckboxBall isChecked={show_right_answers} toggleChecked={() => setShowRightAnswers(!show_right_answers)}/>
+                                <div className={styles.settings_block_input_switch}>
+                                    <CheckboxBall isChecked={show_right_answers} toggleChecked={() => setShowRightAnswers(!show_right_answers)}/>
+                                </div>
                                 <span>Показать правильные ответы при завершению теста.</span>
                             </span>
                         )}
                     </div>
-                    <Button className={styles.settings_block_input_btnChangeNameLesson} onClick={saveChangeNameLesson} variant={'primary'}
-                            text={'Сохранить'}/>
+                    <Button
+                        className={styles.settings_block_input_btnChangeNameLesson}
+                        onClick={saveChangeNameLesson}
+                        variant={'newPrimary'}
+                        text={'Сохранить'}
+                    />
                 </form>
             </div>
         </div>

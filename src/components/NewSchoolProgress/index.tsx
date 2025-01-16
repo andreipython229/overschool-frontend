@@ -66,7 +66,7 @@ export const NewSchoolProgress: FC = () => {
       >
         <div className={styles.wrapper_top}>
           <div style={{ cursor: 'pointer' }} onClick={handleClose}>
-            <IconSvg width={14} styles={{ color: '#adadad' }} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
+            <IconSvg width={24} styles={{ color: '#357EEB' }} height={24} viewBoxSize="0 0 50 50" path={crossIconPath} />
           </div>
         </div>
         <div className={styles.wrapper_gift}>Выполняйте задания и получайте дополнительные дни подписки БЕСПЛАТНО!</div>

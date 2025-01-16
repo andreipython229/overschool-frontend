@@ -296,7 +296,7 @@
   &_component {
     @include display(flex, column, center);
     background-color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 8px 0px #3241954D;
     border-radius: 20px;
     margin-bottom: 16px;
     transition: all 0.3s;
@@ -360,11 +360,11 @@
         justify-content: center;
         width: 57px;
         height: 57px;
-        background: #f3e7ff;
+        background: rgba(207, 226, 255, 0.12);
         font-weight: 700;
         font-size: 22px;
         line-height: 18px;
-        color: #ba75ff;
+        color: $color-blue;
         //background-color: #ba75ff;
         border-radius: 50%;
         @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -396,7 +396,7 @@
         &_title {
           @include display(flex, row, flex-start, center);
           @include font(700, 22px, 16px);
-          color: #ba75ff;
+          color: $color-blue;
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             font-size: 10px;
           }
@@ -413,8 +413,8 @@
           }
         }
         &_exerciseSum {
-          @include font(700, 22px, 16px);
-          color: #ba98dd;
+          @include font(600, 22px, 16px);
+          color: $color-grey;
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             font-size: 10px;
           }
@@ -430,7 +430,8 @@
 
     &_exerciseWrapper {
       @include display(flex, column, center, center);
-      padding: 0 89px 0 94px;
+      padding: 10px 89px 20px 94px;
+      gap: 5px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         padding: 10px 10px;
       }

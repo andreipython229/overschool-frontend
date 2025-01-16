@@ -7,9 +7,10 @@ import styles from './mobileInitPage.module.scss'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { Path } from '../../enum/pathE'
 import { ManageSearch, Menu } from '@mui/icons-material'
+import { logoHeaderLogin } from 'assets/img/common'
 
 export const MobileInitPage = () => {
-  const [openLoginModal, setOpenLoginModal] = useState<boolean>(false)
+  // const [openLoginModal, setOpenLoginModal] = useState<boolean>(false)
   const navigate = useNavigate()
 
   const showLoginModal = () => {
@@ -25,7 +26,7 @@ export const MobileInitPage = () => {
 
   return (
     <div className={styles.container}>
-      {openLoginModal && <MobileLoginModal setShowModal={showLoginModal} />}
+      {/* {openLoginModal && <MobileLoginModal setShowModal={showLoginModal} />} */}
       {/* <Button
         style={{ position: 'absolute', top: '2rem', right: '0', color: 'white', display: 'flex', alignItems: 'center', gap: '2px' }}
         onClick={() => navigate(Path.Catalog)}
@@ -37,19 +38,19 @@ export const MobileInitPage = () => {
       </Button> */}
       <div className={styles.container_blur} />
       <div className={styles.initPage}>
-        <h1 style={{ textAlign: 'center' }}>Добро пожаловать на платформу IT OVERONE!</h1>
+        <h1 style={{ textAlign: 'center', fontFamily: 'SFPRORegular' }}>Добро пожаловать на платформу CourseHub!</h1>
+        <img src={logoHeaderLogin} className={styles.initPage_logo} alt="logo" />
         <div className={styles.initPage_text}>
-          <p>
+          {/* <p>
             Мы рады приветствовать вас на нашей платформе! Здесь вы можете найти множество актуальных справочных материалов из области
             программирования и дизайна! Мы стремимся сделать процесс изучения материалов доступным и легким для всех. Наша платформа предоставляет вам
             возможность ознакомиться с материалами по дизайну и программированию и начать свой успешный путь в IT-индустрии. Не важно, являетесь ли вы
             новичком в программировании или опытным специалистом, наша платформа предоставляет вам все необходимые инструменты и ресурсы для развития
             ваших навыков и создания впечатляющих проектов. Мы приглашаем вас присоединиться к IT OVERONE и, пользуясь функционалом нашей платформы,
             начать свое увлекательное путешествие в мир программирования и дизайна. Давайте вместе создавать будущее в IT-индустрии!
-          </p>
+          </p> */}
 
-          <Button onClick={showLoginModal} variant={'primary'} text={'Вперед'} />
-
+          <Button onClick={showLoginModal} variant={'newPrimary'} text={'Вход'} />
           <a className={styles.help} href="/help">
             Помощь
           </a>

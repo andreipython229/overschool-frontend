@@ -10,10 +10,7 @@ import { FilterAndSearchBlock } from './FilterAndSeachBlock'
 
 import { motion } from 'framer-motion'
 
-
 import styles from './home_work.module.scss'
-
-
 
 export const HomeWork: FC = () => {
   const dispatch = useAppDispatch()
@@ -35,8 +32,8 @@ export const HomeWork: FC = () => {
 
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: homeworks?.count as number })
 
-  const handleChangeTerm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setTermForFilter(e.target.value)
+  const handleChangeTerm = useCallback((value: string) => {
+    setTermForFilter(value)
   }, [])
 
   const handleAddLastActivityFilter = (data1: string, data2: string) => {
@@ -54,7 +51,7 @@ export const HomeWork: FC = () => {
   const handleAddMarkFilter = (start_mark: string, end_mark: string) => {
     dispatch(addFilters({ key: 'homework', filters: { start_mark, end_mark } }))
   }
- 
+
   const handleChangeStatus = useCallback((status: string) => {
     dispatch(addFilters({ key: 'homework', filters: { status } }))
   }, [])
@@ -77,41 +74,42 @@ export const HomeWork: FC = () => {
 
   return (
     <>
-    <motion.div
-    initial={{
-      x: -900,
-      opacity: 0,
-    }}
-    animate={{
-      x: 0,
-      opacity: 1,
-    }}
-    exit={{
-      opacity: 0,
-    }}
-    transition={{
-      delay: 0.1,
-      ease: 'easeInOut',
-      duration: 0.5,
-    }}
-    layout >
-      <FilterAndSearchBlock
-        handleChangeTerm={handleChangeTerm}
-        termForFilter={termForFilter}
-        onChangeStatus={handleChangeStatus}
-        addLastActiveFilter={handleAddLastActivityFilter}
-        addMarkFilter={handleAddMarkFilter}
-        removeLastActiveStartFilter={handleRemoveLastActivityStartFilter}
-        removeLastActiveEndFilter={handleRemoveLastActivityEndFilter}
-        startMark={filters?.start_mark}
-        endMark={filters?.end_mark}
-        startDate={filters?.start_date}
-        endDate={filters?.end_date}
-        filters={filters}
-        all_homeworks_count={homeworks?.count as number}
-      />
-      <HomeworksStatsTable homeworks={homeworksData as homeworksStatsT} isLoading={isFetching} />
-      <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
+      <motion.div
+        initial={{
+          x: -900,
+          opacity: 0,
+        }}
+        animate={{
+          x: 0,
+          opacity: 1,
+        }}
+        exit={{
+          opacity: 0,
+        }}
+        transition={{
+          delay: 0.1,
+          ease: 'easeInOut',
+          duration: 0.5,
+        }}
+        layout
+      >
+        <FilterAndSearchBlock
+          handleChangeTerm={handleChangeTerm}
+          termForFilter={termForFilter}
+          onChangeStatus={handleChangeStatus}
+          addLastActiveFilter={handleAddLastActivityFilter}
+          addMarkFilter={handleAddMarkFilter}
+          removeLastActiveStartFilter={handleRemoveLastActivityStartFilter}
+          removeLastActiveEndFilter={handleRemoveLastActivityEndFilter}
+          startMark={filters?.start_mark}
+          endMark={filters?.end_mark}
+          startDate={filters?.start_date}
+          endDate={filters?.end_date}
+          filters={filters}
+          all_homeworks_count={homeworks?.count as number}
+        />
+        <HomeworksStatsTable homeworks={homeworksData as homeworksStatsT} isLoading={isFetching} />
+        <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
       </motion.div>
     </>
   )

@@ -1,28 +1,26 @@
 import { FC, memo, ReactNode } from 'react'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { deleteIconPath, lessonIcon, arrowDownPath, arrowDownTimerIconPath, grabIconPath } from '../config/svgIconPath'
+import { lessonIcon, arrowDownPath, arrowDownTimerIconPath, grabIconPath } from '../config/svgIconPath'
 import { PropsQuestionBlockT } from '../../AddQuestion'
-import { useRemoveQuestionsMutation } from '../../../api/questionsAndAnswersService'
 
 import styles from './questionHeader.module.scss'
+import { Avatar } from '@mui/material'
+import { Question } from '../Question'
 
 type QuestionHeaderT = {
   children?: ReactNode
 }
 
-export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({ title, id, isOpen, onToggle, children }) => {
-  const [deleteQuestion] = useRemoveQuestionsMutation()
-  const schoolName = window.location.href.split('/')[4]
-
-  const handleGetTypeQuestion = async () => {
-    await deleteQuestion({ id: Number(id), schoolName })
-  }
-
+export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({ title, id, children, questions, question, testId, multiple_answer }) => {
   return (
-    <div className={styles.header} onClick={onToggle}>
+    <div className={styles.header}>
       {children}
-      <h4>{title}</h4>
-      <div className={styles.header_controlIconWrapper}>
+      <div className={styles.header_container}>
+        <Avatar className={styles.avatar}>{questions && question && questions?.indexOf(question) + 1}</Avatar>
+        <div className={styles.header_container_question}>
+          <Question id={id} title={title} testId={testId} multiple_answer={multiple_answer} />
+        </div>
+      </div>
+      {/* <div className={styles.header_controlIconWrapper}>sss */}
         {/* <div className={styles.header_controlIconWrapper_timer}>
           <IconSvg width={15} height={15} viewBoxSize="0 0 19 19">
             <g clipPath="url(#clip0_2875_4565)">
@@ -44,7 +42,7 @@ export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({
             <IconSvg width={10} height={10} viewBoxSize="0 0 10 15" path={arrowDownPath} />
           </div>
         </div> */}
-        <div
+        {/* <div
           onClick={onToggle}
           className={
             !isOpen
@@ -53,17 +51,14 @@ export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({
           }
         >
           <IconSvg width={22} height={17} viewBoxSize="0 0 22 22" path={arrowDownTimerIconPath} />
-        </div>
+        </div> */}
         {/* <div className={styles.header_controlIconWrapper_duplicate}>
           <IconSvg width={22} height={22} viewBoxSize="0 0 22 22" path={lessonIcon} />
         </div> */}
-        <div onClick={handleGetTypeQuestion} className={styles.header_controlIconWrapper_delete}>
-          <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
-        </div>
         {/*<div onPointerDown={onPointerDown} className={styles.header_controlIconWrapper_grab}>*/}
         {/*  <IconSvg width={21} height={14} viewBoxSize="0 0 21 14" path={grabIconPath} />*/}
         {/*</div>*/}
       </div>
-    </div>
+    // </div>
   )
 })

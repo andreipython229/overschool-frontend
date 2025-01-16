@@ -1,22 +1,23 @@
 import {FC, memo, ReactNode} from 'react'
-import {IconSvg} from 'components/common/IconSvg/IconSvg'
 import styles from './questionHeader.module.scss'
 import {PropsQuestionBlockT} from "../../../../../../../../../components/AddQuestion";
-import {arrowDownPath, arrowDownTimerIconPath} from "../../../../../../../../../components/Questions/config/svgIconPath";
+import {Avatar} from "@mui/material";
 
 type AdminQuestionHeaderT = {
     children?: ReactNode
 }
 
-export const AdminQuestionHeader: FC<AdminQuestionHeaderT & PropsQuestionBlockT> = memo(({title, id, isOpen, onToggle, children}) => {
+export const AdminQuestionHeader: FC<AdminQuestionHeaderT & PropsQuestionBlockT> = memo(({title, children, questions, question, multiple_answer}) => {
     return (
-        <div className={styles.header} onClick={onToggle}>
+        <div className={styles.header} >
             {children}
-            <h4>{title}</h4>
-            <div className={styles.header_controlIconWrapper}>
-                <div className={!isOpen ? styles.header_controlIconWrapper_togglerShowOption
-                            : styles.header_controlIconWrapper_togglerShowOption + ' ' + styles.rotate_arrow}>
-                    <IconSvg width={42} height={37} viewBoxSize="0 0 22 22" path={arrowDownTimerIconPath}/>
+            <div className={styles.header_container}>
+                <Avatar className={styles.avatar}>{questions && question && questions?.indexOf(question) + 1}</Avatar>
+                <div>
+                    <h4 className={styles.header_title}>{title}</h4>
+                    {multiple_answer ? <h3 className={styles.header_subtitle}>Выберите несколько вариантов ответа</h3> : (
+                        <h3 className={styles.header_subtitle}>Выберите один вариант ответа</h3>
+                    )}
                 </div>
             </div>
         </div>

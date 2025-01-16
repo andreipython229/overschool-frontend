@@ -1,71 +1,87 @@
 @import '../../../scss/variable.scss';
 @import '../../../scss/mixin.scss';
 
-.wrapper {
-    background-color: #fff;
-    margin-top: 20px;
-    padding: 30px 61px 30px 61px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: $box-shadow;
+@font-face {
+    font-family: 'SFPRORegular';
+    src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
 
-    &_header {
-        &_iconWrapper {
-            @include display (flex, row, flex-start, center);
-            &_iconColumn {
-                width: 23px;
-                height: 33px;
-                margin: 0 4px 0 0;
-                padding: 2px 4px;
-                border-radius: 3px;
-                background-color: #6B7280;
-                span {
-                    display: block;
-                    width: 4px;
-                    height: 4px;
-                    border-radius: 50%;
-                    background-color: #fff;
-                }
-            }
-            &_iconRowWrapper {
-                align-self: flex-start;
-                &_iconRow {
-                    width: 37px;
-                    height: 7px;
-                    margin: 2px 0;
-                    padding: 2px 4px;
-                    border-radius: 22px;
-                    background-color: #6B7280;
-                    span {
-                        display: block;
-                        width: 3px;
-                        height: 3px;
-                        border-radius: 50%;
-                        background-color: #fff;
-                    }
-                }
+.wrapper {
+    background-color: #CFE2FF;
+    padding: 74px 20px 20px 20px;
+    max-width: 881px;
+    width: 100%;
+    border-radius: 40px;
+    overflow: hidden;
+    user-select: none;
+    position: relative;
+
+    &_question_count {
+        @include font(500, 26px, 31.03px);
+        color: $color-text;
+        text-align: center;
+        font-family: 'SFPRORegular';
+    }
+
+    &_drop_down_menu {
+        @include display(flex, column, center, center);
+        margin-top: 10px;
+        padding: 20px 21px 30px 36px;
+        background: linear-gradient(140deg,#c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
+        box-shadow: 0px 0px 8px 0px #3241954D;
+        overflow: hidden;
+        border-radius: 20px;
+        min-height: 409px;
+        max-width: 841px;
+        width: 100%;
+        animation: slideDown 0.2s ease-in forwards;
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
+          padding: 5%;
+        }
+        @media only screen and (min-width : 375px) and (max-width : 480px) {
+          padding: 5%;
+        }
+    
+        &_question_count {
+            @include font(700, 20px, 23.87px);
+            color: $color-text;
+            text-align: center;
+            font-family: 'SFPRORegular';
+            margin-bottom: 33.5px;
+        }
+      }
+
+    &_optionsContent {
+        div {
+            div + div {
+                display: none;
             }
         }
-    }
-    &_optionsContent {
+
+        input, h3, label {
+            display: none;
+        }
+
         &_addPicture {
             @include display (flex, column);
-            margin-top: 26px;
             &_text {
                 @include font (500, 14px, 17px);
-                color: #4D5766;
+                color: $color-text;
             }
             &_iconWrapper {
                 position: relative;
-                width: fit-content;
-                // margin-left: 40%;
-                margin-top: 14px auto;
-                padding: 48px 73px;
-                border-radius: 5px;
-                background-color: #F4F5F8;
+                max-width: 180px;
+                width: 100%;
+                padding: 20.65px 2px;
+                margin-bottom: 10px;
+                border-radius: 16px;
+                background-color: $color-white;
+                box-shadow: 0px 0px 8px 0px #3241954D;
+                display: flex;
+                justify-content: center;
                 cursor: pointer;
                 &:hover {
-                    background-color: rgba(186, 117, 255, 0.61);
+                    opacity: 0.7;
                 }
                 label {
                     @include position_t_l (absolute, 0, 0, 5);
@@ -88,4 +104,21 @@
        text-align: left;
          margin-top: 15px;
       }
+}
+
+.fillColorBlue path {
+    fill: $color-blue;
+  }
+
+.upload_title {
+    @include font (500, 14px, 16.71px);
+    color: $color-text;
+    font-family: 'SFPRORegular';
+    text-align: center;
+}
+
+.answerOptionContainer {
+    input, label {
+        display: block;
+    }
 }

@@ -1,6 +1,11 @@
 @import 'scss/mixin.scss';
 @import 'scss/variable.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 .button {
   text-decoration: none;
   background: #ba75ff;
@@ -25,14 +30,14 @@
   gap: 5px;
   align-items: center;
   padding: 3px 5px;
-  border: 2px solid #ba75ff;
+  border: 2px solid $color-blue;
   border-radius: 7px;
   width: fit-content;
   cursor: pointer;
   transition: ease-in 0.2s;
 
   &:hover {
-    background: rgba(219, 183, 255, 0.3);
+    background: rgba(207, 226, 255, 0.12);
     color: rgb(94, 94, 94);
   }
 }
@@ -40,7 +45,6 @@
 .wrapper {
   display: flex;
   flex-direction: row;
-  width: 100%;
 
   &_redactorField {
     width: 100%;
@@ -70,7 +74,7 @@
       &_title {
         font-weight: bold;
         font-size: 16px;
-        font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Helvetica, Arial, sans-serif;
+        font-family: 'SFPRORegular';
       }
     }
   }

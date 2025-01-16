@@ -1,14 +1,37 @@
 @import 'scss/mixin.scss';
 @import 'scss/variable.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 .previous {
   position: relative;
-  width: 1040px;
-  height: 210px;
-  font-family: 'Inter', sans-serif;
+  max-width: 1360px;
+  width: 100%;
+  min-height: 376px;
+  font-family: 'SFPRORegular';
   font-weight: 500;
-  background: #e0dced;
-  border-radius: 7px;
+  border-radius: 24px;
+  background-image: url(../../../../../../../../assets/img/createCourse/course-background.jpeg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 2;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    background: rgba(51, 47, 54, 0.5);
+    z-index: 3;
+  }
 
   @media (max-width: 600px) {
     width: 100%;
@@ -24,10 +47,10 @@
       padding: 0;
     }
 
-    @include position_b_r(absolute, 50px, 44px);
+    @include position_b_r(absolute, 50px, 44px, 4);
 
     @media screen and (min-width: 375px) and (max-width: 480px) {
-      @include position_b_r(absolute, 55px, 16px);
+      @include position_b_r(absolute, 55px, 16px, 4);
     }
   }
 
@@ -36,23 +59,22 @@
     opacity: 0.5;
     width: 100%;
     height: 100%;
-    background-color: #000000;
-    border-radius: 7px;
+    border-radius: 24px;
   }
 
   .background_image_course {
     width: 100%;
     height: 100%;
-    border-radius: 7px;
-    background-color: rgba(248, 229, 255, 0.68);
+    border-radius: 24px;
     position: relative;
+    z-index: 4;
 
     img {
       display: inline-block;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 7px;
+      border-radius: 24px;
     }
 
     &_error {
@@ -71,18 +93,21 @@
   }
 
   &_onlineCourses {
-    @include position_t_l(absolute, 80px, 44px);
-    width: 700px;
+    @include position_t_l(absolute, 145px, 0, 4);
+    width: 100%;
+    border-radius: 24px;
+    padding: 24px 64px;
+    background: linear-gradient(90deg, #332F36 -5.88%, rgba(51, 47, 54, 0) 100%);
 
     input {
       width: 100%;
       padding: 5px;
-      color: #ba75ff;
+      color: $color-white;
       background: none;
       border: none;
       border-radius: 5px;
       outline: none;
-      @include font(700, 22px, 24px);
+      @include font(500, 46px, 62px);
       text-transform: uppercase;
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -101,22 +126,21 @@
   }
 }
 .previous_title_name {
-  @include position_t_l(absolute, 120px, 43px);
+  @include position_t_l(absolute, 260px, 64px, 4);
   width: 700px;
 
   textarea {
-    @include font(500, 22px, 28px);
+    @include font(400, 24px, 28.64px);
     width: 100%;
     background: none;
-    color: #fff;
+    color: #dddddd;
     padding: 5px 5px;
     text-align: left;
     border: none;
     border-radius: 5px;
     outline: none;
-    font-family: 'Inter', sans-serif;
+    font-family: 'SFPRORegular';
     resize: none;
-    font-size: 17px;
   }
 
   textarea:hover {
@@ -124,9 +148,9 @@
   }
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    @include position_t_l(absolute, 140px, 16px);
+    @include position_t_l(absolute, 140px, 16px, 4);
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    @include position_t_l(absolute, 140px, 16px);
+    @include position_t_l(absolute, 140px, 16px, 4);
   }
 }

@@ -1,4 +1,4 @@
-import {FC, useEffect} from 'react'
+import { FC, useEffect } from 'react'
 
 import { removeFilter, clearFilters } from 'store/redux/filters/slice'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -6,6 +6,7 @@ import { crossIconPath } from 'config/commonSvgIconsPath'
 import { useAppDispatch } from 'store/hooks'
 
 import styles from './chips.module.scss'
+import { CrossIconPath } from 'assets/Icons/svgIconPath'
 
 type chipsComponentT = {
   filters: { [key: string]: string | number }
@@ -25,25 +26,27 @@ export const ChipsComponent: FC<chipsComponentT> = ({ filters, filterKey, chipsV
   return (
     <>
       <div className={styles.chipsContainer}>
-        {chips?.map(([filterTerm, chipText], index) => (
-            filterTerm !== 'search_value' && filterTerm !== 'sort_by' && filterTerm !== 'sort_order' && (
-              <div key={String(index)+chipText}>
-              {chipText && (
-                <div key={index} className={styles.chip}>
-                  <span className={styles.chips_filter}>{chipsVal[filterTerm]}:</span>
-                  <span>{chipText == 'true' ? (
-                      <>Да</>
-                  ) : ( <>{chipText}</>)}</span>
-                  <button className={styles.removeButton} onClick={() => handleRemoveChip(filterTerm)}>
-                    <IconSvg width={8} height={8} viewBoxSize="0 0 16 12" path={crossIconPath} />
-                  </button>
-                </div>
-              )}
-            </div>)
-        ))}
+        {chips?.map(
+          ([filterTerm, chipText], index) =>
+            filterTerm !== 'search_value' &&
+            filterTerm !== 'sort_by' &&
+            filterTerm !== 'sort_order' && (
+              <div key={String(index) + chipText}>
+                {chipText && (
+                  <div key={index} className={styles.chip}>
+                    <span className={styles.chips_filter}>{chipsVal[filterTerm]}:</span>
+                    <span>{chipText == 'true' ? <>Да</> : <>{chipText}</>}</span>
+                    <button className={styles.removeButton} onClick={() => handleRemoveChip(filterTerm)}>
+                      <IconSvg width={8} height={8} styles={{ color: '#fff' }} viewBoxSize="0 0 18 16" path={CrossIconPath} />
+                    </button>
+                  </div>
+                )}
+              </div>
+            ),
+        )}
         {isFiltersAdded && (
           <button className={styles.removeChips} onClick={() => dispatch(clearFilters(filterKey))}>
-            <IconSvg width={12} height={11} viewBoxSize="0 0 15 13" path={crossIconPath} />
+            <IconSvg width={12} height={12} styles={{ color: '#fff' }} viewBoxSize="0 0 18 16" path={CrossIconPath} />
           </button>
         )}
       </div>

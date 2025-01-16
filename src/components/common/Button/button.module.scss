@@ -701,3 +701,29 @@
     background: #357eeb;
   }
 }
+
+.newDelete {
+  font-family: 'SFPRORegular';
+  color: black;
+  background: #ec8787;
+  border: 2px solid #ec8787;
+  @include font(600, 20px, 23.87px);
+  &:hover:not(:disabled) {
+    color: black;
+    background: #e96d6d;
+    border: 2px solid #e96d6d;
+  }
+}
+
+.newDisabled {
+  font-family: 'SFPRORegular';
+  color: #747474;
+  background: transparent;
+  border: 1px solid #747474;
+  @include font(600, 20px, 23.87px);
+  &:hover:not(:disabled) {
+    color: #747474;
+    background: #7474742a;
+    border: 1px solid #747474;
+  }
+}
