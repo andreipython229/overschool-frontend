@@ -1,34 +1,49 @@
 @import '../../../scss/mixin.scss';
 
 .addFileBtn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative;
+
   &_form {
     background-color: transparent;
 
     &_addFiles {
-      @include display(flex, row, flex-start, center);
-      width: 180px;
-      height: 36px;
-      border: none;
+      padding: 1rem 0 0;
+      @include display(flex, column, center, center);
+      gap: 1rem;
+      width: 100%;
       text-align: center;
-      background: #f3f4f6;
-      font-size: 12px;
-      color: #6b728f;
-      border-radius: 6px;
-      padding: 11px 0 11px 16px;
-      // margin: 16px 0 8px 0;
-      &:hover {
-        background-color: #ba75ff;
-        color: #ffff;
-      }
-      svg {
-        margin-right: 10px;
-      }
+      color: #332f36;
+      font-family: 'SFPRORegular';
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 28.64px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
 
       input {
-        position: absolute;
-        left: 0;
-        z-index: -10;
+        @include position_t_l(absolute, 0, 0, 2);
+        width: 100%;
+        height: 100%;
         opacity: 0;
+        cursor: pointer;
+      }
+
+      button {
+        padding: 10px 40px;
+        font-family: 'SFPRORegular';
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19.09px;
+        text-align: center;
+        z-index: 1;
       }
     }
   }

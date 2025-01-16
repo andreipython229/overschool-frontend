@@ -82,20 +82,8 @@ export const ButtonRedactor: FC<IProps> = ({ button, block, lessonBlocks, setLes
 
   return (
     <div className={styles.wrapper}>
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
-        <p className={styles.text}>Превью вашей кнопки:</p>
-        <BlockLinkButton color={colorPalette} button={button} link={buttonLink} text={buttonName} />
-        <span />
-      </div>
-      <span style={{ border: '1px solid #ba75ff', height: '100%', width: '0.2px', opacity: '0.4' }} />
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center', gap: '20px' }}>
-        <p className={styles.text}>Цвет фона:</p>
-        <HexColorPicker color={colorPalette} onChange={setColorPalette} />
-        <span />
-      </div>
-      <span style={{ border: '1px solid #ba75ff', height: '100%', width: '0.2px', opacity: '0.4' }} />
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'flex-start', gap: '20px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'flex-start', gap: '10px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'flex-start', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'flex-start', gap: '5px' }}>
           <p className={styles.text}>Текст кнопки:</p>
           <Input
             value={buttonName}
@@ -109,7 +97,7 @@ export const ButtonRedactor: FC<IProps> = ({ button, block, lessonBlocks, setLes
             width={'100%'}
           />
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'flex-start', gap: '10px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'flex-start', gap: '5px' }}>
           <p className={styles.text}>Ссылка:</p>
           <Input
             value={buttonLink}
@@ -123,19 +111,35 @@ export const ButtonRedactor: FC<IProps> = ({ button, block, lessonBlocks, setLes
             width={'100%'}
           />
         </div>
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <Button
-            variant={!buttonName || !buttonLink ? 'disabled' : 'primary'}
-            disabled={!buttonName || !buttonLink}
-            text={isUpdating ? <SimpleLoader style={{ height: '15px', width: '100%' }} /> : 'Сохранить'}
-            onClick={updateButtonData}
-          />
-          <Button
-            variant="delete"
-            text={isDeleting ? <SimpleLoader style={{ height: '15px', width: '100%' }} /> : 'Удалить'}
-            onClick={deleteButton}
-          />
+      </div>
+      <div className={styles.preview}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '207px' }}>
+          <p className={styles.text}>Превью кнопки:</p>
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+            <BlockLinkButton color={colorPalette} button={button} link={buttonLink} text={buttonName} />
+          </div>
         </div>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '207px', gap: '20px' }}>
+          <p className={styles.text}>Выбор цвета кнопки:</p>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+            <HexColorPicker color={colorPalette} onChange={setColorPalette} style={{ height: '100%', width: '100%' }} />
+          </div>
+        </div>
+      </div>
+      <div style={{ display: 'flex', width: '100%', justifyContent: 'center', gap: '20px' }} className={styles.buttonsBlock}>
+        <Button
+          className={styles.buttonsBlock_delete}
+          variant="cancel"
+          text={isDeleting ? <SimpleLoader style={{ height: '15px', width: '100%' }} /> : 'Удалить'}
+          onClick={deleteButton}
+        />
+        <Button
+          className={styles.buttonsBlock_save}
+          variant={!buttonName || !buttonLink ? 'disabled' : 'newPrimary'}
+          disabled={!buttonName || !buttonLink}
+          text={isUpdating ? <SimpleLoader style={{ height: '15px', width: '100%' }} /> : 'Сохранить'}
+          onClick={updateButtonData}
+        />
       </div>
     </div>
   )

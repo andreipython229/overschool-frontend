@@ -1,0 +1,29 @@
+@import '../../../scss/mixin.scss';
+@import '../../../scss/variable.scss';
+
+.statusContainer {
+  @include position_t_l(absolute, 0, 0);
+  @include display(flex, column, space-between, center);
+  max-width: 500px;
+  width: 238px;
+  height: auto;
+  padding: 19px 20px;
+  border-radius: 32px;
+  backdrop-filter: blur(14px);
+  background: #cfe2ff;
+  gap: 5px;
+  font-family: 'SFPRORegular', sans-serif;
+
+  &_title {
+    padding: 10px 0;
+    font-weight: 600;
+  }
+}
+
+.selectButton {
+  height: 34px;
+  width: 100% !important;
+  font-size: 16px !important;
+  border-radius: 7px !important;
+  font-weight: 500 !important;
+}

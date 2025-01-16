@@ -102,6 +102,18 @@ export const schoolBonusService = createApi({
     updateSchoolBox: build.mutation<IBox[], { schoolName: string; id: number; data: FormData }>({
       query: args => ({ url: `/${args.schoolName}/school_box/${args.id}/`, method: 'PATCH', body: args.data }),
     }),
+    updateSchoolBoxes: build.mutation<ISchoolBoxes[], { schoolName: string; data: ISchoolBoxes[] }>({
+      query: args => ({ url: `/${args.schoolName}/school_box/bulk_update/`, method: 'PATCH', body: args.data }),
+    }),
+    deleteSchoolBoxes: build.mutation<ISchoolBoxes[], { schoolName: string; ids: number[] }>({
+      query: args => ({ url: `/${args.schoolName}/school_box/bulk_delete/`, method: 'DELETE', body: { ids: args.ids } }),
+    }),
+    updateSchoolPrizes: build.mutation<IPrize[], { schoolName: string; data: IPrize[] }>({
+      query: args => ({ url: `/${args.schoolName}/school_prize/bulk_update/`, method: 'PATCH', body: args.data }),
+    }),
+    deleteSchoolPrizes: build.mutation<IPrize[], { schoolName: string; ids: number[] }>({
+      query: args => ({ url: `/${args.schoolName}/school_prize/bulk_delete/`, method: 'DELETE', body: { ids: args.ids } }),
+    }),
     openUserBox: build.mutation<IOpenBox, { schoolName: string; boxId: number | string }>({
       query: args => ({
         url: `/${args.schoolName}/open_box/${args.boxId}/`,
@@ -136,6 +148,10 @@ export const schoolBonusService = createApi({
 })
 
 export const {
+  useDeleteSchoolPrizesMutation,
+  useUpdateSchoolPrizesMutation,
+  useDeleteSchoolBoxesMutation,
+  useUpdateSchoolBoxesMutation,
   useGetAllSchoolPrizeWinnersQuery,
   useCreateSchoolPrizeMutation,
   useUpdateSchoolPrizeMutation,

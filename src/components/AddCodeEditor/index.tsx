@@ -12,6 +12,7 @@ import { IBlockCode } from 'types/sectionT'
 import { Button } from 'components/common/Button/Button'
 import { Reorder, useDragControls } from 'framer-motion'
 import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
+import { DoBlockIconPath } from 'Pages/School/config/svgIconsPath'
 
 export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, handleEditorChange, lessonBlocks, setLessonBlocks }) => {
   const [codeData, setCodeData] = useState<string | undefined>(code)
@@ -76,14 +77,30 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
     >
       {!isPreview ? (
         <div className={styles.editorWrapper_wrapper}>
+          <div className={styles.editorWrapper_navBlock}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <span className={styles.editorWrapper_navBlock_grabBtn} onPointerDown={onPointerDown}>
+                <IconSvg width={24} height={24} viewBoxSize={'0 0 24 24'} path={DoBlockIconPath} />
+              </span>
+              <SelectInput
+                className={styles.inputSelect}
+                setSelectedValue={setSelectedLang}
+                selectedOption={selectedLang}
+                optionsList={coursesSelectLanguage}
+              />
+            </div>
+            <Button
+              variant="cancel"
+              className={styles.editorWrapper_navBlock_delete}
+              text={isLoading ? <SimpleLoader /> : 'Удалить'}
+              onClick={handleDeleteCode}
+            />
+          </div>
           <div className={styles.editorWrapper}>
             <div className={styles.editorWrapper_editor}>
               <div className={styles.editorWrapper_editor_add}>
                 <Editor height="100%" language={selectedLang} loading={''} theme="vs-dark" onChange={setCodeData} value={codeData} />
               </div>
-            </div>
-            <div className={styles.editorWrapper_selectWrapper}>
-              <SelectInput setSelectedValue={setSelectedLang} selectedOption={selectedLang} optionsList={coursesSelectLanguage} />
             </div>
             {block && (('code' in block && block.code && codeData !== block.code) || (codeData && 'code' in block && !block.code)) && (
               <Button
@@ -92,14 +109,6 @@ export const AddCodeEditor: FC<AddPostT> = ({ lesson, isPreview, code, block, ha
                 onClick={handleSaveChanges}
               />
             )}
-          </div>
-          <div className={styles.editorWrapper_navBlock}>
-            <span className={styles.editorWrapper_navBlock_grabBtn} onPointerDown={onPointerDown}>
-              <IconSvg width={11} height={15} className="zIndex: 20" viewBoxSize="0 0 12 18" path={doBlockIconPath} />
-            </span>
-            <div className={styles.editorWrapper_navBlock_delete} onClick={handleDeleteCode}>
-              {isLoading ? <SimpleLoader /> : <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />}
-            </div>
           </div>
         </div>
       ) : (

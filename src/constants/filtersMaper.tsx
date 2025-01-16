@@ -11,6 +11,7 @@ import { IHomework } from 'types/sectionT'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { useFetchStudentsDataPerSchoolQuery } from 'api/schoolHeaderService'
 import { ShowDeletedFilter } from '../components/FiltersButton/FilterComponent/FilterComponent'
+import { StatusFilter } from 'components/FiltersButton/StatusFilter'
 
 type ComponentFilterT = {
   id: string | number
@@ -25,6 +26,7 @@ type ComponentFilterT = {
   removeLastActiveEndFilter?: () => void
   addLastActiveFilter?: (data1: string, data2: string) => void
   addMarkFilter?: (start_mark: string, end_mark: string) => void
+  onChangeStatus?: (status: string) => void
 }
 
 export const ComponentFilter: FC<ComponentFilterT> = ({
@@ -34,6 +36,7 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
   handleAddAvgFilter,
   removeLastActiveStartFilter,
   removeLastActiveEndFilter,
+  onChangeStatus,
   ...filters
 }) => {
   const schoolName = window.location.href.split('/')[4]
@@ -49,6 +52,7 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
     // Фильтра домашек
     // '5': <SearchFilter key={2} filterKey={'homework'} data={firstNames && firstNames.length > 0 ? firstNames : []} name={''} header={'ВВЕДИТЕ ИМЯ'} filterTerm="first_name" />,
     // '6': <SearchFilter key={1} filterKey={'homework'} data={lastNames && lastNames.length > 0 ? lastNames : []} name={''} header={'ВВЕДИТЕ ФАМИЛИЮ'} filterTerm="last_name" />,
+    '5': <StatusFilter onChangeStatus={onChangeStatus} />,
     '7': (
       <SearchFilter
         key={1}
@@ -223,15 +227,9 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
       />
     ),
 
-    '40': (
-      <ShowDeletedFilter filterKey={'studentsPerSchool'}/>
-    ),
-    '41': (
-      <ShowDeletedFilter filterKey={'studentsPerCourse'}/>
-    ),
-    '42': (
-      <ShowDeletedFilter filterKey={'studentsPerGroup'}/>
-    ),
+    '40': <ShowDeletedFilter filterKey={'studentsPerSchool'} />,
+    '41': <ShowDeletedFilter filterKey={'studentsPerCourse'} />,
+    '42': <ShowDeletedFilter filterKey={'studentsPerGroup'} />,
   }
 
   const filterComponent = filtersMaper[String(id)]

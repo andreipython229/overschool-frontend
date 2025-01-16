@@ -113,7 +113,7 @@ export const HeaderBlock:FC<HeaderBlockT> = ({openModal}) => {
         />
       </div>
       <div className={styles.previous_buttonAccept}>
-        <Button variant="primary" onClick={openModal} text="Оставить заявку"/>
+        <Button variant="newPrimary" onClick={openModal} text="Оставить заявку"/>
       </div>
     </div>
   );

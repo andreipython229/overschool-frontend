@@ -1,18 +1,24 @@
 @import 'scss/mixin.scss';
 @import 'scss/variable.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 .wrapper {
   width: 100%;
   padding: 20px;
   @include display(flex, row, space-between, center);
   gap: 15px;
-  border: 3px solid #ba75ff;
+  border: 3px solid $color-blue;
   border-radius: 10px;
+  font-family: 'SFPRORegular';
 }
 
 .text {
   font-weight: bold;
   font-size: 16px;
   color: rgb(93, 93, 93);
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Helvetica, Arial, sans-serif;
+  font-family: 'SFPRORegular';
 }

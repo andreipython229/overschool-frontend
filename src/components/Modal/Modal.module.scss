@@ -1187,15 +1187,51 @@
 
       &_title {
         font-size: 14px;
-        color: $font-title;
+        font-family: 'SFPRORegular';
+        color: $color-text;
       }
 
       &_isPublished {
-        color: $font-title;
+        color: $color-grey;
+        font-family: 'SFPRORegular';
         text-align: center;
         margin-bottom: 20px;
         display: flex;
         justify-content: space-between;
+      }
+
+      &_switch {
+
+        div {
+          width: 40px;
+          height: 20px;
+          background: #e3e3e3;
+          border: none;
+      
+          &[data-isOn='true'] {
+            background: transparent;
+            border: 1px solid rgba(53, 126, 235, 1);
+      
+            div {
+              &::before {
+                background: rgba(53, 126, 235, 1);
+                border: none;
+              }
+            }
+          }
+      
+          div {
+            width: 1rem;
+            height: 1rem;
+      
+            &::before {
+              width: 1rem;
+              height: 1rem;
+              background: #bebebe;
+              border: none;
+            }
+          }
+        }
       }
 
       &_btnChangeNameLesson {

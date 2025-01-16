@@ -10,8 +10,9 @@
 }
 
 .wrapper {
-  padding: 1rem;
+  padding: 1rem 0;
   width: 100%;
+  max-width: 1360px;
   height: auto;
   display: flex;
   flex-direction: column;

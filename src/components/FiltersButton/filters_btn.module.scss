@@ -5,7 +5,6 @@
   position: relative;
   margin-right: 7px;
 
-
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding-left: 1rem;
   }
@@ -13,34 +12,15 @@
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding-left: 1rem;
   }
-
-
 }
 
 .container_btn {
-  @include display(flex, row, center, center);
-  @include font(500, 24px);
-  width: 260px;
-  height: 54px;
-  gap: 10px;
-  padding: 16px 40px;
-  font-family: SF Pro Display;
-  border-radius: 10px;
-  background: linear-gradient(90.00deg, rgb(13, 40, 187), rgb(53, 126, 235) 100%);
-  color: rgb(255, 255, 255);
+  padding: 12px 30px;
   font-size: 20px;
   font-weight: 500;
   text-align: center;
   letter-spacing: 0;
   text-align: center;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 0 10px;
-
-  svg {
-    margin-right: 9px;
-  }
 }
 
 .header_dropdown_menu {
@@ -64,7 +44,6 @@
   box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 
-
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 70vw;
     left: -100px;
@@ -73,7 +52,6 @@
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 70vw;
     left: -100px;
-
   }
 }
 
@@ -90,7 +68,7 @@
   justify-content: center;
 
   &:hover {
-    background-color: #CFE2FF;
+    background-color: #cfe2ff;
     border-radius: 10px;
   }
 }
@@ -102,14 +80,14 @@
 }
 
 .search_filter_icon.active {
-  background-color: #CFE2FF;
+  background-color: #cfe2ff;
   border-radius: 10px;
 }
 
 .filter_container {
   border-radius: 32px;
   backdrop-filter: blur(14px);
-  background: rgba(207, 226, 255, 0.7);
+  background: #cfe2ff;
   width: 200px;
   height: auto;
   display: flex;
@@ -119,15 +97,14 @@
   align-items: center;
   gap: 16px;
   position: absolute;
-  left: 283px;
-  top: 0px;
+  left: calc(100% + 10px);
+  top: -20%;
   z-index: 1000;
 }
 
 .filterPointer {
   position: absolute;
-  left: -6%;
+  left: -9px;
   top: 25px;
-  z-index:-1;
-
+  z-index: -1;
 }

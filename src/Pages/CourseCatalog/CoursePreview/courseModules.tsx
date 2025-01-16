@@ -39,7 +39,7 @@ export const CatalogCourseModules: FC<CatalogModulesT> = ({ section, sectionInde
             width={22}
             height={13}
             viewBoxSize="0 0 22 13"
-            path={[{ ...accardionArrPath[0], fill: openIndex === sectionIndex ? '#C6C6C6' : '#4D5766' }]}
+            path={[{ ...accardionArrPath[0], fill: openIndex === sectionIndex ? '#808080' : '#357EEB' }]}
           />
         </span>
       </div>

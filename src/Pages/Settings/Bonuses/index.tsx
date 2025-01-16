@@ -6,15 +6,18 @@ import styles from './bonuses.module.scss'
 import {
   useCreateSchoolBoxMutation,
   useCreateSchoolPrizeMutation,
+  useDeleteSchoolBoxesMutation,
+  useDeleteSchoolPrizesMutation,
   useFetchSchoolBoxesQuery,
   useFetchSchoolPrizesQuery,
   useGetAllSchoolPrizeWinnersQuery,
+  useUpdateSchoolBoxesMutation,
   useUpdateSchoolBoxMutation,
   useUpdateSchoolPrizeMutation,
+  useUpdateSchoolPrizesMutation,
 } from 'api/schoolBonusService'
 import { Checkbox } from 'components/common/Checkbox/Checkbox'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { SettingsIcon } from 'assets/Icons/svgIcons'
 import { settingsIconPath } from 'config/commonSvgIconsPath'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { getNounDeclension } from 'utils/getNounDeclension'
@@ -25,37 +28,119 @@ import { AnimatedModal } from 'components/Modal/AnimatedModal'
 import { Input } from 'components/common/Input/Input/Input'
 import { DownloadIconPath } from 'assets/Icons/svgIconPath'
 import { IPrize, ISchoolBoxes } from 'api/apiTypes'
+import { deleteHoverIconPath } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/ModulesAndLessonsBlock/LessonsBlock/config'
+import { Portal } from 'components/Modal/Portal'
 
 export const BonusesSettings: FC = () => {
   const schoolName = window.location.href.split('/')[4]
-  const { data: schoolBoxes, isFetching: fetchingBoxes, refetch } = useFetchSchoolBoxesQuery(schoolName)
+
+  const { data: schoolBoxesData, isFetching: fetchingBoxes, refetch } = useFetchSchoolBoxesQuery(schoolName)
   const { data: schoolWinners } = useGetAllSchoolPrizeWinnersQuery(schoolName)
-  const [boxes, setBoxes] = useState<ISchoolBoxes[] | undefined>()
-  const { data: schoolPrizes, isFetching: fetchingPrizes, refetch: refetchPrizes } = useFetchSchoolPrizesQuery(schoolName)
+  const { data: schoolPrizesData, isFetching: fetchingPrizes, refetch: refetchPrizes } = useFetchSchoolPrizesQuery(schoolName)
   const [createBox, { data: boxCreated, isLoading, isSuccess }] = useCreateSchoolBoxMutation()
   const [createPrize, { data: prizeCreated, isLoading: loadingPrize }] = useCreateSchoolPrizeMutation()
   const [updateBox] = useUpdateSchoolBoxMutation()
   const [updatePrize] = useUpdateSchoolPrizeMutation()
+  const [updateSchoolBoxes, { isLoading: isSavingBoxes }] = useUpdateSchoolBoxesMutation()
+  const [deleteSchoolBoxes, { isLoading: isDeletingBoxes }] = useDeleteSchoolBoxesMutation()
+  const [updateSchoolPrizes, { isLoading: isSavingPrizes }] = useUpdateSchoolPrizesMutation()
+  const [deleteSchoolPrizes, { isLoading: isDeletingPrizes }] = useDeleteSchoolPrizesMutation()
 
+  const [selectedBoxes, setSelectedBoxes] = useState<number[]>([])
+  const [selectedPrizes, setSelectedPrizes] = useState<number[]>([])
+  const [schoolPrizes, setSchoolPrizes] = useState(schoolPrizesData)
+  const [schoolBoxes, setSchoolBoxes] = useState(schoolBoxesData)
   const [isShowAddBox, { off: showAddBox, on: closeAddBox }] = useBoolean(false)
+  const [isShowDeleteBoxes, { off: showDeleteBoxes, on: closeDeleteBoxes }] = useBoolean(false)
+  const [isShowDeletePrizes, { off: showDeletePrizes, on: closeDeletePrizes }] = useBoolean(false)
   const [newBoxName, setNewBoxName] = useState<string>('')
   const [newBoxCount, setNewBoxCount] = useState<number>(0)
   const [newBoxPrice, setNewBoxPrice] = useState<string>('')
   const [newBoxBonus, setNewBoxBonus] = useState<number>(0)
   const [selectedFile, setSelectedFile] = useState<File>()
   const [uploadFile, setUploadFile] = useState<string>('')
-
   const [isShowAddPrize, { off: showAddPrize, on: closeAddPrize }] = useBoolean(false)
   const [newPrizeName, setNewPrizeName] = useState<string>('')
   const [newPrizeDrop, setNewPrizeDrop] = useState<number>(0)
   const [newPrizeGuarantee, setNewPrizeGuarantee] = useState<string>('')
 
+  const revertBoxesUpdates = () => {
+    setSchoolBoxes(schoolBoxesData)
+  }
+
+  const revertPrizesUpdate = () => {
+    setSchoolPrizes(schoolPrizesData)
+  }
+
+  const deleteSelectedBoxes = () => {
+    closeDeleteBoxes()
+    deleteSchoolBoxes({ schoolName: schoolName, ids: selectedBoxes }).then(() =>
+      refetch()
+        .unwrap()
+        .then(data => setSchoolBoxes(data)),
+    )
+  }
+
+  const deleteSelectedPrizes = () => {
+    closeDeletePrizes()
+    deleteSchoolPrizes({ schoolName: schoolName, ids: selectedPrizes }).then(() =>
+      refetchPrizes()
+        .unwrap()
+        .then(data => setSchoolPrizes(data)),
+    )
+  }
+
+  useEffect(() => {
+    if (!schoolBoxes && schoolBoxesData) {
+      setSchoolBoxes(schoolBoxesData)
+    }
+  }, [schoolBoxesData])
+
+  useEffect(() => {
+    if (!schoolPrizes && schoolPrizesData) {
+      setSchoolPrizes(schoolPrizesData)
+    }
+  }, [schoolPrizesData])
+
+  const saveUpdatedBoxes = () => {
+    if (schoolBoxes) {
+      updateSchoolBoxes({ schoolName: schoolName, data: schoolBoxes })
+    }
+  }
+
+  const saveUpdatedPrizes = () => {
+    if (schoolPrizes) {
+      updateSchoolPrizes({ schoolName: schoolName, data: schoolPrizes })
+    }
+  }
+
   useEffect(() => {
     if (boxCreated) {
       closeAddBox()
       refetch()
+        .unwrap()
+        .then(data => setSchoolBoxes(data))
     }
   }, [boxCreated])
+
+  useEffect(() => {
+    if (prizeCreated) {
+      closeAddPrize()
+      refetchPrizes()
+        .unwrap()
+        .then(data => setSchoolPrizes(data))
+    }
+  }, [prizeCreated])
+
+  const updateBoxes = (box: ISchoolBoxes, key: keyof ISchoolBoxes, newValue: string) => {
+    const updatedBox = { ...box, [key]: newValue }
+    setSchoolBoxes(prevBoxes => prevBoxes?.map(b => (b.id === box.id ? updatedBox : b)))
+  }
+
+  const updatePrizes = (prize: IPrize, key: keyof IPrize, newValue: string) => {
+    const updatedPrize = { ...prize, [key]: newValue }
+    setSchoolPrizes(prevPrizes => prevPrizes?.map(p => (p.id === prize.id ? updatedPrize : p)))
+  }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -93,6 +178,26 @@ export const BonusesSettings: FC = () => {
     setNewBoxPrice(event.target.value)
   }
 
+  const updateCheckedBoxes = (boxId: number) => {
+    setSelectedBoxes(prevSelectedBoxes => {
+      if (prevSelectedBoxes.includes(boxId)) {
+        return prevSelectedBoxes.filter(id => id !== boxId)
+      } else {
+        return [...prevSelectedBoxes, boxId]
+      }
+    })
+  }
+
+  const updateCheckedPrizes = (prizeId: number) => {
+    setSelectedPrizes(prevSelectedPrizes => {
+      if (prevSelectedPrizes.includes(prizeId)) {
+        return prevSelectedPrizes.filter(id => id !== prizeId)
+      } else {
+        return [...prevSelectedPrizes, prizeId]
+      }
+    })
+  }
+
   const updateSchoolBox = (box: ISchoolBoxes) => {
     const form = new FormData()
     form.append('name', box.name)
@@ -102,7 +207,11 @@ export const BonusesSettings: FC = () => {
     if (form) {
       updateBox({ schoolName: schoolName, id: box.id, data: form })
         .unwrap()
-        .then(() => refetch())
+        .then(() =>
+          refetch()
+            .unwrap()
+            .then(data => setSchoolBoxes(data)),
+        )
     }
   }
 
@@ -114,7 +223,11 @@ export const BonusesSettings: FC = () => {
     if (form) {
       updatePrize({ schoolName: schoolName, id: prize.id, data: form })
         .unwrap()
-        .then(() => refetchPrizes())
+        .then(() =>
+          refetchPrizes()
+            .unwrap()
+            .then(data => setSchoolPrizes(data)),
+        )
     }
   }
 
@@ -162,13 +275,11 @@ export const BonusesSettings: FC = () => {
           setNewPrizeDrop(0)
           setNewPrizeName('')
           setNewPrizeGuarantee('')
-          closeAddPrize()
-          refetchPrizes()
         })
     }
   }
 
-  if (!schoolBoxes || !schoolPrizes) {
+  if (!schoolBoxes || !schoolPrizes || isSavingBoxes || isDeletingBoxes || isDeletingPrizes || isSavingPrizes) {
     return <LoaderLayout />
   }
 
@@ -215,7 +326,14 @@ export const BonusesSettings: FC = () => {
             </th>
             <th className={styles.table_header_item}>Бонус: количество коробок в подарок</th>
             <th className={styles.table_header_item}>Срок истекает</th>
-            <th className={styles.table_header_item}>Статус</th>
+            <th className={styles.table_header_item}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', width: '80%', justifyContent: 'center' }}>
+                Статус{' '}
+                <button style={{ background: 'transparent', border: 'none' }} onClick={selectedBoxes.length > 0 ? showDeleteBoxes : undefined}>
+                  <IconSvg viewBoxSize="0 0 20 20" width={20} height={20} path={deleteHoverIconPath} />
+                </button>
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody className={styles.table_body}>
@@ -229,19 +347,30 @@ export const BonusesSettings: FC = () => {
                 </td>
                 <td>
                   <div className={styles.table_body_row_count}>
-                    <Checkbox />
+                    <Checkbox checked={selectedBoxes.includes(box.id)} onChange={e => updateCheckedBoxes(box.id)} />
                     <p>{`${box.quantity} ${getNounDeclension(box.quantity, ['коробка', 'коробки', 'коробок'])}`}</p>
                   </div>
                 </td>
                 <td>
                   <div className={styles.table_body_row_price}>
-                    <input type="number" value={box.price} className={styles.table_body_row_price_item1} />
-                    <input type="number" placeholder="Бонусы" className={styles.table_body_row_price_item2} />
+                    <input
+                      type="number"
+                      onChange={event => updateBoxes(box, 'price', event.target.value)}
+                      name="price"
+                      value={box.price}
+                      className={styles.table_body_row_price_item1}
+                    />
+                    <input type="number" name="bonus_price" placeholder="Баллы" className={styles.table_body_row_price_item2} />
                   </div>
                 </td>
                 <td>
                   <div className={styles.table_body_row_bonus}>
-                    <input type="number" value={box.bonus_quantity} />
+                    <input
+                      type="number"
+                      onChange={event => updateBoxes(box, 'bonus_quantity', event.target.value)}
+                      name="bonus_quantity"
+                      value={box.bonus_quantity}
+                    />
                   </div>
                 </td>
                 <td>
@@ -270,8 +399,8 @@ export const BonusesSettings: FC = () => {
       </table>
       <div className={styles.buttons}>
         <Button text={'Добавить'} variant="newPrimary" onClick={showAddBox} />
-        <Button text={'Сохранить'} variant="newPrimary" />
-        <Button text={'Отмена'} variant="newSecondary" />
+        <Button text={'Сохранить'} variant="newPrimary" onClick={saveUpdatedBoxes} />
+        <Button text={'Отмена'} variant="newSecondary" onClick={revertBoxesUpdates} />
       </div>
 
       <h3 className={styles.wrapper_title}>Настойка отображения частоты появления сообщений о победителях</h3>
@@ -321,7 +450,14 @@ export const BonusesSettings: FC = () => {
             <th className={styles.table_header_item}>Название</th>
             <th className={styles.table_header_item}>Шанс выпадения подарка</th>
             <th className={styles.table_header_item}>Гарантированный приз</th>
-            <th className={styles.table_header_item}>Статус</th>
+            <th className={styles.table_header_item}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', width: '80%', justifyContent: 'center' }}>
+                Статус{' '}
+                <button style={{ background: 'transparent', border: 'none' }} onClick={selectedPrizes.length > 0 ? showDeletePrizes : undefined}>
+                  <IconSvg viewBoxSize="0 0 20 20" width={20} height={20} path={deleteHoverIconPath} />
+                </button>
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody className={styles.table_body}>
@@ -340,13 +476,17 @@ export const BonusesSettings: FC = () => {
                 </td>
                 <td>
                   <div className={styles.table_body_row_bonus}>
-                    <input type="number" value={prize.drop_chance} />
+                    <input type="number" onChange={e => updatePrizes(prize, 'drop_chance', e.target.value)} value={prize.drop_chance} />
                   </div>
                 </td>
                 <td>
                   <div className={styles.table_body_row_bonus}>
-                    <Checkbox />
-                    <input type="number" value={prize.guaranteed_box_count} />
+                    <Checkbox checked={selectedPrizes.includes(prize.id)} onChange={e => updateCheckedPrizes(prize.id)} />
+                    <input
+                      type="number"
+                      onChange={e => updatePrizes(prize, 'guaranteed_box_count', e.target.value)}
+                      value={prize.guaranteed_box_count}
+                    />
                   </div>
                 </td>
                 <td>
@@ -370,8 +510,8 @@ export const BonusesSettings: FC = () => {
       </table>
       <div className={styles.buttons}>
         <Button text={'Добавить'} variant="newPrimary" onClick={showAddPrize} />
-        <Button text={'Сохранить'} variant="newPrimary" />
-        <Button text={'Отмена'} variant="newSecondary" />
+        <Button text={'Сохранить'} variant="newPrimary" onClick={saveUpdatedPrizes} />
+        <Button text={'Отмена'} variant="newSecondary" onClick={revertPrizesUpdate} />
       </div>
 
       <div className={styles.wrapper_prizesTextBlock}>
@@ -433,85 +573,132 @@ export const BonusesSettings: FC = () => {
           </tbody>
         </table>
       )}
-
-      <AnimatedModal handleClose={closeAddBox} show={isShowAddBox}>
-        <div className={styles.addBoxModal}>
-          <h3 className={styles.addBoxModal_title}>Добавление нового набора</h3>
-          <div className={styles.addBoxModal_data}>
-            {uploadFile ? (
-              <div className={styles.addBoxModal_data_el}>
-                <p>Выберите иконку набора:</p>
-                <label htmlFor="icon-input">
-                  <img src={uploadFile} alt="newIcon" style={{ width: '50px', height: '50px', objectFit: 'contain', background: 'transparent' }} />
-                </label>
-                <input onChange={handleChange} className={styles.addBoxModal_data_el_fileInput} type="file" id="icon-input" title="box-icon" />
+      {isShowDeleteBoxes && (
+        <Portal closeModal={closeDeleteBoxes}>
+          <AnimatedModal handleClose={closeDeleteBoxes} show={isShowDeleteBoxes}>
+            <div className={styles.addBoxModal} style={{ maxWidth: '800px' }}>
+              <h3 className={styles.addBoxModal_title}>
+                Вы действительно хотите удалить {getNounDeclension(selectedBoxes.length, ['выбранную', 'выбранные'])} {selectedBoxes.length}{' '}
+                {getNounDeclension(selectedBoxes.length, ['коробку', 'коробки', 'коробок'])}? Отменить действие будет невозможно
+              </h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', width: '100%', justifyContent: 'center' }}>
+                <Button variant="newPrimary" text={'Удалить'} onClick={deleteSelectedBoxes} />
+                <Button variant="newSecondary" text={'Отменить'} onClick={closeDeleteBoxes} />
               </div>
-            ) : (
-              <div className={styles.addBoxModal_data_el}>
-                <p>Выберите иконку набора:</p>
-                <label htmlFor="icon-input">
-                  <IconSvg styles={{ cursor: 'pointer' }} width={50} height={50} viewBoxSize="0 0 23 23" path={DownloadIconPath} />
-                </label>
-                <input onChange={handleChange} className={styles.addBoxModal_data_el_fileInput} type="file" id="icon-input" title="box-icon" />
+            </div>
+          </AnimatedModal>
+        </Portal>
+      )}
+      {isShowDeletePrizes && (
+        <Portal closeModal={closeDeletePrizes}>
+          <AnimatedModal handleClose={closeDeletePrizes} show={isShowDeletePrizes}>
+            <div className={styles.addBoxModal} style={{ maxWidth: '800px' }}>
+              <h3 className={styles.addBoxModal_title}>
+                Вы действительно хотите удалить {getNounDeclension(selectedPrizes.length, ['выбранный', 'выбранные'])} {selectedPrizes.length}{' '}
+                {getNounDeclension(selectedPrizes.length, ['приз', 'приза', 'призов'])}? Отменить действие будет невозможно
+              </h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', width: '100%', justifyContent: 'center' }}>
+                <Button variant="newPrimary" text={'Удалить'} onClick={deleteSelectedPrizes} />
+                <Button variant="newSecondary" text={'Отменить'} onClick={closeDeletePrizes} />
               </div>
-            )}
-            <div className={styles.addBoxModal_data_el}>
-              <p>Название набора:</p>
-              <Input id="boxName" type="text" name="boxName" value={newBoxName} onChange={changeName} />
             </div>
-            <div className={styles.addBoxModal_data_el}>
-              <p>Введите количество коробок в наборе:</p>
-              <Input id="boxCount" type="number" name="boxCount" value={String(newBoxCount)} onChange={changeCount} />
-            </div>
-            <div className={styles.addBoxModal_data_el}>
-              <p>Введите стоимость в BYN:</p>
-              <Input id="boxPrice" type="text" name="boxPrice" value={newBoxPrice} onChange={changePrice} />
-            </div>
-            <div className={styles.addBoxModal_data_el}>
-              <p>Количество бонусных коробок:</p>
-              <Input id="boxBonus" type="number" name="boxBonus" value={String(newBoxBonus)} onChange={changeBonus} />
-            </div>
-          </div>
-          <Button variant="newPrimary" text={'Добавить'} onClick={createNewBox} />
-        </div>
-      </AnimatedModal>
-      <AnimatedModal handleClose={closeAddPrize} show={isShowAddPrize}>
-        <div className={styles.addBoxModal}>
-          <h3 className={styles.addBoxModal_title}>Добавление нового подарка</h3>
-          <div className={styles.addBoxModal_data}>
-            {uploadFile ? (
-              <div className={styles.addBoxModal_data_el}>
-                <p>Выберите иконку подарка:</p>
-                <label htmlFor="icon-input">
-                  <img src={uploadFile} alt="newIcon" style={{ width: '50px', height: '50px', objectFit: 'contain', background: 'transparent' }} />
-                </label>
-                <input onChange={handleChange} className={styles.addBoxModal_data_el_fileInput} type="file" id="icon-input" title="box-icon" />
+          </AnimatedModal>
+        </Portal>
+      )}
+      {isShowAddBox && (
+        <Portal closeModal={closeAddBox}>
+          <AnimatedModal handleClose={closeAddBox} show={isShowAddBox}>
+            <div className={styles.addBoxModal}>
+              <h3 className={styles.addBoxModal_title}>Добавление нового набора</h3>
+              <div className={styles.addBoxModal_data}>
+                {uploadFile ? (
+                  <div className={styles.addBoxModal_data_el}>
+                    <p>Выберите иконку набора:</p>
+                    <label htmlFor="icon-input">
+                      <img
+                        src={uploadFile}
+                        alt="newIcon"
+                        style={{ width: '50px', height: '50px', objectFit: 'contain', background: 'transparent' }}
+                      />
+                    </label>
+                    <input onChange={handleChange} className={styles.addBoxModal_data_el_fileInput} type="file" id="icon-input" title="box-icon" />
+                  </div>
+                ) : (
+                  <div className={styles.addBoxModal_data_el}>
+                    <p>Выберите иконку набора:</p>
+                    <label htmlFor="icon-input">
+                      <IconSvg styles={{ cursor: 'pointer' }} width={50} height={50} viewBoxSize="0 0 23 23" path={DownloadIconPath} />
+                    </label>
+                    <input onChange={handleChange} className={styles.addBoxModal_data_el_fileInput} type="file" id="icon-input" title="box-icon" />
+                  </div>
+                )}
+                <div className={styles.addBoxModal_data_el}>
+                  <p>Название набора:</p>
+                  <Input id="boxName" type="text" name="boxName" value={newBoxName} onChange={changeName} />
+                </div>
+                <div className={styles.addBoxModal_data_el}>
+                  <p>Введите количество коробок в наборе:</p>
+                  <Input id="boxCount" type="number" name="boxCount" value={String(newBoxCount)} onChange={changeCount} />
+                </div>
+                <div className={styles.addBoxModal_data_el}>
+                  <p>Введите стоимость в BYN:</p>
+                  <Input id="boxPrice" type="text" name="boxPrice" value={newBoxPrice} onChange={changePrice} />
+                </div>
+                <div className={styles.addBoxModal_data_el}>
+                  <p>Количество бонусных коробок:</p>
+                  <Input id="boxBonus" type="number" name="boxBonus" value={String(newBoxBonus)} onChange={changeBonus} />
+                </div>
               </div>
-            ) : (
-              <div className={styles.addBoxModal_data_el}>
-                <p>Выберите иконку подарка:</p>
-                <label htmlFor="icon-input">
-                  <IconSvg styles={{ cursor: 'pointer' }} width={50} height={50} viewBoxSize="0 0 23 23" path={DownloadIconPath} />
-                </label>
-                <input onChange={handleChange} className={styles.addBoxModal_data_el_fileInput} type="file" id="icon-input" title="box-icon" />
+              <Button variant="newPrimary" text={'Добавить'} onClick={createNewBox} />
+            </div>
+          </AnimatedModal>
+        </Portal>
+      )}
+      {isShowAddPrize && (
+        <Portal closeModal={closeAddPrize}>
+          <AnimatedModal handleClose={closeAddPrize} show={isShowAddPrize}>
+            <div className={styles.addBoxModal}>
+              <h3 className={styles.addBoxModal_title}>Добавление нового подарка</h3>
+              <div className={styles.addBoxModal_data}>
+                {uploadFile ? (
+                  <div className={styles.addBoxModal_data_el}>
+                    <p>Выберите иконку подарка:</p>
+                    <label htmlFor="icon-input">
+                      <img
+                        src={uploadFile}
+                        alt="newIcon"
+                        style={{ width: '50px', height: '50px', objectFit: 'contain', background: 'transparent' }}
+                      />
+                    </label>
+                    <input onChange={handleChange} className={styles.addBoxModal_data_el_fileInput} type="file" id="icon-input" title="box-icon" />
+                  </div>
+                ) : (
+                  <div className={styles.addBoxModal_data_el}>
+                    <p>Выберите иконку подарка:</p>
+                    <label htmlFor="icon-input">
+                      <IconSvg styles={{ cursor: 'pointer' }} width={50} height={50} viewBoxSize="0 0 23 23" path={DownloadIconPath} />
+                    </label>
+                    <input onChange={handleChange} className={styles.addBoxModal_data_el_fileInput} type="file" id="icon-input" title="box-icon" />
+                  </div>
+                )}
+                <div className={styles.addBoxModal_data_el}>
+                  <p>Название подарка:</p>
+                  <Input id="boxName" type="text" name="boxName" value={newPrizeName} onChange={changePrizeName} />
+                </div>
+                <div className={styles.addBoxModal_data_el}>
+                  <p>Введите шанс выпадения:</p>
+                  <Input id="boxCount" type="text" name="boxCount" value={String(newPrizeDrop)} onChange={changePrizeDrop} />
+                </div>
+                <div className={styles.addBoxModal_data_el}>
+                  <p>Гарантированный приз:</p>
+                  <Input id="boxPrice" type="text" name="prizeGarant" value={newPrizeGuarantee} onChange={changePrizeGuarantee} />
+                </div>
               </div>
-            )}
-            <div className={styles.addBoxModal_data_el}>
-              <p>Название подарка:</p>
-              <Input id="boxName" type="text" name="boxName" value={newPrizeName} onChange={changePrizeName} />
+              <Button variant="newPrimary" text={'Добавить'} onClick={createNewPrize} />
             </div>
-            <div className={styles.addBoxModal_data_el}>
-              <p>Введите шанс выпадения:</p>
-              <Input id="boxCount" type="text" name="boxCount" value={String(newPrizeDrop)} onChange={changePrizeDrop} />
-            </div>
-            <div className={styles.addBoxModal_data_el}>
-              <p>Гарантированный приз:</p>
-              <Input id="boxPrice" type="text" name="prizeGarant" value={newPrizeGuarantee} onChange={changePrizeGuarantee} />
-            </div>
-          </div>
-          <Button variant="newPrimary" text={'Добавить'} onClick={createNewPrize} />
-        </div>
-      </AnimatedModal>
+          </AnimatedModal>
+        </Portal>
+      )}
     </div>
   )
 }

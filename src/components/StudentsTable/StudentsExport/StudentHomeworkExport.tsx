@@ -68,7 +68,7 @@ export const StudentsHomeworkExport: FC = () => {
 
   return (
     <>
-      <Button onClick={handleExport} className={styles.students_group_header_export_button} text={''}>
+      <Button onClick={handleExport} variant='newPrimary' className={styles.students_group_header_export_button} text={''}>
         Скачать
         {isFetching && <SimpleLoader style={{ height: '12px', width: '12px' }} loaderColor="white" />}
       </Button>

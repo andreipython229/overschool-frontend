@@ -2,17 +2,15 @@
 @import '../../scss/variable.scss';
 
 .inputWrapper {
-  width: 100%;
-  padding: 30px 20px;
-  position: relative;
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 0px 8px 0px #3241954d;
+  border-radius: 20px;
+  padding: 1rem;
 
   &_mathBlock {
-    border: 2px solid gray;
+    border: 1px solid #dcdcdc !important;
     border-radius: 10px;
     padding: 30px 20px;
     width: 100%;
@@ -25,9 +23,8 @@
   width: 100%;
 
   &_navBlock {
-    @include display(flex, column);
-    padding: 1em;
-    justify-content: center;
+    @include display(flex, row, space-between, center);
+    width: 100%;
 
     &_div {
       background: #f3f4f6;
@@ -42,32 +39,13 @@
     }
 
     &_grabBtn {
-      background: #f3f4f6;
-      border: none;
-      border-radius: 7px;
-      width: 36px;
-      height: 56px;
-      text-align: center;
-      @include display(flex, row, center, center);
-      margin-bottom: 8px;
+      display: flex;
       cursor: grab;
     }
 
     &_delete {
-      padding: 11px 0;
-      border-radius: 6px;
-      border: none;
-      width: 36px;
-      background: #fef2f2;
-      @include display(flex, row, flex-start, center);
-      text-align: center;
-      cursor: pointer;
-
-      & svg {
-        margin: 0 auto;
-        height: 17px;
-        width: 17px;
-      }
+      padding: 10px 25px;
+      @include font(500, 16px, 19.09px);
     }
   }
 }

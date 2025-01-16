@@ -9,6 +9,7 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Button } from 'components/common/Button/Button'
 import Picture from '../.././assets/img/createCourse/picture.svg'
+import { DoBlockIconPath } from 'Pages/School/config/svgIconsPath'
 
 export const AddPicture: FC<AddPostT> = ({ block, setLessonBlocks, lessonBlocks, pictureUrl }) => {
   const schoolName = window.location.href.split('/')[4]
@@ -72,6 +73,17 @@ export const AddPicture: FC<AddPostT> = ({ block, setLessonBlocks, lessonBlocks,
       key={block && block.id}
     >
       <div className={styles.redactorCourse_wrapper}>
+        <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
+          <span className={styles.redactorCourse_rightSide_functional_addContent_navBlock_grabBtn} onPointerDown={onPointerDown}>
+            <IconSvg width={24} height={24} viewBoxSize={'0 0 24 24'} path={DoBlockIconPath} />
+          </span>
+          <Button
+            variant="cancel"
+            className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete}
+            text={isLoading ? <SimpleLoader /> : 'Удалить'}
+            onClick={handleDeletePicture}
+          />
+        </div>
         <div className={styles.videoHandlerWrapper}>
           <div className={styles.redactorCourse_rightSide_functional_addContent}>
             {pictureUrl ? (
@@ -86,22 +98,14 @@ export const AddPicture: FC<AddPostT> = ({ block, setLessonBlocks, lessonBlocks,
                   multiple
                 />
                 {isSaving ? (
-                  <SimpleLoader style={{ height: '3rem', width: '3rem' }} />
+                  <SimpleLoader style={{ height: '3rem', width: '3rem' }} loaderColor="#357EEB" />
                 ) : (
                   <img style={{ width: '4rem', height: '4rem', color: '#8a49b5', marginBottom: '0.5rem' }} src={Picture} />
                 )}
                 <span>Загрузите новое изображение с вашего устройства</span>
-                <Button type={'button'} disabled={isSaving} variant={'primary'} text={'Выбрать файл'} />
+                <Button type={'button'} disabled={isSaving} variant={'newPrimary'} text={'Выбрать файл'} />
               </>
             )}
-          </div>
-        </div>
-        <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock}>
-          <span className={styles.redactorCourse_rightSide_functional_addContent_navBlock_grabBtn} onPointerDown={onPointerDown}>
-            <IconSvg width={11} height={15} className="zIndex: 20" viewBoxSize="0 0 12 18" path={doBlockIconPath} />
-          </span>
-          <div className={styles.redactorCourse_rightSide_functional_addContent_navBlock_delete} onClick={handleDeletePicture}>
-            {isLoading ? <SimpleLoader /> : <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />}
           </div>
         </div>
       </div>
