@@ -1,6 +1,8 @@
 @import '../../../scss//mixin.scss';
 @import '../../../scss/variable.scss';
 
+
+
 .wrapper {
   @include display(flex, column, space-between, start);
   width: 100%;
@@ -11,6 +13,8 @@
   border-radius: 20px;
   margin-top: 24px;
   position: relative;
+
+
 
   .content_section {
     @include display(flex, row, start, start);
@@ -52,8 +56,21 @@
     gap: 10px;
   }
 
+  .banner_groups_btn_cont {
+    @include display(flex, row, start, start);
+    position: relative;
+    width: 100%;
+
+    svg {
+      position: absolute;
+      right: 15px;
+      top: 22px;
+    }
+  }
+
   .banner_groups_btn {
     background-color: transparent;
+    flex-grow: 1;
     border: 1px solid #332f36;
     border-radius: 10px;
     text-align: start;
@@ -134,6 +151,21 @@
     gap: 20px;
     align-items: center;
 
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      button{
+        border: 2px solid #357eeb;
+        padding: 8px 16px !important;
+        font-size: 12px;
+      }
+    }
+    @media only screen and (min-width: 481px) and (max-width: 1024px) {
+
+      button{
+        border: 2px solid #357eeb;
+        padding: 10px 20px !important;
+        font-size: 14px;
+      }
+    }
 
     &_delete {
       border: 2px solid #357EEB;

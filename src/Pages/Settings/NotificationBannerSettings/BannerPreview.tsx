@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react'
 import styles from './Banner.module.scss'
 import HubImage from '../../../assets/img/common/present_image.png'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { deletePath } from 'config/commonSvgIconsPath'
+import { deletePath,arrowDownPoligonPath } from 'config/commonSvgIconsPath'
 import { settingsIconPath } from 'Pages/School/config/svgIconsPath'
 import { Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tooltip } from '@mui/material'
 import { useBoolean } from 'customHooks'
@@ -19,8 +19,7 @@ import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
 import { BannerStatistics } from 'components/BannerStatistics'
 
-import { NewTextEditor } from 'components/AddTextEditor/NewTextEditor'
-import { SelectInput } from '../../../components/common/SelectInput/SelectInput'
+
 import { BannerGroups } from 'components/Modal/BannerGroups/BannerGroups'
 import { Portal } from 'components/Modal/Portal'
 import { penIconPath } from "../Main/iconComponents"
@@ -63,7 +62,6 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
       formdata.append('title', title)
       formdata.append('description', description)
       formdata.append('is_active', String(isActive))
-      // activeGroups.map(grp => formdata.append('groups', String(grp)))  //перенести в bannerGroup
       await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
         .unwrap()
         .then(() => {
@@ -98,18 +96,10 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
           <span>
             {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>}
           </span>
-          {/* {isEditing ? ( */}
           <div style={{ display: 'flex', gap: '10px' }}>
             <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
             <span className={styles.banner_checkbox_status}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
           </div>
-          {/* // ) : ( */}
-          {/* // <div style={{ display: 'flex', gap: '10px' }}> */}
-          {/* <span style={{ fontWeight: '500' }}> */}
-          {/* {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>} */}
-          {/* </span> */}
-          {/* </div> */}
-          {/* // )} */}
           {!isEditing ? (
             <span className={styles.wrapper_content_title}>{banner.title}</span>
           ) : (
@@ -158,110 +148,24 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
           {groups &&
             (!isEditing ? (
               <div className={styles.wrapper_content_groups}>
-                {/* <span>Группы в которых отображается этот баннер при входе на платформу:</span> */}
                 <div style={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'column' }}>
-                  {/* {groups.results.map(
-                  grp =>
-                    activeGroups.includes(Number(grp.group_id)) && (
-                      <span style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem', flexBasis: 20 }}>{grp.name}</span>
-                    ),
-                )} */}
-                  {/* {Object.entries(
-                  groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
-                    const courseName = group.course_name
-                    if (courseName) {
-                      if (!acc[courseName]) {
-                        acc[courseName] = []
-                      }
-                      acc[courseName].push(group)
-                    }
-                    return acc
-                  }, {}),
-                ).map(([courseName, groups]) => (
-                  <div key={courseName} style={{ marginBlockStart: '8px' }}>
-                    {groups.length > 0 && groups.find(grp => activeGroups.includes(Number(grp.group_id))) && <b>{courseName}</b>}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                      {groups.map(
-                        (group, index) =>
-                          activeGroups.includes(Number(group.group_id)) && (
-                            <span style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem', flexBasis: 20 }}>{group.name}</span>
-                          ),
-                      )}
-                    </div>
-                  </div>
-                ))} */}
                 </div>
               </div>
             ) : (
               <>
-
-
-
                 <div className={styles.wrapper_content_groups}>
                   <span>Группы в которых будет отображен этот баннер:</span>
-                  <button onClick={setShow} className={styles.banner_groups_btn}>Выберите одну или несколько групп</button>
+                  <div className={styles.banner_groups_btn_cont}>
+                    <button onClick={setShow} className={styles.banner_groups_btn}>Выберите одну или несколько групп</button>
+                    <IconSvg width={14} height={15} viewBoxSize="0 0 14 15" path={arrowDownPoligonPath}></IconSvg>
+                  </div>
 
                   {showGroupsModal && (
                     <Portal closeModal={closeGroups}>
                       <BannerGroups refetch={refetch} schoolName={schoolName} setShowModal={setShow} groups={groups} banner={banner} />
                     </Portal>
                   )}
-
-
-                  {/* <div>
-                  <Checkbox
-                    style={{ color: '#ba75ff' }}
-                    checked={allGroups}
-                    onChange={e => {
-                      handleAllGroups(e)
-                    }}
-                  />
-                  <span>
-                    <b>выбрать все группы</b>
-                  </span>
-                </div> */}
-
-                  {/* {Object.entries(
-                  groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
-                    const courseName = group.course_name
-                    if (courseName) {
-                      if (!acc[courseName]) {
-                        acc[courseName] = []
-                      }
-                      acc[courseName].push(group)
-                    }
-                    return acc
-                  }, {}),
-                ).map(([courseName, groups]) => (
-                  <div key={courseName} style={{ marginBlockStart: '3px' }}>
-                    <b>{courseName}</b>
-                    {groups.map((group, index) => (
-                      <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
-                        <Checkbox
-                          style={{ color: '#ba75ff' }}
-                          checked={isCheckedFunc(group.group_id as number, activeGroups)}
-                          onChange={e => {
-                            const isChecked = e.target.checked
-                            if (!isChecked) {
-                              setAllGroups(false)
-                              setActiveGroups(prevGrps => prevGrps.filter(grp => grp !== Number(group.group_id)))
-                            } else {
-                              setActiveGroups(prevGrps => prevGrps.concat(Number(group.group_id)))
-                            }
-                          }}
-                        />
-                        {group.name}
-                        <span> (Кол-во студентов: {group.students.length})</span>
-                      </div>
-                    ))}
-                  </div>
-                ))} */}
                 </div>
-
-
-
-
-
                 <div className={styles.wrapper_buttons}>
                   <Button style={{ padding: '17px 40px' }} onClick={handleSave} text="Сохранить" variant={'newPrimary'} />
                   <Button style={{ padding: '15px 40px' }} onClick={open} text="Удалить" variant={'cancel'} />
@@ -278,7 +182,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
           <div className={styles.statistics_container}>
             <BannerStatistics banner={banner} schoolName={schoolName} />
           </div>
-        ):(<div></div>)
+        ) : (<div></div>)
       }
       {
         !isEditing ? (

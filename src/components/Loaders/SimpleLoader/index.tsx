@@ -37,7 +37,7 @@ export const SimpleLoader: FC<simpleLoaderT> = ({ style, loaderColor }) => {
         cx="50"
         cy="50"
         fill="none"
-        stroke={loaderColor || '#ba75ff'}
+        stroke={loaderColor || '#357EEB'}
         strokeWidth="7"
         r="40"
         strokeDasharray="141.37166941154067 49.12388980384689"

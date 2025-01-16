@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import Chart, { ChartData, Legend } from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { color, pointRadial, tickStep } from 'd3';
+import { color, pointRadial, style, tickStep } from 'd3';
 import { size } from 'lodash';
 import { layouts, plugins } from 'chart.js/dist';
 import { Height, Padding } from '@mui/icons-material';
@@ -13,6 +13,8 @@ import styles from './bannerstatistics.module.scss'
 import { ClickDetail } from 'types/courseStatT';
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { number } from 'yup';
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { arrowDownPoligonPath } from 'config/commonSvgIconsPath'
 
 Chart.register(ChartDataLabels);
 
@@ -32,6 +34,7 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
     const { data: bannerStats, error, isLoading } = useFetchBannerStatQuery({ bannerId, filters, schoolName, start_date, end_date })
     const [allClicksData, setAllClicksData] = useState<number[]>([]);
     const [uniqueClicksData, setUniqueClicksData] = useState<number[]>([]);
+    const [isSelectOpen, setSelectIsOpen] = useState<boolean>(false);
 
     useEffect(() => {
         if (bannerStats) {
@@ -150,9 +153,8 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
 
     const legendMargin = {
         id: 'legendMargin',
-        beforeInit(chart: any, legend: any, options: any) {
+        beforeInit(chart: any) {
             const fitValue = chart.legend.fit;
-            console.log(fitValue)
             chart.legend.fit = function fit() {
                 fitValue.bind(chart.legend)();
                 return this.height += 50;
@@ -258,24 +260,32 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
 
     } as const;
 
+    const handleToggle = (isSelOpen: boolean) => {
+        setSelectIsOpen(isSelOpen) 
+      };
+
     return (
         <div>
             <div className={styles.chart_header_container}>
                 <p className={styles.chart_header}>Статистика показов и переходов</p>
-                <SelectInput
-                    optionsList={optionsList}
-                    selectedOption={timeRange}
-                    defaultOption="выбрать"
-                    setSelectedValue={handleTimeRangeChange}
-                    className={styles.selectInput}
-                />
+                <div className={styles.selectInput_wrapper}>
+                    <SelectInput
+                        optionsList={optionsList}
+                        selectedOption={timeRange}
+                        defaultOption="выбрать"
+                        setSelectedValue={handleTimeRangeChange}
+                        className={styles.selectInput}
+                        onToggle={handleToggle}
+                    />
+                    <IconSvg className={`${styles.select_arrowDown} ${isSelectOpen ? styles.select_arrowdown_open : ''}`} width={14} height={15} viewBoxSize="0 0 14 11" path={arrowDownPoligonPath}></IconSvg>
+                </div>
             </div>
             <div className={styles.clicks_counter_container}>
                 <p className={styles.clicks_counter_header}>Всего кликов</p>
                 <p className={styles.clicks_counter}>{bannerStats?.unique_clicks}</p>
             </div>
             <Bar data={chartData} options={options} plugins={[legendMargin]} />
-            
+
         </div >
     );
 };

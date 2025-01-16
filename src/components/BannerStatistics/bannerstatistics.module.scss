@@ -16,7 +16,17 @@
 .selectInput {
     width: 150px;
 
+    &_wrapper {
+        position: relative;
+        display: flex;
+
+
+    }
+
     div {
+        svg {
+            display: none;
+        }
 
         button {
             background-color: #357EEB;
@@ -39,19 +49,38 @@
             }
         }
     }
+
+
 }
 
-.clicks_counter{
+.select_arrowDown {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    transform: rotate(-180deg);
+    pointer-events: none;
+    transition-duration: $trans-dur02;
+
+    path {
+        fill: #fff;
+    }
+}
+
+.select_arrowdown_open {
+    transform: rotate(0deg);
+}
+
+.clicks_counter {
     color: #357EEB;
     font-weight: 500;
     font-size: 46px;
 
 
-    &_container{
+    &_container {
         position: absolute;
     }
-    
-    &_header{
+
+    &_header {
         color: #B2B2B2;
         font-size: 20px;
     }

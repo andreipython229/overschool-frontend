@@ -1498,6 +1498,7 @@
     overflow-y: scroll;
     margin: 0 20px;
     gap: 5px;
+
     div {
       @include display(flex, row, start, center);
       height: auto;
@@ -1533,6 +1534,10 @@
     }
   }
 
+
+
+
+
   .course_container {
     @include display(flex, row, space-between, center);
     justify-content: space-between !important;
@@ -1540,7 +1545,7 @@
   }
 
   .to_select_groups {
-    @include display(flex, row, center, center) ;
+    @include display(flex, row, center, center);
     margin-right: 10px;
     background-color: transparent;
     border: none;
@@ -1548,8 +1553,19 @@
     height: 20px;
   }
 
-  .group_container{
+  .group_container {
     margin: 0 20px;
+  }
+
+  .groups_warning {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0 0 0;
+    color: transparent;
+
+    &_active{
+      color: red;
+    }
   }
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -1561,16 +1577,33 @@
 
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 98%;
-    position: absolute;
-    top: 10%;
-    right: 1%;
+    height: 50%;
+
+    font-size: 16px;
+    position: relative !important;
+    margin: auto auto;
+
+    div {
+      padding: 1px;
+      box-shadow: none;
+
+      span {
+        right: 5px;
+      }
+    }
+
 
   }
 
-  @media only screen and (min-width: 481px) and (max-width: 1024px) {
-    position: absolute;
-    left: 30%;
-    height: 95%;
+  @media only screen and (min-width: 700px) and (max-width: 1024px) {
+    width: 75vw;
+  }
+
+  @media only screen and (min-width: 481px) and (max-width: 700px) {
+    // position: absolute;
+    // left: 30%; 
+    // height: 95%;
+    width: 90vw;
   }
 
 }

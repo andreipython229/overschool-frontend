@@ -8,13 +8,17 @@ import { SelectInputPropsT } from '../../../types/commonComponentsTypes'
 
 import styles from './selectInput.module.scss'
 
-export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption, defaultOption = 'выбрать', setSelectedValue, className }) => {
+export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption, defaultOption = 'выбрать', setSelectedValue, className, onToggle }) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
   const [selectOption, setSelectOption] = useState<number | null>(null)
   const [defaultOp, setDefaultOp] = useState<string>('')
 
   const toggleOptions = () => {
-    setIsOptionsOpen(!isOptionsOpen)
+    const newIsOpen = !isOptionsOpen;
+    setIsOptionsOpen(newIsOpen);
+    if (onToggle) {
+      onToggle(newIsOpen);
+    }
   }
 
   const handleToggleOptionsOpen = () => {
@@ -28,6 +32,9 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption
 
     if (!menuRef.current?.contains(target)) {
       setIsOptionsOpen(false)
+      if (onToggle) {
+        onToggle(false); 
+      }
     }
   }
 
@@ -82,6 +89,9 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption
                 setDefaultOp('')
                 setIsOptionsOpen(false)
                 setSelectedValue && setSelectedValue(option.value)
+                if (onToggle) {
+                  onToggle(false);
+                }
               }}
             >
               {option.label}
