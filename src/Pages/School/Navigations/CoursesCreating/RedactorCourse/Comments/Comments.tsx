@@ -1,4 +1,4 @@
-import {FC, useEffect, useState, memo} from 'react';
+import {FC, useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import {NewCheckbox} from "../../../../../../components/common/Checkbox/NewCheckbox";
 import {
@@ -7,7 +7,7 @@ import {
   useLazyFetchCommentsByLessonQuery,
   useUpdateCommentsMutation
 } from 'api/modulesServices';
-
+import {Pagination} from "components/Pagination/Pagination";
 import { lessonSvgMapper } from 'config';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { acceptedHwPath } from 'config/commonSvgIconsPath';
@@ -23,6 +23,7 @@ import user from './images/user.png';
 import vectorBack from './images/vectorBack.png';
 import vectorForward from './images/vectorForward.png';
 import vectorContent from './images/vectorContent.png';
+import { lessonIcon } from './config'
 
 
 const ITEMS_ON_PAGE_COUNT = 8;
@@ -47,10 +48,15 @@ export const Comments: FC = () => {
     const [updateComments] = useUpdateCommentsMutation();
     const [commentsList, setCommentsList] = useState<CommentList>();
     const [error, setError] = useState<string>('');
+    const [pageNumber, setPageNumber] = useState<number>(1);
     const [totalPageArr, setTotalPageArr] = useState<number[]>([]);
     const [show, setShow] = useState<number>(0);
     const [showMore, setShowMore] = useState<number>(ITEMS_ON_PAGE_COUNT);
     const [showContent, setShowContent] = useState<boolean>(false);
+    const [clickedSectionId, setClickedSectionId] = useState<number>();
+    const [clickedSectionIdArr, setClickedSectionIdArr] = useState<number[]>([]);
+    const [clickedLessonId, setClickedLessonId] = useState<number>();
+    const [checkedCommentsArr, setCommentsArr] = useState<number[]>([]);
 
     const showErrorForSevenSeconds = (errorMessage: string) => {
       setError(errorMessage);
@@ -60,11 +66,12 @@ export const Comments: FC = () => {
     };
 
     const handleChangeLesson = (lessonId: number, baselesson: number, lessonType: string) => {
+
       return () => {
         const idAndType: lessonIdAndTypeT = { id: lessonId, type: lessonType };
         setLessonIdAndType(idAndType);
         setSelectedLessonId(baselesson);
-        setShowContent(!showContent);
+        setClickedLessonId(baselesson);
         fetchComments({lesson_id: baselesson, schoolName: schoolName, course_id: Number(courseId)}).then((data) => {
           if (data && data.data) {
             const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
@@ -97,6 +104,7 @@ export const Comments: FC = () => {
     };
 
     const toggleCommentPublic = (commentId: number) => {
+      checkedCommentsArr.push(commentId);
       setCommentsList((prevComments: CommentList | undefined) => {
         if (prevComments) {
           const updatedComments = prevComments.comments.map((comment) => {
@@ -165,8 +173,8 @@ export const Comments: FC = () => {
     }, [modulesList, check]);
 
     const handleSaveChanges = async () => {
+      checkedCommentsArr.splice(0);
       try {
-
         if (commentsList?.comments && Object.keys(commentsList.comments).length > 0) {
           const commentsToUpdate: Record<number, boolean> = {}
           commentsList.comments.forEach((comment: Comment) => {
@@ -185,22 +193,45 @@ export const Comments: FC = () => {
       }
     }
 
+    const handleCancelChanges = () => {
+      checkedCommentsArr.forEach((value: number) => {
+      setCommentsList((prevComments: CommentList | undefined) => {
+        if (prevComments) {
+          const updatedComments = prevComments.comments.map((comment) => {
+            if (comment.id === value) {
+              return { ...comment, public: !comment.public };
+            }
+            return comment;
+          });
+          return { comments: updatedComments };
+        }
+        return prevComments;
+      });
+     })
+      checkedCommentsArr.splice(0);
+}
+
     const handleClickPagination = (val: number) =>{
       setShow(ITEMS_ON_PAGE_COUNT*val-ITEMS_ON_PAGE_COUNT);
       setShowMore(ITEMS_ON_PAGE_COUNT*val);
+      setPageNumber(val);
     }
 
-    const handleClickBackPagination = () =>{
-      setShow(show-ITEMS_ON_PAGE_COUNT);
-      setShowMore(showMore-ITEMS_ON_PAGE_COUNT);
-    }
-
-    const handleClickForwardPagination = () =>{
-      setShow(show+ITEMS_ON_PAGE_COUNT);
-      setShowMore(showMore+ITEMS_ON_PAGE_COUNT);
-    }
-
-
+    const handleClickSection = (index: number) =>{
+      setClickedLessonId(0);
+      setClickedSectionId(index);
+        if(clickedSectionIdArr.includes(index)){
+          setShowContent(false);
+          const startIndex = clickedSectionIdArr.indexOf(index);
+          const deleteCount = 1;
+          if (startIndex !== -1) {
+            clickedSectionIdArr.splice(startIndex, deleteCount);
+          }
+        }else{
+          setShowContent(true);
+          clickedSectionIdArr.push(index);
+          }
+      }
 
     return (
       <div className={styles.wrapper}>
@@ -215,33 +246,69 @@ export const Comments: FC = () => {
                 if (!section_name) return
                 return (
                   <>
-                  {lessons && lessons.length > 0 && (
-                    <ul >
-                      {lessons.map((lesson) => (
-                        <button
-                          key={lesson.baselesson_ptr_id}
-                          onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
-                          className={`${styles.redactorCourse_leftSide_desc_lessonWrapper} ${stylesModules.btnWrapper} ${(selectedLessonId === lesson.baselesson_ptr_id) ? styles.selectedLesson : ''}`}
-                        >
-                          <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
-                            <span><img/></span>
-                            <span style={{ textAlign: 'left' }}>{lesson.name}</span>
+                  <ul>
+                  <li key={section_name}>
+                  <button
+                    onClick={() => handleClickSection(index)}
+                    className={`${styles.redactorCourse_leftSide_desc_lessonWrapper}`}
+                  >
+                    <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
+                      <span><img/></span>
+                       <span style={{ textAlign: 'left' }}>{section_name}</span>
+                    </span>
+                    <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_counter}>+2</span>
+                  </button>
+                  {lessons.map((lesson) => (
+                   clickedSectionId === index && showContent === true  ?
+                   <ul className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable}>
+                        <li key={lesson.baselesson_ptr_id} className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line}>
+                          <button onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
+                            className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content}>
+                            <span>
+                              <span style={{float:'left', marginLeft:'20px'}}>
+                                <IconSvg className={clickedLessonId===lesson.baselesson_ptr_id ? styles.fillColorWhite : '' } width={24} height={24} viewBoxSize="0 0 24 24" path={clickedLessonId===lesson.baselesson_ptr_id ? lessonIcon : lessonIcon} />
+                                </span>
+                              <span style={{marginLeft:'-10px'}}>{lesson.name}</span>
+                            </span>
+                              <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span>
+                          </button>
+                        </li>
+                     </ul>
+                    : clickedSectionId === index && !clickedSectionIdArr.includes(index) && showContent === false ?
+                    <ul className={styles.redactorCourse_leftSide_desc_lessonWrapper_noWrapTable}>
+                      <li key={lesson.baselesson_ptr_id} className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line}>
+                        <button onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
+                          className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content}>
+                          <span>
+                            <span style={{float:'left', marginLeft:'20px'}}>
+                              <IconSvg className={clickedLessonId===lesson.baselesson_ptr_id ? styles.fillColorWhite : '' } width={24} height={24} viewBoxSize="0 0 24 24" path={clickedLessonId===lesson.baselesson_ptr_id ? lessonIcon : lessonIcon} />
+                            </span>
+                            <span style={{marginLeft:'-10px'}}>{lesson.name}</span>
                           </span>
-                          <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_counter}>+2</span>
+                            <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span>
                         </button>
-                      ))}
-                        {showContent &&<button className={styles.redactorCourse_leftSide_desc_lessonWrapper_content}>
-                        <span>
-                          <span style={{float:'left', marginLeft:'20px'}}>
-                            <img src={vectorContent} alt='vectorContent'/></span>
-                          <span style={{marginLeft:'-60px'}}>{lesson.name}</span>
-                        </span>
-                          <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_counter}>+2</span>
-                        </button>
-                          }
+                      </li>
                     </ul>
-                  )}
-                </>
+                    :clickedSectionId !== index &&  clickedSectionIdArr.includes(index) ?
+                      <ul className={styles.redactorCourse_leftSide_desc_lessonWrapper_stateWrapTable}>
+                        <li key={lesson.baselesson_ptr_id} className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line}>
+                          <button onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
+                            className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content}>
+                            <span>
+                              <span style={{float:'left', marginLeft:'20px'}}>
+                                <IconSvg className={clickedLessonId===lesson.baselesson_ptr_id ? styles.fillColorWhite : '' } width={24} height={24} viewBoxSize="0 0 24 24" path={clickedLessonId===lesson.baselesson_ptr_id ? lessonIcon : lessonIcon} />
+                              </span>
+                              <span style={{marginLeft:'-10px'}}>{lesson.name}</span>
+                            </span>
+                              <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span>
+                          </button>
+                        </li>
+                      </ul>
+                    :null
+                   ))}
+                  </li>
+                  </ul>
+                  </>
                 )
               })}
           </div>
@@ -259,7 +326,7 @@ export const Comments: FC = () => {
                     </span>
                   </div>
                   <div className={styles.redactorCourse_rightSideWrapper_rightSide_btnBlock}>
-                  <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_cancel} onClick={handleSaveChanges}>
+                  <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_cancel} onClick={handleCancelChanges}>
                     Отменить
                   </button>
                   <button className={styles.redactorCourse_rightSideWrapper_rightSide_header_btnBlock_save} onClick={handleSaveChanges}>
@@ -276,12 +343,11 @@ export const Comments: FC = () => {
           <div className={styles.commentContainer}>
             {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
                <table className={styles.commentTable}>
-                <thead className={styles.commentTable_title}>
-                    <th style={{width: '270px', textAlign: 'left'}}>Имя</th>
-                    <th style={{width: '230px', textAlign: 'left'}}>Дата</th>
-                    <th style={{width: '359px', textAlign: 'left'}}>Комментарий</th>
-                </thead>
-
+                  <thead className={styles.commentTable_title}>
+                      <th style={{width: '270px', textAlign: 'left'}}>Имя</th>
+                      <th style={{width: '230px', textAlign: 'left'}}>Дата</th>
+                      <th style={{width: '359px', textAlign: 'left'}}>Комментарий</th>
+                  </thead>
                 <tbody>
                   {commentsList.comments.slice(show,showMore).map((comment: Comment) => (
                     <tr key={comment.id}>
@@ -299,8 +365,9 @@ export const Comments: FC = () => {
                           <td>
                           <div className={styles.centeredContent}>
                             <label className={`${styles.publicLabel} ${styles.centeredCheckbox}`}>
-                            <NewCheckbox name={'isComment'} checked={comment.public}
-                                    onChange={() => toggleCommentPublic(comment.id)}/>
+                            <NewCheckbox name={'isComment'}
+                                         checked={comment.public}
+                                         onChange={() => toggleCommentPublic(comment.id)}/>
                             </label>
                           </div>
                         </td>
@@ -312,41 +379,12 @@ export const Comments: FC = () => {
             ) : (
               <p>Комментариев пока нет</p>
             )}
+        </div>
+            <Pagination className={styles.paginationTable} currentPage={pageNumber} paginationRange={totalPageArr} onPageChange={handleClickPagination}/>
           </div>
-          {totalPageArr.length <= 1 ? (
-            <table className={styles.paginationTable}>
-              <tr>
-                  <td style={{maxWidth: '24px', maxHeight: '24px'}}>
-                    <button>1</button>
-                  </td>
-              </tr>
-            </table>
-          ):(
-              <table className={styles.paginationTable}>
-              <tr>
-                <td style={{maxWidth: '24px', maxHeight: '24px'}}>
-                    <button onClick={() => handleClickBackPagination()}>
-                      <img style={{paddingTop: '5px'}} src={vectorBack} alt='back'/>
-                    </button>
-                </td>
-               {totalPageArr.map((val, rowID) => (
-                  <td style={{maxWidth: '24px', maxHeight: '24px',}} key={rowID}>
-                    <button onClick={() => handleClickPagination(val)}>{val}</button>
-                  </td>
-               ))}
-                <td style={{maxWidth: '24px', maxHeight: '24px'}}>
-                    <button onClick={() => handleClickForwardPagination()}>
-                      <img style={{paddingTop: '5px'}} src={vectorForward} alt='forward'/>
-                    </button>
-                </td>
-              </tr>
-            </table>
-            )
-          }
-            </div>
-              </section>
-        </div>
-        </div>
-      )
-  }
+          </section>
+      </div>
+    </div>
+  )
+}
 
