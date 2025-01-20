@@ -1,28 +1,30 @@
-import React, {FC, useEffect, useState} from "react";
-import {useAppSelector} from "../../store/hooks";
-import {authSelector, selectUser} from "../../selectors";
-import {useFetchSchoolHeaderQuery} from "../../api/schoolHeaderService";
-import {useCreateMeetingMutation, useFetchAllMeetingsQuery, useDeleteMeetingMutation} from "../../api/meetingsService";
-import {SchoolMeeting} from "../../types/schoolMeetingsT";
+import React, { FC, useEffect, useState } from "react";
+import { useAppSelector } from "../../store/hooks";
+import { authSelector, selectUser } from "../../selectors";
+import { useFetchSchoolHeaderQuery } from "../../api/schoolHeaderService";
+import { useCreateMeetingMutation, useFetchAllMeetingsQuery, useDeleteMeetingMutation } from "../../api/meetingsService";
+import { SchoolMeeting } from "../../types/schoolMeetingsT";
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
-import {useFetchStudentsGroupQuery} from "../../api/studentsGroupService";
+import { useFetchStudentsGroupQuery } from "../../api/studentsGroupService";
 import styles from './meetings.module.scss';
-import {Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
-import {Button} from 'components/common/Button/Button'
-import {useFetchCoursesQuery} from "../../api/coursesServices";
+import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Button } from 'components/common/Button/Button'
+import { useFetchCoursesQuery } from "../../api/coursesServices";
 import MenuItem from "@mui/material/MenuItem";
-import {CoursesDataT} from "../../types/CoursesT";
-import {setTotalMeetingCount} from "../../store/redux/meetings/meetingSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../store/redux/store";
+import { CoursesDataT } from "../../types/CoursesT";
+import { setTotalMeetingCount } from "../../store/redux/meetings/meetingSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/redux/store";
 import Timer from "../Timer/Timer";
 import { TgMeetingReminders } from "types/tgNotifications";
 import {
     useCreateMeetingsRemindersMutation,
     // useDeleteMeetingsRemindersMutation
-     } from "api/tgNotificationsServices";
+} from "api/tgNotificationsServices";
 import { number } from "yup";
+
+import { MeetingCard } from "./card/MeetingCard"
 
 export const SchoolMeetings: FC = () => {
     const isLogin = useAppSelector(authSelector);
@@ -30,16 +32,16 @@ export const SchoolMeetings: FC = () => {
     const schoolName = window.location.href.split('/')[4];
     const headerId = localStorage.getItem('header_id');
 
-    const {role: userRole} = useAppSelector(selectUser);
+    const { role: userRole } = useAppSelector(selectUser);
     // const {data, isSuccess} = useFetchSchoolHeaderQuery(Number(headerId));
-    const {data: meetingsData, isSuccess: meetingsSuccess} = useFetchAllMeetingsQuery({schoolName: schoolName});
+    const { data: meetingsData, isSuccess: meetingsSuccess } = useFetchAllMeetingsQuery({ schoolName: schoolName });
     const [showAddMeetingForm, setShowAddMeetingForm] = useState(false);
-    const [createMeeting, {isLoading, error}] = useCreateMeetingMutation();
+    const [createMeeting, { isLoading, error }] = useCreateMeetingMutation();
     const [createMeetingsReminder] = useCreateMeetingsRemindersMutation();
     // const [deleteMeetingsReminder] = useDeleteMeetingsRemindersMutation();
-    const [deleteMeeting, {isLoading: isDeleting, error: deleteError}] = useDeleteMeetingMutation();
-    const {data: studentsGroups, isSuccess: groupsSuccess} = useFetchStudentsGroupQuery(schoolName);
-    const {data: Courses, isSuccess: coursesSuccess} = useFetchCoursesQuery(schoolName);
+    const [deleteMeeting, { isLoading: isDeleting, error: deleteError }] = useDeleteMeetingMutation();
+    const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupQuery(schoolName);
+    const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName);
     const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null);
     const [allGroups, setAllGroups] = useState<boolean>(false);
     const [newMeetingData, setNewMeetingData] = useState<SchoolMeeting>({
@@ -62,50 +64,51 @@ export const SchoolMeetings: FC = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-  if (meetingsSuccess && meetingsData) {
-    dispatch(setTotalMeetingCount(meetingsData.length));
-  }
-}, [meetingsData, meetingsSuccess, dispatch]);
+        if (meetingsSuccess && meetingsData) {
+            dispatch(setTotalMeetingCount(meetingsData.length));
+        }
+    }, [meetingsData, meetingsSuccess, dispatch]);
 
     const handleAddMeeting = () => {
         createMeeting({
             data: newMeetingData,
             schoolName,
         })
-        .unwrap()
-        .then((meetingResponse) => {
-            console.log(meetingResponse.id);
+            .unwrap()
+            .then((meetingResponse) => {
+                // console.log(meetingResponse.id);
 
-            if (meetingResponse.id) {
-                // Здесь вы устанавливаете meeting_id в newMeetingReminder
-                const updatedMeetingReminder = { ...newMeetingReminder, meeting: meetingResponse.id };
+                if (meetingResponse.id) {
+                    // Здесь вы устанавливаете meeting_id в newMeetingReminder
+                    const updatedMeetingReminder = { ...newMeetingReminder, meeting: meetingResponse.id };
 
-                createMeetingsReminder({
-                    data: updatedMeetingReminder,
-                })
-                .unwrap()
-                .then(() => {
-                    dispatch(setTotalMeetingCount(totalMeetingCount + 1));
-                    setShowAddMeetingForm(false);
-                })
-                .catch((error) => {
-                    console.error("Error creating meeting reminder", error);
-                });
-            }
-        })
+                    createMeetingsReminder({
+                        data: updatedMeetingReminder,
+                    })
+                        .unwrap()
+                        .then(() => {
+                            dispatch(setTotalMeetingCount(totalMeetingCount + 1));
+                            setShowAddMeetingForm(false);
+                        })
+                        .catch((error) => {
+                            console.error("Error creating meeting reminder", error);
+                        });
+                }
+            })
     };
 
-    const handleDeleteMeeting = (meetingId: number, ) => {
-        deleteMeeting({id: meetingId, schoolName});
+    const handleDeleteMeeting = (meetingId: number,) => {
+        deleteMeeting({ id: meetingId, schoolName });
         dispatch(setTotalMeetingCount(totalMeetingCount - 1));
     };
 
     const handleAddMeetingFormOpen = () => {
-    setNewMeetingData({
-        ...newMeetingData,
-        students_groups: [],
-    });
-    setShowAddMeetingForm(true);};
+        setNewMeetingData({
+            ...newMeetingData,
+            students_groups: [],
+        });
+        setShowAddMeetingForm(true);
+    };
 
     const handleCourseChange = (courseId: number) => {
         setAllGroups(false);
@@ -135,11 +138,11 @@ export const SchoolMeetings: FC = () => {
         const groupsIds = groupsByCourse?.map(group => group.group_id)
         if (isAll) {
             groupsByCourse?.map(group => {
-                    setNewMeetingData((prevData: SchoolMeeting) => ({
-                        ...prevData,
-                        students_groups: [...prevData.students_groups, group.group_id],
-                    }) as SchoolMeeting);
-                })
+                setNewMeetingData((prevData: SchoolMeeting) => ({
+                    ...prevData,
+                    students_groups: [...prevData.students_groups, group.group_id],
+                }) as SchoolMeeting);
+            })
             setShowReminderOptions(true)
         } else {
             setNewMeetingData((prevData: SchoolMeeting) => ({
@@ -162,55 +165,59 @@ export const SchoolMeetings: FC = () => {
 
         if (meetingsSuccess) {
             return (
-                    <table className={styles.meetingTable}>
-                        <thead>
-                        <tr>
-                            <th>Ссылка</th>
-                            <th>Дата и время</th>
-                            <th>Группы</th>
-                            <th>Время до старта</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {meetingsData.map((meeting, index) => (
-                            <tr key={meeting.id}>
-                                <td><a href={meeting.link} target="_blank" rel="noopener noreferrer">{meeting.link}</a>
-                                </td>
-                                <td>{dateFormatter.format(new Date(meeting.start_date))}</td>
-                                <td>{meeting.students_groups.map(groupId => {
-                                    const group = studentsGroups?.results.find(g => g.group_id === groupId);
-                                    return group ? group.name : '';
-                                }).join(', ')}</td>
-                                <td><Timer targetDate={new Date(meeting.start_date)} /></td>
-                                <td>
-                                    <Button onClick={() => handleDeleteMeeting(meeting.id)} text="Удалить"/>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                <div className={styles.meetingList}>
+                    {meetingsData.map((meeting, index) => (<MeetingCard key={meeting.id} meeting={meeting}></MeetingCard>))}
+                </div>
+
+                // <table className={styles.meetingTable}>
+                //     <thead>
+                //     <tr>
+                //         <th>Ссылка</th>
+                //         <th>Дата и время</th>
+                //         <th>Группы</th>
+                //         <th>Время до старта</th>
+                //         <th></th>
+                //     </tr>
+                //     </thead>
+                //     <tbody>
+                //     {meetingsData.map((meeting, index) => (
+                //         <tr key={meeting.id}>
+                //             <td><a href={meeting.link} target="_blank" rel="noopener noreferrer">{meeting.link}</a>
+                //             </td>
+                //             <td>{dateFormatter.format(new Date(meeting.start_date))}</td>
+                //             <td>{meeting.students_groups.map(groupId => {
+                //                 const group = studentsGroups?.results.find(g => g.group_id === groupId);
+                //                 return group ? group.name : '';
+                //             }).join(', ')}</td>
+                //             <td><Timer targetDate={new Date(meeting.start_date)} /></td>
+                //             <td>
+                //                 <Button onClick={() => handleDeleteMeeting(meeting.id)} text="Удалить"/>
+                //             </td>
+                //         </tr>
+                //     ))}
+                //     </tbody>
+                // </table>
             );
         }
         return <table className={styles.meetingTable}>
-                <tbody>
-                    <tr className={styles.table_no_results}>
-                        <td>Ничего не найдено</td>
-                    </tr>
-                </tbody>
-            </table>;
+            <tbody>
+                <tr className={styles.table_no_results}>
+                    <td>Ничего не найдено</td>
+                </tr>
+            </tbody>
+        </table>;
     };
 
     return (
         <div className={styles.wrapper_actions}>
             {isLogin && (
                 <>
-                    <Button className={styles.generateMeetingButton} onClick={handleAddMeetingFormOpen} text="Добавить видеоконференцию"/>
+                    <Button className={styles.generateMeetingButton} onClick={handleAddMeetingFormOpen} text="Добавить видеоконференцию" />
                     <Dialog open={showAddMeetingForm} onClose={() => setShowAddMeetingForm(false)}
-                            PaperProps={{style: {maxHeight: '100vh', maxWidth: '600px', width: '100%'},}}>
+                        PaperProps={{ style: { maxHeight: '100vh', maxWidth: '600px', width: '100%' }, }}>
                         <DialogTitle>Добавить видеоконференцию</DialogTitle>
                         <DialogContent>
-                            <div style={{marginBottom: '1rem', marginTop: '1rem'}}>
+                            <div style={{ marginBottom: '1rem', marginTop: '1rem' }}>
                                 <TextField
                                     id="datetime-local"
                                     label="Выберите дату и время видеоконференции"
@@ -228,14 +235,14 @@ export const SchoolMeetings: FC = () => {
                                     }
                                 />
                             </div>
-                            <div style={{marginBottom: '1rem'}}>
+                            <div style={{ marginBottom: '1rem' }}>
                                 <TextField
                                     id="link"
                                     label="Ссылка на видеоконференцию"
                                     value={newMeetingData.link}
                                     fullWidth={true}
                                     onChange={(e) =>
-                                        setNewMeetingData({...newMeetingData, link: e.target.value})
+                                        setNewMeetingData({ ...newMeetingData, link: e.target.value })
                                     }
                                 />
                             </div>
@@ -259,10 +266,10 @@ export const SchoolMeetings: FC = () => {
                                 </TextField>
                             </div>
                             {studentsGroups && selectedCourse &&
-                            <div>
-                                <Checkbox checked={allGroups} onChange={(e) => {handleAllGroups(e)}}/>
-                                <span><b>все группы курса</b></span>
-                            </div>}
+                                <div>
+                                    <Checkbox checked={allGroups} onChange={(e) => { handleAllGroups(e) }} />
+                                    <span><b>все группы курса</b></span>
+                                </div>}
                             {studentsGroups && selectedCourse && studentsGroups.results
                                 .filter(group => group.course_id === selectedCourse.course_id)
                                 .map(group => {
@@ -322,8 +329,8 @@ export const SchoolMeetings: FC = () => {
                             )}
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleAddMeeting} text="Добавить"/>
-                            <Button onClick={() => setShowAddMeetingForm(false)} text="Отмена"/>
+                            <Button onClick={handleAddMeeting} text="Добавить" />
+                            <Button onClick={() => setShowAddMeetingForm(false)} text="Отмена" />
                         </DialogActions>
                     </Dialog>
                     {renderMeetingLinks()}
