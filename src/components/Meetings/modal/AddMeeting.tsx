@@ -1,0 +1,261 @@
+import React, { FC, useEffect, useState } from "react";
+import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import TextField from '@mui/material/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import { useDispatch, useSelector } from "react-redux";
+import { useFetchCoursesQuery } from "../../../api/coursesServices";
+import MenuItem from "@mui/material/MenuItem";
+import { CoursesDataT } from "../../../types/CoursesT";
+import { useFetchStudentsGroupQuery } from "../../../api/studentsGroupService";
+import { useFetchSchoolHeaderQuery } from "../../../api/schoolHeaderService";
+import { useCreateMeetingMutation, useFetchAllMeetingsQuery, useDeleteMeetingMutation } from "../../../api/meetingsService";
+import { useCreateMeetingsRemindersMutation } from "api/tgNotificationsServices";
+import Timer from "../../Timer/Timer";
+import { TgMeetingReminders } from "types/tgNotifications";
+import { Button } from 'components/common/Button/Button'
+import { number } from "yup";
+import styles from './addMeeting.module.scss';
+import { SchoolMeeting } from "../../../types/schoolMeetingsT";
+import { RootState } from "../../../store/redux/store";
+import { setTotalMeetingCount } from "../../../store/redux/meetings/meetingSlice";
+
+interface AddMeetingProps {
+    showAddMeetingForm: boolean;
+    setShowAddMeetingForm: (show: boolean) => void;
+}
+
+export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAddMeetingForm }) => {
+    const schoolName = window.location.href.split('/')[4];
+    const [showReminderOptions, setShowReminderOptions] = useState(false);
+    const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupQuery(schoolName);
+    const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName);
+    const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null);
+    const [allGroups, setAllGroups] = useState<boolean>(false);
+    const dispatch = useDispatch();
+    const [createMeeting, { isLoading, error }] = useCreateMeetingMutation();
+    const [createMeetingsReminder] = useCreateMeetingsRemindersMutation();
+
+
+    const totalMeetingCount = useSelector((state: RootState) => state.meetings.totalMeetingCount);
+
+    const [newMeetingData, setNewMeetingData] = useState<SchoolMeeting>({
+        id: 0,
+        students_groups: [],
+        link: '',
+        start_date: new Date(),
+    });
+
+    const [newMeetingReminder, setNewMeetingReminder] = useState<TgMeetingReminders>({
+        daily: false,
+        in_three_hours: false,
+        ten_minute: false,
+        sent: false,
+        meeting: newMeetingData.id
+    })
+
+    useEffect(() => {
+        setNewMeetingData({
+            ...newMeetingData,
+            students_groups: [],
+        });
+    }, []);
+
+    const handleCourseChange = (courseId: number) => {
+        setAllGroups(false);
+        setSelectedCourse(Courses?.results.find(course => course.course_id === courseId) || null)
+    };
+
+    const handleGroupChange = (groupId: number) => {
+        setNewMeetingData(prevData => ({
+            ...prevData,
+            students_groups: [...prevData.students_groups, groupId],
+        }));
+        setShowReminderOptions(true); // Показываем опции напоминаний после выбора группы
+    };
+
+    const handleReminderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = event.target;
+        setNewMeetingReminder(prevReminder => ({
+            ...prevReminder,
+            [name]: checked,
+        }));
+    };
+
+    const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const isAll = event.target.checked
+        setAllGroups(isAll)
+        const groupsByCourse = studentsGroups?.results.filter(group => group.course_id === selectedCourse?.course_id)
+        const groupsIds = groupsByCourse?.map(group => group.group_id)
+        if (isAll) {
+            groupsByCourse?.map(group => {
+                setNewMeetingData((prevData: SchoolMeeting) => ({
+                    ...prevData,
+                    students_groups: [...prevData.students_groups, group.group_id],
+                }) as SchoolMeeting);
+            })
+            setShowReminderOptions(true)
+        } else {
+            setNewMeetingData((prevData: SchoolMeeting) => ({
+                ...prevData,
+                students_groups: prevData.students_groups.filter((id) => {
+                    return !new Set(groupsIds).has(id)
+                }),
+            }));
+        }
+    };
+
+
+    const handleAddMeeting = () => {
+        createMeeting({
+            data: newMeetingData,
+            schoolName,
+        })
+            .unwrap()
+            .then((meetingResponse) => {
+                // console.log(meetingResponse.id);
+
+                if (meetingResponse.id) {
+                    // Здесь вы устанавливаете meeting_id в newMeetingReminder
+                    const updatedMeetingReminder = { ...newMeetingReminder, meeting: meetingResponse.id };
+
+                    createMeetingsReminder({
+                        data: updatedMeetingReminder,
+                    })
+                        .unwrap()
+                        .then(() => {
+                            dispatch(setTotalMeetingCount(totalMeetingCount + 1));
+                            setShowAddMeetingForm(false);
+                        })
+                        .catch((error) => {
+                            console.error("Error creating meeting reminder", error);
+                        });
+                }
+            })
+    };
+
+
+    return (<>
+        <Dialog className={styles.modal_background} open={showAddMeetingForm} onClose={() => setShowAddMeetingForm(false)}>
+            <DialogTitle>Добавить видеоконференцию</DialogTitle>
+            <DialogContent className={styles.modal_window} >
+                <div style={{
+                    marginBottom: '1rem',
+                    marginTop: '1rem',
+                }}>
+                    <TextField
+                        id="datetime-local"
+                        label="Выберите дату и время видеоконференции"
+                        type="datetime-local"
+                        defaultValue={new Date().toISOString().slice(0, 16)}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        fullWidth={true}
+                        onChange={(e) =>
+                            setNewMeetingData({
+                                ...newMeetingData,
+                                start_date: new Date(e.target.value),
+                            })
+                        }
+                    />
+                </div>
+                <div style={{ marginBottom: '1rem' }}>
+                    <TextField
+                        id="link"
+                        label="Ссылка на видеоконференцию"
+                        value={newMeetingData.link}
+                        fullWidth={true}
+                        onChange={(e) =>
+                            setNewMeetingData({ ...newMeetingData, link: e.target.value })
+                        }
+                    />
+                </div>
+                <div>
+                    <TextField
+                        id="course"
+                        select
+                        label="Выберите курс"
+                        fullWidth={true}
+                        onChange={(e) => {
+                            const courseId = parseInt(e.target.value);
+                            handleCourseChange(courseId);
+                        }}
+                        value={selectedCourse?.course_id || ""}
+                    >
+                        {Courses?.results.map(course => (
+                            <MenuItem key={course.course_id} value={course.course_id}>
+                                {course.name}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </div>
+                {studentsGroups && selectedCourse &&
+                    <div>
+                        <Checkbox checked={allGroups} onChange={(e) => { handleAllGroups(e) }} />
+                        <span><b>все группы курса</b></span>
+                    </div>}
+                {studentsGroups && selectedCourse && studentsGroups.results
+                    .filter(group => group.course_id === selectedCourse.course_id)
+                    .map(group => {
+                        if (group.course_id === selectedCourse.course_id) {
+                            return (
+                                <div key={group.group_id}>
+                                    <Checkbox
+                                        onChange={(e) => {
+                                            const isChecked = e.target.checked;
+                                            if (isChecked) {
+                                                setNewMeetingData((prevData: SchoolMeeting) => ({
+                                                    ...prevData,
+                                                    students_groups: [...prevData.students_groups, group.group_id],
+                                                }) as SchoolMeeting);
+                                                setShowReminderOptions(true)
+                                            } else {
+                                                setAllGroups(false)
+                                                setNewMeetingData((prevData: SchoolMeeting) => ({
+                                                    ...prevData,
+                                                    students_groups: prevData.students_groups.filter(
+                                                        (id) => id !== group.group_id
+                                                    ),
+                                                }));
+                                            }
+                                        }}
+                                        checked={new Set(newMeetingData.students_groups).has(Number(group.group_id))}
+                                    />
+                                    {group.name}
+                                    <span> (Количество участников: {group.students.length})</span>
+                                </div>
+                            );
+                        }
+                        return null;
+                    })}
+                {showReminderOptions && (
+                    <div>
+                        <div className={styles.reminders}>Установить телеграм напоминание за:</div>
+                        <Checkbox
+                            name="daily"
+                            onChange={handleReminderChange}
+                            checked={newMeetingReminder.daily}
+                        />
+                        За день
+                        <Checkbox
+                            name="in_three_hours"
+                            onChange={handleReminderChange}
+                            checked={newMeetingReminder.in_three_hours}
+                        />
+                        За три часа
+                        <Checkbox
+                            name="ten_minute"
+                            onChange={handleReminderChange}
+                            checked={newMeetingReminder.ten_minute}
+                        />
+                        За десять минут
+                    </div>
+                )}
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleAddMeeting} text="Добавить" />
+                <Button onClick={() => setShowAddMeetingForm(false)} text="Отмена" />
+            </DialogActions>
+        </Dialog>
+    </>)
+}
