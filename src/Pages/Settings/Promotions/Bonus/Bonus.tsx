@@ -2,36 +2,37 @@ import React, { FC, FormEvent, memo, useEffect, useState } from 'react'
 
 import { BonusPropsT } from 'types/pageTypes'
 import { useDeleteBonusMutation } from 'api/schoolBonusService'
-import {avatar} from "assets/img/common";
+import {avatarPrize} from "assets/img/common";
 import styles from './bonus.module.scss'
 import {IconSvg} from "../../../../components/common/IconSvg/IconSvg";
-import {deleteIconPath, settingsIconPath} from "../../../School/config/svgIconsPath";
+import {settingsIconPath} from "../../../School/config/svgIconsPath";
+import { deleteHoverIconPath } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/ModulesAndLessonsBlock/LessonsBlock/config';
 
 export const Bonus: FC<BonusPropsT> = memo(({ bonus, bonuses, setBonuses, setFormBonus, setIsEdit,
-                                                setIsActivate, setShowBonusForm, groupIds, setIsAllGroupsSelected}) => {
+      setIsActivate, setShowBonusForm, groupIds, setIsAllGroupsSelected}) => {
   const [deleteBonus, { isSuccess: isDeleted }] = useDeleteBonusMutation()
   const schoolName = window.location.href.split('/')[4]
 
   const handleEditForm = () => {
-        setIsEdit(true);
-        setFormBonus({
-           ...bonus,
-           expire_date: new Date(bonus.expire_date),
-        })
-        const activeBonus = bonuses.find(item => item.id !== bonus.id && item.active);
-        if (activeBonus) {
-           setIsActivate(false);
-        } else {
-           setIsActivate(true);
-        }
-        const notIncludedGroups = groupIds.filter(id => ! bonus.student_groups.includes(id))
+    setIsEdit(true);
+    setFormBonus({
+       ...bonus,
+       expire_date: new Date(bonus.expire_date),
+    })
+    const activeBonus = bonuses.find(item => item.id !== bonus.id && item.active);
+    if (activeBonus) {
+       setIsActivate(false);
+    } else {
+       setIsActivate(true);
+    }
+    const notIncludedGroups = groupIds.filter(id => ! bonus.student_groups.includes(id))
 
-        if (notIncludedGroups.length) {
-            setIsAllGroupsSelected(false);
-        } else {
-            setIsAllGroupsSelected(true);
-        }
-        setShowBonusForm(true);
+    if (notIncludedGroups.length) {
+        setIsAllGroupsSelected(false);
+    } else {
+        setIsAllGroupsSelected(true);
+    }
+    setShowBonusForm(true);
   };
 
   const handleDeleteBonus = async () => {
@@ -52,46 +53,51 @@ export const Bonus: FC<BonusPropsT> = memo(({ bonus, bonuses, setBonuses, setFor
   }, [isDeleted])
 
   const dateFormatter = new Intl.DateTimeFormat('ru-RU', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-        });
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.bonus}>
-        <div className={styles.bonus_item}>
-          <img className={styles.bonus_item_logo} src={bonus.logo || avatar} alt="Logo" />
-            <span>
-               {bonus.link}
-            </span>
+    <tr className={styles.table_body_row} key={bonus.id}>
+      <td>
+        <div className={styles.table_body_row_icon}>
+          <img src={bonus.logo || avatarPrize} alt="logo" />
         </div>
-        <div className={styles.bonus_text}>
-            <span>
-               {bonus.text}
-            </span>
+      </td>
+      <td>
+        <div className={styles.table_body_row_icon}>
+          <p>{bonus.link}</p>
         </div>
-        <div className={styles.bonus_date}>
-          <span>{dateFormatter.format(new Date(bonus.expire_date))}</span>
+      </td>
+      <td>
+        <div className={styles.table_body_row_icon}>
+          <p>{bonus.text}</p>
         </div>
-        <div className={styles.bonus_setting}>
-          <div className={styles.bonus_setting_active}>
-              {bonus.active
-                  ? <span className={styles.bonus_setting_active_on}>✔️</span>
-                  : <span className={styles.bonus_setting_active_off}>❌</span>}
-          </div>
-          <div className={styles.bonus_setting_buttons}>
-             <button className={styles.bonus_setting_buttons_btn} onClick={handleEditForm}>
-              <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
-            </button>
-             <button className={styles.bonus_setting_buttons_btn} onClick={handleDeleteBonus}>
-              <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
-            </button>
-          </div>
-          </div>
+      </td>
+      <td>
+        <div className={styles.table_body_row_expires}>
+          <p>{dateFormatter.format(new Date(bonus.expire_date))}</p>
         </div>
-    </div>
+      </td>
+      <td>
+        <div className={styles.table_body_row_button}>
+          <span className={bonus.active ? styles.table_body_row_button_active : styles.table_body_row_button_inactive} />
+          <p>{bonus.active ? 'Активирован' : 'Не активирован'}</p>
+        </div>
+      </td>
+      <td>
+        <button className={styles.table_body_row_icon_svg} onClick={handleEditForm}>
+          <IconSvg viewBoxSize='0 0 16 16' width={32} height={30} path={settingsIconPath} />
+        </button>
+      </td>
+      <td>
+        <button style={{ background: 'transparent', border: 'none' }} onClick={handleDeleteBonus}>
+          <IconSvg width={32} height={32} path={deleteHoverIconPath} />
+        </button>
+      </td>
+    </tr>
   )
 })

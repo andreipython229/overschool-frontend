@@ -70,6 +70,7 @@ import student2 from './Student2.png'
 
 import courseLogo from './courseLogo.svg'
 import feedback from './feedback.svg'
+import avatarPrize from './prizeNoAvatar.svg'
 
 export {
   feedback,
@@ -143,4 +144,5 @@ export {
   teacher2,
   student,
   student2,
+  avatarPrize
 }
