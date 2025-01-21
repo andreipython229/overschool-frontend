@@ -67,7 +67,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption
           functionOnClick={handleToggleOptionsOpen}
         />
 
-        <button className={styles?.container_btn} type="button" aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
+        <button className={styles?.container_btn} style={{borderRadius: "10px"}} type="button" aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
           {defaultOp ? defaultOp : optionsList[selectOption!]?.label}
         </button>
         <ul tabIndex={-1} role="listbox" className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}>

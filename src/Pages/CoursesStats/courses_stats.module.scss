@@ -12,8 +12,8 @@ a {
 }
 
 .container {
-  width: 100%;
-  margin-top: 40px;
+  width: 96%;
+  //margin-top: 40px;
   box-sizing: border-box;
 
   @media only screen and (min-width: 375px) and (max-width: 480px) {
@@ -24,9 +24,10 @@ a {
   }
 
   h4 {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
   &_courses {
+    margin-top: 20px;
     display: flex;
     align-items: baseline;
 

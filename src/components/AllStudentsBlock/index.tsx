@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, memo, useEffect, useState} from 'react'
+import React, {ChangeEvent, FC, memo, useEffect, useState} from 'react'
 
 import {FiltersButton} from '../FiltersButton'
 import {
@@ -27,6 +27,9 @@ import {useAppSelector} from 'store/hooks'
 import {updateDataIcon} from '../../config/commonSvgIconsPath'
 import {AddStudentModal} from 'components/Modal/StudentLogs/AddStudentModal/AddStudentCourseModal'
 import {SearchBar} from "../SearchBar";
+import {PeopleIconSvg} from "../StudentGroupMiniCard/assets/iconsComponents";
+import {classesSettingIconPath} from "../StudentsTableWrapper/config/svgIconsPath";
+
 
 
 export interface FilterItem {
@@ -125,25 +128,31 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             <div>
                 <p className={styles.header_block_text}>{headerText}</p>
                 <div style={{fontSize: "12px", color: "#3B3B3B"}}>Количество: <b>{all_students_count}</b></div>
-                {headerText === 'Все ученики платформы' && (
-                    <div style={{display: 'flex', alignItems: 'center', marginBottom: '5px', marginBlockStart: '5px'}}>
-                        <label htmlFor="groupStudentsCheckbox" style={{marginRight: '5px', fontSize: "14px",}}>Сгруппировать
-                            учеников:</label>
-                        <input type="checkbox" id="groupStudentsCheckbox" name="groupStudentsCheckbox" style={{
-                            width: '15px',
-                            height: '15px',
-                            marginBlockStart: '2px'
-                        }}
-                               onChange={handleGroupStudents} checked={isGroupingStudents ?? false}/>
-                    </div>
-                )}
+                {/*{headerText === 'Все ученики платформы' && (*/}
+                {/*    <div style={{display: 'flex', alignItems: 'center', marginBottom: '5px', marginBlockStart: '5px'}}>*/}
+                {/*        <label htmlFor="groupStudentsCheckbox" style={{marginRight: '5px', fontSize: "14px",}}>Сгруппировать*/}
+                {/*            учеников:</label>*/}
+                {/*        <input type="checkbox" id="groupStudentsCheckbox" name="groupStudentsCheckbox" style={{*/}
+                {/*            width: '15px',*/}
+                {/*            height: '15px',*/}
+                {/*            marginBlockStart: '2px'*/}
+                {/*        }}*/}
+                {/*               onChange={handleGroupStudents} checked={isGroupingStudents ?? false}/>*/}
+                {/*    </div>*/}
+                {/*)}*/}
                 {headerText === 'Все ученики платформы' && <StudentsSchoolExport/>}
                 {headerText === 'Все ученики группы' && <StudentsCroupExport/>}
                 {headerText === 'Все ученики курса' && <StudentsCourseExport/>}
                 <div style={{marginBottom: '15px'}}>
                     <ChipsComponent filterKey={filterKey} filters={filters} chipsVal={chipsVal['students']}/>
                 </div>
-                <div className={styles.filter_button}><FiltersButton
+
+                <div style={{display: "flex", justifyContent: "space-between"}}>
+                <SearchBar
+                    searchTerm={searchTerm}
+                    onChangeInput={onChangeInput}
+                />
+                    <div className={styles.filter_button}><FiltersButton
                     filteringCategoriesList={filteringCategoriesList}
                     addLastActiveFilter={addLastActiveFilter}
                     addMarkFilter={addMarkFilter}
@@ -152,10 +161,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
                     removeLastActiveEndFilter={removeLastActiveEndFilter}
                     {...filters}
                 /></div>
-                <SearchBar
-                    searchTerm={searchTerm}
-                    onChangeInput={onChangeInput}
-                />
+
                 <div className={styles.header_block_text_search}>
                     <div className={styles.arrow_add_file_block}
                          onClick={() => handleReloadTable && handleReloadTable()}>
@@ -164,14 +170,19 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
                 </div>
                 <div className={invite ? styles.button_search_block_wButton : styles.button_search_block}>
                     {role != RoleE.Teacher && invite ? (
-                        <Button onClick={off} className={styles.add_students_btn} text={'Добавить учеников'}
-                                variant={'primary'}>
-                            <IconSvg width={30} height={30} viewBoxSize={'0 0 16 16'} path={addStudentIconPath}
-                                     styles={{marginRight: '0.2em'}}/>
+                        <Button onClick={off} className={styles.add_students_btn} style={{'height': '40px', marginBottom: "10px"}} text={'Добавить учеников'}
+                                variant={'newPrimary'}>
+                            {/*<IconSvg width={30} height={30} viewBoxSize={'0 0 16 16'} path={addStudentIconPath}*/}
+                            {/*         styles={{marginRight: '0.2em'}}/>*/}
+                            <PeopleIconSvg/>
                         </Button>
                     ) : (
                         <></>
                     )}
+
+
+                    </div>
+
                 </div>
                 {isOpen && <Portal closeModal={on}>{courses &&
                     <AddStudentModal setShowModal={on} courses={courses?.results}/>}</Portal>}

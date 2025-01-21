@@ -176,9 +176,9 @@
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         line-height: normal;
       }
-      &:hover {
-        background-color: rgba(217, 197, 237, 0.5);
-      }
+      //&:hover {
+      //  background-color: rgba(217, 197, 237, 0.5);
+      //}
 
       @include display(flex, row, flex-start, center);
       margin: 1em;
@@ -187,8 +187,8 @@
       font-style: normal;
       @include font(500, 12px, 32px);
       letter-spacing: 0.02em;
-      color: #ba75ff;
-      background: #e5dfff;
+      color: #ffffff;
+      background: #357EEB;
       border-radius: 7px;
       cursor: pointer;
 
@@ -203,9 +203,9 @@
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         line-height: normal;
       }
-      &:hover {
-        background-color: rgba(217, 197, 237, 0.5);
-      }
+      //&:hover {
+      //  background-color: rgba(217, 197, 237, 0.5);
+      //}
 
       @include display(flex, row, flex-start, center);
       margin: 1em;
@@ -214,8 +214,8 @@
       font-style: normal;
       @include font(500, 12px, 32px);
       letter-spacing: 0.02em;
-      color: #ba75ff;
-      background: #e5dfff;
+      color: #ffffff;
+      background: #357EEB;
       border-radius: 7px;
       cursor: pointer;
     }
@@ -240,8 +240,9 @@
       font-style: normal;
       @include font(500, 12px, 32px);
       letter-spacing: 0.02em;
-      color: #ba75ff;
-      background: #e5dfff;
+      //color: #ba75ff;
+      color: #ffffff;
+      background: #357EEB;
       border-radius: 7px;
       cursor: pointer;
 

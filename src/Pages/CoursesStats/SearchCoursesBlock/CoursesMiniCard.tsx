@@ -23,7 +23,7 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, course
   return (
     <Link to={pathLink}>
       <div className={styles.mini_card_container}>
-        <img className={styles.mini_card_img} src={photo} alt="" width="52" height="52" />
+        {/*<img className={styles.mini_card_img} src={photo} alt="" width="52" height="52" />*/}
         <div>
           <p className={styles.mini_card_name}>{name}</p>
           <ul className={styles.mini_card_list}>
@@ -38,8 +38,8 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, course
               </span>
             </li>
           </ul>
-        </div>
       </div>
+        </div>
     </Link>
   )
 })

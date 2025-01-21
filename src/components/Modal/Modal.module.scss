@@ -22,11 +22,11 @@
     height: 40px !important;
     opacity: 0.5;
 
-    & label {
-      color: #ba75ff;
-      background-color: #e0d9fc !important;
-      user-select: none;
-    }
+    //& label {
+    //  color: #ba75ff;
+    //  background-color: #e0d9fc !important;
+    //  user-select: none;
+    //}
   }
 
   @media (max-width: 480px) {
@@ -117,7 +117,8 @@
   background: $color-white;
   font-family: 'Manrope', sans-serif;
   margin: auto;
-  border-radius: 7px;
+  border-radius: 20px;
+  border: 1px solid #357EEB;
   flex-shrink: 0;
   flex-grow: 0;
   overflow: visible;
@@ -390,7 +391,13 @@
     margin-top: 15px;
   }
 
-
+  &_input_svg {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
 
   &_invite {
     margin-top: 32px;
@@ -1193,7 +1200,7 @@
   @include font(500, 20px, 24px);
   text-align: center;
   font-style: normal;
-  color: #4d5766;
+  color: #111111;
 }
 
 .main_school {

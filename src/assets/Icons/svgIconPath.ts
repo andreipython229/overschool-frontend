@@ -248,12 +248,12 @@ export const NotificationsIconPath = [
 ] //notification
 
 export const PeopleIconPath = [
-  { d: PeopleIcon.d1, fill: 'currentColor' },
-  { d: PeopleIcon.d2, fill: 'currentColor' },
-  { d: PeopleIcon.d3, fill: 'currentColor' },
-  { d: PeopleIcon.d4, fill: 'currentColor' },
-  { d: PeopleIcon.d5, fill: 'currentColor' },
-  { d: PeopleIcon.d6, fill: 'currentColor' },
+  { d: PeopleIcon.d1, fill: '#357EEB' },
+  { d: PeopleIcon.d2, fill: '#357EEB' },
+  { d: PeopleIcon.d3, fill: '#357EEB' },
+  { d: PeopleIcon.d4, fill: '#357EEB' },
+  { d: PeopleIcon.d5, fill: '#357EEB' },
+  { d: PeopleIcon.d6, fill: '#357EEB' },
 ] //people
 
 export const PhoneIconPath = [{ d: PhoneIcon.d1, fill: 'currentColor' }] //Phone

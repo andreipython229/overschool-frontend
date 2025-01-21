@@ -23,26 +23,31 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
 
   return (
     <div className={styles.container}>
-      <div className={styles.container_courses}>
-        <h4>Курсы</h4>
-      </div>
-      {isOpen && (
+      {/*<div className={styles.container_courses}>*/}
+      {/*  <h4>Курсы</h4>*/}
+      {/*</div>*/}
+      {/*{isOpen && (*/}
         <>
           <Input name="" type="search" value={term} onChange={handleChangeTerm} placeholder="Поиск по курсам">
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>
+
+          <div className={styles.container_courses}>
+        <h4>Курсы</h4>
+      </div>
+
           <div className={styles.courses_card_block}>
             {filteredData
               ?.filter(({ course_id }) => course_id !== 247 || userId === 154)
               .map(({ photo, name, course_id }) => (
-                <CoursesMiniCard key={course_id} groups={groups} photo={photo} name={name} courseId={course_id} />
+                <CoursesMiniCard  key={course_id} groups={groups} photo={photo} name={name} courseId={course_id} />
               ))}
           </div>
         </>
-      )}
-      <div className={styles.container_courses_dropdown}>
-        <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleToggleHiddenBlocks} />
-      </div>
+      {/* )}*/}
+      {/*<div className={styles.container_courses_dropdown}>*/}
+      {/*  <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleToggleHiddenBlocks} />*/}
+      {/*</div>*/}
     </div>
   )
 })

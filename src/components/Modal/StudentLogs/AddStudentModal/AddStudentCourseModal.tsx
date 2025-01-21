@@ -1,15 +1,13 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 
-import { SelectInput } from 'components/common/SelectInput/SelectInput'
+
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
-import { addStudentIconPath } from '../config/svgIconsPath'
 import { AddStudentModalPropsT } from '../../ModalTypes'
 import {
   useLazyFetchStudentGroupQuery,
   useLazyFetchStudentsGroupByCourseQuery,
-  usePatchGroupWithoutTeacherMutation,
 } from '../../../../api/studentsGroupService'
 import { AddNewStudents } from './AddNewStudents'
 import { studentsGroupT, studentsGroupsT } from 'types/studentsGroup'
@@ -23,6 +21,11 @@ import { Portal } from '../../Portal'
 import { LimitModal } from '../../LimitModal/LimitModal'
 import { useBoolean } from '../../../../customHooks'
 import { validateEmail } from 'utils/validateEmail'
+import {
+  PeopleIconPath, SettingsIconPath,
+  UserIconPath
+} from "../../../../assets/Icons/svgIconPath";
+import {SelectInput} from "../../../common/SelectInput/SelectInput";
 
 type studentT = {
   id: number
@@ -271,8 +274,8 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
           <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
         </div>
         <div className={styles.addStudent}>
+          <IconSvg width={55} height={55} viewBoxSize="0 0 22 22" path={UserIconPath}/>
           <div className={styles.container_header}>
-            <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={addStudentIconPath} />
             <span className={styles.container_header_title}>Добавление учеников</span>
           </div>
           <div className={styles.addStudent_select}>
@@ -282,16 +285,18 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
           {groupsList && (
             <div className={styles.container_header_title_btn}>
               <SelectInput
-                optionsList={groupsList?.results.map(({ name, group_id }) => ({
-                  label: name,
-                  value: String(group_id),
-                }))}
-                defaultOption="Выберите группу"
-                selectedOption={selectedGroup}
-                setSelectedValue={setSelectedGroup}
+                  optionsList={groupsList?.results.map(({name, group_id}) => ({
+                    label: name,
+                    value: String(group_id),
+                  }))}
+                  defaultOption="Выберите группу"
+                  selectedOption={selectedGroup}
+                  setSelectedValue={setSelectedGroup}
               />
-            </div>
+              </div>
+
           )}
+
           {error && <p style={{ textAlign: 'center', color: 'red', opacity: '0.9', padding: '0.5em' }}>{error}</p>}
 
           {students.map((student, index: number) => (
@@ -311,18 +316,12 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
             />
           ))}
           <div className={styles.addStudent_btnBlock}>
-            <Button
-              type={'button'}
-              onClick={handleAddNewStudent}
-              className={styles.container_header_title_btn_add}
-              variant={'secondary'}
-              text={'Добавить ещё одного'}
-            />
+            <div onClick={handleAddNewStudent} style={{cursor: "pointer", marginBottom: "20px"}}><IconSvg viewBoxSize="0 0 25 20" height={30} width={30} path={PeopleIconPath} /></div>
             <Button
               className={styles.container_header_title_btn_send}
               type={'button'}
               onClick={handleSubmitForm}
-              variant={studentLoading || !students[0].email || studentError ? 'disabled' : 'primary'}
+              variant={'newPrimary'}
               text={studentLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Отправить приглашение'}
               disabled={studentLoading || !students[0].email || studentError}
             />

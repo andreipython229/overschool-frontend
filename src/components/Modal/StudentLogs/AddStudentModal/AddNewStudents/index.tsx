@@ -1,6 +1,10 @@
-import { ChangeEventHandler, FC, MouseEventHandler } from 'react'
+import React, {ChangeEventHandler, FC, MouseEventHandler, useEffect, useRef, useState} from 'react'
 import { Input } from '../../../../common/Input/Input/Input'
 import styles from '../../studentsLog.module.scss'
+import {CrossIconPath, PeopleIconPath, SettingsIconPath} from "../../../../../assets/Icons/svgIconPath";
+import {IconSvg} from "../../../../common/IconSvg/IconSvg";
+
+
 
 
 type AddNewStudentsT = {
@@ -33,19 +37,26 @@ export const AddNewStudents: FC<AddNewStudentsT> = ({
   return (
     <div className={styles.addStudent_student}>
       <div className={styles.addStudent_student_title}>
-        <span>Ученик {index + 1}</span>
+        <div style={{display: "flex"}}>
+        <span style={{marginTop: "10px", marginRight: "10px"}}>{index + 1}.</span>
+      <div style={{minWidth: "400px", display: 'flex', flexDirection: 'column', gap: '10px'}}>
+        <div style={{position: "relative", width: "100%"}}>
+        <Input value={studentEmail} name={'email'} type={'text'} onChange={onChangeEmail(id)} placeholder={'Email ученика'} required />
+          <div style={{position: "absolute", right: "16px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none"}}>
+        {/*<IconSvg viewBoxSize="0 0 25 20" height={30} width={30} path={SettingsIconPath} />*/}
+          </div>
+        </div>
+        {/*<Input value={studentLastName} name={'last_name'} type={'text'} onChange={onChangeLastName(id)} placeholder={'Фамилия'} />*/}
+        {/*<Input value={studentName} name={'first_name'} type={'text'} onChange={onChangeName(id)} placeholder={'Имя'} />*/}
+        {/*<Input value={studentPatronymic} name={'patronymic'} type={'text'} onChange={onChangePatronymic(id)} placeholder={'Отчество'} />*/}
+      </div>
+          </div>
         {index > 0 && (
-          <button className={styles.addStudent_student_btn_remove} type="button" onClick={handleRemoveStudent(id)}>
-            Удалить
+          <button className={styles.addStudent_student_btn_remove} style={{marginLeft: "10px"}} type="button" onClick={handleRemoveStudent(id)}>
+            <IconSvg viewBoxSize="0 0 24 20" height={27} width={27} path={CrossIconPath} />
           </button>
         )}
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <Input value={studentEmail} name={'email'} type={'text'} onChange={onChangeEmail(id)} placeholder={'Email ученика'} required />
-        <Input value={studentLastName} name={'last_name'} type={'text'} onChange={onChangeLastName(id)} placeholder={'Фамилия'} />
-        <Input value={studentName} name={'first_name'} type={'text'} onChange={onChangeName(id)} placeholder={'Имя'} />
-        <Input value={studentPatronymic} name={'patronymic'} type={'text'} onChange={onChangePatronymic(id)} placeholder={'Отчество'} />
-      </div>
-    </div>
+          </div>
+        </div>
   )
 }

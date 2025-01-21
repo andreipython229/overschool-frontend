@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
@@ -21,6 +21,8 @@ import { useAppSelector } from 'store/hooks'
 import { selectUser } from '../../../selectors'
 import { LimitModal } from '../../../components/Modal/LimitModal/LimitModal'
 import { StudentGroupMiniCard } from 'components/StudentGroupMiniCard'
+import {PeopleIconSvg} from "../../../components/StudentGroupMiniCard/assets/iconsComponents";
+import {Button} from "../../../components/common/Button/Button";
 // import {useFetchCourseQuery} from "../../../api/coursesServices";
 
 export const StudentsStats = () => {
@@ -61,19 +63,19 @@ export const StudentsStats = () => {
           <p className={styles.students_group_header_title}>Группы учеников</p>
 
           {headerUserRoleName[role] === 'Администратор' && (
-            <div style={{ display: 'flex', gap: '1rem' }}>
-              <div onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}>
-                <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} />
-                Создать новую группу
+              <div style={{display: 'flex', gap: '1rem'}}>
+                <Button onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}
+                        text={'Создать новую группу'}
+                        variant={'newPrimary'}>
+                </Button>
+
+                <Button
+                    onClick={() => navigate(generatePath(Path.School + Path.Settings + 'employees/', {school_name: school}))}
+                    className={styles.students_group_header_add_teacher_btn} text={"Добавить менторов в школу"}
+                    variant={'newPrimary'}
+                >
+                </Button>
               </div>
-              <div
-                onClick={() => navigate(generatePath(Path.School + Path.Settings + 'employees/', { school_name: school }))}
-                className={styles.students_group_header_add_teacher_btn}
-              >
-                <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={tableBallsStarPath} />
-                Добавить менторов в школу
-              </div>
-            </div>
           )}
         </div>
       </section>
