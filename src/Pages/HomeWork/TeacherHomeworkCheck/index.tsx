@@ -167,7 +167,7 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
               handleDeleteFile={handleDeleteFile}
             />
           ))}
-          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', gap: '1rem' }}>
             <AddFileBtn handleChangeFiles={handleChangeFiles} style={{ background: 'transparent', fontWeight: 700, alignSelf: 'center' }} />
             <div className={styles.dropdownWrapper}>
               <p>Количество баллов:</p>
