@@ -120,12 +120,14 @@ export const Navbar: FC = memo(() => {
             </a>
           </div>
         ) : null}
-        <NavLink key={'Курсы'} to={Path.Courses} className={styles.navbar_menu}>
-          <div>
-            <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
-          </div>
-          <p>Главная</p>
-        </NavLink>
+        {UserRole !== RoleE.Teacher && (
+          <NavLink key={'Курсы'} to={Path.Courses} className={styles.navbar_menu}>
+            <div>
+              <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
+            </div>
+            <p>Главная</p>
+          </NavLink>
+        )}
         <div className={styles.navbar_setting_account}>
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (

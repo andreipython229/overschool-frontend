@@ -537,12 +537,7 @@
     height: 30%; /* Устанавливаем высоту 100%, чтобы центрировать вертикально */
     padding: 10px;
     margin-right: 10px;
-    svg {
-      fill: grey;
-    }
-  }
-  &_send:hover svg {
-    fill: #ba75ff; /* Изменяем fill цвета иконки */
+    cursor: pointer;
   }
 }
 
@@ -938,5 +933,24 @@
     ::placeholder {
       color: #808080;
     }
+  }
+}
+
+.filePicker {
+  cursor: pointer;
+  background: transparent;
+  padding: 5px 10px 5px 35px;
+  border: none;
+  transition: all 0.5s;
+  position: relative;
+
+  &:hover {
+    svg path {
+      fill: #0f62de;
+    }
+  }
+
+  input[type='file'] {
+    display: none;
   }
 }

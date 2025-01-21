@@ -34,6 +34,7 @@ export const ChatMessage: FC<chatMessageT> = memo(({ chatData, message }) => {
           )}
         </div> */}
         <div className={isAuthor ? styles.chatMessage_mess_author : styles.chatMessage_mess_left}>
+          {message.file && <img src={message.file} style={{ width: '100%', borderRadius: '7px' }} />}
           {/*<div className={styles.chatMessage_mess_author}>*/}
           {/*{!isAuthor && <p className={styles.chatMessage_user_name}>{`${userInfo?.first_name} ${userInfo?.last_name}` || 'Без имени'}</p>}*/}
           {/* <p className={styles.chatMessage_user_name}>{`${userInfo?.first_name ?? ''} ${userInfo?.last_name ?? ''}` || 'Без имени'}</p> */}
