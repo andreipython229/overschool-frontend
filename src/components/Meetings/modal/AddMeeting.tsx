@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,7 @@ import styles from './addMeeting.module.scss';
 import { SchoolMeeting } from "../../../types/schoolMeetingsT";
 import { RootState } from "../../../store/redux/store";
 import { setTotalMeetingCount } from "../../../store/redux/meetings/meetingSlice";
+import { Input } from 'components/common/Input/Input/Input'
 
 interface AddMeetingProps {
     showAddMeetingForm: boolean;
@@ -135,22 +136,52 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
 
 
     return (<>
-        <Dialog className={styles.modal_background} open={showAddMeetingForm} onClose={() => setShowAddMeetingForm(false)}>
+        <Dialog className={styles.modal_background} open={showAddMeetingForm} onClose={() => setShowAddMeetingForm(false)}
+            sx={{
+                '& .MuiPaper-root': {
+                    backgroundColor: '#fff',
+                    border: '1px solid #3170E7',
+                    // borderImageSource: 'linear-gradient(90deg, #3170E7 13.5%, #7A90F7 100%)',
+                    borderRadius: '24px',
+
+                    padding: '44px',
+                },
+                '& .MuiTypography-h6': {
+                    fontSize: '24px',
+                    fontWeight: '500',
+                    color: '#332F36',
+                },
+                '& .MuiDialogContent-root': {
+                    textAlign: 'center',
+                    fontSize: '16px',
+                    color: '#332F36',
+                    paddingBottom: '0',
+                },
+                '& .MuiDialogTitle-root': {
+                    // Стили для заголовка диалога
+                    // backgroundColor: '#f5f5f5',
+                    // color: '#333',
+                },
+            }}>
             <DialogTitle>Добавить видеоконференцию</DialogTitle>
+            <DialogContent>
+                <Typography variant="caption">Выберите дату и время видеоконференции</Typography>
+            </DialogContent>
             <DialogContent className={styles.modal_window} >
                 <div style={{
                     marginBottom: '1rem',
                     marginTop: '1rem',
                 }}>
-                    <TextField
+                    <Input
+                        name='datetime'
                         id="datetime-local"
-                        label="Выберите дату и время видеоконференции"
+                        label=""
                         type="datetime-local"
-                        defaultValue={new Date().toISOString().slice(0, 16)}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        fullWidth={true}
+                        value={new Date().toISOString().slice(0, 16)}
+                        // InputLabelProps={{
+                        //     shrink: true,
+                        // }}
+                        // fullWidth={true}
                         onChange={(e) =>
                             setNewMeetingData({
                                 ...newMeetingData,
@@ -160,11 +191,14 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                     />
                 </div>
                 <div style={{ marginBottom: '1rem' }}>
-                    <TextField
+                    <Input
+                        type='text'
                         id="link"
-                        label="Ссылка на видеоконференцию"
+                        name="link"
+                        placeholder="Ссылка на видеоконференцию"
+                        // label="Ссылка на видеоконференцию"
                         value={newMeetingData.link}
-                        fullWidth={true}
+                        // fullWidth={true}
                         onChange={(e) =>
                             setNewMeetingData({ ...newMeetingData, link: e.target.value })
                         }
@@ -253,8 +287,8 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                 )}
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleAddMeeting} text="Добавить" />
-                <Button onClick={() => setShowAddMeetingForm(false)} text="Отмена" />
+                <Button onClick={handleAddMeeting} variant={'newPrimary'} text="Добавить" />
+                <Button onClick={() => setShowAddMeetingForm(false)} variant={'cancel'} text="Отмена" />
             </DialogActions>
         </Dialog>
     </>)

@@ -101,7 +101,7 @@ export const SchoolMeetings: FC = () => {
         <div className={styles.wrapper_actions}>
             {isLogin && (
                 <>
-                    <Button className={styles.generateMeetingButton} onClick={handleAddMeetingFormOpen} text="Добавить видеоконференцию" />
+                    <Button variant={'newPrimary'}  className={styles.generateMeetingButton} onClick={handleAddMeetingFormOpen} text="Добавить видеоконференцию" />
                     <AddMeeting setShowAddMeetingForm={setShowAddMeetingForm} showAddMeetingForm={showAddMeetingForm}></AddMeeting>
                     {renderMeetingLinks()}
                 </>
