@@ -143,7 +143,6 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                     border: '1px solid #3170E7',
                     // borderImageSource: 'linear-gradient(90deg, #3170E7 13.5%, #7A90F7 100%)',
                     borderRadius: '24px',
-
                     padding: '44px',
                 },
                 '& .MuiTypography-h6': {
@@ -151,22 +150,52 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                     fontWeight: '500',
                     color: '#332F36',
                 },
-                '& .MuiDialogContent-root': {
+                '& .MuiTypography-root': {
+                    width: '100%',
                     textAlign: 'center',
+                },
+                '& .MuiDialogContent-root': {
                     fontSize: '16px',
                     color: '#332F36',
-                    paddingBottom: '0',
+                    padding: '0',
                 },
-                '& .MuiDialogTitle-root': {
+                '& .MuiInputBase-root': {
+                    borderRadius: '10px',
+                    border: 'none',
+                    textAlign: 'start',
+                    //#332f36;
+
                     // Стили для заголовка диалога
                     // backgroundColor: '#f5f5f5',
                     // color: '#333',
                 },
+
+                '& .MuiSelect-select': {
+                    backgroundColor: '#CFE2FF',
+                    borderRadius: '10px',
+                },
+
+                '& .MuiOutlinedInput-notchedOutline': {
+                    border: 'none',
+                },
+
+                '& .MuiDialogActions-root': {
+                    marginTop: "24px",
+                    display: 'flex',
+                    gap: '6px',
+                    justifyContent: 'space-between',
+                    padding: '0',
+                    button: {
+                        padding: '16px',
+                        width: '100%',
+
+                    }
+                }
+
             }}>
             <DialogTitle>Добавить видеоконференцию</DialogTitle>
-            <DialogContent>
-                <Typography variant="caption">Выберите дату и время видеоконференции</Typography>
-            </DialogContent>
+            <Typography variant="caption">Выберите дату и время видеоконференции</Typography>
+
             <DialogContent className={styles.modal_window} >
                 <div style={{
                     marginBottom: '1rem',
@@ -208,14 +237,16 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                     <TextField
                         id="course"
                         select
-                        label="Выберите курс"
                         fullWidth={true}
                         onChange={(e) => {
                             const courseId = parseInt(e.target.value);
                             handleCourseChange(courseId);
                         }}
-                        value={selectedCourse?.course_id || ""}
+                        value={selectedCourse?.course_id || "-1"}
                     >
+                        <MenuItem value='-1' disabled>
+                            Выберите курс
+                        </MenuItem>
                         {Courses?.results.map(course => (
                             <MenuItem key={course.course_id} value={course.course_id}>
                                 {course.name}
