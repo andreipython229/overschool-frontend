@@ -153,30 +153,28 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                 '& .MuiTypography-root': {
                     width: '100%',
                     textAlign: 'center',
+                    zIndex: '2',
                 },
                 '& .MuiDialogContent-root': {
                     fontSize: '16px',
                     color: '#332F36',
                     padding: '0',
+                    zIndex: '2',
                 },
-                '& .MuiInputBase-root': {
+                '& .MuiInputBase-root': { //also select?
                     borderRadius: '10px',
                     border: 'none',
                     textAlign: 'start',
-                    //#332f36;
-
-                    // Стили для заголовка диалога
-                    // backgroundColor: '#f5f5f5',
-                    // color: '#333',
                 },
 
-                '& .MuiSelect-select': {
+                '& .MuiSelect-select': { //select
                     backgroundColor: '#CFE2FF',
                     borderRadius: '10px',
                 },
 
-                '& .MuiOutlinedInput-notchedOutline': {
+                '& .MuiOutlinedInput-notchedOutline': { //focus select
                     border: 'none',
+                    borderRadius: '10px',
                 },
 
                 '& .MuiDialogActions-root': {
@@ -188,15 +186,18 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                     button: {
                         padding: '16px',
                         width: '100%',
-
+                        zIndex: '2',
                     }
                 }
 
             }}>
+            <div className={styles.modal_ellipse}>
+            </div>
             <DialogTitle>Добавить видеоконференцию</DialogTitle>
             <Typography variant="caption">Выберите дату и время видеоконференции</Typography>
 
             <DialogContent className={styles.modal_window} >
+
                 <div style={{
                     marginBottom: '1rem',
                     marginTop: '1rem',

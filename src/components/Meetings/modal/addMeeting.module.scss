@@ -2,10 +2,35 @@
     &_background {
         max-height: '100vh';
         max-width: '600px';
-        width: '100%';   
+        width: '100%';
+    }
+
+    &_ellipse {
+        position: absolute;
+        // width: 231px;
+        // height: 231px;
+        left: 1px;
+        right: 1px;
+        top: 1px;
+        bottom: 1px;
+        // border-radius: 100%;
+        background: radial-gradient(circle, #57B8FF40 1%, rgba(255, 255, 255, 0) 100%);
+        // background-color: transparent;
+        // backdrop-filter: blur(400px);
+        // background: #57B8FF;
+        // backdrop-filter: blur(400px);
+
+        // transform: matrix(1 0 0 -1 400 631);
+        // display: flex;
+        circle {
+            width: 100%;
+            height: 100%;
+            z-index: 20;
+        }
     }
 }
 
-input{
+
+input {
     height: 38px;
 }
