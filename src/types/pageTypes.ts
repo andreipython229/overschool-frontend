@@ -16,6 +16,14 @@ export type searchCourseBlockT = {
   courses: CoursesDataT[]
 }
 
+export type StudentsStatsT = {
+  course_id?: string
+}
+
+export type StudentsPerCourseT = {
+  courseID?: string
+}
+
 export type InitPageHeaderPT = {
   setLoginShow: (show: boolean) => void
   setRegistrationShow: (show: boolean) => void

@@ -22,6 +22,7 @@ import { LimitModal } from '../../LimitModal/LimitModal'
 import { useBoolean } from '../../../../customHooks'
 import { validateEmail } from 'utils/validateEmail'
 import {
+  AddIconPath,
   PeopleIconPath, SettingsIconPath,
   UserIconPath
 } from "../../../../assets/Icons/svgIconPath";
@@ -316,7 +317,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
             />
           ))}
           <div className={styles.addStudent_btnBlock}>
-            <div onClick={handleAddNewStudent} style={{cursor: "pointer", marginBottom: "20px"}}><IconSvg viewBoxSize="0 0 25 20" height={30} width={30} path={PeopleIconPath} /></div>
+            <div onClick={handleAddNewStudent} style={{cursor: "pointer", marginTop: "-28px"}}><IconSvg viewBoxSize="0 0 25 20" height={30} width={30} path={AddIconPath}/></div>
             <Button
               className={styles.container_header_title_btn_send}
               type={'button'}

@@ -10,7 +10,7 @@ import styles from '../courses_stats.module.scss'
 import {useAppSelector} from "../../../store/hooks";
 import {selectUser} from "../../../selectors";
 
-export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, courseId, groups }) => {
+export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({  photo, name, courseId, groups }) => {
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
   const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students.length, 0)
   const { role } = useAppSelector(selectUser)
@@ -21,7 +21,7 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, course
   })
 
   return (
-    <Link to={pathLink}>
+    // <Link to={pathLink}>
       <div className={styles.mini_card_container}>
         {/*<img className={styles.mini_card_img} src={photo} alt="" width="52" height="52" />*/}
         <div>
@@ -40,6 +40,6 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, course
           </ul>
       </div>
         </div>
-    </Link>
+    // </Link>
   )
 })

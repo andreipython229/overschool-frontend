@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, {useState, useCallback, FC} from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
@@ -23,10 +23,12 @@ import { LimitModal } from '../../../components/Modal/LimitModal/LimitModal'
 import { StudentGroupMiniCard } from 'components/StudentGroupMiniCard'
 import {PeopleIconSvg} from "../../../components/StudentGroupMiniCard/assets/iconsComponents";
 import {Button} from "../../../components/common/Button/Button";
+import {searchCourseBlockT, StudentsStatsT} from "../../../types/pageTypes";
 // import {useFetchCourseQuery} from "../../../api/coursesServices";
 
-export const StudentsStats = () => {
-  const { course_id: courseId } = useParams()
+export const StudentsStats: FC<StudentsStatsT> = ({course_id}) => {
+  const { course_id: course_ID } = useParams()
+  const courseId = course_ID ? course_ID : course_id
   const { role } = useAppSelector(selectUser)
 
   const [hideStats, setHideStats] = useState<boolean>(true)
@@ -112,7 +114,7 @@ export const StudentsStats = () => {
           </div>
         </div>
       )}
-      <StudentsPerCourse />
+      <StudentsPerCourse courseID={course_id}/>
       {addGroupModal && (
         <Portal closeModal={onAddGroupModal}>
           <CreateGroupModal setShowModal={onAddGroupModal} courseId={courseId as string} />{' '}

@@ -135,36 +135,36 @@ export const StudentsPerSchool: FC = () => {
 
   return (
     <>
-      <AllStudentsBlock
-        invite={false}
-        headerText={`Все ученики платформы`}
-        addLastActiveFilter={handleAddLastActivityFilter}
-        addMarkFilter={handleAddMarkFilter}
-        handleAddAvgFilter={handleAddAvgFilter}
-        removeLastActiveStartFilter={handleRemoveLastActivityStartFilter}
-        removeLastActiveEndFilter={handleRemoveLastActivityEndFilter}
-        handleReloadTable={handleReloadTable}
-        isGrouping={handleUpdateGroupingStudents}
-        filterKey={'studentsPerSchool'}
-        startMark={filters?.mark_sum_min}
-        endMark={filters?.mark_sum_max}
-        startDate={filters?.last_active_min}
-        endDate={filters?.last_active_max}
-        startAvg={filters?.average_mark_min}
-        endAvg={filters?.average_mark_max}
-        filters={filters}
-        updateStudents={updateStudents}
-        all_students_count={allStudentsCount} 
-      />
-      <StudentsTableWrapper
-          handleReloadTable={handleReloadTable}
-          students={filteredStudents as studentsTableInfoT}
-          isLoading={isFetching || isTablesHeaderFetching}
-          tableId={tableId as number}
-          handleAddSortToFilters={handleAddSortToFilters}
-          isGrouping={isGroupingStudents}
-          tableType={'Школа'}
-      />
+      {/*<AllStudentsBlock*/}
+      {/*  invite={false}*/}
+      {/*  headerText={`Все ученики платформы`}*/}
+      {/*  addLastActiveFilter={handleAddLastActivityFilter}*/}
+      {/*  addMarkFilter={handleAddMarkFilter}*/}
+      {/*  handleAddAvgFilter={handleAddAvgFilter}*/}
+      {/*  removeLastActiveStartFilter={handleRemoveLastActivityStartFilter}*/}
+      {/*  removeLastActiveEndFilter={handleRemoveLastActivityEndFilter}*/}
+      {/*  handleReloadTable={handleReloadTable}*/}
+      {/*  isGrouping={handleUpdateGroupingStudents}*/}
+      {/*  filterKey={'studentsPerSchool'}*/}
+      {/*  startMark={filters?.mark_sum_min}*/}
+      {/*  endMark={filters?.mark_sum_max}*/}
+      {/*  startDate={filters?.last_active_min}*/}
+      {/*  endDate={filters?.last_active_max}*/}
+      {/*  startAvg={filters?.average_mark_min}*/}
+      {/*  endAvg={filters?.average_mark_max}*/}
+      {/*  filters={filters}*/}
+      {/*  updateStudents={updateStudents}*/}
+      {/*  all_students_count={allStudentsCount} */}
+      {/*/>*/}
+      {/*<StudentsTableWrapper*/}
+      {/*    handleReloadTable={handleReloadTable}*/}
+      {/*    students={filteredStudents as studentsTableInfoT}*/}
+      {/*    isLoading={isFetching || isTablesHeaderFetching}*/}
+      {/*    tableId={tableId as number}*/}
+      {/*    handleAddSortToFilters={handleAddSortToFilters}*/}
+      {/*    isGrouping={isGroupingStudents}*/}
+      {/*    tableType={'Школа'}*/}
+      {/*/>*/}
       <Pagination
           className={styles.pagination}
           paginationRange={paginationRange}

@@ -3,6 +3,7 @@ import { Input } from '../../../../common/Input/Input/Input'
 import styles from '../../studentsLog.module.scss'
 import {CrossIconPath, PeopleIconPath, SettingsIconPath} from "../../../../../assets/Icons/svgIconPath";
 import {IconSvg} from "../../../../common/IconSvg/IconSvg";
+import {deleteIconPath} from "../../../../../Pages/School/config/svgIconsPath";
 
 
 
@@ -39,7 +40,7 @@ export const AddNewStudents: FC<AddNewStudentsT> = ({
       <div className={styles.addStudent_student_title}>
         <div style={{display: "flex"}}>
         <span style={{marginTop: "10px", marginRight: "10px"}}>{index + 1}.</span>
-      <div style={{minWidth: "400px", display: 'flex', flexDirection: 'column', gap: '10px'}}>
+      <div style={{minWidth: "400px", display: 'flex', flexDirection: 'column'}}>
         <div style={{position: "relative", width: "100%"}}>
         <Input value={studentEmail} name={'email'} type={'text'} onChange={onChangeEmail(id)} placeholder={'Email ученика'} required />
           <div style={{position: "absolute", right: "16px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none"}}>
@@ -52,9 +53,9 @@ export const AddNewStudents: FC<AddNewStudentsT> = ({
       </div>
           </div>
         {index > 0 && (
-          <button className={styles.addStudent_student_btn_remove} style={{marginLeft: "10px"}} type="button" onClick={handleRemoveStudent(id)}>
-            <IconSvg viewBoxSize="0 0 24 20" height={27} width={27} path={CrossIconPath} />
-          </button>
+            <button className={styles.addStudent_student_btn_remove} type="button" onClick={handleRemoveStudent(id)}>
+            <IconSvg width={20} height={20} viewBoxSize="0 0 19 19" path={deleteIconPath} />
+              </button>
         )}
           </div>
         </div>

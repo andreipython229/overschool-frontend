@@ -29,7 +29,8 @@
       }
       &_status {
         @include font(500, 9px, 100%);
-        color: rgb(204, 139, 236);
+        //color: rgb(204, 139, 236);
+        color: #357EEB;
         letter-spacing: 0.08em;
       }
       &_mark {
@@ -120,7 +121,7 @@
       & span {
         padding-top: 4px;
         font-size: $fs14;
-        color: #b592bd;
+        color: #111111;
       }
     }
   }
