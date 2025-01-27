@@ -191,7 +191,7 @@ export const PromotionSettings: FC = () => {
       )}
       <div className={styles.bonuses_header}>
         <div className={styles.bonuses_header_title}>Бонусы и подарки</div>
-        <button onClick={handleCreateForm} className={styles.bonuses_header_btn}>Добавить бонус</button>
+        <button onClick={handleCreateForm} aria-hidden='true' tabIndex={-1} className={styles.bonuses_header_btn}>Добавить бонус</button>
       </div>
       <div className={styles.bonuses}>
         <table className={styles.table}>

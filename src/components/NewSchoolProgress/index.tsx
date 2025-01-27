@@ -92,23 +92,24 @@ export const NewSchoolProgress: FC = () => {
             <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
           </div>
         </div>
-        <div style={{ padding: '0 38px' }}>
+        <div className={styles.wrapper_content}>
           <div className={styles.wrapper_gift}>Выполняйте задания и получайте 7 дополнительных дней подписки БЕСПЛАТНО!</div>
           <div className={styles.wrapper_title}>Текущая задача: {currentTask}</div>
           <div className={styles.wrapper_progress}>
-            <div style={{maxWidth: '421px', width: '100%'}}>
+            <div className={styles.wrapper_progress_progressbar}>
               <p className={styles.wrapper_progress_title}>Общий прогресс</p>
               <BorderLinearProgress variant="determinate" value={schoolProgressState.completion_percentage} />
             </div>
             <div className={styles.wrapper_progress_percentage}>{`Выполнено  ${schoolProgressState.completion_percentage}%`}</div>
           </div>
           <div className={styles.wrapper_top} style={{ marginTop: '1rem' }}>
-            <Button
-              onClick={toggleTasks}
-              style={{ padding: '12px 24px' }}
-              text={allTasks ? 'Скрыть все задания' : 'Показать все задания'}
-              variant='newSecondary'
-            />
+            <div className={styles.wrapper_button_allTasks}>
+              <Button
+                onClick={toggleTasks}
+                text={allTasks ? 'Скрыть все задания' : 'Показать все задания'}
+                variant='newSecondary'
+              />
+            </div>
           </div> 
         </div>
         {allTasks && (

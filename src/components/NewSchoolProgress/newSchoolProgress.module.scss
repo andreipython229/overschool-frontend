@@ -28,6 +28,11 @@
     width: 130px;
     height: 78px;
 
+    @media only screen and (min-width: 320px) and (max-width: 550px) {
+      width: 101px;
+      height: 65px;
+    }
+
     img {
       object-fit: cover;
       width: 100%;
@@ -59,8 +64,16 @@
     @media only screen and (min-width: 1000px) and (max-width: 1499px) {
       font-size: 28px;
     }
-    @media only screen and (min-width: 700px) and (max-width: 999px) {
+    @media only screen and (min-width: 801px) and (max-width: 999px) {
       font-size: 24px;
+    }
+    @media only screen and (min-width: 500px) and (max-width: 800px) {
+      font-size: 20px;
+      line-height: 25px;
+    }
+    @media only screen and (min-width: 320px) and (max-width: 499px) {
+      font-size: 18px;
+      line-height: 21px;
     }
   }
 
@@ -111,9 +124,21 @@
       font-family: 'SFPRORegular';
       color: $color-text;
       margin-left: 5px;
+
+      @media only screen and (min-width: 320px) and (max-width: 700px) {
+        font-size: 13px;
+        line-height: 15px;
+      }
     }
   }
 
+  &_content {
+    padding: 0 38px;
+
+    @media only screen and (min-width: 320px) and (max-width: 700px) {
+      padding: 0;
+    }
+  }
 
   &_tasks {
     @include display(flex, column, center, center);
@@ -121,12 +146,26 @@
     width: 100%;
   }
 
+  &_button {
+
+    &_allTasks {
+      button {
+        padding: 12px 24px;
+
+        @media only screen and (min-width: 320px) and (max-width: 699px) {
+          padding: 10px;
+          line-height: 22px;
+        }
+      }
+    }
+  }
+
   &_progress {
     @include display(flex, row, space-between, center);
-    flex-wrap: wrap;
 
     @media only screen and (min-width: 320px) and (max-width: 1382px) {
-      gap: 5px;
+      gap: 8px;
+      @include display(flex, column, space-between, center);
     }
 
     &_percentage {
@@ -138,11 +177,20 @@
       @include font(500, 24px, 28.64px);
       font-family: 'SFPRORegular';
 
-      @media only screen and (min-width: 1383px) and (max-width: 1499px) {
+      @media only screen and (min-width: 1383px) and (max-width: 1505px) {
         font-size: 16px;
       }
-      @media only screen and (min-width: 320px) and (max-width: 1382px) {
+      @media only screen and (min-width: 700px) and (max-width: 1382px) {
         font-size: 16px;
+        display: flex;
+        align-self: flex-end;
+      }
+      @media only screen and (min-width: 320px) and (max-width: 699px) {
+        font-size: 16px;
+        display: flex;
+        align-self: flex-end;
+        padding: 10px;
+        line-height: 22px;
       }
     }
 
@@ -153,6 +201,17 @@
 
       @media only screen and (min-width: 320px) and (max-width: 1499px) {
         font-size: 14px;
+      }
+    }
+
+    &_progressbar {
+      max-width: 421px;
+      width: 100%;
+
+      @media only screen and (min-width: 320px) and (max-width: 1382px) {
+        display: flex;
+        flex-direction: column;
+        align-self: flex-start;
       }
     }
   }
