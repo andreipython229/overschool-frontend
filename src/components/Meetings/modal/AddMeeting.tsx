@@ -36,7 +36,7 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
     const [createMeeting, { isLoading, error }] = useCreateMeetingMutation();
     const [createMeetingsReminder] = useCreateMeetingsRemindersMutation();
 
-
+    
     const totalMeetingCount = useSelector((state: RootState) => state.meetings.totalMeetingCount);
 
     const [newMeetingData, setNewMeetingData] = useState<SchoolMeeting>({
@@ -44,6 +44,8 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
         students_groups: [],
         link: '',
         start_date: new Date(),
+        title: '',
+        description: '',
     });
 
     const [newMeetingReminder, setNewMeetingReminder] = useState<TgMeetingReminders>({
@@ -53,6 +55,8 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
         sent: false,
         meeting: newMeetingData.id
     })
+
+    console.log(newMeetingData);
 
     useEffect(() => {
         setNewMeetingData({
@@ -217,6 +221,30 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                                 ...newMeetingData,
                                 start_date: new Date(e.target.value),
                             })
+                        }
+                    />
+                </div>
+                <div style={{ marginBottom: '1rem' }}>
+                    <Input
+                        type='text'
+                        id="title"
+                        name="title"
+                        placeholder="Тема видеоконференции"
+                        value={newMeetingData.title}
+                        onChange={(e) =>
+                            setNewMeetingData({ ...newMeetingData, title: e.target.value })
+                        }
+                    />
+                </div>
+                <div style={{ marginBottom: '1rem' }}>
+                    <Input
+                        type='text'
+                        id="description"
+                        name="description"
+                        placeholder="Описание видеоконференции"
+                        value={newMeetingData.description}
+                        onChange={(e) =>
+                            setNewMeetingData({ ...newMeetingData, description: e.target.value })
                         }
                     />
                 </div>

@@ -33,7 +33,7 @@ export const SchoolMeetings: FC = () => {
         }
     }, [meetingsData, meetingsSuccess, dispatch]);
 
-    
+
     const handleDeleteMeeting = (meetingId: number,) => {
         deleteMeeting({ id: meetingId, schoolName });
         dispatch(setTotalMeetingCount(totalMeetingCount - 1));
@@ -101,7 +101,9 @@ export const SchoolMeetings: FC = () => {
         <div className={styles.wrapper_actions}>
             {isLogin && (
                 <>
-                    <Button variant={'newPrimary'}  className={styles.generateMeetingButton} onClick={handleAddMeetingFormOpen} text="Добавить видеоконференцию" />
+                    <div className={styles.generate_meeting_btn_wrapper}>
+                        <Button variant={'newPrimary'} className={styles.generateMeetingButton} onClick={handleAddMeetingFormOpen} text="Добавить видеоконференцию" />
+                    </div>
                     <AddMeeting setShowAddMeetingForm={setShowAddMeetingForm} showAddMeetingForm={showAddMeetingForm}></AddMeeting>
                     {renderMeetingLinks()}
                 </>
