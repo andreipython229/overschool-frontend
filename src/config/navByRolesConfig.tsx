@@ -128,12 +128,12 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       </Route>
       <Route path={Path.CourseStats} element={<CoursesStats />} />
       <Route path={Path.Courses} element={<School />}>
-        <Route index element={<Materials />} />
+        {/* <Route index element={<HomeWork />} /> */}
         <Route path={Path.Bonus} element={<BonusesPage />} />
-        <Route path={Path.CreateCourse} element={<RedactorCourse />}>
+        {/* <Route path={Path.CreateCourse} element={<RedactorCourse />}>
           <Route index element={<Navigate to={CreateCoursePath.Materials} />} />
           <Route path={CreateCoursePath.Materials} element={<CourseMaterials />} />
-        </Route>
+        </Route> */}
       </Route>
       <Route path={Path.CourseStudent} element={<StudentsStats />} />
       <Route path={Path.HelpCenter} element={<HelpCenter />} />

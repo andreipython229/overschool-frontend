@@ -1,12 +1,10 @@
-import { combineReducers, configureStore, isRejectedWithValue, PreloadedState } from '@reduxjs/toolkit'
+import { combineReducers, configureStore, PreloadedState } from '@reduxjs/toolkit'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import * as services from '../../api/index'
 import * as slices from './index'
 import { modulesReduce } from './modules/modules'
 import errorMiddleware from '../DomainErrorMiddleware'
-
-
 
 export const rootReducer = combineReducers({
   [services.refreshApi.reducerPath]: services.refreshApi.reducer,

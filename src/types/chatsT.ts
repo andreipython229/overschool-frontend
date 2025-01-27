@@ -1,7 +1,6 @@
 export type Chats = ChatI[]
 export type Messages = MessageI[]
 
-
 export interface UserChatsInformI {
   total_unread: number
   chats: ChatI[]
@@ -16,8 +15,6 @@ export interface UserInformAppealsI {
   school_id: number
   unread_count: number
 }
-
-
 
 export interface ChatI {
   id: string
@@ -46,6 +43,7 @@ export interface MessageI {
   sender: number
   sent_at: string
   content: string
+  file?: string
 }
 
 export interface PersonalChatI {

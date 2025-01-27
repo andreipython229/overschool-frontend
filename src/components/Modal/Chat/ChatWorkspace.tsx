@@ -28,12 +28,15 @@ export const ChatWorkspace: FC = () => {
   const [socket, setSocket] = useState<WebSocket>()
   const [messages, setMessages] = useState<Messages>([])
   const [message, setMessage] = useState<string>('')
+  const [files, setFiles] = useState<string[]>([])
 
   const [fetchChatData, { data, isFetching, isSuccess }] = useLazyFetchChatQuery()
   const [fetchMessages, { data: messagesData }] = useLazyFetchMessagesQuery()
 
   const messagesRef = useRef<HTMLDivElement | null>(null)
   const socketRef = useRef<w3cwebsocket | null>(null)
+
+  console.log(messages)
 
   useEffect(() => {
     if (chatId) {
@@ -43,7 +46,8 @@ export const ChatWorkspace: FC = () => {
 
         socketRef.current = new w3cwebsocket(
           process.env.REACT_APP_RUN_MODE === 'PRODUCTION'
-            ? `wss://apidev.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`
+            ? // ? `wss://apidev.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`
+              `ws://91.198.166.31:8000/ws/chats/${chatId}?user_id=${userId}`
             : `ws://sandbox.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`,
         )
         // socketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/chats/${chatId}?user_id=${userId}`)
@@ -93,14 +97,24 @@ export const ChatWorkspace: FC = () => {
   // }, [socket])
 
   const handleSubmit = async () => {
-    if (message.length > 0) {
+    if (message.length > 0 || files.length > 0) {
       if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
         const data = {
           message: message,
           sender: userId,
+          file:
+            files.length > 0
+              ? {
+                  filename: `image-${userId}-base64.jpg`,
+                  type: files[0].split(';')[0].split('data:')[1],
+                  content: files[0].split('base64,')[1],
+                }
+              : null,
         }
+
         socketRef.current.send(JSON.stringify(data))
         setMessage('')
+        setFiles([])
       }
     }
   }
@@ -146,16 +160,34 @@ export const ChatWorkspace: FC = () => {
                 <>
                   {role === RoleE.Teacher ? (
                     <>
-                      <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
+                      <ChatInput
+                        handleSubmit={handleSubmit}
+                        files={files}
+                        setFiles={setFiles}
+                        message={message}
+                        handleChangeMessage={handleChangeMessage}
+                      />
                     </>
                   ) : role === RoleE.Admin ? (
                     <>
-                      <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
+                      <ChatInput
+                        handleSubmit={handleSubmit}
+                        files={files}
+                        setFiles={setFiles}
+                        message={message}
+                        handleChangeMessage={handleChangeMessage}
+                      />
                     </>
                   ) : role === RoleE.Student ? (
                     <>
                       {data?.type === 'PERSONAL' ? (
-                        <ChatInput handleSubmit={handleSubmit} message={message} handleChangeMessage={handleChangeMessage} />
+                        <ChatInput
+                          handleSubmit={handleSubmit}
+                          files={files}
+                          setFiles={setFiles}
+                          message={message}
+                          handleChangeMessage={handleChangeMessage}
+                        />
                       ) : null}
                     </>
                   ) : null}
