@@ -38,12 +38,15 @@ export const MainLayOut: FC = memo(() => {
   const [currentTariff, setCurrentTariff] = useState<any | null>(null)
   const [showChat, setShowChat] = useState<boolean>(false)
   const [overaiLockExists, setOveraiLockExists] = useState(false)
+  const routesWithoutPrevious = [`/school/${schoolName}/meetings/`];
 
   useEffect(() => {
     if (userRole === 1) {
       getGroups(schoolName)
     }
   }, [])
+
+
 
   useEffect(() => {
     if (userRole === 1 && allGroups && allGroups.results) {
@@ -123,7 +126,7 @@ export const MainLayOut: FC = memo(() => {
             duration: 1.2,
           }}
         >
-          <Previous />
+          {!routesWithoutPrevious.includes(location.pathname) && <Previous />}
           <Outlet />
         </motion.main>
         {showChat && isSuccess && <ChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />}

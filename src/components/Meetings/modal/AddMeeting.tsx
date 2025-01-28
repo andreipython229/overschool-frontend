@@ -56,8 +56,6 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
         meeting: newMeetingData.id
     })
 
-    console.log(newMeetingData);
-
     useEffect(() => {
         setNewMeetingData({
             ...newMeetingData,
@@ -117,7 +115,6 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
         })
             .unwrap()
             .then((meetingResponse) => {
-                // console.log(meetingResponse.id);
 
                 if (meetingResponse.id) {
                     // Здесь вы устанавливаете meeting_id в newMeetingReminder
@@ -187,6 +184,7 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                     gap: '6px',
                     justifyContent: 'space-between',
                     padding: '0',
+                    borderRadius: '10px',
                     button: {
                         padding: '16px',
                         width: '100%',

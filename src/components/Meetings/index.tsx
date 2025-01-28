@@ -7,7 +7,6 @@ import { Button } from 'components/common/Button/Button'
 import { setTotalMeetingCount } from "../../store/redux/meetings/meetingSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/redux/store";
-
 import { AddMeeting } from "./modal/AddMeeting"
 import { MeetingCard } from "./card/MeetingCard"
 
@@ -55,7 +54,9 @@ export const SchoolMeetings: FC = () => {
         if (meetingsSuccess) {
             return (
                 <div className={styles.meetingList}>
-                    {meetingsData.map((meeting, index) => (<MeetingCard key={meeting.id} meeting={meeting}></MeetingCard>))}
+                    {meetingsData.map((meeting, index) => (<MeetingCard 
+                    // setShowAddMeetingForm={setShowAddMeetingForm} showAddMeetingForm={showAddMeetingForm} 
+                     key={meeting.id} meeting={meeting}></MeetingCard>))}
                 </div>
 
                 // <table className={styles.meetingTable}>
@@ -88,17 +89,16 @@ export const SchoolMeetings: FC = () => {
                 // </table>
             );
         }
-        return <table className={styles.meetingTable}>
-            <tbody>
-                <tr className={styles.table_no_results}>
-                    <td>Ничего не найдено</td>
-                </tr>
-            </tbody>
-        </table>;
+        return <div className={styles.meetings_empty_text_wrapper}>
+            <div className={styles.meetings_empty_text}>Ничего не запланировано</div>
+        </div>
     };
 
     return (
+
         <div className={styles.wrapper_actions}>
+            {/* <rect xmlns="http://www.w3.org/2000/svg" x="262.5" y="0.5" width="866" height="247" rx="31.5" stroke="url(#paint0_linear_28398_60663)"/> */}
+            <div className={styles.meeting_header_text}>Видеоконференции</div>
             {isLogin && (
                 <>
                     <div className={styles.generate_meeting_btn_wrapper}>
