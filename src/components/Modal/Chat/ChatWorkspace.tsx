@@ -46,8 +46,7 @@ export const ChatWorkspace: FC = () => {
 
         socketRef.current = new w3cwebsocket(
           process.env.REACT_APP_RUN_MODE === 'PRODUCTION'
-            ? // ? `wss://apidev.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`
-              `ws://91.198.166.31:8000/ws/chats/${chatId}?user_id=${userId}`
+            ? `wss://apidev.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`
             : `ws://sandbox.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`,
         )
         // socketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/chats/${chatId}?user_id=${userId}`)

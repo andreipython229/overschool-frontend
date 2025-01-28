@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from 'react'
+import React, { useState, useEffect, useRef, memo} from 'react'
 import { Link, generatePath, useLocation, useNavigate } from 'react-router-dom'
 import { useFetchProfileDataQuery, useLazyFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
@@ -51,9 +51,13 @@ import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
 import { useAcceptBannerMutation, useLazyGetStudentBannerQuery } from 'api/schoolBonusService'
 import { useBoolean } from 'customHooks'
 import HTMLReactParser from 'html-react-parser'
-import { HomeIconPath, MessageConvertIconPath, UserIconPath } from 'assets/Icons/svgIconPath'
+import {
+  HomeIconPath,
+  MessageConvertIconPath,
+  UserIconPath,
+} from 'assets/Icons/svgIconPath'
 import { SocialMediaButton } from 'components/SocialMediaButton'
-import { useFetchSchoolQuery } from '../../api/schoolService'
+import {useFetchSchoolQuery} from "../../api/schoolService";
 
 type WebSocketHeaders = {
   [key: string]: string | string[] | number
@@ -101,7 +105,8 @@ export const Header = memo(() => {
       student_count_by_month: null,
     },
   })
-  const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation()
+  const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] =
+    useGetSchoolProgressionDataMutation()
   const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
   const [unreadAppeals, setUnreadAppeals] = useState<number>(0)
   const chats = useAppSelector(state => state.chats.chats)
@@ -303,8 +308,7 @@ export const Header = memo(() => {
     if ((informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) && userId) {
       const socketPath =
         process.env.REACT_APP_RUN_MODE === 'PRODUCTION'
-          ? // ? `wss://apidev.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
-            `ws://91.198.166.31:8000/ws/info/${schoolName || ''}?user_id=${userId}`
+          ? `wss://apidev.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
           : `ws://sandbox.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
       informSocketRef.current = new w3cwebsocket(socketPath)
       // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}?user_id=${userId}`)
@@ -686,14 +690,7 @@ export const Header = memo(() => {
                   )}
                 </p>
               </div>
-              <Menu
-                anchorEl={anchorEl2}
-                id="account-menu"
-                open={open2}
-                onClose={handleClose2}
-                onClick={handleClose2}
-                className={styles.popoverWrapper}
-              >
+              <Menu anchorEl={anchorEl2} id="account-menu" open={open2} onClose={handleClose2} onClick={handleClose2} className={styles.popoverWrapper}>
                 <MenuItem>
                   <span> Курсов:</span>
                   <span style={{ paddingLeft: '0.3rem' }}>
@@ -703,11 +700,14 @@ export const Header = memo(() => {
                 </MenuItem>
                 <MenuItem>
                   <span> Сотрудников:</span>
-                  <span style={{ paddingLeft: '0.3rem' }}> {`${currentTariff?.staff}/${currentTariff?.tariff_details?.number_of_staff || 'ꝏ'}`}</span>
+                  <span style={{ paddingLeft: '0.3rem' }}>
+                    {' '}
+                    {`${currentTariff?.staff}/${currentTariff?.tariff_details?.number_of_staff || 'ꝏ'}`}
+                  </span>
                   <br />
                 </MenuItem>
                 <MenuItem>
-                  <span> Студентов:</span>
+                  <span > Студентов:</span>
                   <span style={{ paddingLeft: '0.3rem' }}>
                     {' '}
                     {`${currentTariff?.students}/${currentTariff?.tariff_details?.total_students || 'ꝏ'}`}
@@ -722,37 +722,41 @@ export const Header = memo(() => {
                 </MenuItem>
                 <div onClick={goToChooseTariff} className={styles.goToTariff}>
                   <p>Перейти на тариф</p>
-                  <img src={tariffImg} alt="tariffs-page" />
+                  <img src={tariffImg} alt='tariffs-page'/>
                 </div>
               </Menu>
             </div>
           )}
         </React.Fragment>
         <div className={styles.header_socialIcons}>
-          {schoolData && (
-            <>
-              <SocialMediaButton variant="Telegram" url={schoolData.telegram_link || 'https://t.me/course_hb'} />
-              <SocialMediaButton variant="Instagram" url={schoolData.instagram_link || 'https://instagram.com/'} />
-              <SocialMediaButton variant="X" url={schoolData.twitter_link || 'https://x.com/'} />
-              <SocialMediaButton variant="Youtube" url={schoolData.youtube_link || 'https://youtube.com/'} />
-              <SocialMediaButton variant="VK" url={schoolData.vk_link || 'https://vk.ru/'} />
-              <SocialMediaButton variant="Link" url={schoolData.extra_link || '#'} />
-            </>
-          )}
-        </div>
+  {schoolData && (
+    <>
+      <SocialMediaButton variant="Telegram" url={schoolData.telegram_link || 'https://t.me/course_hb'} />
+      <SocialMediaButton variant="Instagram" url={schoolData.instagram_link || 'https://instagram.com/'} />
+      <SocialMediaButton variant="X" url={schoolData.twitter_link || "https://x.com/"} />
+      <SocialMediaButton variant="Youtube" url={schoolData.youtube_link || "https://youtube.com/"} />
+      <SocialMediaButton variant="VK" url={schoolData.vk_link ||"https://vk.ru/"} />
+      <SocialMediaButton variant="Link" url={schoolData.extra_link ||"#"} />
+    </>
+  )}
+</div>
         <React.Fragment>
           <Button variant="newPrimary" text={headerUserRoleName[userRole]} onClick={handleClick} style={{ fontSize: '16px' }}>
             <IconSvg width={18} height={18} viewBoxSize="0 0 24 24" path={UserIconPath} />
           </Button>
           <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose} className={styles.popoverWrapper}>
             <MenuItem onClick={goToProfile}>
-              <IconSvg viewBoxSize="0 0 24 24" width={18} height={18} path={UserIconPath} />
-              <Link to={Path.Profile}>Открыть профиль</Link>
+              <IconSvg viewBoxSize="0 0 24 24" width={18} height={18} path={UserIconPath}/>
+              <Link to={Path.Profile}>
+                Открыть профиль
+              </Link>
             </MenuItem>
             {canChangePlatform && (
               <MenuItem onClick={goToChooseSchool}>
-                <IconSvg viewBoxSize="0 0 24 24" width={18} height={18} path={HomeIconPath} />
-                <Link to={Path.ChooseSchool}>Смена платформы</Link>
+                <IconSvg viewBoxSize='0 0 24 24' width={18} height={18} path={HomeIconPath}/>
+                <Link to={Path.ChooseSchool}>
+                  Смена платформы
+                </Link>
               </MenuItem>
             )}
             {schoolRoles && schoolRoles.roles.includes('Студент') && (
