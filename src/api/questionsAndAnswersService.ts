@@ -51,9 +51,9 @@ export const questionsAndAnswersService = createApi({
       },
       invalidatesTags: ['questions'],
     }),
-    patchQuestion: build.mutation<any, { titleQuestion: string; id: string | number; testId: string | number; schoolName: string }>({
-      query: ({ titleQuestion, id, testId, schoolName }) => {
-        const formdata = formDataConverter({ body: titleQuestion, test: testId })
+    patchQuestion: build.mutation<any, { titleQuestion: string; id: string | number; testId: string | number; schoolName: string, multiple_answer?: boolean }>({
+      query: ({ titleQuestion, id, testId, schoolName, multiple_answer }) => {
+        const formdata = formDataConverter({ body: titleQuestion, test: testId, multiple_answer: multiple_answer })
         return {
           url: `/${schoolName}/questions/${id}/`,
           method: 'PATCH',

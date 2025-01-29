@@ -19,7 +19,7 @@ export const TrainingProgram:FC<TrainingProgramT> = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h2>Список модулей и уроков внутри курса:</h2>
+      <h2>Программа обучения:</h2>
       <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', width: '100%' }}>
         {landing.trainingProgram.sections.map((module, index: number) => (
           <CatalogCourseModules

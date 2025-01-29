@@ -53,6 +53,7 @@
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding: 16px;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding: 59px 16px 60px 16px;
   }
@@ -70,9 +71,11 @@
       align-items: center;
       justify-content: center;
       padding: 16px;
+
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         padding: 17px;
       }
+
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         padding: 17px;
       }
@@ -95,9 +98,11 @@
   padding: 60px 53px 55px 52px;
   font-family: 'SFPRORegular';
   box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin: 16px;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin: 59px 16px 60px 16px;
   }
@@ -124,19 +129,22 @@
   overflow: visible;
   width: 600px;
   transition: 400ms ease-out;
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 98%;
     position: absolute;
     top: 10%;
     right: 1%;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 98%;
     position: absolute;
     top: 10%;
     right: 1%;
-    
+
   }
+
   @media only screen and (min-width: 481px) and (max-width: 1024px) {
     position: absolute;
     left: 30%;
@@ -180,18 +188,21 @@
     flex-grow: 0;
     overflow: visible;
     width: 400px;
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 90%;
       position: absolute;
       top: 10%;
       right: 6%;
     }
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       width: 90%;
       position: absolute;
       top: 10%;
       right: 6%;
     }
+
     @media only screen and (min-width: 481px) and (max-width: 1024px) {
       position: absolute;
       left: 30%;
@@ -207,14 +218,16 @@
     align-items: center;
     justify-content: center;
     transition: color 0.3s;
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       right: 10%;
     }
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       right: 10%;
     }
 
-    svg:hover path{
+    svg:hover path {
       fill: $color-blue;
     }
   }
@@ -241,6 +254,7 @@
     color: #000000;
     text-align: center;
     margin-bottom: 1em;
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       font-size: 18px;
       margin-bottom: 1em;
@@ -252,6 +266,7 @@
     align-items: center;
     justify-content: left;
     width: 30em;
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       width: 100%;
     }
@@ -279,6 +294,7 @@
     align-items: center;
     justify-content: left;
     width: 30em;
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       width: 100%;
     }
@@ -325,9 +341,11 @@
   transform: translate(-50%, -50%);
   max-height: 100vh;
   overflow: auto;
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 100%;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 100%;
   }
@@ -489,7 +507,7 @@
     margin-bottom: 12px;
 
     &_button {
-      width:60%;
+      width: 60%;
       @include font(400, 12px);
       margin: 0 auto;
     }
@@ -541,10 +559,12 @@
   transform: translate(-50%, -50%);
   max-width: 677px;
   width: 100%;
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 99%;
 
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 99%;
 
@@ -552,11 +572,13 @@
 
   &_container {
     position: relative;
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       display: flex;
       flex-direction: column;
@@ -594,6 +616,7 @@
   transform: translate(-50%, -50%);
   font-family: 'SFPRORegular';
   box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding: 2%;
     margin: 0 auto;
@@ -602,6 +625,7 @@
     flex-wrap: wrap;
     align-content: space-around;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding: 2%;
     margin: 0 auto;
@@ -619,14 +643,16 @@
     align-items: center;
     justify-content: center;
     transition: color 0.3s;
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       right: 10%;
     }
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       right: 10%;
     }
 
-    svg:hover path{
+    svg:hover path {
       fill: $color-blue;
     }
   }
@@ -642,9 +668,11 @@
     display: flex;
     justify-content: center;
     gap: 22px;
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       gap: 5%;
     }
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       gap: 5%;
     }
@@ -667,10 +695,12 @@
       width: 100%;
       margin: 0 auto;
       color: $color-text;
+
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         width: 100%;
         margin-bottom: 2%;
       }
+
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         width: 100%;
         margin-bottom: 2%;
@@ -682,9 +712,11 @@
       max-width: 495px;
       width: 100%;
       margin-top: 20px;
+
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         // padding-left: 25%;
       }
+
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         // padding-left: 25%;
       }
@@ -695,9 +727,11 @@
         align-items: center;
         justify-content: center;
         padding: 16px;
+
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           padding: 17px;
         }
+
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           padding: 17px;
         }
@@ -898,14 +932,14 @@
     @include font(500, 20px, 23.87px);
     color: #000000;
     text-align: left;
-    margin-bottom: 12px; 
+    margin-bottom: 12px;
   }
 
   &_input {
     width: 100%;
     text-overflow: ellipsis;
     text-align: left;
-    margin-bottom: 24px; 
+    margin-bottom: 24px;
 
     div {
 
@@ -950,9 +984,9 @@
             &::before {
               background: rgba(53, 126, 235, 1);
               border: none;
+            }
           }
-          }
-      }
+        }
 
         div {
           width: 16px;
@@ -1160,15 +1194,51 @@
 
       &_title {
         font-size: 14px;
-        color: $font-title;
+        font-family: 'SFPRORegular';
+        color: $color-text;
       }
 
       &_isPublished {
-        color: $font-title;
+        color: $color-grey;
+        font-family: 'SFPRORegular';
         text-align: center;
         margin-bottom: 20px;
         display: flex;
         justify-content: space-between;
+      }
+
+      &_switch {
+
+        div {
+          width: 40px;
+          height: 20px;
+          background: #e3e3e3;
+          border: none;
+      
+          &[data-isOn='true'] {
+            background: transparent;
+            border: 1px solid rgba(53, 126, 235, 1);
+      
+            div {
+              &::before {
+                background: rgba(53, 126, 235, 1);
+                border: none;
+              }
+            }
+          }
+      
+          div {
+            width: 1rem;
+            height: 1rem;
+      
+            &::before {
+              width: 1rem;
+              height: 1rem;
+              background: #bebebe;
+              border: none;
+            }
+          }
+        }
       }
 
       &_btnChangeNameLesson {
@@ -1177,6 +1247,7 @@
         @media only screen and (min-width : 320px) and (max-width : 375px) {
           width: 300px;
         }
+
         @media only screen and (min-width : 375px) and (max-width : 480px) {
           width: 350px;
         }
@@ -1212,12 +1283,15 @@
   margin: 0 auto;
   border-radius: 7px;
   transform: translate(-50%, -50%);
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 100%;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 100%;
   }
+
   &_container {
     margin: 36px 31px 30px 31px;
     padding: 0 30px 20px 30px;
@@ -1313,10 +1387,10 @@
 
 .feedback {
   @include display(flex, column, center, center);
-      box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
-      border-radius: 30px;
-      position: relative;
-      z-index: 2;
+  box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  position: relative;
+  z-index: 2;
 
   &_img {
     margin-left: 40px;
@@ -1328,7 +1402,7 @@
     width: 100%;
     padding-bottom: 45px;
 
-    @media only screen and (min-width: 1400px) and (max-width: 1890px){
+    @media only screen and (min-width: 1400px) and (max-width: 1890px) {
       padding-bottom: 63px;
     }
 
@@ -1339,39 +1413,39 @@
       text-align: center;
       margin-bottom: 25px;
 
-      @media only screen and (min-width: 1400px) and (max-width: 1890px){
+      @media only screen and (min-width: 1400px) and (max-width: 1890px) {
         @include font(400, 36px, 23.87px);
         margin-bottom: 36px;
       }
     }
 
     &_info {
-      @include display(flex, column,center, initial);
+      @include display(flex, column, center, initial);
       width: 100%;
 
       &_rating {
         @include display(flex, row, space-between, center);
-  
+
         &_title {
           @include font(400, 16px, 23.87px);
           font-family: 'SFPRORegular';
           color: #000000;
 
-          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+          @media only screen and (min-width: 1400px) and (max-width: 1890px) {
             @include font(400, 20px, 23.87px);
           }
         }
-  
+
         &_value {
           display: flex;
           gap: 16px;
           align-items: center;
         }
-  
+
         span {
           gap: 16px;
         }
-  
+
         label {
           color: #faaf00;
 
@@ -1400,7 +1474,7 @@
           @include font(400, 16px, 23.87px);
           color: #357eeb;
 
-          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+          @media only screen and (min-width: 1400px) and (max-width: 1890px) {
             @include font(400, 20px, 23.87px);
           }
 
@@ -1409,7 +1483,7 @@
             color: #808080;
             font-family: 'SFPRORegular';
 
-            @media only screen and (min-width: 1400px) and (max-width: 1890px){
+            @media only screen and (min-width: 1400px) and (max-width: 1890px) {
               @include font(400, 20px, 23.87px);
             }
           }
@@ -1431,11 +1505,148 @@
           @include font(400, 16px, 23.87px);
           color: #808080;
 
-          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+          @media only screen and (min-width: 1400px) and (max-width: 1890px) {
             @include font(400, 20px, 23.87px);
           }
         }
       }
     }
   }
+}
+
+.banner_groups {
+  position: relative;
+  @include display(flex, column, center);
+  background: $color-white;
+  font-family: 'Manrope', sans-serif;
+  margin: auto;
+  border-radius: 34px;
+  border: 1px solid #3170e7;
+  flex-shrink: 0;
+  flex-grow: 0;
+  overflow: visible;
+  width: 600px;
+  transition: 400ms ease-out;
+  height: auto;
+
+  .container_buttons {
+    @include display(flex, column, start, start);
+    gap: 18px;
+    margin-bottom: 25px;
+  }
+
+  .courses_container {
+    @include display(flex, column, space-between, start);
+    max-height: 400px;
+    overflow-y: scroll;
+    margin: 0 20px;
+    gap: 5px;
+
+    div {
+      @include display(flex, row, start, center);
+      height: auto;
+      color: #808080;
+      font-weight: 700;
+      font-size: 18px;
+      gap: 5px;
+
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #CFE2FF;
+      border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #332F36;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    ::-webkit-scrollbar-button {
+      background: #332F36;
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+
+
+
+
+  .course_container {
+    @include display(flex, row, space-between, center);
+    justify-content: space-between !important;
+    width: 100%;
+  }
+
+  .to_select_groups {
+    @include display(flex, row, center, center);
+    margin-right: 10px;
+    background-color: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
+  }
+
+  .group_container {
+    margin: 0 20px;
+  }
+
+  .groups_warning {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0 0 0;
+    color: transparent;
+
+    &_active{
+      color: red;
+    }
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    width: 98%;
+    position: absolute;
+    top: 10%;
+    right: 1%;
+  }
+
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    width: 98%;
+    height: 50%;
+
+    font-size: 16px;
+    position: relative !important;
+    margin: auto auto;
+
+    div {
+      padding: 1px;
+      box-shadow: none;
+
+      span {
+        right: 5px;
+      }
+    }
+
+
+  }
+
+  @media only screen and (min-width: 700px) and (max-width: 1024px) {
+    width: 75vw;
+  }
+
+  @media only screen and (min-width: 481px) and (max-width: 700px) {
+    // position: absolute;
+    // left: 30%; 
+    // height: 95%;
+    width: 90vw;
+  }
+
 }

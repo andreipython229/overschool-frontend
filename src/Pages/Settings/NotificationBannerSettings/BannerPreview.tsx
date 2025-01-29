@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react'
 import styles from './Banner.module.scss'
 import HubImage from '../../../assets/img/common/present_image.png'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { deletePath } from 'config/commonSvgIconsPath'
+import { deletePath,arrowDownPoligonPath } from 'config/commonSvgIconsPath'
 import { settingsIconPath } from 'Pages/School/config/svgIconsPath'
 import { Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tooltip } from '@mui/material'
 import { useBoolean } from 'customHooks'
@@ -17,9 +17,13 @@ import HTMLReactParser from 'html-react-parser'
 import { motion } from 'framer-motion'
 import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
-import { isCheckedFunc } from 'utils/isCheckedFunc'
-import { NewTextEditor } from 'components/AddTextEditor/NewTextEditor'
-import { SelectInput } from '../../../components/common/SelectInput/SelectInput'
+import { BannerStatistics } from 'components/BannerStatistics'
+
+
+import { BannerGroups } from 'components/Modal/BannerGroups/BannerGroups'
+import { Portal } from 'components/Modal/Portal'
+import { penIconPath } from "../Main/iconComponents"
+
 interface IBannerPreview {
   banner: IBanner
   groups: studentsGroupT
@@ -35,18 +39,12 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [link, setLink] = useState<string>(banner.link)
   const [saveChanges, { isLoading }] = useUpdateSchoolBannerMutation()
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
-  const [activeGroups, setActiveGroups] = useState<number[]>(banner.groups)
+
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
-  const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length)
+
+  const [showGroupsModal, { on: closeGroups, off: openGroups, onToggle: setShow }] = useBoolean()
 
 
-  const optionsList = [
-    { value: 'option1', label: 'Опция 1' },
-    { value: 'option2', label: 'Опция 2' },
-    { value: 'option3', label: 'Опция 3' },
-  ];
-
-  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined);
 
 
   const handleDeleteBanner = () => {
@@ -64,7 +62,6 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
       formdata.append('title', title)
       formdata.append('description', description)
       formdata.append('is_active', String(isActive))
-      activeGroups.map(grp => formdata.append('groups', String(grp)))
       await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
         .unwrap()
         .then(() => {
@@ -74,16 +71,8 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
     }
   }
 
-  const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isAll = event.target.checked
-    setAllGroups(isAll)
-    const groupsIds = groups?.results.map(group => Number(group.group_id))
-    if (isAll) {
-      setActiveGroups(groupsIds)
-    } else {
-      setActiveGroups([])
-    }
-  }
+
+
 
   return (
     <motion.div className={styles.wrapper}>
@@ -100,169 +89,108 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
           <Button onClick={handleDeleteBanner} autoFocus text={'Удалить'} variant={'delete'} />
         </DialogActions>
       </Dialog>
-      <img src={HubImage} className={styles.image} />
+      <div className={styles.content_section}>
+        <img src={HubImage} className={styles.image} />
 
-      <div className={styles.wrapper_content}>
-        <span>
-          {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>}
-        </span>
-        {/* {isEditing ? ( */}
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
-          <span>{isActive ? 'Баннер включен' : 'Выключен'}</span>
-        </div>
-        {/* // ) : ( */}
-        {/* // <div style={{ display: 'flex', gap: '10px' }}> */}
-        {/* <span style={{ fontWeight: '500' }}> */}
-        {/* {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>} */}
-        {/* </span> */}
-        {/* </div> */}
-        {/* // )} */}
-        {!isEditing ? (
-          <span className={styles.wrapper_content_title}>{banner.title}</span>
-        ) : (
-          <>
-            <span>Название баннера</span>
-            <Input value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" />
-          </>
-        )}
-        {!isEditing ? (
-          <span className={styles.wrapper_content_description}>{HTMLReactParser(banner.description)}</span>
-        ) : (
-          <div className={styles.wrapper_content_announcement}>
-            <span>
-              Объявление <span style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
-            </span>
-            <div style={{ width: 'calc(100% + 10px)' }}>
-              {/* <NewTextEditor text={description} setLessonDescription={setDescription} block={} setLessonBlocks={} lessonBlocks={} /> */}
-            </div>
+        <div className={styles.wrapper_content}>
+          <span>
+            {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>}
+          </span>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
+            <span className={styles.banner_checkbox_status}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
           </div>
-        )}
-        {banner.link &&
-          (!isEditing ? (
-            <a href={banner.link} target="_blank" rel="noreferrer">
-              <Button text="Перейти по ссылке" />
-            </a>
+          {!isEditing ? (
+            <span className={styles.wrapper_content_title}>{banner.title}</span>
           ) : (
             <>
-              <span>Ссылка под кнопкой в баннере</span>
-              <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" />
+              <span>Название баннера</span>
+              <div className={styles.banner_input_container}>
+                <Input value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" />
+                <div className={styles.penIcon}>
+                  <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath} />
+                </div>
+              </div>
             </>
-          ))}
-        {groups &&
-          (!isEditing ? (
-            <div className={styles.wrapper_content_groups}>
-              <span>Группы в которых отображается этот баннер при входе на платформу:</span>
-              <div style={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'column' }}>
-                {/* {groups.results.map(
-                  grp =>
-                    activeGroups.includes(Number(grp.group_id)) && (
-                      <span style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem', flexBasis: 20 }}>{grp.name}</span>
-                    ),
-                )} */}
-                {Object.entries(
-                  groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
-                    const courseName = group.course_name
-                    if (courseName) {
-                      if (!acc[courseName]) {
-                        acc[courseName] = []
-                      }
-                      acc[courseName].push(group)
-                    }
-                    return acc
-                  }, {}),
-                ).map(([courseName, groups]) => (
-                  <div key={courseName} style={{ marginBlockStart: '8px' }}>
-                    {groups.length > 0 && groups.find(grp => activeGroups.includes(Number(grp.group_id))) && <b>{courseName}</b>}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                      {groups.map(
-                        (group, index) =>
-                          activeGroups.includes(Number(group.group_id)) && (
-                            <span style={{ color: '#4d5766', fontSize: '12px', marginRight: '1rem', flexBasis: 20 }}>{group.name}</span>
-                          ),
-                      )}
-                    </div>
-                  </div>
-                ))}
+
+          )}
+          {!isEditing ? (
+            <span className={styles.wrapper_content_description}>{HTMLReactParser(banner.description)}</span>
+          ) : (
+            <div className={styles.wrapper_content_announcement}>
+              <span className={styles.wrapper_content_announcement_header}>
+                Введите текст нового баннера <span className={styles.wrapper_content_announcement_header} style={{ color: '#fc6d6d' }}>(обязательно сохраните текст после редактирования!)</span>
+              </span>
+              <div style={{ width: 'calc(100% + 10px)' }}>
+
+                <MyEditor editedText={description} setDescriptionLesson={setDescription} />
               </div>
             </div>
-          ) : (
-            <div className={styles.wrapper_content_groups}>
-              <span>Группы в которых будет отображен этот баннер:</span>
-              {/* <div>
-                <Checkbox
-                  style={{ color: '#ba75ff' }}
-                  checked={allGroups}
-                  onChange={e => {
-                    handleAllGroups(e)
-                  }}
-                />
-                <span>
-                  <b>выбрать все группы</b>
-                </span>
-              </div> */}
-              <SelectInput className={styles.customSelect}
-                optionsList={optionsList}
-              ></SelectInput>
-
-              {Object.entries(
-                groups.results.reduce<Record<string, typeof groups.results>>((acc, group) => {
-                  const courseName = group.course_name
-                  if (courseName) {
-                    if (!acc[courseName]) {
-                      acc[courseName] = []
-                    }
-                    acc[courseName].push(group)
-                  }
-                  return acc
-                }, {}),
-              ).map(([courseName, groups]) => (
-                <div key={courseName} style={{ marginBlockStart: '3px' }}>
-                  <b>{courseName}</b>
-                  {groups.map((group, index) => (
-                    <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
-                      <Checkbox
-                        style={{ color: '#ba75ff' }}
-                        checked={isCheckedFunc(group.group_id as number, activeGroups)}
-                        onChange={e => {
-                          const isChecked = e.target.checked
-                          if (!isChecked) {
-                            setAllGroups(false)
-                            setActiveGroups(prevGrps => prevGrps.filter(grp => grp !== Number(group.group_id)))
-                          } else {
-                            setActiveGroups(prevGrps => prevGrps.concat(Number(group.group_id)))
-                          }
-                        }}
-                      />
-                      {group.name}
-                      <span> (Кол-во студентов: {group.students.length})</span>
+          )}
+          {banner.link &&
+            (!isEditing ? (
+              <a href={banner.link} target="_blank" rel="noreferrer">
+                <Button className={styles.banner_go_link_btn} variant={'newPrimary'} text="Перейти по ссылке" />
+              </a>
+            ) : (
+              <>
+                <div className={styles.banner_link_container}>
+                  <span>Ссылка под кнопкой в баннере</span>
+                  <div className={styles.banner_input_container}>
+                    <Input value={link} onChange={e => setLink(e.target.value)} type="text" name="link" />
+                    <div className={styles.penIcon}>
+                      <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath} />
                     </div>
-                  ))}
+                  </div>
                 </div>
-              ))}
-            </div>
-          ))}
+              </>
+            ))}
+          {groups &&
+            (!isEditing ? (
+              <div className={styles.wrapper_content_groups}>
+                <div style={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'column' }}>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className={styles.wrapper_content_groups}>
+                  <span>Группы в которых будет отображен этот баннер:</span>
+                  <div className={styles.banner_groups_btn_cont}>
+                    <button onClick={setShow} className={styles.banner_groups_btn}>Выберите одну или несколько групп</button>
+                    <IconSvg width={14} height={15} viewBoxSize="0 0 14 15" path={arrowDownPoligonPath}></IconSvg>
+                  </div>
+
+                  {showGroupsModal && (
+                    <Portal closeModal={closeGroups}>
+                      <BannerGroups refetch={refetch} schoolName={schoolName} setShowModal={setShow} groups={groups} banner={banner} />
+                    </Portal>
+                  )}
+                </div>
+                <div className={styles.wrapper_buttons}>
+                  <Button style={{ padding: '17px 40px' }} onClick={handleSave} text="Сохранить" variant={'newPrimary'} />
+                  <Button style={{ padding: '15px 40px' }} onClick={open} text="Удалить" variant={'cancel'} />
+                </div>
+
+              </>
+
+            ))}
+
+        </div>
       </div>
-      <div className={styles.wrapper_buttons}>
-        {!isEditing ? (
+      {
+        isEditing ? (
+          <div className={styles.statistics_container}>
+            <BannerStatistics banner={banner} schoolName={schoolName} />
+          </div>
+        ) : (<div></div>)
+      }
+      {
+        !isEditing ? (
           <button className={styles.wrapper_buttons_edit} onClick={openEditing}>
             <IconSvg width={16} height={16} viewBoxSize="0 0 16 16" path={settingsIconPath} />
           </button>
-        ) : (
-          <>
-            <Tooltip title="Сохранить баннер">
-              <div className={styles.wrapper_buttons_confirm} onClick={handleSave}>
-                {isLoading ? <SimpleLoader /> : <CheckIcon />}
-              </div>
-            </Tooltip>
-            <Tooltip title="Удалить баннер">
-              <div className={styles.wrapper_buttons_delete} onClick={open}>
-                <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deletePath} />
-              </div>
-            </Tooltip>
-          </>
-        )}
-      </div>
-    </motion.div>
+        ) : (<div></div>)
+      }
+    </motion.div >
   )
 }

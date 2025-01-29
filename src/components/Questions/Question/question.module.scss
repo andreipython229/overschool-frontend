@@ -1,31 +1,41 @@
 @import '../../../scss/variable.scss';
-@import '../../../scss/mixin.scss';    
+@import '../../../scss/mixin.scss';   
+
+@font-face {
+    font-family: 'SFPRORegular';
+    src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  }
 
 .questionBlock {
-    margin-top: 32px;
+    width: 100%;
+
     &_title {
-        @include font (500, 14px,17px);
+        @include font (500, 14px, 17px);
         color: #4D5766;
     }
-    &_inputWrapper {            
-        @include display (flex, row, flex-start, center);
+    &_inputWrapper {
         width: 100%;
-        height: 36px;
-        margin-top: 15px;
-        label {
-            margin: 0 12px 0 0;
-            width: 92%;
-            height: 100%;
+
+        input {
+            font-family: 'SFPRORegular';
+            @include font (700, 18px, 21.48px);
+            transition: all 0.2s;
+            background: transparent;
+
+            &:hover {
+                border: 1px solid #357eeb;
+            }
         }
+
         &_comment {
             cursor: pointer;
             &:hover {
                 svg {
                     path {
-                        stroke: #BA75FF;
+                        stroke: #357eeb;
                     }
                     line {
-                        stroke: #BA75FF;
+                        stroke: #357eeb;
                     }
                 }
             }
@@ -37,7 +47,41 @@
         color: rgba(186, 117, 255, 0.61);
         cursor: pointer;
         &:hover {
-            color: #BA75FF;
+            color: #357eeb;
+        }
+    }
+}
+
+.radiobuttons {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+
+    div {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    &_radiobutton {
+        label {
+            @include font(500, 13px, 16.71px);
+            font-family: 'SFPRORegular';
+            color: $color-text;
+            width: 230px;
+
+            &::before {
+                width: 14px;
+                height: 14px;
+                border: 1px solid #324195;
+            }
+        }
+
+        &_subtitle {
+            @include font(500, 10px, 11.93px);
+            font-family: 'SFPRORegular';
+            letter-spacing: -0.01em;
+            margin-left: 8px;
+            color: $color-grey;
         }
     }
 }

@@ -1,13 +1,20 @@
 @import 'scss/mixin.scss';
 @import 'scss/variable.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 .wrapper {
   position: relative;
   width: 1040px;
+  font-family: 'SFPRORegular';
 
   h2 {
     text-align: center;
     padding: 2rem 0 1rem;
-    color: #7730BD;
+    color: $color-text;
+    @include font(700, 28px, 33.41px);
   }
 }

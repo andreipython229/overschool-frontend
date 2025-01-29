@@ -71,3 +71,17 @@ export type courseStatsT = {
   order: number
   photo_url: string
 }
+
+export type bannerStatInfoT = {
+  banner_id: number
+  total_clicks: number
+  unique_clicks: number
+  startDate: string
+  endDate: string
+ click_details: ClickDetail[]
+}
+
+export type ClickDetail = {
+  timestamp: string
+  user__email: string
+}

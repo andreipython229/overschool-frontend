@@ -21,13 +21,13 @@ export const LinkBlock: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapper_redactorField}>
-        <Paper elevation={3} className={styles.wrapper_redactorField_paper} sx={{ borderRadius: '8px' }}>
+        <Paper elevation={3} className={styles.wrapper_redactorField_paper} sx={{ borderRadius: '8px', boxShadow: '0px 0px 8px 0px #3241954D' }}>
           <span className={styles.wrapper_redactorField_paper_title}>Блок ссылок:</span>
           {isEditorVisible ? (
             <LinkBlockRedactor/>
           ) : (
             <div className={styles.createButton} onClick={handleToggleEditor}>
-              <AddBox sx={{ color: '#BA75FF' }} />
+              <AddBox sx={{ color: '#357EEB' }} />
               <p>Развернуть редактор</p>
             </div>
           )}

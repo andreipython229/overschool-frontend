@@ -68,7 +68,7 @@
 
   &_leftSide {
     @include display(flex, column);
-    padding: 20px 33px 20px 0;
+    padding: 0 45px 20px 0;
     border-radius: 8px;
     user-select: none;
     -webkit-user-select: none;
@@ -348,19 +348,11 @@
 
     &_rightSide {
       background: #ffffff;
-      padding-top: 30px;
+      padding: 20px 49px;
       height: fit-content;
-      margin-bottom: 30px;
-      border-radius: 10px;
+      border-radius: 20px;
       width: 100%;
-      padding-bottom: 30px;
-      border: solid 3px #ffffff;
-      // position: sticky;
-      // top: 100px;
-
-      &:hover {
-        border: solid 3px #ba75ff;
-      }
+      box-shadow: 0px 0px 18px 0px #3241954D;
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin: 0 auto;
@@ -378,8 +370,7 @@
       &_nameBlock {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 30px;
-        padding-right: 45px;
+        margin: 5px 0 20px 0;
 
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           flex-direction: column;
@@ -388,6 +379,11 @@
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           flex-direction: column;
           padding-right: 0;
+        }
+
+        button {
+          @include font(500, 16px, 19.09px);
+          padding: 13px 40px;
         }
       }
 
@@ -512,10 +508,10 @@
       }
 
       &_title {
-        margin-top: 10px;
-        margin-left: 45px;
-        color: #ba75ff;
-        font-size: 16px;
+        @include font(500, 20px, 23.87px);
+        color: #000000;
+        font-family: 'SFPRORegular';
+
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           margin-left: 0;
         }
@@ -527,7 +523,6 @@
       &_blockAll {
         display: flex;
         align-items: center;
-        padding-right: 45px;
 
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           flex-direction: column;
@@ -541,12 +536,24 @@
 
       &_block {
         display: flex;
-        background-color: #ba75ff;
         width: auto;
-        padding-top: 1%;
-        padding-bottom: 1%;
-        padding-left: 45px;
         flex-wrap: nowrap;
+        align-items: center;
+        position: relative;
+
+        &_edit {
+          @include font(500, 12px, 14.32px);
+          color: $color-text;
+          font-family: 'SFPRORegular';
+          position: absolute;
+          top: 0;
+          left: 100%;
+          cursor: pointer;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
 
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           margin-bottom: 10%;
@@ -560,10 +567,10 @@
         }
 
         &_nameSettings {
-          color: #ffffff;
-          font-size: 20px;
-          font-weight: 700;
-          margin-right: 20px;
+          @include font(700, 28px, 33.41px);
+          color: $color-blue;
+          font-family: 'SFPRORegular';
+          letter-spacing: 0.01em;
 
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             margin-right: 0;
@@ -575,7 +582,6 @@
       }
 
       &_functional {
-        margin-top: 40px;
 
         &_container {
           display: flex;
@@ -593,9 +599,8 @@
 
         &_content {
           @include display(flex, row, space-between);
-          margin-bottom: 50px;
-          margin-top: 50px;
-          padding-right: 45px;
+          margin-bottom: 37px;
+          margin-top: 20px;
 
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             padding: 0 0 10% 0;
@@ -758,32 +763,44 @@ hr {
 
 .check_autotest {
   display: flex;
-  margin-left: 40px;
-  margin-top: 1rem;
   align-items: center;
-  & span {
-    color: $font-color-rose;
+  margin-bottom: 20px;
+
+  &_title {
+    color: $color-blue;
     @include font(400, 14px, 100%);
     letter-spacing: 0.04em;
     margin-left: 10px;
+    font-family: 'SFPRORegular';
   }
 }
 
 .timeLimit {
   width: 100%;
   border-radius: 5px;
-  margin: 30px 0 30px 40px;
+  margin: 52px 0 30px 0;
   display: flex;
   align-items: center;
+  background: transparent;
+  max-width: 453px;
+  width: 100%;
+  justify-content: space-between;
+
+  label {
+    font-family: 'SFPRORegular';
+    @include font(500, 16px, 19.09px);
+    color: $color-text;
+  }
 
   &_input {
     line-height: normal;
-    padding: 12px 20px 12px 20px;
-    border: 1px solid #e5e7eb;
-    border-radius: 5px;
+    padding: 6px 10px;
+    border: 1px solid $color-grey;
+    color: $color-blue;
+    background: transparent;
+    border-radius: 10px;
     text-overflow: ellipsis;
-    width: 150px;
-    margin-left: 20px;
+    max-width: 65px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -791,7 +808,11 @@ hr {
     & input {
       border: none;
       width: 100%;
+      background: transparent;
       text-align: center;
+      color: $color-blue;
+      font-family: 'SFPRORegular';
+      @include font(700, 16px, 19.09px);
     }
   }
 }
@@ -799,11 +820,11 @@ hr {
 .autogeneration {
   min-width: 600px;
   width: 70%;
-  border-radius: 5px;
-  //margin-top: 1rem;
-  margin: 30px 150px 30px 150px;
+  border-radius: 20px;
   padding-bottom: 10px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 8px 0px #3241954D;
+  background: linear-gradient(140deg,#c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
+  margin: 20px auto;
 
   &_num {
     margin-left: 20px;
@@ -811,22 +832,28 @@ hr {
 
     & input {
       line-height: normal;
-      padding: 11px 0 12px 20px;
-      border: 1px solid #e5e7eb;
-      border-radius: 5px;
+      padding: 6px 10px;
+      border: 1px solid $color-grey;
+      color: $color-blue;
+      background: transparent;
+      border-radius: 10px;
       text-overflow: ellipsis;
-      width: 70px;
-      margin-left: 20px;
+      width: 50px;
+      margin-left: 242px;
     }
     & label {
-      color: #9ca3af;
+      color: $color-text;
+      font-family: 'SFPRORegular';
+      @include font(500, 16px, 19.09px);
     }
   }
 
   &_select {
     margin-left: 20px;
     padding-top: 20px;
-    color: #9ca3af;
+    color: $color-text;
+    font-family: 'SFPRORegular';
+    @include font(500, 16px, 19.09px);
   }
 
   &_error {
@@ -851,18 +878,19 @@ hr {
       margin-left: 0.75rem;
       text-align: left;
       @include font(500, 12px, 150%);
-      color: #9ca3af;
+      color: $color-text;
       letter-spacing: -0.05em;
     }
+
+    input:checked ~ span {
+      border: none;
+  }
   }
 
   &_tests_block {
     display: flex;
     flex-direction: column;
-    margin: 20px 20px 20px 20px;
-    //margin-top: 0.75rem;
-    //margin-left: 20px;
-    //margin-right: 20px;
+    margin: 20px;
     gap: 0.625rem;
   }
 
@@ -890,7 +918,6 @@ hr {
 }
 
 .publickButton {
-  width: 180px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -973,5 +1000,158 @@ hr {
   &:hover {
     max-height: 103px;
     transition: max-height 400ms ease-out;
+  }
+}
+
+.publicBlockEdit {
+  display: flex;
+  gap: 20px;
+
+  &_mark {
+    div {
+      div {
+        background-color: transparent;
+        color: $color-blue;
+        @include font(500, 16px, 19.09px);
+        font-family: 'SFPRORegular';
+  
+        span {
+          padding-right: 5px;
+          padding-left: 0;
+        }
+      }
+    }
+  }
+
+  &_publish_switch {
+
+    div {
+      width: 40px;
+      height: 20px;
+      background: #e3e3e3;
+      border: none;
+  
+      &[data-isOn='true'] {
+        background: transparent;
+        border: 1px solid rgba(53, 126, 235, 1);
+  
+        div {
+          &::before {
+            background: rgba(53, 126, 235, 1);
+            border: none;
+          }
+        }
+      }
+  
+      div {
+        width: 1rem;
+        height: 1rem;
+  
+        &::before {
+          width: 1rem;
+          height: 1rem;
+          background: #bebebe;
+          border: none;
+        }
+      }
+    }
+  }
+}
+
+.unpublished {
+    div {
+      div {
+        color: #bebebe;
+      }
+    }
+}
+
+.wrapper_preview {
+  @include display(flex, column);
+  background-color: #CFE2FF;
+  padding: 20px;
+  border-radius: 40px;
+  max-width: 881px;
+  width: 100%;
+  margin: 0 auto 20px;
+
+  &_test {
+    background: url(../../../../../../assets/img/common/questions.png), linear-gradient(
+      140deg,#c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    box-shadow: 0px 0px 8px 0px #3241954D;
+    border-radius: 20px;
+    min-height: 409px;
+    max-width: 841px;
+    width: 100%;
+    padding: 21px;
+    display: flex;
+    gap: 10px;
+
+    &_leftSide {
+      max-width: 453px;
+      width: 100%;
+    }
+
+    &_inputWrapper {
+      input {
+        background: transparent;
+      }
+    }
+  }
+
+  &_title {
+    @include font(500, 26px, 31.03px);
+    font-family: 'SFPRORegular';
+    text-align: center;
+    color: $color-text;
+    margin-bottom: 15px;
+  }
+}
+
+.admin_preview {
+  @include display(flex, column, flex-start, center);
+  overflow: hidden;
+  user-select: none;
+  position: relative;
+  margin: 37px 0 20px 0;
+  padding: 20px 20px 30px 21px;
+  background: url(../../../../../../assets/img/common/questions.png), linear-gradient(
+    140deg,#c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
+  box-shadow: 0px 0px 8px 0px #3241954D;
+  overflow: hidden;
+  min-height: 409px;
+  border-radius: 64px;
+  max-width: 841px;
+  width: 100%;
+
+  &_container {
+    align-self: flex-start;
+    max-width: 353px;
+    width: 100%;
+    margin-top: 88px;
+
+    &_title {
+      @include font(700, 22px, 26.25px);
+      font-family: 'SFPRORegular';
+      color: $color-text;
+      margin: 10px 0 52px 0;
+    }
+
+    &_wrapper {
+      @include display(flex, row, space-between, center);
+      @include font(500, 16px, 19.09px);
+      color: $color-text;
+
+      &_value {
+        color: $color-blue;
+        @include font(700, 16px, 19.09px);
+      }
+    }
   }
 }

@@ -39,25 +39,29 @@ export const Button: FC<SuperButtonPropsT> = memo(({ text, variant = 'default', 
   } else if (variant === 'more') {
     propsStyle += ' ' + styles.more
   } else if (variant === 'tryForFree') {
-      propsStyle += ' ' + styles.tryForFree
+    propsStyle += ' ' + styles.tryForFree
   } else if (variant === 'mobile') {
-     propsStyle += ' ' + styles.mobile
+    propsStyle += ' ' + styles.mobile
   } else if (variant === 'newSecondaryHeader') {
-     propsStyle += ' ' + styles.newSecondaryHeader
+    propsStyle += ' ' + styles.newSecondaryHeader
   } else if (variant === 'newLogInHeader') {
-     propsStyle += ' ' + styles.newLogInHeader
+    propsStyle += ' ' + styles.newLogInHeader
   } else if (variant === 'newCreateHeader') {
-     propsStyle += ' ' + styles.newCreateHeader
+    propsStyle += ' ' + styles.newCreateHeader
   } else if (variant === 'newLeaveRequest') {
-     propsStyle += ' ' + styles.newLeaveRequest
+    propsStyle += ' ' + styles.newLeaveRequest
   } else if (variant === 'newTryForFree') {
-     propsStyle += ' ' + styles.newTryForFree
+    propsStyle += ' ' + styles.newTryForFree
   } else if (variant === 'newMobile') {
-     propsStyle += ' ' + styles.newMobile
+    propsStyle += ' ' + styles.newMobile
   } else if (variant === 'inActive') {
     propsStyle += ' ' + styles.inActive
   } else if (variant === 'cancel') {
     propsStyle += ' ' + styles.cancel
+  } else if (variant === 'newDelete') {
+    propsStyle += ' ' + styles.newDelete
+  } else if (variant === 'newDisabled') {
+    propsStyle += ' ' + styles.newDisabled
   } else {
     propsStyle = styles.btn_default
   }

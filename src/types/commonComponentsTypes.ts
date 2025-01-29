@@ -41,6 +41,8 @@ export type SuperButtonPropsT = DefaultButtonPropsType & {
     | 'newMobile'
     | 'inActive'
     | 'cancel'
+    | 'newDisabled'
+    | 'newDelete'
 }
 
 export type CheckboxPropsT = {
@@ -137,10 +139,13 @@ export type InputAuthPropsT = {
 
 export type RadioPropsT = {
   name?: string
-  title: string
+  title?: string
   id: string | any
   func?: (arg: string) => void
   width?: string
+  checked?: boolean
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  value?: string
 }
 
 export type SelectInputPropsT = {
@@ -149,6 +154,7 @@ export type SelectInputPropsT = {
   defaultOption?: string
   setSelectedValue?: (value: any) => void
   className?: string
+  onToggle?: (isOpen: boolean) => void;
 }
 
 export type ToggleButtonDropDownT = {

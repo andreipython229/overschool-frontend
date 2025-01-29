@@ -1,13 +1,40 @@
 @import '../../../../../../../../../scss/variable.scss';
 @import '../../../../../../../../../scss/mixin.scss';
 
-.avatar {
-  background-color: #d4a8f5 !important;
-  margin-top: -0.2em;
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
+.avatar_rounded {
+  background-color: #ffffff !important;
+  border: 1px solid #324195;
+  width: 26px !important;
+  height: 26px !important;
+}
+
+.avatar_square {
+  background-color: #ffffff !important;
+  border: 1px solid $color-text;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 4px !important;
+}
+
+.answer_body {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 16.71px !important;
+  color: $color-text;
+  font-family: 'SFPRORegular'!important;
+}
+
+.grid_container {
+  align-items: center !important;
+  padding-top: 0 !important;
 }
 
 .answerOptionsBlock {
-  margin-top: 32px;
 
   &_title {
     @include font(500, 14px, 17px);
@@ -15,10 +42,9 @@
   }
 
   &_inputWrapperWithPicture {
-    @include display(flex, row, space-between, center);
+    @include display(flex, column-reverse, space-between, center);
     width: 100%;
-    min-height: 250px;
-    margin-top: 15px;
+    gap: 4px;
     
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       height: 100%;
@@ -75,11 +101,11 @@
       &:hover {
         svg {
           path {
-            stroke: #BA75FF;
+            stroke: #357EEB;
           }
 
           line {
-            stroke: #BA75FF;
+            stroke: #357EEB;
           }
         }
       }
@@ -105,8 +131,7 @@
   &_inputWrapperWithoutPicture {
     @include display(flex, row, space-between, center);
     width: 100%;
-    min-height: 36px;
-    margin-top: 15px;
+    margin-top: 10px;
     
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       height: 100%;
@@ -163,11 +188,11 @@
       &:hover {
         svg {
           path {
-            stroke: #BA75FF;
+            stroke: #357EEB;
           }
 
           line {
-            stroke: #BA75FF;
+            stroke: #357EEB;
           }
         }
       }
@@ -191,8 +216,11 @@
   }
 
   .answerImage {
-    border-radius: 10px;
-    max-width: 250px;
+    border-top: 3px solid #3170E7;
+    border-right: 3px solid #3170E7;
+    border-left: 3px solid #3170E7;
+    border-radius: 16px;
+    max-width: 150px;
     height: auto;
     float: right;
   }

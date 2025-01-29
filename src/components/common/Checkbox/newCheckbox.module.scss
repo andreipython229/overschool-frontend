@@ -1,0 +1,42 @@
+@import '../../../scss/variable';
+@import '../../../scss/mixin.scss';
+
+.label {
+  position: relative;
+  cursor: pointer;
+  &_input {
+    @include position_t_l(absolute, 0, 0, 0);
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  &_customCheckbox {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid #3b3b3b;
+    border-radius: 4px;
+    margin-right: 10px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 16px 16px;
+    left: 2.67px;
+    cursor: pointer;
+  }
+}
+.label_input:checked + .label_customCheckbox {
+  background-image: url('../../../assets/img/common/done_icon.svg');
+  background-position: center;
+  background-color: rgba(53, 126, 235, 1);
+  cursor: pointer;
+  border: none;
+}
+.label:hover + .label_customCheckbox {
+  border-color: #3b3b3b;
+  cursor: pointer;
+}
