@@ -1,5 +1,5 @@
 @import '../../../scss/mixin.scss';
-
+@import 'src/scss/variable';
 .wrapper {
   @include display(flex, row, center);
   padding: 2px 0 24px 0;
@@ -72,14 +72,17 @@ button:hover {
   border-radius: 7px;
   width: 100%;
   background: #ffffff;
-  display: none;
+  // display: none;
   list-style: none;
   margin-top: 10px;
-  overflow: scroll;
+  overflow: hidden;
   font-size: 16px;
   max-height: 300px;
+  opacity: 0;
+  transition-duration: $trans-dur02;
 }
 .show {
-  display: block;
-  overflow: auto;
+  // display: block;
+  // overflow: auto;
+  opacity: 1;
 }

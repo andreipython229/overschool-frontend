@@ -4,10 +4,12 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { crossIconPath } from 'config/commonSvgIconsPath'
 import { useBoolean } from 'customHooks'
 import { motion } from 'framer-motion'
-import { LinearProgressWithLabel } from './config/linearProgress'
+import { logoHeader } from '../../assets/img/common'
 import { useAppSelector } from 'store/hooks'
 import { schoolProgressSelector } from 'selectors'
 import { Button } from 'components/common/Button/Button'
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import { styled } from '@mui/material/styles';
 import DoneIcon from '@mui/icons-material/Done'
 import ClearIcon from '@mui/icons-material/Clear'
 
@@ -43,11 +45,29 @@ export const NewSchoolProgress: FC = () => {
     return <></>
   }
 
+  const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+    height: 10,
+    borderRadius: 30,
+    [`&.${linearProgressClasses.colorPrimary}`]: {
+      backgroundColor: '#ffffff',
+      ...theme.applyStyles('dark', {
+        backgroundColor: '#ffffff',
+      }),
+    },
+    [`& .${linearProgressClasses.bar}`]: {
+      borderRadius: 5,
+      backgroundColor: '#357eeb',
+      ...theme.applyStyles('dark', {
+        backgroundColor: '#357eeb',
+      }),
+    },
+  }));
+
   return (
     show && (
       <motion.div
         initial={{
-          y: -400,
+          y: -500,
           opacity: 0,
         }}
         animate={{
@@ -59,37 +79,52 @@ export const NewSchoolProgress: FC = () => {
           duration: 1,
         }}
         exit={{
-          y: -400,
+          y: -500,
           opacity: 0,
         }}
         className={styles.wrapper}
       >
+        <div className={styles.wrapper_logo}>
+          <img src={logoHeader} alt="logo" />
+        </div>
         <div className={styles.wrapper_top}>
-          <div style={{ cursor: 'pointer' }} onClick={handleClose}>
-            <IconSvg width={24} styles={{ color: '#357EEB' }} height={24} viewBoxSize="0 0 50 50" path={crossIconPath} />
+          <div onClick={handleClose} style={{ cursor: 'pointer', marginBottom: '33px' }}>
+            <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
           </div>
         </div>
-        <div className={styles.wrapper_gift}>Выполняйте задания и получайте дополнительные дни подписки БЕСПЛАТНО!</div>
-        <div className={styles.wrapper_title}>Текущая задача: {currentTask}</div>
-        <p style={{ fontSize: '10px', fontWeight: 500 }}>Общий прогресс</p>
-        <LinearProgressWithLabel value={schoolProgressState.completion_percentage} />
-        <div className={styles.wrapper_top} style={{ marginTop: '1rem' }}>
-          <Button
-            onClick={toggleTasks}
-            style={{ fontSize: '10px', padding: '5px 10px' }}
-            text={allTasks ? 'Скрыть задачи' : 'Показать все задания'}
-          />
+        <div className={styles.wrapper_content}>
+          <div className={styles.wrapper_gift}>Выполняйте задания и получайте 7 дополнительных дней подписки БЕСПЛАТНО!</div>
+          <div className={styles.wrapper_title}>Текущая задача: {currentTask}</div>
+          <div className={styles.wrapper_progress}>
+            <div className={styles.wrapper_progress_progressbar}>
+              <p className={styles.wrapper_progress_title}>Общий прогресс</p>
+              <BorderLinearProgress variant="determinate" value={schoolProgressState.completion_percentage} />
+            </div>
+            <div className={styles.wrapper_progress_percentage}>{`Выполнено  ${schoolProgressState.completion_percentage}%`}</div>
+          </div>
+          <div className={styles.wrapper_top} style={{ marginTop: '1rem' }}>
+            <div className={styles.wrapper_button_allTasks}>
+              <Button
+                onClick={toggleTasks}
+                text={allTasks ? 'Скрыть все задания' : 'Показать все задания'}
+                variant='newSecondary'
+              />
+            </div>
+          </div> 
         </div>
         {allTasks && (
-          <motion.div style={{ marginTop: '1rem', width: '100%' }}>
+          <motion.div
+              className={styles.wrapper_tasks}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+          >
             {schoolProgressState.tasks.map((task, index) => (
               <div className={styles.wrapper_task} key={index}>
-                <p>{`${index + 1}. ${task.task}`}</p>
-                <span>{task.completed ? <DoneIcon sx={{ color: 'green' }} /> : <ClearIcon sx={{ color: 'red' }} />}</span>
+                <span>{task.completed ? <DoneIcon sx={{ color: '#357EEB' }}/> : <ClearIcon sx={{ color: 'red' }} />}</span>
+                <p className={styles.wrapper_task_title}>{task.task}</p>
               </div>
             ))}
           </motion.div>
-        )}
+          )}
       </motion.div>
     )
   )

@@ -154,6 +154,7 @@ export type SelectInputPropsT = {
   defaultOption?: string
   setSelectedValue?: (value: any) => void
   className?: string
+  onToggle?: (isOpen: boolean) => void;
 }
 
 export type ToggleButtonDropDownT = {

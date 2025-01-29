@@ -1,22 +1,98 @@
 @import '../../../scss//mixin.scss';
 @import '../../../scss/variable.scss';
 
+
+
 .wrapper {
-  display: flex;
-  flex-direction: row;
+  @include display(flex, column, space-between, start);
   width: 100%;
   min-height: 170px;
-  gap: 2rem;
   padding: 1.8% 2.5%;
-  align-items: flex-start;
-  justify-content: flex-start;
   transition: all ease-in 0.2s;
   box-shadow: 0px 0px 18px 0px #3241954D;
   border-radius: 20px;
   margin-top: 24px;
+  position: relative;
+
+
+
+  .content_section {
+    @include display(flex, row, start, start);
+    width: 100%;
+    gap: 24px;
+  }
+
+  .banner_input_container {
+    @include display(flex, row, start, start);
+    width: 100%;
+    position: relative;
+
+
+    .penIcon {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+
+    }
+  }
 
   span {
+
+    color: #000;
     font-weight: 500;
+    font-size: 20px;
+  }
+
+  .banner_checkbox_status {
+    @include display(flex, row, center, center);
+    font-size: 16px;
+    color: #357EEB;
+
+  }
+
+  .banner_link_container {
+    @include display(flex, column, center, start);
+    width: 100%;
+    gap: 10px;
+  }
+
+  .banner_groups_btn_cont {
+    @include display(flex, row, start, start);
+    position: relative;
+    width: 100%;
+
+    svg {
+      position: absolute;
+      right: 15px;
+      top: 22px;
+    }
+  }
+
+  .banner_groups_btn {
+    background-color: transparent;
+    flex-grow: 1;
+    border: 1px solid #332f36;
+    border-radius: 10px;
+    text-align: start;
+    height: 54px;
+    padding: 0.5rem 1rem;
+    font-size: 20px;
+    color: var(--grey, #808080);
+    transition-duration: $trans-dur02;
+
+    &:hover {
+      border: 1px solid #357EEB;
+    }
+  }
+
+  .banner_go_link_btn {
+    background-color: #357EEB;
+    border-radius: 10px;
+    color: #fff;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-weight: 500;
+    transition-duration: $trans-dur02 !important;
   }
 
   &_content {
@@ -24,15 +100,16 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 15px;
-    width: 100%;
+    gap: 25px;
+    width: 65%;
     height: 100%;
     padding: 1rem 0;
 
     &_groups {
       display: flex;
       flex-direction: column;
-      gap: 0.3rem;
+      gap: 10px;
+      width: 100%;
 
       &_item {
         display: flex;
@@ -57,10 +134,14 @@
       cursor: default;
     }
 
-    &_announcement{
+    &_announcement {
       box-shadow: 0px 0px 8px 0px #3241954D;
       border-radius: 20px;
       padding: 20px;
+
+      &_header {
+        font-size: 14px !important;
+      }
     }
   }
 
@@ -70,19 +151,40 @@
     gap: 20px;
     align-items: center;
 
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      button{
+        border: 2px solid #357eeb;
+        padding: 8px 16px !important;
+        font-size: 12px;
+      }
+    }
+    @media only screen and (min-width: 481px) and (max-width: 1024px) {
+
+      button{
+        border: 2px solid #357eeb;
+        padding: 10px 20px !important;
+        font-size: 14px;
+      }
+    }
+
     &_delete {
+      border: 2px solid #357EEB;
       padding: 11px;
-      border-radius: 6px;
-      border: none;
-      height: 36px;
-      background: #fef2f2;
-      @include display(flex, row, flex-start, center);
+      border-radius: 10px;
+      height: 54px;
+      width: 288px;
+      color: $color-blue;
+      font-weight: 500;
+      font-size: 20px;
+      background: transparent;
+      @include display(flex, row, center, center);
       text-align: center;
       cursor: pointer;
       transition: all ease-in 0.2s;
 
       &:hover {
-        background: #fc6d6d;
+        background: $color-blue;
+        color: $color-white;
       }
 
       & svg {
@@ -94,17 +196,21 @@
 
     &_confirm {
       padding: 11px;
-      border-radius: 6px;
+      border-radius: 10px;
       border: none;
-      height: 36px;
-      background: #c6ffd7;
-      @include display(flex, row, flex-start, center);
+      height: 54px;
+      width: 288px;
+      font-weight: 500;
+      font-size: 20px;
+      background: $color-blue;
+      color: $color-white;
+      @include display(flex, row, center, center);
       text-align: center;
       cursor: pointer;
       transition: all ease-in 0.2s;
 
       &:hover {
-        background: #75ff9e;
+        filter: brightness(0.85);
       }
 
       & svg {
@@ -115,6 +221,9 @@
     }
 
     &_edit {
+      position: absolute;
+      right: 20px;
+      top: 20px;
       padding: 11px;
       border-radius: 6px;
       border: none;
@@ -174,4 +283,9 @@
   }
 
   @include font(400, 14px);
+}
+
+.statistics_container {
+  width: 90%;
+  margin: 5% 5%;
 }

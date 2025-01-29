@@ -121,4 +121,10 @@
     input, label {
         display: block;
     }
+
+    div {
+        div + div {
+            display:block;
+        }
+    }
 }
