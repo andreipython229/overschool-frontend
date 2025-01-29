@@ -3,6 +3,8 @@ export interface SchoolMeeting {
     students_groups: number[];
     link: string;
     start_date: Date;
+    title: string;
+    description: string;
 }
 
 export interface SchoolUpdateMeeting {

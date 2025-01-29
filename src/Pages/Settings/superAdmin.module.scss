@@ -22,7 +22,8 @@
     gap: 20px;
   }
 
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter',
+  sans-serif;
   color: #4d5766;
 
   &_input {
@@ -121,6 +122,16 @@
     padding: 11px 0;
     border: none;
     border-radius: 5px;
+  }
+
+  &_create_banner_btn {
+    background-color: #357EEB;
+    border-radius: 10px;
+    color: #fff;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-weight: 500;
+    transition-duration: $trans-dur02 !important;
   }
 
   &_input {
@@ -406,10 +417,13 @@
     padding: 26px 32px 24px 32px;
     box-shadow: 0 0 8px #d9d9d9;
     border-radius: 20px;
-    overflow-x: auto;
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
+    // overflow-x: auto;
+    margin-bottom: 50px;
+
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
       padding: 4% 3% 4% 3%;
     }
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       padding: 4% 3% 4% 3%;
     }

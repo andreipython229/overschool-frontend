@@ -17,6 +17,7 @@ import {
   peopleIcon,
   settingsIcon,
   arrowLeftIcon,
+  arrowDownPoligon,
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -106,4 +107,8 @@ export const settingsIconPath: pathT[] = [
 export const arrowLeftIconPath: pathT[] = [
   { d: arrowLeftIcon.d1, stroke: '#357EEB', strokeWidth: '1.6', strokeLinejoin: 'round', strokeLinecap: 'round' },
   { d: arrowLeftIcon.d2, stroke: '#357EEB', strokeWidth: '1.6', strokeLinejoin: 'round', strokeLinecap: 'round' },
+]
+
+export const arrowDownPoligonPath: pathT[] = [
+  {d:arrowDownPoligon.d1, fill: "#808080"},
 ]
