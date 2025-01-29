@@ -14,8 +14,8 @@ import {useDebounceFunc, usePagination} from "../../customHooks";
 import {StudentsPerCourseT, StudentsStatsT} from "../../types/pageTypes";
 
 export const StudentsPerCourse: FC<StudentsPerCourseT> = ({courseID}) => {
-  const { course_ID } = useParams()
-  const course_id= course_ID ? course_ID : courseID
+  const { course_id: course_ID } = useParams()
+  const course_id = course_ID ? course_ID : courseID
   const schoolName = window.location.href.split('/')[4]
 
   const dispatch = useAppDispatch()

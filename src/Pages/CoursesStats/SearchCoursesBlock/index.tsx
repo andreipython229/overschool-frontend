@@ -19,16 +19,22 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [term, filteredData, handleChangeTerm] = useDebouncedFilter(courses, 'name')
   const [courseID, setCourseID] = useState('')
+    const [activeGroup, setActiveGroup] = useState<number>(0)
+
+  const handleClick = (id: number) => {
+    setActiveGroup(activeGroup === id ? -100 : id)
+  }
+
   const handleToggleHiddenBlocks = (): void => {
     setIsOpen(!isOpen)
   }
 
-  const handleClickID = (pr: any) => {
+  const handleClickID = (pr: number) => {
       setCourseID(String(pr))
   }
 
   useEffect(() => {
-      console.log(courseID)
+      setActiveGroup(0)
   }, [courseID])
 
   return (
@@ -47,7 +53,7 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
               ?.filter(({ course_id }) => course_id !== 247 || userId === 154)
               .map(({ photo, name, course_id }) => (
                   <div style={{cursor: "pointer"}} key={course_id} onClick={() => handleClickID(course_id)}>
-                <CoursesMiniCard groups={groups} photo={photo} name={name} courseId={course_id} />
+                <CoursesMiniCard click={handleClick} active={activeGroup === course_id} groups={groups} photo={photo} name={name} courseId={course_id} />
                 </div>
               ))}
           </div>

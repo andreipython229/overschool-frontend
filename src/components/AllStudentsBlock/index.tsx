@@ -29,6 +29,7 @@ import {AddStudentModal} from 'components/Modal/StudentLogs/AddStudentModal/AddS
 import {SearchBar} from "../SearchBar";
 import {PeopleIconSvg} from "../StudentGroupMiniCard/assets/iconsComponents";
 import {classesSettingIconPath} from "../StudentsTableWrapper/config/svgIconsPath";
+import {UpdateIconPath} from "../../assets/Icons/svgIconPath";
 
 
 
@@ -165,12 +166,12 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
                 <div className={styles.header_block_text_search}>
                     <div className={styles.arrow_add_file_block}
                          onClick={() => handleReloadTable && handleReloadTable()}>
-                        <IconSvg width={19} height={23} viewBoxSize="0 0 30 30" path={updateDataIcon}/>
+                        <IconSvg width={25} height={25} viewBoxSize="0 0 32 32" path={updateDataIcon}/>
                     </div>
                 </div>
                 <div className={invite ? styles.button_search_block_wButton : styles.button_search_block}>
                     {role != RoleE.Teacher && invite ? (
-                        <Button onClick={off} className={styles.add_students_btn} style={{'height': '40px', marginBottom: "10px"}} text={'Добавить учеников'}
+                        <Button onClick={off} className={styles.add_students_btn} style={{'height': '40px'}} text={'Добавить учеников'}
                                 variant={'newPrimary'}>
                             {/*<IconSvg width={30} height={30} viewBoxSize={'0 0 16 16'} path={addStudentIconPath}*/}
                             {/*         styles={{marginRight: '0.2em'}}/>*/}

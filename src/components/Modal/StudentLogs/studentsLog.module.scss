@@ -2,7 +2,7 @@
 @import '../../../scss/mixin.scss';
 
 .container {
-  @include position_t_l(absolute, 50%, 50%, 10);
+  @include position_t_l(absolute, 50%, 50%, 5);
   @include display(flex, column);
   align-items: center;
   padding: 65px 84px;
@@ -11,10 +11,11 @@
   margin: 0 auto;
   border-radius: 34px;
   overflow: hidden;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -35%);
   font-family: $font-family-inter;
   max-width: 661px;
   width: 90%;
+  min-height: 700px;
   height: auto;
 
   // position: relative;

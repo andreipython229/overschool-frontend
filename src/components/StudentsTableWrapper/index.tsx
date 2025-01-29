@@ -21,6 +21,7 @@ import { selectChat } from '../../store/redux/chats/slice'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { selectUser } from '../../selectors'
 import { addChat } from '../../store/redux/chats/chatsSlice'
+import {SettingsIconPath} from "../../assets/Icons/svgIconPath";
 
 type StudentsTableWrapperT = {
   isLoading: boolean
@@ -284,9 +285,12 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                     {col}
                   </th>
                 ))}
-                <button className={styles.svgSettingsWrapper}>
-                  <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
-                </button>
+                {/*<button className={styles.svgSettingsWrapper}>*/}
+                    <div style={{position: "absolute", right: "2rem", top: "0.75rem", marginRight: "1rem",
+                    paddingTop: "0.375rem", paddingBottom: "0.5rem", cursor: "pointer"}}>
+                  {/*<IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />*/}
+                    <IconSvg functionOnClick={off} width={23} height={23} viewBoxSize={'0 0 25 25'} path={SettingsIconPath} />
+                </div>
               </tr>
             </thead>
 
