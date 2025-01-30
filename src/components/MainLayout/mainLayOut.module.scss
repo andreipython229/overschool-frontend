@@ -217,7 +217,11 @@
     border-radius: 50%;
     scale: 10;
     filter: blur(25px);
-    animation: bgAnimate1 10s linear infinite;
+    -webkit-filter: blur(25px);
+    -moz-filter: blur(25px);
+    -o-filter: blur(25px);
+    -ms-filter: blur(25px);
+    animation: bgAnimate1 50s linear infinite;
   }
 
   &_wrap2 {
@@ -231,7 +235,11 @@
     background: #3686ff;
     border-radius: 50%;
     filter: blur(25px);
-    animation: bgAnimate2 10s linear infinite;
+    -webkit-filter: blur(25px);
+    -moz-filter: blur(25px);
+    -o-filter: blur(25px);
+    -ms-filter: blur(25px);
+    animation: bgAnimate2 50s linear infinite;
   }
 
   &_wrap3 {
@@ -245,7 +253,11 @@
     background: #3686ff;
     border-radius: 50%;
     filter: blur(25px);
-    animation: bgAnimate3 10s linear infinite;
+    -webkit-filter: blur(25px);
+    -moz-filter: blur(25px);
+    -o-filter: blur(25px);
+    -ms-filter: blur(25px);
+    animation: bgAnimate3 50s linear infinite;
   }
 
   &_wrap4 {
@@ -259,6 +271,10 @@
     background: #3686ff;
     border-radius: 50%;
     filter: blur(25px);
-    animation: bgAnimate4 10s linear infinite;
+    -webkit-filter: blur(25px);
+    -moz-filter: blur(25px);
+    -o-filter: blur(25px);
+    -ms-filter: blur(25px);
+    animation: bgAnimate4 50s linear infinite;
   }
 }
