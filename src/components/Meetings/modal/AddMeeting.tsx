@@ -8,7 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { CoursesDataT } from "../../../types/CoursesT";
 import { useFetchStudentsGroupQuery } from "../../../api/studentsGroupService";
 import { useFetchSchoolHeaderQuery } from "../../../api/schoolHeaderService";
-import { useCreateMeetingMutation, useFetchAllMeetingsQuery, useDeleteMeetingMutation } from "../../../api/meetingsService";
+import { useCreateMeetingMutation, useUpdateMeetingMutation, useFetchAllMeetingsQuery, useDeleteMeetingMutation } from "../../../api/meetingsService";
 import { useCreateMeetingsRemindersMutation } from "api/tgNotificationsServices";
 import Timer from "../../Timer/Timer";
 import { TgMeetingReminders } from "types/tgNotifications";
@@ -23,9 +23,10 @@ import { Input } from 'components/common/Input/Input/Input'
 interface AddMeetingProps {
     showAddMeetingForm: boolean;
     setShowAddMeetingForm: (show: boolean) => void;
+    existingMeeting?: SchoolMeeting;
 }
 
-export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAddMeetingForm }) => {
+export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAddMeetingForm, existingMeeting }) => {
     const schoolName = window.location.href.split('/')[4];
     const [showReminderOptions, setShowReminderOptions] = useState(false);
     const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupQuery(schoolName);
@@ -34,9 +35,10 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
     const [allGroups, setAllGroups] = useState<boolean>(false);
     const dispatch = useDispatch();
     const [createMeeting, { isLoading, error }] = useCreateMeetingMutation();
+    const [updateMeeting] = useUpdateMeetingMutation();
     const [createMeetingsReminder] = useCreateMeetingsRemindersMutation();
+    const [isEditMode, setIsEditMode] = useState(false);
 
-    
     const totalMeetingCount = useSelector((state: RootState) => state.meetings.totalMeetingCount);
 
     const [newMeetingData, setNewMeetingData] = useState<SchoolMeeting>({
@@ -57,11 +59,19 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
     })
 
     useEffect(() => {
-        setNewMeetingData({
-            ...newMeetingData,
-            students_groups: [],
-        });
-    }, []);
+        if (existingMeeting) {
+            setIsEditMode(true);
+            setNewMeetingData(existingMeeting);
+        } else {
+            setIsEditMode(false);
+            setNewMeetingData({
+                ...newMeetingData,
+                students_groups: [],
+            });
+        }
+        console.log(newMeetingData);
+        
+    }, [existingMeeting]);
 
     const handleCourseChange = (courseId: number) => {
         setAllGroups(false);
@@ -108,14 +118,13 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
     };
 
 
-    const handleAddMeeting = () => {
+    const createNewMeeting = () => {
         createMeeting({
             data: newMeetingData,
             schoolName,
         })
             .unwrap()
             .then((meetingResponse) => {
-
                 if (meetingResponse.id) {
                     // Здесь вы устанавливаете meeting_id в newMeetingReminder
                     const updatedMeetingReminder = { ...newMeetingReminder, meeting: meetingResponse.id };
@@ -133,6 +142,33 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                         });
                 }
             })
+    }
+
+    const editExistsMeeting = () => {
+        if (existingMeeting) {
+            updateMeeting({
+                id: existingMeeting.id,
+                data: newMeetingData,
+                schoolName,
+            })
+                .unwrap()
+                .then(() => {
+                    dispatch(setTotalMeetingCount(totalMeetingCount + 1));
+                    setShowAddMeetingForm(false);
+                })
+                .catch((error) => {
+                    console.error("Error updating meeting", error);
+                });
+        }
+    }
+
+    const handleAddMeeting = () => {
+        if (isEditMode) {
+            editExistsMeeting()
+        }
+        else {
+            createNewMeeting()
+        }
     };
 
 
@@ -195,7 +231,7 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
             }}>
             <div className={styles.modal_ellipse}>
             </div>
-            <DialogTitle>Добавить видеоконференцию</DialogTitle>
+            <DialogTitle>{!isEditMode?'Добавить видеоконференцию':'Редактировать видеоконференцию'}</DialogTitle>
             <Typography variant="caption">Выберите дату и время видеоконференции</Typography>
 
             <DialogContent className={styles.modal_window} >
@@ -209,7 +245,15 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                         id="datetime-local"
                         label=""
                         type="datetime-local"
-                        value={new Date().toISOString().slice(0, 16)}
+
+                        value={
+                            // Если есть существующий митинг, используем его дату
+                            // Иначе используем текущую дату
+                            newMeetingData.start_date
+                                ? new Date(newMeetingData.start_date).toISOString().slice(0, 16)
+                                : new Date().toISOString().slice(0, 16)
+                        }
+                        // value={new Date().toISOString().slice(0, 16)}
                         // InputLabelProps={{
                         //     shrink: true,
                         // }}
@@ -345,7 +389,7 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                 )}
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleAddMeeting} variant={'newPrimary'} text="Добавить" />
+                <Button onClick={handleAddMeeting} variant={'newPrimary'} text={isEditMode ? "Сохранить" : "Добавить"} />
                 <Button onClick={() => setShowAddMeetingForm(false)} variant={'cancel'} text="Отмена" />
             </DialogActions>
         </Dialog>
