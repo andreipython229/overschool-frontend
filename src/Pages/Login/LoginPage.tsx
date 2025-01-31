@@ -301,7 +301,7 @@ export const LoginPage = () => {
           ))}
         {isHidden && (
           <form className={styles.loginPage_formWrapper_form} onSubmit={formik.handleSubmit}>
-            <p className={styles.loginPage_formWrapper_form_title}>Авторизироваться</p>
+            <p className={styles.loginPage_formWrapper_form_title}>Авторизация</p>
             <p className={styles.loginPage_formWrapper_form_title_comment}>Введите свои учетные данные</p>
             <div className={styles.loginPage_formWrapper_form_eMailWrapper}>
               <p className={styles.loginPage_formWrapper_form_eMailWrapper_title}></p>
@@ -339,7 +339,7 @@ export const LoginPage = () => {
                 <Button type="submit" text={'Вход'} style={{ borderRadius: '10px' }} variant={'newPrimary'} />
               </div>
               <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn}>
-                <a className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn_a} href="" onClick={forgotPass} style={{ textDecoration: 'none', width: 'max-content', display: 'inline-flex' }}>
+                <a className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn_a} href="" onClick={forgotPass}>
                   Забыли пароль?
                 </a>
               </div>
