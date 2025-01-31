@@ -50,6 +50,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper as SwiperType } from 'swiper'
 import MiniBlock from '../../components/MiniBlocks'
+import { BackgroundAnimation } from '../../components/BackgroundAnimation'
 
 export const Initial = () => {
   const [currentCourse, setCurrentCourse] = useState<string>('-1')
@@ -101,18 +102,7 @@ export const Initial = () => {
 
   return (
     <div className={styles.init}>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap1}></div>
-      </div>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap2}></div>
-      </div>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap3}></div>
-      </div>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap4}></div>
-      </div>
+      <BackgroundAnimation />
       {registrationShow && <RegistrationModal setShowModal={setRegistrationShow} setCodeModal={setRegCodeShow} />}
       {regCodeShow && <RegCodeModal setCodeModal={setRegCodeShow} />}
       {isLoginModal ? (
