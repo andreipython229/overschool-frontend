@@ -2,6 +2,8 @@ import {
   AddIcon,
   AddUserIcon,
   AttachIcon,
+  ArrowLeft,
+  ArrowRight,
   CalendarIcon,
   CardTickIcon,
   CheckIcon,
@@ -71,6 +73,10 @@ export const AddUserIconPath = [
 ] //folder-2
 
 export const AttachIconPath = [{ d: AttachIcon.d1, fill: 'currentColor' }] // Attach
+
+export const ArrowLeftIconPath = [{d: ArrowLeft.d1, fill: 'currentColor'}]
+
+export const ArrowRightIconPath = [{d: ArrowRight.d1, fill: 'currentColor'}]
 
 export const CalendarIconPath = [
   { d: CalendarIcon.d1, fill: 'currentColor' },

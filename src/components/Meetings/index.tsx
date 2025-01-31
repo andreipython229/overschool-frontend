@@ -9,6 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/redux/store";
 import { AddMeeting } from "./modal/AddMeeting"
 import { MeetingCard } from "./card/MeetingCard"
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { AddIconPath, ArrowLeftIconPath, ArrowRightIconPath } from '../../assets/Icons/svgIconPath'
+
 
 export const SchoolMeetings: FC = () => {
     const isLogin = useAppSelector(authSelector);
@@ -17,21 +20,22 @@ export const SchoolMeetings: FC = () => {
     const headerId = localStorage.getItem('header_id');
 
     const { role: userRole } = useAppSelector(selectUser);
-    // const {data, isSuccess} = useFetchSchoolHeaderQuery(Number(headerId));
     const { data: meetingsData, isSuccess: meetingsSuccess } = useFetchAllMeetingsQuery({ schoolName: schoolName });
     const [showAddMeetingForm, setShowAddMeetingForm] = useState(false);
 
-    // const [deleteMeetingsReminder] = useDeleteMeetingsRemindersMutation();
     const [deleteMeeting, { isLoading: isDeleting, error: deleteError }] = useDeleteMeetingMutation();
 
     const dispatch = useDispatch();
+
+    // Состояние для пагинации
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(1); // Количество элементов на странице
 
     useEffect(() => {
         if (meetingsSuccess && meetingsData) {
             dispatch(setTotalMeetingCount(meetingsData.length));
         }
     }, [meetingsData, meetingsSuccess, dispatch]);
-
 
     const handleDeleteMeeting = (meetingId: number,) => {
         deleteMeeting({ id: meetingId, schoolName });
@@ -42,51 +46,63 @@ export const SchoolMeetings: FC = () => {
         setShowAddMeetingForm(true);
     };
 
-    const renderMeetingLinks = () => {
-        const dateFormatter = new Intl.DateTimeFormat('ru-RU', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-        });
+    // Логика для отображения элементов на текущей странице
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = meetingsData?.slice(indexOfFirstItem, indexOfLastItem) || [];
 
+    const renderMeetingLinks = () => {
         if (meetingsSuccess) {
             return (
-                <div className={styles.meetingList}>
-                    {meetingsData.map((meeting, index) => (<MeetingCard 
-                    // setShowAddMeetingForm={setShowAddMeetingForm} showAddMeetingForm={showAddMeetingForm} 
-                     key={meeting.id} meeting={meeting}></MeetingCard>))}
+                <>                <div className={styles.meetingList}>
+                    {currentItems.map((meeting) => (
+                        <MeetingCard key={meeting.id} meeting={meeting} />
+                    ))}
                 </div>
+                    <div className={styles.pagination}>
+                        {/* Кнопка "Назад" */}
+                        <button className={styles.pagination_arrow_left} onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                        {/* <IconSvg path={ArrowLeftIconPath} viewBoxSize="0 0 9 14" height={9} width={14} /> */}
+                        {"<"}
+                        </button>
 
-                // <table className={styles.meetingTable}>
-                //     <thead>
-                //     <tr>
-                //         <th>Ссылка</th>
-                //         <th>Дата и время</th>
-                //         <th>Группы</th>
-                //         <th>Время до старта</th>
-                //         <th></th>
-                //     </tr>
-                //     </thead>
-                //     <tbody>
-                //     {meetingsData.map((meeting, index) => (
-                //         <tr key={meeting.id}>
-                //             <td><a href={meeting.link} target="_blank" rel="noopener noreferrer">{meeting.link}</a>
-                //             </td>
-                //             <td>{dateFormatter.format(new Date(meeting.start_date))}</td>
-                //             <td>{meeting.students_groups.map(groupId => {
-                //                 const group = studentsGroups?.results.find(g => g.group_id === groupId);
-                //                 return group ? group.name : '';
-                //             }).join(', ')}</td>
-                //             <td><Timer targetDate={new Date(meeting.start_date)} /></td>
-                //             <td>
-                //                 <Button onClick={() => handleDeleteMeeting(meeting.id)} text="Удалить"/>
-                //             </td>
-                //         </tr>
-                //     ))}
-                //     </tbody>
-                // </table>
+                        {/* Кнопки страниц */}
+                        {Array.from({ length: Math.ceil((meetingsData?.length || 0) / itemsPerPage) }, (_, i) => {
+                            const pageNumber = i + 1;
+                            // Показываем только текущую страницу, +1 и -1 от текущей, первую и последнюю
+                            if (
+                                pageNumber === 1 || // Первая страница
+                                pageNumber === Math.ceil((meetingsData?.length || 0) / itemsPerPage) || // Последняя страница
+                                (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1) // Текущая страница и соседние
+                            ) {
+                                return (
+                                    <button
+                                        key={pageNumber}
+                                        onClick={() => paginate(pageNumber)}
+                                        className={currentPage === pageNumber ? styles.active : ""}
+                                    >
+                                        {pageNumber}
+                                    </button>
+                                );
+                            }
+                            // Добавляем многоточие для скрытых страниц
+                            if (pageNumber === currentPage - 2 || pageNumber === currentPage + 2) {
+                                return <span key={pageNumber}>...</span>;
+                            }
+                            return null;
+                        })}
+
+                        {/* Кнопка "Вперед" */}
+                        <button
+                            className={styles.pagination_arrow_right}
+                            onClick={() => paginate(currentPage + 1)}
+                            disabled={currentPage === Math.ceil((meetingsData?.length || 0) / itemsPerPage)}
+                        >
+                            {/* <IconSvg path={ArrowRightIconPath} viewBoxSize="0 0 9 14" height={9} width={14} /> */}
+                            {">"}
+                        </button>
+                    </div>
+                </>
             );
         }
         return <div className={styles.meetings_empty_text_wrapper}>
@@ -94,18 +110,21 @@ export const SchoolMeetings: FC = () => {
         </div>
     };
 
-    return (
+    // Логика для переключения страниц
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+    return (
         <div className={styles.wrapper_actions}>
-            {/* <rect xmlns="http://www.w3.org/2000/svg" x="262.5" y="0.5" width="866" height="247" rx="31.5" stroke="url(#paint0_linear_28398_60663)"/> */}
             <div className={styles.meeting_header_text}>Видеоконференции</div>
             {isLogin && (
                 <>
                     <div className={styles.generate_meeting_btn_wrapper}>
+                        <IconSvg path={AddIconPath} viewBoxSize="0 0 24 24" height={24} width={24} />
                         <Button variant={'newPrimary'} className={styles.generateMeetingButton} onClick={handleAddMeetingFormOpen} text="Добавить видеоконференцию" />
                     </div>
                     <AddMeeting setShowAddMeetingForm={setShowAddMeetingForm} showAddMeetingForm={showAddMeetingForm}></AddMeeting>
                     {renderMeetingLinks()}
+
                 </>
             )}
         </div>

@@ -2,6 +2,7 @@
 
 .meetings_empty_text_wrapper {
   @include display(flex, column, center, center);
+
   .meetings_empty_text {
     padding: 20px;
     margin-top: 40px;
@@ -35,6 +36,7 @@
 
 .generate_meeting_btn_wrapper {
   @include display(flex, row, end, start);
+  position: relative;
 
   .generateMeetingButton {
     font-weight: 500;
@@ -42,64 +44,59 @@
     line-height: 20px;
     padding: 17px 40px 17px 74px;
   }
+
+  svg {
+    pointer-events: none;
+    position: absolute;
+    right: 347px;
+    top: 15px;
+
+    path {
+      fill: #fff;
+    }
+  }
 }
 
 
-
-// .wrapper_actions {
-//   background-color: #ffffff;
-//   padding: 26px 32px 24px 32px;
-//   box-shadow: 0 0 8px #d9d9d9;
-//   border-radius: 8px;
-//   overflow-x: auto;
-//   @media only screen and (min-width: 320px) and (max-width: 375px) {
-//     padding: 4% 3% 4% 3%;
-//   }
-//   @media only screen and (min-width: 375px) and (max-width: 480px) {
-//     padding: 4% 3% 4% 3%;
-//   }}
+.pagination {
+  @include display(flex, row, center, center);
+  margin: 40px;
 
 
-// .meetingTable {
-//   width: 100%;
-//   border-collapse: collapse;
-// }
+  button {
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    border: none;
+    color: #332F36;
+    border-radius: 4px;
+    transition-duration: 0.25s;
 
-// .meetingTable th,
-// .meetingTable td {
-//   border-bottom: 1px solid black;
-//   padding: 8px;
-//   text-align: center;
-// }
+    &:hover {
+      filter: brightness(0.85);
+      background-color: #fff;
 
-// .meetingTable th:first-child,
-// .meetingTable td:first-child {
-//   border-left: none;
-// }
+    }
+  }
 
-// .meetingTable th:last-child,
-// .meetingTable td:last-child {
-//   border-right: none;
-// }
+  .active {
+    color: #fff;
+    background-color: #357EEB;
 
-// .detailButtonCell {
-//   text-align: right;
-// }
+    &:hover {
+      color: #fff;
+      background-color: #357EEB;
+      cursor: default;
+      filter: none;
+    }
+  }
 
-// .generateMeetingButton{
-//   border: 1px solid slategrey;
-//   cursor: pointer;
-//   margin-left: 1%;
-//   margin-bottom: 1rem;
-// }
-// .table_no_results {
-//   text-align: center;
-//   @include font(500, 20px);
-//   color: #6b7484;
-// }
 
-// .reminders {
-//   padding: 5px;
+  &_arrow_left {
+    margin-right: 24px;
+  }
 
-//   @include font(400, 19px);
-// }
+  &_arrow_right {
+    margin-left: 24px;
+  }
+}

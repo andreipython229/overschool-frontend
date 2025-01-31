@@ -69,8 +69,6 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                 students_groups: [],
             });
         }
-        console.log(newMeetingData);
-        
     }, [existingMeeting]);
 
     const handleCourseChange = (courseId: number) => {

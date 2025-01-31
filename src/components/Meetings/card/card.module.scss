@@ -48,7 +48,8 @@
         gap: 10px;
         width: 100%;
         height: calc(100% - 2px);
-        border: 1px solid #aaa;
+        // border: 1px solid #aaa;
+        border: 1px solid #3686FF;
         border-radius: 14px;
         backdrop-filter: blur(5px);
         padding: 16px;
@@ -73,13 +74,15 @@
         width: 20%;
         height: calc(100% - 2px);
         max-width: 200px;
-        border: 1px solid #aaa;
+        // border: 1px solid #aaa;
+        border: 1px solid #3686FF;
         border-radius: 14px;
         backdrop-filter: blur(5px);
         padding: 16px;
         color: #fff;
         font-weight: 500;
         font-size: 20px;
+
 
         .meeting_edit_btn_wrapper {
             @include display(flex, row, end, center);
