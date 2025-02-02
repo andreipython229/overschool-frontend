@@ -74,9 +74,21 @@ export const AddUserIconPath = [
 
 export const AttachIconPath = [{ d: AttachIcon.d1, fill: 'currentColor' }] // Attach
 
-export const ArrowLeftIconPath = [{d: ArrowLeft.d1, fill: 'currentColor'}]
+export const ArrowLeftIconPath: pathT[] = [{
+  d: ArrowLeft.d1,
+  strokeWidth: '2',
+  stroke: '#332F36',
+  strokeLinecap: 'round',
+  strokeLinejoin: "round",
+}]
 
-export const ArrowRightIconPath = [{d: ArrowRight.d1, fill: 'currentColor'}]
+export const ArrowRightIconPath: pathT[] = [{
+  d: ArrowRight.d1,
+  strokeWidth: '2',
+  stroke: '#332F36',
+  strokeLinecap: 'round',
+  strokeLinejoin: "round",
+}]
 
 export const CalendarIconPath = [
   { d: CalendarIcon.d1, fill: 'currentColor' },

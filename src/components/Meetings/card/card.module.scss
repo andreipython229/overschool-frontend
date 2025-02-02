@@ -48,9 +48,8 @@
         gap: 10px;
         width: 100%;
         height: calc(100% - 2px);
-        // border: 1px solid #aaa;
-        border: 1px solid #3686FF;
-        border-radius: 14px;
+        border: none;
+        border-radius: 32px;
         backdrop-filter: blur(5px);
         padding: 16px;
         color: #fff;
@@ -74,9 +73,8 @@
         width: 20%;
         height: calc(100% - 2px);
         max-width: 200px;
-        // border: 1px solid #aaa;
-        border: 1px solid #3686FF;
-        border-radius: 14px;
+        border: none;
+        border-radius: 32px;
         backdrop-filter: blur(5px);
         padding: 16px;
         color: #fff;
@@ -126,4 +124,21 @@
         }
     }
 
+
+    &_description::before, &_schedule::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg,  #CFE2FF, #3686FF);
+        z-index: -1;
+        border-radius: 32px;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        padding: 1px;
+      }
 }
+

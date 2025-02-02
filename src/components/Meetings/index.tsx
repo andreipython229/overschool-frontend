@@ -27,9 +27,8 @@ export const SchoolMeetings: FC = () => {
 
     const dispatch = useDispatch();
 
-    // Состояние для пагинации
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(1); // Количество элементов на странице
+    const [itemsPerPage] = useState(3); 
 
     useEffect(() => {
         if (meetingsSuccess && meetingsData) {
@@ -46,7 +45,7 @@ export const SchoolMeetings: FC = () => {
         setShowAddMeetingForm(true);
     };
 
-    // Логика для отображения элементов на текущей странице
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = meetingsData?.slice(indexOfFirstItem, indexOfLastItem) || [];
@@ -60,20 +59,17 @@ export const SchoolMeetings: FC = () => {
                     ))}
                 </div>
                     <div className={styles.pagination}>
-                        {/* Кнопка "Назад" */}
                         <button className={styles.pagination_arrow_left} onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
-                        {/* <IconSvg path={ArrowLeftIconPath} viewBoxSize="0 0 9 14" height={9} width={14} /> */}
-                        {"<"}
+                            <IconSvg path={ArrowLeftIconPath} viewBoxSize="0 0 9 14" height={12} width={9} />
+                            {/* {"<"} */}
                         </button>
 
-                        {/* Кнопки страниц */}
                         {Array.from({ length: Math.ceil((meetingsData?.length || 0) / itemsPerPage) }, (_, i) => {
                             const pageNumber = i + 1;
-                            // Показываем только текущую страницу, +1 и -1 от текущей, первую и последнюю
                             if (
                                 pageNumber === 1 || // Первая страница
-                                pageNumber === Math.ceil((meetingsData?.length || 0) / itemsPerPage) || // Последняя страница
-                                (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1) // Текущая страница и соседние
+                                pageNumber === Math.ceil((meetingsData?.length || 0) / itemsPerPage) ||
+                                (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
                             ) {
                                 return (
                                     <button
@@ -98,8 +94,8 @@ export const SchoolMeetings: FC = () => {
                             onClick={() => paginate(currentPage + 1)}
                             disabled={currentPage === Math.ceil((meetingsData?.length || 0) / itemsPerPage)}
                         >
-                            {/* <IconSvg path={ArrowRightIconPath} viewBoxSize="0 0 9 14" height={9} width={14} /> */}
-                            {">"}
+                            <IconSvg path={ArrowRightIconPath} viewBoxSize="0 0 9 14" height={12} width={9} />
+                            {/* {">"} */}
                         </button>
                     </div>
                 </>
@@ -109,8 +105,6 @@ export const SchoolMeetings: FC = () => {
             <div className={styles.meetings_empty_text}>Ничего не запланировано</div>
         </div>
     };
-
-    // Логика для переключения страниц
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
     return (
