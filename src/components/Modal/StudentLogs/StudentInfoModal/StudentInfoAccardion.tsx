@@ -108,51 +108,6 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
 
         <div className={styles.accardion}>
             <div>
-                {/*<div className={styles.accardion_header} onClick={() => studentInfoAccardion(prev => !prev)}>*/}
-                {/*<div style={{cursor: "pointer"}} onClick={() => studentInfoAccardion(prev => !prev)}>*/}
-                {/*    <IconSvg width={25} height={25} viewBoxSize="0 0 25 20" path={SettingsIconPath}/>*/}
-                {/*</div>*/}
-                    {/*{student?.courses_avatar ? (*/}
-                    {/*    <img className={styles.accardion_course_img} src={student?.courses_avatar} alt="course_avatar"/>*/}
-                    {/*) : (*/}
-                    {/*    <div className={styles.accardion_course_avatar}></div>*/}
-                    {/*)}*/}
-                    {/*<div className={styles.accardion_info}>*/}
-                    {/*    <p className={styles.accardion_course_name}>{student?.course_name}</p>*/}
-                    {/*    <div className={styles.accardion_group}>*/}
-                    {/*        <IconSvg width={14} height={14} viewBoxSize={'0 0 14 14'} path={groupIconPath}/>*/}
-                    {/*        <span>{student?.group_name}</span>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-                    {/*<div className={styles.accardion_progress}>*/}
-                    {/*    <div className={styles.accardion_progress_item}>*/}
-                    {/*        <div style={{*/}
-                    {/*            width: '14px',*/}
-                    {/*            height: '14px',*/}
-                    {/*            backgroundColor: '#BA75FF',*/}
-                    {/*            borderRadius: '50%'*/}
-                    {/*        }}></div>*/}
-                    {/*        <span>{courseStat ? `${courseStat.completed_count}/${courseStat.all_baselessons}` : '0/0'}</span>*/}
-                    {/*    </div>*/}
-                    {/*    <div className={styles.accardion_progress_item}>*/}
-                    {/*        <div style={{*/}
-                    {/*            width: '14px',*/}
-                    {/*            height: '14px',*/}
-                    {/*            backgroundColor: '#BA75FF',*/}
-                    {/*            borderRadius: '50%'*/}
-                    {/*        }}></div>*/}
-                    {/*        <span>{courseStat ? courseStat.completed_percent : 0}%</span>*/}
-                    {/*    </div>*/}
-                    {/*    <div className={styles.accardion_progress_item}>*/}
-                    {/*        <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath}/>*/}
-                    {/*        /!* заглушка *!/*/}
-                    {/*        <span>{student?.average_mark?.toFixed(0) ?? 0}/{student?.mark_sum ?? 0}</span>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-                    {/*<div className={`${styles.accardion_control_btn} ${isAccardionOpen ? styles.open : ''}`}>*/}
-                    {/*    <IconSvg width={12} height={7} viewBoxSize="0 0 22 13" path={accardionArrPath}/>*/}
-                    {/*</div>*/}
-                {/*</div>*/}
                 {isAccardionOpen && <>
                     <div className={styles.accardion_duration}>
                         {role === RoleE.Teacher && <>
