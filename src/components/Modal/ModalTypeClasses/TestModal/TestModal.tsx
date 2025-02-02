@@ -106,7 +106,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
                   <span className={styles.switch} />
                 </label>
               </div>
-              <p className={styles.test_checkbox_text_desc}>{span2}</p>
+              <span className={styles.test_checkbox_text_desc}>{span2}</span>
             </div>
           </div>
         ))}
