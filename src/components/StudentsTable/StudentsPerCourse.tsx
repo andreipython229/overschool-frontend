@@ -71,6 +71,8 @@ export const StudentsPerCourse: FC<StudentsPerCourseT> = ({courseID}) => {
 
   useEffect(() => {
     handleReloadTable()
+    console.log(data)
+    console.log(schoolName)
   }, [filters, course_id])
 
   useEffect(() => {
@@ -152,6 +154,7 @@ export const StudentsPerCourse: FC<StudentsPerCourseT> = ({courseID}) => {
         filters={filters}
         updateStudents={updateStudents}
         all_students_count={data?.count as number}
+        tableId={tableId as number}
       />
       <StudentsTableWrapper
         handleReloadTable={handleReloadTable}

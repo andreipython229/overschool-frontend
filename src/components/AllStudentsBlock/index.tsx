@@ -29,7 +29,8 @@ import {AddStudentModal} from 'components/Modal/StudentLogs/AddStudentModal/AddS
 import {SearchBar} from "../SearchBar";
 import {PeopleIconSvg} from "../StudentGroupMiniCard/assets/iconsComponents";
 import {classesSettingIconPath} from "../StudentsTableWrapper/config/svgIconsPath";
-import {UpdateIconPath} from "../../assets/Icons/svgIconPath";
+import {SettingsIconPath, UpdateIconPath} from "../../assets/Icons/svgIconPath";
+import {SettingStudentTable} from "../Modal";
 
 
 
@@ -40,6 +41,7 @@ export interface FilterItem {
 
 export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     ({
+         tableId,
          invite,
          headerText,
          all_students_count,
@@ -73,6 +75,9 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
         // const [term, filteredData, handleChangeTerm] = useDebouncedFilter()
 
         const [searchTerm, setSearchTerm] = useState('')
+
+        const [isModalOpen, { on: SettingTableModal, off: SettingTableModalOff, onToggle: toggleSettingTableModal }] = useBoolean()
+
         const onChangeInput = (value: string) => {
             setSearchTerm(value)
         }
@@ -162,7 +167,6 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
                     removeLastActiveEndFilter={removeLastActiveEndFilter}
                     {...filters}
                 /></div>
-
                 <div className={styles.header_block_text_search}>
                     <div className={styles.arrow_add_file_block}
                          onClick={() => handleReloadTable && handleReloadTable()}>
@@ -173,20 +177,25 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
                     {role != RoleE.Teacher && invite ? (
                         <Button onClick={off} className={styles.add_students_btn} style={{'height': '40px'}} text={'Добавить учеников'}
                                 variant={'newPrimary'}>
-                            {/*<IconSvg width={30} height={30} viewBoxSize={'0 0 16 16'} path={addStudentIconPath}*/}
-                            {/*         styles={{marginRight: '0.2em'}}/>*/}
                             <PeopleIconSvg/>
                         </Button>
                     ) : (
                         <></>
                     )}
-
-
+                    <div style={{marginLeft: "2rem", cursor: "pointer"}}>
+                    <IconSvg functionOnClick={SettingTableModalOff} width={23} height={23} viewBoxSize={'0 0 25 25'} path={SettingsIconPath} />
                     </div>
-
+                    </div>
                 </div>
                 {isOpen && <Portal closeModal={on}>{courses &&
                     <AddStudentModal setShowModal={on} courses={courses?.results}/>}</Portal>}
+
+                {isModalOpen && (
+                    <Portal closeModal={SettingTableModal}>
+                        <SettingStudentTable setShowModal={toggleSettingTableModal} tableId={tableId}/>
+                    </Portal>
+                )}
+
             </div>
         )
     },

@@ -31,6 +31,7 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
 
   const handleClickID = (pr: number) => {
       setCourseID(String(pr))
+      console.log(courseID)
   }
 
   useEffect(() => {

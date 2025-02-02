@@ -236,9 +236,9 @@ export const MessageNotifIconPath = [
 ] //message
 
 export const MessageWithLinesIconPath = [
-  { d: MessageWithLinesIcon.d1, fill: 'currentColor' },
-  { d: MessageWithLinesIcon.d2, fill: 'currentColor' },
-  { d: MessageWithLinesIcon.d3, fill: 'currentColor' },
+  { d: MessageWithLinesIcon.d1, fill: '#357EEB' },
+  { d: MessageWithLinesIcon.d2, fill: '#357EEB' },
+  { d: MessageWithLinesIcon.d3, fill: '#357EEB' },
 ] //message-text
 
 export const NotificationsIconPath = [
