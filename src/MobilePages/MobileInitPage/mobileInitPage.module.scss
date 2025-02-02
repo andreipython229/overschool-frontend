@@ -82,10 +82,10 @@
     margin: 0 auto;
     text-align: center;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-      width: 95vw;
+      width: 100%;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
-      width: 95vw;
+      width: 100%;
     }
     @media (min-width: 481px) and (max-width: 1024px) {
       //padding-top: 70px;
@@ -110,16 +110,18 @@
     }
 
     & button {
-      margin-left: -20px;
+      // margin-left: -20px;
+      height: 65px;
+
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         @include font(600, 16px, 15px);
-        width: 200px;
+        width: 100%;
         margin-left: 0;
         padding: 25px 13px;
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         @include font(600, 19px, 15px);
-        width: 200px;
+        width: 100%;
         margin-left: 0;
         padding: 25px 13px;
         margin-bottom: 15px;

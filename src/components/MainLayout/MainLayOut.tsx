@@ -19,6 +19,7 @@ import { auth } from '../../store/redux/users/slice'
 import { useDispatch } from 'react-redux'
 import { useLazyLogoutQuery } from '../../api/userLoginService'
 import { RoleE } from 'enum/roleE'
+import { BackgroundAnimation } from '../BackgroundAnimation'
 
 export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -38,15 +39,13 @@ export const MainLayOut: FC = memo(() => {
   const [currentTariff, setCurrentTariff] = useState<any | null>(null)
   const [showChat, setShowChat] = useState<boolean>(false)
   const [overaiLockExists, setOveraiLockExists] = useState(false)
-  const routesWithoutPrevious = [`/school/${schoolName}/meetings/`];
+  const routesWithoutPrevious = [`/school/${schoolName}/meetings/`]
 
   useEffect(() => {
     if (userRole === 1) {
       getGroups(schoolName)
     }
   }, [])
-
-
 
   useEffect(() => {
     if (userRole === 1 && allGroups && allGroups.results) {
@@ -95,18 +94,7 @@ export const MainLayOut: FC = memo(() => {
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.bg}>
-          <div className={styles.bg_wrap1}></div>
-        </div>
-        <div className={styles.bg}>
-          <div className={styles.bg_wrap2}></div>
-        </div>
-        <div className={styles.bg}>
-          <div className={styles.bg_wrap3}></div>
-        </div>
-        <div className={styles.bg}>
-          <div className={styles.bg_wrap4}></div>
-        </div>
+        <BackgroundAnimation />
         {userRole === RoleE.Admin && progress.completion_percentage < 100 && <NewSchoolProgress />}
         <Navbar />
         <Header />
