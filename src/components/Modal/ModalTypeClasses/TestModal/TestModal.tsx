@@ -1,8 +1,7 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC } from 'react'
 import { useFormik } from 'formik'
 
 import { Input } from '../../../common/Input/Input/Input'
-import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { Button } from '../../../common/Button/Button'
 import { Radio } from '../../../common/Radio/Radio'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
@@ -15,7 +14,6 @@ import { SimpleLoader } from '../../../Loaders/SimpleLoader'
 
 import styles from '../../Modal.module.scss'
 import { penIconPath } from 'Pages/Settings/Main/iconComponents'
-import { CheckboxBall } from 'components/common/CheckboxBall'
 
 export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLessonIdAndType }) => {
   const formik = useFormik({
@@ -37,8 +35,6 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
     values: { percent, attempts, numOfAttempts },
     handleChange,
   } = formik
-
-  const [isShowCorrect, setIsShowCorrect] = useState<boolean>(formik.values.showCorrect)
 
   const { nameLesson, isLoading, setNameLesson, handleCreateLesson } = useCreateLesson({
     setType,
@@ -104,10 +100,13 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
               <span>{span1}</span>
             </div>
             <div className={styles.test_checkbox}>
-              <div className={styles.publish_switch_wrapper_switch}>
-                <CheckboxBall isChecked={isShowCorrect} toggleChecked={() => setIsShowCorrect(!isShowCorrect)} />
+              <div>
+                <label className={styles.toggle_switch} htmlFor={id}>
+                  <input type="checkbox" onChange={handleChange} name={name} id={id} checked={formik.values[name as keyof object]}/>
+                  <span className={styles.switch} />
+                </label>
               </div>
-              <span className={styles.test_checkbox_text_desc}>{span2}</span>
+              <p className={styles.test_checkbox_text_desc}>{span2}</p>
             </div>
           </div>
         ))}
