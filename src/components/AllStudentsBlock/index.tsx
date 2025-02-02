@@ -10,13 +10,11 @@ import {IconSvg} from '../common/IconSvg/IconSvg'
 import {Button} from '../common/Button/Button'
 import {AllStudentsBlockT} from '../../types/componentsTypes'
 import {useBoolean} from '../../customHooks'
-import {addStudentIconPath} from './config/svgIconsPath'
 import {Portal} from '../Modal/Portal'
 import {useFetchCoursesQuery} from '../../api/coursesServices'
 import {useFetchSchoolStudentsGroupingQuery, useUpdateSchoolStudentsGroupingMutation} from 'api/schoolService'
 import {ChipsComponent} from 'components/FiltersButton/Chips/chips'
 import {chipsVal} from 'components/FiltersButton/Chips/config'
-// import { useDebouncedFilter } from '../../customHooks/useDebouncedFilter'
 import {StudentsSchoolExport} from 'components/StudentsTable/StudentsExport/StudentsSchoolExport'
 import {StudentsCroupExport} from 'components/StudentsTable/StudentsExport/StudentsCroupExport'
 import {StudentsCourseExport} from 'components/StudentsTable/StudentsExport/StudentCourseExport'
@@ -28,8 +26,7 @@ import {updateDataIcon} from '../../config/commonSvgIconsPath'
 import {AddStudentModal} from 'components/Modal/StudentLogs/AddStudentModal/AddStudentCourseModal'
 import {SearchBar} from "../SearchBar";
 import {PeopleIconSvg} from "../StudentGroupMiniCard/assets/iconsComponents";
-import {classesSettingIconPath} from "../StudentsTableWrapper/config/svgIconsPath";
-import {SettingsIconPath, UpdateIconPath} from "../../assets/Icons/svgIconPath";
+import {SettingsIconPath} from "../../assets/Icons/svgIconPath";
 import {SettingStudentTable} from "../Modal";
 
 
@@ -134,18 +131,6 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             <div>
                 <p className={styles.header_block_text}>{headerText}</p>
                 <div style={{fontSize: "12px", color: "#3B3B3B"}}>Количество: <b>{all_students_count}</b></div>
-                {/*{headerText === 'Все ученики платформы' && (*/}
-                {/*    <div style={{display: 'flex', alignItems: 'center', marginBottom: '5px', marginBlockStart: '5px'}}>*/}
-                {/*        <label htmlFor="groupStudentsCheckbox" style={{marginRight: '5px', fontSize: "14px",}}>Сгруппировать*/}
-                {/*            учеников:</label>*/}
-                {/*        <input type="checkbox" id="groupStudentsCheckbox" name="groupStudentsCheckbox" style={{*/}
-                {/*            width: '15px',*/}
-                {/*            height: '15px',*/}
-                {/*            marginBlockStart: '2px'*/}
-                {/*        }}*/}
-                {/*               onChange={handleGroupStudents} checked={isGroupingStudents ?? false}/>*/}
-                {/*    </div>*/}
-                {/*)}*/}
                 {headerText === 'Все ученики платформы' && <StudentsSchoolExport/>}
                 {headerText === 'Все ученики группы' && <StudentsCroupExport/>}
                 {headerText === 'Все ученики курса' && <StudentsCourseExport/>}

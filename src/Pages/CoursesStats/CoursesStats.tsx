@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react'
 
 import { SearchCoursesBlock } from './SearchCoursesBlock'
-import { StudentsPerSchool } from 'components/StudentsTable/StudentsPerSchool'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
@@ -9,7 +8,6 @@ import { CoursesDataT } from '../../types/CoursesT'
 
 import { motion } from 'framer-motion'
 
-import styles from '../School/StudentsStats/studentsStats.module.scss'
 
 
 export const CoursesStats = () => {
@@ -43,7 +41,6 @@ export const CoursesStats = () => {
     }}
     layout>
       <SearchCoursesBlock courses={courses?.results as CoursesDataT[]} groups={data?.results as studentsGroupsT[]} />
-      <StudentsPerSchool />
     </motion.div>
   )
 }

@@ -71,8 +71,6 @@ export const StudentsPerCourse: FC<StudentsPerCourseT> = ({courseID}) => {
 
   useEffect(() => {
     handleReloadTable()
-    console.log(data)
-    console.log(schoolName)
   }, [filters, course_id])
 
   useEffect(() => {

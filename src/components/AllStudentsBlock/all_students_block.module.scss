@@ -87,20 +87,12 @@
 }
 
 .arrow_add_file_block {
-
-  //&:hover {
-  //  background-color: rgba(160, 160, 160, 0.4)
-  //}
   @include display(flex, row, center, center);
-  //background: #e0dced;
   border: none;
-  //border-radius: 10px;
   width: 50px;
   height: auto;
   text-align: center;
-  //margin-left: 7px;
   cursor: pointer;
-  //transition: background-color 0.4s;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin-bottom: 1rem;
   }

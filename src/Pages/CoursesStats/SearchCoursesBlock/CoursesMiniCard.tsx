@@ -24,7 +24,6 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ active, click,  pho
   })
 
   return (
-    // <Link to={pathLink}>
       <div className={`${active ? styles.active : ''} ${styles.wrapper}`} style={{ background: `url(${bgImage}) rgb(119, 119, 119) 50% / cover no-repeat` }}>
         <div className={styles.wrapper_text}>
           <p className={styles.wrapper_text_title}>{name}</p>
@@ -41,6 +40,5 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ active, click,  pho
       </div>
           <div className={`${styles.wrapper_shadow}`} onClick={() => click && click(courseId)} />
         </div>
-    // </Link>
   )
 })
