@@ -99,6 +99,7 @@ export const Header = memo(() => {
       total_students: null,
       price: '',
       student_count_by_month: null,
+      discount_12_months_byn: 0,
     },
   })
   const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation()
