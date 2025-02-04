@@ -742,7 +742,7 @@ export const Header = memo(() => {
             </div>
           )}
         </React.Fragment>
-        <div className={styles.header_socialIcons}>
+        <div className={userRole === RoleE.Admin ? styles.header_socialIcons : styles.header_socialIcons2}>
           {schoolData && (
             <>
               <SocialMediaButton variant="Telegram" url={schoolData.telegram_link || 'https://t.me/course_hb'} />
