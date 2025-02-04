@@ -86,17 +86,17 @@ export const studentsGroupService = createApi({
       }),
     }),
     updateGroup: build.mutation<any, { user_ids: number[]; new_group_id: number; schoolName: string; id: number }>({
-      query: ({ user_ids, new_group_id, schoolName, id  }) => {
-        const formData = new FormData();
-        formData.append('user_ids', JSON.stringify(user_ids));
-        formData.append('role', "Student");
-        formData.append('new_group_id', new_group_id.toString());
-    
+      query: ({ user_ids, new_group_id, schoolName, id }) => {
+        const formData = new FormData()
+        formData.append('user_ids', JSON.stringify(user_ids))
+        formData.append('role', 'Student')
+        formData.append('new_group_id', new_group_id.toString())
+
         return {
           url: `/${schoolName}/access-distribution/${id}/update-group/`,
           method: 'PATCH',
           body: formData,
-        };
+        }
       },
       invalidatesTags: ['studentsGroup'],
     }),
@@ -124,13 +124,12 @@ export const studentsGroupService = createApi({
       }),
       providesTags: ['studentsGroup'],
     }),
-    
   }),
 })
 
 export const {
+  useLazyFetchStudentsGroupWithParamsQuery,
   useFetchStudentsGroupWithParamsQuery,
-  //useFetchUserCountByMonthDataQuery,
   usePatchStudentsGroupMutation,
   usePatchGroupWithoutTeacherMutation,
   useFetchStudentsGroupByCourseQuery,

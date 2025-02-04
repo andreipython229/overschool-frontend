@@ -1,17 +1,20 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { ScoresFilter } from '../components/FiltersButton/ScoresFilter/ScoresFilter'
 import { CalendarFilter } from '../components/FiltersButton/CalendarFilter/CalendarFilter'
 import { SearchFilter } from '../components/FiltersButton/SearchFilter/SearchFilter'
 import { SearchFilterGroup } from '../components/FiltersButton/SearchFilterGroup/SearchFilterGroup'
 import { CoursesDataT } from '../types/CoursesT'
 import { useFetchCoursesQuery } from '../api/coursesServices'
-import { useFetchStudentsGroupQuery } from '../api/studentsGroupService'
+import { useLazyFetchStudentsGroupQuery } from '../api/studentsGroupService'
 import { useFetchLessonsQuery } from 'api/modulesServices'
 import { IHomework } from 'types/sectionT'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { useFetchStudentsDataPerSchoolQuery } from 'api/schoolHeaderService'
 import { ShowDeletedFilter } from '../components/FiltersButton/FilterComponent/FilterComponent'
 import { StatusFilter } from 'components/FiltersButton/StatusFilter'
+import { useAppSelector } from 'store/hooks'
+import { RoleE } from 'enum/roleE'
+import { selectUser } from 'selectors'
 
 type ComponentFilterT = {
   id: string | number
@@ -41,12 +44,17 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
 }) => {
   const schoolName = window.location.href.split('/')[4]
   const schoolId = localStorage.getItem('school_id')
+  const { role } = useAppSelector(selectUser)
   const { data } = useFetchCoursesQuery(schoolName)
   const { data: homeworks } = useFetchLessonsQuery({ type: 'homework', schoolName })
-  const { data: groups } = useFetchStudentsGroupQuery(schoolName)
+  const [fetchGroups, { data: groups }] = useLazyFetchStudentsGroupQuery()
   const { data: users } = useFetchStudentsDataPerSchoolQuery({ id: schoolId })
   const firstNames = users?.results.map(user => ({ name: user.first_name }))
   const lastNames = users?.results.map(user => ({ name: user.last_name }))
+
+  useEffect(() => {
+    fetchGroups(schoolName)
+  }, [])
 
   const filtersMaper: { [key: string]: JSX.Element } = {
     // Фильтра домашек
