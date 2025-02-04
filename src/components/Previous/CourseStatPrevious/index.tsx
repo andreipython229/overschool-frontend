@@ -17,7 +17,7 @@ export const CourseStatPrevious: FC = memo(() => {
           </div>
           <div className={styles.previousHeader_nav}>
               <NavLink to={Path.Courses}>
-                  <Button className={styles.lessonHeader_backToMaterials}
+                  <Button className={styles.previousHeader_nav_button}
                           variant={"emptyInside"} text={'Назад'}>
                       <IconSvg viewBoxSize="0 0 24 24" height={24} width={24} path={arrowLeftIconPath}/>
                   </Button>

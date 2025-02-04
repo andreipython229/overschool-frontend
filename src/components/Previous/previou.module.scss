@@ -220,6 +220,9 @@
   font-size: 2rem;
   font-family: SFPRORegular;
   font-weight: 800;
+  @media only screen and (min-width: 320px) and (max-width: 518px){
+      font-size: 1rem;
+    }
 }
 
 .input_change {
@@ -303,6 +306,13 @@
       font-size: 1.25rem !important;
       letter-spacing: -1px;
 
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+      font-size: 0.5rem !important;
+      width: 100%;
+      margin-top: -2rem;
+        letter-spacing: 0.5px;
+    }
+
       @media screen and (max-width: 700px) {
         font-size: 0.75rem !important;
         padding: 0.25rem 0.75rem;
@@ -331,11 +341,13 @@
     background: transparent;
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-      width: 95%;
+      //width: 95%;
+      width: 100%;
       text-align: center;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
-      width: 95%;
+      //width: 95%;
+      width: 100%;
       text-align: center;
       margin: 0;
     }
@@ -350,6 +362,15 @@
       background-repeat: no-repeat;
       position: relative;
       z-index: 2;
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        //width: 95%;
+        width: 100%;
+        height: 3rem;
+        text-align: center;
+        background-position: center;
+        margin-top: -2.5rem;
+      }
 
       &:after {
         content: '';
@@ -366,7 +387,7 @@
       @media only screen and (min-width: 320px) and (max-width: 375px) {
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
-        padding: 5% 0 5% 0;
+        //padding: 5% 0 5% 0;
       }
 
       &_name {
@@ -379,6 +400,12 @@
         position: relative;
         z-index: 4;
         padding: 5px;
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+        font-size: 1rem;
+          text-align: center;
+      }
+
       }
     }
   }
