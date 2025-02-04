@@ -15,7 +15,7 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
     transform-origin: top;
     background-color: #ffffff;
-    filter:drop-shadow(0px 0px 8px rgba(0.19607843458652496,0.2549019753932953,0.5843137502670288,0.30000001192092896));
+    filter: drop-shadow(0px 0px 8px rgba(0.19607843458652496, 0.2549019753932953, 0.5843137502670288, 0.30000001192092896));
     &:hover {
       background-color: #b4cffc;
       transform: scale(1.05);
@@ -51,29 +51,28 @@
 }
 
 .accardionWrapper_component_exerciseWrapperImage {
-
   &_exerciseimage {
     @include display(flex, column, flex-start, center);
-    padding:0;
-    gap:4px;
+    padding: 0;
+    gap: 4px;
     //&:hover {
     //  background-color: #b4cffc;
     //  transform: scale(1.05);
     //}
     &_imageDiv {
       //@include display(flex, row, space-between, center);
-      height:160px;
+      height: 160px;
       width: 100%;
-      border-radius:24px;
-      padding:0;
-      position:relative;
+      border-radius: 24px;
+      padding: 0;
+      position: relative;
       background-color: #d2d8e0;
       &_image {
-        height:100%;
+        height: 100%;
         width: 100%;
         object-fit: cover;
         background-color: #93bffa;
-        border-radius:24px;
+        border-radius: 24px;
       }
 
       &_status {
@@ -85,10 +84,11 @@
       }
     }
     &_nameWrapper {
-      width: 100%;
-      height:72px;
+      width: 166px;
+      height: 20px;
+
       &_title {
-        @include font(500, 15px, 15px);
+        @include font(500, 14px, 14.6px);
         color: #000000;
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           margin: 0;
@@ -96,13 +96,18 @@
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           margin: 0;
         }
-        text-align:left;
-        vertical-align:middle;
+        // text-align: left;
+        // vertical-align: middle;
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+        width: 166px;
+        height: 100%;
+        text-overflow: ellipsis;
       }
     }
   }
 }
-
 
 .inactive {
   opacity: 0.5;
