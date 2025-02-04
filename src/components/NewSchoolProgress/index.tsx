@@ -8,8 +8,8 @@ import { logoHeader } from '../../assets/img/common'
 import { useAppSelector } from 'store/hooks'
 import { schoolProgressSelector } from 'selectors'
 import { Button } from 'components/common/Button/Button'
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-import { styled } from '@mui/material/styles';
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress'
+import { styled } from '@mui/material/styles'
 import DoneIcon from '@mui/icons-material/Done'
 import ClearIcon from '@mui/icons-material/Clear'
 
@@ -61,7 +61,7 @@ export const NewSchoolProgress: FC = () => {
         backgroundColor: '#357eeb',
       }),
     },
-  }));
+  }))
 
   return (
     show && (
@@ -73,6 +73,7 @@ export const NewSchoolProgress: FC = () => {
         animate={{
           y: 0,
           opacity: 1,
+          x: '-50%',
         }}
         transition={{
           delay: 6,
@@ -104,27 +105,20 @@ export const NewSchoolProgress: FC = () => {
           </div>
           <div className={styles.wrapper_top} style={{ marginTop: '1rem' }}>
             <div className={styles.wrapper_button_allTasks}>
-              <Button
-                onClick={toggleTasks}
-                text={allTasks ? 'Скрыть все задания' : 'Показать все задания'}
-                variant='newSecondary'
-              />
+              <Button onClick={toggleTasks} text={allTasks ? 'Скрыть все задания' : 'Показать все задания'} variant="newSecondary" />
             </div>
-          </div> 
+          </div>
         </div>
         {allTasks && (
-          <motion.div
-              className={styles.wrapper_tasks}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-          >
+          <motion.div className={styles.wrapper_tasks} transition={{ duration: 0.4, ease: 'easeOut' }}>
             {schoolProgressState.tasks.map((task, index) => (
               <div className={styles.wrapper_task} key={index}>
-                <span>{task.completed ? <DoneIcon sx={{ color: '#357EEB' }}/> : <ClearIcon sx={{ color: 'red' }} />}</span>
+                <span>{task.completed ? <DoneIcon sx={{ color: '#357EEB' }} /> : <ClearIcon sx={{ color: 'red' }} />}</span>
                 <p className={styles.wrapper_task_title}>{task.task}</p>
               </div>
             ))}
           </motion.div>
-          )}
+        )}
       </motion.div>
     )
   )

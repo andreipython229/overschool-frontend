@@ -3,9 +3,15 @@
 
 .progressWrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, min(430px, 30.6%));
+  gap: 42px;
   align-items: center;
   width: 100%;
+
+  @media screen and (max-width: 1919px) {
+    gap: 15px;
+    grid-template-columns: repeat(3, min(430px, 32.3%));
+  }
 
   @media screen and (max-width: 700px) {
     display: flex;
@@ -16,10 +22,12 @@
   }
 
   &_progressSlice {
-    display: flex;
-    width: 25.625rem;
-    align-items: center;
-    align-content: center;
+    // display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    width: min(100%, 25.625rem);
+    // align-items: center;
+    // align-content: center;
     gap: 0.625rem;
     flex-wrap: wrap;
 
@@ -39,14 +47,17 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      width: 12.5rem;
-      height: 12.5rem;
+      width: min(100%, 12.5rem);
+      height: min(100%, 12.5rem);
+      padding: 20px;
       gap: 1.25rem;
       flex-shrink: 0;
       border-radius: 2.125rem;
       background: var(--Blue-inactive-gradient, linear-gradient(180deg, #cfe2ff 0%, #bbceeb 100%));
 
       svg {
+        width: 80%;
+        height: auto;
         @media screen and (max-width: 700px) {
           width: 4rem;
           height: 4rem;
@@ -66,13 +77,13 @@
         color: var(--White, #fff);
         text-align: center;
         position: absolute;
-        top: 2.5rem;
+        top: 15px;
         font-family: 'SFPROMedium';
         font-size: 3.76894rem;
         font-style: normal;
         font-weight: 500;
         letter-spacing: -1px;
-        line-height: 5.07981rem; /* 134.783% */
+        // line-height: 5.07981rem; /* 134.783% */
 
         @media screen and (max-width: 700px) {
           top: 0;
@@ -103,7 +114,7 @@
 
   &_peopleStats {
     display: flex;
-    width: 25.9375rem;
+    width: min(100%, 25.9375rem);
     height: 28.5625rem;
     padding: 1.5rem 0rem;
     flex-direction: column;
@@ -122,15 +133,16 @@
     }
 
     &_rates {
-      width: 23.125rem;
+      width: min(100%, 23.125rem);
       height: 11.3125rem;
       flex-shrink: 0;
       display: flex;
       flex-direction: row;
+      gap: 3px;
       justify-content: space-between;
 
       &_rate1 {
-        width: 7.375rem;
+        width: min(100%, 7.375rem);
         border-radius: 1.5rem;
         height: 7.375rem;
         flex-shrink: 0;
@@ -150,7 +162,7 @@
       }
 
       &_rate2 {
-        width: 7.375rem;
+        width: min(100%, 7.375rem);
         border-radius: 1.5rem;
         height: 7.375rem;
         flex-shrink: 0;
@@ -170,7 +182,7 @@
       }
 
       &_rate3 {
-        width: 7.375rem;
+        width: min(100%, 7.375rem);
         border-radius: 1.5rem;
         height: 7.375rem;
         flex-shrink: 0;
@@ -333,7 +345,7 @@
 
   &_overallProgress {
     display: flex;
-    width: 25.9375rem;
+    width: min(100%, 25.9375rem);
     height: 25.625rem;
     padding: 1rem 0.5rem;
     justify-content: center;
@@ -407,6 +419,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.1875rem;
+  width: 100%;
 
   h4,
   h5 {

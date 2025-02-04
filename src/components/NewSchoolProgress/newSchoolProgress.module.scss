@@ -3,15 +3,16 @@
 
 @font-face {
   font-family: 'SFPRORegular';
-  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
 }
 
 .wrapper {
   position: fixed;
   display: flex;
   flex-direction: column;
-  left: 33.3%;
+  left: 50%;
   top: 50px;
+  transform: translateX(-50%);
   width: 50vw;
   height: max-content;
   border-radius: 30px;
@@ -19,7 +20,19 @@
   z-index: 10000;
   font-family: 'SFPRORegular';
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  background: linear-gradient(35deg, #57b9ff 0%, #85c6ff 9%, #a8d5ff 17%, #c7e2ff 26%, #e0efff 35%, #f5faff 44%, #e0e8ff 54%, #dbe4ff 63%, #c2d2ff 72%, #9ebaff 100%);
+  background: linear-gradient(
+    35deg,
+    #57b9ff 0%,
+    #85c6ff 9%,
+    #a8d5ff 17%,
+    #c7e2ff 26%,
+    #e0efff 35%,
+    #f5faff 44%,
+    #e0e8ff 54%,
+    #dbe4ff 63%,
+    #c2d2ff 72%,
+    #9ebaff 100%
+  );
 
   &_logo {
     position: absolute;
@@ -45,7 +58,7 @@
     justify-content: flex-end;
     width: 100%;
 
-    svg:hover path{
+    svg:hover path {
       fill: $color-blue;
     }
   }
@@ -97,7 +110,7 @@
     width: 100%;
     max-width: 367px;
     height: 44px;
-    border: 1px solid #8C8B8D;
+    border: 1px solid #8c8b8d;
     border-radius: 10px;
     background: #ffffff;
     margin-bottom: 1.5rem;
@@ -147,7 +160,6 @@
   }
 
   &_button {
-
     &_allTasks {
       button {
         padding: 12px 24px;

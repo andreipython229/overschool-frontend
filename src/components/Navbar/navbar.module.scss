@@ -2,14 +2,15 @@
 @import '../../scss/mixin.scss';
 
 .navbar {
-  @include position_b_l(fixed, 0, 0, 10);
+  position: fixed;
+  z-index: 10;
   @include display(flex, column, flex-end, center);
-  top: 2.5rem;
-  left: 1rem;
+  top: 2rem;
+  left: calc(((100vw - min(70.83vw, 1360px) - 80px) / 2) - 80px);
   white-space: nowrap;
   overflow: hidden;
-  max-height: 90vh;
-  height: 90vh;
+  max-height: min(889px, 90vh);
+  height: 100%;
   max-width: 100px;
   padding: 20px 0;
   border-radius: 24px;
@@ -38,15 +39,15 @@
     padding: 35px 0;
   }
 
-  @media only screen and (min-width: 481px) and (max-width: 1024px) {
-    @include position_b_l(fixed, 0, 0, 10);
-    @include display(flex, row, center, center);
-    width: 100%;
-    height: 70px;
-    background: $color-white;
-    box-shadow: 0 0 5px #d9d9d9;
-    padding: 35px 0;
-  }
+  // @media only screen and (min-width: 481px) and (max-width: 1024px) {
+  //   @include position_b_l(fixed, 0, 0, 10);
+  //   @include display(flex, row, center, center);
+  //   width: 100%;
+  //   height: 70px;
+  //   background: $color-white;
+  //   box-shadow: 0 0 5px #d9d9d9;
+  //   padding: 35px 0;
+  // }
 
   &_show_btn {
     @include display(flex, column, space-between, center);
@@ -170,15 +171,15 @@
       align-items: center;
     }
 
-    @media only screen and (min-width: 481px) and (max-width: 1024px) {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      margin: 20px;
-      align-items: center;
-    }
+    // @media only screen and (min-width: 481px) and (max-width: 1024px) {
+    //   height: 100%;
+    //   width: 100%;
+    //   display: flex;
+    //   flex-direction: row;
+    //   justify-content: space-evenly;
+    //   margin: 20px;
+    //   align-items: center;
+    // }
 
     &_icon_container,
     &_setting_account {
