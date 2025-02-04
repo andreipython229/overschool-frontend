@@ -13,10 +13,10 @@
   padding-left: 1rem;
   transition: 0.3s;
 
-  @media only screen and (min-width: 320px) and (max-width: 1000px){
+  @media only screen and (min-width: 320px) and (max-width: 1000px) {
     overflow: hidden;
     width: 100%;
-    height: 6vw;
+    height: 54px;
     border: 1px solid #332f36;
     border-radius: 10px;
     background-color: #ffff;
@@ -24,10 +24,9 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-left: 1vw;
+    padding-left: 15px;
     transition: 0.3s;
-    }
-
+  }
 
   &:hover {
     border: 1px solid rgb(53, 126, 235);
@@ -76,23 +75,20 @@
       }
     }
 
-    @media only screen and (min-width: 320px) and (max-width: 1000px){
+    @media only screen and (min-width: 320px) and (max-width: 1000px) {
       width: 100%;
       height: 100%;
       outline: none;
       transition: 0.3s;
       border: none;
       color: #357eeb;
-      @include font(500, 2vw);
+      @include font(500, 20px);
 
-        &::placeholder {
+      &::placeholder {
         @include font(400, 2vw, 17px);
         color: #656465;
       }
-  }
-
-
-
+    }
   }
 
   &_input {

@@ -1,6 +1,7 @@
 import { Link, generatePath, useNavigate } from 'react-router-dom'
 
 import { Path } from '../../enum/pathE'
+import logotype from './components/imgs/logo.png'
 
 import styles from './chooseSchool.module.scss'
 import { useEffect, useState } from 'react'
@@ -15,6 +16,7 @@ import { setHeaderId } from '../../store/redux/school/headerIdSlice'
 import { useDispatch } from 'react-redux'
 import { useBoolean } from '../../customHooks'
 import { userRoleName } from 'config/index'
+import mobileImg from './components/imgs/mobileBg.png'
 import { Portal } from '../../components/Modal/Portal'
 import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
 import { motion } from 'framer-motion'
@@ -27,6 +29,8 @@ import { logoHeaderLogin, leftArrow, admin, admin2, teacher, teacher2, student, 
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
+import { Input } from 'components/common/Input/Input/Input'
+import { SchoolSelect } from './components/schoolSelect'
 
 export type SchoolT = {
   school_id: number
@@ -61,9 +65,6 @@ export const ChooseSchool = () => {
   const [schoolsWithDomain, setSchoolsWithDomain] = useState<SchoolT[]>()
 
   useEffect(() => {
-    // console.log('DomainData:', DomainData);
-    // console.log('Schools:', schools);
-
     if (DomainData && schools && schools.length > 0) {
       const domainArray = Array.isArray(DomainData) ? DomainData : (DomainData as { data: Domain[] }).data || []
 
@@ -87,10 +88,6 @@ export const ChooseSchool = () => {
       console.error('DomainData is invalid or schools array is empty')
     }
   }, [DomainSuccess, DomainData, schools])
-
-  const [isHoveredAdmin, setIsHoveredAdmin] = useState(false)
-  const [isHoveredTeacher, setIsHoveredTeacher] = useState(false)
-  const [isHoveredStudent, setIsHoveredStudent] = useState(false)
 
   useEffect(() => {
     dispatchRole(role(RoleE.Unknown))
@@ -189,6 +186,8 @@ export const ChooseSchool = () => {
           ) : (
             <motion.div
               style={{
+                width: '100%',
+                padding: '0 2rem',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -211,7 +210,7 @@ export const ChooseSchool = () => {
               }}
             >
               {showWarning && selectedSchool && (
-                <Dialog open={showWarning} onClose={close} fullScreen={fullScreen} aria-labelledby="responsive-dialog-title">
+                <Dialog open={showWarning} onClose={close} aria-labelledby="responsive-dialog-title">
                   <DialogTitle
                     id="responsive-dialog-title"
                     sx={{
@@ -238,65 +237,33 @@ export const ChooseSchool = () => {
               <div className={styles.logo}>
                 <div className={styles.logo_btnBack}>
                   <a href={Path.InitialPage}>
-                    <img src={leftArrow} alt="leftArrow" />
+                    <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M18.297 4.05796C18.5234 4.05796 18.7497 4.14135 18.9284 4.32004C19.2739 4.66552 19.2739 5.23734 18.9284 5.58281L11.1612 13.35C10.5894 13.9218 10.5894 14.851 11.1612 15.4228L18.9284 23.19C19.2739 23.5355 19.2739 24.1073 18.9284 24.4528C18.5829 24.7983 18.0111 24.7983 17.6656 24.4528L9.89843 16.6856C9.29088 16.0781 8.9454 15.2561 8.9454 14.3864C8.94541 13.5168 9.27897 12.6948 9.89843 12.0872L17.6656 4.32004C17.8443 4.15326 18.0707 4.05796 18.297 4.05796Z"
+                        fill="#332F36"
+                      />
+                    </svg>
                   </a>
                 </div>
                 <div className={styles.logo_logoWrapper}>
                   <img src={logoHeaderLogin} alt="logoHeaderLogin" />
                 </div>
-                <div className={styles.logo_rolePic}>
-                  <div className={styles.logo_rolePic_box}>
-                    <motion.div
-                      onMouseEnter={() => setIsHoveredAdmin(true)}
-                      onMouseLeave={() => setIsHoveredAdmin(false)}
-                      className={styles.logo_rolePic_box_role}
-                    >
-                      {isHoveredAdmin ? (
-                        <motion.img src={admin2} alt="admin2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
-                      ) : (
-                        <motion.img src={admin} alt="admin" initial={{ opacity: 1 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
-                      )}
-                    </motion.div>
-                  </div>
-                  <div className={styles.logo_rolePic_box}>
-                    <motion.div
-                      onMouseEnter={() => setIsHoveredTeacher(true)}
-                      onMouseLeave={() => setIsHoveredTeacher(false)}
-                      className={styles.logo_rolePic_box_role}
-                    >
-                      {isHoveredTeacher ? (
-                        <motion.img src={teacher2} alt="teacher2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
-                      ) : (
-                        <motion.img src={teacher} alt="teacher" initial={{ opacity: 1 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
-                      )}
-                    </motion.div>
-                  </div>
-                  <div className={styles.logo_rolePic_box}>
-                    <motion.div
-                      onMouseEnter={() => setIsHoveredStudent(true)}
-                      onMouseLeave={() => setIsHoveredStudent(false)}
-                      className={styles.logo_rolePic_box_role}
-                    >
-                      {isHoveredStudent ? (
-                        <motion.img src={student2} alt="student2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
-                      ) : (
-                        <motion.img src={student} alt="student" initial={{ opacity: 1 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />
-                      )}
-                    </motion.div>
-                  </div>
-                </div>
+                {window.innerWidth <= 505 && <img src={mobileImg} alt="" style={{ width: '100%', objectFit: 'contain', marginBottom: '1rem' }} />}
                 <span className={styles.tit}>Выберите платформу для входа:</span>
+                {window.innerWidth <= 505 && (
+                  <form style={{ padding: '1rem 0', width: '100%' }}>
+                    <Input
+                      name="search"
+                      id="searchInput"
+                      type="text"
+                      placeholder="Поиск по названию платформы..."
+                      value={search}
+                      style={{ width: '100%', margin: '0 auto' }}
+                      onChange={event => setSearch(event.target.value)}
+                    />
+                  </form>
+                )}
               </div>
-              {/* <motion.div className={styles.search} whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
-                <form>
-                  <input
-                    type="text"
-                    placeholder="Название платформы..."
-                    className={styles.search}
-                    onChange={event => setSearch(event.target.value)}
-                  ></input>
-                </form>
-              </motion.div> */}
               <div className={styles.schoolBox}>
                 {schools && filteredSchool ? (
                   <Swiper
@@ -320,15 +287,7 @@ export const ChooseSchool = () => {
                             style={{ textDecoration: 'none' }}
                             to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                           >
-                            <div className={styles.bg}>
-                              <div className={styles.bg_container}>
-                                <div className={styles.name} style={{ textDecoration: 'none' }}>
-                                  {school.name}
-                                </div>
-                                <div className={styles.role}>{userRoleName[school.role]}</div>
-                              </div>
-                              <span>→</span>
-                            </div>
+                            <SchoolSelect role={school.role} logo={logotype} schoolName={school.name} />
                           </Link>
                         ) : school.role === 'Admin' ? (
                           <Link
@@ -339,31 +298,17 @@ export const ChooseSchool = () => {
                             style={{ textDecoration: 'none', overflow: 'hidden' }}
                             to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                           >
-                            <div className={styles.bg}>
-                              <div className={styles.bg_container}>
-                                <div className={styles.name} style={{ textDecoration: 'none' }}>
-                                  {school.name}
-                                </div>
-                                <div className={styles.role}>{userRoleName[school.role]}</div>
-                              </div>
-                              <span>→</span>
-                            </div>
+                            <SchoolSelect role={school.role} logo={logotype} schoolName={school.name} />
                           </Link>
                         ) : (
                           <div
-                            className={styles.bg}
+                            // className={styles.bg}
                             onClick={() => {
                               setSelectedSchool(school)
                               open()
                             }}
                           >
-                            <div className={styles.bg_container}>
-                              <div className={styles.name} style={{ textDecoration: 'none' }}>
-                                {school.name}
-                              </div>
-                              <div className={styles.role}>{userRoleName[school.role]}</div>
-                            </div>
-                            <span>→</span>
+                            <SchoolSelect role={school.role} logo={logotype} schoolName={school.name} />
                           </div>
                         )}
                       </SwiperSlide>
@@ -375,9 +320,25 @@ export const ChooseSchool = () => {
                   </p>
                 )}
               </div>
-              <div className={styles.create} onClick={off}>
-                <span>cоздать платформу</span>
-              </div>
+
+              {window.innerWidth > 505 && (
+                <form style={{ padding: '2rem', width: '100%' }}>
+                  <Input
+                    name="search"
+                    id="searchInput"
+                    type="text"
+                    placeholder="Поиск по названию платформы..."
+                    value={search}
+                    style={{ width: '80%', margin: '0 auto' }}
+                    onChange={event => setSearch(event.target.value)}
+                  />
+                </form>
+              )}
+              {window.innerWidth > 505 && (
+                <div className={styles.create} onClick={off}>
+                  <span>cоздать платформу</span>
+                </div>
+              )}
             </motion.div>
           )}
         </div>

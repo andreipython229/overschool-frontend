@@ -24,6 +24,8 @@ import { useGetSchoolsMutation } from '../../api/getSchoolService'
 
 import { logoHeaderLogin, facebook, google, maillog, leftArrow } from '../../assets/img/common/index'
 import { selectUser } from 'selectors'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
+import { BackgroundAnimation } from 'components/BackgroundAnimation'
 
 interface INotification {
   state: boolean
@@ -272,18 +274,8 @@ export const LoginPage = () => {
 
   return (
     <section className={styles.loginPage}>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap1}></div>
-      </div>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap2}></div>
-      </div>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap3}></div>
-      </div>
-      <div className={styles.bg}>
-        <div className={styles.bg_wrap4}></div>
-      </div>
+      {isFetching || (isLoading && <LoaderLayout />)}
+      <BackgroundAnimation />
       <div className={styles.loginPage_btnBack}>
         <a href={Path.InitialPage}>
           <img src={leftArrow} alt="leftArrow" />
@@ -293,15 +285,9 @@ export const LoginPage = () => {
         <img src={logoHeaderLogin} alt="logoHeaderLogin" />
       </div>
       <div className={styles.loginPage_formWrapper}>
-        {isFetching ||
-          (isLoading && (
-            <div className={styles.loader}>
-              <SimpleLoader style={{ width: '50px', height: '50px' }} />
-            </div>
-          ))}
         {isHidden && (
           <form className={styles.loginPage_formWrapper_form} onSubmit={formik.handleSubmit}>
-            <p className={styles.loginPage_formWrapper_form_title}>Авторизироваться</p>
+            <p className={styles.loginPage_formWrapper_form_title}>Авторизация</p>
             <p className={styles.loginPage_formWrapper_form_title_comment}>Введите свои учетные данные</p>
             <div className={styles.loginPage_formWrapper_form_eMailWrapper}>
               <p className={styles.loginPage_formWrapper_form_eMailWrapper_title}></p>
@@ -331,15 +317,21 @@ export const LoginPage = () => {
               <div className={styles.errors}>{formik.errors.password}</div>
             </div>
             <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
-              <p>Нет Аккаунта?</p>
-              {/* <div className={styles.main_btn}>
-                  <Button onClick={handleRegistrationUser} type="submit" text={'Зарегестрироваться'} style={{ width: '400px', height:'54px', borderRadius: '10px', marginBottom:'3rem' }} variant={'newCreate'} />
+              {/* <p>Нет Аккаунта?</p>
+              <div className={styles.btn} style={{ marginBottom: '10px' }}>
+                <Button
+                  onClick={handleRegistrationUser}
+                  type="submit"
+                  text={'Зарегистрироваться'}
+                  style={{ borderRadius: '10px' }}
+                  variant={'newLogInHeader'}
+                />
               </div> */}
               <div className={styles.btn}>
                 <Button type="submit" text={'Вход'} style={{ borderRadius: '10px' }} variant={'newPrimary'} />
               </div>
               <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn}>
-                <a className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn_a} href="" onClick={forgotPass} style={{ textDecoration: 'none', width: 'max-content', display: 'inline-flex' }}>
+                <a className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn_a} href="" onClick={forgotPass}>
                   Забыли пароль?
                 </a>
               </div>

@@ -241,9 +241,9 @@
       //@include display(flex, row, flex-start, flex-start);
       margin-top: 15px;
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      grid-template-rows: repeat(auto-fit, 212px);
-      gap: 20px 20px;
+      grid-template-columns: repeat(auto-fit, 166px);
+      grid-template-rows: repeat(auto-fit, 190px);
+      gap: 32px;
       @media only screen and (max-width: 800px) {
         padding: 10px 10px;
         grid-template-columns: repeat(2, 1fr);

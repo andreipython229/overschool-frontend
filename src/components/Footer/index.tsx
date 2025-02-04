@@ -24,12 +24,11 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
 
   return (
     <footer className={styles.wrapper}>
-
       <div className={styles.wrapper_img}>
         <img src={footerlogo} alt="footerlogo" />
       </div>
-      <div style={{width: '100%'}}>
-        <img src={line} alt="line" />
+      <div style={{ width: '100%' }}>
+        <img src={line} alt="line" style={{ width: '100%', objectFit: 'cover' }} />
       </div>
       <div className={styles.wrapper_box}>
         <div className={styles.wrapper_box_contact}>
