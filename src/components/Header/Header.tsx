@@ -727,7 +727,11 @@ export const Header = memo(() => {
             </div>
           )}
           {userRole === RoleE.Admin && tariffPlan && 'error' in tariffPlan && (
-            <div className={styles.tariffPlan} style={{ textDecoration: 'none', gap: '10px' }} onClick={() => navigate(generatePath(Path.TariffPlans))}>
+            <div
+              className={styles.tariffPlan}
+              style={{ textDecoration: 'none', gap: '10px' }}
+              onClick={() => navigate(generatePath(Path.TariffPlans))}
+            >
               <div className={styles.tariffPlan_icon}>
                 <IconSvg width={23} height={19} viewBoxSize="0 0 23 19" path={orangeTariffPlanIconPath} />
               </div>
@@ -792,7 +796,7 @@ export const Header = memo(() => {
           </Menu>
         </React.Fragment>
         <div className={styles.header_logOut} onClick={logOut}>
-          <p>Выйти</p>
+          {window.innerWidth > 1154 && <p>Выйти</p>}
           {isLoading ? (
             <SimpleLoader style={{ position: 'fixed', width: '30px', height: '30px' }} loaderColor="#357EEB" />
           ) : (

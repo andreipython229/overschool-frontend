@@ -96,7 +96,6 @@ export const MainLayOut: FC = memo(() => {
       <div className={styles.wrapper}>
         <BackgroundAnimation />
         {userRole === RoleE.Admin && progress.completion_percentage < 100 && <NewSchoolProgress />}
-        <Navbar />
         <Header />
         <motion.main
           className={styles.container}
@@ -114,6 +113,7 @@ export const MainLayOut: FC = memo(() => {
             duration: 1.2,
           }}
         >
+          <Navbar />
           {!routesWithoutPrevious.includes(location.pathname) && <Previous />}
           <Outlet />
         </motion.main>
