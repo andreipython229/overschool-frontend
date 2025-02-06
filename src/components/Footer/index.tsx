@@ -24,23 +24,22 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
 
   return (
     <footer className={styles.wrapper}>
-
       <div className={styles.wrapper_img}>
         <img src={footerlogo} alt="footerlogo" />
       </div>
-      <div style={{width: '100%'}}>
-        <img src={line} alt="line" />
+      <div style={{ width: '100%' }}>
+        <img src={line} alt="line" style={{ width: '100%', objectFit: 'cover' }} />
       </div>
       <div className={styles.wrapper_box}>
         <div className={styles.wrapper_box_contact}>
           <h1>КОНТАКТЫ</h1>
-          <div className={styles.wrapper_box_contact_pack}>
+          {/* <div className={styles.wrapper_box_contact_pack}>
             <img src={callfooter} alt="callfooter" />
             <a href="tel:+375292532151" type="tel">
               {' '}
               +375 (29) 253 21 51{' '}
             </a>
-          </div>
+          </div> */}
           <div className={styles.wrapper_box_contact_pack}>
             <img src={mailfooter} alt="mailfooter" />
             <a href="mailto:admin@coursehb.ru" type="email">
@@ -55,7 +54,7 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
               220013, Республика Беларусь,
               <br /> г. Минск, ул.Некрасова, д. 5,
               <br />
-              оф. 911.
+              оф. 511.
             </p>
           </div>
         </div>

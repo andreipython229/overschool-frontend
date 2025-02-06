@@ -42,7 +42,7 @@ import { w3cwebsocket } from 'websocket'
 import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice'
 import { useFetchNotificationsQuery, useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
 import { TgMessage } from 'types/tgNotifications'
-import { useFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
+import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { useLoginMutation } from '../../api/userLoginService'
 import { CoursesDataT } from 'types/CoursesT'
@@ -117,12 +117,12 @@ export const Header = memo(() => {
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
 
-  const { data: studentsGroups } = useFetchStudentsGroupWithParamsQuery({ schoolName: schoolName, params: 's=100' })
+  const [fetchGroups, { data: studentsGroups }] = useLazyFetchStudentsGroupWithParamsQuery()
   const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
   const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null)
   const [acceptBanner] = useAcceptBannerMutation()
 
-  const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
+  // const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
   const [showTgMessageForm, setShowTgMessageForm] = useState(false)
   const [createTgMessage] = useUpdateTgMessageMutation()
   const [tgMessage, setTgMessage] = useState<TgMessage>({
@@ -154,6 +154,12 @@ export const Header = memo(() => {
       }
     })
   }
+
+  useEffect(() => {
+    if (userRole === RoleE.Admin) {
+      fetchGroups({ schoolName: schoolName, params: 's=100' })
+    }
+  }, [])
 
   const handleLogin = async (login: string, password: string) => {
     try {
@@ -727,7 +733,11 @@ export const Header = memo(() => {
             </div>
           )}
           {userRole === RoleE.Admin && tariffPlan && 'error' in tariffPlan && (
-            <div className={styles.tariffPlan} style={{ textDecoration: 'none', gap: '10px' }} onClick={() => navigate(generatePath(Path.TariffPlans))}>
+            <div
+              className={styles.tariffPlan}
+              style={{ textDecoration: 'none', gap: '10px' }}
+              onClick={() => navigate(generatePath(Path.TariffPlans))}
+            >
               <div className={styles.tariffPlan_icon}>
                 <IconSvg width={23} height={19} viewBoxSize="0 0 23 19" path={orangeTariffPlanIconPath} />
               </div>
@@ -738,7 +748,7 @@ export const Header = memo(() => {
             </div>
           )}
         </React.Fragment>
-        <div className={styles.header_socialIcons}>
+        <div className={userRole === RoleE.Admin ? styles.header_socialIcons : styles.header_socialIcons2}>
           {schoolData && (
             <>
               <SocialMediaButton variant="Telegram" url={schoolData.telegram_link || 'https://t.me/course_hb'} />
@@ -792,7 +802,7 @@ export const Header = memo(() => {
           </Menu>
         </React.Fragment>
         <div className={styles.header_logOut} onClick={logOut}>
-          <p>Выйти</p>
+          {window.innerWidth > 1154 && <p>Выйти</p>}
           {isLoading ? (
             <SimpleLoader style={{ position: 'fixed', width: '30px', height: '30px' }} loaderColor="#357EEB" />
           ) : (

@@ -962,39 +962,6 @@
     width: 100%;
     text-align: left;
 
-    div {
-      div {
-        width: 40px;
-        height: 20px;
-        background: rgba(128, 128, 128, 1);
-        border: none;
-
-        &[data-isOn='true'] {
-          background: transparent;
-          border: 1px solid rgba(53, 126, 235, 1);
-
-          div {
-            &::before {
-              background: rgba(53, 126, 235, 1);
-              border: none;
-            }
-          }
-        }
-
-        div {
-          width: 16px;
-          height: 16px;
-
-          &::before {
-            width: 16px;
-            height: 16px;
-            background: #ffffff;
-            border: none;
-          }
-        }
-      }
-    }
-
     &_attempts {
       width: 50px;
       margin-left: 16px;
@@ -1041,6 +1008,48 @@
       }
     }
   }
+}
+
+.toggle_switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.toggle_switch input {
+  display: none;
+}
+
+.toggle_switch .switch {
+  @include position_t_l(absolute, 0, 0);
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  background: rgba(128, 128, 128, 1);
+  border-radius: 36px;
+  transition: background-color 0.2s ease;
+}
+
+.toggle_switch .switch::before {
+  @include position_t_l(absolute, 2px, 2px);
+  content: "";
+  width: 16px;
+  height: 16px;
+  background-color: $color-white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.toggle_switch input:checked + .switch::before {
+  @include position_t_l(absolute, 1px, 1px);
+  transform: translateX(20px);
+  background-color: $color-blue;
+}
+
+.toggle_switch input:checked + .switch {
+  background-color: $color-white;
+  border: 1px solid $color-blue;
 }
 
 .webinar {

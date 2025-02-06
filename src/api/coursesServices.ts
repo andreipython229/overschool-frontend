@@ -84,12 +84,12 @@ export const coursesServices = createApi({
         const queryParams = new URLSearchParams({
           user_emails: emails.join(','),
           course_name: courseName,
-        });
-    
+        })
+
         return {
           url: `/${schoolName}/courses/${id}/delete_course_access/?${queryParams.toString()}`,
           method: 'PATCH',
-        };
+        }
       },
       invalidatesTags: ['courses', 'course'],
     }),
@@ -124,6 +124,7 @@ export const {
   useLazyFetchCourseCopyOwnersQuery,
   useDeleteCourseCopyAccessMutation,
   useFetchCourseFoldersQuery,
+  useLazyFetchCourseFoldersQuery,
   useCreateNewFoldersMutation,
   useDeleteFolderMutation,
 } = coursesServices
