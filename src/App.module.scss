@@ -33,3 +33,79 @@ body {
     min-width: 768px;
   }
 }
+
+@-moz-document url-prefix() {
+  .newInitial_bg {
+    z-index: -1;
+
+    &_wrap1 {
+      position: absolute;
+      z-index: -1;
+      width: 50px;
+      height: 50px;
+      background: #89b8fe;
+      border-radius: 50%;
+      scale: 10;
+      filter: blur(25px);
+      -webkit-filter: blur(25px);
+      -moz-filter: blur(25px);
+      -o-filter: blur(25px);
+      -ms-filter: blur(25px);
+      animation: bgAnimate1 50s linear infinite;
+    }
+
+    &_wrap2 {
+      z-index: -1;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      left: 100%;
+      top: 100%;
+      scale: 10;
+      background: #89b8fe;
+      border-radius: 50%;
+      filter: blur(25px);
+      -webkit-filter: blur(25px);
+      -moz-filter: blur(25px);
+      -o-filter: blur(25px);
+      -ms-filter: blur(25px);
+      animation: bgAnimate2 50s linear infinite;
+    }
+
+    &_wrap3 {
+      z-index: -1;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      left: 100%;
+      top: 0%;
+      scale: 10;
+      background: #89b8fe;
+      border-radius: 50%;
+      filter: blur(25px);
+      -webkit-filter: blur(25px);
+      -moz-filter: blur(25px);
+      -o-filter: blur(25px);
+      -ms-filter: blur(25px);
+      animation: bgAnimate3 50s linear infinite;
+    }
+
+    &_wrap4 {
+      z-index: -1;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      scale: 10;
+      left: 0%;
+      top: 100%;
+      background: #89b8fe;
+      border-radius: 50%;
+      filter: blur(25px);
+      -webkit-filter: blur(25px);
+      -moz-filter: blur(25px);
+      -o-filter: blur(25px);
+      -ms-filter: blur(25px);
+      animation: bgAnimate4 50s linear infinite;
+    }
+  }
+}

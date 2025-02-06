@@ -8,10 +8,15 @@ import { generatePath, useNavigate } from 'react-router-dom'
 import { Path } from '../../enum/pathE'
 import { ManageSearch, Menu } from '@mui/icons-material'
 import { logoHeaderLogin } from 'assets/img/common'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { selectUser } from 'selectors'
+import { logoutState } from 'store/redux/users/slice'
 
 export const MobileInitPage = () => {
   // const [openLoginModal, setOpenLoginModal] = useState<boolean>(false)
   const navigate = useNavigate()
+  const { auth } = useAppSelector(selectUser)
+  const dispatch = useAppDispatch()
 
   const showLoginModal = () => {
     navigate(generatePath(Path.LoginPage))
@@ -50,10 +55,11 @@ export const MobileInitPage = () => {
             начать свое увлекательное путешествие в мир программирования и дизайна. Давайте вместе создавать будущее в IT-индустрии!
           </p> */}
 
-          <Button onClick={showLoginModal} variant={'newPrimary'} text={'Вход'} />
-          <a className={styles.help} href="/help">
+          <Button onClick={showLoginModal} variant={'newPrimary'} text={auth ? 'К выбору платформы' : 'Авторизация'} />
+          {auth && <Button onClick={() => dispatch(logoutState())} variant={'newLogIn'} text={'Выйти из аккаунта'} />}
+          {/* <a className={styles.help} href="/help">
             Помощь
-          </a>
+          </a> */}
           {/* <Button
             onClick={handleTariffPage}
             variant={'logIn'}

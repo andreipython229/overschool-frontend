@@ -61,10 +61,16 @@ export const NewLoader: FC<newLoaderT> = ({ style }) => {
 
   return (
     <div className={styles.loader} style={{ ...style }}>
-      <img src={imagesComp.logoLoader} style={{height: '106px', width: '176px'}} alt="loader-logo" />
+      <img src={imagesComp.logoLoader} style={{ height: '106px', width: '176px' }} alt="loader-logo" />
       <div className={styles.slider_container}>
         {images.map((image, index) => (
-          <img key={index} src={image} alt={`Slide ${index}`} className={`${styles.slide} ${index === currentIndex ? styles.active : ''}`} />
+          <img
+            decoding="async"
+            key={index}
+            src={image}
+            alt={`Slide ${index}`}
+            className={`${styles.slide} ${index === currentIndex ? styles.active : ''}`}
+          />
         ))}
       </div>
     </div>

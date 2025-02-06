@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: 'SFPRORegular';
-  src: url(../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  src: url(../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
 }
 
 .showBtn {
@@ -82,6 +82,10 @@
     width: 100%;
     background: transparent;
 
+    @media screen and (max-width: 1919px) {
+      max-width: 360px;
+    }
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 95%;
       text-align: center;
@@ -96,7 +100,8 @@
       border-radius: 16px;
       padding: 11px;
       width: 100%;
-      background-image: linear-gradient(90deg, #332F36 -5.88%, rgba(51, 47, 54, 0) 100%), url(../../../../../../assets/img/createCourse/course-background.jpeg);
+      background-image: linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%),
+        url(../../../../../../assets/img/createCourse/course-background.jpeg);
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -145,13 +150,13 @@
         width: 4px !important;
         display: block;
       }
-      
+
       &::-webkit-scrollbar-track {
         background-color: transparent;
       }
-      
+
       &::-webkit-scrollbar-thumb {
-        background-color: #357EEB;
+        background-color: #357eeb;
         border-radius: 5px;
       }
 
@@ -169,12 +174,11 @@
       }
 
       &_headerText {
-
         &_title {
           position: relative;
           @include display(flex, row, space-between, center);
           @include font(400, 14px);
-          background-color: #CFE2FF;
+          background-color: #cfe2ff;
           box-shadow: 0px 0px 4px 0px rgba(50, 65, 149, 0.3);
           padding: 6px 26px 5px 5px;
           border-radius: 10px;
@@ -254,7 +258,7 @@
 
         &:hover + .btn {
           box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
-          border: 1px solid #357EEB;
+          border: 1px solid #357eeb;
         }
 
         &_lesson {
@@ -352,7 +356,7 @@
       height: fit-content;
       border-radius: 20px;
       width: 100%;
-      box-shadow: 0px 0px 18px 0px #3241954D;
+      box-shadow: 0px 0px 18px 0px #3241954d;
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin: 0 auto;
@@ -582,12 +586,11 @@
       }
 
       &_functional {
-
         &_container {
           display: flex;
           flex-direction: column;
           gap: 40px;
-          padding-inline: 3em;
+          // padding-inline: 3em;
 
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             padding-inline: 0;
@@ -662,7 +665,7 @@
 
 .btn {
   margin: 10px auto 10px;
-  background: #357EEB;
+  background: #357eeb;
   padding: 10px 15px;
   border: none;
   border-radius: 40px;
@@ -674,7 +677,7 @@
   text-align: center;
 
   &:hover {
-    background: #357EEB !important;
+    background: #357eeb !important;
   }
 }
 
@@ -756,7 +759,7 @@ hr {
 }
 
 .selectedLesson {
-  background-color: #357EEB;
+  background-color: #357eeb;
   border-radius: 8px;
   color: $color-white;
 }
@@ -822,8 +825,19 @@ hr {
   width: 70%;
   border-radius: 20px;
   padding-bottom: 10px;
-  box-shadow: 0px 0px 8px 0px #3241954D;
-  background: linear-gradient(140deg,#c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
+  box-shadow: 0px 0px 8px 0px #3241954d;
+  background: linear-gradient(
+    140deg,
+    #c2e0ff 0%,
+    #c2e0ff 11%,
+    #d6eaff 16%,
+    #e5f2ff 25%,
+    #fafcff 57%,
+    #fafcff 82%,
+    #e5f2ff 89%,
+    #d6eaff 93%,
+    #c2e0ff 100%
+  );
   margin: 20px auto;
 
   &_num {
@@ -884,7 +898,7 @@ hr {
 
     input:checked ~ span {
       border: none;
-  }
+    }
   }
 
   &_tests_block {
@@ -933,13 +947,13 @@ hr {
 }
 
 .showLessons {
-  background-color: #357EEB;
+  background-color: #357eeb;
   box-shadow: 0px 0px 4px 0px rgba(50, 65, 149, 0.3);
   color: #ffffff;
 }
 
 .showLessons:hover {
-  border: 1px solid #324195
+  border: 1px solid #324195;
 }
 
 .showLessonsInput {
@@ -952,7 +966,7 @@ hr {
 }
 
 .openEye {
-  background-color: #C6C6C6;
+  background-color: #c6c6c6;
   color: #808080;
   cursor: default;
 }
@@ -1005,6 +1019,7 @@ hr {
 
 .publicBlockEdit {
   display: flex;
+  align-items: center;
   gap: 20px;
 
   &_mark {
@@ -1014,7 +1029,7 @@ hr {
         color: $color-blue;
         @include font(500, 16px, 19.09px);
         font-family: 'SFPRORegular';
-  
+
         span {
           padding-right: 5px;
           padding-left: 0;
@@ -1024,17 +1039,16 @@ hr {
   }
 
   &_publish_switch {
-
     div {
       width: 40px;
       height: 20px;
       background: #e3e3e3;
       border: none;
-  
+
       &[data-isOn='true'] {
         background: transparent;
         border: 1px solid rgba(53, 126, 235, 1);
-  
+
         div {
           &::before {
             background: rgba(53, 126, 235, 1);
@@ -1042,11 +1056,11 @@ hr {
           }
         }
       }
-  
+
       div {
         width: 1rem;
         height: 1rem;
-  
+
         &::before {
           width: 1rem;
           height: 1rem;
@@ -1059,16 +1073,16 @@ hr {
 }
 
 .unpublished {
+  div {
     div {
-      div {
-        color: #bebebe;
-      }
+      color: #bebebe;
     }
+  }
 }
 
 .wrapper_preview {
   @include display(flex, column);
-  background-color: #CFE2FF;
+  background-color: #cfe2ff;
   padding: 20px;
   border-radius: 40px;
   max-width: 881px;
@@ -1076,12 +1090,12 @@ hr {
   margin: 0 auto 20px;
 
   &_test {
-    background: url(../../../../../../assets/img/common/questions.png), linear-gradient(
-      140deg,#c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
+    background: url(../../../../../../assets/img/common/questions.png),
+      linear-gradient(140deg, #c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
-    box-shadow: 0px 0px 8px 0px #3241954D;
+    box-shadow: 0px 0px 8px 0px #3241954d;
     border-radius: 20px;
     min-height: 409px;
     max-width: 841px;
@@ -1118,12 +1132,12 @@ hr {
   position: relative;
   margin: 37px 0 20px 0;
   padding: 20px 20px 30px 21px;
-  background: url(../../../../../../assets/img/common/questions.png), linear-gradient(
-    140deg,#c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
+  background: url(../../../../../../assets/img/common/questions.png),
+    linear-gradient(140deg, #c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
   background-repeat: no-repeat;
   background-position: right;
   background-size: contain;
-  box-shadow: 0px 0px 8px 0px #3241954D;
+  box-shadow: 0px 0px 8px 0px #3241954d;
   overflow: hidden;
   min-height: 409px;
   border-radius: 64px;

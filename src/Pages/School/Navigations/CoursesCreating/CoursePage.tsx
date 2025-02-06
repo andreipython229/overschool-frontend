@@ -6,7 +6,7 @@ import { Input } from 'components/common/Input/Input/Input'
 import { RoleE } from 'enum/roleE'
 import { schoolIdSelector, schoolNameSelector, selectUser } from 'selectors'
 import { AddCourseModal } from 'components/Modal'
-import { useDeleteFolderMutation, useFetchCourseFoldersQuery, useLazyFetchCoursesPageQuery } from 'api/coursesServices'
+import { useDeleteFolderMutation, useLazyFetchCourseFoldersQuery, useLazyFetchCoursesPageQuery } from 'api/coursesServices'
 import { useSetSchoolMutation } from 'api/schoolService'
 import { useBoolean } from 'customHooks/useBoolean'
 import { Portal } from 'components/Modal/Portal'
@@ -32,7 +32,7 @@ export const CoursePage: FC = () => {
   const school_id = localStorage.getItem('school_id')
   const test_course = localStorage.getItem('test_course')
   const [fetchData, { data: coursesData, isSuccess }] = useLazyFetchCoursesPageQuery()
-  const { data: folders, isError, refetch } = useFetchCourseFoldersQuery(schoolName)
+  const [fetchFolders, { data: folders, isError }] = useLazyFetchCourseFoldersQuery()
   const [isOpenAddCourse, { onToggle }] = useBoolean()
   const [courses, setCourses] = useState<CoursesT>()
   const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
@@ -59,6 +59,12 @@ export const CoursePage: FC = () => {
   }
 
   useEffect(() => {
+    if (role === RoleE.Admin) {
+      fetchFolders(schoolName)
+    }
+  }, [])
+
+  useEffect(() => {
     if (isSuccess) {
       setCourses(coursesData)
     }
@@ -66,7 +72,7 @@ export const CoursePage: FC = () => {
 
   useEffect(() => {
     if (deletedSuccessfuly) {
-      refetch()
+      fetchFolders(schoolName)
     }
   }, [deletedSuccessfuly])
 
@@ -543,7 +549,7 @@ export const CoursePage: FC = () => {
       </AnimatePresence>
       {showModal && (
         <Portal closeModal={toggleModal}>
-          <AddNewFolderModal close={toggleModal} refreshFolders={refetch} />
+          <AddNewFolderModal close={toggleModal} refreshFolders={() => fetchFolders(schoolName)} />
         </Portal>
       )}
       {isOpenAddCourse ? (
