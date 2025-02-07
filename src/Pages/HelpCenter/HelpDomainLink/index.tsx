@@ -8,6 +8,9 @@ import { Button } from "../../../components/common/Button/Button";
 import firstStep from '../../../assets/img/createProject/firstStep.png'
 import secondStep from '../../../assets/img/createProject/secondStep.png'
 import { InitPageHeader } from "../../Initial/newInitialPageHeader";
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
+
 
 export const HelpDomainLink = () => {
     const navigate = useNavigate()
@@ -34,9 +37,15 @@ export const HelpDomainLink = () => {
                 <div className={styles.bg_wrap4}></div>
             </div>
             <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
-            <div className={styles.sections}>
-                <div className={`${localStyles.section}`}>
-                    <div className={localStyles.help_title_container}></div>
+            <div className={localStyles.sections}>
+                <div className={localStyles.section}>
+                    <div className={localStyles.help_title_container}>
+                        <div onClick={handleHelpPage} className={localStyles.back_btn}>
+                            <IconSvg path={ArrowLeftIconPath} viewBoxSize="0 0 9 14" height={24} width={18} />
+                        </div>
+                        <p>Как открыть онлайн-платформу на Course Hub</p>
+                        <div></div>
+                    </div>
                 </div>
             </div>
         </div>
