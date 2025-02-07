@@ -1,0 +1,21 @@
+.help {
+
+    &Page {
+        margin: 0;
+        padding-top: 24px;
+        
+    }
+
+    &_title_container{
+        display: flex;
+        background-color: aqua;
+        width: 100%;
+        height: 100px;
+    }
+
+    .section{
+        width: auto;
+        max-width: 93vw;
+    }
+
+}

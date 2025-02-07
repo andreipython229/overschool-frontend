@@ -37,6 +37,7 @@ import DomainError from './Pages/DomainAccessDenied/DomainError'
 import { useLazyFetchSchoolByDomainQuery } from 'api/DomainService'
 import RouteHandler from './components/RouteHandler/RouteHandler'
 import { TechnicalWorks } from 'Pages/TechnicalWorks/TechnicalWorks'
+import { HelpDomainLink } from 'Pages/HelpCenter/HelpDomainLink'
 
 export const App = () => {
   const currentDomain = window.location.hostname
@@ -192,6 +193,7 @@ export const App = () => {
           <Route path={Path.HelpGroupSettings} element={<HelpGroupSettings />} />
           <Route path={Path.HelpStudents} element={<HelpStudentsPage />} />
           <Route path={Path.HelpCheckHW} element={<HelpCheckHW />} />
+          <Route path={Path.HelpDomainLink} element={<HelpDomainLink />} />
           <Route path={Path.HelpChat} element={<HelpChat />} />
         </Route>
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
