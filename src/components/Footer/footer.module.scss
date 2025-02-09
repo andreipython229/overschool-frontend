@@ -125,6 +125,14 @@ p {
       flex-wrap: wrap;
     }
 
+    @media only screen and (min-width: 320px) and (max-width: 389px) {
+      height: 100vh;
+    }
+
+    @media only screen and (min-width: 436px) and (max-width: 480px) {
+      height: 100vh;
+    }
+
     h1 {
       font-weight: 600;
       font-size: 20px;

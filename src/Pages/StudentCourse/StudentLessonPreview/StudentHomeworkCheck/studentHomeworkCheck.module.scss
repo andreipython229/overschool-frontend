@@ -104,5 +104,11 @@
     padding: 1rem 2.5rem 1rem 2.5rem;
     width: 11.13rem;
     height: 3.38rem;
+
+    @media only screen and (min-width: 320px) and (max-width: 410px) {
+      font-size: 1.1rem;
+      padding: 1rem 1.5rem 1rem 1.5rem;
+      width: 100%;
+    }
   }
 }
