@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { usePatchCoursesMutation } from 'api/coursesServices'
 import { CoursesDataT } from 'types/CoursesT'
 import stylesCard from '../courseCard.module.scss'
@@ -141,13 +141,13 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
             : '0',
           }}
           className={stylesCard.CourseCardsTS__admin_button_students}
-          to={location.pathname.replace('settings', 'student')}
+          to={window.location.pathname.replace('settings', 'student')}
         >
           {courseFind?.public === 'О' && 'Ученики курса'}
         </Link>
         <Link
           className={stylesCard.CourseCardsTS__admin_button_edit}
-          to={location.pathname.replace('settings', '')}
+          to={window.location.pathname.replace('settings', '')}
         >
           Редактировать
         </Link>

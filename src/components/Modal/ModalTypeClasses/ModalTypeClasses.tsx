@@ -23,7 +23,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
   }
 
   return (
-    <div className={styles.classesContainer} style={{ maxWidth: '600px', width: '100%' }}>
+    <div className={styles.classesContainer}>
       <div onClick={handleClose} className={styles.classesContainer_closed}>
         <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
       </div>
@@ -65,9 +65,8 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
           {/*</div>*/}
         </div>
         <div className={styles.classesContainer_type_subs}>{typeClasses.map(el => (el.type === activeClasses ? el.text : null))}</div>
-        <div className={styles.classesContainer_type_btnBlock}>
+        <div className={styles.classesContainer_type_btnBlock} style={{marginTop: '20px'}}>
           <Button
-            style={{padding: '14px'}}
             variant={'cancel'}
             onClick={handleClose}
             text={'Отмена'}
