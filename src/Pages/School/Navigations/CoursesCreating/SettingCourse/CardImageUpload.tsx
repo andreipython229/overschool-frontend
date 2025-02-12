@@ -70,14 +70,14 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
         </p>
 
         {toggleCheckbox ? (
-          <div className={styles.wraper}>
+          <div className={stylesCard.wrapper_switch}>
             <span style={{ color: courseFind?.public === 'О' ? '#357EEB' : '#808080' }} className={stylesCard.CourseCardsTS__public}>
               Опубликован
             </span>
             <CheckboxBall isChecked={toggleCheckbox} />
           </div>
         ) : (
-          <div className={styles.wraper}>
+          <div className={stylesCard.wrapper_switch}>
             <span style={{ color: courseFind?.public === 'О' ? '#357EEB' : '#808080' }} className={stylesCard.CourseCardsTS__public}>
               Не опубликован
             </span>
@@ -88,15 +88,14 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
 
       {!isLoading ? (
         <label className={stylesCard.CourseCardsTS__admin_main}>
-          <span className={styles.title}>{courseFind.name}</span>
+          <span className={stylesCard.CourseCardsTS__admin_title} style={{display: 'inline-block', width: 'auto'}}>{courseFind.name}</span>
           {courseImage ? (
-            <img src={courseImage} alt={courseFind.name} className={styles.img} onClick={handleImageChange}/>
+            <img src={courseImage} alt={courseFind.name} className={stylesCard.CourseCardsTS__admin_main_img} onClick={handleImageChange}/>
           ) : (
             <div className={styles.no_image}>
               <span onClick={handleImageChange}>Нет изображения курса :(</span>
             </div>
           )}
-          <div className={stylesCard.CourseCardsTS__admin_bg_filter}></div>
           {imgError && <p className={styles.card_image_downloads_error}>{imgError}</p>}
         </label>
       ) : (

@@ -480,36 +480,3 @@
      }
     }
 }
-
-.img {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  object-fit: cover;
-  z-index: 2;
-}
-
-.title {
-  position: relative;
-  z-index: 3;
-  display: inline-block;
-  padding: 16px;
-  font-size: 32px;
-  line-height: 38.19px;
-  background: linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%);
-  color: #fffafa;
-}
-
-.wraper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  div {
-    cursor: default;
-  }
-}
