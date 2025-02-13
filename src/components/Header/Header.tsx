@@ -42,7 +42,7 @@ import { w3cwebsocket } from 'websocket'
 import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice'
 import { useFetchNotificationsQuery, useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
 import { TgMessage } from 'types/tgNotifications'
-import { useFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
+import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { useLoginMutation } from '../../api/userLoginService'
 import { CoursesDataT } from 'types/CoursesT'
@@ -117,12 +117,12 @@ export const Header = memo(() => {
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
 
-  const { data: studentsGroups } = useFetchStudentsGroupWithParamsQuery({ schoolName: schoolName, params: 's=100' })
+  const [fetchGroups, { data: studentsGroups }] = useLazyFetchStudentsGroupWithParamsQuery()
   const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
   const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null)
   const [acceptBanner] = useAcceptBannerMutation()
 
-  const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
+  // const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
   const [showTgMessageForm, setShowTgMessageForm] = useState(false)
   const [createTgMessage] = useUpdateTgMessageMutation()
   const [tgMessage, setTgMessage] = useState<TgMessage>({
@@ -154,6 +154,12 @@ export const Header = memo(() => {
       }
     })
   }
+
+  useEffect(() => {
+    if (userRole === RoleE.Admin) {
+      fetchGroups({ schoolName: schoolName, params: 's=100' })
+    }
+  }, [])
 
   const handleLogin = async (login: string, password: string) => {
     try {

@@ -163,7 +163,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
                   </div>
                 </div>
 
-                <div className={styles.course_card_about}>
+                <div className={stylesCard.CourseCardsTS__bottom}>
                   <Link
                     to={generatePath(Path.CreateCourse, {
                       course_id: `${course?.course_id}`,

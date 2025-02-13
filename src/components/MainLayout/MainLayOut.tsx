@@ -82,12 +82,14 @@ export const MainLayOut: FC = memo(() => {
   }, [data])
 
   useEffect(() => {
-    getGroups(schoolName)
-    if (groupsError && 'originalStatus' in groupsError && groupsError.originalStatus === 404) {
-      localStorage.clear()
-      logout()
-      dispatch(auth(false))
-      navigate(generatePath(Path.InitialPage))
+    if (groupsError) {
+      getGroups(schoolName)
+      if (groupsError && 'originalStatus' in groupsError && groupsError.originalStatus === 404) {
+        localStorage.clear()
+        logout()
+        dispatch(auth(false))
+        navigate(generatePath(Path.InitialPage))
+      }
     }
   }, [groupsError, navigate])
 
