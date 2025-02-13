@@ -1,6 +1,7 @@
 import { FC, useCallback, useState } from 'react'
 
 import { SearchCoursesBlock } from './SearchCoursesBlock'
+import { StudentsPerSchool } from 'components/StudentsTable/StudentsPerSchool'
 import { useFetchStudentsGroupQuery } from 'api/studentsGroupService'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
@@ -41,6 +42,7 @@ export const CoursesStats: FC = () => {
       layout
     >
       <SearchCoursesBlock courses={courses?.results as CoursesDataT[]} groups={data?.results as studentsGroupsT[]} />
+      <StudentsPerSchool />
     </motion.div>
   )
 }
