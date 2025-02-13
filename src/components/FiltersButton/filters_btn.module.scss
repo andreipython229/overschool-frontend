@@ -3,11 +3,12 @@
 
 .wrapper {
   position: relative;
-  margin-right: 7px;
-  width: fit-content;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    padding-left: 1rem;
+    margin-right: 5rem;
+    margin-bottom: 2rem;
+    margin-top: -2.4rem;
+    width: 5rem;
   }
 
   @media only screen and (min-width: 375px) and (max-width: 480px) {
@@ -21,7 +22,7 @@
   @include display(flex, row, center, center);
   @include font(500, 24px);
   width: 260px;
-  height: 50px;
+  height: 45px;
   gap: 10px;
   padding: 16px 40px;
   font-family: SF Pro Display;
@@ -37,6 +38,25 @@
   cursor: pointer;
   transition: background-color 0.3s;
   margin: 0 10px;
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    width: 3rem;
+    font-size: 0.5rem;
+    margin-left: 10rem;
+    height: 2.3rem;
+    margin-bottom: -3rem;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    width: 3rem;
+    font-size: 0.5rem;
+    height: 2.3rem;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 600px) {
+    width: 7rem;
+    font-size: 0.7rem;
+    height: 2.5rem;
+  }
 
   svg {
     margin-right: 9px;
@@ -122,6 +142,35 @@
   left: calc(100% + 10px);
   top: -20%;
   z-index: 1000;
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    left: 5rem;
+    top: 2.5rem;
+    height: 8rem;
+    padding-top: 0.6rem;
+  }
+
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    left: -1rem;
+    top: 2.5rem;
+    height: 8rem;
+    padding-top: 0.6rem;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 620px) {
+    left: -1rem;
+    top: 3rem;
+    height: 8rem;
+    padding-top: 0.6rem;
+  }
+
+  @media only screen and (min-width: 620px) and (max-width: 1200px) {
+    left: 12rem;
+    top: 3rem;
+    height: 8rem;
+    padding-top: 0.6rem;
+  }
+
 }
 
 .filterPointer {
@@ -130,4 +179,7 @@
   top: 25px;
   z-index:-1;
 
+  @media only screen and (min-width: 320px) and (max-width: 1200px) {
+   display: none;
+  }
 }

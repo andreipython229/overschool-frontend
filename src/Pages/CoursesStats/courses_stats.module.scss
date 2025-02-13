@@ -13,14 +13,37 @@ a {
 
 .container {
   width: 96%;
-  //margin-top: 40px;
   box-sizing: border-box;
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    padding: 1rem;
+    margin-top: -2.5rem;
+    min-width: 17rem;
+  }
 
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding: 1rem;
+    margin-top: -2.5rem;
+    width: 98.5%;
   }
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
+
+  @media only screen and (min-width: 480px) and (max-width: 600px) {
     padding: 1rem;
+    margin-top: -1.5rem;
+    min-width: 25rem;
+    margin-left: -1rem;
+  }
+
+
+  input {
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      height: 20px;
+      font-size: 0.8rem;
+  }
+    @media only screen and (min-width: 480px) and (max-width: 600px) {
+      height: 25px;
+      font-size: 0.9rem;
+  }
   }
 
   h4 {
@@ -54,17 +77,17 @@ a {
   flex-wrap: wrap;
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-evenly;
     padding: 3%;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
   }
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-evenly;
     padding: 3%;
+    gap: 0.5rem;
   }
 }
 .mini_card_img {

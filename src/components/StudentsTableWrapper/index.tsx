@@ -438,10 +438,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                       const cellValue = row[col] as string | number | { text: string; image: ReactNode }
                       return (
                         <td
-                          style={{
-                            fontSize: '14px',
-                            verticalAlign: 'center',
-                          }}
+                            className={styles.table_user_text}
                           key={col}
                           onClick={event => handleRowClick(event, row.id)}
                         >
@@ -460,7 +457,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                                   Удалён
                                 </div>
                               )}
+                                <div className={styles.table_user_img}>
                               {cellValue.image}
+                                </div>
                               <p>{cellValue.text}</p>
                             </div>
                           ) : (

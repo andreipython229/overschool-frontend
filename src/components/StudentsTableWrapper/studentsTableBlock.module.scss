@@ -5,15 +5,25 @@
 
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     overflow-x: scroll;
+    min-width: 17rem;
+    margin-left: -1rem;
   }
 
   @media only screen and (min-width : 375px) and (max-width : 480px) {
     overflow-x: scroll;
+    min-width: 19rem;
   }
 
-  @media screen and (min-width : 481px) and  (max-width: 1024px) {
+  @media screen and (min-width : 481px) and  (max-width: 600px) {
     overflow-x: scroll;
+    min-width: 23rem;
   }
+
+  @media screen and (min-width : 600px) and  (max-width: 1024px) {
+    overflow-x: scroll;
+    min-width: 30rem;
+  }
+
 }
 
 .loader {
@@ -50,6 +60,21 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    @media only screen and (min-width : 320px) and (max-width : 480px) {
+    gap: 0.1rem;
+      margin-left: -1rem;
+  }
+
+  &_text {
+    font-size: 14px;
+    vertical-align: center;
+    @media only screen and (min-width : 320px) and (max-width : 480px) {
+    font-size: 6px;
+  }
+    @media only screen and (min-width : 480px) and (max-width : 600px) {
+    font-size: 6px;
+  }
+  }
   }
 
   &_thead {
@@ -65,6 +90,10 @@
       text-transform: capitalize;
       vertical-align: middle;
       padding: 1.25rem;
+      @media only screen and (min-width : 320px) and (max-width : 480px) {
+       font-size: 8px;
+        padding: 0.5rem;
+  }
 
       &:first-child {
         padding-left: 2.5rem;
@@ -104,9 +133,13 @@
         transition: background-color 0.4s;
           @media only screen and (min-width : 320px) and (max-width : 375px) {
             margin-right: -1.5rem;
+            font-size: 0.6rem;
+            top: 1rem;
           }
           @media only screen and (min-width : 375px) and (max-width : 480px) {
             margin-right: -1.5rem;
+            font-size: 0.6rem;
+            top: 1rem;
           }
 
         //&:hover {

@@ -104,7 +104,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
         </div>
         <div className={styles.addGroup_input}>
           <span>Название группы:</span>
-          <div style={{position: "relative", width: "100%"}}>
+          <div className={styles.addGroup_input_placeholder}>
           <Input name={'group'} type={'text'} value={groupName} placeholder="Введите название группы" onChange={onChangeGroupName}/>
             <div className={styles.addGroup_input_svg}>
             <IconSvg width={24} height={24}viewBoxSize={'0 0 24 24'} path={penIconPath}/>

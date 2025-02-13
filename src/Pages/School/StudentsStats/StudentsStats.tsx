@@ -57,7 +57,7 @@ export const StudentsStats: FC<StudentsStatsT> = ({course_id}) => {
           <p className={styles.students_group_header_title}>Группы учеников</p>
 
           {headerUserRoleName[role] === 'Администратор' && (
-              <div style={{display: 'flex', gap: '1rem'}}>
+              <div className={styles.btn}>
                 <Button onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}
                         text={'Создать новую группу'}
                         variant={'newPrimary'}>

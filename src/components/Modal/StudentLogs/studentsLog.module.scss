@@ -23,7 +23,7 @@
     width: 100%;
     padding: 2rem 1rem 0 1rem;
   }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 720px) {
     width: 100%;
     padding: 2rem 1rem 0 1rem;
   }
@@ -70,13 +70,14 @@
     }
 
     &_title {
-
       color: var(--Black, #332F36);
-
       font-family: "SF Pro Text", sans-serif;
-
-
       @include font(700, 32px);
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+  }
 
       &_btn {
         height: max-content;
@@ -157,6 +158,28 @@
     }
   }
 
+  &_input{
+    position: relative;
+    width: 100%;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      width: 50%;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      width: 70%;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 600px) {
+      width: 90%;
+
+    }
+  }
+
   &_student {
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 100%;
@@ -164,7 +187,7 @@
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       width: 100%;
     }
-    @include display(flex, column);
+    @include display(flex, row);
     text-align: left;
     width: 474px;
     margin: 0 auto 48px auto;
@@ -176,9 +199,27 @@
     }
 
     &_btn_remove {
-      color: #bb0e0e;
+      //color: #bb0e0e;
       background: none;
       border: none;
+      margin-top: 1rem;
+      margin-left: 1rem;
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin-left: -11rem;
+    }
+
+      @media only screen and (min-width: 375px) and (max-width: 476px) {
+      margin-left: -7rem;
+    }
+
+      @media only screen and (min-width: 476px) and (max-width: 600px) {
+        margin-left: -1rem;
+        margin-bottom: 0.5rem;
+
+
+    }
+
     }
 
     &_btn {
@@ -213,6 +254,23 @@
       }
     }
   }
+
+  &_icon {
+    cursor: pointer;
+    margin-top: -28px;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+        margin-top: 1rem;
+      }
+
+    @media only screen and (min-width: 375px) and (max-width: 476px) {
+        margin-top: 1rem;
+      }
+
+    @media only screen and (min-width: 476px) and (max-width: 600px) {
+        margin-top: 1rem;
+      }
+  }
 }
 .addGroup {
   width: 100%;
@@ -221,6 +279,15 @@
     margin: 0 auto;
     width: 95%;
     text-align: left;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      font-size: 0.8rem;
+    }
+
+    &_placeholder{
+      position: relative;
+      width: 100%;
+    }
 
     &_svg {
     position: absolute;
@@ -284,6 +351,9 @@
     margin-top: 22px;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       padding-bottom: 5%;
+      width: 80%;
+      margin-top: 0.5rem;
+      margin-left: 2rem;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       padding-bottom: 5%;
@@ -322,6 +392,10 @@
     height: 54px;
     border-radius: 10px;
     background: rgb(127, 127, 127);
+
+     @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin-bottom: 2rem;
+    }
 
     &:hover:not(:disabled) {
       color: #ffff;
@@ -504,6 +578,11 @@
     justify-content: center;
     align-items: center;
     gap: 24px;
+
+    @media only screen and (min-width: 320px) and (max-width: 800px) {
+      margin-bottom: 1.5rem;
+      gap: 0.5rem;
+  }
 
 
     & button {

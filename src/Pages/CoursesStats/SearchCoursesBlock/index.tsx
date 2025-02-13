@@ -41,10 +41,11 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
   return (
     <div className={styles.container}>
         <>
+            <div className={styles.input}>
           <Input name="" type="search" value={term} onChange={handleChangeTerm} placeholder="Поиск по курсам">
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
           </Input>
-
+            </div>
           <div className={styles.container_courses}>
         <h4>Курсы</h4>
       </div>

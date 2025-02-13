@@ -47,6 +47,10 @@
     @include font(400, 20px);
     z-index: 3;
 
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      font-size: 1rem;
+    }
+
     &:focus {
       color: #357eeb;
       &::placeholder {

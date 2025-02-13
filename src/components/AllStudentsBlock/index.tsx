@@ -134,30 +134,10 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
                 {headerText === 'Все ученики платформы' && <StudentsSchoolExport/>}
                 {headerText === 'Все ученики группы' && <StudentsCroupExport/>}
                 {headerText === 'Все ученики курса' && <StudentsCourseExport/>}
-                <div style={{marginBottom: '15px'}}>
+                <div className={styles.header_block_text_chips_components}>
                     <ChipsComponent filterKey={filterKey} filters={filters} chipsVal={chipsVal['students']}/>
                 </div>
-
-                <div style={{display: "flex", justifyContent: "space-between"}}>
-                <SearchBar
-                    searchTerm={searchTerm}
-                    onChangeInput={onChangeInput}
-                />
-                    <div className={styles.filter_button}><FiltersButton
-                    filteringCategoriesList={filteringCategoriesList}
-                    addLastActiveFilter={addLastActiveFilter}
-                    addMarkFilter={addMarkFilter}
-                    handleAddAvgFilter={handleAddAvgFilter}
-                    removeLastActiveStartFilter={removeLastActiveStartFilter}
-                    removeLastActiveEndFilter={removeLastActiveEndFilter}
-                    {...filters}
-                /></div>
-                <div className={styles.header_block_text_search}>
-                    <div className={styles.arrow_add_file_block}
-                         onClick={() => handleReloadTable && handleReloadTable()}>
-                        <IconSvg width={25} height={25} viewBoxSize="0 0 32 32" path={updateDataIcon}/>
-                    </div>
-                </div>
+                        <div className={styles.header_block_text_add_student_btn_line}>
                 <div className={invite ? styles.button_search_block_wButton : styles.button_search_block}>
                     {role != RoleE.Teacher && invite ? (
                         <Button onClick={off} className={styles.add_students_btn} style={{'height': '40px'}} text={'Добавить учеников'}
@@ -167,11 +147,36 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
                     ) : (
                         <></>
                     )}
-                    <div style={{marginLeft: "2rem", cursor: "pointer"}}>
-                    <IconSvg functionOnClick={SettingTableModalOff} width={23} height={23} viewBoxSize={'0 0 25 25'} path={SettingsIconPath} />
+                        <div><FiltersButton
+                    filteringCategoriesList={filteringCategoriesList}
+                    addLastActiveFilter={addLastActiveFilter}
+                    addMarkFilter={addMarkFilter}
+                    handleAddAvgFilter={handleAddAvgFilter}
+                    removeLastActiveStartFilter={removeLastActiveStartFilter}
+                    removeLastActiveEndFilter={removeLastActiveEndFilter}
+                    {...filters}
+                /></div>
                     </div>
+                            </div>
+
+                <div className={styles.header_block_text_search_line}>
+                <SearchBar
+                    searchTerm={searchTerm}
+                    onChangeInput={onChangeInput}
+                />
+
+                    <div className={styles.header_block_text_search}>
+                    <div className={styles.arrow_add_file_block}
+                         onClick={() => handleReloadTable && handleReloadTable()}>
+                        <IconSvg width={25} height={25} viewBoxSize="0 0 32 32" path={updateDataIcon}/>
                     </div>
                 </div>
+
+                        <div className={styles.filter_button}>
+                        <IconSvg functionOnClick={SettingTableModalOff} width={25} height={25} viewBoxSize={'0 0 25 25'} path={SettingsIconPath} />
+                            </div>
+                        </div>
+
                 {isOpen && <Portal closeModal={on}>{courses &&
                     <AddStudentModal setShowModal={on} courses={courses?.results}/>}</Portal>}
 
