@@ -58,6 +58,8 @@ import {
 } from 'assets/Icons/svgIconPath'
 import { SocialMediaButton } from 'components/SocialMediaButton'
 import {useFetchSchoolQuery} from "../../api/schoolService";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
 
 type WebSocketHeaders = {
   [key: string]: string | string[] | number
@@ -452,8 +454,28 @@ export const Header = memo(() => {
     setAnchorEl2(null)
   }
 
-  const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isAll = event.target.checked
+  const handleAllGroups = () => {
+    const isAll = true;
+    setAllGroups(isAll)
+    const groupsIds = studentsGroups?.results.map(group => Number(group.group_id))
+    if (isAll) {
+      setTgMessage(
+        (prevData: TgMessage) =>
+          ({
+            ...prevData,
+            students_groups: groupsIds,
+          } as TgMessage),
+      )
+    } else {
+      setTgMessage((prevData: TgMessage) => ({
+        ...prevData,
+        students_groups: [],
+      }))
+    }
+  }
+
+  const handleNoneGroups = () => {
+    const isAll = false;
     setAllGroups(isAll)
     const groupsIds = studentsGroups?.results.map(group => Number(group.group_id))
     if (isAll) {
@@ -541,7 +563,7 @@ export const Header = memo(() => {
         <img src={logoHeader} alt="Logotype ITOVERONE" />
       </div>
       <div className={styles.header_hiddenBlock}>
-        <React.Fragment>
+       <div>
           {userRole === RoleE.Admin && (
             <div className={styles.header_block}>
               <Button className={styles.messageBtn} variant="newSecondary" onClick={handleAddTgMessageForm} text="Оповещения">
@@ -550,57 +572,102 @@ export const Header = memo(() => {
               <Dialog
                 open={showTgMessageForm}
                 onClose={() => setShowTgMessageForm(false)}
-                PaperProps={{ style: { maxHeight: '100vh', maxWidth: '600px', width: '100%' } }}
+                PaperProps={{ style:
+                  { maxHeight: '100vh',
+                    borderRadius: 'min(20px, 2.8vw)',
+                    padding: 'min(20px, 2.8vw) min(84px, 11.75vw)',
+                    margin: '0',
+                    fontFamily: 'SF Pro Display, sans-serif',
+                    maxWidth: '715px',
+                    width: 'min(715px, 100vw)'} }}
               >
-                <DialogTitle>Отправить оповещение студентам</DialogTitle>
-                <DialogContent>
-                  <div style={{ marginBottom: '1rem', marginTop: '1rem' }}>
+                <DialogTitle
+                  style={{
+                    fontFamily: 'SF Pro Display, sans-serif',
+                    fontSize: 'min(24px, 3.36vw)',
+                    padding: '0',
+                    paddingLeft: '0'
+                  }}>
+                  Отправить сообщения студентам
+                  <IconButton className={styles.closeButton} onClick={() => setShowTgMessageForm(false)}>
+                    <CloseIcon />
+                  </IconButton>
+                </DialogTitle>
+                  <div style={{
+                    fontSize: 'min(16px, 2.24vw)',
+                    paddingLeft: 'min(10px, 1.4vw)',
+                    paddingBottom: 'min(16px, 2.24vw)',
+                    paddingTop: 'min(8.39px, 1.4vw)',
+                    fontFamily: 'SF Pro Display, sans-serif'
+                    }}>
+                    Выберите одну или несколько ШКОЛ
+                  </div>
+
+                  <div className={styles.textAreaBack}>
                     <TextareaAutosize
                       style={{
-                        maxWidth: '34vh',
-                        minWidth: '34vh',
-                        minHeight: '10vh',
-                        maxHeight: '20vh',
-                        borderColor: 'gray',
+                        width: 'min(515px, 72.03vw)',
+                        height: 'min(18.8vh, 29.51vw)',
+                        maxHeight: '211px',
                         borderRadius: '4px',
                         overflow: 'auto',
                       }}
                       className={styles.textarea}
                       id="message"
-                      placeholder="Введите сообщение"
+                      placeholder="Text"
                       value={tgMessage.message}
                       minLength={1}
                       onChange={e => setTgMessage({ ...tgMessage, message: e.target.value })}
                     />
-                  </div>
-                  <div>
-                    <h2
-                      style={{
-                        margin: '0',
-                        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-                        fontWeight: '500',
-                        lineHeight: '1.6',
-                        fontSize: '1.25rem',
-                        padding: '16px 0',
-                      }}
-                    >
-                      Выберите одну или несколько групп:
-                    </h2>
-                  </div>
-                  {studentsGroups && (
-                    <div>
-                      <Checkbox
-                        style={{ color: '#357EEB' }}
-                        checked={allGroups}
-                        onChange={e => {
-                          handleAllGroups(e)
+                    <DialogActions style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                      <Button
+                        onClick={handleSendTgMessage}
+                        className={styles.customButton}
+                        style={{
+                          backgroundColor: '#357EEB',
+                          flex: '1',
+                          color: 'white'
                         }}
-                      />
-                      <span>
-                        <b>выбрать все группы</b>
-                      </span>
-                    </div>
-                  )}
+                        text="Отправить" />
+                      <Button
+                        onClick={() => setShowTgMessageForm(false)}
+                        className={styles.customButton}
+                        style={{
+                          backgroundColor: '#cfe2ff',
+                          color: '#357EEB',
+                          flex: '1',
+                          border: '1px solid #357EEB'
+                        }}
+                        text="Отмена" />
+                    </DialogActions>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start'  }}>
+                    <Button
+                          onClick={handleAllGroups}
+                          className={styles.customButton}
+                          style={{
+                            backgroundColor: '#357EEB',
+                            padding: 'min(8.39px, 1.4vw) min(50px, 6.99vw)',
+                            marginTop: 'min(12px, 1.68vw)',
+                            color: 'white',
+                            display: 'block'
+                          }}
+                          text="Выбрать все группы" />
+                    <Button
+                          onClick={handleNoneGroups}
+                          className={styles.customButton}
+                          style={{
+                            backgroundColor: 'white',
+                            color: '#357EEB',
+                            padding: 'min(8.39px, 1.4vw) min(50px, 6.99vw)',
+                            marginTop: 'min(10.91px, 1.82vw)',
+                            marginBottom: 'min(10.91px, 1.82vw)',
+                            border: '1px solid #357EEB'
+                          }}
+                          text="Снять выделение со всех групп" />
+                  </div>
+
+                  <DialogContent className={styles.MuiDialogContent_root} style={{ padding: '0' }}>
                   {studentsGroups && (
                     <div className={styles.wrapper_content_groups}>
                       {Object.entries(
@@ -615,12 +682,36 @@ export const Header = memo(() => {
                           return acc
                         }, {}),
                       ).map(([courseName, groups]) => (
-                        <div key={courseName} style={{ marginBlockStart: '3px' }}>
-                          <b>{courseName}</b>
-                          {groups.map((group, index) => (
-                            <div key={group.group_id} style={{ marginBlockStart: index === 0 ? '3px' : '-10px' }}>
+                        <div key={courseName} style={{ marginBlockStart: 'min(2.52px, 0.42vw)' }}>
+                          <Checkbox
+                                className={styles.customCheckbox}
+                                onChange={e => {
+                                  const isChecked = e.target.checked
+                                  if (isChecked) {
+                                    setTgMessage(
+                                      (prevData: TgMessage) =>
+                                        ({
+                                          ...prevData,
+                                          students_groups: [...prevData.students_groups, ...groups.map(group => group.group_id)],
+                                        } as TgMessage),
+                                    )
+                                  } else {
+                                    setAllGroups(false)
+                                    setTgMessage((prevData: TgMessage) => ({
+                                      ...prevData,
+                                      students_groups: prevData.students_groups.filter(id => !groups.some(group => group.group_id === id)),
+                                    }))
+                                  }
+                                }}
+                                checked={groups.every(group => new Set(tgMessage.students_groups).has(Number(group.group_id)))}
+
+                          />
+                          <b style={{fontSize: 'min(16.78px, 2.8vw)', fontFamily: 'SF Pro Display, sans-serif', color: 'grey'}}>{courseName} (групп: {groups.length})</b>
+                          {groups.some(group => tgMessage.students_groups.includes(group.group_id  ?? 0)) &&
+                          groups.map((group, index) => (
+                            <div key={group.group_id} style={{ marginLeft: 'min(12.59px, 2.1vw)', fontSize: 'min(16.78px, 2.8vw)', fontFamily: 'SF Pro Display, sans-serif', color: 'grey'}}>
                               <Checkbox
-                                style={{ color: '#357EEB' }}
+                                className={styles.customCheckbox}
                                 onChange={e => {
                                   const isChecked = e.target.checked
                                   if (isChecked) {
@@ -641,8 +732,8 @@ export const Header = memo(() => {
                                 }}
                                 checked={new Set(tgMessage.students_groups).has(Number(group.group_id))}
                               />
-                              {group.name}
-                              <span> (Кол-во студентов: {group.students.length})</span>
+
+                              <b>{group.name} (Кол-во студентов: {group.students.length})</b>
                             </div>
                           ))}
                         </div>
@@ -650,15 +741,10 @@ export const Header = memo(() => {
                     </div>
                   )}
                 </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleSendTgMessage} text="Отправить" />
-                  <Button onClick={() => setShowTgMessageForm(false)} text="Отмена" />
-                </DialogActions>
               </Dialog>
             </div>
           )}
-        </React.Fragment>
-
+        </div>
         <React.Fragment>
           {userRole === RoleE.Admin && currentTariff && currentTariff.days_left && (
             <div>

@@ -127,23 +127,41 @@
   @include font(500, 14px);
 }
 
+.textAreaBack{
+  width: min(547px, 76.5vw);
+  height: min(27.2vh, 42.66vw);
+  max-height: 305px;
+  background-color: #cfe2ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: min(15px, 2.1vw);
+}
+
 .textarea {
-  // max-width: 34vh;
-  width: 550px;
-  min-height: 200px;
-  max-height: 200px;
-  border: 1px solid #ba75ff;
-  border-radius: 4px;
+  width: min(515px, 72.03vw);
+  height: min(18.8vh, 29.51vw);
+  max-height: 211px;
+  border: none;
+  border-radius: min(15px, 2.1vw);
   resize: none;
-  padding: 0.375rem;
+  margin: min(15px, 2.1vw) auto 0;
+  padding: min(16px, 2.24vw);
   overflow: auto !important;
   border-color: #ba75ff !important;
 
   &:focus {
     outline: none !important;
-    border: 1px solid #ba75ff;
-    box-shadow: 0 0 10px #ba75ff;
+    border: none;
+    box-shadow: none;
   }
+
+  &::placeholder {
+    padding-left: 10px;
+    padding-top: 5px;
+  }
+
   @include font(400, 17px);
 }
 
@@ -256,5 +274,47 @@
 
   img {
     height: 100%;
+  }
+}
+
+.MuiDialogContent_root {
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: min(5.87px, 0.98vw);
+    background-color: #CFE2FF;
+    border-radius: min(4.2px, 0.7vw);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #3170E7;
+    border-radius: min(4.2px, 0.7vw);
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #255BB2;
+  }
+}
+
+.customCheckbox {
+  padding: min(8px, 1.12vw);
+}
+
+.customButton{
+  font-size: min(16px, 2.24vw);
+  font-family: 'SF Pro Display', sans-serif;
+  font-weight: 500;
+  padding: min(11px, 1.54vw) min(12px, 1.68vw);
+  border-radius: min(6px, 0.84vw);
+  margin-left: min(10px, 1.4vw);
+  margin-right: min(10px, 1.4vw);
+}
+
+.closeButton {
+  position: absolute;
+  right: min(16px, 2.24vw);
+  top: min(16px, 2.24vw);
+  color: gray;
+
+  &:hover {
+    color: black;
   }
 }
