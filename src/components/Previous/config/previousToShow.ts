@@ -5,7 +5,6 @@ import { StudentPrevious } from '../StudentPrevious'
 import { StudentCourseHeader } from '../../../Pages/StudentCourse/StudentCourseHeader'
 import { GroupPrevious } from '../GroupPrevious'
 import {ProfilePrevious} from "../ProfilePrevious";
-import {CourseStatPrevious} from "../CourseStatPrevious";
 
 const pathToSearch = Object.entries(Path).map(([key, value]) => {
   return { [key]: value.split(':')[0] }
@@ -35,8 +34,7 @@ export const previousToShow = [
   { path: SettingsPath.Banner, Component: GlobalPrevious },
   { path: Path.Appeals, Component: GlobalPrevious },
   { path: objOfPathes.HomeWork, Component: GlobalPrevious },
-  // { path: objOfPathes.CourseStats, Component: GlobalPrevious },
-  { path: objOfPathes.CourseStats, Component: CourseStatPrevious },
+  { path: objOfPathes.CourseStats, Component: GlobalPrevious },
   { path: objOfPathes.Profile, Component: ProfilePrevious },
   { path: objOfPathes.Group, Component: GroupPrevious },
   { path: objOfPathes.Meetings, Component: GlobalPrevious },

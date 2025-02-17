@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 
 import { Path } from '../../../enum/pathE'
@@ -6,14 +6,11 @@ import { CoursesMiniCardT } from '../../../types/pageTypes'
 import { getNounDeclension } from '../../../utils/getNounDeclension'
 import { RoleE } from 'enum/roleE'
 
-
-import styles from './course_mini_card.module.scss'
+import styles from '../courses_stats.module.scss'
 import {useAppSelector} from "../../../store/hooks";
 import {selectUser} from "../../../selectors";
-import bgImage from "../../../components/StudentGroupMiniCard/assets/image.png";
-import {PeopleIconSvg} from "../../../components/StudentGroupMiniCard/assets/iconsComponents";
 
-export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ active, click,  photo, name, courseId, groups }) => {
+export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, courseId, groups }) => {
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
   const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students.length, 0)
   const { role } = useAppSelector(selectUser)
@@ -24,21 +21,25 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ active, click,  pho
   })
 
   return (
-      <div onClick={() => click && click(courseId)} className={`${active ? styles.active : ''} ${styles.wrapper}`} style={{ background: `url(${bgImage}) rgb(119, 119, 119) 50% / cover no-repeat` }}>
-        <div className={styles.wrapper_text}>
-          <p className={styles.wrapper_text_title}>{name}</p>
-          <ul className={styles.wrapper_text_description}>
-              <div className={styles.wrapper_text_description_row}>
-                  <PeopleIconSvg />
+    <Link to={pathLink}>
+      <div className={styles.mini_card_container}>
+        <img className={styles.mini_card_img} src={photo} alt="" width="52" height="52" />
+        <div>
+          <p className={styles.mini_card_name}>{name}</p>
+          <ul className={styles.mini_card_list}>
+            <li>
+              <span>
                 {filteredGroups.length} {getNounDeclension(filteredGroups.length, ['группа', 'группы', 'групп'])}
-              </div>
-              <div className={styles.wrapper_text_description_row}>
-                  <PeopleIconSvg />
+              </span>
+            </li>
+            <li>
+              <span>
                 {quantutyOfStudents} {getNounDeclension(quantutyOfStudents, ['ученик', 'ученика', 'учеников'])}
-              </div>
+              </span>
+            </li>
           </ul>
-      </div>
-          <div className={`${styles.wrapper_shadow}`} onClick={() => click && click(courseId)}/>
         </div>
+      </div>
+    </Link>
   )
 })

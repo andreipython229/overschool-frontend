@@ -5,50 +5,14 @@
   font-style: normal;
   @include font(500, 16px, 19px);
   letter-spacing: -0.01em;
-  color: #111111;
+  color: #4d5766;
   margin: 30px 0 22px 0;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    margin-top: -0.5rem;
+    padding-left: 1rem;
   }
-
-  &_chips_components {
-    margin-bottom: 15px;
-
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-    margin-bottom: -3rem;
-  }
-
-  }
-
-  &_search_line {
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-
-   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    display: flex;
-     gap: 2rem;
-  }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-    display: flex;
-     gap: 10rem;
-  }
-
-  }
-
-  &_add_student_btn_line {
-    margin-left: auto;
-    margin-top: 0.6rem;
-    margin-bottom: 0.6rem;
-
-   @media only screen and (min-width: 320px) and (max-width: 375px) {
-     display: flex;
-     flex-direction: row;
-     margin-top: 2.5rem;
-     margin-right: 6rem;
-  }
-
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    padding-left: 1rem;
   }
 
 
@@ -64,21 +28,22 @@
     align-items: center;
     gap: 20px;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-      display: none;
+      display: flex;
+      padding: 1rem 0 1rem 1rem;
+      width: 100%;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
-      display: none;
-    }
-    @media only screen and (min-width: 480px) and (max-width: 600px) {
-      display: none;
+      display: flex;
+      padding: 1rem 0 1rem 1rem;
+      width: 100%;
     }
 
   }
 }
 .button_search_block_wButton {
 
-  display: flex;
-  justify-content: right;
+  position: relative;
+  display: grid;
   grid-template-columns: 2fr 10fr 0.5fr;
   align-items: center;
   width: 100%;
@@ -108,7 +73,8 @@
   height: 36px;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: flex-end;
     margin-bottom: 10%;
   }
 
@@ -121,18 +87,24 @@
 }
 
 .arrow_add_file_block {
+
+  &:hover {
+    background-color: rgba(160, 160, 160, 0.4)
+  }
   @include display(flex, row, center, center);
+  background: #e0dced;
   border: none;
-  width: 50px;
+  border-radius: 7px;
+  width: 43px;
   height: auto;
   text-align: center;
+  margin-left: 7px;
   cursor: pointer;
+  transition: background-color 0.4s;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 20px;
     margin-bottom: 1rem;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    width: 20px;
     margin-bottom: 1rem;
   }
 }
@@ -144,18 +116,11 @@
   color: #fff;
   border: none;
   border-radius: 7px;
-  //background-color: #ba75ff;
-  background-color: #357EEB;
+  background-color: #ba75ff;
   padding: 0 13px;
+  height: 60%;
   margin-left: 1em;
   height: 100%;
-
-  @media only screen and (min-width: 320px) and (max-width: 480px) {
-    font-size: 8px;
-    border-radius: 10px;
-
-  }
-
 }
 
 .property_1 {
@@ -220,12 +185,5 @@
 }
 
 .filter_button{
-  cursor: pointer;
-  margin-top: 1rem;
-
-  @media only screen and (min-width: 320px) and (max-width: 480px) {
-    margin-top: 0.5rem;
-
-  }
-
+  margin-bottom: 20px;
 }

@@ -10,20 +10,10 @@ export type CoursesMiniCardT = {
   name: string
   courseId: number
   groups: studentsGroupsT[]
-  active?: boolean
-  click?: (id: number) => void
 }
 export type searchCourseBlockT = {
   groups: studentsGroupsT[]
   courses: CoursesDataT[]
-}
-
-export type StudentsStatsT = {
-  course_id?: string
-}
-
-export type StudentsPerCourseT = {
-  courseID?: string
 }
 
 export type InitPageHeaderPT = {

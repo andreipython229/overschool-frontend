@@ -26,7 +26,6 @@ import {Input} from "../../common/Input/Input/Input";
 import {AddUserIcon} from "../../../assets/Icons/svgIcons";
 import {UserIconPath,
 } from "../../../assets/Icons/svgIconPath";
-import {penIconPath} from "../../../Pages/Settings/Main/iconComponents";
 // import change = Simulate.change;
 
 export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmployees, setShowModal}) => {
@@ -182,23 +181,14 @@ export const AddEmployeeModal: FC<AddEmployeeModalPropsT> = ({employees, setEmpl
           <div className={styles.main_employee_invite}>
             <label htmlFor="email">Email нового сотрудника:</label>
             <br />
-              <div style={{position: "relative", width: "100%"}}>
                 <Input name="email" type="text" onChange={handleChangeEmail} value={emailUser}
                       placeholder="Введите Email нового сотрудника" />
-                  <div className={styles.main_employee_input_svg}>
-                      <IconSvg width={24} height={24}viewBoxSize={'0 0 24 24'} path={penIconPath}/>
-                  </div>
-              </div>
+
             <br />
             <label htmlFor="pseudonym">Псевдоним нового сотрудника:</label>
             <br />
-              <div style={{position: "relative", width: "100%"}}>
               <Input name="pseudonym" type="text" onChange={handleChangePseudonym} value={pseudonym}
                       placeholder="Введите псевдоним нового сотрудника" />
-              <div className={styles.main_employee_input_svg}>
-                  <IconSvg width={24} height={24}viewBoxSize={'0 0 24 24'} path={penIconPath}/>
-              </div>
-                  </div>
             <br />
             <label htmlFor="role">Роль нового сотрудника:</label>
             <br />
