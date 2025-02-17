@@ -19,7 +19,7 @@ export const noPublishedIconPath = [{ d: publishedMarkerSvgIcon.noPublished, fil
 
 export const settingsIconPath = [{ d: classesSettingSvgIcon.setting, fill: '#6B7280' }]
 
-export const deleteIconPath = [{ d: classesSettingSvgIcon.deleteIcon, fill: '#357EEB' }]
+export const deleteIconPath = [{ d: classesSettingSvgIcon.deleteIcon, fill: '#EF4444' }]
 
 export const paperClipIconPath = [{ d: classesSettingSvgIcon.paperClip, fill: '#6B7280' }]
 

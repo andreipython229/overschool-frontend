@@ -2,14 +2,12 @@
 @import '../../../../scss/mixin.scss';
 
 .content {
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  //gap: 20px;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  //padding: 40px 27px 27px 27px;
-  min-height: 280px;
+  padding: 40px 27px 27px 27px;
+  min-height: 400px;
   margin: auto;
   flex-shrink: 0;
   flex-grow: 0;
@@ -26,8 +24,7 @@
 .student {
   &_progress {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    gap: 40px;
 
     &_title {
       @include font(500, 12px, 150%);
@@ -49,19 +46,19 @@
 
     &_avatar {
       flex-shrink: 0;
-      width: 150px;
-      height: 150px;
+      width: 85px;
+      height: 85px;
       text-transform: uppercase;
       @include font(500, 24px, 29px);
       margin-bottom: 20px;
       display: flex;
       align-items: center;
-      justify-content: left;
+      justify-content: center;
       background: #daebff;
       color: #8aabd1;
       letter-spacing: 0.02em;
       border-radius: 50%;
-      -webkit-border-radius: 20%;
+      -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
       -ms-border-radius: 50%;
       -o-border-radius: 50%;
@@ -76,7 +73,7 @@
     }
 
     &_email {
-      @include font(500, 15px, 150%);
+      @include font(500, 10px, 150%);
       letter-spacing: -0.02em;
       color: #a3a9b5;
     }
@@ -84,8 +81,7 @@
     &_activity {
       @include font(500, 12px, 150%);
       letter-spacing: -0.02em;
-      //color: $font-color-rose;
-      color: #357EEB;
+      color: $font-color-rose;
       margin: 12px 0 17px;
     }
   }
@@ -125,8 +121,7 @@
 
   & input {
     border-radius: 5px;
-    //color: $font-color-rose;
-    color: #357EEB;
+    color: $font-color-rose;
     height: 25px;
     text-align: center;
     margin-left: 20px;

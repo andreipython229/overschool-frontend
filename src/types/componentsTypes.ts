@@ -73,7 +73,6 @@ export type AllStudentsBlockT = {
   updateStudents: (value: string) => void
   isGrouping: (isStudentsGrouped: boolean) => void
   all_students_count: number | null
-  tableId: number
 }
 
 export interface ICategories {

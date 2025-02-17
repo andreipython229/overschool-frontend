@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, memo, useEffect, useState} from 'react'
+import {ChangeEvent, FC, memo, useEffect, useState} from 'react'
 
 import {FiltersButton} from '../FiltersButton'
 import {
@@ -10,11 +10,13 @@ import {IconSvg} from '../common/IconSvg/IconSvg'
 import {Button} from '../common/Button/Button'
 import {AllStudentsBlockT} from '../../types/componentsTypes'
 import {useBoolean} from '../../customHooks'
+import {addStudentIconPath} from './config/svgIconsPath'
 import {Portal} from '../Modal/Portal'
 import {useFetchCoursesQuery} from '../../api/coursesServices'
 import {useFetchSchoolStudentsGroupingQuery, useUpdateSchoolStudentsGroupingMutation} from 'api/schoolService'
 import {ChipsComponent} from 'components/FiltersButton/Chips/chips'
 import {chipsVal} from 'components/FiltersButton/Chips/config'
+// import { useDebouncedFilter } from '../../customHooks/useDebouncedFilter'
 import {StudentsSchoolExport} from 'components/StudentsTable/StudentsExport/StudentsSchoolExport'
 import {StudentsCroupExport} from 'components/StudentsTable/StudentsExport/StudentsCroupExport'
 import {StudentsCourseExport} from 'components/StudentsTable/StudentsExport/StudentCourseExport'
@@ -25,10 +27,6 @@ import {useAppSelector} from 'store/hooks'
 import {updateDataIcon} from '../../config/commonSvgIconsPath'
 import {AddStudentModal} from 'components/Modal/StudentLogs/AddStudentModal/AddStudentCourseModal'
 import {SearchBar} from "../SearchBar";
-import {PeopleIconSvg} from "../StudentGroupMiniCard/assets/iconsComponents";
-import {SettingsIconPath} from "../../assets/Icons/svgIconPath";
-import {SettingStudentTable} from "../Modal";
-
 
 
 export interface FilterItem {
@@ -38,7 +36,6 @@ export interface FilterItem {
 
 export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     ({
-         tableId,
          invite,
          headerText,
          all_students_count,
@@ -72,9 +69,6 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
         // const [term, filteredData, handleChangeTerm] = useDebouncedFilter()
 
         const [searchTerm, setSearchTerm] = useState('')
-
-        const [isModalOpen, { on: SettingTableModal, off: SettingTableModalOff, onToggle: toggleSettingTableModal }] = useBoolean()
-
         const onChangeInput = (value: string) => {
             setSearchTerm(value)
         }
@@ -131,23 +125,25 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             <div>
                 <p className={styles.header_block_text}>{headerText}</p>
                 <div style={{fontSize: "12px", color: "#3B3B3B"}}>Количество: <b>{all_students_count}</b></div>
+                {headerText === 'Все ученики платформы' && (
+                    <div style={{display: 'flex', alignItems: 'center', marginBottom: '5px', marginBlockStart: '5px'}}>
+                        <label htmlFor="groupStudentsCheckbox" style={{marginRight: '5px', fontSize: "14px",}}>Сгруппировать
+                            учеников:</label>
+                        <input type="checkbox" id="groupStudentsCheckbox" name="groupStudentsCheckbox" style={{
+                            width: '15px',
+                            height: '15px',
+                            marginBlockStart: '2px'
+                        }}
+                               onChange={handleGroupStudents} checked={isGroupingStudents ?? false}/>
+                    </div>
+                )}
                 {headerText === 'Все ученики платформы' && <StudentsSchoolExport/>}
                 {headerText === 'Все ученики группы' && <StudentsCroupExport/>}
                 {headerText === 'Все ученики курса' && <StudentsCourseExport/>}
-                <div className={styles.header_block_text_chips_components}>
+                <div style={{marginBottom: '15px'}}>
                     <ChipsComponent filterKey={filterKey} filters={filters} chipsVal={chipsVal['students']}/>
                 </div>
-                        <div className={styles.header_block_text_add_student_btn_line}>
-                <div className={invite ? styles.button_search_block_wButton : styles.button_search_block}>
-                    {role != RoleE.Teacher && invite ? (
-                        <Button onClick={off} className={styles.add_students_btn} style={{'height': '40px'}} text={'Добавить учеников'}
-                                variant={'newPrimary'}>
-                            <PeopleIconSvg/>
-                        </Button>
-                    ) : (
-                        <></>
-                    )}
-                        <div><FiltersButton
+                <div className={styles.filter_button}><FiltersButton
                     filteringCategoriesList={filteringCategoriesList}
                     addLastActiveFilter={addLastActiveFilter}
                     addMarkFilter={addMarkFilter}
@@ -156,36 +152,29 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
                     removeLastActiveEndFilter={removeLastActiveEndFilter}
                     {...filters}
                 /></div>
-                    </div>
-                            </div>
-
-                <div className={styles.header_block_text_search_line}>
                 <SearchBar
                     searchTerm={searchTerm}
                     onChangeInput={onChangeInput}
                 />
-
-                    <div className={styles.header_block_text_search}>
+                <div className={styles.header_block_text_search}>
                     <div className={styles.arrow_add_file_block}
                          onClick={() => handleReloadTable && handleReloadTable()}>
-                        <IconSvg width={25} height={25} viewBoxSize="0 0 32 32" path={updateDataIcon}/>
+                        <IconSvg width={19} height={23} viewBoxSize="0 0 30 30" path={updateDataIcon}/>
                     </div>
                 </div>
-
-                        <div className={styles.filter_button}>
-                        <IconSvg functionOnClick={SettingTableModalOff} width={25} height={25} viewBoxSize={'0 0 25 25'} path={SettingsIconPath} />
-                            </div>
-                        </div>
-
+                <div className={invite ? styles.button_search_block_wButton : styles.button_search_block}>
+                    {role != RoleE.Teacher && invite ? (
+                        <Button onClick={off} className={styles.add_students_btn} text={'Добавить учеников'}
+                                variant={'primary'}>
+                            <IconSvg width={30} height={30} viewBoxSize={'0 0 16 16'} path={addStudentIconPath}
+                                     styles={{marginRight: '0.2em'}}/>
+                        </Button>
+                    ) : (
+                        <></>
+                    )}
+                </div>
                 {isOpen && <Portal closeModal={on}>{courses &&
                     <AddStudentModal setShowModal={on} courses={courses?.results}/>}</Portal>}
-
-                {isModalOpen && (
-                    <Portal closeModal={SettingTableModal}>
-                        <SettingStudentTable setShowModal={toggleSettingTableModal} tableId={tableId}/>
-                    </Portal>
-                )}
-
             </div>
         )
     },

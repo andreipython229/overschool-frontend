@@ -73,8 +73,8 @@ export const chatsGroup = [{ d: chatGroup.d1 }, { d: chatGroup.d2, fill: 'curren
 export const groupIconPath = [{ d: groupIcon, fill: '#BA75FF' }]
 
 export const updateDataIcon = [
-  { d: updateSvgIcon.d1, fill: '#111111' },
-  { d: updateSvgIcon.d2, fill: '#111111' },
+  { d: updateSvgIcon.d1, fill: '#b3b3b3' },
+  { d: updateSvgIcon.d2, fill: '#b3b3b3' },
 ]
 
 export const emailSvgIconPath = [
