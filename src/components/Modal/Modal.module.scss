@@ -53,8 +53,45 @@
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding: 16px;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding: 59px 16px 60px 16px;
+  }
+
+  &_main {
+    position: relative;
+    @include display(flex, column, center);
+    padding: 39px 53px 27px 52px;
+    background: #ffffff;
+    font-family: 'SFPRORegular';
+    margin: auto;
+    border-radius: 20px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    overflow: visible;
+    max-width: 600px;
+    transition: 400ms ease-out;
+  
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      width: 98%;
+      position: absolute;
+      top: 10%;
+      right: 1%;
+    }
+  
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      width: 98%;
+      position: absolute;
+      top: 10%;
+      right: 1%;
+  
+    }
+  
+    @media only screen and (min-width: 481px) and (max-width: 1024px) {
+      position: absolute;
+      left: 3%;
+      right: 3%;
+    }
   }
 
   &_wrapper {
@@ -70,11 +107,29 @@
       align-items: center;
       justify-content: center;
       padding: 16px;
-      @media only screen and (min-width: 320px) and (max-width: 375px) {
-        padding: 17px;
+
+      &:first-child {
+        padding: 14px;
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          padding: 5px;
+        }
+
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          padding: 5px;
+        }
       }
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        font-size: 14px;
+        width: 145px;
+        padding: 7px;
+      }
+
       @media only screen and (min-width: 375px) and (max-width: 480px) {
-        padding: 17px;
+        font-size: 14px;
+        width: 145px;
+        padding: 7px;
       }
     }
   }
@@ -82,22 +137,29 @@
   &_title {
     max-width: 495px;
     width: 100%;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 38.19px;
+    @include font(700, 32px, 38.19px);
     color: $color-text;
     margin-bottom: 30px;
     text-align: center;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font(700, 20px, 22px);
+    }
+
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(700, 20px, 22px);
+    }
   }
 }
 
 .container {
   padding: 60px 53px 55px 52px;
   font-family: 'SFPRORegular';
-  box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin: 16px;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin: 59px 16px 60px 16px;
   }
@@ -115,7 +177,7 @@
   position: relative;
   @include display(flex, column, center);
   background: $color-white;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'SFPRORegular';
   margin: auto;
   border-radius: 7px;
   flex-shrink: 0;
@@ -123,19 +185,22 @@
   overflow: visible;
   width: 600px;
   transition: 400ms ease-out;
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 98%;
     position: absolute;
     top: 10%;
     right: 1%;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 98%;
     position: absolute;
     top: 10%;
     right: 1%;
-    
+
   }
+
   @media only screen and (min-width: 481px) and (max-width: 1024px) {
     position: absolute;
     left: 30%;
@@ -179,18 +244,21 @@
     flex-grow: 0;
     overflow: visible;
     width: 400px;
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 90%;
       position: absolute;
       top: 10%;
       right: 6%;
     }
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       width: 90%;
       position: absolute;
       top: 10%;
       right: 6%;
     }
+
     @media only screen and (min-width: 481px) and (max-width: 1024px) {
       position: absolute;
       left: 30%;
@@ -206,14 +274,16 @@
     align-items: center;
     justify-content: center;
     transition: color 0.3s;
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       right: 10%;
     }
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       right: 10%;
     }
 
-    svg:hover path{
+    svg:hover path {
       fill: $color-blue;
     }
   }
@@ -240,6 +310,7 @@
     color: #000000;
     text-align: center;
     margin-bottom: 1em;
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       font-size: 18px;
       margin-bottom: 1em;
@@ -251,6 +322,7 @@
     align-items: center;
     justify-content: left;
     width: 30em;
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       width: 100%;
     }
@@ -278,6 +350,7 @@
     align-items: center;
     justify-content: left;
     width: 30em;
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       width: 100%;
     }
@@ -324,9 +397,11 @@
   transform: translate(-50%, -50%);
   max-height: 100vh;
   overflow: auto;
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 100%;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 100%;
   }
@@ -482,7 +557,7 @@
     margin-bottom: 12px;
 
     &_button {
-      width:60%;
+      width: 60%;
       @include font(400, 12px);
       margin: 0 auto;
     }
@@ -534,10 +609,12 @@
   transform: translate(-50%, -50%);
   max-width: 677px;
   width: 100%;
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 99%;
 
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 99%;
 
@@ -545,11 +622,13 @@
 
   &_container {
     position: relative;
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       display: flex;
       flex-direction: column;
@@ -579,29 +658,34 @@
 .classesContainer {
   @include position_t_l(absolute, 50%, 50%, 10);
   @include display(flex, column, center);
-  padding: 49px 53px 47px 52px;
+  padding: 39px 53px 27px 52px;
   background: #ffffff;
   text-align: center;
+  max-width: 600px;
+  width: 100%;
   margin: 0 auto;
   border-radius: 24px;
   transform: translate(-50%, -50%);
   font-family: 'SFPRORegular';
   box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    padding: 2%;
     margin: 0 auto;
-    width: 95%;
     display: flex;
     flex-wrap: wrap;
     align-content: space-around;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    padding: 2%;
     margin: 0 auto;
-    width: 95%;
     display: flex;
     flex-wrap: wrap;
     align-content: space-around;
+  }
+
+  @media only screen and (max-width: 620px) {
+    padding: 44px 10px 20px 10px;
+    width: 95%;
   }
 
   &_closed {
@@ -612,22 +696,44 @@
     align-items: center;
     justify-content: center;
     transition: color 0.3s;
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      right: 10%;
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      right: 10%;
+
+    svg {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @include position_t_r(absolute, 10px, 10px);
+        width: 34px;
+        height: 34px;
+      }
+  
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @include position_t_r(absolute, 10px, 10px);
+        width: 34px;
+        height: 34px;
+      }
     }
 
-    svg:hover path{
+    svg:hover path {
       fill: $color-blue;
     }
+  }
+
+  &_main {
+    width: 100%;
   }
 
   &_title {
     @include font(700, 32px, 38.19px);
     color: $color-text;
     margin-bottom: 45px;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font(700, 20px, 22px);
+      margin-bottom: 40px;
+    }
+
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(700, 20px, 22px);
+      margin-bottom: 40px;
+    }
   }
 
   &_type {
@@ -635,9 +741,11 @@
     display: flex;
     justify-content: center;
     gap: 22px;
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       gap: 5%;
     }
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       gap: 5%;
     }
@@ -652,6 +760,30 @@
       background: $color-white;
       color: $color-text;
       cursor: pointer;
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @include font(600, 12px, 14.32px);
+        width: 96px;
+        height: 128px;
+      }
+
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @include font(600, 12px, 14.32px);
+        width: 96px;
+        height: 128px;
+      }
+
+      svg {
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          width: 60px;
+          height: 60px;
+        }
+    
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          width: 60px;
+          height: 60px;
+        }
+      }
     }
 
     &_subs {
@@ -660,13 +792,19 @@
       width: 100%;
       margin: 0 auto;
       color: $color-text;
+
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         width: 100%;
         margin-bottom: 2%;
+        @include font(400, 10px, 11.93px);
+        color: $color-grey;
       }
+
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         width: 100%;
         margin-bottom: 2%;
+        @include font(400, 10px, 11.93px);
+        color: $color-grey;
       }
     }
 
@@ -674,25 +812,43 @@
       @include display(flex, row, space-between, center);
       max-width: 495px;
       width: 100%;
-      margin-top: 20px;
-      @media only screen and (min-width: 320px) and (max-width: 375px) {
-        // padding-left: 25%;
-      }
-      @media only screen and (min-width: 375px) and (max-width: 480px) {
-        // padding-left: 25%;
+
+      @media only screen and (max-width: 620px) {
+        max-width: 570px;
       }
 
       & button {
-        width: 235px;
+        max-width: 235px;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 16px;
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
-          padding: 17px;
+
+        &:first-child {
+          padding: 14px;
+
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            padding: 5px;
+          }
+  
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
+            padding: 5px;
+          }
         }
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          font-size: 13px;
+          padding: 7px;
+        }
+
         @media only screen and (min-width: 375px) and (max-width: 480px) {
-          padding: 17px;
+          font-size: 13px;
+          padding: 7px;
+        }
+
+        @media only screen and (max-width: 600px) {
+          width: 49%;
         }
       }
     }
@@ -763,7 +919,7 @@
 }
 
 .active {
-  background: #2051D1;
+  background: #2051d1;
   box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
   color: $color-white;
 }
@@ -774,6 +930,14 @@
 
     & svg {
       margin-bottom: 24px;
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        margin-bottom: 0;
+      }
+
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -783,11 +947,35 @@
     text-align: left;
 
     div {
-
       div {
+        height: 56px;
         flex-direction: row-reverse;
         border: 1px solid transparent;
-        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          border: 2px solid #357eeb;
+          background: transparent;
+          height: 34px;
+          padding: 10px;
+        }
+
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          border: 2px solid #357eeb;
+          background: transparent;
+          height: 34px;
+          padding: 10px;
+        }
+      }
+    }
+
+    input {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        font-size: 16px !important;
+      }
+
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        font-size: 16px !important;
       }
     }
 
@@ -795,6 +983,36 @@
       font-weight: 400;
       font-size: 16px;
       color: #808080;
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        font-size: 12px;
+      }
+
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        font-size: 12px;
+      }
+    }
+
+    svg {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        width: 18px;
+        height: 18px;
+      }
+
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        width: 18px;
+        height: 18px;
+      }
+
+      path {
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          fill: $color-grey;
+        }
+  
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          fill: $color-grey;
+        }
+      }
     }
   }
 
@@ -830,6 +1048,14 @@
 
   & svg {
     margin-bottom: 26px;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin-bottom: 0;
+    }
+
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      margin-bottom: 0;
+    }
   }
 
   &_checkbox {
@@ -883,29 +1109,47 @@
   @include display(flex, column, flex-start, center);
   text-align: center;
 
-  & svg {
-    margin-bottom: 26px;
-  }
-
   &_title {
     @include font(500, 20px, 23.87px);
     color: #000000;
     text-align: left;
-    margin-bottom: 12px; 
+    margin-bottom: 12px;
+
+    @media only screen and (max-width: 600px) {
+      @include font(600, 12px, 16px);
+    }
   }
 
   &_input {
     width: 100%;
     text-overflow: ellipsis;
     text-align: left;
-    margin-bottom: 24px; 
 
     div {
-
       div {
+        height: 56px;
+        margin-bottom: 24px;
         flex-direction: row-reverse;
         border: 1px solid transparent;
-        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
+
+        @media only screen and (max-width: 600px) {
+          border: 2px solid #357eeb;
+          background: transparent;
+          height: 34px;
+          padding: 10px;
+          margin-bottom: 10px;
+        }
+
+        @media only screen and (min-width: 601px) and (max-width: 1000px) {
+          margin-bottom: 14px;
+        }
+      }
+    }
+
+    input {
+      @media only screen and (max-width: 600px) {
+        font-size: 16px !important;
       }
     }
 
@@ -913,11 +1157,36 @@
       font-weight: 400;
       font-size: 16px;
       color: #808080;
+
+      @media only screen and (max-width: 600px) {
+        font-size: 12px;
+      }
+    }
+
+    svg {
+      @media only screen and (max-width: 600px) {
+        width: 18px;
+        height: 18px;
+      }
+
+      path {
+        @media only screen and (max-width: 600px) {
+          fill: $color-grey;
+        }
+      }
     }
   }
 
   &_checkboxPack {
     margin-bottom: 32px;
+
+    @media only screen and (max-width: 600px) {
+      margin-bottom: 10px;
+    }
+
+    @media only screen and (min-width: 601px) and (max-width: 1000px) {
+      margin-bottom: 20px;
+    }
   }
 
   &_checkbox {
@@ -927,39 +1196,6 @@
     color: #000000;
     width: 100%;
     text-align: left;
-
-    div {
-      div {
-        width: 40px;
-        height: 20px;
-        background: rgba(128, 128, 128, 1);
-        border: none;
-
-        &[data-isOn='true'] {
-          background: transparent;
-          border: 1px solid rgba(53, 126, 235, 1);
-
-          div {
-            &::before {
-              background: rgba(53, 126, 235, 1);
-              border: none;
-          }
-          }
-      }
-
-        div {
-          width: 16px;
-          height: 16px;
-
-          &::before {
-            width: 16px;
-            height: 16px;
-            background: #ffffff;
-            border: none;
-          }
-        }
-      }
-    }
 
     &_attempts {
       width: 50px;
@@ -978,6 +1214,10 @@
         @include font(500, 16px, 19.09px);
         text-align: left;
         color: #808080;
+
+        @media only screen and (max-width: 600px) {
+          @include font(500, 10px, 11.93px);
+        }
       }
     }
   }
@@ -1007,6 +1247,48 @@
       }
     }
   }
+}
+
+.toggle_switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.toggle_switch input {
+  display: none;
+}
+
+.toggle_switch .switch {
+  @include position_t_l(absolute, 0, 0);
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  background: rgba(128, 128, 128, 1);
+  border-radius: 36px;
+  transition: background-color 0.2s ease;
+}
+
+.toggle_switch .switch::before {
+  @include position_t_l(absolute, 2px, 2px);
+  content: "";
+  width: 16px;
+  height: 16px;
+  background-color: $color-white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.toggle_switch input:checked + .switch::before {
+  @include position_t_l(absolute, 1px, 1px);
+  transform: translateX(20px);
+  background-color: $color-blue;
+}
+
+.toggle_switch input:checked + .switch {
+  background-color: $color-white;
+  border: 1px solid $color-blue;
 }
 
 .webinar {
@@ -1100,34 +1382,27 @@
     @include font(700, 32px);
     color: $color-text;
     line-height: 38.19px;
+    width: 100%;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font(700, 20px, 16px);
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(700, 20px, 16px);
+    }
   }
 
-  &_input {
-    width: 495px;
-    text-align: left;
-
-    div {
-
-      div {
-        flex-direction: row-reverse;
-        border: 1px solid transparent;
-        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+  &_button {
+    button {
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        font-size: 13px !important;
+        padding: 10px !important;
       }
-    }
-
-    input::placeholder {
-      font-weight: 400;
-      font-size: 16px;
-      color: #808080;
-    }
-
-    &_label {
-      font-size: 14px;
-      color: #a2a9b4;
-    }
-
-    &_penIcon {
-      display: block;
+  
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        font-size: 13px !important;
+        padding: 10px !important;
+      }
     }
   }
 }
@@ -1206,6 +1481,7 @@
         @media only screen and (min-width : 320px) and (max-width : 375px) {
           width: 300px;
         }
+
         @media only screen and (min-width : 375px) and (max-width : 480px) {
           width: 350px;
         }
@@ -1241,12 +1517,15 @@
   margin: 0 auto;
   border-radius: 7px;
   transform: translate(-50%, -50%);
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 100%;
   }
+
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 100%;
   }
+
   &_container {
     margin: 36px 31px 30px 31px;
     padding: 0 30px 20px 30px;
@@ -1342,10 +1621,10 @@
 
 .feedback {
   @include display(flex, column, center, center);
-      box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
-      border-radius: 30px;
-      position: relative;
-      z-index: 2;
+  box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  position: relative;
+  z-index: 2;
 
   &_img {
     margin-left: 40px;
@@ -1357,7 +1636,7 @@
     width: 100%;
     padding-bottom: 45px;
 
-    @media only screen and (min-width: 1400px) and (max-width: 1890px){
+    @media only screen and (min-width: 1400px) and (max-width: 1890px) {
       padding-bottom: 63px;
     }
 
@@ -1368,39 +1647,39 @@
       text-align: center;
       margin-bottom: 25px;
 
-      @media only screen and (min-width: 1400px) and (max-width: 1890px){
+      @media only screen and (min-width: 1400px) and (max-width: 1890px) {
         @include font(400, 36px, 23.87px);
         margin-bottom: 36px;
       }
     }
 
     &_info {
-      @include display(flex, column,center, initial);
+      @include display(flex, column, center, initial);
       width: 100%;
 
       &_rating {
         @include display(flex, row, space-between, center);
-  
+
         &_title {
           @include font(400, 16px, 23.87px);
           font-family: 'SFPRORegular';
           color: #000000;
 
-          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+          @media only screen and (min-width: 1400px) and (max-width: 1890px) {
             @include font(400, 20px, 23.87px);
           }
         }
-  
+
         &_value {
           display: flex;
           gap: 16px;
           align-items: center;
         }
-  
+
         span {
           gap: 16px;
         }
-  
+
         label {
           color: #faaf00;
 
@@ -1429,7 +1708,7 @@
           @include font(400, 16px, 23.87px);
           color: #357eeb;
 
-          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+          @media only screen and (min-width: 1400px) and (max-width: 1890px) {
             @include font(400, 20px, 23.87px);
           }
 
@@ -1438,7 +1717,7 @@
             color: #808080;
             font-family: 'SFPRORegular';
 
-            @media only screen and (min-width: 1400px) and (max-width: 1890px){
+            @media only screen and (min-width: 1400px) and (max-width: 1890px) {
               @include font(400, 20px, 23.87px);
             }
           }
@@ -1460,11 +1739,148 @@
           @include font(400, 16px, 23.87px);
           color: #808080;
 
-          @media only screen and (min-width: 1400px) and (max-width: 1890px){
+          @media only screen and (min-width: 1400px) and (max-width: 1890px) {
             @include font(400, 20px, 23.87px);
           }
         }
       }
     }
   }
+}
+
+.banner_groups {
+  position: relative;
+  @include display(flex, column, center);
+  background: $color-white;
+  font-family: 'Manrope', sans-serif;
+  margin: auto;
+  border-radius: 34px;
+  border: 1px solid #3170e7;
+  flex-shrink: 0;
+  flex-grow: 0;
+  overflow: visible;
+  width: 600px;
+  transition: 400ms ease-out;
+  height: auto;
+
+  .container_buttons {
+    @include display(flex, column, start, start);
+    gap: 18px;
+    margin-bottom: 25px;
+  }
+
+  .courses_container {
+    @include display(flex, column, space-between, start);
+    max-height: 400px;
+    overflow-y: scroll;
+    margin: 0 20px;
+    gap: 5px;
+
+    div {
+      @include display(flex, row, start, center);
+      height: auto;
+      color: #808080;
+      font-weight: 700;
+      font-size: 18px;
+      gap: 5px;
+
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #CFE2FF;
+      border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #332F36;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    ::-webkit-scrollbar-button {
+      background: #332F36;
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+
+
+
+
+  .course_container {
+    @include display(flex, row, space-between, center);
+    justify-content: space-between !important;
+    width: 100%;
+  }
+
+  .to_select_groups {
+    @include display(flex, row, center, center);
+    margin-right: 10px;
+    background-color: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
+  }
+
+  .group_container {
+    margin: 0 20px;
+  }
+
+  .groups_warning {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0 0 0;
+    color: transparent;
+
+    &_active{
+      color: red;
+    }
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    width: 98%;
+    position: absolute;
+    top: 10%;
+    right: 1%;
+  }
+
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    width: 98%;
+    height: 50%;
+
+    font-size: 16px;
+    position: relative !important;
+    margin: auto auto;
+
+    div {
+      padding: 1px;
+      box-shadow: none;
+
+      span {
+        right: 5px;
+      }
+    }
+
+
+  }
+
+  @media only screen and (min-width: 700px) and (max-width: 1024px) {
+    width: 75vw;
+  }
+
+  @media only screen and (min-width: 481px) and (max-width: 700px) {
+    // position: absolute;
+    // left: 30%; 
+    // height: 95%;
+    width: 90vw;
+  }
+
 }

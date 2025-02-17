@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo} from 'react'
+import React, { useState, useEffect, useRef, memo } from 'react'
 import { Link, generatePath, useLocation, useNavigate } from 'react-router-dom'
 import { useFetchProfileDataQuery, useLazyFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
@@ -42,7 +42,7 @@ import { w3cwebsocket } from 'websocket'
 import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice'
 import { useFetchNotificationsQuery, useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
 import { TgMessage } from 'types/tgNotifications'
-import { useFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
+import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { useLoginMutation } from '../../api/userLoginService'
 import { CoursesDataT } from 'types/CoursesT'
@@ -51,13 +51,9 @@ import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
 import { useAcceptBannerMutation, useLazyGetStudentBannerQuery } from 'api/schoolBonusService'
 import { useBoolean } from 'customHooks'
 import HTMLReactParser from 'html-react-parser'
-import {
-  HomeIconPath,
-  MessageConvertIconPath,
-  UserIconPath,
-} from 'assets/Icons/svgIconPath'
+import { HomeIconPath, MessageConvertIconPath, UserIconPath } from 'assets/Icons/svgIconPath'
 import { SocialMediaButton } from 'components/SocialMediaButton'
-import {useFetchSchoolQuery} from "../../api/schoolService";
+import { useFetchSchoolQuery } from '../../api/schoolService'
 
 type WebSocketHeaders = {
   [key: string]: string | string[] | number
@@ -105,8 +101,7 @@ export const Header = memo(() => {
       student_count_by_month: null,
     },
   })
-  const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] =
-    useGetSchoolProgressionDataMutation()
+  const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation()
   const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
   const [unreadAppeals, setUnreadAppeals] = useState<number>(0)
   const chats = useAppSelector(state => state.chats.chats)
@@ -122,12 +117,12 @@ export const Header = memo(() => {
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
 
-  const { data: studentsGroups } = useFetchStudentsGroupWithParamsQuery({ schoolName: schoolName, params: 's=100' })
+  const [fetchGroups, { data: studentsGroups }] = useLazyFetchStudentsGroupWithParamsQuery()
   const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
   const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null)
   const [acceptBanner] = useAcceptBannerMutation()
 
-  const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
+  // const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
   const [showTgMessageForm, setShowTgMessageForm] = useState(false)
   const [createTgMessage] = useUpdateTgMessageMutation()
   const [tgMessage, setTgMessage] = useState<TgMessage>({
@@ -159,6 +154,12 @@ export const Header = memo(() => {
       }
     })
   }
+
+  useEffect(() => {
+    if (userRole === RoleE.Admin) {
+      fetchGroups({ schoolName: schoolName, params: 's=100' })
+    }
+  }, [])
 
   const handleLogin = async (login: string, password: string) => {
     try {
@@ -690,7 +691,14 @@ export const Header = memo(() => {
                   )}
                 </p>
               </div>
-              <Menu anchorEl={anchorEl2} id="account-menu" open={open2} onClose={handleClose2} onClick={handleClose2} className={styles.popoverWrapper}>
+              <Menu
+                anchorEl={anchorEl2}
+                id="account-menu"
+                open={open2}
+                onClose={handleClose2}
+                onClick={handleClose2}
+                className={styles.popoverWrapper}
+              >
                 <MenuItem>
                   <span> Курсов:</span>
                   <span style={{ paddingLeft: '0.3rem' }}>
@@ -700,14 +708,11 @@ export const Header = memo(() => {
                 </MenuItem>
                 <MenuItem>
                   <span> Сотрудников:</span>
-                  <span style={{ paddingLeft: '0.3rem' }}>
-                    {' '}
-                    {`${currentTariff?.staff}/${currentTariff?.tariff_details?.number_of_staff || 'ꝏ'}`}
-                  </span>
+                  <span style={{ paddingLeft: '0.3rem' }}> {`${currentTariff?.staff}/${currentTariff?.tariff_details?.number_of_staff || 'ꝏ'}`}</span>
                   <br />
                 </MenuItem>
                 <MenuItem>
-                  <span > Студентов:</span>
+                  <span> Студентов:</span>
                   <span style={{ paddingLeft: '0.3rem' }}>
                     {' '}
                     {`${currentTariff?.students}/${currentTariff?.tariff_details?.total_students || 'ꝏ'}`}
@@ -722,41 +727,52 @@ export const Header = memo(() => {
                 </MenuItem>
                 <div onClick={goToChooseTariff} className={styles.goToTariff}>
                   <p>Перейти на тариф</p>
-                  <img src={tariffImg} alt='tariffs-page'/>
+                  <img src={tariffImg} alt="tariffs-page" />
                 </div>
               </Menu>
             </div>
           )}
+          {userRole === RoleE.Admin && tariffPlan && 'error' in tariffPlan && (
+            <div
+              className={styles.tariffPlan}
+              style={{ textDecoration: 'none', gap: '10px' }}
+              onClick={() => navigate(generatePath(Path.TariffPlans))}
+            >
+              <div className={styles.tariffPlan_icon}>
+                <IconSvg width={23} height={19} viewBoxSize="0 0 23 19" path={orangeTariffPlanIconPath} />
+              </div>
+              <p className={styles.tariffPlan_text}>
+                <span className={styles.tariffPlan_text_tariff}>{`Тариф истёк`}</span>
+                <span style={{ color: '#357EEB', fontSize: '10px', fontFamily: 'SFPRORegular' }}>{`Выберите тарифный план`}</span>
+              </p>
+            </div>
+          )}
         </React.Fragment>
-        <div className={styles.header_socialIcons}>
-  {schoolData && (
-    <>
-      <SocialMediaButton variant="Telegram" url={schoolData.telegram_link || 'https://t.me/course_hb'} />
-      <SocialMediaButton variant="Instagram" url={schoolData.instagram_link || 'https://instagram.com/'} />
-      <SocialMediaButton variant="X" url={schoolData.twitter_link || "https://x.com/"} />
-      <SocialMediaButton variant="Youtube" url={schoolData.youtube_link || "https://youtube.com/"} />
-      <SocialMediaButton variant="VK" url={schoolData.vk_link ||"https://vk.ru/"} />
-      <SocialMediaButton variant="Link" url={schoolData.extra_link ||"#"} />
-    </>
-  )}
-</div>
+        <div className={userRole === RoleE.Admin ? styles.header_socialIcons : styles.header_socialIcons2}>
+          {schoolData && (
+            <>
+              <SocialMediaButton variant="Telegram" url={schoolData.telegram_link || 'https://t.me/course_hb'} />
+              <SocialMediaButton variant="Instagram" url={schoolData.instagram_link || 'https://instagram.com/'} />
+              <SocialMediaButton variant="X" url={schoolData.twitter_link || 'https://x.com/'} />
+              <SocialMediaButton variant="Youtube" url={schoolData.youtube_link || 'https://youtube.com/'} />
+              <SocialMediaButton variant="VK" url={schoolData.vk_link || 'https://vk.ru/'} />
+              <SocialMediaButton variant="Link" url={schoolData.extra_link || '#'} />
+            </>
+          )}
+        </div>
         <React.Fragment>
           <Button variant="newPrimary" text={headerUserRoleName[userRole]} onClick={handleClick} style={{ fontSize: '16px' }}>
             <IconSvg width={18} height={18} viewBoxSize="0 0 24 24" path={UserIconPath} />
           </Button>
           <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose} className={styles.popoverWrapper}>
             <MenuItem onClick={goToProfile}>
-              <IconSvg viewBoxSize="0 0 24 24" width={18} height={18} path={UserIconPath}/>
-              <Link to={Path.Profile}>
-                Открыть профиль
-              </Link>
+              <IconSvg viewBoxSize="0 0 24 24" width={18} height={18} path={UserIconPath} />
+              <Link to={Path.Profile}>Открыть профиль</Link>
             </MenuItem>
             {canChangePlatform && (
               <MenuItem onClick={goToChooseSchool}>
-                <IconSvg viewBoxSize='0 0 24 24' width={18} height={18} path={HomeIconPath}/>
-                <Link to={Path.ChooseSchool}>
-                  Смена платформы
-                </Link>
+                <IconSvg viewBoxSize="0 0 24 24" width={18} height={18} path={HomeIconPath} />
+                <Link to={Path.ChooseSchool}>Смена платформы</Link>
               </MenuItem>
             )}
             {schoolRoles && schoolRoles.roles.includes('Студент') && (
@@ -786,7 +802,7 @@ export const Header = memo(() => {
           </Menu>
         </React.Fragment>
         <div className={styles.header_logOut} onClick={logOut}>
-          <p>Выйти</p>
+          {window.innerWidth > 1154 && <p>Выйти</p>}
           {isLoading ? (
             <SimpleLoader style={{ position: 'fixed', width: '30px', height: '30px' }} loaderColor="#357EEB" />
           ) : (

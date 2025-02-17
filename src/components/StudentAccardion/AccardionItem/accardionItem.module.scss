@@ -10,7 +10,7 @@
     transition: all 0.3s;
     background-color: transparent;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-      margin: 5px;
+      margin: 0;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       margin: 5px;
@@ -29,7 +29,7 @@
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         padding: 21px 11px;
       }
-      @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @media only screen and (min-width: 375px) and (max-width: 800px) {
         padding: 21px 11px;
       }
 
@@ -47,6 +47,13 @@
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           padding: 21px 11px;
         }
+        
+        svg {
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            width: 20px;
+            height: 20px;
+          }
+        }
       }
 
       &_showBtnWrapper_active > svg {
@@ -56,6 +63,16 @@
         -moz-transform: rotate(180deg);
         -ms-transform: rotate(180deg);
         -o-transform: rotate(180deg);
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          width: 12px;
+          height: 12px;
+        }
+
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          width: 16px;
+          height: 16px;
+        }
       }
 
       &_showBtnWrapper > svg {
@@ -68,14 +85,14 @@
       }
       svg {
         @media only screen and (min-width: 320px) and (max-width: 375px) {
-          width: 15px;
-          height: 15px;
-          margin-left: 10px;
+          width: 12px;
+          height: 12px;
+          margin-left: 5px;
         }
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           width: 15px;
           height: 15px;
-          margin-left: 10px;
+          margin-left: 5px;
         }
       }
 
@@ -93,14 +110,18 @@
         background-color: #357dea;
         border-radius: 50%;
         @media only screen and (min-width: 320px) and (max-width: 375px) {
-          width: 30px;
-          height: 30px;
+          width: 25px;
+          height: 25px;
           font-size: 10px;
         }
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           width: 30px;
           height: 30px;
           font-size: 10px;
+        }
+        @media only screen and (min-width: 481px) and (max-width: 800px) {
+          width: 40px;
+          height: 40px;
         }
 
         &_active {
@@ -117,8 +138,8 @@
           border-radius: 50%;
 
           @media only screen and (min-width: 320px) and (max-width: 375px) {
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             font-size: 10px;
           }
           @media only screen and (min-width: 375px) and (max-width: 480px) {
@@ -137,16 +158,25 @@
         gap: 4px;
         font-size: 16px;
         margin-left: 15px;
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          font-size: 11px;
+        }
+
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          font-size: 15px;
+        }
       }
       &_lessonName {
         @include display(flex, row, flex-start, center);
         width: 100%;
-        margin-left: 50px;
+        margin-left: 30px;
+        text-align: center;
         @media only screen and (min-width: 320px) and (max-width: 375px) {
-          margin-left: 9px;
+          margin-left: 6px;
         }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
-          margin-left: 9px;
+        @media only screen and (min-width: 375px) and (max-width: 800px) {
+          margin-left: 6px;
         }
 
         &_title {
@@ -157,6 +187,9 @@
           }
           @media only screen and (min-width: 375px) and (max-width: 480px) {
             font-size: 10px;
+          }
+          @media only screen and (min-width: 481px) and (max-width: 800px) {
+            font-size: 16px;
           }
 
           //span {
@@ -185,7 +218,20 @@
         @include display(flex, row, flex-start, center);
         gap: 8px;
         font-size: 16px;
-        margin-right: 50px;
+        margin-right: 30px;
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          font-size: 11px;
+          gap: 5px;
+        }
+
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          font-size: 15px;
+          gap: 6px;
+        }
+        @media only screen and (min-width: 481px) and (max-width: 767px) {
+          margin-right: 10px;
+        }
 
         &_lesson {
           @include display(flex, row, flex-start, center);
@@ -193,7 +239,7 @@
         }
       }
       &_status {
-        margin-right: 50px;
+        margin-right: 30px;
 
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           width: 20px;
@@ -221,6 +267,9 @@
             height: 100%;
           }
         }
+        @media only screen and (min-width: 481px) and (max-width: 767px) {
+          margin-right: 10px;
+        }
       }
     }
 
@@ -241,12 +290,16 @@
       //@include display(flex, row, flex-start, flex-start);
       margin-top: 15px;
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      grid-template-rows: repeat(auto-fit, 212px);
-      gap: 20px 20px;
-      @media only screen and (max-width: 800px) {
+      grid-template-columns: repeat(auto-fit, 166px);
+      grid-template-rows: repeat(auto-fit, 190px);
+      gap: 32px;
+      @media only screen and (min-width: 481px) and (max-width: 800px) {
         padding: 10px 10px;
         grid-template-columns: repeat(2, 1fr);
+      }
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        padding: 10px 10px;
+        grid-template-columns: repeat(1, 1fr);
       }
     }
   }

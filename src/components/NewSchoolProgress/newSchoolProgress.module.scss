@@ -1,45 +1,230 @@
+@import '../../scss/variable.scss';
+@import '../../scss/mixin.scss';
+
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
+}
+
 .wrapper {
   position: fixed;
   display: flex;
   flex-direction: column;
-  left: 33.3%;
-  top: 90px;
-  width: 33.3vw;
+  left: 50%;
+  top: 50px;
+  transform: translateX(-50%);
+  width: 50vw;
   height: max-content;
-  border-radius: 20px;
+  border-radius: 30px;
   padding: 1rem;
-  border: 1.5px solid #357eeb;
   z-index: 10000;
-  background: rgba(235, 229, 236, 0.9);
+  font-family: 'SFPRORegular';
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background: linear-gradient(
+    35deg,
+    #57b9ff 0%,
+    #85c6ff 9%,
+    #a8d5ff 17%,
+    #c7e2ff 26%,
+    #e0efff 35%,
+    #f5faff 44%,
+    #e0e8ff 54%,
+    #dbe4ff 63%,
+    #c2d2ff 72%,
+    #9ebaff 100%
+  );
+
+  &_logo {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 130px;
+    height: 78px;
+
+    @media only screen and (min-width: 320px) and (max-width: 550px) {
+      width: 101px;
+      height: 65px;
+    }
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
 
   &_top {
     display: flex;
     justify-content: flex-end;
     width: 100%;
+
+    svg:hover path {
+      fill: $color-blue;
+    }
   }
 
   &_title {
     text-align: center;
     width: 100%;
-    font-size: 18px;
-    color: #357eeb;
-    font-weight: 700;
+    @include font(500, 36px, 42.96px);
+    font-family: 'SFPRORegular';
+    color: #000000;
     margin-bottom: 1rem;
+
+    @media only screen and (min-width: 1500px) and (max-width: 1700px) {
+      font-size: 33px;
+    }
+    @media only screen and (min-width: 1000px) and (max-width: 1499px) {
+      font-size: 28px;
+    }
+    @media only screen and (min-width: 801px) and (max-width: 999px) {
+      font-size: 24px;
+    }
+    @media only screen and (min-width: 500px) and (max-width: 800px) {
+      font-size: 20px;
+      line-height: 25px;
+    }
+    @media only screen and (min-width: 320px) and (max-width: 499px) {
+      font-size: 18px;
+      line-height: 21px;
+    }
   }
 
   &_gift {
     text-align: center;
     width: 100%;
-    font-size: 12px;
-    color: #357eeb;
-    font-weight: 500;
-    margin-bottom: 1rem;
+    @include font(500, 16px, 19.09px);
+    font-family: 'SFPRORegular';
+    color: #000000;
+    margin-bottom: 1.5rem;
+
+    @media only screen and (min-width: 320px) and (max-width: 1499px) {
+      margin-bottom: 1rem;
+      font-size: 14px;
+    }
   }
 
   &_task {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 70%;
+    @include display(flex, row, flex-start, center);
+    padding: 10px 20px;
+    width: 100%;
+    max-width: 367px;
+    height: 44px;
+    border: 1px solid #8c8b8d;
+    border-radius: 10px;
+    background: #ffffff;
+    margin-bottom: 1.5rem;
+
+    @media only screen and (min-width: 1500px) and (max-width: 1700px) {
+      margin-bottom: 0.85rem;
+    }
+    @media only screen and (min-width: 320px) and (max-width: 1499px) {
+      margin-bottom: 0.5rem;
+      height: 35px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    span {
+      width: 24px;
+      height: 24px;
+    }
+
+    &_title {
+      @include font(500, 16px, 19.09px);
+      font-family: 'SFPRORegular';
+      color: $color-text;
+      margin-left: 5px;
+
+      @media only screen and (min-width: 320px) and (max-width: 700px) {
+        font-size: 13px;
+        line-height: 15px;
+      }
+    }
+  }
+
+  &_content {
+    padding: 0 38px;
+
+    @media only screen and (min-width: 320px) and (max-width: 700px) {
+      padding: 0;
+    }
+  }
+
+  &_tasks {
+    @include display(flex, column, center, center);
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  &_button {
+    &_allTasks {
+      button {
+        padding: 12px 24px;
+
+        @media only screen and (min-width: 320px) and (max-width: 699px) {
+          padding: 10px;
+          line-height: 22px;
+        }
+      }
+    }
+  }
+
+  &_progress {
+    @include display(flex, row, space-between, center);
+
+    @media only screen and (min-width: 320px) and (max-width: 1382px) {
+      gap: 8px;
+      @include display(flex, column, space-between, center);
+    }
+
+    &_percentage {
+      background-color: $color-blue;
+      border-radius: 14px;
+      padding: 12px 20px;
+      color: #ffffff;
+      text-align: center;
+      @include font(500, 24px, 28.64px);
+      font-family: 'SFPRORegular';
+
+      @media only screen and (min-width: 1383px) and (max-width: 1505px) {
+        font-size: 16px;
+      }
+      @media only screen and (min-width: 700px) and (max-width: 1382px) {
+        font-size: 16px;
+        display: flex;
+        align-self: flex-end;
+      }
+      @media only screen and (min-width: 320px) and (max-width: 699px) {
+        font-size: 16px;
+        display: flex;
+        align-self: flex-end;
+        padding: 10px;
+        line-height: 22px;
+      }
+    }
+
+    &_title {
+      @include font(500, 16px, 19.09px);
+      font-family: 'SFPRORegular';
+      margin-bottom: '5px';
+
+      @media only screen and (min-width: 320px) and (max-width: 1499px) {
+        font-size: 14px;
+      }
+    }
+
+    &_progressbar {
+      max-width: 421px;
+      width: 100%;
+
+      @media only screen and (min-width: 320px) and (max-width: 1382px) {
+        display: flex;
+        flex-direction: column;
+        align-self: flex-start;
+      }
+    }
   }
 }

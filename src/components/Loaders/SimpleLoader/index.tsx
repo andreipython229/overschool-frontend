@@ -37,7 +37,7 @@ export const SimpleLoader: FC<simpleLoaderT> = ({ style, loaderColor }) => {
         cx="50"
         cy="50"
         fill="none"
-        stroke={loaderColor || '#ba75ff'}
+        stroke={loaderColor || '#357EEB'}
         strokeWidth="7"
         r="40"
         strokeDasharray="141.37166941154067 49.12388980384689"
@@ -61,10 +61,16 @@ export const NewLoader: FC<newLoaderT> = ({ style }) => {
 
   return (
     <div className={styles.loader} style={{ ...style }}>
-      <img src={imagesComp.logoLoader} style={{height: '106px', width: '176px'}} alt="loader-logo" />
+      <img src={imagesComp.logoLoader} style={{ height: '106px', width: '176px' }} alt="loader-logo" />
       <div className={styles.slider_container}>
         {images.map((image, index) => (
-          <img key={index} src={image} alt={`Slide ${index}`} className={`${styles.slide} ${index === currentIndex ? styles.active : ''}`} />
+          <img
+            decoding="async"
+            key={index}
+            src={image}
+            alt={`Slide ${index}`}
+            className={`${styles.slide} ${index === currentIndex ? styles.active : ''}`}
+          />
         ))}
       </div>
     </div>
