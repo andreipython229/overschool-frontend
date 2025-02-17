@@ -31,6 +31,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Input } from 'components/common/Input/Input/Input'
 import { SchoolSelect } from './components/schoolSelect'
+import { SearchIconPath } from 'assets/Icons/svgIconPath'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
 
 export type SchoolT = {
   school_id: number
@@ -185,14 +187,7 @@ export const ChooseSchool = () => {
             </div>
           ) : (
             <motion.div
-              style={{
-                width: '100%',
-                padding: '0 2rem',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+              className={styles.container}
               initial={{
                 opacity: 0,
                 scale: 0.1,
@@ -252,15 +247,19 @@ export const ChooseSchool = () => {
                 <span className={styles.tit}>Выберите платформу для входа:</span>
                 {window.innerWidth <= 505 && (
                   <form style={{ padding: '1rem 0', width: '100%' }}>
-                    <Input
-                      name="search"
-                      id="searchInput"
-                      type="text"
-                      placeholder="Поиск по названию платформы..."
-                      value={search}
-                      style={{ width: '100%', margin: '0 auto' }}
-                      onChange={event => setSearch(event.target.value)}
-                    />
+                    <div className={styles.input}>
+                      <Input
+                        name="search"
+                        id="searchInput"
+                        type="text"
+                        placeholder="Поиск..."
+                        value={search}
+                        style={{ width: '100%', margin: '0 auto' }}
+                        onChange={event => setSearch(event.target.value)}
+                      >
+                        <IconSvg width={16} height={16} viewBoxSize="0 0 24 24" path={SearchIconPath} className={styles.searchIcon} />
+                      </Input>
+                    </div>
                   </form>
                 )}
               </div>
@@ -323,15 +322,19 @@ export const ChooseSchool = () => {
 
               {window.innerWidth > 505 && (
                 <form style={{ padding: '2rem', width: '100%' }}>
-                  <Input
-                    name="search"
-                    id="searchInput"
-                    type="text"
-                    placeholder="Поиск по названию платформы..."
-                    value={search}
-                    style={{ width: '80%', margin: '0 auto' }}
-                    onChange={event => setSearch(event.target.value)}
-                  />
+                  <div className={styles.input}>
+                    <Input
+                      name="search"
+                      id="searchInput"
+                      type="text"
+                      placeholder="Поиск"
+                      value={search}
+                      style={{ width: '80%', margin: '0 auto' }}
+                      onChange={event => setSearch(event.target.value)}
+                    >
+                      <IconSvg width={16} height={16} viewBoxSize='0 0 24 24' path={SearchIconPath} className={styles.searchIcon}/>
+                    </Input>
+                  </div>
                 </form>
               )}
               {window.innerWidth > 505 && (

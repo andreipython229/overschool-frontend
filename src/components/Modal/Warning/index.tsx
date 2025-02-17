@@ -14,7 +14,7 @@ export type WarningT = {
 export const WarningModal: FC<WarningT> = ({ setShowModal, task, textModal }) => {
   return (
     <motion.div
-      className={styles.main}
+      className={styles.warning_main}
       initial={{
         scale: 0.1,
         opacity: 0,
@@ -30,8 +30,8 @@ export const WarningModal: FC<WarningT> = ({ setShowModal, task, textModal }) =>
         delay: 0.5,
       }}
     >
-      <div className={styles.container}>
-        <span className={styles.main_closed} onClick={() => setShowModal(false)}>
+      <div>
+        <span className={styles.classesContainer_closed} onClick={() => setShowModal(false)}>
           <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
         </span>
         <div className={styles.warning_title}>
@@ -39,7 +39,7 @@ export const WarningModal: FC<WarningT> = ({ setShowModal, task, textModal }) =>
         </div>
 
         <div className={styles.warning_wrapper}>
-          <Button style={{padding: '14px'}} onClick={() => setShowModal(false)} variant={'cancel'} text={'Нет'} />
+          <Button onClick={() => setShowModal(false)} variant={'cancel'} text={'Нет'} />
           <Button onClick={task} variant={'newPrimary'} text={'Да'} />
         </div>
       </div>
