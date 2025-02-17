@@ -1,5 +1,8 @@
-FROM node:17-alpine3.12
+FROM node:18-alpine
 WORKDIR /code
-COPY yarn.lock /code/
-RUN yarn
+COPY package.json yarn.lock /code/
+RUN yarn install
 COPY . /code/
+RUN yarn build
+RUN yarn global add serve
+CMD ["serve", "-s", "build"]
