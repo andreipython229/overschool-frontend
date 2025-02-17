@@ -414,23 +414,25 @@ export const CoursePage: FC = () => {
           </div>
         </AnimatePresence>
       )}
-      <Input
-        role="search-input"
-        name=""
-        type="search"
-        value={search}
-        onChange={event => setSearch(event.target.value)}
-        placeholder="Поиск по материалам"
-      >
-        <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={SearchIconPath} className={styles.searchIcon}>
-          <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#0D28BB" />
-              <stop offset="100%" stopColor="#357EEB" />
-            </linearGradient>
-          </defs>
-        </IconSvg>
-      </Input>
+      <div className={styles.input}>
+        <Input
+          role="search-input"
+          name=""
+          type="search"
+          value={search}
+          onChange={event => setSearch(event.target.value)}
+          placeholder="Поиск по материалам"
+        >
+          <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={SearchIconPath} className={styles.searchIcon}>
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#0D28BB" />
+                <stop offset="100%" stopColor="#357EEB" />
+              </linearGradient>
+            </defs>
+          </IconSvg>
+        </Input>
+      </div>
 
       {role === RoleE.Admin && (
         <div

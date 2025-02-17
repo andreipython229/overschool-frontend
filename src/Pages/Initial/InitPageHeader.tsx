@@ -94,8 +94,8 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
   return (
     <header className={styles.init_header}>
       <div style={{ display: 'flex', gap: '0.5rem' }}>
-        <div className={styles.init_header_logo}>
-          <img src={full_logo} alt="Logotype ITOVERONE" />
+        <div className={styles.init_header_logo} onClick={() => navigate('/') } style={{ cursor: 'pointer' }}>
+           <img src={full_logo} alt="Logotype ITOVERONE" />
         </div>
         <Tooltip title={'Связаться с нами'}>
           <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>

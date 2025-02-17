@@ -11,18 +11,10 @@ import {
   useAssignChatOrderMutation,
   CreateChatPayload,
 } from '../../api/chatgptService';
-
 import OverAiIcon from '../../assets/img/common/newIconModal.svg';
-import arrowUp from '../../assets/img/common/arrow-up.svg'
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
-import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth';
-import { deleteIconPath } from 'components/Questions/config/svgIconPath';
-
-
-import { aiButtonIcon } from './constants/svgIcon';
-import { aiButtonNavIcon, arrowUpNavIcon, messageNavIcon, ratingChangeNavIcon, userNavIcon } from './svg/svgIconPath';
+import { aiButtonNavIcon, messageNavIcon, userNavIcon } from './svg/svgIconPath';
 import styles from './chatgpt.module.scss';
-import { style } from 'd3-selection';
 
 
 interface ChatGPTProps {
