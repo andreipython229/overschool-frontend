@@ -48,14 +48,6 @@ export const StudentsStats = () => {
 
   return (
     <div className={styles.students}>
-      {/*<section className={styles.statistics}>*/}
-      {/*  <StatisticHeader hideStats={hideStats} handleHideStats={handleHideStats} />*/}
-      {/*  {hideStats && (*/}
-      {/*    <div className={styles.statistics_new_student_wrapper}>*/}
-      {/*      <StudentInfoGraphic courseId={courseId} />*/}
-      {/*    </div>*/}
-      {/*  )}*/}
-      {/*</section>*/}
       <section className={styles.students_group}>
         <div className={styles.students_group_header}>
           <p className={styles.students_group_header_title}>Группы учеников</p>

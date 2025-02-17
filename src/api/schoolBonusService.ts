@@ -1,12 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
-
-import { baseQuery } from './baseApi'
 import { BonusT } from '../types/bonusesT'
 import { baseQueryWithReauth } from './baseQueryReauth'
-import { IBanner, IBox, IOpenBox, IPrize, ISchoolBoxes, ISchoolBoxesCreate, ISchoolPrizeWinner } from './apiTypes'
-import { url } from 'inspector'
-import { number, string } from 'yup'
-import { method } from 'lodash'
+import { IBanner, IBox, IOpenBox, IPrize, ISchoolBoxes, ISchoolPrizeWinner } from './apiTypes'
 
 export const schoolBonusService = createApi({
   reducerPath: 'schoolBonusService',
