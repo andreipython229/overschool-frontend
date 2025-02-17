@@ -1,12 +1,8 @@
-import React, {useState, useCallback, FC} from 'react'
+import React, { useState, useCallback, FC } from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
-
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
-import { createGroupIconPath, publishedIconPath, studentIconPath, studentScatterIconPath } from '../config/svgIconsPath'
 import { StudentsPerCourse } from 'components/StudentsTable/StudentsPerCourse'
 import { useFetchStudentsGroupByCourseQuery } from 'api/studentsGroupService'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { StudentGroup } from 'Pages/School/StudentsStats/StudentsCountGroup'
 import { studentsGroupsT } from '../../../types/studentsGroup'
 import { ToggleButtonDropDown } from 'components/common/ToggleButtonDropDown'
 import { useBoolean } from '../../../customHooks'
@@ -14,21 +10,17 @@ import { Portal } from '../../../components/Modal/Portal'
 import { headerUserRoleName } from '../../../config/headerUserRoleName'
 
 import styles from './studentsStats.module.scss'
-import { tableBallsStarPath } from 'config/commonSvgIconsPath'
 import { Path } from 'enum/pathE'
 
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from '../../../selectors'
-import { LimitModal } from '../../../components/Modal/LimitModal/LimitModal'
 import { StudentGroupMiniCard } from 'components/StudentGroupMiniCard'
-import {PeopleIconSvg} from "../../../components/StudentGroupMiniCard/assets/iconsComponents";
-import {Button} from "../../../components/common/Button/Button";
-import {searchCourseBlockT, StudentsStatsT} from "../../../types/pageTypes";
-// import {useFetchCourseQuery} from "../../../api/coursesServices";
+import { Button } from '../../../components/common/Button/Button'
+import { StudentsStatsT } from '../../../types/pageTypes'
 
-export const StudentsStats: FC<StudentsStatsT> = ({course_id}) => {
+export const StudentsStats: FC<StudentsStatsT> = ({ course_id }) => {
   const { course_id: course_ID } = useParams()
-  const courseId = course_ID ? course_ID : course_id
+  const courseId = course_ID && course_ID.length > 0 ? course_ID : course_id
   const { role } = useAppSelector(selectUser)
 
   const [hideStats, setHideStats] = useState<boolean>(true)
@@ -57,19 +49,21 @@ export const StudentsStats: FC<StudentsStatsT> = ({course_id}) => {
           <p className={styles.students_group_header_title}>Группы учеников</p>
 
           {headerUserRoleName[role] === 'Администратор' && (
-              <div className={styles.btn}>
-                <Button onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}
-                        text={'Создать новую группу'}
-                        variant={'newPrimary'}>
-                </Button>
+            <div className={styles.btn}>
+              <Button
+                onClick={offAddGroupModal}
+                className={styles.students_group_header_add_group_btn}
+                text={'Создать новую группу'}
+                variant={'newPrimary'}
+              ></Button>
 
-                <Button
-                    onClick={() => navigate(generatePath(Path.School + Path.Settings + 'employees/', {school_name: school}))}
-                    className={styles.students_group_header_add_teacher_btn} text={"Добавить менторов в школу"}
-                    variant={'newPrimary'}
-                >
-                </Button>
-              </div>
+              <Button
+                onClick={() => navigate(generatePath(Path.School + Path.Settings + 'employees/', { school_name: school }))}
+                className={styles.students_group_header_add_teacher_btn}
+                text={'Добавить менторов в школу'}
+                variant={'newPrimary'}
+              ></Button>
+            </div>
           )}
         </div>
       </section>
@@ -106,7 +100,7 @@ export const StudentsStats: FC<StudentsStatsT> = ({course_id}) => {
           </div>
         </div>
       )}
-      <StudentsPerCourse courseID={course_id}/>
+      <StudentsPerCourse courseID={course_id} />
       {addGroupModal && (
         <Portal closeModal={onAddGroupModal}>
           <CreateGroupModal setShowModal={onAddGroupModal} courseId={courseId as string} />{' '}
