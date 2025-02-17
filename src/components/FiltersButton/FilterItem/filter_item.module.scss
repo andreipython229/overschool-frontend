@@ -10,6 +10,10 @@
   color: #332f36;
   white-space: nowrap;
   width: 175px;
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 10px;
+  }
 }
 
 .filter_item_container {

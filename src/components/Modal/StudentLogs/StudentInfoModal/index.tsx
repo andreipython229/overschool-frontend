@@ -26,6 +26,10 @@ import {selectUser} from '../../../../selectors'
 import { studentsGroupsT } from 'types/studentsGroup';
 import { log } from 'console';
 import { useParams } from 'react-router-dom';
+import {
+    lessonIcon
+} from "../../../../Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/ModulesAndLessonsBlock/LessonsBlock/config";
+import {CalendarIconPath, MedalIconPath, PeopleIconPath} from "../../../../assets/Icons/svgIconPath";
 
 type studentInfoModalT = {
     student: result | null
@@ -240,6 +244,12 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
             <div className={styles.close_btn} onClick={closeModal}>
                 <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath}/>
             </div>
+            <div style={{position: "relative", top: '60px', left: '50px'}}>
+                    <StudentInfoAccardion student={student} progress={studentProgress} studentLessons={studentLessons}
+                                          setStudentLessons={setStudentLessons}
+                                          resetAccessSetting={resetAccessSetting}/>
+                </div>
+
             <div className={styles.content}>
                 <div className={styles.student_block}>
                     {student?.avatar ? (
@@ -252,7 +262,6 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
                     <h3 className={styles.student_block_name}>{(student?.last_name && student?.first_name) ? `${student?.last_name}  ${student?.first_name}` :
                         (student?.last_name || student?.first_name || "Нет имени")}</h3>
                     <p className={styles.student_block_email}>{student?.email}</p>
-                    <p className={styles.student_block_activity}>{activityMessage}</p>
                 </div>
                 {/* <div className={styles.student_actions}>
           <Button text="Написать в чат" />
@@ -260,46 +269,62 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
         </div> */}
                 <div className={styles.student_progress}>
                     <div>
-                        <span className={styles.student_progress_title}>Общий прогресс</span>
+                        <div style={{display: "flex", gap: "5px", marginBottom: "15px"}}>
+                            <IconSvg width={20} height={20} viewBoxSize='0 0 23 23' path={PeopleIconPath}/>
+                            <p>{student?.course_name}</p>
+                        </div>
+                        <div style={{display: "flex", gap: "5px", marginBottom: "15px"}}>
+                            <IconSvg width={20} height={20} viewBoxSize='0 0 23 23' path={PeopleIconPath}/>
+                            <span>{student?.group_name}</span>
+                        </div>
                         <div className={styles.student_progress_info}>
+                            <div style={{display: "flex", gap: "5px"}}>
+                                <IconSvg width={20} height={20} viewBoxSize='0 0 20 20' path={lessonIcon} />
+                            <span className={styles.student_progress_title}>Общий прогресс</span>
+                                </div>
                             {/* заглушка */}
-                            <div
-                                style={{
-                                    width: '17px',
-                                    height: '17px',
-                                    backgroundColor: '#BA75FF',
-                                    borderRadius: '50%',
-                                }}
-                            ></div>
+                            {/*<div*/}
+                            {/*    style={{*/}
+                            {/*        width: '17px',*/}
+                            {/*        height: '17px',*/}
+                            {/*        backgroundColor: '#BA75FF',*/}
+                            {/*        borderRadius: '50%',*/}
+                            {/*    }}*/}
+                            {/*></div>*/}
                             <span>{completedPercent}%</span>
                         </div>
                     </div>
                     <div>
-                        <span className={styles.student_progress_title}>Средний балл</span>
                         <div className={styles.student_progress_info}>
-                            <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath}/>
+                            <div style={{display: "flex", gap: "5px"}}>
+                                <IconSvg width={20} height={20} viewBoxSize='0 0 23 23' path={MedalIconPath} />
+                            <span className={styles.student_progress_title}>Средний балл</span>
+                                </div>
                             <span>{student?.average_mark?.toFixed(0) ?? 0}</span>
                         </div>
                     </div>
                     <div>
-                        <span className={styles.student_progress_title}>Суммарный балл</span>
                         <div className={styles.student_progress_info}>
-                            <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath}/>
+                            <div style={{display: "flex", gap: "5px"}}>
+                                <IconSvg width={20} height={20} viewBoxSize='0 0 23 23' path={MedalIconPath} />
+                            <span className={styles.student_progress_title}>Суммарный балл</span>
+                                </div>
                             <span>{student?.mark_sum ?? 0}</span>
                         </div>
                     </div>
+                    <div style={{display: "flex", gap: "5px"}}>
+                         <IconSvg width={20} height={20} viewBoxSize='0 0 23 23' path={CalendarIconPath} />
+                    <span>{activityMessage}</span>
+                        </div>
                 </div>
-                <div className={styles.accardions}>
-                    <StudentInfoAccardion student={student} progress={studentProgress} studentLessons={studentLessons}
-                                          setStudentLessons={setStudentLessons}
-                                          resetAccessSetting={resetAccessSetting}/>
-                </div>
-                {student?.group_name && headerUserRoleName[role] === 'Администратор' && (
+            </div>
+
+            {student?.group_name && headerUserRoleName[role] === 'Администратор' && (
                     <div className="button-container" style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Button
-                            className={styles.student_button}
                             text={`Переместить ученика в другую группу`}
                             onClick={handleOpenMoveStudent}
+                            variant={"newPrimary"}
                             />
                         <Dialog
                             open={openMoveStudent}
@@ -334,15 +359,15 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
                                 </Select>
                             </DialogContent>
                             <DialogActions>
-                                <Button onClick={handleCloseMoveStudent} color="primary" text={`Отмена`} />
-                                <Button onClick={handleMoveStudent} color="primary" autoFocus text={`Переместить`} />
+                                <Button onClick={handleCloseMoveStudent} variant="newPrimary" text={`Отмена`} />
+                                <Button onClick={handleMoveStudent} variant="newPrimary" autoFocus text={`Переместить`} />
                             </DialogActions>
                         </Dialog>
                         <Button
-                            style={{margin: '10px'}}
+                            style={{margin: '20px'}}
                             text={`Удалить ученика из группы "${student?.group_name}"`}
                             onClick={handleOpenAlert}
-                            variant={'delete'}
+                            variant={'newPrimary'}
                         />
                         <Dialog className={styles.dialog} open={openAlert} onClose={handleCloseAlert}
                                 aria-labelledby="alert-dialog-title"
@@ -369,14 +394,14 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({student, closeModal, is
                                 </div>
                             </div>
                             <DialogActions>
-                                <Button onClick={handleCloseAlert} text={'Отмена'}/>
-                                <Button onClick={handleDeleteStudent} autoFocus variant={'delete'}
+                                <Button onClick={handleCloseAlert} variant={"newPrimary"} text={'Отмена'}/>
+                                <Button onClick={handleDeleteStudent} autoFocus variant={'newPrimary'}
                                         text={'Удалить из группы'}/>
                             </DialogActions>
                         </Dialog>
                     </div>
                 )}
-            </div>
+
         </div>
     )
 }

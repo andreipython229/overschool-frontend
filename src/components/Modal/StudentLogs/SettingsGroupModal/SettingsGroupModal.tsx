@@ -246,7 +246,7 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
   return (
     <>
       {isSuccess && data && (
-        <div className={styles.container}>
+        <div className={styles.container} style={{transform: "translate(-50%, -35%)"}}>
           <div className={styles.container_decoration_shadow}></div>
 
           <div onClick={closeModal} className={styles.container_closed}>

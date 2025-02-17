@@ -60,9 +60,9 @@ import {
 import { pathT } from '../../types/commonComponentsTypes'
 
 export const AddIconPath = [
-  { d: AddIcon.d1, fill: 'currentColor' },
-  { d: AddIcon.d2, fill: 'currentColor' },
-  { d: AddIcon.d3, fill: 'currentColor' },
+  { d: AddIcon.d1, fill: '#357EEB' },
+  { d: AddIcon.d2, fill: '#357EEB' },
+  { d: AddIcon.d3, fill: '#357EEB' },
 ] // Plus
 
 export const AddUserIconPath = [
@@ -73,16 +73,16 @@ export const AddUserIconPath = [
 export const AttachIconPath = [{ d: AttachIcon.d1, fill: 'currentColor' }] // Attach
 
 export const CalendarIconPath = [
-  { d: CalendarIcon.d1, fill: 'currentColor' },
-  { d: CalendarIcon.d2, fill: 'currentColor' },
-  { d: CalendarIcon.d3, fill: 'currentColor' },
-  { d: CalendarIcon.d4, fill: 'currentColor' },
-  { d: CalendarIcon.d5, fill: 'currentColor' },
-  { d: CalendarIcon.d6, fill: 'currentColor' },
-  { d: CalendarIcon.d7, fill: 'currentColor' },
-  { d: CalendarIcon.d8, fill: 'currentColor' },
-  { d: CalendarIcon.d9, fill: 'currentColor' },
-  { d: CalendarIcon.d10, fill: 'currentColor' },
+  { d: CalendarIcon.d1, fill: '#357EEB' },
+  { d: CalendarIcon.d2, fill: '#357EEB' },
+  { d: CalendarIcon.d3, fill: '#357EEB' },
+  { d: CalendarIcon.d4, fill: '#357EEB' },
+  { d: CalendarIcon.d5, fill: '#357EEB' },
+  { d: CalendarIcon.d6, fill: '#357EEB' },
+  { d: CalendarIcon.d7, fill: '#357EEB' },
+  { d: CalendarIcon.d8, fill: '#357EEB' },
+  { d: CalendarIcon.d9, fill: '#357EEB' },
+  { d: CalendarIcon.d10, fill: '#357EEB' },
 ] //calendar
 
 export const CardTickIconPath = [
@@ -236,9 +236,9 @@ export const MessageNotifIconPath = [
 ] //message
 
 export const MessageWithLinesIconPath = [
-  { d: MessageWithLinesIcon.d1, fill: 'currentColor' },
-  { d: MessageWithLinesIcon.d2, fill: 'currentColor' },
-  { d: MessageWithLinesIcon.d3, fill: 'currentColor' },
+  { d: MessageWithLinesIcon.d1, fill: '#357EEB' },
+  { d: MessageWithLinesIcon.d2, fill: '#357EEB' },
+  { d: MessageWithLinesIcon.d3, fill: '#357EEB' },
 ] //message-text
 
 export const NotificationsIconPath = [
@@ -248,12 +248,12 @@ export const NotificationsIconPath = [
 ] //notification
 
 export const PeopleIconPath = [
-  { d: PeopleIcon.d1, fill: 'currentColor' },
-  { d: PeopleIcon.d2, fill: 'currentColor' },
-  { d: PeopleIcon.d3, fill: 'currentColor' },
-  { d: PeopleIcon.d4, fill: 'currentColor' },
-  { d: PeopleIcon.d5, fill: 'currentColor' },
-  { d: PeopleIcon.d6, fill: 'currentColor' },
+  { d: PeopleIcon.d1, fill: '#357EEB' },
+  { d: PeopleIcon.d2, fill: '#357EEB' },
+  { d: PeopleIcon.d3, fill: '#357EEB' },
+  { d: PeopleIcon.d4, fill: '#357EEB' },
+  { d: PeopleIcon.d5, fill: '#357EEB' },
+  { d: PeopleIcon.d6, fill: '#357EEB' },
 ] //people
 
 export const PhoneIconPath = [{ d: PhoneIcon.d1, fill: 'currentColor' }] //Phone
@@ -271,8 +271,8 @@ export const SearchIconPath = [
 ] //search-normal
 
 export const SettingsIconPath = [
-  { d: SettingsIcon.d1, fill: 'currentColor' },
-  { d: SettingsIcon.d2, fill: 'currentColor' },
+  { d: SettingsIcon.d1, fill: '#357EEB' },
+  { d: SettingsIcon.d2, fill: '#357EEB' },
 ] //setting-2
 
 export const SuccessIconPath = [{ d: SuccessIcon.d1, fill: 'currentColor' }] //tick-circle

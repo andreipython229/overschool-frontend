@@ -11,9 +11,11 @@ import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
 import styles from "../../Pages/HomeWork/home_work.module.scss";
 import { Pagination } from "../Pagination/Pagination";
 import {useDebounceFunc, usePagination} from "../../customHooks";
+import {StudentsPerCourseT, StudentsStatsT} from "../../types/pageTypes";
 
-export const StudentsPerCourse: FC = () => {
-  const { course_id } = useParams()
+export const StudentsPerCourse: FC<StudentsPerCourseT> = ({courseID}) => {
+  const { course_id: course_ID } = useParams()
+  const course_id = course_ID ? course_ID : courseID
   const schoolName = window.location.href.split('/')[4]
 
   const dispatch = useAppDispatch()
@@ -69,7 +71,7 @@ export const StudentsPerCourse: FC = () => {
 
   useEffect(() => {
     handleReloadTable()
-  }, [filters])
+  }, [filters, course_id])
 
   useEffect(() => {
     if (isSuccess) {
@@ -150,6 +152,7 @@ export const StudentsPerCourse: FC = () => {
         filters={filters}
         updateStudents={updateStudents}
         all_students_count={data?.count as number}
+        tableId={tableId as number}
       />
       <StudentsTableWrapper
         handleReloadTable={handleReloadTable}

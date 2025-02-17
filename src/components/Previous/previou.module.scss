@@ -1,4 +1,6 @@
 @import '../../scss/mixin.scss';
+@import 'src/scss/variable';
+
 
 .previous {
   position: relative;
@@ -218,6 +220,21 @@
   font-size: 2rem;
   font-family: SFPRORegular;
   font-weight: 800;
+  @media only screen and (min-width: 320px) and (max-width: 480px){
+      margin-top: 6rem;
+      font-size: 1rem;
+    }
+  @media only screen and (min-width: 480px) and (max-width: 600px){
+      margin-top: 4rem;
+      font-size: 1.5rem;
+    }
+  @media only screen and (min-width: 600px) and (max-width: 900px){
+      margin-top: 4rem;
+      font-size: 1.5rem;
+    }
+  @media only screen and (min-width: 900px) and (max-width: 1024px){
+      margin-top: 4rem;
+    }
 }
 
 .input_change {
@@ -297,9 +314,18 @@
     align-self: stretch;
     height: 6rem;
 
-    button {
+    &_button {
       font-size: 1.25rem !important;
       letter-spacing: -1px;
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 0.2rem !important;
+        width: 75%;
+        height: 1.7rem;
+        margin-top: -2.2rem;
+        letter-spacing: 0.5px;
+        margin-left: 1rem;
+    }
 
       @media screen and (max-width: 700px) {
         font-size: 0.75rem !important;
@@ -309,3 +335,89 @@
     }
   }
 }
+
+
+
+.previousCourseStat {
+    @include display(flex, column);
+    padding: 20px 33px 20px 0;
+    border-radius: 8px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    align-items: center;
+    background-color: $color-white;
+    text-align: center;
+    margin-bottom: 30px;
+    //max-width: 460px;
+    width: 99%;
+    background: transparent;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      min-width: 17rem;
+      text-align: center;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      width: 99%;
+      text-align: center;
+    }
+    @media only screen and (min-width: 480px) and (max-width: 600px) {
+      min-width: 25rem;
+      text-align: center;
+      margin-bottom: 10px;
+      margin-top: -2rem;
+    }
+
+    &_title {
+      border-radius: 16px;
+      padding: 11px;
+      width: 100%;
+      background-image: linear-gradient(90deg, #332F36 -5.88%, rgba(51, 47, 54, 0) 100%), url(../../assets/img/createCourse/course-background.jpeg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      z-index: 2;
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 100%;
+        height: 2.5rem;
+        text-align: center;
+        background-position: center;
+        margin-top: -4rem;
+        border-radius: 9px;
+        margin-left: 2rem;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 16px;
+        background: rgba(51, 47, 54, 0.5);
+        z-index: 3;
+      }
+
+      &_name {
+        font-family: 'SFPRORegular';
+        font-weight: 500;
+        color: $color-white;
+        font-size: 1.5rem;
+        text-align: start;
+        position: relative;
+        z-index: 4;
+        padding: 5px;
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 0.7rem;
+          text-align: center;
+          line-height: 0.5rem;
+      }
+
+      }
+    }
+  }

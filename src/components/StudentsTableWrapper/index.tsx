@@ -21,6 +21,12 @@ import { selectChat } from '../../store/redux/chats/slice'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { selectUser } from '../../selectors'
 import { addChat } from '../../store/redux/chats/chatsSlice'
+import {
+    MessageConvertIconPath,
+    MessageNotifIconPath,
+    MessageWithLinesIconPath,
+    SettingsIconPath
+} from "../../assets/Icons/svgIconPath";
 
 type StudentsTableWrapperT = {
   isLoading: boolean
@@ -284,9 +290,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                     {col}
                   </th>
                 ))}
-                <button className={styles.svgSettingsWrapper}>
-                  <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
-                </button>
+                    <div className={styles.svgSettingsWrapper}>
+                        <p>Личный чат</p>
+                </div>
               </tr>
             </thead>
 
@@ -351,9 +357,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                                     key={`${col}-${rowIndex}`}
                                   >
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                                      {row['Дата удаления из группы'] === ' ' && typeof cellValue === 'object' && 'text' in cellValue && (
-                                        <Button className={styles.chat_button} text={'CHAT'} onClick={() => handleToggleChatModal(rowIndex)} />
-                                      )}
                                       <span style={{ marginLeft: '5px' }}>
                                         {cellValue && typeof cellValue === 'object' && 'image' in cellValue && cellValue.image}
                                       </span>
@@ -373,9 +376,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                                     key={`${col}-${rowIndex}`}
                                   >
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                                      {row['Дата удаления из группы'] === ' ' && typeof cellValue === 'object' && 'text' in cellValue && (
-                                        <Button className={styles.chat_button} text={'CHAT'} onClick={() => handleToggleChatModal(rowIndex)} />
-                                      )}
                                       <span style={{ marginLeft: '5px' }}>
                                         {cellValue && typeof cellValue === 'object' && 'image' in cellValue && cellValue.image}
                                       </span>
@@ -420,6 +420,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                               )
                             }
                           })}
+                            <div className={styles.chat_button} onClick={() => handleToggleChatModal(rowIndex)}>
+                           <IconSvg width={23} height={23} viewBoxSize={'0 0 25 25'} path={MessageWithLinesIconPath} />
+                       </div>
                         </tr>
                       )
                     })}
@@ -430,24 +433,17 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                   <tr
                     key={id}
                     style={row['Дата удаления из группы'] !== ' ' ? { backgroundColor: '#fcf5f5' } : {}}
-                    onClick={event => handleRowClick(event, row.id)}
                   >
                     {cols.map(col => {
                       const cellValue = row[col] as string | number | { text: string; image: ReactNode }
                       return (
                         <td
-                          style={{
-                            fontSize: '14px',
-                            verticalAlign: 'center',
-                          }}
+                            className={styles.table_user_text}
                           key={col}
+                          onClick={event => handleRowClick(event, row.id)}
                         >
                           {typeof cellValue === 'object' ? (
                             <div className={styles.table_user}>
-                              {row['Дата удаления из группы'] === ' ' && typeof cellValue.text !== 'number' && (
-                                <Button className={styles.chat_button} text={'CHAT'} onClick={() => handleToggleChatModal(id)} />
-                              )}
-
                               {row['Дата удаления из группы'] !== ' ' && (
                                 <div
                                   style={{
@@ -461,7 +457,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                                   Удалён
                                 </div>
                               )}
+                                <div className={styles.table_user_img}>
                               {cellValue.image}
+                                </div>
                               <p>{cellValue.text}</p>
                             </div>
                           ) : (
@@ -470,6 +468,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                         </td>
                       )
                     })}
+                      <div className={styles.chat_button} onClick={() => handleToggleChatModal(id)}>
+                           <IconSvg width={23} height={23} viewBoxSize={'0 0 25 25'} path={MessageWithLinesIconPath} />
+                       </div>
                   </tr>
                 ))}
               </tbody>

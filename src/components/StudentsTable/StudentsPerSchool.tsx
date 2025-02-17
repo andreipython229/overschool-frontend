@@ -154,7 +154,8 @@ export const StudentsPerSchool: FC = () => {
         endAvg={filters?.average_mark_max}
         filters={filters}
         updateStudents={updateStudents}
-        all_students_count={allStudentsCount} 
+        all_students_count={allStudentsCount}
+        tableId={tableId as number}
       />
       <StudentsTableWrapper
           handleReloadTable={handleReloadTable}

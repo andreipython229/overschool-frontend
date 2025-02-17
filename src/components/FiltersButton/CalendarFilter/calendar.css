@@ -4,6 +4,12 @@
   border-radius: 10px;
   padding: 20px;
   box-sizing: border-box;
+
+   @media only screen and (min-width: 320px) and (max-width: 480px) {
+       max-width: 250px;
+       margin-right: 5rem;
+      }
+
 }
 .date_picker__title {
   font-size: 10px;
@@ -31,11 +37,18 @@
 
 .full_width_button {
   width: 100%;
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+      height: 3rem;
+      }
 }
 
 .full_width_button {
   width: 100%;
   margin-bottom: 10px;
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+      height: 3rem;
+      font-size: 1rem;
+      }
 }
 
 .react-datepicker__current-month {
@@ -44,5 +57,5 @@
 .react-datepicker__day--selected,
 .react-datepicker__day--range-start,
 .react-datepicker__day--in-range {
-  background-color: #ba75ff;
+  background-color: #357EEB;
 }

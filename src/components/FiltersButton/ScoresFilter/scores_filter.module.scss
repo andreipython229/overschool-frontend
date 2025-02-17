@@ -11,6 +11,11 @@
   backdrop-filter: blur(14px);
   background: #cfe2ff;
 
+   @media only screen and (min-width: 320px) and (max-width: 480px) {
+     max-width: 240px;
+     width: 120px;
+      }
+
   h5 {
     @include font(500, 14px, 19px);
     color: rgb(51, 47, 54);
@@ -34,6 +39,12 @@
     line-height: 24px;
     border: 2px solid rgb(53, 126, 235);
     border-radius: 10px;
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      width: 150px;
+      }
   }
 
   button:hover {

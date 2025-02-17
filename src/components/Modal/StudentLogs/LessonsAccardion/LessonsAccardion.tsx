@@ -68,7 +68,7 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({
             {(lessonsAccessSetting && role === RoleE.Admin) ?
                 <div className={styles.accardion_content_buttons}>
                     {forStudent ?
-                        <Button className={styles.accardion_content_buttons_btn} text={'Сбросить настройки'}
+                        <Button variant={"newPrimary"} className={styles.accardion_content_buttons_btn} text={'Сбросить настройки'}
                                 onClick={resetAccessSetting}/> : <span></span>}
                     <Button className={styles.accardion_content_buttons_btn_right} text={'Сохранить настройки'}
                             onClick={handleAccessSetting}/>

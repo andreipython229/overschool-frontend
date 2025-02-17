@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import Select from 'react-select'
 
 import { Input } from 'components/common/Input/Input/Input'
@@ -18,6 +18,9 @@ import { useLazyFetchAllUsersQuery } from '../../../../api/allUsersList'
 import styles from '../studentsLog.module.scss'
 import { useBoolean } from '../../../../customHooks'
 import { studentsGroupsT } from 'types/studentsGroup'
+import {PeopleIconPath} from "../../../../assets/Icons/svgIconPath";
+import {Radio} from "../../../common/Radio/Radio";
+import {penIconPath} from "../../../../Pages/Settings/Main/iconComponents";
 
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, courseId }) => {
   const schoolName = window.location.href.split('/')[4]
@@ -29,6 +32,11 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   const [getGroups, { data: allGroups }] = useLazyFetchStudentsGroupQuery()
   const [createStudentsGroup, { isLoading }] = useCreateStudentsGroupMutation()
   const [createGroupWithoutTeacher, { isLoading: isLoadingNoT }] = useCreateGroupWithoutTeacherMutation()
+  const [role, setRole] = useState<string>('')
+
+  const handleChangeRole = (role: string) => {
+    setRole(role)
+  }
 
   useEffect(() => {
     if (schoolName) {
@@ -49,11 +57,12 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
     }
   }, [userList, allGroups])
 
+
   useEffect(() => {
-    if (!withTeacher) {
+    if (role==="WithoutMentor") {
       setTeacherId('')
     }
-  }, [withTeacher])
+  }, [role])
 
   const handleTeacher = (teacher: any) => {
     setTeacherId(teacher.id)
@@ -70,11 +79,11 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
         name: groupName,
         course_id: +courseId,
         students: [],
-        type: withTeacher ? 'WITH_TEACHER' : 'WITHOUT_TEACHER',
+        type: role === "WithMentor" ? 'WITH_TEACHER' : 'WITHOUT_TEACHER',
         training_duration: 0,
         certificate: false,
       }
-      if (!withTeacher) {
+      if (role==="WithoutMentor") {
         await createGroupWithoutTeacher({ studentsGroupInfo: groupToCreate, schoolName })
       } else {
         Object.assign(groupToCreate, { teacher_id: +teacher_id })
@@ -83,33 +92,41 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
     }
     setShowModal(false)
   }
-
   return (
     <form onSubmit={handleCreateGroup} className={styles.container}>
       <div onClick={() => setShowModal(false)} className={styles.container_closed}>
         <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
       </div>
+      <IconSvg styles={{marginBottom: "20px"}} viewBoxSize="0 0 25 20" height={50} width={50} path={PeopleIconPath} />
       <div className={styles.addGroup}>
         <div className={styles.container_header}>
-          <IconSvg width={60} height={49} viewBoxSize="0 0 60 49" path={createGroupIconPath} />
-          <span className={styles.container_header_title}>Создание группы</span>
+          <span className={styles.container_header_title}>Создание новой группы</span>
         </div>
         <div className={styles.addGroup_input}>
-          <span>Введите название группы:</span>
-          <Input name={'group'} type={'text'} value={groupName} onChange={onChangeGroupName} />
-          <div className={styles.addGroup_input_check}>
-            <CheckboxBall isChecked={withTeacher} toggleChecked={toggleWithTeacher} />
-            <span className={styles.addGroup_input_check_span} style={{ marginTop: '1%' }}>
-              С ментором
-            </span>
+          <span>Название группы:</span>
+          <div className={styles.addGroup_input_placeholder}>
+          <Input name={'group'} type={'text'} value={groupName} placeholder="Введите название группы" onChange={onChangeGroupName}/>
+            <div className={styles.addGroup_input_svg}>
+            <IconSvg width={24} height={24}viewBoxSize={'0 0 24 24'} path={penIconPath}/>
+              </div>
+            </div>
+          <div style={{display: "flex"}}>
+          <div className={styles.addGroup_input_radio_btn}>
+            <div style={{marginTop: "10px"}}>
+            <Radio func={handleChangeRole} title="С ментором" id="WithMentor" name="role"/>
+              </div>
+            <div>
+            <Radio func={handleChangeRole} title="Без ментора" id="WithoutMentor" name="role"/>
+            </div>
           </div>
-          {!withTeacher &&
+            </div>
+
+          {role==="WithoutMentor" &&
             <div className={styles.addGroup_description}>
               Такой тип группы предполагает отсутствие ментора и автоматическое принятие домашних заданий без проверки
             </div>}
-          {withTeacher ? (
+          {role === "WithMentor" ? (
             <div>
-              <span>Выберите ментора из списка:</span>
               <Select
                 required
                 onChange={handleTeacher}
@@ -119,7 +136,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
                 components={{
                   IndicatorSeparator: () => null,
                 }}
-                placeholder={''}
+                placeholder={'Выбрать ментора'}
               />
             </div>
           ) : (
@@ -129,8 +146,8 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
         <div className={styles.addGroup_btn}>
           <Button
             type={'submit'}
-            disabled={!groupName || isLoading || isLoadingNoT || (withTeacher && !teacher_id)}
-            variant={!groupName || isLoading || isLoadingNoT || (withTeacher && !teacher_id) ? 'disabled' : 'primary'}
+            disabled={!groupName || isLoading || isLoadingNoT || (role !== '' && !teacher_id)}
+            variant={!groupName || isLoading || isLoadingNoT || (role !== '' && !teacher_id) ? 'newPrimary' : 'newPrimary'}
             text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Создать группу'}
           />
         </div>

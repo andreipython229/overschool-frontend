@@ -1,8 +1,22 @@
 
 .property_1 {
   height: 62px;
-  width: 100%;
+  min-width: 90%;
   padding: 0px;
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    min-width: 30%;
+    height: 0.5rem;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    min-width: 35%;
+    height: 0.5rem;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 600px) {
+    height: 0.5rem;
+    margin-top: 0.5rem;
+  }
 
   .sorting {
     background-color: #ffffff;
@@ -19,6 +33,20 @@
     align-items: center;
     position: relative;
 
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      height: 2.5rem;
+      width: 12rem;
+  }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      height: 2.5rem;
+      width: 14rem;
+  }
+
+    @media only screen and (min-width: 480px) and (max-width: 600px) {
+       height: 2.5rem;
+       width: 18rem;
+  }
+
     .frame {
       height: 62px;
       width: calc(100% - 75px);
@@ -34,12 +62,32 @@
       align-items: center;
       gap: 20px;
 
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+      padding-top: 1.3rem;
+      padding-bottom: 1rem;
+        height: 2rem;
+        left: 1rem;
+  }
+
+      @media only screen and (min-width: 480px) and (max-width: 600px) {
+      padding-top: 1.3rem;
+      padding-bottom: 1rem;
+        height: 2rem;
+        left: 1rem;
+  }
+
       .search_icon {
            height: 30px;
         width: 30px;
         padding: 0px;
         border-style: hidden;
         outline: none;
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+        height: 2rem;
+        width: 1rem;
+  }
+
       }
     }
   }

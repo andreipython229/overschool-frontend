@@ -22,17 +22,8 @@
       justify-content: center;
       margin-left: auto;
 
-      color: #9ca3af;
-
-      &_checked {
-        color: #ba75ff;
-      }
     }
 
-    &_checked label {
-      background-color: #e0d9fc !important;
-      color: #ba75ff;
-    }
 
     label {
       position: relative;
@@ -42,7 +33,7 @@
       height: 100%;
       padding: 0 25px;
       border-radius: 7px;
-      background: #f3f4f6;
+      background: #ffffff;
       user-select: none;
 
       &::before {

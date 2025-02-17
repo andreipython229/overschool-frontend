@@ -3,25 +3,64 @@
 
 .wrapper {
   position: relative;
-  margin-right: 7px;
-  width: fit-content;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    padding-left: 1rem;
+    margin-right: 5rem;
+    margin-bottom: 2rem;
+    margin-top: -2.4rem;
+    width: 5rem;
   }
 
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding-left: 1rem;
   }
+
+
 }
 
 .container_btn {
-  padding: 12px 30px;
+  @include display(flex, row, center, center);
+  @include font(500, 24px);
+  width: 260px;
+  height: 45px;
+  gap: 10px;
+  padding: 16px 40px;
+  font-family: SF Pro Display;
+  border-radius: 10px;
+  background: linear-gradient(90.00deg, rgb(13, 40, 187), rgb(53, 126, 235) 100%);
+  color: rgb(255, 255, 255);
   font-size: 20px;
   font-weight: 500;
   text-align: center;
   letter-spacing: 0;
   text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0 10px;
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    width: 3rem;
+    font-size: 0.5rem;
+    margin-left: 10rem;
+    height: 2.3rem;
+    margin-bottom: -3rem;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    width: 3rem;
+    font-size: 0.5rem;
+    height: 2.3rem;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 600px) {
+    width: 7rem;
+    font-size: 0.7rem;
+    height: 2.5rem;
+  }
+
+  svg {
+    margin-right: 9px;
+  }
 }
 
 .header_dropdown_menu {
@@ -45,6 +84,7 @@
   box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 70vw;
     left: -100px;
@@ -53,6 +93,7 @@
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 70vw;
     left: -100px;
+
   }
 }
 
@@ -101,11 +142,44 @@
   left: calc(100% + 10px);
   top: -20%;
   z-index: 1000;
+
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    left: 5rem;
+    top: 2.5rem;
+    height: 8rem;
+    padding-top: 0.6rem;
+  }
+
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    left: -1rem;
+    top: 2.5rem;
+    height: 8rem;
+    padding-top: 0.6rem;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 620px) {
+    left: -1rem;
+    top: 3rem;
+    height: 8rem;
+    padding-top: 0.6rem;
+  }
+
+  @media only screen and (min-width: 620px) and (max-width: 1200px) {
+    left: 12rem;
+    top: 3rem;
+    height: 8rem;
+    padding-top: 0.6rem;
+  }
+
 }
 
 .filterPointer {
   position: absolute;
   left: -9px;
   top: 25px;
-  z-index: -1;
+  z-index:-1;
+
+  @media only screen and (min-width: 320px) and (max-width: 1200px) {
+   display: none;
+  }
 }
