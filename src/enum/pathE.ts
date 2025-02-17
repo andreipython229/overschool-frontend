@@ -35,6 +35,7 @@ export enum Path {
   HelpStudents = 'students',
   HelpGroupSettings = 'groups',
   HelpCheckHW = 'check-hw',
+  HelpDomainLink = 'domain',
   ResetPassword = '/token-validate/:userId/:token/',
   HelpChat = 'chat/',
   Appeals = 'school-appeals/',

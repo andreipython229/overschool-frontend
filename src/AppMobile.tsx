@@ -28,6 +28,7 @@ import { HelpStudentsPage } from 'Pages/HelpCenter/HelpStudentsPage'
 import { HelpGroupSettings } from 'Pages/HelpCenter/HelpGroupSettings'
 import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
+import { HelpDomainLink } from 'Pages/HelpCenter/HelpDomainLink'
 import { RoleE } from 'enum/roleE'
 import { useSelector } from 'react-redux'
 import styles from './App.module.scss'
@@ -126,6 +127,7 @@ export const AppMobile = () => {
           <Route path={Path.HelpGroupSettings} element={<HelpGroupSettings />} />
           <Route path={Path.HelpStudents} element={<HelpStudentsPage />} />
           <Route path={Path.HelpCheckHW} element={<HelpCheckHW />} />
+          <Route path={Path.HelpDomainLink} element={<HelpDomainLink />} />
         </Route>
         <Route path={Path.LoginPage} element={<LoginPage />} />
         <Route path={Path.Catalog}>

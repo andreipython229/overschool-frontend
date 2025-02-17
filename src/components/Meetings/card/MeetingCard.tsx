@@ -37,12 +37,10 @@ export const MeetingCard: FC<MeetingCardProps> = ({ meeting }) => {
 
     const handleAddMeetingFormOpen = () => {
         setShowAddMeetingForm(true);
-        console.log('gg');
-
     };
 
     return (<div className={styles.card_container}>
-        <AddMeeting setShowAddMeetingForm={setShowAddMeetingForm} showAddMeetingForm={showAddMeetingForm}></AddMeeting>
+        <AddMeeting setShowAddMeetingForm={setShowAddMeetingForm} existingMeeting={meeting} showAddMeetingForm={showAddMeetingForm}></AddMeeting>
         <div className={styles.card_avatar_container}></div>
         <div className={styles.card_description}>
             <div className={styles.card_cource_name}>{schoolName}</div>

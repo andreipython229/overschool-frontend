@@ -13,7 +13,7 @@ import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
 import { Footer } from "../../../components/Footer/index";
 
 
-export const HelpOverAI = () => {
+export const HelpDomainLink = () => {
     const navigate = useNavigate()
     const [isLoginOpen, setLoginOpen] = useState(false);
     const [isRegistrationOpen, setRegistrationOpen] = useState(false);
@@ -46,7 +46,7 @@ export const HelpOverAI = () => {
                         <div onClick={handleHelpPage} className={styles.back_btn}>
                             <IconSvg path={ArrowLeftIconPath} viewBoxSize="0 0 9 14" height={24} width={18} />
                         </div>
-                        <p>Over Ai</p>
+                        <p>Как открыть онлайн-платформу на Course Hub</p>
                         <div></div>
                     </div>
                 </div>
@@ -57,47 +57,40 @@ export const HelpOverAI = () => {
                     <div className={styles.text_part}>
                         <div className={styles.section_title}>
                             <div className={styles.section_number}>1</div>
-                            <h3 className={styles.section_title_text}>Как взаимодействовать с умным помощником на платформе</h3>
+                            <h3 className={styles.section_title_text}>Регистрация аккаунта для онлайн-платформы</h3>
                         </div>
-                        <p className={styles.section_text}>После авторизации на платформе вам будет доступен умный помощник Over Ai.
-                            Он будет находиться на каждой странице в <span className={styles.text_bold}>правом нижнем углу экрана</span>.</p>
-                        <p className={styles.section_text}>{`После нажатия на иконку всплывет диалоговое окно с чатами. 
-                        Здесь у вас будет возможность создать новый чат с помощником или продолжить ранее существующую с ним беседу.`}</p>
-
+                        <p className={styles.section_text}>{`Прежде всего создадим аккаунт.`}</p>
+                        <p className={styles.section_text}>{`Аккаунт онлайн-платформы — отдельный проект
+                    с уникальным адресом на  платформе Course Hb.`}</p>
+                        <p className={styles.section_text}>{`Внутри аккаунта у вас есть личный кабинет  владельца, где вы можете создавать курсы и управлять платформой.`}</p>
+                        <p className={styles.section_text}>{`Для регистрации введите название платформы, электронную почту, номер телефона и пароль на официальном сайте.`}</p>
                     </div>
                     <div className={styles.img_part}>
                         <img
-                            src={require("../../../assets/img/help/overai_window.png")}
-                            alt="К настройкам группы"
+                            src={require("../../../assets/img/help/login.png")}
+                            alt="Окно входа"
                         />
                     </div>
                 </div>
 
                 <div className={styles.section}>
-                    <div className={styles.img_part_t2}>
+                    <div className={styles.img_part}>
                         <img
-                            src={require("../../../assets/img/help/overai_opportunity.png")}
-                            alt="Настройки группы"
+                            src={require("../../../assets/img/help/login_btn.png")}
+                            alt="Кнопка входа"
                         />
                     </div>
                     <div className={styles.text_part}>
                         <div className={styles.section_title}>
                             <div className={styles.section_number}>2</div>
-                            <h3 className={styles.section_title_text}>Возможности умного помощника</h3>
+                            <h3 className={styles.section_title_text}>Как войти в свой аккаунт</h3>
                         </div>
-                        <p className={styles.section_text}>{`Over Ai очень полезен благодаря своим возможностям генерации и анализа кода. Вот некоторые примеры того, как его можно использовать:`}</p>
-
-                        <ul className={styles.text_list}>
-
-                            <li><p className={styles.section_text}><span className={styles.text_bold}>Генерация кода</span>: может помочь в написании фрагментов кода или даже целых программ на различных языках программирования.</p></li>
-
-                            <li><p className={styles.section_text}><span className={styles.text_bold}>Обучение и поддержка</span>: может служить инструментом для обучения новичков, объясняя синтаксис и основные концепции языков программирования.</p></li>
-
-                            <li><p className={styles.section_text}><span className={styles.text_bold}>Автоматизация задач</span>: может автоматизировать рутинные задачи, такие как написание шаблонного кода или юнит-тестов.</p></li>
-
-                            <li><p className={styles.section_text}><span className={styles.text_bold}>Решение алгоритмических задач</span>: может помочь найти решения для задач на алгоритмы, предоставить подробные объяснения.</p></li>
-                        </ul>
-                        <p className={styles.section_text}>{`Однако, советуем вам самостоятельно практиковать материалы в курсах. А когда понадобиться помощь, то вы всегда можете обратиться к умному помощнику`}</p>
+                        <p className={styles.section_text}>{`После регистрации аккаунта вы попадаете на главную страницу сайта. Для  входа на страницу созданной
+                             онлайн-платформы нажмите на кнопку "Войти" в  правом верхнем углу страницы.`}</p>
+                        <p className={styles.section_text}>{`Для входа потребуется ввести электронную почту
+                        и пароль, котрые вы  указали при регистрации платформы. Вы сразу попадёте на учебный портал,
+                        где сможете собирать курсы и продавать клиентам.`}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -124,7 +117,7 @@ export const HelpOverAI = () => {
             </div>
 
             <Footer />
-        </div >
+        </div>
 
     )
 }
