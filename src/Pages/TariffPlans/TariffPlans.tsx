@@ -12,27 +12,10 @@ import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { RoleE } from 'enum/roleE'
 import middle from './images/middle.png'
-import cloud from './images/cloud.png'
-import course from './images/course.png'
-import student from './images/student.png'
-import employee from './images/employee.png'
-import xImg from './images/xImg.png'
-import whiteCloud from './images/whiteCloud.png'
-import whiteCourse from './images/whiteCourse.png'
 import whiteStudent from './images/whiteStudent.png'
-import whiteEmployee from './images/whiteEmployee.png'
-import check from './images/check.png'
 import add from './images/add.png'
 import prizeStart from './images/prizeStart.png'
-import descCourse from './images/descCourse.png'
-import descStudent from './images/descStudent.png'
-import lending from './images/lending.png'
-import cash from './images/cash.png'
 import prizePersonal from './images/prizePersonal.png'
-import personalCloud from './images/personalCloud.png'
-import personalCourse from './images/personalCourse.png'
-import personalEmployee from './images/personalEmployee.png'
-import personalStudent from './images/personalStudent.png'
 import banner from './images/banner.png'
 import hit from './images/hit.png'
 import start from './images/start.png'
@@ -40,6 +23,10 @@ import senior from './images/senior.png'
 import {Path} from "../../enum/pathE"
 import { motion } from 'framer-motion'
 import {generatePath, useNavigate} from "react-router-dom"
+import { CloudIconPath, PeopleIconPath, CheckIconPath, ClipboardListIconPath, ConfigurationIconPath, CrossIconPath,
+        MailNotificationsIconPath, UserIconPath } from 'assets/Icons/svgIconPath'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import {coursesStatsNavPath} from 'components/Navbar/config/svgIconPath'
 
 export const TariffPlans: FC = () => {
   const { data, isFetching, isSuccess } = useFetchTariffPlanTableQuery()
@@ -190,27 +177,39 @@ export const TariffPlans: FC = () => {
                       <hr />
                       <ul>
                         <li>
-                          <span style={{marginRight: '10px'}}><img src={cloud} alt='cloud'/></span>
+                          <span style={{marginRight: '10px'}}>
+                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath} />
+                          </span>
                           <span className={styles.blueLabel}>Безлимит ГБ</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}><img src={course} alt='course'/></span>
+                          <span style={{marginRight: '10px'}}>
+                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
+                          </span>
                           <span className={styles.blueLabel}>{plan.number_of_courses || '∞'} курса</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}><img src={student} alt='student'/></span>
+                          <span style={{marginRight: '10px'}}>
+                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
+                          </span>
                           <span className={styles.blueLabel}>{plan.students_per_month || '∞'} учеников</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}><img src={employee} alt='employee'/></span>
+                          <span style={{marginRight: '10px'}}>
+                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
+                          </span>
                           <span className={styles.blueLabel}>{plan.number_of_staff !== null ? (plan.number_of_staff !== 0 ? plan.number_of_staff : '0') : '∞'} сотрудников</span>
                         </li>
                         <li style={{paddingTop: '15px'}}>
-                          <span style={{marginRight: '10px'}}><img src={xImg} alt='x'/></span>
+                          <span style={{marginRight: '5px'}}>
+                            <IconSvg styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
+                          </span>
                           <span className={styles.blackLabel}>White Label</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}><img src={xImg} alt='x'/></span>
+                          <span style={{marginRight: '5px'}}>
+                            <IconSvg styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
+                          </span>
                           <span className={styles.blackLabel}>Свой домен</span>
                         </li>
                       </ul>
@@ -268,27 +267,39 @@ export const TariffPlans: FC = () => {
                       <hr />
                       <ul>
                         <li>
-                          <span style={{marginRight: '10px'}}><img src={cloud} alt='cloud'/></span>
+                          <span style={{marginRight: '10px'}}>
+                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath} />
+                          </span>
                           <span className={styles.blueLabel}>Безлимит ГБ</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}><img src={course} alt='course'/></span>
-                          <span className={styles.blueLabel}>{plan.number_of_courses || '∞'} курса</span>
+                          <span style={{marginRight: '10px'}}>
+                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
+                          </span>
+                          <span className={styles.blueLabel}>{plan.number_of_courses || '∞'} курсов</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}><img src={student} alt='student'/></span>
+                          <span style={{marginRight: '10px'}}>
+                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
+                          </span>
                           <span className={styles.blueLabel}>{plan.students_per_month || '∞'} учеников</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}><img src={employee} alt='employee'/></span>
-                          <span className={styles.blueLabel}>{plan.number_of_staff !== null ? (plan.number_of_staff !== 0 ? plan.number_of_staff : '0') : '∞'} сотрудников</span>
+                          <span style={{marginRight: '10px'}}>
+                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
+                          </span>
+                          <span className={styles.blueLabel}>{plan.number_of_staff !== null ? (plan.number_of_staff !== 0 ? plan.number_of_staff : '0') : '∞'} сотрудника</span>
                         </li>
                         <li style={{paddingTop: '15px'}}>
-                          <span style={{marginRight: '10px'}}><img src={xImg} alt='x'/></span>
+                          <span style={{marginRight: '5px'}}>
+                            <IconSvg styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
+                          </span>
                           <span className={styles.blackLabel}>White Label</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}><img src={xImg} alt='x'/></span>
+                          <span style={{marginRight: '5px'}}>
+                            <IconSvg styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
+                          </span>
                           <span className={styles.blackLabel}>Свой домен</span>
                         </li>
                       </ul>
@@ -342,27 +353,39 @@ export const TariffPlans: FC = () => {
                             <hr />
                             <ul>
                               <li>
-                                <span style={{marginRight: '10px'}}><img src={whiteCloud} alt='cloud'/></span>
+                                <span style={{marginRight: '10px'}}>
+                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath} />
+                                </span>
                                 <span className={styles.whiteLabel}>Безлимит ГБ</span>
                               </li>
                               <li>
-                                <span style={{marginRight: '10px'}}><img src={whiteCourse} alt='course'/></span>
-                                <span className={styles.whiteLabel}>{plan.number_of_courses || '∞'} курса</span>
+                                <span style={{marginRight: '10px'}}>
+                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
+                                </span>
+                                <span className={styles.whiteLabel}>{plan.number_of_courses || '∞'} курсов</span>
                               </li>
                               <li>
-                                <span style={{marginRight: '10px'}}><img src={whiteStudent} alt='student'/></span>
+                                <span style={{marginRight: '10px'}}>
+                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
+                                </span>
                                 <span className={styles.whiteLabel}>{plan.students_per_month || '∞'} учеников</span>
                               </li>
                               <li>
-                                <span style={{marginRight: '10px'}}><img src={whiteEmployee} alt='employee'/></span>
+                                <span style={{marginRight: '10px'}}>
+                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
+                                </span>
                                 <span className={styles.whiteLabel}>{plan.number_of_staff !== null ? (plan.number_of_staff !== 0 ? plan.number_of_staff : '0') : '∞'} сотрудников</span>
                               </li>
                               <li style={{paddingTop: '15px'}}>
-                                <span style={{marginRight: '10px'}}><img src={check} alt='x'/></span>
+                                <span style={{marginRight: '5px'}}>
+                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CheckIconPath} />
+                                </span>
                                 <span className={styles.whiteLabelCheck}>White Label</span>
                               </li>
                               <li>
-                                <span style={{marginRight: '10px'}}><img src={check} alt='x'/></span>
+                                <span style={{marginRight: '5px'}}>
+                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CheckIconPath} />
+                                </span>
                                 <span className={styles.whiteLabelCheck}>Свой домен</span>
                               </li>
                             </ul>
@@ -453,25 +476,33 @@ export const TariffPlans: FC = () => {
                 <ul>
                   <li>
                     <div style={{height: '34px', display: 'flex', marginLeft:'-25px'}}>
-                      <span ><img style={{marginRight: '10px'}} src={descCourse} alt='descCourse'/></span>
+                      <span >
+                        <IconSvg styles={{marginRight: '10px', color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ConfigurationIconPath} />
+                      </span>
                       <span>1 курс</span>
                     </div>
                     </li>
                     <li>
                     <div style={{height: '34px', display: 'flex', marginLeft:'-25px'}}>
-                      <span ><img style={{marginRight: '10px'}} src={descStudent} alt='descStudent'/></span>
+                      <span>
+                        <IconSvg styles={{marginRight: '10px', color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
+                      </span>
                       <span>До 10 учеников</span>
                     </div>
                     </li>
                     <li>
                     <div style={{height: '34px', display: 'flex', marginLeft:'-25px'}}>
-                      <span ><img style={{marginRight: '10px'}} src={lending} alt='lending'/></span>
+                      <span >
+                        <IconSvg styles={{marginRight: '10px', color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
+                      </span>
                       <span>Конструктор лендингов</span>
                     </div>
                     </li>
                     <li>
                     <div style={{height: '74px', display: 'flex', marginLeft:'-25px'}}>
-                      <span ><img style={{marginRight: '10px'}} src={cash} alt='cash'/></span>
+                      <span>
+                        <IconSvg styles={{marginRight: '10px', color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={MailNotificationsIconPath} />
+                      </span>
                       <span>Приём платежей
                             <p style={{marginRight: '15px'}}>и онлайн касса</p></span>
                     </div>
@@ -498,25 +529,33 @@ export const TariffPlans: FC = () => {
                 <ul>
                   <li>
                     <div style={{height: '34px', display: 'flex', marginLeft:'-45px'}}>
-                      <span ><img style={{marginRight: '10px'}} src={personalCloud} alt='personalCloud'/></span>
+                      <span >
+                        <IconSvg styles={{marginRight: '10px', color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath} />
+                      </span>
                       <span>Настройка ГБ</span>
                     </div>
                     </li>
                     <li>
                     <div style={{height: '34px', display: 'flex', marginLeft:'-45px'}}>
-                      <span ><img style={{marginRight: '10px'}} src={personalCourse} alt='personalCourse'/></span>
+                      <span >
+                        <IconSvg styles={{marginRight: '10px', color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
+                      </span>
                       <span>Настройка курсов</span>
                     </div>
                     </li>
                     <li>
                     <div style={{height: '34px', display: 'flex', marginLeft:'-45px'}}>
-                      <span ><img style={{marginRight: '10px'}} src={personalStudent} alt='personalStudent'/></span>
+                      <span>
+                        <IconSvg styles={{marginRight: '10px', color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
+                      </span>
                       <span>Настройка учеников</span>
                     </div>
                     </li>
                     <li>
                     <div style={{height: '54px', display: 'flex', marginLeft:'-45px'}}>
-                      <span ><img style={{marginRight: '10px'}} src={personalEmployee} alt='personalEmployee'/></span>
+                      <span >
+                        <IconSvg styles={{marginRight: '10px', color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
+                      </span>
                       <span>Настройка сотрудников</span>
                     </div>
                     </li>
@@ -533,15 +572,15 @@ export const TariffPlans: FC = () => {
           </span>
         </div>
         </div>
-        <div className={styles.TariffPlansPage_banner}>
-          <div className={styles.TariffPlansPage_banner_createProject}>
+        <div className={styles.TariffPlansPage_plansBlock_banner}>
+          <div className={styles.TariffPlansPage_plansBlock_banner_createProject}>
             <h1>Создайте свой проект на Course Hub прямо сейчас!</h1>
             <p>Попробуйте весь функционал в процессе использования и познайте, насколько он удобен</p>
               <div className={styles.main_btn}>
                 <button onClick={handleRegistrationUser}>Попробовать бесплатно</button>
               </div>
           </div>
-          <div className={styles.TariffPlansPage_banner_images}>
+          <div className={styles.TariffPlansPage_plansBlock_banner_images}>
             <img src={banner} alt="Создать проект"/>
           </div>
         </div>
