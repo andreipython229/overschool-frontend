@@ -2,7 +2,7 @@
 @import '../../scss/mixin.scss';
 @import '../../scss/variable.scss';
 
-/* ✅ Основной контейнер страницы */
+
 .helpPage {
   position: relative;
   width: 100%;
@@ -13,15 +13,15 @@
   gap: 124px;
   background: var(--main-bg);
   overflow: hidden;
-  margin: 30px;
+  padding: 30px 15px 0;
 }
 
-/* ✅ Фоновые элементы */
+
 .bg {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Фоновые элементы будут на заднем плане */
+  z-index: -1;
 
   &_wrap1 {
     position: absolute;
@@ -29,8 +29,8 @@
     height: 500px;
     left: 5%;
     top: 10%;
-    background: rgba(53, 126, 235, 0.6); /* Уменьшил прозрачность */
-    filter: blur(120px); /* Уменьшил размытость */
+    background: rgba(53, 126, 235, 0.6);
+    filter: blur(120px);
     animation: bgAnimate1 15s linear infinite alternate;
   }
 
@@ -40,8 +40,8 @@
     height: 600px;
     right: 10%;
     top: 20%;
-    background: rgba(87, 184, 255, 0.5); /* Уменьшил прозрачность */
-    filter: blur(110px); /* Уменьшил размытость */
+    background: rgba(87, 184, 255, 0.5);
+    filter: blur(110px);
     animation: bgAnimate2 12s linear infinite alternate;
   }
 
@@ -51,8 +51,8 @@
     height: 450px;
     left: 20%;
     bottom: 15%;
-    background: rgba(45, 156, 219, 0.4); /* Уменьшил прозрачность */
-    filter: blur(100px); /* Уменьшил размытость */
+    background: rgba(45, 156, 219, 0.4);
+    filter: blur(100px);
     animation: bgAnimate3 18s linear infinite alternate;
   }
 
@@ -62,13 +62,13 @@
     height: 500px;
     right: 15%;
     bottom: 10%;
-    background: rgba(40, 120, 200, 0.5); /* Уменьшил прозрачность */
-    filter: blur(105px); /* Уменьшил размытость */
+    background: rgba(40, 120, 200, 0.5);
+    filter: blur(105px);
     animation: bgAnimate4 14s linear infinite alternate;
   }
 }
 
-/* ✅ Анимации */
+
 @keyframes bgAnimate1 {
   from { transform: translate3d(0, 0, 0); opacity: 0.8; }
   50% { transform: translate3d(50%, 100%, 0); opacity: 1; }
@@ -107,7 +107,7 @@
 
 
 
-/* ✅ Блок sections */
+
 .sections {
   width: 1280px;
   display: grid;
@@ -122,7 +122,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 20px;
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
@@ -132,32 +132,88 @@
   font-size: 24px;
   font-weight: 500;
   line-height: 28.64px;
-  text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+  height: 350px;
+  position: relative;
 }
 
-.default {
-  background: #cfe2ff;
-  color: #0d28bb;
+.section p {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+  margin: 0;
 }
 
-.variant2 {
-  background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
-  color: white;
+
+.section_default {
+  @media only screen and (min-width: 1280px) {
+    width: 400px;
+    height: 300px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #CFE2FF;
+    color: #0d28bb;
+    transition: 0.3s ease;
+  }
+
+  &:hover {
+    @media only screen and (min-width: 1280px) {
+      background: #0D28BB;
+      color: #FFFFFF;
+    }
+    @media only screen and (min-width: 320px) and (max-width: 1280px) {
+      background: #0D28BB;
+      color: #FFFFFF;
+    }
+  }
 }
+
+.section_variant2 {
+  @media only screen and (min-width: 1280px) {
+    width: 400px;
+    height: 300px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
+    color: white;
+    transition: 0.3s ease;
+  }
+
+  &:hover {
+    @media only screen and (min-width: 1280px) {
+      background: linear-gradient(90deg, #357eeb 0%, #0d28bb 100%);
+      color: #FFFFFF;
+    }
+    @media only screen and (min-width: 320px) and (max-width: 1280px) {
+      background: linear-gradient(90deg, #357eeb 0%, #0d28bb 100%);
+      color: #FFFFFF;
+    }
+  }
+}
+
 
 .sectionImage {
-  width: 200px;
-  height: 200px;
-  transition: transform 0.3s ease-in-out;
+  @media only screen and (min-width: 1280px) {
+    width: 200px;
+    height: 200px;
+    transition: transform 0.3s ease-in-out;
+    position: absolute;
+    top: 20px;
+  }
 }
 
 .imageHover {
-  width: 250px;
-  height: 250px;
+  @media only screen and (min-width: 1280px) {
+    width: 230px;
+    height: 230px;
+  }
 }
-
 .ctaBlock {
   display: flex;
   flex-direction: row;
@@ -230,4 +286,83 @@
     width: 100%;
     height: auto;
   }
+}
+
+
+/* Общие стили для адаптивности */
+.helpBlock, .faqBlock {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.helpBlock img, .faqBlock img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+.helpBlock {
+    position: relative;
+    top: 0;
+}
+
+/* Адаптация под мобильные устройства (до 768px) */
+@media (max-width: 768px) {
+    .sections {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    .sections .section {
+        width: 100%;
+    }
+
+    .ctaBlock {
+        width: 100%;
+        transform: scale(0.9);
+    }
+}
+
+/* Адаптация под планшеты (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sections {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .sections .section {
+        width: 100%;
+    }
+
+    .ctaBlock {
+        width: 90%;
+        transform: scale(0.95);
+    }
+}
+
+/* Адаптация под ноутбуки (1024px - 1440px) */
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .sections {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .ctaBlock {
+        width: 80%;
+        transform: scale(1);
+    }
 }

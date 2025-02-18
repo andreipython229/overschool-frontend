@@ -47,7 +47,7 @@ export const AddNewFolderModal: FC<IAddFolderModal> = ({ refreshFolders, close }
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div></div>
           <button className={styles.container_closeModal} onClick={close}>
-            <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
+            <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
           </button>
         </div>
         <h2 style={{ width: '100%', textAlign: 'center' }}>Cоздание новой папки</h2>
