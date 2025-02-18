@@ -51,7 +51,7 @@ export const AdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensions> 
       )}
       <div className={styles.main_employee_container}>
         <div className={styles.main_employee_closedModal} onClick={setShowModal}>
-          <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
+          <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
         </div>
         <div style={{ textAlign: 'center' }}>
           <h3 className={styles.main_employee_title}>Добавление сотрудника</h3>

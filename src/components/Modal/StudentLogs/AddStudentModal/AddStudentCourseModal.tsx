@@ -268,7 +268,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
     <>
       <form className={styles.container}>
         <div onClick={handleClose} className={styles.container_closed}>
-          <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
+          <IconSvg width={30} height={30} viewBoxSize="0 0 58 58" path={crossIconPath} />
         </div>
         <div className={styles.addStudent}>
           <div className={styles.container_header}>
