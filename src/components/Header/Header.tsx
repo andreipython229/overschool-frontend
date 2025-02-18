@@ -10,6 +10,7 @@ import { logOutIconPath } from './config/svgIconsPath'
 import { useLazyLogoutQuery } from 'api/userLoginService'
 import { schoolProgressSelector, selectUser } from '../../selectors'
 import { logoHeader } from '../../assets/img/common'
+import CloseIcon from '../../assets/img/common/close.svg'
 import { headerUserRoleName } from 'config/index'
 import { additionalRoleT, profileT } from 'types/profileT'
 import styles from './header.module.scss'
@@ -58,8 +59,6 @@ import {
 } from 'assets/Icons/svgIconPath'
 import { SocialMediaButton } from 'components/SocialMediaButton'
 import {useFetchSchoolQuery} from "../../api/schoolService";
-import CloseIcon from "@mui/icons-material/Close";
-import IconButton from "@mui/material/IconButton";
 
 type WebSocketHeaders = {
   [key: string]: string | string[] | number
@@ -454,28 +453,7 @@ export const Header = memo(() => {
     setAnchorEl2(null)
   }
 
-  const handleAllGroups = () => {
-    const isAll = true;
-    setAllGroups(isAll)
-    const groupsIds = studentsGroups?.results.map(group => Number(group.group_id))
-    if (isAll) {
-      setTgMessage(
-        (prevData: TgMessage) =>
-          ({
-            ...prevData,
-            students_groups: groupsIds,
-          } as TgMessage),
-      )
-    } else {
-      setTgMessage((prevData: TgMessage) => ({
-        ...prevData,
-        students_groups: [],
-      }))
-    }
-  }
-
-  const handleNoneGroups = () => {
-    const isAll = false;
+  const handleAllGroups = (isAll: boolean) => {
     setAllGroups(isAll)
     const groupsIds = studentsGroups?.results.map(group => Number(group.group_id))
     if (isAll) {
@@ -577,28 +555,28 @@ export const Header = memo(() => {
                     borderRadius: 'min(20px, 2.8vw)',
                     padding: 'min(20px, 2.8vw) min(84px, 11.75vw)',
                     margin: '0',
-                    fontFamily: 'SF Pro Display, sans-serif',
+                    fontFamily: "'SF Pro Display', sans-serif",
                     maxWidth: '715px',
                     width: 'min(715px, 100vw)'} }}
               >
                 <DialogTitle
                   style={{
-                    fontFamily: 'SF Pro Display, sans-serif',
-                    fontSize: 'min(24px, 3.36vw)',
+                    fontFamily: "'SF Pro Display', sans-serif",
+                    fontSize: 'clamp(14px, 3.35vw, 24px)',
                     padding: '0',
                     paddingLeft: '0'
                   }}>
                   Отправить сообщения студентам
-                  <IconButton className={styles.closeButton} onClick={() => setShowTgMessageForm(false)}>
-                    <CloseIcon />
-                  </IconButton>
+                  <button className={styles.closeButton} onClick={() => setShowTgMessageForm(false)}>
+                    <img src={CloseIcon} alt="Close" style={{width: 'min(16px, 2.24vw)'}}/>
+                  </button>
                 </DialogTitle>
                   <div style={{
-                    fontSize: 'min(16px, 2.24vw)',
+                    fontSize: 'clamp(12px, 2.24vw, 16px)',
                     paddingLeft: 'min(10px, 1.4vw)',
                     paddingBottom: 'min(16px, 2.24vw)',
                     paddingTop: 'min(8.39px, 1.4vw)',
-                    fontFamily: 'SF Pro Display, sans-serif'
+                    fontFamily: "'SF Pro Display', sans-serif"
                     }}>
                     Выберите одну или несколько ШКОЛ
                   </div>
@@ -643,7 +621,7 @@ export const Header = memo(() => {
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start'  }}>
                     <Button
-                          onClick={handleAllGroups}
+                          onClick={() => handleAllGroups(true)}
                           className={styles.customButton}
                           style={{
                             backgroundColor: '#357EEB',
@@ -654,7 +632,7 @@ export const Header = memo(() => {
                           }}
                           text="Выбрать все группы" />
                     <Button
-                          onClick={handleNoneGroups}
+                          onClick={() => handleAllGroups(false)}
                           className={styles.customButton}
                           style={{
                             backgroundColor: 'white',
@@ -685,6 +663,12 @@ export const Header = memo(() => {
                         <div key={courseName} style={{ marginBlockStart: 'min(2.52px, 0.42vw)' }}>
                           <Checkbox
                                 className={styles.customCheckbox}
+                                sx={{
+                                  '& .MuiSvgIcon-root': {
+                                    width: 'min(24px, 3.35vw)',
+                                    height: 'min(24px, 3.35vw)',
+                                  },
+                                }}
                                 onChange={e => {
                                   const isChecked = e.target.checked
                                   if (isChecked) {
@@ -706,12 +690,18 @@ export const Header = memo(() => {
                                 checked={groups.every(group => new Set(tgMessage.students_groups).has(Number(group.group_id)))}
 
                           />
-                          <b style={{fontSize: 'min(16.78px, 2.8vw)', fontFamily: 'SF Pro Display, sans-serif', color: 'grey'}}>{courseName} (групп: {groups.length})</b>
+                          <b style={{fontSize: 'clamp(14px, 2.8vw, 16.78px)', fontFamily: "'SF Pro Display', sans-serif", color: 'grey'}}>{courseName} (групп: {groups.length})</b>
                           {groups.some(group => tgMessage.students_groups.includes(group.group_id  ?? 0)) &&
                           groups.map((group, index) => (
-                            <div key={group.group_id} style={{ marginLeft: 'min(12.59px, 2.1vw)', fontSize: 'min(16.78px, 2.8vw)', fontFamily: 'SF Pro Display, sans-serif', color: 'grey'}}>
+                            <div key={group.group_id} style={{ marginLeft: 'min(12.59px, 2.1vw)', fontSize: 'clamp(14px, 2.8vw, 16.78px)', fontFamily: "'SF Pro Display', sans-serif", color: 'grey'}}>
                               <Checkbox
                                 className={styles.customCheckbox}
+                                sx={{
+                                  '& .MuiSvgIcon-root': {
+                                    width: 'min(24px, 3.35vw)',
+                                    height: 'min(24px, 3.35vw)',
+                                  },
+                                }}
                                 onChange={e => {
                                   const isChecked = e.target.checked
                                   if (isChecked) {
