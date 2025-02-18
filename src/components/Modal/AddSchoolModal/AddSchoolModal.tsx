@@ -52,7 +52,7 @@ export const AddSchoolModal: FC<AddSchoolModalPropsT> = ({setShowModal, schools}
         <form noValidate onSubmit={handleCreateSchool} className={styles.main_school}>
             <div className={styles.main_school_container}>
                 <div onClick={handleClose} className={styles.main_school_closedModal}>
-                    <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath}/>
+                    <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
                 </div>
                 <div style={{textAlign: 'center'}}>
                     {/*<IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={addStudentIconPath}/>*/}
