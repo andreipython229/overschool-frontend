@@ -83,7 +83,7 @@
       justify-content: space-between;
       position: relative;
       z-index: 3;
-      gap: 10px;
+      // gap: 10px;
       flex-wrap: wrap;
     }
 
@@ -129,9 +129,9 @@
   }
 
   &__percents {
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 38.19px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28.64px;
     text-align: left;
     color: #ffffff;
     text-decoration: none;
@@ -498,9 +498,6 @@
         width: 14px;
       }
     }
-    &__percents_bottom {
-      display: none;
-    }
     &__persents_top {
       display: block;
       font-size: 16px;
@@ -520,5 +517,15 @@
   }
   .progress_bg {
     margin: 20px 0;
+  }
+}
+
+.wrapper_switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  div {
+    cursor: default;
   }
 }

@@ -1,201 +1,135 @@
-import { FC, memo, useState } from 'react'
-import { Button } from '../../../components/common/Button/Button'
-import { Input } from '../../../components/common/Input/Input/Input'
-import { CardActionArea } from '@mui/material'
-import firstStep from '../../../assets/img/createProject/firstStep.png'
-import secondStep from '../../../assets/img/createProject/secondStep.png'
-import frame from '../../../assets/img/createProject/frame.png'
-import { headerUserRoleName } from '../../../config/headerUserRoleName'
-import { useAppSelector, useAppDispatch } from '../../../store/hooks'
-import { selectUser, authSelector } from '../../../selectors'
-import { Path } from 'enum/pathE'
-import { generatePath, useNavigate, Link } from 'react-router-dom'
-import Tooltip from '@mui/material/Tooltip'
-import { logo } from '../../../assets/img/common'
-import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
-import { logOutIconPath } from '../../../components/Header/config/svgIconsPath'
-import { auth, logoutState } from '../../../store/redux/users/slice'
-import { useLazyLogoutQuery } from '../../../api/userLoginService'
+import { FC, memo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "../HelpPage.module.scss";
+import { Footer } from "../../../components/Footer/index";
+import { Button } from "components/common/Button/Button";
+import { InitPageHeader } from "../../Initial/newInitialPageHeader";
+import { Path } from "../../../enum/pathE";
 
-import styles from '../HelpPage.module.scss'
+
+const sections = [
+  {
+    title: "Гид по началу работы",
+    image: require("../../../assets/img/common/map-pin.png"),
+    link: "/help",
+  },
+  {
+    title: "Как привязать домен?",
+    image: require("../../../assets/img/common/domen.png"),
+    link: "/help/domain",
+  },
+  {
+    title: "Как создать школу?",
+    image: require("../../../assets/img/common/default-icon.png"),
+    link: "/help/school-settings",
+  },
+  {
+    title: "Как добавить сотрудников?",
+    image: require("../../../assets/img/common/3-user.png"),
+    link: "/help/add-employee",
+  },
+  {
+    title: "Настройка платформы",
+    image: require("../../../assets/img/common/settingsPlatform.png"),
+    link: "/help/platform-settings",
+  },
+  {
+    title: "Как настроить аккаунт?",
+    image: require("../../../assets/img/common/accaunt.png"),
+    link: "/help/user-account",
+  },
+  {
+    title: "Как создать чат?",
+    image: require("../../../assets/img/common/chat.png"),
+    link: "/help/chat",
+  },
+  {
+    title: "Проверка домашних заданий",
+    image: require("../../../assets/img/common/checkHW.png"),
+    link: "/help/check-hw",
+  },
+  {
+    title: "Over Ai",
+    image: require("../../../assets/img/common/OverAi.png"),
+    link: "/help/overai",
+  },
+  {
+    title: "Настройки группы",
+    image: require("../../../assets/img/common/groupsettings.png"),
+    link: "/help/groups",
+  },
+];
 
 export const HelpPage: FC = memo(() => {
-  const isLogin = useAppSelector(authSelector)
-  const dispatch = useAppDispatch()
-  const [logout] = useLazyLogoutQuery()
-
-  const { role } = useAppSelector(selectUser)
-  const navigate = useNavigate()
-
-  const handleLoginPage = () => {
-    navigate(generatePath(Path.LoginPage))
-  }
+  const navigate = useNavigate();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isLoginOpen, setLoginOpen] = useState(false);
+  const [isRegistrationOpen, setRegistrationOpen] = useState(false);
 
   const handleRegistrationUser = () => {
-    navigate(generatePath(Path.CreateSchool))
-  }
-
-  const logOut = async () => {
-    await localStorage.clear()
-    dispatch(logoutState())
-    await logout()
-    window.location.reload()
-
-    dispatch(auth(false))
-  }
+    const paramsString = localStorage.getItem("utmParams");
+    if (paramsString !== null) {
+      const parsedParams = JSON.parse(paramsString);
+      const queryParams = Object.keys(parsedParams)
+        .map((key) => `${key}=${parsedParams[key]}`)
+        .join("&");
+      const pathWithParams = `${Path.CreateSchool}?${queryParams}`;
+      navigate(pathWithParams);
+    } else {
+      navigate(Path.CreateSchool);
+    }
+  };
 
   return (
-    <section className={styles.HelpCenterPage}>
-      <div className={styles.init_header}>
-        <a
-          href={Path.InitialPage}
-          className={styles.init_header_logo}
-          style={{
-            textDecoration: 'none',
-            color: '#ba75ff',
-            fontWeight: 'bold',
-            padding: '0.5rem',
-            borderRadius: '10px',
-          }}
-        >
-          <img src={logo} alt="Logotype ITOVERONE" />
-          <p> IT OVERONE</p>
-        </a>
-        {isLogin ? (
-          <div className={styles.header_block}>
-            <Link className={styles.header_block_logIn} to={Path.ChooseSchool}>
-              <Button type={'button'} text={'Ко входу на платформу'} style={{ marginRight: '-0.2em' }} />
-            </Link>
-            <Tooltip title={'Выход из профиля'}>
-              <div className={styles.header_block_logOut}>
-                <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
-              </div>
-            </Tooltip>
-          </div>
-        ) : (
-          <div className={styles.header_block}>
-            {/* <Button onClick={handleTariffPage} variant={'logIn'} text={'Тарифы'} /> */}
-            <Button onClick={handleLoginPage} variant={'logIn'} text={'Войти'} />
-            {/* <Button onClick={handleRegistrationUser} variant={'logIn'} text={'Создать платформу'} /> */}
-          </div>
-        )}
+    <div className={styles.helpPage}>
+      <div className={styles.bg}>
+        <div className={styles.bg_wrap1}></div>
+        <div className={styles.bg_wrap2}></div>
+        <div className={styles.bg_wrap3}></div>
+        <div className={styles.bg_wrap4}></div>
       </div>
-      <img src={frame} alt="asdfhghhgh" style={{ width: '100%', height: 'auto' }} />
-      {/* <div className={styles.HelpCenterPage_FAQ}>
-          <h1>Дорогой Пользователь!</h1>
-          <p>
-          Приветствуем тебя на платформе Overschool. Здесь ты можешь осваивать материалы по выбранному тобой направлению. Также ты можешь расширить свой доступ, тогда для тебя могут стать доступны несколько направлений. Функционал платформы позволит тебе ознакомится с материалами из любого удобного места в удобное для тебя время. Ты можешь знакомиться с материалами с компьютера или ноутбука, а также посредством мобильного приложения (прикрепить активную ссылку на инструкцию).  Также ты можешь осваивать материалы в предложенном порядке или при желании обращаться к конкретному нужному тебе материалу. Также функционал платформы позволит тебе пользоваться автоматизированными тестами, чтобы проверить себя. Если тебе понадобится помощь, наша техподдержка (активная ссылка на чат с техподдержкой) поможет тебе при ближайшей возможности. 
 
-          Мы постоянно развиваем и дорабатываем наш софт. 
-          Уже совсем скоро планируем загрузить обновления с более расширенным функционалом. 
-          Если у тебя есть пожелания и рекомендации по нашей работе, напиши, пожалуйста, на нашу почту <span className={styles.mail}>it@overone.by</span>. Мы благодарны за обратную связь, ведь каждый день мы стараемся стать ещё лучше для тебя! 
-
-          Приятного пользования платформой, дорогой друг! 🫶
-          </p>
-          
-      </div> */}
-      <div className={styles.HelpCenterPage_quickStart}>
-        <h1>Начало работы</h1>
-        <div className={styles.HelpCenterPage_quickStart_cardGroup}>
-          <button className={styles.HelpCenterPage_quickStart_cardGroup_card} onClick={() => navigate(generatePath(Path.HelpPage + 'school'))}>
-            <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-              <h3>Гид по началу работ</h3>
-              <p>Не знаете с чего начать? Начните с нашего гида по началу работы на OVERSCHOOL</p>
-            </div>
-          </button>
-          <button className={styles.HelpCenterPage_quickStart_cardGroup_card} onClick={() => navigate(generatePath(Path.HelpPage + 'courses'))}>
-            <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-              <h3>Как создать курс</h3>
-              <p>Пошаговая инструкция по созданию и настройке курсов на платформе</p>
-            </div>
-          </button>
-
-          <button
-            className={styles.HelpCenterPage_quickStart_cardGroup_card}
-            onClick={() => navigate(generatePath(Path.HelpPage + 'school-settings'))}
+      <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
+      <div className={styles.helpBlock}>
+        <img src={require("../../../assets/img/common/help-header.png")} alt="Лэптоп с вопросами" />
+      </div>
+      <div className={styles.sections}>
+        {sections.map((section, index) => (
+          <div
+            key={index}
+            className={`${styles.section} ${hoveredIndex === index ? styles.section_variant2 : styles.section_default}`}
+            onClick={() => navigate(section.link)}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
           >
-            <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-              <h3>Настройки платформы </h3>
-              <p>Инструкция по настройкам платформы, управление сотрудниками, оплата курсов </p>
-            </div>
-          </button>
-          <button className={styles.HelpCenterPage_quickStart_cardGroup_card} onClick={() => navigate(generatePath(Path.HelpPage + 'user-account'))}>
-            <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-              <h3>Как настроить аккаунт </h3>
-              <p>Пошаговая инструкция по настройке аккаунт пользователя</p>
-            </div>
-          </button>
+            <img
+              className={`${styles.sectionImage} ${hoveredIndex === index ? styles.imageHover : ""}`}
+              src={section.image}
+              alt={section.title}
+            />
+            <p>{section.title}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className={styles.ctaBlock}>
+        <div className={styles.ctaText}>
+          <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
+          <p>
+            Попробуйте весь функционал в процессе использования и узнайте, как
+            удобно работать на нашей платформе.
+          </p>
+          <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
         </div>
-        <div className={styles.HelpCenterPage_quickStart_cardGroup}>
-          <button className={styles.HelpCenterPage_quickStart_cardGroup_card} onClick={() => navigate(generatePath(Path.HelpPage + 'students'))}>
-            <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-              <h3>Пользователи платформы </h3>
-              <p>Инструкция по настройкам страниц с пользователями на платформе</p>
-            </div>
-          </button>
-          <button className={styles.HelpCenterPage_quickStart_cardGroup_card} onClick={() => navigate(generatePath(Path.HelpPage + Path.HelpChat))}>
-            <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-              <h3>Как создать чат </h3>
-              <p>Инструкция по созданию чатов с пользователями платформы</p>
-            </div>
-          </button>
-          <button className={styles.HelpCenterPage_quickStart_cardGroup_card} onClick={() => navigate(generatePath(Path.HelpPage + 'check-hw'))}>
-            <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-              <h3>Проверка домашних заданий </h3>
-              <p>Инструкция по проверке домашних заданий на платформе</p>
-            </div>
-          </button>
-          <button className={styles.HelpCenterPage_quickStart_cardGroup_card} onClick={() => navigate(generatePath(Path.HelpPage + 'overai'))}>
-            <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-              <h3>OVERAI</h3>
-              <p>Искусственный интеллект на платформе, используемый для улучшения качества и доступности образования</p>
-            </div>
-          </button>
-          <button className={styles.HelpCenterPage_quickStart_cardGroup_card} onClick={() => navigate(generatePath(Path.HelpPage + 'groups'))}>
-            <div className={styles.HelpCenterPage_quickStart_cardGroup_card_text}>
-              <h3>Настройки группы </h3>
-              <p>Инструкция по настройкам группы: функционал и возможности </p>
-            </div>
-          </button>
+        <div className={styles.ctaImage}>
+          <img src={require("../../../assets/img/common/cta-image.png")} alt="CTA-изображение" />
         </div>
       </div>
-      <div className={styles.HelpCenterPage_FAQ}>
-        <h1>Часто задаваемые вопросы</h1>
-        <h2>Как оплатить подписку со счета организации?</h2>
-        <p>
-          Для этого пришлите нам на почту support@overschool.by реквизиты для выставления счета, а также укажите желаемый тариф и период подключения.
-          Мы сформируем и пришлем Вам счет для оплаты. Как только деньги поступят на счет, мы активируем Ваш тариф.
-        </p>
-        <h2>Что произойдет, когда оплаченный период закончится?</h2>
-        <p>
-          Вам и сотрудникам онлайн-школы будет ограничен доступ к использованию функционала. Для Ваших учеников доступ будет закрыт только через 24
-          часа после окончания подписки - мы сделали это на случай, если Вы забудете вовремя продлить тариф. Все загруженные на платформу материалы
-          сохранятся в полном порядке. При продлении подписки все доступы моментально откроются.
-        </p>
-        <h2>Можно ли будет поменять тариф?</h2>
-        <p>
-          Да, можно. Для этого даже не обязательно ждать окончания оплаченного периода: просто подключите нужный тариф и оставшиеся дни подписки
-          автоматически пересчитаются по стоимости нового тарифа.
-        </p>
-        <h2>Бесплатный тариф “Intern” действительно бессрочный?</h2>
-        <p>Верно, данный тариф доступен для использования без ограничений по времени. Его не нужно продлевать или активировать заново.</p>
+      <div className={styles.faqBlock}>
+        <img src={require("../../../assets/img/common/faq.png")} alt="Часто задаваемые вопросы" />
       </div>
-      <div className={styles.HelpCenterPage_banner}>
-        <div className={styles.HelpCenterPage_banner_createProject}>
-          <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
-          <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
-          <Button
-            onClick={handleRegistrationUser}
-            variant={'primary'}
-            text={'Создать проект'}
-            style={{ width: '160px', fontSize: '16px', marginLeft: '5px' }}
-          />
-        </div>
-        <div className={styles.HelpCenterPage_banner_images}>
-          <img src={firstStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_firstStep} />
-          <img src={secondStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_secondStep} />
-        </div>
-      </div>
-    </section>
-  )
-})
+
+      <Footer />
+    </div>
+  );
+});

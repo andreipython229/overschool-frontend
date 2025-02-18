@@ -6,7 +6,7 @@ import { Input } from 'components/common/Input/Input/Input'
 import { RoleE } from 'enum/roleE'
 import { schoolIdSelector, schoolNameSelector, selectUser } from 'selectors'
 import { AddCourseModal } from 'components/Modal'
-import { useDeleteFolderMutation, useFetchCourseFoldersQuery, useLazyFetchCoursesPageQuery } from 'api/coursesServices'
+import { useDeleteFolderMutation, useLazyFetchCourseFoldersQuery, useLazyFetchCoursesPageQuery } from 'api/coursesServices'
 import { useSetSchoolMutation } from 'api/schoolService'
 import { useBoolean } from 'customHooks/useBoolean'
 import { Portal } from 'components/Modal/Portal'
@@ -32,7 +32,7 @@ export const CoursePage: FC = () => {
   const school_id = localStorage.getItem('school_id')
   const test_course = localStorage.getItem('test_course')
   const [fetchData, { data: coursesData, isSuccess }] = useLazyFetchCoursesPageQuery()
-  const { data: folders, isError, refetch } = useFetchCourseFoldersQuery(schoolName)
+  const [fetchFolders, { data: folders, isError }] = useLazyFetchCourseFoldersQuery()
   const [isOpenAddCourse, { onToggle }] = useBoolean()
   const [courses, setCourses] = useState<CoursesT>()
   const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
@@ -59,6 +59,12 @@ export const CoursePage: FC = () => {
   }
 
   useEffect(() => {
+    if (role === RoleE.Admin) {
+      fetchFolders(schoolName)
+    }
+  }, [])
+
+  useEffect(() => {
     if (isSuccess) {
       setCourses(coursesData)
     }
@@ -66,7 +72,7 @@ export const CoursePage: FC = () => {
 
   useEffect(() => {
     if (deletedSuccessfuly) {
-      refetch()
+      fetchFolders(schoolName)
     }
   }, [deletedSuccessfuly])
 
@@ -408,23 +414,25 @@ export const CoursePage: FC = () => {
           </div>
         </AnimatePresence>
       )}
-      <Input
-        role="search-input"
-        name=""
-        type="search"
-        value={search}
-        onChange={event => setSearch(event.target.value)}
-        placeholder="Поиск по материалам"
-      >
-        <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={SearchIconPath} className={styles.searchIcon}>
-          <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#0D28BB" />
-              <stop offset="100%" stopColor="#357EEB" />
-            </linearGradient>
-          </defs>
-        </IconSvg>
-      </Input>
+      <div className={styles.input}>
+        <Input
+          role="search-input"
+          name=""
+          type="search"
+          value={search}
+          onChange={event => setSearch(event.target.value)}
+          placeholder="Поиск по материалам"
+        >
+          <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={SearchIconPath} className={styles.searchIcon}>
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#0D28BB" />
+                <stop offset="100%" stopColor="#357EEB" />
+              </linearGradient>
+            </defs>
+          </IconSvg>
+        </Input>
+      </div>
 
       {role === RoleE.Admin && (
         <div
@@ -543,7 +551,7 @@ export const CoursePage: FC = () => {
       </AnimatePresence>
       {showModal && (
         <Portal closeModal={toggleModal}>
-          <AddNewFolderModal close={toggleModal} refreshFolders={refetch} />
+          <AddNewFolderModal close={toggleModal} refreshFolders={() => fetchFolders(schoolName)} />
         </Portal>
       )}
       {isOpenAddCourse ? (

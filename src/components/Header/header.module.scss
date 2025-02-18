@@ -3,7 +3,7 @@
 
 .header {
   width: 424px;
-  max-width: 1360px;
+  max-width: min(70.84vw, 1360px);
   height: 80px;
   // border: 3px solid #357eeb;
   border-radius: 30px;
@@ -11,20 +11,19 @@
   backdrop-filter: blur(25px);
   gap: 18px;
   box-shadow: 0px 0px 25px 0px #357eeb;
-  @include display(flex, row, center, center);
-  padding: 0 64px;
+  // @include display(flex, row, center, center);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  // padding: 0 64px;
   position: fixed;
-  left: 54%;
+  left: 50%;
   top: 2rem;
   margin: 0 auto;
   z-index: 90;
   transition: all ease-in-out $trans-dur05;
 
-  @media screen and (max-width: 1430px) {
-    padding: 0 16px;
-  }
-
-  @media screen and (max-width: 1340px) {
+  @media screen and (max-width: 1725px) {
     .header_socialIcons {
       display: none;
     }
@@ -37,6 +36,13 @@
   }
 
   &_socialIcons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  &_socialIcons2 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -72,33 +78,71 @@
     height: 55px;
     width: 98.78px;
     display: flex;
-    margin-right: 1rem;
     cursor: pointer;
+    img {
+      object-fit: contain;
+      object-position: center;
+      margin: 0 auto;
+    }
   }
 
   &_hiddenBlock {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
   }
 }
 
 .header:hover {
   transition: all ease-in-out $trans-dur05;
-  width: 85%;
+  // width: 85%;
+  width: 100%;
   background: rgba(207, 226, 255, 1);
   justify-content: space-between;
+  padding: 10px 45px;
+
+  @media screen and (max-width: 1430px) {
+    padding: 10px 16px;
+    gap: 10px;
+
+    & .tariffPlan {
+      padding: 0;
+      min-width: 166px;
+    }
+  }
 
   & .header_hiddenBlock {
+    transition: all ease-in-out $trans-dur05 $trans-dur02;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 1rem;
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.header:not(:hover) {
+  transition: all ease-in-out $trans-dur05 1s;
+
+  & .header_hiddenBlock {
+    transition: all ease-in-out $trans-dur05 0.9s;
+  }
+
+  & .header_logo {
+    margin: 0 auto;
   }
 }
 
 .headerActive {
   transition: all ease-in-out $trans-dur05;
-  width: 85%;
+  width: 100%;
+  padding: 10px 45px;
   background: rgba(207, 226, 255, 1);
   justify-content: space-between;
 
@@ -108,6 +152,9 @@
     align-items: center;
     justify-content: flex-end;
     gap: 1rem;
+    opacity: 1;
+    visibility: visible;
+    // margin-left: 1rem;
   }
 }
 

@@ -17,7 +17,6 @@ import { auth, logoutState } from '../../store/redux/users/slice'
 import { useLazyLogoutQuery } from '../../api/userLoginService'
 import Tooltip from '@mui/material/Tooltip'
 import { useLazyFetchProfileDataQuery } from 'api/profileService'
-import { Instagram } from 'react-content-loader'
 
 
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setRegistrationShow }) => {
@@ -93,15 +92,15 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
     }
   }, [])
 
-  
+
 
   return (
     <header className={styles.init_header}>
       <div className={styles.btn_block}>
-        <div className={styles.init_header_logo}>
+        <div className={styles.init_header_logo} onClick={() => navigate('/') } style={{ cursor: 'pointer' }}>
           <img src={logoHeader} alt="Logotype" />
         </div>
-      
+
         {isLogin ? (
           <div className={styles.header_block}>
             <div className={styles.header_block_menu}>
@@ -161,9 +160,9 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
             </div>
             <Button onClick={handleLoginPage} variant={'newLogInHeader'} text={'Войти'} />
             <Button onClick={handleRegistrationUser} variant={'newCreateHeader'} text={'Создать платформу'}>
-               <img className={styles.header_block_plus} src={plus} alt="Plus" /> 
+               <img className={styles.header_block_plus} src={plus} alt="Plus" />
             </Button>
-            
+
           </div>
         )}
       </div>

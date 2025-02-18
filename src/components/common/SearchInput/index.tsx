@@ -37,7 +37,7 @@ export const SearchInput: FC<ISearchInput> = ({ value, setValue }) => {
               setFilterData('')
             }}
           >
-            <IconSvg width={8} height={8} viewBoxSize="0 0 16 12" path={crossIconPath} />
+            <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
           </button>
         </div>
       )}
