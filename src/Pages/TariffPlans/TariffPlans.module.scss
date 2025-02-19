@@ -7,305 +7,800 @@
   background: none;
 }
 .TariffPlansPage {
+    height: 100%;
+
+  &_changePlane{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: SF Pro Text, sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 54.89px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+    margin-top: 15px;
+    }
+
+   &_header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: SF Pro Text, sans-serif;
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 54.89px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+    margin-top: 20px;
+  }
+
   h1 {
     margin: 23px;
     color: #4d5766;
     font-size: 35px;
   }
+
+  &_switchBlock{
+    display: flex;
+    width: 565px;
+    height: 64px;
+    padding: 0px 24px 0px 24px;
+    gap: 0px;
+    border-radius: 48px;
+    justify: space-between;
+    opacity: 0px;
+    background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
+    margin-top: 30px;
+
+    &_forMonth{
+      width: 245px;
+      height: 64px;
+      gap: 0px;
+      opacity: 0px;
+      font-family: SF Pro Display;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 23.87px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+      border: none;
+      background: transparent;
+      cursor: default;
+      }
+
+    &_forMonthSwitchOff{
+      width: 282px;
+      height: 64px;
+      gap: 0px;
+      border-radius: 64px;
+      opacity: 0px;
+      border: none;
+      background-color: rgba(53, 126, 235, 1);
+      font-family: SF Pro Display;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 23.87px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(255, 255, 255, 1);
+      animation-name: switchOffMonth;
+      animation-duration: 0.2s;
+      cursor: default;
+      }
+
+      @keyframes switchOffMonth {
+        from{
+          margin-left: 70px;
+        }
+
+        50%{
+          margin-left: 35px;
+        }
+        to {
+          margin-left: 10px;
+      }
+    }
+
+    &_forYear{
+      width: 282px;
+      height: 64px;
+      left: 25px;
+      gap: 0px;
+      border-radius: 64px;
+      opacity: 0px;
+      background-color: rgba(53, 126, 235, 1);
+      border: none;
+      font-family: SF Pro Display;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 23.87px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(255, 255, 255, 1);
+      cursor: default;
+      animation-name: switchOnYear;
+      animation-duration: 0.2s;
+
+      &_sale{
+        width: 129px;
+        height: 27px;
+        padding: 4px 8px 4px 8px;
+        gap: 10px;
+        border-radius: 16px;
+        opacity: 0px;
+        border: 1px solid rgba(255, 255, 255, 1);
+        font-family: SF Pro Display;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19.09px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
+        margin-left: 7px;
+      }
+    }
+
+    @keyframes switchOnYear {
+        from {
+          opacity: 1;
+          background-color: rgba(53, 126, 235, 1);
+          margin-left: -70px;
+          border-radius: 64px;
+          width: 282px;
+          color: rgba(255, 255, 255, 1);
+        }
+        to {
+          margin-left: -10px;
+          opacity: 1;
+        }
+      }
+
+    &_forYearSwitchOff{
+      width: 245px;
+      height: 64px;
+      gap: 0px;
+      opacity: 0px;
+      background-color: transparent;
+      border: none;
+      font-family: SF Pro Display;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 23.87px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+      margin-left: 20px;
+      animation-name: switchOffYear;
+      animation-duration: 0.2s;
+      cursor: default;
+
+
+      &_saleSwitchOff{
+        width: 129px;
+        height: 27px;
+        padding: 4px 8px 4px 8px;
+        gap: 10px;
+        border-radius: 16px;
+        opacity: 0px;
+        border: none;
+        font-family: SF Pro Display;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19.09px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
+        margin-left: 7px;
+        background-color: rgba(53, 126, 235, 1);
+        }
+      }
+
+      @keyframes switchOffYear {
+        from {
+          opacity: 1;
+          background-color: rgba(53, 126, 235, 1);
+          margin-left: -70px;
+          border-radius: 64px;
+          width: 282px;
+          color: rgba(255, 255, 255, 1);
+        }
+
+        50%{
+          opacity: 1;
+          background-color: rgba(53, 126, 235, 1);
+          margin-left: -35px;
+          border-radius: 64px;
+          width: 282px;
+          color: rgba(255, 255, 255, 1);
+        }
+
+        to {
+          margin-left: 10px;
+          opacity: 1;
+        }
+      }
+  }
   &_plansBlock {
     align-items: center;
     flex-direction: column;
     display: flex;
-    margin-top: 75px;
 
-    p {
-      color: #ba75ff;
-      font-size: 16px;
-    }
-    h1 {
-      margin-top: 18px;
-    }
-    &_typeSelect {
-      display: inline-flex;
-      align-items: center;
-      h5 {
-        margin-right: 45px;
-        font-size: 14px;
-      }
-      hr {
-        width: 150px;
-        margin-top: 6px;
-      }
-      &_courseEnabled {
-        width: 220px;
-        h5 {
-          float: right;
-          color: #ba75ff;
-        }
-        hr {
-          border: 1px solid #ba75ff;
-          float: right;
-        }
-      }
-      &_webinarDisabled {
-        width: 220px;
-        h5 {
-          color: #d6d6d6;
-          margin-left: 45px;
-        }
-        hr {
-          border: 1px solid #d6d6d6;
-        }
-      }
-      &_courseDisabled {
-        width: 220px;
-        h5 {
-          float: right;
-          color: #d6d6d6;
-        }
-        hr {
-          border: 1px solid #d6d6d6;
-          float: right;
-        }
-      }
-      &_webinarEnabled {
-        width: 220px;
-        h5 {
-          color: #ba75ff;
-          margin-left: 45px;
-        }
-        hr {
-          border: 1px solid #ba75ff;
-        }
-      }
-    }
     &_cardGroup {
-      margin-top: 45px;
+      width: 1219px;
+      height: 878px;
+      gap: 40px;
+      opacity: 0px;
       display: inline-flex;
       align-items: center;
-      width: 90%;
       justify-content: space-around;
+      margin-top: 40px;
 
-      &_card:hover {
-        //background-color: #ebe8f5;
-        border: 3px #ba75ff solid;
-        button {
-          color: #ba75ff;
-          background-color: #ffffff;
+      &_firstCard {
+        width: 340px;
+        height: 764px;
+        padding: 32px 16px 32px 16px;
+        gap: 40px;
+        border-radius: 24px;
+        opacity: 0px;
+        background-color: rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
+        &_planName {
+          font-family: SF Pro Display;
+          font-size: 32px;
+          font-weight: 700;
+          line-height: 38.19px;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(50, 65, 149, 1);
         }
       }
 
-      &_card {
-        position: relative;
-        width: 304px;
-        height: 373px;
+      &_secondCard{
+        width: 420px;
+        height: 854px;
+        padding: 34px 16px 34px 16px;
+        gap: 40px;
+        border-radius: 24px;
+        opacity: 0px;
+        background-color: rgba(207, 226, 255, 1);
+        box-shadow: 0px 0px 10.5px 0px rgba(0, 0, 0, 0.45);
+        box-shadow: 0px 0px 25px 0px rgba(53, 126, 235, 1);
+        backdrop-filter: blur(35px);
 
-        background: #fff;
-        border-radius: 20px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        margin-bottom: 80px;
-
-        &_text {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-          height: 100%;
-          width: 100%;
-          min-width: 100%;
-          min-height: 100%;
-
-          h3 {
-            color: #4d5766;
-            font-weight: 600;
-            font-size: 27px;
-            text-align: center;
-          }
-          hr {
-            border: 1px solid #ba75ff;
-            width: 150px;
-            height: 0;
-            margin: 10px auto 0 auto;
-            text-align: center;
-          }
-          ul {
-            padding-left: 10px;
-            padding-top: 29px;
-            list-style: none;
-
-            li::before {
-              content: '\2022';
-              color: #ba75ff;
-              font-weight: bold;
-              display: inline-block;
-              width: 1em;
-              margin-left: -1em;
-            }
-            li {
-              font-size: 14px;
-              padding-bottom: 15px;
-
-              span {
-                font-weight: 600;
-                margin-left: 0.3em;
-                color: #ba75ff;
-              }
-            }
-          }
-          button {
-            width: 184px;
-            height: 43px;
-            font-size: 15px;
-            position: relative;
-            font-weight: 500;
-          }
-        }
+      &_planName{
+        font-family: SF Pro Display;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 38.19px;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(51, 47, 54, 1);
       }
-      @media (min-width: 767px) and (max-width: 1024px) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        &_card {
-          margin: 0 auto 80px auto;
-        }
-      }
-      @media (min-width: 320px) and (max-width: 767px) {
-        display: flex;
-        flex-direction: column;
+    }
+
+      &_thirdCard{
+      width: 340px;
+      height: 790px;
+      padding: 35px 16px 32px 16px;
+      gap: 40px;
+      border-radius: 24px;
+      opacity: 0px;
+      background: rgba(50, 65, 149, 1);
+      box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
+      &_planName{
+        font-family: SF Pro Display;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 38.19px;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 250, 250, 1);
+
       }
     }
   }
+
+
   &_banner {
     margin-top: 65px;
-    width: 100%;
-    background: #e0dced;
-    height: 379px;
-    display: inline-flex;
+    width: 1920px;
+    height: 472px;
+    padding: 36px 10px 36px 10px;
+    gap: 48px;
+    opacity: 0px;
+    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+    margin-left: -470px;
+
+
+
     &_createProject {
-      padding-top: 120px;
-      margin-left: 120px;
+      width: 552px;
+      margin-left: 25vw;
+
       h1 {
         margin: 0;
+        font-family: SF Pro Display;
+        font-size: 36px;
+        font-weight: 500;
+        line-height: 42.96px;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
       }
       p {
-        margin-top: 11px;
-        color: #4d5766;
-        font-size: 14px;
-        width: 80%;
+        margin-top: 40px;
+        font-family: SF Pro Display;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 28.64px;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
       }
+
       button {
-        margin: 46px 0 0 27px;
-        width: 241px;
-        height: 52px;
-        font-size: 12px;
-      }
-    }
-    &_images {
-      position: relative;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      &_firstStep {
-        width: 280px;
-        height: 209px;
-        margin-top: 133px;
-        z-index: 1;
-        position: absolute;
-      }
-      &_secondStep {
-        width: 308px;
-        height: 231px;
-        margin-left: 200px;
-        position: absolute;
-        margin-top: 36px;
-      }
-    }
-    @media (min-width: 320px) and (max-width: 1024px) {
-      &_images {
-        display: none;
-      }
-      height: 100%;
-      &_createProject {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        margin: 20px;
-        padding-top: 50px;
-        h1 {
-          font-size: 32px;
+        margin: 66px 0 0 0;
+        width: 302px;
+        height: 54px;
+        padding: 16px 40px 16px 40px;
+        gap: 10px;
+        border-radius: 10px;
+        opacity: 0px;
+        border: none;
+        background: rgba(53, 126, 235, 1);
+        font-family: SF Pro Display;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 23.87px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
+        cursor: default;
+
+        &:hover {
+          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
         }
       }
     }
-    @media (min-width: 320px) and (max-width: 481px) {
-      h1 {
-        font-size: 23px;
+    &_images {
+      width: 660px;
+
+    }
+  }
+}
+}
+
+.planCardBtn{
+  width: 195px;
+  height: 54px;
+  padding: 16px 40px 16px 40px;
+  gap: 10px;
+  border-radius: 10px;
+  opacity: 0px;
+  background: rgba(53, 126, 235, 1);
+  border: none;
+  font-family: SF Pro Display;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 23.87px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(255, 255, 255, 1);
+  margin-top: 30px;
+  cursor: default;
+
+  &:hover {
+    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    }
+  }
+
+button:disabled,
+  button[disabled] {
+    width: 195px;
+    height: 54px;
+    padding: 16px 0px 16px 0px;
+    gap: 10px;
+    border-radius: 10px;
+    opacity: 0px;
+    background: rgba(53, 126, 235, 1);
+    border: none;
+    font-family: SF Pro Display;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 23.87px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    margin-top: 30px;
+    cursor: not-allowed;
+  }
+
+.text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 44px;
+
+  &_price{
+    font-family: SF Pro Display;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38.19px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(0, 0, 0, 1);
+    }
+
+  &_priceTo{
+    font-family: SF Pro Text, sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 18px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(0, 0, 0, 1);
+    }
+
+    hr{
+      width: 260px;
+      height: 0px;
+      gap: 0px;
+      border: 1px;
+      opacity: 0px;
+      border: 1px solid var(--grey, rgba(128, 128, 128, 1));
+      margin-top: 40px;
       }
-      button {
-        width: 150px;
-        margin: 30px auto 0 auto;
-      }
+    ul {
+      width: 187px;
+      height: 144px;
+      gap: 32px;
+      opacity: 0px;
+      margin-top: 20px;
+
+      li {
+        display: flex;
+        justify-content: left;
+        align-items: left;
+        flex-direction: row;
+        margin-top: 7px;
     }
   }
 }
 
-.questions {
-  margin: auto;
+.blueLabel{
+  font-family: SF Pro Display;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 23.87px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(50, 65, 149, 1);
+}
+
+.hit{
+  display: inline-block;
+  position: absolute;
+  margin-left: 138px;
+  margin-top: 8px;
+  transform: translateX(180px) rotate(41.07deg);
+  font-family: SF Pro Display;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28.64px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(255, 250, 250, 1);
+  }
+
+.blackLabel{
+  font-family: SF Pro Display;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.09px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(51, 47, 54, 1);
+  }
+
+.whiteLabel{
+  font-family: SF Pro Display;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 23.87px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(255, 255, 255, 1);
+  }
+
+.whiteLabelCheck{
+  font-family: SF Pro Display;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.09px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(255, 255, 255, 1);
+  }
+
+.benefit{
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: baseline;
-  width: 50%;
-  margin-top: 2em;
 
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 100%;
-    padding: 0 1rem 0 1rem;
-    align-items: center;
-    text-align: center;
-    padding-top: 10%;
-
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    width: 100%;
-    padding: 0 1rem 0 1rem;
-    align-items: center;
-    text-align: center;
-    padding-top: 10%;
-  }
-
-  &_element {
-    margin-bottom: 2em;
+  &_wrap{
+    width: 1219.5px;
+    height: 250px;
+    padding: 16px;
+    gap: 16px;
+    border-radius: 32px;
+    opacity: 0px;
+    box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+    background-color: rgba(255, 255, 255, 1);
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
-    &_mark {
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-      background-color: #ba75ff;
-      border-radius: 1.7em;
-      width: 1.7em;
-      min-width: 1.7em;
-      height: 1.7em;
-      min-height: 1.7em;
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      color: #fff;
-      font-weight: 1000;
+    &_table{
+      width: 1187.5px;
+      height: 169px;
+      gap: 43px;
+      margin-left: 50px;
+      opacity: 0px;
+      table-layout: fixed;
       text-align: center;
-      padding: auto;
+      border-collapse: collapse;
+
+      td{
+        text-align: left;
+
+        td{
+          justify-content: left;
+          font-family: SF Pro Display;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 19.09px;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(51, 47, 54, 1);
+
+          p{
+            justify-content: left;
+            font-family: SF Pro Display;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 19.09px;
+            text-align: left;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+            color: rgba(51, 47, 54, 1);
+            }
+          }
+        }
+      }
+    }
+  }
+
+.tariffs{
+  width: 1219.5px;
+  height: 373px;
+  gap: 40px;
+  opacity: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &_start{
+    width: 589.75px;
+    height: 373px;
+    border-radius: 24px;
+    opacity: 0px;
+    background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-right: 18px;
+
+
+    &_block{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-family: SF Pro Display;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 23.87px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
     }
 
-    &_text {
-      color: #808080;
-      font-weight: 800;
+    &_title{
+      font-family: SF Pro Display;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 38.19px;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+      margin-top: 20px;
+      margin-left: 20px;
+    }
 
-      &_description {
-        color: #a3a3a3;
-        margin-top: 1.5em;
-        font-size: 12px;
-        font-weight: 400;
+    ul{
+      list-style: none;
+
+      button{
+        width: 301px;
+        height: 54px;
+        padding: 16px 40px 16px 40px;
+        gap: 10px;
+        border-radius: 10px;
+        opacity: 0px;
+        font-family: SF Pro Display;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 23.87px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
+        background-color: rgba(53, 126, 235, 1);
+        border: none;
+        cursor: default;
+
+        &:hover {
+          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    }
+  }
+}
+
+    &_days{
+        font-family: SF Pro Display;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 19.09px;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(51, 47, 54, 1);
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+  }
+
+
+  &_personal{
+    width: 589.75px;
+    height: 373px;
+    padding: 16px 24px 16px 24px;
+    gap: 32px;
+    border-radius: 24px;
+    opacity: 0px;
+    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+
+
+    &_block{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-family: SF Pro Display;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 23.87px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(255, 255, 255, 1);
+    }
+
+    &_title{
+      font-family: SF Pro Display;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 38.19px;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(255, 255, 255, 1);
+      margin-top: 5px;
+
+    }
+
+    ul{
+      list-style: none;
+
+      button{
+        width: 301px;
+        height: 54px;
+        padding: 15px 40px 15px 40px;
+        gap: 10px;
+        border-radius: 10px;
+        opacity: 0px;
+        border: none;
+        background: rgba(255, 255, 255, 1);
+        position: relative;
+        cursor: default;
+
+        &:hover {
+          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          border: 1px solid rgba(255, 255, 255, 1);
+          padding: 15px 39px 15px 39px;
+        }
+
+        &:hover {
+          div {
+            background: rgba(255, 255, 255, 1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+        }
+
+        div {
+          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-family: SF Pro Display;
+          font-size: 20px;
+          font-weight: 500;
+          line-height: 23.87px;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          }
+        }
       }
+
+    &_function{
+      font-family: SF Pro Display;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 19.09px;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      margin-top: 10px;
+      color: rgba(255, 255, 255, 1);
     }
   }
 }
@@ -426,14 +921,13 @@
 
 .bg {
   z-index: -1;
-  height: 100%;
 
   &_wrap1 {
-    z-index: -1;
     position: absolute;
+    z-index: -1;
     width: 50px;
     height: 50px;
-    background: #8034c7;
+    background: #3686FF;
     border-radius: 50%;
     scale: 10;
     filter: blur(25px);
@@ -448,7 +942,7 @@
     left: 100%;
     top: 100%;
     scale: 10;
-    background: #5048d8;
+    background: #3686FF;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate2 10s linear infinite;
@@ -462,7 +956,7 @@
     left: 100%;
     top: 0%;
     scale: 10;
-    background: #cd99ff;
+    background: #3686FF;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate3 10s linear infinite;
@@ -476,9 +970,21 @@
     scale: 10;
     left: 0%;
     top: 100%;
-    background: #60a0ec;
+    background: #3686FF;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate4 10s linear infinite;
   }
+}
+
+.main {
+  &_btn{
+    display: flex;
+  }
+}
+
+.btnCreate {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
 }
