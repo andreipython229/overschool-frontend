@@ -232,19 +232,6 @@
   // white-space: nowrap;
 }
 
-.chatListItem:hover,
-.chatMessageHistoryButton:hover,
-.activeChat {
-  background-color: #ddd;
-  cursor: pointer;
-}
-
-
-
-.chatListItem:active,
-.chatMessageHistoryButton:active {
-  background-color: #ddd;
-}
 
 .deleteChatBtn {
   @include display(flex, column, center, center);
@@ -264,6 +251,14 @@
 
 }
 
+.close_cross{
+  width: 50%;
+  height: 50%;
+  clip-path: polygon(5% 0, 0 5%, 45% 50%, 0 95%, 5% 100%, 50% 55%, 95% 100%, 100% 95%, 55% 50%, 100% 5%, 95% 0, 50% 45%);
+  background-color: #858D9D;
+}
+
+
 .draggedOver {
   background-color: lightgray;
 }
@@ -273,6 +268,8 @@
   @include display(flex, row, space-between, center);
 
 }
+
+
 
 .chatListItem {
   @include display(flex, row, start, center);
@@ -285,8 +282,7 @@
   color: #858D9D;
   font-weight: 500;
   padding: 0 8px*$ai-window-ratio;
-  transition-duration: $trans-dur02;
-
+  transition-duration: $trans-dur02;  
 
   &_Circle {
     background-color: $color-blue;
@@ -302,6 +298,23 @@
     margin-right: calc(10px + 18px*$ai-window-ratio);
   }
 }
+
+.chatListItem:hover,
+.chatMessageHistoryButton:hover
+ {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+
+
+.chatListItem:active,
+.chatMessageHistoryButton:active,
+.activeChat {
+  background-color: #ddd;
+}
+
+
 
 // .chatListItem::after {
 //   content: '';

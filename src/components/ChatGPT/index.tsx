@@ -220,12 +220,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     setDraggedOverChatId(chatId);
   };
 
+
   const handleDragEnd = async () => {
     if (draggedChatId !== null && draggedOverChatId !== null && draggedChatId !== draggedOverChatId) {
       const updatedChatDataCopy = JSON.parse(JSON.stringify(chatData));
       const dragOrder = updatedChatDataCopy[draggedChatId].order;
       const dropOrder = updatedChatDataCopy[draggedOverChatId].order;
-
+  
       Object.keys(updatedChatDataCopy).forEach((chatIdStr) => {
         const chatId = parseInt(chatIdStr, 10);
         const order = updatedChatDataCopy[chatId].order;
@@ -235,16 +236,22 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
           updatedChatDataCopy[chatId].order += 1;
         }
       });
-
+  
       updatedChatDataCopy[draggedChatId].order = dropOrder;
-
-      await assignChatOrder(updatedChatDataCopy);
       setChatData(updatedChatDataCopy);
-      setDraggedChatId(null);
-      setDraggedOverChatId(null);
+  
+      try {
+        await assignChatOrder(updatedChatDataCopy);
+      } catch (error) {
+        console.error("Ошибка при обновлении порядка чатов на сервере:", error);
+        setChatData(chatData);
+      } finally {
+        setDraggedChatId(null);
+        setDraggedOverChatId(null);
+      }
     }
   };
-
+  
   const handleCreateEmptyChat = async () => {
     setCreatedChatId(1);
     setIsChatSelected(true);
@@ -320,9 +327,11 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     try {
       if (refetchChats) {
         const response = await refetchChats();
-
+        
         if (response.status === 'fulfilled' && response.isSuccess) {
           const receivedChatData = response.data;
+          console.log(receivedChatData);
+          
           setChatData(receivedChatData);
           setChatsLoaded(true);
         } else {
@@ -345,27 +354,38 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   // };
 
   const handleDeleteChat = async (chatId: number) => {
-    // Создаем orderData из chatData
-    const orderData = Object.entries(chatData)
-      .map(([id, chat]) => ({ id: Number(id), order: chat.order }))
-      .filter(chat => chat.id !== chatId); // Убираем удаляемый чат
+    const chatArray = Object.entries(chatData).map(([id, chat]) => ({
+      id: Number(id),
+      ...chat
+    }));
 
-    console.log(orderData);
-    console.log(chatData);
+    const orderData = chatArray
+      .map(chat => ({ id: chat.id, order: chat.order }))
+      .filter(chat => chat.id !== chatId);
 
-    // Удаляем чат
-    await deleteChat({ chat_id: chatId, orderData });
+    const updatedChatData = chatArray.filter(chat => chat.id !== chatId);
+    const newChatData = Object.fromEntries(updatedChatData.map(chat => [chat.id, { order: chat.order, chat_name: chat.chat_name }]));
 
-    // Обновляем список чатов
-    await fetchChats();
+    setChatData(newChatData);
 
-    // Если orderData не пустой, выбираем первый чат
-    if (orderData.length > 0) {
-      selectChat(orderData[0].id); // Выбираем чат с первым id в orderData
+    try {
+      await deleteChat({ chat_id: chatId, orderData });
+      await fetchChats();
+      // if (orderData.length > 0) {
+      //   if (selectedChatId === chatId) {
+      //     console.log('aboba')
+      //     selectChat(orderData[0].id); // Выбираем чат с первым id в orderData
+      //   }
+      // }
+    } catch (error) {
+      // В случае ошибки, восстанавливаем состояние
+      setChatData(chatData); // Возвращаем старые данные
+      setError('Ошибка при удалении чата.');
     }
 
     setCreatedChatId(undefined);
   };
+
 
 
 
@@ -454,12 +474,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                               onDragStart={(e) => handleDragStart(e, Number(chatId))}
                               onDragOver={(e) => handleDragOver(e, Number(chatId))}
                               onDragEnd={handleDragEnd}
-                              className={`${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''} ${styles.chatListItemWrapper}`}
-                              >
+                              className={` ${styles.chatListItemWrapper}`}
+                            >
                               <div
-                                onClick={() => selectChat(Number(chatId))}
-
-                                className={`${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''}`}
+                                onClick={() => {
+                                  selectChat(Number(chatId))
+                                }}
+                                className={`${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''} ${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''}`}
                                 style={{ borderRadius: '20px' }}
                               >
                                 <div className={styles.chatListItem_Circle}></div>
@@ -472,7 +493,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                 // e.stopPropagation(); // Предотвращаем всплытие события
                                 handleDeleteChat(Number(chatId));
                               }}>
-                                {/* <IconSvg width={15} height={15} viewBoxSize="0 0 15 15" path={CloseIconPath} /> */}X
+                                <div className={styles.close_cross}></div>
                               </button>
                             </div>
                           ))}
