@@ -62,7 +62,7 @@ export const HelpCheckHW = () => {
                     </div>
                     <div className={styles.img_part}>
                         <img
-                            src={require("../../../assets/img/CheckHW/hw_checkpg.png")}
+                            src={require("../../../assets/img/CheckHW/hw_checkpag.png")}
                             alt="Окно входа"
                         />
                     </div>
@@ -71,7 +71,7 @@ export const HelpCheckHW = () => {
                 <div className={styles.section}>
                 <div className={styles.img_part}>
                         <img
-                            src={require("../../../assets/img/CheckHW/hw_check.png")}
+                            src={require("../../../assets/img/CheckHW/hw_checkhaw.png")}
                             alt="чат с помощником"
                         />
                     </div>
