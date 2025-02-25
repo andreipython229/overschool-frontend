@@ -12,40 +12,106 @@
   position: relative;
   margin-top: 20px;
   padding: 74px 20px 20px 20px;
-  background: #CFE2FF;
+  background: #cfe2ff;
   overflow: hidden;
   border-radius: 40px;
   max-width: 881px;
   width: 100%;
   animation: slideDown 0.2s ease-in forwards;
 
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    border-radius: 30px;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    border-radius: 30px;
+  }
+
+  &_button {
+    button {
+      font-size: 16px;
+      align-self: flex-end;
+      padding: 6px 21px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @include font(500, 12px, 14.32px);
+        padding: 5px 15px;
+        border-radius: 5px;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @include font(500, 12px, 14.32px);
+        padding: 5px 15px;
+        border-radius: 5px;
+      }
+    }
+  }
+
   &_question_count {
     @include font(500, 26px, 31.03px);
     color: $color-text;
     text-align: center;
     font-family: 'SFPRORegular';
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font(700, 16px, 16px);
+      margin-bottom: 10px;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(700, 16px, 16px);
+      margin-bottom: 10px;
+    }
   }
 
   &_drop_down_menu {
     margin-top: 10px;
     padding: 20px 21px 30px 36px;
-    background: url(../../../assets/img/common/questions.png), linear-gradient(
-      140deg,#c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
+    background: url(../../../assets/img/common/questions.png),
+      linear-gradient(
+        140deg,
+        #c2e0ff 0%,
+        #c2e0ff 11%,
+        #d6eaff 16%,
+        #e5f2ff 25%,
+        #fafcff 57%,
+        #fafcff 82%,
+        #e5f2ff 89%,
+        #d6eaff 93%,
+        #c2e0ff 100%
+      );
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
-    box-shadow: 0px 0px 8px 0px #3241954D;
+    box-shadow: 0px 0px 8px 0px #3241954d;
     overflow: hidden;
     border-radius: 20px;
     min-height: 409px;
     max-width: 841px;
     width: 100%;
     animation: slideDown 0.2s ease-in forwards;
-    @media only screen and (min-width : 320px) and (max-width : 375px) {
-      padding: 5%;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include display(flex, column, center, center);
+      border-radius: 24px;
+      background: url(../../../assets/img/common/questions-mobile.png);
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: contain;
+      background-color: #ffffff;
+      padding: 30px 5px 49px 5px;
+      min-height: 200px;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
-      padding: 5%;
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include display(flex, column, center, center);
+      border-radius: 24px;
+      background: url(../../../assets/img/common/questions-mobile.png);
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: contain;
+      background-color: #ffffff;
+      padding: 30px 5px 49px 5px;
+      min-height: 200px;
     }
 
     &_question_count {
@@ -54,6 +120,13 @@
       text-align: center;
       font-family: 'SFPRORegular';
       margin-bottom: 33.5px;
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        display: none;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        display: none;
+      }
     }
   }
 

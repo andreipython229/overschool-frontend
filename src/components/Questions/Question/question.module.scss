@@ -2,86 +2,120 @@
 @import '../../../scss/mixin.scss';   
 
 @font-face {
-    font-family: 'SFPRORegular';
-    src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
-  }
+  font-family: 'SFPRORegular';
+  src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
 
 .questionBlock {
+  width: 100%;
+
+  &_title {
+    @include font (500, 14px, 17px);
+    color: #4d5766;
+  }
+
+  &_inputWrapper {
     width: 100%;
 
-    &_title {
-        @include font (500, 14px, 17px);
-        color: #4D5766;
-    }
-    &_inputWrapper {
-        width: 100%;
+    input {
+      font-family: 'SFPRORegular';
+      @include font (700, 18px, 21.48px);
+      transition: all 0.2s;
+      background: transparent;
 
-        input {
-            font-family: 'SFPRORegular';
-            @include font (700, 18px, 21.48px);
-            transition: all 0.2s;
-            background: transparent;
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @include font (700, 16px, 16px);
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 410px;
+        width: 90%;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @include font (700, 16px, 16px);
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
-            &:hover {
-                border: 1px solid #357eeb;
-            }
-        }
+      &:hover {
+        border: 1px solid #357eeb;
+      }
+    }
 
-        &_comment {
-            cursor: pointer;
-            &:hover {
-                svg {
-                    path {
-                        stroke: #357eeb;
-                    }
-                    line {
-                        stroke: #357eeb;
-                    }
-                }
-            }
+    &_comment {
+      cursor: pointer;
+
+      &:hover {
+        svg {
+          path {
+            stroke: #357eeb;
+          }
+          line {
+            stroke: #357eeb;
+          }
         }
+      }
     }
-    &_addDescription {
-        width: fit-content;
-        margin: 4px 0 15px 0;
-        color: rgba(186, 117, 255, 0.61);
-        cursor: pointer;
-        &:hover {
-            color: #357eeb;
-        }
+  }
+
+  &_addDescription {
+    width: fit-content;
+    margin: 4px 0 15px 0;
+    color: rgba(186, 117, 255, 0.61);
+    cursor: pointer;
+
+    &:hover {
+      color: #357eeb;
     }
+  }
 }
 
 .radiobuttons {
-    display: flex;
-    gap: 5px;
-    margin-top: 10px;
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+  flex-wrap: wrap;
 
-    div {
-        width: 100%;
-        margin-bottom: 5px;
+  div {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  &_radiobutton {
+    label {
+      @include font(500, 13px, 16.71px);
+      font-family: 'SFPRORegular';
+      color: $color-text;
+      width: 230px;
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @include font(500, 12px, 14.32px);
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @include font(500, 12px, 14.32px);
+      }
+
+      &::before {
+        width: 14px;
+        height: 14px;
+        border: 1px solid #324195;
+      }
     }
 
-    &_radiobutton {
-        label {
-            @include font(500, 13px, 16.71px);
-            font-family: 'SFPRORegular';
-            color: $color-text;
-            width: 230px;
+    &_subtitle {
+      @include font(500, 10px, 11.93px);
+      font-family: 'SFPRORegular';
+      letter-spacing: -0.01em;
+      margin-left: 8px;
+      color: $color-grey;
 
-            &::before {
-                width: 14px;
-                height: 14px;
-                border: 1px solid #324195;
-            }
-        }
-
-        &_subtitle {
-            @include font(500, 10px, 11.93px);
-            font-family: 'SFPRORegular';
-            letter-spacing: -0.01em;
-            margin-left: 8px;
-            color: $color-grey;
-        }
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @include font(500, 9px, 11.93px);
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @include font(500, 9px, 11.93px);
+      }
     }
+  }
 }

@@ -24,11 +24,10 @@
     align-items: center;
     padding-top: 50px;
   }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 1100px) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 50px;
   }
 
   &_textField {
@@ -143,7 +142,7 @@
       margin-top: 10px;
       width: 100%;
       height: 554px;
-      padding: 0 3px 0 0;
+      padding: 0 3px 0 3px;
       overflow-y: scroll;
 
       &::-webkit-scrollbar {
@@ -161,13 +160,13 @@
       }
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
-        height: 300px;
-        overflow-y: scroll;
+        height: 100%;
+        overflow-y: hidden;
         margin-top: 10px;
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
-        height: 400px;
-        overflow-y: scroll;
+        height: 100%;
+        overflow-y: hidden;
         margin-top: 10px;
       }
 
@@ -365,15 +364,20 @@
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin: 0 auto;
-        padding: 1rem;
+        padding: 1rem 0;
         display: flex;
         flex-direction: column;
+        box-shadow: none;
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         margin: 0 auto;
-        padding: 1rem;
+        padding: 1rem 0;
         display: flex;
         flex-direction: column;
+        box-shadow: none;
+      }
+      @media only screen and (min-width: 481px) and (max-width: 1400px) {
+        padding: 20px;
       }
 
       &_nameBlock {
@@ -382,17 +386,30 @@
         margin: 5px 0 20px 0;
 
         @media only screen and (min-width: 320px) and (max-width: 375px) {
-          flex-direction: column;
           padding-right: 0;
+          margin: 5px 0 0 0;
         }
         @media only screen and (min-width: 375px) and (max-width: 480px) {
-          flex-direction: column;
           padding-right: 0;
+          margin: 5px 0 0 0;
+        }
+        @media only screen and (max-width: 1500px) {
+          flex-direction: column-reverse;
+          gap: 16px;
         }
 
         button {
           @include font(500, 16px, 19.09px);
           padding: 13px 40px;
+
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            @include font(500, 12px, 14.32px);
+            padding: 13px 15px;
+          }
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
+            @include font(500, 12px, 14.32px);
+            padding: 13px 15px;
+          }
         }
       }
 
@@ -523,9 +540,11 @@
 
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           margin-left: 0;
+          @include font(500, 16px, 19.08px);
         }
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           margin-left: 0;
+          @include font(500, 16px, 19.08px);
         }
       }
 
@@ -541,6 +560,10 @@
           flex-direction: column;
           padding: 0 0 5% 0;
         }
+        @media only screen and (max-width: 1500px) {
+          flex-direction: column-reverse;
+          gap: 16px;
+        }
       }
 
       &_block {
@@ -549,6 +572,10 @@
         flex-wrap: nowrap;
         align-items: center;
         position: relative;
+
+        @media only screen and (max-width: 1500px) {
+          align-self: center;
+        }
 
         &_edit {
           @include font(500, 12px, 14.32px);
@@ -583,9 +610,13 @@
 
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             margin-right: 0;
+            @include font(700, 16px, 19.08px);
+            color: $color-text;
           }
           @media only screen and (min-width: 375px) and (max-width: 480px) {
             margin-right: 0;
+            @include font(700, 16px, 19.08px);
+            color: $color-text;
           }
         }
       }
@@ -773,6 +804,7 @@ hr {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  gap: 5px;
 
   &_title {
     color: $color-blue;
@@ -780,6 +812,15 @@ hr {
     letter-spacing: 0.04em;
     margin-left: 10px;
     font-family: 'SFPRORegular';
+  }
+
+  span {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font(500, 14px, 16.8px);
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(500, 14px, 16.8px);
+    }
   }
 }
 
@@ -798,6 +839,13 @@ hr {
     font-family: 'SFPRORegular';
     @include font(500, 16px, 19.09px);
     color: $color-text;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font(500, 14px, 16.8px);
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(500, 14px, 16.8px);
+    }
   }
 
   &_input {
@@ -813,6 +861,15 @@ hr {
     align-items: center;
     justify-content: center;
 
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      border-radius: 5px;
+      padding: 0 10px;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      border-radius: 5px;
+      padding: 0 10px;
+    }
+
     & input {
       border: none;
       width: 100%;
@@ -821,15 +878,24 @@ hr {
       color: $color-blue;
       font-family: 'SFPRORegular';
       @include font(700, 16px, 19.09px);
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @include font(500, 14px, 16.8px);
+        height: 27px;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @include font(500, 14px, 16.8px);
+        height: 27px;
+      }
     }
   }
 }
 
 .autogeneration {
-  min-width: 600px;
-  width: 70%;
+  min-width: 300px;
+  width: 100%;
   border-radius: 20px;
-  padding-bottom: 10px;
+  padding: 20px;
   box-shadow: 0px 0px 8px 0px #3241954d;
   background: linear-gradient(
     140deg,
@@ -845,9 +911,15 @@ hr {
   );
   margin: 20px auto;
 
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    background: #ffffff;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    background: #ffffff;
+  }
+
   &_num {
-    margin-left: 20px;
-    padding-top: 20px;
+    @include display(flex, row, space-between, center);
 
     & input {
       line-height: normal;
@@ -858,21 +930,33 @@ hr {
       border-radius: 10px;
       text-overflow: ellipsis;
       width: 50px;
-      margin-left: 242px;
     }
     & label {
       color: $color-text;
       font-family: 'SFPRORegular';
       @include font(500, 16px, 19.09px);
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @include font(500, 14px, 16.8px);
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @include font(500, 14px, 16.8px);
+      }
     }
   }
 
   &_select {
-    margin-left: 20px;
-    padding-top: 20px;
+    padding: 10px 0;
     color: $color-text;
     font-family: 'SFPRORegular';
     @include font(500, 16px, 19.09px);
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font(500, 14px, 16.8px);
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(500, 14px, 16.8px);
+    }
   }
 
   &_error {
@@ -909,7 +993,6 @@ hr {
   &_tests_block {
     display: flex;
     flex-direction: column;
-    margin: 20px;
     gap: 0.625rem;
   }
 
@@ -937,17 +1020,17 @@ hr {
 }
 
 .publickButton {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include display(flex, row, space-between, center);
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    margin-left: 50%;
-    gap: 10px;
+    @include display(flex, column, space-between, center);
+    margin-left: 0;
+    gap: 2px;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    margin-left: 50%;
-    gap: 10px;
+    @include display(flex, column, space-between, center);
+    margin-left: 0;
+    gap: 2px;
   }
 }
 
@@ -1027,6 +1110,24 @@ hr {
   align-items: center;
   gap: 20px;
 
+  @media only screen and (max-width: 1500px) {
+    align-self: flex-end;
+  }
+
+  button {
+    @include font(500, 16px, 19.09px);
+    padding: 13px 40px;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font(500, 12px, 14.32px);
+      padding: 13px 15px;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(500, 12px, 14.32px);
+      padding: 13px 15px;
+    }
+  }
+
   &_mark {
     div {
       div {
@@ -1034,6 +1135,15 @@ hr {
         color: $color-blue;
         @include font(500, 16px, 19.09px);
         font-family: 'SFPRORegular';
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          @include font(500, 12px, 14.32px);
+          height: 14px;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          @include font(500, 12px, 14.32px);
+          height: 14px;
+        }
 
         span {
           padding-right: 5px;
@@ -1094,9 +1204,27 @@ hr {
   width: 100%;
   margin: 0 auto 20px;
 
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    border-radius: 30px;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    border-radius: 30px;
+  }
+
   &_test {
     background: url(../../../../../../assets/img/common/questions.png),
-      linear-gradient(140deg, #c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
+      linear-gradient(
+        140deg, 
+        #c2e0ff 0%,
+        #c2e0ff 11%,
+        #d6eaff 16%,
+        #e5f2ff 25%,
+        #fafcff 57%,
+        #fafcff 82%,
+        #e5f2ff 89%,
+        #d6eaff 93%,
+        #c2e0ff 100%
+      );
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
@@ -1108,6 +1236,27 @@ hr {
     padding: 21px;
     display: flex;
     gap: 10px;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      border-radius: 24px;
+      background: url(../../../../../../assets/img/common/questions-mobile.png);
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: contain;
+      background-color: #ffffff;
+      padding: 30px 19px 14px 19px;
+      min-height: 200px;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      border-radius: 24px;
+      background: url(../../../../../../assets/img/common/questions-mobile.png);
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: contain;
+      background-color: #ffffff;
+      padding: 30px 19px 14px 19px;
+      min-height: 200px;
+    }
 
     &_leftSide {
       max-width: 453px;
@@ -1127,6 +1276,32 @@ hr {
     text-align: center;
     color: $color-text;
     margin-bottom: 15px;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font(700, 16px, 16px);
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(700, 16px, 16px);
+    }
+  }
+
+  button {
+    font-size: 16px;
+    align-self: flex-end;
+    padding: 6px 21px;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      @include font(500, 12px, 14.32px);
+      padding: 5px 15px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      @include font(500, 12px, 14.32px);
+      padding: 5px 15px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -1138,7 +1313,18 @@ hr {
   margin: 37px 0 20px 0;
   padding: 20px 20px 30px 21px;
   background: url(../../../../../../assets/img/common/questions.png),
-    linear-gradient(140deg, #c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
+    linear-gradient(
+      140deg, 
+      #c2e0ff 0%,
+      #c2e0ff 11%,
+      #d6eaff 16%,
+      #e5f2ff 25%,
+      #fafcff 57%,
+      #fafcff 82%,
+      #e5f2ff 89%,
+      #d6eaff 93%,
+      #c2e0ff 100%
+    );
   background-repeat: no-repeat;
   background-position: right;
   background-size: contain;
@@ -1149,17 +1335,79 @@ hr {
   max-width: 841px;
   width: 100%;
 
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    border-radius: 24px;
+    background: url(../../../../../../assets/img/common/questions-mobile.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    background-color: #ffffff;
+    min-height: 185px;
+    margin: 20px 0 !important;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    border-radius: 24px;
+    background: url(../../../../../../assets/img/common/questions-mobile.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    background-color: #ffffff;
+    min-height: 185px;
+    margin: 20px 0 !important;
+  }
+
+  // @media only screen and (max-width: 1400px) {
+  //   background: url(../../../../../../assets/img/common/questions-mobile.png);
+  //   background-repeat: no-repeat;
+  //   background-position: right;
+  //   background-size: contain;
+  //   background-color: #ffffff;
+  // }
+
   &_container {
     align-self: flex-start;
     max-width: 353px;
     width: 100%;
     margin-top: 88px;
 
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin-top: 0;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      margin-top: 0;
+    }
+
+    span {
+      font-family: 'SFPRORegular';
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @include font(500, 14px, 16.8px);
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @include font(500, 14px, 16.8px);
+      }
+    }
+
+    &_subtitle {
+      display: flex;
+      justify-content: center;
+      @include font(500, 16px, 19.09px);
+    }
+
     &_title {
       @include font(700, 22px, 26.25px);
       font-family: 'SFPRORegular';
       color: $color-text;
       margin: 10px 0 52px 0;
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        text-align: center;
+        @include font(700, 20px, 24px);
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        text-align: center;
+        @include font(700, 20px, 24px);
+      }
     }
 
     &_wrapper {
