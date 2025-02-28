@@ -590,7 +590,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>
                   {lesson && 'name' in lesson && lesson.name}
                 </span>
-                {/* <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_edit} onClick={showSettingsModal}>Редактировать</span> */}
+                <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_edit} onClick={showSettingsModal}>Редактировать</span>
               </div>
               <div className={styles.coursePreviewHeaderRedactor}>
                 <div className={styles.publicBlockEdit}>
