@@ -60,7 +60,7 @@
   @include display(flex, column, space-between, stroke);
   background-color: $color-white;
   border-radius: 20px*$ai-window-ratio;
-  height: 14%;
+  // height: 14%;
   width: 100%;
   // overflow-y: auto;
   display: flex;
