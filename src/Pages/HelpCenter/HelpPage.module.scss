@@ -289,7 +289,6 @@
 }
 
 
-/* Общие стили для адаптивности */
 .helpBlock, .faqBlock {
     max-width: 100%;
     width: 100%;
@@ -308,61 +307,404 @@
     top: 0;
 }
 
-/* Адаптация под мобильные устройства (до 768px) */
-@media (max-width: 768px) {
-    .sections {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        padding: 0 10px;
-        box-sizing: border-box;
-    }
+/* Адаптация под мобильные устройства (до 760px) */
+@media (max-width: 760px) {
+  .section_default {
+    background: #CFE2FF; // Фон для .section_default
+    color: #0d28bb; // Цвет текста
+  }
 
-    .sections .section {
-        width: 100%;
-    }
+  .section_variant2 {
+    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%); // Фон для .section_variant2
+    color: white; // Цвет текста
+  }
+}
+@media (max-width: 760px) {
+  .section_default:hover {
+    background: #0D28BB; // Фон при наведении
+    color: #FFFFFF; // Цвет текста при наведении
+  }
 
-    .ctaBlock {
-        width: 100%;
-        transform: scale(0.9);
-    }
+  .section_variant2:hover {
+    background: linear-gradient(90deg, #357eeb 0%, #0d28bb 100%); // Фон при наведении
+    color: #FFFFFF; // Цвет текста при наведении
+  }
+}
+@media (max-width: 760px) {
+  .sections {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin-bottom: -60px;
+    margin-top: -140px
+  }
+
+  .sections .section {
+    width: 90%;
+    height: auto; // Уменьшаем высоту блоков
+    padding: 15px; // Уменьшаем внутренние отступы
+    font-size: 14px; // Уменьшаем размер шрифта
+  }
+
+  .sectionImage {
+    width: 100px; // Уменьшаем размер изображений
+    height: 100px;
+    top: 10px; // Корректируем позицию изображения
+  }
+
+  .section p {
+    bottom: 5px; // Корректируем позицию текста
+    transition: bottom 0.3s ease-in-out; // Добавляем плавный переход для текста
+  }
+
+  .section:hover p {
+    bottom: -5px; // Сдвигаем текст вниз при наведении
+  }
+}
+
+@media (max-width: 760px) {
+  .sectionImage {
+    width: 100px; // Уменьшаем размер изображений
+    height: 100px;
+    top: 10px; // Корректируем позицию изображения
+    transition: transform 0.3s ease-in-out; // Добавляем плавный переход
+  }
+
+  .imageHover {
+    width: 120px; // Увеличиваем размер изображений при наведении
+    height: 120px;
+  }
+}
+@media (max-width: 760px) {
+  .section:hover .sectionImage {
+    transform: scale(1.2); // Увеличиваем изображение при наведении
+  }
+}
+
+@media (max-width: 760px) {
+  .ctaBlock {
+    flex-direction: row;
+    height: auto;
+    padding: 20px;
+    gap: 20px; // Уменьшаем отступы между элементами
+    width: 100%; // Устанавливаем ширину на 100%
+    transform: scale(1); // Убираем масштабирование
+    margin-bottom: -60px;
+  }
+
+  .ctaText {
+    width: 100%; // Устанавливаем ширину текстового блока на 100%
+    height: auto;
+    gap: 5px; // Уменьшаем отступы между текстом
+
+  }
+
+  .ctaText h2 {
+    font-size: 14px; // Уменьшаем размер заголовка
+    line-height: 14px;
+  }
+
+  .ctaText p {
+    font-size: 8px; // Уменьшаем размер текста
+    line-height: 10px;
+  }
+
+  .ctaImage {
+    width: 100%; // Устанавливаем ширину изображения на 100%
+    height: auto;
+    border-radius: 20px; // Уменьшаем радиус скругления
+  }
+
+  .ctaImage img {
+    width: 80%; // Устанавливаем ширину изображения на 100%
+    height: auto;
+    border-radius: 15px; // Уменьшаем радиус скругления
+  }
+}
+
+@media (max-width: 760px) {
+  .bg_wrap1, .bg_wrap2, .bg_wrap3, .bg_wrap4 {
+    width: 200px; // Уменьшаем размер фоновых элементов
+    height: 200px;
+    filter: blur(60px); // Уменьшаем размытие
+  }
+}
+
+@media (max-width: 760px) {
+  .helpBlock {
+    width: 90%;
+    height: auto;
+    margin-top: 60px; // Уменьшаем отступ сверху
+    margin-bottom: 10px;
+  }
+
+  .helpBlock img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 /* Адаптация под планшеты (768px - 1024px) */
+
 @media (min-width: 768px) and (max-width: 1024px) {
-    .sections {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        width: 100%;
-        padding: 0 15px;
-        box-sizing: border-box;
-    }
+  .helpBlock {
+    width: 85%; // Уменьшаем ширину блока
+    height: auto;
+    margin-top: 100px; // Уменьшаем отступ сверху
+    margin-bottom: 40px; // Уменьшаем отступ снизу
+  }
 
-    .sections .section {
-        width: 100%;
-    }
-
-    .ctaBlock {
-        width: 90%;
-        transform: scale(0.95);
-    }
+  .helpBlock img {
+    width: 100%; // Устанавливаем ширину изображения на 100%
+    height: auto; // Автоматическая высота
+  }
 }
+@media (min-width: 768px) and (max-width: 1024px) {
+  .helpBlock {
+    display: flex;
+    justify-content: center; // Центрируем содержимое по горизонтали
+    align-items: center; // Центрируем содержимое по вертикали
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .sections {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // Два столбца для планшетов
+    gap: 20px; // Уменьшаем отступы между блоками
+    width: 90%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin-bottom: -60px;
+  }
+
+  .section {
+    width: 100%;
+    height: 200px; // Уменьшаем высоту блоков
+    padding: 15px; // Уменьшаем внутренние отступы
+    font-size: 16px; // Уменьшаем размер шрифта
+  }
+
+  .sectionImage {
+    width: 120px; // Уменьшаем размер изображений
+    height: 120px;
+    top: 15px; // Корректируем позицию изображения
+    transition: transform 0.3s ease-in-out; // Добавляем плавный переход
+  }
+
+  .imageHover {
+    width: 140px; // Увеличиваем размер изображений при наведении
+    height: 140px;
+  }
+
+  .section:hover .sectionImage {
+    transform: scale(1.2); // Увеличиваем изображение при наведении
+  }
+
+  .section p {
+    bottom: 10px; // Корректируем позицию текста
+    transition: bottom 0.3s ease-in-out; // Добавляем плавный переход для текста
+  }
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .section_default {
+    background: #CFE2FF; // Фон для .section_default
+    color: #0d28bb; // Цвет текста
+  }
+
+  .section_variant2 {
+    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%); // Фон для .section_variant2
+    color: white; // Цвет текста
+  }
+
+  .section_default:hover {
+    background: #0D28BB; // Фон при наведении
+    color: #FFFFFF; // Цвет текста при наведении
+  }
+
+  .section_variant2:hover {
+    background: linear-gradient(90deg, #357eeb 0%, #0d28bb 100%); // Фон при наведении
+    color: #FFFFFF; // Цвет текста при наведении
+  }
+
+  .section:hover .sectionImage {
+    transform: scale(1.2); // Увеличиваем изображение при наведении
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .ctaBlock {
+    flex-direction: row;
+    height: auto;
+    padding: 20px;
+    gap: 20px; // Уменьшаем отступы между элементами
+    width: 100%; // Устанавливаем ширину на 100%
+    margin-bottom: -140px;
+  }
+
+  .ctaText {
+    width: 70%; // Устанавливаем ширину текстового блока на 100%
+    height: auto;
+    gap: 10px; // Уменьшаем отступы между текстом
+  }
+
+  .ctaText h2 {
+    font-size: 20px; // Уменьшаем размер заголовка
+    line-height: 25px;
+  }
+
+  .ctaText p {
+    font-size: 12px; // Уменьшаем размер текста
+    line-height: 15px;
+  }
+
+  .ctaImage {
+    width: 100%; // Устанавливаем ширину изображения на 100%
+    height: auto;
+  }
+
+  .ctaImage img {
+    width: 90%; // Устанавливаем ширину изображения на 80%
+    height: auto;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .faqBlock {
+    width: 90%; // Уменьшаем ширину блока
+    height: auto; // Автоматическая высота
+    padding: 30px; // Уменьшаем внутренние отступы
+    margin-top: 60px; // Уменьшаем отступ сверху
+    margin-bottom: 60px; // Уменьшаем отступ снизу
+  }
+
+  .faqBlock img {
+    width: 100%; // Устанавливаем ширину изображения на 100%
+    height: auto; // Автоматическая высота
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .faqBlock {
+    display: flex;
+    justify-content: center; // Центрируем содержимое по горизонтали
+    align-items: center; // Центрируем содержимое по вертикали
+  }
+}
+
 
 /* Адаптация под ноутбуки (1024px - 1440px) */
 @media (min-width: 1024px) and (max-width: 1440px) {
-    .sections {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        width: 100%;
-        padding: 0 20px;
-        box-sizing: border-box;
-    }
+  .helpBlock {
+    width: 85%; // Уменьшаем ширину блока
+    height: auto;
+    margin-top: 100px; // Уменьшаем отступ сверху
+    margin-bottom: 40px; // Уменьшаем отступ снизу
+  }
 
-    .ctaBlock {
-        width: 80%;
-        transform: scale(1);
-    }
+  .helpBlock img {
+    width: 100%; // Устанавливаем ширину изображения на 100%
+    height: auto; // Автоматическая высота
+  }
+}
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .helpBlock {
+    display: flex;
+    justify-content: center; // Центрируем содержимое по горизонтали
+    align-items: center; // Центрируем содержимое по вертикали
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .sections {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // Три столбца для ноутбуков
+    gap: 20px; // Уменьшаем отступы между блоками
+    width: 90%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin-bottom: -60px;
+  }
+
+  .section {
+    width: 100%;
+    height: 230px; // Уменьшаем высоту блоков
+    padding: 20px; // Уменьшаем внутренние отступы
+    font-size: 18px; // Уменьшаем размер шрифта
+  }
+
+  .sectionImage {
+    width: 150px; // Уменьшаем размер изображений
+    height: 150px;
+    top: 20px; // Корректируем позицию изображения
+  }
+
+  .section p {
+    bottom: 20px; // Корректируем позицию текста
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .section_default {
+    background: #CFE2FF; // Фон для .section_default
+    color: #0d28bb; // Цвет текста
+  }
+
+  .section_variant2 {
+    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%); // Фон для .section_variant2
+    color: white; // Цвет текста
+  }
+
+  .section_default:hover {
+    background: #0D28BB; // Фон при наведении
+    color: #FFFFFF; // Цвет текста при наведении
+  }
+
+  .section_variant2:hover {
+    background: linear-gradient(90deg, #357eeb 0%, #0d28bb 100%); // Фон при наведении
+    color: #FFFFFF; // Цвет текста при наведении
+  }
+
+  .section:hover .sectionImage {
+    transform: scale(1.2); // Увеличиваем изображение при наведении
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .ctaBlock {
+    flex-direction: row;
+    height: auto;
+    padding: 30px;
+    gap: 30px; // Уменьшаем отступы между элементами
+    width: 100%; // Устанавливаем ширину на 100%
+  }
+
+  .ctaText {
+    width: 50%; // Устанавливаем ширину текстового блока на 50%
+    height: auto;
+    gap: 20px; // Уменьшаем отступы между текстом
+  }
+
+  .ctaText h2 {
+    font-size: 28px; // Уменьшаем размер заголовка
+    line-height: 34px;
+  }
+
+  .ctaText p {
+    font-size: 18px; // Уменьшаем размер текста
+    line-height: 22px;
+  }
+
+  .ctaImage {
+    width: 50%; // Устанавливаем ширину изображения на 50%
+    height: auto;
+  }
+
+  .ctaImage img {
+    width: 100%; // Устанавливаем ширину изображения на 100%
+    height: auto;
+  }
 }
