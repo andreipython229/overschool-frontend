@@ -245,13 +245,14 @@
   position: absolute;
   right: 5px;
   font-size: 10px;
+
   &:hover {
     background-color: #ddd;
   }
 
 }
 
-.close_cross{
+.close_cross {
   width: 50%;
   height: 50%;
   clip-path: polygon(5% 0, 0 5%, 45% 50%, 0 95%, 5% 100%, 50% 55%, 95% 100%, 100% 95%, 55% 50%, 100% 5%, 95% 0, 50% 45%);
@@ -263,7 +264,7 @@
   background-color: lightgray;
 }
 
-.chatListItemWrapper{
+.chatListItemWrapper {
   position: relative;
   @include display(flex, row, space-between, center);
 
@@ -282,7 +283,7 @@
   color: #858D9D;
   font-weight: 500;
   padding: 0 8px*$ai-window-ratio;
-  transition-duration: $trans-dur02;  
+  transition-duration: $trans-dur02;
 
   &_Circle {
     background-color: $color-blue;
@@ -300,8 +301,7 @@
 }
 
 .chatListItem:hover,
-.chatMessageHistoryButton:hover
- {
+.chatMessageHistoryButton:hover {
   background-color: #ddd;
   cursor: pointer;
 }
@@ -541,10 +541,13 @@
 
 .overAiText {
   @include display(flex, column, space-between, center);
-  font-size: 24px;
-  font-weight: 500;
-  color: #332F36;
   z-index: 1;
+
+  p {
+    font-size: 24px;
+    font-weight: 500;
+    color: #332F36;
+  }
 }
 
 .messageContainer_bot_wrapper {
@@ -849,4 +852,108 @@
 .orderChangeBtn img {
   width: 20px;
   height: 15px;
+}
+
+
+.ai_mobile {
+  &_open_dialog_list {
+    display: none;
+  }
+
+  &_close_btn {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .modalOverlay {
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 90;
+    border-radius: 0;
+
+  }
+
+
+  .dialog {
+    @include display(flex, column, initial, initial);
+    position: static;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    background-color: #F6F6F7;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .welcomeMessage {
+    position: relative;
+    width: 50%;
+    height: 35%;
+    border: none;
+    box-shadow: none;
+    background-color: #fff;
+    border-radius: 32px;
+    position: relative;
+    top: -30%;
+
+    &User {
+
+      position: absolute;
+      top: -4vh;
+    }
+
+    p {
+      @include fontBold(700, 16);
+      width: 70%;
+    }
+  }
+
+  .contentContainer {
+    background-color: #F6F6F7;
+  }
+
+  .inputContainer {
+    display: none;
+  }
+
+  .topPane {
+    border-radius: 0;
+
+    .overAiText {
+      @include display(flex, row, space-between, center);
+      padding: 24px 16px;
+
+      p {
+        @include fontBold(600, 24);
+      }
+
+      .ai_mobile {
+        &_open_dialog_list {
+          @include display(flex, column, center, center);
+        }
+
+        &_close_btn {
+          @include display(flex, column, center, center);
+        }
+      }
+
+    }
+
+    .listOfChatSection {
+      display: none;
+    }
+
+
+    .chatIndicatorSection {
+      display: none;
+
+    }
+  }
+
+
 }

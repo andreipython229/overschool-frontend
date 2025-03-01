@@ -493,7 +493,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
             <div className={`${styles.contentContainer}`}>
 
               <div className={`${styles.topPane} ${isDialogOpen && styles.paneOpen}`}>
-                <div className={styles.overAiText}>OVER AI</div>
+                <div className={styles.overAiText}><div className={styles.ai_mobile_open_dialog_list}>List</div><p>OVER AI</p><div className={styles.ai_mobile_close_btn} onClick={()=>setIsDialogOpen(false)}>X</div></div>
                 {isFetchingChats ? (
                   <div className={styles.loadingSpinner}>
                     <div className={styles.spinner}></div>
