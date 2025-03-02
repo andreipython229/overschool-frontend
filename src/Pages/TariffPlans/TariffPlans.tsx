@@ -108,11 +108,11 @@ export const TariffPlans: FC = () => {
           </div>
           {switchOn === false ?
             <div className={styles.TariffPlansPage_switchBlock}>
-              <span style={{minWidth: '257px'}}>
+              <span>
                 <button onClick={()=>setSwitchOn(true)} className={styles.TariffPlansPage_switchBlock_forMonth} >Ежемесячно</button>
               </span>
               <span><button className={styles.TariffPlansPage_switchBlock_forYear}>
-                <span style={{marginLeft: '10px'}}>Годовая</span>
+                <span>Годовая</span>
                 <span className={styles.TariffPlansPage_switchBlock_forYear_sale}>Экономия 20 %</span>
               </button></span>
             </div>
@@ -135,13 +135,13 @@ export const TariffPlans: FC = () => {
                 <div className={styles.text}>
                   <div><img src={start} alt='start'/></div>
                   {switchOn === true ?
-                  <div style={{marginTop: '10px'}}>
+                  <div className={styles.text_priceWrap}>
                     <span className={styles.text_price}>
                       {plan.price !== '0.00' ? `${Number(plan.price)} BYN/` : 'бесплатно'}
                     </span>
                     <span className={styles.text_priceTo}>мес</span>
                   </div>
-                  :<div style={{marginTop: '10px'}}>
+                  :<div className={styles.text_priceWrap}>
                     <span className={styles.text_price}>
                       {plan.discount_12_months_byn !== 0 ? `${plan.discount_12_months_byn} BYN/` : 'бесплатно'}
                     </span>
@@ -177,41 +177,43 @@ export const TariffPlans: FC = () => {
                       <hr />
                       <ul>
                         <li>
-                          <span style={{marginRight: '10px'}}>
-                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath} />
+                          <span>
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath}  />
                           </span>
                           <span className={styles.blueLabel}>Безлимит ГБ</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}>
-                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
+                          <span>
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
                           </span>
                           <span className={styles.blueLabel}>{plan.number_of_courses || '∞'} курса</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}>
-                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
+                          <span>
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
                           </span>
                           <span className={styles.blueLabel}>{plan.students_per_month || '∞'} учеников</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}>
-                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
+                          <span>
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
                           </span>
                           <span className={styles.blueLabel}>{plan.number_of_staff !== null ? (plan.number_of_staff !== 0 ? plan.number_of_staff : '0') : '∞'} сотрудников</span>
                         </li>
-                        <li style={{paddingTop: '15px'}}>
+                        <div className={styles.label}>
+                        <li>
                           <span style={{marginRight: '5px'}}>
-                            <IconSvg styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
                           </span>
                           <span className={styles.blackLabel}>White Label</span>
                         </li>
                         <li>
                           <span style={{marginRight: '5px'}}>
-                            <IconSvg styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
                           </span>
                           <span className={styles.blackLabel}>Свой домен</span>
                         </li>
+                        </div>
                       </ul>
                     </div>
                 </div>
@@ -219,19 +221,21 @@ export const TariffPlans: FC = () => {
               <div className={styles.TariffPlansPage_plansBlock_cardGroup_secondCard} key={index}>
                 <div style={{display:'flex'}}>
                   <h3 className={styles.TariffPlansPage_plansBlock_cardGroup_secondCard_planName}>{plan.name}</h3>
-                  <img style={{marginLeft:'113px', marginTop: '-34px'}} src={hit} alt='hit'/>
+                  <div style={{display: 'inline-block', alignItems: 'center', justifyContent: 'center'}}>
+                  <img src={hit} alt='hit'/>
                   <div className={styles.hit}>Хит</div>
+                  </div>
                  </div>
-                <div style={{marginTop: '-34px'}} className={styles.text}>
-                  <div><img src={middle} alt='middle'/></div>
+                <div className={styles.text}>
+                  <div className={styles.middleImg}><img src={middle} alt='middle'/></div>
                   {switchOn === true ?
-                  <div style={{marginTop: '10px'}}>
+                  <div className={styles.text_priceWrap}>
                     <span className={styles.text_price}>
                       {plan.price !== '0.00' ? `${Number(plan.price)} BYN/` : 'бесплатно'}
                     </span>
                     <span className={styles.text_priceTo}>мес</span>
                   </div>
-                  :<div style={{marginTop: '10px'}}>
+                  :<div className={styles.text_priceWrap}>
                     <span className={styles.text_price}>
                       {plan.discount_12_months_byn !== 0 ? `${plan.discount_12_months_byn} BYN/` : 'бесплатно'}
                     </span>
@@ -267,41 +271,43 @@ export const TariffPlans: FC = () => {
                       <hr />
                       <ul>
                         <li>
-                          <span style={{marginRight: '10px'}}>
-                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath} />
+                          <span>
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath} />
                           </span>
                           <span className={styles.blueLabel}>Безлимит ГБ</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}>
-                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
+                          <span>
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
                           </span>
                           <span className={styles.blueLabel}>{plan.number_of_courses || '∞'} курсов</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}>
-                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
+                          <span>
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
                           </span>
                           <span className={styles.blueLabel}>{plan.students_per_month || '∞'} учеников</span>
                         </li>
                         <li>
-                          <span style={{marginRight: '10px'}}>
-                            <IconSvg styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
+                          <span>
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(53, 126, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
                           </span>
                           <span className={styles.blueLabel}>{plan.number_of_staff !== null ? (plan.number_of_staff !== 0 ? plan.number_of_staff : '0') : '∞'} сотрудника</span>
                         </li>
-                        <li style={{paddingTop: '15px'}}>
+                        <div className={styles.label}>
+                        <li>
                           <span style={{marginRight: '5px'}}>
-                            <IconSvg styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
                           </span>
                           <span className={styles.blackLabel}>White Label</span>
                         </li>
                         <li>
                           <span style={{marginRight: '5px'}}>
-                            <IconSvg styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
+                            <IconSvg className={styles.icon} styles={{color: 'rgba(128, 128, 128, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CrossIconPath} />
                           </span>
                           <span className={styles.blackLabel}>Свой домен</span>
                         </li>
+                        </div>
                       </ul>
                     </div>
                   </div>
@@ -311,13 +317,13 @@ export const TariffPlans: FC = () => {
                       <div className={styles.text}>
                         <div><img src={senior} alt='senior'/></div>
                         {switchOn === true ?
-                        <div style={{marginTop: '10px'}}>
+                        <div className={styles.text_priceWrap}>
                           <span className={styles.text_price}>
                             {plan.price !== '0.00' ? `${Number(plan.price)} BYN/` : 'бесплатно'}
                           </span>
                           <span className={styles.text_priceTo}>мес</span>
                         </div>
-                        :<div style={{marginTop: '10px'}}>
+                        :<div className={styles.text_priceWrap}>
                           <span className={styles.text_price}>
                             {plan.discount_12_months_byn !== 0 ? `${plan.discount_12_months_byn} BYN/` : 'бесплатно'}
                           </span>
@@ -353,41 +359,43 @@ export const TariffPlans: FC = () => {
                             <hr />
                             <ul>
                               <li>
-                                <span style={{marginRight: '10px'}}>
-                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath} />
+                                <span>
+                                  <IconSvg className={styles.icon} styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath} />
                                 </span>
                                 <span className={styles.whiteLabel}>Безлимит ГБ</span>
                               </li>
                               <li>
-                                <span style={{marginRight: '10px'}}>
-                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
+                                <span>
+                                  <IconSvg className={styles.icon} styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
                                 </span>
                                 <span className={styles.whiteLabel}>{plan.number_of_courses || '∞'} курсов</span>
                               </li>
                               <li>
-                                <span style={{marginRight: '10px'}}>
-                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
+                                <span>
+                                  <IconSvg className={styles.icon} styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
                                 </span>
                                 <span className={styles.whiteLabel}>{plan.students_per_month || '∞'} учеников</span>
                               </li>
                               <li>
-                                <span style={{marginRight: '10px'}}>
-                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
+                                <span>
+                                  <IconSvg className={styles.icon} styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
                                 </span>
                                 <span className={styles.whiteLabel}>{plan.number_of_staff !== null ? (plan.number_of_staff !== 0 ? plan.number_of_staff : '0') : '∞'} сотрудников</span>
                               </li>
-                              <li style={{paddingTop: '15px'}}>
+                              <div className={styles.label}>
+                              <li>
                                 <span style={{marginRight: '5px'}}>
-                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CheckIconPath} />
+                                  <IconSvg className={styles.icon} styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CheckIconPath} />
                                 </span>
                                 <span className={styles.whiteLabelCheck}>White Label</span>
                               </li>
                               <li>
                                 <span style={{marginRight: '5px'}}>
-                                  <IconSvg styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CheckIconPath} />
+                                  <IconSvg className={styles.icon} styles={{color: 'rgba(187, 206, 235, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CheckIconPath} />
                                 </span>
                                 <span className={styles.whiteLabelCheck}>Свой домен</span>
                               </li>
+                              </div>
                             </ul>
                           </div>
                         </div>
@@ -406,57 +414,57 @@ export const TariffPlans: FC = () => {
               <tbody>
                 <tr>
                   <td>
-                  <td style={{paddingBottom: '12px', paddingRight: '0'}}><img src={add} alt='add'/></td>
+                  <td className={styles.addLine}><img src={add} alt='add'/></td>
                   <td>Мессенджер с чатами
                         <p>и каналами</p></td>
                   </td>
                   <td>
-                  <td style={{paddingBottom: '12px', paddingRight: '0'}}><img src={add} alt='add'/></td>
-                  <td style={{paddingBottom: '15px'}}>Автоматический зачёт</td>
+                  <td className={styles.addLine}><img src={add} alt='add'/></td>
+                  <td >Автоматический зачёт</td>
                   </td>
                   <td>
-                  <td style={{paddingBottom: '12px', paddingRight: '0'}}><img src={add} alt='add'/></td>
-                  <td style={{paddingBottom: '15px'}}>Выдача сертификатов</td>
+                  <td className={styles.addLine}><img src={add} alt='add'/></td>
+                  <td>Выдача сертификатов</td>
                   </td>
                   <td>
-                  <td style={{paddingBottom: '12px', paddingRight: '0'}}><img src={add} alt='add'/></td>
+                  <td className={styles.addLine}><img src={add} alt='add'/></td>
                   <td>Публикация в каталоге
                         <p>CourseHub</p></td>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                  <td style={{paddingBottom: '12px', paddingRight: '0'}}><img src={add} alt='add'/></td>
+                  <td className={styles.addLine}><img src={add} alt='add'/></td>
                   <td>Искусственный интеллект
                         <p>CurseHub Ai</p></td>
                   </td>
                   <td>
-                  <td style={{paddingBottom: '12px', paddingRight: '0'}}><img src={add} alt='add'/></td>
-                  <td style={{paddingBottom: '15px'}}>Домашние задания</td>
+                  <td className={styles.addLine}><img src={add} alt='add'/></td>
+                  <td>Домашние задания</td>
                   </td>
                   <td>
-                  <td style={{paddingBottom: '12px', paddingRight: '0'}}><img src={add} alt='add'/></td>
+                  <td className={styles.addLine}><img src={add} alt='add'/></td>
                   <td>Умные комментарии
                         <p>к урокам</p></td>
                   </td>
-                  <td style={{paddingTop: '45px'}}>
-                  <td style={{paddingBottom: '12px', paddingRight: '0'}}><img src={add} alt='add'/></td>
-                  <td style={{paddingBottom: '15px'}}>Аналитика обучения</td>
+                  <td className={styles.analiticRow}>
+                  <td className={styles.addLine}><img src={add} alt='add'/></td>
+                  <td>Аналитика обучения</td>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                  <td style={{paddingBottom: '12px', paddingRight: '0'}}><img src={add} alt='add'/></td>
+                  <td className={styles.addLine}><img src={add} alt='add'/></td>
                   <td>Отдельный сайт для каждого
                         <p>курса</p></td>
                   </td>
                   <td>
-                  <td style={{paddingBottom: '12px', paddingRight: '0'}}><img src={add} alt='add'/></td>
-                  <td style={{paddingBottom: '15px'}}>Рассылка по всем ученикам</td>
+                  <td className={styles.addLine}><img src={add} alt='add'/></td>
+                  <td>Рассылка по всем ученикам</td>
                   </td>
                   <td>
-                  <td style={{paddingBottom: '12px', paddingRight: '0'}}><img src={add} alt='add'/></td>
-                  <td style={{paddingBottom: '15px'}}>Мобильное приложение</td>
+                  <td className={styles.addLine}><img src={add} alt='add'/></td>
+                  <td>Мобильное приложение</td>
                   </td>
                 </tr>
               </tbody>
@@ -471,44 +479,44 @@ export const TariffPlans: FC = () => {
             </div>
             <div className={styles.tariffs_start_days}>14 дней бесплатно</div>
             <div className={styles.tariffs_start_block}>
-             <img style={{borderRadius: '24px', marginTop: '50px'}} src={prizeStart} alt='prizeStart'/>
-             <div style={{marginRight:'-20px', marginTop: '-80px'}}>
+             <img src={prizeStart} alt='prizeStart'/>
+             <div>
                 <ul>
                   <li>
-                    <div style={{height: '34px', display: 'flex', marginLeft:'-25px'}}>
-                      <span >
-                        <IconSvg styles={{marginRight: '10px', color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ConfigurationIconPath} />
-                      </span>
-                      <span>1 курс</span>
-                    </div>
-                    </li>
-                    <li>
-                    <div style={{height: '34px', display: 'flex', marginLeft:'-25px'}}>
+                    <div style={{display: 'flex'}}>
                       <span>
-                        <IconSvg styles={{marginRight: '10px', color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
+                        <IconSvg className={styles.tariffs_icon} styles={{color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ConfigurationIconPath} />
                       </span>
-                      <span>До 10 учеников</span>
+                      <span className={styles.tariffsStartRow}>1 курс</span>
                     </div>
                     </li>
                     <li>
-                    <div style={{height: '34px', display: 'flex', marginLeft:'-25px'}}>
-                      <span >
-                        <IconSvg styles={{marginRight: '10px', color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
-                      </span>
-                      <span>Конструктор лендингов</span>
-                    </div>
-                    </li>
-                    <li>
-                    <div style={{height: '74px', display: 'flex', marginLeft:'-25px'}}>
+                    <div style={{display: 'flex'}}>
                       <span>
-                        <IconSvg styles={{marginRight: '10px', color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={MailNotificationsIconPath} />
+                        <IconSvg className={styles.tariffs_icon} styles={{color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
                       </span>
-                      <span>Приём платежей
-                            <p style={{marginRight: '15px'}}>и онлайн касса</p></span>
+                      <span className={styles.tariffsStartRow}>До 10 учеников</span>
                     </div>
                     </li>
                     <li>
-                    <div style={{height: '54px', display: 'flex', marginLeft:'-45px', marginBottom: '-100px'}}>
+                    <div style={{display: 'flex'}}>
+                      <span >
+                        <IconSvg className={styles.tariffs_icon} styles={{color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
+                      </span>
+                      <span className={styles.tariffsStartRow}>Конструктор лендингов</span>
+                    </div>
+                    </li>
+                    <li>
+                    <div style={{display: 'flex'}}>
+                      <span>
+                        <IconSvg className={styles.tariffs_icon} styles={{color: 'rgba(51, 47, 54, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={MailNotificationsIconPath} />
+                      </span>
+                      <span className={styles.tariffsStartRow}>Приём платежей
+                            <p className={styles.tariffsStartRow_cashBox}>и онлайн касса</p></span>
+                    </div>
+                    </li>
+                    <li>
+                    <div className={styles.getConsultStart}>
                     <a href="https://t.me/course_hub_olya/" target="_blank" rel="noreferrer">
                       <button>Получить консультацию</button>
                     </a>
@@ -524,43 +532,43 @@ export const TariffPlans: FC = () => {
             </div>
             <div className={styles.tariffs_personal_function}>Персонально подберём для вас нужные функции</div>
             <div className={styles.tariffs_personal_block}>
-             <img style={{borderRadius: '24px', marginTop: '-88px', marginLeft: '-25px'}} src={prizePersonal} alt='prizePersonal'/>
-             <div style={{marginRight:'-20px', marginTop: '-45px'}}>
+             <img src={prizePersonal} alt='prizePersonal'/>
+             <div style={{marginRight:'-20px'}}>
                 <ul>
                   <li>
-                    <div style={{height: '34px', display: 'flex', marginLeft:'-45px'}}>
-                      <span >
-                        <IconSvg styles={{marginRight: '10px', color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath} />
-                      </span>
-                      <span>Настройка ГБ</span>
-                    </div>
-                    </li>
-                    <li>
-                    <div style={{height: '34px', display: 'flex', marginLeft:'-45px'}}>
-                      <span >
-                        <IconSvg styles={{marginRight: '10px', color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
-                      </span>
-                      <span>Настройка курсов</span>
-                    </div>
-                    </li>
-                    <li>
-                    <div style={{height: '34px', display: 'flex', marginLeft:'-45px'}}>
+                    <div style={{display: 'flex'}}>
                       <span>
-                        <IconSvg styles={{marginRight: '10px', color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
+                        <IconSvg className={styles.tariffs_icon} styles={{color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={CloudIconPath} />
                       </span>
-                      <span>Настройка учеников</span>
+                      <span className={styles.tariffsPersonalRow}>Настройка ГБ</span>
                     </div>
                     </li>
                     <li>
-                    <div style={{height: '54px', display: 'flex', marginLeft:'-45px'}}>
+                    <div style={{display: 'flex'}}>
                       <span >
-                        <IconSvg styles={{marginRight: '10px', color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
+                        <IconSvg className={styles.tariffs_icon} styles={{color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={ClipboardListIconPath} />
                       </span>
-                      <span>Настройка сотрудников</span>
+                      <span className={styles.tariffsPersonalRow}>Настройка курсов</span>
                     </div>
                     </li>
                     <li>
-                    <div style={{height: '54px', display: 'flex', marginLeft:'-65px', marginBottom: '-80px'}}>
+                    <div style={{display: 'flex'}}>
+                      <span>
+                        <IconSvg className={styles.tariffs_icon} styles={{color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 50 50" path={coursesStatsNavPath} />
+                      </span>
+                      <span className={styles.tariffsPersonalRow}>Настройка учеников</span>
+                    </div>
+                    </li>
+                    <li>
+                    <div style={{display: 'flex'}}>
+                      <span>
+                        <IconSvg className={styles.tariffs_icon} styles={{color: 'rgba(255, 255, 255, 1)'}} width={24} height={24} viewBoxSize="0 0 23 23" path={PeopleIconPath} />
+                      </span>
+                      <span className={styles.tariffsPersonalRow}>Настройка сотрудников</span>
+                    </div>
+                    </li>
+                    <li>
+                    <div className={styles.getConsultPersonal} style={{display: 'flex'}}>
                     <a href="https://t.me/course_hub_olya/" target="_blank" rel="noreferrer">
                       <button><div>Получить консультацию</div></button>
                     </a>
@@ -576,9 +584,7 @@ export const TariffPlans: FC = () => {
           <div className={styles.TariffPlansPage_plansBlock_banner_createProject}>
             <h1>Создайте свой проект на Course Hub прямо сейчас!</h1>
             <p>Попробуйте весь функционал в процессе использования и познайте, насколько он удобен</p>
-              <div className={styles.main_btn}>
                 <button onClick={handleRegistrationUser}>Попробовать бесплатно</button>
-              </div>
           </div>
           <div className={styles.TariffPlansPage_plansBlock_banner_images}>
             <img src={banner} alt="Создать проект"/>
