@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Button } from 'components/common/Button/Button'
 import {
   SendMessagePayload,
   useSendMessageMutation,
@@ -13,7 +14,7 @@ import {
 } from '../../api/chatgptService';
 import OverAiIcon from '../../assets/img/common/newIconModal.svg';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
-import { CloseIconPath } from 'assets/Icons/svgIconPath';
+import { CloseIconPath, ListMessagesIconPath } from 'assets/Icons/svgIconPath';
 import { aiButtonNavIcon, messageNavIcon, userNavIcon } from './svg/svgIconPath';
 import styles from './chatgpt.module.scss';
 import { log } from 'console';
@@ -493,7 +494,10 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
             <div className={`${styles.contentContainer}`}>
 
               <div className={`${styles.topPane} ${isDialogOpen && styles.paneOpen}`}>
-                <div className={styles.overAiText}><div className={styles.ai_mobile_open_dialog_list}>List</div><p>OVER AI</p><div className={styles.ai_mobile_close_btn} onClick={()=>setIsDialogOpen(false)}>X</div></div>
+                <div className={styles.overAiText}><div className={styles.ai_mobile_open_dialog_list}><IconSvg path={ListMessagesIconPath} width={30} height={30} viewBoxSize='0 0 30 30'></IconSvg></div>
+                  <p>OVER AI</p>
+                  <div className={styles.ai_mobile_close_btn_wrapper} onClick={() => setIsDialogOpen(false)}><div className={styles.ai_mobile_close_btn}></div></div>
+                </div>
                 {isFetchingChats ? (
                   <div className={styles.loadingSpinner}>
                     <div className={styles.spinner}></div>
@@ -573,7 +577,11 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                     <div className={styles.welcomeMessageUser}>
                       <IconSvg path={userNavIcon} viewBoxSize='0 0 72 72' width={100} height={100}></IconSvg>
                     </div>
-                    <p>Привет, <span>Пользователь</span>! приятно тебя здесь видеть! Нажимая кнопку «Начать чат», вы соглашаетесь на обработку своих персональных данных, как описано в нашей Политике конфиденциальности</p>
+                    <div></div>
+                    <p>Привет, <span>Пользователь</span>! Приятно тебя здесь видеть! Нажимая кнопку «Начать чат», вы соглашаетесь на обработку своих персональных данных, как описано в нашей Политике конфиденциальности</p>
+
+                    <Button variant={'newPrimary'} onClick={() => console.log('hehe')} className={styles.welcomeMessageButton} text='Начать чат'></Button>
+
                   </div>
 
 

@@ -58,6 +58,7 @@ import {
   LinkIcon,
   MessageConvertIcon,
   GiftIcon,
+  ListMessagesIcon,
 } from './svgIcons'
 import { pathT } from '../../types/commonComponentsTypes'
 
@@ -399,3 +400,12 @@ export const GiftIconPath: pathT[] = [
     fillRule: 'evenodd',
   },
 ] // 0 0 38 41 gift navbar icon
+
+export const ListMessagesIconPath = [
+  { d: ListMessagesIcon.d1, fill: 'currentColor' },
+  { d: ListMessagesIcon.d2, fill: 'currentColor' },
+  { d: ListMessagesIcon.d3, fill: 'currentColor' },
+  { d: ListMessagesIcon.d4, fill: 'currentColor' },
+]
+
+
