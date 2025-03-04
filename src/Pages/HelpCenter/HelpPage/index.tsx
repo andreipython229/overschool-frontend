@@ -11,7 +11,7 @@ const sections = [
   {
     title: "Гид по началу работы",
     image: require("../../../assets/img/common/map-pin.png"),
-    link: "/help",
+    link: "/help/help-gid-start",
   },
   {
     title: "Как привязать домен?",
@@ -38,7 +38,6 @@ const sections = [
     image: require("../../../assets/img/common/accaunt.png"),
     link: "/help/user-account",
   },
-
   {
     title: "Как создать чат?",
     image: require("../../../assets/img/common/chat.png"),
@@ -66,13 +65,14 @@ export const HelpPage: FC = memo(() => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [isRegistrationOpen, setRegistrationOpen] = useState(false);
+
   const handleRegistrationUser = () => {
-    const paramsString = localStorage.getItem('utmParams');
+    const paramsString = localStorage.getItem("utmParams");
     if (paramsString !== null) {
       const parsedParams = JSON.parse(paramsString);
       const queryParams = Object.keys(parsedParams)
-        .map(key => `${key}=${parsedParams[key]}`)
-        .join('&');
+        .map((key) => `${key}=${parsedParams[key]}`)
+        .join("&");
       const pathWithParams = `${Path.CreateSchool}?${queryParams}`;
       navigate(pathWithParams);
     } else {
@@ -91,16 +91,13 @@ export const HelpPage: FC = memo(() => {
 
       <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
       <div className={styles.helpBlock}>
-        <img
-          src={require("../../../assets/img/common/help-header.png")}
-          alt="Лэптоп с вопросами"
-        />
+        <img src={require("../../../assets/img/common/help-header.png")} alt="Лэптоп с вопросами" />
       </div>
       <div className={styles.sections}>
         {sections.map((section, index) => (
           <div
             key={index}
-            className={`${styles.section} ${hoveredIndex === index ? styles.variant2 : styles.default}`}
+            className={`${styles.section} ${hoveredIndex === index ? styles.section_variant2 : styles.section_default}`}
             onClick={() => navigate(section.link)}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
@@ -122,24 +119,14 @@ export const HelpPage: FC = memo(() => {
             Попробуйте весь функционал в процессе использования и узнайте, как
             удобно работать на нашей платформе.
           </p>
-          <Button
-            text="Попробовать бесплатно"
-            variant="newLeaveRequest"
-            onClick={handleRegistrationUser}
-          />
+          <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
         </div>
         <div className={styles.ctaImage}>
-          <img
-            src={require("../../../assets/img/common/cta-image.png")}
-            alt="CTA-изображение"
-          />
+          <img src={require("../../../assets/img/common/cta-image.png")} alt="CTA-изображение" />
         </div>
       </div>
       <div className={styles.faqBlock}>
-        <img
-          src={require("../../../assets/img/common/faq.png")}
-          alt="Часто задаваемые вопросы"
-        />
+        <img src={require("../../../assets/img/common/faq.png")} alt="Часто задаваемые вопросы" />
       </div>
 
       <Footer />

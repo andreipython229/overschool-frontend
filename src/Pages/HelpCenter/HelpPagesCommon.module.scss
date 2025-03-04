@@ -1,6 +1,10 @@
 @import '../../scss/variable';
 @import '../../scss/mixin.scss';
 
+.ctaBlock {
+    margin-bottom: 0;
+}
+
 .help {
 
     &Page {
@@ -348,6 +352,36 @@
                 border-radius: 20px;
 
             }
+
+            &_t2 {
+                @include display(flex, column, start, center);
+                width: 49%;
+                padding: 0 24px 0 24px;
+                border-radius: 32px;
+                background: linear-gradient(90deg, #3170E7 13.5%, #7A90F7 100%);
+
+                img {
+                    width: 100%;
+                    border-radius: 20px;
+                }
+            }
+        }
+
+
+    }
+}
+
+.text {
+    &_bold {
+        font-weight: 700;
+    }
+
+    &_list {
+        @include display(flex, column, start, start);
+        gap: 16px;
+
+        li {
+            margin-left: 24px;
         }
     }
 
