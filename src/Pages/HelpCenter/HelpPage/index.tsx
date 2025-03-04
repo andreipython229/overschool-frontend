@@ -11,7 +11,7 @@ const sections = [
   {
     title: "Гид по началу работы",
     image: require("../../../assets/img/common/map-pin.png"),
-    link: "/help",
+    link: "/help/add-employees",
   },
   {
     title: "Как привязать домен?",
