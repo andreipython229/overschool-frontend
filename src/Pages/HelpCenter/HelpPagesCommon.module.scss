@@ -28,6 +28,11 @@
 
                 font-size: 32px;
             }
+            @media (max-width: 744px) {
+
+              font-size: 30px;
+
+            } 
         }
 
         .back_btn {
@@ -70,9 +75,10 @@
           justify-content: center;
           align-items: center;
                   }
-        @media (max-width: 350px) {
-          font-size: 12px;
-                  }        
+        @media (max-width: 744px) {
+          font-size: 14px;
+          font-family: 'SF Pro Text', sans-serif;
+                  } 
 
         &_title {
             @include display(flex, row, start, center);
@@ -80,13 +86,20 @@
 
             &_text {
                 font-weight: 700;
-                font-size: 24px;
+                font-size: 20px;
                 color: #332F36;
                 @media (max-width: 1399px) {
 
                     font-size: 22px;
+                    font-family: 'SF Pro Text', sans-serif;
 
                 }
+                @media (max-width: 744px) {
+
+                    font-size: 24px;
+                    font-family: 'SF Pro Text', sans-serif;
+
+                } 
             }
         }
 
@@ -111,12 +124,20 @@
             @include display(flex, column, start, start);
             gap: 16px;
             width: 49%;
+            font-family: 'SF Pro Text', sans-serif;
 
             @media (max-width: 1399px) {
 
                 gap: 12px;
 
             }
+            @media (max-width: 744px) {
+
+                width: 80%;
+                order: -1;
+
+            }
+
 
             ol li {
                 margin-left: 24px;
@@ -125,17 +146,22 @@
                 color: #332F36;
             }
         }
-
         &_text {
-            // font-family: 'SF Pro Text', sans-serif;
-            font-weight: 400;
-            font-size: 20px;
-            color: #332F36;
-
+          // font-family: 'SF Pro Text', sans-serif;
+          font-weight: 400;
+          font-size: 20px;
+          color: #332F36;
+          
             @media (max-width: 1399px) {
 
                 font-size: 16px;
+                font-family: 'SF Pro Text', sans-serif;
 
+            }
+            @media (max-width: 744px) {
+              text-align: left;
+              font-size: 18px;
+              font-family: 'SF Pro Text', sans-serif;
             }
 
             a {
@@ -160,9 +186,19 @@
                 padding: 24px 24px 0 24px;
             }
 
+            @media (max-width: 744px) {
+
+                order: 1;
+                padding-top: 0px;
+                order: 1;
+                width: 604px;
+                height: 432px;
+
+            }
 
             img {
-                width: 100%;
+                width: 540px;
+                height: 432px;
                 border-radius: 20px;
 
             }
