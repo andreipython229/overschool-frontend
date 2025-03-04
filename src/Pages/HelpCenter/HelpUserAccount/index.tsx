@@ -1,95 +1,112 @@
 import { Button } from '../../../components/common/Button/Button'
-import main_page from '../../../assets/img/manageAccount/main_page.png'
-import account_page from '../../../assets/img/manageAccount/account_page.png'
-import account_page_finish from '../../../assets/img/manageAccount/account_page_finish.png'
-import firstStep from '../../../assets/img/createProject/firstStep.png'
-import secondStep from '../../../assets/img/createProject/secondStep.png'
 import { useAppSelector } from '../../../store/hooks'
-import {selectUser} from '../../../selectors'
+import { selectUser } from '../../../selectors'
 import { Path } from 'enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
-import {logo} from "../../../assets/img/common";
-import styles from '../HelpPage.module.scss'
+
+import styles from "../HelpPagesCommon.module.scss";
+import mainHelpStyles from "../HelpPage.module.scss";
+import { Footer } from "../../../components/Footer/index";
+import { InitPageHeader } from "../../Initial/newInitialPageHeader";
+import { FC, memo, useState } from "react";
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
 
 export const HelpUserAccount = () => {
-      const {role} = useAppSelector(selectUser)
-      const navigate = useNavigate()
-    
-      const handleHelpPage = () => {
-        navigate(generatePath(Path.HelpPage))
-      }
-    
-      const handleLoginPage = () => {
-          navigate(generatePath(Path.LoginPage))
-      }
-    
-      const handleRegistrationUser = () => {
-          navigate(generatePath(Path.CreateSchool))
-      }
-      return (
-        <section className={styles.HelpCenterPage}>
-          <div className={styles.init_header}>
-               <a
-                  href={Path.InitialPage}
-                  className={styles.init_header_logo}
-                  style={{
-                     textDecoration: 'none',
-                     color: '#ba75ff',
-                     fontWeight: 'bold',
-                     padding: '0.5rem',
-                     borderRadius: '10px',
-                  }}
-                >
-                   <img src={logo} alt="Logotype ITOVERONE" />
-                   <p> IT OVERONE</p>
-                </a>
-                <div className={styles.header_block}>
-                   <Button onClick={handleHelpPage} variant={'logIn'} style={{ fontSize: '18px', fontWeight: '700' }} text={'Помощь'} />
-                   <Button onClick={handleLoginPage} variant={'logIn'} style={{ fontSize: '18px', fontWeight: '700' }} text={'Войти'} />
-                   <Button onClick={handleRegistrationUser} variant={'logIn'} style={{ fontSize: '18px', fontWeight: '700' }} text={'Создать платформу'} />
-                </div>
+  const { role } = useAppSelector(selectUser)
+  const navigate = useNavigate()
+  const [isLoginOpen, setLoginOpen] = useState(false);
+  const [isRegistrationOpen, setRegistrationOpen] = useState(false);
+
+  const handleHelpPage = () => {
+    navigate(generatePath(Path.HelpPage))
+  }
+
+  const handleLoginPage = () => {
+    navigate(generatePath(Path.LoginPage))
+  }
+
+  const handleRegistrationUser = () => {
+    navigate(generatePath(Path.CreateSchool))
+  }
+  return (
+    <div className={`${mainHelpStyles.helpPage} ${styles.helpPage}`}>
+      <div className={mainHelpStyles.bg}>
+        <div className={mainHelpStyles.bg_wrap1}></div>
+        <div className={mainHelpStyles.bg_wrap2}></div>
+        <div className={mainHelpStyles.bg_wrap3}></div>
+        <div className={mainHelpStyles.bg_wrap4}></div>
+      </div>
+
+      <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
+
+      <div className={styles.sections}>
+        <div className={styles.section}>
+          <div className={styles.help_title_container}>
+            <div onClick={handleHelpPage} className={styles.back_btn}>
+              <IconSvg path={ArrowLeftIconPath} viewBoxSize="0 0 9 14" height={24} width={18} />
+            </div>
+            <p>Как настроить аккаунт</p>
+            <div></div>
           </div>
-          <div className={styles.HelpCenterPage_FAQ}>
-            <h1> Как настроить аккаунт </h1>
-            <h2> Переходим на страничку акканута </h2>
-            <p> 
-              Кликните в правом верхнем углу по иконке пользователя. 
-              В появившемся контекстном меню выберите пункт &quot;Открыть профиль&quot;
-            </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={main_page} alt="страничка выбора курса" className={styles.HelpCenterPage_FAQ_images_firstStep} />
+        </div>
+
+        <div className={styles.section}>
+          <div className={styles.text_part}>
+            <div className={styles.section_title}>
+              <div className={styles.section_number}>1</div>
+              <h3 className={styles.section_title_text}>Переходим на страничку акканута</h3>
             </div>
-            <h2> Заполнение профиля </h2>
-            <p>
-              В загрузившемся окне появится форма для заполнения.
-            </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={account_page} alt="страничка аккаунта" className={styles.HelpCenterPage_FAQ_images_firstStep} />
-            </div>
-            <p>
-              Для изменения автара щёлкните по изображению пользователя в графе &quot;Аватар&quot; 
-              и выберите фото с вашего устройства. После заполнения всех полей нажмите 
-              кнопку &quot;Сохранить&quot;, которая расположена в самом низу
-            </p>
-            <div className={styles.HelpCenterPage_FAQ_images}>
-              <img src={account_page_finish} alt="сохранение данных пользователя" className={styles.HelpCenterPage_FAQ_images_firstStep} />
-            </div>
-            <p>
-              После этого вся информация будет сохранена. Для выхода из странички редактирования вы можете воспользоваться
-              навигационной панелью, расположенной слева
-            </p>
+            <p className={styles.section_text}>{`Кликните в правом верхнем углу по иконке пользователя. В появившемся контекстном меню выберите пункт "Открыть профиль"`}</p>
           </div>
-          <div className={styles.HelpCenterPage_banner}>
-            <div className={styles.HelpCenterPage_banner_createProject}>
-              <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
-              <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
-              <Button onClick={handleRegistrationUser} text={'Создать проект'} variant={'create'} />
-            </div>
-            <div className={styles.HelpCenterPage_banner_images}>
-              <img src={firstStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_firstStep} />
-              <img src={secondStep} alt="Создать проект" className={styles.HelpCenterPage_banner_images_secondStep} />
-            </div>
+          <div className={styles.img_part}>
+            <img
+              src={require("../../../assets/img/help/login.png")}
+              alt="Окно входа"
+            />
           </div>
-        </section>
-      )
-    }
+        </div>
+
+        <div className={styles.section}>
+          <div className={styles.img_part}>
+            <img
+              src={require("../../../assets/img/help/login_btn.png")}
+              alt="Кнопка входа"
+            />
+          </div>
+          <div className={styles.text_part}>
+            <div className={styles.section_title}>
+              <div className={styles.section_number}>2</div>
+              <h3 className={styles.section_title_text}>Заполнение профиля</h3>
+            </div>
+            <p className={styles.section_text}>{`В загрузившемся окне появится форма для заполнения.`}</p>
+            <p className={styles.section_text}>{`Для изменения автара щёлкните по изображению пользователя в графе "Аватар" и выберите фото с вашего устройства. После заполнения всех полей нажмите кнопку "Сохранить", которая расположена в самом низу`}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className={mainHelpStyles.ctaBlock}>
+        <div className={mainHelpStyles.ctaText}>
+          <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
+          <p>
+            Попробуйте весь функционал в процессе использования и узнайте, как
+            удобно работать на нашей платформе.
+          </p>
+          <Button
+            text="Попробовать бесплатно"
+            variant="newLeaveRequest"
+            onClick={handleRegistrationUser}
+          />
+        </div>
+        <div className={mainHelpStyles.ctaImage}>
+          <img
+            src={require("../../../assets/img/common/cta-image.png")}
+            alt="CTA-изображение"
+          />
+        </div>
+      </div>
+
+      <Footer />
+    </div>
+  )
+}

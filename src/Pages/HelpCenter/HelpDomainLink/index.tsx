@@ -1,12 +1,9 @@
 import { generatePath, useNavigate } from "react-router-dom";
 import { FC, memo, useState } from "react";
 import { Path } from "../../../enum/pathE";
-import styles from "../HelpPagesCommon.module.scss";
 import mainHelpStyles from "../HelpPage.module.scss";
-import { logo } from "../../../assets/img/common";
+import styles from "../HelpPagesCommon.module.scss";
 import { Button } from "../../../components/common/Button/Button";
-import firstStep from '../../../assets/img/createProject/firstStep.png'
-import secondStep from '../../../assets/img/createProject/secondStep.png'
 import { InitPageHeader } from "../../Initial/newInitialPageHeader";
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'

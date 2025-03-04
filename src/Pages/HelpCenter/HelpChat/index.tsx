@@ -1,87 +1,96 @@
-import {generatePath, useNavigate} from "react-router-dom";
-import {Path} from "../../../enum/pathE";
-import styles from "./HelpChat.module.scss";
-import {logo} from "../../../assets/img/common";
-import {Button} from "../../../components/common/Button/Button";
-import firstStep from "../../../assets/img/createProject/firstStep.png";
-import secondStep from "../../../assets/img/createProject/secondStep.png";
-import SelectChat from "../../../assets/img/chat/SelectChat.png";
-import OpenChat from "../../../assets/img/chat/OpenChat.png";
+import { generatePath, useNavigate } from "react-router-dom";
+import { Path } from "../../../enum/pathE";
+// import styles from "./HelpChat.module.scss";
+import { Button } from "../../../components/common/Button/Button";
+
+import styles from "../HelpPagesCommon.module.scss";
+import mainHelpStyles from "../HelpPage.module.scss";
+import { Footer } from "../../../components/Footer/index";
+import { InitPageHeader } from "../../Initial/newInitialPageHeader";
+import { FC, memo, useState } from "react";
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
 
 
 export const HelpChat = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
+  const [isLoginOpen, setLoginOpen] = useState(false);
+  const [isRegistrationOpen, setRegistrationOpen] = useState(false);
 
-    const handleHelpPage = () => {
-        navigate(generatePath(Path.HelpPage))
-    }
+  const handleHelpPage = () => {
+    navigate(generatePath(Path.HelpPage))
+  }
 
-    const handleLoginPage = () => {
-        navigate(generatePath(Path.LoginPage))
-    }
+  const handleLoginPage = () => {
+    navigate(generatePath(Path.LoginPage))
+  }
 
-    const handleRegistrationUser = () => {
-        navigate(generatePath(Path.CreateSchool))
-    }
-    return (
-        <section className={styles.HelpCenterPage}>
-            <div className={styles.init_header}>
-                <a
-                    href={Path.InitialPage}
-                    className={styles.init_header_logo}
-                    style={{
-                        textDecoration: 'none',
-                        color: '#ba75ff',
-                        fontWeight: 'bold',
-                        padding: '0.5rem',
-                        borderRadius: '10px',
-                    }}
-                >
-                    <img src={logo} alt="Logotype ITOVERONE"/>
-                    <p> IT OVERONE</p>
-                </a>
-                <div className={styles.header_block}>
-                    <Button onClick={handleHelpPage} variant={'logIn'} style={{fontSize: '18px', fontWeight: '700'}}
-                            text={'Помощь'}/>
-                    <Button onClick={handleLoginPage} variant={'logIn'} style={{fontSize: '18px', fontWeight: '700'}}
-                            text={'Войти'}/>
-                    <Button onClick={handleRegistrationUser} variant={'logIn'}
-                            style={{fontSize: '18px', fontWeight: '700'}} text={'Создать платформу'}/>
-                </div>
+  const handleRegistrationUser = () => {
+    navigate(generatePath(Path.CreateSchool))
+  }
+  return (
+    <div className={`${mainHelpStyles.helpPage} ${styles.helpPage}`}>
+      <div className={mainHelpStyles.bg}>
+        <div className={mainHelpStyles.bg_wrap1}></div>
+        <div className={mainHelpStyles.bg_wrap2}></div>
+        <div className={mainHelpStyles.bg_wrap3}></div>
+        <div className={mainHelpStyles.bg_wrap4}></div>
+      </div>
+
+      <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
+
+      <div className={styles.sections}>
+        <div className={styles.section}>
+          <div className={styles.help_title_container}>
+            <div onClick={handleHelpPage} className={styles.back_btn}>
+              <IconSvg path={ArrowLeftIconPath} viewBoxSize="0 0 9 14" height={24} width={18} />
             </div>
-            <div className={styles.HelpCenterPage_FAQ}>
-                <h1>Как создать чат с пользователем в онлайн-платформе OVERSCHOOL </h1>
-                <h2>Создание чата</h2>
-                <p>В онлайн-школе вы можете общаться с пользователем через групповые и индивидуальные чаты.
-                    <br/>Для создания группового чата просто создайте группу пользователей, и чат автоматически создастся с
-                    участниками этой группы.
-                    <br/>Для доступа ко всем вашим чатам, вы можете нажать на иконку &quot;Чаты&quot; на навигационной
-                    панели слева.
-                    Там вы найдете все созданные вами чаты, чтобы легко переключаться между ними и общаться с
-                    пользователями.
-                </p>
-                <div className={styles.HelpCenterPage_FAQ_images}>
-                    <img src={SelectChat} alt="Выбрать чат" className={styles.HelpCenterPage_FAQ_images_Chat}/>
-                </div>
-                <p> Также для чата с отдельным пользователем вы можете перейти на вкладку &quot;Пользователи курса&quot; и нажать
-                    кнопку чата рядом с его именем.</p>
-                <div className={styles.HelpCenterPage_FAQ_images}>
-                    <img src={OpenChat} alt="Открыть чаты" className={styles.HelpCenterPage_FAQ_images_Chat}/>
-                </div>
+            <p>Как создать чат</p>
+            <div></div>
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <div className={styles.text_part}>
+            <div className={styles.section_title}>
+              <div className={styles.section_number}>1</div>
+              <h3 className={styles.section_title_text}>Создание чата</h3>
             </div>
-            <div className={styles.HelpCenterPage_banner}>
-                <div className={styles.HelpCenterPage_banner_createProject}>
-                    <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
-                    <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
-                    <Button onClick={handleRegistrationUser} text={'Создать проект'} variant={'create'}/>
-                </div>
-                <div className={styles.HelpCenterPage_banner_images}>
-                    <img src={firstStep} alt="Создать проект"
-                         className={styles.HelpCenterPage_banner_images_firstStep}/>
-                    <img src={secondStep} alt="Создать проект"
-                         className={styles.HelpCenterPage_banner_images_secondStep}/>
-                </div>
-            </div>
-        </section>
-    )
+            <p className={styles.section_text}>{`В онлайн-школе вы можете общаться с пользователем через групповые и индивидуальные чаты.`}</p>
+            <p className={styles.section_text}>{`Для создания группового чата просто создайте группу пользователей, и чат автоматически создастся с участниками этой группы.`}</p>
+            <p className={styles.section_text}>{`Для доступа ко всем вашим чатам, вы можете нажать на иконку "Чаты" на навигационной панели слева. Там вы найдете все созданные вами чаты, чтобы легко переключаться между ними и общаться с пользователями`}</p>
+          </div>
+          <div className={styles.img_part}>
+            <img
+              src={require("../../../assets/img/help/login.png")}
+              alt="Окно входа"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className={mainHelpStyles.ctaBlock}>
+        <div className={mainHelpStyles.ctaText}>
+          <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
+          <p>
+            Попробуйте весь функционал в процессе использования и узнайте, как
+            удобно работать на нашей платформе.
+          </p>
+          <Button
+            text="Попробовать бесплатно"
+            variant="newLeaveRequest"
+            onClick={handleRegistrationUser}
+          />
+        </div>
+        <div className={mainHelpStyles.ctaImage}>
+          <img
+            src={require("../../../assets/img/common/cta-image.png")}
+            alt="CTA-изображение"
+          />
+        </div>
+      </div>
+
+      <Footer />
+    </div>
+  )
 }
