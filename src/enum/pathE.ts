@@ -30,6 +30,7 @@ export enum Path {
   HelpPage = '/help/',
   Help = ':school/',
   HelpUserAccount = ':user-account',
+  HelpAddEmployees = ':add-employees',
   HelpSchoolSettings = ':school-settings',
   HelpOverAI = 'overai',
   HelpStudents = 'students',
