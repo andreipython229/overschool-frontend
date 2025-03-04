@@ -1,21 +1,18 @@
 {
   "background_color": "#ffffff",
-  "description": "Маркетплейс образовательных курсов.",
+  "description": "Маркетплейс образовательных курсов",
   "dir": "ltr",
   "display": "standalone",
-  "name": "Overschool Material Platform",
+  "name": "CourseHub Material Platform",
   "orientation": "any",
   "scope": "/",
-  "short_name": "Overschool",
-  "start_url": "https://dev.overschool.by/login/",
+  "short_name": "CourseHub",
+  "start_url": "https://platform.coursehub.ru",
   "serviceworker": {
-      "src": "service-worker.js"
+    "src": "service-worker.js"
   },
-  "theme_color": "#8A2BE2",
-  "categories": [
-    "business",
-    "education"
-  ],
+  "theme_color": "#357EEB",
+  "categories": ["business", "education"],
   "screenshots": [],
   "icons": [
     {
@@ -32,7 +29,7 @@
   "related_applications": [
     {
       "platform": "webapp",
-      "url": "https://dev.overschool.by/login/",
+      "url": "https://platform.coursehub.ru",
       "id": "1"
     }
   ]

@@ -17,7 +17,6 @@ import { auth, logoutState } from '../../store/redux/users/slice'
 import { useLazyLogoutQuery } from '../../api/userLoginService'
 import Tooltip from '@mui/material/Tooltip'
 import { useLazyFetchProfileDataQuery } from 'api/profileService'
-import { Instagram } from 'react-content-loader'
 
 
 export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setRegistrationShow }) => {

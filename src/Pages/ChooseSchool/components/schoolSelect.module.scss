@@ -1,3 +1,5 @@
+@import '../../../scss/mixin.scss';
+
 .wrapper {
   width: 400px;
   max-width: 400px;
@@ -67,7 +69,14 @@
     justify-content: space-between;
     align-items: center;
 
-    @media screen and (max-width: 550px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      top: 50%;
+      bottom: 0;
+      transform: translate(-50%, -50%);
+      width: calc(82vw - 1rem);
+    }
+
+    @media only screen and (min-width: 375px) and (max-width: 550px) {
       top: 50%;
       bottom: 0;
       transform: translate(-50%, -50%);
@@ -101,23 +110,27 @@
 
         &_role {
           font-family: 'SFPRORegular', sans-serif;
-          font-size: 24px;
-          font-weight: 600;
-          line-height: 28.64px;
+          @include font(600, 24px, 28.64px);
           letter-spacing: -1px;
           text-align: left;
+
+          @media screen and (max-width: 550px) {
+            @include font(600, 20px, 24px);
+          }
         }
 
         &_name {
           font-family: 'SFPRORegular', sans-serif;
-          font-size: 18px;
-          font-weight: 600;
-          line-height: 23.87px;
+          @include font(600, 18px, 23.87px);
           text-align: left;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
           width: 100%;
+
+          @media screen and (max-width: 550px) {
+            @include font(600, 16px, 16px);
+          }
         }
       }
     }

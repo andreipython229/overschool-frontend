@@ -32,7 +32,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
 
   useEffect(() => {
     if (schoolName) {
-      getUsers({schoolName: schoolName, role: "staff", size: 100});
+      getUsers({ schoolName: schoolName, role: 'staff', size: 100 })
       getGroups(schoolName)
     }
   }, [schoolName])
@@ -87,7 +87,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
   return (
     <form onSubmit={handleCreateGroup} className={styles.container}>
       <div onClick={() => setShowModal(false)} className={styles.container_closed}>
-        <IconSvg width={14} height={14} viewBoxSize="0 0 14 14" path={crossIconPath} />
+        <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
       </div>
       <div className={styles.addGroup}>
         <div className={styles.container_header}>
@@ -103,10 +103,11 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
               С ментором
             </span>
           </div>
-          {!withTeacher &&
+          {!withTeacher && (
             <div className={styles.addGroup_description}>
               Такой тип группы предполагает отсутствие ментора и автоматическое принятие домашних заданий без проверки
-            </div>}
+            </div>
+          )}
           {withTeacher ? (
             <div>
               <span>Выберите ментора из списка:</span>

@@ -250,16 +250,15 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
           <div className={styles.container_decoration_shadow}></div>
 
           <div onClick={closeModal} className={styles.container_closed}>
-            <IconSvg width={25} height={25} viewBoxSize="0 0 14 14" path={crossIconPath} />
+            <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
           </div>
           <div className={styles.groupSetting}>
             <div className={styles.container_header}>
               <img src={setting} alt="" />
               <span className={styles.container_header_title}>Настройки группы </span>
             </div>
-            
+
             <MainSettingsGroup
-            
               course={courseId}
               groupType={groupType}
               changeTeacher={setCurrentTeacher}
