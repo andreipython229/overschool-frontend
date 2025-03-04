@@ -11,7 +11,7 @@ import { Footer } from "../../../components/Footer/index";
 
 
 
-export const HelpAddEmployees = () => {
+export const HelpWorkQuide = () => {
     const navigate = useNavigate()
     const [isLoginOpen, setLoginOpen] = useState(false);
     const [isRegistrationOpen, setRegistrationOpen] = useState(false);

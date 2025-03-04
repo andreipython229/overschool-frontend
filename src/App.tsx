@@ -23,7 +23,7 @@ import { CourseCatalogPage } from 'Pages/CourseCatalog'
 import { ResetPassword } from 'Pages/ResetPassword'
 import { LoginPage } from './Pages/Login/LoginPage'
 import { HelpPage } from './Pages/HelpCenter/HelpPage'
-import { HelpAddEmployees} from 'Pages/HelpCenter/HelpAddEmployees'
+import { HelpWorkQuide} from 'Pages/HelpCenter/HelpWorkQuide'
 import { HelpSchoolPage } from 'Pages/HelpCenter/HelpSchoolPage'
 import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
 import { HelpCoursesPage } from './Pages/HelpCenter/HelpCoursesPage'
@@ -187,7 +187,7 @@ export const App = () => {
         <Route path={Path.HelpPage}>
           <Route index element={<HelpPage />} />
           <Route path={Path.Help} element={<HelpSchoolPage />} />
-          <Route path={Path.HelpAddEmployees} element={<HelpAddEmployees />} />
+          <Route path={Path.HelpWorkQuide} element={<HelpWorkQuide />} />
           <Route path={Path.HelpUserAccount} element={<HelpUserAccount />} />
           <Route path={Path.HelpSchoolSettings} element={<HelpSchoolSettings />} />
           <Route path={Path.HelpOverAI} element={<HelpOverAI />} />
