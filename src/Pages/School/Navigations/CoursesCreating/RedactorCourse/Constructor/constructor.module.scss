@@ -586,21 +586,30 @@
           left: 100%;
           cursor: pointer;
 
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
+            @include font(500, 9px, 11.32px);
+            left: 101%;
+          }
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
+            @include font(500, 9px, 11.32px);
+            left: 101%;
+          }
+
           &:hover {
             text-decoration: underline;
           }
         }
 
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
-          margin-bottom: 10%;
-          padding-left: 15px;
-          padding-right: 15px;
-        }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
-          margin-bottom: 10%;
-          padding-left: 15px;
-          padding-right: 15px;
-        }
+        // @media only screen and (min-width: 320px) and (max-width: 375px) {
+        //   margin-bottom: 10%;
+        //   padding-left: 15px;
+        //   padding-right: 15px;
+        // }
+        // @media only screen and (min-width: 375px) and (max-width: 480px) {
+        //   margin-bottom: 10%;
+        //   padding-left: 15px;
+        //   padding-right: 15px;
+        // }
 
         &_nameSettings {
           @include font(700, 28px, 33.41px);
