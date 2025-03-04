@@ -585,7 +585,10 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                   </div>
 
 
-                  <div className={styles.inputContainer}>
+                  <Button className={styles.start_new_chat_btn} variant='newSecondary' onClick={handleCreateChat} disabled={isChatSelectionDisabled} text='Начать чат'>
+                  </Button>
+
+                  {/* <div className={styles.inputContainer}>
                     {isLoading ? (
                       <div className={styles.loadingSpinner}>
                         <div className={styles.spinner}></div>
@@ -597,21 +600,22 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                         <span> Создание чата...</span>
                       </div>
                     ) : (
-                      <>
-                        <textarea
+                      <> */}
+                  {/* // <textarea
                           rows={1}
                           placeholder="Отправьте сообщение..."
                           value={messageInput}
                           onChange={(e) => setMessageInput(e.target.value)}
                           onKeyDown={handleKeyPress}
-                        />
-                        <button onClick={handleCreateChat} disabled={isChatSelectionDisabled}>
-                          Начать чат
-                        </button>
-                      </>
-                    )}
-                  </div>
+                        /> */}
+
+                  {/* </> */}
+                  {/* // )} */}
+                  {/* </div> */}
                 </>
+
+
+
               ) : (
                 <>
                   {selectedChatId && (
@@ -624,34 +628,41 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                         </div>
                       ) : (
                         <div className={styles.messageContainer} ref={messageContainerRef}>
-                          {userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
-                            <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
-                              <div className={styles.messageContainer_user}>
-                                <span>
-                                  <b>Пользователь</b>
-                                  <div className={styles.messageContainer_user_question}>
-                                    {userQuestion.sender_question}
-                                  </div>
-                                </span>
-                              </div>
-                              {index < botAnswers.length && (
-                                <div className={styles.messageContainer_bot_wrapper}>
-                                  <div className={styles.chatIndicatorContainer}>
-                                    <div className={styles.chatIndicatorIcon}>
-                                      <div className={styles.chatIndicator}></div>
-                                      <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
-                                    </div>
-                                  </div>
-                                  <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
-                                    <p>OverAi bot</p>
-                                    <div className={styles.messageContainer_bot_answer}>
-                                      {formatBotAnswer(botAnswers[index].answer)}
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
+                          {
+                          userQuestions.length === 0 ? (
+                            <div className={styles.messageContainer_info_wrapper}>
+                              <p className={styles.messageContainer_info}>Пожалуйста, отправьте сообщение боту, чтобы начать диалог.</p>
                             </div>
-                          ))}
+                          ) : (
+                            userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
+                              <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
+                                <div className={styles.messageContainer_user}>
+                                  <span>
+                                    <b>Пользователь</b>
+                                    <div className={styles.messageContainer_user_question}>
+                                      {userQuestion.sender_question}
+                                    </div>
+                                  </span>
+                                </div>
+                                {index < botAnswers.length && (
+                                  <div className={styles.messageContainer_bot_wrapper}>
+                                    <div className={styles.chatIndicatorContainer}>
+                                      <div className={styles.chatIndicatorIcon}>
+                                        <div className={styles.chatIndicator}></div>
+                                        <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
+                                      </div>
+                                    </div>
+                                    <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
+                                      <p>OverAi bot</p>
+                                      <div className={styles.messageContainer_bot_answer}>
+                                        {formatBotAnswer(botAnswers[index].answer)}
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            ))
+                          )}
                         </div>
                       )}
 
@@ -678,13 +689,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                               onChange={(e) => setMessageInput(e.target.value)}
                               onKeyDown={handleKeyPress}
                             />
-                            <button onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
+                            <Button className={styles.send_message_btn} text='Генерировать' variant='newSecondary' onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
                               <IconSvg path={aiButtonNavIcon} width={20} height={20} viewBoxSize={'0 0 20 20'}></IconSvg>
                               {/* <svg viewBox="0 0 16 13" fill="none" xmlns="http://www.w3 org/2000/svg">
                                 <path d="M7.17278 1.21787C7.56956 0.633707 8.43044 0.633706 8.82722 1.21787L15.5994 11.1881C16.0503 11.8521 15.5748 12.75 14.7722 12.75H1.22785C0.425231 12.75 -0.0503452 11.8521 0.400629 11.1881L7.17278 1.21787Z" fill="white"/>
                             </svg> */}
-                              Генерировать
-                            </button>
+
+                            </Button>
                             {/* <div style={{ zIndex: '10000000' }}>
                             <select
                               value={selectedLanguage}
