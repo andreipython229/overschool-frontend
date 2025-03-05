@@ -555,13 +555,13 @@ export const Header = memo(() => {
                     borderRadius: 'min(20px, 2.8vw)',
                     padding: 'min(20px, 2.8vw) min(84px, 11.75vw)',
                     margin: '0',
-                    fontFamily: "'SF Pro Display', sans-serif",
+                    fontFamily: "'SFPRORegular', sans-serif",
                     maxWidth: '715px',
                     width: 'min(715px, 100vw)'} }}
               >
                 <DialogTitle
                   style={{
-                    fontFamily: "'SF Pro Display', sans-serif",
+                    fontFamily: "'SFPRORegular', sans-serif",
                     fontSize: 'clamp(14px, 3.35vw, 24px)',
                     padding: '0',
                     paddingLeft: '0'
@@ -576,7 +576,7 @@ export const Header = memo(() => {
                     paddingLeft: 'min(10px, 1.4vw)',
                     paddingBottom: 'min(16px, 2.24vw)',
                     paddingTop: 'min(8.39px, 1.4vw)',
-                    fontFamily: "'SF Pro Display', sans-serif"
+                    fontFamily: "'SFPRORegular', sans-serif"
                     }}>
                     Выберите одну или несколько ШКОЛ
                   </div>
@@ -690,10 +690,10 @@ export const Header = memo(() => {
                                 checked={groups.every(group => new Set(tgMessage.students_groups).has(Number(group.group_id)))}
 
                           />
-                          <b style={{fontSize: 'clamp(14px, 2.8vw, 16.78px)', fontFamily: "'SF Pro Display', sans-serif", color: 'grey'}}>{courseName} (групп: {groups.length})</b>
+                          <b style={{fontSize: 'clamp(14px, 2.8vw, 16.78px)', fontFamily: "'SFPRORegular', sans-serif", color: 'grey'}}>{courseName} (групп: {groups.length})</b>
                           {groups.some(group => tgMessage.students_groups.includes(group.group_id  ?? 0)) &&
                           groups.map((group, index) => (
-                            <div key={group.group_id} style={{ marginLeft: 'min(12.59px, 2.1vw)', fontSize: 'clamp(14px, 2.8vw, 16.78px)', fontFamily: "'SF Pro Display', sans-serif", color: 'grey'}}>
+                            <div key={group.group_id} style={{ marginLeft: 'min(12.59px, 2.1vw)', fontSize: 'clamp(14px, 2.8vw, 16.78px)', fontFamily: "'SFPRORegular', sans-serif", color: 'grey'}}>
                               <Checkbox
                                 className={styles.customCheckbox}
                                 sx={{
