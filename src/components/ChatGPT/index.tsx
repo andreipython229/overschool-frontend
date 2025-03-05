@@ -63,8 +63,27 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const userQuestions = latestMessages && latestMessages[0] && Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
   const botAnswers = latestMessages && latestMessages[1] && Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
 
-  useEffect(() => {
+  const [dots, setDots] = useState('.');
+  const listOfChatContainerRef = useRef<HTMLDivElement | null>(null);
+  const activeChatRef = useRef<HTMLDivElement | null>(null);
 
+  const [bufUserQuestion, setBufUserQuestion] = useState('');
+
+  useEffect(() => {setFocusToBottom();}, [isLoading])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots((prevDots) => {
+        if (prevDots === '...') return '.';
+        return prevDots + '.';
+      });
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    scrollToSelectedChat()
+    console.log(userQuestions);
 
     const fetchData = async () => {
       // console.log(isDialogOpen, selectedChatId, refetchMessages, isChatSelected);
@@ -72,17 +91,20 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
 
       setError(null);
-      console.log('showWelcomeMessage: ' + showWelcomeMessage)
+      // console.log('showWelcomeMessage: ' + showWelcomeMessage)
       setIsLoadingMessages(true);
       setIsFetchingChats(true);
 
       if (!chatsLoaded) {
+
         await fetchChats();
+
       }
 
       setIsFetchingChats(false);
 
       if (selectedChatId && refetchMessages && isChatSelected) {
+        // console.log('gg');
         try {
           await refetchMessages({ overai_chat_id: selectedChatId });
           setFocusToBottom();
@@ -297,9 +319,42 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     setIsChatSelected(true);
   };
 
+  const createChat = async () => {
+    try {
+      setIsChatSelected(true);
+      setIsCreatingChatDisabled(true);
+      const convertToCreateChatPayload = (chatData: { [id: number]: { order: number; chat_name: string } }): CreateChatPayload => {
+        const orderData = Object.entries(chatData).map(([id, { order }]) => ({ id: Number(id), order }));
+        return { orderData };
+      };
+
+      const payload: CreateChatPayload = convertToCreateChatPayload(chatData);
+
+      const response = await createChatMutation(payload);
+      if ('data' in response && response.data !== undefined) {
+        const newChatId = response.data.overai_chat_id;
+        await fetchChats();
+        setCreatedChatId(newChatId);
+        console.log(newChatId);
+
+        return response.data;
+      } else {
+        setError('Ошибка при создании чата.');
+        return null;
+      }
+    } catch (error) {
+      setError('Ошибка при создании чата.');
+      return null;
+    } finally {
+      setIsCreatingChatDisabled(false);
+    }
+  };
+
   // const createChat = async () => {
   //   try {
-  //     setIsChatSelected(true);
+
+
+  //     setIsChatSelected(false); //true
   //     setIsCreatingChatDisabled(true);
   //     const convertToCreateChatPayload = (chatData: { [id: number]: { order: number; chat_name: string } }): CreateChatPayload => {
   //       const orderData = Object.entries(chatData).map(([id, { order }]) => ({ id: Number(id), order }));
@@ -326,36 +381,96 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   //   }
   // };
 
-  const createChat = async () => {
-    try {
-      setIsChatSelected(false); //true
-      setIsCreatingChatDisabled(true);
-      const convertToCreateChatPayload = (chatData: { [id: number]: { order: number; chat_name: string } }): CreateChatPayload => {
-        const orderData = Object.entries(chatData).map(([id, { order }]) => ({ id: Number(id), order }));
-        return { orderData };
-      };
 
-      const payload: CreateChatPayload = convertToCreateChatPayload(chatData);
+  // const createChat = async () => {
+  //   let tempChatId: number | null = null; // Объявляем tempChatId здесь
 
-      const response = await createChatMutation(payload);
-      if ('data' in response && response.data !== undefined) {
-        const newChatId = response.data.overai_chat_id;
-        await fetchChats();
-        setCreatedChatId(newChatId);
-        return response.data;
-      } else {
-        setError('Ошибка при создании чата.');
-        return null;
-      }
-    } catch (error) {
-      setError('Ошибка при создании чата.');
-      return null;
-    } finally {
-      setIsCreatingChatDisabled(false);
-    }
-  };
+  //   try {
+  //     setIsChatSelected(false);
+  //     setIsCreatingChatDisabled(true);
+
+  //     // Генерация временного ID для нового чата (для оптимистичного обновления)
+  //     tempChatId = Date.now(); // Используем временную метку как ID
+  //     const newChat = {
+  //       id: tempChatId,
+  //       order: 1, // Новый чат будет первым
+  //       chat_name: 'Новый чат', // Можно задать имя по умолчанию
+  //     };
+
+  //     // Оптимистичное обновление состояния на клиенте
+  //     setChatData((prevChatData) => {
+  //       // Сдвигаем порядок всех существующих чатов на +1
+  //       const updatedChatData = Object.entries(prevChatData).reduce((acc, [id, chat]) => {
+  //         acc[Number(id)] = { ...chat, order: chat.order + 1 };
+  //         return acc;
+  //       }, {} as { [id: number]: { order: number; chat_name: string } });
+
+  //       // Добавляем новый чат в начало
+  //       return {
+  //         [tempChatId!]: newChat,
+  //         ...updatedChatData,
+  //       };
+  //     });
+
+  //     // Преобразование данных для отправки на сервер
+  //     const convertToCreateChatPayload = (chatData: {
+  //       [id: number]: { order: number; chat_name: string };
+  //     }): CreateChatPayload => {
+  //       const orderData = Object.entries(chatData).map(([id, { order }]) => ({
+  //         id: Number(id),
+  //         order,
+  //       }));
+  //       return { orderData };
+  //     };
+
+  //     const payload: CreateChatPayload = convertToCreateChatPayload(chatData);
+
+  //     // Отправка запроса на сервер
+  //     const response = await createChatMutation(payload);
+
+  //     // Обработка ответа от сервера
+  //     if ('data' in response && response.data !== undefined) {
+  //       const newChatId = response.data.overai_chat_id;
+
+  //       // Обновление состояния с реальным ID от сервера
+  //       setChatData((prevChatData) => {
+  //         const { [tempChatId!]: tempChat, ...rest } = prevChatData;
+  //         return {
+  //           [newChatId]: { ...tempChat, id: newChatId },
+  //           ...rest,
+  //         };
+  //       });
+
+  //       await fetchChats(); // Обновление списка чатов (если нужно)
+  //       setCreatedChatId(newChatId);
+  //       return response.data;
+  //     } else {
+  //       // Если сервер вернул ошибку, откатываем оптимистичное обновление
+  //       setChatData((prevChatData) => {
+  //         const { [tempChatId!]: _, ...rest } = prevChatData;
+  //         return rest;
+  //       });
+  //       setError('Ошибка при создании чата.');
+  //       return null;
+  //     }
+  //   } catch (error) {
+  //     // Откат изменений в случае ошибки
+  //     if (tempChatId !== null) {
+  //       setChatData((prevChatData) => {
+  //         const { [tempChatId!]: _, ...rest } = prevChatData;
+  //         return rest;
+  //       });
+  //     }
+  //     setError('Ошибка при создании чата.');
+  //     return null;
+  //   } finally {
+  //     setIsCreatingChatDisabled(false);
+  //   }
+  // };
+
 
   const handleCreateChat = async () => {
+
     setShowWelcomeMessage(true);
     // if (updateWelcomeMessage !== null) {
     // await updateWelcomeMessage();
@@ -366,6 +481,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   const fetchChats = async () => {///??
     try {
+
+      (userQuestions)
       if (refetchChats) {
         const response = await refetchChats(); ////
 
@@ -439,7 +556,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   const handleSendMessage = async (messageInput: string) => {
     if (messageInput.trim() === '') return;
-
+    setBufUserQuestion(messageInput);
+    setFocusToBottom();
     try {
       setIsLoading(true);
       setIsChatSelectionDisabled(true);
@@ -477,7 +595,19 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }, 3000);
   };
 
+  const listOfChatContainerToStart = () => {
 
+    if (listOfChatContainerRef.current) {
+      listOfChatContainerRef.current.scrollLeft = 0;
+    }
+
+  }
+
+  const scrollToSelectedChat = () => {
+    if (activeChatRef.current) {
+      activeChatRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
 
 
   return (
@@ -506,43 +636,46 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                 ) : (
                   <>
                     <div className={styles.listOfChatSection}>
-                      <button className={styles.createChatButtonModal} onClick={handleCreateEmptyChat} disabled={isCreatingChatDisabled}>
+                      <button className={styles.createChatButtonModal} onClick={handleCreateChat} disabled={isCreatingChatDisabled}>
                         <b>+</b>
                       </button>
-                      <div
-                        className={styles.listOfChatContainer}
-                      >
+                      <div className={styles.listOfChatContainer} ref={listOfChatContainerRef}>
                         {Object.entries(chatData)
                           .sort(([, a], [, b]) => a.order - b.order)
-                          .map(([chatId, chatValue]) => (
-                            <div key={chatId}
-                              draggable
-                              onDragStart={(e) => handleDragStart(e, Number(chatId))}
-                              onDragOver={(e) => handleDragOver(e, Number(chatId))}
-                              onDragEnd={handleDragEnd}
-                              className={` ${styles.chatListItemWrapper}`}
-                            >
-                              <div
-                                onClick={() => {
-                                  selectChat(Number(chatId))
-                                }}
-                                className={`${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''} ${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''}`}
-                                style={{ borderRadius: '20px' }}
+                          .map(([chatId, chatValue]) => {
+                            const isActive = selectedChatId === Number(chatId);
+                            return (
+                              <div key={chatId}
+                                draggable
+                                onDragStart={(e) => handleDragStart(e, Number(chatId))}
+                                onDragOver={(e) => handleDragOver(e, Number(chatId))}
+                                onDragEnd={handleDragEnd}
+                                className={` ${styles.chatListItemWrapper}`}
                               >
-                                <div className={styles.chatListItem_Circle}></div>
-                                <span className={styles.centeredText}>
-                                  {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
+                                <div
+                                  onClick={() => {
+                                    selectChat(Number(chatId))
+                                  }}
+                                  ref={isActive ? activeChatRef : null}
+                                  className={`${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''} ${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''}`}
+                                  style={{ borderRadius: '20px' }}
+                                >
+                                  <div className={styles.chatListItem_Circle}></div>
+                                  <span className={styles.centeredText}>
+                                    {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
 
-                                </span>
+                                  </span>
+                                </div>
+                                <button className={styles.deleteChatBtn} onClick={(e) => {
+                                  // e.stopPropagation(); // Предотвращаем всплытие события
+                                  handleDeleteChat(Number(chatId));
+                                }}>
+                                  <div className={styles.close_cross}></div>
+                                </button>
                               </div>
-                              <button className={styles.deleteChatBtn} onClick={(e) => {
-                                // e.stopPropagation(); // Предотвращаем всплытие события
-                                handleDeleteChat(Number(chatId));
-                              }}>
-                                <div className={styles.close_cross}></div>
-                              </button>
-                            </div>
-                          ))}
+                            )
+                          }
+                          )}
                       </div>
                       {/* <button className={styles.chatMessageHistoryButton}>
                         <IconSvg path={arrowUpNavIcon} viewBoxSize='0 0 17 17' width={14} height={14} />
@@ -627,46 +760,84 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                           <span> Загрузка сообщений...</span>
                         </div>
                       ) : (
-                        <div className={styles.messageContainer} ref={messageContainerRef}>
-                          {
-                          userQuestions.length === 0 ? (
-                            <div className={styles.messageContainer_info_wrapper}>
-                              <p className={styles.messageContainer_info}>Пожалуйста, отправьте сообщение боту, чтобы начать диалог.</p>
-                            </div>
-                          ) : (
-                            userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
-                              <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
-                                <div className={styles.messageContainer_user}>
-                                  <span>
-                                    <b>Пользователь</b>
-                                    <div className={styles.messageContainer_user_question}>
-                                      {userQuestion.sender_question}
-                                    </div>
-                                  </span>
-                                </div>
-                                {index < botAnswers.length && (
-                                  <div className={styles.messageContainer_bot_wrapper}>
-                                    <div className={styles.chatIndicatorContainer}>
-                                      <div className={styles.chatIndicatorIcon}>
-                                        <div className={styles.chatIndicator}></div>
-                                        <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
-                                      </div>
-                                    </div>
-                                    <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
-                                      <p>OverAi bot</p>
-                                      <div className={styles.messageContainer_bot_answer}>
-                                        {formatBotAnswer(botAnswers[index].answer)}
-                                      </div>
-                                    </div>
-                                  </div>
-                                )}
+                        <>
+
+                          <div className={styles.messageContainer} ref={messageContainerRef}>
+                            {userQuestions.length === 0 && !isLoading ?   (
+                              <div className={styles.messageContainer_info_wrapper}>
+                                <p className={styles.messageContainer_info}>
+                                  Отправьте сообщение боту, чтобы начать диалог.
+                                </p>
                               </div>
-                            ))
-                          )}
-                        </div>
+                            ) : (
+                              userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
+                                <div key={index} className={index === 1 ? `${styles.message} first-message` : styles.message}>
+                                  <div className={styles.messageContainer_user}>
+                                    <span>
+                                      <b>Пользователь</b>
+                                      <div className={styles.messageContainer_user_question}>
+                                        {userQuestion.sender_question}
+                                      </div>
+                                    </span>
+                                  </div>
+
+                                  {index < botAnswers.length && (
+                                    <div className={styles.messageContainer_bot_wrapper}>
+                                      <div className={styles.chatIndicatorContainer}>
+                                        <div className={styles.chatIndicatorIcon}>
+                                          <div className={styles.chatIndicator}></div>
+                                          <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
+                                        </div>
+                                      </div>
+                                      <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
+                                        <p>OverAi bot</p>
+                                        <div className={styles.messageContainer_bot_answer}>
+                                          {formatBotAnswer(botAnswers[index].answer)}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+
+
+                                </div>
+
+                                
+                              ))
+                            )}
+
+                          {isLoading ? (
+                            <div className={styles.message}>
+                              <div className={styles.messageContainer_user}>
+                                <span>
+                                  <b>Пользователь</b>
+                                  <div className={styles.messageContainer_user_question}>
+                                    {bufUserQuestion}
+                                  </div>
+                                </span>
+                              </div>
+
+                              <div className={styles.messageContainer_bot_wrapper}>
+                                <div className={styles.chatIndicatorContainer}>
+                                  <div className={styles.chatIndicatorIcon}>
+                                    <div className={styles.chatIndicator}></div>
+                                    <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
+                                  </div>
+                                </div>
+                                <div className={styles.messageContainer_bot} style={{ wordWrap: 'break-word' }}>
+                                  <p>OverAi bot</p>
+                                  <div className={`${styles.messageContainer_bot_answer} ${styles.messageContainer_bot_answer_loading}`}>
+                                    {dots}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ) : (<></>)}
+
+                          </div>
+                          
+                        </>
+
                       )}
-
-
 
 
                       {error && (
