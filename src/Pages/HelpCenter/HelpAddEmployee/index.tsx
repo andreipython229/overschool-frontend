@@ -64,7 +64,7 @@ export const HelpSchoolPage = () => {
           </div>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/login.png")}
+              src={require("../../../assets/img/help/Изображение для 'помощь_ (3).png")}
               alt="Окно входа"
             />
           </div>
@@ -73,7 +73,7 @@ export const HelpSchoolPage = () => {
         <div className={styles.section}>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/login_btn.png")}
+              src={require("../../../assets/img/help/Изображение для 'помощь_ (4).png")}
               alt="Кнопка входа"
             />
           </div>
@@ -104,7 +104,7 @@ export const HelpSchoolPage = () => {
           </div>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/login.png")}
+              src={require("../../../assets/img/help/Изображение для 'помощь_ (5).png")}
               alt="Окно входа"
             />
           </div>
@@ -113,7 +113,7 @@ export const HelpSchoolPage = () => {
         <div className={styles.section}>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/login_btn.png")}
+              src={require("../../../assets/img/help/Изображение для 'помощь_ (6).png")}
               alt="Кнопка входа"
             />
           </div>
@@ -132,7 +132,7 @@ export const HelpSchoolPage = () => {
         </div>
       </div>
 
-      <div className={mainHelpStyles.ctaBlock}>
+      <div className={`${mainHelpStyles.ctaBlock} ${styles.ctaBlock}`}>
         <div className={mainHelpStyles.ctaText}>
           <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
           <p>

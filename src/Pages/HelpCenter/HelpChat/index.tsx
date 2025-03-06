@@ -60,16 +60,16 @@ export const HelpChat = () => {
             <p className={styles.section_text}>{`Для создания группового чата просто создайте группу пользователей, и чат автоматически создастся с участниками этой группы.`}</p>
             <p className={styles.section_text}>{`Для доступа ко всем вашим чатам, вы можете нажать на иконку "Чаты" на навигационной панели слева. Там вы найдете все созданные вами чаты, чтобы легко переключаться между ними и общаться с пользователями`}</p>
           </div>
-          <div className={styles.img_part}>
+          <div className={styles.img_part_t2}>
             <img
-              src={require("../../../assets/img/help/login.png")}
+              src={require("../../../assets/img/help/Изображение для 'помощь_ (11).png")}
               alt="Окно входа"
             />
           </div>
         </div>
       </div>
 
-      <div className={mainHelpStyles.ctaBlock}>
+      <div className={`${mainHelpStyles.ctaBlock} ${styles.ctaBlock}`}>
         <div className={mainHelpStyles.ctaText}>
           <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
           <p>

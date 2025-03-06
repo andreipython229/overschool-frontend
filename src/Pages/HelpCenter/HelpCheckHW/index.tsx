@@ -87,7 +87,7 @@ export const HelpCheckHW = () => {
                 </div>
             </div>
 
-            <div className={mainHelpStyles.ctaBlock}>
+            <div className={`${mainHelpStyles.ctaBlock} ${styles.ctaBlock}`}>
                 <div className={mainHelpStyles.ctaText}>
                     <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
                     <p>

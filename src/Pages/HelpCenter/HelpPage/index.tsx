@@ -31,7 +31,7 @@ const sections = [
   {
     title: "Настройка платформы",
     image: require("../../../assets/img/common/settingsPlatform.png"),
-    link: "/help/platform-settings",
+    link: "/help/help-platform-settings",
   },
   {
     title: "Как настроить аккаунт?",

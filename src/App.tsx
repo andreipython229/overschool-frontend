@@ -23,11 +23,12 @@ import { CourseCatalogPage } from 'Pages/CourseCatalog'
 import { ResetPassword } from 'Pages/ResetPassword'
 import { LoginPage } from './Pages/Login/LoginPage'
 import { HelpPage } from './Pages/HelpCenter/HelpPage'
-import { HelpSchoolPage } from 'Pages/HelpCenter/HelpSchoolPage'
+import { HelpSchoolPage } from 'Pages/HelpCenter/HelpAddEmployee'
 import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
 import { HelpCoursesPage } from './Pages/HelpCenter/HelpCoursesPage'
 import { HelpUserAccount } from 'Pages/HelpCenter/HelpUserAccount'
 import { HelpSchoolSettings } from 'Pages/HelpCenter/HelpSchoolSettings'
+import { HelpPlatformSettings } from 'Pages/HelpCenter/HelpPlatformSettings'
 import { HelpStudentsPage } from 'Pages/HelpCenter/HelpStudentsPage'
 import { HelpGroupSettings } from 'Pages/HelpCenter/HelpGroupSettings'
 import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
@@ -38,6 +39,7 @@ import { useLazyFetchSchoolByDomainQuery } from 'api/DomainService'
 import RouteHandler from './components/RouteHandler/RouteHandler'
 import { TechnicalWorks } from 'Pages/TechnicalWorks/TechnicalWorks'
 import { HelpDomainLink } from 'Pages/HelpCenter/HelpDomainLink'
+import { HelpGidStart } from 'Pages/HelpCenter/HelpGidStart'
 
 export const App = () => {
   const currentDomain = window.location.hostname
@@ -188,12 +190,14 @@ export const App = () => {
           <Route path={Path.Help} element={<HelpSchoolPage />} />
           <Route path={Path.HelpUserAccount} element={<HelpUserAccount />} />
           <Route path={Path.HelpSchoolSettings} element={<HelpSchoolSettings />} />
+          <Route path={Path.HelpPlatformSettings} element={<HelpPlatformSettings />} />
           <Route path={Path.HelpOverAI} element={<HelpOverAI />} />
           <Route path={Path.Courses} element={<HelpCoursesPage />} />
           <Route path={Path.HelpGroupSettings} element={<HelpGroupSettings />} />
           <Route path={Path.HelpStudents} element={<HelpStudentsPage />} />
           <Route path={Path.HelpCheckHW} element={<HelpCheckHW />} />
           <Route path={Path.HelpDomainLink} element={<HelpDomainLink />} />
+          <Route path={Path.HelpGidStart} element={<HelpGidStart />} />
           <Route path={Path.HelpChat} element={<HelpChat />} />
         </Route>
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />

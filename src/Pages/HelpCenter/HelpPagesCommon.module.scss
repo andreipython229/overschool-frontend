@@ -360,6 +360,12 @@
                 border-radius: 32px;
                 background: linear-gradient(90deg, #3170E7 13.5%, #7A90F7 100%);
 
+                @media (max-width: 1200px) {
+
+                    width: 100%;
+    
+                }
+
                 img {
                     width: 100%;
                     border-radius: 20px;

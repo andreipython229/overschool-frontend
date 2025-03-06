@@ -59,18 +59,18 @@ export const HelpUserAccount = () => {
             </div>
             <p className={styles.section_text}>{`Кликните в правом верхнем углу по иконке пользователя. В появившемся контекстном меню выберите пункт "Открыть профиль"`}</p>
           </div>
-          <div className={styles.img_part}>
+          <div className={styles.img_part_t2}>
             <img
-              src={require("../../../assets/img/help/login.png")}
+              src={require("../../../assets/img/help/Изображение для 'помощь_ (9).png")}
               alt="Окно входа"
             />
           </div>
         </div>
 
         <div className={styles.section}>
-          <div className={styles.img_part}>
+          <div className={styles.img_part_t2}>
             <img
-              src={require("../../../assets/img/help/login_btn.png")}
+              src={require("../../../assets/img/help/Изображение для 'помощь_ (10).png")}
               alt="Кнопка входа"
             />
           </div>
@@ -85,7 +85,7 @@ export const HelpUserAccount = () => {
         </div>
       </div>
 
-      <div className={mainHelpStyles.ctaBlock}>
+      <div className={`${mainHelpStyles.ctaBlock} ${styles.ctaBlock}`}>
         <div className={mainHelpStyles.ctaText}>
           <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
           <p>

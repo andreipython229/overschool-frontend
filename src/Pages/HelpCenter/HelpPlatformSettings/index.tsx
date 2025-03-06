@@ -11,7 +11,7 @@ import mainHelpStyles from "../HelpPage.module.scss";
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
 
-export const HelpSchoolSettings = () => {
+export const HelpPlatformSettings = () => {
   const { role } = useAppSelector(selectUser)
   const navigate = useNavigate()
   const [isLoginOpen, setLoginOpen] = useState(false);
@@ -54,14 +54,15 @@ export const HelpSchoolSettings = () => {
           <div className={styles.text_part}>
             <div className={styles.section_title}>
               <div className={styles.section_number}>1</div>
-              <h3 className={styles.section_title_text}>Шаги по созданию курса</h3>
+              <h3 className={styles.section_title_text}>Переходим на страничку настроек платформы</h3>
             </div>
-            <p className={styles.section_text}>{`В личном кабинете вашей школы выберите опцию "Создать курс".`}</p>
-            <p className={styles.section_text}>{`После  ввода названия курса он станет доступен для редактирования. Теперь вы  можете создать структуру курса, добавляя тематические модули и наполняя их занятиями. Следующим этапом станет добавление пользователей.`}</p>
+            <p className={styles.section_text}>{`Кликните на панели слева по "Шестерёнке".`}</p>
+            <p className={styles.section_text}>{`Для редактирования оформления нажмите кнопку "Настроить страницу курсов". Найти её можно чуть ниже иконки пользователя`}</p>
+            <p className={styles.section_text}>{`Здесь вы сможете изменить фон секции, короткое описание, а также название и аватар платформы. После внесения всех изменений нажмите кнопку "Завершить настройку курсов"`}</p>
           </div>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/Изображение для 'помощь_.png")}
+              src={require("../../../assets/img/help/Изображение для 'помощь_ (7).png")}
               alt="Окно входа"
             />
           </div>
@@ -70,35 +71,18 @@ export const HelpSchoolSettings = () => {
         <div className={styles.section}>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/Изображение для 'помощь_ (1).png")}
+              src={require("../../../assets/img/help/Изображение для 'помощь_ (8).png")}
               alt="Кнопка входа"
             />
           </div>
           <div className={styles.text_part}>
             <div className={styles.section_title}>
               <div className={styles.section_number}>2</div>
-              <h3 className={styles.section_title_text}>Как создать занятие</h3>
+              <h3 className={styles.section_title_text}>Основные настройки платформы</h3>
             </div>
-            <p className={styles.section_text}>{`После создания модулей, добавьте в них занятия. Занятия могут быть трех типов: обычные, домашние задания и тесты.`}</p>
-            <p className={styles.section_text}>{`При создании занятия можно использовать текст, видео, изображения и код, а также прикреплять необходимые файлы.`}</p>
-            <p className={styles.section_text}>{`Для создания занятия-теста укажите название теста и требуемый процент  правильных ответов. Затем укажите вопросы и варианты ответов на них, которые могут быть представлены как текстом, так и картинками`}</p>
-          </div>
-        </div>
-
-        <div className={styles.section}>
-          <div className={styles.text_part}>
-            <div className={styles.section_title}>
-              <div className={styles.section_number}>3</div>
-              <h3 className={styles.section_title_text}>Как добавить пользователей</h3>
-            </div>
-            <p className={styles.section_text}>{`Для добавления пользователей создайте требуемое количество групп, выберете  нужную вам группу и нажмите добавить пользователей. Заполните форму  данными пользователей и отправьте приглашение.`}</p>
-            <p className={styles.section_text}>{`Также для групп есть возможность добавления менторов. Для этого необходимо  выбрать менторов, доступных в вашей школе. Добавить менторов в школу  можно в настройках, в разделе "Сотрудники"`}</p>
-          </div>
-          <div className={styles.img_part}>
-            <img
-              src={require("../../../assets/img/help/Изображение для 'помощь_ (2).png")}
-              alt="Окно входа"
-            />
+            <p className={styles.section_text}>{`Для перехода к основным настройкам кликните вкладку "Основные"`}</p>
+            <p className={styles.section_text}>{`Здесь можно поменять название платформы, которое будет отображаться в адресах, относящихся к вашей платформе. Если вы делились с кем либо url ссылками на вашу платформу - то после изменения по старым url адресам она будет не доступна. Частая смена не рекомендуется.`}</p>
+            <p className={styles.section_text}>{`Также здесь можно внести ссылку на адрес публичного договора оферты (web-ссылка на ваш договор, по которой можно перейти и ознакомится) и ссылку на связь с руководством платформы (сслыка на вашу страничку или группу в любой социальной сети, где с вами можно связаться по вопросам платформы)`}</p>
           </div>
         </div>
 
