@@ -66,12 +66,15 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [dots, setDots] = useState('.');
   const listOfChatContainerRef = useRef<HTMLDivElement | null>(null);
   const activeChatRef = useRef<HTMLDivElement | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const [bufUserQuestion, setBufUserQuestion] = useState('');
 
-  useEffect(() => {setFocusToBottom();}, [isLoading])
+  useEffect(() => { scrollMessagesToBottom(); }, [isLoading])
 
   useEffect(() => {
+
+
     const interval = setInterval(() => {
       setDots((prevDots) => {
         if (prevDots === '...') return '.';
@@ -82,7 +85,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   }, []);
 
   useEffect(() => {
-    scrollToSelectedChat()
+    setTextAreaFocus();
+    scrollToSelectedChat();
     console.log(userQuestions);
 
     const fetchData = async () => {
@@ -107,7 +111,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         // console.log('gg');
         try {
           await refetchMessages({ overai_chat_id: selectedChatId });
-          setFocusToBottom();
+          scrollMessagesToBottom();
         } catch (error) {
           setError('Ошибка получения сообщений');
         } finally {
@@ -128,11 +132,25 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     // }
   }, [selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage]);
 
+  const setTextAreaFocus = () => {
+    setTimeout(() => {
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+      }
+    }, 100);
+  }
 
+  const scrollMessagesToBottom = () => {
+    messageContainerRef.current?.scrollTo({
+      top: messageContainerRef.current.scrollHeight,
+      behavior: 'smooth'
+    });
+  };
 
   const toggleDialog = async () => {
     setIsDialogOpen(!isDialogOpen);
-    setFocusToBottom();
+    scrollMessagesToBottom();
+    setTextAreaFocus();
     isDialogOpen ? openChatModal() : closeChatModal();
 
     // const response = await fetchWelcomeMessage();
@@ -143,12 +161,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   };
 
-  const setFocusToBottom = () => {
-    messageContainerRef.current?.scrollTo({
-      top: messageContainerRef.current.scrollHeight,
-      behavior: 'smooth'
-    });
-  };
+
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -237,7 +250,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setFocusToBottom();
+      scrollMessagesToBottom();
     }, 100);
 
     return () => clearTimeout(timer);
@@ -557,7 +570,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const handleSendMessage = async (messageInput: string) => {
     if (messageInput.trim() === '') return;
     setBufUserQuestion(messageInput);
-    setFocusToBottom();
+    scrollMessagesToBottom();
     try {
       setIsLoading(true);
       setIsChatSelectionDisabled(true);
@@ -589,7 +602,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       setIsChatSelectionDisabled(false);
       setIsCreatingChatDisabled(false);
     }
-
+    setTextAreaFocus();
     setTimeout(() => {
       setError(null);
     }, 3000);
@@ -763,7 +776,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                         <>
 
                           <div className={styles.messageContainer} ref={messageContainerRef}>
-                            {userQuestions.length === 0 && !isLoading ?   (
+                            {userQuestions.length === 0 && !isLoading ? (
                               <div className={styles.messageContainer_info_wrapper}>
                                 <p className={styles.messageContainer_info}>
                                   Отправьте сообщение боту, чтобы начать диалог.
@@ -801,40 +814,40 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
                                 </div>
 
-                                
+
                               ))
                             )}
 
-                          {isLoading ? (
-                            <div className={styles.message}>
-                              <div className={styles.messageContainer_user}>
-                                <span>
-                                  <b>Пользователь</b>
-                                  <div className={styles.messageContainer_user_question}>
-                                    {bufUserQuestion}
-                                  </div>
-                                </span>
-                              </div>
+                            {isLoading ? (
+                              <div className={styles.message}>
+                                <div className={styles.messageContainer_user}>
+                                  <span>
+                                    <b>Пользователь</b>
+                                    <div className={styles.messageContainer_user_question}>
+                                      {bufUserQuestion}
+                                    </div>
+                                  </span>
+                                </div>
 
-                              <div className={styles.messageContainer_bot_wrapper}>
-                                <div className={styles.chatIndicatorContainer}>
-                                  <div className={styles.chatIndicatorIcon}>
-                                    <div className={styles.chatIndicator}></div>
-                                    <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
+                                <div className={styles.messageContainer_bot_wrapper}>
+                                  <div className={styles.chatIndicatorContainer}>
+                                    <div className={styles.chatIndicatorIcon}>
+                                      <div className={styles.chatIndicator}></div>
+                                      <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
+                                    </div>
                                   </div>
-                                </div>
-                                <div className={styles.messageContainer_bot} style={{ wordWrap: 'break-word' }}>
-                                  <p>OverAi bot</p>
-                                  <div className={`${styles.messageContainer_bot_answer} ${styles.messageContainer_bot_answer_loading}`}>
-                                    {dots}
+                                  <div className={styles.messageContainer_bot} style={{ wordWrap: 'break-word' }}>
+                                    <p>OverAi bot</p>
+                                    <div className={`${styles.messageContainer_bot_answer} ${styles.messageContainer_bot_answer_loading}`}>
+                                      {dots}
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          ) : (<></>)}
+                            ) : (<></>)}
 
                           </div>
-                          
+
                         </>
 
                       )}
@@ -854,6 +867,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                         ) : (
                           <>
                             <textarea
+                              ref={textareaRef}
                               rows={1}
                               placeholder="Отправьте сообщение..."
                               value={messageInput}
