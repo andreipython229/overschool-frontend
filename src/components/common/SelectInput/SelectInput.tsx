@@ -8,16 +8,23 @@ import { SelectInputPropsT } from '../../../types/commonComponentsTypes'
 
 import styles from './selectInput.module.scss'
 
-export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption, defaultOption = 'выбрать', setSelectedValue, className, onToggle }) => {
+export const SelectInput: FC<SelectInputPropsT> = ({
+  optionsList,
+  selectedOption,
+  defaultOption = 'выбрать',
+  setSelectedValue,
+  className,
+  onToggle,
+}) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
   const [selectOption, setSelectOption] = useState<number | null>(null)
   const [defaultOp, setDefaultOp] = useState<string>('')
 
   const toggleOptions = () => {
-    const newIsOpen = !isOptionsOpen;
-    setIsOptionsOpen(newIsOpen);
+    const newIsOpen = !isOptionsOpen
+    setIsOptionsOpen(newIsOpen)
     if (onToggle) {
-      onToggle(newIsOpen);
+      onToggle(newIsOpen)
     }
   }
 
@@ -33,7 +40,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption
     if (!menuRef.current?.contains(target)) {
       setIsOptionsOpen(false)
       if (onToggle) {
-        onToggle(false); 
+        onToggle(false)
       }
     }
   }
@@ -77,7 +84,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption
         <button className={styles?.container_btn} type="button" aria-haspopup="listbox" aria-expanded={isOptionsOpen}>
           {defaultOp ? defaultOp : optionsList[selectOption!]?.label}
         </button>
-        <ul tabIndex={-1} role="listbox" className={`${styles.options} ${isOptionsOpen ? styles.show : ''}`}>
+        <ul tabIndex={-1} role="listbox" className={`${styles.options} ${isOptionsOpen ? styles.show : styles.hidden}`}>
           {optionsList?.map((option, index: number) => (
             <li
               key={index}
@@ -90,7 +97,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption
                 setIsOptionsOpen(false)
                 setSelectedValue && setSelectedValue(option.value)
                 if (onToggle) {
-                  onToggle(false);
+                  onToggle(false)
                 }
               }}
             >
@@ -103,4 +110,4 @@ export const SelectInput: FC<SelectInputPropsT> = ({ optionsList, selectedOption
   )
 }
 
-export default SelectInput;
+export default SelectInput

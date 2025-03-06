@@ -61,7 +61,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
   }
 
   return (
-    <form onSubmit={handleCreateLesson} className={styles.classesContainer} style={{ maxWidth: '600px', width: '100%' }}>
+    <form onSubmit={handleCreateLesson} className={styles.classesContainer}>
       <div onClick={closedAll} className={styles.classesContainer_closed}>
         <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
       </div>
@@ -78,7 +78,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
 
       <span className={styles.test_title}>Процент правильных ответов для выполнения</span>
 
-      <div style={{ marginBottom: '24px' }} className={styles.test_input}>
+      <div className={styles.test_input}>
         <Input placeholder={'0'} name="percent" min={0} onChange={handleChange} type={'number'} value={`${percent}`}>
           <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
         </Input>
@@ -112,13 +112,12 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
         ))}
       </div>
 
-      <div className={styles.classesContainer_type_btnBlock} style={{marginTop: 0}}>
+      <div className={styles.classesContainer_type_btnBlock}>
         <Button
-            style={{padding: '14px'}}
-            variant={'cancel'}
-            onClick={goToBack}
-            text={'Назад'}
-          />
+          variant={'cancel'}
+          onClick={goToBack}
+          text={'Назад'}
+        />
         <Button
           type={'submit'}
           text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить задание'}

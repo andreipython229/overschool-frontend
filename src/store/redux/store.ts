@@ -72,7 +72,7 @@ export const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'sections', 'filters', 'school', 'schoolId', 'headerId', 'landing', 'schoolProgress'],
+  whitelist: ['user', 'sections', 'userProfile', 'filters', 'school', 'schoolId', 'headerId', 'landing', 'schoolProgress'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

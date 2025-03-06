@@ -80,7 +80,7 @@ export const MobileLoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
   const changeSecurityStatus = () => {
     setSecurity(!security)
   }
- 
+
   const handleRegistrationUser = () => {
     navigate(generatePath(Path.CreateSchool))
   }
@@ -113,8 +113,6 @@ export const MobileLoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
         })
     }
   }, [isSuccess, isLoading])
-
-  
 
   const submitformikforgot = async (event: any) => {
     event.preventDefault()
@@ -374,7 +372,7 @@ export const MobileLoginModal: FC<LoginModalPropsT> = ({ setShowModal }) => {
         <div>
           <div className={styles.container}>
             <span className={styles.main_closed} onClick={handleRegistrationUser}>
-              <IconSvg width={15} height={15} viewBoxSize="0 0 14 14" path={crossIconPath} />
+              <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
             </span>
             <div className={styles.main_title} style={{ margin: '60px 0 30px 0 ' }}>
               Введите почту:

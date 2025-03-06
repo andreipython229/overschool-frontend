@@ -19,6 +19,13 @@
     gap: 24px;
     margin-bottom: 10px;
 
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      gap: 8px;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      gap: 8px;
+    }
+
     &_question {
       width: 100%;
       max-width: 427px;

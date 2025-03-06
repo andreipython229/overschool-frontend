@@ -13,7 +13,6 @@ import { useCreateMeetingsRemindersMutation } from "api/tgNotificationsServices"
 import Timer from "../../Timer/Timer";
 import { TgMeetingReminders } from "types/tgNotifications";
 import { Button } from 'components/common/Button/Button'
-import { number } from "yup";
 import styles from './addMeeting.module.scss';
 import { SchoolMeeting } from "../../../types/schoolMeetingsT";
 import { RootState } from "../../../store/redux/store";

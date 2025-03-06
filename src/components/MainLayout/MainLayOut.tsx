@@ -15,11 +15,12 @@ import { useLazyFetchStudentsGroupQuery } from 'api/studentsGroupService'
 
 import { motion } from 'framer-motion'
 import { NewSchoolProgress } from 'components/NewSchoolProgress'
-import { auth } from '../../store/redux/users/slice'
+import { auth, logoutState } from '../../store/redux/users/slice'
 import { useDispatch } from 'react-redux'
 import { useLazyLogoutQuery } from '../../api/userLoginService'
 import { RoleE } from 'enum/roleE'
 import { BackgroundAnimation } from '../BackgroundAnimation'
+import { clearUserProfile } from 'store/redux/users/profileSlice'
 
 export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -87,7 +88,8 @@ export const MainLayOut: FC = memo(() => {
       if (groupsError && 'originalStatus' in groupsError && groupsError.originalStatus === 404) {
         localStorage.clear()
         logout()
-        dispatch(auth(false))
+        dispatch(logoutState())
+        dispatch(clearUserProfile())
         navigate(generatePath(Path.InitialPage))
       }
     }

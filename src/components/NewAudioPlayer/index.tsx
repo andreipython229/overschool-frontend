@@ -6,7 +6,6 @@ import styles from './newAudioPlayer.module.scss'
 import style from '../AddAudio/addaudio.module.scss'
 import { IDeleteFunc } from 'types/commonComponentsTypes'
 import { deletePath } from 'config/commonSvgIconsPath'
-import { number } from 'yup'
 
 interface INewPlayer {
   music: string

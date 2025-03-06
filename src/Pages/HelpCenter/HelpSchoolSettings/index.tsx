@@ -45,7 +45,7 @@ export const HelpSchoolSettings = () => {
             <div onClick={handleHelpPage} className={styles.back_btn}>
               <IconSvg path={ArrowLeftIconPath} viewBoxSize="0 0 9 14" height={24} width={18} />
             </div>
-            <p>Настройки платформы</p>
+            <p>Как создать курс в онлайн-платформе Course Hub</p>
             <div></div>
           </div>
         </div>

@@ -9,14 +9,8 @@
 .container {
   @include display(flex, row);
   gap: 40px;
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    padding-top: 50px;
-  }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+
+  @media only screen and (max-width : 1220px) {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -31,10 +25,10 @@
   gap: 20px;
 
   @media only screen and (min-width : 320px) and (max-width : 375px) {
-    padding: 0 1rem 0 1rem;
+    padding: 0 0.2rem;
   }
   @media only screen and (min-width : 375px) and (max-width : 480px) {
-    padding: 0 1rem 0 1rem;
+    padding: 0 0.2rem;
   }
 
   .availability_course_wrapper {
@@ -190,12 +184,20 @@
     &_title {
       @include font(500, 20px, 23.87px);
       color: #000000;
+
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        @include font(500, 17px, 21.87px);
+      }
     }
 
     &_desc {
       @include font(500, 16px, 19.09px);
       color: $color-grey;
       margin: 16px 0 8px;
+
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        @include font(500, 14px, 19.09px);
+      }
     }
 
     &_wrapper_switch {
@@ -244,6 +246,10 @@
       color: #000000;
       font-family: 'SFPRORegular';
       margin: 1rem 0;
+
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        @include font(500, 17px, 21.87px);
+      }
     }
   }
 
@@ -254,6 +260,10 @@
       color: #000000;
       font-family: 'SFPRORegular';
       margin: 1.5rem 0;
+
+      @media only screen and (min-width : 320px) and (max-width : 375px) {
+        @include font(500, 17px, 21.87px);
+      }
     }
 
     .penIcon {
@@ -271,12 +281,11 @@
       position: relative;
 
       div {
-
         div {
           border-radius: 16px;
           padding: 16px;
           border: 1px solid transparent;
-          background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+          background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
         }
       }
     
@@ -344,6 +353,13 @@
     @include font(500, 24px, 28.64px);
     font-family: 'SFPRORegular';
     color: $color-text;
+
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      @include font(500, 20px, 23.87px);
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @include font(500, 20px, 23.87px);
+    }
   }
 
   .right_content_header {
@@ -390,6 +406,15 @@
     flex-direction: column;
     gap: 1rem;
   }
+
+  button {
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      font-size: 15px;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      font-size: 19px;
+    }
+  }
 }
 
 .settings_input {
@@ -398,13 +423,11 @@
   text-align: left;
 
   div {
-
     div {
       border-radius: 16px;
-      padding: 16px;
       flex-direction: row-reverse;
       border: 1px solid transparent;
-      background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+      background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
     }
   }
 
@@ -412,6 +435,12 @@
     font-weight: 400;
     font-size: 16px;
     color: #808080;
+  }
+
+  input {
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      @include font(500, 17px, 21.87px);
+    }
   }
 }
 
@@ -427,11 +456,15 @@
 
       button {
         border-radius: 14px;
-        border: 2px solid #357EEB;
+        border: 2px solid #357eeb;
         padding: 16px;
         @include font(500, 20px, 23.87px);
         font-family: 'SFPRORegular';
         color: $color-blue;
+
+        @media only screen and (min-width : 320px) and (max-width : 375px) {
+          @include font(500, 17px, 19.09px);
+        }
      }
 
      svg {

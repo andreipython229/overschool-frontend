@@ -206,7 +206,7 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
         </div>
       ) : (
         <Link
-          style={{ width: '100%', height: '100%', maxWidth: '660px', minWidth: '320px' }}
+          style={{ width: '100%', height: '100%', maxWidth: '660px', minWidth: '288px' }}
           onClick={onStudentClick}
           to={
             course?.public !== 'О' || (course.limit && typeof course.remaining_period === 'number' && course.remaining_period === 0)
