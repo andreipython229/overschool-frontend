@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, memo } from 'react'
 import { Link, generatePath, useLocation, useNavigate } from 'react-router-dom'
-import { useFetchProfileDataQuery, useLazyFetchProfileDataQuery } from '../../api/profileService'
+import { useLazyFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { logoutState, role, id, authState as setAuthState } from 'store/redux/users/slice'
 import { Path } from 'enum/pathE'
@@ -8,7 +8,7 @@ import { useFetchSchoolHeaderQuery, useGetSchoolProgressionDataMutation } from '
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutIconPath } from './config/svgIconsPath'
 import { useLazyLogoutQuery } from 'api/userLoginService'
-import { schoolProgressSelector, selectUser } from '../../selectors'
+import { schoolProgressSelector, selectUser, selectUserProfile } from '../../selectors'
 import { logoHeader } from '../../assets/img/common'
 import CloseIcon from '../../assets/img/common/close.svg'
 import { headerUserRoleName } from 'config/index'
@@ -62,27 +62,21 @@ type WebSocketHeaders = {
 
 export const Header = memo(() => {
   const schoolName = window.location.href.split('/')[4]
-  const schoolId = localStorage.getItem('school_id')
+  const schoolId = Number(localStorage.getItem('school_id'))
+  const headerId = localStorage.getItem('header_id')
+
   const dispatch = useAppDispatch()
   const dispatchRole = useDispatch()
-  const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false)
-  const [getBanner, { data: banner }] = useLazyGetStudentBannerQuery()
-  const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(false)
-  const { role: userRole, userId } = useAppSelector(selectUser)
-  const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
-  const [socketConnect, setSocketConnect] = useState<boolean>(false)
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const [logout, { isLoading }] = useLazyLogoutQuery()
-  const headerId = localStorage.getItem('header_id')
-  const school_id = Number(localStorage.getItem('school_id'))
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
-  const { data: profileD, isSuccess: profileIsSuccess, isError, error, refetch: refetchUser } = useFetchProfileDataQuery()
-  let profile = profileD
-  const [fetchProfile, profileDt] = useLazyFetchProfileDataQuery()
-  const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
-  const { data: schoolData, isLoading: schoolDataLoading, error: schoolDataErorr } = useFetchSchoolQuery(Number(schoolId))
-  const [loginUser] = useLoginMutation()
+  const { userProfile } = useAppSelector(selectUserProfile)
+  const { role: userRole, userId } = useAppSelector(selectUser)
+  const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
+  const chats = useAppSelector(state => state.chats.chats)
+
+  const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false)
+  const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(false)
+  const [socketConnect, setSocketConnect] = useState<boolean>(false)
   const [currentTariff, setCurrentTariff] = useState<ITariff>({
     tariff_name: '',
     days_left: null,
@@ -103,49 +97,49 @@ export const Header = memo(() => {
       discount_12_months_byn: 0,
     },
   })
-  const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation()
   const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
   const [unreadAppeals, setUnreadAppeals] = useState<number>(0)
-  const chats = useAppSelector(state => state.chats.chats)
   const [fetchedChats, setFetchedChats] = useState<ChatI[]>([])
   const [, , removeAccessCookie] = useCookies(['access_token'])
   const [, , removeRefreshCookie] = useCookies(['refresh_token'])
-
-  const [profileData, setProfileData] = useState<profileT>()
   const [schoolRoles, setSchoolRoles] = useState<additionalRoleT | undefined>(undefined)
   const [logotype, setLogo] = useState<string | undefined>('')
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
-
-  const [fetchGroups, { data: studentsGroups }] = useLazyFetchStudentsGroupWithParamsQuery()
-  const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
   const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null)
-  const [acceptBanner] = useAcceptBannerMutation()
-
-  // const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
-  const [showTgMessageForm, setShowTgMessageForm] = useState(false)
-  const [createTgMessage] = useUpdateTgMessageMutation()
   const [tgMessage, setTgMessage] = useState<TgMessage>({
     message: '',
     students_groups: [],
   })
   const [allGroups, setAllGroups] = useState<boolean>(false)
+  const [showTgMessageForm, setShowTgMessageForm] = useState(false)
+
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
+  const [logout, { isLoading }] = useLazyLogoutQuery()
+  const [getBanner, { data: banner }] = useLazyGetStudentBannerQuery()
+  const [refetchUser, { isSuccess: profileIsSuccess, isError, error }] = useLazyFetchProfileDataQuery()
+  const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
+  const { data: schoolData } = useFetchSchoolQuery(Number(schoolId))
+  const [loginUser] = useLoginMutation()
+  const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation()
+  const [fetchGroups, { data: studentsGroups }] = useLazyFetchStudentsGroupWithParamsQuery()
+  const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
+  const [acceptBanner] = useAcceptBannerMutation()
+  // const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
+  const [createTgMessage] = useUpdateTgMessageMutation()
 
   const restrictedEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru']
-  const canChangePlatform = profileData?.user?.email ? !restrictedEmails.includes(profileData.user.email) : false
+  const canChangePlatform = userProfile?.email ? !restrictedEmails.includes(userProfile.email) : false
 
   const logOut = async () => {
     await logout().then(() => {
-      setProfileData(undefined)
       dispatch(clearUserProfile())
       dispatch(logoutState())
       dispatch(removeSchoolId())
       dispatch(removeHeaderId())
       dispatch(removeSchoolName())
-      removeAccessCookie('access_token')
-      removeRefreshCookie('refresh_token')
       localStorage.clear()
       navigate(generatePath(Path.InitialPage))
       setSocketConnect(false)
@@ -184,8 +178,22 @@ export const Header = memo(() => {
         }
 
         dispatch(role(userRole))
-        await fetchProfile()
-        profile = profileDt.data
+        await refetchUser()
+          .unwrap()
+          .then(data =>
+            dispatch(
+              setUserProfile({
+                id: data[0].profile_id,
+                first_name: data[0].user.first_name,
+                last_name: data[0].user.last_name,
+                email: String(data[0].user.email),
+                username: String(data[0].user.username),
+                phone_number: String(data[0].user.phone_number),
+                avatar: data[0].avatar,
+                additional_roles: data[0].additional_roles,
+              }),
+            ),
+          )
         localStorage.setItem('id', user.id.toString())
         localStorage.setItem('email', user.email)
       }
@@ -203,16 +211,14 @@ export const Header = memo(() => {
   }
 
   useEffect(() => {
-    if (profileIsSuccess && profile) {
-      const profileData = Array.isArray(profile) ? profile[0] : profile
-
-      if ('additional_roles' in profileData) {
-        const rolesForSchool = profileData.additional_roles.find((role: additionalRoleT) => role.school_id === school_id)
+    if (userProfile) {
+      if ('additional_roles' in userProfile && userProfile.additional_roles.length > 0) {
+        const rolesForSchool = userProfile.additional_roles.find((role: additionalRoleT) => role.school_id === schoolId)
 
         setSchoolRoles(rolesForSchool)
       }
     }
-  }, [profile, profileIsSuccess, school_id])
+  }, [userProfile])
 
   useEffect(() => {
     if (isError && error && 'originalStatus' in error && error.originalStatus === 401) {
@@ -247,10 +253,6 @@ export const Header = memo(() => {
   }, [schoolName])
 
   useEffect(() => {
-    profile && profileIsSuccess && setProfileData(profile[0])
-  }, [profile])
-
-  useEffect(() => {
     if (banner && 'is_accepted_by_user' in banner && !banner.is_accepted_by_user) {
       openBanner()
     }
@@ -277,23 +279,6 @@ export const Header = memo(() => {
       dispatch(setTariff(tariffPlan))
     }
   }, [tariffSuccess, tariffPlan])
-  useEffect(() => {
-    if (profileData) {
-      const newProfileData: UserProfileT = {
-        id: profileData.profile_id || 0,
-        username: profileData.user.username || '',
-        first_name: profileData.user.first_name || '',
-        last_name: profileData.user.last_name || '',
-        email: profileData.user.email || '',
-        phone_number: profileData.user.phone_number || '',
-        avatar: profileData.avatar || '',
-      }
-
-      if (newProfileData) {
-        dispatch(setUserProfile(newProfileData))
-      }
-    }
-  }, [profileData])
 
   // Socket INFO Update *****************************************************
 
@@ -339,13 +324,6 @@ export const Header = memo(() => {
 
       informSocketRef.current.onclose = () => {
         console.log('INFO WebSocket disconnected')
-        // Переподключение при закрытии соединения
-        // if (timerId === null) {
-        //   const tId = setTimeout(() => {
-        //     connectWebSocket()
-        //   }, 5000) as unknown as number;
-        //   setTimerId(tId);
-        // }
       }
     }
   }
@@ -359,11 +337,25 @@ export const Header = memo(() => {
   }, [])
 
   useEffect(() => {
-    const route = generatePath(Path.School + Path.Courses, { school_name: schoolName })
-    if (pathname === route) {
+    if (!userProfile) {
       refetchUser()
+        .unwrap()
+        .then(data =>
+          dispatch(
+            setUserProfile({
+              id: data[0].profile_id,
+              first_name: data[0].user.first_name,
+              last_name: data[0].user.last_name,
+              email: String(data[0].user.email),
+              username: String(data[0].user.username),
+              phone_number: String(data[0].user.phone_number),
+              avatar: data[0].avatar,
+              additional_roles: data[0].additional_roles,
+            }),
+          ),
+        )
     }
-  }, [pathname])
+  }, [userProfile])
 
   // Chat Info Update *******************************************************
   useEffect(() => {
@@ -543,7 +535,7 @@ export const Header = memo(() => {
         <img src={logoHeader} alt="Logotype ITOVERONE" />
       </div>
       <div className={styles.header_hiddenBlock}>
-       <div>
+        <div>
           {userRole === RoleE.Admin && (
             <div className={styles.header_block}>
               <Button className={styles.messageBtn} variant="newSecondary" onClick={handleAddTgMessageForm} text="Оповещения">
@@ -552,102 +544,112 @@ export const Header = memo(() => {
               <Dialog
                 open={showTgMessageForm}
                 onClose={() => setShowTgMessageForm(false)}
-                PaperProps={{ style:
-                  { maxHeight: '100vh',
+                PaperProps={{
+                  style: {
+                    maxHeight: '100vh',
                     borderRadius: 'min(20px, 2.8vw)',
                     padding: 'min(20px, 2.8vw) min(84px, 11.75vw)',
                     margin: '0',
                     fontFamily: "'SFPRORegular', sans-serif",
                     maxWidth: '715px',
-                    width: 'min(715px, 100vw)'} }}
+                    width: 'min(715px, 100vw)',
+                  },
+                }}
               >
                 <DialogTitle
                   style={{
                     fontFamily: "'SFPRORegular', sans-serif",
                     fontSize: 'clamp(14px, 3.35vw, 24px)',
                     padding: '0',
-                    paddingLeft: '0'
-                  }}>
+                    paddingLeft: '0',
+                  }}
+                >
                   Отправить сообщения студентам
                   <button className={styles.closeButton} onClick={() => setShowTgMessageForm(false)}>
-                    <img src={CloseIcon} alt="Close" style={{width: 'min(16px, 2.24vw)'}}/>
+                    <img src={CloseIcon} alt="Close" style={{ width: 'min(16px, 2.24vw)' }} />
                   </button>
                 </DialogTitle>
-                  <div style={{
+                <div
+                  style={{
                     fontSize: 'clamp(12px, 2.24vw, 16px)',
                     paddingLeft: 'min(10px, 1.4vw)',
                     paddingBottom: 'min(16px, 2.24vw)',
                     paddingTop: 'min(8.39px, 1.4vw)',
-                    fontFamily: "'SFPRORegular', sans-serif"
-                    }}>
-                    Выберите одну или несколько ШКОЛ
-                  </div>
+                    fontFamily: "'SFPRORegular', sans-serif",
+                  }}
+                >
+                  Выберите одну или несколько ШКОЛ
+                </div>
 
-                  <div className={styles.textAreaBack}>
-                    <TextareaAutosize
+                <div className={styles.textAreaBack}>
+                  <TextareaAutosize
+                    style={{
+                      width: 'min(515px, 72.03vw)',
+                      height: 'min(18.8vh, 29.51vw)',
+                      maxHeight: '211px',
+                      borderRadius: '4px',
+                      overflow: 'auto',
+                    }}
+                    className={styles.textarea}
+                    id="message"
+                    placeholder="Text"
+                    value={tgMessage.message}
+                    minLength={1}
+                    onChange={e => setTgMessage({ ...tgMessage, message: e.target.value })}
+                  />
+                  <DialogActions style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                    <Button
+                      onClick={handleSendTgMessage}
+                      className={styles.customButton}
                       style={{
-                        width: 'min(515px, 72.03vw)',
-                        height: 'min(18.8vh, 29.51vw)',
-                        maxHeight: '211px',
-                        borderRadius: '4px',
-                        overflow: 'auto',
+                        backgroundColor: '#357EEB',
+                        flex: '1',
+                        color: 'white',
                       }}
-                      className={styles.textarea}
-                      id="message"
-                      placeholder="Text"
-                      value={tgMessage.message}
-                      minLength={1}
-                      onChange={e => setTgMessage({ ...tgMessage, message: e.target.value })}
+                      text="Отправить"
                     />
-                    <DialogActions style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                      <Button
-                        onClick={handleSendTgMessage}
-                        className={styles.customButton}
-                        style={{
-                          backgroundColor: '#357EEB',
-                          flex: '1',
-                          color: 'white'
-                        }}
-                        text="Отправить" />
-                      <Button
-                        onClick={() => setShowTgMessageForm(false)}
-                        className={styles.customButton}
-                        style={{
-                          backgroundColor: '#cfe2ff',
-                          color: '#357EEB',
-                          flex: '1',
-                          border: '1px solid #357EEB'
-                        }}
-                        text="Отмена" />
-                    </DialogActions>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start'  }}>
                     <Button
-                          onClick={() => handleAllGroups(true)}
-                          className={styles.customButton}
-                          style={{
-                            backgroundColor: '#357EEB',
-                            padding: 'min(8.39px, 1.4vw) min(50px, 6.99vw)',
-                            marginTop: 'min(12px, 1.68vw)',
-                            color: 'white',
-                            display: 'block'
-                          }}
-                          text="Выбрать все группы" />
-                    <Button
-                          onClick={() => handleAllGroups(false)}
-                          className={styles.customButton}
-                          style={{
-                            backgroundColor: 'white',
-                            color: '#357EEB',
-                            padding: 'min(8.39px, 1.4vw) min(50px, 6.99vw)',
-                            marginTop: 'min(10.91px, 1.82vw)',
-                            marginBottom: 'min(10.91px, 1.82vw)',
-                            border: '1px solid #357EEB'
-                          }}
-                          text="Снять выделение со всех групп" />
-                  </div>
+                      onClick={() => setShowTgMessageForm(false)}
+                      className={styles.customButton}
+                      style={{
+                        backgroundColor: '#cfe2ff',
+                        color: '#357EEB',
+                        flex: '1',
+                        border: '1px solid #357EEB',
+                      }}
+                      text="Отмена"
+                    />
+                  </DialogActions>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <Button
+                    onClick={() => handleAllGroups(true)}
+                    className={styles.customButton}
+                    style={{
+                      backgroundColor: '#357EEB',
+                      padding: 'min(8.39px, 1.4vw) min(50px, 6.99vw)',
+                      marginTop: 'min(12px, 1.68vw)',
+                      color: 'white',
+                      display: 'block',
+                    }}
+                    text="Выбрать все группы"
+                  />
+                  <Button
+                    onClick={() => handleAllGroups(false)}
+                    className={styles.customButton}
+                    style={{
+                      backgroundColor: 'white',
+                      color: '#357EEB',
+                      padding: 'min(8.39px, 1.4vw) min(50px, 6.99vw)',
+                      marginTop: 'min(10.91px, 1.82vw)',
+                      marginBottom: 'min(10.91px, 1.82vw)',
+                      border: '1px solid #357EEB',
+                    }}
+                    text="Снять выделение со всех групп"
+                  />
+                </div>
 
-                  <DialogContent className={styles.MuiDialogContent_root} style={{ padding: '0' }}>
+                <DialogContent className={styles.MuiDialogContent_root} style={{ padding: '0' }}>
                   {studentsGroups && (
                     <div className={styles.wrapper_content_groups}>
                       {Object.entries(
@@ -664,70 +666,81 @@ export const Header = memo(() => {
                       ).map(([courseName, groups]) => (
                         <div key={courseName} style={{ marginBlockStart: 'min(2.52px, 0.42vw)' }}>
                           <Checkbox
-                                className={styles.customCheckbox}
-                                sx={{
-                                  '& .MuiSvgIcon-root': {
-                                    width: 'min(24px, 3.35vw)',
-                                    height: 'min(24px, 3.35vw)',
-                                  },
-                                }}
-                                onChange={e => {
-                                  const isChecked = e.target.checked
-                                  if (isChecked) {
-                                    setTgMessage(
-                                      (prevData: TgMessage) =>
-                                        ({
-                                          ...prevData,
-                                          students_groups: [...prevData.students_groups, ...groups.map(group => group.group_id)],
-                                        } as TgMessage),
-                                    )
-                                  } else {
-                                    setAllGroups(false)
-                                    setTgMessage((prevData: TgMessage) => ({
+                            className={styles.customCheckbox}
+                            sx={{
+                              '& .MuiSvgIcon-root': {
+                                width: 'min(24px, 3.35vw)',
+                                height: 'min(24px, 3.35vw)',
+                              },
+                            }}
+                            onChange={e => {
+                              const isChecked = e.target.checked
+                              if (isChecked) {
+                                setTgMessage(
+                                  (prevData: TgMessage) =>
+                                    ({
                                       ...prevData,
-                                      students_groups: prevData.students_groups.filter(id => !groups.some(group => group.group_id === id)),
-                                    }))
-                                  }
-                                }}
-                                checked={groups.every(group => new Set(tgMessage.students_groups).has(Number(group.group_id)))}
-
+                                      students_groups: [...prevData.students_groups, ...groups.map(group => group.group_id)],
+                                    } as TgMessage),
+                                )
+                              } else {
+                                setAllGroups(false)
+                                setTgMessage((prevData: TgMessage) => ({
+                                  ...prevData,
+                                  students_groups: prevData.students_groups.filter(id => !groups.some(group => group.group_id === id)),
+                                }))
+                              }
+                            }}
+                            checked={groups.every(group => new Set(tgMessage.students_groups).has(Number(group.group_id)))}
                           />
-                          <b style={{fontSize: 'clamp(14px, 2.8vw, 16.78px)', fontFamily: "'SFPRORegular', sans-serif", color: 'grey'}}>{courseName} (групп: {groups.length})</b>
-                          {groups.some(group => tgMessage.students_groups.includes(group.group_id  ?? 0)) &&
-                          groups.map((group, index) => (
-                            <div key={group.group_id} style={{ marginLeft: 'min(12.59px, 2.1vw)', fontSize: 'clamp(14px, 2.8vw, 16.78px)', fontFamily: "'SFPRORegular', sans-serif", color: 'grey'}}>
-                              <Checkbox
-                                className={styles.customCheckbox}
-                                sx={{
-                                  '& .MuiSvgIcon-root': {
-                                    width: 'min(24px, 3.35vw)',
-                                    height: 'min(24px, 3.35vw)',
-                                  },
+                          <b style={{ fontSize: 'clamp(14px, 2.8vw, 16.78px)', fontFamily: "'SFPRORegular', sans-serif", color: 'grey' }}>
+                            {courseName} (групп: {groups.length})
+                          </b>
+                          {groups.some(group => tgMessage.students_groups.includes(group.group_id ?? 0)) &&
+                            groups.map((group, index) => (
+                              <div
+                                key={group.group_id}
+                                style={{
+                                  marginLeft: 'min(12.59px, 2.1vw)',
+                                  fontSize: 'clamp(14px, 2.8vw, 16.78px)',
+                                  fontFamily: "'SFPRORegular', sans-serif",
+                                  color: 'grey',
                                 }}
-                                onChange={e => {
-                                  const isChecked = e.target.checked
-                                  if (isChecked) {
-                                    setTgMessage(
-                                      (prevData: TgMessage) =>
-                                        ({
-                                          ...prevData,
-                                          students_groups: [...prevData.students_groups, group.group_id],
-                                        } as TgMessage),
-                                    )
-                                  } else {
-                                    setAllGroups(false)
-                                    setTgMessage((prevData: TgMessage) => ({
-                                      ...prevData,
-                                      students_groups: prevData.students_groups.filter(id => id !== group.group_id),
-                                    }))
-                                  }
-                                }}
-                                checked={new Set(tgMessage.students_groups).has(Number(group.group_id))}
-                              />
+                              >
+                                <Checkbox
+                                  className={styles.customCheckbox}
+                                  sx={{
+                                    '& .MuiSvgIcon-root': {
+                                      width: 'min(24px, 3.35vw)',
+                                      height: 'min(24px, 3.35vw)',
+                                    },
+                                  }}
+                                  onChange={e => {
+                                    const isChecked = e.target.checked
+                                    if (isChecked) {
+                                      setTgMessage(
+                                        (prevData: TgMessage) =>
+                                          ({
+                                            ...prevData,
+                                            students_groups: [...prevData.students_groups, group.group_id],
+                                          } as TgMessage),
+                                      )
+                                    } else {
+                                      setAllGroups(false)
+                                      setTgMessage((prevData: TgMessage) => ({
+                                        ...prevData,
+                                        students_groups: prevData.students_groups.filter(id => id !== group.group_id),
+                                      }))
+                                    }
+                                  }}
+                                  checked={new Set(tgMessage.students_groups).has(Number(group.group_id))}
+                                />
 
-                              <b>{group.name} (Кол-во студентов: {group.students.length})</b>
-                            </div>
-                          ))}
+                                <b>
+                                  {group.name} (Кол-во студентов: {group.students.length})
+                                </b>
+                              </div>
+                            ))}
                         </div>
                       ))}
                     </div>

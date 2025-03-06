@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useFormik } from 'formik'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { auth, authState, id, role, userName } from 'store/redux/users/slice'
+import { auth, authState, id, logoutState, role, userName } from 'store/redux/users/slice'
 import { useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery } from '../../api/userLoginService'
 import { Input } from 'components/common/Input/Input/Input'
 import { isSecurity, unSecurity } from '../../assets/img/common'
@@ -26,6 +26,7 @@ import { logoHeaderLogin, facebook, google, maillog, leftArrow } from '../../ass
 import { selectUser } from 'selectors'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { BackgroundAnimation } from 'components/BackgroundAnimation'
+import { clearUserProfile } from 'store/redux/users/profileSlice'
 
 interface INotification {
   state: boolean
@@ -181,7 +182,8 @@ export const LoginPage = () => {
                     if (err.status === 401) {
                       localStorage.clear()
                       logout()
-                      dispatch(auth(false))
+                      dispatch(logoutState())
+                      dispatch(clearUserProfile())
                       navigate(generatePath(Path.InitialPage))
                     }
                   })

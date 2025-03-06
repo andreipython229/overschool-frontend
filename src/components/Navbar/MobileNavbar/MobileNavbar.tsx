@@ -1,4 +1,4 @@
-import React, { FC, memo, useState, useEffect } from 'react'
+import React, { FC, memo, useState } from 'react'
 import { Link, NavLink, generatePath, useNavigate } from 'react-router-dom'
 import { Path } from 'enum/pathE'
 import { useLazyLogoutQuery } from 'api/userLoginService'
@@ -25,7 +25,6 @@ import { removeSchoolId } from 'store/redux/school/schoolIdSlice'
 import { removeHeaderId } from 'store/redux/school/headerIdSlice'
 import { removeSchoolName } from 'store/redux/school/schoolSlice'
 import { useCookies } from 'react-cookie'
-import { useFetchProfileDataQuery } from 'api/profileService'
 import { RoleE } from 'enum/roleE'
 import { logOutIconPath } from './svgIconsPath'
 
@@ -47,7 +46,6 @@ export const MobileNavbar: FC = memo(() => {
   const [, , removeAccessCookie] = useCookies(['access_token'])
   const [, , removeRefreshCookie] = useCookies(['refresh_token'])
   const navigate = useNavigate()
-  const { data: profile, isSuccess: profileIsSuccess, isError, error } = useFetchProfileDataQuery()
   const [anchorMob, setAnchorMob] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorMob)
   const dispatchRole = useDispatch()
@@ -63,7 +61,6 @@ export const MobileNavbar: FC = memo(() => {
       removeAccessCookie('access_token')
       removeRefreshCookie('refresh_token')
       localStorage.clear()
-      dispatch(auth(false))
       navigate(generatePath(Path.InitialPage))
     })
   }
@@ -81,12 +78,6 @@ export const MobileNavbar: FC = memo(() => {
   const handleClose = () => {
     setAnchorMob(null)
   }
-
-  useEffect(() => {
-    if (isError) {
-      logOut()
-    }
-  }, [isError])
 
   return (
     <>

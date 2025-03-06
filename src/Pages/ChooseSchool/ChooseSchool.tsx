@@ -20,7 +20,7 @@ import mobileImg from './components/imgs/mobileBg.png'
 import { Portal } from '../../components/Modal/Portal'
 import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
 import { motion } from 'framer-motion'
-import { auth, role } from 'store/redux/users/slice'
+import { auth, logoutState, role } from 'store/redux/users/slice'
 import { useLazyLogoutQuery } from 'api/userLoginService'
 import { Dialog, DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme } from '@mui/material'
 import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
@@ -33,6 +33,7 @@ import { Input } from 'components/common/Input/Input/Input'
 import { SchoolSelect } from './components/schoolSelect'
 import { SearchIconPath } from 'assets/Icons/svgIconPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { clearUserProfile } from 'store/redux/users/profileSlice'
 
 export type SchoolT = {
   school_id: number
@@ -104,7 +105,8 @@ export const ChooseSchool = () => {
           setIsLoading(false)
           localStorage.clear()
           logout()
-          dispatch(auth(false))
+          dispatch(logoutState())
+          dispatch(clearUserProfile())
           navigate(generatePath(Path.InitialPage))
         }
       })
@@ -332,7 +334,7 @@ export const ChooseSchool = () => {
                       style={{ width: '80%', margin: '0 auto' }}
                       onChange={event => setSearch(event.target.value)}
                     >
-                      <IconSvg width={16} height={16} viewBoxSize='0 0 24 24' path={SearchIconPath} className={styles.searchIcon}/>
+                      <IconSvg width={16} height={16} viewBoxSize="0 0 24 24" path={SearchIconPath} className={styles.searchIcon} />
                     </Input>
                   </div>
                 </form>
