@@ -93,12 +93,13 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
 
   return (
     <div className={styles.wrapper}>
-      <Button
-        onClick={handleGetTypeQuestion}
-        variant={'cancel'}
-        text={'Удалить'}
-        style={{ fontSize: '16px', padding: '6px 21px', position: 'absolute', top: '20px', right: '20px' }}
-      />
+      <div className={styles.wrapper_button}>
+        <Button
+          onClick={handleGetTypeQuestion}
+          variant={'cancel'}
+          text={'Удалить'}
+        />
+      </div>
       <h2 className={styles.wrapper_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
       <div className={styles.wrapper_drop_down_menu}>
         <h2 className={styles.wrapper_drop_down_menu_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
@@ -157,12 +158,13 @@ export const OptionsWithPictures: FC<PropsQuestionBlockT> = ({ question, title, 
               : ''}
           </div>
           {/* {isAddButtonVisible && ( */}
+          <div className={styles.wrapper_addButton}>
             <Button
               text={'+ Добавить вариант'}
-              style={{ lineHeight: '16.71px', fontWeight: '600', fontSize: '14px', marginTop: '10px' }}
               variant={'newPrimary'}
               onClick={handleAddAnswer}
             />
+          </div>
           {/* )} */}
         </div>
       </div>

@@ -64,43 +64,45 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, module
           />
           {module?.sum_marks}/{module?.homework_count ? module?.homework_count * 5 : 0}
         </span>
-        <div className={styles.accardionWrapper_component_header_lessonName}>
-          <h4 className={styles.accardionWrapper_component_header_lessonName_title}>{module?.section_name}</h4>
-          {/*<span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>*/}
-          {/*  {module.lessons.length !== 0 */}
-          {/*  ? <span>{module.lessons.length} {getNounDeclension(module.lessons.length, ['Занятие', 'Занятия', 'Занятий'])}</span>*/}
-          {/*  : <span>Модуль откроется чуть позже</span>*/}
-          {/*  }*/}
-          {/*</span>*/}
-        </div>
-        <div className={styles.accardionWrapper_component_header_stats}>
-          <span className={styles.accardionWrapper_component_header_stats_lesson}>
-            <IconSvg
-              width={24}
-              height={24}
-              viewBoxSize="0 0 24 24"
-              path={openIndex === moduleIndex ? lessonHeaderIcon('white') : lessonHeaderIcon('#332f36')}
-            />
-            {module?.completed_les_count}/{module?.lesson_count}
-          </span>
-          <span className={styles.accardionWrapper_component_header_stats_lesson}>
-            <IconSvg
-              width={24}
-              height={24}
-              viewBoxSize="0 0 24 24"
-              path={openIndex === moduleIndex ? testHeaderIcon('white') : testHeaderIcon('#332f36')}
-            />
-            {module?.completed_test_count}/{module?.test_count}
-          </span>
-          <span className={styles.accardionWrapper_component_header_stats_lesson}>
-            <IconSvg
-              width={24}
-              height={24}
-              viewBoxSize="0 0 24 24"
-              path={openIndex === moduleIndex ? homeworkHeaderIcon('white') : homeworkHeaderIcon('#332f36')}
-            />
-            {module?.completed_hw_count}/{module?.homework_count}
-          </span>
+        <div className={styles.accardionWrapper_component_header_container}>
+          <div className={styles.accardionWrapper_component_header_lessonName}>
+            <h4 className={styles.accardionWrapper_component_header_lessonName_title}>{module?.section_name}</h4>
+            {/*<span className={styles.accardionWrapper_component_header_lessonName_exerciseSum}>*/}
+            {/*  {module.lessons.length !== 0 */}
+            {/*  ? <span>{module.lessons.length} {getNounDeclension(module.lessons.length, ['Занятие', 'Занятия', 'Занятий'])}</span>*/}
+            {/*  : <span>Модуль откроется чуть позже</span>*/}
+            {/*  }*/}
+            {/*</span>*/}
+          </div>
+          <div className={styles.accardionWrapper_component_header_stats}>
+            <span className={styles.accardionWrapper_component_header_stats_lesson}>
+              <IconSvg
+                width={24}
+                height={24}
+                viewBoxSize="0 0 24 24"
+                path={openIndex === moduleIndex ? lessonHeaderIcon('white') : lessonHeaderIcon('#332f36')}
+              />
+              {module?.completed_les_count}/{module?.lesson_count}
+            </span>
+            <span className={styles.accardionWrapper_component_header_stats_lesson}>
+              <IconSvg
+                width={24}
+                height={24}
+                viewBoxSize="0 0 24 24"
+                path={openIndex === moduleIndex ? testHeaderIcon('white') : testHeaderIcon('#332f36')}
+              />
+              {module?.completed_test_count}/{module?.test_count}
+            </span>
+            <span className={styles.accardionWrapper_component_header_stats_lesson}>
+              <IconSvg
+                width={24}
+                height={24}
+                viewBoxSize="0 0 24 24"
+                path={openIndex === moduleIndex ? homeworkHeaderIcon('white') : homeworkHeaderIcon('#332f36')}
+              />
+              {module?.completed_hw_count}/{module?.homework_count}
+            </span>
+          </div>
         </div>
         <span className={styles.accardionWrapper_component_header_status}>
           <IconSvg

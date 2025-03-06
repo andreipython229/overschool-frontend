@@ -37,12 +37,13 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({ question, answers, title,
   return (
     <>
       <div className={styles.wrapper}>
-        <Button
-          onClick={handleGetTypeQuestion}
-          variant={'cancel'}
-          text={'Удалить'}
-          style={{ fontSize: '16px', padding: '6px 21px', position: 'absolute', top: '20px', right: '20px' }}
-        />
+        <div className={styles.wrapper_button}>
+          <Button
+            onClick={handleGetTypeQuestion}
+            variant={'cancel'}
+            text={'Удалить'}
+          />
+        </div>
         <h2 className={styles.wrapper_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
         <div className={styles.wrapper_drop_down_menu}>
           <h2 className={styles.wrapper_drop_down_menu_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
