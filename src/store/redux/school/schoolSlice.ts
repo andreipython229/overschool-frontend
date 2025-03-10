@@ -3,11 +3,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 interface SchoolState {
   schoolName: string
   contactLink: string
+  schoolId: number | null
+  headerId: number | null
 }
 
 const initialState: SchoolState = {
   schoolName: '',
   contactLink: '',
+  schoolId: null,
+  headerId: null,
 }
 
 const schoolSlice = createSlice({
@@ -20,12 +24,20 @@ const schoolSlice = createSlice({
     setSchoolName: (state, action: PayloadAction<string>): void => {
       state.schoolName = action.payload
     },
-    removeSchoolName: state => {
+    setSchoolId: (state, action: PayloadAction<number>) => {
+      state.schoolId = action.payload
+    },
+    setHeaderId: (state, action: PayloadAction<number>) => {
+      state.headerId = action.payload
+    },
+    clearSchoolData: state => {
       state.schoolName = ''
       state.contactLink = ''
+      state.schoolId = null
+      state.headerId = null
     },
   },
 })
 
-export const { setContactLink, setSchoolName, removeSchoolName } = schoolSlice.actions
+export const { setContactLink, setSchoolName, clearSchoolData, setSchoolId, setHeaderId } = schoolSlice.actions
 export const schoolReducer = schoolSlice.reducer

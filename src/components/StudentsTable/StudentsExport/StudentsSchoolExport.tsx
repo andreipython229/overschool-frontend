@@ -8,10 +8,11 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
 import { LimitModal } from 'components/Modal/LimitModal/LimitModal'
+import { schoolSelector } from 'selectors'
 
 export const StudentsSchoolExport: FC = () => {
   const filters = useAppSelector(state => state.filters['studentsPerSchool'])
-  const schoolId = localStorage.getItem('school_id')
+  const { schoolId } = useAppSelector(schoolSelector)
   const [fetchStudents, { isFetching }] = useLazyFetchAllStudentsPerSchoolQuery()
   const [setShow, { onToggle }] = useBoolean(false)
 

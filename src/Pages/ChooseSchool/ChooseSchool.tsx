@@ -10,22 +10,19 @@ import { useAppSelector } from '../../store/hooks'
 import { selectUser, schoolNameSelector } from '../../selectors'
 import { RoleE } from '../../enum/roleE'
 import { SimpleLoader } from '../../components/Loaders/SimpleLoader'
-import { setContactLink, setSchoolName } from '../../store/redux/school/schoolSlice'
-import { setSchoolId } from '../../store/redux/school/schoolIdSlice'
-import { setHeaderId } from '../../store/redux/school/headerIdSlice'
+import { setContactLink, setHeaderId, setSchoolId, setSchoolName } from '../../store/redux/school/schoolSlice'
 import { useDispatch } from 'react-redux'
 import { useBoolean } from '../../customHooks'
-import { userRoleName } from 'config/index'
 import mobileImg from './components/imgs/mobileBg.png'
 import { Portal } from '../../components/Modal/Portal'
 import { AddSchoolModal } from '../../components/Modal/AddSchoolModal/AddSchoolModal'
 import { motion } from 'framer-motion'
-import { auth, logoutState, role } from 'store/redux/users/slice'
+import { logoutState, role } from 'store/redux/users/slice'
 import { useLazyLogoutQuery } from 'api/userLoginService'
 import { Dialog, DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme } from '@mui/material'
 import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
 import { Domain } from '../../types/domainT'
-import { logoHeaderLogin, leftArrow, admin, admin2, teacher, teacher2, student, student2 } from '../../assets/img/common/index'
+import { logoHeaderLogin } from '../../assets/img/common/index'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
@@ -114,11 +111,8 @@ export const ChooseSchool = () => {
 
   const handleSchool = (school: SchoolT) => {
     dispatch(setContactLink(school.contact_link))
-    localStorage.setItem('school', school.name)
     dispatch(setSchoolName(school.name))
-    localStorage.setItem('school_id', String(school.school_id))
     dispatch(setSchoolId(school.school_id))
-    localStorage.setItem('header_id', String(school.header_school))
     localStorage.setItem('test_course', String(school.test_course))
     dispatch(setHeaderId(school.header_school))
     const roleValue = Object.entries(RoleE).find(([key, value]) => key === school.role)?.[1]

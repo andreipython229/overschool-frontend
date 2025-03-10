@@ -19,8 +19,7 @@ const range = (start: number, end: number) => {
 export const DOTS = '...'
 
 export const usePagination = ({ totalCount, currentPage = 1 }: paginationProps): paginationPageToReturn => {
-  // const activePage = localStorage.getItem('page') ?? currentPage
-  const activePage = 1 ?? currentPage
+  const activePage = currentPage
   const [page, setPage] = useState<number>(+activePage)
   const [total, setTotal] = useState<number>(totalCount)
 

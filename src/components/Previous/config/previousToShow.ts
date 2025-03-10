@@ -1,8 +1,5 @@
 import { Path, SettingsPath, Student } from '../../../enum/pathE'
 import { GlobalPrevious } from '../GlobalPrevious'
-import { CoursePrevious } from '../CoursePrevious'
-import { StudentPrevious } from '../StudentPrevious'
-import { StudentCourseHeader } from '../../../Pages/StudentCourse/StudentCourseHeader'
 import { GroupPrevious } from '../GroupPrevious'
 import {ProfilePrevious} from "../ProfilePrevious";
 
@@ -11,12 +8,6 @@ const pathToSearch = Object.entries(Path).map(([key, value]) => {
 })
 
 const objOfPathes = Object.assign({}, ...pathToSearch.map(key => ({ ...key })))
-
-const getCoursePath = () => {
-  let id = localStorage.getItem('course_id')
-  if (id == '' || !id) id = '1'
-  return `school/${localStorage.getItem('school')}/courses/student-course/${id}/`
-}
 
 export const previousToShow = [
   { path: Path.Courses + Student.Course, Component: GlobalPrevious },

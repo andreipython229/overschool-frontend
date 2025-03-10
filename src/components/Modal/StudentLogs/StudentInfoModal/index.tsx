@@ -6,28 +6,19 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Button } from 'components/common/Button/Button'
 import { StudentInfoAccardion } from './StudentInfoAccardion'
 import { result } from 'types/courseStatT'
-
-import { convertDate } from 'utils/convertDate'
 import mainStyles from '../../Modal.module.scss'
 import styles from './studentInfoModal.module.scss'
 import { useFetchStudentProgressQuery } from '../../../../api/userProgressService'
 import { useLazyFetchStudentLessonsQuery, useResetStudentLessonsAccessMutation } from '../../../../api/lessonAccessService'
-import {
-  useFetchStudentsGroupByCourseQuery,
-  useFetchStudentsGroupQuery,
-  useLazyFetchStudentsGroupByCourseQuery,
-  useUpdateGroupMutation,
-} from 'api/studentsGroupService'
+import { useLazyFetchStudentsGroupByCourseQuery, useUpdateGroupMutation } from 'api/studentsGroupService'
 import { useDeleteStudentFromGroupMutation } from '../../../../api/studentsGroupService'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, Select } from '@mui/material'
-import DatePicker, { registerLocale } from 'react-datepicker'
+import DatePicker from 'react-datepicker'
 import { groupSections, sectionLessons } from '../../../../types/lessonAccessT'
 import { useAppSelector } from 'store/hooks'
 import { headerUserRoleName } from '../../../../config/headerUserRoleName'
-import { selectUser } from '../../../../selectors'
+import { schoolSelector, selectUser } from '../../../../selectors'
 import { studentsGroupsT } from 'types/studentsGroup'
-import { log } from 'console'
-import { useParams } from 'react-router-dom'
 
 type studentInfoModalT = {
   student: result | null
@@ -78,8 +69,7 @@ type TargetGroup = {
 
 export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, isStudentDeleted }) => {
   const lastActivity = student?.last_login ? student.last_login : null
-  const schoolName = window.location.href.split('/')[4]
-  const schoolId = localStorage.getItem('school_id')
+  const { schoolName, schoolId } = useAppSelector(schoolSelector)
   const courseId = student?.course_id
   const [studentProgress, setStudentProgress] = useState<studentProgressT>()
   const { data } = useFetchStudentProgressQuery({ user_id: String(student?.student_id), schoolName })

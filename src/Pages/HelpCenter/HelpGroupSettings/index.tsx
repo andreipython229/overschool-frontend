@@ -1,22 +1,15 @@
-import { generatePath, useNavigate } from "react-router-dom";
-import { FC, memo, useState } from "react";
-import { Path } from "../../../enum/pathE";
-import styles from "../HelpPagesCommon.module.scss";
-import mainHelpStyles from "../HelpPage.module.scss";
-import { logo } from "../../../assets/img/common";
-import { Button } from "../../../components/common/Button/Button";
-import firstStep from '../../../assets/img/createProject/firstStep.png'
-import secondStep from '../../../assets/img/createProject/secondStep.png'
-import { InitPageHeader } from "../../Initial/newInitialPageHeader";
+import { generatePath, useNavigate } from 'react-router-dom'
+import { Path } from '../../../enum/pathE'
+import styles from '../HelpPagesCommon.module.scss'
+import mainHelpStyles from '../HelpPage.module.scss'
+import { Button } from '../../../components/common/Button/Button'
+import { InitPageHeader } from '../../Initial/newInitialPageHeader'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
-import { Footer } from "../../../components/Footer/index";
-
+import { Footer } from '../../../components/Footer/index'
 
 export const HelpGroupSettings = () => {
   const navigate = useNavigate()
-  const [isLoginOpen, setLoginOpen] = useState(false);
-  const [isRegistrationOpen, setRegistrationOpen] = useState(false);
 
   const handleHelpPage = () => {
     navigate(generatePath(Path.HelpPage))
@@ -38,7 +31,7 @@ export const HelpGroupSettings = () => {
         <div className={mainHelpStyles.bg_wrap4}></div>
       </div>
 
-      <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
+      <InitPageHeader />
 
       <div className={styles.sections}>
         <div className={styles.section}>
@@ -51,8 +44,6 @@ export const HelpGroupSettings = () => {
           </div>
         </div>
 
-
-
         <div className={styles.section}>
           <div className={styles.text_part}>
             <div className={styles.section_title}>
@@ -64,19 +55,13 @@ export const HelpGroupSettings = () => {
             загрузившемся окне появятся настройки группы.`}</p>
           </div>
           <div className={styles.img_part}>
-            <img
-              src={require("../../../assets/img/help/go_to_groups_settings.png")}
-              alt="К настройкам группы"
-            />
+            <img src={require('../../../assets/img/help/go_to_groups_settings.png')} alt="К настройкам группы" />
           </div>
         </div>
 
         <div className={styles.section}>
           <div className={styles.img_part}>
-            <img
-              src={require("../../../assets/img/help/groups_settings.png")}
-              alt="Настройки группы"
-            />
+            <img src={require('../../../assets/img/help/groups_settings.png')} alt="Настройки группы" />
           </div>
           <div className={styles.text_part}>
             <div className={styles.section_title}>
@@ -90,7 +75,6 @@ export const HelpGroupSettings = () => {
           </div>
         </div>
 
-
         <div className={styles.section}>
           <div className={styles.text_part}>
             <div className={styles.section_title}>
@@ -102,10 +86,7 @@ export const HelpGroupSettings = () => {
            доступа к урокам.`}</p>
           </div>
           <div className={styles.img_part}>
-            <img
-              src={require("../../../assets/img/help/access_groups_settings.png")}
-              alt="Доступ к урокам"
-            />
+            <img src={require('../../../assets/img/help/access_groups_settings.png')} alt="Доступ к урокам" />
           </div>
         </div>
       </div>
@@ -113,26 +94,15 @@ export const HelpGroupSettings = () => {
       <div className={mainHelpStyles.ctaBlock}>
         <div className={mainHelpStyles.ctaText}>
           <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
-          <p>
-            Попробуйте весь функционал в процессе использования и узнайте, как
-            удобно работать на нашей платформе.
-          </p>
-          <Button
-            text="Попробовать бесплатно"
-            variant="newLeaveRequest"
-            onClick={handleRegistrationUser}
-          />
+          <p>Попробуйте весь функционал в процессе использования и узнайте, как удобно работать на нашей платформе.</p>
+          <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
         </div>
         <div className={mainHelpStyles.ctaImage}>
-          <img
-            src={require("../../../assets/img/common/cta-image.png")}
-            alt="CTA-изображение"
-          />
+          <img src={require('../../../assets/img/common/cta-image.png')} alt="CTA-изображение" />
         </div>
       </div>
 
       <Footer />
     </div>
-
   )
 }
