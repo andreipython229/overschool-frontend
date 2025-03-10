@@ -618,20 +618,16 @@
   &_user {
     display: flex;
     justify-content: right;
-    text-align: right;
     margin-bottom: 20px;
     padding-bottom: 10px;
-
+    margin-left: 10px;
 
     span {
+      @include display(flex, column, initial, end);
       b {
         color: #667085;
         font-weight: 400;
         font-size: 12px;
-      }
-
-      div {
-        text-align: center;
       }
     }
 
@@ -645,7 +641,7 @@
       padding: 14px 22px;
       font-weight: 400;
       font-size: 16px;
-      word-break: break-all;
+      white-space:initial;
     }
   }
 
