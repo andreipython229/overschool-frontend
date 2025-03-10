@@ -8,7 +8,7 @@ import { useFetchSchoolHeaderQuery, useGetSchoolProgressionDataMutation } from '
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutIconPath } from './config/svgIconsPath'
 import { useLazyLogoutQuery } from 'api/userLoginService'
-import { schoolProgressSelector, schoolSelector, selectUser, selectUserProfile } from '../../selectors'
+import { schoolProgressSelector, schoolSelector, selectUser, selectUserProfile, tariffSelector } from '../../selectors'
 import { logoHeader } from '../../assets/img/common'
 import CloseIcon from '../../assets/img/common/close.svg'
 import { headerUserRoleName } from 'config/index'
@@ -43,7 +43,6 @@ import { TgMessage } from 'types/tgNotifications'
 import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { useLoginMutation } from '../../api/userLoginService'
-import { CoursesDataT } from 'types/CoursesT'
 import { Button } from 'components/common/Button/Button'
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
 import { useAcceptBannerMutation, useLazyGetStudentBannerQuery } from 'api/schoolBonusService'
@@ -54,12 +53,11 @@ import { SocialMediaButton } from 'components/SocialMediaButton'
 import { useFetchSchoolQuery } from '../../api/schoolService'
 
 export const Header = memo(() => {
-  const schoolName = window.location.href.split('/')[4]
-
   const dispatch = useAppDispatch()
   const dispatchRole = useDispatch()
   const navigate = useNavigate()
-  const { schoolId, headerId } = useAppSelector(schoolSelector)
+  const { schoolId, headerId, schoolName } = useAppSelector(schoolSelector)
+  const tariffPlan = useAppSelector(tariffSelector)
   const { userProfile } = useAppSelector(selectUserProfile)
   const { role: userRole, userId } = useAppSelector(selectUser)
   const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
@@ -107,7 +105,7 @@ export const Header = memo(() => {
   const [logout, { isLoading }] = useLazyLogoutQuery()
   const [getBanner, { data: banner }] = useLazyGetStudentBannerQuery()
   const [refetchUser, { isSuccess: profileIsSuccess, isError, error }] = useLazyFetchProfileDataQuery()
-  const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
+  const [fetchCurrentTarrif] = useLazyFetchCurrentTariffPlanQuery()
   const { data: schoolData } = useFetchSchoolQuery(Number(schoolId))
   const [loginUser] = useLoginMutation()
   const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation()
@@ -229,8 +227,10 @@ export const Header = memo(() => {
   }, [data])
 
   useEffect(() => {
-    if (userRole === RoleE.Admin) {
+    if (userRole === RoleE.Admin && !tariffPlan) {
       fetchCurrentTarrif(schoolName)
+        .unwrap()
+        .then(data => dispatch(setTariff(data)))
     } else if (userRole === RoleE.Student) {
       getBanner(schoolName)
     }
@@ -260,9 +260,8 @@ export const Header = memo(() => {
   useEffect(() => {
     if (tariffPlan && Object.keys(tariffPlan).length > 1) {
       setCurrentTariff(tariffPlan)
-      dispatch(setTariff(tariffPlan))
     }
-  }, [tariffSuccess, tariffPlan])
+  }, [tariffPlan])
 
   // Socket INFO Update *****************************************************
 

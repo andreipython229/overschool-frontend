@@ -3,7 +3,7 @@ import { generatePath, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { Path } from 'enum/pathE'
 import { Button } from 'components/common/Button/Button'
-import { authSelector, schoolNameSelector } from 'selectors'
+import { authSelector, schoolNameSelector, schoolSelector, selectUser } from 'selectors'
 import { logoHeader, plus, hat } from '../../assets/img/common/index'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import styles from './newInitial.module.scss'
@@ -14,6 +14,7 @@ import { useLazyLogoutQuery } from '../../api/userLoginService'
 import Tooltip from '@mui/material/Tooltip'
 import { useLazyFetchProfileDataQuery } from 'api/profileService'
 import { clearUserProfile } from 'store/redux/users/profileSlice'
+import { clearSchoolData } from 'store/redux/school/schoolSlice'
 
 export const InitPageHeader: FC = memo(() => {
   const DefaultDomains = ['localhost', 'platform.coursehb.ru', 'sandbox.coursehb.ru']
@@ -23,7 +24,13 @@ export const InitPageHeader: FC = memo(() => {
   const navigate = useNavigate()
   const [fetchAuth] = useLazyFetchProfileDataQuery()
   const currentDomain = window.location.hostname
-  const schoolName = useAppSelector(schoolNameSelector)
+  const { schoolName } = useAppSelector(schoolSelector)
+
+  useEffect(() => {
+    if (isLogin && !schoolName) {
+      dispatch(clearSchoolData())
+    }
+  }, [])
 
   const handleLoginPage = () => {
     navigate(generatePath(Path.LoginPage))

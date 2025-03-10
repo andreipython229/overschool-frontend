@@ -6,12 +6,11 @@ import logotype from './components/imgs/logo.png'
 import styles from './chooseSchool.module.scss'
 import { useEffect, useState } from 'react'
 import { useGetSchoolsMutation } from '../../api/getSchoolService'
-import { useAppSelector } from '../../store/hooks'
-import { selectUser, schoolNameSelector } from '../../selectors'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { selectUser, schoolSelector } from '../../selectors'
 import { RoleE } from '../../enum/roleE'
 import { SimpleLoader } from '../../components/Loaders/SimpleLoader'
-import { setContactLink, setHeaderId, setSchoolId, setSchoolName } from '../../store/redux/school/schoolSlice'
-import { useDispatch } from 'react-redux'
+import { clearSchoolData, setSchoolData } from '../../store/redux/school/schoolSlice'
 import { useBoolean } from '../../customHooks'
 import mobileImg from './components/imgs/mobileBg.png'
 import { Portal } from '../../components/Modal/Portal'
@@ -45,17 +44,14 @@ export type SchoolT = {
 
 export const ChooseSchool = () => {
   const navigate = useNavigate()
-  const [getSchools, { isSuccess: userSuccess, isError }] = useGetSchoolsMutation()
-  const dispatchRole = useDispatch()
+  const [getSchools, { isLoading }] = useGetSchoolsMutation()
   const [logout] = useLazyLogoutQuery()
   const { role: userRole } = useAppSelector(selectUser)
-  const schoolName = useAppSelector(schoolNameSelector)
+  const { schoolName } = useAppSelector(schoolSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
   const [selectedSchool, setSelectedSchool] = useState<SchoolT>()
-
-  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isOpen, { off, on }] = useBoolean()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [showWarning, { on: close, off: open }] = useBoolean(false)
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
@@ -79,27 +75,21 @@ export const ChooseSchool = () => {
           }
           return school
         })
-        console.log('Schools with domain:', domainSchoolsArray)
         setSchoolsWithDomain(domainSchoolsArray)
-      } else {
-        console.error('DomainData is not an array or does not contain a valid array')
       }
-    } else {
-      console.error('DomainData is invalid or schools array is empty')
     }
   }, [DomainSuccess, DomainData, schools])
 
   useEffect(() => {
-    dispatchRole(role(RoleE.Unknown))
+    dispatch(role(RoleE.Unknown))
+    dispatch(clearSchoolData())
     getSchools()
       .unwrap()
       .then((data: SchoolT[]) => {
-        setIsLoading(false)
         setSchools(data)
       })
       .catch(err => {
         if (err.status === 401) {
-          setIsLoading(false)
           localStorage.clear()
           logout()
           dispatch(logoutState())
@@ -110,29 +100,18 @@ export const ChooseSchool = () => {
   }, [])
 
   const handleSchool = (school: SchoolT) => {
-    dispatch(setContactLink(school.contact_link))
-    dispatch(setSchoolName(school.name))
-    dispatch(setSchoolId(school.school_id))
+    dispatch(
+      setSchoolData({
+        schoolId: school.school_id,
+        headerId: school.header_school,
+        schoolName: school.name,
+        contactLink: school.contact_link,
+      }),
+    )
     localStorage.setItem('test_course', String(school.test_course))
-    dispatch(setHeaderId(school.header_school))
-    const roleValue = Object.entries(RoleE).find(([key, value]) => key === school.role)?.[1]
-    roleValue && dispatch(role(+roleValue))
+    const roleValue = Object.entries(RoleE).find(([key, value]) => key === school.role)
+    roleValue && dispatch(role(Number(roleValue[1])))
   }
-
-  useEffect(() => {
-    if (userRole) {
-      navigate(
-        generatePath(
-          userRole === RoleE.SuperAdmin
-            ? Path.School + Path.Settings
-            : userRole === RoleE.Teacher
-            ? Path.School + Path.CourseStats
-            : Path.School + Path.Courses,
-          { school_name: schoolName },
-        ),
-      )
-    }
-  }, [userRole])
 
   const filteredSchool = schools.filter(school => {
     return school.name.toLowerCase().includes(search.toLowerCase())
@@ -150,6 +129,21 @@ export const ChooseSchool = () => {
 
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  useEffect(() => {
+    if (userRole && schoolName) {
+      navigate(
+        generatePath(
+          userRole === RoleE.SuperAdmin
+            ? Path.School + Path.Settings
+            : userRole === RoleE.Teacher
+            ? Path.School + Path.CourseStats
+            : Path.School + Path.Courses,
+          { school_name: schoolName },
+        ),
+      )
+    }
+  }, [userRole, schoolName])
 
   return (
     <div className={styles.con}>
@@ -275,20 +269,20 @@ export const ChooseSchool = () => {
                       <SwiperSlide className={styles.slide} key={index}>
                         {school.tariff_paid ? (
                           <Link
-                            onClick={async e => {
+                            onClick={e => {
                               e.preventDefault()
-                              await handleSchool(school)
+                              handleSchool(school)
                             }}
-                            style={{ textDecoration: 'none' }}
+                            style={{ textDecoration: 'none', overflow: 'hidden' }}
                             to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
                           >
                             <SchoolSelect role={school.role} logo={logotype} schoolName={school.name} />
                           </Link>
                         ) : school.role === 'Admin' ? (
                           <Link
-                            onClick={async e => {
+                            onClick={e => {
                               e.preventDefault()
-                              await handleSchool(school)
+                              handleSchool(school)
                             }}
                             style={{ textDecoration: 'none', overflow: 'hidden' }}
                             to={generatePath(`${Path.School}courses/`, { school_name: school.name })}

@@ -18,6 +18,12 @@ const schoolSlice = createSlice({
   name: 'school',
   initialState,
   reducers: {
+    setSchoolData: (state, action: PayloadAction<SchoolState>) => {
+      state.schoolName = action.payload.schoolName
+      state.contactLink = action.payload.contactLink
+      state.headerId = action.payload.headerId
+      state.schoolId = action.payload.schoolId
+    },
     setContactLink: (state, action: PayloadAction<string>): void => {
       state.contactLink = action.payload
     },
@@ -39,5 +45,5 @@ const schoolSlice = createSlice({
   },
 })
 
-export const { setContactLink, setSchoolName, clearSchoolData, setSchoolId, setHeaderId } = schoolSlice.actions
+export const { setContactLink, setSchoolName, clearSchoolData, setSchoolId, setHeaderId, setSchoolData } = schoolSlice.actions
 export const schoolReducer = schoolSlice.reducer

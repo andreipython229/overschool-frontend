@@ -10,3 +10,4 @@ export const schoolSelector = (state: RootState) => state.school
 export const schoolNameSelector = (state: RootState) => state.school.schoolName
 export const contactLinkSelector = (state: RootState) => state.school.contactLink
 export const schoolProgressSelector = (state: RootState) => state.schoolProgress
+export const tariffSelector = (state: RootState) => state.tariff.data
