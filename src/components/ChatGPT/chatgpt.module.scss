@@ -4,6 +4,7 @@
 .dialog {
   @include display(flex, column, initial, initial);
   position: relative;
+  opacity: 0;
   // top: 50%;
   // left: 50%;
   // transform: translate(-50%, -50%);
@@ -11,14 +12,15 @@
   height: 80vh;
   padding: 14px*$ai-window-ratio;
   overflow: hidden;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.4s ease;
 
   border-radius: 24px*$ai-window-ratio;
   border: 1px solid transparent;
-  box-shadow: 0px 0px 8px 0px #3241954D;
+  // box-shadow: 0px 0px 8px 0px #3241954D;
   // background-color: $color-white;
   background: linear-gradient(#fff, #fff) padding-box,
     linear-gradient(90deg, #3170E7 13.5%, #7A90F7 100%) border-box;
+  // box-shadow: none;
 }
 
 
@@ -40,8 +42,14 @@
   // background: $color-white;
 }
 
-.dialogOpen.noGradient::before {
-  display: none;
+// .dialogOpen.noGradient::before {
+//   display: none;
+// }
+
+.dialogOpen {
+  // display: none;
+  opacity: 1;
+  // transition-duration: 0.5s;
 }
 
 .contentContainer {
@@ -60,7 +68,7 @@
   @include display(flex, column, space-between, stroke);
   background-color: $color-white;
   border-radius: 20px*$ai-window-ratio;
-  // height: 14%;
+  height: 15%;
   width: 100%;
   // overflow-y: auto;
   display: flex;
@@ -463,7 +471,7 @@
 }
 
 .modalOverlay {
-  box-shadow: 0px 0px 8px 0px #3241954D;
+  pointer-events: none;
   position: fixed;
   border-radius: 24px*$ai-window-ratio;
   // top: 0;
@@ -479,7 +487,13 @@
   // backdrop-filter: blur(15px);
   overflow-x: hidden;
 
+  &_open {
+    box-shadow: 0px 0px 8px 0px #3241954D;
+    pointer-events: auto;
+  }
 }
+
+
 
 // .modalOverlay::before {
 //   content: "";
@@ -624,6 +638,7 @@
 
     span {
       @include display(flex, column, initial, end);
+
       b {
         color: #667085;
         font-weight: 400;
@@ -641,7 +656,7 @@
       padding: 14px 22px;
       font-weight: 400;
       font-size: 16px;
-      white-space:initial;
+      white-space: initial;
     }
   }
 
@@ -672,13 +687,13 @@
     }
   }
 
-  &_info{
+  &_info {
     font-size: 20px;
     text-align: center;
     margin: 30px;
     color: #332F36;
 
-    &_wrapper{
+    &_wrapper {
       @include display(flex, column, center, center);
       height: 100%;
       width: 100%;
@@ -972,7 +987,7 @@
   //   display: none;
   // }
 
-  .start_new_chat_btn{
+  .start_new_chat_btn {
     display: none;
   }
 
