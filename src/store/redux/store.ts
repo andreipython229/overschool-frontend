@@ -55,8 +55,6 @@ export const rootReducer = combineReducers({
   filters: slices.filtersReducer,
   chat: slices.chatReducer,
   school: slices.schoolReducer,
-  schoolId: slices.schoolIdReducer,
-  headerId: slices.headerIdReducer,
   tariff: slices.tariffReducer,
   unread: slices.unreadReducer,
   unreadAppeals: slices.unreadAppealsReducer,
@@ -72,7 +70,7 @@ export const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'sections', 'userProfile', 'filters', 'school', 'schoolId', 'headerId', 'landing', 'schoolProgress'],
+  whitelist: ['user', 'sections', 'userProfile', 'filters', 'school', 'landing', 'schoolProgress', 'tariff'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

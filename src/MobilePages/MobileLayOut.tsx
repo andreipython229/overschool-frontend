@@ -1,52 +1,48 @@
 import { Outlet, useNavigate } from 'react-router-dom'
-import {FC, memo, useEffect, useState} from 'react'
-
+import { FC, memo, useEffect, useState } from 'react'
 
 import { MobileNavbar } from 'components/Navbar/MobileNavbar/MobileNavbar'
 import { Previous } from '../components/Previous/Previous'
 import { Header } from 'components/Header/Header'
 import { useAppSelector } from '../store/hooks'
-import {authSelector, selectUser} from '../selectors'
+import { authSelector, schoolSelector, selectUser } from '../selectors'
 import { useFetchSchoolHeaderQuery } from '../api/schoolHeaderService'
 import { Path } from '../enum/pathE'
 
 import styles from '../components/MainLayout/mainLayOut.module.scss'
-import MobileChatGPT from "../components/ChatGPT/mobileChatGPT"
-import {useBoolean as useBooleanHook} from "../customHooks";
-import {useLazyFetchStudentsGroupQuery} from "../api/studentsGroupService";
+import MobileChatGPT from '../components/ChatGPT/mobileChatGPT'
+import { useBoolean as useBooleanHook } from '../customHooks'
+import { useLazyFetchStudentsGroupQuery } from '../api/studentsGroupService'
 import { Footer } from 'components/Footer'
 
 import { motion } from 'framer-motion'
 
-export const MobileLayOut : FC = memo(() => {
+export const MobileLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
 
   const navigate = useNavigate()
-  const schoolName = window.location.href.split('/')[4]
-  const headerId = localStorage.getItem('header_id')
+  const { schoolName, headerId } = useAppSelector(schoolSelector)
 
   const { role: userRole } = useAppSelector(selectUser)
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
   const [getGroups, { data: allGroups }] = useLazyFetchStudentsGroupQuery()
-  const [showChat, setShowChat] = useState<boolean>(false);
-  const [overaiLockExists, setOveraiLockExists] = useState(false);
-  const [ toggle, handlers ] = useBooleanHook();
-  const [currentTariff, setCurrentTariff] = useState<any | null>(null);
+  const [showChat, setShowChat] = useState<boolean>(false)
+  const [overaiLockExists, setOveraiLockExists] = useState(false)
+  const [toggle, handlers] = useBooleanHook()
+  const [currentTariff, setCurrentTariff] = useState<any | null>(null)
 
   useEffect(() => {
-      if (userRole === 1) {
-        getGroups(schoolName)
-      }
-  }, []);
+    if (userRole === 1) {
+      getGroups(schoolName)
+    }
+  }, [])
 
   useEffect(() => {
     if (userRole === 1 && allGroups && allGroups.results) {
-        const hasOveraiLock = allGroups.results.some(group =>
-            group.group_settings && group.group_settings.overai_lock
-        );
-        setOveraiLockExists(hasOveraiLock);
+      const hasOveraiLock = allGroups.results.some(group => group.group_settings && group.group_settings.overai_lock)
+      setOveraiLockExists(hasOveraiLock)
     }
-  }, [userRole, allGroups]);
+  }, [userRole, allGroups])
 
   useEffect(() => {
     if (!isLogin) {
@@ -55,10 +51,7 @@ export const MobileLayOut : FC = memo(() => {
   }, [isLogin, navigate])
 
   useEffect(() => {
-    setShowChat(!!(
-      (userRole === 2 || userRole === 3 || userRole === 4 || userRole === 5 || userRole === 6) ||
-      (userRole === 1 && overaiLockExists)
-    ))
+    setShowChat(!!(userRole === 2 || userRole === 3 || userRole === 4 || userRole === 5 || userRole === 6 || (userRole === 1 && overaiLockExists)))
 
     if (isSuccess) {
       let link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']")
@@ -73,11 +66,12 @@ export const MobileLayOut : FC = memo(() => {
   }, [data])
 
   const updateTariff = (tariff: any) => {
-    setCurrentTariff(tariff);
-  };
+    setCurrentTariff(tariff)
+  }
 
   return (
-    <motion.div className={styles.wrapper}
+    <motion.div
+      className={styles.wrapper}
       initial={{
         x: -2000,
       }}
@@ -88,17 +82,18 @@ export const MobileLayOut : FC = memo(() => {
       transition={{
         ease: 'easeInOut',
         duration: 0.4,
-      }} >
+      }}
+    >
       <main className={styles.main}>
         <Previous />
         <Outlet />
       </main>
-      
-        <MobileChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off}/>
-      
+
+      <MobileChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />
+
       <Footer schoolTariffPlan={updateTariff} />
       <nav className={styles.mobileFooter}>
-        <MobileNavbar/>
+        <MobileNavbar />
       </nav>
     </motion.div>
   )

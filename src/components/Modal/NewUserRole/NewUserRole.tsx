@@ -7,7 +7,7 @@ import styles from './newUserRole.module.scss'
 import { response } from 'msw'
 
 interface NewUserRoleProps {
-  school_id: string
+  school_id: number
   userId: number
   additional_roles?: string[]
   contact: string
@@ -45,7 +45,7 @@ export const NewUserRole: FC<NewUserRoleProps> = memo(({ school_id, userId, addi
     try {
       if (selectedRole) {
         const response = await assignRole({
-          school_id: parseInt(school_id),
+          school_id: school_id,
           user_id: userId,
           role_name: selectedRole,
         })
@@ -93,7 +93,7 @@ export const NewUserRole: FC<NewUserRoleProps> = memo(({ school_id, userId, addi
     try {
       if (selectedRole) {
         await removeRole({
-          school_id: parseInt(school_id),
+          school_id: school_id,
           user_id: userId,
           role_name: selectedRole,
         })

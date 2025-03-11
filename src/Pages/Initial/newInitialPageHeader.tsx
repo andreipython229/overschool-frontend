@@ -1,38 +1,37 @@
-import { FC, memo, useEffect, useState } from 'react'
-import { Link, generatePath, useNavigate, Params } from 'react-router-dom'
-
+import { FC, memo, useEffect } from 'react'
+import { generatePath, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { Path } from 'enum/pathE'
 import { Button } from 'components/common/Button/Button'
-import { authSelector, schoolNameSelector } from 'selectors'
-import { InitPageHeaderPT } from '../../types/pageTypes'
+import { authSelector, schoolNameSelector, schoolSelector, selectUser } from 'selectors'
 import { logoHeader, plus, hat } from '../../assets/img/common/index'
-import { selectUser } from 'selectors/index'
-import { RoleE } from 'enum/roleE'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import styles from './newInitial.module.scss'
 import { logOutIconPath } from '../../components/Header/config/newSvgIconsPath'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
-import { auth, logoutState } from '../../store/redux/users/slice'
+import { logoutState } from '../../store/redux/users/slice'
 import { useLazyLogoutQuery } from '../../api/userLoginService'
 import Tooltip from '@mui/material/Tooltip'
 import { useLazyFetchProfileDataQuery } from 'api/profileService'
 import { clearUserProfile } from 'store/redux/users/profileSlice'
+import { clearSchoolData } from 'store/redux/school/schoolSlice'
 
-export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setRegistrationShow }) => {
+export const InitPageHeader: FC = memo(() => {
   const DefaultDomains = ['localhost', 'platform.coursehb.ru', 'sandbox.coursehb.ru']
   const isLogin = useAppSelector(authSelector)
-  const { role: userRole, userName: name } = useAppSelector(selectUser)
   const dispatch = useAppDispatch()
   const [logout] = useLazyLogoutQuery()
   const navigate = useNavigate()
-  const [fetchAuth, { data }] = useLazyFetchProfileDataQuery()
+  const [fetchAuth] = useLazyFetchProfileDataQuery()
   const currentDomain = window.location.hostname
-  const schoolName = useAppSelector(schoolNameSelector)
+  const { schoolName } = useAppSelector(schoolSelector)
 
-  const handleLoginUser = () => {
-    setLoginShow(true)
-  }
+  useEffect(() => {
+    if (isLogin && !schoolName) {
+      dispatch(clearSchoolData())
+    }
+  }, [])
+
   const handleLoginPage = () => {
     navigate(generatePath(Path.LoginPage))
   }
@@ -66,11 +65,10 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
   const logOut = async () => {
     await logout()
       .unwrap()
-      .then(() => {
+      .finally(() => {
         localStorage.clear()
         dispatch(clearUserProfile())
         dispatch(logoutState())
-        window.location.reload()
       })
   }
   const handlePlatformEntry = () => {
@@ -84,7 +82,7 @@ export const InitPageHeader: FC<InitPageHeaderPT> = memo(({ setLoginShow, setReg
   useEffect(() => {
     if (isLogin) {
       fetchAuth().catch(err => {
-        if (err.status === 401) {
+        if (err.status === 401 || err.status === 403) {
           logOut()
         }
       })

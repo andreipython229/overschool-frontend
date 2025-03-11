@@ -11,10 +11,11 @@ import { CoursesDataT } from '../../types/CoursesT'
 import styles from './mobileCoursesPage.module.scss'
 
 import { motion } from 'framer-motion'
-
+import { useAppSelector } from 'store/hooks'
+import { schoolSelector } from 'selectors'
 
 export const MobileCoursesPage: FC = memo(() => {
-  const schoolName = window.location.href.split('/')[4]
+  const { schoolName } = useAppSelector(schoolSelector)
   const { data: coursesList } = useFetchCoursesQuery(schoolName)
 
   const [term, filteredData, handleChangeTerm] = useDebouncedFilter(coursesList?.results as CoursesDataT[], 'name')
@@ -31,8 +32,9 @@ export const MobileCoursesPage: FC = memo(() => {
       transition={{
         ease: 'easeInOut',
         duration: 0.4,
-      }} 
-      className={styles.container}>
+      }}
+      className={styles.container}
+    >
       <div className={styles.container_search}>
         <Input name="" type="search" value={term} onChange={handleChangeTerm} placeholder="Поиск по курсам и категориям">
           <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />

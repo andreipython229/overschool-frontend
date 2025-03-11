@@ -14,15 +14,13 @@ import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
 import { Path } from '../../enum/pathE'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import styles from './loginPage.module.scss'
-import { setSchoolName } from '../../store/redux/school/schoolSlice'
-import { setSchoolId } from '../../store/redux/school/schoolIdSlice'
-import { setHeaderId } from '../../store/redux/school/headerIdSlice'
+import { setHeaderId, setSchoolId, setSchoolName } from '../../store/redux/school/schoolSlice'
 import { RoleE } from '../../enum/roleE'
 import { SchoolT } from '../ChooseSchool/ChooseSchool'
 import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
 import { useGetSchoolsMutation } from '../../api/getSchoolService'
 
-import { logoHeaderLogin, facebook, google, maillog, leftArrow } from '../../assets/img/common/index'
+import { logoHeaderLogin, leftArrow } from '../../assets/img/common/index'
 import { selectUser } from 'selectors'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { BackgroundAnimation } from 'components/BackgroundAnimation'
@@ -50,20 +48,18 @@ export const LoginPage = () => {
   const [code, setCode] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('')
-  const [forgotPasswordFunc, { error: errorSend, isSuccess: sendSuccess, isLoading: sendLoading }] = useForgotPasswordMutation()
-  const [verifyCode, { error: errorCode, isSuccess: codeSuccess, isLoading: codeLoading }] = useVerifyEmailCodeMutation()
-  const [resetPassword, { error: errorReset, isSuccess: resetSuccess, isLoading: resetLoading }] = useResetPasswordMutation()
-  const [getSchools, { isSuccess: userSchoolSuccess, isError: userSchoolError }] = useGetSchoolsMutation()
+  const [forgotPasswordFunc, { error: errorSend, isLoading: sendLoading }] = useForgotPasswordMutation()
+  const [verifyCode, { error: errorCode, isLoading: codeLoading }] = useVerifyEmailCodeMutation()
+  const [resetPassword, { error: errorReset, isLoading: resetLoading }] = useResetPasswordMutation()
+  const [getSchools, { isLoading: isFetching }] = useGetSchoolsMutation()
   const { data: DomainData, isSuccess: DomainSuccess } = useFetchConfiguredDomainsQuery()
   const [logout] = useLazyLogoutQuery()
   const [security, setSecurity] = useState<boolean>(true)
   const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
-  const [schools, setSchools] = useState<SchoolT[]>([])
   const { auth: authetificationState } = useAppSelector(selectUser)
 
   const [attemptAccess, { error, isSuccess, isLoading }] = useLoginMutation()
-  const [getUserInfo, { data, isFetching, isError, isSuccess: userSuccess }] = useLazyGetUserInfoQuery()
-  const [notification, setNotification] = useState<INotification>()
+  const [getUserInfo] = useLazyGetUserInfoQuery()
 
   const [isShown, setIsShown] = useState(false)
   const [isHidden, setIsHidden] = useState(true)
@@ -90,10 +86,6 @@ export const LoginPage = () => {
   const handleNewPasswordC = (event: any) => {
     setPasswordConfirmation(event.target.value)
   }
-
-  const getInputVariant = (variant: keyof LoginParamsT): void => {
-    setAuthVariant(variant)
-  }
   const changeSecurityStatus = () => {
     setSecurity(!security)
   }
@@ -103,20 +95,6 @@ export const LoginPage = () => {
       navigate(generatePath(Path.ChooseSchool))
     }
   }, [authetificationState])
-
-  const handleRegistrationUser = () => {
-    const paramsString = localStorage.getItem('utmParams')
-    if (paramsString !== null) {
-      const parsedParams = JSON.parse(paramsString)
-      const queryParams = Object.keys(parsedParams)
-        .map(key => `${key}=${parsedParams[key]}`)
-        .join('&')
-      const pathWithParams = `${Path.CreateSchool}?${queryParams}`
-      navigate(pathWithParams)
-    } else {
-      navigate(Path.CreateSchool)
-    }
-  }
 
   const formik = useFormik({
     validate: values => validateLogin(values, authVariant),
@@ -143,11 +121,8 @@ export const LoginPage = () => {
     },
   })
   const handleSchool = (school: SchoolT) => {
-    localStorage.setItem('school', school.name)
     dispatch(setSchoolName(school.name))
-    localStorage.setItem('school_id', String(school.school_id))
     dispatch(setSchoolId(school.school_id))
-    localStorage.setItem('header_id', String(school.header_school))
     dispatch(setHeaderId(school.header_school))
     const roleValue = Object.entries(RoleE).find(([key, value]) => key === school.role)?.[1]
     roleValue && dispatch(role(+roleValue))

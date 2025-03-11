@@ -16,11 +16,6 @@ export type searchCourseBlockT = {
   courses: CoursesDataT[]
 }
 
-export type InitPageHeaderPT = {
-  setLoginShow: (show: boolean) => void
-  setRegistrationShow: (show: boolean) => void
-}
-
 export type CourseImgPropsT = {
   currentCourse: string
   changeCurrentCourse: (id: string) => void

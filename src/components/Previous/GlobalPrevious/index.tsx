@@ -6,7 +6,7 @@ import { useFetchSchoolHeaderQuery, useSetSchoolHeaderMutation } from 'api/schoo
 import { Button } from '../../common/Button/Button'
 import { schoolHeaderReqT } from 'types/schoolHeaderT'
 import { useAppSelector } from 'store/hooks'
-import { selectUser } from 'selectors'
+import { schoolSelector, selectUser } from 'selectors'
 import { noAvatar } from 'assets/img/common'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { RoleE } from 'enum/roleE'
@@ -17,8 +17,8 @@ import { settingsIconPath } from 'config/commonSvgIconsPath'
 export const GlobalPrevious: FC<GlobalPreviousT> = memo(() => {
   const user = useAppSelector(selectUser)
   const { pathname }: Location = useLocation()
-  const headerId = localStorage.getItem('header_id')
-  const { data, isSuccess, isFetching, isError, isLoading } = useFetchSchoolHeaderQuery(Number(headerId))
+  const { headerId } = useAppSelector(schoolSelector)
+  const { data, isSuccess, isFetching } = useFetchSchoolHeaderQuery(Number(headerId))
   const [setSchoolHeader] = useSetSchoolHeaderMutation()
   const [edit, setEdit] = useState<boolean>(false)
   const [fileError, setFileError] = useState<string>('')

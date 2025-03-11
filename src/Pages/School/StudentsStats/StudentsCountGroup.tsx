@@ -12,6 +12,7 @@ import { useAppSelector } from 'store/hooks'
 import { RoleE } from 'enum/roleE'
 
 import styles from './studentsStats.module.scss'
+import { schoolSelector } from 'selectors'
 
 export type StudentsGroupPropsT = {
   title: string
@@ -26,6 +27,7 @@ export type StudentsGroupPropsT = {
 export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent, id, type, courseId }) => {
   const [isModalOpen, { on: close, off: open }] = useBoolean()
   const navigate = useNavigate()
+  const { schoolName } = useAppSelector(schoolSelector)
 
   const { role } = useAppSelector(state => state.user)
 
@@ -41,7 +43,7 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
         onClick={() =>
           navigate(
             generatePath(Path.School + (role === RoleE.Teacher ? '' : Path.Courses) + `group/${id}`, {
-              school_name: localStorage.getItem('school') || window.location.href.split('/')[4],
+              school_name: schoolName,
             }),
           )
         }

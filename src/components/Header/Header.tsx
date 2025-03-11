@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, memo } from 'react'
-import { Link, generatePath, useLocation, useNavigate } from 'react-router-dom'
+import { Link, generatePath, useNavigate } from 'react-router-dom'
 import { useLazyFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { logoutState, role, id, authState as setAuthState } from 'store/redux/users/slice'
@@ -8,11 +8,11 @@ import { useFetchSchoolHeaderQuery, useGetSchoolProgressionDataMutation } from '
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutIconPath } from './config/svgIconsPath'
 import { useLazyLogoutQuery } from 'api/userLoginService'
-import { schoolProgressSelector, selectUser, selectUserProfile } from '../../selectors'
+import { schoolProgressSelector, schoolSelector, selectUser, selectUserProfile, tariffSelector } from '../../selectors'
 import { logoHeader } from '../../assets/img/common'
 import CloseIcon from '../../assets/img/common/close.svg'
 import { headerUserRoleName } from 'config/index'
-import { additionalRoleT, profileT } from 'types/profileT'
+import { additionalRoleT } from 'types/profileT'
 import styles from './header.module.scss'
 import { SimpleLoader } from '../Loaders/SimpleLoader'
 import tariffImg from './config/image.png'
@@ -24,29 +24,25 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } 
 import { ChatI, SenderI, UserInformAppealsI, UserInformI } from 'types/chatsT'
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
 import { setChats } from '../../store/redux/chats/chatsSlice'
-import { ITariff, UserProfileT } from '../../types/userT'
+import { ITariff } from '../../types/userT'
 import { setUserProfile, clearUserProfile } from '../../store/redux/users/profileSlice'
 import { isEqual } from 'lodash'
 import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath'
 import TeacherIcon from '../../assets/img/common/teacher.svg'
 import StudentIcon from '../../assets/img/common/student.svg'
 import { RoleE } from 'enum/roleE'
-import { useCookies } from 'react-cookie'
 import { useLazyFetchCurrentTariffPlanQuery } from 'api/tariffPlanService'
 import { setTariff } from 'store/redux/tariff/tariffSlice'
-import { removeSchoolId } from '../../store/redux/school/schoolIdSlice'
-import { removeHeaderId } from '../../store/redux/school/headerIdSlice'
-import { removeSchoolName } from '../../store/redux/school/schoolSlice'
+import { clearSchoolData } from '../../store/redux/school/schoolSlice'
 import { useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 import { w3cwebsocket } from 'websocket'
 import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice'
-import { useFetchNotificationsQuery, useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
+import { useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
 import { TgMessage } from 'types/tgNotifications'
 import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
 import { useFetchCoursesQuery } from 'api/coursesServices'
 import { useLoginMutation } from '../../api/userLoginService'
-import { CoursesDataT } from 'types/CoursesT'
 import { Button } from 'components/common/Button/Button'
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
 import { useAcceptBannerMutation, useLazyGetStudentBannerQuery } from 'api/schoolBonusService'
@@ -56,19 +52,12 @@ import { HomeIconPath, MessageConvertIconPath, UserIconPath } from 'assets/Icons
 import { SocialMediaButton } from 'components/SocialMediaButton'
 import { useFetchSchoolQuery } from '../../api/schoolService'
 
-type WebSocketHeaders = {
-  [key: string]: string | string[] | number
-}
-
 export const Header = memo(() => {
-  const schoolName = window.location.href.split('/')[4]
-  const schoolId = Number(localStorage.getItem('school_id'))
-  const headerId = localStorage.getItem('header_id')
-
   const dispatch = useAppDispatch()
   const dispatchRole = useDispatch()
   const navigate = useNavigate()
-  const { pathname } = useLocation()
+  const { schoolId, headerId, schoolName } = useAppSelector(schoolSelector)
+  const tariffPlan = useAppSelector(tariffSelector)
   const { userProfile } = useAppSelector(selectUserProfile)
   const { role: userRole, userId } = useAppSelector(selectUser)
   const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
@@ -100,34 +89,29 @@ export const Header = memo(() => {
   const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
   const [unreadAppeals, setUnreadAppeals] = useState<number>(0)
   const [fetchedChats, setFetchedChats] = useState<ChatI[]>([])
-  const [, , removeAccessCookie] = useCookies(['access_token'])
-  const [, , removeRefreshCookie] = useCookies(['refresh_token'])
   const [schoolRoles, setSchoolRoles] = useState<additionalRoleT | undefined>(undefined)
   const [logotype, setLogo] = useState<string | undefined>('')
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
   const open2 = Boolean(anchorEl2)
-  const [selectedCourse, setSelectedCourse] = useState<CoursesDataT | null>(null)
   const [tgMessage, setTgMessage] = useState<TgMessage>({
     message: '',
     students_groups: [],
   })
   const [allGroups, setAllGroups] = useState<boolean>(false)
   const [showTgMessageForm, setShowTgMessageForm] = useState(false)
-
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
   const [logout, { isLoading }] = useLazyLogoutQuery()
   const [getBanner, { data: banner }] = useLazyGetStudentBannerQuery()
   const [refetchUser, { isSuccess: profileIsSuccess, isError, error }] = useLazyFetchProfileDataQuery()
-  const [fetchCurrentTarrif, { data: tariffPlan, isSuccess: tariffSuccess }] = useLazyFetchCurrentTariffPlanQuery()
+  const [fetchCurrentTarrif] = useLazyFetchCurrentTariffPlanQuery()
   const { data: schoolData } = useFetchSchoolQuery(Number(schoolId))
   const [loginUser] = useLoginMutation()
   const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation()
   const [fetchGroups, { data: studentsGroups }] = useLazyFetchStudentsGroupWithParamsQuery()
   const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
   const [acceptBanner] = useAcceptBannerMutation()
-  // const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
   const [createTgMessage] = useUpdateTgMessageMutation()
 
   const restrictedEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru']
@@ -137,9 +121,7 @@ export const Header = memo(() => {
     await logout().then(() => {
       dispatch(clearUserProfile())
       dispatch(logoutState())
-      dispatch(removeSchoolId())
-      dispatch(removeHeaderId())
-      dispatch(removeSchoolName())
+      dispatch(clearSchoolData())
       localStorage.clear()
       navigate(generatePath(Path.InitialPage))
       setSocketConnect(false)
@@ -245,8 +227,10 @@ export const Header = memo(() => {
   }, [data])
 
   useEffect(() => {
-    if (userRole === RoleE.Admin) {
+    if (userRole === RoleE.Admin && !tariffPlan) {
       fetchCurrentTarrif(schoolName)
+        .unwrap()
+        .then(data => dispatch(setTariff(data)))
     } else if (userRole === RoleE.Student) {
       getBanner(schoolName)
     }
@@ -276,9 +260,8 @@ export const Header = memo(() => {
   useEffect(() => {
     if (tariffPlan && Object.keys(tariffPlan).length > 1) {
       setCurrentTariff(tariffPlan)
-      dispatch(setTariff(tariffPlan))
     }
-  }, [tariffSuccess, tariffPlan])
+  }, [tariffPlan])
 
   // Socket INFO Update *****************************************************
 
@@ -406,33 +389,16 @@ export const Header = memo(() => {
   }
 
   const goToChooseSchool = () => {
-    // if (timerId) {
-    //   clearTimeout(timerId);
-    // }
     if (informSocketRef.current !== null) {
       informSocketRef.current.close()
       informSocketRef.current = null
     }
     dispatchRole(role(RoleE.Unknown))
+    dispatch(clearSchoolData())
     setSocketConnect(false)
     navigate(Path.ChooseSchool)
     setAnchorEl(null)
   }
-
-  // useEffect(() => {
-  //   if (socketConnect) {
-  //     if (informSocketRef.current !== null) {
-  //       informSocketRef.current.close()
-  //       informSocketRef.current = null
-  //       console.log("stop socket by button")
-  //   }
-  //   }
-  // }, [socketConnect]);
-
-  // useEffect(() => {
-  //   setSocketConnect(true)
-  //   console.log("USE EFFECT school Redux = ", schoolNameR)
-  // }, [schoolNameR]);
 
   const handleClose = () => {
     setAnchorEl(null)
@@ -479,10 +445,6 @@ export const Header = memo(() => {
       students_groups: [],
     })
     setShowTgMessageForm(true)
-  }
-
-  const handleCourseChange = (courseId: number) => {
-    setSelectedCourse(Courses?.results.find(course => course.course_id === courseId) || null)
   }
 
   useEffect(() => {
