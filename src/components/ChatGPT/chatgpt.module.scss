@@ -75,7 +75,7 @@
   flex-direction: column;
   // border: 1px solid #357EEB;
   transition: 0.3s;
-  // margin: 0;
+  margin-bottom: 5%;
 }
 
 .bottomPane {
@@ -619,9 +619,9 @@
   border-radius: 18px*$ai-window-ratio;
   box-shadow: 0px 0px 8px 0px #3241954D;
   overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-width: none;
-  word-wrap: break-word;
-
+  // word-wrap: break-word;
   background-color: transparent;
 
   &::-webkit-scrollbar {
@@ -666,24 +666,28 @@
     font-size: 14px;
     font-weight: 400;
 
-
     p {
       line-height: 24px*$ai-window-ratio;
       color: #667085;
       font-weight: 400;
       font-size: 12px;
+      flex-grow: 1;
     }
 
     &_answer {
       @include display(flex, column, initial, initial);
       color: #332F36;
-      flex-grow: 1;
+      
       background-color: transparent;
       border: 1px solid #E3E3E3;
       border-radius: 16px*$ai-window-ratio;
       padding: 14px 22px;
       font-size: 16px;
       margin-top: 8px*$ai-window-ratio;
+     
+      div{
+        max-width: 50vh;
+      }
     }
   }
 
@@ -718,14 +722,18 @@
 
 .inputContainer {
   width: 100%;
-  min-height: 60px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 1px solid #858D9D;
   box-shadow: 0px 0px 8px 0px #3241954D;
   border-radius: 18px*$ai-window-ratio;
-  margin-top: 2.76vh;
+
+  &_wrapper {
+    width: 100%;
+    margin-top: 2.76vh;
+  }
 }
 
 .inputContainer textarea {
@@ -781,7 +789,8 @@
   @include display(flex, row, center, center);
   font-size: 16px;
   font-weight: 500;
-  height: calc(100% - 20px);
+  // min-height: calc(100% - 20px);
+  min-height: 40px;
   margin: 10px*$ai-window-ratio 14px*$ai-window-ratio;
   padding: 0 14px*$ai-window-ratio;
   border-radius: 14px*$ai-window-ratio;
@@ -922,7 +931,9 @@
   display: none;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1023px),
+screen and (max-aspect-ratio: 1/1) {
+
   .modalOverlay {
     bottom: 0;
     right: 0;
@@ -1034,6 +1045,48 @@
   .loadingSpinner {
     display: none;
   }
+
+
+  .messageContainer {
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+
+    &_user {
+      &_question {
+        background-color: #357EEB;
+        color: #fff;
+      }
+    }
+
+    &_bot {
+      &_answer {
+        background-color: #fff;
+      }
+    }
+  }
+
+  .inputContainer {
+    margin: 16px;
+    width: 95%;
+    height: 60%;
+    box-shadow: none;
+    border-radius: 16px;
+
+    &_wrapper {
+      @include display(flex, column, center, center);
+      background-color: #fff;
+      min-height: 80px;
+    }
+
+    textarea {
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+
+
 
 }
 

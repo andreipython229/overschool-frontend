@@ -785,7 +785,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                     <div></div>
                     <p>Привет, <span>Пользователь</span>! Приятно тебя здесь видеть! Нажимая кнопку «Начать чат», вы соглашаетесь на обработку своих персональных данных, как описано в нашей Политике конфиденциальности</p>
 
-                    <Button variant={'newPrimary'} onClick={() => console.log('hehe')} className={styles.welcomeMessageButton} text='Начать чат'></Button>
+                    <Button variant={'newPrimary'} onClick={handleCreateChat} className={styles.welcomeMessageButton} text='Начать чат'></Button>
 
                   </div>
 
@@ -823,7 +823,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
               ) : (
                 <>
-                  { (
+                  {(
                     <div className={`${styles.bottomPane} ${isDialogOpen && styles.paneOpen}`}>
                       {isCreatingChatDisabled && !isLoading ? (
                         <div className={styles.loadingSpinner}>
@@ -916,35 +916,36 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                           <span className={styles.errorText}>{error}</span>
                         </div>
                       )}
-                      <div className={styles.inputContainer}>
-                        {isCreatingChatDisabled && !isLoading ? (
-                          <div className={styles.loadingSpinner}>
-                            <div className={styles.spinner}></div>
-                            <span> Создание чата...</span>
-                          </div>
-                        ) : isLoading ? (
-                          <div className={styles.loadingSpinner}>
-                            <div className={styles.spinner}></div>
-                            <span> Генерация сообщения...</span>
-                          </div>
-                        ) : (
-                          <>
-                            <textarea
-                              ref={textareaRef}
-                              rows={1}
-                              placeholder="Отправьте сообщение..."
-                              value={messageInput}
-                              onChange={(e) => setMessageInput(e.target.value)}
-                              onKeyDown={handleKeyPress}
-                            />
-                            <Button className={styles.send_message_btn} text='Генерировать' variant='newSecondary' onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
-                              <IconSvg path={aiButtonNavIcon} width={20} height={20} viewBoxSize={'0 0 20 20'}></IconSvg>
-                              {/* <svg viewBox="0 0 16 13" fill="none" xmlns="http://www.w3 org/2000/svg">
+                      <div className={styles.inputContainer_wrapper}>
+                        <div className={styles.inputContainer}>
+                          {isCreatingChatDisabled && !isLoading ? (
+                            <div className={styles.loadingSpinner}>
+                              <div className={styles.spinner}></div>
+                              <span> Создание чата...</span>
+                            </div>
+                          ) : isLoading ? (
+                            <div className={styles.loadingSpinner}>
+                              <div className={styles.spinner}></div>
+                              <span> Генерация сообщения...</span>
+                            </div>
+                          ) : (
+                            <>
+                              <textarea
+                                ref={textareaRef}
+                                rows={1}
+                                placeholder="Отправьте сообщение..."
+                                value={messageInput}
+                                onChange={(e) => setMessageInput(e.target.value)}
+                                onKeyDown={handleKeyPress}
+                              />
+                              <Button className={styles.send_message_btn} text='Генерировать' variant='newSecondary' onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
+                                <IconSvg path={aiButtonNavIcon} width={20} height={20} viewBoxSize={'0 0 20 20'}></IconSvg>
+                                {/* <svg viewBox="0 0 16 13" fill="none" xmlns="http://www.w3 org/2000/svg">
                                 <path d="M7.17278 1.21787C7.56956 0.633707 8.43044 0.633706 8.82722 1.21787L15.5994 11.1881C16.0503 11.8521 15.5748 12.75 14.7722 12.75H1.22785C0.425231 12.75 -0.0503452 11.8521 0.400629 11.1881L7.17278 1.21787Z" fill="white"/>
                             </svg> */}
 
-                            </Button>
-                            {/* <div style={{ zIndex: '10000000' }}>
+                              </Button>
+                              {/* <div style={{ zIndex: '10000000' }}>
                             <select
                               value={selectedLanguage}
                               onChange={handleLanguageChange}
@@ -965,8 +966,9 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                               <option value="ENG">ENG</option>
                             </select>
                           </div> */}
-                          </>
-                        )}
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                   )}
