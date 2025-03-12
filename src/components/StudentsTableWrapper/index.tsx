@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState, ReactNode } from 'react'
+import { FC, memo, useEffect, useState, ReactNode } from 'react'
 import { RoleE } from 'enum/roleE'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { classesSettingIconPath } from './config/svgIconsPath'
@@ -35,13 +35,12 @@ type StudentsTableWrapperT = {
 export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
   ({ students, isLoading, tableId, handleReloadTable, handleAddSortToFilters, isGrouping, tableType }) => {
     const dispatch = useAppDispatch()
-    const schoolId = localStorage.getItem('school_id')
     const { role } = useAppSelector(selectUser)
     // const chats = useSelector((state: RootState) => state.chats.chats);
 
     const [isModalOpen, { on, off, onToggle }] = useBoolean()
     const [isStudentModalOpen, { on: studentModalOn, off: studentModalOff, onToggle: toggleStudentInfoModal }] = useBoolean()
-    const [isChatOpen, { on: chatModalOff, off: chatModalOn, onToggle: toggleChatModal }] = useBoolean()
+    const [isChatOpen, { off: chatModalOn, onToggle: toggleChatModal }] = useBoolean()
     const [isStudentDeleted, setIsStudentDeleted] = useState<boolean>(false)
 
     const [cols, setCols] = useState<string[]>([])
@@ -53,7 +52,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
     const [fetchTableHeader, { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching }] = useLazyFetchStudentsTableHeaderQuery()
 
     const { columns, data } = generateData(tableHeaderData, students, isLoading, isSuccess)
-    const [createPersonalChatForAdminOrTeacher, { isLoading: chatIsLoading }] = useCreatePersonalChatForAdminOrTeacherMutation()
+    const [createPersonalChatForAdminOrTeacher] = useCreatePersonalChatForAdminOrTeacherMutation()
 
     // состояние направления сортировки для каждого столбца
     const [sortDirection, setSortDirection] = useState<{ [key: string]: 'asc' | 'desc' }>({
@@ -65,7 +64,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
       'Средний балл': 'asc',
       'Дата добавления в группу': 'desc',
       'Дата удаления из группы': 'asc',
-      'Прогресс': 'asc',
+      Прогресс: 'asc',
       'Сумарный балл': 'asc',
       'Номер телефона': 'asc',
     })
@@ -149,10 +148,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
       }
 
       setSortDirection({ ...sortDirection, [col]: direction })
-    }
-
-    const handleCloseStudentModal = () => {
-      toggleStudentInfoModal()
     }
 
     const handleDeleteStudent = () => {

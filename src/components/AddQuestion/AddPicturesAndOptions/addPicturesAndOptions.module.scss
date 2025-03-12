@@ -7,42 +7,66 @@
 }
 
 .wrapper {
-    @include display(flex, column, space-between, center);
-    gap: 5px;
-    max-width: 205px;
-    width: 100%;
-    border-radius: 16px;
-    padding: 17px 0;
-    border: transparent;
-    background-color: $color-blue;
-    cursor: pointer;
-    &:hover {
-      transform: scale(1.1);
-      transition: transform 0.15s ease-in-out;
-    }
+  @include display(flex, column, space-between, center);
+  gap: 5px;
+  max-width: 205px;
+  width: 100%;
+  border-radius: 16px;
+  padding: 17px 0;
+  border: transparent;
+  background-color: $color-blue;
+  cursor: pointer;
 
-    &_iconWrapper {
-        @include display (flex, row, flex-start, center);
-        &_iconColumn {
-            width: 15px;
-            height: 24px;
-            margin-right: 2px;
-            padding: 2px 4px;
-            border-radius: 3px;
-            border: 1px solid #ffffff;
-            span {
-                display: block;
-                width: 4px;
-                height: 4px;
-                border-radius: 50%;
-                background-color: #ffffff;
-            }
-        }
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    max-width: 480px;
+    gap: 15px;
+    @include display(flex, row, center, center);
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    max-width: 480px;
+    gap: 15px;
+    @include display(flex, row, center, center);
+  }
+  @media only screen and (min-width: 1126px) and (max-width: 1236px) {
+    height: 100%;
+    justify-content: center;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.15s ease-in-out;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      transform: scale(1.04);
     }
-    &_title {
-        @include font(500, 14px, 16.71px);
-        color: $color-white;
-        text-align: center;
-        font-family: 'SFPRORegular';
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      transform: scale(1.04);
     }
+  }
+
+  &_iconWrapper {
+    @include display (flex, row, flex-start, center);
+    &_iconColumn {
+      width: 15px;
+      height: 24px;
+      margin-right: 2px;
+      padding: 2px 4px;
+      border-radius: 3px;
+      border: 1px solid #ffffff;
+      span {
+        display: block;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: #ffffff;
+      }
+    }
+  }
+
+  &_title {
+    @include font(500, 14px, 16.71px);
+    color: $color-white;
+    text-align: center;
+    font-family: 'SFPRORegular';
+  }
 }

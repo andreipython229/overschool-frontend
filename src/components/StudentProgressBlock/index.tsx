@@ -2,26 +2,24 @@ import { FC } from 'react'
 import styles from './studentProgress.module.scss'
 import { WaterProgress } from './assets/waterProgress'
 import { useFetchProgressQuery } from 'api/userProgressService'
-import { useFetchCourseQuery } from 'api/coursesServices'
-import { useFetchModulesQuery } from 'api/modulesServices'
 import { useParams } from 'react-router-dom'
-import { NewLoader, SimpleLoader } from 'components/Loaders/SimpleLoader'
 import firstMedal from './assets/1st_place.png'
 import secondMedal from './assets/2nd_place.png'
 import thirdMedal from './assets/3rd_place.png'
 import person from './assets/defaultPerson.png'
-import { useFetchProfileDataQuery } from 'api/profileService'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { CameraDefs, HomeworkDefs, TestDefs, cloudSvgPath, homeworkSvgIconPath, testSvgIconPath, videoCameraSvgIconPath } from './assets/svgIconsPath'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
+import { useAppSelector } from 'store/hooks'
+import { selectUserProfile } from 'selectors'
 
 export const StudentProgressBlock: FC = () => {
   const school = window.location.href.split('/')[4]
+  const { userProfile: profile } = useAppSelector(selectUserProfile)
   const { course_id: courseId } = useParams()
-  const { data: userProgress, isLoading, isError } = useFetchProgressQuery({ course_id: courseId as string, schoolName: school })
-  const { data: profile } = useFetchProfileDataQuery()
+  const { data: userProgress } = useFetchProgressQuery({ course_id: courseId as string, schoolName: school })
 
-  if (!userProgress || !profile) {
+  if (!userProgress) {
     return <LoaderLayout />
   }
   return (
@@ -109,10 +107,8 @@ export const StudentProgressBlock: FC = () => {
             </div>
             <div className={styles.progressWrapper_peopleStats_personalData_placement_progressData}>
               <div className={styles.progressWrapper_peopleStats_personalData_placement_progressData_photoBlock}>
-                <img src={profile[0].avatar} className={styles.progressWrapper_peopleStats_personalData_placement_progressData_photoBlock_photo} />
-                <p className={styles.progressWrapper_peopleStats_personalData_placement_progressData_photoBlock_username}>
-                  {profile[0].user.first_name}
-                </p>
+                <img src={profile?.avatar} className={styles.progressWrapper_peopleStats_personalData_placement_progressData_photoBlock_photo} />
+                <p className={styles.progressWrapper_peopleStats_personalData_placement_progressData_photoBlock_username}>{profile?.first_name}</p>
               </div>
               <div className={styles.progressWrapper_peopleStats_personalData_placement_progressData_percent}>
                 <h4>{userProgress.courses[0].completed_percent}%</h4>

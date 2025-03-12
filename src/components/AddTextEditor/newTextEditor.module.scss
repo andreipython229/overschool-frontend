@@ -8,24 +8,16 @@
 
 .textField {
   width: 100%;
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 85%;
-    margin-left: 0;
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    width: 85%;
-    margin-left: 0;
-  }
 
   &_paper {
     padding: 20px; 
     max-width: 100%;
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {
-      padding: 1rem 0 1rem 0;
+      padding: 1rem 0.5rem 1rem 0.5rem;
     }
     @media only screen and (min-width: 375px) and (max-width: 480px) {
-      padding: 1rem 1rem 1rem 1rem;
+      padding: 1rem 0.5rem 1rem 0.5rem;
     }
 
   }
@@ -122,6 +114,17 @@ a {
     &_delete {
       padding: 10px 25px;
       @include font(500, 16px, 19.09px);
+
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @include font(500, 12px, 14.32px);
+        padding: 5px 15px;
+        border-radius: 5px;
+      }
+      @media only screen and (min-width: 375px) and (max-width: 480px) {
+        @include font(500, 12px, 14.32px);
+        padding: 5px 15px;
+        border-radius: 5px;
+      }
     }
   }
 }

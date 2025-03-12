@@ -25,7 +25,7 @@ export const TariffPlansInfo: FC = () => {
   useEffect(() => {
     if (data) {
       const table = [...data]
-      
+
       setTariffPlanTable(table.sort((obj1, obj2) => Number(obj1.price) - Number(obj2.price)))
     }
   }, [isSuccess, data])

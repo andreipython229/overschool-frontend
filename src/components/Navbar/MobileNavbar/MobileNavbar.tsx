@@ -1,11 +1,11 @@
-import React, { FC, memo, useState, useEffect } from 'react'
+import React, { FC, memo, useState } from 'react'
 import { Link, NavLink, generatePath, useNavigate } from 'react-router-dom'
 import { Path } from 'enum/pathE'
 import { useLazyLogoutQuery } from 'api/userLoginService'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import RedeemIcon from '@mui/icons-material/Redeem'
 
-import { auth, logoutState, role } from 'store/redux/users/slice'
+import { logoutState, role } from 'store/redux/users/slice'
 import { Chat } from 'components/Modal/Chat'
 import { useBoolean } from 'customHooks'
 import { chatIconPath } from 'components/Navbar/config/svgIconPath'
@@ -21,17 +21,14 @@ import { SvgIcon } from '@mui/material'
 
 import styles from '../navbar.module.scss'
 import { clearUserProfile } from 'store/redux/users/profileSlice'
-import { removeSchoolId } from 'store/redux/school/schoolIdSlice'
-import { removeHeaderId } from 'store/redux/school/headerIdSlice'
-import { removeSchoolName } from 'store/redux/school/schoolSlice'
 import { useCookies } from 'react-cookie'
-import { useFetchProfileDataQuery } from 'api/profileService'
 import { RoleE } from 'enum/roleE'
 import { logOutIconPath } from './svgIconsPath'
 
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Timer from '../../Timer/Timer'
+import { clearSchoolData } from 'store/redux/school/schoolSlice'
 
 interface IIsActive {
   isActive?: boolean
@@ -47,7 +44,6 @@ export const MobileNavbar: FC = memo(() => {
   const [, , removeAccessCookie] = useCookies(['access_token'])
   const [, , removeRefreshCookie] = useCookies(['refresh_token'])
   const navigate = useNavigate()
-  const { data: profile, isSuccess: profileIsSuccess, isError, error } = useFetchProfileDataQuery()
   const [anchorMob, setAnchorMob] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorMob)
   const dispatchRole = useDispatch()
@@ -57,13 +53,10 @@ export const MobileNavbar: FC = memo(() => {
     await logout().then(data => {
       dispatch(clearUserProfile())
       dispatch(logoutState())
-      dispatch(removeSchoolId())
-      dispatch(removeHeaderId())
-      dispatch(removeSchoolName())
+      dispatch(clearSchoolData())
       removeAccessCookie('access_token')
       removeRefreshCookie('refresh_token')
       localStorage.clear()
-      dispatch(auth(false))
       navigate(generatePath(Path.InitialPage))
     })
   }
@@ -81,12 +74,6 @@ export const MobileNavbar: FC = memo(() => {
   const handleClose = () => {
     setAnchorMob(null)
   }
-
-  useEffect(() => {
-    if (isError) {
-      logOut()
-    }
-  }, [isError])
 
   return (
     <>

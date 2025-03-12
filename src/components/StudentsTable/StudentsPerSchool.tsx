@@ -7,15 +7,15 @@ import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
-import {useDebounceFunc, usePagination} from "../../customHooks";
-import { Pagination } from "../Pagination/Pagination"
-import styles from "../../Pages/HomeWork/home_work.module.scss";
+import { useDebounceFunc, usePagination } from '../../customHooks'
+import { Pagination } from '../Pagination/Pagination'
+import styles from '../../Pages/HomeWork/home_work.module.scss'
+import { schoolSelector } from 'selectors'
 
 export const StudentsPerSchool: FC = () => {
   const dispatch = useAppDispatch()
   const filters = useAppSelector(state => state.filters['studentsPerSchool'])
-  const schoolId = localStorage.getItem('school_id')
-  const schoolName = window.location.href.split('/')[4] 
+  const { schoolName, schoolId } = useAppSelector(schoolSelector)
   const [fetchStudents, { data, isFetching }] = useLazyFetchStudentsPerSchoolQuery()
   const { data: tablesHeader, isFetching: isTablesHeaderFetching, isSuccess } = useFetchStudentsTablesHeaderQuery(schoolName)
   const [isGroupingStudents, setIsGroupingStudents] = useState<boolean>()
@@ -48,18 +48,18 @@ export const StudentsPerSchool: FC = () => {
 
   const handleReloadTable = () => {
     if (tablesHeader && tablesHeader.length > 2) {
-    const studentsTableInfo = tablesHeader[0].students_table_info || [];
-      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
+      const studentsTableInfo = tablesHeader[0].students_table_info || []
+      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name)
       if (schoolId && checkedFields) {
-        fetchStudents({ 
-          filters, 
-          page, 
+        fetchStudents({
+          filters,
+          page,
           id: Number(schoolId),
-          fields: checkedFields
-        });
+          fields: checkedFields,
+        })
       }
     } else {
-      console.log('tablesHeader is undefined or does not have enough elements');
+      console.log('tablesHeader is undefined or does not have enough elements')
     }
   }
 
@@ -73,7 +73,7 @@ export const StudentsPerSchool: FC = () => {
   }, [filters])
 
   useEffect(() => {
-    dispatch(addFilters({ key: 'studentsPerSchool', filters: {'hide_deleted': 'true' } }));
+    dispatch(addFilters({ key: 'studentsPerSchool', filters: { hide_deleted: 'true' } }))
   }, [])
 
   useEffect(() => {
@@ -84,38 +84,38 @@ export const StudentsPerSchool: FC = () => {
   }, [isTablesHeaderFetching])
 
   // Поиск по студентам школы
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('')
 
   const updateStudents = (value: string) => {
-      // setSearchTerm(value)
-      debounce(addFilters({ key: 'studentsPerSchool', filters: {'search_value': value } }));
+    // setSearchTerm(value)
+    debounce(addFilters({ key: 'studentsPerSchool', filters: { search_value: value } }))
   }
 
   const handleAddSortToFilters = (sort_by_value: string, sort_order_value: string) => {
-      dispatch(addFilters({key: 'studentsPerSchool', filters: {'sort_by': sort_by_value, 'sort_order': sort_order_value}}))
+    dispatch(addFilters({ key: 'studentsPerSchool', filters: { sort_by: sort_by_value, sort_order: sort_order_value } }))
   }
 
   // Перезагрузка после смены страницы пагинатора
   useEffect(() => {
     if (tablesHeader && tablesHeader.length > 2) {
-      const studentsTableInfo = tablesHeader[0].students_table_info || [];
-      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
+      const studentsTableInfo = tablesHeader[0].students_table_info || []
+      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name)
       if (checkedFields) {
-        fetchStudents({ 
-          filters, 
-          page, 
+        fetchStudents({
+          filters,
+          page,
           id: Number(schoolId),
-          fields: checkedFields
-        });
+          fields: checkedFields,
+        })
       }
     } else {
-      console.log('tablesHeader is undefined or does not have enough elements');
+      console.log('tablesHeader is undefined or does not have enough elements')
     }
-  }, [page, isGroupingStudents, tablesHeader]);
+  }, [page, isGroupingStudents, tablesHeader])
 
   // Филтра для всех студентов
   const filteredStudents = useMemo(() => {
-    if (!searchTerm) return data?.results ?? [];
+    if (!searchTerm) return data?.results ?? []
 
     return (data?.results ?? []).filter(student => {
       return (
@@ -125,13 +125,17 @@ export const StudentsPerSchool: FC = () => {
         student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.course_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.group_name?.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    });
-  }, [searchTerm, data]);
+      )
+    })
+  }, [searchTerm, data])
 
   const allStudentsCount = isGroupingStudents
-  ? (data && data.results && data.results.length > 0 ? data.results[0].unique_students_count : 0)
-  : (data && data.count ? data.count : 0);
+    ? data && data.results && data.results.length > 0
+      ? data.results[0].unique_students_count
+      : 0
+    : data && data.count
+    ? data.count
+    : 0
 
   return (
     <>
@@ -154,23 +158,18 @@ export const StudentsPerSchool: FC = () => {
         endAvg={filters?.average_mark_max}
         filters={filters}
         updateStudents={updateStudents}
-        all_students_count={allStudentsCount} 
+        all_students_count={allStudentsCount}
       />
       <StudentsTableWrapper
-          handleReloadTable={handleReloadTable}
-          students={filteredStudents as studentsTableInfoT}
-          isLoading={isFetching || isTablesHeaderFetching}
-          tableId={tableId as number}
-          handleAddSortToFilters={handleAddSortToFilters}
-          isGrouping={isGroupingStudents}
-          tableType={'Школа'}
+        handleReloadTable={handleReloadTable}
+        students={filteredStudents as studentsTableInfoT}
+        isLoading={isFetching || isTablesHeaderFetching}
+        tableId={tableId as number}
+        handleAddSortToFilters={handleAddSortToFilters}
+        isGrouping={isGroupingStudents}
+        tableType={'Школа'}
       />
-      <Pagination
-          className={styles.pagination}
-          paginationRange={paginationRange}
-          currentPage={page}
-          onPageChange={onPageChange}
-      />
+      <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
     </>
   )
 }

@@ -4,7 +4,7 @@ import { CoursesCard } from './CoursesCard'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Input } from 'components/common/Input/Input/Input'
 import { searchIconPath } from 'config/commonSvgIconsPath'
-import { schoolIdSelector, schoolNameSelector, selectUser } from 'selectors'
+import { schoolSelector, selectUser } from 'selectors'
 import { useLazyFetchCoursesPageQuery } from 'api/coursesServices'
 
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
@@ -14,8 +14,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 export const Materials: FC = () => {
   const { role } = useAppSelector(selectUser)
-  const schoolName = useAppSelector(schoolNameSelector)
-  const schoolId = useAppSelector(schoolIdSelector)
+  const { schoolId, schoolName } = useAppSelector(schoolSelector)
   const [fetchData, { data: courses, isSuccess }] = useLazyFetchCoursesPageQuery()
   const [search, setSearch] = useState('')
 

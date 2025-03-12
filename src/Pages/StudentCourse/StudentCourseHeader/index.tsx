@@ -16,7 +16,7 @@ import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
 import { Button } from 'components/common/Button/Button'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
 import { useBoolean } from 'customHooks'
-import { schoolIdSelector, selectUser } from 'selectors'
+import { schoolSelector, selectUser } from 'selectors'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { Portal } from '../../../components/Modal/Portal'
 import { Chat } from '../../../components/Modal/Chat'
@@ -38,7 +38,7 @@ export const StudentCourseHeader: FC<studentCourseHeaderT> = ({ teacher_id }) =>
   const [isChatOpen, { on: chatModalOff, off: chatModalOn, onToggle: toggleChatModal }] = useBoolean()
   const dispatch = useAppDispatch()
   const { role } = useAppSelector(selectUser)
-  const { schoolId } = useAppSelector(schoolIdSelector)
+  const { schoolId } = useAppSelector(schoolSelector)
   const [createPersonalChatForAdminOrTeacher, { isLoading: chatIsLoading }] = useCreatePersonalChatForAdminOrTeacherMutation()
   const { course_id: courseId } = useParams()
   const navigate = useNavigate()

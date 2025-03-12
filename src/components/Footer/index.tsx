@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useEffect, useState, FC } from 'react'
-
-import { Path, FooterPath, SettingsPath } from 'enum/pathE'
-import { useFetchSchoolQuery } from 'api/schoolService'
-import { callfooter, footerlogo, locationfooter, mailfooter, line } from '../../assets/img/common/index'
+import { FC } from 'react'
+import { FooterPath } from 'enum/pathE'
+import { footerlogo, locationfooter, mailfooter, line } from '../../assets/img/common/index'
 
 import styles from './footer.module.scss'
 interface IFooter {
@@ -11,16 +9,20 @@ interface IFooter {
 }
 
 export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
-  const currentYear = new Date().getFullYear()
-  const schoolId = localStorage.getItem('school_id')
-  const { data } = useFetchSchoolQuery(Number(schoolId))
-  const [agreementUrl, setAgreementUrl] = useState<string>('')
+  // ******** НЕ ИСПОЛЬЗУЕТСЯ ЭТОТ ФУНКЦИОНАЛ ЗАКОММЕНТИРОВАЛ **********
 
-  useEffect(() => {
-    if (data) {
-      setAgreementUrl(data?.offer_url)
-    }
-  }, [data])
+  // const currentYear = new Date().getFullYear()
+  // const { schoolId } = useAppSelector(schoolSelector)
+  // const { data } = useFetchSchoolQuery(Number(schoolId))
+  // const [agreementUrl, setAgreementUrl] = useState<string>('')
+
+  // useEffect(() => {
+  //   if (data) {
+  //     setAgreementUrl(data?.offer_url)
+  //   }
+  // }, [data])
+
+  // ****************************
 
   return (
     <footer className={styles.wrapper}>
@@ -33,6 +35,8 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
       <div className={styles.wrapper_box}>
         <div className={styles.wrapper_box_contact}>
           <h1>КОНТАКТЫ</h1>
+          {/* ********* !!!!!!!!! ******** НЕ УДАЛЯТЬ ****** !!!!! ***** */}
+
           {/* <div className={styles.wrapper_box_contact_pack}>
             <img src={callfooter} alt="callfooter" />
             <a href="tel:+375292532151" type="tel">
@@ -40,6 +44,8 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
               +375 (29) 253 21 51{' '}
             </a>
           </div> */}
+
+          {/* *********************************** */}
           <div className={styles.wrapper_box_contact_pack}>
             <img src={mailfooter} alt="mailfooter" />
             <a href="mailto:admin@coursehb.ru" type="email">

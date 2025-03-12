@@ -4,7 +4,7 @@ import { Header } from 'components/Header/Header'
 import { Navbar } from 'components/Navbar/Navbar'
 import { Previous } from '../Previous/Previous'
 import { useAppSelector } from '../../store/hooks'
-import { authSelector, schoolProgressSelector, selectUser } from '../../selectors'
+import { authSelector, schoolProgressSelector, schoolSelector, selectUser } from '../../selectors'
 import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { Path } from '../../enum/pathE'
 import styles from './mainLayOut.module.scss'
@@ -15,11 +15,13 @@ import { useLazyFetchStudentsGroupQuery } from 'api/studentsGroupService'
 
 import { motion } from 'framer-motion'
 import { NewSchoolProgress } from 'components/NewSchoolProgress'
-import { auth } from '../../store/redux/users/slice'
+import { auth, logoutState } from '../../store/redux/users/slice'
 import { useDispatch } from 'react-redux'
 import { useLazyLogoutQuery } from '../../api/userLoginService'
 import { RoleE } from 'enum/roleE'
 import { BackgroundAnimation } from '../BackgroundAnimation'
+import { clearUserProfile } from 'store/redux/users/profileSlice'
+import { clearSchoolData } from 'store/redux/school/schoolSlice'
 
 export const MainLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -27,16 +29,13 @@ export const MainLayOut: FC = memo(() => {
   const [logout] = useLazyLogoutQuery()
 
   const navigate = useNavigate()
-  const schoolName = window.location.href.split('/')[4]
-  const headerId = localStorage.getItem('header_id')
+  const { schoolName, headerId } = useAppSelector(schoolSelector)
   const { data: progress } = useAppSelector(schoolProgressSelector)
 
   const { role: userRole } = useAppSelector(selectUser)
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
   const [getGroups, { data: allGroups, error: groupsError }] = useLazyFetchStudentsGroupQuery()
   const [toggle, handlers] = useBooleanHook()
-
-  const [currentTariff, setCurrentTariff] = useState<any | null>(null)
   const [showChat, setShowChat] = useState<boolean>(false)
   const [overaiLockExists, setOveraiLockExists] = useState(false)
   const routesWithoutPrevious = [`/school/${schoolName}/meetings/`]
@@ -87,8 +86,13 @@ export const MainLayOut: FC = memo(() => {
       if (groupsError && 'originalStatus' in groupsError && groupsError.originalStatus === 404) {
         localStorage.clear()
         logout()
-        dispatch(auth(false))
-        navigate(generatePath(Path.InitialPage))
+          .unwrap()
+          .finally(() => {
+            dispatch(logoutState())
+            dispatch(clearUserProfile())
+            dispatch(clearSchoolData())
+            navigate(generatePath(Path.InitialPage))
+          })
       }
     }
   }, [groupsError, navigate])
