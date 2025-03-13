@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, memo, useState, useEffect } from 'react'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { ExerciseItem } from '../ExerciseItem/ExerciseItem'
 import { ExerciseImageItem } from '../ExerciseItem/ExerciseImageItem'
@@ -22,6 +22,7 @@ import { lessonT } from '../../../types/sectionT'
 import { accardionItemT } from '../../../types/componentsTypes'
 
 import styles from './accardionItem.module.scss'
+import { Modal } from 'components/Modal/NoPermForLesson/Modal'
 
 export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, moduleIndex, openIndex, handleToggleOpen }) => {
   const isLessonClickable = (lessonIndex: number) => {
@@ -42,7 +43,17 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, module
     return !prevLesson.viewed || somePrevNotViewed || disabledFromPrev
   }
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+  useEffect(() => {
+  if (openIndex === moduleIndex && module?.lessons.length === 0) {
+    setIsModalOpen(true);
+      }
+    }, [openIndex, moduleIndex, module?.lessons.length]);
   return (
+    <>
     <div className={styles.accardionWrapper_component}>
       <div
         onClick={() => handleToggleOpen(moduleIndex)}
@@ -162,5 +173,9 @@ export const AccardionItem: FC<accardionItemT> = memo(({ module, modules, module
           </div>
         ))}
     </div>
+    <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        Доступ к следующим модулям закрыт. Обратитесь к администратору школы для уточнения информации.
+    </Modal>
+    </>
   )
 })
