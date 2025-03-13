@@ -1,47 +1,31 @@
-import {ChangeEvent, FC, FormEvent, memo, useEffect, useState, forwardRef, useImperativeHandle, Ref} from 'react'
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
-
 import { Input } from 'components/common/Input/Input/Input'
-import { Button } from 'components/common/Button/Button'
 import { userDataSchema } from './schemas'
 import { useFetchProfileDataQuery, useUpdateProfileMutation } from '../../api/profileService'
-import { useFetchIndividualRatingQuery } from '../../api/ratingService'
-import { useAppSelector } from 'store/hooks/index'
-import {selectUser, userIdSelector} from 'selectors/index'
+import { useFetchIndividualRatingQuery, useLazyFetchIndividualRatingQuery } from '../../api/ratingService'
+import { useAppDispatch, useAppSelector } from 'store/hooks/index'
+import { selectUser } from 'selectors/index'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import { profileT } from 'types/profileT'
-import { SelectInput } from 'components/common/SelectInput/SelectInput'
-import ModeEditIcon from '@mui/icons-material/ModeEdit'
-
 import styles from './profile.module.scss'
 import formStyles from './formStyles.module.scss'
-import {individualRatingT} from "../../types/ratingT";
-import {RoleE} from "../../enum/roleE";
-
-
-const optionsList = [
-  {
-    label: 'Женский',
-    value: 'Ж',
-  },
-  {
-    label: 'Мужской',
-    value: 'М',
-  },
-]
-
+import { individualRatingT } from '../../types/ratingT'
+import { RoleE } from '../../enum/roleE'
+import { setUserProfile } from 'store/redux/users/profileSlice'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 type AboutUserT = {
-   handleSubmitAboutUser: boolean;
+  handleSubmitAboutUser: boolean
 }
 
-
-export const AboutUser: FC<AboutUserT> = memo(({handleSubmitAboutUser}) => {
+export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
   const { role: UserRole } = useAppSelector(selectUser)
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
   const [avatarUrl, setAvatarUrl] = useState<string>('')
+  const dispatch = useAppDispatch()
 
-  const { data, isFetching, isError, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
+  const { data, isFetching, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
   const [updateProfile, { isSuccess }] = useUpdateProfileMutation()
 
   const [profileData, setProfileData] = useState<profileT>()
@@ -49,21 +33,23 @@ export const AboutUser: FC<AboutUserT> = memo(({handleSubmitAboutUser}) => {
   const [phoneError, setPhoneError] = useState<string>()
   const [avatarError, setAvatarError] = useState<string>('')
   const schoolName = window.location.href.split('/')[4]
-  const { data: ratingData, isSuccess: ratingSuccess } = useFetchIndividualRatingQuery({schoolName: schoolName})
+  const [fetchRates, { data: ratingData, isSuccess: ratingSuccess }] = useLazyFetchIndividualRatingQuery()
   const [rating, setRating] = useState<individualRatingT>()
 
-  const restrictedEmails = ["admin@coursehub.ru", "teacher@coursehub.ru", "student@coursehub.ru"];
+  const restrictedEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru']
   const [isRestrictedUser, setIsRestrictedUser] = useState(false)
 
-
-
+  useEffect(() => {
+    if (UserRole === RoleE.Student) {
+      fetchRates({ schoolName: schoolName })
+    }
+  }, [])
 
   const formik = useFormik({
     initialValues: {
       avatar: profileData?.avatar || '',
       avatar_url: avatarUrl || profileData?.avatar,
       city: profileData?.city || '',
-      // description: profileData?.description || '',
       first_name: profileData?.user.first_name || '',
       last_name: profileData?.user.last_name || '',
       email: profileData?.user.email || '',
@@ -73,7 +59,7 @@ export const AboutUser: FC<AboutUserT> = memo(({handleSubmitAboutUser}) => {
     enableReinitialize: true,
     validationSchema: userDataSchema,
     onSubmit: values => {
-      if (isRestrictedUser) return;
+      if (isRestrictedUser) return
 
       const { avatar, avatar_url, city, ...rest } = values
 
@@ -98,6 +84,20 @@ export const AboutUser: FC<AboutUserT> = memo(({handleSubmitAboutUser}) => {
         avatarFile
           ? updateProfile({ userInfo: formData, id: data[0]?.profile_id })
               .unwrap()
+              .then(data =>
+                dispatch(
+                  setUserProfile({
+                    id: data.profile_id,
+                    first_name: data.user.first_name,
+                    last_name: data.user.last_name,
+                    email: String(data.user.email),
+                    username: String(data.user.username),
+                    phone_number: String(data.user.phone_number),
+                    avatar: data.avatar,
+                    additional_roles: data.additional_roles,
+                  }),
+                ),
+              )
               .catch(error => {
                 console.log(error.data)
                 error.data['errors']['user']['phone_number'] && setPhoneError(error.data['errors']['user']['phone_number'][0])
@@ -136,11 +136,11 @@ export const AboutUser: FC<AboutUserT> = memo(({handleSubmitAboutUser}) => {
     if (profileIsSuccess) {
       setProfileData(data[0])
 
-      const userEmail = data[0]?.user?.email;
+      const userEmail = data[0]?.user?.email
       if (userEmail && restrictedEmails.includes(userEmail)) {
-        setIsRestrictedUser(true);
+        setIsRestrictedUser(true)
       } else {
-        setIsRestrictedUser(false);
+        setIsRestrictedUser(false)
       }
     }
   }, [profileIsSuccess])
@@ -155,8 +155,6 @@ export const AboutUser: FC<AboutUserT> = memo(({handleSubmitAboutUser}) => {
     }
   }, [ratingSuccess])
 
-
-
   const {
     values: { city, email, last_name, first_name, patronymic, phone_number, avatar_url },
     handleChange,
@@ -166,31 +164,48 @@ export const AboutUser: FC<AboutUserT> = memo(({handleSubmitAboutUser}) => {
     isSubmitting,
   } = formik
 
-
   useEffect(() => {
     if (handleSubmitAboutUser) {
       handleSubmit()
     }
   }, [handleSubmitAboutUser])
 
-
-
+  if (!profileData) {
+    return <LoaderLayout />
+  }
 
   return (
-     <form className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
+    <form className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
       {(isSubmitting || isFetching) && (
         <div className={styles.profile_loader}>
           <SimpleLoader style={{ width: '50px', height: '50px' }} />
         </div>
       )}
-      {UserRole === RoleE.Student &&
-      <div className={styles.profile_rating}>
-        <p className={styles.profile_rating_top}>Пройденных занятий: {rating?.completed_lessons} {rating?.top_by_lessons_num && <span> | вы в топ {rating?.top_by_lessons_num} пользователей</span>}</p>
-        <p>Доступных курсов: {rating?.available_courses} {rating?.top_by_courses_num && <span> | вы в топ {rating?.top_by_courses_num} пользователей</span>}</p>
-      </div>}
+      {UserRole === RoleE.Student && (
+        <div className={styles.profile_rating}>
+          <p className={styles.profile_rating_top}>
+            Пройденных занятий: {rating?.completed_lessons}{' '}
+            {rating?.top_by_lessons_num && <span> | вы в топ {rating?.top_by_lessons_num} пользователей</span>}
+          </p>
+          <p>
+            Доступных курсов: {rating?.available_courses}{' '}
+            {rating?.top_by_courses_num && <span> | вы в топ {rating?.top_by_courses_num} пользователей</span>}
+          </p>
+        </div>
+      )}
       <h1 className={styles.profile_title}>Настройка профиля</h1>
       <div className={styles.profile_block}>
-        <span style={{ display: 'flex', alignItems: 'center', lineHeight: '19px', gap: '0.5rem', fontSize: '16px', marginBottom: '20px', marginTop: '20px' }}>
+        <span
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            lineHeight: '19px',
+            gap: '0.5rem',
+            fontSize: '16px',
+            marginBottom: '20px',
+            marginTop: '20px',
+          }}
+        >
           <strong>Email:</strong>
           {email}
         </span>
@@ -202,13 +217,20 @@ export const AboutUser: FC<AboutUserT> = memo(({handleSubmitAboutUser}) => {
       <div className={formStyles.form_avatarWrapper}>
         <div className={formStyles.form_avatarWrapper_avatarBlock}>
           {avatar_url ? (
-              <div className={styles.profile_block}>
-            <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={avatar_url} alt="" />
-      </div>
+            <div className={styles.profile_block}>
+              <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={profileData.avatar} alt="" />
+            </div>
           ) : (
             <div className={styles.profile_block_avatarBlock_avatar} />
           )}
-          <input className={styles.profile_block_avatarBlock_input} value={''} name={'avatar'} type={'file'} onChange={onChangeAvatar} disabled={isRestrictedUser} />
+          <input
+            className={styles.profile_block_avatarBlock_input}
+            value={''}
+            name={'avatar'}
+            type={'file'}
+            onChange={onChangeAvatar}
+            disabled={isRestrictedUser}
+          />
         </div>
         {avatarError && <p className={formStyles.form_avatarWrapper_error}>{avatarError}</p>}
       </div>
@@ -219,7 +241,14 @@ export const AboutUser: FC<AboutUserT> = memo(({handleSubmitAboutUser}) => {
         <Input name={'last_name'} type={'text'} label={'Фамилия:'} onChange={handleChange} value={last_name as string} disabled={isRestrictedUser} />
       </div>
       <div className={styles.profile_block}>
-        <Input name={'patronymic'} type={'text'} label={'Отчество:'} onChange={handleChange} value={patronymic as string} disabled={isRestrictedUser} />
+        <Input
+          name={'patronymic'}
+          type={'text'}
+          label={'Отчество:'}
+          onChange={handleChange}
+          value={patronymic as string}
+          disabled={isRestrictedUser}
+        />
       </div>
       <div className={styles.profile_block}>
         <Input
@@ -238,5 +267,3 @@ export const AboutUser: FC<AboutUserT> = memo(({handleSubmitAboutUser}) => {
     </form>
   )
 })
-
-

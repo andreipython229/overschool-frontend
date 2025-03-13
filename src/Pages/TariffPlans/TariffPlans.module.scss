@@ -10,366 +10,173 @@
     height: 100%;
 
   &_changePlane{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: SF Pro Text, sans-serif;
-    font-size: 30px;
-    font-weight: 800;
-    line-height: 54.89px;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
-    margin-top: 15px;
+    @media only screen and (min-width: 1024px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: SF Pro Text, sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 54.89px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+      margin-top: 15px;
     }
 
-   &_header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: SF Pro Text, sans-serif;
-    font-size: 46px;
-    font-weight: 800;
-    line-height: 54.89px;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
-    margin-top: 20px;
+    @media only screen and (min-width: 480px) and (max-width: 1024px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: SF Pro Text, sans-serif;
+      font-size: 2.5vw;
+      font-weight: 800;
+      line-height: 2.5vw;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: SF Pro Text, sans-serif;
+      font-size: 2.5vw;
+      font-weight: 600;
+      line-height: 4vw;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+      margin-top: 0.2vw;
+    }
   }
 
-  h1 {
-    margin: 23px;
-    color: #4d5766;
-    font-size: 35px;
+   &_header{
+    @media only screen and (min-width: 1024px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: SF Pro Text, sans-serif;
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 54.89px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+      margin-top: 20px;
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 1024px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: SF Pro Text, sans-serif;
+      font-size: 3vw;
+      font-weight: 800;
+      line-height: 3.2vw;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+      margin-top: 2vw;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: SF Pro Text, sans-serif;
+      font-size: 6.2vw;
+      font-weight: 600;
+      line-height: 6.5vw;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+      margin-top: 2vw;
+    }
   }
 
   &_switchBlock{
-    display: flex;
-    width: 565px;
-    height: 64px;
-    padding: 0px 24px 0px 24px;
-    gap: 0px;
-    border-radius: 48px;
-    justify: space-between;
-    opacity: 0px;
-    background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
-    margin-top: 30px;
-
-    &_forMonth{
-      width: 245px;
+    @media only screen and (min-width: 1024px) {
+      display: flex;
+      width: 565px;
       height: 64px;
+      padding: 0px 24px 0px 24px;
       gap: 0px;
+      border-radius: 48px;
+      justify: space-between;
       opacity: 0px;
-      font-family: SF Pro Display;
-      font-size: 20px;
-      font-weight: 500;
-      line-height: 23.87px;
-      text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(51, 47, 54, 1);
-      border: none;
-      background: transparent;
-      cursor: default;
-      }
+      background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
+      margin-top: 30px;
 
-    &_forMonthSwitchOff{
-      width: 282px;
-      height: 64px;
-      gap: 0px;
-      border-radius: 64px;
-      opacity: 0px;
-      border: none;
-      background-color: rgba(53, 126, 235, 1);
-      font-family: SF Pro Display;
-      font-size: 20px;
-      font-weight: 500;
-      line-height: 23.87px;
-      text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(255, 255, 255, 1);
-      animation-name: switchOffMonth;
-      animation-duration: 0.2s;
-      cursor: default;
-      }
-
-      @keyframes switchOffMonth {
-        from{
-          margin-left: 70px;
-        }
-
-        50%{
-          margin-left: 35px;
-        }
-        to {
-          margin-left: 10px;
-      }
-    }
-
-    &_forYear{
-      width: 282px;
-      height: 64px;
-      left: 25px;
-      gap: 0px;
-      border-radius: 64px;
-      opacity: 0px;
-      background-color: rgba(53, 126, 235, 1);
-      border: none;
-      font-family: SF Pro Display;
-      font-size: 20px;
-      font-weight: 500;
-      line-height: 23.87px;
-      text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(255, 255, 255, 1);
-      cursor: default;
-      animation-name: switchOnYear;
-      animation-duration: 0.2s;
-
-      &_sale{
-        width: 129px;
-        height: 27px;
-        padding: 4px 8px 4px 8px;
-        gap: 10px;
-        border-radius: 16px;
+      &_forMonth{
+        width: 257px;
+        height: 64px;
+        gap: 0px;
         opacity: 0px;
-        border: 1px solid rgba(255, 255, 255, 1);
         font-family: SF Pro Display;
-        font-size: 16px;
+        font-size: 20px;
         font-weight: 500;
-        line-height: 19.09px;
+        line-height: 23.87px;
         text-align: center;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(255, 255, 255, 1);
-        margin-left: 7px;
-      }
-    }
-
-    @keyframes switchOnYear {
-        from {
-          opacity: 1;
-          background-color: rgba(53, 126, 235, 1);
-          margin-left: -70px;
-          border-radius: 64px;
-          width: 282px;
-          color: rgba(255, 255, 255, 1);
-        }
-        to {
-          margin-left: -10px;
-          opacity: 1;
-        }
-      }
-
-    &_forYearSwitchOff{
-      width: 245px;
-      height: 64px;
-      gap: 0px;
-      opacity: 0px;
-      background-color: transparent;
-      border: none;
-      font-family: SF Pro Display;
-      font-size: 20px;
-      font-weight: 500;
-      line-height: 23.87px;
-      text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(51, 47, 54, 1);
-      margin-left: 20px;
-      animation-name: switchOffYear;
-      animation-duration: 0.2s;
-      cursor: default;
-
-
-      &_saleSwitchOff{
-        width: 129px;
-        height: 27px;
-        padding: 4px 8px 4px 8px;
-        gap: 10px;
-        border-radius: 16px;
-        opacity: 0px;
-        border: none;
-        font-family: SF Pro Display;
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 19.09px;
-        text-align: center;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(255, 255, 255, 1);
-        margin-left: 7px;
-        background-color: rgba(53, 126, 235, 1);
-        }
-      }
-
-      @keyframes switchOffYear {
-        from {
-          opacity: 1;
-          background-color: rgba(53, 126, 235, 1);
-          margin-left: -70px;
-          border-radius: 64px;
-          width: 282px;
-          color: rgba(255, 255, 255, 1);
-        }
-
-        50%{
-          opacity: 1;
-          background-color: rgba(53, 126, 235, 1);
-          margin-left: -35px;
-          border-radius: 64px;
-          width: 282px;
-          color: rgba(255, 255, 255, 1);
-        }
-
-        to {
-          margin-left: 10px;
-          opacity: 1;
-        }
-      }
-  }
-  &_plansBlock {
-    align-items: center;
-    flex-direction: column;
-    display: flex;
-
-    &_cardGroup {
-      width: 1219px;
-      height: 878px;
-      gap: 40px;
-      opacity: 0px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-around;
-      margin-top: 40px;
-
-      &_firstCard {
-        width: 340px;
-        height: 764px;
-        padding: 32px 16px 32px 16px;
-        gap: 40px;
-        border-radius: 24px;
-        opacity: 0px;
-        background-color: rgba(255, 255, 255, 1);
-        box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
-
-        &_planName {
-          font-family: SF Pro Display;
-          font-size: 32px;
-          font-weight: 700;
-          line-height: 38.19px;
-          text-align: left;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(50, 65, 149, 1);
-        }
-      }
-
-      &_secondCard{
-        width: 420px;
-        height: 854px;
-        padding: 34px 16px 34px 16px;
-        gap: 40px;
-        border-radius: 24px;
-        opacity: 0px;
-        background-color: rgba(207, 226, 255, 1);
-        box-shadow: 0px 0px 10.5px 0px rgba(0, 0, 0, 0.45);
-        box-shadow: 0px 0px 25px 0px rgba(53, 126, 235, 1);
-        backdrop-filter: blur(35px);
-
-      &_planName{
-        font-family: SF Pro Display;
-        font-size: 32px;
-        font-weight: 700;
-        line-height: 38.19px;
-        text-align: left;
         text-underline-position: from-font;
         text-decoration-skip-ink: none;
         color: rgba(51, 47, 54, 1);
-      }
-    }
+        border: none;
+        background: transparent;
+        cursor: default;
+        }
 
-      &_thirdCard{
-      width: 340px;
-      height: 790px;
-      padding: 35px 16px 32px 16px;
-      gap: 40px;
-      border-radius: 24px;
-      opacity: 0px;
-      background: rgba(50, 65, 149, 1);
-      box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
-
-      &_planName{
-        font-family: SF Pro Display;
-        font-size: 32px;
-        font-weight: 700;
-        line-height: 38.19px;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(255, 250, 250, 1);
-
-      }
-    }
-  }
-
-
-  &_banner {
-    margin-top: 65px;
-    width: 1920px;
-    height: 472px;
-    padding: 36px 10px 36px 10px;
-    gap: 48px;
-    opacity: 0px;
-    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
-    align-items: center;
-    flex-direction: row;
-    display: flex;
-    margin-left: -470px;
-
-
-
-    &_createProject {
-      width: 552px;
-      margin-left: 25vw;
-
-      h1 {
-        margin: 0;
-        font-family: SF Pro Display;
-        font-size: 36px;
-        font-weight: 500;
-        line-height: 42.96px;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(255, 255, 255, 1);
-      }
-      p {
-        margin-top: 40px;
-        font-family: SF Pro Display;
-        font-size: 24px;
-        font-weight: 500;
-        line-height: 28.64px;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(255, 255, 255, 1);
-      }
-
-      button {
-        margin: 66px 0 0 0;
-        width: 302px;
-        height: 54px;
-        padding: 16px 40px 16px 40px;
-        gap: 10px;
-        border-radius: 10px;
+      &_forMonthSwitchOff{
+        width: 282px;
+        height: 64px;
+        gap: 0px;
+        border-radius: 64px;
         opacity: 0px;
         border: none;
-        background: rgba(53, 126, 235, 1);
+        background-color: rgba(53, 126, 235, 1);
+        font-family: SF Pro Display;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 23.87px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
+        animation-name: switchOffMonth;
+        animation-duration: 0.2s;
+        cursor: default;
+        }
+
+        @keyframes switchOffMonth {
+          from{
+            margin-left: 70px;
+          }
+
+          50%{
+            margin-left: 35px;
+          }
+          to {
+            margin-left: 10px;
+        }
+      }
+
+      &_forYear{
+        width: 282px;
+        height: 64px;
+        left: 25px;
+        gap: 0px;
+        border-radius: 64px;
+        opacity: 0px;
+        background-color: rgba(53, 126, 235, 1);
+        border: none;
         font-family: SF Pro Display;
         font-size: 20px;
         font-weight: 500;
@@ -379,52 +186,813 @@
         text-decoration-skip-ink: none;
         color: rgba(255, 255, 255, 1);
         cursor: default;
+        animation-name: switchOnYear;
+        animation-duration: 0.2s;
 
-        &:hover {
-          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+        &_sale{
+          width: 129px;
+          height: 27px;
+          padding: 4px 8px 4px 8px;
+          gap: 10px;
+          border-radius: 16px;
+          opacity: 0px;
+          border: 1px solid rgba(255, 255, 255, 1);
+          font-family: SF Pro Display;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 19.09px;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          margin-left: 7px;
+        }
+      }
+
+      @keyframes switchOnYear {
+          from {
+            opacity: 1;
+            background-color: rgba(53, 126, 235, 1);
+            margin-left: -70px;
+            border-radius: 64px;
+            width: 282px;
+            color: rgba(255, 255, 255, 1);
+          }
+          to {
+            margin-left: -10px;
+            opacity: 1;
+          }
+        }
+
+      &_forYearSwitchOff{
+        width: 245px;
+        height: 64px;
+        gap: 0px;
+        opacity: 0px;
+        background-color: transparent;
+        border: none;
+        font-family: SF Pro Display;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 23.87px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(51, 47, 54, 1);
+        margin-left: 20px;
+        animation-name: switchOffYear;
+        animation-duration: 0.2s;
+        cursor: default;
+
+
+        &_saleSwitchOff{
+          width: 129px;
+          height: 27px;
+          padding: 4px 8px 4px 8px;
+          gap: 10px;
+          border-radius: 16px;
+          opacity: 0px;
+          border: none;
+          font-family: SF Pro Display;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 19.09px;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          margin-left: 7px;
+          background-color: rgba(53, 126, 235, 1);
+          }
+        }
+
+        @keyframes switchOffYear {
+          from {
+            opacity: 1;
+            background-color: rgba(53, 126, 235, 1);
+            margin-left: -70px;
+            border-radius: 64px;
+            width: 282px;
+            color: rgba(255, 255, 255, 1);
+          }
+
+          50%{
+            opacity: 1;
+            background-color: rgba(53, 126, 235, 1);
+            margin-left: -35px;
+            border-radius: 64px;
+            width: 282px;
+            color: rgba(255, 255, 255, 1);
+          }
+
+          to {
+            margin-left: 10px;
+            opacity: 1;
+          }
+        }
+      }
+
+    @media only screen and (min-width: 480px) and (max-width: 1024px) {
+      display: flex;
+      width: 34vw;
+      height: 5vw;
+      padding: 0px 2vw 0px 2vw;
+      gap: 0px;
+      border-radius: 48px;
+      justify: space-between;
+      opacity: 0px;
+      background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
+      margin-top: 2vw;
+
+      &_forMonth{
+        width: 16vw;
+        height: 5vw;
+        gap: 0px;
+        opacity: 0px;
+        font-family: SF Pro Display;
+        font-size: 1.5vw;
+        font-weight: 500;
+        line-height: 23.87px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(51, 47, 54, 1);
+        border: none;
+        background: transparent;
+        cursor: default;
+        }
+
+      &_forMonthSwitchOff{
+        width: 18vw;
+        height: 5vw;
+        gap: 0px;
+        border-radius: 64px;
+        opacity: 0px;
+        border: none;
+        background-color: rgba(53, 126, 235, 1);
+        font-family: SF Pro Display;
+        font-size: 1.5vw;
+        font-weight: 500;
+        line-height: 23.87px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
+        animation-name: switchOffMonth;
+        animation-duration: 0.2s;
+        cursor: default;
+        }
+
+        @keyframes switchOffMonth {
+          from{
+            margin-left: 2vw;
+          }
+
+          50%{
+            margin-left: 1vw;
+          }
+          to {
+            margin-left: 0.5vw;
+        }
+      }
+
+      &_forYear{
+        width: 17vw;
+        height: 5vw;
+        gap: 0px;
+        border-radius: 64px;
+        opacity: 0px;
+        background-color: rgba(53, 126, 235, 1);
+        border: none;
+        font-family: SF Pro Display;
+        font-size: 1.5vw;
+        font-weight: 500;
+        line-height: 23.87px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
+        cursor: default;
+        animation-name: switchOnYear;
+        animation-duration: 0.2s;
+
+        &_sale{
+          width: 5vw;
+          height: 5vw;
+          padding: 0.5vw 1vw 0.5vw 1vw;
+          gap: 10px;
+          border-radius: 16px;
+          opacity: 0px;
+          border: 1px solid rgba(255, 255, 255, 1);
+          font-family: SF Pro Display;
+          font-size: 0.8vw;
+          font-weight: 500;
+          line-height: 19.09px;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          margin-left: 0.5vw;
+        }
+      }
+
+      @keyframes switchOnYear {
+          from {
+            opacity: 1;
+            background-color: rgba(53, 126, 235, 1);
+            margin-left: -2vw;
+            border-radius: 64px;
+            width: 17vw;
+            color: rgba(255, 255, 255, 1);
+          }
+          to {
+            margin-left: -0.5vw;
+            opacity: 1;
+          }
+        }
+
+      &_forYearSwitchOff{
+        width: 18vw;
+        height: 5vw;
+        gap: 0px;
+        opacity: 0px;
+        background-color: transparent;
+        border: none;
+        font-family: SF Pro Display;
+        font-size: 1.5vw;
+        font-weight: 500;
+        line-height: 23.87px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(51, 47, 54, 1);
+        margin-left: -0.5vw;
+        animation-name: switchOffYear;
+        animation-duration: 0.2s;
+        cursor: default;
+
+
+        &_saleSwitchOff{
+          width: 5vw;
+          height: 5vw;
+          padding: 0.5vw 1vw 0.5vw 1vw;
+          gap: 10px;
+          border-radius: 16px;
+          opacity: 0px;
+          border: none;
+          font-family: SF Pro Display;
+          font-size: 0.8vw;
+          font-weight: 500;
+          line-height: 19.09px;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          margin-left: 0.5vw;
+          background-color: rgba(53, 126, 235, 1);
+          }
+        }
+
+        @keyframes switchOffYear {
+          from {
+            opacity: 1;
+            background-color: rgba(53, 126, 235, 1);
+            margin-left: -2vw;
+            border-radius: 64px;
+            width: 17vw;
+            color: rgba(255, 255, 255, 1);
+          }
+
+          50%{
+            opacity: 1;
+            background-color: rgba(53, 126, 235, 1);
+            margin-left: -1vw;
+            border-radius: 64px;
+            width: 17vw;
+            color: rgba(255, 255, 255, 1);
+          }
+
+          to {
+            margin-left: 0.5vw;
+            opacity: 1;
+          }
+        }
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        display: flex;
+        width: 34vw;
+        height: 5vw;
+        padding: 0px 1vw 0px 1vw;
+        gap: 0px;
+        border-radius: 48px;
+        justify: space-between;
+        opacity: 0px;
+        background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
+        margin-top: 2vw;
+
+        &_forMonth{
+          width: 16vw;
+          height: 5vw;
+          gap: 0px;
+          opacity: 0px;
+          font-family: SF Pro Display;
+          font-size: 1.5vw;
+          padding:0;
+          margin:0;
+          font-weight: 500;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(51, 47, 54, 1);
+          border: none;
+          background: transparent;
+          cursor: default;
+          line-height: 5vw;
+          vertical-align: top;
+        }
+
+        &_forMonthSwitchOff{
+          width: 18vw;
+          height: 5vw;
+          gap: 0px;
+          border-radius: 64px;
+          opacity: 0px;
+          border: none;
+          background-color: rgba(53, 126, 235, 1);
+          font-family: SF Pro Display;
+          font-size: 1.5vw;
+          font-weight: 500;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          animation-name: switchOffMonth;
+          animation-duration: 0.2s;
+          cursor: default;
+          line-height: 5vw;
+          vertical-align: top;
+          margin-left: 3.5vw;
+          }
+
+          @keyframes switchOffMonth {
+            from{
+              margin-left: 10vw;
+            }
+
+            50%{
+              margin-left: 8vw;
+            }
+            to {
+              margin-left: 6vw;
+          }
+        }
+
+        &_forYear{
+          width: 17vw;
+          height: 5vw;
+          gap: 0px;
+          border-radius: 64px;
+          opacity: 0px;
+          background-color: rgba(53, 126, 235, 1);
+          border: none;
+          font-family: SF Pro Display;
+          font-size: 1.5vw;
+          font-weight: 500;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          cursor: default;
+          animation-name: switchOnYear;
+          animation-duration: 0.2s;
+          line-height: 5vw;
+          vertical-align: top;
+          justify-content: center;
+
+          &_sale{
+            width: 5vw;
+            height: 3vw;
+            padding: 0.5vw 1vw 0.5vw 1vw;
+            border-radius: 16px;
+            opacity: 0px;
+            border: 0.5px solid rgba(255, 255, 255, 1);
+            font-family: SF Pro Display;
+            font-size: 0.8vw;
+            font-weight: 500;
+            text-align: center;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+            color: rgba(255, 255, 255, 1);
+            margin-left: 0.5vw;
+          }
+        }
+
+        @keyframes switchOnYear {
+            from {
+              opacity: 1;
+              background-color: rgba(53, 126, 235, 1);
+              margin-left: -2vw;
+              border-radius: 64px;
+              width: 17vw;
+              color: rgba(255, 255, 255, 1);
+            }
+            to {
+              margin-left: -0.5vw;
+              opacity: 1;
+            }
+          }
+
+        &_forYearSwitchOff{
+          width: 18vw;
+          height: 5vw;
+          gap: 0px;
+          opacity: 0px;
+          background-color: transparent;
+          border: none;
+          font-family: SF Pro Display;
+          font-size: 1.5vw;
+          font-weight: 500;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(51, 47, 54, 1);
+          animation-name: switchOffYear;
+          animation-duration: 0.2s;
+          cursor: default;
+          line-height: 5vw;
+          vertical-align: top;
+          margin-left: -0.5vw;
+
+          &_saleSwitchOff{
+            width: 5vw;
+            height: 3vw;
+            padding: 0.5vw 1vw 0.5vw 1vw;
+            border-radius: 16px;
+            opacity: 0px;
+            border: none;
+            font-family: SF Pro Display;
+            font-size: 0.8vw;
+            font-weight: 500;
+            text-align: center;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+            color: rgba(255, 255, 255, 1);
+            margin-left: 0.5vw;
+            background-color: rgba(53, 126, 235, 1);
+            }
+          }
+
+          @keyframes switchOffYear {
+            from {
+              opacity: 1;
+              background-color: rgba(53, 126, 235, 1);
+              margin-left: -2vw;
+              border-radius: 64px;
+              width: 17vw;
+              color: rgba(255, 255, 255, 1);
+            }
+
+            50%{
+              opacity: 1;
+              background-color: rgba(53, 126, 235, 1);
+              margin-left: -1vw;
+              border-radius: 64px;
+              width: 17vw;
+              color: rgba(255, 255, 255, 1);
+            }
+
+            to {
+              margin-left: 0.5vw;
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+  &_plansBlock {
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+
+      &_cardGroup {
+        @media only screen and (min-width: 1440px) {
+          width: 1219px;
+          height: 878px;
+          gap: 40px;
+          opacity: 0px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-around;
+          margin-top: 40px;
+
+          &_firstCard {
+            width: 340px;
+            height: 764px;
+            padding: 32px 16px 32px 16px;
+            gap: 40px;
+            border-radius: 24px;
+            opacity: 0px;
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
+            &_planName {
+              font-family: SF Pro Display;
+              font-size: 32px;
+              font-weight: 700;
+              line-height: 38.19px;
+              text-align: left;
+              text-underline-position: from-font;
+              text-decoration-skip-ink: none;
+              color: rgba(50, 65, 149, 1);
+            }
+          }
+
+          &_secondCard{
+            width: 420px;
+            height: 854px;
+            padding: 34px 16px 34px 16px;
+            gap: 40px;
+            border-radius: 24px;
+            opacity: 0px;
+            background-color: rgba(207, 226, 255, 1);
+            box-shadow: 0px 0px 10.5px 0px rgba(0, 0, 0, 0.45);
+            box-shadow: 0px 0px 25px 0px rgba(53, 126, 235, 1);
+            backdrop-filter: blur(35px);
+
+            img{
+              margin-left: 113px;
+              margin-top: -34px;
+            }
+
+          &_planName{
+            font-family: SF Pro Display;
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 38.19px;
+            text-align: left;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+            color: rgba(51, 47, 54, 1);
+          }
+        }
+
+          &_thirdCard{
+          width: 340px;
+          height: 790px;
+          padding: 35px 16px 32px 16px;
+          gap: 40px;
+          border-radius: 24px;
+          opacity: 0px;
+          background: rgba(50, 65, 149, 1);
+          box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
+          &_planName{
+            font-family: SF Pro Display;
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 38.19px;
+            text-align: left;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+            color: rgba(255, 250, 250, 1);
+
+          }
+        }
+      }
+
+        @media only screen and (min-width: 480px) and (max-width: 1440px) {
+          width: 85vw;
+          height: 61vw;
+          gap: 3vw;
+          opacity: 0px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-around;
+          margin-top: 3vw;
+
+        &_firstCard {
+          width: 24vw;
+          height: 55vw;
+          padding: 2vw 1vw 2vw 1vw;
+          gap: 2vw;
+          border-radius: 24px;
+          opacity: 0px;
+          background-color: rgba(255, 255, 255, 1);
+          box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
+          &_planName {
+            font-family: SF Pro Display;
+            font-size: 2.5vw;
+            font-weight: 700;
+            text-align: left;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+            color: rgba(50, 65, 149, 1);
+          }
+        }
+
+        &_secondCard{
+          width: 26vw;
+          height: 61vw;
+          padding: 2vw 1vw 2vw 1vw;
+          gap: 2vw;
+          border-radius: 24px;
+          opacity: 0px;
+          background-color: rgba(207, 226, 255, 1);
+          box-shadow: 0px 0px 10.5px 0px rgba(0, 0, 0, 0.45);
+          box-shadow: 0px 0px 25px 0px rgba(53, 126, 235, 1);
+          backdrop-filter: blur(35px);
+
+          img{
+            margin-left: 7.3vw;
+            margin-top: -2vw;
+            width: 10vw;
+          }
+
+
+        &_planName{
+          font-family: SF Pro Display;
+          font-size: 2.5vw;
+          font-weight: 700;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(51, 47, 54, 1);
+        }
+      }
+
+        &_thirdCard{
+          width: 24vw;
+          height: 55vw;
+          padding: 2vw 1vw 2vw 1vw;
+          gap: 2vw;
+          border-radius: 24px;
+          opacity: 0px;
+          background: rgba(50, 65, 149, 1);
+          box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
+          &_planName{
+            font-family: SF Pro Display;
+            font-size: 2.5vw;
+            font-weight: 700;
+            text-align: left;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+            color: rgba(255, 250, 250, 1);
+      }
+    }
+  }
+}
+
+
+  &_banner {
+   @media only screen and (min-width: 1440px){
+      margin-top: 65px;
+      width: 1920px;
+      height: 472px;
+      padding: 36px 10px 36px 10px;
+      gap: 48px;
+      opacity: 0px;
+      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+      align-items: center;
+      flex-direction: row;
+      display: flex;
+      margin-left: -470px;
+
+      &_createProject {
+        width: 552px;
+        margin-left: 25vw;
+
+        h1 {
+          margin: 0;
+          font-family: SF Pro Display;
+          font-size: 36px;
+          font-weight: 500;
+          line-height: 42.96px;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+        }
+        p {
+          margin-top: 40px;
+          font-family: SF Pro Display;
+          font-size: 24px;
+          font-weight: 500;
+          line-height: 28.64px;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+        }
+
+        button {
+          margin: 66px 0 0 0;
+          width: 302px;
+          height: 54px;
+          padding: 16px 40px 16px 40px;
+          gap: 10px;
+          border-radius: 10px;
+          opacity: 0px;
+          border: none;
+          background: rgba(53, 126, 235, 1);
+          font-family: SF Pro Display;
+          font-size: 20px;
+          font-weight: 500;
+          line-height: 23.87px;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          cursor: default;
+
+          &:hover {
+            background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          }
+        }
+      }
+      &_images {
+        width: 660px;
+        }
+      }
+
+    @media only screen and (min-width: 480px) and (max-width: 1440px) {
+      margin-top: 5vw;
+      width: 100vw;
+      height: 35vw;
+      padding: 2vw 1vw 2vw 1vw;
+      gap: 2vw;
+      opacity: 0px;
+      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+      align-items: center;
+      flex-direction: row;
+      display: flex;
+      margin-left: -15vw;
+
+      &_createProject {
+        width: 50vw;
+        margin-left: 10vw;
+
+        h1 {
+          margin: 0;
+          font-family: SF Pro Display;
+          font-size: 2.5vw;
+          font-weight: 500;
+          line-height: 3vw;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+        }
+        p {
+          margin-top: 2vw;
+          font-family: SF Pro Display;
+          font-size: 1.7vw;
+          font-weight: 500;
+          line-height: 2vw;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+        }
+
+        button {
+          margin: 5vw 0 0 0;
+          width: 22vw;
+          height: 3.5vw;
+          padding: 0.5vw 1.5vw 0.5vw 1.5vw;
+          gap: 10px;
+          border-radius: 10px;
+          opacity: 0px;
+          border: none;
+          background: rgba(53, 126, 235, 1);
+          font-family: SF Pro Display;
+          font-size: 1.3vw;
+          font-weight: 500;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          cursor: default;
+
+          &:hover {
+            background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          }
+        }
+      }
+      &_images {
+        margin-right: 5vw;
+        img{
+          width: 40vw;
+          }
         }
       }
     }
-    &_images {
-      width: 660px;
-
-    }
   }
-}
 }
 
 .planCardBtn{
-  width: 195px;
-  height: 54px;
-  padding: 16px 40px 16px 40px;
-  gap: 10px;
-  border-radius: 10px;
-  opacity: 0px;
-  background: rgba(53, 126, 235, 1);
-  border: none;
-  font-family: SF Pro Display;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 23.87px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
-  color: rgba(255, 255, 255, 1);
-  margin-top: 30px;
-  cursor: default;
-
-  &:hover {
-    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
-    }
-  }
-
-button:disabled,
-  button[disabled] {
+  @media only screen and (min-width: 1440px) {
     width: 195px;
     height: 54px;
-    padding: 16px 0px 16px 0px;
+    padding: 16px 40px 16px 40px;
     gap: 10px;
     border-radius: 10px;
     opacity: 0px;
@@ -441,169 +1009,867 @@ button:disabled,
     text-decoration-skip-ink: none;
     color: rgba(255, 255, 255, 1);
     margin-top: 30px;
+    cursor: default;
+
+    &:hover {
+      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    }
+  }
+
+   @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    width: 14vw;
+    height: 4vw;
+    padding: 0.5vw 1vw 0.5vw 1vw;
+    gap: 10px;
+    border-radius: 10px;
+    opacity: 0px;
+    background: rgba(53, 126, 235, 1);
+    border: none;
+    font-family: SF Pro Display;
+    font-size: 1.3vw;
+    font-weight: 500;
+    line-height: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    margin-top: 1.5vw;
+    cursor: default;
+
+    &:hover {
+      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+  }
+ }
+}
+
+button:disabled,
+  button[disabled] {
+    @media only screen and (min-width: 1440px) {
+      width: 195px;
+      height: 54px;
+      padding: 16px 0px 16px 0px;
+      gap: 10px;
+      border-radius: 10px;
+      opacity: 0px;
+      background: rgba(53, 126, 235, 1);
+      border: none;
+      font-family: SF Pro Display;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 23.87px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(255, 255, 255, 1);
+      margin-top: 30px;
+      cursor: not-allowed;
+    }
+
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    width: 14vw;
+    height: 4vw;
+    padding: 0.5vw 1vw 0.5vw 1vw;
+    gap: 10px;
+    border-radius: 10px;
+    opacity: 0px;
+    background: rgba(53, 126, 235, 1);
+    border: none;
+    font-family: SF Pro Display;
+    font-size: 1.3vw;
+    font-weight: 500;
+    line-height: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+     margin-top: 1.5vw;
     cursor: not-allowed;
+    }
   }
 
 .text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 44px;
+  @media only screen and (min-width: 1440px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 44px;
 
-  &_price{
-    font-family: SF Pro Display;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 38.19px;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(0, 0, 0, 1);
+    &_priceWrap{
+      padding-top: 10px;
+      }
+
+    &_price{
+      font-family: SF Pro Display;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 38.19px;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(0, 0, 0, 1);
+      }
+
+    &_priceTo{
+      font-family: SF Pro Text, sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 18px;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(0, 0, 0, 1);
+      }
+
+      hr{
+        width: 260px;
+        height: 0px;
+        gap: 0px;
+        border: 1px;
+        opacity: 0px;
+        border: 1px solid var(--grey, rgba(128, 128, 128, 1));
+        margin-top: 40px;
+        }
+      ul {
+        width: 187px;
+        height: 144px;
+        gap: 32px;
+        opacity: 0px;
+        margin-top: 20px;
+
+        li {
+          display: flex;
+          justify-content: left;
+          align-items: left;
+          flex-direction: row;
+          margin-top: 7px;
+      }
+    }
+  }
+   @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3vw;
+
+    img{
+      width: 10vw;
     }
 
-  &_priceTo{
-    font-family: SF Pro Text, sans-serif;
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 18px;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(0, 0, 0, 1);
+    &_priceWrap{
+      padding-top: 0.5vw;
+      }
+
+    &_price{
+      font-family: SF Pro Display;
+      font-size: 2.5vw;
+      font-weight: 700;
+      line-height: 2vw;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(0, 0, 0, 1);
+    }
+
+    &_priceTo{
+      font-family: SF Pro Text, sans-serif;
+      font-size: 1.3vw;
+      font-weight: 300;
+      line-height: 1.3vw;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(0, 0, 0, 1);
     }
 
     hr{
-      width: 260px;
+      width: 16vw;
       height: 0px;
       gap: 0px;
       border: 1px;
       opacity: 0px;
       border: 1px solid var(--grey, rgba(128, 128, 128, 1));
-      margin-top: 40px;
-      }
+      margin-top: 1.5vw;
+    }
     ul {
-      width: 187px;
-      height: 144px;
-      gap: 32px;
+      width: 12vw;
+      height: 10vw;
       opacity: 0px;
-      margin-top: 20px;
 
-      li {
-        display: flex;
-        justify-content: left;
-        align-items: left;
-        flex-direction: row;
-        margin-top: 7px;
+    li {
+      display: flex;
+      justify-content: left;
+      align-items: left;
+      flex-direction: row;
+      height: 2vw;
+      }
     }
   }
 }
 
+.label{
+  @media only screen and (min-width: 1440px) {
+    padding-top: 15px;
+    }
+
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    padding-top: 2vw;
+    }
+}
+.icon{
+  @media only screen and (min-width: 900px) and (max-width: 1440px) {
+    width: 1.5vw;
+    height: 1.5vw;
+    transform: scale(1);
+    margin-top: 0.7vw;
+  }
+
+  @media only screen and (min-width: 800px) and (max-width: 900px) {
+    width: 1.5vw;
+    height: 1.5vw;
+    transform: scale(1);
+  }
+
+  @media only screen and (min-width: 700px) and (max-width: 800px) {
+    width: 1.5vw;
+    height: 1.5vw;
+    transform: scale(1);
+    margin-bottom: 0.3vw;
+  }
+
+  @media only screen and (min-width: 620px) and (max-width: 700px) {
+    width: 1.5vw;
+    height: 1.5vw;
+    transform: scale(1);
+    margin-bottom: 0.7vw;
+  }
+
+  @media only screen and (min-width: 550px) and (max-width: 620px) {
+    width: 1.5vw;
+    height: 1.5vw;
+    transform: scale(1);
+    margin-bottom: 0.9vw;
+  }
+
+  @media only screen and (min-width: 510px) and (max-width: 550px) {
+    width: 1.5vw;
+    height: 1.5vw;
+    transform: scale(1);
+    margin-bottom: 1.3vw;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 510px) {
+    width: 1.5vw;
+    height: 1.5vw;
+    transform: scale(1);
+    margin-bottom: 1.6vw;
+  }
+}
+
+.middleImg{
+  @media only screen and (min-width: 1440px) {
+    margin-right: 120px;
+    }
+
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    margin-top: 3vw;
+    margin-right: 8vw;
+    }
+  }
+
 .blueLabel{
-  font-family: SF Pro Display;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 23.87px;
-  text-align: center;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
-  color: rgba(50, 65, 149, 1);
+  @media only screen and (min-width: 1440px) {
+    font-family: SF Pro Display;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 23.87px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(50, 65, 149, 1);
+    margin-left: 10px;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    font-family: SF Pro Display;
+    font-size: 1.3vw;
+    font-weight: 600;
+    line-height: 3vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(50, 65, 149, 1);
+    margin-left: 0.5vw;
+  }
 }
 
 .hit{
-  display: inline-block;
-  position: absolute;
-  margin-left: 138px;
-  margin-top: 8px;
-  transform: translateX(180px) rotate(41.07deg);
-  font-family: SF Pro Display;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 28.64px;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
-  color: rgba(255, 250, 250, 1);
+  @media only screen and (min-width: 1440px) {
+
+    position: absolute;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 24px;
+    font-weight: 500;
+    margin-top: -130px;
+    margin-left: 38px;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+    }
+
+  @media only screen and (min-width: 1370px) and (max-width: 1440px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -17vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
   }
+
+  @media only screen and (min-width: 1300px) and (max-width: 1370px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -17.5vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 1220px) and (max-width: 1300px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -18.5vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 1170px) and (max-width: 1220px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -19.2vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 1120px) and (max-width: 1170px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -20vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 1070px) and (max-width: 1120px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -20.7vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 1030px) and (max-width: 1070px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -21.3vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 990px) and (max-width: 1030px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -22vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 950px) and (max-width: 990px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -22.8vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 920px) and (max-width: 950px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -23.5vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 880px) and (max-width: 920px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -24.2vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 850px) and (max-width: 880px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -25vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 810px) and (max-width: 850px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -26vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 780px) and (max-width: 810px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -27vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 740px) and (max-width: 780px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -28vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 720px) and (max-width: 740px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -29vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 690px) and (max-width: 720px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -30vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 660px) and (max-width: 690px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -31vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 640px) and (max-width: 660px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -32vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 640px) and (max-width: 660px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -32vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 630px) and (max-width: 640px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -32.5vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 620px) and (max-width: 630px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -33vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 595px) and (max-width: 620px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -34vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 580px) and (max-width: 595px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -35vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 560px) and (max-width: 580px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -36vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 540px) and (max-width: 560px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -37vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 520px) and (max-width: 540px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -38vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 510px) and (max-width: 520px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -39.5vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 500px) and (max-width: 510px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -40vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+
+  @media only screen and (min-width: 490px) and (max-width: 500px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -41vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 490px) {
+    display: inline-block;
+    position: absolute;
+    margin-left: -41.5vw;
+    margin-top: 0.5vw;
+    transform: translateX(180px) rotate(41.07deg);
+    font-family: SF Pro Display;
+    font-size: 1.2vw;
+    font-weight: 500;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 250, 250, 1);
+  }
+}
 
 .blackLabel{
-  font-family: SF Pro Display;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 19.09px;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
-  color: rgba(51, 47, 54, 1);
+  @media only screen and (min-width: 1440px) {
+    font-family: SF Pro Display;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.09px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
   }
 
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    font-family: SF Pro Display;
+    font-size: 1vw;
+    font-weight: 400;
+    line-height: 2.5vw;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+  }
+}
+
 .whiteLabel{
-  font-family: SF Pro Display;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 23.87px;
-  text-align: center;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
-  color: rgba(255, 255, 255, 1);
+  @media only screen and (min-width: 1440px) {
+    font-family: SF Pro Display;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 23.87px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    margin-left: 10px;
+    }
+
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    font-family: SF Pro Display;
+    font-size: 1.3vw;
+    font-weight: 600;
+    line-height: 3vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    margin-left: 0.5vw;
+    }
   }
 
 .whiteLabelCheck{
-  font-family: SF Pro Display;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 19.09px;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
-  color: rgba(255, 255, 255, 1);
+  @media only screen and (min-width: 1440px) {
+    font-family: SF Pro Display;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.09px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    }
+
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    font-family: SF Pro Display;
+    font-size: 1.3vw;
+    font-weight: 400;
+    line-height: 2.5vw;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
   }
+}
 
 .benefit{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  &_wrap{
-    width: 1219.5px;
-    height: 250px;
-    padding: 16px;
-    gap: 16px;
-    border-radius: 32px;
-    opacity: 0px;
-    box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
-    background-color: rgba(255, 255, 255, 1);
+  @media only screen and (min-width: 1440px){
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 
-    &_table{
-      width: 1187.5px;
-      height: 169px;
-      gap: 43px;
-      margin-left: 50px;
+    &_wrap{
+      width: 1219.5px;
+      height: 250px;
+      padding: 16px;
+      gap: 16px;
+      border-radius: 32px;
       opacity: 0px;
-      table-layout: fixed;
-      text-align: center;
-      border-collapse: collapse;
+      box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+      background-color: rgba(255, 255, 255, 1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
 
-      td{
-        text-align: left;
+      &_table{
+        width: 1187.5px;
+        height: 169px;
+        gap: 43px;
+        margin-left: 50px;
+        opacity: 0px;
+        table-layout: fixed;
+        text-align: center;
+        border-collapse: collapse;
 
         td{
-          justify-content: left;
-          font-family: SF Pro Display;
-          font-size: 16px;
-          font-weight: 400;
-          line-height: 19.09px;
           text-align: left;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(51, 47, 54, 1);
 
-          p{
+          td{
             justify-content: left;
             font-family: SF Pro Display;
             font-size: 16px;
@@ -613,98 +1879,208 @@ button:disabled,
             text-underline-position: from-font;
             text-decoration-skip-ink: none;
             color: rgba(51, 47, 54, 1);
+
+            p{
+              justify-content: left;
+              font-family: SF Pro Display;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 19.09px;
+              text-align: left;
+              text-underline-position: from-font;
+              text-decoration-skip-ink: none;
+              color: rgba(51, 47, 54, 1);
+              }
             }
           }
         }
       }
     }
+
+    @media only screen and (min-width: 480px) and (max-width: 1440px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      &_wrap{
+        width: 85vw;
+        height: 18vw;
+        border-radius: 32px;
+        opacity: 0px;
+        box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+        background-color: rgba(255, 255, 255, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        &_table{
+          width: 82vw;
+          height: 15vw;
+          margin-left: 2vw;
+          opacity: 0px;
+          table-layout: fixed;
+          text-align: center;
+          border-collapse: collapse;
+
+          td{
+            text-align: left;
+
+            td{
+              justify-content: left;
+              font-family: SF Pro Display;
+              font-size: 0.9vw;
+              font-weight: 400;
+              line-height: 1vw;
+              text-align: left;
+              text-underline-position: from-font;
+              text-decoration-skip-ink: none;
+              color: rgba(51, 47, 54, 1);
+
+              p{
+                justify-content: left;
+                font-family: SF Pro Display;
+                font-size: 0.9vw;
+                font-weight: 400;
+                line-height: 1vw;
+                text-align: left;
+                text-underline-position: from-font;
+                text-decoration-skip-ink: none;
+                color: rgba(51, 47, 54, 1);
+                }
+
+              img{
+                width: 1.5vw;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+.analiticRow{
+  @media only screen and (min-width: 1440px){
+    padding-top: 45px;
+    }
+
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    padding-top: 0vw;
+    }
+  }
+
+.addLine{
+  @media only screen and (min-width: 1440px){
+    padding-right: 0px;
+    }
+
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    padding-right: 0px;
+    }
   }
 
 .tariffs{
-  width: 1219.5px;
-  height: 373px;
-  gap: 40px;
-  opacity: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &_start{
-    width: 589.75px;
+  @media only screen and (min-width: 1440px){
+    width: 1219.5px;
     height: 373px;
-    border-radius: 24px;
+    gap: 40px;
     opacity: 0px;
-    background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-    margin-right: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &_icon{
+        margin-right: 10px;
+      }
+
+    &_start{
+      width: 589.75px;
+      height: 373px;
+      border-radius: 24px;
+      opacity: 0px;
+      background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
+      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+      margin-right: 18px;
 
 
-    &_block{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      font-family: SF Pro Display;
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 23.87px;
-      text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(51, 47, 54, 1);
-    }
 
-    &_title{
-      font-family: SF Pro Display;
-      font-size: 32px;
-      font-weight: 700;
-      line-height: 38.19px;
-      text-align: left;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(51, 47, 54, 1);
-      margin-top: 20px;
-      margin-left: 20px;
-    }
-
-    ul{
-      list-style: none;
-
-      button{
-        width: 301px;
-        height: 54px;
-        padding: 16px 40px 16px 40px;
-        gap: 10px;
-        border-radius: 10px;
-        opacity: 0px;
+      &_block{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         font-family: SF Pro Display;
         font-size: 20px;
-        font-weight: 500;
+        font-weight: 600;
         line-height: 23.87px;
         text-align: center;
         text-underline-position: from-font;
         text-decoration-skip-ink: none;
-        color: rgba(255, 255, 255, 1);
-        background-color: rgba(53, 126, 235, 1);
-        border: none;
-        cursor: default;
+        color: rgba(51, 47, 54, 1);
 
-        &:hover {
-          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
-    }
-  }
-}
+        img{
+          border: 24px;
+          margin-top: 50px;
+        }
+      }
 
-    &_days{
+      &_title{
         font-family: SF Pro Display;
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 19.09px;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 38.19px;
         text-align: left;
         text-underline-position: from-font;
         text-decoration-skip-ink: none;
         color: rgba(51, 47, 54, 1);
-        margin-top: 10px;
+        margin-top: 20px;
         margin-left: 20px;
+      }
+
+      ul{
+        list-style: none;
+
+        li{
+          height: 34px;
+          margin-left: -25px;
+          }
+
+        button{
+          width: 301px;
+          height: 54px;
+          padding: 16px 40px 16px 40px;
+          gap: 10px;
+          border-radius: 10px;
+          opacity: 0px;
+          font-family: SF Pro Display;
+          font-size: 20px;
+          font-weight: 500;
+          line-height: 23.87px;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          background-color: rgba(53, 126, 235, 1);
+          border: none;
+          cursor: default;
+
+          &:hover {
+            background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+      }
+    }
+  }
+
+    &_days{
+      font-family: SF Pro Display;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 19.09px;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+      margin-top: 10px;
+      margin-left: 20px;
     }
   }
 
@@ -732,6 +2108,12 @@ button:disabled,
       text-underline-position: from-font;
       text-decoration-skip-ink: none;
       color: rgba(255, 255, 255, 1);
+
+      img{
+        border-radius: 24px;
+        margin-top: -88px;
+        margin-left: -25px;
+      }
     }
 
     &_title{
@@ -749,6 +2131,11 @@ button:disabled,
 
     ul{
       list-style: none;
+
+      li{
+        height: 34px;
+        margin-left: -45px;
+      }
 
       button{
         width: 301px;
@@ -801,8 +2188,449 @@ button:disabled,
       text-decoration-skip-ink: none;
       margin-top: 10px;
       color: rgba(255, 255, 255, 1);
+      }
     }
   }
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    width: 85vw;
+    height: 25vw;
+    opacity: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &_icon{
+      margin-right: 0.5vw;
+      width: 1.5vw;
+      margin-top: 0.5vw;
+      margin-left: -2vw;
+    }
+
+    &_start{
+      width: 40vw;
+      height: 25vw;
+      border-radius: 24px;
+      opacity: 0px;
+      background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
+      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+      margin-right: 18px;
+
+      &_block{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        img{
+          width: 20vw;
+          margin-top: 3.5vw;
+          border-radius: 24px;
+        }
+      }
+
+      &_title{
+        font-family: SF Pro Display;
+        font-size: 2.4vw;
+        font-weight: 700;
+        line-height: 2vw;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(51, 47, 54, 1);
+        margin-top: 2vw;
+        margin-left: 1vw;
+      }
+
+      ul{
+        margin-top: -2vw;
+        list-style: none;
+
+        li{
+          height: 2.5vw;
+        }
+
+        button{
+          width: 21vw;
+          height: 3.5vw;
+          padding: 0.5vw 1.5vw 0.5vw 1.5vw;
+          gap: 10px;
+          border-radius: 10px;
+          opacity: 0px;
+          font-family: SF Pro Display;
+          font-size: 1.3vw;
+          font-weight: 500;
+          line-height: 1vw;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          background-color: rgba(53, 126, 235, 1);
+          border: none;
+          cursor: default;
+
+          &:hover {
+            background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+      }
+    }
+  }
+
+    &_days{
+      font-family: SF Pro Display;
+      font-size: 1.3vw;
+      font-weight: 600;
+      line-height: 1.5vw;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+      margin-top: 1vw;
+      margin-left: 1vw;
+    }
+  }
+
+
+    &_personal{
+      width: 40vw;
+      height: 25vw;
+      border-radius: 24px;
+      opacity: 0px;
+      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+
+
+    &_block{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      img{
+        width: 20vw;
+        margin-top: -4vw;
+        margin-left: 0.5vw;
+        border-radius: 24px;
+      }
+    }
+
+    &_title{
+      font-family: SF Pro Display;
+      font-size: 2.4vw;
+      font-weight: 700;
+      line-height: 2vw;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(255, 255, 255, 1);
+      margin-top: 2vw;
+      margin-left: 1vw;
+    }
+
+    ul{
+      list-style: none;
+      margin-top: -1.5vw;
+
+      li{
+        height: 2.5vw;
+      }
+
+      button{
+        width: 20vw;
+        height: 3vw;
+        padding: 0.5vw 1.5vw 0.5vw 1.5vw;
+        gap: 10px;
+        border-radius: 10px;
+        opacity: 0px;
+        border: none;
+        background: rgba(255, 255, 255, 1);
+        position: relative;
+        cursor: default;
+
+        &:hover {
+          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          border: 1px solid rgba(255, 255, 255, 1);
+          padding: 0.5vw 1.5vw 0.5vw 1.5vw;
+        }
+
+        &:hover {
+          div {
+            background: rgba(255, 255, 255, 1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+        }
+
+        div {
+          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-family: SF Pro Display;
+          font-size: 1.3vw;
+          font-weight: 500;
+          line-height: 2vw;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          }
+        }
+      }
+
+    &_function{
+      font-family: SF Pro Display;
+      font-size: 1.3vw;
+      font-weight: 600;
+      line-height: 1vw;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      margin-top: 1.5vw;
+      margin-left: 1vw;
+      color: rgba(255, 255, 255, 1);
+      }
+    }
+  }
+}
+
+.getConsultStart{
+  @media only screen and (min-width: 1440px){
+    margin-left: -20px;
+    margin-top: 30px;
+  }
+
+  @media only screen and (min-width: 700px) and (max-width: 1440px) {
+    margin-top: 2.5vw;
+    margin-left: -2.5vw;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 700px) {
+    margin-top: 2vw;
+    margin-left: -3vw;
+  }
+}
+
+.getConsultPersonal{
+  @media only screen and (min-width: 1440px){
+    margin-left: -20px;
+    margin-top: 20px;
+    }
+
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    margin-top: 2vw;
+    margin-left: -2.5vw;
+  }
+}
+
+.tariffsStartRow{
+  @media only screen and (min-width: 1440px){
+    font-family: SF Pro Display;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 23.87px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+    }
+
+  @media only screen and (min-width: 1200px) and (max-width: 1440px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 1vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+    padding-top: 0.9vw;
+  }
+
+  @media only screen and (min-width: 1000px) and (max-width: 1200px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.5vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+    padding-top: 1.4vw;
+  }
+
+  @media only screen and (min-width: 900px) and (max-width: 1000px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.4vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+    padding-top: 1.6vw;
+  }
+
+  @media only screen and (min-width: 800px) and (max-width: 900px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.3vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+    padding-top: 1.8vw;
+  }
+
+  @media only screen and (min-width: 700px) and (max-width: 800px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.1vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+    padding-top: 2vw;
+  }
+
+  @media only screen and (min-width: 600px) and (max-width: 700px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.3vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+    padding-top: 2.3vw;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 600px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.5vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+    padding-top: 2.5vw;
+  }
+
+    &_cashBox{
+      @media only screen and (min-width: 1440px){
+        margin-right: 15px;
+        }
+
+      @media only screen and (min-width: 1300px) and (max-width: 1440px) {
+        margin-top: 0.5vw;
+        margin-right: 1vw;
+        }
+
+      @media only screen and (min-width: 900px) and (max-width: 1300px) {
+        margin-top: 1vw;
+        margin-right: 1vw;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 900px) {
+        margin-top: 1.3vw;
+        margin-right: 1vw;
+      }
+    }
+}
+
+.tariffsPersonalRow{
+  @media only screen and (min-width: 1440px){
+    font-family: SF Pro Display;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 23.87px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    }
+
+  @media only screen and (min-width: 1200px) and (max-width: 1440px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 1vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    padding-top: 0.9vw;
+  }
+
+  @media only screen and (min-width: 1000px) and (max-width: 1200px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.5vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    padding-top: 1.4vw;
+  }
+
+  @media only screen and (min-width: 900px) and (max-width: 1000px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.4vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    padding-top: 1.6vw;
+  }
+
+  @media only screen and (min-width: 800px) and (max-width: 900px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.3vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    padding-top: 1.8vw;
+  }
+
+  @media only screen and (min-width: 700px) and (max-width: 800px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.1vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    padding-top: 2vw;
+  }
+
+  @media only screen and (min-width: 600px) and (max-width: 700px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.3vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    padding-top: 2.3vw;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 600px) {
+    font-family: SF Pro Display;
+    font-size: 1.5vw;
+    font-weight: 600;
+    line-height: 0.5vw;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    padding-top: 2.5vw;
+  }
+
 }
 
 @keyframes bgAnimate1 {

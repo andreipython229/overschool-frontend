@@ -590,7 +590,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>
                   {lesson && 'name' in lesson && lesson.name}
                 </span>
-                {/* <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_edit} onClick={showSettingsModal}>Редактировать</span> */}
+                <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_edit} onClick={showSettingsModal}>Редактировать</span>
               </div>
               <div className={styles.coursePreviewHeaderRedactor}>
                 <div className={styles.publicBlockEdit}>
@@ -604,7 +604,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                       </div>
                     </div>
                   </AnimatePresence>
-                  <Button onClick={handleSaveChanges} variant={'newPrimary'} text={'Сохранить'} style={{padding: '13px 40px'}} />
+                  <Button onClick={handleSaveChanges} variant={'newPrimary'} text={'Сохранить'} />
               </div>
               </div>
             </div>
@@ -707,7 +707,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                     <WarningModal setShowModal={setShow} task={handleDeleteLesson} textModal={`Вы действительно хотите удалить?`} />
                   </Portal>
                   )}
-                  <Button onClick={open} variant={'cancel'} text={'Удалить'} style={{ fontSize: '16px', alignSelf: 'flex-end', padding: '6px 21px' }} />
+                  <Button onClick={open} variant={'cancel'} text={'Удалить'}/>
                   <h4 className={styles.wrapper_preview_title}>Превью</h4>
                   <div className={styles.wrapper_preview_test}>
                     <div className={styles.wrapper_preview_test_leftSide}>
@@ -840,7 +840,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
               {lessonIdAndType.type === 'test' && (
                 <div className={styles.admin_preview}>
                 <div className={styles.admin_preview_container}>
-                  <span>Тест</span>
+                  <span className={styles.admin_preview_container_subtitle}>Тест</span>
                   <div className={styles.admin_preview_container_title}>
                     {lesson && 'name' in lesson && lesson.name}
                   </div>

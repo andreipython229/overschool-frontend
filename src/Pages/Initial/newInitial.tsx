@@ -1,9 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
-import { NavLink, useNavigate, generatePath } from 'react-router-dom'
-import { Portal } from '../../components/Modal/Portal'
+import { useNavigate, generatePath } from 'react-router-dom'
 import { InitPageHeader } from './newInitialPageHeader'
-import { RegistrationModal, LoginModal } from 'components/Modal'
-import { useBoolean } from '../../customHooks'
 import { Button } from 'components/common/Button/Button'
 import { Footer } from 'components/Footer/index'
 import {
@@ -41,9 +38,8 @@ import styles from './newInitial.module.scss'
 import unlimitedImage from './../../assets/img/common/unlimited2.png'
 import AnnexImage from './../../assets/img/common/annex.png'
 import gbImage from './../../assets/img/common/gb.png'
-import { RegCodeModal } from '../../components/Modal/RegistrationModal/RegCodeModal'
 import { Path } from '../../enum/pathE'
-import { motion, useTime } from 'framer-motion'
+import { motion } from 'framer-motion'
 import WordSwitcher from '../../components/WorldSwitcher/worldSwitcher'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -53,21 +49,7 @@ import MiniBlock from '../../components/MiniBlocks'
 import { BackgroundAnimation } from '../../components/BackgroundAnimation'
 
 export const Initial = () => {
-  const [currentCourse, setCurrentCourse] = useState<string>('-1')
-  const [registrationShow, setRegistrationShow] = useState<boolean>(false)
-  const [regCodeShow, setRegCodeShow] = useState<boolean>(false)
-  const [isLoginModal, { off: open, on: close }] = useBoolean()
   const navigate = useNavigate()
-
-  const changeCurrentCourse = (id: string) => setCurrentCourse(id)
-
-  useEffect(() => {
-    if (window.screen.width > 1600) {
-      setCurrentCourse('1')
-    } else {
-      setCurrentCourse('-1')
-    }
-  }, [window])
 
   const handleRegistrationUser = () => {
     const paramsString = localStorage.getItem('utmParams')
@@ -103,14 +85,7 @@ export const Initial = () => {
   return (
     <div className={styles.init}>
       <BackgroundAnimation />
-      {registrationShow && <RegistrationModal setShowModal={setRegistrationShow} setCodeModal={setRegCodeShow} />}
-      {regCodeShow && <RegCodeModal setCodeModal={setRegCodeShow} />}
-      {isLoginModal ? (
-        <Portal closeModal={close}>
-          <LoginModal setShowModal={close} />
-        </Portal>
-      ) : null}
-      <InitPageHeader setLoginShow={open} setRegistrationShow={setRegistrationShow} />
+      <InitPageHeader />
       <div className={styles.init_main}>
         <div className={styles.init_main_info}>
           <div className={styles.init_main_info_quality}>

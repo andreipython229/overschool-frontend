@@ -1,6 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
-
-import { baseQuery } from './baseApi'
 import { formDataConverter } from '../utils/formDataConverter'
 import { ICredentials, IResponse } from './apiTypes'
 import { ILoginUserInfo } from 'types/userT'

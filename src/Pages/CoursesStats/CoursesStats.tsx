@@ -9,11 +9,12 @@ import { CoursesDataT } from '../../types/CoursesT'
 
 import { motion } from 'framer-motion'
 import styles from '../School/StudentsStats/studentsStats.module.scss'
+import { useAppSelector } from 'store/hooks'
+import { schoolSelector } from 'selectors'
 
 export const CoursesStats: FC = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)
-  const schoolName = window.location.href.split('/')[4]
-
+  const { schoolName } = useAppSelector(schoolSelector)
   const { data } = useFetchStudentsGroupQuery(schoolName)
   const { data: courses } = useFetchCoursesQuery(schoolName)
 

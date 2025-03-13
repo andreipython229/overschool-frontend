@@ -15,7 +15,7 @@ export const profileService = createApi({
       }),
       providesTags: ['profile'],
     }),
-    updateProfile: build.mutation<void, any>({
+    updateProfile: build.mutation<profileT, any>({
       query: ({ userInfo, id }) => ({
         url: `/profile/${id}/`,
         method: 'PATCH',
@@ -43,4 +43,10 @@ export const profileService = createApi({
   }),
 })
 
-export const { useFetchProfileDataQuery, useLazyFetchProfileDataQuery, useUpdateProfileMutation, useChangePasswordMutation, useConfirmEmailMutation } = profileService
+export const {
+  useFetchProfileDataQuery,
+  useLazyFetchProfileDataQuery,
+  useUpdateProfileMutation,
+  useChangePasswordMutation,
+  useConfirmEmailMutation,
+} = profileService

@@ -2,11 +2,8 @@ import { FC, ReactNode, useState } from 'react'
 import { CoursesDataT } from '../../../../types/CoursesT'
 import styles from './coursePage.module.scss'
 import { RoleE } from '../../../../enum/roleE'
-import Public from '../../../../assets/img/createCourse/public.svg'
-import notPublic from '../../../../assets/img/createCourse/notPublic.svg'
 import { generatePath, Link } from 'react-router-dom'
 import { Path, Student } from '../../../../enum/pathE'
-import { Button } from '../../../../components/common/Button/Button'
 import { ICoursesProgress } from '../../../../api/userProgressService'
 import { Portal } from '../../../../components/Modal/Portal'
 import { LimitModal } from '../../../../components/Modal/LimitModal/LimitModal'
@@ -27,6 +24,8 @@ import homeTask_dark from 'assets/img/CourseCardsTS/home-tasks-dark.svg'
 import stylesCard from './courseCard.module.scss'
 import { getNounDeclension } from 'utils/getNounDeclension'
 import { Tooltip } from '@mui/material'
+import { useAppSelector } from 'store/hooks'
+import { schoolSelector } from 'selectors'
 
 type courseCard = {
   course: CoursesDataT
@@ -36,11 +35,10 @@ type courseCard = {
 }
 
 export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
-  const schoolName = window.location.href.split('/')[4]
+  const { schoolName } = useAppSelector(schoolSelector)
   const [isOpenModal, { onToggle }] = useBoolean()
-  const userId = localStorage.getItem('id')
   const [isPublished, setIsPublished] = useState(course.public === 'О')
-  const [update, { isLoading: isLoad, isSuccess }] = usePatchCoursesMutation()
+  const [update] = usePatchCoursesMutation()
 
   const onStudentClick = () => {
     localStorage.setItem('course_id', '' + course?.course_id)

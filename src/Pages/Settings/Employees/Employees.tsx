@@ -6,29 +6,29 @@ import { avatar } from '../../../assets/img/common/index'
 import { AddEmployeeModal } from 'components/Modal'
 import { Portal } from 'components/Modal/Portal/index'
 import { EmployeeT } from 'types/userT'
-import { useFetchAllUsersQuery, useLazyFetchAllUsersQuery } from '../../../api/allUsersList'
+import { useLazyFetchAllUsersQuery } from '../../../api/allUsersList'
 
 import styles from '../superAdmin.module.scss'
 import styles_load from 'components/Modal/Modal.module.scss'
 import { SimpleLoader } from '../../../components/Loaders/SimpleLoader'
-import {Pagination} from "../../../components/Pagination/Pagination";
-import {usePagination} from "../../../customHooks";
-import { getUserIdFromLocalStorage } from 'utils/getUserId';
-
+import { Pagination } from '../../../components/Pagination/Pagination'
+import { usePagination } from '../../../customHooks'
+import { useAppSelector } from 'store/hooks'
+import { schoolSelector, selectUser } from 'selectors'
 
 export const Employees: FC = () => {
-  const schoolName = window.location.href.split('/')[4]
-  const userId = getUserIdFromLocalStorage();
+  const { userId } = useAppSelector(selectUser)
+  const { schoolName } = useAppSelector(schoolSelector)
   // const { data: allUsers, isSuccess, isFetching } = useFetchAllUsersQuery({schoolName: schoolName})
   const [fetchAllUsers, { data: allUsers, isSuccess, isFetching }] = useLazyFetchAllUsersQuery()
   const [employees, setEmployees] = useState<EmployeeT[]>([])
   const [isModalOpen, { off: openModal, on: closeModal }] = useBoolean()
-  const [isRenameModalOpenState, setIsRenameModalOpenState] = useState<boolean>(false);
+  const [isRenameModalOpenState, setIsRenameModalOpenState] = useState<boolean>(false)
 
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: allUsers?.count as number })
 
   const handleOpenRenameModal = () => {
-    setIsRenameModalOpenState(true);
+    setIsRenameModalOpenState(true)
   }
 
   useEffect(() => {
@@ -39,8 +39,8 @@ export const Employees: FC = () => {
   }, [isRenameModalOpenState, isSuccess, allUsers])
 
   useEffect(() => {
-    fetchAllUsers({schoolName: schoolName, page: page , role: "staff"})
-    setIsRenameModalOpenState(false);
+    fetchAllUsers({ schoolName: schoolName, page: page, role: 'staff' })
+    setIsRenameModalOpenState(false)
   }, [isRenameModalOpenState, page])
 
   return (
@@ -56,16 +56,16 @@ export const Employees: FC = () => {
         </Portal>
       )}
       <div className={styles.employees_header}>
-            <div className={styles.employees_header_title}>Сотрудники</div>
-            <button onClick={openModal} className={styles.employees_header_btn}>
-              + Сотрудник
-            </button>
-          </div>
+        <div className={styles.employees_header_title}>Сотрудники</div>
+        <button onClick={openModal} className={styles.employees_header_btn}>
+          + Сотрудник
+        </button>
+      </div>
       <div className={styles.wrapper_contentemployees}>
         <div className={styles.employees}>
           <div className={styles.employees_table}>
             {employees && employees?.length ? (
-               <div className={styles.wrapper}>
+              <div className={styles.wrapper}>
                 <div className={styles.employees_table_title}>
                   <div>Имя</div>
                   <div>Роль</div>
@@ -75,11 +75,11 @@ export const Employees: FC = () => {
                     key={employee.id}
                     avatar={employee.avatar || avatar}
                     name={
-                      employee.pseudonym && employee.id !== userId ? 
-                        employee.pseudonym :
-                        employee.last_name || employee.first_name ? 
-                          `${employee.last_name || ''} ${employee.first_name || ''}`.trim() :
-                          'Нет имени'
+                      employee.pseudonym && employee.id !== userId
+                        ? employee.pseudonym
+                        : employee.last_name || employee.first_name
+                        ? `${employee.last_name || ''} ${employee.first_name || ''}`.trim()
+                        : 'Нет имени'
                     }
                     contact={employee.email}
                     role={employee.role}
@@ -89,14 +89,8 @@ export const Employees: FC = () => {
                     setEmployees={setEmployees}
                     isModalRenameOpen={handleOpenRenameModal}
                   />
-
                 ))}
-                   <Pagination
-          className={styles.pagination}
-          paginationRange={paginationRange}
-          currentPage={page}
-          onPageChange={onPageChange}
-      />
+                <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
               </div>
             ) : (
               <p style={{ color: 'lightslategrey', marginLeft: '50px' }}>Пока что сотрудников на платформе нет</p>

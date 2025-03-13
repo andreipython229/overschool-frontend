@@ -11,12 +11,23 @@
   user-select: none;
   position: relative;
   padding: 20px 61px 30px 36px;
-  background: url(../../../assets/img/common/questions.png), linear-gradient(
-    140deg,#c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
+  background: url(../../../assets/img/common/questions.png),
+    linear-gradient(
+      140deg,
+      #c2e0ff 0%,
+      #c2e0ff 11%,
+      #d6eaff 16%,
+      #e5f2ff 25%,
+      #fafcff 57%,
+      #fafcff 82%,
+      #e5f2ff 89%,
+      #d6eaff 93%,
+      #c2e0ff 100%
+    );
   background-repeat: no-repeat;
   background-position: right;
   background-size: contain;
-  box-shadow: 0px 0px 8px 0px #3241954D;
+  box-shadow: 0px 0px 8px 0px #3241954d;
   overflow: hidden;
   min-height: 409px;
   max-width: 841px;
@@ -24,22 +35,50 @@
   border-radius: 64px;
   animation: slideDown 0.2s ease-in forwards;
 
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    border-radius: 24px;
+    background: url(../../../assets/img/common/questions-mobile.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    background-color: #ffffff;
+    padding: 30px 25px;
+    min-height: 309px;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    border-radius: 24px;
+    background: url(../../../assets/img/common/questions-mobile.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    background-color: #ffffff;
+    padding: 30px 25px;
+    min-height: 309px;
+  }
+
   &_question_count {
     @include font(700, 20px, 23.87px);
     color: $color-text;
     text-align: center;
     font-family: 'SFPRORegular';
     margin-bottom: 62px;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      margin-bottom: 30px;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      margin-bottom: 30px;
+    }
   }
 
   &_drop_down_menu {
     max-width: 434px;
     width: 100%;
     @media only screen and (min-width : 320px) and (max-width : 375px) {
-      padding: 5%;
+      padding-left: 5%;
     }
     @media only screen and (min-width : 375px) and (max-width : 480px) {
-      padding: 5%;
+      padding-left: 5%;
     }
 
   }
@@ -66,5 +105,4 @@
     display: flex;
     flex-direction: column;
   }
-
 }

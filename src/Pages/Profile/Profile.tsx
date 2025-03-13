@@ -11,7 +11,7 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import { profileT } from 'types/profileT'
 import { useLazyLogoutQuery } from '../../api/userLoginService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { auth } from '../../store/redux/users/slice'
+import { auth, logoutState } from '../../store/redux/users/slice'
 import { validateEmail } from 'utils/validateEmail'
 import { useFetchNotificationsQuery } from 'api/tgNotificationsServices'
 
@@ -30,6 +30,7 @@ import formStyles from './formStyles.module.scss'
 import { SetupNotificationTelegramAdmin } from '../../components/Modal/ProfileModalTelegramNotification/index'
 import { Portal } from 'components/Modal/Portal'
 import { NotificationsIconPath, FilterIconPath } from '../../assets/Icons/svgIconPath'
+import { clearUserProfile } from 'store/redux/users/profileSlice'
 
 type notifForStudentAndTeacher = {
   id: number
@@ -42,7 +43,7 @@ export const Profile = () => {
   const [changePasswordFunc, { isError, isSuccess }] = useChangePasswordMutation()
   const [changeEmailFunc] = useUpdateProfileMutation()
   const [confirmEmail] = useConfirmEmailMutation()
-  const { data, isFetching, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
+  const { data, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
   const [profileData, setProfileData] = useState<profileT>()
   const email = profileData?.user.email
   const dispatch = useAppDispatch()
@@ -51,9 +52,8 @@ export const Profile = () => {
   const [isOpen, setOpen] = useState(false)
   const [newEmail, setNewEmail] = useState<string>('')
   const [tokenError, setTokenError] = useState<string>('')
-  const { data: notificationsResponseData, isSuccess: notificaionsSuccess } = useFetchNotificationsQuery()
+  const { data: notificationsResponseData } = useFetchNotificationsQuery()
   const [notificationsData, setNotificatonsData] = useState<notifForStudentAndTeacher[]>([])
-  const isLogin = useAppSelector(authSelector)
   const { role: userRole } = useAppSelector(selectUser)
   const restrictedEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru']
   const [isRestrictedUser, setIsRestrictedUser] = useState(false)
@@ -64,9 +64,6 @@ export const Profile = () => {
 
   const [isOpenModalTelegram, { onToggle }] = useBoolean()
   const [handleSubmitAboutUser, setHandleSubmitAboutUser] = useState(false)
-
-  // console.log(notificaionsSuccess);
-  // console.log(typeof userRole);
   const notifForStudentAndTeacher = notifications.slice(0, 2)
   const notifForAdmin = notifications.slice(1, 3)
 
@@ -95,11 +92,14 @@ export const Profile = () => {
   })
 
   const logOut = async () => {
-    await localStorage.clear()
     await logout()
+      .unwrap()
+      .then(() => {
+        dispatch(clearUserProfile())
+        dispatch(logoutState())
+      })
+    await localStorage.clear()
     window.location.reload()
-
-    dispatch(auth(false))
   }
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { TariffPlanT } from 'api/tariffPlanService'
 import { result } from './courseStatT'
+import { additionalRoleT } from './profileT'
 
 export type UserT = {
   authState: {
@@ -58,6 +59,7 @@ export interface UserProfileT {
   email: string
   phone_number: string
   avatar: string
+  additional_roles: additionalRoleT[]
 }
 
 export interface ITariff {
