@@ -38,7 +38,7 @@
 
   &_title {
     @include font(500, 14px, 17px);
-    color: #4D5766;
+    color: #4d5766;
   }
 
   &_inputWrapperWithPicture {
@@ -63,7 +63,7 @@
 
         &::placeholder {
           @include font(500, 14px, 21px);
-          color: #D4D7DD;
+          color: #d4d7dd;
         }
       }
     }
@@ -71,7 +71,7 @@
     &_correctAnswerWrapper {
       @include display(flex);
       height: 100%;
-      border: 1px solid #E5E7EB;
+      border: 1px solid #e5e7eb;
       border-radius: 5px;
       margin: 0 9px 0 0;
       cursor: pointer;
@@ -82,7 +82,7 @@
         padding: 9px;
         width: fit-content;
         @include font(500, 12px, 18px);
-        color: #BABCBF;
+        color: #babcbf;
 
         input {
           cursor: pointer;
@@ -101,11 +101,11 @@
       &:hover {
         svg {
           path {
-            stroke: #357EEB;
+            stroke: $color-blue;
           }
 
           line {
-            stroke: #357EEB;
+            stroke: $color-blue;
           }
         }
       }
@@ -117,7 +117,7 @@
       &:hover {
         svg {
           path {
-            fill: #EF4444;
+            fill: #ef4444;
           }
         }
       }
@@ -135,9 +135,11 @@
     
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       height: 100%;
+      margin-top: 10px;
     }
     @media only screen and (min-width : 375px) and (max-width : 480px) {
       height: 100%;
+      margin-top: 10px;
     }
 
     label {
@@ -150,7 +152,7 @@
 
         &::placeholder {
           @include font(500, 14px, 21px);
-          color: #D4D7DD;
+          color: #d4d7dd;
         }
       }
     }
@@ -158,7 +160,7 @@
     &_correctAnswerWrapper {
       @include display(flex);
       height: 100%;
-      border: 1px solid #E5E7EB;
+      border: 1px solid #e5e7eb;
       border-radius: 5px;
       margin: 0 9px 0 0;
       cursor: pointer;
@@ -188,11 +190,11 @@
       &:hover {
         svg {
           path {
-            stroke: #357EEB;
+            stroke: $color-blue;;
           }
 
           line {
-            stroke: #357EEB;
+            stroke: $color-blue;
           }
         }
       }
@@ -204,7 +206,7 @@
       &:hover {
         svg {
           path {
-            fill: #EF4444;
+            fill: #ef4444;
           }
         }
       }
@@ -216,9 +218,9 @@
   }
 
   .answerImage {
-    border-top: 3px solid #3170E7;
-    border-right: 3px solid #3170E7;
-    border-left: 3px solid #3170E7;
+    border-top: 3px solid #3170e7;
+    border-right: 3px solid #3170e7;
+    border-left: 3px solid #3170e7;
     border-radius: 16px;
     max-width: 150px;
     height: auto;

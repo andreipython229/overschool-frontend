@@ -4,7 +4,7 @@ import { CoursesCard } from './CoursesCard'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Input } from 'components/common/Input/Input/Input'
 import { RoleE } from 'enum/roleE'
-import { schoolIdSelector, schoolNameSelector, selectUser } from 'selectors'
+import { schoolSelector, selectUser } from 'selectors'
 import { AddCourseModal } from 'components/Modal'
 import { useDeleteFolderMutation, useLazyFetchCourseFoldersQuery, useLazyFetchCoursesPageQuery } from 'api/coursesServices'
 import { useSetSchoolMutation } from 'api/schoolService'
@@ -27,9 +27,7 @@ import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
-  const schoolName = useAppSelector(schoolNameSelector)
-  const schoolId = useAppSelector(schoolIdSelector)
-  const school_id = localStorage.getItem('school_id')
+  const { schoolName, schoolId } = useAppSelector(schoolSelector)
   const test_course = localStorage.getItem('test_course')
   const [fetchData, { data: coursesData, isSuccess }] = useLazyFetchCoursesPageQuery()
   const [fetchFolders, { data: folders, isError }] = useLazyFetchCourseFoldersQuery()
@@ -127,7 +125,7 @@ export const CoursePage: FC = () => {
     const formdata = new FormData()
     formdata.append('test_course', JSON.stringify(newState))
     try {
-      await updateSchoolTestCourse({ formdata, id: Number(school_id) })
+      await updateSchoolTestCourse({ formdata, id: Number(schoolId) })
       await fetchData(schoolName)
       setCourses(coursesData)
     } catch (error) {

@@ -4,11 +4,10 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { crossIconPath } from 'config/commonSvgIconsPath'
 import { useUpdateUserPseudonymMutation } from 'api/schoolService'
 import styles from './renameEmployee.module.scss'
-import { Button } from '../../common/Button/Button'
 import { Input } from '../../common/Input/Input/Input'
 
 interface RenameEmployeeProps {
-  school_id: string
+  school_id: number
   schoolName: string
   userId: number
   onClose: () => void

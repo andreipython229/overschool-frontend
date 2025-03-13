@@ -3,20 +3,17 @@ import { NavAccountBtn } from 'components/NavAccountBtn/NavAccountBtn'
 import { CreateCoursePath } from 'enum/pathE'
 import { useAppSelector } from 'store/hooks'
 import { Path } from '../../../enum/pathE'
-
-import { selectUser, schoolNameSelector } from 'selectors'
+import { selectUser, schoolSelector } from 'selectors'
 import { RoleE } from 'enum/roleE'
 import { generatePath, useNavigate } from 'react-router-dom'
-
 import styles from './navCreatingCourse.module.scss'
 
 export const NavCreatingCourse = memo(() => {
   const course_id = window.location.href.split('/')[7]
-  const course_copy = localStorage.getItem('course_copy') === 'true';
-  const userId = localStorage.getItem('id');
-  const { role: UserRole } = useAppSelector(selectUser)
+  const course_copy = localStorage.getItem('course_copy') === 'true'
+  const { role: UserRole, userId } = useAppSelector(selectUser)
   const navigate = useNavigate()
-  const schoolName = useAppSelector(schoolNameSelector)
+  const { schoolName } = useAppSelector(schoolSelector)
   const backCourses = () => {
     const pathLink = generatePath(`${Path.School}${Path.Courses}`, {
       school_name: schoolName,
@@ -24,7 +21,7 @@ export const NavCreatingCourse = memo(() => {
 
     navigate(pathLink)
   }
-  
+
   return (
     <nav className={styles.creatingCourse}>
       {UserRole === RoleE.Admin ? (
@@ -53,7 +50,7 @@ export const NavCreatingCourse = memo(() => {
             )
           ) : (
             <>
-              {userId === '154' ? (
+              {userId === 154 ? (
                 <>
                   <NavAccountBtn text={'Конструктор'} path={CreateCoursePath.Constructor} />
                   <NavAccountBtn text={'Ученики курса'} path={CreateCoursePath.Student} />
@@ -65,8 +62,7 @@ export const NavCreatingCourse = memo(() => {
                   </button>
                 </>
               ) : (
-                <>
-                </>
+                <></>
               )}
             </>
           )}
@@ -75,5 +71,5 @@ export const NavCreatingCourse = memo(() => {
         <NavAccountBtn text={'Материалы курса'} path={CreateCoursePath.Materials} />
       )}
     </nav>
-  );
+  )
 })

@@ -13,6 +13,7 @@ export type TariffPlanT = {
   total_students: number | null
   price: string
   student_count_by_month: number | null
+  discount_12_months_byn: number | null
 }
 
 export const tariffPlanService = createApi({
