@@ -1,0 +1,50 @@
+.CookiePolicyDisclaimer {
+    display: flex;
+    flex-direction: column;
+
+    ul > li {
+        margin-left: 4em;
+    }
+    
+    ol {
+        list-style: none;
+        counter-reset: li;
+    }
+    
+    ol > li {
+        counter-increment: li;
+    }
+    
+    ol > li::before {
+        content: counter(li);
+        color: rgb(186, 117, 255);
+        display: inline-block;
+        width: 2em;
+        margin-left: -1em;
+    }
+    
+    table, td {
+        border: 1px solid;
+      }
+    
+    th > td {
+        border: none;
+        color: #4d5766;
+    }
+
+    &_Preamble {
+        text-align: left;
+        align-self: self-end;
+    }
+    &_Header {
+        text-transform: uppercase;
+        align-self: center;
+        text-align: center;
+        color: #4d5766;
+    }
+    &_Content {
+        text-align: justify;
+        text-indent: 10px;
+        line-height: 1.4;
+    }
+}
