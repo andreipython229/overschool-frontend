@@ -15,7 +15,7 @@ import {
 import OverAiIcon from '../../assets/img/common/newIconModal.svg';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
 import { CloseIconPath, ListMessagesIconPath } from 'assets/Icons/svgIconPath';
-import { aiButtonNavIcon, messageNavIcon, userNavIcon } from './svg/svgIconPath';
+import { aiButtonNavIcon, messageNavIcon, userNavIcon, aiMobileButtonNavIcon } from './svg/svgIconPath';
 import styles from './chatgpt.module.scss';
 import { log } from 'console';
 
@@ -40,6 +40,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isNewChat, setIsNewChat] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [warning, setWarning] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingChats, setIsFetchingChats] = useState(false);
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
@@ -116,6 +117,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       // if (!isDialogOpen || selectedChatId === null) return;
 
       setError(null);
+      setWarning(null);
       // console.log('showWelcomeMessage: ' + showWelcomeMessage)
       setIsLoadingMessages(true);
       setIsFetchingChats(true);
@@ -655,7 +657,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       };
 
       const botResponseTimeout = setTimeout(() => {
-        setError('Генерация сообщения займет некоторое время...');
+        setWarning('Генерация сообщения займет некоторое время...');
       }, 10000);
 
       await sendMessage(payload);
@@ -666,6 +668,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
       setMessageInput('');
       setError(null);
+      setWarning(null);
       clearTimeout(botResponseTimeout);
     } catch (error: unknown) {
       setError('Ошибка при отправке сообщения.');
@@ -677,6 +680,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     setTextAreaFocus();
     setTimeout(() => {
       setError(null);
+      setWarning(null);
     }, 3000);
   };
 
@@ -753,7 +757,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                         <IconSvg path={arrowUpNavIcon} viewBoxSize='0 0 17 17' width={14} height={14} />
                       </button> */}
                     </div>
-                    <div className={styles.chatIndicatorSection}>
+                    <div className={`${styles.chatIndicatorSection} ${showWelcomeMessage ? styles.chatIndicatorSection_welcomePage : ''}`}>
                       <div className={styles.chatIndicatorSectionLeft}>
                         <div className={styles.chatIndicatorIcon}>
                           <div className={styles.chatIndicator}></div>
@@ -916,6 +920,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                           <span className={styles.errorText}>{error}</span>
                         </div>
                       )}
+
+                      {warning && (
+                        <div className={`${styles.warningContainer} ${warning && styles.visible}`}>
+                          <span className={styles.warningText}>{warning}</span>
+                        </div>
+                      )}
+
                       <div className={styles.inputContainer_wrapper}>
                         <div className={styles.inputContainer}>
                           {isCreatingChatDisabled && !isLoading ? (
@@ -940,11 +951,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                               />
                               <Button className={styles.send_message_btn} text='Генерировать' variant='newSecondary' onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
                                 <IconSvg path={aiButtonNavIcon} width={20} height={20} viewBoxSize={'0 0 20 20'}></IconSvg>
-                                {/* <svg viewBox="0 0 16 13" fill="none" xmlns="http://www.w3 org/2000/svg">
-                                <path d="M7.17278 1.21787C7.56956 0.633707 8.43044 0.633706 8.82722 1.21787L15.5994 11.1881C16.0503 11.8521 15.5748 12.75 14.7722 12.75H1.22785C0.425231 12.75 -0.0503452 11.8521 0.400629 11.1881L7.17278 1.21787Z" fill="white"/>
-                            </svg> */}
-
                               </Button>
+
+                              <Button className={`${styles.send_message_btn_mobile}`} text='' variant='newSecondary' onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
+                                <IconSvg path={aiMobileButtonNavIcon} width={24} height={24} viewBoxSize={'0 0 24 24'}></IconSvg>
+                              </Button>
+
+
                               {/* <div style={{ zIndex: '10000000' }}>
                             <select
                               value={selectedLanguage}
