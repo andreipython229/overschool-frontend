@@ -30,6 +30,7 @@ import {
   LinkSquareIcon,
   MailNotificationsIcon,
   MedalIcon,
+  MessageSend,
   MessageNotifIcon,
   MessageWithLinesIcon,
   NotificationsIcon,
@@ -244,6 +245,11 @@ export const MessageConvertIconPath: pathT[] = [
   { d: MessageConvertIcon.d1, fill: '#357EEB' },
   { d: MessageConvertIcon.d2, fill: '#357EEB' },
 ] // сообщение конверт 0 0 18 18
+
+export const MessageSendPath: pathT[] = [
+  { d: MessageSend.d1, fill: '#357EEB' },
+  { d: MessageSend.d2, fill: '#357EEB' },
+]
 
 export const MessageNotifIconPath = [
   { d: MessageNotifIcon.d1, fill: 'currentColor' },

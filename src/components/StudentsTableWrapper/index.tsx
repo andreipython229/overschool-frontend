@@ -19,8 +19,9 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { SerializedError } from '@reduxjs/toolkit'
 import { selectChat } from '../../store/redux/chats/slice'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { selectUser } from '../../selectors'
+import { selectUser, schoolSelector } from '../../selectors'
 import { addChat } from '../../store/redux/chats/chatsSlice'
+import { MessageSendPath } from "../../assets/Icons/svgIconPath";
 
 type StudentsTableWrapperT = {
   isLoading: boolean
@@ -45,9 +46,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
 
     const [cols, setCols] = useState<string[]>([])
     const [rows, setRows] = useState<GenerateRow[]>()
-    const [selectedStuentId, setSelectedStudentId] = useState<number | null>(null)
-    const [selectedStuent, setSelectedStudent] = useState<result | null>(null)
-    const schoolName = window.location.href.split('/')[4]
+    const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null)
+    const [selectedStudent, setSelectedStudent] = useState<result | null>(null)
+    const {schoolName} = useAppSelector(schoolSelector);
 
     const [fetchTableHeader, { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching }] = useLazyFetchStudentsTableHeaderQuery()
 
@@ -211,13 +212,13 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
     }, [isSuccess, tableHeaderData])
 
     useEffect(() => {
-      typeof selectedStuentId === 'number' && studentModalOff()
+      typeof selectedStudentId === 'number' && studentModalOff()
 
       if (students) {
-        const student = students.find((_, index) => index === selectedStuentId) || null
-        typeof selectedStuentId === 'number' && setSelectedStudent(student)
+        const student = students.find((_, index) => index === selectedStudentId) || null
+        typeof selectedStudentId === 'number' && setSelectedStudent(student)
       }
-    }, [selectedStuentId])
+    }, [selectedStudentId])
 
     useEffect(() => {
       !isStudentModalOpen && setSelectedStudentId(null)
@@ -279,9 +280,10 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                     {col}
                   </th>
                 ))}
-                <button className={styles.svgSettingsWrapper}>
+                {/* <button className={styles.svgSettingsWrapper}>
                   <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
-                </button>
+                </button> */}
+                <th className={styles.table_thead_td}> <span> Личный чат</span></th>
               </tr>
             </thead>
 
@@ -308,7 +310,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                                 return (
                                   <td
                                     style={{
-                                      fontSize: '14px',
                                       verticalAlign: 'center',
                                     }}
                                     rowSpan={rowspan}
@@ -321,7 +322,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                                 return (
                                   <td
                                     style={{
-                                      fontSize: '14px',
                                       verticalAlign: 'center',
                                     }}
                                     rowSpan={rowspan}
@@ -338,17 +338,12 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                                 return (
                                   <td
                                     style={{
-                                      fontSize: '14px',
                                       verticalAlign: 'center',
-                                      paddingLeft: '20px',
                                     }}
                                     rowSpan={rowspan}
                                     key={`${col}-${rowIndex}`}
                                   >
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                                      {row['Дата удаления из группы'] === ' ' && typeof cellValue === 'object' && 'text' in cellValue && (
-                                        <Button className={styles.chat_button} text={'CHAT'} onClick={() => handleToggleChatModal(rowIndex)} />
-                                      )}
                                       <span style={{ marginLeft: '5px' }}>
                                         {cellValue && typeof cellValue === 'object' && 'image' in cellValue && cellValue.image}
                                       </span>
@@ -360,17 +355,12 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                                 return (
                                   <td
                                     style={{
-                                      fontSize: '14px',
                                       verticalAlign: 'center',
-                                      paddingLeft: '20px',
                                     }}
                                     rowSpan={rowspan}
                                     key={`${col}-${rowIndex}`}
                                   >
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                                      {row['Дата удаления из группы'] === ' ' && typeof cellValue === 'object' && 'text' in cellValue && (
-                                        <Button className={styles.chat_button} text={'CHAT'} onClick={() => handleToggleChatModal(rowIndex)} />
-                                      )}
                                       <span style={{ marginLeft: '5px' }}>
                                         {cellValue && typeof cellValue === 'object' && 'image' in cellValue && cellValue.image}
                                       </span>
@@ -385,7 +375,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                               return (
                                 <td
                                   style={{
-                                    fontSize: '14px',
                                     verticalAlign: 'center',
                                   }}
                                   key={`${col}-${rowIndex}`}
@@ -415,6 +404,29 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                               )
                             }
                           })}
+                          <td>
+                            <div className={styles.table_user}>
+                              {row['Дата удаления из группы'] === ' ' && (
+                                <div className={styles.chat_button} onClick={() => handleToggleChatModal(rowIndex)}>
+                                  <IconSvg width={23} height={23} viewBoxSize={'0 0 25 25'} path={MessageSendPath} />
+                                </div>
+                              )}
+
+                              {row['Дата удаления из группы'] !== ' ' && (
+                                <div
+                                  style={{
+                                    fontSize: '10px',
+                                    backgroundColor: '#fa6961',
+                                    color: 'white',
+                                    padding: '3px 6px 3px 6px',
+                                    borderRadius: '5px',
+                                  }}
+                                >
+                                  Удалён
+                                </div>
+                              )}
+                            </div>
+                          </td>
                         </tr>
                       )
                     })}
@@ -432,30 +444,12 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                       return (
                         <td
                           style={{
-                            fontSize: '14px',
                             verticalAlign: 'center',
                           }}
                           key={col}
                         >
                           {typeof cellValue === 'object' ? (
                             <div className={styles.table_user}>
-                              {row['Дата удаления из группы'] === ' ' && typeof cellValue.text !== 'number' && (
-                                <Button className={styles.chat_button} text={'CHAT'} onClick={() => handleToggleChatModal(id)} />
-                              )}
-
-                              {row['Дата удаления из группы'] !== ' ' && (
-                                <div
-                                  style={{
-                                    fontSize: '10px',
-                                    backgroundColor: '#fa6961',
-                                    color: 'white',
-                                    padding: '3px 6px 3px 6px',
-                                    borderRadius: '5px',
-                                  }}
-                                >
-                                  Удалён
-                                </div>
-                              )}
                               {cellValue.image}
                               <p>{cellValue.text}</p>
                             </div>
@@ -465,6 +459,29 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                         </td>
                       )
                     })}
+                    <td>
+                        <div className={styles.table_user}>
+                          {row['Дата удаления из группы'] === ' ' && (
+                            <div className={styles.chat_button} onClick={() => handleToggleChatModal(id)}>
+                              <IconSvg width={23} height={23} viewBoxSize={'0 0 25 25'} path={MessageSendPath} />
+                            </div>
+                          )}
+
+                          {row['Дата удаления из группы'] !== ' ' && (
+                            <div
+                              style={{
+                                fontSize: '10px',
+                                backgroundColor: '#fa6961',
+                                color: 'white',
+                                padding: '3px 6px 3px 6px',
+                                borderRadius: '5px',
+                              }}
+                            >
+                              Удалён
+                            </div>
+                          )}
+                        </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -480,7 +497,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
 
         {isStudentModalOpen && (
           <Portal closeModal={studentModalOn}>
-            <StudentInfoModal student={selectedStuent} closeModal={toggleStudentInfoModal} isStudentDeleted={handleDeleteStudent} />
+            <StudentInfoModal student={selectedStudent} closeModal={toggleStudentInfoModal} isStudentDeleted={handleDeleteStudent} />
           </Portal>
         )}
 

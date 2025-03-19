@@ -1,17 +1,15 @@
 
 .property_1 {
-  height: 62px;
-  width: 100%;
+  height: 42px;
+  width: 75%;
   padding: 0px;
 
   .sorting {
     background-color: #ffffff;
-    height: 62px;
+    height: 42px;
     width: 100%;
     filter: drop-shadow(0px 0px 8px rgba(0.19607843458652496, 0.2549019753932953, 0.5843137502670288, 0.30000001192092896));
     border-radius: 14px;
-    padding-left: 48px;
-    padding-right: 48px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -20,10 +18,10 @@
     position: relative;
 
     .frame {
-      height: 62px;
-      width: calc(100% - 75px);
+      height: 42px;
+      width: calc(100% - 20px);
       align-self: flex-start;
-      left: 48px;
+      left: 18px;
       top: 0px;
       position: absolute;
       padding-top: 16px;
@@ -35,7 +33,7 @@
       gap: 20px;
 
       .search_icon {
-           height: 30px;
+        height: 30px;
         width: 30px;
         padding: 0px;
         border-style: hidden;
@@ -47,4 +45,11 @@
 .search_field {
   border: none!important;
   border-style: hidden;
+}
+
+.filters_container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
 }

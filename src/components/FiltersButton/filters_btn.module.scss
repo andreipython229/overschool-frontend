@@ -109,3 +109,14 @@
   top: 25px;
   z-index: -1;
 }
+
+.filter_button {
+  cursor: pointer;
+  margin-left: 10px;
+  border: none;
+  &:hover:not(:disabled) {
+    color: #747474;
+    background: transparent;
+    border: none;
+  }
+}

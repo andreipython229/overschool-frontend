@@ -15,7 +15,7 @@ interface SearchBarProps {
   onChangeInput: (value: string) => void
 }
 
-export const SearchBar: FC<SearchBarProps> = ({ searchTerm, onChangeInput }) => {
+export const SearchBar: FC<SearchBarProps & { children?: React.ReactNode }> = ({ searchTerm, onChangeInput, children }) => {
   return (
     <div className={styles.property_1}>
       <div className={styles.sorting}>
@@ -45,6 +45,7 @@ export const SearchBar: FC<SearchBarProps> = ({ searchTerm, onChangeInput }) => 
             }}
             fullWidth
           />
+          <div className={styles.filters_container}>{children}</div>
         </div>
       </div>
     </div>

@@ -6,6 +6,8 @@ import styles from './filters_btn.module.scss'
 import { ComponentFilter } from '../../constants/filtersMaper'
 import { useMissClickMenu } from '../../customHooks/useMissClickMenu'
 import { Button } from 'components/common/Button/Button'
+import { FilterIconPath } from '../../assets/Icons/svgIconPath'
+import { IconSvg } from '../common/IconSvg/IconSvg'
 
 interface FiltersButtonProps {
   filteringCategoriesList: { id: string | number; title: string }[]
@@ -46,8 +48,14 @@ export const FiltersButton: FC<FiltersButtonProps> = ({
       {/* <button className={`${styles.container_btn} ${isOpen ? styles.active : ''}`} onClick={handleToggleDropDownBlock}>
         Настройка фильтра
       </button> */}
+      <Button text='' variant="newDisabled" className={styles.filter_button} onClick={handleToggleDropDownBlock}>
+        <IconSvg width={30} height={30} viewBoxSize="0 0 30 30" path={FilterIconPath} styles={{pointerEvents: 'none'}}/>
+      </Button>
+
+{/*
       <Button variant="newPrimary" text={'Настройка фильтра'} className={styles.container_btn} onClick={handleToggleDropDownBlock} />
-      {isOpen && (
+ */
+}      {isOpen && (
         <div className={styles.filter_container}>
           {!selectedFilter ? (
             <>

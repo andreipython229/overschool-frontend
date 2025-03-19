@@ -5,7 +5,7 @@ import { IconSvg } from '../common/IconSvg/IconSvg'
 import { Button } from '../common/Button/Button'
 import { AllStudentsBlockT } from '../../types/componentsTypes'
 import { useBoolean } from '../../customHooks'
-import { addStudentIconPath } from './config/svgIconsPath'
+import { addStudentIconPath, classesSettingIconPath, studentsIconPath, updateSvgNewIconPath } from './config/svgIconsPath'
 import { Portal } from '../Modal/Portal'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { useFetchSchoolStudentsGroupingQuery, useUpdateSchoolStudentsGroupingMutation } from 'api/schoolService'
@@ -20,6 +20,7 @@ import styles from '../AllStudentsBlock/all_students_block.module.scss'
 import { RoleE } from 'enum/roleE'
 import { useAppSelector } from 'store/hooks'
 import { updateDataIcon } from '../../config/commonSvgIconsPath'
+import { FilterIconPath } from '../../assets/Icons/svgIconPath'
 import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentCourseModal'
 import { SearchBar } from '../SearchBar'
 import { schoolSelector } from 'selectors'
@@ -142,32 +143,41 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
         <div style={{ marginBottom: '15px' }}>
           <ChipsComponent filterKey={filterKey} filters={filters} chipsVal={chipsVal['students']} />
         </div>
-        <div className={styles.filter_button}>
-          <FiltersButton
-            filteringCategoriesList={filteringCategoriesList}
-            addLastActiveFilter={addLastActiveFilter}
-            addMarkFilter={addMarkFilter}
-            handleAddAvgFilter={handleAddAvgFilter}
-            removeLastActiveStartFilter={removeLastActiveStartFilter}
-            removeLastActiveEndFilter={removeLastActiveEndFilter}
-            {...filters}
-          />
-        </div>
-        <SearchBar searchTerm={searchTerm} onChangeInput={onChangeInput} />
-        <div className={styles.header_block_text_search}>
-          <div className={styles.arrow_add_file_block} onClick={() => handleReloadTable && handleReloadTable()}>
-            <IconSvg width={19} height={23} viewBoxSize="0 0 30 30" path={updateDataIcon} />
+        <div className={styles.search_container}>
+          <SearchBar searchTerm={searchTerm} onChangeInput={onChangeInput}>
+            <div className={styles.filters_dropdown}>
+              <FiltersButton
+                filteringCategoriesList={filteringCategoriesList}
+                addLastActiveFilter={addLastActiveFilter}
+                addMarkFilter={addMarkFilter}
+                handleAddAvgFilter={handleAddAvgFilter}
+                removeLastActiveStartFilter={removeLastActiveStartFilter}
+                removeLastActiveEndFilter={removeLastActiveEndFilter}
+                {...filters}
+              />
+            </div>
+          </SearchBar>
+          <div className={styles.header_block_text_search} style={{display: 'flex', alignItems: 'center'}}>
+            <div className={styles.arrow_add_file_block} onClick={() => handleReloadTable && handleReloadTable()}>
+              <IconSvg width={60} height={54} viewBoxSize="0 0 60 54" path={updateSvgNewIconPath} />
+            </div>
+          </div>
+          <div className={invite ? styles.button_search_block_wButton : styles.button_search_block} style={{display: 'flex', alignItems: 'center'}}>
+            {role != RoleE.Teacher && invite ? (
+              <Button onClick={off} text={'Добавить учеников'} variant={'primary'} className={styles.add_students_btn}>
+                <IconSvg width={15} height={15} viewBoxSize={'0 0 15 15'} path={studentsIconPath} styles={{ marginRight: '0.2em' }} />
+              </Button>
+            ) : (
+              null
+            )}
+          </div>
+          <div style={{display: 'flex', alignItems: 'center'}}>
+              <button className={styles.svgSettingsWrapper}>
+                <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
+              </button>
           </div>
         </div>
-        <div className={invite ? styles.button_search_block_wButton : styles.button_search_block}>
-          {role != RoleE.Teacher && invite ? (
-            <Button onClick={off} className={styles.add_students_btn} text={'Добавить учеников'} variant={'primary'}>
-              <IconSvg width={30} height={30} viewBoxSize={'0 0 16 16'} path={addStudentIconPath} styles={{ marginRight: '0.2em' }} />
-            </Button>
-          ) : (
-            <></>
-          )}
-        </div>
+
         {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} />}</Portal>}
       </div>
     )
