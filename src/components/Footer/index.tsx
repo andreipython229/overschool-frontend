@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { FC } from 'react'
-import { FooterPath } from 'enum/pathE'
+import { FooterPath, Path } from 'enum/pathE'
 import { footerlogo, locationfooter, mailfooter, line } from '../../assets/img/common/index'
-
+import { useFetchSchoolQuery } from 'api/schoolService'
+import { useAppSelector } from 'store/hooks'
+import { schoolSelector } from '../../selectors'
 import styles from './footer.module.scss'
 interface IFooter {
   schoolTariffPlan?: (tariff: any) => void
@@ -23,6 +25,11 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
   // }, [data])
 
   // ****************************
+  const { school_name } = useParams<{ school_name?: string }>();
+  const defaultSchoolName = school_name || "Coursehub";
+  const { schoolId } = useAppSelector(schoolSelector)
+  const { data } = useFetchSchoolQuery(Number(schoolId))
+  const offerUrl = data?.offer_url;
 
   return (
     <footer className={styles.wrapper}>
@@ -84,10 +91,27 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
         </div>
         <div className={styles.wrapper_box_users}>
           <h1>ПОЛЬЗОВАТЕЛЯМ</h1>
-          <p>Политика в отношении обработки cookie</p>
-          <p>Политика обработки персональных данных</p>
-          <p>Отказ в отношении обработки cookie</p>
-          <p>Отзыв согласия обработки персональных данных</p>
+          <Link to={`/school/${defaultSchoolName}/${FooterPath.CookiePolicy}`}>
+            <p>Политика в отношении обработки cookie</p>
+          </Link>
+          <Link to={`/school/${defaultSchoolName}/${FooterPath.PersonalDataTreatmentPolicy}`}>
+            <p>Политика обработки персональных данных</p>
+          </Link>
+          <Link to={`/school/${defaultSchoolName}/${FooterPath.CookiePolicyDisclaimer}`}>
+            <p>Отказ в отношении обработки cookie</p>
+          </Link>
+          <Link to={`/school/${defaultSchoolName}/${FooterPath.PersonalDataProcessing}`}>
+            <p>Отзыв согласия обработки персональных данных</p>
+          </Link>
+          {offerUrl ? (
+            <a href={offerUrl} target="_blank" rel="noopener noreferrer">
+              <p>Публичный договор оферты</p>
+            </a>
+          ) : (
+            <Link to={`/school/${defaultSchoolName}/${FooterPath.PublicOfferAgreement}`}>
+              <p>Публичный договор оферты</p>
+            </Link>
+          )}
         </div>
       </div>
     </footer>
