@@ -36,8 +36,8 @@ export const HelpWorkQuide = () => {
                 <div className={mainHelpStyles.bg_wrap4}></div>
             </div>
 
-            <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
-            
+            <InitPageHeader />
+                        
             <div className={styles.sections}>
                 <div className={styles.section}>
                     <div className={styles.help_title_container}>
