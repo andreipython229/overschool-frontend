@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from 'components/common/Button/Button'
+import { ChatList } from 'components/ChatGPT/chatListModal/ChatList'
 import {
   SendMessagePayload,
   useSendMessageMutation,
@@ -33,7 +34,7 @@ interface ChatGPTProps {
 const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [messageInput, setMessageInput] = useState('');
   const messageContainerRef = useRef<HTMLDivElement>(null);
-
+  const [showChatListForm, setShowChatListForm] = useState(false);
   const [chatData, setChatData] = useState<{ [id: number]: { order: number; chat_name: string } }>({});
   const [selectedChatId, setCreatedChatId] = useState<number>();
   const [isChatSelected, setIsChatSelected] = useState(false);
@@ -217,6 +218,10 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       setMessageInput(prev => prev + '\n');
     }
   };
+
+  const handleShowChatMobileList = () => {
+    setShowChatListForm(!showChatListForm);
+  }
 
   // const formatBotAnswer = (answer: string): JSX.Element => {
   //   const escapeHtml = (str: string): string => {
@@ -701,7 +706,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
             <div className={`${styles.contentContainer}`}>
 
               <div className={`${styles.topPane} ${isDialogOpen && styles.paneOpen}`}>
-                <div className={styles.overAiText}><div className={styles.ai_mobile_open_dialog_list}><IconSvg path={ListMessagesIconPath} width={30} height={30} viewBoxSize='0 0 30 30'></IconSvg></div>
+                <div className={styles.overAiText}><div onClick={handleShowChatMobileList} className={styles.ai_mobile_open_dialog_list}><IconSvg path={ListMessagesIconPath} width={30} height={30} viewBoxSize='0 0 30 30'></IconSvg></div>
                   <p>OVER AI</p>
                   <div className={styles.ai_mobile_close_btn_wrapper} onClick={() => setIsDialogOpen(false)}><div className={styles.ai_mobile_close_btn}></div></div>
                 </div>
@@ -991,6 +996,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
           </div>
         </div>
       )}
+      <ChatList setShowChatListForm={setShowChatListForm} showChatListForm={showChatListForm}></ChatList>
     </div>
   );
 };
