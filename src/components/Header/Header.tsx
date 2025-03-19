@@ -41,7 +41,7 @@ import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice
 import { useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
 import { TgMessage } from 'types/tgNotifications'
 import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
-import { useFetchCoursesQuery } from 'api/coursesServices'
+import { useFetchCoursesQuery, useLazyFetchCoursesQuery } from 'api/coursesServices'
 import { useLoginMutation } from '../../api/userLoginService'
 import { Button } from 'components/common/Button/Button'
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
@@ -110,7 +110,7 @@ export const Header = memo(() => {
   const [loginUser] = useLoginMutation()
   const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation()
   const [fetchGroups, { data: studentsGroups }] = useLazyFetchStudentsGroupWithParamsQuery()
-  const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
+  const [fetchCourses, { data: Courses, isFetching, isSuccess: coursesSuccess }] = useLazyFetchCoursesQuery()
   const [acceptBanner] = useAcceptBannerMutation()
   const [createTgMessage] = useUpdateTgMessageMutation()
 
@@ -207,6 +207,13 @@ export const Header = memo(() => {
       logOut()
     }
   }, [isError])
+
+  useEffect(() => {
+    const coursesStorageData = localStorage.getItem('course_data')
+    if (!coursesStorageData && schoolName && !isFetching) {
+      fetchCourses(schoolName)
+    }
+  }, [])
 
   useEffect(() => {
     if (coursesSuccess && Courses) {

@@ -1,7 +1,4 @@
-import { Button } from '../../components/common/Button/Button'
 import styles from './TariffPlans.module.scss'
-import firstStep from '../../assets/img/createProject/firstStep.png'
-import secondStep from '../../assets/img/createProject/secondStep.png'
 import { TariffPlanT, useFetchTariffPlanTableQuery } from 'api/tariffPlanService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { FC, useEffect, useState} from 'react'
@@ -12,7 +9,6 @@ import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { RoleE } from 'enum/roleE'
 import middle from './images/middle.png'
-import whiteStudent from './images/whiteStudent.png'
 import add from './images/add.png'
 import prizeStart from './images/prizeStart.png'
 import prizePersonal from './images/prizePersonal.png'
@@ -27,7 +23,7 @@ import {Path} from "../../enum/pathE"
 import { motion } from 'framer-motion'
 import {generatePath, useNavigate} from "react-router-dom"
 import { CloudIconPath, PeopleIconPath, CheckIconPath, ClipboardListIconPath, ConfigurationIconPath, CrossIconPath,
-        MailNotificationsIconPath, UserIconPath } from 'assets/Icons/svgIconPath'
+        MailNotificationsIconPath } from 'assets/Icons/svgIconPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import {coursesStatsNavPath} from 'components/Navbar/config/svgIconPath'
 import useDeviceDetect from './useDeviceDetect'
@@ -120,11 +116,10 @@ export const TariffPlans: FC = () => {
             <Swiper
               spaceBetween={20}
               centeredSlides={true}
-              setWrapperSlide={true}
+              setWrapperSize={true}
               slidesPerView={3}
               autoplay={{
                 disableOnInteraction: false,
-
               }}
               pagination={{
                 clickable: true,

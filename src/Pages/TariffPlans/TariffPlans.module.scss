@@ -89,21 +89,21 @@
         justify-content: space-around;
 
         @media only screen and (min-width: 1800px) {
-          width: 1219px;
+          width: 100%;
           height: 878px;
           gap: 40px;
           margin-top: 40px;
         }
 
         @media only screen and (min-width: 480px) and (max-width: 1800px) {
-          width: 68vw;
+          width: 100%;
           height: 49vw;
           gap: 2vw;
           margin-top: 2.5vw;
         }
 
         @media only screen and (min-width: 320px) and (max-width: 480px) {
-          height: 480px;
+          height: 100%;
           max-width: 609.5px;
           gap: 20px;
           margin-top: 20px;
@@ -132,7 +132,7 @@
           }
 
           @media only screen and (min-width: 320px) and (max-width: 480px) {
-            max-width: 170px;
+            // max-width: 170px;
             max-height: 383px;
             gap: 20px;
             border-radius: 12px;
@@ -192,7 +192,7 @@
           }
 
           @media only screen and (min-width: 320px) and (max-width: 480px) {
-            max-width: 210px;
+            // max-width: 210px;
             max-height: 427px;
             gap: 20px;
             border-radius: 12px;
@@ -258,7 +258,7 @@
           }
 
           @media only screen and (min-width: 320px) and (max-width: 480px) {
-            max-width: 170px;
+            // max-width: 170px;
             max-height: 395px;
             gap: 20px;
             border-radius: 12px;
@@ -326,7 +326,7 @@
 
     @media only screen and (min-width: 1800px) {
       margin-top: 80px;
-      width: 1920px;
+      width: 100%;
       height: 472px;
       padding: 36px 10px 36px 10px;
       gap: 48px;
@@ -335,7 +335,7 @@
 
     @media only screen and (min-width: 480px) and (max-width: 1800px) {
       margin-top: 4vw;
-      width: 130%;
+      width: 100%;
       height: 26vw;
       padding: 2vw 1vw 2vw 1vw;
       gap: 2.4vw;
@@ -928,7 +928,7 @@ button:disabled,
       flex-direction: column;
 
       @media only screen and (min-width: 1800px) {
-        width: 1219.5px;
+        width: 100%;
         height: 250px;
         padding: 16px;
         gap: 16px;
@@ -936,7 +936,7 @@ button:disabled,
         }
 
       @media only screen and (min-width: 480px) and (max-width: 1800px) {
-        width: 68vw;
+        width: 100%;
         height: 14vw;
         padding: 1vw;
         gap: 1vw;
@@ -944,7 +944,8 @@ button:disabled,
         }
 
       @media only screen and (min-width: 320px) and (max-width: 480px) {
-        width: 305px;
+        width: 85%;
+        margin: 0 auto;
         height: 592px;
         gap: 22px;
         border-radius: 24px;
@@ -1078,25 +1079,26 @@ button:disabled,
     opacity: 0px;
     justify-content: center;
     align-items: center;
+    display: grid;
+    gap: 1rem;
 
     @media only screen and (min-width: 1800px){
-      width: 1219.5px;
+      width: 100%;
       height: 373px;
       gap: 40px;
-      display: flex;
+      grid-template-columns: repeat(2, 1fr);
     }
 
     @media only screen and (min-width: 480px) and (max-width: 1800px) {
-      width: 67vw;
+      width: 100%;
       height: 21vw;
       gap: 2vw;
-      display: flex;
+      grid-template-columns: repeat(2, 1fr);
     }
 
     @media only screen and (min-width: 320px) and (max-width: 480px) {
-      width: 343px;
-      display: flex;
-      flex-direction: column;
+      width: 100%;
+      grid-template-columns: repeat(1, 1fr);
     }
 
     &_icon{
@@ -1119,23 +1121,21 @@ button:disabled,
       opacity: 0px;
       background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
       box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+      width: 100%;
 
       @media only screen and (min-width: 1800px){
-        width: 589.75px;
         height: 373px;
         border-radius: 24px;
-        margin-right: 18px;
       }
 
       @media only screen and (min-width: 480px) and (max-width: 1800px) {
-        width: 32vw;
         height: 20.6vw;
         border-radius: 1.3vw;
-        margin-right: 1vw;
       }
 
       @media only screen and (min-width: 320px) and (max-width: 480px) {
-        width: 343px;
+        width: 85%;
+        margin: 0 auto;
         height: 306px;
         gap: 4px;
         border-radius: 24px;
@@ -1311,26 +1311,26 @@ button:disabled,
     opacity: 0px;
     background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 100%;
 
     @media only screen and (min-width: 1800px){
         padding: 16px 24px 16px 24px;
-        width: 589.75px;
         height: 373px;
         border-radius: 24px;
       }
 
       @media only screen and (min-width: 480px) and (max-width: 1800px) {
-        width: 32vw;
         height: 20.6vw;
         border-radius: 1.3vw;
         padding: 0.7vw 1.1vw 0.7vw 1.1vw;
       }
 
       @media only screen and (min-width: 320px) and (max-width: 480px) {
-        width: 343px;
         height: 306px;
         border-radius: 24px;
         padding-top: 16px;
+        width: 85%;
+        margin: 0 auto;
       }
 
     &_block{

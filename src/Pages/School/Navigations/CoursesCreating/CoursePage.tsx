@@ -29,7 +29,7 @@ export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
   const { schoolName, schoolId } = useAppSelector(schoolSelector)
   const test_course = localStorage.getItem('test_course')
-  const [fetchData, { data: coursesData, isSuccess }] = useLazyFetchCoursesPageQuery()
+  const [fetchData, { data: coursesData, isFetching, isSuccess }] = useLazyFetchCoursesPageQuery()
   const [fetchFolders, { data: folders, isError }] = useLazyFetchCourseFoldersQuery()
   const [isOpenAddCourse, { onToggle }] = useBoolean()
   const [courses, setCourses] = useState<CoursesT>()
@@ -75,9 +75,7 @@ export const CoursePage: FC = () => {
   }, [deletedSuccessfuly])
 
   useEffect(() => {
-    if (schoolName === window.location.href.split('/')[4]) {
-      fetchData(schoolName)
-    } else {
+    if (schoolName && !coursesData && !isFetching) {
       fetchData(schoolName)
     }
     if (role === RoleE.Student) {
