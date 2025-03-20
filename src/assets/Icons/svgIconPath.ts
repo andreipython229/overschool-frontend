@@ -42,6 +42,7 @@ import {
   SortDownIcon,
   SortUpIcon,
   SuccessIcon,
+  TrashIcon,
   UpdateIcon,
   UploadIcon,
   UserIcon,
@@ -295,6 +296,12 @@ export const SettingsIconPath = [
 ] //setting-2
 
 export const SuccessIconPath = [{ d: SuccessIcon.d1, fill: 'currentColor' }] //tick-circle
+
+export const TrashIconPath = [
+  { d: TrashIcon.d1, fill: 'currentColor' },
+  { d: TrashIcon.d2, fill: 'currentColor' },
+  { d: TrashIcon.d3, fill: 'currentColor' },
+]
 
 export const UpdateIconPath: pathT[] = [
   {

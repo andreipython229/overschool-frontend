@@ -58,8 +58,17 @@
             @include display(flex, row, space-between, center);
             background-color: #F0F0F0;
             border-radius: 16px;
-            padding: 15px;
+            padding: 0 0 0 15px ;
             margin: 0 10px;
+
+            .deleteChatBtn{
+                @include display(flex, row, center, center);
+                aspect-ratio: 1 / 1;
+                border: none;
+                // background-color: #332F36;
+                height: 50px;
+                border-radius: 16px;
+            }
         }
     }
 }

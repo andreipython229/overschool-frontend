@@ -22,6 +22,9 @@ import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { RoleE } from 'enum/roleE'
 
+import { IconSvg } from 'components/common/IconSvg/IconSvg';
+import { TrashIconPath } from '../../../assets/Icons/svgIconPath';
+
 interface Chat {
   order: number;
   chat_name: string;
@@ -140,10 +143,9 @@ export const ChatList: FC<ChatListProps> = ({ showChatListForm, setShowChatListF
                     </span>
                   </div>
                   <button className={styles.deleteChatBtn} onClick={(e) => {
-                    // e.stopPropagation(); // Предотвращаем всплытие события
                     handleDeleteChat(Number(chatId));
                   }}>
-                    <div className={styles.close_cross}></div>
+                    <IconSvg path={TrashIconPath} width={24} height={24} viewBoxSize={'0 0 24 24'}></IconSvg>
                   </button>
                 </div>
               )
