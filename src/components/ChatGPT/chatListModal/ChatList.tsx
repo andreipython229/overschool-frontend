@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useRef } from "react";
 import { Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
@@ -22,13 +22,33 @@ import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import { RoleE } from 'enum/roleE'
 
+interface Chat {
+  order: number;
+  chat_name: string;
+}
+
+interface ChatData {
+  [id: number]: Chat;
+}
+
 interface ChatListProps {
   showChatListForm: boolean;
   setShowChatListForm: (show: boolean) => void;
-  existingMeeting?: SchoolMeeting;
+  chatData: ChatData;
+  selectedChatId: number;
+  handleDragStart: (e: React.DragEvent<HTMLDivElement>, chatId: number) => void;
+  handleDragOver: (e: React.DragEvent<HTMLDivElement>, chatId: number) => void;
+  handleDragEnd: () => void;
+  selectChat: (chatId: number | undefined) => void;
+  handleDeleteChat: (chatId: number) => void;
+  isCreatingChatDisabled: boolean;
+  handleCreateChat: () => void;
+
 }
 
-export const ChatList: FC<ChatListProps> = ({ showChatListForm, setShowChatListForm, existingMeeting }) => {
+export const ChatList: FC<ChatListProps> = ({ showChatListForm, setShowChatListForm, chatData, selectedChatId, handleDragOver, handleDragStart, handleDragEnd, selectChat, handleDeleteChat, isCreatingChatDisabled, handleCreateChat }) => {
+  const activeChatRef = useRef<HTMLDivElement | null>(null);
+  const [draggedOverChatId, setDraggedOverChatId] = useState<number | null>(null);
   // const schoolName = window.location.href.split('/')[4];
   // const { role } = useAppSelector(selectUser)
   // const [showReminderOptions, setShowReminderOptions] = useState(false);
@@ -53,342 +73,84 @@ export const ChatList: FC<ChatListProps> = ({ showChatListForm, setShowChatListF
   //   description: '',
   // });
 
-  // const [newMeetingReminder, setNewMeetingReminder] = useState<TgMeetingReminders>({
-  //   daily: false,
-  //   in_three_hours: false,
-  //   ten_minute: false,
-  //   sent: false,
-  //   meeting: newMeetingData.id
-  // })
 
-  // useEffect(() => {
-  //   if (role === RoleE.Admin) {
-  //     fetchGroups(schoolName)
-  //   }
-  //   if (existingMeeting) {
-  //     setIsEditMode(true);
-  //     setNewMeetingData(existingMeeting);
-  //   } else {
-  //     setIsEditMode(false);
-  //     setNewMeetingData({
-  //       ...newMeetingData,
-  //       students_groups: [],
-  //     });
-  //   }
-  // }, [existingMeeting]);
-
-  // const handleCourseChange = (courseId: number) => {
-  //   setAllGroups(false);
-  //   setSelectedCourse(Courses?.results.find(course => course.course_id === courseId) || null)
-  // };
-
-  // const handleGroupChange = (groupId: number) => {
-  //   setNewMeetingData(prevData => ({
-  //     ...prevData,
-  //     students_groups: [...prevData.students_groups, groupId],
-  //   }));
-  //   setShowReminderOptions(true); // Показываем опции напоминаний после выбора группы
-  // };
-
-  // const handleReminderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, checked } = event.target;
-  //   setNewMeetingReminder(prevReminder => ({
-  //     ...prevReminder,
-  //     [name]: checked,
-  //   }));
-  // };
-
-  // const handleAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const isAll = event.target.checked
-  //   setAllGroups(isAll)
-  //   const groupsByCourse = studentsGroups?.results.filter(group => group.course_id === selectedCourse?.course_id)
-  //   const groupsIds = groupsByCourse?.map(group => group.group_id)
-  //   if (isAll) {
-  //     groupsByCourse?.map(group => {
-  //       setNewMeetingData((prevData: SchoolMeeting) => ({
-  //         ...prevData,
-  //         students_groups: [...prevData.students_groups, group.group_id],
-  //       }) as SchoolMeeting);
-  //     })
-  //     setShowReminderOptions(true)
-  //   } else {
-  //     setNewMeetingData((prevData: SchoolMeeting) => ({
-  //       ...prevData,
-  //       students_groups: prevData.students_groups.filter((id) => {
-  //         return !new Set(groupsIds).has(id)
-  //       }),
-  //     }));
-  //   }
-  // };
-
-
-  // const createNewMeeting = () => {
-  //   createMeeting({
-  //     data: newMeetingData,
-  //     schoolName,
-  //   })
-  //     .unwrap()
-  //     .then((meetingResponse) => {
-  //       if (meetingResponse.id) {
-  //         // Здесь вы устанавливаете meeting_id в newMeetingReminder
-  //         const updatedMeetingReminder = { ...newMeetingReminder, meeting: meetingResponse.id };
-
-  //         createMeetingsReminder({
-  //           data: updatedMeetingReminder,
-  //         })
-  //           .unwrap()
-  //           .then(() => {
-  //             dispatch(setTotalMeetingCount(totalMeetingCount + 1));
-  //             setShowAddMeetingForm(false);
-  //           })
-  //           .catch((error) => {
-  //             console.error("Error creating meeting reminder", error);
-  //           });
-  //       }
-  //     })
-  // }
-
-  // const editExistsMeeting = () => {
-  //   if (existingMeeting) {
-  //     updateMeeting({
-  //       id: existingMeeting.id,
-  //       data: newMeetingData,
-  //       schoolName,
-  //     })
-  //       .unwrap()
-  //       .then(() => {
-  //         dispatch(setTotalMeetingCount(totalMeetingCount + 1));
-  //         setShowAddMeetingForm(false);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error updating meeting", error);
-  //       });
-  //   }
-  // }
-
-  // const handleAddMeeting = () => {
-  //   if (isEditMode) {
-  //     editExistsMeeting()
-  //   }
-  //   else {
-  //     createNewMeeting()
-  //   }
-  // };
-
+  const handleCloseModal = () => {
+    setShowChatListForm(false);
+  }
 
   return (<>
     <Dialog className={styles.modal_background} open={showChatListForm} onClose={() => setShowChatListForm(false)}
       sx={{
         '& .MuiPaper-root': {
           backgroundColor: '#fff',
-          border: '1px solid #3170E7',
-          // borderImageSource: 'linear-gradient(90deg, #3170E7 13.5%, #7A90F7 100%)',
           borderRadius: '24px',
-          padding: '44px',
-        },
-        '& .MuiTypography-h6': {
-          fontSize: '24px',
-          fontWeight: '500',
-          color: '#332F36',
-        },
-        '& .MuiTypography-root': {
-          width: '100%',
-          textAlign: 'center',
-          zIndex: '2',
+          padding: '10px 10px 50px 10px',
+          width: '70%',
         },
         '& .MuiDialogContent-root': {
-          fontSize: '16px',
-          color: '#332F36',
           padding: '0',
-          zIndex: '2',
         },
-        '& .MuiInputBase-root': { //also select?
-          borderRadius: '10px',
-          border: 'none',
-          textAlign: 'start',
+        '& .MuiTypography-root': {
+          margin: '0 auto',
         },
+      }}
+    >
 
-        '& .MuiSelect-select': { //select
-          backgroundColor: '#CFE2FF',
-          borderRadius: '10px',
-        },
-
-        '& .MuiOutlinedInput-notchedOutline': { //focus select
-          border: 'none',
-          borderRadius: '10px',
-        },
-
-        '& .MuiDialogActions-root': {
-          marginTop: "24px",
-          display: 'flex',
-          gap: '6px',
-          justifyContent: 'space-between',
-          padding: '0',
-          borderRadius: '10px',
-          button: {
-            padding: '16px',
-            width: '100%',
-            zIndex: '2',
-          }
-        }
-
-      }}>
-      <div className={styles.modal_ellipse}>
-      </div>
-      {/* <DialogTitle>{!isEditMode ? 'Добавить видеоконференцию' : 'Редактировать видеоконференцию'}</DialogTitle> */}
-      <Typography variant="caption">Выберите дату и время видеоконференции</Typography>
-
-      <DialogContent className={styles.modal_window} >
-
-        <div style={{
-          marginBottom: '1rem',
-          marginTop: '1rem',
-        }}>
-          {/* <Input
-            name='datetime'
-            id="datetime-local"
-            label=""
-            type="datetime-local"
-
-            value={
-              newMeetingData.start_date
-                ? new Date(newMeetingData.start_date).toISOString().slice(0, 16)
-                : new Date().toISOString().slice(0, 16)
-            }
-            onChange={(e) =>
-              setNewMeetingData({
-                ...newMeetingData,
-                start_date: new Date(e.target.value),
-              })
-            }
-          /> */}
-        </div>
-        <div style={{ marginBottom: '1rem' }}>
-          {/* <Input
-            type='text'
-            id="title"
-            name="title"
-            placeholder="Тема видеоконференции"
-            value={newMeetingData.title}
-            onChange={(e) =>
-              setNewMeetingData({ ...newMeetingData, title: e.target.value })
-            }
-          /> */}
-        </div>
-        <div style={{ marginBottom: '1rem' }}>
-          {/* <Input
-            type='text'
-            id="description"
-            name="description"
-            placeholder="Описание видеоконференции"
-            value={newMeetingData.description}
-            onChange={(e) =>
-              setNewMeetingData({ ...newMeetingData, description: e.target.value })
-            }
-          /> */}
-        </div>
-        <div style={{ marginBottom: '1rem' }}>
-          {/* <Input
-            type='text'
-            id="link"
-            name="link"
-            placeholder="Ссылка на видеоконференцию"
-            // label="Ссылка на видеоконференцию"
-            value={newMeetingData.link}
-            // fullWidth={true}
-            onChange={(e) =>
-              setNewMeetingData({ ...newMeetingData, link: e.target.value })
-            }
-          /> */}
-        </div>
-        <div>
-          {/* <TextField
-            id="course"
-            select
-            fullWidth={true}
-            onChange={(e) => {
-              const courseId = parseInt(e.target.value);
-              handleCourseChange(courseId);
-            }}
-            value={selectedCourse?.course_id || "-1"}
-          > */}
-            {/* <MenuItem value='-1' disabled>
-              Выберите курс
-            </MenuItem> */}
-            {/* {Courses?.results.map(course => (
-              <MenuItem key={course.course_id} value={course.course_id}>
-                {course.name}
-              </MenuItem>
-            ))}
-          </TextField> */}
-        </div>
-        {/* {studentsGroups && selectedCourse &&
-          <div>
-            <Checkbox checked={allGroups} onChange={(e) => { handleAllGroups(e) }} />
-            <span><b>все группы курса</b></span>
-          </div>}
-        {studentsGroups && selectedCourse && studentsGroups.results
-          .filter(group => group.course_id === selectedCourse.course_id)
-          .map(group => {
-            if (group.course_id === selectedCourse.course_id) {
-              return (
-                <div key={group.group_id}>
-                  <Checkbox
-                    onChange={(e) => {
-                      const isChecked = e.target.checked;
-                      if (isChecked) {
-                        setNewMeetingData((prevData: SchoolMeeting) => ({
-                          ...prevData,
-                          students_groups: [...prevData.students_groups, group.group_id],
-                        }) as SchoolMeeting);
-                        setShowReminderOptions(true)
-                      } else {
-                        setAllGroups(false)
-                        setNewMeetingData((prevData: SchoolMeeting) => ({
-                          ...prevData,
-                          students_groups: prevData.students_groups.filter(
-                            (id) => id !== group.group_id
-                          ),
-                        }));
-                      }
-                    }}
-                    checked={new Set(newMeetingData.students_groups).has(Number(group.group_id))}
-                  /> */}
-                  {/* {group.name} */}
-                  {/* <span> (Количество участников: {group.students.length})</span> */}
-                {/* </div> */}
-              {/* ); */}
-            {/* } */}
-            {/* return null; */}
-          {/* })} */}
-        {/* {showReminderOptions && ( */}
-          {/* <div>
-            <div className={styles.reminders}>Установить телеграм напоминание за:</div>
-            <Checkbox
-              name="daily"
-              onChange={handleReminderChange}
-              checked={newMeetingReminder.daily}
-            />
-            За день
-            <Checkbox
-              name="in_three_hours"
-              onChange={handleReminderChange}
-              checked={newMeetingReminder.in_three_hours}
-            />
-            За три часа
-            <Checkbox
-              name="ten_minute"
-              onChange={handleReminderChange}
-              checked={newMeetingReminder.ten_minute}
-            />
-            За десять минут
-          </div> */}
-        {/* )} */}
+      <DialogContent className={styles.modal_close}>
+        <Button className={styles.modal_close_btn} text='' onClick={handleCloseModal}>
+          <div className={styles.modal_close_btn_cross}></div>
+        </Button>
       </DialogContent>
-      <DialogActions>
-        {/* <Button onClick={handleAddMeeting} variant={'newPrimary'} text={isEditMode ? "Сохранить" : "Добавить"} /> */}
-        {/* <Button onClick={() => setShowAddMeetingForm(false)} variant={'cancel'} text="Отмена" /> */}
-      </DialogActions>
+
+
+
+      {/* <DialogTitle>{!isEditMode ? 'Добавить видеоконференцию' : 'Редактировать видеоконференцию'}</DialogTitle> */}
+      <Typography className={styles.modal_header_text}>История чатов</Typography>
+
+
+
+      <DialogContent className={styles.modal_list} >
+        <button className={styles.createChatButtonModal} onClick={() => { handleCreateChat(); setShowChatListForm(false) }} disabled={isCreatingChatDisabled}>Создать новый чат
+        </button>
+        <div className={styles.modal_list_scroll} >
+          {Object.entries(chatData)
+            .sort(([, a], [, b]) => a.order - b.order)
+            .map(([chatId, chatValue]) => {
+              const isActive = selectedChatId === Number(chatId);
+              return (
+                <div key={chatId}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, Number(chatId))}
+                  onDragOver={(e) => handleDragOver(e, Number(chatId))}
+                  onDragEnd={handleDragEnd}
+                  className={` ${styles.chatListItemWrapper}`}
+                >
+                  <div
+                    onClick={() => {
+                      selectChat(Number(chatId));
+                      setShowChatListForm(false);
+                    }}
+                    ref={isActive ? activeChatRef : null}
+                    className={`${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''} ${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''}`}
+                    style={{ borderRadius: '20px' }}
+                  >
+                    <div className={styles.chatListItem_Circle}></div>
+                    <span className={styles.centeredText}>
+                      {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
+                    </span>
+                  </div>
+                  <button className={styles.deleteChatBtn} onClick={(e) => {
+                    // e.stopPropagation(); // Предотвращаем всплытие события
+                    handleDeleteChat(Number(chatId));
+                  }}>
+                    <div className={styles.close_cross}></div>
+                  </button>
+                </div>
+              )
+            }
+            )}
+        </div>
+      </DialogContent>
     </Dialog>
   </>)
 }

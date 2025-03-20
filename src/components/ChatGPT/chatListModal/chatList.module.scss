@@ -1,36 +1,65 @@
+@import '../../../scss/variable';
+@import '../../../scss/mixin.scss';
+
 .modal {
+
     &_background {
-        max-height: '100vh';
-        max-width: '600px';
-        width: '100%';
+        @include display(flex, column);
     }
 
-    &_ellipse {
-        position: absolute;
-        // width: 231px;
-        // height: 231px;
-        left: 1px;
-        right: 1px;
-        top: 1px;
-        bottom: 1px;
-        // border-radius: 100%;
-        background: radial-gradient(circle, #57B8FF40 1%, rgba(255, 255, 255, 0) 100%);
-        // background-color: transparent;
-        // backdrop-filter: blur(400px);
-        // background: #57B8FF;
-        // backdrop-filter: blur(400px);
+    &_close {
+        width: 100%;
+        @include display(flex, row, end);
 
-        // transform: matrix(1 0 0 -1 400 631);
-        // display: flex;
-        circle {
-            width: 100%;
-            height: 100%;
-            z-index: 20;
+        &_btn {
+            background-color: #fff;
+
+            &_cross {
+                clip-path: polygon(7% 0, 0 7%, 43% 50%, 0 93%, 7% 100%, 50% 57%, 93% 100%, 100% 93%, 57% 50%, 100% 8%, 93% 0, 50% 43%);
+                height: 20px;
+                width: 20px;
+                background-color: #332F36;
+            }
+
+            &:hover:not(:disabled) {
+                background-color: #fff;
+            }
         }
     }
-}
 
+    &_header_text {
+        font-weight: 700 !important;
+        font-size: 20px !important;
+    }
 
-input {
-    height: 38px;
+    &_list {
+        @include display(flex, column);
+        padding: 10px;
+        gap: 8px;
+        margin-top: 15px;
+
+        .createChatButtonModal {
+            @include display(flex, row, center, center);
+            background-color: #F0F0F0;
+            border-radius: 16px;
+            border: none;
+            padding: 15px;
+            margin: 0 10px;
+        }
+
+        &_scroll {
+            @include display(flex, column, start);
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .chatListItemWrapper {
+            @include display(flex, row, space-between, center);
+            background-color: #F0F0F0;
+            border-radius: 16px;
+            padding: 15px;
+            margin: 0 10px;
+        }
+    }
 }

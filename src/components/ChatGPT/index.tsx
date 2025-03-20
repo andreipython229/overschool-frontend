@@ -912,13 +912,9 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                 </div>
                               </div>
                             ) : (<></>)}
-
                           </div>
-
                         </>
-
                       )}
-
 
                       {error && (
                         <div className={`${styles.errorContainer} ${error && styles.visible}`}>
@@ -996,7 +992,20 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
           </div>
         </div>
       )}
-      <ChatList setShowChatListForm={setShowChatListForm} showChatListForm={showChatListForm}></ChatList>
+      <ChatList
+        setShowChatListForm={setShowChatListForm}
+        showChatListForm={showChatListForm}
+        chatData={chatData}
+        selectedChatId={selectedChatId!}
+        handleDragEnd={handleDragEnd}
+        handleDragOver={handleDragOver}
+        handleDragStart={handleDragStart}
+        selectChat={selectChat}
+        handleDeleteChat={handleDeleteChat}
+        handleCreateChat={handleCreateChat}
+        isCreatingChatDisabled={isCreatingChatDisabled}
+      />
+
     </div>
   );
 };
