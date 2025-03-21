@@ -19,6 +19,7 @@ import { useAppSelector } from 'store/hooks'
 import { headerUserRoleName } from '../../../../config/headerUserRoleName'
 import { schoolSelector, selectUser } from '../../../../selectors'
 import { studentsGroupsT } from 'types/studentsGroup'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 type studentInfoModalT = {
   student: result | null
@@ -167,7 +168,6 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
     await resetAccess({ data: data, schoolName })
       .unwrap()
       .then(async () => {
-        console.log('uspeh')
         schoolId && student && fetchStudentLessons({ id: schoolId, student_id: student?.student_id })
       })
       .catch(error => {
@@ -225,10 +225,9 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
     ? groups.results.filter((group: studentsGroupsT) => group.course_id === student?.course_id && group.group_id !== student?.group_id)
     : []
 
-  console.log(availableGroups)
-
   return (
     <div className={mainStyles.main} role="dialog" aria-modal="true">
+      {isFetching && <LoaderLayout />}
       <div className={styles.close_btn} onClick={closeModal}>
         <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
       </div>

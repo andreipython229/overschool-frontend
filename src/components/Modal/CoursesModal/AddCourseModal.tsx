@@ -43,7 +43,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal
         .unwrap()
         .then(async (data: any) => {
           const { data: course }: any = data
-          refetch(schoolName)
+          refetch({ schoolName, page: 1 })
           setShowModal()
           if (course) {
             navigate(
@@ -85,7 +85,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal
               focus={true}
               style={{ marginBottom: '36px' }}
             >
-            <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+              <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
             </Input>
           </div>
 
