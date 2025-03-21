@@ -401,6 +401,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
           firstChatId = Number(id);
           setIsNewChat(false);
           localStorage.setItem('selectedChatId', firstChatId.toString());
+          selectChat(firstChatId)
         }
       }
       if (Object.entries(chatData).length === 1) {
