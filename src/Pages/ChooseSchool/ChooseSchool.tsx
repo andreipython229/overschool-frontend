@@ -30,6 +30,7 @@ import { SchoolSelect } from './components/schoolSelect'
 import { SearchIconPath } from 'assets/Icons/svgIconPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { clearUserProfile } from 'store/redux/users/profileSlice'
+import { clearTariffState } from 'store/redux/tariff/tariffSlice'
 
 export type SchoolT = {
   school_id: number
@@ -83,6 +84,7 @@ export const ChooseSchool = () => {
   useEffect(() => {
     dispatch(role(RoleE.Unknown))
     dispatch(clearSchoolData())
+    dispatch(clearTariffState())
     getSchools()
       .unwrap()
       .then((data: SchoolT[]) => {

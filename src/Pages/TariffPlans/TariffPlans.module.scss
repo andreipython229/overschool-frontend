@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -10,661 +11,71 @@
     height: 100%;
 
   &_changePlane{
-    @media only screen and (min-width: 1024px) {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: SF Pro Text, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: SF Pro Text, sans-serif;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+
+    @media only screen and (min-width: 1800px) {
       font-size: 30px;
       font-weight: 800;
       line-height: 54.89px;
-      text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(51, 47, 54, 1);
       margin-top: 15px;
     }
 
-    @media only screen and (min-width: 480px) and (max-width: 1024px) {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: SF Pro Text, sans-serif;
-      font-size: 2.5vw;
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      font-size: 2vw;
       font-weight: 800;
       line-height: 2.5vw;
-      text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(51, 47, 54, 1);
-
     }
 
     @media only screen and (min-width: 320px) and (max-width: 480px) {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: SF Pro Text, sans-serif;
-      font-size: 2.5vw;
+      font-size: 14px;
       font-weight: 600;
-      line-height: 4vw;
+      line-height: 100%;
       text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(51, 47, 54, 1);
-      margin-top: 0.2vw;
+      margin-top: 16px;
     }
   }
 
    &_header{
-    @media only screen and (min-width: 1024px) {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: SF Pro Text, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: SF Pro Text, sans-serif;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+
+    @media only screen and (min-width: 1800px) {
       font-size: 46px;
       font-weight: 800;
       line-height: 54.89px;
-      text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(51, 47, 54, 1);
       margin-top: 20px;
     }
 
-    @media only screen and (min-width: 480px) and (max-width: 1024px) {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: SF Pro Text, sans-serif;
-      font-size: 3vw;
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      font-size: 2.3vw;
       font-weight: 800;
       line-height: 3.2vw;
       text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(51, 47, 54, 1);
       margin-top: 2vw;
     }
 
     @media only screen and (min-width: 320px) and (max-width: 480px) {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: SF Pro Text, sans-serif;
-      font-size: 6.2vw;
+      font-size: 26px;
       font-weight: 600;
-      line-height: 6.5vw;
+      line-height: 100%;
       text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(51, 47, 54, 1);
-      margin-top: 2vw;
+      margin-top: 20px;
+      width: 344px;
     }
   }
-
-  &_switchBlock{
-    @media only screen and (min-width: 1024px) {
-      display: flex;
-      width: 565px;
-      height: 64px;
-      padding: 0px 24px 0px 24px;
-      gap: 0px;
-      border-radius: 48px;
-      justify: space-between;
-      opacity: 0px;
-      background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
-      margin-top: 30px;
-
-      &_forMonth{
-        width: 257px;
-        height: 64px;
-        gap: 0px;
-        opacity: 0px;
-        font-family: SF Pro Display;
-        font-size: 20px;
-        font-weight: 500;
-        line-height: 23.87px;
-        text-align: center;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(51, 47, 54, 1);
-        border: none;
-        background: transparent;
-        cursor: default;
-        }
-
-      &_forMonthSwitchOff{
-        width: 282px;
-        height: 64px;
-        gap: 0px;
-        border-radius: 64px;
-        opacity: 0px;
-        border: none;
-        background-color: rgba(53, 126, 235, 1);
-        font-family: SF Pro Display;
-        font-size: 20px;
-        font-weight: 500;
-        line-height: 23.87px;
-        text-align: center;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(255, 255, 255, 1);
-        animation-name: switchOffMonth;
-        animation-duration: 0.2s;
-        cursor: default;
-        }
-
-        @keyframes switchOffMonth {
-          from{
-            margin-left: 70px;
-          }
-
-          50%{
-            margin-left: 35px;
-          }
-          to {
-            margin-left: 10px;
-        }
-      }
-
-      &_forYear{
-        width: 282px;
-        height: 64px;
-        left: 25px;
-        gap: 0px;
-        border-radius: 64px;
-        opacity: 0px;
-        background-color: rgba(53, 126, 235, 1);
-        border: none;
-        font-family: SF Pro Display;
-        font-size: 20px;
-        font-weight: 500;
-        line-height: 23.87px;
-        text-align: center;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(255, 255, 255, 1);
-        cursor: default;
-        animation-name: switchOnYear;
-        animation-duration: 0.2s;
-
-        &_sale{
-          width: 129px;
-          height: 27px;
-          padding: 4px 8px 4px 8px;
-          gap: 10px;
-          border-radius: 16px;
-          opacity: 0px;
-          border: 1px solid rgba(255, 255, 255, 1);
-          font-family: SF Pro Display;
-          font-size: 16px;
-          font-weight: 500;
-          line-height: 19.09px;
-          text-align: center;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(255, 255, 255, 1);
-          margin-left: 7px;
-        }
-      }
-
-      @keyframes switchOnYear {
-          from {
-            opacity: 1;
-            background-color: rgba(53, 126, 235, 1);
-            margin-left: -70px;
-            border-radius: 64px;
-            width: 282px;
-            color: rgba(255, 255, 255, 1);
-          }
-          to {
-            margin-left: -10px;
-            opacity: 1;
-          }
-        }
-
-      &_forYearSwitchOff{
-        width: 245px;
-        height: 64px;
-        gap: 0px;
-        opacity: 0px;
-        background-color: transparent;
-        border: none;
-        font-family: SF Pro Display;
-        font-size: 20px;
-        font-weight: 500;
-        line-height: 23.87px;
-        text-align: center;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(51, 47, 54, 1);
-        margin-left: 20px;
-        animation-name: switchOffYear;
-        animation-duration: 0.2s;
-        cursor: default;
-
-
-        &_saleSwitchOff{
-          width: 129px;
-          height: 27px;
-          padding: 4px 8px 4px 8px;
-          gap: 10px;
-          border-radius: 16px;
-          opacity: 0px;
-          border: none;
-          font-family: SF Pro Display;
-          font-size: 16px;
-          font-weight: 500;
-          line-height: 19.09px;
-          text-align: center;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(255, 255, 255, 1);
-          margin-left: 7px;
-          background-color: rgba(53, 126, 235, 1);
-          }
-        }
-
-        @keyframes switchOffYear {
-          from {
-            opacity: 1;
-            background-color: rgba(53, 126, 235, 1);
-            margin-left: -70px;
-            border-radius: 64px;
-            width: 282px;
-            color: rgba(255, 255, 255, 1);
-          }
-
-          50%{
-            opacity: 1;
-            background-color: rgba(53, 126, 235, 1);
-            margin-left: -35px;
-            border-radius: 64px;
-            width: 282px;
-            color: rgba(255, 255, 255, 1);
-          }
-
-          to {
-            margin-left: 10px;
-            opacity: 1;
-          }
-        }
-      }
-
-    @media only screen and (min-width: 480px) and (max-width: 1024px) {
-      display: flex;
-      width: 34vw;
-      height: 5vw;
-      padding: 0px 2vw 0px 2vw;
-      gap: 0px;
-      border-radius: 48px;
-      justify: space-between;
-      opacity: 0px;
-      background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
-      margin-top: 2vw;
-
-      &_forMonth{
-        width: 16vw;
-        height: 5vw;
-        gap: 0px;
-        opacity: 0px;
-        font-family: SF Pro Display;
-        font-size: 1.5vw;
-        font-weight: 500;
-        line-height: 23.87px;
-        text-align: center;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(51, 47, 54, 1);
-        border: none;
-        background: transparent;
-        cursor: default;
-        }
-
-      &_forMonthSwitchOff{
-        width: 18vw;
-        height: 5vw;
-        gap: 0px;
-        border-radius: 64px;
-        opacity: 0px;
-        border: none;
-        background-color: rgba(53, 126, 235, 1);
-        font-family: SF Pro Display;
-        font-size: 1.5vw;
-        font-weight: 500;
-        line-height: 23.87px;
-        text-align: center;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(255, 255, 255, 1);
-        animation-name: switchOffMonth;
-        animation-duration: 0.2s;
-        cursor: default;
-        }
-
-        @keyframes switchOffMonth {
-          from{
-            margin-left: 2vw;
-          }
-
-          50%{
-            margin-left: 1vw;
-          }
-          to {
-            margin-left: 0.5vw;
-        }
-      }
-
-      &_forYear{
-        width: 17vw;
-        height: 5vw;
-        gap: 0px;
-        border-radius: 64px;
-        opacity: 0px;
-        background-color: rgba(53, 126, 235, 1);
-        border: none;
-        font-family: SF Pro Display;
-        font-size: 1.5vw;
-        font-weight: 500;
-        line-height: 23.87px;
-        text-align: center;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(255, 255, 255, 1);
-        cursor: default;
-        animation-name: switchOnYear;
-        animation-duration: 0.2s;
-
-        &_sale{
-          width: 5vw;
-          height: 5vw;
-          padding: 0.5vw 1vw 0.5vw 1vw;
-          gap: 10px;
-          border-radius: 16px;
-          opacity: 0px;
-          border: 1px solid rgba(255, 255, 255, 1);
-          font-family: SF Pro Display;
-          font-size: 0.8vw;
-          font-weight: 500;
-          line-height: 19.09px;
-          text-align: center;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(255, 255, 255, 1);
-          margin-left: 0.5vw;
-        }
-      }
-
-      @keyframes switchOnYear {
-          from {
-            opacity: 1;
-            background-color: rgba(53, 126, 235, 1);
-            margin-left: -2vw;
-            border-radius: 64px;
-            width: 17vw;
-            color: rgba(255, 255, 255, 1);
-          }
-          to {
-            margin-left: -0.5vw;
-            opacity: 1;
-          }
-        }
-
-      &_forYearSwitchOff{
-        width: 18vw;
-        height: 5vw;
-        gap: 0px;
-        opacity: 0px;
-        background-color: transparent;
-        border: none;
-        font-family: SF Pro Display;
-        font-size: 1.5vw;
-        font-weight: 500;
-        line-height: 23.87px;
-        text-align: center;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(51, 47, 54, 1);
-        margin-left: -0.5vw;
-        animation-name: switchOffYear;
-        animation-duration: 0.2s;
-        cursor: default;
-
-
-        &_saleSwitchOff{
-          width: 5vw;
-          height: 5vw;
-          padding: 0.5vw 1vw 0.5vw 1vw;
-          gap: 10px;
-          border-radius: 16px;
-          opacity: 0px;
-          border: none;
-          font-family: SF Pro Display;
-          font-size: 0.8vw;
-          font-weight: 500;
-          line-height: 19.09px;
-          text-align: center;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(255, 255, 255, 1);
-          margin-left: 0.5vw;
-          background-color: rgba(53, 126, 235, 1);
-          }
-        }
-
-        @keyframes switchOffYear {
-          from {
-            opacity: 1;
-            background-color: rgba(53, 126, 235, 1);
-            margin-left: -2vw;
-            border-radius: 64px;
-            width: 17vw;
-            color: rgba(255, 255, 255, 1);
-          }
-
-          50%{
-            opacity: 1;
-            background-color: rgba(53, 126, 235, 1);
-            margin-left: -1vw;
-            border-radius: 64px;
-            width: 17vw;
-            color: rgba(255, 255, 255, 1);
-          }
-
-          to {
-            margin-left: 0.5vw;
-            opacity: 1;
-          }
-        }
-      }
-
-      @media only screen and (min-width: 320px) and (max-width: 480px) {
-        display: flex;
-        width: 34vw;
-        height: 5vw;
-        padding: 0px 1vw 0px 1vw;
-        gap: 0px;
-        border-radius: 48px;
-        justify: space-between;
-        opacity: 0px;
-        background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
-        margin-top: 2vw;
-
-        &_forMonth{
-          width: 16vw;
-          height: 5vw;
-          gap: 0px;
-          opacity: 0px;
-          font-family: SF Pro Display;
-          font-size: 1.5vw;
-          padding:0;
-          margin:0;
-          font-weight: 500;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(51, 47, 54, 1);
-          border: none;
-          background: transparent;
-          cursor: default;
-          line-height: 5vw;
-          vertical-align: top;
-        }
-
-        &_forMonthSwitchOff{
-          width: 18vw;
-          height: 5vw;
-          gap: 0px;
-          border-radius: 64px;
-          opacity: 0px;
-          border: none;
-          background-color: rgba(53, 126, 235, 1);
-          font-family: SF Pro Display;
-          font-size: 1.5vw;
-          font-weight: 500;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(255, 255, 255, 1);
-          animation-name: switchOffMonth;
-          animation-duration: 0.2s;
-          cursor: default;
-          line-height: 5vw;
-          vertical-align: top;
-          margin-left: 3.5vw;
-          }
-
-          @keyframes switchOffMonth {
-            from{
-              margin-left: 10vw;
-            }
-
-            50%{
-              margin-left: 8vw;
-            }
-            to {
-              margin-left: 6vw;
-          }
-        }
-
-        &_forYear{
-          width: 17vw;
-          height: 5vw;
-          gap: 0px;
-          border-radius: 64px;
-          opacity: 0px;
-          background-color: rgba(53, 126, 235, 1);
-          border: none;
-          font-family: SF Pro Display;
-          font-size: 1.5vw;
-          font-weight: 500;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(255, 255, 255, 1);
-          cursor: default;
-          animation-name: switchOnYear;
-          animation-duration: 0.2s;
-          line-height: 5vw;
-          vertical-align: top;
-          justify-content: center;
-
-          &_sale{
-            width: 5vw;
-            height: 3vw;
-            padding: 0.5vw 1vw 0.5vw 1vw;
-            border-radius: 16px;
-            opacity: 0px;
-            border: 0.5px solid rgba(255, 255, 255, 1);
-            font-family: SF Pro Display;
-            font-size: 0.8vw;
-            font-weight: 500;
-            text-align: center;
-            text-underline-position: from-font;
-            text-decoration-skip-ink: none;
-            color: rgba(255, 255, 255, 1);
-            margin-left: 0.5vw;
-          }
-        }
-
-        @keyframes switchOnYear {
-            from {
-              opacity: 1;
-              background-color: rgba(53, 126, 235, 1);
-              margin-left: -2vw;
-              border-radius: 64px;
-              width: 17vw;
-              color: rgba(255, 255, 255, 1);
-            }
-            to {
-              margin-left: -0.5vw;
-              opacity: 1;
-            }
-          }
-
-        &_forYearSwitchOff{
-          width: 18vw;
-          height: 5vw;
-          gap: 0px;
-          opacity: 0px;
-          background-color: transparent;
-          border: none;
-          font-family: SF Pro Display;
-          font-size: 1.5vw;
-          font-weight: 500;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(51, 47, 54, 1);
-          animation-name: switchOffYear;
-          animation-duration: 0.2s;
-          cursor: default;
-          line-height: 5vw;
-          vertical-align: top;
-          margin-left: -0.5vw;
-
-          &_saleSwitchOff{
-            width: 5vw;
-            height: 3vw;
-            padding: 0.5vw 1vw 0.5vw 1vw;
-            border-radius: 16px;
-            opacity: 0px;
-            border: none;
-            font-family: SF Pro Display;
-            font-size: 0.8vw;
-            font-weight: 500;
-            text-align: center;
-            text-underline-position: from-font;
-            text-decoration-skip-ink: none;
-            color: rgba(255, 255, 255, 1);
-            margin-left: 0.5vw;
-            background-color: rgba(53, 126, 235, 1);
-            }
-          }
-
-          @keyframes switchOffYear {
-            from {
-              opacity: 1;
-              background-color: rgba(53, 126, 235, 1);
-              margin-left: -2vw;
-              border-radius: 64px;
-              width: 17vw;
-              color: rgba(255, 255, 255, 1);
-            }
-
-            50%{
-              opacity: 1;
-              background-color: rgba(53, 126, 235, 1);
-              margin-left: -1vw;
-              border-radius: 64px;
-              width: 17vw;
-              color: rgba(255, 255, 255, 1);
-            }
-
-            to {
-              margin-left: 0.5vw;
-              opacity: 1;
-            }
-          }
-        }
-      }
 
   &_plansBlock {
     align-items: center;
@@ -672,299 +83,352 @@
     display: flex;
 
       &_cardGroup {
-        @media only screen and (min-width: 1440px) {
-          width: 1219px;
+        opacity: 0px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-around;
+
+        @media only screen and (min-width: 1800px) {
+          width: 100%;
           height: 878px;
           gap: 40px;
-          opacity: 0px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: space-around;
           margin-top: 40px;
-
-          &_firstCard {
-            width: 340px;
-            height: 764px;
-            padding: 32px 16px 32px 16px;
-            gap: 40px;
-            border-radius: 24px;
-            opacity: 0px;
-            background-color: rgba(255, 255, 255, 1);
-            box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
-
-            &_planName {
-              font-family: SF Pro Display;
-              font-size: 32px;
-              font-weight: 700;
-              line-height: 38.19px;
-              text-align: left;
-              text-underline-position: from-font;
-              text-decoration-skip-ink: none;
-              color: rgba(50, 65, 149, 1);
-            }
-          }
-
-          &_secondCard{
-            width: 420px;
-            height: 854px;
-            padding: 34px 16px 34px 16px;
-            gap: 40px;
-            border-radius: 24px;
-            opacity: 0px;
-            background-color: rgba(207, 226, 255, 1);
-            box-shadow: 0px 0px 10.5px 0px rgba(0, 0, 0, 0.45);
-            box-shadow: 0px 0px 25px 0px rgba(53, 126, 235, 1);
-            backdrop-filter: blur(35px);
-
-            img{
-              margin-left: 113px;
-              margin-top: -34px;
-            }
-
-          &_planName{
-            font-family: SF Pro Display;
-            font-size: 32px;
-            font-weight: 700;
-            line-height: 38.19px;
-            text-align: left;
-            text-underline-position: from-font;
-            text-decoration-skip-ink: none;
-            color: rgba(51, 47, 54, 1);
-          }
         }
 
-          &_thirdCard{
-          width: 340px;
-          height: 790px;
-          padding: 35px 16px 32px 16px;
-          gap: 40px;
-          border-radius: 24px;
-          opacity: 0px;
-          background: rgba(50, 65, 149, 1);
-          box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
-
-          &_planName{
-            font-family: SF Pro Display;
-            font-size: 32px;
-            font-weight: 700;
-            line-height: 38.19px;
-            text-align: left;
-            text-underline-position: from-font;
-            text-decoration-skip-ink: none;
-            color: rgba(255, 250, 250, 1);
-
-          }
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 100%;
+          height: 49vw;
+          gap: 2vw;
+          margin-top: 2.5vw;
         }
-      }
 
-        @media only screen and (min-width: 480px) and (max-width: 1440px) {
-          width: 85vw;
-          height: 61vw;
-          gap: 3vw;
-          opacity: 0px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: space-around;
-          margin-top: 3vw;
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          height: 100%;
+          max-width: 609.5px;
+          gap: 20px;
+          margin-top: 20px;
+        }
+
 
         &_firstCard {
-          width: 24vw;
-          height: 55vw;
-          padding: 2vw 1vw 2vw 1vw;
-          gap: 2vw;
-          border-radius: 24px;
           opacity: 0px;
           background-color: rgba(255, 255, 255, 1);
           box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
 
+          @media only screen and (min-width: 1800px) {
+            border-radius: 24px;
+            width: 340px;
+            height: 764px;
+            padding: 32px 16px 32px 16px;
+            gap: 40px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            border-radius: 1.5vw;
+            width: 19vw;
+            height: 44vw;
+            padding: 1.8vw 0.9vw 1.8vw 0.9vw;
+            gap: 2.2vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            // max-width: 170px;
+            max-height: 383px;
+            gap: 20px;
+            border-radius: 12px;
+            padding-top: 16px;
+            padding-right: 8px;
+            padding-bottom: 16px;
+            padding-left: 8px;
+            margin-top: 20px;
+          }
+
           &_planName {
             font-family: SF Pro Display;
-            font-size: 2.5vw;
             font-weight: 700;
             text-align: left;
             text-underline-position: from-font;
             text-decoration-skip-ink: none;
             color: rgba(50, 65, 149, 1);
+
+          @media only screen and (min-width: 1800px) {
+            font-size: 32px;
+            line-height: 38.19px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            font-size: 1.9vw;
+            line-height: 2.2vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 16px;
+            line-height: 100%;
           }
         }
+      }
 
         &_secondCard{
-          width: 26vw;
-          height: 61vw;
-          padding: 2vw 1vw 2vw 1vw;
-          gap: 2vw;
-          border-radius: 24px;
           opacity: 0px;
           background-color: rgba(207, 226, 255, 1);
           box-shadow: 0px 0px 10.5px 0px rgba(0, 0, 0, 0.45);
           box-shadow: 0px 0px 25px 0px rgba(53, 126, 235, 1);
           backdrop-filter: blur(35px);
 
-          img{
-            margin-left: 7.3vw;
-            margin-top: -2vw;
-            width: 10vw;
+          @media only screen and (min-width: 1800px) {
+            border-radius: 24px;
+            width: 420px;
+            height: 854px;
+            gap: 40px;
+            padding-left: 16px;
           }
 
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            border-radius: 1.5vw;
+            width: 23.3vw;
+            height: 48vw;
+            gap: 2.2vw;
+            padding-left: 0.9vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            // max-width: 210px;
+            max-height: 427px;
+            gap: 20px;
+            border-radius: 12px;
+            padding-left: 8px;
+            margin-top: 5px;
+        }
+
+          &_imgHit{
+           @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            width: 10.5vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            width: 87px;
+          }
+        }
 
         &_planName{
           font-family: SF Pro Display;
-          font-size: 2.5vw;
           font-weight: 700;
           text-align: left;
           text-underline-position: from-font;
           text-decoration-skip-ink: none;
           color: rgba(51, 47, 54, 1);
+          width: 60%;
+
+          @media only screen and (min-width: 1800px) {
+            font-size: 32px;
+            line-height: 98.19px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            font-size: 1.9vw;
+            line-height: 7.2vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 16px;
+            margin-top: 17px;
+          }
         }
       }
 
         &_thirdCard{
-          width: 24vw;
-          height: 55vw;
-          padding: 2vw 1vw 2vw 1vw;
-          gap: 2vw;
-          border-radius: 24px;
           opacity: 0px;
           background: rgba(50, 65, 149, 1);
           box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
 
-          &_planName{
-            font-family: SF Pro Display;
-            font-size: 2.5vw;
-            font-weight: 700;
-            text-align: left;
-            text-underline-position: from-font;
-            text-decoration-skip-ink: none;
-            color: rgba(255, 250, 250, 1);
+          @media only screen and (min-width: 1800px) {
+            border-radius: 24px;
+            width: 340px;
+            height: 790px;
+            padding: 35px 16px 32px 16px;
+            gap: 40px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            border-radius: 1.5vw;
+            width: 19vw;
+            height: 46vw;
+            padding: 1.8vw 0.9vw 1.8vw 0.9vw;
+            gap: 2.2vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            // max-width: 170px;
+            max-height: 395px;
+            gap: 20px;
+            border-radius: 12px;
+            padding-top: 17.5px;
+            padding-right: 8px;
+            padding-bottom: 16px;
+            padding-left: 8px;
+            margin-top: 15px;
+        }
+
+        &_planName{
+          font-family: SF Pro Display;
+          font-weight: 700;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 250, 250, 1);
+
+          @media only screen and (min-width: 1800px) {
+            font-size: 32px;
+            line-height: 38.19px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            font-size: 1.9vw;
+            line-height: 2.2vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 16px;
+            line-height: 100%;
+          }
+        }
       }
-    }
-  }
+
 }
 
-
   &_banner {
-   @media only screen and (min-width: 1440px){
-      margin-top: 65px;
-      width: 1920px;
+    opacity: 0px;
+    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    align-items: center;
+    flex-direction: row;
+
+    button{
+      width: 293px;
+      height: 49px;
+      gap: 10px;
+      border-radius: 10px;
+      padding-top: 15px;
+      padding-right: 20px;
+      padding-bottom: 15px;
+      padding-left: 20px;
+      border: none;
+      background: rgba(255, 255, 255, 1);
+      font-family: SF Pro Display;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: -0.5px;
+      text-align: center;
+      vertical-align: middle;
+      color: rgba(53, 126, 235, 1);
+      margin-top: 15px;
+      }
+
+    @media only screen and (min-width: 1800px) {
+      margin-top: 80px;
+      width: 100%;
       height: 472px;
       padding: 36px 10px 36px 10px;
       gap: 48px;
-      opacity: 0px;
-      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
-      align-items: center;
-      flex-direction: row;
       display: flex;
-      margin-left: -470px;
+    }
 
-      &_createProject {
-        width: 552px;
-        margin-left: 25vw;
-
-        h1 {
-          margin: 0;
-          font-family: SF Pro Display;
-          font-size: 36px;
-          font-weight: 500;
-          line-height: 42.96px;
-          text-align: left;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(255, 255, 255, 1);
-        }
-        p {
-          margin-top: 40px;
-          font-family: SF Pro Display;
-          font-size: 24px;
-          font-weight: 500;
-          line-height: 28.64px;
-          text-align: left;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(255, 255, 255, 1);
-        }
-
-        button {
-          margin: 66px 0 0 0;
-          width: 302px;
-          height: 54px;
-          padding: 16px 40px 16px 40px;
-          gap: 10px;
-          border-radius: 10px;
-          opacity: 0px;
-          border: none;
-          background: rgba(53, 126, 235, 1);
-          font-family: SF Pro Display;
-          font-size: 20px;
-          font-weight: 500;
-          line-height: 23.87px;
-          text-align: center;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(255, 255, 255, 1);
-          cursor: default;
-
-          &:hover {
-            background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
-          }
-        }
-      }
-      &_images {
-        width: 660px;
-        }
-      }
-
-    @media only screen and (min-width: 480px) and (max-width: 1440px) {
-      margin-top: 5vw;
-      width: 100vw;
-      height: 35vw;
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      margin-top: 4vw;
+      width: 100%;
+      height: 26vw;
       padding: 2vw 1vw 2vw 1vw;
-      gap: 2vw;
-      opacity: 0px;
-      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
-      align-items: center;
-      flex-direction: row;
+      gap: 2.4vw;
       display: flex;
-      margin-left: -15vw;
+
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      margin-top: 20px;
+      width: 343px;
+      height: 414px;
+      border-radius: 24px;
+    }
 
       &_createProject {
-        width: 50vw;
-        margin-left: 10vw;
+        @media only screen and (min-width: 1800px) {
+          width: 552px;
+          margin-left: 50px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 31vw;
+          margin-left: 2vw;
+        }
 
         h1 {
           margin: 0;
           font-family: SF Pro Display;
-          font-size: 2.5vw;
-          font-weight: 500;
-          line-height: 3vw;
           text-align: left;
           text-underline-position: from-font;
           text-decoration-skip-ink: none;
           color: rgba(255, 255, 255, 1);
+
+          @media only screen and (min-width: 1800px) {
+           font-size: 36px;
+           line-height: 42.96px;
+           font-weight: 500;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            font-size: 2vw;
+            line-height: 2.3vw;
+            font-weight: 500;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 20px;
+            line-height: 120%;
+            letter-spacing: 0%;
+            margin-top: 22px;
+            margin-left: 25px;
+            font-weight: 700;
+            margin-right: 25px;
+          }
         }
+
         p {
-          margin-top: 2vw;
           font-family: SF Pro Display;
-          font-size: 1.7vw;
           font-weight: 500;
-          line-height: 2vw;
           text-align: left;
           text-underline-position: from-font;
           text-decoration-skip-ink: none;
           color: rgba(255, 255, 255, 1);
+
+          @media only screen and (min-width: 1800px) {
+            margin-top: 40px;
+            font-size: 24px;
+            line-height: 28.64px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            margin-top: 2.2vw;
+            font-size: 1.3vw;
+            line-height: 1.4vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 14px;
+            line-height: 120%;
+            letter-spacing: 0%;
+            margin-top: 22px;
+            margin-left: 25px;
+            font-weight: 700;
+            margin-right: 25px;
+            margin-top: 10px;
+          }
         }
 
         button {
-          margin: 5vw 0 0 0;
-          width: 22vw;
-          height: 3.5vw;
-          padding: 0.5vw 1.5vw 0.5vw 1.5vw;
-          gap: 10px;
-          border-radius: 10px;
           opacity: 0px;
           border: none;
           background: rgba(53, 126, 235, 1);
           font-family: SF Pro Display;
-          font-size: 1.3vw;
           font-weight: 500;
           text-align: center;
           text-underline-position: from-font;
@@ -975,12 +439,48 @@
           &:hover {
             background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
           }
+
+           @media only screen and (min-width: 1800px) {
+            margin: 66px 0 0 0;
+            width: 302px;
+            height: 54px;
+            padding: 16px 40px 16px 40px;
+            gap: 10px;
+            border-radius: 10px;
+            font-size: 20px;
+            line-height: 23.87px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            margin: 3.5vw 0 0 0;
+            width: 16.7vw;
+            height: 3vw;
+            padding: 0.5vw 1.2vw 0.5vw 1.2vw;
+            gap: 1vw;
+            border-radius: 0.5vw;
+            font-size: 1.1vw;
+            line-height: 1.2vw;
+          }
         }
       }
       &_images {
-        margin-right: 5vw;
+        @media only screen and (min-width: 1800px) {
+          width: 660px;
+          }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 36.7vw;
+        }
+
         img{
-          width: 40vw;
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            width: 36.7vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            width: 293px;
+            margin-left: 25px;
+            margin-top: 15px;
           }
         }
       }
@@ -989,229 +489,268 @@
 }
 
 .planCardBtn{
-  @media only screen and (min-width: 1440px) {
+    opacity: 0px;
+    background: rgba(53, 126, 235, 1);
+    border: none;
+    font-family: SF Pro Display;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    cursor: default;
+
+    &:hover {
+      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    }
+
+  @media only screen and (min-width: 1800px) {
+    border-radius: 10px;
     width: 195px;
     height: 54px;
     padding: 16px 40px 16px 40px;
     gap: 10px;
-    border-radius: 10px;
-    opacity: 0px;
-    background: rgba(53, 126, 235, 1);
-    border: none;
-    font-family: SF Pro Display;
     font-size: 20px;
-    font-weight: 500;
     line-height: 23.87px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
     margin-top: 30px;
-    cursor: default;
-
-    &:hover {
-      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
     }
-  }
 
-   @media only screen and (min-width: 480px) and (max-width: 1440px) {
-    width: 14vw;
-    height: 4vw;
-    padding: 0.5vw 1vw 0.5vw 1vw;
+   @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    border-radius: 0.5vw;
+    width: 11vw;
+    height: 3vw;
+    padding: 0.2vw 0.5vw 0.2vw 0.5vw;
     gap: 10px;
-    border-radius: 10px;
-    opacity: 0px;
-    background: rgba(53, 126, 235, 1);
-    border: none;
-    font-family: SF Pro Display;
-    font-size: 1.3vw;
-    font-weight: 500;
+    font-size: 1.1vw;
     line-height: 2vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
     margin-top: 1.5vw;
-    cursor: default;
-
-    &:hover {
-      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
-  }
  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 98px;
+    height: 27px;
+    gap: 5px;
+    border-radius: 5px;
+    padding-top: 8px;
+    padding-right: 20px;
+    padding-bottom: 8px;
+    padding-left: 20px;
+    font-size: 10px;
+    line-height: 100%;
+    margin-top: 1.5vw;
+  }
 }
 
 button:disabled,
   button[disabled] {
-    @media only screen and (min-width: 1440px) {
-      width: 195px;
-      height: 54px;
-      padding: 16px 0px 16px 0px;
-      gap: 10px;
-      border-radius: 10px;
-      opacity: 0px;
-      background: rgba(53, 126, 235, 1);
-      border: none;
-      font-family: SF Pro Display;
-      font-size: 20px;
-      font-weight: 500;
-      line-height: 23.87px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(255, 255, 255, 1);
-      margin-top: 30px;
-      cursor: not-allowed;
-    }
-
-  @media only screen and (min-width: 480px) and (max-width: 1440px) {
-    width: 14vw;
-    height: 4vw;
-    padding: 0.5vw 1vw 0.5vw 1vw;
-    gap: 10px;
-    border-radius: 10px;
     opacity: 0px;
     background: rgba(53, 126, 235, 1);
     border: none;
     font-family: SF Pro Display;
-    font-size: 1.3vw;
     font-weight: 500;
-    line-height: 2vw;
     display: flex;
     justify-content: center;
     align-items: center;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: rgba(255, 255, 255, 1);
-     margin-top: 1.5vw;
     cursor: not-allowed;
-    }
-  }
+
+    @media only screen and (min-width: 1800px) {
+      border-radius: 10px;
+      width: 195px;
+      height: 54px;
+      padding: 16px 0px 16px 0px;
+      gap: 10px;
+      font-size: 20px;
+      line-height: 23.87px;
+      margin-top: 30px;
+      }
+
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      border-radius: 0.5vw;
+      width: 11vw;
+      height: 3vw;
+      padding: 0.2vw 0.5vw 0.2vw 0.5vw;
+      gap: 10px;
+      font-size: 1.1vw;
+      line-height: 2vw;
+      margin-top: 1.5vw;
+      cursor: not-allowed;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 98px;
+        height: 27px;
+        gap: 5px;
+        border-radius: 5px;
+        padding-top: 8px;
+        padding-right: 5px;
+        padding-bottom: 8px;
+        padding-left: 5px;
+        font-size: 10px;
+        line-height: 100%;
+        margin-top: 1.5vw;
+      }
+   }
 
 .text {
-  @media only screen and (min-width: 1440px) {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 44px;
+
+
+    @media only screen and (min-width: 1800px) {
+      margin-top: 44px;
+      }
+
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      margin-top: 3vw;
+      }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      margin-top: 25px;
+    }
+
+    img{
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        width: 8vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 71.5px;
+      }
+    }
 
     &_priceWrap{
-      padding-top: 10px;
+      @media only screen and (min-width: 1400px) {
+        padding-top: 10px;
+        }
       }
 
     &_price{
       font-family: SF Pro Display;
-      font-size: 32px;
       font-weight: 700;
-      line-height: 38.19px;
       text-align: left;
       text-underline-position: from-font;
       text-decoration-skip-ink: none;
       color: rgba(0, 0, 0, 1);
+
+      @media only screen and (min-width: 1800px) {
+        font-size: 32px;
+        line-height: 38.19px;
       }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        font-size: 1.8vw;
+        line-height: 2vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 16px;
+        line-height: 100%;
+      }
+    }
 
     &_priceTo{
       font-family: SF Pro Text, sans-serif;
-      font-size: 18px;
       font-weight: 300;
-      line-height: 18px;
       text-align: left;
       text-underline-position: from-font;
       text-decoration-skip-ink: none;
       color: rgba(0, 0, 0, 1);
+
+      @media only screen and (min-width: 1800px) {
+        font-size: 18px;
+        line-height: 18px;
       }
 
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        font-size: 1vw;
+        line-height: 1vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 9px;
+        line-height: 100%;
+      }
+    }
+
       hr{
-        width: 260px;
         height: 0px;
         gap: 0px;
         border: 1px;
         opacity: 0px;
-        border: 1px solid var(--grey, rgba(128, 128, 128, 1));
-        margin-top: 40px;
+
+        @media only screen and (min-width: 1800px) {
+          width: 260px;
+          margin-top: 40px;
+          border: 1px solid var(--grey, rgba(128, 128, 128, 1));
         }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 15vw;
+          margin-top: 2vw;
+          border: 1px solid var(--grey, rgba(128, 128, 128, 1));
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          margin-top: 20px;
+          width: 130px;
+          border: 0.5px solid var(--grey, rgba(128, 128, 128, 1));
+        }
+      }
+
       ul {
-        width: 187px;
-        height: 144px;
-        gap: 32px;
-        opacity: 0px;
-        margin-top: 20px;
+        @media only screen and (min-width: 1100px) {
+          gap: 32px;
+          opacity: 0px;
+
+        }
+
+        @media only screen and (min-width: 900px) and (max-width: 1100px) {
+          margin-top: -0.5vw;
+        }
+
+        @media only screen and (min-width: 800px) and (max-width: 900px) {
+          margin-top: -1vw;
+        }
+
+        @media only screen and (min-width: 600px) and (max-width: 800px) {
+          margin-top: -1.5vw;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 600px) {
+          margin-top: -2.5vw;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          margin-top: -6px;
+        }
 
         li {
           display: flex;
           justify-content: left;
-          align-items: left;
+          align-items: center;
           flex-direction: row;
+
+        @media only screen and (min-width: 1800px) {
           margin-top: 7px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          margin-top: 0.5vw;
+          height: 1.2vw;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          height: 19px;
+        }
       }
     }
-  }
-   @media only screen and (min-width: 480px) and (max-width: 1440px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 3vw;
-
-    img{
-      width: 10vw;
-    }
-
-    &_priceWrap{
-      padding-top: 0.5vw;
-      }
-
-    &_price{
-      font-family: SF Pro Display;
-      font-size: 2.5vw;
-      font-weight: 700;
-      line-height: 2vw;
-      text-align: left;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(0, 0, 0, 1);
-    }
-
-    &_priceTo{
-      font-family: SF Pro Text, sans-serif;
-      font-size: 1.3vw;
-      font-weight: 300;
-      line-height: 1.3vw;
-      text-align: left;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(0, 0, 0, 1);
-    }
-
-    hr{
-      width: 16vw;
-      height: 0px;
-      gap: 0px;
-      border: 1px;
-      opacity: 0px;
-      border: 1px solid var(--grey, rgba(128, 128, 128, 1));
-      margin-top: 1.5vw;
-    }
-    ul {
-      width: 12vw;
-      height: 10vw;
-      opacity: 0px;
-
-    li {
-      display: flex;
-      justify-content: left;
-      align-items: left;
-      flex-direction: row;
-      height: 2vw;
-      }
-    }
-  }
 }
 
 .label{
@@ -1220,634 +759,166 @@ button:disabled,
     }
 
   @media only screen and (min-width: 480px) and (max-width: 1440px) {
-    padding-top: 2vw;
+    padding-top: 1.5vw;
     }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    padding-top: 10px;
+  }
 }
 .icon{
-  @media only screen and (min-width: 900px) and (max-width: 1440px) {
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
     width: 1.5vw;
-    height: 1.5vw;
-    transform: scale(1);
-    margin-top: 0.7vw;
   }
 
-  @media only screen and (min-width: 800px) and (max-width: 900px) {
-    width: 1.5vw;
-    height: 1.5vw;
-    transform: scale(1);
-  }
-
-  @media only screen and (min-width: 700px) and (max-width: 800px) {
-    width: 1.5vw;
-    height: 1.5vw;
-    transform: scale(1);
-    margin-bottom: 0.3vw;
-  }
-
-  @media only screen and (min-width: 620px) and (max-width: 700px) {
-    width: 1.5vw;
-    height: 1.5vw;
-    transform: scale(1);
-    margin-bottom: 0.7vw;
-  }
-
-  @media only screen and (min-width: 550px) and (max-width: 620px) {
-    width: 1.5vw;
-    height: 1.5vw;
-    transform: scale(1);
-    margin-bottom: 0.9vw;
-  }
-
-  @media only screen and (min-width: 510px) and (max-width: 550px) {
-    width: 1.5vw;
-    height: 1.5vw;
-    transform: scale(1);
-    margin-bottom: 1.3vw;
-  }
-
-  @media only screen and (min-width: 480px) and (max-width: 510px) {
-    width: 1.5vw;
-    height: 1.5vw;
-    transform: scale(1);
-    margin-bottom: 1.6vw;
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 12px;
   }
 }
 
 .middleImg{
-  @media only screen and (min-width: 1440px) {
-    margin-right: 120px;
-    }
-
-  @media only screen and (min-width: 480px) and (max-width: 1440px) {
-    margin-top: 3vw;
-    margin-right: 8vw;
-    }
-  }
+    margin-top: -23%;
+}
 
 .blueLabel{
-  @media only screen and (min-width: 1440px) {
-    font-family: SF Pro Display;
+  font-family: SF Pro Display;
+  font-weight: 600;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(50, 65, 149, 1);
+
+
+  @media only screen and (min-width: 1800px) {
     font-size: 20px;
-    font-weight: 600;
     line-height: 23.87px;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(50, 65, 149, 1);
     margin-left: 10px;
   }
 
-  @media only screen and (min-width: 480px) and (max-width: 1440px) {
-    font-family: SF Pro Display;
-    font-size: 1.3vw;
-    font-weight: 600;
-    line-height: 3vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(50, 65, 149, 1);
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    font-size: 1.1vw;
+    line-height: 1.2vw;
+    margin-left: 0.5vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 10px;
+    line-height: 100%;
     margin-left: 0.5vw;
   }
 }
 
 .hit{
-  @media only screen and (min-width: 1440px) {
+  position: absolute;
+  transform: rotate(41.07deg);
+  font-family: SF Pro Display;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  position: absolute;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(255, 250, 250, 1);
+  top: 5%;
+  left: 80%;
 
-    position: absolute;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
+  @media only screen and (min-width: 1800px) {
     font-size: 24px;
-    font-weight: 500;
-    margin-top: -130px;
-    margin-left: 38px;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-    }
-
-  @media only screen and (min-width: 1370px) and (max-width: 1440px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -17vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
   }
 
-  @media only screen and (min-width: 1300px) and (max-width: 1370px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -17.5vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
     font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
   }
 
-  @media only screen and (min-width: 1220px) and (max-width: 1300px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -18.5vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 1170px) and (max-width: 1220px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -19.2vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 1120px) and (max-width: 1170px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -20vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 1070px) and (max-width: 1120px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -20.7vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 1030px) and (max-width: 1070px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -21.3vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 990px) and (max-width: 1030px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -22vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 950px) and (max-width: 990px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -22.8vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 920px) and (max-width: 950px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -23.5vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 880px) and (max-width: 920px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -24.2vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 850px) and (max-width: 880px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -25vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 810px) and (max-width: 850px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -26vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 780px) and (max-width: 810px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -27vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 740px) and (max-width: 780px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -28vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 720px) and (max-width: 740px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -29vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 690px) and (max-width: 720px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -30vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 660px) and (max-width: 690px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -31vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 640px) and (max-width: 660px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -32vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 640px) and (max-width: 660px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -32vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 630px) and (max-width: 640px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -32.5vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 620px) and (max-width: 630px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -33vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 595px) and (max-width: 620px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -34vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 580px) and (max-width: 595px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -35vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 560px) and (max-width: 580px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -36vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 540px) and (max-width: 560px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -37vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 520px) and (max-width: 540px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -38vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 510px) and (max-width: 520px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -39.5vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 500px) and (max-width: 510px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -40vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-
-  @media only screen and (min-width: 490px) and (max-width: 500px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -41vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
-  }
-
-  @media only screen and (min-width: 480px) and (max-width: 490px) {
-    display: inline-block;
-    position: absolute;
-    margin-left: -41.5vw;
-    margin-top: 0.5vw;
-    transform: translateX(180px) rotate(41.07deg);
-    font-family: SF Pro Display;
-    font-size: 1.2vw;
-    font-weight: 500;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 250, 250, 1);
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 12px;
+    top: 20.07px;
+    left: 140.34px;
   }
 }
 
 .blackLabel{
-  @media only screen and (min-width: 1440px) {
-    font-family: SF Pro Display;
+  font-family: SF Pro Display;
+  font-weight: 400;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(51, 47, 54, 1);
+
+  @media only screen and (min-width: 1800px) {
     font-size: 16px;
-    font-weight: 400;
     line-height: 19.09px;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
   }
 
-  @media only screen and (min-width: 480px) and (max-width: 1440px) {
-    font-family: SF Pro Display;
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
     font-size: 1vw;
-    font-weight: 400;
-    line-height: 2.5vw;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
+    line-height: 1.3vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 8px;
+    line-height: 100%;
   }
 }
 
 .whiteLabel{
-  @media only screen and (min-width: 1440px) {
     font-family: SF Pro Display;
-    font-size: 20px;
     font-weight: 600;
-    line-height: 23.87px;
     text-align: center;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: rgba(255, 255, 255, 1);
-    margin-left: 10px;
-    }
 
-  @media only screen and (min-width: 480px) and (max-width: 1440px) {
-    font-family: SF Pro Display;
-    font-size: 1.3vw;
-    font-weight: 600;
-    line-height: 3vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
-    margin-left: 0.5vw;
-    }
+  @media only screen and (min-width: 1800px) {
+    font-size: 20px;
+    line-height: 23.87px;
+    margin-left: 10px;
   }
 
-.whiteLabelCheck{
-  @media only screen and (min-width: 1440px) {
-    font-family: SF Pro Display;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19.09px;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
-    }
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    font-size: 1.1vw;
+    line-height: 1.2vw;
+    margin-left: 0.5vw;
+  }
 
-  @media only screen and (min-width: 480px) and (max-width: 1440px) {
-    font-family: SF Pro Display;
-    font-size: 1.3vw;
-    font-weight: 400;
-    line-height: 2.5vw;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 10px;
+    line-height: 100%;
+    margin-left: 0.5vw;
+  }
+}
+
+.whiteLabelCheck{
+  font-family: SF Pro Display;
+  font-weight: 400;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(255, 255, 255, 1);
+
+  @media only screen and (min-width: 1800px) {
+    font-size: 16px;
+    line-height: 19.09px;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    font-size: 1vw;
+    line-height: 1.3vw;
+  }
+
+   @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 8px;
+    line-height: 100%;
   }
 }
 
 .benefit{
-  @media only screen and (min-width: 1440px){
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 
     &_wrap{
-      width: 1219.5px;
-      height: 250px;
-      padding: 16px;
-      gap: 16px;
-      border-radius: 32px;
       opacity: 0px;
       box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
       background-color: rgba(255, 255, 255, 1);
@@ -1856,15 +927,72 @@ button:disabled,
       align-items: center;
       flex-direction: column;
 
+      @media only screen and (min-width: 1800px) {
+        width: 100%;
+        height: 250px;
+        padding: 16px;
+        gap: 16px;
+        border-radius: 32px;
+        }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        width: 100%;
+        height: 14vw;
+        padding: 1vw;
+        gap: 1vw;
+        border-radius: 1.8vw;
+        }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 85%;
+        margin: 0 auto;
+        height: 592px;
+        gap: 22px;
+        border-radius: 24px;
+      }
+
       &_table{
-        width: 1187.5px;
-        height: 169px;
-        gap: 43px;
-        margin-left: 50px;
         opacity: 0px;
         table-layout: fixed;
-        text-align: center;
         border-collapse: collapse;
+
+        @media only screen and (min-width: 1800px) {
+          width: 1187.5px;
+          height: 169px;
+          gap: 43px;
+          margin-left: 30px;
+          }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 65vw;
+          height: 10vw;
+          gap: 1.7vw;
+          margin-left: 1.7vw;
+          }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          height: 540px;
+        }
+
+        &_doubleRow{
+          @media only screen and (min-width: 1800px) {
+            padding-top: 15px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            padding-top: 1vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            padding-top: 10px;
+          }
+        }
+
+        tr{
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            height: 38px;
+          }
+        }
 
         td{
           text-align: left;
@@ -1872,93 +1000,52 @@ button:disabled,
           td{
             justify-content: left;
             font-family: SF Pro Display;
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 19.09px;
-            text-align: left;
-            text-underline-position: from-font;
-            text-decoration-skip-ink: none;
+            letter-spacing: 0%;
             color: rgba(51, 47, 54, 1);
+            line-height: 100%;
+
+            @media only screen and (min-width: 1800px) {
+              font-size: 16px;
+              font-weight: 400;
+            }
+
+            @media only screen and (min-width: 480px) and (max-width: 1800px) {
+              font-size: 0.9vw;
+              font-weight: 400;
+            }
+
+            @media only screen and (min-width: 320px) and (max-width: 480px) {
+              font-weight: 500;
+              font-size: 16px;
+            }
 
             p{
               justify-content: left;
               font-family: SF Pro Display;
-              font-size: 16px;
-              font-weight: 400;
-              line-height: 19.09px;
-              text-align: left;
-              text-underline-position: from-font;
-              text-decoration-skip-ink: none;
+              line-height: 100%;
+              letter-spacing: 0%;
               color: rgba(51, 47, 54, 1);
+
+              @media only screen and (min-width: 1800px) {
+                font-size: 16px;
+                font-weight: 400;
               }
-            }
-          }
-        }
-      }
-    }
 
-    @media only screen and (min-width: 480px) and (max-width: 1440px) {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-
-      &_wrap{
-        width: 85vw;
-        height: 18vw;
-        border-radius: 32px;
-        opacity: 0px;
-        box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
-        background-color: rgba(255, 255, 255, 1);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-
-        &_table{
-          width: 82vw;
-          height: 15vw;
-          margin-left: 2vw;
-          opacity: 0px;
-          table-layout: fixed;
-          text-align: center;
-          border-collapse: collapse;
-
-          td{
-            text-align: left;
-
-            td{
-              justify-content: left;
-              font-family: SF Pro Display;
-              font-size: 0.9vw;
-              font-weight: 400;
-              line-height: 1vw;
-              text-align: left;
-              text-underline-position: from-font;
-              text-decoration-skip-ink: none;
-              color: rgba(51, 47, 54, 1);
-
-              p{
-                justify-content: left;
-                font-family: SF Pro Display;
+              @media only screen and (min-width: 480px) and (max-width: 1800px) {
                 font-size: 0.9vw;
                 font-weight: 400;
-                line-height: 1vw;
-                text-align: left;
-                text-underline-position: from-font;
-                text-decoration-skip-ink: none;
-                color: rgba(51, 47, 54, 1);
-                }
+              }
 
-              img{
-                width: 1.5vw;
-                }
+              @media only screen and (min-width: 320px) and (max-width: 480px) {
+                font-weight: 500;
+                font-size: 16px;
               }
             }
           }
         }
       }
     }
+  }
 
 .analiticRow{
   @media only screen and (min-width: 1440px){
@@ -1971,91 +1058,186 @@ button:disabled,
   }
 
 .addLine{
-  @media only screen and (min-width: 1440px){
+  @media only screen and (min-width: 1800px){
     padding-right: 0px;
     }
 
-  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
     padding-right: 0px;
+
+    img{
+    width: 1.1vw;
     }
   }
 
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    padding-right: 0px;
+  }
+}
+
 .tariffs{
-  @media only screen and (min-width: 1440px){
-    width: 1219.5px;
-    height: 373px;
-    gap: 40px;
     opacity: 0px;
-    display: flex;
     justify-content: center;
     align-items: center;
+    display: grid;
+    gap: 1rem;
+
+    @media only screen and (min-width: 1800px){
+      width: 100%;
+      height: 373px;
+      gap: 40px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      width: 100%;
+      height: 21vw;
+      gap: 2vw;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      width: 100%;
+      grid-template-columns: repeat(1, 1fr);
+    }
 
     &_icon{
-        margin-right: 10px;
-      }
+    @media only screen and (min-width: 1800px){
+      margin-right: 10px;
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      margin-right: 0.5vw;
+      width: 1.5vw;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      width: 24px;
+      margin-right: 5px;
+    }
+  }
 
     &_start{
-      width: 589.75px;
-      height: 373px;
-      border-radius: 24px;
       opacity: 0px;
       background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
       box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-      margin-right: 18px;
+      width: 100%;
 
+      @media only screen and (min-width: 1800px){
+        height: 373px;
+        border-radius: 24px;
+      }
 
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        height: 20.6vw;
+        border-radius: 1.3vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 85%;
+        margin: 0 auto;
+        height: 306px;
+        gap: 4px;
+        border-radius: 24px;
+        margin-top: 20px;
+      }
 
       &_block{
         display: flex;
         flex-direction: row;
         align-items: center;
-        font-family: SF Pro Display;
-        font-size: 20px;
-        font-weight: 600;
-        line-height: 23.87px;
-        text-align: center;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(51, 47, 54, 1);
 
         img{
-          border: 24px;
-          margin-top: 50px;
+          @media only screen and (min-width: 1800px){
+            border-radius: 24px;
+            margin-top: 50px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            border-radius: 1.5vw;
+            margin-top: 2.4vw;
+            width: 17.7vw;
+          }
         }
       }
 
       &_title{
         font-family: SF Pro Display;
-        font-size: 32px;
         font-weight: 700;
-        line-height: 38.19px;
         text-align: left;
         text-underline-position: from-font;
         text-decoration-skip-ink: none;
         color: rgba(51, 47, 54, 1);
-        margin-top: 20px;
-        margin-left: 20px;
+
+        @media only screen and (min-width: 1800px){
+          font-size: 32px;
+          line-height: 38.19px;
+          margin-top: 20px;
+          margin-left: 20px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          font-size: 1.8vw;
+          line-height: 2.2vw;
+          margin-top: 1vw;
+          margin-left: 1vw;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          font-size: 16px;
+          line-height: 16px;
+          letter-spacing: 0%;
+          vertical-align: middle;
+          margin-top: 16px;
+          margin-left: 16px;
+        }
       }
 
       ul{
         list-style: none;
 
-        li{
-          height: 34px;
-          margin-left: -25px;
+         @media only screen and (min-width: 320px) and (max-width: 480px) {
+           margin-top: -50px;
+           margin-left: -20px;
           }
 
+        li{
+          margin-left: -25px;
+          font-family: SF Pro Display;
+          font-weight: 600;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(51, 47, 54, 1);
+
+          @media only screen and (min-width: 1800px){
+            height: 34px;
+            margin-left: -25px;
+            font-size: 20px;
+            line-height: 23.87px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            height: 1.9vw;
+            margin-left: -1.4vw;
+            font-size: 1.1vw;
+            line-height: 1.2vw;
+            margin-left: -2.7vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            vertical-align: middle;
+            height: 37px;
+          }
+        }
+
         button{
-          width: 301px;
-          height: 54px;
-          padding: 16px 40px 16px 40px;
-          gap: 10px;
-          border-radius: 10px;
           opacity: 0px;
           font-family: SF Pro Display;
-          font-size: 20px;
           font-weight: 500;
-          line-height: 23.87px;
           text-align: center;
           text-underline-position: from-font;
           text-decoration-skip-ink: none;
@@ -2066,75 +1248,180 @@ button:disabled,
 
           &:hover {
             background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          }
+
+          @media only screen and (min-width: 1800px){
+            width: 301px;
+            height: 54px;
+            padding: 16px 40px 16px 40px;
+            gap: 10px;
+            border-radius: 10px;
+            font-size: 20px;
+            line-height: 23.87px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            width: 16.7vw;
+            height: 3vw;
+            padding: 0.5vw 1.2vw 0.5vw 1.2vw;
+            gap: 1vw;
+            border-radius: 0.5vw;
+            font-size: 1.1vw;
+            line-height: 1.2vw;
+          }
+        }
       }
-    }
-  }
 
     &_days{
       font-family: SF Pro Display;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 19.09px;
       text-align: left;
       text-underline-position: from-font;
       text-decoration-skip-ink: none;
       color: rgba(51, 47, 54, 1);
-      margin-top: 10px;
-      margin-left: 20px;
+
+      @media only screen and (min-width: 1800px){
+        font-size: 16px;
+        line-height: 19.09px;
+        margin-top: 10px;
+        margin-left: 20px;
+        font-weight: 600;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        font-size: 0.9vw;
+        line-height: 1.2vw;
+        margin-top: 0.5vw;
+        margin-left: 1vw;
+        font-weight: 600;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 16px;
+        line-height: 100%;
+        margin-top: 10px;
+        margin-left: 16px;
+        font-weight: 500;
+      }
     }
   }
 
 
   &_personal{
-    width: 589.75px;
-    height: 373px;
-    padding: 16px 24px 16px 24px;
     gap: 32px;
-    border-radius: 24px;
     opacity: 0px;
     background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 100%;
 
+    @media only screen and (min-width: 1800px){
+        padding: 16px 24px 16px 24px;
+        height: 373px;
+        border-radius: 24px;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        height: 20.6vw;
+        border-radius: 1.3vw;
+        padding: 0.7vw 1.1vw 0.7vw 1.1vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        height: 306px;
+        border-radius: 24px;
+        padding-top: 16px;
+        width: 85%;
+        margin: 0 auto;
+      }
 
     &_block{
       display: flex;
       flex-direction: row;
       align-items: center;
       font-family: SF Pro Display;
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 23.87px;
-      text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(255, 255, 255, 1);
 
       img{
-        border-radius: 24px;
-        margin-top: -88px;
-        margin-left: -25px;
+        @media only screen and (min-width: 1800px){
+          border-radius: 24px;
+          margin-top: -88px;
+          margin-left: -5px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          border-radius: 1.5vw;
+          margin-top: -3.3vw;
+          margin-left: -1vw;
+          width: 17vw;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          margin-top: -70px;
+        }
       }
     }
 
     &_title{
       font-family: SF Pro Display;
-      font-size: 32px;
       font-weight: 700;
-      line-height: 38.19px;
       text-align: left;
       text-underline-position: from-font;
       text-decoration-skip-ink: none;
       color: rgba(255, 255, 255, 1);
-      margin-top: 5px;
 
+      @media only screen and (min-width: 1800px){
+        font-size: 32px;
+        line-height: 38.19px;
+        margin-top: 5px;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        font-size: 1.8vw;
+        line-height: 2.2vw;
+        margin-top: 0.2vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 16px;
+        line-height: 16px;
+        letter-spacing: 0%;
+        margin-left: 16px;
+      }
     }
 
     ul{
       list-style: none;
 
-      li{
-        height: 34px;
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
         margin-left: -45px;
+        margin-top: -25px;
+      }
+
+      li{
+        font-family: SF Pro Display;
+        font-weight: 600;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
+
+        @media only screen and (min-width: 1800px){
+          height: 34px;
+          margin-left: -65px;
+          font-size: 20px;
+          line-height: 23.87px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          height: 1.9vw;
+          margin-left: -2.2vw;
+          font-size: 1.1vw;
+          line-height: 1.2vw;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          height: 38px;
+          font-size: 16px;
+          line-height: 100%;
+        }
       }
 
       button{
@@ -2149,10 +1436,34 @@ button:disabled,
         position: relative;
         cursor: default;
 
+        @media only screen and (min-width: 1800px){
+          width: 301px;
+          height: 54px;
+          padding: 15px 40px 15px 40px;
+          gap: 10px;
+          border-radius: 10px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 16.7vw;
+          height: 3vw;
+          padding: 0.5vw 1.2vw 0.5vw 1.2vw;
+          gap: 1vw;
+          border-radius: 0.5vw;
+        }
+
         &:hover {
           background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
           border: 1px solid rgba(255, 255, 255, 1);
           padding: 15px 39px 15px 39px;
+
+          @media only screen and (min-width: 1800px){
+            padding: 15px 39px 15px 39px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            padding: 0.5vw 1.2vw 0.5vw 1.2vw;
+          }
         }
 
         &:hover {
@@ -2168,469 +1479,141 @@ button:disabled,
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           font-family: SF Pro Display;
-          font-size: 20px;
           font-weight: 500;
-          line-height: 23.87px;
           text-align: center;
           text-underline-position: from-font;
           text-decoration-skip-ink: none;
+
+          @media only screen and (min-width: 1800px){
+            font-size: 20px;
+            line-height: 23.87px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            font-size: 1.1vw;
+            line-height: 1.2vw;
           }
         }
       }
+    }
 
     &_function{
       font-family: SF Pro Display;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 19.09px;
       text-align: left;
       text-underline-position: from-font;
       text-decoration-skip-ink: none;
-      margin-top: 10px;
       color: rgba(255, 255, 255, 1);
+
+      @media only screen and (min-width: 1800px){
+        font-size: 16px;
+        line-height: 19.09px;
+        margin-top: 10px;
+        font-weight: 600;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        font-size: 0.9vw;
+        line-height: 1.2vw;
+        margin-top: 0.5vw;
+        font-weight: 600;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 16px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        font-weight: 500;
+        margin-top: 10px;
+        margin-left: 16px;
       }
     }
   }
-  @media only screen and (min-width: 480px) and (max-width: 1440px) {
-    width: 85vw;
-    height: 25vw;
-    opacity: 0px;
+}
+
+.getConsultPersonal{
+  @media only screen and (min-width: 1800px){
+    margin-top: 25px;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    margin-top: 1.5vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    margin-top: -20px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    &_icon{
-      margin-right: 0.5vw;
-      width: 1.5vw;
-      margin-top: 0.5vw;
-      margin-left: -2vw;
-    }
-
-    &_start{
-      width: 40vw;
-      height: 25vw;
-      border-radius: 24px;
-      opacity: 0px;
-      background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
-      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-      margin-right: 18px;
-
-      &_block{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        img{
-          width: 20vw;
-          margin-top: 3.5vw;
-          border-radius: 24px;
-        }
-      }
-
-      &_title{
-        font-family: SF Pro Display;
-        font-size: 2.4vw;
-        font-weight: 700;
-        line-height: 2vw;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: rgba(51, 47, 54, 1);
-        margin-top: 2vw;
-        margin-left: 1vw;
-      }
-
-      ul{
-        margin-top: -2vw;
-        list-style: none;
-
-        li{
-          height: 2.5vw;
-        }
-
-        button{
-          width: 21vw;
-          height: 3.5vw;
-          padding: 0.5vw 1.5vw 0.5vw 1.5vw;
-          gap: 10px;
-          border-radius: 10px;
-          opacity: 0px;
-          font-family: SF Pro Display;
-          font-size: 1.3vw;
-          font-weight: 500;
-          line-height: 1vw;
-          text-align: center;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(255, 255, 255, 1);
-          background-color: rgba(53, 126, 235, 1);
-          border: none;
-          cursor: default;
-
-          &:hover {
-            background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
-      }
-    }
-  }
-
-    &_days{
+    button{
+      width: 311px;
+      height: 48px;
+      gap: 10px;
+      border-radius: 10px;
+      padding-top: 15px;
+      padding-right: 20px;
+      padding-bottom: 15px;
+      padding-left: 20px;
+      background: rgba(255, 255, 255, 1);
+      border: none;
       font-family: SF Pro Display;
-      font-size: 1.3vw;
       font-weight: 600;
-      line-height: 1.5vw;
-      text-align: left;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(51, 47, 54, 1);
-      margin-top: 1vw;
-      margin-left: 1vw;
-    }
-  }
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: -0.5px;
+      text-align: center;
+      vertical-align: middle;
 
-
-    &_personal{
-      width: 40vw;
-      height: 25vw;
-      border-radius: 24px;
-      opacity: 0px;
-      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
-      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-
-
-    &_block{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      img{
-        width: 20vw;
-        margin-top: -4vw;
-        margin-left: 0.5vw;
-        border-radius: 24px;
-      }
-    }
-
-    &_title{
-      font-family: SF Pro Display;
-      font-size: 2.4vw;
-      font-weight: 700;
-      line-height: 2vw;
-      text-align: left;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: rgba(255, 255, 255, 1);
-      margin-top: 2vw;
-      margin-left: 1vw;
-    }
-
-    ul{
-      list-style: none;
-      margin-top: -1.5vw;
-
-      li{
-        height: 2.5vw;
-      }
-
-      button{
-        width: 20vw;
-        height: 3vw;
-        padding: 0.5vw 1.5vw 0.5vw 1.5vw;
-        gap: 10px;
-        border-radius: 10px;
-        opacity: 0px;
-        border: none;
-        background: rgba(255, 255, 255, 1);
-        position: relative;
-        cursor: default;
-
-        &:hover {
-          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
-          border: 1px solid rgba(255, 255, 255, 1);
-          padding: 0.5vw 1.5vw 0.5vw 1.5vw;
-        }
-
-        &:hover {
-          div {
-            background: rgba(255, 255, 255, 1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-          }
-        }
-
-        div {
+      div {
           background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           font-family: SF Pro Display;
-          font-size: 1.3vw;
           font-weight: 500;
-          line-height: 2vw;
           text-align: center;
           text-underline-position: from-font;
           text-decoration-skip-ink: none;
           }
-        }
-      }
-
-    &_function{
-      font-family: SF Pro Display;
-      font-size: 1.3vw;
-      font-weight: 600;
-      line-height: 1vw;
-      text-align: left;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      margin-top: 1.5vw;
-      margin-left: 1vw;
-      color: rgba(255, 255, 255, 1);
-      }
     }
   }
 }
 
 .getConsultStart{
-  @media only screen and (min-width: 1440px){
-    margin-left: -20px;
-    margin-top: 30px;
+  @media only screen and (min-width: 1800px){
+    margin-top: 15px;
   }
 
-  @media only screen and (min-width: 700px) and (max-width: 1440px) {
-    margin-top: 2.5vw;
-    margin-left: -2.5vw;
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    margin-top: 1vw;
   }
 
-  @media only screen and (min-width: 480px) and (max-width: 700px) {
-    margin-top: 2vw;
-    margin-left: -3vw;
-  }
-}
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    margin-top: -55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-.getConsultPersonal{
-  @media only screen and (min-width: 1440px){
-    margin-left: -20px;
-    margin-top: 20px;
-    }
-
-  @media only screen and (min-width: 480px) and (max-width: 1440px) {
-    margin-top: 2vw;
-    margin-left: -2.5vw;
-  }
-}
-
-.tariffsStartRow{
-  @media only screen and (min-width: 1440px){
-    font-family: SF Pro Display;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 23.87px;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
-    }
-
-  @media only screen and (min-width: 1200px) and (max-width: 1440px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 1vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
-    padding-top: 0.9vw;
-  }
-
-  @media only screen and (min-width: 1000px) and (max-width: 1200px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.5vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
-    padding-top: 1.4vw;
-  }
-
-  @media only screen and (min-width: 900px) and (max-width: 1000px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.4vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
-    padding-top: 1.6vw;
-  }
-
-  @media only screen and (min-width: 800px) and (max-width: 900px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.3vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
-    padding-top: 1.8vw;
-  }
-
-  @media only screen and (min-width: 700px) and (max-width: 800px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.1vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
-    padding-top: 2vw;
-  }
-
-  @media only screen and (min-width: 600px) and (max-width: 700px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.3vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
-    padding-top: 2.3vw;
-  }
-
-  @media only screen and (min-width: 480px) and (max-width: 600px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.5vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
-    padding-top: 2.5vw;
-  }
-
-    &_cashBox{
-      @media only screen and (min-width: 1440px){
-        margin-right: 15px;
-        }
-
-      @media only screen and (min-width: 1300px) and (max-width: 1440px) {
-        margin-top: 0.5vw;
-        margin-right: 1vw;
-        }
-
-      @media only screen and (min-width: 900px) and (max-width: 1300px) {
-        margin-top: 1vw;
-        margin-right: 1vw;
+    button{
+      width: 311px;
+      height: 48px;
+      gap: 10px;
+      border-radius: 10px;
+      padding-top: 15px;
+      padding-right: 20px;
+      padding-bottom: 15px;
+      padding-left: 20px;
+      background: rgba(53, 126, 235, 1);
+      border: none;
+      font-family: SF Pro Display;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: -0.5px;
+      text-align: center;
+      vertical-align: middle;
+      color: rgba(255, 255, 255, 1);
       }
-
-      @media only screen and (min-width: 480px) and (max-width: 900px) {
-        margin-top: 1.3vw;
-        margin-right: 1vw;
-      }
-    }
-}
-
-.tariffsPersonalRow{
-  @media only screen and (min-width: 1440px){
-    font-family: SF Pro Display;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 23.87px;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
-    }
-
-  @media only screen and (min-width: 1200px) and (max-width: 1440px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 1vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
-    padding-top: 0.9vw;
   }
-
-  @media only screen and (min-width: 1000px) and (max-width: 1200px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.5vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
-    padding-top: 1.4vw;
-  }
-
-  @media only screen and (min-width: 900px) and (max-width: 1000px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.4vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
-    padding-top: 1.6vw;
-  }
-
-  @media only screen and (min-width: 800px) and (max-width: 900px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.3vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
-    padding-top: 1.8vw;
-  }
-
-  @media only screen and (min-width: 700px) and (max-width: 800px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.1vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
-    padding-top: 2vw;
-  }
-
-  @media only screen and (min-width: 600px) and (max-width: 700px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.3vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
-    padding-top: 2.3vw;
-  }
-
-  @media only screen and (min-width: 480px) and (max-width: 600px) {
-    font-family: SF Pro Display;
-    font-size: 1.5vw;
-    font-weight: 600;
-    line-height: 0.5vw;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(255, 255, 255, 1);
-    padding-top: 2.5vw;
-  }
-
 }
 
 @keyframes bgAnimate1 {
@@ -2816,3 +1799,5 @@ button:disabled,
   justify-content: space-evenly;
   margin-bottom: 2rem;
 }
+
+

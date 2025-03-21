@@ -28,14 +28,14 @@
 }
 
 .meetingList {
-  @include display(flex, column, start, center);
+  @include display(flex, column, flex-start, center);
   gap: 32px;
   margin-top: 32px;
 
 }
 
 .generate_meeting_btn_wrapper {
-  @include display(flex, row, end, start);
+  @include display(flex, row, flex-end, flex-start);
   position: relative;
 
   .generateMeetingButton {

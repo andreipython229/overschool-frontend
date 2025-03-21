@@ -16,7 +16,7 @@ export const CoursesStats: FC = () => {
   const [hideStats, setHideStats] = useState<boolean>(true)
   const { schoolName } = useAppSelector(schoolSelector)
   const { data } = useFetchStudentsGroupQuery(schoolName)
-  const { data: courses } = useFetchCoursesQuery(schoolName)
+  const { data: courses } = useFetchCoursesQuery({ schoolName, page: 1 })
 
   const handleHideStats = useCallback(() => {
     setHideStats(!hideStats)

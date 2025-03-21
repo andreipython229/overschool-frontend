@@ -4,7 +4,7 @@
 
 
 .wrapper {
-  @include display(flex, column, space-between, start);
+  @include display(flex, column, space-between, flex-start);
   width: 100%;
   min-height: 170px;
   padding: 1.8% 2.5%;
@@ -17,13 +17,13 @@
 
 
   .content_section {
-    @include display(flex, row, start, start);
+    @include display(flex, row, flex-start, flex-start);
     width: 100%;
     gap: 24px;
   }
 
   .banner_input_container {
-    @include display(flex, row, start, start);
+    @include display(flex, row, flex-start, flex-start);
     width: 100%;
     position: relative;
 
@@ -51,13 +51,13 @@
   }
 
   .banner_link_container {
-    @include display(flex, column, center, start);
+    @include display(flex, column, center, flex-start);
     width: 100%;
     gap: 10px;
   }
 
   .banner_groups_btn_cont {
-    @include display(flex, row, start, start);
+    @include display(flex, row, flex-start, flex-start);
     position: relative;
     width: 100%;
 
