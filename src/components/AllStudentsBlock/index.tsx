@@ -47,7 +47,8 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     ...restFilters
   }) => {
     const { schoolName, schoolId } = useAppSelector(schoolSelector)
-    const { data: courses } = useFetchCoursesQuery(schoolName)
+    const [coursesPage, setCoursesPage] = useState<number>(1)
+    const { data: courses } = useFetchCoursesQuery({ schoolName, page: coursesPage })
 
     const { data: groupingStudents, error: groupingStudentsError } = useFetchSchoolStudentsGroupingQuery({ school_id: Number(schoolId) || 0 })
     const [updateSchoolStudentsGroupingMutation] = useUpdateSchoolStudentsGroupingMutation()

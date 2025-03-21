@@ -13,6 +13,8 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 //import { CoursesDataT } from 'types/CoursesT'
 
 import styles from '../../Modal.module.scss'
+import { useAppSelector } from 'store/hooks'
+import { schoolSelector } from 'selectors'
 
 export const AdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensions> = ({
   handleCreatEmployee,
@@ -20,8 +22,8 @@ export const AdminModal: FC<AddEmployeeModalPropsT & AddEmpoyeeModalExtensions> 
   emailUser,
   setShowModal,
 }) => {
-  const schoolName = window.location.href.split('/')[4]
-  const { data: courses, isSuccess, isFetching } = useFetchCoursesQuery(schoolName)
+  const { schoolName } = useAppSelector(schoolSelector)
+  const { data: courses, isSuccess, isFetching } = useFetchCoursesQuery({ schoolName, page: 1 })
 
   const [checkCourses, setCheckCourses] = useState<checkCoursesDataT[]>()
 

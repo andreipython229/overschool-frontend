@@ -19,9 +19,9 @@ export const coursesServices = createApi({
     deleteFolder: build.mutation<any, { id: number; schoolName: string }>({
       query: arg => ({ url: `/${arg.schoolName}/folder_course/${arg.id}/`, method: 'DELETE' }),
     }),
-    fetchCourses: build.query<CoursesT, string>({
-      query: (schoolName: string) => ({
-        url: `/${schoolName}/courses/`,
+    fetchCourses: build.query<CoursesT, { schoolName: string; page: number }>({
+      query: args => ({
+        url: `/${args.schoolName}/courses/?p=${args.page}`,
       }),
       providesTags: ['courses', 'course'],
     }),
@@ -101,9 +101,9 @@ export const CoursesPageService = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['CoursesPage'],
   endpoints: build => ({
-    fetchCoursesPage: build.query<CoursesT, string>({
-      query: school => ({
-        url: `/${school}/courses/`,
+    fetchCoursesPage: build.query<CoursesT, { schoolName: string; page: number }>({
+      query: args => ({
+        url: `/${args.schoolName}/courses/?p=${args.page}`,
       }),
     }),
   }),
