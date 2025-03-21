@@ -2,7 +2,6 @@
 @import '../../../scss/mixin.scss';
 
 .modal {
-
     &_background {
         @include display(flex, column);
     }
@@ -44,7 +43,11 @@
             border-radius: 16px;
             border: none;
             padding: 15px;
-            margin: 0 10px;
+            margin: 0 20px;
+
+            @media screen and (max-width: 480px){
+                margin: 0 20px;
+            }
         }
 
         &_scroll {
@@ -52,23 +55,76 @@
             gap: 8px;
             max-height: 200px;
             overflow-y: auto;
+            box-sizing: border-box;
+
+            &::-webkit-scrollbar {
+                width: 6px;
+                background-color: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                width: 6px;
+                border-radius: 4px;
+                height: 8px;
+                background-color: #357EEB;
+            }
         }
 
         .chatListItemWrapper {
             @include display(flex, row, space-between, center);
             background-color: #F0F0F0;
-            border-radius: 16px;
-            padding: 0 0 0 15px ;
-            margin: 0 10px;
+            border-radius: 16px !important;
+            margin: 0 14px 0 20px;
+            // margin: 0 20px;
+            position: relative;
 
-            .deleteChatBtn{
+            .chatListItem {
+                @include display(flex, row, start, center);
+                height: 100%;
+                padding: 15px;
+                width: 100%;
+                border-radius: 16px !important;
+
+                span {
+                    font-weight: 500;
+                }
+            }
+
+            .activeChat {
+                background-color: #357EEB;
+                height: 100%;
+            }
+
+            .deleteChatBtn {
+                position: absolute;
                 @include display(flex, row, center, center);
                 aspect-ratio: 1 / 1;
                 border: none;
-                // background-color: #332F36;
                 height: 50px;
                 border-radius: 16px;
+                background-color: transparent;
+                right: 5px;
+
+                svg path {
+                    fill: #858D9D;
+                }
+            }
+
+            .activeDeleteChatBtn {
+                svg path {
+                    fill: #332F36;
+                }
+            }
+
+            @media screen and (max-width: 480px){
+                margin: 0 14px 0 20px;
             }
         }
+
+        @media screen and (max-width: 480px) {
+            margin-top: 15px;
+        }
+
+
     }
 }

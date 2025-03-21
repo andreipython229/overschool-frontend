@@ -96,8 +96,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   useEffect(() => { scrollMessagesToBottom(); }, [isLoading])
 
   useEffect(() => {
-
-
     const interval = setInterval(() => {
       setDots((prevDots) => {
         if (prevDots === '...') return '.';
@@ -107,19 +105,20 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     return () => clearInterval(interval);
   }, []);
 
-
-
   useEffect(() => {
+    const savedChatId = Number(localStorage.getItem('selectedChatId'));
+    if (savedChatId){
+      setCreatedChatId(savedChatId);
+      selectChat(savedChatId);
+    }
     setTextAreaFocus();
     scrollToSelectedChat();
 
     const fetchData = async () => {
-      // console.log(isDialogOpen, selectedChatId, refetchMessages, isChatSelected);
       // if (!isDialogOpen || selectedChatId === null) return;
 
       setError(null);
       setWarning(null);
-      // console.log('showWelcomeMessage: ' + showWelcomeMessage)
       setIsLoadingMessages(true);
       setIsFetchingChats(true);
 
@@ -133,7 +132,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       if (!isNewChat && selectedChatId && refetchMessages && isChatSelected) {
         try {
           await refetchMessages({ overai_chat_id: selectedChatId });
-          console.log(selectedChatId);
           scrollMessagesToBottom();
         } catch (error) {
           setError('Ошибка получения сообщений');
@@ -151,7 +149,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     //   if (!hasFetched) {
     //     fetchData();
     //     setHasFetched(true);
-    //     console.log('hhhey');
     // }
   }, [selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage, isNewChat]);
 
@@ -199,16 +196,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }
   };
 
-  // const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-  //   if (e.key === 'Enter' && !e.shiftKey) {
-  //     e.preventDefault();
-  //     handleSendMessage(messageInput);
-  //   } else if (e.key === 'Enter' && e.shiftKey) {
-  //     e.preventDefault();
-  //     setMessageInput(messageInput + '\n');
-  //   }
-  // };
-
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -222,44 +209,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const handleShowChatMobileList = () => {
     setShowChatListForm(!showChatListForm);
   }
-
-  // const formatBotAnswer = (answer: string): JSX.Element => {
-  //   const escapeHtml = (str: string): string => {
-  //     return str.replace(/&/g, '&amp;')
-  //       .replace(/</g, '&lt;')
-  //       .replace(/>/g, '&gt;')
-  //       .replace(/"/g, '&quot;')
-  //       .replace(/'/g, '&#039;')
-  //       .replace(/####/g, '')
-  //       .replace(/\*\*(.*?)\*\*/g, (_, content) => `<strong>${content}</strong>`);
-  //   };
-  //   const codeBlockRegex = /```([\s\S]*?)```/g;
-  //   const replaceCodeBlocks = (_: any, code: string) => {
-  //     const lines = code.trim().split('\n').map((line: string, index: number) => (
-  //       `${line}\n`
-  //     ));
-  //     return `${lines.join('')}`;
-  //   };
-
-  //   let formattedAnswer = answer.replace(codeBlockRegex, replaceCodeBlocks);
-
-  //   const codeBlocks = formattedAnswer.split(codeBlockRegex);
-  //   const processedBlocks = codeBlocks.map((block, index) => {
-  //     if (index % 2 === 0) {
-  //       return escapeHtml(block);
-  //     } else {
-  //       return block;
-  //     }
-  //   });
-
-  //   formattedAnswer = processedBlocks.join('');
-
-  //   return (
-  //     <div
-  //       dangerouslySetInnerHTML={{ __html: formattedAnswer }}
-  //     />
-  //   );
-  // };
 
   const formatBotAnswer = (answer: string): JSX.Element => {
     const escapeHtml = (str: string): string => {
@@ -296,7 +245,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     if (!isChatSelectionDisabled) {
       let selectedChatId: number | undefined = chatId;
       setIsNewChat(false);
-      // console.log(latestMessages);
 
       if (chatId === undefined || chatId === 1) {
         for (const [id, chat] of Object.entries(chatData)) {
@@ -311,11 +259,9 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         setCreatedChatId(selectedChatId);
         setIsChatSelected(true);
         setDraggedChatId(selectedChatId);
+        localStorage.setItem('selectedChatId', selectedChatId.toString());
       }
-
     }
-
-    // console.log(chatData);
   };
 
 
@@ -361,13 +307,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }
   };
 
-  // const handleCreateEmptyChat = async () => {
-  //   setShowWelcomeMessage(false);
-  //   setCreatedChatId(1);
-  //   setIsChatSelected(true);
-  // };
-
-
   function getAllMethods(obj: object): string[] {
     const methods: string[] = [];
     let currentObj = obj;
@@ -386,7 +325,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
 
   const createChat = async () => {
-    console.log(selectedChatId)
     try {
       setCreatedChatId(undefined)
       setIsChatSelected(true);
@@ -422,125 +360,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }
   };
 
-  // const createChat = async () => {
-  //   try {
-
-
-  //     setIsChatSelected(false); //true
-  //     setIsCreatingChatDisabled(true);
-  //     const convertToCreateChatPayload = (chatData: { [id: number]: { order: number; chat_name: string } }): CreateChatPayload => {
-  //       const orderData = Object.entries(chatData).map(([id, { order }]) => ({ id: Number(id), order }));
-  //       return { orderData };
-  //     };
-
-  //     const payload: CreateChatPayload = convertToCreateChatPayload(chatData);
-
-  //     const response = await createChatMutation(payload);
-  //     if ('data' in response && response.data !== undefined) {
-  //       const newChatId = response.data.overai_chat_id;
-  //       await fetchChats();
-  //       setCreatedChatId(newChatId);
-  //       return response.data;
-  //     } else {
-  //       setError('Ошибка при создании чата.');
-  //       return null;
-  //     }
-  //   } catch (error) {
-  //     setError('Ошибка при создании чата.');
-  //     return null;
-  //   } finally {
-  //     setIsCreatingChatDisabled(false);
-  //   }
-  // };
-
-
-  // const createChat = async () => {
-  //   let tempChatId: number | null = null; // Объявляем tempChatId здесь
-
-  //   try {
-  //     setIsChatSelected(false);
-  //     setIsCreatingChatDisabled(true);
-
-  //     // Генерация временного ID для нового чата (для оптимистичного обновления)
-  //     tempChatId = Date.now(); // Используем временную метку как ID
-  //     const newChat = {
-  //       id: tempChatId,
-  //       order: 1, // Новый чат будет первым
-  //       chat_name: 'Новый чат', // Можно задать имя по умолчанию
-  //     };
-
-  //     // Оптимистичное обновление состояния на клиенте
-  //     setChatData((prevChatData) => {
-  //       // Сдвигаем порядок всех существующих чатов на +1
-  //       const updatedChatData = Object.entries(prevChatData).reduce((acc, [id, chat]) => {
-  //         acc[Number(id)] = { ...chat, order: chat.order + 1 };
-  //         return acc;
-  //       }, {} as { [id: number]: { order: number; chat_name: string } });
-
-  //       // Добавляем новый чат в начало
-  //       return {
-  //         [tempChatId!]: newChat,
-  //         ...updatedChatData,
-  //       };
-  //     });
-
-  //     // Преобразование данных для отправки на сервер
-  //     const convertToCreateChatPayload = (chatData: {
-  //       [id: number]: { order: number; chat_name: string };
-  //     }): CreateChatPayload => {
-  //       const orderData = Object.entries(chatData).map(([id, { order }]) => ({
-  //         id: Number(id),
-  //         order,
-  //       }));
-  //       return { orderData };
-  //     };
-
-  //     const payload: CreateChatPayload = convertToCreateChatPayload(chatData);
-
-  //     // Отправка запроса на сервер
-  //     const response = await createChatMutation(payload);
-
-  //     // Обработка ответа от сервера
-  //     if ('data' in response && response.data !== undefined) {
-  //       const newChatId = response.data.overai_chat_id;
-
-  //       // Обновление состояния с реальным ID от сервера
-  //       setChatData((prevChatData) => {
-  //         const { [tempChatId!]: tempChat, ...rest } = prevChatData;
-  //         return {
-  //           [newChatId]: { ...tempChat, id: newChatId },
-  //           ...rest,
-  //         };
-  //       });
-
-  //       await fetchChats(); // Обновление списка чатов (если нужно)
-  //       setCreatedChatId(newChatId);
-  //       return response.data;
-  //     } else {
-  //       // Если сервер вернул ошибку, откатываем оптимистичное обновление
-  //       setChatData((prevChatData) => {
-  //         const { [tempChatId!]: _, ...rest } = prevChatData;
-  //         return rest;
-  //       });
-  //       setError('Ошибка при создании чата.');
-  //       return null;
-  //     }
-  //   } catch (error) {
-  //     // Откат изменений в случае ошибки
-  //     if (tempChatId !== null) {
-  //       setChatData((prevChatData) => {
-  //         const { [tempChatId!]: _, ...rest } = prevChatData;
-  //         return rest;
-  //       });
-  //     }
-  //     setError('Ошибка при создании чата.');
-  //     return null;
-  //   } finally {
-  //     setIsCreatingChatDisabled(false);
-  //   }
-  // };
-
-
   const handleCreateChat = async () => {
     if (!isLoadingMessages) {
       setIsNewChat(true);
@@ -550,12 +369,12 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }
   };
 
-  const fetchChats = async () => {///??
+  const fetchChats = async () => {
     try {
 
       (userQuestions)
       if (refetchChats) {
-        const response = await refetchChats(); ////
+        const response = await refetchChats();
 
         if (response.status === 'fulfilled' && response.isSuccess) {
           const receivedChatData = response.data;
@@ -570,15 +389,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }
   };
 
-
-  // const handleDeleteChat = async (chatId: number) => {
-  //   const orderData = Object.entries(chatData).map(([id, chat]) => ({ id: Number(id), order: chat.order }));
-  //   console.log(orderData)
-  //   console.log(chatData)
-  //   await deleteChat({ chat_id: chatId, orderData });
-  //   await fetchChats();
-  //   setCreatedChatId(undefined)
-  // };
 
   const handleDeleteChat = async (chatId: number) => {
     const previousChatData = { ...chatData }; // Сохраняем копию состояния
@@ -606,9 +416,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       }
     }
 
-    // if (chatId === selectedChatId) {
-    //   selectChat(undefined);
-    // }
 
     const chatArray = Object.entries(chatData).map(([id, chat]) => ({
       id: Number(id),
@@ -798,37 +605,9 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
                   </div>
 
-
                   <Button className={styles.start_new_chat_btn} variant='newSecondary' onClick={handleCreateChat} disabled={isChatSelectionDisabled} text='Начать чат'>
                   </Button>
-
-                  {/* <div className={styles.inputContainer}>
-                    {isLoading ? (
-                      <div className={styles.loadingSpinner}>
-                        <div className={styles.spinner}></div>
-                        <span> Генерация сообщения...</span>
-                      </div>
-                    ) : isCreatingChatDisabled ? (
-                      <div className={styles.loadingSpinner}>
-                        <div className={styles.spinner}></div>
-                        <span> Создание чата...</span>
-                      </div>
-                    ) : (
-                      <> */}
-                  {/* // <textarea
-                          rows={1}
-                          placeholder="Отправьте сообщение..."
-                          value={messageInput}
-                          onChange={(e) => setMessageInput(e.target.value)}
-                          onKeyDown={handleKeyPress}
-                        /> */}
-
-                  {/* </> */}
-                  {/* // )} */}
-                  {/* </div> */}
                 </>
-
-
 
               ) : (
                 <>
@@ -958,28 +737,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                 <IconSvg path={aiMobileButtonNavIcon} width={24} height={24} viewBoxSize={'0 0 24 24'}></IconSvg>
                               </Button>
 
-
-                              {/* <div style={{ zIndex: '10000000' }}>
-                            <select
-                              value={selectedLanguage}
-                              onChange={handleLanguageChange}
-                              disabled={isChatSelectionDisabled}
-                              style={{
-                                height: '39px',
-                                backgroundColor: '#9b48ed',
-                                color: 'white',
-                                border: 'none',
-                                padding: '5px',
-                                borderRadius: '5px',
-                                cursor: 'pointer',
-                                outline: 'none',
-                                boxShadow: 'none'
-                              }}
-                            >
-                              <option value="RU">RU</option>
-                              <option value="ENG">ENG</option>
-                            </select>
-                          </div> */}
                             </>
                           )}
                         </div>
