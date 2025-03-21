@@ -107,7 +107,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   useEffect(() => {
     const savedChatId = Number(localStorage.getItem('selectedChatId'));
-    if (savedChatId){
+    if (savedChatId && !isNewChat) {
       setCreatedChatId(savedChatId);
       selectChat(savedChatId);
     }
@@ -130,6 +130,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       setIsFetchingChats(false);
 
       if (!isNewChat && selectedChatId && refetchMessages && isChatSelected) {
+        
         try {
           await refetchMessages({ overai_chat_id: selectedChatId });
           scrollMessagesToBottom();
@@ -183,11 +184,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     // if (response.data) {
     // setShowWelcomeMessage(response.data.show_welcome_message);
     // }
-
-
   };
-
-
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -344,7 +341,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       const response = await createChatMutation(payload);
       if ('data' in response && response.data !== undefined) {
         const newChatId = response.data.overai_chat_id;
-
+        localStorage.setItem('selectedChatId', newChatId.toString());
         await fetchChats();
         setCreatedChatId(newChatId);
         return response.data;
@@ -357,6 +354,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       return null;
     } finally {
       setIsCreatingChatDisabled(false);
+
     }
   };
 
@@ -392,7 +390,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   const handleDeleteChat = async (chatId: number) => {
     const previousChatData = { ...chatData }; // Сохраняем копию состояния
-
     const isDeletingSelectedChat = chatId === selectedChatId;
 
     if (isDeletingSelectedChat) {
@@ -403,6 +400,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
           minOrder = chat.order;
           firstChatId = Number(id);
           setIsNewChat(false);
+          localStorage.setItem('selectedChatId', firstChatId.toString());
         }
       }
       if (Object.entries(chatData).length === 1) {
@@ -440,7 +438,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }
 
     // setCreatedChatId(undefined);
-    if (!isDeletingSelectedChat) {
+    if (!isDeletingSelectedChat && selectedChatId) {
       setCreatedChatId(selectedChatId);
     }
   };
