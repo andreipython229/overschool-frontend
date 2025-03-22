@@ -142,7 +142,8 @@
           .createChatButtonModal {
             @include display(flex, column, center, center);
             border: none;
-            height: 80%;
+            height: 30px;
+            width: 30px;
             margin-top: 5px;
             border-radius: 50px;
             font-size: 14px*$ai-window-ratio;
@@ -208,6 +209,7 @@
                 border: none;
                 width: 100%;
                 height: 32px*$ai-window-ratio;
+                min-height: 25px;
                 border-radius: 14px*$ai-window-ratio;
                 font-size: 14px*$ai-window-ratio;
                 background-color: #F5F5F5;

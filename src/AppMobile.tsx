@@ -17,6 +17,10 @@ import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { TariffPlansInfo } from './Pages/TariffPlans/TariffPlansInfo'
 import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
+import { CookiePolicy } from 'Pages/CookiePolicy/CookiePolicy'
+import { CookiePolicyDisclaimer } from 'Pages/CookiePolicyDisclaimer/CookiePolicyDisclaimer'
+import { PersonalDataProcessing } from 'Pages/PersonalDataProcessing/PersonalDataProcessing'
+import { PublicOfferAgreement } from 'Pages/PublicOfferAgreement/PublicOfferAgreement'
 import { Agreement } from 'components/Agreement/Agreement'
 import { PWA } from 'Pages/PWA/PWA'
 import { HelpPage } from './Pages/HelpCenter/HelpPage'
@@ -50,6 +54,11 @@ export const AppMobile = () => {
     if (
       !isLogin &&
       pathname !== Path.CreateSchool &&
+      pathname.split('/').at(-1) !== 'personalDataTreatmentPolicy' &&
+      pathname.split('/').at(-1) !== 'publicOfferAgreement' &&
+      pathname.split('/').at(-1) !== 'personalDataProcessing' &&
+      pathname.split('/').at(-1) !== 'cookiePolicyDisclaimer' &&
+      pathname.split('/').at(-1) !== 'cookiePolicy' &&
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
       pathname !== Path.TariffPlansInfo &&
@@ -136,12 +145,21 @@ export const AppMobile = () => {
         </Route>
         <Route path={Path.School} element={<MobileLayOut />}>
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
+          <Route path={FooterPath.CookiePolicy} element={<CookiePolicy />} />
+          <Route path={FooterPath.CookiePolicyDisclaimer} element={<CookiePolicyDisclaimer />} />
+          <Route path={FooterPath.PersonalDataProcessing} element={<PersonalDataProcessing />} />
+          <Route path={FooterPath.PublicOfferAgreement} element={<PublicOfferAgreement />} />
           <Route path={FooterPath.PWA} element={<PWA />} />
           <Route path={FooterPath.Agreement} element={<Agreement />} />
           {navByRolesConfig[role]}
 
           <Route path={Path.Profile} element={<Profile />} />
         </Route>
+        <Route path={`${Path.DefaultSchool}${FooterPath.PersonalDataTreatmentPolicy}`} element={<PersonalDataTreatmentPolicy />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.CookiePolicy}`} element={<CookiePolicy />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.CookiePolicyDisclaimer}`} element={<CookiePolicyDisclaimer />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.PersonalDataProcessing}`} element={<PersonalDataProcessing />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.PublicOfferAgreement}`} element={<PublicOfferAgreement />} />
         <Route path={'*'} element={<PageNotFound />} />
       </Routes>
     </div>

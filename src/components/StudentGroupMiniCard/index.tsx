@@ -4,9 +4,8 @@ import bgImage from './assets/image.png'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { settingsIconPath } from 'config/commonSvgIconsPath'
 import { PeopleIconSvg } from './assets/iconsComponents'
-import { CoursesMiniCardT } from 'types/pageTypes'
 import { useAppSelector } from 'store/hooks'
-import { selectUser } from 'selectors'
+import { schoolSelector, selectUser } from 'selectors'
 import { Link, generatePath } from 'react-router-dom'
 import { RoleE } from 'enum/roleE'
 import { Path } from 'enum/pathE'
@@ -18,10 +17,11 @@ import { StudentsGroupPropsT } from 'Pages/School/StudentsStats/StudentsCountGro
 export const StudentGroupMiniCard: FC<StudentsGroupPropsT> = ({ title, type, courseId, countStudent, id, active, click }) => {
   const { role } = useAppSelector(selectUser)
   const [isModalOpen, { on: close, off: open }] = useBoolean()
+  const { schoolName } = useAppSelector(schoolSelector)
 
   const pathLink = generatePath(
     generatePath(Path.School + (role === RoleE.Teacher ? '' : Path.Courses) + `group/${id}`, {
-      school_name: localStorage.getItem('school') || window.location.href.split('/')[4],
+      school_name: schoolName,
     }),
   )
 

@@ -8,10 +8,11 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
 import { LimitModal } from 'components/Modal/LimitModal/LimitModal'
+import { schoolSelector } from 'selectors'
 
 export const StudentsHomeworkExport: FC = () => {
   const filters = useAppSelector(state => state.filters['homework'])
-  const schoolName = localStorage.getItem('school')
+  const { schoolName } = useAppSelector(schoolSelector)
   const [fetchHomeworks, { isFetching }] = useLazyFetchHomeworkStatsQuery()
   const [setShow, { onToggle }] = useBoolean(false)
 
@@ -68,7 +69,7 @@ export const StudentsHomeworkExport: FC = () => {
 
   return (
     <>
-      <Button onClick={handleExport} variant='newPrimary' className={styles.students_group_header_export_button} text={''}>
+      <Button onClick={handleExport} variant="newPrimary" className={styles.students_group_header_export_button} text={''}>
         Скачать
         {isFetching && <SimpleLoader style={{ height: '12px', width: '12px' }} loaderColor="white" />}
       </Button>

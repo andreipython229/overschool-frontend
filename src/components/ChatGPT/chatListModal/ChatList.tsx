@@ -67,7 +67,9 @@ export const ChatList: FC<ChatListProps> = ({ showChatListForm, setShowChatListF
       </DialogContent>
       <Typography className={styles.modal_header_text}>История чатов</Typography>
       <DialogContent className={styles.modal_list} >
-        <button className={styles.createChatButtonModal} onClick={() => { handleCreateChat(); setShowChatListForm(false) }} disabled={isCreatingChatDisabled}>Создать новый чат
+        <button className={styles.createChatButtonModal} onClick={() => { handleCreateChat();
+           setShowChatListForm(false) }}
+            disabled={isCreatingChatDisabled}>Создать новый чат
         </button>
         <div className={styles.modal_list_scroll} >
           {Object.entries(chatData)

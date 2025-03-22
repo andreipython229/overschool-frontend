@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -7,306 +8,1612 @@
   background: none;
 }
 .TariffPlansPage {
-  h1 {
-    margin: 23px;
-    color: #4d5766;
-    font-size: 35px;
+    height: 100%;
+
+  &_changePlane{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: SF Pro Text, sans-serif;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+
+    @media only screen and (min-width: 1800px) {
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 54.89px;
+      margin-top: 15px;
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      font-size: 2vw;
+      font-weight: 800;
+      line-height: 2.5vw;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 100%;
+      text-align: center;
+      margin-top: 16px;
+    }
   }
+
+   &_header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: SF Pro Text, sans-serif;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+
+    @media only screen and (min-width: 1800px) {
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 54.89px;
+      margin-top: 20px;
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      font-size: 2.3vw;
+      font-weight: 800;
+      line-height: 3.2vw;
+      text-align: center;
+      margin-top: 2vw;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 100%;
+      text-align: center;
+      margin-top: 20px;
+      width: 344px;
+    }
+  }
+
   &_plansBlock {
     align-items: center;
     flex-direction: column;
     display: flex;
-    margin-top: 75px;
 
-    p {
-      color: #ba75ff;
-      font-size: 16px;
-    }
-    h1 {
-      margin-top: 18px;
-    }
-    &_typeSelect {
-      display: inline-flex;
-      align-items: center;
-      h5 {
-        margin-right: 45px;
-        font-size: 14px;
-      }
-      hr {
-        width: 150px;
-        margin-top: 6px;
-      }
-      &_courseEnabled {
-        width: 220px;
-        h5 {
-          float: right;
-          color: #ba75ff;
-        }
-        hr {
-          border: 1px solid #ba75ff;
-          float: right;
-        }
-      }
-      &_webinarDisabled {
-        width: 220px;
-        h5 {
-          color: #d6d6d6;
-          margin-left: 45px;
-        }
-        hr {
-          border: 1px solid #d6d6d6;
-        }
-      }
-      &_courseDisabled {
-        width: 220px;
-        h5 {
-          float: right;
-          color: #d6d6d6;
-        }
-        hr {
-          border: 1px solid #d6d6d6;
-          float: right;
-        }
-      }
-      &_webinarEnabled {
-        width: 220px;
-        h5 {
-          color: #ba75ff;
-          margin-left: 45px;
-        }
-        hr {
-          border: 1px solid #ba75ff;
-        }
-      }
-    }
-    &_cardGroup {
-      margin-top: 45px;
-      display: inline-flex;
-      align-items: center;
-      width: 90%;
-      justify-content: space-around;
+      &_cardGroup {
+        opacity: 0px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-around;
 
-      &_card:hover {
-        //background-color: #ebe8f5;
-        border: 3px #ba75ff solid;
-        button {
-          color: #ba75ff;
-          background-color: #ffffff;
-        }
-      }
-
-      &_card {
-        position: relative;
-        width: 304px;
-        height: 373px;
-
-        background: #fff;
-        border-radius: 20px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        margin-bottom: 80px;
-
-        &_text {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-          height: 100%;
+        @media only screen and (min-width: 1800px) {
           width: 100%;
-          min-width: 100%;
-          min-height: 100%;
+          height: 878px;
+          gap: 40px;
+          margin-top: 40px;
+        }
 
-          h3 {
-            color: #4d5766;
-            font-weight: 600;
-            font-size: 27px;
-            text-align: center;
-          }
-          hr {
-            border: 1px solid #ba75ff;
-            width: 150px;
-            height: 0;
-            margin: 10px auto 0 auto;
-            text-align: center;
-          }
-          ul {
-            padding-left: 10px;
-            padding-top: 29px;
-            list-style: none;
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 100%;
+          height: 49vw;
+          gap: 2vw;
+          margin-top: 2.5vw;
+        }
 
-            li::before {
-              content: '\2022';
-              color: #ba75ff;
-              font-weight: bold;
-              display: inline-block;
-              width: 1em;
-              margin-left: -1em;
-            }
-            li {
-              font-size: 14px;
-              padding-bottom: 15px;
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          height: 100%;
+          max-width: 609.5px;
+          gap: 20px;
+          margin-top: 20px;
+        }
 
-              span {
-                font-weight: 600;
-                margin-left: 0.3em;
-                color: #ba75ff;
-              }
-            }
+
+        &_firstCard {
+          opacity: 0px;
+          background-color: rgba(255, 255, 255, 1);
+          box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
+          @media only screen and (min-width: 1800px) {
+            border-radius: 24px;
+            width: 340px;
+            height: 764px;
+            padding: 32px 16px 32px 16px;
+            gap: 40px;
           }
-          button {
-            width: 184px;
-            height: 43px;
-            font-size: 15px;
-            position: relative;
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            border-radius: 1.5vw;
+            width: 19vw;
+            height: 44vw;
+            padding: 1.8vw 0.9vw 1.8vw 0.9vw;
+            gap: 2.2vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            //max-width: 170px;
+            max-height: 383px;
+            gap: 20px;
+            border-radius: 12px;
+            padding-top: 16px;
+            padding-right: 8px;
+            padding-bottom: 16px;
+            padding-left: 8px;
+            margin-top: 20px;
+            margin-left: 20px;
+          }
+
+          &_planName {
+            font-family: SF Pro Display;
+            font-weight: 700;
+            text-align: left;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+            color: rgba(50, 65, 149, 1);
+
+          @media only screen and (min-width: 1800px) {
+            font-size: 32px;
+            line-height: 38.19px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            font-size: 1.9vw;
+            line-height: 2.2vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 16px;
+            line-height: 100%;
+          }
+        }
+      }
+
+        &_secondCard{
+          opacity: 0px;
+          background-color: rgba(207, 226, 255, 1);
+          box-shadow: 0px 0px 10.5px 0px rgba(0, 0, 0, 0.45);
+          box-shadow: 0px 0px 25px 0px rgba(53, 126, 235, 1);
+          backdrop-filter: blur(35px);
+
+          @media only screen and (min-width: 1800px) {
+            border-radius: 24px;
+            width: 420px;
+            height: 854px;
+            gap: 40px;
+            padding-left: 16px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            border-radius: 1.5vw;
+            width: 23.3vw;
+            height: 48vw;
+            gap: 2.2vw;
+            padding-left: 0.9vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            //max-width: 210px;
+            max-height: 427px;
+            gap: 20px;
+            border-radius: 12px;
+            padding-left: 8px;
+            margin-top: 5px;
+        }
+
+          &_imgHit{
+           @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            width: 10.5vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            width: 87px;
+          }
+        }
+
+        &_planName{
+          font-family: SF Pro Display;
+          font-weight: 700;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(51, 47, 54, 1);
+          width: 60%;
+
+          @media only screen and (min-width: 1800px) {
+            font-size: 32px;
+            line-height: 98.19px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            font-size: 1.9vw;
+            line-height: 7.2vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 16px;
+            margin-top: 17px;
+          }
+        }
+      }
+
+        &_thirdCard{
+          opacity: 0px;
+          background: rgba(50, 65, 149, 1);
+          box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+
+          @media only screen and (min-width: 1800px) {
+            border-radius: 24px;
+            width: 340px;
+            height: 790px;
+            padding: 35px 16px 32px 16px;
+            gap: 40px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            border-radius: 1.5vw;
+            width: 19vw;
+            height: 46vw;
+            padding: 1.8vw 0.9vw 1.8vw 0.9vw;
+            gap: 2.2vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            // max-width: 170px;
+            max-height: 395px;
+            gap: 20px;
+            border-radius: 12px;
+            padding-top: 17.5px;
+            padding-right: 8px;
+            padding-bottom: 16px;
+            padding-left: 8px;
+            margin-top: 15px;
+        }
+
+        &_planName{
+          font-family: SF Pro Display;
+          font-weight: 700;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 250, 250, 1);
+
+          @media only screen and (min-width: 1800px) {
+            font-size: 32px;
+            line-height: 38.19px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            font-size: 1.9vw;
+            line-height: 2.2vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 16px;
+            line-height: 100%;
+          }
+        }
+      }
+
+}
+
+  &_banner {
+    opacity: 0px;
+    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    align-items: center;
+    flex-direction: row;
+
+    button{
+      width: 293px;
+      height: 49px;
+      gap: 10px;
+      border-radius: 10px;
+      padding-top: 15px;
+      padding-right: 20px;
+      padding-bottom: 15px;
+      padding-left: 20px;
+      border: none;
+      background: rgba(255, 255, 255, 1);
+      font-family: SF Pro Display;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: -0.5px;
+      text-align: center;
+      vertical-align: middle;
+      color: rgba(53, 126, 235, 1);
+      margin-top: 15px;
+      }
+
+    @media only screen and (min-width: 1800px) {
+      margin-top: 80px;
+      width: 100%;
+      height: 472px;
+      padding: 36px 10px 36px 10px;
+      gap: 48px;
+      display: flex;
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      margin-top: 4vw;
+      width: 100%;
+      height: 26vw;
+      padding: 2vw 1vw 2vw 1vw;
+      gap: 2.4vw;
+      display: flex;
+
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      margin-top: 20px;
+      width: 343px;
+      height: 414px;
+      border-radius: 24px;
+    }
+
+      &_createProject {
+        @media only screen and (min-width: 1800px) {
+          width: 552px;
+          margin-left: 50px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 31vw;
+          margin-left: 2vw;
+        }
+
+        h1 {
+          margin: 0;
+          font-family: SF Pro Display;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+
+          @media only screen and (min-width: 1800px) {
+           font-size: 36px;
+           line-height: 42.96px;
+           font-weight: 500;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            font-size: 2vw;
+            line-height: 2.3vw;
             font-weight: 500;
           }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 20px;
+            line-height: 120%;
+            letter-spacing: 0%;
+            margin-top: 22px;
+            margin-left: 25px;
+            font-weight: 700;
+            margin-right: 25px;
+          }
+        }
+
+        p {
+          font-family: SF Pro Display;
+          font-weight: 500;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+
+          @media only screen and (min-width: 1800px) {
+            margin-top: 40px;
+            font-size: 24px;
+            line-height: 28.64px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            margin-top: 2.2vw;
+            font-size: 1.3vw;
+            line-height: 1.4vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 14px;
+            line-height: 120%;
+            letter-spacing: 0%;
+            margin-top: 22px;
+            margin-left: 25px;
+            font-weight: 700;
+            margin-right: 25px;
+            margin-top: 10px;
+          }
+        }
+
+        button {
+          opacity: 0px;
+          border: none;
+          background: rgba(53, 126, 235, 1);
+          font-family: SF Pro Display;
+          font-weight: 500;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          cursor: default;
+
+          &:hover {
+            background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          }
+
+           @media only screen and (min-width: 1800px) {
+            margin: 66px 0 0 0;
+            width: 302px;
+            height: 54px;
+            padding: 16px 40px 16px 40px;
+            gap: 10px;
+            border-radius: 10px;
+            font-size: 20px;
+            line-height: 23.87px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            margin: 3.5vw 0 0 0;
+            width: 16.7vw;
+            height: 3vw;
+            padding: 0.5vw 1.2vw 0.5vw 1.2vw;
+            gap: 1vw;
+            border-radius: 0.5vw;
+            font-size: 1.1vw;
+            line-height: 1.2vw;
+          }
         }
       }
-      @media (min-width: 767px) and (max-width: 1024px) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        &_card {
-          margin: 0 auto 80px auto;
-        }
-      }
-      @media (min-width: 320px) and (max-width: 767px) {
-        display: flex;
-        flex-direction: column;
-      }
-    }
-  }
-  &_banner {
-    margin-top: 65px;
-    width: 100%;
-    background: #e0dced;
-    height: 379px;
-    display: inline-flex;
-    &_createProject {
-      padding-top: 120px;
-      margin-left: 120px;
-      h1 {
-        margin: 0;
-      }
-      p {
-        margin-top: 11px;
-        color: #4d5766;
-        font-size: 14px;
-        width: 80%;
-      }
-      button {
-        margin: 46px 0 0 27px;
-        width: 241px;
-        height: 52px;
-        font-size: 12px;
-      }
-    }
-    &_images {
-      position: relative;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      &_firstStep {
-        width: 280px;
-        height: 209px;
-        margin-top: 133px;
-        z-index: 1;
-        position: absolute;
-      }
-      &_secondStep {
-        width: 308px;
-        height: 231px;
-        margin-left: 200px;
-        position: absolute;
-        margin-top: 36px;
-      }
-    }
-    @media (min-width: 320px) and (max-width: 1024px) {
       &_images {
-        display: none;
-      }
-      height: 100%;
-      &_createProject {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        margin: 20px;
-        padding-top: 50px;
-        h1 {
-          font-size: 32px;
+        @media only screen and (min-width: 1800px) {
+          width: 660px;
+          }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 36.7vw;
         }
-      }
-    }
-    @media (min-width: 320px) and (max-width: 481px) {
-      h1 {
-        font-size: 23px;
-      }
-      button {
-        width: 150px;
-        margin: 30px auto 0 auto;
+
+        img{
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            width: 36.7vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            width: 293px;
+            margin-left: 25px;
+            margin-top: 15px;
+          }
+        }
       }
     }
   }
 }
 
-.questions {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: baseline;
-  width: 50%;
-  margin-top: 2em;
-
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 100%;
-    padding: 0 1rem 0 1rem;
-    align-items: center;
-    text-align: center;
-    padding-top: 10%;
-
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    width: 100%;
-    padding: 0 1rem 0 1rem;
-    align-items: center;
-    text-align: center;
-    padding-top: 10%;
-  }
-
-  &_element {
-    margin-bottom: 2em;
+.planCardBtn{
+    opacity: 0px;
+    background: rgba(53, 126, 235, 1);
+    border: none;
+    font-family: SF Pro Display;
+    font-weight: 500;
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
+    justify-content: center;
+    align-items: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    cursor: default;
 
-    &_mark {
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-      background-color: #ba75ff;
-      border-radius: 1.7em;
-      width: 1.7em;
-      min-width: 1.7em;
-      height: 1.7em;
-      min-height: 1.7em;
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      color: #fff;
-      font-weight: 1000;
-      text-align: center;
-      padding: auto;
+    &:hover {
+      background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
     }
 
-    &_text {
-      color: #808080;
-      font-weight: 800;
+  @media only screen and (min-width: 1800px) {
+    border-radius: 10px;
+    width: 195px;
+    height: 54px;
+    padding: 16px 40px 16px 40px;
+    gap: 10px;
+    font-size: 20px;
+    line-height: 23.87px;
+    margin-top: 30px;
+    }
 
-      &_description {
-        color: #a3a3a3;
-        margin-top: 1.5em;
-        font-size: 12px;
-        font-weight: 400;
+   @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    border-radius: 0.5vw;
+    width: 11vw;
+    height: 3vw;
+    padding: 0.2vw 0.5vw 0.2vw 0.5vw;
+    gap: 10px;
+    font-size: 1.1vw;
+    line-height: 2vw;
+    margin-top: 1.5vw;
+ }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 98px;
+    height: 27px;
+    gap: 5px;
+    border-radius: 5px;
+    padding-top: 8px;
+    padding-right: 20px;
+    padding-bottom: 8px;
+    padding-left: 20px;
+    font-size: 10px;
+    line-height: 100%;
+    margin-top: 1.5vw;
+  }
+}
+
+button:disabled,
+  button[disabled] {
+    opacity: 0px;
+    background: rgba(53, 126, 235, 1);
+    border: none;
+    font-family: SF Pro Display;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+    cursor: not-allowed;
+
+    @media only screen and (min-width: 1800px) {
+      border-radius: 10px;
+      width: 195px;
+      height: 54px;
+      padding: 16px 0px 16px 0px;
+      gap: 10px;
+      font-size: 20px;
+      line-height: 23.87px;
+      margin-top: 30px;
+      }
+
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      border-radius: 0.5vw;
+      width: 11vw;
+      height: 3vw;
+      padding: 0.2vw 0.5vw 0.2vw 0.5vw;
+      gap: 10px;
+      font-size: 1.1vw;
+      line-height: 2vw;
+      margin-top: 1.5vw;
+      cursor: not-allowed;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 98px;
+        height: 27px;
+        gap: 5px;
+        border-radius: 5px;
+        padding-top: 8px;
+        padding-right: 5px;
+        padding-bottom: 8px;
+        padding-left: 5px;
+        font-size: 10px;
+        line-height: 100%;
+        margin-top: 1.5vw;
+      }
+   }
+
+.text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+
+    @media only screen and (min-width: 1800px) {
+      margin-top: 44px;
+      }
+
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      margin-top: 3vw;
+      }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      margin-top: 25px;
+    }
+
+    img{
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        width: 8vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 71.5px;
       }
     }
+
+    &_priceWrap{
+      @media only screen and (min-width: 1400px) {
+        padding-top: 10px;
+        }
+      }
+
+    &_price{
+      font-family: SF Pro Display;
+      font-weight: 700;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(0, 0, 0, 1);
+
+      @media only screen and (min-width: 1800px) {
+        font-size: 32px;
+        line-height: 38.19px;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        font-size: 1.8vw;
+        line-height: 2vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 16px;
+        line-height: 100%;
+      }
+    }
+
+    &_priceTo{
+      font-family: SF Pro Text, sans-serif;
+      font-weight: 300;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(0, 0, 0, 1);
+
+      @media only screen and (min-width: 1800px) {
+        font-size: 18px;
+        line-height: 18px;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        font-size: 1vw;
+        line-height: 1vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 9px;
+        line-height: 100%;
+      }
+    }
+
+      hr{
+        height: 0px;
+        gap: 0px;
+        border: 1px;
+        opacity: 0px;
+
+        @media only screen and (min-width: 1800px) {
+          width: 260px;
+          margin-top: 40px;
+          border: 1px solid var(--grey, rgba(128, 128, 128, 1));
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 15vw;
+          margin-top: 2vw;
+          border: 1px solid var(--grey, rgba(128, 128, 128, 1));
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          margin-top: 20px;
+          width: 130px;
+          border: 0.5px solid var(--grey, rgba(128, 128, 128, 1));
+        }
+      }
+
+      ul {
+        @media only screen and (min-width: 1100px) {
+          gap: 32px;
+          opacity: 0px;
+
+        }
+
+        @media only screen and (min-width: 900px) and (max-width: 1100px) {
+          margin-top: -0.5vw;
+        }
+
+        @media only screen and (min-width: 800px) and (max-width: 900px) {
+          margin-top: -1vw;
+        }
+
+        @media only screen and (min-width: 600px) and (max-width: 800px) {
+          margin-top: -1.5vw;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 600px) {
+          margin-top: -2.5vw;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          margin-top: -6px;
+        }
+
+        li {
+          display: flex;
+          justify-content: left;
+          align-items: center;
+          flex-direction: row;
+
+        @media only screen and (min-width: 1800px) {
+          margin-top: 7px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          margin-top: 0.5vw;
+          height: 1.2vw;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          height: 19px;
+        }
+      }
+    }
+}
+
+.label{
+  @media only screen and (min-width: 1440px) {
+    padding-top: 15px;
+    }
+
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    padding-top: 1.5vw;
+    }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    padding-top: 10px;
+  }
+}
+.icon{
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    width: 1.5vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 12px;
+  }
+}
+
+.middleImg{
+    margin-top: -23%;
+}
+
+.blueLabel{
+  font-family: SF Pro Display;
+  font-weight: 600;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(50, 65, 149, 1);
+
+
+  @media only screen and (min-width: 1800px) {
+    font-size: 20px;
+    line-height: 23.87px;
+    margin-left: 10px;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    font-size: 1.1vw;
+    line-height: 1.2vw;
+    margin-left: 0.5vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 10px;
+    line-height: 100%;
+    margin-left: 0.5vw;
+  }
+}
+
+.hit{
+  position: absolute;
+  transform: rotate(41.07deg);
+  font-family: SF Pro Display;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  position: absolute;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(255, 250, 250, 1);
+  top: 5%;
+  left: 80%;
+
+  @media only screen and (min-width: 1800px) {
+    font-size: 24px;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    font-size: 1.2vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 12px;
+    top: 20.07px;
+    left: 150.34px;
+  }
+}
+
+.blackLabel{
+  font-family: SF Pro Display;
+  font-weight: 400;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(51, 47, 54, 1);
+
+  @media only screen and (min-width: 1800px) {
+    font-size: 16px;
+    line-height: 19.09px;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    font-size: 1vw;
+    line-height: 1.3vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 8px;
+    line-height: 100%;
+  }
+}
+
+.whiteLabel{
+    font-family: SF Pro Display;
+    font-weight: 600;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(255, 255, 255, 1);
+
+  @media only screen and (min-width: 1800px) {
+    font-size: 20px;
+    line-height: 23.87px;
+    margin-left: 10px;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    font-size: 1.1vw;
+    line-height: 1.2vw;
+    margin-left: 0.5vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 10px;
+    line-height: 100%;
+    margin-left: 0.5vw;
+  }
+}
+
+.whiteLabelCheck{
+  font-family: SF Pro Display;
+  font-weight: 400;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: rgba(255, 255, 255, 1);
+
+  @media only screen and (min-width: 1800px) {
+    font-size: 16px;
+    line-height: 19.09px;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    font-size: 1vw;
+    line-height: 1.3vw;
+  }
+
+   @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 8px;
+    line-height: 100%;
+  }
+}
+
+.benefit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &_wrap{
+      opacity: 0px;
+      box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
+      background-color: rgba(255, 255, 255, 1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      @media only screen and (min-width: 1800px) {
+        width: 100%;
+        height: 250px;
+        padding: 16px;
+        gap: 16px;
+        border-radius: 32px;
+        }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        width: 100%;
+        height: 14vw;
+        padding: 1vw;
+        gap: 1vw;
+        border-radius: 1.8vw;
+        }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 85%;
+        margin: 0 auto;
+        height: 592px;
+        gap: 22px;
+        border-radius: 24px;
+      }
+
+      &_table{
+        opacity: 0px;
+        table-layout: fixed;
+        border-collapse: collapse;
+
+        @media only screen and (min-width: 1800px) {
+          width: 1187.5px;
+          height: 169px;
+          gap: 43px;
+          margin-left: 30px;
+          }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 65vw;
+          height: 10vw;
+          gap: 1.7vw;
+          margin-left: 1.7vw;
+          }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          height: 540px;
+        }
+
+        &_doubleRow{
+          @media only screen and (min-width: 1800px) {
+            padding-top: 15px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            padding-top: 1vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            padding-top: 10px;
+          }
+        }
+
+        tr{
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            height: 38px;
+          }
+        }
+
+        td{
+          text-align: left;
+
+          td{
+            justify-content: left;
+            font-family: SF Pro Display;
+            letter-spacing: 0%;
+            color: rgba(51, 47, 54, 1);
+            line-height: 100%;
+
+            @media only screen and (min-width: 1800px) {
+              font-size: 16px;
+              font-weight: 400;
+            }
+
+            @media only screen and (min-width: 480px) and (max-width: 1800px) {
+              font-size: 0.9vw;
+              font-weight: 400;
+            }
+
+            @media only screen and (min-width: 320px) and (max-width: 480px) {
+              font-weight: 500;
+              font-size: 16px;
+            }
+
+            p{
+              justify-content: left;
+              font-family: SF Pro Display;
+              line-height: 100%;
+              letter-spacing: 0%;
+              color: rgba(51, 47, 54, 1);
+
+              @media only screen and (min-width: 1800px) {
+                font-size: 16px;
+                font-weight: 400;
+              }
+
+              @media only screen and (min-width: 480px) and (max-width: 1800px) {
+                font-size: 0.9vw;
+                font-weight: 400;
+              }
+
+              @media only screen and (min-width: 320px) and (max-width: 480px) {
+                font-weight: 500;
+                font-size: 16px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+.analiticRow{
+  @media only screen and (min-width: 1440px){
+    padding-top: 45px;
+    }
+
+  @media only screen and (min-width: 480px) and (max-width: 1440px) {
+    padding-top: 0vw;
+    }
+  }
+
+.addLine{
+  @media only screen and (min-width: 1800px){
+    padding-right: 0px;
+    }
+
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    padding-right: 0px;
+
+    img{
+    width: 1.1vw;
+    }
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    padding-right: 0px;
+  }
+}
+
+.tariffs{
+    opacity: 0px;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    gap: 1rem;
+
+    @media only screen and (min-width: 1800px){
+      width: 100%;
+      height: 373px;
+      gap: 40px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      width: 100%;
+      height: 21vw;
+      gap: 2vw;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      width: 100%;
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    &_icon{
+    @media only screen and (min-width: 1800px){
+      margin-right: 10px;
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 1800px) {
+      margin-right: 0.5vw;
+      width: 1.5vw;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      width: 24px;
+      margin-right: 5px;
+    }
+  }
+
+    &_start{
+      opacity: 0px;
+      background: linear-gradient(180deg, #CFE2FF 0%, #BBCEEB 100%);
+      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+      width: 100%;
+
+      @media only screen and (min-width: 1800px){
+        height: 373px;
+        border-radius: 24px;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        height: 20.6vw;
+        border-radius: 1.3vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 343px;
+        margin: 0 auto;
+        height: 305px;
+        gap: 4px;
+        border-radius: 24px;
+        margin-top: 20px;
+      }
+
+      &_block{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        img{
+          @media only screen and (min-width: 1800px){
+            border-radius: 24px;
+            margin-top: 50px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            border-radius: 1.5vw;
+            margin-top: 2.4vw;
+            width: 17.7vw;
+          }
+        }
+      }
+
+      &_title{
+        font-family: SF Pro Display;
+        font-weight: 700;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(51, 47, 54, 1);
+
+        @media only screen and (min-width: 1800px){
+          font-size: 32px;
+          line-height: 38.19px;
+          margin-top: 20px;
+          margin-left: 20px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          font-size: 1.8vw;
+          line-height: 2.2vw;
+          margin-top: 1vw;
+          margin-left: 1vw;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          font-size: 16px;
+          line-height: 16px;
+          letter-spacing: 0%;
+          vertical-align: middle;
+          margin-top: 16px;
+          margin-left: 16px;
+        }
+      }
+
+      ul{
+        list-style: none;
+
+         @media only screen and (min-width: 320px) and (max-width: 480px) {
+           margin-top: -50px;
+           margin-left: -20px;
+          }
+
+        li{
+          margin-left: -25px;
+          font-family: SF Pro Display;
+          font-weight: 600;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(51, 47, 54, 1);
+
+          @media only screen and (min-width: 1800px){
+            height: 34px;
+            margin-left: -25px;
+            font-size: 20px;
+            line-height: 23.87px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            height: 1.9vw;
+            margin-left: -1.4vw;
+            font-size: 1.1vw;
+            line-height: 1.2vw;
+            margin-left: -2.7vw;
+          }
+
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            vertical-align: middle;
+            height: 37px;
+          }
+        }
+
+        button{
+          opacity: 0px;
+          font-family: SF Pro Display;
+          font-weight: 500;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          color: rgba(255, 255, 255, 1);
+          background-color: rgba(53, 126, 235, 1);
+          border: none;
+          cursor: default;
+
+          &:hover {
+            background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          }
+
+          @media only screen and (min-width: 1800px){
+            width: 301px;
+            height: 54px;
+            padding: 16px 40px 16px 40px;
+            gap: 10px;
+            border-radius: 10px;
+            font-size: 20px;
+            line-height: 23.87px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            width: 16.7vw;
+            height: 3vw;
+            padding: 0.5vw 1.2vw 0.5vw 1.2vw;
+            gap: 1vw;
+            border-radius: 0.5vw;
+            font-size: 1.1vw;
+            line-height: 1.2vw;
+          }
+        }
+      }
+
+    &_days{
+      font-family: SF Pro Display;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(51, 47, 54, 1);
+
+      @media only screen and (min-width: 1800px){
+        font-size: 16px;
+        line-height: 19.09px;
+        margin-top: 10px;
+        margin-left: 20px;
+        font-weight: 600;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        font-size: 0.9vw;
+        line-height: 1.2vw;
+        margin-top: 0.5vw;
+        margin-left: 1vw;
+        font-weight: 600;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 16px;
+        line-height: 100%;
+        margin-top: 10px;
+        margin-left: 16px;
+        font-weight: 500;
+      }
+    }
+  }
+
+
+  &_personal{
+    gap: 32px;
+    opacity: 0px;
+    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 100%;
+
+    @media only screen and (min-width: 1800px){
+        padding: 16px 24px 16px 24px;
+        height: 373px;
+        border-radius: 24px;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        height: 20.6vw;
+        border-radius: 1.3vw;
+        padding: 0.7vw 1.1vw 0.7vw 1.1vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        height: 306px;
+        border-radius: 24px;
+        padding-top: 16px;
+        width: 343px;
+        margin: 0 auto;
+      }
+
+    &_block{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-family: SF Pro Display;
+
+      img{
+        @media only screen and (min-width: 1800px){
+          border-radius: 24px;
+          margin-top: -88px;
+          margin-left: -5px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          border-radius: 1.5vw;
+          margin-top: -3.3vw;
+          margin-left: -1vw;
+          width: 17vw;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          margin-top: -70px;
+        }
+      }
+    }
+
+    &_title{
+      font-family: SF Pro Display;
+      font-weight: 700;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(255, 255, 255, 1);
+
+      @media only screen and (min-width: 1800px){
+        font-size: 32px;
+        line-height: 38.19px;
+        margin-top: 5px;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        font-size: 1.8vw;
+        line-height: 2.2vw;
+        margin-top: 0.2vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 16px;
+        line-height: 16px;
+        letter-spacing: 0%;
+        margin-left: 16px;
+      }
+    }
+
+    ul{
+      list-style: none;
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        margin-left: -45px;
+        margin-top: -25px;
+      }
+
+      li{
+        font-family: SF Pro Display;
+        font-weight: 600;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
+
+        @media only screen and (min-width: 1800px){
+          height: 34px;
+          margin-left: -65px;
+          font-size: 20px;
+          line-height: 23.87px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          height: 1.9vw;
+          margin-left: -2.2vw;
+          font-size: 1.1vw;
+          line-height: 1.2vw;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          height: 38px;
+          font-size: 16px;
+          line-height: 100%;
+        }
+      }
+
+      button{
+        width: 301px;
+        height: 54px;
+        padding: 15px 40px 15px 40px;
+        gap: 10px;
+        border-radius: 10px;
+        opacity: 0px;
+        border: none;
+        background: rgba(255, 255, 255, 1);
+        position: relative;
+        cursor: default;
+
+        @media only screen and (min-width: 1800px){
+          width: 301px;
+          height: 54px;
+          padding: 15px 40px 15px 40px;
+          gap: 10px;
+          border-radius: 10px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1800px) {
+          width: 16.7vw;
+          height: 3vw;
+          padding: 0.5vw 1.2vw 0.5vw 1.2vw;
+          gap: 1vw;
+          border-radius: 0.5vw;
+        }
+
+        &:hover {
+          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          border: 1px solid rgba(255, 255, 255, 1);
+          padding: 15px 39px 15px 39px;
+
+          @media only screen and (min-width: 1800px){
+            padding: 15px 39px 15px 39px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            padding: 0.5vw 1.2vw 0.5vw 1.2vw;
+          }
+        }
+
+        &:hover {
+          div {
+            background: rgba(255, 255, 255, 1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+        }
+
+        div {
+          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-family: SF Pro Display;
+          font-weight: 500;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+
+          @media only screen and (min-width: 1800px){
+            font-size: 20px;
+            line-height: 23.87px;
+          }
+
+          @media only screen and (min-width: 480px) and (max-width: 1800px) {
+            font-size: 1.1vw;
+            line-height: 1.2vw;
+          }
+        }
+      }
+    }
+
+    &_function{
+      font-family: SF Pro Display;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: rgba(255, 255, 255, 1);
+
+      @media only screen and (min-width: 1800px){
+        font-size: 16px;
+        line-height: 19.09px;
+        margin-top: 10px;
+        font-weight: 600;
+      }
+
+      @media only screen and (min-width: 480px) and (max-width: 1800px) {
+        font-size: 0.9vw;
+        line-height: 1.2vw;
+        margin-top: 0.5vw;
+        font-weight: 600;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        font-size: 16px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        font-weight: 500;
+        margin-top: 10px;
+        margin-left: 16px;
+      }
+    }
+  }
+}
+
+.getConsultPersonal{
+  @media only screen and (min-width: 1800px){
+    margin-top: 25px;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    margin-top: 1.5vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    margin-top: -20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button{
+      width: 311px;
+      height: 48px;
+      gap: 10px;
+      border-radius: 10px;
+      padding-top: 15px;
+      padding-right: 20px;
+      padding-bottom: 15px;
+      padding-left: 20px;
+      background: rgba(255, 255, 255, 1);
+      border: none;
+      font-family: SF Pro Display;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: -0.5px;
+      text-align: center;
+      vertical-align: middle;
+
+      div {
+          background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-family: SF Pro Display;
+          font-weight: 500;
+          text-align: center;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+          }
+    }
+  }
+}
+
+.getConsultStart{
+  @media only screen and (min-width: 1800px){
+    margin-top: 15px;
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    margin-top: 1vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    margin-top: -55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button{
+      width: 311px;
+      height: 48px;
+      gap: 10px;
+      border-radius: 10px;
+      padding-top: 15px;
+      padding-right: 20px;
+      padding-bottom: 15px;
+      padding-left: 20px;
+      background: rgba(53, 126, 235, 1);
+      border: none;
+      font-family: SF Pro Display;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: -0.5px;
+      text-align: center;
+      vertical-align: middle;
+      color: rgba(255, 255, 255, 1);
+      }
   }
 }
 
@@ -426,14 +1733,13 @@
 
 .bg {
   z-index: -1;
-  height: 100%;
 
   &_wrap1 {
-    z-index: -1;
     position: absolute;
+    z-index: -1;
     width: 50px;
     height: 50px;
-    background: #8034c7;
+    background: #3686FF;
     border-radius: 50%;
     scale: 10;
     filter: blur(25px);
@@ -448,7 +1754,7 @@
     left: 100%;
     top: 100%;
     scale: 10;
-    background: #5048d8;
+    background: #3686FF;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate2 10s linear infinite;
@@ -462,7 +1768,7 @@
     left: 100%;
     top: 0%;
     scale: 10;
-    background: #cd99ff;
+    background: #3686FF;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate3 10s linear infinite;
@@ -476,9 +1782,23 @@
     scale: 10;
     left: 0%;
     top: 100%;
-    background: #60a0ec;
+    background: #3686FF;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate4 10s linear infinite;
   }
 }
+
+.main {
+  &_btn{
+    display: flex;
+  }
+}
+
+.btnCreate {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+}
+
+

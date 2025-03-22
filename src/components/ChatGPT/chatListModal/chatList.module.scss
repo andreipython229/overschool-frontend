@@ -29,6 +29,7 @@
     &_header_text {
         font-weight: 700 !important;
         font-size: 20px !important;
+        font-family: 'SF Pro Display';
     }
 
     &_list {
@@ -42,10 +43,22 @@
             background-color: #F0F0F0;
             border-radius: 16px;
             border: none;
-            padding: 15px;
+            padding: 15px !important;
             margin: 0 20px;
+            font-size: 16px;
+            color: #332F36;
+            font-weight: 500;
+            height: 50px;
+            font-family: 'SF Pro Display';
+            
 
-            @media screen and (max-width: 480px){
+            &:disabled {
+                width: calc(100% - 40px);
+                padding: 15px !important;
+                background-color: #ddd;
+            }
+
+            @media screen and (max-width: 480px) {
                 margin: 0 20px;
             }
         }
@@ -86,7 +99,8 @@
                 border-radius: 16px !important;
 
                 span {
-                    font-weight: 500;
+                    // font-weight: 500;
+                    font-family: 'SF Pro Display';
                 }
             }
 
@@ -116,7 +130,7 @@
                 }
             }
 
-            @media screen and (max-width: 480px){
+            @media screen and (max-width: 480px) {
                 margin: 0 14px 0 20px;
             }
         }

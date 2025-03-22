@@ -8,6 +8,7 @@ export enum Path {
   ChooseSchool = '/chooseSchool/',
   InitialPage = '/',
   School = '/school/:school_name/',
+  DefaultSchool = '/school/Coursehub/',
   Courses = 'courses/',
   Group = 'group/:group_id',
   Profile = 'profile/',
@@ -79,6 +80,10 @@ export enum Student {
 export enum FooterPath {
   TariffPlans = 'tariff-plans/',
   PersonalDataTreatmentPolicy = 'personalDataTreatmentPolicy',
+  CookiePolicy = 'cookiePolicy',
+  CookiePolicyDisclaimer = 'cookiePolicyDisclaimer',
+  PersonalDataProcessing = 'personalDataProcessing',
+  PublicOfferAgreement = 'publicOfferAgreement',
   PWA = 'PWA',
   Agreement = 'agreement/',
   HelpPage = '/help/',

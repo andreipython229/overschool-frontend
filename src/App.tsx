@@ -2,6 +2,10 @@ import { Route, Routes, generatePath, useLocation, useNavigate } from 'react-rou
 import { useEffect, useState } from 'react'
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
+import { CookiePolicy } from 'Pages/CookiePolicy/CookiePolicy'
+import { CookiePolicyDisclaimer } from 'Pages/CookiePolicyDisclaimer/CookiePolicyDisclaimer'
+import { PersonalDataProcessing } from 'Pages/PersonalDataProcessing/PersonalDataProcessing'
+import { PublicOfferAgreement } from 'Pages/PublicOfferAgreement/PublicOfferAgreement'
 import { Agreement } from 'components/Agreement/Agreement'
 import { PWA } from 'Pages/PWA/PWA'
 import { Initial } from 'Pages/Initial/newInitial'
@@ -10,14 +14,12 @@ import { TariffPlansInfo } from './Pages/TariffPlans/TariffPlansInfo'
 import { MainLayOut } from 'components/MainLayout/MainLayOut'
 import { Path, FooterPath } from 'enum/pathE'
 import { useAppSelector } from 'store/hooks'
-import { authSelector, selectUser } from 'selectors'
+import { authSelector, schoolSelector, selectUser } from 'selectors'
 import { navByRolesConfig } from 'config'
-import { SignUp } from 'Pages/SignUp'
 import { scrollToTop } from 'utils/scrollToTop'
 import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
 import styles from './App.module.scss'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
-import { RoleE } from 'enum/roleE'
 import { Certificate } from 'Pages/Certificate/Certificate'
 import { CourseCatalogPage } from 'Pages/CourseCatalog'
 import { ResetPassword } from 'Pages/ResetPassword'
@@ -34,23 +36,16 @@ import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
 import { HelpChat } from './Pages/HelpCenter/HelpChat'
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
 import DomainError from './Pages/DomainAccessDenied/DomainError'
-import { useLazyFetchSchoolByDomainQuery } from 'api/DomainService'
-import RouteHandler from './components/RouteHandler/RouteHandler'
 import { TechnicalWorks } from 'Pages/TechnicalWorks/TechnicalWorks'
 import { HelpDomainLink } from 'Pages/HelpCenter/HelpDomainLink'
 
 export const App = () => {
-  const currentDomain = window.location.hostname
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
-  let schoolName = window.location.href.split('/')[4]
+  const { schoolName } = useAppSelector(schoolSelector)
   const { pathname } = useLocation()
   const [utmParams, setUtmParams] = useState<{ [key: string]: string }>({})
   const navigate = useNavigate()
-  const [fetchSchoolByDomain, { data: schoolByDomain }] = useLazyFetchSchoolByDomainQuery()
-  if (!schoolName) {
-    schoolName = localStorage.getItem('school') || ''
-  }
 
   useEffect(() => {
     const email = localStorage.getItem('email')
@@ -64,6 +59,11 @@ export const App = () => {
     if (
       !isLogin &&
       pathname !== Path.CreateSchool &&
+      pathname.split('/').at(-1) !== 'personalDataTreatmentPolicy' &&
+      pathname.split('/').at(-1) !== 'publicOfferAgreement' &&
+      pathname.split('/').at(-1) !== 'personalDataProcessing' &&
+      pathname.split('/').at(-1) !== 'cookiePolicyDisclaimer' &&
+      pathname.split('/').at(-1) !== 'cookiePolicy' &&
       pathname.split('/')[1] !== 'create-school' &&
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
@@ -96,44 +96,6 @@ export const App = () => {
     setUtmParams(params)
     localStorage.setItem('utmParams', JSON.stringify(params))
   }, [])
-
-  // useEffect(() => {
-  //   const fetchSchoolData = async () => {
-  //     try {
-  //       console.log("Текущий домен: ", currentDomain);
-  //       await fetchSchoolByDomain({ domain: currentDomain });
-  //     } catch (error) {
-  //       console.error("Ошибка при загрузке школы по домену:", error);
-  //     }
-  //   };
-
-  //   if (currentDomain) {
-  //     fetchSchoolData();
-  //   }
-  // }, [currentDomain, fetchSchoolByDomain]);
-
-  // ЗАКОММЕНТИРОВАНО НА ДОРАБОТКУ (ПЛОХО РАБОТАЕТ РОУТИНГ ЧЕРЕЗ ОБЫЧНЫЕ ССЫЛКИ)
-  // useEffect(() => {
-  //   const savedPath = localStorage.getItem('savedPath')
-  //
-  //   // Если есть сохранённый путь, то останавливаем выполнение useEffect, навигация происходит в компоненте RouteHandler
-  //   if (savedPath) {
-  //     localStorage.removeItem('savedPath') // Удаление пути после навигации
-  //     return
-  //   }
-  //   if (pathname === Path.InitialPage) {
-  //     const queryParams = Object.keys(utmParams)
-  //       .filter(([_, value]) => value !== 'undefined')
-  //       .map(key => `${key}=${utmParams[key]}`)
-  //       .join('&')
-  //     const pathWithParams = `${Path.InitialPage}${queryParams ? `?${queryParams}` : ''}`
-  //     navigate(pathWithParams)
-  //   } else if (schoolName && role !== 0 && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
-  //     navigate(
-  //       generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
-  //     )
-  //   }
-  // }, [utmParams])
 
   useEffect(() => {
     if (
@@ -201,9 +163,18 @@ export const App = () => {
         <Route path={Path.School} element={<MainLayOut />}>
           {navByRolesConfig[role]}
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
+          <Route path={FooterPath.CookiePolicy} element={<CookiePolicy />} />
+          <Route path={FooterPath.CookiePolicyDisclaimer} element={<CookiePolicyDisclaimer />} />
+          <Route path={FooterPath.PersonalDataProcessing} element={<PersonalDataProcessing />} />
+          <Route path={FooterPath.PublicOfferAgreement} element={<PublicOfferAgreement />} />
           <Route path={FooterPath.PWA} element={<PWA />} />
           <Route path={FooterPath.Agreement} element={<Agreement />} />
         </Route>
+        <Route path={`${Path.DefaultSchool}${FooterPath.PersonalDataTreatmentPolicy}`} element={<PersonalDataTreatmentPolicy />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.CookiePolicy}`} element={<CookiePolicy />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.CookiePolicyDisclaimer}`} element={<CookiePolicyDisclaimer />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.PersonalDataProcessing}`} element={<PersonalDataProcessing />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.PublicOfferAgreement}`} element={<PublicOfferAgreement />} />
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
         <Route path={'*'} element={<PageNotFound />} />
         <Route path="/access-denied" element={<DomainError />} />

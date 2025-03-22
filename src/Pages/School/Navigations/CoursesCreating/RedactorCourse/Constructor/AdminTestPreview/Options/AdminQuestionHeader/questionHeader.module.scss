@@ -21,18 +21,27 @@
 
   &_title {
     @include font(700, 18px, 21.48px);
+
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      @include font(700, 16px, 16px);
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @include font(700, 16px, 16px);
+    }
   }
 
   &_subtitle {
     @include font(500, 14px, 16.71px);
     margin-top: 4px;
-  }
 
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
-    padding:5%;
-  }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
-    padding:5%;
+    @media only screen and (min-width : 320px) and (max-width : 375px) {
+      @include font(500, 10px, 11.93px);
+      margin-top: 8px;
+    }
+    @media only screen and (min-width : 375px) and (max-width : 480px) {
+      @include font(500, 10px, 11.93px);
+      margin-top: 8px;
+    }
   }
 
   &_testIconWrapper {
@@ -49,24 +58,16 @@
         width: 4px;
         height: 4px;
         border-radius: 50%;
-        background-color: #fff;
+        background-color: #ffffff;
       }
     }
   }
 
   @media only screen and (min-width : 320px) and (max-width : 375px) {
-    padding: 5%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+    @include display(flex, row, flex-start, center);
   }
   @media only screen and (min-width : 375px) and (max-width : 480px) {
-    padding: 5%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+    @include display(flex, row, flex-start, center);
   }
 
 
@@ -124,7 +125,7 @@
       &:hover {
         svg {
           path {
-            stroke: #357EEB;
+            stroke: $color-blue;
           }
         }
       }
@@ -134,7 +135,7 @@
       &:hover {
         svg {
           path {
-            fill: #357EEB;
+            fill: $color-blue;
           }
         }
       }
@@ -159,7 +160,14 @@
 }
 
 .avatar {
-  background: linear-gradient(90deg, #3170E7 13.5%, #7A90F7 100%) !important;
+  background: linear-gradient(90deg, #3170e7 13.5%, #7a90f7 100%) !important;
   width: 34px !important;
   height: 34px !important;
+
+  @media only screen and (min-width : 320px) and (max-width : 375px) {
+    background: $color-blue !important;
+  }
+  @media only screen and (min-width : 375px) and (max-width : 480px) {
+    background: $color-blue !important;
+  }
 }

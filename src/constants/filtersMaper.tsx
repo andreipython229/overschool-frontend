@@ -14,7 +14,7 @@ import { ShowDeletedFilter } from '../components/FiltersButton/FilterComponent/F
 import { StatusFilter } from 'components/FiltersButton/StatusFilter'
 import { useAppSelector } from 'store/hooks'
 import { RoleE } from 'enum/roleE'
-import { selectUser } from 'selectors'
+import { schoolSelector, selectUser } from 'selectors'
 
 type ComponentFilterT = {
   id: string | number
@@ -42,10 +42,9 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
   onChangeStatus,
   ...filters
 }) => {
-  const schoolName = window.location.href.split('/')[4]
-  const schoolId = localStorage.getItem('school_id')
+  const { schoolName, schoolId } = useAppSelector(schoolSelector)
   const { role } = useAppSelector(selectUser)
-  const { data } = useFetchCoursesQuery(schoolName)
+  const { data } = useFetchCoursesQuery({ schoolName, page: 1 })
   const { data: homeworks } = useFetchLessonsQuery({ type: 'homework', schoolName })
   const [fetchGroups, { data: groups }] = useLazyFetchStudentsGroupQuery()
   const { data: users } = useFetchStudentsDataPerSchoolQuery({ id: schoolId })

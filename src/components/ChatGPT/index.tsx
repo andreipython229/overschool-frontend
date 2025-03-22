@@ -78,7 +78,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
 
   useEffect(() => {
-    if (latestMessages) {
+    if (latestMessages && !isNewChat) {
       if (latestMessages[0] && Array.isArray(latestMessages[0])) {
         setUserQuestions(latestMessages[0]);
       } else {
@@ -91,9 +91,9 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         setBotAnswers([]);
       }
     }
-  }, [latestMessages]);
+  }, [latestMessages, isNewChat]);
 
-  useEffect(() => { scrollMessagesToBottom(); }, [isLoading])
+  useEffect(() => { scrollMessagesToBottom(); }, [isLoading, isLoadingMessages])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -123,14 +123,11 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       setIsFetchingChats(true);
 
       if (!chatsLoaded) {
-
         await fetchChats();
-
       }
       setIsFetchingChats(false);
 
       if (!isNewChat && selectedChatId && refetchMessages && isChatSelected) {
-        
         try {
           await refetchMessages({ overai_chat_id: selectedChatId });
           scrollMessagesToBottom();
@@ -143,14 +140,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         setIsLoadingMessages(false);
       }
     };
-
     fetchData();
-
-
-    //   if (!hasFetched) {
-    //     fetchData();
-    //     setHasFetched(true);
-    // }
   }, [selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage, isNewChat]);
 
   const setTextAreaFocus = () => {
@@ -237,12 +227,12 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
 
 
-  const selectChat = (chatId: number | undefined) => {
+  const selectChat = async (chatId: number | undefined) => {
     setShowWelcomeMessage(false)
     if (!isChatSelectionDisabled) {
+
       let selectedChatId: number | undefined = chatId;
       setIsNewChat(false);
-
       if (chatId === undefined || chatId === 1) {
         for (const [id, chat] of Object.entries(chatData)) {
           if (chat.order === 1) {
@@ -257,6 +247,15 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         setIsChatSelected(true);
         setDraggedChatId(selectedChatId);
         localStorage.setItem('selectedChatId', selectedChatId.toString());
+        try {
+          await refetchMessages({ overai_chat_id: selectedChatId });
+        } catch (error) {
+          setError('Ошибка получения сообщений');
+        }
+        console.log('--', latestMessages);
+        console.log(userQuestions);
+        
+        
       }
     }
   };
@@ -304,23 +303,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }
   };
 
-  function getAllMethods(obj: object): string[] {
-    const methods: string[] = [];
-    let currentObj = obj;
-
-    while (currentObj) {
-      Object.getOwnPropertyNames(currentObj).forEach((prop) => {
-        if (typeof currentObj[prop as keyof typeof currentObj] === 'function' && !methods.includes(prop)) {
-          methods.push(prop);
-        }
-      });
-      currentObj = Object.getPrototypeOf(currentObj);
-    }
-
-    return methods;
-  }
-
-
   const createChat = async () => {
     try {
       setCreatedChatId(undefined)
@@ -354,7 +336,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       return null;
     } finally {
       setIsCreatingChatDisabled(false);
-
     }
   };
 
@@ -369,8 +350,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   const fetchChats = async () => {
     try {
-
-      (userQuestions)
       if (refetchChats) {
         const response = await refetchChats();
 
@@ -386,7 +365,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       setError('Ошибка при получении списка чатов.');
     }
   };
-
 
   const handleDeleteChat = async (chatId: number) => {
     const previousChatData = { ...chatData }; // Сохраняем копию состояния
@@ -415,7 +393,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       }
     }
 
-
     const chatArray = Object.entries(chatData).map(([id, chat]) => ({
       id: Number(id),
       ...chat
@@ -433,6 +410,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     try {
       await deleteChat({ chat_id: chatId, orderData });
       await fetchChats();
+
     } catch (error) {
       setChatData(previousChatData);
       setError('Ошибка при удалении чата.');

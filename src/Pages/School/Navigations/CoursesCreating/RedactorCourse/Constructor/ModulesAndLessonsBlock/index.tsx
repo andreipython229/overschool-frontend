@@ -22,7 +22,8 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
       if (modulesList.length > 0 && modulesList[0].lessons.length > 0) {
         if (baseLessonId) {
           setSelectedLessonId(baseLessonId)
-        } else {
+        }
+        else {
           const firstNonEmptyModule = modulesList.find(module => module.lessons.length > 0)
           if (firstNonEmptyModule) {
             setSelectedLessonId(firstNonEmptyModule.lessons[0].baselesson_ptr_id)
@@ -74,9 +75,7 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
           <Reorder.Group className={styles1.settings_list} values={modulesList} onReorder={handleOrderUpdate} as="ul">
             {modulesList &&
               modulesList.map((section: sectionT, index: number) => {
-                if (!section.section_name) return (
-                  <Button className={styles.btn} onClick={handleOpenModalModule} text={'+ Добавить новый модуль'} />
-                )
+                if (!section.section_name) return
                 return (
                   <ModulesBlock
                     section={section}
@@ -93,6 +92,7 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
                 )
               })}
           </Reorder.Group>
+          <Button className={styles.btn} onClick={handleOpenModalModule} text={'+ Добавить новый модуль'} />
         </div>
       </div>
     )
