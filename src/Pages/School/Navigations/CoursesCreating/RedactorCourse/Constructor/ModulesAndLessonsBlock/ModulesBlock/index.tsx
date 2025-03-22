@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo, PointerEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FC, memo, PointerEvent, useCallback, useEffect, useState } from 'react'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { ArrowDownGreyIconPath, ArrowDownIconPath, ArrowRightIconPath, deleteIconPath, DoBlockHoverIconPath, DoBlockIconPath } from '../../../../../../config/svgIconsPath'
@@ -23,7 +23,7 @@ import { deleteHoverIconPath, eyeCloseIconPath, eyeOpenIconPath } from '../Lesso
 import { animateVisibility, show, hide } from '../LessonsBlock/constants/animationConstants'
 
 export const ModulesBlock: FC<ModulesBlockT> = memo(
-  ({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId, section, onOpenModalModule }) => {
+  ({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId, section, onOpenModalModule, setInsertAfterOrder }) => {
     const dispatch: any = useAppDispatch()
     const [showLessons, { onToggle: toggleLessons }] = useBoolean(true)
     const schoolName = window.location.href.split('/')[4]
@@ -67,12 +67,16 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
       setType('lessonsModal' as keyof object)
     }
 
-    const handleSetFirstLesson = () => {
-      handleLessonClick(lessonsList[0].baselesson_ptr_id)
-    }
+    const handleSetFirstLesson = useCallback(() => {
+      if(lessonsList.length > 0) {
+        handleLessonClick(lessonsList[0].baselesson_ptr_id)
+      }
+    },[lessonsList])
 
     useEffect(() => {
-      setLessons(lessonsList)
+      if(lessonsList !== lessons) {
+        setLessons(lessonsList)
+      }
     }, [lessonsList])
 
     useEffect(() => {
@@ -108,7 +112,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
     const onPointerDown = (event: PointerEvent<SVGSVGElement | SVGPathElement>) => {
       controls.start(event)
     }
-
+    
     return (
       <Reorder.Item
         dragControls={controls}
@@ -186,10 +190,13 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                 className={styles.btn}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
                 variants={animateVisibility}
-                onClick={(!showLessons || isOpenEye) ? onOpenModalModule : handleOpenModalLesson}
+                onClick={(!showLessons || isOpenEye) ? onOpenModalModule : () => {
+                  handleOpenModalLesson() 
+                  setInsertAfterOrder(undefined)
+                }}
                 >
                 {(!showLessons || isOpenEye) ? '+ Добавить новый модуль' : '+ Добавить новый урок'}
-            </motion.button>
+            </motion.button> 
           </motion.div>
 
           <Reorder.Group
@@ -201,12 +208,12 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
             values={lessons}
           >
             {lessons &&
-              lessons.map(lesson => (
+              lessons.map((lesson) => (
                 <LessonsBlock
                   openedEye={isOpenEye}
                   type={lesson.type}
                   setLessonIdAndType={setLessonIdAndType}
-                  setFocusOnLesson={() => handleSetFirstLesson()}
+                  setFocusOnLesson={handleSetFirstLesson}
                   key={lesson.baselesson_ptr_id}
                   id={lesson.id}
                   lessonsName={lesson.name}
@@ -214,6 +221,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                   selected={selectedLessonId === lesson.baselesson_ptr_id}
                   onPush={() => handleLessonClick(lesson.baselesson_ptr_id)}
                   onOpenModalLesson={handleOpenModalLesson}
+                  setInsertAfterOrder={setInsertAfterOrder}
                 />
               ))}
           </Reorder.Group>

@@ -18,7 +18,7 @@ import { WarningModal } from 'components/Modal/Warning'
 import { Portal } from 'components/Modal/Portal'
 
 export const LessonsBlock: FC<LessonsBlockT> = memo(
-  ({ setLessonIdAndType, setFocusOnLesson, type, lessonsName, id, lesson, selected, onPush, onOpenModalLesson, openedEye }) => {
+  ({ setLessonIdAndType, setFocusOnLesson, type, lessonsName, id, lesson, selected, onPush, onOpenModalLesson, openedEye, setInsertAfterOrder }) => {
     const [deleteLesson, { isLoading }] = useDeleteLessonsMutation()
     const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
     const controls = useDragControls()
@@ -179,7 +179,10 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(
             className={styles.btn}
             transition={{ duration: 0.4, ease: 'easeOut' }}
             variants={animateVisibility}
-            onClick={onOpenModalLesson}
+            onClick={() => {
+              setInsertAfterOrder(lesson.order)
+              onOpenModalLesson?.()
+            }}
           >
             {'+ Добавить новый урок'}
           </motion.button>
