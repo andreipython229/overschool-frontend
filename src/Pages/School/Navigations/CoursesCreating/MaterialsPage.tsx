@@ -15,14 +15,15 @@ import { motion, AnimatePresence } from 'framer-motion'
 export const Materials: FC = () => {
   const { role } = useAppSelector(selectUser)
   const { schoolId, schoolName } = useAppSelector(schoolSelector)
+  const [page, setPage] = useState<number>(1)
   const [fetchData, { data: courses, isSuccess }] = useLazyFetchCoursesPageQuery()
   const [search, setSearch] = useState('')
 
   useEffect(() => {
     if (schoolName === window.location.href.split('/')[4]) {
-      fetchData(schoolName)
+      fetchData({ schoolName, page })
     } else {
-      fetchData(schoolName)
+      fetchData({ schoolName, page })
     }
   }, [schoolId])
 

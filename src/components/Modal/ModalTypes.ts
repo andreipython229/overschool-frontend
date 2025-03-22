@@ -37,7 +37,7 @@ export type AddEmpoyeeModalExtensions = {
 export type AddCourseModalPropsT = {
   setShowModal: () => void
   courses: CoursesDataT[] | undefined
-  refetch: (school: string) => void
+  refetch: ({ schoolName, page }: { schoolName: string; page: number }) => void
 }
 
 export type AddModuleModalPropsT = {
