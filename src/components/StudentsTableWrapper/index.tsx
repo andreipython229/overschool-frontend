@@ -247,36 +247,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                     key={col}
                     onClick={() => (isGrouping ? handleColumnSort('Email') : handleColumnSort(col))}
                   >
-                    {!isGrouping && sortDirection[col] && (
-                      <span>
-                        {sortDirection[col] === 'asc' ? (
-                          <div className={styles.tableSortButton}>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M7 3V21M7 21L3 17M7 21L11 17M15.5 14H20.5L15.5 21H20.5M16 9H20M15 10L18 3L21 10"
-                                stroke="currentColor"
-                                strokeWidth="1"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                        ) : (
-                          <div className={styles.tableSortButton}>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M7 3V21M7 21L3 17M7 21L11 17M15.5 3H20.5L15.5 10H20.5M16 20H20M15 21L18 14L21 21"
-                                stroke="currentColor"
-                                strokeWidth="1"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                        )}
-                      </span>
-                    )}
-                    <span> </span>
                     {col}
                   </th>
                 ))}

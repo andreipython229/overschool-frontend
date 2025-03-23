@@ -21,8 +21,8 @@ export const SearchBar: FC<SearchBarProps & { children?: React.ReactNode }> = ({
       <div className={styles.sorting}>
         <div className={styles.frame}>
           <div className={styles.search_icon}>
-            <IconSvg width={30} height={30} viewBoxSize="0 0 30 30" path={studentsSearchPath}>
-              <SearchIcon />
+            <IconSvg width={30} height={20} viewBoxSize="0 0 30 30" path={studentsSearchPath}>
+              <SearchIcon/>
             </IconSvg>
           </div>
           <TextField

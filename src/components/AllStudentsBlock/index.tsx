@@ -8,6 +8,7 @@ import { useBoolean } from '../../customHooks'
 import { addStudentIconPath, classesSettingIconPath, studentsIconPath, updateSvgNewIconPath } from './config/svgIconsPath'
 import { Portal } from '../Modal/Portal'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
+import { useLazyFetchStudentsTableHeaderQuery } from '../../api/studentTableService'
 import { useFetchSchoolStudentsGroupingQuery, useUpdateSchoolStudentsGroupingMutation } from 'api/schoolService'
 import { ChipsComponent } from 'components/FiltersButton/Chips/chips'
 import { chipsVal } from 'components/FiltersButton/Chips/config'
@@ -16,7 +17,7 @@ import { StudentsSchoolExport } from 'components/StudentsTable/StudentsExport/St
 import { StudentsCroupExport } from 'components/StudentsTable/StudentsExport/StudentsCroupExport'
 import { StudentsCourseExport } from 'components/StudentsTable/StudentsExport/StudentCourseExport'
 import styles from '../AllStudentsBlock/all_students_block.module.scss'
-
+import { SettingStudentTable } from 'components/Modal'
 import { RoleE } from 'enum/roleE'
 import { useAppSelector } from 'store/hooks'
 import { updateDataIcon } from '../../config/commonSvgIconsPath'
@@ -45,16 +46,18 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     filters,
     filterKey,
     updateStudents,
+    tableId,
     ...restFilters
   }) => {
     const { schoolName, schoolId } = useAppSelector(schoolSelector)
     const { data: courses } = useFetchCoursesQuery(schoolName)
+    const [isModalOpen, { on, off, onToggle }] = useBoolean()
 
     const { data: groupingStudents, error: groupingStudentsError } = useFetchSchoolStudentsGroupingQuery({ school_id: Number(schoolId) || 0 })
     const [updateSchoolStudentsGroupingMutation] = useUpdateSchoolStudentsGroupingMutation()
     const [isGroupingStudents, setIsGroupingStudents] = useState<boolean | null>(null)
 
-    const [isOpen, { off, on }] = useBoolean()
+    const [isAddStudentOpen, { off: addStudentOn, on: addStudentOff }] = useBoolean()
 
     const { role } = useAppSelector(state => state.user)
     // const [term, filteredData, handleChangeTerm] = useDebouncedFilter()
@@ -63,6 +66,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     const onChangeInput = (value: string) => {
       setSearchTerm(value)
     }
+    const [fetchTableHeader, { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching }] = useLazyFetchStudentsTableHeaderQuery()
 
     const handleGroupStudents = async (event: ChangeEvent<HTMLInputElement>) => {
       setIsGroupingStudents(!isGroupingStudents)
@@ -92,10 +96,15 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     }, [searchTerm])
 
     useEffect(() => {
-      if (!isOpen) {
+      if (!isAddStudentOpen) {
         handleReloadTable && handleReloadTable()
       }
-    }, [isOpen])
+    }, [isAddStudentOpen])
+    useEffect(() => {
+          if (tableId) {
+            fetchTableHeader({ id: tableId, schoolName })
+          }
+        }, [tableId])
 
     let filteringCategoriesList: FilterItem[] = []
     switch (filterKey) {
@@ -115,9 +124,9 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     return (
       <div>
         <p className={styles.header_block_text}>{headerText}</p>
-        <div style={{ fontSize: '12px', color: '#3B3B3B' }}>
-          Количество: <b>{all_students_count}</b>
-        </div>
+        <p className={styles.header_block_text} style={{marginTop: '0', marginBottom: '12px'}}>
+          Количество: <span>{all_students_count}</span>
+        </p>
         {headerText === 'Все ученики платформы' && (
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px', marginBlockStart: '5px' }}>
             <label htmlFor="groupStudentsCheckbox" style={{ marginRight: '5px', fontSize: '14px' }}>
@@ -140,7 +149,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
         {headerText === 'Все ученики платформы' && <StudentsSchoolExport />}
         {headerText === 'Все ученики группы' && <StudentsCroupExport />}
         {headerText === 'Все ученики курса' && <StudentsCourseExport />}
-        <div style={{ marginBottom: '15px' }}>
+        <div>
           <ChipsComponent filterKey={filterKey} filters={filters} chipsVal={chipsVal['students']} />
         </div>
         <div className={styles.search_container}>
@@ -164,21 +173,25 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
           </div>
           <div className={invite ? styles.button_search_block_wButton : styles.button_search_block} style={{display: 'flex', alignItems: 'center'}}>
             {role != RoleE.Teacher && invite ? (
-              <Button onClick={off} text={'Добавить учеников'} variant={'primary'} className={styles.add_students_btn}>
+              <Button onClick={addStudentOn} text={'Добавить учеников'} variant={'primary'} className={styles.add_students_btn}>
                 <IconSvg width={15} height={15} viewBoxSize={'0 0 15 15'} path={studentsIconPath} styles={{ marginRight: '0.2em' }} />
               </Button>
             ) : (
               null
             )}
           </div>
+          {isAddStudentOpen && <Portal closeModal={addStudentOn}>{courses && <AddStudentModal setShowModal={addStudentOff} courses={courses?.results} />}</Portal>}
           <div style={{display: 'flex', alignItems: 'center'}}>
               <button className={styles.svgSettingsWrapper}>
                 <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
               </button>
           </div>
+          {isModalOpen && (
+              <Portal closeModal={on}>
+                <SettingStudentTable setShowModal={onToggle} tableId={tableId} />
+              </Portal>
+          )}
         </div>
-
-        {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} />}</Portal>}
       </div>
     )
   },

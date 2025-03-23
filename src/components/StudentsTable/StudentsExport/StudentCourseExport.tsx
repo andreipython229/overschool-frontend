@@ -32,7 +32,7 @@ export const StudentsCourseExport: FC = () => {
 
   return (
     <>
-      <Button onClick={handleOnExport} className={styles.students_group_header_export_button} text={''}>
+      <Button onClick={handleOnExport} variant='primary' className={styles.students_group_header_export_button} text={''}>
         Скачать таблицу с учениками
         {isFetching && <SimpleLoader style={{ height: '12px', width: '12px' }} loaderColor="white" />}
       </Button>

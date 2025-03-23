@@ -1,8 +1,11 @@
 
 .property_1 {
   height: 42px;
-  width: 75%;
+  width: 60%;
   padding: 0px;
+  @media only screen and (max-width: 1024px) {
+    width: 100%;
+  }
 
   .sorting {
     background-color: #ffffff;
@@ -30,12 +33,14 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-      gap: 20px;
+      gap: 3px;
 
       .search_icon {
         height: 30px;
         width: 30px;
         padding: 0px;
+        display: flex;
+        align-items: center;
         border-style: hidden;
         outline: none;
       }

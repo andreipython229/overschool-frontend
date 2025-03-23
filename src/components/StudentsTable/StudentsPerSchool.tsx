@@ -141,6 +141,7 @@ export const StudentsPerSchool: FC = () => {
     <>
       <AllStudentsBlock
         invite={false}
+        tableId={tableId as number}
         headerText={`Все ученики платформы`}
         addLastActiveFilter={handleAddLastActivityFilter}
         addMarkFilter={handleAddMarkFilter}
