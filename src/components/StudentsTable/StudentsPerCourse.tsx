@@ -8,9 +8,9 @@ import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
-import styles from "../../Pages/HomeWork/home_work.module.scss";
-import { Pagination } from "../Pagination/Pagination";
-import {useDebounceFunc, usePagination} from "../../customHooks";
+import styles from '../../Pages/HomeWork/home_work.module.scss'
+import { Pagination } from '../Pagination/Pagination'
+import { useDebounceFunc, usePagination } from '../../customHooks'
 
 export const StudentsPerCourse: FC = () => {
   const { course_id } = useParams()
@@ -51,19 +51,19 @@ export const StudentsPerCourse: FC = () => {
 
   const handleReloadTable = () => {
     if (tablesHeader && tablesHeader.length > 2) {
-      const studentsTableInfo = tablesHeader[2].students_table_info || [];
-      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
+      const studentsTableInfo = tablesHeader[2].students_table_info || []
+      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name)
       if (checkedFields) {
-        fetchStudents({ 
-          filters, 
-          page, 
+        fetchStudents({
+          filters,
+          page,
           id: String(course_id),
           schoolName,
-          fields: checkedFields
-        });
+          fields: checkedFields,
+        })
       }
     } else {
-      console.log('tablesHeader is undefined or does not have enough elements');
+      console.log('tablesHeader is undefined or does not have enough elements')
     }
   }
 
@@ -84,26 +84,26 @@ export const StudentsPerCourse: FC = () => {
 
   const updateStudents = (value: string) => {
     setSearchTerm(value)
-    debounce(addFilters({ key: 'studentsPerCourse', filters: {'search_value': value } }));
+    debounce(addFilters({ key: 'studentsPerCourse', filters: { search_value: value } }))
   }
 
   const handleAddSortToFilters = (sort_by_value: string, sort_order_value: string) => {
-      dispatch(addFilters({key: 'studentsPerCourse', filters: {'sort_by': sort_by_value, 'sort_order': sort_order_value}}))
+    dispatch(addFilters({ key: 'studentsPerCourse', filters: { sort_by: sort_by_value, sort_order: sort_order_value } }))
   }
 
-  // Фильтра для студентов курса
-  const filteredStudents = useMemo(() => {
-    if (!searchTerm) return data?.results ?? []
+  // Фильтра для студентов курса (ЗАКОММЕНТИРОВАЛ Т.К. ВСЯ ФИЛЬТРАЦИЯ НА БЭКЕНДЕ)
+  // const filteredStudents = useMemo(() => {
+  //   if (!searchTerm) return data?.results ?? []
 
-    return (data?.results ?? []).filter(student => {
-      return (
-        student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.group_name?.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    })
-  }, [searchTerm, data])
+  //   return (data?.results ?? []).filter(student => {
+  //     return (
+  //       student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       student.group_name?.toLowerCase().includes(searchTerm.toLowerCase())
+  //     )
+  //   })
+  // }, [searchTerm, data])
 
   const handleUpdateGroupingStudents = () => {
     setIsGroupingStudents(!isGroupingStudents)
@@ -112,21 +112,21 @@ export const StudentsPerCourse: FC = () => {
   // Перезагрузка после смены страницы пагинатора
   useEffect(() => {
     if (tablesHeader && tablesHeader.length > 2) {
-      const studentsTableInfo = tablesHeader[2].students_table_info || [];
-      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
+      const studentsTableInfo = tablesHeader[2].students_table_info || []
+      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name)
       if (checkedFields) {
-        fetchStudents({ 
-          filters, 
-          page, 
+        fetchStudents({
+          filters,
+          page,
           id: String(course_id),
           schoolName,
-          fields: checkedFields
-        });
+          fields: checkedFields,
+        })
       }
     } else {
-      console.log('tablesHeader is undefined or does not have enough elements');
+      console.log('tablesHeader is undefined or does not have enough elements')
     }
-  }, [page, isGroupingStudents, tablesHeader]);
+  }, [page, isGroupingStudents, tablesHeader])
 
   return (
     <>
@@ -154,19 +154,14 @@ export const StudentsPerCourse: FC = () => {
       />
       <StudentsTableWrapper
         handleReloadTable={handleReloadTable}
-        students={filteredStudents as studentsTableInfoT}
+        students={data?.results as studentsTableInfoT}
         isLoading={isFetching || isTablesHeaderFetching}
         tableId={tableId as number}
         handleAddSortToFilters={handleAddSortToFilters}
         isGrouping={isGroupingStudents}
         tableType={'Курс'}
       />
-      <Pagination
-          className={styles.pagination}
-          paginationRange={paginationRange}
-          currentPage={page}
-          onPageChange={onPageChange}
-      />
+      <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
     </>
   )
 }

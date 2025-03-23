@@ -21,7 +21,6 @@ import { SettingStudentTable } from 'components/Modal'
 import { RoleE } from 'enum/roleE'
 import { useAppSelector } from 'store/hooks'
 import { updateDataIcon } from '../../config/commonSvgIconsPath'
-import { FilterIconPath } from '../../assets/Icons/svgIconPath'
 import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentCourseModal'
 import { SearchBar } from '../SearchBar'
 import { schoolSelector } from 'selectors'
@@ -50,7 +49,8 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     ...restFilters
   }) => {
     const { schoolName, schoolId } = useAppSelector(schoolSelector)
-    const { data: courses } = useFetchCoursesQuery(schoolName)
+    const [coursesPage, setCoursesPage] = useState<number>(1)
+    const { data: courses } = useFetchCoursesQuery({ schoolName, page: coursesPage })
     const [isModalOpen, { on, off, onToggle }] = useBoolean()
 
     const { data: groupingStudents, error: groupingStudentsError } = useFetchSchoolStudentsGroupingQuery({ school_id: Number(schoolId) || 0 })

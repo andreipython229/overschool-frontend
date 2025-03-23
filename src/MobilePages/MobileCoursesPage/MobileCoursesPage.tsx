@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, memo, useState } from 'react'
 
 import { MobileCourseBlock } from 'MobilePages/MobileCoursesPage/MobileCourseBlock/MobileCourseBlock'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
@@ -16,7 +16,8 @@ import { schoolSelector } from 'selectors'
 
 export const MobileCoursesPage: FC = memo(() => {
   const { schoolName } = useAppSelector(schoolSelector)
-  const { data: coursesList } = useFetchCoursesQuery(schoolName)
+  const [page, setPage] = useState<number>(1)
+  const { data: coursesList } = useFetchCoursesQuery({ schoolName, page })
 
   const [term, filteredData, handleChangeTerm] = useDebouncedFilter(coursesList?.results as CoursesDataT[], 'name')
 

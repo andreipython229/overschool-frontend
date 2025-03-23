@@ -493,8 +493,8 @@
 }
 
 .messageContainer_bot_wrapper {
-  @include display(flex, row, center, start);
-  justify-self: start;
+  @include display(flex, row, center, flex-start);
+  justify-self: flex-start;
   gap: 8px*$ai-window-ratio;
 }
 

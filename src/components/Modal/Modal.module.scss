@@ -1764,20 +1764,20 @@
   height: auto;
 
   .container_buttons {
-    @include display(flex, column, start, start);
+    @include display(flex, column, flex-start, flex-start);
     gap: 18px;
     margin-bottom: 25px;
   }
 
   .courses_container {
-    @include display(flex, column, space-between, start);
+    @include display(flex, column, space-between, flex-start);
     max-height: 400px;
     overflow-y: scroll;
     margin: 0 20px;
     gap: 5px;
 
     div {
-      @include display(flex, row, start, center);
+      @include display(flex, row, flex-start, center);
       height: auto;
       color: #808080;
       font-weight: 700;

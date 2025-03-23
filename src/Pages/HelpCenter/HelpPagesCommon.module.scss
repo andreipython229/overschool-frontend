@@ -40,7 +40,7 @@
 
 
 .sections {
-    @include display(flex, column, start, center);
+    @include display(flex, column, flex-start, center);
     width: 84vw;
     max-width: 1340px;
     gap: 60px;
@@ -48,12 +48,12 @@
     .section {
         font-family: 'SF Pro Display', sans-serif;
         width: 100%;
-        @include display(flex, row, space-between, start);
+        @include display(flex, row, space-between, flex-start);
         gap: 64px;
         padding: 16px;
 
         &_title {
-            @include display(flex, row, start, center);
+            @include display(flex, row, flex-start, center);
             gap: 16px;
 
             &_text {
@@ -75,7 +75,7 @@
         }
 
         .text_part {
-            @include display(flex, column, start, start);
+            @include display(flex, column, flex-start, flex-start);
             gap: 16px;
             width: 49%;
         }
@@ -88,7 +88,7 @@
         }
 
         .img_part {
-            @include display(flex, column, start, center);
+            @include display(flex, column, flex-start, center);
             width: 49%;
             padding: 24px 24px 0 24px;
             border-radius: 32px;
@@ -102,7 +102,7 @@
             }
 
             &_t2 {
-                @include display(flex, column, start, center);
+                @include display(flex, column, flex-start, center);
                 width: 49%;
                 padding: 0 24px 0 24px;
                 border-radius: 32px;
@@ -125,7 +125,7 @@
     }
 
     &_list {
-        @include display(flex, column, start, start);
+        @include display(flex, column, flex-start, flex-start);
         gap: 16px;
 
         li {
