@@ -432,7 +432,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                     <td>
                         <div className={styles.table_user}>
                           {row['Дата удаления из группы'] === ' ' && (
-                            <div className={styles.chat_button} onClick={() => handleToggleChatModal(id)}>
+                            <div className={styles.chat_button} onClick={(event) => {event.stopPropagation(); handleToggleChatModal(id)}}>
                               <IconSvg width={23} height={23} viewBoxSize={'0 0 25 25'} path={MessageSendPath} />
                             </div>
                           )}
