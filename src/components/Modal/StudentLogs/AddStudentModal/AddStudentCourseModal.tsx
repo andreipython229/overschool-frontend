@@ -6,15 +6,10 @@ import { IconSvg } from '../../../common/IconSvg/IconSvg'
 import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { addStudentIconPath } from '../config/svgIconsPath'
 import { AddStudentModalPropsT } from '../../ModalTypes'
-import {
-  useLazyFetchStudentGroupQuery,
-  useLazyFetchStudentsGroupByCourseQuery,
-  usePatchGroupWithoutTeacherMutation,
-} from '../../../../api/studentsGroupService'
+import { useLazyFetchStudentGroupQuery, useLazyFetchStudentsGroupByCourseQuery } from '../../../../api/studentsGroupService'
 import { AddNewStudents } from './AddNewStudents'
 import { studentsGroupT, studentsGroupsT } from 'types/studentsGroup'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
-import parse from 'html-react-parser'
 import styles from 'components/Modal/StudentLogs/studentsLog.module.scss'
 import { useParams } from 'react-router-dom'
 import { useAdminRegistrationMutation } from 'api/userRegisterService'
@@ -23,6 +18,7 @@ import { Portal } from '../../Portal'
 import { LimitModal } from '../../LimitModal/LimitModal'
 import { useBoolean } from '../../../../customHooks'
 import { validateEmail } from 'utils/validateEmail'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 type studentT = {
   id: number
@@ -169,19 +165,23 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
     }
     let count = 0
     students.map(async student => {
-      await registrationAdmin({ email: student.email, first_name: student.first_name, last_name: student.last_name, patronymic: student.patronymic })
+      await registrationAdmin({
+        email: student.email.toLowerCase(),
+        first_name: student.first_name,
+        last_name: student.last_name,
+        patronymic: student.patronymic,
+      })
         .unwrap()
-        .then(async (data: any) => {
+        .then(async () => {
           count = count + 1
-          formdata.append('emails', student.email)
+          formdata.append('emails', student.email.toLowerCase())
           if (count === students.length) {
-            
             await addStudents({ data: formdata, schoolName })
               .unwrap()
-              .then(async (accessdata: any) => {
+              .then(async () => {
                 setShowModal()
               })
-              .catch(error => {
+              .catch(() => {
                 setMessage('При добавлении новых учеников в группу, произошла ошибка. Попробуйте позже...')
                 onToggle()
               })
@@ -231,7 +231,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
       const validatedStudents: { id: number; email: string }[] = []
       students.forEach(student => {
         if (student.email && validateEmail(student.email)) {
-          validatedStudents.push({ id: student.id, email: student.email })
+          validatedStudents.push({ id: student.id, email: student.email.toLowerCase() })
         } else if (!student.email || student.email.length === 0) {
           setError('Поле email должно быть заполнено')
         } else {
@@ -247,7 +247,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
       const validatedStudents: { id: number; email: string }[] = []
       students.forEach(student => {
         if (student.email && validateEmail(student.email)) {
-          validatedStudents.push({ id: student.id, email: student.email })
+          validatedStudents.push({ id: student.id, email: student.email.toLowerCase() })
         } else if (!student.email || student.email.length === 0) {
           setError('Поле email должно быть заполнено')
         } else {
@@ -261,23 +261,19 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   }
 
   if (isFetching) {
-    return <SimpleLoader />
+    return <LoaderLayout />
   }
 
   return (
     <>
       <form className={styles.container}>
         <div onClick={handleClose} className={styles.container_closed}>
-          <IconSvg width={30} height={30} viewBoxSize="0 0 58 58" path={crossIconPath} />
+          <IconSvg width={50} height={50} viewBoxSize="0 0 58 58" path={crossIconPath} />
         </div>
         <div className={styles.addStudent}>
           <div className={styles.container_header}>
-            <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={addStudentIconPath} />
+            <IconSvg width={100} height={100} viewBoxSize="0 0 101 100" path={addStudentIconPath} />
             <span className={styles.container_header_title}>Добавление учеников</span>
-          </div>
-          <div className={styles.addStudent_select}>
-            {/* {courses && <SelectInput optionsList={courses} optionName={'name' as keyof object} setSelectedValue={setChangeCourse} />}
-          {groups && <SelectInput optionsList={groups?.results} optionName={'name' as keyof object} setSelectedValue={setChangeGroup} />} */}
           </div>
           {groupsList && (
             <div className={styles.container_header_title_btn}>
@@ -286,6 +282,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
                   label: name,
                   value: String(group_id),
                 }))}
+                className={styles.selectGroup}
                 defaultOption="Выберите группу"
                 selectedOption={selectedGroup}
                 setSelectedValue={setSelectedGroup}
@@ -315,14 +312,14 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
               type={'button'}
               onClick={handleAddNewStudent}
               className={styles.container_header_title_btn_add}
-              variant={'secondary'}
+              variant={'newSecondary'}
               text={'Добавить ещё одного'}
             />
             <Button
               className={styles.container_header_title_btn_send}
               type={'button'}
               onClick={handleSubmitForm}
-              variant={studentLoading || !students[0].email || studentError ? 'disabled' : 'primary'}
+              variant={studentLoading || !students[0].email || studentError ? 'newDisabled' : 'newPrimary'}
               text={studentLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Отправить приглашение'}
               disabled={studentLoading || !students[0].email || studentError}
             />

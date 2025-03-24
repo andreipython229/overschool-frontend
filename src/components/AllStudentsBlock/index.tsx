@@ -23,6 +23,7 @@ import { updateDataIcon } from '../../config/commonSvgIconsPath'
 import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentCourseModal'
 import { SearchBar } from '../SearchBar'
 import { schoolSelector } from 'selectors'
+import { PeopleIconPath } from 'assets/Icons/svgIconPath'
 
 export interface FilterItem {
   id: number
@@ -154,20 +155,20 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             {...filters}
           />
         </div>
-        <SearchBar searchTerm={searchTerm} onChangeInput={onChangeInput} />
-        <div className={styles.header_block_text_search}>
+        <div className={styles.searchBlock}>
+          <SearchBar searchTerm={searchTerm} onChangeInput={onChangeInput} />
           <div className={styles.arrow_add_file_block} onClick={() => handleReloadTable && handleReloadTable()}>
-            <IconSvg width={19} height={23} viewBoxSize="0 0 30 30" path={updateDataIcon} />
+            <IconSvg width={36} height={36} viewBoxSize="0 0 36 36" path={updateDataIcon} />
           </div>
-        </div>
-        <div className={invite ? styles.button_search_block_wButton : styles.button_search_block}>
-          {role != RoleE.Teacher && invite ? (
-            <Button onClick={off} className={styles.add_students_btn} text={'Добавить учеников'} variant={'primary'}>
-              <IconSvg width={30} height={30} viewBoxSize={'0 0 16 16'} path={addStudentIconPath} styles={{ marginRight: '0.2em' }} />
-            </Button>
-          ) : (
-            <></>
-          )}
+          <div className={invite ? styles.button_search_block_wButton : styles.button_search_block}>
+            {role != RoleE.Teacher && invite ? (
+              <Button onClick={off} text={'Добавить учеников'} variant={'newPrimary'}>
+                <IconSvg width={30} height={30} viewBoxSize={'0 0 23 23'} path={PeopleIconPath} />
+              </Button>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
         {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} />}</Portal>}
       </div>

@@ -14,53 +14,15 @@
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     padding-left: 1rem;
   }
-
-
-  &_search {
-    height: 62px;
-    width: 1264px;
-    align-self: flex-start;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      display: flex;
-      padding: 1rem 0 1rem 1rem;
-      width: 100%;
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      display: flex;
-      padding: 1rem 0 1rem 1rem;
-      width: 100%;
-    }
-
-  }
 }
 .button_search_block_wButton {
-
   position: relative;
-  display: grid;
-  grid-template-columns: 2fr 10fr 0.5fr;
   align-items: center;
-  width: 100%;
-  min-width: 100%;
   height: auto;
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 1rem;
-
+  button {
+    font-size: 18px;
+    min-width: 250px;
+    height: 62px;
   }
 }
 
@@ -87,25 +49,26 @@
 }
 
 .arrow_add_file_block {
-
-  &:hover {
-    background-color: rgba(160, 160, 160, 0.4)
-  }
   @include display(flex, row, center, center);
-  background: #e0dced;
   border: none;
-  border-radius: 7px;
-  width: 43px;
-  height: auto;
+  width: 60px;
+  height: 62px;
   text-align: center;
-  margin-left: 7px;
   cursor: pointer;
-  transition: background-color 0.4s;
+
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin-bottom: 1rem;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin-bottom: 1rem;
+  }
+
+  svg {
+    align-self: center;
+    transition: all 1.2s ease-in-out;
+    &:hover {
+      transform: rotate(360deg);
+    }
   }
 }
 .add_students_btn {
@@ -167,7 +130,6 @@
       }
 
       .search_filter_icon {
-
         height: 62px;
         width: 64px;
         padding: 0px;
@@ -175,7 +137,7 @@
         outline: none;
 
         &.active {
-          background-color: #CFE2FF;
+          background-color: #cfe2ff;
           border-radius: 4px;
           padding: 5px;
         }
@@ -184,6 +146,13 @@
   }
 }
 
-.filter_button{
+.filter_button {
   margin-bottom: 20px;
+}
+
+.searchBlock {
+  @include display(flex, row, center, flex-start);
+  gap: 1rem;
+  width: 100%;
+  flex-wrap: nowrap;
 }
