@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Button } from 'components/common/Button/Button'
+import { ChatList } from 'components/ChatGPT/chatListModal/ChatList'
 import {
   SendMessagePayload,
   useSendMessageMutation,
@@ -13,24 +15,33 @@ import {
 } from '../../api/chatgptService';
 import OverAiIcon from '../../assets/img/common/newIconModal.svg';
 import { IconSvg } from 'components/common/IconSvg/IconSvg';
-import { aiButtonNavIcon, messageNavIcon, userNavIcon } from './svg/svgIconPath';
+import { CloseIconPath, ListMessagesIconPath } from 'assets/Icons/svgIconPath';
+import { aiButtonNavIcon, messageNavIcon, userNavIcon, aiMobileButtonNavIcon } from './svg/svgIconPath';
 import styles from './chatgpt.module.scss';
+import { log } from 'console';
 
+interface Chat {
+  id: number;
+  order: number;
+}
 
 interface ChatGPTProps {
   openChatModal: () => void;
   closeChatModal: () => void;
 }
 
+
 const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [messageInput, setMessageInput] = useState('');
   const messageContainerRef = useRef<HTMLDivElement>(null);
-
+  const [showChatListForm, setShowChatListForm] = useState(false);
   const [chatData, setChatData] = useState<{ [id: number]: { order: number; chat_name: string } }>({});
   const [selectedChatId, setCreatedChatId] = useState<number>();
   const [isChatSelected, setIsChatSelected] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isNewChat, setIsNewChat] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [warning, setWarning] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingChats, setIsFetchingChats] = useState(false);
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
@@ -44,88 +55,125 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
   const [refetchChats, { data: latestChats }] = useLazyFetchLatestChatsQuery();
   const [refetchMessages, { data: latestMessages }] = useLazyFetchLatestMessagesQuery();
-  const [fetchWelcomeMessage, { data: welcomeMessageData }] = useLazyFetchWelcomeMessageQuery();
+  // const [fetchWelcomeMessage, { data: welcomeMessageData }] = useLazyFetchWelcomeMessageQuery();
 
-  const [updateWelcomeMessage] = useUpdateWelcomeMessageMutation();
+  // const [updateWelcomeMessage] = useUpdateWelcomeMessageMutation();
   const [createChatMutation] = useCreateChatMutation();
   const [sendMessage] = useSendMessageMutation();
   const [deleteChat] = useDeleteChatMutation();
   const [assignChatOrder] = useAssignChatOrderMutation();
 
-  const userQuestions = latestMessages && latestMessages[0] && Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
-  const botAnswers = latestMessages && latestMessages[1] && Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
+  // const [userQuestions, setUserQuestions] = latestMessages && latestMessages[0] && Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
+  // const [botAnswers, setBotAnswers] = latestMessages && latestMessages[1] && Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
+
+  const [dots, setDots] = useState('.');
+  const listOfChatContainerRef = useRef<HTMLDivElement | null>(null);
+  const activeChatRef = useRef<HTMLDivElement | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const [bufUserQuestion, setBufUserQuestion] = useState('');
+
+  const [userQuestions, setUserQuestions] = useState<Array<{ sender_question: string }>>([]);
+  const [botAnswers, setBotAnswers] = useState<Array<{ answer: string }>>([]);
+
 
   useEffect(() => {
+    if (latestMessages && !isNewChat) {
+      if (latestMessages[0] && Array.isArray(latestMessages[0])) {
+        setUserQuestions(latestMessages[0]);
+      } else {
+        setUserQuestions([]);
+      }
+
+      if (latestMessages[1] && Array.isArray(latestMessages[1])) {
+        setBotAnswers(latestMessages[1]);
+      } else {
+        setBotAnswers([]);
+      }
+    }
+  }, [latestMessages, isNewChat]);
+
+  useEffect(() => { scrollMessagesToBottom(); }, [isLoading, isLoadingMessages])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots((prevDots) => {
+        if (prevDots === '...') return '.';
+        return prevDots + '.';
+      });
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const savedChatId = Number(localStorage.getItem('selectedChatId'));
+    if (savedChatId && !isNewChat) {
+      setCreatedChatId(savedChatId);
+      selectChat(savedChatId);
+    }
+    setTextAreaFocus();
+    scrollToSelectedChat();
+
     const fetchData = async () => {
-      if (isDialogOpen !== false && selectedChatId == null) {
-        setError(null);
+      // if (!isDialogOpen || selectedChatId === null) return;
 
-        if (showWelcomeMessage !== true) {
-          setShowWelcomeMessage(false);
-        } else {
-          setShowWelcomeMessage(true);
-        }
+      setError(null);
+      setWarning(null);
+      setIsLoadingMessages(true);
+      setIsFetchingChats(true);
 
-        setIsLoadingMessages(true);
-        setIsFetchingChats(true);
+      if (!chatsLoaded) {
+        await fetchChats();
+      }
+      setIsFetchingChats(false);
 
-        if (!chatsLoaded) {
-          await fetchChats();
-        }
-
-        setIsFetchingChats(false);
-
-      } else if (isDialogOpen !== false && selectedChatId !== null) {
-        setError(null);
-
-        if (showWelcomeMessage !== true) {
-          setShowWelcomeMessage(false);
-        } else {
-          setShowWelcomeMessage(true);
-        }
-
-        setIsLoadingMessages(true);
-        setIsFetchingChats(true);
-
-        if (!chatsLoaded) {
-          await fetchChats();
-        }
-
-        setIsFetchingChats(false);
-
-        if (selectedChatId && refetchMessages && isChatSelected) {
-          try {
-            await refetchMessages({ overai_chat_id: selectedChatId });
-            setFocusToBottom();
-          } catch (error) {
-            setError('Ошибка получения сообщений');
-          } finally {
-            setIsLoadingMessages(false);
-          }
-        } else {
+      if (!isNewChat && selectedChatId && refetchMessages && isChatSelected) {
+        try {
+          await refetchMessages({ overai_chat_id: selectedChatId });
+          scrollMessagesToBottom();
+        } catch (error) {
+          setError('Ошибка получения сообщений');
+        } finally {
           setIsLoadingMessages(false);
         }
+      } else {
+        setIsLoadingMessages(false);
       }
     };
-
     fetchData();
-  }, [isDialogOpen, selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage, deleteChat]);
+  }, [selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage, isNewChat]);
 
+  const setTextAreaFocus = () => {
+    setTimeout(() => {
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+      }
+    }, 100);
+  }
+
+  const scrollToSelectedChat = () => {
+    if (activeChatRef.current) {
+      activeChatRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  const scrollMessagesToBottom = () => {
+    messageContainerRef.current?.scrollTo({
+      top: messageContainerRef.current.scrollHeight,
+      behavior: 'smooth'
+    });
+  };
 
   const toggleDialog = async () => {
     setIsDialogOpen(!isDialogOpen);
-    setFocusToBottom();
-    isDialogOpen ? closeChatModal() : openChatModal();
-    const response = await fetchWelcomeMessage();
-    if (response.data) {
-      setShowWelcomeMessage(response.data.show_welcome_message);
-    }
-  };
+    scrollMessagesToBottom();
+    setTextAreaFocus();
+    isDialogOpen ? openChatModal() : closeChatModal();
 
-  const setFocusToBottom = () => {
-    if (messageContainerRef.current) {
-      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
-    }
+    // const response = await fetchWelcomeMessage();
+    // if (response.data) {
+    // setShowWelcomeMessage(response.data.show_welcome_message);
+    // }
   };
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -141,9 +189,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       handleSendMessage(messageInput);
     } else if (e.key === 'Enter' && e.shiftKey) {
       e.preventDefault();
-      setMessageInput(messageInput + '\n');
+      setMessageInput(prev => prev + '\n');
     }
   };
+
+  const handleShowChatMobileList = () => {
+    setShowChatListForm(!showChatListForm);
+  }
 
   const formatBotAnswer = (answer: string): JSX.Element => {
     const escapeHtml = (str: string): string => {
@@ -153,51 +205,61 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;')
         .replace(/####/g, '')
-        .replace(/\*\*(.*?)\*\*/g, (_, content) => `<strong>${content}</strong>`);
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     };
+
     const codeBlockRegex = /```([\s\S]*?)```/g;
-    const replaceCodeBlocks = (_: any, code: string) => {
-      const lines = code.trim().split('\n').map((line: string, index: number) => (
-        `${line}\n`
-      ));
-      return `${lines.join('')}`;
-    };
-
-    let formattedAnswer = answer.replace(codeBlockRegex, replaceCodeBlocks);
-
-    const codeBlocks = formattedAnswer.split(codeBlockRegex);
-    const processedBlocks = codeBlocks.map((block, index) => {
-      if (index % 2 === 0) {
-        return escapeHtml(block);
-      } else {
-        return block;
-      }
+    const formattedAnswer = answer.replace(codeBlockRegex, (_, code) => {
+      return `<pre><code>${code.trim()}</code></pre>`;
     });
 
-    formattedAnswer = processedBlocks.join('');
-
-    return (
-      <div
-        dangerouslySetInnerHTML={{ __html: formattedAnswer }}
-      />
-    );
+    return <div dangerouslySetInnerHTML={{ __html: escapeHtml(formattedAnswer) }} />;
   };
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setFocusToBottom();
+      scrollMessagesToBottom();
     }, 100);
 
     return () => clearTimeout(timer);
   }, [latestMessages, isDialogOpen, selectedChatId]);
 
-  const selectChat = (chatId: number) => {
+
+
+  const selectChat = async (chatId: number | undefined) => {
+    setShowWelcomeMessage(false)
     if (!isChatSelectionDisabled) {
-      setCreatedChatId(chatId);
-      setIsChatSelected(true);
-      setDraggedChatId(chatId);
+
+      let selectedChatId: number | undefined = chatId;
+      setIsNewChat(false);
+      if (chatId === undefined || chatId === 1) {
+        for (const [id, chat] of Object.entries(chatData)) {
+          if (chat.order === 1) {
+            selectedChatId = Number(id);
+            break;
+          }
+        }
+      }
+
+      if (selectedChatId !== undefined) {
+        setCreatedChatId(selectedChatId);
+        setIsChatSelected(true);
+        setDraggedChatId(selectedChatId);
+        localStorage.setItem('selectedChatId', selectedChatId.toString());
+        try {
+          await refetchMessages({ overai_chat_id: selectedChatId });
+        } catch (error) {
+          setError('Ошибка получения сообщений');
+        }
+        console.log('--', latestMessages);
+        console.log(userQuestions);
+        
+        
+      }
     }
   };
+
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>, chatId: number) => {
     e.dataTransfer.setData('text/plain', '');
@@ -208,6 +270,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     e.preventDefault();
     setDraggedOverChatId(chatId);
   };
+
 
   const handleDragEnd = async () => {
     if (draggedChatId !== null && draggedOverChatId !== null && draggedChatId !== draggedOverChatId) {
@@ -226,23 +289,30 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       });
 
       updatedChatDataCopy[draggedChatId].order = dropOrder;
-
-      await assignChatOrder(updatedChatDataCopy);
       setChatData(updatedChatDataCopy);
-      setDraggedChatId(null);
-      setDraggedOverChatId(null);
-    }
-  };
 
-  const handleCreateEmptyChat = async () => {
-    setCreatedChatId(1);
-    setIsChatSelected(true);
+      try {
+        await assignChatOrder(updatedChatDataCopy);
+      } catch (error) {
+        console.error("Ошибка при обновлении порядка чатов на сервере:", error);
+        setChatData(chatData);
+      } finally {
+        setDraggedChatId(null);
+        setDraggedOverChatId(null);
+      }
+    }
   };
 
   const createChat = async () => {
     try {
+      setCreatedChatId(undefined)
       setIsChatSelected(true);
       setIsCreatingChatDisabled(true);
+      setIsNewChat(true);
+
+      setUserQuestions([]);
+      setBotAnswers([]);
+
       const convertToCreateChatPayload = (chatData: { [id: number]: { order: number; chat_name: string } }): CreateChatPayload => {
         const orderData = Object.entries(chatData).map(([id, { order }]) => ({ id: Number(id), order }));
         return { orderData };
@@ -253,6 +323,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       const response = await createChatMutation(payload);
       if ('data' in response && response.data !== undefined) {
         const newChatId = response.data.overai_chat_id;
+        localStorage.setItem('selectedChatId', newChatId.toString());
         await fetchChats();
         setCreatedChatId(newChatId);
         return response.data;
@@ -269,11 +340,12 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   };
 
   const handleCreateChat = async () => {
-    if (updateWelcomeMessage !== null) {
-      await updateWelcomeMessage();
+    if (!isLoadingMessages) {
+      setIsNewChat(true);
+      setShowWelcomeMessage(false);
+      await createChat();
+      setShowWelcomeMessage(false);
     }
-    await createChat();
-    setShowWelcomeMessage(true);
   };
 
   const fetchChats = async () => {
@@ -282,11 +354,9 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         const response = await refetchChats();
 
         if (response.status === 'fulfilled' && response.isSuccess) {
-
           const receivedChatData = response.data;
           setChatData(receivedChatData);
           setChatsLoaded(true);
-
         } else {
           setError('Ошибка при получении списка чатов.');
         }
@@ -296,86 +366,112 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     }
   };
 
-
   const handleDeleteChat = async (chatId: number) => {
-    const orderData = Object.entries(chatData).map(([id, chat]) => ({ id: Number(id), order: chat.order }));
-    await deleteChat({ chat_id: chatId, orderData });
-    await fetchChats();
-    setCreatedChatId(undefined)
+    const previousChatData = { ...chatData }; // Сохраняем копию состояния
+    const isDeletingSelectedChat = chatId === selectedChatId;
+
+    if (isDeletingSelectedChat) {
+      let minOrder = Infinity;
+      let firstChatId = selectedChatId;
+      for (const [id, chat] of Object.entries(chatData)) {
+        if (Number(id) !== chatId && chat.order < minOrder) {
+          minOrder = chat.order;
+          firstChatId = Number(id);
+          setIsNewChat(false);
+          localStorage.setItem('selectedChatId', firstChatId.toString());
+          selectChat(firstChatId)
+        }
+      }
+      if (Object.entries(chatData).length === 1) {
+        setShowWelcomeMessage(true)
+      }
+
+      if (firstChatId) {
+        setCreatedChatId(Number(firstChatId));
+      } else {
+        setCreatedChatId(undefined);
+      }
+    }
+
+    const chatArray = Object.entries(chatData).map(([id, chat]) => ({
+      id: Number(id),
+      ...chat
+    }));
+
+    const orderData = chatArray
+      .map(chat => ({ id: chat.id, order: chat.order }))
+      .filter(chat => chat.id !== chatId);
+
+    const updatedChatData = chatArray.filter(chat => chat.id !== chatId);
+    const newChatData = Object.fromEntries(updatedChatData.map(chat => [chat.id, { order: chat.order, chat_name: chat.chat_name }]));
+
+    setChatData(newChatData);
+
+    try {
+      await deleteChat({ chat_id: chatId, orderData });
+      await fetchChats();
+
+    } catch (error) {
+      setChatData(previousChatData);
+      setError('Ошибка при удалении чата.');
+    }
+
+    // setCreatedChatId(undefined);
+    if (!isDeletingSelectedChat && selectedChatId) {
+      setCreatedChatId(selectedChatId);
+    }
   };
+
+
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedLanguage(e.target.value);
   };
 
+
   const handleSendMessage = async (messageInput: string) => {
-    if (selectedChatId === 1) {
-      const response = await createChat();
+    if (messageInput.trim() === '') return;
+    // setIsNewChat(false);
+    setBufUserQuestion(messageInput);
+    scrollMessagesToBottom();
+    try {
       setIsLoading(true);
       setIsChatSelectionDisabled(true);
       setIsCreatingChatDisabled(true);
+
       const payload: SendMessagePayload = {
         message: messageInput,
-        overai_chat_id: response?.overai_chat_id,
+        overai_chat_id: selectedChatId === 1 ? (await createChat())?.overai_chat_id : selectedChatId!,
         language: selectedLanguage
       };
 
       const botResponseTimeout = setTimeout(() => {
-        setError('Генерация сообщения займет некоторое время...');
+        setWarning('Генерация сообщения займет некоторое время...');
       }, 10000);
 
       await sendMessage(payload);
 
-      await refetchMessages({ overai_chat_id: response?.overai_chat_id });
+      if (refetchMessages) {
+        await refetchMessages({ overai_chat_id: payload.overai_chat_id });
+      }
 
       setMessageInput('');
       setError(null);
+      setWarning(null);
       clearTimeout(botResponseTimeout);
-
+    } catch (error: unknown) {
+      setError('Ошибка при отправке сообщения.');
+    } finally {
       setIsLoading(false);
       setIsChatSelectionDisabled(false);
       setIsCreatingChatDisabled(false);
     }
-    if (selectedChatId !== 1 && messageInput.trim() !== '') {
-      try {
-        setIsLoading(true);
-        setIsChatSelectionDisabled(true);
-        setIsCreatingChatDisabled(true);
-
-        const payload: SendMessagePayload = {
-          message: messageInput,
-          overai_chat_id: selectedChatId!,
-          language: selectedLanguage
-        };
-
-        const botResponseTimeout = setTimeout(() => {
-          setError('Генерация сообщения займет некоторое время...');
-        }, 10000);
-
-        await sendMessage(payload);
-
-        if (refetchMessages) {
-          await refetchMessages({ overai_chat_id: selectedChatId });
-        }
-
-        setMessageInput('');
-        setError(null);
-        clearTimeout(botResponseTimeout);
-      } catch (error: unknown) {
-        setError('Ошибка при отправке сообщения.');
-      } finally {
-        setIsLoading(false);
-        setIsChatSelectionDisabled(false);
-        setIsCreatingChatDisabled(false);
-      }
-
-      setTimeout(() => {
-        setError(null);
-      }, 3000);
-    }
+    setTextAreaFocus();
+    setTimeout(() => {
+      setError(null);
+      setWarning(null);
+    }, 3000);
   };
-
-
 
 
 
@@ -385,8 +481,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       <button className={styles.chatGptButton} onClick={toggleDialog}>
         <img className={`${isDialogOpen && styles.chatGptButton_Pushed}`} src={OverAiIcon} alt="OverAI Icon" />
       </button>
-      {isDialogOpen && (
-        <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+      {(
+        <div className={`${styles.modalOverlay} ${isDialogOpen && styles.modalOverlay_open}`} onClick={handleOverlayClick}>
           <div className={`${styles.dialog} ${isDialogOpen && styles.dialogOpen} ${showWelcomeMessage && styles.noGradient}`}>
             {/* <button className={styles.chatgpt_close} onClick={toggleDialog}>
               <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={closeHwModalPath} />
@@ -394,49 +490,63 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
             <div className={`${styles.contentContainer}`}>
 
               <div className={`${styles.topPane} ${isDialogOpen && styles.paneOpen}`}>
-                <div className={styles.overAiText}>OVER AI</div>
+                <div className={styles.overAiText}><div onClick={handleShowChatMobileList} className={styles.ai_mobile_open_dialog_list}><IconSvg path={ListMessagesIconPath} width={30} height={30} viewBoxSize='0 0 30 30'></IconSvg></div>
+                  <p>OVER AI</p>
+                  <div className={styles.ai_mobile_close_btn_wrapper} onClick={() => setIsDialogOpen(false)}><div className={styles.ai_mobile_close_btn}></div></div>
+                </div>
                 {isFetchingChats ? (
                   <div className={styles.loadingSpinner}>
                     <div className={styles.spinner}></div>
-                    <span> Получение чатов...</span>
+                    <span>Получение чатов...</span>
                   </div>
                 ) : (
                   <>
                     <div className={styles.listOfChatSection}>
-                      <button className={styles.createChatButtonModal} onClick={handleCreateEmptyChat} disabled={isCreatingChatDisabled}>
+                      <button className={styles.createChatButtonModal} onClick={handleCreateChat} disabled={isCreatingChatDisabled}>
                         <b>+</b>
                       </button>
-                      <div
-                        className={styles.listOfChatContainer}
-                      >
+                      <div className={styles.listOfChatContainer} ref={listOfChatContainerRef}>
                         {Object.entries(chatData)
                           .sort(([, a], [, b]) => a.order - b.order)
-                          .map(([chatId, chatValue]) => (
-                            <div
-                              key={chatId}
-                              onClick={() => selectChat(Number(chatId))}
-                              draggable
-                              onDragStart={(e) => handleDragStart(e, Number(chatId))}
-                              onDragOver={(e) => handleDragOver(e, Number(chatId))}
-                              onDragEnd={handleDragEnd}
-                              className={`${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''} ${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''}`}
-                              style={{ borderRadius: '20px' }}
-                            >
-                              <div className={styles.chatListItem_Circle}></div>
-                              <span className={styles.centeredText}>
-                                {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
-                                {/* <button className={styles.deleteChatBtn} onClick={() => handleDeleteChat(Number(chatId))}>
-                                  <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={deleteIconPath} />
-                                </button> */}
-                              </span>
-                            </div>
-                          ))}
+                          .map(([chatId, chatValue]) => {
+                            const isActive = selectedChatId === Number(chatId);
+                            return (
+                              <div key={chatId}
+                                draggable
+                                onDragStart={(e) => handleDragStart(e, Number(chatId))}
+                                onDragOver={(e) => handleDragOver(e, Number(chatId))}
+                                onDragEnd={handleDragEnd}
+                                className={` ${styles.chatListItemWrapper}`}
+                              >
+                                <div
+                                  onClick={() => {
+                                    selectChat(Number(chatId))
+                                  }}
+                                  ref={isActive ? activeChatRef : null}
+                                  className={`${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''} ${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''}`}
+                                  style={{ borderRadius: '20px' }}
+                                >
+                                  <div className={styles.chatListItem_Circle}></div>
+                                  <span className={styles.centeredText}>
+                                    {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
+                                  </span>
+                                </div>
+                                <button className={styles.deleteChatBtn} onClick={(e) => {
+                                  // e.stopPropagation(); // Предотвращаем всплытие события
+                                  handleDeleteChat(Number(chatId));
+                                }}>
+                                  <div className={styles.close_cross}></div>
+                                </button>
+                              </div>
+                            )
+                          }
+                          )}
                       </div>
                       {/* <button className={styles.chatMessageHistoryButton}>
                         <IconSvg path={arrowUpNavIcon} viewBoxSize='0 0 17 17' width={14} height={14} />
                       </button> */}
                     </div>
-                    <div className={styles.chatIndicatorSection}>
+                    <div className={`${styles.chatIndicatorSection} ${showWelcomeMessage ? styles.chatIndicatorSection_welcomePage : ''}`}>
                       <div className={styles.chatIndicatorSectionLeft}>
                         <div className={styles.chatIndicatorIcon}>
                           <div className={styles.chatIndicator}></div>
@@ -459,61 +569,89 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
               </div>
 
 
-              {!showWelcomeMessage || !isChatSelected ? (
+              {showWelcomeMessage ? (
                 <>
                   <div className={`${styles.welcomeMessage}`}>
                     <div className={styles.welcomeMessageUser}>
                       <IconSvg path={userNavIcon} viewBoxSize='0 0 72 72' width={100} height={100}></IconSvg>
                     </div>
-                    <p>Привет, <span>Пользователь</span>! приятно тебя здесь видеть! Нажимая кнопку «Начать чат», вы соглашаетесь на обработку своих персональных данных, как описано в нашей Политике конфиденциальности</p>
+                    <div></div>
+                    <p>Привет, <span>Пользователь</span>! Приятно тебя здесь видеть! Нажимая кнопку «Начать чат», вы соглашаетесь на обработку своих персональных данных, как описано в нашей Политике конфиденциальности</p>
+
+                    <Button variant={'newPrimary'} onClick={handleCreateChat} className={styles.welcomeMessageButton} text='Начать чат'></Button>
+
                   </div>
 
-
-                  <div className={styles.inputContainer}>
-                    {isLoading ? (
-                      <div className={styles.loadingSpinner}>
-                        <div className={styles.spinner}></div>
-                        <span> Генерация сообщения...</span>
-                      </div>
-                    ) : (
-                      <>
-                        <textarea
-                          rows={1}
-                          placeholder="Отправьте сообщение..."
-                          value={messageInput}
-                          onChange={(e) => setMessageInput(e.target.value)}
-                          onKeyDown={handleKeyPress}
-                        />
-                        <button onClick={handleCreateChat} disabled={isChatSelectionDisabled}>
-                          Начать чат
-                        </button>
-                      </>
-                    )}
-                  </div>
+                  <Button className={styles.start_new_chat_btn} variant='newSecondary' onClick={handleCreateChat} disabled={isChatSelectionDisabled} text='Начать чат'>
+                  </Button>
                 </>
+
               ) : (
                 <>
-                  {selectedChatId && (
+                  {(
                     <div className={`${styles.bottomPane} ${isDialogOpen && styles.paneOpen}`}>
-
-                      {isLoadingMessages && selectedChatId !== 1 ? (
+                      {isCreatingChatDisabled && !isLoading ? (
+                        <div className={styles.loadingSpinner}>
+                          <div className={styles.spinner}></div>
+                          <span> Создание нового чата...</span>
+                        </div>
+                      ) : (isLoadingMessages && selectedChatId !== 1) ? (
                         <div className={styles.loadingSpinner}>
                           <div className={styles.spinner}></div>
                           <span> Загрузка сообщений...</span>
                         </div>
                       ) : (
-                        <div className={styles.messageContainer} ref={messageContainerRef}>
-                          {userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
-                            <div key={index} className={index == 1 ? `${styles.message} first-message` : styles.message}>
-                              <div className={styles.messageContainer_user}>
-                                <span>
-                                  <b>Пользователь</b>
-                                  <div className={styles.messageContainer_user_question}>
-                                    {userQuestion.sender_question}
-                                  </div>
-                                </span>
+                        <>
+                          <div className={styles.messageContainer} ref={messageContainerRef}>
+                            {userQuestions.length === 0 && !isLoading ? (
+                              <div className={styles.messageContainer_info_wrapper}>
+                                <p className={styles.messageContainer_info}>
+                                  Отправьте сообщение боту, чтобы начать диалог
+                                </p>
                               </div>
-                              {index < botAnswers.length && (
+                            ) : (
+                              userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
+                                <div key={index} className={index === 1 ? `${styles.message} first-message` : styles.message}>
+                                  <div className={styles.messageContainer_user}>
+                                    <span>
+                                      <b>Пользователь</b>
+                                      <div className={styles.messageContainer_user_question}>
+                                        {userQuestion.sender_question}
+                                      </div>
+                                    </span>
+                                  </div>
+
+                                  {index < botAnswers.length && (
+                                    <div className={styles.messageContainer_bot_wrapper}>
+                                      <div className={styles.chatIndicatorContainer}>
+                                        <div className={styles.chatIndicatorIcon}>
+                                          <div className={styles.chatIndicator}></div>
+                                          <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
+                                        </div>
+                                      </div>
+                                      <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
+                                        <p>OverAi bot</p>
+                                        <div className={styles.messageContainer_bot_answer}>
+                                          {formatBotAnswer(botAnswers[index].answer)}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                              ))
+                            )}
+
+                            {isLoading ? (
+                              <div className={styles.message}>
+                                <div className={styles.messageContainer_user}>
+                                  <span>
+                                    <b>Пользователь</b>
+                                    <div className={styles.messageContainer_user_question}>
+                                      {bufUserQuestion}
+                                    </div>
+                                  </span>
+                                </div>
+
                                 <div className={styles.messageContainer_bot_wrapper}>
                                   <div className={styles.chatIndicatorContainer}>
                                     <div className={styles.chatIndicatorIcon}>
@@ -521,72 +659,64 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                       <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
                                     </div>
                                   </div>
-                                  <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
+                                  <div className={styles.messageContainer_bot} style={{ wordWrap: 'break-word' }}>
                                     <p>OverAi bot</p>
-                                    <div className={styles.messageContainer_bot_answer}>
-                                      {formatBotAnswer(botAnswers[index].answer)}
+                                    <div className={`${styles.messageContainer_bot_answer} ${styles.messageContainer_bot_answer_loading}`}>
+                                      {dots}
                                     </div>
                                   </div>
                                 </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
+                              </div>
+                            ) : (<></>)}
+                          </div>
+                        </>
                       )}
-
-
-
 
                       {error && (
                         <div className={`${styles.errorContainer} ${error && styles.visible}`}>
                           <span className={styles.errorText}>{error}</span>
                         </div>
                       )}
-                      <div className={styles.inputContainer}>
-                        {isLoading ? (
-                          <div className={styles.loadingSpinner}>
-                            <div className={styles.spinner}></div>
-                            <span> Генерация сообщения...</span>
-                          </div>
-                        ) : (
-                          <>
-                            <textarea
-                              rows={1}
-                              placeholder="Отправьте сообщение..."
-                              value={messageInput}
-                              onChange={(e) => setMessageInput(e.target.value)}
-                              onKeyDown={handleKeyPress}
-                            />
-                            <button onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
-                              <IconSvg path={aiButtonNavIcon} width={20} height={20} viewBoxSize={'0 0 20 20'}></IconSvg>
-                              {/* <svg viewBox="0 0 16 13" fill="none" xmlns="http://www.w3 org/2000/svg">
-                                <path d="M7.17278 1.21787C7.56956 0.633707 8.43044 0.633706 8.82722 1.21787L15.5994 11.1881C16.0503 11.8521 15.5748 12.75 14.7722 12.75H1.22785C0.425231 12.75 -0.0503452 11.8521 0.400629 11.1881L7.17278 1.21787Z" fill="white"/>
-                            </svg> */}
-                              Генерировать
-                            </button>
-                            {/* <div style={{ zIndex: '10000000' }}>
-                            <select
-                              value={selectedLanguage}
-                              onChange={handleLanguageChange}
-                              disabled={isChatSelectionDisabled}
-                              style={{
-                                height: '39px',
-                                backgroundColor: '#9b48ed',
-                                color: 'white',
-                                border: 'none',
-                                padding: '5px',
-                                borderRadius: '5px',
-                                cursor: 'pointer',
-                                outline: 'none',
-                                boxShadow: 'none'
-                              }}
-                            >
-                              <option value="RU">RU</option>
-                              <option value="ENG">ENG</option>
-                            </select>
-                          </div> */}
-                          </>
-                        )}
+
+                      {warning && (
+                        <div className={`${styles.warningContainer} ${warning && styles.visible}`}>
+                          <span className={styles.warningText}>{warning}</span>
+                        </div>
+                      )}
+
+                      <div className={styles.inputContainer_wrapper}>
+                        <div className={styles.inputContainer}>
+                          {isCreatingChatDisabled && !isLoading ? (
+                            <div className={styles.loadingSpinner}>
+                              <div className={styles.spinner}></div>
+                              <span> Создание чата...</span>
+                            </div>
+                          ) : isLoading ? (
+                            <div className={styles.loadingSpinner}>
+                              <div className={styles.spinner}></div>
+                              <span> Генерация сообщения...</span>
+                            </div>
+                          ) : (
+                            <>
+                              <textarea
+                                ref={textareaRef}
+                                rows={1}
+                                placeholder="Отправьте сообщение..."
+                                value={messageInput}
+                                onChange={(e) => setMessageInput(e.target.value)}
+                                onKeyDown={handleKeyPress}
+                              />
+                              <Button className={styles.send_message_btn} text='Генерировать' variant='newSecondary' onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
+                                <IconSvg path={aiButtonNavIcon} width={20} height={20} viewBoxSize={'0 0 20 20'}></IconSvg>
+                              </Button>
+
+                              <Button className={`${styles.send_message_btn_mobile}`} text='' variant='newSecondary' onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
+                                <IconSvg path={aiMobileButtonNavIcon} width={24} height={24} viewBoxSize={'0 0 24 24'}></IconSvg>
+                              </Button>
+
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -596,8 +726,23 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
           </div>
         </div>
       )}
+      <ChatList
+        setShowChatListForm={setShowChatListForm}
+        showChatListForm={showChatListForm}
+        chatData={chatData}
+        selectedChatId={selectedChatId!}
+        handleDragEnd={handleDragEnd}
+        handleDragOver={handleDragOver}
+        handleDragStart={handleDragStart}
+        selectChat={selectChat}
+        handleDeleteChat={handleDeleteChat}
+        handleCreateChat={handleCreateChat}
+        isCreatingChatDisabled={isCreatingChatDisabled}
+      />
+
     </div>
   );
 };
 
 export default ChatGPT;
+

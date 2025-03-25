@@ -42,6 +42,7 @@ import {
   SortDownIcon,
   SortUpIcon,
   SuccessIcon,
+  TrashIcon,
   UpdateIcon,
   UploadIcon,
   UserIcon,
@@ -58,6 +59,7 @@ import {
   LinkIcon,
   MessageConvertIcon,
   GiftIcon,
+  ListMessagesIcon,
 } from './svgIcons'
 import { pathT } from '../../types/commonComponentsTypes'
 
@@ -295,6 +297,12 @@ export const SettingsIconPath = [
 
 export const SuccessIconPath = [{ d: SuccessIcon.d1, fill: 'currentColor' }] //tick-circle
 
+export const TrashIconPath = [
+  { d: TrashIcon.d1, fill: 'currentColor' },
+  { d: TrashIcon.d2, fill: 'currentColor' },
+  { d: TrashIcon.d3, fill: 'currentColor' },
+]
+
 export const UpdateIconPath: pathT[] = [
   {
     d: UpdateIcon.d1,
@@ -399,3 +407,12 @@ export const GiftIconPath: pathT[] = [
     fillRule: 'evenodd',
   },
 ] // 0 0 38 41 gift navbar icon
+
+export const ListMessagesIconPath = [
+  { d: ListMessagesIcon.d1, fill: 'currentColor' },
+  { d: ListMessagesIcon.d2, fill: 'currentColor' },
+  { d: ListMessagesIcon.d3, fill: 'currentColor' },
+  { d: ListMessagesIcon.d4, fill: 'currentColor' },
+]
+
+
