@@ -43,8 +43,18 @@ export const FiltersButton: FC<FiltersButtonProps> = ({
   const [selectedFilter, setSelectedFilter] = useState<string | number | null>(null)
   const { menuRef, isOpen, onToggle } = useMissClickMenu()
 
-  const isNotEmptyObject = (obj: object) => {
-    return obj !== null && typeof obj === 'object' && !Array.isArray(obj) && Object.keys(obj).length > 0
+  const isNotEmptyObject = (obj: {
+    startMark?: string | number
+    endMark?: string | number
+    startDate?: string | number
+    endDate?: string | number
+    startAvg?: string | number
+    endAvg?: string | number
+    search_value?: string
+  }) => {
+    if (Object.keys(obj).length > 1) return Object.keys(obj).length > 1
+    else if (obj.search_value !== '' && Object.keys(obj).length === 1) return obj.search_value !== '' && Object.keys(obj).length === 1
+    else return false
   }
 
   const handleToggleDropDownBlock = () => {
