@@ -16,7 +16,13 @@
   font-family: $font-family-inter;
   max-width: 667px;
   width: 90%;
+  max-height: 90dvh;
+  overflow-y: scroll;
   height: auto;
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
 
   // position: relative;
 
