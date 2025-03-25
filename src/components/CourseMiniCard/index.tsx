@@ -7,8 +7,6 @@ import { schoolSelector, selectUser } from 'selectors'
 import { useAppSelector } from 'store/hooks'
 import styles from './courseMiniCard.module.scss'
 import { PeopleIconSvg } from 'components/StudentGroupMiniCard/assets/iconsComponents'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { settingsIconPath } from 'config/commonSvgIconsPath'
 import bgImage from '../StudentGroupMiniCard/assets/image.png'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { getNounDeclension } from 'utils/getNounDeclension'
@@ -30,12 +28,13 @@ export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }
     if (groups) {
       setGroups(groups?.filter(({ course_id }) => course_id === +courseId))
     }
+  }, [])
+
+  useEffect(() => {
     if (filteredGroups) {
       setStudents(filteredGroups.reduce((acc, group) => acc + group.students.length, 0))
     }
-  }, [groups, filteredGroups])
-  // const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
-  // const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students.length, 0)
+  }, [filteredGroups])
 
   const pathLink = generatePath(
     role === RoleE.Teacher ? `${Path.School}${Path.CourseStudent}` : `${Path.School}${Path.Courses}${Path.CreateCourse}student`,

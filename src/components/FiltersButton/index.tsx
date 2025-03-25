@@ -5,11 +5,7 @@ import { FilterItem } from './FilterItem'
 import styles from './filters_btn.module.scss'
 import { ComponentFilter } from '../../constants/filtersMaper'
 import { useMissClickMenu } from '../../customHooks/useMissClickMenu'
-import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import zIndex from '@mui/material/styles/zIndex'
-import { useAppDispatch } from 'store/hooks'
-import { clearFilters, removeAllFilters } from 'store/redux/filters/slice'
 
 interface FiltersButtonProps {
   filteringCategoriesList: { id: string | number; title: string }[]
@@ -61,6 +57,8 @@ export const FiltersButton: FC<FiltersButtonProps> = ({
     onToggle()
     setSelectedFilter(null)
   }
+
+  console.log(filters)
 
   return (
     <div className={styles.wrapper}>
