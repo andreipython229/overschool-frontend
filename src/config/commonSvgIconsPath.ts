@@ -15,6 +15,7 @@ import {
   teacherGroupIcon,
   tariffPlanIcon,
   peopleIcon,
+  groupsIcon,
   settingsIcon,
   arrowLeftIcon,
   arrowDownPoligon,
@@ -97,6 +98,12 @@ export const peopleIconPath: pathT[] = [
   { d: peopleIcon.d4, fill: 'url(#paint3_linear_14245_85147)' },
   { d: peopleIcon.d5, fill: 'url(#paint4_linear_14245_85147)' },
   { d: peopleIcon.d6, fill: 'url(#paint5_linear_14245_85147)' },
+]
+
+export const groupsIconPath: pathT[] = [
+  { d: groupsIcon.d1, fill: '#357EEB' },
+  { d: groupsIcon.d2, fill: '#357EEB' },
+  { d: groupsIcon.d3, fill: '#357EEB' },
 ]
 
 export const settingsIconPath: pathT[] = [
