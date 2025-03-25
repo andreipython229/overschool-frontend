@@ -11,6 +11,7 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { settingsIconPath } from 'config/commonSvgIconsPath'
 import bgImage from '../StudentGroupMiniCard/assets/image.png'
 import { studentsGroupsT } from 'types/studentsGroup'
+import { getNounDeclension } from 'utils/getNounDeclension'
 
 interface ICoursesMiniCard {
   title: string
@@ -50,11 +51,11 @@ export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }
           <p className={styles.wrapper_text_title}>{title}</p>
           <p className={styles.wrapper_text_description}>
             <PeopleIconSvg />
-            {filteredGroups?.length} групп
+            {filteredGroups?.length + ' ' + getNounDeclension(Number(filteredGroups?.length), ['группа', 'группы', 'групп'])}
           </p>
           <p className={styles.wrapper_text_description}>
             <PeopleIconSvg />
-            {quantityOfStudents} учеников
+            {quantityOfStudents + ' ' + getNounDeclension(Number(quantityOfStudents), ['ученик', 'ученика', 'учеников'])}
           </p>
         </div>
       </Link>
