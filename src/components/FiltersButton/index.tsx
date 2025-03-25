@@ -58,8 +58,6 @@ export const FiltersButton: FC<FiltersButtonProps> = ({
     setSelectedFilter(null)
   }
 
-  console.log(filters)
-
   return (
     <div className={styles.wrapper}>
       {isNotEmptyObject(filters) && (
