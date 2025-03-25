@@ -1,7 +1,7 @@
 import { useBoolean } from 'customHooks/useBoolean'
 import { Path } from 'enum/pathE'
 import { RoleE } from 'enum/roleE'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 import { schoolSelector, selectUser } from 'selectors'
 import { useAppSelector } from 'store/hooks'
@@ -22,8 +22,19 @@ export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }
   const { role } = useAppSelector(selectUser)
   const [isModalOpen, { on: close, off: open }] = useBoolean()
   const { schoolName } = useAppSelector(schoolSelector)
-  const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
-  const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students.length, 0)
+  const [quantityOfStudents, setStudents] = useState<number>()
+  const [filteredGroups, setGroups] = useState<studentsGroupsT[]>()
+
+  useEffect(() => {
+    if (groups) {
+      setGroups(groups?.filter(({ course_id }) => course_id === +courseId))
+    }
+    if (filteredGroups) {
+      setStudents(filteredGroups.reduce((acc, group) => acc + group.students.length, 0))
+    }
+  }, [groups, filteredGroups])
+  // const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
+  // const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students.length, 0)
 
   const pathLink = generatePath(
     role === RoleE.Teacher ? `${Path.School}${Path.CourseStudent}` : `${Path.School}${Path.Courses}${Path.CreateCourse}student`,
@@ -39,11 +50,11 @@ export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }
           <p className={styles.wrapper_text_title}>{title}</p>
           <p className={styles.wrapper_text_description}>
             <PeopleIconSvg />
-            {filteredGroups.length} групп
+            {filteredGroups?.length} групп
           </p>
           <p className={styles.wrapper_text_description}>
             <PeopleIconSvg />
-            {quantutyOfStudents} учеников
+            {quantityOfStudents} учеников
           </p>
         </div>
       </Link>
