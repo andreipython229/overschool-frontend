@@ -5,25 +5,22 @@ import { IconSvg } from '../common/IconSvg/IconSvg'
 import { Button } from '../common/Button/Button'
 import { AllStudentsBlockT } from '../../types/componentsTypes'
 import { useBoolean } from '../../customHooks'
-import { addStudentIconPath } from './config/svgIconsPath'
 import { Portal } from '../Modal/Portal'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { useFetchSchoolStudentsGroupingQuery, useUpdateSchoolStudentsGroupingMutation } from 'api/schoolService'
-import { ChipsComponent } from 'components/FiltersButton/Chips/chips'
-import { chipsVal } from 'components/FiltersButton/Chips/config'
-// import { useDebouncedFilter } from '../../customHooks/useDebouncedFilter'
 import { StudentsSchoolExport } from 'components/StudentsTable/StudentsExport/StudentsSchoolExport'
 import { StudentsCroupExport } from 'components/StudentsTable/StudentsExport/StudentsCroupExport'
 import { StudentsCourseExport } from 'components/StudentsTable/StudentsExport/StudentCourseExport'
 import styles from '../AllStudentsBlock/all_students_block.module.scss'
 
 import { RoleE } from 'enum/roleE'
-import { useAppSelector } from 'store/hooks'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { updateDataIcon } from '../../config/commonSvgIconsPath'
 import { AddStudentModal } from 'components/Modal/StudentLogs/AddStudentModal/AddStudentCourseModal'
 import { SearchBar } from '../SearchBar'
 import { schoolSelector } from 'selectors'
 import { PeopleIconPath } from 'assets/Icons/svgIconPath'
+import { removeAllFilters } from 'store/redux/filters/slice'
 
 export interface FilterItem {
   id: number
@@ -50,6 +47,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     const { schoolName, schoolId } = useAppSelector(schoolSelector)
     const [coursesPage, setCoursesPage] = useState<number>(1)
     const { data: courses } = useFetchCoursesQuery({ schoolName, page: coursesPage })
+    const dispatch = useAppDispatch()
 
     const { data: groupingStudents, error: groupingStudentsError } = useFetchSchoolStudentsGroupingQuery({ school_id: Number(schoolId) || 0 })
     const [updateSchoolStudentsGroupingMutation] = useUpdateSchoolStudentsGroupingMutation()
@@ -63,6 +61,11 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     const [searchTerm, setSearchTerm] = useState('')
     const onChangeInput = (value: string) => {
       setSearchTerm(value)
+    }
+
+    const clearFilters = () => {
+      dispatch(removeAllFilters())
+      setSearchTerm('')
     }
 
     const handleGroupStudents = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -141,34 +144,39 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
         {headerText === 'Все ученики платформы' && <StudentsSchoolExport />}
         {headerText === 'Все ученики группы' && <StudentsCroupExport />}
         {headerText === 'Все ученики курса' && <StudentsCourseExport />}
-        <div style={{ marginBottom: '15px' }}>
+        {/* <div style={{ marginBottom: '15px' }}>
           <ChipsComponent filterKey={filterKey} filters={filters} chipsVal={chipsVal['students']} />
-        </div>
-        <div className={styles.filter_button}>
-          <FiltersButton
-            filteringCategoriesList={filteringCategoriesList}
-            addLastActiveFilter={addLastActiveFilter}
-            addMarkFilter={addMarkFilter}
-            handleAddAvgFilter={handleAddAvgFilter}
-            removeLastActiveStartFilter={removeLastActiveStartFilter}
-            removeLastActiveEndFilter={removeLastActiveEndFilter}
-            {...filters}
-          />
-        </div>
+        </div> */}
         <div className={styles.searchBlock}>
-          <SearchBar searchTerm={searchTerm} onChangeInput={onChangeInput} />
+          <div className={styles.searchFieldBlock}>
+            <SearchBar searchTerm={searchTerm} onChangeInput={onChangeInput} />
+            <div className={styles.filter_button}>
+              <FiltersButton
+                clearFilters={clearFilters}
+                filteringCategoriesList={filteringCategoriesList}
+                addLastActiveFilter={addLastActiveFilter}
+                addMarkFilter={addMarkFilter}
+                handleAddAvgFilter={handleAddAvgFilter}
+                removeLastActiveStartFilter={removeLastActiveStartFilter}
+                removeLastActiveEndFilter={removeLastActiveEndFilter}
+                {...filters}
+              />
+            </div>
+          </div>
           <div className={styles.arrow_add_file_block} onClick={() => handleReloadTable && handleReloadTable()}>
             <IconSvg width={36} height={36} viewBoxSize="0 0 36 36" path={updateDataIcon} />
           </div>
-          <div className={invite ? styles.button_search_block_wButton : styles.button_search_block}>
-            {role != RoleE.Teacher && invite ? (
-              <Button onClick={off} text={'Добавить учеников'} variant={'newPrimary'}>
-                <IconSvg width={30} height={30} viewBoxSize={'0 0 23 23'} path={PeopleIconPath} />
-              </Button>
-            ) : (
-              <></>
-            )}
-          </div>
+          {invite && (
+            <div className={styles.button_search_block_wButton}>
+              {role != RoleE.Teacher && invite ? (
+                <Button onClick={off} text={'Добавить учеников'} variant={'newPrimary'}>
+                  <IconSvg width={30} height={30} viewBoxSize={'0 0 23 23'} path={PeopleIconPath} />
+                </Button>
+              ) : (
+                <></>
+              )}
+            </div>
+          )}
         </div>
         {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} />}</Portal>}
       </div>

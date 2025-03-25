@@ -5,8 +5,8 @@ import { Input } from 'components/common/Input/Input/Input'
 import { Button } from 'components/common/Button/Button'
 import { CheckboxBall } from 'components/common/CheckboxBall'
 import { IconSvg } from '../../../common/IconSvg/IconSvg'
-import { crossIconPath } from '../../../../config/commonSvgIconsPath'
-import { createGroupIconPath } from '../config/svgIconsPath'
+import { crossIconPath, peopleIconPath } from '../../../../config/commonSvgIconsPath'
+import { addStudentIconPath, createGroupIconPath } from '../config/svgIconsPath'
 import {
   useCreateStudentsGroupMutation,
   useCreateGroupWithoutTeacherMutation,
@@ -18,6 +18,8 @@ import { useLazyFetchAllUsersQuery } from '../../../../api/allUsersList'
 import styles from '../studentsLog.module.scss'
 import { useBoolean } from '../../../../customHooks'
 import { studentsGroupsT } from 'types/studentsGroup'
+import { PeopleIconPath } from 'assets/Icons/svgIconPath'
+import SelectInput from 'components/common/SelectInput/SelectInput'
 
 export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, courseId }) => {
   const schoolName = window.location.href.split('/')[4]
@@ -84,15 +86,19 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
     setShowModal(false)
   }
 
+  const handleClose = () => {
+    setShowModal(false)
+  }
+
   return (
     <form onSubmit={handleCreateGroup} className={styles.container}>
-      <div onClick={() => setShowModal(false)} className={styles.container_closed}>
-        <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
+      <div onClick={handleClose} className={styles.container_closed}>
+        <IconSvg width={50} height={50} viewBoxSize="0 0 58 58" path={crossIconPath} />
       </div>
-      <div className={styles.addGroup}>
+      <div className={styles.addStudent}>
         <div className={styles.container_header}>
-          <IconSvg width={60} height={49} viewBoxSize="0 0 60 49" path={createGroupIconPath} />
-          <span className={styles.container_header_title}>Создание группы</span>
+          <IconSvg width={100} height={100} viewBoxSize="0 0 24 24" path={peopleIconPath} />
+          <span className={styles.container_header_title}>Создание новой группы</span>
         </div>
         <div className={styles.addGroup_input}>
           <span>Введите название группы:</span>
@@ -109,7 +115,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
             </div>
           )}
           {withTeacher ? (
-            <div>
+            <div style={{ position: 'relative', zIndex: '20' }}>
               <span>Выберите ментора из списка:</span>
               <Select
                 required
@@ -131,7 +137,7 @@ export const CreateGroupModal: FC<CreateGroupModalPropsT> = ({ setShowModal, cou
           <Button
             type={'submit'}
             disabled={!groupName || isLoading || isLoadingNoT || (withTeacher && !teacher_id)}
-            variant={!groupName || isLoading || isLoadingNoT || (withTeacher && !teacher_id) ? 'disabled' : 'primary'}
+            variant={!groupName || isLoading || isLoadingNoT || (withTeacher && !teacher_id) ? 'newDisabled' : 'newPrimary'}
             text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Создать группу'}
           />
         </div>

@@ -2,7 +2,6 @@ import { memo, useState, FC, useEffect } from 'react'
 
 import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
 import { Input } from '../../../components/common/Input/Input/Input'
-import { CoursesMiniCard } from './CoursesMiniCard'
 import { useDebouncedFilter } from '../../../customHooks'
 import { ToggleButtonDropDown } from '../../../components/common/ToggleButtonDropDown'
 import { searchIconPath } from '../../../config/commonSvgIconsPath'
@@ -11,6 +10,7 @@ import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 
 import styles from '../courses_stats.module.scss'
+import { CourseMiniCard } from 'components/CourseMiniCard'
 
 export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, courses }) => {
   const { userId } = useAppSelector(selectUser)
@@ -26,7 +26,7 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
       <div className={styles.container_courses}>
         <h4>Курсы</h4>
       </div>
-      {isOpen && (
+      {isOpen ? (
         <>
           <Input name="" type="search" value={term} onChange={handleChangeTerm} placeholder="Поиск по курсам">
             <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
@@ -35,10 +35,19 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
             {filteredData
               ?.filter(({ course_id }) => course_id !== 247 || userId === 154)
               .map(({ photo, name, course_id }) => (
-                <CoursesMiniCard key={course_id} groups={groups} photo={photo} name={name} courseId={course_id} />
+                <CourseMiniCard key={course_id} groups={groups} title={name} courseId={course_id} />
               ))}
           </div>
         </>
+      ) : (
+        <div className={styles.courses_card_block}>
+          {filteredData
+            .slice(0, 3)
+            ?.filter(({ course_id }) => course_id !== 247 || userId === 154)
+            .map(({ photo, name, course_id }) => (
+              <CourseMiniCard key={course_id} groups={groups} title={name} courseId={course_id} />
+            ))}
+        </div>
       )}
       <div className={styles.container_courses_dropdown}>
         <ToggleButtonDropDown isOpen={isOpen} nameOfItems={'курсы'} handleToggleHiddenBlocks={handleToggleHiddenBlocks} />

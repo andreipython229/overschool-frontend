@@ -54,7 +54,7 @@
   width: 60px;
   height: 62px;
   text-align: center;
-  cursor: pointer;
+  position: relative;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin-bottom: 1rem;
@@ -64,8 +64,10 @@
   }
 
   svg {
+    z-index: 10;
     align-self: center;
     transition: all 1.2s ease-in-out;
+
     &:hover {
       transform: rotate(360deg);
     }
@@ -146,8 +148,17 @@
   }
 }
 
+.searchFieldBlock {
+  position: relative;
+  width: 100%;
+}
+
 .filter_button {
-  margin-bottom: 20px;
+  z-index: 50;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
 }
 
 .searchBlock {

@@ -190,42 +190,6 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
     })
   }
 
-  // const handleSendPermissions = async () => {
-  //   if (currentGroup) {
-  //     const requestBody: requestData = {
-  //       role: 'Student',
-  //       course_id: currentGroup.course_id,
-  //       name: currentGroup.name,
-  //       students: currentGroup.students,
-  //     }
-  //     let count = 0
-  //     students.map(async student => {
-  //       await registrationAdmin({
-  //         email: student.email,
-  //         first_name: student.first_name,
-  //         last_name: student.last_name,
-  //         patronymic: student.patronymic,
-  //       })
-  //         .unwrap()
-  //         .then(async (data: any) => {
-  //           count = count + 1
-  //           requestBody.students = [...requestBody.students, data.user_id]
-  //           if (count === students.length) {
-  //             await addStudents({ data: requestBody, schoolName, id: Number(currentGroup.group_id) })
-  //               .unwrap()
-  //               .then(async (accessdata: any) => {
-  //                 setShowModal()
-  //               })
-  //               .catch(error => {
-  //                 setMessage(parse(error.data).toString())
-  //                 onToggle()
-  //               })
-  //           }
-  //         })
-  //     })
-  //   }
-  // }
-
   const handleSubmitForm = () => {
     if (groupsList) {
       const validatedStudents: { id: number; email: string }[] = []
