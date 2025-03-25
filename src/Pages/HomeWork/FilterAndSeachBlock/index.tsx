@@ -1,18 +1,13 @@
-import React, { ChangeEvent, FC, memo } from 'react'
-
-import { dropDownListFilterHomework, initialDropDownList } from 'constants/dropDownList'
-import { SelectDropDown } from '../../../components/SelectDropDown/SelectDropDown'
+import { FC, memo } from 'react'
+import { dropDownListFilterHomework } from 'constants/dropDownList'
 import { FiltersButton } from '../../../components/FiltersButton'
-// import { dropDownListFilter } from '../../../constants/dropDownList'
-import { Input } from '../../../components/common/Input/Input/Input'
-import { IconSvg } from '../../../components/common/IconSvg/IconSvg'
-import { searchIconPath } from '../../../config/commonSvgIconsPath'
 import { chipsVal } from 'components/FiltersButton/Chips/config'
-
 import styles from '../home_work.module.scss'
 import { ChipsComponent } from 'components/FiltersButton/Chips/chips'
 import { StudentsHomeworkExport } from '../../../components/StudentsTable/StudentsExport/StudentHomeworkExport'
 import { SearchBar } from 'components/SearchBar'
+import { useAppDispatch } from 'store/hooks'
+import { removeAllFilters } from 'store/redux/filters/slice'
 
 type FilterAndSearchBlockT = {
   termForFilter: string
@@ -43,6 +38,11 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
     filters,
     ...restFilters
   }) => {
+    const dispatch = useAppDispatch()
+
+    const clearFilters = () => {
+      dispatch(removeAllFilters())
+    }
     return (
       <>
         <p className={styles.homework_header}>Входящие работы от учеников</p>
@@ -51,8 +51,8 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
         <ChipsComponent filterKey="homework" filters={filters} chipsVal={chipsVal['homework']} />
         <div className={styles.container}>
           <div className={styles.container_1}>
-            {/* <SelectDropDown dropdownData={initialDropDownList} onChangeStatus={onChangeStatus} /> */}
             <FiltersButton
+              clearFilters={clearFilters}
               onChangeStatus={onChangeStatus}
               filteringCategoriesList={dropDownListFilterHomework}
               addLastActiveFilter={addLastActiveFilter}
@@ -63,9 +63,6 @@ export const FilterAndSearchBlock: FC<FilterAndSearchBlockT> = memo(
             />
           </div>
           <SearchBar searchTerm={termForFilter} onChangeInput={handleChangeTerm} />
-          {/* <Input name="" type="search" value={termForFilter} onChange={handleChangeTerm} placeholder="Поиск по ФИО и email">
-            <IconSvg width={20} height={20} viewBoxSize="0 0 20 20" path={searchIconPath} />
-          </Input> */}
         </div>
       </>
     )

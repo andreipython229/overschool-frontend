@@ -80,7 +80,7 @@ export const StudentsPerCourse: FC = () => {
   }, [isTablesHeaderFetching])
 
   // Поиск по студентам курса
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState<string>()
 
   const updateStudents = (value: string) => {
     setSearchTerm(value)

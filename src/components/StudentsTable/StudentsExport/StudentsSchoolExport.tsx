@@ -30,8 +30,8 @@ export const StudentsSchoolExport: FC = () => {
   }
 
   return (
-    <>
-      <Button onClick={handleExport} className={styles.students_group_header_export_button} text={''}>
+    <div style={{ marginBottom: '1rem' }}>
+      <Button onClick={handleExport} variant='newPrimary' className={styles.students_group_header_export_button} text={''}>
         Скачать таблицу с учениками
         {isFetching && <SimpleLoader style={{ height: '12px', width: '12px' }} loaderColor="white" />}
       </Button>
@@ -40,6 +40,6 @@ export const StudentsSchoolExport: FC = () => {
           <LimitModal message="Произошла ошибка при формировании таблицы, попробуйте еще раз." setShowLimitModal={onToggle} />
         </Portal>
       )}
-    </>
+    </div>
   )
 }

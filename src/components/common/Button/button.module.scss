@@ -721,6 +721,7 @@
   background: transparent;
   border: 1px solid #747474;
   @include font(600, 20px, 23.87px);
+  cursor: not-allowed !important;
   &:hover:not(:disabled) {
     color: #747474;
     background: #7474742a;
