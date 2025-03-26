@@ -24,10 +24,10 @@ export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }
   const [filteredGroups, setGroups] = useState<studentsGroupsT[]>()
 
   useEffect(() => {
-    if (groups) {
+    if (groups && !Array.isArray(filteredGroups)) {
       setGroups(groups?.filter(({ course_id }) => course_id === +courseId))
     }
-  }, [])
+  }, [groups])
 
   useEffect(() => {
     if (filteredGroups) {
@@ -58,6 +58,7 @@ export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }
         </div>
       </Link>
       <div className={`${styles.wrapper_shadow}`} />
+      {!Array.isArray(filteredGroups) && <div className={styles.blurLoad} />}
     </div>
   )
 }
