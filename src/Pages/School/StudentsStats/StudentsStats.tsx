@@ -84,7 +84,6 @@ export const StudentsStats = () => {
               style={dataToRender.length < 3 ? { justifyContent: 'flex-start' } : { justifyContent: 'space-between' }}
             >
               {dataToRender?.map(({ name, students, group_id, type }: studentsGroupsT) => {
-                const count = students?.length
                 return (
                   <StudentGroupMiniCard
                     active={activeGroup === group_id}
@@ -92,7 +91,7 @@ export const StudentsStats = () => {
                     id={group_id as number}
                     click={handleClick}
                     title={name}
-                    countStudent={count}
+                    countStudent={students?.length}
                     type={type}
                     courseId={Number(courseId)}
                   />

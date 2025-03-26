@@ -19,7 +19,6 @@ interface ICoursesMiniCard {
 
 export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }) => {
   const { role } = useAppSelector(selectUser)
-  const [isModalOpen, { on: close, off: open }] = useBoolean()
   const { schoolName } = useAppSelector(schoolSelector)
   const [quantityOfStudents, setStudents] = useState<number>()
   const [filteredGroups, setGroups] = useState<studentsGroupsT[]>()
