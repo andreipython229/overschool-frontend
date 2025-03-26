@@ -102,8 +102,11 @@
     gap: 0.625rem;
     transition: all ease-in 0.2s;
     cursor: pointer;
+    overflow: hidden;
+    width: 100%;
 
     &_title {
+      width: 100%;
       font-size: 1.25rem;
       font-style: normal;
       font-weight: 500;
@@ -111,6 +114,8 @@
       font-family: 'SFPROBold';
       color: var(--White, #fff);
       transition: all ease-in 0.2s;
+      text-wrap: nowrap;
+      text-overflow: ellipsis;
     }
 
     &_description {
