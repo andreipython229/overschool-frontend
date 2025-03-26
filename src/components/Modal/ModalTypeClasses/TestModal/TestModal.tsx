@@ -15,7 +15,7 @@ import { SimpleLoader } from '../../../Loaders/SimpleLoader'
 import styles from '../../Modal.module.scss'
 import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 
-export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLessonIdAndType }) => {
+export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLessonIdAndType, insertAfterOrder, setInsertAfterOrder }) => {
   const formik = useFormik({
     initialValues: {
       percent: 0,
@@ -47,6 +47,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
     attempt_limit: false,
     attempt_count: 0,
     setLessonIdAndType,
+    insertAfterOrder,
   })
 
   const handleCreateTestName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +56,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
 
   const closedAll = () => {
     setType(null as keyof object)
+    setInsertAfterOrder(null)
   }
   const goToBack = () => {
     setType('lessonsModal' as keyof object)
