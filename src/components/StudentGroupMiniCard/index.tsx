@@ -24,8 +24,6 @@ export const StudentGroupMiniCard: FC<StudentsGroupPropsT> = ({ title, type, cou
       school_name: schoolName,
     }),
   )
-
-  console.log(`active ${id}?:`, active)
   return (
     <>
       {isModalOpen && (
@@ -34,9 +32,7 @@ export const StudentGroupMiniCard: FC<StudentsGroupPropsT> = ({ title, type, cou
         </Portal>
       )}
       <div
-        className={`${active ? styles.active : ''} ${styles.wrapper}`}
-        style={{ background: `url(${bgImage}) rgb(119, 119, 119) 50% / cover no-repeat` }}
-        // onClick={() => click && click(id)}
+        className={styles.wrapper}
       >
         <Link to={pathLink} style={{ zIndex: 20 }}>
           <div className={styles.wrapper_text}>

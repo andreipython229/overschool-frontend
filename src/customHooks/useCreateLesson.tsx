@@ -22,6 +22,7 @@ type useCreateLessonT = {
   attempt_count?: number
   balls_per_answer?: number
   lessonId?: number
+  insertAfterOrder?: number
 }
 
 type UseCreateLessonReturnT = {
@@ -63,6 +64,7 @@ export const useCreateLesson = ({
   attempt_limit,
   attempt_count,
   balls_per_answer,
+  insertAfterOrder,
 }: useCreateLessonT): UseCreateLessonReturnT => {
   const [nameLesson, setNameLesson] = useState<string>('')
   const schoolName = window.location.href.split('/')[4]
@@ -80,6 +82,7 @@ export const useCreateLesson = ({
     const createLessonData: createLessonDataT = {
       name: nameLesson,
       section: section_id,
+      order: insertAfterOrder !== undefined ? insertAfterOrder + 1 : 1
     }
     if (description) {
       createLessonData['description'] = description
@@ -128,10 +131,17 @@ export const useCreateLesson = ({
         const newModulesList = [...modulesList]
         const moduleIndexToUpdate = newModulesList.findIndex(module => module.section === section_id)
         const moduleToUpdate = { ...newModulesList[moduleIndexToUpdate] }
-        const updatedModule = Object.assign({}, moduleToUpdate, {
-          lessons: [...moduleToUpdate.lessons, newLessonData],
-        })
-        newModulesList[moduleIndexToUpdate] = updatedModule
+        let updatedLessons = [...moduleToUpdate.lessons] // место куда добавить урок по order
+        //находим order после которого вставлять
+        let insertIndex = updatedLessons.findIndex(lesson => lesson.order > (insertAfterOrder ?? - 1))
+        if(insertAfterOrder === undefined || insertIndex === -1) insertIndex = 0 //если order не найден, то урок вставляем в начало
+        updatedLessons.splice(insertIndex,0, newLessonData) //вставляем урок в нужное место
+        updatedLessons = updatedLessons.map((lesson, index) => ({
+          ...lesson,
+          order: index + 1,
+        }))
+
+        newModulesList[moduleIndexToUpdate] = {...moduleToUpdate, lessons: updatedLessons} //обновили модуль со списком урока
         if (setModulesList) {
           setModulesList(newModulesList)
         }

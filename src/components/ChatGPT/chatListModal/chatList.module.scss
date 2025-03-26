@@ -1,0 +1,144 @@
+@import '../../../scss/variable';
+@import '../../../scss/mixin.scss';
+
+.modal {
+    &_background {
+        @include display(flex, column);
+    }
+
+    &_close {
+        width: 100%;
+        @include display(flex, row, end);
+
+        &_btn {
+            background-color: #fff;
+
+            &_cross {
+                clip-path: polygon(7% 0, 0 7%, 43% 50%, 0 93%, 7% 100%, 50% 57%, 93% 100%, 100% 93%, 57% 50%, 100% 8%, 93% 0, 50% 43%);
+                height: 20px;
+                width: 20px;
+                background-color: #332F36;
+            }
+
+            &:hover:not(:disabled) {
+                background-color: #fff;
+            }
+        }
+    }
+
+    &_header_text {
+        font-weight: 700 !important;
+        font-size: 20px !important;
+        font-family: 'SF Pro Display';
+    }
+
+    &_list {
+        @include display(flex, column);
+        padding: 10px;
+        gap: 8px;
+        margin-top: 15px;
+
+        .createChatButtonModal {
+            @include display(flex, row, center, center);
+            background-color: #F0F0F0;
+            border-radius: 16px;
+            border: none;
+            padding: 15px !important;
+            margin: 0 20px;
+            font-size: 16px;
+            color: #332F36;
+            font-weight: 500;
+            height: 50px;
+            font-family: 'SF Pro Display';
+            
+
+            &:disabled {
+                width: calc(100% - 40px);
+                padding: 15px !important;
+                background-color: #ddd;
+            }
+
+            @media screen and (max-width: 480px) {
+                margin: 0 20px;
+            }
+        }
+
+        &_scroll {
+            @include display(flex, column, start);
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            box-sizing: border-box;
+
+            &::-webkit-scrollbar {
+                width: 6px;
+                background-color: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                width: 6px;
+                border-radius: 4px;
+                height: 8px;
+                background-color: #357EEB;
+            }
+        }
+
+        .chatListItemWrapper {
+            @include display(flex, row, space-between, center);
+            background-color: #F0F0F0;
+            border-radius: 16px !important;
+            margin: 0 14px 0 20px;
+            // margin: 0 20px;
+            position: relative;
+
+            .chatListItem {
+                @include display(flex, row, start, center);
+                height: 100%;
+                padding: 15px;
+                width: 100%;
+                border-radius: 16px !important;
+
+                span {
+                    // font-weight: 500;
+                    font-family: 'SF Pro Display';
+                }
+            }
+
+            .activeChat {
+                background-color: #357EEB;
+                height: 100%;
+            }
+
+            .deleteChatBtn {
+                position: absolute;
+                @include display(flex, row, center, center);
+                aspect-ratio: 1 / 1;
+                border: none;
+                height: 50px;
+                border-radius: 16px;
+                background-color: transparent;
+                right: 5px;
+
+                svg path {
+                    fill: #858D9D;
+                }
+            }
+
+            .activeDeleteChatBtn {
+                svg path {
+                    fill: #332F36;
+                }
+            }
+
+            @media screen and (max-width: 480px) {
+                margin: 0 14px 0 20px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            margin-top: 15px;
+        }
+
+
+    }
+}

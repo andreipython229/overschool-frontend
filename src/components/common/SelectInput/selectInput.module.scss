@@ -24,10 +24,13 @@
   }
 
   &_btn {
+    &:hover {
+      border: 1px solid #357eeb;
+    }
     position: relative;
-    border: 0.1rem solid #c6c3c3;
+    border: 1px solid #332f36;
     background: #ffffff;
-    border-radius: 4px;
+    border-radius: 16px;
     width: 100%;
     padding: 8px 0 8px 9px;
     text-align: left;
@@ -44,16 +47,6 @@
     }
   }
 
-  & svg {
-    @include position_t_r(absolute, 11px, 20px, 2);
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      // top: 65%;
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      // top: 65%;
-    }
-  }
-
   & li {
     cursor: pointer;
     padding: 11px;
@@ -67,10 +60,11 @@ button:hover {
   cursor: pointer;
 }
 .options {
-  @include position_t_l(absolute, 40px, 0, 30);
-  border: 1px solid #e5e7eb;
+  @include position_t_l(absolute, 100%, 0, 30);
+  border: 1px solid #c9ccd0;
   border-radius: 7px;
   width: 100%;
+  box-shadow: 0px 0px 8px 0px #3241954D;
   background: #ffffff;
   // display: none;
   list-style: none;
@@ -90,4 +84,14 @@ button:hover {
 
 .hidden {
   display: none;
+}
+
+.svgIcon {
+  @include position_t_r(absolute, 50%, 20px, 2);
+  transform: translateY(-50%);
+
+  &_open {
+    @include position_t_r(absolute, 50%, 20px, 2);
+    transform: translateY(-50%) rotate(180deg);
+  }
 }

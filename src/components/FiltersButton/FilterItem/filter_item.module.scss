@@ -9,14 +9,15 @@
   text-transform: initial;
   color: #332f36;
   white-space: nowrap;
-  width: 175px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .filter_item_container {
-  padding: 12px 16px;
+  padding: 0 12px;
   cursor: pointer;
   height: 24px;
-  width: auto;
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -31,13 +32,13 @@
 
   &::after {
     justify-content: center;
-  align-items: center;
+    align-items: center;
     content: "";
     position: absolute;
-    width: 170px;
+    width: 90%;
     bottom: -8px;
-    left: 16px;
-    right: 0;
+    left: 5%;
+    right: 5%;
     height: 0.25px;
     background-color: rgb(128, 128, 128);
     transform: translateY(50%);

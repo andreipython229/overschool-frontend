@@ -15,14 +15,14 @@ interface SearchBarProps {
   onChangeInput: (value: string) => void
 }
 
-export const SearchBar: FC<SearchBarProps & { children?: React.ReactNode }> = ({ searchTerm, onChangeInput, children }) => {
+export const SearchBar: FC<SearchBarProps> = ({ searchTerm, onChangeInput }) => {
   return (
     <div className={styles.property_1}>
       <div className={styles.sorting}>
         <div className={styles.frame}>
           <div className={styles.search_icon}>
-            <IconSvg width={30} height={20} viewBoxSize="0 0 30 30" path={studentsSearchPath}>
-              <SearchIcon/>
+            <IconSvg width={30} height={30} viewBoxSize="0 0 30 30" path={studentsSearchPath}>
+              <SearchIcon />
             </IconSvg>
           </div>
           <TextField
@@ -45,7 +45,6 @@ export const SearchBar: FC<SearchBarProps & { children?: React.ReactNode }> = ({
             }}
             fullWidth
           />
-          <div className={styles.filters_container}>{children}</div>
         </div>
       </div>
     </div>
