@@ -1,31 +1,37 @@
 @import '../../scss/mixin.scss';
 .container {
   @include display(flex, row, space-between, center);
+  position: relative;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 10px;
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding-bottom: 3%;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
-   max-width: 100vw;
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
+    max-width: 100vw;
   }
 
   &_1 {
-  @include display(flex, row, space-between, center);
-  gap: 10px;
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
-    padding-bottom: 3%;
-  }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
-    padding-bottom: 3%;
-  }
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    @include display(flex, row, space-between, center);
+    gap: 10px;
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      padding-bottom: 3%;
+    }
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
+      padding-bottom: 3%;
+    }
   }
 
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     flex-direction: column;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     flex-direction: column;
   }
 }
