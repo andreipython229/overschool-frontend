@@ -2,7 +2,6 @@ import { ChangeEventHandler, FC, MouseEventHandler } from 'react'
 import { Input } from '../../../../common/Input/Input/Input'
 import styles from '../../studentsLog.module.scss'
 
-
 type AddNewStudentsT = {
   studentEmail: string
   studentName: string
@@ -40,7 +39,7 @@ export const AddNewStudents: FC<AddNewStudentsT> = ({
           </button>
         )}
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
         <Input value={studentEmail} name={'email'} type={'text'} onChange={onChangeEmail(id)} placeholder={'Email ученика'} required />
         <Input value={studentLastName} name={'last_name'} type={'text'} onChange={onChangeLastName(id)} placeholder={'Фамилия'} />
         <Input value={studentName} name={'first_name'} type={'text'} onChange={onChangeName(id)} placeholder={'Имя'} />

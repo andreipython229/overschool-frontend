@@ -22,6 +22,7 @@ import { checkCourseT } from '../../../../types/CoursesT'
 import { groupCourseAccessT } from '../../../../types/studentsGroup'
 import { useFetchCoursesGroupsQuery } from '../../../../api/coursesServices'
 import setting from '../../../../assets/img/course/setting.svg'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, groupId, courseId }) => {
   const schoolName = window.location.href.split('/')[4]
@@ -239,66 +240,62 @@ export const SettingsGroupModal: FC<SettingsGroupModalPropsT> = ({ closeModal, g
     }
   }
 
-  if (!isSuccess) {
-    return <SimpleLoader />
+  if (!isSuccess && !data) {
+    return <LoaderLayout />
   }
 
   return (
-    <>
-      {isSuccess && data && (
-        <div className={styles.container}>
-          <div className={styles.container_decoration_shadow}></div>
+    <div className={styles.container}>
+      <div className={styles.container_decoration_shadow}></div>
 
-          <div onClick={closeModal} className={styles.container_closed}>
-            <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
-          </div>
-          <div className={styles.groupSetting}>
-            <div className={styles.container_header}>
-              <img src={setting} alt="" />
-              <span className={styles.container_header_title}>Настройки группы </span>
-            </div>
-
-            <MainSettingsGroup
-              course={courseId}
-              groupType={groupType}
-              changeTeacher={setCurrentTeacher}
-              teacher={currentTeacher as number}
-              strongSubsequence={strongSubsequence}
-              overAiLock={overAiLock}
-              certificate={certificate}
-              blockHomework={blockHomework}
-              submitHomework={submitHomework}
-              submitTest={submitTest}
-              successTest={successTest}
-              download={download}
-              setGroupName={setTextNameField}
-              title={textNameField}
-              duration={duration}
-              changeDuration={handleDuration}
-              isLimited={isLimited}
-              handlerIsLimited={handlerIsLimited}
-              deleteGroup={handleDeleteGroup}
-              isLoading={isLoading}
-              isError={isError}
-              groupLessons={groupLessons}
-              setGroupLessons={setGroupLessons}
-              handleAccessSetting={handleAccessSetting}
-              handlerHomeworkCheck={handlerHomeworkCheck}
-              handlerSubsequence={handlerSubsequenceCheck}
-              handlerHomeworkSubmit={handlerHomeworkSubmit}
-              handlerTestSubmit={handlerTestSubmit}
-              handlerTestSuccess={handlerTestSuccess}
-              handlerDownload={handlerDownload}
-              handlerLockOverAi={handlerLockOverAi}
-              handleCertificate={handleCertificate}
-              handleSave={handleSaveGroupSettings}
-              checkCourses={checkCourses}
-              setCheckCourses={setCheckCourses}
-              handleNextCourses={handleNextCourses}
-            />
-          </div>
+      <div onClick={closeModal} className={styles.container_closed}>
+        <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
+      </div>
+      <div className={styles.groupSetting}>
+        <div className={styles.container_header}>
+          <img src={setting} alt="" />
+          <span className={styles.container_header_title}>Настройки группы </span>
         </div>
-      )}
-    </>
+
+        <MainSettingsGroup
+          course={courseId}
+          groupType={groupType}
+          changeTeacher={setCurrentTeacher}
+          teacher={currentTeacher as number}
+          strongSubsequence={strongSubsequence}
+          overAiLock={overAiLock}
+          certificate={certificate}
+          blockHomework={blockHomework}
+          submitHomework={submitHomework}
+          submitTest={submitTest}
+          successTest={successTest}
+          download={download}
+          setGroupName={setTextNameField}
+          title={textNameField}
+          duration={duration}
+          changeDuration={handleDuration}
+          isLimited={isLimited}
+          handlerIsLimited={handlerIsLimited}
+          deleteGroup={handleDeleteGroup}
+          isLoading={isLoading}
+          isError={isError}
+          groupLessons={groupLessons}
+          setGroupLessons={setGroupLessons}
+          handleAccessSetting={handleAccessSetting}
+          handlerHomeworkCheck={handlerHomeworkCheck}
+          handlerSubsequence={handlerSubsequenceCheck}
+          handlerHomeworkSubmit={handlerHomeworkSubmit}
+          handlerTestSubmit={handlerTestSubmit}
+          handlerTestSuccess={handlerTestSuccess}
+          handlerDownload={handlerDownload}
+          handlerLockOverAi={handlerLockOverAi}
+          handleCertificate={handleCertificate}
+          handleSave={handleSaveGroupSettings}
+          checkCourses={checkCourses}
+          setCheckCourses={setCheckCourses}
+          handleNextCourses={handleNextCourses}
+        />
+      </div>
+    </div>
   )
 }

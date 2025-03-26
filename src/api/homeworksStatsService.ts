@@ -1,9 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { homeworksStatsT } from '../types/homeworkT'
-import { baseQuery } from './baseApi'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
-import {studentsTableStatsT} from "../types/courseStatT";
 import { baseQueryWithReauth } from './baseQueryReauth';
 
 export const homeworksStatsService = createApi({
@@ -43,4 +41,4 @@ export const homeworksStatsService = createApi({
   }),
 })
 
-export const { useFetchHomeworkStatsQuery, useLazyFetchHomeworkStatsQuery, useFetchAllHomeworkStatsQuery, useLazyFetchAllStudentsHomeworkQuery } = homeworksStatsService
+export const { useFetchHomeworkStatsQuery, useLazyFetchHomeworkStatsQuery, useFetchAllHomeworkStatsQuery, useLazyFetchAllHomeworkStatsQuery, useLazyFetchAllStudentsHomeworkQuery } = homeworksStatsService

@@ -21,6 +21,7 @@ import { useAppSelector } from 'store/hooks'
 import { selectUser } from '../../../selectors'
 import { LimitModal } from '../../../components/Modal/LimitModal/LimitModal'
 import { StudentGroupMiniCard } from 'components/StudentGroupMiniCard'
+import { Button } from 'components/common/Button/Button'
 // import {useFetchCourseQuery} from "../../../api/coursesServices";
 
 export const StudentsStats = () => {
@@ -54,17 +55,22 @@ export const StudentsStats = () => {
 
           {headerUserRoleName[role] === 'Администратор' && (
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <div onClick={offAddGroupModal} className={styles.students_group_header_add_group_btn}>
-                <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} />
-                Создать новую группу
-              </div>
-              <div
-                onClick={() => navigate(generatePath(Path.School + Path.Settings + 'employees/', { school_name: school }))}
-                className={styles.students_group_header_add_teacher_btn}
+              <Button
+                variant="newPrimary"
+                text="Создать новую группу"
+                onClick={offAddGroupModal}
+                // className={styles.students_group_header_add_group_btn}
               >
-                <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={tableBallsStarPath} />
-                Добавить менторов в школу
-              </div>
+                {/* <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={createGroupIconPath} /> */}
+              </Button>
+              <Button
+                variant="newPrimary"
+                text="Добавить менторов в школу"
+                onClick={() => navigate(generatePath(Path.School + Path.Settings + 'employees/', { school_name: school }))}
+                // className={styles.students_group_header_add_teacher_btn}
+              >
+                {/* <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={tableBallsStarPath} /> */}
+              </Button>
             </div>
           )}
         </div>

@@ -38,7 +38,7 @@ export const slice = createSlice({
       }
     },
     removeAllFilters: state => {
-      state = {}
+      return {}
     },
   },
 })

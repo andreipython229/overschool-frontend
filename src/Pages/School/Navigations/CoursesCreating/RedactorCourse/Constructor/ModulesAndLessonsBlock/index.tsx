@@ -11,7 +11,7 @@ import { Reorder } from 'framer-motion'
 import stylesModules from './ModulesBlock/modules_block.module.scss'
 
 export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
-  ({ setType, modulesList, courseName, setModulesList, setLessonIdAndType, isLoading, baseLessonId }) => {
+  ({ setType, modulesList, courseName, setModulesList, setLessonIdAndType, isLoading, baseLessonId, setInsertAfterOrder }) => {
     const [changeOrder, { isLoading: changingOrder }] = useChangeModuleOrderMutation()
     const debounceBlockOrder = useDebounceFunc(changeOrder, 2000)
     const [selectedLessonId, setSelectedLessonId] = useState<number>()
@@ -88,6 +88,7 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
                     selectedLessonId={selectedLessonId}
                     setSelectedLessonId={setSelectedLessonId}
                     onOpenModalModule={handleOpenModalModule}
+                    setInsertAfterOrder={setInsertAfterOrder}
                   />
                 )
               })}
