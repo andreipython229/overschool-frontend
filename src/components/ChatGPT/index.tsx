@@ -7,15 +7,13 @@ import {
   useLazyFetchLatestMessagesQuery,
   useCreateChatMutation,
   useLazyFetchLatestChatsQuery,
-  useLazyFetchWelcomeMessageQuery,
-  useUpdateWelcomeMessageMutation,
   useDeleteChatMutation,
   useAssignChatOrderMutation,
   CreateChatPayload,
 } from '../../api/chatgptService'
 import OverAiIcon from '../../assets/img/common/newIconModal.svg'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { CloseIconPath, ListMessagesIconPath } from 'assets/Icons/svgIconPath'
+import { ListMessagesIconPath } from 'assets/Icons/svgIconPath'
 import { aiButtonNavIcon, messageNavIcon, userNavIcon, aiMobileButtonNavIcon } from './svg/svgIconPath'
 import styles from './chatgpt.module.scss'
 import { log } from 'console'

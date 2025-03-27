@@ -828,9 +828,9 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                       <div className={isPublished ? styles.publicBlockEdit_mark : `${styles.publicBlockEdit_mark} ${styles.unpublished}`}>
                         <PublishedMark isPublished={isPublished}/>
                       </div>
-                      <div className={styles.publicBlockEdit_publish_switch}>
+                      {/* <div className={styles.publicBlockEdit_publish_switch}>
                         <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
-                      </div>
+                      </div> */}
                     </div>
                   </AnimatePresence>
                 <Button onClick={() => setIsEditing(true)} variant={'newPrimary'} text={'Редактировать'}/>
