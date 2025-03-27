@@ -33,6 +33,7 @@ export const StudentGroupMiniCard: FC<StudentsGroupPropsT> = ({ title, type, cou
       )}
       <div
         className={styles.wrapper}
+        style={{ background: `url(${bgImage}) rgb(119, 119, 119) 50% / cover no-repeat` }}
       >
         <Link to={pathLink} style={{ zIndex: 20 }}>
           <div className={styles.wrapper_text}>

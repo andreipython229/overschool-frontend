@@ -70,10 +70,7 @@ export const StudentsStats = () => {
       {dataToRender && (
         <div>
           <div className={styles.container_groups}>
-            <div
-              className={styles.groups_card_block}
-              style={dataToRender.length < 3 ? { justifyContent: 'flex-start' } : { justifyContent: 'space-between' }}
-            >
+            <div className={styles.groups_card_block}>
               {dataToRender?.map(({ name, students, group_id, type }: studentsGroupsT) => {
                 return (
                   <StudentGroupMiniCard

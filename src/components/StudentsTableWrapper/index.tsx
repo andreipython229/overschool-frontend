@@ -223,6 +223,8 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
     useEffect(() => {
       !isStudentModalOpen && setSelectedStudentId(null)
     }, [isStudentModalOpen])
+    let lastEmail: string | null = null;
+    let lastColor = '#EDF1FA';
 
     return (
       <>
@@ -263,6 +265,10 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                   rows
                     .sort((a: any, b: any) => (a['Email'] > b['Email'] ? 1 : -1)) // Сортировка по email
                     .map((row: any, rowIndex: number) => {
+                      if (row.Email !== lastEmail) {
+                        lastColor = lastColor === '#EDF1FA' ? 'white' : '#EDF1FA';
+                      }
+                      lastEmail = row.Email;
                       const email = row['Email'] as string
                       const name = row['Имя'].text as string // Получаем текст из объекта с именем
                       const rowspan = rows.filter(r => r['Email'] === email).length
@@ -270,7 +276,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                       return (
                         <tr
                           key={rowIndex}
-                          style={row['Дата удаления из группы'] !== ' ' ? { backgroundColor: '#fcf5f5' } : {}}
+                          style={{ backgroundColor: lastColor }}
                           onClick={event => handleRowClick(event, row.id)}
                         >
                           {cols.map((col: string, colIndex: number) => {
@@ -403,10 +409,16 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
               </tbody>
             ) : (
               <tbody className={styles.table_tbody}>
-                {rows?.map((row, id) => (
+                {rows?.map((row, id) => {
+                  const email = String(row.Email);
+                  if (email !== lastEmail) {
+                    lastColor = lastColor === '#EDF1FA' ? 'white' : '#EDF1FA';
+                  }
+                  lastEmail = email;
+                  return(
                   <tr
                     key={id}
-                    style={row['Дата удаления из группы'] !== ' ' ? { backgroundColor: '#fcf5f5' } : {}}
+                    style={{ backgroundColor: lastColor }}
                     onClick={event => handleRowClick(event, row.id)}
                   >
                     {cols.map(col => {
@@ -452,8 +464,8 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                           )}
                         </div>
                     </td>
-                  </tr>
-                ))}
+                  </tr>)
+                })}
               </tbody>
             )}
           </table>
