@@ -47,8 +47,8 @@ export const DecorPlatform = memo(() => {
   return (
     <>
       <div className={styles.title_passport}>
-        <span className={styles.title_passport_header}>Оформление платформы</span>
-        <span className={styles.title_passport_header}>Оформление платформы</span>
+        <span className={styles.title_passport_header}>Логотип платформы</span>
+        <span className={styles.title_passport_header}>Favicon платформы</span>
       </div>
       <div className={styles.title_passport_block}>
         <div className={styles.wrapper_actions}>

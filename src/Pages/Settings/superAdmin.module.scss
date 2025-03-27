@@ -216,8 +216,7 @@
     }
 
     &_title {
-      @include font(500, 16px);
-      margin-bottom: 20px;
+      @include font(500, 20px);
       color: #4d5766;
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -246,14 +245,17 @@
   }
 
   &_table {
-    min-width: fit-content;
+    width: 100%;
+    max-width: 100%;
 
     &_title {
       position: relative;
       @include display(flex, row, space-between);
       width: 100%;
-      font-size: 11px;
-      margin-bottom: 13px;
+      font-size: 16px;
+      font-weight: 600;
+      // margin-bottom: 13px;
+      font-family: 'SFPRORegular', sans-serif;
 
       //padding: 0 20px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
