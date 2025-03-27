@@ -144,6 +144,7 @@ export const StudentsPerGroup: FC = () => {
         filters={filters}
         updateStudents={updateStudents}
         all_students_count={data?.count as number}
+        tableId={tableId as number}
       />
       <StudentsTableWrapper
         handleReloadTable={handleReloadTable}
