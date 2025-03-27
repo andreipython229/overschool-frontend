@@ -1,28 +1,19 @@
 import { useState, useCallback } from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
-
 import { CreateGroupModal } from 'components/Modal/StudentLogs/CreateGroupModal/CreateGroupModal'
-import { createGroupIconPath, publishedIconPath, studentIconPath, studentScatterIconPath } from '../config/svgIconsPath'
 import { StudentsPerCourse } from 'components/StudentsTable/StudentsPerCourse'
 import { useFetchStudentsGroupByCourseQuery } from 'api/studentsGroupService'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { StudentGroup } from 'Pages/School/StudentsStats/StudentsCountGroup'
 import { studentsGroupsT } from '../../../types/studentsGroup'
 import { ToggleButtonDropDown } from 'components/common/ToggleButtonDropDown'
 import { useBoolean } from '../../../customHooks'
 import { Portal } from '../../../components/Modal/Portal'
 import { headerUserRoleName } from '../../../config/headerUserRoleName'
-
 import styles from './studentsStats.module.scss'
-import { tableBallsStarPath } from 'config/commonSvgIconsPath'
 import { Path } from 'enum/pathE'
-
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from '../../../selectors'
-import { LimitModal } from '../../../components/Modal/LimitModal/LimitModal'
 import { StudentGroupMiniCard } from 'components/StudentGroupMiniCard'
 import { Button } from 'components/common/Button/Button'
-// import {useFetchCourseQuery} from "../../../api/coursesServices";
 
 export const StudentsStats = () => {
   const { course_id: courseId } = useParams()
@@ -84,7 +75,6 @@ export const StudentsStats = () => {
               style={dataToRender.length < 3 ? { justifyContent: 'flex-start' } : { justifyContent: 'space-between' }}
             >
               {dataToRender?.map(({ name, students, group_id, type }: studentsGroupsT) => {
-                const count = students?.length
                 return (
                   <StudentGroupMiniCard
                     active={activeGroup === group_id}
@@ -92,7 +82,7 @@ export const StudentsStats = () => {
                     id={group_id as number}
                     click={handleClick}
                     title={name}
-                    countStudent={count}
+                    countStudent={students?.length}
                     type={type}
                     courseId={Number(courseId)}
                   />

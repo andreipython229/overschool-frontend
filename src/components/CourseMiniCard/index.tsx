@@ -21,16 +21,15 @@ interface ICoursesMiniCard {
 
 export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }) => {
   const { role } = useAppSelector(selectUser)
-  const [isModalOpen, { on: close, off: open }] = useBoolean()
   const { schoolName } = useAppSelector(schoolSelector)
   const [quantityOfStudents, setStudents] = useState<number>()
   const [filteredGroups, setGroups] = useState<studentsGroupsT[]>()
 
   useEffect(() => {
-    if (groups) {
+    if (groups && !Array.isArray(filteredGroups)) {
       setGroups(groups?.filter(({ course_id }) => course_id === +courseId))
     }
-  }, [])
+  }, [groups])
 
   useEffect(() => {
     if (filteredGroups) {
@@ -61,6 +60,7 @@ export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }
         </div>
       </Link>
       <div className={`${styles.wrapper_shadow}`} />
+      {!Array.isArray(filteredGroups) && <div className={styles.blurLoad} />}
     </div>
   )
 }
