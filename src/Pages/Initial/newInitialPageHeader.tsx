@@ -102,7 +102,7 @@ export const InitPageHeader: FC = memo(() => {
               <div className={styles.header_block_menu_platforma}>
                 <Button onClick={handleCatalog} variant={'newSecondaryHeader'} text={'Платформа'} />
                 <div className={styles.header_block_menu_platforma_content}>
-                  <a href="#">
+                  <a href="https://coursehb.ru/dlya-nachinayushchih">
                     <img src={hat} alt="hat" />
                     <h5>Для начинающих экспертов</h5>
                   </a>
@@ -110,19 +110,19 @@ export const InitPageHeader: FC = memo(() => {
                     <img src={hat} alt="hat" />
                     <h5>Для онлайн школ</h5>
                   </a>
-                  <a href="#">
+                  <a href="https://coursehb.ru/page4">
                     <img src={hat} alt="hat" />
                     <h5>Для обучения персонала</h5>
                   </a>
-                  <a href="#">
+                  <a href="https://coursehb.ru/page5">
                     <img src={hat} alt="hat" />
                     <h5>Возможности</h5>
                   </a>
-                  <a href="#">
+                  <a href="https://coursehb.ru/page6">
                     <img src={hat} alt="hat" />
                     <h5>Отзывы пользователей</h5>
                   </a>
-                  <a href="#">
+                  <a href="https://coursehb.ru/page7">
                     <img src={hat} alt="hat" />
                     <h5>Партнёрская программа</h5>
                   </a>
@@ -148,7 +148,7 @@ export const InitPageHeader: FC = memo(() => {
               <div className={styles.header_block_menu_platforma}>
                 <Button onClick={handleCatalog} variant={'newSecondaryHeader'} text={'Платформа'} />
                 <div className={styles.header_block_menu_platforma_content}>
-                  <a href="#">
+                  <a href="https://coursehb.ru/dlya-nachinayushchih">
                     <img src={hat} alt="hat" />
                     <h5>Для начинающих экспертов</h5>
                   </a>
@@ -156,19 +156,19 @@ export const InitPageHeader: FC = memo(() => {
                     <img src={hat} alt="hat" />
                     <h5>Для онлайн школ</h5>
                   </a>
-                  <a href="#">
+                  <a href="https://coursehb.ru/page4">
                     <img src={hat} alt="hat" />
                     <h5>Для обучения персонала</h5>
                   </a>
-                  <a href="#">
+                  <a href="https://coursehb.ru/page5">
                     <img src={hat} alt="hat" />
                     <h5>Возможности</h5>
                   </a>
-                  <a href="#">
+                  <a href="https://coursehb.ru/page6">
                     <img src={hat} alt="hat" />
                     <h5>Отзывы пользователей</h5>
                   </a>
-                  <a href="#">
+                  <a href="https://coursehb.ru/page7">
                     <img src={hat} alt="hat" />
                     <h5>Партнёрская программа</h5>
                   </a>
