@@ -115,7 +115,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     scrollToSelectedChat();
 
     const fetchData = async () => {
-      // if (!isDialogOpen || selectedChatId === null) return;
+      if (!isDialogOpen || selectedChatId === null) return;
 
       setError(null);
       setWarning(null);

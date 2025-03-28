@@ -7,7 +7,7 @@
   border: none;
   color: rgba(255, 255, 255, 1);
   position: fixed;
-  z-index: 10;
+  z-index: 101;
   width: 60px;
   aspect-ratio: 1 / 1;
   bottom: 20px;
@@ -42,7 +42,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  z-index: 10;
+  z-index: 101;
   // overflow-x: hidden;
 
   &_open {
@@ -854,7 +854,7 @@
       right: 0;
       height: 100%;
       width: 100%;
-      z-index: 90;
+      z-index: 101;
       border-radius: 0;
     }
   }
