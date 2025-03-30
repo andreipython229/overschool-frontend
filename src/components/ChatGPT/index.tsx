@@ -508,7 +508,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                 ) : (
                   <>
                     <div className={`${styles.listOfChatSection} ${showWelcomeMessage ? styles.listOfChatSectionDisabled : ''}`}>
-                      <button className={`${styles.createChatButtonModal} ${isCreatingChatDisabled ? styles.createChatButtonModalDisabled : ''}`} onClick={handleCreateChat} disabled={isCreatingChatDisabled}>
+                      <button className={`${styles.createChatButtonModal} ${isCreatingChatDisabled || showWelcomeMessage ? styles.createChatButtonModalDisabled : ''}`} onClick={handleCreateChat} disabled={isCreatingChatDisabled}>
                         <b>+</b>
                       </button>
                       <div className={styles.listOfChatContainer} ref={listOfChatContainerRef}>
