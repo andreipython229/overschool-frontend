@@ -11,10 +11,10 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { CameraDefs, HomeworkDefs, TestDefs, cloudSvgPath, homeworkSvgIconPath, testSvgIconPath, videoCameraSvgIconPath } from './assets/svgIconsPath'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { useAppSelector } from 'store/hooks'
-import { selectUserProfile } from 'selectors'
+import { schoolSelector, selectUserProfile } from 'selectors'
 
 export const StudentProgressBlock: FC = () => {
-  const school = window.location.href.split('/')[4]
+  const { schoolName: school } = useAppSelector(schoolSelector)
   const { userProfile: profile } = useAppSelector(selectUserProfile)
   const { course_id: courseId } = useParams()
   const { data: userProgress } = useFetchProgressQuery({ course_id: courseId as string, schoolName: school })

@@ -9,21 +9,22 @@ import { useDebounceFunc } from 'customHooks'
 import { sectionT } from 'types/sectionT'
 import { Reorder } from 'framer-motion'
 import stylesModules from './ModulesBlock/modules_block.module.scss'
+import { schoolSelector } from 'selectors'
+import { useAppSelector } from 'store/hooks'
 
 export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
-  ({ setType, modulesList, courseName, setModulesList, setLessonIdAndType, isLoading, baseLessonId }) => {
+  ({ setType, modulesList, courseName, setModulesList, setLessonIdAndType, isLoading, baseLessonId, setInsertAfterOrder }) => {
     const [changeOrder, { isLoading: changingOrder }] = useChangeModuleOrderMutation()
     const debounceBlockOrder = useDebounceFunc(changeOrder, 2000)
     const [selectedLessonId, setSelectedLessonId] = useState<number>()
     const [newSectionsOrders, setNewSectionsOrders] = useState<sectionT[]>([])
-    const schoolName = window.location.href.split('/')[4]
+    const { schoolName } = useAppSelector(schoolSelector)
 
     useEffect(() => {
       if (modulesList.length > 0 && modulesList[0].lessons.length > 0) {
         if (baseLessonId) {
           setSelectedLessonId(baseLessonId)
-        }
-        else {
+        } else {
           const firstNonEmptyModule = modulesList.find(module => module.lessons.length > 0)
           if (firstNonEmptyModule) {
             setSelectedLessonId(firstNonEmptyModule.lessons[0].baselesson_ptr_id)
@@ -88,6 +89,7 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
                     selectedLessonId={selectedLessonId}
                     setSelectedLessonId={setSelectedLessonId}
                     onOpenModalModule={handleOpenModalModule}
+                    setInsertAfterOrder={setInsertAfterOrder}
                   />
                 )
               })}

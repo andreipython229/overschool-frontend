@@ -810,12 +810,12 @@ export const Header = memo(() => {
         <div className={userRole === RoleE.Admin ? styles.header_socialIcons : styles.header_socialIcons2}>
           {schoolData && (
             <>
-              <SocialMediaButton variant="Telegram" url={schoolData.telegram_link || 'https://t.me/course_hb'} />
-              <SocialMediaButton variant="Instagram" url={schoolData.instagram_link || 'https://instagram.com/'} />
-              <SocialMediaButton variant="X" url={schoolData.twitter_link || 'https://x.com/'} />
-              <SocialMediaButton variant="Youtube" url={schoolData.youtube_link || 'https://youtube.com/'} />
-              <SocialMediaButton variant="VK" url={schoolData.vk_link || 'https://vk.ru/'} />
-              <SocialMediaButton variant="Link" url={schoolData.extra_link || '#'} />
+              {schoolData.telegram_link && <SocialMediaButton variant="Telegram" url={schoolData.telegram_link} />}
+              {schoolData.instagram_link && <SocialMediaButton variant="Instagram" url={schoolData.instagram_link} />}
+              {schoolData.twitter_link && <SocialMediaButton variant="X" url={schoolData.twitter_link} />}
+              {schoolData.youtube_link && <SocialMediaButton variant="Youtube" url={schoolData.youtube_link} />}
+              {schoolData.vk_link && <SocialMediaButton variant="VK" url={schoolData.vk_link} />}
+              {schoolData.extra_link && <SocialMediaButton variant="Link" url={schoolData.extra_link} />}
             </>
           )}
         </div>

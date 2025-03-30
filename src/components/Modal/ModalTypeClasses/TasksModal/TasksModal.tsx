@@ -17,7 +17,7 @@ import { timeMaper } from '../../../../constants/timeMaper'
 import { TasksModalIcon } from '../constants/tasksModalIcon'
 import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 
-export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modulesList, setType }) => {
+export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modulesList, setType, insertAfterOrder, setInsertAfterOrder }) => {
   const [descriptionHomeWork, setDescriptionHomeWork] = useState<string>('')
 
   const { nameLesson, isLoading, setNameLesson, handleCreateLesson } = useCreateLesson({
@@ -26,6 +26,7 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modu
     typeLesson: 'homeworks',
     description: descriptionHomeWork,
     setLessonIdAndType,
+    insertAfterOrder,
   })
 
   const handleNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +35,7 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modu
 
   const handleCloseAllModal = () => {
     setType(null as keyof object)
+    setInsertAfterOrder(null)
   }
 
   const goToBack = () => {

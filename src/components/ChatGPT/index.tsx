@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react'
 import { Button } from 'components/common/Button/Button'
 import { ChatList } from 'components/ChatGPT/chatListModal/ChatList'
 import {
@@ -7,29 +7,26 @@ import {
   useLazyFetchLatestMessagesQuery,
   useCreateChatMutation,
   useLazyFetchLatestChatsQuery,
-  useLazyFetchWelcomeMessageQuery,
-  useUpdateWelcomeMessageMutation,
   useDeleteChatMutation,
   useAssignChatOrderMutation,
   CreateChatPayload,
-} from '../../api/chatgptService';
-import OverAiIcon from '../../assets/img/common/newIconModal.svg';
-import { IconSvg } from 'components/common/IconSvg/IconSvg';
-import { CloseIconPath, ListMessagesIconPath } from 'assets/Icons/svgIconPath';
-import { aiButtonNavIcon, messageNavIcon, userNavIcon, aiMobileButtonNavIcon } from './svg/svgIconPath';
-import styles from './chatgpt.module.scss';
-import { log } from 'console';
+} from '../../api/chatgptService'
+import OverAiIcon from '../../assets/img/common/newIconModal.svg'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { ListMessagesIconPath } from 'assets/Icons/svgIconPath'
+import { aiButtonNavIcon, messageNavIcon, userNavIcon, aiMobileButtonNavIcon } from './svg/svgIconPath'
+import styles from './chatgpt.module.scss'
+import { log } from 'console'
 
 interface Chat {
-  id: number;
-  order: number;
+  id: number
+  order: number
 }
 
 interface ChatGPTProps {
-  openChatModal: () => void;
-  closeChatModal: () => void;
+  openChatModal: () => void
+  closeChatModal: () => void
 }
-
 
 const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [messageInput, setMessageInput] = useState('');
@@ -54,60 +51,61 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [draggedOverChatId, setDraggedOverChatId] = useState<number | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState('RU');
 
-  const [refetchChats, { data: latestChats }] = useLazyFetchLatestChatsQuery();
-  const [refetchMessages, { data: latestMessages }] = useLazyFetchLatestMessagesQuery();
+  const [refetchChats, { data: latestChats }] = useLazyFetchLatestChatsQuery()
+  const [refetchMessages, { data: latestMessages }] = useLazyFetchLatestMessagesQuery()
   // const [fetchWelcomeMessage, { data: welcomeMessageData }] = useLazyFetchWelcomeMessageQuery();
 
   // const [updateWelcomeMessage] = useUpdateWelcomeMessageMutation();
-  const [createChatMutation] = useCreateChatMutation();
-  const [sendMessage] = useSendMessageMutation();
-  const [deleteChat] = useDeleteChatMutation();
-  const [assignChatOrder] = useAssignChatOrderMutation();
+  const [createChatMutation] = useCreateChatMutation()
+  const [sendMessage] = useSendMessageMutation()
+  const [deleteChat] = useDeleteChatMutation()
+  const [assignChatOrder] = useAssignChatOrderMutation()
 
   // const [userQuestions, setUserQuestions] = latestMessages && latestMessages[0] && Array.isArray(latestMessages[0]) ? latestMessages[0] : [];
   // const [botAnswers, setBotAnswers] = latestMessages && latestMessages[1] && Array.isArray(latestMessages[1]) ? latestMessages[1] : [];
 
-  const [dots, setDots] = useState('.');
-  const listOfChatContainerRef = useRef<HTMLDivElement | null>(null);
-  const activeChatRef = useRef<HTMLDivElement | null>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [dots, setDots] = useState('.')
+  const listOfChatContainerRef = useRef<HTMLDivElement | null>(null)
+  const activeChatRef = useRef<HTMLDivElement | null>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  const [bufUserQuestion, setBufUserQuestion] = useState('');
+  const [bufUserQuestion, setBufUserQuestion] = useState('')
 
-  const [userQuestions, setUserQuestions] = useState<Array<{ sender_question: string }>>([]);
-  const [botAnswers, setBotAnswers] = useState<Array<{ answer: string }>>([]);
-
+  const [userQuestions, setUserQuestions] = useState<Array<{ sender_question: string }>>([])
+  const [botAnswers, setBotAnswers] = useState<Array<{ answer: string }>>([])
 
 
   useEffect(() => {
     if (latestMessages) {
       if (latestMessages[0] && Array.isArray(latestMessages[0])) {
-        setUserQuestions(latestMessages[0]);
+        setUserQuestions(latestMessages[0])
       } else {
-        setUserQuestions([]);
+        setUserQuestions([])
       }
 
       if (latestMessages[1] && Array.isArray(latestMessages[1])) {
-        setBotAnswers(latestMessages[1]);
+        setBotAnswers(latestMessages[1])
       } else {
-        setBotAnswers([]);
+        setBotAnswers([])
       }
     }
     // console.log(userQuestions);
 
   }, [latestMessages]);
 
-  useEffect(() => { scrollMessagesToBottom(); }, [isLoading, isLoadingMessages])
+  useEffect(() => {
+    scrollMessagesToBottom()
+  }, [isLoading, isLoadingMessages])
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDots((prevDots) => {
-        if (prevDots === '...') return '.';
-        return prevDots + '.';
-      });
-    }, 500);
-    return () => clearInterval(interval);
-  }, []);
+      setDots(prevDots => {
+        if (prevDots === '...') return '.'
+        return prevDots + '.'
+      })
+    }, 500)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     const savedChatId = Number(localStorage.getItem('selectedChatId'));
@@ -115,33 +113,33 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       setCreatedChatId(savedChatId);
       selectChat(savedChatId);
     }
-    setTextAreaFocus();
-    scrollToSelectedChat();
+    setTextAreaFocus()
+    scrollToSelectedChat()
 
     const fetchData = async () => {
       if (!isDialogOpen) return;
 
-      setError(null);
-      setWarning(null);
-      setIsLoadingMessages(true);
-      setIsFetchingChats(true);
+      setError(null)
+      setWarning(null)
+      setIsLoadingMessages(true)
+      setIsFetchingChats(true)
 
       if (!chatsLoaded) {
-        await fetchChats();
+        await fetchChats()
       }
-      setIsFetchingChats(false);
+      setIsFetchingChats(false)
 
       if (selectedChatId && refetchMessages && isChatSelected) {
         try {
-          await refetchMessages({ overai_chat_id: selectedChatId });
-          scrollMessagesToBottom();
+          await refetchMessages({ overai_chat_id: selectedChatId })
+          scrollMessagesToBottom()
         } catch (error) {
-          setError('Ошибка получения сообщений');
+          setError('Ошибка получения сообщений')
         } finally {
-          setIsLoadingMessages(false);
+          setIsLoadingMessages(false)
         }
       } else {
-        setIsLoadingMessages(false);
+        setIsLoadingMessages(false)
       }
     };
     fetchData();
@@ -152,86 +150,84 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const setTextAreaFocus = () => {
     setTimeout(() => {
       if (textareaRef.current) {
-        textareaRef.current.focus();
+        textareaRef.current.focus()
       }
-    }, 100);
+    }, 100)
   }
 
   const scrollToSelectedChat = () => {
     if (activeChatRef.current) {
-      activeChatRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      activeChatRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
     }
   }
 
   const scrollMessagesToBottom = () => {
     messageContainerRef.current?.scrollTo({
       top: messageContainerRef.current.scrollHeight,
-      behavior: 'smooth'
-    });
-  };
+      behavior: 'smooth',
+    })
+  }
 
   const toggleDialog = async () => {
-    setIsDialogOpen(!isDialogOpen);
-    scrollMessagesToBottom();
-    setTextAreaFocus();
-    isDialogOpen ? openChatModal() : closeChatModal();
+    setIsDialogOpen(!isDialogOpen)
+    scrollMessagesToBottom()
+    setTextAreaFocus()
+    isDialogOpen ? openChatModal() : closeChatModal()
 
     // const response = await fetchWelcomeMessage();
     // if (response.data) {
     // setShowWelcomeMessage(response.data.show_welcome_message);
     // }
-  };
+  }
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      setIsDialogOpen(false);
-      closeChatModal();
+      setIsDialogOpen(false)
+      closeChatModal()
     }
-  };
+  }
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage(messageInput);
+      e.preventDefault()
+      handleSendMessage(messageInput)
     } else if (e.key === 'Enter' && e.shiftKey) {
-      e.preventDefault();
-      setMessageInput(prev => prev + '\n');
+      e.preventDefault()
+      setMessageInput(prev => prev + '\n')
     }
-  };
+  }
 
   const handleShowChatMobileList = () => {
-    setShowChatListForm(!showChatListForm);
+    setShowChatListForm(!showChatListForm)
   }
 
   const formatBotAnswer = (answer: string): JSX.Element => {
     const escapeHtml = (str: string): string => {
-      return str.replace(/&/g, '&amp;')
+      return str
+        .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;')
         .replace(/####/g, '')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    };
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    }
 
-    const codeBlockRegex = /```([\s\S]*?)```/g;
+    const codeBlockRegex = /```([\s\S]*?)```/g
     const formattedAnswer = answer.replace(codeBlockRegex, (_, code) => {
-      return `<pre><code>${code.trim()}</code></pre>`;
-    });
+      return `<pre><code>${code.trim()}</code></pre>`
+    })
 
-    return <div dangerouslySetInnerHTML={{ __html: escapeHtml(formattedAnswer) }} />;
-  };
-
+    return <div dangerouslySetInnerHTML={{ __html: escapeHtml(formattedAnswer) }} />
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      scrollMessagesToBottom();
-    }, 100);
+      scrollMessagesToBottom()
+    }, 100)
 
-    return () => clearTimeout(timer);
-  }, [latestMessages, isDialogOpen, selectedChatId]);
-
-
+    return () => clearTimeout(timer)
+  }, [latestMessages, isDialogOpen, selectedChatId])
 
   const selectChat = async (chatId: number | undefined) => {
     // setShowWelcomeMessage(false)
@@ -242,68 +238,66 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       if (chatId === undefined || chatId === 1) {
         for (const [id, chat] of Object.entries(chatData)) {
           if (chat.order === 1) {
-            selectedChatId = Number(id);
-            break;
+            selectedChatId = Number(id)
+            break
           }
         }
       }
 
       if (selectedChatId !== undefined) {
-        setCreatedChatId(selectedChatId);
-        setIsChatSelected(true);
-        setDraggedChatId(selectedChatId);
-        localStorage.setItem('selectedChatId', selectedChatId.toString());
+        setCreatedChatId(selectedChatId)
+        setIsChatSelected(true)
+        setDraggedChatId(selectedChatId)
+        localStorage.setItem('selectedChatId', selectedChatId.toString())
         try {
-          await refetchMessages({ overai_chat_id: selectedChatId });
+          await refetchMessages({ overai_chat_id: selectedChatId })
         } catch (error) {
-          setError('Ошибка получения сообщений');
+          setError('Ошибка получения сообщений')
         }
       }
     }
-  };
-
+  }
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>, chatId: number) => {
-    e.dataTransfer.setData('text/plain', '');
-    setDraggedChatId(chatId);
-  };
+    e.dataTransfer.setData('text/plain', '')
+    setDraggedChatId(chatId)
+  }
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>, chatId: number) => {
-    e.preventDefault();
-    setDraggedOverChatId(chatId);
-  };
-
+    e.preventDefault()
+    setDraggedOverChatId(chatId)
+  }
 
   const handleDragEnd = async () => {
     if (draggedChatId !== null && draggedOverChatId !== null && draggedChatId !== draggedOverChatId) {
-      const updatedChatDataCopy = JSON.parse(JSON.stringify(chatData));
-      const dragOrder = updatedChatDataCopy[draggedChatId].order;
-      const dropOrder = updatedChatDataCopy[draggedOverChatId].order;
+      const updatedChatDataCopy = JSON.parse(JSON.stringify(chatData))
+      const dragOrder = updatedChatDataCopy[draggedChatId].order
+      const dropOrder = updatedChatDataCopy[draggedOverChatId].order
 
-      Object.keys(updatedChatDataCopy).forEach((chatIdStr) => {
-        const chatId = parseInt(chatIdStr, 10);
-        const order = updatedChatDataCopy[chatId].order;
+      Object.keys(updatedChatDataCopy).forEach(chatIdStr => {
+        const chatId = parseInt(chatIdStr, 10)
+        const order = updatedChatDataCopy[chatId].order
         if (order > dragOrder && order <= dropOrder) {
-          updatedChatDataCopy[chatId].order -= 1;
+          updatedChatDataCopy[chatId].order -= 1
         } else if (order < dragOrder && order >= dropOrder) {
-          updatedChatDataCopy[chatId].order += 1;
+          updatedChatDataCopy[chatId].order += 1
         }
-      });
+      })
 
-      updatedChatDataCopy[draggedChatId].order = dropOrder;
-      setChatData(updatedChatDataCopy);
+      updatedChatDataCopy[draggedChatId].order = dropOrder
+      setChatData(updatedChatDataCopy)
 
       try {
-        await assignChatOrder(updatedChatDataCopy);
+        await assignChatOrder(updatedChatDataCopy)
       } catch (error) {
-        console.error("Ошибка при обновлении порядка чатов на сервере:", error);
-        setChatData(chatData);
+        console.error('Ошибка при обновлении порядка чатов на сервере:', error)
+        setChatData(chatData)
       } finally {
-        setDraggedChatId(null);
-        setDraggedOverChatId(null);
+        setDraggedChatId(null)
+        setDraggedOverChatId(null)
       }
     }
-  };
+  }
 
   const createChat = async () => {
     try {
@@ -312,34 +306,34 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       setIsCreatingChatDisabled(true);
       // setIsNewChat(true);
 
-      setUserQuestions([]);
-      setBotAnswers([]);
+      setUserQuestions([])
+      setBotAnswers([])
 
       const convertToCreateChatPayload = (chatData: { [id: number]: { order: number; chat_name: string } }): CreateChatPayload => {
-        const orderData = Object.entries(chatData).map(([id, { order }]) => ({ id: Number(id), order }));
-        return { orderData };
-      };
+        const orderData = Object.entries(chatData).map(([id, { order }]) => ({ id: Number(id), order }))
+        return { orderData }
+      }
 
-      const payload: CreateChatPayload = convertToCreateChatPayload(chatData);
+      const payload: CreateChatPayload = convertToCreateChatPayload(chatData)
 
-      const response = await createChatMutation(payload);
+      const response = await createChatMutation(payload)
       if ('data' in response && response.data !== undefined) {
-        const newChatId = response.data.overai_chat_id;
-        localStorage.setItem('selectedChatId', newChatId.toString());
-        await fetchChats();
-        setCreatedChatId(newChatId);
-        return response.data;
+        const newChatId = response.data.overai_chat_id
+        localStorage.setItem('selectedChatId', newChatId.toString())
+        await fetchChats()
+        setCreatedChatId(newChatId)
+        return response.data
       } else {
-        setError('Ошибка при создании чата.');
-        return null;
+        setError('Ошибка при создании чата.')
+        return null
       }
     } catch (error) {
-      setError('Ошибка при создании чата.');
-      return null;
+      setError('Ошибка при создании чата.')
+      return null
     } finally {
-      setIsCreatingChatDisabled(false);
+      setIsCreatingChatDisabled(false)
     }
-  };
+  }
 
   const handleCreateChat = async () => {
     if (!isLoadingMessages) {
@@ -348,25 +342,25 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       await createChat();
       setShowWelcomeMessage(false);
     }
-  };
+  }
 
   const fetchChats = async () => {
     try {
       if (refetchChats) {
-        const response = await refetchChats();
+        const response = await refetchChats()
 
         if (response.status === 'fulfilled' && response.isSuccess) {
-          const receivedChatData = response.data;
-          setChatData(receivedChatData);
-          setChatsLoaded(true);
+          const receivedChatData = response.data
+          setChatData(receivedChatData)
+          setChatsLoaded(true)
         } else {
-          setError('Ошибка при получении списка чатов.');
+          setError('Ошибка при получении списка чатов.')
         }
       }
     } catch (error) {
-      setError('Ошибка при получении списка чатов.');
+      setError('Ошибка при получении списка чатов.')
     }
-  };
+  }
 
   const handleDeleteChat = async (chatId: number) => {
     setIsDeletingChatDisabled(true)
@@ -374,8 +368,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     const isDeletingSelectedChat = chatId === selectedChatId;
 
     if (isDeletingSelectedChat) {
-      let minOrder = Infinity;
-      let firstChatId = selectedChatId;
+      let minOrder = Infinity
+      let firstChatId = selectedChatId
       for (const [id, chat] of Object.entries(chatData)) {
         if (Number(id) !== chatId && chat.order < minOrder) {
           minOrder = chat.order;
@@ -390,33 +384,30 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
       }
 
       if (firstChatId) {
-        setCreatedChatId(Number(firstChatId));
+        setCreatedChatId(Number(firstChatId))
       } else {
-        setCreatedChatId(undefined);
+        setCreatedChatId(undefined)
       }
     }
 
     const chatArray = Object.entries(chatData).map(([id, chat]) => ({
       id: Number(id),
-      ...chat
-    }));
+      ...chat,
+    }))
 
-    const orderData = chatArray
-      .map(chat => ({ id: chat.id, order: chat.order }))
-      .filter(chat => chat.id !== chatId);
+    const orderData = chatArray.map(chat => ({ id: chat.id, order: chat.order })).filter(chat => chat.id !== chatId)
 
-    const updatedChatData = chatArray.filter(chat => chat.id !== chatId);
-    const newChatData = Object.fromEntries(updatedChatData.map(chat => [chat.id, { order: chat.order, chat_name: chat.chat_name }]));
+    const updatedChatData = chatArray.filter(chat => chat.id !== chatId)
+    const newChatData = Object.fromEntries(updatedChatData.map(chat => [chat.id, { order: chat.order, chat_name: chat.chat_name }]))
 
-    setChatData(newChatData);
+    setChatData(newChatData)
 
     try {
-      await deleteChat({ chat_id: chatId, orderData });
-      await fetchChats();
-
+      await deleteChat({ chat_id: chatId, orderData })
+      await fetchChats()
     } catch (error) {
-      setChatData(previousChatData);
-      setError('Ошибка при удалении чата.');
+      setChatData(previousChatData)
+      setError('Ошибка при удалении чата.')
     }
     finally {
       setIsDeletingChatDisabled(false)
@@ -424,81 +415,79 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
 
     // setCreatedChatId(undefined);
     if (!isDeletingSelectedChat && selectedChatId) {
-      setCreatedChatId(selectedChatId);
+      setCreatedChatId(selectedChatId)
     }
-  };
-
-
+  }
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLanguage(e.target.value);
-  };
-
+    setSelectedLanguage(e.target.value)
+  }
 
   const handleSendMessage = async (messageInput: string) => {
-    if (messageInput.trim() === '') return;
+    if (messageInput.trim() === '') return
     // setIsNewChat(false);
-    setBufUserQuestion(messageInput);
-    scrollMessagesToBottom();
+    setBufUserQuestion(messageInput)
+    scrollMessagesToBottom()
     try {
-      setIsLoading(true);
-      setIsChatSelectionDisabled(true);
-      setIsCreatingChatDisabled(true);
+      setIsLoading(true)
+      setIsChatSelectionDisabled(true)
+      setIsCreatingChatDisabled(true)
 
       const payload: SendMessagePayload = {
         message: messageInput,
         overai_chat_id: selectedChatId === 1 ? (await createChat())?.overai_chat_id : selectedChatId!,
-        language: selectedLanguage
-      };
-
-      const botResponseTimeout = setTimeout(() => {
-        setWarning('Генерация сообщения займет некоторое время...');
-      }, 10000);
-
-      await sendMessage(payload);
-
-      if (refetchMessages) {
-        await refetchMessages({ overai_chat_id: payload.overai_chat_id });
+        language: selectedLanguage,
       }
 
-      setMessageInput('');
-      setError(null);
-      setWarning(null);
-      clearTimeout(botResponseTimeout);
+      const botResponseTimeout = setTimeout(() => {
+        setWarning('Генерация сообщения займет некоторое время...')
+      }, 10000)
+
+      await sendMessage(payload)
+
+      if (refetchMessages) {
+        await refetchMessages({ overai_chat_id: payload.overai_chat_id })
+      }
+
+      setMessageInput('')
+      setError(null)
+      setWarning(null)
+      clearTimeout(botResponseTimeout)
     } catch (error: unknown) {
-      setError('Ошибка при отправке сообщения.');
+      setError('Ошибка при отправке сообщения.')
     } finally {
-      setIsLoading(false);
-      setIsChatSelectionDisabled(false);
-      setIsCreatingChatDisabled(false);
+      setIsLoading(false)
+      setIsChatSelectionDisabled(false)
+      setIsCreatingChatDisabled(false)
     }
-    setTextAreaFocus();
+    setTextAreaFocus()
     setTimeout(() => {
-      setError(null);
-      setWarning(null);
-    }, 3000);
-  };
-
-
-
+      setError(null)
+      setWarning(null)
+    }, 3000)
+  }
 
   return (
     <div className="fixed-button">
       <button className={styles.chatGptButton} onClick={toggleDialog}>
         <img className={`${isDialogOpen && styles.chatGptButton_Pushed}`} src={OverAiIcon} alt="OverAI Icon" />
       </button>
-      {(
+      {
         <div className={`${styles.modalOverlay} ${isDialogOpen && styles.modalOverlay_open}`} onClick={handleOverlayClick}>
           <div className={`${styles.dialog} ${isDialogOpen && styles.dialogOpen} ${showWelcomeMessage && styles.noGradient}`}>
             {/* <button className={styles.chatgpt_close} onClick={toggleDialog}>
               <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={closeHwModalPath} />
             </button> */}
             <div className={`${styles.contentContainer}`}>
-
               <div className={`${styles.topPane} ${isDialogOpen && styles.paneOpen}`}>
-                <div className={styles.overAiText}><div onClick={handleShowChatMobileList} className={styles.ai_mobile_open_dialog_list}><IconSvg path={ListMessagesIconPath} width={30} height={30} viewBoxSize='0 0 30 30'></IconSvg></div>
+                <div className={styles.overAiText}>
+                  <div onClick={handleShowChatMobileList} className={styles.ai_mobile_open_dialog_list}>
+                    <IconSvg path={ListMessagesIconPath} width={30} height={30} viewBoxSize="0 0 30 30"></IconSvg>
+                  </div>
                   <p>OVER AI</p>
-                  <div className={styles.ai_mobile_close_btn_wrapper} onClick={() => setIsDialogOpen(false)}><div className={styles.ai_mobile_close_btn}></div></div>
+                  <div className={styles.ai_mobile_close_btn_wrapper} onClick={() => setIsDialogOpen(false)}>
+                    <div className={styles.ai_mobile_close_btn}></div>
+                  </div>
                 </div>
                 {isFetchingChats ? (
                   <div className={styles.loadingSpinner}>
@@ -515,12 +504,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                         {Object.entries(chatData)
                           .sort(([, a], [, b]) => a.order - b.order)
                           .map(([chatId, chatValue]) => {
-                            const isActive = selectedChatId === Number(chatId);
+                            const isActive = selectedChatId === Number(chatId)
                             return (
-                              <div key={chatId}
+                              <div
+                                key={chatId}
                                 draggable
-                                onDragStart={(e) => handleDragStart(e, Number(chatId))}
-                                onDragOver={(e) => handleDragOver(e, Number(chatId))}
+                                onDragStart={e => handleDragStart(e, Number(chatId))}
+                                onDragOver={e => handleDragOver(e, Number(chatId))}
                                 onDragEnd={handleDragEnd}
                                 className={` ${styles.chatListItemWrapper}`}
                               >
@@ -529,7 +519,9 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                     selectChat(Number(chatId))
                                   }}
                                   ref={isActive ? activeChatRef : null}
-                                  className={`${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''} ${styles.chatListItem} ${selectedChatId === Number(chatId) ? styles.activeChat : ''}`}
+                                  className={`${draggedOverChatId === Number(chatId) ? styles.draggedOver : ''} ${styles.chatListItem} ${
+                                    selectedChatId === Number(chatId) ? styles.activeChat : ''
+                                  }`}
                                   style={{ borderRadius: '20px' }}
                                 >
                                   <div className={styles.chatListItem_Circle}></div>
@@ -545,8 +537,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                 </button>
                               </div>
                             )
-                          }
-                          )}
+                          })}
                       </div>
                       {/* <button className={styles.chatMessageHistoryButton}>
                         <IconSvg path={arrowUpNavIcon} viewBoxSize='0 0 17 17' width={14} height={14} />
@@ -556,7 +547,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                       <div className={styles.chatIndicatorSectionLeft}>
                         <div className={styles.chatIndicatorIcon}>
                           <div className={styles.chatIndicator}></div>
-                          <IconSvg path={messageNavIcon} width={15} height={15} viewBoxSize='0 0 15 15'></IconSvg>
+                          <IconSvg path={messageNavIcon} width={15} height={15} viewBoxSize="0 0 15 15"></IconSvg>
                         </div>
                         <p>Чат с ботом</p>
                       </div>
@@ -571,37 +562,41 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                     </div>
                   </>
                 )}
-
               </div>
-
 
               {showWelcomeMessage ? (
                 <>
                   <div className={`${styles.welcomeMessage}`}>
                     <div className={styles.welcomeMessageUser}>
-                      <IconSvg path={userNavIcon} viewBoxSize='0 0 72 72' width={100} height={100}></IconSvg>
+                      <IconSvg path={userNavIcon} viewBoxSize="0 0 72 72" width={100} height={100}></IconSvg>
                     </div>
                     <div></div>
-                    <p>Привет, <span>Пользователь</span>! Приятно тебя здесь видеть! Нажимая кнопку «Начать чат», вы соглашаетесь на обработку своих персональных данных, как описано в нашей Политике конфиденциальности</p>
+                    <p>
+                      Привет, <span>Пользователь</span>! Приятно тебя здесь видеть! Нажимая кнопку «Начать чат», вы соглашаетесь на обработку своих
+                      персональных данных, как описано в нашей Политике конфиденциальности
+                    </p>
 
-                    <Button variant={'newPrimary'} onClick={handleCreateChat} className={styles.welcomeMessageButton} text='Начать чат'></Button>
-
+                    <Button variant={'newPrimary'} onClick={handleCreateChat} className={styles.welcomeMessageButton} text="Начать чат"></Button>
                   </div>
 
-                  <Button className={styles.start_new_chat_btn} variant='newSecondary' onClick={handleCreateChat} disabled={isChatSelectionDisabled} text='Начать чат'>
-                  </Button>
+                  <Button
+                    className={styles.start_new_chat_btn}
+                    variant="newSecondary"
+                    onClick={handleCreateChat}
+                    disabled={isChatSelectionDisabled}
+                    text="Начать чат"
+                  ></Button>
                 </>
-
               ) : (
                 <>
-                  {(
+                  {
                     <div className={`${styles.bottomPane} ${isDialogOpen && styles.paneOpen}`}>
                       {isCreatingChatDisabled && !isLoading ? (
                         <div className={styles.loadingSpinner}>
                           <div className={styles.spinner}></div>
                           <span> Создание нового чата...</span>
                         </div>
-                      ) : (isLoadingMessages && selectedChatId !== 1) ? (
+                      ) : isLoadingMessages && selectedChatId !== 1 ? (
                         <div className={styles.loadingSpinner}>
                           <div className={styles.spinner}></div>
                           <span> Загрузка сообщений...</span>
@@ -611,9 +606,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                           <div className={styles.messageContainer} ref={messageContainerRef}>
                             {userQuestions.length === 0 && !isLoading ? (
                               <div className={styles.messageContainer_info_wrapper}>
-                                <p className={styles.messageContainer_info}>
-                                  Отправьте сообщение боту, чтобы начать диалог
-                                </p>
+                                <p className={styles.messageContainer_info}>Отправьте сообщение боту, чтобы начать диалог</p>
                               </div>
                             ) : (
                               userQuestions.map((userQuestion: { sender_question: string }, index: number) => (
@@ -621,9 +614,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                   <div className={styles.messageContainer_user}>
                                     <span>
                                       <b>Пользователь</b>
-                                      <div className={styles.messageContainer_user_question}>
-                                        {userQuestion.sender_question}
-                                      </div>
+                                      <div className={styles.messageContainer_user_question}>{userQuestion.sender_question}</div>
                                     </span>
                                   </div>
 
@@ -632,14 +623,12 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                       <div className={styles.chatIndicatorContainer}>
                                         <div className={styles.chatIndicatorIcon}>
                                           <div className={styles.chatIndicator}></div>
-                                          <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
+                                          <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize="0 0 24 24"></IconSvg>
                                         </div>
                                       </div>
                                       <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
                                         <p>OverAi bot</p>
-                                        <div className={styles.messageContainer_bot_answer}>
-                                          {formatBotAnswer(botAnswers[index].answer)}
-                                        </div>
+                                        <div className={styles.messageContainer_bot_answer}>{formatBotAnswer(botAnswers[index].answer)}</div>
                                       </div>
                                     </div>
                                   )}
@@ -652,9 +641,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                 <div className={styles.messageContainer_user}>
                                   <span>
                                     <b>Пользователь</b>
-                                    <div className={styles.messageContainer_user_question}>
-                                      {bufUserQuestion}
-                                    </div>
+                                    <div className={styles.messageContainer_user_question}>{bufUserQuestion}</div>
                                   </span>
                                 </div>
 
@@ -662,7 +649,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                   <div className={styles.chatIndicatorContainer}>
                                     <div className={styles.chatIndicatorIcon}>
                                       <div className={styles.chatIndicator}></div>
-                                      <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize='0 0 24 24'></IconSvg>
+                                      <IconSvg path={messageNavIcon} width={24} height={24} viewBoxSize="0 0 24 24"></IconSvg>
                                     </div>
                                   </div>
                                   <div className={styles.messageContainer_bot} style={{ wordWrap: 'break-word' }}>
@@ -673,7 +660,9 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                   </div>
                                 </div>
                               </div>
-                            ) : (<></>)}
+                            ) : (
+                              <></>
+                            )}
                           </div>
                         </>
                       )}
@@ -709,29 +698,40 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
                                 rows={1}
                                 placeholder="Отправьте сообщение..."
                                 value={messageInput}
-                                onChange={(e) => setMessageInput(e.target.value)}
+                                onChange={e => setMessageInput(e.target.value)}
                                 onKeyDown={handleKeyPress}
                               />
-                              <Button className={styles.send_message_btn} text='Генерировать' variant='newSecondary' onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
+                              <Button
+                                className={styles.send_message_btn}
+                                text="Генерировать"
+                                variant="newSecondary"
+                                onClick={() => handleSendMessage(messageInput)}
+                                disabled={isChatSelectionDisabled}
+                              >
                                 <IconSvg path={aiButtonNavIcon} width={20} height={20} viewBoxSize={'0 0 20 20'}></IconSvg>
                               </Button>
 
-                              <Button className={`${styles.send_message_btn_mobile}`} text='' variant='newSecondary' onClick={() => handleSendMessage(messageInput)} disabled={isChatSelectionDisabled}>
+                              <Button
+                                className={`${styles.send_message_btn_mobile}`}
+                                text=""
+                                variant="newSecondary"
+                                onClick={() => handleSendMessage(messageInput)}
+                                disabled={isChatSelectionDisabled}
+                              >
                                 <IconSvg path={aiMobileButtonNavIcon} width={24} height={24} viewBoxSize={'0 0 24 24'}></IconSvg>
                               </Button>
-
                             </>
                           )}
                         </div>
                       </div>
                     </div>
-                  )}
+                  }
                 </>
               )}
             </div>
           </div>
         </div>
-      )}
+      }
       <ChatList
         setShowChatListForm={setShowChatListForm}
         showChatListForm={showChatListForm}
@@ -745,10 +745,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
         handleCreateChat={handleCreateChat}
         isCreatingChatDisabled={isCreatingChatDisabled}
       />
-
     </div>
-  );
-};
+  )
+}
 
-export default ChatGPT;
-
+export default ChatGPT

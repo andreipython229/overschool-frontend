@@ -80,7 +80,7 @@ export const StudentsPerCourse: FC = () => {
   }, [isTablesHeaderFetching])
 
   // Поиск по студентам курса
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState<string>()
 
   const updateStudents = (value: string) => {
     setSearchTerm(value)
@@ -150,6 +150,7 @@ export const StudentsPerCourse: FC = () => {
         filters={filters}
         updateStudents={updateStudents}
         all_students_count={data?.count as number}
+        tableId={tableId as number}
       />
       <StudentsTableWrapper
         handleReloadTable={handleReloadTable}

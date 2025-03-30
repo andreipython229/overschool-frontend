@@ -73,7 +73,7 @@ export const SelectInput: FC<SelectInputPropsT> = ({
     <div ref={menuRef} className={`${className} ${styles.wrapper}`} onClick={toggleOptions}>
       <div className={styles.container}>
         <IconSvg
-          styles={{ transform: `${isOptionsOpen ? 'rotate(180deg)' : ''}` }}
+          className={isOptionsOpen ? styles.svgIcon_open : styles.svgIcon}
           width={20}
           height={14}
           viewBoxSize={'0 0 14 7'}

@@ -12,13 +12,14 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import styles from '../../Modal.module.scss'
 import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 
-export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAndType, modulesList, setType, setModulesList }) => {
+export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAndType, modulesList, setType, setModulesList, insertAfterOrder, setInsertAfterOrder }) => {
   const { nameLesson, isLoading, setNameLesson, handleCreateLesson } = useCreateLesson({
     setType,
     modulesList,
     typeLesson: 'lessons',
     setLessonIdAndType,
-    setModulesList
+    setModulesList,
+    insertAfterOrder,
   })
 
   const changeNameClasses = (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +31,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAnd
   }
   const goToBack = () => {
     setType('lessonsModal' as keyof object)
+    setInsertAfterOrder(null)
   }
 
   return (

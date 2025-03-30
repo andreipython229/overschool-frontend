@@ -2,7 +2,7 @@ import { useState, FC, useEffect, ChangeEvent, useCallback } from 'react'
 import { HomeworksStatsTable } from '../../components/HomeworksStatsTable'
 import { Pagination } from 'components/Pagination/Pagination'
 import { usePagination, useDebounceFunc } from 'customHooks/index'
-import { useFetchAllHomeworkStatsQuery, useLazyFetchHomeworkStatsQuery } from '../../api/homeworksStatsService'
+import { useLazyFetchHomeworkStatsQuery } from '../../api/homeworksStatsService'
 import { homeworksStatsT } from 'types/homeworkT'
 import { useAppSelector, useAppDispatch } from 'store/hooks/index'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
@@ -11,11 +11,12 @@ import { FilterAndSearchBlock } from './FilterAndSeachBlock'
 import { motion } from 'framer-motion'
 
 import styles from './home_work.module.scss'
+import { schoolSelector } from 'selectors'
 
 export const HomeWork: FC = () => {
   const dispatch = useAppDispatch()
   const filters = useAppSelector(state => state.filters['homework'])
-  const schoolName = window.location.href.split('/')[4]
+  const { schoolName } = useAppSelector(schoolSelector)
 
   const course_data = localStorage.getItem('course_data')
   const parsedCourseData = course_data ? JSON.parse(course_data) : {}
@@ -57,7 +58,7 @@ export const HomeWork: FC = () => {
   }, [])
 
   useEffect(() => {
-    if (course_data) {
+    if (course_data || schoolName) {
       fetchHomeworkStats({ filters, page, schoolName, course_data: courseIds })
     }
   }, [course_data, page, filters])

@@ -16,13 +16,15 @@ import { animateVisibility } from './constants/animationConstants'
 import { useBoolean } from 'customHooks'
 import { WarningModal } from 'components/Modal/Warning'
 import { Portal } from 'components/Modal/Portal'
+import { useAppSelector } from 'store/hooks'
+import { schoolSelector } from 'selectors'
 
 export const LessonsBlock: FC<LessonsBlockT> = memo(
-  ({ setLessonIdAndType, setFocusOnLesson, type, lessonsName, id, lesson, selected, onPush, onOpenModalLesson, openedEye }) => {
+  ({ setLessonIdAndType, setFocusOnLesson, type, lessonsName, id, lesson, selected, onPush, onOpenModalLesson, openedEye, setInsertAfterOrder }) => {
     const [deleteLesson, { isLoading }] = useDeleteLessonsMutation()
     const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
     const controls = useDragControls()
-    const schoolName = window.location.href.split('/')[4]
+    const { schoolName } = useAppSelector(schoolSelector)
     const [isOpenEye, setIsOpenEye] = useState<boolean>(false)
 
     useEffect(() => {
@@ -179,7 +181,10 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(
             className={styles.btn}
             transition={{ duration: 0.4, ease: 'easeOut' }}
             variants={animateVisibility}
-            onClick={onOpenModalLesson}
+            onClick={() => {
+              setInsertAfterOrder(lesson.order)
+              onOpenModalLesson?.()
+            }}
           >
             {'+ Добавить новый урок'}
           </motion.button>
