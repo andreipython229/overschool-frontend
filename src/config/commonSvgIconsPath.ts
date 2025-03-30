@@ -19,6 +19,8 @@ import {
   settingsIcon,
   arrowLeftIcon,
   arrowDownPoligon,
+  averageMarkIcon,
+  progressIcon,
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -131,3 +133,12 @@ export const arrowLeftIconPath: pathT[] = [
 ]
 
 export const arrowDownPoligonPath: pathT[] = [{ d: arrowDownPoligon.d1, fill: '#808080' }]
+
+export const averageMarkIconPath: pathT[] = [
+  { d: averageMarkIcon.d1, fill: '#357EEB' },
+  { d: averageMarkIcon.d2, fill: '#357EEB' },
+  { d: averageMarkIcon.d3, fill: '#357EEB' },
+  { d: averageMarkIcon.d4, fill: '#357EEB' },
+]
+
+export const progressIconPath = [{ d: progressIcon, fill: '#357EEB' }]
