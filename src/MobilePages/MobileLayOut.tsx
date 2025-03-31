@@ -10,7 +10,7 @@ import { useFetchSchoolHeaderQuery } from '../api/schoolHeaderService'
 import { Path } from '../enum/pathE'
 
 import styles from '../components/MainLayout/mainLayOut.module.scss'
-import MobileChatGPT from '../components/ChatGPT/mobileChatGPT'
+import MobileChatGPT from '../components/ChatGPT'
 import { useBoolean as useBooleanHook } from '../customHooks'
 import { useLazyFetchStudentsGroupQuery } from '../api/studentsGroupService'
 import { Footer } from 'components/Footer'
