@@ -5,10 +5,10 @@ export const convertDate = (date: Date, divider = '.') => {
   const minutes = date.getMinutes()
   const hours = date.getHours()
 
-  const fullmm = mm < 9 ? `0${mm}` : `${mm}`
-  const fulldd = dd < 9 ? `0${dd}` : `${dd}`
-  const fullHours = hours < 9 ? `0${hours}` : `${hours}`
-  const fullMinutes = minutes < 9 ? `0${minutes}` : `${minutes}`
+  const fullmm = mm < 10 ? `0${mm}` : `${mm}`
+  const fulldd = dd < 10 ? `0${dd}` : `${dd}`
+  const fullHours = hours < 10 ? `0${hours}` : `${hours}`
+  const fullMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`
 
   const hoursAndMinutes = `${fullHours}:${fullMinutes}`
 
