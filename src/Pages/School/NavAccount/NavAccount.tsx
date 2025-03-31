@@ -4,13 +4,13 @@ import { NavAccountBtn } from '../../../components/NavAccountBtn/NavAccountBtn'
 import { RoleE } from 'enum/roleE'
 import { SettingsPath } from 'enum/pathE'
 import { useAppSelector } from '../../../store/hooks'
-import { selectUser } from '../../../selectors'
+import { schoolSelector, selectUser } from '../../../selectors'
 
 import styles from './navAccount.module.scss'
 
 export const NavAccount: FC = memo(() => {
   const { role } = useAppSelector(selectUser)
-  const schoolName = window.location.href.split('/')[4]
+  const { schoolName } = useAppSelector(schoolSelector)
 
   return (
     <nav className={styles.nav_account}>
@@ -24,9 +24,10 @@ export const NavAccount: FC = memo(() => {
       <NavAccountBtn path={SettingsPath.Bonuses} text={'Бонусы'} />
       <NavAccountBtn path={SettingsPath.PromotionSettings} text={'Акции'} />
       <NavAccountBtn text="Баннеры" path={SettingsPath.Banner} />
-      {(role === RoleE.SuperAdmin || role === RoleE.Admin) && schoolName == 'OVERONE' && (
+      {(role === RoleE.SuperAdmin || role === RoleE.Admin) && schoolName == 'COURSEHUB' && (
         <NavAccountBtn path={SettingsPath.EmailNewsLetter} text={'Рассылка'} />
       )}
+      {(role === RoleE.SuperAdmin || role === RoleE.Admin) && <NavAccountBtn path={SettingsPath.Referal} text={'Реферальная программа'} />}
     </nav>
   )
 })

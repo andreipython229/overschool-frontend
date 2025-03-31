@@ -59,6 +59,7 @@ export enum SettingsPath {
   PromotionSettings = 'promo/',
   EmailNewsLetter = 'email-newsletter/',
   Bonuses = 'bonuses/',
+  Referal = 'referal/',
 }
 
 export enum CreateCoursePath {
