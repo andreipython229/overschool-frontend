@@ -1,12 +1,12 @@
 @import '../../../scss/variable';
 
 .switch {
-  width: 57px;
-  height: 26px;
+  width: 58px;
+  height: 25px;
   display: flex;
   justify-content: flex-start;
   border-radius: 36px;
-  background: rgb(249, 251, 255);
+  background: rgb(237, 238, 242);
   position: relative;
   cursor: pointer;
   border: 1px solid rgb(53, 126, 235);
@@ -14,6 +14,7 @@
 
 .switch[data-isOn='true'] {
   justify-content: flex-end;
+  border: 1px solid transparent;
   background: linear-gradient(90deg, rgb(13, 40, 187), rgb(53, 126, 235) 100%);
   .handle {
     background-color: #ffffff;
