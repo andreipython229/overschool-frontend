@@ -1,21 +1,21 @@
 .nav_account {
-  margin: 10px 0 22px 13px;
   min-height: 48px;
+  width: 100%;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1rem 0;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-row-gap: 1em;
-
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-row-gap: 1em;
   }
-
-}
-
-.nav_account a:nth-last-child(n + 2) {
-  margin-right: 10px;
 }

@@ -21,7 +21,7 @@ import { selectChat } from '../../store/redux/chats/slice'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { selectUser, schoolSelector } from '../../selectors'
 import { addChat } from '../../store/redux/chats/chatsSlice'
-import { MessageSendPath } from "../../assets/Icons/svgIconPath";
+import { MessageSendPath } from '../../assets/Icons/svgIconPath'
 
 type StudentsTableWrapperT = {
   isLoading: boolean
@@ -48,7 +48,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
     const [rows, setRows] = useState<GenerateRow[]>()
     const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null)
     const [selectedStudent, setSelectedStudent] = useState<result | null>(null)
-    const {schoolName} = useAppSelector(schoolSelector);
+    const { schoolName } = useAppSelector(schoolSelector)
 
     const [fetchTableHeader, { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching }] = useLazyFetchStudentsTableHeaderQuery()
 
@@ -223,6 +223,8 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
     useEffect(() => {
       !isStudentModalOpen && setSelectedStudentId(null)
     }, [isStudentModalOpen])
+    let lastEmail: string | null = null
+    let lastColor = '#EDF1FA'
 
     return (
       <>
@@ -232,7 +234,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
               <thead className={styles.loader}>
                 <tr>
                   <td>
-                    <SimpleLoader style={{ width: '50px', height: '50px' }} />
+                    <SimpleLoader loaderColor="#357EEB" style={{ width: '50px', height: '50px' }} />
                   </td>
                 </tr>
               </thead>
@@ -253,7 +255,10 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                 {/* <button className={styles.svgSettingsWrapper}>
                   <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
                 </button> */}
-                <th className={styles.table_thead_td}> <span> Личный чат</span></th>
+                <th className={styles.table_thead_td}>
+                  {' '}
+                  <span> Личный чат</span>
+                </th>
               </tr>
             </thead>
 
@@ -263,16 +268,16 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                   rows
                     .sort((a: any, b: any) => (a['Email'] > b['Email'] ? 1 : -1)) // Сортировка по email
                     .map((row: any, rowIndex: number) => {
+                      if (row.Email !== lastEmail) {
+                        lastColor = lastColor === '#EDF1FA' ? 'white' : '#EDF1FA'
+                      }
+                      lastEmail = row.Email
                       const email = row['Email'] as string
                       const name = row['Имя'].text as string // Получаем текст из объекта с именем
                       const rowspan = rows.filter(r => r['Email'] === email).length
                       const showEmailCell = rowspan === 1
                       return (
-                        <tr
-                          key={rowIndex}
-                          style={row['Дата удаления из группы'] !== ' ' ? { backgroundColor: '#fcf5f5' } : {}}
-                          onClick={event => handleRowClick(event, row.id)}
-                        >
+                        <tr key={rowIndex} style={{ backgroundColor: lastColor }} onClick={event => handleRowClick(event, row.id)}>
                           {cols.map((col: string, colIndex: number) => {
                             const cellValue = row[col] as string | number | { text: string; image: ReactNode }
                             if (col === 'Email') {
@@ -377,7 +382,14 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                           <td>
                             <div className={styles.table_user}>
                               {row['Дата удаления из группы'] === ' ' && (
-                                <div className={styles.chat_button} onClick={(event) => {event.stopPropagation(); event.preventDefault(); handleToggleChatModal(rowIndex)}}>
+                                <div
+                                  className={styles.chat_button}
+                                  onClick={event => {
+                                    event.stopPropagation()
+                                    event.preventDefault()
+                                    handleToggleChatModal(rowIndex)
+                                  }}
+                                >
                                   <IconSvg width={23} height={23} viewBoxSize={'0 0 25 25'} path={MessageSendPath} />
                                 </div>
                               )}
@@ -403,36 +415,45 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
               </tbody>
             ) : (
               <tbody className={styles.table_tbody}>
-                {rows?.map((row, id) => (
-                  <tr
-                    key={id}
-                    style={row['Дата удаления из группы'] !== ' ' ? { backgroundColor: '#fcf5f5' } : {}}
-                    onClick={event => handleRowClick(event, row.id)}
-                  >
-                    {cols.map(col => {
-                      const cellValue = row[col] as string | number | { text: string; image: ReactNode }
-                      return (
-                        <td
-                          style={{
-                            verticalAlign: 'center',
-                          }}
-                          key={col}
-                        >
-                          {typeof cellValue === 'object' ? (
-                            <div className={styles.table_user}>
-                              {cellValue.image}
-                              <p>{cellValue.text}</p>
-                            </div>
-                          ) : (
-                            <p>{cellValue}</p>
-                          )}
-                        </td>
-                      )
-                    })}
-                    <td>
+                {rows?.map((row, id) => {
+                  const email = String(row.Email)
+                  if (email !== lastEmail) {
+                    lastColor = lastColor === '#EDF1FA' ? 'white' : '#EDF1FA'
+                  }
+                  lastEmail = email
+                  return (
+                    <tr key={id} style={{ backgroundColor: lastColor }} onClick={event => handleRowClick(event, row.id)}>
+                      {cols.map(col => {
+                        const cellValue = row[col] as string | number | { text: string; image: ReactNode }
+                        return (
+                          <td
+                            style={{
+                              verticalAlign: 'center',
+                            }}
+                            key={col}
+                          >
+                            {typeof cellValue === 'object' ? (
+                              <div className={styles.table_user}>
+                                {cellValue.image}
+                                <p>{cellValue.text}</p>
+                              </div>
+                            ) : (
+                              <p>{cellValue}</p>
+                            )}
+                          </td>
+                        )
+                      })}
+                      <td>
                         <div className={styles.table_user}>
                           {row['Дата удаления из группы'] === ' ' && (
-                            <div className={styles.chat_button} onClick={(event) => {event.stopPropagation(); event.preventDefault(); handleToggleChatModal(id)}}>
+                            <div
+                              className={styles.chat_button}
+                              onClick={event => {
+                                event.stopPropagation()
+                                event.preventDefault()
+                                handleToggleChatModal(id)
+                              }}
+                            >
                               <IconSvg width={23} height={23} viewBoxSize={'0 0 25 25'} path={MessageSendPath} />
                             </div>
                           )}
@@ -451,9 +472,10 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                             </div>
                           )}
                         </div>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             )}
           </table>

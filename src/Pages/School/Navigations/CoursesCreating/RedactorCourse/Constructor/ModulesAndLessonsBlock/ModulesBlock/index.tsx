@@ -5,7 +5,6 @@ import {
   ArrowDownGreyIconPath,
   ArrowDownIconPath,
   ArrowRightIconPath,
-  deleteIconPath,
   DoBlockHoverIconPath,
   DoBlockIconPath,
 } from '../../../../../../config/svgIconsPath'
@@ -17,11 +16,10 @@ import { lessonT } from 'types/sectionT'
 import { useDebounceFunc } from 'customHooks/useDebounceFunc'
 import { getSectionId } from 'store/redux/modules/slice'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from './modules_block.module.scss'
-import { MotionConfig, Reorder, useDragControls, motion } from 'framer-motion'
+import { Reorder, useDragControls, motion } from 'framer-motion'
 import styles1 from '../../../../../../../../components/Modal/Modal.module.scss'
 import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
@@ -29,6 +27,7 @@ import { WarningModal } from 'components/Modal/Warning'
 import { deleteHoverIconPath, eyeCloseIconPath, eyeOpenIconPath } from '../LessonsBlock/config'
 import { animateVisibility, show, hide } from '../LessonsBlock/constants/animationConstants'
 import { schoolSelector } from 'selectors'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const ModulesBlock: FC<ModulesBlockT> = memo(
   ({
@@ -44,7 +43,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
     setInsertAfterOrder,
   }) => {
     const dispatch: any = useAppDispatch()
-    const [showLessons, { onToggle: toggleLessons }] = useBoolean(true)
+    const [showLessons, { onToggle: toggleLessons }] = useBoolean(false)
     const { schoolName } = useAppSelector(schoolSelector)
     const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
     const controls = useDragControls()
@@ -78,6 +77,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
     const handleChangeModuleName = (event: ChangeEvent<HTMLInputElement>) => {
       setChangeModuleName(event.target.value)
     }
+
     const debounced = useDebounceFunc(changeName, 2000)
     const [visibleAddBtn, setVisibleAddBtn] = useState(false)
 
@@ -230,7 +230,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                   />
                 </button>
               </div>
-              {deleteModuleLoading && <SimpleLoader style={{ width: '20px', height: '20px' }} />}
+              {deleteModuleLoading && <LoaderLayout />}
             </span>
             <motion.button
               className={styles.btn}
@@ -267,6 +267,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                   key={lesson.baselesson_ptr_id}
                   id={lesson.id}
                   lessonsName={lesson.name}
+                  sectionId={section.section}
                   lesson={lesson}
                   selected={selectedLessonId === lesson.baselesson_ptr_id}
                   onPush={() => handleLessonClick(lesson.baselesson_ptr_id)}

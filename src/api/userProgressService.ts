@@ -16,6 +16,7 @@ export interface ICoursesProgress {
   rank_in_course: number
   average_mark: number
   top_leaders: ITopUser[]
+  better_than_percent: number
   homeworks: {
     completed_percent: number
     all_lessons: number
