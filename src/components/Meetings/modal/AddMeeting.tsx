@@ -107,10 +107,10 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
       groupsByCourse?.map(group => {
         setNewMeetingData(
           (prevData: SchoolMeeting) =>
-            ({
-              ...prevData,
-              students_groups: [...prevData.students_groups, group.group_id],
-            } as SchoolMeeting),
+          ({
+            ...prevData,
+            students_groups: [...prevData.students_groups, group.group_id],
+          } as SchoolMeeting),
         )
       })
       setShowReminderOptions(true)
@@ -189,11 +189,19 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
             // borderImageSource: 'linear-gradient(90deg, #3170E7 13.5%, #7A90F7 100%)',
             borderRadius: '24px',
             padding: '44px',
+            '@media screen and (max-width: 1023px), screen and (max-aspect-ratio: 1/1)': {
+              padding: '20px',
+              width: '90%',
+            },
           },
           '& .MuiTypography-h6': {
             fontSize: '24px',
             fontWeight: '500',
             color: '#332F36',
+            '@media screen and (max-width: 1023px), screen and (max-aspect-ratio: 1/1)': {
+              padding: '20px 0',
+              fontSize: '18px',
+            },
           },
           '& .MuiTypography-root': {
             width: '100%',
@@ -347,10 +355,10 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
                           if (isChecked) {
                             setNewMeetingData(
                               (prevData: SchoolMeeting) =>
-                                ({
-                                  ...prevData,
-                                  students_groups: [...prevData.students_groups, group.group_id],
-                                } as SchoolMeeting),
+                              ({
+                                ...prevData,
+                                students_groups: [...prevData.students_groups, group.group_id],
+                              } as SchoolMeeting),
                             )
                             setShowReminderOptions(true)
                           } else {
@@ -383,8 +391,8 @@ export const AddMeeting: FC<AddMeetingProps> = ({ showAddMeetingForm, setShowAdd
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleAddMeeting} variant={'newPrimary'} text={isEditMode ? 'Сохранить' : 'Добавить'} />
-          <Button onClick={() => setShowAddMeetingForm(false)} variant={'cancel'} text="Отмена" />
+          <Button className={styles.add_meeting_btn} onClick={handleAddMeeting} variant={'newPrimary'} text={isEditMode ? 'Сохранить' : 'Добавить'} />
+          <Button className={styles.add_meeting_btn} onClick={() => setShowAddMeetingForm(false)} variant={'cancel'} text="Отмена" />
         </DialogActions>
       </Dialog>
     </>
