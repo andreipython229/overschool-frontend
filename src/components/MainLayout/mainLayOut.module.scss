@@ -36,6 +36,11 @@
   margin: 0 auto;
   width: 100%;
   padding-top: calc(2rem + 80px);
+
+  @media screen and (max-width: 1023px),
+          screen and (max-aspect-ratio: 1/1) {
+            max-width: 100%;
+          }
 }
 
 .main {
