@@ -39,12 +39,8 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [link, setLink] = useState<string>(banner.link)
   const [saveChanges, { isLoading }] = useUpdateSchoolBannerMutation()
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
-
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
-
   const [showGroupsModal, { on: closeGroups, off: openGroups, onToggle: setShow }] = useBoolean()
-
-
 
 
   const handleDeleteBanner = () => {

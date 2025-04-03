@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: 'SFPRORegular';
-  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
 }
 
 .fit-content {
@@ -27,8 +27,7 @@
     gap: 20px;
   }
 
-  font-family: 'Inter',
-  sans-serif;
+  font-family: 'Inter', sans-serif;
   color: #4d5766;
 
   &_input {
@@ -130,7 +129,7 @@
   }
 
   &_create_banner_btn {
-    background-color: #357EEB;
+    background-color: #357eeb;
     border-radius: 10px;
     color: #fff;
     padding: 15px 40px;
@@ -308,7 +307,6 @@
       font-family: 'SFPRORegular';
       color: $color-text;
 
-
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin-bottom: 0;
       }
@@ -350,7 +348,7 @@
       right: 0;
     }
 
-    svg:hover path{
+    svg:hover path {
       fill: $color-blue;
     }
   }
@@ -447,7 +445,7 @@
     // overflow-x: auto;
     margin-bottom: 50px;
 
-    @media only screen and (min-width : 320px) and (max-width : 375px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
       padding: 4% 3% 4% 3%;
     }
 
@@ -552,13 +550,12 @@
         width: 100%;
         text-overflow: ellipsis;
         text-align: left;
-    
+
         div {
-    
           div {
             flex-direction: row-reverse;
             border: 1px solid transparent;
-            background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+            background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
             padding: 15px 16px;
             border-radius: 16px;
           }
@@ -595,7 +592,7 @@
   &_groups {
     cursor: pointer;
     border: 1px solid transparent;
-    background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+    background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
     padding: 16px;
     border-radius: 16px;
     height: 56px;

@@ -5,24 +5,24 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { crossIconPath } from 'config/commonSvgIconsPath'
 import { Button } from 'components/common/Button/Button'
 import { studentsGroupT } from 'types/studentsGroup'
-import { IBanner } from 'api/apiTypes'
+import { IInviteProgramResp } from 'api/apiTypes'
 import React, { FC, useState } from 'react'
 import { isCheckedFunc } from 'utils/isCheckedFunc'
-import { useUpdateSchoolBannerMutation } from 'api/schoolBonusService'
 import { useBoolean } from 'customHooks'
+import { useUpdateInvitesProgramMutation } from 'api/schoolService'
 
-export type BannerGroupsT = {
+export type InvitesGroupsT = {
   setShowModal: (value: boolean) => void
   groups: studentsGroupT
-  banner: IBanner
+  invite: IInviteProgramResp
   schoolName: string
   refetch: () => void
 }
 
-export const BannerGroups: FC<BannerGroupsT> = ({ refetch, schoolName, setShowModal, groups, banner }) => {
-  const [activeGroups, setActiveGroups] = useState<number[]>(banner.groups)
+export const InvitesProgramGroups: FC<InvitesGroupsT> = ({ refetch, schoolName, setShowModal, groups, invite }) => {
+  const [activeGroups, setActiveGroups] = useState<number[]>(invite.groups)
   const [allGroups, setAllGroups] = useState<boolean>(activeGroups.length === groups.results.length)
-  const [saveChanges, { isLoading }] = useUpdateSchoolBannerMutation()
+  const [saveChanges, { isLoading }] = useUpdateInvitesProgramMutation()
   const [isEditing, { on: closeEditing, off: openEditing }] = useBoolean(false)
 
   const handleSelectAllGroups = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -65,7 +65,7 @@ export const BannerGroups: FC<BannerGroupsT> = ({ refetch, schoolName, setShowMo
               setShowModal(false)
               const formdata = new FormData()
               activeGroups.map(grp => formdata.append('groups', String(grp)))
-              await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
+              await saveChanges({ schoolName: schoolName, data: formdata, id: invite.id })
                 .unwrap()
                 .then(() => {
                   closeEditing()
