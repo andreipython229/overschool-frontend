@@ -542,7 +542,13 @@ export const CoursePage: FC = () => {
             {courses && filteredCourses?.length !== 0 ? (
               filteredCourses?.map((course: any, index) =>
                 (RoleE.Admin === role && showTestCourse) || course.course_id !== 247 ? (
-                  <CoursesCard userProgress={getProgress(course.course_id)} key={course?.course_id} course={course} role={role} />
+                  <CoursesCard
+                    userProgress={getProgress(course.course_id)}
+                    key={course?.course_id}
+                    course={course}
+                    role={role}
+                    refetchCourses={() => fetchData({ schoolName, page: currentPage })}
+                  />
                 ) : null,
               )
             ) : (

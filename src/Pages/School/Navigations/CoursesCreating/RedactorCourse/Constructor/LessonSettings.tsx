@@ -39,11 +39,11 @@ import { Portal } from 'components/Modal/Portal'
 import { WarningModal } from 'components/Modal/Warning'
 import { useParams } from 'react-router-dom'
 import { NewAudioPlayer } from 'components/NewAudioPlayer'
-import { convertSecondsToTime } from 'utils/convertDate'
 import { Toast } from 'primereact/toast'
 import { Button } from 'components/common/Button/Button'
 import { InputBlock } from 'components/common/Input/InputBlock'
 import { useLazyFetchQuestionsListQuery } from 'api/questionsAndAnswersService'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, lessonIdAndType, setType }) => {
   const toast = useRef<Toast>(null)
@@ -61,12 +61,15 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const debounceBlockOrder = useDebounceFunc(changeOrder, 2000)
   const [newBlocksOrders, setNewBlocksOrders] = useState<BlockT[]>([])
 
-  const { data, isFetching, isSuccess, refetch } = useFetchLessonQuery({
-    id: +lessonIdAndType.id,
-    type: lessonIdAndType.type,
-    schoolName,
-    courseId: courseId,
-  })
+  const { data, isFetching, isSuccess, refetch } = useFetchLessonQuery(
+    {
+      id: +lessonIdAndType.id,
+      type: lessonIdAndType.type,
+      schoolName,
+      courseId: courseId,
+    },
+    { refetchOnMountOrArgChange: true },
+  )
   const [addTextFiles] = usePostTextFilesMutation()
   const [saveChanges, { isLoading: isSaving, isSuccess: isCompleted, isError, error: saveError }] = usePatchLessonsMutation()
   const [deleteFile, { isLoading: isDeleting }] = useDeleteTextFilesMutation()
@@ -83,16 +86,16 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const [isAddAudioClicked, setIsAddAudioClicked] = useState<boolean>(false)
   const [title, setTitle] = useState<string>('')
   const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
-  const [testName, setTestName] = useState<string>((lesson && 'name' in lesson && lesson?.name) ? lesson?.name : '')
-  
-  const [fetchQuestionsList, { data: questionsList, isLoading, isSuccess: isSuccessful }] = useLazyFetchQuestionsListQuery();
+  const [testName, setTestName] = useState<string>(lesson && 'name' in lesson && lesson?.name ? lesson?.name : '')
+
+  const [fetchQuestionsList, { data: questionsList, isLoading, isSuccess: isSuccessful }] = useLazyFetchQuestionsListQuery()
   const [questions, setQuestions] = useState<QuestionT[]>([])
 
   useEffect(() => {
     if (lessonIdAndType.id && schoolName && courseId && lesson && lesson.type === 'test') {
-      fetchQuestionsList({ id: String(lessonIdAndType.id), schoolName, course_id: courseId });
+      fetchQuestionsList({ id: String(lessonIdAndType.id), schoolName, course_id: courseId })
     }
-  }, [lessonIdAndType.id, schoolName, courseId, lesson]);
+  }, [lessonIdAndType.id, schoolName, courseId, lesson])
 
   useEffect(() => {
     if (questionsList) {
@@ -108,7 +111,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
     if (lesson && 'name' in lesson && lesson?.name) {
       setTestName(lesson?.name)
     }
-  }, [lesson?.name]);
+  }, [lesson?.name])
 
   useEffect(() => {
     switch (lesson?.type) {
@@ -118,7 +121,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
       case LESSON_TYPE.LESSON:
         setTitle('Содержание урока:')
         break
-      case  LESSON_TYPE.HOMEWORK:
+      case LESSON_TYPE.HOMEWORK:
         setTitle('Содержание домашней работы:')
         break
     }
@@ -440,7 +443,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
         if (file.size < 201 * 1024 * 1024) {
           uploaded.push(file)
         } else {
-          console.log('error')
           tmpError = 'Превышен допустимый размер файла'
           setFileError(tmpError)
         }
@@ -460,31 +462,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   const handleDeleteFile = (index: number) => {
     setFiles(files => files.filter((_, id) => id !== index))
     setUrlFiles(files => files.filter((_, id) => id !== index))
-  }
-
-  const handleDeleteVideo = async (video: string | undefined) => {
-    if (video && video === lesson.url) {
-      const formData = new FormData()
-      formData.append('section', String(lesson.section))
-      formData.append('order', String(lesson.order))
-      formData.append('active', String(isPublished))
-      formData.append('url', '')
-      await saveChanges({
-        arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData },
-        schoolName,
-      })
-    }
-    if (video && video === lesson.video) {
-      const formData = new FormData()
-      formData.append('section', String(lesson.section))
-      formData.append('order', String(lesson.order))
-      formData.append('active', String(isPublished))
-      formData.append('video_use', String(true))
-      await saveChanges({
-        arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData },
-        schoolName,
-      })
-    }
   }
 
   const handleDeleteAudioFile = async (index: number) => {
@@ -527,13 +504,6 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
   useEffect(() => {
     isSuccess && setLesson(data)
   }, [data])
-
-  const publickButton = {
-    width: '180px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  }
 
   useEffect(() => {
     if (isCompleted) {
@@ -590,14 +560,16 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                 <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_nameSettings}>
                   {lesson && 'name' in lesson && lesson.name}
                 </span>
-                <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_edit} onClick={showSettingsModal}>Редактировать</span>
+                <span className={styles.redactorCourse_rightSideWrapper_rightSide_block_edit} onClick={showSettingsModal}>
+                  Редактировать
+                </span>
               </div>
               <div className={styles.coursePreviewHeaderRedactor}>
                 <div className={styles.publicBlockEdit}>
                   <AnimatePresence>
                     <div className={styles.publickButton}>
                       <div className={styles.publicBlockEdit_mark}>
-                        <PublishedMark isPublished={isPublished}/>
+                        <PublishedMark isPublished={isPublished} />
                       </div>
                       <div className={styles.publicBlockEdit_publish_switch}>
                         <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
@@ -605,7 +577,7 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                     </div>
                   </AnimatePresence>
                   <Button onClick={handleSaveChanges} variant={'newPrimary'} text={'Сохранить'} />
-              </div>
+                </div>
               </div>
             </div>
             <div className={styles.redactorCourse_rightSideWrapper_rightSide_functional_content}>
@@ -702,26 +674,26 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
             {lessonIdAndType.type === 'test' && (
               <>
                 <div className={styles.wrapper_preview}>
-                {showModal && (
-                  <Portal closeModal={close}>
-                    <WarningModal setShowModal={setShow} task={handleDeleteLesson} textModal={`Вы действительно хотите удалить?`} />
-                  </Portal>
+                  {showModal && (
+                    <Portal closeModal={close}>
+                      <WarningModal setShowModal={setShow} task={handleDeleteLesson} textModal={`Вы действительно хотите удалить?`} />
+                    </Portal>
                   )}
-                  <Button onClick={open} variant={'cancel'} text={'Удалить'}/>
+                  <Button onClick={open} variant={'cancel'} text={'Удалить'} />
                   <h4 className={styles.wrapper_preview_title}>Превью</h4>
                   <div className={styles.wrapper_preview_test}>
                     <div className={styles.wrapper_preview_test_leftSide}>
-                    <div className={styles.check_autotest}>
-                      <div className={styles.publicBlockEdit_publish_switch}>
-                        <CheckboxBall isChecked={autogeneration} toggleChecked={() => setAutogeneration(!autogeneration)} />
+                      <div className={styles.check_autotest}>
+                        <div className={styles.publicBlockEdit_publish_switch}>
+                          <CheckboxBall isChecked={autogeneration} toggleChecked={() => setAutogeneration(!autogeneration)} />
+                        </div>
+                        <span>Автогенерация теста</span>
                       </div>
-                      <span>Автогенерация теста</span>
-                    </div>
-                    <div className={styles.check_autotest}>
-                      <div className={styles.publicBlockEdit_publish_switch}>
-                        <CheckboxBall isChecked={testHasTimer} toggleChecked={() => setTestHasTimer(!testHasTimer)} />
-                      </div>
-                      <span>Таймер для прохождения теста:</span>
+                      <div className={styles.check_autotest}>
+                        <div className={styles.publicBlockEdit_publish_switch}>
+                          <CheckboxBall isChecked={testHasTimer} toggleChecked={() => setTestHasTimer(!testHasTimer)} />
+                        </div>
+                        <span>Таймер для прохождения теста:</span>
                       </div>
                       <div className={styles.wrapper_preview_test_inputWrapper}>
                         <InputBlock
@@ -729,43 +701,43 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                           name={'name'}
                           type={'text'}
                           value={testName}
-                          placeholder='Название темы для теста'
+                          placeholder="Название темы для теста"
                         />
                       </div>
-                {testHasTimer && timeValue && (
-                  <div className={styles.timeLimit}>
-                    <label htmlFor="timer">Время выполнения:</label>
-                    <div className={styles.timeLimit_input} id="timer">
-                      <input
-                        value={timeValue.minutes}
-                        onChange={e => setTimeValue({ ...timeValue, minutes: e.target.value })}
-                        type="tel"
-                        min={0}
-                        max={99}
-                        id="timer-minutes"
-                        name="timer-minutes"
-                        inputMode="numeric"
-                        maxLength={2}
-                        onKeyDown={e => {
-                          return /[0-9]/i.test(e.key)
-                        }}
-                      />
-                      <span style={{paddingBottom: '5px'}}>:</span>
-                      <input
-                        value={timeValue.seconds}
-                        onChange={e => setTimeValue({ ...timeValue, seconds: e.target.value })}
-                        type="tel"
-                        min={0}
-                        inputMode="numeric"
-                        maxLength={2}
-                        max={59}
-                        pattern="[0-9]{2}"
-                        id="timer-seconds"
-                        name="timer-seconds"
-                      />
-                    </div>
-                  </div>
-                    )}
+                      {testHasTimer && timeValue && (
+                        <div className={styles.timeLimit}>
+                          <label htmlFor="timer">Время выполнения:</label>
+                          <div className={styles.timeLimit_input} id="timer">
+                            <input
+                              value={timeValue.minutes}
+                              onChange={e => setTimeValue({ ...timeValue, minutes: e.target.value })}
+                              type="tel"
+                              min={0}
+                              max={99}
+                              id="timer-minutes"
+                              name="timer-minutes"
+                              inputMode="numeric"
+                              maxLength={2}
+                              onKeyDown={e => {
+                                return /[0-9]/i.test(e.key)
+                              }}
+                            />
+                            <span style={{ paddingBottom: '5px' }}>:</span>
+                            <input
+                              value={timeValue.seconds}
+                              onChange={e => setTimeValue({ ...timeValue, seconds: e.target.value })}
+                              type="tel"
+                              min={0}
+                              inputMode="numeric"
+                              maxLength={2}
+                              max={59}
+                              pattern="[0-9]{2}"
+                              id="timer-seconds"
+                              name="timer-seconds"
+                            />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -823,56 +795,50 @@ export const LessonSettings: FC<ClassesSettingsPropsT> = memo(({ deleteLesson, l
                 </span>
               </div>
               <div className={styles.publicBlockEdit}>
-                  <AnimatePresence>
-                    <div className={styles.publickButton}>
-                      <div className={isPublished ? styles.publicBlockEdit_mark : `${styles.publicBlockEdit_mark} ${styles.unpublished}`}>
-                        <PublishedMark isPublished={isPublished}/>
-                      </div>
-                      <div className={styles.publicBlockEdit_publish_switch}>
-                        <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
-                      </div>
+                <AnimatePresence>
+                  <div className={styles.publickButton}>
+                    <div className={isPublished ? styles.publicBlockEdit_mark : `${styles.publicBlockEdit_mark} ${styles.unpublished}`}>
+                      <PublishedMark isPublished={isPublished} />
                     </div>
-                  </AnimatePresence>
-                <Button onClick={() => setIsEditing(true)} variant={'newPrimary'} text={'Редактировать'}/>
+                    {/* <div className={styles.publicBlockEdit_publish_switch}>
+                        <CheckboxBall isChecked={isPublished} toggleChecked={() => setIsPublished(!isPublished)} />
+                      </div> */}
+                  </div>
+                </AnimatePresence>
+                <Button onClick={() => setIsEditing(true)} variant={'newPrimary'} text={'Редактировать'} />
               </div>
             </div>
-              <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>{title}</span>
-              {lessonIdAndType.type === 'test' && (
-                <div className={styles.admin_preview}>
+            <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>{title}</span>
+            {lessonIdAndType.type === 'test' && (
+              <div className={styles.admin_preview}>
                 <div className={styles.admin_preview_container}>
                   <span className={styles.admin_preview_container_subtitle}>Тест</span>
-                  <div className={styles.admin_preview_container_title}>
-                    {lesson && 'name' in lesson && lesson.name}
+                  <div className={styles.admin_preview_container_title}>{lesson && 'name' in lesson && lesson.name}</div>
+                  <div className={styles.admin_preview_container_wrapper}>
+                    <span>Количество вопросов:</span>
+                    {questions?.length ? (
+                      <span className={styles.admin_preview_container_wrapper_value}>{questions?.length}</span>
+                    ) : (
+                      <span className={styles.admin_preview_container_wrapper_value}>0</span>
+                    )}
                   </div>
-                    <div className={styles.admin_preview_container_wrapper}>
-                      <span>Количество вопросов:</span>
-                      {questions?.length ? <span className={styles.admin_preview_container_wrapper_value}>{questions?.length}</span> : <span className={styles.admin_preview_container_wrapper_value}>0</span>}
-                    </div>
-                    <div className={styles.admin_preview_container_wrapper} style={{marginTop: '23px'}}>
-                      <span>Время выполнения:</span>
-                      {(testHasTimer && timeValue) ? <span className={styles.admin_preview_container_wrapper_value}>{`${timeValue.minutes}`} : {`${timeValue.seconds}`}</span> : (
-                        <span className={styles.admin_preview_container_wrapper_value}>00 : 00</span>
-                      )}
-                    </div>
+                  <div className={styles.admin_preview_container_wrapper} style={{ marginTop: '23px' }}>
+                    <span>Время выполнения:</span>
+                    {testHasTimer && timeValue ? (
+                      <span className={styles.admin_preview_container_wrapper_value}>
+                        {`${timeValue.minutes}`} : {`${timeValue.seconds}`}
+                      </span>
+                    ) : (
+                      <span className={styles.admin_preview_container_wrapper_value}>00 : 00</span>
+                    )}
+                  </div>
                 </div>
               </div>
-              )}
-              {renderUI()}
+            )}
+            {renderUI()}
           </div>
         )}
-        {(isFetching || isDeleting || isSaving || isBlockDeleting) && (
-          <div
-            style={{
-              position: 'absolute',
-              zIndex: 20,
-              top: '50%',
-              left: '-50%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <SimpleLoader style={{ width: '100px', height: '100px' }} />
-          </div>
-        )}
+        {(isFetching || isDeleting || isSaving || isBlockDeleting) && <LoaderLayout />}
       </div>
       <Toast ref={toast} position="bottom-right" />
     </section>

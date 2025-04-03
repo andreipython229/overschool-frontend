@@ -7,6 +7,8 @@ import { schoolSelector, selectUser } from 'selectors'
 import { useAppSelector } from 'store/hooks'
 import styles from './courseMiniCard.module.scss'
 import { PeopleIconSvg } from 'components/StudentGroupMiniCard/assets/iconsComponents'
+import { groupsIconPath } from "config/commonSvgIconsPath"
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import bgImage from '../StudentGroupMiniCard/assets/image.png'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { getNounDeclension } from 'utils/getNounDeclension'
@@ -19,16 +21,15 @@ interface ICoursesMiniCard {
 
 export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }) => {
   const { role } = useAppSelector(selectUser)
-  const [isModalOpen, { on: close, off: open }] = useBoolean()
   const { schoolName } = useAppSelector(schoolSelector)
   const [quantityOfStudents, setStudents] = useState<number>()
   const [filteredGroups, setGroups] = useState<studentsGroupsT[]>()
 
   useEffect(() => {
-    if (groups) {
+    if (groups && !Array.isArray(filteredGroups)) {
       setGroups(groups?.filter(({ course_id }) => course_id === +courseId))
     }
-  }, [])
+  }, [groups])
 
   useEffect(() => {
     if (filteredGroups) {
@@ -49,7 +50,7 @@ export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }
         <div className={styles.wrapper_text}>
           <p className={styles.wrapper_text_title}>{title}</p>
           <p className={styles.wrapper_text_description}>
-            <PeopleIconSvg />
+            <IconSvg path={groupsIconPath} viewBoxSize="0 0 25 24" width={25} height={24} />
             {filteredGroups?.length + ' ' + getNounDeclension(Number(filteredGroups?.length), ['группа', 'группы', 'групп'])}
           </p>
           <p className={styles.wrapper_text_description}>
@@ -59,6 +60,7 @@ export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }
         </div>
       </Link>
       <div className={`${styles.wrapper_shadow}`} />
+      {!Array.isArray(filteredGroups) && <div className={styles.blurLoad} />}
     </div>
   )
 }
