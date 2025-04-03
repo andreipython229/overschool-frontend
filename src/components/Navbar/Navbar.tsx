@@ -44,11 +44,17 @@ export const Navbar: FC = memo(() => {
   const [fetchAdminInvites, { data: inviteLinkDataAdmin }] = useLazyFetchInvitesProgramQuery()
 
   useEffect(() => {
-    if ((!inviteLink && UserRole === RoleE.Student && !inviteLinkDataStudent) || (inviteLink && !inviteLink.is_active)) {
+    if (
+      (!inviteLink && UserRole === RoleE.Student && !inviteLinkDataStudent) ||
+      (inviteLink && !inviteLink.is_active && UserRole === RoleE.Student)
+    ) {
       fetchInvites(schoolName)
         .unwrap()
         .then(data => dispatch(setInviteProgram(data)))
-    } else if ((!inviteLink && UserRole === RoleE.Admin && !inviteLinkDataAdmin) || (inviteLink && !inviteLink.is_active)) {
+    } else if (
+      (!inviteLink && UserRole === RoleE.Admin && !inviteLinkDataAdmin) ||
+      (inviteLink && !inviteLink.is_active && UserRole === RoleE.Admin)
+    ) {
       fetchAdminInvites(schoolName)
         .unwrap()
         .then(data => {
