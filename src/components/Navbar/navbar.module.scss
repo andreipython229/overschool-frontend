@@ -133,7 +133,11 @@
     // cursor: pointer;
     gap: 0.8vh;
     transition-duration: $trans-dur02;
-
+    
+    &_mob_empty{
+      display: none;
+      height: 100px;
+    }
 
 
     // @media only screen and (min-width: 481px) and (max-width: 1024px) {
@@ -168,7 +172,7 @@
       &:hover {
         border-radius: 10px;
         color: $color-white;
-        background-color: #357eeb;
+        background-color: $color-blue;
         cursor: pointer;
         fill: $color-white;
 
@@ -177,9 +181,8 @@
           stroke: $color-white;
         }
 
-        // Изменяем цвет текста только для текущего элемента
         p {
-          color: $color-white; // Применяем цвет только к p внутри текущего элемента
+          color: $color-white;
         }
       }
     }
@@ -250,6 +253,14 @@
       opacity: 0;
     }
   }
+
+  .mobile_active_indicator{
+    display: none;
+    height: 2px;
+    width: 70%;
+    background-color: $color-blue;
+    margin: 0;
+  }
 }
 
 .chatIcon {
@@ -271,7 +282,7 @@
     height: 100%;
     width: auto;
 
-    path{
+    path {
       fill: #332f36;
     }
   }
@@ -344,6 +355,7 @@
 
 
 
+
 @media screen and (max-width: 1023px),
 screen and (max-aspect-ratio: 1/1) {
 
@@ -355,7 +367,7 @@ screen and (max-aspect-ratio: 1/1) {
     max-width: none;
     max-height: 70px;
     border-radius: 0;
-    padding: 0;
+    padding: 9px;
     background: $color-white;
     // box-shadow: none;
 
@@ -379,9 +391,31 @@ screen and (max-aspect-ratio: 1/1) {
     &_menu {
       width: auto;
       padding: 0;
-
+      width: 50px;
+      margin: 0;
+      height: 50px;
+      @include display(flex, column, center, center);
       p {
         display: none;
+      }
+
+      div{
+        @include display(flex, row, center, center);
+        width: 30px;
+          height: 30px;
+        svg{
+          width: 30px;
+          height: 30px;
+        }
+      }
+
+      &:hover {
+        background-color: $color-white;
+
+
+        & div svg path {
+          fill: #332f36;
+        }
       }
     }
 
@@ -390,27 +424,84 @@ screen and (max-aspect-ratio: 1/1) {
       height: 100%;
       gap: 0;
 
+
+      &_mob_empty{
+        display: block;
+      }
+
       .chatIcon_container {
         height: 100%;
         padding: 0;
+        width: 50px;
+        height: 50px;
+        @include display(flex, column, center, center);
+        
+
+        .chatIcon{
+          width: 30px;
+          height: 30px;
+          svg{
+            width: 30px;
+            height: 30px;
+          }
+        }
 
         p {
           display: none;
+        }
+
+        &:hover {
+          background-color: transparent;
         }
       }
 
       &_icon_container {
         padding: 0;
         height: 100%;
+        width: 50px;
+        max-height: 50px;
+        @include display(flex, column, center, center);
+
+        div{
+          @include display(flex, row, center, center);
+          width: 30px;
+          height: 30px;
+          svg{
+            width: 30px;
+            height: 30px;
+          }
+        }
 
         p {
           display: none;
+        }
+
+        &:hover {
+          background-color: transparent;
         }
       }
 
       .tg_container {
         display: none;
       }
+
+      &:hover {
+        border-radius: 10px;
+        background-color: transparent;
+        cursor: pointer;
+        fill: $color-white;
+
+        svg path {
+          fill: #332f36;
+          stroke: #332f36;
+        }
+
+        p {
+          color: #332f36;
+        }
+      }
+
+
 
 
       // @media only screen and (min-width: 320px) and (max-width: 375px) {

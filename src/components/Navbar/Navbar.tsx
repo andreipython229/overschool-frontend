@@ -126,14 +126,17 @@ export const Navbar: FC = memo(() => {
               <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
             </div>
             <p>Главная</p>
+            <div className={styles.mobile_active_indicator}></div>
           </NavLink>
         )}
         <div className={styles.navbar_setting_account}>
+          <div className={styles.navbar_setting_account_mob_empty}></div>
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
               <NavLink key={index} to={path} className={styles.navbar_setting_account_icon_container}>
                 <div>{icon}</div>
                 <p>{getPathLabel(path as Path)}</p>
+                <div className={styles.mobile_active_indicator}></div>
               </NavLink>
             ) : (
               <a className={styles.chatIcon_container} key={index + '_' + path} onClick={off}>
@@ -148,6 +151,7 @@ export const Navbar: FC = memo(() => {
                   )}
                 </div>
                 <p>Чат</p>
+                <div className={styles.mobile_active_indicator}></div>
               </a>
             ),
           )}
