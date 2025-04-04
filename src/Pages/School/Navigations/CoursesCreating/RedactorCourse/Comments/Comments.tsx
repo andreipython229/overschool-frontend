@@ -66,7 +66,6 @@ export const Comments: FC = () => {
     };
 
     const handleChangeLesson = (lessonId: number, baselesson: number, lessonType: string) => {
-
       return () => {
         const idAndType: lessonIdAndTypeT = { id: lessonId, type: lessonType };
         setLessonIdAndType(idAndType);
@@ -265,10 +264,10 @@ export const Comments: FC = () => {
                           <button onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
                             className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content}>
                             <span>
-                              <span style={{float:'left', marginLeft:'20px'}}>
-                                <IconSvg className={clickedLessonId===lesson.baselesson_ptr_id ? styles.fillColorWhite : '' } width={24} height={24} viewBoxSize="0 0 24 24" path={clickedLessonId===lesson.baselesson_ptr_id ? lessonIcon : lessonIcon} />
-                                </span>
-                              <span style={{marginLeft:'-10px'}}>{lesson.name}</span>
+                              <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_inside} style={{float:'left'}}>
+                                <IconSvg className={clickedLessonId===lesson.baselesson_ptr_id ? styles.fillColorWhite : styles.fillColorBlue} width={24} height={24} viewBoxSize="0 0 24 24" path={clickedLessonId===lesson.baselesson_ptr_id ? lessonIcon : lessonIcon} />
+                              </span>
+                              <span>{lesson.name}</span>
                             </span>
                               <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span>
                           </button>
@@ -280,10 +279,11 @@ export const Comments: FC = () => {
                         <button onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
                           className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content}>
                           <span>
-                            <span style={{float:'left', marginLeft:'20px'}}>
-                              <IconSvg className={clickedLessonId===lesson.baselesson_ptr_id ? styles.fillColorWhite : '' } width={24} height={24} viewBoxSize="0 0 24 24" path={clickedLessonId===lesson.baselesson_ptr_id ? lessonIcon : lessonIcon} />
+                            <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_inside} style={{float:'left'}}>
+                              <IconSvg className={clickedLessonId===lesson.baselesson_ptr_id ? styles.fillColorWhite : styles.fillColorBlue } width={24} height={24} viewBoxSize="0 0 24 24"
+                                path={clickedLessonId===lesson.baselesson_ptr_id ? lessonIcon : lessonIcon}/>
                             </span>
-                            <span style={{marginLeft:'-10px'}}>{lesson.name}</span>
+                            <span>{lesson.name}</span>
                           </span>
                             <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span>
                         </button>
@@ -295,10 +295,10 @@ export const Comments: FC = () => {
                           <button onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
                             className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content}>
                             <span>
-                              <span style={{float:'left', marginLeft:'20px'}}>
-                                <IconSvg className={clickedLessonId===lesson.baselesson_ptr_id ? styles.fillColorWhite : '' } width={24} height={24} viewBoxSize="0 0 24 24" path={clickedLessonId===lesson.baselesson_ptr_id ? lessonIcon : lessonIcon} />
+                              <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_inside} style={{float:'left'}}>
+                                <IconSvg className={clickedLessonId===lesson.baselesson_ptr_id ? styles.fillColorWhite : styles.fillColorBlue } width={24} height={24} viewBoxSize="0 0 24 24" path={clickedLessonId===lesson.baselesson_ptr_id ? lessonIcon : lessonIcon} />
                               </span>
-                              <span style={{marginLeft:'-10px'}}>{lesson.name}</span>
+                              <span>{lesson.name}</span>
                             </span>
                               <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span>
                           </button>
@@ -334,49 +334,47 @@ export const Comments: FC = () => {
                   </button>
                   </div>
                 </div>
-                <span className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Комментарии к уроку:</span>
+                <div className={styles.redactorCourse_rightSideWrapper_rightSide_title}>Комментарии к уроку:</div>
                 {error && (
                     <div role="alert" className={styles.error}>
                       {error}
                     </div>
                   )}
           <div className={styles.commentContainer}>
-            {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
+          {commentsList && Array.isArray(commentsList?.comments) && commentsList.comments.length > 0 ? (
                <table className={styles.commentTable}>
                   <thead className={styles.commentTable_title}>
-                      <th style={{width: '270px', textAlign: 'left'}}>Имя</th>
-                      <th style={{width: '230px', textAlign: 'left'}}>Дата</th>
-                      <th style={{width: '359px', textAlign: 'left'}}>Комментарий</th>
+                      <th className={styles.commentTable_title_name}>Имя</th>
+                      <th className={styles.commentTable_title_date}>Дата</th>
+                      <th className={styles.commentTable_title_comments}>Комментарий</th>
                   </thead>
                 <tbody>
-                  {commentsList.comments.slice(show,showMore).map((comment: Comment) => (
+                {commentsList.comments.slice(show,showMore).map((comment: Comment) => (
                     <tr key={comment.id}>
-                      <td style={{paddingLeft: '20px', minWidth: '270px', maxWidth: '270px'}}>
+                      <td className={styles.commentTable_user}>
                         <td>
                           <img src={user} alt='user'/>
                         </td>
-                        <td>
-                          {`${comment.author_first_name} ${comment.author_last_name}`}
-                        </td>
+                        <td>{`${comment.author_first_name} ${comment.author_last_name}`}</td>
                       </td>
-                      <td style={{maxWidth: '230px', minWidth: '230px'}}>{new Date(comment.created_at).toLocaleString()}</td>
-                      <td style={{minWidth: '359px', maxWidth: '359px'}}>
-                        <td style={{minWidth: '300px', maxWidth: '300px'}}>{comment.content}</td>
+                      <td className={styles.commentTable_date}>{new Date(comment.created_at).toLocaleString()}</td>
+                      <td className={styles.commentTable_commentWrap}>
+                        <td className={styles.commentTable_commentWrap_comment}>{comment.content}</td>
                           <td>
                           <div className={styles.centeredContent}>
                             <label className={`${styles.publicLabel} ${styles.centeredCheckbox}`}>
                             <NewCheckbox name={'isComment'}
-                                         checked={comment.public}
+                                         checked={true}
                                          onChange={() => toggleCommentPublic(comment.id)}/>
                             </label>
                           </div>
                         </td>
                       </td>
                     </tr>
-                  ))}
+                      ))}
                 </tbody>
               </table>
-            ) : (
+              ) : (
               <p>Комментариев пока нет</p>
             )}
         </div>
