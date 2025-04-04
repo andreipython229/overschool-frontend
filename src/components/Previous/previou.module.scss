@@ -38,7 +38,9 @@
     @include position_t_l(absolute, 10px, 10px);
     // border: 1px solid #ffffff;
     background: transparent;
-    object-fit: cover;
+    max-width: 100px;
+    width: 100%;
+    object-fit: contain;
     border-radius: 7px;
     box-sizing: border-box;
     margin-right: 16px;
@@ -92,9 +94,6 @@
 
   img {
     display: inline-block;
-    //border-radius: 20%;//50%
-    width: 100px;//66px
-    height: 66px;
     z-index: 3;
 
     @media only screen and (min-width: 320px) and (max-width: 375px) {

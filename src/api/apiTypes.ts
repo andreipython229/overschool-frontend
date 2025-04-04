@@ -134,3 +134,17 @@ export interface ISchoolPrizeWinner {
   received_at: string
   user_email: string
 }
+
+export interface IInviteProgramResp {
+  id: number
+  is_active: boolean
+  link: string
+  school: number
+  groups: number[]
+}
+
+export interface IInviteProgramReq {
+  schoolName: string
+  id: number
+  data: FormData
+}

@@ -1,7 +1,8 @@
+import { Component } from 'react'
 import { Path, SettingsPath, Student } from '../../../enum/pathE'
 import { GlobalPrevious } from '../GlobalPrevious'
 import { GroupPrevious } from '../GroupPrevious'
-import {ProfilePrevious} from "../ProfilePrevious";
+import { ProfilePrevious } from '../ProfilePrevious'
 
 const pathToSearch = Object.entries(Path).map(([key, value]) => {
   return { [key]: value.split(':')[0] }
@@ -23,6 +24,8 @@ export const previousToShow = [
   { path: SettingsPath.Bonuses, Component: GlobalPrevious },
   { path: SettingsPath.EmailNewsLetter, Component: GlobalPrevious },
   { path: SettingsPath.Banner, Component: GlobalPrevious },
+  { path: SettingsPath.PromotionSettings, Component: GlobalPrevious },
+  { path: SettingsPath.Referal, Component: GlobalPrevious },
   { path: Path.Appeals, Component: GlobalPrevious },
   { path: objOfPathes.HomeWork, Component: GlobalPrevious },
   { path: objOfPathes.CourseStats, Component: GlobalPrevious },

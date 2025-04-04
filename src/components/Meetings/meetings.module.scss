@@ -1,109 +1,154 @@
 @import '../../scss/mixin.scss';
 
-.meetings_empty_text_wrapper {
-  @include display(flex, column, center, center);
 
-  .meetings_empty_text {
-    padding: 20px;
-    margin-top: 40px;
-    font-weight: 500;
-    font-size: 24px;
-    // background-color: #fff;
-    border-radius: 20px;
-    // border: 1px solid #3170E7;
-  }
 
-}
-
-.meeting_header_text {
-  font-size: 36px;
-  font-weight: 700;
-  text-align: center;
-  margin: 30px auto 60px;
-}
 
 .wrapper_actions {
   margin: 0 auto;
   max-width: 1360px;
-}
 
-.meetingList {
-  @include display(flex, column, flex-start, center);
-  gap: 32px;
-  margin-top: 32px;
+  .meeting_header_text {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    margin: 30px auto 60px;
 
-}
-
-.generate_meeting_btn_wrapper {
-  @include display(flex, row, flex-end, flex-start);
-  position: relative;
-
-  .generateMeetingButton {
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 20px;
-    padding: 17px 40px 17px 74px;
-  }
-
-  svg {
-    pointer-events: none;
-    position: absolute;
-    right: 347px;
-    top: 15px;
-
-    path {
-      fill: #fff;
+    @media screen and (max-width: 1023px),
+    screen and (max-aspect-ratio: 1/1) {
+      & {
+        margin: 15px auto 30px;
+        font-size: 24px;
+      }
     }
   }
-}
 
+  .generate_meeting_btn_wrapper {
+    @include display(flex, row, flex-end, flex-start);
+    position: relative;
 
-.pagination {
-  @include display(flex, row, center, center);
-  margin: 40px;
+    .generateMeetingButton {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 20px;
+      padding: 17px 40px 17px 74px;
 
+      @media screen and (max-width: 1023px),
+      screen and (max-aspect-ratio: 1/1) {
+        font-size: 14px;
+        width: 100%;
+        border-radius: 15px;
+      }
 
-  button {
-    height: 24px;
-    width: 24px;
-    background-color: transparent;
-    border: none;
-    color: #332F36;
-    border-radius: 4px;
-    transition-duration: 0.25s;
-
-    &:hover {
-      filter: brightness(0.85);
-      background-color: #fff;
-
-    }
-
-    svg {
-      path {
-        stroke-width: 2;
+      @media screen and (max-width: 337px) {
+        font-size: 12px;
       }
     }
 
+    svg {
+      pointer-events: none;
+      position: absolute;
+      right: 347px;
+      top: 15px;
+
+      path {
+        fill: #fff;
+      }
+
+
+      @media screen and (max-width: 1023px),
+      screen and (max-aspect-ratio: 1/1) {
+        right: 0;
+        left: 30px;
+      }
+
+
+    }
+
+
   }
 
-  .active {
-    color: #fff;
-    background-color: #357EEB;
+  .meetingList {
+    @include display(flex, column, flex-start, center);
+    gap: 32px;
+    margin-top: 32px;
 
-    &:hover {
-      color: #fff;
-      background-color: #357EEB;
-      cursor: default;
-      filter: none;
+    @media screen and (max-width: 1023px),
+    screen and (max-aspect-ratio: 1/1) {
+      margin-top: 32px;
     }
   }
 
 
-  &_arrow_left {
-    margin-right: 24px;
+  .pagination {
+    @include display(flex, row, center, center);
+    margin: 40px;
+
+
+    button {
+      height: 24px;
+      width: 24px;
+      background-color: transparent;
+      border: none;
+      color: #332F36;
+      border-radius: 4px;
+      transition-duration: 0.25s;
+
+      &:hover {
+        filter: brightness(0.85);
+        background-color: #fff;
+
+      }
+
+      svg {
+        path {
+          stroke-width: 2;
+        }
+      }
+
+    }
+
+    .active {
+      color: #fff;
+      background-color: #357EEB;
+
+      &:hover {
+        color: #fff;
+        background-color: #357EEB;
+        cursor: default;
+        filter: none;
+      }
+    }
+
+
+    &_arrow_left {
+      margin-right: 24px;
+    }
+
+    &_arrow_right {
+      margin-left: 24px;
+    }
+
+    @media screen and (max-width: 1023px),
+        screen and (max-aspect-ratio: 1/1) {
+          margin: 20px;
+        }
   }
 
-  &_arrow_right {
-    margin-left: 24px;
+
+
+  .meetings_empty_text_wrapper {
+    @include display(flex, column, center, center);
+
+    .meetings_empty_text {
+      padding: 20px;
+      margin-top: 40px;
+      font-weight: 500;
+      font-size: 24px;
+      // background-color: #fff;
+      border-radius: 20px;
+      // border: 1px solid #3170E7;
+    }
+
   }
+
 }

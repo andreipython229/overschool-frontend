@@ -33,4 +33,13 @@
 
 input {
     height: 38px;
+
+    @media screen and (max-width: 1023px),
+      screen and (max-aspect-ratio: 1/1) {
+        font-size: 14px !important;
+      }
+}
+
+.add_meeting_btn{
+    font-size: 14px;
 }

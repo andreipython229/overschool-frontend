@@ -84,7 +84,9 @@ export const Materials: FC = () => {
               }}
             >
               {courses && filteredCourses && filteredCourses?.length !== 0 ? (
-                filteredCourses?.map((course: any) => <CoursesCard key={course?.course_id} course={course} role={role} />)
+                filteredCourses?.map((course: any) => (
+                  <CoursesCard key={course?.course_id} course={course} role={role} refetchCourses={() => fetchData({ schoolName, page })} />
+                ))
               ) : (
                 <>
                   <div className={styles.search}>

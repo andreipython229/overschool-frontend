@@ -12,6 +12,7 @@ import { CameraDefs, HomeworkDefs, TestDefs, cloudSvgPath, homeworkSvgIconPath, 
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { useAppSelector } from 'store/hooks'
 import { schoolSelector, selectUserProfile } from 'selectors'
+import { motivationPercent } from 'utils/studentMotivationPercents'
 
 export const StudentProgressBlock: FC = () => {
   const { schoolName: school } = useAppSelector(schoolSelector)
@@ -28,7 +29,7 @@ export const StudentProgressBlock: FC = () => {
         <WaterProgress percentage={userProgress.courses[0].completed_percent} />
         <div className={styles.progressWrapper_overallProgress_text}>
           <p>Ваш прогресс</p>
-          <span>Вы на 75 % лучше других учеников</span>
+          <span>{motivationPercent(userProgress.courses[0].better_than_percent)}</span>
         </div>
       </div>
       <div className={styles.progressWrapper_peopleStats}>

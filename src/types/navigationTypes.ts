@@ -33,6 +33,7 @@ export type LessonAddBlockPropsT = {
 }
 
 export type LessonsBlockT = {
+  sectionId: number
   lessonsName: string
   id: number
   type: string

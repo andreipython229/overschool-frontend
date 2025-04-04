@@ -7,15 +7,12 @@ import { BannerPreview } from './BannerPreview'
 
 import { Button } from 'components/common/Button/Button'
 import { useFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
-import { b } from 'msw/lib/glossary-dc3fd077'
 
 export const NotificationBanner: FC = () => {
   const schoolName = window.location.href.split('/')[4]
   const { data: banners, isLoading, refetch } = useGetSchoolBannersQuery(schoolName)
   const { data: studentsGroups, isSuccess: groupsSuccess } = useFetchStudentsGroupWithParamsQuery({ schoolName: schoolName, params: 's=100' })
   const [createNewBanner, { isLoading: bannerCreating }] = useCreateNewBannerMutation()
-
-
 
   const createBanner = () => {
     const formdata = new FormData()
@@ -29,12 +26,19 @@ export const NotificationBanner: FC = () => {
   }
 
   return (
-    <div className={styles.wrapper_actions}>
+    <div className={styles.wrapper_action}>
       {banners && studentsGroups ? (
         <div className={styles.main}>
-          <div className={styles.main_title} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <p>Настройки баннеров объявлений для участников школы</p>
-            <Button className={styles.main_create_banner_btn} disabled={bannerCreating} variant={'newPrimary'} style={{ display: 'flex', alignItems: 'center', gap: '10px' }} text={'Добавить баннер'} onClick={createBanner}>
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <p className={styles.main_title}>Настройки баннеров объявлений для участников школы</p>
+            <Button
+              className={styles.main_create_banner_btn}
+              disabled={bannerCreating}
+              variant={'newPrimary'}
+              style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+              text={'Добавить баннер'}
+              onClick={createBanner}
+            >
               {bannerCreating && <SimpleLoader style={{ height: '25px', width: '25px' }} />}
             </Button>
           </div>
@@ -43,13 +47,9 @@ export const NotificationBanner: FC = () => {
               <>
                 <BannerPreview banner={banner} key={banner.id} refetch={refetch} groups={studentsGroups} />
                 {banners.length > index + 1 && <div style={{ width: '100%', height: 0, border: '1px #D9D9D9 solid' }}></div>}
-                
               </>
             ))}
-
           </div>
-
-
         </div>
       ) : (
         <SimpleLoader />

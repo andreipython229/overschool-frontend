@@ -2,7 +2,7 @@ import React, {ChangeEvent, FC, useEffect, useState} from 'react'
 
 import {result, Section} from 'types/courseStatT'
 import {IconSvg} from 'components/common/IconSvg/IconSvg'
-import {groupIconPath, tableBallsStarPath} from 'config/commonSvgIconsPath'
+import {groupIconPath, tableBallsStarPath, peopleIconPath, averageMarkIconPath, progressIconPath} from 'config/commonSvgIconsPath'
 import {accardionArrPath} from 'Pages/StudentCourse/config/svgIconPath'
 import styles from './studentInfoAccardion.module.scss'
 import {sectionLessons} from "../../../../types/lessonAccessT";
@@ -111,32 +111,21 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({
                     <div className={styles.accardion_info}>
                         <p className={styles.accardion_course_name}>{student?.course_name}</p>
                         <div className={styles.accardion_group}>
-                            <IconSvg width={14} height={14} viewBoxSize={'0 0 14 14'} path={groupIconPath}/>
+                            <IconSvg width={14} height={14} viewBoxSize={'0 0 23 23'} path={peopleIconPath}/>
                             <span>{student?.group_name}</span>
                         </div>
                     </div>
                     <div className={styles.accardion_progress}>
                         <div className={styles.accardion_progress_item}>
-                            <div style={{
-                                width: '14px',
-                                height: '14px',
-                                backgroundColor: '#BA75FF',
-                                borderRadius: '50%'
-                            }}></div>
+                            <IconSvg width={16} height={16} viewBoxSize={'0 0 13 13'} path={progressIconPath} />
                             <span>{courseStat ? `${courseStat.completed_count}/${courseStat.all_baselessons}` : '0/0'}</span>
                         </div>
                         <div className={styles.accardion_progress_item}>
-                            <div style={{
-                                width: '14px',
-                                height: '14px',
-                                backgroundColor: '#BA75FF',
-                                borderRadius: '50%'
-                            }}></div>
+                            <IconSvg width={16} height={16} viewBoxSize={'0 0 13 13'} path={progressIconPath} />
                             <span>{courseStat ? courseStat.completed_percent : 0}%</span>
                         </div>
                         <div className={styles.accardion_progress_item}>
-                            <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath}/>
-                            {/* заглушка */}
+                            <IconSvg width={16} height={16} viewBoxSize={'0 0 13 13'} path={averageMarkIconPath} />
                             <span>{student?.average_mark?.toFixed(0) ?? 0}/{student?.mark_sum ?? 0}</span>
                         </div>
                     </div>
