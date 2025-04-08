@@ -395,6 +395,7 @@ screen and (max-aspect-ratio: 1/1) {
       margin: 0;
       height: 50px;
       @include display(flex, column, center, center);
+
       p {
         display: none;
       }
@@ -415,6 +416,22 @@ screen and (max-aspect-ratio: 1/1) {
 
         & div svg path {
           fill: #332f36;
+        }
+      }
+
+      &_active{
+        gap: 5px;
+        .mobile_active_indicator{
+          display: block;
+        }
+
+        div{
+          svg{
+            path{
+              fill:#357eeb;
+              stroke: #357eeb;
+            }
+          }
         }
       }
     }
@@ -462,6 +479,8 @@ screen and (max-aspect-ratio: 1/1) {
         max-height: 50px;
         @include display(flex, column, center, center);
 
+        
+
         div{
           @include display(flex, row, center, center);
           width: 30px;
@@ -478,6 +497,22 @@ screen and (max-aspect-ratio: 1/1) {
 
         &:hover {
           background-color: transparent;
+        }
+
+        &_active{
+          gap: 5px;
+          .mobile_active_indicator{
+            display: block;
+          }
+
+          div{
+            svg{
+              path{
+                fill:#357eeb;
+                stroke: #357eeb;
+              }
+            }
+          }
         }
       }
 
