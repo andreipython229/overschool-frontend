@@ -12,6 +12,6 @@ export { chatgptReducer } from './chatgpt/store'
 export { unreadAppealsReducer } from './info/unreadAppealsSlice'
 export { meetingReducer } from './meetings/meetingSlice'
 export { bonusReducer } from './bonuses/bonusSlice'
-
+export { inviteProgramReducer } from './inviteProgram/inviteProgramSlice'
 export { landingReducer } from './landing/constructorSlice'
 export { schoolProgressReducer } from './newSchoolProgression/slice'

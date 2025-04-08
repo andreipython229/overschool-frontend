@@ -94,7 +94,7 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
                 )
               })}
           </Reorder.Group>
-          <Button className={styles.btn} onClick={handleOpenModalModule} text={'+ Добавить новый модуль'} />
+          <Button className={styles.btn} style={{marginTop: '10px'}} onClick={handleOpenModalModule} text={'+ Добавить новый модуль'} />
         </div>
       </div>
     )

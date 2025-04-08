@@ -50,7 +50,6 @@ export const SchoolMeetings: FC = () => {
     if (meetingsSuccess) {
       return (
         <>
-          {' '}
           <div className={styles.meetingList}>
             {currentItems.map(meeting => (
               <MeetingCard key={meeting.id} meeting={meeting} />
@@ -101,7 +100,14 @@ export const SchoolMeetings: FC = () => {
       </div>
     )
   }
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+ 
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+};
 
   return (
     <div className={styles.wrapper_actions}>

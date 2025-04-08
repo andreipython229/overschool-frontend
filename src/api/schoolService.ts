@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { schoolT } from '../types/schoolHeaderT'
-import { UpdateCourses, NewsletterTemplate } from './apiTypes'
+import { UpdateCourses, NewsletterTemplate, IInviteProgramResp, IInviteProgramReq } from './apiTypes'
 import { baseQuery } from './baseApi'
 import {
   PaymentMethod,
@@ -19,6 +19,7 @@ import {
 } from '../types/ProdamusPaymenT'
 import { schoolStudentsGroupingData } from 'types/studentsGroup'
 import { baseQueryWithReauth } from './baseQueryReauth'
+import { a } from 'msw/lib/glossary-dc3fd077'
 
 export const schoolService = createApi({
   reducerPath: 'schoolService',
@@ -242,10 +243,42 @@ export const schoolService = createApi({
         },
       }),
     }),
+    fetchInvitesProgram: build.query<IInviteProgramResp[], string>({
+      query: schoolName => `/${schoolName}/invites_program/`,
+    }),
+    fetchStudentInvitesProgramLink: build.query<IInviteProgramResp, string>({
+      query: schoolName => `/${schoolName}/invites_program/`,
+    }),
+    updateInvitesProgram: build.mutation<IInviteProgramResp, IInviteProgramReq>({
+      query: args => ({
+        url: `/${args.schoolName}/invites_program/${args.id}/`,
+        method: 'PATCH',
+        body: args.data,
+      }),
+    }),
+    createInvitesProgramLink: build.mutation<IInviteProgramResp, { link: string; schoolName: string }>({
+      query: args => ({
+        url: `/${args.schoolName}/invites_program/`,
+        method: 'POST',
+        body: { link: args.link },
+      }),
+    }),
+    deleteInvitesProgramLink: build.mutation<void, { id: number; schoolName: string }>({
+      query: args => ({
+        url: `/${args.schoolName}/invites_program/${args.id}/`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
 export const {
+  useLazyFetchStudentInvitesProgramLinkQuery,
+  useDeleteInvitesProgramLinkMutation,
+  useCreateInvitesProgramLinkMutation,
+  useUpdateInvitesProgramMutation,
+  useLazyFetchInvitesProgramQuery,
+  useFetchInvitesProgramQuery,
   useLazyFetchSchoolQuery,
   useFetchSchoolQuery,
   useSetSchoolMutation,

@@ -65,12 +65,13 @@ export const rootReducer = combineReducers({
   bonuses: slices.bonusReducer,
   landing: slices.landingReducer,
   schoolProgress: slices.schoolProgressReducer,
+  inviteProgram: slices.inviteProgramReducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'sections', 'userProfile', 'filters', 'school', 'landing', 'schoolProgress', 'tariff'],
+  whitelist: ['user', 'sections', 'userProfile', 'filters', 'school', 'landing', 'schoolProgress', 'tariff', 'inviteProgram'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

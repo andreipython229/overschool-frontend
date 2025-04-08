@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 import { CoursesDataT } from '../../../../types/CoursesT'
 import styles from './coursePage.module.scss'
 import { RoleE } from '../../../../enum/roleE'
@@ -32,13 +32,20 @@ type courseCard = {
   renderProps?: (course: CoursesDataT) => ReactNode
   role: number
   userProgress?: ICoursesProgress
+  refetchCourses: () => void
 }
 
-export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
+export const CoursesCard: FC<courseCard> = ({ course, role, userProgress, refetchCourses }) => {
   const { schoolName } = useAppSelector(schoolSelector)
   const [isOpenModal, { onToggle }] = useBoolean()
   const [isPublished, setIsPublished] = useState(course.public === 'О')
   const [update] = usePatchCoursesMutation()
+
+  useEffect(() => {
+    if (course) {
+      setIsPublished(course.public === 'О')
+    }
+  }, [course])
 
   const onStudentClick = () => {
     localStorage.setItem('course_id', '' + course?.course_id)
@@ -48,21 +55,22 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress }) => {
   }
 
   if (role === RoleE.Teacher && course.public !== 'О') {
-    return <></>
+    return null
   }
 
   const handleSaveChanges = async () => {
     const updateCurse = {
       public: isPublished ? 'Н' : 'О',
     }
+    setIsPublished(!isPublished)
 
     const formdata = formDataConverter(updateCurse)
     if (formdata && course) {
       const id = course?.course_id
       await update({ arg: { formdata, id }, schoolName })
         .unwrap()
-        .then(data => {
-          window.location.reload()
+        .then(() => {
+          refetchCourses()
         })
     }
   }
