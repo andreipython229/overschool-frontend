@@ -1,12 +1,11 @@
 import { FC, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setModules, clearModules, modulesSlice, modulesReduce } from '../../store/redux/modules/modules'
+import { setModules } from '../../store/redux/modules/modules'
 
 import { sectionsT } from '../../types/sectionT'
-import { useFetchModulesQuery, useFetchStudentModulesQuery, useLazyFetchModulesQuery } from '../../api/modulesServices'
+import { useFetchStudentModulesQuery } from '../../api/modulesServices'
 import { StudentAccardion } from 'components/StudentAccardion/StudentAccardion'
-import { StudentCourseHeader } from './StudentCourseHeader'
 import { Portal } from '../../components/Modal/Portal'
 import { LimitModal } from '../../components/Modal/LimitModal/LimitModal'
 import { useBoolean } from '../../customHooks'
@@ -14,7 +13,6 @@ import { SearchInput } from 'components/common/SearchInput'
 import { GlobalPrevious } from 'components/Previous/GlobalPrevious'
 import { StudentProgressBlock } from 'components/StudentProgressBlock'
 import { CourseNavigationHeader } from 'components/CourseNavigationHeader'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const StudentCourse: FC = () => {

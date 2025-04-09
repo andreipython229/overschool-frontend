@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion"
+import { Variants } from 'framer-motion'
 
 export const show = {
   opacity: 1,
@@ -7,9 +7,7 @@ export const show = {
 
 export const hide = {
   opacity: 0,
-  transitionEnd: {
-    display: 'none',
-  },
+  display: 'none',
 }
 
 export const animateVisibility: Variants = {

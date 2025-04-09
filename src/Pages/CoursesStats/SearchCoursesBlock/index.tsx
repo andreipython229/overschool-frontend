@@ -43,9 +43,10 @@ export const SearchCoursesBlock: FC<searchCourseBlockT> = memo(({ groups, course
         <div className={styles.courses_card_block}>
           {filteredData &&
             filteredData
-              .slice(0, 3)
               .filter(({ course_id }) => course_id !== 247 || userId === 154)
-              .map(({ photo, name, course_id }) => <CourseMiniCard key={course_id} groups={groups} title={name} courseId={course_id} />)}
+              .map(({ name, course_id }, index) =>
+                index < 3 ? <CourseMiniCard key={course_id} groups={groups} title={name} courseId={course_id} /> : null,
+              )}
         </div>
       )}
       <div className={styles.container_courses_dropdown}>

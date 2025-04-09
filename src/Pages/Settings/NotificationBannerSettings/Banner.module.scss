@@ -1,20 +1,16 @@
 @import '../../../scss//mixin.scss';
 @import '../../../scss/variable.scss';
 
-
-
 .wrapper {
   @include display(flex, column, space-between, flex-start);
   width: 100%;
   min-height: 170px;
   padding: 1.8% 2.5%;
   transition: all ease-in 0.2s;
-  box-shadow: 0px 0px 18px 0px #3241954D;
+  box-shadow: 0px 0px 18px 0px #3241954d;
   border-radius: 20px;
   margin-top: 24px;
   position: relative;
-
-
 
   .content_section {
     @include display(flex, row, flex-start, flex-start);
@@ -27,17 +23,14 @@
     width: 100%;
     position: relative;
 
-
     .penIcon {
       position: absolute;
       right: 15px;
       top: 15px;
-
     }
   }
 
   span {
-
     color: #000;
     font-weight: 500;
     font-size: 20px;
@@ -46,8 +39,7 @@
   .banner_checkbox_status {
     @include display(flex, row, center, center);
     font-size: 16px;
-    color: #357EEB;
-
+    color: #357eeb;
   }
 
   .banner_link_container {
@@ -81,12 +73,12 @@
     transition-duration: $trans-dur02;
 
     &:hover {
-      border: 1px solid #357EEB;
+      border: 1px solid #357eeb;
     }
   }
 
   .banner_go_link_btn {
-    background-color: #357EEB;
+    background-color: #357eeb;
     border-radius: 10px;
     color: #fff;
     padding: 15px 40px;
@@ -135,7 +127,7 @@
     }
 
     &_announcement {
-      box-shadow: 0px 0px 8px 0px #3241954D;
+      box-shadow: 0px 0px 8px 0px #3241954d;
       border-radius: 20px;
       padding: 20px;
 
@@ -152,15 +144,14 @@
     align-items: center;
 
     @media only screen and (min-width: 320px) and (max-width: 480px) {
-      button{
+      button {
         border: 2px solid #357eeb;
         padding: 8px 16px !important;
         font-size: 12px;
       }
     }
     @media only screen and (min-width: 481px) and (max-width: 1024px) {
-
-      button{
+      button {
         border: 2px solid #357eeb;
         padding: 10px 20px !important;
         font-size: 14px;
@@ -168,7 +159,7 @@
     }
 
     &_delete {
-      border: 2px solid #357EEB;
+      border: 2px solid #357eeb;
       padding: 11px;
       border-radius: 10px;
       height: 54px;

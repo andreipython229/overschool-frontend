@@ -1,22 +1,20 @@
 import { FC, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
 import { sectionT } from '../../../../../../types/sectionT'
 import { useDeleteLessonsMutation, useFetchModulesQuery } from 'api/modulesServices'
 import { ModulesAndLessonsBlock } from './ModulesAndLessonsBlock'
 import { Portal } from 'components/Modal/Portal'
 import { ModalMaper } from 'constants/ModalMaper'
 import { LessonSettings } from './LessonSettings'
-
 import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
-
 import styles from './constructor.module.scss'
-import { SimpleLoader } from '../../../../../../components/Loaders/SimpleLoader'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { useFetchCourseQuery } from 'api/coursesServices'
+import { useAppSelector } from 'store/hooks'
+import { schoolSelector } from 'selectors'
 
 export const Constructor: FC = () => {
-  const schoolName = window.location.href.split('/')[4]
+  const { schoolName } = useAppSelector(schoolSelector)
   const { course_id: courseId } = useParams()
 
   const { data: course } = useFetchCourseQuery({ id: courseId as string, schoolName })
@@ -64,13 +62,7 @@ export const Constructor: FC = () => {
 
   const hasLesson = modulesList.some(module => module.lessons && module.lessons.length > 0)
 
-  if (!isSuccess)
-    return (
-      // <div className={styles.loader_container}>
-      //   <SimpleLoader />
-      // </div>
-      <LoaderLayout />
-    )
+  if (!isSuccess) return <LoaderLayout />
 
   return (
     <div className={styles.redactorCourse}>
