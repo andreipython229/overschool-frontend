@@ -11,7 +11,7 @@ import { Reorder } from 'framer-motion'
 import stylesModules from './ModulesBlock/modules_block.module.scss'
 
 export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
-  ({ setType, modulesList, courseName, setModulesList, setLessonIdAndType, isLoading, baseLessonId, setInsertAfterOrder }) => {
+  ({ setType, modulesList, courseName, setModulesList, setLessonIdAndType, isLoading, baseLessonId, setInsertAfterOrder, setInsertAfterModuleOrder }) => {
     const [changeOrder, { isLoading: changingOrder }] = useChangeModuleOrderMutation()
     const debounceBlockOrder = useDebounceFunc(changeOrder, 2000)
     const [selectedLessonId, setSelectedLessonId] = useState<number>()
@@ -65,7 +65,6 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
     const handleOpenModalModule = () => {
       setType('module' as keyof object)
     }
-
     return (
       <div className={styles.redactorCourse_leftSide}>
         <div className={styles.redactorCourse_leftSide_title}>
@@ -88,12 +87,21 @@ export const ModulesAndLessonsBlock: FC<LessonAddBlockPropsT> = memo(
                     selectedLessonId={selectedLessonId}
                     setSelectedLessonId={setSelectedLessonId}
                     onOpenModalModule={handleOpenModalModule}
+                    orderModule = {section.order}
                     setInsertAfterOrder={setInsertAfterOrder}
+                    setInsertAfterModuleOrder={setInsertAfterModuleOrder}
                   />
                 )
               })}
           </Reorder.Group>
-          <Button className={styles.btn} onClick={handleOpenModalModule} text={'+ Добавить новый модуль'} />
+          <Button 
+            className={styles.btn} 
+            onClick={() => {
+              handleOpenModalModule()
+              setInsertAfterModuleOrder(undefined)
+            }} 
+            text={'+ Добавить новый модуль'} 
+          />
         </div>
       </div>
     )

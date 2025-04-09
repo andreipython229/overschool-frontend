@@ -19,6 +19,8 @@ export type ModulesBlockT = {
   setSelectedLessonId: Dispatch<SetStateAction<number | undefined>>
   onOpenModalModule: () => void
   setInsertAfterOrder: (order: number | undefined) => void
+  setInsertAfterModuleOrder: (order: number | undefined) => void
+  orderModule: number
 }
 
 export type LessonAddBlockPropsT = {
@@ -30,6 +32,7 @@ export type LessonAddBlockPropsT = {
   baseLessonId?: number
   courseName: string
   setInsertAfterOrder: (order: number | undefined) => void
+  setInsertAfterModuleOrder: (order: number | undefined) => void
 }
 
 export type LessonsBlockT = {

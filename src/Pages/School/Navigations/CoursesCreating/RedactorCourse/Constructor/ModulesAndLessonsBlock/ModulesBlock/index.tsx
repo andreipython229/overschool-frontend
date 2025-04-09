@@ -23,7 +23,7 @@ import { deleteHoverIconPath, eyeCloseIconPath, eyeOpenIconPath } from '../Lesso
 import { animateVisibility, show, hide } from '../LessonsBlock/constants/animationConstants'
 
 export const ModulesBlock: FC<ModulesBlockT> = memo(
-  ({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId, section, onOpenModalModule, setInsertAfterOrder }) => {
+  ({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId, section, onOpenModalModule, setInsertAfterOrder, setInsertAfterModuleOrder, orderModule }) => {
     const dispatch: any = useAppDispatch()
     const [showLessons, { onToggle: toggleLessons }] = useBoolean(true)
     const schoolName = window.location.href.split('/')[4]
@@ -112,7 +112,6 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
     const onPointerDown = (event: PointerEvent<SVGSVGElement | SVGPathElement>) => {
       controls.start(event)
     }
-    
     return (
       <Reorder.Item
         dragControls={controls}
@@ -190,15 +189,20 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                 className={styles.btn}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
                 variants={animateVisibility}
-                onClick={(!showLessons || isOpenEye) ? onOpenModalModule : () => {
-                  handleOpenModalLesson() 
-                  setInsertAfterOrder(undefined)
-                }}
+                onClick={(!showLessons || isOpenEye) ? () => {
+                  onOpenModalModule()
+                  setInsertAfterModuleOrder(orderModule)
+                  } 
+                  : 
+                  () => {
+                    handleOpenModalLesson() 
+                    setInsertAfterOrder(undefined)
+                  }
+                }
                 >
                 {(!showLessons || isOpenEye) ? '+ Добавить новый модуль' : '+ Добавить новый урок'}
             </motion.button> 
           </motion.div>
-
           <Reorder.Group
             className={styles1.settings_list}
             transition={{ duration: 0.4, ease: 'easeOut' }}

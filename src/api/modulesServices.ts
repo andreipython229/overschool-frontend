@@ -33,7 +33,7 @@ export const modulesServices = createApi({
       }),
       providesTags: ['lessons'],
     }),
-    createModules: build.mutation<void, { arg: FormData; schoolName: string }>({
+    createModules: build.mutation<any, { arg: FormData; schoolName: string }>({
       query: ({ arg, schoolName }) => ({
         url: `/${schoolName}/sections/`,
         method: 'POST',

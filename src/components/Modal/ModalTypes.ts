@@ -44,6 +44,9 @@ export type AddModuleModalPropsT = {
   setType: (arg: keyof object) => void
   courseId?: string
   modulesList: sectionT[]
+  insertAfterModuleOrder?: number
+  setInsertAfterModuleOrder: (order: number | undefined | null) => void
+  setModulesList: Dispatch<SetStateAction<sectionT[]>>
 }
 
 export type SettingsClassesModalPropT = {

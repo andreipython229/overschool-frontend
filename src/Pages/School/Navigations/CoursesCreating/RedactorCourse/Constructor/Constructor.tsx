@@ -35,7 +35,8 @@ export const Constructor: FC = () => {
 
   const [show, setShow] = useState(false)
 
-  const [insertAfterOrder, setInsertAfterOrder] = useState<number | undefined>(undefined) //state для передачи order
+  const [insertAfterOrder, setInsertAfterOrder] = useState<number | undefined>(undefined) //state для передачи order урока
+  const [insertAfterModuleOrder, setInsertAfterModuleOrder] = useState<number | undefined>(undefined) //state для передачи order модуля
 
   const handleCloseAllModal = () => {
     setType(null as keyof object)
@@ -82,6 +83,7 @@ export const Constructor: FC = () => {
         baseLessonId={lessonIdAndType.baseLessonId}
         courseName={course?.name || ''}
         setInsertAfterOrder={setInsertAfterOrder}
+        setInsertAfterModuleOrder={setInsertAfterModuleOrder}
       />
       {hasLesson && <LessonSettings deleteLesson={deleteLesson} lessonIdAndType={lessonIdAndType} setType={setType} />}
       {type && (
@@ -96,6 +98,8 @@ export const Constructor: FC = () => {
             courseId={courseId}
             insertAfterOrder={insertAfterOrder}
             setInsertAfterOrder={setInsertAfterOrder}
+            insertAfterModuleOrder={insertAfterModuleOrder}
+            setInsertAfterModuleOrder={setInsertAfterModuleOrder}
           />
         </Portal>
       )}

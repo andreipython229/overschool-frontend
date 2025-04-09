@@ -12,7 +12,7 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import styles from '../Modal.module.scss'
 import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 
-export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, modulesList }) => {
+export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, modulesList, insertAfterModuleOrder, setInsertAfterModuleOrder, setModulesList }) => {
 
   const [modulesName, setModulesMane] = useState<string>('')
   const schoolName = window.location.href.split('/')[4]
@@ -26,22 +26,45 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
 
   const handleCreateModules = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    const lastSection = modulesList.length > 0 ? Math.max(...modulesList.map(module => module.section)) : 0;
+    const newSection = lastSection + 1;
+    const order = insertAfterModuleOrder !== undefined ? insertAfterModuleOrder + 1 : 1;
     const newModules = {
       name: modulesName,
-      course: courseId,
-      order: modulesList.length + 1,
+      section_name: modulesName,
+      section: newSection,
+      course: Number(courseId),
+      order,
+      lessons: []
     }
-    const formdata = formDataConverter(newModules)
 
-    await createModules({arg: formdata, schoolName})
+    const formdata = formDataConverter(newModules)  
+    await createModules({arg: formdata, schoolName}).unwrap()
+
+    let updateModulesList = [...modulesList];
+
+    if(insertAfterModuleOrder !== undefined) {
+      updateModulesList = updateModulesList.map(module => 
+        module.order > insertAfterModuleOrder ? {...module, order: module.order + 1} : module
+      );
+
+      const insertIndex = updateModulesList.findIndex(module => module.order === insertAfterModuleOrder) + 1;
+      updateModulesList.splice(insertIndex, 0, newModules);
+    }
+    else {
+      updateModulesList = [newModules, ...updateModulesList.map(module => ({...module, order: module.order + 1}))];
+    }
+
+    setModulesList(updateModulesList);
 
     setType(null as keyof object)
+    setInsertAfterModuleOrder(null)
   }
 
   const handleClose = () => {
     setType(null as keyof object)
+    setInsertAfterModuleOrder(null)
   }
-
   return (
     <form onSubmit={handleCreateModules} className={styles.classesContainer}>
       <div onClick={handleClose} className={styles.classesContainer_closed}>
