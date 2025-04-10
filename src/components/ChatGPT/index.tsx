@@ -24,18 +24,18 @@ interface Chat {
 }
 
 interface ChatGPTProps {
-  isOpen?: boolean; 
-  onToggle?: (isOpen: boolean) => void; 
+  isDialogOpen: boolean; 
+  setIsDialogOpen: (isDialogOpen: boolean) => void; 
 }
 
-const ChatGPT: React.FC<ChatGPTProps> = ({ isOpen, onToggle }) => {
+const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
   const [messageInput, setMessageInput] = useState('');
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const [showChatListForm, setShowChatListForm] = useState(false);
   const [chatData, setChatData] = useState<{ [id: number]: { order: number; chat_name: string } }>({});
   const [selectedChatId, setCreatedChatId] = useState<number>();
   const [isChatSelected, setIsChatSelected] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  // const [isDialogOpen, setIsDialogOpen] = useState(false);
   // const [isNewChat, setIsNewChat] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [warning, setWarning] = useState<string | null>(null);
@@ -148,11 +148,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isOpen, onToggle }) => {
     console.log(Object.keys(chatData).length === 0, !isLoading, !isFetchingChats);
     setShowWelcomeMessage(Object.keys(chatData).length === 0 && !isLoading && !isFetchingChats && !isCreatingChatDisabled);
   }, [selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage, isDialogOpen, isFetchingChats]);
-
-  useEffect(() => {
-    toggleDialog()
-  }, [isOpen])
-
 
   const setTextAreaFocus = () => {
     setTimeout(() => {

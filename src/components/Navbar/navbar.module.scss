@@ -395,10 +395,12 @@ screen and (max-aspect-ratio: 1/1) {
     &_menu {
       width: auto;
       padding: 0;
-      width: 50px;
+      width: 30px;
       margin: 0;
       height: 50px;
       @include display(flex, column, center, center);
+
+
 
       p {
         display: none;
@@ -419,8 +421,17 @@ screen and (max-aspect-ratio: 1/1) {
         background-color: $color-white;
 
 
-        & div svg path {
-          fill: #332f36;
+        // & div svg path {
+        //   fill: #332f36;
+        // }
+
+        div {
+          svg {
+            path {
+              fill: #357eeb;
+              stroke: #357eeb;
+            }
+          }
         }
       }
 
@@ -431,14 +442,7 @@ screen and (max-aspect-ratio: 1/1) {
           display: block;
         }
 
-        div {
-          svg {
-            path {
-              fill: #357eeb;
-              stroke: #357eeb;
-            }
-          }
-        }
+        
       }
     }
 
@@ -455,7 +459,7 @@ screen and (max-aspect-ratio: 1/1) {
       .chatIcon_container {
         height: 100%;
         padding: 0;
-        width: 50px;
+        width: 30px;
         height: 50px;
         @include display(flex, column, center, center);
 
@@ -476,13 +480,22 @@ screen and (max-aspect-ratio: 1/1) {
 
         &:hover {
           background-color: transparent;
+
+          div {
+            svg {
+              path {
+                fill: #332f36;
+                stroke: #332f36;
+              }
+            }
+          }
         }
       }
 
       &_icon_container {
         padding: 0;
         height: 100%;
-        width: 50px;
+        width: 30px;
         max-height: 50px;
         @include display(flex, column, center, center);
 
@@ -505,6 +518,15 @@ screen and (max-aspect-ratio: 1/1) {
 
         &:hover {
           background-color: transparent;
+
+          div {
+            svg {
+              path {
+                fill: #332f36;
+                stroke: #332f36;
+              }
+            }
+          }
         }
 
         &_active {
@@ -517,8 +539,8 @@ screen and (max-aspect-ratio: 1/1) {
           div {
             svg {
               path {
-                fill: #357eeb;
-                stroke: #357eeb;
+                fill: #357eeb !important;
+                stroke: #357eeb !important;
               }
             }
           }
@@ -531,18 +553,18 @@ screen and (max-aspect-ratio: 1/1) {
 
       &:hover {
         border-radius: 10px;
-        background-color: transparent;
+        // background-color: transparent;
         cursor: pointer;
-        fill: $color-white;
+        // fill: $color-white;
 
-        svg path {
-          fill: #332f36;
-          stroke: #332f36;
-        }
+        // svg path {
+        //   fill: #332f36;
+        //   stroke: #332f36;
+        // }
 
-        p {
-          color: #332f36;
-        }
+        // p {
+        //   color: #332f36;
+        // }
       }
 
 
@@ -564,16 +586,47 @@ screen and (max-aspect-ratio: 1/1) {
 
       .mobile_overai_btn_container {
         @include display(flex, column, center, center);
-        width: 50px;
+        width: 30px;
         height: 50px;
 
-        img{
-          height: 40px;
-          width: 40px;
+        img {
+          height: 30px;
+          width: 30px;
           border-radius: 20px;
         }
       }
     }
   }
 
+}
+
+@media screen and (min-width: 480px){
+  .navbar{
+    padding: 9px 20px;
+  }
+}
+
+
+@media screen and (min-width: 560px){
+  .navbar{
+    padding: 9px 30px;
+  }
+}
+
+@media screen and (min-width: 650px){
+  .navbar{
+    padding: 9px 40px;
+  }
+}
+
+@media screen and (min-width: 750px){
+  .navbar{
+    padding: 9px 70px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .navbar{
+    padding: 20px 0;
+  }
 }

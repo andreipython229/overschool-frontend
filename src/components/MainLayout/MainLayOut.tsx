@@ -43,9 +43,8 @@ export const MainLayOut: FC = memo(() => {
   const [showOverAI, setShowOverAI] = useState<boolean>(false)
 
   const toggleChatModal = () => {
-    setShowOverAI(prev => !prev);
+    setShowOverAI(prev => !prev);   
   };
-
 
   useEffect(() => {
     if (userRole === 1) {
@@ -130,7 +129,7 @@ export const MainLayOut: FC = memo(() => {
           {!routesWithoutPrevious.includes(location.pathname) && <Previous />}
           <Outlet />
         </motion.main>
-        {showChat && isSuccess && <ChatGPT isOpen={showOverAI} onToggle={setShowOverAI} />}
+        {showChat && isSuccess && <ChatGPT isDialogOpen={showOverAI} setIsDialogOpen={setShowOverAI} />}
         <Footer />
       </div>
     </>
