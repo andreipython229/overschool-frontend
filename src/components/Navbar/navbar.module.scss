@@ -133,8 +133,8 @@
     // cursor: pointer;
     gap: 0.8vh;
     transition-duration: $trans-dur02;
-    
-    &_mob_empty{
+
+    &_mob_empty {
       display: none;
       height: 100px;
     }
@@ -209,6 +209,10 @@
       color: #332f36;
       transition-duration: $trans-dur02;
     }
+
+    .mobile_overai_btn_container {
+      display: none;
+    }
   }
 
   & .tg_container {
@@ -254,7 +258,7 @@
     }
   }
 
-  .mobile_active_indicator{
+  .mobile_active_indicator {
     display: none;
     height: 2px;
     width: 70%;
@@ -400,11 +404,12 @@ screen and (max-aspect-ratio: 1/1) {
         display: none;
       }
 
-      div{
+      div {
         @include display(flex, row, center, center);
         width: 30px;
-          height: 30px;
-        svg{
+        height: 30px;
+
+        svg {
           width: 30px;
           height: 30px;
         }
@@ -419,16 +424,17 @@ screen and (max-aspect-ratio: 1/1) {
         }
       }
 
-      &_active{
+      &_active {
         gap: 5px;
-        .mobile_active_indicator{
+
+        .mobile_active_indicator {
           display: block;
         }
 
-        div{
-          svg{
-            path{
-              fill:#357eeb;
+        div {
+          svg {
+            path {
+              fill: #357eeb;
               stroke: #357eeb;
             }
           }
@@ -442,7 +448,7 @@ screen and (max-aspect-ratio: 1/1) {
       gap: 0;
 
 
-      &_mob_empty{
+      &_mob_empty {
         display: block;
       }
 
@@ -452,12 +458,13 @@ screen and (max-aspect-ratio: 1/1) {
         width: 50px;
         height: 50px;
         @include display(flex, column, center, center);
-        
 
-        .chatIcon{
+
+        .chatIcon {
           width: 30px;
           height: 30px;
-          svg{
+
+          svg {
             width: 30px;
             height: 30px;
           }
@@ -479,13 +486,14 @@ screen and (max-aspect-ratio: 1/1) {
         max-height: 50px;
         @include display(flex, column, center, center);
 
-        
 
-        div{
+
+        div {
           @include display(flex, row, center, center);
           width: 30px;
           height: 30px;
-          svg{
+
+          svg {
             width: 30px;
             height: 30px;
           }
@@ -499,16 +507,17 @@ screen and (max-aspect-ratio: 1/1) {
           background-color: transparent;
         }
 
-        &_active{
+        &_active {
           gap: 5px;
-          .mobile_active_indicator{
+
+          .mobile_active_indicator {
             display: block;
           }
 
-          div{
-            svg{
-              path{
-                fill:#357eeb;
+          div {
+            svg {
+              path {
+                fill: #357eeb;
                 stroke: #357eeb;
               }
             }
@@ -552,6 +561,18 @@ screen and (max-aspect-ratio: 1/1) {
       //   justify-content: space-evenly;
       //   align-items: center;
       // }
+
+      .mobile_overai_btn_container {
+        @include display(flex, column, center, center);
+        width: 50px;
+        height: 50px;
+
+        img{
+          height: 40px;
+          width: 40px;
+          border-radius: 20px;
+        }
+      }
     }
   }
 

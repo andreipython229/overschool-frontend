@@ -40,6 +40,13 @@ export const MainLayOut: FC = memo(() => {
   const [overaiLockExists, setOveraiLockExists] = useState(false)
   const routesWithoutPrevious = [`/school/${schoolName}/meetings/`]
 
+  const [showOverAI, setShowOverAI] = useState<boolean>(false)
+
+  const toggleChatModal = () => {
+    setShowOverAI(prev => !prev);
+  };
+
+
   useEffect(() => {
     if (userRole === 1) {
       getGroups(schoolName)
@@ -119,11 +126,11 @@ export const MainLayOut: FC = memo(() => {
             duration: 1.2,
           }}
         >
-          <Navbar />
+          <Navbar onToggleChat={toggleChatModal} />
           {!routesWithoutPrevious.includes(location.pathname) && <Previous />}
           <Outlet />
         </motion.main>
-        {showChat && isSuccess && <ChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />}
+        {showChat && isSuccess && <ChatGPT isOpen={showOverAI} onToggle={setShowOverAI} />}
         <Footer />
       </div>
     </>

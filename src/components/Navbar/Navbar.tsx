@@ -10,6 +10,7 @@ import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
 import { Chat } from 'components/Modal/Chat'
 import classNames from 'classnames'
+import OverAiIcon from '../../assets/img/common/newIconModal.svg'
 
 import styles from './navbar.module.scss'
 import { contactLinkSelector, selectUser } from '../../selectors'
@@ -34,7 +35,11 @@ interface IIsActive {
   isActive?: boolean
 }
 
-export const Navbar: FC = memo(() => {
+interface NavbarProps {
+  onToggleChat: () => void;
+}
+
+export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
   const { role: UserRole } = useAppSelector(selectUser)
   const school = useAppSelector(state => state.school)
   const unRead = useSelector((state: RootState) => state.unread.totalUnread)
@@ -171,13 +176,17 @@ export const Navbar: FC = memo(() => {
             <p>Тех поддержка</p>
           </a>
           {(UserRole === RoleE.Student || UserRole === RoleE.Teacher) && (
-            <NavLink to={Path.Courses + Path.Bonus} className={({ isActive }) => `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`}>
+            <NavLink  to={Path.Courses + Path.Bonus} className={({ isActive }) => `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`}>
               <div>
                 <IconSvg width={38} height={41} viewBoxSize={'0 0 38 41'} path={GiftIconPath} />
               </div>
               <p>Бонусы</p>
             </NavLink>
           )}
+
+          <div className={styles.mobile_overai_btn_container} onClick={onToggleChat}>
+            <img className={`${styles.chatGptButton_Pushed}`} src={OverAiIcon} alt="OverAI Icon" />
+          </div>
         </div>
       </motion.nav>
       {isChatOpen && (
