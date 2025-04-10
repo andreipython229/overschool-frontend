@@ -76,7 +76,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
   const { data } = useFetchStudentProgressQuery({ user_id: String(student?.student_id), schoolName })
   const [fetchStudentLessons, { data: allStudentLessons, isFetching }] = useLazyFetchStudentLessonsQuery()
   const [fetchStudentsGroups, { data: groups }] = useLazyFetchStudentsGroupByCourseQuery()
-  const [studentLessons, setStudentLessons] = useState<sectionLessons[]>()
+  const [studentLessons, setStudentLessons] = useState<groupSections>()
   const [resetAccess, { isSuccess }] = useResetStudentLessonsAccessMutation()
   const [completedPercent, setCompletedPercent] = useState<number>()
   const [openAlert, setOpenAlert] = useState<boolean>(false)
@@ -138,7 +138,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
       const lessonsPerGroup: groupSections | undefined = allStudentLessons.student_data.find(
         (item: groupSections) => item.group_id === student?.group_id,
       )
-      lessonsPerGroup && setStudentLessons(lessonsPerGroup.sections)
+      lessonsPerGroup && setStudentLessons(lessonsPerGroup)
     }
   }, [allStudentLessons])
 

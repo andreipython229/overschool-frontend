@@ -1,26 +1,30 @@
 .date_picker__container {
-  background-color: #ffffff;
-  max-width: 319px;
+  background-color: transparent;
+  padding: 0 5px;
+  width: 100%;
   border-radius: 10px;
-  padding: 20px;
   box-sizing: border-box;
 }
 .date_picker__title {
   font-size: 10px;
   text-align: center;
-  color: #d2d6dc;
+  color: #000000;
   margin: 0 0 20px 0;
 }
 .react-datepicker {
   display: flex;
   flex-direction: column;
   text-transform: capitalize;
+  background-color: transparent;
   font-size: 18px;
   border: 0 solid;
+  width: 100%;
+  padding: 0 5px;
 }
 
+
 .react-datepicker__header {
-  background-color: #ffffff;
+  background-color: transparent;
   border-bottom: 0 solid;
 }
 
@@ -44,5 +48,5 @@
 .react-datepicker__day--selected,
 .react-datepicker__day--range-start,
 .react-datepicker__day--in-range {
-  background-color: #ba75ff;
+  background-color: #357EEB;
 }

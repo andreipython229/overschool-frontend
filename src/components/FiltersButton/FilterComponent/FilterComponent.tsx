@@ -1,51 +1,36 @@
-import React, { FC, useState, useCallback } from 'react';
-import { Button } from 'components/common/Button/Button';
-import { useAppDispatch } from 'store/hooks';
-import { addFilters } from 'store/redux/filters/slice';
-import {useBoolean} from "../../../customHooks";
+import React, { FC, useState, useCallback } from 'react'
+import { Button } from 'components/common/Button/Button'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { addFilters } from 'store/redux/filters/slice'
+import { useBoolean } from '../../../customHooks'
 import styles from '../FilterComponent/filter_component.module.scss'
 
 interface ShowDeletedFilterProps {
-  filterKey: string;
+  filterKey: string
 }
 
 export const ShowDeletedFilter: FC<ShowDeletedFilterProps> = ({ filterKey }) => {
-  const dispatch = useAppDispatch();
-  const [hideDeleted, setHideDeleted] = useState<boolean>(false);
+  const dispatch = useAppDispatch()
+  const filters = useAppSelector(state => state.filters[filterKey])
+  const [isActive, setActive] = useState<boolean>(filters ? filters['hide_deleted'] == 'true' : false)
 
-  const [isFilterClosed, { off }] = useBoolean()
-
-  const toggleShowDeleted = useCallback(() => {
-    setHideDeleted(prevState => !prevState);
-    handleApplyFilter()
-  }, []);
-
-  const handleApplyFilter = useCallback(() => {
-    const filtersObj: { [key: string]: string } = {};
-
-    if (hideDeleted) {
-      filtersObj['hide_deleted'] = 'true';
-    } else {
-      delete filtersObj['hide_deleted'];
-    }
-
-    dispatch(addFilters({ key: filterKey, filters: {'hide_deleted': 'true' } }));
-    off()
-  }, [dispatch, filterKey, hideDeleted]);
-
-  if (isFilterClosed) return null
+  const handleApplyFilter = () => {
+    setActive(!isActive)
+    dispatch(addFilters({ key: filterKey, filters: { hide_deleted: `${!isActive}` } }))
+  }
 
   return (
-      <>
-        {/*<p>Скрыть или показать удалённых студентов</p>*/}
-        <div className={styles.filterButtonContainer}>
-          <Button className={styles.filterButton}
-            text={hideDeleted ? 'Показать удаленные' : 'Скрыть удаленные'}
-            variant="primary"
-            onClick={toggleShowDeleted}
-          />
-          {/*<Button text="Применить" variant="primary" onClick={handleApplyFilter} />*/}
-        </div>
-      </>
-  );
-};
+    <div className={styles.wrapper}>
+      <p>Скрыть или показать удалённых студентов</p>
+      <div className={styles.filterButtonContainer}>
+        <Button
+          className={styles.filterButton}
+          text={isActive ? 'Показать удаленные' : 'Скрыть удаленные'}
+          variant="newPrimary"
+          onClick={handleApplyFilter}
+        />
+        {/*<Button text="Применить" variant="primary" onClick={handleApplyFilter} />*/}
+      </div>
+    </div>
+  )
+}
