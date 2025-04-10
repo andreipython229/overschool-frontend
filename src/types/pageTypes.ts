@@ -10,6 +10,8 @@ export type CoursesMiniCardT = {
   name: string
   courseId: number
   groups: studentsGroupsT[]
+  click?: (id: number) => void
+  active?: boolean
 }
 export type searchCourseBlockT = {
   groups: studentsGroupsT[]

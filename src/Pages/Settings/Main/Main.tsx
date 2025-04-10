@@ -48,6 +48,12 @@ export const Main = memo(() => {
       setOldName(data.name)
       setOldUrl(data.offer_url)
       setSocial(data.contact_link)
+      setTelegram(data.telegram_link || '')
+      setInstagram(data.instagram_link || '')
+      setX(data.twitter_link || '')
+      setYoutube(data.youtube_link || '')
+      setVk(data.vk_link || '')
+      setCustomSocial(data.extra_link || '')
     }
   }, [data])
 

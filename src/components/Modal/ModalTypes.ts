@@ -18,6 +18,8 @@ export type SettingClassesPropsT = {
   modulesList: sectionT[]
   setLessonIdAndType: (arg: lessonIdAndTypeT) => void
   setModulesList: Dispatch<SetStateAction<sectionT[]>>
+  insertAfterOrder?: number
+  setInsertAfterOrder: (order: number | undefined | null) => void
 }
 
 export type AddEmployeeModalPropsT = {
@@ -35,7 +37,7 @@ export type AddEmpoyeeModalExtensions = {
 export type AddCourseModalPropsT = {
   setShowModal: () => void
   courses: CoursesDataT[] | undefined
-  refetch: (school: string) => void
+  refetch: ({ schoolName, page }: { schoolName: string; page: number }) => void
 }
 
 export type AddModuleModalPropsT = {
@@ -62,12 +64,16 @@ export type TestModalPropsT = {
   setType: (arg: keyof object) => void
   modulesList: sectionT[]
   setLessonIdAndType: (arg: lessonIdAndTypeT) => void
+  insertAfterOrder?: number
+  setInsertAfterOrder: (order: number | undefined | null) => void
 }
 
 export type TasksModalPropsT = {
   setType: (arg: keyof object) => void
   modulesList: sectionT[]
   setLessonIdAndType: (arg: lessonIdAndTypeT) => void
+  insertAfterOrder?: number
+  setInsertAfterOrder: (order: number | undefined | null) => void
 }
 
 export type ModalClassesPropsT = {

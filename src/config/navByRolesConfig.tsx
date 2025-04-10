@@ -39,6 +39,7 @@ import { Rating } from 'Pages/Rating'
 import { AdminOrTeacherReplyHomework } from 'Pages/HomeWork/AdminOrTeacherReply'
 import { BonusesPage } from 'Pages/Bonuses'
 import { BonusesSettings } from 'Pages/Settings/Bonuses'
+import { SettingsInvitesProgram } from 'Pages/Settings/InviteProgram'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -55,6 +56,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.DomainSettings} element={<DomainSettings />} />
         <Route path={SettingsPath.PromotionSettings} element={<PromotionSettings />} />
         <Route path={SettingsPath.Bonuses} element={<BonusesSettings />} />
+        <Route path={SettingsPath.Referal} element={<SettingsInvitesProgram />} />
       </Route>
       <Route path={Path.HelpCenter} element={<HelpCenter />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
@@ -106,6 +108,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
         <Route path={SettingsPath.EmailNewsLetter} element={<EmailNewsLetter />} />
         <Route path={SettingsPath.Banner} element={<NotificationBanner />} />
         <Route path={SettingsPath.Bonuses} element={<BonusesSettings />} />
+        <Route path={SettingsPath.Referal} element={<SettingsInvitesProgram />} />
       </Route>
       <Route path={Path.HomeWork} element={<School />}>
         <Route index element={<HomeWork />} />

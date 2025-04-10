@@ -39,12 +39,8 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [link, setLink] = useState<string>(banner.link)
   const [saveChanges, { isLoading }] = useUpdateSchoolBannerMutation()
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
-
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
-
   const [showGroupsModal, { on: closeGroups, off: openGroups, onToggle: setShow }] = useBoolean()
-
-
 
 
   const handleDeleteBanner = () => {
@@ -97,7 +93,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
             {isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>}
           </span>
           <div style={{ display: 'flex', gap: '10px' }}>
-            <CheckboxBall toggleChecked={toggleActive} isChecked={isActive} />
+            <CheckboxBall toggleChecked={toggleActive} isChecked={isActive}/>
             <span className={styles.banner_checkbox_status}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
           </div>
           {!isEditing ? (

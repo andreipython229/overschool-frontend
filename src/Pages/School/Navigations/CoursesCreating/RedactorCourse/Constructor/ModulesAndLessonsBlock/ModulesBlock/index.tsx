@@ -1,7 +1,13 @@
-import { ChangeEvent, FC, memo, PointerEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FC, memo, PointerEvent, useCallback, useEffect, useState } from 'react'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { ArrowDownGreyIconPath, ArrowDownIconPath, ArrowRightIconPath, deleteIconPath, DoBlockHoverIconPath, DoBlockIconPath } from '../../../../../../config/svgIconsPath'
+import {
+  ArrowDownGreyIconPath,
+  ArrowDownIconPath,
+  ArrowRightIconPath,
+  DoBlockHoverIconPath,
+  DoBlockIconPath,
+} from '../../../../../../config/svgIconsPath'
 import { useDeleteModulesMutation, usePatchModulesMutation, useUpdateLessonsOrdersMutation } from 'api/modulesServices'
 import { formDataConverter } from 'utils/formDataConverter'
 import { LessonsBlock } from '../LessonsBlock'
@@ -9,24 +15,36 @@ import { ModulesBlockT } from '../../../../../../../../types/navigationTypes'
 import { lessonT } from 'types/sectionT'
 import { useDebounceFunc } from 'customHooks/useDebounceFunc'
 import { getSectionId } from 'store/redux/modules/slice'
-import { useAppDispatch } from 'store/hooks'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from './modules_block.module.scss'
-import { MotionConfig, Reorder, useDragControls, motion } from 'framer-motion'
+import { Reorder, useDragControls, motion } from 'framer-motion'
 import styles1 from '../../../../../../../../components/Modal/Modal.module.scss'
 import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
 import { WarningModal } from 'components/Modal/Warning'
 import { deleteHoverIconPath, eyeCloseIconPath, eyeOpenIconPath } from '../LessonsBlock/config'
 import { animateVisibility, show, hide } from '../LessonsBlock/constants/animationConstants'
+import { schoolSelector } from 'selectors'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const ModulesBlock: FC<ModulesBlockT> = memo(
-  ({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId, section, onOpenModalModule }) => {
+  ({
+    setType,
+    setLessonIdAndType,
+    moduleName,
+    lessonsList,
+    id,
+    setSelectedLessonId,
+    selectedLessonId,
+    section,
+    onOpenModalModule,
+    setInsertAfterOrder,
+  }) => {
     const dispatch: any = useAppDispatch()
-    const [showLessons, { onToggle: toggleLessons }] = useBoolean(true)
-    const schoolName = window.location.href.split('/')[4]
+    const [showLessons, { onToggle: toggleLessons }] = useBoolean(false)
+    const { schoolName } = useAppSelector(schoolSelector)
     const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
     const controls = useDragControls()
     const [isOpenEye, setIsOpenEye] = useState<boolean>(false)
@@ -52,13 +70,14 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
     }
 
     const handleEyeLesson = (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.stopPropagation();
+      e.stopPropagation()
       setIsOpenEye(!isOpenEye)
     }
 
     const handleChangeModuleName = (event: ChangeEvent<HTMLInputElement>) => {
       setChangeModuleName(event.target.value)
     }
+
     const debounced = useDebounceFunc(changeName, 2000)
     const [visibleAddBtn, setVisibleAddBtn] = useState(false)
 
@@ -67,12 +86,16 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
       setType('lessonsModal' as keyof object)
     }
 
-    const handleSetFirstLesson = () => {
-      handleLessonClick(lessonsList[0].baselesson_ptr_id)
-    }
+    const handleSetFirstLesson = useCallback(() => {
+      if (lessonsList.length > 0) {
+        handleLessonClick(lessonsList[0].baselesson_ptr_id)
+      }
+    }, [lessonsList])
 
     useEffect(() => {
-      setLessons(lessonsList)
+      if (lessonsList !== lessons) {
+        setLessons(lessonsList)
+      }
     }, [lessonsList])
 
     useEffect(() => {
@@ -136,34 +159,52 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
         )}
         <ul className={styles.redactorCourse_leftSide_desc_headerText}>
           <motion.div initial="initial" animate="initial" whileHover="animate" className={`${styles.heightTransition} ${stylesModules.btnWrapper}`}>
-            <span className={isOpenEye ? `${styles.redactorCourse_leftSide_desc_headerText_title} ${styles.openEye}` : (!showLessons ? (
-              styles.redactorCourse_leftSide_desc_headerText_title + ' ' + stylesModules.test) : (
-              `${styles.redactorCourse_leftSide_desc_headerText_title} ${styles.showLessons}`))}>
+            <span
+              className={
+                isOpenEye
+                  ? `${styles.redactorCourse_leftSide_desc_headerText_title} ${styles.openEye}`
+                  : !showLessons
+                  ? styles.redactorCourse_leftSide_desc_headerText_title + ' ' + stylesModules.test
+                  : `${styles.redactorCourse_leftSide_desc_headerText_title} ${styles.showLessons}`
+              }
+            >
               <div className={styles.redactorCourse_leftSide_desc_wrapper}>
                 <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_btn_drag_and_drop_module + ' ' + stylesModules.btn}>
                   <IconSvg
-                    className={isOpenEye ? styles.doBlockIcon : (!showLessons ? styles.doBlockIcon : `${styles.doBlockIcon} ${styles.unvisible} ${stylesModules.btn}`)}
+                    className={
+                      isOpenEye
+                        ? styles.doBlockIcon
+                        : !showLessons
+                        ? styles.doBlockIcon
+                        : `${styles.doBlockIcon} ${styles.unvisible} ${stylesModules.btn}`
+                    }
                     width={24}
                     height={24}
                     viewBoxSize={'0 0 24 24'}
                     onPointerDown={onPointerDown}
-                    path={isOpenEye ? DoBlockIconPath : (!showLessons ? DoBlockIconPath : DoBlockHoverIconPath)}
+                    path={isOpenEye ? DoBlockIconPath : !showLessons ? DoBlockIconPath : DoBlockHoverIconPath}
                   />
                 </span>
                 <span onClick={() => toggleLessons()}>
                   <IconSvg
-                    styles={{ cursor: 'pointer', margin: '4px 10px 0 0'}}
+                    styles={{ cursor: 'pointer', margin: '4px 10px 0 0' }}
                     width={14}
                     height={14}
                     viewBoxSize={'0 0 14 14'}
-                    path={isOpenEye ? ArrowDownGreyIconPath : (showLessons ? ArrowDownIconPath : ArrowRightIconPath)}
+                    path={isOpenEye ? ArrowDownGreyIconPath : showLessons ? ArrowDownIconPath : ArrowRightIconPath}
                   />
                 </span>
                 <input
                   type="text"
                   value={changeModuleName || ''}
                   onChange={handleChangeModuleName}
-                  className={isOpenEye ? `${styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input} ${styles.openEye}` : (!showLessons ? `${styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input}` : `${styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input} ${styles.showLessonsInput}`)}
+                  className={
+                    isOpenEye
+                      ? `${styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input} ${styles.openEye}`
+                      : !showLessons
+                      ? `${styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input}`
+                      : `${styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input} ${styles.showLessonsInput}`
+                  }
                 />
               </div>
               <div className={styles.lesson_buttons}>
@@ -171,31 +212,47 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                   className={styles.redactorCourse_leftSide_desc_headerText_inputWrapper_btn_delete + ' ' + stylesModules.btn}
                   onClick={handleEyeLesson}
                 >
-                  <IconSvg className={isOpenEye ? styles.strokeColorGrey : (!showLessons ? '' : styles.strokeColorWhite)} width={24} height={24} viewBoxSize="0 0 24 24" path={!isOpenEye ? eyeCloseIconPath : eyeOpenIconPath} />
+                  <IconSvg
+                    className={isOpenEye ? styles.strokeColorGrey : !showLessons ? '' : styles.strokeColorWhite}
+                    width={24}
+                    height={24}
+                    viewBoxSize="0 0 24 24"
+                    path={!isOpenEye ? eyeCloseIconPath : eyeOpenIconPath}
+                  />
                 </button>
-                <button
-                  className={styles.redactorCourse_leftSide_desc_headerText_inputWrapper_btn_delete + ' ' + stylesModules.btn}
-                  onClick={open}
-                >
-                  <IconSvg className={isOpenEye ? styles.fillColorGrey : (!showLessons ? '' : styles.fillColorWhite)} width={20} height={20} viewBoxSize="0 0 20 20" path={deleteHoverIconPath} />
+                <button className={styles.redactorCourse_leftSide_desc_headerText_inputWrapper_btn_delete + ' ' + stylesModules.btn} onClick={open}>
+                  <IconSvg
+                    className={isOpenEye ? styles.fillColorGrey : !showLessons ? '' : styles.fillColorWhite}
+                    width={20}
+                    height={20}
+                    viewBoxSize="0 0 20 20"
+                    path={deleteHoverIconPath}
+                  />
                 </button>
               </div>
-              {deleteModuleLoading && <SimpleLoader style={{ width: '20px', height: '20px' }} />}
+              {deleteModuleLoading && <LoaderLayout />}
             </span>
             <motion.button
-                className={styles.btn}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-                variants={animateVisibility}
-                onClick={(!showLessons || isOpenEye) ? onOpenModalModule : handleOpenModalLesson}
-                >
-                {(!showLessons || isOpenEye) ? '+ Добавить новый модуль' : '+ Добавить новый урок'}
+              className={styles.btn}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+              variants={animateVisibility}
+              onClick={
+                !showLessons || isOpenEye
+                  ? onOpenModalModule
+                  : () => {
+                      handleOpenModalLesson()
+                      setInsertAfterOrder(undefined)
+                    }
+              }
+            >
+              {!showLessons || isOpenEye ? '+ Добавить новый модуль' : '+ Добавить новый урок'}
             </motion.button>
           </motion.div>
 
           <Reorder.Group
             className={styles1.settings_list}
             transition={{ duration: 0.4, ease: 'easeOut' }}
-            animate={(showLessons || isOpenEye) ? show : hide}
+            animate={showLessons || isOpenEye ? show : hide}
             as="ul"
             onReorder={handleOrderUpdate}
             values={lessons}
@@ -206,14 +263,16 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                   openedEye={isOpenEye}
                   type={lesson.type}
                   setLessonIdAndType={setLessonIdAndType}
-                  setFocusOnLesson={() => handleSetFirstLesson()}
+                  setFocusOnLesson={handleSetFirstLesson}
                   key={lesson.baselesson_ptr_id}
                   id={lesson.id}
                   lessonsName={lesson.name}
+                  sectionId={section.section}
                   lesson={lesson}
                   selected={selectedLessonId === lesson.baselesson_ptr_id}
                   onPush={() => handleLessonClick(lesson.baselesson_ptr_id)}
                   onOpenModalLesson={handleOpenModalLesson}
+                  setInsertAfterOrder={setInsertAfterOrder}
                 />
               ))}
           </Reorder.Group>

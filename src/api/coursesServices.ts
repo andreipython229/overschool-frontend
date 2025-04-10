@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { baseQuery } from './baseApi'
 import { CoursesT, CoursesDataT, CourseWithGroupsT } from '../types/CoursesT'
-import { UpdateCourses } from './apiTypes'
+import { ISchoolTeachers, UpdateCourses } from './apiTypes'
 import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const coursesServices = createApi({
@@ -19,9 +19,9 @@ export const coursesServices = createApi({
     deleteFolder: build.mutation<any, { id: number; schoolName: string }>({
       query: arg => ({ url: `/${arg.schoolName}/folder_course/${arg.id}/`, method: 'DELETE' }),
     }),
-    fetchCourses: build.query<CoursesT, string>({
-      query: (schoolName: string) => ({
-        url: `/${schoolName}/courses/`,
+    fetchCourses: build.query<CoursesT, { schoolName: string; page: number }>({
+      query: args => ({
+        url: `/${args.schoolName}/courses/?p=${args.page}`,
       }),
       providesTags: ['courses', 'course'],
     }),
@@ -101,10 +101,13 @@ export const CoursesPageService = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['CoursesPage'],
   endpoints: build => ({
-    fetchCoursesPage: build.query<CoursesT, string>({
-      query: school => ({
-        url: `/${school}/courses/`,
+    fetchCoursesPage: build.query<CoursesT, { schoolName: string; page: number }>({
+      query: args => ({
+        url: `/${args.schoolName}/courses/?p=${args.page}`,
       }),
+    }),
+    fetchSchoolTeachers: build.query<ISchoolTeachers[], { schoolName: string }>({
+      query: args => `${args.schoolName}/homeworks_stats/teachers/`,
     }),
   }),
 })
@@ -129,4 +132,4 @@ export const {
   useDeleteFolderMutation,
 } = coursesServices
 
-export const { useFetchCoursesPageQuery, useLazyFetchCoursesPageQuery } = CoursesPageService
+export const { useFetchCoursesPageQuery, useLazyFetchCoursesPageQuery, useFetchSchoolTeachersQuery } = CoursesPageService

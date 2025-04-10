@@ -10,8 +10,7 @@
     width: 100%;
     filter: drop-shadow(0px 0px 8px rgba(0.19607843458652496, 0.2549019753932953, 0.5843137502670288, 0.30000001192092896));
     border-radius: 14px;
-    padding-left: 48px;
-    padding-right: 48px;
+    padding: 0 60px 0 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -21,9 +20,9 @@
 
     .frame {
       height: 62px;
-      width: calc(100% - 75px);
+      width: calc(100% - 85px);
       align-self: flex-start;
-      left: 48px;
+      left: 20px;
       top: 0px;
       position: absolute;
       padding-top: 16px;

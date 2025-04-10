@@ -41,7 +41,7 @@ import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice
 import { useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
 import { TgMessage } from 'types/tgNotifications'
 import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
-import { useFetchCoursesQuery } from 'api/coursesServices'
+import { useFetchCoursesQuery, useLazyFetchCoursesQuery } from 'api/coursesServices'
 import { useLoginMutation } from '../../api/userLoginService'
 import { Button } from 'components/common/Button/Button'
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
@@ -51,6 +51,7 @@ import HTMLReactParser from 'html-react-parser'
 import { HomeIconPath, MessageConvertIconPath, UserIconPath } from 'assets/Icons/svgIconPath'
 import { SocialMediaButton } from 'components/SocialMediaButton'
 import { useFetchSchoolQuery } from '../../api/schoolService'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
@@ -109,8 +110,8 @@ export const Header = memo(() => {
   const { data: schoolData } = useFetchSchoolQuery(Number(schoolId))
   const [loginUser] = useLoginMutation()
   const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation()
-  const [fetchGroups, { data: studentsGroups }] = useLazyFetchStudentsGroupWithParamsQuery()
-  const { data: Courses, isSuccess: coursesSuccess } = useFetchCoursesQuery(schoolName)
+  const [fetchGroups, { data: studentsGroups, isFetching: fetchingGroups }] = useLazyFetchStudentsGroupWithParamsQuery()
+  const [fetchCourses, { data: Courses, isFetching, isSuccess: coursesSuccess }] = useLazyFetchCoursesQuery()
   const [acceptBanner] = useAcceptBannerMutation()
   const [createTgMessage] = useUpdateTgMessageMutation()
 
@@ -134,10 +135,10 @@ export const Header = memo(() => {
   }
 
   useEffect(() => {
-    if (userRole === RoleE.Admin) {
+    if (userRole === RoleE.Admin && showTgMessageForm) {
       fetchGroups({ schoolName: schoolName, params: 's=100' })
     }
-  }, [])
+  }, [showTgMessageForm])
 
   const handleLogin = async (login: string, password: string) => {
     try {
@@ -207,6 +208,12 @@ export const Header = memo(() => {
       logOut()
     }
   }, [isError])
+
+  useEffect(() => {
+    if (showTgMessageForm) {
+      fetchCourses({ schoolName, page: 1 })
+    }
+  }, [showTgMessageForm])
 
   useEffect(() => {
     if (coursesSuccess && Courses) {
@@ -803,12 +810,12 @@ export const Header = memo(() => {
         <div className={userRole === RoleE.Admin ? styles.header_socialIcons : styles.header_socialIcons2}>
           {schoolData && (
             <>
-              <SocialMediaButton variant="Telegram" url={schoolData.telegram_link || 'https://t.me/course_hb'} />
-              <SocialMediaButton variant="Instagram" url={schoolData.instagram_link || 'https://instagram.com/'} />
-              <SocialMediaButton variant="X" url={schoolData.twitter_link || 'https://x.com/'} />
-              <SocialMediaButton variant="Youtube" url={schoolData.youtube_link || 'https://youtube.com/'} />
-              <SocialMediaButton variant="VK" url={schoolData.vk_link || 'https://vk.ru/'} />
-              <SocialMediaButton variant="Link" url={schoolData.extra_link || '#'} />
+              {schoolData.telegram_link && <SocialMediaButton variant="Telegram" url={schoolData.telegram_link} />}
+              {schoolData.instagram_link && <SocialMediaButton variant="Instagram" url={schoolData.instagram_link} />}
+              {schoolData.twitter_link && <SocialMediaButton variant="X" url={schoolData.twitter_link} />}
+              {schoolData.youtube_link && <SocialMediaButton variant="Youtube" url={schoolData.youtube_link} />}
+              {schoolData.vk_link && <SocialMediaButton variant="VK" url={schoolData.vk_link} />}
+              {schoolData.extra_link && <SocialMediaButton variant="Link" url={schoolData.extra_link} />}
             </>
           )}
         </div>

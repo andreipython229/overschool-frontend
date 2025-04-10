@@ -7,9 +7,7 @@ import { searchIconPath } from '../config/svgIconsPath'
 import { SearchFilterT } from '../../../types/componentsTypes'
 import { useDebouncedFilter, useBoolean } from 'customHooks/index'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { filtersSelector } from 'selectors/index'
 import { addFilters } from 'store/redux/filters/slice'
-// import {commonLessonT} from 'types/sectionT';
 
 import style from './search_filter.module.scss'
 
@@ -19,7 +17,7 @@ export const SearchFilterGroup: FC<SearchFilterT<any>> = ({ name, header, data, 
   const [isFilterClosed, { off }] = useBoolean()
 
   // значение ключа group_name_{i}_{j}
-  const [itemForFilter, setItemForFilter] = useState<string>(filters[filterTerm] as string)
+  const [itemForFilter, setItemForFilter] = useState<string>(filters ? (filters[filterTerm] as string) : '')
   // полное наименование ключа с индексами group_name_{i}_{j}
   const [termForFilter, setTermForFilter] = useState<string>(filterTerm as string)
 
@@ -53,43 +51,42 @@ export const SearchFilterGroup: FC<SearchFilterT<any>> = ({ name, header, data, 
   // расброска групп по крусам
   const groupByCourseName = (data: any[]) => {
     return data.reduce((acc, item) => {
-      const courseName = item.course_name;
+      const courseName = item.course_name
       if (!acc[courseName]) {
-        acc[courseName] = [];
+        acc[courseName] = []
       }
-      acc[courseName].push(item);
-      return acc;
-    }, {} as { [key: string]: any[] });
-  };
+      acc[courseName].push(item)
+      return acc
+    }, {} as { [key: string]: any[] })
+  }
 
   // отфильтрованные группы разбросанные по курсам
-  const groupedData = dataToShow ? groupByCourseName(dataToShow) : null;
+  const groupedData = dataToShow ? groupByCourseName(dataToShow) : null
 
   if (isFilterClosed) return null
 
   return (
-      <div className={style.container}>
-        <p className={style.title}>{header}</p>
-        <Input name={name} type="search" value={term} onChange={handleChangeTerm}
-               placeholder="Начните вводить название">
-          <IconSvg width={30} height={30} viewBoxSize="0 0 20 20" path={searchIconPath}/>
-        </Input>
-        <div className={style.wrapper}>
-          {groupedData && Object.keys(groupedData).map((courseName, index) => (
-              <div key={courseName + index}>
-                <div className={style.category_filter_title}>{courseName}</div>
-                {groupedData[courseName].map((item: any, itemIndex: number) => (
-                    <div className={style.category_content} key={item.name}>
-                      <p className={style.category_filter_item}
-                         onClick={() => handleChooseItemForFilter(item.name, courseName, index, itemIndex)}>
-                        {item.name}
-                      </p>
-                    </div>
-                ))}
-              </div>
+    <div className={style.container}>
+      <p className={style.title}>{header}</p>
+      <Input name={name} type="search" value={term} className={style.inputWrapper} onChange={handleChangeTerm} placeholder="Начните вводить название">
+        <IconSvg width={30} height={30} viewBoxSize="0 0 20 20" path={searchIconPath} />
+      </Input>
+      <div className={style.wrapper}>
+        {groupedData &&
+          Object.keys(groupedData).map((courseName, index) => (
+            <div key={courseName + index}>
+              <div className={style.category_filter_title}>{courseName}</div>
+              {groupedData[courseName].map((item: any, itemIndex: number) => (
+                <div className={style.category_content} key={item.name}>
+                  <p className={style.category_filter_item} onClick={() => handleChooseItemForFilter(item.name, courseName, index, itemIndex)}>
+                    {item.name}
+                  </p>
+                </div>
+              ))}
+            </div>
           ))}
-        </div>
-        <Button style={{margin: '0 20px'}} text="Применить" variant="primary" onClick={handleAddFilter}/>
       </div>
+      <Button style={{ margin: '0 20px' }} text="Применить" variant="newPrimary" onClick={handleAddFilter} />
+    </div>
   )
 }

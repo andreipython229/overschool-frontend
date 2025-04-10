@@ -1,8 +1,13 @@
 @import '../../../scss/mixin.scss';
 
+:root {
+    --mobile-border-radius: 24px;
+}
+
+
 .card {
     &_container {
-        @include display(flex, row, start, center);
+        @include display(flex, row, flex-start, center);
         background-image: url('../../../assets/img/meetings/cardBg.png');
         background-repeat: no-repeat;
         background-size: cover;
@@ -14,131 +19,192 @@
         padding: 16px;
         overflow: hidden;
         gap: 16px;
-    }
 
-    &_container::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(51, 47, 54, 0.65);
-        border-radius: 32px;
-        z-index: 1;
-    }
+        .card_avatar_container {
+            aspect-ratio: 1 / 1;
+            height: 100%;
+            border-radius: 14px;
+            background-image: url('../../../assets/img/meetings/cardAvatar.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
 
-    &_container>* {
-        position: relative;
-        z-index: 2;
-    }
+            @media screen and (max-width: 1023px),
+            screen and (max-aspect-ratio: 1/1) {
+                & {
+                    aspect-ratio: auto;
+                    grid-column: 1;
+                    grid-row: 1;
+                    border-radius: var(--mobile-border-radius);
+                }
+            }
+        }
 
-    &_avatar_container {
-        aspect-ratio: 1 / 1;
-        height: 100%;
-        border-radius: 14px;
-        background-image: url('../../../assets/img/meetings/cardAvatar.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
-
-    &_description {
-        @include display(flex, column, start, start);
-        gap: 10px;
-        width: 100%;
-        height: calc(100% - 2px);
-        border: none;
-        border-radius: 32px;
-        backdrop-filter: blur(5px);
-        padding: 16px;
-        color: #fff;
-        // z-index: 10;
-    }
-
-    // &_description::after {
-    //     content: '';
-    //     position: absolute;
-    //     top: -2px; /* Положение псевдоэлемента */
-    //     left: -2px; /* Положение псевдоэлемента */
-    //     right: -2px; /* Положение псевдоэлемента */
-    //     bottom: -2px; /* Положение псевдоэлемента */
-    //     background: linear-gradient(45deg, #ff6b6b, #f7d9a0); /* Градиентный фон */
-    //     border-radius: 10px; /* Скругление углов псевдоэлемента */
-    //     z-index: -10; /* Поместить псевдоэлемент под контентом */
-    //   }
-
-    &_schedule {
-        @include display(flex, column, space-between, start);
-        width: 20%;
-        height: calc(100% - 2px);
-        max-width: 200px;
-        border: none;
-        border-radius: 32px;
-        backdrop-filter: blur(5px);
-        padding: 16px;
-        color: #fff;
-        font-weight: 500;
-        font-size: 20px;
-
-
-        .meeting_edit_btn_wrapper {
-            @include display(flex, row, end, center);
+        .card_description {
+            @include display(flex, column, flex-start, flex-start);
+            gap: 10px;
             width: 100%;
-        }
+            height: calc(100% - 2px);
+            border: none;
+            border-radius: 32px;
+            backdrop-filter: blur(5px);
+            padding: 16px;
+            color: #fff;
+            // z-index: 10;
 
-        .meeting_edit_btn {
+            .card_cource_name {
+                font-size: 36px;
+                font-weight: 500;
 
-
-            svg {
-                path {
-                    transition-duration: 0.2s;
+                // font-family: 'SF Pro Display', sans-serif;
+                @media screen and (max-width: 1023px),
+                screen and (max-aspect-ratio: 1/1) {
+                    & {
+                        font-size: 24px;
+                    }
                 }
             }
 
-            svg:hover {
-                cursor: pointer;
+            .card_meeting {
+                &_title {
+                    font-size: 24px;
+                    font-weight: 500;
 
-                path {
-                    fill: #3170E7;
+                    @media screen and (max-width: 1023px),
+                    screen and (max-aspect-ratio: 1/1) {
+                        & {
+                            font-size: 18px;
+                        }
+                    }
                 }
+
+                &_description {
+                    font-size: 16px;
+                    font-weight: 500;
+
+                    @media screen and (max-width: 1023px),
+                    screen and (max-aspect-ratio: 1/1) {
+                        & {
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+            }
+
+            @media screen and (max-width: 1023px),
+            screen and (max-aspect-ratio: 1/1) {
+                & {
+                    border-radius: var(--mobile-border-radius);
+                    grid-column: span 2;
+                    grid-row: 2;
+
+                }
+            }
+
+        }
+
+        .card_schedule {
+            @include display(flex, column, space-between, flex-start);
+            width: 20%;
+            height: calc(100% - 2px);
+            max-width: 200px;
+            border: none;
+            border-radius: 32px;
+            backdrop-filter: blur(5px);
+            padding: 16px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 20px;
+
+
+            .meeting_edit_btn_wrapper {
+                @include display(flex, row, flex-end, center);
+                width: 100%;
+            }
+
+            .meeting_edit_btn {
+                svg {
+                    path {
+                        transition-duration: 0.2s;
+                    }
+                }
+
+                svg:hover {
+                    cursor: pointer;
+
+                    path {
+                        fill: #3170E7;
+                    }
+                }
+            }
+
+            @media screen and (max-width: 1023px),
+            screen and (max-aspect-ratio: 1/1) {
+                & {
+                    @include display(flex, column-reverse, space-between, flex-start);
+                    grid-column: 2;
+                    grid-row: 1;
+                    width: auto;
+                    justify-self: stretch;
+                    max-width: none;
+                    font-size: 16px;
+
+                }
+            }
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(51, 47, 54, 0.65);
+            border-radius: 32px;
+            z-index: 1;
+        }
+
+        &>* {
+            position: relative;
+            z-index: 2;
+        }
+
+        @media screen and (max-width: 1023px),
+        screen and (max-aspect-ratio: 1/1) {
+            & {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                height: auto;
+                justify-content: stretch;
+                gap: 10px;
+                padding: 10px;
             }
         }
     }
 
-    &_cource_name {
-        font-size: 36px;
-        font-weight: 500;
-        // font-family: 'SF Pro Display', sans-serif;
-    }
-
-    &_meeting {
-        &_title {
-            font-size: 24px;
-            font-weight: 500;
-        }
-
-        &_description {
-            font-size: 16px;
-            font-weight: 500;
-        }
-    }
-
-
-    &_description::before, &_schedule::before {
+    &_description::before,
+    &_schedule::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(90deg,  #CFE2FF, #3686FF);
+        background: linear-gradient(90deg, #CFE2FF, #3686FF);
         z-index: -1;
         border-radius: 32px;
         mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;
         mask-composite: exclude;
         padding: 1px;
-      }
-}
 
+        @media screen and (max-width: 1023px),
+        screen and (max-aspect-ratio: 1/1) {
+            & {
+                border-radius: var(--mobile-border-radius);
+            }
+        }
+    }
+}

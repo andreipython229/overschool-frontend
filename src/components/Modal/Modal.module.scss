@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: 'SFPRORegular';
-  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
 }
 
 .wrapper {
@@ -71,22 +71,21 @@
     overflow: visible;
     max-width: 600px;
     transition: 400ms ease-out;
-  
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 98%;
       position: absolute;
       top: 10%;
       right: 1%;
     }
-  
+
     @media only screen and (min-width: 375px) and (max-width: 480px) {
       width: 98%;
       position: absolute;
       top: 10%;
       right: 1%;
-  
     }
-  
+
     @media only screen and (min-width: 481px) and (max-width: 1024px) {
       position: absolute;
       left: 3%;
@@ -174,37 +173,36 @@
 }
 
 .main {
-  position: relative;
-  @include display(flex, column, center);
-  background: $color-white;
-  font-family: 'SFPRORegular';
-  margin: auto;
-  border-radius: 7px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  overflow: visible;
-  width: 600px;
-  transition: 400ms ease-out;
+  @include position_t_l(absolute, 50%, 50%, 10);
+  @include display(flex, column);
+  align-items: center;
+  padding: 54px 34px 40px 34px;
+  background: #ffffff;
+  margin: 0 auto;
+  border-radius: 24px;
+  box-shadow: 0px 0px 8px 0px #3241954d;
+  // overflow: hidden;
+  transform: translate(-50%, -50%);
+  font-family: $font-family-inter;
+  max-width: 667px;
+  width: 90%;
+  max-height: 90dvh;
+  overflow-y: scroll;
+  height: auto;
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
+
+  // position: relative;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 98%;
-    position: absolute;
-    top: 10%;
-    right: 1%;
+    width: 100%;
+    padding: 2rem 1rem 0 1rem;
   }
-
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    width: 98%;
-    position: absolute;
-    top: 10%;
-    right: 1%;
-
-  }
-
-  @media only screen and (min-width: 481px) and (max-width: 1024px) {
-    position: absolute;
-    left: 30%;
-    height: 95%;
+    width: 100%;
+    padding: 2rem 1rem 0 1rem;
   }
 
   &_feedback {
@@ -217,12 +215,12 @@
     flex-shrink: 0;
     flex-grow: 0;
     overflow: visible;
-    border: 1px solid #357EEB;
+    border: 1px solid #357eeb;
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(23px);
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       border-radius: 30px;
       left: 0;
@@ -267,7 +265,7 @@
   }
 
   &_closed {
-    @include position_t_r(absolute, 0px, 0px);
+    @include position_t_r(absolute, 20px, 20px);
     text-align: center;
     cursor: pointer;
     display: flex;
@@ -291,7 +289,7 @@
   &_registr {
     @include position_t_r(absolute, 0.5em, 5em);
     cursor: pointer;
-    color: #6F6F6F;
+    color: #6f6f6f;
     width: 35px;
     height: 35px;
     display: flex;
@@ -397,6 +395,7 @@
   transform: translate(-50%, -50%);
   max-height: 100vh;
   overflow: auto;
+  padding: 2rem;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 100%;
@@ -429,10 +428,6 @@
     align-items: center;
   }
 
-  &_container {
-    margin: 36px 13px 29px 31px;
-  }
-
   &_closedModal {
     @include position_t_r(absolute, 17px, 16px);
     //background: #f1f1f1;
@@ -446,7 +441,7 @@
     color: #e0dced;
 
     &:hover {
-      color: #357EEB;
+      color: #357eeb;
       transition: color 0.3s;
     }
   }
@@ -465,15 +460,13 @@
     margin-top: 15px;
   }
 
-
-
   &_invite {
     margin-top: 32px;
 
-    & label {
+    label {
       color: #4d5766;
       font-size: 14px;
-      display: inline-block;
+      display: inline-flex;
       margin-bottom: 7px;
     }
 
@@ -500,10 +493,12 @@
 
   &_radiowrapper {
     display: flex;
-    justify-content: space-around;
-    gap: 200px;
-    margin-top: 10px;
-    margin-right: 400px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+    // margin-top: 10px;
+    padding: 1rem;
+    // margin-right: 400px;
   }
 
   &_role {
@@ -537,7 +532,6 @@
     @include display(flex, column);
     font-weight: 400;
     margin-top: 25px;
-
 
     &_title {
       @include font(400, 14px);
@@ -612,12 +606,10 @@
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 99%;
-
   }
 
   @media only screen and (min-width: 375px) and (max-width: 480px) {
     width: 99%;
-
   }
 
   &_container {
@@ -703,7 +695,7 @@
         width: 34px;
         height: 34px;
       }
-  
+
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         @include position_t_r(absolute, 10px, 10px);
         width: 34px;
@@ -778,7 +770,7 @@
           width: 60px;
           height: 60px;
         }
-    
+
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           width: 60px;
           height: 60px;
@@ -831,7 +823,7 @@
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             padding: 5px;
           }
-  
+
           @media only screen and (min-width: 375px) and (max-width: 480px) {
             padding: 5px;
           }
@@ -1008,7 +1000,7 @@
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           fill: $color-grey;
         }
-  
+
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           fill: $color-grey;
         }
@@ -1272,7 +1264,7 @@
 
 .toggle_switch .switch::before {
   @include position_t_l(absolute, 2px, 2px);
-  content: "";
+  content: '';
   width: 16px;
   height: 16px;
   background-color: $color-white;
@@ -1398,7 +1390,7 @@
         font-size: 13px !important;
         padding: 10px !important;
       }
-  
+
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         font-size: 13px !important;
         padding: 10px !important;
@@ -1449,13 +1441,12 @@
       }
 
       &_switch {
-
         div {
           width: 40px;
           height: 20px;
           background: #e3e3e3;
           border: none;
-      
+
           &[data-isOn='true'] {
             background: transparent;
             border: 1px solid rgba(53, 126, 235, 1);
@@ -1643,7 +1634,7 @@
     &_title {
       @include font(700, 25px, 42.96px);
       font-family: 'SFPRORegular';
-      color: #332F36;
+      color: #332f36;
       text-align: center;
       margin-bottom: 25px;
 
@@ -1693,7 +1684,7 @@
         width: 100%;
         border-radius: 10px;
         border: 1px solid transparent;
-        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
 
         textarea {
           overflow: auto;
@@ -1731,7 +1722,7 @@
         div {
           div {
             border: 1px solid transparent;
-            background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+            background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
           }
         }
 
@@ -1764,26 +1755,25 @@
   height: auto;
 
   .container_buttons {
-    @include display(flex, column, start, start);
+    @include display(flex, column, flex-start, flex-start);
     gap: 18px;
     margin-bottom: 25px;
   }
 
   .courses_container {
-    @include display(flex, column, space-between, start);
+    @include display(flex, column, space-between, flex-start);
     max-height: 400px;
-    overflow-y: scroll;
-    margin: 0 20px;
+    overflow-y: auto;
+    margin: 20px 20px;
     gap: 5px;
 
     div {
-      @include display(flex, row, start, center);
+      @include display(flex, row, flex-start, center);
       height: auto;
       color: #808080;
       font-weight: 700;
       font-size: 18px;
       gap: 5px;
-
     }
 
     &::-webkit-scrollbar {
@@ -1791,12 +1781,12 @@
     }
 
     &::-webkit-scrollbar-track {
-      background: #CFE2FF;
+      background: #cfe2ff;
       border-radius: 8px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: #332F36;
+      background: #332f36;
       border-radius: 4px;
     }
 
@@ -1805,15 +1795,11 @@
     }
 
     ::-webkit-scrollbar-button {
-      background: #332F36;
+      background: #332f36;
       height: 20px;
       width: 20px;
     }
   }
-
-
-
-
 
   .course_container {
     @include display(flex, row, space-between, center);
@@ -1840,7 +1826,7 @@
     margin: 20px 0 0 0;
     color: transparent;
 
-    &_active{
+    &_active {
       color: red;
     }
   }
@@ -1868,8 +1854,6 @@
         right: 5px;
       }
     }
-
-
   }
 
   @media only screen and (min-width: 700px) and (max-width: 1024px) {
@@ -1878,9 +1862,8 @@
 
   @media only screen and (min-width: 481px) and (max-width: 700px) {
     // position: absolute;
-    // left: 30%; 
+    // left: 30%;
     // height: 95%;
     width: 90vw;
   }
-
 }

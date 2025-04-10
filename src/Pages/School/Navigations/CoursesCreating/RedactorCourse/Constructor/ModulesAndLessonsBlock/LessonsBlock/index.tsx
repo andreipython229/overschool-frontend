@@ -1,37 +1,38 @@
-import { FC, Fragment, PointerEvent, memo, useEffect, useState } from 'react'
+import { FC, PointerEvent, memo, useEffect, useState } from 'react'
 
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { useDeleteLessonsMutation } from 'api/modulesServices'
+import { useDeleteLessonsMutation, usePatchLessonsMutation } from 'api/modulesServices'
 import { LessonsBlockT } from 'types/navigationTypes'
 import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
 import { lessonSvgMapper } from 'config'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
-import { Reorder, useDragControls, motion, useAnimation } from 'framer-motion'
+import { Reorder, useDragControls, motion, isDragActive } from 'framer-motion'
 import { deleteHoverIconPath, deleteOpenEyeIconPath, eyeCloseIconPath, eyeOpenIconPath } from './config'
 import { DoBlockIconPath } from 'Pages/School/config/svgIconsPath'
 import { animateVisibility } from './constants/animationConstants'
 import { useBoolean } from 'customHooks'
 import { WarningModal } from 'components/Modal/Warning'
 import { Portal } from 'components/Modal/Portal'
+import { useAppSelector } from 'store/hooks'
+import { schoolSelector } from 'selectors'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const LessonsBlock: FC<LessonsBlockT> = memo(
-  ({ setLessonIdAndType, setFocusOnLesson, type, lessonsName, id, lesson, selected, onPush, onOpenModalLesson, openedEye }) => {
+  ({ setLessonIdAndType, setFocusOnLesson, type, id, lesson, selected, onPush, onOpenModalLesson, sectionId, setInsertAfterOrder }) => {
     const [deleteLesson, { isLoading }] = useDeleteLessonsMutation()
     const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
     const controls = useDragControls()
-    const schoolName = window.location.href.split('/')[4]
+    const { schoolName } = useAppSelector(schoolSelector)
     const [isOpenEye, setIsOpenEye] = useState<boolean>(false)
+    const [changePublish] = usePatchLessonsMutation()
 
     useEffect(() => {
-      if (openedEye === true) {
-        setIsOpenEye(true)
-      } else {
-        setIsOpenEye(false)
+      if (lesson) {
+        setIsOpenEye(!lesson.active)
       }
-    }, [openedEye])
+    }, [lesson])
 
     const handleDeleteLesson = async () => {
       await deleteLesson({ id, type, schoolName })
@@ -48,7 +49,12 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(
 
     const handleEyeLesson = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation()
-      if (!openedEye) setIsOpenEye(!isOpenEye)
+      const form = new FormData()
+      form.append('active', String(isOpenEye))
+      form.append('section', String(sectionId))
+      changePublish({ schoolName: schoolName, arg: { id: lesson.id, type: lesson.type, formdata: form } })
+        .unwrap()
+        .then(() => setIsOpenEye(!isOpenEye))
     }
 
     const handleChangeLesson = () => {
@@ -65,7 +71,7 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(
           draggable={false}
           key={lesson.baselesson_ptr_id}
           value={lesson}
-          onClick={!isOpenEye ? handleChangeLesson : undefined}
+          onClick={handleChangeLesson}
           className={
             !isOpenEye
               ? `${styles.redactorCourse_leftSide_desc_lessonWrapper} ${selected ? styles.selectedLesson : ''}`
@@ -116,11 +122,7 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(
             >
               {lesson.name}
             </span>
-            {isLoading && (
-              <div style={{ marginLeft: '40px' }}>
-                <SimpleLoader style={{ width: '20px', height: '20px' }} />
-              </div>
-            )}
+            {isLoading && <LoaderLayout />}
           </span>
           {selected ? (
             <div className={styles.lesson_buttons}>
@@ -174,12 +176,15 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(
             </div>
           )}
         </Reorder.Item>
-        {!isOpenEye ? (
+        {!isDragActive() ? (
           <motion.button
             className={styles.btn}
             transition={{ duration: 0.4, ease: 'easeOut' }}
             variants={animateVisibility}
-            onClick={onOpenModalLesson}
+            onClick={() => {
+              setInsertAfterOrder(lesson.order)
+              onOpenModalLesson?.()
+            }}
           >
             {'+ Добавить новый урок'}
           </motion.button>

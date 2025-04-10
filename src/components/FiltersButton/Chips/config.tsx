@@ -10,6 +10,7 @@ export const chipsVal: ChipsVal = {
     end_mark: 'оценка до',
     start_date: 'последний ответ с',
     end_date: 'последний ответ до',
+    teacher_id: 'преподаватель (id)',
   },
   students: {
     average_mark_min: 'средний балл от',
@@ -21,6 +22,6 @@ export const chipsVal: ChipsVal = {
     hide_deleted: 'Скрыть удаленные',
     first_name: 'Имя',
     last_name: 'Фамилия',
-    search_value: 'Поиск'
+    search_value: 'Поиск',
   },
 }

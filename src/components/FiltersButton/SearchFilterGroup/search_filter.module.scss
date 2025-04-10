@@ -2,11 +2,12 @@
 
 .container {
   @include display(flex, column);
-  background-color: #ffffff;
-  min-width: 319px;
+  background-color: transparent;
+  min-width: 240px;
+  width: 100%;
   border-radius: 10px;
+  padding: 0 5px;
   box-sizing: border-box;
-  padding-bottom: 30px;
   & > .input {
     border: none;
     border-bottom: 1px solid #e8e8e8;
@@ -31,7 +32,7 @@
 .title {
   font-size: 10px;
   text-align: center;
-  color: #d2d6dc;
+  color: #000000;
   margin: 0 0 20px 0;
 }
 .wrapper {
@@ -43,11 +44,11 @@
     width: 9px;
   }
   &::-webkit-scrollbar-thumb {
-    background: #e1dbe6;
+    background: #357EEB;
     height: 128px;
-    border: 3px solid #ffff;
-    border-top: 8px solid #ffff;
-    border-bottom: 8px solid #ffff;
+    border: 3px solid #357EEB;
+    border-top: 8px solid #357EEB;
+    border-bottom: 8px solid #357EEB;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
@@ -60,12 +61,12 @@
   padding: 12px 30px 5px 30px;
   font-weight: bold;
   @include font(600, 13px, 10px);
-  color: #ba75ff;
+  color: #357EEB;
 }
 .category_filter_item {
   padding: 12px 20px;
   @include font(500, 14px, 17px);
-  color: #4d5766;
+  color: #357EEB;
 }
 .category_content {
   cursor: pointer;
@@ -81,4 +82,8 @@
   &:hover {
     background: #e7ebf1;
   }
+}
+
+.inputWrapper > input {
+  font-size: 12px;
 }

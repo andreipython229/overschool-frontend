@@ -10,7 +10,7 @@ import { useDeleteFolderMutation, useLazyFetchCourseFoldersQuery, useLazyFetchCo
 import { useSetSchoolMutation } from 'api/schoolService'
 import { useBoolean } from 'customHooks/useBoolean'
 import { Portal } from 'components/Modal/Portal'
-import { useDebouncedFilter } from '../../../../customHooks'
+import { useDebouncedFilter, usePagination } from '../../../../customHooks'
 import styles from 'Pages/School/Navigations/CoursesCreating/coursePage.module.scss'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CoursesT } from 'types/CoursesT'
@@ -24,15 +24,17 @@ import { useDispatch } from 'react-redux'
 import { useLazyFetchAllProgressQuery } from 'api/userProgressService'
 import { SearchIconPath } from 'assets/Icons/svgIconPath'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
+import { Pagination } from 'components/Pagination/Pagination'
 
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
   const { schoolName, schoolId } = useAppSelector(schoolSelector)
   const test_course = localStorage.getItem('test_course')
-  const [fetchData, { data: coursesData, isSuccess }] = useLazyFetchCoursesPageQuery()
+  const [fetchData, { data: coursesData, isFetching, isSuccess }] = useLazyFetchCoursesPageQuery()
   const [fetchFolders, { data: folders, isError }] = useLazyFetchCourseFoldersQuery()
   const [isOpenAddCourse, { onToggle }] = useBoolean()
   const [courses, setCourses] = useState<CoursesT>()
+  const { page: currentPage, onPageChange, paginationRange } = usePagination({ totalCount: coursesData?.count as number })
   const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
   const [search, setSearch] = useState('')
   const [foldersVisible, { on: hideFolders, off: showFolders, onToggle: toggleFolders }] = useBoolean(false)
@@ -75,15 +77,19 @@ export const CoursePage: FC = () => {
   }, [deletedSuccessfuly])
 
   useEffect(() => {
-    if (schoolName === window.location.href.split('/')[4]) {
-      fetchData(schoolName)
-    } else {
-      fetchData(schoolName)
+    if (schoolName && !coursesData && !isFetching) {
+      fetchData({ schoolName, page: currentPage })
     }
     if (role === RoleE.Student) {
       getBonuses(schoolName)
     }
   }, [schoolId])
+
+  useEffect(() => {
+    if (currentPage && !isFetching) {
+      fetchData({ schoolName, page: currentPage })
+    }
+  }, [currentPage])
 
   useEffect(() => {
     if (bonusSuccess && bonuses?.length) {
@@ -126,7 +132,7 @@ export const CoursePage: FC = () => {
     formdata.append('test_course', JSON.stringify(newState))
     try {
       await updateSchoolTestCourse({ formdata, id: Number(schoolId) })
-      await fetchData(schoolName)
+      await fetchData({ schoolName, page: currentPage })
       setCourses(coursesData)
     } catch (error) {
       console.error('Error updating test course:', error)
@@ -156,7 +162,7 @@ export const CoursePage: FC = () => {
           return course.name.toLowerCase().includes(search.toLowerCase())
         })
 
-  if (!isSuccess) return <LoaderLayout />
+  if (!isSuccess || isFetching) return <LoaderLayout />
   return (
     <div className={styles.container}>
       {role === RoleE.Admin && (
@@ -536,7 +542,13 @@ export const CoursePage: FC = () => {
             {courses && filteredCourses?.length !== 0 ? (
               filteredCourses?.map((course: any, index) =>
                 (RoleE.Admin === role && showTestCourse) || course.course_id !== 247 ? (
-                  <CoursesCard userProgress={getProgress(course.course_id)} key={course?.course_id} course={course} role={role} />
+                  <CoursesCard
+                    userProgress={getProgress(course.course_id)}
+                    key={course?.course_id}
+                    course={course}
+                    role={role}
+                    refetchCourses={() => fetchData({ schoolName, page: currentPage })}
+                  />
                 ) : null,
               )
             ) : (
@@ -546,6 +558,11 @@ export const CoursePage: FC = () => {
             )}
           </motion.div>
         }
+        {courses && filteredCourses?.length !== 0 && (
+          <motion.div className={styles.paginationBox}>
+            <Pagination currentPage={currentPage} paginationRange={paginationRange} onPageChange={onPageChange} />
+          </motion.div>
+        )}
       </AnimatePresence>
       {showModal && (
         <Portal closeModal={toggleModal}>

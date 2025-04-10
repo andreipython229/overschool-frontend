@@ -5,6 +5,7 @@
   position: relative;
   margin-right: 7px;
   width: fit-content;
+  z-index: 20;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding-left: 1rem;
@@ -89,7 +90,7 @@
   border-radius: 32px;
   backdrop-filter: blur(14px);
   background: #cfe2ff;
-  width: 200px;
+  min-width: 240px;
   height: auto;
   display: flex;
   padding-bottom: 20px;
@@ -98,9 +99,9 @@
   align-items: center;
   gap: 16px;
   position: absolute;
-  left: calc(100% + 10px);
-  top: -20%;
-  z-index: 1000;
+  left: calc(100% + 20px);
+  top: -50%;
+  z-index: 30;
 }
 
 .filterPointer {
@@ -108,4 +109,17 @@
   left: -9px;
   top: 25px;
   z-index: -1;
+}
+
+.resetButton {
+  position: absolute;
+  top: 50%;
+  right: 45px;
+  transform: translateY(-50%);
+  border: none;
+  background: #cfe2ff93;
+  border-radius: 12px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 500;
 }

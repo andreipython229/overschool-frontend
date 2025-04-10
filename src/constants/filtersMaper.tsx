@@ -4,7 +4,7 @@ import { CalendarFilter } from '../components/FiltersButton/CalendarFilter/Calen
 import { SearchFilter } from '../components/FiltersButton/SearchFilter/SearchFilter'
 import { SearchFilterGroup } from '../components/FiltersButton/SearchFilterGroup/SearchFilterGroup'
 import { CoursesDataT } from '../types/CoursesT'
-import { useFetchCoursesQuery } from '../api/coursesServices'
+import { useFetchCoursesQuery, useFetchSchoolTeachersQuery } from '../api/coursesServices'
 import { useLazyFetchStudentsGroupQuery } from '../api/studentsGroupService'
 import { useFetchLessonsQuery } from 'api/modulesServices'
 import { IHomework } from 'types/sectionT'
@@ -15,6 +15,8 @@ import { StatusFilter } from 'components/FiltersButton/StatusFilter'
 import { useAppSelector } from 'store/hooks'
 import { RoleE } from 'enum/roleE'
 import { schoolSelector, selectUser } from 'selectors'
+import { ISchoolTeachers } from 'api/apiTypes'
+import { TeacherFilter } from 'components/FiltersButton/TeacherFilter'
 
 type ComponentFilterT = {
   id: string | number
@@ -44,7 +46,8 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
 }) => {
   const { schoolName, schoolId } = useAppSelector(schoolSelector)
   const { role } = useAppSelector(selectUser)
-  const { data } = useFetchCoursesQuery(schoolName)
+  const { data } = useFetchCoursesQuery({ schoolName, page: 1 })
+  const { data: teachers } = useFetchSchoolTeachersQuery({ schoolName })
   const { data: homeworks } = useFetchLessonsQuery({ type: 'homework', schoolName })
   const [fetchGroups, { data: groups }] = useLazyFetchStudentsGroupQuery()
   const { data: users } = useFetchStudentsDataPerSchoolQuery({ id: schoolId })
@@ -60,6 +63,16 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
     // '5': <SearchFilter key={2} filterKey={'homework'} data={firstNames && firstNames.length > 0 ? firstNames : []} name={''} header={'ВВЕДИТЕ ИМЯ'} filterTerm="first_name" />,
     // '6': <SearchFilter key={1} filterKey={'homework'} data={lastNames && lastNames.length > 0 ? lastNames : []} name={''} header={'ВВЕДИТЕ ФАМИЛИЮ'} filterTerm="last_name" />,
     '5': <StatusFilter onChangeStatus={onChangeStatus} />,
+    '6': (
+      <TeacherFilter
+        key={6}
+        filterKey={'homework'}
+        data={teachers as ISchoolTeachers[]}
+        name=""
+        header={'Выберите преподавателя'}
+        filterTerm="teacher_id"
+      />
+    ),
     '7': (
       <SearchFilter
         key={1}

@@ -30,17 +30,18 @@ export const ChipsComponent: FC<chipsComponentT> = ({ filters, filterKey, chipsV
           ([filterTerm, chipText], index) =>
             filterTerm !== 'search_value' &&
             filterTerm !== 'sort_by' &&
-            filterTerm !== 'sort_order' && (
+            filterTerm !== 'sort_order' &&
+            chipText && (
               <div key={String(index) + chipText}>
-                {chipText && (
-                  <div key={index} className={styles.chip}>
-                    <span className={styles.chips_filter}>{chipsVal[filterTerm]}:</span>
-                    <span>{chipText == 'true' ? <>Да</> : <>{chipText}</>}</span>
-                    <button className={styles.removeButton} onClick={() => handleRemoveChip(filterTerm)}>
-                      <IconSvg width={8} height={8} styles={{ color: '#fff' }} viewBoxSize="0 0 18 16" path={CrossIconPath} />
-                    </button>
-                  </div>
-                )}
+                <div key={index} className={styles.chip}>
+                  <span className={styles.chips_filter}>
+                    {filterTerm.includes('course_name') ? 'Курс' : filterTerm.includes('group_name') ? 'Группа' : chipsVal[filterTerm]}:
+                  </span>
+                  <span>{chipText == 'true' ? <>Да</> : chipText == 'false' ? <>Нет</>: <>{chipText}</>}</span>
+                  <button className={styles.removeButton} onClick={() => handleRemoveChip(filterTerm)}>
+                    <IconSvg width={8} height={8} styles={{ color: '#fff' }} viewBoxSize="0 0 18 16" path={CrossIconPath} />
+                  </button>
+                </div>
               </div>
             ),
         )}

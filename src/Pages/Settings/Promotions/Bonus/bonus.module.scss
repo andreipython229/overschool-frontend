@@ -14,6 +14,53 @@
       border-bottom: 1px solid #ebebeb;
       background: #ffffff;
 
+      @media only screen and (min-width: 320px) and (max-width: 375px) {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+
+        & > td:nth-child(1),
+        & > td:nth-child(3),
+        & > td:nth-child(5) {
+          display: none;
+        }
+
+        & > td:nth-child(2) {
+          width: 200px; 
+          max-width: 200px;
+          overflow-wrap: anywhere;
+        }
+      }
+
+      @media only screen and (min-width: 375px) and (max-width: 450px) {
+        & > td:nth-child(3) {
+          display: none;
+        }
+      }
+
+      @media only screen and (min-width: 375px) and (max-width: 700px) {
+        & > td:nth-child(1) {
+          display: none;
+        }
+        
+      }
+
+      @media only screen and (min-width: 375px) and (max-width: 1400px) {
+        & > td:nth-child(2) {
+          width: 100%; 
+          max-width: 500px;
+          overflow-wrap: anywhere;
+          align-content: flex-start;
+        }
+
+        & > td:nth-child(3) {
+          width: 100%; 
+          max-width: 400px;
+          overflow-wrap: anywhere;
+          align-content: flex-start;
+        }
+      }
+
       &_icon {
         width: 100%;
         height: 100%;
@@ -82,6 +129,37 @@
             text-align: left;
             font-family: 'SFPRORegular';
           }
+      }
+
+      @media only screen and (min-width: 375px) and (max-width: 750px) {
+        &_button {
+          @include display(flex, row, center, center);
+          gap: 8px;
+          background: #357eeb;
+          width: 100%;
+          min-width: 58px;
+          height: 27px;
+          padding: 4px;
+          border-radius: 8px;
+
+          &_active, &_inactive {
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+          }
+
+          &_active {
+            background: #4cc700;
+          }
+
+          &_inactive {
+            background: #c70000;
+          }
+
+          p {
+            display: none;
+          }
+        }
       }
     }
   }

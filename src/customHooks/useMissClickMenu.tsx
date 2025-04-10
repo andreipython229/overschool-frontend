@@ -2,26 +2,26 @@ import { useBoolean } from './useBoolean'
 import { useEffect, useRef } from 'react'
 
 export const useMissClickMenu = () => {
-  const [isOpen, { onToggle, on }] = useBoolean()
+  const [isOpen, { onToggle, on: close }] = useBoolean()
 
   const menuRef = useRef<HTMLDivElement>(null)
 
   const handleClick = (event: MouseEvent) => {
     const target = event?.target as HTMLHeadingElement
 
-    if (target?.tagName === 'svg' || target?.tagName === 'path') {
-      on()
-      return
-    }
+    // if (target?.tagName === 'svg' || target?.tagName === 'path') {
+    //   close()
+    //   return
+    // }
 
     if (!menuRef.current?.contains(target) && !target?.className?.includes('filter')) {
-      on()
+      close()
     }
   }
 
   const keydownHandler = ({ key }: KeyboardEvent) => {
     if (key === 'Escape') {
-      on()
+      close()
     }
   }
 
