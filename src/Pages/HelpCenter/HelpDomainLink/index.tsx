@@ -9,11 +9,15 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
 import { Footer } from "../../../components/Footer/index";
 
+import { MobileHeaderАuthorized } from "../../Initial/MobileHeaderАuthorized/MobileHeaderАuthorized";
+import { useMediaQuery } from "react-responsive";
+
 
 export const HelpDomainLink = () => {
     const navigate = useNavigate()
     const [isLoginOpen, setLoginOpen] = useState(false);
     const [isRegistrationOpen, setRegistrationOpen] = useState(false);
+    const isMobile = useMediaQuery({ query: "(max-width: 800px)" });
 
     const handleHelpPage = () => {
         navigate(generatePath(Path.HelpPage))
@@ -35,7 +39,11 @@ export const HelpDomainLink = () => {
                 <div className={mainHelpStyles.bg_wrap4}></div>
             </div>
 
-            <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
+            {isMobile ? (
+                <MobileHeaderАuthorized />
+            ) : (
+                <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
+            )}
 
             <div className={styles.sections}>
                 <div className={styles.section}>
@@ -92,24 +100,18 @@ export const HelpDomainLink = () => {
                 </div>
             </div>
 
-            <div className={`${mainHelpStyles.ctaBlock} ${styles.ctaBlock}`}>
-                <div className={mainHelpStyles.ctaText}>
-                    <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
-                    <p>
-                        Попробуйте весь функционал в процессе использования и узнайте, как
-                        удобно работать на нашей платформе.
-                    </p>
-                    <Button
-                        text="Попробовать бесплатно"
-                        variant="newLeaveRequest"
-                        onClick={handleRegistrationUser}
-                    />
-                </div>
-                <div className={mainHelpStyles.ctaImage}>
-                    <img
-                        src={require("../../../assets/img/common/cta-image.png")}
-                        alt="CTA-изображение"
-                    />
+            <div className={mainHelpStyles.ctaBlock}>
+                <div className={mainHelpStyles.ctaTextRow}>
+                    <div className={mainHelpStyles.ctaText}>
+                        <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
+                        <p>
+                            Попробуйте весь функционал в процессе использования и познай, насколько он удобен
+                        </p>
+                        <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
+                        <div className={mainHelpStyles.ctaImage}>
+                            <img src={require("../../../assets/img/common/cta-image.png")} alt="CTA-изображение" />
+                        </div>
+                    </div>
                 </div>
             </div>
 

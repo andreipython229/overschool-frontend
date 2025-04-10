@@ -102,24 +102,18 @@ export const HelpOverAI = () => {
                 </div>
             </div>
 
-            <div className={`${mainHelpStyles.ctaBlock} ${styles.ctaBlock}`}>
-                <div className={mainHelpStyles.ctaText}>
-                    <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
-                    <p>
-                        Попробуйте весь функционал в процессе использования и узнайте, как
-                        удобно работать на нашей платформе.
-                    </p>
-                    <Button
-                        text="Попробовать бесплатно"
-                        variant="newLeaveRequest"
-                        onClick={handleRegistrationUser}
-                    />
-                </div>
-                <div className={mainHelpStyles.ctaImage}>
-                    <img
-                        src={require("../../../assets/img/common/cta-image.png")}
-                        alt="CTA-изображение"
-                    />
+            <div className={mainHelpStyles.ctaBlock}>
+                <div className={mainHelpStyles.ctaTextRow}>
+                    <div className={mainHelpStyles.ctaText}>
+                        <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
+                        <p>
+                            Попробуйте весь функционал в процессе использования и познай, насколько он удобен
+                        </p>
+                        <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
+                        <div className={mainHelpStyles.ctaImage}>
+                            <img src={require("../../../assets/img/common/cta-image.png")} alt="CTA-изображение" />
+                        </div>
+                    </div>
                 </div>
             </div>
 
