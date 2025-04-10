@@ -1,77 +1,85 @@
-import {FC, useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
-import {NewCheckbox} from "../../../../../../components/common/Checkbox/NewCheckbox";
+import { FC, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { NewCheckbox } from '../../../../../../components/common/Checkbox/NewCheckbox'
 import {
   useFetchModulesQuery,
   useFetchLessonQuery,
   useLazyFetchCommentsByLessonQuery,
-  useUpdateCommentsMutation
-} from 'api/modulesServices';
-import {Pagination} from "components/Pagination/Pagination";
-import { lessonSvgMapper } from 'config';
-import { IconSvg } from 'components/common/IconSvg/IconSvg';
-import { acceptedHwPath } from 'config/commonSvgIconsPath';
-import { sectionT, commonLessonT } from 'types/sectionT';
-import { lessonIdAndTypeT } from 'components/Modal/ModalTypes';
-import { Comment, CommentList } from 'types/comments';
-import styles from './comments.module.scss';
-import styles1 from 'components/Modal/Modal.module.scss';
-import stylesModules from '../Constructor/ModulesAndLessonsBlock/ModulesBlock/modules_block.module.scss';
-import up from './images/up.png';
-import background from './images/background.jpg';
-import user from './images/user.png';
-import vectorBack from './images/vectorBack.png';
-import vectorForward from './images/vectorForward.png';
-import vectorContent from './images/vectorContent.png';
+  useUpdateCommentsMutation,
+  useLazyFetchLessonQuery,
+} from 'api/modulesServices'
+import { Pagination } from 'components/Pagination/Pagination'
+import { lessonSvgMapper } from 'config'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { acceptedHwPath } from 'config/commonSvgIconsPath'
+import { sectionT, commonLessonT } from 'types/sectionT'
+import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
+import { Comment, CommentList } from 'types/comments'
+import styles from './comments.module.scss'
+import styles1 from 'components/Modal/Modal.module.scss'
+import stylesModules from '../Constructor/ModulesAndLessonsBlock/ModulesBlock/modules_block.module.scss'
+import up from './images/up.png'
+import background from './images/background.jpg'
+import user from './images/user.png'
+import vectorBack from './images/vectorBack.png'
+import vectorForward from './images/vectorForward.png'
+import vectorContent from './images/vectorContent.png'
 import { lessonIcon } from './config'
 
-
-const ITEMS_ON_PAGE_COUNT = 8;
+const ITEMS_ON_PAGE_COUNT = 8
 
 export const Comments: FC = () => {
-    const schoolName = window.location.href.split('/')[4];
-    const { course_id: courseId } = useParams();
-    const [courseName, setCourseName] = useState<string>('');
-    const [selectedLessonId, setSelectedLessonId] = useState<number>();
-    const [lessonIdAndType, setLessonIdAndType] = useState<lessonIdAndTypeT>({} as lessonIdAndTypeT);
-    const [modulesList, setModulesList] = useState<sectionT[]>([]);
-    const [check, setCheck] = useState(false);
-    const { data: modulesAndLessons, isSuccess } = useFetchModulesQuery({id: courseId as string, schoolName});
-    const { data, isFetching, refetch } = useFetchLessonQuery({
+  const schoolName = window.location.href.split('/')[4]
+  const { course_id: courseId } = useParams()
+  const [courseName, setCourseName] = useState<string>('')
+  const [selectedLessonId, setSelectedLessonId] = useState<number>()
+  const [lessonIdAndType, setLessonIdAndType] = useState<lessonIdAndTypeT>({} as lessonIdAndTypeT)
+  const [modulesList, setModulesList] = useState<sectionT[]>([])
+  const [check, setCheck] = useState(false)
+  const { data: modulesAndLessons, isSuccess } = useFetchModulesQuery({ id: courseId as string, schoolName })
+  const [fetchLessonData, { data, isFetching }] = useLazyFetchLessonQuery()
+  const [lesson, setLesson] = useState(data as commonLessonT)
+  const [fetchComments, comments] = useLazyFetchCommentsByLessonQuery()
+  const [updateComments] = useUpdateCommentsMutation()
+  const [commentsList, setCommentsList] = useState<CommentList>()
+  const [error, setError] = useState<string>('')
+  const [pageNumber, setPageNumber] = useState<number>(1)
+  const [totalPageArr, setTotalPageArr] = useState<number[]>([])
+  const [show, setShow] = useState<number>(0)
+  const [showMore, setShowMore] = useState<number>(ITEMS_ON_PAGE_COUNT)
+  const [showContent, setShowContent] = useState<boolean>(false)
+  const [clickedSectionId, setClickedSectionId] = useState<number>()
+  const [clickedSectionIdArr, setClickedSectionIdArr] = useState<number[]>([])
+  const [clickedLessonId, setClickedLessonId] = useState<number>()
+  const [checkedCommentsArr, setCommentsArr] = useState<number[]>([])
+
+  useEffect(() => {
+    if (lessonIdAndType.id && lessonIdAndType.type && !data && !isFetching) {
+      fetchLessonData({
         id: +lessonIdAndType.id,
         type: lessonIdAndType.type,
         schoolName,
         courseId,
-      });
-    const [lesson, setLesson] = useState(data as commonLessonT);
-    const [fetchComments, comments] = useLazyFetchCommentsByLessonQuery();
-    const [updateComments] = useUpdateCommentsMutation();
-    const [commentsList, setCommentsList] = useState<CommentList>();
-    const [error, setError] = useState<string>('');
-    const [pageNumber, setPageNumber] = useState<number>(1);
-    const [totalPageArr, setTotalPageArr] = useState<number[]>([]);
-    const [show, setShow] = useState<number>(0);
-    const [showMore, setShowMore] = useState<number>(ITEMS_ON_PAGE_COUNT);
-    const [showContent, setShowContent] = useState<boolean>(false);
-    const [clickedSectionId, setClickedSectionId] = useState<number>();
-    const [clickedSectionIdArr, setClickedSectionIdArr] = useState<number[]>([]);
-    const [clickedLessonId, setClickedLessonId] = useState<number>();
-    const [checkedCommentsArr, setCommentsArr] = useState<number[]>([]);
+      })
+    }
+  }, [lessonIdAndType, courseId])
 
-    const showErrorForSevenSeconds = (errorMessage: string) => {
-      setError(errorMessage);
-      setTimeout(() => {
-        setError('');
-      }, 7000);
-    };
 
-    const handleChangeLesson = (lessonId: number, baselesson: number, lessonType: string) => {
-      return () => {
-        const idAndType: lessonIdAndTypeT = { id: lessonId, type: lessonType };
-        setLessonIdAndType(idAndType);
-        setSelectedLessonId(baselesson);
-        setClickedLessonId(baselesson);
-        fetchComments({lesson_id: baselesson, schoolName: schoolName, course_id: Number(courseId)}).then((data) => {
+  const showErrorForSevenSeconds = (errorMessage: string) => {
+    setError(errorMessage)
+    setTimeout(() => {
+      setError('')
+    }, 7000)
+  }
+
+  const handleChangeLesson = (lessonId: number, baselesson: number, lessonType: string) => {
+    return () => {
+      const idAndType: lessonIdAndTypeT = { id: lessonId, type: lessonType }
+      setLessonIdAndType(idAndType)
+      setSelectedLessonId(baselesson)
+      setClickedLessonId(baselesson)
+      fetchComments({ lesson_id: baselesson, schoolName: schoolName, course_id: Number(courseId) })
+        .then(data => {
           if (data && data.data) {
             const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
               return {
@@ -83,69 +91,70 @@ export const Comments: FC = () => {
                 content: commentData.content,
                 created_at: new Date(commentData.created_at),
                 lesson: commentData.lesson,
-                public: commentData.public
-              };
-            });
+                public: commentData.public,
+              }
+            })
 
-            const commentsList: CommentList = { comments: commentsData };
-            setCommentsList(commentsList);
-            totalPageArr.splice(0);
-            const num:number = Math.ceil(commentsList.comments.length / ITEMS_ON_PAGE_COUNT);
-            let i:number;
-            for(i = 1; i<=num; i+=1) {
-                totalPageArr.push(i);
-             }
-          }
-        }).catch(error => {
-          showErrorForSevenSeconds(`Ошибка при загрузке комментариев: ${error}`);
-        });
-      };
-    };
-
-    const toggleCommentPublic = (commentId: number) => {
-      checkedCommentsArr.push(commentId);
-      setCommentsList((prevComments: CommentList | undefined) => {
-        if (prevComments) {
-          const updatedComments = prevComments.comments.map((comment) => {
-            if (comment.id === commentId) {
-              return { ...comment, public: !comment.public };
+            const commentsList: CommentList = { comments: commentsData }
+            setCommentsList(commentsList)
+            totalPageArr.splice(0)
+            const num: number = Math.ceil(commentsList.comments.length / ITEMS_ON_PAGE_COUNT)
+            let i: number
+            for (i = 1; i <= num; i += 1) {
+              totalPageArr.push(i)
             }
-            return comment;
-          });
-          return { comments: updatedComments };
-        }
-        return prevComments;
-      });
-    };
-
-    useEffect(() => {
-      isSuccess && data && setLesson(data);
-    }, [data, isSuccess]);
-
-    useEffect(() => {
-        if (modulesAndLessons?.sections.length) {
-          setModulesList(modulesAndLessons?.sections)
-          setCourseName(modulesAndLessons?.course_name)
-          setCheck(true)
-          const initialState = {
-            id: modulesAndLessons?.sections[0]?.lessons[0]?.id,
-            type: modulesAndLessons?.sections[0]?.lessons[0]?.type,
           }
-          if (!lessonIdAndType.type) {
-            setLessonIdAndType(initialState)
-            setSelectedLessonId(modulesAndLessons?.sections[0]?.lessons[0]?.id)
+        })
+        .catch(error => {
+          showErrorForSevenSeconds(`Ошибка при загрузке комментариев: ${error}`)
+        })
+    }
+  }
+
+  const toggleCommentPublic = (commentId: number) => {
+    checkedCommentsArr.push(commentId)
+    setCommentsList((prevComments: CommentList | undefined) => {
+      if (prevComments) {
+        const updatedComments = prevComments.comments.map(comment => {
+          if (comment.id === commentId) {
+            return { ...comment, public: !comment.public }
           }
-        }
-      }, [modulesAndLessons?.sections, lessonIdAndType.type])
+          return comment
+        })
+        return { comments: updatedComments }
+      }
+      return prevComments
+    })
+  }
 
-    useEffect(() => {
-      if (modulesList.length > 0 && modulesList[0].lessons.length > 0) {
-        if (lessonIdAndType.baseLessonId) {
-          setSelectedLessonId(lessonIdAndType.baseLessonId)
-        } else {
-          setSelectedLessonId(modulesList[0].lessons[0].baselesson_ptr_id)
-          fetchComments({lesson_id: modulesList[0].lessons[0].baselesson_ptr_id, schoolName: schoolName, course_id: Number(courseId)}).then((data) => {
+  useEffect(() => {
+    isSuccess && data && setLesson(data)
+  }, [data, isSuccess])
 
+  useEffect(() => {
+    if (modulesAndLessons?.sections.length) {
+      setModulesList(modulesAndLessons?.sections)
+      setCourseName(modulesAndLessons?.course_name)
+      setCheck(true)
+      const initialState = {
+        id: modulesAndLessons?.sections[0]?.lessons[0]?.id,
+        type: modulesAndLessons?.sections[0]?.lessons[0]?.type,
+      }
+      if (!lessonIdAndType.type) {
+        setLessonIdAndType(initialState)
+        setSelectedLessonId(modulesAndLessons?.sections[0]?.lessons[0]?.id)
+      }
+    }
+  }, [modulesAndLessons?.sections, lessonIdAndType.type])
+
+  useEffect(() => {
+    if (modulesList.length > 0 && modulesList[0].lessons.length > 0) {
+      if (lessonIdAndType.baseLessonId) {
+        setSelectedLessonId(lessonIdAndType.baseLessonId)
+      } else {
+        setSelectedLessonId(modulesList[0].lessons[0].baselesson_ptr_id)
+        fetchComments({ lesson_id: modulesList[0].lessons[0].baselesson_ptr_id, schoolName: schoolName, course_id: Number(courseId) })
+          .then(data => {
             if (data && data.data) {
               const commentsData: Comment[] = data.data.comments.map((commentData: any) => {
                 return {
@@ -157,82 +166,83 @@ export const Comments: FC = () => {
                   content: commentData.content,
                   created_at: new Date(commentData.created_at),
                   lesson: commentData.lesson,
-                  public: commentData.public
-                };
-              });
+                  public: commentData.public,
+                }
+              })
 
-              const commentsList: CommentList = { comments: commentsData };
-              setCommentsList(commentsList);
+              const commentsList: CommentList = { comments: commentsData }
+              setCommentsList(commentsList)
             }
-          }).catch(error => {
-            showErrorForSevenSeconds(`Ошибка при загрузке комментариев: ${error}`);
-          });
-        }
-      }
-    }, [modulesList, check]);
-
-    const handleSaveChanges = async () => {
-      checkedCommentsArr.splice(0);
-      try {
-        if (commentsList?.comments && Object.keys(commentsList.comments).length > 0) {
-          const commentsToUpdate: Record<number, boolean> = {}
-          commentsList.comments.forEach((comment: Comment) => {
-            commentsToUpdate[comment.id] = comment.public
           })
-          if (selectedLessonId) {
-            await updateComments({ schoolName: schoolName, lesson_id: selectedLessonId, comments: commentsToUpdate, course_id: Number(courseId) });
-          } else {
-            showErrorForSevenSeconds(`Не удалось получить идентификатор курса`);
-          }
-        } else {
-          showErrorForSevenSeconds(`Нет комментариев для обновления`);
-        }
-      } catch (error) {
-        showErrorForSevenSeconds(`Ошибка при обновлении комментариев: ${error}`);
+          .catch(error => {
+            showErrorForSevenSeconds(`Ошибка при загрузке комментариев: ${error}`)
+          })
       }
     }
+  }, [modulesList, check])
 
-    const handleCancelChanges = () => {
-      checkedCommentsArr.forEach((value: number) => {
+  const handleSaveChanges = async () => {
+    checkedCommentsArr.splice(0)
+    try {
+      if (commentsList?.comments && Object.keys(commentsList.comments).length > 0) {
+        const commentsToUpdate: Record<number, boolean> = {}
+        commentsList.comments.forEach((comment: Comment) => {
+          commentsToUpdate[comment.id] = comment.public
+        })
+        if (selectedLessonId) {
+          await updateComments({ schoolName: schoolName, lesson_id: selectedLessonId, comments: commentsToUpdate, course_id: Number(courseId) })
+        } else {
+          showErrorForSevenSeconds(`Не удалось получить идентификатор курса`)
+        }
+      } else {
+        showErrorForSevenSeconds(`Нет комментариев для обновления`)
+      }
+    } catch (error) {
+      showErrorForSevenSeconds(`Ошибка при обновлении комментариев: ${error}`)
+    }
+  }
+
+  const handleCancelChanges = () => {
+    checkedCommentsArr.forEach((value: number) => {
       setCommentsList((prevComments: CommentList | undefined) => {
         if (prevComments) {
-          const updatedComments = prevComments.comments.map((comment) => {
+          const updatedComments = prevComments.comments.map(comment => {
             if (comment.id === value) {
-              return { ...comment, public: !comment.public };
+              return { ...comment, public: !comment.public }
             }
-            return comment;
-          });
-          return { comments: updatedComments };
+            return comment
+          })
+          return { comments: updatedComments }
         }
-        return prevComments;
-      });
-     })
-      checkedCommentsArr.splice(0);
-}
+        return prevComments
+      })
+    })
+    checkedCommentsArr.splice(0)
+  }
 
-    const handleClickPagination = (val: number) =>{
-      setShow(ITEMS_ON_PAGE_COUNT*val-ITEMS_ON_PAGE_COUNT);
-      setShowMore(ITEMS_ON_PAGE_COUNT*val);
-      setPageNumber(val);
-    }
+  const handleClickPagination = (val: number) => {
+    setShow(ITEMS_ON_PAGE_COUNT * val - ITEMS_ON_PAGE_COUNT)
+    setShowMore(ITEMS_ON_PAGE_COUNT * val)
+    setPageNumber(val)
+  }
 
-    const handleClickSection = (index: number) =>{
-      setClickedLessonId(0);
-      setClickedSectionId(index);
-        if(clickedSectionIdArr.includes(index)){
-          setShowContent(false);
-          const startIndex = clickedSectionIdArr.indexOf(index);
-          const deleteCount = 1;
-          if (startIndex !== -1) {
-            clickedSectionIdArr.splice(startIndex, deleteCount);
-          }
-        }else{
-          setShowContent(true);
-          clickedSectionIdArr.push(index);
-          }
+  const handleClickSection = (index: number) => {
+    setClickedLessonId(0)
+    setClickedSectionId(index)
+    if (clickedSectionIdArr.includes(index)) {
+      setShowContent(false)
+      const startIndex = clickedSectionIdArr.indexOf(index)
+      const deleteCount = 1
+      if (startIndex !== -1) {
+        clickedSectionIdArr.splice(startIndex, deleteCount)
       }
+    } else {
+      setShowContent(true)
+      clickedSectionIdArr.push(index)
+    }
+  }
 
-    return (
+      return (
       <div className={styles.wrapper}>
         <div className={styles.redactorCourse_leftSide}>
             <div className={styles.redactorCourse_leftSide_title}>
@@ -385,4 +395,3 @@ export const Comments: FC = () => {
     </div>
   )
 }
-
