@@ -23,6 +23,8 @@ import { SearchBar } from '../SearchBar'
 import { schoolSelector } from 'selectors'
 import { PeopleIconPath } from 'assets/Icons/svgIconPath'
 import { removeAllFilters } from 'store/redux/filters/slice'
+import { ChipsComponent } from 'components/FiltersButton/Chips/chips'
+import { chipsVal } from 'components/FiltersButton/Chips/config'
 
 export interface FilterItem {
   id: number
@@ -71,7 +73,6 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
       setSearchTerm('')
     }
     const [fetchTableHeader, { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching }] = useLazyFetchStudentsTableHeaderQuery()
-
     const handleGroupStudents = async (event: ChangeEvent<HTMLInputElement>) => {
       setIsGroupingStudents(!isGroupingStudents)
       try {
@@ -155,9 +156,9 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
         {headerText === 'Все ученики платформы' && <StudentsSchoolExport />}
         {headerText === 'Все ученики группы' && <StudentsCroupExport />}
         {headerText === 'Все ученики курса' && <StudentsCourseExport />}
-        {/* <div style={{ marginBottom: '15px' }}>
+        <div style={{ marginBottom: '15px' }}>
           <ChipsComponent filterKey={filterKey} filters={filters} chipsVal={chipsVal['students']} />
-        </div> */}
+        </div>
         <div className={styles.searchBlock}>
           <div className={styles.searchFieldBlock}>
             <SearchBar searchTerm={searchTerm} onChangeInput={onChangeInput} />

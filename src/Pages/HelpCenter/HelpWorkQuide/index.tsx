@@ -11,7 +11,7 @@ import { Footer } from "../../../components/Footer/index";
 
 
 
-export const HelpCheckHW = () => {
+export const HelpWorkQuide = () => {
     const navigate = useNavigate()
     const [isLoginOpen, setLoginOpen] = useState(false);
     const [isRegistrationOpen, setRegistrationOpen] = useState(false);
@@ -37,52 +37,32 @@ export const HelpCheckHW = () => {
             </div>
 
             <InitPageHeader />
-
+                        
             <div className={styles.sections}>
                 <div className={styles.section}>
                     <div className={styles.help_title_container}>
                         <div onClick={handleHelpPage} className={styles.back_btn}>
                             <IconSvg path={ArrowLeftIconPath} viewBoxSize="0 0 9 14" height={24} width={18} />
                         </div>
-                        <p>Проверка домашних заданий</p>
+                        <p>Как открыть онлайн-платформу на Course Hub</p>
                         <div></div>
                     </div>
                 </div>
-
-
 
                 <div className={styles.section}>
                     <div className={styles.text_part}>
                         <div className={styles.section_title}>
                             <div className={styles.section_number}>1</div>
-                            <h3 className={styles.section_title_text}>Менторы</h3>
+                            <h3 className={styles.section_title_text}>Регистрация аккаунта для онлайн-платформы</h3>
                         </div>
-                        <p className={styles.section_text}>{`После создания группы и последующего добавления в неё пользователей, у вас появится возможность добавить одного и более менторов.`}</p>
-                        <p className={styles.section_text}>{`Они, в свою очередь, будут заниматься проверкой домашних заданий и поддержкой пользователей в изучении материала.`}</p>
+                        <p className={styles.section_text}>{`Аккаунт онлайн-платформы — отдельный проект с уникальным адресом на платформе Course Hub. Внутри аккаунта у вас есть личный кабинет владельца, где вы можете создавать курсы и управлять платформой.Для регистрации введите название платформы, электронную почту и пароль на официальном сайте.`}</p>
+                        <p className={styles.section_text}>{`После регистрации аккаунта вы попадаете на главную страницу платформы`}</p>
                     </div>
                     <div className={styles.img_part}>
                         <img
-                            src={require("../../../assets/img/CheckHW/hw_checkpag.png")}
+                            src={require("../../../assets/img/help/login.png")}
                             alt="Окно входа"
                         />
-                    </div>
-                </div>
-
-                <div className={styles.section}>
-                <div className={styles.img_part}>
-                        <img
-                            src={require("../../../assets/img/CheckHW/hw_checkhaw.png")}
-                            alt="чат с помощником"
-                        />
-                    </div>
-                    <div className={styles.text_part}>
-                        <div className={styles.section_title}>
-                            <div className={styles.section_number}>2</div>
-                            <h3 className={styles.section_title_text}>Как менторам проверять домашние задания</h3>
-                        </div>
-                        <p className={styles.section_text}>{`Посмотреть работы пользователей можно в навигационной панели во вкладке Домашние задания. На данной странице ментору будут доступны работы пользователей, которые он может фильтровать по разным катергориям и статусам.`}</p>
-                        <p className={styles.section_text}>{`Далее ментор проверяет домашнее задание, выставляет оценку(макс. 10 баллов), и присваивает статус Принято или Отклонено.По желанию у ментора будет возможность оставить комментарии к заданию и прикрепить файл по необходимости.`}
-                        </p>
                     </div>
                 </div>
             </div>
@@ -110,6 +90,5 @@ export const HelpCheckHW = () => {
 
             <Footer />
         </div>
-
-)
+    )
 }

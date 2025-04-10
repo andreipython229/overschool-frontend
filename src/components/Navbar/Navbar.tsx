@@ -1,10 +1,10 @@
-import React, { FC, memo, useState } from 'react'
+import React, { FC, memo, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import RedeemIcon from '@mui/icons-material/Redeem'
-import { useAppSelector } from '../../store/hooks'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { navlinkByRoles } from './config/navlinkByRoles'
 import { IconSvg } from '../common/IconSvg/IconSvg'
-import { appealsIconPath, navMenuPath, tgNavPath } from './config/svgIconPath'
+import { tgNavPath } from './config/svgIconPath'
 import { chatIconPath } from 'components/Navbar/config/svgIconPath'
 import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
@@ -12,28 +12,24 @@ import { Chat } from 'components/Modal/Chat'
 import classNames from 'classnames'
 import OverAiIcon from '../../assets/img/common/newIconModal.svg'
 
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
 import styles from './navbar.module.scss'
-import { contactLinkSelector, selectUser } from '../../selectors'
-import Tooltip from '@mui/material/Tooltip'
+import { contactLinkSelector, inviteProgramSelector, schoolSelector, selectUser } from '../../selectors'
 import { Path } from '../../enum/pathE'
 import Timer from '../Timer/Timer'
 import Badge from '@mui/material/Badge'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '../../store/redux/store'
 import { SvgIcon } from '@mui/material'
 
 import { motion } from 'framer-motion'
-import { role } from 'store/redux/users/slice'
 import { RoleE } from 'enum/roleE'
-import { MarkEmailUnreadRounded, SetMealSharp } from '@mui/icons-material'
 
 import { coursesNavPath } from '../Navbar/config/svgIconPath'
 import { GiftIconPath } from 'assets/Icons/svgIconPath'
-
-interface IIsActive {
-  isActive?: boolean
-}
+import { useLazyFetchInvitesProgramQuery, useLazyFetchStudentInvitesProgramLinkQuery } from 'api/schoolService'
+import { setInviteProgram } from 'store/redux/inviteProgram/inviteProgramSlice'
 
 interface NavbarProps {
   onToggleChat: () => void;
@@ -41,22 +37,39 @@ interface NavbarProps {
 
 export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
   const { role: UserRole } = useAppSelector(selectUser)
-  const school = useAppSelector(state => state.school)
+  const { schoolName } = useAppSelector(schoolSelector)
+  const inviteLink = useAppSelector(inviteProgramSelector)
+  const dispatch = useAppDispatch()
   const unRead = useSelector((state: RootState) => state.unread.totalUnread)
-  const unReadAppeals = useSelector((state: RootState) => state.unreadAppeals.totalUnreadAppeals)
-  const totalMeetingCount = useSelector((state: RootState) => state.meetings.totalMeetingCount)
   const studentBonus = useSelector((state: RootState) => state.bonuses.studentBonus)
-  const dispatchRole = useDispatch()
   const contactLink = useAppSelector(contactLinkSelector)
-
   const [isNavBarShow, setIsNavBarShow] = useState(false)
   const [isBtnToggled, setIsBtnToggled] = useState(false)
-  const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
   const [isChatOpen, { on, off }] = useBoolean()
+  const [fetchInvites, { data: inviteLinkDataStudent }] = useLazyFetchStudentInvitesProgramLinkQuery()
+  const [fetchAdminInvites, { data: inviteLinkDataAdmin }] = useLazyFetchInvitesProgramQuery()
 
-  const handleHome = () => {
-    dispatchRole(role(RoleE.Unknown))
-  }
+  useEffect(() => {
+    if (
+      (!inviteLink && UserRole === RoleE.Student && !inviteLinkDataStudent) ||
+      (inviteLink && !inviteLink.is_active && UserRole === RoleE.Student)
+    ) {
+      fetchInvites(schoolName)
+        .unwrap()
+        .then(data => dispatch(setInviteProgram(data)))
+    } else if (
+      (!inviteLink && UserRole === RoleE.Admin && !inviteLinkDataAdmin) ||
+      (inviteLink && !inviteLink.is_active && UserRole === RoleE.Admin)
+    ) {
+      fetchAdminInvites(schoolName)
+        .unwrap()
+        .then(data => {
+          if (data.length > 0) {
+            dispatch(setInviteProgram(data[0]))
+          }
+        })
+    }
+  }, [])
 
   const toggleNavBar = () => {
     setIsNavBarShow(prevState => !prevState)
@@ -109,14 +122,14 @@ export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
         </div>
         {UserRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
           <div style={{ marginTop: 'auto' }}>
-            <a key={'bonus'} href={studentBonus.link}>
+            <a key={'bonus-school'} href={studentBonus.link}>
               {studentBonus.logo ? (
                 <div className={styles.navbar_menu} style={{ textAlign: 'center', padding: '0.40em' }}>
                   <img width={50} height={50} src={studentBonus.logo} alt="Logo" />
                 </div>
               ) : (
                 <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em' }}>
-                  <RedeemIcon />
+                  <RedeemIcon sx={{ color: 'black' }} />
                 </SvgIcon>
               )}
               <div style={{ fontSize: '0.7em', textAlign: 'center' }}>
@@ -125,6 +138,23 @@ export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
             </a>
           </div>
         ) : null}
+        {inviteLink && inviteLink.is_active && inviteLink.link && (
+          <div style={{ marginTop: 'auto', width: '100%' }} title="Ссылка на программу заработка">
+            <a
+              key={'invite-link'}
+              href={inviteLink.link}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.navbar_menu}
+              style={{ width: '100%', padding: '0 2px', display: 'flex', flexDirection: 'column', textDecoration: 'none' }}
+            >
+              <SvgIcon style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em' }}>
+                <MonetizationOnIcon sx={{ color: 'black' }} />
+              </SvgIcon>
+              <p style={{ textWrap: 'wrap', textAlign: 'center', fontSize: '12px' }}>Заработок</p>
+            </a>
+          </div>
+        )}
         {UserRole !== RoleE.Teacher && (
           <NavLink key={'Курсы'} to={Path.Courses} className={({ isActive }) => `${styles.navbar_menu} ${isActive ? styles.navbar_menu_active : ''}`}>
             <div>
