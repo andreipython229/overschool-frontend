@@ -38,7 +38,7 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
       lessons: []
     }
 
-    const formdata = formDataConverter(newModules)  
+    const formdata = formDataConverter(newModules) 
     await createModules({arg: formdata, schoolName}).unwrap()
 
     let updateModulesList = [...modulesList];
