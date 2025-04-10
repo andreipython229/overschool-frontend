@@ -81,6 +81,12 @@
         @include font(500, 16px, 150%);
         letter-spacing: 0;
         color: #4d5766;
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+          font-size: 12px;
+        }
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
+          font-size: 14px;
+        }
       }
     }
 
@@ -95,6 +101,9 @@
         @include font(600, 12px, 150%);
         letter-spacing: 0.04em;
         color: rgba(28, 26, 26, 0.56);
+        &:hover:not(:disabled) {
+          color: rgba(28, 26, 26, 0.56);
+          background: #f3f4f6;}
 
         &_right {
           color: #ffffff;

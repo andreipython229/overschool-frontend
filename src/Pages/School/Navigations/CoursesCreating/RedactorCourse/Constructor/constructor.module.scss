@@ -709,7 +709,7 @@
 }
 
 .btn {
-  margin: 10px auto 10px;
+  margin: 10px auto;
   background: #357eeb;
   padding: 10px 15px;
   border: none;
@@ -720,6 +720,7 @@
   font-weight: 600;
   font-size: 16px;
   text-align: center;
+  z-index: 10;
 
   &:hover {
     background: #357eeb !important;
@@ -1065,7 +1066,7 @@ hr {
 .openEye {
   background-color: #c6c6c6;
   color: #808080;
-  cursor: default;
+  cursor: pointer;
 }
 
 .lesson_buttons_visible {
@@ -1165,7 +1166,7 @@ hr {
   &_publish_switch {
     div {
       width: 40px;
-      height: 20px;
+      height: 17px;
       background: #e3e3e3;
       border: none;
 

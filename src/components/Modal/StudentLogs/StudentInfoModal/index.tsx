@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { DateTime } from 'luxon'
 
-import { crossIconPath, tableBallsStarPath } from 'config/commonSvgIconsPath'
+import { crossIconPath, averageMarkIconPath, progressIconPath } from 'config/commonSvgIconsPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Button } from 'components/common/Button/Button'
 import { StudentInfoAccardion } from './StudentInfoAccardion'
@@ -76,7 +76,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
   const { data } = useFetchStudentProgressQuery({ user_id: String(student?.student_id), schoolName })
   const [fetchStudentLessons, { data: allStudentLessons, isFetching }] = useLazyFetchStudentLessonsQuery()
   const [fetchStudentsGroups, { data: groups }] = useLazyFetchStudentsGroupByCourseQuery()
-  const [studentLessons, setStudentLessons] = useState<sectionLessons[]>()
+  const [studentLessons, setStudentLessons] = useState<groupSections>()
   const [resetAccess, { isSuccess }] = useResetStudentLessonsAccessMutation()
   const [completedPercent, setCompletedPercent] = useState<number>()
   const [openAlert, setOpenAlert] = useState<boolean>(false)
@@ -138,7 +138,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
       const lessonsPerGroup: groupSections | undefined = allStudentLessons.student_data.find(
         (item: groupSections) => item.group_id === student?.group_id,
       )
-      lessonsPerGroup && setStudentLessons(lessonsPerGroup.sections)
+      lessonsPerGroup && setStudentLessons(lessonsPerGroup)
     }
   }, [allStudentLessons])
 
@@ -228,6 +228,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
   return (
     <div className={mainStyles.main} role="dialog" aria-modal="true">
       {isFetching && <LoaderLayout />}
+      <div className={styles.content_decoration_shadow}></div>
       <div className={styles.close_btn} onClick={closeModal}>
         <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
       </div>
@@ -255,28 +256,29 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
             <span className={styles.student_progress_title}>Общий прогресс</span>
             <div className={styles.student_progress_info}>
               {/* заглушка */}
-              <div
+              {/* <div
                 style={{
                   width: '17px',
                   height: '17px',
                   backgroundColor: '#BA75FF',
                   borderRadius: '50%',
                 }}
-              ></div>
+              ></div> */}
+              <IconSvg width={16} height={16} viewBoxSize={'0 0 13 13'} path={progressIconPath} />
               <span>{completedPercent}%</span>
             </div>
           </div>
           <div>
             <span className={styles.student_progress_title}>Средний балл</span>
             <div className={styles.student_progress_info}>
-              <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath} />
+              <IconSvg width={16} height={16} viewBoxSize={'0 0 13 13'} path={averageMarkIconPath} />
               <span>{student?.average_mark?.toFixed(0) ?? 0}</span>
             </div>
           </div>
           <div>
             <span className={styles.student_progress_title}>Суммарный балл</span>
             <div className={styles.student_progress_info}>
-              <IconSvg width={19} height={19} viewBoxSize={'0 0 17 17'} path={tableBallsStarPath} />
+              <IconSvg width={16} height={16} viewBoxSize={'0 0 13 13'} path={averageMarkIconPath} />
               <span>{student?.mark_sum ?? 0}</span>
             </div>
           </div>
@@ -291,7 +293,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
           />
         </div>
         {student?.group_name && headerUserRoleName[role] === 'Администратор' && (
-          <div className="button-container" style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div className={styles.button_container}>
             <Button className={styles.student_button} text={`Переместить ученика в другую группу`} onClick={handleOpenMoveStudent} />
             <Dialog
               open={openMoveStudent}
@@ -328,12 +330,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
                 <Button onClick={handleMoveStudent} color="primary" autoFocus text={`Переместить`} />
               </DialogActions>
             </Dialog>
-            <Button
-              style={{ margin: '10px' }}
-              text={`Удалить ученика из группы "${student?.group_name}"`}
-              onClick={handleOpenAlert}
-              variant={'delete'}
-            />
+            <Button className={styles.delete_button} text={`Удалить ученика из группы "${student?.group_name}"`} onClick={handleOpenAlert} />
             <Dialog
               className={styles.dialog}
               open={openAlert}

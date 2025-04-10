@@ -34,7 +34,7 @@ export const StudentGroupMiniCard: FC<StudentsGroupPropsT> = ({ title, type, cou
       <div
         className={styles.wrapper}
       >
-        <Link to={pathLink} style={{ zIndex: 20 }}>
+        <Link to={pathLink} style={{ zIndex: 20, display: 'flex', height: '100%' }}>
           <div className={styles.wrapper_text}>
             <p className={styles.wrapper_text_title}>{title}</p>
             <p className={styles.wrapper_text_description}>
@@ -45,7 +45,7 @@ export const StudentGroupMiniCard: FC<StudentsGroupPropsT> = ({ title, type, cou
         </Link>
         {RoleE.Admin && (
           <div className={styles.wrapper_settings} onClick={open}>
-            <IconSvg path={settingsIconPath} viewBoxSize="0 0 24 24" height={24} width={24} />
+            <IconSvg path={settingsIconPath} viewBoxSize="0 0 24 24" height={24} width={24}/>
           </div>
         )}
         <div className={`${styles.wrapper_shadow}`} onClick={() => click && click(id)} />

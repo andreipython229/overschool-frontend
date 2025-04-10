@@ -1,5 +1,4 @@
 import React, { FC, useState, useCallback } from 'react'
-
 import { Input } from 'components/common/Input/Input/Input'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { Button } from 'components/common/Button/Button'
@@ -7,18 +6,15 @@ import { searchIconPath } from '../config/svgIconsPath'
 import { SearchFilterT } from '../../../types/componentsTypes'
 import { useDebouncedFilter, useBoolean } from 'customHooks/index'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { filtersSelector } from 'selectors/index'
 import { addFilters } from 'store/redux/filters/slice'
-// import {commonLessonT} from 'types/sectionT';
-
 import style from './search_filter.module.scss'
 
 export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filterTerm, filterKey }) => {
   const dispatch = useAppDispatch()
-  const filters = useAppSelector(state => state.filters['homework'])
+  const filters = useAppSelector((state: { filters: { [x: string]: any } }) => state.filters['homework'])
   const [isFilterClosed, { off }] = useBoolean()
 
-  const [itemForFilter, setItemForFilter] = useState<string>(filters[filterTerm] as string)
+  const [itemForFilter, setItemForFilter] = useState<string>(filters ? (filters[filterTerm] as string) : '')
   const [term, filteredData, handleChangeTerm] = useDebouncedFilter(data, 'name', itemForFilter)
   const [selectedCategory, setSelectedCategory] = useState<string>('')
 
@@ -40,7 +36,7 @@ export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filte
   return (
     <div className={style.container}>
       <p className={style.title}>{header}</p>
-      <Input name={name} type="search" value={term} onChange={handleChangeTerm} placeholder="Начните вводить название">
+      <Input name={name} type="search" value={term} className={style.inputWrapper} onChange={handleChangeTerm} placeholder="Начните вводить название">
         <IconSvg width={30} height={30} viewBoxSize="0 0 20 20" path={searchIconPath} />
       </Input>
       <div className={style.wrapper}>
@@ -52,7 +48,7 @@ export const SearchFilter: FC<SearchFilterT<any>> = ({ name, header, data, filte
           </div>
         ))}
       </div>
-      <Button style={{ margin: '0 20px' }} text="Применить" variant="primary" onClick={handleAddFilter} />
+      <Button style={{ margin: '0 20px' }} text="Применить" variant="newPrimary" onClick={handleAddFilter} />
     </div>
   )
 }

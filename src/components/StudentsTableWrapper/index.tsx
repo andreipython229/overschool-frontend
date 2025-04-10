@@ -19,8 +19,10 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { SerializedError } from '@reduxjs/toolkit'
 import { selectChat } from '../../store/redux/chats/slice'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { selectUser } from '../../selectors'
+import { selectUser, schoolSelector } from '../../selectors'
 import { addChat } from '../../store/redux/chats/chatsSlice'
+import { MessageSendPath } from '../../assets/Icons/svgIconPath'
+import { NorthOutlined, SouthOutlined } from '@mui/icons-material'
 
 type StudentsTableWrapperT = {
   isLoading: boolean
@@ -45,9 +47,9 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
 
     const [cols, setCols] = useState<string[]>([])
     const [rows, setRows] = useState<GenerateRow[]>()
-    const [selectedStuentId, setSelectedStudentId] = useState<number | null>(null)
-    const [selectedStuent, setSelectedStudent] = useState<result | null>(null)
-    const schoolName = window.location.href.split('/')[4]
+    const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null)
+    const [selectedStudent, setSelectedStudent] = useState<result | null>(null)
+    const { schoolName } = useAppSelector(schoolSelector)
 
     const [fetchTableHeader, { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching }] = useLazyFetchStudentsTableHeaderQuery()
 
@@ -68,6 +70,8 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
       'Сумарный балл': 'asc',
       'Номер телефона': 'asc',
     })
+
+    const [activeSort, setActiveSort] = useState<{ column: string; direction: 'asc' | 'desc' } | null>(null)
 
     // Функция для обработки сортировки столбцов
     const handleColumnSort = (col: string) => {
@@ -146,7 +150,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
             break
         }
       }
-
+      setActiveSort({ direction: direction, column: col })
       setSortDirection({ ...sortDirection, [col]: direction })
     }
 
@@ -211,17 +215,19 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
     }, [isSuccess, tableHeaderData])
 
     useEffect(() => {
-      typeof selectedStuentId === 'number' && studentModalOff()
+      typeof selectedStudentId === 'number' && studentModalOff()
 
       if (students) {
-        const student = students.find((_, index) => index === selectedStuentId) || null
-        typeof selectedStuentId === 'number' && setSelectedStudent(student)
+        const student = students.find((_, index) => index === selectedStudentId) || null
+        typeof selectedStudentId === 'number' && setSelectedStudent(student)
       }
-    }, [selectedStuentId])
+    }, [selectedStudentId])
 
     useEffect(() => {
       !isStudentModalOpen && setSelectedStudentId(null)
     }, [isStudentModalOpen])
+    let lastEmail: string | null = null
+    let lastColor = '#EDF1FA'
 
     return (
       <>
@@ -231,7 +237,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
               <thead className={styles.loader}>
                 <tr>
                   <td>
-                    <SimpleLoader style={{ width: '50px', height: '50px' }} />
+                    <SimpleLoader loaderColor="#357EEB" style={{ width: '50px', height: '50px' }} />
                   </td>
                 </tr>
               </thead>
@@ -242,231 +248,243 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                 {cols.map(col => (
                   <th
                     className={styles.table_thead_td}
+                    style={{ cursor: 'pointer' }}
                     id={col}
                     key={col}
-                    onClick={() => (isGrouping ? handleColumnSort('Email') : handleColumnSort(col))}
+                    onClick={() => (isGrouping ? handleColumnSort(col) : handleColumnSort(col))}
                   >
-                    {!isGrouping && sortDirection[col] && (
-                      <span>
-                        {sortDirection[col] === 'asc' ? (
-                          <div className={styles.tableSortButton}>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M7 3V21M7 21L3 17M7 21L11 17M15.5 14H20.5L15.5 21H20.5M16 9H20M15 10L18 3L21 10"
-                                stroke="currentColor"
-                                strokeWidth="1"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                        ) : (
-                          <div className={styles.tableSortButton}>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M7 3V21M7 21L3 17M7 21L11 17M15.5 3H20.5L15.5 10H20.5M16 20H20M15 21L18 14L21 21"
-                                stroke="currentColor"
-                                strokeWidth="1"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                        )}
-                      </span>
-                    )}
-                    <span> </span>
+                    {activeSort &&
+                      activeSort.column === col &&
+                      (activeSort.direction === 'asc' ? (
+                        <SouthOutlined sx={{ width: '10px', color: '#357EEB' }} />
+                      ) : (
+                        <NorthOutlined sx={{ width: '10px', color: '#357EEB' }} />
+                      ))}
                     {col}
                   </th>
                 ))}
-                <button className={styles.svgSettingsWrapper}>
+                {/* <button className={styles.svgSettingsWrapper}>
                   <IconSvg functionOnClick={off} width={20} height={20} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
-                </button>
+                </button> */}
+                <th className={styles.table_thead_td}>
+                  {' '}
+                  <span> Личный чат</span>
+                </th>
               </tr>
             </thead>
 
             {isGrouping ? (
               <tbody className={styles.table_tbody}>
                 {rows &&
-                  rows
-                    .sort((a: any, b: any) => (a['Email'] > b['Email'] ? 1 : -1)) // Сортировка по email
-                    .map((row: any, rowIndex: number) => {
-                      const email = row['Email'] as string
-                      const name = row['Имя'].text as string // Получаем текст из объекта с именем
-                      const rowspan = rows.filter(r => r['Email'] === email).length
-                      const showEmailCell = rowspan === 1
-                      return (
-                        <tr
-                          key={rowIndex}
-                          style={row['Дата удаления из группы'] !== ' ' ? { backgroundColor: '#fcf5f5' } : {}}
-                          onClick={event => handleRowClick(event, row.id)}
-                        >
-                          {cols.map((col: string, colIndex: number) => {
-                            const cellValue = row[col] as string | number | { text: string; image: ReactNode }
-                            if (col === 'Email') {
-                              if (showEmailCell) {
-                                return (
-                                  <td
-                                    style={{
-                                      fontSize: '14px',
-                                      verticalAlign: 'center',
-                                    }}
-                                    rowSpan={rowspan}
-                                    key={`${col}-${rowIndex}`}
-                                  >
-                                    {email}
-                                  </td>
-                                )
-                              } else if (rowIndex === rows.findIndex((r: any) => r['Email'] === email && r['Имя'].text === name)) {
-                                return (
-                                  <td
-                                    style={{
-                                      fontSize: '14px',
-                                      verticalAlign: 'center',
-                                    }}
-                                    rowSpan={rowspan}
-                                    key={`${col}-${rowIndex}`}
-                                  >
-                                    {email}
-                                  </td>
-                                )
-                              } else {
-                                return null
-                              }
-                            } else if (col === 'Имя') {
-                              if (showEmailCell) {
-                                return (
-                                  <td
-                                    style={{
-                                      fontSize: '14px',
-                                      verticalAlign: 'center',
-                                      paddingLeft: '20px',
-                                    }}
-                                    rowSpan={rowspan}
-                                    key={`${col}-${rowIndex}`}
-                                  >
-                                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                                      {row['Дата удаления из группы'] === ' ' && typeof cellValue === 'object' && 'text' in cellValue && (
-                                        <Button className={styles.chat_button} text={'CHAT'} onClick={() => handleToggleChatModal(rowIndex)} />
-                                      )}
-                                      <span style={{ marginLeft: '5px' }}>
-                                        {cellValue && typeof cellValue === 'object' && 'image' in cellValue && cellValue.image}
-                                      </span>
-                                      <span style={{ marginLeft: '5px' }}>{name}</span>
-                                    </div>
-                                  </td>
-                                )
-                              } else if (rowIndex === rows.findIndex((r: any) => r['Email'] === email)) {
-                                return (
-                                  <td
-                                    style={{
-                                      fontSize: '14px',
-                                      verticalAlign: 'center',
-                                      paddingLeft: '20px',
-                                    }}
-                                    rowSpan={rowspan}
-                                    key={`${col}-${rowIndex}`}
-                                  >
-                                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                                      {row['Дата удаления из группы'] === ' ' && typeof cellValue === 'object' && 'text' in cellValue && (
-                                        <Button className={styles.chat_button} text={'CHAT'} onClick={() => handleToggleChatModal(rowIndex)} />
-                                      )}
-                                      <span style={{ marginLeft: '5px' }}>
-                                        {cellValue && typeof cellValue === 'object' && 'image' in cellValue && cellValue.image}
-                                      </span>
-                                      <span style={{ marginLeft: '5px' }}>{name}</span>
-                                    </div>
-                                  </td>
-                                )
-                              } else {
-                                return null
-                              }
-                            } else {
+                  rows.map((row: any, rowIndex: number) => {
+                    if (row.Email !== lastEmail) {
+                      lastColor = lastColor === '#EDF1FA' ? 'white' : '#EDF1FA'
+                    }
+                    lastEmail = row.Email
+                    const email = row['Email'] as string
+                    const name = row['Имя'].text as string // Получаем текст из объекта с именем
+                    const rowspan = rows.filter(r => r['Email'] === email).length
+                    const showEmailCell = rowspan === 1
+                    return (
+                      <tr key={rowIndex} style={{ backgroundColor: lastColor }} onClick={event => handleRowClick(event, row.id)}>
+                        {cols.map((col: string, colIndex: number) => {
+                          const cellValue = row[col] as string | number | { text: string; image: ReactNode }
+                          if (col === 'Email') {
+                            if (showEmailCell) {
                               return (
                                 <td
                                   style={{
-                                    fontSize: '14px',
                                     verticalAlign: 'center',
                                   }}
+                                  rowSpan={rowspan}
                                   key={`${col}-${rowIndex}`}
                                 >
-                                  {typeof cellValue === 'object' ? (
-                                    <div className={styles.table_user}>
-                                      {row['Дата удаления из группы'] !== ' ' && (
-                                        <div
-                                          style={{
-                                            fontSize: '10px',
-                                            backgroundColor: '#fa6961',
-                                            color: 'white',
-                                            padding: '3px 6px 3px 6px',
-                                            borderRadius: '5px',
-                                          }}
-                                        >
-                                          Удалён
-                                        </div>
-                                      )}
-                                      {cellValue.image}
-                                      <p>{cellValue.text}</p>
-                                    </div>
-                                  ) : (
-                                    <p>{cellValue}</p>
-                                  )}
+                                  {email}
                                 </td>
                               )
+                            } else if (rowIndex === rows.findIndex((r: any) => r['Email'] === email && r['Имя'].text === name)) {
+                              return (
+                                <td
+                                  style={{
+                                    verticalAlign: 'center',
+                                  }}
+                                  rowSpan={rowspan}
+                                  key={`${col}-${rowIndex}`}
+                                >
+                                  {email}
+                                </td>
+                              )
+                            } else {
+                              return null
                             }
-                          })}
-                        </tr>
-                      )
-                    })}
+                          } else if (col === 'Имя') {
+                            if (showEmailCell) {
+                              return (
+                                <td
+                                  style={{
+                                    verticalAlign: 'center',
+                                  }}
+                                  rowSpan={rowspan}
+                                  key={`${col}-${rowIndex}`}
+                                >
+                                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <span style={{ marginLeft: '5px' }}>
+                                      {cellValue && typeof cellValue === 'object' && 'image' in cellValue && cellValue.image}
+                                    </span>
+                                    <span style={{ marginLeft: '5px' }}>{name}</span>
+                                  </div>
+                                </td>
+                              )
+                            } else if (rowIndex === rows.findIndex((r: any) => r['Email'] === email)) {
+                              return (
+                                <td
+                                  style={{
+                                    verticalAlign: 'center',
+                                  }}
+                                  rowSpan={rowspan}
+                                  key={`${col}-${rowIndex}`}
+                                >
+                                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <span style={{ marginLeft: '5px' }}>
+                                      {cellValue && typeof cellValue === 'object' && 'image' in cellValue && cellValue.image}
+                                    </span>
+                                    <span style={{ marginLeft: '5px' }}>{name}</span>
+                                  </div>
+                                </td>
+                              )
+                            } else {
+                              return null
+                            }
+                          } else {
+                            return (
+                              <td
+                                style={{
+                                  verticalAlign: 'center',
+                                }}
+                                key={`${col}-${rowIndex}`}
+                              >
+                                {typeof cellValue === 'object' ? (
+                                  <div className={styles.table_user}>
+                                    {row['Дата удаления из группы'] !== ' ' && (
+                                      <div
+                                        style={{
+                                          fontSize: '10px',
+                                          backgroundColor: '#fa6961',
+                                          color: 'white',
+                                          padding: '3px 6px 3px 6px',
+                                          borderRadius: '5px',
+                                        }}
+                                      >
+                                        Удалён
+                                      </div>
+                                    )}
+                                    {cellValue.image}
+                                    <p>{cellValue.text}</p>
+                                  </div>
+                                ) : (
+                                  <p>{cellValue}</p>
+                                )}
+                              </td>
+                            )
+                          }
+                        })}
+                        <td>
+                          <div className={styles.table_user}>
+                            {row['Дата удаления из группы'] === ' ' && (
+                              <div
+                                className={styles.chat_button}
+                                onClick={event => {
+                                  event.stopPropagation()
+                                  event.preventDefault()
+                                  handleToggleChatModal(rowIndex)
+                                }}
+                              >
+                                <IconSvg width={23} height={23} viewBoxSize={'0 0 25 25'} path={MessageSendPath} />
+                              </div>
+                            )}
+
+                            {row['Дата удаления из группы'] !== ' ' && (
+                              <div
+                                style={{
+                                  fontSize: '10px',
+                                  backgroundColor: '#fa6961',
+                                  color: 'white',
+                                  padding: '3px 6px 3px 6px',
+                                  borderRadius: '5px',
+                                }}
+                              >
+                                Удалён
+                              </div>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
               </tbody>
             ) : (
               <tbody className={styles.table_tbody}>
-                {rows?.map((row, id) => (
-                  <tr
-                    key={id}
-                    style={row['Дата удаления из группы'] !== ' ' ? { backgroundColor: '#fcf5f5' } : {}}
-                    onClick={event => handleRowClick(event, row.id)}
-                  >
-                    {cols.map(col => {
-                      const cellValue = row[col] as string | number | { text: string; image: ReactNode }
-                      return (
-                        <td
-                          style={{
-                            fontSize: '14px',
-                            verticalAlign: 'center',
-                          }}
-                          key={col}
-                        >
-                          {typeof cellValue === 'object' ? (
-                            <div className={styles.table_user}>
-                              {row['Дата удаления из группы'] === ' ' && typeof cellValue.text !== 'number' && (
-                                <Button className={styles.chat_button} text={'CHAT'} onClick={() => handleToggleChatModal(id)} />
-                              )}
-
-                              {row['Дата удаления из группы'] !== ' ' && (
-                                <div
-                                  style={{
-                                    fontSize: '10px',
-                                    backgroundColor: '#fa6961',
-                                    color: 'white',
-                                    padding: '3px 6px 3px 6px',
-                                    borderRadius: '5px',
-                                  }}
-                                >
-                                  Удалён
-                                </div>
-                              )}
-                              {cellValue.image}
-                              <p>{cellValue.text}</p>
+                {rows?.map((row, id) => {
+                  const email = String(row.Email)
+                  if (email !== lastEmail) {
+                    lastColor = lastColor === '#EDF1FA' ? 'white' : '#EDF1FA'
+                  }
+                  lastEmail = email
+                  return (
+                    <tr key={id} style={{ backgroundColor: lastColor }} onClick={event => handleRowClick(event, row.id)}>
+                      {cols.map(col => {
+                        const cellValue = row[col] as string | number | { text: string; image: ReactNode }
+                        return (
+                          <td
+                            style={{
+                              verticalAlign: 'center',
+                            }}
+                            key={col}
+                          >
+                            {typeof cellValue === 'object' ? (
+                              <div className={styles.table_user}>
+                                {cellValue.image}
+                                <p>{cellValue.text}</p>
+                              </div>
+                            ) : (
+                              <p>{cellValue}</p>
+                            )}
+                          </td>
+                        )
+                      })}
+                      <td>
+                        <div className={styles.table_user}>
+                          {row['Дата удаления из группы'] === ' ' && (
+                            <div
+                              className={styles.chat_button}
+                              onClick={event => {
+                                event.stopPropagation()
+                                event.preventDefault()
+                                handleToggleChatModal(id)
+                              }}
+                            >
+                              <IconSvg width={23} height={23} viewBoxSize={'0 0 25 25'} path={MessageSendPath} />
                             </div>
-                          ) : (
-                            <p>{cellValue}</p>
                           )}
-                        </td>
-                      )
-                    })}
-                  </tr>
-                ))}
+
+                          {row['Дата удаления из группы'] !== ' ' && (
+                            <div
+                              style={{
+                                fontSize: '10px',
+                                backgroundColor: '#fa6961',
+                                color: 'white',
+                                padding: '3px 6px 3px 6px',
+                                borderRadius: '5px',
+                              }}
+                            >
+                              Удалён
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             )}
           </table>
@@ -480,7 +498,7 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
 
         {isStudentModalOpen && (
           <Portal closeModal={studentModalOn}>
-            <StudentInfoModal student={selectedStuent} closeModal={toggleStudentInfoModal} isStudentDeleted={handleDeleteStudent} />
+            <StudentInfoModal student={selectedStudent} closeModal={toggleStudentInfoModal} isStudentDeleted={handleDeleteStudent} />
           </Portal>
         )}
 

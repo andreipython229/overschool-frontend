@@ -15,9 +15,12 @@ import {
   teacherGroupIcon,
   tariffPlanIcon,
   peopleIcon,
+  groupsIcon,
   settingsIcon,
   arrowLeftIcon,
   arrowDownPoligon,
+  averageMarkIcon,
+  progressIcon,
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -113,6 +116,12 @@ export const peopleIconPath: pathT[] = [
   { d: peopleIcon.d6, fill: 'url(#paint5_linear_14245_85147)' },
 ]
 
+export const groupsIconPath: pathT[] = [
+  { d: groupsIcon.d1, fill: '#357EEB' },
+  { d: groupsIcon.d2, fill: '#357EEB' },
+  { d: groupsIcon.d3, fill: '#357EEB' },
+]
+
 export const settingsIconPath: pathT[] = [
   { d: settingsIcon.d1, fill: 'white' },
   { d: settingsIcon.d2, fill: 'white' },
@@ -124,3 +133,12 @@ export const arrowLeftIconPath: pathT[] = [
 ]
 
 export const arrowDownPoligonPath: pathT[] = [{ d: arrowDownPoligon.d1, fill: '#808080' }]
+
+export const averageMarkIconPath: pathT[] = [
+  { d: averageMarkIcon.d1, fill: '#357EEB' },
+  { d: averageMarkIcon.d2, fill: '#357EEB' },
+  { d: averageMarkIcon.d3, fill: '#357EEB' },
+  { d: averageMarkIcon.d4, fill: '#357EEB' },
+]
+
+export const progressIconPath = [{ d: progressIcon, fill: '#357EEB' }]

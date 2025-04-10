@@ -173,36 +173,36 @@
 }
 
 .main {
-  position: relative;
-  @include display(flex, column, center);
-  background: $color-white;
-  font-family: 'SFPRORegular';
-  margin: auto;
-  border-radius: 7px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  overflow: visible;
-  width: 600px;
-  transition: 400ms ease-out;
+  @include position_t_l(absolute, 50%, 50%, 10);
+  @include display(flex, column);
+  align-items: center;
+  padding: 54px 34px 40px 34px;
+  background: #ffffff;
+  margin: 0 auto;
+  border-radius: 24px;
+  box-shadow: 0px 0px 8px 0px #3241954d;
+  // overflow: hidden;
+  transform: translate(-50%, -50%);
+  font-family: $font-family-inter;
+  max-width: 667px;
+  width: 90%;
+  max-height: 90dvh;
+  overflow-y: scroll;
+  height: auto;
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
+
+  // position: relative;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 98%;
-    position: absolute;
-    top: 10%;
-    right: 1%;
+    width: 100%;
+    padding: 2rem 1rem 0 1rem;
   }
-
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    width: 98%;
-    position: absolute;
-    top: 10%;
-    right: 1%;
-  }
-
-  @media only screen and (min-width: 481px) and (max-width: 1024px) {
-    position: absolute;
-    left: 30%;
-    height: 95%;
+    width: 100%;
+    padding: 2rem 1rem 0 1rem;
   }
 
   &_feedback {
@@ -265,7 +265,7 @@
   }
 
   &_closed {
-    @include position_t_r(absolute, 0px, 0px);
+    @include position_t_r(absolute, 20px, 20px);
     text-align: center;
     cursor: pointer;
     display: flex;
@@ -1763,8 +1763,8 @@
   .courses_container {
     @include display(flex, column, space-between, flex-start);
     max-height: 400px;
-    overflow-y: scroll;
-    margin: 0 20px;
+    overflow-y: auto;
+    margin: 20px 20px;
     gap: 5px;
 
     div {

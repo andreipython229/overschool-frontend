@@ -5,14 +5,16 @@ import { IconSvg } from '../common/IconSvg/IconSvg'
 import { Button } from '../common/Button/Button'
 import { AllStudentsBlockT } from '../../types/componentsTypes'
 import { useBoolean } from '../../customHooks'
+import { classesSettingIconPath } from './config/svgIconsPath'
 import { Portal } from '../Modal/Portal'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { useFetchSchoolStudentsGroupingQuery, useUpdateSchoolStudentsGroupingMutation } from 'api/schoolService'
+import { useLazyFetchStudentsTableHeaderQuery } from '../../api/studentTableService'
 import { StudentsSchoolExport } from 'components/StudentsTable/StudentsExport/StudentsSchoolExport'
 import { StudentsCroupExport } from 'components/StudentsTable/StudentsExport/StudentsCroupExport'
 import { StudentsCourseExport } from 'components/StudentsTable/StudentsExport/StudentCourseExport'
 import styles from '../AllStudentsBlock/all_students_block.module.scss'
-
+import { SettingStudentTable } from 'components/Modal'
 import { RoleE } from 'enum/roleE'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { updateDataIcon } from '../../config/commonSvgIconsPath'
@@ -21,6 +23,8 @@ import { SearchBar } from '../SearchBar'
 import { schoolSelector } from 'selectors'
 import { PeopleIconPath } from 'assets/Icons/svgIconPath'
 import { removeAllFilters } from 'store/redux/filters/slice'
+import { ChipsComponent } from 'components/FiltersButton/Chips/chips'
+import { chipsVal } from 'components/FiltersButton/Chips/config'
 
 export interface FilterItem {
   id: number
@@ -42,6 +46,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     filters,
     filterKey,
     updateStudents,
+    tableId,
     ...restFilters
   }) => {
     const { schoolName, schoolId } = useAppSelector(schoolSelector)
@@ -67,7 +72,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
       dispatch(removeAllFilters())
       setSearchTerm('')
     }
-
+    const [fetchTableHeader, { data: tableHeaderData, isSuccess, isFetching: isTableHeaderFetching }] = useLazyFetchStudentsTableHeaderQuery()
     const handleGroupStudents = async (event: ChangeEvent<HTMLInputElement>) => {
       setIsGroupingStudents(!isGroupingStudents)
       try {
@@ -101,6 +106,12 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
       }
     }, [isOpen])
 
+    useEffect(() => {
+          if (tableId) {
+            fetchTableHeader({ id: tableId, schoolName })
+          }
+        }, [tableId])
+
     let filteringCategoriesList: FilterItem[] = []
     switch (filterKey) {
       case 'studentsPerSchool':
@@ -115,6 +126,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
       default:
         break
     }
+    const [isSettingsOpen, { off: isSettingsOn, on: isSettingsOff, onToggle }] = useBoolean()
 
     return (
       <div>
@@ -144,9 +156,9 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
         {headerText === 'Все ученики платформы' && <StudentsSchoolExport />}
         {headerText === 'Все ученики группы' && <StudentsCroupExport />}
         {headerText === 'Все ученики курса' && <StudentsCourseExport />}
-        {/* <div style={{ marginBottom: '15px' }}>
+        <div style={{ marginBottom: '15px' }}>
           <ChipsComponent filterKey={filterKey} filters={filters} chipsVal={chipsVal['students']} />
-        </div> */}
+        </div>
         <div className={styles.searchBlock}>
           <div className={styles.searchFieldBlock}>
             <SearchBar searchTerm={searchTerm} onChangeInput={onChangeInput} />
@@ -166,6 +178,9 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
           <div className={styles.arrow_add_file_block} onClick={() => handleReloadTable && handleReloadTable()}>
             <IconSvg width={36} height={36} viewBoxSize="0 0 36 36" path={updateDataIcon} />
           </div>
+          <div className={styles.svgSettingsWrapper}>
+            <IconSvg functionOnClick={isSettingsOn} width={30} height={30}  viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
+          </div>
           {invite && (
             <div className={styles.button_search_block_wButton}>
               {role != RoleE.Teacher && invite ? (
@@ -179,6 +194,11 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
           )}
         </div>
         {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} />}</Portal>}
+        {isSettingsOpen && (
+              <Portal closeModal={isSettingsOff}>
+                <SettingStudentTable setShowModal={onToggle} tableId={tableId} />
+              </Portal>
+          )}
       </div>
     )
   },

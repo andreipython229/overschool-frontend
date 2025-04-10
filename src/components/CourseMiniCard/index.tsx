@@ -7,6 +7,8 @@ import { schoolSelector, selectUser } from 'selectors'
 import { useAppSelector } from 'store/hooks'
 import styles from './courseMiniCard.module.scss'
 import { PeopleIconSvg } from 'components/StudentGroupMiniCard/assets/iconsComponents'
+import { groupsIconPath } from "config/commonSvgIconsPath"
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import bgImage from '../StudentGroupMiniCard/assets/image.png'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { getNounDeclension } from 'utils/getNounDeclension'
@@ -48,7 +50,7 @@ export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }
         <div className={styles.wrapper_text}>
           <p className={styles.wrapper_text_title}>{title}</p>
           <p className={styles.wrapper_text_description}>
-            <PeopleIconSvg />
+            <IconSvg path={groupsIconPath} viewBoxSize="0 0 25 24" width={25} height={24} />
             {filteredGroups?.length + ' ' + getNounDeclension(Number(filteredGroups?.length), ['группа', 'группы', 'групп'])}
           </p>
           <p className={styles.wrapper_text_description}>

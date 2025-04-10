@@ -7,7 +7,7 @@
   border: none;
   color: rgba(255, 255, 255, 1);
   position: fixed;
-  z-index: 10;
+  z-index: 101;
   width: 60px;
   aspect-ratio: 1 / 1;
   bottom: 20px;
@@ -42,7 +42,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  z-index: 10;
+  z-index: 101;
   // overflow-x: hidden;
 
   &_open {
@@ -159,6 +159,18 @@
 
             &:active {
               background-color: #ddd;
+            }
+
+            &Disabled{
+              background-color: transparent;
+              color: transparent;
+              pointer-events: none;
+              width: 0 ;
+              margin: 0;
+              padding: 0;
+              &:hover{
+                background-color: transparent;
+              }
             }
           }
 
@@ -291,10 +303,25 @@
                   height: 50%;
                   clip-path: polygon(5% 0, 0 5%, 45% 50%, 0 95%, 5% 100%, 50% 55%, 95% 100%, 100% 95%, 55% 50%, 100% 5%, 95% 0, 50% 45%);
                   background-color: #858D9D;
+                  transition-duration: 0.2s;
+                }
+
+                &Disabled{
+                  background-color: transparent;
+                  pointer-events: none;
+                  .close_cross{
+                    background-color: transparent;
+                  }
                 }
               }
             }
           }
+
+          // &Disabled{
+          //   height: 0;
+          //   overflow: hidden;
+          //   margin: 0;
+          // }
         }
 
         .chatIndicatorSection {
@@ -854,7 +881,7 @@
       right: 0;
       height: 100%;
       width: 100%;
-      z-index: 90;
+      z-index: 101;
       border-radius: 0;
     }
   }

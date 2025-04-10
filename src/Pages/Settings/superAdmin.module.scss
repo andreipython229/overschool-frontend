@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: 'SFPRORegular';
-  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
 }
 
 .fit-content {
@@ -27,8 +27,7 @@
     gap: 20px;
   }
 
-  font-family: 'Inter',
-  sans-serif;
+  font-family: 'Inter', sans-serif;
   color: #4d5766;
 
   &_input {
@@ -130,7 +129,7 @@
   }
 
   &_create_banner_btn {
-    background-color: #357EEB;
+    background-color: #357eeb;
     border-radius: 10px;
     color: #fff;
     padding: 15px 40px;
@@ -216,8 +215,7 @@
     }
 
     &_title {
-      @include font(500, 16px);
-      margin-bottom: 20px;
+      @include font(500, 20px);
       color: #4d5766;
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -246,14 +244,17 @@
   }
 
   &_table {
-    min-width: fit-content;
+    width: 100%;
+    max-width: 100%;
 
     &_title {
       position: relative;
       @include display(flex, row, space-between);
       width: 100%;
-      font-size: 11px;
-      margin-bottom: 13px;
+      font-size: 16px;
+      font-weight: 600;
+      // margin-bottom: 13px;
+      font-family: 'SFPRORegular', sans-serif;
 
       //padding: 0 20px;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
@@ -306,7 +307,6 @@
       font-family: 'SFPRORegular';
       color: $color-text;
 
-
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin-bottom: 0;
       }
@@ -348,7 +348,7 @@
       right: 0;
     }
 
-    svg:hover path{
+    svg:hover path {
       fill: $color-blue;
     }
   }
@@ -445,7 +445,7 @@
     // overflow-x: auto;
     margin-bottom: 50px;
 
-    @media only screen and (min-width : 320px) and (max-width : 375px) {
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
       padding: 4% 3% 4% 3%;
     }
 
@@ -550,13 +550,12 @@
         width: 100%;
         text-overflow: ellipsis;
         text-align: left;
-    
+
         div {
-    
           div {
             flex-direction: row-reverse;
             border: 1px solid transparent;
-            background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+            background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
             padding: 15px 16px;
             border-radius: 16px;
           }
@@ -593,7 +592,7 @@
   &_groups {
     cursor: pointer;
     border: 1px solid transparent;
-    background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0D28BB 0%, #357EEB 100%) border-box;
+    background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
     padding: 16px;
     border-radius: 16px;
     height: 56px;
@@ -718,15 +717,57 @@
 }
 
 .table {
+  
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   overflow: hidden;
   border-radius: 20px;
   box-shadow: 0px 0px 8px 0px #3241954d;
+  
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5%;
+  }
 
   &_header {
     background: #cfe2ff;
+
+    @media only screen and (min-width: 320px) and (max-width: 375px) {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      &_item:nth-child(1),
+      &_item:nth-child(3),
+      &_item:nth-child(5),
+      &_item:nth-child(6),
+      &_item:nth-child(7) {
+        display: none;
+      } 
+
+      &_item:nth-child(2),
+      &_item:nth-child(4) { 
+        font-size: 18px;
+      }
+
+    }
+
+    @media only screen and (min-width: 375px) and (max-width: 450px) {
+      & > td:nth-child(3) {
+        display: none;
+      }
+    }
+
+    @media only screen and (min-width: 375px) and (max-width: 700px) {
+      &_item:nth-child(1) {
+        display: none;
+      } 
+    }
 
     &_item {
       padding: 20px 8px;
@@ -734,9 +775,11 @@
       font-family: 'SFPRORegular';
       text-align: left;
     }
+
   }
 
   &_body {
+    width: 100%;
     background: #ffffff;
 
     &_row {
