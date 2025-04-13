@@ -183,7 +183,7 @@
   //padding: 26px 32px 24px 32px;
   box-shadow: 0 0 8px #d9d9d9;
   border-radius: 20px;
-  overflow-x: auto;
+//  overflow-x: auto;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     padding: 4% 3% 4% 3%;
@@ -245,7 +245,11 @@
 
   &_table {
     width: 100%;
-    max-width: 100%;
+    border-collapse: collapse;
+
+    tr:nth-child(even) {
+      background: rgba(237, 241, 250, 1);
+    }
 
     &_title {
       position: relative;
@@ -265,19 +269,23 @@
         padding: 4% 0 4% 0;
       }
 
-      & div:nth-child(1) {
-        width: 60%;
+      & th:nth-child(1) {
+        width: 50%;
         height: 45px;
-        padding-left: 30px;
-        padding-top: 10px;
+        padding-top: 15px;
         background-color: #e3ecff;
+        text-align: left;
+        border-radius: 20px 0 0 0;
+
       }
 
-      & div:nth-child(2) {
-        width: 40%;
+      & th:nth-child(2) {
+        width: 50%;
         height: 45px;
-        padding-top: 10px;
+        padding-top: 15px;
         background-color: #e3ecff;
+        text-align: left;
+        border-radius: 0 20px 0 0;
       }
     }
   }
