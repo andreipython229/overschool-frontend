@@ -9,15 +9,11 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
 import { Footer } from "../../../components/Footer/index";
 
-import { MobileHeaderАuthorized } from "../../Initial/MobileHeaderАuthorized/MobileHeaderАuthorized";
-import { useMediaQuery } from "react-responsive";
-
 
 export const HelpDomainLink = () => {
     const navigate = useNavigate()
     const [isLoginOpen, setLoginOpen] = useState(false);
     const [isRegistrationOpen, setRegistrationOpen] = useState(false);
-    const isMobile = useMediaQuery({ query: "(max-width: 800px)" });
 
     const handleHelpPage = () => {
         navigate(generatePath(Path.HelpPage))
@@ -39,11 +35,7 @@ export const HelpDomainLink = () => {
                 <div className={mainHelpStyles.bg_wrap4}></div>
             </div>
 
-            {isMobile ? (
-                <MobileHeaderАuthorized />
-            ) : (
-                <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
-            )}
+            <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
 
             <div className={styles.sections}>
                 <div className={styles.section}>

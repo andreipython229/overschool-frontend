@@ -4,8 +4,6 @@ import styles from "../HelpPage.module.scss";
 import { Footer } from "../../../components/Footer/index";
 import { Button } from "components/common/Button/Button";
 import { InitPageHeader } from "../../Initial/newInitialPageHeader";
-import { MobileHeader } from "../../Initial/MobileHeader/MobileHeader";
-import { useMediaQuery } from "react-responsive";
 import { Path } from "../../../enum/pathE";
 
 
@@ -67,7 +65,6 @@ export const HelpPage: FC = memo(() => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [isRegistrationOpen, setRegistrationOpen] = useState(false);
-  const isMobile = useMediaQuery({ query: "(max-width: 800px)" });
 
   const handleRegistrationUser = () => {
     const paramsString = localStorage.getItem("utmParams");
@@ -92,11 +89,7 @@ export const HelpPage: FC = memo(() => {
         <div className={styles.bg_wrap4}></div>
       </div>
 
-      {isMobile ? (
-        <MobileHeader />
-      ) : (
-        <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
-      )}
+      <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
 
       <div className={styles.helpBlock}>
         <div className={styles.helpBlockText}>
