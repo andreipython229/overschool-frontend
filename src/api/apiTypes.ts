@@ -148,3 +148,9 @@ export interface IInviteProgramReq {
   id: number
   data: FormData
 }
+
+export interface ISchoolTeachers {
+  id: number
+  name: string
+  email: string
+}

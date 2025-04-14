@@ -1,12 +1,9 @@
-import {FC, useState, useCallback, useEffect} from 'react'
-
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { FC } from 'react'
 import { HomeworksStatsTableRow } from './HomeworksStatsTableRow'
 import { HomeworksStatsTableHeader } from './HomeworksStatsTableHeader'
 import { homeworkStatT, homeworksStatsT } from 'types/homeworkT'
-import { useSortDataByProp } from 'customHooks/index'
-
 import styles from './homeworksStatsTable.module.scss'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 type homeworkStatsTableT = {
   homeworks?: homeworksStatsT
@@ -14,33 +11,25 @@ type homeworkStatsTableT = {
 }
 
 export const HomeworksStatsTable: FC<homeworkStatsTableT> = ({ homeworks, isLoading }) => {
-  const [isSortedByEmail, setIsSortedByEmail] = useState(false)
-
-  const sortedData = useSortDataByProp(homeworks?.results as homeworkStatT[], 'user_email', isSortedByEmail)
-
-  const hadleChangeProp = useCallback(() => {
-    setIsSortedByEmail(prop => !prop)
-  }, [])
-
   return (
     <div>
-      <table className={styles.table} style={{ minHeight: !sortedData?.length ? '295px' : 'unset' }}>
+      <table className={styles.table} style={{ minHeight: !homeworks?.results?.length ? '295px' : 'unset' }}>
         {isLoading && (
           <tbody>
             <tr className={styles.loader_wrapper}>
               <td>
-                <SimpleLoader style={{ width: '40px', height: '40px', zIndex: 1000 }} />
+                <LoaderLayout />
               </td>
             </tr>
           </tbody>
         )}
-        {sortedData?.length ? (
+        {homeworks?.results?.length ? (
           <>
             <thead className={styles.table_head}>
-              <HomeworksStatsTableHeader hadleChangeProp={hadleChangeProp} />
+              <HomeworksStatsTableHeader />
             </thead>
             <tbody className={styles.table_body}>
-              {sortedData?.map((homework: homeworkStatT) => (
+              {homeworks.results?.map((homework: homeworkStatT) => (
                 <HomeworksStatsTableRow key={homework.homework + homework.user_homework_id + homework.homework_name} homeworkData={homework} />
               ))}
             </tbody>

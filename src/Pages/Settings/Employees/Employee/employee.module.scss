@@ -1,15 +1,15 @@
 @import '../../../../scss/variable';
 @import '../../../../scss/mixin.scss';
 
+
 .employee_user {
-  
   position: relative;
   @include display (flex);
-  width: 100%;
   font-size: 11px;
-  margin-top: 13px;
-  padding: 0 30px 15px;
+  padding-left: 4px;
   font-family: $font-family-inter;
+  height: 56px;
+  border: 1px solid #e5e7eb;
 
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     margin: 5% 1% 5% 0;
@@ -20,11 +20,16 @@
     padding: 0 2%;
   }
  
- 
+  &_role {
+    @include display (flex, row, flex-start, center);
+    color: #798188;
+    width: 16.5%;
+  }
 
   &_info {
     @include display (flex, row, flex-start, center);
-    width: 75%;
+    width: 50%;
+    height: 56px;
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       width: 65%;
     }
@@ -34,9 +39,9 @@
    
 
     &_avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
       margin-right: 12px;
     }
 
@@ -62,7 +67,10 @@
 
   &_roleBtn {
     @include display (flex, row, space-between);
-    width: 50%;
+      width: 16.5%;
+      display: grid;
+      justify-content: flex-start;
+
     @media only screen and (min-width : 320px) and (max-width : 375px) {
       width: 60%;
       align-items: center;
@@ -72,11 +80,7 @@
       align-items: center;
     }
 
-    &_role {
-      @include display (flex, row, flex-start, center);
-      width: 150px;
-      color: #798188;
-    }
+
 
     &_btn {
       border: none;
@@ -84,8 +88,8 @@
       background: none;
       cursor: pointer;
       color: #357EEB;
-      margin-top: 10px;
       width: 100px;
+
       @media only screen and (min-width : 320px) and (max-width : 375px) {
         width: 100%;
       }
@@ -94,15 +98,6 @@
       }
     }
   }
-}
-.employee_user::after {
-  content: '';
-  @include position_t_l (absolute, -13px, 1%);
-  width: 98%;
-  background: #e5e7eb;
-  height: 1px;
-
-  
 }
 
 .changePseudonymBtn {

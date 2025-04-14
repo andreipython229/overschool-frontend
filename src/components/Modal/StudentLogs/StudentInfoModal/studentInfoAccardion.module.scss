@@ -219,21 +219,22 @@
         align-items: center;
       }
 
-      & span {
+      & label, span {
        @include font(400, 12px, 150%);
        color: #717985;
      }
       & input {
-        width: 90px;
+        width: 100%;
         height: 25px;
         border-radius: 8px;
-        background-color: #ecd9fa;
-        margin-left: 30px;
+        border: 2px solid #357EEB;
+        background-color: transparent;
+        // margin-left: 30px;
         text-align: center;
      }
       &_btn {
         @include font(500, 12px, 150%);
-        color: $font-title;
+        // color: $font-title;
         height: 27px;
         width: 100px;
         appearance: none;

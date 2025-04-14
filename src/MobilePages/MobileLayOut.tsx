@@ -89,7 +89,7 @@ export const MobileLayOut: FC = memo(() => {
         <Outlet />
       </main>
 
-      <MobileChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />
+      {/* <MobileChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} /> */}
 
       <Footer schoolTariffPlan={updateTariff} />
       <nav className={styles.mobileFooter}>

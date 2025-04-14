@@ -56,10 +56,10 @@ export const CalendarFilter: FC<calendarFiletrT> = ({
   return (
     <div className="date_picker__container">
       <p className="date_picker__title">ВЫБЕРИТЕ ДИАПАЗОН ДАТ</p>
-      <DatePicker selected={startData} onChange={onChange} startDate={startData} endDate={endData} locale="ru" selectsRange inline required >
+      <DatePicker selected={startData} onChange={onChange} className='container' startDate={startData} endDate={endData} locale="ru" selectsRange inline required >
         <div className="date_picker__buttons">
-          <Button variant='primary' text="Применить" onClick={handleAddFilter} className="full_width_button" />
-          <Button variant="primary" text="Отменить фильтр даты" onClick={handleRemoveFilter} className="full_width_button" />
+          <Button variant='newPrimary' text="Применить" onClick={handleAddFilter} className="full_width_button" />
+          <Button variant="newSecondary" text="Отменить фильтр даты" onClick={handleRemoveFilter} className="full_width_button" />
         </div>
       </DatePicker>
     </div>

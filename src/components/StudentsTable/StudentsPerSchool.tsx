@@ -84,7 +84,7 @@ export const StudentsPerSchool: FC = () => {
   }, [isTablesHeaderFetching])
 
   // Поиск по студентам школы
-  const [searchTerm, setSearchTerm] = useState('')
+  // const [searchTerm, setSearchTerm] = useState('')
 
   const updateStudents = (value: string) => {
     // setSearchTerm(value)
@@ -114,20 +114,20 @@ export const StudentsPerSchool: FC = () => {
   }, [page, isGroupingStudents, tablesHeader])
 
   // Филтра для всех студентов
-  const filteredStudents = useMemo(() => {
-    if (!searchTerm) return data?.results ?? []
+  // const filteredStudents = useMemo(() => {
+  //   if (!searchTerm) return data?.results ?? []
 
-    return (data?.results ?? []).filter(student => {
-      return (
-        student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.id ||
-        student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.course_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.group_name?.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    })
-  }, [searchTerm, data])
+  //   return (data?.results ?? []).filter(student => {
+  //     return (
+  //       student.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       student.id ||
+  //       student.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       student.course_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       student.group_name?.toLowerCase().includes(searchTerm.toLowerCase())
+  //     )
+  //   })
+  // }, [searchTerm, data])
 
   const allStudentsCount = isGroupingStudents
     ? data && data.results && data.results.length > 0
@@ -163,7 +163,7 @@ export const StudentsPerSchool: FC = () => {
       />
       <StudentsTableWrapper
         handleReloadTable={handleReloadTable}
-        students={filteredStudents as studentsTableInfoT}
+        students={data?.results || []}
         isLoading={isFetching || isTablesHeaderFetching}
         tableId={tableId as number}
         handleAddSortToFilters={handleAddSortToFilters}

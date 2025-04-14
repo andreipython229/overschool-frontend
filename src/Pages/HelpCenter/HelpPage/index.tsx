@@ -8,9 +8,9 @@ import { Path } from '../../../enum/pathE'
 
 const sections = [
   {
-    title: 'Гид по началу работы',
-    image: require('../../../assets/img/common/map-pin.png'),
-    link: '/help',
+    title: "Гид по началу работы",
+    image: require("../../../assets/img/common/map-pin.png"),
+    link: "/help/work-quide",
   },
   {
     title: 'Как привязать домен?',
