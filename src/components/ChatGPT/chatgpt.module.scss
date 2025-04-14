@@ -30,6 +30,11 @@
       filter: brightness(0.85);
     }
   }
+
+  @media screen and (max-width: 1023px),
+  screen and (max-aspect-ratio: 1/1) { 
+    display: none;
+  }
 }
 
 
