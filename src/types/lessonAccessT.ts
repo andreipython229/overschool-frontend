@@ -30,4 +30,7 @@ export type durationStudent = {
   final_limit: number
   individual_limit: number
   download: boolean
+  created_at: string
+  updated_at: string
+  remaining_period: number | null
 }

@@ -67,7 +67,9 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({ student, progr
       limit: isLimited ? duration : 0,
       download: download,
     }
-    await assignDuration({ data: durationData, schoolName }).then(() => fetchDuration({ group_id: Number(student?.group_id), student_id: Number(student?.student_id), schoolName }))
+    await assignDuration({ data: durationData, schoolName }).then(() =>
+      fetchDuration({ group_id: Number(student?.group_id), student_id: Number(student?.student_id), schoolName }),
+    )
   }
 
   const handleAccessSetting = async () => {
@@ -158,11 +160,11 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({ student, progr
                         индивидуальная продолжительность обучения в днях
                         {isLimited && (
                           <>
-                            :{' '}<p style={{ fontWeight: 600 }}>{data?.individual_limit || 0}</p>, добавить дни?
+                            : <p style={{ fontWeight: 600 }}>{data?.remaining_period || 0}</p>, добавить дни?
                           </>
                         )}
                       </label>
-                      {isLimited && <input value={duration} onChange={handleDuration} type="number" />}
+                      {isLimited && <input value={duration} onChange={handleDuration} type="number" min={0} />}
                     </div>
                     <div className={styles.accardion_duration_limit_check}>
                       <Checkbox id={'download'} name={'download'} checked={download} onChange={handleDownload} />
