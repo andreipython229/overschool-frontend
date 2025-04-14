@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { result } from 'types/courseStatT'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { groupIconPath, tableBallsStarPath, peopleIconPath, averageMarkIconPath, progressIconPath } from 'config/commonSvgIconsPath'
+import { peopleIconPath, averageMarkIconPath, progressIconPath } from 'config/commonSvgIconsPath'
 import { accardionArrPath } from 'Pages/StudentCourse/config/svgIconPath'
 import styles from './studentInfoAccardion.module.scss'
 import { groupSections } from '../../../../types/lessonAccessT'
