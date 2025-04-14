@@ -55,9 +55,9 @@ export const Employee: FC<EmployeePropsT> = memo(
     }, [isRenameModalOpen])
 
     return (
-      <div className={styles.wrapper} style={{ width: '100%' }}>
-        <div className={styles.employee_user}>
-          <div className={styles.employee_user_info}>
+      <tr className={styles.wrapper}>
+        <tr className={styles.employee_user}>
+          <td className={styles.employee_user_info}>
             <img className={styles.employee_user_info_avatar} src={avatar} alt="User Avatar" />
             <div className={styles.employee_user_info_name}>
               <span>
@@ -74,22 +74,13 @@ export const Employee: FC<EmployeePropsT> = memo(
               </span>
               <span>{contact}</span>
             </div>
-          </div>
-          <div className={styles.employee_user_roleBtn}>
-            <div className={styles.employee_user_roleBtn_role}>{userRoleName[role]}</div>
-            <div>
+          </td>
+
+            <td className={styles.employee_user_role}>{userRoleName[role]}</td>
+            <td className={styles.employee_user_roleBtn}>
               {role === 'Teacher' && (
                 <button className={styles.employee_user_roleBtn_btn} onClick={off}>
                   Уч. группы
-                </button>
-              )}
-              {userId === 154 || (userId !== 154 && contact !== 'admin@coursehub.ru' && contact !== 'teacher@coursehub.ru') ? (
-                <button className={styles.employee_user_roleBtn_btn} onClick={handleDeleteEmployee}>
-                  Удалить
-                </button>
-              ) : (
-                <button className={`${styles.employee_user_roleBtn_btn} ${styles.disabled}`} disabled>
-                  <span style={{ color: 'red' }}>Нельзя удалить</span>
                 </button>
               )}
               {contact === 'admin@coursehub.ru' || contact === 'teacher@coursehub.ru' ? (
@@ -101,9 +92,19 @@ export const Employee: FC<EmployeePropsT> = memo(
                   Упр. ролями
                 </button>
               )}
-            </div>
-          </div>
-        </div>
+            </td>
+            <td className={styles.employee_user_roleBtn}>
+              {userId === 154 || (userId !== 154 && contact !== 'admin@coursehub.ru' && contact !== 'teacher@coursehub.ru') ? (
+                <button className={styles.employee_user_roleBtn_btn} onClick={handleDeleteEmployee}>
+                  Удалить
+                </button>
+              ) : (
+                <button className={`${styles.employee_user_roleBtn_btn} ${styles.disabled}`} disabled>
+                  <span style={{ color: 'red' }}>Нельзя удалить</span>
+                </button>
+              )}
+            </td>
+          </tr>
         {isModalOpen && (
           <Portal closeModal={on}>
             <ReviewTeacherGroups closeModal={on} name={name} email={contact} id={id} />
@@ -124,7 +125,7 @@ export const Employee: FC<EmployeePropsT> = memo(
             <LimitModal message={message} setShowLimitModal={onToggle} />
           </Portal>
         ) : null}
-      </div>
+      </tr>
     )
   },
 )
