@@ -2,6 +2,10 @@ import { Route, Routes, generatePath, useLocation, useNavigate } from 'react-rou
 import { useEffect, useState } from 'react'
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
 import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
+import { CookiePolicy } from 'Pages/CookiePolicy/CookiePolicy'
+import { CookiePolicyDisclaimer } from 'Pages/CookiePolicyDisclaimer/CookiePolicyDisclaimer'
+import { PersonalDataProcessing } from 'Pages/PersonalDataProcessing/PersonalDataProcessing'
+import { PublicOfferAgreement } from 'Pages/PublicOfferAgreement/PublicOfferAgreement'
 import { Agreement } from 'components/Agreement/Agreement'
 import { PWA } from 'Pages/PWA/PWA'
 import { Initial } from 'Pages/Initial/newInitial'
@@ -32,10 +36,10 @@ import { HelpGroupSettings } from 'Pages/HelpCenter/HelpGroupSettings'
 import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
 import { HelpChat } from './Pages/HelpCenter/HelpChat'
 import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
-import DomainError from './Pages/DomainAccessDenied/DomainError'
-import { TechnicalWorks } from 'Pages/TechnicalWorks/TechnicalWorks'
 import { HelpDomainLink } from 'Pages/HelpCenter/HelpDomainLink'
 import { HelpGidStart } from 'Pages/HelpCenter/HelpGidStart'
+import DomainError from './Pages/DomainAccessDenied/DomainError'
+import { TechnicalWorks } from 'Pages/TechnicalWorks/TechnicalWorks'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -57,6 +61,11 @@ export const App = () => {
     if (
       !isLogin &&
       pathname !== Path.CreateSchool &&
+      pathname.split('/').at(-1) !== 'personalDataTreatmentPolicy' &&
+      pathname.split('/').at(-1) !== 'publicOfferAgreement' &&
+      pathname.split('/').at(-1) !== 'personalDataProcessing' &&
+      pathname.split('/').at(-1) !== 'cookiePolicyDisclaimer' &&
+      pathname.split('/').at(-1) !== 'cookiePolicy' &&
       pathname.split('/')[1] !== 'create-school' &&
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
@@ -158,9 +167,18 @@ export const App = () => {
         <Route path={Path.School} element={<MainLayOut />}>
           {navByRolesConfig[role]}
           <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
+          <Route path={FooterPath.CookiePolicy} element={<CookiePolicy />} />
+          <Route path={FooterPath.CookiePolicyDisclaimer} element={<CookiePolicyDisclaimer />} />
+          <Route path={FooterPath.PersonalDataProcessing} element={<PersonalDataProcessing />} />
+          <Route path={FooterPath.PublicOfferAgreement} element={<PublicOfferAgreement />} />
           <Route path={FooterPath.PWA} element={<PWA />} />
           <Route path={FooterPath.Agreement} element={<Agreement />} />
         </Route>
+        <Route path={`${Path.DefaultSchool}${FooterPath.PersonalDataTreatmentPolicy}`} element={<PersonalDataTreatmentPolicy />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.CookiePolicy}`} element={<CookiePolicy />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.CookiePolicyDisclaimer}`} element={<CookiePolicyDisclaimer />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.PersonalDataProcessing}`} element={<PersonalDataProcessing />} />
+        <Route path={`${Path.DefaultSchool}${FooterPath.PublicOfferAgreement}`} element={<PublicOfferAgreement />} />
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
         <Route path={'*'} element={<PageNotFound />} />
         <Route path="/access-denied" element={<DomainError />} />
