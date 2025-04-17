@@ -2,16 +2,16 @@ import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logoHeader, MenuIcon, CloseIcon } from "../../../assets/img/common/index";
 import styles from "./MobileHeaderАuthorized.module.scss";
-import Social from '../../../assets/img/common/Social.svg';
-import Telegram from '../../../assets/img/common/Telegram.svg';
-import Instagram from '../../../assets/img/common/Instagram.svg';
-import X from '../../../assets/img/common/X.svg';
-import Youtube from '../../../assets/img/common/youtube.svg';
-import VK from '../../../assets/img/common/VK.svg';
-import  Social_meniu from '../../../assets/img/common/social_meniu.svg';
-import Profile from '../../../assets/img/common/profile.svg';
-import Notification from '../../../assets/img/common/Notification.svg';
-import Exit from '../../../assets/img/common/exit1.svg';
+import Social from '../../../components/common/IconSvg/SocialIcon';
+import Telegram from '../../../components/common/IconSvg/TelegramIcon';
+import Instagram from '../../../components/common/IconSvg/InstagramIcon';
+import X from '../../../components/common/IconSvg/XIcon';
+import Youtube from '../../../components/common/IconSvg/YoutubeIcon';
+import VK from '../../../components/common/IconSvg/VKIcon';
+import Social_meniu from '../../../components/common/IconSvg/Social_meniu_Icon';
+import Profile from '../../../components/common/IconSvg/ProfileIcon';
+import Notification from '../../../components/common/IconSvg/NotificationIcon';
+import Exit from '../../../components/common/IconSvg/ExitIcon';
 
 export const MobileHeaderАuthorized: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
