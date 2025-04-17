@@ -15,8 +15,6 @@ import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
 export const HelpUserAccount = () => {
   const { role } = useAppSelector(selectUser)
   const navigate = useNavigate()
-  const [isLoginOpen, setLoginOpen] = useState(false);
-  const [isRegistrationOpen, setRegistrationOpen] = useState(false);
 
   const handleHelpPage = () => {
     navigate(generatePath(Path.HelpPage))
@@ -38,7 +36,7 @@ export const HelpUserAccount = () => {
         <div className={mainHelpStyles.bg_wrap4}></div>
       </div>
 
-      <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
+      <InitPageHeader/>
 
       <div className={styles.sections}>
         <div className={styles.section}>

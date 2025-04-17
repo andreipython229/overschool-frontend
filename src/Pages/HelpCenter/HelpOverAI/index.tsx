@@ -38,7 +38,7 @@ export const HelpOverAI = () => {
                 <div className={mainHelpStyles.bg_wrap4}></div>
             </div>
 
-            <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
+            <InitPageHeader />
 
             <div className={styles.sections}>
                 <div className={styles.section}>

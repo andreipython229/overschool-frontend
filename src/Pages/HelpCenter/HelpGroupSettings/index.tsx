@@ -31,7 +31,7 @@ export const HelpGroupSettings = () => {
         <div className={mainHelpStyles.bg_wrap4}></div>
       </div>
 
-      <InitPageHeader />
+      <InitPageHeader/>
 
       <div className={styles.sections}>
         <div className={styles.section}>

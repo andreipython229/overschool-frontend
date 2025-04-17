@@ -63,8 +63,6 @@ const sections = [
 export const HelpPage: FC = memo(() => {
   const navigate = useNavigate();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [isLoginOpen, setLoginOpen] = useState(false);
-  const [isRegistrationOpen, setRegistrationOpen] = useState(false);
 
   const handleRegistrationUser = () => {
     const paramsString = localStorage.getItem("utmParams");
@@ -89,7 +87,7 @@ export const HelpPage: FC = memo(() => {
         <div className={styles.bg_wrap4}></div>
       </div>
 
-      <InitPageHeader setLoginShow={setLoginOpen} setRegistrationShow={setRegistrationOpen} />
+      <InitPageHeader />
 
       <div className={styles.helpBlock}>
         <div className={styles.helpBlockText}>

@@ -71,26 +71,32 @@ export const MobileLayOut: FC = memo(() => {
   }
 
   return (
-    <>
-      <motion.div
-        className={styles.wrapper}
-        initial={{ x: -2000 }}
-        animate={{ x: 0, y: 0 }}
-        transition={{ ease: 'easeInOut', duration: 0.4 }}
-      >
-        <main className={styles.main}>
-          <Previous />
-          <Outlet />
-          <MobileHeaderАuthorized />
-        </main>
-  
-        <MobileChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} />
-  
-        <Footer schoolTariffPlan={updateTariff} />
-        <nav className={styles.mobileFooter}>
-          <MobileNavbar />
-        </nav>
-      </motion.div>
-    </>
+    <motion.div
+      className={styles.wrapper}
+      initial={{
+        x: -2000,
+      }}
+      animate={{
+        x: 0,
+        y: 0,
+      }}
+      transition={{
+        ease: 'easeInOut',
+        duration: 0.4,
+      }}
+    >
+      <main className={styles.main}>
+        <Previous />
+        <Outlet />
+        <MobileHeaderАuthorized />
+      </main>
+
+      {/* <MobileChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} /> */}
+
+      <Footer schoolTariffPlan={updateTariff} />
+      <nav className={styles.mobileFooter}>
+        <MobileNavbar />
+      </nav>
+    </motion.div>
   )
 })

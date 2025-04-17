@@ -13,8 +13,6 @@ import { Footer } from "../../../components/Footer/index";
 
 export const HelpWorkQuide = () => {
     const navigate = useNavigate()
-    const [isLoginOpen, setLoginOpen] = useState(false);
-    const [isRegistrationOpen, setRegistrationOpen] = useState(false);
 
     const handleHelpPage = () => {
         navigate(generatePath(Path.HelpPage))
