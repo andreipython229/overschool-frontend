@@ -60,9 +60,10 @@ export const Header = memo(() => {
   const { schoolId, headerId, schoolName } = useAppSelector(schoolSelector)
   const tariffPlan = useAppSelector(tariffSelector)
   const { userProfile } = useAppSelector(selectUserProfile)
-  const { role: userRole, userId } = useAppSelector(selectUser)
+  const { role: userRole, userId, authState } = useAppSelector(selectUser)
   const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
   const chats = useAppSelector(state => state.chats.chats)
+  console.log(authState)
 
   const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false)
   const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(false)
@@ -146,39 +147,20 @@ export const Header = memo(() => {
       const result = await loginUser(formData).unwrap()
       if (result) {
         const { access, refresh, user } = result
-
         dispatch(setAuthState({ access, refresh }))
         dispatch(id(user.id))
-        let userRole
+
         if (user.email === 'admin@coursehub.ru') {
-          userRole = 6
+          dispatch(role(RoleE.Admin))
         } else if (user.email === 'teacher@coursehub.ru') {
-          userRole = 2
+          dispatch(role(RoleE.Teacher))
         } else if (user.email === 'student@coursehub.ru') {
-          userRole = 1
+          dispatch(role(RoleE.Student))
         } else {
-          userRole = 0
+          dispatch(role(RoleE.Unknown))
         }
 
-        dispatch(role(userRole))
-        await refetchUser()
-          .unwrap()
-          .then(data =>
-            dispatch(
-              setUserProfile({
-                id: data[0].profile_id,
-                first_name: data[0].user.first_name,
-                last_name: data[0].user.last_name,
-                email: String(data[0].user.email),
-                username: String(data[0].user.username),
-                phone_number: String(data[0].user.phone_number),
-                avatar: data[0].avatar,
-                additional_roles: data[0].additional_roles,
-              }),
-            ),
-          )
-        localStorage.setItem('id', user.id.toString())
-        localStorage.setItem('email', user.email)
+        navigate(generatePath(Path.ChooseSchool))
       }
     } catch (err) {
       console.error('Login failed:', err)
@@ -836,26 +818,20 @@ export const Header = memo(() => {
             )}
             {schoolRoles && schoolRoles.roles.includes('Студент') && (
               <MenuItem onClick={() => handleLogin('student@coursehub.ru', 'ac4LMPEzwy')}>
-                <img src={StudentIcon} alt="Student Icon" width="24px" height="24px" />
-                <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
-                  Сменить роль на Студент
-                </Link>
+                <img src={StudentIcon} alt="Student Icon" width="18px" height="18px" />
+                <p style={{ fontWeight: '600', fontSize: '15px', color: '#324195' }}>Сменить роль на Студент</p>
               </MenuItem>
             )}
-            {schoolRoles && schoolRoles.roles.includes('Учитель') && (
+            {schoolRoles && schoolRoles.roles.includes('Помощник') && (
               <MenuItem onClick={() => handleLogin('teacher@coursehub.ru', 'm4OjkNzZPh')}>
-                <img src={TeacherIcon} alt="Teacher Icon" width="24px" height="24px" />
-                <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
-                  Сменить роль на Учитель
-                </Link>
+                <img src={TeacherIcon} alt="Teacher Icon" width="18px" height="18px" />
+                <p style={{ fontWeight: '600', fontSize: '15px', color: '#324195' }}>Сменить роль на Учитель</p>
               </MenuItem>
             )}
             {schoolRoles && schoolRoles.roles.includes('Администратор') && (
               <MenuItem onClick={() => handleLogin('admin@coursehub.ru', 'yQoJ5TaFpK')}>
-                <img src={TeacherIcon} alt="Teacher Icon" width="24px" height="24px" />
-                <Link to={Path.ChooseSchool} style={{ marginLeft: '10px', color: 'slategrey' }}>
-                  Сменить роль на Администратор
-                </Link>
+                <img src={TeacherIcon} alt="Teacher Icon" width="18px" height="18px" />
+                <p style={{ fontWeight: '600', fontSize: '15px', color: '#324195' }}>Сменить роль на Администратор</p>
               </MenuItem>
             )}
           </Menu>
