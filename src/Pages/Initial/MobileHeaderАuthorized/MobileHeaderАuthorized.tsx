@@ -2,16 +2,16 @@ import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logoHeader, MenuIcon, CloseIcon } from "../../../assets/img/common/index";
 import styles from "./MobileHeaderАuthorized.module.scss";
-import { ReactComponent as Social } from '../../../assets/img/common/Social.svg';
-import { ReactComponent as Telegram } from '../../../assets/img/common/Telegram.svg';
-import { ReactComponent as Instagram } from '../../../assets/img/common/Instagram.svg';
-import { ReactComponent as X } from '../../../assets/img/common/X.svg';
-import { ReactComponent as Youtube } from '../../../assets/img/common/youtube.svg';
-import { ReactComponent as VK } from '../../../assets/img/common/VK.svg';
-import { ReactComponent as Social_meniu } from '../../../assets/img/common/social_meniu.svg';
-import { ReactComponent as Profile } from '../../../assets/img/common/profile.svg';
-import { ReactComponent as Notification } from '../../../assets/img/common/Notification.svg';
-import { ReactComponent as Exit } from '../../../assets/img/common/exit1.svg';
+import Social from '../../../assets/img/common/Social.svg';
+import Telegram from '../../../assets/img/common/Telegram.svg';
+import Instagram from '../../../assets/img/common/Instagram.svg';
+import X from '../../../assets/img/common/X.svg';
+import Youtube from '../../../assets/img/common/youtube.svg';
+import VK from '../../../assets/img/common/VK.svg';
+import  Social_meniu from '../../../assets/img/common/social_meniu.svg';
+import Profile from '../../../assets/img/common/profile.svg';
+import Notification from '../../../assets/img/common/Notification.svg';
+import Exit from '../../../assets/img/common/exit1.svg';
 
 export const MobileHeaderАuthorized: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);

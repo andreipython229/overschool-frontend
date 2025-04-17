@@ -24,7 +24,7 @@ import { PublicOfferAgreement } from 'Pages/PublicOfferAgreement/PublicOfferAgre
 import { Agreement } from 'components/Agreement/Agreement'
 import { PWA } from 'Pages/PWA/PWA'
 import { HelpPage } from './Pages/HelpCenter/HelpPage'
-import { HelpSchoolPage } from 'Pages/HelpCenter/HelpAddEmployee'
+import { HelpSchoolPage } from 'Pages/HelpCenter/HelpSchoolPage'
 import { HelpCoursesPage } from './Pages/HelpCenter/HelpCoursesPage'
 import { HelpUserAccount } from 'Pages/HelpCenter/HelpUserAccount'
 import { HelpSchoolSettings } from 'Pages/HelpCenter/HelpSchoolSettings'
@@ -41,8 +41,6 @@ import { Certificate } from 'Pages/Certificate/Certificate'
 import { CourseCatalogPage } from 'Pages/CourseCatalog'
 import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
 import { LoginPage } from 'Pages/Login/LoginPage'
-import { HelpGidStart } from 'Pages/HelpCenter/HelpGidStart'
-import { HelpPlatformSettings } from 'Pages/HelpCenter/HelpPlatformSettings'
 
 export const AppMobile = () => {
   const { role } = useAppSelector(selectUser)
@@ -123,6 +121,7 @@ export const AppMobile = () => {
         <Route path={Path.InitialPage} element={<MobileInitPage />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
         <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
+
         <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
         <Route path={Path.ResetPassword} element={<ResetPassword />} />
@@ -132,14 +131,12 @@ export const AppMobile = () => {
           <Route path={Path.Help} element={<HelpSchoolPage />} />
           <Route path={Path.HelpUserAccount} element={<HelpUserAccount />} />
           <Route path={Path.HelpSchoolSettings} element={<HelpSchoolSettings />} />
-          <Route path={Path.HelpPlatformSettings} element={<HelpPlatformSettings />} />
           <Route path={Path.HelpOverAI} element={<HelpOverAI />} />
           <Route path={Path.Courses} element={<HelpCoursesPage />} />
           <Route path={Path.HelpGroupSettings} element={<HelpGroupSettings />} />
           <Route path={Path.HelpStudents} element={<HelpStudentsPage />} />
           <Route path={Path.HelpCheckHW} element={<HelpCheckHW />} />
           <Route path={Path.HelpDomainLink} element={<HelpDomainLink />} />
-          <Route path={Path.HelpGidStart} element={<HelpGidStart />} />
         </Route>
         <Route path={Path.LoginPage} element={<LoginPage />} />
         <Route path={Path.Catalog}>

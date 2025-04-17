@@ -153,7 +153,7 @@ export type lessonT = {
 }
 
 export type sectionT = {
-  group_settings: any
+  group_settings?: any
   group_id?: number
   section_name: string
   section: number
