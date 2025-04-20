@@ -10,6 +10,8 @@ import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
 import { Chat } from 'components/Modal/Chat'
 import classNames from 'classnames'
+import OverAiIcon from '../../assets/img/common/newIconModal.svg'
+
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
 import styles from './navbar.module.scss'
 import { contactLinkSelector, inviteProgramSelector, schoolSelector, selectUser } from '../../selectors'
@@ -29,7 +31,11 @@ import { GiftIconPath } from 'assets/Icons/svgIconPath'
 import { useLazyFetchInvitesProgramQuery, useLazyFetchStudentInvitesProgramLinkQuery } from 'api/schoolService'
 import { setInviteProgram } from 'store/redux/inviteProgram/inviteProgramSlice'
 
-export const Navbar: FC = memo(() => {
+interface NavbarProps {
+  onToggleChat: () => void;
+}
+
+export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
   const { role: UserRole } = useAppSelector(selectUser)
   const { schoolName } = useAppSelector(schoolSelector)
   const inviteLink = useAppSelector(inviteProgramSelector)
@@ -150,19 +156,22 @@ export const Navbar: FC = memo(() => {
           </div>
         )}
         {UserRole !== RoleE.Teacher && (
-          <NavLink key={'Курсы'} to={Path.Courses} className={styles.navbar_menu}>
+          <NavLink key={'Курсы'} to={Path.Courses} className={({ isActive }) => `${styles.navbar_menu} ${isActive ? styles.navbar_menu_active : ''}`}>
             <div>
               <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
             </div>
             <p>Главная</p>
+            <div className={styles.mobile_active_indicator}></div>
           </NavLink>
         )}
         <div className={styles.navbar_setting_account}>
+          <div className={styles.navbar_setting_account_mob_empty}></div>
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
-              <NavLink key={index} to={path} className={styles.navbar_setting_account_icon_container}>
+              <NavLink key={index} to={path} className={({ isActive }) => `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`}>
                 <div>{icon}</div>
                 <p>{getPathLabel(path as Path)}</p>
+                <div className={styles.mobile_active_indicator}></div>
               </NavLink>
             ) : (
               <a className={styles.chatIcon_container} key={index + '_' + path} onClick={off}>
@@ -177,6 +186,7 @@ export const Navbar: FC = memo(() => {
                   )}
                 </div>
                 <p>Чат</p>
+                <div className={styles.mobile_active_indicator}></div>
               </a>
             ),
           )}
@@ -196,13 +206,17 @@ export const Navbar: FC = memo(() => {
             <p>Тех поддержка</p>
           </a>
           {(UserRole === RoleE.Student || UserRole === RoleE.Teacher) && (
-            <NavLink to={Path.Courses + Path.Bonus} className={styles.navbar_setting_account_icon_container}>
+            <NavLink  to={Path.Courses + Path.Bonus} className={({ isActive }) => `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`}>
               <div>
                 <IconSvg width={38} height={41} viewBoxSize={'0 0 38 41'} path={GiftIconPath} />
               </div>
               <p>Бонусы</p>
             </NavLink>
           )}
+
+          <div className={styles.mobile_overai_btn_container} onClick={onToggleChat}>
+            <img className={`${styles.chatGptButton_Pushed}`} src={OverAiIcon} alt="OverAI Icon" />
+          </div>
         </div>
       </motion.nav>
       {isChatOpen && (

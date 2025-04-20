@@ -87,19 +87,20 @@ export const checkHomeworkStatusFilters = [
 ]
 
 export const dropDownListFilterHomework = [
-  // { id: 7, title: 'курсы' },
-  // { id: 8, title: 'группы' },
+  { id: 7, title: 'Курсы' },
+  { id: 8, title: 'Группы' },
   // { id: 9, title: 'задание' },
-  // { id: 10, title: 'последний ответ' },
-  { id: 11, title: 'По баллам' },
-  { id: 5, title: 'По статусу' },
+  { id: 10, title: 'Последний ответ' },
+  { id: 11, title: 'Балл' },
+  { id: 5, title: 'Статус' },
+  { id: 6, title: 'Преподаватель' },
 ]
 
 export const dropDownListFilterStudents = [
   // { id: 20, title: 'Имя' }  ,
   // { id: 19, title: 'Фамилия' },
-  // { id: 17, title: 'курсы' },
-  // { id: 18, title: 'группы' },
+  { id: 17, title: 'Курсы' },
+  { id: 18, title: 'Группы' },
   { id: 12, title: 'Суммарный балл' },
   { id: 16, title: 'Средний балл' },
   { id: 15, title: 'Последняя активность' },

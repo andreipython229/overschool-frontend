@@ -24,18 +24,18 @@ interface Chat {
 }
 
 interface ChatGPTProps {
-  openChatModal: () => void
-  closeChatModal: () => void
+  isDialogOpen: boolean; 
+  setIsDialogOpen: (isDialogOpen: boolean) => void; 
 }
 
-const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
+const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
   const [messageInput, setMessageInput] = useState('');
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const [showChatListForm, setShowChatListForm] = useState(false);
   const [chatData, setChatData] = useState<{ [id: number]: { order: number; chat_name: string } }>({});
   const [selectedChatId, setCreatedChatId] = useState<number>();
   const [isChatSelected, setIsChatSelected] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  // const [isDialogOpen, setIsDialogOpen] = useState(false);
   // const [isNewChat, setIsNewChat] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [warning, setWarning] = useState<string | null>(null);
@@ -92,6 +92,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     // console.log(userQuestions);
 
   }, [latestMessages]);
+
+
 
   useEffect(() => {
     scrollMessagesToBottom()
@@ -172,7 +174,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
     setIsDialogOpen(!isDialogOpen)
     scrollMessagesToBottom()
     setTextAreaFocus()
-    isDialogOpen ? openChatModal() : closeChatModal()
+    // isDialogOpen ? openChatModal() : closeChatModal()
 
     // const response = await fetchWelcomeMessage();
     // if (response.data) {
@@ -183,7 +185,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setIsDialogOpen(false)
-      closeChatModal()
+      // closeChatModal()
     }
   }
 

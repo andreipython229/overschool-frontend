@@ -78,6 +78,11 @@ import student from './Student.png'
 import student2 from './Student2.png'
 import student_nobile_cabinet from './student_nobile_cabinet.png'
 
+import MenuIcon from './menuIcon.png'
+import CloseIcon from './closeIcon.png'
+import Personal from './Personal.png'
+import HelpIcon from './helpicon.png'
+
 import courseLogo from './courseLogo.svg'
 import feedback from './feedback.svg'
 import avatarPrize from './prizeNoAvatar.svg'
@@ -164,5 +169,9 @@ export {
   teacher2,
   student,
   student2,
-  avatarPrize
+  avatarPrize,
+  MenuIcon,
+  CloseIcon,
+  Personal,
+  HelpIcon
 }

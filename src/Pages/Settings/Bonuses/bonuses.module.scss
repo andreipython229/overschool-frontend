@@ -67,7 +67,6 @@
       @include display(flex, row, space-between, center);
       width: 100%;
       padding: 8px 24px 8px 24px;
-      opacity: 0px;
       background: #02337c66;
       backdrop-filter: blur(27.799999237060547px);
       border-radius: 34px;
@@ -76,8 +75,6 @@
       &_image {
         width: 100px;
         height: 100px;
-        gap: 0px;
-        opacity: 0px;
         object-fit: contain;
       }
 
