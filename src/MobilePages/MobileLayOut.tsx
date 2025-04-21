@@ -14,6 +14,7 @@ import MobileChatGPT from '../components/ChatGPT'
 import { useBoolean as useBooleanHook } from '../customHooks'
 import { useLazyFetchStudentsGroupQuery } from '../api/studentsGroupService'
 import { Footer } from 'components/Footer'
+import { MobileHeaderАuthorized } from "../Pages/Initial/MobileHeaderАuthorized/MobileHeaderАuthorized";
 
 import { motion } from 'framer-motion'
 
@@ -87,6 +88,7 @@ export const MobileLayOut: FC = memo(() => {
       <main className={styles.main}>
         <Previous />
         <Outlet />
+        <MobileHeaderАuthorized />
       </main>
 
       {/* <MobileChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} /> */}

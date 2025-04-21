@@ -2,10 +2,10 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { result } from 'types/courseStatT'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { groupIconPath, tableBallsStarPath, peopleIconPath, averageMarkIconPath, progressIconPath } from 'config/commonSvgIconsPath'
+import { peopleIconPath, averageMarkIconPath, progressIconPath } from 'config/commonSvgIconsPath'
 import { accardionArrPath } from 'Pages/StudentCourse/config/svgIconPath'
 import styles from './studentInfoAccardion.module.scss'
-import { groupSections } from '../../../../types/lessonAccessT'
+import { sectionLessons } from '../../../../types/lessonAccessT'
 import {
   useSetStudentLessonsAccessMutation,
   useLazyFetchStudentTrainingDurationQuery,
@@ -15,13 +15,15 @@ import { LessonsAccardion } from '../LessonsAccardion/LessonsAccardion'
 import { Checkbox } from '../../../common/Checkbox/Checkbox'
 import { RoleE } from '../../../../enum/roleE'
 import { Button } from '../../../common/Button/Button'
-import { selectUser } from '../../../../selectors'
+import { schoolSelector, selectUser } from '../../../../selectors'
 import { useAppSelector } from '../../../../store/hooks'
+import { getNounDeclension } from 'utils/getNounDeclension'
+import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 type studentInfoAccardionT = {
   student: result | null
   progress: any
-  studentLessons?: groupSections
+  studentLessons?: sectionLessons[]
   setStudentLessons: any
   resetAccessSetting: () => void
 }
@@ -31,7 +33,7 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({ student, progr
   const [isLimited, setIsLimited] = useState<boolean>(false)
   const courseStat = progress && progress.courses.find((course: any) => course.course_id === student?.course_id)
   const [setAccess, { isSuccess }] = useSetStudentLessonsAccessMutation()
-  const schoolName = window.location.href.split('/')[4]
+  const { schoolName } = useAppSelector(schoolSelector)
   const [duration, setDuration] = useState<number>()
   const [download, setDownload] = useState<boolean>()
   const [fetchDuration, { data }] = useLazyFetchStudentTrainingDurationQuery()
@@ -67,13 +69,15 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({ student, progr
       limit: isLimited ? duration : 0,
       download: download,
     }
-    await assignDuration({ data: durationData, schoolName }).then(() => fetchDuration({ group_id: Number(student?.group_id), student_id: Number(student?.student_id), schoolName }))
+    await assignDuration({ data: durationData, schoolName }).then(() =>
+      fetchDuration({ group_id: Number(student?.group_id), student_id: Number(student?.student_id), schoolName }),
+    )
   }
 
   const handleAccessSetting = async () => {
     const lesson_data: { lesson_id: number; available: boolean }[] = []
-    studentLessons?.sections &&
-      studentLessons.sections.map(section => {
+    studentLessons &&
+      studentLessons.map(section => {
         section.lessons.map(lesson => {
           lesson_data.push({
             lesson_id: lesson.lesson_id,
@@ -93,6 +97,10 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({ student, progr
       .catch(error => {
         console.log(error.data)
       })
+  }
+
+  if (!data) {
+    return <LoaderLayout />
   }
 
   return (
@@ -149,20 +157,36 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({ student, progr
               {role === RoleE.Admin && (
                 <>
                   <div className={styles.accardion_duration_limit}>
-                    <div className={styles.accardion_duration_limit_check}>
-                      <Checkbox id={'isLimited'} name={'isLimited'} checked={isLimited} onChange={handlerIsLimited} />
-                      <label
-                        htmlFor="isLimited"
-                        style={{ display: 'flex', alignItems: 'center', textWrap: 'nowrap', justifySelf: 'flex-start', marginRight: '10px' }}
-                      >
-                        индивидуальная продолжительность обучения в днях
-                        {isLimited && (
-                          <>
-                            :{' '}<p style={{ fontWeight: 600 }}>{data?.individual_limit || 0}</p>, добавить дни?
-                          </>
-                        )}
-                      </label>
-                      {isLimited && <input value={duration} onChange={handleDuration} type="number" />}
+                    <div className={styles.accardion_duration_limit_check} style={{ width: '100%', justifyContent: 'space-between' }}>
+                      <div style={{ display: 'inline-flex', alignItems: 'center' }}>
+                        <Checkbox id={'isLimited'} name={'isLimited'} checked={isLimited} onChange={handlerIsLimited} />
+                        <label
+                          htmlFor="isLimited"
+                          style={{
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            textWrap: 'nowrap',
+                            justifySelf: 'flex-start',
+                            marginRight: '10px',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <p>индивидуальная продолжительность обучения в днях</p>
+                          {isLimited && (
+                            <span style={{ display: 'inline-flex' }}>
+                              осталось:
+                              <p style={{ fontWeight: 600, marginLeft: '5px' }}>
+                                {data && typeof data.remaining_period === 'number'
+                                  ? `${data.remaining_period} ${getNounDeclension(data.remaining_period, ['день', 'дня', 'дней'])}`
+                                  : '0 дней'}
+                              </p>
+                              , добавить дни?
+                            </span>
+                          )}
+                        </label>
+                      </div>
+                      {isLimited && <input value={duration} onChange={handleDuration} style={{ width: '100px' }} type="number" min={0} />}
                     </div>
                     <div className={styles.accardion_duration_limit_check}>
                       <Checkbox id={'download'} name={'download'} checked={download} onChange={handleDownload} />
@@ -174,7 +198,7 @@ export const StudentInfoAccardion: FC<studentInfoAccardionT> = ({ student, progr
               )}
             </div>
             <LessonsAccardion
-              sectionLessons={studentLessons?.sections}
+              sectionLessons={studentLessons}
               setLessons={setStudentLessons}
               handleAccessSetting={handleAccessSetting}
               forStudent={true}
