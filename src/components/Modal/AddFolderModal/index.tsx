@@ -50,7 +50,7 @@ export const AddNewFolderModal: FC<IAddFolderModal> = ({ refreshFolders, close }
             <IconSvg width={30} height={30} viewBoxSize="0 0 64 64" path={crossIconPath} />
           </button>
         </div>
-        <h2 style={{ width: '100%', textAlign: 'center' }}>Cоздание новой папки</h2>
+        <h2 id="folder-name-title">Cоздание новой папки</h2>
         <Input
           id="folder-name"
           name="folder-name"
