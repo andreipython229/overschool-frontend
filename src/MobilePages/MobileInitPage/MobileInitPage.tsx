@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { useNavigate, generatePath } from 'react-router-dom'
-/* import { InitPageHeader } from 'Pages/Initial/newHeader/newInitialPageHeader' */
+import { MobileHeader } from 'Pages/Initial/MobileHeader/MobileHeader'
 import { Button } from 'components/common/Button/Button'
 import { FooterMobile } from 'components/Footer/index_mobile'
 import { Slider } from '../../components/slider/slider'
@@ -96,7 +96,7 @@ export const MobileInitPage = () => {
   return (
     <div className={styles.init}>
       <BackgroundAnimation />
-      {/* <InitPageHeader /> */}
+      <MobileHeader />
       <div className={styles.init_main}>
         <div className={styles.init_main_info}>
           <div className={styles.init_main_info_quality}>

@@ -24,6 +24,7 @@ import {
   arrowDownIcon,
   mailIcon,
   phoneIcon,
+  addIcon,
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -154,3 +155,9 @@ export const mailIconPath: pathT[] = [
 ]
 
 export const phoneIconPath = [{ d: phoneIcon, fill: '#357EEB' }]
+
+export const addIconPath: pathT[] = [
+  { d: addIcon.d1, fill: 'white' },
+  { d: addIcon.d2, fill: 'white' },
+  { d: addIcon.d3, fill: 'white' },
+]

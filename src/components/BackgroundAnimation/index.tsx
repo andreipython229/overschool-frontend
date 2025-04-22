@@ -16,6 +16,28 @@ export const BackgroundAnimation: React.FC = () => {
       <div className={styles.bg}>
         <div className={styles.bg_wrap4} style={{ filter: 'blur(50px)' }}></div>
       </div>
+
+      <div className={styles.bgMobile}>
+        <div className={styles.bgMobile_wrap1} style={{ filter: 'blur(50px)' }}></div>
+      </div>
+      <div className={styles.bgMobile}>
+        <div className={styles.bgMobile_wrap2} style={{ filter: 'blur(50px)' }}></div>
+      </div>
+      <div className={styles.bgMobile}>
+        <div className={styles.bgMobile_wrap3} style={{ filter: 'blur(50px)' }}></div>
+      </div>
+      <div className={styles.bgMobile}>
+        <div className={styles.bgMobile_wrap4} style={{ filter: 'blur(50px)' }}></div>
+      </div>
+      <div className={styles.bgMobile}>
+        <div className={styles.bgMobile_wrap5} style={{ filter: 'blur(50px)' }}></div>
+      </div>
+      <div className={styles.bgMobile}>
+        <div className={styles.bgMobile_wrap6} style={{ filter: 'blur(50px)' }}></div>
+      </div>
+      <div className={styles.bgMobile}>
+        <div className={styles.bgMobile_wrap7} style={{ filter: 'blur(50px)' }}></div>
+      </div>
     </>
   )
 }
