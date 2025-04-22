@@ -125,7 +125,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
           )}
           {banner.link &&
             (!isEditing ? (
-              <a href={banner.link} target="_blank" rel="noreferrer">
+              <a href={banner.link} className={styles.banner_go_link_btn_container} target="_blank" rel="noreferrer">
                 <Button className={styles.banner_go_link_btn} variant={'newPrimary'} text="Перейти по ссылке" />
               </a>
             ) : (
