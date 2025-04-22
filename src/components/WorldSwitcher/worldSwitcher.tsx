@@ -22,8 +22,8 @@ const WordSwitcher = () => {
           key={words[index]}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, transition: { duration: 0.85, ease: 'easeInOut' } }}
-          transition={{ duration: 0.7 }}
+          exit={{ opacity: 0, y: -20, transition: { duration: 0.7, ease: 'easeInOut' } }}
+          transition={{ duration: 0.84, ease: 'easeInOut' }}
         >
           {words[index]}
         </motion.div>

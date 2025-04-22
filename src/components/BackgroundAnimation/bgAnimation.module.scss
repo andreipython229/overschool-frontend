@@ -6,6 +6,10 @@
   height: 100%;
   overflow: hidden;
   z-index: -1;
+  display: block;
+  @media (max-width: 639px) {
+    display: none;
+  }
 
   &_wrap1 {
     position: absolute;
@@ -161,6 +165,163 @@
 
   90% {
     transform: translate3d(100%, -80%, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.bgMobile {
+  display: none;
+  @media (max-width: 639px) {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  &_wrap1 {
+    position: absolute;
+    z-index: -1;
+    left: 100%;
+    top: 0%;
+    width: 300px;
+    height: 300px;
+    background: rgba(87, 184, 255, 0.4);
+    border-radius: 50%;
+    animation: bgMobileAnimate1 50s linear infinite;
+  }
+
+  &_wrap2 {
+    z-index: -1;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 0%;
+    top: 15%;
+    background: rgba(87, 184, 255, 0.4);
+    border-radius: 50%;
+    animation: bgMobileAnimate2 50s linear infinite;
+  }
+
+  &_wrap3 {
+    z-index: -1;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 100%;
+    top: 30%;
+    background: rgba(87, 184, 255, 0.4);
+    border-radius: 50%;
+    animation: bgMobileAnimate1 50s linear infinite;
+  }
+
+  &_wrap4 {
+    z-index: -1;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 0%;
+    top: 45%;
+    background: rgba(87, 184, 255, 0.4);
+    border-radius: 50%;
+    animation: bgMobileAnimate2 50s linear infinite;
+  }
+  &_wrap5 {
+    position: absolute;
+    z-index: -1;
+    left: 100%;
+    top: 60%;
+    width: 300px;
+    height: 300px;
+    background: rgba(87, 184, 255, 0.4);
+    border-radius: 50%;
+    animation: bgMobileAnimate1 50s linear infinite;
+  }
+
+  &_wrap6 {
+    z-index: -1;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 0%;
+    top: 75%;
+    background: rgba(87, 184, 255, 0.4);
+    border-radius: 50%;
+    animation: bgMobileAnimate2 50s linear infinite;
+  }
+
+  &_wrap7 {
+    z-index: -1;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 100%;
+    top: 90%;
+    background: rgba(87, 184, 255, 0.4);
+    border-radius: 50%;
+    animation: bgMobileAnimate1 50s linear infinite;
+  }
+}
+
+@keyframes bgMobileAnimate1 {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20% {
+    transform: translate3d(-20%, 100%, 0);
+  }
+
+  30% {
+    transform: translate3d(-70%, 150%, 0);
+  }
+
+  50% {
+    transform: translate3d(-100%, 200%, 0);
+  }
+
+  70% {
+    transform: translate3d(-80%, 70%, 0);
+  }
+
+  90% {
+    transform: translate3d(-50%, 30%, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bgMobileAnimate2 {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20% {
+    transform: translate3d(30%, 10%, 0);
+  }
+
+  30% {
+    transform: translate3d(80%, 100%, 0);
+  }
+
+  50% {
+    transform: translate3d(100%, 200%, 0);
+  }
+
+  70% {
+    transform: translate3d(70%, 150%, 0);
+  }
+
+  90% {
+    transform: translate3d(20%, 100%, 0);
   }
 
   to {
