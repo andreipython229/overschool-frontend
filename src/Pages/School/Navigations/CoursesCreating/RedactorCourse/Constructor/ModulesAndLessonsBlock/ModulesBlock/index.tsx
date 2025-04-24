@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from 'store/hooks'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from './modules_block.module.scss'
-import { Reorder, useDragControls, motion } from 'framer-motion'
+import { Reorder, useDragControls, motion, isDragActive } from 'framer-motion'
 import styles1 from '../../../../../../../../components/Modal/Modal.module.scss'
 import { useBoolean } from 'customHooks'
 import { Portal } from 'components/Modal/Portal'
@@ -30,7 +30,20 @@ import { schoolSelector } from 'selectors'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const ModulesBlock: FC<ModulesBlockT> = memo(
-  ({ setType, setLessonIdAndType, moduleName, lessonsList, id, setSelectedLessonId, selectedLessonId, section, onOpenModalModule, setInsertAfterOrder, setInsertAfterModuleOrder, orderModule }) => {
+  ({
+    setType,
+    setLessonIdAndType,
+    moduleName,
+    lessonsList,
+    id,
+    setSelectedLessonId,
+    selectedLessonId,
+    section,
+    onOpenModalModule,
+    setInsertAfterOrder,
+    setInsertAfterModuleOrder,
+    orderModule,
+  }) => {
     const dispatch: any = useAppDispatch()
     const [showLessons, { onToggle: toggleLessons }] = useBoolean(false)
     const { schoolName } = useAppSelector(schoolSelector)
@@ -101,10 +114,13 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
       }
     }, [changeModuleName])
 
-    const handleOrderUpdate = (lessonsWithNewOrders: lessonT[]) => {
-      setLessons(lessonsWithNewOrders)
-      setNewLessonsOrders(lessonsWithNewOrders)
-    }
+    const handleOrderUpdate = useCallback(
+      (lessonsWithNewOrders: lessonT[]) => {
+        setLessons(lessonsWithNewOrders)
+        setNewLessonsOrders(lessonsWithNewOrders)
+      },
+      [setLessons, setNewLessonsOrders],
+    )
 
     useEffect(() => {
       const updatedOrderLesson = newLessonsOrders.map(({ baselesson_ptr_id, order }, index) => ({
@@ -145,7 +161,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
             />
           </Portal>
         )}
-        <ul className={styles.redactorCourse_leftSide_desc_headerText}>
+        <div className={styles.redactorCourse_leftSide_desc_headerText} style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
           <motion.div initial="initial" animate="initial" whileHover="animate" className={`${styles.heightTransition} ${stylesModules.btnWrapper}`}>
             <span
               className={
@@ -164,7 +180,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                         ? styles.doBlockIcon
                         : !showLessons
                         ? styles.doBlockIcon
-                        : `${styles.doBlockIcon} ${styles.unvisible} ${stylesModules.btn}`
+                        : `${styles.doBlockIcon} ${stylesModules.btn}`
                     }
                     width={24}
                     height={24}
@@ -220,32 +236,28 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
               </div>
               {deleteModuleLoading && <LoaderLayout />}
             </span>
-            <motion.button
+            {!isDragActive() ? (
+              <motion.button
                 className={styles.btn}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
                 variants={animateVisibility}
-                onClick={(!showLessons || isOpenEye) ? () => {
-                  onOpenModalModule()
-                  setInsertAfterModuleOrder(orderModule)
-                  } 
-                  : 
-                  () => {
-                    handleOpenModalLesson() 
-                    setInsertAfterOrder(undefined)
-                  }
+                onClick={
+                  !showLessons || isOpenEye
+                    ? () => {
+                        onOpenModalModule()
+                        setInsertAfterModuleOrder(orderModule)
+                      }
+                    : () => {
+                        handleOpenModalLesson()
+                        setInsertAfterOrder(undefined)
+                      }
                 }
-                >
-                {(!showLessons || isOpenEye) ? '+ Добавить новый модуль' : '+ Добавить новый урок'}
-            </motion.button> 
+              >
+                {!showLessons || isOpenEye ? '+ Добавить новый модуль' : '+ Добавить новый урок'}
+              </motion.button>
+            ) : null}
           </motion.div>
-          <Reorder.Group
-            className={styles1.settings_list}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
-            animate={showLessons || isOpenEye ? show : hide}
-            as="ul"
-            onReorder={handleOrderUpdate}
-            values={lessons}
-          >
+          <Reorder.Group animate={showLessons || isOpenEye ? show : hide} axis="y" as="ul" onReorder={handleOrderUpdate} values={lessons}>
             {lessons &&
               lessons.map(lesson => (
                 <LessonsBlock
@@ -265,7 +277,7 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                 />
               ))}
           </Reorder.Group>
-        </ul>
+        </div>
       </Reorder.Item>
     )
   },
