@@ -67,7 +67,7 @@ export const DoBlockHoverIconPath: pathT[] = [
   },
   {
     d: DoBlockIcon.d2,
-    fill: '#808080',
+    fill: '#FFFFFF',
     fillRule: 'evenodd',
     clipRule: 'evenodd',
   },
