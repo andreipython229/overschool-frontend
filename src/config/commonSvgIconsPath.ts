@@ -21,6 +21,10 @@ import {
   arrowDownPoligon,
   averageMarkIcon,
   progressIcon,
+  arrowDownIcon,
+  mailIcon,
+  phoneIcon,
+  addIcon,
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -142,3 +146,18 @@ export const averageMarkIconPath: pathT[] = [
 ]
 
 export const progressIconPath = [{ d: progressIcon, fill: '#357EEB' }]
+
+export const arrowDownIconPath = [{ d: arrowDownIcon, stroke: '#324195', strokeWidth: '2' }]
+
+export const mailIconPath: pathT[] = [
+  { d: mailIcon.d1, fill: '#357EEB' },
+  { d: mailIcon.d2, fill: '#357EEB' },
+]
+
+export const phoneIconPath = [{ d: phoneIcon, fill: '#357EEB' }]
+
+export const addIconPath: pathT[] = [
+  { d: addIcon.d1, fill: 'white' },
+  { d: addIcon.d2, fill: 'white' },
+  { d: addIcon.d3, fill: 'white' },
+]

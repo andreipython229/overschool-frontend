@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import styles from './teacherHomeworkCheck.module.scss'
 import { AddFileBtn } from 'components/common/AddFileBtn'
 import { Button } from 'components/common/Button/Button'
@@ -56,6 +56,7 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
   const [sendFiles, { data: filesData, isLoading, isSuccess: sendFilesSuccess }] = usePostTextFilesMutation()
   const [mark, setMark] = useState<number>(0)
   const [status, setStatus] = useState<string>('')
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
 
   const handleCreateHomeworkCheck = () => {
     const dataToSend = {
@@ -108,23 +109,23 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
   }
 
   const handleUploadFiles = (chosenFiles: File[]) => {
-    const uploaded = [...files]
-    const uploadedUrlFiles = [...urlFiles]
-
-    chosenFiles.some(file => {
-      if (uploaded.findIndex(f => f.name === file.name) === -1) {
-        uploaded.push(file)
-      }
+    setFiles(prevFiles => {
+      const filtered = chosenFiles.filter(
+        newFile => !prevFiles.some(existingFile => existingFile.name === newFile.name)
+      )
+      return [...prevFiles, ...filtered]
     })
-
-    chosenFiles.forEach(file => {
-      const url = URL.createObjectURL(file)
-      uploadedUrlFiles.push({ url, name: file.name })
+  
+    setUrlFiles(prevUrlFiles => {
+      const newUrlFiles = chosenFiles
+        .filter(file => !files.some(existingFile => existingFile.name === file.name)) // фильтрация для urlFiles
+        .map(file => ({
+          url: URL.createObjectURL(file),
+          name: file.name,
+        }))
+      return [...prevUrlFiles, ...newUrlFiles]
     })
-
-    setFiles(uploaded)
-    setUrlFiles(uploadedUrlFiles)
-  }
+  }  
 
   const handleChangeFiles = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
@@ -137,6 +138,36 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
     setIsChecked(replyArray.length > 0 ? replyArray[0].status === 'Принято' : false)
   }, [replyArray])
 
+  useEffect(() => {
+    const handlePaste = (event: ClipboardEvent) => {
+      const clipboardItems = event.clipboardData?.items
+      if (!clipboardItems) return
+      
+      const filesToUpload: File[] = []
+
+      for (const item of clipboardItems) {
+        if (item.type.indexOf('image') !== -1) {
+          const blob = item.getAsFile()
+          if (blob) {
+            const file = new File([blob], `screenshot-${Date.now()}-${Math.random().toString(36).substring(2, 8)}.png`, { type: blob.type })
+            filesToUpload.push(file)
+          }
+        }
+      }
+
+      if(filesToUpload.length > 0) {
+        handleUploadFiles(filesToUpload)
+      }
+    }
+  
+    const textarea = textAreaRef.current
+    textarea?.addEventListener('paste', handlePaste)
+  
+    return () => {
+      textarea?.removeEventListener('paste', handlePaste)
+    }
+  }, [])
+
   return (
     <div className={styles.wrapper}>
       {(sendingReply || isLoading || isFetching) && <LoaderLayout />}
@@ -148,6 +179,7 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
       {userHomework?.status !== 'Принято' && RoleE.Teacher === role && (
         <div className={styles.commentForm}>
           <textarea
+            ref={textAreaRef}
             style={{ resize: 'vertical' }}
             value={text}
             rows={4}

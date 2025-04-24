@@ -29,7 +29,7 @@ export const NotificationBanner: FC = () => {
     <div className={styles.wrapper_action}>
       {banners && studentsGroups ? (
         <div className={styles.main}>
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className={styles.main_banner_header} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <p className={styles.main_title}>Настройки баннеров объявлений для участников школы</p>
             <Button
               className={styles.main_create_banner_btn}

@@ -1,7 +1,7 @@
-import { Pagination, EffectCoverflow, Navigation } from 'swiper/modules'
+import { Pagination, EffectCoverflow, Navigation, Autoplay } from 'swiper/modules'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-
+import { Swiper as SwiperType } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -17,22 +17,34 @@ import { Portal } from 'components/Modal/Portal'
 import { useBoolean } from 'customHooks'
 import { AnimatePresence } from 'framer-motion'
 import { addFeedbackIconPath } from './config/svgIconPath'
+import { addIconPath } from 'config/commonSvgIconsPath'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 export const Slider = () => {
   const { data } = useFetchFeedbacksQuery()
   const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
   const paginationRef = useRef<HTMLDivElement | null>(null)
 
+  const swiperRef = useRef<SwiperType | null>(null)
+  const [activeSlide, setActiveSlide] = useState(0)
+
+  const goToSlide = (index: number) => {
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(index)
+    }
+  }
+  const handleSlideChange = (swiper: SwiperType) => {
+    setActiveSlide(swiper.activeIndex)
+  }
   if (!data) {
     return <></>
   }
 
   return (
     <>
-      <Swiper
+     {/*  <Swiper
         effect={'coverflow'}
         grabCursor={true}
         centeredSlides={true}
@@ -57,16 +69,34 @@ export const Slider = () => {
         }}
         modules={[EffectCoverflow, Pagination, Navigation]}
         className="mySwiper"
+      > */}
+      <Swiper
+        slidesPerView={'auto'}
+        spaceBetween={15}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Autoplay, Pagination]}
+        className={styles.swiper}
+        onInit={(swiper: any) => {
+          swiperRef.current = swiper
+        }}
+        onSlideChange={handleSlideChange}
       >
         {data &&
           data?.map(({ id, name, surname, avatar, position, content, rating, created_at }) => {
             return (
-              <SwiperSlide key={id}>
+              <SwiperSlide key={id} style={{ width: 'min(343px, 90vw)' }}>
                 {({ isActive }) => (
                   <div className={isActive ? styles.init_container : `${styles.init_container} ${styles.inactive}`}>
                     <div className={styles.init_container_box}>
                       <div className={styles.init_container_box_photo}>
-                        <img style={{ opacity: 0 }} src={avatar} alt="avatar" />
+                        <img src={avatar} alt="avatar" />
                       </div>
                       <div className={styles.init_container_box_info}>
                         <p className={styles.init_container_box_info_name}>
@@ -75,7 +105,7 @@ export const Slider = () => {
                         <p className={styles.init_container_box_info_position}>{position}</p>
                       </div>
                       <div className={styles.init_container_box_rev}>
-                        <p>{content}</p>
+                        <p className={styles.init_container_box_rev_content}>{content}</p>
                         <div className={styles.init_container_box_rev_block}>
                           <p className={styles.init_container_box_rev_block_date}>
                             {`${(new Date(created_at).getDate() < 10 ? '0' : '') + new Date(created_at).getDate()}.${
@@ -91,16 +121,6 @@ export const Slider = () => {
               </SwiperSlide>
             )
           })}
-        {data ? (
-          <SwiperSlide className={styles.init_containerLeave} onClick={open}>
-            <div className={styles.init_container_box}>
-              <div className={styles.init_container_box_leave}>
-                <IconSvg width={54} height={54} viewBoxSize="0 0 54 54" path={addFeedbackIconPath} />
-                <p>Написать отзыв</p>
-              </div>
-            </div>
-          </SwiperSlide>
-        ) : null}
         <AnimatePresence>
           {showModal && (
             <Portal closeModal={close}>
@@ -109,19 +129,10 @@ export const Slider = () => {
           )}
         </AnimatePresence>
       </Swiper>
-      <div className={styles.buttons_nav}>
-        <div className="button_prev">
-          <div className={styles.buttons_nav_btn}>
-            <ArrowBackIosNewIcon />
-          </div>
-        </div>
-        <div className={styles.pagination}>
-          <div ref={paginationRef}></div>
-        </div>
-        <div className="button_next">
-          <div className={styles.buttons_nav_btn}>
-            <ArrowForwardIosIcon />
-          </div>
+      <div className={styles.init_container_box} style={{ justifyContent: 'center', alignItems: 'center', gap: '0' }}>
+        <div className={styles.init_container_box_leave}>
+          <IconSvg width={16} height={16} viewBoxSize="0 0 17 16" path={addIconPath} />
+          <p>Написать отзыв</p>
         </div>
       </div>
     </>
